@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+first:
+  id: 1
+  name: 'Anheteguá'
+  domain: 'anhetegua.net'
+another:
+  id: 2
+  name: 'Colivre.net'
+  domain: 'colivre.net'
