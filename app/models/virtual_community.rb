@@ -1,10 +1,9 @@
 class VirtualCommunity < ActiveRecord::Base
-  validates_presence_of :domain
-  validates_format_of :domain, :with => /^(\w+\.)+\w+$/
 
+  has_many :domains, :as => :owner
 
-  serialize :features
-  def features
-    self[:features] ||= {}
+  serialize :configuration
+  def configuration
+    self[:configuration] ||= {}
   end
 end

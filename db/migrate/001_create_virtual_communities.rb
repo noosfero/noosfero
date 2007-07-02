@@ -3,7 +3,7 @@ class CreateVirtualCommunities < ActiveRecord::Migration
     create_table :virtual_communities do |t|
       t.column :name, :string
       t.column :domain, :string
-      t.column :features, :text
+      t.column :configuration, :text
     end
   end
 
