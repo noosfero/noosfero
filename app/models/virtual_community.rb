@@ -2,8 +2,9 @@ class VirtualCommunity < ActiveRecord::Base
 
   has_many :domains, :as => :owner
 
-  serialize :configuration
+  serialize :configuration, Hash
   def configuration
-    self[:configuration] ||= {}
+    self[:configuration] ||= Hash.new
   end
+
 end
