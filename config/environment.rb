@@ -52,4 +52,5 @@ end
 
 # Include your application configuration below
 
-# Tag.hierarchical = true
+require 'gettext/rails'
+Tag.hierarchical = true
