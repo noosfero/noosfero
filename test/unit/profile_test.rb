@@ -16,9 +16,13 @@ class ProfileTest < Test::Unit::TestCase
     p.valid?
     assert p.errors.invalid?(:identifier)
 
-    p.identifier = 'right_format'
+    p.identifier = 'rightformat'
     p.valid?
     assert ! p.errors.invalid?(:identifier)
 
+    p.identifier = 'right_format'
+    p.valid?
+    assert ! p.errors.invalid?(:identifier)
   end
+
 end
