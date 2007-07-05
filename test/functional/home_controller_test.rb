@@ -39,4 +39,16 @@ class HomeControllerTest < Test::Unit::TestCase
 
     assert_kind_of Profile, assigns(:profile)
   end
+
+  def test_unknown_domain_falls_back_to_default_virtual_community
+    uses_host 'veryunprobabledomain.com'
+
+    get :index
+    assert_template 'index'
+
+    assert_kind_of VirtualCommunity, assigns(:virtual_community)
+    assert assigns(:virtual_community).is_default?
+
+  end
+
 end

@@ -8,8 +8,12 @@ class ApplicationController < ActionController::Base
 
   def detect_stuff_by_domain
     @domain = Domain.find_by_name(request.host)
-    @virtual_community = @domain.virtual_community
-    @profile = @domain.profile
+    if @domain.nil?
+      @virtual_community = VirtualCommunity.default
+    else
+      @virtual_community = @domain.virtual_community
+      @profile = @domain.profile
+    end
   end
 
 end
