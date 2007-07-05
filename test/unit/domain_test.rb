@@ -7,15 +7,15 @@ class DomainTest < Test::Unit::TestCase
   def test_domain_name_format
     c = Domain.new
     c.valid?
-    assert c.errors.invalid?(:domain)
+    assert c.errors.invalid?(:name)
 
-    c.domain = 'bliblibli'
+    c.name = 'bliblibli'
     c.valid?
-    assert c.errors.invalid?(:domain)
+    assert c.errors.invalid?(:name)
 
-    c.domain = 'test.net'
+    c.name = 'test.net'
     c.valid?
-    assert ! c.errors.invalid?(:domain)
+    assert ! c.errors.invalid?(:name)
   end
 
   def test_owner
