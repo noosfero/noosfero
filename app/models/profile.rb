@@ -10,7 +10,8 @@ class Profile < ActiveRecord::Base
   validates_format_of :identifier, :with => /^[a-z][a-z0-9_]+[a-z0-9]$/
 
   # creates a new Profile. By default, it is attached to the default
-  # VirtualCommunity (see VirtualCommunity#default)
+  # VirtualCommunity (see VirtualCommunity#default), unless you tell it
+  # otherwise
   def initialize(*args)
     super(*args)
     self.virtual_community ||= VirtualCommunity.default
