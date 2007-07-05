@@ -25,4 +25,11 @@ class Test::Unit::TestCase
   self.use_instantiated_fixtures  = false
 
   # Add more helper methods to be used by all tests here...
+
+  private
+
+  def uses_host(name)
+    @request.instance_variable_set('@host', name)
+  end
+
 end

@@ -1,5 +1,11 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 first:
   id: 1
+  name: 'John Doe'
+  identifier: johndoe
+  virtual_community_id: 1
 another:
   id: 2
+  name: 'Joe Random Hacker'
+  identifier: joerandomhacker
+  virtual_community_id: 1
