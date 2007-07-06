@@ -1,0 +1,10 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+one:
+  id: 1
+  number: 1
+two:
+  id: 2
+  number: 2
+three:
+  id: 3
+  number: 3
