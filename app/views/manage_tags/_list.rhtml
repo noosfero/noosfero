@@ -1,0 +1,8 @@
+<li>
+<%= a_tag.name %>
+<ul>
+<% a_tag.children.each do |child|%>
+<%=  render :partial =>'list', :locals => {:a_tag => child} %>
+<% end %>
+</ul>
+</li>

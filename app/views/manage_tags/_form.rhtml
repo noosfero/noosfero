@@ -1,0 +1,3 @@
+
+Name: <%= text_field 'tag', 'name' %> <br>
+Parent tag: <%= select_tag 'parent_id', ['<option value="0"></option>'] + @tags.map {|n|"<option value=\"#{n.id}\">" + n.name + '</option>'} %> <br>
