@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <%= javascript_include_tag :defaults %>
+    <%= stylesheet_link_tag 'default' %>
+
+  </head>
+  <body>
+    <%= image_tag 'loading.gif', :id=>'spinner', :style=>"display:none; float:right;" %>
+    <div id="box_1" >
+      <ul>
+        <li> lado esquerdo
+        </li>
+      </ul>
+    </div>
+    <div id="box_2" >
+      <ul>
+        <li> 
+    <%= yield %>
+        </li>
+      </ul>
+    </div>
+    <div id="box_3" >
+      <ul>
+        <li> lado direito
+        </li>
+      </ul>
+    </div>
+
+  </body>
+</html>

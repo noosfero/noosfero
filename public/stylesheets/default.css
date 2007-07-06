@@ -1,0 +1,35 @@
+.hover {
+  background-color: pink;
+  border: 2px dotted black;
+}
+
+.hover ul li {
+  border: 2px dotted black;
+}
+
+
+#box_1 ul li, #box_2 ul li, #box_3 ul li {
+  list-style: none;
+  cursor: -moz-grab;
+  border: 1px solid black;
+  margin: 20px;
+}
+
+#box_1, #box_2, #box_3 {
+  border: 1px solid green;
+}
+
+#box_1 {
+  width: 200px;
+  float: left;
+}
+#box_2 {
+  width: 600px;
+  float: left;
+  margin: 0px 10px 0px 10px;
+}
+#box_3 {
+  width: 400px;
+
+  float: left;
+}
