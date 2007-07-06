@@ -43,4 +43,10 @@ class BoxTest < Test::Unit::TestCase
     assert b.errors.invalid?(:number)
   end
 
+  def test_presence_number
+    b = Box.new(:number => nil)
+    assert !b.valid?
+    assert b.errors.invalid?(:number)
+  end
+
 end
