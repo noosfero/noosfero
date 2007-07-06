@@ -6,13 +6,20 @@
   </head>
   <body>
     <%= image_tag 'loading.gif', :id=>'spinner', :style=>"display:none; float:right;" %>
+
+    <%= link_to _('edit layout'), params.merge({:edit_layout => true}) %>
+    <%= link_to _('show layout'), params.merge({:edit_layout => false}) %>
+    <%= link_to _('acao diferente'), :action => 'teste' %>
+
+teste
+<%=  @bla %>
+oxe
+
     <div id="box_1" >
-      <ul>
-        <li> lado esquerdo
-        </li>
-      </ul>
+      <%= show_block(@owner, 1)%>
     </div>
     <div id="box_2" >
+      <%= show_block(@owner, 1)%>
       <ul>
         <li> 
     <%= yield %>
@@ -20,6 +27,7 @@
       </ul>
     </div>
     <div id="box_3" >
+      <%= show_block(@owner, 1)%>
       <ul>
         <li> lado direito
         </li>

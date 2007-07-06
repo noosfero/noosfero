@@ -1,4 +1,5 @@
 class Box < ActiveRecord::Base
+  has_many :blocks
   belongs_to :owner, :polymorphic => true
 
   #we cannot have two boxs with the same number to the same owner

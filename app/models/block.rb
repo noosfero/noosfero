@@ -7,4 +7,8 @@ class Block < ActiveRecord::Base
   # A block must be associated to a box
   validates_presence_of :box_id 
 
+  def to_html
+    return '<p>bli</p>'
+  end
+
 end
