@@ -1,0 +1,25 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+one:
+  id: 1
+  box_id: 1
+  position: 1
+two:
+  id: 2
+  box_id: 1
+  position: 2
+three:
+  id: 3
+  box_id: 1
+  position: 3
+four:
+  id: 4
+  box_id: 2
+  position: 1
+five:
+  id: 5
+  box_id: 3
+  position: 1
+six:
+  id: 6
+  box_id: 3
+  position: 2
