@@ -50,7 +50,7 @@ class BlockTest < Test::Unit::TestCase
   end
 
   def test_valid_fixtures
-    Block.find_all.each do |b|
+    Block.find(:all).each do |b|
       assert b.valid?
     end
   end

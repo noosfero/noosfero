@@ -1,16 +1,21 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+# Link Blocks
 one:
   id: 1
   box_id: 1
   position: 1
+  type: 'LinkBlock'
 two:
   id: 2
   box_id: 1
   position: 2
+  type: 'LinkBlock'
+# Normal Block
 three:
   id: 3
   box_id: 1
   position: 3
+
 four:
   id: 4
   box_id: 2
@@ -19,7 +24,10 @@ five:
   id: 5
   box_id: 3
   position: 1
+
+#List Blocks
 six:
   id: 6
   box_id: 3
   position: 2
+  type: 'ListBlock'

@@ -4,28 +4,48 @@ class ApplicationController < ActionController::Base
 
   before_filter :detect_stuff_by_domain
 
-  before_filter :detect_edit_layout
+  #TODO See a better way to do this. The layout need a owner to work
+  before_filter :load_owner
+  def load_owner
+    @owner = User.find(1)
+  end
 
+  #TODO See a better way to do this. We need that something say to us when is the time to edit the layout.
+  #I think the better way is set a different render class to the visualization and to edit a layout.
+  before_filter :detect_edit_layout
   def detect_edit_layout
     @edit_layout = true unless params[:edit_layout].nil?
   end
 
-#  after_filter :render_actions
-
-  def render_actions
-@bla = 'funfou'
-#return @bla
-       render_action('index', nil, true)
-#    render :update do |page|
-#      page.replace_html 'box_1', :partial => 'pending_todos'
-#      page.replace_html 'completed_todos', :partial => 'completed_todos'
-#      page.replace_html 'working_todos', :partial => 'working_todos'
-#    end
+  # This method changes a block content to a different box place and
+  # updates all boxes at the ends
+  def change_box
+    b = Block.find(params[:block])
+    b.box = Box.find(params[:box_id])
+    b.save
+    render :update do |page| 
+      @owner.boxes.each do |box|
+        @box_number = box.number
+        page.replace_html "box_#{box.number}", {:partial => 'layouts/box_template'}
+        page.sortable "leo_#{box.number}", :url => {:action => 'sort_box', :box_number => box.number}
+      end
+    end
   end
 
-# def render(type = nil) 
-#   render_actions
-# end
+  def sort_box
+    blocks = Array.new
+    box_number = params[:box_number]
+    pos = 0
+    params["leo_#{box_number}"].each do |block_id|
+      pos = pos + 1
+      b = Block.find(block_id)
+      b.position = pos
+      b.save
+      blocks.push(b)
+    end
+    @box_number = box_number
+    render :partial => 'layouts/box_template'
+  end
 
   protected
 

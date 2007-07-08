@@ -11,28 +11,29 @@
     <%= link_to _('show layout'), params.merge({:edit_layout => false}) %>
     <%= link_to _('acao diferente'), :action => 'teste' %>
 
-teste
-<%=  @bla %>
-oxe
-
     <div id="box_1" >
       <%= show_block(@owner, 1)%>
     </div>
+<%= update_page_tag{|page|
+#TODO this is to test
+#page.alert('leo')
+#@box_number=1
+#page.replace_html "box_1", {:partial => 'leo'};
+#page.replace_html "box_1", {:partial => 'layouts/box_template'};
+#page.sortable "leo_1", :url => {:action => 'sort_box', :box_number => 1};
+#)page.show
+}
+%>
+
+
     <div id="box_2" >
-      <%= show_block(@owner, 1)%>
-      <ul>
-        <li> 
-    <%= yield %>
-        </li>
-      </ul>
+      <%= show_block(@owner, 2)%>
+      <%= yield %>
     </div>
     <div id="box_3" >
-      <%= show_block(@owner, 1)%>
-      <ul>
-        <li> lado direito
-        </li>
-      </ul>
+      <%= show_block(@owner, 3)%>
     </div>
 
   </body>
+
 </html>

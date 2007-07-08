@@ -8,7 +8,8 @@ class Block < ActiveRecord::Base
   validates_presence_of :box_id 
 
   def to_html
-    return '<p>bli</p>'
+    str = "content_tag(:p, 'bli')"
+    return str
   end
 
 end
