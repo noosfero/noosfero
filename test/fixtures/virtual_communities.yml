@@ -1,9 +1,9 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-first:
+colivre_net:
   id: 1
   name: 'Colivre.net'
   is_default: true
-another:
+anhetegua_net:
   id: 2
   name: 'Anheteguá'
   is_default: false
