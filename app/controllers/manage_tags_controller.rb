@@ -5,7 +5,8 @@ class ManageTagsController < ApplicationController
   end
 
   def list
-    @tags = Tag.find_all
+    @parent = Tag.find(params[:parent]) if params[:parent]
+    @tags = Tag.find_all_by_parent_id(params[:parent])
   end
 
   def new

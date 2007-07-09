@@ -1,7 +1,8 @@
 <h2> <%= _("Listing tags") %> </h2>
 
 <ul>
-  <%= render :partial => 'a_tag', :collection => @tags.select{|t|!t.parent} %>
+  <%= render :partial => 'a_tag', :collection => @tags %>
 </ul>
 
+<%= link_to _('Up'), {:action => 'list', :parent => @parent.parent} if @parent %>
 <%= link_to _('New tag'), {:action => 'new'} %>
