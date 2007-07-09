@@ -3,6 +3,9 @@ class VirtualCommunity < ActiveRecord::Base
   # One VirtualCommunity can be reached by many domains
   has_many :domains, :as => :owner
 
+  # a VirtualCommunity can be configured
+  acts_as_configurable
+
   # <tt>name</tt> is mandatory
   validates_presence_of :name
 
