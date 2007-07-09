@@ -26,8 +26,9 @@ class ManageTagsController < ApplicationController
   end
 
   def edit
-    @parent_tags = Tag.find_all
     @tag = Tag.find(params[:id])
+    @parent_tags = Tag.find_all.select{|pt| !pt.ancestors.include?(@tag) and pt != @tag}
+
   end
 
   def update

@@ -1,0 +1,8 @@
+<li>
+<%= a_tag.name %>
+<%= link_to _('Edit'), {:action => 'edit', :id => a_tag } %>
+<%= link_to _('Destroy'), {:action => 'destroy', :id => a_tag} %>
+<ul>
+  <%= render :partial => 'a_tag', :collection => a_tag.children %>  
+</ul>
+</li>

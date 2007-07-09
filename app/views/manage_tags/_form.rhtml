@@ -1,2 +1,2 @@
 Name: <%= text_field 'tag', 'name' %> <br>
-Parent tag: <%= select_tag 'parent_id', ['<option value="0"></option>'] + @parent_tags.select{|pt| !pt.ancestors.include?(@tag) and pt != @tag}.map {|n|"<option value=\"#{n.id}\" #{'selected="selected"' if @tag.parent == n} >" + n.name + '</option>'} %> <br>
+Parent tag: <%= select_tag 'parent_id', ['<option value="0"></option>'] + @parent_tags.map {|pt|"<option value=\"#{pt.id}\" #{'selected="selected"' if @tag.parent == pt} >" + pt.name + '</option>'} %> <br>
