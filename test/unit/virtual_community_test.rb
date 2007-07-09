@@ -22,4 +22,13 @@ class VirtualCommunityTest < Test::Unit::TestCase
     assert_equal vc, VirtualCommunity.default
   end
 
+  def test_acts_as_configurable
+    vc = VirtualCommunity.new(:name => 'Testing VirtualCommunity')
+    assert_kind_of Array, vc.settings
+    vc.settings[:some_setting] = 1
+    assert vc.save
+    assert_equal 1, vc.settings[:some_setting]
+    assert_kind_of ConfigurableSetting, vc.settings.first
+  end
+
 end
