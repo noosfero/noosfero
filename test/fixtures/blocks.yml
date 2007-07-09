@@ -1,31 +1,32 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-# Link Blocks
+#Main Block
 one:
   id: 1
-  box_id: 1
+  box_id: 2
   position: 1
-  type: 'LinkBlock'
+  type: 'MainBlock'
+# Link Blocks
 two:
   id: 2
   box_id: 1
   position: 2
   type: 'LinkBlock'
-# Normal Block
 three:
   id: 3
   box_id: 1
   position: 3
-
+  type: 'LinkBlock'
+#List Blocks
 four:
   id: 4
-  box_id: 2
+  box_id: 1
   position: 1
+  type: 'ListBlock'
 five:
   id: 5
   box_id: 3
   position: 1
-
-#List Blocks
+  type: 'ListBlock'
 six:
   id: 6
   box_id: 3

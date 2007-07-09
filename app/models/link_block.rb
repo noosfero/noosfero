@@ -1,9 +1,8 @@
 class LinkBlock < Block
   def to_html 
-    str = 'content_tag(:p,[' + 
-      User.find(:all).map{ |u|   
-        "[link_to '"+u.name + "', {:controller => 'user', :action => 'test'}]"}.join(',') +
-      "])"
-    return str 
+    users = User.find(:all).map do |u|
+      content_tag("a href='http://www.google.com.br'",  u.name)
+    end
+    users.join(',')
   end
 end

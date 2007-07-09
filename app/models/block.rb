@@ -1,4 +1,6 @@
 class Block < ActiveRecord::Base
+  include ActionView::Helpers::UrlHelper
+  include ActionView::Helpers::TagHelper
   belongs_to :box
 
   #<tt>position</tt> codl not be nil and must be an integer
@@ -8,8 +10,12 @@ class Block < ActiveRecord::Base
   validates_presence_of :box_id 
 
   def to_html
-    str = "content_tag(:p, 'bli')"
-    return str
+    #TODO Upgrade this test
+#    raise _("This is a main class, don't use it")
+  end
+
+  def main?
+    false
   end
 
 end
