@@ -6,6 +6,9 @@ class EditTemplateController < ApplicationController
 #  def load_owner
 #  end
 
+  def index
+    @bli = _('testing the app')
+  end
 #  before_filter :load_boxes
   def load_boxes
     @owner = User.find(1)
@@ -15,6 +18,8 @@ class EditTemplateController < ApplicationController
   # This method changes a block content to a different box place and
   # updates all boxes at the ends
   def change_box
+render :text => "fudeuuuuuu"
+return
     b = Block.find(params[:block])
     b.box = Box.find(params[:box_id])
     b.save
@@ -28,6 +33,8 @@ class EditTemplateController < ApplicationController
   end
 
   def sort_box
+render :text => "oxeee"
+return
     blocks = Array.new
     box_number = params[:box_number]
     pos = 0
