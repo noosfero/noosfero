@@ -1,0 +1,13 @@
+<h2><%= _('Enable/Disable features') %></h2>
+
+<table>
+  <% form_tag({:action => 'update_features'}) do %>
+  <% @features.each do |feature, text| %>
+  <tr>
+    <td><%= text %></td>
+    <td><%= check_box_tag "feature[#{feature}]" %></td>
+  </tr>
+  <% end %>
+  <tr><td colspan='2'><%= submit_tag %></td></tr>
+  <% end %>
+</table>

@@ -2,9 +2,9 @@ class VirtualCommunity < ActiveRecord::Base
 
   # TODO: these are test features
   EXISTING_FEATURES = {
-    'feature1' => _('Feature 1'),
-    'feature2' => _('Feature 2'),
-    'feature3' => _('Feature 3'),
+    'feature1' => _('Enable Feature 1'),
+    'feature2' => _('Enable Feature 2'),
+    'feature3' => _('Enable Feature 3'),
   }
   
   # #################################################

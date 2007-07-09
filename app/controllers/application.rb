@@ -17,4 +17,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def self.acts_as_admin_controller
+    before_filter :load_admin_controller
+  end
+  def load_admin_controller
+    # TODO: check access control
+  end
+
 end
