@@ -2,5 +2,6 @@
 
 <%= start_form_tag :action =>'create' %>
   <%= render :partial => 'form' %>
-  <%= submit_tag 'Create' %>
+  <%= submit_tag _('Create') %>
+  <%= link_to _('Cancel'), {:action => 'list'} %>
 <%= end_form_tag %>

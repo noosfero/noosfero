@@ -1,9 +1,7 @@
 <h2> <%= _("Listing tags") %> </h2>
 
 <ul>
-  <% @tags.select{|t| !t.parent }.each do |a_tag| %>
-    <%= render :partial => 'list', :locals => {:a_tag => a_tag} %>
-  <% end %>
+  <%= render :partial => 'a_tag', :collection => @tags.select{|t|!t.parent} %>
 </ul>
 
 <%= link_to _('New tag'), {:action => 'new'} %>
