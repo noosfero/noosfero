@@ -1,4 +1,5 @@
 #It's the class that define the block's content will be displayed on box in a determined web
+require 'bli'
 class Block < ActiveRecord::Base
   include ActionView::Helpers::TagHelper
   belongs_to :box
@@ -14,6 +15,11 @@ class Block < ActiveRecord::Base
   def to_html
     raise _("This is a main class, don't use it")
   end
+
+def bla
+t = Tag.new
+t.bli
+end
 
   # This method always return false excepted when redefined by the MainBlock class. It mean the current block it's not the result of a
   # controller action.
