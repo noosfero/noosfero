@@ -11,7 +11,13 @@
     <%= link_to _('Show Layout'), :controller => 'home' %>
     <%= link_to _('Edit Layout'), :controller => 'edit_template' %>
 
+    <%= select_template(@owner, @chosen_template) %>
+
     <%= display_boxes(@boxes, yield) %>
+
+    <div id="footer">
+      footer content
+    </div>
 
   </body>
 
