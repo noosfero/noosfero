@@ -7,9 +7,8 @@
   <body>
     <%= image_tag 'loading.gif', :id=>'spinner', :style=>"display:none; float:right;" %>
 
-    <%= link_to _('edit layout'), params.merge({:edit_layout => true}) %>
-    <%= link_to _('show layout'), params.merge({:edit_layout => false}) %>
-    <%= link_to _('acao diferente'), :action => 'teste' %>
+    <%= link_to _('Show Layout'), :controller => 'home' %>
+    <%= link_to _('Edit Layout'), :controller => 'edit_template' %>
 
     <%= display_boxes(@boxes, yield) %>
 

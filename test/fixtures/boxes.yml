@@ -4,13 +4,16 @@ one:
   number: 1
   owner_type: 'Profile'
   owner_id: 1
+  name: 'Box One'
 two:
   id: 2
   number: 2
   owner_type: 'Profile'
   owner_id: 1
+  name: 'Box Two'
 three:
   id: 3
   number: 3
   owner_type: 'Profile'
   owner_id: 1
+  name: 'Box Three'

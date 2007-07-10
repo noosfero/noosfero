@@ -1,6 +1,6 @@
 class ListBlock < Block
 
   def to_html
-    content_tag(:ul, User.find(:all).map{|u| content_tag( :li, u.name ) })
+    content_tag(:ul, Profile.find(:all).map{|p| content_tag( :li, p.name ) })
   end
 end

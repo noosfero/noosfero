@@ -1,8 +1,8 @@
 class LinkBlock < Block
   def to_html 
-    users = User.find(:all).map do |u|
-      content_tag("a href='http://www.google.com.br'",  u.name)
+    profiles = Profile.find(:all).map do |p|
+      content_tag("a href='http://www.google.com.br'",  p.name)
     end
-    users.join(',')
+    profiles.join(',')
   end
 end
