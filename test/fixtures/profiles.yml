@@ -1,11 +1,17 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-first:
+one:
   id: 1
   name: 'John Doe'
   identifier: johndoe
   virtual_community_id: 1
-another:
+  template: 'default'
+  icons_theme: 'default'
+  theme: 'default'
+two:
   id: 2
   name: 'Joe Random Hacker'
   identifier: joerandomhacker
   virtual_community_id: 1
+  template: 'simple'
+  icons_theme: 'simple'
+  theme: 'simple'

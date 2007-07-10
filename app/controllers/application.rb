@@ -12,8 +12,16 @@ class ApplicationController < ActionController::Base
   def load_boxes
     if Profile.exists?(1)
       owner = Profile.find(1) 
-      owner.nil? ? Array.new : @boxes = owner.boxes 
+      @boxes = owner.boxes 
     end
+  end
+
+  before_filter :load_template
+  def load_template
+    if Profile.exists?(1)
+      owner = Profile.find(1) 
+    end
+    @chosen_template = owner.nil? ? "default" : owner.template
   end
 
   protected
