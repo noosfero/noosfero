@@ -11,4 +11,9 @@ class Box < ActiveRecord::Base
   def self.find_not_box(box_id)
     return Box.find(:all, :conditions => ['id != ?', box_id])
   end
+
+  def blocks_sort_by_position
+    self.blocks.sort{|x,y| x.position <=> y.position}
+  end
+
 end

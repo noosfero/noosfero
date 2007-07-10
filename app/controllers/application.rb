@@ -5,12 +5,17 @@ class ApplicationController < ActionController::Base
   before_filter :detect_stuff_by_domain
   attr_reader :virtual_community
 
+  #TODO To diplay the content we need a variable called '@boxes'. 
+  #This variable is a set of boxes belongs to a owner
+  #We have to see a better way to do that
   before_filter :load_boxes
   def load_boxes
-    @owner = User.find(1)
-    @boxes = @owner.boxes
+    if User.exists?(1)
+      owner = User.find(1) 
+      owner.nil? ? Array.new : @boxes = owner.boxes 
+    end
   end
-  
+
   protected
 
   def detect_stuff_by_domain

@@ -1,22 +1,29 @@
-.hover {
+.edit_mode .hover {
   background-color: pink;
   border: 2px dotted black;
 }
 
-.hover ul li {
+.edit_mode .hover ul li {
   border: 2px dotted black;
 }
 
+.edit_mode #box_1 ul, .edit_mode #box_2 ul, .edit_mode #box_3 ul {
+  list-style: none;
+  cursor: -moz-grab;
+  margin: 10px;
+  padding:0px;
+  
+}
 
-#box_1 ul li, #box_2 ul li, #box_3 ul li {
+.edit_mode #box_1 ul li, .edit_mode #box_2 ul li, .edit_mode #box_3 ul li {
   list-style: none;
   cursor: -moz-grab;
   border: 1px solid black;
-  margin: 20px;
+  margin: 15px;
 }
 
-#box_1, #box_2, #box_3 {
-  border: 1px solid green;
+.edit_mode #box_1, .edit_mode #box_2, .edit_mode #box_3 {
+  border: 3px solid green;
 }
 
 #box_1 {
