@@ -38,5 +38,11 @@
 #box_3 {
   width: 400px;
 
-  float: left;
+  clear: both;
 }
+
+#footer{
+  font-size: 30px;
+  background: #FFFFFF url('../images/colivre_logo.png') repeat-x;
+}
+
