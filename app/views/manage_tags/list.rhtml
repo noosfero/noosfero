@@ -4,5 +4,11 @@
   <%= render :partial => 'a_tag', :collection => @tags %>
 </ul>
 
+
+<h3> <%= _('Pending Tags') %> </h3>
+<ul>
+  <%= render :partial => 'a_tag', :collection => @pending_tags %>
+</ul>
+
 <%= link_to _('Up'), {:action => 'list', :parent => @parent.parent} if @parent %>
 <%= link_to _('New tag'), {:action => 'new'} %>

@@ -1,3 +1,4 @@
+require 'extended_tag'
 class ManageTagsController < ApplicationController
   def index
     list
@@ -6,7 +7,8 @@ class ManageTagsController < ApplicationController
 
   def list
     @parent = Tag.find(params[:parent]) if params[:parent]
-    @tags = Tag.find_all_by_parent_id(params[:parent])
+    @tags = Tag.find_all_by_parent_id(params[:parent]).select{|t|!t.pending?}
+    @pending_tags = Tag.find_all.select(&:pending?)
   end
 
   def new
@@ -18,6 +20,7 @@ class ManageTagsController < ApplicationController
     @tag = Tag.new
     @tag.name = params[:tag][:name]
     @tag.parent = Tag.find(params[:parent_id].to_i) if params[:parent_id] != "0"
+    @tag.pending = params[:tag][:pending]
     if @tag.save
       flash[:notice] = _('Tag was successfully created.')
       redirect_to :action => 'list'
@@ -28,8 +31,7 @@ class ManageTagsController < ApplicationController
 
   def edit
     @tag = Tag.find(params[:id])
-    @parent_tags = Tag.find_all.select{|pt| !pt.ancestors.include?(@tag) and pt != @tag}
-
+    @parent_tags = Tag.find_all - @tag.descendents - [@tag]
   end
 
   def update
