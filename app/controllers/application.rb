@@ -10,8 +10,8 @@ class ApplicationController < ActionController::Base
   #We have to see a better way to do that
   before_filter :load_boxes
   def load_boxes
-    if User.exists?(1)
-      owner = User.find(1) 
+    if Profile.exists?(1)
+      owner = Profile.find(1) 
       owner.nil? ? Array.new : @boxes = owner.boxes 
     end
   end

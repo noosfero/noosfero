@@ -13,6 +13,7 @@ class Profile < ActiveRecord::Base
   ]
 
   has_many :domains, :as => :owner
+  has_many :boxes, :as => :owner
   belongs_to :virtual_community
 
   validates_presence_of :identifier
