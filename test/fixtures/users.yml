@@ -1,7 +1,0 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-one:
-  id: 1
-  name: 'Leandro Nunes dos Santos'
-two:
-  id: 2
-  name: 'Antonio S. A. Terceiro'
