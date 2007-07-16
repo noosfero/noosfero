@@ -1,5 +1,5 @@
-# Filters added to this controller will be run for all controllers in the application.
-# Likewise, all the methods added will be available for all controllers.
+# This is the application's main controller. Features defined here are
+# available in all controllers.
 class ApplicationController < ActionController::Base
 
   before_filter :detect_stuff_by_domain
