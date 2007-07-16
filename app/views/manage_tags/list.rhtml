@@ -1,9 +1,10 @@
 <h2> <%= _("Listing tags") %> </h2>
 
+<span><%= flash[:notice] %></span>
+
 <ul>
   <%= render :partial => 'a_tag', :collection => @tags %>
 </ul>
-
 
 <h3> <%= _('Pending Tags') %> </h3>
 <ul>

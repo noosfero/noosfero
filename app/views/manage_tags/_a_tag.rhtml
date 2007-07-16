@@ -3,7 +3,8 @@
 <%= a_tag.name %>
 <%= link_to _('Edit'), {:action => 'edit', :id => a_tag } %>
 <%= link_to _('Destroy'), {:action => 'destroy', :id => a_tag} %>
-<%= link_to _('Filter by this tag'), {:action => 'list', :parent => a_tag} %><ul>
-  <%= render :partial => 'a_tag', :collection => a_tag.children %>  
+<%= link_to _('Filter by this tag'), {:action => 'list', :parent => a_tag} %>
+<%= link_to _('Approve tag'), {:action => 'approve', :id => a_tag} if a_tag.pending? %> <ul>
+  <%= render :partial => 'a_tag', :collection => a_tag.children.select{|t|!t.pending?} %>  
 </ul>
 </li>

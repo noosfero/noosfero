@@ -3,7 +3,7 @@ class ActsAsTaggableMigration < ActiveRecord::Migration
     create_table :tags do |t|
       t.column :name, :string
       t.column :parent_id, :integer
-      t.column :pending, :bool
+      t.column :pending, :boolean
     end
     
     create_table :taggings do |t|

@@ -1,10 +1,25 @@
 class Tag
-  def descendents
-    children.inject([]){|des , child| des + child.descendents << child} 
+  @@original_find = self.method(:find)
+  def self.original_find(*args)
+      @@original_find.call(*args)
   end
 
-  def find_tag(*args)
-    find(*args).select{|t|!t.pending?}
+  def self.find(*args)
+    self.with_scope(:find => { :conditions => ['pending = ?', false] }) do
+       return self.original_find(*args)
+    end
+  end
+
+  def self.find_pendings
+    self.original_find(:all, :conditions => ['pending = ?', true])
+  end
+
+  def descendents
+    children.to_a.sum([], &:descendents) + children 
+  end
+
+  def aproved?
+    not pending?
   end
 
 end
