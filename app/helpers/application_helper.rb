@@ -27,23 +27,6 @@ module ApplicationHelper
     )
   end
 
-  # This method expect an array of boxes and the content retuned of a controller action
-  # It will generate the boxes div according the yaml definition
-  def display_boxes(boxes, main_content = "")
-    # If no boxes is passed return the main content 
-    return main_content if boxes.nil?
-
-    #Generate all boxes of the current profile and considering the defined on template.
-    content = boxes.map do |box| 
-      content_tag(:div, edit_mode? ? edit_blocks(box, main_content) : show_blocks(box, main_content) , :id=>"box_#{box.number}")
-    end
-
-    #In case of edit mode add a new div with a class named 'edit_mode' covering all div boxes.
-    content = content_tag(:div, content, :class => 'edit_mode') if edit_mode?
-
-    content
-  end
-
   # Load all the css files of a existing template with the template_name passed as argument.
   #
   # The files loaded are in the path:
@@ -72,28 +55,5 @@ module ApplicationHelper
       javascript_include_tag("/templates/#{template_name}/javascripts/#{filename}")
     end
   end
-
-  private
-
-  # Check if the current controller is the controller that allows layout editing
-  def edit_mode?
-    controller.manage_template?
-  end
-
-  # Shows the block as the struture bellow
-  #   <ul id="sort#{number of the box}">
-  #     <li class="block_item_box_#{number of the box}" id="block_#{id of block}">
-  #     </li>
-  #   </ul>
-  #      
-  def show_blocks(box, main_content = "")
-    blocks = box.blocks_sort_by_position
-    content_tag(:ul, 
-      blocks.map {|b| 
-       content_tag(:li, b.main? ? main_content : b.to_html, :class =>"block_item_box_#{box.number}" , :id => "block_#{b.id}" )
-      }, :id => "sort_#{box.number}"
-    ) 
-  end
-
 
 end

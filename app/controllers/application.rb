@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   before_filter :detect_stuff_by_domain
   attr_reader :virtual_community
 
+  uses_manage_template :edit => false
+
   before_filter :load_boxes
   #TODO To diplay the content we need a variable called '@boxes'. 
   #This variable is a set of boxes belongs to a owner
