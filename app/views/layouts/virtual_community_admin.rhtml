@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <%= javascript_include_tag :defaults %>
+    <%= javascript_include_tag_template @chosen_template %>
+    <%= stylesheet_link_tag_template @chosen_template %>
+
+  </head>
+  <body>
+
+    <div id='main'>
+      <%= yield %>
+    </div>
+
+    <div id="footer">
+      footer content
+    </div>
+
+  </body>
+
+</html>
