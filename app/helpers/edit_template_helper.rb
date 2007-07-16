@@ -7,11 +7,12 @@ module EditTemplateHelper
   # In this case the layout can be manipulated
   def edit_blocks(box, main_content = "")
     blocks = box.blocks_sort_by_position
-    content_tag(:ul, box.name +
+    content_tag(:ul, box.name + 
+      link_to_remote(_('sort'), {:update => "sort_#{box.number}", :url => {:action => 'set_sort_mode', :box_id => box.id }}, :class => 'sort_button')  +
       blocks.map {|b| 
        content_tag(:li, b.name, :class =>"block_item_box_#{box.number}" , :id => "block_#{b.id}" ) + draggable("block_#{b.id}")
       }.to_s, :id => "sort_#{box.number}"
-    ) + drag_drop_items(box) + sortable_block(box.number)
+    ) + drag_drop_items(box)
   end
 
   # Allows the biven box to have sortable elements
@@ -23,7 +24,7 @@ module EditTemplateHelper
 
   # Allows an element item to be draggable
   def draggable(item)
-    draggable_element(item, :ghosting=>true, :revert=>true)
+    draggable_element(item, :ghosting => true, :revert => true)
   end
 
   # Allows an draggable element change between diferrents boxes

@@ -77,7 +77,7 @@ module ApplicationHelper
 
   # Check if the current controller is the controller that allows layout editing
   def edit_mode?
-    controller.controller_name == 'edit_template' ? true : false
+    controller.manage_template?
   end
 
   # Shows the block as the struture bellow
