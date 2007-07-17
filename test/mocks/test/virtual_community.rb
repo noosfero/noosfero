@@ -1,4 +1,4 @@
-require 'app/models/virtual_community'
+require File.expand_path(File.dirname(__FILE__) +  "/../../../app/models/virtual_community")
 
 class VirtualCommunity < ActiveRecord::Base
   def self.available_features

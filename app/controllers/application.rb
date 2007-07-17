@@ -44,7 +44,6 @@ class ApplicationController < ActionController::Base
   end
 
   def boxes_by_template(template)
-    #f = YAML.load_file("#{TEMPLATE_DIR_PATH}/#{template}/#{template}.yml")
     f = YAML.load_file("#{RAILS_ROOT}/public/templates/default/default.yml")
     number_of_boxes = f[template.to_s]["number_of_boxes"]
     raise _("The file #{template}.yml it's not a valid template filename") if number_of_boxes.nil?
