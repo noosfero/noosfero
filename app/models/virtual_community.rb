@@ -1,11 +1,13 @@
 class VirtualCommunity < ActiveRecord::Base
 
-  # TODO: these are test features
-  EXISTING_FEATURES = {
-    'feature1' => _('Enable Feature 1'),
-    'feature2' => _('Enable Feature 2'),
-    'feature3' => _('Enable Feature 3'),
-  }
+  # returns the available features for a VirtualCommunity, in the form of a
+  # hash, with pairs in the form <tt>'feature_name' => 'Feature name'</tt>.
+  def self.available_features
+    {
+      'some_feature' => _('Some feature'),
+      'other_feature' => _('Other feature'),
+    }
+  end
   
   # #################################################
   # Relationships and applied behaviour
@@ -34,6 +36,16 @@ class VirtualCommunity < ActiveRecord::Base
   # Tells if a feature is enabled
   def enabled?(feature)
     self.settings["#{feature}_enabled"] == true
+  end
+
+  def enabled_features=(features)
+    self.class.available_features.keys.each do |feature|
+      if features.include? feature
+        self.enable(feature)
+      else
+        self.disable(feature)
+      end
+    end
   end
   
   # #################################################

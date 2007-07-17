@@ -1,0 +1,11 @@
+<table>
+  <% form_tag({:action => 'update'}) do %>
+  <% @features.each do |feature, text| %>
+  <tr>
+    <td><%= text %></td>
+    <td><%= check_box_tag "features[#{feature}]", '1', @virtual_community.enabled?(feature) %></td>
+  </tr>
+  <% end %>
+  <tr><td colspan='2'><%= submit_tag %></td></tr>
+  <% end %>
+</table>

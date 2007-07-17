@@ -42,6 +42,7 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  # TODO: move this logic somewhere else (Domain class?)
   def detect_stuff_by_domain
     @domain = Domain.find_by_name(request.host)
     if @domain.nil?

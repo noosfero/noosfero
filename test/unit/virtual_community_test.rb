@@ -26,12 +26,31 @@ class VirtualCommunityTest < Test::Unit::TestCase
     assert_kind_of ConfigurableSetting, vc.settings.first
   end
 
+  def test_available_features
+    assert_kind_of Hash, VirtualCommunity.available_features
+  end
+
   def test_features
     v = virtual_communities(:colivre_net)
     v.enable('feature1')
     assert v.enabled?('feature1')
     v.disable('feature1')
     assert !v.enabled?('feature1')
+  end
+
+  def test_enabled_features
+    v = virtual_communities(:colivre_net)
+    v.enabled_features = [ 'feature1', 'feature2' ]
+    assert v.enabled?('feature1') && v.enabled?('feature2') && !v.enabled?('feature3')
+  end
+
+  def test_name_is_mandatory
+    v = VirtualCommunity.new
+    v.valid?
+    assert v.errors.invalid?(:name)
+    v.name = 'blablabla'
+    v.valid?
+    assert !v.errors.invalid?(:name)
   end
 
 end
