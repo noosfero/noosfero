@@ -26,10 +26,21 @@ class Test::Unit::TestCase
 
   # Add more helper methods to be used by all tests here...
 
+  include AuthenticatedTestHelper
+
   private
 
   def uses_host(name)
     @request.instance_variable_set('@host', name)
   end
 
+end
+
+class ActionController::IntegrationTest
+  def login(username, password)
+    post '/account/login', :login => username, :password => password
+    assert_response :redirect
+    follow_redirect!
+    assert_equal '/account', path
+  end
 end
