@@ -38,7 +38,11 @@ class VirtualCommunity < ActiveRecord::Base
     self.settings["#{feature}_enabled"] == true
   end
 
+  # enables the features identified by <tt>features</tt>, which is expected to
+  # be an Enumarable object containing the identifiers of the desired features.
+  # Passing <tt>nil</tt> is the same as passing an empty Array.
   def enabled_features=(features)
+    features ||= []
     self.class.available_features.keys.each do |feature|
       if features.include? feature
         self.enable(feature)

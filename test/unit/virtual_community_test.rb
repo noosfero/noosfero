@@ -44,6 +44,12 @@ class VirtualCommunityTest < Test::Unit::TestCase
     assert v.enabled?('feature1') && v.enabled?('feature2') && !v.enabled?('feature3')
   end
 
+  def test_enabled_features_no_features_enabled
+    v = virtual_communities(:colivre_net)
+    v.enabled_features = nil
+    assert !v.enabled?('feature1') && !v.enabled?('feature2') && !v.enabled?('feature3')
+  end
+
   def test_name_is_mandatory
     v = VirtualCommunity.new
     v.valid?
