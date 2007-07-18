@@ -5,8 +5,14 @@ class FeaturesController < ApplicationController
     @features = VirtualCommunity.available_features
   end
 
+  post_only :update
   def update
-    @virtual_community.enabled_features = params[:features].keys
+    features = if params[:features].nil?
+                 []
+               else
+                 params[:features].keys
+               end
+    @virtual_community.enabled_features = features
     @virtual_community.save!
     flash[:notice] = _('Features updated successfully.')
     redirect_to :action => 'index'

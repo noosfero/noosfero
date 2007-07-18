@@ -84,4 +84,10 @@ class ApplicationController < ActionController::Base
     # TODO: check access control
   end
 
+  # declares that the given <tt>actions</tt> cannot be accessed by other HTTP
+  # method besides POST.
+  def self.post_only(actions, redirect = { :action => 'index'})
+    verify :method => :post, :only => actions, :redirect_to => redirect
+  end
+
 end

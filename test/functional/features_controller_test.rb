@@ -12,10 +12,10 @@ class FeaturesControllerTest < Test::Unit::TestCase
     @controller = FeaturesController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-    uses_host 'anhetegua.net'
   end
 
   def test_listing_features
+    uses_host 'anhetegua.net'
     get :index
     assert_template 'index'
     VirtualCommunity.available_features.each do |feature, text|
@@ -23,12 +23,32 @@ class FeaturesControllerTest < Test::Unit::TestCase
     end
   end
 
-  def test_update_features
-    get :update, :features => { 'feature1' => '1', 'feature2' => '1' }
+  def test_update
+    uses_host 'anhetegua.net'
+    post :update, :features => { 'feature1' => '1', 'feature2' => '1' }
     assert_redirected_to :action => 'index'
     assert_kind_of String, flash[:notice]
-    v = VirtualCommunity.find(virtual_communities(:colivre_net).id)
-    assert v.enabled?('feature1') && v.enabled?('feature2') && !v.enabled?('feature3')
+    v = VirtualCommunity.find(virtual_communities(:anhetegua_net).id)
+    assert v.enabled?('feature2')
+    assert v.enabled?('feature2') 
+    assert !v.enabled?('feature3')
+  end
+
+  def test_update_disable_all
+    uses_host 'anhetegua.net'
+    post :update # no features
+    assert_redirected_to :action => 'index'
+    assert_kind_of String, flash[:notice]
+    v = VirtualCommunity.find(virtual_communities(:anhetegua_net).id)
+    assert !v.enabled?('feature1')
+    assert !v.enabled?('feature2')
+    assert !v.enabled?('feature3')
+  end
+
+  def test_update_no_post
+    uses_host 'anhetegua.net'
+    get :update
+    assert_redirected_to :action => 'index'
   end
 
 end
