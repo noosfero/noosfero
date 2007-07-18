@@ -13,6 +13,9 @@ ActionController::Routing::Routes.draw do |map|
   # -- just remember to delete public/index.html.
   map.connect '', :controller => "home"
 
+  # user account controller
+  map.connect 'account/:action', :controller => 'account'
+
   # administrative tasks for a virtual community
   map.connect 'admin/:controller/:action/:id'
 
