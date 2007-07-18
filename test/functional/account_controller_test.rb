@@ -115,7 +115,7 @@ class AccountControllerTest < Test::Unit::TestCase
 
   def test_should_display_anonymous_user_options
     get :index
-    assert_template 'index_unregistered'
+    assert_template 'index_anonymous'
   end
 
   def test_should_display_logged_in_user_options
