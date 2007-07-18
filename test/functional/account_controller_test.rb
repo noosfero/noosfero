@@ -113,6 +113,17 @@ class AccountControllerTest < Test::Unit::TestCase
     assert !@controller.send(:logged_in?)
   end
 
+  def test_should_display_anonymous_user_options
+    get :index
+    assert_template 'index_unregistered'
+  end
+
+  def test_should_display_logged_in_user_options
+    login_as 'quentin'
+    get :index
+    assert_template 'index'
+  end
+
   protected
     def create_user(options = {})
       post :signup, :user => { :login => 'quire', :email => 'quire@example.com', 
