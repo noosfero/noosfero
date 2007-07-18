@@ -30,6 +30,10 @@ class VirtualCommunityTest < Test::Unit::TestCase
     assert_kind_of Hash, VirtualCommunity.available_features
   end
 
+  def test_mock
+    assert_equal ['feature1', 'feature2', 'feature3'], VirtualCommunity.available_features.keys.sort
+  end
+
   def test_features
     v = virtual_communities(:colivre_net)
     v.enable('feature1')
