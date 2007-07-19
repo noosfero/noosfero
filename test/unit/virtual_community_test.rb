@@ -65,10 +65,18 @@ class VirtualCommunityTest < Test::Unit::TestCase
 
   def test_terms_of_use
     v = VirtualCommunity.new(:name => 'My test virtual community')
+    assert_nil v.terms_of_use
     v.terms_of_use = 'To be part of this virtual community, you must accept the following terms: ...'
     assert v.save
     id = v.id
     assert_equal 'To be part of this virtual community, you must accept the following terms: ...', VirtualCommunity.find(id).terms_of_use
+  end
+
+  def test_has_terms_of_use
+    v = VirtualCommunity.new
+    assert !v.has_terms_of_use?
+    v.terms_of_use = 'some terms of use'
+    assert v.has_terms_of_use?
   end
 
 end

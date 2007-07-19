@@ -62,7 +62,11 @@ class VirtualCommunity < ActiveRecord::Base
   def terms_of_use=(value)
     self.settings['terms_of_use'] = value
   end
-  
+
+  def has_terms_of_use?
+    ! self.settings['terms_of_use'].nil?
+  end
+ 
   # #################################################
   # Validations
   # #################################################
