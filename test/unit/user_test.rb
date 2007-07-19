@@ -42,30 +42,41 @@ class UserTest < Test::Unit::TestCase
   end
 
   def test_should_reset_password
-    users(:quentin).update_attributes(:password => 'new password', :password_confirmation => 'new password')
-    assert_equal users(:quentin), User.authenticate('quentin', 'new password')
+    users(:johndoe).update_attributes(:password => 'new password', :password_confirmation => 'new password')
+    assert_equal users(:johndoe), User.authenticate('johndoe', 'new password')
   end
 
   def test_should_not_rehash_password
-    users(:quentin).update_attributes(:login => 'quentin2')
-    assert_equal users(:quentin), User.authenticate('quentin2', 'test')
+    users(:johndoe).update_attributes(:login => 'johndoe2')
+    assert_equal users(:johndoe), User.authenticate('johndoe2', 'test')
   end
 
   def test_should_authenticate_user
-    assert_equal users(:quentin), User.authenticate('quentin', 'test')
+    assert_equal users(:johndoe), User.authenticate('johndoe', 'test')
   end
 
   def test_should_set_remember_token
-    users(:quentin).remember_me
-    assert_not_nil users(:quentin).remember_token
-    assert_not_nil users(:quentin).remember_token_expires_at
+    users(:johndoe).remember_me
+    assert_not_nil users(:johndoe).remember_token
+    assert_not_nil users(:johndoe).remember_token_expires_at
   end
 
   def test_should_unset_remember_token
-    users(:quentin).remember_me
-    assert_not_nil users(:quentin).remember_token
-    users(:quentin).forget_me
-    assert_nil users(:quentin).remember_token
+    users(:johndoe).remember_me
+    assert_not_nil users(:johndoe).remember_token
+    users(:johndoe).forget_me
+    assert_nil users(:johndoe).remember_token
+  end
+
+  def test_should_create_profile
+    users_count = User.count
+    profiles_count = Profile.count
+
+    user = User.create!(:login => 'new_user', :email => 'new_user@example.com', :password => 'test', :password_confirmation => 'test')
+
+    assert Profile.exists?(['user_id = ?', user.id])
+    assert_equal users_count + 1, User.count
+    assert_equal profiles_count + 1, Profile.count
   end
 
   protected

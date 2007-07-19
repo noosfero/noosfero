@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class ProfileTest < Test::Unit::TestCase
-  fixtures :profiles, :virtual_communities
+  fixtures :profiles, :virtual_communities, :users
 
   def test_identifier_validation
     p = Profile.new
@@ -37,6 +37,11 @@ class ProfileTest < Test::Unit::TestCase
   def test_belongs_to_virtual_community_and_has_default
     p = Profile.new
     assert_kind_of VirtualCommunity, p.virtual_community
+  end
+
+  def test_can_have_user_as_owner
+    p = profiles(:johndoe)
+    assert_kind_of User, p.owner
   end
 
 end

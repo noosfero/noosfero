@@ -5,7 +5,7 @@ class EnableDisableFeaturesTest < ActionController::IntegrationTest
 
   def test_enable_features
     uses_host 'anhetegua.net'
-    login 'quentin', 'test'
+    login 'johndoe', 'test'
     get '/admin/features'
     assert_response :success
     assert_tag :tag => 'input', :attributes => { :name => 'features[feature1]' }
