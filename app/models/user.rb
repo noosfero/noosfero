@@ -1,4 +1,5 @@
 require 'digest/sha1'
+
 class User < ActiveRecord::Base
 
   after_create do |user|
@@ -10,6 +11,7 @@ class User < ActiveRecord::Base
   attr_accessor :password
 
   validates_presence_of     :login, :email
+  validates_format_of       :login, :with => Profile::IDENTIFIER_FORMAT
   validates_presence_of     :password,                   :if => :password_required?
   validates_presence_of     :password_confirmation,      :if => :password_required?
   validates_length_of       :password, :within => 4..40, :if => :password_required?

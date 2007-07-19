@@ -50,4 +50,31 @@ class ProfileTest < Test::Unit::TestCase
     assert p.valid?
   end
 
+  def test_only_one_profile_per_user
+    p1 = profiles(:johndoe)
+    assert_equal users(:johndoe), p1.user
+    
+    p2 = Profile.new
+    p2.user = users(:johndoe)
+    assert !p2.valid?
+    assert p2.errors.invalid?(:user_id)
+  end
+
+  def test_several_profiles_without_user
+    p1 = profiles(:john_and_joe)
+    assert p1.valid?
+    assert_nil p1.user
+
+    p2 = Profile.new
+    assert !p2.valid?
+    assert !p2.errors.invalid?(:user_id)
+  end
+
+  def test_cannot_rename
+    p1 = profiles(:johndoe)
+    assert_raise ArgumentError do
+      p1.identifier = 'bli'
+    end
+  end
+
 end

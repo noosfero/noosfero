@@ -75,8 +75,35 @@ class UserTest < Test::Unit::TestCase
     user = User.create!(:login => 'new_user', :email => 'new_user@example.com', :password => 'test', :password_confirmation => 'test')
 
     assert Profile.exists?(['user_id = ?', user.id])
+
     assert_equal users_count + 1, User.count
     assert_equal profiles_count + 1, Profile.count
+  end
+
+  def test_login_validation
+    u = User.new
+    u.valid?
+    assert u.errors.invalid?(:login)
+
+    u.login = 'with space'
+    u.valid?
+    assert u.errors.invalid?(:login)
+
+    u.login = 'áéíóú'
+    u.valid?
+    assert u.errors.invalid?(:login)
+
+    u.login = 'rightformat2007'
+    u.valid?
+    assert ! u.errors.invalid?(:login)
+
+    u.login = 'rightformat'
+    u.valid?
+    assert ! u.errors.invalid?(:login)
+
+    u.login = 'right_format'
+    u.valid?
+    assert ! u.errors.invalid?(:login)
   end
 
   protected
