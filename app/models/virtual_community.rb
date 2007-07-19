@@ -16,12 +16,14 @@ class VirtualCommunity < ActiveRecord::Base
   # One VirtualCommunity can be reached by many domains
   has_many :domains, :as => :owner
 
-  # a VirtualCommunity can be configured
-  acts_as_configurable
-
   # #################################################
   # Attributes
   # #################################################
+
+  serialize :settings
+  def settings
+    self[:settings] ||= {}
+  end
   
   # Enables a feature
   def enable(feature)
