@@ -65,6 +65,8 @@ class VirtualCommunity < ActiveRecord::Base
     self.settings['terms_of_use'] = value
   end
 
+  # returns <tt>true</tt> if this VirtualCommunity has terms of use to be
+  # accepted by users before registration.
   def has_terms_of_use?
     ! self.settings['terms_of_use'].nil?
   end
