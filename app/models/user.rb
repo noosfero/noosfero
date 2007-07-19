@@ -1,8 +1,8 @@
 require 'digest/sha1'
 class User < ActiveRecord::Base
 
-  before_create do |user|
-    # TODO
+  after_create do |user|
+    Profile.create!(:identifier => user.login, :user_id => user.id)
   end
   has_one :personal_profile, :class_name => Profile
   
