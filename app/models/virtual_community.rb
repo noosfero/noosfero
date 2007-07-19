@@ -51,6 +51,17 @@ class VirtualCommunity < ActiveRecord::Base
       end
     end
   end
+
+  # the virtual community's terms of use: every user must accept them before
+  # registering.
+  def terms_of_use
+    self.settings['terms_of_use']
+  end
+
+  # sets the virtual community's terms of use.
+  def terms_of_use=(value)
+    self.settings['terms_of_use'] = value
+  end
   
   # #################################################
   # Validations
