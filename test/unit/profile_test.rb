@@ -39,9 +39,15 @@ class ProfileTest < Test::Unit::TestCase
     assert_kind_of VirtualCommunity, p.virtual_community
   end
 
-  def test_can_have_user_as_owner
+  def test_can_have_user
     p = profiles(:johndoe)
-    assert_kind_of User, p.owner
+    assert_kind_of User, p.user
+  end
+
+  def test_may_have_no_user
+    p = profiles(:john_and_joe)
+    assert_nil p.user
+    assert p.valid?
   end
 
 end

@@ -15,6 +15,7 @@ class Profile < ActiveRecord::Base
   has_many :domains, :as => :owner
   has_many :boxes, :as => :owner
   belongs_to :virtual_community
+  belongs_to :user
 
   validates_presence_of :identifier
   validates_format_of :identifier, :with => /^[a-z][a-z0-9_]+[a-z0-9]$/
