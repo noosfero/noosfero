@@ -9,51 +9,72 @@ module ApplicationHelper
     .svn
   ]
 
-  # Generate a select option to choose one of the available templates.
-  # The available templates are those in 'public/templates'
-  def select_template(object, chosen_template = nil)
+  ICONS_DIR_PATH = "#{RAILS_ROOT}/public/icons"
+  THEME_DIR_PATH = "#{RAILS_ROOT}/public/themes"
+    
+
+  # Generate a select option to choose one of the available themes.
+  # The available themes are those in 'public/themes'
+  def select_theme(object, chosen_theme = nil)
     return '' if object.nil?
-    available_templates = Dir.new('public/templates').to_a - REJECTED_DIRS
-    template_options = options_for_select(available_templates.map{|template| [template, template] }, chosen_template)
-    select_tag('template_name', template_options ) +
-    change_tempate('template_name', object)
+    available_themes = Dir.new("#{THEME_DIR_PATH}").to_a - REJECTED_DIRS
+    theme_options = options_for_select(available_themes.map{|theme| [theme, theme] }, chosen_theme)
+    select_tag('theme_name', theme_options ) +
+    change_theme('theme_name', object)
   end
 
-  def change_tempate(observed_field, object)
+  # Generate a observer to reload a page when a theme is selected
+  def change_theme(observed_field, object)
     observe_field( observed_field,
-      :url => {:action => 'set_default_template'},
-      :with =>"'template_name=' + escape(value) + '&object_id=' + escape(#{object.id})",
+      :url => {:action => 'set_default_theme'},
+      :with =>"'theme_name=' + escape(value) + '&object_id=' + escape(#{object.id})",
       :complete => "document.location.reload();"
     )
   end
 
-  # Load all the css files of a existing template with the template_name passed as argument.
+
+  # Generate a select option to choose one of the available icons themes.
+  # The available icons themes are those in 'public/icons'
+  def select_icons_theme(object, chosen_icons_theme = nil)
+    return '' if object.nil?
+    available_icons_themes = Dir.new("#{ICONS_DIR_PATH}").to_a - REJECTED_DIRS
+    icons_theme_options = options_for_select(available_icons_themes.map{|icons_theme| [icons_theme, icons_theme] }, chosen_icons_theme)
+    select_tag('icons_theme_name', icons_theme_options ) +
+    change_icons_theme('icons_theme_name', object)
+  end
+
+  # Generate a observer to reload a page when a icons theme is selected
+  def change_icons_theme(observed_field, object)
+    observe_field( observed_field,
+      :url => {:action => 'set_default_icons_theme'},
+      :with =>"'icons_theme_name=' + escape(value) + '&object_id=' + escape(#{object.id})",
+      :complete => "document.location.reload();"
+    )
+  end
+
+  #Display a given icon passed as argument
+  #The icon path should be '/icons/{icons_theme}/{icon_image}'
+  def display_icon(icon , icons_theme = "default", options = {})
+    image_tag("/icons/#{icons_theme}/#{icon}", options)
+  end
+
+  # Load all the css files of a existing theme with the theme_name passed as argument.
   #
   # The files loaded are in the path:
   #
-  # 'public/templates/#{template_name}/stylesheets/*'
-  #TODO I think that implements this idea describe above it's good. Let's discuss about it.
-  # OBS: If no files are found in path the default template is used
-  def stylesheet_link_tag_template(template_name)
-    d = Dir.new("public/templates/#{template_name}/stylesheets/").to_a - REJECTED_DIRS 
+  # 'public/themes/#{theme_name}/*'
+  # If a invalid theme it's passed the 'default' theme is applied
+  def stylesheet_link_tag_theme(theme_name)
+    if !File.exists? "#{THEME_DIR_PATH}/#{theme_name}"
+      flash[:notice] = _("The theme %s it's not a valid theme") % theme_name
+      theme_name = 'default'
+    end
+
+    d = Dir.new("#{THEME_DIR_PATH}/#{theme_name}/").to_a - REJECTED_DIRS 
     d.map do |filename| 
-      stylesheet_link_tag("/templates/#{template_name}/stylesheets/#{filename}")
+      stylesheet_link_tag("/themes/#{theme_name}/#{filename}")
     end
   end
 
-  # Load all the javascript files of a existing template with the template_name passed as argument.
-  #
-  # The files loaded are in the path:
-  #
-  # 'public/templates/#{template_name}/javascripts/*'
-  #
-  #TODO I think that implements this idea describe above it's good. Let's discuss about it.
-  # OBS: If no files are found in path the default template is used
-  def javascript_include_tag_template(template_name)
-    d = Dir.new("public/templates/#{template_name}/javascripts/").to_a - REJECTED_DIRS 
-    d.map do |filename| 
-      javascript_include_tag("/templates/#{template_name}/javascripts/#{filename}")
-    end
-  end
 
 end

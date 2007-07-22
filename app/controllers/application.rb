@@ -2,8 +2,9 @@
 # available in all controllers.
 class ApplicationController < ActionController::Base
 
-  TEMPLATE_DIR_PATH = 'public/templates'
-  ICON_DIR_PATH = 'public/icons'
+  ICONS_DIR_PATH = "#{RAILS_ROOT}/public/icons"
+  THEME_DIR_PATH = "#{RAILS_ROOT}/public/themes"
+
 
   before_filter :detect_stuff_by_domain
   attr_reader :virtual_community
@@ -17,49 +18,63 @@ class ApplicationController < ActionController::Base
     if Profile.exists?(1)
       @owner = Profile.find(1) 
     end
-    @chosen_template = @owner.nil? ? "default" : @owner.template
+    @chosen_template = @owner.template.nil? ? "default" : @owner.template
+    self.chosen_template = @chosen_template
   end
 
   before_filter :load_boxes
-  #Load a set of boxes belongs to a owner. We have to situations.
-  #  1 - The owner has equal or more boxes that boxes defined in template.
-  #      The system limit the max number of boxes to the number permited in template
-  #  2 - The owner there isn't enough box that defined in template
-  #      The system create the boxes needed to use the current template
-  def load_boxes
-    raise _('Template not found') if @chosen_template.nil?
-    n = boxes_by_template(@chosen_template)
-    @boxes = Array.new
+
+  before_filter :load_theme
+  # Load the theme belongs to a Profile and set it at @chosen_theme variable.
+  # If no profile exist the @chosen_theme variable is set to 'default'
+  def load_theme
     if Profile.exists?(1)
-      owner = Profile.find(1)
-      @boxes = owner.boxes 
+      @owner = Profile.find(1) 
     end
-
-    if @boxes.length >= n
-      @boxes = @boxes.first(n) 
-    else
-      @boxes = @boxes    
-    end
-
+    @chosen_theme = @owner.theme.nil? ? "default" : @owner.theme
   end
 
-  def boxes_by_template(template)
-    f = YAML.load_file("#{RAILS_ROOT}/public/templates/default/default.yml")
-    number_of_boxes = f[template.to_s]["number_of_boxes"]
-    raise _("The file #{template}.yml it's not a valid template filename") if number_of_boxes.nil?
-    number_of_boxes
+  before_filter :load_icons_theme
+  # Load the icons belongs to a Profile and set it at @chosen_icons_theme variable.
+  # If no profile exist the @chosen_icons_theme variable is set to 'default'
+  def load_icons_theme
+    if Profile.exists?(1)
+      @owner = Profile.find(1) 
+    end
+    @chosen_icons_theme = @owner.icons_theme.nil? ? "default" : @owner.icons_theme
   end
 
 
+  # Set the default template to the profile
   def set_default_template
     p = Profile.find(params[:object_id])
     set_template(p,params[:template_name])
   end 
 
+  # Set the default theme to the profile
+  def set_default_theme
+    p = Profile.find(params[:object_id])
+    set_theme(p,params[:theme_name])
+  end 
+
+  # Set the default icons theme to the profile
+  def set_default_icons_theme
+    p = Profile.find(params[:object_id])
+    set_icons_theme(p,params[:icons_theme_name])
+  end 
+
+
   private
 
-  def set_template(object, template_name)
-    object.template = template_name
+  # Set to the owner the theme choosed
+  def set_theme(object, theme_name)
+    object.theme = theme_name
+    object.save
+  end
+
+  # Set to the owner the icons theme choosed
+  def set_icons_theme(object,icons_theme_name)
+    object.icons_theme = icons_theme_name
     object.save
   end
 
