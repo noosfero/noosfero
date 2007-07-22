@@ -1,7 +1,15 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class BoxTest < Test::Unit::TestCase
-  fixtures :boxes, :blocks
+  fixtures :boxes, :blocks, :profiles
+
+  def setup
+    @owner = Profile.find(1)
+  end
+
+  def test_setup
+    assert @owner.valid?
+  end
 
   def test_destroy
     count = Box.count
@@ -12,7 +20,7 @@ class BoxTest < Test::Unit::TestCase
   def test_create
     count = Box.count
     b = Box.new
-    b.number = 2
+    b.owner = @owner
     assert b.save
     assert count + 1,  Box.count
   end
@@ -29,16 +37,20 @@ class BoxTest < Test::Unit::TestCase
     assert !b.save
 
     b = Box.new
-    b.number = 10
+    b.owner = @owner
     assert b.save
 
   end
 
   def test_unique_number
     assert Box.delete_all
-    assert Box.create(:number => 1)  
+    b =  Box.new
+    b.owner = @owner
+    assert b.save
    
-    b = Box.new(:number => 1)
+    b = Box.new
+    b.owner = @owner
+    b.number = 1
     assert !b.valid?
     assert b.errors.invalid?(:number)
   end

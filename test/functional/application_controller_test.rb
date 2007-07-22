@@ -6,7 +6,7 @@ class TestController; def rescue_action(e) raise e end; end
 
 class ApplicationControllerTest < Test::Unit::TestCase
 
-  fixtures :profiles, :virtual_communities, :domains
+  fixtures :profiles, :virtual_communities, :domains, :boxes
 
   def setup
     @controller = TestController.new
@@ -22,6 +22,20 @@ class ApplicationControllerTest < Test::Unit::TestCase
     post :post_only
     assert_response :success
     assert_tag :tag => 'span', :content => 'post_only'
+  end
+
+
+  def test_load_template_default
+    get :index
+    assert_equal assigns(:chosen_template), 'default'
+  end
+
+  def test_load_template_other
+    p = Profile.find(1)
+    p.template = "other"
+    p.save
+    get :index
+    assert_equal assigns(:chosen_template), 'other'
   end
 
 end

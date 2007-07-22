@@ -40,7 +40,7 @@ class BlockTest < Test::Unit::TestCase
     assert b.errors.invalid?(:box_id)
 
     box = Box.new
-    box.owner = @profiles
+    box.owner = @profile
     box.number = 1000
     assert box.save
     b.box = box

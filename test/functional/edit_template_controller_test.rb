@@ -11,13 +11,8 @@ class EditTemplateControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
   end
 
-  # Replace this with your real tests.
   def test_truth
-    get :test
-    assert_response :success
-    assert_template 'index'
-
     assert true
-    assert !assigns(:leo)
   end
+
 end

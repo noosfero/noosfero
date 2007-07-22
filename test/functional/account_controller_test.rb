@@ -9,7 +9,7 @@ class AccountControllerTest < Test::Unit::TestCase
   # Then, you can remove it from this and the units test.
   include AuthenticatedTestHelper
 
-  fixtures :users
+  fixtures :users, :profiles
 
   def setup
     @controller = AccountController.new

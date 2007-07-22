@@ -1,5 +1,5 @@
 .edit_mode .hover {
-  background-color: blue;
+  background-color: white;
   border: 2px dotted red;
 }
 
@@ -7,7 +7,7 @@
   border: 2px dotted yellow;
 }
 
-.edit_mode #box_1 ul, .edit_mode #box_2 ul, .edit_mode #box_3 ul {
+.edit_mode #box_1 ul, .edit_mode #box_2 ul, .edit_mode #box_3 ul, .edit_mode #box_4 ul {
   list-style: none;
   cursor: -moz-grab;
   margin: 10px;
@@ -15,14 +15,14 @@
   
 }
 
-.edit_mode #box_1 ul li, .edit_mode #box_2 ul li, .edit_mode #box_3 ul li {
+.edit_mode #box_1 ul li, .edit_mode #box_2 ul li, .edit_mode #box_3 ul li , .edit_mode #box_4 ul li{
   list-style: none;
   cursor: -moz-grab;
   border: 5px solid black;
   margin: 15px;
 }
 
-.edit_mode #box_1, .edit_mode #box_2, .edit_mode #box_3 {
+.edit_mode #box_1, .edit_mode #box_2, .edit_mode #box_3, .edit_mode #box_4 {
   border: 3px solid brown;
 }
 
@@ -37,10 +37,13 @@
 }
 #box_3 {
   width: 400px;
-
   clear: both;
 }
 
+#box_4 {
+  width: 500px;
+  clear: both;
+}
 #footer{
   font-size: 30px;
   background: #FFFFFF url('../images/ufba_logo.png') repeat-x;
