@@ -1,0 +1,22 @@
+root_tag_one:
+  id: 1
+  name: 'root_with_kids'
+  pending: false
+root_tag_two:
+  id: 2
+  name: 'quack'
+  pending: false
+subtag_one:
+  id: 3
+  name: 'subtag'
+  parent_id: 1
+  pending: false
+pending_tag_one:
+  id: 4
+  name: 'pending'
+  pending: true
+pending_subtag_one:
+  id: 5
+  name: 'pending_subtag'
+  parent_id: 1
+  pending: true
