@@ -128,7 +128,7 @@ module ApplicationHelper
     # message DIV
     button = link_to_function(_('Help'), "alert('change me, Leandro!')")
 
-    text = content_tag('div', button + content_tag('div', content, :class => 'help_message'), :class => 'help_box')
+    text = content_tag('div', button + content_tag('div', content, :class => 'help_message', :style => 'display: none;'), :class => 'help_box')
 
     unless block.nil?
       concat(text, block.binding)
