@@ -76,5 +76,39 @@ module ApplicationHelper
     end
   end
 
+  # Displays context help. Pass the content of the help message in the block
+  # passed to this method. Example:
+  #
+  #  <% help do %>
+  #    This is the help message to be displayed. It can contain any HTML you
+  #    want: <strong>bold</strong>, <em>italic</em>, and even
+  #    <%= link_to '', 'links' %> using Rails helpers.
+  #  <% end %>
+  #
+  # You can also pass an optional argument to force the use of textile in your
+  # help message:
+  #
+  #  <% help :textile do %>
+  #    You can also use *textile*!
+  #  <% end %>
+  #
+  # Formally, the <tt>type</tt> argument can be <tt>:html</tt> or
+  # <tt>:textile</tt>. It defaults to <tt>:html</tt>.
+  #
+  # TODO: implement correcly the 'Help' button click
+  def help(type = :html, &block)
+    content = capture(&block)
+    if type == :textile
+      content = RedCloth.new(content).to_html
+    end
+    button = link_to_function(_('Help'), "alert('change me, Leandro!')")
+    concat(content_tag('div', button + content_tag('div', content, :class => 'help_message'), :class => 'help_box'), block.binding)
+  end
+
+  # alias for <tt>help(:textile)</tt>. Pass a block in the same way you would
+  # do if you called <tt>help</tt> directly.
+  def help_textile(&block)
+    help(:textile, &block)
+  end
 
 end

@@ -53,4 +53,33 @@ class ApplicationControllerTest < Test::Unit::TestCase
     assert_not_nil assigns(:chosen_icons_theme)
   end
 
+  def test_should_generate_help_box
+    get :help
+    assert_tag({
+      :tag => 'div',
+      :attributes => { :class => 'help_box'},
+      :descendant => {
+        :tag => 'div',
+        :content => /my_help_message/,
+        :attributes => { :class => 'help_message'}
+      }
+    })
+  end
+
+  def test_should_generate_help_box_expanding_textile_markup
+    get :help_textile
+    assert_tag({
+      :tag => 'div',
+      :attributes => { :class => 'help_box'},
+      :descendant => {
+        :tag => 'div',
+        :attributes => { :class => 'help_message'},
+        :descendant => {
+          :tag => 'strong',
+          :content => /my_bold_help_message/
+        }
+      }
+    })
+  end
+
 end
