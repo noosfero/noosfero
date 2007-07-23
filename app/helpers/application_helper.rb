@@ -11,7 +11,6 @@ module ApplicationHelper
 
   ICONS_DIR_PATH = "#{RAILS_ROOT}/public/icons"
   THEME_DIR_PATH = "#{RAILS_ROOT}/public/themes"
-    
 
   # Generate a select option to choose one of the available themes.
   # The available themes are those in 'public/themes'

@@ -12,6 +12,7 @@ class ManageTemplateMigration < ActiveRecord::Migration
       t.column :box_id,   :integer
       t.column :position, :integer
       t.column :type,     :string
+      t.column :helper,   :string
     end
 
   end

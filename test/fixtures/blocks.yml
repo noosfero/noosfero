@@ -5,6 +5,7 @@ one:
   box_id: 2
   position: 1
   type: 'MainBlock'
+  helper: 'plain_content'
   name: 'Main Content'
 # Link Blocks
 two:
@@ -12,12 +13,14 @@ two:
   box_id: 1
   position: 2
   type: 'LinkBlock'
+  helper: 'list_content'
   name: 'List of Links 1'
 three:
   id: 3
   box_id: 1
   position: 3
   type: 'LinkBlock'
+  helper: 'plain_content'
   name: 'List of Link 2'
 #List Blocks
 four:
@@ -25,16 +28,19 @@ four:
   box_id: 1
   position: 1
   type: 'ListBlock'
+  helper: 'list_content'
   name: 'List of Names 1'
 five:
   id: 5
   box_id: 3
   position: 1
   type: 'ListBlock'
+  helper: 'list_content'
   name: 'List of Names 2'
 six:
   id: 6
   box_id: 3
   position: 2
   type: 'ListBlock'
+  helper: 'list_content'
   name: 'List of Names 3'
