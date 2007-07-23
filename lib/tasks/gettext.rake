@@ -3,6 +3,7 @@
 #
 
 require 'gettext/utils'
+require 'project_meta'
 
 desc "Create mo-files for L10n"
 task :makemo do
@@ -11,8 +12,8 @@ end
 
 desc "Update pot/po files to match new version."
 task :updatepo do
-  GetText.update_pofiles('anhetegua', Dir.glob("{app,lib}/**/*.{rb,rhtml}"),
-                         "anhetegua 0.1.0")
+  GetText.update_pofiles(PROJECT, Dir.glob("{app,lib}/**/*.{rb,rhtml}"),
+                         "#{PROJECT} #{VERSION}")
 end
 
 # vim: ft=ruby
