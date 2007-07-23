@@ -55,7 +55,7 @@ module ApplicationHelper
   #Display a given icon passed as argument
   #The icon path should be '/icons/{icons_theme}/{icon_image}'
   def display_icon(icon , icons_theme = "default", options = {})
-    image_tag("/icons/#{icons_theme}/#{icon}", options)
+    image_tag("/icons/#{icons_theme}/#{icon}.png", options)
   end
 
   # Load all the css files of a existing theme with the theme_name passed as argument.

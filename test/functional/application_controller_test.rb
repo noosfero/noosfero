@@ -38,4 +38,19 @@ class ApplicationControllerTest < Test::Unit::TestCase
     assert_equal assigns(:chosen_template), 'other'
   end
 
+  def test_exist_owner
+    get :index
+    assert_not_nil assigns(:owner)
+  end
+
+  def test_exist_chosen_theme
+    get :index
+    assert_not_nil assigns(:chosen_theme)
+  end
+
+  def test_exist_chosen_icons_theme
+    get :index
+    assert_not_nil assigns(:chosen_icons_theme)
+  end
+
 end

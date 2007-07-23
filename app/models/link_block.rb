@@ -13,4 +13,9 @@ class LinkBlock < Block
     end
     profiles.join(',')
   end
+
+  def content
+    profiles = Profile.find(:all)
+  end
+
 end
