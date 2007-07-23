@@ -8,12 +8,28 @@ class TestController < ApplicationController
     render :text => '<span>post_only</span>'
   end
 
-  def help
-    render :inline => '<% help { %> my_help_message <% } %>'
+  def help_with_string
+    render :inline => '<%= help "my_help_message" %>'
   end
 
-  def help_textile
-    render :inline => '<% help_textile { %> *my_bold_help_message* <% } %>'
+  def help_with_block
+    render :inline => '
+      <% help do %>
+        my_help_message
+      <% end %>
+    '
+  end
+
+  def help_textile_with_string
+    render :inline => '<%= help_textile "*my_bold_help_message*" %>'
+  end
+
+  def help_textile_with_block
+    render :inline => '
+      <% help_textile do %>
+        *my_bold_help_message*
+      <% end %>
+    '
   end
 
 end

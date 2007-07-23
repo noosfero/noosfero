@@ -53,8 +53,8 @@ class ApplicationControllerTest < Test::Unit::TestCase
     assert_not_nil assigns(:chosen_icons_theme)
   end
 
-  def test_should_generate_help_box
-    get :help
+  def test_should_generate_help_box_when_passing_string
+    get :help_with_string
     assert_tag({
       :tag => 'div',
       :attributes => { :class => 'help_box'},
@@ -66,8 +66,37 @@ class ApplicationControllerTest < Test::Unit::TestCase
     })
   end
 
-  def test_should_generate_help_box_expanding_textile_markup
-    get :help_textile
+  def test_should_generate_help_box_when_passing_block
+    get :help_with_block
+    assert_tag({
+      :tag => 'div',
+      :attributes => { :class => 'help_box'},
+      :descendant => {
+        :tag => 'div',
+        :content => /my_help_message/,
+        :attributes => { :class => 'help_message'}
+      }
+    })
+  end
+
+  def test_should_generate_help_box_expanding_textile_markup_when_passing_string
+    get :help_textile_with_string
+    assert_tag({
+      :tag => 'div',
+      :attributes => { :class => 'help_box'},
+      :descendant => {
+        :tag => 'div',
+        :attributes => { :class => 'help_message'},
+        :descendant => {
+          :tag => 'strong',
+          :content => /my_bold_help_message/
+        }
+      }
+    })
+  end
+
+  def test_should_generate_help_box_expanding_textile_markup_when_passing_block
+    get :help_textile_with_block
     assert_tag({
       :tag => 'div',
       :attributes => { :class => 'help_box'},
