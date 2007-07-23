@@ -6,12 +6,8 @@ class ManageTagsController; def rescue_action(e) raise e end; end
 
 class ManageTagsControllerTest < Test::Unit::TestCase
 
-  def test_truth
-    assert true
-  end
+  fixtures :tags
 
-#TODO i comment it because the test were not passing
-  fixtures :tags, :users, :blocks, :profiles, :virtual_communities, :boxes, :domains
   def setup
     @controller = ManageTagsController.new
     @request    = ActionController::TestRequest.new

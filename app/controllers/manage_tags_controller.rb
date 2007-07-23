@@ -35,7 +35,7 @@ class ManageTagsController < ApplicationController
   # Prompt for modifications on the attributes of a tag
   def edit
     @tag = Tag.find_with_pendings(params[:id])
-    @parent_tags = @tag.parents_candidates
+    @parent_tags = @tag.parent_candidates
   end
 
   # Do the modifications collected by edit
@@ -45,7 +45,7 @@ class ManageTagsController < ApplicationController
       flash[:notice] = _('Tag was successfully updated.')
       redirect_to :action => 'list'
     else
-      @parent_tags = @tag.parents_candidates
+      @parent_tags = @tag.parent_candidates
       render :action => 'edit'
     end
   end

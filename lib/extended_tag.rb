@@ -17,18 +17,13 @@ class Tag
   end
 
   # All the tags that can be a new parent for this tag, that is all but itself and its descendents to avoid loops
-  def parents_candidates
+  def parent_candidates
     Tag.find(:all) - descendents - [self]
   end
   
   # All tags that have this tag as its one of its ancestors
   def descendents
     children.to_a.sum([], &:descendents) + children 
-  end
-
-  # Test if this tag has been approved already
-  def aproved?
-    not pending?
   end
 
 end
