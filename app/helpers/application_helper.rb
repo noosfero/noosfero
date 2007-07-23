@@ -142,4 +142,24 @@ module ApplicationHelper
     help(content, :textile, &block)
   end
 
+  # TODO: do something more useful here
+  # TODO: test this helper
+  # TODO: add an icon?
+  def virtual_community_identification
+    content_tag('div', @virtual_community.name, :id => 'virtual_community_identification')
+  end
+
+  # TODO: add the actual links
+  # TODO: test this helper
+  def user_links
+    links = [
+       [ _('My accont'), { :controller => 'account' } ],
+       [ _('My profile'), { :controller => 'ble'} ],
+       [ _('My groups'), { :controller => 'bli'} ],
+    ].map do |link|
+      link_to link[0], link[1]
+    end.join(' ')
+    content_tag('div', links, :id => 'user_links')
+  end
+
 end
