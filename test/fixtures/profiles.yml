@@ -25,3 +25,11 @@ john_and_joe:
   template: 'simple'
   icons_theme: 'simple'
   theme: 'simple'
+ze:
+  id: 4
+  name: "Zé"
+  identifier: ze
+  virtual_community_id: 1
+  template: 'default'
+  icons_theme: 'default'
+  theme: 'default'
