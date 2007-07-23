@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
   # Load the template belongs to a Profile and set it at @chosen_template variable.
   # If no profile exist the @chosen_template variable is set to 'default'
   def load_template
+    # TODO: this should not be hardcoded
     if Profile.exists?(1)
       @owner = Profile.find(1) 
     end
