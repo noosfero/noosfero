@@ -1,3 +1,6 @@
+# A VirtualCommunity is like a website to be hosted in the platform. It may
+# contain multiple Profile's and can be identified by several different
+# domains.
 class VirtualCommunity < ActiveRecord::Base
 
   # returns the available features for a VirtualCommunity, in the form of a
@@ -20,22 +23,25 @@ class VirtualCommunity < ActiveRecord::Base
   # Attributes
   # #################################################
 
+  # store the VirtualCommunity settings as YAML-serialized Hash.
   serialize :settings
+
+  # returns a Hash containing the VirtualCommunity configuration
   def settings
     self[:settings] ||= {}
   end
   
-  # Enables a feature
+  # Enables a feature identified by its name
   def enable(feature)
     self.settings["#{feature}_enabled"] = true
   end
 
-  # Disables a feature
+  # Disables a feature identified by its name
   def disable(feature)
     self.settings["#{feature}_enabled"] = false
   end
 
-  # Tells if a feature is enabled
+  # Tells if a feature, identified by its name, is enabled
   def enabled?(feature)
     self.settings["#{feature}_enabled"] == true
   end
