@@ -1,8 +1,9 @@
 class HomeController < ApplicationController
 
-  def index
-  end
+  uses_flexible_template :owner => 'owner'
 
-  uses_flexible_template :edit => false, :owner => 'owner'
+  def flexible_template_owner
+    Profile.find(1)
+  end
 
 end

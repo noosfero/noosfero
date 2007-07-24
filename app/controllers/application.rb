@@ -9,34 +9,14 @@ class ApplicationController < ActionController::Base
   before_filter :detect_stuff_by_domain
   attr_reader :virtual_community
 
-  uses_flexible_template :owner => 'owner'
 
-  def flexible_template_owner
-    Profile.find(1)
-  end
-
-  before_filter :load_template
-  # Load the template belongs to a Profile and set it at @chosen_template variable.
-  # If no profile exist the @chosen_template variable is set to 'default'
-  def load_template
+  before_filter :load_owner
+  # Load the owner 
+  def load_owner
     # TODO: this should not be hardcoded
     if Profile.exists?(1)
       @owner = Profile.find(1) 
     end
-    @chosen_template = @owner.template.nil? ? "default" : @owner.template
-    self.chosen_template = @chosen_template
-  end
-
-  before_filter :load_boxes
-
-  before_filter :load_theme
-  # Load the theme belongs to a Profile and set it at @chosen_theme variable.
-  # If no profile exist the @chosen_theme variable is set to 'default'
-  def load_theme
-    if Profile.exists?(1)
-      @owner = Profile.find(1) 
-    end
-    @chosen_theme = @owner.theme.nil? ? "default" : @owner.theme
   end
 
   before_filter :load_icons_theme
