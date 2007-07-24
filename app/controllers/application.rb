@@ -9,7 +9,10 @@ class ApplicationController < ActionController::Base
   before_filter :detect_stuff_by_domain
   attr_reader :virtual_community
 
-  uses_manage_template :edit => false
+  uses_flexible_template
+
+  def flexible_template_owner
+  end
 
   before_filter :load_template
   # Load the template belongs to a Profile and set it at @chosen_template variable.
