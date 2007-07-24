@@ -67,4 +67,9 @@ class ManageTagsController < ApplicationController
       redirect_to :action => 'list'
     end
   end
+
+  # Full-text search for tags that have the query terms
+  def search
+    @tags_found = Tag.find_by_contents(params[:query][:term])
+  end
 end

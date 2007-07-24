@@ -1,3 +1,9 @@
+<br/>
+<% form_tag :action => 'search' do %>
+  <%= text_field 'query', 'term'%>
+  <%= submit_tag _('Search') %>
+<% end %>
+
 <h2> <%= _("Listing tags") %> </h2>
 
 <ul>

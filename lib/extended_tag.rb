@@ -1,15 +1,20 @@
 class Tag
+  
   @@original_find = self.method(:find) 
   # Rename the find method to find_with_pendings that includes all tags in the search regardless if its pending or not 
   def self.find_with_pendings(*args)
       @@original_find.call(*args)
   end
+  
   # Redefine the find method to exclude the pending tags from the search not allowing to tag something with an unapproved tag
   def self.find(*args)
     self.with_scope(:find => { :conditions => ['pending = ?', false] }) do
       self.find_with_pendings(*args)
     end
   end
+
+  acts_as_ferret :fields => [:name]
+
 
   # Return all the tags that were suggested but not yet approved
   def self.find_pendings
