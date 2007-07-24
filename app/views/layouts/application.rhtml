@@ -6,25 +6,50 @@
     <%= stylesheet_link_tag_theme @chosen_theme %>
 
   </head>
+
   <body>
-
     <%= image_tag 'loading.gif', :id => 'spinner', :style => "display:none; float:right;" %>
+    <div id="wrap">
+      <div id="box">
+        <div id="menu">
+          Skip to:
+          <a href="#content">Content</a> | 
+          <a href="#sidebar">Navigation</a> | 
+          <a href="#footer">Footer</a>
+        </div>
 
-    <%= link_to _('Show Layout'), :controller => 'home' %>
-    <%= link_to _('Edit Layout'), :controller => 'edit_template' %>
+        <div id="header">
+          <h1> 
+            <a href="index.html">1024<span class="fade">px</span></a>
+          </h1>
+          <p id="slogan">when 800px just isn't enough...</p>
+        </div>
 
-    <%= select_template(@owner, @chosen_template) %>
-    <%= select_theme(@owner, @chosen_theme) %>
-    <%= select_icons_theme(@owner, @chosen_icons_theme) %>
+        <%= link_to _('Show Layout'), :controller => 'home' %>
+        <%= link_to _('Edit Layout'), :controller => 'edit_template' %>
 
-    <%= display_icon('back', @chosen_icons_theme )%>
+        <%= select_template(@owner, @chosen_template) %>
+        <%= select_theme(@owner, @chosen_theme) %>
+        <%= select_icons_theme(@owner, @chosen_icons_theme) %>
 
-    <%= flash[:notice] %>
+        <%= display_icon('back', @chosen_icons_theme )%>
 
-    <%= display_boxes(@boxes, yield) %>
+        <%= flash[:notice] %>
 
-    <div id="footer">
-      footer content
+        <%= display_boxes(@boxes, yield) %>
+        <div class="clearfix"></div>
+
+        <div id="footer">
+          <p>
+            <a href="#">Contact us</a> | 
+            <a href="#">Privacy policy</a> | 
+            <a href="#">Sitemap</a> | 
+            <a href="#">RSS</a> | 
+            <a href="#header">Back to top</a><br />
+            &copy; 2007 <a href="#">Your Name</a> | Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>
+          </p>
+        </div>
+      </div>
     </div>
 
   </body>
