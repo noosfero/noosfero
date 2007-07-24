@@ -1,7 +1,8 @@
 class HomeController < ApplicationController
 
   def index
-#    render :template => 'home/index'
   end
+
+  uses_flexible_template :edit => false, :owner => 'owner'
 
 end

@@ -9,9 +9,10 @@ class ApplicationController < ActionController::Base
   before_filter :detect_stuff_by_domain
   attr_reader :virtual_community
 
-  uses_flexible_template
+  uses_flexible_template :owner => 'owner'
 
   def flexible_template_owner
+    Profile.find(1)
   end
 
   before_filter :load_template
