@@ -1,9 +1,16 @@
 <li>
 <%= a_tag.name %>
 <%= link_to _('Edit'), {:action => 'edit', :id => a_tag } %>
+<%= help _('Edit the attributes of this tag (name, parent and pending status)') %>
 <%= link_to _('Destroy'), {:action => 'destroy', :id => a_tag} %>
+<%= help _('Erase the tag and all its subtags but not the tagged content') %>
 <%= link_to _('Filter by this tag'), {:action => 'list', :parent => a_tag} %>
-<%= link_to _('Approve tag'), {:action => 'approve', :id => a_tag} if a_tag.pending? %> <ul>
+<%= help _('List only the tags that are subtags of this tag') %>
+<% if a_tag.pending? %>
+  <%= link_to _('Approve tag'), {:action => 'approve', :id => a_tag} %> 
+  <%= help _('Approve this tag so content can be tagged with it and subtags of it can br created') %>
+<% end %>
+<ul>
   <%= render :partial => 'a_tag', :collection => a_tag.children.select{|t|!t.pending?} %>  
 </ul>
 </li>

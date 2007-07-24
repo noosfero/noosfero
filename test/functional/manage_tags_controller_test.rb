@@ -6,7 +6,7 @@ class ManageTagsController; def rescue_action(e) raise e end; end
 
 class ManageTagsControllerTest < Test::Unit::TestCase
 
-  fixtures :tags
+  fixtures :profiles, :boxes, :blocks, :domains
 
   def setup
     @controller = ManageTagsController.new
@@ -30,13 +30,18 @@ class ManageTagsControllerTest < Test::Unit::TestCase
   end
 
   def test_scoped_list
-    assert_nothing_raised { Tag.find(1) }
-    get :list, :parent => Tag.find(1)
+    parent_tag = Tag.create(:name => 'parent_tag')
+    child_tag = Tag.create(:name => 'child_tag', :parent => parent_tag)
+    orphan_tag = Tag.create(:name => 'orphan_tag')
+    get :list, :parent => parent_tag
     assert_response :success
     assert_template 'list'
     assert_not_nil assigns(:parent), 'the list should be scoped'
     assert_not_nil assigns(:tags)
     assert_not_nil assigns(:pending_tags)
+    assert assigns(:tags).include?(child_tag)
+    assert (not assigns(:tags).include?(orphan_tag))
+
   end
 
   def test_new
@@ -61,43 +66,44 @@ class ManageTagsControllerTest < Test::Unit::TestCase
   end
 
   def test_edit
-    assert_nothing_raised { Tag.find(1) }
-    get :edit, :id => 1
+    tag_to_edit = Tag.create(:name => 'tag_to_edit')
+    get :edit, :id => tag_to_edit.id
     assert assigns(:tag)
     assert assigns(:parent_tags)
   end
 
   def test_update
-    assert_nothing_raised { Tag.find(1) }
-    post :update, :id => 1, :tag => {:name => 'altered_tag'}
+    tag_to_update = Tag.create(:name => 'tag_to_update')
+    post :update, :id => tag_to_update.id, :tag => {:name => 'altered_tag'}
     assert_response :redirect
     assert_redirected_to :action => 'list'
     assert assigns(:tag)
+    assert_equal 'altered_tag', assigns(:tag).name
   end
 
   def test_update_wrong
-    assert_nothing_raised { Tag.find(1) }
-    post :update, :id => 1, :tag => {:name => ''}
+    wrong_tag = Tag.create(:name => 'wrong_tag')
+    post :update, :id => wrong_tag, :tag => {:name => ''}
     assert_response :success
     assert_template 'edit'
     assert assigns(:parent_tags)
   end
 
   def test_destroy
-    assert_nothing_raised { Tag.find(1) }
-    post :destroy, :id => 1
+    destroyed_tag = Tag.create(:name => 'tag_to_destroy')
+    post :destroy, :id => destroyed_tag.id
     assert_response :redirect
     assert_redirected_to :action => 'list'
     assert_not_nil flash[:notice]
-    assert_raise(ActiveRecord::RecordNotFound) { Tag.find(1) }
+    assert_raise(ActiveRecord::RecordNotFound) { Tag.find(destroyed_tag.id) }
   end
 
   def test_approve
-    assert_nothing_raised { Tag.find_with_pendings(4) }
-    assert Tag.find_with_pendings(4).pending?
-    post :approve, :id => 4
+    pending_tag = Tag.create(:name => 'pending_tag', :pending => true)
+    assert pending_tag.pending?
+    post :approve, :id => pending_tag.id
     assert_response :redirect
     assert_redirected_to :action => 'list'
-    assert ( not Tag.find_with_pendings(4).pending? )
+    assert ( not Tag.find_with_pendings(pending_tag.id).pending? )
   end
 end
