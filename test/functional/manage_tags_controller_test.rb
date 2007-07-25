@@ -100,10 +100,18 @@ class ManageTagsControllerTest < Test::Unit::TestCase
 
   def test_approve
     pending_tag = Tag.create(:name => 'pending_tag', :pending => true)
-    assert pending_tag.pending?
     post :approve, :id => pending_tag.id
     assert_response :redirect
     assert_redirected_to :action => 'list'
     assert ( not Tag.find_with_pendings(pending_tag.id).pending? )
+  end
+
+  def test_search
+    found_tag = Tag.create(:name => 'found_tag')
+    lost_tag = Tag.create(:name => 'lost_tag')
+    post :search, :query => 'found*'
+    assert_not_nil assigns(:tags_found)
+    assert assigns(:tags_found).include?(found_tag)
+    assert (not assigns(:tags_found).include?(lost_tag))
   end
 end

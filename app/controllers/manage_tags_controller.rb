@@ -73,6 +73,6 @@ class ManageTagsController < ApplicationController
 
   # Full-text search for tags that have the query terms
   def search
-    @tags_found = Tag.find_by_contents(params[:query][:term])
+    @tags_found = Tag.find_by_contents(params[:query])
   end
 end
