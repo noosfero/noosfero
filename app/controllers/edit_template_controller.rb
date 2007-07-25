@@ -6,4 +6,13 @@ class EditTemplateController < ApplicationController
     Profile.find(1)
   end
 
+  def flexible_template_dict(str)
+    {
+      'MainBlock' => _("Main Block"),
+      'ListBlock' => _("List Block"),
+      'LinkBlock' => _("Link Block")
+    }[str] || str
+  end
+
+
 end

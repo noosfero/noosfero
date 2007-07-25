@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   attr_reader :virtual_community
 
   before_filter :load_owner
-  # Load the owner 
+    # Load the owner 
   def load_owner
     # TODO: this should not be hardcoded
     if Profile.exists?(1)
