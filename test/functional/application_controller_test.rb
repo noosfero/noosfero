@@ -14,6 +14,11 @@ class ApplicationControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
   end
 
+  def test_exist_virtual_community_variable_to_helper_virtual_community_identification
+    get :index
+    assert_not_nil assigns(:virtual_community)
+  end
+
   def test_get_against_post_only
     get :post_only
     assert_redirected_to :action => 'index'
@@ -101,4 +106,11 @@ class ApplicationControllerTest < Test::Unit::TestCase
     })
   end
 
+  def test_shouldnt_generate_help_box_markup_when_no_block_is_passed
+    get :help_without_block
+    assert_no_tag({
+      :tag => 'div',
+      :attributes => { :class => 'help_box'},
+    })
+  end
 end

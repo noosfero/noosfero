@@ -35,4 +35,10 @@ class TestController < ApplicationController
     '
   end
 
+  def help_without_block
+    render :inline => '
+      <% help %>
+    '
+  end
+
 end
