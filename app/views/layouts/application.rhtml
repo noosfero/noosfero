@@ -10,44 +10,29 @@
   <body>
     <%= image_tag 'loading.gif', :id => 'spinner', :style => "display:none; float:right;" %>
     <div id="wrap">
-      <div id="box">
+      <div id="frame">
+
         <div id="menu">
-          Skip to:
-          <a href="#content">Content</a> | 
-          <a href="#sidebar">Navigation</a> | 
-          <a href="#footer">Footer</a>
+          <%= _('Skip to:') %>
+          <a href="#main_content"><%= _('Content') %></a> | 
+          <a href="#sidebar"><%= _('Navigation') %></a> | 
+          <a href="#footer"><%= _('Footer') %></a>
         </div>
 
         <div id="header">
-          <h1> 
-            <a href="index.html">1024<span class="fade">px</span></a>
-          </h1>
-          <p id="slogan">when 800px just isn't enough...</p>
+          <%= header %>
         </div>
 
-        <%= link_to _('Show Layout'), :controller => 'home' %>
-        <%= link_to _('Edit Layout'), :controller => 'edit_template' %>
+        <div id='notice'>
+          <%= flash[:notice] %>
+        </div>
 
-        <%= select_template %>
-        <%= select_theme %>
-        <%= select_icons_theme %>
-
-        <%= display_icon('back')%>
-
-        <%= flash[:notice] %>
-
+        <a name='main_content'/>
         <%= display_boxes(yield) %>
-        <div class="clearfix"></div>
 
         <div id="footer">
-          <p>
-            <a href="#">Contact us</a> | 
-            <a href="#">Privacy policy</a> | 
-            <a href="#">Sitemap</a> | 
-            <a href="#">RSS</a> | 
-            <a href="#header">Back to top</a><br />
-            &copy; 2007 <a href="#">Your Name</a> | Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>
-          </p>
+          <a name='footer'/>
+          <%= footer %>
         </div>
       </div>
     </div>

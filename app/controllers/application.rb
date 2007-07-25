@@ -1,10 +1,12 @@
-# This is the application's main controller. Features defined here are
+# his is the application's main controller. Features defined here are
 # available in all controllers.
 class ApplicationController < ActionController::Base
 
+  # Be sure to include AuthenticationSystem in Application Controller instead
+  include AuthenticatedSystem
+
   before_filter :detect_stuff_by_domain
   attr_reader :virtual_community
-
 
   before_filter :load_owner
   # Load the owner 
@@ -14,7 +16,6 @@ class ApplicationController < ActionController::Base
       @owner = Profile.find(1) 
     end
   end
-
 
   protected
 
@@ -27,6 +28,10 @@ class ApplicationController < ActionController::Base
       @virtual_community = @domain.virtual_community
       @profile = @domain.profile
     end
+  end
+
+  def flexible_template_onwer
+    @virtual_community_admin || @profile
   end
 
   def self.acts_as_virtual_community_admin_controller

@@ -1,13 +1,6 @@
 class AccountController < ApplicationController
 
-
-
   uses_flexible_template :owner => 'owner'
-
-  # Be sure to include AuthenticationSystem in Application Controller instead
-  include AuthenticatedSystem
-  # If you want "remember me" functionality, add this before_filter to Application Controller
-  before_filter :login_from_cookie
 
   # say something nice, you goof!  something sweet.
   def index
@@ -25,7 +18,9 @@ class AccountController < ApplicationController
         cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
       end
       redirect_back_or_default(:controller => '/account', :action => 'index')
-      flash[:notice] = "Logged in successfully"
+      flash[:notice] = _("Logged in successfully")
+    else
+      flash[:notice] = _('Incorrect username or password')
     end
   end
 
@@ -35,7 +30,7 @@ class AccountController < ApplicationController
     @user.save!
     self.current_user = @user
     redirect_back_or_default(:controller => '/account', :action => 'index')
-    flash[:notice] = "Thanks for signing up!"
+    flash[:notice] = _("Thanks for signing up!")
   rescue ActiveRecord::RecordInvalid
     render :action => 'signup'
   end
@@ -44,7 +39,7 @@ class AccountController < ApplicationController
     self.current_user.forget_me if logged_in?
     cookies.delete :auth_token
     reset_session
-    flash[:notice] = "You have been logged out."
+    flash[:notice] = _("You have been logged out.")
     redirect_back_or_default(:controller => '/account', :action => 'index')
   end
 

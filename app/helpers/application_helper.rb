@@ -90,4 +90,17 @@ module ApplicationHelper
     content_tag('div', links, :id => 'user_links')
   end
 
+  def header
+    virtual_community_identification + (logged_in? ? user_links : login_box)
+  end
+
+  def login_box
+    link_to _('Login'), :controller => 'account', :action => 'login'
+  end
+
+  # FIXME
+  def footer
+    'nothing in the footer yet'
+  end
+
 end
