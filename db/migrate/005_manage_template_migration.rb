@@ -9,6 +9,7 @@ class ManageTemplateMigration < ActiveRecord::Migration
 
     create_table :blocks do |t|
       t.column :name,     :string
+      t.column :title,    :string
       t.column :box_id,   :integer
       t.column :position, :integer
       t.column :type,     :string
