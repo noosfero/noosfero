@@ -138,6 +138,7 @@ class AccountControllerTest < Test::Unit::TestCase
     post :change_password, :current_password => 'test', :new_password => 'blabla', :new_password_confirmation => 'blabla'
     assert_response :redirect
     assert_redirected_to :action => 'index'
+    assert flash[:notice] =~ /success/
     assert User.find_by_login('ze').authenticated?('blabla')
     assert_equal users(:ze), @controller.send(:current_user)
   end
@@ -147,6 +148,7 @@ class AccountControllerTest < Test::Unit::TestCase
     post :change_password, :current_password => 'wrong', :new_password => 'blabla', :new_password_confirmation => 'blabla'
     assert_response :success
     assert_template 'change_password'
+    assert flash[:notice] =~ /incorrect/
     assert ! User.find_by_login('ze').authenticated?('blabla')
     assert_equal users(:ze), @controller.send(:current_user)
   end

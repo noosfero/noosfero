@@ -58,6 +58,7 @@ class AccountController < ApplicationController
         flash[:notice] = _('Your password has been changed successfully!')
         redirect_to :action => 'index'
       rescue User::IncorrectPassword => e
+        flash[:notice] = _('The supplied current password is incorrect.')
         render :action => 'change_password'
       end
     else
