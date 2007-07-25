@@ -2,16 +2,17 @@
 # Added for Ruby-GetText-Package
 #
 
-require 'gettext/utils'
 require 'project_meta'
 
 desc "Create mo-files for L10n"
 task :makemo do
+  require 'gettext/utils'
   GetText.create_mofiles(true, "po", "locale")
 end
 
 desc "Update pot/po files to match new version."
 task :updatepo do
+  require 'gettext/utils'
   GetText.update_pofiles(PROJECT, Dir.glob("{app,lib}/**/*.{rb,rhtml}"),
                          "#{PROJECT} #{VERSION}")
 end
