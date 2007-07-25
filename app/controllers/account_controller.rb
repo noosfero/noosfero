@@ -1,4 +1,9 @@
 class AccountController < ApplicationController
+
+
+
+  uses_flexible_template :owner => 'owner'
+
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem
   # If you want "remember me" functionality, add this before_filter to Application Controller

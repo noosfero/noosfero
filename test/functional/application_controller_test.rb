@@ -24,20 +24,6 @@ class ApplicationControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'span', :content => 'post_only'
   end
 
-
-  def test_load_template_default
-    get :index
-    assert_equal assigns(:chosen_template), 'default'
-  end
-
-  def test_load_template_other
-    p = Profile.find(1)
-    p.template = "other"
-    p.save
-    get :index
-    assert_equal assigns(:chosen_template), 'other'
-  end
-
   def test_exist_owner
     get :index
     assert_not_nil assigns(:owner)
@@ -45,12 +31,16 @@ class ApplicationControllerTest < Test::Unit::TestCase
 
   def test_exist_chosen_theme
     get :index
-    assert_not_nil assigns(:chosen_theme)
+    assert_not_nil assigns(:ft_config)
+    conf = assigns(:ft_config)
+    assert_not_nil conf[:theme]
   end
 
   def test_exist_chosen_icons_theme
     get :index
-    assert_not_nil assigns(:chosen_icons_theme)
+    assert_not_nil assigns(:ft_config)
+    conf =  assigns(:ft_config)
+    assert_not_nil conf[:icons_theme]
   end
 
   def test_should_generate_help_box_when_passing_string

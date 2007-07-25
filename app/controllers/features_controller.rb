@@ -1,4 +1,8 @@
 class FeaturesController < ApplicationController
+
+  uses_flexible_template :owner => 'owner'
+
+
   acts_as_virtual_community_admin_controller
 
   def index
