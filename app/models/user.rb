@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   validates_presence_of     :password_confirmation,      :if => :password_required?
   validates_length_of       :password, :within => 4..40, :if => :password_required?
   validates_confirmation_of :password,                   :if => :password_required?
-  validates_length_of       :login,    :within => 3..40
+  validates_length_of       :login,    :within => 2..40
   validates_length_of       :email,    :within => 3..100
   validates_uniqueness_of   :login, :email, :case_sensitive => false
   before_save :encrypt_password
@@ -58,6 +58,20 @@ class User < ActiveRecord::Base
     self.remember_token_expires_at = nil
     self.remember_token            = nil
     save(false)
+  end
+
+  # Exception thrown when #change_password! is called with a wrong current
+  # password
+  class IncorrectPassword < Exception; end
+
+  # Changes the password of a user.
+  def change_password!(current, new, confirmation)
+    raise IncorrectPassword unless self.authenticated?(current)
+    self.password = new
+    self.password_confirmation = confirmation
+    unless new_record?
+      save!
+    end
   end
 
   protected

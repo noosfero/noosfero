@@ -106,6 +106,24 @@ class UserTest < Test::Unit::TestCase
     assert ! u.errors.invalid?(:login)
   end
 
+  def test_should_change_password
+    user = User.create!(:login => 'changetest', :password => 'test', :password_confirmation => 'test', :email => 'changetest@example.com')
+    assert_nothing_raised do
+      user.change_password!('test', 'newpass', 'newpass')
+    end
+    assert !user.authenticated?('test')
+    assert user.authenticated?('newpass')
+  end
+
+  def test_should_give_correct_current_password_for_changing_password
+    user = User.create!(:login => 'changetest', :password => 'test', :password_confirmation => 'test', :email => 'changetest@example.com')
+    assert_raise User::IncorrectPassword do
+      user.change_password!('wrong', 'newpass', 'newpass')
+    end
+    assert !user.authenticated?('newpass')
+    assert user.authenticated?('test')
+  end
+
   protected
     def create_user(options = {})
       User.create({ :login => 'quire', :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire' }.merge(options))

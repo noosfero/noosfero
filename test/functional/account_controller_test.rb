@@ -124,6 +124,33 @@ class AccountControllerTest < Test::Unit::TestCase
     assert_template 'index'
   end
 
+  def test_should_display_change_password_screen
+    get :change_password
+    assert_response :success
+    assert_template 'change_password'
+    assert_tag :tag => 'input', :attributes => { :name => 'current_password' }
+    assert_tag :tag => 'input', :attributes => { :name => 'new_password' }
+    assert_tag :tag => 'input', :attributes => { :name => 'new_password_confirmation' }
+  end
+
+  def test_should_be_able_to_change_password
+    login_as 'ze'
+    post :change_password, :current_password => 'test', :new_password => 'blabla', :new_password_confirmation => 'blabla'
+    assert_response :redirect
+    assert_redirected_to :action => 'index'
+    assert User.find_by_login('ze').authenticated?('blabla')
+    assert_equal users(:ze), @controller.send(:current_user)
+  end
+
+  def test_should_input_current_password_correctly_to_change_password
+    login_as 'ze'
+    post :change_password, :current_password => 'wrong', :new_password => 'blabla', :new_password_confirmation => 'blabla'
+    assert_response :success
+    assert_template 'change_password'
+    assert ! User.find_by_login('ze').authenticated?('blabla')
+    assert_equal users(:ze), @controller.send(:current_user)
+  end
+
   protected
     def create_user(options = {})
       post :signup, :user => { :login => 'quire', :email => 'quire@example.com', 

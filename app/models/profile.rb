@@ -6,7 +6,7 @@ class Profile < ActiveRecord::Base
   act_as_flexible_template
 
   # Valid identifiers must match this format.
-  IDENTIFIER_FORMAT = /^[a-z][a-z0-9_]+[a-z0-9]$/
+  IDENTIFIER_FORMAT = /^[a-z][a-z0-9_]*[a-z0-9]$/
 
   # These names cannot be used as identifiers for Profiles
   RESERVED_IDENTIFIERS = %w[
