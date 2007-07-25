@@ -36,7 +36,6 @@ class ApplicationController < ActionController::Base
 
   def self.acts_as_virtual_community_admin_controller
     before_filter :load_admin_controller
-    layout 'virtual_community_admin'
   end
   def load_admin_controller
     # TODO: check access control

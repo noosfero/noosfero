@@ -95,7 +95,7 @@ module ApplicationHelper
   end
 
   def login_box
-    link_to _('Login'), :controller => 'account', :action => 'login'
+    content_tag('div', (link_to _('Login'), :controller => 'account', :action => 'login'), :class => 'login_box')
   end
 
   # FIXME
