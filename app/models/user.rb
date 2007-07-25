@@ -65,6 +65,10 @@ class User < ActiveRecord::Base
   class IncorrectPassword < Exception; end
 
   # Changes the password of a user.
+  #
+  # * Raises IncorrectPassword if <tt>current</tt> is different from the user's
+  #   current password.
+  # * Saves the record unless it is a new one.
   def change_password!(current, new, confirmation)
     raise IncorrectPassword unless self.authenticated?(current)
     self.password = new
