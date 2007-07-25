@@ -5,7 +5,6 @@ class ManageTagsController < ApplicationController
 
   uses_flexible_template :owner => 'owner'
 
-
   # Index redirects to list action without modifing the url
   def index
     redirect_to :action => 'list'

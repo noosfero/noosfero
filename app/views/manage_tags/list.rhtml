@@ -1,8 +1,4 @@
-<br/>
-<% form_tag :action => 'search' do %>
-  <%= text_field 'query', 'term'%>
-  <%= submit_tag _('Search') %>
-<% end %>
+<%= render :partial => 'search_box'  %>
 
 <h2> <%= _("Listing tags") %> </h2>
 

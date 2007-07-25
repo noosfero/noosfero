@@ -13,7 +13,7 @@ class Tag
     end
   end
 
-#  acts_as_ferret :fields => [:name]
+  acts_as_ferret :fields => [:name]
 
 
   # Return all the tags that were suggested but not yet approved
