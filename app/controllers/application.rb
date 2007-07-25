@@ -2,10 +2,6 @@
 # available in all controllers.
 class ApplicationController < ActionController::Base
 
-  ICONS_DIR_PATH = "#{RAILS_ROOT}/public/icons"
-  THEME_DIR_PATH = "#{RAILS_ROOT}/public/themes"
-
-
   before_filter :detect_stuff_by_domain
   attr_reader :virtual_community
 
@@ -19,49 +15,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  before_filter :load_icons_theme
-  # Load the icons belongs to a Profile and set it at @chosen_icons_theme variable.
-  # If no profile exist the @chosen_icons_theme variable is set to 'default'
-  def load_icons_theme
-    if Profile.exists?(1)
-      @owner = Profile.find(1) 
-    end
-    @chosen_icons_theme = @owner.icons_theme.nil? ? "default" : @owner.icons_theme
-  end
-
-
-  # Set the default template to the profile
-  def set_default_template
-    p = Profile.find(params[:object_id])
-    set_template(p,params[:template_name])
-  end 
-
-  # Set the default theme to the profile
-  def set_default_theme
-    p = Profile.find(params[:object_id])
-    set_theme(p,params[:theme_name])
-  end 
-
-  # Set the default icons theme to the profile
-  def set_default_icons_theme
-    p = Profile.find(params[:object_id])
-    set_icons_theme(p,params[:icons_theme_name])
-  end 
-
-
-  private
-
-  # Set to the owner the theme choosed
-  def set_theme(object, theme_name)
-    object.theme = theme_name
-    object.save
-  end
-
-  # Set to the owner the icons theme choosed
-  def set_icons_theme(object,icons_theme_name)
-    object.icons_theme = icons_theme_name
-    object.save
-  end
 
   protected
 

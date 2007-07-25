@@ -28,15 +28,15 @@
         <%= link_to _('Show Layout'), :controller => 'home' %>
         <%= link_to _('Edit Layout'), :controller => 'edit_template' %>
 
-        <%= select_template(@owner, @chosen_template) %>
-        <%= select_theme(@owner, @chosen_theme) %>
-        <%= select_icons_theme(@owner, @chosen_icons_theme) %>
+        <%= select_template %>
+        <%= select_theme %>
+        <%= select_icons_theme %>
 
-        <%= display_icon('back', @chosen_icons_theme )%>
+        <%= display_icon('back')%>
 
         <%= flash[:notice] %>
 
-        <%= display_boxes(@boxes, yield) %>
+        <%= display_boxes(yield) %>
         <div class="clearfix"></div>
 
         <div id="footer">

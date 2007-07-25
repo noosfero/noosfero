@@ -1,34 +1,6 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 
-  ICONS_DIR_PATH = "#{RAILS_ROOT}/public/icons"
-
-
-  # Generate a select option to choose one of the available icons themes.
-  # The available icons themes are those in 'public/icons'
-  def select_icons_theme(object, chosen_icons_theme = nil)
-    return '' if object.nil?
-    available_icons_themes = Dir.new("#{ICONS_DIR_PATH}").to_a - REJECTED_DIRS
-    icons_theme_options = options_for_select(available_icons_themes.map{|icons_theme| [icons_theme, icons_theme] }, chosen_icons_theme)
-    select_tag('icons_theme_name', icons_theme_options ) +
-    change_icons_theme('icons_theme_name', object)
-  end
-
-  # Generate a observer to reload a page when a icons theme is selected
-  def change_icons_theme(observed_field, object)
-    observe_field( observed_field,
-      :url => {:action => 'set_default_icons_theme'},
-      :with =>"'icons_theme_name=' + escape(value) + '&object_id=' + escape(#{object.id})",
-      :complete => "document.location.reload();"
-    )
-  end
-
-  #Display a given icon passed as argument
-  #The icon path should be '/icons/{icons_theme}/{icon_image}'
-  def display_icon(icon , icons_theme = "default", options = {})
-    image_tag("/icons/#{icons_theme}/#{icon}.png", options)
-  end
-
 
   # Displays context help. You can pass the content of the help message as the
   # first parameter or using template code inside a block passed to this
