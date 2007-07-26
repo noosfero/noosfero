@@ -5,15 +5,18 @@ class EnterpriseController < ApplicationController
     @vitual_communities = VirtualCommunity.find(:all)
   end
 
+  def choose_validation_entity_or_net
+    @enterprise = Enterprise.new(params[:enterprise])
+  end
+
   def create
     @enterprise = Enterprise.new(params[:enterprise])
     if @enterprise.save
-      redirect_to :action => 'choose_validation_entity_or_net'
+      flash[:notice] = _('Enterprise was succesfully created')
+      redirect_to :action => ''
     else
-      render :action => 'register_form'
+      flash[:notice] = _('Enterprise was not created')
+      render :text => 'Não Salvou'
     end
-  end
-
-  def choose_validation_entity_or_net
   end
 end
