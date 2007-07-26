@@ -1,7 +1,6 @@
 class CreateEnterprises < ActiveRecord::Migration
   def self.up
     create_table :enterprises do |t|
-      t.column :name,                    :string
       t.column :address,                 :string
       t.column :contact_phone,           :string
       t.column :contact_person,          :string
