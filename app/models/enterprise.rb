@@ -6,6 +6,7 @@ class Enterprise < ActiveRecord::Base
   end
   
   has_one :enterprise_profile, :class_name => 'Profile', :as => :profile_owner
+  has_many :users
    
   validates_presence_of :name
 end
