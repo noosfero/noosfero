@@ -1,0 +1,36 @@
+
+<%= error_messages_for 'enterprise' %>
+
+<h2><%= _('Register enterprise') %></h2>
+
+<% form_tag :action => 'choose_validation_entity_or_net' do %>
+<p><label for="name"><%= _('Name') %></label><br/>
+<%= text_field 'enterprise', 'name', 'size' => 20 %></p>
+
+<p><label for="address"><%= _('Address') %></label><br/>
+<%= text_field 'enterprise', 'address', 'size' => 50 %></p>
+
+<p><label for="contact_phone"><%= _('Contact Phone') %></label><br/>
+<%= text_field 'enterprise', 'contact_phone', 'size' => 20 %></p>
+
+<p><label for="contact_person"><%= _('Contact Person') %></label><br/>
+<%= text_field 'enterprise', 'contact_person', 'size' => 20  %></p>
+
+<p><label for="acronym"><%= _('Acronym') %></label><br/>
+<%= text_field 'enterprise', 'acronym', 'size' => 20 %></p>
+
+<p><label for="foundation_year"><%= _('Foundation Year') %></label><br/>
+<%= text_field 'enterprise', 'foundation_year', 'size' => 20  %></p>
+
+<p><label for="legal_form"><%= _('Legal Form') %></label><br/>
+<%= text_field 'enterprise', 'legal_form', 'size' => 20 %></p>
+
+<p><label for="economic_activity"><%= _('Economic Activity') %></label><br/>
+<%= text_field 'enterprise', 'economic_activity', 'size' => 20 %></p>
+
+<p><label for="management_information"><%= _('Management Information') %></label><br/>
+<%= text_area 'enterprise', 'management_information', 'cols' => 40, 'rows' => 20 %></p>
+
+<p><%= submit_tag 'Send' %>
+<%= link_to 'Cancel', :action => 'register' %></p>
+<% end %>
