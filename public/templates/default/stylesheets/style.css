@@ -26,7 +26,7 @@ body {
 }
 
 /* the container */
-#box {
+#frame {
 	background-color: #FFFFFF;
 	margin-left: auto; 
 	margin-right: auto;	 

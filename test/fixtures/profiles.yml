@@ -6,7 +6,7 @@ johndoe:
   virtual_community_id: 1
   user_id: 1
   template: 'default'
-  icons_theme: 'default'
+  icon_theme: 'default'
   theme: 'default'
 joerandomhacker:
   id: 2
@@ -15,7 +15,7 @@ joerandomhacker:
   virtual_community_id: 1
   user_id: 2
   template: 'simple'
-  icons_theme: 'simple'
+  icon_theme: 'simple'
   theme: 'simple'
 john_and_joe:
   id: 3
@@ -23,7 +23,7 @@ john_and_joe:
   identifier: john_and_joe
   virtual_community_id: 1
   template: 'simple'
-  icons_theme: 'simple'
+  icon_theme: 'simple'
   theme: 'simple'
 ze:
   id: 4
@@ -31,5 +31,5 @@ ze:
   identifier: ze
   virtual_community_id: 1
   template: 'default'
-  icons_theme: 'default'
+  icon_theme: 'default'
   theme: 'default'

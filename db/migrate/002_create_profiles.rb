@@ -7,7 +7,7 @@ class CreateProfiles < ActiveRecord::Migration
       t.column :user_id,              :integer
       t.column :template,             :string, :default => "default"
       t.column :theme,                :string, :default => "default"
-      t.column :icons_theme,          :string, :default => "default"
+      t.column :icon_theme,           :string, :default => "default"
     end
   end
 

@@ -1,7 +1,5 @@
 class AccountController < ApplicationController
 
-  uses_flexible_template :owner => 'owner'
-
   # say something nice, you goof!  something sweet.
   def index
     unless logged_in?
