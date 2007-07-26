@@ -91,12 +91,13 @@ class AccountControllerTest < Test::Unit::TestCase
     assert_equal @response.cookies["auth_token"], []
   end
 
-  def test_should_login_with_cookie
-    users(:johndoe).remember_me
-    @request.cookies["auth_token"] = cookie_for(:johndoe)
-    get :index
-    assert @controller.send(:logged_in?)
-  end
+  # "remember_me" feature is disabled; uncommend this if it is enabled again.
+  # def test_should_login_with_cookie
+  #   users(:johndoe).remember_me
+  #   @request.cookies["auth_token"] = cookie_for(:johndoe)
+  #   get :index
+  #   assert @controller.send(:logged_in?)
+  # end
 
   def test_should_fail_expired_cookie_login
     users(:johndoe).remember_me
