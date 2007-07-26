@@ -19,7 +19,7 @@ class Profile < ActiveRecord::Base
 
   has_many :domains, :as => :owner
   belongs_to :virtual_community
-  belongs_to :user
+  belongs_to :profile_owner, :polymorphic => true
 
 
   # Sets the identifier for this profile. Raises an exception when called on a
