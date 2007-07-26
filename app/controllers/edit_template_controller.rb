@@ -2,12 +2,16 @@ class EditTemplateController < ApplicationController
 
   uses_flexible_template :edit => true, :owner => 'owner'
 
-  def flexible_template_block_dict(str)
-    {
-      'MainBlock' => _("Main Block"),
-      'ListBlock' => _("List Block"),
-      'LinkBlock' => _("Link Block")
-    }[str] || str
-  end
+  FLEXIBLE_TEMPLATE_AVAILABLE_BLOCKS = {
+    'ListBlock' => _("List Block"),
+    'LinkBlock' => _("Link Block"),
+  }
+
+
+#TODO add your own helpers here
+#  FLEXIBLE_TEMPLATE_BLOCK_HELPER = {
+#      'list_content' => _("Simple List Content"),
+#    }
+
 
 end
