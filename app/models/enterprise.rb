@@ -5,7 +5,7 @@ class Enterprise < ActiveRecord::Base
     enterprise_profile = Profile.create(:identifier => enterprise.name)  
   end
   
-  has_one :enterprise_profile, :class_name => Profile, :as => :profile_owner
+  has_one :enterprise_profile, :class_name => 'Profile', :as => :profile_owner
    
   def name=(a_name)
     enterprise_profile.name = a_name

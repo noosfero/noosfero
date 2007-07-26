@@ -74,7 +74,7 @@ class UserTest < Test::Unit::TestCase
 
     user = User.create!(:login => 'new_user', :email => 'new_user@example.com', :password => 'test', :password_confirmation => 'test')
 
-    assert Profile.exists?(['profile_owner_id = ? and profile_owner_type = "User"', user.id])
+    assert Profile.exists?(['profile_owner_id = ? and profile_owner_type = ?', user.id, 'User'])
 
     assert_equal users_count + 1, User.count
     assert_equal profiles_count + 1, Profile.count

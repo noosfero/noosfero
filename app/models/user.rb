@@ -5,10 +5,10 @@ require 'digest/sha1'
 class User < ActiveRecord::Base
 
   after_create do |user|
-    personal_profile = Profile.create!(:identifier => user.login)
+    Profile.create!(:identifier => user.login, :profile_owner_id => user.id, :profile_owner_type => 'User')
   end
   
-  has_one :personal_profile, :class_name => Profile, :as => :profile_owner
+  has_one :personal_profile, :class_name => 'Profile', :as => :profile_owner
   
   # Virtual attribute for the unencrypted password
   attr_accessor :password
