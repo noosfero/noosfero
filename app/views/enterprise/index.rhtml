@@ -1,3 +1,5 @@
-<p> <%= link_to _('Register new enterprise'), :action => 'register' %> </p>
+<p> <%= link_to _('Register new enterprise'), :action => 'register_form' %> </p>
 <h2> <%= _('Listing my enterprises') %> </h2>
-<%= render :partial => 'enterprise', :collection => @my_enterprises %>
+<ul>
+  <%= render :partial => 'enterprise', :collection => @my_enterprises %>
+</ul>

@@ -7,7 +7,7 @@ class Enterprise < ActiveRecord::Base
   
   has_one :enterprise_profile, :class_name => 'Profile', :as => :profile_owner
   has_many :affiliations
-  has_many :users, :through => :affiliation 
+  has_many :users, :through => :affiliations 
   belongs_to :manager, :class_name => 'User'
 
   validates_presence_of :name, :manager_id

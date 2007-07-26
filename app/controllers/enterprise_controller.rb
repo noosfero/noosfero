@@ -6,29 +6,22 @@ class EnterpriseController < ApplicationController
     @enterprises = Enterprise.find(:all) - @my_enterprises
   end
   
-  def register
-    unless logged_in?
-      redirect_to :controller => 'account'
-    end
-  end
-
   def register_form
+    redirect_to :controller => 'account' unless logged_in?
+    @enterprise = Enterprise.new()
     @vitual_communities = VirtualCommunity.find(:all)
   end
 
-  def choose_validation_entity_or_net
+  def register
     @enterprise = Enterprise.new(params[:enterprise])
-  end
-
-  def create
-    @enterprise = Enterprise.new(params[:enterprise])
-    @enterprise.manager = current_user
+    @enterprise.manager_id = current_user.id
     if @enterprise.save
+      @enterprise.users << current_user
       flash[:notice] = _('Enterprise was succesfully created')
-      redirect_to :action => 'register'
+      redirect_to :action => 'index'
     else
       flash[:notice] = _('Enterprise was not created')
-      render :action => 'choose_validation_entity_or_net'
+      render :action => 'register'
     end
   end
 end

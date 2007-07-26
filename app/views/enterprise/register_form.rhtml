@@ -2,7 +2,7 @@
 
 <h2><%= _('Register enterprise') %></h2>
 
-<% form_tag :action => 'choose_validation_entity_or_net' do %>
+<% form_tag :action => 'register' do %>
 <p><label for="name"><%= _('Name') %></label><br/>
 <%= text_field 'enterprise', 'name', 'size' => 20 %></p>
 
@@ -30,6 +30,6 @@
 <p><label for="management_information"><%= _('Management Information') %></label><br/>
 <%= text_area 'enterprise', 'management_information', 'cols' => 40, 'rows' => 20 %></p>
 
-<p><%= submit_tag 'Send' %>
-<%= link_to 'Cancel', :action => 'register' %></p>
+<p><%= submit_tag _('Register') %>
+<%= link_to _('Cancel'), :action => 'register' %></p>
 <% end %>
