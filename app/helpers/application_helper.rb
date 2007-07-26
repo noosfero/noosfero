@@ -84,6 +84,7 @@ module ApplicationHelper
        [ _('My accont'), { :controller => 'account' } ],
        [ _('My profile'), { :controller => 'ble'} ],
        [ _('My groups'), { :controller => 'bli'} ],
+       [ _('My enterprises'), { :controller => 'enterprise'}]
     ].map do |link|
       link_to link[0], link[1]
     end.join(' ')
