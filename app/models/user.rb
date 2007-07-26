@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   
   has_one :personal_profile, :class_name => 'Profile', :as => :profile_owner
   has_many :affiliations
-  has_many :enterprises, :through => :affiliation 
+  has_many :enterprises, :through => :affiliations
   # Virtual attribute for the unencrypted password
   attr_accessor :password
 

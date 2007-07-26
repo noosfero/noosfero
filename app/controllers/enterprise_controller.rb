@@ -2,7 +2,8 @@
 class EnterpriseController < ApplicationController
 
   def index
-    @my_enterprises = current_user.enterprises
+    @my_enterprises = current_user.enterprises if current_user
+    @enterprises = Enterprise.find(:all) - @my_enterprises
   end
   
   def register
@@ -21,6 +22,7 @@ class EnterpriseController < ApplicationController
 
   def create
     @enterprise = Enterprise.new(params[:enterprise])
+    @enterprise.manager = current_user
     if @enterprise.save
       flash[:notice] = _('Enterprise was succesfully created')
       redirect_to :action => 'register'
