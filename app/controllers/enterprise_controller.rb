@@ -1,5 +1,5 @@
 # Manage enterprises by providing an interface to register, activate and manage them
-class EnterprisesController < ApplicationController
+class EnterpriseController < ApplicationController
 
   def register_form
     @vitual_communities = VirtualCommunity.find(:all)
@@ -15,7 +15,5 @@ class EnterprisesController < ApplicationController
   end
 
   def choose_validation_entity_or_net
-#    @options = Entity_or_Net.find(:all))
-  @options = ['a', 'b', 'c']
   end
 end
