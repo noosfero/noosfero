@@ -1,6 +1,10 @@
 # Manage enterprises by providing an interface to register, activate and manage them
 class EnterpriseController < ApplicationController
 
+  def index
+    @my_enterprises = current_user.enterprises
+  end
+  
   def register
     unless logged_in?
       redirect_to :controller => 'account'

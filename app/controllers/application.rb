@@ -12,9 +12,7 @@ class ApplicationController < ActionController::Base
     # Load the owner 
   def load_owner
     # TODO: this should not be hardcoded
-    if Profile.exists?(1)
-      @owner = Profile.find(1) 
-    end
+    @owner = Profile.find(1) if Profile.exists?(1)
   end
 
   protected
@@ -28,10 +26,6 @@ class ApplicationController < ActionController::Base
       @virtual_community = @domain.virtual_community
       @profile = @domain.profile
     end
-  end
-
-  def flexible_template_onwer
-    @virtual_community_admin || @profile
   end
 
   def self.acts_as_virtual_community_admin_controller

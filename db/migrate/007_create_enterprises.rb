@@ -11,6 +11,7 @@ class CreateEnterprises < ActiveRecord::Migration
       t.column :economic_activity,       :string
       t.column :management_information,  :string
       t.column :active,                  :boolean, :default => "false"
+      t.column :manager_id,              :integer
     end
   end
 
