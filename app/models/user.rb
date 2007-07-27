@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   end
   
   has_one :person
+
   # Virtual attribute for the unencrypted password
   attr_accessor :password
 

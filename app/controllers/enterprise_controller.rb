@@ -4,7 +4,7 @@ class EnterpriseController < ApplicationController
   before_filter :logon
   
   def index
-    @my_enterprises = current_user.profiles.select{|p| p.kind_of?(Enterprise)}
+    @my_enterprises = current_user.person.profiles.select{|p| p.kind_of?(Enterprise)}
     @enterprises = Enterprise.find(:all) - @my_enterprises
   end
   
@@ -15,9 +15,8 @@ class EnterpriseController < ApplicationController
 
   def register
     @enterprise = Enterprise.new(params[:enterprise])
-    @enterprise.manager_id = current_user.id
     if @enterprise.save
-      @enterprise.users << current_user
+      @enterprise.people << current_user.person
       flash[:notice] = _('Enterprise was succesfully created')
       redirect_to :action => 'index'
     else

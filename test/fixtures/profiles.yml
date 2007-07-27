@@ -32,6 +32,7 @@ ze:
   id: 4
   name: "Zé"
   type: 'Person'
+  user_id: 3
   identifier: ze
   virtual_community_id: 1
   flexible_template_template: 'default'
