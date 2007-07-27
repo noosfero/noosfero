@@ -4,7 +4,7 @@ class EnterpriseController < ApplicationController
   before_filter :logon
   
   def index
-    @my_enterprises = current_user.person.profiles.select{|p| p.kind_of?(Enterprise)}
+    @my_enterprises = current_user.person.my_enterprises
     @enterprises = Enterprise.find(:all) - @my_enterprises
   end
   
