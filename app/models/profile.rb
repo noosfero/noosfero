@@ -17,6 +17,8 @@ class Profile < ActiveRecord::Base
   community
   ]
 
+  has_many :affiliations
+  has_many :users, :through => :affiliations
   has_many :domains, :as => :owner
   belongs_to :virtual_community
   belongs_to :profile_owner, :polymorphic => true
