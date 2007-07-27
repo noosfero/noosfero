@@ -41,10 +41,12 @@ class User < ActiveRecord::Base
     self.class.encrypt(password, salt)
   end
 
+  # returns +true+ if the +password+ is the correct one for the user
   def authenticated?(password)
     crypted_password == encrypt(password)
   end
 
+  # tells if the user has an authentication cookie 
   def remember_token?
     remember_token_expires_at && Time.now.utc < remember_token_expires_at 
   end
@@ -56,6 +58,7 @@ class User < ActiveRecord::Base
     save(false)
   end
 
+  # throws the auth cookie away
   def forget_me
     self.remember_token_expires_at = nil
     self.remember_token            = nil
@@ -87,7 +90,9 @@ class User < ActiveRecord::Base
       self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{login}--") if new_record?
       self.crypted_password = encrypt(password)
     end
-    
+   
+    # auxiliary method to test if a password must be supplied (i.e. returns
+    # +true+ when creating an user without supplying a password)
     def password_required?
       crypted_password.blank? || !password.blank?
     end
