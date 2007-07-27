@@ -6,9 +6,9 @@ johndoe:
   virtual_community_id: 1
   profile_owner_id: 1
   profile_owner_type: 'User'
-  template: 'default'
-  icon_theme: 'default'
-  theme: 'default'
+  flexible_template_template: 'default'
+  flexible_template_icon_theme: 'default'
+  flexible_template_theme: 'default'
 joerandomhacker:
   id: 2
   name: 'Joe Random Hacker'
@@ -16,22 +16,22 @@ joerandomhacker:
   virtual_community_id: 1
   profile_owner_id: 2
   profile_owner_type: 'User'
-  template: 'simple'
-  icon_theme: 'simple'
-  theme: 'simple'
+  flexible_template_template: 'simple'
+  flexible_template_icon_theme: 'simple'
+  flexible_template_theme: 'simple'
 john_and_joe:
   id: 3
   name: "John and Joe's Production Cooperative"
   identifier: john_and_joe
   virtual_community_id: 1
-  template: 'simple'
-  icon_theme: 'simple'
-  theme: 'simple'
+  flexible_template_template: 'simple'
+  flexible_template_icon_theme: 'simple'
+  flexible_template_theme: 'simple'
 ze:
   id: 4
   name: "Zé"
   identifier: ze
   virtual_community_id: 1
-  template: 'default'
-  icon_theme: 'default'
-  theme: 'default'
+  flexible_template_template: 'default'
+  flexible_template_icon_theme: 'default'
+  flexible_template_theme: 'default'

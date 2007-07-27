@@ -6,9 +6,9 @@ class CreateProfiles < ActiveRecord::Migration
       t.column :virtual_community_id, :integer
       t.column :profile_owner_id,     :integer
       t.column :profile_owner_type,   :string
-      t.column :template,             :string, :default => "default"
-      t.column :theme,                :string, :default => "default"
-      t.column :icon_theme,           :string, :default => "default"
+      t.column :flexible_template_template,             :string, :default => "default"
+      t.column :flexible_template_theme,                :string, :default => "default"
+      t.column :flexible_template_icon_theme,           :string, :default => "default"
     end
   end
 
