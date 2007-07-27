@@ -7,6 +7,7 @@ class AccountController < ApplicationController
     end
   end
 
+  # action to perform login to the application
   def login
     return unless request.post?
     self.current_user = User.authenticate(params[:login], params[:password])
@@ -22,6 +23,7 @@ class AccountController < ApplicationController
     end
   end
 
+  # action to register an user to the application
   def signup
     begin
       @user = User.new(params[:user])
@@ -35,6 +37,7 @@ class AccountController < ApplicationController
     end
   end
   
+  # action to perform logout from the application
   def logout
     self.current_user.forget_me if logged_in?
     cookies.delete :auth_token
