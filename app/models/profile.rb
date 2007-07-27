@@ -3,6 +3,14 @@
 # which by default is the one returned by VirtualCommunity:default.
 class Profile < ActiveRecord::Base
 
+  after_create do |profile|
+    homepage = Comatose::Page.new
+    homepage.title = profile.name
+    homepage.parent = Comatose::Page.root
+    homepage.slug = profile.identifier
+    homepage.save!
+  end
+
   act_as_flexible_template
 
   # Valid identifiers must match this format.
@@ -33,7 +41,7 @@ class Profile < ActiveRecord::Base
     self[:identifier] = value
   end
 
-  validates_presence_of :identifier
+  validates_presence_of :identifier, :name
   validates_format_of :identifier, :with => IDENTIFIER_FORMAT
   validates_exclusion_of :identifier, :in => RESERVED_IDENTIFIERS
 

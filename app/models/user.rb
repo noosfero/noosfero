@@ -5,7 +5,7 @@ require 'digest/sha1'
 class User < ActiveRecord::Base
 
   after_create do |user|
-    Person.create!(:identifier => user.login, :user_id => user.id)
+    Person.create!(:identifier => user.login, :name => user.login, :user_id => user.id)
   end
   
   has_one :person

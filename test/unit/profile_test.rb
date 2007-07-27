@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class ProfileTest < Test::Unit::TestCase
-  fixtures :profiles, :virtual_communities, :users
+  fixtures :profiles, :virtual_communities, :users, :comatose_pages
 
   def test_identifier_validation
     p = Profile.new
@@ -44,6 +44,23 @@ class ProfileTest < Test::Unit::TestCase
     assert_raise ArgumentError do
       p1.identifier = 'bli'
     end
+  end
+
+  # when a profile called a page named after it  must also be created.
+  def test_should_create_homepage_when_creating_profile
+    Profile.create!(:identifier => 'newprofile', :name => 'New Profile')
+    page = Comatose::Page.find_by_path('newprofile')
+    assert_not_nil page
+    assert_equal 'New Profile', page.title
+  end
+
+  def test_name_should_be_mandatory
+    p = Profile.new
+    p.valid?
+    assert p.errors.invalid?(:name)
+    p.name = 'a very unprobable name'
+    p.valid?
+    assert !p.errors.invalid?(:name)
   end
 
 end

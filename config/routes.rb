@@ -15,6 +15,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # user account controller
   map.connect 'account/:action', :controller => 'account'
+  map.connect 'doc', :controller => 'doc'
 
   # administrative tasks for a virtual community
   map.connect 'admin/:controller/:action/:id'
@@ -22,9 +23,8 @@ ActionController::Routing::Routes.draw do |map|
   # profile customization for profiles
   map.connect 'customize/:profile/:controller/:action/:id'
 
-  # Allow downloading Web Service WSDL as a file with an extension
-  # instead of a file named 'wsdl'
-  map.connect ':controller/service.wsdl', :action => 'wsdl'
+  # content viewwing:
+  map.connect ':profile/*page', :controller => 'content_viewer', :action => 'view_page'
 
   # Install the default route as the lowest priority.
   map.connect ':controller/:action/:id'
