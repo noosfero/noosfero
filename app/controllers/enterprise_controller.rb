@@ -26,6 +26,8 @@ class EnterpriseController < ApplicationController
     end
   end
 
+  protected
+
   def logon
     redirect_to :controller => 'account' unless logged_in?
   end
