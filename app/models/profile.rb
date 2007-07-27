@@ -39,8 +39,8 @@ class Profile < ActiveRecord::Base
 
   # A profile_owner cannot have more than one profile, but many profiles can exist
   # without being associated to a particular user.
-  validates_uniqueness_of :profile_owner_id, :scope => :profile_owner_type, :if => (lambda do |profile|
-    ! profile.profile_owner_id.nil?
+  validates_uniqueness_of :user_id, :if => (lambda do |profile|
+    ! profile.user_id.nil?
   end)
 
   # creates a new Profile. By default, it is attached to the default

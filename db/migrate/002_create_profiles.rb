@@ -2,6 +2,7 @@ class CreateProfiles < ActiveRecord::Migration
   def self.up
     create_table :profiles do |t|
       t.column :name,                                   :string
+      t.column :type,                                   :string
       t.column :identifier,                             :string
       t.column :virtual_community_id,                   :integer
       t.column :flexible_template_template,             :string, :default => "default"

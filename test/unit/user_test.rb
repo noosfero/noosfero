@@ -68,16 +68,16 @@ class UserTest < Test::Unit::TestCase
     assert_nil users(:johndoe).remember_token
   end
 
-  def test_should_create_profile
+  def test_should_create_person
     users_count = User.count
-    profiles_count = Profile.count
+    person_count = Person.count
 
     user = User.create!(:login => 'new_user', :email => 'new_user@example.com', :password => 'test', :password_confirmation => 'test')
 
-    assert Profile.exists?(['profile_owner_id = ? and profile_owner_type = ?', user.id, 'User'])
+    assert Person.exists?(['user_id = ?', user.id])
 
     assert_equal users_count + 1, User.count
-    assert_equal profiles_count + 1, Profile.count
+    assert_equal person_count + 1, Person.count
   end
 
   def test_login_validation

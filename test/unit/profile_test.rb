@@ -39,37 +39,6 @@ class ProfileTest < Test::Unit::TestCase
     assert_kind_of VirtualCommunity, p.virtual_community
   end
 
-  def test_can_have_user
-    p = profiles(:johndoe)
-    assert_kind_of User, p.profile_owner
-  end
-
-  def test_may_have_no_user
-    p = profiles(:john_and_joe)
-    assert_nil p.profile_owner
-    assert p.valid?
-  end
-
-  def test_only_one_profile_per_user
-    p1 = profiles(:johndoe)
-    assert_equal users(:johndoe), p1.profile_owner
-    
-    p2 = Profile.new
-    p2.profile_owner = users(:johndoe)
-    assert !p2.valid?
-    assert p2.errors.invalid?(:profile_owner_id)
-  end
-
-  def test_several_profiles_without_user
-    p1 = profiles(:john_and_joe)
-    assert p1.valid?
-    assert_nil p1.profile_owner
-
-    p2 = Profile.new
-    assert !p2.valid?
-    assert !p2.errors.invalid?(:profile_owner_id)
-  end
-
   def test_cannot_rename
     p1 = profiles(:johndoe)
     assert_raise ArgumentError do

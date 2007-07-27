@@ -2,6 +2,7 @@
 johndoe:
   id: 1
   name: 'John Doe'
+  type: 'Person' 
   identifier: johndoe
   virtual_community_id: 1
   user_id: 1
@@ -11,6 +12,7 @@ johndoe:
 joerandomhacker:
   id: 2
   name: 'Joe Random Hacker'
+  type: 'Person'
   identifier: joerandomhacker
   virtual_community_id: 1
   user_id: 2
@@ -20,6 +22,7 @@ joerandomhacker:
 john_and_joe:
   id: 3
   name: "John and Joe's Production Cooperative"
+  type: 'Person'
   identifier: john_and_joe
   virtual_community_id: 1
   flexible_template_template: 'simple'
@@ -28,6 +31,7 @@ john_and_joe:
 ze:
   id: 4
   name: "Zé"
+  type: 'Person'
   identifier: ze
   virtual_community_id: 1
   flexible_template_template: 'default'
