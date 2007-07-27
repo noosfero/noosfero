@@ -92,11 +92,27 @@ module ApplicationHelper
   end
 
   def header
-    virtual_community_identification + (logged_in? ? user_links : login_box)
+    virtual_community_identification + login_or_register_or_logout
+  end
+
+  def login_or_register_or_logout
+    if logged_in?
+      user_links + logout_box
+    else
+      login_box + register_box
+    end
   end
 
   def login_box
     content_tag('div', (link_to _('Login'), :controller => 'account', :action => 'login'), :id => 'login_box')
+  end
+
+  def register_box
+    content_tag('div', (link_to _('Not a user yet? Register now!'), :controller => 'account', :action => 'signup'), :id => 'register_box')
+  end
+
+  def logout_box
+    content_tag('div', (link_to _('Logout'), { :controller => 'account', :action => 'logout'}, :method => 'post'), :id => 'logout_box')
   end
 
   # FIXME

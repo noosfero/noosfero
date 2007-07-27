@@ -1,7 +1,7 @@
 require "#{File.dirname(__FILE__)}/../test_helper"
 
 class EnableDisableFeaturesTest < ActionController::IntegrationTest
-  fixtures :virtual_communities, :users, :profiles
+  fixtures :domains, :virtual_communities, :users, :profiles
 
   def test_enable_features
     uses_host 'anhetegua.net'
