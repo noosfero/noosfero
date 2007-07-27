@@ -5,12 +5,10 @@ require 'digest/sha1'
 class User < ActiveRecord::Base
 
   after_create do |user|
-    Person.create!(:identifier => user.login, :profile_owner_id => user.id, :profile_owner_type => 'User')
+    Person.create!(:identifier => user.login, :user_id => user.id)
   end
   
-  has_one :personal_profile, :class_name => 'Profile', :as => :profile_owner
-  has_many :affiliations
-  has_many :profiles, :through => :affiliations
+  has_one :person
   # Virtual attribute for the unencrypted password
   attr_accessor :password
 
@@ -41,12 +39,10 @@ class User < ActiveRecord::Base
     self.class.encrypt(password, salt)
   end
 
-  # returns +true+ if the +password+ is the correct one for the user
   def authenticated?(password)
     crypted_password == encrypt(password)
   end
 
-  # tells if the user has an authentication cookie 
   def remember_token?
     remember_token_expires_at && Time.now.utc < remember_token_expires_at 
   end
@@ -58,7 +54,6 @@ class User < ActiveRecord::Base
     save(false)
   end
 
-  # throws the auth cookie away
   def forget_me
     self.remember_token_expires_at = nil
     self.remember_token            = nil
@@ -90,9 +85,7 @@ class User < ActiveRecord::Base
       self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{login}--") if new_record?
       self.crypted_password = encrypt(password)
     end
-   
-    # auxiliary method to test if a password must be supplied (i.e. returns
-    # +true+ when creating an user without supplying a password)
+    
     def password_required?
       crypted_password.blank? || !password.blank?
     end

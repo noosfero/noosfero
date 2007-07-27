@@ -4,8 +4,7 @@ johndoe:
   name: 'John Doe'
   identifier: johndoe
   virtual_community_id: 1
-  profile_owner_id: 1
-  profile_owner_type: 'User'
+  user_id: 1
   flexible_template_template: 'default'
   flexible_template_icon_theme: 'default'
   flexible_template_theme: 'default'
@@ -14,8 +13,7 @@ joerandomhacker:
   name: 'Joe Random Hacker'
   identifier: joerandomhacker
   virtual_community_id: 1
-  profile_owner_id: 2
-  profile_owner_type: 'User'
+  user_id: 2
   flexible_template_template: 'simple'
   flexible_template_icon_theme: 'simple'
   flexible_template_theme: 'simple'
