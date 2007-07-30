@@ -9,7 +9,7 @@ class Person < Profile
   has_many :other_friendships
   has_many :other_friend, :class_name => 'Person', :through => :other_friendships, :foreign_key => 'friend_id'
 
-  def my_enterprises
-    related_profiles.select{ |p| p.kind_of?(Enterprise) }
+  def my_enterprises(status = true)
+    related_profiles.find(:all, :conditions => ['type = ? and active = ?', 'Enterprise', status])
   end
 end

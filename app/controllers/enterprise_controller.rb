@@ -5,6 +5,7 @@ class EnterpriseController < ApplicationController
   
   def index
     @enterprises = Enterprise.find(:all) - @my_enterprises
+    @pending_enterprises = current_user.person.my_enterprises(false)
   end
   
   def register_form
@@ -21,7 +22,7 @@ class EnterpriseController < ApplicationController
       redirect_to :action => 'index'
     else
       flash[:notice] = _('Enterprise was not created')
-      render :action => 'register'
+      render :action => 'register_form'
     end
   end
 

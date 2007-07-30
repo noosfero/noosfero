@@ -45,9 +45,7 @@ class Profile < ActiveRecord::Base
 
   # A profile_owner cannot have more than one profile, but many profiles can exist
   # without being associated to a particular user.
-  validates_uniqueness_of :user_id, :if => (lambda do |profile|
-    ! profile.user_id.nil?
-  end)
+  validates_uniqueness_of :user_id, :allow_nil =>true
 
   # creates a new Profile. By default, it is attached to the default
   # VirtualCommunity (see VirtualCommunity#default), unless you tell it
