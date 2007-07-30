@@ -29,8 +29,6 @@ class Profile < ActiveRecord::Base
   has_many :people, :through => :affiliations
   has_many :domains, :as => :owner
   belongs_to :virtual_community
-  belongs_to :profile_owner, :polymorphic => true
-
 
   # Sets the identifier for this profile. Raises an exception when called on a
   # existing profile (since profiles cannot be renamed)

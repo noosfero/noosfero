@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class EnterpriseTest < Test::Unit::TestCase
-  fixtures :profiles, :virtual_communities, :users
+  fixtures :profiles, :virtual_communities, :users, :comatose_pages
 
   def test_identifier_validation
     p = Enterprise.new
@@ -49,7 +49,7 @@ class EnterpriseTest < Test::Unit::TestCase
   def test_numericality_year
     count = Enterprise.count
 
-    e = Enterprise.new(:identifier => 'test_numericality_year')
+    e = Enterprise.new(:identifier => 'test_numericality_year', :name => 'numeric_year')
     e.foundation_year = 'xxxx'
     assert ! e.save
 
