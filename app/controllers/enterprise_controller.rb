@@ -1,10 +1,9 @@
 # Manage enterprises by providing an interface to register, activate and manage them
 class EnterpriseController < ApplicationController
 
-  before_filter :logon
+  before_filter :logon, :my_enterprises
   
   def index
-    @my_enterprises = current_user.person.my_enterprises
     @enterprises = Enterprise.find(:all) - @my_enterprises
   end
   
@@ -25,9 +24,17 @@ class EnterpriseController < ApplicationController
     end
   end
 
+  def show
+    @enterprise = @my_enterprises.find{|e| e.id == params[:id]}
+  end
+  
   protected
 
   def logon
     redirect_to :controller => 'account' unless logged_in?
+  end
+
+  def my_enterprises
+    @my_enterprises = current_user.person.my_enterprises
   end
 end
