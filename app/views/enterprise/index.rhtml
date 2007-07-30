@@ -3,3 +3,8 @@
 <ul>
   <%= render :partial => 'enterprise', :collection => @my_enterprises %>
 </ul>
+
+<h2> <%= _('Listing pending enterprises') %> </h2>
+<ul>
+  <%= render :partial => 'enterprise', :collection => @pending_enterprises %>
+</ul>

@@ -14,6 +14,7 @@ class EnterpriseController < ApplicationController
 
   def register
     @enterprise = Enterprise.new(params[:enterprise])
+    @enterprise.identifier = @enterprise.name
     if @enterprise.save
       @enterprise.people << current_user.person
       flash[:notice] = _('Enterprise was succesfully created')
