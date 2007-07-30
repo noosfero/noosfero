@@ -38,3 +38,12 @@ ze:
   flexible_template_template: 'default'
   flexible_template_icon_theme: 'default'
   flexible_template_theme: 'default'
+colivre:
+  id: 5
+  name: "cooptec_livre"
+  type: 'Enterprise'
+  identifier: 'colivre'
+  virtual_community_id: 1
+  flexible_template_template: 'default'
+  flexible_template_icon_theme: 'default'
+  flexible_template_theme: 'default'
