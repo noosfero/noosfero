@@ -23,3 +23,20 @@ class ActionController::Base
   end
 
 end
+
+class ActiveRecord::Base
+
+  # declares an ActiveRecord class to be a design. The class is automatically
+  # associated with a +has_many+ associationto Design::Block.
+  #
+  # The underlying database table *must* have a column named +design_data+ of
+  # type +text+. +string+ should work too, but you may run into problems
+  # related to length limit, so unless you have a very good reason not to, use
+  # +text+ type.
+  def self.acts_as_design
+    has_many :boxes, :class_name => 'Design::Box', :as => :owner
+    def blocks
+      self.boxes.collect{|b| b.blocks}.flatten
+    end
+  end
+end
