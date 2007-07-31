@@ -1,6 +1,7 @@
 class ManageTemplateMigration < ActiveRecord::Migration
   def self.up
-    create_table :boxes do |t|
+
+    create_table :design_boxes do |t|
       t.column :name,       :string
       t.column :title,      :string
       t.column :number,     :integer
@@ -8,7 +9,7 @@ class ManageTemplateMigration < ActiveRecord::Migration
       t.column :owner_id,   :integer
     end
 
-    create_table :blocks do |t|
+    create_table :design_blocks do |t|
       t.column :name,     :string
       t.column :title,    :string
       t.column :box_id,   :integer
@@ -20,8 +21,8 @@ class ManageTemplateMigration < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :boxes
-    drop_table :blocks
+    drop_table :design_boxes
+    drop_table :design_blocks
   end
 
 end
