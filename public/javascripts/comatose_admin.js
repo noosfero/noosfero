@@ -1,0 +1,1 @@
+../../vendor/plugins/comatose/resources/public/javascripts/comatose_admin.js
