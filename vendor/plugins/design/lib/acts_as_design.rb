@@ -31,6 +31,7 @@ class ActiveRecord::Base
         n = design.boxes.size + 1
         design.boxes << Design::Box.new(:name => 'Block', :number => n)
       end
+      design.boxes[1].blocks << Design::MainBlock.new(:position => 1)
     end
 
     def design_data
