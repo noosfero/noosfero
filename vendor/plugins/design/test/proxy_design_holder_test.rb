@@ -30,6 +30,10 @@ class ProxyDesignHolderTest < Test::Unit::TestCase
   end
 
   def test_should_not_proxy_unrelated_method_calls
+    # to be safe
+    assert_nothing_raised do
+      1.succ
+    end
     assert_raise NoMethodError do
       design = Design::ProxyDesignHolder.new(1)
       design.succ
