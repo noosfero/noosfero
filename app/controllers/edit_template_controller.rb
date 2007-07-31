@@ -1,6 +1,10 @@
 class EditTemplateController < ApplicationController
 
-  uses_flexible_template :edit => true, :owner => 'owner'
+  design_editor :holder => 'virtual_community', :autosave => true
+  
+  def index
+    redirect_to :action => 'design_editor'
+  end
 
   FLEXIBLE_TEMPLATE_AVAILABLE_BLOCKS = {
     'ListBlock' => _("List Block"),
