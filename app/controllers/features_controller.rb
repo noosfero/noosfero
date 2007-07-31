@@ -1,13 +1,5 @@
 class FeaturesController < ApplicationController
 
-
-  # FIXME: temp test code, remove from here
-  design :holder => 'virtual_community'
-  def test
-    render :inline => '<%= design_display("bli") %>'
-  end
-  ################################
-
   acts_as_virtual_community_admin_controller
 
   def index
