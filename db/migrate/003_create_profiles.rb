@@ -8,7 +8,7 @@ class CreateProfiles < ActiveRecord::Migration
       t.column :flexible_template_template,             :string, :default => "default"
       t.column :flexible_template_theme,                :string, :default => "default"
       t.column :flexible_template_icon_theme,           :string, :default => "default"
-      t.column :active,                                 :boolean, :default => "false"
+      t.column :active,                                 :boolean, :default => false
       
       #person fields
       t.column :user_id,                                :integer
