@@ -11,17 +11,50 @@ class EnterpriseControllerTest < Test::Unit::TestCase
     @controller = EnterpriseController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-    login_as('ze')
   end
 
-  def test_index
+  def test_logged_index
+    login_as 'ze'
     get :index
     assert_response :success
 
-    assert_kind_of Array, assigns(:my_enterprises)
-    
     assert_kind_of Array, assigns(:pending_enterprises)
   end
 
+  def test_not_logged_index
+    get :index
+    assert_response :redirect
+
+    assert_redirected_to :controller => 'account'
+  end
+
+  def test_my_enterprises
+    login_as 'ze'
+    assert_not_nil assigns(:my_enterprises)
+    assert_kind_of Array, assigns(:my_enterprises)
+  end
+
+  def test_register_form
+    login_as 'ze'
+    get :register_form
+    assert_response :success
+  end
+
+  def test_register
+    login_as 'ze'
+    post :register, :enterprise => {:name => 'register_test'}
+    assert_not_nil assigns(:enterprise)
+
+    assert_response :redirect
+
+    assert_redirected_to :action => 'index'
+  end
+
+  def test_fail_register
+    login_as 'ze'
+    post :register, :enterprise => {:name => ''}
+    assert_nil assigns(:enterprise)
+
+  end
   
 end
