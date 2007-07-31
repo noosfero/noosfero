@@ -4,7 +4,7 @@ class FixedDesignHolderTest < Test::Unit::TestCase
 
   include Design
 
-  def test_explicit_design
+  def test_fixed_design
     controller = FixedDesignTestController.new
     assert_kind_of Design::FixedDesignHolder, controller.design
     assert_equal 'some_template', controller.design.template
@@ -13,7 +13,7 @@ class FixedDesignHolderTest < Test::Unit::TestCase
     assert_equal [FixedDesignTestController::BOX1, FixedDesignTestController::BOX2, FixedDesignTestController::BOX3], controller.design.boxes
   end
 
-  def test_explicit_design_should_have_sensible_defaults
+  def test_fixed_design_should_have_sensible_defaults
     controller = FixedDesignDefaultTestController.new
     assert_kind_of Design::FixedDesignHolder, controller.design
     assert_equal 'default', controller.design.template
