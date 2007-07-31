@@ -76,45 +76,40 @@ module Design
       end
     end
 
-    # TODO: test stuff below this comment
+    ####################################
+    # TEMPLATES
+    ####################################
 
-    ########################################################
-    # Template
-    ########################################################
-    # Load all the javascript files of a existing template with the template_name passed as argument.
+    # Generates <script> tags for all existing javascript files of the current
+    # design template.
     #
-    # The files loaded are in the path:
-    #
-    # 'public/templates/#{template_name}/javascripts/*'
-    #
-    # If a invalid template it's passed the default template is applied
-    def javascript_include_tag_for_template
-      template_javascript_dir = Dir.glob("#{RAILS_ROOT}/public/templates/#{@ft_config[:template]}/javascripts/*.js")
+    # The javascript files must be named as *.js and must be under
+    # #{RAILS_ROOT}/public/#{Design.design_root}/templates/#{templatename}/javascripts.
+    def design_template_javascript_include_tags
+      pattern = File.join(Design.public_filesystem_root, Design.design_root, 'templates', design.template, 'javascripts', '*.js')
+      javascript_files = Dir.glob(pattern)
 
-      return if template_javascript_dir.blank?
+      return '' if javascript_files.empty?
 
-      parse_path(template_javascript_dir).map do |filename|
-        javascript_include_tag(filename)
-      end
+      javascript_files.map do |filename|
+        javascript_include_tag('/' + File.join(Design.design_root, 'templates', design.template, 'javascripts', File.basename(filename)))
+      end.join("\n")
     end
 
-    # Load all the css files of a existing template with the template_name passed as argument.
+    # Generates links to all the CSS files provided by the template being used.
     #
-    # The files loaded are in the path:
-    #
-    # 'public/templates/#{template_name}/stylesheets/*'
-    # If a invalid template it's passed the default template is applied
-    def stylesheet_link_tag_for_template
-      template_stylesheet_dir = Dir.glob("#{RAILS_ROOT}/public/templates/#{@ft_config[:template]}/stylesheets/*.css")
+    # The CSS files must be named as *.css and live in the directory
+    # #{RAILS_ROOT}/public/#{Design.design_root}/templates/#{templatename}/stylesheets/
+    def design_template_stylesheet_link_tags
 
-      if template_stylesheet_dir.blank?
-        flash[:notice] = _("There is no stylesheets in directory %s of template %s.") % [ template_stylesheet_dir, @ft_config[:template]]
-        return
-      end
+      pattern = File.join(Design.public_filesystem_root, Design.design_root, 'templates', design.template, 'stylesheets', '*.css')
+      stylesheet_files = Dir.glob(pattern)
 
-      parse_path(template_stylesheet_dir).map do |filename|
-        stylesheet_link_tag(filename)
-      end
+      return '' if stylesheet_files.empty?
+
+      stylesheet_files.map do |filename|
+        stylesheet_link_tag('/' + File.join(Design.design_root, 'templates', design.template, 'stylesheets', File.basename(filename)))
+      end.join("\n")
     end
 
 
@@ -122,42 +117,37 @@ module Design
     #THEMES 
     #################################################
 
-    # Load all the css files of a existing theme with the @ft_config[:theme] passed as argument in owner object.
+    # generates links for all existing theme CSS files in the current design.
     #
-    # The files loaded are in the path:
-    #
-    # 'public/themes/#{theme_name}/*'
-    # If a invalid theme it's passed the 'default' theme is applied
-    def stylesheet_link_tag_for_theme
-      path = "#{RAILS_ROOT}/public/themes/#{@ft_config[:theme]}/"
-      theme_dir = Dir.glob(path+"*")
+    # The CSS files must be named as *.css and live in the directory
+    # #{RAILS_ROOT}/public/#{Design.design_root}/themes/{theme_name}/
+    def design_theme_stylesheet_link_tags
+      pattern = File.join(Design.public_filesystem_root, Design.design_root, 'themes', design.theme, '*.css')
+      stylesheet_files = Dir.glob(pattern)
 
-      return if theme_dir.blank?
+      return '' if stylesheet_files.empty?
 
-      parse_path(theme_dir).map do |filename|
-        stylesheet_link_tag(filename)
-      end
+      stylesheet_files.map do |filename|
+        stylesheet_link_tag('/' + File.join(Design.design_root, 'themes', design.theme, File.basename(filename)))
+      end.join("\n")
 
     end
 
+    ###############################################
+    # ICON THEME STUFF
+    ###############################################
 
-    #Display a given icon passed as argument
-    #The icon path should be '/icons/{icon_theme}/{icon_image}'
-    def display_icon(icon, options = {})
-      image_tag("/icons/#{@ft_config[:icon_theme]}/#{icon}.png", options)
-    end
-
-    private
- 
-
-    # Check if the current controller is the controller that allows layout editing
-    def edit_mode?
-      controller.flexible_template_edit_template?
-    end 
-
-    def parse_path(files_path = [], remove_until = 'public')
-      remove_until = remove_until.gsub(/\//, '\/')
-      files_path.map{|f| f.gsub(/.*#{remove_until}/, '')}
+    # displays the icon given named after the +icon+ argument, using the
+    # current icon_theme.
+    #
+    # There must be a file named +icon+.png in the directory 
+    # #{RAILS_ROOT}/public/designs/icons/#{icon_theme}
+    # 
+    # Ths optional +options+ argument is passed untouched to the image_tag
+    # Rails helper
+    def design_display_icon(icon, options = {})
+      filename = (icon =~ /\.png$/) ? icon : (icon + '.png')
+      image_tag('/' + File.join(Design.design_root, 'icons', design.icon_theme, filename), options)
     end
 
   end # END OF module Helper

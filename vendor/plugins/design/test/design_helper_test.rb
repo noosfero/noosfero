@@ -38,6 +38,27 @@ class DesignHelperTestController < ActionController::Base
   def index
     render :inline => '<%= design_display("my content") %>'
   end
+
+  def javascript
+    render :inline => '<%=  design_template_javascript_include_tags %>'
+  end
+
+  def template_stylesheets
+    render :inline => '<%= design_template_stylesheet_link_tags  %>'
+  end
+
+  def theme_stylesheets
+    render :inline => '<%= design_theme_stylesheet_link_tags %>'
+  end
+
+  def icons
+    # one with extension and other without
+    render :inline => '
+      <%= design_display_icon("something") %>
+      <%= design_display_icon("another.png") %>
+    '
+  end
+
 end
 
 class DesignHelperTest < Test::Unit::TestCase
@@ -46,6 +67,12 @@ class DesignHelperTest < Test::Unit::TestCase
     @controller = DesignHelperTestController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
+
+    Design.public_filesystem_root = File.join(File.dirname(__FILE__))
+  end
+
+  def teardown
+    Design.public_filesystem_root = nil
   end
 
   def test_should_generate_all_boxes
@@ -76,6 +103,48 @@ class DesignHelperTest < Test::Unit::TestCase
   def test_should_put_string_as_is
     get :index
     assert_tag :tag => 'div', :content => "this is a fixed content block hacked for testing", :attributes => { :class => 'block' }
+  end
+
+  def test_should_provide_javascript_link_if_available
+    get :javascript
+    assert_tag :tag => 'script', :attributes => {
+      :type => 'text/javascript',
+      :src => '/designs/templates/default/javascripts/one.js'
+    }
+    assert_tag :tag => 'script', :attributes => {
+      :type => 'text/javascript',
+      :src => '/designs/templates/default/javascripts/two.js'
+    }
+  end
+
+  def test_should_provide_stylesheet_links_if_available
+    get :template_stylesheets
+    assert_tag :tag => 'link', :attributes => {
+      :type => 'text/css',
+      :href => '/designs/templates/default/stylesheets/one.css'
+    }
+    assert_tag :tag => 'link', :attributes => {
+      :type => 'text/css',
+      :href => '/designs/templates/default/stylesheets/two.css'
+    }
+  end
+
+  def test_should_provide_theme_stylesheet_links_if_available
+    get :theme_stylesheets
+    assert_tag :tag => 'link', :attributes => {
+      :type => 'text/css',
+      :href => '/designs/themes/default/one.css'
+    }
+  end
+
+  def test_should_support_displaying_icons
+    get :icons
+    assert_tag :tag => 'img', :attributes => {
+      :src => '/designs/icons/default/something.png'
+    }
+    assert_tag :tag => 'img', :attributes => {
+      :src => '/designs/icons/default/another.png'
+    }
   end
 
 end

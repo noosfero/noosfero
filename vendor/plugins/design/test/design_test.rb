@@ -31,4 +31,23 @@ class DesignTest < Test::Unit::TestCase
     assert_kind_of Hash, FixedDesignTestController.design_plugin_config
   end
 
+  def test_should_be_able_to_change_design_root
+    Design.design_root = 'some_design_root'
+    assert_equal 'some_design_root', Design.design_root
+    Design.design_root = nil # reset
+  end
+
+  def test_should_provide_a_sensible_default_for_design_root
+    Design.design_root = nil
+    assert_equal File.join('designs'), Design.design_root
+  end
+
+  # used for testing
+  def test_changing_public_filesystem_root
+    Design.public_filesystem_root = 'test'
+    assert_equal 'test', Design.public_filesystem_root
+    Design.public_filesystem_root = nil
+    assert_equal File.join(RAILS_ROOT, 'public'), Design.public_filesystem_root
+  end
+
 end

@@ -26,4 +26,35 @@ module Design
     data[:design] # redundant, but makes more clear the return value
   end
   protected :design
+
+  # returns the path to the designs directory, relative to the +public+
+  # directory of your application.
+  #
+  # Defaults to #{RAILS_ROOT}/public/designs
+  def Design.design_root
+    Design.instance_variable_get('@design_root') || 'designs'
+  end
+
+  # sets the path to the designs directory.
+  #
+  # Passing nil resets +design_root+ to its default value.
+  def Design.design_root=(dir)
+    Design.instance_variable_set('@design_root', dir)
+  end
+
+  # :nodoc:
+  #
+  # used for testing
+  def Design.public_filesystem_root
+    Design.instance_variable_get('@public_filesystem_root') || File.join(RAILS_ROOT, 'public')
+  end
+
+  # :nodoc:
+  #
+  # used for testing
+  def Design.public_filesystem_root=(value)
+    Design.instance_variable_set('@public_filesystem_root', value)
+  end
+
+
 end
