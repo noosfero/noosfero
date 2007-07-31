@@ -3,15 +3,29 @@ require File.expand_path(File.dirname(__FILE__) + "/../../../../config/environme
  
 require 'test/unit'
 
+# load the database schema for the tests
+ActiveRecord::Base.logger = Logger.new(File.dirname(__FILE__) + "/debug.log")
+load(File.dirname(__FILE__) + '/schema.rb')
+# change the table names for the tests to not touch
+Design::Box.set_table_name 'design_test_design_boxes'
+Design::Block.set_table_name 'design_test_design_blocks'
+
+# example class to hold some blocks
+class DesignTestUser < ActiveRecord::Base
+  set_table_name 'design_test_users'
+
+  acts_as_design
+end
+
 ########################
 # test clases below here
 ########################
 
 class FixedDesignTestController < ActionController::Base
 
-  BOX1 = Box.new
-  BOX2 = Box.new
-  BOX3 = Box.new
+  BOX1 = Design::Box.new
+  BOX2 = Design::Box.new
+  BOX3 = Design::Box.new
 
   design :fixed => {
     :template => 'some_template',
