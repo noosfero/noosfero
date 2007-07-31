@@ -19,8 +19,8 @@ ActionController::Routing::Routes.draw do |map|
   # user account controller
   map.connect 'account/:action', :controller => 'account'
 
-  # TODO: profile customization for profiles
-  # map.connect 'customize/:profile/:controller/:action/:id'
+  # profile customization
+  map.connect 'customize/:profile/edit_template/:action/:id', :controller => 'edit_template'
 
   # content administration
   map.comatose_admin 'cms/:profile'
@@ -28,7 +28,9 @@ ActionController::Routing::Routes.draw do |map|
   # administrative tasks for a virtual community
   map.connect 'admin/:controller/:action/:id'
 
-  # content viewing:
+
+  # *content viewing*
+  # XXX this route must come last so other tasks have priority over it.
   map.connect ':profile/*page', :controller => 'content_viewer', :action => 'view_page'
 
   # no default route
