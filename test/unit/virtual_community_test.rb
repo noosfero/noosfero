@@ -78,4 +78,23 @@ class VirtualCommunityTest < Test::Unit::TestCase
     assert v.has_terms_of_use?
   end
 
+  def test_should_profive_flexible_template_stuff
+    v = VirtualCommunity.new
+
+    # template
+    assert_nil v.flexible_template_template
+    v.flexible_template_template = 'bli'
+    assert_equal 'bli', v.flexible_template_template
+
+    # theme
+    assert_nil v.flexible_template_theme
+    v.flexible_template_theme = 'bli'
+    assert_equal 'bli', v.flexible_template_theme
+    
+    # icon theme
+    assert_nil v.flexible_template_icon_theme
+    v.flexible_template_icon_theme = 'bli'
+    assert_equal 'bli', v.flexible_template_icon_theme
+  end
+
 end
