@@ -16,6 +16,8 @@ class VirtualCommunity < ActiveRecord::Base
   # Relationships and applied behaviour
   # #################################################
 
+  acts_as_design
+
   # One VirtualCommunity can be reached by many domains
   has_many :domains, :as => :owner
 

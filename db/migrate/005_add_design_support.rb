@@ -1,4 +1,4 @@
-class ManageTemplateMigration < ActiveRecord::Migration
+class AddDesignSupport < ActiveRecord::Migration
   def self.up
 
     create_table :design_boxes do |t|

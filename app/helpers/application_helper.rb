@@ -77,17 +77,24 @@ module ApplicationHelper
     content_tag('div', @virtual_community.name, :id => 'virtual_community_identification')
   end
 
+  def link_to_cms(text, profile = nil, options = {})
+    profile ||= current_user.login
+    link_to text, "/cms/#{profile}", options
+  end
+
+  def link_to_profile(text, profile = nil, options = {})
+    profile ||= current_user.login
+    link_to text, "/#{profile}", options
+  end
+
   # TODO: add the actual links
   # TODO: test this helper
   def user_links
     links = [
-       [ _('My accont'), { :controller => 'account' } ],
-       [ _('My profile'), { :controller => 'ble'} ],
-       [ _('My groups'), { :controller => 'bli'} ],
-       [ _('My enterprises'), { :controller => 'enterprise'}]
-    ].map do |link|
-      link_to link[0], link[1]
-    end.join(' ')
+       [ link_to _('My accont'), { :controller => 'account' } ],
+       [ link_to_profile _('My home page') ],
+       [ link_to_cms _('Manage content') ],
+    ].join("\n")
     content_tag('div', links, :id => 'user_links')
   end
 

@@ -1,9 +1,7 @@
 <html>
   <head>
     <%= javascript_include_tag :defaults %>
-    <%= javascript_include_tag_for_template %>
-    <%= stylesheet_link_tag_for_template %>
-    <%= stylesheet_link_tag_for_theme %>
+    <%= design_all_header_tags %>
 
   </head>
 
@@ -27,12 +25,12 @@
           <%= flash[:notice] %>
         </div>
         <a name='main_content'/>
-        <%= display_boxes(yield) %>
+        <%= design_display(yield) %>
 
         <div id="footer">
           <a name='footer'/>
           <%= footer %>
-          <%= display_icon('back')%>
+          <%= design_display_icon('back')%>
         </div>
       </div>
     </div>

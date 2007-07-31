@@ -4,6 +4,7 @@ class CreateVirtualCommunities < ActiveRecord::Migration
       t.column :name,       :string
       t.column :is_default, :boolean
       t.column :settings,   :text
+      t.column :design_data, :text
     end
     VirtualCommunity.create(:name => 'Default Virtual Community', :is_default => true)
   end
