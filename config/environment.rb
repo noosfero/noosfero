@@ -54,3 +54,13 @@ end
 
 require 'gettext/rails'
 Tag.hierarchical = true
+
+Comatose.configure do |config|
+  config.admin_get_root_page do 
+    Comatose::Page.find_by_path(request.parameters[:profile])
+  end
+  config.admin_authorization do |config|
+    Profile.exists?(:identifier => request.parameters[:profile])
+    # FIXME: also check permissions
+  end
+end

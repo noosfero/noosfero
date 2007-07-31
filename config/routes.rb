@@ -13,22 +13,25 @@ ActionController::Routing::Routes.draw do |map|
   # -- just remember to delete public/index.html.
   map.connect '', :controller => "home"
 
+  # documentation browser
+  map.connect 'doc', :controller => 'doc'
+
   # user account controller
   map.connect 'account/:action', :controller => 'account'
-  map.connect 'doc', :controller => 'doc'
+
+  # TODO: profile customization for profiles
+  # map.connect 'customize/:profile/:controller/:action/:id'
+
+  # content administration
+  map.comatose_admin 'cms/:profile'
 
   # administrative tasks for a virtual community
   map.connect 'admin/:controller/:action/:id'
 
-  # profile customization for profiles
-  map.connect 'customize/:profile/:controller/:action/:id'
-
-  # content viewwing:
+  # content viewing:
   map.connect ':profile/*page', :controller => 'content_viewer', :action => 'view_page'
 
-  # Install the default route as the lowest priority.
-  map.connect ':controller/:action/:id'
-
-  # TODO: comatose here
+  # no default route
+  # map.connect ':controller/:action/:id'
 
 end
