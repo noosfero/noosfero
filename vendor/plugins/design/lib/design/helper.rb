@@ -150,6 +150,17 @@ module Design
       image_tag('/' + File.join(Design.design_root, 'icons', design.icon_theme, filename), options)
     end
 
+    ###############################################
+    # GENERAL UTILITIES
+    ###############################################
+
+    # generates all header tags needed to use the design. The same as calling +design_template_javascript_include_tags+, +design_template_stylesheet_link_tags+ and 'design_theme_stylesheet_link_tags
+    def design_all_header_tags
+      design_template_javascript_include_tags + 
+      design_template_stylesheet_link_tags +
+      design_theme_stylesheet_link_tags
+    end
+
   end # END OF module Helper
 
 end #END OF module Design

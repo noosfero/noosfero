@@ -59,6 +59,10 @@ class DesignHelperTestController < ActionController::Base
     '
   end
 
+  def all_header_tags
+    render :inline => '<%= design_all_header_tags %>'
+  end
+
 end
 
 class DesignHelperTest < Test::Unit::TestCase
@@ -145,6 +149,37 @@ class DesignHelperTest < Test::Unit::TestCase
     assert_tag :tag => 'img', :attributes => {
       :src => '/designs/icons/default/another.png'
     }
+  end
+
+  def test_should_provide_full_header_tags
+    get :all_header_tags
+
+    # template JS
+    assert_tag :tag => 'script', :attributes => {
+      :type => 'text/javascript',
+      :src => '/designs/templates/default/javascripts/one.js'
+    }
+    assert_tag :tag => 'script', :attributes => {
+      :type => 'text/javascript',
+      :src => '/designs/templates/default/javascripts/two.js'
+    }
+
+    # template CSS
+    assert_tag :tag => 'link', :attributes => {
+      :type => 'text/css',
+      :href => '/designs/templates/default/stylesheets/one.css'
+    }
+    assert_tag :tag => 'link', :attributes => {
+      :type => 'text/css',
+      :href => '/designs/templates/default/stylesheets/two.css'
+    }
+
+    # theme CSS
+    assert_tag :tag => 'link', :attributes => {
+      :type => 'text/css',
+      :href => '/designs/themes/default/one.css'
+    }
+
   end
 
 end
