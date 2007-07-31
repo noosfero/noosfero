@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(:version => 0) do
  
   create_table :design_test_users, :force => true do |t|
     t.column :name, :string, :limit => 80
+    t.column :design_data, :text
   end
  
 end
