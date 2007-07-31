@@ -89,13 +89,16 @@ width:970px;
 }
 
 #header {
-margin:0;
+border: 1px solid blue;
+padding-left: 5em;
 }
 
 #menu {
 font-size:0.9em;
 padding:5px 2px 2px 3px;
 text-align:right;
+border: 1px solid red;
+float: right;
 }
 
 #menu a {
