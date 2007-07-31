@@ -36,7 +36,7 @@ module Design
 
       design.boxes.map do |box|
         content_tag(:div, design_display_blocks(box, content) , :id=>"box_#{box.number}")
-      end.join("\n")
+      end.join("\n") + "\n"
     end
 
     # Displays all the blocks in a box.
@@ -51,7 +51,7 @@ module Design
         # FIXME: should that actually be list_content?
         text = block.main? ? content : design_block_content(block)
         content_tag(:div, text, :class => "block" , :id => "block_#{block.id}" )
-      end.join("\n")
+      end.join("\n")+ "\n"
     end
 
     # Displays the content of a block. See plugin README for details about the
@@ -93,7 +93,7 @@ module Design
 
       javascript_files.map do |filename|
         javascript_include_tag('/' + File.join(Design.design_root, 'templates', design.template, 'javascripts', File.basename(filename)))
-      end.join("\n")
+      end.join("\n") + "\n"
     end
 
     # Generates links to all the CSS files provided by the template being used.
@@ -109,7 +109,7 @@ module Design
 
       stylesheet_files.map do |filename|
         stylesheet_link_tag('/' + File.join(Design.design_root, 'templates', design.template, 'stylesheets', File.basename(filename)))
-      end.join("\n")
+      end.join("\n") + "\n"
     end
 
 
@@ -129,7 +129,7 @@ module Design
 
       stylesheet_files.map do |filename|
         stylesheet_link_tag('/' + File.join(Design.design_root, 'themes', design.theme, File.basename(filename)))
-      end.join("\n")
+      end.join("\n") + "\n"
 
     end
 
@@ -147,7 +147,7 @@ module Design
     # Rails helper
     def design_display_icon(icon, options = {})
       filename = (icon =~ /\.png$/) ? icon : (icon + '.png')
-      image_tag('/' + File.join(Design.design_root, 'icons', design.icon_theme, filename), options)
+      image_tag('/' + File.join(Design.design_root, 'icons', design.icon_theme, filename), options) + "\n"
     end
 
     ###############################################
