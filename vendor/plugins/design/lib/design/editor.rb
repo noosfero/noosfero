@@ -28,40 +28,17 @@ module Design
       end
     end
 
-    private
-
-    # Set to the owner the template choosed
-    def design_editor_set_template
-      if exists_template?(params[:template])
-        design.template = params[:template]
-      end
-    end
-
-    # Set to the owner the theme choosed
-    def design_editor_set_theme
-      if exists_theme?(params[:theme])
-        design.theme = params[:theme]
-      end
-    end
-
-    # Set to the owner the icon_theme choosed
-    def design_editor_set_icon_theme
-      if request.post? && exists_icon_theme?(params[:icon_theme])
-        design.icon_theme = params[:icon_theme]
-      end
-    end
-
     # TODO: see below here
   
-    def flexible_template_set_sort_mode
+    def design_editor_set_sort_mode
       box = design.boxes.find(params[:box_id])
       render :update do |page|
         page.replace_html "box_#{box.number}",  edit_blocks(box)
-        page.sortable "sort_#{box.number}", :url => {:action => 'flexible_template_sort_box', :box_number => box.number}
+        page.sortable "sort_#{box.number}", :url => {:action => 'design_editor_sort_box', :box_number => box.number}
       end
     end
   
-    def flexible_template_sort_box
+    def design_editor_sort_box
       box_number = params[:box_number]
       pos = 0
       params["sort_#{box_number}"].each do |block_id|
@@ -75,7 +52,7 @@ module Design
   
     # This method changes a block content to a different box place and
     # updates all boxes at the ends
-    def flexible_template_change_box
+    def design_editor_change_box
       #TODO fix it i tried the source code comment but i have no success
       #b = design.blocks.detect{|b| b.id.to_s == params[:block].to_s }
       b =  Block.find(params[:block])
@@ -88,14 +65,14 @@ module Design
       end
     end
   
-    def flexible_template_new_block
+    def design_editor_new_block
       box = design.boxes.find(params[:box_id])
       render :update do |page|
-        page.replace_html "box_#{box.number}", new_block_form(box)
+        page.replace_html "box_#{box.number}", design_editor_new_block_form(box)
       end
     end
   
-    def flexible_template_create_block
+    def design_editor_create_block
       block = Block.new(params[:block])
       block.box = nil if !@ft_config[:boxes].include? block.box
       block.position = block.box.blocks.count + 1 if !block.box.nil?
@@ -105,12 +82,12 @@ module Design
         end
       else
         render :update do |page|
-          page.replace_html "flexible_template_edit_mode",  _('Block cannot be saved')
+          page.replace_html "design_editor_edit_mode",  _('Block cannot be saved')
         end
       end
     end
   
-    def flexible_template_destroy_block
+    def design_editor_destroy_block
       block = Block.find(params[:block_id])
       box = block.box
   #TO check if the block is of the owner
@@ -161,7 +138,9 @@ module Design
       flash[:notice] = _("The file #{@ft_config[:template]}.yml it's not a valid template filename") if number_of_boxes.nil?
       number_of_boxes
     end
-  
+
+    private
+
     def exists_template?(template)
       Design.available_templates.include?(template)
     end
@@ -173,11 +152,28 @@ module Design
     def exists_icon_theme?(icon_theme)
       Design.available_icon_themes.include?(icon_theme)
     end
-  
-    def parse_path(files_path = [], remove_until = 'public')
-      remove_until = remove_until.gsub(/\//, '\/')
-      files_path.map{|f| f.gsub(/.*#{remove_until}/, '')}
+
+    # Set to the owner the template choosed
+    def design_editor_set_template
+      if exists_template?(params[:template])
+        design.template = params[:template]
+      end
     end
+
+    # Set to the owner the theme choosed
+    def design_editor_set_theme
+      if exists_theme?(params[:theme])
+        design.theme = params[:theme]
+      end
+    end
+
+    # Set to the owner the icon_theme choosed
+    def design_editor_set_icon_theme
+      if request.post? && exists_icon_theme?(params[:icon_theme])
+        design.icon_theme = params[:icon_theme]
+      end
+    end
+
 
   end
 

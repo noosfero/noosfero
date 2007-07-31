@@ -35,19 +35,19 @@ module Design
           content_tag(:div, edit_blocks(box, content) , :id=>"box_#{box.number}")
          }].join("\n")
 
-         content = content_tag(:div, content, :id => 'flexible_template_edit_mode')
+         content = content_tag(:div, content, :id => 'design_editor_edit_mode')
       end
 
       # Symbol dictionary used on select when we add or edit a block.  This
       # method has the responsability of translate a Block class in a humam
       # name By default the class "MainBlock" has the human name "Main Block".
       # Other classes defined by user are not going to display in a human name
-      # format until de method flexible_template_block_dict be redefined in a
+      # format until de method design_editor_block_dict be redefined in a
       # controller by user
       # #TODO define the method
-      # flexible_template_block_dict if not defined by helper
-      #      if !self.public_instance_methods.include? "flexible_template_block_dict"
-      #        define_method('flexible_template_block_dict') do |str|
+      # design_editor_block_dict if not defined by helper
+      #      if !self.public_instance_methods.include? "design_editor_block_dict"
+      #        define_method('design_editor_block_dict') do |str|
       #          {
       #            'MainBlock' => _("Main Block")
       #          }[str] || str
@@ -56,7 +56,7 @@ module Design
 
 
       # FIXME: WTF?
-      def flexible_template_block_helper_dict(str)
+      def design_editor_block_helper_dict(str)
         {
           'plain_content' => _('Plain Content') ,
           'list_content' => _('List Content')
@@ -158,19 +158,19 @@ module Design
 
       def link_to_active_sort(box)
         link_to_remote(_('Sort'),
-          {:update => "sort_#{box.number}", :url => {:action => 'flexible_template_set_sort_mode', :box_id => box.id }},
+          {:update => "sort_#{box.number}", :url => {:action => 'design_editor_set_sort_mode', :box_id => box.id }},
           :class => 'sort_button') 
       end
 
       def link_to_add_block(box)
         link_to_remote(_('Add Block'),
-          {:update => "sort_#{box.number}", :url => {:action => 'flexible_template_new_block', :box_id => box.id }},
+          {:update => "sort_#{box.number}", :url => {:action => 'design_editor_new_block', :box_id => box.id }},
           :class => 'add_block_button')
       end
 
       def link_to_destroy_block(block)
         link_to_remote(_('Remove'),
-          {:update => "sort_#{block.box.number}", :url => {:action => 'flexible_template_destroy_block', :block_id => block.id }},
+          {:update => "sort_#{block.box.number}", :url => {:action => 'design_editor_destroy_block', :block_id => block.id }},
           :class => 'destroy_block_button')
       end
 
@@ -178,7 +178,7 @@ module Design
       # Allows the biven box to have sortable elements
       def sortable_block(box_number)
         sortable_element "sort_#{box_number}",
-        :url => {:action => 'flexible_template_sort_box', :box_number => box_number },
+        :url => {:action => 'design_editor_sort_box', :box_number => box_number },
         :complete => visual_effect(:highlight, "sort_#{box_number}")
       end
 
@@ -198,7 +198,7 @@ module Design
             :before     => "$('spinner').show();",
             :hoverclass => 'hover',
             :with       => "'block=' + encodeURIComponent(element.id.split('_').last())",
-            :url        => {:action=>:flexible_template_change_box, :box_id => box.id})
+            :url        => {:action=>:design_editor_change_box, :box_id => box.id})
           }.to_s
       end
 
@@ -223,7 +223,7 @@ module Design
         h
       end
 
-      def new_block_form(box)
+      def design_editor_new_block_form(box)
         type_block_options = options_for_select(available_blocks.collect{|k,v| [v,k] })
         type_block_helper_options = options_for_select(block_helpers.collect{|k,v| [v,k] })
         @block = Block.new
@@ -231,7 +231,7 @@ module Design
 
         _("Adding block on %s") % box.name +
         [
-          form_remote_tag(:url => {:action => 'flexible_template_create_block'}, :update => "sort_#{box.number}"),   
+          form_remote_tag(:url => {:action => 'design_editor_create_block'}, :update => "sort_#{box.number}"),   
             hidden_field('block', 'box_id'),
             content_tag(
               :p,
