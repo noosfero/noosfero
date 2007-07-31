@@ -5,14 +5,20 @@ require 'admin_panel_controller'
 class AdminPanelController; def rescue_action(e) raise e end; end
 
 class AdminPanelControllerTest < Test::Unit::TestCase
+
+  fixtures :virtual_communities
+
   def setup
     @controller = AdminPanelController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
   end
 
-  # Replace this with your real tests.
-  def test_truth
-    assert true
+  def test_index
+    get :index
+    assert_template 'index'
+    assert_tag :tag => 'a', :attributes => { :href => /manage_tags/ }
+    assert_tag :tag => 'a', :attributes => { :href => /edit_template/ }
+    assert_tag :tag => 'a', :attributes => { :href => /features/ }
   end
 end
