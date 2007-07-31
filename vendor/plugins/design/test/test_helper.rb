@@ -3,6 +3,9 @@ require File.expand_path(File.dirname(__FILE__) + "/../../../../config/environme
  
 require 'test/unit'
 
+# from Rails
+require 'test_help'
+
 # load the database schema for the tests
 ActiveRecord::Base.logger = Logger.new(File.dirname(__FILE__) + "/debug.log")
 load(File.dirname(__FILE__) + '/schema.rb')
