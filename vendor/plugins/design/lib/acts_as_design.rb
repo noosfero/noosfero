@@ -25,10 +25,11 @@ class ActiveRecord::Base
     serialize :design_data
     attr_protected :design_data
 
-    after_create do |design|
+    before_create do |design|
       template = Design::Template.find(design.template)
       while design.boxes.size < template.number_of_boxes
-        design.boxes << Design::Box.new(:name => 'Block')
+        n = design.boxes.size + 1
+        design.boxes << Design::Box.new(:name => 'Block', :number => n)
       end
     end
 

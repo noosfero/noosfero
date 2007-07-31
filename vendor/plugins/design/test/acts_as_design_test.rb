@@ -51,12 +51,17 @@ class ActsAsDesignTest < Test::Unit::TestCase
   end
 
   def test_should_create_boxes_when_creating
+
+    DesignTestUser.delete_all
+    Design::Box.delete_all
+
     user = DesignTestUser.create!(:name => 'A test user')
 
     # default template (test/designs/templates/default/default.yml) defines
     # 3 boxes
     assert_equal 3, Design::Template.find('default').number_of_boxes
     assert_equal 3, user.boxes.size
+    assert_equal 3, Design::Box.count
   end
 
 end
