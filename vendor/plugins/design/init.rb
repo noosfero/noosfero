@@ -14,7 +14,12 @@ class ActionController::Base
 
     @design_plugin_config = config
 
+    def self.design_plugin_config
+      @design_plugin_config
+    end
+
     include Design
+    helper Design::Helper
   end
 
   # declares this controller as a design editor, including in it all the
@@ -23,6 +28,7 @@ class ActionController::Base
   def self.design_editor(config = {})
     self.design(config)
     include Design::Editor
+    helper Design::Editor::Helper
   end
 
 end

@@ -27,4 +27,8 @@ class DesignTest < Test::Unit::TestCase
     end
   end
 
+  def test_should_expose_config_passed_to_design_class_method
+    assert_kind_of Hash, FixedDesignTestController.design_plugin_config
+  end
+
 end

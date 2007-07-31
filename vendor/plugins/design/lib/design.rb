@@ -13,7 +13,7 @@ module Design
 
     return data[:design] if data.has_key?(:design)
 
-    config = self.class.instance_variable_get("@design_plugin_config")
+    config = self.class.design_plugin_config
 
     if config.has_key?(:holder)
       holder_variable_name = config[:holder]

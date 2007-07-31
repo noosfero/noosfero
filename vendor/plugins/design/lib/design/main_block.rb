@@ -5,8 +5,6 @@ module Design
   # calling +yield+ inside a regular view.
   class MainBlock < Block
 
-    set_table_name
-  
     # always returns true
     def main?
       true

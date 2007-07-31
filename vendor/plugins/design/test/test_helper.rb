@@ -30,6 +30,7 @@ class FixedDesignTestController < ActionController::Base
 
   BOX1 = Design::Box.new
   BOX2 = Design::Box.new
+  BOX2.blocks << Design::MainBlock.new
   BOX3 = Design::Box.new
 
   design :fixed => {
