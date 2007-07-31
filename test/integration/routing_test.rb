@@ -34,11 +34,21 @@ class RoutingTest < ActionController::IntegrationTest
 
   # virtual community administrative controllers (admin/*)
   ################################################################
-  def test_features_controller
-    assert_routing('/admin/features', :controller => 'features', :action => 'index')
+
+  def test_admin_panel_controller
+    assert_routing('/admin', :controller => 'admin_panel', :action => 'index')
   end
 
-  # platform administrative conttollers (metaadmin/*)
+  def test_features_controller
+    assert_routing('/admin/features', :controller => 'features', :action => 'index')
+    assert_routing('/admin/features/update', :controller => 'features', :action => 'update')
+  end
+
+  def test_manage_tags_controller
+    assert_routing('/admin/manage_tags', :controller => 'manage_tags', :action => 'index')
+  end
+
+  # platform administrative controllers (metaadmin/*)
   ################################################################
 
   # external public controllers

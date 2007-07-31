@@ -26,6 +26,7 @@ ActionController::Routing::Routes.draw do |map|
   map.comatose_admin 'cms/:profile'
 
   # administrative tasks for a virtual community
+  map.connect 'admin', :controller => 'admin_panel', :action => 'index'
   map.connect 'admin/:controller/:action/:id'
 
 
