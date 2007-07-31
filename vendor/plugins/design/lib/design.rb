@@ -1,3 +1,5 @@
+require 'design/controller_methods'
+
 require 'design/fixed_design_holder'
 require 'design/proxy_design_holder'
 
