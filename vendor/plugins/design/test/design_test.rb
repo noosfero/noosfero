@@ -50,4 +50,10 @@ class DesignTest < Test::Unit::TestCase
     assert_equal File.join(RAILS_ROOT, 'public'), Design.public_filesystem_root
   end
 
+  def test_subclass_controller_can_override_superclass_design_holder
+    assert_equal 'sample_object', ProxyDesignHolderTestController.send(:design_plugin_config)[:holder]
+    assert_equal 'another_object', InheritanceDesignTestController.send(:design_plugin_config)[:holder]
+
+  end
+
 end

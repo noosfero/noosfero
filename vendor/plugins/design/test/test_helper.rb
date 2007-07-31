@@ -56,6 +56,14 @@ class ProxyDesignHolderTestController < ActionController::Base
   end
 end
 
+class AnotherTestDesignHolder
+  attr_accessor :template, :theme, :icon_theme, :boxes
+end
+
+class InheritanceDesignTestController < ProxyDesignHolderTestController
+  design :holder => 'another_object'
+end
+
 class DesignEditorTestController < ActionController::Base
   design_editor :holder => 'sample_object'
   def initialize
