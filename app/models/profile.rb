@@ -11,8 +11,6 @@ class Profile < ActiveRecord::Base
     homepage.save!
   end
 
-  acts_as_flexible_template
-
   # Valid identifiers must match this format.
   IDENTIFIER_FORMAT = /^[a-z][a-z0-9_]*[a-z0-9]$/
 
