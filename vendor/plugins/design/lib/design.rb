@@ -42,17 +42,13 @@ module Design
     Design.instance_variable_set('@design_root', dir)
   end
 
-  # :nodoc:
-  #
   # used for testing
-  def Design.public_filesystem_root
+  def Design.public_filesystem_root # :nodoc:
     Design.instance_variable_get('@public_filesystem_root') || File.join(RAILS_ROOT, 'public')
   end
 
-  # :nodoc:
-  #
   # used for testing
-  def Design.public_filesystem_root=(value)
+  def Design.public_filesystem_root=(value) # :nodoc:
     Design.instance_variable_set('@public_filesystem_root', value)
   end
 

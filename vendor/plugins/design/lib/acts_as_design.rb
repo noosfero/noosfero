@@ -1,7 +1,7 @@
 class ActiveRecord::Base
 
   # declares an ActiveRecord class to be a design. The class is automatically
-  # associated with a +has_many+ associationto Design::Block.
+  # associated with a +has_many+ relationship to Design::Box.
   #
   # The underlying database table *must* have a column named +design_data+ of
   # type +text+. +string+ should work too, but you may run into problems
@@ -28,34 +28,28 @@ class ActiveRecord::Base
     def design_data
       self[:design_data] ||= Hash.new
     end
-
-    # :nodoc:
-    def template
+    
+    def template # :nodoc:
       self.design_data[:template] || 'default'
     end
 
-    # :nodoc:
-    def template=(value)
+    def template=(value) # :nodoc:
       self.design_data[:template] = value
     end
 
-    # :nodoc:
-    def theme
+    def theme # :nodoc:
       self.design_data[:theme] || 'default'
     end
 
-    # :nodoc:
-    def theme=(value)
+    def theme=(value) # :nodoc:
       self.design_data[:theme] = value
     end
 
-    # :nodoc
-    def icon_theme
+    def icon_theme # :nodoc:
       self.design_data[:icon_theme] || 'default'
     end
 
-    # :nodoc:
-    def icon_theme=(value)
+    def icon_theme=(value) # :nodoc:
       self.design_data[:icon_theme] = value
     end
   end
