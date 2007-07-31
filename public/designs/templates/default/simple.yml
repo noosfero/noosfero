@@ -1,2 +1,2 @@
-simple:
-  number_of_boxes: 3
+name: Default template
+number_of_boxes: 3
