@@ -43,4 +43,14 @@ class BlockTest < Test::Unit::TestCase
 
   end
 
+  def test_main_should_always_return_false
+    assert_equal false, Block.new.main?
+  end
+
+  def test_should_not_allow_content_in_block_superclass
+    assert_raise ArgumentError do
+      Block.new.content
+    end
+  end
+
 end

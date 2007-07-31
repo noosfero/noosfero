@@ -29,4 +29,11 @@ class ProxyDesignHolderTest < Test::Unit::TestCase
     assert_equal [], design.boxes
   end
 
+  def test_should_not_proxy_unrelated_method_calls
+    assert_raise NoMethodError do
+      design = Design::ProxyDesignHolder.new(1)
+      design.succ
+    end
+  end
+
 end

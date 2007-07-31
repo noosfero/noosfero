@@ -27,7 +27,7 @@ module Design
     # Method that define the content code displayed in the box.
     # This method cannot be used directly it will be redefined by the children classes
     def content
-      raise "This is a main class, don't use it"
+      raise ArgumentError.new("This is a main class, don't use it")
     end
   
   #TODO see if this method is needed
