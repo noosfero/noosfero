@@ -52,8 +52,11 @@ class DesignTest < Test::Unit::TestCase
 
   def test_subclass_controller_can_override_superclass_design_holder
     assert_equal 'sample_object', ProxyDesignHolderTestController.send(:design_plugin_config)[:holder]
-    assert_equal 'another_object', InheritanceDesignTestController.send(:design_plugin_config)[:holder]
+    assert_equal 'another_object', InheritanceWithOverrideDesignTestController.send(:design_plugin_config)[:holder]
+  end
 
+  def test_subclass_should_inherit_supeclass_design
+    assert_equal 'sample_object', InheritanceDesignTestController.send(:design_plugin_config)[:holder]
   end
 
 end

@@ -48,6 +48,12 @@ The argument do +design_display_boxes()+ is the content you want to be the main
 content. Almost always you'll want to pass +yield+ (the resulting content for
 the current action) there, but you can pass anything you want.
 
+== Controller subclassing and design
+
+Designs are inherited through the inheritance tree. This way you can for
+example declare the use of a design in ApplicationController and let the other
+controllers abstract that fact that they are using design.
+
 == Storing design information in ActiveRecord models: +acts_as_design+
 
 You can also use ActiveRecord objects 

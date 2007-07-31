@@ -60,8 +60,12 @@ class AnotherTestDesignHolder
   attr_accessor :template, :theme, :icon_theme, :boxes
 end
 
-class InheritanceDesignTestController < ProxyDesignHolderTestController
+class InheritanceWithOverrideDesignTestController < ProxyDesignHolderTestController
   design :holder => 'another_object'
+end
+
+class InheritanceDesignTestController < ProxyDesignHolderTestController
+  # nothing
 end
 
 class DesignEditorTestController < ActionController::Base

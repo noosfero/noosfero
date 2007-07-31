@@ -16,7 +16,7 @@ class ActionController::Base
     @design_plugin_config = config
 
     def self.design_plugin_config
-      @design_plugin_config
+      @design_plugin_config || self.superclass.design_plugin_config
     end
 
     include Design
