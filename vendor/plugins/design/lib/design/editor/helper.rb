@@ -9,9 +9,7 @@ module Design
     module Helper
 
       # draws the user interface for the design editor. 
-      def design_display_editor()
-        # TODO: check this
-        raise NotImplementedError
+      def design_display_editor(content)
 
         content = [content_tag(
           :ul,[
@@ -33,8 +31,8 @@ module Design
            ].join("\n"),
            :class => 'select_options'
          ), 
-         @ft_config[:boxes].map{ |box|
-          content_tag(:div, edit_blocks(box, main_content) , :id=>"box_#{box.number}")
+         design.boxes.map { |box|
+          content_tag(:div, edit_blocks(box, content) , :id=>"box_#{box.number}")
          }].join("\n")
 
          content = content_tag(:div, content, :id => 'flexible_template_edit_mode')
@@ -57,6 +55,7 @@ module Design
       #      end 
 
 
+      # FIXME: WTF?
       def flexible_template_block_helper_dict(str)
         {
           'plain_content' => _('Plain Content') ,
@@ -66,6 +65,70 @@ module Design
 
 
       private 
+
+      ########################################
+      # TEMPLATE/THEME/ICON THEME CHANGE BOXES
+      ########################################
+
+      # Generate a select option to choose one of the available templates.
+      # The available templates are those in 'public/templates'
+      def select_template
+        available_templates = Design.available_templates
+
+        template_options = options_for_select(available_templates.map{|template| [template, template] }, design.template)
+        [ select_tag('template', template_options ),
+          change_template].join("\n")
+      end
+
+      # Generate a observer to reload a page when a template is selected
+      def change_template
+        observe_field( 'template',
+          :url => {:action => 'design_editor'},
+          :with =>"'template=' + escape(value)",
+          :complete => "document.location.reload();",
+          :method => :post
+        )
+      end
+
+      # Generate a select option to choose one of the available themes.
+      # The available themes are those in 'public/themes'
+      def select_theme
+        available_themes = Design.available_themes
+        theme_options = options_for_select(available_themes.map{|theme| [theme, theme] }, design.theme)
+        [ select_tag('theme', theme_options ),
+          change_theme].join("\n")
+      end
+
+      # Generate a observer to reload a page when a theme is selected
+      def change_theme
+        observe_field( 'theme',
+          :url => {:action => 'design_editor'},
+          :with =>"'theme=' + escape(value)",
+          :complete => "document.location.reload();",
+          :method => :post
+        )
+      end
+
+      # Generate a select option to choose one of the available icons themes.
+      # The available icons themes are those in 'public/icons'
+      def select_icon_theme
+        available_icon_themes = Design.available_icon_themes
+        icon_theme_options = options_for_select(available_icon_themes.map{|icon_theme| [icon_theme, icon_theme] }, design.icon_theme )
+        [ select_tag('icon_theme', icon_theme_options ),
+          change_icon_theme].join("\n")
+      end
+
+      # Generate a observer to reload a page when a icons theme is selected
+      def change_icon_theme
+        observe_field( 'icon_theme',
+          :url => {:action => 'design_editor'},
+          :with =>"'icon_theme=' + escape(value)",
+          :complete => "document.location.reload();",
+          :method => :post
+        )
+      end
+
+
 
       #################################################
       # TEMPLATES METHODS RELATED
@@ -126,7 +189,7 @@ module Design
 
       # Allows an draggable element change between diferrents boxes
       def drag_drop_items(box)
-        boxes =  @ft_config[:boxes].reject{|b| b.id == box.id}
+        boxes = design.boxes.reject{|b| b.id == box.id}
 
         boxes.map{ |b|
           drop_receiving_element("box_#{box.number}",
@@ -140,24 +203,6 @@ module Design
       end
 
 
-      # Generate a select option to choose one of the available templates.
-      # The available templates are those in 'public/templates'
-      def select_template
-        available_templates = @ft_config[:available_templates]
-
-        template_options = options_for_select(available_templates.map{|template| [template, template] }, @ft_config[:template])
-        [ select_tag('template_name', template_options ),
-          change_template].join("\n")
-      end
-
-      # Generate a observer to reload a page when a template is selected
-      def change_template
-        observe_field( 'template_name',
-          :url => {:action => 'set_default_template'},
-          :with =>"'template_name=' + escape(value) + '&object_id=' + escape(#{@ft_config[:owner].id})",
-          :complete => "document.location.reload();"
-        )
-      end
 
       def available_blocks
 #TOD  O check if are valids blocks
@@ -230,46 +275,10 @@ module Design
 
       end
 
-      # Generate a select option to choose one of the available themes.
-      # The available themes are those in 'public/themes'
-      def select_theme
-        available_themes = @ft_config[:available_themes]
-        theme_options = options_for_select(available_themes.map{|theme| [theme, theme] }, @ft_config[:theme])
-        [ select_tag('theme_name', theme_options ),
-          change_theme].join("\n")
-      end
-
-      # Generate a observer to reload a page when a theme is selected
-      def change_theme
-        observe_field( 'theme_name',
-          :url => {:action => 'set_default_theme'},
-          :with =>"'theme_name=' + escape(value) + '&object_id=' + escape(#{@ft_config[:owner].id})",
-          :complete => "document.location.reload();"
-        )
-      end
-
-
       #################################################
       #ICONS THEMES RELATED
       #################################################
 
-      # Generate a select option to choose one of the available icons themes.
-      # The available icons themes are those in 'public/icons'
-      def select_icon_theme
-        available_icon_themes = @ft_config[:available_icon_themes]
-        icon_theme_options = options_for_select(available_icon_themes.map{|icon_theme| [icon_theme, icon_theme] }, @ft_config[:icon_theme])
-        [ select_tag('icon_theme_name', icon_theme_options ),
-          change_icon_theme].join("\n")
-      end
-
-      # Generate a observer to reload a page when a icons theme is selected
-      def change_icon_theme
-        observe_field( 'icon_theme_name',
-          :url => {:action => 'set_default_icon_theme'},
-          :with =>"'icon_theme_name=' + escape(value) + '&object_id=' + escape(#{@ft_config[:owner].id})",
-          :complete => "document.location.reload();"
-        )
-      end
 
 
     end # END OF module Helper

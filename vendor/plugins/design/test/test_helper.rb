@@ -47,6 +47,15 @@ end
 
 class SampleHolderForTestingProxyDesignHolder
   attr_accessor :template, :theme, :icon_theme, :boxes
+  def initialize
+    @saved = false
+  end
+  def save
+    @saved = true
+  end
+  def saved?
+    @saved
+  end
 end
 
 class ProxyDesignHolderTestController < ActionController::Base
@@ -69,8 +78,26 @@ class InheritanceDesignTestController < ProxyDesignHolderTestController
 end
 
 class DesignEditorTestController < ActionController::Base
-  design_editor :holder => 'sample_object'
+
+  self.template_root = File.join(File.dirname(__FILE__), 'views')
+  layout 'design_editor_test'
+  design_editor :holder => 'sample_object', :autosave => true
   def initialize
     @sample_object = SampleHolderForTestingProxyDesignHolder.new
+    @sample_object.template = 'default'
+    @sample_object.theme = 'default'
+    @sample_object.icon_theme = 'default'
+    def @sample_object.id
+      1
+    end
+
+    box1 = Design::Box.new(:number => 1)
+    box2 = Design::Box.new(:number => 2)
+    main_block = Design::MainBlock.new(:position => 1)
+    box2.blocks << main_block
+    main_block.box = box2
+    main_block.name = 'Main block'
+    box3 = Design::Box.new(:number => 3)
+    @sample_object.boxes = [ box1, box2, box3 ]
   end
 end

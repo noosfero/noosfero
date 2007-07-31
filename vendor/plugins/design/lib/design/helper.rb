@@ -26,10 +26,19 @@ module Design
     #
     # If not blocks are present (e.g. the design holder has no blocks yet),
     # +content+ is returned right away.
+    #
+    # If running in design_editor mode
     def design_display(content = "")
 
+      # dispatch to Design::Editor::Helper if running in editor mode
+      if (self.respond_to?(:design_display_editor) && params[:action] =~ /^design_editor/)
+        return design_display_editor(content) 
+      end
+
       # no blocks. nothing to be done
-      return content if design.boxes.empty?
+      if design.boxes.empty?
+        return content 
+      end
 
       # Generate all boxes of the current profile and considering the defined
       # on template.

@@ -25,6 +25,13 @@ class ActiveRecord::Base
     serialize :design_data
     attr_protected :design_data
 
+    after_create do |design|
+      template = Design::Template.find(design.template)
+      while design.boxes.size < template.number_of_boxes
+        design.boxes << Design::Box.new(:name => 'Block')
+      end
+    end
+
     def design_data
       self[:design_data] ||= Hash.new
     end

@@ -6,27 +6,52 @@ module Design
   # from flexible_template
   module Editor
 
-    def designer
+    def design_editor
+
+      if request.post?
+        design_editor_set_template
+        design_editor_set_theme
+        design_editor_set_icon_theme
+
+        if self.class.design_plugin_config[:autosave] && design.respond_to?(:save)
+          design.save
+        end
+
+        if request.xhr?
+          render :text => 'ok'
+        else
+          redirect_to :action => 'design_editor'
+        end
+
+      else
+        render :action => 'design_editor'
+      end
     end
-  
-    def flexible_template_edit_template?
-      @ft_config[:edit_mode] 
+
+    private
+
+    # Set to the owner the template choosed
+    def design_editor_set_template
+      if exists_template?(params[:template])
+        design.template = params[:template]
+      end
     end
-  
-    # Set the default template to the profile
-    def set_default_template
-      set_template(design,params[:template_name]) if exist_template? params[:template_name]
+
+    # Set to the owner the theme choosed
+    def design_editor_set_theme
+      if exists_theme?(params[:theme])
+        design.theme = params[:theme]
+      end
     end
-  
-    # Set the default theme to the profile
-    def set_default_theme
-      set_theme(design,params[:theme_name]) if exist_theme? params[:theme_name]
+
+    # Set to the owner the icon_theme choosed
+    def design_editor_set_icon_theme
+      if request.post? && exists_icon_theme?(params[:icon_theme])
+        design.icon_theme = params[:icon_theme]
+      end
     end
-  
-    # Set the default icons theme to the profile
-    def set_default_icon_theme
-      set_icon_theme(design,params[:icon_theme_name]) if exist_icon_theme? params[:icon_theme_name]
-    end
+
+    # TODO: see below here
   
     def flexible_template_set_sort_mode
       box = design.boxes.find(params[:box_id])
@@ -97,23 +122,6 @@ module Design
   
     private
   
-    # Set to the owner the theme choosed
-    def set_theme(object, theme_name)
-      object.flexible_template_theme = theme_name
-      object.save
-    end
-  
-    # Set to the owner the icons theme choosed
-    def set_icon_theme(object,icon_theme_name)
-      object.flexible_template_icon_theme = icon_theme_name
-      object.save
-    end
-  
-    # Set to the owner the template choosed
-    def set_template(object, template_name)
-      object.flexible_template_template = template_name
-      object.save
-    end
   
     #Load a set of boxes belongs to a owner. We have to situations.
     #  1 - The owner has equal or more boxes that boxes defined in template.
@@ -154,16 +162,16 @@ module Design
       number_of_boxes
     end
   
-    def exist_template? template
-      @ft_config[:available_templates].include?(template)
+    def exists_template?(template)
+      Design.available_templates.include?(template)
     end
   
-    def exist_theme? theme
-      @ft_config[:available_themes].include?(theme)
+    def exists_theme?(theme)
+      Design.available_themes.include?(theme)
     end
   
-    def exist_icon_theme? icon_theme
-      @ft_config[:available_icon_themes].include?(icon_theme)
+    def exists_icon_theme?(icon_theme)
+      Design.available_icon_themes.include?(icon_theme)
     end
   
     def parse_path(files_path = [], remove_until = 'public')

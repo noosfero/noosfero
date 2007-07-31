@@ -2,6 +2,14 @@ require File.join(File.dirname(__FILE__), 'test_helper')
 
 class ActsAsDesignTest < Test::Unit::TestCase
 
+  def setup
+    Design.public_filesystem_root = File.join(File.dirname(__FILE__))
+  end
+
+  def teardown
+    Design.public_filesystem_root = nil
+  end
+
   def test_should_provide_template_attribute
     user = DesignTestUser.new
     assert_equal 'default', user.template
@@ -40,6 +48,15 @@ class ActsAsDesignTest < Test::Unit::TestCase
     assert_raise ActiveRecord::AssociationTypeMismatch do
       user.boxes << 1
     end
+  end
+
+  def test_should_create_boxes_when_creating
+    user = DesignTestUser.create!(:name => 'A test user')
+
+    # default template (test/designs/templates/default/default.yml) defines
+    # 3 boxes
+    assert_equal 3, Design::Template.find('default').number_of_boxes
+    assert_equal 3, user.boxes.size
   end
 
 end

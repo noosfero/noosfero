@@ -1,7 +1,7 @@
 require 'design/controller_methods'
 
 require 'design/fixed_design_holder'
-require 'design/proxy_design_holder'
+require 'design/template'
 
 require 'design/helper'
 require 'design/editor'
@@ -22,7 +22,7 @@ module Design
 
     if config.has_key?(:holder)
       holder_variable_name = config[:holder]
-      data[:design] = Design::ProxyDesignHolder.new(self.instance_variable_get("@#{holder_variable_name}"))
+      data[:design] = self.instance_variable_get("@#{holder_variable_name}")
     else
       options = (config[:fixed].kind_of? Hash) ? config[:fixed] : {}
       data[:design] = Design::FixedDesignHolder.new(options)

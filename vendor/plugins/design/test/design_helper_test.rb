@@ -81,6 +81,7 @@ class DesignHelperTest < Test::Unit::TestCase
 
   def test_should_generate_all_boxes
     get :index
+    assert_response :success
     assert_tag :tag => 'div', :attributes => { :id => 'box_1' }
     assert_tag :tag => 'div', :attributes => { :id => 'box_2' }
     assert_tag :tag => 'div', :attributes => { :id => 'box_3' }
@@ -88,6 +89,7 @@ class DesignHelperTest < Test::Unit::TestCase
 
   def test_should_render_array_as_list
     get :index
+    assert_response :success
     assert_tag :tag => 'ul', :descendant => {
       :tag => 'li', :content => 'item1'
     }
@@ -101,16 +103,19 @@ class DesignHelperTest < Test::Unit::TestCase
 
   def test_should_process_block_returned_as_content
     get :index
+    assert_response :success
     assert_tag :tag => 'a', :attributes => { :href => /controller_linked_from_block/ }
   end
 
   def test_should_put_string_as_is
     get :index
+    assert_response :success
     assert_tag :tag => 'div', :content => "this is a fixed content block hacked for testing", :attributes => { :class => 'block' }
   end
 
   def test_should_provide_javascript_link_if_available
     get :javascript
+    assert_response :success
     assert_tag :tag => 'script', :attributes => {
       :type => 'text/javascript',
       :src => '/designs/templates/default/javascripts/one.js'
@@ -123,6 +128,7 @@ class DesignHelperTest < Test::Unit::TestCase
 
   def test_should_provide_stylesheet_links_if_available
     get :template_stylesheets
+    assert_response :success
     assert_tag :tag => 'link', :attributes => {
       :type => 'text/css',
       :href => '/designs/templates/default/stylesheets/one.css'
@@ -135,6 +141,7 @@ class DesignHelperTest < Test::Unit::TestCase
 
   def test_should_provide_theme_stylesheet_links_if_available
     get :theme_stylesheets
+    assert_response :success
     assert_tag :tag => 'link', :attributes => {
       :type => 'text/css',
       :href => '/designs/themes/default/one.css'
@@ -143,6 +150,7 @@ class DesignHelperTest < Test::Unit::TestCase
 
   def test_should_support_displaying_icons
     get :icons
+    assert_response :success
     assert_tag :tag => 'img', :attributes => {
       :src => '/designs/icons/default/something.png'
     }
@@ -153,6 +161,7 @@ class DesignHelperTest < Test::Unit::TestCase
 
   def test_should_provide_full_header_tags
     get :all_header_tags
+    assert_response :success
 
     # template JS
     assert_tag :tag => 'script', :attributes => {
