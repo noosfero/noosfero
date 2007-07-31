@@ -8,7 +8,9 @@ ActiveRecord::Base.logger = Logger.new(File.dirname(__FILE__) + "/debug.log")
 load(File.dirname(__FILE__) + '/schema.rb')
 # change the table names for the tests to not touch
 Design::Box.set_table_name 'design_test_design_boxes'
-Design::Block.set_table_name 'design_test_design_blocks'
+[Design::Block, Design::MainBlock].each do |item|
+  item.set_table_name 'design_test_design_blocks'
+end
 
 # example class to hold some blocks
 class DesignTestUser < ActiveRecord::Base
