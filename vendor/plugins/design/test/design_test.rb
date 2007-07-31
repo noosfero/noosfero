@@ -2,6 +2,13 @@ require File.join(File.dirname(__FILE__), 'test_helper')
 
 class DesignTest < Test::Unit::TestCase
 
+  def setup
+    Design.public_filesystem_root = File.join(File.dirname(__FILE__))
+  end
+  def teardown
+    Design.public_filesystem_root = nil
+  end
+
   def test_design_should_include_design_module
     assert FixedDesignTestController.included_modules.include?(Design)
   end
@@ -57,6 +64,36 @@ class DesignTest < Test::Unit::TestCase
 
   def test_subclass_should_inherit_supeclass_design
     assert_equal 'sample_object', InheritanceDesignTestController.send(:design_plugin_config)[:holder]
+  end
+
+  def test_should_list_available_templates
+    ['empty', 'default'].each do |item|
+      assert Design.available_templates.include?(item)
+    end
+  end
+
+  def test_should_ignore_non_directory_when_listing_available_templates
+    assert ! Design.available_templates.include?('non_directory_should_be_ignored')
+  end
+
+  def test_should_list_available_themes
+    ['empty', 'default'].each do |item|
+      assert Design.available_themes.include?(item)
+    end
+  end
+
+  def test_should_ignore_non_directory_when_listing_available_themes
+    assert ! Design.available_themes.include?('non_directory_should_be_ignored')
+  end
+
+  def test_should_list_available_icon_themes
+    ['empty', 'default'].each do |item|
+      assert Design.available_icon_themes.include?(item)
+    end
+  end
+
+  def test_should_ignore_non_directory_when_listing_available_icon_themes
+    assert ! Design.available_icon_themes.include?('non_directory_should_be_ignored')
   end
 
 end

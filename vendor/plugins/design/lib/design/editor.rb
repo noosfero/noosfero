@@ -6,11 +6,7 @@ module Design
   # from flexible_template
   module Editor
 
-    #FIXME: move extraction of these values elsewhere
-    def start
-      @ft_config[:available_templates] = parse_path(Dir.glob("#{RAILS_ROOT}/public/templates/*"), 'templates/')
-      @ft_config[:available_themes] = parse_path(Dir.glob("#{RAILS_ROOT}/public/themes/*"), 'themes/')
-      @ft_config[:available_icon_themes] = parse_path(Dir.glob("#{RAILS_ROOT}/public/icons/*"), 'icons/')
+    def designer
     end
   
     def flexible_template_edit_template?
@@ -19,21 +15,21 @@ module Design
   
     # Set the default template to the profile
     def set_default_template
-      set_template(@ft_config[:owner],params[:template_name]) if exist_template? params[:template_name]
+      set_template(design,params[:template_name]) if exist_template? params[:template_name]
     end
   
     # Set the default theme to the profile
     def set_default_theme
-      set_theme(@ft_config[:owner],params[:theme_name]) if exist_theme? params[:theme_name]
+      set_theme(design,params[:theme_name]) if exist_theme? params[:theme_name]
     end
   
     # Set the default icons theme to the profile
     def set_default_icon_theme
-      set_icon_theme(@ft_config[:owner],params[:icon_theme_name]) if exist_icon_theme? params[:icon_theme_name]
+      set_icon_theme(design,params[:icon_theme_name]) if exist_icon_theme? params[:icon_theme_name]
     end
   
     def flexible_template_set_sort_mode
-      box = @ft_config[:owner].boxes.find(params[:box_id])
+      box = design.boxes.find(params[:box_id])
       render :update do |page|
         page.replace_html "box_#{box.number}",  edit_blocks(box)
         page.sortable "sort_#{box.number}", :url => {:action => 'flexible_template_sort_box', :box_number => box.number}
@@ -56,19 +52,19 @@ module Design
     # updates all boxes at the ends
     def flexible_template_change_box
       #TODO fix it i tried the source code comment but i have no success
-      #b = @ft_config[:owner].blocks.detect{|b| b.id.to_s == params[:block].to_s }
+      #b = design.blocks.detect{|b| b.id.to_s == params[:block].to_s }
       b =  Block.find(params[:block])
-      b.box = @ft_config[:owner].boxes.find(params[:box_id])
+      b.box = design.boxes.find(params[:box_id])
       b.save
       render :update do |page|
-        @ft_config[:owner].boxes.each do |box|
+        design.boxes.each do |box|
           page.replace_html "box_#{box.number}", edit_blocks(box)
         end
       end
     end
   
     def flexible_template_new_block
-      box = @ft_config[:owner].boxes.find(params[:box_id])
+      box = design.boxes.find(params[:box_id])
       render :update do |page|
         page.replace_html "box_#{box.number}", new_block_form(box)
       end
@@ -127,14 +123,14 @@ module Design
     #If no chosen_template was selected the default template is set
     def ft_load_boxes
       n = boxes_by_template(@ft_config[:template])
-      boxes = @ft_config[:owner].boxes 
+      boxes = design.boxes 
   
       if boxes.length >= n
         boxes = boxes.first(n)
       else
         while boxes.length < n do
           b = Box.new
-          b.owner = @ft_config[:owner]
+          b.owner = design
           raise _('The box cannot be saved becaus of erros %s') % b.errors if !b.save
           boxes.push(b)
         end

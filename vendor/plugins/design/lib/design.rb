@@ -8,10 +8,13 @@ require 'design/editor'
 
 module Design
 
+  def design_plugin_data
+    @design_plugin_data ||= Hash.new
+  end
+
   # gets the Design object for this controller
   def design
-    @design_plugin_data ||= Hash.new
-    data = @design_plugin_data
+    data = design_plugin_data
 
     return data[:design] if data.has_key?(:design)
 
@@ -52,6 +55,18 @@ module Design
   # used for testing
   def Design.public_filesystem_root=(value) # :nodoc:
     Design.instance_variable_set('@public_filesystem_root', value)
+  end
+
+  def Design.available_templates
+    Dir.glob(File.join(Design.public_filesystem_root, Design.design_root, 'templates', '*')).select {|item| File.directory?(item) }.map {|item| File.basename(item) }
+  end
+
+  def Design.available_themes
+    Dir.glob(File.join(Design.public_filesystem_root, Design.design_root, 'themes', '*')).select {|item| File.directory?(item) }.map {|item| File.basename(item) }
+  end
+
+  def Design.available_icon_themes
+    Dir.glob(File.join(Design.public_filesystem_root, Design.design_root, 'icons', '*')).select {|item| File.directory?(item) }.map {|item| File.basename(item) }
   end
 
 
