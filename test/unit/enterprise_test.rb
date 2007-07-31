@@ -51,15 +51,17 @@ class EnterpriseTest < Test::Unit::TestCase
 
     e = Enterprise.new(:identifier => 'test_numericality_year', :name => 'numeric_year')
     e.foundation_year = 'xxxx'
-    assert ! e.save
+    e.valid?
+    assert e.errors.invalid?(:foundation_year)
 
     e.foundation_year = 20.07
-    assert ! e.save
-
+    e.valid?
+    assert e.errors.invalid?(:foundation_year)
+    
     e.foundation_year = 2007
-    assert e.save
+    e.valid?
+    assert ! e.errors.invalid?(:foundation_year)
 
-    assert count + 1, Enterprise.count
   end
 
 end
