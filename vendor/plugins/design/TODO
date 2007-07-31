@@ -1,0 +1,3 @@
+* finish (implement and test) the design editor (Editor and Editor::Helper)
+* change ActionController::Base.design to, when receiving a symbol as :holder, call a controller method with that name to load the design object.
+* copy and enhance generator from flexible_template
