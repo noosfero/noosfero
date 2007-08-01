@@ -6,7 +6,7 @@ class ManageTagsController; def rescue_action(e) raise e end; end
 
 class ManageTagsControllerTest < Test::Unit::TestCase
 
-  fixtures :profiles, :boxes, :blocks, :domains
+  fixtures :profiles, :design_boxes, :design_blocks, :domains
 
   def setup
     @controller = ManageTagsController.new

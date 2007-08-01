@@ -1,7 +1,5 @@
 class TestController < ApplicationController
 
-  uses_flexible_template :owner => 'owner'
-
   def index
     render :text => 'index'
   end

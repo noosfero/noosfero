@@ -1,7 +1,7 @@
 require "#{File.dirname(__FILE__)}/../test_helper"
 
 class ManageTagsTest < ActionController::IntegrationTest
-  fixtures :tags, :profiles, :boxes, :blocks
+  fixtures :tags, :profiles, :design_boxes, :design_blocks
 
   def test_tags_create_edit_destroy
     get '/admin/manage_tags'
