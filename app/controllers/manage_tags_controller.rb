@@ -3,8 +3,6 @@ require 'extended_tag.rb'
 # Manage tags stored by the acts-as_taggable_on_steroids plugin by providing an interface to create, destroy, update and list them
 class ManageTagsController < ApplicationController
 
-  uses_flexible_template :owner => 'owner'
-
   # Index redirects to list action without modifing the url
   def index
     redirect_to :action => 'list'
