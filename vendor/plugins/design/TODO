@@ -1,5 +1,0 @@
-* finish (implement and test) the design editor (Editor and Editor::Helper)
-* change ActionController::Base.design to, when receiving a symbol as :holder, call a controller method with that name to load the design object.
-* copy and enhance generator from flexible_template
-* implement the check for number of boxes declared in the template
-* rediscuss the organization of templates: souldn't they be stored without subdirectories, as themes and icon themes?
