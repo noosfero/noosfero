@@ -1,0 +1,26 @@
+* {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+body {
+  font-size: 12px;
+  margin: 0px;
+}
+
+#header {
+  border-bottom: 1px solid black;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+#menu {
+  float: right;
+}
+
+#content {
+  padding: 1em;
+}
+
+#footer {
+  text-align: center;
+  border-top: 1px solid black;
+}
