@@ -4,8 +4,20 @@ class EnterpriseController < ApplicationController
   before_filter :logon, :my_enterprises
   
   def index
+    if @my_enterprises.size == 1
+      redirect_to :action => 'show', :id => @my_enterprises[0]
+    else
+      redirect_to :action => 'list'
+    end
+  end
+  
+  def list
     @enterprises = Enterprise.find(:all) - @my_enterprises
-    @pending_enterprises = current_user.person.my_enterprises(false)
+    @pending_enterprises = current_user.person.pending_enterprises(false)
+  end
+
+  def show
+    @enterprise = current_user.person.related_profiles.find(params[:id])
   end
   
   def register_form
@@ -15,7 +27,6 @@ class EnterpriseController < ApplicationController
 
   def register
     @enterprise = Enterprise.new(params[:enterprise])
-    @enterprise.identifier = @enterprise.name
     if @enterprise.save
       @enterprise.people << current_user.person
       flash[:notice] = _('Enterprise was succesfully created')
@@ -26,10 +37,20 @@ class EnterpriseController < ApplicationController
     end
   end
 
-  def show
-    @enterprise = @my_enterprises.find{|e| e.id == params[:id]}
+  def edit
+    @enterprise = current_user.person.related_profiles.find(params[:id])
   end
-  
+
+  def update
+    @enterprise = current_user.person.related_profiles.find(params[:id])
+    if @enterprise.update_attributes(params[:enterprise])
+      redirect_to :action => 'index'
+    else
+      flash[:notice] = _('Could not update the enterprise')
+      render :action => 'edit'
+    end
+  end
+
   protected
 
   def logon
@@ -37,6 +58,6 @@ class EnterpriseController < ApplicationController
   end
 
   def my_enterprises
-    @my_enterprises = current_user.person.my_enterprises
+    @my_enterprises = current_user.person.enterprises
   end
 end

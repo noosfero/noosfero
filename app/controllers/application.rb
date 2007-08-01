@@ -2,6 +2,8 @@
 # available in all controllers.
 class ApplicationController < ActionController::Base
 
+#  helper :all
+  
   design :holder => 'virtual_community'
 
   # Be sure to include AuthenticationSystem in Application Controller instead

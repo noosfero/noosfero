@@ -1,0 +1,9 @@
+<%= error_messages_for 'enterprise' %>
+
+<h2><%= _('Edit enterprise informations') %></h2>
+
+<% form_tag :action => 'update', :id => @enterprise do %>
+  <%= render :partial => 'form' %>
+<p><%= submit_tag _('Register') %>
+<%= link_to _('Cancel'), :action => 'index' %></p>
+<% end %>
