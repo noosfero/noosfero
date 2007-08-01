@@ -8,12 +8,13 @@ body {
 
 #header {
   border-bottom: 1px solid black;
-  padding-left: 1em;
-  padding-right: 1em;
+  padding: 0.5em;
 }
 
 #menu {
   float: right;
+  margin-right: 1em;
+  margin-top: 1em;
 }
 
 #content {
@@ -24,3 +25,12 @@ body {
   text-align: center;
   border-top: 1px solid black;
 }
+
+#notice, #errorExplanation {
+  border: 1px solid black;
+  margin-top: 1em;
+  margin-left: 30%;
+  margin-right: 30%;
+  padding: 0.5em;
+}
+
