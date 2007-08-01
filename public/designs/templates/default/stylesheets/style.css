@@ -34,3 +34,11 @@ body {
   padding: 0.5em;
 }
 
+#box_1, #box_2, #box_3 {
+  border: 1px solid black;
+  margin: 10px;
+}
+
+#box_1 li, #box_2 li, #box_3 li {
+ border: 1px solid black;
+}

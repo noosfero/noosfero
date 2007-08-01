@@ -1,10 +1,10 @@
 <h1><%= _('Login') %></h1>
 
 <% form_tag do -%>
-<p><label for="login">Login</label><br/>
+<p><label for="login"> <%= _('Login') %> </label><br/>
 <%= text_field_tag 'login' %></p>
 
-<p><label for="password">Password</label><br/>
+<p><label for="password"> <%= _('Password') %></label><br/>
 <%= password_field_tag 'password' %></p>
 
 <!-- Uncomment this if you want this functionality

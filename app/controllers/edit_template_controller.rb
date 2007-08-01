@@ -1,7 +1,10 @@
 class EditTemplateController < ApplicationController
 
-  design_editor :holder => 'virtual_community', :autosave => true
-  
+  design_editor :holder => 'virtual_community', :autosave => true, :block_types => :block_types
+ 
+  #TODO Implements the available blocks here
+  #TODO implements available helpers
+
   def index
     redirect_to :action => 'design_editor'
   end
