@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+require File.dirname(__FILE__) + '/../config/environment'
+
+User.create!(:login => 'test', :email => 'admin@example.com', :password => 'test', :password_confirmation => 'test')
+User.create!(:login => 'user', :email => 'user@example.com', :password => 'user', :password_confirmation => 'user')
+User.create!(:login => 'usuario', :email => 'usuario@example.com', :password => 'usuario', :password_confirmation => 'usuario')
