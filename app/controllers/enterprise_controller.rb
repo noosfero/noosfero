@@ -13,11 +13,10 @@ class EnterpriseController < ApplicationController
   
   def list
     @enterprises = Enterprise.find(:all) - @my_enterprises
-    @pending_enterprises = current_user.person.pending_enterprises(false)
   end
 
   def show
-    @enterprise = current_user.person.related_profiles.find(params[:id])
+    @enterprise = @my_enterprises.find(params[:id])
   end
   
   def register_form
@@ -29,7 +28,7 @@ class EnterpriseController < ApplicationController
     @enterprise = Enterprise.new(params[:enterprise])
     @enterprise.organization_info = OrganizationInfo.new(params[:organization])
     if @enterprise.save
-      @enterprise.people << current_user.person
+      @enterprise.people << @person
       flash[:notice] = _('Enterprise was succesfully created')
       redirect_to :action => 'index'
     else
@@ -39,12 +38,12 @@ class EnterpriseController < ApplicationController
   end
 
   def edit
-    @enterprise = current_user.person.related_profiles.find(params[:id])
+    @enterprise = @my_enterprises.find(params[:id])
   end
 
   def update
-    @enterprise = current_user.person.related_profiles.find(params[:id])
-    if @enterprise.update_attributes(params[:enterprise])
+    @enterprise = @my_enterprises.find(params[:id])
+    if @enterprise.update_attributes(params[:enterprise]) && @enterprise.organization_info.update_attributes(params[:organization_info])
       redirect_to :action => 'index'
     else
       flash[:notice] = _('Could not update the enterprise')
@@ -52,8 +51,14 @@ class EnterpriseController < ApplicationController
     end
   end
 
+  def affiliate
+    @enterprise = Enterprise.find(params[:id])
+    @enterprise.people << @person
+    redirect_to :action => 'index'
+  end
+
   def destroy 
-    @enterprise = current_user.person.related_profiles.find(params[:id])
+    @enterprise = @my_enterprises.find(params[:id])
     @enterprise.destroy
     redirect_to :action => 'index'
   end
@@ -61,10 +66,19 @@ class EnterpriseController < ApplicationController
   protected
 
   def logon
-    redirect_to :controller => 'account' unless logged_in?
+    if logged_in?
+      @user = current_user
+      @person = @user.person
+    else
+      redirect_to :controller => 'account' unless logged_in?
+    end
   end
 
   def my_enterprises
-    @my_enterprises = current_user.person.enterprises
+    if logged_in?
+      @my_active_enterprises = @person.active_enterprises
+      @my_pending_enterprises = @person.pending_enterprises
+      @my_enterprises = @person.enterprises
+    end
   end
 end

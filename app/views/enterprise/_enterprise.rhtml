@@ -1,4 +1,6 @@
-<li> <%= link_to enterprise.name, :action => 'show', :id => enterprise %> 
-<p> <%= link_to _('Edit'), :action => 'edit', :id => enterprise %>  </p>
-<p> <%= link_to _('Delete'), :action => 'destroy', :id => enterprise %>  </p>
+<li> 
+<%= link_to enterprise.name, :action => 'show', :id => enterprise %>
+<%= link_to _('Edit'), :action => 'edit', :id => enterprise %>
+<%= link_to _('Delete'), :action => 'destroy', :id => enterprise %>
+<%= link_to _('Affiliate'), :action => 'affiliate', :id => enterprise unless @my_enterprises.include?(enterprise) %>
 </li>

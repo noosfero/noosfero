@@ -10,6 +10,6 @@
 <p> <%= _('Economic activity: ') %> <%= @enterprise.organization_info.economic_activity %> </p>
 <p> <%= _('Management infomation: ') %> <%= @enterprise.organization_info.management_information %> </p>
 
-<p> <%= link_to _('Edit enterprise'), :action => 'edit', :id => @enterprise %>  </p>
-<p> <%= link_to _('Delete enterprise'), :action => 'destroy', :id => @enterprise %>  </p>
-<p> <%= link_to _('Register new enterprise'), :action => 'register_form' %> </p>
+<%= link_to _('Edit enterprise'), :action => 'edit', :id => @enterprise %>
+<%= link_to _('Delete enterprise'), :action => 'destroy', :id => @enterprise %>
+<%= link_to _('Register new enterprise'), :action => 'register_form' %>

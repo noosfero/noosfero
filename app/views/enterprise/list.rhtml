@@ -1,12 +1,17 @@
 <p> <%= link_to _('Register new enterprise'), :action => 'register_form' %> </p>
 <h2> <%= _('Listing my enterprises') %> </h2>
 <ul>
-  <%= render :partial => 'enterprise', :collection => @my_enterprises %>
+  <%= render :partial => 'enterprise', :collection => @my_active_enterprises %>
 </ul>
 
-<% unless @pending_enterprises.blank? %>
+<% unless @my_pending_enterprises.blank? %>
   <h2> <%= _('Listing pending enterprises') %> </h2>
   <ul>
-    <%= render :partial => 'enterprise', :collection => @pending_enterprises %>
+    <%= render :partial => 'enterprise', :collection => @my_pending_enterprises %>
   </ul>
 <% end %>
+
+<h4> <%= _('Other Enterprises') %> </h4>
+<ul>
+  <%= render :partial => 'enterprise', :collection => @enterprises %>
+</ul>
