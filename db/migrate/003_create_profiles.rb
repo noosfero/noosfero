@@ -9,11 +9,14 @@ class CreateProfiles < ActiveRecord::Migration
       t.column :flexible_template_theme,                :string, :default => "default"
       t.column :flexible_template_icon_theme,           :string, :default => "default"
       t.column :active,                                 :boolean, :default => false
-      t.column :address,                   :string
-      t.column :contact_phone,             :string
+      t.column :address,                                :string
+      t.column :contact_phone,                          :string
           
       #person fields
       t.column :user_id,                                :integer
+
+      #enterprise fields
+      t.column :validation_entity_id,                   :integer
     end
   end
 

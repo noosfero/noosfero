@@ -22,6 +22,7 @@ class EnterpriseController < ApplicationController
   def register_form
     @enterprise = Enterprise.new()
     @vitual_communities = VirtualCommunity.find(:all)
+    @validation_entities = Organization.find(:all)
   end
 
   def register
