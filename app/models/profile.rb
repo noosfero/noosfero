@@ -25,6 +25,9 @@ class Profile < ActiveRecord::Base
 
   has_many :domains, :as => :owner
   belongs_to :virtual_community
+  has_many :affiliations
+  has_many :people, :through => :affiliations
+
 
   # Sets the identifier for this profile. Raises an exception when called on a
   # existing profile (since profiles cannot be renamed)

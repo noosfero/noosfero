@@ -1,3 +1,4 @@
 root:
   id: 1
   title: Root page
+  slug: ''
