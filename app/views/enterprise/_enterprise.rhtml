@@ -1,1 +1,4 @@
-<li> <%= link_to enterprise.name, :action => 'show', :id => enterprise %> </li>
+<li> <%= link_to enterprise.name, :action => 'show', :id => enterprise %> 
+<p> <%= link_to _('Edit'), :action => 'edit', :id => enterprise %>  </p>
+<p> <%= link_to _('Delete'), :action => 'destroy', :id => enterprise %>  </p>
+</li>

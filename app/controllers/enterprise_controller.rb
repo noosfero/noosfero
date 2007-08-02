@@ -27,6 +27,7 @@ class EnterpriseController < ApplicationController
 
   def register
     @enterprise = Enterprise.new(params[:enterprise])
+    @enterprise.organization_info = OrganizationInfo.new(params[:organization])
     if @enterprise.save
       @enterprise.people << current_user.person
       flash[:notice] = _('Enterprise was succesfully created')
@@ -49,6 +50,12 @@ class EnterpriseController < ApplicationController
       flash[:notice] = _('Could not update the enterprise')
       render :action => 'edit'
     end
+  end
+
+  def destroy 
+    @enterprise = current_user.person.related_profiles.find(params[:id])
+    @enterprise.destroy
+    redirect_to :action => 'index'
   end
 
   protected
