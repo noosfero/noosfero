@@ -3,12 +3,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 class PersonTest < Test::Unit::TestCase
   fixtures :profiles, :users
 
-  # Replace this with your real tests.
-  def test_truth
-    assert true
-  end
-
   def test_can_have_user
+    p = Person.new(:name => 'John', :identfier => 'john')
     p = profiles(:johndoe)
     assert_kind_of User, p.user
   end
