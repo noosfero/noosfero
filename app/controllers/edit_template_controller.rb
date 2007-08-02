@@ -1,24 +1,23 @@
 class EditTemplateController < ApplicationController
 
-  design_editor :holder => 'virtual_community', :autosave => true, :block_types => :block_types
- 
-  #TODO Implements the available blocks here
-  #TODO implements available helpers
+  design_editor :holder => 'virtual_community', :autosave => true, :block_types => :block_types, :block_helper_types => :block_helper_types
+  
+  def block_types
+    { 
+      'ListBlock' => _("List Block"), 
+      'LinkBlock' => _("Link Block"),
+    }
+  end
+
+  def block_helper_types
+    { 
+      'list_content' => _("Simple List Content"), 
+      'plain_content' => _("Link Block"),
+    }
+  end
 
   def index
     redirect_to :action => 'design_editor'
   end
-
-  FLEXIBLE_TEMPLATE_AVAILABLE_BLOCKS = {
-    'ListBlock' => _("List Block"),
-    'LinkBlock' => _("Link Block"),
-  }
-
-
-#TODO add your own helpers here
-#  FLEXIBLE_TEMPLATE_BLOCK_HELPER = {
-#      'list_content' => _("Simple List Content"),
-#    }
-
 
 end

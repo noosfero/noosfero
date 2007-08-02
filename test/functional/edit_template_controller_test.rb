@@ -14,8 +14,10 @@ class EditTemplateControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
   end
 
-  def test
-    flunk 'FIXME: nothing tested yet'
+  def test_redirect_to_design_editoe_when_index_action_is_called
+    get :index
+    assert_response :redirect
+    assert_redirected_to :action => 'design_editor'
   end
 
 end
