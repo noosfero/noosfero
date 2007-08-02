@@ -34,20 +34,6 @@ class ApplicationControllerTest < Test::Unit::TestCase
     assert_not_nil assigns(:owner)
   end
 
-  def test_exist_chosen_theme
-    get :index
-    assert_not_nil assigns(:ft_config)
-    conf = assigns(:ft_config)
-    assert_not_nil conf[:theme]
-  end
-
-  def test_exist_chosen_icons_theme
-    get :index
-    assert_not_nil assigns(:ft_config)
-    conf =  assigns(:ft_config)
-    assert_not_nil conf[:icons_theme]
-  end
-
   def test_should_generate_help_box_when_passing_string
     get :help_with_string
     assert_tag({

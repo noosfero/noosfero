@@ -11,8 +11,7 @@ class RoutingTest < ActionController::IntegrationTest
   # auxiliary (development) controllers
   ################################################################
   def test_doc_controller
-    #FIXME: assert_routing cannot find controllers in plugins'
-    flunk 'FIXME: assert_routing cannot find controllers in plugins'
+    require File.join(RAILS_ROOT, 'vendor', 'plugins', 'doc_browser', 'controllers', 'doc_controller')
     assert_routing('/doc', :controller => 'doc', :action => 'index')
   end
 
@@ -25,7 +24,8 @@ class RoutingTest < ActionController::IntegrationTest
   def test_comatose_admin
     #FIXME: assert_routing cannot find controllers in plugins'
     flunk 'FIXME: assert_routing cannot find controllers in plugins'
-    assert_routing('/cms/ze', :controller => 'comatose_admin')
+    require File.join(RAILS_ROOT, 'vendor', 'plugins', 'comatose', 'lib', 'comatose', 'admin_controller')
+    assert_routing('/cms/ze', :controller => 'comatose::admin')
   end
 
   def test_edit_template
