@@ -40,6 +40,7 @@ class EnterpriseController < ApplicationController
 
   def edit
     @enterprise = @my_enterprises.find(params[:id])
+    @validation_entities = Organization.find(:all) - [@enterprise]
   end
 
   def update
