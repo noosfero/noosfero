@@ -16,9 +16,24 @@
    inkscape:version="0.45+devel"
    version="1.0"
    sodipodi:docname="login.svg"
-   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   inkscape:export-filename="/home/valessio/Desenvolvimento/anheteguar/public/artwork/telas/login.png"
+   inkscape:export-xdpi="88"
+   inkscape:export-ydpi="88">
   <defs
      id="defs4">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient3372">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0"
+         id="stop3374" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0;"
+         offset="1"
+         id="stop3376" />
+    </linearGradient>
     <linearGradient
        id="linearGradient5654">
       <stop
@@ -112,14 +127,13 @@
          id="stop2831" />
     </linearGradient>
     <linearGradient
-       inkscape:collect="always"
        id="linearGradient2817">
       <stop
-         style="stop-color:#4e9a06;stop-opacity:1;"
+         style="stop-color:#204a87;stop-opacity:1"
          offset="0"
          id="stop2819" />
       <stop
-         style="stop-color:#4e9a06;stop-opacity:0;"
+         style="stop-color:#00ffff;stop-opacity:0;"
          offset="1"
          id="stop2821" />
     </linearGradient>
@@ -1308,6 +1322,15 @@
        fx="212"
        fy="8.1780939"
        r="115.42556" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3372"
+       id="linearGradient3378"
+       x1="695"
+       y1="306.42355"
+       x2="695"
+       y2="332.50003"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -1318,7 +1341,7 @@
      inkscape:pageshadow="2"
      inkscape:zoom="1"
      inkscape:cx="399.52696"
-     inkscape:cy="204.21351"
+     inkscape:cy="524.21351"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      width="800px"
@@ -2305,702 +2328,17 @@
        height="271"
        x="524"
        y="147" />
-    <flowRoot
+    <text
        xml:space="preserve"
-       style="font-size:10.98970795px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#4e9a06;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       id="flowRoot4911"
-       transform="translate(104,12)"><flowRegion
-         id="flowRegion4913"><use
-           x="0"
-           y="0"
-           xlink:href="#rect4909"
-           id="use4915"
-           width="800"
-           height="700"
-           transform="translate(-103,-6)" /></flowRegion><flowPara
-         id="flowPara4917"><flowSpan
-   style="font-weight:bold;text-align:center;text-anchor:middle;fill:#4e9a06"
-   id="flowSpan4929">Arte </flowSpan>, Desenhos ,   Esculturas,    Fotografias ,   Pinturas ,  Cosmético e Cuidado Pessoal ,  Cremes ,  Desensibilizadores ,  Fragrâncias ,  Lubrificantes ,  Sais ,  Óleos , <flowSpan
-   style="font-weight:bold;text-align:center;text-anchor:middle;fill:#4e9a06"
-   id="flowSpan4927">Fotos e Colecionáveis</flowSpan> , Jogos ,  Lingerie e Acessórios ,  Acessórios ,  Bodies e Baby Dolls  , Calcinhas ,  Conjuntos e Soutiens ,  Fantasias e Disfarces ,  Masculino ,  Livros  ,  Arte ,  <flowSpan
-   style="font-weight:bold;text-align:center;text-anchor:middle;fill:#4e9a06"
-   id="flowSpan4919">Colecionáveis</flowSpan> ,  Fotografia ,  Literatura ,  Manuais , Revistas , Revistas em Quadrinhos ,  Comics ,  Histórias em Quadrinhos ,  Mangá ,  Vídeos , VHS , Arte e Artesanato , Artesanato , <flowSpan
-   style="font-weight:bold;text-align:center;text-anchor:middle;fill:#4e9a06"
-   id="flowSpan4921">Esculturas</flowSpan> , Gravuras , Livros , Pintura a Óleo ,  Delicatessen , Comestíveis ,  Cafés e Chás ,  Doces ,  Especiais ,  Frutas secas ,  Frutos do Mar , Embutidos , Licor , Livros de culinária ,  <flowSpan
-   style="font-weight:bold;text-align:center;text-anchor:middle;fill:#4e9a06"
-   id="flowSpan4923">Serviços: Bufê</flowSpan> , Vinhos , Acessórios , Vinhos , Esoterismo e Ocultismo , Elementos , Essências , <flowSpan
-   style="font-weight:bold;text-align:center;text-anchor:middle;fill:#4e9a06"
-   id="flowSpan4925">Serviços</flowSpan></flowPara></flowRoot>    <text
-       xml:space="preserve"
-       style="font-size:20.53243637px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#204a87;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="542"
+       style="font-size:20.53243637px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#204a87;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="526"
        y="147"
        id="text4931"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4933"
-         x="542"
-         y="147">Tags</tspan></text>
-    <g
-       id="g5100">
-      <g
-         style="opacity:0.34567901"
-         transform="translate(-0.9572601,0)"
-         id="g3974">
-        <rect
-           y="125"
-           x="112.4359"
-           height="92"
-           width="92"
-           id="rect3431"
-           style="opacity:0.83539094;color:#000000;fill:#204a87;fill-opacity:0.15226339;fill-rule:nonzero;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.7881356;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
-        <text
-           xml:space="preserve"
-           style="font-size:9.62413597px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-           x="158.16681"
-           y="145.80763"
-           id="text3433"
-           sodipodi:linespacing="125%"><tspan
-             sodipodi:role="line"
-             id="tspan3435"
-             x="158.16681"
-             y="145.80763">Empreendimento</tspan><tspan
-             sodipodi:role="line"
-             x="158.16681"
-             y="157.8378"
-             id="tspan3437">Sólidario</tspan><tspan
-             sodipodi:role="line"
-             x="158.16681"
-             y="169.86797"
-             id="tspan3914">FOTO</tspan><tspan
-             sodipodi:role="line"
-             x="158.16681"
-             y="181.89815"
-             id="tspan3916">Quando</tspan><tspan
-             sodipodi:role="line"
-             x="158.16681"
-             y="193.92831"
-             id="tspan3918">mouse:hover</tspan><tspan
-             sodipodi:role="line"
-             x="158.16681"
-             y="205.95848"
-             id="tspan3920">info...</tspan></text>
-      </g>
-      <g
-         id="g4008">
-        <rect
-           style="opacity:0.83539094;color:#000000;fill:#204a87;fill-opacity:0.15226339;fill-rule:nonzero;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.7881356;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-           id="rect3048"
-           width="92"
-           height="92"
-           x="11"
-           y="125" />
-        <text
-           xml:space="preserve"
-           style="font-size:10.87104321px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#2e3436;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-           x="13.97782"
-           y="136.93124"
-           sodipodi:linespacing="125%"
-           id="text3517"><tspan
-             sodipodi:role="line"
-             x="13.97782"
-             y="136.93124"
-             id="tspan3519">Alimentos</tspan></text>
-        <text
-           xml:space="preserve"
-           style="font-size:8.44994259px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#2e3436;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-           x="48.143127"
-           y="212.63612"
-           sodipodi:linespacing="125%"
-           id="text3513"><tspan
-             sodipodi:role="line"
-             x="48.143127"
-             y="212.63612"
-             id="tspan3515">Jacobina/BA</tspan></text>
-        <path
-           style="fill:#2e3436;fill-rule:evenodd;stroke:#2e3436;stroke-width:1.17948723px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-           d="M 13.948718,139.15385 L 98.282051,139.15385"
-           id="path3521" />
-        <rect
-           style="color:#000000;fill:none;fill-opacity:0.15226339;fill-rule:nonzero;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.7881356;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-           id="rect3904"
-           width="83.153847"
-           height="33.025642"
-           x="14.538462"
-           y="143.8718" />
-        <flowRoot
-           xml:space="preserve"
-           style="font-size:9.95248413px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#204a87;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-           id="flowRoot3906"
-           transform="translate(7,3)"><flowRegion
-             id="flowRegion3908"><use
-               x="0"
-               y="0"
-               xlink:href="#rect3904"
-               id="use3910"
-               transform="matrix(0.8478261,0,0,0.8478261,1.673913,19.021739)"
-               width="800"
-               height="700" /></flowRegion><flowPara
-             id="flowPara3912">Valessio Bolos e Salgados</flowPara></flowRoot>      </g>
-      <g
-         style="opacity:0.34567901"
-         transform="translate(-0.4786224,0)"
-         id="g3964">
-        <rect
-           style="opacity:0.83539094;color:#000000;fill:#204a87;fill-opacity:0.15226339;fill-rule:nonzero;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.7881356;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-           id="rect3922"
-           width="92"
-           height="92"
-           x="212.4359"
-           y="125" />
-        <text
-           sodipodi:linespacing="125%"
-           id="text3924"
-           y="145.80763"
-           x="258.16681"
-           style="font-size:9.62413597px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-           xml:space="preserve"><tspan
-             y="145.80763"
-             x="258.16681"
-             id="tspan3926"
-             sodipodi:role="line">Empreendimento</tspan><tspan
-             id="tspan3928"
-             y="157.8378"
-             x="258.16681"
-             sodipodi:role="line">Sólidario</tspan><tspan
-             id="tspan3930"
-             y="169.86797"
-             x="258.16681"
-             sodipodi:role="line">FOTO</tspan><tspan
-             id="tspan3932"
-             y="181.89815"
-             x="258.16681"
-             sodipodi:role="line">Quando</tspan><tspan
-             id="tspan3934"
-             y="193.92831"
-             x="258.16681"
-             sodipodi:role="line">mouse:hover</tspan><tspan
-             id="tspan3936"
-             y="205.95848"
-             x="258.16681"
-             sodipodi:role="line">info...</tspan></text>
-      </g>
-      <g
-         style="opacity:0.34567901"
-         id="g3954">
-        <rect
-           y="125"
-           x="312.43591"
-           height="92"
-           width="92"
-           id="rect3938"
-           style="opacity:0.83539094;color:#000000;fill:#204a87;fill-opacity:0.15226339;fill-rule:nonzero;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.7881356;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
-        <text
-           xml:space="preserve"
-           style="font-size:9.62413597px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-           x="358.16681"
-           y="145.80763"
-           id="text3940"
-           sodipodi:linespacing="125%"><tspan
-             sodipodi:role="line"
-             id="tspan3942"
-             x="358.16681"
-             y="145.80763">Empreendimento</tspan><tspan
-             sodipodi:role="line"
-             x="358.16681"
-             y="157.8378"
-             id="tspan3944">Sólidario</tspan><tspan
-             sodipodi:role="line"
-             x="358.16681"
-             y="169.86797"
-             id="tspan3946">FOTO</tspan><tspan
-             sodipodi:role="line"
-             x="358.16681"
-             y="181.89815"
-             id="tspan3948">Quando</tspan><tspan
-             sodipodi:role="line"
-             x="358.16681"
-             y="193.92831"
-             id="tspan3950">mouse:hover</tspan><tspan
-             sodipodi:role="line"
-             x="358.16681"
-             y="205.95848"
-             id="tspan3952">info...</tspan></text>
-      </g>
-      <g
-         style="opacity:0.34567901"
-         id="g4021"
-         transform="translate(-0.9572601,100)">
-        <rect
-           style="opacity:0.83539094;color:#000000;fill:#204a87;fill-opacity:0.15226339;fill-rule:nonzero;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.7881356;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-           id="rect4023"
-           width="92"
-           height="92"
-           x="112.4359"
-           y="125" />
-        <text
-           sodipodi:linespacing="125%"
-           id="text4025"
-           y="145.80763"
-           x="158.16681"
-           style="font-size:9.62413597px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-           xml:space="preserve"><tspan
-             y="145.80763"
-             x="158.16681"
-             id="tspan4027"
-             sodipodi:role="line">Empreendimento</tspan><tspan
-             id="tspan4029"
-             y="157.8378"
-             x="158.16681"
-             sodipodi:role="line">Sólidario</tspan><tspan
-             id="tspan4031"
-             y="169.86797"
-             x="158.16681"
-             sodipodi:role="line">FOTO</tspan><tspan
-             id="tspan4033"
-             y="181.89815"
-             x="158.16681"
-             sodipodi:role="line">Quando</tspan><tspan
-             id="tspan4035"
-             y="193.92831"
-             x="158.16681"
-             sodipodi:role="line">mouse:hover</tspan><tspan
-             id="tspan4037"
-             y="205.95848"
-             x="158.16681"
-             sodipodi:role="line">info...</tspan></text>
-      </g>
-      <g
-         style="opacity:0.34567901"
-         id="g4063"
-         transform="translate(-0.4786224,100)">
-        <rect
-           y="125"
-           x="212.4359"
-           height="92"
-           width="92"
-           id="rect4065"
-           style="opacity:0.83539094;color:#000000;fill:#204a87;fill-opacity:0.15226339;fill-rule:nonzero;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.7881356;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
-        <text
-           xml:space="preserve"
-           style="font-size:9.62413597px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-           x="258.16681"
-           y="145.80763"
-           id="text4067"
-           sodipodi:linespacing="125%"><tspan
-             sodipodi:role="line"
-             id="tspan4069"
-             x="258.16681"
-             y="145.80763">Empreendimento</tspan><tspan
-             sodipodi:role="line"
-             x="258.16681"
-             y="157.8378"
-             id="tspan4071">Sólidario</tspan><tspan
-             sodipodi:role="line"
-             x="258.16681"
-             y="169.86797"
-             id="tspan4073">FOTO</tspan><tspan
-             sodipodi:role="line"
-             x="258.16681"
-             y="181.89815"
-             id="tspan4075">Quando</tspan><tspan
-             sodipodi:role="line"
-             x="258.16681"
-             y="193.92831"
-             id="tspan4077">mouse:hover</tspan><tspan
-             sodipodi:role="line"
-             x="258.16681"
-             y="205.95848"
-             id="tspan4079">info...</tspan></text>
-      </g>
-      <g
-         style="opacity:0.34567901"
-         transform="translate(0,100)"
-         id="g4081">
-        <rect
-           style="opacity:0.83539094;color:#000000;fill:#204a87;fill-opacity:0.15226339;fill-rule:nonzero;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.7881356;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-           id="rect4083"
-           width="92"
-           height="92"
-           x="312.43591"
-           y="125" />
-        <text
-           sodipodi:linespacing="125%"
-           id="text4085"
-           y="145.80763"
-           x="358.16681"
-           style="font-size:9.62413597px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-           xml:space="preserve"><tspan
-             y="145.80763"
-             x="358.16681"
-             id="tspan4087"
-             sodipodi:role="line">Empreendimento</tspan><tspan
-             id="tspan4089"
-             y="157.8378"
-             x="358.16681"
-             sodipodi:role="line">Sólidario</tspan><tspan
-             id="tspan4091"
-             y="169.86797"
-             x="358.16681"
-             sodipodi:role="line">FOTO</tspan><tspan
-             id="tspan4093"
-             y="181.89815"
-             x="358.16681"
-             sodipodi:role="line">Quando</tspan><tspan
-             id="tspan4095"
-             y="193.92831"
-             x="358.16681"
-             sodipodi:role="line">mouse:hover</tspan><tspan
-             id="tspan4097"
-             y="205.95848"
-             x="358.16681"
-             sodipodi:role="line">info...</tspan></text>
-      </g>
-      <g
-         style="opacity:0.34567901"
-         transform="translate(-0.9572601,200)"
-         id="g4099">
-        <rect
-           y="125"
-           x="112.4359"
-           height="92"
-           width="92"
-           id="rect4101"
-           style="opacity:0.83539094;color:#000000;fill:#204a87;fill-opacity:0.15226339;fill-rule:nonzero;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.7881356;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
-        <text
-           xml:space="preserve"
-           style="font-size:9.62413597px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-           x="158.16681"
-           y="145.80763"
-           id="text4103"
-           sodipodi:linespacing="125%"><tspan
-             sodipodi:role="line"
-             id="tspan4105"
-             x="158.16681"
-             y="145.80763">Empreendimento</tspan><tspan
-             sodipodi:role="line"
-             x="158.16681"
-             y="157.8378"
-             id="tspan4107">Sólidario</tspan><tspan
-             sodipodi:role="line"
-             x="158.16681"
-             y="169.86797"
-             id="tspan4109">FOTO</tspan><tspan
-             sodipodi:role="line"
-             x="158.16681"
-             y="181.89815"
-             id="tspan4111">Quando</tspan><tspan
-             sodipodi:role="line"
-             x="158.16681"
-             y="193.92831"
-             id="tspan4113">mouse:hover</tspan><tspan
-             sodipodi:role="line"
-             x="158.16681"
-             y="205.95848"
-             id="tspan4115">info...</tspan></text>
-      </g>
-      <g
-         style="opacity:0.34567901"
-         transform="translate(-0.4786224,200)"
-         id="g4141">
-        <rect
-           style="opacity:0.83539094;color:#000000;fill:#204a87;fill-opacity:0.15226339;fill-rule:nonzero;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.7881356;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-           id="rect4143"
-           width="92"
-           height="92"
-           x="212.4359"
-           y="125" />
-        <text
-           sodipodi:linespacing="125%"
-           id="text4145"
-           y="145.80763"
-           x="258.16681"
-           style="font-size:9.62413597px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-           xml:space="preserve"><tspan
-             y="145.80763"
-             x="258.16681"
-             id="tspan4147"
-             sodipodi:role="line">Empreendimento</tspan><tspan
-             id="tspan4149"
-             y="157.8378"
-             x="258.16681"
-             sodipodi:role="line">Sólidario</tspan><tspan
-             id="tspan4151"
-             y="169.86797"
-             x="258.16681"
-             sodipodi:role="line">FOTO</tspan><tspan
-             id="tspan4153"
-             y="181.89815"
-             x="258.16681"
-             sodipodi:role="line">Quando</tspan><tspan
-             id="tspan4155"
-             y="193.92831"
-             x="258.16681"
-             sodipodi:role="line">mouse:hover</tspan><tspan
-             id="tspan4157"
-             y="205.95848"
-             x="258.16681"
-             sodipodi:role="line">info...</tspan></text>
-      </g>
-      <g
-         style="opacity:0.34567901"
-         id="g4159"
-         transform="translate(0,200)">
-        <rect
-           y="125"
-           x="312.43591"
-           height="92"
-           width="92"
-           id="rect4161"
-           style="opacity:0.83539094;color:#000000;fill:#204a87;fill-opacity:0.15226339;fill-rule:nonzero;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.7881356;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
-        <text
-           xml:space="preserve"
-           style="font-size:9.62413597px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-           x="358.16681"
-           y="145.80763"
-           id="text4163"
-           sodipodi:linespacing="125%"><tspan
-             sodipodi:role="line"
-             id="tspan4165"
-             x="358.16681"
-             y="145.80763">Empreendimento</tspan><tspan
-             sodipodi:role="line"
-             x="358.16681"
-             y="157.8378"
-             id="tspan4167">Sólidario</tspan><tspan
-             sodipodi:role="line"
-             x="358.16681"
-             y="169.86797"
-             id="tspan4169">FOTO</tspan><tspan
-             sodipodi:role="line"
-             x="358.16681"
-             y="181.89815"
-             id="tspan4171">Quando</tspan><tspan
-             sodipodi:role="line"
-             x="358.16681"
-             y="193.92831"
-             id="tspan4173">mouse:hover</tspan><tspan
-             sodipodi:role="line"
-             x="358.16681"
-             y="205.95848"
-             id="tspan4175">info...</tspan></text>
-      </g>
-      <g
-         style="opacity:0.34567901"
-         transform="translate(-100.95726,100)"
-         id="g4177">
-        <rect
-           y="125"
-           x="112.4359"
-           height="92"
-           width="92"
-           id="rect4179"
-           style="opacity:0.83539094;color:#000000;fill:#204a87;fill-opacity:0.15226339;fill-rule:nonzero;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.7881356;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
-        <text
-           xml:space="preserve"
-           style="font-size:9.62413597px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-           x="158.16681"
-           y="145.80763"
-           id="text4181"
-           sodipodi:linespacing="125%"><tspan
-             sodipodi:role="line"
-             id="tspan4183"
-             x="158.16681"
-             y="145.80763">Empreendimento</tspan><tspan
-             sodipodi:role="line"
-             x="158.16681"
-             y="157.8378"
-             id="tspan4185">Sólidario</tspan><tspan
-             sodipodi:role="line"
-             x="158.16681"
-             y="169.86797"
-             id="tspan4187">FOTO</tspan><tspan
-             sodipodi:role="line"
-             x="158.16681"
-             y="181.89815"
-             id="tspan4189">Quando</tspan><tspan
-             sodipodi:role="line"
-             x="158.16681"
-             y="193.92831"
-             id="tspan4191">mouse:hover</tspan><tspan
-             sodipodi:role="line"
-             x="158.16681"
-             y="205.95848"
-             id="tspan4193">info...</tspan></text>
-      </g>
-      <g
-         style="opacity:0.34567901"
-         id="g4195"
-         transform="translate(-100.95726,200)">
-        <rect
-           style="opacity:0.83539094;color:#000000;fill:#204a87;fill-opacity:0.15226339;fill-rule:nonzero;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.7881356;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-           id="rect4197"
-           width="92"
-           height="92"
-           x="112.4359"
-           y="125" />
-        <text
-           sodipodi:linespacing="125%"
-           id="text4199"
-           y="145.80763"
-           x="158.16681"
-           style="font-size:9.62413597px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-           xml:space="preserve"><tspan
-             y="145.80763"
-             x="158.16681"
-             id="tspan4201"
-             sodipodi:role="line">Empreendimento</tspan><tspan
-             id="tspan4203"
-             y="157.8378"
-             x="158.16681"
-             sodipodi:role="line">Sólidario</tspan><tspan
-             id="tspan4205"
-             y="169.86797"
-             x="158.16681"
-             sodipodi:role="line">FOTO</tspan><tspan
-             id="tspan4207"
-             y="181.89815"
-             x="158.16681"
-             sodipodi:role="line">Quando</tspan><tspan
-             id="tspan4209"
-             y="193.92831"
-             x="158.16681"
-             sodipodi:role="line">mouse:hover</tspan><tspan
-             id="tspan4211"
-             y="205.95848"
-             x="158.16681"
-             sodipodi:role="line">info...</tspan></text>
-      </g>
-      <g
-         transform="translate(100,0)"
-         id="g5046"
-         style="opacity:0.34567901">
-        <rect
-           style="opacity:0.83539094;color:#000000;fill:#204a87;fill-opacity:0.15226339;fill-rule:nonzero;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.7881356;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-           id="rect5048"
-           width="92"
-           height="92"
-           x="312.43591"
-           y="125" />
-        <text
-           sodipodi:linespacing="125%"
-           id="text5050"
-           y="145.80763"
-           x="358.16681"
-           style="font-size:9.62413597px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-           xml:space="preserve"><tspan
-             y="145.80763"
-             x="358.16681"
-             id="tspan5052"
-             sodipodi:role="line">Empreendimento</tspan><tspan
-             id="tspan5054"
-             y="157.8378"
-             x="358.16681"
-             sodipodi:role="line">Sólidario</tspan><tspan
-             id="tspan5056"
-             y="169.86797"
-             x="358.16681"
-             sodipodi:role="line">FOTO</tspan><tspan
-             id="tspan5058"
-             y="181.89815"
-             x="358.16681"
-             sodipodi:role="line">Quando</tspan><tspan
-             id="tspan5060"
-             y="193.92831"
-             x="358.16681"
-             sodipodi:role="line">mouse:hover</tspan><tspan
-             id="tspan5062"
-             y="205.95848"
-             x="358.16681"
-             sodipodi:role="line">info...</tspan></text>
-      </g>
-      <g
-         id="g5064"
-         transform="translate(100,100)"
-         style="opacity:0.34567901">
-        <rect
-           y="125"
-           x="312.43591"
-           height="92"
-           width="92"
-           id="rect5066"
-           style="opacity:0.83539094;color:#000000;fill:#204a87;fill-opacity:0.15226339;fill-rule:nonzero;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.7881356;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
-        <text
-           xml:space="preserve"
-           style="font-size:9.62413597px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-           x="358.16681"
-           y="145.80763"
-           id="text5068"
-           sodipodi:linespacing="125%"><tspan
-             sodipodi:role="line"
-             id="tspan5070"
-             x="358.16681"
-             y="145.80763">Empreendimento</tspan><tspan
-             sodipodi:role="line"
-             x="358.16681"
-             y="157.8378"
-             id="tspan5072">Sólidario</tspan><tspan
-             sodipodi:role="line"
-             x="358.16681"
-             y="169.86797"
-             id="tspan5074">FOTO</tspan><tspan
-             sodipodi:role="line"
-             x="358.16681"
-             y="181.89815"
-             id="tspan5076">Quando</tspan><tspan
-             sodipodi:role="line"
-             x="358.16681"
-             y="193.92831"
-             id="tspan5078">mouse:hover</tspan><tspan
-             sodipodi:role="line"
-             x="358.16681"
-             y="205.95848"
-             id="tspan5080">info...</tspan></text>
-      </g>
-      <g
-         transform="translate(100,200)"
-         id="g5082"
-         style="opacity:0.34567901">
-        <rect
-           style="opacity:0.83539094;color:#000000;fill:#204a87;fill-opacity:0.15226339;fill-rule:nonzero;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.7881356;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-           id="rect5084"
-           width="92"
-           height="92"
-           x="312.43591"
-           y="125" />
-        <text
-           sodipodi:linespacing="125%"
-           id="text5086"
-           y="145.80763"
-           x="358.16681"
-           style="font-size:9.62413597px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-           xml:space="preserve"><tspan
-             y="145.80763"
-             x="358.16681"
-             id="tspan5088"
-             sodipodi:role="line">Empreendimento</tspan><tspan
-             id="tspan5090"
-             y="157.8378"
-             x="358.16681"
-             sodipodi:role="line">Sólidario</tspan><tspan
-             id="tspan5092"
-             y="169.86797"
-             x="358.16681"
-             sodipodi:role="line">FOTO</tspan><tspan
-             id="tspan5094"
-             y="181.89815"
-             x="358.16681"
-             sodipodi:role="line">Quando</tspan><tspan
-             id="tspan5096"
-             y="193.92831"
-             x="358.16681"
-             sodipodi:role="line">mouse:hover</tspan><tspan
-             id="tspan5098"
-             y="205.95848"
-             x="358.16681"
-             sodipodi:role="line">info...</tspan></text>
-      </g>
-    </g>
+         x="526"
+         y="147">Logar</tspan></text>
     <rect
        transform="scale(1,-1)"
        y="-442.74747"
@@ -3015,7 +2353,7 @@
        id="rect5254" />
     <text
        xml:space="preserve"
-       style="font-size:10.90977192px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#4e9a06;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       style="font-size:10.90977192000000073px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#204a87;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
        x="663.66565"
        y="98.561195"
        id="text5246"
@@ -3315,5 +2653,154 @@
          id="tspan2778"
          x="191.00761"
          y="676.69427">© 2008 Anhetegua.net        Privacidade | Assinatura | Últimas atualizações</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14.6889925px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="579.59375"
+       y="181.32639"
+       id="text2776"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan2779"
+         x="579.59375"
+         y="181.32639">Usuário:</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text2781"
+       y="238.55873"
+       x="574.98193"
+       style="font-size:14.6889925px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       xml:space="preserve"><tspan
+         y="238.55873"
+         x="574.98193"
+         id="tspan2783"
+         sodipodi:role="line">Senha:</tspan></text>
+    <rect
+       style="opacity:1;color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#204a87;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2785"
+       width="191"
+       height="25"
+       x="563"
+       y="191" />
+    <rect
+       y="247"
+       x="563"
+       height="25"
+       width="191"
+       id="rect3364"
+       style="opacity:1;color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#204a87;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    <rect
+       style="opacity:1;color:#000000;fill:url(#linearGradient3378);fill-opacity:1;fill-rule:nonzero;stroke:#204a87;stroke-width:0.78671323999999998;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect3366"
+       width="117.21329"
+       height="25.213287"
+       x="599.89337"
+       y="306.89337" />
+    <text
+       xml:space="preserve"
+       style="font-size:14.68899249999999945px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#204a87;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="657.78638"
+       y="323.32648"
+       id="text3368"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3370"
+         x="657.78638"
+         y="323.32648">Logar</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text3380"
+       y="358.992"
+       x="657.78015"
+       style="font-size:13.47665596px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#204a87;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       xml:space="preserve"><tspan
+         y="358.992"
+         x="657.78015"
+         id="tspan3382"
+         sodipodi:role="line">Esqueci a senha.</tspan></text>
+    <path
+       style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#204a87;stroke-width:0.92935789;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 534.96468,386.96468 L 553.03532,386.96468 L 553.03532,406.03532 L 534.96468,406.03532 L 534.96468,386.96468 z"
+       id="rect3384"
+       sodipodi:nodetypes="ccccc" />
+    <text
+       xml:space="preserve"
+       style="font-size:13.47665596000000043px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#2e3436;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="671.78015"
+       y="400.992"
+       id="text3387"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3389"
+         x="671.78015"
+         y="400.992">Gravar senha para próximo login.</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:17.68604851px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#2e3436;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="219.35684"
+       y="159.59207"
+       id="text3391"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3393"
+         x="219.35684"
+         y="159.59207">Aqui escreve alguma novidade do sistema.</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text3395"
+       y="279.59207"
+       x="219.35684"
+       style="font-size:17.68604851px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#2e3436;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       xml:space="preserve"><tspan
+         y="279.59207"
+         x="219.35684"
+         id="tspan3397"
+         sodipodi:role="line">Aqui escreve alguma novidade do sistema.</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14.07818699px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#2e3436;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="63.586178"
+       y="181.29483"
+       id="text3407"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3409"
+         x="63.586178"
+         y="181.29483">Nnonoonono non ono nonononononnon</tspan><tspan
+         sodipodi:role="line"
+         x="63.586178"
+         y="198.89256"
+         id="tspan3411">nonononon onnono nonono nonononon</tspan><tspan
+         sodipodi:role="line"
+         x="63.586178"
+         y="216.4903"
+         id="tspan3413">nonononon ononon ononono noononon</tspan><tspan
+         sodipodi:role="line"
+         x="63.586178"
+         y="234.08803"
+         id="tspan3415">nononononon nonononon.</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text3417"
+       y="301.29483"
+       x="63.586178"
+       style="font-size:14.07818699px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#2e3436;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       xml:space="preserve"><tspan
+         y="301.29483"
+         x="63.586178"
+         id="tspan3419"
+         sodipodi:role="line">Nnonoonono non ono nonononononnon</tspan><tspan
+         id="tspan3421"
+         y="318.89258"
+         x="63.586178"
+         sodipodi:role="line">nonononon onnono nonono nonononon</tspan><tspan
+         id="tspan3423"
+         y="336.4903"
+         x="63.586178"
+         sodipodi:role="line">nonononon ononon ononono noononon</tspan><tspan
+         id="tspan3425"
+         y="354.08804"
+         x="63.586178"
+         sodipodi:role="line">nononononon nonononon.</tspan></text>
   </g>
 </svg>
