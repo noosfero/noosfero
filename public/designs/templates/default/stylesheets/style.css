@@ -44,13 +44,12 @@ body {
 
 #box_1, #box_2, #box_3 {
   margin: 10px;
-  padding: 0.5em;
+  padding: 0px;
   background: white;
 }
 
 /* Box 1 is the main area */
 #box_1 {
-  border: 1px solid black;
   margin-left: 220px;
   margin-right: 220px;
 }
@@ -73,8 +72,8 @@ body {
   padding: 0px;
 }
 
-/* blocks for box_2 and box_3 */
-#box_2 div.block, #box_3 div.block {
+/* blocks */
+div.block {
   border: 1px solid black;
   margin-bottom: 1em;
 }
@@ -124,3 +123,4 @@ body {
   list-style: none;
   border: 1px solid gray;
 }
+
