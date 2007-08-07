@@ -1,10 +1,10 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class OrganizationTest < Test::Unit::TestCase
-  fixtures :organizations
+  fixtures :profiles
 
-  # Replace this with your real tests.
+  # FIXME: add actual organization tests here
   def test_truth
-    assert true
+    assert_not_nil Organization.new
   end
 end

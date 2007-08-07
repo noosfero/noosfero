@@ -12,13 +12,6 @@ class ApplicationController < ActionController::Base
   before_filter :detect_stuff_by_domain
   attr_reader :virtual_community
 
-  before_filter :load_owner
-    # Load the owner 
-  def load_owner
-    # TODO: this should not be hardcoded
-    @owner = Profile.find(1) if Profile.exists?(1)
-  end
-
   protected
 
   # TODO: move this logic somewhere else (Domain class?)

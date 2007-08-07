@@ -29,11 +29,6 @@ class ApplicationControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'span', :content => 'post_only'
   end
 
-  def test_exist_owner
-    get :index
-    assert_not_nil assigns(:owner)
-  end
-
   def test_should_generate_help_box_when_passing_string
     get :help_with_string
     assert_tag({

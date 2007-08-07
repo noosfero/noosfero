@@ -30,7 +30,7 @@ class AccountController < ApplicationController
       return unless request.post?
       @user.save!
       self.current_user = @user
-      redirect_back_or_default(:controller => '/account', :action => 'index')
+      redirect_back_or_default(:controller => 'account', :action => 'index')
       flash[:notice] = _("Thanks for signing up!")
     rescue ActiveRecord::RecordInvalid
       render :action => 'signup'

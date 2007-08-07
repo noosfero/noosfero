@@ -6,7 +6,7 @@ class FeaturesController; def rescue_action(e) raise e end; end
 
 class FeaturesControllerTest < Test::Unit::TestCase
 
-  fixtures :virtual_communities
+  fixtures :virtual_communities, :domains
 
   def setup
     @controller = FeaturesController.new
