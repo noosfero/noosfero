@@ -9,6 +9,9 @@ class EditTemplateController < ApplicationController
     }
   end
 
+  # FIXME: is this really needed? Why should we let the user say how a
+  # particular box must be displayed? IMO the box itself must have authority to
+  # say how it wants to be drawn -- terceiro
   def block_helper_types
     { 
       'list_content' => _("Simple List Content"), 

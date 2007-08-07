@@ -6,6 +6,14 @@ body {
   margin: 0px;
 }
 
+#spinner {
+  z-index: 1000;
+  position: absolute;
+  left: 50%;
+  margin-left: -16px;
+  top: 200px;
+}
+
 #header {
   border-bottom: 1px solid black;
   padding: 0.5em;
@@ -35,10 +43,84 @@ body {
 }
 
 #box_1, #box_2, #box_3 {
-  border: 1px solid black;
   margin: 10px;
+  padding: 0.5em;
+  background: white;
 }
 
-#box_1 li, #box_2 li, #box_3 li {
- border: 1px solid black;
+/* Box 1 is the main area */
+#box_1 {
+  border: 1px solid black;
+  margin-left: 220px;
+  margin-right: 220px;
+}
+
+/* Box 2 on the left side */
+#box_2 {
+  width: 200px;
+  position: absolute;
+  left: 0px;
+  top: 57px;
+  padding: 0px;
+}
+
+/* Box 3 on the right side */
+#box_3 {
+  width: 200px;
+  position: absolute;
+  right: 0px;
+  top: 57px;
+  padding: 0px;
+}
+
+/* blocks for box_2 and box_3 */
+#box_2 div.block, #box_3 div.block {
+  border: 1px solid black;
+  margin-bottom: 1em;
+}
+
+/* design_editor stuff */
+#design_editor #box_2, 
+#design_editor #box_3 {
+  top: 88px;
+}
+
+#design_editor #box_1 div,
+#design_editor #box_2 div,
+#design_editor #box_3 div {
+  border: 1px solid black;
+  list-style: none;
+  margin: 0px;
+  padding: 2px;
+  margin-top: 3px;
+}
+
+#design_editor #design_editor_selectors {
+  text-align: center;
+  border: 1px solid black;
+}
+#design_editor #design_editor_selectors ul {
+  padding: 2px;
+  margin: 2px;
+}
+#design_editor #design_editor_selectors li {
+  list-style: none;
+  display: inline;
+}
+
+#design_editor .hover {
+  border: 1px dashed black;
+  background: #ffd;
+}
+
+#design_editor ul {
+  padding: 2px;
+  margin: 2px;
+}
+
+#design_editor li {
+  padding: 2px;
+  margin: 2px;
+  list-style: none;
+  border: 1px solid gray;
 }
