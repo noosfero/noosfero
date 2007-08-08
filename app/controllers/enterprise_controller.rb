@@ -67,7 +67,10 @@ class EnterpriseController < ApplicationController
     @enterprise.destroy
     redirect_to :action => 'index'
   end
-
+  
+  def search
+    @tagged_enterprises = Enterprise.find_tagged_with(params[:query])
+  end
 
   protected
 
