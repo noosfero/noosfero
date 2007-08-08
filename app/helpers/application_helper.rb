@@ -91,10 +91,10 @@ module ApplicationHelper
   # TODO: test this helper
   def user_links
     links = [
-       [ link_to(_('My accont'), { :controller => 'account' }) ],
-       [ link_to_profile(_('My home page')) ],
-       [ link_to_cms(_('Manage content')) ],
-       [ link_to(_('My enterprises'), { :controller => 'enterprise' }) ],
+       ( link_to(_('My accont'), { :controller => 'account' }) ),
+       ( link_to_profile(_('My home page')) ),
+       ( link_to_cms(_('Manage content')) ),
+       ( link_to(_('My enterprises'), { :controller => 'enterprise' }) ),
     ].join("\n")
     content_tag('span', links, :id => 'user_links')
   end
