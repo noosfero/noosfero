@@ -113,26 +113,18 @@ div.block {
   text-align: center;
   border: 1px solid black;
 }
-#design_editor #design_editor_selectors ul {
-  padding: 2px;
-  margin: 2px;
-}
-#design_editor #design_editor_selectors li {
-  list-style: none;
-  display: inline;
-}
 
 #design_editor .hover {
   border: 1px dashed black;
   background: #ffd;
 }
 
-#design_editor ul {
+#design_editor ul.block_list {
   padding: 2px;
   margin: 2px;
 }
 
-#design_editor li {
+#design_editor li.block {
   padding: 2px;
   margin: 2px;
   list-style: none;
