@@ -1,9 +1,23 @@
 body, td, tr, li {
   font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 12px;
 }
 body {
-  font-size: 12px;
   margin: 0px;
+}
+blockquote {
+  font-style: italic;
+  color: #444;
+}
+
+blockquote, p, li, td, tr {
+  text-align: justify;
+}
+p {
+  text-indent: 2em;
+}
+blockquote p {
+  text-indent: 0px;
 }
 
 #spinner {
@@ -74,8 +88,9 @@ body {
 
 /* blocks */
 div.block {
-  border: 1px solid black;
+  border: 1px solid gray;
   margin-bottom: 1em;
+  padding: 0.5em;
 }
 
 /* design_editor stuff */
@@ -124,3 +139,14 @@ div.block {
   border: 1px solid gray;
 }
 
+table {
+  border-collapse: collapse;
+}
+
+td, th {
+  border: 1px solid gray;
+}
+
+th {
+  background: gray;
+}
