@@ -34,6 +34,8 @@ class EnterpriseController < ApplicationController
       redirect_to :action => 'index'
     else
       flash[:notice] = _('Enterprise was not created')
+      @vitual_communities = VirtualCommunity.find(:all)
+      @validation_entities = Organization.find(:all)
       render :action => 'register_form'
     end
   end
@@ -49,6 +51,7 @@ class EnterpriseController < ApplicationController
       redirect_to :action => 'index'
     else
       flash[:notice] = _('Could not update the enterprise')
+      @validation_entities = Organization.find(:all) - [@enterprise]
       render :action => 'edit'
     end
   end
@@ -64,6 +67,7 @@ class EnterpriseController < ApplicationController
     @enterprise.destroy
     redirect_to :action => 'index'
   end
+
 
   protected
 

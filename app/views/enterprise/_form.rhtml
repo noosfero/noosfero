@@ -27,3 +27,6 @@
 
 <p><label for="validation_entity"><%= _('Validation Entity') %></label><br/>
 <%= select 'validation_entity', 'id', @validation_entities.map{|v| [v.name, v.id] } %></p>
+
+<p><label for="tag_list"><%= _('Tags') %></label><br/>
+<%= text_field 'enterprise', 'tag_list', 'size' => 20 %></p>

@@ -23,6 +23,8 @@ class Profile < ActiveRecord::Base
   community
   ]
 
+  acts_as_taggable
+
   has_many :domains, :as => :owner
   belongs_to :virtual_community
   has_many :affiliations
