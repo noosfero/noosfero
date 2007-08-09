@@ -1,0 +1,86 @@
+<html>
+  <head>
+  <script src="js/prototype.js" type="text/javascript"></script>
+<script src="js/effects.js" type="text/javascript"></script>
+<script src="js/dragdrop.js" type="text/javascript"></script>
+<script src="js/controls.js" type="text/javascript"></script>
+<script src="js/application.js" type="text/javascript"></script>
+<script src="js/slider.js" type="text/javascript"></script>
+<script src="js/global.js" type="text/javascript"></script>
+<script src="js/scriptaculous.js" type="text/javascript"></script>
+<link href="css/style.css" media="screen" rel="Stylesheet" type="text/css" />
+<link href="css/box.css" media="screen" rel="Stylesheet" type="text/css" />
+		<!--[if lte IE 6]>
+		<script type="text/javascript">
+		var ie6_message = function()
+		{
+			var div = document.getElementById('message_div');
+			div.innerHTML = "<h3>Você esta usando Internet Explorer 6.</h3><br />";
+			div.innerHTML += "<p>Internet Explorer 6 é um navegador antigo e com muitas falhas para ser usado na navegacao deste site.</p>";
+			div.innerHTML += "<p>nos sugerimos fortmente que voce mude seu navegador.</p><br />";
+			div.innerHTML += "<p>migre seu Internet Explorer para <a href='http://www.getfirefox.com'>Firefox</a></p>";
+			div.style.display = "block";
+		}
+
+		window.onload = ie6_message;
+		</script>
+		<![endif]-->
+  </head>
+
+  <body>
+
+<div id="leftcontent">
+<div class="block scrollBOX" id="links">
+<a href="#" onclick="Effect.toggle('BOXlinks','slide',{duration:1}); return false;" class="buttonBOX hide"><span>Esconder</span></a><a href="#" onclick="Effect.Shrink('links',{duration:1}); return false;" class="buttonBOX remove"><span>Remover</span></a><h3>Meus links...</h3>
+ <div id="BOXlinks"><div class="block_content">
+  <p>Aqui fica um conteúdo da informação pessoal do usuário como vai ser tratado, enfim... Vamos colocar imagem ou sei la... Chamar aqui...</p>
+  <ul>
+    <li>Links</li>
+    <li>Links</li>
+    <li>Links</li>
+    <li>Links</li>
+  </ul></div>
+ </div>
+</div>
+
+</div>
+
+<div id="centercontent">
+
+<div class="block listBOX" id="about">
+<a href="#" onclick="Effect.toggle('BOXabout','slide',{duration:1}); return false;" class="buttonBOX hide"><span>Esconder</span></a>
+<h3>Sobre mim...</h3>
+ <div id="BOXabout"><div class="block_content">
+  <p>...</p>
+  <br />
+   </div>
+ </div>
+</div>
+
+
+</div>
+
+<div id="rightcontent">
+	
+
+<div class="block formBOX" id="comment">
+<a href="#" onclick="Effect.toggle('BOXcomment','slide',{duration:1}); return false;" class="buttonBOX hide"><span>Esconder</span></a>
+<h3>Mural de recados</h3>
+ <div id="BOXcomment"><div class="block_content">
+  <p>Deixe seu recado:</p>
+  <br />
+
+  </div>
+ </div>
+</div>
+
+
+
+</div>
+
+
+  </body>
+
+</html>
+
+
