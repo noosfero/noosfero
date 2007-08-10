@@ -17,6 +17,7 @@ class EnterpriseControllerTest < Test::Unit::TestCase
     login_as 'ze'
     get :index
     assert_response :redirect
+    assert_redirected_to :action => 'show'
 
     assert_kind_of Array, assigns(:my_pending_enterprises)
   end

@@ -63,4 +63,17 @@ class ProfileTest < Test::Unit::TestCase
     assert !p.errors.invalid?(:name)
   end
 
+  def test_can_be_tagged
+    p = Profile.create(:name => 'tagged_profile', :identifier => 'tagged')
+    p.tags << Tag.create(:name => 'a_tag')
+    assert Profile.find_tagged_with('a_tag').include?(p)
+  end
+
+  def test_can_have_affiliated_people
+    pr = Profile.create(:name => 'composite_profile', :identifier => 'composite')
+    pe = User.create(:login => 'aff', :email => 'aff@pr.coop', :password => 'blih', :password_confirmation => 'blih').person
+    pr.people << pe
+
+    assert pe.profiles.include?(pr)
+  end
 end

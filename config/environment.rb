@@ -53,6 +53,7 @@ end
 # Include your application configuration below
 
 require 'gettext/rails'
+require 'extended_tag'
 Tag.hierarchical = true
 
 Comatose.configure do |config|
