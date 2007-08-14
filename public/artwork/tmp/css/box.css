@@ -1,69 +1,78 @@
-#leftcontent div.block span
-{
-display: none;
-}
+/* Default Plain Theme for Blocks */
 
-#leftcontent div.block
+div.block
 {
-	background: #FFFFFF url("../img/box_bottom_v1_190px.jpg") no-repeat bottom left;
-	padding-bottom: 10px;
+	background: #FFFFFF;
+	border: 3px solid #000000;
 	margin-bottom: 10px;
 }
 
 div.block ul
 {
-	margin-left: 25px;
+	margin-left: 15px;
 }
 
-#leftcontent div.block h3
+div.block h3
 {
 	color: #FFFFFF;
-	font-size: 12px;
+	background: #545454;
+	font-family: Sans-serif;
+	font-size: 13px;
 	font-weight: normal;
-	background: #474747 url("../img/box_top_v1_190px.jpg") no-repeat;
+	border-bottom: 1px solid black;
 	height: 27px;
+	margin: 0px;
 	line-height: 27px;
 	padding-left: 10px;
 }
 
-
-#rightcontent div.block span
-{
+div.block span {
 display: none;
 }
 
-#rightcontent div.block
-{
-	background: #FFFFFF url("../img/box_bottom_v1_190px.jpg") no-repeat bottom left;
-	padding-bottom: 10px;
-	margin-bottom: 20px;
+div.block a:hover span {
+display: inline;
+position: absolute;
+color: #dfdfdf;
+background: #000000;
+font-family: Sans-serif;
+font-size: 13px;
+font-weight: normal;
+margin: 10px;
+padding-left: 5px;
+padding-right: 5px;
 }
 
-#rightcontent div.block h3
-{
-	color: #FFFFFF;
-	font-size: 12px;
-	font-weight: normal;
-	background: #474747 url("../img/box_top_v1_190px.jpg") no-repeat;
-	height: 27px;
-	line-height: 27px;
-	padding-left: 10px;
-        margin: 0px;
+div.block a {
+display: block;
+width: 10px;
+height: 10px;
+margin-top: 10px;
+margin-right: 5px;
+float: right;
 }
 
-	
+div.block a.hide {
+border-bottom: 2px solid #dfdfdf;
+}
 
-div.block .block_content
+div.block a:hover.hide {
+border-bottom: 2px solid #000000;
+}
+
+div.block a.remove {
+background: #dfdfdf;
+}
+
+div.block a:hover.remove {
+background: #000000;
+}
+
+div.block_content 
 {
-	background-image: url("../img/box_content_v1.png");
-	background-repeat: repeat-x;
-	background-position: 0 1px;
 	padding: 5px;
 }
 
-
-
-/* Inicio personalizacao individual */
 
 div#links {
 background: blue;
@@ -74,5 +83,5 @@ background: green;
 }
 
 div#about {
-background: red;
+background: yellow;
 }
