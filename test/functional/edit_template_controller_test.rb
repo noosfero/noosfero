@@ -20,4 +20,8 @@ class EditTemplateControllerTest < Test::Unit::TestCase
     assert_redirected_to :action => 'design_editor'
   end
 
+  #############################################################
+  # FIXME: design_editor stuff, move to design plugin
+  #############################################################
+
 end

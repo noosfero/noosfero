@@ -6,6 +6,7 @@ class EditTemplateController < ApplicationController
     { 
       'ListBlock' => _("List Block"), 
       'LinkBlock' => _("Link Block"),
+      'Design::MainBlock' => _('Main content block'),
     }
   end
 
@@ -22,5 +23,11 @@ class EditTemplateController < ApplicationController
   def index
     redirect_to :action => 'design_editor'
   end
+
+  ############################################################
+  # FIXME: design_editor stuff: MOVE this to design plugin
+  ############################################################
+
+  include EditTemplateHelper
 
 end

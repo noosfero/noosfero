@@ -80,3 +80,12 @@ Comatose::AdminController.before_filter do |controller|
   end
   controller.instance_variable_set('@virtual_community', virtual_community)
 end
+
+# taken from http://blog.spotstory.com/2007/04/19/upgrading-to-rails-12/
+# Array of plugins with Application model dependencies.
+reloadable_plugins = ["design"]
+# Force these plugins to reload, avoiding stale object references.
+reloadable_plugins.each do |plugin_name|
+  reloadable_path = RAILS_ROOT + "/vendor/plugins/#{plugin_name}/lib"
+  Dependencies.load_once_paths.delete(reloadable_path)
+end
