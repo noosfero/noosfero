@@ -47,4 +47,12 @@ colivre:
   flexible_template_template: 'default'
   flexible_template_icon_theme: 'default'
   flexible_template_theme: 'default'
-
+empreendimentoB:
+  id: 6
+  name: "emp B"
+  type: 'Enterprise'
+  identifier: "empb"
+  virtual_community_id: 1
+  flexible_template_template: 'default'
+  flexible_template_icon_theme: 'default'
+  flexible_template_theme: 'default'

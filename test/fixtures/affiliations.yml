@@ -5,3 +5,9 @@ one:
   profile_id: 5
 two:
   id: 2
+  person_id: 1
+  profile_id: 5
+three:
+  id: 3
+  person_id: 1
+  profile_id: 6

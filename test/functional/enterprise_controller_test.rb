@@ -13,7 +13,7 @@ class EnterpriseControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
   end
 
-  def test_logged_index
+  def test_logged_with_one_enterprise_index
     login_as 'ze'
     get :index
     assert_response :redirect
@@ -22,10 +22,18 @@ class EnterpriseControllerTest < Test::Unit::TestCase
     assert_kind_of Array, assigns(:my_pending_enterprises)
   end
 
+  def test_logged_with_two_enterprises_index
+    login_as 'johndoe'
+    get :index
+    assert_response :redirect
+    assert_redirected_to :action => 'list'
+
+    assert_kind_of Array, assigns(:my_pending_enterprises)
+  end
+
   def test_not_logged_index
     get :index
     assert_response :redirect
-
     assert_redirected_to :controller => 'account'
   end
 
@@ -34,6 +42,20 @@ class EnterpriseControllerTest < Test::Unit::TestCase
     get :index
     assert_not_nil assigns(:my_enterprises)
     assert_kind_of Array, assigns(:my_enterprises)
+  end
+
+  def test_enterprise_listing
+    login_as 'ze'
+    get :list
+    assert_not_nil assigns(:enterprises)
+    assert Array, assigns(:enterprises)
+  end
+
+  def test_enterprise_showing
+    login_as 'ze'
+    get :show, :id => 5
+    assert_not_nil assigns(:enterprise)
+    assert_kind_of Enterprise, assigns(:enterprise)
   end
 
   def test_register_form
@@ -46,9 +68,7 @@ class EnterpriseControllerTest < Test::Unit::TestCase
     login_as 'ze'
     post :register, :enterprise => {:name => 'register_test', :identifier => 'register_test'}
     assert_not_nil assigns(:enterprise)
-
     assert_response :redirect
-
     assert_redirected_to :action => 'index'
   end
 
@@ -57,7 +77,56 @@ class EnterpriseControllerTest < Test::Unit::TestCase
     post :register, :enterprise => {:name => ''}
     assert_response :success
     assert !assigns(:enterprise).valid?
-
   end
-  
+
+  def test_enterprise_editing
+    login_as 'ze'
+    get :edit, :id => 5
+    assert_not_nil assigns(:enterprise)
+    assert_kind_of Enterprise, assigns(:enterprise)
+  end
+
+  def test_enterprise_updating
+    login_as 'ze'
+    post :update, :id => 5, :enterprise => {:name => 'colivre'}
+    assert_not_nil assigns(:enterprise)
+    assert_kind_of Enterprise, assigns(:enterprise)
+    assert_response :redirect
+    assert_redirected_to :action => 'index'
+  end
+
+  def test_enterprise_updating_wrong
+    login_as 'ze'
+    post :update, :id => 5, :enterprise => {:name => ''} # name can't be blank
+    assert_not_nil assigns(:enterprise)
+    assert_kind_of Enterprise, assigns(:enterprise)
+    assert_response :success
+    assert_template 'edit'
+  end
+
+  def test_affiliate
+    login_as 'ze'
+    post :affiliate, :id => 6
+    assert assigns(:enterprise)
+    assert assigns(:enterprise).people.include?(assigns(:person))
+    assert assigns(:person).enterprises.include?(assigns(:enterprise))
+  end
+
+  def test_destroy
+    login_as 'ze'
+    c = Enterprise.count
+    assert_nothing_raised { Enterprise.find(5) }
+    post :destroy, :id => 5
+    assert_raise ActiveRecord::RecordNotFound do
+      Enterprise.find(5)
+    end
+    assert_equal c - 1, Enterprise.count
+  end
+
+  def test_search
+    login_as 'ze'
+    get :search, :query => 'bla'
+    assert assigns(:tagged_enterprises)
+    assert_kind_of Array, assigns(:tagged_enterprises)
+  end
 end
