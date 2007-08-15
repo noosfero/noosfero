@@ -24,10 +24,4 @@ class EditTemplateController < ApplicationController
     redirect_to :action => 'design_editor'
   end
 
-  ############################################################
-  # FIXME: design_editor stuff: MOVE this to design plugin
-  ############################################################
-
-  include EditTemplateHelper
-
 end
