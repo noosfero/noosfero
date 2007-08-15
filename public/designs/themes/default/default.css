@@ -1,3 +1,10 @@
 #frame {
   background-color: white;
 }
+
+a img {
+  border: 2px solid transparent;
+}
+a:hover img {
+  border: 2px solid #aa0;
+}

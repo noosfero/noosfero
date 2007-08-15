@@ -94,6 +94,7 @@ module ApplicationHelper
        ( link_to(_('My accont'), { :controller => 'account' }) ),
        ( link_to_profile(_('My home page')) ),
        ( link_to_cms(_('Manage content')) ),
+       ( link_to (_('Manage layout')), :controller => 'edit_template' ),
        ( link_to(_('My enterprises'), { :controller => 'enterprise' }) ),
     ].join("\n")
     content_tag('span', links, :id => 'user_links')
