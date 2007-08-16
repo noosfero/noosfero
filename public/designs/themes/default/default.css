@@ -1,3 +1,5 @@
+@import "blocks.css";
+
 #frame {
   background-color: white;
 }
@@ -7,4 +9,16 @@ a img {
 }
 a:hover img {
   border: 2px solid #aa0;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+td, th {
+  border: 1px solid gray;
+}
+
+th {
+  background: gray;
 }
