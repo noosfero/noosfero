@@ -311,3 +311,8 @@
 .noscript #content .revisions #go-btn {
   display: inline;
 }
+
+ul.page-list li table,
+ul.page-list li td {
+  border: none;
+}
