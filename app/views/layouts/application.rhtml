@@ -33,7 +33,11 @@
 
         <div id='content'>
           <!-- <a name='main_content'/></a> -->
-          <%= design_display(yield) %>
+          <% if params[:controller] == 'comatose_admin' %>
+            <%= yield %>
+          <% else %>
+            <%= design_display(yield) %>
+          <% end %>
         </div>
 
         <div id="footer">
