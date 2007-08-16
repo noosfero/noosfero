@@ -8,6 +8,7 @@ class CreateOrganizationInfos < ActiveRecord::Migration
       t.column :legal_form,                :string
       t.column :economic_activity,         :string
       t.column :management_information,    :string
+      t.column :validated,                 :boolean, :default => false
     end
   end
 

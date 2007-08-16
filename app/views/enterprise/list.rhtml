@@ -1,11 +1,7 @@
-<div class="search_box">
-<% form_tag :action => 'search' do %>
-  <%= text_field_tag 'query' %>
-  <%= submit_tag _('Search') %>
-<% end %>
-</div>
+<%= render :partial => 'search_box' %>
 
 <p> <%= link_to _('Register new enterprise'), :action => 'register_form' %> </p>
+
 <h2> <%= _('Listing my enterprises') %> </h2>
 <ul>
   <%= render :partial => 'enterprise', :collection => @my_active_enterprises %>

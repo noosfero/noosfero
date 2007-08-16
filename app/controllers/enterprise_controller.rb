@@ -30,7 +30,7 @@ class EnterpriseController < ApplicationController
     @enterprise.organization_info = OrganizationInfo.new(params[:organization])
     if @enterprise.save
       @enterprise.people << @person
-      flash[:notice] = _('Enterprise was succesfully created')
+      flash[:notice] = _('The enterprise was succesfully created, the validation entity will cotact you as soon as your enterprise is approved')
       redirect_to :action => 'index'
     else
       flash[:notice] = _('Enterprise was not created')
@@ -70,6 +70,16 @@ class EnterpriseController < ApplicationController
   
   def search
     @tagged_enterprises = Enterprise.find_tagged_with(params[:query])
+  end
+
+  def activate
+    @enterprise = Enterprise.find(params[:id])
+    if @enterprise.update_attribute('active', true)
+      flash[:notice] = 'Enterprise successfuly activacted'
+      render :action => 'show'
+    else
+      redirect_to :action => 'show', :id => @enterprise
+    end
   end
 
   protected

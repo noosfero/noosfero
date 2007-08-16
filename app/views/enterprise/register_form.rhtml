@@ -2,6 +2,8 @@
 
 <h2><%= _('Register enterprise') %></h2>
 
+<%= _('How to proceed') %>
+
 <% form_tag :action => 'register' do %>
   <p><label for="identifier"><%= _('Identifier') %></label><br/>
   <%= text_field 'enterprise', 'identifier', 'size' => 20 %></p>

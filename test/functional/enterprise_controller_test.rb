@@ -129,4 +129,12 @@ class EnterpriseControllerTest < Test::Unit::TestCase
     assert assigns(:tagged_enterprises)
     assert_kind_of Array, assigns(:tagged_enterprises)
   end
+
+  def test_activate
+    login_as 'ze'
+    post :activate, :id => 5
+    assert assigns(:enterprise)
+    assert_kind_of Enterprise, assigns(:enterprise)
+    assert assigns(:enterprise).active
+  end
 end
