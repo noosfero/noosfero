@@ -1,5 +1,3 @@
-@import "blocks.css";
-
 body, td, tr, li {
   font-family: Verdana, Arial, Helvetica, sans-serif;
   font-size: 12px;
@@ -42,7 +40,7 @@ blockquote p {
 }
 
 #content {
-  padding: 1em;
+  padding: 0px;
 }
 
 #footer {
@@ -60,47 +58,67 @@ blockquote p {
 }
 
 #boxes {
-position: relative;
-border: 1px solid red;
+  position: relative;
+  padding: 1em;
+/* border: 1px solid red; */
 }
 
-#boxes ul, #boxes li {
-list-style: none;
+ul.block_list {
 margin: 0;
 padding: 0;
+}
+
+ul.block_list li  {
+list-style: none;
 }
 
 /* Box 1 is the main area */
 #box_1 {
   margin-right: 220px;
   margin-left: 220px;
-  border: 1px solid yellow;
+  /* border: 1px solid yellow; */
 }
 
 /* Box 2 on the left side */
 #box_2 {
   float: left;
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
   width: 200px;
   padding: 0px;
 }
 
 /* Box 3 on the right side */
 #box_3 {
-  border: 1px solid green;
+  /* border: 1px solid green; */
   width: 200px;
   float: right;
   padding: 0px;
 }
 
-table {
-  border-collapse: collapse;
+#design_editor_toolbar {
+  padding: 0.5em;
 }
 
-td, th {
-  border: 1px solid gray;
+#design_editor_toolbar h3 {
+  margin-top: 0px;
+  margin-bottom: 0.5em;
 }
 
-th {
-  background: gray;
+#design_editor .box {
+  border: 2px dashed gray;
+  padding: 2px;
+}
+
+#design_editor .hover {
+  background: #ff6;
+  border: 2px solid black;
+}
+
+#design_editor_toolbar {
+  border: 1px solid black;
+  margin-bottom: 0.5em;
+}
+
+.design_editor_box_toolbar {
+  padding: 0.5em;
 }
