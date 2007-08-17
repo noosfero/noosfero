@@ -3,6 +3,7 @@ class EnterpriseController < ApplicationController
 
   before_filter :logon, :my_enterprises
   
+  # Redirects to show if there is only one action and to list otherwise
   def index
     if @my_enterprises.size == 1
       redirect_to :action => 'show', :id => @my_enterprises[0]
@@ -11,20 +12,24 @@ class EnterpriseController < ApplicationController
     end
   end
   
+  # Lists all enterprises
   def list
     @enterprises = Enterprise.find(:all) - @my_enterprises
   end
 
+  # Show details about an enterprise
   def show
     @enterprise = @my_enterprises.find(params[:id])
   end
   
+  # Make a form to the creation of an eterprise
   def register_form
     @enterprise = Enterprise.new()
     @vitual_communities = VirtualCommunity.find(:all)
     @validation_entities = Organization.find(:all)
   end
 
+  # Saves the new created enterprise
   def register
     @enterprise = Enterprise.new(params[:enterprise])
     @enterprise.organization_info = OrganizationInfo.new(params[:organization])
@@ -40,11 +45,13 @@ class EnterpriseController < ApplicationController
     end
   end
 
+  # Provides an interface to editing the enterprise details
   def edit
     @enterprise = @my_enterprises.find(params[:id])
     @validation_entities = Organization.find(:all) - [@enterprise]
   end
 
+  # Saves the changes made in an enterprise
   def update
     @enterprise = @my_enterprises.find(params[:id])
     if @enterprise.update_attributes(params[:enterprise]) && @enterprise.organization_info.update_attributes(params[:organization_info])
@@ -56,22 +63,26 @@ class EnterpriseController < ApplicationController
     end
   end
 
+  # Make the current user a new member of the enterprise
   def affiliate
     @enterprise = Enterprise.find(params[:id])
     @enterprise.people << @person
     redirect_to :action => 'index'
   end
 
+  # Elimitates the enterprise of the system
   def destroy 
     @enterprise = @my_enterprises.find(params[:id])
     @enterprise.destroy
     redirect_to :action => 'index'
   end
   
+  # Search enterprises by name or tags
   def search
     @tagged_enterprises = Enterprise.search(params[:query])
   end
 
+  # Activate a validated enterprise
   def activate
     @enterprise = Enterprise.find(params[:id])
     if @enterprise.update_attribute('active', true)
@@ -84,6 +95,7 @@ class EnterpriseController < ApplicationController
 
   protected
 
+  # Make sure that the user is logged before access this controller
   def logon
     if logged_in?
       @user = current_user
@@ -93,6 +105,7 @@ class EnterpriseController < ApplicationController
     end
   end
 
+  # Initializes some variables to contain the enterprises of the current user
   def my_enterprises
     if logged_in?
       @my_active_enterprises = @person.active_enterprises

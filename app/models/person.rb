@@ -1,3 +1,4 @@
+# A person is the profile of an user holding all relationships with the rest of the system
 class Person < Profile
   ENTERPRISE = {:class_name => 'Enterprise', :through => :affiliations, :foreign_key => 'person_id', :source => 'profile'}
 
