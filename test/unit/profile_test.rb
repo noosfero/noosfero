@@ -76,4 +76,13 @@ class ProfileTest < Test::Unit::TestCase
 
     assert pe.profiles.include?(pr)
   end
+
+  def test_search
+    p = Profile.create(:name => 'wanted', :identifier => 'wanted')
+    p.update_attribute(:tag_list, 'bla')
+
+    assert Profile.search('wanted').include?(p)
+    assert Profile.search('bla').include?(p)
+    assert ! Profile.search('not_wanted').include?(p)
+  end
 end

@@ -69,7 +69,7 @@ class EnterpriseController < ApplicationController
   end
   
   def search
-    @tagged_enterprises = Enterprise.find_tagged_with(params[:query])
+    @tagged_enterprises = Enterprise.search(params[:query])
   end
 
   def activate

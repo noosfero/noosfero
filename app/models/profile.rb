@@ -56,4 +56,8 @@ class Profile < ActiveRecord::Base
     self.virtual_community ||= VirtualCommunity.default
   end
 
+  def self.search(term)
+    find_tagged_with(term) + find_all_by_name(term)
+  end
+
 end
