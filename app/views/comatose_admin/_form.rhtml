@@ -1,0 +1,87 @@
+<%= error_messages_for :page %>
+
+<% form_for :page, @page do |f| %>
+
+  <div class='comatose_field'>
+    <label for="page_title">Title</label>
+    <%= f.text_field :title, :tabindex => 1, :maxlength => 255, :size => 30 %> <%= link_to_function "More...", "ComatoseEditForm.toggle_extra_fields(this)", :id => 'more-options' %>
+  </div>
+
+  <div class='comatose_field' id='slug_row'>
+    <label for="page_slug">Slug</label>
+    <%= f.text_field :slug, :tabindex=>6, :maxlength=>255, :size=>50, :disabled=>@root_pages.include?(@page) %>
+  </div>
+
+  <div class='comatose_field' id='keywords_row'>
+    <% if show_field? 'keywords' %>
+      <label for="page_keywords">Keywords</label>
+      <%= f.text_field :keywords, :tabindex=>7, :maxlength=>1000, :size=>50 %>
+    <% end %>
+  </div>
+
+  <div class='comatose_field' id='parent_row'>
+    <% if show_field? 'parent' %>
+      <label for="page_parent">Parent</label>
+      <% if mode != :new and @root_pages.include? @page %>
+        <select id="page_parent" disabled="true"><option><%= @page.title %> is a root page</option></select>
+      <% else %>
+        <select id="page_parent" name="page[parent_id]" tabindex="8"><%= tree_select_box @root_pages, @page.parent_id, @page.id %></select>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class='comatose_field'>
+    <label for="page_body">Body</label>
+    <%= f.text_area :body, :rows => 14, :tabindex => 2 %>
+  </div>
+
+  <div class='comatose_field' id='filter_row'>
+    <% if show_field? 'filter' %>
+      <label for="page_filter_type">Filter</label>
+      <%= select_tag 'page[filter_type]', options_for_select(TextFilters.all_titles.sort, @page.filter_type || Comatose.config.default_filter), :tabindex=>3, :id=>'page_filter_type' %>
+      <span class="field-help">Converts plain text into html</span>
+    <% end %>
+  </div>
+  
+  <div class='comatose_field' id='created_row'>
+    <% if show_field? 'created_on' %>
+      <label for="page_created_on">Created</label>
+      <%= f.datetime_select :created_on %>
+    <% end %>
+  </div>
+
+<div id="button-group">
+<% unless @page.updated_on.nil? %>
+  <div class="last-update">
+    <label>
+      Updated <%= time_ago_in_words @page.updated_on, true %> ago by
+      <%= @page.author %>.
+      <%= link_to(pluralize(@page.versions.length, 'revision', 'revisions'), :action=>'versions', :id=>@page) if @page.versions.length > 0 %>
+    </label>
+  </div>
+<% end %>
+<%= image_tag 'comatose/spinner.gif', :id=>'spinner', :align=>'absmiddle', :style=>'display:none;' %>
+  <%= button_to_function('Preview', "ComatoseEditForm.preview_content('#{url_for :controller=>controller.controller_name, :action=>'preview', :id=>@page}')", :tabindex=>3, :id=>'preview-btn' ) if show_field? 'preview' %> &nbsp;
+  <%= submit_tag ((mode == :edit) ? 'Save Changes' : 'Create Page'), :tabindex=>4 %>
+  <% if @page.versions.length > 0 %>
+  &nbsp; <%= link_to "Revert", :action=>'versions', :id=>@page %>
+  <% end %>
+  or
+  <a href="<%= url_for :controller=>controller.controller_name, :action=>'index' %>" onlick="ComatoseEditForm.cancel(this.href); return false;" tabindex="5">Cancel</a>
+</div>
+<% end %>
+
+<div id="preview-area" style='display: none;'>
+  <fieldset>
+    <legend>Page Preview</legend>
+    <div class="preview-body">
+      <div id="preview-panel"><span style='color:blue;'>Loading Preview...</span></div>
+      <div style="clear:both"></div>
+    </div>
+  </fieldset>
+  <div class="commands">
+    <a href="#" onclick="$('preview-area').hide();">Close Preview</a> or <a href="#">Back to top</a>
+  </div>
+</div>
+
+<%= javascript_tag "ComatoseEditForm.init('#{mode.to_s}');" %>
