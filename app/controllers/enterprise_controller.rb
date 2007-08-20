@@ -86,11 +86,11 @@ class EnterpriseController < ApplicationController
   def activate
     @enterprise = Enterprise.find(params[:id])
     if @enterprise.update_attribute('active', true)
-      flash[:notice] = 'Enterprise successfuly activacted'
-      render :action => 'show'
+      flash[:notice] = _('Enterprise successfuly activacted')
     else
-      redirect_to :action => 'show', :id => @enterprise
+      flash[:notice] = _('Failed to activate the enterprise')
     end
+    redirect_to :action => 'index'
   end
 
   protected

@@ -1,6 +1,9 @@
 <%= render :partial => 'search_box' %>
 
-<p> <%= link_to _('Register new enterprise'), :action => 'register_form' %> </p>
+<p> <%= link_to _('Register new enterprise'), :action => 'register_form' %> 
+<%= help _('Creates a new enterprise') %>
+</p>
+
 
 <h2> <%= _('Listing my enterprises') %> </h2>
 <ul>
@@ -14,7 +17,9 @@
   </ul>
 <% end %>
 
+<% unless @enterprises.blank? %>
 <h4> <%= _('Other Enterprises') %> </h4>
 <ul>
   <%= render :partial => 'enterprise', :collection => @enterprises %>
 </ul>
+<% end %>

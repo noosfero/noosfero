@@ -16,5 +16,8 @@
 <p> <%= _('Tags:') %> <%= @enterprise.tag_list %> </p>
 
 <%= link_to _('Edit enterprise'), :action => 'edit', :id => @enterprise %>
+<%= help _('Change the information about the enterprise') %>
 <%= link_to _('Delete enterprise'), :action => 'destroy', :id => @enterprise %>
+<%= help _('Remove the enterprise from the system') %>
 <%= link_to _('Affiliate'), :action => 'affiliate' unless @my_enterprises.include?(@enterprise) %>
+<%= help _('Be a member of the enterprise') %>
