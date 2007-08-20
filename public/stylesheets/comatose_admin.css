@@ -316,3 +316,17 @@ ul.page-list li table,
 ul.page-list li td {
   border: none;
 }
+
+div.comatose_field label {
+  display: block;
+  font-weight: bold;
+}
+
+div.comatose_field textarea {
+  width: 100%;
+}
+div.comatose_field textarea, 
+div.comatose_field input, 
+div.comatose_field select {
+  border: 1px solid gray;
+}
