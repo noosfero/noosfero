@@ -129,7 +129,6 @@
 /*   color: gray; */
 }
 #content .page-form #page_title {
-  font-size: 125%;
   font-weight: bold;
 }
 #content .page-form #page_slug {
@@ -137,7 +136,6 @@
 }
 #content .page-form #page_body {
   font-family: monospace;
-  font-size: 110%;
 }
 
 #content #button-group {

@@ -3,18 +3,20 @@ margin: 0px;
 padding: 0px;
 font-family: Verdana, Sans-Serif;
 font-size: 14px;
+  background-image: url(../images/bg_bgheader.png);
+  background-repeat: repeat-x;
 }
 
 #frame {
-background: #FFF url("../images/bg_content.png") top center repeat-y;
 }
 
 #content {
 }
 
 #header_content {
-/* background: url("../images/bg_header.png") top center no-repeat; */
+/* background: url("../images/bg_header.png") top center no-repeat;
 height: 135px;
+*/
 }
 
 #menu {
@@ -22,32 +24,18 @@ height: 135px;
 }
 
 #header {
-  border-left: 1px solid ;
-  border-bottom: 1px solid ;
-  border-right: 1px solid ;
-  border-color: blue;
-  background: white;
   padding-top: 0.25em;
   padding-left: 85px;
   padding-right: 0.5em;
-  padding-bottom: 0.25em;
-  z-index: 100;
-  position: absolute;
-  left: 20px;
-  right: 20px;
-  -moz-border-radius-bottomleft: 15px;
-  -moz-border-radius-bottomright: 15px;
-  -webkit-border-radius-bottomleft: 15px;
-  -webkit-border-radius-bottomright: 15px;
-  background-color: #cdf;
+  margin-bottom: 2em;
+  color: #ddf;
   background-image: url(../images/fbes.png);
   background-repeat: no-repeat;
-  background-position: 5px 2px;
-  color: #006;
+  background-position: 5px 5px;
   height: 48px;
 }
 #header a {
-  color: #006;
+  color: #ddf;
   font-weight: bold;
   font-size: smaller;
 }
