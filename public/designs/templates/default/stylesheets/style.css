@@ -10,12 +10,43 @@ background: #FFF url("../images/bg_content.png") top center repeat-y;
 }
 
 #content {
-background: url("../images/bg_bgheader.png") top left repeat-x;
 }
 
 #header_content {
-background: url("../images/bg_header.png") top center no-repeat;
+/* background: url("../images/bg_header.png") top center no-repeat; */
 height: 135px;
+}
+
+#menu {
+  display: none;
+}
+
+#header {
+  border-left: 1px solid ;
+  border-bottom: 1px solid ;
+  border-right: 1px solid ;
+  border-color: blue;
+  background: white;
+  padding-top: 0.25em;
+  padding-left: 48px;
+  padding-right: 0.5em;
+  padding-bottom: 0.25em;
+  z-index: 100;
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  -moz-border-radius-bottomleft: 15px;
+  -moz-border-radius-bottomright: 15px;
+  -webkit-border-radius-bottomleft: 15px;
+  -webkit-border-radius-bottomright: 15px;
+  background: #cdf url(../images/logo.png) top left no-repeat;
+  color: #006;
+  height: 48px;
+}
+#header a {
+  color: #006;
+  font-weight: bold;
+  font-size: smaller;
 }
 
 #boxes {
