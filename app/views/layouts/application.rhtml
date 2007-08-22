@@ -13,6 +13,12 @@
   <body>
     <%= image_tag 'loading.gif', :id => 'spinner', :style => "display:none; float:right;" %>
     <div id="wrap">
+      <% unless flash[:notice].nil? %>
+        <div id='notice'>
+          <%= flash[:notice] %>
+	  <%=  link_to_function( content_tag(:span, _('Close') ), {},{:onclick => visual_effect(:fade, "notice", :duration => 0.5), :id => 'button_close_notice'} ) %>
+        </div>
+      <% end %>
       <div id="frame">
         <div id="menu">
           <%= _('Skip to:') %>
@@ -24,12 +30,6 @@
         <div id="header">
           <%= header %>
         </div>
-
-        <% unless flash[:notice].nil? %>
-          <div id='notice'>
-            <%= flash[:notice] %>
-          </div>
-        <% end %>
 
         <div id='content'>
 	  <!-- <a name='main_content'/></a> -->
