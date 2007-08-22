@@ -16,7 +16,7 @@ Comatose.configure do |config|
   end
   config.admin_includes << :authenticated_system
   config.admin_helpers << :application_helper
-  config.admin_helpers << :document
+  config.admin_helpers << :document_helper
 end
 Comatose::AdminController.design :holder => 'virtual_community'
 Comatose::AdminController.before_filter do |controller|
