@@ -1,9 +1,7 @@
 require 'comatose'
 
-class Comatose::Page
-  def self.icon
-    'text-x-generic'
-  end
+def (Comatose::Page).icon
+  'text-x-generic'
 end
 
 Comatose.configure do |config|
