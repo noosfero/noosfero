@@ -2,7 +2,7 @@
 # available in all controllers.
 class ApplicationController < ActionController::Base
 
-#  helper :all
+  helper :document
   
   design :holder => 'virtual_community'
 

@@ -23,24 +23,21 @@ collapse_children = (level >= Comatose.config.default_tree_level)
 <li id="page_<%= page.id %>">
   <table cellpadding="0" cellspacing="0">
     <tr>
-      <td rowspan="2" valign="center">
+      <td valign="center">
       <% if !page.children.empty? %>
         <%=  image_tag( ((collapse_children) ? 'comatose/collapsed.gif' : 'comatose/expanded.gif'), :title=>'Expand/Collapse', :onclick=>"ComatoseList.toggle_tree_nodes(this,#{page.id});", :class=>'tree-controller', :size=>'12x12', :id=>"page_controller_#{page.id}" ) %>
       <% else %>
         <%= image_tag 'comatose/no-children.gif', :size=>'12x12', :class=>'tree-controller' %>
       <% end %>        
       </td>
-      <td rowspan="2" valign="center">
-        <%= image_tag 'comatose/page.gif', :size=>'25x31', :align=>"absmiddle" %>
+      <td valign="center">
+        <%= icon_for_document(page) %>
         <span class="handle">DRAG</span>
       </td>
       <td>
         <%= link_to page.title, {:action=>'edit', :id=>page}, :title=>"Path:#{page.full_path}", :class=>'page' %>
       </td>
-    </tr>
-    <tr>
       <td class="commands">
-        Updated <span title="Created on <%= page.created_on %>"><%= time_ago_in_words page.updated_on, true %> ago</span><%= " by #{page.author}" unless page.author.nil? or page.author.empty? %>,
         <%= links.join(', ') %>.
       </td>
     </tr>

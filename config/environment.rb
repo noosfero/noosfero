@@ -80,4 +80,4 @@ Comatose::AdminController.before_filter do |controller|
   end
   controller.instance_variable_set('@virtual_community', virtual_community)
 end
-#require 'comatose_extensions'
+
