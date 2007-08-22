@@ -10,12 +10,12 @@ class ManageTagsController < ApplicationController
   def list
     @parent = Tag.find(params[:parent]) if params[:parent]
     @tags = @parent ? @parent.children : Tag.roots
-    @pending_tags = Tag.find_pendings
+    @pending_tags = Tag.find_all_by_pending(true)
   end
 
   # Prompt for data to a new tag
   def new
-    @parent_tags = Tag.find(:all)
+    @parent_tags = Tag.find_all_by_pending(false)
     @tag = Tag.new
   end
 
@@ -26,20 +26,20 @@ class ManageTagsController < ApplicationController
       flash[:notice] = _('Tag was successfully created.')
       redirect_to :action => 'list'
     else
-      @parent_tags = Tag.find(:all)
+      @parent_tags = Tag.find_all_by_pending(false)
       render :action => 'new'
     end
   end
 
   # Prompt for modifications on the attributes of a tag
   def edit
-    @tag = Tag.find_with_pendings(params[:id])
+    @tag = Tag.find(params[:id])
     @parent_tags = @tag.parent_candidates
   end
 
   # Do the modifications collected by edit
   def update
-    @tag = Tag.find_with_pendings(params[:id])
+    @tag = Tag.find(params[:id])
     if @tag.update_attributes(params[:tag])
       flash[:notice] = _('Tag was successfully updated.')
       redirect_to :action => 'list'
@@ -51,7 +51,7 @@ class ManageTagsController < ApplicationController
 
   # Destroy a tag and all its children
   def destroy
-    @tag = Tag.find_with_pendings(params[:id])
+    @tag = Tag.find(params[:id])
     if @tag.destroy
       flash[:notice] = _('Tag was successfuly destroyed')
     end
@@ -60,7 +60,7 @@ class ManageTagsController < ApplicationController
 
   # Approve a pending tag so now ita can be used to tag things
   def approve
-    @tag = Tag.find_with_pendings(params[:id])
+    @tag = Tag.find(params[:id])
     if @tag.update_attribute(:pending, false)
       flash[:notice] = _('Tag was successfuly approved')
       redirect_to :action => 'list'
@@ -69,6 +69,6 @@ class ManageTagsController < ApplicationController
 
   # Full-text search for tags that have the query terms
   def search
-    @tags_found = Tag.find_by_contents(params[:query])
+    @tags_found = Tag.find_all_by_name_and_pending(params[:query], false)
   end
 end

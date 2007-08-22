@@ -103,13 +103,13 @@ class ManageTagsControllerTest < Test::Unit::TestCase
     post :approve, :id => pending_tag.id
     assert_response :redirect
     assert_redirected_to :action => 'list'
-    assert ( not Tag.find_with_pendings(pending_tag.id).pending? )
+    assert ( not Tag.find(pending_tag.id).pending? )
   end
 
   def test_search
     found_tag = Tag.create(:name => 'found_tag')
     lost_tag = Tag.create(:name => 'lost_tag')
-    post :search, :query => 'found*'
+    post :search, :query => 'found_tag'
     assert_not_nil assigns(:tags_found)
     assert assigns(:tags_found).include?(found_tag)
     assert (not assigns(:tags_found).include?(lost_tag))
