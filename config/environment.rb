@@ -55,36 +55,5 @@ end
 require 'gettext/rails'
 Tag.hierarchical = true
 
-Comatose.configure do |config|
-  config.admin_get_root_page do 
-    Comatose::Page.find_by_path(request.parameters[:profile])
-  end
-  config.admin_authorization do |config|
-    Profile.exists?(:identifier => request.parameters[:profile])
-    # FIXME: also check permissions
-  end
-  config.admin_includes << :authenticated_system
-  config.admin_helpers << :application_helper
-end
-Comatose::AdminController.design :holder => 'virtual_community'
-Comatose::AdminController.before_filter do |controller|
-  # TODO: copy/paste; extract this into a method (see
-  # app/controllers/application.rb)
-  domain = Domain.find_by_name(controller.request.host)
-  if domain.nil?
-    virtual_community = VirtualCommunity.default
-  else
-    virtual_community = domain.virtual_community
-    profile = domain.profile
-  end
-  controller.instance_variable_set('@virtual_community', virtual_community)
-end
+require 'comatose_integration'
 
-# taken from http://blog.spotstory.com/2007/04/19/upgrading-to-rails-12/
-# Array of plugins with Application model dependencies.
-reloadable_plugins = ["design"]
-# Force these plugins to reload, avoiding stale object references.
-reloadable_plugins.each do |plugin_name|
-  reloadable_path = RAILS_ROOT + "/vendor/plugins/#{plugin_name}/lib"
-  Dependencies.load_once_paths.delete(reloadable_path)
-end
