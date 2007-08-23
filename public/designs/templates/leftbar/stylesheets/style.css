@@ -6,7 +6,7 @@ font-size: 14px;
 }
 
 #frame {
-background: #FFF url("../images/bg_content.png") top center repeat-y;
+background: url("../images/bg_content.png") top center repeat-y;
 }
 
 #content {

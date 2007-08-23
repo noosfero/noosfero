@@ -1,43 +1,19 @@
 body {
-  margin: 0px;
-  padding: 0px;
   font-family: Verdana, Sans-Serif;
   font-size: 14px;
-  background-image: url(../images/bg_bgheader.png);
-  background-repeat: repeat-x;
 }
 
 #frame {
 }
 
 #content {
+background: url("../images/bg_bgheader.png") repeat-x;
 }
 
 #header_content {
-/* background: url("../images/bg_header.png") top center no-repeat;
-height: 135px;
-*/
-}
-
-#menu {
-  display: none;
-}
-
-#header {
-  padding-top: 0.25em;
-  padding-left: 85px;
-  padding-right: 0.5em;
-  margin-bottom: 2em;
-  color: #ddf;
-  background-image: url(../images/fbes.png);
-  background-repeat: no-repeat;
-  background-position: 5px 5px;
-  height: 48px;
-}
-#header a {
-  color: #ddf;
-  font-weight: bold;
-  font-size: smaller;
+background: url("../images/fbes.png") 20px no-repeat;
+height: 48px;
+padding-top: 10px;
 }
 
 #boxes {
