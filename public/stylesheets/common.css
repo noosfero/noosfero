@@ -17,7 +17,7 @@ z-index: 9999 !important ;
 
 #virtual_community_identification {
 position: absolute !important;
-background: url("../images/bg_blue_logo.png") no-repeat !important;
+background: url("../images/bg_blue_logo.png") 5px no-repeat !important;
 vertical-align: bottom !important ;
 width: 230px !important ;
 height: 34px !important ;
