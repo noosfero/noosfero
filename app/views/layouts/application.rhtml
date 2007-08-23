@@ -16,7 +16,9 @@
       <% unless flash[:notice].nil? %>
         <div id='notice'>
           <%= flash[:notice] %>
-	  <%=  link_to_function( content_tag(:span, _('Close') ), {},{:onclick => visual_effect(:fade, "notice", :duration => 0.5), :id => 'button_close_notice'} ) %>
+          <div class='button'>
+            <%=  link_to_function( content_tag(:span, _('Close') ), visual_effect(:fade, "notice", :duration => 0.5), :id => 'button_close_notice' ) %>
+          </div>
         </div>
       <% end %>
       <div id="frame">
