@@ -13,9 +13,9 @@
 # Create the page-level links...
 links = []
 links << link_to(pluralize(page.versions.length, 'revision', 'revisions'), :action=>'versions', :id=>page) if page.versions.length > 0
-links << link_to('add child page', {:action=>'new', :parent=>page}, :title=>"Add a child to '#{page.title}'", :class=>'add-page')
-links << link_to_function('reorder children', "ComatoseList.toggle_reorder('page_list_#{page.id}',this,#{page.id})", :title=>"Reorder children of '#{page.title}'", :class=>'reorder-children', :href=>url_for(:action=>'reorder', :id=>page)) if !page.children.empty? and page.children.length > 1
-links << link_to('delete', {:action=>'delete', :id=>page}, :confirm=>'This will delete this page, and any children. Are you sure?', :title=>"Delete page '#{page.title}' and all it's children", :class=>'delete-page', :method=>'post', :onmouseover=>"ComatoseList.item_hover('page_#{page.id}', 'over', true)", :onmouseout=>"ComatoseList.item_hover('page_#{page.id}', 'out', true)") unless @root_pages.include? page
+links << link_to('add child page', {:action=>'new', :parent=>page}, :title=> _("Add a child to '%s'") % page.title, :class=>'add-page')
+links << link_to_function('reorder children', "ComatoseList.toggle_reorder('page_list_#{page.id}',this,#{page.id}, '%s', '%s')" % [_('reorder children'), _('finished reordering')], :title=> _("Reorder children of '%s'") % page.title, :class=>'reorder-children', :href=>url_for(:action=>'reorder', :id=>page)) if !page.children.empty? and page.children.length > 1
+links << link_to('delete', {:action=>'delete', :id=>page}, :confirm=> _('This will delete this page, and any children. Are you sure?'), :title=> _("Delete page '%s' and all it's children") % page.title, :class=>'delete-page', :method=>'post', :onmouseover=>"ComatoseList.item_hover('page_#{page.id}', 'over', true)", :onmouseout=>"ComatoseList.item_hover('page_#{page.id}', 'out', true)") unless @root_pages.include? page
 # Level check, one, two, three...
 collapse_children = (level >= Comatose.config.default_tree_level)
 %>
@@ -32,7 +32,7 @@ collapse_children = (level >= Comatose.config.default_tree_level)
       </td>
       <td valign="center">
         <%= icon_for_document(page) %>
-        <span class="handle">DRAG</span>
+        <span class="handle"><%= _('DRAG') %></span>
       </td>
       <td>
         <%= link_to page.title, {:action=>'edit', :id=>page}, :title=>"Path:#{page.full_path}", :class=>'page' %>

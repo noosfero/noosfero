@@ -1,6 +1,6 @@
-<h1>Reorder Pages</h1>
+<h1><%= _('Reorder Pages') %></h1>
 
-<h3>"<%= @page.title %>" child pages:</h3>
+<h3><%= _('"%s" child pages:') % @page.title %></h3>
 
 <ul class="page-list">
 <% @page.children.each do |page| %>
@@ -16,8 +16,8 @@
       </tr>
       <tr>
         <td class="commands">
-          <%= link_to "Move Up", :action=>'reorder', :cmd=>'up', :page=>page.id %>,
-          <%= link_to "Move Down", :action=>'reorder', :cmd=>'down', :page=>page.id %>
+          <%= link_to _("Move Up"), :action=>'reorder', :cmd=>'up', :page=>page.id %>,
+          <%= link_to _("Move Down"), :action=>'reorder', :cmd=>'down', :page=>page.id %>
         </td>
       </tr>
     </table>
@@ -26,5 +26,5 @@
 </ul>
 
 <div id="button-group">
-  <%= link_to "Finished", :action=>'index' %>
+  <%= link_to _("Finished"), :action=>'index' %>
 </div>
