@@ -66,15 +66,15 @@ var ComatoseList = {
     }
   },
   
-  toggle_reorder: function(node, anc, id) {
+  toggle_reorder: function(node, anc, id, reorder_text, finished_text) {
     if( $(node).hasClassName('do-reorder') ) {
       $(node).removeClassName( 'do-reorder' );
       $(anc).removeClassName('reordering');
-      $(anc).innerHTML = "reorder children";
+      $(anc).innerHTML = reorder_text;
     } else {
       $(node).addClassName( 'do-reorder' );
       $(anc).addClassName('reordering');
-      $(anc).innerHTML = "finished reordering";
+      $(anc).innerHTML = finished_text;
       // Make sure the children are visible...
       ComatoseList.expand_node(id);
     }
@@ -149,8 +149,8 @@ var ComatoseEditForm = {
     this.last_title = slug.value;
   },
   // Todo: Make the meta fields remember their visibility?
-  toggle_extra_fields : function(anchor) {
-    if(anchor.innerHTML == "More...") {
+  toggle_extra_fields : function(anchor, more_label, less_label) {
+    if(anchor.innerHTML == more_label) {
       Show.these(
         'slug_row',
         'keywords_row',
@@ -158,7 +158,7 @@ var ComatoseEditForm = {
         'filter_row',
         'created_row'
       );
-      anchor.innerHTML = 'Less...';
+      anchor.innerHTML = less_label;
     } else {
       Hide.these(
         'slug_row',
@@ -167,15 +167,15 @@ var ComatoseEditForm = {
         'filter_row',
         'created_row'
       );
-      anchor.innerHTML = 'More...';
+      anchor.innerHTML = more_label;
     }
   },
   // Uses server to create preview of content...
-  preview_content : function(preview_url) {
+  preview_content : function(preview_url, preview_label) {
     $('preview-area').show();
     var params = Form.serialize(document.forms[0]);
     if( params != this.last_preview ) {
-      $('preview-panel').innerHTML = "<span style='color:blue;'>Loading Preview...</span>";
+      $('preview-panel').innerHTML = "<span style='color:blue;'>" + preview_label + "</span>";
       new Ajax.Updater(
          'preview-panel',
          preview_url,
@@ -184,11 +184,11 @@ var ComatoseEditForm = {
     }
     this.last_preview = params;
   },
-  cancel : function(url) {
+  cancel : function(url, cancel_warning) {
     var current_data = Form.serialize(document.forms[0]);
     var data_changed = (this.default_data != current_data) 
     if(data_changed) {
-      if( confirm('Changes detected. You will lose all the updates you have made if you proceed...') ) {
+      if( confirm(cancel_warning) ) {
         location.href = url;
       }
     } else {

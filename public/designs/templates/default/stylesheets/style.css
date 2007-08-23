@@ -42,9 +42,10 @@ height: 135px;
 
 #boxes {
   position: relative;
-  width: 800px;
+  width: 760px;
   left: 50%;
   margin-left: -400px;
+  padding: 1em;
 }
 
 #box_3 {
@@ -135,3 +136,34 @@ height: 135px;
   color: #ffffff;
 }
 
+div#notice {
+  z-index: 10000;
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  margin-left: -200px;
+  width: 400px;
+  border: 1px solid black;
+  background: #efefef;
+  padding: 0.5em;
+}
+
+div#notice .button {
+  text-align: center;
+  margin-top: 1em;
+  margin-bottom: 0.25em;
+}
+  
+div#notice .button a {
+  border: 1px solid gray;
+  background: #ddd;
+  color: black;
+  padding: 4px;
+  padding-left: 28px;
+  background-image: url(../../../icons/default/cancel.png);
+  background-position: top left;
+  background-repeat: no-repeat;
+}
+div#notice .button a:hover {
+  background-color: #ffd;
+}
