@@ -1,0 +1,74 @@
+/* Bar Blue Default */
+
+#virtual_community_identification {
+position: absolute;
+background: url("../images/bg_blue_logo.png") no-repeat;
+vertical-align: bottom;
+width: 230px;
+height: 34px;
+line-height: 34px;
+padding-left: 60px;
+}
+
+#virtual_community_identification:hover {
+color: #dfdfdf;
+}
+
+#header {
+  background: #fff url("../images/bg_blue_bar.png") repeat-x;
+  color: #ffffff;
+}
+
+
+#header a {
+display: table-cell;
+height: 35px;
+color: #ffffff;
+font-size: 10px;
+font-family: Sans-serif;
+font-weight: bold;
+vertical-align: middle;
+padding: 0px 5px 0px 5px;
+text-decoration: underline;
+}
+
+#user_links {
+margin-left: 290px;
+}
+
+#user_links a:hover, #user_links a:focus {
+color: #dfdfdf;
+text-decoration: none;
+}
+
+#logout_box a:hover, #logout_box a:focus {
+color: red;
+text-decoration: none;
+}
+
+#frame {
+  background: #fff url("../images/black_white_12px.png") repeat-x;
+}
+
+#menu_accessibility {
+  font-size: 10px;
+  color: black;
+  font-family: Sans-serif;
+  color: #545454;
+}
+
+#menu_accessibility a {
+  color: #545454;
+  text-decoration: none;
+}
+
+#menu_accessibility a:hover {
+  color: #000000;
+  text-decoration: underline;
+}
+
+#menu_accessibility a:focus {
+  color: red;
+  text-decoration: underline;
+}
+
