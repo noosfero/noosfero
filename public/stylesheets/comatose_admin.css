@@ -122,3 +122,7 @@ div.comatose_field select {
   font-weight: normal;
   display: block;
 }
+
+.collapsed {
+  display: none;
+}

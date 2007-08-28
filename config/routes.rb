@@ -23,7 +23,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'customize/:profile/edit_template/:action/:id', :controller => 'edit_template'
 
   # content administration
-  map.comatose_admin 'cms/:profile'
+  map.connect 'cms/:profile/:action/:id', :controller => 'cms'
 
   # administrative tasks for a virtual community
   map.connect 'admin', :controller => 'admin_panel', :action => 'index'
