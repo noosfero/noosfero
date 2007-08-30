@@ -13,8 +13,8 @@ end
 desc "Update pot/po files to match new version."
 task :updatepo do
   require 'gettext/utils'
-  GetText.update_pofiles(PROJECT, Dir.glob("{app,lib}/**/*.{rb,rhtml}"),
-                         "#{PROJECT} #{VERSION}")
+  GetText.update_pofiles(Noosfero::PROJECT, Dir.glob("{app,lib}/**/*.{rb,rhtml}"),
+                         "#{Noosfero::PROJECT} #{Noosfero::VERSION}")
 end
 
 # vim: ft=ruby
