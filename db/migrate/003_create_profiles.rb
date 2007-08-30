@@ -17,6 +17,7 @@ class CreateProfiles < ActiveRecord::Migration
 
       #enterprise fields
       t.column :validation_entity_id,                   :integer
+      t.column :approved,                              :boolean
     end
   end
 

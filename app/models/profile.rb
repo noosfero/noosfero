@@ -27,7 +27,7 @@ class Profile < ActiveRecord::Base
 
   has_many :domains, :as => :owner
   belongs_to :virtual_community
-  has_many :affiliations
+  has_many :affiliations, :dependent => :destroy
   has_many :people, :through => :affiliations
 
 

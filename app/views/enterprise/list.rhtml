@@ -1,5 +1,8 @@
 <%= render :partial => 'search_box' %>
 
+<%= error_messages_for 'enterprise' %>
+<%= error_messages_for 'enterprise_info' %>
+
 <p> <%= link_to _('Register new enterprise'), :action => 'register_form' %> 
 <%= help _('Creates a new enterprise') %>
 </p>

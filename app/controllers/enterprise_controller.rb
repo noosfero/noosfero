@@ -85,13 +85,35 @@ class EnterpriseController < ApplicationController
   # Activate a validated enterprise
   def activate
     @enterprise = Enterprise.find(params[:id])
-    if @enterprise.update_attribute('active', true)
+    if @enterprise.activate
       flash[:notice] = _('Enterprise successfuly activacted')
     else
       flash[:notice] = _('Failed to activate the enterprise')
     end
     redirect_to :action => 'index'
   end
+
+  # Validates an eterprise
+  def approve
+    @enterprise = Enterprise.find(params[:id])
+    if @enterprise.approve
+      flash[:notice] = _('Enterprise successfuly approved')
+    else
+      flash[:notice] = _('Failed to approve the enterprise')
+    end
+    redirect_to :action => 'index'
+  end
+
+  def reject
+    @enterprise = Enterprise.find(params[:id])
+    if @enterprise.reject
+      flash[:notice] = _('Enterprise successfuly rejected')
+    else
+      flash[:notice] = _('Failed to reject the enterprise')
+    end
+    redirect_to :action => 'index'
+  end
+    
 
   protected
 

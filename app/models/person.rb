@@ -3,7 +3,7 @@ class Person < Profile
   ENTERPRISE = {:class_name => 'Enterprise', :through => :affiliations, :foreign_key => 'person_id', :source => 'profile'}
 
   belongs_to :user
-  has_many :affiliations
+  has_many :affiliations, :dependent => :destroy
   has_many :profiles, :through => :affiliations
   has_many :enterprises,  ENTERPRISE
   has_many :pending_enterprises, ENTERPRISE.merge(:conditions => ['active = ?', false])
