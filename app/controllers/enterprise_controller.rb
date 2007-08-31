@@ -104,6 +104,7 @@ class EnterpriseController < ApplicationController
     redirect_to :action => 'index'
   end
 
+  # Rejects an enterprise
   def reject
     @enterprise = Enterprise.find(params[:id])
     if @enterprise.reject

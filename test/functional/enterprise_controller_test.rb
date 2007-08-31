@@ -137,4 +137,10 @@ class EnterpriseControllerTest < Test::Unit::TestCase
     assert_kind_of Enterprise, assigns(:enterprise)
     assert assigns(:enterprise).active
   end
+
+  def test_approve
+    logins_as 'ze'
+    post :approve, :id => 5
+    assert assigns(:em)
+  end
 end

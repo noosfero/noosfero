@@ -23,3 +23,9 @@
 <%= help _('Be a member of the enterprise') %>
 <%= link_to _('Activate'), :action => 'activate', :id => @enterprise if @my_pending_enterprises.include?(@enterprise) %>
 <%= help _('Activate an approved enterprise') if @my_pending_enterprises.include?(@enterprise) %>
+<% unless @enterprise.approved? %>
+  <%= link_to _('Approve'), :action => 'approve', :id => @enterprise %>
+  <%= help _('Approve a submitted enterprise profile') %>
+  <%= link_to _('Reject'), :action => 'reject', :id => @enterprise %>
+  <%= help _('Reject a submitted enterprise profile') %>
+<% end %>
