@@ -96,7 +96,7 @@ module ApplicationHelper
        ( link_to_cms(_('Manage content')) ),
        ( link_to (_('Manage layout')), :controller => 'edit_template' ),
        ( link_to(_('My enterprises'), { :controller => 'enterprise' }) ),
-    ].join("\n")
+    ].join(" | \n")
     content_tag('span', links, :id => 'user_links')
   end
 
@@ -122,6 +122,10 @@ module ApplicationHelper
 
   def logout_box
     content_tag('span', (link_to _('Logout'), { :controller => 'account', :action => 'logout'}, :method => 'post'), :id => 'logout_box')
+  end
+
+  # renders a search box.
+  def search_box
   end
 
   # FIXME
