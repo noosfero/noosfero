@@ -124,6 +124,20 @@ class UserTest < Test::Unit::TestCase
     assert user.authenticated?('test')
   end
 
+  def test_should_create_person_when_creating_user
+    count = Person.count
+    assert !Person.find_by_identifier('lalala')
+    create_user(:login => 'lalala', :email => 'lalala@example.com')
+    assert Person.find_by_identifier('lalala')
+  end
+
+  def test_should_destroy_person_when_destroying_user
+    user = create_user(:login => 'lalala', :email => 'lalala@example.com')
+    assert Person.find_by_identifier('lalala')
+    user.destroy
+    assert !Person.find_by_identifier('lalala')
+  end
+
   protected
     def create_user(options = {})
       User.create({ :login => 'quire', :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire' }.merge(options))

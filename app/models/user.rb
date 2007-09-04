@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
     Person.create!(:identifier => user.login, :name => user.login, :user_id => user.id)
   end
   
-  has_one :person
+  has_one :person, :dependent => :destroy
 
   # Virtual attribute for the unencrypted password
   attr_accessor :password
