@@ -85,4 +85,12 @@ class ProfileTest < Test::Unit::TestCase
     assert Profile.search('bla').include?(p)
     assert ! Profile.search('not_wanted').include?(p)
   end
+
+  def test_should_remove_pages_when_removing_profile
+    profile = Profile.create(:name => 'To bee removed', :identifier => 'to_be_removed')
+    assert Comatose::Page.find_by_path('to_be_removed')
+    profile.destroy
+    assert !Comatose::Page.find_by_path('to_be_removed')
+  end
+
 end

@@ -11,6 +11,11 @@ class Profile < ActiveRecord::Base
     homepage.save!
   end
 
+  after_destroy do |profile|
+    Comatose::Page.find_by_path(profile.identifier).destroy
+  end
+
+
   # Valid identifiers must match this format.
   IDENTIFIER_FORMAT = /^[a-z][a-z0-9_]*[a-z0-9]$/
 
