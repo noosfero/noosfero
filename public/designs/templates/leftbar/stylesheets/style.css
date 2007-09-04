@@ -10,7 +10,7 @@ background: url("../images/bg_content.png") top center repeat-y;
 }
 
 #content {
-background: url("../images/bg_bgheader.png") top left repeat-x;
+/* background: url("../images/bg_bgheader.png") top left repeat-x; */
 }
 
 #header_content {
