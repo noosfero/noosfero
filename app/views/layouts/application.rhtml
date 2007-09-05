@@ -7,35 +7,6 @@
       <%= stylesheet_link_tag 'cms' %>
     <% end %>
     <%= stylesheet_link_tag 'common' %>
-    <%= stylesheet_link_tag 'blue_bar' %>
-
-    <script type="text/javascript">
-      function enableSubMenus(){
-        var lis = document.getElementsByTagName('li');
-        for (var i = 0, li; li = lis[i]; i++) {
-         var link = li.getElementsByTagName('a')[0];
-          if (link) {
-            link.onfocus = function(){
-              var ul = this.parentNode.getElementsByTagName('ul')[0];
-              if (ul)
-              ul.style.display = 'block';
-            }
-            var ul = link.parentNode.getElementsByTagName('ul')[0];
-            if (ul){
-              var ullinks = ul.getElementsByTagName('a');
-              var ullinksqty = ullinks.length;
-              var lastItem = ullinks[ullinksqty - 1];
-              if (lastItem){
-              lastItem.onblur = function(){
-                this.parentNode.parentNode.style.display = '';
-              }
-              }
-            }
-          }
-        }
-      }
-      window.onload = enableSubMenus;
-    </script>
   </head>
 
   <body>
@@ -52,51 +23,20 @@
       <div id="frame">
         <div id="menu_accessibility">
           <%= _('Skip to:') %>
-          <%# FIXME: fix all these links!!! %>
-          <%= link_to _('Site accesibility'), :controller => 'accessibility' %> |
           <a href="#main_content"><%= _('Content') %></a> | 
           <a href="#sidebar"><%= _('Navigation') %></a> | 
           <a href="#footer"><%= _('Footer') %></a>
         </div>
 
         <div id="header">
-          <div id="virtual_community_identification">Default Virtual Community</div>
-<div id="user_links">
-<span id="login_name">Login Name</span><br />
-<a href="#" id="perfil_edit_button">Editar Perfil</a>|<a href="#" id="logout_button">Sair</a>
-</div>
-
-<div id="bar_center_content">
-  <div id="search_bar">
-<form action="a" name="buscaBarraForm" method="get">
-Buscar: <input name="busca" id="search_input_bar" maxlength="70" type="text" value="Digite aqui sua busca..."> <SELECT NAME="lista" SIZE="1" id="search_select_bar">
-<OPTION>opção 2
-<OPTION>opção 3
-<OPTION>opção 4
-<OPTION>opção 5
-<OPTION>opção 6
-</SELECT> &nbsp;&nbsp;&nbsp;<input type="submit" id="search_button_bar" value="buscar"></form>
-</div>
-  <div id="menu_bar"><ul id="menu">
-  <li><a href="#minha_rede" id="minha_rede" class="active">Minha Rede</a> 
-  </li><li><a href="#minha_web" id="minha_web">Minha página web</a><ul>
-  <li><a href="#mudar_tema" id="mudar_tema">Modificar Tema</a></li><li><a href="#navegar_conteudo" id="navegar_conteudo" class="submenu">Navegar no conteúdo</a>
-  </li></ul> 
-  </li><li><a href="#empreendimento" id="empreendimento">Meu Empreendimento</a></li>
-  </li></ul></div>
-</div>
-
-        </div><!-- id="header" -->
+          <%= header %>
+        </div>
 
         <div id='content'>
-          <a name='main_content'/></a>
-          
-          <!-- Aqui entra um conteudo tipo o titulo da pagina do usuário e os botoes do comatose? -->
-          <!--
+	  <!-- <a name='main_content'/></a> -->
           <div id='header_content'>
+            <!-- Aqui entra um conteudo tipo o titulo da pagina do usuário e os botoes do comatose? -->
           </div>
-          -->
-
           <% if params[:controller] == 'cms' %>
             <div id='boxes'>
               <%= yield %>
