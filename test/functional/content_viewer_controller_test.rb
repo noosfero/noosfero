@@ -16,7 +16,9 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
   def test_should_display_homepage
     uses_host 'anhetegua.net'
-    Profile.create!(:identifier => 'aprofile', :name => "A profile")
+
+    Comatose::Page.expects(:find_by_path).with('aprofile').returns(Comatose::Page.new)
+
     get :view_page, :profile => 'aprofile', :page => []
     assert_response :success
   end
