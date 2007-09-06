@@ -73,7 +73,11 @@ class EnterpriseController < ApplicationController
   # Elimitates the enterprise of the system
   def destroy 
     @enterprise = @my_enterprises.find(params[:id])
-    @enterprise.destroy
+    if @enterprise
+      @enterprise.destroy
+    else
+      flash[:notice] = 'Can destroy only your enterprises'
+    end
     redirect_to :action => 'index'
   end
   

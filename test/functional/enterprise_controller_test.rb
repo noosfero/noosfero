@@ -81,14 +81,16 @@ class EnterpriseControllerTest < Test::Unit::TestCase
 
   def test_enterprise_editing
     login_as 'ze'
-    get :edit, :id => 5
+    e = create_enterprise
+    get :edit, :id => e
     assert_not_nil assigns(:enterprise)
     assert_kind_of Enterprise, assigns(:enterprise)
   end
 
   def test_enterprise_updating
     login_as 'ze'
-    post :update, :id => 5, :enterprise => {:name => 'colivre'}
+    e = create_enterprise
+    post :update, :id => e, :enterprise => {:name => 'colivre'}
     assert_not_nil assigns(:enterprise)
     assert_kind_of Enterprise, assigns(:enterprise)
     assert_response :redirect
@@ -97,7 +99,8 @@ class EnterpriseControllerTest < Test::Unit::TestCase
 
   def test_enterprise_updating_wrong
     login_as 'ze'
-    post :update, :id => 5, :enterprise => {:name => ''} # name can't be blank
+    e = create_enterprise
+    post :update, :id => e, :enterprise => {:name => ''} # name can't be blank
     assert_not_nil assigns(:enterprise)
     assert_kind_of Enterprise, assigns(:enterprise)
     assert_response :success
@@ -106,7 +109,8 @@ class EnterpriseControllerTest < Test::Unit::TestCase
 
   def test_affiliate
     login_as 'ze'
-    post :affiliate, :id => 6
+    e = create_enterprise(:owner => 'johndoe', :user => 'ze')
+    post :affiliate, :id => e
     assert assigns(:enterprise)
     assert assigns(:enterprise).people.include?(assigns(:person))
     assert assigns(:person).enterprises.include?(assigns(:enterprise))
@@ -114,17 +118,20 @@ class EnterpriseControllerTest < Test::Unit::TestCase
 
   def test_destroy
     login_as 'ze'
+    e = create_enterprise
     c = Enterprise.count
-    assert_nothing_raised { Enterprise.find(5) }
-    post :destroy, :id => 5
+    assert_nothing_raised { Enterprise.find(e) }
+    post :destroy, :id => e
+    assert assigns(:enterprise)
     assert_raise ActiveRecord::RecordNotFound do
-      Enterprise.find(5)
+      Enterprise.find(e)
     end
     assert_equal c - 1, Enterprise.count
   end
 
   def test_search
     login_as 'ze'
+    e = create_enterprise(:tag_list => 'bla')
     get :search, :query => 'bla'
     assert assigns(:tagged_enterprises)
     assert_kind_of Array, assigns(:tagged_enterprises)
@@ -132,15 +139,29 @@ class EnterpriseControllerTest < Test::Unit::TestCase
 
   def test_activate
     login_as 'ze'
-    post :activate, :id => 5
+    e = create_enterprise
+    post :activate, :id => e
     assert assigns(:enterprise)
     assert_kind_of Enterprise, assigns(:enterprise)
     assert assigns(:enterprise).active
   end
 
   def test_approve
-    logins_as 'ze'
-    post :approve, :id => 5
-    assert assigns(:em)
+    login_as 'ze'
+    e = create_enterprise
+    post :approve, :id => e
+    assert assigns(:enterprise)
+  end
+
+  protected
+  
+  def create_enterprise(options = {})
+    owner = options.delete(:owner)
+    user = options.delete(:user)
+    login_as owner if owner
+    post :register, :enterprise => {:identifier => 'enterprise_a', :name => 'Enterprise A'}.merge(options)
+    id = assigns(:enterprise).id
+    login_as user if user
+    id
   end
 end
