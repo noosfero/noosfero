@@ -13,6 +13,13 @@ border: 3px solid #dfdfdf;
 z-index: 9999 !important ;
 }
 
+a img {
+  border: 1px solid transparent;
+}
+a:hover img {
+  border: 1px solid gray;
+}
+
 /* Bar Blue Default */
 
 #virtual_community_identification {
