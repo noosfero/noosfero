@@ -21,7 +21,7 @@ namespace :test do
   desc "Run all tests with Rcov to measure coverage"
   task :rcov do |t|
     puts "Generating full test coverage report..."
-    test_tasks = Rake::Task.tasks.select{ |t| t.comment && [ 'test:units', 'test:functionals', 'test:integration', 'test:plugins' ].include?(t.name) }
+    test_tasks = Rake::Task.tasks.select{ |t| t.comment && [ 'test:units', 'test:functionals', 'test:integration' ].include?(t.name) }
     for test_task in test_tasks
       Rake::Task[test_task.name + ':rcov'].invoke
     end
