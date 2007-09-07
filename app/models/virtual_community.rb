@@ -20,6 +20,7 @@ class VirtualCommunity < ActiveRecord::Base
 
   # One VirtualCommunity can be reached by many domains
   has_many :domains, :as => :owner
+  has_many :profiles
 
   # #################################################
   # Attributes

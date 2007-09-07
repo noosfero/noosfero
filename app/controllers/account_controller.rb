@@ -26,9 +26,17 @@ class AccountController < ApplicationController
   # action to register an user to the application
   def signup
     begin
+      @terms_of_use = virtual_community.terms_of_use
+      terms_accepted = params[:user].delete(:terms_accepted)
       @user = User.new(params[:user])
       return unless request.post?
+      if @terms_of_use and !terms_accepted 
+        flash[:notice] = _("You have to accept the terms of service to signup")
+        return
+      end
       @user.save!
+      @user.person.virtual_community = virtual_community
+      @user.person.save!
       self.current_user = @user
       redirect_back_or_default(:controller => 'account', :action => 'index')
       flash[:notice] = _("Thanks for signing up!")
