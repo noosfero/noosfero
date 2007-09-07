@@ -22,6 +22,10 @@ class AddComatoseSupport < ActiveRecord::Migration
       t.column "version",     :integer
       t.column "updated_on",  :datetime
       t.column "created_on",  :datetime
+
+      # added for STI in noosfero
+      t.column 'type',        :string
+
     end
     Comatose::Page.create_versioned_table
     puts "Creating the default 'Home Page'..."
