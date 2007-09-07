@@ -16,7 +16,7 @@
 
 <% if @terms_of_use %>
   <p>  <%= @terms_of_use %> </p>
-  <p> <%= check_box 'user', 'terms_accepted' %>
+  <p> <%= check_box_tag 'user[terms_accepted]' %>
   <label for="terms_accepted">I accept the terms of use</label> </p>
 <% end %>
 
