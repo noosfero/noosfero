@@ -104,4 +104,21 @@ class ProfileTest < Test::Unit::TestCase
     assert_nil Profile.new.info
   end
 
+  def test_should_avoid_reserved_identifiers
+    assert_invalid_identifier 'admin'
+    assert_invalid_identifier 'system'
+    assert_invalid_identifier 'myprofile'
+    assert_invalid_identifier 'profile'
+    assert_invalid_identifier 'cms'
+    assert_invalid_identifier 'community'
+  end
+
+  private
+
+  def assert_invalid_identifier(id)
+    profile = Profile.new(:identifier => id)
+    assert !profile.valid?
+    assert profile.errors.invalid?(:identifier)
+  end
+
 end

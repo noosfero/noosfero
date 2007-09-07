@@ -19,22 +19,31 @@ ActionController::Routing::Routes.draw do |map|
   # user account controller
   map.connect 'account/:action', :controller => 'account'
 
-  # profile customization
-  map.connect 'customize/:profile/edit_template/:action/:id', :controller => 'edit_template'
-
-  # content administration
+  ######################################################
+  ## Controllers that are profile-specific (for profile admins )
+  ######################################################
+  # profile customization - "My profile"
+  map.connect 'myprofile', :controller => 'myprofile'
+  map.connect 'myprofile/:profile/:controller/:action/:id', :controller => /(edit_template|enterprise)/
+  # content administration 
   map.connect 'cms/:profile/:action/:id', :controller => 'cms'
 
+  ######################################################
+  ## Controllers that are used by environment admin
+  ######################################################
   # administrative tasks for a virtual community
-  map.connect 'admin', :controller => 'admin_panel', :action => 'index'
-  map.connect 'admin/:controller/:action/:id'
+  map.connect 'admin', :controller => 'admin_panel'
+  map.connect 'admin/:controller/:action/:id', :controller => /(admin_panel|features|manage_tags)/
 
+  ######################################################
+  ## Controllers that are used by system admin
+  ######################################################
+  # administrative tasks for a virtual community
+  map.connect 'system', :controller => 'system'
+  map.connect 'system/:controller/:action/:id'
 
   # *content viewing*
   # XXX this route must come last so other tasks have priority over it.
   map.connect ':profile/*page', :controller => 'content_viewer', :action => 'view_page'
-
-  # no default route
-  # map.connect ':controller/:action/:id'
 
 end

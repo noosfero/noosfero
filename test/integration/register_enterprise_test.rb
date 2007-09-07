@@ -4,24 +4,24 @@ class RegisterEnterpriseTest < ActionController::IntegrationTest
   all_fixtures
 
   def test_register_new_enterprise
-    get '/admin/enterprise'
+    get '/myprofile/ze/enterprise'
     assert_response :redirect
 
     login('ze','test')
 
-    get '/admin/enterprise'
+    get '/myprofile/ze/enterprise'
     assert_response :redirect
 
     follow_redirect!
     assert_response :success
-    assert_tag :tag => 'a', :attributes => {:href => '/admin/enterprise/register_form'}
+    assert_tag :tag => 'a', :attributes => {:href => '/myprofile/ze/enterprise/register_form'}
 
-    get '/admin/enterprise/register_form'
+    get '/myprofile/ze/enterprise/register_form'
     assert_response :success
     assert_tag :tag => 'input', :attributes => {:name => 'enterprise[name]'}
     assert_tag :tag => 'input', :attributes => {:name => 'enterprise[identifier]'}
     
-    post '/admin/enterprise/register', :enterprise => {'name' => 'new_enterprise', 'identifier' => 'enterprise_new'}
+    post '/myprofile/ze/enterprise/register', :enterprise => {'name' => 'new_enterprise', 'identifier' => 'enterprise_new'}
     assert_response :redirect
 
     follow_redirect!

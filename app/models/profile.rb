@@ -21,9 +21,10 @@ class Profile < ActiveRecord::Base
   # These names cannot be used as identifiers for Profiles
   RESERVED_IDENTIFIERS = %w[
   admin
-  customize
-  cms
   system
+  myprofile
+  profile
+  cms
   community
   ]
 

@@ -13,7 +13,7 @@ class PersonTest < Test::Unit::TestCase
   end
 
   def test_can_associate_to_a_profile
-    pr = Profile.new(:identifier => 'profile', :name => 'profile')
+    pr = Profile.new(:identifier => 'mytestprofile', :name => 'My test profile')
     assert pr.save
     pe = User.create(:login => 'person', :email => 'person@test.net', :password => 'dhoe', :password_confirmation => 'dhoe').person
     assert pe.save

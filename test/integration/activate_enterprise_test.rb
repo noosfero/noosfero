@@ -6,14 +6,14 @@ class ActivateEnterpriseTest < ActionController::IntegrationTest
   def test_activate_approved_enterprise
     login('ze', 'test')
 
-    get '/admin/enterprise'
+    get '/myprofile/ze/enterprise'
     assert_response :redirect
 
     follow_redirect!
     assert_response :success
-    assert_tag :tag => 'a', :attributes => {:href => '/admin/enterprise/activate/5'}
+    assert_tag :tag => 'a', :attributes => {:href => '/myprofile/ze/enterprise/activate/5'}
 
-    post '/admin/enterprise/activate/5'
+    post '/myprofile/ze/enterprise/activate/5'
     assert_response :redirect
 
     follow_redirect!
