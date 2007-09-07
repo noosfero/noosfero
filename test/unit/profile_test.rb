@@ -100,4 +100,8 @@ class ProfileTest < Test::Unit::TestCase
     assert !Comatose::Page.find_by_path('to_be_removed')
   end
 
+  def test_should_define_info
+    assert_nil Profile.new.info
+  end
+
 end
