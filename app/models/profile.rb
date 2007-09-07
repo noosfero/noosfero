@@ -26,6 +26,7 @@ class Profile < ActiveRecord::Base
   profile
   cms
   community
+  test
   ]
 
   acts_as_taggable

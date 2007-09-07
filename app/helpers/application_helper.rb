@@ -77,14 +77,26 @@ module ApplicationHelper
     content_tag('div', @virtual_community.name, :id => 'virtual_community_identification')
   end
 
+  # TODO: test this helper
+  # TODO: remove the absolute path
   def link_to_cms(text, profile = nil, options = {})
     profile ||= current_user.login
-    link_to text, "/cms/#{profile}", options
+    link_to text, cms_path(:profile => profile), options
   end
 
   def link_to_profile(text, profile = nil, options = {})
     profile ||= current_user.login
-    link_to text, "/#{profile}", options
+    link_to text, profile_path(:profile => profile) , options
+  end
+
+  def link_to_homepage(text, profile = nil, options = {})
+    profile ||= current_user.login
+    link_to text, homepage_path(:profile => profile) , options
+  end
+
+  def link_to_myprofile(text, url = {}, profile = nil, options = {})
+    profile ||= current_user.login
+    link_to text, { :profile => profile }.merge(url), options
   end
 
   # TODO: add the actual links
@@ -92,10 +104,10 @@ module ApplicationHelper
   def user_links
     links = [
        ( link_to(_('My account'), { :controller => 'account' }) ),
-       ( link_to_profile(_('My home page')) ),
+       ( link_to_homepage(_('My home page')) ),
        ( link_to_cms(_('Manage content')) ),
        ( link_to (_('Manage layout')), :controller => 'edit_template' ),
-       ( link_to(_('My enterprises'), { :controller => 'enterprise' }) ),
+       ( link_to_myprofile(_('My enterprises'), { :controller => 'enterprise' }) ),
     ].join("\n")
     content_tag('span', links, :id => 'user_links')
   end

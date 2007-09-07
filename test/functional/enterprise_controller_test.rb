@@ -13,9 +13,19 @@ class EnterpriseControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
   end
 
+  # FIXME: this should be generic
+  def get(action, params = {})
+    super(action, {:profile => 'ze'}.merge(params))
+  end
+
+  # FIXME: this should be generic
+  def post(action, params = {})
+    super(action, {:profile => 'ze'}.merge(params))
+  end
+
   def test_logged_with_one_enterprise_index
     login_as 'ze'
-    get :index
+    get :index, :profile => 'ze'
     assert_response :redirect
     assert_redirected_to :action => 'show'
 

@@ -111,6 +111,7 @@ class ProfileTest < Test::Unit::TestCase
     assert_invalid_identifier 'profile'
     assert_invalid_identifier 'cms'
     assert_invalid_identifier 'community'
+    assert_invalid_identifier 'test'
   end
 
   private

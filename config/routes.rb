@@ -23,27 +23,39 @@ ActionController::Routing::Routes.draw do |map|
   ## Controllers that are profile-specific (for profile admins )
   ######################################################
   # profile customization - "My profile"
-  map.connect 'myprofile', :controller => 'myprofile'
-  map.connect 'myprofile/:profile/:controller/:action/:id', :controller => /(edit_template|enterprise)/
+  map.myprofile 'myprofile', :controller => 'myprofile'
+  map.myprofile 'myprofile/:profile/:controller/:action/:id', :controller => /(enterprise)/
   # content administration 
-  map.connect 'cms/:profile/:action/:id', :controller => 'cms'
+  map.cms 'cms/:profile/:action/:id', :controller => 'cms'
 
   ######################################################
   ## Controllers that are used by environment admin
   ######################################################
   # administrative tasks for a virtual community
-  map.connect 'admin', :controller => 'admin_panel'
-  map.connect 'admin/:controller/:action/:id', :controller => /(admin_panel|features|manage_tags)/
+  map.admin 'admin', :controller => 'admin_panel'
+  map.admin 'admin/:controller/:action/:id', :controller => /(admin_panel|features|manage_tags|edit_template)/
 
   ######################################################
   ## Controllers that are used by system admin
   ######################################################
   # administrative tasks for a virtual community
-  map.connect 'system', :controller => 'system'
-  map.connect 'system/:controller/:action/:id'
+  map.system 'system', :controller => 'system'
+  map.system 'system/:controller/:action/:id', :controller => //
 
+
+  ######################################################
+  ## Test controllers.
+  ## FIXME: this should not be needed
+  ######################################################
+  map.connect 'test/:action/:id', :controller => 'test'
+
+  ######################################################
+  ## Public controllers
+  ######################################################
+ 
+  map.profile 'profile/:profile/:controller', :controller => 'profile'
   # *content viewing*
   # XXX this route must come last so other tasks have priority over it.
-  map.connect ':profile/*page', :controller => 'content_viewer', :action => 'view_page'
+  map.homepage ':profile/*page', :controller => 'content_viewer', :action => 'view_page'
 
 end

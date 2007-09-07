@@ -26,7 +26,7 @@ class RoutingTest < ActionController::IntegrationTest
   end
 
   def test_edit_template
-    assert_routing('/myprofile/ze/edit_template', :controller => 'edit_template', :action => 'index', :profile => 'ze')
+    assert_routing('/admin/edit_template', :controller => 'edit_template', :action => 'index')
   end
 
   # virtual community administrative controllers (admin/*)
