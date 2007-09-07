@@ -53,6 +53,13 @@ class ProfileTest < Test::Unit::TestCase
     assert_not_nil page
     assert_equal 'New Profile', page.title
   end
+  
+  def test_should_provide_access_to_homepage
+    profile = Profile.create!(:identifier => 'newprofile', :name => 'New Profile')
+    page = profile.homepage
+    assert_kind_of Article, page
+    assert_equal profile.identifier, page.slug
+  end
 
   def test_name_should_be_mandatory
     p = Profile.new

@@ -65,6 +65,11 @@ class Profile < ActiveRecord::Base
     find_tagged_with(term) + find_all_by_name(term)
   end
 
+  def homepage(reload = false)
+    @homepage = nil if reload
+    @homepage ||= Article.find_by_path(self.identifier)
+  end
+
   # Returns information about the profile's owner that was made public by
   # him/her. The returned value must be an array in the followinf format:
   #
