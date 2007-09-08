@@ -35,6 +35,19 @@ class Test::Unit::TestCase
     end
   end
 
+  def self.should(name, &block)
+    @shoulds ||= []
+
+    destname = 'test_should_' + name.gsub(/[^a-zA-z0-9]+/, '_')
+    if @shoulds.include?(destname)
+      raise "there is already a test named \"#{destname}\"" 
+    end
+
+    @shoulds << destname
+    self.send(:define_method, destname, &block)
+
+  end
+
   private
 
   def uses_host(name)
