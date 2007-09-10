@@ -74,4 +74,16 @@ div.block_content
 	padding: 5px;
 }
 
-
+div.block ul {
+  padding-left: 0px;
+  margin: 0px;
+}
+div.block ul li a:link,
+div.block ul li a:hover {
+  display: block;
+  color: #000;
+}
+div.block ul li a:hover {
+  background: #ddd;
+  color: red;
+}
