@@ -89,4 +89,12 @@ class Profile < ActiveRecord::Base
     nil
   end
 
+  # gets recent documents in this profile.
+  #
+  # +limit+ is the maximum number of documents to be returned. It defaults to
+  # 10.
+  def recent_documents(limit = 10)
+    homepage.children.find(:all, :limit => limit, :order => 'created_on desc')
+  end
+
 end

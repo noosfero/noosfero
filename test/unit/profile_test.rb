@@ -114,6 +114,33 @@ class ProfileTest < Test::Unit::TestCase
     assert_invalid_identifier 'test'
   end
 
+  def test_should_provide_recent_documents
+    profile = Profile.create!(:name => 'Testing Recent documents', :identifier => 'testing_recent_documents')
+    doc1 = Article.new(:title => 'document 1', :body => 'la la la la la')
+    doc1.parent = profile.homepage
+    doc1.save!
+
+    doc2 = Article.new(:title => 'document 2', :body => 'la la la la la')
+    doc2.parent = profile.homepage
+    doc2.save!
+
+    docs = profile.recent_documents(2)
+    assert_equal 2, docs.size
+    assert docs.map(&:id).include?(doc1.id)
+    assert docs.map(&:id).include?(doc2.id)
+  end
+
+  def test_should_provide_most_recent_documents
+    profile = Profile.create!(:name => 'Testing Recent documents', :identifier => 'testing_recent_documents')
+    doc1 = Article.new(:title => 'document 1', :body => 'la la la la la')
+    doc1.parent = profile.homepage
+    doc1.save!
+
+    docs = profile.recent_documents(1)
+    assert_equal 1, docs.size
+    assert_equal doc1.id, docs.first.id
+  end
+
   private
 
   def assert_invalid_identifier(id)
