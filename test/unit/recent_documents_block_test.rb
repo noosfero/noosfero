@@ -15,8 +15,11 @@ class RecentDocumentsBlockTest < Test::Unit::TestCase
     helper = mock
     helper.expects(:profile).returns(profile)
     helper.expects(:link_to_document).with(doc1).returns('doc1')
+    helper.expects(:content_tag).with('li', 'doc1').returns('doc1')
     helper.expects(:link_to_document).with(doc2).returns('doc2')
+    helper.expects(:content_tag).with('li', 'doc2').returns('doc2')
     helper.expects(:link_to_document).with(doc3).returns('doc3')
+    helper.expects(:content_tag).with('li', 'doc3').returns('doc3')
     helper.expects(:content_tag).with('ul', "doc1\ndoc2\ndoc3").returns('the_tag')
 
     assert_equal('the_tag', helper.instance_eval(&RecentDocumentsBlock.new.content))
