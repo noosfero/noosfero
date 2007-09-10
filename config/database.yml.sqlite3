@@ -1,0 +1,14 @@
+development:
+  adapter: sqlite3
+  database: tmp/anhetegua_development.db
+
+test:
+  adapter: sqlite3
+  database: tmp/anhetegua_test.db
+
+production:
+  adapter: mysql
+  database: anhetegua_production
+  username: root
+  password: 
+  host: localhost
