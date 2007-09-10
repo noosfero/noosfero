@@ -99,6 +99,10 @@ module ApplicationHelper
     link_to text, { :profile => profile }.merge(url), options
   end
 
+  def link_to_document(doc)
+    link_homepage(doc.title, doc.profile.identifier, :page => doc.full_path)
+  end
+
   # TODO: add the actual links
   # TODO: test this helper
   def user_links
