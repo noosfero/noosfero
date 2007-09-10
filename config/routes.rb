@@ -55,7 +55,7 @@ ActionController::Routing::Routes.draw do |map|
  
   map.profile 'profile/:profile/:controller', :controller => 'profile'
   # *content viewing*
-  # XXX this route must come last so other tasks have priority over it.
+  # XXX this route must come last so other routes have priority over it.
   map.homepage ':profile/*page', :controller => 'content_viewer', :action => 'view_page'
 
 end
