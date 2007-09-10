@@ -1,6 +1,6 @@
-# Methods added to this helper will be available to all templates in the application.
+# Methods added to this helper will be available to all templates in the
+# application.
 module ApplicationHelper
-
 
   # Displays context help. You can pass the content of the help message as the
   # first parameter or using template code inside a block passed to this
@@ -100,7 +100,9 @@ module ApplicationHelper
   end
 
   def link_to_document(doc)
-    link_homepage(doc.title, doc.profile.identifier, :page => doc.full_path)
+    path = doc.full_path.split(/\//)
+    profile = path.shift
+    link_to doc.title, homepage_path(:profile => profile , :page => path)
   end
 
   # TODO: add the actual links
@@ -143,6 +145,15 @@ module ApplicationHelper
   # FIXME
   def footer
     'nothing in the footer yet'
+  end
+
+  # returns the current profile beign viewed.
+  #
+  # Make sure that you use this helper method only in contexts where there
+  # should be a currnt profile (i.e. while viewing some profile's pages, or the
+  # profile info, etc), because if there is no profile an exception is thrown.
+  def profile
+    @profile || raise("There is no current profile")
   end
 
 end
