@@ -60,4 +60,20 @@ class PersonTest < Test::Unit::TestCase
     assert !p2.valid?
     assert p2.errors.invalid?(:user_id)
   end
+
+  should "have person info" do
+    p = Person.new
+    assert_kind_of PersonInfo, p.person_info
+  end
+
+  should 'provide needed information in info' do
+    p = Person.new
+    p.person_info.address = 'my address'
+    p.person_info.contact_information = 'my contact information'
+
+    info = p.info
+    assert(info.any? { |line| line[1] == 'my address' })
+    assert(info.any? { |line| line[1] == 'my contact information' })
+  end
+
 end

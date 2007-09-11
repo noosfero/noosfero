@@ -12,6 +12,23 @@ class Person < Profile
   has_many :friends, :class_name => 'Person', :through => :friendships
   has_many :person_friendships
   has_many :people, :through => :person_friendships, :foreign_key => 'friend_id'
+  has_one :person_info
+  def info
+    if person_info.nil?
+      nil
+    else
+      [
+        [ _('Name'), self.name ],
+        [ _('Address'), self.person_info.address ],
+        [ _('Contact Information'), self.person_info.contact_information ],
+      ]
+    end
+  end
 
   validates_presence_of :user_id
+
+  def initialize(*args)
+    super(*args)
+    self.person_info ||= PersonInfo.new
+  end
 end
