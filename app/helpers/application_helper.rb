@@ -107,13 +107,14 @@ module ApplicationHelper
 
   # TODO: add the actual links
   # TODO: test this helper
+  # FIXME: uncomment "My enterprises" links
   def user_links
     links = [
        ( link_to(_('My account'), { :controller => 'account' }) ),
        ( link_to_homepage(_('My home page')) ),
        ( link_to_cms(_('Manage content')) ),
        ( link_to (_('Manage layout')), :controller => 'edit_template' ),
-       ( link_to_myprofile(_('My enterprises'), { :controller => 'enterprise' }) ),
+       #( link_to_myprofile(_('My enterprises'), { :controller => 'enterprise' }) ),
     ].join("\n")
     content_tag('span', links, :id => 'user_links')
   end
