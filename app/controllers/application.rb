@@ -9,6 +9,8 @@ class ApplicationController < ActionController::Base
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem
 
+  init_gettext 'noosfero'
+
   before_filter :detect_stuff_by_domain
   attr_reader :virtual_community
 
