@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.1.0\n"
-"POT-Creation-Date: 2007-08-30 18:47-0300\n"
+"POT-Creation-Date: 2007-09-11 16:57-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,18 +25,22 @@ msgid "Incorrect username or password"
 msgstr ""
 
 #: app/controllers/account_controller.rb:34
+msgid "You have to accept the terms of service to signup"
+msgstr ""
+
+#: app/controllers/account_controller.rb:42
 msgid "Thanks for signing up!"
 msgstr ""
 
-#: app/controllers/account_controller.rb:45
+#: app/controllers/account_controller.rb:53
 msgid "You have been logged out."
 msgstr ""
 
-#: app/controllers/account_controller.rb:56
+#: app/controllers/account_controller.rb:64
 msgid "Your password has been changed successfully!"
 msgstr ""
 
-#: app/controllers/account_controller.rb:59
+#: app/controllers/account_controller.rb:67
 msgid "The supplied current password is incorrect."
 msgstr ""
 
@@ -49,6 +53,10 @@ msgid "Link Block"
 msgstr ""
 
 #: app/controllers/edit_template_controller.rb:9
+msgid "Recent documents"
+msgstr ""
+
+#: app/controllers/edit_template_controller.rb:10
 msgid "Main content block"
 msgstr ""
 
@@ -69,7 +77,9 @@ msgid "Tag was successfuly approved"
 msgstr ""
 
 #: app/controllers/enterprise_controller.rb:38
-msgid "The enterprise was succesfully created, the validation entity will cotact you as soon as your enterprise is approved"
+msgid ""
+"The enterprise was succesfully created, the validation entity will cotact "
+"you as soon as your enterprise is approved"
 msgstr ""
 
 #: app/controllers/enterprise_controller.rb:41
@@ -80,16 +90,36 @@ msgstr ""
 msgid "Could not update the enterprise"
 msgstr ""
 
-#: app/controllers/enterprise_controller.rb:89
+#: app/controllers/enterprise_controller.rb:93
 msgid "Enterprise successfuly activacted"
 msgstr ""
 
-#: app/controllers/enterprise_controller.rb:91
+#: app/controllers/enterprise_controller.rb:95
 msgid "Failed to activate the enterprise"
+msgstr ""
+
+#: app/controllers/enterprise_controller.rb:104
+msgid "Enterprise successfuly approved"
+msgstr ""
+
+#: app/controllers/enterprise_controller.rb:106
+msgid "Failed to approve the enterprise"
+msgstr ""
+
+#: app/controllers/enterprise_controller.rb:115
+msgid "Enterprise successfuly rejected"
+msgstr ""
+
+#: app/controllers/enterprise_controller.rb:117
+msgid "Failed to reject the enterprise"
 msgstr ""
 
 #: app/controllers/features_controller.rb:18
 msgid "Features updated successfully."
+msgstr ""
+
+#: app/models/enterprise.rb:13
+msgid "Not approved enterprise can't be activated"
 msgstr ""
 
 #: app/models/profile.rb:-
@@ -144,7 +174,11 @@ msgstr ""
 msgid "Profile|Validation entity"
 msgstr ""
 
-#: app/models/profile.rb:38
+#: app/models/profile.rb:-
+msgid "Profile|Approved"
+msgstr ""
+
+#: app/models/profile.rb:44
 msgid "An existing profile cannot be renamed."
 msgstr ""
 
@@ -180,6 +214,26 @@ msgstr ""
 msgid "OrganizationInfo|Management information"
 msgstr ""
 
+#: app/models/organization_info.rb:-
+msgid "OrganizationInfo|Validated"
+msgstr ""
+
+#: app/models/person_info.rb:-
+msgid "person info"
+msgstr ""
+
+#: app/models/person_info.rb:-
+msgid "PersonInfo|Photo"
+msgstr ""
+
+#: app/models/person_info.rb:-
+msgid "PersonInfo|Address"
+msgstr ""
+
+#: app/models/person_info.rb:-
+msgid "PersonInfo|Contact information"
+msgstr ""
+
 #: app/models/virtual_community.rb:-
 msgid "virtual community"
 msgstr ""
@@ -208,7 +262,7 @@ msgstr ""
 msgid "Other feature"
 msgstr ""
 
-#: app/models/virtual_community.rb:120
+#: app/models/virtual_community.rb:121
 msgid "Only one Virtual Community can be the default one"
 msgstr ""
 
@@ -229,7 +283,9 @@ msgid "Domain|Owner"
 msgstr ""
 
 #: app/models/domain.rb:13
-msgid "%{fn} must be composed only of lowercase latters (a to z), numbers (0 to 9) and \"_\""
+msgid ""
+"%{fn} must be composed only of lowercase latters (a to z), numbers (0 to 9) "
+"and \"_\""
 msgstr ""
 
 #: app/models/domain.rb:20
@@ -300,39 +356,60 @@ msgstr ""
 msgid "Affiliation|Profile"
 msgstr ""
 
+#: app/models/enterprise_info.rb:-
+msgid "enterprise info"
+msgstr ""
+
+#: app/models/enterprise_info.rb:-
+msgid "EnterpriseInfo|Approval status"
+msgstr ""
+
+#: app/models/enterprise_info.rb:-
+msgid "EnterpriseInfo|Approval comments"
+msgstr ""
+
+#: app/models/enterprise_info.rb:-
+msgid "EnterpriseInfo|Enterprise"
+msgstr ""
+
+#: app/helpers/profile_helper.rb:6
+msgid "This profile does not have any public information"
+msgstr ""
+
 #: app/helpers/application_helper.rb:55
 msgid "Help"
 msgstr ""
 
-#: app/helpers/application_helper.rb:94
+#: app/helpers/application_helper.rb:112
 msgid "My account"
 msgstr ""
 
-#: app/helpers/application_helper.rb:95
+#: app/helpers/application_helper.rb:113
 msgid "My home page"
 msgstr ""
 
-#: app/helpers/application_helper.rb:96
+#: app/helpers/application_helper.rb:114
 msgid "Manage content"
 msgstr ""
 
-#: app/helpers/application_helper.rb:97
+#: app/helpers/application_helper.rb:115
 msgid "Manage layout"
 msgstr ""
 
-#: app/helpers/application_helper.rb:98
+#: app/helpers/application_helper.rb:116
 msgid "My enterprises"
 msgstr ""
 
-#: app/helpers/application_helper.rb:116 app/views/account/login.rhtml:1 app/views/account/login.rhtml:4
+#: app/helpers/application_helper.rb:134 app/views/account/login.rhtml:1
+#: app/views/account/login.rhtml:4
 msgid "Login"
 msgstr ""
 
-#: app/helpers/application_helper.rb:120
+#: app/helpers/application_helper.rb:138
 msgid "Not a user yet? Register now!"
 msgstr ""
 
-#: app/helpers/application_helper.rb:124
+#: app/helpers/application_helper.rb:142
 msgid "Logout"
 msgstr ""
 
@@ -436,11 +513,14 @@ msgid "Revert"
 msgstr ""
 
 #: app/views/cms/_form.rhtml:69
-msgid "Changes detected. You will lose all the updates you have made if you proceed..."
+msgid ""
+"Changes detected. You will lose all the updates you have made if you "
+"proceed..."
 msgstr ""
 
-#: app/views/cms/_form.rhtml:69 app/views/cms/delete.rhtml:16 app/views/cms/versions.rhtml:25
-#: app/views/enterprise/register_form.rhtml:12 app/views/enterprise/edit.rhtml:8 app/views/manage_tags/new.rhtml:6
+#: app/views/cms/_form.rhtml:69 app/views/cms/delete.rhtml:16
+#: app/views/cms/versions.rhtml:25 app/views/enterprise/register_form.rhtml:12
+#: app/views/enterprise/edit.rhtml:8 app/views/manage_tags/new.rhtml:6
 #: app/views/manage_tags/edit.rhtml:6
 msgid "Cancel"
 msgstr ""
@@ -549,7 +629,8 @@ msgstr ""
 msgid "Identifier"
 msgstr ""
 
-#: app/views/enterprise/register_form.rhtml:11 app/views/account/signup.rhtml:1
+#: app/views/enterprise/register_form.rhtml:11
+#: app/views/account/signup.rhtml:1
 msgid "Register"
 msgstr ""
 
@@ -598,10 +679,11 @@ msgid "Tags"
 msgstr ""
 
 #: app/views/enterprise/search.rhtml:1
-msgid " tags found"
+msgid " enterprises found"
 msgstr ""
 
-#: app/views/enterprise/_enterprise.rhtml:3 app/views/manage_tags/_a_tag.rhtml:3
+#: app/views/enterprise/_enterprise.rhtml:3
+#: app/views/manage_tags/_a_tag.rhtml:3
 msgid "Edit"
 msgstr ""
 
@@ -633,23 +715,43 @@ msgstr ""
 msgid "Activate the profile of an approved enterprise"
 msgstr ""
 
-#: app/views/enterprise/list.rhtml:3 app/views/enterprise/show.rhtml:3
+#: app/views/enterprise/_enterprise.rhtml:12
+#: app/views/enterprise/show.rhtml:27
+msgid "Approve"
+msgstr ""
+
+#: app/views/enterprise/_enterprise.rhtml:13
+#: app/views/enterprise/show.rhtml:28
+msgid "Approve a submitted enterprise profile"
+msgstr ""
+
+#: app/views/enterprise/_enterprise.rhtml:14
+#: app/views/enterprise/show.rhtml:29
+msgid "Reject"
+msgstr ""
+
+#: app/views/enterprise/_enterprise.rhtml:15
+#: app/views/enterprise/show.rhtml:30
+msgid "Reject a submitted enterprise profile"
+msgstr ""
+
+#: app/views/enterprise/list.rhtml:6 app/views/enterprise/show.rhtml:3
 msgid "Register new enterprise"
 msgstr ""
 
-#: app/views/enterprise/list.rhtml:4
+#: app/views/enterprise/list.rhtml:7
 msgid "Creates a new enterprise"
 msgstr ""
 
-#: app/views/enterprise/list.rhtml:8
+#: app/views/enterprise/list.rhtml:11
 msgid "Listing my enterprises"
 msgstr ""
 
-#: app/views/enterprise/list.rhtml:14
+#: app/views/enterprise/list.rhtml:17
 msgid "Listing pending enterprises"
 msgstr ""
 
-#: app/views/enterprise/list.rhtml:21
+#: app/views/enterprise/list.rhtml:24
 msgid "Other Enterprises"
 msgstr ""
 
@@ -709,7 +811,8 @@ msgstr ""
 msgid "Activate an approved enterprise"
 msgstr ""
 
-#: app/views/enterprise/_search_box.rhtml:4 app/views/manage_tags/_search_box.rhtml:4
+#: app/views/enterprise/_search_box.rhtml:4
+#: app/views/manage_tags/_search_box.rhtml:4
 msgid "Search"
 msgstr ""
 
@@ -729,23 +832,28 @@ msgstr ""
 msgid "There is no such page: %s"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:19 app/views/layouts/comatose_admin.rhtml:19
+#: app/views/layouts/application.rhtml:19
+#: app/views/layouts/comatose_admin.rhtml:19
 msgid "Close"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:25 app/views/layouts/comatose_admin.rhtml:25
+#: app/views/layouts/application.rhtml:25
+#: app/views/layouts/comatose_admin.rhtml:25
 msgid "Skip to:"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:27 app/views/layouts/comatose_admin.rhtml:27
+#: app/views/layouts/application.rhtml:27
+#: app/views/layouts/comatose_admin.rhtml:27
 msgid "Navigation"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:28 app/views/layouts/comatose_admin.rhtml:28
+#: app/views/layouts/application.rhtml:28
+#: app/views/layouts/comatose_admin.rhtml:28
 msgid "Footer"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:56 app/views/layouts/comatose_admin.rhtml:56
+#: app/views/layouts/application.rhtml:58
+#: app/views/layouts/comatose_admin.rhtml:58
 msgid "Image for Loading..."
 msgstr ""
 
@@ -806,7 +914,9 @@ msgid "Approve tag"
 msgstr ""
 
 #: app/views/manage_tags/_a_tag.rhtml:11
-msgid "Approve this tag so content can be tagged with it and subtags of it can br created"
+msgid ""
+"Approve this tag so content can be tagged with it and subtags of it can br "
+"created"
 msgstr ""
 
 #: app/views/manage_tags/list.rhtml:3
@@ -874,7 +984,9 @@ msgid "Login."
 msgstr ""
 
 #: app/views/account/index_anonymous.rhtml:5
-msgid "You need to login to be able to use all the features in this virtual community."
+msgid ""
+"You need to login to be able to use all the features in this virtual "
+"community."
 msgstr ""
 
 #: app/views/account/index_anonymous.rhtml:9
@@ -882,10 +994,13 @@ msgid "Sign up."
 msgstr ""
 
 #: app/views/account/index_anonymous.rhtml:10
-msgid "If you are not an user already, you can register now to become a member of this virtual community."
+msgid ""
+"If you are not an user already, you can register now to become a member of "
+"this virtual community."
 msgstr ""
 
-#: app/views/account/change_password.rhtml:1 app/views/account/change_password.rhtml:14
+#: app/views/account/change_password.rhtml:1
+#: app/views/account/change_password.rhtml:14
 msgid "Change password"
 msgstr ""
 
@@ -913,20 +1028,22 @@ msgstr ""
 msgid "It is a good idea to change your password from times to times."
 msgstr ""
 
-#: app/views/account/index.rhtml:9
+#: app/views/account/index.rhtml:11
 msgid "Edit Personal details."
 msgstr ""
 
-#: app/views/account/index.rhtml:10
+#: app/views/account/index.rhtml:12
 msgid "You can change your personal details."
 msgstr ""
 
-#: app/views/account/index.rhtml:14
+#: app/views/account/index.rhtml:17
 msgid "Logout."
 msgstr ""
 
-#: app/views/account/index.rhtml:15
-msgid "It is always a good idea to make a logout when you finish using the virtual community."
+#: app/views/account/index.rhtml:18
+msgid ""
+"It is always a good idea to make a logout when you finish using the virtual "
+"community."
 msgstr ""
 
 #: app/views/features/_features_table.rhtml:9
@@ -938,5 +1055,12 @@ msgid "Enable/Disable features"
 msgstr ""
 
 #: app/views/features/index.rhtml:5
-msgid "Here you can enable or disable several features of your virtual community. Each feature represents some funcionality that your virtual community can use if you enable it.\n\nCheck all the features you want to enable for your virtual community, uncheck all the ones you don\t want, and use the 'Save changes' button to confirm your changes."
+msgid ""
+"Here you can enable or disable several features of your virtual community. "
+"Each feature represents some funcionality that your virtual community can "
+"use if you enable it.\n"
+"\n"
+"Check all the features you want to enable for your virtual community, "
+"uncheck all the ones you don\t want, and use the 'Save changes' button to "
+"confirm your changes."
 msgstr ""
