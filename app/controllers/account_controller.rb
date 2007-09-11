@@ -72,4 +72,13 @@ class AccountController < ApplicationController
     end
   end
 
+  protected
+
+  before_filter :load_profile_for_user
+  def load_profile_for_user
+    return unless logged_in?
+    @profile = current_user.person
+  end
+
+
 end
