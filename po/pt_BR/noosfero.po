@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.1.0~rc1\n"
-"POT-Creation-Date: 2007-09-12 02:25-0300\n"
-"PO-Revision-Date: 2007-09-12 02:28-0300\n"
+"POT-Creation-Date: 2007-09-12 02:29-0300\n"
+"PO-Revision-Date: 2007-09-12 02:30-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1035,10 +1035,6 @@ msgstr "Terminado"
 msgid "Edit Page"
 msgstr "Editar Página"
 
-#: app/views/cms/index.rhtml:6
-msgid "Document List"
-msgstr "Lista de documentos"
-
 #: app/views/cms/versions.rhtml:1
 msgid "Page Revisions"
 msgstr "Revisões da Página"
@@ -1117,7 +1113,15 @@ msgstr "Excluir página '%s' e todos seus filhos"
 
 #: app/views/cms/_page_list_item.rhtml:26
 msgid "DRAG"
-msgstr "ARRASTAR"
+msgstr "ARRASTE"
+
+#: app/views/cms/index.rhtml:2
+msgid "Clear Page Cache"
+msgstr "Limpar cache de páginas"
+
+#: app/views/cms/index.rhtml:6
+msgid "Document List"
+msgstr "Lista de documentos"
 
 #: app/views/profile_editor/person_info.rhtml:1
 msgid "Edit person info"
