@@ -26,7 +26,6 @@ Rake::PackageTask.new(Noosfero::PROJECT, Noosfero::VERSION) do |p|
   p.package_files.include('script/**/*')
   p.package_files.include('test/**/*.{rb,yml}')
   p.package_files.include('tmp/cache')
-  p.package_files.include('tmp/pids')
   p.package_files.include('tmp/sessions')
   p.package_files.include('tmp/sockets')
 
