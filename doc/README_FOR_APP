@@ -22,24 +22,40 @@ There are Debian packages available for all of them. Try:
 If you have problems with the setup, use the development mailing list. In
 special its possible that the requirements list above is not complete.
 
-=== Getting Noosfero source
+=== Boostraping the test environment
 
- $ svn checkout https://svn.colivre.coop.br/svn/noosfero/trunk/ noosfero
- $ cd noosfero
- $ cp config/database.yml.sqlite3 config/database.yml
- $ rake db:migrate
+You can copy and paste the commands below into a terminal (please review the
+commands and make sure you understand what you are doing):
+
+ # checkout the code from repository
+ svn checkout https://svn.colivre.coop.br/svn/noosfero/trunk/ noosfero
+ # enter the directory
+ cd noosfero
+ # copy a sample config file
+ cp config/database.yml.sqlite3 config/database.yml
+ # create the database:
+ rake db:migrate      
+ # compile translations:
+ rake makemo
+ # create some test data:
+ ./script/populate
+ # run the automated test suite to make sure your environment is sane:
+ rake test
 
 You should now be ready to go. Issue the following command to start the Rails
 development server:
 
- $ ./script/server
+ ./script/server
 
 The server will be available at http://localhost:3000/ . If you want to use
 another port than 3000, you can use the -p option of ./script/server:
 
- & ./script/server -p 9999
+ ./script/server -p 9999
 
 The above command makes the server available at http://localhost:9999/
+
+The populate script creates some test users, one of them has login 'ze' and
+password 'test'. You can use it or you can register a new user.
 
 == Reporting bugs
 
