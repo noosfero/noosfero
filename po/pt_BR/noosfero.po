@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.2.0~alpha\n"
-"POT-Creation-Date: 2007-09-12 17:03-0300\n"
-"PO-Revision-Date: 2007-09-12 17:23-0300\n"
+"POT-Creation-Date: 2007-09-12 17:36-0300\n"
+"PO-Revision-Date: 2007-09-12 17:38-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -406,7 +406,6 @@ msgid "Manage layout"
 msgstr "Gerenciar leiaute"
 
 #: app/helpers/application_helper.rb:137 app/views/account/login.rhtml:1
-#: app/views/account/login.rhtml:4
 msgid "Login"
 msgstr "Entrar"
 
@@ -1002,6 +1001,10 @@ msgstr ""
 msgid "Edit the Visual Design"
 msgstr "Editar o design visual"
 
+#: app/views/account/login.rhtml:4
+msgid "Username"
+msgstr "Nome de usuário"
+
 #: app/views/account/login.rhtml:7
 msgid "Password"
 msgstr "Senha"
@@ -1050,6 +1053,10 @@ msgstr "Nova senha"
 #: app/views/account/change_password.rhtml:11
 msgid "Confirm your new Password"
 msgstr "Confirme sua nova senha"
+
+#: app/views/account/signup.rhtml:14
+msgid "I accept the terms of use"
+msgstr "Eu aceito os termos de uso"
 
 #: app/views/account/index.rhtml:1
 msgid "Account options"
