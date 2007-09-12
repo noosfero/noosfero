@@ -4,8 +4,11 @@ class ProfileEditorController < ApplicationController
   # edits the profile info (posts back)
   def edit
     if request.post?
+      profile.info.update_attributes(params[:info])
+      redirect_to :action => 'index'
     else
-      render :action => profile.info.class.tableize
+      @info = profile.info
+      render :action => @info.class.name.underscore
     end
   end
 end

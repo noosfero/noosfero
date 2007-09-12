@@ -23,5 +23,6 @@ class Person < Profile
   def initialize(*args)
     super(*args)
     self.person_info ||= PersonInfo.new
+    self.person_info.person = self
   end
 end

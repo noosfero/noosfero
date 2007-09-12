@@ -1,0 +1,13 @@
+<h2><%= _('Edit person info') %></h2>
+
+<% form_for :info, @info do |f| %>
+
+  <%= display_form_field(_('Name'), f.text_field(:name)) %>
+
+  <%= display_form_field(_('Address'), f.text_area(:address, :rows => 5)) %>
+
+  <%= display_form_field(_('Contact Information'), f.text_area(:contact_information, :rows => 5)) %>
+
+  <%= submit_tag _('Save') %>
+
+<% end %>

@@ -12,9 +12,8 @@ class PersonInfoTest < Test::Unit::TestCase
 
   should 'provide needed information in summary' do
     person_info = PersonInfo.new
-    person_info.person = Person.new
-    person_info.person.name = 'person name'
 
+    person_info.name = 'person name'
     person_info.address = 'my address'
     person_info.contact_information = 'my contact information'
 

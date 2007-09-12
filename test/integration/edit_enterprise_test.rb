@@ -13,7 +13,7 @@ class EditEnterpriseTest < ActionController::IntegrationTest
 
     follow_redirect!
     assert_response :success
-    assert_tag :tag => 'a', :attributes => {:href => '/myprofile/ze/enterprise/edit/5'}
+    assert_tag :tag => 'a', :attributes => { :href => '/myprofile/ze/enterprise/edit/5'}
 
     get '/myprofile/ze/enterprise/edit/5'
     assert_response :success

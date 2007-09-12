@@ -30,8 +30,12 @@ class ApplicationController < ActionController::Base
   before_filter :load_profile_from_params
   def load_profile_from_params
     if params[:profile]
-      @profile = Profile.find_by_identifier(params[:profile])
+      @profile ||= Profile.find_by_identifier(params[:profile])
     end
+  end
+
+  def profile
+    @profile
   end
 
   def self.acts_as_virtual_community_admin_controller

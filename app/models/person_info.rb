@@ -6,7 +6,7 @@ class PersonInfo < ActiveRecord::Base
 
   def summary
     [
-      [ _('Name'), self.person.name ],
+      [ _('Name'), self.name ],
       [ _('Address'), self.address ],
       [ _('Contact Information'), self.contact_information ],
     ]

@@ -158,4 +158,12 @@ module ApplicationHelper
     @profile || raise("There is no current profile")
   end
 
+  # displays an 
+  #
+  # Current implementation generates a <label> tag for +label+ and wrap the
+  # label and the control with a <div> tag with class 'formfield' 
+  def display_form_field(label, html_for_field)
+    content_tag('div', content_tag('div', content_tag('label', label)) + html_for_field, :class => 'formfield') 
+  end
+
 end
