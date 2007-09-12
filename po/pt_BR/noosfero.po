@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.1.0~rc1\n"
 "POT-Creation-Date: 2007-09-12 02:02-0300\n"
-"PO-Revision-Date: 2007-09-11 19:17-0300\n"
+"PO-Revision-Date: 2007-09-12 02:16-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -30,9 +30,8 @@ msgstr "Minha conta"
 
 #: app/helpers/application_helper.rb:114
 #: app/views/profile_editor/index.rhtml:1
-#, fuzzy
 msgid "My profile"
-msgstr "perfil"
+msgstr "Meu perfil"
 
 #: app/helpers/application_helper.rb:115
 msgid "My home page"
@@ -304,9 +303,8 @@ msgid "person info"
 msgstr "informação pesoal"
 
 #: app/models/person_info.rb:-
-#, fuzzy
 msgid "PersonInfo|Name"
-msgstr "Endereço"
+msgstr "Nome"
 
 #: app/models/person_info.rb:-
 msgid "PersonInfo|Photo"
@@ -321,9 +319,8 @@ msgid "PersonInfo|Contact information"
 msgstr "Informação de contato"
 
 #: app/models/person_info.rb:-
-#, fuzzy
 msgid "PersonInfo|Person"
-msgstr "Fotografia"
+msgstr "Pessoa"
 
 #: app/models/person_info.rb:9 app/views/enterprise/_form.rhtml:1
 #: app/views/manage_tags/_form.rhtml:1
@@ -337,7 +334,6 @@ msgid "Address"
 msgstr "Endereço"
 
 #: app/models/person_info.rb:11 app/views/profile_editor/person_info.rhtml:9
-#, fuzzy
 msgid "Contact Information"
 msgstr "Informação de contato"
 
@@ -692,7 +688,7 @@ msgstr ""
 
 #: app/views/manage_tags/_a_tag.rhtml:5
 msgid "Destroy"
-msgstr ""
+msgstr "Destruir"
 
 #: app/views/manage_tags/_a_tag.rhtml:6
 msgid "Erase the tag and all its subtags but not the tagged content"
@@ -726,7 +722,7 @@ msgstr ""
 
 #: app/views/manage_tags/list.rhtml:15
 msgid "Top"
-msgstr ""
+msgstr "Topo"
 
 #: app/views/manage_tags/list.rhtml:16
 msgid "Go to the top view of the tags"
@@ -734,7 +730,7 @@ msgstr ""
 
 #: app/views/manage_tags/list.rhtml:17
 msgid "Up"
-msgstr ""
+msgstr "Acima"
 
 #: app/views/manage_tags/list.rhtml:18
 msgid "Filter by the parent of the actual tag"
@@ -782,15 +778,15 @@ msgstr "Criar"
 
 #: app/views/admin_panel/index.rhtml:1
 msgid "Administrator Panel"
-msgstr ""
+msgstr "Painel do Administrador"
 
 #: app/views/admin_panel/index.rhtml:3
 msgid "You, as an virtual community administrator, has the following options:"
-msgstr ""
+msgstr "Você, como administrador de comunidade virtual, tem as seguintes opções:"
 
 #: app/views/admin_panel/index.rhtml:6
 msgid "Enable/disable features"
-msgstr ""
+msgstr "Habilitar/desabilitar funcionalidades"
 
 #: app/views/admin_panel/index.rhtml:7
 msgid "Manage Tags"
@@ -798,7 +794,7 @@ msgstr ""
 
 #: app/views/admin_panel/index.rhtml:8
 msgid "Edit the Visual Design"
-msgstr ""
+msgstr "Editar o design visual"
 
 #: app/views/content_viewer/not_found.rhtml:1
 msgid "There is no such page: %s"
@@ -806,86 +802,92 @@ msgstr "Não há página: %s"
 
 #: app/views/account/index_anonymous.rhtml:1
 msgid "Identify yourself"
-msgstr ""
+msgstr "Identifique-se"
 
 #: app/views/account/index_anonymous.rhtml:4
 msgid "Login."
-msgstr ""
+msgstr "Login."
 
 #: app/views/account/index_anonymous.rhtml:5
 msgid ""
 "You need to login to be able to use all the features in this virtual "
 "community."
 msgstr ""
+"Você precisa se identificar para usar todas as funcionalidades dessa "
+"comunidade virtual "
 
 #: app/views/account/index_anonymous.rhtml:9
 msgid "Sign up."
-msgstr ""
+msgstr "Registre-se."
 
 #: app/views/account/index_anonymous.rhtml:10
 msgid ""
 "If you are not an user already, you can register now to become a member of "
 "this virtual community."
 msgstr ""
+"Se você ainda não é um usuário, você pode se registrar agora e se "
+"tornar um membro desse comunidade virtual."
 
 #: app/views/account/change_password.rhtml:1
 #: app/views/account/change_password.rhtml:14
 msgid "Change password"
-msgstr ""
+msgstr "Alterar senha"
 
 #: app/views/account/change_password.rhtml:5
 msgid "Current password"
-msgstr ""
+msgstr "Senha atual"
 
 #: app/views/account/change_password.rhtml:8
 msgid "New password"
-msgstr ""
+msgstr "Nova senha"
 
 #: app/views/account/change_password.rhtml:11
 msgid "Confirm your new Password"
-msgstr ""
+msgstr "Confirme sua nova senha"
 
 #: app/views/account/index.rhtml:1
 msgid "Account options"
-msgstr ""
+msgstr "Opções da conta"
 
 #: app/views/account/index.rhtml:4
 msgid "Change password."
-msgstr ""
+msgstr "Alterar senha."
 
 #: app/views/account/index.rhtml:5
 msgid "It is a good idea to change your password from times to times."
-msgstr ""
+msgstr "É uma boa idéia alterar sua senha de tempos em tempos."
 
 #: app/views/account/index.rhtml:11
 msgid "Edit Personal details."
-msgstr ""
+msgstr "Editar dados pessoais"
 
 #: app/views/account/index.rhtml:12
 msgid "You can change your personal details."
-msgstr ""
+msgstr "Você pode alterar seus dados pessoais."
 
 #: app/views/account/index.rhtml:17
 msgid "Logout."
-msgstr ""
+msgstr "Sair."
 
 #: app/views/account/index.rhtml:18
 msgid ""
 "It is always a good idea to make a logout when you finish using the virtual "
 "community."
 msgstr ""
+"É sempre uma boa idéia fazer logout quando você terminar de usar a "
+"comunidade virtual"
 
 #: app/views/account/login.rhtml:7
 msgid "Password"
-msgstr ""
+msgstr "Senha"
 
 #: app/views/features/_features_table.rhtml:9
 msgid "Save changes"
-msgstr ""
+msgstr "Salvar alterações"
 
 #: app/views/features/index.rhtml:1
 msgid "Enable/Disable features"
-msgstr ""
+msgstr "Habilitar/Desabilitar funcionalidades"
 
 #: app/views/features/index.rhtml:5
 msgid ""
@@ -897,6 +899,12 @@ msgid ""
 "uncheck all the ones you don\t want, and use the 'Save changes' button to "
 "confirm your changes."
 msgstr ""
+"Aqui você pode habilitar ou desabilitart diversas funcionalidades da sua "
+"comunidade virtual. Cada funcionalidade representa uma função que sua comunidade virtual pode usar se você a habilitar.\n"
+"\n"
+"Marque todas as funcionalidades que você quer habilitar para sua comunidade "
+"virtual, desmarque todas que você não quer, e use o botão 'Salvar alterações' "
+"para confirmar suas mudanças."
 
 #: app/views/cms/_form.rhtml:6
 msgid "Title"
@@ -912,7 +920,7 @@ msgstr "Menos..."
 
 #: app/views/cms/_form.rhtml:11
 msgid "Slug"
-msgstr ""
+msgstr "Atalho"
 
 #: app/views/cms/_form.rhtml:17
 msgid "Keywords"
@@ -1074,7 +1082,7 @@ msgstr "Título:"
 
 #: app/views/cms/versions.rhtml:15 app/views/cms/versions.rhtml:36
 msgid "Slug:"
-msgstr ""
+msgstr "Atalho:"
 
 #: app/views/cms/versions.rhtml:17 app/views/cms/versions.rhtml:38
 msgid "Keywords:"
@@ -1093,13 +1101,12 @@ msgid "New Page"
 msgstr "Nova Página"
 
 #: app/views/profile_editor/person_info.rhtml:1
-#, fuzzy
 msgid "Edit person info"
-msgstr "informação pesoal"
+msgstr "Editar dados pessoais"
 
 #: app/views/profile_editor/person_info.rhtml:11
 msgid "Save"
-msgstr ""
+msgstr "Salvar"
 
 #~ msgid "My enterprises"
 #~ msgstr "Meu empreendimento"
