@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.1.0~rc1\n"
-"POT-Creation-Date: 2007-09-11 22:26-0300\n"
+"POT-Creation-Date: 2007-09-12 02:02-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,6 +15,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: app/helpers/profile_helper.rb:6
+msgid "This profile does not have any public information"
+msgstr ""
 
 #: app/helpers/application_helper.rb:55
 msgid "Help"
@@ -25,32 +29,33 @@ msgid "My account"
 msgstr ""
 
 #: app/helpers/application_helper.rb:114
-msgid "My home page"
+#: app/views/profile_editor/index.rhtml:1
+msgid "My profile"
 msgstr ""
 
 #: app/helpers/application_helper.rb:115
-msgid "Manage content"
+msgid "My home page"
 msgstr ""
 
 #: app/helpers/application_helper.rb:116
+msgid "Manage content"
+msgstr ""
+
+#: app/helpers/application_helper.rb:117
 msgid "Manage layout"
 msgstr ""
 
-#: app/helpers/application_helper.rb:135 app/views/account/login.rhtml:1
+#: app/helpers/application_helper.rb:136 app/views/account/login.rhtml:1
 #: app/views/account/login.rhtml:4
 msgid "Login"
 msgstr ""
 
-#: app/helpers/application_helper.rb:139
+#: app/helpers/application_helper.rb:140
 msgid "Not a user yet? Register now!"
 msgstr ""
 
-#: app/helpers/application_helper.rb:143
+#: app/helpers/application_helper.rb:144
 msgid "Logout"
-msgstr ""
-
-#: app/helpers/profile_helper.rb:6
-msgid "This profile does not have any public information"
 msgstr ""
 
 #: app/models/user.rb:-
@@ -147,10 +152,6 @@ msgstr ""
 
 #: app/models/enterprise.rb:13
 msgid "Not approved enterprise can't be activated"
-msgstr ""
-
-#: app/models/profile.rb:44
-msgid "An existing profile cannot be renamed."
 msgstr ""
 
 #: app/models/affiliation.rb:-
@@ -291,8 +292,16 @@ msgstr ""
 msgid "EnterpriseInfo|Enterprise"
 msgstr ""
 
+#: app/models/profile.rb:44
+msgid "An existing profile cannot be renamed."
+msgstr ""
+
 #: app/models/person_info.rb:-
 msgid "person info"
+msgstr ""
+
+#: app/models/person_info.rb:-
+msgid "PersonInfo|Name"
 msgstr ""
 
 #: app/models/person_info.rb:-
@@ -307,16 +316,22 @@ msgstr ""
 msgid "PersonInfo|Contact information"
 msgstr ""
 
-#: app/models/person.rb:21 app/views/enterprise/_form.rhtml:1
+#: app/models/person_info.rb:-
+msgid "PersonInfo|Person"
+msgstr ""
+
+#: app/models/person_info.rb:9 app/views/enterprise/_form.rhtml:1
 #: app/views/manage_tags/_form.rhtml:1
+#: app/views/profile_editor/person_info.rhtml:5
 msgid "Name"
 msgstr ""
 
-#: app/models/person.rb:22 app/views/enterprise/_form.rhtml:4
+#: app/models/person_info.rb:10 app/views/enterprise/_form.rhtml:4
+#: app/views/profile_editor/person_info.rhtml:7
 msgid "Address"
 msgstr ""
 
-#: app/models/person.rb:23
+#: app/models/person_info.rb:11 app/views/profile_editor/person_info.rhtml:9
 msgid "Contact Information"
 msgstr ""
 
@@ -443,7 +458,7 @@ msgid "Other Enterprises"
 msgstr ""
 
 #: app/views/enterprise/_enterprise.rhtml:3
-#: app/views/manage_tags/_a_tag.rhtml:3
+#: app/views/manage_tags/_a_tag.rhtml:3 app/views/profile_editor/index.rhtml:5
 msgid "Edit"
 msgstr ""
 
@@ -1065,4 +1080,12 @@ msgstr ""
 
 #: app/views/cms/new.rhtml:2
 msgid "New Page"
+msgstr ""
+
+#: app/views/profile_editor/person_info.rhtml:1
+msgid "Edit person info"
+msgstr ""
+
+#: app/views/profile_editor/person_info.rhtml:11
+msgid "Save"
 msgstr ""

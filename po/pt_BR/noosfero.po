@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.1.0~rc1\n"
-"POT-Creation-Date: 2007-09-11 22:26-0300\n"
+"POT-Creation-Date: 2007-09-12 02:02-0300\n"
 "PO-Revision-Date: 2007-09-11 19:17-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,6 +15,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: app/helpers/profile_helper.rb:6
+msgid "This profile does not have any public information"
+msgstr "Este perfil não tem nenhuma informação pública"
 
 #: app/helpers/application_helper.rb:55
 msgid "Help"
@@ -25,33 +29,35 @@ msgid "My account"
 msgstr "Minha conta"
 
 #: app/helpers/application_helper.rb:114
+#: app/views/profile_editor/index.rhtml:1
+#, fuzzy
+msgid "My profile"
+msgstr "perfil"
+
+#: app/helpers/application_helper.rb:115
 msgid "My home page"
 msgstr "Minha página principal"
 
-#: app/helpers/application_helper.rb:115
+#: app/helpers/application_helper.rb:116
 msgid "Manage content"
 msgstr "Gerenciar conteúdo"
 
-#: app/helpers/application_helper.rb:116
+#: app/helpers/application_helper.rb:117
 msgid "Manage layout"
 msgstr "Gerenciar leiaute"
 
-#: app/helpers/application_helper.rb:135 app/views/account/login.rhtml:1
+#: app/helpers/application_helper.rb:136 app/views/account/login.rhtml:1
 #: app/views/account/login.rhtml:4
 msgid "Login"
 msgstr "Entrar"
 
-#: app/helpers/application_helper.rb:139
+#: app/helpers/application_helper.rb:140
 msgid "Not a user yet? Register now!"
 msgstr "Ainda não é usuário? Registre-se agora!"
 
-#: app/helpers/application_helper.rb:143
+#: app/helpers/application_helper.rb:144
 msgid "Logout"
 msgstr "Sair"
-
-#: app/helpers/profile_helper.rb:6
-msgid "This profile does not have any public information"
-msgstr "Este perfil não tem nenhuma informação pública"
 
 #: app/models/user.rb:-
 msgid "user"
@@ -148,10 +154,6 @@ msgstr "Aprovado"
 #: app/models/enterprise.rb:13
 msgid "Not approved enterprise can't be activated"
 msgstr "Empreendimento não aprovado não pode ser ativado"
-
-#: app/models/profile.rb:44
-msgid "An existing profile cannot be renamed."
-msgstr "Um perfil existente não pode ser renomeado"
 
 #: app/models/affiliation.rb:-
 msgid "affiliation"
@@ -293,9 +295,18 @@ msgstr "Comentário de aprovação"
 msgid "EnterpriseInfo|Enterprise"
 msgstr "Empreendimento"
 
+#: app/models/profile.rb:44
+msgid "An existing profile cannot be renamed."
+msgstr "Um perfil existente não pode ser renomeado"
+
 #: app/models/person_info.rb:-
 msgid "person info"
 msgstr "informação pesoal"
+
+#: app/models/person_info.rb:-
+#, fuzzy
+msgid "PersonInfo|Name"
+msgstr "Endereço"
 
 #: app/models/person_info.rb:-
 msgid "PersonInfo|Photo"
@@ -309,16 +320,23 @@ msgstr "Endereço"
 msgid "PersonInfo|Contact information"
 msgstr "Informação de contato"
 
-#: app/models/person.rb:21 app/views/enterprise/_form.rhtml:1
+#: app/models/person_info.rb:-
+#, fuzzy
+msgid "PersonInfo|Person"
+msgstr "Fotografia"
+
+#: app/models/person_info.rb:9 app/views/enterprise/_form.rhtml:1
 #: app/views/manage_tags/_form.rhtml:1
+#: app/views/profile_editor/person_info.rhtml:5
 msgid "Name"
 msgstr "Nome"
 
-#: app/models/person.rb:22 app/views/enterprise/_form.rhtml:4
+#: app/models/person_info.rb:10 app/views/enterprise/_form.rhtml:4
+#: app/views/profile_editor/person_info.rhtml:7
 msgid "Address"
 msgstr "Endereço"
 
-#: app/models/person.rb:23
+#: app/models/person_info.rb:11 app/views/profile_editor/person_info.rhtml:9
 #, fuzzy
 msgid "Contact Information"
 msgstr "Informação de contato"
@@ -448,7 +466,7 @@ msgid "Other Enterprises"
 msgstr "Outros empreendimentos"
 
 #: app/views/enterprise/_enterprise.rhtml:3
-#: app/views/manage_tags/_a_tag.rhtml:3
+#: app/views/manage_tags/_a_tag.rhtml:3 app/views/profile_editor/index.rhtml:5
 msgid "Edit"
 msgstr "Editar"
 
@@ -1073,6 +1091,15 @@ msgstr "Versão Atual"
 #: app/views/cms/new.rhtml:2
 msgid "New Page"
 msgstr "Nova Página"
+
+#: app/views/profile_editor/person_info.rhtml:1
+#, fuzzy
+msgid "Edit person info"
+msgstr "informação pesoal"
+
+#: app/views/profile_editor/person_info.rhtml:11
+msgid "Save"
+msgstr ""
 
 #~ msgid "My enterprises"
 #~ msgstr "Meu empreendimento"
