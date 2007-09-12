@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.1.0~rc1\n"
-"POT-Creation-Date: 2007-09-12 02:02-0300\n"
+"POT-Creation-Date: 2007-09-12 02:25-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,37 +24,37 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
-#: app/helpers/application_helper.rb:113
+#: app/helpers/application_helper.rb:114
 msgid "My account"
 msgstr ""
 
-#: app/helpers/application_helper.rb:114
+#: app/helpers/application_helper.rb:115
 #: app/views/profile_editor/index.rhtml:1
 msgid "My profile"
 msgstr ""
 
-#: app/helpers/application_helper.rb:115
+#: app/helpers/application_helper.rb:116
 msgid "My home page"
 msgstr ""
 
-#: app/helpers/application_helper.rb:116
+#: app/helpers/application_helper.rb:117
 msgid "Manage content"
 msgstr ""
 
-#: app/helpers/application_helper.rb:117
+#: app/helpers/application_helper.rb:118
 msgid "Manage layout"
 msgstr ""
 
-#: app/helpers/application_helper.rb:136 app/views/account/login.rhtml:1
+#: app/helpers/application_helper.rb:137 app/views/account/login.rhtml:1
 #: app/views/account/login.rhtml:4
 msgid "Login"
 msgstr ""
 
-#: app/helpers/application_helper.rb:140
+#: app/helpers/application_helper.rb:141
 msgid "Not a user yet? Register now!"
 msgstr ""
 
-#: app/helpers/application_helper.rb:144
+#: app/helpers/application_helper.rb:145
 msgid "Logout"
 msgstr ""
 
@@ -725,6 +725,7 @@ msgid "Go to the top view of the tags"
 msgstr ""
 
 #: app/views/manage_tags/list.rhtml:17
+#: app/views/content_viewer/view_page.rhtml:4
 msgid "Up"
 msgstr ""
 
@@ -837,6 +838,10 @@ msgstr ""
 msgid "Confirm your new Password"
 msgstr ""
 
+#: app/views/account/login.rhtml:7
+msgid "Password"
+msgstr ""
+
 #: app/views/account/index.rhtml:1
 msgid "Account options"
 msgstr ""
@@ -849,26 +854,22 @@ msgstr ""
 msgid "It is a good idea to change your password from times to times."
 msgstr ""
 
-#: app/views/account/index.rhtml:11
+#: app/views/account/index.rhtml:9
 msgid "Edit Personal details."
 msgstr ""
 
-#: app/views/account/index.rhtml:12
+#: app/views/account/index.rhtml:10
 msgid "You can change your personal details."
 msgstr ""
 
-#: app/views/account/index.rhtml:17
+#: app/views/account/index.rhtml:14
 msgid "Logout."
 msgstr ""
 
-#: app/views/account/index.rhtml:18
+#: app/views/account/index.rhtml:15
 msgid ""
 "It is always a good idea to make a logout when you finish using the virtual "
 "community."
-msgstr ""
-
-#: app/views/account/login.rhtml:7
-msgid "Password"
 msgstr ""
 
 #: app/views/features/_features_table.rhtml:9
@@ -1010,34 +1011,6 @@ msgstr ""
 msgid "Finished"
 msgstr ""
 
-#: app/views/cms/_page_list_item.rhtml:7
-msgid "Add a child to '%s'"
-msgstr ""
-
-#: app/views/cms/_page_list_item.rhtml:8
-msgid "reorder children"
-msgstr ""
-
-#: app/views/cms/_page_list_item.rhtml:8
-msgid "finished reordering"
-msgstr ""
-
-#: app/views/cms/_page_list_item.rhtml:8
-msgid "Reorder children of '%s'"
-msgstr ""
-
-#: app/views/cms/_page_list_item.rhtml:9
-msgid "This will delete this page, and any children. Are you sure?"
-msgstr ""
-
-#: app/views/cms/_page_list_item.rhtml:9
-msgid "Delete page '%s' and all it's children"
-msgstr ""
-
-#: app/views/cms/_page_list_item.rhtml:26
-msgid "DRAG"
-msgstr ""
-
 #: app/views/cms/edit.rhtml:2
 msgid "Edit Page"
 msgstr ""
@@ -1080,6 +1053,50 @@ msgstr ""
 
 #: app/views/cms/new.rhtml:2
 msgid "New Page"
+msgstr ""
+
+#: app/views/cms/_page_list_item.rhtml:6
+msgid "%d revision"
+msgstr ""
+
+#: app/views/cms/_page_list_item.rhtml:6
+msgid "%d revisions"
+msgstr ""
+
+#: app/views/cms/_page_list_item.rhtml:7
+msgid "add child document"
+msgstr ""
+
+#: app/views/cms/_page_list_item.rhtml:7
+msgid "Add a child to '%s'"
+msgstr ""
+
+#: app/views/cms/_page_list_item.rhtml:8
+msgid "reorder children"
+msgstr ""
+
+#: app/views/cms/_page_list_item.rhtml:8
+msgid "finished reordering"
+msgstr ""
+
+#: app/views/cms/_page_list_item.rhtml:8
+msgid "Reorder children of '%s'"
+msgstr ""
+
+#: app/views/cms/_page_list_item.rhtml:9
+msgid "delete"
+msgstr ""
+
+#: app/views/cms/_page_list_item.rhtml:9
+msgid "This will delete this page, and any children. Are you sure?"
+msgstr ""
+
+#: app/views/cms/_page_list_item.rhtml:9
+msgid "Delete page '%s' and all it's children"
+msgstr ""
+
+#: app/views/cms/_page_list_item.rhtml:26
+msgid "DRAG"
 msgstr ""
 
 #: app/views/profile_editor/person_info.rhtml:1

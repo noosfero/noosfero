@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.1.0~rc1\n"
-"POT-Creation-Date: 2007-09-12 02:02-0300\n"
-"PO-Revision-Date: 2007-09-12 02:16-0300\n"
+"POT-Creation-Date: 2007-09-12 02:25-0300\n"
+"PO-Revision-Date: 2007-09-12 02:22-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -24,37 +24,37 @@ msgstr "Este perfil não tem nenhuma informação pública"
 msgid "Help"
 msgstr "Ajuda"
 
-#: app/helpers/application_helper.rb:113
+#: app/helpers/application_helper.rb:114
 msgid "My account"
 msgstr "Minha conta"
 
-#: app/helpers/application_helper.rb:114
+#: app/helpers/application_helper.rb:115
 #: app/views/profile_editor/index.rhtml:1
 msgid "My profile"
 msgstr "Meu perfil"
 
-#: app/helpers/application_helper.rb:115
+#: app/helpers/application_helper.rb:116
 msgid "My home page"
 msgstr "Minha página principal"
 
-#: app/helpers/application_helper.rb:116
+#: app/helpers/application_helper.rb:117
 msgid "Manage content"
 msgstr "Gerenciar conteúdo"
 
-#: app/helpers/application_helper.rb:117
+#: app/helpers/application_helper.rb:118
 msgid "Manage layout"
 msgstr "Gerenciar leiaute"
 
-#: app/helpers/application_helper.rb:136 app/views/account/login.rhtml:1
+#: app/helpers/application_helper.rb:137 app/views/account/login.rhtml:1
 #: app/views/account/login.rhtml:4
 msgid "Login"
 msgstr "Entrar"
 
-#: app/helpers/application_helper.rb:140
+#: app/helpers/application_helper.rb:141
 msgid "Not a user yet? Register now!"
 msgstr "Ainda não é usuário? Registre-se agora!"
 
-#: app/helpers/application_helper.rb:144
+#: app/helpers/application_helper.rb:145
 msgid "Logout"
 msgstr "Sair"
 
@@ -729,6 +729,7 @@ msgid "Go to the top view of the tags"
 msgstr ""
 
 #: app/views/manage_tags/list.rhtml:17
+#: app/views/content_viewer/view_page.rhtml:4
 msgid "Up"
 msgstr "Acima"
 
@@ -782,7 +783,8 @@ msgstr "Painel do Administrador"
 
 #: app/views/admin_panel/index.rhtml:3
 msgid "You, as an virtual community administrator, has the following options:"
-msgstr "Você, como administrador de comunidade virtual, tem as seguintes opções:"
+msgstr ""
+"Você, como administrador de comunidade virtual, tem as seguintes opções:"
 
 #: app/views/admin_panel/index.rhtml:6
 msgid "Enable/disable features"
@@ -825,8 +827,8 @@ msgid ""
 "If you are not an user already, you can register now to become a member of "
 "this virtual community."
 msgstr ""
-"Se você ainda não é um usuário, você pode se registrar agora e se "
-"tornar um membro desse comunidade virtual."
+"Se você ainda não é um usuário, você pode se registrar agora e se tornar um "
+"membro desse comunidade virtual."
 
 #: app/views/account/change_password.rhtml:1
 #: app/views/account/change_password.rhtml:14
@@ -845,6 +847,10 @@ msgstr "Nova senha"
 msgid "Confirm your new Password"
 msgstr "Confirme sua nova senha"
 
+#: app/views/account/login.rhtml:7
+msgid "Password"
+msgstr "Senha"
+
 #: app/views/account/index.rhtml:1
 msgid "Account options"
 msgstr "Opções da conta"
@@ -857,29 +863,25 @@ msgstr "Alterar senha."
 msgid "It is a good idea to change your password from times to times."
 msgstr "É uma boa idéia alterar sua senha de tempos em tempos."
 
-#: app/views/account/index.rhtml:11
+#: app/views/account/index.rhtml:9
 msgid "Edit Personal details."
 msgstr "Editar dados pessoais"
 
-#: app/views/account/index.rhtml:12
+#: app/views/account/index.rhtml:10
 msgid "You can change your personal details."
 msgstr "Você pode alterar seus dados pessoais."
 
-#: app/views/account/index.rhtml:17
+#: app/views/account/index.rhtml:14
 msgid "Logout."
 msgstr "Sair."
 
-#: app/views/account/index.rhtml:18
+#: app/views/account/index.rhtml:15
 msgid ""
 "It is always a good idea to make a logout when you finish using the virtual "
 "community."
 msgstr ""
 "É sempre uma boa idéia fazer logout quando você terminar de usar a "
 "comunidade virtual"
-
-#: app/views/account/login.rhtml:7
-msgid "Password"
-msgstr "Senha"
 
 #: app/views/features/_features_table.rhtml:9
 msgid "Save changes"
@@ -900,11 +902,12 @@ msgid ""
 "confirm your changes."
 msgstr ""
 "Aqui você pode habilitar ou desabilitart diversas funcionalidades da sua "
-"comunidade virtual. Cada funcionalidade representa uma função que sua comunidade virtual pode usar se você a habilitar.\n"
+"comunidade virtual. Cada funcionalidade representa uma função que sua "
+"comunidade virtual pode usar se você a habilitar.\n"
 "\n"
 "Marque todas as funcionalidades que você quer habilitar para sua comunidade "
-"virtual, desmarque todas que você não quer, e use o botão 'Salvar alterações' "
-"para confirmar suas mudanças."
+"virtual, desmarque todas que você não quer, e use o botão 'Salvar "
+"alterações' para confirmar suas mudanças."
 
 #: app/views/cms/_form.rhtml:6
 msgid "Title"
@@ -1028,41 +1031,13 @@ msgstr "Mover para baixo"
 msgid "Finished"
 msgstr "Terminado"
 
-#: app/views/cms/_page_list_item.rhtml:7
-msgid "Add a child to '%s'"
-msgstr "Adicionar um filho a '%s'"
-
-#: app/views/cms/_page_list_item.rhtml:8
-msgid "reorder children"
-msgstr "reordenar filhos"
-
-#: app/views/cms/_page_list_item.rhtml:8
-msgid "finished reordering"
-msgstr "ordenação terminada"
-
-#: app/views/cms/_page_list_item.rhtml:8
-msgid "Reorder children of '%s'"
-msgstr "Reordenar filhos de '%s'"
-
-#: app/views/cms/_page_list_item.rhtml:9
-msgid "This will delete this page, and any children. Are you sure?"
-msgstr "Isto vai excluir esta página, e qualquer filho. Tem certeza?"
-
-#: app/views/cms/_page_list_item.rhtml:9
-msgid "Delete page '%s' and all it's children"
-msgstr "Excluir página '%s' e todos seus filhos"
-
-#: app/views/cms/_page_list_item.rhtml:26
-msgid "DRAG"
-msgstr "ARRASTAR"
-
 #: app/views/cms/edit.rhtml:2
 msgid "Edit Page"
 msgstr "Editar Página"
 
 #: app/views/cms/index.rhtml:6
 msgid "Document List"
-msgstr "Documento Lista"
+msgstr "Lista de documentos"
 
 #: app/views/cms/versions.rhtml:1
 msgid "Page Revisions"
@@ -1099,6 +1074,53 @@ msgstr "Versão Atual"
 #: app/views/cms/new.rhtml:2
 msgid "New Page"
 msgstr "Nova Página"
+
+#: app/views/cms/_page_list_item.rhtml:6
+#, fuzzy
+msgid "%d revision"
+msgstr "Uma revisão"
+
+#: app/views/cms/_page_list_item.rhtml:6
+#, fuzzy
+msgid "%d revisions"
+msgstr "Uma revisão"
+
+#: app/views/cms/_page_list_item.rhtml:7
+msgid "add child document"
+msgstr ""
+
+#: app/views/cms/_page_list_item.rhtml:7
+msgid "Add a child to '%s'"
+msgstr "Adicionar um filho a '%s'"
+
+#: app/views/cms/_page_list_item.rhtml:8
+msgid "reorder children"
+msgstr "reordenar filhos"
+
+#: app/views/cms/_page_list_item.rhtml:8
+msgid "finished reordering"
+msgstr "ordenação terminada"
+
+#: app/views/cms/_page_list_item.rhtml:8
+msgid "Reorder children of '%s'"
+msgstr "Reordenar filhos de '%s'"
+
+#: app/views/cms/_page_list_item.rhtml:9
+#, fuzzy
+msgid "delete"
+msgstr "Excluir"
+
+#: app/views/cms/_page_list_item.rhtml:9
+msgid "This will delete this page, and any children. Are you sure?"
+msgstr "Isto vai excluir esta página, e qualquer filho. Tem certeza?"
+
+#: app/views/cms/_page_list_item.rhtml:9
+msgid "Delete page '%s' and all it's children"
+msgstr "Excluir página '%s' e todos seus filhos"
+
+#: app/views/cms/_page_list_item.rhtml:26
+msgid "DRAG"
+msgstr "ARRASTAR"
 
 #: app/views/profile_editor/person_info.rhtml:1
 msgid "Edit person info"
