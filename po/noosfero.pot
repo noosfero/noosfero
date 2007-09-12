@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.1.0~rc1\n"
-"POT-Creation-Date: 2007-09-12 02:29-0300\n"
+"Project-Id-Version: noosfero 0.2.0~alpha\n"
+"POT-Creation-Date: 2007-09-12 17:03-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,6 +15,362 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: app/controllers/account_controller.rb:20
+msgid "Logged in successfully"
+msgstr ""
+
+#: app/controllers/account_controller.rb:22
+msgid "Incorrect username or password"
+msgstr ""
+
+#: app/controllers/account_controller.rb:34
+msgid "You have to accept the terms of service to signup"
+msgstr ""
+
+#: app/controllers/account_controller.rb:42
+msgid "Thanks for signing up!"
+msgstr ""
+
+#: app/controllers/account_controller.rb:53
+msgid "You have been logged out."
+msgstr ""
+
+#: app/controllers/account_controller.rb:64
+msgid "Your password has been changed successfully!"
+msgstr ""
+
+#: app/controllers/account_controller.rb:67
+msgid "The supplied current password is incorrect."
+msgstr ""
+
+#: app/controllers/edit_template_controller.rb:9
+msgid "Recent documents"
+msgstr ""
+
+#: app/controllers/edit_template_controller.rb:10
+msgid "Main content block"
+msgstr ""
+
+#: app/controllers/manage_tags_controller.rb:26
+msgid "Tag was successfully created."
+msgstr ""
+
+#: app/controllers/manage_tags_controller.rb:44
+msgid "Tag was successfully updated."
+msgstr ""
+
+#: app/controllers/manage_tags_controller.rb:56
+msgid "Tag was successfuly destroyed"
+msgstr ""
+
+#: app/controllers/manage_tags_controller.rb:65
+msgid "Tag was successfuly approved"
+msgstr ""
+
+#: app/controllers/enterprise_controller.rb:38
+msgid ""
+"The enterprise was succesfully created, the validation entity will cotact "
+"you as soon as your enterprise is approved"
+msgstr ""
+
+#: app/controllers/enterprise_controller.rb:41
+msgid "Enterprise was not created"
+msgstr ""
+
+#: app/controllers/enterprise_controller.rb:60
+msgid "Could not update the enterprise"
+msgstr ""
+
+#: app/controllers/enterprise_controller.rb:93
+msgid "Enterprise successfuly activacted"
+msgstr ""
+
+#: app/controllers/enterprise_controller.rb:95
+msgid "Failed to activate the enterprise"
+msgstr ""
+
+#: app/controllers/enterprise_controller.rb:104
+msgid "Enterprise successfuly approved"
+msgstr ""
+
+#: app/controllers/enterprise_controller.rb:106
+msgid "Failed to approve the enterprise"
+msgstr ""
+
+#: app/controllers/enterprise_controller.rb:115
+msgid "Enterprise successfuly rejected"
+msgstr ""
+
+#: app/controllers/enterprise_controller.rb:117
+msgid "Failed to reject the enterprise"
+msgstr ""
+
+#: app/controllers/features_controller.rb:18
+msgid "Features updated successfully."
+msgstr ""
+
+#: app/models/enterprise.rb:13
+msgid "Not approved enterprise can't be activated"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "profile"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "Profile|Name"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "Profile|Type"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "Profile|Identifier"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "Profile|Virtual community"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "Profile|Flexible template template"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "Profile|Flexible template theme"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "Profile|Flexible template icon theme"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "Profile|Active"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "Profile|Address"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "Profile|Contact phone"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "Profile|User"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "Profile|Validation entity"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "Profile|Approved"
+msgstr ""
+
+#: app/models/profile.rb:44
+msgid "An existing profile cannot be renamed."
+msgstr ""
+
+#: app/models/organization_info.rb:-
+msgid "organization info"
+msgstr ""
+
+#: app/models/organization_info.rb:-
+msgid "OrganizationInfo|Organization"
+msgstr ""
+
+#: app/models/organization_info.rb:-
+msgid "OrganizationInfo|Contact person"
+msgstr ""
+
+#: app/models/organization_info.rb:-
+msgid "OrganizationInfo|Acronym"
+msgstr ""
+
+#: app/models/organization_info.rb:-
+msgid "OrganizationInfo|Foundation year"
+msgstr ""
+
+#: app/models/organization_info.rb:-
+msgid "OrganizationInfo|Legal form"
+msgstr ""
+
+#: app/models/organization_info.rb:-
+msgid "OrganizationInfo|Economic activity"
+msgstr ""
+
+#: app/models/organization_info.rb:-
+msgid "OrganizationInfo|Management information"
+msgstr ""
+
+#: app/models/organization_info.rb:-
+msgid "OrganizationInfo|Validated"
+msgstr ""
+
+#: app/models/person_info.rb:-
+msgid "person info"
+msgstr ""
+
+#: app/models/person_info.rb:-
+msgid "PersonInfo|Photo"
+msgstr ""
+
+#: app/models/person_info.rb:-
+msgid "PersonInfo|Address"
+msgstr ""
+
+#: app/models/person_info.rb:-
+msgid "PersonInfo|Contact information"
+msgstr ""
+
+#: app/models/virtual_community.rb:-
+msgid "virtual community"
+msgstr ""
+
+#: app/models/virtual_community.rb:-
+msgid "VirtualCommunity|Name"
+msgstr ""
+
+#: app/models/virtual_community.rb:-
+msgid "VirtualCommunity|Is default"
+msgstr ""
+
+#: app/models/virtual_community.rb:-
+msgid "VirtualCommunity|Settings"
+msgstr ""
+
+#: app/models/virtual_community.rb:-
+msgid "VirtualCommunity|Design data"
+msgstr ""
+
+#: app/models/virtual_community.rb:10
+msgid "Some feature"
+msgstr ""
+
+#: app/models/virtual_community.rb:11
+msgid "Other feature"
+msgstr ""
+
+#: app/models/virtual_community.rb:121
+msgid "Only one Virtual Community can be the default one"
+msgstr ""
+
+#: app/models/domain.rb:-
+msgid "domain"
+msgstr ""
+
+#: app/models/domain.rb:-
+msgid "Domain|Name"
+msgstr ""
+
+#: app/models/domain.rb:-
+msgid "Domain|Owner type"
+msgstr ""
+
+#: app/models/domain.rb:-
+msgid "Domain|Owner"
+msgstr ""
+
+#: app/models/domain.rb:13
+msgid ""
+"%{fn} must be composed only of lowercase latters (a to z), numbers (0 to 9) "
+"and \"_\""
+msgstr ""
+
+#: app/models/domain.rb:20
+msgid "%{fn} must not start with www."
+msgstr ""
+
+#: app/models/friendship.rb:-
+msgid "friendship"
+msgstr ""
+
+#: app/models/friendship.rb:-
+msgid "Friendship|Person"
+msgstr ""
+
+#: app/models/friendship.rb:-
+msgid "Friendship|Friend"
+msgstr ""
+
+#: app/models/friendship.rb:-
+msgid "Friendship|Created at"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "user"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Login"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Email"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Crypted password"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Salt"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Created at"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Updated at"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Remember token"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Remember token expires at"
+msgstr ""
+
+#: app/models/user.rb:7
+msgid "User|Password"
+msgstr ""
+
+#: app/models/user.rb:8
+msgid "User|Password confirmation"
+msgstr ""
+
+#: app/models/affiliation.rb:-
+msgid "affiliation"
+msgstr ""
+
+#: app/models/affiliation.rb:-
+msgid "Affiliation|Person"
+msgstr ""
+
+#: app/models/affiliation.rb:-
+msgid "Affiliation|Profile"
+msgstr ""
+
+#: app/models/enterprise_info.rb:-
+msgid "enterprise info"
+msgstr ""
+
+#: app/models/enterprise_info.rb:-
+msgid "EnterpriseInfo|Approval status"
+msgstr ""
+
+#: app/models/enterprise_info.rb:-
+msgid "EnterpriseInfo|Approval comments"
+msgstr ""
+
+#: app/models/enterprise_info.rb:-
+msgid "EnterpriseInfo|Enterprise"
+msgstr ""
 
 #: app/helpers/profile_helper.rb:6
 msgid "This profile does not have any public information"
@@ -58,403 +414,295 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
-#: app/models/user.rb:-
-msgid "user"
+#: app/views/cms/new.rhtml:2
+msgid "New Page"
 msgstr ""
 
-#: app/models/user.rb:-
-msgid "User|Login"
+#: app/views/cms/_page_list_item.rhtml:6
+msgid "%d revision"
 msgstr ""
 
-#: app/models/user.rb:-
-msgid "User|Email"
+#: app/views/cms/_page_list_item.rhtml:6
+msgid "%d revisions"
 msgstr ""
 
-#: app/models/user.rb:-
-msgid "User|Crypted password"
+#: app/views/cms/_page_list_item.rhtml:7
+msgid "add child document"
 msgstr ""
 
-#: app/models/user.rb:-
-msgid "User|Salt"
+#: app/views/cms/_page_list_item.rhtml:7
+msgid "Add a child to '%s'"
 msgstr ""
 
-#: app/models/user.rb:-
-msgid "User|Created at"
+#: app/views/cms/_page_list_item.rhtml:8
+msgid "reorder children"
 msgstr ""
 
-#: app/models/user.rb:-
-msgid "User|Updated at"
+#: app/views/cms/_page_list_item.rhtml:8
+msgid "finished reordering"
 msgstr ""
 
-#: app/models/user.rb:-
-msgid "User|Remember token"
+#: app/views/cms/_page_list_item.rhtml:8
+msgid "Reorder children of '%s'"
 msgstr ""
 
-#: app/models/user.rb:-
-msgid "User|Remember token expires at"
+#: app/views/cms/_page_list_item.rhtml:9
+msgid "delete"
 msgstr ""
 
-#: app/models/user.rb:-
-msgid "profile"
+#: app/views/cms/_page_list_item.rhtml:9
+msgid "This will delete this page, and any children. Are you sure?"
 msgstr ""
 
-#: app/models/user.rb:-
-msgid "Profile|Name"
+#: app/views/cms/_page_list_item.rhtml:9
+msgid "Delete page '%s' and all it's children"
 msgstr ""
 
-#: app/models/user.rb:-
-msgid "Profile|Type"
+#: app/views/cms/_page_list_item.rhtml:26
+msgid "DRAG"
 msgstr ""
 
-#: app/models/user.rb:-
-msgid "Profile|Identifier"
+#: app/views/cms/_form.rhtml:6
+msgid "Title"
 msgstr ""
 
-#: app/models/user.rb:-
-msgid "Profile|Virtual community"
+#: app/views/cms/_form.rhtml:7
+msgid "More..."
 msgstr ""
 
-#: app/models/user.rb:-
-msgid "Profile|Flexible template template"
+#: app/views/cms/_form.rhtml:7
+msgid "Less..."
 msgstr ""
 
-#: app/models/user.rb:-
-msgid "Profile|Flexible template theme"
+#: app/views/cms/_form.rhtml:11
+msgid "Slug"
 msgstr ""
 
-#: app/models/user.rb:-
-msgid "Profile|Flexible template icon theme"
+#: app/views/cms/_form.rhtml:17
+msgid "Keywords"
 msgstr ""
 
-#: app/models/user.rb:-
-msgid "Profile|Active"
+#: app/views/cms/_form.rhtml:24
+msgid "Parent"
 msgstr ""
 
-#: app/models/user.rb:-
-msgid "Profile|Address"
+#: app/views/cms/_form.rhtml:26
+msgid "%s is a root page"
 msgstr ""
 
-#: app/models/user.rb:-
-msgid "Profile|Contact phone"
+#: app/views/cms/_form.rhtml:34 app/views/layouts/application.rhtml:26
+#: app/views/layouts/comatose_admin.rhtml:26
+msgid "Content"
 msgstr ""
 
-#: app/models/user.rb:-
-msgid "Profile|User"
+#: app/views/cms/_form.rhtml:40
+msgid "Filter"
 msgstr ""
 
-#: app/models/user.rb:-
-msgid "Profile|Validation entity"
+#: app/views/cms/_form.rhtml:42
+msgid "Converts plain text into HTML"
 msgstr ""
 
-#: app/models/user.rb:-
-msgid "Profile|Approved"
+#: app/views/cms/_form.rhtml:48
+msgid "Created"
 msgstr ""
 
-#: app/models/enterprise.rb:13
-msgid "Not approved enterprise can't be activated"
+#: app/views/cms/_form.rhtml:57
+msgid "One revision"
+msgid_plural "%d revisions"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/views/cms/_form.rhtml:63
+msgid "Loading preview ..."
 msgstr ""
 
-#: app/models/affiliation.rb:-
-msgid "affiliation"
+#: app/views/cms/_form.rhtml:64
+msgid "Save Changes"
 msgstr ""
 
-#: app/models/affiliation.rb:-
-msgid "Affiliation|Person"
+#: app/views/cms/_form.rhtml:64
+msgid "Create Page"
 msgstr ""
 
-#: app/models/affiliation.rb:-
-msgid "Affiliation|Profile"
+#: app/views/cms/_form.rhtml:66
+msgid "Revert"
 msgstr ""
 
-#: app/models/domain.rb:-
-msgid "domain"
-msgstr ""
-
-#: app/models/domain.rb:-
-msgid "Domain|Name"
-msgstr ""
-
-#: app/models/domain.rb:-
-msgid "Domain|Owner type"
-msgstr ""
-
-#: app/models/domain.rb:-
-msgid "Domain|Owner"
-msgstr ""
-
-#: app/models/domain.rb:13
+#: app/views/cms/_form.rhtml:69
 msgid ""
-"%{fn} must be composed only of lowercase latters (a to z), numbers (0 to 9) "
-"and \"_\""
+"Changes detected. You will lose all the updates you have made if you "
+"proceed..."
 msgstr ""
 
-#: app/models/domain.rb:20
-msgid "%{fn} must not start with www."
+#: app/views/cms/_form.rhtml:69 app/views/cms/delete.rhtml:16
+#: app/views/cms/versions.rhtml:25 app/views/enterprise/register_form.rhtml:12
+#: app/views/enterprise/edit.rhtml:8 app/views/manage_tags/new.rhtml:6
+#: app/views/manage_tags/edit.rhtml:6
+msgid "Cancel"
 msgstr ""
 
-#: app/models/virtual_community.rb:-
-msgid "virtual community"
+#: app/views/cms/_form.rhtml:75
+msgid "Page Preview"
 msgstr ""
 
-#: app/models/virtual_community.rb:-
-msgid "VirtualCommunity|Name"
+#: app/views/cms/_form.rhtml:77
+msgid "Loading Preview..."
 msgstr ""
 
-#: app/models/virtual_community.rb:-
-msgid "VirtualCommunity|Is default"
+#: app/views/cms/_form.rhtml:82
+msgid "Close Preview"
 msgstr ""
 
-#: app/models/virtual_community.rb:-
-msgid "VirtualCommunity|Settings"
+#: app/views/cms/_form.rhtml:82 app/views/cms/versions.rhtml:24
+msgid "or"
 msgstr ""
 
-#: app/models/virtual_community.rb:-
-msgid "VirtualCommunity|Design data"
+#: app/views/cms/_form.rhtml:82
+msgid "Back to top"
 msgstr ""
 
-#: app/models/virtual_community.rb:10
-msgid "Some feature"
+#: app/views/cms/reorder.rhtml:1
+msgid "Reorder Pages"
 msgstr ""
 
-#: app/models/virtual_community.rb:11
-msgid "Other feature"
+#: app/views/cms/reorder.rhtml:3
+msgid "\"%s\" child pages:"
 msgstr ""
 
-#: app/models/virtual_community.rb:121
-msgid "Only one Virtual Community can be the default one"
+#: app/views/cms/reorder.rhtml:19
+msgid "Move Up"
 msgstr ""
 
-#: app/models/organization_info.rb:-
-msgid "organization info"
+#: app/views/cms/reorder.rhtml:20
+msgid "Move Down"
 msgstr ""
 
-#: app/models/organization_info.rb:-
-msgid "OrganizationInfo|Organization"
+#: app/views/cms/reorder.rhtml:29
+msgid "Finished"
 msgstr ""
 
-#: app/models/organization_info.rb:-
-msgid "OrganizationInfo|Contact person"
+#: app/views/cms/delete.rhtml:6
+msgid "Are you sure you want to delete the page titled \"%s\"?"
 msgstr ""
 
-#: app/models/organization_info.rb:-
-msgid "OrganizationInfo|Acronym"
+#: app/views/cms/delete.rhtml:8
+msgid "It has %s child pages that will also be deleted..."
 msgstr ""
 
-#: app/models/organization_info.rb:-
-msgid "OrganizationInfo|Foundation year"
+#: app/views/cms/delete.rhtml:14
+msgid "Yes, Delete The Page"
 msgstr ""
 
-#: app/models/organization_info.rb:-
-msgid "OrganizationInfo|Legal form"
+#: app/views/cms/versions.rhtml:1
+msgid "Page Revisions"
 msgstr ""
 
-#: app/models/organization_info.rb:-
-msgid "OrganizationInfo|Economic activity"
+#: app/views/cms/versions.rhtml:7
+msgid "View Version:"
 msgstr ""
 
-#: app/models/organization_info.rb:-
-msgid "OrganizationInfo|Management information"
+#: app/views/cms/versions.rhtml:11
+msgid "Version %s"
 msgstr ""
 
-#: app/models/organization_info.rb:-
-msgid "OrganizationInfo|Validated"
+#: app/views/cms/versions.rhtml:14 app/views/cms/versions.rhtml:35
+msgid "Title:"
 msgstr ""
 
-#: app/models/friendship.rb:-
-msgid "friendship"
+#: app/views/cms/versions.rhtml:15 app/views/cms/versions.rhtml:36
+msgid "Slug:"
 msgstr ""
 
-#: app/models/friendship.rb:-
-msgid "Friendship|Person"
+#: app/views/cms/versions.rhtml:17 app/views/cms/versions.rhtml:38
+msgid "Keywords:"
 msgstr ""
 
-#: app/models/friendship.rb:-
-msgid "Friendship|Friend"
+#: app/views/cms/versions.rhtml:23
+msgid "Set As Current Version"
 msgstr ""
 
-#: app/models/friendship.rb:-
-msgid "Friendship|Created at"
+#: app/views/cms/versions.rhtml:32
+msgid "Current Version"
 msgstr ""
 
-#: app/models/enterprise_info.rb:-
-msgid "enterprise info"
+#: app/views/cms/edit.rhtml:2
+msgid "Edit Page"
 msgstr ""
 
-#: app/models/enterprise_info.rb:-
-msgid "EnterpriseInfo|Approval status"
+#: app/views/cms/index.rhtml:2
+msgid "Clear Page Cache"
 msgstr ""
 
-#: app/models/enterprise_info.rb:-
-msgid "EnterpriseInfo|Approval comments"
+#: app/views/cms/index.rhtml:6
+msgid "Document List"
 msgstr ""
 
-#: app/models/enterprise_info.rb:-
-msgid "EnterpriseInfo|Enterprise"
+#: app/views/enterprise/register_form.rhtml:3
+msgid "Register enterprise"
 msgstr ""
 
-#: app/models/profile.rb:44
-msgid "An existing profile cannot be renamed."
+#: app/views/enterprise/register_form.rhtml:5
+msgid "How to proceed"
 msgstr ""
 
-#: app/models/person_info.rb:-
-msgid "person info"
+#: app/views/enterprise/register_form.rhtml:8
+msgid "Identifier"
 msgstr ""
 
-#: app/models/person_info.rb:-
-msgid "PersonInfo|Name"
+#: app/views/enterprise/register_form.rhtml:11
+#: app/views/account/signup.rhtml:1
+msgid "Register"
 msgstr ""
 
-#: app/models/person_info.rb:-
-msgid "PersonInfo|Photo"
-msgstr ""
-
-#: app/models/person_info.rb:-
-msgid "PersonInfo|Address"
-msgstr ""
-
-#: app/models/person_info.rb:-
-msgid "PersonInfo|Contact information"
-msgstr ""
-
-#: app/models/person_info.rb:-
-msgid "PersonInfo|Person"
-msgstr ""
-
-#: app/models/person_info.rb:9 app/views/enterprise/_form.rhtml:1
-#: app/views/manage_tags/_form.rhtml:1
+#: app/views/enterprise/_form.rhtml:1 app/views/manage_tags/_form.rhtml:1
 #: app/views/profile_editor/person_info.rhtml:5
 msgid "Name"
 msgstr ""
 
-#: app/models/person_info.rb:10 app/views/enterprise/_form.rhtml:4
+#: app/views/enterprise/_form.rhtml:4
 #: app/views/profile_editor/person_info.rhtml:7
 msgid "Address"
 msgstr ""
 
-#: app/models/person_info.rb:11 app/views/profile_editor/person_info.rhtml:9
-msgid "Contact Information"
+#: app/views/enterprise/_form.rhtml:7
+msgid "Contact Phone"
 msgstr ""
 
-#: app/controllers/account_controller.rb:20
-msgid "Logged in successfully"
+#: app/views/enterprise/_form.rhtml:10
+msgid "Contact Person"
 msgstr ""
 
-#: app/controllers/account_controller.rb:22
-msgid "Incorrect username or password"
+#: app/views/enterprise/_form.rhtml:13
+msgid "Acronym"
 msgstr ""
 
-#: app/controllers/account_controller.rb:34
-msgid "You have to accept the terms of service to signup"
+#: app/views/enterprise/_form.rhtml:16
+msgid "Foundation Year"
 msgstr ""
 
-#: app/controllers/account_controller.rb:42
-msgid "Thanks for signing up!"
+#: app/views/enterprise/_form.rhtml:19
+msgid "Legal Form"
 msgstr ""
 
-#: app/controllers/account_controller.rb:53
-msgid "You have been logged out."
+#: app/views/enterprise/_form.rhtml:22
+msgid "Economic Activity"
 msgstr ""
 
-#: app/controllers/account_controller.rb:64
-msgid "Your password has been changed successfully!"
+#: app/views/enterprise/_form.rhtml:25
+msgid "Management Information"
 msgstr ""
 
-#: app/controllers/account_controller.rb:67
-msgid "The supplied current password is incorrect."
+#: app/views/enterprise/_form.rhtml:28
+msgid "Validation Entity"
 msgstr ""
 
-#: app/controllers/features_controller.rb:18
-msgid "Features updated successfully."
+#: app/views/enterprise/_form.rhtml:31
+msgid "Tags"
 msgstr ""
 
-#: app/controllers/edit_template_controller.rb:7
-msgid "List Block"
-msgstr ""
-
-#: app/controllers/edit_template_controller.rb:8
-msgid "Link Block"
-msgstr ""
-
-#: app/controllers/edit_template_controller.rb:9
-msgid "Recent documents"
-msgstr ""
-
-#: app/controllers/edit_template_controller.rb:10
-msgid "Main content block"
-msgstr ""
-
-#: app/controllers/enterprise_controller.rb:38
-msgid ""
-"The enterprise was succesfully created, the validation entity will cotact "
-"you as soon as your enterprise is approved"
-msgstr ""
-
-#: app/controllers/enterprise_controller.rb:41
-msgid "Enterprise was not created"
-msgstr ""
-
-#: app/controllers/enterprise_controller.rb:60
-msgid "Could not update the enterprise"
-msgstr ""
-
-#: app/controllers/enterprise_controller.rb:93
-msgid "Enterprise successfuly activacted"
-msgstr ""
-
-#: app/controllers/enterprise_controller.rb:95
-msgid "Failed to activate the enterprise"
-msgstr ""
-
-#: app/controllers/enterprise_controller.rb:104
-msgid "Enterprise successfuly approved"
-msgstr ""
-
-#: app/controllers/enterprise_controller.rb:106
-msgid "Failed to approve the enterprise"
-msgstr ""
-
-#: app/controllers/enterprise_controller.rb:115
-msgid "Enterprise successfuly rejected"
-msgstr ""
-
-#: app/controllers/enterprise_controller.rb:117
-msgid "Failed to reject the enterprise"
-msgstr ""
-
-#: app/controllers/manage_tags_controller.rb:26
-msgid "Tag was successfully created."
-msgstr ""
-
-#: app/controllers/manage_tags_controller.rb:44
-msgid "Tag was successfully updated."
-msgstr ""
-
-#: app/controllers/manage_tags_controller.rb:56
-msgid "Tag was successfuly destroyed"
-msgstr ""
-
-#: app/controllers/manage_tags_controller.rb:65
-msgid "Tag was successfuly approved"
-msgstr ""
-
-#: app/views/enterprise/list.rhtml:6 app/views/enterprise/show.rhtml:3
-msgid "Register new enterprise"
-msgstr ""
-
-#: app/views/enterprise/list.rhtml:7
-msgid "Creates a new enterprise"
-msgstr ""
-
-#: app/views/enterprise/list.rhtml:11
-msgid "Listing my enterprises"
-msgstr ""
-
-#: app/views/enterprise/list.rhtml:17
-msgid "Listing pending enterprises"
-msgstr ""
-
-#: app/views/enterprise/list.rhtml:24
-msgid "Other Enterprises"
+#: app/views/enterprise/search.rhtml:1
+msgid " enterprises found"
 msgstr ""
 
 #: app/views/enterprise/_enterprise.rhtml:3
@@ -508,6 +756,26 @@ msgstr ""
 #: app/views/enterprise/_enterprise.rhtml:15
 #: app/views/enterprise/show.rhtml:30
 msgid "Reject a submitted enterprise profile"
+msgstr ""
+
+#: app/views/enterprise/list.rhtml:6 app/views/enterprise/show.rhtml:3
+msgid "Register new enterprise"
+msgstr ""
+
+#: app/views/enterprise/list.rhtml:7
+msgid "Creates a new enterprise"
+msgstr ""
+
+#: app/views/enterprise/list.rhtml:11
+msgid "Listing my enterprises"
+msgstr ""
+
+#: app/views/enterprise/list.rhtml:17
+msgid "Listing pending enterprises"
+msgstr ""
+
+#: app/views/enterprise/list.rhtml:24
+msgid "Other Enterprises"
 msgstr ""
 
 #: app/views/enterprise/show.rhtml:7
@@ -566,40 +834,13 @@ msgstr ""
 msgid "Activate an approved enterprise"
 msgstr ""
 
-#: app/views/enterprise/_form.rhtml:7
-msgid "Contact Phone"
+#: app/views/enterprise/_search_box.rhtml:4
+#: app/views/manage_tags/_search_box.rhtml:4
+msgid "Search"
 msgstr ""
 
-#: app/views/enterprise/_form.rhtml:10
-msgid "Contact Person"
-msgstr ""
-
-#: app/views/enterprise/_form.rhtml:13
-msgid "Acronym"
-msgstr ""
-
-#: app/views/enterprise/_form.rhtml:16
-msgid "Foundation Year"
-msgstr ""
-
-#: app/views/enterprise/_form.rhtml:19
-msgid "Legal Form"
-msgstr ""
-
-#: app/views/enterprise/_form.rhtml:22
-msgid "Economic Activity"
-msgstr ""
-
-#: app/views/enterprise/_form.rhtml:25
-msgid "Management Information"
-msgstr ""
-
-#: app/views/enterprise/_form.rhtml:28
-msgid "Validation Entity"
-msgstr ""
-
-#: app/views/enterprise/_form.rhtml:31
-msgid "Tags"
+#: app/views/enterprise/_search_box.rhtml:5
+msgid "Search enteprises by tag or name"
 msgstr ""
 
 #: app/views/enterprise/edit.rhtml:3
@@ -610,72 +851,70 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: app/views/enterprise/edit.rhtml:8
-#: app/views/enterprise/register_form.rhtml:12
-#: app/views/manage_tags/edit.rhtml:6 app/views/manage_tags/new.rhtml:6
-#: app/views/cms/_form.rhtml:69 app/views/cms/delete.rhtml:16
-#: app/views/cms/versions.rhtml:25
-msgid "Cancel"
+#: app/views/content_viewer/view_page.rhtml:4
+#: app/views/manage_tags/list.rhtml:17
+msgid "Up"
 msgstr ""
 
-#: app/views/enterprise/register_form.rhtml:3
-msgid "Register enterprise"
+#: app/views/content_viewer/not_found.rhtml:1
+msgid "There is no such page: %s"
 msgstr ""
 
-#: app/views/enterprise/register_form.rhtml:5
-msgid "How to proceed"
-msgstr ""
-
-#: app/views/enterprise/register_form.rhtml:8
-msgid "Identifier"
-msgstr ""
-
-#: app/views/enterprise/register_form.rhtml:11
-#: app/views/account/signup.rhtml:1
-msgid "Register"
-msgstr ""
-
-#: app/views/enterprise/_search_box.rhtml:4
-#: app/views/manage_tags/_search_box.rhtml:4
-msgid "Search"
-msgstr ""
-
-#: app/views/enterprise/_search_box.rhtml:5
-msgid "Search enteprises by tag or name"
-msgstr ""
-
-#: app/views/enterprise/search.rhtml:1
-msgid " enterprises found"
-msgstr ""
-
-#: app/views/layouts/comatose_admin.rhtml:19
 #: app/views/layouts/application.rhtml:19
+#: app/views/layouts/comatose_admin.rhtml:19
 msgid "Close"
 msgstr ""
 
-#: app/views/layouts/comatose_admin.rhtml:25
 #: app/views/layouts/application.rhtml:25
+#: app/views/layouts/comatose_admin.rhtml:25
 msgid "Skip to:"
 msgstr ""
 
-#: app/views/layouts/comatose_admin.rhtml:26
-#: app/views/layouts/application.rhtml:26 app/views/cms/_form.rhtml:34
-msgid "Content"
-msgstr ""
-
-#: app/views/layouts/comatose_admin.rhtml:27
 #: app/views/layouts/application.rhtml:27
+#: app/views/layouts/comatose_admin.rhtml:27
 msgid "Navigation"
 msgstr ""
 
-#: app/views/layouts/comatose_admin.rhtml:28
 #: app/views/layouts/application.rhtml:28
+#: app/views/layouts/comatose_admin.rhtml:28
 msgid "Footer"
 msgstr ""
 
-#: app/views/layouts/comatose_admin.rhtml:58
 #: app/views/layouts/application.rhtml:58
+#: app/views/layouts/comatose_admin.rhtml:58
 msgid "Image for Loading..."
+msgstr ""
+
+#: app/views/manage_tags/new.rhtml:1 app/views/manage_tags/list.rhtml:19
+msgid "New tag"
+msgstr ""
+
+#: app/views/manage_tags/new.rhtml:5
+msgid "Create"
+msgstr ""
+
+#: app/views/manage_tags/_form.rhtml:2
+msgid "Parent tag"
+msgstr ""
+
+#: app/views/manage_tags/_form.rhtml:3
+msgid "Pending"
+msgstr ""
+
+#: app/views/manage_tags/search.rhtml:3
+msgid "Matching tags"
+msgstr ""
+
+#: app/views/manage_tags/search.rhtml:6
+msgid " was found"
+msgstr ""
+
+#: app/views/manage_tags/search.rhtml:9
+msgid "No tags found matching criteria"
+msgstr ""
+
+#: app/views/manage_tags/search.rhtml:12
+msgid "Back"
 msgstr ""
 
 #: app/views/manage_tags/_a_tag.rhtml:4
@@ -724,53 +963,16 @@ msgstr ""
 msgid "Go to the top view of the tags"
 msgstr ""
 
-#: app/views/manage_tags/list.rhtml:17
-#: app/views/content_viewer/view_page.rhtml:4
-msgid "Up"
-msgstr ""
-
 #: app/views/manage_tags/list.rhtml:18
 msgid "Filter by the parent of the actual tag"
-msgstr ""
-
-#: app/views/manage_tags/list.rhtml:19 app/views/manage_tags/new.rhtml:1
-msgid "New tag"
 msgstr ""
 
 #: app/views/manage_tags/list.rhtml:20
 msgid "Create a new tag"
 msgstr ""
 
-#: app/views/manage_tags/_form.rhtml:2
-msgid "Parent tag"
-msgstr ""
-
-#: app/views/manage_tags/_form.rhtml:3
-msgid "Pending"
-msgstr ""
-
 #: app/views/manage_tags/edit.rhtml:1
 msgid "Editing Tag"
-msgstr ""
-
-#: app/views/manage_tags/search.rhtml:3
-msgid "Matching tags"
-msgstr ""
-
-#: app/views/manage_tags/search.rhtml:6
-msgid " was found"
-msgstr ""
-
-#: app/views/manage_tags/search.rhtml:9
-msgid "No tags found matching criteria"
-msgstr ""
-
-#: app/views/manage_tags/search.rhtml:12
-msgid "Back"
-msgstr ""
-
-#: app/views/manage_tags/new.rhtml:5
-msgid "Create"
 msgstr ""
 
 #: app/views/admin_panel/index.rhtml:1
@@ -793,8 +995,8 @@ msgstr ""
 msgid "Edit the Visual Design"
 msgstr ""
 
-#: app/views/content_viewer/not_found.rhtml:1
-msgid "There is no such page: %s"
+#: app/views/account/login.rhtml:7
+msgid "Password"
 msgstr ""
 
 #: app/views/account/index_anonymous.rhtml:1
@@ -836,10 +1038,6 @@ msgstr ""
 
 #: app/views/account/change_password.rhtml:11
 msgid "Confirm your new Password"
-msgstr ""
-
-#: app/views/account/login.rhtml:7
-msgid "Password"
 msgstr ""
 
 #: app/views/account/index.rhtml:1
@@ -891,220 +1089,12 @@ msgid ""
 "confirm your changes."
 msgstr ""
 
-#: app/views/cms/_form.rhtml:6
-msgid "Title"
-msgstr ""
-
-#: app/views/cms/_form.rhtml:7
-msgid "More..."
-msgstr ""
-
-#: app/views/cms/_form.rhtml:7
-msgid "Less..."
-msgstr ""
-
-#: app/views/cms/_form.rhtml:11
-msgid "Slug"
-msgstr ""
-
-#: app/views/cms/_form.rhtml:17
-msgid "Keywords"
-msgstr ""
-
-#: app/views/cms/_form.rhtml:24
-msgid "Parent"
-msgstr ""
-
-#: app/views/cms/_form.rhtml:26
-msgid "%s is a root page"
-msgstr ""
-
-#: app/views/cms/_form.rhtml:40
-msgid "Filter"
-msgstr ""
-
-#: app/views/cms/_form.rhtml:42
-msgid "Converts plain text into HTML"
-msgstr ""
-
-#: app/views/cms/_form.rhtml:48
-msgid "Created"
-msgstr ""
-
-#: app/views/cms/_form.rhtml:57
-msgid "One revision"
-msgid_plural "%d revisions"
-msgstr[0] ""
-msgstr[1] ""
-
-#: app/views/cms/_form.rhtml:63
-msgid "Loading preview ..."
-msgstr ""
-
-#: app/views/cms/_form.rhtml:64
-msgid "Save Changes"
-msgstr ""
-
-#: app/views/cms/_form.rhtml:64
-msgid "Create Page"
-msgstr ""
-
-#: app/views/cms/_form.rhtml:66
-msgid "Revert"
-msgstr ""
-
-#: app/views/cms/_form.rhtml:69
-msgid ""
-"Changes detected. You will lose all the updates you have made if you "
-"proceed..."
-msgstr ""
-
-#: app/views/cms/_form.rhtml:75
-msgid "Page Preview"
-msgstr ""
-
-#: app/views/cms/_form.rhtml:77
-msgid "Loading Preview..."
-msgstr ""
-
-#: app/views/cms/_form.rhtml:82
-msgid "Close Preview"
-msgstr ""
-
-#: app/views/cms/_form.rhtml:82 app/views/cms/versions.rhtml:24
-msgid "or"
-msgstr ""
-
-#: app/views/cms/_form.rhtml:82
-msgid "Back to top"
-msgstr ""
-
-#: app/views/cms/delete.rhtml:6
-msgid "Are you sure you want to delete the page titled \"%s\"?"
-msgstr ""
-
-#: app/views/cms/delete.rhtml:8
-msgid "It has %s child pages that will also be deleted..."
-msgstr ""
-
-#: app/views/cms/delete.rhtml:14
-msgid "Yes, Delete The Page"
-msgstr ""
-
-#: app/views/cms/reorder.rhtml:1
-msgid "Reorder Pages"
-msgstr ""
-
-#: app/views/cms/reorder.rhtml:3
-msgid "\"%s\" child pages:"
-msgstr ""
-
-#: app/views/cms/reorder.rhtml:19
-msgid "Move Up"
-msgstr ""
-
-#: app/views/cms/reorder.rhtml:20
-msgid "Move Down"
-msgstr ""
-
-#: app/views/cms/reorder.rhtml:29
-msgid "Finished"
-msgstr ""
-
-#: app/views/cms/edit.rhtml:2
-msgid "Edit Page"
-msgstr ""
-
-#: app/views/cms/versions.rhtml:1
-msgid "Page Revisions"
-msgstr ""
-
-#: app/views/cms/versions.rhtml:7
-msgid "View Version:"
-msgstr ""
-
-#: app/views/cms/versions.rhtml:11
-msgid "Version %s"
-msgstr ""
-
-#: app/views/cms/versions.rhtml:14 app/views/cms/versions.rhtml:35
-msgid "Title:"
-msgstr ""
-
-#: app/views/cms/versions.rhtml:15 app/views/cms/versions.rhtml:36
-msgid "Slug:"
-msgstr ""
-
-#: app/views/cms/versions.rhtml:17 app/views/cms/versions.rhtml:38
-msgid "Keywords:"
-msgstr ""
-
-#: app/views/cms/versions.rhtml:23
-msgid "Set As Current Version"
-msgstr ""
-
-#: app/views/cms/versions.rhtml:32
-msgid "Current Version"
-msgstr ""
-
-#: app/views/cms/new.rhtml:2
-msgid "New Page"
-msgstr ""
-
-#: app/views/cms/_page_list_item.rhtml:6
-msgid "%d revision"
-msgstr ""
-
-#: app/views/cms/_page_list_item.rhtml:6
-msgid "%d revisions"
-msgstr ""
-
-#: app/views/cms/_page_list_item.rhtml:7
-msgid "add child document"
-msgstr ""
-
-#: app/views/cms/_page_list_item.rhtml:7
-msgid "Add a child to '%s'"
-msgstr ""
-
-#: app/views/cms/_page_list_item.rhtml:8
-msgid "reorder children"
-msgstr ""
-
-#: app/views/cms/_page_list_item.rhtml:8
-msgid "finished reordering"
-msgstr ""
-
-#: app/views/cms/_page_list_item.rhtml:8
-msgid "Reorder children of '%s'"
-msgstr ""
-
-#: app/views/cms/_page_list_item.rhtml:9
-msgid "delete"
-msgstr ""
-
-#: app/views/cms/_page_list_item.rhtml:9
-msgid "This will delete this page, and any children. Are you sure?"
-msgstr ""
-
-#: app/views/cms/_page_list_item.rhtml:9
-msgid "Delete page '%s' and all it's children"
-msgstr ""
-
-#: app/views/cms/_page_list_item.rhtml:26
-msgid "DRAG"
-msgstr ""
-
-#: app/views/cms/index.rhtml:2
-msgid "Clear Page Cache"
-msgstr ""
-
-#: app/views/cms/index.rhtml:6
-msgid "Document List"
-msgstr ""
-
 #: app/views/profile_editor/person_info.rhtml:1
 msgid "Edit person info"
+msgstr ""
+
+#: app/views/profile_editor/person_info.rhtml:9
+msgid "Contact Information"
 msgstr ""
 
 #: app/views/profile_editor/person_info.rhtml:11
