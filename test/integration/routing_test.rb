@@ -26,7 +26,12 @@ class RoutingTest < ActionController::IntegrationTest
   end
 
   def test_edit_template
+    # FIXME: this is wrong
     assert_routing('/admin/edit_template', :controller => 'edit_template', :action => 'index')
+  end
+
+  def test_profile_editor
+    assert_routing('/myprofile/ze', :profile => 'ze', :controller => 'profile_editor', :action => 'index')
   end
 
   # virtual community administrative controllers (admin/*)
@@ -45,7 +50,7 @@ class RoutingTest < ActionController::IntegrationTest
     assert_routing('/admin/manage_tags', :controller => 'manage_tags', :action => 'index')
   end
 
-  # platform administrative controllers (metaadmin/*)
+  # platform administrative controllers (system/*)
   ################################################################
 
   # external public controllers

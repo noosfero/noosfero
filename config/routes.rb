@@ -23,8 +23,8 @@ ActionController::Routing::Routes.draw do |map|
   ## Controllers that are profile-specific (for profile admins )
   ######################################################
   # profile customization - "My profile"
-  map.myprofile 'myprofile', :controller => 'myprofile'
-  map.myprofile 'myprofile/:profile/:controller/:action/:id', :controller => /(enterprise)/
+  map.myprofile 'myprofile/:profile', :controller => 'profile_editor', :action => 'index'
+  map.myprofile 'myprofile/:profile/:controller/:action/:id', :controller => /(enterprise|profile_editor)/
   # content administration 
   map.cms 'cms/:profile/:action/:id', :controller => 'cms'
 

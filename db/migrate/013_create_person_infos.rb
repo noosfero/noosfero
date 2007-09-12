@@ -4,6 +4,8 @@ class CreatePersonInfos < ActiveRecord::Migration
       t.column :photo, :text
       t.column :address, :text
       t.column :contact_information, :text
+
+      t.column :person_id, :integer
     end
   end
 

@@ -111,6 +111,7 @@ module ApplicationHelper
   def user_links
     links = [
        ( link_to(_('My account'), { :controller => 'account' }) ),
+       ( link_to_myprofile(_('My profile'), { :controller => 'profile_editor' }) ),
        ( link_to_homepage(_('My home page')) ),
        ( link_to_cms(_('Manage content')) ),
        ( link_to (_('Manage layout')), :controller => 'edit_template' ),
