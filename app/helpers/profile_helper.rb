@@ -6,7 +6,7 @@ module ProfileHelper
       content_tag('div', _('This profile does not have any public information'))
     else
       table_rows = ''
-      info.each do |item|
+      info.summary.each do |item|
         name = item[0]
         value = item[1]
         if value.is_a?(Proc)

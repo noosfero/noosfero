@@ -27,7 +27,9 @@ class ProfileHelperTest < Test::Unit::TestCase
       [ f1, v1 ],
       [ f2, v2 ]
     ]
-    profile.stubs(:info).returns(array)
+    info = mock
+    info.expects(:summary).returns(array)
+    profile.stubs(:info).returns(info)
 
     helper.expects(:content_tag).with('th', f1).returns(f1)
     helper.expects(:content_tag).with('td', v1).returns(v1)
@@ -42,7 +44,9 @@ class ProfileHelperTest < Test::Unit::TestCase
 
   def test_should_call_blocks
     myproc = lambda { content_tag('div', 'lalala')  }
-    profile.stubs(:info).returns([['f1', myproc ]])
+    info = mock
+    info.expects(:summary).returns([['f1', myproc ]])
+    profile.stubs(:info).returns(info)
     helper.stubs(:content_tag).returns('')
 
     helper.expects(:instance_eval).with(myproc)

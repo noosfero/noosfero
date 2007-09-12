@@ -73,14 +73,18 @@ class Profile < ActiveRecord::Base
   end
 
   # Returns information about the profile's owner that was made public by
-  # him/her. The returned value must be an array in the followinf format:
+  # him/her.
+  #
+  # The returned value must be an object that responds to a method "summary",
+  # which must return an array in the following format:
   #
   #   [
   #     [ 'First Field', first_field_value ],
   #     [ 'Second Field', second_field_value ],
   #   ]
   #
-  # This information shall be used by user interface to present the information
+  # This information shall be used by user interface to present the
+  # information.
   #
   # In this class, this method returns nil, what is interpreted as "no
   # information at all". Subclasses must override this method to provide their
