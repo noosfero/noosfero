@@ -1,6 +1,6 @@
 <h1><%= @page.title %></h2>
 
-<% if @page.parent %>
+<% if @page.parent && !@page.parent.full_path.blank? %>
   <%= link_to_document(@page.parent, _('Up')) %>
   <hr/>
 <% end %>
