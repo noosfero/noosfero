@@ -99,10 +99,11 @@ module ApplicationHelper
     link_to text, { :profile => profile }.merge(url), options
   end
 
-  def link_to_document(doc)
+  def link_to_document(doc, text = nil)
+    text ||= doc.title
     path = doc.full_path.split(/\//)
     profile = path.shift
-    link_to doc.title, homepage_path(:profile => profile , :page => path)
+    link_to text, homepage_path(:profile => profile , :page => path)
   end
 
   # TODO: add the actual links

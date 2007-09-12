@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.1.0~rc1\n"
 "POT-Creation-Date: 2007-09-12 02:25-0300\n"
-"PO-Revision-Date: 2007-09-12 02:22-0300\n"
+"PO-Revision-Date: 2007-09-12 02:28-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1076,18 +1076,16 @@ msgid "New Page"
 msgstr "Nova Página"
 
 #: app/views/cms/_page_list_item.rhtml:6
-#, fuzzy
 msgid "%d revision"
-msgstr "Uma revisão"
+msgstr "%d revisão"
 
 #: app/views/cms/_page_list_item.rhtml:6
-#, fuzzy
 msgid "%d revisions"
-msgstr "Uma revisão"
+msgstr "%d revisões"
 
 #: app/views/cms/_page_list_item.rhtml:7
 msgid "add child document"
-msgstr ""
+msgstr "adicionar document filho"
 
 #: app/views/cms/_page_list_item.rhtml:7
 msgid "Add a child to '%s'"
@@ -1106,9 +1104,8 @@ msgid "Reorder children of '%s'"
 msgstr "Reordenar filhos de '%s'"
 
 #: app/views/cms/_page_list_item.rhtml:9
-#, fuzzy
 msgid "delete"
-msgstr "Excluir"
+msgstr "excluir"
 
 #: app/views/cms/_page_list_item.rhtml:9
 msgid "This will delete this page, and any children. Are you sure?"

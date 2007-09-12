@@ -5,13 +5,10 @@
 <%= _('It is a good idea to change your password from times to times.') %>
 </p>
 
-<%# FIXME: to be implemented %>
-<!--
 <p>
-<%= link_to _('Edit Personal details.'), :action => 'edit_details' %>
+<%= link_to_myprofile _('Edit Personal details.'), :controller => 'profile_editor' %>
 <%= _('You can change your personal details.') %>
 </p>
--->
 
 <p>
 <%= link_to _('Logout.'), :action => 'logout' %>
