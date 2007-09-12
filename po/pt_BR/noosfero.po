@@ -4,11 +4,10 @@
 # Copyright (C) 2007,
 #   Ynternet.org Foundation <http://www.ynternet.org/>
 # This file is distributed under the same license as noosfero itself.
-
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.1.0\n"
-"POT-Creation-Date: 2007-09-11 16:57-0300\n"
+"Project-Id-Version: noosfero 0.1.0~rc1\n"
+"POT-Creation-Date: 2007-09-11 22:26-0300\n"
 "PO-Revision-Date: 2007-09-11 19:17-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,298 +16,42 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: app/controllers/account_controller.rb:20
-msgid "Logged in successfully"
-msgstr "Login bem sucedido"
-
-#: app/controllers/account_controller.rb:22
-msgid "Incorrect username or password"
-msgstr "Nome ou senha incorreto"
-
-#: app/controllers/account_controller.rb:34
-msgid "You have to accept the terms of service to signup"
-msgstr "Você tem que aceitar os termos de uso para se registrar"
-
-#: app/controllers/account_controller.rb:42
-msgid "Thanks for signing up!"
-msgstr "Obrigado por se registrar!"
-
-#: app/controllers/account_controller.rb:53
-msgid "You have been logged out."
-msgstr "Você se saiu do sistema"
-
-#: app/controllers/account_controller.rb:64
-msgid "Your password has been changed successfully!"
-msgstr "Sua senha foi alterada com sucesso!"
-
-#: app/controllers/account_controller.rb:67
-msgid "The supplied current password is incorrect."
-msgstr "A senha informada está incorreta"
-
-#: app/controllers/edit_template_controller.rb:7
-msgid "List Block"
-msgstr "Bloco Lista"
-
-#: app/controllers/edit_template_controller.rb:8
-msgid "Link Block"
-msgstr "Bloco Link"
-
-#: app/controllers/edit_template_controller.rb:9
-msgid "Recent documents"
-msgstr "Documentos recentes"
-
-#: app/controllers/edit_template_controller.rb:10
-msgid "Main content block"
-msgstr "Bloco de conteúdo principal"
-
-#: app/controllers/manage_tags_controller.rb:26
-msgid "Tag was successfully created."
-msgstr "Marcador criado com sucesso."
-
-#: app/controllers/manage_tags_controller.rb:44
-msgid "Tag was successfully updated."
-msgstr "Marcador alterado com sucesso"
-
-#: app/controllers/manage_tags_controller.rb:56
-msgid "Tag was successfuly destroyed"
-msgstr "Marcador removido com sucesso"
-
-#: app/controllers/manage_tags_controller.rb:65
-msgid "Tag was successfuly approved"
-msgstr "Marcador aprovado com sucesso"
-
-#: app/controllers/enterprise_controller.rb:38
-msgid ""
-"The enterprise was succesfully created, the validation entity will cotact "
-"you as soon as your enterprise is approved"
-msgstr "O empreendimento foi criado com sucesso, a entidade de validação "
-"irá entrar em contato com você assim que seu empreendimento for aprovado"
-
-#: app/controllers/enterprise_controller.rb:41
-msgid "Enterprise was not created"
-msgstr "Empreendimento não foi criado"
-
-#: app/controllers/enterprise_controller.rb:60
-msgid "Could not update the enterprise"
-msgstr "Não pôde modificar o empreendimento"
-
-#: app/controllers/enterprise_controller.rb:93
-msgid "Enterprise successfuly activacted"
-msgstr "Empreendimento ativado com sucesso"
-
-#: app/controllers/enterprise_controller.rb:95
-msgid "Failed to activate the enterprise"
-msgstr "Falhou em ativar o empreendimento"
-
-#: app/controllers/enterprise_controller.rb:104
-msgid "Enterprise successfuly approved"
-msgstr "Empreendimento aprovado com sucesso"
-
-#: app/controllers/enterprise_controller.rb:106
-msgid "Failed to approve the enterprise"
-msgstr "Falhou em aprovar o empreendimento"
-
-#: app/controllers/enterprise_controller.rb:115
-msgid "Enterprise successfuly rejected"
-msgstr "Empreendimeto rejeitado com sucesso"
-
-#: app/controllers/enterprise_controller.rb:117
-msgid "Failed to reject the enterprise"
-msgstr "Falhou em rejeitar o empreendimento"
-
-#: app/controllers/features_controller.rb:18
-msgid "Features updated successfully."
-msgstr "Funcionalidades alterada com sucesso"
-
-#: app/models/enterprise.rb:13
-msgid "Not approved enterprise can't be activated"
-msgstr "Empreendimento não aprovado não pode ser ativado"
-
-#: app/models/profile.rb:-
-msgid "profile"
-msgstr "perfil"
-
-#: app/models/profile.rb:-
-msgid "Profile|Name"
-msgstr "Nome"
-
-#: app/models/profile.rb:-
-msgid "Profile|Type"
-msgstr "Tipo"
-
-#: app/models/profile.rb:-
-msgid "Profile|Identifier"
-msgstr "Identificador"
-
-#: app/models/profile.rb:-
-msgid "Profile|Virtual community"
-msgstr "Comunidade virtual"
-
-#: app/models/profile.rb:-
-msgid "Profile|Flexible template template"
-msgstr "Modelo fexível modelo"
-
-#: app/models/profile.rb:-
-msgid "Profile|Flexible template theme"
-msgstr "Modelo flexível tema"
-
-#: app/models/profile.rb:-
-msgid "Profile|Flexible template icon theme"
-msgstr "Modelo flexível tema de ícones"
-
-#: app/models/profile.rb:-
-msgid "Profile|Active"
-msgstr "Ativo"
-
-#: app/models/profile.rb:-
-msgid "Profile|Address"
-msgstr "Endereço"
-
-#: app/models/profile.rb:-
-msgid "Profile|Contact phone"
-msgstr "Telefone de contato"
-
-#: app/models/profile.rb:-
-msgid "Profile|User"
-msgstr "Usuário"
-
-#: app/models/profile.rb:-
-msgid "Profile|Validation entity"
-msgstr "Entidade de validação"
-
-#: app/models/profile.rb:-
-msgid "Profile|Approved"
-msgstr "Aprovado"
-
-#: app/models/profile.rb:44
-msgid "An existing profile cannot be renamed."
-msgstr "Um perfil existente não pode ser renomeado"
-
-#: app/models/organization_info.rb:-
-msgid "organization info"
-msgstr "informação da organização"
-
-#: app/models/organization_info.rb:-
-msgid "OrganizationInfo|Organization"
-msgstr "Organização"
-
-#: app/models/organization_info.rb:-
-msgid "OrganizationInfo|Contact person"
-msgstr "Pessoa de contato"
-
-#: app/models/organization_info.rb:-
-msgid "OrganizationInfo|Acronym"
-msgstr "Acrônimo"
-
-#: app/models/organization_info.rb:-
-msgid "OrganizationInfo|Foundation year"
-msgstr "Ano de fundação"
-
-#: app/models/organization_info.rb:-
-msgid "OrganizationInfo|Legal form"
-msgstr "Formulário legal"
-
-#: app/models/organization_info.rb:-
-msgid "OrganizationInfo|Economic activity"
-msgstr "Atividade econômica"
-
-#: app/models/organization_info.rb:-
-msgid "OrganizationInfo|Management information"
-msgstr "Informação de gerenciamento"
-
-#: app/models/organization_info.rb:-
-msgid "OrganizationInfo|Validated"
-msgstr "Validado"
-
-#: app/models/person_info.rb:-
-msgid "person info"
-msgstr "informação pesoal"
-
-#: app/models/person_info.rb:-
-msgid "PersonInfo|Photo"
-msgstr "Fotografia"
-
-#: app/models/person_info.rb:-
-msgid "PersonInfo|Address"
-msgstr "Endereço"
-
-#: app/models/person_info.rb:-
-msgid "PersonInfo|Contact information"
-msgstr "Informação de contato"
-
-#: app/models/virtual_community.rb:-
-msgid "virtual community"
-msgstr "comunidade virtual"
-
-#: app/models/virtual_community.rb:-
-msgid "VirtualCommunity|Name"
-msgstr "Nome"
-
-#: app/models/virtual_community.rb:-
-msgid "VirtualCommunity|Is default"
-msgstr "É padrão"
-
-#: app/models/virtual_community.rb:-
-msgid "VirtualCommunity|Settings"
-msgstr "Configurações"
-
-#: app/models/virtual_community.rb:-
-msgid "VirtualCommunity|Design data"
-msgstr "Dados de design"
-
-#: app/models/virtual_community.rb:10
-msgid "Some feature"
-msgstr "Alguma funcionalidade"
-
-#: app/models/virtual_community.rb:11
-msgid "Other feature"
-msgstr "Outra funcionalidade"
-
-#: app/models/virtual_community.rb:121
-msgid "Only one Virtual Community can be the default one"
-msgstr "Apenas uma comunidade virtual pode ser a padrão"
-
-#: app/models/domain.rb:-
-msgid "domain"
-msgstr "domínio"
-
-#: app/models/domain.rb:-
-msgid "Domain|Name"
-msgstr "Nome"
-
-#: app/models/domain.rb:-
-msgid "Domain|Owner type"
-msgstr "Tipo do dono"
-
-#: app/models/domain.rb:-
-msgid "Domain|Owner"
-msgstr "Dono"
-
-#: app/models/domain.rb:13
-msgid ""
-"%{fn} must be composed only of lowercase latters (a to z), numbers (0 to 9) "
-"and \"_\""
-msgstr "%{fn} deve ser composto apenas por letras minúsculas (a a z), números (0 a 9)  e \"_\""
-
-#: app/models/domain.rb:20
-msgid "%{fn} must not start with www."
-msgstr "%{fn} não pode iniciar com www"
-
-#: app/models/friendship.rb:-
-msgid "friendship"
-msgstr "amizade"
-
-#: app/models/friendship.rb:-
-msgid "Friendship|Person"
-msgstr "Pessoa"
-
-#: app/models/friendship.rb:-
-msgid "Friendship|Friend"
-msgstr "Amigo"
-
-#: app/models/friendship.rb:-
-msgid "Friendship|Created at"
-msgstr "Criado em"
+#: app/helpers/application_helper.rb:55
+msgid "Help"
+msgstr "Ajuda"
+
+#: app/helpers/application_helper.rb:113
+msgid "My account"
+msgstr "Minha conta"
+
+#: app/helpers/application_helper.rb:114
+msgid "My home page"
+msgstr "Minha página principal"
+
+#: app/helpers/application_helper.rb:115
+msgid "Manage content"
+msgstr "Gerenciar conteúdo"
+
+#: app/helpers/application_helper.rb:116
+msgid "Manage layout"
+msgstr "Gerenciar leiaute"
+
+#: app/helpers/application_helper.rb:135 app/views/account/login.rhtml:1
+#: app/views/account/login.rhtml:4
+msgid "Login"
+msgstr "Entrar"
+
+#: app/helpers/application_helper.rb:139
+msgid "Not a user yet? Register now!"
+msgstr "Ainda não é usuário? Registre-se agora!"
+
+#: app/helpers/application_helper.rb:143
+msgid "Logout"
+msgstr "Sair"
+
+#: app/helpers/profile_helper.rb:6
+msgid "This profile does not have any public information"
+msgstr "Este perfil não tem nenhuma informação pública"
 
 #: app/models/user.rb:-
 msgid "user"
@@ -346,6 +89,70 @@ msgstr "Lembrar token"
 msgid "User|Remember token expires at"
 msgstr "Token lembrado expira em"
 
+#: app/models/user.rb:-
+msgid "profile"
+msgstr "perfil"
+
+#: app/models/user.rb:-
+msgid "Profile|Name"
+msgstr "Nome"
+
+#: app/models/user.rb:-
+msgid "Profile|Type"
+msgstr "Tipo"
+
+#: app/models/user.rb:-
+msgid "Profile|Identifier"
+msgstr "Identificador"
+
+#: app/models/user.rb:-
+msgid "Profile|Virtual community"
+msgstr "Comunidade virtual"
+
+#: app/models/user.rb:-
+msgid "Profile|Flexible template template"
+msgstr "Modelo fexível modelo"
+
+#: app/models/user.rb:-
+msgid "Profile|Flexible template theme"
+msgstr "Modelo flexível tema"
+
+#: app/models/user.rb:-
+msgid "Profile|Flexible template icon theme"
+msgstr "Modelo flexível tema de ícones"
+
+#: app/models/user.rb:-
+msgid "Profile|Active"
+msgstr "Ativo"
+
+#: app/models/user.rb:-
+msgid "Profile|Address"
+msgstr "Endereço"
+
+#: app/models/user.rb:-
+msgid "Profile|Contact phone"
+msgstr "Telefone de contato"
+
+#: app/models/user.rb:-
+msgid "Profile|User"
+msgstr "Usuário"
+
+#: app/models/user.rb:-
+msgid "Profile|Validation entity"
+msgstr "Entidade de validação"
+
+#: app/models/user.rb:-
+msgid "Profile|Approved"
+msgstr "Aprovado"
+
+#: app/models/enterprise.rb:13
+msgid "Not approved enterprise can't be activated"
+msgstr "Empreendimento não aprovado não pode ser ativado"
+
+#: app/models/profile.rb:44
+msgid "An existing profile cannot be renamed."
+msgstr "Um perfil existente não pode ser renomeado"
+
 #: app/models/affiliation.rb:-
 msgid "affiliation"
 msgstr "associação"
@@ -357,6 +164,118 @@ msgstr "Pessoa"
 #: app/models/affiliation.rb:-
 msgid "Affiliation|Profile"
 msgstr "Perfil"
+
+#: app/models/domain.rb:-
+msgid "domain"
+msgstr "domínio"
+
+#: app/models/domain.rb:-
+msgid "Domain|Name"
+msgstr "Nome"
+
+#: app/models/domain.rb:-
+msgid "Domain|Owner type"
+msgstr "Tipo do dono"
+
+#: app/models/domain.rb:-
+msgid "Domain|Owner"
+msgstr "Dono"
+
+#: app/models/domain.rb:13
+msgid ""
+"%{fn} must be composed only of lowercase latters (a to z), numbers (0 to 9) "
+"and \"_\""
+msgstr ""
+"%{fn} deve ser composto apenas por letras minúsculas (a a z), números (0 a "
+"9)  e \"_\""
+
+#: app/models/domain.rb:20
+msgid "%{fn} must not start with www."
+msgstr "%{fn} não pode iniciar com www"
+
+#: app/models/virtual_community.rb:-
+msgid "virtual community"
+msgstr "comunidade virtual"
+
+#: app/models/virtual_community.rb:-
+msgid "VirtualCommunity|Name"
+msgstr "Nome"
+
+#: app/models/virtual_community.rb:-
+msgid "VirtualCommunity|Is default"
+msgstr "É padrão"
+
+#: app/models/virtual_community.rb:-
+msgid "VirtualCommunity|Settings"
+msgstr "Configurações"
+
+#: app/models/virtual_community.rb:-
+msgid "VirtualCommunity|Design data"
+msgstr "Dados de design"
+
+#: app/models/virtual_community.rb:10
+msgid "Some feature"
+msgstr "Alguma funcionalidade"
+
+#: app/models/virtual_community.rb:11
+msgid "Other feature"
+msgstr "Outra funcionalidade"
+
+#: app/models/virtual_community.rb:121
+msgid "Only one Virtual Community can be the default one"
+msgstr "Apenas uma comunidade virtual pode ser a padrão"
+
+#: app/models/organization_info.rb:-
+msgid "organization info"
+msgstr "informação da organização"
+
+#: app/models/organization_info.rb:-
+msgid "OrganizationInfo|Organization"
+msgstr "Organização"
+
+#: app/models/organization_info.rb:-
+msgid "OrganizationInfo|Contact person"
+msgstr "Pessoa de contato"
+
+#: app/models/organization_info.rb:-
+msgid "OrganizationInfo|Acronym"
+msgstr "Acrônimo"
+
+#: app/models/organization_info.rb:-
+msgid "OrganizationInfo|Foundation year"
+msgstr "Ano de fundação"
+
+#: app/models/organization_info.rb:-
+msgid "OrganizationInfo|Legal form"
+msgstr "Formulário legal"
+
+#: app/models/organization_info.rb:-
+msgid "OrganizationInfo|Economic activity"
+msgstr "Atividade econômica"
+
+#: app/models/organization_info.rb:-
+msgid "OrganizationInfo|Management information"
+msgstr "Informação de gerenciamento"
+
+#: app/models/organization_info.rb:-
+msgid "OrganizationInfo|Validated"
+msgstr "Validado"
+
+#: app/models/friendship.rb:-
+msgid "friendship"
+msgstr "amizade"
+
+#: app/models/friendship.rb:-
+msgid "Friendship|Person"
+msgstr "Pessoa"
+
+#: app/models/friendship.rb:-
+msgid "Friendship|Friend"
+msgstr "Amigo"
+
+#: app/models/friendship.rb:-
+msgid "Friendship|Created at"
+msgstr "Criado em"
 
 #: app/models/enterprise_info.rb:-
 msgid "enterprise info"
@@ -374,315 +293,159 @@ msgstr "Comentário de aprovação"
 msgid "EnterpriseInfo|Enterprise"
 msgstr "Empreendimento"
 
-#: app/helpers/profile_helper.rb:6
-msgid "This profile does not have any public information"
-msgstr "Este perfil não tem nenhuma informação pública"
+#: app/models/person_info.rb:-
+msgid "person info"
+msgstr "informação pesoal"
 
-#: app/helpers/application_helper.rb:55
-msgid "Help"
-msgstr "Ajuda"
+#: app/models/person_info.rb:-
+msgid "PersonInfo|Photo"
+msgstr "Fotografia"
 
-#: app/helpers/application_helper.rb:112
-msgid "My account"
-msgstr "Minha conta"
+#: app/models/person_info.rb:-
+msgid "PersonInfo|Address"
+msgstr "Endereço"
 
-#: app/helpers/application_helper.rb:113
-msgid "My home page"
-msgstr "Minha página principal"
+#: app/models/person_info.rb:-
+msgid "PersonInfo|Contact information"
+msgstr "Informação de contato"
 
-#: app/helpers/application_helper.rb:114
-msgid "Manage content"
-msgstr "Gerenciar conteúdo"
-
-#: app/helpers/application_helper.rb:115
-msgid "Manage layout"
-msgstr "Gerenciar leiaute"
-
-#: app/helpers/application_helper.rb:116
-msgid "My enterprises"
-msgstr "Meu empreendimento"
-
-#: app/helpers/application_helper.rb:134 app/views/account/login.rhtml:1
-#: app/views/account/login.rhtml:4
-msgid "Login"
-msgstr "Entrar"
-
-#: app/helpers/application_helper.rb:138
-msgid "Not a user yet? Register now!"
-msgstr "Ainda não é usuário? Registre-se agora!"
-
-#: app/helpers/application_helper.rb:142
-msgid "Logout"
-msgstr "Sair"
-
-#: app/views/cms/new.rhtml:2
-msgid "New Page"
-msgstr "Nova Página"
-
-#: app/views/cms/_page_list_item.rhtml:7
-msgid "Add a child to '%s'"
-msgstr "Adicionar um filho a '%s'"
-
-#: app/views/cms/_page_list_item.rhtml:8
-msgid "reorder children"
-msgstr "reordenar filhos"
-
-#: app/views/cms/_page_list_item.rhtml:8
-msgid "finished reordering"
-msgstr "ordenação terminada"
-
-#: app/views/cms/_page_list_item.rhtml:8
-msgid "Reorder children of '%s'"
-msgstr "Reordenar filhos de '%s'"
-
-#: app/views/cms/_page_list_item.rhtml:9
-msgid "This will delete this page, and any children. Are you sure?"
-msgstr "Isto vai excluir esta página, e qualquer filho. Tem certeza?"
-
-#: app/views/cms/_page_list_item.rhtml:9
-msgid "Delete page '%s' and all it's children"
-msgstr "Excluir página '%s' e todos seus filhos"
-
-#: app/views/cms/_page_list_item.rhtml:26
-msgid "DRAG"
-msgstr "ARRASTAR"
-
-#: app/views/cms/_form.rhtml:6
-msgid "Title"
-msgstr "Título"
-
-#: app/views/cms/_form.rhtml:7
-msgid "More..."
-msgstr "Mais..."
-
-#: app/views/cms/_form.rhtml:7
-msgid "Less..."
-msgstr "Menos..."
-
-#: app/views/cms/_form.rhtml:11
-msgid "Slug"
-msgstr ""
-
-#: app/views/cms/_form.rhtml:17
-msgid "Keywords"
-msgstr "Palvras-chave"
-
-#: app/views/cms/_form.rhtml:24
-msgid "Parent"
-msgstr "Pai"
-
-#: app/views/cms/_form.rhtml:26
-msgid "%s is a root page"
-msgstr "%s é uma página raiz"
-
-#: app/views/cms/_form.rhtml:34 app/views/layouts/application.rhtml:26
-#: app/views/layouts/comatose_admin.rhtml:26
-msgid "Content"
-msgstr "Conteúdo"
-
-#: app/views/cms/_form.rhtml:40
-msgid "Filter"
-msgstr "Filtro"
-
-#: app/views/cms/_form.rhtml:42
-msgid "Converts plain text into HTML"
-msgstr "Converte texto plano em HTML"
-
-#: app/views/cms/_form.rhtml:48
-msgid "Created"
-msgstr "Criado"
-
-#: app/views/cms/_form.rhtml:57
-msgid "One revision"
-msgid_plural "%d revisions"
-msgstr[0] "Uma revisão"
-msgstr[1] "%d revisões"
-
-#: app/views/cms/_form.rhtml:63
-msgid "Loading preview ..."
-msgstr "Carregando pré-visualização ..."
-
-#: app/views/cms/_form.rhtml:64
-msgid "Save Changes"
-msgstr "Salvar Mudanças"
-
-#: app/views/cms/_form.rhtml:64
-msgid "Create Page"
-msgstr "Criar Página"
-
-#: app/views/cms/_form.rhtml:66
-msgid "Revert"
-msgstr "Reverter"
-
-#: app/views/cms/_form.rhtml:69
-msgid ""
-"Changes detected. You will lose all the updates you have made if you "
-"proceed..."
-msgstr "Mudanças detectadas. Você vai perder todas as atualizações que você fez se continuar..."
-
-#: app/views/cms/_form.rhtml:69 app/views/cms/delete.rhtml:16
-#: app/views/cms/versions.rhtml:25 app/views/enterprise/register_form.rhtml:12
-#: app/views/enterprise/edit.rhtml:8 app/views/manage_tags/new.rhtml:6
-#: app/views/manage_tags/edit.rhtml:6
-msgid "Cancel"
-msgstr "Cancelar"
-
-#: app/views/cms/_form.rhtml:75
-msgid "Page Preview"
-msgstr "Pré-visualização da página"
-
-#: app/views/cms/_form.rhtml:77
-msgid "Loading Preview..."
-msgstr "Carregando Pré-visualzação..."
-
-#: app/views/cms/_form.rhtml:82
-msgid "Close Preview"
-msgstr "Fechar Pré-visualzação"
-
-#: app/views/cms/_form.rhtml:82 app/views/cms/versions.rhtml:24
-msgid "or"
-msgstr "ou"
-
-#: app/views/cms/_form.rhtml:82
-msgid "Back to top"
-msgstr "Voltar ao topo"
-
-#: app/views/cms/reorder.rhtml:1
-msgid "Reorder Pages"
-msgstr "Rordenar Páginas"
-
-#: app/views/cms/reorder.rhtml:3
-msgid "\"%s\" child pages:"
-msgstr "\"%s\" páginas filhas:"
-
-#: app/views/cms/reorder.rhtml:19
-msgid "Move Up"
-msgstr "Mover para cima"
-
-#: app/views/cms/reorder.rhtml:20
-msgid "Move Down"
-msgstr "Mover para baixo"
-
-#: app/views/cms/reorder.rhtml:29
-msgid "Finished"
-msgstr "Terminado"
-
-#: app/views/cms/delete.rhtml:6
-msgid "Are you sure you want to delete the page titled \"%s\"?"
-msgstr "Tem certeza que quer excluir a página intitulada \"%s\"?"
-
-#: app/views/cms/delete.rhtml:8
-msgid "It has %s child pages that will also be deleted..."
-msgstr "Existem %s páginas filhas que também serão excluídas..."
-
-#: app/views/cms/delete.rhtml:14
-msgid "Yes, Delete The Page"
-msgstr "Sim, Excluir A Página"
-
-#: app/views/cms/versions.rhtml:1
-msgid "Page Revisions"
-msgstr "Revisões da Página"
-
-#: app/views/cms/versions.rhtml:7
-msgid "View Version:"
-msgstr "Ver Versão:"
-
-#: app/views/cms/versions.rhtml:11
-msgid "Version %s"
-msgstr "Versão %s"
-
-#: app/views/cms/versions.rhtml:14 app/views/cms/versions.rhtml:35
-msgid "Title:"
-msgstr "Título:"
-
-#: app/views/cms/versions.rhtml:15 app/views/cms/versions.rhtml:36
-msgid "Slug:"
-msgstr ""
-
-#: app/views/cms/versions.rhtml:17 app/views/cms/versions.rhtml:38
-msgid "Keywords:"
-msgstr "Palavras-chaves"
-
-#: app/views/cms/versions.rhtml:23
-msgid "Set As Current Version"
-msgstr "Tornar versão atual"
-
-#: app/views/cms/versions.rhtml:32
-msgid "Current Version"
-msgstr "Versão Atual"
-
-#: app/views/cms/edit.rhtml:2
-msgid "Edit Page"
-msgstr "Editar Página"
-
-#: app/views/cms/index.rhtml:6
-msgid "Document List"
-msgstr "Documento Lista"
-
-#: app/views/enterprise/register_form.rhtml:3
-msgid "Register enterprise"
-msgstr "Registrar empreendimento"
-
-#: app/views/enterprise/register_form.rhtml:5
-msgid "How to proceed"
-msgstr "Como proceder"
-
-#: app/views/enterprise/register_form.rhtml:8
-msgid "Identifier"
-msgstr "Identificador"
-
-#: app/views/enterprise/register_form.rhtml:11
-#: app/views/account/signup.rhtml:1
-msgid "Register"
-msgstr "Registrar"
-
-#: app/views/enterprise/_form.rhtml:1 app/views/manage_tags/_form.rhtml:1
+#: app/models/person.rb:21 app/views/enterprise/_form.rhtml:1
+#: app/views/manage_tags/_form.rhtml:1
 msgid "Name"
 msgstr "Nome"
 
-#: app/views/enterprise/_form.rhtml:4
+#: app/models/person.rb:22 app/views/enterprise/_form.rhtml:4
 msgid "Address"
 msgstr "Endereço"
 
-#: app/views/enterprise/_form.rhtml:7
-msgid "Contact Phone"
-msgstr "Telefone de Contato"
+#: app/models/person.rb:23
+#, fuzzy
+msgid "Contact Information"
+msgstr "Informação de contato"
 
-#: app/views/enterprise/_form.rhtml:10
-msgid "Contact Person"
-msgstr "Pessoa de Contato"
+#: app/controllers/account_controller.rb:20
+msgid "Logged in successfully"
+msgstr "Login bem sucedido"
 
-#: app/views/enterprise/_form.rhtml:13
-msgid "Acronym"
-msgstr "Acrônimo"
+#: app/controllers/account_controller.rb:22
+msgid "Incorrect username or password"
+msgstr "Nome ou senha incorreto"
 
-#: app/views/enterprise/_form.rhtml:16
-msgid "Foundation Year"
-msgstr "Ano de Fundação"
+#: app/controllers/account_controller.rb:34
+msgid "You have to accept the terms of service to signup"
+msgstr "Você tem que aceitar os termos de uso para se registrar"
 
-#: app/views/enterprise/_form.rhtml:19
-msgid "Legal Form"
-msgstr "Formulário Legal"
+#: app/controllers/account_controller.rb:42
+msgid "Thanks for signing up!"
+msgstr "Obrigado por se registrar!"
 
-#: app/views/enterprise/_form.rhtml:22
-msgid "Economic Activity"
-msgstr "Atividade Econômica"
+#: app/controllers/account_controller.rb:53
+msgid "You have been logged out."
+msgstr "Você se saiu do sistema"
 
-#: app/views/enterprise/_form.rhtml:25
-msgid "Management Information"
-msgstr "Informação de Gerenciamento"
+#: app/controllers/account_controller.rb:64
+msgid "Your password has been changed successfully!"
+msgstr "Sua senha foi alterada com sucesso!"
 
-#: app/views/enterprise/_form.rhtml:28
-msgid "Validation Entity"
-msgstr "Entidade de Validação"
+#: app/controllers/account_controller.rb:67
+msgid "The supplied current password is incorrect."
+msgstr "A senha informada está incorreta"
 
-#: app/views/enterprise/_form.rhtml:31
-msgid "Tags"
-msgstr "Marcadores"
+#: app/controllers/features_controller.rb:18
+msgid "Features updated successfully."
+msgstr "Funcionalidades alterada com sucesso"
 
-#: app/views/enterprise/search.rhtml:1
-msgid " enterprises found"
-msgstr " empreendimento achado"
+#: app/controllers/edit_template_controller.rb:7
+msgid "List Block"
+msgstr "Bloco Lista"
+
+#: app/controllers/edit_template_controller.rb:8
+msgid "Link Block"
+msgstr "Bloco Link"
+
+#: app/controllers/edit_template_controller.rb:9
+msgid "Recent documents"
+msgstr "Documentos recentes"
+
+#: app/controllers/edit_template_controller.rb:10
+msgid "Main content block"
+msgstr "Bloco de conteúdo principal"
+
+#: app/controllers/enterprise_controller.rb:38
+msgid ""
+"The enterprise was succesfully created, the validation entity will cotact "
+"you as soon as your enterprise is approved"
+msgstr ""
+"O empreendimento foi criado com sucesso, a entidade de validação irá entrar "
+"em contato com você assim que seu empreendimento for aprovado"
+
+#: app/controllers/enterprise_controller.rb:41
+msgid "Enterprise was not created"
+msgstr "Empreendimento não foi criado"
+
+#: app/controllers/enterprise_controller.rb:60
+msgid "Could not update the enterprise"
+msgstr "Não pôde modificar o empreendimento"
+
+#: app/controllers/enterprise_controller.rb:93
+msgid "Enterprise successfuly activacted"
+msgstr "Empreendimento ativado com sucesso"
+
+#: app/controllers/enterprise_controller.rb:95
+msgid "Failed to activate the enterprise"
+msgstr "Falhou em ativar o empreendimento"
+
+#: app/controllers/enterprise_controller.rb:104
+msgid "Enterprise successfuly approved"
+msgstr "Empreendimento aprovado com sucesso"
+
+#: app/controllers/enterprise_controller.rb:106
+msgid "Failed to approve the enterprise"
+msgstr "Falhou em aprovar o empreendimento"
+
+#: app/controllers/enterprise_controller.rb:115
+msgid "Enterprise successfuly rejected"
+msgstr "Empreendimeto rejeitado com sucesso"
+
+#: app/controllers/enterprise_controller.rb:117
+msgid "Failed to reject the enterprise"
+msgstr "Falhou em rejeitar o empreendimento"
+
+#: app/controllers/manage_tags_controller.rb:26
+msgid "Tag was successfully created."
+msgstr "Marcador criado com sucesso."
+
+#: app/controllers/manage_tags_controller.rb:44
+msgid "Tag was successfully updated."
+msgstr "Marcador alterado com sucesso"
+
+#: app/controllers/manage_tags_controller.rb:56
+msgid "Tag was successfuly destroyed"
+msgstr "Marcador removido com sucesso"
+
+#: app/controllers/manage_tags_controller.rb:65
+msgid "Tag was successfuly approved"
+msgstr "Marcador aprovado com sucesso"
+
+#: app/views/enterprise/list.rhtml:6 app/views/enterprise/show.rhtml:3
+msgid "Register new enterprise"
+msgstr "Registrar um novo empreendimento"
+
+#: app/views/enterprise/list.rhtml:7
+msgid "Creates a new enterprise"
+msgstr "Cria um novo empreendimento"
+
+#: app/views/enterprise/list.rhtml:11
+msgid "Listing my enterprises"
+msgstr "Listando meus empreendimentos"
+
+#: app/views/enterprise/list.rhtml:17
+msgid "Listing pending enterprises"
+msgstr "Listando empreendimentos pendentes"
+
+#: app/views/enterprise/list.rhtml:24
+msgid "Other Enterprises"
+msgstr "Outros empreendimentos"
 
 #: app/views/enterprise/_enterprise.rhtml:3
 #: app/views/manage_tags/_a_tag.rhtml:3
@@ -736,26 +499,6 @@ msgstr "Rejeitar"
 #: app/views/enterprise/show.rhtml:30
 msgid "Reject a submitted enterprise profile"
 msgstr "Rejeita um perfil de empreendimento enviado"
-
-#: app/views/enterprise/list.rhtml:6 app/views/enterprise/show.rhtml:3
-msgid "Register new enterprise"
-msgstr "Registrar um novo empreendimento"
-
-#: app/views/enterprise/list.rhtml:7
-msgid "Creates a new enterprise"
-msgstr "Cria um novo empreendimento"
-
-#: app/views/enterprise/list.rhtml:11
-msgid "Listing my enterprises"
-msgstr "Listando meus empreendimentos"
-
-#: app/views/enterprise/list.rhtml:17
-msgid "Listing pending enterprises"
-msgstr "Listando empreendimentos pendentes"
-
-#: app/views/enterprise/list.rhtml:24
-msgid "Other Enterprises"
-msgstr "Outros empreendimentos"
 
 #: app/views/enterprise/show.rhtml:7
 msgid "Identifier: "
@@ -813,14 +556,41 @@ msgstr "Excluir empreendimento"
 msgid "Activate an approved enterprise"
 msgstr "Ativa um empreendimento aprovado"
 
-#: app/views/enterprise/_search_box.rhtml:4
-#: app/views/manage_tags/_search_box.rhtml:4
-msgid "Search"
-msgstr "Busca"
+#: app/views/enterprise/_form.rhtml:7
+msgid "Contact Phone"
+msgstr "Telefone de Contato"
 
-#: app/views/enterprise/_search_box.rhtml:5
-msgid "Search enteprises by tag or name"
-msgstr "Buscar empreendimentos por marcador ou nome"
+#: app/views/enterprise/_form.rhtml:10
+msgid "Contact Person"
+msgstr "Pessoa de Contato"
+
+#: app/views/enterprise/_form.rhtml:13
+msgid "Acronym"
+msgstr "Acrônimo"
+
+#: app/views/enterprise/_form.rhtml:16
+msgid "Foundation Year"
+msgstr "Ano de Fundação"
+
+#: app/views/enterprise/_form.rhtml:19
+msgid "Legal Form"
+msgstr "Formulário Legal"
+
+#: app/views/enterprise/_form.rhtml:22
+msgid "Economic Activity"
+msgstr "Atividade Econômica"
+
+#: app/views/enterprise/_form.rhtml:25
+msgid "Management Information"
+msgstr "Informação de Gerenciamento"
+
+#: app/views/enterprise/_form.rhtml:28
+msgid "Validation Entity"
+msgstr "Entidade de Validação"
+
+#: app/views/enterprise/_form.rhtml:31
+msgid "Tags"
+msgstr "Marcadores"
 
 #: app/views/enterprise/edit.rhtml:3
 msgid "Edit enterprise informations"
@@ -830,66 +600,73 @@ msgstr "Editar informações do empreendimento"
 msgid "Update"
 msgstr "Atualizar"
 
-#: app/views/content_viewer/not_found.rhtml:1
-msgid "There is no such page: %s"
-msgstr "Não há página: %s"
+#: app/views/enterprise/edit.rhtml:8
+#: app/views/enterprise/register_form.rhtml:12
+#: app/views/manage_tags/edit.rhtml:6 app/views/manage_tags/new.rhtml:6
+#: app/views/cms/_form.rhtml:69 app/views/cms/delete.rhtml:16
+#: app/views/cms/versions.rhtml:25
+msgid "Cancel"
+msgstr "Cancelar"
 
-#: app/views/layouts/application.rhtml:19
+#: app/views/enterprise/register_form.rhtml:3
+msgid "Register enterprise"
+msgstr "Registrar empreendimento"
+
+#: app/views/enterprise/register_form.rhtml:5
+msgid "How to proceed"
+msgstr "Como proceder"
+
+#: app/views/enterprise/register_form.rhtml:8
+msgid "Identifier"
+msgstr "Identificador"
+
+#: app/views/enterprise/register_form.rhtml:11
+#: app/views/account/signup.rhtml:1
+msgid "Register"
+msgstr "Registrar"
+
+#: app/views/enterprise/_search_box.rhtml:4
+#: app/views/manage_tags/_search_box.rhtml:4
+msgid "Search"
+msgstr "Busca"
+
+#: app/views/enterprise/_search_box.rhtml:5
+msgid "Search enteprises by tag or name"
+msgstr "Buscar empreendimentos por marcador ou nome"
+
+#: app/views/enterprise/search.rhtml:1
+msgid " enterprises found"
+msgstr " empreendimento achado"
+
 #: app/views/layouts/comatose_admin.rhtml:19
+#: app/views/layouts/application.rhtml:19
 msgid "Close"
 msgstr "Fechar"
 
-#: app/views/layouts/application.rhtml:25
 #: app/views/layouts/comatose_admin.rhtml:25
+#: app/views/layouts/application.rhtml:25
 msgid "Skip to:"
 msgstr "Pular para:"
 
-#: app/views/layouts/application.rhtml:27
+#: app/views/layouts/comatose_admin.rhtml:26
+#: app/views/layouts/application.rhtml:26 app/views/cms/_form.rhtml:34
+msgid "Content"
+msgstr "Conteúdo"
+
 #: app/views/layouts/comatose_admin.rhtml:27
+#: app/views/layouts/application.rhtml:27
 msgid "Navigation"
 msgstr "Navegação"
 
-#: app/views/layouts/application.rhtml:28
 #: app/views/layouts/comatose_admin.rhtml:28
+#: app/views/layouts/application.rhtml:28
 msgid "Footer"
 msgstr "Rodapé"
 
-#: app/views/layouts/application.rhtml:58
 #: app/views/layouts/comatose_admin.rhtml:58
+#: app/views/layouts/application.rhtml:58
 msgid "Image for Loading..."
 msgstr "Imagem para Carregamento..."
-
-#: app/views/manage_tags/new.rhtml:1 app/views/manage_tags/list.rhtml:19
-msgid "New tag"
-msgstr "Novo marcador"
-
-#: app/views/manage_tags/new.rhtml:5
-msgid "Create"
-msgstr "Criar"
-
-#: app/views/manage_tags/_form.rhtml:2
-msgid "Parent tag"
-msgstr "Marcador pai"
-
-#: app/views/manage_tags/_form.rhtml:3
-msgid "Pending"
-msgstr "Pendente"
-
-#: app/views/manage_tags/search.rhtml:3
-msgid "Matching tags"
-msgstr ""
-
-#: app/views/manage_tags/search.rhtml:6
-msgid " was found"
-msgstr " foi encontrador"
-
-#: app/views/manage_tags/search.rhtml:9
-msgid "No tags found matching criteria"
-msgstr "Nenhum marcador achado segundo critério"
-
-#: app/views/manage_tags/search.rhtml:12
-msgid "Back"
-msgstr "Voltar"
 
 #: app/views/manage_tags/_a_tag.rhtml:4
 msgid "Edit the attributes of this tag (name, parent and pending status)"
@@ -945,13 +722,45 @@ msgstr ""
 msgid "Filter by the parent of the actual tag"
 msgstr ""
 
+#: app/views/manage_tags/list.rhtml:19 app/views/manage_tags/new.rhtml:1
+msgid "New tag"
+msgstr "Novo marcador"
+
 #: app/views/manage_tags/list.rhtml:20
 msgid "Create a new tag"
 msgstr ""
 
+#: app/views/manage_tags/_form.rhtml:2
+msgid "Parent tag"
+msgstr "Marcador pai"
+
+#: app/views/manage_tags/_form.rhtml:3
+msgid "Pending"
+msgstr "Pendente"
+
 #: app/views/manage_tags/edit.rhtml:1
 msgid "Editing Tag"
 msgstr ""
+
+#: app/views/manage_tags/search.rhtml:3
+msgid "Matching tags"
+msgstr ""
+
+#: app/views/manage_tags/search.rhtml:6
+msgid " was found"
+msgstr " foi encontrador"
+
+#: app/views/manage_tags/search.rhtml:9
+msgid "No tags found matching criteria"
+msgstr "Nenhum marcador achado segundo critério"
+
+#: app/views/manage_tags/search.rhtml:12
+msgid "Back"
+msgstr "Voltar"
+
+#: app/views/manage_tags/new.rhtml:5
+msgid "Create"
+msgstr "Criar"
 
 #: app/views/admin_panel/index.rhtml:1
 msgid "Administrator Panel"
@@ -973,9 +782,9 @@ msgstr ""
 msgid "Edit the Visual Design"
 msgstr ""
 
-#: app/views/account/login.rhtml:7
-msgid "Password"
-msgstr ""
+#: app/views/content_viewer/not_found.rhtml:1
+msgid "There is no such page: %s"
+msgstr "Não há página: %s"
 
 #: app/views/account/index_anonymous.rhtml:1
 msgid "Identify yourself"
@@ -1048,6 +857,10 @@ msgid ""
 "community."
 msgstr ""
 
+#: app/views/account/login.rhtml:7
+msgid "Password"
+msgstr ""
+
 #: app/views/features/_features_table.rhtml:9
 msgid "Save changes"
 msgstr ""
@@ -1066,3 +879,200 @@ msgid ""
 "uncheck all the ones you don\t want, and use the 'Save changes' button to "
 "confirm your changes."
 msgstr ""
+
+#: app/views/cms/_form.rhtml:6
+msgid "Title"
+msgstr "Título"
+
+#: app/views/cms/_form.rhtml:7
+msgid "More..."
+msgstr "Mais..."
+
+#: app/views/cms/_form.rhtml:7
+msgid "Less..."
+msgstr "Menos..."
+
+#: app/views/cms/_form.rhtml:11
+msgid "Slug"
+msgstr ""
+
+#: app/views/cms/_form.rhtml:17
+msgid "Keywords"
+msgstr "Palvras-chave"
+
+#: app/views/cms/_form.rhtml:24
+msgid "Parent"
+msgstr "Pai"
+
+#: app/views/cms/_form.rhtml:26
+msgid "%s is a root page"
+msgstr "%s é uma página raiz"
+
+#: app/views/cms/_form.rhtml:40
+msgid "Filter"
+msgstr "Filtro"
+
+#: app/views/cms/_form.rhtml:42
+msgid "Converts plain text into HTML"
+msgstr "Converte texto plano em HTML"
+
+#: app/views/cms/_form.rhtml:48
+msgid "Created"
+msgstr "Criado"
+
+#: app/views/cms/_form.rhtml:57
+msgid "One revision"
+msgid_plural "%d revisions"
+msgstr[0] "Uma revisão"
+msgstr[1] "%d revisões"
+
+#: app/views/cms/_form.rhtml:63
+msgid "Loading preview ..."
+msgstr "Carregando pré-visualização ..."
+
+#: app/views/cms/_form.rhtml:64
+msgid "Save Changes"
+msgstr "Salvar Mudanças"
+
+#: app/views/cms/_form.rhtml:64
+msgid "Create Page"
+msgstr "Criar Página"
+
+#: app/views/cms/_form.rhtml:66
+msgid "Revert"
+msgstr "Reverter"
+
+#: app/views/cms/_form.rhtml:69
+msgid ""
+"Changes detected. You will lose all the updates you have made if you "
+"proceed..."
+msgstr ""
+"Mudanças detectadas. Você vai perder todas as atualizações que você fez se "
+"continuar..."
+
+#: app/views/cms/_form.rhtml:75
+msgid "Page Preview"
+msgstr "Pré-visualização da página"
+
+#: app/views/cms/_form.rhtml:77
+msgid "Loading Preview..."
+msgstr "Carregando Pré-visualzação..."
+
+#: app/views/cms/_form.rhtml:82
+msgid "Close Preview"
+msgstr "Fechar Pré-visualzação"
+
+#: app/views/cms/_form.rhtml:82 app/views/cms/versions.rhtml:24
+msgid "or"
+msgstr "ou"
+
+#: app/views/cms/_form.rhtml:82
+msgid "Back to top"
+msgstr "Voltar ao topo"
+
+#: app/views/cms/delete.rhtml:6
+msgid "Are you sure you want to delete the page titled \"%s\"?"
+msgstr "Tem certeza que quer excluir a página intitulada \"%s\"?"
+
+#: app/views/cms/delete.rhtml:8
+msgid "It has %s child pages that will also be deleted..."
+msgstr "Existem %s páginas filhas que também serão excluídas..."
+
+#: app/views/cms/delete.rhtml:14
+msgid "Yes, Delete The Page"
+msgstr "Sim, Excluir A Página"
+
+#: app/views/cms/reorder.rhtml:1
+msgid "Reorder Pages"
+msgstr "Rordenar Páginas"
+
+#: app/views/cms/reorder.rhtml:3
+msgid "\"%s\" child pages:"
+msgstr "\"%s\" páginas filhas:"
+
+#: app/views/cms/reorder.rhtml:19
+msgid "Move Up"
+msgstr "Mover para cima"
+
+#: app/views/cms/reorder.rhtml:20
+msgid "Move Down"
+msgstr "Mover para baixo"
+
+#: app/views/cms/reorder.rhtml:29
+msgid "Finished"
+msgstr "Terminado"
+
+#: app/views/cms/_page_list_item.rhtml:7
+msgid "Add a child to '%s'"
+msgstr "Adicionar um filho a '%s'"
+
+#: app/views/cms/_page_list_item.rhtml:8
+msgid "reorder children"
+msgstr "reordenar filhos"
+
+#: app/views/cms/_page_list_item.rhtml:8
+msgid "finished reordering"
+msgstr "ordenação terminada"
+
+#: app/views/cms/_page_list_item.rhtml:8
+msgid "Reorder children of '%s'"
+msgstr "Reordenar filhos de '%s'"
+
+#: app/views/cms/_page_list_item.rhtml:9
+msgid "This will delete this page, and any children. Are you sure?"
+msgstr "Isto vai excluir esta página, e qualquer filho. Tem certeza?"
+
+#: app/views/cms/_page_list_item.rhtml:9
+msgid "Delete page '%s' and all it's children"
+msgstr "Excluir página '%s' e todos seus filhos"
+
+#: app/views/cms/_page_list_item.rhtml:26
+msgid "DRAG"
+msgstr "ARRASTAR"
+
+#: app/views/cms/edit.rhtml:2
+msgid "Edit Page"
+msgstr "Editar Página"
+
+#: app/views/cms/index.rhtml:6
+msgid "Document List"
+msgstr "Documento Lista"
+
+#: app/views/cms/versions.rhtml:1
+msgid "Page Revisions"
+msgstr "Revisões da Página"
+
+#: app/views/cms/versions.rhtml:7
+msgid "View Version:"
+msgstr "Ver Versão:"
+
+#: app/views/cms/versions.rhtml:11
+msgid "Version %s"
+msgstr "Versão %s"
+
+#: app/views/cms/versions.rhtml:14 app/views/cms/versions.rhtml:35
+msgid "Title:"
+msgstr "Título:"
+
+#: app/views/cms/versions.rhtml:15 app/views/cms/versions.rhtml:36
+msgid "Slug:"
+msgstr ""
+
+#: app/views/cms/versions.rhtml:17 app/views/cms/versions.rhtml:38
+msgid "Keywords:"
+msgstr "Palavras-chaves"
+
+#: app/views/cms/versions.rhtml:23
+msgid "Set As Current Version"
+msgstr "Tornar versão atual"
+
+#: app/views/cms/versions.rhtml:32
+msgid "Current Version"
+msgstr "Versão Atual"
+
+#: app/views/cms/new.rhtml:2
+msgid "New Page"
+msgstr "Nova Página"
+
+#~ msgid "My enterprises"
+#~ msgstr "Meu empreendimento"
