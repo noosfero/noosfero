@@ -153,7 +153,7 @@ module ApplicationHelper
   # returns the current profile beign viewed.
   #
   # Make sure that you use this helper method only in contexts where there
-  # should be a currnt profile (i.e. while viewing some profile's pages, or the
+  # should be a current profile (i.e. while viewing some profile's pages, or the
   # profile info, etc), because if there is no profile an exception is thrown.
   def profile
     @profile || raise("There is no current profile")
@@ -165,6 +165,25 @@ module ApplicationHelper
   # label and the control with a <div> tag with class 'formfield' 
   def display_form_field(label, html_for_field)
     content_tag('div', content_tag('div', content_tag('label', label)) + html_for_field, :class => 'formfield') 
+  end
+
+  def labelled_form_for(name, object = nil, options = {}, &proc)
+    object ||= instance_variable_get("@#{name}")
+    form_for(name, object, { :builder => NoosferoFormBuilder }.merge(options), &proc)
+  end
+
+  class NoosferoFormBuilder < ActionView::Helpers::FormBuilder
+    include GetText
+
+    (field_helpers - %w(hidden_field)).each do |selector|
+      src = <<-END_SRC
+        def #{selector}(field, *args, &proc)
+          column = object.class.columns_hash[field.to_s]
+          "<div class='formfield'>" + "<div><label for='\#{field}'>" + (column ? column.human_name : _(object.class.name + "|" + field.to_s.humanize)) + "</label></div>" + super + "</div>"
+        end
+      END_SRC
+      class_eval src, __FILE__, __LINE__
+    end
   end
 
 end

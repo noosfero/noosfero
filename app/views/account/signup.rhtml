@@ -1,23 +1,17 @@
 <h1><%= _('Register') %></h1>
 
 <%= error_messages_for :user %>
-<% form_for :user do |f| -%>
-<p><label for="login">Login</label><br/>
-<%= f.text_field :login %></p>
-
-<p><label for="email">Email</label><br/>
-<%= f.text_field :email %></p>
-
-<p><label for="password">Password</label><br/>
-<%= f.password_field :password %></p>
-
-<p><label for="password_confirmation">Confirm Password</label><br/>
-<%= f.password_field :password_confirmation %></p>
+<% labelled_form_for :user, @user do |f| -%>
+  
+<%= f.text_field :login %>
+<%= f.text_field :email %>
+<%= f.password_field :password %>
+<%= f.password_field :password_confirmation %>
 
 <% if @terms_of_use %>
-  <p>  <%= @terms_of_use %> </p>
-  <p> <%= check_box_tag 'user[terms_accepted]' %>
-  <label for="terms_accepted">I accept the terms of use</label> </p>
+  <p> <%= @terms_of_use %> </p>
+  <p> <%= check_box_tag 'terms_accepted' %>
+  <label for="terms_accepted"><%= _('I accept the terms of use') %></label> </p>
 <% end %>
 
 <p><%= submit_tag 'Sign up' %></p>

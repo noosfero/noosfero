@@ -27,7 +27,7 @@ class AccountController < ApplicationController
   def signup
     begin
       @terms_of_use = virtual_community.terms_of_use
-      terms_accepted = params[:user] ? params[:user].delete(:terms_accepted) : false
+      terms_accepted = params[:terms_accepted]
       @user = User.new(params[:user])
       return unless request.post?
       if @terms_of_use and !terms_accepted 

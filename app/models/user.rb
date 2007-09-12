@@ -4,6 +4,9 @@ require 'digest/sha1'
 # Rails generator.
 class User < ActiveRecord::Base
 
+  N_('User|Password')
+  N_('User|Password confirmation')
+
   after_create do |user|
     Person.create!(:identifier => user.login, :name => user.login, :user_id => user.id)
   end
