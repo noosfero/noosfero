@@ -9,7 +9,7 @@
     <%= stylesheet_link_tag 'common' %>
   </head>
 
-  <body>
+  <body onload='javascript: if (document.forms[0] != null && document.forms[0].elements[0] != null) { document.forms[0].elements[0].focus(); }'>
     <%= image_tag 'loading.gif', :id => 'spinner', :style => "display:none; float:right;" %>
     <div id="wrap">
       <% unless flash[:notice].nil? %>
