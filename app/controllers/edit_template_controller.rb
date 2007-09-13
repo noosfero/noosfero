@@ -6,7 +6,7 @@ class EditTemplateController < ApplicationController
     { 
       #'ListBlock' => _("List Block"), 
       #'LinkBlock' => _("Link Block"),
-      'RecentDocumentsBlock' => _('Recent documents'),
+      #'RecentDocumentsBlock' => _('Recent documents'),
       'Design::MainBlock' => _('Main content block'),
     }
   end
