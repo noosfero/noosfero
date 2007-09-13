@@ -15,10 +15,16 @@ You need to have a Subversion client (svn) installed, as well as:
 * Mocha: http://mocha.rubyforge.org/
 * Ruby-sqlite3: http://rubyforge.org/projects/sqlite-ruby
 * rcov: http://eigenclass.org/hiki/rcov
+* Ferret: http://ferret.davebalmain.com/trac
 
-There are Debian packages available for all of them. Try:
+There are Debian packages available for all of them but ferret. Try:
 
  # aptitude install svn ruby rake libgettext-ruby libmocha-ruby libsqlite3-ruby rcov
+
+Ferret shall enter Debian soon (as +libferret-ruby+). until there you have two options:
+
+1. build the source package from svn://svn.debian.org/svn/pkg-ruby-extras/packages-wip/libferret-ruby
+1. install ferret via rubygems: issue +gem install ferret+ as root (you'll need to install the +rubygems+ package for it)
 
 If you have problems with the setup, use the development mailing list. In
 special its possible that the requirements list above is not complete.
