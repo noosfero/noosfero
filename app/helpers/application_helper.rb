@@ -167,6 +167,8 @@ module ApplicationHelper
     content_tag('div', content_tag('div', content_tag('label', label)) + html_for_field, :class => 'formfield') 
   end
 
+  alias_method :labelled_form_field, :display_form_field
+
   def labelled_form_for(name, object = nil, options = {}, &proc)
     object ||= instance_variable_get("@#{name}")
     form_for(name, object, { :builder => NoosferoFormBuilder }.merge(options), &proc)

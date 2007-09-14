@@ -1,0 +1,10 @@
+<%= link_to _('New role'), :action => 'new' %>
+<ul>
+  <% @roles.each do |role| %>
+    <li> 
+      <%= link_to role.name, :action => 'show', :id => role %>
+      <%= link_to _('Edit'), :action => 'edit', :id => role %>
+      <%= link_to _('Destroy'), :action => 'destoy', :id => role %>
+    </li>
+  <% end %>
+</ul>

@@ -14,6 +14,12 @@ class Person < Profile
   has_many :people, :through => :person_friendships, :foreign_key => 'friend_id'
   has_one :person_info
 
+  has_many :role_assignments
+
+  def has_permission?(perm, res=nil)
+    role_assignments.any? {|ra| ra.has_permission?(perm, res)}
+  end
+
   def info
     person_info
   end

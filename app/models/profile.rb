@@ -35,6 +35,8 @@ class Profile < ActiveRecord::Base
   belongs_to :virtual_community
   has_many :affiliations, :dependent => :destroy
   has_many :people, :through => :affiliations
+  
+  has_many :role_assignment, :as => :resource
 
 
   # Sets the identifier for this profile. Raises an exception when called on a

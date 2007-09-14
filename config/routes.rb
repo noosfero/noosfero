@@ -33,7 +33,7 @@ ActionController::Routing::Routes.draw do |map|
   ######################################################
   # administrative tasks for a virtual community
   map.admin 'admin', :controller => 'admin_panel'
-  map.admin 'admin/:controller/:action/:id', :controller => /(admin_panel|features|manage_tags|edit_template)/
+  map.admin 'admin/:controller/:action/:id', :controller => /(admin_panel|features|manage_tags|edit_template|role)/
 
   ######################################################
   ## Controllers that are used by system admin

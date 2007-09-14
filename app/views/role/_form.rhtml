@@ -1,0 +1,11 @@
+<%= error_messages_for :role %>
+
+<% labelled_form_for :role, @role do |f| %>
+
+  <%= f.text_field :name %>
+
+  <%= _('Permissions: ') %> <br>
+  <% Role::PERMISSIONS[:profile].keys.each do |p| %>
+    <%= labelled_form_field("bla", (check_box_tag "role[permissions][#{p}]", @role.has_permission?(p))) %>
+  <% end %>
+<% end %>
