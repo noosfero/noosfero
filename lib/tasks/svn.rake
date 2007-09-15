@@ -1,4 +1,4 @@
-require 'project_meta'
+require 'noosfero'
 
 namespace 'svn' do
   task 'tag' do
