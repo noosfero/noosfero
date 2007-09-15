@@ -10,6 +10,14 @@ RAILS_GEM_VERSION = '1.1.6'
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 
+# extra directories for controllers organization 
+extra_controller_dirs = %w[
+  app/controllers/profile_admin
+  app/controllers/environment_admin
+  app/controllers/system_admin
+  app/controllers/public
+].map {|item| File.join(RAILS_ROOT, item) }
+
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence those specified here
   
@@ -34,11 +42,18 @@ Rails::Initializer.run do |config|
 
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector
-
   # Make Active Record use UTC-base instead of local time
   # config.active_record.default_timezone = :utc
   
   # See Rails::Configuration for more options
+
+  extra_controller_dirs.each do |item|
+    $LOAD_PATH << item
+    config.controller_paths << item
+  end
+end
+extra_controller_dirs.each do |item|
+  Dependencies.load_paths << item
 end
 
 # Add new inflection rules using the following format 
