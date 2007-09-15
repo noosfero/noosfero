@@ -1,11 +1,13 @@
 <%= error_messages_for :role %>
 
-<% labelled_form_for :role, @role do |f| %>
+<% labelled_form_for :role, @role, :url => (mode == :edit) ? {:action => 'update', :id => role} : {:action => 'create'} do |f| %>
 
   <%= f.text_field :name %>
 
   <%= _('Permissions: ') %> <br>
   <% Role::PERMISSIONS[:profile].keys.each do |p| %>
-    <%= labelled_form_field("bla", (check_box_tag "role[permissions][#{p}]", @role.has_permission?(p))) %>
+    <%= labelled_form_field(Role.permission_name(p), (check_box_tag "role[permissions][]", p, @role.has_permission?(p))) %>
   <% end %>
+
+  <%= submit_tag (mode == :edit) ? _('Save changes') : _('Create role')%>
 <% end %>

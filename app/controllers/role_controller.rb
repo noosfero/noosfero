@@ -8,7 +8,7 @@ class RoleController < ApplicationController
   end
 
   def new
-    @role = Role.new(:name => 'bla', :permissions => [])
+    @role = Role.new(:name => '', :permissions => [])
   end
 
   def create

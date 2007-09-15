@@ -11,9 +11,8 @@ class Role < ActiveRecord::Base
   }
 
   def self.permission_name(p)
-#    msgid = ...
-#    gettext(msgid)
-    raise "Moises need to write me"
+    msgid = PERMISSIONS.values.inject({}){|s,v| s.merge(v)}[p]
+    gettext(msgid)
   end
   
   has_many :role_assignments
