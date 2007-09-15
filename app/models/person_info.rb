@@ -7,8 +7,8 @@ class PersonInfo < ActiveRecord::Base
   def summary
     [
       [ PersonInfo.columns_hash['name'].human_name, self.name ],
-      [ PersonInfo.columns_hash['address'].hunam_name, self.address ],
-      [ PersonInfo.columns_hash['contact_information'], self.contact_information ],
+      [ PersonInfo.columns_hash['address'].human_name, self.address ],
+      [ PersonInfo.columns_hash['contact_information'].human_name, self.contact_information ],
     ]
   end
 
