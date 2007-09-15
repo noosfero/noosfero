@@ -9,9 +9,13 @@
 <%= f.password_field :password_confirmation %>
 
 <% if @terms_of_use %>
-  <p> <%= @terms_of_use %> </p>
-  <p> <%= check_box_tag 'terms_accepted' %>
-  <label for="terms_accepted"><%= _('I accept the terms of use') %></label> </p>
+  <p>
+    <%= @terms_of_use %>
+  </p>
+  <p>
+    <%= check_box 'user', 'terms_accepted' %> 
+    <%= _('I accept the terms of use') %>
+  </p>
 <% end %>
 
 <p><%= submit_tag 'Sign up' %></p>

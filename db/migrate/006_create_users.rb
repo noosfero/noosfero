@@ -9,6 +9,9 @@ class CreateUsers < ActiveRecord::Migration
       t.column :updated_at,                :datetime
       t.column :remember_token,            :string
       t.column :remember_token_expires_at, :datetime
+
+      t.column :terms_of_use,              :text
+      t.column :terms_accepted,            :string, :limit => 1
     end
   end
 
