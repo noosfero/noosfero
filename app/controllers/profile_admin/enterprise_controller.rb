@@ -1,5 +1,5 @@
 # Manage enterprises by providing an interface to register, activate and manage them
-class EnterpriseController < ApplicationController
+class EnterpriseController < ProfileAdminController
 
   before_filter :logon, :my_enterprises
   

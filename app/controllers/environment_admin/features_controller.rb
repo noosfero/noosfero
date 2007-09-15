@@ -1,4 +1,4 @@
-class FeaturesController < ApplicationController
+class FeaturesController < EnvironmentAdminController
 
   acts_as_virtual_community_admin_controller
 

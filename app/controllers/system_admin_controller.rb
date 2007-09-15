@@ -1,0 +1,2 @@
+class SystemAdminController < ApplicationController
+end

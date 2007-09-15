@@ -1,0 +1,2 @@
+class EnvironmentAdminController < ApplicationController
+end

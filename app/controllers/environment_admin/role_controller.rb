@@ -1,4 +1,4 @@
-class RoleController < ApplicationController
+class RoleController < EnvironmentAdminController
   def index
     @roles = Role.find(:all)
   end

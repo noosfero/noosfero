@@ -1,4 +1,4 @@
-class ContentViewerController < ApplicationController
+class ContentViewerController < PublicController
 
   def view_page
     path = params[:page].clone

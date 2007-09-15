@@ -1,2 +1,2 @@
-class AdminPanelController < ApplicationController
+class AdminPanelController < EnvironmentAdminController
 end

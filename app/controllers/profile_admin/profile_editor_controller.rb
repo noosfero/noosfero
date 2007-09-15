@@ -1,4 +1,4 @@
-class ProfileEditorController < ApplicationController
+class ProfileEditorController < ProfileAdminController
   helper :profile
 
   # edits the profile info (posts back)

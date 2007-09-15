@@ -1,4 +1,4 @@
-class EditTemplateController < ApplicationController
+class EditTemplateController < EnvironmentAdminController
 
   design_editor :holder => 'virtual_community', :autosave => true, :block_types => :block_types
   

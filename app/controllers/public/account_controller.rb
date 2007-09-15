@@ -1,4 +1,4 @@
-class AccountController < ApplicationController
+class AccountController < PublicController
 
   # say something nice, you goof!  something sweet.
   def index
