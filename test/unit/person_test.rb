@@ -17,7 +17,8 @@ class PersonTest < Test::Unit::TestCase
     assert pr.save
     pe = User.create(:login => 'person', :email => 'person@test.net', :password => 'dhoe', :password_confirmation => 'dhoe').person
     assert pe.save
-    pe.profiles << pr
+    member_role = Role.create(:name => 'member')
+    pr.affiliate(pe, member_role) 
     assert pe.profiles.include?(pr)
   end
 
@@ -26,16 +27,8 @@ class PersonTest < Test::Unit::TestCase
     assert e.save
     p = User.create(:login => 'person', :email => 'person@test.net', :password => 'dhoe', :password_confirmation => 'dhoe').person
     assert p.save
-    p.profiles << e
-    assert p.enterprises.include?(e)
-  end
-
-  def test_can_belongs_to_an_enterprise
-    e = Enterprise.new(:identifier => 'enterprise', :name => 'enterprise')
-    assert e.save
-    p = User.create(:login => 'person', :email => 'person@test.net', :password => 'dhoe', :password_confirmation => 'dhoe').person
-    assert p.save
-    p.profiles << e
+    member_role = Role.create(:name => 'member')
+    e.affiliate(p, member_role)
     assert p.enterprises.include?(e)
   end
   

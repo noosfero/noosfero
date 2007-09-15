@@ -33,10 +33,9 @@ class Profile < ActiveRecord::Base
 
   has_many :domains, :as => :owner
   belongs_to :virtual_community
-  has_many :affiliations, :dependent => :destroy
-  has_many :people, :through => :affiliations
   
-  has_many :role_assignment, :as => :resource
+  has_many :role_assignments, :as => :resource
+  has_many :people, :through => :role_assignments
 
 
   # Sets the identifier for this profile. Raises an exception when called on a
@@ -103,4 +102,7 @@ class Profile < ActiveRecord::Base
     homepage.children.find(:all, :limit => limit, :order => 'created_on desc')
   end
 
+  def affiliate(person, role)
+    RoleAssignment.new(:person => person, :role => role, :resource => self).save
+  end
 end

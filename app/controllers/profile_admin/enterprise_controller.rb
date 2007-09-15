@@ -5,8 +5,8 @@ class EnterpriseController < ProfileAdminController
   
   # Redirects to show if there is only one action and to list otherwise
   def index
-    if @my_enterprises.size == 1
-      redirect_to :action => 'show', :id => @my_enterprises[0]
+    if @person.enterprises.size == 1
+      redirect_to :action => 'show', :id => @person.enterprises[0]
     else
       redirect_to :action => 'list'
     end
@@ -14,12 +14,12 @@ class EnterpriseController < ProfileAdminController
   
   # Lists all enterprises
   def list
-    @enterprises = Enterprise.find(:all) - @my_enterprises
+    @enterprises = Enterprise.find(:all) - @person.enterprises
   end
 
   # Show details about an enterprise
   def show
-    @enterprise = @my_enterprises.find(params[:id])
+    @enterprise = Enterprise.find(params[:id])
   end
   
   # Make a form to the creation of an eterprise
@@ -47,13 +47,13 @@ class EnterpriseController < ProfileAdminController
 
   # Provides an interface to editing the enterprise details
   def edit
-    @enterprise = @my_enterprises.find(params[:id])
+    @enterprise = @person.enterprises(:id => params[:id])[0]
     @validation_entities = Organization.find(:all) - [@enterprise]
   end
 
   # Saves the changes made in an enterprise
   def update
-    @enterprise = @my_enterprises.find(params[:id])
+    @enterprise = @person.enterprises(:id => params[:id])[0]
     if @enterprise.update_attributes(params[:enterprise]) && @enterprise.organization_info.update_attributes(params[:organization_info])
       redirect_to :action => 'index'
     else
@@ -66,13 +66,14 @@ class EnterpriseController < ProfileAdminController
   # Make the current user a new member of the enterprise
   def affiliate
     @enterprise = Enterprise.find(params[:id])
-    @enterprise.people << @person
+    member_role = Role.find_by_name('member') || Role.create(:name => 'member')
+    @enterprise.affiliate(@person,member_role)
     redirect_to :action => 'index'
   end
 
   # Elimitates the enterprise of the system
   def destroy 
-    @enterprise = @my_enterprises.find(params[:id])
+    @enterprise = @person.enterprises(:id => params[:id])[0]
     if @enterprise
       @enterprise.destroy
     else

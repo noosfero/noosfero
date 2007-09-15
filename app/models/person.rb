@@ -1,23 +1,46 @@
 # A person is the profile of an user holding all relationships with the rest of the system
 class Person < Profile
-  ENTERPRISE = {:class_name => 'Enterprise', :through => :affiliations, :foreign_key => 'person_id', :source => 'profile'}
-
   belongs_to :user
-  has_many :affiliations, :dependent => :destroy
-  has_many :profiles, :through => :affiliations
-  has_many :enterprises,  ENTERPRISE
-  has_many :pending_enterprises, ENTERPRISE.merge(:conditions => ['active = ?', false])
-  has_many :active_enterprises, ENTERPRISE.merge(:conditions => ['active = ?', true])
-  has_many :friendships
-  has_many :friends, :class_name => 'Person', :through => :friendships
-  has_many :person_friendships
-  has_many :people, :through => :person_friendships, :foreign_key => 'friend_id'
+
+#  has_many :friendships
+#  has_many :friends, :class_name => 'Person', :through => :friendships
+#  has_many :person_friendships
+#  has_many :people, :through => :person_friendships, :foreign_key => 'friend_id'
+  
   has_one :person_info
 
   has_many :role_assignments
+  has_many :memberships, :through => :role_assignments, :source => 'resource', :class_name => 'Enterprise'
 
   def has_permission?(perm, res=nil)
     role_assignments.any? {|ra| ra.has_permission?(perm, res)}
+  end
+
+  def self.conditions_for_profiles(conditions, person)
+    new_conditions = sanitize_sql(['role_assignments.person_id = ?', person])
+    new_conditions << ' AND ' +  sanitize_sql(conditions) unless conditions.blank?
+    new_conditions
+  end
+
+  def profiles(conditions = {})
+    Profile.find(
+      :all, 
+      :conditions => self.class.conditions_for_profiles(conditions, self), 
+      :joins => "LEFT JOIN role_assignments ON profiles.id = role_assignments.resource_id AND role_assignments.resource_type = \"#{Profile.base_class.name}\"",
+      :select => 'profiles.*')
+  end
+
+  
+  def enterprises(conditions = {})
+    profiles( ({:type => 'Enterprise'}).merge(conditions))
+  end
+
+  def pending_enterprises
+    enterprises :active => false
+  end
+
+  def active_enterprises
+    enterprises :active => true
   end
 
   def info
