@@ -2,7 +2,7 @@
 # Added for Ruby-GetText-Package
 #
 
-require 'project_meta'
+require 'noosfero'
 
 desc "Create mo-files for L10n"
 task :makemo do

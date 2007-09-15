@@ -1,5 +1,5 @@
 require 'rake/packagetask'
-require 'project_meta'
+require 'noosfero'
 
 Rake::PackageTask.new(Noosfero::PROJECT, Noosfero::VERSION) do |p|
   p.need_tar_gz = true
