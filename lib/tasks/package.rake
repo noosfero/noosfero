@@ -32,7 +32,7 @@ Rake::PackageTask.new(Noosfero::PROJECT, Noosfero::VERSION) do |p|
   # external resources
   p.package_files.include('vendor/**/*')
 
-  # sample config
-  #p.package_files.exclude('config/database.yml')
+  # exclusions
+  p.package_files.exclude('coverage/**/*')
 
 end
