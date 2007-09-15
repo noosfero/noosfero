@@ -9,14 +9,14 @@ class ManageDocumentsTest < ActionController::IntegrationTest
 
     login('ze', 'test')
 
-    get '/cms/ze'
+    get '/myprofile/ze/cms'
     assert_response :success
 
-    get '/cms/ze/new'
+    get '/myprofile/ze/cms/new'
     assert_response :success
-    assert_tag :tag => 'form', :attributes => { :action => '/cms/ze/new' }
+    assert_tag :tag => 'form', :attributes => { :action => '/myprofile/ze/cms/new' }
 
-    post '/cms/ze/new', :page => { :title => 'my new article', :body => 'this is the text of my new article' , :parent_id => Article.find_by_path('ze').id }
+    post '/myprofile/ze/cms/new', :page => { :title => 'my new article', :body => 'this is the text of my new article' , :parent_id => Article.find_by_path('ze').id }
     assert_response :redirect
 
     follow_redirect!
@@ -29,15 +29,15 @@ class ManageDocumentsTest < ActionController::IntegrationTest
   def test_update_of_an_existing_article
     login('ze', 'test')
 
-    get '/cms/ze'
+    get '/myprofile/ze/cms'
     assert_response :success
 
     id = Comatose::Page.find_by_path('ze').id
-    get "cms/ze/edit/#{id}"
+    get "myprofile/ze/cms/edit/#{id}"
     assert_response :success
-    assert_tag :tag => 'form', :attributes => { :action => "/cms/ze/edit/#{id}" }
+    assert_tag :tag => 'form', :attributes => { :action => "/myprofile/ze/cms/edit/#{id}" }
 
-    post "cms/ze/edit/#{id}", :page => { :body => 'changed_body' }
+    post "myprofile/ze/cms/edit/#{id}", :page => { :body => 'changed_body' }
     assert_response :redirect
     
   end
@@ -46,10 +46,10 @@ class ManageDocumentsTest < ActionController::IntegrationTest
     article = Article.create!(:title => 'to be removed', :body => 'go to hell', :parent_id => Article.find_by_path('ze').id)
     count = Article.count
 
-    get '/cms/ze'
+    get '/myprofile/ze/cms'
     assert_response :success
 
-    post "/cms/ze/delete/#{article.id}"
+    post "/myprofile/ze/cms/delete/#{article.id}"
     assert_response :redirect
 
     assert_raise ActiveRecord::RecordNotFound do

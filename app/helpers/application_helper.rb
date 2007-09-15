@@ -81,7 +81,7 @@ module ApplicationHelper
   # TODO: remove the absolute path
   def link_to_cms(text, profile = nil, options = {})
     profile ||= current_user.login
-    link_to text, cms_path(:profile => profile), options
+    link_to text, profile_path(:controller => 'cms', :profile => profile), options
   end
 
   def link_to_profile(text, profile = nil, options = {})

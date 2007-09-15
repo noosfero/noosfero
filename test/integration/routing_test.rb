@@ -22,7 +22,7 @@ class RoutingTest < ActionController::IntegrationTest
   end
 
   def test_comatose_admin
-    assert_routing('/cms/ze', :profile => 'ze', :controller => 'cms', :action => 'index')
+    assert_routing('/myprofile/ze/cms', :profile => 'ze', :controller => 'cms', :action => 'index')
   end
 
   def test_edit_template

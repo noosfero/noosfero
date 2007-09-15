@@ -1,3 +1,5 @@
+require 'project_meta'
+
 ActionController::Routing::Routes.draw do |map|
   # The priority is based upon order of creation: first created -> highest priority.
   
@@ -24,23 +26,22 @@ ActionController::Routing::Routes.draw do |map|
   ######################################################
   # profile customization - "My profile"
   map.myprofile 'myprofile/:profile', :controller => 'profile_editor', :action => 'index'
-  map.myprofile 'myprofile/:profile/:controller/:action/:id', :controller => /(enterprise|profile_editor)/
+  map.myprofile 'myprofile/:profile/:controller/:action/:id', :controller => Noosfero.pattern_for_controllers_in_directory('profile_admin')
   # content administration 
-  map.cms 'cms/:profile/:action/:id', :controller => 'cms'
 
   ######################################################
   ## Controllers that are used by environment admin
   ######################################################
   # administrative tasks for a virtual community
   map.admin 'admin', :controller => 'admin_panel'
-  map.admin 'admin/:controller/:action/:id', :controller => /(admin_panel|features|manage_tags|edit_template|role)/
+  map.admin 'admin/:controller/:action/:id', :controller => Noosfero.pattern_for_controllers_in_directory('environment_admin')
 
   ######################################################
   ## Controllers that are used by system admin
   ######################################################
   # administrative tasks for a virtual community
   map.system 'system', :controller => 'system'
-  map.system 'system/:controller/:action/:id', :controller => //
+  map.system 'system/:controller/:action/:id', :controller => Noosfero.pattern_for_controllers_in_directory('system_admin')
 
 
   ######################################################
