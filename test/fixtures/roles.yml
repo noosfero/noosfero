@@ -2,6 +2,8 @@
 one:
   id: 1
   name: 'member'
+  permissions: <%= [].to_yaml %>
 two:
   id: 2
   name: 'owner'
+  permissions: <%= [].to_yaml %>

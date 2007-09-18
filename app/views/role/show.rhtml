@@ -1,6 +1,4 @@
 <h1> <%= _(@role.name)  %></h1>
-
-
 <ul>
   <% @role.permissions.each do |p| %>
     <li> <%= Role.permission_name(p) %> </li> 

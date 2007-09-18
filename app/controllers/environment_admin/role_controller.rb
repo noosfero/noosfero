@@ -8,16 +8,16 @@ class RoleController < EnvironmentAdminController
   end
 
   def new
-    @role = Role.new(:name => '', :permissions => [])
+    @role = Role.new
   end
 
   def create
-    role = Role.new(params[:role])
-    if role.save
-      redirect_to :action => 'show', :id => role
+    @role = Role.new(params[:role])
+    if @role.save
+      redirect_to :action => 'show', :id => @role
     else
       flash[:notice] = _('Failed to create role')
-      redirect_to :action => 'index'
+      render :action => 'new'
     end
   end
 
@@ -26,9 +26,9 @@ class RoleController < EnvironmentAdminController
   end
 
   def update
-    role = Role.find(params[:id])
-    if role.update_attributes(params[:role])
-      redirect_to :action => 'show', :id => role
+    @role = Role.find(params[:id])
+    if @role.update_attributes(params[:role])
+      redirect_to :action => 'show', :id => @role
     else
       flash[:notice] = _('Failed to edit role')
       render :action => 'edit'
@@ -36,8 +36,8 @@ class RoleController < EnvironmentAdminController
   end
 
   def destroy
-    role = Role.find(params[:id])
-    if role.destroy
+    @role = Role.find(params[:id])
+    if @role.destroy
       redirect_to :action => 'index'
     else
       flash[:notice] = _('Failed to edit role')

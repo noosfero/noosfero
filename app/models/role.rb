@@ -10,20 +10,28 @@ class Role < ActiveRecord::Base
     }
   }
 
+  PERMISSIONS_LIST = PERMISSIONS.values.map{|h| h.keys }.flatten
+
   def self.permission_name(p)
     msgid = PERMISSIONS.values.inject({}){|s,v| s.merge(v)}[p]
     gettext(msgid)
   end
-  
-  has_many :role_assignments
 
+  has_many :role_assignments
   serialize :permissions, Array
-  
+  validates_uniqueness_of :name
+
+  def validate
+    unless (permissions - PERMISSIONS_LIST).empty?
+      errors.add :permissons, 'non existent permission'
+    end
+  end
+ 
   def initialize(*args)
     super(*args)
-    permissions = []
+    self[:permissions] ||= []
   end
-  
+
   def has_permission?(perm)
     permissions.include?(perm)
   end
