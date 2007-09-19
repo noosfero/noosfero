@@ -17,10 +17,12 @@ class ContentViewerControllerTest < Test::Unit::TestCase
   def test_should_display_homepage
     uses_host 'anhetegua.net'
 
-    Article.expects(:find_by_path).with('aprofile').returns(Article.new)
+    a = Article.new
+    Article.expects(:find_by_path).with('aprofile').returns(a)
 
     get :view_page, :profile => 'aprofile', :page => []
     assert_response :success
+    assert_equal a, assigns(:page)
   end
 
   def test_should_get_not_found_error_for_unexisting_page
