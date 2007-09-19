@@ -3,14 +3,14 @@ require File.dirname(__FILE__) + '/../test_helper'
 class ProfileHelperTest < Test::Unit::TestCase
 
   def setup
-    @profile = Profile.new
+    @profile = mock
     @helper = mock
     helper.extend(ProfileHelper)
   end
   attr_reader :profile, :helper
 
   def test_should_ignore_nil
-    profile.stubs(:info).returns(nil)
+    profile.expects(:info).returns(nil)
 
     helper.expects(:content_tag)
     helper.expects(:_)

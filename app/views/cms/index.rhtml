@@ -3,7 +3,7 @@
 </div>
   
 <h1>
-  <%= _('Document List') %>
+  <%= _('Articles') %>
   <%= image_tag 'comatose/spinner.gif', :id=>'spinner', :align=>'absmiddle', :style=>'display:none;' %>
 </h1>
 
@@ -12,6 +12,10 @@
   <%= render :partial=>'page_list_item', :locals=>{ :page=>page, :level=>1 } %>
 <% end %>
 </ul>
+
+<div>
+  <%= link_to _('New article'), :action => 'new' %>
+</div>
 
 <div id="status"></div>
 

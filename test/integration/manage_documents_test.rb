@@ -9,9 +9,12 @@ class ManageDocumentsTest < ActionController::IntegrationTest
 
     login('ze', 'test')
 
+    assert_tag :tag => 'a', :attributes => { :href => '/myprofile/ze/cms' }
+
     get '/myprofile/ze/cms'
     assert_response :success
 
+    assert_tag :tag => 'a', :attributes => { :href => '/myprofile/ze/cms/new' }
     get '/myprofile/ze/cms/new'
     assert_response :success
     assert_tag :tag => 'form', :attributes => { :action => '/myprofile/ze/cms/new' }
@@ -21,6 +24,7 @@ class ManageDocumentsTest < ActionController::IntegrationTest
 
     follow_redirect!
     assert_response :success
+    assert_equal '/myprofile/ze/cms', path
 
     assert_equal count + 1, Article.count
 
@@ -39,18 +43,24 @@ class ManageDocumentsTest < ActionController::IntegrationTest
 
     post "myprofile/ze/cms/edit/#{id}", :page => { :body => 'changed_body' }
     assert_response :redirect
+    follow_redirect!
+    assert_equal '/myprofile/ze/cms', path
     
   end
 
   def test_removing_an_article
+
     article = Article.create!(:title => 'to be removed', :body => 'go to hell', :parent_id => Article.find_by_path('ze').id)
     count = Article.count
 
     get '/myprofile/ze/cms'
     assert_response :success
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/ze/cms/delete/#{article.id}" }
 
     post "/myprofile/ze/cms/delete/#{article.id}"
     assert_response :redirect
+    follow_redirect!
+    assert_equal '/myprofile/ze/cms', path
 
     assert_raise ActiveRecord::RecordNotFound do
       Article.find(article.id)

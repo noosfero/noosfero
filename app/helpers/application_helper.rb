@@ -77,11 +77,9 @@ module ApplicationHelper
     content_tag('div', @virtual_community.name, :id => 'virtual_community_identification')
   end
 
-  # TODO: test this helper
-  # TODO: remove the absolute path
   def link_to_cms(text, profile = nil, options = {})
     profile ||= current_user.login
-    link_to text, profile_path(:controller => 'cms', :profile => profile), options
+    link_to text, myprofile_path(:controller => 'cms', :profile => profile), options
   end
 
   def link_to_profile(text, profile = nil, options = {})
