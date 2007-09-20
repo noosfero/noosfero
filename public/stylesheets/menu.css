@@ -17,6 +17,12 @@ padding: 0px;
   margin-right: 3px;
   padding: 0px;
   font-family: serif-Sans, Verdana, Arial;
+
+  z-index: 100;
+}
+
+#content {
+  margin-top: 40px;
 }
 
 #noosfero_bar *:focus {
