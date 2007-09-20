@@ -1,4 +1,6 @@
-function prepareMenu(id) {
+function prepareMenu(id, options) {
+
+    var menuCloseTimeout = options.timeout;
 
     if ( document.all ) {
         // add a class for work arround msie&#180;s css bugs
@@ -48,11 +50,11 @@ function prepareMenu(id) {
 
         link.onmouseover = link.onfocus =
             function () {
-              this.openSubMenu(false);
+                this.openSubMenu(false);
             };
         link.onmouseout = link.onblur =
             function () {
-                this.timeOutClose = setTimeout( this.closeSubMenu.bind(this), 333 );
+                this.timeOutClose = setTimeout( this.closeSubMenu.bind(this), menuCloseTimeout );
             };
 
         ul.closeSubMenu = function(){ this.style.display = "none" }
@@ -72,7 +74,8 @@ function prepareMenu(id) {
     });
 
 
-    ////// INI - Work Arround Bug da disgraça do M$IE /////////////////////
+    // **** begin of workaround for Microsoft Internet Explorer ****
+    // MS IE sucks, BTW.
     if ( document.all ) {
         function forceUlFocusFromLink ( a ) {
             var stop = false;
@@ -104,7 +107,6 @@ function prepareMenu(id) {
                 a.onblur  = function() { forceUlBlurFromLink(this)  };
             }
         });
-    }
+    } // ** end of workaround for Microsoft Internet Explorer.
 
 }
-////// END - Work Arround Bug da disgraça do M$IE /////////////////////
