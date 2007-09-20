@@ -36,28 +36,6 @@ padding-left: 60px !important ;
 color: #dfdfdf !important ;
 }
 
-#header {
-  position: relative !important;
-  margin: 0px !important;
-  padding: 0px !important;
-  height: 35px !important;
-  background: #fff url("../images/bg_blue_bar.png") bottom left repeat-x !important;
-  color: #ffffff !important ;
-}
-
-
-#header a {
-display: table-cell !important ;
-height: 35px !important ;
-color: #ffffff !important ;
-font-size: 10px !important ;
-font-family: Sans-serif !important ;
-font-weight: bold !important ;
-vertical-align: middle !important ;
-padding: 0px 5px 0px 5px !important ;
-text-decoration: underline !important ;
-}
-
 #user_links, #login_box {
 margin-left: 290px !important ;
 }

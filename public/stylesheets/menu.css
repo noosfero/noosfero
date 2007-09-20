@@ -21,10 +21,6 @@ padding: 0px;
   z-index: 100;
 }
 
-#content {
-  margin-top: 40px;
-}
-
 #noosfero_bar *:focus {
   color: red !important;
 }
@@ -90,7 +86,6 @@ padding: 0px;
   background: #204a87 url("../images/bg_noosfero_bar.png") repeat-x;
 }
 
-/* FIXME: add another categories */
 #wrap.category1 {
 border: 6px solid #204a87 !important;
 }
@@ -127,7 +122,7 @@ li#category1 ul li a {
 }
 
 #wrap.category2 {
-border: 3px solid #a40000 !important;
+border: 6px solid #a40000 !important;
 }
 
 #category2 a {
@@ -157,7 +152,7 @@ li#category2.active a {
 }
 
 #wrap.category3 {
-border: 3px solid #204a87 !important;
+border: 6px solid #204a87 !important;
 }
 
 #category3 a {
@@ -192,7 +187,7 @@ li#category3 ul li a {
 }
 
 #wrap.category4 {
-border: 3px solid #a40000 !important;
+border: 6px solid #a40000 !important;
 }
 
 #category4 a {
@@ -230,4 +225,24 @@ clear: both;
 }
 
 #content {
+  margin-top: 50px;
+}
+
+#header {
+  clear: left;
+  background: #204a87;
+  padding: 3px;
+  text-align: left;
+  margin-left: -290px;
+}
+
+#header a {
+height: 35px !important ;
+color: #ffffff !important ;
+font-size: 10px !important ;
+font-family: Sans-serif !important ;
+font-weight: bold !important ;
+vertical-align: middle !important ;
+padding: 0px 5px 0px 5px !important ;
+text-decoration: underline !important ;
 }
