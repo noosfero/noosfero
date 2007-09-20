@@ -143,9 +143,12 @@ module ApplicationHelper
     content_tag('span', (link_to _('Logout'), { :controller => 'account', :action => 'logout'}, :method => 'post'), :id => 'logout_box')
   end
 
-  # FIXME
   def footer
-    'nothing in the footer yet'
+    # FIXME: add some information from the environment
+    [
+      content_tag('div', 'some information about this environment'),
+      content_tag('div', _('%s, version %s' % [ link_to(Noosfero::PROJECT, 'http://www.colivre.coop.br/Noosfero'), Noosfero::VERSION])),
+    ].join("\n")
   end
 
   # returns the current profile beign viewed.

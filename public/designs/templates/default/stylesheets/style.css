@@ -20,8 +20,8 @@ padding-top: 10px;
   position: relative;
   width: 760px;
   left: 50%;
-  margin-left: -400px;
-  padding: 1em;
+  margin-left: -380px;
+  padding: 0em;
 }
 
 #box_3 {
@@ -48,10 +48,12 @@ padding-top: 10px;
 }
 
 #footer {
-  margin: 0px;
-  padding: 5px;
-  text-align: center;
   clear: both;
+  text-align: center;
+  font-size: smaller;
+  color: #333;
+  margin-top: 2em;
+  padding: 5px;
   background: #c5d0df url("../images/bg_footer.png") top left repeat-x;
 }
 

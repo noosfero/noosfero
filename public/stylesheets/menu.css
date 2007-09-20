@@ -1,0 +1,227 @@
+body {
+margin:0px;
+padding: 0px;
+}
+
+/* Core do Tango na Barra 
+* Azul Escuro - 204a87
+*/
+
+#noosfero_bar {
+  position: fixed;
+  background: #204a87 url("../images/bg_noosfero_bar.png") repeat-x;
+  top: -3px;
+  height: 35px;
+  margin-left: -3px;
+  margin-top: 3px;
+  margin-right: 3px;
+  padding: 0px;
+  font-family: serif-Sans, Verdana, Arial;
+}
+
+#noosfero_bar *:focus {
+  color: red !important;
+}
+  
+#accessibility_menu {
+  float: left;
+  font-size: 10px;
+  padding: 1px;
+  color: #dfdfdf;
+}
+
+#accessibility_menu a {
+  padding-left: 7px;
+  margin-left: 2px;
+  background: url("../images/icon_enter_mini.png") 0px 5px no-repeat;
+  color: #dfdfdf;
+  text-decoration: none;
+}
+
+#accessibility_menu a:hover {
+  color: #fff;
+}
+
+#navigation_bar ul {
+  float: right;
+  margin: 7px;
+  padding: 0px;
+  right: 0px;
+  text-align: right;
+  top: 0px;
+}
+
+#navigation_bar ul li {
+  list-style: none;
+  display: inline;
+  font-size: 17px;
+  margin-right: 5px;
+}
+
+#navigation_bar ul li a {
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: -2px;
+  padding-bottom: 3px;
+  color: #fff;
+  text-decoration: none;
+}
+
+#navigation_bar ul li ul {
+  padding: 10px;
+}
+
+#navigation_bar ul li ul li {
+ display: block;
+ float: right;
+ margin: 5px;
+}
+
+
+/* ITEM 1 */
+
+#noosfero_bar.category1 {
+  background: #204a87 url("../images/bg_noosfero_bar.png") repeat-x;
+}
+
+/* FIXME: add another categories */
+#wrap.category1 {
+border: 6px solid #204a87 !important;
+}
+
+#category1 a {
+  border: 1px outset #6692c4;
+  background: #204a87 url("../images/bg_item_bar_blue_off.png") repeat-x;
+}
+
+#category1 a:hover, li#category1.active a:hover {
+  border: 1px inset #6692c4 !important;
+  background: #3b6096 url("../images/bg_item_bar_blue_on.png") repeat-x !important;
+}
+
+li#category1.active a {
+  border: 1px inset #6692c4;
+  background: #719ece url("../images/bg_item_bar_blue_active.png") repeat-x;
+}
+
+li#category1 ul li a {
+  border: 1px outset #6692c4 !important;
+  background: #204a87 url("../images/bg_item_bar_blue_off.png") repeat-x !important;
+}
+
+#category1 ul {
+  background: #204a87 url("../images/bg_noosfero_bar.png") repeat-x;
+}
+
+
+/* ITEM 2 red */
+
+#noosfero_bar.category2 {
+  background: #a40000 url("../images/bg_noosfero_bar_red.png") repeat-x;
+}
+
+#wrap.category2 {
+border: 3px solid #a40000 !important;
+}
+
+#category2 a {
+  border: 1px outset #a40000;
+  background: #a40000 url("../images/bg_item_bar_red_off.png") repeat-x;
+}
+
+#category2 a:hover, li#category2.active a:hover {
+  border: 1px inset #a40000;
+  background: #ae1c1c url("../images/bg_item_bar_red_on.png") repeat-x;
+}
+
+li#category2.active a {
+  border: 1px inset #a40000;
+  background: #ee2828 url("../images/bg_item_bar_red_active.png") repeat-x;
+}
+
+#category2 ul {
+  background: #a40000 url("../images/bg_noosfero_bar_red.png") repeat-x;
+}
+
+
+/* ITEM 3 */
+
+#noosfero_bar.category3 {
+  background: #204a87 url("../images/bg_noosfero_bar.png") repeat-x;
+}
+
+#wrap.category3 {
+border: 3px solid #204a87 !important;
+}
+
+#category3 a {
+  border: 1px outset #6692c4;
+  background: #204a87 url("../images/bg_item_bar_blue_off.png") repeat-x;
+}
+
+#category3 a:hover, li#category3.active a:hover {
+  border: 1px inset #6692c4 !important;
+  background: #3b6096 url("../images/bg_item_bar_blue_on.png") repeat-x !important;
+}
+
+li#category3.active a {
+  border: 1px inset #6692c4;
+  background: #719ece url("../images/bg_item_bar_blue_active.png") repeat-x;
+}
+
+li#category3 ul li a {
+  border: 1px outset #6692c4 !important;
+  background: #204a87 url("../images/bg_item_bar_blue_off.png") repeat-x !important;
+}
+
+#category3 ul {
+  background: #204a87 url("../images/bg_noosfero_bar.png") repeat-x;
+}
+
+
+/* ITEM 4 red */
+
+#noosfero_bar.category4 {
+  background: #a40000 url("../images/bg_noosfero_red.png") repeat-x;
+}
+
+#wrap.category4 {
+border: 3px solid #a40000 !important;
+}
+
+#category4 a {
+  border: 1px outset #a40000;
+  background: #a40000 url("../images/bg_item_bar_red_off.png") repeat-x;
+}
+
+#category4 a:hover, li#category4.active a:hover {
+  border: 1px inset #a40000;
+  background: #ae1c1c url("../images/bg_item_bar_red_on.png") repeat-x;
+}
+
+li#category4.active a {
+  border: 1px inset #a40000;
+  background: #ee2828 url("../images/bg_item_bar_red_active.png") repeat-x;
+}
+
+#category4 ul {
+  background: #a40000 url("../images/bg_noosfero_bar_red.png") repeat-x;
+}
+
+#navigation_bar ul ul {
+margin: 0px;
+padding: 0px;
+width: 100%;
+left: 0px;
+position: absolute;
+margin-top: 34px;
+display: none;
+}
+
+#search_box {
+display: none;
+clear: both;
+}
+
+#content {
+}
