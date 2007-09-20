@@ -1,6 +1,6 @@
 function prepareMenu(id, options) {
 
-    var menuCloseTimeout = options.timeout;
+    var menuCloseTimeout = options.timeout || 333;
 
     if ( document.all ) {
         // add a class for work arround msie&#180;s css bugs
