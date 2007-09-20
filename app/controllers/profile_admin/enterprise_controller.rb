@@ -2,7 +2,8 @@
 class EnterpriseController < ProfileAdminController
 
   before_filter :logon, :my_enterprises
-  
+  protect([:edit, :update, :activate, :destroy], 'edit_enterprise', @profile)
+
   # Redirects to show if there is only one action and to list otherwise
   def index
     if @person.enterprises.size == 1
@@ -10,6 +11,8 @@ class EnterpriseController < ProfileAdminController
     else
       redirect_to :action => 'list'
     end
+    @vitual_communities = VirtualCommunity.find(:all)
+    @validation_entities = Organization.find(:all)
   end
   
   # Lists all enterprises
@@ -104,7 +107,7 @@ class EnterpriseController < ProfileAdminController
     if @enterprise.approve
       flash[:notice] = _('Enterprise successfuly approved')
     else
-      flash[:notice] = _('Failed to approve the enterprise')
+      flash[:notice] = _('Failed to approve the htmlenterprise')
     end
     redirect_to :action => 'index'
   end

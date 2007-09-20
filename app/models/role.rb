@@ -5,6 +5,8 @@ class Role < ActiveRecord::Base
       'edit_profile' => N_('Edit profile'),
       'post_content' => N_('Post content'),
       'destroy_profile' => N_('Destroy profile'),
+      'manage_membership' => N_('Manage membership'),
+      'moderate_content' => N_('Moderate content'),
     },
     :system => {
     }
@@ -34,5 +36,9 @@ class Role < ActiveRecord::Base
 
   def has_permission?(perm)
     permissions.include?(perm)
+  end
+
+  def has_kind?(kind)
+    permissions.any?{ |p| PERMISSIONS[kind][p] }
   end
 end

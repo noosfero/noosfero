@@ -103,6 +103,10 @@ class Profile < ActiveRecord::Base
   end
 
   def affiliate(person, role)
-    RoleAssignment.new(:person => person, :role => role, :resource => self).save
+    unless RoleAssignment.find(:first, :conditions => {:person_id => person, :role_id => role, :resource_id => self, :resource_type => self.class.base_class.name})
+      RoleAssignment.new(:person => person, :role => role, :resource => self).save
+    else
+      false
+    end
   end
 end

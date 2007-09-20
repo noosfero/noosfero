@@ -1,0 +1,2 @@
+module ProfileMemberHelper
+end

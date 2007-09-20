@@ -51,4 +51,16 @@ class ApplicationController < ActionController::Base
     verify :method => :post, :only => actions, :redirect_to => redirect
   end
 
+  # Declares the +permission+ need to be able to access +action+.
+  #
+  # * +action+ must be a symbol or string with the name of the action
+  # * +permission+ must be a symbol or string naming the needed permission.
+  # * +target+ is the object over witch the user would need the specified permission.
+  def self.protect(actions, permission, target = nil)
+    before_filter :only => actions do |controller|
+      unless controller.send(:logged_in?) and controller.send(:current_user).person.has_permission?(permission, target)
+          controller.send(:render, {:file => 'app/views/shared/access_denied.rhtml', :layout => true})
+      end
+    end
+  end
 end
