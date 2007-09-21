@@ -9,6 +9,10 @@ class ManageDocumentsTest < ActionController::IntegrationTest
 
     login('ze', 'test')
 
+    assert_tag :tag => 'a', :attributes => { :href => '/account' }
+    get '/account'
+    assert_response :success
+
     assert_tag :tag => 'a', :attributes => { :href => '/myprofile/ze/cms' }
 
     get '/myprofile/ze/cms'
