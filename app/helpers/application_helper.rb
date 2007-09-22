@@ -73,8 +73,8 @@ module ApplicationHelper
   # TODO: test this helper
   # TODO: add an icon?
   # TODO: the command rake test:rcov didn't works because of this method. See what it's the problem
-  def virtual_community_identification
-    content_tag('div', @virtual_community.name, :id => 'virtual_community_identification')
+  def environment_identification
+    content_tag('div', @environment.name, :id => 'environment_identification')
   end
 
   def link_to_cms(text, profile = nil, options = {})

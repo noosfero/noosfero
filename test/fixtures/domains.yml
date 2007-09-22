@@ -2,12 +2,12 @@
 one:
   id: 1
   name: colivre.net
-  owner_type: VirtualCommunity
+  owner_type: Environment
   owner_id: 1
 two:
   id: 2
   name: anhetegua.net
-  owner_type: VirtualCommunity
+  owner_type: Environment
   owner_id: 2
 three:
   id: 3

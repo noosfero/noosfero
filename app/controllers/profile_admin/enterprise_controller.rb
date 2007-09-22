@@ -11,7 +11,7 @@ class EnterpriseController < ProfileAdminController
     else
       redirect_to :action => 'list'
     end
-    @vitual_communities = VirtualCommunity.find(:all)
+    @vitual_communities = Environment.find(:all)
     @validation_entities = Organization.find(:all)
   end
   
@@ -28,7 +28,7 @@ class EnterpriseController < ProfileAdminController
   # Make a form to the creation of an eterprise
   def register_form
     @enterprise = Enterprise.new()
-    @vitual_communities = VirtualCommunity.find(:all)
+    @vitual_communities = Environment.find(:all)
     @validation_entities = Organization.find(:all)
   end
 
@@ -42,7 +42,7 @@ class EnterpriseController < ProfileAdminController
       redirect_to :action => 'index'
     else
       flash[:notice] = _('Enterprise was not created')
-      @vitual_communities = VirtualCommunity.find(:all)
+      @vitual_communities = Environment.find(:all)
       @validation_entities = Organization.find(:all)
       render :action => 'register_form'
     end

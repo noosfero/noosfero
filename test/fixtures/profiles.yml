@@ -4,7 +4,7 @@ johndoe:
   name: 'John Doe'
   type: 'Person' 
   identifier: johndoe
-  virtual_community_id: 1
+  environment_id: 1
   user_id: 1
   flexible_template_template: 'default'
   flexible_template_icon_theme: 'default'
@@ -14,7 +14,7 @@ joerandomhacker:
   name: 'Joe Random Hacker'
   type: 'Person'
   identifier: joerandomhacker
-  virtual_community_id: 1
+  environment_id: 1
   user_id: 2
   flexible_template_template: 'simple'
   flexible_template_icon_theme: 'simple'
@@ -24,7 +24,7 @@ john_and_joe:
   name: "John and Joe's Production Cooperative"
   type: 'Person'
   identifier: john_and_joe
-  virtual_community_id: 1
+  environment_id: 1
   flexible_template_template: 'simple'
   flexible_template_icon_theme: 'simple'
   flexible_template_theme: 'simple'
@@ -34,7 +34,7 @@ ze:
   type: 'Person'
   user_id: 3
   identifier: ze
-  virtual_community_id: 1
+  environment_id: 1
   flexible_template_template: 'default'
   flexible_template_icon_theme: 'default'
   flexible_template_theme: 'default'
@@ -43,7 +43,7 @@ colivre:
   name: "cooptec_livre"
   type: 'Enterprise'
   identifier: 'colivre'
-  virtual_community_id: 1
+  environment_id: 1
   flexible_template_template: 'default'
   flexible_template_icon_theme: 'default'
   flexible_template_theme: 'default'
@@ -52,7 +52,7 @@ empreendimentoB:
   name: "emp B"
   type: 'Enterprise'
   identifier: "empb"
-  virtual_community_id: 1
+  environment_id: 1
   flexible_template_template: 'default'
   flexible_template_icon_theme: 'default'
   flexible_template_theme: 'default'

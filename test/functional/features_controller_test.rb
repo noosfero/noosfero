@@ -18,7 +18,7 @@ class FeaturesControllerTest < Test::Unit::TestCase
     uses_host 'anhetegua.net'
     get :index
     assert_template 'index'
-    VirtualCommunity.available_features.each do |feature, text|
+    Environment.available_features.each do |feature, text|
       assert_tag(:tag => 'input', :attributes => { :type => 'checkbox', :name => "features[#{feature}]" })
     end
   end
@@ -28,7 +28,7 @@ class FeaturesControllerTest < Test::Unit::TestCase
     post :update, :features => { 'feature1' => '1', 'feature2' => '1' }
     assert_redirected_to :action => 'index'
     assert_kind_of String, flash[:notice]
-    v = VirtualCommunity.find(virtual_communities(:anhetegua_net).id)
+    v = Environment.find(virtual_communities(:anhetegua_net).id)
     assert v.enabled?('feature2')
     assert v.enabled?('feature2') 
     assert !v.enabled?('feature3')
@@ -39,7 +39,7 @@ class FeaturesControllerTest < Test::Unit::TestCase
     post :update # no features
     assert_redirected_to :action => 'index'
     assert_kind_of String, flash[:notice]
-    v = VirtualCommunity.find(virtual_communities(:anhetegua_net).id)
+    v = Environment.find(virtual_communities(:anhetegua_net).id)
     assert !v.enabled?('feature1')
     assert !v.enabled?('feature2')
     assert !v.enabled?('feature3')

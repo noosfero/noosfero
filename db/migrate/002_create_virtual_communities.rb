@@ -1,12 +1,12 @@
-class CreateVirtualCommunities < ActiveRecord::Migration
+class CreateEnvironments < ActiveRecord::Migration
   def self.up
-    create_table :virtual_communities do |t|
+    create_table :environments do |t|
       t.column :name,       :string
       t.column :is_default, :boolean
       t.column :settings,   :text
       t.column :design_data, :text
     end
-    VirtualCommunity.create!(:name => 'Default Virtual Community', :is_default => true)
+    Environment.create!(:name => 'Default Environment', :is_default => true)
   end
 
   def self.down

@@ -27,12 +27,12 @@ class AccountController < PublicController
   def signup
     begin
       @user = User.new(params[:user])
-      @user.terms_of_use = virtual_community.terms_of_use
-      @terms_of_use = virtual_community.terms_of_use
+      @user.terms_of_use = environment.terms_of_use
+      @terms_of_use = environment.terms_of_use
 
       if request.post?
         @user.save!
-        @user.person.virtual_community = virtual_community
+        @user.person.environment = environment
         @user.person.save!
         self.current_user = @user
         redirect_back_or_default(:controller => 'account', :action => 'index')

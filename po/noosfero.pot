@@ -226,35 +226,35 @@ msgstr ""
 msgid "PersonInfo|Contact information"
 msgstr ""
 
-#: app/models/virtual_community.rb:-
+#: app/models/environment.rb:-
 msgid "virtual community"
 msgstr ""
 
-#: app/models/virtual_community.rb:-
-msgid "VirtualCommunity|Name"
+#: app/models/environment.rb:-
+msgid "Environment|Name"
 msgstr ""
 
-#: app/models/virtual_community.rb:-
-msgid "VirtualCommunity|Is default"
+#: app/models/environment.rb:-
+msgid "Environment|Is default"
 msgstr ""
 
-#: app/models/virtual_community.rb:-
-msgid "VirtualCommunity|Settings"
+#: app/models/environment.rb:-
+msgid "Environment|Settings"
 msgstr ""
 
-#: app/models/virtual_community.rb:-
-msgid "VirtualCommunity|Design data"
+#: app/models/environment.rb:-
+msgid "Environment|Design data"
 msgstr ""
 
-#: app/models/virtual_community.rb:10
+#: app/models/environment.rb:10
 msgid "Some feature"
 msgstr ""
 
-#: app/models/virtual_community.rb:11
+#: app/models/environment.rb:11
 msgid "Other feature"
 msgstr ""
 
-#: app/models/virtual_community.rb:121
+#: app/models/environment.rb:121
 msgid "Only one Virtual Community can be the default one"
 msgstr ""
 

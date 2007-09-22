@@ -1,6 +1,6 @@
 class EditTemplateController < EnvironmentAdminController
 
-  design_editor :holder => 'virtual_community', :autosave => true, :block_types => :block_types
+  design_editor :holder => 'environment', :autosave => true, :block_types => :block_types
   
   def block_types
     { 

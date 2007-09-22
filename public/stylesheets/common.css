@@ -22,7 +22,7 @@ a:hover img {
 
 /* Bar Blue Default */
 
-#virtual_community_identification {
+#environment_identification {
 position: absolute !important;
 background: url("../images/bg_blue_logo.png") 5px no-repeat !important;
 vertical-align: bottom !important ;
@@ -32,7 +32,7 @@ line-height: 34px !important ;
 padding-left: 60px !important ;
 }
 
-#virtual_community_identification:hover {
+#environment_identification:hover {
 color: #dfdfdf !important ;
 }
 

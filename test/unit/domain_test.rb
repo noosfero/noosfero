@@ -24,9 +24,9 @@ class DomainTest < Test::Unit::TestCase
 
   def test_owner
     d = Domain.new(:name => 'example.com')
-    d.owner = VirtualCommunity.new(:name => 'Example')
+    d.owner = Environment.new(:name => 'Example')
     assert d.save
-    assert_kind_of VirtualCommunity, d.owner
+    assert_kind_of Environment, d.owner
   end
 
   def test_get_domain_name
@@ -64,22 +64,22 @@ class DomainTest < Test::Unit::TestCase
     assert d.errors.invalid?(:name)
   end
 
-  def test_virtual_community
-    # domain directly linked to VirtualCommunity
+  def test_environment
+    # domain directly linked to Environment
     domain = Domain.find_by_name('colivre.net')
-    assert_kind_of VirtualCommunity, domain.owner
-    assert_kind_of VirtualCommunity, domain.virtual_community
+    assert_kind_of Environment, domain.owner
+    assert_kind_of Environment, domain.environment
 
     # domain linked to Profile
     domain = Domain.find_by_name('johndoe.net')
     assert_kind_of Profile, domain.owner
-    assert_kind_of VirtualCommunity, domain.virtual_community
+    assert_kind_of Environment, domain.environment
   end
 
   def test_profile
     # domain linked to profile
     assert_not_nil Domain.find_by_name('johndoe.net').profile
-    # domain linked to VirtualCommunity
+    # domain linked to Environment
     assert_nil Domain.find_by_name('colivre.net').profile
   end
 

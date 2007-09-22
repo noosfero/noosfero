@@ -14,12 +14,12 @@ class HomeControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
   end
 
-  def test_detection_of_virtual_community_by_host
+  def test_detection_of_environment_by_host
     uses_host 'www.colivre.net'
     get :index
     assert_template 'index'
 
-    assert_kind_of VirtualCommunity, assigns(:virtual_community)
+    assert_kind_of Environment, assigns(:environment)
 
     assert_kind_of Domain, assigns(:domain)
     assert_equal 'colivre.net', assigns(:domain).name
@@ -32,7 +32,7 @@ class HomeControllerTest < Test::Unit::TestCase
     get :index
     assert_template 'index'
 
-    assert_kind_of VirtualCommunity, assigns(:virtual_community)
+    assert_kind_of Environment, assigns(:environment)
 
     assert_kind_of Domain, assigns(:domain)
     assert_equal 'jrh.net', assigns(:domain).name
@@ -40,14 +40,14 @@ class HomeControllerTest < Test::Unit::TestCase
     assert_kind_of Profile, assigns(:profile)
   end
 
-  def test_unknown_domain_falls_back_to_default_virtual_community
+  def test_unknown_domain_falls_back_to_default_environment
     uses_host 'veryunprobabledomain.com'
 
     get :index
     assert_template 'index'
 
-    assert_kind_of VirtualCommunity, assigns(:virtual_community)
-    assert assigns(:virtual_community).is_default?
+    assert_kind_of Environment, assigns(:environment)
+    assert assigns(:environment).is_default?
 
   end
 

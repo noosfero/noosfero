@@ -34,9 +34,9 @@ class EnterpriseTest < Test::Unit::TestCase
     assert_kind_of Array, p.domains
   end
 
-  def test_belongs_to_virtual_community_and_has_default
+  def test_belongs_to_environment_and_has_default
     p = Enterprise.new
-    assert_kind_of VirtualCommunity, p.virtual_community
+    assert_kind_of Environment, p.environment
   end
 
   def test_cannot_rename

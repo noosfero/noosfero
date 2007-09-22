@@ -1,9 +1,9 @@
 class FeaturesController < EnvironmentAdminController
 
-  acts_as_virtual_community_admin_controller
+  acts_as_environment_admin_controller
 
   def index
-    @features = VirtualCommunity.available_features
+    @features = Environment.available_features
   end
 
   post_only :update
@@ -13,8 +13,8 @@ class FeaturesController < EnvironmentAdminController
                else
                  params[:features].keys
                end
-    @virtual_community.enabled_features = features
-    @virtual_community.save!
+    @environment.enabled_features = features
+    @environment.save!
     flash[:notice] = _('Features updated successfully.')
     redirect_to :action => 'index'
   end

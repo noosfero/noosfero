@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
 
   helper :document
   
-  design :holder => 'virtual_community'
+  design :holder => 'environment'
 
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem
@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   init_gettext 'noosfero'
 
   before_filter :detect_stuff_by_domain
-  attr_reader :virtual_community
+  attr_reader :environment
 
   protected
 
@@ -20,9 +20,9 @@ class ApplicationController < ActionController::Base
   def detect_stuff_by_domain
     @domain = Domain.find_by_name(request.host)
     if @domain.nil?
-      @virtual_community = VirtualCommunity.default
+      @environment = Environment.default
     else
-      @virtual_community = @domain.virtual_community
+      @environment = @domain.environment
       @profile = @domain.profile
     end
   end
@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
     @profile
   end
 
-  def self.acts_as_virtual_community_admin_controller
+  def self.acts_as_environment_admin_controller
     before_filter :load_admin_controller
   end
   def load_admin_controller

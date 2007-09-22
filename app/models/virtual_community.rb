@@ -1,9 +1,9 @@
-# A VirtualCommunity is like a website to be hosted in the platform. It may
+# A Environment is like a website to be hosted in the platform. It may
 # contain multiple Profile's and can be identified by several different
 # domains.
-class VirtualCommunity < ActiveRecord::Base
+class Environment < ActiveRecord::Base
 
-  # returns the available features for a VirtualCommunity, in the form of a
+  # returns the available features for a Environment, in the form of a
   # hash, with pairs in the form <tt>'feature_name' => 'Feature name'</tt>.
   def self.available_features
     {
@@ -18,7 +18,7 @@ class VirtualCommunity < ActiveRecord::Base
 
   acts_as_design
 
-  # One VirtualCommunity can be reached by many domains
+  # One Environment can be reached by many domains
   has_many :domains, :as => :owner
   has_many :profiles
 
@@ -26,10 +26,10 @@ class VirtualCommunity < ActiveRecord::Base
   # Attributes
   # #################################################
 
-  # store the VirtualCommunity settings as YAML-serialized Hash.
+  # store the Environment settings as YAML-serialized Hash.
   serialize :settings
 
-  # returns a Hash containing the VirtualCommunity configuration
+  # returns a Hash containing the Environment configuration
   def settings
     self[:settings] ||= {}
   end
@@ -74,7 +74,7 @@ class VirtualCommunity < ActiveRecord::Base
     self.settings['terms_of_use'] = value
   end
 
-  # returns <tt>true</tt> if this VirtualCommunity has terms of use to be
+  # returns <tt>true</tt> if this Environment has terms of use to be
   # accepted by users before registration.
   def has_terms_of_use?
     ! self.settings['terms_of_use'].nil?
@@ -118,13 +118,13 @@ class VirtualCommunity < ActiveRecord::Base
   validates_presence_of :name
 
   # only one virtual community can be the default one
-  validates_uniqueness_of :is_default, :if => (lambda do |virtual_community| virtual_community.is_default? end), :message => _('Only one Virtual Community can be the default one')
+  validates_uniqueness_of :is_default, :if => (lambda do |environment| environment.is_default? end), :message => _('Only one Virtual Community can be the default one')
 
   # #################################################
   # Business logic in general
   # #################################################
 
-  # the default VirtualCommunity.
+  # the default Environment.
   def self.default
     self.find(:first, :conditions => [ 'is_default = ?', true ] )
   end

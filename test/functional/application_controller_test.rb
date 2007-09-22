@@ -14,9 +14,9 @@ class ApplicationControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
   end
 
-  def test_exist_virtual_community_variable_to_helper_virtual_community_identification
+  def test_exist_environment_variable_to_helper_environment_identification
     get :index
-    assert_not_nil assigns(:virtual_community)
+    assert_not_nil assigns(:environment)
   end
 
   def test_get_against_post_only

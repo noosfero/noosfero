@@ -1,5 +1,5 @@
 class HomeController < PublicController
 
-  design :holder => 'virtual_community'
+  design :holder => 'environment'
 
 end

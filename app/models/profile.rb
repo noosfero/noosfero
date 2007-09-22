@@ -1,6 +1,6 @@
 # A Profile is the representation and web-presence of an individual or an
-# organization. Every Profile is attached to its VirtualCommunity of origin,
-# which by default is the one returned by VirtualCommunity:default.
+# organization. Every Profile is attached to its Environment of origin,
+# which by default is the one returned by Environment:default.
 class Profile < ActiveRecord::Base
 
   after_create do |profile|
@@ -32,7 +32,7 @@ class Profile < ActiveRecord::Base
   acts_as_taggable
 
   has_many :domains, :as => :owner
-  belongs_to :virtual_community
+  belongs_to :environment
   
   has_many :role_assignments, :as => :resource
   has_many :people, :through => :role_assignments
@@ -56,11 +56,11 @@ class Profile < ActiveRecord::Base
   validates_uniqueness_of :user_id, :allow_nil =>true
 
   # creates a new Profile. By default, it is attached to the default
-  # VirtualCommunity (see VirtualCommunity#default), unless you tell it
+  # Environment (see Environment#default), unless you tell it
   # otherwise
   def initialize(*args)
     super(*args)
-    self.virtual_community ||= VirtualCommunity.default
+    self.environment ||= Environment.default
   end
 
   # Searches tags by tag or name

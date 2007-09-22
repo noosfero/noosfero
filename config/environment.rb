@@ -82,17 +82,17 @@ Comatose.configure do |config|
   config.admin_helpers << :application_helper
   config.admin_helpers << :document_helper
 end
-Comatose::AdminController.design :holder => 'virtual_community'
+Comatose::AdminController.design :holder => 'environment'
 Comatose::AdminController.before_filter do |controller|
   # TODO: copy/paste; extract this into a method (see
   # app/controllers/application.rb)
   domain = Domain.find_by_name(controller.request.host)
   if domain.nil?
-    virtual_community = VirtualCommunity.default
+    environment = Environment.default
   else
-    virtual_community = domain.virtual_community
+    environment = domain.environment
     profile = domain.profile
   end
-  controller.instance_variable_set('@virtual_community', virtual_community)
+  controller.instance_variable_set('@environment', environment)
 end
 

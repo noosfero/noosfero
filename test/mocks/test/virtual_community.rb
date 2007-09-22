@@ -1,6 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) +  "/../../../app/models/virtual_community")
+require File.expand_path(File.dirname(__FILE__) +  "/../../../app/models/environment")
 
-class VirtualCommunity < ActiveRecord::Base
+class Environment < ActiveRecord::Base
   def self.available_features
     {
     'feature1' => 'Enable Feature 1',
