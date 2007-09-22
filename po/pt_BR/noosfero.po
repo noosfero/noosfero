@@ -229,7 +229,7 @@ msgid "PersonInfo|Contact information"
 msgstr "Informação de contato"
 
 #: app/models/environment.rb:-
-msgid "virtual community"
+msgid "environment"
 msgstr "comunidade virtual"
 
 #: app/models/environment.rb:-
@@ -985,7 +985,7 @@ msgid "Administrator Panel"
 msgstr "Painel do Administrador"
 
 #: app/views/admin_panel/index.rhtml:3
-msgid "You, as an virtual community administrator, has the following options:"
+msgid "You, as an environment administrator, has the following options:"
 msgstr ""
 "Você, como administrador de comunidade virtual, tem as seguintes opções:"
 
@@ -1032,7 +1032,7 @@ msgstr "Registre-se."
 #: app/views/account/index_anonymous.rhtml:10
 msgid ""
 "If you are not an user already, you can register now to become a member of "
-"this virtual community."
+"this environment."
 msgstr ""
 "Se você ainda não é um usuário, você pode se registrar agora e se tornar um "
 "membro desse comunidade virtual."
@@ -1100,11 +1100,11 @@ msgstr "Habilitar/Desabilitar funcionalidades"
 
 #: app/views/features/index.rhtml:5
 msgid ""
-"Here you can enable or disable several features of your virtual community. "
-"Each feature represents some funcionality that your virtual community can "
+"Here you can enable or disable several features of your environment. "
+"Each feature represents some funcionality that your environment can "
 "use if you enable it.\n"
 "\n"
-"Check all the features you want to enable for your virtual community, "
+"Check all the features you want to enable for your environment, "
 "uncheck all the ones you don\t want, and use the 'Save changes' button to "
 "confirm your changes."
 msgstr ""

@@ -32,14 +32,14 @@ ActionController::Routing::Routes.draw do |map|
   ######################################################
   ## Controllers that are used by environment admin
   ######################################################
-  # administrative tasks for a virtual community
+  # administrative tasks for a environment
   map.admin 'admin', :controller => 'admin_panel'
   map.admin 'admin/:controller/:action/:id', :controller => Noosfero.pattern_for_controllers_in_directory('environment_admin')
 
   ######################################################
   ## Controllers that are used by system admin
   ######################################################
-  # administrative tasks for a virtual community
+  # administrative tasks for a environment
   map.system 'system', :controller => 'system'
   map.system 'system/:controller/:action/:id', :controller => Noosfero.pattern_for_controllers_in_directory('system_admin')
 

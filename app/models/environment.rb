@@ -63,13 +63,13 @@ class Environment < ActiveRecord::Base
     end
   end
 
-  # the virtual community's terms of use: every user must accept them before
+  # the environment's terms of use: every user must accept them before
   # registering.
   def terms_of_use
     self.settings['terms_of_use']
   end
 
-  # sets the virtual community's terms of use.
+  # sets the environment's terms of use.
   def terms_of_use=(value)
     self.settings['terms_of_use'] = value
   end
@@ -117,7 +117,7 @@ class Environment < ActiveRecord::Base
   # <tt>name</tt> is mandatory
   validates_presence_of :name
 
-  # only one virtual community can be the default one
+  # only one environment can be the default one
   validates_uniqueness_of :is_default, :if => (lambda do |environment| environment.is_default? end), :message => _('Only one Virtual Community can be the default one')
 
   # #################################################

@@ -63,12 +63,12 @@ class EnvironmentTest < Test::Unit::TestCase
   end
 
   def test_terms_of_use
-    v = Environment.new(:name => 'My test virtual community')
+    v = Environment.new(:name => 'My test environment')
     assert_nil v.terms_of_use
-    v.terms_of_use = 'To be part of this virtual community, you must accept the following terms: ...'
+    v.terms_of_use = 'To be part of this environment, you must accept the following terms: ...'
     assert v.save
     id = v.id
-    assert_equal 'To be part of this virtual community, you must accept the following terms: ...', Environment.find(id).terms_of_use
+    assert_equal 'To be part of this environment, you must accept the following terms: ...', Environment.find(id).terms_of_use
   end
 
   def test_has_terms_of_use

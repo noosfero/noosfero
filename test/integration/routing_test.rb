@@ -34,7 +34,7 @@ class RoutingTest < ActionController::IntegrationTest
     assert_routing('/myprofile/ze', :profile => 'ze', :controller => 'profile_editor', :action => 'index')
   end
 
-  # virtual community administrative controllers (admin/*)
+  # environment administrative controllers (admin/*)
   ################################################################
 
   def test_admin_panel_controller
