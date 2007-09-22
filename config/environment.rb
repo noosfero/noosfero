@@ -96,3 +96,5 @@ Comatose::AdminController.before_filter do |controller|
   controller.instance_variable_set('@environment', environment)
 end
 
+# string transliteration
+require 'noosfero/transliterations'
