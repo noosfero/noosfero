@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.2.0~alpha\n"
-"POT-Creation-Date: 2007-09-12 17:36-0300\n"
+"POT-Creation-Date: 2007-09-22 16:03-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,98 +16,99 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: app/controllers/account_controller.rb:20
-msgid "Logged in successfully"
-msgstr ""
-
-#: app/controllers/account_controller.rb:22
-msgid "Incorrect username or password"
-msgstr ""
-
-#: app/controllers/account_controller.rb:34
-msgid "You have to accept the terms of service to signup"
-msgstr ""
-
-#: app/controllers/account_controller.rb:42
-msgid "Thanks for signing up!"
-msgstr ""
-
-#: app/controllers/account_controller.rb:53
-msgid "You have been logged out."
-msgstr ""
-
-#: app/controllers/account_controller.rb:64
-msgid "Your password has been changed successfully!"
-msgstr ""
-
-#: app/controllers/account_controller.rb:67
-msgid "The supplied current password is incorrect."
-msgstr ""
-
-#: app/controllers/edit_template_controller.rb:9
-msgid "Recent documents"
-msgstr ""
-
-#: app/controllers/edit_template_controller.rb:10
+#: app/controllers/environment_admin/edit_template_controller.rb:10
 msgid "Main content block"
 msgstr ""
 
-#: app/controllers/manage_tags_controller.rb:26
+#: app/controllers/environment_admin/manage_tags_controller.rb:26
 msgid "Tag was successfully created."
 msgstr ""
 
-#: app/controllers/manage_tags_controller.rb:44
+#: app/controllers/environment_admin/manage_tags_controller.rb:44
 msgid "Tag was successfully updated."
 msgstr ""
 
-#: app/controllers/manage_tags_controller.rb:56
+#: app/controllers/environment_admin/manage_tags_controller.rb:56
 msgid "Tag was successfuly destroyed"
 msgstr ""
 
-#: app/controllers/manage_tags_controller.rb:65
+#: app/controllers/environment_admin/manage_tags_controller.rb:65
 msgid "Tag was successfuly approved"
 msgstr ""
 
-#: app/controllers/enterprise_controller.rb:38
+#: app/controllers/environment_admin/role_controller.rb:19
+msgid "Failed to create role"
+msgstr ""
+
+#: app/controllers/environment_admin/role_controller.rb:33
+#: app/controllers/environment_admin/role_controller.rb:43
+msgid "Failed to edit role"
+msgstr ""
+
+#: app/controllers/environment_admin/features_controller.rb:18
+msgid "Features updated successfully."
+msgstr ""
+
+#: app/controllers/profile_admin/enterprise_controller.rb:41
 msgid ""
 "The enterprise was succesfully created, the validation entity will cotact "
 "you as soon as your enterprise is approved"
 msgstr ""
 
-#: app/controllers/enterprise_controller.rb:41
+#: app/controllers/profile_admin/enterprise_controller.rb:44
 msgid "Enterprise was not created"
 msgstr ""
 
-#: app/controllers/enterprise_controller.rb:60
+#: app/controllers/profile_admin/enterprise_controller.rb:63
 msgid "Could not update the enterprise"
 msgstr ""
 
-#: app/controllers/enterprise_controller.rb:93
+#: app/controllers/profile_admin/enterprise_controller.rb:97
 msgid "Enterprise successfuly activacted"
 msgstr ""
 
-#: app/controllers/enterprise_controller.rb:95
+#: app/controllers/profile_admin/enterprise_controller.rb:99
 msgid "Failed to activate the enterprise"
 msgstr ""
 
-#: app/controllers/enterprise_controller.rb:104
+#: app/controllers/profile_admin/enterprise_controller.rb:108
 msgid "Enterprise successfuly approved"
 msgstr ""
 
-#: app/controllers/enterprise_controller.rb:106
-msgid "Failed to approve the enterprise"
+#: app/controllers/profile_admin/enterprise_controller.rb:110
+msgid "Failed to approve the htmlenterprise"
 msgstr ""
 
-#: app/controllers/enterprise_controller.rb:115
+#: app/controllers/profile_admin/enterprise_controller.rb:119
 msgid "Enterprise successfuly rejected"
 msgstr ""
 
-#: app/controllers/enterprise_controller.rb:117
+#: app/controllers/profile_admin/enterprise_controller.rb:121
 msgid "Failed to reject the enterprise"
 msgstr ""
 
-#: app/controllers/features_controller.rb:18
-msgid "Features updated successfully."
+#: app/controllers/public/account_controller.rb:20
+msgid "Logged in successfully"
+msgstr ""
+
+#: app/controllers/public/account_controller.rb:22
+msgid "Incorrect username or password"
+msgstr ""
+
+#: app/controllers/public/account_controller.rb:39
+msgid "Thanks for signing up!"
+msgstr ""
+
+#: app/controllers/public/account_controller.rb:51
+msgid "You have been logged out."
+msgstr ""
+
+#: app/controllers/public/account_controller.rb:62
+msgid "Your password has been changed successfully!"
+msgstr ""
+
+#: app/controllers/public/account_controller.rb:65
+msgid "The supplied current password is incorrect."
 msgstr ""
 
 #: app/models/enterprise.rb:13
@@ -131,7 +132,7 @@ msgid "Profile|Identifier"
 msgstr ""
 
 #: app/models/profile.rb:-
-msgid "Profile|Virtual community"
+msgid "Profile|Environment"
 msgstr ""
 
 #: app/models/profile.rb:-
@@ -170,7 +171,7 @@ msgstr ""
 msgid "Profile|Approved"
 msgstr ""
 
-#: app/models/profile.rb:44
+#: app/models/profile.rb:45
 msgid "An existing profile cannot be renamed."
 msgstr ""
 
@@ -210,8 +211,44 @@ msgstr ""
 msgid "OrganizationInfo|Validated"
 msgstr ""
 
+#: app/models/role.rb:-
+msgid "role"
+msgstr ""
+
+#: app/models/role.rb:-
+msgid "Role|Name"
+msgstr ""
+
+#: app/models/role.rb:-
+msgid "Role|Permissions"
+msgstr ""
+
+#: app/models/role.rb:5
+msgid "Edit profile"
+msgstr ""
+
+#: app/models/role.rb:6
+msgid "Post content"
+msgstr ""
+
+#: app/models/role.rb:7
+msgid "Destroy profile"
+msgstr ""
+
+#: app/models/role.rb:8
+msgid "Manage membership"
+msgstr ""
+
+#: app/models/role.rb:9
+msgid "Moderate content"
+msgstr ""
+
 #: app/models/person_info.rb:-
 msgid "person info"
+msgstr ""
+
+#: app/models/person_info.rb:-
+msgid "PersonInfo|Name"
 msgstr ""
 
 #: app/models/person_info.rb:-
@@ -226,36 +263,8 @@ msgstr ""
 msgid "PersonInfo|Contact information"
 msgstr ""
 
-#: app/models/environment.rb:-
-msgid "environment"
-msgstr ""
-
-#: app/models/environment.rb:-
-msgid "Environment|Name"
-msgstr ""
-
-#: app/models/environment.rb:-
-msgid "Environment|Is default"
-msgstr ""
-
-#: app/models/environment.rb:-
-msgid "Environment|Settings"
-msgstr ""
-
-#: app/models/environment.rb:-
-msgid "Environment|Design data"
-msgstr ""
-
-#: app/models/environment.rb:10
-msgid "Some feature"
-msgstr ""
-
-#: app/models/environment.rb:11
-msgid "Other feature"
-msgstr ""
-
-#: app/models/environment.rb:121
-msgid "Only one Virtual Community can be the default one"
+#: app/models/person_info.rb:-
+msgid "PersonInfo|Person"
 msgstr ""
 
 #: app/models/domain.rb:-
@@ -336,6 +345,14 @@ msgstr ""
 msgid "User|Remember token expires at"
 msgstr ""
 
+#: app/models/user.rb:-
+msgid "User|Terms of use"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Terms accepted"
+msgstr ""
+
 #: app/models/user.rb:7
 msgid "User|Password"
 msgstr ""
@@ -344,16 +361,60 @@ msgstr ""
 msgid "User|Password confirmation"
 msgstr ""
 
-#: app/models/affiliation.rb:-
-msgid "affiliation"
+#: app/models/user.rb:30
+msgid "%{fn} must be checked in order to signup."
 msgstr ""
 
-#: app/models/affiliation.rb:-
-msgid "Affiliation|Person"
+#: app/models/environment.rb:-
+msgid "environment"
 msgstr ""
 
-#: app/models/affiliation.rb:-
-msgid "Affiliation|Profile"
+#: app/models/environment.rb:-
+msgid "Environment|Name"
+msgstr ""
+
+#: app/models/environment.rb:-
+msgid "Environment|Is default"
+msgstr ""
+
+#: app/models/environment.rb:-
+msgid "Environment|Settings"
+msgstr ""
+
+#: app/models/environment.rb:-
+msgid "Environment|Design data"
+msgstr ""
+
+#: app/models/environment.rb:10
+msgid "Some feature"
+msgstr ""
+
+#: app/models/environment.rb:11
+msgid "Other feature"
+msgstr ""
+
+#: app/models/environment.rb:121
+msgid "Only one Virtual Community can be the default one"
+msgstr ""
+
+#: app/models/role_assignment.rb:-
+msgid "role assignment"
+msgstr ""
+
+#: app/models/role_assignment.rb:-
+msgid "RoleAssignment|Person"
+msgstr ""
+
+#: app/models/role_assignment.rb:-
+msgid "RoleAssignment|Role"
+msgstr ""
+
+#: app/models/role_assignment.rb:-
+msgid "RoleAssignment|Resource"
+msgstr ""
+
+#: app/models/role_assignment.rb:-
+msgid "RoleAssignment|Resource type"
 msgstr ""
 
 #: app/models/enterprise_info.rb:-
@@ -380,37 +441,24 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
-#: app/helpers/application_helper.rb:114
+#: app/helpers/application_helper.rb:113
 msgid "My account"
 msgstr ""
 
-#: app/helpers/application_helper.rb:115
-#: app/views/profile_editor/index.rhtml:1
-msgid "My profile"
-msgstr ""
-
-#: app/helpers/application_helper.rb:116
-msgid "My home page"
-msgstr ""
-
-#: app/helpers/application_helper.rb:117
-msgid "Manage content"
-msgstr ""
-
-#: app/helpers/application_helper.rb:118
-msgid "Manage layout"
-msgstr ""
-
-#: app/helpers/application_helper.rb:137 app/views/account/login.rhtml:1
+#: app/helpers/application_helper.rb:131 app/views/account/login.rhtml:1
 msgid "Login"
 msgstr ""
 
-#: app/helpers/application_helper.rb:141
+#: app/helpers/application_helper.rb:135
 msgid "Not a user yet? Register now!"
 msgstr ""
 
-#: app/helpers/application_helper.rb:145
+#: app/helpers/application_helper.rb:139
 msgid "Logout"
+msgstr ""
+
+#: app/helpers/application_helper.rb:146
+msgid "%s, version %s"
 msgstr ""
 
 #: app/views/cms/new.rhtml:2
@@ -489,8 +537,7 @@ msgstr ""
 msgid "%s is a root page"
 msgstr ""
 
-#: app/views/cms/_form.rhtml:34 app/views/layouts/application.rhtml:26
-#: app/views/layouts/comatose_admin.rhtml:26
+#: app/views/cms/_form.rhtml:34
 msgid "Content"
 msgstr ""
 
@@ -634,7 +681,40 @@ msgid "Clear Page Cache"
 msgstr ""
 
 #: app/views/cms/index.rhtml:6
-msgid "Document List"
+msgid "Articles"
+msgstr ""
+
+#: app/views/cms/index.rhtml:17
+msgid "New article"
+msgstr ""
+
+#: app/views/role/new.rhtml:1
+msgid "New Role"
+msgstr ""
+
+#: app/views/role/_form.rhtml:7
+msgid "Permissions: "
+msgstr ""
+
+#: app/views/role/_form.rhtml:12 app/views/features/_features_table.rhtml:9
+msgid "Save changes"
+msgstr ""
+
+#: app/views/role/_form.rhtml:12
+msgid "Create role"
+msgstr ""
+
+#: app/views/role/index.rhtml:1
+msgid "New role"
+msgstr ""
+
+#: app/views/role/index.rhtml:6 app/views/enterprise/_enterprise.rhtml:3
+#: app/views/manage_tags/_a_tag.rhtml:3 app/views/profile_editor/index.rhtml:5
+msgid "Edit"
+msgstr ""
+
+#: app/views/role/index.rhtml:7 app/views/manage_tags/_a_tag.rhtml:5
+msgid "Destroy"
 msgstr ""
 
 #: app/views/enterprise/register_form.rhtml:3
@@ -704,11 +784,6 @@ msgstr ""
 msgid " enterprises found"
 msgstr ""
 
-#: app/views/enterprise/_enterprise.rhtml:3
-#: app/views/manage_tags/_a_tag.rhtml:3 app/views/profile_editor/index.rhtml:5
-msgid "Edit"
-msgstr ""
-
 #: app/views/enterprise/_enterprise.rhtml:4
 msgid "Change the infomation about the enterprise"
 msgstr ""
@@ -722,6 +797,8 @@ msgid "Remove the enterprise from the system"
 msgstr ""
 
 #: app/views/enterprise/_enterprise.rhtml:7 app/views/enterprise/show.rhtml:22
+#: app/views/profile_member/affiliate.rhtml:6
+#: app/views/profile_member/index.rhtml:3
 msgid "Affiliate"
 msgstr ""
 
@@ -859,28 +936,13 @@ msgstr ""
 msgid "There is no such page: %s"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:19
-#: app/views/layouts/comatose_admin.rhtml:19
+#: app/views/layouts/application.rhtml:22
+#: app/views/layouts/comatose_admin.rhtml:22
 msgid "Close"
-msgstr ""
-
-#: app/views/layouts/application.rhtml:25
-#: app/views/layouts/comatose_admin.rhtml:25
-msgid "Skip to:"
 msgstr ""
 
 #: app/views/layouts/application.rhtml:27
 #: app/views/layouts/comatose_admin.rhtml:27
-msgid "Navigation"
-msgstr ""
-
-#: app/views/layouts/application.rhtml:28
-#: app/views/layouts/comatose_admin.rhtml:28
-msgid "Footer"
-msgstr ""
-
-#: app/views/layouts/application.rhtml:58
-#: app/views/layouts/comatose_admin.rhtml:58
 msgid "Image for Loading..."
 msgstr ""
 
@@ -918,10 +980,6 @@ msgstr ""
 
 #: app/views/manage_tags/_a_tag.rhtml:4
 msgid "Edit the attributes of this tag (name, parent and pending status)"
-msgstr ""
-
-#: app/views/manage_tags/_a_tag.rhtml:5
-msgid "Destroy"
 msgstr ""
 
 #: app/views/manage_tags/_a_tag.rhtml:6
@@ -1012,8 +1070,7 @@ msgstr ""
 
 #: app/views/account/index_anonymous.rhtml:5
 msgid ""
-"You need to login to be able to use all the features in this virtual "
-"community."
+"You need to login to be able to use all the features in this environment."
 msgstr ""
 
 #: app/views/account/index_anonymous.rhtml:9
@@ -1043,7 +1100,7 @@ msgstr ""
 msgid "Confirm your new Password"
 msgstr ""
 
-#: app/views/account/signup.rhtml:14
+#: app/views/account/signup.rhtml:17
 msgid "I accept the terms of use"
 msgstr ""
 
@@ -1068,17 +1125,29 @@ msgid "You can change your personal details."
 msgstr ""
 
 #: app/views/account/index.rhtml:14
-msgid "Logout."
+msgid "My home page."
 msgstr ""
 
 #: app/views/account/index.rhtml:15
-msgid ""
-"It is always a good idea to make a logout when you finish using the virtual "
-"community."
+msgid "See your homepage."
 msgstr ""
 
-#: app/views/features/_features_table.rhtml:9
-msgid "Save changes"
+#: app/views/account/index.rhtml:19
+msgid "Manage content."
+msgstr ""
+
+#: app/views/account/index.rhtml:20
+msgid "Manage your content."
+msgstr ""
+
+#: app/views/account/index.rhtml:25
+msgid "Logout."
+msgstr ""
+
+#: app/views/account/index.rhtml:26
+msgid ""
+"It is always a good idea to make a logout when you finish using the "
+"environment."
 msgstr ""
 
 #: app/views/features/index.rhtml:1
@@ -1087,13 +1156,17 @@ msgstr ""
 
 #: app/views/features/index.rhtml:5
 msgid ""
-"Here you can enable or disable several features of your environment. "
-"Each feature represents some funcionality that your environment can "
-"use if you enable it.\n"
+"Here you can enable or disable several features of your environment. Each "
+"feature represents some funcionality that your environment can use if you "
+"enable it.\n"
 "\n"
-"Check all the features you want to enable for your environment, "
-"uncheck all the ones you don\t want, and use the 'Save changes' button to "
-"confirm your changes."
+"Check all the features you want to enable for your environment, uncheck all "
+"the ones you don\t want, and use the 'Save changes' button to confirm your "
+"changes."
+msgstr ""
+
+#: app/views/shared/access_denied.rhtml:1
+msgid "Access denied"
 msgstr ""
 
 #: app/views/profile_editor/person_info.rhtml:1
@@ -1106,4 +1179,12 @@ msgstr ""
 
 #: app/views/profile_editor/person_info.rhtml:11
 msgid "Save"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:1
+msgid "My profile"
+msgstr ""
+
+#: app/views/profile_member/index.rhtml:1
+msgid "Listing Members"
 msgstr ""
