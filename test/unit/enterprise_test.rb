@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class EnterpriseTest < Test::Unit::TestCase
-  fixtures :profiles, :virtual_communities, :users, :comatose_pages
+  fixtures :profiles, :environments, :users, :comatose_pages
 
   def test_identifier_validation
     p = Enterprise.new

@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class EnvironmentTest < Test::Unit::TestCase
-  fixtures :virtual_communities
+  fixtures :environments
 
   def test_exists_default_and_it_is_unique
     Environment.delete_all
@@ -34,7 +34,7 @@ class EnvironmentTest < Test::Unit::TestCase
   end
 
   def test_features
-    v = virtual_communities(:colivre_net)
+    v = environments(:colivre_net)
     v.enable('feature1')
     assert v.enabled?('feature1')
     v.disable('feature1')
@@ -42,13 +42,13 @@ class EnvironmentTest < Test::Unit::TestCase
   end
 
   def test_enabled_features
-    v = virtual_communities(:colivre_net)
+    v = environments(:colivre_net)
     v.enabled_features = [ 'feature1', 'feature2' ]
     assert v.enabled?('feature1') && v.enabled?('feature2') && !v.enabled?('feature3')
   end
 
   def test_enabled_features_no_features_enabled
-    v = virtual_communities(:colivre_net)
+    v = environments(:colivre_net)
     v.enabled_features = nil
     assert !v.enabled?('feature1') && !v.enabled?('feature2') && !v.enabled?('feature3')
   end

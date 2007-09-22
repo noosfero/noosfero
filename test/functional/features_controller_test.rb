@@ -6,7 +6,7 @@ class FeaturesController; def rescue_action(e) raise e end; end
 
 class FeaturesControllerTest < Test::Unit::TestCase
 
-  fixtures :virtual_communities, :domains
+  fixtures :environments, :domains
 
   def setup
     @controller = FeaturesController.new
@@ -28,7 +28,7 @@ class FeaturesControllerTest < Test::Unit::TestCase
     post :update, :features => { 'feature1' => '1', 'feature2' => '1' }
     assert_redirected_to :action => 'index'
     assert_kind_of String, flash[:notice]
-    v = Environment.find(virtual_communities(:anhetegua_net).id)
+    v = Environment.find(environments(:anhetegua_net).id)
     assert v.enabled?('feature2')
     assert v.enabled?('feature2') 
     assert !v.enabled?('feature3')
@@ -39,7 +39,7 @@ class FeaturesControllerTest < Test::Unit::TestCase
     post :update # no features
     assert_redirected_to :action => 'index'
     assert_kind_of String, flash[:notice]
-    v = Environment.find(virtual_communities(:anhetegua_net).id)
+    v = Environment.find(environments(:anhetegua_net).id)
     assert !v.enabled?('feature1')
     assert !v.enabled?('feature2')
     assert !v.enabled?('feature3')

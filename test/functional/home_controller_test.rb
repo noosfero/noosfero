@@ -6,7 +6,7 @@ class HomeController; def rescue_action(e) raise e end; end
 
 class HomeControllerTest < Test::Unit::TestCase
 
-  fixtures :profiles, :virtual_communities, :domains
+  fixtures :profiles, :environments, :domains
 
   def setup
     @controller = HomeController.new

@@ -10,6 +10,6 @@ class CreateEnvironments < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :virtual_communities
+    drop_table :environments
   end
 end

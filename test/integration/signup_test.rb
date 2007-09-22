@@ -1,7 +1,7 @@
 require "#{File.dirname(__FILE__)}/../test_helper"
 
 class AccountTest < ActionController::IntegrationTest
-  fixtures :users, :profiles, :domains, :virtual_communities
+  fixtures :users, :profiles, :domains, :environments
 
   def test_should_require_acceptance_of_terms_for_signup
     Environment.default.update_attributes(:terms_of_use => 'You agree that from now on your soul belongs to us.')

@@ -1,7 +1,7 @@
 require "#{File.dirname(__FILE__)}/../test_helper"
 
 class LoginToTheApplicationTest < ActionController::IntegrationTest
-  fixtures :users, :virtual_communities, :profiles
+  fixtures :users, :environments, :profiles
 
   def test_anonymous_user_logins_to_application
     get '/'

@@ -2,7 +2,7 @@ require "#{File.dirname(__FILE__)}/../test_helper"
 
 class EditingPersonInfoTest < ActionController::IntegrationTest
 
-  fixtures :users, :profiles, :comatose_pages, :domains, :virtual_communities, :person_infos
+  fixtures :users, :profiles, :comatose_pages, :domains, :environments, :person_infos
 
   should 'allow to edit person info' do
 

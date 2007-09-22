@@ -2,7 +2,7 @@ require "#{File.dirname(__FILE__)}/../test_helper"
 
 class ManageDocumentsTest < ActionController::IntegrationTest
 
-  fixtures :users, :profiles, :comatose_pages, :domains, :virtual_communities
+  fixtures :users, :profiles, :comatose_pages, :domains, :environments
 
   def test_creation_of_a_new_article
     count = Article.count

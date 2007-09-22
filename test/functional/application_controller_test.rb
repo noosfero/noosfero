@@ -6,7 +6,7 @@ class TestController; def rescue_action(e) raise e end; end
 
 class ApplicationControllerTest < Test::Unit::TestCase
 
-  fixtures :profiles, :virtual_communities, :domains, :design_boxes
+  fixtures :profiles, :environments, :domains, :design_boxes
 
   def setup
     @controller = TestController.new

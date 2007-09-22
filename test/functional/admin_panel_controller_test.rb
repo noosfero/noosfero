@@ -6,7 +6,7 @@ class AdminPanelController; def rescue_action(e) raise e end; end
 
 class AdminPanelControllerTest < Test::Unit::TestCase
 
-  fixtures :virtual_communities
+  fixtures :environments
 
   def setup
     @controller = AdminPanelController.new
