@@ -24,6 +24,7 @@ module Noosfero::Transliterations
   # ASCII.
   #
   # The transliteration is, of course, lossy, and its performance is poor.
+  # Don't abuse this method.
   def transliterate
 
     new = self.clone
