@@ -101,12 +101,26 @@ class EnvironmentTest < Test::Unit::TestCase
     env = Environment.create!(:name => 'a test environment')
     cat1 = Category.create!(:name => 'first category', :environment_id => env.id)
     cat2 = Category.create!(:name => 'second category', :environment_id => env.id)
+    subcat = Category.create!(:name => 'child category', :environment_id => env.id, :parent_id => cat2.id)
 
     cats = env.top_level_categories
     assert_equal 2, cats.size
     assert cats.include?(cat1)
     assert cats.include?(cat2)
+    assert !cats.include?(subcat)
+  end
 
+  def test_should_list_all_categories
+    env = Environment.create!(:name => 'a test environment')
+    cat1 = Category.create!(:name => 'first category', :environment_id => env.id)
+    cat2 = Category.create!(:name => 'second category', :environment_id => env.id)
+    subcat = Category.create!(:name => 'child category', :environment_id => env.id, :parent_id => cat2.id)
+
+    cats = env.categories
+    assert_equal 3, cats.size
+    assert cats.include?(cat1)
+    assert cats.include?(cat2)
+    assert cats.include?(subcat)
   end
 
 end

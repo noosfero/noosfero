@@ -22,6 +22,8 @@ class Environment < ActiveRecord::Base
   has_many :domains, :as => :owner
   has_many :profiles
 
+  has_many :categories
+
   # #################################################
   # Attributes
   # #################################################
