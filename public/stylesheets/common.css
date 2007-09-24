@@ -73,3 +73,15 @@ text-decoration: none !important ;
   text-decoration: underline !important ;
 }
 
+ul.tree {
+  margin: 2px;
+  padding-left: 20px;
+}
+
+ul.tree li {
+  list-style: none;
+}
+
+ul.tree li div.treeitem:hover {
+  background: #f0f0f0;
+}
