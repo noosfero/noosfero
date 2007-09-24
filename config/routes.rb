@@ -53,7 +53,9 @@ ActionController::Routing::Routes.draw do |map|
   ######################################################
   ## Public controllers
   ######################################################
- 
+
+  map.connect 'cat/:action/*path', :controller => 'category', :action => 'index'
+
   # *content viewing*
   # XXX this route must come last so other routes have priority over it.
   map.homepage ':profile/*page', :controller => 'content_viewer', :action => 'view_page'

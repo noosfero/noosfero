@@ -50,6 +50,12 @@ class RoutingTest < ActionController::IntegrationTest
     assert_routing('/admin/manage_tags', :controller => 'manage_tags', :action => 'index')
   end
 
+  def test_categories_management
+    assert_routing('/admin/categories', :controller => 'categories', :action => 'index')
+    assert_routing('/admin/categories/new', :controller => 'categories', :action => 'new')
+    assert_routing('/admin/categories/edit/2', :controller => 'categories', :action => 'edit', :id => '2')
+  end
+
   # platform administrative controllers (system/*)
   ################################################################
 
@@ -62,6 +68,11 @@ class RoutingTest < ActionController::IntegrationTest
 
     # some non-root page
     assert_routing('/ze/work/2007', :controller => 'content_viewer', :action => 'view_page', :profile => 'ze', :page => ['work', "2007"])
+  end
+
+  def test_category_browser
+    assert_routing('/cat/some_action/products/eletronics', :controller => 'category', :action => 'some_action', :path => [ 'products', 'eletronics'])
+    assert_routing('/cat', :controller => 'category', :action => 'index', :path => [ ])
   end
 
 end
