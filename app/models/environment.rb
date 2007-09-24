@@ -129,4 +129,9 @@ class Environment < ActiveRecord::Base
     self.find(:first, :conditions => [ 'is_default = ?', true ] )
   end
 
+  # returns an array with the top level categories for this environment. 
+  def top_level_categories
+    Category.top_level_for(self)
+  end
+
 end

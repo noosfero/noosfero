@@ -97,4 +97,16 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal 'bli', v.flexible_template_icon_theme
   end
 
+  def test_should_list_top_level_categories
+    env = Environment.create!(:name => 'a test environment')
+    cat1 = Category.create!(:name => 'first category', :environment_id => env.id)
+    cat2 = Category.create!(:name => 'second category', :environment_id => env.id)
+
+    cats = env.top_level_categories
+    assert_equal 2, cats.size
+    assert cats.include?(cat1)
+    assert cats.include?(cat2)
+
+  end
+
 end
