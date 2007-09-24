@@ -105,13 +105,25 @@ class CategoryTest < Test::Unit::TestCase
 
   def test_path_for_toplevel
     c = Category.new(:name => 'top_level')
-    assert_equal 'top_level', c.path
+    assert_equal 'top-level', c.path
   end
 
   def test_path_for_subcategory
     c1 = Category.new(:name => 'parent')
-    c2 = Category.new(:name => 'child')
+
+    c2 = Category.new
     c2.parent = c1
+    c2.name = 'child'
+
+    assert_equal 'parent/child', c2.path
+  end
+
+  def test_save_
+    c1 = Category.create!(:name => 'parent', :environment_id => @env.id)
+
+    c2 = Category.new(:name => 'child', :environment_id => @env.id)
+    c2.parent = c1
+    c2.save!
 
     assert_equal 'parent/child', c2.path
   end

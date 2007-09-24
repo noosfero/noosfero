@@ -24,8 +24,30 @@ class Category < ActiveRecord::Base
 
   def name=(value)
     self[:name] = value
-    unless self.name.empty?
+    unless self.name.blank?
       self.slug = self.name.transliterate.downcase.gsub( /[^-a-z0-9~\s\.:;+=_]/, '').gsub(/[\s\.:;=_+]+/, '-').gsub(/[\-]{2,}/, '-').to_s
+    end
+  end
+
+  def slug=(value)
+    self[:slug] = value
+    unless self.slug.blank?
+      self.path = self.calculate_path
+    end
+  end
+
+  # calculates the full path to this category using parent's path.
+  def calculate_path
+    if self.top_level?
+      self.slug
+    else
+      self.parent.calculate_path + "/" + self.slug
+    end
+  end
+
+  before_create do |cat|
+    if cat.path == cat.slug && (! cat.top_level?)
+      cat.path = cat.calculate_path
     end
   end
 
