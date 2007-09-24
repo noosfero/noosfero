@@ -1,0 +1,10 @@
+<%= error_messages_for 'category' %>
+
+<% labelled_form_for 'category' do |f| %>
+  <% if @category.new_record? && @category.parent %>
+    <%= hidden_field_tag('parent_id', @category.parent.id) %>
+  <% end %>
+
+  <%= f.text_field 'name' %>
+  <%= submit_tag _('Save') %>
+<% end %>
