@@ -1,6 +1,7 @@
 class Category < ActiveRecord::Base
 
   validates_presence_of :name, :environment_id
+  validates_uniqueness_of :slug,:scope => [ :environment_id, :parent_id ], :message => N_('%{fn} is already being used by another category.')
   belongs_to :environment
 
   acts_as_tree :order => 'name'

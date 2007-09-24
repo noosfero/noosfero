@@ -118,7 +118,7 @@ class CategoryTest < Test::Unit::TestCase
     assert_equal 'parent/child', c2.path
   end
 
-  def test_save_
+  def test_should_set_path_correctly_before_saving
     c1 = Category.create!(:name => 'parent', :environment_id => @env.id)
 
     c2 = Category.new(:name => 'child', :environment_id => @env.id)
@@ -126,6 +126,15 @@ class CategoryTest < Test::Unit::TestCase
     c2.save!
 
     assert_equal 'parent/child', c2.path
+  end
+
+  def test_should_refuse_to_duplicate_slug_under_the_same_parent
+    c1 = Category.create!(:name => 'test category', :environment_id => @env.id)
+    c2 = Category.new(:name => 'Test: Category', :environment_id => @env.id)
+
+    assert !c2.valid?
+    assert c2.errors.invalid?(:slug)
+
   end
 
 end
