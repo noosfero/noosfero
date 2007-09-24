@@ -23,7 +23,14 @@ class Category < ActiveRecord::Base
     self.find(:all, :conditions => ['parent_id is null and environment_id = ?', environment.id ])
   end
 
+  # used to know when to trigger batch renaming
+  attr_accessor :recalculate_path
+
   def name=(value)
+    if self.name != value
+      self.recalculate_path = true
+    end
+
     self[:name] = value
     unless self.name.blank?
       self.slug = self.name.transliterate.downcase.gsub( /[^-a-z0-9~\s\.:;+=_]/, '').gsub(/[\s\.:;=_+]+/, '-').gsub(/[\-]{2,}/, '-').to_s
@@ -46,10 +53,24 @@ class Category < ActiveRecord::Base
     end
   end
 
+  # calculate the right path
   before_create do |cat|
     if cat.path == cat.slug && (! cat.top_level?)
       cat.path = cat.calculate_path
     end
+  end
+
+  # when renaming a category, all children categories must have their paths
+  # recalculated
+  after_update do |cat|
+    if cat.recalculate_path
+      cat.children.each do |item|
+        item.path = item.calculate_path
+        item.recalculate_path = true
+        item.save!
+      end
+    end
+    cat.recalculate_path = false
   end
 
 end

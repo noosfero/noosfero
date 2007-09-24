@@ -137,4 +137,18 @@ class CategoryTest < Test::Unit::TestCase
 
   end
 
+  def test_renaming_a_category_should_change_path_of_children
+    c1 = Category.create!(:name => 'parent', :environment_id => @env.id)
+    c2 = Category.create!(:name => 'child', :environment_id => @env.id, :parent_id => c1.id)
+    c3 = Category.create!(:name => 'grandchild', :environment_id => @env.id, :parent_id => c2.id)
+
+    c1.name = 'parent new name'
+    c1.save!
+
+    assert_equal 'parent-new-name', c1.path
+    assert_equal 'parent-new-name/child', Category.find(c2.id).path
+    assert_equal 'parent-new-name/child/grandchild', Category.find(c3.id).path
+
+  end
+
 end
