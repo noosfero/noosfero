@@ -1,0 +1,12 @@
+<li>
+<%= category.name %>
+<div>
+  <%= link_to _('Add subcategory'), :action => 'new', :parent => category %>
+  <%= link_to _('Remove'), { :action => 'remove', :id => category, }, :post => true, :confirm => (category.children.empty? ? (_('Are you sure you want to remove "%s"?') % category.name) : (_('Are you sure you want to remove "%s" and all its subcategories?') % category.name) ) %>
+</div>
+<% unless category.children.empty? %>
+  <ul>
+    <%= render :partial => 'category', :collection => category.children %>
+  </ul>
+<% end %>
+</li>
