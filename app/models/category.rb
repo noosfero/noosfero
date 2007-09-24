@@ -1,5 +1,6 @@
 class Category < ActiveRecord::Base
 
+  validates_exclusion_of :slug, :in => [ 'index'], :message => N_('%{fm} cannot be like that.')
   validates_presence_of :name, :environment_id
   validates_uniqueness_of :slug,:scope => [ :environment_id, :parent_id ], :message => N_('%{fn} is already being used by another category.')
   belongs_to :environment

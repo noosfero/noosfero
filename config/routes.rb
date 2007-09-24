@@ -53,8 +53,9 @@ ActionController::Routing::Routes.draw do |map|
   ######################################################
   ## Public controllers
   ######################################################
-
-  map.connect 'cat/:action/*path', :controller => 'category', :action => 'index'
+ 
+  map.connect 'cat', :controller => 'category', :action => 'index'
+  map.category 'cat/*path', :controller => 'category', :action => 'view'
 
   # *content viewing*
   # XXX this route must come last so other routes have priority over it.

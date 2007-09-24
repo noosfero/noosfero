@@ -71,8 +71,8 @@ class RoutingTest < ActionController::IntegrationTest
   end
 
   def test_category_browser
-    assert_routing('/cat/some_action/products/eletronics', :controller => 'category', :action => 'some_action', :path => [ 'products', 'eletronics'])
-    assert_routing('/cat', :controller => 'category', :action => 'index', :path => [ ])
+    assert_routing('/cat/products/eletronics', :controller => 'category', :action => 'view', :path => [ 'products', 'eletronics'])
+    assert_routing('/cat', :controller => 'category', :action => 'index')
   end
 
 end
