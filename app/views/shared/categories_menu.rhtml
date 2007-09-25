@@ -4,7 +4,7 @@
   </li>
   <% @environment.display_categories.each do |item| %>
     <li id='category<%= item.display_color %>' <%= 'class="active"' if (@category && (@category.top_ancestor == item)) %> >
-      <%= (@category && (@category.top_ancestor == item)) ? @category.full_name : item.name %>
+      <%= item.name %>
       <ul>
         <% item.children.each do |child| %>
           <li><%= link_to(content_tag('span', child.name), :controller => 'category', :action => 'view', :path => child.explode_path) %></li>

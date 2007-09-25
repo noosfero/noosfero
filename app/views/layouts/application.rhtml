@@ -53,6 +53,12 @@
           <%= header %>
         </div>
 
+        <% if @category %>
+          <div id='category'>
+            <%= @category.full_name %>
+          </div>
+        <% end %>
+
       </div><!-- id="noosfero_bar" -->
 
 
