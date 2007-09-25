@@ -1,6 +1,6 @@
 <ul>
   <% @environment.display_categories.each do |item| %>
-    <li id='category<%= item.display_color %>' <%= 'class="active"' if (@category.top_ancestor == item) %> >
+    <li id='category<%= item.display_color %>' <%= 'class="active"' if (@category && (@category.top_ancestor == item)) %> >
       <%= item.name %>
       <ul>
         <% item.children.each do |child| %>
