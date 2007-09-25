@@ -112,6 +112,7 @@ module ApplicationHelper
     links = [
        ( link_to_homepage(current_user.login) ),
        ( link_to(_('My account'), { :controller => 'account' }) ),
+       ( link_to(_('Admin'), { :controller => 'admin_panel' }) ),
     ].join("\n")
     content_tag('span', links, :id => 'user_links')
   end
