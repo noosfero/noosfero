@@ -123,4 +123,17 @@ class EnvironmentTest < Test::Unit::TestCase
     assert cats.include?(subcat)
   end
 
+  should 'list displayable categories' do
+    env = Environment.create!(:name => 'a test environment')
+    cat1 = env.categories.create(:name => 'category one', :display_color => 1)
+    assert ! cat1.new_record?
+
+    cat2 = env.categories.create(:name => 'category two')
+    assert !cat2.new_record?
+
+    assert_equal 1,  env.display_categories.size
+    assert env.display_categories.include?(cat1)
+    assert !env.display_categories.include?(cat2)
+  end
+
 end
