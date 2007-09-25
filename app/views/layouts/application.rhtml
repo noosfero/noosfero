@@ -26,8 +26,8 @@
 
     <%= image_tag 'loading.gif', :id => 'spinner', :style => "display:none; float:right;", :alt => _('Image for Loading...') %>
 
-    <div id="wrap" class='category1'>
-      <div id='noosfero_bar' class='category1'>
+    <div id="wrap" class='category<%= category_color %>'>
+      <div id='noosfero_bar' class='category<%= category_color %>'>
         <div id='accessibility_menu'>
           <a href='#'>Acessibilidade</a>
           <a href='#'>Central de Buscas</a>
@@ -52,6 +52,7 @@
         <div id="header">
           <%= header %>
         </div>
+
       </div><!-- id="noosfero_bar" -->
 
 

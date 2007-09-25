@@ -186,4 +186,12 @@ module ApplicationHelper
     end
   end
 
+  def category_color
+    if @category.nil?
+      ""
+    else
+      @category.top_ancestor.display_color
+    end
+  end
+
 end
