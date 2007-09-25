@@ -1,6 +1,6 @@
 class MembershipEditorController < ProfileAdminController
   
   def index
-    @memberships = Profile.find(:all, :include => 'role_assignments', :conditions => ['role_assignments.person_id = ?', current_user.person.id])
+    @memberships = current_user.person.memberships
   end
 end

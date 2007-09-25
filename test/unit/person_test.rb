@@ -19,7 +19,7 @@ class PersonTest < Test::Unit::TestCase
     assert pe.save
     member_role = Role.create(:name => 'member')
     pr.affiliate(pe, member_role) 
-    assert pe.profiles.include?(pr)
+    assert pe.memberships.include?(pr)
   end
 
   def test_can_belongs_to_an_enterprise
@@ -29,7 +29,7 @@ class PersonTest < Test::Unit::TestCase
     assert p.save
     member_role = Role.create(:name => 'member')
     e.affiliate(p, member_role)
-    assert p.enterprises.include?(e)
+    assert p.memberships.include?(e)
   end
   
   def test_can_have_user
@@ -65,15 +65,25 @@ class PersonTest < Test::Unit::TestCase
   end
 
   should 'change the roles of the user' do
-    assert p = User.create(:login => 'jonh', :email => 'john@doe.org', :password => 'dhoe', :password_confirmation => 'dhoe').person
-    assert e = Enterprise.create(:identifier => 'enter')
-    assert r1 = Role.create(:name => 'associate')
+    p = User.create(:login => 'jonh', :email => 'john@doe.org', :password => 'dhoe', :password_confirmation => 'dhoe').person
+    e = Enterprise.create(:identifier => 'enter', :name => 'Enter')
+    r1 = Role.create(:name => 'associate')
     assert e.affiliate(p, r1)
-    assert r2 = Role.create(:name => 'partner')
+    r2 = Role.create(:name => 'partner')
     assert p.define_roles([r2], e)
-    p = Person.find(p.id)
+    p.reload
     assert p.role_assignments.any? {|ra| ra.role == r2}
     assert !p.role_assignments.any? {|ra| ra.role == r1}
   end
 
+  should 'report that the user has the permission' do
+    p = User.create(:login => 'jonh', :email => 'john@doe.org', :password => 'dhoe', :password_confirmation => 'dhoe').person
+    r = Role.create(:name => 'associate', :permissions => ['edit_profile'])
+    e = Enterprise.create(:identifier => 'enterpri', :name => 'Enterpri')
+    assert e.affiliate(p, r)
+    assert p.reload
+    assert e.reload
+    assert p.has_permission?('edit_profile', e)
+    assert !p.has_permission?('destroy_profile', e)
+  end
 end

@@ -84,7 +84,7 @@ class ProfileTest < Test::Unit::TestCase
     assert member_role.save
     assert pr.affiliate(pe, member_role)
 
-    assert pe.profiles.include?(pr)
+    assert pe.memberships.include?(pr)
   end
 
   def test_search
