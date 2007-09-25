@@ -35,8 +35,9 @@ module ApplicationHelper
   #
   #  <%= help 'this is your help message' %>
   #
-  # Formally, the <tt>type</tt> argument can be <tt>:html</tt> or
-  # <tt>:textile</tt>. It defaults to <tt>:html</tt>.
+  # Formally, the <tt>type</tt> argument can be <tt>:html</tt> (i.e. no
+  # conversion of the input) or <tt>:textile</tt> (converts the message, in
+  # textile, into HTML). It defaults to <tt>:html</tt>.
   #
   # TODO: implement correcly the 'Help' button click
   def help(content = nil, type = :html, &block)
