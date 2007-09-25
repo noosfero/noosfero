@@ -64,4 +64,16 @@ class PersonTest < Test::Unit::TestCase
     assert_equal p.person_info, p.info
   end
 
+  should 'change the roles of the user' do
+    assert p = User.create(:login => 'jonh', :email => 'john@doe.org', :password => 'dhoe', :password_confirmation => 'dhoe').person
+    assert e = Enterprise.create(:identifier => 'enter')
+    assert r1 = Role.create(:name => 'associate')
+    assert e.affiliate(p, r1)
+    assert r2 = Role.create(:name => 'partner')
+    assert p.define_roles([r2], e)
+    p = Person.find(p.id)
+    assert p.role_assignments.any? {|ra| ra.role == r2}
+    assert !p.role_assignments.any? {|ra| ra.role == r1}
+  end
+
 end

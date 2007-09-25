@@ -1,0 +1,2 @@
+module EnterpriseEditorHelper
+end

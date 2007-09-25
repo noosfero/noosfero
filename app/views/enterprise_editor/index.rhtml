@@ -1,0 +1,21 @@
+<h3> <%= @profile.name %> </h3>
+
+<p> <%= _('Identifier: ') %> <%= @profile.identifier %> </p>
+<p> <%= _('Address: ') %> <%= @profile.address %> </p>
+<p> <%= _('Contact phone: ') %> <%= @profile.contact_phone %> </p>
+<p> <%= _('Contact person: ') %> <%= @profile.organization_info.contact_person %> </p>
+<p> <%= _('Acronym: ') %> <%= @profile.organization_info.acronym %> </p>
+<p> <%= _('Foundation year: ') %> <%= @profile.organization_info.foundation_year %> </p>
+<p> <%= _('Legal Form: ') %> <%= @profile.organization_info.legal_form %> </p>
+<p> <%= _('Economic activity: ') %> <%= @profile.organization_info.economic_activity %> </p>
+<p> <%= _('Management infomation: ') %> <%= @profile.organization_info.management_information %> </p>
+<p> <%= _('Tags:') %> <%= @profile.tag_list %> </p>
+
+<%= link_to _('Edit enterprise'), :action => 'edit', :id => @profile %>
+<%= help _('Change the information about the enterprise') %>
+<%= link_to _('Delete enterprise'), :action => 'destroy', :id => @profile %>
+<%= help _('Remove the enterprise from the system') %>
+<%= link_to _('Affiliate'), :action => 'affiliate' unless @my_enterprises.include?(@profile) %>
+<%= help _('Be a member of the enterprise') unless @my_enterprises.include?(@profile) %>
+<%= link_to _('Activate'), :action => 'activate', :id => @profile if @my_pending_enterprises.include?(@profile) %>
+<%= help _('Activate an approved enterprise') if @my_pending_enterprises.include?(@profile) %>

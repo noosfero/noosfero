@@ -1,12 +1,12 @@
 require File.dirname(__FILE__) + '/../test_helper'
-require 'profile_member_controller'
+require 'enterprise_editor_controller'
 
 # Re-raise errors caught by the controller.
-class ProfileMemberController; def rescue_action(e) raise e end; end
+class EnterpriseEditorController; def rescue_action(e) raise e end; end
 
-class ProfileMemberControllerTest < Test::Unit::TestCase
+class EnterpriseEditorControllerTest < Test::Unit::TestCase
   def setup
-    @controller = ProfileMemberController.new
+    @controller = EnterpriseEditorController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
   end

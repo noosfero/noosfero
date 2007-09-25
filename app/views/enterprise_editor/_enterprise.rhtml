@@ -1,0 +1,17 @@
+<li> 
+<%= link_to enterprise.name, :action => 'show', :id => enterprise %>
+<%= link_to _('Edit'), :action => 'edit', :id => enterprise %>
+<%= help _('Change the infomation about the enterprise') %>
+<%= link_to _('Delete'), :action => 'destroy', :id => enterprise %>
+<%= help _('Remove the enterprise from the system') %>
+<%= link_to _('Affiliate'), :action => 'affiliate', :id => enterprise unless @my_enterprises.include?(enterprise) %>
+<%= help _('Be a member of the enterprise') unless @my_enterprises.include?(enterprise) %>
+<%= link_to _('Activate'), :action => 'activate', :id => enterprise unless enterprise.active %>
+<%= help _('Activate the profile of an approved enterprise') unless enterprise.active %>
+<% unless enterprise.approved? %>
+  <%= link_to _('Approve'), :action => 'approve', :id => enterprise %>
+  <%= help _('Approve a submitted enterprise profile') %>
+  <%= link_to _('Reject'), :action => 'reject', :id => enterprise %>
+  <%= help _('Reject a submitted enterprise profile') %>
+<% end %>
+</li>

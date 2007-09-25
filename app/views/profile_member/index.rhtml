@@ -1,9 +1,0 @@
-<h2> <%= _('Listing Members') %> </h2>
-
-<%= link_to _('Affiliate'), :action => 'affiliate', :id => current_user.person %>
-
-<ul>
-  <% @members.each do |m| %>
-    <li> <%= m.name %> </li>
-  <% end %>
-</ul>

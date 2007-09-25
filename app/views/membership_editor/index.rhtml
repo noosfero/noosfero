@@ -1,0 +1,7 @@
+<h2><%= _('Listing memberships')%></h2>
+
+<ul>
+<% @memberships.each do |m|%>
+  <li> <%= link_to m.name, '/' + m.identifier %> </li>
+<% end %>
+</ul>
