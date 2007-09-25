@@ -195,4 +195,11 @@ class CategoryTest < Test::Unit::TestCase
     assert_equal c1, c3.top_ancestor
   end
 
+  should 'explode path' do
+    c1 = Category.create!(:name => 'parent', :environment_id => @env.id)
+    c2 = Category.create!(:name => 'child', :environment_id => @env.id, :parent_id => c1.id)
+
+    assert_equal [ 'parent', 'child'], c2.explode_path
+  end
+
 end

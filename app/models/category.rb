@@ -81,4 +81,8 @@ class Category < ActiveRecord::Base
     self.top_level? ? self : self.parent.top_ancestor
   end
 
+  def explode_path
+    path.split(/\//)
+  end
+
 end
