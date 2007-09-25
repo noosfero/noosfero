@@ -77,4 +77,8 @@ class Category < ActiveRecord::Base
     cat.recalculate_path = false
   end
 
+  def top_ancestor
+    self.top_level? ? self : self.parent.top_ancestor
+  end
+
 end

@@ -185,4 +185,14 @@ class CategoryTest < Test::Unit::TestCase
     
   end
 
+  should 'be able to get top ancestor' do
+    c1 = Category.create!(:name => 'test category', :environment_id => @env.id)
+    c2 = Category.create!(:name => 'test category', :environment_id => @env.id, :parent_id => c1.id)
+    c3 = Category.create!(:name => 'test category', :environment_id => @env.id, :parent_id => c2.id)
+
+    assert_equal c1, c1.top_ancestor
+    assert_equal c1, c2.top_ancestor
+    assert_equal c1, c3.top_ancestor
+  end
+
 end
