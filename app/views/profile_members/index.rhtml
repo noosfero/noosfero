@@ -1,0 +1,11 @@
+<h2> <%= _('Listing Members') %> </h2>
+
+<%= link_to _('Affiliate'), :action => 'add_role', :person => current_user.person, :role => Role.find_by_name('member') %>
+
+<ul>
+  <% @members.each do |m| %>
+    <li> <%= m.name %> 
+         <%= link_to _('Edit member role'), :action => 'change_role', :id => m %> 
+         <%= link_to _('Remove member'), :action => 'unassociate', :id => m %></li>
+  <% end %>
+</ul>
