@@ -1,10 +1,10 @@
 <ul>
   <% @environment.display_categories.each do |item| %>
-    <li id='category<%= item.display_color %>'>
+    <li id='category<%= item.display_color %>' <%= 'class="active"' if (@category.top_ancestor == item) %> >
       <%= item.name %>
       <ul>
         <% item.children.each do |child| %>
-          <li><%= link_to(content_tag('span', child.name), :controller => 'category', :path => child.path) %></li>
+          <li><%= link_to(content_tag('span', child.name), :controller => 'category', :action => 'view', :path => child.explode_path) %></li>
         <% end %>
       </ul>
     </li>
