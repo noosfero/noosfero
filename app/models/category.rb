@@ -5,6 +5,9 @@ class Category < ActiveRecord::Base
   validates_uniqueness_of :slug,:scope => [ :environment_id, :parent_id ], :message => N_('%{fn} is already being used by another category.')
   belongs_to :environment
 
+  validates_inclusion_of :display_color, :in => [ 1, 2, 3, 4, nil ]
+  validates_uniqueness_of :display_color, :scope => :environment_id, :if => (lambda { |cat| ! cat.display_color.nil? }), :message => N_('%{fn} was already assigned to another category.')
+
   acts_as_tree :order => 'name'
 
   def full_name(sep = '/')

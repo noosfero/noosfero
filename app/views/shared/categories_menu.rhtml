@@ -1,58 +1,12 @@
 <ul>
-  <li id='category1' class='active'>
-   Noosfero 
-  <ul>
-    <li><a href=''><span>Iteam 1</span></a></li>
-    <li><a href=''><span>Itemdasd 2</span></a></li>
-    <li><a href=''><span>Iteaam 3</span></a></li>
-    <li><a href=''><span>Iteaam 4</span></a></li>
-    <li><a href=''><span>Itemdasds 5</span></a></li>
-    <li><a href=''><span>Itesdm 2</span></a></li>
-    <li><a href=''><span>Iteam 3</span></a></li>
-    <li><a href=''><span>Iteasdasdm 4</span></a></li>
-    <li><a href=''><span>Itesdasm 5</span></a></li>
-    <li><a href=''><span>Itesdm 2</span></a></li>
-    <li><a href=''><span>Itedsadm 3</span></a></li>
-    <li><a href=''><span>Itedsm 4</span></a></li>
-    <li><a href=''><span>Itessdsm 5</span></a></li>
-    <li><a href=''><span>Itessasm 2</span></a></li>
-    <li><a href=''><span>Isssssstesm 3</span></a></li>
-    <li><a href=''><span>Iteasdm 3</span></a></li>
-    <li><a href=''><span>Itessm 4</span></a></li>
-    <li><a href=''><span>Iteasdm 5</span></a></li>
-  </ul>
-  </li>
-
-  <li id='category2'>
-  Territorios
-  <ul>
-    <li><a href=''><span>Item 1</span></a></li>
-    <li><a href=''><span>Itssssem 2</span></a></li>
-    <li><a href=''><span>Itsssssem 3</span></a></li>
-    <li><a href=''><span>Item 4</span></a></li>
-    <li><a href=''><span>Itssssem 5</span></a></li>
-  </ul>
-  </li>
-
-  <li id='category3'>
-  Lalala
-  <ul>
-    <li><a href=''><span>Item 1</span></a></li>
-    <li><a href=''><span>Issstem 2</span></a></li>
-    <li><a href=''><span>Itsssem 3</span></a></li>
-    <li><a href=''><span>Item 4</span></a></li>
-    <li><a href=''><span>Itssem 5</span></a></li>
-  </ul>
-  </li>
-
-  <li id='category4'>
-  Lalala
-  <ul>
-    <li><a href=''><span>Iaaaatem 1</span></a></li>
-    <li><a href=''><span>Item 2</span></a></li>
-    <li><a href=''><span>Itaaaem 3</span></a></li>
-    <li><a href=''><span>Itaaem 4</span></a></li>
-    <li><a href=''><span>Itaaaaaaaaem 5</span></a></li>
-  </ul>
-  </li>
+  <% @environment.display_categories.each do |item| %>
+    <li id='category<%= item.display_color %>'>
+      <%= item.name %>
+      <ul>
+        <% item.children.each do |child| %>
+          <li><%= link_to(content_tag('span', child.name), :controller => 'category', :path => child.path) %></li>
+        <% end %>
+      </ul>
+    </li>
+  <% end %>
 </ul>

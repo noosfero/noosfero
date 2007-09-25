@@ -151,4 +151,38 @@ class CategoryTest < Test::Unit::TestCase
 
   end
 
+  should "limit the possibile display colors" do
+    c = Category.new(:name => 'test category', :environment_id => @env.id)
+
+
+    c.display_color = 10
+    c.valid?
+    assert c.errors.invalid?(:display_color)
+    
+    valid = %w[ 1 2 3 4 ].map { |item| item.to_i }
+    valid.each do |item|
+      c.display_color = item
+      c.valid?
+      assert !c.errors.invalid?(:display_color)
+    end
+
+  end
+
+  should 'avoid duplicated display colors' do
+
+    @env.categories.destroy_all
+
+    c1 = Category.create!(:name => 'test category', :environment_id => @env.id, :display_color => 1)
+
+    c = Category.new(:name => 'lalala', :environment_id => @env.id)
+    c.display_color = 1
+    assert !c.valid?
+    assert c.errors.invalid?(:display_color)
+
+    c.display_color = 2
+    c.valid?
+    assert !c.errors.invalid?(:display_color)
+    
+  end
+
 end
