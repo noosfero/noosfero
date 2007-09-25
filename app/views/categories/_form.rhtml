@@ -5,19 +5,9 @@
     <%= hidden_field_tag('parent_id', @category.parent.id) %>
   <% end %>
 
-  <% if @category.top_level? %>
-    <%
-      options = [
-        [ _('Do not display at the menu'), nil ],
-        [ _('Blue'), 1 ],
-        [ _('Red'), 2 ],
-        [ _('Green'), 3 ],
-        [ _('Orange'), 4 ],
-      ]
-    %>
-    <%= labelled_form_field(_('Display at the menu?'), f.select('display_color', options)) %>
-  <% end %>
+  <%= select_color_for_category %>
 
   <%= f.text_field 'name' %>
   <%= submit_tag _('Save') %>
+  <%= link_to _('Cancel'), :action => 'index' %>
 <% end %>
