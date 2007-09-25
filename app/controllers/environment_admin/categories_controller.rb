@@ -1,4 +1,7 @@
 class CategoriesController < EnvironmentAdminController
+
+  helper :categories
+
   def index
     @categories = environment.top_level_categories
   end
