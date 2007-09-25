@@ -128,6 +128,10 @@ class EnvironmentTest < Test::Unit::TestCase
     cat1 = env.categories.create(:name => 'category one', :display_color => 1)
     assert ! cat1.new_record?
 
+    # subcategories should be ignored
+    subcat1 = env.categories.create(:name => 'subcategory one', :parent_id => cat1.id)
+    assert ! subcat1.new_record?
+
     cat2 = env.categories.create(:name => 'category two')
     assert !cat2.new_record?
 
