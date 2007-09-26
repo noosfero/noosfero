@@ -195,8 +195,23 @@ module ApplicationHelper
     end
   end
 
-  def rich_text_editor(object, method, options = {})
-    fckeditor_textarea(object, method, options.merge({:toolbarSet => 'Simple', :height => '300px'}))
+  def text_editor(object, method, filter_type_method, options = {})
+    filter_type = instance_variable_get("@#{object}").send(filter_type_method)
+    if filter_type == '[No Filter]' || filter_type.blank?
+      fckeditor_textarea(object, method, options.merge({:toolbarSet => 'Simple', :height => '300px'}))
+    else
+      text_area(object, method, { :rows => 12, :columns => 72 }.merge(options))
+    end
+  end
+
+  def select_filter_type(object, method, html_options)
+    options = [
+      [ _('No Filter at all'), '[No Filter]' ],
+      [ _('RDoc filter'), 'RDoc' ],
+      [ _('Simple'), 'Simple' ],
+      [ _('Textile'), 'Textile' ]
+    ]
+    select_tag "#{object}[#{method}]", options_for_select(options, @page.filter_type || Comatose.config.default_filter), { :id=> "#{object}_#{method}" }.merge(html_options)
   end
 
 end

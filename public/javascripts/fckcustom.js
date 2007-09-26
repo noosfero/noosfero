@@ -16,15 +16,16 @@ FCKConfig.SpellChecker = 'SpellerPages';
 FCKConfig.SkinPath = FCKConfig.BasePath + 'skins/silver/';
 
 FCKConfig.ToolbarSets["Simple"] = [
-	['Source','-','-','Templates'],
-	['Cut','Copy','Paste','PasteWord','-','Print','SpellCheck'],
-	['Undo','Redo','-','Find','Replace','-','SelectAll'],
+	['Source','-','Templates'],
+	['Cut','Copy','Paste','PasteWord','-','Print'],
+	['Undo','Redo','-','Find','Replace', 'Style'],
 	'/',
-	['Bold','Italic','Underline','StrikeThrough','-','Subscript','Superscript'],
-	['OrderedList','UnorderedList','-','Outdent','Indent'],
+	['Bold','Italic','Underline','StrikeThrough'],
+	['OrderedList','UnorderedList'],
 	['JustifyLeft','JustifyCenter','JustifyRight','JustifyFull'],
 	['Link','Unlink'],
-	'/',
 	['Image','Table','Rule','Smiley'],
 	['-','About']
 ] ;
+
+FCKConfig.StylesXmlPath		= FCKConfig.EditorPath + '../fck-custom-styles.xml' ;

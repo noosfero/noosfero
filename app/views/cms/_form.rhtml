@@ -32,13 +32,13 @@
 
   <div class='comatose_field'>
     <label for="page_body"><%= _('Content') %></label>
-    <%= f.text_area :body, :rows => 14, :tabindex => 2 %>
+    <%= text_editor('page', 'body', 'filter_type', :tabindex => 2) %>
   </div>
 
   <div class='comatose_field' id='filter_row'>
     <% if show_field? 'filter' %>
       <label for="page_filter_type"><%= _("Filter") %></label>
-      <%= select_tag 'page[filter_type]', options_for_select(TextFilters.all_titles.sort, @page.filter_type || Comatose.config.default_filter), :tabindex=>3, :id=>'page_filter_type' %>
+      <%= select_filter_type('page', 'filter_type', :tabindex => 3 ) %>
       <span class="field-help"><%= _('Converts plain text into HTML') %></span>
     <% end %>
   </div>
