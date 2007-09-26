@@ -16,7 +16,7 @@ class AddComatoseSupport < ActiveRecord::Migration
       t.column "slug",        :string, :limit => 255
       t.column "keywords",    :string, :limit => 255
       t.column "body",        :text
-      t.column "filter_type", :string, :limit => 25, :default => "Textile"
+      t.column "filter_type", :string, :limit => 25, :default => "[No Filter]"
       t.column "author",      :string, :limit => 255
       t.column "position",    :integer, :default => 0
       t.column "version",     :integer
