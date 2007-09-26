@@ -4,17 +4,17 @@ class MembershipEditorController < ProfileAdminController
     @memberships = current_user.person.memberships
   end
 
-  def new_enteprise
+  def new_enterprise
     @enterprise = Enterprise.new()
     @vitual_communities = Environment.find(:all)
     @validation_entities = Organization.find(:all)
   end
 
-  def create_enteprise
+  def create_enterprise
     @enterprise = Enterprise.new(params[:enterprise])
     @enterprise.organization_info = OrganizationInfo.new(params[:organization])
     if @enterprise.save
-      @enterprise.people << @person
+      @enterprise.affiliate(@person, Role.find_by_name('owner'))
       flash[:notice] = _('The enterprise was succesfully created, the validation entity will cotact you as soon as your enterprise is approved')
       redirect_to :action => 'index'
     else
@@ -29,5 +29,4 @@ class MembershipEditorController < ProfileAdminController
   def search
     @tagged_enterprises = Enterprise.search(params[:query])
   end
-
 end
