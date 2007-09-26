@@ -195,4 +195,8 @@ module ApplicationHelper
     end
   end
 
+  def rich_text_editor(object, method, options = {})
+    fckeditor_textarea(object, method, options.merge({:toolbarSet => 'Simple', :height => '300px'}))
+  end
+
 end

@@ -6,6 +6,8 @@
     <%= javascript_include_tag 'cms' %>
     <% if params[:controller] == 'cms' %>
       <%= stylesheet_link_tag 'cms' %>
+      <%= javascript_include_tag 'fckeditor/fckeditor.js' %>
+      <%= javascript_include_tag 'fckcustom' %>
     <% end %>
     <%= stylesheet_link_tag 'common' %>
 
