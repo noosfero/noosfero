@@ -15,7 +15,5 @@
 <%= help _('Change the information about the enterprise') %>
 <%= link_to _('Delete enterprise'), :action => 'destroy', :id => @profile %>
 <%= help _('Remove the enterprise from the system') %>
-<%= link_to _('Affiliate'), :action => 'affiliate' unless @my_enterprises.include?(@profile) %>
-<%= help _('Be a member of the enterprise') unless @my_enterprises.include?(@profile) %>
-<%= link_to _('Activate'), :action => 'activate', :id => @profile if @my_pending_enterprises.include?(@profile) %>
-<%= help _('Activate an approved enterprise') if @my_pending_enterprises.include?(@profile) %>
+<%= link_to _('Activate'), :action => 'activate', :id => @profile unless @profile.active? %>
+<%= help _('Activate an approved enterprise') unless @profile.active? %>

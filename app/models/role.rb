@@ -3,9 +3,9 @@ class Role < ActiveRecord::Base
   PERMISSIONS = {
     :profile => {
       'edit_profile' => N_('Edit profile'),
-      'post_content' => N_('Post content'),
       'destroy_profile' => N_('Destroy profile'),
-      'manage_membership' => N_('Manage membership'),
+      'manage_memberships' => N_('Manage memberships'),
+      'post_content' => N_('Post content'),
       'moderate_content' => N_('Moderate content'),
     },
     :system => {

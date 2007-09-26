@@ -14,8 +14,8 @@ class MembershipEditorController < ProfileAdminController
     @enterprise = Enterprise.new(params[:enterprise])
     @enterprise.organization_info = OrganizationInfo.new(params[:organization])
     if @enterprise.save
-      @enterprise.affiliate(@person, Role.find_by_name('owner'))
-      flash[:notice] = _('The enterprise was succesfully created, the validation entity will cotact you as soon as your enterprise is approved')
+      @enterprise.affiliate(current_user.person, Role.find(:all, :conditions => {:name => ['owner', 'member', 'moderator']}))
+      flash[:notice] = _('The enterprise was successfully created, the validation entity will cotact you as soon as your enterprise is approved')
       redirect_to :action => 'index'
     else
       flash[:notice] = _('Enterprise was not created')

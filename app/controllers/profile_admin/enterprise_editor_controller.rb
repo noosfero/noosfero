@@ -4,8 +4,7 @@ class EnterpriseEditorController < ProfileAdminController
   
   # Show details about an enterprise  
   def index
-    @my_enterprises = @person.enterprises
-    @my_pending_enterprises = @person.pending_enterprises
+    @enterprise = @profile
   end
 
   # Provides an interface to editing the enterprise details
@@ -22,13 +21,6 @@ class EnterpriseEditorController < ProfileAdminController
       @validation_entities = Organization.find(:all) - [@enterprise]
       render :action => 'edit'
     end
-  end
-
-  # Make the current user a new member of the enterprise
-  def affiliate
-    member_role = Role.find_by_name('member') || Role.create(:name => 'member')
-    @enterprise.affiliate(@person,member_role)
-    redirect_to :action => 'index'
   end
   
   # Elimitates the enterprise of the system
