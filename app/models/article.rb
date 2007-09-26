@@ -12,4 +12,10 @@ class Article < Comatose::Page
   def has_keyword?(keyword)
     tags.map{|t| t.name.downcase}.include?(keyword.downcase)
   end
+
+  def profile(reload = false)
+    @profile = nil if reload
+    @profile ||= Profile.find_by_identifier(self.full_path.split(/\//).first)
+  end
+
 end

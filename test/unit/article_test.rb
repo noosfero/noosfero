@@ -16,4 +16,24 @@ class ArticleTest < Test::Unit::TestCase
     assert article.has_keyword?('three')
   end
 
+  should 'have an associated profile' do
+    article = Article.new(:title => 'someuser', :body => "some text")
+    article.parent = Comatose::Page.root
+    article.save!
+
+    Profile.expects(:find_by_identifier).with("someuser")
+    article.profile
+  end
+
+  should 'get associated profile from name of root page' do
+    article = Article.new(:title => "test article", :body => 'some sample text')
+    article.parent = Article.find_by_path('ze')
+    article.save!
+
+    assert_equal 'ze/test-article', article.full_path
+
+    Profile.expects(:find_by_identifier).with("ze")
+    article.profile
+  end
+
 end
