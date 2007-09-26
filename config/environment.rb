@@ -81,6 +81,7 @@ Comatose.configure do |config|
   config.admin_includes << :authenticated_system
   config.admin_helpers << :application_helper
   config.admin_helpers << :document_helper
+  config.default_filter = '[No Filter]'
 end
 Comatose::AdminController.design :holder => 'environment'
 Comatose::AdminController.before_filter do |controller|
