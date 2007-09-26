@@ -198,7 +198,11 @@ module ApplicationHelper
   def text_editor(object, method, filter_type_method, options = {})
     filter_type = instance_variable_get("@#{object}").send(filter_type_method)
     if filter_type == '[No Filter]' || filter_type.blank?
-      fckeditor_textarea(object, method, options.merge({:toolbarSet => 'Simple', :height => '300px'}))
+      html_class = "tiny_mce_editor"
+      if options[:class]
+        html_class << " #{options[:class]}"
+      end
+      text_area(object, method, { :rows => 12, :columns => 72 }.merge(options).merge({:class => html_class})) 
     else
       text_area(object, method, { :rows => 12, :columns => 72 }.merge(options))
     end
