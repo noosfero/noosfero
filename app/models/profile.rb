@@ -50,6 +50,7 @@ class Profile < ActiveRecord::Base
   validates_presence_of :identifier, :name
   validates_format_of :identifier, :with => IDENTIFIER_FORMAT
   validates_exclusion_of :identifier, :in => RESERVED_IDENTIFIERS
+  validates_uniqueness_of :identifier
 
   # A profile_owner cannot have more than one profile, but many profiles can exist
   # without being associated to a particular user.

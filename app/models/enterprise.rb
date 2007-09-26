@@ -8,11 +8,11 @@ class Enterprise < Organization
   end  
   
   # Test that an enterprise can't be activated unless was previously approved
-  def validate
-    if self.active && !self.approved?
-      errors.add('active', _('Not approved enterprise can\'t be activated'))
-    end
-  end
+#  def validate
+#    if self.active && !self.approved?
+#      errors.add('active', _('Not approved enterprise can\'t be activated'))
+#    end
+#  end
 
   # Activate the enterprise so it can be seen by other users
   def activate

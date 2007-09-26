@@ -57,9 +57,9 @@ class ApplicationController < ActionController::Base
   # * +permission+ must be a symbol or string naming the needed permission.
   # * +target+ is the object over witch the user would need the specified permission.
   def self.protect(actions, permission, target = nil)
-    before_filter :only => actions do |controller|
-      unless controller.send(:logged_in?) and controller.send(:current_user).person.has_permission?(permission, target)
-          controller.send(:render, {:file => 'app/views/shared/access_denied.rhtml', :layout => true})
+    before_filter :only => actions do |c|
+      unless c.send(:logged_in?) && c.send(:current_user).person.has_permission?(permission.to_s, c.send(target))
+        c.send(:render, {:file => 'app/views/shared/access_denied.rhtml', :layout => true})
       end
     end
   end

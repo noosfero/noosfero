@@ -1,5 +1,7 @@
 <h3> <%= @profile.name %> </h3>
 
+<%= error_messages_for 'profile' %>
+
 <p> <%= _('Identifier: ') %> <%= @profile.identifier %> </p>
 <p> <%= _('Address: ') %> <%= @profile.address %> </p>
 <p> <%= _('Contact phone: ') %> <%= @profile.contact_phone %> </p>
@@ -17,3 +19,5 @@
 <%= help _('Remove the enterprise from the system') %>
 <%= link_to _('Activate'), :action => 'activate', :id => @profile unless @profile.active? %>
 <%= help _('Activate an approved enterprise') unless @profile.active? %>
+
+<%= link_to _('Back'), :controller => :profile_editor %>

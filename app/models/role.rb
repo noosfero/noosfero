@@ -6,7 +6,6 @@ class Role < ActiveRecord::Base
       'destroy_profile' => N_('Destroy profile'),
       'manage_memberships' => N_('Manage memberships'),
       'post_content' => N_('Post content'),
-      'moderate_content' => N_('Moderate content'),
     },
     :system => {
     }

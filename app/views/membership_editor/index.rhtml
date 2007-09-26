@@ -2,7 +2,10 @@
 
 <ul>
 <% @memberships.each do |m|%>
-  <li> <%= link_to m.name, '/' + m.identifier %> </li>
+  <li> 
+    <%= link_to m.name, '/' + m.identifier %> 
+    <%= link_to _('Manage') , '/myprofile/' + m.identifier %>
+  </li>
 <% end %>
 </ul>
 

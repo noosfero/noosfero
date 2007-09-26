@@ -8,6 +8,8 @@ two:
   id: 2
   name: 'owner'
   permissions:
+   - menage_memberships
+   - post_content
    - destroy_profile
    - edit_profile
 three:
@@ -15,4 +17,3 @@ three:
   name: 'moderator'
   permissions:
     - manage_memberships
-    - moderate_content
