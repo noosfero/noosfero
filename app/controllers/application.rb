@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
 
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem
+  extend PermissionCheck
 
   init_gettext 'noosfero'
 
@@ -49,18 +50,5 @@ class ApplicationController < ActionController::Base
   # method besides POST.
   def self.post_only(actions, redirect = { :action => 'index'})
     verify :method => :post, :only => actions, :redirect_to => redirect
-  end
-
-  # Declares the +permission+ need to be able to access +action+.
-  #
-  # * +action+ must be a symbol or string with the name of the action
-  # * +permission+ must be a symbol or string naming the needed permission.
-  # * +target+ is the object over witch the user would need the specified permission.
-  def self.protect(actions, permission, target = nil)
-    before_filter :only => actions do |c|
-      unless c.send(:logged_in?) && c.send(:current_user).person.has_permission?(permission.to_s, c.send(target))
-        c.send(:render, {:file => 'app/views/shared/access_denied.rhtml', :layout => true})
-      end
-    end
   end
 end

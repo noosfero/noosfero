@@ -6,6 +6,8 @@
 
 <p> <%= link_to _('Manage members'), :controller => 'profile_members' %> </p>
 
+<p> <%= link_to_cms _('Menage content'), profile.identifier %> </p>
+
 <% if @profile.class == Enterprise %>
   <p> <%= link_to _('Edit enterprise info'), :controller => 'enterprise_editor'%> </p>
 <% end %>

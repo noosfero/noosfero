@@ -4,6 +4,6 @@ class RoleAssignment < ActiveRecord::Base
   belongs_to :resource, :polymorphic => true
 
   def has_permission?(perm, res)
-    role.has_permission?(perm) && (resource == res)
+    role.has_permission?(perm.to_s) && (resource == res)
   end
 end

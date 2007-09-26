@@ -60,13 +60,13 @@ class EnterpriseTest < Test::Unit::TestCase
     assert e.rejected?
   end
 
-  def test_cannot_be_activated_without_approval
-    e = Enterprise.create(:identifier => 'bli', :name => 'Bli')
-    assert !e.approved
-    e.activate
-    assert !e.valid?
-    e.approve
-    e.activate
-    assert e.valid?
-  end
+#  def test_cannot_be_activated_without_approval
+#    e = Enterprise.create(:identifier => 'bli', :name => 'Bli')
+#    assert !e.approved
+#    e.activate
+#    assert !e.valid?
+#    e.approve
+#    e.activate
+#    assert e.valid?
+#  end
 end

@@ -2,7 +2,7 @@ class EnterpriseEditorController < ProfileAdminController
   
   before_filter :logon, :check_enterprise
   protect [:edit, :update], :edit_profile, :profile
-  protect [:destroy], :destroy_profile, @profile
+  protect [:destroy], :destroy_profile, :profile
 
 
   # Show details about an enterprise  
