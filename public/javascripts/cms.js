@@ -290,7 +290,30 @@ Object.extend(String.prototype, {
   toSlug: function() {
     // M@: Modified from Radiant's version, removes multple --'s next to each other
     // This is the same RegExp as the one on the page model...
-    return this.strip().downcase().replace(/[^-a-z0-9~\s\.:;+=_]/g, '').replace(/[\s\.:;=_+]+/g, '-').replace(/[\-]{2,}/g, '-');
+    return this.strip().transliterate().downcase().replace(/[^-a-z0-9~\s\.:;+=_]/g, '').replace(/[\s\.:;=_+]+/g, '-').replace(/[\-]{2,}/g, '-');
+  },
+  transliterate: function() {
+    var substitutions = [
+      { from: [ 'Á', 'À', 'À', 'Â', 'Ã', 'Ä' ], to: 'A' },
+      { from: [ 'á', 'à', 'à', 'â', 'ã', 'ä', 'ª' ], to: 'a' },
+      { from: [ 'É', 'È', 'Ê', 'Ë' ], to: 'E' },
+      { from: [ 'é', 'è', 'ê', 'ë' ], to: 'e' },
+      { from: [ 'Í', 'Ì', 'Î', 'Ï' ], to: 'I' },
+      { from: [ 'í', 'ì', 'î', 'ï' ], to: 'i' },
+      { from: [ 'Ó', 'Ò', 'Ô', 'Ö', 'Õ', 'º' ], to: 'O' },
+      { from: [ 'ó', 'ò', 'ô', 'ö', 'õ', 'º' ], to: 'o' },
+      { from: [ 'Ú', 'Ù', 'Û', 'Ü' ], to: 'U' },
+      { from: [ 'ú', 'ù', 'û', 'ü' ], to: 'u' },
+      { from: [ 'Ç' ], to: 'C' },
+      { from: [ 'ç' ], to: 'c' },
+      { from: [ 'Ñ' ], to: 'N' },
+      { from: [ 'ñ' ], to: 'n' },
+      { from: [ 'Ÿ' ], to: 'Y' },
+      { from: [ 'ÿ' ], to: 'y' },
+    ]
+    var res = this;
+    for (i in substitutions) { for (from in substitutions[i].from) { res = res.replace(substitutions[i].from[from], substitutions[i].to); } };
+    return res;
   }
 });
 
