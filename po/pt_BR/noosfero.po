@@ -6,8 +6,8 @@
 # This file is distributed under the same license as noosfero itself.
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.2.0~alpha\n"
-"POT-Creation-Date: 2007-09-22 16:03-0300\n"
+"Project-Id-Version: noosfero 0.2.0\n"
+"POT-Creation-Date: 2007-09-27 18:08-0300\n"
 "PO-Revision-Date: 2007-09-22 16:13-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,46 +51,30 @@ msgstr "Falhou em rejeitar o empreendimento"
 msgid "Features updated successfully."
 msgstr "Funcionalidades alterada com sucesso"
 
-#: app/controllers/profile_admin/enterprise_controller.rb:41
+#: app/controllers/profile_admin/enterprise_editor_controller.rb:23
+msgid "Could not update the enterprise"
+msgstr "Não pôde modificar o empreendimento"
+
+#: app/controllers/profile_admin/enterprise_editor_controller.rb:42
+msgid "Enterprise successfuly activacted"
+msgstr "Empreendimento ativado com sucesso"
+
+#: app/controllers/profile_admin/enterprise_editor_controller.rb:44
+msgid "Failed to activate the enterprise"
+msgstr "Falhou em ativar o empreendimento"
+
+#: app/controllers/profile_admin/membership_editor_controller.rb:18
+#, fuzzy
 msgid ""
-"The enterprise was succesfully created, the validation entity will cotact "
+"The enterprise was successfully created, the validation entity will cotact "
 "you as soon as your enterprise is approved"
 msgstr ""
 "O empreendimento foi criado com sucesso, a entidade de validação irá entrar "
 "em contato com você assim que seu empreendimento for aprovado"
 
-#: app/controllers/profile_admin/enterprise_controller.rb:44
+#: app/controllers/profile_admin/membership_editor_controller.rb:21
 msgid "Enterprise was not created"
 msgstr "Empreendimento não foi criado"
-
-#: app/controllers/profile_admin/enterprise_controller.rb:63
-msgid "Could not update the enterprise"
-msgstr "Não pôde modificar o empreendimento"
-
-#: app/controllers/profile_admin/enterprise_controller.rb:97
-msgid "Enterprise successfuly activacted"
-msgstr "Empreendimento ativado com sucesso"
-
-#: app/controllers/profile_admin/enterprise_controller.rb:99
-msgid "Failed to activate the enterprise"
-msgstr "Falhou em ativar o empreendimento"
-
-#: app/controllers/profile_admin/enterprise_controller.rb:108
-msgid "Enterprise successfuly approved"
-msgstr "Empreendimento aprovado com sucesso"
-
-#: app/controllers/profile_admin/enterprise_controller.rb:110
-#, fuzzy
-msgid "Failed to approve the htmlenterprise"
-msgstr "Falhou em aprovar o empreendimento"
-
-#: app/controllers/profile_admin/enterprise_controller.rb:119
-msgid "Enterprise successfuly rejected"
-msgstr "Empreendimeto rejeitado com sucesso"
-
-#: app/controllers/profile_admin/enterprise_controller.rb:121
-msgid "Failed to reject the enterprise"
-msgstr "Falhou em rejeitar o empreendimento"
 
 #: app/controllers/public/account_controller.rb:20
 msgid "Logged in successfully"
@@ -115,10 +99,6 @@ msgstr "Sua senha foi alterada com sucesso!"
 #: app/controllers/public/account_controller.rb:65
 msgid "The supplied current password is incorrect."
 msgstr "A senha informada está incorreta"
-
-#: app/models/enterprise.rb:13
-msgid "Not approved enterprise can't be activated"
-msgstr "Empreendimento não aprovado não pode ser ativado"
 
 #: app/models/profile.rb:-
 msgid "profile"
@@ -238,22 +218,17 @@ msgstr "perfil"
 
 #: app/models/role.rb:6
 #, fuzzy
-msgid "Post content"
-msgstr "Conteúdo"
-
-#: app/models/role.rb:7
-#, fuzzy
 msgid "Destroy profile"
 msgstr "Meu perfil"
 
-#: app/models/role.rb:8
-msgid "Manage membership"
+#: app/models/role.rb:7
+msgid "Manage memberships"
 msgstr ""
 
-#: app/models/role.rb:9
+#: app/models/role.rb:8
 #, fuzzy
-msgid "Moderate content"
-msgstr "Gerenciar conteúdo"
+msgid "Post content"
+msgstr "Conteúdo"
 
 #: app/models/person_info.rb:-
 msgid "person info"
@@ -407,7 +382,7 @@ msgstr "Alguma funcionalidade"
 msgid "Other feature"
 msgstr "Outra funcionalidade"
 
-#: app/models/environment.rb:121
+#: app/models/environment.rb:124
 msgid "Only one Virtual Community can be the default one"
 msgstr "Apenas uma comunidade virtual pode ser a padrão"
 
@@ -431,6 +406,51 @@ msgstr ""
 msgid "RoleAssignment|Resource type"
 msgstr ""
 
+#: app/models/category.rb:-
+msgid "category"
+msgstr ""
+
+#: app/models/category.rb:-
+msgid "Category|Name"
+msgstr ""
+
+#: app/models/category.rb:-
+msgid "Category|Slug"
+msgstr ""
+
+#: app/models/category.rb:-
+msgid "Category|Path"
+msgstr ""
+
+#: app/models/category.rb:-
+msgid "Category|Display color"
+msgstr ""
+
+#: app/models/category.rb:-
+#, fuzzy
+msgid "Category|Environment"
+msgstr "comunidade virtual"
+
+#: app/models/category.rb:-
+msgid "Category|Parent"
+msgstr ""
+
+#: app/models/category.rb:-
+msgid "Category|Type"
+msgstr ""
+
+#: app/models/category.rb:3
+msgid "%{fn} cannot be like that."
+msgstr ""
+
+#: app/models/category.rb:5
+msgid "%{fn} is already being used by another category."
+msgstr ""
+
+#: app/models/category.rb:9
+msgid "%{fn} was already assigned to another category."
+msgstr ""
+
 #: app/models/enterprise_info.rb:-
 msgid "enterprise info"
 msgstr "informação de empreendimento"
@@ -447,34 +467,80 @@ msgstr "Comentário de aprovação"
 msgid "EnterpriseInfo|Enterprise"
 msgstr "Empreendimento"
 
+#: app/helpers/categories_helper.rb:6
+msgid "Do not display at the menu"
+msgstr ""
+
+#: app/helpers/categories_helper.rb:7
+msgid "Blue"
+msgstr ""
+
+#: app/helpers/categories_helper.rb:8
+msgid "Red"
+msgstr ""
+
+#: app/helpers/categories_helper.rb:9
+msgid "Green"
+msgstr ""
+
+#: app/helpers/categories_helper.rb:10
+msgid "Orange"
+msgstr ""
+
+#: app/helpers/categories_helper.rb:15
+msgid "Display at the menu?"
+msgstr ""
+
 #: app/helpers/profile_helper.rb:6
 msgid "This profile does not have any public information"
 msgstr "Este perfil não tem nenhuma informação pública"
 
-#: app/helpers/application_helper.rb:55
+#: app/helpers/application_helper.rb:56
 msgid "Help"
 msgstr "Ajuda"
 
-#: app/helpers/application_helper.rb:113
+#: app/helpers/application_helper.rb:114
 msgid "My account"
 msgstr "Minha conta"
 
-#: app/helpers/application_helper.rb:131 app/views/account/login.rhtml:1
+#: app/helpers/application_helper.rb:115
+#, fuzzy
+msgid "Admin"
+msgstr "domínio"
+
+#: app/helpers/application_helper.rb:133 app/views/account/login.rhtml:1
 msgid "Login"
 msgstr "Entrar"
 
-#: app/helpers/application_helper.rb:135
+#: app/helpers/application_helper.rb:137
 msgid "Not a user yet? Register now!"
 msgstr "Ainda não é usuário? Registre-se agora!"
 
-#: app/helpers/application_helper.rb:139
+#: app/helpers/application_helper.rb:141
 msgid "Logout"
 msgstr "Sair"
 
-#: app/helpers/application_helper.rb:146
+#: app/helpers/application_helper.rb:148
 #, fuzzy
 msgid "%s, version %s"
 msgstr "Versão %s"
+
+#: app/helpers/application_helper.rb:213
+msgid "No Filter at all"
+msgstr ""
+
+#: app/helpers/application_helper.rb:214
+msgid "RDoc filter"
+msgstr ""
+
+#: app/helpers/application_helper.rb:215
+msgid "Simple"
+msgstr ""
+
+#: app/helpers/application_helper.rb:216
+#, fuzzy
+msgid "Textile"
+msgstr "Título"
 
 #: app/views/cms/new.rhtml:2
 msgid "New Page"
@@ -599,9 +665,12 @@ msgstr ""
 "continuar..."
 
 #: app/views/cms/_form.rhtml:69 app/views/cms/delete.rhtml:16
-#: app/views/cms/versions.rhtml:25 app/views/enterprise/register_form.rhtml:12
-#: app/views/enterprise/edit.rhtml:8 app/views/manage_tags/new.rhtml:6
+#: app/views/cms/versions.rhtml:25
+#: app/views/profile_members/change_role.rhtml:12
+#: app/views/enterprise_editor/edit.rhtml:8 app/views/manage_tags/new.rhtml:6
 #: app/views/manage_tags/edit.rhtml:6
+#: app/views/membership_editor/new_enterprise.rhtml:13
+#: app/views/categories/_form.rhtml:12
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -716,7 +785,9 @@ msgstr "Nova Página"
 msgid "Permissions: "
 msgstr "Versão %s"
 
-#: app/views/role/_form.rhtml:12 app/views/features/_features_table.rhtml:9
+#: app/views/role/_form.rhtml:12
+#: app/views/profile_members/change_role.rhtml:11
+#: app/views/features/_features_table.rhtml:9
 msgid "Save changes"
 msgstr "Salvar alterações"
 
@@ -730,8 +801,9 @@ msgstr "Criar Página"
 msgid "New role"
 msgstr "Nova Página"
 
-#: app/views/role/index.rhtml:6 app/views/enterprise/_enterprise.rhtml:3
-#: app/views/manage_tags/_a_tag.rhtml:3 app/views/profile_editor/index.rhtml:5
+#: app/views/role/index.rhtml:6 app/views/manage_tags/_a_tag.rhtml:3
+#: app/views/profile_editor/index.rhtml:5
+#: app/views/categories/_category.rhtml:8
 msgid "Edit"
 msgstr "Editar"
 
@@ -739,215 +811,43 @@ msgstr "Editar"
 msgid "Destroy"
 msgstr "Destruir"
 
-#: app/views/enterprise/register_form.rhtml:3
-msgid "Register enterprise"
-msgstr "Registrar empreendimento"
+#: app/views/profile_members/change_role.rhtml:1
+msgid "Changing role of %s"
+msgstr ""
 
-#: app/views/enterprise/register_form.rhtml:5
-msgid "How to proceed"
-msgstr "Como proceder"
+#: app/views/profile_members/change_role.rhtml:5
+msgid "Roles: "
+msgstr ""
 
-#: app/views/enterprise/register_form.rhtml:8
-msgid "Identifier"
-msgstr "Identificador"
-
-#: app/views/enterprise/register_form.rhtml:11
-#: app/views/account/signup.rhtml:1
-msgid "Register"
-msgstr "Registrar"
-
-#: app/views/enterprise/_form.rhtml:1 app/views/manage_tags/_form.rhtml:1
-#: app/views/profile_editor/person_info.rhtml:5
-msgid "Name"
-msgstr "Nome"
-
-#: app/views/enterprise/_form.rhtml:4
-#: app/views/profile_editor/person_info.rhtml:7
-msgid "Address"
-msgstr "Endereço"
-
-#: app/views/enterprise/_form.rhtml:7
-msgid "Contact Phone"
-msgstr "Telefone de Contato"
-
-#: app/views/enterprise/_form.rhtml:10
-msgid "Contact Person"
-msgstr "Pessoa de Contato"
-
-#: app/views/enterprise/_form.rhtml:13
-msgid "Acronym"
-msgstr "Acrônimo"
-
-#: app/views/enterprise/_form.rhtml:16
-msgid "Foundation Year"
-msgstr "Ano de Fundação"
-
-#: app/views/enterprise/_form.rhtml:19
-msgid "Legal Form"
-msgstr "Formulário Legal"
-
-#: app/views/enterprise/_form.rhtml:22
-msgid "Economic Activity"
-msgstr "Atividade Econômica"
-
-#: app/views/enterprise/_form.rhtml:25
-msgid "Management Information"
-msgstr "Informação de Gerenciamento"
-
-#: app/views/enterprise/_form.rhtml:28
-msgid "Validation Entity"
-msgstr "Entidade de Validação"
-
-#: app/views/enterprise/_form.rhtml:31
-msgid "Tags"
-msgstr "Marcadores"
-
-#: app/views/enterprise/search.rhtml:1
-msgid " enterprises found"
-msgstr " empreendimento achado"
-
-#: app/views/enterprise/_enterprise.rhtml:4
-msgid "Change the infomation about the enterprise"
-msgstr "Mudar iformação sobre o empreendimento"
-
-#: app/views/enterprise/_enterprise.rhtml:5
-msgid "Delete"
-msgstr "Excluir"
-
-#: app/views/enterprise/_enterprise.rhtml:6 app/views/enterprise/show.rhtml:21
-msgid "Remove the enterprise from the system"
-msgstr "Excluir o empreendimnto do sistema"
-
-#: app/views/enterprise/_enterprise.rhtml:7 app/views/enterprise/show.rhtml:22
-#: app/views/profile_member/affiliate.rhtml:6
-#: app/views/profile_member/index.rhtml:3
+#: app/views/profile_members/affiliate.rhtml:6
 msgid "Affiliate"
 msgstr "Afiliar"
 
-#: app/views/enterprise/_enterprise.rhtml:8 app/views/enterprise/show.rhtml:23
-msgid "Be a member of the enterprise"
-msgstr "Tornar-se um membro do empreendimento"
+#: app/views/profile_members/affiliate.rhtml:9
+#: app/views/profile_members/index.rhtml:13
+#: app/views/enterprise_editor/index.rhtml:23
+#: app/views/manage_tags/search.rhtml:12
+msgid "Back"
+msgstr "Voltar"
 
-#: app/views/enterprise/_enterprise.rhtml:9 app/views/enterprise/show.rhtml:24
-msgid "Activate"
-msgstr "Ativar"
-
-#: app/views/enterprise/_enterprise.rhtml:10
-msgid "Activate the profile of an approved enterprise"
-msgstr "Ativa o perfil de um empreendimento aprovado"
-
-#: app/views/enterprise/_enterprise.rhtml:12
-#: app/views/enterprise/show.rhtml:27
-msgid "Approve"
-msgstr "Aprovar"
-
-#: app/views/enterprise/_enterprise.rhtml:13
-#: app/views/enterprise/show.rhtml:28
-msgid "Approve a submitted enterprise profile"
-msgstr "Aprova um perfil de empreendimento enviado"
-
-#: app/views/enterprise/_enterprise.rhtml:14
-#: app/views/enterprise/show.rhtml:29
-msgid "Reject"
-msgstr "Rejeitar"
-
-#: app/views/enterprise/_enterprise.rhtml:15
-#: app/views/enterprise/show.rhtml:30
-msgid "Reject a submitted enterprise profile"
-msgstr "Rejeita um perfil de empreendimento enviado"
-
-#: app/views/enterprise/list.rhtml:6 app/views/enterprise/show.rhtml:3
-msgid "Register new enterprise"
-msgstr "Registrar um novo empreendimento"
-
-#: app/views/enterprise/list.rhtml:7
-msgid "Creates a new enterprise"
-msgstr "Cria um novo empreendimento"
-
-#: app/views/enterprise/list.rhtml:11
-msgid "Listing my enterprises"
+#: app/views/profile_members/index.rhtml:1
+#, fuzzy
+msgid "Listing Members"
 msgstr "Listando meus empreendimentos"
 
-#: app/views/enterprise/list.rhtml:17
-msgid "Listing pending enterprises"
-msgstr "Listando empreendimentos pendentes"
+#: app/views/profile_members/index.rhtml:3
+#, fuzzy
+msgid "Affiliate yourself"
+msgstr "Afiliar"
 
-#: app/views/enterprise/list.rhtml:24
-msgid "Other Enterprises"
-msgstr "Outros empreendimentos"
-
-#: app/views/enterprise/show.rhtml:7
-msgid "Identifier: "
-msgstr "Identificador: "
-
-#: app/views/enterprise/show.rhtml:8
-msgid "Address: "
-msgstr "Endereço: "
-
-#: app/views/enterprise/show.rhtml:9
-msgid "Contact phone: "
-msgstr "Telefone de contato"
-
-#: app/views/enterprise/show.rhtml:10
-msgid "Contact person: "
-msgstr "Pessoa de contato"
-
-#: app/views/enterprise/show.rhtml:11
-msgid "Acronym: "
-msgstr "Acrônimo"
-
-#: app/views/enterprise/show.rhtml:12
-msgid "Foundation year: "
-msgstr "Ano de fundação"
-
-#: app/views/enterprise/show.rhtml:13
-msgid "Legal Form: "
-msgstr "Formulário Legal"
-
-#: app/views/enterprise/show.rhtml:14
-msgid "Economic activity: "
-msgstr "Atividade econômica"
-
-#: app/views/enterprise/show.rhtml:15
-msgid "Management infomation: "
-msgstr "Informação de gerenciamento"
-
-#: app/views/enterprise/show.rhtml:16
-msgid "Tags:"
-msgstr "Marcadores: "
-
-#: app/views/enterprise/show.rhtml:18
-msgid "Edit enterprise"
+#: app/views/profile_members/index.rhtml:8
+#, fuzzy
+msgid "Edit member role"
 msgstr "Editar empreendimento"
 
-#: app/views/enterprise/show.rhtml:19
-msgid "Change the information about the enterprise"
-msgstr "Altera a informação sobre o empreendimento"
-
-#: app/views/enterprise/show.rhtml:20
-msgid "Delete enterprise"
-msgstr "Excluir empreendimento"
-
-#: app/views/enterprise/show.rhtml:25
-msgid "Activate an approved enterprise"
-msgstr "Ativa um empreendimento aprovado"
-
-#: app/views/enterprise/_search_box.rhtml:4
-#: app/views/manage_tags/_search_box.rhtml:4
-msgid "Search"
-msgstr "Busca"
-
-#: app/views/enterprise/_search_box.rhtml:5
-msgid "Search enteprises by tag or name"
-msgstr "Buscar empreendimentos por marcador ou nome"
-
-#: app/views/enterprise/edit.rhtml:3
-msgid "Edit enterprise informations"
-msgstr "Editar informações do empreendimento"
-
-#: app/views/enterprise/edit.rhtml:7 app/views/manage_tags/edit.rhtml:5
-msgid "Update"
-msgstr "Atualizar"
+#: app/views/profile_members/index.rhtml:9
+msgid "Remove member"
+msgstr ""
 
 #: app/views/content_viewer/view_page.rhtml:4
 #: app/views/manage_tags/list.rhtml:17
@@ -958,15 +858,145 @@ msgstr "Acima"
 msgid "There is no such page: %s"
 msgstr "Não há página: %s"
 
-#: app/views/layouts/application.rhtml:22
-#: app/views/layouts/comatose_admin.rhtml:22
+#: app/views/layouts/application.rhtml:37
+#: app/views/layouts/comatose_admin.rhtml:37
 msgid "Close"
 msgstr "Fechar"
 
-#: app/views/layouts/application.rhtml:27
-#: app/views/layouts/comatose_admin.rhtml:27
+#: app/views/layouts/application.rhtml:42
+#: app/views/layouts/comatose_admin.rhtml:42
 msgid "Image for Loading..."
 msgstr "Imagem para Carregamento..."
+
+#: app/views/enterprise_editor/_form.rhtml:1
+#: app/views/manage_tags/_form.rhtml:1
+#: app/views/membership_editor/_form.rhtml:1
+#: app/views/profile_editor/person_info.rhtml:5
+msgid "Name"
+msgstr "Nome"
+
+#: app/views/enterprise_editor/_form.rhtml:4
+#: app/views/membership_editor/_form.rhtml:4
+#: app/views/profile_editor/person_info.rhtml:7
+msgid "Address"
+msgstr "Endereço"
+
+#: app/views/enterprise_editor/_form.rhtml:7
+#: app/views/membership_editor/_form.rhtml:7
+msgid "Contact Phone"
+msgstr "Telefone de Contato"
+
+#: app/views/enterprise_editor/_form.rhtml:10
+#: app/views/membership_editor/_form.rhtml:10
+msgid "Contact Person"
+msgstr "Pessoa de Contato"
+
+#: app/views/enterprise_editor/_form.rhtml:13
+#: app/views/membership_editor/_form.rhtml:13
+msgid "Acronym"
+msgstr "Acrônimo"
+
+#: app/views/enterprise_editor/_form.rhtml:16
+#: app/views/membership_editor/_form.rhtml:16
+msgid "Foundation Year"
+msgstr "Ano de Fundação"
+
+#: app/views/enterprise_editor/_form.rhtml:19
+#: app/views/membership_editor/_form.rhtml:19
+msgid "Legal Form"
+msgstr "Formulário Legal"
+
+#: app/views/enterprise_editor/_form.rhtml:22
+#: app/views/membership_editor/_form.rhtml:22
+msgid "Economic Activity"
+msgstr "Atividade Econômica"
+
+#: app/views/enterprise_editor/_form.rhtml:25
+#: app/views/membership_editor/_form.rhtml:25
+msgid "Management Information"
+msgstr "Informação de Gerenciamento"
+
+#: app/views/enterprise_editor/_form.rhtml:28
+#: app/views/membership_editor/_form.rhtml:28
+msgid "Validation Entity"
+msgstr "Entidade de Validação"
+
+#: app/views/enterprise_editor/_form.rhtml:31
+#: app/views/membership_editor/_form.rhtml:31
+msgid "Tags"
+msgstr "Marcadores"
+
+#: app/views/enterprise_editor/edit.rhtml:3
+msgid "Edit enterprise informations"
+msgstr "Editar informações do empreendimento"
+
+#: app/views/enterprise_editor/edit.rhtml:7 app/views/manage_tags/edit.rhtml:5
+msgid "Update"
+msgstr "Atualizar"
+
+#: app/views/enterprise_editor/index.rhtml:5
+msgid "Identifier: "
+msgstr "Identificador: "
+
+#: app/views/enterprise_editor/index.rhtml:6
+msgid "Address: "
+msgstr "Endereço: "
+
+#: app/views/enterprise_editor/index.rhtml:7
+msgid "Contact phone: "
+msgstr "Telefone de contato"
+
+#: app/views/enterprise_editor/index.rhtml:8
+msgid "Contact person: "
+msgstr "Pessoa de contato"
+
+#: app/views/enterprise_editor/index.rhtml:9
+msgid "Acronym: "
+msgstr "Acrônimo"
+
+#: app/views/enterprise_editor/index.rhtml:10
+msgid "Foundation year: "
+msgstr "Ano de fundação"
+
+#: app/views/enterprise_editor/index.rhtml:11
+msgid "Legal Form: "
+msgstr "Formulário Legal"
+
+#: app/views/enterprise_editor/index.rhtml:12
+msgid "Economic activity: "
+msgstr "Atividade econômica"
+
+#: app/views/enterprise_editor/index.rhtml:13
+msgid "Management infomation: "
+msgstr "Informação de gerenciamento"
+
+#: app/views/enterprise_editor/index.rhtml:14
+msgid "Tags:"
+msgstr "Marcadores: "
+
+#: app/views/enterprise_editor/index.rhtml:16
+msgid "Edit enterprise"
+msgstr "Editar empreendimento"
+
+#: app/views/enterprise_editor/index.rhtml:17
+msgid "Change the information about the enterprise"
+msgstr "Altera a informação sobre o empreendimento"
+
+#: app/views/enterprise_editor/index.rhtml:18
+msgid "Delete enterprise"
+msgstr "Excluir empreendimento"
+
+#: app/views/enterprise_editor/index.rhtml:19
+msgid "Remove the enterprise from the system"
+msgstr "Excluir o empreendimnto do sistema"
+
+#: app/views/enterprise_editor/index.rhtml:20
+msgid "Activate"
+msgstr "Ativar"
+
+#: app/views/enterprise_editor/index.rhtml:21
+msgid "Activate an approved enterprise"
+msgstr "Ativa um empreendimento aprovado"
 
 #: app/views/manage_tags/new.rhtml:1 app/views/manage_tags/list.rhtml:19
 msgid "New tag"
@@ -995,10 +1025,6 @@ msgstr " foi encontrador"
 #: app/views/manage_tags/search.rhtml:9
 msgid "No tags found matching criteria"
 msgstr "Nenhum marcador achado segundo critério"
-
-#: app/views/manage_tags/search.rhtml:12
-msgid "Back"
-msgstr "Voltar"
 
 #: app/views/manage_tags/_a_tag.rhtml:4
 msgid "Edit the attributes of this tag (name, parent and pending status)"
@@ -1050,9 +1076,57 @@ msgstr ""
 msgid "Create a new tag"
 msgstr ""
 
+#: app/views/manage_tags/_search_box.rhtml:4
+msgid "Search"
+msgstr "Busca"
+
 #: app/views/manage_tags/edit.rhtml:1
 msgid "Editing Tag"
 msgstr ""
+
+#: app/views/membership_editor/search.rhtml:1
+msgid " enterprises found"
+msgstr " empreendimento achado"
+
+#: app/views/membership_editor/new_enterprise.rhtml:3
+msgid "Register enterprise"
+msgstr "Registrar empreendimento"
+
+#: app/views/membership_editor/new_enterprise.rhtml:5
+msgid "How to proceed"
+msgstr "Como proceder"
+
+#: app/views/membership_editor/new_enterprise.rhtml:6
+msgid ""
+"Fill the form and hit the Register button then the enterprise will be "
+"submitted for evaluation at the validation entitiy of your choice (within "
+"your state), when the enterprise is aproved you will be able to activate its "
+"profile"
+msgstr ""
+
+#: app/views/membership_editor/new_enterprise.rhtml:9
+msgid "Identifier"
+msgstr "Identificador"
+
+#: app/views/membership_editor/new_enterprise.rhtml:12
+#: app/views/account/signup.rhtml:1
+msgid "Register"
+msgstr "Registrar"
+
+#: app/views/membership_editor/index.rhtml:1
+#, fuzzy
+msgid "Listing memberships"
+msgstr "Listando meus empreendimentos"
+
+#: app/views/membership_editor/index.rhtml:7
+#, fuzzy
+msgid "Manage"
+msgstr "Gerenciar leiaute"
+
+#: app/views/membership_editor/index.rhtml:12
+#, fuzzy
+msgid "New enterprise"
+msgstr "Meu empreendimento"
 
 #: app/views/admin_panel/index.rhtml:1
 msgid "Administrator Panel"
@@ -1068,12 +1142,21 @@ msgid "Enable/disable features"
 msgstr "Habilitar/desabilitar funcionalidades"
 
 #: app/views/admin_panel/index.rhtml:7
-msgid "Manage Tags"
-msgstr ""
-
-#: app/views/admin_panel/index.rhtml:8
 msgid "Edit the Visual Design"
 msgstr "Editar o design visual"
+
+#: app/views/admin_panel/index.rhtml:8
+#, fuzzy
+msgid "Manage Categories"
+msgstr "Gerenciar leiaute"
+
+#: app/views/admin_panel/index.rhtml:9
+msgid "Manage User roles"
+msgstr ""
+
+#: app/views/category/view.rhtml:1
+msgid "Category: %s"
+msgstr ""
 
 #: app/views/account/login.rhtml:4
 msgid "Username"
@@ -1172,11 +1255,19 @@ msgstr "Gerenciar conteúdo"
 msgid "Manage your content."
 msgstr "Gerenciar conteúdo"
 
+#: app/views/account/index.rhtml:24
+msgid "Manage memberships."
+msgstr ""
+
 #: app/views/account/index.rhtml:25
+msgid "Manage your affiliation with other profiles."
+msgstr ""
+
+#: app/views/account/index.rhtml:29
 msgid "Logout."
 msgstr "Sair."
 
-#: app/views/account/index.rhtml:26
+#: app/views/account/index.rhtml:30
 #, fuzzy
 msgid ""
 "It is always a good idea to make a logout when you finish using the "
@@ -1220,6 +1311,7 @@ msgid "Contact Information"
 msgstr "Informação de contato"
 
 #: app/views/profile_editor/person_info.rhtml:11
+#: app/views/categories/_form.rhtml:11
 msgid "Save"
 msgstr "Salvar"
 
@@ -1227,10 +1319,114 @@ msgstr "Salvar"
 msgid "My profile"
 msgstr "Meu perfil"
 
-#: app/views/profile_member/index.rhtml:1
+#: app/views/profile_editor/index.rhtml:7
 #, fuzzy
-msgid "Listing Members"
+msgid "Manage members"
 msgstr "Listando meus empreendimentos"
+
+#: app/views/profile_editor/index.rhtml:9
+#, fuzzy
+msgid "Menage content"
+msgstr "Gerenciar conteúdo"
+
+#: app/views/profile_editor/index.rhtml:12
+#, fuzzy
+msgid "Edit enterprise info"
+msgstr "informação de empreendimento"
+
+#: app/views/categories/new.rhtml:1 app/views/categories/index.rhtml:8
+#, fuzzy
+msgid "New category"
+msgstr "Novo marcador"
+
+#: app/views/categories/_category.rhtml:7
+msgid "Add subcategory"
+msgstr ""
+
+#: app/views/categories/_category.rhtml:9
+#, fuzzy
+msgid "Remove"
+msgstr "Reverter"
+
+#: app/views/categories/_category.rhtml:9
+#, fuzzy
+msgid "Are you sure you want to remove \"%s\"?"
+msgstr "Tem certeza que quer excluir a página intitulada \"%s\"?"
+
+#: app/views/categories/_category.rhtml:9
+#, fuzzy
+msgid "Are you sure you want to remove \"%s\" and all its subcategories?"
+msgstr "Tem certeza que quer excluir a página intitulada \"%s\"?"
+
+#: app/views/categories/edit.rhtml:1
+msgid "Editing %s"
+msgstr ""
+
+#: app/views/categories/index.rhtml:1
+msgid "Categories"
+msgstr ""
+
+#~ msgid "Enterprise successfuly approved"
+#~ msgstr "Empreendimento aprovado com sucesso"
+
+#, fuzzy
+#~ msgid "Failed to approve the htmlenterprise"
+#~ msgstr "Falhou em aprovar o empreendimento"
+
+#~ msgid "Enterprise successfuly rejected"
+#~ msgstr "Empreendimeto rejeitado com sucesso"
+
+#~ msgid "Failed to reject the enterprise"
+#~ msgstr "Falhou em rejeitar o empreendimento"
+
+#~ msgid "Not approved enterprise can't be activated"
+#~ msgstr "Empreendimento não aprovado não pode ser ativado"
+
+#, fuzzy
+#~ msgid "Moderate content"
+#~ msgstr "Gerenciar conteúdo"
+
+#~ msgid "Change the infomation about the enterprise"
+#~ msgstr "Mudar iformação sobre o empreendimento"
+
+#~ msgid "Delete"
+#~ msgstr "Excluir"
+
+#~ msgid "Be a member of the enterprise"
+#~ msgstr "Tornar-se um membro do empreendimento"
+
+#~ msgid "Activate the profile of an approved enterprise"
+#~ msgstr "Ativa o perfil de um empreendimento aprovado"
+
+#~ msgid "Approve"
+#~ msgstr "Aprovar"
+
+#~ msgid "Approve a submitted enterprise profile"
+#~ msgstr "Aprova um perfil de empreendimento enviado"
+
+#~ msgid "Reject"
+#~ msgstr "Rejeitar"
+
+#~ msgid "Reject a submitted enterprise profile"
+#~ msgstr "Rejeita um perfil de empreendimento enviado"
+
+#~ msgid "Register new enterprise"
+#~ msgstr "Registrar um novo empreendimento"
+
+#~ msgid "Creates a new enterprise"
+#~ msgstr "Cria um novo empreendimento"
+
+#~ msgid "Listing my enterprises"
+#~ msgstr "Listando meus empreendimentos"
+
+#~ msgid "Listing pending enterprises"
+#~ msgstr "Listando empreendimentos pendentes"
+
+#~ msgid "Other Enterprises"
+#~ msgstr "Outros empreendimentos"
+
+#~ msgid "Search enteprises by tag or name"
+#~ msgstr "Buscar empreendimentos por marcador ou nome"
 
 #~ msgid "You have to accept the terms of service to signup"
 #~ msgstr "Você tem que aceitar os termos de uso para se registrar"
@@ -1250,9 +1446,6 @@ msgstr "Listando meus empreendimentos"
 #~ msgid "Affiliation|Profile"
 #~ msgstr "Perfil"
 
-#~ msgid "Manage layout"
-#~ msgstr "Gerenciar leiaute"
-
 #~ msgid "Document List"
 #~ msgstr "Lista de documentos"
 
@@ -1270,6 +1463,3 @@ msgstr "Listando meus empreendimentos"
 
 #~ msgid "Link Block"
 #~ msgstr "Bloco Link"
-
-#~ msgid "My enterprises"
-#~ msgstr "Meu empreendimento"
