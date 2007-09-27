@@ -83,7 +83,8 @@ To prepare a release of noosfero, you must follow the steps below:
 * finish all requirements and bugs assigned to the to-be-released version
 * make sure all tests pass
 * write release notes at the version's wiki topic.
-* generate package with +rake package+
+* generate package with +rake package+. Your tarball will be under the pkg/
+  directory, named as noosfero-${VERSION}.tar.gz
 * test that the package contains everything that is needed: explode the tarball
   in a temporary directory, copy config/database.yml.sqlite3 to
   config/database.yml, and make +rake db:migrate+ and +rake test+. If
@@ -95,6 +96,9 @@ To prepare a release of noosfero, you must follow the steps below:
   lib/tasks/svn.rake in case of any questions.
 * IMMEDIATELY change the version in lib/noosfero.rb to the next version. (e.g.
   0.2.0 -> 0.3.0)
+
+If you had any problem during these steps, you can do +rake clobber_package+ to
+completely delete the generated packages and start the process again.
 
 == Working with translations
 
