@@ -19,7 +19,7 @@ module Noosfero::Transliterations
     [ 'ÿ' ] => 'y',
   }
 
-  # transliterate a string (assumed to be contain UTF-8 data)
+  # transliterate a string (assumed to contain UTF-8 data)
   # into ASCII by replacing non-ascii characters to their
   # ASCII.
   #
