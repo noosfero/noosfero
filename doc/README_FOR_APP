@@ -95,3 +95,11 @@ To prepare a release of noosfero, you must follow the steps below:
   lib/tasks/svn.rake in case of any questions.
 * IMMEDIATELY change the version in lib/noosfero.rb to the next version. (e.g.
   0.2.0 -> 0.3.0)
+
+== Working with translations
+
+* Update translation files: +rake updatepo+. Then +svn commit+ them.
+* Send the PO files to the translators.
+* Get tha PO files back from translators, put in po/ under the correct language
+  name (e.,g. po/pt_BR/) and +svn commit+.
+* test translations: +rake makemo+ and browse the application on the web.
