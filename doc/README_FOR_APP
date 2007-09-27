@@ -75,3 +75,23 @@ Use Noosfero Tracker application at http://www.colivre.coop.br/Noosfero.
 * If you have a patch, create an appropriate action item
   (bugs/requirement/enhancement) in the Tracker web (see "Reporting bugs"
   above) of type.
+
+== Releasing noosfero
+
+To prepare a release of noosfero, you must follow the steps below:
+
+* finish all requirements and bugs assigned to the to-be-released version
+* make sure all tests pass
+* write release notes at the version's wiki topic.
+* generate package with +rake package+
+* test that the package contains everything that is needed: explode the tarball
+  in a temporary directory, copy config/database.yml.sqlite3 to
+  config/database.yml, and make +rake db:migrate+ and +rake test+. If
+  everything is ok, you are done. If not, maybe some files are not going into
+  the tarball. See lib/tasks/package.rake, probably you'll need to change it.
+* Go to the version's wiki topic and edit it to reflect the new reality.
+* Attach the generated package to that topic.
+* create a svn tag for the released version with +rake tag+. See
+  lib/tasks/svn.rake in case of any questions.
+* IMMEDIATELY change the version in lib/noosfero.rb to the next version. (e.g.
+  0.2.0 -> 0.3.0)
