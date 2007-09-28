@@ -5,14 +5,11 @@ class SearchEnterpriseTest < ActionController::IntegrationTest
 
   def test_search_by_name_or_tag
     login('ze', 'test')
-    get '/myprofile/ze/enterprise'
-    assert_response :redirect
-
-    follow_redirect!
+    get '/myprofile/ze/membership_editor'
     assert_response :success
     assert_tag :tag => 'input', :attributes => {'name', 'query'}
 
-    get '/myprofile/ze/enterprise/search', :query => 'bla'
+    get '/myprofile/ze/membership_editor/search', :query => 'bla'
     assert_response :success
   end
 end

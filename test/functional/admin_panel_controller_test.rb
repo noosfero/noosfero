@@ -17,8 +17,9 @@ class AdminPanelControllerTest < Test::Unit::TestCase
   def test_index
     get :index
     assert_template 'index'
-    assert_tag :tag => 'a', :attributes => { :href => /manage_tags/ }
+    assert_tag :tag => 'a', :attributes => { :href => /categories/ }
     assert_tag :tag => 'a', :attributes => { :href => /edit_template/ }
     assert_tag :tag => 'a', :attributes => { :href => /features/ }
+    assert_tag :tag => 'a', :attributes => { :href => /role/ }
   end
 end

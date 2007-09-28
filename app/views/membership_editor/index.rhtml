@@ -1,5 +1,9 @@
 <h2><%= _('Listing memberships')%></h2>
 
+<% form_tag 'membership_editor/search' do %>
+  <%= _('Search') %> <%= text_field_tag 'query' %>
+<% end %>
+
 <ul>
 <% @memberships.each do |m|%>
   <li> 

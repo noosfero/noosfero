@@ -1,12 +1,14 @@
 class MembershipEditorController < ProfileAdminController
   
+  before_filter :logon 
+
   def index
     @memberships = current_user.person.memberships
   end
 
   def new_enterprise
     @enterprise = Enterprise.new()
-    @vitual_communities = Environment.find(:all)
+    @virtual_communities = Environment.find(:all)
     @validation_entities = Organization.find(:all)
   end
 
@@ -28,5 +30,11 @@ class MembershipEditorController < ProfileAdminController
   # Search enterprises by name or tags
   def search
     @tagged_enterprises = Enterprise.search(params[:query])
+  end
+
+  protected
+
+  def logon
+    redirect_to :controller => :account unless logged_in?
   end
 end
