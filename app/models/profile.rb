@@ -12,7 +12,8 @@ class Profile < ActiveRecord::Base
   end
 
   after_destroy do |profile|
-    Article.find_by_path(profile.identifier).destroy
+    article = Article.find_by_path(profile.identifier)
+    article.destroy if article
   end
 
   # Valid identifiers must match this format.

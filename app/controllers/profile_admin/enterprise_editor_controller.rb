@@ -28,12 +28,9 @@ class EnterpriseEditorController < ProfileAdminController
   
   # Elimitates the enterprise of the system
   def destroy 
-    if @enterprise
-      @enterprise.destroy
-    else
-      flash[:notice] = 'Can destroy only your enterprises'
-    end
-    redirect_to :action => 'index'
+    @enterprise.destroy
+    flash[:notice] = _('Enterprise sucessfully erased from the system')
+    redirect_to '/'
   end
 
   # Activate a validated enterprise
@@ -56,7 +53,7 @@ class EnterpriseEditorController < ProfileAdminController
   end
 
   def check_enterprise
-    raise 'It\'s not an enterprise' unless @profile.is_a?(Enterprise)
+    redirect_to '/' unless @profile.is_a?(Enterprise)
     @enterprise = @profile
   end
 end
