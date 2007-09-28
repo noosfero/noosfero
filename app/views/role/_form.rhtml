@@ -10,4 +10,5 @@
   <% end %>
 
   <%= submit_tag (mode == :edit) ? _('Save changes') : _('Create role')%>
+  <%= link_to _('Cancel'), :action => 'index' %>
 <% end %>
