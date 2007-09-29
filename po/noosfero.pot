@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.2.0\n"
-"POT-Creation-Date: 2007-09-27 18:08-0300\n"
+"POT-Creation-Date: 2007-09-29 09:24-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,21 +53,25 @@ msgstr ""
 msgid "Could not update the enterprise"
 msgstr ""
 
-#: app/controllers/profile_admin/enterprise_editor_controller.rb:42
+#: app/controllers/profile_admin/enterprise_editor_controller.rb:32
+msgid "Enterprise sucessfully erased from the system"
+msgstr ""
+
+#: app/controllers/profile_admin/enterprise_editor_controller.rb:39
 msgid "Enterprise successfuly activacted"
 msgstr ""
 
-#: app/controllers/profile_admin/enterprise_editor_controller.rb:44
+#: app/controllers/profile_admin/enterprise_editor_controller.rb:41
 msgid "Failed to activate the enterprise"
 msgstr ""
 
-#: app/controllers/profile_admin/membership_editor_controller.rb:18
+#: app/controllers/profile_admin/membership_editor_controller.rb:20
 msgid ""
 "The enterprise was successfully created, the validation entity will cotact "
 "you as soon as your enterprise is approved"
 msgstr ""
 
-#: app/controllers/profile_admin/membership_editor_controller.rb:21
+#: app/controllers/profile_admin/membership_editor_controller.rb:23
 msgid "Enterprise was not created"
 msgstr ""
 
@@ -112,7 +116,7 @@ msgid "Profile|Identifier"
 msgstr ""
 
 #: app/models/profile.rb:-
-msgid "Profile|Environment"
+msgid "Profile|Virtual community"
 msgstr ""
 
 #: app/models/profile.rb:-
@@ -151,7 +155,7 @@ msgstr ""
 msgid "Profile|Approved"
 msgstr ""
 
-#: app/models/profile.rb:45
+#: app/models/profile.rb:46
 msgid "An existing profile cannot be renamed."
 msgstr ""
 
@@ -193,14 +197,6 @@ msgstr ""
 
 #: app/models/role.rb:-
 msgid "role"
-msgstr ""
-
-#: app/models/role.rb:-
-msgid "Role|Name"
-msgstr ""
-
-#: app/models/role.rb:-
-msgid "Role|Permissions"
 msgstr ""
 
 #: app/models/role.rb:5
@@ -321,14 +317,6 @@ msgstr ""
 msgid "User|Remember token expires at"
 msgstr ""
 
-#: app/models/user.rb:-
-msgid "User|Terms of use"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "User|Terms accepted"
-msgstr ""
-
 #: app/models/user.rb:7
 msgid "User|Password"
 msgstr ""
@@ -343,22 +331,6 @@ msgstr ""
 
 #: app/models/environment.rb:-
 msgid "environment"
-msgstr ""
-
-#: app/models/environment.rb:-
-msgid "Environment|Name"
-msgstr ""
-
-#: app/models/environment.rb:-
-msgid "Environment|Is default"
-msgstr ""
-
-#: app/models/environment.rb:-
-msgid "Environment|Settings"
-msgstr ""
-
-#: app/models/environment.rb:-
-msgid "Environment|Design data"
 msgstr ""
 
 #: app/models/environment.rb:10
@@ -377,52 +349,8 @@ msgstr ""
 msgid "role assignment"
 msgstr ""
 
-#: app/models/role_assignment.rb:-
-msgid "RoleAssignment|Person"
-msgstr ""
-
-#: app/models/role_assignment.rb:-
-msgid "RoleAssignment|Role"
-msgstr ""
-
-#: app/models/role_assignment.rb:-
-msgid "RoleAssignment|Resource"
-msgstr ""
-
-#: app/models/role_assignment.rb:-
-msgid "RoleAssignment|Resource type"
-msgstr ""
-
 #: app/models/category.rb:-
 msgid "category"
-msgstr ""
-
-#: app/models/category.rb:-
-msgid "Category|Name"
-msgstr ""
-
-#: app/models/category.rb:-
-msgid "Category|Slug"
-msgstr ""
-
-#: app/models/category.rb:-
-msgid "Category|Path"
-msgstr ""
-
-#: app/models/category.rb:-
-msgid "Category|Display color"
-msgstr ""
-
-#: app/models/category.rb:-
-msgid "Category|Environment"
-msgstr ""
-
-#: app/models/category.rb:-
-msgid "Category|Parent"
-msgstr ""
-
-#: app/models/category.rb:-
-msgid "Category|Type"
 msgstr ""
 
 #: app/models/category.rb:3
@@ -646,7 +574,7 @@ msgid ""
 msgstr ""
 
 #: app/views/cms/_form.rhtml:69 app/views/cms/delete.rhtml:16
-#: app/views/cms/versions.rhtml:25
+#: app/views/cms/versions.rhtml:25 app/views/role/_form.rhtml:13
 #: app/views/profile_members/change_role.rhtml:12
 #: app/views/enterprise_editor/edit.rhtml:8 app/views/manage_tags/new.rhtml:6
 #: app/views/manage_tags/edit.rhtml:6
@@ -773,6 +701,18 @@ msgstr ""
 msgid "Create role"
 msgstr ""
 
+#: app/views/role/show.rhtml:3
+msgid "Permissions"
+msgstr ""
+
+#: app/views/role/show.rhtml:10 app/views/role/index.rhtml:12
+#: app/views/profile_members/affiliate.rhtml:9
+#: app/views/profile_members/index.rhtml:13
+#: app/views/enterprise_editor/index.rhtml:23
+#: app/views/manage_tags/search.rhtml:12
+msgid "Back"
+msgstr ""
+
 #: app/views/role/index.rhtml:1
 msgid "New role"
 msgstr ""
@@ -797,13 +737,6 @@ msgstr ""
 
 #: app/views/profile_members/affiliate.rhtml:6
 msgid "Affiliate"
-msgstr ""
-
-#: app/views/profile_members/affiliate.rhtml:9
-#: app/views/profile_members/index.rhtml:13
-#: app/views/enterprise_editor/index.rhtml:23
-#: app/views/manage_tags/search.rhtml:12
-msgid "Back"
 msgstr ""
 
 #: app/views/profile_members/index.rhtml:1
@@ -1050,6 +983,7 @@ msgid "Create a new tag"
 msgstr ""
 
 #: app/views/manage_tags/_search_box.rhtml:4
+#: app/views/membership_editor/index.rhtml:4
 msgid "Search"
 msgstr ""
 
@@ -1090,11 +1024,11 @@ msgstr ""
 msgid "Listing memberships"
 msgstr ""
 
-#: app/views/membership_editor/index.rhtml:7
+#: app/views/membership_editor/index.rhtml:11
 msgid "Manage"
 msgstr ""
 
-#: app/views/membership_editor/index.rhtml:12
+#: app/views/membership_editor/index.rhtml:16
 msgid "New enterprise"
 msgstr ""
 

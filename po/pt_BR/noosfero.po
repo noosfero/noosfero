@@ -8,10 +8,11 @@
 # This file is distributed under the same license as noosfero itself.
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero\n"
-"POT-Creation-Date: 2007-09-27 18:08-0300\n"
+"Project-Id-Version: noosfero 0.2.0\n"
+"POT-Creation-Date: 2007-09-29 09:24-0300\n"
 "PO-Revision-Date: 2007-09-27 18:51-0300\n"
-"Last-Translator: Krishnamurti Lelis Lima Vieira Nunes <krishna@colivre.coop.br>\n"
+"Last-Translator: Krishnamurti Lelis Lima Vieira Nunes <krishna@colivre.coop."
+"br>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -56,15 +57,20 @@ msgstr "Funcionalidades alterada com sucesso"
 msgid "Could not update the enterprise"
 msgstr "Não pôde modificar o empreendimento"
 
-#: app/controllers/profile_admin/enterprise_editor_controller.rb:42
+#: app/controllers/profile_admin/enterprise_editor_controller.rb:32
+#, fuzzy
+msgid "Enterprise sucessfully erased from the system"
+msgstr "Empreendimento ativado com sucesso"
+
+#: app/controllers/profile_admin/enterprise_editor_controller.rb:39
 msgid "Enterprise successfuly activacted"
 msgstr "Empreendimento ativado com sucesso"
 
-#: app/controllers/profile_admin/enterprise_editor_controller.rb:44
+#: app/controllers/profile_admin/enterprise_editor_controller.rb:41
 msgid "Failed to activate the enterprise"
 msgstr "Falhou em ativar o empreendimento"
 
-#: app/controllers/profile_admin/membership_editor_controller.rb:18
+#: app/controllers/profile_admin/membership_editor_controller.rb:20
 msgid ""
 "The enterprise was successfully created, the validation entity will cotact "
 "you as soon as your enterprise is approved"
@@ -72,7 +78,7 @@ msgstr ""
 "O empreendimento foi criado com sucesso, a entidade de validação irá entrar "
 "em contato com você assim que seu empreendimento for aprovado"
 
-#: app/controllers/profile_admin/membership_editor_controller.rb:21
+#: app/controllers/profile_admin/membership_editor_controller.rb:23
 msgid "Enterprise was not created"
 msgstr "Empreendimento não foi criado"
 
@@ -117,8 +123,9 @@ msgid "Profile|Identifier"
 msgstr "Identificador"
 
 #: app/models/profile.rb:-
-msgid "Profile|Environment"
-msgstr "Ambiente"
+#, fuzzy
+msgid "Profile|Virtual community"
+msgstr "Entidade de validação"
 
 #: app/models/profile.rb:-
 msgid "Profile|Flexible template template"
@@ -156,7 +163,7 @@ msgstr "Entidade de validação"
 msgid "Profile|Approved"
 msgstr "Aprovado"
 
-#: app/models/profile.rb:45
+#: app/models/profile.rb:46
 msgid "An existing profile cannot be renamed."
 msgstr "Um perfil existente não pode ser renomeado"
 
@@ -199,14 +206,6 @@ msgstr "Validado"
 #: app/models/role.rb:-
 msgid "role"
 msgstr "papel"
-
-#: app/models/role.rb:-
-msgid "Role|Name"
-msgstr "Nome"
-
-#: app/models/role.rb:-
-msgid "Role|Permissions"
-msgstr "Permissões"
 
 #: app/models/role.rb:5
 msgid "Edit profile"
@@ -328,14 +327,6 @@ msgstr "Lembrar token"
 msgid "User|Remember token expires at"
 msgstr "Token lembrado expira em"
 
-#: app/models/user.rb:-
-msgid "User|Terms of use"
-msgstr "Termos de uso"
-
-#: app/models/user.rb:-
-msgid "User|Terms accepted"
-msgstr "Termos aceitos"
-
 #: app/models/user.rb:7
 msgid "User|Password"
 msgstr "Senha"
@@ -351,22 +342,6 @@ msgstr "%{fn} deve ser verificado para efetivar inscrição"
 #: app/models/environment.rb:-
 msgid "environment"
 msgstr "comunidade virtual"
-
-#: app/models/environment.rb:-
-msgid "Environment|Name"
-msgstr "Nome"
-
-#: app/models/environment.rb:-
-msgid "Environment|Is default"
-msgstr "É padrão"
-
-#: app/models/environment.rb:-
-msgid "Environment|Settings"
-msgstr "Configurações"
-
-#: app/models/environment.rb:-
-msgid "Environment|Design data"
-msgstr "Dados de design"
 
 #: app/models/environment.rb:10
 msgid "Some feature"
@@ -384,53 +359,9 @@ msgstr "Apenas uma comunidade virtual pode ser a padrão"
 msgid "role assignment"
 msgstr "atribuição de papéis"
 
-#: app/models/role_assignment.rb:-
-msgid "RoleAssignment|Person"
-msgstr "Pessoa"
-
-#: app/models/role_assignment.rb:-
-msgid "RoleAssignment|Role"
-msgstr "Papel"
-
-#: app/models/role_assignment.rb:-
-msgid "RoleAssignment|Resource"
-msgstr "Recurso"
-
-#: app/models/role_assignment.rb:-
-msgid "RoleAssignment|Resource type"
-msgstr "Tipo de recurso"
-
 #: app/models/category.rb:-
 msgid "category"
 msgstr "categoria"
-
-#: app/models/category.rb:-
-msgid "Category|Name"
-msgstr "Nome"
-
-#: app/models/category.rb:-
-msgid "Category|Slug"
-msgstr "Identificador"
-
-#: app/models/category.rb:-
-msgid "Category|Path"
-msgstr "Caminho"
-
-#: app/models/category.rb:-
-msgid "Category|Display color"
-msgstr "Cor de exibição"
-
-#: app/models/category.rb:-
-msgid "Category|Environment"
-msgstr "Ambiente"
-
-#: app/models/category.rb:-
-msgid "Category|Parent"
-msgstr "Pai"
-
-#: app/models/category.rb:-
-msgid "Category|Type"
-msgstr "Tipo"
 
 #: app/models/category.rb:3
 msgid "%{fn} cannot be like that."
@@ -655,7 +586,7 @@ msgstr ""
 "continuar..."
 
 #: app/views/cms/_form.rhtml:69 app/views/cms/delete.rhtml:16
-#: app/views/cms/versions.rhtml:25
+#: app/views/cms/versions.rhtml:25 app/views/role/_form.rhtml:13
 #: app/views/profile_members/change_role.rhtml:12
 #: app/views/enterprise_editor/edit.rhtml:8 app/views/manage_tags/new.rhtml:6
 #: app/views/manage_tags/edit.rhtml:6
@@ -782,6 +713,19 @@ msgstr "Salvar alterações"
 msgid "Create role"
 msgstr "Criar papel"
 
+#: app/views/role/show.rhtml:3
+#, fuzzy
+msgid "Permissions"
+msgstr "Permissões: "
+
+#: app/views/role/show.rhtml:10 app/views/role/index.rhtml:12
+#: app/views/profile_members/affiliate.rhtml:9
+#: app/views/profile_members/index.rhtml:13
+#: app/views/enterprise_editor/index.rhtml:23
+#: app/views/manage_tags/search.rhtml:12
+msgid "Back"
+msgstr "Voltar"
+
 #: app/views/role/index.rhtml:1
 msgid "New role"
 msgstr "Novo papel"
@@ -807,13 +751,6 @@ msgstr "Papéis:"
 #: app/views/profile_members/affiliate.rhtml:6
 msgid "Affiliate"
 msgstr "Afiliar"
-
-#: app/views/profile_members/affiliate.rhtml:9
-#: app/views/profile_members/index.rhtml:13
-#: app/views/enterprise_editor/index.rhtml:23
-#: app/views/manage_tags/search.rhtml:12
-msgid "Back"
-msgstr "Voltar"
 
 #: app/views/profile_members/index.rhtml:1
 msgid "Listing Members"
@@ -1014,7 +951,8 @@ msgstr "Editar atributos dessa tag (nome, filiação e estado pendente)"
 
 #: app/views/manage_tags/_a_tag.rhtml:6
 msgid "Erase the tag and all its subtags but not the tagged content"
-msgstr "Apagar essa tag e todas as suas subtags mas não o conteúdo marcado com elas"
+msgstr ""
+"Apagar essa tag e todas as suas subtags mas não o conteúdo marcado com elas"
 
 #: app/views/manage_tags/_a_tag.rhtml:7
 msgid "Filter by this tag"
@@ -1032,7 +970,9 @@ msgstr "Aprovar tag"
 msgid ""
 "Approve this tag so content can be tagged with it and subtags of it can br "
 "created"
-msgstr "Aprovar esta tag de forma qeu conteúdos possam ser idexados por ela e subtags possam ser criadas"
+msgstr ""
+"Aprovar esta tag de forma qeu conteúdos possam ser idexados por ela e "
+"subtags possam ser criadas"
 
 #: app/views/manage_tags/list.rhtml:3
 msgid "Listing tags"
@@ -1059,6 +999,7 @@ msgid "Create a new tag"
 msgstr "Criar nova tag"
 
 #: app/views/manage_tags/_search_box.rhtml:4
+#: app/views/membership_editor/index.rhtml:4
 msgid "Search"
 msgstr "Busca"
 
@@ -1084,7 +1025,10 @@ msgid ""
 "submitted for evaluation at the validation entitiy of your choice (within "
 "your state), when the enterprise is aproved you will be able to activate its "
 "profile"
-msgstr "Preencha o formulário e pressione o botão Registrar para que o empreendimento seja submetido a avaliação pela entidade de sua escolha. Uma vez aprovada, você poderá ativar o perfil do empreendimento"
+msgstr ""
+"Preencha o formulário e pressione o botão Registrar para que o "
+"empreendimento seja submetido a avaliação pela entidade de sua escolha. Uma "
+"vez aprovada, você poderá ativar o perfil do empreendimento"
 
 #: app/views/membership_editor/new_enterprise.rhtml:9
 msgid "Identifier"
@@ -1099,11 +1043,11 @@ msgstr "Registrar"
 msgid "Listing memberships"
 msgstr "Listando associações em organizações"
 
-#: app/views/membership_editor/index.rhtml:7
+#: app/views/membership_editor/index.rhtml:11
 msgid "Manage"
 msgstr "Gerenciar"
 
-#: app/views/membership_editor/index.rhtml:12
+#: app/views/membership_editor/index.rhtml:16
 msgid "New enterprise"
 msgstr "Novo empreendimento"
 
@@ -1113,7 +1057,8 @@ msgstr "Painel do Administrador"
 
 #: app/views/admin_panel/index.rhtml:3
 msgid "You, as an environment administrator, has the following options:"
-msgstr "Você, como administrador de comunidade virtual, tem as seguintes opções:"
+msgstr ""
+"Você, como administrador de comunidade virtual, tem as seguintes opções:"
 
 #: app/views/admin_panel/index.rhtml:6
 msgid "Enable/disable features"
@@ -1152,8 +1097,11 @@ msgid "Login."
 msgstr "Login."
 
 #: app/views/account/index_anonymous.rhtml:5
-msgid "You need to login to be able to use all the features in this environment."
-msgstr "Você precisa se identificar para usar todas as funcionalidades desse ambiente."
+msgid ""
+"You need to login to be able to use all the features in this environment."
+msgstr ""
+"Você precisa se identificar para usar todas as funcionalidades desse "
+"ambiente."
 
 #: app/views/account/index_anonymous.rhtml:9
 msgid "Sign up."
@@ -1217,7 +1165,6 @@ msgid "See your homepage."
 msgstr "Veja sua página inicial."
 
 #: app/views/account/index.rhtml:19
-
 msgid "Manage content."
 msgstr "Gerenciar conteúdo."
 
@@ -1293,7 +1240,6 @@ msgid "Manage members"
 msgstr "Gerenciar membros"
 
 #: app/views/profile_editor/index.rhtml:9
-
 msgid "Menage content"
 msgstr "Gerenciar conteúdo"
 
@@ -1329,3 +1275,62 @@ msgstr "Editando %s"
 msgid "Categories"
 msgstr "Categorias"
 
+#~ msgid "Profile|Environment"
+#~ msgstr "Ambiente"
+
+#~ msgid "Role|Name"
+#~ msgstr "Nome"
+
+#~ msgid "Role|Permissions"
+#~ msgstr "Permissões"
+
+#~ msgid "User|Terms of use"
+#~ msgstr "Termos de uso"
+
+#~ msgid "User|Terms accepted"
+#~ msgstr "Termos aceitos"
+
+#~ msgid "Environment|Name"
+#~ msgstr "Nome"
+
+#~ msgid "Environment|Is default"
+#~ msgstr "É padrão"
+
+#~ msgid "Environment|Settings"
+#~ msgstr "Configurações"
+
+#~ msgid "Environment|Design data"
+#~ msgstr "Dados de design"
+
+#~ msgid "RoleAssignment|Person"
+#~ msgstr "Pessoa"
+
+#~ msgid "RoleAssignment|Role"
+#~ msgstr "Papel"
+
+#~ msgid "RoleAssignment|Resource"
+#~ msgstr "Recurso"
+
+#~ msgid "RoleAssignment|Resource type"
+#~ msgstr "Tipo de recurso"
+
+#~ msgid "Category|Name"
+#~ msgstr "Nome"
+
+#~ msgid "Category|Slug"
+#~ msgstr "Identificador"
+
+#~ msgid "Category|Path"
+#~ msgstr "Caminho"
+
+#~ msgid "Category|Display color"
+#~ msgstr "Cor de exibição"
+
+#~ msgid "Category|Environment"
+#~ msgstr "Ambiente"
+
+#~ msgid "Category|Parent"
+#~ msgstr "Pai"
+
+#~ msgid "Category|Type"
+#~ msgstr "Tipo"
