@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.2.0\n"
-"POT-Creation-Date: 2007-09-29 09:24-0300\n"
+"Project-Id-Version: noosfero 0.3.0\n"
+"POT-Creation-Date: 2007-10-01 14:46-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -116,7 +116,7 @@ msgid "Profile|Identifier"
 msgstr ""
 
 #: app/models/profile.rb:-
-msgid "Profile|Virtual community"
+msgid "Profile|Environment"
 msgstr ""
 
 #: app/models/profile.rb:-
@@ -197,6 +197,14 @@ msgstr ""
 
 #: app/models/role.rb:-
 msgid "role"
+msgstr ""
+
+#: app/models/role.rb:-
+msgid "Role|Name"
+msgstr ""
+
+#: app/models/role.rb:-
+msgid "Role|Permissions"
 msgstr ""
 
 #: app/models/role.rb:5
@@ -317,6 +325,14 @@ msgstr ""
 msgid "User|Remember token expires at"
 msgstr ""
 
+#: app/models/user.rb:-
+msgid "User|Terms of use"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Terms accepted"
+msgstr ""
+
 #: app/models/user.rb:7
 msgid "User|Password"
 msgstr ""
@@ -331,6 +347,22 @@ msgstr ""
 
 #: app/models/environment.rb:-
 msgid "environment"
+msgstr ""
+
+#: app/models/environment.rb:-
+msgid "Environment|Name"
+msgstr ""
+
+#: app/models/environment.rb:-
+msgid "Environment|Is default"
+msgstr ""
+
+#: app/models/environment.rb:-
+msgid "Environment|Settings"
+msgstr ""
+
+#: app/models/environment.rb:-
+msgid "Environment|Design data"
 msgstr ""
 
 #: app/models/environment.rb:10
@@ -349,8 +381,52 @@ msgstr ""
 msgid "role assignment"
 msgstr ""
 
+#: app/models/role_assignment.rb:-
+msgid "RoleAssignment|Person"
+msgstr ""
+
+#: app/models/role_assignment.rb:-
+msgid "RoleAssignment|Role"
+msgstr ""
+
+#: app/models/role_assignment.rb:-
+msgid "RoleAssignment|Resource"
+msgstr ""
+
+#: app/models/role_assignment.rb:-
+msgid "RoleAssignment|Resource type"
+msgstr ""
+
 #: app/models/category.rb:-
 msgid "category"
+msgstr ""
+
+#: app/models/category.rb:-
+msgid "Category|Name"
+msgstr ""
+
+#: app/models/category.rb:-
+msgid "Category|Slug"
+msgstr ""
+
+#: app/models/category.rb:-
+msgid "Category|Path"
+msgstr ""
+
+#: app/models/category.rb:-
+msgid "Category|Display color"
+msgstr ""
+
+#: app/models/category.rb:-
+msgid "Category|Environment"
+msgstr ""
+
+#: app/models/category.rb:-
+msgid "Category|Parent"
+msgstr ""
+
+#: app/models/category.rb:-
+msgid "Category|Type"
 msgstr ""
 
 #: app/models/category.rb:3

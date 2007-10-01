@@ -8,9 +8,9 @@
 # This file is distributed under the same license as noosfero itself.
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.2.0\n"
-"POT-Creation-Date: 2007-09-29 09:24-0300\n"
-"PO-Revision-Date: 2007-09-27 18:51-0300\n"
+"Project-Id-Version: noosfero 0.3.0\n"
+"POT-Creation-Date: 2007-10-01 14:46-0300\n"
+"PO-Revision-Date: 2007-10-01 14:37-0300\n"
 "Last-Translator: Krishnamurti Lelis Lima Vieira Nunes <krishna@colivre.coop."
 "br>\n"
 "Language-Team: \n"
@@ -124,8 +124,8 @@ msgstr "Identificador"
 
 #: app/models/profile.rb:-
 #, fuzzy
-msgid "Profile|Virtual community"
-msgstr "Entidade de validação"
+msgid "Profile|Environment"
+msgstr "comunidade virtual"
 
 #: app/models/profile.rb:-
 msgid "Profile|Flexible template template"
@@ -206,6 +206,16 @@ msgstr "Validado"
 #: app/models/role.rb:-
 msgid "role"
 msgstr "papel"
+
+#: app/models/role.rb:-
+#, fuzzy
+msgid "Role|Name"
+msgstr "Nome"
+
+#: app/models/role.rb:-
+#, fuzzy
+msgid "Role|Permissions"
+msgstr "Permissões: "
 
 #: app/models/role.rb:5
 msgid "Edit profile"
@@ -327,6 +337,14 @@ msgstr "Lembrar token"
 msgid "User|Remember token expires at"
 msgstr "Token lembrado expira em"
 
+#: app/models/user.rb:-
+msgid "User|Terms of use"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Terms accepted"
+msgstr ""
+
 #: app/models/user.rb:7
 msgid "User|Password"
 msgstr "Senha"
@@ -342,6 +360,25 @@ msgstr "%{fn} deve ser verificado para efetivar inscrição"
 #: app/models/environment.rb:-
 msgid "environment"
 msgstr "comunidade virtual"
+
+#: app/models/environment.rb:-
+#, fuzzy
+msgid "Environment|Name"
+msgstr "comunidade virtual"
+
+#: app/models/environment.rb:-
+#, fuzzy
+msgid "Environment|Is default"
+msgstr "comunidade virtual"
+
+#: app/models/environment.rb:-
+#, fuzzy
+msgid "Environment|Settings"
+msgstr "comunidade virtual"
+
+#: app/models/environment.rb:-
+msgid "Environment|Design data"
+msgstr ""
 
 #: app/models/environment.rb:10
 msgid "Some feature"
@@ -359,9 +396,62 @@ msgstr "Apenas uma comunidade virtual pode ser a padrão"
 msgid "role assignment"
 msgstr "atribuição de papéis"
 
+#: app/models/role_assignment.rb:-
+#, fuzzy
+msgid "RoleAssignment|Person"
+msgstr "atribuição de papéis"
+
+#: app/models/role_assignment.rb:-
+#, fuzzy
+msgid "RoleAssignment|Role"
+msgstr "atribuição de papéis"
+
+#: app/models/role_assignment.rb:-
+#, fuzzy
+msgid "RoleAssignment|Resource"
+msgstr "atribuição de papéis"
+
+#: app/models/role_assignment.rb:-
+msgid "RoleAssignment|Resource type"
+msgstr ""
+
 #: app/models/category.rb:-
 msgid "category"
 msgstr "categoria"
+
+#: app/models/category.rb:-
+#, fuzzy
+msgid "Category|Name"
+msgstr "Categorias"
+
+#: app/models/category.rb:-
+#, fuzzy
+msgid "Category|Slug"
+msgstr "categoria"
+
+#: app/models/category.rb:-
+#, fuzzy
+msgid "Category|Path"
+msgstr "categoria"
+
+#: app/models/category.rb:-
+msgid "Category|Display color"
+msgstr ""
+
+#: app/models/category.rb:-
+#, fuzzy
+msgid "Category|Environment"
+msgstr "comunidade virtual"
+
+#: app/models/category.rb:-
+#, fuzzy
+msgid "Category|Parent"
+msgstr "Categorias"
+
+#: app/models/category.rb:-
+#, fuzzy
+msgid "Category|Type"
+msgstr "Categorias"
 
 #: app/models/category.rb:3
 msgid "%{fn} cannot be like that."
@@ -1275,62 +1365,6 @@ msgstr "Editando %s"
 msgid "Categories"
 msgstr "Categorias"
 
-#~ msgid "Profile|Environment"
-#~ msgstr "Ambiente"
-
-#~ msgid "Role|Name"
-#~ msgstr "Nome"
-
-#~ msgid "Role|Permissions"
-#~ msgstr "Permissões"
-
-#~ msgid "User|Terms of use"
-#~ msgstr "Termos de uso"
-
-#~ msgid "User|Terms accepted"
-#~ msgstr "Termos aceitos"
-
-#~ msgid "Environment|Name"
-#~ msgstr "Nome"
-
-#~ msgid "Environment|Is default"
-#~ msgstr "É padrão"
-
-#~ msgid "Environment|Settings"
-#~ msgstr "Configurações"
-
-#~ msgid "Environment|Design data"
-#~ msgstr "Dados de design"
-
-#~ msgid "RoleAssignment|Person"
-#~ msgstr "Pessoa"
-
-#~ msgid "RoleAssignment|Role"
-#~ msgstr "Papel"
-
-#~ msgid "RoleAssignment|Resource"
-#~ msgstr "Recurso"
-
-#~ msgid "RoleAssignment|Resource type"
-#~ msgstr "Tipo de recurso"
-
-#~ msgid "Category|Name"
-#~ msgstr "Nome"
-
-#~ msgid "Category|Slug"
-#~ msgstr "Identificador"
-
-#~ msgid "Category|Path"
-#~ msgstr "Caminho"
-
-#~ msgid "Category|Display color"
-#~ msgstr "Cor de exibição"
-
-#~ msgid "Category|Environment"
-#~ msgstr "Ambiente"
-
-#~ msgid "Category|Parent"
-#~ msgstr "Pai"
-
-#~ msgid "Category|Type"
-#~ msgstr "Tipo"
+#, fuzzy
+#~ msgid "Profile|Virtual community"
+#~ msgstr "Entidade de validação"
