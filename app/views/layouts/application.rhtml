@@ -20,6 +20,17 @@
             apply_source_formatting : true,
             language: <%= language.inspect %>,
     });
+
+    function focusOnFirstField() {
+      var form = document.forms[0];
+      if (form.id == 'search_box_form') {
+        form = document.forms[1];
+      }
+      if (form != null && form.elements[0] != null) {
+        form.elements[0].focus();
+      }
+    }
+  
     </script>
 
     <%= design_all_header_tags %>
@@ -34,7 +45,7 @@
 
   </head>
 
-  <body onload='javascript: if (document.forms[0] != null && document.forms[0].elements[0] != null) { document.forms[0].elements[0].focus(); }'>
+  <body onload='javascript: focusOnFirstField();'>
 
     <% unless flash[:notice].nil? %>
       <div id='notice'>
@@ -62,8 +73,8 @@
         </script>
 
         <div id='search_box'>
-          <form action="" method="GET">
-            <input type='text' name='q' value='sua busca aqui ...'>
+          <form id='search_box_form' action="" method="GET">
+            <input type='text' name='q' value='<%= _('Your search here ...')%>'>
             <input type='submit' value='Buscar'>
           </form>
         </div><!-- id='search_box' -->
