@@ -8,14 +8,14 @@
  * First Release : November 20, 2006 - TinyMCE Version : 2.0.8
  */
 tinyMCE.addToLang('spellchecker',{
-	desc : 'VerificaÁ„o ortogr·fica',
-	menu : 'ConfiguraÁ„o do verif. ortogr·fico',
+	desc : 'Verifica√ß√£o ortogr√°fica',
+	menu : 'Configura√ß√£o do verif. ortogr√°fico',
 	ignore_word : 'Ignorar palavra',
 	ignore_words : 'Ignorar todas',
 	langs : 'Idiomas',
 	wait : 'Por favor, aguarde...',
 	swait : 'Verificando ortografia, aguarde...',
-	sug : 'Sugestıes',
-	no_sug : 'Sem sugestıes',
-	no_mpell : 'Nenhum erro ortogr·fico encontrado.'
+	sug : 'Sugest√µes',
+	no_sug : 'Sem sugest√µes',
+	no_mpell : 'Nenhum erro ortogr√°fico encontrado.'
 });

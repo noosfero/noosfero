@@ -9,5 +9,5 @@
  * Last Updated : November 20, 2006 - TinyMCE Version : 2.0.8
  */
 tinyMCE.addToLang('',{
-autosave_unload_msg : 'As modificações feitas serão perdidas caso você navegue fora desta página.'
+autosave_unload_msg : 'As modificaÃ§Ãµes feitas serÃ£o perdidas caso vocÃª navegue fora desta pÃ¡gina.'
 });
