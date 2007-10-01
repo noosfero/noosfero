@@ -3,6 +3,7 @@
 class ApplicationController < ActionController::Base
 
   helper :document
+  helper :language
   
   design :holder => 'environment'
 
