@@ -4,7 +4,7 @@
 
   <div class='comatose_field'>
     <label for="page_title"><%= _("Title") %></label>
-    <%= f.text_field :title, :tabindex => 1, :maxlength => 255, :size => 30 %> <%= link_to_function "More...", "ComatoseEditForm.toggle_extra_fields(this, '%s', '%s')" % [_('More...'), _('Less...')], :id => 'more-options' %>
+    <%= f.text_field :title, :tabindex => 1, :maxlength => 255, :size => 30 %> <%= link_to_function _("More..."), "ComatoseEditForm.toggle_extra_fields(this, '%s', '%s')" % [_('More...'), _('Less...')], :id => 'more-options' %>
   </div>
 
   <div class='comatose_field' id='slug_row'>
