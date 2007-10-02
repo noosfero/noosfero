@@ -1,8 +1,11 @@
 <%= error_messages_for 'category' %>
 
 <% labelled_form_for 'category' do |f| %>
-  <% if @category.new_record? && @category.parent %>
-    <%= hidden_field_tag('parent_id', @category.parent.id) %>
+  <% if @category.new_record? %>
+    <% if @category.parent %>
+      <%= hidden_field_tag('parent_id', @category.parent.id) %>
+    <% end %>
+    <%= select_category_type :type %>
   <% end %>
 
   <%= select_color_for_category %>

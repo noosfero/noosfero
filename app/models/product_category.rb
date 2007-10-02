@@ -1,0 +1,2 @@
+class ProductCategory < Category
+end

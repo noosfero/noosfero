@@ -6,9 +6,14 @@ class CategoriesController < EnvironmentAdminController
     @categories = environment.top_level_categories
   end
 
+  ALLOWED_TYPES = CategoriesHelper::TYPES.map {|item| item[1] }
+
   # posts back
   def new
-    @category = Category.new(params[:category])
+    type = (params[:type] || 'Category')
+    raise 'Type not allowed' unless ALLOWED_TYPES.include?(type)
+
+    @category = type.constantize.new(params[:category])
     @category.environment = environment
     if params[:parent_id]
       @category.parent = environment.categories.find(params[:parent_id])

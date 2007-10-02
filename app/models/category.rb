@@ -8,7 +8,15 @@ class Category < ActiveRecord::Base
   validates_inclusion_of :display_color, :in => [ 1, 2, 3, 4, nil ]
   validates_uniqueness_of :display_color, :scope => :environment_id, :if => (lambda { |cat| ! cat.display_color.nil? }), :message => N_('%{fn} was already assigned to another category.')
 
+  def validate
+    if self.parent && (self.class != self.parent.class)
+      self.errors.add(:type, _("%{fn} must be the same as the parents'"))
+    end
+  end
+
   acts_as_tree :order => 'name'
+
+
 
   def full_name(sep = '/')
     self.parent ? (self.parent.full_name(sep) + sep + self.name) : (self.name)

@@ -39,10 +39,16 @@ class CategoriesControllerTest < Test::Unit::TestCase
     assert_equal 'new name for category', Category.find(cat1.id).name
   end
 
-  def test_new
+  def test_new_category
     cat = Category.new
     Category.expects(:new).returns(cat)
     get :new
+  end
+
+  def test_new_product_category
+    cat = ProductCategory.new
+    ProductCategory.expects(:new).returns(cat)
+    get :new, :type => 'ProductCategory'
   end
 
   def test_new_save
