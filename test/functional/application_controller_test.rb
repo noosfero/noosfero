@@ -36,8 +36,8 @@ class ApplicationControllerTest < Test::Unit::TestCase
       :attributes => { :class => 'help_box'},
       :descendant => {
         :tag => 'div',
-        :content => /my_help_message/,
-        :attributes => { :class => 'help_message', :style => /display:\s+none/}
+        :attributes => { :class => 'help_message', :style => /display:\s+none/},
+        :descendant => { :tag => 'div', :content => /my_help_message/ }
       }
     })
   end
@@ -49,8 +49,8 @@ class ApplicationControllerTest < Test::Unit::TestCase
       :attributes => { :class => 'help_box'},
       :descendant => {
         :tag => 'div',
-        :content => /my_help_message/,
-        :attributes => { :class => 'help_message', :style => /display:\s+none/}
+        :attributes => { :class => 'help_message', :style => /display:\s+none/},
+        :descendant => { :tag => 'div', :content => /my_help_message/ }
       }
     })
   end

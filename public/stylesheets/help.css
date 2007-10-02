@@ -1,0 +1,9 @@
+div.help_message {
+  z-index: 1000;
+  width: 600;
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  margin-left: -300px;
+  background: yellow;
+}
