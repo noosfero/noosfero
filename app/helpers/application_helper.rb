@@ -42,6 +42,9 @@ module ApplicationHelper
   # TODO: implement correcly the 'Help' button click
   def help(content = nil, type = :html, &block)
 
+    @help_message_id ||= 1
+    help_id = "help_message_#{@help_message_id}"
+
     if content.nil?
       return '' if block.nil?
       content = capture(&block)
@@ -53,10 +56,10 @@ module ApplicationHelper
 
     # TODO: implement this button, and add style='display: none' to the help
     # message DIV
-    button = link_to_function(_('Help'), "Element.show('help_message')", :class => 'help_button' )
-    close_button = content_tag("div", link_to_function(_("Close"), "Element.hide('help_message')", :class => 'close_help_button'))
+    button = link_to_function(content_tag('span', _('Help')), "Element.show('#{help_id}')", :class => 'help_button' )
+    close_button = content_tag("div", link_to_function(_("Close"), "Element.hide('#{help_id}')", :class => 'close_help_button'))
 
-    text = content_tag('div', button + content_tag('div', content_tag('div', content) + close_button, :class => 'help_message', :style => 'display: none;'), :class => 'help_box')
+    text = content_tag('div', button + content_tag('div', content_tag('div', content) + close_button, :class => 'help_message', :id => help_id, :style => 'display: none;'), :class => 'help_box')
 
     unless block.nil?
       concat(text, block.binding)

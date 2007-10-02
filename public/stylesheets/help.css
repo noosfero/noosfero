@@ -7,3 +7,11 @@ div.help_message {
   margin-left: -300px;
   background: yellow;
 }
+
+a.help_button:before {
+  content: url(../images/help.png)
+}
+
+a.help_button:hover {
+  background: #ffa;
+}
