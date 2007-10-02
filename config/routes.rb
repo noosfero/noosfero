@@ -48,7 +48,7 @@ ActionController::Routing::Routes.draw do |map|
   ## Test controllers.
   ## FIXME: this should not be needed
   ######################################################
-  map.connect 'test/:action/:id', :controller => 'test'
+  map.connect 'test/:controller/:action/:id', :controller => /.*test.*/
 
   ######################################################
   ## Public controllers
