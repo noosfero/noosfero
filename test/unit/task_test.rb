@@ -8,7 +8,7 @@ class TaskTest < Test::Unit::TestCase
       t.requestor = 1
     end
     assert_nothing_raised do
-      t.requestor = Profile.new
+      t.requestor = Person.new
     end
   end
 

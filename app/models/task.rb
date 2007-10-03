@@ -21,7 +21,7 @@ class Task < ActiveRecord::Base
     FINISHED = 3
   end
 
-  belongs_to :requestor, :class_name => 'Profile', :foreign_key => :requestor_id
+  belongs_to :requestor, :class_name => 'Person', :foreign_key => :requestor_id
   belongs_to :target, :class_name => 'Profile', :foreign_key => :target_id
 
   def initialize(*args)
