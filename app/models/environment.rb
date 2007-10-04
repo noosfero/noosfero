@@ -123,7 +123,7 @@ class Environment < ActiveRecord::Base
   # only one environment can be the default one
   validates_uniqueness_of :is_default, :if => (lambda do |environment| environment.is_default? end), :message => _('Only one Virtual Community can be the default one')
 
-  validates_format_of :contact_email, :with => Noosfero::Constants::EMAIL_FORMAT
+  validates_format_of :contact_email, :with => Noosfero::Constants::EMAIL_FORMAT, :if => (lambda { |record| ! record.contact_email.nil? })
 
   # #################################################
   # Business logic in general
@@ -137,6 +137,14 @@ class Environment < ActiveRecord::Base
   # returns an array with the top level categories for this environment. 
   def top_level_categories
     Category.top_level_for(self)
+  end
+
+  def default_hostname
+    if self.domains(true).empty?
+      nil
+    else
+      self.domains.find(:first, :order => 'id').name
+    end
   end
 
 end
