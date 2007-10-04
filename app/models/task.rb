@@ -38,7 +38,7 @@ class Task < ActiveRecord::Base
       self.end_date = Time.now
       self.save!
       self.perform
-      self.notify_requestor(self.finish_message)
+      TaskMailer.deliver_task_finished(self)
     end
   end
 
@@ -49,7 +49,7 @@ class Task < ActiveRecord::Base
       self.status = Task::Status::CANCELLED
       self.end_date = Time.now
       self.save!
-      self.notify_requestor(self.cancel_message)
+      TaskMailer.deliver_task_cancelled(self)
     end
   end
 
@@ -63,11 +63,6 @@ class Task < ActiveRecord::Base
   #
   # The implementation on Task class just does nothing.
   def perform
-  end
-
-  # sends a message to the requestor
-  def notify_requestor(msg)
-    # TODO: implement message sending
   end
 
   # The message that will be sent to the requestor of the task when its

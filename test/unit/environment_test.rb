@@ -153,4 +153,12 @@ class EnvironmentTest < Test::Unit::TestCase
     assert !env.errors.invalid?(:contact_email)
   end
 
+  should 'provide a default hostname' do
+    env = Environment.create!(:name => 'test environment')
+    assert_nil env.default_hostname
+
+    env.domains << Domain.create(:name => 'example.com')
+    assert_equal 'example.com', env.default_hostname
+  end
+
 end

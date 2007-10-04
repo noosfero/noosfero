@@ -2,6 +2,12 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class TaskTest < Test::Unit::TestCase
 
+  def setup
+    ActionMailer::Base.delivery_method = :test
+    ActionMailer::Base.perform_deliveries = true
+    ActionMailer::Base.deliveries = []
+  end
+
   def test_relationship_with_requestor
     t = Task.create
     assert_raise ActiveRecord::AssociationTypeMismatch do
@@ -23,6 +29,7 @@ class TaskTest < Test::Unit::TestCase
   end
 
   def test_should_call_perform_in_finish
+    TaskMailer.expects(:deliver_task_finished)
     t = Task.create
     t.expects(:perform)
     t.finish
@@ -30,6 +37,7 @@ class TaskTest < Test::Unit::TestCase
   end
 
   def test_should_have_cancelled_status_after_cancel
+    TaskMailer.expects(:deliver_task_cancelled)
     t = Task.create
     t.cancel
     assert_equal Task::Status::CANCELLED, t.status
@@ -41,16 +49,14 @@ class TaskTest < Test::Unit::TestCase
   end
 
   def test_should_notify_finish
+    TaskMailer.expects(:deliver_task_finished)
     t = Task.create
-    t.expects(:notify_requestor)
-    t.expects(:finish_message)
     t.finish
   end
 
   def test_should_notify_cancel
+    TaskMailer.expects(:deliver_task_cancelled)
     t = Task.create
-    t.expects(:notify_requestor)
-    t.expects(:cancel_message)
     t.cancel
   end
 

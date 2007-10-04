@@ -16,6 +16,26 @@ class TaskMailerTest < Test::Unit::TestCase
     @expected.mime_version = '1.0'
   end
 
+  should 'be able to send a "task finished" message' do
+
+    task = mock()
+    task.expects(:finish_message).returns('the message')
+
+    requestor = mock()
+    requestor.expects(:email).returns('requestor@example.com')
+    requestor.expects(:name).returns('my name')
+
+    environment = mock()
+    environment.expects(:contact_email).returns('sender@example.com')
+    environment.expects(:default_hostname).returns('example.com')
+    environment.expects(:name).returns('example')
+
+    task.expects(:requestor).returns(requestor).at_least_once
+    requestor.expects(:environment).returns(environment).at_least_once
+
+    TaskMailer.deliver_task_finished(task)
+  end
+
   private
     def read_fixture(action)
       IO.readlines("#{FIXTURES_PATH}/task_mailer/#{action}")
