@@ -123,6 +123,8 @@ class Environment < ActiveRecord::Base
   # only one environment can be the default one
   validates_uniqueness_of :is_default, :if => (lambda do |environment| environment.is_default? end), :message => _('Only one Virtual Community can be the default one')
 
+  validates_format_of :contact_email, :with => Noosfero::Constants::EMAIL_FORMAT
+
   # #################################################
   # Business logic in general
   # #################################################

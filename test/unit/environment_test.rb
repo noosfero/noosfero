@@ -140,4 +140,17 @@ class EnvironmentTest < Test::Unit::TestCase
     assert !env.display_categories.include?(cat2)
   end
 
+  should 'have a contact email' do
+    env = Environment.new
+    assert_nil env.contact_email
+
+    env.contact_email = 'test'
+    env.valid?
+    assert env.errors.invalid?(:contact_email)
+
+    env.contact_email = 'test@example.com'
+    env.valid?
+    assert !env.errors.invalid?(:contact_email)
+  end
+
 end
