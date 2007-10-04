@@ -70,6 +70,19 @@ class AccountController < PublicController
     end
   end
 
+  # posts back
+  def forgot_password
+    @change_password = ChangePasswordData.new(params[:change_password])
+    if request.post?
+      begin
+        @change_password.confirm!
+        render :action => 'password_recovery_sent'
+      rescue Exception => e
+        nil # just pass and render at the end of the action
+      end
+    end
+  end
+
   protected
 
   before_filter :load_profile_for_user

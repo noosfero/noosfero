@@ -170,6 +170,18 @@ class AccountControllerTest < Test::Unit::TestCase
     assert_equal users(:ze), @controller.send(:current_user)
   end
 
+  should 'provide a "I forget my password" link at the login page' do
+    get :login
+    assert_tag :tag => 'a', :attributes => {
+      :href => '/account/forgot_password'
+    }
+  end
+
+  should 'provide a "forgot my password" form' do
+    get :forgot_password
+    assert_response :success
+  end
+
   protected
     def create_user(options = {})
       post :signup, :user => { :login => 'quire', :email => 'quire@example.com', 
