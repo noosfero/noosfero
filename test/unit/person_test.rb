@@ -86,4 +86,15 @@ class PersonTest < Test::Unit::TestCase
     assert p.has_permission?('edit_profile', e)
     assert !p.has_permission?('destroy_profile', e)
   end
+
+  should 'get an email address from the associated user instance' do
+    p = User.create!(:login => 'jonh', :email => 'john@doe.org', :password => 'dhoe', :password_confirmation => 'dhoe').person
+    assert_equal 'john@doe.org', p.email
+  end
+
+  should 'get no email address when there is no associated user' do
+    p = Person.new
+    assert_nil p.email
+  end
+
 end

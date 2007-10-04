@@ -48,4 +48,8 @@ class Person < Profile
     self.person_info ||= PersonInfo.new
     self.person_info.person = self
   end
+
+  def email
+    self.user.nil? ? nil : self.user.email
+  end
 end
