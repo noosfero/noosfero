@@ -1,4 +1,4 @@
-class ChangePasswordData < Validator
+class ChangePassword < Task
 
   attr_accessor :login, :email
 
