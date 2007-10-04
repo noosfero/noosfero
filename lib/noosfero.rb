@@ -15,3 +15,5 @@ module Noosfero
     Regexp.new(pattern)
   end
 end
+
+require 'noosfero/constants'
