@@ -141,7 +141,7 @@ class Environment < ActiveRecord::Base
 
   def default_hostname
     if self.domains(true).empty?
-      nil
+      'localhost.localdomain'
     else
       self.domains.find(:first, :order => 'id').name
     end

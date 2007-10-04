@@ -20,6 +20,7 @@ class TaskMailerTest < Test::Unit::TestCase
 
     task = mock()
     task.expects(:finish_message).returns('the message')
+    task.expects(:description).returns('the task')
 
     requestor = mock()
     requestor.expects(:email).returns('requestor@example.com')

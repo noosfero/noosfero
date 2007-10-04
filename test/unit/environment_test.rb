@@ -155,10 +155,13 @@ class EnvironmentTest < Test::Unit::TestCase
 
   should 'provide a default hostname' do
     env = Environment.create!(:name => 'test environment')
-    assert_nil env.default_hostname
-
     env.domains << Domain.create(:name => 'example.com')
     assert_equal 'example.com', env.default_hostname
+  end
+
+  should 'default to localhost.localdomain as hostname' do
+    env = Environment.create!(:name => 'test environment')
+    assert_equal 'localhost.localdomain', env.default_hostname
   end
 
 end

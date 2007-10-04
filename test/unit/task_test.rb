@@ -76,4 +76,8 @@ class TaskTest < Test::Unit::TestCase
     end
   end
 
+  should 'provide a description method' do
+    assert_kind_of String, Task.new.description
+  end
+
 end

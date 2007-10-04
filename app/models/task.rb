@@ -53,18 +53,6 @@ class Task < ActiveRecord::Base
     end
   end
 
-  protected
-
-  # This method must be overrided in subclasses, and its implementation must do
-  # the job the task is intended to. This method will be called when the finish
-  # method is called.
-  #
-  # To cancel the finish of the task, you can throw an exception in perform.
-  #
-  # The implementation on Task class just does nothing.
-  def perform
-  end
-
   # The message that will be sent to the requestor of the task when its
   # finished.
   def finish_message
@@ -75,6 +63,26 @@ class Task < ActiveRecord::Base
   # cancelled.
   def cancel_message
     _("The task was cancelled at %s") % (self.end_date.to_s)
+  end
+
+  # Returns the description of the task.
+  #
+  # This method +must+ be overriden in subclasses to return something
+  # meaningful for each kind of task  
+  def description
+    _('Generic task')
+  end
+
+  protected
+
+  # This method must be overrided in subclasses, and its implementation must do
+  # the job the task is intended to. This method will be called when the finish
+  # method is called.
+  #
+  # To cancel the finish of the task, you can throw an exception in perform.
+  #
+  # The implementation on Task class just does nothing.
+  def perform
   end
 
 end

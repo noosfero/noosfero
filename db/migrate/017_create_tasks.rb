@@ -1,8 +1,6 @@
 class CreateTasks < ActiveRecord::Migration
   def self.up
     create_table :tasks do |t|
-      t.column :description, :string
-
       t.column :data, :text
       t.column :status, :integer
       t.column :end_date, :date
