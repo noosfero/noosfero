@@ -72,7 +72,7 @@ class AccountController < PublicController
 
   # posts back
   def forgot_password
-    @change_password = ChangePasswordData.new(params[:change_password])
+    @change_password = ChangePassword.new(params[:change_password])
     if request.post?
       begin
         @change_password.confirm!

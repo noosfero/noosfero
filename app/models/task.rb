@@ -29,6 +29,10 @@ class Task < ActiveRecord::Base
     self.status ||= Task::Status::ACTIVE
   end
 
+  after_create do |task|
+    TaskMailer.deliver_task_created(task)
+  end
+
   # this method finished the task. It calls #perform, which must be overriden
   # by subclasses. At the end a message (as returned by #finish_message) is
   # sent to the requestor with #notify_requestor.
@@ -51,6 +55,12 @@ class Task < ActiveRecord::Base
       self.save!
       TaskMailer.deliver_task_cancelled(self)
     end
+  end
+
+  # The message that will be sent to the requestor of the task when the task is
+  # created.
+  def create_message
+    _("The task was created at %s") % Time.now
   end
 
   # The message that will be sent to the requestor of the task when its

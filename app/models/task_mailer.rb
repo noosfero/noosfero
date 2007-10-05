@@ -1,21 +1,25 @@
 class TaskMailer < ActionMailer::Base
 
   def task_finished(task)
-    recipients task.requestor.email
-    from task.requestor.environment.contact_email
-    subject task.description
-    body :requestor => task.requestor.name,
-      :message => task.finish_message,
-      :environment => task.requestor.environment.name,
-      :url => url_for(:host => task.requestor.environment.default_hostname, :controller => 'home')
+    send_message(task, task.finish_message)
+  end
+
+  def task_created(task)
+    send_message(task, task.create_message)
   end
 
   def task_cancelled(task)
+    send_message(task, task.cancel_message)
+  end
+
+  protected
+
+  def send_message(task, message)
     recipients task.requestor.email
     from task.requestor.environment.contact_email
     subject task.description
     body :requestor => task.requestor.name,
-      :message => task.cancel_message,
+      :message => message,
       :environment => task.requestor.environment.name,
       :url => url_for(:host => task.requestor.environment.default_hostname, :controller => 'home')
   end

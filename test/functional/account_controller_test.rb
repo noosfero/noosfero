@@ -182,6 +182,14 @@ class AccountControllerTest < Test::Unit::TestCase
     assert_response :success
   end
 
+  should 'respond to forgotten password change request' do
+    flunk 'not implemented yet'
+  end
+
+  should 'provide interface for entering new password to replace forgotten one' do
+    flunk 'not implemented yet'
+  end
+
   protected
     def create_user(options = {})
       post :signup, :user => { :login => 'quire', :email => 'quire@example.com', 

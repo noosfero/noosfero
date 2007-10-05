@@ -1,12 +1,22 @@
+# TODO: send an e-mail with a hash code to the task after the ChangePassword is creatd -> override messages from #Task
+
 class ChangePassword < Task
 
-  attr_accessor :login, :email
+  serialize :data, Hash
+  def data
+    self[:data] ||= {}
+  end
 
-  validates_presence_of :login, :email
-  validates_format_of :email, :with => Noosfero::Constants::EMAIL_FORMAT, :if => (lambda { |obj| !obj.email.blank? })
+  attr_accessor :login, :email, :password, :password_confirmation
 
-  # 
-  validates_each :login do |data,attr,value|
+  ###################################################
+  # validations for creating a ChangePassword task 
+  
+  validates_presence_of :login, :email, :on => :create
+
+  validates_format_of :email, :on => :create, :with => Noosfero::Constants::EMAIL_FORMAT, :if => (lambda { |obj| !obj.email.blank? })
+
+  validates_each :login, :on => :create do |data,attr,value|
     unless data.login.blank?
       user = User.find_by_login(data.login)
       if user.nil? 
@@ -19,16 +29,24 @@ class ChangePassword < Task
     end
   end
 
-  def initialize(hash = nil)
-    hash ||= {}
-    self.login = hash[:login] || hash['login']
-    self.email = hash[:email] || hash['email']
+  before_create do |change_password|
+    change_password.requestor = Person.find_by_identifier(change_password.login)
   end
 
-  def confirm!
-    raise ActiveRecord::RecordInvalid unless self.valid?
+  ###################################################
+  # validations for updating a ChangePassword task 
+
+  # only require the new password when actually changing it.
+  validates_presence_of :password, :on => :update
+
+  def initialize(*args)
+    super(*args)
+    self[:data] = {}
+  end
+
+  def perform
     user = User.find_by_login(self.login)
-    #ChangePassword.create!(:user_id => user.id)
+    user.force_change_password!(self.password, self.password_confirmation)
   end
 
 end

@@ -6,6 +6,8 @@ class TaskTest < Test::Unit::TestCase
     ActionMailer::Base.delivery_method = :test
     ActionMailer::Base.perform_deliveries = true
     ActionMailer::Base.deliveries = []
+
+    TaskMailer.stubs(:deliver_task_created)
   end
 
   def test_relationship_with_requestor
@@ -49,14 +51,14 @@ class TaskTest < Test::Unit::TestCase
   end
 
   def test_should_notify_finish
-    TaskMailer.expects(:deliver_task_finished)
     t = Task.create
+    TaskMailer.expects(:deliver_task_finished).with(t)
     t.finish
   end
 
   def test_should_notify_cancel
-    TaskMailer.expects(:deliver_task_cancelled)
     t = Task.create
+    TaskMailer.expects(:deliver_task_cancelled).with(t)
     t.cancel
   end
 
@@ -79,5 +81,12 @@ class TaskTest < Test::Unit::TestCase
   should 'provide a description method' do
     assert_kind_of String, Task.new.description
   end
+
+  should 'notify just after the task is created' do
+    task = Task.new
+    TaskMailer.expects(:deliver_task_created).with(task)
+    task.save!
+  end
+
 
 end
