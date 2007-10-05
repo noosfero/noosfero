@@ -124,6 +124,23 @@ class UserTest < Test::Unit::TestCase
     assert user.authenticated?('test')
   end
 
+  should 'require matching confirmation when changing password by force' do
+    user = User.create!(:login => 'changetest', :password => 'test', :password_confirmation => 'test', :email => 'changetest@example.com')
+    assert_raise ActiveRecord::RecordInvalid do
+      user.force_change_password!('newpass', 'newpasswrong')
+    end
+    assert !user.authenticated?('newpass')
+    assert user.authenticated?('test')
+  end
+
+  should 'be able to force password change' do
+    user = User.create!(:login => 'changetest', :password => 'test', :password_confirmation => 'test', :email => 'changetest@example.com')
+    assert_nothing_raised  do
+      user.force_change_password!('newpass', 'newpass')
+    end
+    assert user.authenticated?('newpass')
+  end
+
   def test_should_create_person_when_creating_user
     count = Person.count
     assert !Person.find_by_identifier('lalala')

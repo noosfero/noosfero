@@ -78,11 +78,16 @@ class User < ActiveRecord::Base
   # * Saves the record unless it is a new one.
   def change_password!(current, new, confirmation)
     raise IncorrectPassword unless self.authenticated?(current)
+    self.force_change_password!(new, confirmation)
+  end
+  
+  # Changes the password of a user without asking for the old password. This
+  # method is intended to be used by the "I forgot my password", and must be
+  # used with care.
+  def force_change_password!(new, confirmation)
     self.password = new
     self.password_confirmation = confirmation
-    unless new_record?
-      save!
-    end
+    save! unless new_record?
   end
 
   protected
