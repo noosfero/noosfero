@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class ChangePasswordTest < Test::Unit::TestCase
 
+  fixtures :environments
+
   should 'validate' do
     data = ChangePassword.new
     assert !data.valid?
@@ -50,16 +52,6 @@ class ChangePasswordTest < Test::Unit::TestCase
     data.valid?
     assert !data.errors.invalid?(:login)
     assert !data.errors.invalid?(:email)
-  end
-
-  should 'send a message with a URL so the user can enter the new password' do
-    User.destroy_all
-    User.create!(:login => 'testuser', :password => 'test', :password_confirmation => 'test', :email => 'test@example.com')
-
-    data = ChangePassword.new
-    data.login = 'testuser'
-    data.email = 'test@example.com'
-    data.save!
   end
 
   should 'actually change password' do
