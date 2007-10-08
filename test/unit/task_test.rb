@@ -88,5 +88,9 @@ class TaskTest < Test::Unit::TestCase
     task.save!
   end
 
+  should 'generate a random hash when creating' do
+    flunk 'not implemented yet'
+  end
+
 
 end

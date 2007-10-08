@@ -7,6 +7,8 @@ class CreateTasks < ActiveRecord::Migration
 
       t.column :requestor_id, :integer
       t.column :target_id, :integer
+
+      t.column :hash, :string
     end
   end
 

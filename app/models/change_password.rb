@@ -49,4 +49,27 @@ class ChangePassword < Task
     user.force_change_password!(self.password, self.password_confirmation)
   end
 
+  # overriding messages
+  
+  def cancel_message
+    _('Your password change request was cancelled at %s.') % Time.now.to_s
+  end
+
+  def finish_message
+    _('Your password was changed successfully.')
+  end
+
+  def create_message
+    hostname = self.requestor.environment.default_hostname
+    hash = self.id
+
+    lambda do
+      _("In order to change your password, please visit the following address:\n\n%s") % url_for(:host => hostname, :controller => 'account', :action => 'change_password', :hash => hash)
+    end
+  end
+
+  def description
+    _('Password change request')
+  end
+
 end

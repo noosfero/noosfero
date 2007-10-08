@@ -19,7 +19,10 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'doc', :controller => 'doc'
 
   # user account controller
+  map.connect 'account/change_password/:hash', :controller => 'account', :action => 'change_password'
+
   map.connect 'account/:action', :controller => 'account'
+ 
 
   ######################################################
   ## Controllers that are profile-specific (for profile admins )
