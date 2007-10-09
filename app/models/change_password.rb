@@ -8,11 +8,17 @@ class ChangePassword < Task
   end
 
   attr_accessor :login, :email, :password, :password_confirmation
+  N_('ChangePassword|Login')
+  N_('ChangePassword|Email')
+  N_('ChangePassword|Password')
+  N_('ChangePassword|Password Confirmation')
 
   ###################################################
   # validations for creating a ChangePassword task 
   
   validates_presence_of :login, :email, :on => :create
+
+  validates_presence_of :requestor_id
 
   validates_format_of :email, :on => :create, :with => Noosfero::Constants::EMAIL_FORMAT, :if => (lambda { |obj| !obj.email.blank? })
 
@@ -29,7 +35,7 @@ class ChangePassword < Task
     end
   end
 
-  before_create do |change_password|
+  before_validation_on_create do |change_password|
     change_password.requestor = Person.find_by_identifier(change_password.login)
   end
 
@@ -47,7 +53,7 @@ class ChangePassword < Task
   end
 
   def perform
-    user = User.find_by_login(self.login)
+    user = self.requestor.user
     user.force_change_password!(self.password, self.password_confirmation)
   end
 

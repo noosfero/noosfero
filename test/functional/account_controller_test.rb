@@ -183,11 +183,43 @@ class AccountControllerTest < Test::Unit::TestCase
   end
 
   should 'respond to forgotten password change request' do
-    flunk 'not implemented yet'
+    change = ChangePassword.new
+    ChangePassword.expects(:new).returns(change)
+    change.expects(:save!).returns(true)
+
+    post :forgot_password
+    assert_template 'password_recovery_sent'
   end
 
-  should 'provide interface for entering new password to replace forgotten one' do
-    flunk 'not implemented yet'
+  should 'provide interface for entering new password' do
+    change = ChangePassword.new
+    ChangePassword.expects(:find_by_code).with('osidufgiashfkjsadfhkj99999').returns(change)
+
+    get :new_password, :code => 'osidufgiashfkjsadfhkj99999'
+    assert_equal change, assigns(:change_password)
+  end
+
+  should 'actually change password after entering new password' do
+    change = ChangePassword.new
+    ChangePassword.expects(:find_by_code).with('osidufgiashfkjsadfhkj99999').returns(change)
+
+    requestor = mock
+    requestor.stubs(:identifier).returns('joe')
+    change.stubs(:requestor).returns(requestor)
+    change.expects(:update_attributes!).with({'password' => 'newpass', 'password_confirmation' => 'newpass'})
+    change.expects(:finish)
+
+    post :new_password, :code => 'osidufgiashfkjsadfhkj99999', :change_password => { :password => 'newpass', :password_confirmation => 'newpass' }
+
+    assert_template 'new_password_ok'
+  end
+
+  should 'require a valid change_password code' do
+    ChangePassword.destroy_all
+
+    assert_raise RuntimeError do
+      get :new_password, :code => 'dontexist'
+    end
   end
 
   protected

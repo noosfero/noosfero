@@ -74,21 +74,18 @@ class ChangePasswordTest < Test::Unit::TestCase
 
   should 'actually change password' do
     User.destroy_all
-    User.create!(:login => 'testuser', :password => 'test', :password_confirmation => 'test', :email => 'test@example.com')
+    person = User.create!(:login => 'testuser', :password => 'test', :password_confirmation => 'test', :email => 'test@example.com').person
 
     change = ChangePassword.new
     change.login = 'testuser'
     change.email = 'test@example.com'
     change.save!
 
-    user = User.new
-    User.expects(:find_by_login).with('testuser').returns(user)
-    user.expects(:force_change_password!).with('newpass', 'newpass')
+    change.expects(:requestor).returns(person).at_least_once
 
     change.password = 'newpass'
     change.password_confirmation = 'newpass'
     change.finish
-
   end
 
 end

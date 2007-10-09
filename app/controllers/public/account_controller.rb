@@ -70,15 +70,39 @@ class AccountController < PublicController
     end
   end
 
-  # posts back
+  # The user requests a password change. She forgot her old password.
+  #
+  # Posts back.
   def forgot_password
     @change_password = ChangePassword.new(params[:change_password])
     if request.post?
       begin
-        @change_password.confirm!
+        @change_password.save!
         render :action => 'password_recovery_sent'
-      rescue Exception => e
+      rescue ActiveRecord::RecordInvalid => e
         nil # just pass and render at the end of the action
+      end
+    end
+  end
+
+  # The user has a code for a ChangePassword request object.
+  #
+  # Posts back.
+  def new_password
+    @change_password = ChangePassword.find_by_code(params[:code])
+
+    unless @change_password
+      render :action => 'invalid_change_password_code'
+      return
+    end
+
+    if request.post?
+      begin
+        @change_password.update_attributes!(params[:change_password])
+        @change_password.finish
+        render :action => 'new_password_ok'
+      rescue ActiveRecord::RecordInvalid => e
+        nil # just render new_password
       end
     end
   end
