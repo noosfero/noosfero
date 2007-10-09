@@ -1,7 +1,7 @@
 johndoe:
   id: 1
   login: johndoe
-  email: johndoe@example.com
+  email: johndoe@localhost.localdomain
   salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
   crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
   #crypted_password: "ce2/iFrNtQ8=\n" # johndoe, use only if you're using 2-way encryption
@@ -10,7 +10,7 @@ johndoe:
 joerandomhacker:
   id: 2
   login: joerandomhacker
-  email: joerandomhacker@example.com
+  email: joerandomhacker@localhost.localdomain
   salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
   crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
   # activation_code: aaronscode # only if you're activating new signups
@@ -18,7 +18,7 @@ joerandomhacker:
 ze:
   id: 3
   login: ze
-  email: ze@example.com
+  email: ze@localhost.localdomain
   salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
   crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
   # activation_code: aaronscode # only if you're activating new signups
