@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
 
   init_gettext 'noosfero'
 
-  before_filter :detect_stuff_by_domain
+  before_filter :detect_stuff_by_domain, :load_profile_from_params
   attr_reader :environment
 
   protected
@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  before_filter :load_profile_from_params
+#  before_filter :load_profile_from_params
   def load_profile_from_params
     if params[:profile]
       @profile ||= Profile.find_by_identifier(params[:profile])
