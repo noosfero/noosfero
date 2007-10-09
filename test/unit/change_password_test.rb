@@ -54,6 +54,24 @@ class ChangePasswordTest < Test::Unit::TestCase
     assert !data.errors.invalid?(:email)
   end
 
+  should 'require correct passsword confirmation' do
+    User.create!(:login => 'testuser', :password => 'test', :password_confirmation => 'test', :email => 'test@example.com')
+
+    change = ChangePassword.new
+    change.login = 'testuser'
+    change.email = 'test@example.com'
+    change.save!
+
+    change.password = 'right'
+    change.password_confirmation = 'wrong'
+    assert !change.valid?
+    assert change.errors.invalid?(:password)
+
+
+    change.password_confirmation = 'right'
+    assert change.valid?
+  end
+
   should 'actually change password' do
     User.destroy_all
     User.create!(:login => 'testuser', :password => 'test', :password_confirmation => 'test', :email => 'test@example.com')
@@ -64,8 +82,8 @@ class ChangePasswordTest < Test::Unit::TestCase
     change.save!
 
     user = User.new
-    user.expects(:force_change_password!).with('newpass', 'newpass')
     User.expects(:find_by_login).with('testuser').returns(user)
+    user.expects(:force_change_password!).with('newpass', 'newpass')
 
     change.password = 'newpass'
     change.password_confirmation = 'newpass'

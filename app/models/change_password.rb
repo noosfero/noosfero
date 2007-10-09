@@ -38,6 +38,8 @@ class ChangePassword < Task
 
   # only require the new password when actually changing it.
   validates_presence_of :password, :on => :update
+  validates_presence_of :password_confirmation, :on => :update
+  validates_confirmation_of :password
 
   def initialize(*args)
     super(*args)
@@ -61,10 +63,10 @@ class ChangePassword < Task
 
   def create_message
     hostname = self.requestor.environment.default_hostname
-    hash = self.id
+    code = self.code
 
     lambda do
-      _("In order to change your password, please visit the following address:\n\n%s") % url_for(:host => hostname, :controller => 'account', :action => 'change_password', :hash => hash)
+      _("In order to change your password, please visit the following address:\n\n%s") % url_for(:host => hostname, :controller => 'account', :action => 'new_password', :code => code)
     end
   end
 
