@@ -108,6 +108,9 @@ class Task < ActiveRecord::Base
   end
 
   class << self
+
+    # generates a random code string consisting of 36 characters in the ranges
+    # a-z and 0-9
     def generate_code
       chars = ('a'..'z').to_a + ('0'..'9').to_a
       code = ""
@@ -116,6 +119,15 @@ class Task < ActiveRecord::Base
       end
       code
     end
+
+    # finds a task by its (generated) code. Only returns a task with the
+    # specified code AND with status = Task::Status::ACTIVE.
+    #
+    # Can be used in subclasses to find only their instances.
+    def find_by_code(code)
+      self.find(:first, :conditions => { :code => code, :status => Task::Status::ACTIVE })
+    end
+
   end
 
 end

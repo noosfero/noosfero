@@ -107,4 +107,22 @@ class TaskTest < Test::Unit::TestCase
     assert_equal 36, code.size
   end
 
+  should 'find only in active tasks' do
+    task = Task.new
+    task.requestor = User.create(:login => 'testfindinactivetask', :password => 'test', :password_confirmation => 'test', :email => 'testfindinactivetask@localhost.localdomain').person
+    task.save!
+    
+    task.cancel
+
+    assert_nil Task.find_by_code(task.code)
+  end
+
+  should 'be able to find active tasks ' do
+    task = Task.new
+    task.requestor = User.create(:login => 'testfindinactivetask', :password => 'test', :password_confirmation => 'test', :email => 'testfindinactivetask@localhost.localdomain').person
+    task.save!
+
+    assert_not_nil Task.find_by_code(task.code)
+  end
+
 end
