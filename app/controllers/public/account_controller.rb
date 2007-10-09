@@ -75,6 +75,7 @@ class AccountController < PublicController
   # Posts back.
   def forgot_password
     @change_password = ChangePassword.new(params[:change_password])
+
     if request.post?
       begin
         @change_password.save!

@@ -37,13 +37,13 @@ class NoosferoURLTest < Test::Unit::TestCase
   should 'add path when needed' do
     self.stubs(:path).returns('/somepath')
     self.stubs(:port).returns(nil)
-    assert_equal('http://example.com/somepath/', url_for(:host => 'example.com', :controller => 'home'))
+    assert_equal('http://example.com/somepath/', generate_url(:host => 'example.com', :controller => 'home'))
   end
 
   should 'not add path when it is not needed' do
     self.stubs(:path).returns(nil)
     self.stubs(:port).returns(nil)
-    assert_equal('http://example.com/', url_for(:host => 'example.com', :controller => 'home'))
+    assert_equal('http://example.com/', generate_url(:host => 'example.com', :controller => 'home'))
   end
 
 end

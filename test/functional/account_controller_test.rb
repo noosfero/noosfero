@@ -184,10 +184,10 @@ class AccountControllerTest < Test::Unit::TestCase
 
   should 'respond to forgotten password change request' do
     change = ChangePassword.new
-    ChangePassword.expects(:new).returns(change)
+    ChangePassword.expects(:new).with('login' => 'test', 'email' => 'test@localhost.localdomain').returns(change)
     change.expects(:save!).returns(true)
 
-    post :forgot_password
+    post :forgot_password, :change_password => { :login => 'test', :email => 'test@localhost.localdomain' }
     assert_template 'password_recovery_sent'
   end
 

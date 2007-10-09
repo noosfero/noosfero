@@ -45,11 +45,11 @@ module Noosfero::URL
     Noosfero::URL.config['path']
   end
 
-  def url_for(options)
+  def generate_url(options)
     local_options = {}
     local_options[:port] = self.port unless self.port.nil?
 
-    url = super(local_options.merge(options))
+    url = url_for(local_options.merge(options))
 
     if self.path.blank?
       url
