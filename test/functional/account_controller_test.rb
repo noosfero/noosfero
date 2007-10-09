@@ -194,6 +194,9 @@ class AccountControllerTest < Test::Unit::TestCase
   should 'provide interface for entering new password' do
     change = ChangePassword.new
     ChangePassword.expects(:find_by_code).with('osidufgiashfkjsadfhkj99999').returns(change)
+    person = mock
+    person.stubs(:identifier).returns('joe')
+    change.stubs(:requestor).returns(person)
 
     get :new_password, :code => 'osidufgiashfkjsadfhkj99999'
     assert_equal change, assigns(:change_password)
@@ -217,9 +220,9 @@ class AccountControllerTest < Test::Unit::TestCase
   should 'require a valid change_password code' do
     ChangePassword.destroy_all
 
-    assert_raise RuntimeError do
-      get :new_password, :code => 'dontexist'
-    end
+    get :new_password, :code => 'dontexist'
+    assert_response 403
+    assert_template 'invalid_change_password_code'
   end
 
   protected

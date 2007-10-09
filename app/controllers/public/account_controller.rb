@@ -92,7 +92,7 @@ class AccountController < PublicController
     @change_password = ChangePassword.find_by_code(params[:code])
 
     unless @change_password
-      render :action => 'invalid_change_password_code'
+      render :action => 'invalid_change_password_code', :status => 403
       return
     end
 
