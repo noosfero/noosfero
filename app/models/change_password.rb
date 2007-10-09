@@ -2,6 +2,8 @@
 
 class ChangePassword < Task
 
+  include Noosfero::URL
+
   serialize :data, Hash
   def data
     self[:data] ||= {}
@@ -70,6 +72,7 @@ class ChangePassword < Task
   def create_message
     hostname = self.requestor.environment.default_hostname
     code = self.code
+    port = self.port
 
     lambda do
       _("In order to change your password, please visit the following address:\n\n%s") % url_for(:host => hostname, :controller => 'account', :action => 'new_password', :code => code)

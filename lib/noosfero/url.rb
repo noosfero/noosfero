@@ -6,6 +6,8 @@ require 'noosfero'
 # TODO: document the use of config/web.yml in a INSTALL document
 module Noosfero::URL
 
+  include ActionController::UrlWriter
+
   class << self
 
     def config
@@ -14,15 +16,25 @@ module Noosfero::URL
         if File.exists?(config_file)
           @config = YAML::load_file(config_file)
         else
-          @config = {
-            'path' => '',
-            'port' => 3000
-          }
+          if ENV['RAILS_ENV'] == 'production'
+            @config = {
+            }
+          else
+            @config = {
+              'path' => '',
+              'port' => 3000
+            }
+          end
         end
       end
 
       @config
     end
+
+    def included(other_module)
+      other_module.send(:include, ActionController::UrlWriter)
+    end
+
   end
 
   def port
@@ -32,5 +44,19 @@ module Noosfero::URL
   def path
     Noosfero::URL.config['path']
   end
+
+  def url_for(options)
+    local_options = {}
+    local_options[:port] = self.port unless self.port.nil?
+
+    url = super(local_options.merge(options))
+
+    if self.path.blank?
+      url
+    else
+      url.sub(/(http:\/\/[^\/]+(:\d+)?)\//, "\\1#{self.path}/")
+    end
+  end
+
 
 end
