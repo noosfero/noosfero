@@ -88,9 +88,23 @@ class TaskTest < Test::Unit::TestCase
     task.save!
   end
 
-  should 'generate a random hash when creating' do
-    flunk 'not implemented yet'
+  should 'generate a random code before validation' do
+    Task.expects(:generate_code)
+    Task.new.valid?
   end
 
+  should 'make sure that codes are unique' do
+    task1 = Task.create!
+    task2 = Task.new(:code => task1.code)
+
+    assert !task2.valid?
+    assert task2.errors.invalid?(:code)
+  end
+
+  should 'generate a code with chars from a-z and 0-9' do
+    code = Task.generate_code
+    assert(code =~ /^[a-z0-9]+$/)
+    assert_equal 36, code.size
+  end
 
 end

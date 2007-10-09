@@ -8,7 +8,7 @@ class CreateTasks < ActiveRecord::Migration
       t.column :requestor_id, :integer
       t.column :target_id, :integer
 
-      t.column :hash, :string
+      t.column :code, :string, :limit => 40
     end
   end
 

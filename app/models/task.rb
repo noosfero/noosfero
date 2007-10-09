@@ -24,9 +24,21 @@ class Task < ActiveRecord::Base
   belongs_to :requestor, :class_name => 'Person', :foreign_key => :requestor_id
   belongs_to :target, :class_name => 'Profile', :foreign_key => :target_id
 
+  validates_uniqueness_of :code
+  validates_presence_of :code
+
   def initialize(*args)
     super
     self.status ||= Task::Status::ACTIVE
+  end
+
+  before_validation_on_create do |task|
+    if task.code.nil?
+      task.code = Task.generate_code
+      while (Task.find_by_code(task.code))
+        task.code = Task.generate_code
+      end
+    end
   end
 
   after_create do |task|
@@ -93,6 +105,17 @@ class Task < ActiveRecord::Base
   #
   # The implementation on Task class just does nothing.
   def perform
+  end
+
+  class << self
+    def generate_code
+      chars = ('a'..'z').to_a + ('0'..'9').to_a
+      code = ""
+      chars.size.times do |n|
+        code << chars[rand(chars.size)]
+      end
+      code
+    end
   end
 
 end
