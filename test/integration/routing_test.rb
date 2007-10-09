@@ -21,8 +21,8 @@ class RoutingTest < ActionController::IntegrationTest
     assert_routing('/account', :controller => 'account', :action => 'index')
   end
 
-  def test_change_password
-    assert_routing('/account/change_password/90dfhga7sadgd0as6saas', :controller => 'account', :action => 'change_password', :code => '90dfhga7sadgd0as6saas')
+  def test_new_password
+    assert_routing('/account/new_password/90dfhga7sadgd0as6saas', :controller => 'account', :action => 'new_password', :code => '90dfhga7sadgd0as6saas')
   end
 
   def test_comatose_admin

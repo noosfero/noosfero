@@ -19,7 +19,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'doc', :controller => 'doc'
 
   # user account controller
-  map.connect 'account/change_password/:code', :controller => 'account', :action => 'change_password'
+  map.connect 'account/new_password/:code', :controller => 'account', :action => 'new_password'
 
   map.connect 'account/:action', :controller => 'account'
  
