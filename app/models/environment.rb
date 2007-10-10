@@ -86,36 +86,6 @@ class Environment < ActiveRecord::Base
   def has_terms_of_use?
     ! self.settings['terms_of_use'].nil?
   end
-
-  # Returns the template used by +flexible_template+ plugin.
-  def flexible_template_template
-    self.settings['flexible_template_template']
-  end
-
-  # Sets the template used by +flexible_template+ plugin.
-  def flexible_template_template=(value)
-    self.settings['flexible_template_template'] = value
-  end
-
-  # Returns the theme used by +flexible_template+ plugin
-  def flexible_template_theme
-    self.settings['flexible_template_theme']
-  end
-
-  # Sets the theme used by +flexible_template+ plugin
-  def flexible_template_theme=(value)
-    self.settings['flexible_template_theme'] = value
-  end
-
-  # Returns the icon theme used by +flexible_template+ plugin
-  def flexible_template_icon_theme
-    self.settings['flexible_template_icon_theme']
-  end
-
-  # Sets the icon theme used by +flexible_template+ plugin
-  def flexible_template_icon_theme=(value)
-    self.settings['flexible_template_icon_theme'] = value
-  end
  
   # #################################################
   # Validations

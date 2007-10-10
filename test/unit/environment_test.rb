@@ -78,25 +78,6 @@ class EnvironmentTest < Test::Unit::TestCase
     assert v.has_terms_of_use?
   end
 
-  def test_should_profive_flexible_template_stuff
-    v = Environment.new
-
-    # template
-    assert_nil v.flexible_template_template
-    v.flexible_template_template = 'bli'
-    assert_equal 'bli', v.flexible_template_template
-
-    # theme
-    assert_nil v.flexible_template_theme
-    v.flexible_template_theme = 'bli'
-    assert_equal 'bli', v.flexible_template_theme
-    
-    # icon theme
-    assert_nil v.flexible_template_icon_theme
-    v.flexible_template_icon_theme = 'bli'
-    assert_equal 'bli', v.flexible_template_icon_theme
-  end
-
   def test_should_list_top_level_categories
     env = Environment.create!(:name => 'a test environment')
     cat1 = Category.create!(:name => 'first category', :environment_id => env.id)
