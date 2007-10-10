@@ -199,16 +199,21 @@ module ApplicationHelper
     end
   end
 
-  def text_editor(object, method, filter_type_method, options = {})
-    filter_type = instance_variable_get("@#{object}").send(filter_type_method)
+  def text_editor(object, method, filter_type_method = nil, options = {})
+    filter_type = 
+      if filter_type_method.blank?
+        ''
+      else
+        instance_variable_get("@#{object}").send(filter_type_method)
+      end
     if filter_type == '[No Filter]' || filter_type.blank?
       html_class = "tiny_mce_editor"
       if options[:class]
         html_class << " #{options[:class]}"
       end
-      text_area(object, method, { :rows => 12, :columns => 72 }.merge(options).merge({:class => html_class})) 
+      text_area(object, method, { :size => '72x12' }.merge(options).merge({:class => html_class})) 
     else
-      text_area(object, method, { :rows => 12, :columns => 72 }.merge(options))
+      text_area(object, method, { :size => '72x12' }.merge(options))
     end
   end
 

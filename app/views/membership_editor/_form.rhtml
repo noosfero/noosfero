@@ -23,7 +23,7 @@
 <%= text_field 'organization_info', 'economic_activity', 'size' => 20 %></p>
 
 <p><label for="management_information"><%= _('Management Information') %></label><br/>
-<%= text_area 'organization_info', 'management_information', 'cols' => 40, 'rows' => 20 %></p>
+<%= text_editor 'organization_info', 'management_information' %></p>
 
 <p><label for="validation_entity"><%= _('Validation Entity') %></label><br/>
 <%= select 'validation_entity', 'id', @validation_entities.map{|v| [v.name, v.id]}, :include_blank => true %></p>
