@@ -145,4 +145,28 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal 'localhost.localdomain', env.default_hostname
   end
 
+  should 'provide an approval_method setting' do
+    env = Environment.new
+
+    # default value
+    assert_equal :admin, env.organization_approval_method
+
+    # valid values
+    assert_nothing_raised do
+      valid = %w[
+        admin
+        region
+      ].each do |item|
+        env.organization_approval_method = item
+        env.organization_approval_method = item.to_sym
+      end
+    end
+
+    # do not allow other values
+    assert_raise ArgumentError do
+      env.organization_approval_method = :lalala
+    end
+    
+  end
+
 end

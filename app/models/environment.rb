@@ -86,6 +86,38 @@ class Environment < ActiveRecord::Base
   def has_terms_of_use?
     ! self.settings['terms_of_use'].nil?
   end
+
+  # returns the approval method used for this environment. Possible values are:
+  #
+  # Defaults to <tt>:admim</tt>.
+  def organization_approval_method
+    self.settings['organization_approval_method'] || :admin
+  end
+
+  # Sets the organization_approval_method. Only accepts the following values:
+  #
+  # * <tt>:admin</tt>: organization registration must be approved by the
+  #   environment administrator.
+  # * <tt>:region</tt>: organization registering must be approved by some other
+  #   organization asssigned as validator to the Region the new organization
+  #   belongs to.
+  #
+  # Trying to set organization_approval_method to any other value will raise an
+  # ArgumentError.
+  #
+  # The value passed as argument is converted to a Symbol before being actually
+  # set to this setting.
+  def organization_approval_method=(value)
+    actual_value = value.to_sym
+
+    accepted_values = %w[
+      admin
+      region
+    ].map(&:to_sym)
+    raise ArgumentError unless accepted_values.include?(actual_value)
+
+    self.settings['organization_approval_method'] = actual_value
+  end
  
   # #################################################
   # Validations
