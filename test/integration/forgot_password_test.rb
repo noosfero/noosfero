@@ -32,7 +32,7 @@ class ForgotPasswordTest < ActionController::IntegrationTest
     assert_template 'new_password_ok'
     assert_tag :tag => 'a', :attributes => { :href => "/account/login" }
 
-    assert User.find_by_login('forgotten').authenticated?('newpass')
+    login('forgotten', 'newpass')
   end
 
 end
