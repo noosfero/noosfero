@@ -18,6 +18,8 @@ class Profile < ActiveRecord::Base
   
   acts_as_accessible
 
+  acts_as_ferret :fields => [ :name ]
+
   # Valid identifiers must match this format.
   IDENTIFIER_FORMAT = /^[a-z][a-z0-9_]*[a-z0-9]$/
 

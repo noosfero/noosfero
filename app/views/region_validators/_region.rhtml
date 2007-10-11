@@ -1,0 +1,14 @@
+<li> 
+
+<div class='treeitem'>
+  <%= link_to region.name, :action => 'region', :id => region %>
+  <em><%= n_('1 validator', '%{num} validators.', region.validators.size) % { :num => region.validators.size } %></em>
+  <% unless region.children.empty? %>
+    <ul class='tree'>
+      <%= render :partial => 'region', :collection => region.children %>
+    </ul>
+  <% end %>
+
+</div>
+
+</li>

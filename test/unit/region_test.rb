@@ -16,4 +16,12 @@ class RegionTest < Test::Unit::TestCase
     end
   end
 
+  should 'be able to search for possible validators by name' do
+    flunk 'need to write this test'
+  end
+
+  should 'return search results without validators that are already associated to the current region' do
+    flunk 'need to write this test'
+  end
+
 end
