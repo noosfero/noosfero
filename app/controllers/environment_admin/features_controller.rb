@@ -8,15 +8,12 @@ class FeaturesController < EnvironmentAdminController
 
   post_only :update
   def update
-    features = if params[:features].nil?
-                 []
-               else
-                 params[:features].keys
-               end
-    @environment.enabled_features = features
-    @environment.save!
-    flash[:notice] = _('Features updated successfully.')
-    redirect_to :action => 'index'
+    if @environment.update_attributes(params[:environment])
+      flash[:notice] = _('Features updated successfully.')
+      redirect_to :action => 'index'
+    else
+      render :action => 'index'
+    end
   end
 
 end

@@ -19,13 +19,13 @@ class FeaturesControllerTest < Test::Unit::TestCase
     get :index
     assert_template 'index'
     Environment.available_features.each do |feature, text|
-      assert_tag(:tag => 'input', :attributes => { :type => 'checkbox', :name => "features[#{feature}]" })
+      assert_tag(:tag => 'input', :attributes => { :type => 'checkbox', :name => "environment[enabled_features][]", :value => feature})
     end
   end
 
-  def test_update
+  def test_updates_enabled_features
     uses_host 'anhetegua.net'
-    post :update, :features => { 'feature1' => '1', 'feature2' => '1' }
+    post :update, :environment => { :enabled_features => [ 'feature1', 'feature2' ] }
     assert_redirected_to :action => 'index'
     assert_kind_of String, flash[:notice]
     v = Environment.find(environments(:anhetegua_net).id)
@@ -49,6 +49,26 @@ class FeaturesControllerTest < Test::Unit::TestCase
     uses_host 'anhetegua.net'
     get :update
     assert_redirected_to :action => 'index'
+  end
+
+  def test_updates_organization_approval_method
+    uses_host 'anhetegua.net'
+    post :update, :environment => { :organization_approval_method => 'region' }
+    assert_redirected_to :action => 'index'
+    assert_kind_of String, flash[:notice]
+    v = Environment.find(environments(:anhetegua_net).id)
+    assert_equal :region, v.organization_approval_method
+  end
+
+  def test_should_mark_current_organization_approval_method_in_view
+    uses_host 'anhetegua.net'
+    Environment.find(environments(:anhetegua_net).id).update_attributes(:organization_approval_method => :region)
+
+    post :index
+
+    assert_tag :tag => 'select', :attributes => { :name => 'environment[organization_approval_method]' }, :descendant => { :tag => 'option', :attributes => { :value => 'region', :selected => true } }
+
+
   end
 
 end
