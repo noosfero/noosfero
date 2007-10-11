@@ -49,6 +49,13 @@ class CategoryTest < Test::Unit::TestCase
     assert_equal 'category_name/subcategory_name', sub_cat.full_name
   end
 
+  should 'cope with nil name when calculating full_name' do
+    cat = Category.new(:name => 'toplevel')
+    sub = Category.new
+    sub.parent = cat
+    assert_equal 'toplevel/?', sub.full_name
+  end
+
   def test_category_level
     cat = Category.new(:name => 'category_name')
     assert_equal 0, cat.level
