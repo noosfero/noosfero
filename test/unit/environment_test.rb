@@ -34,7 +34,7 @@ class EnvironmentTest < Test::Unit::TestCase
   end
 
   def test_features
-    v = environments(:colivre_net)
+    v = Environment.new
     v.enable('feature1')
     assert v.enabled?('feature1')
     v.disable('feature1')
@@ -42,13 +42,13 @@ class EnvironmentTest < Test::Unit::TestCase
   end
 
   def test_enabled_features
-    v = environments(:colivre_net)
+    v = Environment.new
     v.enabled_features = [ 'feature1', 'feature2' ]
     assert v.enabled?('feature1') && v.enabled?('feature2') && !v.enabled?('feature3')
   end
 
   def test_enabled_features_no_features_enabled
-    v = environments(:colivre_net)
+    v = Environment.new
     v.enabled_features = nil
     assert !v.enabled?('feature1') && !v.enabled?('feature2') && !v.enabled?('feature3')
   end
