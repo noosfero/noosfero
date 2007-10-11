@@ -121,6 +121,17 @@ class EnvironmentTest < Test::Unit::TestCase
     assert !env.display_categories.include?(cat2)
   end
 
+  should 'have regions' do
+    env = Environment.create!(:name => 'a test environment')
+    assert_kind_of Array, env.regions
+    assert_raise ActiveRecord::AssociationTypeMismatch do
+      env.regions << 1
+    end
+    assert_nothing_raised do
+      env.regions << Region.new
+    end
+  end
+
   should 'have a contact email' do
     env = Environment.new
     assert_nil env.contact_email
