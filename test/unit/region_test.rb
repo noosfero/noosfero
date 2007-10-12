@@ -17,11 +17,26 @@ class RegionTest < Test::Unit::TestCase
   end
 
   should 'be able to search for possible validators by name' do
-    flunk 'need to write this test'
+    env = Environment.create!(:name => "my test environment")
+    region = Region.create!(:environment_id => env.id, :name => 'My Region')
+    org1 = Organization.create!(:name => 'Organization 1', :identifier => 'org1', :environment_id => env.id)
+    org2 = Organization.create!(:name => 'Organization 2', :identifier => 'org2', :environment_id => env.id)
+
+    possible = region.search_possible_validators('organization')
+    assert possible.include?(org2)
+    assert possible.include?(org1)
   end
 
   should 'return search results without validators that are already associated to the current region' do
-    flunk 'need to write this test'
+    env = Environment.create!(:name => "my test environment")
+    region = Region.create!(:environment_id => env.id, :name => 'My Region')
+    org1 = Organization.create!(:name => 'Organization 1', :identifier => 'org1', :environment_id => env.id)
+    org2 = Organization.create!(:name => 'Organization 2', :identifier => 'org2', :environment_id => env.id)
+    region.validators << org1
+
+    possible = region.search_possible_validators('organization')
+    assert possible.include?(org2)
+    assert !possible.include?(org1)
   end
 
 end
