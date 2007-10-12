@@ -28,6 +28,8 @@ class Task < ActiveRecord::Base
   validates_uniqueness_of :code
   validates_presence_of :code
 
+  attr_protected :status
+
   def initialize(*args)
     super
     self.status ||= Task::Status::ACTIVE
