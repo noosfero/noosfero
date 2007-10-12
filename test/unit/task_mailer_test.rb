@@ -18,8 +18,8 @@ class TaskMailerTest < Test::Unit::TestCase
 
   should 'be able to send a "task finished" message' do
 
-    task = mock()
-    task.expects(:finish_message).returns('the message')
+    task = Task.new
+    task.expects(:task_finished_message).returns('the message')
     task.expects(:description).returns('the task')
 
     requestor = mock()
@@ -39,8 +39,8 @@ class TaskMailerTest < Test::Unit::TestCase
 
   should 'be able to send a "task cancelled" message' do
 
-    task = mock()
-    task.expects(:cancel_message).returns('the message')
+    task = Task.new
+    task.expects(:task_cancelled_message).returns('the message')
     task.expects(:description).returns('the task')
 
     requestor = mock()
@@ -60,8 +60,9 @@ class TaskMailerTest < Test::Unit::TestCase
 
   should 'be able to send a "task created" message' do
 
-    task = mock()
-    task.expects(:create_message).returns('the message')
+    task = Task.new
+
+    task.expects(:task_created_message).returns('the message')
     task.expects(:description).returns('the task')
 
     requestor = mock()

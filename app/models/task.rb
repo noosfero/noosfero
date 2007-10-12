@@ -45,7 +45,7 @@ class Task < ActiveRecord::Base
   end
 
   after_create do |task|
-    TaskMailer.deliver_task_created(task)
+    task.send(:send_notification, :created)
   end
 
   # this method finished the task. It calls #perform, which must be overriden
@@ -57,7 +57,7 @@ class Task < ActiveRecord::Base
       self.end_date = Time.now
       self.save!
       self.perform
-      TaskMailer.deliver_task_finished(self)
+      send_notification(:finished)
     end
   end
 
@@ -68,27 +68,10 @@ class Task < ActiveRecord::Base
       self.status = Task::Status::CANCELLED
       self.end_date = Time.now
       self.save!
-      TaskMailer.deliver_task_cancelled(self)
+      send_notification(:cancelled)
     end
   end
 
-  # The message that will be sent to the requestor of the task when the task is
-  # created.
-  def create_message
-    _("The task was created at %s") % Time.now
-  end
-
-  # The message that will be sent to the requestor of the task when its
-  # finished.
-  def finish_message
-    _("The task was finished at %s") % (self.end_date.to_s)
-  end
-
-  # The message that will be sent to the requestor of the task when its
-  # cancelled.
-  def cancel_message
-    _("The task was cancelled at %s") % (self.end_date.to_s)
-  end
 
   # Returns the description of the task.
   #
@@ -96,6 +79,25 @@ class Task < ActiveRecord::Base
   # meaningful for each kind of task  
   def description
     _('Generic task')
+  end
+
+  # The message that will be sent to the requestor of the task when the task is
+  # created.
+  def task_created_message
+    # FIXME: use a date properly recorded.
+    _("The task was created at %s") % Time.now
+  end
+
+  # The message that will be sent to the requestor of the task when its
+  # finished.
+  def task_finished_message
+    _("The task was finished at %s") % (self.end_date.to_s)
+  end
+
+  # The message that will be sent to the requestor of the task when its
+  # cancelled.
+  def task_cancelled_message
+    _("The task was cancelled at %s") % (self.end_date.to_s)
   end
 
   protected
@@ -108,6 +110,11 @@ class Task < ActiveRecord::Base
   #
   # The implementation on Task class just does nothing.
   def perform
+  end
+
+  # sends notification e-mail about a task, if the task has a requestor.
+  def send_notification(action)
+    TaskMailer.send("deliver_task_#{action}", self) if self.requestor
   end
 
   class << self

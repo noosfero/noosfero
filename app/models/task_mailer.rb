@@ -1,15 +1,12 @@
 class TaskMailer < ActionMailer::Base
 
-  def task_finished(task)
-    send_message(task, task.finish_message)
-  end
-
-  def task_created(task)
-    send_message(task, task.create_message)
-  end
-
-  def task_cancelled(task)
-    send_message(task, task.cancel_message)
+  def method_missing(name, *args)
+    task = args.shift
+    if task.kind_of?(Task) && task.respond_to?("#{name}_message")
+      send_message(task, task.send("#{name}_message"), *args)
+    else
+      super
+    end
   end
 
   protected

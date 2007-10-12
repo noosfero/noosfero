@@ -33,6 +33,7 @@ class TaskTest < Test::Unit::TestCase
   def test_should_call_perform_in_finish
     TaskMailer.expects(:deliver_task_finished)
     t = Task.create
+    t.requestor = sample_user
     t.expects(:perform)
     t.finish
     assert_equal Task::Status::FINISHED, t.status
@@ -41,6 +42,7 @@ class TaskTest < Test::Unit::TestCase
   def test_should_have_cancelled_status_after_cancel
     TaskMailer.expects(:deliver_task_cancelled)
     t = Task.create
+    t.requestor = sample_user
     t.cancel
     assert_equal Task::Status::CANCELLED, t.status
   end
@@ -52,13 +54,19 @@ class TaskTest < Test::Unit::TestCase
 
   def test_should_notify_finish
     t = Task.create
+    t.requestor = sample_user
+
     TaskMailer.expects(:deliver_task_finished).with(t)
+
     t.finish
   end
 
   def test_should_notify_cancel
     t = Task.create
+    t.requestor = sample_user
+
     TaskMailer.expects(:deliver_task_cancelled).with(t)
+
     t.cancel
   end
 
@@ -84,6 +92,8 @@ class TaskTest < Test::Unit::TestCase
 
   should 'notify just after the task is created' do
     task = Task.new
+    task.requestor = sample_user
+
     TaskMailer.expects(:deliver_task_created).with(task)
     task.save!
   end
@@ -109,7 +119,7 @@ class TaskTest < Test::Unit::TestCase
 
   should 'find only in active tasks' do
     task = Task.new
-    task.requestor = User.create(:login => 'testfindinactivetask', :password => 'test', :password_confirmation => 'test', :email => 'testfindinactivetask@localhost.localdomain').person
+    task.requestor = sample_user
     task.save!
     
     task.cancel
@@ -119,10 +129,16 @@ class TaskTest < Test::Unit::TestCase
 
   should 'be able to find active tasks ' do
     task = Task.new
-    task.requestor = User.create(:login => 'testfindinactivetask', :password => 'test', :password_confirmation => 'test', :email => 'testfindinactivetask@localhost.localdomain').person
+    task.requestor = sample_user
     task.save!
 
     assert_not_nil Task.find_by_code(task.code)
+  end
+
+  protected
+
+  def sample_user
+    User.create(:login => 'testfindinactivetask', :password => 'test', :password_confirmation => 'test', :email => 'testfindinactivetask@localhost.localdomain').person
   end
 
 end
