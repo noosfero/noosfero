@@ -1,6 +1,6 @@
 class CreateEnterprise < Task
 
-  DATA_FIELDS = %w[ name identifier address contact_phone contact_person acronym foundation_year legal_form economic_activity management_information ]
+  DATA_FIELDS = %w[ name identifier address contact_phone contact_person acronym foundation_year legal_form economic_activity management_information region_id ]
 
   serialize :data, Hash
   attr_protected :data
@@ -20,10 +20,63 @@ class CreateEnterprise < Task
   end
 
   # checks for virtual attributes 
-  validates_presence_of :name, :identifier, :address, :contact_phone, :contact_person, :legal_form, :economic_activity
+  validates_presence_of :name, :identifier, :address, :contact_phone, :contact_person, :legal_form, :economic_activity, :region_id
   validates_format_of :foundation_year, :with => /^\d*$/
 
   # checks for actual attributes
-  validates_presence_of :requestor_id
+  validates_presence_of :requestor_id, :target_id
+
+  def validate
+    if self.region && self.target
+      unless self.region.validators.include?(self.target)
+        self.errors.add(:target, '%{fn} is not a validator for the chosen region')
+      end
+    end
+  end
+
+  # gets the associated region for the enterprise creation
+  def region(reload = false)
+    if self.region_id
+      if reload || @region.nil?
+        @region = Region.find(self.region_id)
+      end
+    end
+    @region
+  end
+
+  # sets the associated region for the enterprise creation
+  def region=(value)
+    raise ArgumentError.new("Region expected, but got #{value.class}") unless value.kind_of?(Region)
+
+    @region = value
+    self.region_id = value.id
+  end
+
+  # Rejects the enterprise registration request.
+  def reject
+    cancel
+  end
+
+  # Approves the enterprise registration request.
+  def approve
+    finish
+  end
+
+  # actually creates the enterprise after the request is approved.
+  def perform
+    enterprise = Enterprise.new
+
+    profile_fields = %w[ name identifier contact_phone address region_id ]
+    profile_fields.each do |field|
+      enterprise.send("#{field}=", self.send(field))
+    end
+
+    organization_info_data = self.data.delete_if do |key,value|
+      profile_fields.include?(key.to_s)
+    end
+
+    enterprise.organization_info = OrganizationInfo.new(organization_info_data)
+    enterprise.save!
+  end
 
 end

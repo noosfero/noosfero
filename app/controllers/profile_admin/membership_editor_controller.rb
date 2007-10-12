@@ -20,7 +20,6 @@ class MembershipEditorController < ProfileAdminController
       redirect_to :action => 'index'
     else
       flash[:notice] = _('Enterprise was not created')
-      @vitual_communities = Environment.find(:all)
       @validation_entities = Organization.find(:all)
       render :action => 'register_form'
     end

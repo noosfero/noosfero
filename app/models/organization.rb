@@ -3,6 +3,8 @@ class Organization < Profile
   has_one :organization_info
   has_many :validated_enterprises, :class_name => 'enterprise'
 
+  belongs_to :region
+
 #  def info
 #    organization_info
 #  end

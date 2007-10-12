@@ -2,8 +2,10 @@
 colivre_net:
   id: 1
   name: 'Colivre.net'
+  contact_email: 'colivre@localhost.localdomain'
   is_default: true
 anhetegua_net:
   id: 2
   name: 'Anheteguá'
   is_default: false
+  contact_email: 'anhetegua@localhost.localdomain'
