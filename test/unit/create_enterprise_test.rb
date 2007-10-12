@@ -75,7 +75,7 @@ class CreateEnterpriseTest < Test::Unit::TestCase
     task.approve
   end
 
-  should 'actually create an enterprise when finishing the task' do
+  should 'actually create an enterprise when finishing the task and associate the task requestor as its owner through the "user" association' do
 
     Environment.destroy_all
     environment = Environment.create!(:name => "My environment", :contact_email => 'test@localhost.localdomain', :is_default => true)
@@ -103,37 +103,7 @@ class CreateEnterpriseTest < Test::Unit::TestCase
     task.finish
 
     assert !enterprise.new_record?
-  end
-
-  should 'associate task requestor as enterprise administrator upon enterprise creation' do
-
-    Environment.destroy_all
-    environment = Environment.create!(:name => "My environment", :contact_email => 'test@localhost.localdomain', :is_default => true)
-    region = Region.create!(:name => 'My region', :environment_id => environment.id)
-    validator = Organization.create!(:name => "My organization", :identifier => 'myorg', :environment_id => environment.id)
-    region.validators << validator
-    person = User.create!(:login => 'testuser', :password => 'test', :password_confirmation => 'test', :email => 'testuser@localhost.localdomain').person
-
-    task = CreateEnterprise.create!({
-      :name => 'My new enterprise',
-      :identifier => 'mynewenterprise',
-      :address => 'satan street, 666',
-      :contact_phone => '1298372198',
-      :contact_person => 'random joe',
-      :legal_form => 'cooperative',
-      :economic_activity => 'free software',
-      :region_id => region.id,
-      :requestor_id => person.id,
-      :target_id => validator.id,
-    })
-
-    enterprise = Enterprise.new
-    Enterprise.expects(:new).returns(enterprise)
-
-    task.finish
-
-
-    flunk "don't know howt to test it yet"
+    assert_equal person.user, enterprise.user
   end
 
 end

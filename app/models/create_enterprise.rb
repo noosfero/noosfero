@@ -75,8 +75,24 @@ class CreateEnterprise < Task
       profile_fields.include?(key.to_s)
     end
 
+    enterprise.user = self.requestor.user
+
     enterprise.organization_info = OrganizationInfo.new(organization_info_data)
     enterprise.save!
   end
+
+  def description
+    _('Enterprise registration: "%s"') % self.name
+  end
+
+  def create_message
+  end
+
+  def finish_message
+  end
+
+  def cancel_message
+  end
+
 
 end
