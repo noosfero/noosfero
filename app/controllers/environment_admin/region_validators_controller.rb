@@ -31,7 +31,7 @@ class RegionValidatorsController < ApplicationController
   def load_region_and_search
     @region = environment.regions.find(params[:id])
     if params[:search]
-      @search = Organization.find_by_contents(params[:search])
+      @search = @region.search_possible_validators(params[:search])
     end
   end
 
