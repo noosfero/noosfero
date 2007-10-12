@@ -8,7 +8,6 @@ class MembershipEditorController < ProfileAdminController
 
   def new_enterprise
     @enterprise = Enterprise.new()
-    @virtual_communities = Environment.find(:all)
     @validation_entities = Organization.find(:all)
   end
 
