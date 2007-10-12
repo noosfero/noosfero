@@ -1,0 +1,2 @@
+class CreateOrganization < Task
+end
