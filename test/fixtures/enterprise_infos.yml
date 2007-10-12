@@ -1,9 +1,0 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-one:
-  id: 1
-  enterprise_id: 5
-  approval_status: 'approved'
-two:
-  id: 2
-  enterprise_id: 6
-  approval_status: 'approved'
