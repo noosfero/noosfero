@@ -36,6 +36,8 @@ class Profile < ActiveRecord::Base
 
   acts_as_taggable
 
+  belongs_to :user
+
   has_many :domains, :as => :owner
   belongs_to :environment
   

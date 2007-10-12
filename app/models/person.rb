@@ -1,8 +1,6 @@
 # A person is the profile of an user holding all relationships with the rest of the system
 class Person < Profile
   acts_as_accessor
-  
-  belongs_to :user
 
 #  has_many :friendships
 #  has_many :friends, :class_name => 'Person', :through => :friendships
