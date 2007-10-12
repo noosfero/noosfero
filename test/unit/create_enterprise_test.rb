@@ -106,4 +106,16 @@ class CreateEnterpriseTest < Test::Unit::TestCase
     assert_equal person.user, enterprise.user
   end
 
+  should 'give a proper "task created" message' do
+    flunk 'need to write this test'
+  end
+
+  should 'give a proper "task finished" message' do
+    flunk 'need to write this test'
+  end
+
+  should 'give a proper "task cancelled" message' do
+    flunk 'need to write this test'
+  end
+
 end
