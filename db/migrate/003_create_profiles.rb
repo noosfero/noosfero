@@ -5,7 +5,9 @@ class CreateProfiles < ActiveRecord::Migration
       t.column :type,                                   :string
       t.column :identifier,                             :string
       t.column :environment_id,                   :integer
-      t.column :active,                                 :boolean, :default => false
+
+
+      t.column :active,                                 :boolean, :default => true
       t.column :address,                                :string
       t.column :contact_phone,                          :string
           
