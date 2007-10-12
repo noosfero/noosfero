@@ -6,9 +6,6 @@ johndoe:
   identifier: johndoe
   environment_id: 1
   user_id: 1
-  flexible_template_template: 'default'
-  flexible_template_icon_theme: 'default'
-  flexible_template_theme: 'default'
 joerandomhacker:
   id: 2
   name: 'Joe Random Hacker'
@@ -16,18 +13,12 @@ joerandomhacker:
   identifier: joerandomhacker
   environment_id: 1
   user_id: 2
-  flexible_template_template: 'simple'
-  flexible_template_icon_theme: 'simple'
-  flexible_template_theme: 'simple'
 john_and_joe:
   id: 3
   name: "John and Joe's Production Cooperative"
   type: 'Person'
   identifier: john_and_joe
   environment_id: 1
-  flexible_template_template: 'simple'
-  flexible_template_icon_theme: 'simple'
-  flexible_template_theme: 'simple'
 ze:
   id: 4
   name: "Zé"
@@ -35,24 +26,15 @@ ze:
   user_id: 3
   identifier: ze
   environment_id: 1
-  flexible_template_template: 'default'
-  flexible_template_icon_theme: 'default'
-  flexible_template_theme: 'default'
 colivre:
   id: 5
   name: "cooptec_livre"
   type: 'Enterprise'
   identifier: 'colivre'
   environment_id: 1
-  flexible_template_template: 'default'
-  flexible_template_icon_theme: 'default'
-  flexible_template_theme: 'default'
 empreendimentoB:
   id: 6
   name: "emp B"
   type: 'Enterprise'
   identifier: "empb"
   environment_id: 1
-  flexible_template_template: 'default'
-  flexible_template_icon_theme: 'default'
-  flexible_template_theme: 'default'
