@@ -6,8 +6,9 @@
 # the actual action associated to the type of task can be performed. See the
 # documentation of the #perform method for details. 
 #
-# This class has a +status+ field of type <tt>text</tt>, where you can store
-# any type of data (as serialized Ruby objects) you need for your subclass .
+# This class has a +data+ field of type <tt>text</tt>, where you can store any
+# type of data (as serialized Ruby objects) you need for your subclass (which
+# will need to declare <ttserialize</tt> itself).
 class Task < ActiveRecord::Base
 
   module Status
