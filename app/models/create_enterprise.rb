@@ -1,2 +1,2 @@
-class CreateOrganization < Task
+class CreateEnterprise < Task
 end
