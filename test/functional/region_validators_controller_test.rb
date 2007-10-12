@@ -39,10 +39,9 @@ class RegionValidatorsControllerTest < Test::Unit::TestCase
     region = Region.new(:name => 'my region')
     environment.regions << region
     assert !region.new_record?
-    org = Organization.create!(:name => "My frufru organization", :identifier => 'frufru')
+    org = Organization.create!(:name => "My frufru organization", :identifier => 'frufru', :environment_id => environment.id)
 
     @controller.expects(:environment).returns(environment)
-    Organization.expects(:find_by_contents).with('frufru').returns([org])
 
     get :search, :id => region.id, :search => 'frufru'
 
@@ -51,11 +50,36 @@ class RegionValidatorsControllerTest < Test::Unit::TestCase
   end
 
   should 'be able to add validators to the current region' do
-    flunk 'need to write this test'
+    environment = Environment.create!(:name => "my environment")
+    region = Region.new(:name => 'my region')
+    environment.regions << region
+    assert !region.new_record?
+    org = Organization.create!(:name => "My frufru organization", :identifier => 'frufru', :environment_id => environment.id)
+
+    @controller.expects(:environment).returns(environment).at_least_once
+
+    post :add, :id => region.id, :validator_id => org.id
+    assert_response :redirect
+    assert_redirected_to :action => 'region', :id => region.id
+
+    assert Region.find(region.id).validators.include?(org)
   end
 
   should 'be able to remove validators from the current region' do
-    flunk 'need to write this test'
+    environment = Environment.create!(:name => "my environment")
+    region = Region.new(:name => 'my region')
+    environment.regions << region
+    assert !region.new_record?
+    org = Organization.create!(:name => "My frufru organization", :identifier => 'frufru', :environment_id => environment.id)
+    region.validators << org
+
+    @controller.expects(:environment).returns(environment).at_least_once
+
+    post :remove, :id => region.id, :validator_id => org.id
+    assert_response :redirect
+    assert_redirected_to :action => 'region', :id => region.id
+    
+    assert !Region.find(region.id).validators.include?(org)
   end
 
 end
