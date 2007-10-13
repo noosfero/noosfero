@@ -87,6 +87,8 @@ class ChangePasswordTest < Test::Unit::TestCase
     change.password = 'newpass'
     change.password_confirmation = 'newpass'
     change.finish
+
+    assert User.find(person.user.id).authenticated?('newpass')
   end
 
   should 'not require password and password confirmation when cancelling' do
@@ -101,7 +103,6 @@ class ChangePasswordTest < Test::Unit::TestCase
     assert_nothing_raised do
       change.cancel
     end
-
   end
 
 

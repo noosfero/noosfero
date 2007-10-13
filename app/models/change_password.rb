@@ -45,9 +45,9 @@ class ChangePassword < Task
   # validations for updating a ChangePassword task 
 
   # only require the new password when actually changing it.
-  validates_presence_of :password, :on => :update, :if => lambda { |change| change.status == Task::Status::FINISHED }
-  validates_presence_of :password_confirmation, :on => :update, :if => lambda { |change| change.status == Task::Status::FINISHED }
-  validates_confirmation_of :password, :if => lambda { |change| change.status == Task::Status::FINISHED }
+  validates_presence_of :password, :on => :update, :if => lambda { |change| change.status != Task::Status::CANCELLED }
+  validates_presence_of :password_confirmation, :on => :update, :if => lambda { |change| change.status != Task::Status::CANCELLED }
+  validates_confirmation_of :password, :if => lambda { |change| change.status != Task::Status::CANCELLED }
 
   def initialize(*args)
     super(*args)
