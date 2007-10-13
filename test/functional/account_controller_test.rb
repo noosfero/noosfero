@@ -160,7 +160,7 @@ class AccountControllerTest < Test::Unit::TestCase
     assert_equal users(:ze), @controller.send(:current_user)
   end
 
-  def test_should_input_current_password_correctly_to_change_password
+  should 'input current password correctly to change password' do
     login_as 'ze'
     post :change_password, :current_password => 'wrong', :new_password => 'blabla', :new_password_confirmation => 'blabla'
     assert_response :success
@@ -223,6 +223,17 @@ class AccountControllerTest < Test::Unit::TestCase
     get :new_password, :code => 'dontexist'
     assert_response 403
     assert_template 'invalid_change_password_code'
+  end
+
+  should 'require password confirmation correctly to enter new pasword' do
+    user = User.create!(:login => 'testuser', :email => 'testuser@example.com', :password => 'test', :password_confirmation => 'test')
+    change = ChangePassword.create!(:login => 'testuser', :email => 'testuser@example.com')
+
+    post :new_password, :code => change.code, :change_password => { :password => 'onepass', :password_confirmation => 'another_pass' }
+    assert_response :success
+    assert_template 'new_password'
+
+    assert !User.find(user.id).authenticated?('onepass')
   end
 
   protected
