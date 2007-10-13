@@ -106,16 +106,12 @@ class CreateEnterpriseTest < Test::Unit::TestCase
     assert_equal person.user, enterprise.user
   end
 
-  should 'give a proper "task created" message' do
-    flunk 'need to write this test'
-  end
-
-  should 'give a proper "task finished" message' do
-    flunk 'need to write this test'
-  end
-
-  should 'give a proper "task cancelled" message' do
-    flunk 'need to write this test'
+  should 'override message methods from Task' do
+    generic = Task.new
+    specific = CreateEnterprise.new
+    Task.instance_methods.select { |m| m =~ /_message$/ }.each do |method|
+      assert_not_equal generic.send(method), specific.send(method)
+    end
   end
 
 end

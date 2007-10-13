@@ -85,15 +85,13 @@ class CreateEnterprise < Task
     _('Enterprise registration: "%s"') % self.name
   end
 
-  def task_created_message
-    
-  end
+  #def task_created_message
+  #end
 
-  def task_finished_message
-  end
+  #def task_finished_message
+  #end
 
-  def task_cancelled_message
-  end
-
+  #def task_cancelled_message
+  #end
 
 end
