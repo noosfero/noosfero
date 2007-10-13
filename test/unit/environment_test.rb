@@ -151,9 +151,9 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal 'example.com', env.default_hostname
   end
 
-  should 'default to localhost.localdomain as hostname' do
+  should 'default to localhost as hostname' do
     env = Environment.create!(:name => 'test environment')
-    assert_equal 'localhost.localdomain', env.default_hostname
+    assert_equal 'localhost', env.default_hostname
   end
 
   should 'provide an approval_method setting' do
