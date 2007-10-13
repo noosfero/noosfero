@@ -61,15 +61,15 @@ class ChangePassword < Task
 
   # overriding messages
   
-  def cancel_message
+  def task_cancelled_message
     _('Your password change request was cancelled at %s.') % Time.now.to_s
   end
 
-  def finish_message
+  def task_finished_message
     _('Your password was changed successfully.')
   end
 
-  def create_message
+  def task_created_message
     hostname = self.requestor.environment.default_hostname
     code = self.code
     url = generate_url(:host => hostname, :controller => 'account', :action => 'new_password', :code => code)
