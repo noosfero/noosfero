@@ -62,6 +62,7 @@ class ChangePasswordTest < Test::Unit::TestCase
     change.email = 'test@example.com'
     change.save!
 
+    change.status = Task::Status::FINISHED
     change.password = 'right'
     change.password_confirmation = 'wrong'
     assert !change.valid?
@@ -87,5 +88,21 @@ class ChangePasswordTest < Test::Unit::TestCase
     change.password_confirmation = 'newpass'
     change.finish
   end
+
+  should 'not require password and password confirmation when cancelling' do
+    User.destroy_all
+    person = User.create!(:login => 'testuser', :password => 'test', :password_confirmation => 'test', :email => 'test@example.com').person
+
+    change = ChangePassword.new
+    change.login = 'testuser'
+    change.email = 'test@example.com'
+    change.save!
+
+    assert_nothing_raised do
+      change.cancel
+    end
+
+  end
+
 
 end
