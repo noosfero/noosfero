@@ -104,6 +104,7 @@ class CreateEnterpriseTest < Test::Unit::TestCase
 
     assert !enterprise.new_record?
     assert_equal person.user, enterprise.user
+    assert_equal environment, enterprise.environment
   end
 
   should 'override message methods from Task' do

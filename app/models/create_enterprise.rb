@@ -52,6 +52,10 @@ class CreateEnterprise < Task
     self.region_id = value.id
   end
 
+  def environment
+    region ? region.environment : nil
+  end
+
   # Rejects the enterprise registration request.
   def reject
     cancel
@@ -85,13 +89,18 @@ class CreateEnterprise < Task
     _('Enterprise registration: "%s"') % self.name
   end
 
-  #def task_created_message
-  #end
+  def task_created_message
+    _('Your request for registering enterprise "%{enterprise}" at %{environment} was just received. It will be reviewed by the chosen validator organization you chose, according to its methods and creteria.
 
-  #def task_finished_message
-  #end
+      You will be notified as soon as the validator organization has a position about your request.') % { :enterprise => self.name, :environment => self.environment }
+  end
 
-  #def task_cancelled_message
-  #end
+  def task_finished_message
+    _('Your request fo registering the enterprise "%{enterprise}" was approved. You can access %{environment} now and start entering ') % { :enterprise => self.name, :environment => self.environment }
+  end
+
+  def task_cancelled_message
+    _('Your request for registering the enterprise %{enterprise} at %{environment} was NOT approved by the validator organization.') % { :enterprise => self.name, :environment => self.environment }
+  end
 
 end
