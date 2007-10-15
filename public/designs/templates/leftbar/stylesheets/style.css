@@ -5,15 +5,15 @@ font-family: Verdana, Sans-Serif;
 font-size: 14px;
 }
 
-#frame {
+#wrap {
 background: url("../images/bg_content.png") top center repeat-y;
 }
 
-#content {
-/* background: url("../images/bg_bgheader.png") top left repeat-x; */
+#frame {
+ background: url("../images/bg_bgheader.png") top left repeat-x; 
 }
 
-#header_content {
+#header {
 background: url("../images/bg_header.png") top center no-repeat;
 height: 135px;
 }
