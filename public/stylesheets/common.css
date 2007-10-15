@@ -20,8 +20,6 @@ a:hover img {
   border: 1px solid gray;
 }
 
-/* Bar Blue Default */
-
 #environment_identification {
 position: absolute !important;
 background: url("../images/bg_blue_logo.png") 5px no-repeat !important;
@@ -36,52 +34,3 @@ padding-left: 60px !important ;
 color: #dfdfdf !important ;
 }
 
-#user_links, #login_box {
-margin-left: 290px !important ;
-}
-
-#user_links a:hover, #user_links a:focus, #login_box a:hover, #login_box a:focus, #register_box a:hover, #register_box a:focus {
-color: #dfdfdf !important ;
-text-decoration: none !important ;
-}
-
-#logout_box a:hover, #logout_box a:focus {
-color: red !important ;
-text-decoration: none !important ;
-}
-
-#menu_accessibility {
-  background: #fff url("../images/black_white_12px.png") repeat-x !important ; 
-  font-size: 10px !important ;
-  color: black !important ;
-  font-family: Sans-serif !important ;
-  color: #545454 !important ;
-}
-
-#menu_accessibility a {
-  color: #545454 !important ;
-  text-decoration: none !important ;
-}
-
-#menu_accessibility a:hover {
-  color: #000000 !important ;
-  text-decoration: underline !important ;
-}
-
-#menu_accessibility a:focus {
-  color: red !important ;
-  text-decoration: underline !important ;
-}
-
-ul.tree {
-  padding-left: 20px;
-}
-
-ul.tree li {
-  list-style: none;
-  padding: 2px;
-}
-
-ul.tree li div.treeitem:hover {
-  background: #f0f0f0;
-}

@@ -1,56 +1,64 @@
-body {
-margin:0px;
-padding: 0px;
-}
-
-/* Core do Tango na Barra 
-* Azul Escuro - 204a87
-*/
-
+/* Geral Bar */
 #noosfero_bar {
   position: fixed;
-  background: #204a87 url("../images/bg_noosfero_bar.png") repeat-x;
-  top: -3px;
-  height: 35px;
-  margin-left: -3px;
-  margin-top: 3px;
-  margin-right: 3px;
   padding: 0px;
-  font-family: serif-Sans, Verdana, Arial;
-
-  z-index: 100;
+  height: 60px;
+  margin-top: -5px;
+  font-family: Verdana, Arial, Serif-sans;
+  z-index: 9999;
 }
 
-#noosfero_bar *:focus {
-  color: red !important;
-}
-  
+/* Menu Itens Accessibility */
+
 #accessibility_menu {
-  float: left;
+  float: right;
+  margin-right: 10px;
+  font-family: Verdana, Arial, Serif-sans;
   font-size: 10px;
-  padding: 1px;
   color: #dfdfdf;
 }
 
 #accessibility_menu a {
-  padding-left: 7px;
-  margin-left: 2px;
-  background: url("../images/icon_enter_mini.png") 0px 5px no-repeat;
+  padding-left: 9px;
+  margin-left: 5px;
+  background: url("../images/ico_enterlink.gif");
+  background-repeat: no-repeat;
+  background-position: 0px 6px;
   color: #dfdfdf;
   text-decoration: none;
 }
 
 #accessibility_menu a:hover {
-  color: #fff;
+  color: #ffffff;
+}
+
+/* Div Header */
+
+#user_options a {
+height: 35px !important ;
+color: #ffffff !important ;
+font-size: 10px !important ;
+font-family: Sans-serif !important ;
+font-weight: bold !important ;
+vertical-align: middle !important ;
+padding: 0px 5px 0px 5px !important ;
+text-decoration: underline !important ;
+}
+
+/* Itens Navigation Bar */
+
+#navigation_bar {
+  float: left;
+  padding: 0px !important;
+  margin: 0px !important;
+  height: 33px;
+  vertical-align: middle;
+  line-height: 33px;
 }
 
 #navigation_bar ul {
-  float: right;
-  margin: 7px;
-  padding: 0px;
-  right: 0px;
-  text-align: right;
-  top: 0px;
+  padding: 0px !important;
+  margin: 0px !important;
 }
 
 #navigation_bar ul li {
@@ -63,20 +71,122 @@ padding: 0px;
 #navigation_bar ul li a {
   padding-left: 5px;
   padding-right: 5px;
-  padding-top: -2px;
   padding-bottom: 3px;
   color: #fff;
   text-decoration: none;
 }
 
+#navigation_bar ul ul {
+margin: 0px;
+padding: 0px;
+width: 100%;
+left: 0px;
+position: absolute;
+margin-top: 33px;
+display: none;
+}
+
 #navigation_bar ul li ul {
   padding: 10px;
+  z-index: 999;
 }
 
 #navigation_bar ul li ul li {
  display: block;
- float: right;
+ display: inline;
  margin: 5px;
+}
+
+#search_box {
+display: block;
+position: absolute;
+right: 0px;
+top: 25px;
+margin-right: 10px;
+height: 20px;
+line-height: 20px;
+vertical-align: middle;
+}
+
+#input_search {
+border: 1px outset #545454;
+color: #545454;
+background-color: #dfdfdf;
+height: 20px;
+width: 130px;
+font-size: 12px;
+}
+
+#input_search:hover, #input_search:focus {
+border: 1px inset #dfdfdf;
+color: black;
+background-color: white;
+}
+
+#button_search {
+border: 1px outset #545454;
+background-color: #dfdfdf;
+color: #545454;
+height: 20px;
+font-size: 11px;
+}
+
+#button_search:hover, #button_search:focus {
+background-color: #ffffff;
+color: #545454;
+border: 1px inset #dfdfdf;
+}
+
+#content {
+margin-top: 55px;
+}
+
+
+/* Path Category */
+
+#path_category {
+  clear: both;
+  padding: 3px;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: left;
+  color: #fff;
+}
+
+/* Itens Colors Change */
+
+/* ITEM 0 */
+
+#noosfero_bar.category {
+  background: #204a87 url("../images/bg_noosfero_bar.png") repeat-x;
+}
+
+#wrap.category {
+border: 5px solid #204a87 !important;
+}
+
+#category a {
+  border: 1px outset #6692c4;
+  background: #204a87 url("../images/bg_item_bar_blue_off.png") repeat-x;
+}
+
+#category a:hover, li#category.active a:hover {
+  border: 1px inset #6692c4 !important;
+  background: #3b6096 url("../images/bg_item_bar_blue_on.png") repeat-x !important;
+}
+
+li#category.active a {
+  border: 1px inset #6692c4;
+  background: #719ece url("../images/bg_item_bar_blue_active.png") repeat-x;
+}
+
+li#category ul li a {
+  border: 1px outset #6692c4 !important;
+  background: #204a87 url("../images/bg_item_bar_blue_off.png") repeat-x !important;
+}
+
+#category ul {
+  background: #204a87 url("../images/bg_noosfero_bar.png") repeat-x;
 }
 
 
@@ -87,7 +197,7 @@ padding: 0px;
 }
 
 #wrap.category1 {
-border: 6px solid #204a87 !important;
+border: 5px solid #204a87 !important;
 }
 
 #category1 a {
@@ -122,7 +232,7 @@ li#category1 ul li a {
 }
 
 #wrap.category2 {
-border: 6px solid #a40000 !important;
+border: 5px solid #a40000 !important;
 }
 
 #category2 a {
@@ -152,7 +262,7 @@ li#category2.active a {
 }
 
 #wrap.category3 {
-border: 6px solid #204a87 !important;
+border: 5px solid #204a87 !important;
 }
 
 #category3 a {
@@ -178,7 +288,6 @@ li#category3 ul li a {
 #category3 ul {
   background: #204a87 url("../images/bg_noosfero_bar.png") repeat-x;
 }
-
 
 /* ITEM 4 red */
 
@@ -209,51 +318,3 @@ li#category4.active a {
   background: #a40000 url("../images/bg_noosfero_bar_red.png") repeat-x;
 }
 
-#navigation_bar ul ul {
-margin: 0px;
-padding: 0px;
-width: 100%;
-left: 0px;
-position: absolute;
-margin-top: 34px;
-display: none;
-}
-
-#search_box {
-display: none;
-clear: both;
-}
-
-#content {
-  margin-top: 60px;
-}
-
-#header {
-  clear: left;
-  padding: 3px;
-  text-align: left;
-  margin-left: -290px;
-}
-
-#header a {
-height: 35px !important ;
-color: #ffffff !important ;
-font-size: 10px !important ;
-font-family: Sans-serif !important ;
-font-weight: bold !important ;
-vertical-align: middle !important ;
-padding: 0px 5px 0px 5px !important ;
-text-decoration: underline !important ;
-}
-
-div#category {
-  font-size: 16px;
-  font-weight: bold;
-  background: #f0f0f0;
-  text-align: right;
-  margin-left: 3px;
-  margin-right: 3px;
-  margin-top: -3px;
-  padding: 2px;
-  margin-bottom: 1em;
-}
