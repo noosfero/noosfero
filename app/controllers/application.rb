@@ -10,7 +10,6 @@ class ApplicationController < ActionController::Base
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem
   extend PermissionCheck
-
   init_gettext 'noosfero'
 
   before_filter :detect_stuff_by_domain, :load_profile_from_params

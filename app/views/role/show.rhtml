@@ -3,7 +3,7 @@
 <h3> <%= _('Permissions') %> </h3>
 <ul>
   <% @role.permissions.each do |p| %>
-    <li> <%= Role.permission_name(p) %> </li> 
+    <li> <%= permission_name(p) %> </li> 
   <% end %>
 </ul>
 

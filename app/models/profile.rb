@@ -3,6 +3,13 @@
 # which by default is the one returned by Environment:default.
 class Profile < ActiveRecord::Base
 
+  PERMISSIONS[:profile] = {
+    'edit_profile' => N_('Edit profile'),
+    'destroy_profile' => N_('Destroy profile'),
+    'manage_memberships' => N_('Manage memberships'),
+    'post_content' => N_('Post content'),
+  }
+  
   after_create do |profile|
     homepage = Article.new
     homepage.title = profile.name
