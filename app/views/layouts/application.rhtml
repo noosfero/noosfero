@@ -92,10 +92,9 @@
 	</div>
 
       </div><!-- id="noosfero_bar" -->
-
-        <div id='header'><!-- Aqui eh um cabeçalho especifico do layout interno/usuario -->
-        </div><!-- id='header' -->
-
+    <div id='frame'><!-- Frame que envolve toda pagina de um usuario -->
+     <div id='header'><!-- Abaixo um cabeçalho especifico para a pagina de usuario. -->
+     </div><!-- id='header' -->
       <div id='content'>
         <!-- <a name='main_content'/></a> -->
         <!-- Aqui entra um conteudo tipo o titulo da pagina do usuário e os botoes do comatose? -->
@@ -110,10 +109,9 @@
           <%= design_display(yield) %>
         <% end %>
       </div><!-- id="content" -->
-
       <div id="footer_content"><!-- Rodape do onteudo -->
       </div><!-- id="footer_content" -->
-
+   </div><!-- id="frame" -->
     </div><!-- id="wrap" -->
 
       <div id="footer">
