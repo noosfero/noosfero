@@ -47,6 +47,10 @@ height: 135px;
   top: 200px;
 }
 
+#footer_content {
+clear: both;
+}
+
 #footer {
   clear: both;
   text-align: center;

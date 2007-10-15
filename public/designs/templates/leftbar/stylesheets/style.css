@@ -43,6 +43,11 @@ margin-left: 205px;
   top: 200px;
 }
 
+
+#footer_content {
+clear: both;
+}
+
 #footer {
 margin: 0px;
 padding: 5px;
