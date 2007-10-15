@@ -1,6 +1,9 @@
 <ul>
-  <li>
-  <%= link_to Noosfero::PROJECT, :controller => 'home' %>
+  <li id='category' class="active">
+  Noosfero
+    <ul>
+      <li><%= link_to Noosfero::PROJECT, :controller => 'home' %> <%= header %></li>
+    </ul>
   </li>
   <% @environment.display_categories.each do |item| %>
     <li id='category<%= item.display_color %>' <%= 'class="active"' if (@category && (@category.top_ancestor == item)) %> >
