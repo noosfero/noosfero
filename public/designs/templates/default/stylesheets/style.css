@@ -52,7 +52,7 @@ height: 135px;
   text-align: center;
   font-size: smaller;
   color: #333;
-  margin-top: 2em;
+  margin: 0px;
   padding: 5px;
   background: #c5d0df url("../images/bg_footer.png") top left repeat-x;
 }
