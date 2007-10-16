@@ -1,8 +1,8 @@
 <ul>
-  <li id='category' class="active">
-  Noosfero
+  <li id='category' <%= 'class="active"' unless @category %>  >
+  <%= Noosfero::PROJECT.capitalize %>
     <ul>
-      <li><%= link_to Noosfero::PROJECT, :controller => 'home' %> <%= header %></li>
+      <li><%= link_to _('Home'), :controller => 'home' %> <%= header %></li>
     </ul>
   </li>
   <% @environment.display_categories.each do |item| %>

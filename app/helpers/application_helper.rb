@@ -146,6 +146,25 @@ module ApplicationHelper
     content_tag('span', (link_to _('Logout'), { :controller => 'account', :action => 'logout'}, :method => 'post'), :id => 'logout_box')
   end
 
+  def account_links
+    
+
+  end
+
+  def admin_links
+  end
+  
+  def user_options
+    case params[:controller]
+      when 'account'
+        account_links
+      when 'admin' 
+        admin_links
+      else
+        nil
+    end
+  end
+
   def footer
     # FIXME: add some information from the environment
     [
