@@ -39,6 +39,16 @@ class ApplicationController < ActionController::Base
     @profile
   end
 
+  def self.needs_profile
+    before_filter :load_profile
+    design :holder => 'profile'
+  end
+
+  def load_profile
+    @profile = Profile.find_by_identifier(params[:profile])
+    raise "There is no profile with identifier %s" % params[:profile] if @profile.nil?
+  end
+
   def self.acts_as_environment_admin_controller
     before_filter :load_admin_controller
   end

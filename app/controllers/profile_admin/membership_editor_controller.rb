@@ -1,7 +1,9 @@
 class MembershipEditorController < ProfileAdminController
-  
-  before_filter :logon 
 
+  before_filter :login_required
+
+  needs_profile 
+ 
   def index
     @memberships = current_user.person.memberships
   end
@@ -30,9 +32,4 @@ class MembershipEditorController < ProfileAdminController
     @tagged_enterprises = Enterprise.search(params[:query])
   end
 
-  protected
-
-  def logon
-    redirect_to :controller => :account unless logged_in?
-  end
 end

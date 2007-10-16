@@ -1,5 +1,7 @@
 class ContentViewerController < PublicController
 
+  needs_profile
+
   def view_page
     path = params[:page].clone
     path.unshift(params[:profile])

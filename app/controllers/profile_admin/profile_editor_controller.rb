@@ -1,6 +1,17 @@
 class ProfileEditorController < ProfileAdminController
   helper :profile
 
+  design_editor :holder => 'profile', :autosave => true, :block_types => :block_types
+
+  def block_types
+    {
+      'ListBlock' => _("List Block"),
+      'LinkBlock' => _("Link Block"),
+      'Design::MainBlock' => _('Main content block'),
+    }
+  end
+
+
   # edits the profile info (posts back)
   def edit
     if request.post?

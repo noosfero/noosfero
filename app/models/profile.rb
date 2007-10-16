@@ -25,6 +25,8 @@ class Profile < ActiveRecord::Base
   
   acts_as_accessible
 
+  acts_as_design
+
   acts_as_ferret :fields => [ :name ]
 
   # Valid identifiers must match this format.

@@ -1,9 +1,11 @@
 class EnterpriseEditorController < ProfileAdminController
   
-  before_filter :logon, :check_enterprise
+  before_filter :login_required, :check_enterprise
+
   protect [:edit, :update], :edit_profile, :profile
   protect [:destroy], :destroy_profile, :profile
 
+  needs_profile
 
   # Show details about an enterprise  
   def index
@@ -44,13 +46,6 @@ class EnterpriseEditorController < ProfileAdminController
   end
 
   protected
-
-  def logon
-    if logged_in?
-      @user = current_user
-      @person = @user.person
-    end
-  end
 
   def check_enterprise
     redirect_to '/' unless @profile.is_a?(Enterprise)
