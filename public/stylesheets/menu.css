@@ -161,7 +161,7 @@ border: 1px inset #dfdfdf;
 
 #noosfero_bar.category {
   background: url("../images/bg_bgmenu.png") repeat-x;
-  background-position: 0px 11px;
+  background-position: 0px -11px;
 }
 
 #navigation_bar ul li#category ul {
@@ -179,6 +179,10 @@ border: 1px inset #dfdfdf;
 
 li#category.active a {
   background-position: 0px -38px;
+}
+
+li#category:hover a {
+background-position: 0px -76px !important;
 }
 
 li#category ul li a {
@@ -214,6 +218,10 @@ li#category1.active a {
   background-position: -124px -38px;
 }
 
+li#category1:hover a {
+background-position: -124px -76px !important;
+}
+
 li#category1 ul li a {
   color: white;
   background: #ce5c00;
@@ -247,6 +255,10 @@ li#category2.active a {
   background-position: -246px -38px;
 }
 
+li#category2:hover a {
+background-position: -246px -76px !important;
+}
+
 li#category2 ul li a {
   color: white;
   background: #4e9a06;
@@ -278,6 +290,10 @@ border: 5px solid #5c3566 !important;
 
 li#category3.active a {
   background-position: -368px -38px;
+}
+
+li#category3:hover a {
+background-position: -368px -76px !important;
 }
 
 li#category3 ul li a {
