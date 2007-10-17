@@ -146,23 +146,58 @@ module ApplicationHelper
     content_tag('span', (link_to _('Logout'), { :controller => 'account', :action => 'logout'}, :method => 'post'), :id => 'logout_box')
   end
 
-  def account_links
-    
-
+  def link_if_permitted(link, permission = nil, target = nil)
+    if permission.nil? || current_user.person.has_permission?(permission, target)
+      link
+    else
+      nil
+    end
   end
 
   def admin_links
+    environment = current_user.person.environment
+    links = [
+      [(link_to _('Features'), :controller => 'features'), 'edit_environment_features', environment],
+      [(link_to _('Edit visual'), :controller => 'edit_template'), 'edit_environment_design', environment],
+      [(link_to _('Manage categories'), :controller => 'categories'), 'manage_environment_categories', environment],
+      [(link_to _('Manage permissions'), :controller => 'role'), 'manage_environment_roles', environment],
+      [(link_to _('Manage validators'), :controller => 'region_validators'), 'manage_environment_validators', environment],
+    ]
+  end
+
+  def membership_links
+    links = [
+      [(link_to _('New enterprise'), :controller => 'membership_editor', :action => 'new_enterprise'),'create_enterprise_for_profile', profile],
+    ]
   end
   
+  def profile_links
+    links = [
+      [(link_to_myprofile _('Edit visual design'), :controller => 'profile_editor', :action => 'design_editor'), 'edit_profile_design', profile],
+      [(link_to_myprofile _('Edit informations'), :controller => 'profile_editor'), 'edit_profile', profile],
+      [(link_to_myprofile _('Manage content'), :controller => 'cms'), 'post_content', profile],
+    ]
+
+    if profile.kind_of?(Enterprise)
+      links << [(link_to_myprofile _('Exclude'), :controller => 'enterprise_editor', :action => 'destroy'), 'edit_profile', profile]
+    else
+      links
+    end
+  end
+
+
+  #FIXME: find a way of accessing environment from here
   def user_options
     case params[:controller]
-      when 'account'
-        account_links
-      when 'admin' 
+      when 'admin_panel'
         admin_links
+      when 'membership_editor'
+        membership_links
+      when 'profile_editor'
+        profile_links
       else
-        nil
-    end
+        []
+    end.map{|l| link_if_permitted(l[0], l[1], l[3]) }
   end
 
   def footer

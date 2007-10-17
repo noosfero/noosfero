@@ -8,6 +8,7 @@ class ProfileEditorController < ProfileAdminController
       'ListBlock' => _("List Block"),
       'LinkBlock' => _("Link Block"),
       'Design::MainBlock' => _('Main content block'),
+      'RecentDocumentsBlock' => _("Recent documents block")
     }
   end
 
