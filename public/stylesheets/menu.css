@@ -1,6 +1,7 @@
 /* Geral Bar */
 #noosfero_bar {
   position: fixed;
+  height: 11px;
   padding: 0px;
   margin-top: -5px;
   font-family: Verdana, Arial, Serif-sans;
@@ -10,8 +11,9 @@
 /* Menu Itens Accessibility */
 
 #accessibility_menu {
-  float: right;
-  margin-right: 10px;
+  position: absolute;
+  right: 10px;
+  top: 35px;
   font-family: Verdana, Arial, Serif-sans;
   font-size: 10px;
   color: #dfdfdf;
@@ -50,9 +52,9 @@ text-decoration: underline !important ;
   float: left;
   padding: 0px !important;
   margin: 0px !important;
-  height: 33px;
+  height: 40px;
   vertical-align: middle;
-  line-height: 33px;
+  line-height: 40px;
 }
 
 #navigation_bar ul {
@@ -68,9 +70,14 @@ text-decoration: underline !important ;
 }
 
 #navigation_bar ul li a {
-  padding-left: 5px;
-  padding-right: 5px;
-  padding-bottom: 3px;
+  float: left;
+  display: block;
+  margin-top: 5px;
+  text-align: center;
+  width: 124px;
+  height: 38px;
+  line-height: 38px;
+  vertical-align: middle;
   color: #fff;
   text-decoration: none;
 }
@@ -81,26 +88,27 @@ padding: 0px;
 width: 100%;
 left: 0px;
 position: absolute;
-margin-top: 33px;
+top: 40px;
 display: none;
-}
-
-#navigation_bar ul li ul {
-  padding: 10px;
-  z-index: 999;
+z-index: 999;
 }
 
 #navigation_bar ul li ul li {
- display: block;
+ text-align: center;
+}
+
+#navigation_bar ul li ul li a {
  display: inline;
- margin: 5px;
+ width: auto;
+ padding-left: 5px;
+ padding-right: 5px;
+ margin: 0px;
+ text-align: center;
 }
 
 #search_box {
-display: block;
-position: absolute;
-right: 0px;
-top: 25px;
+float: right;
+margin-top: 10px;
 margin-right: 10px;
 height: 20px;
 line-height: 20px;
@@ -136,10 +144,6 @@ color: #545454;
 border: 1px inset #dfdfdf;
 }
 
-#frame {
-margin-top: 34px;
-}
-
 /* Path Category */
 
 #path_category {
@@ -156,163 +160,133 @@ margin-top: 34px;
 /* ITEM 0 */
 
 #noosfero_bar.category {
-  background: #204a87 url("../images/bg_noosfero_bar.png") repeat-x;
+  background: url("../images/bg_bgmenu.png") repeat-x;
+  background-position: 0px 11px;
+}
+
+#navigation_bar ul li#category ul {
+ background-color: #204a87 !important;
 }
 
 #wrap.category {
-border: 5px solid #204a87 !important;
+  border: 5px solid #204a87 !important;
 }
 
 #category a {
-  border: 1px outset #6692c4;
-  background: #204a87 url("../images/bg_item_bar_blue_off.png") repeat-x;
-}
-
-#category a:hover, li#category.active a:hover {
-  border: 1px inset #6692c4 !important;
-  background: #3b6096 url("../images/bg_item_bar_blue_on.png") repeat-x !important;
+  background: url("../images/bg_menu_options.png") no-repeat;
+  background-position: 0px 0px;
 }
 
 li#category.active a {
-  border: 1px inset #6692c4;
-  background: #719ece url("../images/bg_item_bar_blue_active.png") repeat-x;
+  background-position: 0px -38px;
 }
 
 li#category ul li a {
-  border: 1px outset #6692c4 !important;
-  background: #204a87 url("../images/bg_item_bar_blue_off.png") repeat-x !important;
+  color: white;
+  background: #204a87;
+  border-right: 1px solid black;
 }
 
-#category ul {
-  background: #204a87 url("../images/bg_noosfero_bar.png") repeat-x;
+li#category ul li a:hover {
+  color: black;
 }
 
-
-/* ITEM 1 */
-
+/* ITEM 1 - Orange */
 #noosfero_bar.category1 {
-  background: #204a87 url("../images/bg_noosfero_bar.png") repeat-x;
+  background: url("../images/bg_bgmenu.png") repeat-x;
+  background-position: 0px 0px;
+}
+
+#navigation_bar ul li#category1 ul {
+ background-color: #ce5c00 !important;
 }
 
 #wrap.category1 {
-border: 5px solid #204a87 !important;
+border: 5px solid #ce5c00 !important;
 }
 
 #category1 a {
-  border: 1px outset #6692c4;
-  background: #204a87 url("../images/bg_item_bar_blue_off.png") repeat-x;
-}
-
-#category1 a:hover, li#category1.active a:hover {
-  border: 1px inset #6692c4 !important;
-  background: #3b6096 url("../images/bg_item_bar_blue_on.png") repeat-x !important;
+  background: url("../images/bg_menu_options.png") no-repeat;
+  background-position: -124px 0px;
 }
 
 li#category1.active a {
-  border: 1px inset #6692c4;
-  background: #719ece url("../images/bg_item_bar_blue_active.png") repeat-x;
+  background-position: -124px -38px;
 }
 
 li#category1 ul li a {
-  border: 1px outset #6692c4 !important;
-  background: #204a87 url("../images/bg_item_bar_blue_off.png") repeat-x !important;
+  color: white;
+  background: #ce5c00;
+  border-right: 1px solid black;
 }
 
-#category1 ul {
-  background: #204a87 url("../images/bg_noosfero_bar.png") repeat-x;
+li#category1 ul li a:hover {
+  color: black;
 }
 
-
-/* ITEM 2 red */
-
+/* ITEM 2 - Green */
 #noosfero_bar.category2 {
-  background: #a40000 url("../images/bg_noosfero_bar_red.png") repeat-x;
+  background: url("../images/bg_bgmenu.png") repeat-x;
+  background-position: 0px -22px;
+}
+
+#navigation_bar ul li#category2 ul {
+ background-color: #4e9a06 !important;
 }
 
 #wrap.category2 {
-border: 5px solid #a40000 !important;
+border: 5px solid #4e9a06 !important;
 }
 
 #category2 a {
-  border: 1px outset #a40000;
-  background: #a40000 url("../images/bg_item_bar_red_off.png") repeat-x;
-}
-
-#category2 a:hover, li#category2.active a:hover {
-  border: 1px inset #a40000;
-  background: #ae1c1c url("../images/bg_item_bar_red_on.png") repeat-x;
+  background: url("../images/bg_menu_options.png") no-repeat;
+  background-position: -246px 0px;
 }
 
 li#category2.active a {
-  border: 1px inset #a40000;
-  background: #ee2828 url("../images/bg_item_bar_red_active.png") repeat-x;
+  background-position: -246px -38px;
 }
 
-#category2 ul {
-  background: #a40000 url("../images/bg_noosfero_bar_red.png") repeat-x;
+li#category2 ul li a {
+  color: white;
+  background: #4e9a06;
+  border-right: 1px solid black;
 }
 
+li#category2 ul li a:hover {
+  color: black;
+}
 
-/* ITEM 3 */
-
+/* ITEM 3 - Purple */
 #noosfero_bar.category3 {
-  background: #204a87 url("../images/bg_noosfero_bar.png") repeat-x;
+  background: url("../images/bg_bgmenu.png") repeat-x;
+  background-position: 0px -33px;
 }
 
+#navigation_bar ul li#category3 ul {
+ background-color: #5c3566 !important;
+}
+ 
 #wrap.category3 {
-border: 5px solid #204a87 !important;
+border: 5px solid #5c3566 !important;
 }
 
 #category3 a {
-  border: 1px outset #6692c4;
-  background: #204a87 url("../images/bg_item_bar_blue_off.png") repeat-x;
-}
-
-#category3 a:hover, li#category3.active a:hover {
-  border: 1px inset #6692c4 !important;
-  background: #3b6096 url("../images/bg_item_bar_blue_on.png") repeat-x !important;
+  background: url("../images/bg_menu_options.png") no-repeat;
+  background-position: -368px 0px;
 }
 
 li#category3.active a {
-  border: 1px inset #6692c4;
-  background: #719ece url("../images/bg_item_bar_blue_active.png") repeat-x;
+  background-position: -368px -38px;
 }
 
 li#category3 ul li a {
-  border: 1px outset #6692c4 !important;
-  background: #204a87 url("../images/bg_item_bar_blue_off.png") repeat-x !important;
+  color: white;
+  background: #5c3566;
+  border-right: 1px solid black;
 }
 
-#category3 ul {
-  background: #204a87 url("../images/bg_noosfero_bar.png") repeat-x;
-}
-
-/* ITEM 4 red */
-
-#noosfero_bar.category4 {
-  background: #a40000 url("../images/bg_noosfero_red.png") repeat-x;
-}
-
-#wrap.category4 {
-border: 6px solid #a40000 !important;
-}
-
-#category4 a {
-  border: 1px outset #a40000;
-  background: #a40000 url("../images/bg_item_bar_red_off.png") repeat-x;
-}
-
-#category4 a:hover, li#category4.active a:hover {
-  border: 1px inset #a40000;
-  background: #ae1c1c url("../images/bg_item_bar_red_on.png") repeat-x;
-}
-
-li#category4.active a {
-  border: 1px inset #a40000;
-  background: #ee2828 url("../images/bg_item_bar_red_active.png") repeat-x;
-}
-
-#category4 ul {
-  background: #a40000 url("../images/bg_noosfero_bar_red.png") repeat-x;
+li#category3 ul li a:hover {
+  color: black;
 }
 
