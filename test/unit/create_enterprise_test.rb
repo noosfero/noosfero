@@ -115,4 +115,29 @@ class CreateEnterpriseTest < Test::Unit::TestCase
     end
   end
 
+  should 'validate that eveything is ok but the validator (target)' do
+    Environment.destroy_all
+    environment = Environment.create!(:name => "My environment", :contact_email => 'test@localhost.localdomain', :is_default => true)
+    region = Region.create!(:name => 'My region', :environment_id => environment.id)
+    validator = Organization.create!(:name => "My organization", :identifier => 'myorg', :environment_id => environment.id)
+    region.validators << validator
+    person = User.create!(:login => 'testuser', :password => 'test', :password_confirmation => 'test', :email => 'testuser@localhost.localdomain').person
+    task = CreateEnterprise.new({
+      :name => 'My new enterprise',
+      :identifier => 'mynewenterprise',
+      :address => 'satan street, 666',
+      :contact_phone => '1298372198',
+      :contact_person => 'random joe',
+      :legal_form => 'cooperative',
+      :economic_activity => 'free software',
+      :region_id => region.id,
+      :requestor_id => person.id,
+    })
+
+    assert !task.valid? && task.valid_before_selecting_target?
+
+    task.target = validator
+    assert task.valid?
+  end
+
 end

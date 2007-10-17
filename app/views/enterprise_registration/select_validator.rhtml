@@ -1,0 +1,18 @@
+<h2><%= _('Enterprise Registration: Select a validator organization') %></h2>
+
+<p>
+<%= _('Select one organization to validate your enterprise registration request. Check the provided information about their validation methodoly and criteria.') %>
+</p>
+
+<% form_tag do %>
+  <%= render :partial => 'hidden_fields' %>
+
+  <% for validator in @validators %>
+    <div>
+      <%= radio_button_tag('create_enterprise[target_id]', validator.id) %>
+      <%= validator.name %>
+    </div>
+  <% end %>
+
+  <%= submit_tag _('Confirm') %>
+<% end %>

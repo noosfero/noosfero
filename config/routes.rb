@@ -22,7 +22,9 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'account/new_password/:code', :controller => 'account', :action => 'new_password'
 
   map.connect 'account/:action', :controller => 'account'
- 
+
+  # enterprise registration
+  map.connect 'enterprise_registration/:action', :controller => 'enterprise_registration'
 
   ######################################################
   ## Controllers that are profile-specific (for profile admins )

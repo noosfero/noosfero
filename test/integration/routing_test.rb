@@ -21,6 +21,10 @@ class RoutingTest < ActionController::IntegrationTest
     assert_routing('/account', :controller => 'account', :action => 'index')
   end
 
+  def test_enterprise_registration_controller
+    assert_routing('/enterprise_registration', :controller => 'enterprise_registration', :action => 'index')
+  end
+
   def test_new_password
     assert_routing('/account/new_password/90dfhga7sadgd0as6saas', :controller => 'account', :action => 'new_password', :code => '90dfhga7sadgd0as6saas')
   end

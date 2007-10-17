@@ -1,0 +1,36 @@
+<%= error_messages_for 'create_enterprise' %>
+
+<h2><%= _('Register enterprise') %></h2>
+
+<h3> <%= _('How to proceed') %> </h3>
+<p> <%= _('Fill the form and hit the Register button then the enterprise will be submitted for evaluation at the validation entitiy of your choice (within your state), when the enterprise is aproved you will be able to activate its profile')  %> </p>
+
+<% labelled_form_for(:create_enterprise, @create_enterprise) do |f| %>
+  <%= f.text_field 'identifier', 'size' => 20 %>
+
+  <%= f.text_field 'name', 'size' => 20 %>
+  
+  <%= f.text_field 'address', 'size' => 50 %>
+
+  <%= f.text_field 'contact_phone', 'size' => 20 %>
+  
+  <%= f.text_field 'contact_person', 'size' => 20  %>
+  
+  <%= f.text_field 'acronym', 'size' => 20 %>
+  
+  <%= f.text_field 'foundation_year', 'size' => 20  %>
+  
+  <%= f.text_field 'legal_form', 'size' => 20 %>
+  
+  <%= f.text_field 'economic_activity', 'size' => 20 %>
+  
+  <%= labelled_form_field(_('Management information'), text_editor('create_enterprise', 'management_information')) %>
+
+  <%= f.select('region_id', @regions) %>
+
+  <div>
+    <%= submit_tag _('Register') %>
+    <%= link_to _('Cancel'), :action => 'index' %>
+  </div>
+
+<% end %>

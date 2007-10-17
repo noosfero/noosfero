@@ -34,6 +34,14 @@ class CreateEnterprise < Task
     end
   end
 
+  def valid_before_selecting_target?
+    if valid?
+      true
+    else
+      self.errors.size == 1 and self.errors[:target_id]
+    end
+  end
+
   # gets the associated region for the enterprise creation
   def region(reload = false)
     if self.region_id

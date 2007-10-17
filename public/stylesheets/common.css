@@ -34,3 +34,29 @@ padding-left: 60px !important ;
 color: #dfdfdf !important ;
 }
 
+div.fieldWithErrors {
+  display: inline;
+  background: yellow;
+}
+
+div.fieldWithErrors input {
+  border: 1px solid red;
+  background: #fee;
+}
+
+div#errorExplanation {
+  border: 2px solid #933;
+  background: #fee;
+  padding: 5px;
+}
+
+div#errorExplanation h2 {
+  margin-top: -5px;
+  margin-left: -5px;
+  margin-right: -5px;
+
+  padding: 3px;
+  background: #933;
+  color: white;
+  text-align: center;
+}
