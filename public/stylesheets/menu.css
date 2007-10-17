@@ -2,7 +2,6 @@
 #noosfero_bar {
   position: fixed;
   padding: 0px;
-  height: 60px;
   margin-top: -5px;
   font-family: Verdana, Arial, Serif-sans;
   z-index: 9999;
@@ -138,7 +137,7 @@ border: 1px inset #dfdfdf;
 }
 
 #frame {
-margin-top: 55px;
+margin-top: 34px;
 }
 
 /* Path Category */
