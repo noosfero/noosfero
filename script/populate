@@ -1,9 +1,22 @@
 #!/usr/bin/env ruby
 require File.dirname(__FILE__) + '/../config/environment'
 
+anhetegua = Profile.create!(:name => 'anhetegua', :identifier => 'anhetegua')
+
 User.create!(:login => 'testprofile', :email => 'admin@localhost.localdomain', :password => 'test', :password_confirmation => 'test')
 User.create!(:login => 'user', :email => 'user@localhost.localdomain', :password => 'user', :password_confirmation => 'user')
 User.create!(:login => 'usuario', :email => 'usuario@localhost.localdomain', :password => 'usuario', :password_confirmation => 'usuario')
-User.create!(:login => 'ze', :email => 'ze@localhost.localdomain', :password => 'test', :password_confirmation => 'test')
+ze = User.create!(:login => 'ze', :email => 'ze@localhost.localdomain', :password => 'test', :password_confirmation => 'test')
+root = User.create!(:login => 'root', :email => 'root@noosfero.org', :password => 'root', :password_confirmation => 'root').person
 
+admin_role = Role.create!(:name => 'admin', :permissions => ['edit_environment_features', 'edit_environment_design', 'manage_environment_categories', 'manage_environment_roles', 'manage_environment_validators'])
+
+RoleAssignment.create!(:accessor => root, :role => admin_role, :resource => nil)
+
+empa = Enterprise.create!(:name => 'Empreendimento A', :identifier => 'empreendimento_a')
+
+owner_role = Role.create!(:name => 'owner', :permissions => ['edit_profile', 'destroy_profile', 'manage_memberships', 'post_content', 'edit_profile_design'])
+
+RoleAssignment.create!(:accessor => ze, :role => owner_role, :resource => empa)
+RoleAssignment.create!(:accessor => root, :role => owner_role, :resource => anhetegua)
 

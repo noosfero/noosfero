@@ -52,4 +52,12 @@ class Person < Profile
   def email
     self.user.nil? ? nil : self.user.email
   end
+
+  def is_admin?
+    role_assignments.map{|ra|ra.role.permissions}.any? do |ps|
+      ps.any? do |p|
+        ActiveRecord::Base::PERMISSIONS[:environment].keys.include?(p)
+      end
+    end
+  end
 end

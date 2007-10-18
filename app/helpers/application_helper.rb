@@ -118,7 +118,7 @@ module ApplicationHelper
        ( link_to_homepage(current_user.login) ),
        ( link_to(_('My account'), { :controller => 'account' }) ),
        ( link_to_myprofile _('My Enterprises'), {:controller => 'membership_editor'} ),
-       ( link_to(_('Admin'), { :controller => 'admin_panel' }) if current_user.person.role_assignments.map{|ra| ra.role.permissions}.any?{|ps|ps.any?{|p|ActiveRecord::Base::PERMISSIONS[:environment].keys.include?(p)}}),
+       ( link_to(_('Admin'), { :controller => 'admin_panel' }) if current_user.person.is_admin?),
     ].join("\n")
     content_tag('span', links, :id => 'user_links')
   end
@@ -174,20 +174,19 @@ module ApplicationHelper
   
   def person_links
     links = [
-      [(link_to_myprofile _('Edit visual design'), :controller => 'profile_editor', :action => 'design_editor'), 'edit_profile_design', profile],
-      [(link_to_myprofile _('Edit profile'), :controller => 'profile_editor'), 'edit_profile', profile],
-      [(link_to_myprofile _('Manage content'), :controller => 'cms'), 'post_content', profile],
+      [(link_to_myprofile _('Edit visual design'), {:controller => 'profile_editor', :action => 'design_editor'}, profile.identifier), 'edit_profile_design', profile],
+      [(link_to_myprofile _('Edit profile'), {:controller => 'profile_editor'}, profile.identifier), 'edit_profile', profile],
+      [(link_to_myprofile _('Manage content'), {:controller => 'cms'}, profile.identifier), 'post_content', profile],
     ]
-
   end
 
   
   def enterprise_links
     links = [
-      [(link_to_myprofile _('Edit visual design'), :controller => 'profile_editor', :action => 'design_editor'), 'edit_profile_design', profile],
-      [(link_to_myprofile _('Edit informations'), :controller => 'profile_editor'), 'edit_profile', profile],
-      [(link_to_myprofile _('Manage content'), :controller => 'cms'), 'post_content', profile],
-      [(link_to_myprofile _('Exclude'), :controller => 'enterprise_editor', :action => 'destroy'), 'edit_profile', profile],
+      [(link_to_myprofile _('Edit visual design'), {:controller => 'profile_editor', :action => 'design_editor'}, profile), 'edit_profile_design', profile],
+      [(link_to_myprofile _('Edit informations'), {:controller => 'profile_editor'}, profile), 'edit_profile', profile],
+      [(link_to_myprofile _('Manage content'), {:controller => 'cms'}, profile), 'post_content', profile],
+      [(link_to_myprofile _('Exclude'), {:controller => 'enterprise_editor', :action => 'destroy'}, profile), 'edit_profile', profile],
     ]
   end
 
@@ -237,7 +236,7 @@ module ApplicationHelper
   # Current implementation generates a <label> tag for +label+ and wrap the
   # label and the control with a <div> tag with class 'formfield' 
   def display_form_field(label, html_for_field)
-    content_tag('div', content_tag('div', content_tag('label', label)) + html_for_field, :class => 'formfield') 
+    content_tag('div', content_tag('div', content_tag('label', label)) +html_for_field, :class => 'formfield') 
   end
 
   alias_method :labelled_form_field, :display_form_field
