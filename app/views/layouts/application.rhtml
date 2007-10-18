@@ -61,26 +61,11 @@
 
     <div id="wrap" class='category<%= category_color %>'>
       <div id='noosfero_bar' class='category<%= category_color %>'>
+       <div id='top_bar' class='category<%= category_color %>'>
         <div id='accessibility_menu'>
           <a href='#content' title='Ir para o conteúdo'>Ir para conteúdo</a>
 	  <a href='#'>Acessibilidade</a>
         </div><!-- accessibility_menu -->
-
-        <div id='search_box'>
-          <form id='search_box_form' action="" method="GET">
-            <input id="input_search" type='text' name='q' value='<%= _('Your search here ...')%>'>
-            <input id="button_search" type='submit' value='<%= _('Search')%>'>
-          </form>
-        </div><!-- id='search_box' -->
-
-        <div id='navigation_bar'>
-          <%= render :file => 'shared/categories_menu' %>
-        </div><!-- id='navigation_bar' -->
-
-        <script type="text/javascript">
-          prepareMenu('navigation_bar', { timeout: 50 });
-        </script>
-
 	<div id='path_category'>
         <% if @category %>
             <%= @category.full_name %>
@@ -90,6 +75,22 @@
 	</div><!-- id='user_options' -->
         <% end %>
 	</div>
+       </div>
+        <div id='search_box'>
+          <form id='search_box_form' action="" method="GET">
+            <input id="input_search" type='text' name='q' value='<%= _('Your search here ...')%>'>
+            <input id="button_search" type='submit' value='<%= _('Search')%>'>
+          </form>
+        </div><!-- id='search_box' -->
+
+        <div id='navigation_bar' class='category<%= category_color %>'>
+          <%= render :file => 'shared/categories_menu' %>
+        </div><!-- id='navigation_bar' -->
+
+        <script type="text/javascript">
+          prepareMenu('navigation_bar', { timeout: 10 });
+        </script>
+
 
       </div><!-- id="noosfero_bar" -->
     <div id='frame'><!-- Frame que envolve toda pagina de um usuario -->

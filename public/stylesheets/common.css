@@ -60,3 +60,9 @@ div#errorExplanation h2 {
   color: white;
   text-align: center;
 }
+
+div#footer {
+background: #ffffff url("../images/bg_footer.png") repeat-x !important;
+background-position: 0px 0px;
+}
+

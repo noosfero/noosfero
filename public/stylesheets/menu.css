@@ -4,6 +4,7 @@
   height: 11px;
   padding: 0px;
   margin-top: -5px;
+  margin-right: 5px;
   font-family: Verdana, Arial, Serif-sans;
   z-index: 9999;
 }
@@ -11,9 +12,8 @@
 /* Menu Itens Accessibility */
 
 #accessibility_menu {
-  position: absolute;
-  right: 10px;
-  top: 35px;
+  float: right;
+  margin-right: 10px;
   font-family: Verdana, Arial, Serif-sans;
   font-size: 10px;
   color: #dfdfdf;
@@ -33,17 +33,19 @@
   color: #ffffff;
 }
 
-/* Div Header */
+/* Top Bar */
 
-#user_options a {
-height: 35px !important ;
+#top_bar {
+height: 20px;
+line-height: 20px;
 color: #ffffff !important ;
-font-size: 10px !important ;
+font-size: 12px !important ;
 font-family: Sans-serif !important ;
 font-weight: bold !important ;
 vertical-align: middle !important ;
-padding: 0px 5px 0px 5px !important ;
-text-decoration: underline !important ;
+padding: 0px !important ;
+margin: 0px;
+text-align: left;
 }
 
 /* Itens Navigation Bar */
@@ -51,7 +53,7 @@ text-decoration: underline !important ;
 #navigation_bar {
   float: left;
   padding: 0px !important;
-  margin: 0px !important;
+  margin-top: -5px !important;
   height: 40px;
   vertical-align: middle;
   line-height: 40px;
@@ -83,12 +85,12 @@ text-decoration: underline !important ;
 }
 
 #navigation_bar ul ul {
+position: absolute;
+top: 58px;
 margin: 0px;
 padding: 0px;
 width: 100%;
 left: 0px;
-position: absolute;
-top: 40px;
 display: none;
 z-index: 999;
 }
@@ -108,11 +110,13 @@ z-index: 999;
 
 #search_box {
 float: right;
-margin-top: 10px;
-margin-right: 10px;
-height: 20px;
-line-height: 20px;
-vertical-align: middle;
+margin: 0px;
+width: 200px;
+height: 35px;
+padding-top: 5px;
+padding-left: 15px;
+background: url("../images/bg_searchbox.png") no-repeat;
+background-position: bottom left;
 }
 
 #input_search {
@@ -144,16 +148,7 @@ color: #545454;
 border: 1px inset #dfdfdf;
 }
 
-/* Path Category */
 
-#path_category {
-  clear: both;
-  padding: 3px;
-  font-size: 12px;
-  font-weight: bold;
-  text-align: left;
-  color: #fff;
-}
 
 /* Itens Colors Change */
 
@@ -170,6 +165,10 @@ border: 1px inset #dfdfdf;
 
 #wrap.category {
   border: 5px solid #204a87 !important;
+}
+
+#top_bar.category {
+background-color: #204a87;
 }
 
 #category a {
@@ -209,6 +208,10 @@ li#category ul li a:hover {
 border: 5px solid #ce5c00 !important;
 }
 
+#top_bar.category1 {
+background-color: #ce5c00;
+}
+
 #category1 a {
   background: url("../images/bg_menu_options.png") no-repeat;
   background-position: -124px 0px;
@@ -246,6 +249,10 @@ li#category1 ul li a:hover {
 border: 5px solid #4e9a06 !important;
 }
 
+#top_bar.category2 {
+background-color: #4e9a06;
+}
+
 #category2 a {
   background: url("../images/bg_menu_options.png") no-repeat;
   background-position: -246px 0px;
@@ -281,6 +288,10 @@ li#category2 ul li a:hover {
  
 #wrap.category3 {
 border: 5px solid #5c3566 !important;
+}
+
+#top_bar.category3 {
+background-color: #5c3566;
 }
 
 #category3 a {
