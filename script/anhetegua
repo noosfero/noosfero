@@ -2,6 +2,7 @@
 require File.dirname(__FILE__) + '/../config/environment'
 
 Environment.default.categories.destroy_all
+Organization.destroy_all
 
 def new_category(parent, name, color = nil)
   category = Environment.default.categories.build(:name => name, :display_color => color, :parent_id => (parent ? parent.id: nil))
@@ -13,6 +14,14 @@ def new_region(parent, name, color = nil)
   region = Environment.default.regions.build(:name => name, :display_color => color, :parent_id => (parent ? parent.id: nil))
   region.save!
   region
+end
+
+def new_validator(region, name, identifier)
+  org = Organization.new(:name => name, :identifier => identifier)
+  org.validation_info = ValidationInfo.new(:validation_methodology => 'some methodology we don\'t care about')
+  org.save!
+  region.validators << org
+  org
 end
 
 tematicas = new_category(nil, 'Temáticas', 1)
@@ -29,14 +38,13 @@ cadeias = new_category(nil, 'Cadeias', 3)
 new_category(cadeias, 'Algodão')
 new_category(cadeias, 'Tecnologia de Informação')
 
-
 # validators
-ba.validators << Organization.create!(:name => "Colivre", :identifier => 'colivre')
-ba.validators << Organization.create!(:name => "Forum Baiano de Economia Solidaraia", :identifier => 'ecosolbahia')
+new_validator(ba, "Colivre", 'colivre')
+new_validator(ba, "Forum Baiano de Economia Solidaraia", 'ecosolbahia')
 
-df.validators << Organization.create!(:name => 'Caritas', :identifier => 'caritas')
-df.validators << Organization.create!(:name => 'Forum Brasileiro de Economia Solidaria', :identifier => 'fbes')
+new_validator(df, 'Caritas', 'caritas')
+new_validator(df, 'Forum Brasileiro de Economia Solidaria', 'fbes')
 
-rs.validators << Organization.create!(:name => 'Associacao Software Livre.Org', :identifier => 'asl')
-rs.validators << Organization.create!(:name => 'Forum Gaucho de Economia Solidaria', :identifier => 'ecosolrs')
+new_validator(rs, 'Associacao Software Livre.Org', 'asl')
+new_validator(rs, 'Forum Gaucho de Economia Solidaria', 'ecosolrs')
 

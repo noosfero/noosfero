@@ -22,7 +22,7 @@
 #accessibility_menu a {
   padding-left: 9px;
   margin-left: 5px;
-  background: url("../images/ico_enterlink.gif");
+  /* background: url("../images/ico_enterlink.gif"); */
   background-repeat: no-repeat;
   background-position: 0px 6px;
   color: #dfdfdf;

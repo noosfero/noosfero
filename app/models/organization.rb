@@ -1,15 +1,18 @@
 # Represents any organization of the system and has an organization_info object to hold its info
 class Organization < Profile
   has_one :organization_info
-  has_many :validated_enterprises, :class_name => 'enterprise'
 
   belongs_to :region
 
-#  def info
-#    organization_info
-#  end
+  has_one :validation_info
 
-#  def info=(infos)
-#    organization_info.update_attributes(infos)
-#  end
+  def validation_methodology
+    methodology = self.validation_info ? self.validation_info.validation_methodology : nil
+    methodology || ('<em>' + _('(not informed)') + '</em>')
+  end
+
+  def validation_restrictions
+    restrictions = self.validation_info ? self.validation_info.restrictions : nil
+    restrictions || ('<em>' + _('(not informed)') + '</em>')
+  end
 end
