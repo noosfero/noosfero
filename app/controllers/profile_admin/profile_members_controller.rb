@@ -13,9 +13,9 @@ class ProfileMembersController < ProfileAdminController
     @roles = Role.find(params[:roles])
     @person = Person.find(params[:person])
     if @person.define_roles(@roles, profile)
-      flash[:notice] = 'Roles successfuly updated'
+      flash[:notice] = _('Roles successfuly updated')
     else
-      flash[:notice] = 'Couldn\'t change the roles'
+      flash[:notice] = _('Couldn\'t change the roles')
     end
     redirect_to :action => :index
   end

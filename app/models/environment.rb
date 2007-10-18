@@ -3,6 +3,14 @@
 # domains.
 class Environment < ActiveRecord::Base
 
+  PERMISSIONS[:environment] = {
+    'edit_environment_features' => N_('Edit environment features'),
+    'edit_environment_design' => N_('Edit environment design'),
+    'manage_environment_categories' => N_('Manage environment categories'),
+    'manage_environment_roles' => N_('Manage environment roles'),
+    'manage_environment_validators' => N_('Manage environment validators'),
+  }
+ 
   # returns the available features for a Environment, in the form of a
   # hash, with pairs in the form <tt>'feature_name' => 'Feature name'</tt>.
   def self.available_features

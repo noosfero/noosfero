@@ -358,3 +358,6 @@ li#category4 ul li a:hover {
   color: black;
 }
 
+div#user_options *{
+  color: white;
+}

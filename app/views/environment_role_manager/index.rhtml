@@ -1,0 +1,13 @@
+<h2> <%= _('Listing Administrators') %> </h2>
+
+<%= link_to _('Make new admin'), :action => 'make_admin' %>
+
+<ul>
+  <% @admins.each do |a| %>
+    <li> <%= a.name %> 
+         <%= link_to _('Edit member role'), :action => 'change_role', :id => a %> 
+         <%= link_to _('Remove member'), :action => 'unassociate', :id => a %></li>
+  <% end %>
+</ul>
+
+<%= link_to _('Back'), :controller => 'admin_panel' %>

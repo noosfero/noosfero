@@ -5,7 +5,7 @@
   <%= f.text_field :name %>
 
   <%= _('Permissions: ') %> <br>
-  <% Profile::PERMISSIONS[:profile].keys.each do |p| %>
+  <% permissions.keys.each do |p| %>
     <%= labelled_form_field(permission_name(p), (check_box_tag "role[permissions][]", p, @role.has_permission?(p))) %>
   <% end %>
 

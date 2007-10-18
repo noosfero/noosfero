@@ -1,0 +1,9 @@
+<h2> <%= @member.name %> </h2>
+
+<% form_tag( {:action => 'give_role'}, {:method => :post}) do %>
+  <%= select_tag 'role', options_for_select(@roles.map{|r|[r.name,r.id]})  %>
+  <%= hidden_field_tag 'person', current_user.person.id %>
+  <%= submit_tag _('Affiliate') %>
+<% end %>
+
+<%= link_to _('Back'), :action => 'index' %>

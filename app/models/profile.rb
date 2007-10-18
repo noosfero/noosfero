@@ -8,6 +8,7 @@ class Profile < ActiveRecord::Base
     'destroy_profile' => N_('Destroy profile'),
     'manage_memberships' => N_('Manage memberships'),
     'post_content' => N_('Post content'),
+    'edit_profile_design' => N_('Edit profile design'),
   }
   
   after_create do |profile|

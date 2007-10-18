@@ -117,7 +117,8 @@ module ApplicationHelper
     links = [
        ( link_to_homepage(current_user.login) ),
        ( link_to(_('My account'), { :controller => 'account' }) ),
-       ( link_to(_('Admin'), { :controller => 'admin_panel' }) ),
+       ( link_to_myprofile _('My Enterprises'), {:controller => 'membership_editor'} ),
+       ( link_to(_('Admin'), { :controller => 'admin_panel' }) if current_user.person.role_assignments.map{|ra| ra.role.permissions}.any?{|ps|ps.any?{|p|ActiveRecord::Base::PERMISSIONS[:environment].keys.include?(p)}}),
     ].join("\n")
     content_tag('span', links, :id => 'user_links')
   end
@@ -171,33 +172,47 @@ module ApplicationHelper
     ]
   end
   
-  def profile_links
+  def person_links
+    links = [
+      [(link_to_myprofile _('Edit visual design'), :controller => 'profile_editor', :action => 'design_editor'), 'edit_profile_design', profile],
+      [(link_to_myprofile _('Edit profile'), :controller => 'profile_editor'), 'edit_profile', profile],
+      [(link_to_myprofile _('Manage content'), :controller => 'cms'), 'post_content', profile],
+    ]
+
+  end
+
+  
+  def enterprise_links
     links = [
       [(link_to_myprofile _('Edit visual design'), :controller => 'profile_editor', :action => 'design_editor'), 'edit_profile_design', profile],
       [(link_to_myprofile _('Edit informations'), :controller => 'profile_editor'), 'edit_profile', profile],
       [(link_to_myprofile _('Manage content'), :controller => 'cms'), 'post_content', profile],
+      [(link_to_myprofile _('Exclude'), :controller => 'enterprise_editor', :action => 'destroy'), 'edit_profile', profile],
     ]
-
-    if profile.kind_of?(Enterprise)
-      links << [(link_to_myprofile _('Exclude'), :controller => 'enterprise_editor', :action => 'destroy'), 'edit_profile', profile]
-    else
-      links
-    end
   end
 
 
   #FIXME: find a way of accessing environment from here
   def user_options
+    profile = params[:profile]
     case params[:controller]
       when 'admin_panel'
         admin_links
       when 'membership_editor'
         membership_links
       when 'profile_editor'
-        profile_links
+        if profile.kind_of?(Enterprise)
+          enterprise_links
+        elsif profile.kind_of?(Person)
+          person_links
+        else
+          []
+        end
+      when 'content_viewer'
+        person_links
       else
         []
-    end.map{|l| link_if_permitted(l[0], l[1], l[3]) }
+    end.map{|l| link_if_permitted(l[0], l[1], l[2]) }
   end
 
   def footer
@@ -281,5 +296,4 @@ module ApplicationHelper
     ]
     select_tag "#{object}[#{method}]", options_for_select(options, @page.filter_type || Comatose.config.default_filter), { :id=> "#{object}_#{method}" }.merge(html_options)
   end
-
 end
