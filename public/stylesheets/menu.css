@@ -317,3 +317,44 @@ li#category3 ul li a:hover {
   color: black;
 }
 
+/* ITEM 4 - Red */
+#noosfero_bar.category4 {
+  background: url("../images/bg_bgmenu.png") repeat-x;
+  background-position: 0px -44px;
+}
+
+#navigation_bar ul li#category4 ul {
+ background-color: #ae0303 !important;
+}
+ 
+#wrap.category4 {
+border: 5px solid #ae0303 !important;
+}
+
+#top_bar.category4 {
+background-color: #ae0303;
+}
+
+#category4 a {
+  background: url("../images/bg_menu_options.png") no-repeat;
+  background-position: -494px 0px;
+}
+
+li#category4.active a {
+  background-position: -494px -38px;
+}
+
+li#category4:hover a {
+background-position: -494px -76px !important;
+}
+
+li#category4 ul li a {
+  color: white;
+  background: #5c3566;
+  border-right: 1px solid black;
+}
+
+li#category4 ul li a:hover {
+  color: black;
+}
+
