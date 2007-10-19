@@ -15,6 +15,7 @@ ul.block_control_list
 
 h3.block_header
 {
+	position: relative;
 	background: url('images/h3bg.png') repeat-x;
         cursor:move;
 	font-family: Sans-serif;

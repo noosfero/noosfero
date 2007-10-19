@@ -45,12 +45,12 @@ padding-right: 5px;
 }
 
 div.block a.button_block {
-display: block;
-width: 10px;
-height: 10px;
-margin-top: 10px;
-margin-right: 5px;
-float: right;
+display: block !important;
+width: 10px !important;
+height: 10px !important;
+margin-top: 10px !important;
+margin-right: 5px !important;
+float: right !important;
 }
 
 div.block a.button_block_hide {
