@@ -1,3 +1,6 @@
+@import url("editor.css");
+
+
 body {
   font-family: Verdana, Sans-Serif;
   font-size: 14px;
@@ -25,10 +28,8 @@ body {
 
 #wrap.category4 {
  background-attachment: fixed;
-  background: url("../images/bgred.jpg") top left no-repeat;
-  }
-
-
+ background: url("../images/bgred.jpg") top left no-repeat;
+}
 
 #header {
 height: 135px;
@@ -36,9 +37,8 @@ height: 135px;
 
 #boxes {
   position: relative;
-  width: 760px;
-  left: 50%;
-  margin-left: -380px;
+  margin-left: 10px;
+  margin-right: 10px;
   padding: 0em;
 }
 
@@ -78,62 +78,7 @@ clear: both;
   padding: 5px;
 }
 
-
-/* Edition Mode */
-
-#design_editor .block_list {
-  list-style: none;
-  margin: 0px;
-  padding: 3px;
-}
-
-#design_editor .box {
-  border: 2px solid transparent;
-}
-
-#design_editor .hover {
-  border: 2px dotted red;
-  background: #ff6;
-}
-
-#design_editor_toolbar { 
-  padding: 5px;
-}
-
-#design_editor_toolbar h3 { 
-  font-size: 10px;
-  background: #dfdfdf;
-  margin: 0px;
-  padding: 1px;
-  text-align: right;
-  color: #545454;
-}
-
-#design_editor_toolbar a { 
-  font-size: 10px;
-  padding: 5px;
-  background: #dfdfdf;
-  color: black;
-}
-
-.design_editor_box_toolbar {
-  text-align: center;
-  margin: 5px;
-  background: #dfdfdf;
-}
-
-.design_editor_box_toolbar a {
-  display: inline;
-  width: 30px;
-  font-size: 10px;
-  padding: 2px;
-  background: #dfdfdf;
-}
-
-#design_editor_toolbar a:hover, .design_editor_box_toolbar a:hover {
-  background: #545454;
-  color: #ffffff;
-}
+/* Notice */ 
 
 div#notice {
   z-index: 10000;
