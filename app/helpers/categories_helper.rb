@@ -4,10 +4,10 @@ module CategoriesHelper
 
   COLORS = [
     [ N_('Do not display at the menu'), nil ],
-    [ N_('Blue'), 1 ],
-    [ N_('Red'), 2 ],
-    [ N_('Green'), 3 ],
-    [ N_('Orange'), 4 ],
+    [ N_('Orange'), 1 ],
+    [ N_('Green'), 2 ],
+    [ N_('Purple'), 3 ],
+    [ N_('Red'), 4 ],
   ]
 
   TYPES = [

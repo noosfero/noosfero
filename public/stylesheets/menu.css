@@ -1,7 +1,8 @@
 /* Geral Bar */
 #noosfero_bar {
   position: fixed;
-  height: 11px;
+  height: 26px;
+  background: url("../images/bg_bgmenu.png") repeat-x;
   padding: 0px;
   margin-top: -5px;
   margin-right: 5px;
@@ -136,8 +137,6 @@ width: 200px;
 height: 35px;
 padding-top: 5px;
 padding-left: 15px;
-background: url("../images/bg_searchbox.png") no-repeat;
-background-position: bottom left;
 }
 
 #input_search {
@@ -174,22 +173,20 @@ border: 1px inset #dfdfdf;
 /* Itens Colors Change */
 
 /* ITEM 0 */
-
-#noosfero_bar.category {
-  background: url("../images/bg_bgmenu.png") repeat-x;
-  background-position: 0px -11px;
+#noosfero_bar.category div#search_box {
+background-color: #245090;
 }
 
 #navigation_bar ul li#category ul {
- background-color: #204a87 !important;
+ background-color: #245090 !important;
 }
 
 #wrap.category {
-  border: 5px solid #204a87 !important;
+  border: 5px solid #245090 !important;
 }
 
 #top_bar.category {
-background-color: #204a87;
+background-color: #245090;
 }
 
 #category a {
@@ -207,8 +204,8 @@ background-position: 0px -76px !important;
 
 li#category ul li a {
   color: white;
-  background: #204a87;
-  border-right: 1px solid black;
+  background: #245090;
+  border-right: 1px solid white;
 }
 
 li#category ul li a:hover {
@@ -216,21 +213,20 @@ li#category ul li a:hover {
 }
 
 /* ITEM 1 - Orange */
-#noosfero_bar.category1 {
-  background: url("../images/bg_bgmenu.png") repeat-x;
-  background-position: 0px 0px;
+#noosfero_bar.category1 div#search_box {
+background-color: #da6303;
 }
 
 #navigation_bar ul li#category1 ul {
- background-color: #ce5c00 !important;
+ background-color: #da6303 !important;
 }
 
 #wrap.category1 {
-border: 5px solid #ce5c00 !important;
+border: 5px solid #da6303 !important;
 }
 
 #top_bar.category1 {
-background-color: #ce5c00;
+background-color: #da6303;
 }
 
 #category1 a {
@@ -248,8 +244,8 @@ background-position: -124px -76px !important;
 
 li#category1 ul li a {
   color: white;
-  background: #ce5c00;
-  border-right: 1px solid black;
+  background: #da6303;
+  border-right: 1px solid white;
 }
 
 li#category1 ul li a:hover {
@@ -257,21 +253,20 @@ li#category1 ul li a:hover {
 }
 
 /* ITEM 2 - Green */
-#noosfero_bar.category2 {
-  background: url("../images/bg_bgmenu.png") repeat-x;
-  background-position: 0px -22px;
+#noosfero_bar.category2 div#search_box {
+background-color: #54a409;
 }
 
 #navigation_bar ul li#category2 ul {
- background-color: #4e9a06 !important;
+ background-color: #54a409 !important;
 }
 
 #wrap.category2 {
-border: 5px solid #4e9a06 !important;
+border: 5px solid #54a409 !important;
 }
 
 #top_bar.category2 {
-background-color: #4e9a06;
+background-color: #54a409;
 }
 
 #category2 a {
@@ -289,8 +284,8 @@ background-position: -246px -76px !important;
 
 li#category2 ul li a {
   color: white;
-  background: #4e9a06;
-  border-right: 1px solid black;
+  background: #54a409;
+  border-right: 1px solid white;
 }
 
 li#category2 ul li a:hover {
@@ -298,21 +293,20 @@ li#category2 ul li a:hover {
 }
 
 /* ITEM 3 - Purple */
-#noosfero_bar.category3 {
-  background: url("../images/bg_bgmenu.png") repeat-x;
-  background-position: 0px -33px;
+#noosfero_bar.category3 div#search_box {
+background-color: #633a6d;
 }
 
 #navigation_bar ul li#category3 ul {
- background-color: #5c3566 !important;
+ background-color: #633a6d !important;
 }
  
 #wrap.category3 {
-border: 5px solid #5c3566 !important;
+border: 5px solid #633a6d !important;
 }
 
 #top_bar.category3 {
-background-color: #5c3566;
+background-color: #633a6d;
 }
 
 #category3 a {
@@ -330,8 +324,8 @@ background-position: -368px -76px !important;
 
 li#category3 ul li a {
   color: white;
-  background: #5c3566;
-  border-right: 1px solid black;
+  background: #633a6d;
+  border-right: 1px solid white;
 }
 
 li#category3 ul li a:hover {
@@ -339,9 +333,8 @@ li#category3 ul li a:hover {
 }
 
 /* ITEM 4 - Red */
-#noosfero_bar.category4 {
-  background: url("../images/bg_bgmenu.png") repeat-x;
-  background-position: 0px -44px;
+#noosfero_bar.category4 div#search_box {
+background-color: #ae0303;
 }
 
 #navigation_bar ul li#category4 ul {
@@ -372,13 +365,9 @@ background-position: -494px -76px !important;
 li#category4 ul li a {
   color: white;
   background: #ae0303;
-  border-right: 1px solid black;
+  border-right: 1px solid white;
 }
 
 li#category4 ul li a:hover {
   color: black;
-}
-
-div#user_options *{
-  color: white;
 }
