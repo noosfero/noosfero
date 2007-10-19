@@ -1,7 +1,15 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-
+    <title> 
+     <% if @category %>
+      Noosfero &rarr; <%= @category.full_name %>  
+     <% else %>
+      Noosfero
+     <% end %>
+    </title>
+   <meta name="description" content="FIXME: Descriptions of Noosfero" />
+   <meta name="keywords" content="Noosfero, Community, Open Source" />
     <%= design_all_header_tags %>
     <%= stylesheet_link_tag 'common' %>
     <%= stylesheet_link_tag 'help' %>
@@ -9,7 +17,7 @@
     <%= javascript_include_tag 'menu' %>
   </head>
 
-  <body onload='javascript: focusOnFirstField();'>
+  <body>
 
     <% unless flash[:notice].nil? %>
       <div id='notice'>

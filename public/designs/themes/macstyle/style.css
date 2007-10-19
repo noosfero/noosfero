@@ -6,31 +6,29 @@ div.block
 	border: 0px;
 }
 
-div.block ul
+ul.block_control_list
 {
         list-style: none;
-	margin-left: 15px;
+	margin: 0px;
+	padding: 0px;
 }
 
-ul.block_list div.block h3 {
-        cursor:move;
-}
-
-div.block h3
+h3.block_header
 {
 	background: url('images/h3bg.png') repeat-x;
+        cursor:move;
 	font-family: Sans-serif;
 	font-size: 15px;
         margin: 0px;
-	line-height: 25px;
+	padding: 0px;
 	overflow: hidden;
-	vertical-align: middle;
 	color: #545454;
 	padding-left: 10px;
-	height: 35px;
+	height: 25px;
+	vertical-align: top;
 }
 
-div.block span {
+a.button_block span {
 display: none;
 padding: 1px;
 color: #000;
@@ -41,13 +39,13 @@ font-weight: normal;
 border: 1px inset #545454;
 }
 
-div.block a:hover span {
+a.button_block:hover span {
 display: inline;
 position: absolute;
 margin-top: -20px;
 }
 
-div.block a {
+a.button_block {
 display: block;
 float: right;
 position: absolute;
