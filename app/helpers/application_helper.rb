@@ -115,12 +115,18 @@ module ApplicationHelper
   # FIXME: uncomment "My enterprises" links
   def user_links
     links = [
-       ( link_to_homepage(current_user.login) ),
-       ( link_to(_('My account'), { :controller => 'account' }) ),
+       ( link_to_homepage( _('My account') )),
        ( link_to_myprofile _('My Enterprises'), {:controller => 'membership_editor'} ),
        ( link_to(_('Admin'), { :controller => 'admin_panel' }) if current_user.person.is_admin?),
+       ( link_to_document (about_document), _('About')  if about_document ),
     ].join("\n")
     content_tag('span', links, :id => 'user_links')
+  end
+
+  def about_document
+    Article.find_all_by_title('About').select do |a| 
+      a.full_path.split(/\//).shift == 'noosfero'
+    end[0]
   end
 
   def header
@@ -190,28 +196,56 @@ module ApplicationHelper
     ]
   end
 
+  def myprofile_links
+    links = [
+      [(link_to _('Change password'), {:controller => 'account', :action => 'change_password'}), 'edit_profile', profile]
+    ]
+  end
 
-  #FIXME: find a way of accessing environment from here
+  def about_links
+    links = [
+      [(link_to _('Report bug'), 'http://www.colivre.coop.br/Noosfero/BugItem')],
+    ]
+  end
+
+  def design_links
+    links = [
+      [(link_to _('Change template'), :controller => 'profile_editor', :action => 'design_editor_change_template')],
+      [(link_to _('Change block theme'), :controller => 'profile_editor', :action => 'design_editor_change_theme')],
+      [(link_to _('Change icon theme'), :controller => 'profile_editor', :action => 'design_editor_change_icon_theme')],
+    ]
+  end
+
   def user_options
-    profile = params[:profile]
+    profile = Profile.find_by_identifier(params[:profile])
     case params[:controller]
       when 'admin_panel'
         admin_links
       when 'membership_editor'
         membership_links
       when 'profile_editor'
-        if profile.kind_of?(Enterprise)
+        if profile.kind_of?(Enterprise) && params[:action] == 'index'
           enterprise_links
-        elsif profile.kind_of?(Person)
-          person_links
+        elsif profile.kind_of?(Person) && params[:action] == 'index'
+           myprofile_links
+        elsif params[:action] == 'design_editor'
+          design_links
         else
           []
         end
       when 'content_viewer'
-        person_links
+        if params[:profile] == 'noosfero' && params[:page][0] == 'about'
+          about_links
+        else
+          person_links
+        end
       else
         []
     end.map{|l| link_if_permitted(l[0], l[1], l[2]) }
+  end
+
+  def accessibility_link
+    link_to _('Accessibility') 
   end
 
   def footer

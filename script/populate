@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require File.dirname(__FILE__) + '/../config/environment'
 
-anhetegua = Profile.create!(:name => 'anhetegua', :identifier => 'anhetegua')
+anhetegua = Profile.create!(:name => 'noosfero', :identifier => 'noosfero')
 
 User.create!(:login => 'testprofile', :email => 'admin@localhost.localdomain', :password => 'test', :password_confirmation => 'test')
 User.create!(:login => 'user', :email => 'user@localhost.localdomain', :password => 'user', :password_confirmation => 'user')
