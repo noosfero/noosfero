@@ -64,5 +64,22 @@ div#errorExplanation h2 {
 div#footer {
 background: #ffffff url("../images/bg_footer.png") repeat-x !important;
 background-position: 0px 0px;
+font-family: Verdana, Arial, Serif-sans;
+margin: 0px !important;
+padding: 5px !important;
+text-align: center !important;
+clear: both !important;
+font-size: 10px !important;
+color: #545454 !important;
 }
 
+div#footer a {
+color: #545454;
+text-decoration: none;
+border-bottom: 1px dotted #545454;
+}
+
+div#footer a:hover {
+color: #000000;
+border: 0px;
+}

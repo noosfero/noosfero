@@ -47,7 +47,7 @@ position: absolute;
 margin-top: -20px;
 }
 
-#design_editor div.block a {
+div.block a {
 display: block;
 float: right;
 position: absolute;

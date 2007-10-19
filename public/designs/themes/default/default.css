@@ -31,7 +31,7 @@ div.block span {
 display: none;
 }
 
-div.block a:hover span {
+div.block a.button_block_hide:hover span {
 display: inline;
 position: absolute;
 color: #dfdfdf;
@@ -44,7 +44,7 @@ padding-left: 5px;
 padding-right: 5px;
 }
 
-#design_editor div.block a {
+div.block a.button_block {
 display: block;
 width: 10px;
 height: 10px;
@@ -78,6 +78,7 @@ div.block ul {
   padding-left: 0px;
   margin: 0px;
 }
+
 div.block ul li a:link,
 div.block ul li a:hover {
   display: block;
