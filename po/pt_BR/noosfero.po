@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.3.0\n"
-"POT-Creation-Date: 2007-10-19 18:31-0300\n"
+"POT-Creation-Date: 2007-10-19 19:24-0300\n"
 "PO-Revision-Date: 2007-10-19 13:30-0300\n"
 "Last-Translator: Krishnamurti Lelis Lima Vieira Nunes <krishna@colivre.coop."
 "br>\n"
@@ -21,7 +21,7 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 
 #: app/controllers/environment_admin/edit_template_controller.rb:10
-#: app/controllers/profile_admin/profile_editor_controller.rb:12
+#: app/controllers/profile_admin/profile_editor_controller.rb:14
 msgid "Main content block"
 msgstr "Bloco de conteúdo principal"
 
@@ -41,12 +41,12 @@ msgstr "Marcador removido com sucesso"
 msgid "Tag was successfuly approved"
 msgstr "Marcador aprovado com sucesso"
 
-#: app/controllers/environment_admin/role_controller.rb:19
+#: app/controllers/environment_admin/role_controller.rb:21
 msgid "Failed to create role"
 msgstr "Falhou em criar papel"
 
-#: app/controllers/environment_admin/role_controller.rb:33
-#: app/controllers/environment_admin/role_controller.rb:43
+#: app/controllers/environment_admin/role_controller.rb:35
+#: app/controllers/environment_admin/role_controller.rb:45
 msgid "Failed to edit role"
 msgstr "Falhou em editar papel"
 
@@ -106,15 +106,15 @@ msgstr ""
 msgid "Enterprise was not created"
 msgstr "Empreendimento não foi criado"
 
-#: app/controllers/profile_admin/profile_editor_controller.rb:10
+#: app/controllers/profile_admin/profile_editor_controller.rb:12
 msgid "List Block"
 msgstr "Bloco de Lista"
 
-#: app/controllers/profile_admin/profile_editor_controller.rb:11
+#: app/controllers/profile_admin/profile_editor_controller.rb:13
 msgid "Link Block"
 msgstr "Bloco de Link"
 
-#: app/controllers/profile_admin/profile_editor_controller.rb:13
+#: app/controllers/profile_admin/profile_editor_controller.rb:15
 msgid "Recent documents block"
 msgstr "Bloco de documentos recentes"
 
@@ -141,6 +141,10 @@ msgstr "Sua senha foi alterada com sucesso!"
 #: app/controllers/public/account_controller.rb:68
 msgid "The supplied current password is incorrect."
 msgstr "A senha informada está incorreta"
+
+#: app/controllers/application.rb:50
+msgid "There is no page %s"
+msgstr "Não há página: %s"
 
 #: app/models/validation_info.rb:-
 msgid "validation info"
@@ -529,81 +533,72 @@ msgid ""
 "      You will be notified as soon as the validator organization has a "
 "position about your request."
 msgstr ""
-"Seu pedido para cadastro de empreendimento \"%{enterprise}\" em %{environment}"
-"foi recebido. Ele será revisado por um organização validadora"
-"que você escolheu, de acordo com seu métodos e critério.\n"
+"Seu pedido para cadastro de empreendimento \"%{enterprise}\" em %"
+"{environment}foi recebido. Ele será revisado por um organização "
+"validadoraque você escolheu, de acordo com seu métodos e critério.\n"
 "\n"
-"Você será notificado assim que a organização validadora tiver uma"
-"posição sobre seu pedido."
+"Você será notificado assim que a organização validadora tiver umaposição "
+"sobre seu pedido."
 
 #: app/models/create_enterprise.rb:118
 msgid ""
 "Your request fo registering the enterprise \"%{enterprise}\" was approved. "
 "You can access %{environment} now and start entering "
 msgstr ""
-"Sua requisição para registrar o empreendimento \"%{enterprise}\" foi aprovada. "
-"Você pode acessar %{environment} agora e acessar as informações"
+"Sua requisição para registrar o empreendimento \"%{enterprise}\" foi "
+"aprovada. Você pode acessar %{environment} agora e acessar as informações"
 
 #: app/models/create_enterprise.rb:122
 msgid ""
 "Your request for registering the enterprise %{enterprise} at %{environment} "
 "was NOT approved by the validator organization."
 msgstr ""
-"Sua requisição para registrar o empreendimento %{enterprise} em %{environment} "
-"NÃO foi aprovada pelo validador de organização"
+"Sua requisição para registrar o empreendimento %{enterprise} em %"
+"{environment} NÃO foi aprovada pelo validador de organização"
 
 #: app/models/environment.rb:-
 msgid "environment"
 msgstr "comunidade virtual"
 
 #: app/models/environment.rb:-
-#, fuzzy
 msgid "Environment|Name"
-msgstr "comunidade virtual"
+msgstr "Nome"
 
 #: app/models/environment.rb:-
-#, fuzzy
 msgid "Environment|Contact email"
-msgstr "comunidade virtual"
+msgstr "Email de contato"
 
 #: app/models/environment.rb:-
-#, fuzzy
 msgid "Environment|Is default"
-msgstr "comunidade virtual"
+msgstr "É padrão"
 
 #: app/models/environment.rb:-
-#, fuzzy
 msgid "Environment|Settings"
-msgstr "comunidade virtual"
+msgstr "Configurações"
 
 #: app/models/environment.rb:-
 msgid "Environment|Design data"
 msgstr "Informações de design"
 
 #: app/models/environment.rb:7
-#, fuzzy
 msgid "View environment admin panel"
-msgstr "comunidade virtual"
+msgstr "Ver painel de administração de ambiente"
 
 #: app/models/environment.rb:8
-#, fuzzy
 msgid "Edit environment features"
-msgstr "comunidade virtual"
+msgstr "Editar funcionalidades do ambiente"
 
 #: app/models/environment.rb:9
-#, fuzzy
 msgid "Edit environment design"
-msgstr "comunidade virtual"
+msgstr "Editar design do ambiente"
 
 #: app/models/environment.rb:10
-#, fuzzy
 msgid "Manage environment categories"
-msgstr "Gerenciar categorias"
+msgstr "Gerenciar categorias do ambiente"
 
 #: app/models/environment.rb:11
-#, fuzzy
 msgid "Manage environment roles"
-msgstr "Gerencias papéis de usuários"
+msgstr "Gerencias papéis do ambiente"
 
 #: app/models/environment.rb:12
 msgid "Manage environment validators"
@@ -626,38 +621,32 @@ msgid "category"
 msgstr "categoria"
 
 #: app/models/category.rb:-
-#, fuzzy
 msgid "Category|Name"
-msgstr "Categorias"
+msgstr "Nome"
 
 #: app/models/category.rb:-
-#, fuzzy
 msgid "Category|Slug"
-msgstr "categoria"
+msgstr "Slug"
 
 #: app/models/category.rb:-
-#, fuzzy
 msgid "Category|Path"
-msgstr "categoria"
+msgstr "Caminho"
 
 #: app/models/category.rb:-
 msgid "Category|Display color"
 msgstr "Mostrar cor"
 
 #: app/models/category.rb:-
-#, fuzzy
 msgid "Category|Environment"
-msgstr "comunidade virtual"
+msgstr "Ambiente"
 
 #: app/models/category.rb:-
-#, fuzzy
 msgid "Category|Parent"
-msgstr "Categorias"
+msgstr "Pais"
 
 #: app/models/category.rb:-
-#, fuzzy
 msgid "Category|Type"
-msgstr "Categorias"
+msgstr "Tipo"
 
 #: app/models/category.rb:3
 msgid "%{fn} cannot be like that."
@@ -692,23 +681,20 @@ msgid "Green"
 msgstr "Verde"
 
 #: app/helpers/categories_helper.rb:9
-#, fuzzy
 msgid "Purple"
-msgstr "papel"
+msgstr "Roxo"
 
 #: app/helpers/categories_helper.rb:10
 msgid "Red"
 msgstr "Vermelho"
 
 #: app/helpers/categories_helper.rb:14
-#, fuzzy
 msgid "Categoria Geral"
-msgstr "Categorias"
+msgstr "Categoria Geral"
 
 #: app/helpers/categories_helper.rb:15
-#, fuzzy
 msgid "Product Category"
-msgstr "categoria"
+msgstr "Categoria do Produto"
 
 #: app/helpers/categories_helper.rb:16
 msgid "Region"
@@ -719,9 +705,8 @@ msgid "Display at the menu?"
 msgstr "Mostrar no menu?"
 
 #: app/helpers/categories_helper.rb:38
-#, fuzzy
 msgid "Type of category"
-msgstr "Nova categoria"
+msgstr "Tipo de categoria"
 
 #: app/helpers/profile_helper.rb:6
 msgid "This profile does not have any public information"
@@ -748,9 +733,8 @@ msgid "My account"
 msgstr "Minha conta"
 
 #: app/helpers/application_helper.rb:118
-#, fuzzy
 msgid "My Enterprises"
-msgstr "Novo empreendimento"
+msgstr "Meus Empreendimentos"
 
 #: app/helpers/application_helper.rb:119
 #: app/views/environment_role_manager/make_admin.rhtml:4
@@ -774,29 +758,24 @@ msgid "Logout"
 msgstr "Sair"
 
 #: app/helpers/application_helper.rb:166
-#, fuzzy
 msgid "Features"
-msgstr "Alguma funcionalidade"
+msgstr "Funcionalidades"
 
 #: app/helpers/application_helper.rb:167
-#, fuzzy
 msgid "Edit visual"
-msgstr "perfil"
+msgstr "Editar visual"
 
 #: app/helpers/application_helper.rb:168
-#, fuzzy
 msgid "Manage categories"
 msgstr "Gerenciar categorias"
 
 #: app/helpers/application_helper.rb:169
-#, fuzzy
 msgid "Manage permissions"
-msgstr "Permissões: "
+msgstr "Gerenciar permissões"
 
 #: app/helpers/application_helper.rb:170
-#, fuzzy
 msgid "Manage validators"
-msgstr "Gerenciar categorias"
+msgstr "Gerenciar validadores"
 
 #: app/helpers/application_helper.rb:176
 #: app/views/membership_editor/index.rhtml:16
@@ -804,19 +783,16 @@ msgid "New enterprise"
 msgstr "Novo empreendimento"
 
 #: app/helpers/application_helper.rb:182 app/helpers/application_helper.rb:191
-#, fuzzy
 msgid "Edit visual design"
-msgstr "Editar o design visual"
+msgstr "Editar aparência"
 
 #: app/helpers/application_helper.rb:184 app/helpers/application_helper.rb:193
-#, fuzzy
 msgid "Manage content"
-msgstr "Gerenciar conteúdo."
+msgstr "Gerenciar conteúdo"
 
 #: app/helpers/application_helper.rb:192
-#, fuzzy
 msgid "Edit informations"
-msgstr "Editar informações do empreendimento"
+msgstr "Editar informações"
 
 #: app/helpers/application_helper.rb:194
 msgid "Exclude"
@@ -834,18 +810,16 @@ msgid "Report bug"
 msgstr "Reportar bug"
 
 #: app/helpers/application_helper.rb:212
-#, fuzzy
 msgid "Change template"
-msgstr "Alterar senha"
+msgstr "Mudar template"
 
 #: app/helpers/application_helper.rb:213
 msgid "Change block theme"
 msgstr "Mude o tema de bloco"
 
 #: app/helpers/application_helper.rb:214
-#, fuzzy
 msgid "Change icon theme"
-msgstr "Gerenciar conteúdo."
+msgstr "Mudar tema do ícone"
 
 #: app/helpers/application_helper.rb:252 app/helpers/application_helper.rb:255
 msgid "Accessibility"
@@ -1254,8 +1228,8 @@ msgstr "Acima"
 msgid "There is no such page: %s"
 msgstr "Não há página: %s"
 
-#: app/views/layouts/application.rhtml:21
-#: app/views/layouts/comatose_admin.rhtml:21
+#: app/views/layouts/application.rhtml:29
+#: app/views/layouts/comatose_admin.rhtml:29
 msgid "Image for Loading..."
 msgstr "Imagem para Carregamento..."
 
