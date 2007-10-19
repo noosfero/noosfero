@@ -1,5 +1,7 @@
 class CategoriesController < EnvironmentAdminController
 
+  protect [:index, :new, :edit, :remove], 'manage_environment_categories', environment
+  
   helper :categories
 
   def index

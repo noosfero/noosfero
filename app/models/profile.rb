@@ -28,7 +28,8 @@ class Profile < ActiveRecord::Base
 
   acts_as_design
 
-  acts_as_ferret :fields => [ :name ]
+  # FIXME: ferret is causing a strange bug
+  #  acts_as_ferret :fields => [ :name ]
 
   # Valid identifiers must match this format.
   IDENTIFIER_FORMAT = /^[a-z][a-z0-9_]*[a-z0-9]$/
@@ -118,6 +119,10 @@ class Profile < ActiveRecord::Base
   # 10.
   def recent_documents(limit = 10)
     homepage.children.find(:all, :limit => limit, :order => 'created_on desc')
+  end
+
+  def superior_instance
+    environment
   end
 
 #  def affiliate(person, roles)

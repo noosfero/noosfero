@@ -3,6 +3,9 @@ class ProfileEditorController < ProfileAdminController
 
   design_editor :holder => 'profile', :autosave => true, :block_types => :block_types
 
+#  protect [:edit], 'edit_profile', profile
+#  protect []
+  
   def block_types
     {
       'ListBlock' => _("List Block"),

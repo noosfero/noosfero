@@ -1,5 +1,6 @@
 class FeaturesController < EnvironmentAdminController
-
+  protect [:index, :update], 'edit_environment_features', environment
+  
   acts_as_environment_admin_controller
 
   def index

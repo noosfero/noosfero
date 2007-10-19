@@ -1,5 +1,7 @@
 class ProfileMembersController < ProfileAdminController
 
+#  protect [:index, :change_roles, :update_roles, :change_role, :add_role, :remove_role, :unassociate], 'manage_memberships', profile
+
   def index
     @members = profile.people.uniq
   end

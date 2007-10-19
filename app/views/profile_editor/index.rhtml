@@ -2,7 +2,13 @@
 
 <%= display_profile_info(profile) %>
 
-<p> <%= link_to _('Edit'), :action => 'edit' %> </p>
+<% if @profile.class == Person %>
+  <p> <%= link_to _('Edit'), :action => 'edit' %> </p>
+<% elsif @profile.class == Enterprise %>
+  <p> <%= link_to _('Edit'), :controller => 'enterprise_editor'%> </p>
+<% else %>
+
+<% end %>
 
 <p> <%= link_to _('Edit Visual Design'), :action => 'design_editor' %> </p>
 

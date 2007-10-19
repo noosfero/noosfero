@@ -4,6 +4,7 @@
 class Environment < ActiveRecord::Base
 
   PERMISSIONS[:environment] = {
+    'view_environment_admin_panel' => N_('View environment admin panel'),
     'edit_environment_features' => N_('Edit environment features'),
     'edit_environment_design' => N_('Edit environment design'),
     'manage_environment_categories' => N_('Manage environment categories'),
