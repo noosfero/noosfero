@@ -1106,9 +1106,8 @@ msgid "Create role"
 msgstr "Criar papel"
 
 #: app/views/role/show.rhtml:3
-#, fuzzy
 msgid "Permissions"
-msgstr "Permissões: "
+msgstr "Permissões"
 
 #: app/views/role/show.rhtml:10 app/views/role/index.rhtml:12
 #: app/views/profile_members/affiliate.rhtml:9
@@ -1178,9 +1177,8 @@ msgstr "Caro %s,"
 #: app/views/task_mailer/task_created.text.plain.rhtml:6
 #: app/views/task_mailer/task_finished.text.plain.rhtml:6
 #: app/views/task_mailer/task_cancelled.text.plain.rhtml:6
-#, fuzzy
 msgid "%s environment system"
-msgstr "comunidade virtual"
+msgstr "%s ambiente do sistema"
 
 #: app/views/region_validators/_search.rhtml:8
 msgid "Adicionar"
@@ -1191,9 +1189,8 @@ msgid "Validators for region %s"
 msgstr ""
 
 #: app/views/region_validators/region.rhtml:3
-#, fuzzy
 msgid "Current validators"
-msgstr "Senha atual"
+msgstr "Validadores atuais"
 
 #: app/views/region_validators/region.rhtml:9
 msgid "Remove validation rights"
@@ -1526,9 +1523,8 @@ msgid "Category: %s"
 msgstr "Categoria: %s"
 
 #: app/views/account/invalid_change_password_code.rhtml:1
-#, fuzzy
 msgid "Invalid change password code"
-msgstr "Alterar senha"
+msgstr "Mudança inválida do código da senha"
 
 #: app/views/account/invalid_change_password_code.rhtml:4
 msgid ""
@@ -1546,15 +1542,13 @@ msgid "Password"
 msgstr "Senha"
 
 #: app/views/account/login.rhtml:20
-#, fuzzy
 msgid "I forgot my password"
-msgstr "Senha atual"
+msgstr "Eu esqueci a minha senha"
 
 #: app/views/account/password_recovery_sent.rhtml:1
 #: app/views/account/forgot_password.rhtml:1
-#, fuzzy
 msgid "Password recovery"
-msgstr "Senha"
+msgstr "Recuperar senha"
 
 #: app/views/account/password_recovery_sent.rhtml:4
 msgid ""
@@ -1564,28 +1558,24 @@ msgstr ""
 
 #: app/views/account/new_password.rhtml:1
 #: app/views/account/new_password.rhtml:11
-#, fuzzy
 msgid "Enter new password"
-msgstr "Nova senha"
+msgstr "Enter com a nova senha"
 
 #: app/views/account/new_password.rhtml:4
 msgid "Hello, %s! Please enter your new password in the form below."
 msgstr ""
 
 #: app/views/account/new_password.rhtml:12
-#, fuzzy
 msgid "Confirm the new password"
-msgstr "Confirme sua nova senha"
+msgstr "Confirme a nova senha"
 
 #: app/views/account/new_password_ok.rhtml:1
-#, fuzzy
 msgid "Password changed sucessfully"
-msgstr "Sua senha foi alterada com sucesso!"
+msgstr "Senha alterada com sucesso"
 
 #: app/views/account/new_password_ok.rhtml:4
-#, fuzzy
 msgid "%s, your new password was successfully installed."
-msgstr "Sua senha foi alterada com sucesso!"
+msgstr "%s, sua nova senha foi alterada com sucesso."
 
 #: app/views/account/new_password_ok.rhtml:8
 msgid "You can <a href='%s'>login</a> now."
@@ -1642,7 +1632,6 @@ msgid ""
 msgstr ""
 
 #: app/views/account/forgot_password.rhtml:9
-#, fuzzy
 msgid "E-mail"
 msgstr "E-mail"
 
@@ -1711,14 +1700,12 @@ msgid "Listing articles found"
 msgstr ""
 
 #: app/views/search/index.rhtml:3
-#, fuzzy
 msgid "Searching for "
-msgstr "Busca"
+msgstr "Buscar por "
 
 #: app/views/features/_features_table.rhtml:12
-#, fuzzy
 msgid "Organization Approval Method"
-msgstr "Validado"
+msgstr "Métode de Aprovação da Organização"
 
 #: app/views/features/index.rhtml:1
 msgid "Enable/Disable features"
@@ -1768,22 +1755,20 @@ msgid "My profile"
 msgstr "Meu perfil"
 
 #: app/views/profile_editor/index.rhtml:13
-#, fuzzy
 msgid "Edit Visual Design"
-msgstr "Editar o design visual"
+msgstr "Editar Aparência"
 
 #: app/views/profile_editor/index.rhtml:15
 msgid "Menage content"
-msgstr "Gerenciar conteúdo"
+msgstr "Garenciar conteúdo"
 
 #: app/views/profile_editor/index.rhtml:18
 msgid "Edit enterprise info"
 msgstr "Editar informação de empreendimento"
 
 #: app/views/enterprise_registration/basic_information.rhtml:27
-#, fuzzy
 msgid "Management information"
-msgstr "Informação de Gerenciamento"
+msgstr "Gerenciamento de informação"
 
 #: app/views/enterprise_registration/select_validator.rhtml:1
 msgid "Enterprise Registration: Select a validator organization"
@@ -1796,9 +1781,8 @@ msgid ""
 msgstr ""
 
 #: app/views/enterprise_registration/select_validator.rhtml:15
-#, fuzzy
 msgid "Validation Methodology:"
-msgstr "Entidade de Validação"
+msgstr "Metodologia de Validação:"
 
 #: app/views/enterprise_registration/select_validator.rhtml:16
 msgid "Restrictions (if any):"
@@ -1809,9 +1793,8 @@ msgid "Confirm"
 msgstr ""
 
 #: app/views/enterprise_registration/confirmation.rhtml:1
-#, fuzzy
 msgid "Enterprise Registration completed"
-msgstr "Empreendimento não foi criado"
+msgstr "Registro do Empreendimento completo"
 
 #: app/views/enterprise_registration/confirmation.rhtml:4
 msgid ""
@@ -1831,14 +1814,12 @@ msgid "Make new admin"
 msgstr ""
 
 #: app/views/environment_role_manager/make_admin.rhtml:12
-#, fuzzy
 msgid "Make"
-msgstr "Gerenciar"
+msgstr "Fazer"
 
 #: app/views/environment_role_manager/index.rhtml:1
-#, fuzzy
 msgid "Listing Administrators"
-msgstr "Listando tags"
+msgstr "Listando Administradores"
 
 #: app/views/categories/new.rhtml:1 app/views/categories/index.rhtml:8
 msgid "New category"
