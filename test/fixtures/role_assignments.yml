@@ -20,3 +20,10 @@ three:
   role_id: 1
   resource_id: 6
   resource_type: 'Profile'
+four:
+  id: 4
+  accessor_id: 4
+  accessor_type: 'Person'
+  role_id: 4
+  resource_id: 1 
+  resource_type: 'Environment'

@@ -1,5 +1,5 @@
 class EnvironmentRoleManagerController < ApplicationController
-  protect [:index, :change_roles, :update_roles, :change_role, :add_role, :remove_role, :unassociate, :make_admin], 'manage_environment_roles', environment
+  protect [:index, :change_roles, :update_roles, :change_role, :add_role, :remove_role, :unassociate, :make_admin], 'manage_environment_roles', :environment
   
   def index
     @admins = Person.find(:all, :conditions => ['role_assignments.resource_type = ?', 'Environment'], :include => :role_assignments )

@@ -17,3 +17,13 @@ three:
   name: 'moderator'
   permissions:
     - manage_memberships
+four:
+  id: 4
+  name: 'admin'
+  permissions: 
+   - view_environment_admin_panel
+   - edit_environment_features
+   - edit_environment_design
+   - manage_environment_categories
+   - manage_environment_roles
+   - manage_environment_validators

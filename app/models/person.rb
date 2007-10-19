@@ -15,14 +15,6 @@ class Person < Profile
 #    role_assignments.any? {|ra| ra.has_permission?(perm, res)}
 #  end
 
-#  def define_roles(roles, resource)
-#    associations = RoleAssignment.find(:all, :conditions => {:resource_id => resource.id, :resource_type => resource.class.base_class.name, :person_id => self.id })
-#    roles_add = roles - associations.map(&:role)
-#    roles_remove = associations.map(&:role) - roles
-#    associations.each { |a| a.destroy if roles_remove.include?(a.role) }
-#    roles_add.each {|r| RoleAssignment.create(:person_id => self.id, :resource_id => resource.id, :resource_type => resource.class.base_class.name, :role_id => r.id) }
-#  end
-
   def self.conditions_for_profiles(conditions, person)
     new_conditions = sanitize_sql(['role_assignments.accessor_id = ?', person])
     new_conditions << ' AND ' +  sanitize_sql(conditions) unless conditions.blank?
