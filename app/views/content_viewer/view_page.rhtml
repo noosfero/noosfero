@@ -2,11 +2,16 @@
 
 <% if @page.parent && !@page.parent.full_path.blank? %>
   <%= link_to_document(@page.parent, _('Up')) %>
-  <hr/>
 <% end %>
+<% if logged_in?  && current_user.person.has_permission?('post_content', profile) %>
+  <%= link_to _('Edit'), :controller => 'cms', :action => 'edit', :id => @page %>
+<% end %>
+
+<hr/>
 
 <%= @page.to_html %>
 
+<!--
 <% unless @page.children.empty? %>
   <hr/>
   <ul>
@@ -14,3 +19,4 @@
     <li><%= link_to_document(item) %></li>
   <% end %>
 <% end %>
+-->

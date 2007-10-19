@@ -112,7 +112,6 @@ module ApplicationHelper
 
   # TODO: add the actual links
   # TODO: test this helper
-  # FIXME: uncomment "My enterprises" links
   def user_links
     links = [
        ( link_to_homepage( _('My account') )),
@@ -124,7 +123,7 @@ module ApplicationHelper
   end
 
   def about_document
-    Article.find_all_by_title('About').select do |a| 
+    Article.find_all_by_title(_('About')).select do |a| 
       a.full_path.split(/\//).shift == 'noosfero'
     end[0]
   end
@@ -216,7 +215,9 @@ module ApplicationHelper
     ]
   end
 
+  #FIXME: about_links should be shown even if the user isn't logged in
   def user_options
+    return [] unless logged_in?
     profile = Profile.find_by_identifier(params[:profile])
     case params[:controller]
       when 'admin_panel'
@@ -245,7 +246,10 @@ module ApplicationHelper
   end
 
   def accessibility_link
-    link_to _('Accessibility') 
+    doc = Article.find_all_by_title(_('Accessibility')).select do |a| 
+      a.full_path.split(/\//).shift == 'noosfero'
+    end[0]
+    link_to_document doc, _('Accessibility') if doc 
   end
 
   def footer

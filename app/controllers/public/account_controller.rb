@@ -36,7 +36,7 @@ class AccountController < PublicController
         @user.person.environment = environment
         @user.person.save!
         self.current_user = @user
-        redirect_back_or_default(:controller => 'account', :action => 'index')
+        redirect_back_or_default(homepage_path(:profile => current_user.login))
         flash[:notice] = _("Thanks for signing up!")
       end
     rescue ActiveRecord::RecordInvalid
