@@ -48,6 +48,21 @@ class Test::Unit::TestCase
 
   end
 
+  def self.extra_parameters
+    @extra_parameters
+  end
+
+  def self.add_extra_parameter(name, value)
+    @extra_parameters ||= {}
+    @extra_parameters[name] = value.to_s
+    self.send(:include, NoosferoTest)  unless self.include?(NoosferoTest)
+  end
+
+  def self.under_profile(profile_identifier)
+    add_extra_parameter(:profile, profile_identifier)
+    raise "profile_identifier must be set!" unless extra_parameters[:profile]
+  end
+
   private
 
   def uses_host(name)

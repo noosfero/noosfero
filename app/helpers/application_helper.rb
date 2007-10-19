@@ -257,7 +257,7 @@ module ApplicationHelper
 
   def search_box
     [form_tag( '/search'),
-      text_field_tag( 'query', _(''), :id => "input_search"),
+      text_field_tag( 'query', _('Search'), :id => "input_search"),
       submit_tag(_('Search'), :id => 'button_search'),
        '</form>',
       observe_field('input_search', :function => '', :on => :click)

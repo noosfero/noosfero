@@ -18,24 +18,26 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     uses_host 'anhetegua.net'
 
     a = Article.new
-    Article.expects(:find_by_path).with('aprofile').returns(a)
+    Article.expects(:find_by_path).with('ze').returns(a)
 
-    get :view_page, :profile => 'aprofile', :page => []
+    get :view_page, :profile => 'ze', :page => []
     assert_response :success
     assert_equal a, assigns(:page)
   end
 
   def test_should_get_not_found_error_for_unexisting_page
     uses_host 'anhetegua.net'
-    get :view_page, :profile => 'ze', :page => ['some_unexisting_page']
-    assert_response 404
+    get :view_page, :profile => 'aprofile', :page => ['some_unexisting_page']
+    assert_response :redirect
+    assert_redirected_to :controller => 'search', :action => 'index'
   end
 
   def test_should_get_not_found_error_for_unexisting_profile
     Profile.delete_all
     uses_host 'anhetegua'
     get :view_page, :profile => 'some_unexisting_profile', :page => []
-    assert_response 404
+    assert_response :redirect
+    assert_redirected_to :controller => 'search', :action => 'index'
   end
 
 end

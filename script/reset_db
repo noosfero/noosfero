@@ -4,5 +4,5 @@ require File.dirname(__FILE__) + '/../config/environment'
 system "rm #{RAILS_ROOT}/tmp/*.db"
 system "rake db:migrate VERSION=0"
 system "rake db:migrate"
-system "ruby #{RAILS_ROOT}/script/populate"
+system "ruby #{RAILS_ROOT}/script/anhetegua"
 system "rake db:test:prepare"

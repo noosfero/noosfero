@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.3.0\n"
-"POT-Creation-Date: 2007-10-19 13:30-0300\n"
+"POT-Creation-Date: 2007-10-19 18:31-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: app/controllers/environment_admin/edit_template_controller.rb:10
-#: app/controllers/profile_admin/profile_editor_controller.rb:10
+#: app/controllers/profile_admin/profile_editor_controller.rb:12
 msgid "Main content block"
 msgstr ""
 
@@ -46,27 +46,27 @@ msgstr ""
 msgid "Failed to edit role"
 msgstr ""
 
-#: app/controllers/environment_admin/features_controller.rb:12
+#: app/controllers/environment_admin/features_controller.rb:13
 msgid "Features updated successfully."
-msgstr ""
-
-#: app/controllers/environment_admin/environment_role_manager_controller.rb:15
-#: app/controllers/profile_admin/profile_members_controller.rb:16
-msgid "Roles successfuly updated"
 msgstr ""
 
 #: app/controllers/environment_admin/environment_role_manager_controller.rb:17
 #: app/controllers/profile_admin/profile_members_controller.rb:18
-msgid "Couldn't change the roles"
+msgid "Roles successfuly updated"
 msgstr ""
 
-#: app/controllers/environment_admin/environment_role_manager_controller.rb:46
-#: app/controllers/environment_admin/environment_role_manager_controller.rb:56
-msgid "Member succefully unassociated"
+#: app/controllers/environment_admin/environment_role_manager_controller.rb:19
+#: app/controllers/profile_admin/profile_members_controller.rb:20
+msgid "Couldn't change the roles"
 msgstr ""
 
 #: app/controllers/environment_admin/environment_role_manager_controller.rb:48
 #: app/controllers/environment_admin/environment_role_manager_controller.rb:58
+msgid "Member succefully unassociated"
+msgstr ""
+
+#: app/controllers/environment_admin/environment_role_manager_controller.rb:50
+#: app/controllers/environment_admin/environment_role_manager_controller.rb:60
 msgid "Failed to unassociate member"
 msgstr ""
 
@@ -90,25 +90,25 @@ msgstr ""
 msgid "Failed to activate the enterprise"
 msgstr ""
 
-#: app/controllers/profile_admin/membership_editor_controller.rb:21
+#: app/controllers/profile_admin/membership_editor_controller.rb:23
 msgid ""
 "The enterprise was successfully created, the validation entity will cotact "
 "you as soon as your enterprise is approved"
 msgstr ""
 
-#: app/controllers/profile_admin/membership_editor_controller.rb:24
+#: app/controllers/profile_admin/membership_editor_controller.rb:26
 msgid "Enterprise was not created"
 msgstr ""
 
-#: app/controllers/profile_admin/profile_editor_controller.rb:8
+#: app/controllers/profile_admin/profile_editor_controller.rb:10
 msgid "List Block"
 msgstr ""
 
-#: app/controllers/profile_admin/profile_editor_controller.rb:9
+#: app/controllers/profile_admin/profile_editor_controller.rb:11
 msgid "Link Block"
 msgstr ""
 
-#: app/controllers/profile_admin/profile_editor_controller.rb:11
+#: app/controllers/profile_admin/profile_editor_controller.rb:13
 msgid "Recent documents block"
 msgstr ""
 
@@ -120,19 +120,19 @@ msgstr ""
 msgid "Incorrect username or password"
 msgstr ""
 
-#: app/controllers/public/account_controller.rb:40
+#: app/controllers/public/account_controller.rb:42
 msgid "Thanks for signing up!"
 msgstr ""
 
-#: app/controllers/public/account_controller.rb:52
+#: app/controllers/public/account_controller.rb:54
 msgid "You have been logged out."
 msgstr ""
 
-#: app/controllers/public/account_controller.rb:63
+#: app/controllers/public/account_controller.rb:65
 msgid "Your password has been changed successfully!"
 msgstr ""
 
-#: app/controllers/public/account_controller.rb:66
+#: app/controllers/public/account_controller.rb:68
 msgid "The supplied current password is incorrect."
 msgstr ""
 
@@ -259,7 +259,7 @@ msgstr ""
 msgid "Edit profile design"
 msgstr ""
 
-#: app/models/profile.rb:62
+#: app/models/profile.rb:63
 msgid "An existing profile cannot be renamed."
 msgstr ""
 
@@ -556,34 +556,38 @@ msgid "Environment|Design data"
 msgstr ""
 
 #: app/models/environment.rb:7
-msgid "Edit environment features"
+msgid "View environment admin panel"
 msgstr ""
 
 #: app/models/environment.rb:8
-msgid "Edit environment design"
+msgid "Edit environment features"
 msgstr ""
 
 #: app/models/environment.rb:9
-msgid "Manage environment categories"
+msgid "Edit environment design"
 msgstr ""
 
 #: app/models/environment.rb:10
-msgid "Manage environment roles"
+msgid "Manage environment categories"
 msgstr ""
 
 #: app/models/environment.rb:11
+msgid "Manage environment roles"
+msgstr ""
+
+#: app/models/environment.rb:12
 msgid "Manage environment validators"
 msgstr ""
 
-#: app/models/environment.rb:18
+#: app/models/environment.rb:19
 msgid "Some feature"
 msgstr ""
 
-#: app/models/environment.rb:19
+#: app/models/environment.rb:20
 msgid "Other feature"
 msgstr ""
 
-#: app/models/environment.rb:142
+#: app/models/environment.rb:143
 msgid "Only one Virtual Community can be the default one"
 msgstr ""
 
@@ -792,27 +796,34 @@ msgstr ""
 msgid "Change icon theme"
 msgstr ""
 
-#: app/helpers/application_helper.rb:247 app/helpers/application_helper.rb:250
+#: app/helpers/application_helper.rb:252 app/helpers/application_helper.rb:255
 msgid "Accessibility"
 msgstr ""
 
-#: app/helpers/application_helper.rb:257
+#: app/helpers/application_helper.rb:260 app/helpers/application_helper.rb:261
+#: app/views/region_validators/region.rhtml:22
+#: app/views/manage_tags/_search_box.rhtml:4
+#: app/views/membership_editor/index.rhtml:4
+msgid "Search"
+msgstr ""
+
+#: app/helpers/application_helper.rb:271
 msgid "%s, version %s"
 msgstr ""
 
-#: app/helpers/application_helper.rb:327
+#: app/helpers/application_helper.rb:341
 msgid "No Filter at all"
 msgstr ""
 
-#: app/helpers/application_helper.rb:328
+#: app/helpers/application_helper.rb:342
 msgid "RDoc filter"
 msgstr ""
 
-#: app/helpers/application_helper.rb:329
+#: app/helpers/application_helper.rb:343
 msgid "Simple"
 msgstr ""
 
-#: app/helpers/application_helper.rb:330
+#: app/helpers/application_helper.rb:344
 msgid "Textile"
 msgstr ""
 
@@ -864,79 +875,79 @@ msgstr ""
 msgid "DRAG"
 msgstr ""
 
-#: app/views/cms/_form.rhtml:6
+#: app/views/cms/_form.rhtml:9
 msgid "Title"
 msgstr ""
 
-#: app/views/cms/_form.rhtml:7
+#: app/views/cms/_form.rhtml:10
 msgid "More..."
 msgstr ""
 
-#: app/views/cms/_form.rhtml:7
+#: app/views/cms/_form.rhtml:10
 msgid "Less..."
 msgstr ""
 
-#: app/views/cms/_form.rhtml:11
+#: app/views/cms/_form.rhtml:14
 msgid "Slug"
 msgstr ""
 
-#: app/views/cms/_form.rhtml:17
+#: app/views/cms/_form.rhtml:20
 msgid "Keywords"
 msgstr ""
 
-#: app/views/cms/_form.rhtml:24
+#: app/views/cms/_form.rhtml:27
 msgid "Parent"
 msgstr ""
 
-#: app/views/cms/_form.rhtml:26
+#: app/views/cms/_form.rhtml:29
 msgid "%s is a root page"
 msgstr ""
 
-#: app/views/cms/_form.rhtml:34
+#: app/views/cms/_form.rhtml:37
 msgid "Content"
 msgstr ""
 
-#: app/views/cms/_form.rhtml:40
+#: app/views/cms/_form.rhtml:43
 msgid "Filter"
 msgstr ""
 
-#: app/views/cms/_form.rhtml:42
+#: app/views/cms/_form.rhtml:45
 msgid "Converts plain text into HTML"
 msgstr ""
 
-#: app/views/cms/_form.rhtml:48
+#: app/views/cms/_form.rhtml:51
 msgid "Created"
 msgstr ""
 
-#: app/views/cms/_form.rhtml:57
+#: app/views/cms/_form.rhtml:60
 msgid "One revision"
 msgid_plural "%d revisions"
 msgstr[0] ""
 msgstr[1] ""
 
-#: app/views/cms/_form.rhtml:63
+#: app/views/cms/_form.rhtml:66
 msgid "Loading preview ..."
 msgstr ""
 
-#: app/views/cms/_form.rhtml:64
+#: app/views/cms/_form.rhtml:67
 msgid "Save Changes"
 msgstr ""
 
-#: app/views/cms/_form.rhtml:64
+#: app/views/cms/_form.rhtml:67
 msgid "Create Page"
 msgstr ""
 
-#: app/views/cms/_form.rhtml:66
+#: app/views/cms/_form.rhtml:69
 msgid "Revert"
 msgstr ""
 
-#: app/views/cms/_form.rhtml:69
+#: app/views/cms/_form.rhtml:72
 msgid ""
 "Changes detected. You will lose all the updates you have made if you "
 "proceed..."
 msgstr ""
 
-#: app/views/cms/_form.rhtml:69 app/views/cms/delete.rhtml:16
+#: app/views/cms/_form.rhtml:72 app/views/cms/delete.rhtml:16
 #: app/views/cms/versions.rhtml:25 app/views/role/_form.rhtml:13
 #: app/views/profile_members/change_role.rhtml:12
 #: app/views/enterprise_editor/edit.rhtml:8 app/views/manage_tags/new.rhtml:6
@@ -948,23 +959,23 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: app/views/cms/_form.rhtml:75
+#: app/views/cms/_form.rhtml:78
 msgid "Page Preview"
 msgstr ""
 
-#: app/views/cms/_form.rhtml:77
+#: app/views/cms/_form.rhtml:80
 msgid "Loading Preview..."
 msgstr ""
 
-#: app/views/cms/_form.rhtml:82
+#: app/views/cms/_form.rhtml:85
 msgid "Close Preview"
 msgstr ""
 
-#: app/views/cms/_form.rhtml:82 app/views/cms/versions.rhtml:24
+#: app/views/cms/_form.rhtml:85 app/views/cms/versions.rhtml:24
 msgid "or"
 msgstr ""
 
-#: app/views/cms/_form.rhtml:82
+#: app/views/cms/_form.rhtml:85
 msgid "Back to top"
 msgstr ""
 
@@ -1032,7 +1043,7 @@ msgstr ""
 msgid "Current Version"
 msgstr ""
 
-#: app/views/cms/edit.rhtml:2
+#: app/views/cms/edit.rhtml:20
 msgid "Edit Page"
 msgstr ""
 
@@ -1085,8 +1096,9 @@ msgstr ""
 msgid "New role"
 msgstr ""
 
-#: app/views/role/index.rhtml:6 app/views/manage_tags/_a_tag.rhtml:3
-#: app/views/profile_editor/index.rhtml:5
+#: app/views/role/index.rhtml:6 app/views/content_viewer/view_page.rhtml:7
+#: app/views/manage_tags/_a_tag.rhtml:3 app/views/profile_editor/index.rhtml:6
+#: app/views/profile_editor/index.rhtml:8
 #: app/views/categories/_category.rhtml:8
 msgid "Edit"
 msgstr ""
@@ -1167,14 +1179,6 @@ msgid ""
 "result to add them as validators for this region. "
 msgstr ""
 
-#: app/views/region_validators/region.rhtml:22
-#: app/views/layouts/application.rhtml:82
-#: app/views/layouts/comatose_admin.rhtml:82
-#: app/views/manage_tags/_search_box.rhtml:4
-#: app/views/membership_editor/index.rhtml:4
-msgid "Search"
-msgstr ""
-
 #: app/views/region_validators/_region.rhtml:5
 msgid "1 validator"
 msgid_plural "%{num} validators."
@@ -1194,14 +1198,9 @@ msgstr ""
 msgid "There is no such page: %s"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:60
-#: app/views/layouts/comatose_admin.rhtml:60
+#: app/views/layouts/application.rhtml:21
+#: app/views/layouts/comatose_admin.rhtml:21
 msgid "Image for Loading..."
-msgstr ""
-
-#: app/views/layouts/application.rhtml:81
-#: app/views/layouts/comatose_admin.rhtml:81
-msgid "Your search here ..."
 msgstr ""
 
 #: app/views/enterprise_editor/_form.rhtml:1
@@ -1656,6 +1655,14 @@ msgid ""
 "environment."
 msgstr ""
 
+#: app/views/search/index.rhtml:1
+msgid "Listing articles found"
+msgstr ""
+
+#: app/views/search/index.rhtml:3
+msgid "Searching for "
+msgstr ""
+
 #: app/views/features/_features_table.rhtml:12
 msgid "Organization Approval Method"
 msgstr ""
@@ -1700,15 +1707,15 @@ msgstr ""
 msgid "My profile"
 msgstr ""
 
-#: app/views/profile_editor/index.rhtml:7
+#: app/views/profile_editor/index.rhtml:13
 msgid "Edit Visual Design"
 msgstr ""
 
-#: app/views/profile_editor/index.rhtml:9
+#: app/views/profile_editor/index.rhtml:15
 msgid "Menage content"
 msgstr ""
 
-#: app/views/profile_editor/index.rhtml:12
+#: app/views/profile_editor/index.rhtml:18
 msgid "Edit enterprise info"
 msgstr ""
 
