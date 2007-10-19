@@ -208,7 +208,7 @@ module ApplicationHelper
   end
 
   def design_links
-    links = desig[
+    links = [
       [(link_to _('Change template'), :controller => 'profile_editor', :action => 'design_editor_change_template')],
       [(link_to _('Change block theme'), :controller => 'profile_editor', :action => 'design_editor_change_theme')],
       [(link_to _('Change icon theme'), :controller => 'profile_editor', :action => 'design_editor_change_icon_theme')],
