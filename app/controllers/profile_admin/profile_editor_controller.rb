@@ -3,8 +3,7 @@ class ProfileEditorController < ProfileAdminController
 
   design_editor :holder => 'profile', :autosave => true, :block_types => :block_types
 
-#  protect [:edit], 'edit_profile', profile
-#  protect []
+  protect [:edit], 'edit_profile', profile
   
   def block_types
     {
@@ -14,7 +13,6 @@ class ProfileEditorController < ProfileAdminController
       'RecentDocumentsBlock' => _("Recent documents block")
     }
   end
-
 
   # edits the profile info (posts back)
   def edit

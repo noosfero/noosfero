@@ -4,7 +4,7 @@ class MembershipEditorController < ProfileAdminController
 
   needs_profile 
  
-#  protect [:index, :new_enterprise, :create_enterprise ], 'edit_profile', profile
+  protect [:index, :new_enterprise, :create_enterprise ], 'edit_profile', profile
 
   def index
     @memberships = current_user.person.memberships
