@@ -208,7 +208,7 @@ module ApplicationHelper
   end
 
   def design_links
-    links = [
+    links = desig[
       [(link_to _('Change template'), :controller => 'profile_editor', :action => 'design_editor_change_template')],
       [(link_to _('Change block theme'), :controller => 'profile_editor', :action => 'design_editor_change_theme')],
       [(link_to _('Change icon theme'), :controller => 'profile_editor', :action => 'design_editor_change_icon_theme')],
@@ -245,11 +245,23 @@ module ApplicationHelper
     end.map{|l| link_if_permitted(l[0], l[1], l[2]) }
   end
 
+#  def user_options
+#  end
+
   def accessibility_link
     doc = Article.find_all_by_title(_('Accessibility')).select do |a| 
       a.full_path.split(/\//).shift == 'noosfero'
     end[0]
     link_to_document doc, _('Accessibility') if doc 
+  end
+
+  def search_box
+    [form_tag( '/search'),
+      text_field_tag( 'query', _(''), :id => "input_search"),
+      submit_tag(_('Search'), :id => 'button_search'),
+       '</form>',
+      observe_field('input_search', :function => '', :on => :click)
+    ].join("\n") 
   end
 
   def footer

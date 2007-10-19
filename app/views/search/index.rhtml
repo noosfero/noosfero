@@ -1,0 +1,6 @@
+<h2> <%= _('Listing articles found')  %> </h2>
+
+<h4> <%= _('Searching for ') + @query  %></h4>
+<% @results.each do |a| %>
+  <h4> <%= link_to_document(a)  %> </h4>
+<% end %>

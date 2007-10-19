@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.3.0\n"
-"POT-Creation-Date: 2007-10-01 14:46-0300\n"
-"PO-Revision-Date: 2007-10-01 14:37-0300\n"
+"POT-Creation-Date: 2007-10-19 13:30-0300\n"
+"PO-Revision-Date: 2007-10-19 13:30-0300\n"
 "Last-Translator: Krishnamurti Lelis Lima Vieira Nunes <krishna@colivre.coop."
 "br>\n"
 "Language-Team: \n"
@@ -21,6 +21,7 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 
 #: app/controllers/environment_admin/edit_template_controller.rb:10
+#: app/controllers/profile_admin/profile_editor_controller.rb:10
 msgid "Main content block"
 msgstr "Bloco de conteúdo principal"
 
@@ -49,28 +50,56 @@ msgstr "Falhou em criar papel"
 msgid "Failed to edit role"
 msgstr "Falhou em editar papel"
 
-#: app/controllers/environment_admin/features_controller.rb:18
+#: app/controllers/environment_admin/features_controller.rb:12
 msgid "Features updated successfully."
 msgstr "Funcionalidades alterada com sucesso"
 
-#: app/controllers/profile_admin/enterprise_editor_controller.rb:23
+#: app/controllers/environment_admin/environment_role_manager_controller.rb:15
+#: app/controllers/profile_admin/profile_members_controller.rb:16
+#, fuzzy
+msgid "Roles successfuly updated"
+msgstr "Marcador alterado com sucesso"
+
+#: app/controllers/environment_admin/environment_role_manager_controller.rb:17
+#: app/controllers/profile_admin/profile_members_controller.rb:18
+#, fuzzy
+msgid "Couldn't change the roles"
+msgstr "Não pôde modificar o empreendimento"
+
+#: app/controllers/environment_admin/environment_role_manager_controller.rb:46
+#: app/controllers/environment_admin/environment_role_manager_controller.rb:56
+#, fuzzy
+msgid "Member succefully unassociated"
+msgstr "Empreendimento ativado com sucesso"
+
+#: app/controllers/environment_admin/environment_role_manager_controller.rb:48
+#: app/controllers/environment_admin/environment_role_manager_controller.rb:58
+#, fuzzy
+msgid "Failed to unassociate member"
+msgstr "Falhou em ativar o empreendimento"
+
+#: app/controllers/profile_admin_controller.rb:15
+msgid "This action is not available for \"%s\"."
+msgstr ""
+
+#: app/controllers/profile_admin/enterprise_editor_controller.rb:25
 msgid "Could not update the enterprise"
 msgstr "Não pôde modificar o empreendimento"
 
-#: app/controllers/profile_admin/enterprise_editor_controller.rb:32
+#: app/controllers/profile_admin/enterprise_editor_controller.rb:34
 #, fuzzy
 msgid "Enterprise sucessfully erased from the system"
 msgstr "Empreendimento ativado com sucesso"
 
-#: app/controllers/profile_admin/enterprise_editor_controller.rb:39
+#: app/controllers/profile_admin/enterprise_editor_controller.rb:41
 msgid "Enterprise successfuly activacted"
 msgstr "Empreendimento ativado com sucesso"
 
-#: app/controllers/profile_admin/enterprise_editor_controller.rb:41
+#: app/controllers/profile_admin/enterprise_editor_controller.rb:43
 msgid "Failed to activate the enterprise"
 msgstr "Falhou em ativar o empreendimento"
 
-#: app/controllers/profile_admin/membership_editor_controller.rb:20
+#: app/controllers/profile_admin/membership_editor_controller.rb:21
 msgid ""
 "The enterprise was successfully created, the validation entity will cotact "
 "you as soon as your enterprise is approved"
@@ -78,33 +107,114 @@ msgstr ""
 "O empreendimento foi criado com sucesso, a entidade de validação irá entrar "
 "em contato com você assim que seu empreendimento for aprovado"
 
-#: app/controllers/profile_admin/membership_editor_controller.rb:23
+#: app/controllers/profile_admin/membership_editor_controller.rb:24
 msgid "Enterprise was not created"
 msgstr "Empreendimento não foi criado"
 
-#: app/controllers/public/account_controller.rb:20
+#: app/controllers/profile_admin/profile_editor_controller.rb:8
+msgid "List Block"
+msgstr ""
+
+#: app/controllers/profile_admin/profile_editor_controller.rb:9
+msgid "Link Block"
+msgstr ""
+
+#: app/controllers/profile_admin/profile_editor_controller.rb:11
+#, fuzzy
+msgid "Recent documents block"
+msgstr "Bloco de conteúdo principal"
+
+#: app/controllers/public/account_controller.rb:21
 msgid "Logged in successfully"
 msgstr "Login bem sucedido"
 
-#: app/controllers/public/account_controller.rb:22
+#: app/controllers/public/account_controller.rb:23
 msgid "Incorrect username or password"
 msgstr "Nome ou senha incorreto"
 
-#: app/controllers/public/account_controller.rb:39
+#: app/controllers/public/account_controller.rb:40
 msgid "Thanks for signing up!"
 msgstr "Obrigado por se registrar!"
 
-#: app/controllers/public/account_controller.rb:51
+#: app/controllers/public/account_controller.rb:52
 msgid "You have been logged out."
 msgstr "Você se saiu do sistema"
 
-#: app/controllers/public/account_controller.rb:62
+#: app/controllers/public/account_controller.rb:63
 msgid "Your password has been changed successfully!"
 msgstr "Sua senha foi alterada com sucesso!"
 
-#: app/controllers/public/account_controller.rb:65
+#: app/controllers/public/account_controller.rb:66
 msgid "The supplied current password is incorrect."
 msgstr "A senha informada está incorreta"
+
+#: app/models/validation_info.rb:-
+#, fuzzy
+msgid "validation info"
+msgstr "informação da organização"
+
+#: app/models/validation_info.rb:-
+#, fuzzy
+msgid "ValidationInfo|Validation methodology"
+msgstr "Validado"
+
+#: app/models/validation_info.rb:-
+#, fuzzy
+msgid "ValidationInfo|Restrictions"
+msgstr "Organização"
+
+#: app/models/validation_info.rb:-
+#, fuzzy
+msgid "ValidationInfo|Organization"
+msgstr "Organização"
+
+#: app/models/change_password.rb:13
+#, fuzzy
+msgid "ChangePassword|Login"
+msgstr "Alterar senha"
+
+#: app/models/change_password.rb:14
+#, fuzzy
+msgid "ChangePassword|Email"
+msgstr "Alterar senha"
+
+#: app/models/change_password.rb:15
+#, fuzzy
+msgid "ChangePassword|Password"
+msgstr "Alterar senha"
+
+#: app/models/change_password.rb:16
+#, fuzzy
+msgid "ChangePassword|Password Confirmation"
+msgstr "Confirmação de senha"
+
+#: app/models/change_password.rb:31
+msgid "%{fn} is not a valid username."
+msgstr ""
+
+#: app/models/change_password.rb:34
+msgid "%{fn} is invalid."
+msgstr ""
+
+#: app/models/change_password.rb:65
+msgid "Your password change request was cancelled at %s."
+msgstr ""
+
+#: app/models/change_password.rb:69
+#, fuzzy
+msgid "Your password was changed successfully."
+msgstr "Sua senha foi alterada com sucesso!"
+
+#: app/models/change_password.rb:78
+msgid ""
+"In order to change your password, please visit the following address:\n"
+"\n"
+"%s"
+msgstr ""
+
+#: app/models/change_password.rb:83
+msgid "Password change request"
+msgstr ""
 
 #: app/models/profile.rb:-
 msgid "profile"
@@ -128,16 +238,8 @@ msgid "Profile|Environment"
 msgstr "comunidade virtual"
 
 #: app/models/profile.rb:-
-msgid "Profile|Flexible template template"
-msgstr "Modelo fexível modelo"
-
-#: app/models/profile.rb:-
-msgid "Profile|Flexible template theme"
-msgstr "Modelo flexível tema"
-
-#: app/models/profile.rb:-
-msgid "Profile|Flexible template icon theme"
-msgstr "Modelo flexível tema de ícones"
+msgid "Profile|Design data"
+msgstr ""
 
 #: app/models/profile.rb:-
 msgid "Profile|Active"
@@ -156,14 +258,32 @@ msgid "Profile|User"
 msgstr "Usuário"
 
 #: app/models/profile.rb:-
-msgid "Profile|Validation entity"
-msgstr "Entidade de validação"
+#, fuzzy
+msgid "Profile|Region"
+msgstr "Nome"
 
-#: app/models/profile.rb:-
-msgid "Profile|Approved"
-msgstr "Aprovado"
+#: app/models/profile.rb:7 app/helpers/application_helper.rb:183
+msgid "Edit profile"
+msgstr "perfil"
 
-#: app/models/profile.rb:46
+#: app/models/profile.rb:8
+msgid "Destroy profile"
+msgstr "Remover perfil"
+
+#: app/models/profile.rb:9
+msgid "Manage memberships"
+msgstr "Gerenciar associação em organização"
+
+#: app/models/profile.rb:10
+msgid "Post content"
+msgstr "Conteúdo da postagem"
+
+#: app/models/profile.rb:11
+#, fuzzy
+msgid "Edit profile design"
+msgstr "perfil"
+
+#: app/models/profile.rb:62
 msgid "An existing profile cannot be renamed."
 msgstr "Um perfil existente não pode ser renomeado"
 
@@ -203,35 +323,49 @@ msgstr "Informação de gerenciamento"
 msgid "OrganizationInfo|Validated"
 msgstr "Validado"
 
-#: app/models/role.rb:-
-msgid "role"
-msgstr "papel"
+#: app/models/task.rb:-
+msgid "task"
+msgstr ""
 
-#: app/models/role.rb:-
-#, fuzzy
-msgid "Role|Name"
-msgstr "Nome"
+#: app/models/task.rb:-
+msgid "Task|Data"
+msgstr ""
 
-#: app/models/role.rb:-
-#, fuzzy
-msgid "Role|Permissions"
-msgstr "Permissões: "
+#: app/models/task.rb:-
+msgid "Task|Status"
+msgstr ""
 
-#: app/models/role.rb:5
-msgid "Edit profile"
-msgstr "perfil"
+#: app/models/task.rb:-
+msgid "Task|End date"
+msgstr ""
 
-#: app/models/role.rb:6
-msgid "Destroy profile"
-msgstr "Remover perfil"
+#: app/models/task.rb:-
+msgid "Task|Requestor"
+msgstr ""
 
-#: app/models/role.rb:7
-msgid "Manage memberships"
-msgstr "Gerenciar associação em organização"
+#: app/models/task.rb:-
+msgid "Task|Target"
+msgstr ""
 
-#: app/models/role.rb:8
-msgid "Post content"
-msgstr "Conteúdo da postagem"
+#: app/models/task.rb:-
+msgid "Task|Code"
+msgstr ""
+
+#: app/models/task.rb:81
+msgid "Generic task"
+msgstr ""
+
+#: app/models/task.rb:88
+msgid "The task was created at %s"
+msgstr ""
+
+#: app/models/task.rb:94
+msgid "The task was finished at %s"
+msgstr ""
+
+#: app/models/task.rb:100
+msgid "The task was cancelled at %s"
+msgstr ""
 
 #: app/models/person_info.rb:-
 msgid "person info"
@@ -353,9 +487,84 @@ msgstr "Senha"
 msgid "User|Password confirmation"
 msgstr "Confirmação de senha"
 
-#: app/models/user.rb:30
+#: app/models/user.rb:31
 msgid "%{fn} must be checked in order to signup."
 msgstr "%{fn} deve ser verificado para efetivar inscrição"
+
+#: app/models/create_enterprise.rb:3
+#, fuzzy
+msgid "CreateEnterprise|Identifier"
+msgstr "Identificador"
+
+#: app/models/create_enterprise.rb:4
+#, fuzzy
+msgid "CreateEnterprise|Name"
+msgstr "Excluir empreendimento"
+
+#: app/models/create_enterprise.rb:5
+msgid "CreateEnterprise|Address"
+msgstr ""
+
+#: app/models/create_enterprise.rb:6
+#, fuzzy
+msgid "CreateEnterprise|Contact phone"
+msgstr "Telefone de contato"
+
+#: app/models/create_enterprise.rb:7
+#, fuzzy
+msgid "CreateEnterprise|Contact person"
+msgstr "Pessoa de contato"
+
+#: app/models/create_enterprise.rb:8
+msgid "CreateEnterprise|Acronym"
+msgstr ""
+
+#: app/models/create_enterprise.rb:9
+#, fuzzy
+msgid "CreateEnterprise|Foundation year"
+msgstr "Ano de fundação"
+
+#: app/models/create_enterprise.rb:10
+#, fuzzy
+msgid "CreateEnterprise|Legal form"
+msgstr "informação de empreendimento"
+
+#: app/models/create_enterprise.rb:11
+#, fuzzy
+msgid "CreateEnterprise|Economic activity"
+msgstr "Atividade econômica"
+
+#: app/models/create_enterprise.rb:12
+#, fuzzy
+msgid "CreateEnterprise|Management information"
+msgstr "Informação de gerenciamento"
+
+#: app/models/create_enterprise.rb:108
+#, fuzzy
+msgid "Enterprise registration: \"%s\""
+msgstr "Editar informações do empreendimento"
+
+#: app/models/create_enterprise.rb:112
+msgid ""
+"Your request for registering enterprise \"%{enterprise}\" at %{environment} "
+"was just received. It will be reviewed by the chosen validator organization "
+"you chose, according to its methods and creteria.\n"
+"\n"
+"      You will be notified as soon as the validator organization has a "
+"position about your request."
+msgstr ""
+
+#: app/models/create_enterprise.rb:118
+msgid ""
+"Your request fo registering the enterprise \"%{enterprise}\" was approved. "
+"You can access %{environment} now and start entering "
+msgstr ""
+
+#: app/models/create_enterprise.rb:122
+msgid ""
+"Your request for registering the enterprise %{enterprise} at %{environment} "
+"was NOT approved by the validator organization."
+msgstr ""
 
 #: app/models/environment.rb:-
 msgid "environment"
@@ -364,6 +573,11 @@ msgstr "comunidade virtual"
 #: app/models/environment.rb:-
 #, fuzzy
 msgid "Environment|Name"
+msgstr "comunidade virtual"
+
+#: app/models/environment.rb:-
+#, fuzzy
+msgid "Environment|Contact email"
 msgstr "comunidade virtual"
 
 #: app/models/environment.rb:-
@@ -380,40 +594,41 @@ msgstr "comunidade virtual"
 msgid "Environment|Design data"
 msgstr ""
 
+#: app/models/environment.rb:7
+#, fuzzy
+msgid "Edit environment features"
+msgstr "comunidade virtual"
+
+#: app/models/environment.rb:8
+#, fuzzy
+msgid "Edit environment design"
+msgstr "comunidade virtual"
+
+#: app/models/environment.rb:9
+#, fuzzy
+msgid "Manage environment categories"
+msgstr "Gerenciar categorias"
+
 #: app/models/environment.rb:10
+#, fuzzy
+msgid "Manage environment roles"
+msgstr "Gerencias papéis de usuários"
+
+#: app/models/environment.rb:11
+msgid "Manage environment validators"
+msgstr ""
+
+#: app/models/environment.rb:18
 msgid "Some feature"
 msgstr "Alguma funcionalidade"
 
-#: app/models/environment.rb:11
+#: app/models/environment.rb:19
 msgid "Other feature"
 msgstr "Outra funcionalidade"
 
-#: app/models/environment.rb:124
+#: app/models/environment.rb:142
 msgid "Only one Virtual Community can be the default one"
 msgstr "Apenas uma comunidade virtual pode ser a padrão"
-
-#: app/models/role_assignment.rb:-
-msgid "role assignment"
-msgstr "atribuição de papéis"
-
-#: app/models/role_assignment.rb:-
-#, fuzzy
-msgid "RoleAssignment|Person"
-msgstr "atribuição de papéis"
-
-#: app/models/role_assignment.rb:-
-#, fuzzy
-msgid "RoleAssignment|Role"
-msgstr "atribuição de papéis"
-
-#: app/models/role_assignment.rb:-
-#, fuzzy
-msgid "RoleAssignment|Resource"
-msgstr "atribuição de papéis"
-
-#: app/models/role_assignment.rb:-
-msgid "RoleAssignment|Resource type"
-msgstr ""
 
 #: app/models/category.rb:-
 msgid "category"
@@ -465,91 +680,203 @@ msgstr "%{fn} já está sendo usado por outra categoria."
 msgid "%{fn} was already assigned to another category."
 msgstr "%{fn} já foi atribuído a outra categoria."
 
-#: app/models/enterprise_info.rb:-
-msgid "enterprise info"
-msgstr "informação de empreendimento"
+#: app/models/category.rb:13
+msgid "%{fn} must be the same as the parents'"
+msgstr ""
 
-#: app/models/enterprise_info.rb:-
-msgid "EnterpriseInfo|Approval status"
-msgstr "Estado de aprovação"
-
-#: app/models/enterprise_info.rb:-
-msgid "EnterpriseInfo|Approval comments"
-msgstr "Comentário de aprovação"
-
-#: app/models/enterprise_info.rb:-
-msgid "EnterpriseInfo|Enterprise"
-msgstr "Empreendimento"
+#: app/models/organization.rb:11 app/models/organization.rb:16
+msgid "(not informed)"
+msgstr ""
 
 #: app/helpers/categories_helper.rb:6
 msgid "Do not display at the menu"
 msgstr "Não exibir no menu"
 
 #: app/helpers/categories_helper.rb:7
-msgid "Blue"
-msgstr "Azul"
-
-#: app/helpers/categories_helper.rb:8
-msgid "Red"
-msgstr "Vermelho"
-
-#: app/helpers/categories_helper.rb:9
-msgid "Green"
-msgstr "Verde"
-
-#: app/helpers/categories_helper.rb:10
 msgid "Orange"
 msgstr "Laranja"
 
+#: app/helpers/categories_helper.rb:8
+msgid "Green"
+msgstr "Verde"
+
+#: app/helpers/categories_helper.rb:9
+#, fuzzy
+msgid "Purple"
+msgstr "papel"
+
+#: app/helpers/categories_helper.rb:10
+msgid "Red"
+msgstr "Vermelho"
+
+#: app/helpers/categories_helper.rb:14
+#, fuzzy
+msgid "Categoria Geral"
+msgstr "Categorias"
+
 #: app/helpers/categories_helper.rb:15
+#, fuzzy
+msgid "Product Category"
+msgstr "categoria"
+
+#: app/helpers/categories_helper.rb:16
+msgid "Region"
+msgstr ""
+
+#: app/helpers/categories_helper.rb:21
 msgid "Display at the menu?"
 msgstr "Mostrar no menu?"
+
+#: app/helpers/categories_helper.rb:38
+#, fuzzy
+msgid "Type of category"
+msgstr "Nova categoria"
 
 #: app/helpers/profile_helper.rb:6
 msgid "This profile does not have any public information"
 msgstr "Este perfil não tem nenhuma informação pública"
 
-#: app/helpers/application_helper.rb:56
+#: app/helpers/features_helper.rb:4
+msgid "Administrator must approve all new organizations"
+msgstr ""
+
+#: app/helpers/features_helper.rb:5
+msgid "Administrator assigns validator organizations per region."
+msgstr ""
+
+#: app/helpers/application_helper.rb:60
 msgid "Help"
 msgstr "Ajuda"
 
-#: app/helpers/application_helper.rb:114
+#: app/helpers/application_helper.rb:61
+msgid "Close"
+msgstr "Fechar"
+
+#: app/helpers/application_helper.rb:117
 msgid "My account"
 msgstr "Minha conta"
 
-#: app/helpers/application_helper.rb:115
+#: app/helpers/application_helper.rb:118
+#, fuzzy
+msgid "My Enterprises"
+msgstr "Novo empreendimento"
+
+#: app/helpers/application_helper.rb:119
+#: app/views/environment_role_manager/make_admin.rhtml:4
 msgid "Admin"
 msgstr "Administrador"
 
-#: app/helpers/application_helper.rb:133 app/views/account/login.rhtml:1
+#: app/helpers/application_helper.rb:120 app/helpers/application_helper.rb:126
+msgid "About"
+msgstr "Sobre"
+
+#: app/helpers/application_helper.rb:144 app/views/account/login.rhtml:1
 msgid "Login"
 msgstr "Entrar"
 
-#: app/helpers/application_helper.rb:137
+#: app/helpers/application_helper.rb:148
 msgid "Not a user yet? Register now!"
 msgstr "Ainda não é usuário? Registre-se agora!"
 
-#: app/helpers/application_helper.rb:141
+#: app/helpers/application_helper.rb:152
 msgid "Logout"
 msgstr "Sair"
 
-#: app/helpers/application_helper.rb:148
+#: app/helpers/application_helper.rb:166
+#, fuzzy
+msgid "Features"
+msgstr "Alguma funcionalidade"
+
+#: app/helpers/application_helper.rb:167
+#, fuzzy
+msgid "Edit visual"
+msgstr "perfil"
+
+#: app/helpers/application_helper.rb:168
+#, fuzzy
+msgid "Manage categories"
+msgstr "Gerenciar categorias"
+
+#: app/helpers/application_helper.rb:169
+#, fuzzy
+msgid "Manage permissions"
+msgstr "Permissões: "
+
+#: app/helpers/application_helper.rb:170
+#, fuzzy
+msgid "Manage validators"
+msgstr "Gerenciar categorias"
+
+#: app/helpers/application_helper.rb:176
+#: app/views/membership_editor/index.rhtml:16
+msgid "New enterprise"
+msgstr "Novo empreendimento"
+
+#: app/helpers/application_helper.rb:182 app/helpers/application_helper.rb:191
+#, fuzzy
+msgid "Edit visual design"
+msgstr "Editar o design visual"
+
+#: app/helpers/application_helper.rb:184 app/helpers/application_helper.rb:193
+#, fuzzy
+msgid "Manage content"
+msgstr "Gerenciar conteúdo."
+
+#: app/helpers/application_helper.rb:192
+#, fuzzy
+msgid "Edit informations"
+msgstr "Editar informações do empreendimento"
+
+#: app/helpers/application_helper.rb:194
+msgid "Exclude"
+msgstr ""
+
+#: app/helpers/application_helper.rb:200
+#: app/views/account/new_password.rhtml:13
+#: app/views/account/change_password.rhtml:1
+#: app/views/account/change_password.rhtml:14
+msgid "Change password"
+msgstr "Alterar senha"
+
+#: app/helpers/application_helper.rb:206
+msgid "Report bug"
+msgstr ""
+
+#: app/helpers/application_helper.rb:212
+#, fuzzy
+msgid "Change template"
+msgstr "Alterar senha"
+
+#: app/helpers/application_helper.rb:213
+msgid "Change block theme"
+msgstr ""
+
+#: app/helpers/application_helper.rb:214
+#, fuzzy
+msgid "Change icon theme"
+msgstr "Gerenciar conteúdo."
+
+#: app/helpers/application_helper.rb:247 app/helpers/application_helper.rb:250
+msgid "Accessibility"
+msgstr ""
+
+#: app/helpers/application_helper.rb:257
 msgid "%s, version %s"
 msgstr "%s, versão %s"
 
-#: app/helpers/application_helper.rb:213
+#: app/helpers/application_helper.rb:327
 msgid "No Filter at all"
 msgstr "Sem qualquer filtro"
 
-#: app/helpers/application_helper.rb:214
+#: app/helpers/application_helper.rb:328
 msgid "RDoc filter"
 msgstr "Filtro RDoc"
 
-#: app/helpers/application_helper.rb:215
+#: app/helpers/application_helper.rb:329
 msgid "Simple"
 msgstr "Simples"
 
-#: app/helpers/application_helper.rb:216
+#: app/helpers/application_helper.rb:330
 msgid "Textile"
 msgstr "Textile"
 
@@ -681,7 +1008,9 @@ msgstr ""
 #: app/views/enterprise_editor/edit.rhtml:8 app/views/manage_tags/new.rhtml:6
 #: app/views/manage_tags/edit.rhtml:6
 #: app/views/membership_editor/new_enterprise.rhtml:13
-#: app/views/categories/_form.rhtml:12
+#: app/views/enterprise_registration/basic_information.rhtml:33
+#: app/views/environment_role_manager/change_role.rhtml:12
+#: app/views/categories/_form.rhtml:17
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -795,7 +1124,8 @@ msgstr "Permissões: "
 
 #: app/views/role/_form.rhtml:12
 #: app/views/profile_members/change_role.rhtml:11
-#: app/views/features/_features_table.rhtml:9
+#: app/views/features/_features_table.rhtml:15
+#: app/views/environment_role_manager/change_role.rhtml:11
 msgid "Save changes"
 msgstr "Salvar alterações"
 
@@ -813,6 +1143,8 @@ msgstr "Permissões: "
 #: app/views/profile_members/index.rhtml:13
 #: app/views/enterprise_editor/index.rhtml:23
 #: app/views/manage_tags/search.rhtml:12
+#: app/views/environment_role_manager/affiliate.rhtml:9
+#: app/views/environment_role_manager/index.rhtml:13
 msgid "Back"
 msgstr "Voltar"
 
@@ -831,14 +1163,18 @@ msgid "Destroy"
 msgstr "Destruir"
 
 #: app/views/profile_members/change_role.rhtml:1
+#: app/views/environment_role_manager/change_role.rhtml:1
 msgid "Changing role of %s"
 msgstr "Mudando papel de %s"
 
 #: app/views/profile_members/change_role.rhtml:5
+#: app/views/environment_role_manager/change_role.rhtml:5
+#: app/views/environment_role_manager/make_admin.rhtml:8
 msgid "Roles: "
 msgstr "Papéis:"
 
 #: app/views/profile_members/affiliate.rhtml:6
+#: app/views/environment_role_manager/affiliate.rhtml:6
 msgid "Affiliate"
 msgstr "Afiliar"
 
@@ -851,12 +1187,72 @@ msgid "Affiliate yourself"
 msgstr "Afiliar-se"
 
 #: app/views/profile_members/index.rhtml:8
+#: app/views/environment_role_manager/index.rhtml:8
 msgid "Edit member role"
 msgstr "Editar papel do membro"
 
 #: app/views/profile_members/index.rhtml:9
+#: app/views/environment_role_manager/index.rhtml:9
 msgid "Remove member"
 msgstr "Remover membro"
+
+#: app/views/task_mailer/task_created.text.plain.rhtml:1
+#: app/views/task_mailer/task_finished.text.plain.rhtml:1
+#: app/views/task_mailer/task_cancelled.text.plain.rhtml:1
+msgid "Dear %s,"
+msgstr ""
+
+#: app/views/task_mailer/task_created.text.plain.rhtml:6
+#: app/views/task_mailer/task_finished.text.plain.rhtml:6
+#: app/views/task_mailer/task_cancelled.text.plain.rhtml:6
+#, fuzzy
+msgid "%s environment system"
+msgstr "comunidade virtual"
+
+#: app/views/region_validators/_search.rhtml:8
+msgid "Adicionar"
+msgstr ""
+
+#: app/views/region_validators/region.rhtml:1
+msgid "Validators for region %s"
+msgstr ""
+
+#: app/views/region_validators/region.rhtml:3
+#, fuzzy
+msgid "Current validators"
+msgstr "Senha atual"
+
+#: app/views/region_validators/region.rhtml:9
+msgid "Remove validation rights"
+msgstr ""
+
+#: app/views/region_validators/region.rhtml:14
+msgid "Add new validators"
+msgstr ""
+
+#: app/views/region_validators/region.rhtml:17
+msgid ""
+"First search organizations by their name, then use the buttons in the search "
+"result to add them as validators for this region. "
+msgstr ""
+
+#: app/views/region_validators/region.rhtml:22
+#: app/views/layouts/application.rhtml:82
+#: app/views/layouts/comatose_admin.rhtml:82
+#: app/views/manage_tags/_search_box.rhtml:4
+#: app/views/membership_editor/index.rhtml:4
+msgid "Search"
+msgstr "Busca"
+
+#: app/views/region_validators/_region.rhtml:5
+msgid "1 validator"
+msgid_plural "%{num} validators."
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/views/region_validators/index.rhtml:1
+msgid "Validators by Region"
+msgstr ""
 
 #: app/views/content_viewer/view_page.rhtml:4
 #: app/views/manage_tags/list.rhtml:17
@@ -867,15 +1263,15 @@ msgstr "Acima"
 msgid "There is no such page: %s"
 msgstr "Não há página: %s"
 
-#: app/views/layouts/application.rhtml:37
-#: app/views/layouts/comatose_admin.rhtml:37
-msgid "Close"
-msgstr "Fechar"
-
-#: app/views/layouts/application.rhtml:42
-#: app/views/layouts/comatose_admin.rhtml:42
+#: app/views/layouts/application.rhtml:60
+#: app/views/layouts/comatose_admin.rhtml:60
 msgid "Image for Loading..."
 msgstr "Imagem para Carregamento..."
+
+#: app/views/layouts/application.rhtml:81
+#: app/views/layouts/comatose_admin.rhtml:81
+msgid "Your search here ..."
+msgstr ""
 
 #: app/views/enterprise_editor/_form.rhtml:1
 #: app/views/manage_tags/_form.rhtml:1
@@ -1088,11 +1484,6 @@ msgstr "Filtrar pela tag pai da atual"
 msgid "Create a new tag"
 msgstr "Criar nova tag"
 
-#: app/views/manage_tags/_search_box.rhtml:4
-#: app/views/membership_editor/index.rhtml:4
-msgid "Search"
-msgstr "Busca"
-
 #: app/views/manage_tags/edit.rhtml:1
 msgid "Editing Tag"
 msgstr "Editando tag"
@@ -1102,14 +1493,17 @@ msgid " enterprises found"
 msgstr " empreendimento encontrado"
 
 #: app/views/membership_editor/new_enterprise.rhtml:3
+#: app/views/enterprise_registration/basic_information.rhtml:3
 msgid "Register enterprise"
 msgstr "Registrar empreendimento"
 
 #: app/views/membership_editor/new_enterprise.rhtml:5
+#: app/views/enterprise_registration/basic_information.rhtml:5
 msgid "How to proceed"
 msgstr "Como proceder"
 
 #: app/views/membership_editor/new_enterprise.rhtml:6
+#: app/views/enterprise_registration/basic_information.rhtml:6
 msgid ""
 "Fill the form and hit the Register button then the enterprise will be "
 "submitted for evaluation at the validation entitiy of your choice (within "
@@ -1126,6 +1520,7 @@ msgstr "Identificador"
 
 #: app/views/membership_editor/new_enterprise.rhtml:12
 #: app/views/account/signup.rhtml:1
+#: app/views/enterprise_registration/basic_information.rhtml:32
 msgid "Register"
 msgstr "Registrar"
 
@@ -1136,10 +1531,6 @@ msgstr "Listando associações em organizações"
 #: app/views/membership_editor/index.rhtml:11
 msgid "Manage"
 msgstr "Gerenciar"
-
-#: app/views/membership_editor/index.rhtml:16
-msgid "New enterprise"
-msgstr "Novo empreendimento"
 
 #: app/views/admin_panel/index.rhtml:1
 msgid "Administrator Panel"
@@ -1166,17 +1557,79 @@ msgstr "Gerenciar categorias"
 msgid "Manage User roles"
 msgstr "Gerencias papéis de usuários"
 
+#: app/views/admin_panel/index.rhtml:10
+msgid "Manage Validators by region"
+msgstr ""
+
 #: app/views/category/view.rhtml:1
 msgid "Category: %s"
 msgstr "Categoria: %s"
 
-#: app/views/account/login.rhtml:4
+#: app/views/account/invalid_change_password_code.rhtml:1
+#, fuzzy
+msgid "Invalid change password code"
+msgstr "Alterar senha"
+
+#: app/views/account/invalid_change_password_code.rhtml:4
+msgid ""
+"The code you are using for password change is not valid. Please try to "
+"request password change using the <a href=\"%s\">\"I forgot my password\"</"
+"a> functionality."
+msgstr ""
+
+#: app/views/account/login.rhtml:4 app/views/account/forgot_password.rhtml:8
 msgid "Username"
 msgstr "Nome de usuário"
 
 #: app/views/account/login.rhtml:7
 msgid "Password"
 msgstr "Senha"
+
+#: app/views/account/login.rhtml:20
+#, fuzzy
+msgid "I forgot my password"
+msgstr "Senha atual"
+
+#: app/views/account/password_recovery_sent.rhtml:1
+#: app/views/account/forgot_password.rhtml:1
+#, fuzzy
+msgid "Password recovery"
+msgstr "Senha"
+
+#: app/views/account/password_recovery_sent.rhtml:4
+msgid ""
+"An e-mail was just sent to your e-mail address, with instructions for "
+"changing your password. You should receive it in a few minutes."
+msgstr ""
+
+#: app/views/account/new_password.rhtml:1
+#: app/views/account/new_password.rhtml:11
+#, fuzzy
+msgid "Enter new password"
+msgstr "Nova senha"
+
+#: app/views/account/new_password.rhtml:4
+msgid "Hello, %s! Please enter your new password in the form below."
+msgstr ""
+
+#: app/views/account/new_password.rhtml:12
+#, fuzzy
+msgid "Confirm the new password"
+msgstr "Confirme sua nova senha"
+
+#: app/views/account/new_password_ok.rhtml:1
+#, fuzzy
+msgid "Password changed sucessfully"
+msgstr "Sua senha foi alterada com sucesso!"
+
+#: app/views/account/new_password_ok.rhtml:4
+#, fuzzy
+msgid "%s, your new password was successfully installed."
+msgstr "Sua senha foi alterada com sucesso!"
+
+#: app/views/account/new_password_ok.rhtml:8
+msgid "You can <a href='%s'>login</a> now."
+msgstr ""
 
 #: app/views/account/index_anonymous.rhtml:1
 msgid "Identify yourself"
@@ -1205,11 +1658,6 @@ msgstr ""
 "Se você ainda não é um usuário, você pode se registrar agora e se tornar um "
 "membro desse comunidade virtual."
 
-#: app/views/account/change_password.rhtml:1
-#: app/views/account/change_password.rhtml:14
-msgid "Change password"
-msgstr "Alterar senha"
-
 #: app/views/account/change_password.rhtml:5
 msgid "Current password"
 msgstr "Senha atual"
@@ -1225,6 +1673,22 @@ msgstr "Confirme sua nova senha"
 #: app/views/account/signup.rhtml:17
 msgid "I accept the terms of use"
 msgstr "Eu aceito os termos de uso"
+
+#: app/views/account/forgot_password.rhtml:5
+msgid ""
+"To change your password, please fill the form on this screen using yout "
+"username and your e-mail. You will receive a message at that e-mail address "
+"with a web address you can access to create a new password."
+msgstr ""
+
+#: app/views/account/forgot_password.rhtml:9
+#, fuzzy
+msgid "E-mail"
+msgstr "E-mail"
+
+#: app/views/account/forgot_password.rhtml:11
+msgid "Send change password procedure by e-mail"
+msgstr ""
 
 #: app/views/account/index.rhtml:1
 msgid "Account options"
@@ -1282,6 +1746,11 @@ msgstr ""
 "É sempre uma boa idéia fazer logout quando você terminar de usar a "
 "comunidade virtual."
 
+#: app/views/features/_features_table.rhtml:12
+#, fuzzy
+msgid "Organization Approval Method"
+msgstr "Validado"
+
 #: app/views/features/index.rhtml:1
 msgid "Enable/Disable features"
 msgstr "Habilitar/Desabilitar funcionalidades"
@@ -1308,6 +1777,10 @@ msgstr ""
 msgid "Access denied"
 msgstr "Acesso negado"
 
+#: app/views/shared/categories_menu.rhtml:5
+msgid "Home"
+msgstr ""
+
 #: app/views/profile_editor/person_info.rhtml:1
 msgid "Edit person info"
 msgstr "Editar dados pessoais"
@@ -1317,7 +1790,7 @@ msgid "Contact Information"
 msgstr "Informação de contato"
 
 #: app/views/profile_editor/person_info.rhtml:11
-#: app/views/categories/_form.rhtml:11
+#: app/views/categories/_form.rhtml:16
 msgid "Save"
 msgstr "Salvar"
 
@@ -1326,8 +1799,9 @@ msgid "My profile"
 msgstr "Meu perfil"
 
 #: app/views/profile_editor/index.rhtml:7
-msgid "Manage members"
-msgstr "Gerenciar membros"
+#, fuzzy
+msgid "Edit Visual Design"
+msgstr "Editar o design visual"
 
 #: app/views/profile_editor/index.rhtml:9
 msgid "Menage content"
@@ -1336,6 +1810,66 @@ msgstr "Gerenciar conteúdo"
 #: app/views/profile_editor/index.rhtml:12
 msgid "Edit enterprise info"
 msgstr "Editar informação de empreendimento"
+
+#: app/views/enterprise_registration/basic_information.rhtml:27
+#, fuzzy
+msgid "Management information"
+msgstr "Informação de Gerenciamento"
+
+#: app/views/enterprise_registration/select_validator.rhtml:1
+msgid "Enterprise Registration: Select a validator organization"
+msgstr ""
+
+#: app/views/enterprise_registration/select_validator.rhtml:4
+msgid ""
+"Select one organization to validate your enterprise registration request. "
+"Check the provided information about their validation methodoly and criteria."
+msgstr ""
+
+#: app/views/enterprise_registration/select_validator.rhtml:15
+#, fuzzy
+msgid "Validation Methodology:"
+msgstr "Entidade de Validação"
+
+#: app/views/enterprise_registration/select_validator.rhtml:16
+msgid "Restrictions (if any):"
+msgstr ""
+
+#: app/views/enterprise_registration/select_validator.rhtml:20
+msgid "Confirm"
+msgstr ""
+
+#: app/views/enterprise_registration/confirmation.rhtml:1
+#, fuzzy
+msgid "Enterprise Registration completed"
+msgstr "Empreendimento não foi criado"
+
+#: app/views/enterprise_registration/confirmation.rhtml:4
+msgid ""
+"Your enterprise registration request was successfully registered. The "
+"validator organization you choose (%s) should get in touch with to start the "
+"validation process. As soon as the validators approve (or reject) your "
+"request, you will be notified by e-mail."
+msgstr ""
+
+#: app/views/enterprise_registration/confirmation.rhtml:8
+msgid "You can continue to browse this environment."
+msgstr ""
+
+#: app/views/environment_role_manager/make_admin.rhtml:1
+#: app/views/environment_role_manager/index.rhtml:3
+msgid "Make new admin"
+msgstr ""
+
+#: app/views/environment_role_manager/make_admin.rhtml:12
+#, fuzzy
+msgid "Make"
+msgstr "Gerenciar"
+
+#: app/views/environment_role_manager/index.rhtml:1
+#, fuzzy
+msgid "Listing Administrators"
+msgstr "Listando tags"
 
 #: app/views/categories/new.rhtml:1 app/views/categories/index.rhtml:8
 msgid "New category"
@@ -1364,6 +1898,59 @@ msgstr "Editando %s"
 #: app/views/categories/index.rhtml:1
 msgid "Categories"
 msgstr "Categorias"
+
+#~ msgid "Profile|Flexible template template"
+#~ msgstr "Modelo fexível modelo"
+
+#~ msgid "Profile|Flexible template theme"
+#~ msgstr "Modelo flexível tema"
+
+#~ msgid "Profile|Flexible template icon theme"
+#~ msgstr "Modelo flexível tema de ícones"
+
+#~ msgid "Profile|Validation entity"
+#~ msgstr "Entidade de validação"
+
+#~ msgid "Profile|Approved"
+#~ msgstr "Aprovado"
+
+#, fuzzy
+#~ msgid "Role|Name"
+#~ msgstr "Nome"
+
+#, fuzzy
+#~ msgid "Role|Permissions"
+#~ msgstr "Permissões: "
+
+#~ msgid "role assignment"
+#~ msgstr "atribuição de papéis"
+
+#, fuzzy
+#~ msgid "RoleAssignment|Person"
+#~ msgstr "atribuição de papéis"
+
+#, fuzzy
+#~ msgid "RoleAssignment|Role"
+#~ msgstr "atribuição de papéis"
+
+#, fuzzy
+#~ msgid "RoleAssignment|Resource"
+#~ msgstr "atribuição de papéis"
+
+#~ msgid "EnterpriseInfo|Approval status"
+#~ msgstr "Estado de aprovação"
+
+#~ msgid "EnterpriseInfo|Approval comments"
+#~ msgstr "Comentário de aprovação"
+
+#~ msgid "EnterpriseInfo|Enterprise"
+#~ msgstr "Empreendimento"
+
+#~ msgid "Blue"
+#~ msgstr "Azul"
+
+#~ msgid "Manage members"
+#~ msgstr "Gerenciar membros"
 
 #, fuzzy
 #~ msgid "Profile|Virtual community"

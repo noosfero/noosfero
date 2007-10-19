@@ -1,6 +1,7 @@
 class Article < Comatose::Page
   acts_as_taggable  
   
+  acts_as_ferret :fields => [:title, :body]
   def keywords
     tag_list.to_s
   end

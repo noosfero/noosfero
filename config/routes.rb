@@ -26,6 +26,9 @@ ActionController::Routing::Routes.draw do |map|
   # enterprise registration
   map.connect 'enterprise_registration/:action', :controller => 'enterprise_registration'
 
+  # search
+  map.connect 'search', :controller => 'search'
+
   ######################################################
   ## Controllers that are profile-specific (for profile admins )
   ######################################################
