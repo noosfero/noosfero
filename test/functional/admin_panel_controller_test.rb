@@ -6,12 +6,12 @@ class AdminPanelController; def rescue_action(e) raise e end; end
 
 class AdminPanelControllerTest < Test::Unit::TestCase
 
-  fixtures :environments
-
+  all_fixtures
   def setup
     @controller = AdminPanelController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
+    login_as(:ze)
   end
 
   def test_index

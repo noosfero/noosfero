@@ -9,11 +9,13 @@ class RoleControllerTest < Test::Unit::TestCase
     @controller = RoleController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
+    login_as(:ze)
   end
   all_fixtures
 
   def test_index_should_get_roles
     get 'index'
+    assert_response :success
     assert assigns(:roles)
   end
 

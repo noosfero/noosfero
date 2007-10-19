@@ -15,6 +15,7 @@ class CategoriesControllerTest < Test::Unit::TestCase
     Environment.stubs(:default).returns(env)
     assert (@cat1 = env.categories.create(:name => 'a test category'))
     assert (@cat1 = env.categories.create(:name => 'another category'))
+    login_as(:ze)
   end
   attr_reader :env, :cat1, :cat2
 
