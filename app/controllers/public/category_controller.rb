@@ -1,5 +1,13 @@
 class CategoryController < ApplicationController
 
+  design :holder => 'environment'
+  
+  before_filter :load_default_enviroment
+    
+  def load_default_enviroment
+    Environment.default
+  end
+
   before_filter :load_category, :only => [ :view ]
   def load_category
     path = params[:path].join('/')
