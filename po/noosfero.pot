@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.3.0\n"
-"POT-Creation-Date: 2007-10-19 18:31-0300\n"
+"POT-Creation-Date: 2007-10-19 19:24-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: app/controllers/environment_admin/edit_template_controller.rb:10
-#: app/controllers/profile_admin/profile_editor_controller.rb:12
+#: app/controllers/profile_admin/profile_editor_controller.rb:14
 msgid "Main content block"
 msgstr ""
 
@@ -37,12 +37,12 @@ msgstr ""
 msgid "Tag was successfuly approved"
 msgstr ""
 
-#: app/controllers/environment_admin/role_controller.rb:19
+#: app/controllers/environment_admin/role_controller.rb:21
 msgid "Failed to create role"
 msgstr ""
 
-#: app/controllers/environment_admin/role_controller.rb:33
-#: app/controllers/environment_admin/role_controller.rb:43
+#: app/controllers/environment_admin/role_controller.rb:35
+#: app/controllers/environment_admin/role_controller.rb:45
 msgid "Failed to edit role"
 msgstr ""
 
@@ -100,15 +100,15 @@ msgstr ""
 msgid "Enterprise was not created"
 msgstr ""
 
-#: app/controllers/profile_admin/profile_editor_controller.rb:10
+#: app/controllers/profile_admin/profile_editor_controller.rb:12
 msgid "List Block"
 msgstr ""
 
-#: app/controllers/profile_admin/profile_editor_controller.rb:11
+#: app/controllers/profile_admin/profile_editor_controller.rb:13
 msgid "Link Block"
 msgstr ""
 
-#: app/controllers/profile_admin/profile_editor_controller.rb:13
+#: app/controllers/profile_admin/profile_editor_controller.rb:15
 msgid "Recent documents block"
 msgstr ""
 
@@ -134,6 +134,10 @@ msgstr ""
 
 #: app/controllers/public/account_controller.rb:68
 msgid "The supplied current password is incorrect."
+msgstr ""
+
+#: app/controllers/application.rb:50
+msgid "There is no page %s"
 msgstr ""
 
 #: app/models/validation_info.rb:-
@@ -1198,8 +1202,8 @@ msgstr ""
 msgid "There is no such page: %s"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:21
-#: app/views/layouts/comatose_admin.rhtml:21
+#: app/views/layouts/application.rhtml:29
+#: app/views/layouts/comatose_admin.rhtml:29
 msgid "Image for Loading..."
 msgstr ""
 

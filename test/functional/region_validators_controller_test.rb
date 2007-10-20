@@ -5,10 +5,12 @@ require 'region_validators_controller'
 class RegionValidatorsController; def rescue_action(e) raise e end; end
 
 class RegionValidatorsControllerTest < Test::Unit::TestCase
+
   def setup
     @controller = RegionValidatorsController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
+    login_as('ze')
   end
 
   # Replace this with your real tests.
