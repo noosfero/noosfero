@@ -12,7 +12,8 @@ class ListBlock < Design::Block
 		'span',
                 link_to( p.name, :profile => p.identifier)
                 ))
-              end
+              end.join("\n"),
+              :class => 'people_list_block' 
             )
     end
 

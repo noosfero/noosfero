@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.3.0\n"
-"POT-Creation-Date: 2007-10-20 00:09-0300\n"
+"POT-Creation-Date: 2007-10-20 03:04-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,9 +16,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: app/controllers/environment_admin/edit_template_controller.rb:10
+#: app/controllers/environment_admin/edit_template_controller.rb:7
+msgid "List Block"
+msgstr ""
+
+#: app/controllers/environment_admin/edit_template_controller.rb:8
 #: app/controllers/profile_admin/profile_editor_controller.rb:14
-msgid "Main content block"
+msgid "Link Block"
 msgstr ""
 
 #: app/controllers/environment_admin/manage_tags_controller.rb:26
@@ -82,11 +86,11 @@ msgstr ""
 msgid "Enterprise sucessfully erased from the system"
 msgstr ""
 
-#: app/controllers/profile_admin/enterprise_editor_controller.rb:41
+#: app/controllers/profile_admin/enterprise_editor_controller.rb:44
 msgid "Enterprise successfuly activacted"
 msgstr ""
 
-#: app/controllers/profile_admin/enterprise_editor_controller.rb:43
+#: app/controllers/profile_admin/enterprise_editor_controller.rb:46
 msgid "Failed to activate the enterprise"
 msgstr ""
 
@@ -101,43 +105,39 @@ msgid "Enterprise was not created"
 msgstr ""
 
 #: app/controllers/profile_admin/profile_editor_controller.rb:12
-msgid "List Block"
+msgid "List of People"
 msgstr ""
 
 #: app/controllers/profile_admin/profile_editor_controller.rb:13
-msgid "Link Block"
+msgid "List of Enterprises"
 msgstr ""
 
 #: app/controllers/profile_admin/profile_editor_controller.rb:15
 msgid "Recent documents block"
 msgstr ""
 
-#: app/controllers/public/account_controller.rb:21
+#: app/controllers/public/account_controller.rb:29
 msgid "Logged in successfully"
 msgstr ""
 
-#: app/controllers/public/account_controller.rb:23
+#: app/controllers/public/account_controller.rb:31
 msgid "Incorrect username or password"
 msgstr ""
 
-#: app/controllers/public/account_controller.rb:42
+#: app/controllers/public/account_controller.rb:50
 msgid "Thanks for signing up!"
 msgstr ""
 
-#: app/controllers/public/account_controller.rb:54
+#: app/controllers/public/account_controller.rb:62
 msgid "You have been logged out."
 msgstr ""
 
-#: app/controllers/public/account_controller.rb:65
+#: app/controllers/public/account_controller.rb:73
 msgid "Your password has been changed successfully!"
 msgstr ""
 
-#: app/controllers/public/account_controller.rb:68
+#: app/controllers/public/account_controller.rb:76
 msgid "The supplied current password is incorrect."
-msgstr ""
-
-#: app/controllers/application.rb:43
-msgid "There is no page %s"
 msgstr ""
 
 #: app/models/validation_info.rb:-
@@ -263,7 +263,7 @@ msgstr ""
 msgid "Edit profile design"
 msgstr ""
 
-#: app/models/profile.rb:63
+#: app/models/profile.rb:64
 msgid "An existing profile cannot be renamed."
 msgstr ""
 
@@ -643,7 +643,7 @@ msgstr ""
 msgid "%{fn} must be the same as the parents'"
 msgstr ""
 
-#: app/models/organization.rb:11 app/models/organization.rb:16
+#: app/models/organization.rb:15 app/models/organization.rb:20
 msgid "(not informed)"
 msgstr ""
 
@@ -1715,16 +1715,12 @@ msgstr ""
 msgid "My profile"
 msgstr ""
 
-#: app/views/profile_editor/index.rhtml:13
+#: app/views/profile_editor/index.rhtml:14
 msgid "Edit Visual Design"
 msgstr ""
 
-#: app/views/profile_editor/index.rhtml:15
+#: app/views/profile_editor/index.rhtml:16
 msgid "Menage content"
-msgstr ""
-
-#: app/views/profile_editor/index.rhtml:18
-msgid "Edit enterprise info"
 msgstr ""
 
 #: app/views/enterprise_registration/basic_information.rhtml:27
