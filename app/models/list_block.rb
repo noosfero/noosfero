@@ -8,12 +8,9 @@ class ListBlock < Design::Block
               Person.find(:all).map do |p|
                 content_tag(
                 'li',
-		content_tag(
-		'span',
-                link_to_homepage( p.name, p.identifier)
-                ))
-              end.join("\n"),
-              :class => 'people_list_block' 
+		link_to_homepage(content_tag('span', p.name, :class => 'people_list_block'), p.identifier)
+                )
+              end.join("\n")
             )
     end
 
