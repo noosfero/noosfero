@@ -6,7 +6,6 @@ class EditTemplateController < EnvironmentAdminController
     { 
       'ListBlock' => _("List Block"), 
       'LinkBlock' => _("Link Block"),
-      'RecentDocumentsBlock' => _('Recent documents'),
     }
   end
 
