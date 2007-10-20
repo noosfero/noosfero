@@ -9,9 +9,9 @@ class ProfileEditorController < ProfileAdminController
 
   def block_types
     {
-      'ListBlock' => _("List Block"),
+      'ListBlock' => _("List of People"),
+      'EnterprisesBlock' => _("List of Enterprises"),
       'LinkBlock' => _("Link Block"),
-      'Design::MainBlock' => _('Main content block'),
       'RecentDocumentsBlock' => _("Recent documents block")
     }
   end
