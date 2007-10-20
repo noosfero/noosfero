@@ -1,27 +1,21 @@
-div.listblock div.block_content ul {
+ul.enterprises_list_block {
 margin: 0px;
 padding: 0px;
+list-style: none;
 }
 
-div.listblock div.block_content li {
+ul.enterprises_list_block li a {
 display: block;
-float: left;
 height: 95px;
 width: 80px;
-border: 1px solid #dfdfdf;
-background: #ffffff url("../images/foto.png") no-repeat;
-margin: 2px;
-overflow: hidden;
-font-size: 10px;
-color: #545454;
-font-weight: bold;
+text-decoration: none;
 }
 
-div.listblock div.block_content li span {
+ul.enterprises_list_block li a span {
 display: none;
 }
 
-div.listblock div.block_content li:hover span {
+ul.enterprises_list_block li a:hover span {
 display: block;
 line-height: 95px;
 text-align: center;
@@ -29,6 +23,76 @@ background: #ffffff;
 vertical-align: middle;
 }
 
-div.listblock div.block_footer {
+ul.enterprises_list_block li {
+display: block;
+float: left;
+height: 95px;
+width: 80px;
+border: 1px solid #dfdfdf;
+background: #ffffff url("../images/enterprisesblock.png") no-repeat;
+margin: 2px;
+overflow: hidden;
+}
+
+
+ul.people_list_block {
+margin: 0px;
+padding: 0px;
+list-style: none;
+}
+
+ul.people_list_block li a {
+display: block;
+height: 95px;
+width: 80px;
+text-decoration: none;
+}
+
+ul.people_list_block li a span {
+display: none;
+}
+
+ul.people_list_block li a:hover span {
+display: block;
+line-height: 95px;
+text-align: center;
+background: #ffffff;
+vertical-align: middle;
+}
+
+ul.people_list_block li { 
+display: block;
+float: left;
+height: 95px;
+width: 80px;
+border: 1px solid #dfdfdf;
+background: #ffffff url("../images/peopleblock.png") no-repeat;
+margin: 2px;
+overflow: hidden;
+}
+
+div.block_footer {
 clear: both;
+}
+
+/* Artigos */
+
+div.recentdocumentsblock div.block_content li a {
+text-decoration: none;
+color: #545454;
+border-bottom: 1px dotted bottom;
+}
+
+div.recentdocumentsblock div.block_content li a:hover {
+text-decoration: none;
+color: #000000;
+border: none;
+}
+
+div.recentdocumentsblock div.block_content li {
+display: block;
+height: 20px;
+background: #ffffff url("../images/editor.png") no-repeat;
+background-position: 2px 0px;
+padding-left: 20px;
 }
