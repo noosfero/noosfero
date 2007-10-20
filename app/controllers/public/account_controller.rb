@@ -1,5 +1,12 @@
 class AccountController < PublicController
 
+  design :holder => 'environment'
+
+before_filter :bli
+ def bli
+@environment = Environment.default
+ end
+
   # say something nice, you goof!  something sweet.
   def index
     unless logged_in?
