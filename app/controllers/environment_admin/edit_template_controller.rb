@@ -4,10 +4,9 @@ class EditTemplateController < EnvironmentAdminController
   
   def block_types
     { 
-      #'ListBlock' => _("List Block"), 
-      #'LinkBlock' => _("Link Block"),
-      #'RecentDocumentsBlock' => _('Recent documents'),
-      'Design::MainBlock' => _('Main content block'),
+      'ListBlock' => _("List Block"), 
+      'LinkBlock' => _("Link Block"),
+      'RecentDocumentsBlock' => _('Recent documents'),
     }
   end
 

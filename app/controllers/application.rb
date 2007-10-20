@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
 
   def load_profile
     @profile = Profile.find_by_identifier(params[:profile])
-    raise "The profile must be loaded %s" % params.inspect if @profile.nil?
+    raise "The profile must be loaded %s" % params[:profile].to_s if @profile.nil?
   end
 
   def self.acts_as_environment_admin_controller
