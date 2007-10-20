@@ -68,6 +68,11 @@ end
 # Include your application configuration below
 
 require 'gettext/rails'
+Localist.supported_locales = %w[en-US pt-BR]
+Localist.default_locale = "pt-BR"
+Localist.callback = lambda { |l| GetText.locale= l }
+
+
 Tag.hierarchical = true
 
 Comatose.configure do |config|
