@@ -20,11 +20,14 @@ ul.block_control_list
 	padding: 0px;
 }
 
+div#design_editor h3.block_header {
+cursor:move;
+}
+
 h3.block_header
 {
 	position: relative;
 	background: url('images/h3bg.png') repeat-x;
-        cursor:move;
 	font-family: Sans-serif;
 	font-size: 15px;
         margin: 0px;
