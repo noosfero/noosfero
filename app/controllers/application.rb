@@ -39,10 +39,7 @@ class ApplicationController < ActionController::Base
 
   def load_profile
     @profile = Profile.find_by_identifier(params[:profile])
-    if @profile.nil?
-      flash[:notice] = _('There is no page %s') % params[:profile]
-      redirect_to :controller => 'search', :action => 'index', :query => params[:profile] 
-    end
+    raise "The profile must be loaded %s" params[:profile]
   end
 
   def self.acts_as_environment_admin_controller
