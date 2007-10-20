@@ -83,3 +83,15 @@ div#footer a:hover {
 color: #000000;
 border: 0px;
 }
+
+div#footer ul {
+margin: 0px;
+padding: 0px;
+}
+
+div#footer li {
+display: block;
+float: right;
+margin-right: 20px;
+height: 20px;
+}
