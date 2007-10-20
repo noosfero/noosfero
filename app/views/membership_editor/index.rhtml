@@ -8,7 +8,7 @@
 <% @memberships.each do |m|%>
   <li> 
     <%= link_to_homepage m.name, m.identifier %> 
-    <%= link_to_myprofile  _('Manage') , {}, m.identifier %>
+    <%= link_to_myprofile  _('Manage') , {:controller => 'profile_editor'}, m.identifier %>
   </li>
 <% end %>
 </ul>
