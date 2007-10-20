@@ -1,0 +1,90 @@
+/* Default Plain Theme for Blocks */
+
+div.block
+{
+	background: #FFFFFF;
+	border: 3px solid #000000;
+	margin-bottom: 10px;
+}
+
+div.block ul
+{
+	list-style: none;
+	margin-left: 15px;
+}
+
+div.block h3
+{
+	color: #FFFFFF;
+	background: #545454;
+	font-family: Sans-serif;
+	font-size: 13px;
+	font-weight: normal;
+	border-bottom: 1px solid black;
+	height: 27px;
+	margin: 0px;
+	line-height: 27px;
+	padding-left: 10px;
+}
+
+div.block span {
+display: none;
+}
+
+div.block a.button_block_hide:hover span {
+display: inline;
+position: absolute;
+color: #dfdfdf;
+background: #000000;
+font-family: Sans-serif;
+font-size: 13px;
+font-weight: normal;
+margin: 10px;
+padding-left: 5px;
+padding-right: 5px;
+}
+
+div.block a.button_block {
+display: block !important;
+width: 10px !important;
+height: 10px !important;
+margin-top: 10px !important;
+margin-right: 5px !important;
+float: right !important;
+}
+
+div.block a.button_block_hide {
+border-bottom: 2px solid #dfdfdf;
+}
+
+div.block a:hover.button_block_hide {
+border-bottom: 2px solid #000000;
+}
+
+div.block a.button_block_remove {
+background: #dfdfdf;
+}
+
+div.block a:hover.button_block_remove {
+background: #000000;
+}
+
+div.block_content 
+{
+	padding: 5px;
+}
+
+div.block ul {
+  padding-left: 0px;
+  margin: 0px;
+}
+
+div.block ul li a:link,
+div.block ul li a:hover {
+  display: block;
+  color: #000;
+}
+div.block ul li a:hover {
+  background: #ddd;
+  color: red;
+}

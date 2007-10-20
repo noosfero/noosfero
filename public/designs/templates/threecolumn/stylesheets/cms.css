@@ -1,0 +1,128 @@
+
+/************************************
+ * listing stuff
+ ************************************/
+#content .handle, #content .do-reorder UL LI .handle {
+  display: none;
+}
+#content .do-reorder LI .handle {
+  display: inline;
+  background: gray;
+  color: white;
+  padding: 1px 3px;
+  cursor: move;
+}
+
+ul.page-list li {
+  list-style: none;
+}
+
+ul.page-list li table,
+ul.page-list li td {
+  border: none;
+  padding: 3px;
+}
+
+ul.page-list a.page {
+  font-weight: bold;
+}
+
+ul.page-list a:visited, ul.page-list a:link {
+  color: #000;
+}
+
+ul.page-list a:hover {
+  background: #aa9;
+}
+
+#content .page-list .hover {
+  background: #F1F0DB;
+}
+
+#content .page-list .commands A.delete-page:hover {
+  color: white;
+  background: black;
+}
+#content .page-list .hover-delete {
+  background: red;
+  color: #FF8E90;
+}
+#content .page-list .hover-delete A,
+#content .page-list .hover-delete .commands A {
+  color: #FF8E90;
+}
+#content .page-list .hover-delete A.page {
+  color: white;
+  border-bottom: 0px;
+}
+#content .page-list .hover-delete UL LI A.page {
+  color: red;
+  border-bottom: 0px;
+}
+
+/***********************************
+ * from stuff
+ ***********************************/
+div.comatose_field {
+}
+div.comatose_field label {
+  display: block;
+  font-weight: bold;
+}
+
+div.comatose_field textarea {
+  width: 90%;
+}
+div.comatose_field textarea, 
+div.comatose_field input, 
+div.comatose_field select {
+  border: 1px solid gray;
+}
+
+/****************************************
+ * revisions page stuff
+ ****************************************/
+
+.older-content {
+  float: right;
+}
+.current-content {
+  float: left;
+}
+
+.revisions {
+  width: 47%;
+  border: 1px solid gray;
+  padding: 0.25em;
+}
+
+.revisions .header {
+  font-weight: bold;
+  border-bottom: 1px solid black;
+  margin-bottom: 10px;
+  height: 40px;
+}
+
+.revisions .meta {
+  border-bottom: 1px solid black;
+  margin-bottom: 10px;
+}
+
+.revisions .footer {
+  border-top: 1px solid black;
+  margin-top: 10px;
+  padding: 0.25em;
+}
+
+.revisions .meta label span {
+  font-weight: bold;
+}
+
+.revisions .meta label {
+  font-weight: normal;
+  display: block;
+}
+
+.collapsed {
+  display: none;
+}

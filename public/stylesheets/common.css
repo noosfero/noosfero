@@ -1,0 +1,85 @@
+body {
+margin: 0px;
+padding: 0px;
+}
+
+#notice {
+position: absolute;
+margin-top: 10px;
+right: 10px;
+background: #ffffa9;
+padding: 10px;
+border: 3px solid #dfdfdf;
+z-index: 9999 !important ;
+}
+
+a img {
+  border: 1px solid transparent;
+}
+a:hover img {
+  border: 1px solid gray;
+}
+
+#environment_identification {
+position: absolute !important;
+background: url("../images/bg_blue_logo.png") 5px no-repeat !important;
+vertical-align: bottom !important ;
+width: 230px !important ;
+height: 34px !important ;
+line-height: 34px !important ;
+padding-left: 60px !important ;
+}
+
+#environment_identification:hover {
+color: #dfdfdf !important ;
+}
+
+div.fieldWithErrors {
+  display: inline;
+  background: yellow;
+}
+
+div.fieldWithErrors input {
+  border: 1px solid red;
+  background: #fee;
+}
+
+div#errorExplanation {
+  border: 2px solid #933;
+  background: #fee;
+  padding: 5px;
+}
+
+div#errorExplanation h2 {
+  margin-top: -5px;
+  margin-left: -5px;
+  margin-right: -5px;
+
+  padding: 3px;
+  background: #933;
+  color: white;
+  text-align: center;
+}
+
+div#footer {
+background: #ffffff url("../images/bg_footer.png") repeat-x !important;
+background-position: 0px 0px;
+font-family: Verdana, Arial, Serif-sans;
+margin: 0px !important;
+padding: 5px !important;
+text-align: center !important;
+clear: both !important;
+font-size: 10px !important;
+color: #545454 !important;
+}
+
+div#footer a {
+color: #545454;
+text-decoration: none;
+border-bottom: 1px dotted #545454;
+}
+
+div#footer a:hover {
+color: #000000;
+border: 0px;
+}

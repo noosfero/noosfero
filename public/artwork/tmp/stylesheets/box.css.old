@@ -1,0 +1,78 @@
+#leftcontent div.block span
+{
+display: none;
+}
+
+#leftcontent div.block
+{
+	background: #FFFFFF url("../img/box_bottom_v1_190px.jpg") no-repeat bottom left;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+}
+
+div.block ul
+{
+	margin-left: 25px;
+}
+
+#leftcontent div.block h3
+{
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: normal;
+	background: #474747 url("../img/box_top_v1_190px.jpg") no-repeat;
+	height: 27px;
+	line-height: 27px;
+	padding-left: 10px;
+}
+
+
+#rightcontent div.block span
+{
+display: none;
+}
+
+#rightcontent div.block
+{
+	background: #FFFFFF url("../img/box_bottom_v1_190px.jpg") no-repeat bottom left;
+	padding-bottom: 10px;
+	margin-bottom: 20px;
+}
+
+#rightcontent div.block h3
+{
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: normal;
+	background: #474747 url("../img/box_top_v1_190px.jpg") no-repeat;
+	height: 27px;
+	line-height: 27px;
+	padding-left: 10px;
+        margin: 0px;
+}
+
+	
+
+div.block .block_content
+{
+	background-image: url("../img/box_content_v1.png");
+	background-repeat: repeat-x;
+	background-position: 0 1px;
+	padding: 5px;
+}
+
+
+
+/* Inicio personalizacao individual */
+
+div#links {
+background: blue;
+}
+
+div#comment {
+background: green;
+}
+
+div#about {
+background: red;
+}

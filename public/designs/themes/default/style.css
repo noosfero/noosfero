@@ -1,0 +1,94 @@
+/* MacStyle Theme for Blocks */
+
+div.block
+{
+	background: #FFFFFF;
+	border: 0px;
+}
+
+/* FIXME: esta usando para flutuar */
+
+.button_block_remove {
+position: absolute;
+z-index: 999;
+} 
+
+ul.block_control_list
+{
+        list-style: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+h3.block_header
+{
+	position: relative;
+	background: url('images/h3bg.png') repeat-x;
+        cursor:move;
+	font-family: Sans-serif;
+	font-size: 15px;
+        margin: 0px;
+	padding: 0px;
+	overflow: hidden;
+	color: #545454;
+	padding-left: 10px;
+	height: 25px;
+	vertical-align: top;
+}
+
+a.button_block span {
+display: none;
+padding: 1px;
+color: #000;
+background: #dfdfdf;
+font-family: Sans-serif;
+font-size: 10px;
+font-weight: normal;
+border: 1px inset #545454;
+}
+
+a.button_block:hover span {
+display: inline;
+position: absolute;
+margin-top: -20px;
+}
+
+a.button_block {
+display: block;
+float: right;
+position: absolute;
+width: 20px;
+height: 20px;
+text-decoration: none;
+}
+
+div.block a.button_block_hide {
+right: 5px;
+background:url('images/button.png') no-repeat;
+background-position: 0px 0px;
+}
+
+div.block a:hover.button_block_hide {
+background: url('images/button.png') no-repeat;
+background-position: 0px -20px;
+}
+
+div.block a.button_block_remove {
+right: 5px;
+background: url('images/button.png') no-repeat;
+background-position:-20px 0;
+}
+
+div.block a:hover.button_block_remove {
+background: url('images/button.png') no-repeat;
+background-position:-20px -20px;
+}
+
+div.block_content 
+{
+      margin: 0;
+      padding: 5px 10px 9px 10px;
+      background: url(images/bottom.png) repeat-x 0 100%;
+      overflow: hidden;
+}
+

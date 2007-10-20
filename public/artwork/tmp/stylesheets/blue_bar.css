@@ -1,0 +1,188 @@
+/* Default Bar theme Blue Sky */
+#frame {
+  background: #fff url("../images/black_white_12px.png") repeat-x;
+}
+
+#menu_accessibility {
+  font-size: 10px;
+  color: black;
+  font-family: Sans-serif;
+  color: #545454;
+}
+
+
+#menu_accessibility a {
+  color: #545454;
+  text-decoration: none;
+}
+
+#menu_accessibility a:hover {
+  color: #000000;
+  text-decoration: underline;
+}
+
+#menu_accessibility a:focus {
+  color: #ef2929;
+  text-decoration: underline;
+}
+
+#header {
+  background: #fff url("../images/bg_blue_bar.png") left bottom repeat-x;
+  font-family: Verdana, Sans-serif;
+  height: 40px;
+  color: #ffffff;
+}
+
+#environment_identification {
+float: left;
+background: url("../images/bg_blue_logo.png") left bottom no-repeat;
+vertical-align: bottom;
+font-weight:bold;
+width: 230px;
+height: 40px;
+line-height: 40px;
+padding-left: 60px;
+}
+
+#bar_center_content {
+position: relative;
+margin-left: 290px;
+margin-right: 120px;
+text-align: center;
+font-size: 13px;
+height: 40px;
+}
+
+#user_links {
+float: right;
+text-align: center;
+color: #204a87;
+font-size: 12px;
+width: 120px;
+height: 40px;
+}
+
+#user_links a {
+color: #ffffff;
+padding-left: 5px;
+padding-right: 5px;
+font-size: 10px;
+text-decoration: none;
+}
+
+#user_links a:hover {
+color: #fce94f;
+}
+
+
+/* SEARCH BAR */
+#search_bar {
+position: absolute;
+top: 0px;
+width: 380px;
+left: 50%;
+margin-left: -190px;
+height: 20px;
+text-align: center;
+color: #204a87;
+z-index: 9999;
+}
+
+#search_input_bar {
+width: 163px;
+height: 19px;
+font-size: 10px;
+border: 1px solid #545454;
+}
+
+#search_select_bar {
+height: 18px;
+font-size: 10px;
+border: 1px solid #545454;
+}
+
+#search_button_bar {
+height: 17px;
+font-size: 10px;
+border: 1px solid #545454;
+}
+
+
+/* MENU BAR */
+#menu_bar {
+position: absolute;
+top: 19px;
+width: 380px;
+left: 50%;
+font-size: 12px;
+margin-left: -190px;
+height: 20px;
+text-align: center;
+}
+
+#menu {
+margin: 0px;
+padding: 0px;
+text-align: center;
+list-style:none;
+}
+
+#menu li {
+float: left;
+font-weight: bold;
+position: relative;
+}
+
+#menu li ul {
+ display:none;
+ position:absolute;
+ list-style:none;
+ text-align: left;
+ left:0px;
+ margin:0px;
+ width: 200px;
+ padding:0px;
+}
+
+#menu li:hover ul { display:block; }
+
+#menu li:hover, #menu li a:hover, #menu a:focus {
+  background: url("../images/bg_blue_menu.png") left bottom repeat-x;
+  color: #ffffff;
+}
+
+#menu li a{
+	display:block;
+	padding:.2em .5em;
+	text-decoration:none;
+	color: #dfdfdf;
+}
+
+#menu li ul{
+	background: #bcc6d4;
+}
+
+#menu li ul a{
+	color: #204a87;
+	border: 1px solid transparent;
+}
+
+#menu li ul li {
+	width: 100%;
+}
+
+#menu li ul li a:hover {
+  background: url("../images/bg_blue_menu.png") left bottom repeat-x;
+  color: #ffffff;
+}
+
+
+/* Cores Tango
+ef2929 - Vermelho Claro
+729fcf - Azul Claro 
+3465a4 - Azul Medio
+204a87 - Azul Escuro
+fce94f - Amarelo Claro
+*/
+/* END MENU BAR */
+
