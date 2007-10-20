@@ -30,9 +30,12 @@ class EnterpriseEditorController < ProfileAdminController
   
   # Elimitates the enterprise of the system
   def destroy 
-    @enterprise.destroy
-    flash[:notice] = _('Enterprise sucessfully erased from the system')
-    redirect_to '/'
+    if @enterprise.destroy
+      flash[:notice] = _('Enterprise sucessfully erased from the system')
+      redirect_to  :profile => current_user.login
+    else
+      redirect_to :action => 'index'
+    end
   end
 
   # Activate a validated enterprise

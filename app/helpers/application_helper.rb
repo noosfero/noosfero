@@ -188,10 +188,10 @@ module ApplicationHelper
   
   def enterprise_links
     links = [
-      [(link_to_myprofile _('Edit visual design'), {:controller => 'profile_editor', :action => 'design_editor'}, profile), 'edit_profile_design', profile],
-      [(link_to_myprofile _('Edit informations'), {:controller => 'profile_editor'}, profile), 'edit_profile', profile],
-      [(link_to_myprofile _('Manage content'), {:controller => 'cms'}, profile), 'post_content', profile],
-      [(link_to_myprofile _('Exclude'), {:controller => 'enterprise_editor', :action => 'destroy'}, profile), 'edit_profile', profile],
+      [(link_to_myprofile _('Edit visual design'), {:controller => 'profile_editor', :action => 'design_editor'}, profile.identifier), 'edit_profile_design', profile],
+      [(link_to_myprofile _('Edit informations'), {:controller => 'profile_editor'}, profile.identifier), 'edit_profile', profile],
+      [(link_to_myprofile _('Manage content'), {:controller => 'cms'}, profile.identifier), 'post_content', profile],
+      [(link_to_myprofile _('Exclude'), {:controller => 'enterprise_editor', :action => 'destroy'}, profile.identifier), 'edit_profile', profile],
     ]
   end
 

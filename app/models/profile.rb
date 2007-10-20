@@ -43,6 +43,7 @@ class Profile < ActiveRecord::Base
   cms
   community
   test
+  search
   ]
 
   acts_as_taggable
