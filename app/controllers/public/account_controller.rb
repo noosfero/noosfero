@@ -52,7 +52,7 @@ class AccountController < PublicController
     cookies.delete :auth_token
     reset_session
     flash[:notice] = _("You have been logged out.")
-    redirect_back_or_default(:controller => '/account', :action => 'index')
+    redirect_back_or_default(:controller => 'account', :action => 'index')
   end
 
   def change_password
