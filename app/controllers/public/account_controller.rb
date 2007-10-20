@@ -1,8 +1,8 @@
 class AccountController < PublicController
 
-  design :holder => 'environment'
-
   before_filter :load_default_environment
+
+  design :holder => 'environment'
 
   def load_default_environment
     @environment = Environment.default

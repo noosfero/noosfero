@@ -1,9 +1,9 @@
 class CategoryController < ApplicationController
 
-  design :holder => 'environment'
-  
   before_filter :load_default_enviroment
     
+  design :holder => 'environment'
+  
   def load_default_enviroment
     @environment = Environment.default
   end
