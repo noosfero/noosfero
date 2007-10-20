@@ -25,7 +25,7 @@ class Person < Profile
     Profile.find(
       :all, 
       :conditions => self.class.conditions_for_profiles(conditions, self), 
-      :joins => "LEFT JOIN role_assignments ON profiles.id = role_assignments.resource_id AND role_assignments.resource_type = \"#{Profile.base_class.name}\"",
+      :joins => "LEFT JOIN role_assignments ON profiles.id = role_assignments.resource_id AND role_assignments.resource_type = \'#{Profile.base_class.name}\'",
       :select => 'profiles.*').uniq
   end
   
