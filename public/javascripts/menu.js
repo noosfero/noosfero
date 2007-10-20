@@ -24,7 +24,6 @@ function prepareMenu(id, options) {
         link.parentNode.style.zIndex = zIndex++;
         link.subMenu = ul;
         ul.linkControle = link;
-
         link.openSubMenu =
             function ( isMouseClick ) {
                 if( this.subMenu.style.display == "block" ) {
@@ -43,7 +42,7 @@ function prepareMenu(id, options) {
             }
         link.closeSubMenu = function(){ this.subMenu.style.display = "none" }
 
-        link.onclick = function(){ this.openSubMenu(true); return false }
+        //link.onclick = function(){ this.openSubMenu(true); return false }Is not working
 
         // onmouseout e onmouseover manipulam o menu para pessoas normais
         // onblur e onfocus manipulam o menu para pessoas que precisam navegar com tab
