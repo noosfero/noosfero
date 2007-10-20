@@ -1,6 +1,21 @@
 class ListBlock < Design::Block
 
   def content
-    Profile.find(:all).map{|p|p.name}
+
+    lambda do
+     content_tag(
+              'ul',
+              Profile.find(:all).map do |p|
+                content_tag(
+                'li',
+		content_tag(
+		'span',
+                link_to( p.name, :profile => p.identifier)
+                ))
+              end
+            )
+    end
+
   end
+
 end
