@@ -2,10 +2,11 @@ class AccountController < PublicController
 
   design :holder => 'environment'
 
-before_filter :bli
- def bli
-@environment = Environment.default
- end
+  before_filter :load_default_environment
+
+  def load_default_environment
+    @environment = Environment.default
+  end
 
   # say something nice, you goof!  something sweet.
   def index
