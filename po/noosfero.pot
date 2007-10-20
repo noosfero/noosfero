@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.3.0\n"
-"POT-Creation-Date: 2007-10-19 23:08-0300\n"
+"POT-Creation-Date: 2007-10-20 00:09-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -136,7 +136,7 @@ msgstr ""
 msgid "The supplied current password is incorrect."
 msgstr ""
 
-#: app/controllers/application.rb:50
+#: app/controllers/application.rb:43
 msgid "There is no page %s"
 msgstr ""
 
@@ -804,7 +804,11 @@ msgstr ""
 msgid "Accessibility"
 msgstr ""
 
-#: app/helpers/application_helper.rb:260 app/helpers/application_helper.rb:261
+#: app/helpers/application_helper.rb:260
+msgid "  "
+msgstr ""
+
+#: app/helpers/application_helper.rb:261
 #: app/views/region_validators/region.rhtml:22
 #: app/views/manage_tags/_search_box.rhtml:4
 #: app/views/membership_editor/index.rhtml:4
@@ -879,79 +883,79 @@ msgstr ""
 msgid "DRAG"
 msgstr ""
 
-#: app/views/cms/_form.rhtml:9
+#: app/views/cms/_form.rhtml:27
 msgid "Title"
 msgstr ""
 
-#: app/views/cms/_form.rhtml:10
+#: app/views/cms/_form.rhtml:28
 msgid "More..."
 msgstr ""
 
-#: app/views/cms/_form.rhtml:10
+#: app/views/cms/_form.rhtml:28
 msgid "Less..."
 msgstr ""
 
-#: app/views/cms/_form.rhtml:14
+#: app/views/cms/_form.rhtml:32
 msgid "Slug"
 msgstr ""
 
-#: app/views/cms/_form.rhtml:20
+#: app/views/cms/_form.rhtml:38
 msgid "Keywords"
 msgstr ""
 
-#: app/views/cms/_form.rhtml:27
+#: app/views/cms/_form.rhtml:45
 msgid "Parent"
 msgstr ""
 
-#: app/views/cms/_form.rhtml:29
+#: app/views/cms/_form.rhtml:47
 msgid "%s is a root page"
 msgstr ""
 
-#: app/views/cms/_form.rhtml:37
+#: app/views/cms/_form.rhtml:55
 msgid "Content"
 msgstr ""
 
-#: app/views/cms/_form.rhtml:43
+#: app/views/cms/_form.rhtml:61
 msgid "Filter"
 msgstr ""
 
-#: app/views/cms/_form.rhtml:45
+#: app/views/cms/_form.rhtml:63
 msgid "Converts plain text into HTML"
 msgstr ""
 
-#: app/views/cms/_form.rhtml:51
+#: app/views/cms/_form.rhtml:69
 msgid "Created"
 msgstr ""
 
-#: app/views/cms/_form.rhtml:60
+#: app/views/cms/_form.rhtml:78
 msgid "One revision"
 msgid_plural "%d revisions"
 msgstr[0] ""
 msgstr[1] ""
 
-#: app/views/cms/_form.rhtml:66
+#: app/views/cms/_form.rhtml:84
 msgid "Loading preview ..."
 msgstr ""
 
-#: app/views/cms/_form.rhtml:67
+#: app/views/cms/_form.rhtml:85
 msgid "Save Changes"
 msgstr ""
 
-#: app/views/cms/_form.rhtml:67
+#: app/views/cms/_form.rhtml:85
 msgid "Create Page"
 msgstr ""
 
-#: app/views/cms/_form.rhtml:69
+#: app/views/cms/_form.rhtml:87
 msgid "Revert"
 msgstr ""
 
-#: app/views/cms/_form.rhtml:72
+#: app/views/cms/_form.rhtml:90
 msgid ""
 "Changes detected. You will lose all the updates you have made if you "
 "proceed..."
 msgstr ""
 
-#: app/views/cms/_form.rhtml:72 app/views/cms/delete.rhtml:16
+#: app/views/cms/_form.rhtml:90 app/views/cms/delete.rhtml:16
 #: app/views/cms/versions.rhtml:25 app/views/role/_form.rhtml:13
 #: app/views/profile_members/change_role.rhtml:12
 #: app/views/enterprise_editor/edit.rhtml:8 app/views/manage_tags/new.rhtml:6
@@ -963,23 +967,23 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: app/views/cms/_form.rhtml:78
+#: app/views/cms/_form.rhtml:96
 msgid "Page Preview"
 msgstr ""
 
-#: app/views/cms/_form.rhtml:80
+#: app/views/cms/_form.rhtml:98
 msgid "Loading Preview..."
 msgstr ""
 
-#: app/views/cms/_form.rhtml:85
+#: app/views/cms/_form.rhtml:103
 msgid "Close Preview"
 msgstr ""
 
-#: app/views/cms/_form.rhtml:85 app/views/cms/versions.rhtml:24
+#: app/views/cms/_form.rhtml:103 app/views/cms/versions.rhtml:24
 msgid "or"
 msgstr ""
 
-#: app/views/cms/_form.rhtml:85
+#: app/views/cms/_form.rhtml:103
 msgid "Back to top"
 msgstr ""
 
@@ -1047,7 +1051,7 @@ msgstr ""
 msgid "Current Version"
 msgstr ""
 
-#: app/views/cms/edit.rhtml:20
+#: app/views/cms/edit.rhtml:2
 msgid "Edit Page"
 msgstr ""
 
