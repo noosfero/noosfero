@@ -5,7 +5,7 @@ class CategoryController < ApplicationController
   before_filter :load_default_enviroment
     
   def load_default_enviroment
-    Environment.default
+    @environment = Environment.default
   end
 
   before_filter :load_category, :only => [ :view ]

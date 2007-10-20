@@ -7,7 +7,7 @@ class AdminPanelController < EnvironmentAdminController
   before_filter :load_default_enviroment
 
   def load_default_enviroment
-    Environment.default
+    @environment = Environment.default
   end
 
 end
