@@ -5,7 +5,7 @@ class ListBlock < Design::Block
     lambda do
      content_tag(
               'ul',
-              Profile.find(:all).map do |p|
+              Person.find(:all).map do |p|
                 content_tag(
                 'li',
 		content_tag(
