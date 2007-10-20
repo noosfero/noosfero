@@ -257,10 +257,10 @@ module ApplicationHelper
 
   def search_box
     [form_tag( :controller => 'search', :action => 'index'),
-      text_field_tag( 'query', _('Search'), :id => "input_search"),
+      text_field_tag( 'query', _('  '), :id => "input_search"),
       submit_tag(_('Search'), :id => 'button_search'),
        '</form>',
-      observe_field('input_search', :function => "", :on => :focus)
+      observe_field('input_search', :function => "element.value=''", :on => :focus)
     ].join("\n") 
   end
 
