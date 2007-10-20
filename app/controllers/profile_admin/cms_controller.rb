@@ -5,5 +5,5 @@ class CmsController < ComatoseAdminController
   
   define_option :page_class, Article
   
-   protect [:edit, :new, :reorder, :delete], :post_content, :profile
+#   protect [:edit, :new, :reorder, :delete], :post_content, :profile
 end
