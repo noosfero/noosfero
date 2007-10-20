@@ -18,6 +18,13 @@ ActionController::Routing::Routes.draw do |map|
   # documentation browser
   map.connect 'doc', :controller => 'doc'
 
+  ######################################################
+  ## Controllers that are used by environment admin
+  ######################################################
+  # administrative tasks for a environment
+  map.admin 'admin', :controller => 'admin_panel'
+  map.admin 'admin/:controller/:action/:id', :controller => Noosfero.pattern_for_controllers_in_directory('environment_admin')
+
   # user account controller
   map.connect 'account/new_password/:code', :controller => 'account', :action => 'new_password'
 
@@ -37,12 +44,6 @@ ActionController::Routing::Routes.draw do |map|
   map.myprofile 'myprofile/:profile/:controller/:action/:id', :controller => Noosfero.pattern_for_controllers_in_directory('profile_admin')
   # content administration 
 
-  ######################################################
-  ## Controllers that are used by environment admin
-  ######################################################
-  # administrative tasks for a environment
-  map.admin 'admin', :controller => 'admin_panel'
-  map.admin 'admin/:controller/:action/:id', :controller => Noosfero.pattern_for_controllers_in_directory('environment_admin')
 
   ######################################################
   ## Controllers that are used by system admin
