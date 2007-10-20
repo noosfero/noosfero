@@ -2,8 +2,8 @@ class EnterpriseEditorController < ProfileAdminController
   
   before_filter :login_required, :check_enterprise
 
-  protect [:edit, :update], :edit_profile, :profile
-  protect [:destroy], :destroy_profile, :profile
+  protect [:edit, :update], 'edit_profile', :profile
+  protect [:destroy], 'destroy_profile', :profile
 
   needs_profile
 

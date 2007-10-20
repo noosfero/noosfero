@@ -7,7 +7,7 @@ class EnterprisesBlock < Design::Block
         Enterprise.find(:all).map do |p|
           content_tag(:li,
   	         content_tag(:span,
-              link_to( p.name, :profile => p.identifier)
+              link_to_homepage( p.name, p.identifier)
             )
           )
         end.join("\n"),
