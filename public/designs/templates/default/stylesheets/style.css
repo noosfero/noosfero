@@ -1,5 +1,6 @@
 @import url("editor.css");
 
+@import url("contentblocks.css");
 
 body {
   font-family: Verdana, Sans-Serif;
@@ -32,7 +33,7 @@ body {
 }
 
 #header {
-height: 135px;
+height: 145px;
 }
 
 #boxes {
@@ -43,18 +44,18 @@ height: 135px;
 }
 
 #box_3 {
-  width: 200px;
+  width: 210px;
   float: right;
 }
 
 #box_2 {
   float: left;
-  width: 200px;
+  width: 210px;
 }
 
 #box_1 {
-  margin-left: 205px;
-  margin-right: 205px;
+  margin-left: 215px;
+  margin-right: 215px;
 }
 
 #spinner {

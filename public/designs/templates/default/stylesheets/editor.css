@@ -1,0 +1,90 @@
+#design_editor_blocksbar {
+  list-style: none;
+  position: relative;
+  width: 760px;
+  left: 50%;
+  margin-left: -380px;
+  padding: 0em;
+  height: 30px;
+}
+
+#design_editor_blocksbar li {
+float: left;
+margin: 4px;
+}
+
+#design_editor_blocksbar a {
+background: url("../images/add.png") no-repeat;
+background-position: 0px 3px;
+display: block;
+padding: 5px;
+padding-left: 28px;
+border: 1px outset #545454;
+text-decoration: none;
+color: black;
+font-weight: bold;
+}
+
+#design_editor_blocksbar a:hover {
+border: 1px inset #545454;
+}
+
+#design_editor ul.block_list {
+  list-style: none;
+  margin: 0px;
+  padding: 3px;
+  border: 2px dotted #dfdfdf;
+}
+
+#design_editor ul:hover.block_list {
+  border: 2px dotted #545454;
+}
+
+#design_editor .box {
+  border: 2px solid transparent;
+}
+
+#design_editor .hover {
+  border: 2px dotted red;
+  background: #ff6;
+}
+
+#design_editor_toolbar { 
+  padding: 5px;
+}
+
+#design_editor_toolbar h3 { 
+  font-size: 10px;
+  background: #dfdfdf;
+  margin: 0px;
+  padding: 1px;
+  text-align: right;
+  color: #545454;
+}
+
+#design_editor_toolbar a { 
+  font-size: 10px;
+  padding: 5px;
+  background: #dfdfdf;
+  color: black;
+}
+
+.design_editor_box_toolbar {
+  text-align: center;
+  margin: 5px;
+  background: #dfdfdf;
+}
+
+.design_editor_box_toolbar a {
+  display: inline;
+  width: 30px;
+  font-size: 10px;
+  padding: 2px;
+  background: #dfdfdf;
+}
+
+#design_editor_toolbar a:hover, .design_editor_box_toolbar a:hover {
+  background: #545454;
+  color: #ffffff;
+}
+
