@@ -1748,7 +1748,7 @@ msgstr "Acesso negado"
 
 #: app/views/shared/categories_menu.rhtml:5
 msgid "Home"
-msgstr "Casa"
+msgstr "Início"
 
 #: app/views/profile_editor/person_info.rhtml:1
 msgid "Edit person info"
