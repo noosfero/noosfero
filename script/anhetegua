@@ -1,0 +1,67 @@
+#!/usr/bin/env ruby
+require File.dirname(__FILE__) + '/../config/environment'
+
+Environment.default.categories.destroy_all
+Organization.destroy_all
+
+def new_category(parent, name, color = nil)
+  category = Environment.default.categories.build(:name => name, :display_color => color, :parent_id => (parent ? parent.id: nil))
+  category.save!
+  category
+end
+
+def new_region(parent, name, color = nil)
+  region = Environment.default.regions.build(:name => name, :display_color => color, :parent_id => (parent ? parent.id: nil))
+  region.save!
+  region
+end
+
+def new_validator(region, name, identifier)
+  org = Organization.new(:name => name, :identifier => identifier)
+  org.validation_info = ValidationInfo.new(:validation_methodology => 'some methodology we don\'t care about')
+  org.save!
+  region.validators << org
+  org
+end
+
+tematicas = new_category(nil, 'Temáticas', 1)
+new_category(tematicas, 'Finanças Solidárias')
+new_category(tematicas, 'Marco Legal')
+new_category(tematicas, 'Software Livre')
+
+territorios = new_region(nil, 'Territórios', 2)
+ba = new_region(territorios, 'Bahia')
+df = new_region(territorios, 'Distrito Federal')
+rs = new_region(territorios, 'Rio Grande do Sul')
+
+cadeias = new_category(nil, 'Cadeias', 3)
+new_category(cadeias, 'Algodão')
+new_category(cadeias, 'Tecnologia de Informação')
+
+# validators
+new_validator(ba, "Colivre", 'colivre')
+new_validator(ba, "Forum Baiano de Economia Solidaraia", 'ecosolbahia')
+
+new_validator(df, 'Caritas', 'caritas')
+new_validator(df, 'Forum Brasileiro de Economia Solidaria', 'fbes')
+
+new_validator(rs, 'Associacao Software Livre.Org', 'asl')
+new_validator(rs, 'Forum Gaucho de Economia Solidaria', 'ecosolrs')
+
+# Profile for exibition of homepage and creations of sytem articles such as about and accessibility
+noosfero = Profile.create!(:name => 'noosfero', :identifier => 'noosfero')
+
+# Role for own things
+owner_role = Role.create!(:name => 'owner', :permissions => ['edit_profile', 'destroy_profile', 'manage_memberships', 'post_content', 'edit_profile_design'])
+
+# root user of the system, admin_role for him, the assignment of the role for him and the ownership of the system homepage
+root = User.create!(:login => 'root', :email => 'root@noosfero.org', :password => 'root', :password_confirmation => 'root').person
+admin_role = Role.create!(:name => 'admin', :permissions => ['view_environment_admin_panel','edit_environment_features', 'edit_environment_design', 'manage_environment_categories', 'manage_environment_roles', 'manage_environment_validators'])
+RoleAssignment.create!(:accessor => root, :role => admin_role, :resource => Environment.default)
+RoleAssignment.create!(:accessor => root, :role => owner_role, :resource => noosfero)
+
+# Sample user and sample enterprise owned by him
+ze= User.create!(:login => 'ze', :email => 'ze@localhost.localdomain', :password => 'test', :password_confirmation => 'test').person
+empa = Enterprise.create!(:name => 'Empreendimento A', :identifier => 'empreendimento_a')
+RoleAssignment.create!(:accessor => ze, :role => owner_role, :resource => empa)
+
