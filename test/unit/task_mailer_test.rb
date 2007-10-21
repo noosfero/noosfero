@@ -80,6 +80,29 @@ class TaskMailerTest < Test::Unit::TestCase
     TaskMailer.deliver_task_created(task)
   end
 
+  should 'be able to send a "target notification" message' do
+    task = Task.new
+    task.expects(:description).returns('the task')
+
+    requestor = mock()
+    requestor.expects(:name).returns('my name')
+
+    target = mock()
+    target.expects(:contact_email).returns('target@example.com')
+    target.expects(:name).returns('Target')
+
+    environment = mock()
+    environment.expects(:contact_email).returns('sender@example.com')
+    environment.expects(:default_hostname).returns('example.com')
+    environment.expects(:name).returns('example')
+
+    task.expects(:requestor).returns(requestor).at_least_once
+    task.expects(:target).returns(target).at_least_once
+    requestor.expects(:environment).returns(environment).at_least_once
+
+    TaskMailer.deliver_target_notification(task, 'the message')
+  end
+
 
   private
     def read_fixture(action)

@@ -144,6 +144,10 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal doc1.id, docs.first.id
   end
 
+  should 'provide a contact_email method which returns a ... contact email address' do
+    flunk 'not implemented yet'
+  end
+
   private
 
   def assert_invalid_identifier(id)

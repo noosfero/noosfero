@@ -135,6 +135,20 @@ class TaskTest < Test::Unit::TestCase
     assert_not_nil Task.find_by_code(task.code)
   end
 
+  should 'not send notification to target when target_notification_message is nil (as in Task base class)' do
+    task = Task.new
+    TaskMailer.expects(:deliver_target_notification).never
+    task.save!
+    assert_nil task.target_notification_message
+  end
+
+  should 'send notification to target just after task creation' do
+    task = Task.new
+    task.stubs(:target_notification_message).returns('some non nil message to be sent to target')
+    TaskMailer.expects(:deliver_target_notification).once
+    task.save!
+  end
+
   protected
 
   def sample_user

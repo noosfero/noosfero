@@ -46,6 +46,11 @@ class Task < ActiveRecord::Base
 
   after_create do |task|
     task.send(:send_notification, :created)
+    
+    target_msg = task.target_notification_message
+    unless target_msg.nil?
+      TaskMailer.deliver_target_notification(self, target_msg)
+    end
   end
 
   # this method finished the task. It calls #perform, which must be overriden
@@ -98,6 +103,16 @@ class Task < ActiveRecord::Base
   # cancelled.
   def task_cancelled_message
     _("The task was cancelled at %s") % (self.end_date.to_s)
+  end
+
+  # The message that will be sent to the *target* on the task when it is
+  # created.
+  #
+  # The implementation in this class returns +nil+, what makes the notification
+  # not to be sent. If you want to send a notification to the target upon task
+  # creation, override this method and return a String.
+  def target_notification_message
+    nil
   end
 
   protected

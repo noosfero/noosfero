@@ -11,7 +11,7 @@ You need to have a Subversion client (svn) installed, as well as:
 
 * Ruby: http://www.ruby-lang.org/
 * Rake: http://rake.rubyforge.org/
-* Ruby-GetText: http://www.yotabanana.com/hiki/ruby-gettext.html?ruby-gettext
+* Ruby-GetText: http://www.yotabanana.com/hiki/ruby-gettext.html?ruby-gettext (at least version 1.9.0)
 * Mocha: http://mocha.rubyforge.org/
 * Ruby-sqlite3: http://rubyforge.org/projects/sqlite-ruby
 * rcov: http://eigenclass.org/hiki/rcov
