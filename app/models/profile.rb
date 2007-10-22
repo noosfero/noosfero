@@ -113,6 +113,14 @@ class Profile < ActiveRecord::Base
     nil
   end
 
+  # returns the contact email for this profile. By default returns the the
+  # e-mail of the owner user.
+  #
+  # Subclasses may -- and should -- override this method.
+  def contact_email
+    self.user ? self.user.email : nil
+  end
+
   # gets recent documents in this profile.
   #
   # +limit+ is the maximum number of documents to be returned. It defaults to

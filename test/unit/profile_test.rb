@@ -145,7 +145,10 @@ class ProfileTest < Test::Unit::TestCase
   end
 
   should 'provide a contact_email method which returns a ... contact email address' do
-    flunk 'not implemented yet'
+    p = Profile.create!(:name => 'Profile for testing ', :identifier => 'profilefortesting')
+    assert_nil p.contact_email
+    p.user = User.new(:email => 'testprofile@example.com')
+    assert_equal 'testprofile@example.com', p.contact_email
   end
 
   private
