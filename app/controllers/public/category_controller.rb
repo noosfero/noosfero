@@ -1,7 +1,11 @@
 class CategoryController < ApplicationController
 
   before_filter :load_default_enviroment
-    
+
+
+  #FIXME This is not necessary because the application controller define the envrioment 
+  # as the default holder
+   
   design :holder => 'environment'
   
   def load_default_enviroment

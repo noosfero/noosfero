@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
 
   def load_profile
     @profile = Profile.find_by_identifier(params[:profile]) 
-    @profile ||= Profile.find(:first) #This is not correct it was made to the system don't crash
+    @profile ||= Profile.find(:first) #FIXME This is not correct it was made to the system don't crash
     raise "The profile must be loaded %s" % params[:profile].to_s if @profile.nil?
   end
 
