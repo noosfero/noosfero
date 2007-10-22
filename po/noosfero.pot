@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.3.0\n"
-"POT-Creation-Date: 2007-10-20 03:04-0300\n"
+"POT-Creation-Date: 2007-10-22 14:20-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -82,15 +82,15 @@ msgstr ""
 msgid "Could not update the enterprise"
 msgstr ""
 
-#: app/controllers/profile_admin/enterprise_editor_controller.rb:34
+#: app/controllers/profile_admin/enterprise_editor_controller.rb:35
 msgid "Enterprise sucessfully erased from the system"
 msgstr ""
 
-#: app/controllers/profile_admin/enterprise_editor_controller.rb:44
+#: app/controllers/profile_admin/enterprise_editor_controller.rb:45
 msgid "Enterprise successfuly activacted"
 msgstr ""
 
-#: app/controllers/profile_admin/enterprise_editor_controller.rb:46
+#: app/controllers/profile_admin/enterprise_editor_controller.rb:47
 msgid "Failed to activate the enterprise"
 msgstr ""
 
@@ -331,19 +331,19 @@ msgstr ""
 msgid "Task|Code"
 msgstr ""
 
-#: app/models/task.rb:81
+#: app/models/task.rb:86
 msgid "Generic task"
 msgstr ""
 
-#: app/models/task.rb:88
+#: app/models/task.rb:93
 msgid "The task was created at %s"
 msgstr ""
 
-#: app/models/task.rb:94
+#: app/models/task.rb:99
 msgid "The task was finished at %s"
 msgstr ""
 
-#: app/models/task.rb:100
+#: app/models/task.rb:105
 msgid "The task was cancelled at %s"
 msgstr ""
 
@@ -720,8 +720,12 @@ msgstr ""
 msgid "Admin"
 msgstr ""
 
-#: app/helpers/application_helper.rb:120 app/helpers/application_helper.rb:126
+#: app/helpers/application_helper.rb:120
 msgid "About"
+msgstr ""
+
+#: app/helpers/application_helper.rb:126
+msgid "about"
 msgstr ""
 
 #: app/helpers/application_helper.rb:144 app/views/account/login.rhtml:1
@@ -773,10 +777,6 @@ msgstr ""
 msgid "Edit informations"
 msgstr ""
 
-#: app/helpers/application_helper.rb:194
-msgid "Exclude"
-msgstr ""
-
 #: app/helpers/application_helper.rb:200
 #: app/views/account/new_password.rhtml:13
 #: app/views/account/change_password.rhtml:1
@@ -800,7 +800,11 @@ msgstr ""
 msgid "Change icon theme"
 msgstr ""
 
-#: app/helpers/application_helper.rb:252 app/helpers/application_helper.rb:255
+#: app/helpers/application_helper.rb:252
+msgid "accessibility"
+msgstr ""
+
+#: app/helpers/application_helper.rb:255
 msgid "Accessibility"
 msgstr ""
 
@@ -1156,6 +1160,7 @@ msgid "Dear %s,"
 msgstr ""
 
 #: app/views/task_mailer/task_created.text.plain.rhtml:6
+#: app/views/task_mailer/target_notification.rhtml:6
 #: app/views/task_mailer/task_finished.text.plain.rhtml:6
 #: app/views/task_mailer/task_cancelled.text.plain.rhtml:6
 msgid "%s environment system"

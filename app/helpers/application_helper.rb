@@ -123,7 +123,7 @@ module ApplicationHelper
   end
 
   def about_document
-    Article.find_all_by_title(_('About')).select do |a| 
+    Article.find_all_by_slug(_('about')).select do |a| 
       a.full_path.split(/\//).shift == 'noosfero'
     end[0]
   end
@@ -249,7 +249,7 @@ module ApplicationHelper
 #  end
 
   def accessibility_link
-    doc = Article.find_all_by_title(_('Accessibility')).select do |a| 
+    doc = Article.find_all_by_slug(_('accessibility')).select do |a| 
       a.full_path.split(/\//).shift == 'noosfero'
     end[0]
     link_to_document doc, _('Accessibility') if doc 

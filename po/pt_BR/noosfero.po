@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.3.0\n"
-"POT-Creation-Date: 2007-10-20 03:04-0300\n"
-"PO-Revision-Date: 2007-10-19 21:25-0300\n"
+"POT-Creation-Date: 2007-10-22 14:20-0300\n"
+"PO-Revision-Date: 2007-10-22 14:23-0300\n"
 "Last-Translator: Rafael Tavares Bomfim <rafael@colivre.coop.br>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -85,15 +85,15 @@ msgstr "Esta ação não está disponível para \"%s\"."
 msgid "Could not update the enterprise"
 msgstr "Não pôde modificar o empreendimento"
 
-#: app/controllers/profile_admin/enterprise_editor_controller.rb:34
+#: app/controllers/profile_admin/enterprise_editor_controller.rb:35
 msgid "Enterprise sucessfully erased from the system"
 msgstr "Empreendimento ativado com sucesso"
 
-#: app/controllers/profile_admin/enterprise_editor_controller.rb:44
+#: app/controllers/profile_admin/enterprise_editor_controller.rb:45
 msgid "Enterprise successfuly activacted"
 msgstr "Empreendimento ativado com sucesso"
 
-#: app/controllers/profile_admin/enterprise_editor_controller.rb:46
+#: app/controllers/profile_admin/enterprise_editor_controller.rb:47
 msgid "Failed to activate the enterprise"
 msgstr "Falhou em ativar o empreendimento"
 
@@ -340,19 +340,19 @@ msgstr "Alvo"
 msgid "Task|Code"
 msgstr "Código"
 
-#: app/models/task.rb:81
+#: app/models/task.rb:86
 msgid "Generic task"
 msgstr "Tarefa genérica"
 
-#: app/models/task.rb:88
+#: app/models/task.rb:93
 msgid "The task was created at %s"
 msgstr "A tarefa foi criada em %s"
 
-#: app/models/task.rb:94
+#: app/models/task.rb:99
 msgid "The task was finished at %s"
 msgstr "A tarefa foi finalizada em %s"
 
-#: app/models/task.rb:100
+#: app/models/task.rb:105
 msgid "The task was cancelled at %s"
 msgstr "A tarefa foi cancelada em %s"
 
@@ -741,9 +741,14 @@ msgstr "Meus Empreendimentos"
 msgid "Admin"
 msgstr "Administrador"
 
-#: app/helpers/application_helper.rb:120 app/helpers/application_helper.rb:126
+#: app/helpers/application_helper.rb:120
 msgid "About"
 msgstr "Sobre"
+
+#: app/helpers/application_helper.rb:126
+#, fuzzy
+msgid "about"
+msgstr "sobre"
 
 #: app/helpers/application_helper.rb:144 app/views/account/login.rhtml:1
 msgid "Login"
@@ -794,10 +799,6 @@ msgstr "Gerenciar conteúdo"
 msgid "Edit informations"
 msgstr "Editar informações"
 
-#: app/helpers/application_helper.rb:194
-msgid "Exclude"
-msgstr "Excluir"
-
 #: app/helpers/application_helper.rb:200
 #: app/views/account/new_password.rhtml:13
 #: app/views/account/change_password.rhtml:1
@@ -821,7 +822,12 @@ msgstr "Mude o tema de bloco"
 msgid "Change icon theme"
 msgstr "Mudar tema do ícone"
 
-#: app/helpers/application_helper.rb:252 app/helpers/application_helper.rb:255
+#: app/helpers/application_helper.rb:252
+#, fuzzy
+msgid "accessibility"
+msgstr "acessibilidade"
+
+#: app/helpers/application_helper.rb:255
 msgid "Accessibility"
 msgstr "Acessibilidade"
 
@@ -1179,6 +1185,7 @@ msgid "Dear %s,"
 msgstr "Caro %s,"
 
 #: app/views/task_mailer/task_created.text.plain.rhtml:6
+#: app/views/task_mailer/target_notification.rhtml:6
 #: app/views/task_mailer/task_finished.text.plain.rhtml:6
 #: app/views/task_mailer/task_cancelled.text.plain.rhtml:6
 msgid "%s environment system"
@@ -1864,6 +1871,9 @@ msgstr "Editando %s"
 #: app/views/categories/index.rhtml:1
 msgid "Categories"
 msgstr "Categorias"
+
+#~ msgid "Exclude"
+#~ msgstr "Excluir"
 
 #~ msgid "Main content block"
 #~ msgstr "Bloco de conteúdo principal"

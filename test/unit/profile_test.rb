@@ -80,7 +80,7 @@ class ProfileTest < Test::Unit::TestCase
     pr = Profile.create(:name => 'composite_profile', :identifier => 'composite')
     pe = User.create(:login => 'aff', :email => 'aff@pr.coop', :password => 'blih', :password_confirmation => 'blih').person
     
-    member_role = Role.new(:name => 'member')
+    member_role = Role.new(:name => 'new_member_role')
     assert member_role.save
     assert pr.affiliate(pe, member_role)
 
