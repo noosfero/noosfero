@@ -17,6 +17,7 @@ class CategoriesControllerTest < Test::Unit::TestCase
     assert (@cat1 = env.categories.create(:name => 'another category'))
     login_as(:ze)
   end
+  all_fixtures
   attr_reader :env, :cat1, :cat2
 
   def test_index
