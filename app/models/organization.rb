@@ -10,6 +10,10 @@ class Organization < Profile
       OrganizationInfo.create!(:organization_id => org.id)
   end
 
+  def contact_email
+    self.organization_info ? self.organization_info.contact_email : nil
+  end
+
   def validation_methodology
     methodology = self.validation_info ? self.validation_info.validation_methodology : nil
     methodology || ('<em>' + _('(not informed)') + '</em>')

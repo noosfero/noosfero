@@ -53,4 +53,11 @@ class OrganizationTest < Test::Unit::TestCase
     assert_equal 'something', org.validation_restrictions
   end
 
+  should 'override contact_email to get it from organization_info' do
+    org = Organization.new
+    assert_nil org.contact_email
+    org.organization_info = OrganizationInfo.new(:contact_email => 'test@example.com')
+    assert_equal 'test@example.com', org.contact_email
+  end
+
 end

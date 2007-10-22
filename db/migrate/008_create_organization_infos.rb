@@ -3,6 +3,7 @@ class CreateOrganizationInfos < ActiveRecord::Migration
     create_table :organization_infos do |t|
       t.column :organization_id,           :integer
       t.column :contact_person,            :string
+      t.column :contact_email,             :string
       t.column :acronym,                   :string
       t.column :foundation_year,           :integer, :limit => 4
       t.column :legal_form,                :string
