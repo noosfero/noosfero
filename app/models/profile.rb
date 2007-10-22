@@ -28,8 +28,7 @@ class Profile < ActiveRecord::Base
 
   acts_as_design
 
-  # FIXME: ferret is causing a strange bug
-  #  acts_as_ferret :fields => [ :name ]
+  acts_as_ferret :fields => [ :name ]
 
   # Valid identifiers must match this format.
   IDENTIFIER_FORMAT = /^[a-z][a-z0-9_]*[a-z0-9]$/
