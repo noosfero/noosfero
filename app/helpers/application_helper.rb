@@ -131,7 +131,7 @@ module ApplicationHelper
   def shortcut_header_links
     if logged_in?
       [ accessibility_link, 
-        ( link_to_homepage( content_tag('span', _('My account'), { :id => 'icon_go_home'} )) ), 
+        ( link_to_homepage( content_tag('span', _('My account')),nil, { :id => 'icon_go_home'} ) ), 
 	# MUDAR, O ID acima deve ser no Link <a id=...
 	# O ID icon_accessibility tambem tem que aparcer e testei o link nao ta funcionado.
         ( link_to content_tag('span', _('Admin')), { :controller => 'admin_panel' }, :id => 'icon_admin' if current_user.person.is_admin?), 
