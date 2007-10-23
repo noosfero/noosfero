@@ -77,6 +77,12 @@ clear: both;
 
 /* Artigos */
 
+div.recentdocumentsblock ul {
+margin: 0px;
+padding: 0px;
+list-style: none;
+}
+
 div.recentdocumentsblock div.block_content li a {
 text-decoration: none;
 color: #545454;

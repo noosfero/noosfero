@@ -1,6 +1,7 @@
 /* Geral Bar */
 #noosfero_bar {
   position: fixed;
+  width: 100%;
   height: 26px;
   background: url("../images/bg_bgmenu.png") repeat-x;
   padding: 0px;
@@ -49,29 +50,20 @@ color: #ffffff;
 /* Menu Itens Accessibility */
 
 #accessibility_menu {
-  float: right;
-  margin-right: 5px;
+  position: absolute;
+  right: 10px;
+  width: 200px;
   text-align: right;
   font-family: Verdana, Arial, Serif-sans;
   font-size: 9px;
   color: #dfdfdf;
   font-weight: normal;
+  z-index: 999;
 }
 
-/* Images Icons Mini-BAR 
+/* Images Icons Mini-BAR */
 #accessibility_menu span {
 display: none;
-}
-
-#accessibility_menu a {
-display: block;
-float: right;
-padding: 0px !important;
-margin: 0px !important;
-width: 24px !important;
-height: 24px !important;
-background-position: top left !important;
-background-repeat: no-repeat !important;
 }
 
 #accessibility_menu a#icon_go_content {
@@ -90,17 +82,24 @@ background-image: url('../images/icons-bar/logout.png');
 background-image: url('../images/icons-bar/login.png');
 }
 
+#accessibility_menu a#icon_admin {
+background-image: url('../images/icons-bar/admin.png');
+}
+
 #accessibility_menu a#icon_accessibility {
 background-image: url('../images/icons-bar/accessibility.png');
 }
-*/
  
 #accessibility_menu a {
-  padding-left: 9px;
-  margin-left: 5px;
-  background: url("../images/ico_enterlink.gif") no-repeat;
-  background-position: 0px 6px;
-  color: #dfdfdf;
+  padding: 0px;
+  margin: 0px;
+  margin-right: 5px;
+  display: block;
+  float: right;
+  width: 24px;
+  height: 24px;
+  background-position: 0px 0px;
+  background-repeat: no-repeat;
   text-decoration: none;
 }
 
@@ -121,13 +120,13 @@ background-image: url('../images/icons-bar/accessibility.png');
   height: 40px;
   vertical-align: middle;
   line-height: 40px;
-  z-index: 996;
+  z-index: 995;
 }
 
 #navigation_bar ul {
   padding: 0px !important;
   margin: 0px !important;
-  z-index: 997;
+  z-index: 996;
 }
 
 #navigation_bar ul li {
@@ -159,7 +158,7 @@ padding: 0px;
 width: 100%;
 left: 0px;
 display: none;
-z-index: 998;
+z-index: 997;
 }
 
 #navigation_bar ul li ul li {
@@ -181,10 +180,10 @@ position: absolute;
 right: 0px;
 margin: 0px;
 width: 200px;
-height: 33px;
+height: 30px;
 padding-top: 5px;
-padding-left: 15px;
-z-index: 999;
+padding-left: 10px;
+z-index: 998;
 }
 
 #input_search {

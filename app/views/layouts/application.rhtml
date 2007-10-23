@@ -30,12 +30,12 @@
 
     <div id="wrap" class='category<%= category_color %>'>
       <div id='noosfero_bar' class='category<%= category_color %>'>
-       <div id='top_bar' class='category<%= category_color %>'>
         <div id='accessibility_menu'>
-          <a href='#content'><span><%= _('Go Content') %></span></a>
+          <a href='#content' id='icon_go_content'><span><%= _('Go Content') %></span></a>
          <%= shortcut_header_links %>
         </div><!-- accessibility_menu -->
-        <div id='path_category'>
+      <div id='top_bar' class='category<%= category_color %>'>
+       <div id='path_category'>
         <% if @category %>
             <%= @category.full_name %>
         <% else @category %>

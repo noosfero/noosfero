@@ -131,13 +131,15 @@ module ApplicationHelper
   def shortcut_header_links
     if logged_in?
       [ accessibility_link, 
-        ( link_to_homepage( content_tag('span', _('My account')) ) ),
-        ( link_to( _('Admin'), { :controller => 'admin_panel' }) if current_user.person.is_admin?), 
-        ( link_to content_tag('span', _('Logout')), :controller => 'account', :action => 'logout', :method => 'post'),
+        ( link_to_homepage( content_tag('span', _('My account'), { :id => 'icon_go_home'} )) ), 
+	# MUDAR, O ID acima deve ser no Link <a id=...
+	# O ID icon_accessibility tambem tem que aparcer e testei o link nao ta funcionado.
+        ( link_to content_tag('span', _('Admin')), { :controller => 'admin_panel' }, :id => 'icon_admin' if current_user.person.is_admin?), 
+        ( link_to content_tag('span', _('Logout')), { :controller => 'account', :action => 'logout', :method => 'post'}, :id => 'icon_logout'),
       ]
     else
       [ accessibility_link,
-        ( link_to content_tag('span', _('Login')), :controller => 'account', :action => 'login'),
+        ( link_to content_tag('span', _('Login')), { :controller => 'account', :action => 'login' }, :id => 'icon_login' ),
       ]
     end.join(" ")
   end
@@ -266,13 +268,13 @@ module ApplicationHelper
     doc = Article.find_all_by_slug(_('accessibility')).select do |a| 
       a.full_path.split(/\//).shift == 'noosfero'
     end[0]
-    link_to_document doc, _('Accessibility') if doc 
+    link_to_document doc, _('Accessibility'), :id => 'icon_accessibility' if doc 
   end
 
   def search_box
     [form_tag( :controller => 'search', :action => 'index'),
-      text_field_tag( 'query', _('  '), :id => "input_search"),
       submit_tag(_('Search'), :id => 'button_search'),
+      text_field_tag( 'query', _('  '), :id => "input_search"),
        '</form>',
       observe_field('input_search', :function => "element.value=''", :on => :focus)
     ].join("\n") 
