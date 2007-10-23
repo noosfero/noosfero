@@ -86,7 +86,7 @@ list-style: none;
 div.recentdocumentsblock div.block_content li a {
 text-decoration: none;
 color: #545454;
-border-bottom: 1px dotted bottom;
+border-bottom: 1px dotted solid;
 }
 
 div.recentdocumentsblock div.block_content li a:hover {

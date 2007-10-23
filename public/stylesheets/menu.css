@@ -103,8 +103,18 @@ background-image: url('../images/icons-bar/accessibility.png');
   text-decoration: none;
 }
 
-#accessibility_menu a:hover {
-  color: #ffffff;
+#accessibility_menu a:hover span {
+ display: block;
+ position: absolute;
+ top: 1px;
+ right: 200px;
+ width: 100px;
+ text-align: right;
+ background: url("../images/ico_enterlink.gif") no-repeat;
+ background-position: 106px 6px;
+ color: #ffffff;
+ font-weight: bold;
+ padding-right: 8px;
 }
 
 
