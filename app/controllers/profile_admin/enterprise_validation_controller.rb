@@ -1,3 +1,3 @@
-class EnterpriseValidationController < EnterpriseAdminController
+class EnterpriseValidationController < ProfileAdminController
 
 end
