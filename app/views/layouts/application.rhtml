@@ -32,8 +32,18 @@
       <div id='noosfero_bar' class='category<%= category_color %>'>
        <div id='top_bar' class='category<%= category_color %>'>
         <div id='accessibility_menu'>
-          <a href='#content' title='Ir para o conteúdo'>Ir para conteúdo</a>
-          <%= accessibility_link  %>
+          <a href='#content'><span><%= _('Go Content') %></span></a>
+         <%=
+	 if logged_in?
+	   ( accessibility_link ) + " " +
+           ( link_to_homepage((content_tag('span', _('My account'))))) + " " +
+           ( link_to(_('Admin'), { :controller => 'admin_panel' }) if current_user.person.is_admin?) + " " +
+	   (link_to (content_tag('span', _('Logout'))), { :controller => 'account', :action => 'logout'}, :method => 'post')
+	 else
+	 ( accessibility_link ) + " " +
+         (link_to (content_tag('span', _('Login'))), :controller => 'account', :action => 'login')
+	 end
+	 %>
         </div><!-- accessibility_menu -->
         <div id='path_category'>
         <% if @category %>

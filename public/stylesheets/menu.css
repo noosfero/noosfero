@@ -50,13 +50,51 @@ color: #ffffff;
 
 #accessibility_menu {
   float: right;
-  margin-right: 10px;
+  margin-right: 5px;
+  text-align: right;
   font-family: Verdana, Arial, Serif-sans;
   font-size: 9px;
   color: #dfdfdf;
   font-weight: normal;
 }
 
+/* Images Icons Mini-BAR 
+#accessibility_menu span {
+display: none;
+}
+
+#accessibility_menu a {
+display: block;
+float: right;
+padding: 0px !important;
+margin: 0px !important;
+width: 24px !important;
+height: 24px !important;
+background-position: top left !important;
+background-repeat: no-repeat !important;
+}
+
+#accessibility_menu a#icon_go_content {
+background-image: url('../images/icons-bar/go-content.png');
+}
+
+#accessibility_menu a#icon_go_home {
+background-image: url('../images/icons-bar/go-home.png');
+}
+
+#accessibility_menu a#icon_logout {
+background-image: url('../images/icons-bar/logout.png');
+}
+
+#accessibility_menu a#icon_login {
+background-image: url('../images/icons-bar/login.png');
+}
+
+#accessibility_menu a#icon_accessibility {
+background-image: url('../images/icons-bar/accessibility.png');
+}
+*/
+ 
 #accessibility_menu a {
   padding-left: 9px;
   margin-left: 5px;
@@ -70,20 +108,26 @@ color: #ffffff;
   color: #ffffff;
 }
 
+
 /* Itens Navigation Bar */
 
 #navigation_bar {
-  float: left;
+  position: absolute;
+  top: 20px;
+  left: 0px;
+  width: 100%;
   padding: 0px !important;
   margin-top: -5px !important;
   height: 40px;
   vertical-align: middle;
   line-height: 40px;
+  z-index: 996;
 }
 
 #navigation_bar ul {
   padding: 0px !important;
   margin: 0px !important;
+  z-index: 997;
 }
 
 #navigation_bar ul li {
@@ -96,6 +140,7 @@ color: #ffffff;
 #navigation_bar ul li a {
   float: left;
   display: block;
+  cursor: default;
   margin-top: 5px;
   text-align: center;
   width: 124px;
@@ -108,13 +153,13 @@ color: #ffffff;
 
 #navigation_bar ul ul {
 position: absolute;
-top: 58px;
+top: 43px;
 margin: 0px;
 padding: 0px;
 width: 100%;
 left: 0px;
 display: none;
-z-index: 999;
+z-index: 998;
 }
 
 #navigation_bar ul li ul li {
@@ -123,6 +168,7 @@ z-index: 999;
 
 #navigation_bar ul li ul li a {
  display: inline;
+ cursor: pointer;
  width: auto;
  padding-left: 5px;
  padding-right: 5px;
@@ -131,12 +177,14 @@ z-index: 999;
 }
 
 #search_box {
-float: right;
+position: absolute;
+right: 0px;
 margin: 0px;
 width: 200px;
-height: 35px;
+height: 33px;
 padding-top: 5px;
 padding-left: 15px;
+z-index: 999;
 }
 
 #input_search {
