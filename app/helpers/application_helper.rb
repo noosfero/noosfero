@@ -128,6 +128,20 @@ module ApplicationHelper
     end[0]
   end
 
+  def shortcut_header_links
+    if logged_in?
+      [ accessibility_link, 
+        ( link_to_homepage( content_tag('span', _('My account')) ) ),
+        ( link_to( _('Admin'), { :controller => 'admin_panel' }) if current_user.person.is_admin?), 
+        ( link_to content_tag('span', _('Logout')), :controller => 'account', :action => 'logout', :method => 'post'),
+      ]
+    else
+      [ accessibility_link,
+        ( link_to content_tag('span', _('Login')), :controller => 'account', :action => 'login'),
+      ]
+    end
+  end
+
   def header
     login_or_register_or_logout
   end
