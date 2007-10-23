@@ -21,8 +21,6 @@ class MembershipEditorControllerTest < Test::Unit::TestCase
 
   should 'prompt for new enterprise data' do
     get :new_enterprise, :profile => 'ze'
-    assert assigns(:virtual_communities)
-    assert_kind_of Array, assigns(:virtual_communities)
     assert assigns(:validation_entities)
     assert_kind_of Array, assigns(:validation_entities)
   end

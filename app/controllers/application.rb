@@ -34,13 +34,17 @@ class ApplicationController < ActionController::Base
 
   def self.needs_profile
     before_filter :load_profile
-    design :holder => 'profile'
+    design :holder => 'profile' 
   end
 
   def load_profile
-    @profile = Profile.find_by_identifier(params[:profile]) 
-    @profile ||= Profile.find(:first) #FIXME This is not correct it was made to the system don't crash
-    raise "The profile must be loaded %s" % params[:profile].to_s if @profile.nil?
+    @profile = Profile.find_by_identifier(params[:profile])
+    render_not_found(request.path) unless @profile
+  end
+
+  def render_not_found(path)
+    @path = path
+    render :file => File.join(RAILS_ROOT, 'app', 'views', 'shared', 'not_found.rhtml'), :layout => 'not_found', :status => 404
   end
 
   def self.acts_as_environment_admin_controller

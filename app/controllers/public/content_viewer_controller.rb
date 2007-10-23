@@ -8,7 +8,7 @@ class ContentViewerController < PublicController
     @path = path.join('/')
     @page = Article.find_by_path(@path)
     if @page.nil?
-      render :action => 'not_found', :status => 404
+      render_not_found(@path)
     end
   end
 

@@ -28,16 +28,21 @@ class ContentViewerControllerTest < Test::Unit::TestCase
   def test_should_get_not_found_error_for_unexisting_page
     uses_host 'anhetegua.net'
     get :view_page, :profile => 'aprofile', :page => ['some_unexisting_page']
-    assert_response :redirect
-    assert_redirected_to :controller => 'search', :action => 'index'
+    assert_response :missing
+    # This is an idea of instead of give an error search for the term
+#    assert_response :redirect
+#    assert_redirected_to :controller => 'search', :action => 'index'
   end
 
   def test_should_get_not_found_error_for_unexisting_profile
     Profile.delete_all
     uses_host 'anhetegua'
     get :view_page, :profile => 'some_unexisting_profile', :page => []
-    assert_response :redirect
-    assert_redirected_to :controller => 'search', :action => 'index'
+    assert_response :missing    
+    
+    # This is an idea of instead of give an error search for the term
+#    assert_response :redirect
+#    assert_redirected_to :controller => 'search', :action => 'index'
   end
 
 end

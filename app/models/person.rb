@@ -8,12 +8,6 @@ class Person < Profile
 #  has_many :people, :through => :person_friendships, :foreign_key => 'friend_id'
   
   has_one :person_info
-#  has_many :role_assignments, :as => :accessor, :class_name => 'RoleAssignment'
-
-#  def has_permission?(perm, res=nil)
-#    return true if res == self && PERMISSIONS[:profile].keys.include?(perm) 
-#    role_assignments.any? {|ra| ra.has_permission?(perm, res)}
-#  end
 
   def self.conditions_for_profiles(conditions, person)
     new_conditions = sanitize_sql(['role_assignments.accessor_id = ?', person])

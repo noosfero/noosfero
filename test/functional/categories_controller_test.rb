@@ -15,13 +15,17 @@ class CategoriesControllerTest < Test::Unit::TestCase
     Environment.stubs(:default).returns(env)
     assert (@cat1 = env.categories.create(:name => 'a test category'))
     assert (@cat1 = env.categories.create(:name => 'another category'))
-    login_as(:ze)
+    login_as(create_admin_user(@env))
   end
   all_fixtures
   attr_reader :env, :cat1, :cat2
 
   def test_index
+    assert user =  login_as(create_admin_user(Environment.default))
+    assert user.person.has_permission?('manage_environment_categories',Environment.default ), "#{user.login} don't have permission to manage_environment_categories in #{Environment.default.name}"
     get :index
+    assert_response :success
+    assert_template 'index'
     assert_kind_of Array, assigns(:categories)
     assert_tag :tag => 'a', :attributes => { :href => '/admin/categories/new'}
   end

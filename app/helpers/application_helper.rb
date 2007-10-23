@@ -139,7 +139,7 @@ module ApplicationHelper
       [ accessibility_link,
         ( link_to content_tag('span', _('Login')), :controller => 'account', :action => 'login'),
       ]
-    end
+    end.join(" ")
   end
 
   def header
