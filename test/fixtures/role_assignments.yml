@@ -4,8 +4,8 @@ one:
   accessor_id: 4
   accessor_type: 'Profile'
   role_id: 2
-  resource_id: 5
-  resource_type: 'Profile'
+  resource_id: 1
+  resource_type: 'Environment'
 two:
   id: 2
   accessor_id: 1

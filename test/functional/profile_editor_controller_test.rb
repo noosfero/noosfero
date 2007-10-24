@@ -9,16 +9,14 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     @controller = ProfileEditorController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
+    login_as('ze')
   end
 
   def test_index
-    profile = Person.new
-    profile.person_info.name = 'a test profile'
-    profile.person_info.address = 'my address'
-    profile.person_info.contact_information = 'my contact information'
-    @controller.instance_variable_set('@profile', profile)
+    profile = Profile.create(:name => 'a test profile', :identifier => 'test_profile')
 
-    get :index, :profile => 'test_profile'
+    get :index, :profile => profile.identifier
+    assert_template :index
     assert_response :success
     assert_not_nil assigns(:profile)
 
