@@ -60,4 +60,8 @@ class OrganizationTest < Test::Unit::TestCase
     assert_equal 'test@example.com', org.contact_email
   end
 
+  should 'list pending enterprise validations' do
+    flunk 'not yet'
+  end
+
 end
