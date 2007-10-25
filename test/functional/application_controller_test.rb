@@ -6,8 +6,8 @@ class TestController; def rescue_action(e) raise e end; end
 
 class ApplicationControllerTest < Test::Unit::TestCase
 
-  fixtures :profiles, :environments, :domains, :design_boxes
-
+#  all_fixtures:profiles, :environments, :domains, :design_boxes
+  all_fixtures
   def setup
     @controller = TestController.new
     @request    = ActionController::TestRequest.new

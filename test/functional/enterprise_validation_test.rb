@@ -6,8 +6,8 @@ class EnterpriseValidationController; def rescue_action(e) raise e end; end
 
 class EnterpriseValidationControllerTest < Test::Unit::TestCase
 
-  fixtures :users
-
+#  all_fixtures:users
+all_fixtures
   def setup
     @controller = EnterpriseValidationController.new
     @request    = ActionController::TestRequest.new

@@ -1,5 +1,5 @@
 class ProfileEditorController < ProfileAdminController
-  protect [:index, :edit], 'edit_profile', :profile
+#  protect [:index, :edit], 'edit_profile', :profile
   helper :profile
   
   needs_profile

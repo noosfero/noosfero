@@ -5,7 +5,7 @@ require 'role_controller'
 class RoleController; def rescue_action(e) raise e end; end
 
 class RoleControllerTest < Test::Unit::TestCase
-
+  all_fixtures
   under_profile :ze
 
   def setup

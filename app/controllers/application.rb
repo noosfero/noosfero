@@ -38,7 +38,8 @@ class ApplicationController < ActionController::Base
   end
 
   def load_profile
-    @profile = Profile.find_by_identifier(params[:profile])
+    @profile ||= Profile.find_by_identifier(params[:profile])
+#    @profile ||= Profile.find(:first)
     render_not_found(request.path) unless @profile
   end
 

@@ -6,8 +6,8 @@ class EnterpriseRegistrationController; def rescue_action(e) raise e end; end
 
 class EnterpriseRegistrationControllerTest < Test::Unit::TestCase
 
-  fixtures :users
-
+#  all_fixtures:users
+all_fixtures
   def setup
     @controller = EnterpriseRegistrationController.new
     @request    = ActionController::TestRequest.new
@@ -46,9 +46,16 @@ class EnterpriseRegistrationControllerTest < Test::Unit::TestCase
     validator1 = mock()
     validator1.expects(:id).returns(1)
     validator1.expects(:name).returns("validator1")
+    validator1.expects(:validation_methodology).returns("methodology1")
+    validator1.expects(:validation_restrictions).returns("restrictions1")
+
     validator2 = mock()
     validator2.expects(:id).returns(2)
     validator2.expects(:name).returns("validator2")
+    validator2.expects(:validation_methodology).returns("methodology2")
+    validator2.expects(:validation_restrictions).returns("restrictions2")
+
+
     region = mock()
     region.expects(:validators).returns([validator1, validator2]).at_least_once
     create_enterprise.expects(:region).returns(region)

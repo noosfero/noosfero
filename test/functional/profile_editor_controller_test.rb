@@ -5,6 +5,8 @@ require 'profile_editor_controller'
 class ProfileEditorController; def rescue_action(e) raise e end; end
 
 class ProfileEditorControllerTest < Test::Unit::TestCase
+  all_fixtures
+  
   def setup
     @controller = ProfileEditorController.new
     @request    = ActionController::TestRequest.new
@@ -13,10 +15,14 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
   end
 
   def test_index
-    profile = Profile.create(:name => 'a test profile', :identifier => 'test_profile')
+    person = User.create(:login => 'test_profile', :email => 'test@noosfero.org', :password => 'test', :password_confirmation => 'test').person
+    person.person_info.name = 'a test profile'
+    person.person_info.address = 'my address'
+    person.person_info.contact_information = 'my contact information'
+    person.person_info.save
 
-    get :index, :profile => profile.identifier
-    assert_template :index
+    get :index, :profile => person.identifier
+    assert_template 'index'
     assert_response :success
     assert_not_nil assigns(:profile)
 
@@ -26,26 +32,23 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
   end
 
   def test_edit_person_info
-    profile = Person.new
-    profile.name = 'a test profile'
-    profile.person_info.address = 'my address'
-    profile.person_info.contact_information = 'my contact information'
-    @controller.instance_variable_set('@profile', profile)
+    person = User.create(:login => 'test_profile', :email => 'test@noosfero.org', :password => 'test', :password_confirmation => 'test').person
 
-    get :edit, :profile => 'test_profile'
+    assert person.valid?
+    get :edit, :profile => person.identifier
+    assert_template 'person_info'
     assert_response :success
     assert_template 'person_info'
 
   end
 
-  def test_saving_profile_info
-    profile = Person.new
-    profile.name = 'a test profile'
-    profile.person_info.address = 'my address'
-    profile.person_info.contact_information = 'my contact information'
-    @controller.instance_variable_set('@profile', profile)
-
-    profile.person_info.expects(:update_attributes).with({ 'contact_information' => 'new contact information', 'address' => 'new address' }).returns(true)
+  def test_saving_profile_info 
+    person = User.create(:login => 'test_profile', :email => 'test@noosfero.org', :password => 'test', :password_confirmation => 'test').person
+    person.person_info.address = 'my address'
+    person.person_info.contact_information = 'my contact information'
+    person.person_info.save
+    
+#    profile.person_info.expects(:update_attributes).with({ 'contact_information' => 'new contact information', 'address' => 'new address' }).returns(true)
     post :edit, :profile => 'test_profile', :info => { 'contact_information' => 'new contact information', 'address' => 'new address' }
 
     assert_redirected_to :action => 'index'

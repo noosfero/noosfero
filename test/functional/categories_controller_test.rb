@@ -5,7 +5,7 @@ require 'categories_controller'
 class CategoriesController; def rescue_action(e) raise e end; end
 
 class CategoriesControllerTest < Test::Unit::TestCase
-
+  all_fixtures
   def setup
     @controller = CategoriesController.new
     @request    = ActionController::TestRequest.new
@@ -17,7 +17,7 @@ class CategoriesControllerTest < Test::Unit::TestCase
     assert (@cat1 = env.categories.create(:name => 'another category'))
     login_as(create_admin_user(@env))
   end
-  all_fixtures
+
   attr_reader :env, :cat1, :cat2
 
   def test_index

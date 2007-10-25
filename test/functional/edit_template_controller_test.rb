@@ -7,7 +7,7 @@ require 'edit_template_controller'
 class EditTemplateController; def rescue_action(e) raise e end; end
 
 class EditTemplateControllerTest < Test::Unit::TestCase
-
+  all_fixtures
   def setup
     @controller = EditTemplateController.new
     @request    = ActionController::TestRequest.new

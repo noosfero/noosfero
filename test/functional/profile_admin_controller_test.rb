@@ -13,6 +13,7 @@ end
 
 class ProfileAdminControllerTest < Test::Unit::TestCase
 
+  all_fixtures
   def setup
     @controller = ProfileAdminController.new
     @request    = ActionController::TestRequest.new

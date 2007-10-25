@@ -5,7 +5,7 @@ require 'region_validators_controller'
 class RegionValidatorsController; def rescue_action(e) raise e end; end
 
 class RegionValidatorsControllerTest < Test::Unit::TestCase
-
+  all_fixtures
   def setup
     @controller = RegionValidatorsController.new
     @request    = ActionController::TestRequest.new
