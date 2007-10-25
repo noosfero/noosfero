@@ -30,6 +30,7 @@ class PersonTest < Test::Unit::TestCase
     member_role = Role.create(:name => 'member')
     e.affiliate(p, member_role)
     assert p.memberships.include?(e)
+    assert p.enterprise_memberships.include?(e)
   end
   
   def test_can_have_user
@@ -97,4 +98,14 @@ class PersonTest < Test::Unit::TestCase
     assert_nil p.email
   end
 
+  should 'be an admin if have permission of environment administration' do
+    role = Role.create!(:name => 'just_another_admin_role')
+    env = Environment.create!(:name => 'blah')
+    person = create_user('just_another_person').person
+    env.affiliate(person, role)
+    assert ! person.is_admin?
+    role.update_attributes(:permissions => ['view_environment_admin_panel'])
+    person.reload
+    assert person.is_admin?
+  end
 end

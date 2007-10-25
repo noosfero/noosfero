@@ -71,6 +71,13 @@ class Test::Unit::TestCase
     admin_user.login
   end
 
+  def create_user(name)
+    User.create!(:login => name, 
+                 :email => name + '@noosfero.org', 
+                 :password => name.underscore, 
+                 :password_confirmation => name.underscore)
+  end
+
   private
 
   def uses_host(name)

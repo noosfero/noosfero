@@ -40,9 +40,9 @@ class ProfileTest < Test::Unit::TestCase
   end
 
   def test_cannot_rename
-    p1 = profiles(:johndoe)
+    assert_valid p = Profile.create(:name => 'new_profile', :identifier => 'new_profile')
     assert_raise ArgumentError do
-      p1.identifier = 'bli'
+      p.identifier = 'other_profile'
     end
   end
 
@@ -151,6 +151,23 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal 'testprofile@example.com', p.contact_email
   end
 
+  should 'affiliate and provide a list of the affiliated users' do
+    profile = Profile.create!(:name => 'Profile for testing ', :identifier => 'profilefortesting')
+    person = create_user('test_user').person
+    role = Role.create!(:name => 'just_another_test_role')
+    assert profile.affiliate(person, role)
+    assert profile.members.map(&:id).include?(person.id)
+  end
+
+  should 'authorize users that have permission on the environment' do
+    env = Environment.create!(:name => 'test_env')
+    profile = Profile.create!(:name => 'Profile for testing ', :identifier => 'profilefortesting', :environment => env)
+    person = create_user('test_user').person
+    role = Role.create!(:name => 'just_another_test_role', :permissions => ['edit_profile'])
+    assert env.affiliate(person, role)
+    assert person.has_permission?('edit_profile', profile)
+  end
+
   private
 
   def assert_invalid_identifier(id)
@@ -158,5 +175,4 @@ class ProfileTest < Test::Unit::TestCase
     assert !profile.valid?
     assert profile.errors.invalid?(:identifier)
   end
-
 end

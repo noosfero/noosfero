@@ -7,7 +7,7 @@ class MembershipEditorController < ProfileAdminController
   protect [:index, :new_enterprise, :create_enterprise ], 'edit_profile', :profile
 
   def index
-    @memberships = current_user.person.enterprises_memberships
+    @memberships = current_user.person.enterprise_memberships
   end
 
   def new_enterprise

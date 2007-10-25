@@ -23,7 +23,7 @@ class Person < Profile
       :select => 'profiles.*').uniq
   end
 
-  def enterprises_memberships
+  def enterprise_memberships
     memberships.select{|p|p.class == Enterprise}
   end
 
