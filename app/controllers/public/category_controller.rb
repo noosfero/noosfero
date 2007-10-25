@@ -17,7 +17,7 @@ class CategoryController < ApplicationController
     path = params[:path].join('/')
     @category = environment.categories.find_by_path(path)
     if @category.nil?
-      render :text => ('No such category (%s).' % path), :status => 404
+      render_not_found(path)
     end
   end
 
