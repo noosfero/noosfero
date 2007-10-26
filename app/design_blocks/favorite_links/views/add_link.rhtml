@@ -1,0 +1,13 @@
+<h2> <%= _('Editing Favorite Links') %> </h2>
+
+<% design_form_remote_tag( :url => {:action => 'save'}) do %>
+
+  <p>
+    <label for="design_block_title"> <%= _("Title") %> </label>
+    <%= text_field 'design_block', 'favorite_link'%>
+  </p>
+
+  <%= submit_tag _('Save') %>
+
+<% end %>
+
