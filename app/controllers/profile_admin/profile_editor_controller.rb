@@ -13,7 +13,7 @@ class ProfileEditorController < ProfileAdminController
      ]
   end
 
-# Put other Blocks to works
+# FIXME Put other Blocks to works
 #  def block_types
 #    {
 #      'ListBlock' => _("List of People"),

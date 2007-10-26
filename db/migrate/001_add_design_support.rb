@@ -1,6 +1,5 @@
 class AddDesignSupport < ActiveRecord::Migration
   def self.up
-
     create_table :design_boxes do |t|
       t.column :name,       :string
       t.column :title,      :string
@@ -10,12 +9,11 @@ class AddDesignSupport < ActiveRecord::Migration
     end
 
     create_table :design_blocks do |t|
-      t.column :name,     :string
       t.column :title,    :string
       t.column :box_id,   :integer
       t.column :position, :integer
       t.column :type,     :string
-      t.column :helper,   :string
+      t.column :settings,     :text
     end
 
   end
