@@ -6,14 +6,22 @@ class ProfileEditorController < ProfileAdminController
 
   design_editor :holder => 'profile', :autosave => true, :block_types => :block_types
 
-  def block_types
-    {
-      'ListBlock' => _("List of People"),
-      'EnterprisesBlock' => _("List of Enterprises"),
-      'LinkBlock' => _("Link Block"),
-      'RecentDocumentsBlock' => _("Recent documents block")
-    }
+
+   def block_types
+    %w[
+       FavoriteLinks
+     ]
   end
+
+# Put other Blocks to works
+#  def block_types
+#    {
+#      'ListBlock' => _("List of People"),
+#      'EnterprisesBlock' => _("List of Enterprises"),
+#      'LinkBlock' => _("Link Block"),
+#      'RecentDocumentsBlock' => _("Recent documents block")
+#    }
+#  end
 
   # edits the profile info (posts back)
   def edit
