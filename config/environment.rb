@@ -84,6 +84,7 @@ Comatose.configure do |config|
     # FIXME: also check permissions
   end
   config.admin_includes << :authenticated_system
+  config.admin_includes << :needs_profile
   config.admin_helpers << :application_helper
   config.admin_helpers << :document_helper
   config.admin_helpers << :language_helper

@@ -1,7 +1,7 @@
-class CmsController < ComatoseAdminController
+class CmsController < Comatose::AdminController
   extend PermissionCheck
   
-  ApplicationController.needs_profile
+  needs_profile
   
   define_option :page_class, Article
   

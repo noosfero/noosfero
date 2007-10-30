@@ -11,8 +11,7 @@ class CmsControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
   end
 
-  # Replace this with your real tests.
-  def test_truth
-    assert true
+  def test_missing
+    flunk 'need to add some tests for CmsController '
   end
 end

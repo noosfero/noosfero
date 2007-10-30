@@ -12,13 +12,10 @@ class ApplicationController < ActionController::Base
   extend PermissionCheck
   init_gettext 'noosfero'
 
+  include NeedsProfile
+
   before_filter :detect_stuff_by_domain
   attr_reader :environment
-
-  def self.needs_profile
-    before_filter :load_profile
-    design :holder => 'profile' 
-  end
 
   def self.acts_as_environment_admin_controller
     before_filter :load_admin_controller
@@ -31,10 +28,6 @@ class ApplicationController < ActionController::Base
   end
 
   protected 
-
-  def profile
-    @profile
-  end
 
   # TODO: move this logic somewhere else (Domain class?)
   def detect_stuff_by_domain
