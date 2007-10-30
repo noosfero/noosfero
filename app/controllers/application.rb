@@ -15,7 +15,26 @@ class ApplicationController < ActionController::Base
   before_filter :detect_stuff_by_domain
   attr_reader :environment
 
-  protected
+  def self.needs_profile
+    before_filter :load_profile
+    design :holder => 'profile' 
+  end
+
+  def self.acts_as_environment_admin_controller
+    before_filter :load_admin_controller
+  end
+
+  # declares that the given <tt>actions</tt> cannot be accessed by other HTTP
+  # method besides POST.
+  def self.post_only(actions, redirect = { :action => 'index'})
+    verify :method => :post, :only => actions, :redirect_to => redirect
+  end
+
+  protected 
+
+  def profile
+    @profile
+  end
 
   # TODO: move this logic somewhere else (Domain class?)
   def detect_stuff_by_domain
@@ -28,18 +47,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def profile
-    @profile
-  end
-
-  def self.needs_profile
-    before_filter :load_profile
-    design :holder => 'profile' 
-  end
-
   def load_profile
     @profile ||= Profile.find_by_identifier(params[:profile])
-#    @profile ||= Profile.find(:first)
     render_not_found(request.path) unless profile
   end
 
@@ -48,16 +57,8 @@ class ApplicationController < ActionController::Base
     render :file => File.join(RAILS_ROOT, 'app', 'views', 'shared', 'not_found.rhtml'), :layout => 'not_found', :status => 404
   end
 
-  def self.acts_as_environment_admin_controller
-    before_filter :load_admin_controller
-  end
   def load_admin_controller
     # TODO: check access control
   end
 
-  # declares that the given <tt>actions</tt> cannot be accessed by other HTTP
-  # method besides POST.
-  def self.post_only(actions, redirect = { :action => 'index'})
-    verify :method => :post, :only => actions, :redirect_to => redirect
-  end
 end
