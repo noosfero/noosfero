@@ -2,7 +2,6 @@
 require File.dirname(__FILE__) + '/../config/environment'
 
 Profile.destroy_all
-anhetegua = Profile.create!(:name => 'noosfero', :identifier => 'noosfero')
 
 User.destroy_all
 User.create!(:login => 'testprofile', :email => 'admin@localhost.localdomain', :password => 'test', :password_confirmation => 'test')
