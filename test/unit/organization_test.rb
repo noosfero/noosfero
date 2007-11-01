@@ -61,7 +61,9 @@ class OrganizationTest < Test::Unit::TestCase
   end
 
   should 'list pending enterprise validations' do
-    flunk 'not yet'
+    org = Organization.new
+    CreateEnterprise.expects(:pending_for).with(org).returns([])
+    assert_equal [], org.pending_validations
   end
 
 end
