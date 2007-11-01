@@ -149,6 +149,18 @@ class TaskTest < Test::Unit::TestCase
     task.save!
   end
 
+  should 'be able to list pending tasks for a given target' do
+    target = sample_user 
+
+    assert_equal [], Task.pending_for(target)
+
+    task = Task.new
+    task.target = target
+    task.save!
+
+    assert_equal [task], Task.pending_for(target)
+  end
+
   protected
 
   def sample_user

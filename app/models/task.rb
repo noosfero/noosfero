@@ -134,6 +134,10 @@ class Task < ActiveRecord::Base
 
   class << self
 
+    def pending_for(target)
+      self.find(:all, :conditions => { :target_id => target.id, :status =>  Task::Status::ACTIVE })
+    end
+
     # generates a random code string consisting of 36 characters in the ranges
     # a-z and 0-9
     def generate_code
