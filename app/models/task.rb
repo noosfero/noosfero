@@ -105,8 +105,9 @@ class Task < ActiveRecord::Base
     _("The task was cancelled at %s") % (self.end_date.to_s)
   end
 
-  # The message that will be sent to the *target* on the task when it is
-  # created.
+  # The message that will be sent to the *target* of the task when it is
+  # created. The indent of this message is to notify the target about the
+  # request that was just created for him/her. 
   #
   # The implementation in this class returns +nil+, what makes the notification
   # not to be sent. If you want to send a notification to the target upon task
