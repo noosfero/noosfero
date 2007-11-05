@@ -9,9 +9,9 @@ class ProfileEditorController < ProfileAdminController
 
    def block_types
     %w[
-       FavoriteLinks
+       FavouriteLinks
      ]
-  end
+   end
 
 # FIXME Put other Blocks to works
 #  def block_types
