@@ -123,7 +123,27 @@ class CreateEnterprise < Task
   end
 
   def target_notification_message
-    _('Enterprise "%{enterprise}" just requested to enter %{environment}. You have to approve or reject it through the "Pending Validations" section in your control panel.') % { :enterprise => self.name, :environment => self.environment }
+    msg = ""
+    msg << _("Enterprise \"%{enterprise}\" just requested to enter %{environment}. You have to approve or reject it through the \"Pending Validations\" section in your control panel.\n") % { :enterprise => self.name, :environment => self.environment }
+    msg << "\n"
+    msg << _("The data provided by the enterprise was the following:\n") << "\n"
+
+
+    msg << (_("Name: %s") % self.name) << "\n"
+    msg << (_("Acronym: %s") % self.acronym) << "\n"
+    msg << (_("Address: %s") % self.address) << "\n"
+    msg << (_("Legal form: %s") % self.foundation_year) << "\n"
+    msg << (_("Foundation Year: %d") % self.foundation_year) << "\n"
+    msg << (_("Economic activity: %s") % self.economic_activity) << "\n"
+
+    msg << _("Information about enterprise's management:\n") << self.management_information.to_s << "\n"
+
+    msg << (_("Contact phone: %s") % self.contact_phone) << "\n"
+    msg << (_("Contact person: %s") % self.contact_person) << "\n"
+
+    msg << _('CreateEnterprise|Identifier')
+
+    msg
   end
 
 end
