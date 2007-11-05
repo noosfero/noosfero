@@ -83,4 +83,8 @@ class RoutingTest < ActionController::IntegrationTest
     assert_routing('/cat', :controller => 'category', :action => 'index')
   end
 
+  def test_routing_to_controllers_inside_design_blocks_directory
+    flunk 'not implemented yet'
+  end
+
 end
