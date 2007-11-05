@@ -140,4 +140,8 @@ class CreateEnterpriseTest < Test::Unit::TestCase
     assert task.valid?
   end
 
+  should 'provide a message to be sent to the target' do
+    assert_not_nil CreateEnterprise.new.target_notification_message
+  end
+
 end

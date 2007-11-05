@@ -122,4 +122,8 @@ class CreateEnterprise < Task
     _('Your request for registering the enterprise %{enterprise} at %{environment} was NOT approved by the validator organization.') % { :enterprise => self.name, :environment => self.environment }
   end
 
+  def target_notification_message
+    _('Enterprise "%{enterprise}" just requested to enter %{environment}. You have to approve or reject it through the "Pending Validations" section in your control panel.') % { :enterprise => self.name, :environment => self.environment }
+  end
+
 end

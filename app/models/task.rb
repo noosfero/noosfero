@@ -49,7 +49,7 @@ class Task < ActiveRecord::Base
     
     target_msg = task.target_notification_message
     unless target_msg.nil?
-      TaskMailer.deliver_target_notification(self, target_msg)
+      TaskMailer.deliver_target_notification(task, target_msg)
     end
   end
 
