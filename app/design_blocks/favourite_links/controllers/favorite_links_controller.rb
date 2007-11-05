@@ -1,4 +1,4 @@
-class FavoriteLinksController < ApplicationController
+class FavouriteLinksController < ApplicationController
 
 
   # The methods above are specific for noosfero application. I think 
@@ -24,7 +24,7 @@ class FavoriteLinksController < ApplicationController
   }
 
   def index
-    get_favorite_links
+    get_favourite_links
     design_render
   end
 
@@ -34,7 +34,7 @@ class FavoriteLinksController < ApplicationController
 
   def save
     if @design_block.update_attributes(params[:design_block])
-      get_favorite_links
+      get_favourite_links
       design_render_on_edit :action => 'manage_links'
     else
       design_render_on_edit :nothing => true
@@ -42,7 +42,7 @@ class FavoriteLinksController < ApplicationController
   end
 
   def manage_links
-    get_favorite_links
+    get_favourite_links
     design_render_on_edit
   end
 
@@ -52,13 +52,13 @@ class FavoriteLinksController < ApplicationController
 
   def remove_link
     @design_block.delete_link(params[:link])
-    get_favorite_links
+    get_favourite_links
     design_render_on_edit :action => 'manage_links'
   end
 
-  def get_favorite_links
-    favorite_links = @design_block.favorite_links
-    @favorite_links_pages, @favorite_links = paginate_by_collection favorite_links
+  def get_favourite_links
+    favourite_links = @design_block.favourite_links
+    @favourite_links_pages, @favourite_links = paginate_by_collection favourite_links
   end
 
   def paginate_by_collection(collection, options = {})

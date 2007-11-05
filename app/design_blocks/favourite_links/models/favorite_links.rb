@@ -1,7 +1,7 @@
-class FavoriteLinks < Design::Block
+class FavouriteLinks < Design::Block
 
   def self.description
-    _('Favorite Links')
+    _('Favourite Links')
   end
 
   def limit_number= value
@@ -12,26 +12,26 @@ class FavoriteLinks < Design::Block
     self.settings[:limit_number] || 5
   end
 
-  def favorite_links_limited
-    self.favorite_links.first(self.limit_number)
+  def favourite_links_limited
+    self.favourite_links.first(self.limit_number)
   end
 
-  def favorite_links
-    self.settings[:favorite_links] ||= []
+  def favourite_links
+    self.settings[:favourite_links] ||= []
   end
 
   def delete_link link
-    self.settings[:favorite_links].reject!{ |item| item == link }
+    self.settings[:favourite_links].reject!{ |item| item == link }
     self.save
   end
 
-  def favorite_link
+  def favourite_link
     nil
   end
 
-  def favorite_link= link
-    self.favorite_links.push(link)
-    self.favorite_links.uniq!
+  def favourite_link= link
+    self.favourite_links.push(link)
+    self.favourite_links.uniq!
   end
 
 end

@@ -1,17 +1,17 @@
 
 <h2> 
-  <%= _('Favorite Links') %> 
+  <%= _('Favourite Links') %> 
   <%= design_link_to_remote(_('Add Link'), :url => {:action => 'add_link'} )%>
 
 </h2>
-<% if @favorite_links_pages.current.previous%>
-  <%= design_link_to_remote(_('Previous'), :url => {:action => 'manage_links', :page => @favorite_links_pages.current.previous}) %>
+<% if @favourite_links_pages.current.previous%>
+  <%= design_link_to_remote(_('Previous'), :url => {:action => 'manage_links', :page => @favourite_links_pages.current.previous}) %>
 <% end %>
-<% if @favorite_links_pages.current.next %>
-  <%= design_link_to_remote(_('Next'), :url => {:action => 'manage_links', :page => @favorite_links_pages.current.next}) %>
+<% if @favourite_links_pages.current.next %>
+  <%= design_link_to_remote(_('Next'), :url => {:action => 'manage_links', :page => @favourite_links_pages.current.next}) %>
 <% end %>
 
-<% @favorite_links.each do |link| %>
+<% @favourite_links.each do |link| %>
   <ul>
     <li> 
       <%= link_to link, link, :popup => true %> 
