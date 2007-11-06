@@ -1,8 +1,10 @@
 class ProfileEditorController < ProfileAdminController
-#  protect [:index, :edit], 'edit_profile', :profile
+
+  #protect [:index, :edit], 'edit_profile', :profile
+
   helper :profile
   
-  needs_profile
+  
 
   design_editor :holder => 'profile', :autosave => true, :block_types => :block_types
 

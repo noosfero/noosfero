@@ -2,7 +2,7 @@ class MembershipEditorController < ProfileAdminController
 
   before_filter :login_required
 
-  needs_profile 
+   
  
   protect [:index, :new_enterprise, :create_enterprise ], 'edit_profile', :profile
 

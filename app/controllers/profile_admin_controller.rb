@@ -1,5 +1,7 @@
 class ProfileAdminController < ApplicationController
 
+  needs_profile
+
   # declares that the controller needs an specific type of profile. Example:
   #
   #  class PersonDetailControlles < ProfileAdminController

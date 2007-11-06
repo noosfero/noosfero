@@ -5,7 +5,7 @@ class EnterpriseEditorController < ProfileAdminController
   protect [:edit, :update], 'edit_profile', :profile
   protect [:destroy], 'destroy_profile', :profile
 
-  needs_profile
+  
 
   # Show details about an enterprise  
   def index
