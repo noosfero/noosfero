@@ -1,6 +1,6 @@
 class ProfileEditorController < ProfileAdminController
 
-  #protect [:index, :edit], 'edit_profile', :profile
+  #protect 'edit_profile', :profile, only => [:index, :edit]
 
   helper :profile
   
@@ -12,7 +12,7 @@ class ProfileEditorController < ProfileAdminController
    def block_types
     %w[
        FavouriteLinks
-     ]
+      ]
    end
 
 # FIXME Put other Blocks to works

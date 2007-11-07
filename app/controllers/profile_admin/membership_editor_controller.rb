@@ -2,9 +2,11 @@ class MembershipEditorController < ProfileAdminController
 
   before_filter :login_required
 
-   
- 
-  protect [:index, :new_enterprise, :create_enterprise ], 'edit_profile', :profile
+  def target
+    environment
+  end
+
+  protect 'edit_profile', :profile, :only => [:index, :new_enterprise, :create_enterprise ]
 
   def index
     @memberships = current_user.person.enterprise_memberships

@@ -11,6 +11,7 @@ class AccessControlMigration < ActiveRecord::Migration
       t.column :resource_id,   :integer
       t.column :resource_type, :string
       t.column :role_id,       :integer
+      t.column :is_global,     :boolean
     end
   end
 

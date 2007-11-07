@@ -11,7 +11,7 @@ class Environment < ActiveRecord::Base
     'manage_environment_roles' => N_('Manage environment roles'),
     'manage_environment_validators' => N_('Manage environment validators'),
   }
- 
+
   # returns the available features for a Environment, in the form of a
   # hash, with pairs in the form <tt>'feature_name' => 'Feature name'</tt>.
   def self.available_features

@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem
-  extend PermissionCheck
+  include PermissionCheck
   init_gettext 'noosfero'
 
   include NeedsProfile
@@ -42,11 +42,19 @@ class ApplicationController < ActionController::Base
 
   def render_not_found(path)
     @path = path
-    render :file => File.join(RAILS_ROOT, 'app', 'views', 'shared', 'not_found.rhtml'), :layout => 'not_found', :status => 404
+    render(:file => File.join(RAILS_ROOT, 'app', 'views', 'shared', 'not_found.rhtml'), :layout => 'not_found', :status => 404) && false
   end
 
   def load_admin_controller
     # TODO: check access control
+  end
+
+  def load_profile
+    @profile = Profile.find_by_identifier(params[:profile])
+  end
+
+  def user
+    current_user.person if logged_in?
   end
 
 end

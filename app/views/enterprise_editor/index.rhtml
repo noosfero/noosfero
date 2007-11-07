@@ -1,23 +1,23 @@
-<h3> <%= @profile.name %> </h3>
+<h3> <%= @enterprise.name %> </h3>
 
 <%= error_messages_for 'profile' %>
 
-<p> <%= _('Identifier: ') %> <%= @profile.identifier %> </p>
-<p> <%= _('Address: ') %> <%= @profile.address %> </p>
-<p> <%= _('Contact phone: ') %> <%= @profile.contact_phone %> </p>
-<p> <%= _('Contact person: ') %> <%= @profile.organization_info.contact_person %> </p>
-<p> <%= _('Acronym: ') %> <%= @profile.organization_info.acronym %> </p>
-<p> <%= _('Foundation year: ') %> <%= @profile.organization_info.foundation_year %> </p>
-<p> <%= _('Legal Form: ') %> <%= @profile.organization_info.legal_form %> </p>
-<p> <%= _('Economic activity: ') %> <%= @profile.organization_info.economic_activity %> </p>
-<p> <%= _('Management infomation: ') %> <%= @profile.organization_info.management_information %> </p>
-<p> <%= _('Tags:') %> <%= @profile.tag_list %> </p>
+<p> <%= _('Identifier: ') %> <%= @enterprise.identifier %> </p>
+<p> <%= _('Address: ') %> <%= @enterprise.address %> </p>
+<p> <%= _('Contact phone: ') %> <%= @enterprise.contact_phone %> </p>
+<p> <%= _('Contact person: ') %> <%= @enterprise.organization_info.contact_person %> </p>
+<p> <%= _('Acronym: ') %> <%= @enterprise.organization_info.acronym %> </p>
+<p> <%= _('Foundation year: ') %> <%= @enterprise.organization_info.foundation_year %> </p>
+<p> <%= _('Legal Form: ') %> <%= @enterprise.organization_info.legal_form %> </p>
+<p> <%= _('Economic activity: ') %> <%= @enterprise.organization_info.economic_activity %> </p>
+<p> <%= _('Management infomation: ') %> <%= @enterprise.organization_info.management_information %> </p>
+<p> <%= _('Tags:') %> <%= @enterprise.tag_list %> </p>
 
-<%= link_to _('Edit enterprise'), :action => 'edit', :id => @profile %>
+<%= link_to _('Edit enterprise'), :action => 'edit', :id => @enterprise %>
 <%= help _('Change the information about the enterprise') %>
-<%= link_to _('Delete enterprise'), :action => 'destroy', :id => @profile %>
+<%= link_to _('Delete enterprise'), :action => 'destroy', :id => @enterprise %>
 <%= help _('Remove the enterprise from the system') %>
-<%= link_to _('Activate'), :action => 'activate', :id => @profile unless @profile.active? %>
-<%= help _('Activate an approved enterprise') unless @profile.active? %>
+<%= link_to _('Activate'), :action => 'activate', :id => @enterprise unless @enterprise.active? %>
+<%= help _('Activate an approved enterprise') unless @enterprise.active? %>
 
 <%= link_to _('Back'), :controller => :profile_editor %>

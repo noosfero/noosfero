@@ -4,10 +4,6 @@ class AccountController < PublicController
 
   design :holder => 'environment'
 
-  def load_default_environment
-    @environment = Environment.default
-  end
-
   # say something nice, you goof!  something sweet.
   def index
     unless logged_in?
@@ -127,5 +123,7 @@ class AccountController < PublicController
     @profile = current_user.person
   end
 
-
+  def load_default_environment
+    @environment = Environment.default
+  end
 end

@@ -1,11 +1,11 @@
 class CmsController < Comatose::AdminController
-  extend PermissionCheck
+  include PermissionCheck
   
   
   
   define_option :page_class, Article
   
-  protect [:edit, :new, :reorder, :delete], 'post_content', :profile
+  protect 'post_content', :profile, :only => [:edit, :new, :reorder, :delete]
 
   protected
 

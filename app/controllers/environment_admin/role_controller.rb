@@ -1,5 +1,5 @@
 class RoleController < EnvironmentAdminController
-  protect [:index, :show, :new, :create, :edit, :update, :destroy], 'manage_environment_roles', :environment
+  protect 'manage_environment_roles', :environment
 
   def index
     @roles = Role.find(:all)
