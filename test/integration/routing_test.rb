@@ -23,6 +23,7 @@ class RoutingTest < ActionController::IntegrationTest
 
   def test_enterprise_registration_controller
     assert_routing('/enterprise_registration', :controller => 'enterprise_registration', :action => 'index')
+    assert_routing('/enterprise_registration/lala', :controller => 'enterprise_registration', :action => 'lala')
   end
 
   def test_new_password
