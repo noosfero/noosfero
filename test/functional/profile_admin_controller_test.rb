@@ -6,6 +6,7 @@ class ProfileAdminController; def rescue_action(e) raise e end; end
 
 class OnlyForPersonTestController < ProfileAdminController
   requires_profile_class Person
+  design :holder => :profile
   def index
     render :text => '<div>something</div>'
   end
