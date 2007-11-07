@@ -324,7 +324,7 @@ module ApplicationHelper
           " for='\#{object.class.to_s.downcase}_\#{field}'>" +
           ( column ?
             column.human_name :
-            _(object.class.name + "|" + field.to_s.humanize)
+            _(field.to_s.humanize)
           ) +
           "</label>" +
           "\n  <div class='formfield #{selector}'>" + super + "</div>\n</div>"
