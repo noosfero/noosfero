@@ -161,6 +161,16 @@ class TaskTest < Test::Unit::TestCase
     assert_equal [task], Task.pending_for(target)
   end
 
+  should 'be able to pass extra conditions for getting pending tasks' do
+    target = sample_user
+
+    task = Task.new
+    task.target = target
+    task.save!
+
+    assert_equal [], Task.pending_for(target, :id => -1)
+  end
+
   protected
 
   def sample_user

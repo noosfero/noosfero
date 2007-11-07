@@ -135,8 +135,8 @@ class Task < ActiveRecord::Base
 
   class << self
 
-    def pending_for(target)
-      self.find(:all, :conditions => { :target_id => target.id, :status =>  Task::Status::ACTIVE })
+    def pending_for(target, conditions= nil)
+      self.find(:all, :conditions => { :target_id => target.id, :status =>  Task::Status::ACTIVE }.merge(conditions || {}))
     end
 
     # generates a random code string consisting of 36 characters in the ranges
