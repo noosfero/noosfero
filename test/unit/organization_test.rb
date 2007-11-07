@@ -62,8 +62,14 @@ class OrganizationTest < Test::Unit::TestCase
 
   should 'list pending enterprise validations' do
     org = Organization.new
-    CreateEnterprise.expects(:pending_for).with(org).returns([])
+    CreateEnterprise.expects(:pending_for).with(org, nil).returns([])
     assert_equal [], org.pending_validations
+  end
+
+  should 'accept an optional conditions hash for pending_validations' do
+    org = Organization.new
+    CreateEnterprise.expects(:pending_for).with(org, { :lala => 'lele'}).returns([])
+    assert_equal [], org.pending_validations({ :lala => 'lele'})
   end
 
 end

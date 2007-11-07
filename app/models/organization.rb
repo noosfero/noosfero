@@ -24,7 +24,7 @@ class Organization < Profile
     restrictions || ('<em>' + _('(not informed)') + '</em>')
   end
 
-  def pending_validations
-    CreateEnterprise.pending_for(self)
+  def pending_validations(conditions = nil)
+    CreateEnterprise.pending_for(self, conditions)
   end
 end
