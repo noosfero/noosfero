@@ -319,7 +319,15 @@ module ApplicationHelper
       src = <<-END_SRC
         def #{selector}(field, *args, &proc)
           column = object.class.columns_hash[field.to_s]
-          "<div class='formfield'>" + "<div><label for='\#{field}'>" + (column ? column.human_name : _(object.class.name + "|" + field.to_s.humanize)) + "</label></div>" + super + "</div>"
+          "<div class='formfieldline'>" +
+          "\n  <label class='formlabel'" +
+          " for='\#{object.class.to_s.downcase}_\#{field}'>" +
+          ( column ?
+            column.human_name :
+            _(object.class.name + "|" + field.to_s.humanize)
+          ) +
+          "</label>" +
+          "\n  <div class='formfield #{selector}'>" + super + "</div>\n</div>"
         end
       END_SRC
       class_eval src, __FILE__, __LINE__
