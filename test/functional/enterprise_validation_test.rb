@@ -48,4 +48,8 @@ all_fixtures
     flunk 'not yet'
   end
 
+  should 'require the user to fill in the justification for an rejection' do
+    flunk 'not yet'
+  end
+
 end
