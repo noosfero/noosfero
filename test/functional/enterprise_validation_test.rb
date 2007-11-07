@@ -13,17 +13,38 @@ all_fixtures
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
     login_as 'ze'
+
+    @org = Organization.create!(:identifier => 'myorg', :name => "My Org")
+    Profile.expects(:find_by_identifier).with('myorg').returns(@org).at_least_once
   end
 
   should 'list pending validations on index' do
-    flunk 'not yet'
+    empty = []
+    @org.expects(:pending_validations).returns(empty)
+    get :index, :profile => 'myorg'
+    assert_same empty, assigns(:pending_validations)
+    assert_template 'index'
   end
 
-  should 'prompt for needed data when approving or rejecting enterprise' do
-    flunk 'not yet'
+  should 'display details and prompt for needed data when approving or rejecting enterprise' do
+    validating = CreateEnterprise.new
+    @org.expects(:pending_validations).with(:code => 'kakakaka').returns([validating])
+
+    get :details, :profile => 'myorg', :id => 'kakakaka'
+    assert_same validating, assigns(:pending)
+  end
+
+  should 'refuse to validate unexisting request' do
+    @org.expects(:pending_validations).with(:code => 'kakakaka').returns([])
+    get :details , :profile => 'myorg', :id => 'kakakaka'
+    assert_response 404
   end
 
   should 'be able to actually validate enterprise on request' do
+    flunk 'not yet'
+  end
+
+  should 'be able to reject an enterprise' do
     flunk 'not yet'
   end
 

@@ -40,8 +40,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def render_not_found(path)
-    @path = path
+  def render_not_found(path = nil)
+    @path ||= request.path
     render(:file => File.join(RAILS_ROOT, 'app', 'views', 'shared', 'not_found.rhtml'), :layout => 'not_found', :status => 404) && false
   end
 
