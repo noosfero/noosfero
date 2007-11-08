@@ -69,6 +69,22 @@ class CreateEnterpriseTest < Test::Unit::TestCase
     task.reject
   end
 
+  should 'require an explanation for rejecting enterprise creation' do
+    task = CreateEnterprise.new
+    task.reject_explanation = nil
+
+    task.valid?
+    assert !task.errors.invalid?(:reject_explanation)
+
+    task.status = Task::Status::CANCELLED
+    task.valid?
+    assert task.errors.invalid?(:reject_explanation)
+
+    task.reject_explanation = 'bla bla bla'
+    task.valid?
+    assert !task.errors.invalid?(:reject_explanation)
+  end
+
   should 'finish task when approved' do
     task = CreateEnterprise.new
     task.expects(:finish)

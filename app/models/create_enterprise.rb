@@ -11,7 +11,7 @@ class CreateEnterprise < Task
   N_('CreateEnterprise|Economic activity')
   N_('CreateEnterprise|Management information')
 
-  DATA_FIELDS = %w[ name identifier address contact_phone contact_person acronym foundation_year legal_form economic_activity management_information region_id ]
+  DATA_FIELDS = %w[ name identifier address contact_phone contact_person acronym foundation_year legal_form economic_activity management_information region_id reject_explanation ]
 
   serialize :data, Hash
   attr_protected :data
@@ -36,6 +36,9 @@ class CreateEnterprise < Task
 
   # checks for actual attributes
   validates_presence_of :requestor_id, :target_id
+
+  # check for explanation when rejecting
+  validates_presence_of :reject_explanation, :if => (lambda { |record| record.status == Task::Status::CANCELLED } )
 
   def validate
     if self.region && self.target
