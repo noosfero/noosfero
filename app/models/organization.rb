@@ -24,7 +24,12 @@ class Organization < Profile
     restrictions || ('<em>' + _('(not informed)') + '</em>')
   end
 
-  def pending_validations(conditions = nil)
-    CreateEnterprise.pending_for(self, conditions)
+  def pending_validations
+    CreateEnterprise.pending_for(self)
   end
+
+  def find_pending_validation(code)
+    CreateEnterprise.pending_for(self, :code => code).first
+  end
+
 end

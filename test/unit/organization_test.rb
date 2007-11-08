@@ -62,14 +62,22 @@ class OrganizationTest < Test::Unit::TestCase
 
   should 'list pending enterprise validations' do
     org = Organization.new
-    CreateEnterprise.expects(:pending_for).with(org, nil).returns([])
-    assert_equal [], org.pending_validations
+    empty = []
+    CreateEnterprise.expects(:pending_for).with(org).returns(empty)
+    assert_same empty, org.pending_validations
   end
 
-  should 'accept an optional conditions hash for pending_validations' do
+  should 'be able to find a pending validation by its code' do
     org = Organization.new
-    CreateEnterprise.expects(:pending_for).with(org, { :lala => 'lele'}).returns([])
-    assert_equal [], org.pending_validations({ :lala => 'lele'})
+    validation = mock
+    CreateEnterprise.expects(:pending_for).with(org, { :code => 'lele'}).returns([validation])
+    assert_same validation, org.find_pending_validation('lele')
+  end
+
+  should 'return nil when finding for an unexisting pending validation' do
+    org = Organization.new
+    CreateEnterprise.expects(:pending_for).with(org, { :code => 'lele'}).returns([])
+    assert_nil org.find_pending_validation('lele')
   end
 
 end
