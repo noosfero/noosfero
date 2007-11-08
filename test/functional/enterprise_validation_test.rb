@@ -41,15 +41,41 @@ all_fixtures
   end
 
   should 'be able to actually validate enterprise on request' do
-    flunk 'not yet'
+    validation = CreateEnterprise.new
+    @org.expects(:find_pending_validation).with('kakakaka').returns(validation)
+    validation.expects(:approve)
+    validation.expects(:code).returns('kakakaka')
+    post :approve, :profile => 'myorg', :id => 'kakakaka'
+    assert_redirected_to :action => 'view_processed', :id => 'kakakaka'
   end
 
   should 'be able to reject an enterprise' do
-    flunk 'not yet'
+    validation = CreateEnterprise.new
+    @org.expects(:find_pending_validation).with('kakakaka').returns(validation)
+    validation.expects(:reject)
+    validation.expects(:code).returns('kakakaka')
+    post :reject, :profile => 'myorg', :id => 'kakakaka'
+    assert_redirected_to :action => 'view_processed', :id => 'kakakaka'
   end
 
   should 'require the user to fill in the justification for an rejection' do
+    validation = CreateEnterprise.new
+    @org.expects(:find_pending_validation).with('kakakaka').returns(validation)
+    validation.expects(:reject).raises(ActiveRecord::RecordInvalid)
+    post :reject, :profile => 'myorg', :id => 'kakakaka'
+    assert_response :success
+    assert_template 'details'
+  end
+
+  should 'list validations already processed' do
     flunk 'not yet'
+  end
+  
+  should 'be able to display a validation that was already processed' do
+    validation = CreateEnterprise.new
+    @org.expects(:find_processed_validation).with('kakakaka').returns(validation)
+    get :view_processed, :profile => 'myorg', :id => 'kakakaka'
+    assert_same validation, assigns(:processed)
   end
 
 end

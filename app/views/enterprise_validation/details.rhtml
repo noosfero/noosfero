@@ -2,48 +2,7 @@
 
 <h3><%= _('Provided information') %></h3>
 
-<table>
-  <tr>
-    <th><%= _('Name') %></th>
-    <td><%= @pending.name %></td>
-  </tr>
-  <tr>
-    <th><%= _('Address') %></th>
-    <td><%= @pending.address %></td>
-  </tr>
-  <tr>
-    <th><%= _('Contact Phone') %></th>
-    <td><%= @pending.contact_phone %></td>
-  </tr>
-  <tr>
-    <th><%= _('Contact Person') %></th>
-    <td><%= @pending.contact_person %></td>
-  </tr>
-  <tr>
-    <th><%= _('Acronym') %></th>
-    <td><%= @pending.acronym %></td>
-  </tr>
-  <tr>
-    <th><%= _('Identifier') %></th>
-    <td><%= @pending.identifier %></td>
-  </tr>
-  <tr>
-    <th><%= _('Foundation Year') %></th>
-    <td><%= @pending.foundation_year %></td>
-  </tr>
-  <tr>
-    <th><%= _('Legal Year') %></th>
-    <td><%= @pending.legal_form %></td>
-  </tr>
-  <tr>
-    <th><%= _('Economic Activity') %></th>
-    <td><%= @pending.economic_activity %></td>
-  </tr>
-  <tr>
-    <th><%= _('Management Information') %></th>
-    <td><%= @pending.management_information %></td>
-  </tr>
-</table>
+<%= render :partial => 'details', :locals => { :request => @pending } %>
 
 <h3><%= _('Final decision') %></h3>
 
