@@ -1,5 +1,7 @@
 class AdminPanelController < EnvironmentAdminController
 
+  before_filter :login_required
+  
   protect 'view_environment_admin_panel', :environment
 
   #FIXME This is not necessary because the application controller define the envrioment 

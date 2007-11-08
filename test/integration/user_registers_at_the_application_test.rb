@@ -3,7 +3,6 @@ require "#{File.dirname(__FILE__)}/../test_helper"
 class UserRegistersAtTheApplicationTest < ActionController::IntegrationTest
   fixtures :users, :environments, :profiles
 
-  # Replace this with your real tests.
   def test_successfull_registration
     get '/'
     assert_tag :tag => 'span', :attributes => { :id => 'register_box' }
@@ -13,7 +12,7 @@ class UserRegistersAtTheApplicationTest < ActionController::IntegrationTest
     
     post '/account/signup', :user => { :login => 'mylogin', :password => 'mypassword', :password_confirmation => 'mypassword', :email => 'mylogin@example.com' }
     assert_response :redirect
-    assert_redirected_to '/account'
+    assert_redirected_to myprofile_path(:controller => 'profile_editor', :profile => 'mylogin')
 
     # user is logged in right after the registration
     follow_redirect!

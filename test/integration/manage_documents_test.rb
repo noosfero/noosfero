@@ -2,16 +2,12 @@ require "#{File.dirname(__FILE__)}/../test_helper"
 
 class ManageDocumentsTest < ActionController::IntegrationTest
 
-  fixtures :users, :profiles, :comatose_pages, :domains, :environments
+  all_fixtures
 
   def test_creation_of_a_new_article
     count = Article.count
 
     login('ze', 'test')
-
-    assert_tag :tag => 'a', :attributes => { :href => '/account' }
-    get '/account'
-    assert_response :success
 
     assert_tag :tag => 'a', :attributes => { :href => '/myprofile/ze/cms' }
 

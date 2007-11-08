@@ -41,7 +41,7 @@ class AccountController < PublicController
         self.current_user = @user
         owner_role = Role.find_by_name('owner')
         @user.person.affiliate(@user.person, [owner_role]) if owner_role
-        redirect_back_or_default(homepage_path(:profile => current_user.login))
+        redirect_back_or_default(myprofile_path(:controller => 'profile_editor', :profile => current_user.login))
         flash[:notice] = _("Thanks for signing up!")
       end
     rescue ActiveRecord::RecordInvalid

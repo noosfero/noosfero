@@ -91,6 +91,6 @@ class ActionController::IntegrationTest
     post '/account/login', :login => username, :password => password
     assert_response :redirect
     follow_redirect!
-    assert_equal myprofile_path(:controller => 'profile_editor', :profile => username), path
+    assert_not_equal '/account/login', path
   end
 end

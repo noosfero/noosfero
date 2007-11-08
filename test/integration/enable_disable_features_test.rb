@@ -1,11 +1,11 @@
 require "#{File.dirname(__FILE__)}/../test_helper"
 
 class EnableDisableFeaturesTest < ActionController::IntegrationTest
-  fixtures :domains, :environments, :users, :profiles
+  all_fixtures
 
   def test_enable_features
     uses_host 'anhetegua.net'
-    login 'johndoe', 'test'
+    login 'ze', 'test'
 
     get '/admin/features'
     assert_response :success
