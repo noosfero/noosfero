@@ -20,8 +20,7 @@ class AccountController < PublicController
         self.current_user.remember_me
         cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
       end
-#      redirect_back_or_default(:controller => '/account', :action => 'index')
-      redirect_back_or_default(homepage_path(:profile => current_user.login))
+      redirect_back_or_default(myprofile_path(:controller => 'profile_editor', :profile => current_user.login))
       flash[:notice] = _("Logged in successfully")
     else
       flash[:notice] = _('Incorrect username or password')
