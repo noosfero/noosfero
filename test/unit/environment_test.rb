@@ -180,4 +180,15 @@ class EnvironmentTest < Test::Unit::TestCase
     
   end
 
+  should 'provide environment name in to_s' do
+    env = Environment.new(:name => 'my name')
+    assert_equal 'my name', env.to_s
+  end
+
+  should 'fallback to "?" when calling to_s with empty name' do
+    env = Environment.new(:name => nil)
+    assert_nil env.name
+    assert_equal "?", env.to_s
+  end
+
 end
