@@ -6,8 +6,8 @@ class EnterpriseValidationController; def rescue_action(e) raise e end; end
 
 class EnterpriseValidationControllerTest < Test::Unit::TestCase
 
-#  all_fixtures:users
-all_fixtures
+  all_fixtures
+
   def setup
     @controller = EnterpriseValidationController.new
     @request    = ActionController::TestRequest.new
@@ -68,7 +68,15 @@ all_fixtures
   end
 
   should 'list validations already processed' do
-    flunk 'not yet'
+    processed_validations = [CreateEnterprise.new]
+    @org.expects(:processed_validations).returns(processed_validations)
+    
+    get :list_processed, :profile => 'myorg'
+
+    assert_same processed_validations, assigns(:processed_validations)
+
+    assert_response :success
+    assert_template 'list_processed'
   end
   
   should 'be able to display a validation that was already processed' do

@@ -34,6 +34,10 @@ class EnterpriseValidationController < ProfileAdminController
     end
   end
 
+  def list_processed
+    @processed_validations = profile.processed_validations
+  end
+
   def view_processed
     @processed = profile.find_processed_validation(params[:id])
     unless @processed
