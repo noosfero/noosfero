@@ -122,7 +122,7 @@ class CreateEnterprise < Task
   end
 
   def task_cancelled_message
-    _('Your request for registering the enterprise %{enterprise} at %{environment} was NOT approved by the validator organization. The following explanation was give: \n\n%{explanation}') % { :enterprise => self.name, :environment => self.environment, :explanation => self.reject_explanation }
+    _("Your request for registering the enterprise %{enterprise} at %{environment} was NOT approved by the validator organization. The following explanation was given: \n\n%{explanation}") % { :enterprise => self.name, :environment => self.environment, :explanation => self.reject_explanation }
   end
 
   def target_notification_message
