@@ -32,4 +32,12 @@ class Organization < Profile
     CreateEnterprise.pending_for(self, :code => code).first
   end
 
+  def processed_validations
+    CreateEnterprise.processed_for(self)
+  end
+
+  def find_processed_validation(code)
+    CreateEnterprise.processed_for(self, :code => code).first
+  end
+
 end

@@ -171,6 +171,31 @@ class TaskTest < Test::Unit::TestCase
     assert_equal [], Task.pending_for(target, :id => -1)
   end
 
+  should 'be able to list processed tasks' do
+    target = sample_user
+
+    task = Task.new
+    task.target = target
+    task.finish
+
+    # this one shouldn't be listed as processed, since it was not
+    task2 = Task.new
+    task2.target = target
+    target.save!
+
+    assert_equal [task], Task.processed_for(target)
+  end
+
+  should 'be able to pass optional parameters for getting processed tasks' do
+    target = sample_user
+
+    task = Task.new
+    task.target = target
+    task.finish
+
+    assert_equal [], Task.processed_for(target, :id => -1)
+  end
+
   protected
 
   def sample_user

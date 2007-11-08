@@ -80,4 +80,18 @@ class OrganizationTest < Test::Unit::TestCase
     assert_nil org.find_pending_validation('lele')
   end
 
+  should 'be able to find already processed validations by target' do
+    org = Organization.new
+    empty = mock
+    CreateEnterprise.expects(:processed_for).with(org).returns(empty)
+    assert_same empty, org.processed_validations
+  end
+
+  should 'be able to find an already processed validation by its code' do
+    org = Organization.new
+    empty = mock
+    CreateEnterprise.expects(:processed_for).with(org, {:code => 'lalalala'}).returns([empty])
+    assert_same empty, org.find_processed_validation('lalalala')
+  end
+
 end

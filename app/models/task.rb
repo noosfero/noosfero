@@ -138,6 +138,10 @@ class Task < ActiveRecord::Base
     def pending_for(target, conditions= nil)
       self.find(:all, :conditions => { :target_id => target.id, :status =>  Task::Status::ACTIVE }.merge(conditions || {}))
     end
+    
+    def processed_for(target, conditions = nil)
+      self.find(:all, :conditions => { :target_id => target.id, :status =>  [Task::Status::CANCELLED, Task::Status::FINISHED] }.merge(conditions || {}))
+    end
 
     # generates a random code string consisting of 36 characters in the ranges
     # a-z and 0-9
