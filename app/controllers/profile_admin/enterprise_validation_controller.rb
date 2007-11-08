@@ -5,7 +5,7 @@ class EnterpriseValidationController < ProfileAdminController
   end
 
   def details
-    @pending = profile.pending_validations(:code => params[:id]).first
+    @pending = profile.find_pending_validation(params[:id])
     unless @pending
       render_not_found
     end

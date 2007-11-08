@@ -28,14 +28,14 @@ all_fixtures
 
   should 'display details and prompt for needed data when approving or rejecting enterprise' do
     validating = CreateEnterprise.new
-    @org.expects(:pending_validations).with(:code => 'kakakaka').returns([validating])
+    @org.expects(:find_pending_validation).with('kakakaka').returns(validating)
 
     get :details, :profile => 'myorg', :id => 'kakakaka'
     assert_same validating, assigns(:pending)
   end
 
   should 'refuse to validate unexisting request' do
-    @org.expects(:pending_validations).with(:code => 'kakakaka').returns([])
+    @org.expects(:find_pending_validation).with('kakakaka').returns(nil)
     get :details , :profile => 'myorg', :id => 'kakakaka'
     assert_response 404
   end
