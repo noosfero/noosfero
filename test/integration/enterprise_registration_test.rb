@@ -4,7 +4,6 @@ class EnterpriseRegistrationTest < ActionController::IntegrationTest
 
   fixtures :users, :profiles, :environments
 
-  # Replace this with your real tests.
   should 'be able to create an enterprise registration request' do
 
     environment = Environment.default
@@ -42,10 +41,23 @@ class EnterpriseRegistrationTest < ActionController::IntegrationTest
     
     assert_tag :tag => 'a', :attributes => { :href => '/' }
 
-    # FIXME: add here
-    # - the steps carried on by the validator organization to approve the registration
-    # - the steps carried on by the requestor after that
+    code = CreateEnterprise.find(:first, :order => 'id desc').code
 
+    # steps done by the validator
+    get "/myprofile/myorg/enterprise_validation"
+    assert_response :success
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/myorg/enterprise_validation/details/#{code}" }
+
+    get "/myprofile/myorg/enterprise_validation/details/#{code}"
+    assert_response :success
+    assert_tag :form, :attributes => { :action => "/myprofile/myorg/enterprise_validation/approve/#{code}" }
+
+    post "/myprofile/myorg/enterprise_validation/approve/#{code}"
+    assert_response :redirect
+    
+    follow_redirect!
+    assert_equal "/myprofile/myorg/enterprise_validation/view_processed/#{code}", path
+    assert_tag :span, :content => 'Approved'
   end
 
 end
