@@ -50,8 +50,9 @@ class ManageDocumentsTest < ActionController::IntegrationTest
 
   def test_removing_an_article
 
+    login('ze', 'test')
+
     article = Article.create!(:title => 'to be removed', :body => 'go to hell', :parent_id => Article.find_by_path('ze').id)
-    count = Article.count
 
     get '/myprofile/ze/cms'
     assert_response :success
