@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.3.0\n"
 "POT-Creation-Date: 2007-11-09 19:03-0300\n"
-"PO-Revision-Date: 2007-11-09 19:03-0300\n"
+"PO-Revision-Date: 2007-11-09 19:17-0300\n"
 "Last-Translator: Rafael Tavares Bomfim <rafael@colivre.coop.br>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -535,7 +535,7 @@ msgstr ""
 msgid ""
 "Your request for registering the enterprise \"%{enterprise}\" was approved. "
 "You can access %{environment} now and start using it for your new enterprise."
-msgstr ""a
+msgstr ""
 "Sua requisição para registrar o empreendimento \"%{enterprise}\" foi "
 "aprovada. Você pode acessar %{environment} agora e acessar as informações"
 
@@ -561,11 +561,11 @@ msgid ""
 msgstr ""
 "O empreendimento \"%{enterprise}\" requisitou entrada em %{environment}. "
 "Você tem que aprová-lo ou rejeitá-lo através da seção \"Validações pendentes"
-"\" no seu painel de controle"
+"\" no seu painel de controle.\n"
 
 #: app/models/create_enterprise.rb:145
 msgid "The data provided by the enterprise was the following:\n"
-msgstr "Os dados providos pelo empreendimento foram os seguintes"
+msgstr "Os dados providos pelo empreendimento foram os seguintes:\n"
 
 #: app/models/create_enterprise.rb:148
 msgid "Name: %s"
