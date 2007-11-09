@@ -33,6 +33,7 @@ class Person < Profile
   end
 
   validates_presence_of :user_id
+  validates_uniqueness_of :user_id
 
   def initialize(*args)
     super(*args)
