@@ -179,11 +179,11 @@ class CreateEnterpriseTest < Test::Unit::TestCase
     request = CreateEnterprise.new
     request.identifier = 'testid'
     request.valid?
-    assert !request.errors.invalid?(:test_id)
+    assert !request.errors.invalid?(:identifier)
 
     Organization.create!(:name => 'test', :identifier => 'testid')
     request.valid?
-    assert !request.errors.invalid?(:test_id)
+    assert request.errors.invalid?(:identifier)
   end
 
 end
