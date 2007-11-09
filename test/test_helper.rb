@@ -78,6 +78,19 @@ class Test::Unit::TestCase
                  :password_confirmation => name.underscore)
   end
 
+  def create_user_with_permission(name, permission, target)
+    user = create_user(name).person
+    i = 0
+    while Role.find_by_name('test_role' + i.to_s)
+      i+=1
+    end
+
+    role = Role.create!(:name => 'test_role' + i.to_s, :permissions => [permission])
+    assert user.add_role(role, target)
+    assert user.has_permission?(permission, target)
+    user
+  end
+
   private
 
   def uses_host(name)

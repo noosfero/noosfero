@@ -4,7 +4,8 @@
   
   <%= _('Roles: ') %> <br>
   <% @roles.each do |r| %>
-    <%= labelled_form_field(r.name, (check_box_tag "roles[]", r.id, @associations.map(&:role).include?(r))) %>
+    <%= check_box_tag "roles[]", r.id, @associations.map(&:role).include?(r) %>
+      <%= r.name.capitalize %><br/>
   <% end %>
   <%= hidden_field_tag 'person', @member.id %>
 

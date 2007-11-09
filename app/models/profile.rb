@@ -54,7 +54,6 @@ class Profile < ActiveRecord::Base
   belongs_to :environment
   
   has_many :role_assignments, :as => :resource
-  has_many :people, :through => :role_assignments
 
 
   # Sets the identifier for this profile. Raises an exception when called on a

@@ -1,9 +1,8 @@
 class ProfileMembersController < ProfileAdminController
-
   protect 'manage_memberships', :profile
 
   def index
-    @members = profile.people.uniq
+    @members = profile.members
   end
 
   def change_roles
@@ -12,8 +11,8 @@ class ProfileMembersController < ProfileAdminController
   end  
 
   def update_roles
-    @roles = Role.find(params[:roles])
-    @person = Person.find(params[:person])
+    @roles = params[:roles] ? Role.find(params[:roles]) : []
+    @person = Person.find(params[:person])      
     if @person.define_roles(@roles, profile)
       flash[:notice] = _('Roles successfuly updated')
     else
@@ -25,7 +24,7 @@ class ProfileMembersController < ProfileAdminController
   def change_role
     @roles = Role.find(:all).select{ |r| r.has_kind?(:profile) }
     @member = Person.find(params[:id])
-    @associations = RoleAssignment.find(:all, :conditions => {:person_id => @member, :resource_id => @profile, :resource_type => @profile.class.base_class.name})
+    @associations = @member.find_roles(@profile)
   end
 
   def add_role

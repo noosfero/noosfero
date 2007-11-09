@@ -1,6 +1,5 @@
 class EnterpriseEditorController < ProfileAdminController
-  needs_profile
-  protect 'edit_profile', :profile, :exept => :destroy
+  protect 'edit_profile', :profile, :user, :except => :destroy
   protect 'destroy_profile', :profile, :only => :destroy
   
   before_filter :check_enterprise
@@ -28,7 +27,7 @@ class EnterpriseEditorController < ProfileAdminController
   # Elimitates the enterprise of the system
   def destroy 
     #raise "bli"
-    if @enterprise.destroy!
+    if @enterprise.destroy
       flash[:notice] = _('Enterprise sucessfully erased from the system')
       redirect_to :controller => 'profile_editor', :action => 'index', :profile => current_user.login 
     else
@@ -36,24 +35,8 @@ class EnterpriseEditorController < ProfileAdminController
     end
   end
 
-  # Activate a validated enterprise
-  def activate
-    if @enterprise.activatepermission.nil?
-      flash[:notice] = _('Enterprise successfuly activacted')
-    else
-      flash[:notice] = _('Failed to activate the enterprise')
-    end
-    redirect_to :action => 'index'
-  end
-
   protected
 
-  def permission
-     'bli'
-  end
-  def permission=(perm)
-    @p = perm
-  end
   def check_enterprise
     if profile.is_a?(Enterprise)
       @enterprise = profile
