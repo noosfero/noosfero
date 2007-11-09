@@ -127,7 +127,7 @@ class CreateEnterprise < Task
   end
 
   def task_finished_message
-    _('Your request fo registering the enterprise "%{enterprise}" was approved. You can access %{environment} now and start entering ') % { :enterprise => self.name, :environment => self.environment }
+    _('Your request fo registering the enterprise "%{enterprise}" was approved. You can access %{environment} now and start using it for your new enterprise.') % { :enterprise => self.name, :environment => self.environment }
   end
 
   def task_cancelled_message
