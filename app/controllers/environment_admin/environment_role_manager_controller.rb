@@ -24,10 +24,7 @@ class EnvironmentRoleManagerController < ApplicationController
   def change_role
     @roles = Role.find(:all).select{ |r| r.has_kind?(:environment) }
     @admin = Person.find(params[:id])
-    @associations = RoleAssignment.find(:all, :conditions => {:accessor_id => @admin,
-                                        :accessor_type => @admin.class.base_class.name, 
-                                        :resource_id => environment, 
-                                        :resource_type => environment.class.base_class.name})
+    @associations = @admin.find_roles(environment)
   end
 
   def add_role

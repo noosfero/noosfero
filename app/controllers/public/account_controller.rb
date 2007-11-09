@@ -15,7 +15,7 @@ class AccountController < PublicController
   def login
     @user = User.new
     return unless request.post?
-    self.current_user = User.authenticate(params[:user][:login], params[:user][:password])
+    self.current_user = User.authenticate(params[:login], params[:password])
     if logged_in?
       if params[:remember_me] == "1"
         self.current_user.remember_me
