@@ -1,0 +1,21 @@
+<h2><%= _("Pending enterprise validations") %></h2>
+
+<% for processed in @processed_validations %>
+  <h3><%= processed.name %></h3>
+  <ul>
+    <li>
+      <strong><%= _('Address') %>:</strong>
+      <%= processed.address %>
+    </li>
+    <li>
+      <strong><%= _('Contact Phone') %>:</strong>
+      <%= processed.contact_phone %>
+    </li>
+    <li>
+      <strong><%= _('Contact Person') %>:</strong>
+      <%= processed.contact_person %>
+    </li>
+  </ul>
+
+  <%= link_to _("See details"), :action => 'view_processed', :id => processed.code %>
+<% end %>
