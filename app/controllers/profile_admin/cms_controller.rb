@@ -14,6 +14,7 @@ class CmsController < ProfileAdminController
     current_user.person
   end
 
+
   public
 
   #############################################################

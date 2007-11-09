@@ -15,6 +15,11 @@
     <%= stylesheet_link_tag 'help' %>
     <%= stylesheet_link_tag 'menu' %>
     <%= javascript_include_tag 'menu' %>
+
+    <%# cms stuff %>
+    <% if params[:controller] == 'cms' %>
+      <%= javascript_include_tag 'cms' %>
+    <% end %>
   </head>
 
   <body>
