@@ -174,6 +174,16 @@ class CreateEnterpriseTest < Test::Unit::TestCase
     request.stubs(:status).returns(Task::Status::CANCELLED)
     assert request.rejected?
   end
-    
+
+  should 'refuse to create an enterprise creation request with an identifier already used by another profile' do
+    request = CreateEnterprise.new
+    request.identifier = 'testid'
+    request.valid?
+    assert !request.errors.invalid?(:test_id)
+
+    Organization.create!(:name => 'test', :identifier => 'testid')
+    request.valid?
+    assert !request.errors.invalid?(:test_id)
+  end
 
 end

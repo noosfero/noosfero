@@ -1,7 +1,9 @@
-<h2><%= _("Pending enterprise validations") %></h2>
+<h2><%= _("Processed enterprise validations") %></h2>
+
+<%= link_to _("Back"), :action => 'index' %>
 
 <% for processed in @processed_validations %>
-  <h3><%= processed.name %></h3>
+  <h3><%= processed.name %> (<%=status(processed)%>)</h3>
   <ul>
     <li>
       <strong><%= _('Address') %>:</strong>
@@ -15,6 +17,7 @@
       <strong><%= _('Contact Person') %>:</strong>
       <%= processed.contact_person %>
     </li>
+
   </ul>
 
   <%= link_to _("See details"), :action => 'view_processed', :id => processed.code %>

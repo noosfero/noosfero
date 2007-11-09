@@ -19,3 +19,7 @@
 
   <%= link_to _("See details/approve/reject"), :action => 'details', :id => pending.code %>
 <% end %>
+
+<h2><%= _('Processed enterprise validations') %></h2>
+
+<p><%= link_to _("See the list of processed enterprise validations"), :action => 'list_processed' %></p>

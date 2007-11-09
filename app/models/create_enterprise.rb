@@ -46,6 +46,10 @@ class CreateEnterprise < Task
         self.errors.add(:target, '%{fn} is not a validator for the chosen region')
       end
     end
+
+    if self.identifier && Profile.exists?(:identifier => self.identifier)
+      self.errors.add(:identifier, '%{fn} is already being as identifier by another enterprise, organization or person.')
+    end
   end
 
   def valid_before_selecting_target?
