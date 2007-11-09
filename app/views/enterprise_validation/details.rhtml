@@ -1,5 +1,7 @@
 <h2><%= _("%s's validation") % @pending.name  %></h2>
 
+<%= error_messages_for 'pending' %>
+
 <h3><%= _('Provided information') %></h3>
 
 <%= render :partial => 'details', :locals => { :request => @pending } %>

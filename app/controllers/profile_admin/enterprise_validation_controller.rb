@@ -25,10 +25,14 @@ class EnterpriseValidationController < ProfileAdminController
   post_only :reject
   def reject
     @pending = profile.find_pending_validation(params[:id])
-    @pending.reject_explanation = params[:reject_explanation]
     if @pending 
-      @pending.reject
-      redirect_to :action => 'view_processed', :id => @pending.code
+      @pending.reject_explanation = params[:reject_explanation]
+      begin
+        @pending.reject
+        redirect_to :action => 'view_processed', :id => @pending.code
+      rescue ActiveRecord::RecordInvalid
+        render :action => 'details'
+      end
     else
       render_not_found
     end
