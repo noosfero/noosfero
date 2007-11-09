@@ -62,7 +62,7 @@ class EnterpriseValidationControllerTest < Test::Unit::TestCase
     validation = CreateEnterprise.new
     @org.expects(:find_pending_validation).with('kakakaka').returns(validation)
 
-    # this is not working, but should. Anyway the assert_response and
+    # FIXME: this is not working, but should. Anyway the assert_response and
     # assert_template below in some test some things we need. But the
     # expectation below must be put to work.
     #
