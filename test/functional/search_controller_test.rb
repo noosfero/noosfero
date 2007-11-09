@@ -11,8 +11,14 @@ class SearchControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
   end
 
-  # Replace this with your real tests.
-  def test_truth
-    assert true
+  should 'find enterprise' do
+    ent = Enterprise.create!(:name => 'teste', :identifier => 'teste')
+    get 'index', :query => 'teste'
+    assert_response :success
+    assert_template 'index'
+    assert assigns('results')
+    assert assigns('results').include?(ent)
+
   end
+
 end

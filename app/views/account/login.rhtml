@@ -1,18 +1,16 @@
 <h1><%= _('Login') %></h1>
 
-<% form_tag do -%>
-<p><label for="login"> <%= _('Username') %> </label><br/>
-<%= text_field_tag 'login' %></p>
 
-<p><label for="password"> <%= _('Password') %></label><br/>
-<%= password_field_tag 'password' %></p>
+<% labelled_form_for :user, @user do |f| -%>
+  <%= f.text_field :login %>
+  <%= f.password_field :password %>
+  <p class="submitline"><%= submit_tag 'Sign up', {:class => 'submit'} %></p>
 
 <!-- Uncomment this if you want this functionality
 <p><label for="remember_me">Remember me:</label>
 <%= check_box_tag 'remember_me' %></p>
 -->
 
-<p><%= submit_tag 'Log in' %></p>
 <% end -%>
 
 

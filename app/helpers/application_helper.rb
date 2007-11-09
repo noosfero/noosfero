@@ -276,7 +276,7 @@ module ApplicationHelper
       submit_tag(_('Search'), :id => 'button_search'),
       text_field_tag( 'query', _('  '), :id => "input_search"),
        '</form>',
-      observe_field('input_search', :function => "element.value=''", :on => :focus)
+ #     observe_field('input_search', :function => "element.value=''", :on => :focus)
     ].join("\n") 
   end
 
