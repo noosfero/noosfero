@@ -1,6 +1,5 @@
 /* Geral Bar */
 #noosfero_bar {
-  position: fixed;
   width: 100%;
   height: 26px;
   background: url("../images/bg_bgmenu.png") repeat-x;
