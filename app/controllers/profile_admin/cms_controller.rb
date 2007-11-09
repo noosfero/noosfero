@@ -1,6 +1,4 @@
 class CmsController < ProfileAdminController
-  include PermissionCheck
-  include AuthenticatedSystem
   
   define_option :page_class, Article
   
@@ -16,17 +14,14 @@ class CmsController < ProfileAdminController
     current_user.person
   end
 
+  public
+
   #############################################################
   # everything below was copied from comatose
   #############################################################
 
   define_option :original_template_root, nil
   define_option :plugin_layout_path, File.join( '..', '..', '..', 'vendor', 'plugins', 'comatose', 'views', 'layouts' )
-
-  # which class should the controller use when manipulating pages?
-  # this option is useful to applications that want to inherit page_class
-  # into their own models.
-  define_option :page_class, Comatose::Page
   
   before_filter :handle_authorization
   before_filter :set_content_type
@@ -163,7 +158,7 @@ class CmsController < ProfileAdminController
   end
 
   
-  otected
+  protected
 
   def handle_authorization
     if Comatose.config.admin_authorization.is_a? Proc

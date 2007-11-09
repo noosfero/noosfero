@@ -83,12 +83,6 @@ Comatose.configure do |config|
     Profile.exists?(:identifier => request.parameters[:profile])
     # FIXME: also check permissions
   end
-  config.admin_includes << AuthenticatedSystem
-  config.admin_includes << NeedsProfile
-
-  config.admin_helpers << ApplicationHelper
-  config.admin_helpers << DocumentHelper
-  config.admin_helpers << LanguageHelper
 
   config.default_filter = '[No Filter]'
 end
