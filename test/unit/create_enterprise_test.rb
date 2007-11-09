@@ -121,6 +121,9 @@ class CreateEnterpriseTest < Test::Unit::TestCase
     assert !enterprise.new_record?
     assert_equal person.user, enterprise.user
     assert_equal environment, enterprise.environment
+
+    # the data is not erased
+    assert_equal task.name, enterprise.name
   end
 
   should 'override message methods from Task' do
@@ -159,5 +162,18 @@ class CreateEnterpriseTest < Test::Unit::TestCase
   should 'provide a message to be sent to the target' do
     assert_not_nil CreateEnterprise.new.target_notification_message
   end
+
+  should 'report as approved when approved' do
+    request = CreateEnterprise.new
+    request.stubs(:status).returns(Task::Status::FINISHED)
+    assert request.approved?
+  end
+
+  should 'report as rejected when rejected' do
+    request = CreateEnterprise.new
+    request.stubs(:status).returns(Task::Status::CANCELLED)
+    assert request.rejected?
+  end
+    
 
 end

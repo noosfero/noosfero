@@ -83,9 +83,18 @@ class CreateEnterprise < Task
     cancel
   end
 
+  def rejected?
+    self.status == Task::Status::CANCELLED
+  end
+
   # Approves the enterprise registration request.
   def approve
     finish
+  end
+
+  # tells if this request was appoved 
+  def approved?
+    self.status == Task::Status::FINISHED
   end
 
   # actually creates the enterprise after the request is approved.
@@ -97,7 +106,7 @@ class CreateEnterprise < Task
       enterprise.send("#{field}=", self.send(field))
     end
 
-    organization_info_data = self.data.delete_if do |key,value|
+    organization_info_data = self.data.reject do |key,value|
       profile_fields.include?(key.to_s)
     end
 
