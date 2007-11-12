@@ -57,7 +57,7 @@ class EnterpriseRegistrationTest < ActionController::IntegrationTest
     
     follow_redirect!
     assert_equal "/myprofile/myorg/enterprise_validation/view_processed/#{code}", path
-    assert_tag :span, :content => 'Approved'
+    assert_tag :span, :attributes =>  { :class => 'validation_approved' }
   end
 
 end
