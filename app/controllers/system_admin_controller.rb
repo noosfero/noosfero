@@ -1,2 +1,2 @@
-class SystemAdminController < ApplicationController
+class SystemController < ApplicationController
 end
