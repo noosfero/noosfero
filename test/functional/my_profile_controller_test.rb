@@ -1,21 +1,21 @@
 require File.dirname(__FILE__) + '/../test_helper'
-require 'profile_admin_controller'
+require 'my_profile_controller'
 
 # Re-raise errors caught by the controller.
-class ProfileAdminController; def rescue_action(e) raise e end; end
+class MyProfileController; def rescue_action(e) raise e end; end
 
-class OnlyForPersonTestController < ProfileAdminController
+class OnlyForPersonTestController < MyProfileController
   requires_profile_class Person
   def index
     render :text => '<div>something</div>'
   end
 end
 
-class ProfileAdminControllerTest < Test::Unit::TestCase
+class MyProfileControllerTest < Test::Unit::TestCase
 
   all_fixtures
   def setup
-    @controller = ProfileAdminController.new
+    @controller = MyProfileController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
   end
