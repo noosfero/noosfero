@@ -12,9 +12,9 @@ require File.join(File.dirname(__FILE__), 'boot')
 
 # extra directories for controllers organization 
 extra_controller_dirs = %w[
-  app/controllers/profile_admin
-  app/controllers/environment_admin
-  app/controllers/system_admin
+  app/controllers/my_profile
+  app/controllers/admin
+  app/controllers/system
   app/controllers/public
 ].map {|item| File.join(RAILS_ROOT, item) }
 

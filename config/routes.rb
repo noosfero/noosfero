@@ -44,7 +44,7 @@ ActionController::Routing::Routes.draw do |map|
   ######################################################
   # profile customization - "My profile"
   map.myprofile 'myprofile/:profile', :controller => 'profile_editor', :action => 'index'
-  map.myprofile 'myprofile/:profile/:controller/:action/:id', :controller => Noosfero.pattern_for_controllers_in_directory('myprofile')
+  map.myprofile 'myprofile/:profile/:controller/:action/:id', :controller => Noosfero.pattern_for_controllers_in_directory('my_profile')
 
 
   ######################################################
