@@ -1,12 +1,12 @@
 require File.dirname(__FILE__) + '/../test_helper'
-require 'environment_admin_controller'
+require 'admin_controller'
 
 # Re-raise errors caught by the controller.
-class EnvironmentAdminController; def rescue_action(e) raise e end; end
+class AdminController; def rescue_action(e) raise e end; end
 
-class EnvironmentAdminControllerTest < Test::Unit::TestCase
+class AdminControllerTest < Test::Unit::TestCase
   def setup
-    @controller = EnvironmentAdminController.new
+    @controller = AdminController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
   end

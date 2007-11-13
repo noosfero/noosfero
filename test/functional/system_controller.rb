@@ -1,12 +1,12 @@
 require File.dirname(__FILE__) + '/../test_helper'
-require 'system_admin_controller'
+require 'system_controller'
 
 # Re-raise errors caught by the controller.
-class SystemAdminController; def rescue_action(e) raise e end; end
+class SystemController; def rescue_action(e) raise e end; end
 
-class SystemAdminControllerTest < Test::Unit::TestCase
+class SystemControllerTest < Test::Unit::TestCase
   def setup
-    @controller = SystemAdminController.new
+    @controller = SystemController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
   end
