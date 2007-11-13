@@ -1,4 +1,4 @@
-class EditTemplateController < EnvironmentAdminController
+class EditTemplateController < AdminController
   
   design_editor :holder => 'environment', :autosave => true, :block_types => :block_types
 

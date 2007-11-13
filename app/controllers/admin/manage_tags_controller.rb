@@ -1,5 +1,5 @@
 # Manage tags stored by the acts-as_taggable_on_steroids plugin by providing an interface to create, destroy, update and list them
-class ManageTagsController < EnvironmentAdminController
+class ManageTagsController < AdminController
 
   # Index redirects to list action without modifing the url
   def index

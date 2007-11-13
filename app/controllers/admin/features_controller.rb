@@ -1,4 +1,4 @@
-class FeaturesController < EnvironmentAdminController
+class FeaturesController < AdminController
   protect 'edit_environment_features', :environment
   
   acts_as_environment_admin_controller

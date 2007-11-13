@@ -1,4 +1,4 @@
-class CategoriesController < EnvironmentAdminController
+class CategoriesController < AdminController
 
   protect 'manage_environment_categories', :environment
   

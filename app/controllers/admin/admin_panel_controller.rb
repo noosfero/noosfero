@@ -1,4 +1,4 @@
-class AdminPanelController < EnvironmentAdminController
+class AdminPanelController < AdminController
 
   before_filter :login_required
   
