@@ -44,7 +44,7 @@ ActionController::Routing::Routes.draw do |map|
   ######################################################
   # profile customization - "My profile"
   map.myprofile 'myprofile/:profile', :controller => 'profile_editor', :action => 'index'
-  map.myprofile 'myprofile/:profile/:controller/:action/:id', :controller => Noosfero.pattern_for_controllers_in_directory('profile_admin')
+  map.myprofile 'myprofile/:profile/:controller/:action/:id', :controller => Noosfero.pattern_for_controllers_in_directory('myprofile')
 
 
   ######################################################
@@ -52,7 +52,7 @@ ActionController::Routing::Routes.draw do |map|
   ######################################################
   # administrative tasks for a environment
   map.admin 'admin', :controller => 'admin_panel'
-  map.admin 'admin/:controller/:action/:id', :controller => Noosfero.pattern_for_controllers_in_directory('environment_admin')
+  map.admin 'admin/:controller/:action/:id', :controller => Noosfero.pattern_for_controllers_in_directory('admin')
 
 
   ######################################################
