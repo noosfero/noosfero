@@ -60,7 +60,7 @@ ActionController::Routing::Routes.draw do |map|
   ######################################################
   # administrative tasks for a environment
   map.system 'system', :controller => 'system'
-  map.system 'system/:controller/:action/:id', :controller => Noosfero.pattern_for_controllers_in_directory('system_admin')
+  map.system 'system/:controller/:action/:id', :controller => Noosfero.pattern_for_controllers_in_directory('system')
 
 
   ######################################################
