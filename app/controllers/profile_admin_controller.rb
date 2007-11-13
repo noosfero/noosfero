@@ -1,4 +1,4 @@
-class ProfileAdminController < ApplicationController
+class MyProfileController < ApplicationController
 
   needs_profile
 
