@@ -1,4 +1,4 @@
-class EnterpriseEditorController < ProfileAdminController
+class EnterpriseEditorController < MyProfileController
   protect 'edit_profile', :profile, :user, :except => :destroy
   protect 'destroy_profile', :profile, :only => :destroy
   

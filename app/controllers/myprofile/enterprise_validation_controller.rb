@@ -1,4 +1,4 @@
-class EnterpriseValidationController < ProfileAdminController
+class EnterpriseValidationController < MyProfileController
 
   def index
     @pending_validations = profile.pending_validations

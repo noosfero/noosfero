@@ -1,4 +1,4 @@
-class ProfileMembersController < ProfileAdminController
+class ProfileMembersController < MyProfileController
   protect 'manage_memberships', :profile
 
   def index

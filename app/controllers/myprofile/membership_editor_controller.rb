@@ -1,4 +1,4 @@
-class MembershipEditorController < ProfileAdminController
+class MembershipEditorController < MyProfileController
 
   before_filter :login_required
 

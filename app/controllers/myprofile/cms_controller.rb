@@ -1,4 +1,4 @@
-class CmsController < ProfileAdminController
+class CmsController < MyProfileController
   
   define_option :page_class, Article
   

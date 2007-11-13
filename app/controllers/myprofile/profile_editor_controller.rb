@@ -1,4 +1,4 @@
-class ProfileEditorController < ProfileAdminController
+class ProfileEditorController < MyProfileController
 
   #protect 'edit_profile', :profile, only => [:index, :edit]
 
