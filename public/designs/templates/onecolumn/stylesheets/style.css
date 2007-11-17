@@ -14,14 +14,14 @@ background: url("../images/bg_bgheader.png") top left repeat-x;
 height: 55px;
 }
 
-#boxes {
+#design_boxes {
   position: relative;
   width: auto;
   margin: 20px;
   padding: 10px;
 }
 
-#box_1 {
+#design_box_1 {
 }
 
 #spinner {

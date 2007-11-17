@@ -36,19 +36,19 @@ body {
 height: 145px;
 }
 
-#boxes {
+#design_boxes {
   position: relative;
   margin-left: 10px;
   margin-right: 10px;
   padding: 0em;
 }
 
-#box_2 {
+#design_box_2 {
   width: 280px;
   float: right;
 }
 
-#box_1 {
+#design_box_1 {
   margin-right: 285px;
 }
 

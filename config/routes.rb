@@ -37,7 +37,9 @@ ActionController::Routing::Routes.draw do |map|
   map.category 'cat/*path', :controller => 'category', :action => 'view'
 
   ## controllers for blocks
-  map.controllers 'block/:controller/:action/:id', :controller => Noosfero.pattern_for_controllers_from_design_blocks
+  # FIXME this path didn't works Leandro comments this line and the reference to the controller path on
+  # /lib/noosfero.rg file.
+  #map.controllers 'block/:controller/:action/:id', :controller => Noosfero.pattern_for_controllers_from_design_blocks
 
   ######################################################
   ## Controllers that are profile-specific (for profile admins )

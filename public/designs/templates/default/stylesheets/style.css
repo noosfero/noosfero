@@ -36,24 +36,24 @@ body {
 height: 145px;
 }
 
-#boxes {
+#design_boxes {
   position: relative;
   margin-left: 10px;
   margin-right: 10px;
   padding: 0em;
 }
 
-#box_3 {
+#design_box_3 {
   width: 210px;
   float: right;
 }
 
-#box_2 {
+#design_box_2 {
   float: left;
   width: 280px;
 }
 
-#box_1 {
+#design_box_1 {
   margin-left: 285px;
   margin-right: 215px;
 }

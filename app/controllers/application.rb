@@ -51,6 +51,8 @@ class ApplicationController < ActionController::Base
 
   def load_profile
     @profile = Profile.find_by_identifier(params[:profile]) unless @profile
+#raise "bli %s" % @profile.inspect
+#    @profile = Profile.find_by_identifier(params[:profile]) unless @profile
     render_not_found unless @profile
   end
 

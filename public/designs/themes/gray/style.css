@@ -1,19 +1,20 @@
 /* Default Plain Theme for Blocks */
 
-div.block
+.design_block
 {
 	background: #FFFFFF;
 	border: 3px solid #000000;
 	margin-bottom: 10px;
 }
 
-div.block ul
+.design_block ul
 {
 	list-style: none;
 	margin-left: 15px;
 }
 
-div.block h3
+
+.design_block h3
 {
 	color: #FFFFFF;
 	background: #545454;
@@ -27,15 +28,22 @@ div.block h3
 	padding-left: 10px;
 }
 
-div.block span {
+a.design_button_block span {
 display: none;
+padding: 1px;
+color: #000;
+background: #dfdfdf;
+font-family: Sans-serif;
+font-size: 10px;
+font-weight: normal;
+border: 1px inset #545454;
 }
 
-div.block a.button_block_hide:hover span {
+.design_block a.desing_button_block:hover span {
 display: inline;
 position: absolute;
-color: #dfdfdf;
-background: #000000;
+color: white;
+background: #009900;
 font-family: Sans-serif;
 font-size: 13px;
 font-weight: normal;
@@ -44,47 +52,51 @@ padding-left: 5px;
 padding-right: 5px;
 }
 
-div.block a.button_block {
-display: block !important;
-width: 10px !important;
-height: 10px !important;
-margin-top: 10px !important;
-margin-right: 5px !important;
-float: right !important;
+.design_block a.design_button_block {
+  display: block !important;
+  width: 20px !important;
+  height: 20px !important;
+  margin-top: 3px !important;
+  margin-right: 5px !important;
+  float: right !important;
 }
 
-div.block a.button_block_hide {
+.design_block a.button_block_hide {
 border-bottom: 2px solid #dfdfdf;
 }
 
-div.block a:hover.button_block_hide {
+.design_block a:hover.button_block_hide {
 border-bottom: 2px solid #000000;
 }
 
-div.block a.button_block_remove {
-background: #dfdfdf;
+.design_block a.button_block_remove,
+.design_block a.button_block_item_options,
+.design_block a.button_block_options {
+  background: #dfdfdf;
 }
 
-div.block a:hover.button_block_remove {
-background: #000000;
+.design_block a:hover.button_block_remove,
+.design_block a.hover.button_block_item_options,
+.design_block a.hover.button_block_options {
+  background: #000000;
 }
 
-div.block_content 
+.design_block_content 
 {
 	padding: 5px;
 }
 
-div.block ul {
+.design_block ul {
   padding-left: 0px;
   margin: 0px;
 }
 
-div.block ul li a:link,
-div.block ul li a:hover {
+.design_block ul li a:link,
+.design_block ul li a:hover {
   display: block;
   color: #000;
 }
-div.block ul li a:hover {
+.design_block ul li a:hover {
   background: #ddd;
-  color: red;
 }
+

@@ -16,7 +16,7 @@ background: url("../images/bg_header.png") top center no-repeat;
 height: 135px;
 }
 
-#boxes {
+#design_boxes {
   position: relative;
   width: 760px;
   left: 50%;
@@ -24,17 +24,17 @@ height: 135px;
   padding: 0em;
 }
 
-#box_3 {
+#design_box_3 {
   width: 200px;
   float: right;
 }
 
-#box_2 {
+#design_box_2 {
   float: left;
   width: 200px;
 }
 
-#box_1 {
+#design_box_1 {
   margin-left: 205px;
   margin-right: 205px;
 }

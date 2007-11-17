@@ -1,6 +1,6 @@
 /* MacStyle Theme for Blocks */
 
-div.block
+.design_block
 {
 	background: #FFFFFF;
 	border: 0px;
@@ -8,29 +8,24 @@ div.block
 
 /* FIXME: esta usando para flutuar */
 
-.button_block_remove {
-position: absolute;
-z-index: 999;
-} 
-
-ul.block_control_list
+ul.design_block_control_list
 {
         list-style: none;
 	margin: 0px;
 	padding: 0px;
 }
 
-div#design_editor h3.block_header {
+#design_editor h3.design_block_header {
 cursor:move;
 }
 
-h3.block_header
+.design_block h3
 {
 	position: relative;
 	background: url('images/h3bg.png') repeat-x;
 	font-family: Sans-serif;
 	font-size: 15px;
-        margin: 0px;
+   margin: 0px;
 	padding: 0px;
 	overflow: hidden;
 	color: #545454;
@@ -39,7 +34,7 @@ h3.block_header
 	vertical-align: top;
 }
 
-a.button_block span {
+a.design_button_block span {
 display: none;
 padding: 1px;
 color: #000;
@@ -50,44 +45,48 @@ font-weight: normal;
 border: 1px inset #545454;
 }
 
-a.button_block:hover span {
-display: inline;
+a.design_button_block:hover span {
+display: block;
 position: absolute;
 margin-top: -20px;
+z-index: 100;
+float: left;
 }
 
-a.button_block {
-display: block;
-float: right;
-position: absolute;
-width: 20px;
-height: 20px;
-text-decoration: none;
+.design_block a.design_button_block {
+  display: block !important;
+  width: 20px !important;
+  height: 20px !important;
+  margin-top: 5px !important;
+  margin-right: 5px !important;
+  float: right !important;
 }
 
-div.block a.button_block_hide {
-right: 5px;
+.design_block a.button_block_hide {
 background:url('images/button.png') no-repeat;
 background-position: 0px 0px;
 }
 
-div.block a:hover.button_block_hide {
+.design_block a:hover.button_block_hide {
 background: url('images/button.png') no-repeat;
 background-position: 0px -20px;
 }
 
-div.block a.button_block_remove {
-right: 5px;
+.design_block a.button_block_remove,
+.design_block a.button_block_item_options,
+.design_block a.button_block_options {
 background: url('images/button.png') no-repeat;
 background-position:-20px 0;
 }
 
-div.block a:hover.button_block_remove {
+.design_block a:hover.button_block_remove,
+.design_block a.hover.button_block_item_options,
+.design_block a.hover.button_block_options {
 background: url('images/button.png') no-repeat;
 background-position:-20px -20px;
 }
 
-div.block_content 
+.design_block_content 
 {
       margin: 0;
       padding: 5px 10px 9px 10px;
