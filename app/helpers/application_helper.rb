@@ -369,4 +369,9 @@ module ApplicationHelper
     ]
     select_tag "#{object}[#{method}]", options_for_select(options, @page.filter_type || Comatose.config.default_filter), { :id=> "#{object}_#{method}" }.merge(html_options)
   end
+
+  def control_panel_button(title, icon, url)
+  end
+
+
 end

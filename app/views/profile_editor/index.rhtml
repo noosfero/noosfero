@@ -2,14 +2,22 @@
 
 <%= display_profile_info(profile) %>
 
-<% if @profile.class == Person %>
-  <p> <%= link_to _('Edit'), :action => 'edit' %> </p>
-<% elsif @profile.class == Enterprise %>
-  <p> <%= link_to _('Edit'), :controller => 'enterprise_editor'%> </p>
-<% else %>
+<div class='file-manager'>
 
-<% end %>
+  <%= content_tag('div', link_to(image_tag('icons-app/edit-profile.png', :alt => _('Edit Profile'), :title => _('Edit Profile')) + tag('br') + _('Edit Profile'), :controller => 'profile_editor', :action => 'edit'), :class => 'file-manager-button') %>
 
+  <%= content_tag('div', link_to(image_tag('icons-app/design-editor.png', :alt => _('Edit Visual Design'), :title => _('Edit Visual Design')) + tag('br') + _('Edit Visual Design'), :controller => 'profile_editor', :action => 'design_editor'), :class => 'file-manager-button') %>
+
+  <%= content_tag('div', link_to(image_tag('icons-app/cms.png', :alt => _('Manage Content'), :title => _('Manage Content')) + tag('br') + _('Manage Content'), :controller => 'cms'), :class => 'file-manager-button') %>
+
+  <%= content_tag('div', link_to(image_tag('icons-app/change-password.png', :alt => _('Change Password'), :title => _('Change Password')) + tag('br') + _('Change Password'), :controller => 'account', :action => 'change_password'), :class => 'file-manager-button') %>
+
+</div>
+<br style='clear: left'/>
+
+<!--
 <p> <%= link_to _('Edit Visual Design'), :action => 'design_editor' %> </p>
-
 <p> <%= link_to _('Menage content'), :controller => 'cms' %> </p>
+-->
+
+<h2><%= _('My organizations') %></h2>
