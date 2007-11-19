@@ -2,18 +2,18 @@
 
 <%= display_profile_info(profile) %>
 
-<div class='file-manager'>
 
-  <%= content_tag('div', link_to(image_tag('icons-app/edit-profile.png', :alt => _('Edit Profile'), :title => _('Edit Profile')) + tag('br') + _('Edit Profile'), :controller => 'profile_editor', :action => 'edit'), :class => 'file-manager-button') %>
+<% file_manager do %>
 
-  <%= content_tag('div', link_to(image_tag('icons-app/design-editor.png', :alt => _('Edit Visual Design'), :title => _('Edit Visual Design')) + tag('br') + _('Edit Visual Design'), :controller => 'profile_editor', :action => 'design_editor'), :class => 'file-manager-button') %>
+  <%= file_manager_button(_('Edit Profile'), 'icons-app/edit-profile.png', :controller => 'profile_editor', :action => 'edit') %>
 
-  <%= content_tag('div', link_to(image_tag('icons-app/cms.png', :alt => _('Manage Content'), :title => _('Manage Content')) + tag('br') + _('Manage Content'), :controller => 'cms'), :class => 'file-manager-button') %>
+  <%= file_manager_button(_('Edit Visual Design'), 'icons-app/design-editor.png', :controller => 'profile_editor', :action => 'design_editor') %>
 
-  <%= content_tag('div', link_to(image_tag('icons-app/change-password.png', :alt => _('Change Password'), :title => _('Change Password')) + tag('br') + _('Change Password'), :controller => 'account', :action => 'change_password'), :class => 'file-manager-button') %>
+  <%= file_manager_button(_('Manage Content'), 'icons-app/cms.png', :controller => 'cms') %>
 
-</div>
-<br style='clear: left'/>
+  <%= file_manager_button(_('Change Password'), 'icons-app/change-password.png', :controller => 'account', :action => 'change_password') %>
+
+<% end %>
 
 <!--
 <p> <%= link_to _('Edit Visual Design'), :action => 'design_editor' %> </p>

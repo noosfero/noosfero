@@ -370,8 +370,12 @@ module ApplicationHelper
     select_tag "#{object}[#{method}]", options_for_select(options, @page.filter_type || Comatose.config.default_filter), { :id=> "#{object}_#{method}" }.merge(html_options)
   end
 
-  def control_panel_button(title, icon, url)
+  def file_manager(&block)
+    concat(content_tag('div', capture(&block), :class => 'file-manager') + "<br style='clear: left;'/>", block.binding)
   end
 
+  def file_manager_button(title, icon, url)
+    content_tag('div', link_to(image_tag(icon, :alt => title, :title => title) + tag('br') + title, url), :class => 'file-manager-button')
+  end
 
 end
