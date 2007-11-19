@@ -6,18 +6,18 @@ one:
   position: 1
   type: 'MainBlock'
   title: 'Main Content'
-# FavouriteLinks Blocks
+# FavoriteLinks Blocks
 two:
   id: 2
   box_id: 1
   position: 2
-  type: 'FavouriteLinks'
+  type: 'FavoriteLinks'
   title: 'List of Links 1'
 three:
   id: 3
   box_id: 1
   position: 3
-  type: 'FavouriteLinks'
+  type: 'FavoriteLinks'
   title: 'List of Link 2'
 #List Blocks
 #FIXME Put other blocks to works
