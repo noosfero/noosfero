@@ -117,20 +117,13 @@ module ApplicationHelper
        ( link_to_homepage( _('My account') )),
        ( link_to_myprofile _('My Enterprises'), {:controller => 'membership_editor'} ),
        ( link_to(_('Admin'), { :controller => 'admin_panel' }) if current_user.person.is_admin?),
-       ( link_to_document (about_document), _('About')  if about_document ),
     ].join("\n")
     content_tag('span', links, :id => 'user_links')
   end
 
-  def about_document
-    Article.find_all_by_slug(_('about')).select do |a| 
-      a.full_path.split(/\//).shift == 'noosfero'
-    end[0]
-  end
-
   def shortcut_header_links
     if logged_in?
-      [ accessibility_link, 
+      [
         ( link_to_homepage( content_tag('span', _('My account')),nil, { :id => 'icon_go_home'} ) ), 
 	# MUDAR, O ID acima deve ser no Link <a id=...
 	# O ID icon_accessibility tambem tem que aparcer e testei o link nao ta funcionado.
@@ -138,14 +131,10 @@ module ApplicationHelper
         ( link_to content_tag('span', _('Logout')), { :controller => 'account', :action => 'logout', :method => 'post'}, :id => 'icon_logout'),
       ]
     else
-      [ accessibility_link,
+      [ 
         ( link_to content_tag('span', _('Login')), { :controller => 'account', :action => 'login' }, :id => 'icon_login' ),
       ]
     end.join(" ")
-  end
-
-  def header
-    login_or_register_or_logout
   end
 
   def login_or_register_or_logout
@@ -217,58 +206,12 @@ module ApplicationHelper
     ]
   end
 
-  def about_links
-    links = [
-      [(link_to _('Report bug'), 'http://www.colivre.coop.br/Noosfero/BugItem')],
-    ]
-  end
-
   def design_links
     links = [
       [(link_to _('Change template'), :controller => 'profile_editor', :action => 'design_editor_change_template')],
       [(link_to _('Change block theme'), :controller => 'profile_editor', :action => 'design_editor_change_theme')],
       [(link_to _('Change icon theme'), :controller => 'profile_editor', :action => 'design_editor_change_icon_theme')],
     ]
-  end
-
-  #FIXME: about_links should be shown even if the user isn't logged in
-  def user_options
-    return [] unless logged_in?
-    profile = Profile.find_by_identifier(params[:profile])
-    case params[:controller]
-      when 'admin_panel'
-        admin_links
-      when 'membership_editor'
-        membership_links
-      when 'profile_editor'
-        if profile.kind_of?(Enterprise) && params[:action] == 'index'
-          enterprise_links
-        elsif profile.kind_of?(Person) && params[:action] == 'index'
-           myprofile_links
-        elsif params[:action] == 'design_editor'
-          design_links
-        else
-          []
-        end
-      when 'content_viewer'
-        if params[:profile] == 'noosfero' && params[:page][0] == 'about'
-          about_links
-        else
-          person_links
-        end
-      else
-        []
-    end.map{|l| link_if_permitted(l[0], l[1], l[2]) }
-  end
-
-#  def user_options
-#  end
-
-  def accessibility_link
-    doc = Article.find_all_by_slug(_('accessibility')).select do |a| 
-      a.full_path.split(/\//).shift == 'noosfero'
-    end[0]
-    link_to_document doc, _('Accessibility'), :id => 'icon_accessibility' if doc 
   end
 
   def search_box

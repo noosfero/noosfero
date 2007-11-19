@@ -51,7 +51,7 @@ color: #ffffff;
 #accessibility_menu {
   position: absolute;
   right: 10px;
-  width: 200px;
+  width: 300px;
   text-align: right;
   font-family: Verdana, Arial, Serif-sans;
   font-size: 9px;
@@ -62,7 +62,6 @@ color: #ffffff;
 
 /* Images Icons Mini-BAR */
 #accessibility_menu span {
-display: none;
 }
 
 #accessibility_menu a#icon_go_content {
@@ -90,30 +89,17 @@ background-image: url('../images/icons-bar/accessibility.png');
 }
  
 #accessibility_menu a {
-  padding: 0px;
-  margin: 0px;
-  margin-right: 5px;
+  color: white;
+  font-weight: bold;
+  padding-left: 28px;
+  height: 24px;
   display: block;
   float: right;
-  width: 24px;
-  height: 24px;
-  background-position: 0px 0px;
   background-repeat: no-repeat;
-  text-decoration: none;
+  padding-top: 4px;
 }
 
 #accessibility_menu a:hover span {
- display: block;
- position: absolute;
- top: 1px;
- right: 200px;
- width: 100px;
- text-align: right;
- background: url("../images/ico_enterlink.gif") no-repeat;
- background-position: 106px 6px;
- color: #ffffff;
- font-weight: bold;
- padding-right: 8px;
 }
 
 

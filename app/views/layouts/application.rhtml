@@ -2,20 +2,19 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title> 
-     <% if @category %>
-      Noosfero &rarr; <%= @category.full_name %>  
-     <% else %>
-      Noosfero
-     <% end %>
+      <% if @category %>
+        Noosfero &rarr; <%= @category.full_name %>
+      <% else %>
+        Noosfero
+      <% end %>
     </title>
-   <meta name="description" content="FIXME: Descriptions of Noosfero" />
-   <meta name="keywords" content="Noosfero, Community, Open Source" />
+    <meta name="description" content="FIXME: Descriptions of Noosfero" />
+    <meta name="keywords" content="Noosfero, Community, Open Source" />
     <%= design_all_header_tags %>
     <%= stylesheet_link_tag 'common' %>
     <%= stylesheet_link_tag 'help' %>
     <%= stylesheet_link_tag 'menu' %>
     <%= javascript_include_tag 'menu' %>
-
     <%# cms stuff %>
     <% if params[:controller] == 'cms' %>
       <%= javascript_include_tag 'cms' %>
@@ -34,22 +33,21 @@
     <%= image_tag 'loading.gif', :id => 'spinner', :style => "display:none; float:right;", :alt => _('Image for Loading...') %>
 
     <div id="wrap" class='category<%= category_color %>'>
+
       <div id='noosfero_bar' class='category<%= category_color %>'>
         <div id='accessibility_menu'>
-          <a href='#content' id='icon_go_content'><span><%= _('Go Content') %></span></a>
-         <%= shortcut_header_links %>
+          <a href='#content' id='icon_go_content'><span><%= _('Go to content') %></span></a>
+          <%= shortcut_header_links %>
         </div><!-- accessibility_menu -->
-      <div id='top_bar' class='category<%= category_color %>'>
-       <div id='path_category'>
-        <% if @category %>
-            <%= @category.full_name %>
-        <% else @category %>
-        <div id='user_options'>
-          <%= user_options.join(' ') %>
-        </div><!-- id='user_options' -->
-        <% end %>
+
+        <div id='top_bar' class='category<%= category_color %>'>
+          <div id='path_category'>
+            <% if @category %>
+              <%= @category.full_name %>
+            <% end %>
+          </div>
         </div>
-       </div>
+
         <div id='search_box'>
           <%= search_box %>
         </div><!-- id='search_box' -->
@@ -61,35 +59,35 @@
         <script type="text/javascript">
           prepareMenu('navigation_bar', { timeout: 10 });
         </script>
-
-
       </div><!-- id="noosfero_bar" -->
-    <div id='frame'><!-- Frame que envolve toda pagina de um usuario -->
-     <div id='header'><!-- Abaixo um cabeçalho especifico para a pagina de usuario. -->
-     </div><!-- id='header' -->
-      <div id='content'>
-        <!-- <a name='main_content'/></a> -->
-        <!-- Aqui entra um conteudo tipo o titulo da pagina do usuário e os botoes do comatose? -->
-        <div id='header_content'>
-        </div>
 
-        <% if params[:controller] == 'cms' %>
-          <div id='boxes'><a name="content"> </a>
-            <%= yield %>
+      <div id='frame'><!-- Frame que envolve toda pagina de um usuario -->
+        <div id='header'>
+          <!-- Abaixo um cabeçalho especifico para a pagina de usuario. -->
+        </div><!-- id='header' -->
+        <div id='content'>
+          <!-- <a name='main_content'/></a> -->
+          <!-- Aqui entra um conteudo tipo o titulo da pagina do usuário e os botoes do comatose? -->
+          <div id='header_content'>
           </div>
-        <% else %>
-          <%= design_display(yield) %>
-        <% end %>
-      </div><!-- id="content" -->
-      <div id="footer_content"><!-- Rodape do onteudo -->
-      </div><!-- id="footer_content" -->
-   </div><!-- id="frame" -->
+
+          <% if params[:controller] == 'cms' %>
+            <div id='boxes'><a name="content"> </a>
+              <%= yield %>
+            </div>
+          <% else %>
+            <%= design_display(yield) %>
+          <% end %>
+        </div><!-- id="content" -->
+        <div id="footer_content"><!-- Rodape do onteudo -->
+        </div><!-- id="footer_content" -->
+      </div><!-- id="frame" -->
     </div><!-- id="wrap" -->
 
-      <div id="footer">
-        <!-- <a name='footer'/></a> -->
-        <%= localist_menu %>
-        <%= footer %>
-      </div><!-- id="footer" -->
+    <div id="footer">
+      <!-- <a name='footer'/></a> -->
+      <%= localist_menu %>
+      <%= footer %>
+    </div><!-- id="footer" -->
   </body>
 </html>
