@@ -86,7 +86,7 @@ Comatose.configure do |config|
 
   config.default_filter = '[No Filter]'
 end
-Comatose::AdminController.design :holder => 'environment'
+#Comatose::AdminController.design :holder => 'environment'
 Comatose::AdminController.before_filter do |controller|
   # TODO: copy/paste; extract this into a method (see
   # app/controllers/application.rb)

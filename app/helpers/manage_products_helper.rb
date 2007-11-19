@@ -1,0 +1,2 @@
+module ManageProductsHelper
+end
