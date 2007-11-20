@@ -1,0 +1,9 @@
+<%= error_messages_for :product %> <br/>
+
+<% form_for :product, @product, :url => {:action => mode} do |f| %>
+  <%= _('Name:') %> <%= f.text_field :name %><br/>
+  <%= _('Price:') %> <%= f.text_field :price %><br/>
+  <%= _('Description:') %><br/>  <%= f.text_area :description %><br/>
+  <%= _('Category:') %> <%= f.select :product_category_id,ProductCategory.find(:all).map{|pc|[pc.name,pc.id]}, {:include_blank => true} %><br/>
+  <%= submit_tag mode == 'new' ? _('Create product') : _('Save changes')  %>
+<% end %>

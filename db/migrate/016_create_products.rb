@@ -5,6 +5,7 @@ class CreateProducts < ActiveRecord::Migration
       t.column :product_category_id,  :integer
       t.column :name,                 :string
       t.column :price,                :decimal
+      t.column :description,          :text
     end
   end
 

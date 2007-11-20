@@ -5,14 +5,103 @@ require 'manage_products_controller'
 class ManageProductsController; def rescue_action(e) raise e end; end
 
 class ManageProductsControllerTest < Test::Unit::TestCase
+  all_fixtures
   def setup
     @controller = ManageProductsController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
+    @enterprise = Enterprise.create(:name => 'teste', :identifier => 'test_ent')
+    @user = create_user_with_permission('test_user', 'manage_products', @enterprise)
+    login_as :test_user
   end
 
-  # Replace this with your real tests.
-  def test_truth
-    assert true
+  should "not have permission" do
+    u = create_user('user_test')
+    login_as :user_test
+    get 'index', :profile => @enterprise.identifier
+    assert :success
+    assert_template 'access_denied.rhtml'
   end
+
+  should "get index" do
+    get 'index', :profile => @enterprise.identifier
+    assert_response :success
+    assert assigns(:products)
+  end
+
+  should "get new form" do
+    get 'new', :profile => @enterprise.identifier
+    assert_response :success
+    assert assigns(:product)
+    assert_template 'new'
+    assert_tag :tag => 'form', :attributes => { :action => /new/ } 
+  end
+
+  should "create new product" do
+    assert_difference Product, :count do
+      post 'new', :profile => @enterprise.identifier, :product => {:name => 'test product'}
+      assert_response :redirect
+      assert assigns(:product)
+      assert ! assigns(:product).new_record?
+    end
+  end
+
+  should "not create invalid product" do
+    assert_no_difference Product, :count do
+      post 'new', :profile => @enterprise.identifier, :product => {:price => 'test product'}
+      assert_response :success
+      assert assigns(:product)
+      assert assigns(:product).new_record?
+    end
+  end
+
+  should "get edit form" do
+    p = @enterprise.products.create(:name => 'test product')
+    get 'edit', :profile => @enterprise.identifier, :id => p.id
+    assert_response :success
+    assert assigns(:product)
+    assert_template 'edit'
+    assert_tag :tag => 'form', :attributes => { :action => /edit/ }
+  end
+
+  should "edit product" do
+    p = @enterprise.products.create(:name => 'test product')
+    post 'edit', :profile => @enterprise.identifier, :product => {:name => 'new test product'}, :id => p.id
+    assert_response :redirect
+    assert assigns(:product)
+    assert ! assigns(:product).new_record?
+    assert_equal p, Product.find_by_name('new test product')
+  end
+
+  should "not edit to invalid parameters" do
+    p = @enterprise.products.create(:name => 'test product')
+    post 'edit', :profile => @enterprise.identifier, :product => {:name => ''}, :id => p.id
+    assert_response :success
+    assert assigns(:product)
+    assert ! assigns(:product).valid?
+  end
+
+  should "destroy product" do
+    p = @enterprise.products.create(:name => 'test product')
+    assert_difference Product, :count, -1 do
+      post 'destroy', :profile => @enterprise.identifier, :id => p.id
+      assert_response :redirect
+      assert_redirected_to :action => 'index'
+      assert assigns(:product)
+      assert ! Product.find_by_name('test product')
+    end    
+  end
+
+  should "fail to destroy product" do
+    p = @enterprise.products.create(:name => 'test product')
+    Product.any_instance.stubs(:destroy).returns(false)
+    assert_no_difference Product, :count do
+      post 'destroy', :profile => @enterprise.identifier, :id => p.id
+      assert_response :redirect
+      assert_redirected_to :action => 'show'
+      assert assigns(:product)
+      assert Product.find_by_name('test product')      
+    end    
+  end
+  
 end

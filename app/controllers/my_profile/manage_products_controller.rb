@@ -1,6 +1,8 @@
 class ManageProductsController < ApplicationController
   needs_profile
 
+  protect 'manage_products', :profile
+
   def index
     @products = @profile.products
   end
@@ -43,5 +45,5 @@ class ManageProductsController < ApplicationController
       redirect_back_or_default :action => 'show', :id => @product
     end
   end
-  
+ 
 end
