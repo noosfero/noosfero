@@ -49,21 +49,6 @@ class Test::Unit::TestCase
 
   end
 
-  def self.extra_parameters
-    @extra_parameters
-  end
-
-  def self.add_extra_parameter(name, value)
-    @extra_parameters ||= {}
-    @extra_parameters[name] = value.to_s
-    self.send(:include, NoosferoTest)  unless self.include?(NoosferoTest)
-  end
-
-  def self.under_profile(profile_identifier)
-    add_extra_parameter(:profile, profile_identifier)
-    raise "profile_identifier must be set!" unless extra_parameters[:profile]
-  end
-
   def create_admin_user(env)
     admin_user = User.find_by_login('root') || User.create!(:login => 'root', :email => 'root@noosfero.org', :password => 'root', :password_confirmation => 'root')
     admin_role = Role.find_by_name('admin_role') || Role.create!(:name => 'admin_role', :permissions => ['view_environment_admin_panel','edit_environment_features', 'edit_environment_design', 'manage_environment_categories', 'manage_environment_roles', 'manage_environment_validators'])
