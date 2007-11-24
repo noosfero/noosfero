@@ -1,4 +1,5 @@
-class Article < Comatose::Page
+class Article
+
   acts_as_taggable  
   
 #  acts_as_ferret :fields => [:title, :body]
@@ -19,12 +20,6 @@ class Article < Comatose::Page
     @profile ||= Profile.find_by_identifier(self.full_path.split(/\//).first)
   end
 
-  def title=(value)
-    super
-    # taken from comatose, added a call to transliterate right before downcase.
-    if (self[:slug].nil? or self[:slug].empty?) and !self[:title].nil?
-      self[:slug] = self[:title].transliterate.downcase.gsub( /[^-a-z0-9~\s\.:;+=_]/, '').gsub(/[\s\.:;=_+]+/, '-').gsub(/[\-]{2,}/, '-').to_s
-    end
-  end
+  # FIXME add code from Category to make article acts as a "file system"
 
 end

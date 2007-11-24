@@ -75,30 +75,5 @@ Localist.callback = lambda { |l| GetText.locale= l }
 
 Tag.hierarchical = true
 
-Comatose.configure do |config|
-  config.admin_get_root_page do 
-    Comatose::Page.find_by_path(request.parameters[:profile])
-  end
-  config.admin_authorization do |config|
-    Profile.exists?(:identifier => request.parameters[:profile])
-    # FIXME: also check permissions
-  end
-
-  config.default_filter = '[No Filter]'
-end
-#Comatose::AdminController.design :holder => 'environment'
-Comatose::AdminController.before_filter do |controller|
-  # TODO: copy/paste; extract this into a method (see
-  # app/controllers/application.rb)
-  domain = Domain.find_by_name(controller.request.host)
-  if domain.nil?
-    environment = Environment.default
-  else
-    environment = domain.environment
-    profile = domain.profile
-  end
-  controller.instance_variable_set('@environment', environment)
-end
-
 # string transliteration
 require 'noosfero/transliterations'

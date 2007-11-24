@@ -7,7 +7,7 @@ module DocumentHelper
   def icon_for_document(doc)
     icon =
       case doc
-        when Comatose::Page
+        when Article
           'text-x-generic'
         else
           if doc.class.respond_to?(:icon)

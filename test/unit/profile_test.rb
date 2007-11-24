@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class ProfileTest < Test::Unit::TestCase
-  fixtures :profiles, :environments, :users, :comatose_pages
+  fixtures :profiles, :environments, :users
 
   def test_identifier_validation
     p = Profile.new
@@ -45,15 +45,7 @@ class ProfileTest < Test::Unit::TestCase
       p.identifier = 'other_profile'
     end
   end
-
-  # when a profile called a page named after it  must also be created.
-  def test_should_create_homepage_when_creating_profile
-    Profile.create!(:identifier => 'newprofile', :name => 'New Profile')
-    page = Comatose::Page.find_by_path('newprofile')
-    assert_not_nil page
-    assert_equal 'New Profile', page.title
-  end
-  
+ 
   def test_should_provide_access_to_homepage
     profile = Profile.create!(:identifier => 'newprofile', :name => 'New Profile')
     page = profile.homepage
@@ -97,10 +89,7 @@ class ProfileTest < Test::Unit::TestCase
   end
 
   def test_should_remove_pages_when_removing_profile
-    profile = Profile.create(:name => 'To bee removed', :identifier => 'to_be_removed')
-    assert Comatose::Page.find_by_path('to_be_removed')
-    profile.destroy
-    assert !Comatose::Page.find_by_path('to_be_removed')
+    fail 'neet to be reimplemented'
   end
 
   def test_should_define_info

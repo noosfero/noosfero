@@ -6,8 +6,8 @@ class ContentViewerController; def rescue_action(e) raise e end; end
 
 class ContentViewerControllerTest < Test::Unit::TestCase
 
-#  all_fixtures:domains, :environments, :users, :profiles, :comatose_pages
-all_fixtures
+  all_fixtures
+
   def setup
     @controller = ContentViewerController.new
     @request    = ActionController::TestRequest.new

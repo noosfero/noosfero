@@ -1,7 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class ArticleTest < Test::Unit::TestCase
-  fixtures :comatose_pages
 
   def test_should_use_keywords_as_tags
     article = Article.new
@@ -17,8 +16,8 @@ class ArticleTest < Test::Unit::TestCase
   end
 
   should 'have an associated profile' do
+    # FIXME this is now wrong
     article = Article.new(:title => 'someuser', :body => "some text")
-    article.parent = Comatose::Page.root
     article.save!
 
     Profile.expects(:find_by_identifier).with("someuser")

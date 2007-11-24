@@ -30,7 +30,7 @@ class RoutingTest < ActionController::IntegrationTest
     assert_routing('/account/new_password/90dfhga7sadgd0as6saas', :controller => 'account', :action => 'new_password', :code => '90dfhga7sadgd0as6saas')
   end
 
-  def test_comatose_admin
+  def test_cms
     assert_routing('/myprofile/ze/cms', :profile => 'ze', :controller => 'cms', :action => 'index')
   end
 

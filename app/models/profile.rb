@@ -11,19 +11,6 @@ class Profile < ActiveRecord::Base
     'edit_profile_design' => N_('Edit profile design'),
   }
   
-  after_create do |profile|
-    homepage = Article.new
-    homepage.title = profile.name
-    homepage.parent = Comatose::Page.root
-    homepage.slug = profile.identifier
-    homepage.save!
-  end
-
-  after_destroy do |profile|
-    article = Article.find_by_path(profile.identifier)
-    article.destroy if article
-  end
-  
   acts_as_accessible
 
   acts_as_design
@@ -84,8 +71,8 @@ class Profile < ActiveRecord::Base
   end
 
   def homepage(reload = false)
-    @homepage = nil if reload
-    @homepage ||= Article.find_by_path(self.identifier)
+    # FIXME
+    raise 'needs to be implemented'
   end
 
   # Returns information about the profile's owner that was made public by

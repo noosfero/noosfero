@@ -100,7 +100,7 @@ module ApplicationHelper
 
   def link_to_myprofile(text, url = {}, profile = nil, options = {})
     profile ||= current_user.login
-    link_to text, { :profile => profile }.merge(url), options
+    link_to text, { :profile => profile, :controller => 'profile_editor' }.merge(url), options
   end
 
   def link_to_document(doc, text = nil)
@@ -114,7 +114,7 @@ module ApplicationHelper
   # TODO: test this helper
   def user_links
     links = [
-       ( link_to_homepage( _('My account') )),
+       ( link_to_myprofile( _('My profile') )),
        ( link_to_myprofile _('My Enterprises'), {:controller => 'membership_editor'} ),
        ( link_to(_('Admin'), { :controller => 'admin_panel' }) if current_user.person.is_admin?),
     ].join("\n")
@@ -124,7 +124,7 @@ module ApplicationHelper
   def shortcut_header_links
     if logged_in?
       [
-        ( link_to_homepage( content_tag('span', _('My account')),nil, { :id => 'icon_go_home'} ) ), 
+        ( link_to_myprofile( content_tag('span', _('My profile')), {}, nil, { :id => 'icon_go_home'} ) ), 
 	# MUDAR, O ID acima deve ser no Link <a id=...
 	# O ID icon_accessibility tambem tem que aparcer e testei o link nao ta funcionado.
         ( link_to content_tag('span', _('Admin')), { :controller => 'admin_panel' }, :id => 'icon_admin' if current_user.person.is_admin?), 
@@ -301,16 +301,6 @@ module ApplicationHelper
     else
       text_area(object, method, { :size => '72x12' }.merge(options))
     end
-  end
-
-  def select_filter_type(object, method, html_options)
-    options = [
-      [ _('No Filter at all'), '[No Filter]' ],
-      [ _('RDoc filter'), 'RDoc' ],
-      [ _('Simple'), 'Simple' ],
-      [ _('Textile'), 'Textile' ]
-    ]
-    select_tag "#{object}[#{method}]", options_for_select(options, @page.filter_type || Comatose.config.default_filter), { :id=> "#{object}_#{method}" }.merge(html_options)
   end
 
   def file_manager(&block)

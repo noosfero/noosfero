@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class PersonTest < Test::Unit::TestCase
-  fixtures :profiles, :users, :comatose_pages
+  fixtures :profiles, :users
 
   def test_person_must_come_form_the_cration_of_an_user
     p = Person.new(:name => 'John', :identifier => 'john')
