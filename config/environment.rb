@@ -72,8 +72,9 @@ Localist.supported_locales = %w[en-US pt-BR]
 Localist.default_locale = "pt-BR"
 Localist.callback = lambda { |l| GetText.locale= l }
 
-
 Tag.hierarchical = true
 
 # string transliteration
 require 'noosfero/transliterations'
+
+require 'acts_as_versioned'
