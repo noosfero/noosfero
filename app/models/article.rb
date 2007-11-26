@@ -24,4 +24,11 @@ class Article < ActiveRecord::Base
     body
   end
 
+  # provides the icon name to be used for this article. In this class this
+  # method just returns 'text-html', but subclasses may (and should) override
+  # to return their specific icons.
+  def icon_name
+    'text-html'
+  end
+
 end

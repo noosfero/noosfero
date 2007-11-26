@@ -66,4 +66,8 @@ class ArticleTest < Test::Unit::TestCase
     assert_equal 'the body of the article', a.to_html
   end
 
+  should 'inform the icon to be used' do
+    assert_equal 'text-html', Article.new.icon_name
+  end
+
 end
