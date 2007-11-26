@@ -48,7 +48,15 @@ class ArticleTest < Test::Unit::TestCase
   end
 
   should 'act as filesystem' do
-    flunk 'not yet'
+    a = Article.create!(:name => 'my article', :profile_id => profile.id)
+    b = a.children.build(:name => 'child article', :profile_id => profile.id)
+    b.save!
+    assert_equal 'my-article/child-article', b.path
+
+    a.name = 'another name'
+    a.save!
+
+    assert_equal 'another-name/child-article', Article.find(b.id).path
   end
 
 end
