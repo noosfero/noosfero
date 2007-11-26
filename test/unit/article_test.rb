@@ -2,37 +2,53 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class ArticleTest < Test::Unit::TestCase
 
-  def test_should_use_keywords_as_tags
-    article = Article.new
-    article.title = 'a test article'
-    article.body = 'lalala'
-    article.parent = Article.find_by_path('ze')
-    article.keywords = 'one, two, three'
-    article.save!
+  def setup
+    @profile = create_user('testing').person
+  end
+  attr_reader :profile
 
-    assert article.has_keyword?('one')
-    assert article.has_keyword?('two')
-    assert article.has_keyword?('three')
+  should 'have and require an associated profile' do
+    a = Article.new
+    a.valid?
+    assert a.errors.invalid?(:profile_id)
+
+    a.profile = profile
+    a.valid?
+    assert !a.errors.invalid?(:profile_id)
   end
 
-  should 'have an associated profile' do
-    # FIXME this is now wrong
-    article = Article.new(:title => 'someuser', :body => "some text")
-    article.save!
+  should 'require values for name, slug and path' do
+    a = Article.new
+    a.valid?
+    assert a.errors.invalid?(:name)
+    assert a.errors.invalid?(:slug)
+    assert a.errors.invalid?(:path)
 
-    Profile.expects(:find_by_identifier).with("someuser")
-    article.profile
+    a.name = 'my article'
+    a.valid?
+    assert !a.errors.invalid?(:name)
+    assert !a.errors.invalid?(:name)
+    assert !a.errors.invalid?(:path)
   end
 
-  should 'get associated profile from name of root page' do
-    article = Article.new(:title => "test article", :body => 'some sample text')
-    article.parent = Article.find_by_path('ze')
-    article.save!
+  should 'act as versioned' do
+    a = Article.create!(:name => 'my article', :body => 'my text', :profile_id => profile.id)
+    assert_equal 1, a.versions.size
+    a.name = 'some other name'
+    a.save!
+    assert_equal 2, a.versions.size
+  end
 
-    assert_equal 'ze/test-article', article.full_path
+  should 'act as taggable' do
+    a = Article.create!(:name => 'my article', :profile_id => profile.id)
+    a.tag_list = ['one', 'two']
+    tags = a.tag_list.names
+    assert tags.include?('one')
+    assert tags.include?('two')
+  end
 
-    Profile.expects(:find_by_identifier).with("ze")
-    article.profile
+  should 'act as filesystem' do
+    flunk 'not yet'
   end
 
 end

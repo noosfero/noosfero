@@ -1,8 +1,11 @@
 class CmsController < MyProfileController
   
-  define_option :page_class, Article
-  
-  protect 'post_content', :profile, :only => [:edit, :new, :reorder, :delete]
+  # FIXME add the access control again
+  # protect 'post_content', :profile, :only => [:edit, :new, :reorder, :delete]
+
+  def view
+    @document = profile.documents.find(params[:id])
+  end
 
   protected
 

@@ -77,4 +77,4 @@ Tag.hierarchical = true
 # string transliteration
 require 'noosfero/transliterations'
 
-require 'acts_as_versioned'
+require 'acts_as_filesystem'

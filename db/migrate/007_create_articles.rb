@@ -6,6 +6,7 @@ class CreateArticles < ActiveRecord::Migration
       t.column :name, :string
       t.column :slug, :string
       t.column :path, :text, :default => ''
+      t.column :parent_id, :integer # acts as tree included
 
       # main data
       t.column :body, :text
@@ -13,14 +14,11 @@ class CreateArticles < ActiveRecord::Migration
       # belongs to profile
       t.column :profile_id, :integer
 
-      # acts as tree
-      t.column :parent_id, :integer
-
       # keep track of timestamps
       t.column :updated_on,  :datetime
       t.column :created_on,  :datetime 
 
-      # versioning stuff
+      # acts as versioned
       t.column :version, :integer
       t.column :lock_version, :integer
     end

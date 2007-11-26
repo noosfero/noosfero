@@ -11,7 +11,22 @@ class CmsControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
   end
 
-  def test_missing
-    flunk 'need to add some tests for CmsController '
+  attr_reader :profile
+
+  should 'list top level documents on index' do
+    flunk 'not yet'
   end
+
+  should 'be able to view a particular document' do
+    flunk 'not yet'
+  end
+
+  should 'be able to edit a document' do
+    flunk 'not yet'
+  end
+
+  should 'be able to save a save a document' do
+    flunk 'not yet'
+  end
+
 end

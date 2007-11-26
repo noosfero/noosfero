@@ -1,5 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
+# FIXME move the filesystem-related tests out here
 class CategoryTest < Test::Unit::TestCase
 
   def setup
