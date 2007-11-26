@@ -42,7 +42,15 @@ class Profile < ActiveRecord::Base
   
   has_many :role_assignments, :as => :resource
 
+  has_many :articles
 
+  def top_level_articles(reload = false)
+    if reload
+      @top_level_articles = nil
+    end
+    @top_level_articles ||= Article.top_level_for(self)
+  end
+  
   # Sets the identifier for this profile. Raises an exception when called on a
   # existing profile (since profiles cannot be renamed)
   def identifier=(value)

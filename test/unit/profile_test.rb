@@ -89,7 +89,7 @@ class ProfileTest < Test::Unit::TestCase
   end
 
   def test_should_remove_pages_when_removing_profile
-    fail 'neet to be reimplemented'
+    flunk 'pending'
   end
 
   def test_should_define_info
@@ -108,11 +108,11 @@ class ProfileTest < Test::Unit::TestCase
 
   def test_should_provide_recent_documents
     profile = Profile.create!(:name => 'Testing Recent documents', :identifier => 'testing_recent_documents')
-    doc1 = Article.new(:title => 'document 1', :body => 'la la la la la')
+    doc1 = Article.new(:name => 'document 1', :body => 'la la la la la')
     doc1.parent = profile.homepage
     doc1.save!
 
-    doc2 = Article.new(:title => 'document 2', :body => 'la la la la la')
+    doc2 = Article.new(:name => 'document 2', :body => 'la la la la la')
     doc2.parent = profile.homepage
     doc2.save!
 
@@ -124,7 +124,7 @@ class ProfileTest < Test::Unit::TestCase
 
   def test_should_provide_most_recent_documents
     profile = Profile.create!(:name => 'Testing Recent documents', :identifier => 'testing_recent_documents')
-    doc1 = Article.new(:title => 'document 1', :body => 'la la la la la')
+    doc1 = Article.new(:name => 'document 1', :body => 'la la la la la')
     doc1.parent = profile.homepage
     doc1.save!
 
@@ -155,6 +155,49 @@ class ProfileTest < Test::Unit::TestCase
     role = Role.create!(:name => 'just_another_test_role', :permissions => ['edit_profile'])
     assert env.affiliate(person, role)
     assert person.has_permission?('edit_profile', profile)
+  end
+
+  should 'have articles' do
+    env = Environment.create!(:name => 'test_env')
+    profile = Profile.create!(:name => 'Profile for testing ', :identifier => 'profilefortesting', :environment => env)
+
+    assert_raise ActiveRecord::AssociationTypeMismatch do
+      profile.articles << 1
+    end
+    
+    assert_nothing_raised do
+      profile.articles << Article.new(:name => 'testing article')
+    end
+  end
+
+  should 'list top-level articles' do
+    env = Environment.create!(:name => 'test_env')
+    profile = Profile.create!(:name => 'Profile for testing ', :identifier => 'profilefortesting', :environment => env)
+
+    p1 = profile.articles.build(:name => 'parent1')
+    p1.save!
+    p2 = profile.articles.build(:name => 'parent2')
+    p2.save!
+
+    child = profile.articles.build(:name => 'parent2', :parent_id => p1.id)
+    child.save!
+
+    top = profile.top_level_articles
+    assert top.include?(p1)
+    assert top.include?(p2)
+    assert !top.include?(child)
+  end
+
+  should 'be able to optionally reload the list of top level articles' do
+    env = Environment.create!(:name => 'test_env')
+    profile = Profile.create!(:name => 'Profile for testing ', :identifier => 'profilefortesting', :environment => env)
+
+    list = profile.top_level_articles
+    same_list = profile.top_level_articles
+    assert_same list, same_list
+
+    other_list = profile.top_level_articles(true)
+    assert_not_same list, other_list
   end
 
   private
