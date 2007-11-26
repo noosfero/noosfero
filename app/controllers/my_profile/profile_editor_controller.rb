@@ -10,6 +10,7 @@ class ProfileEditorController < MyProfileController
    def block_types
     %w[
        FavoriteLinksProfile
+       ListBlock
       ]
    end
 
