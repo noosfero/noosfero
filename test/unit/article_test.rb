@@ -59,4 +59,11 @@ class ArticleTest < Test::Unit::TestCase
     assert_equal 'another-name/child-article', Article.find(b.id).path
   end
 
+  should 'provide HTML version' do
+    profile = create_user('testinguser').person
+    a = Article.create!(:name => 'my article', :profile_id => profile.id)
+    a.expects(:body).returns('the body of the article')
+    assert_equal 'the body of the article', a.to_html
+  end
+
 end
