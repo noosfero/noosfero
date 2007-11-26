@@ -126,6 +126,31 @@ module ActsAsFileSystem
     def explode_path
       path.split(/\//)
     end
+
+    # returns the full hierarchy from the top-level item to this one. For
+    # example, if item1 has a children item2 and item2 has a children item3,
+    # then item3's hierarchy would be [item1, item2, item3].
+    #
+    # If +reload+ is passed as +true+, then the hierarchy is reload (usefull
+    # when the ActiveRecord object was modified in some way, or just after
+    # changing parent)
+    def hierarchy(reload = false)
+      if reload
+        @hierarchy = nil
+      end
+
+      unless @hierarchy
+        @hierarchy = []
+        item = self
+        while item
+          @hierarchy.unshift(item)
+          item = item.parent
+        end
+      end
+
+      @hierarchy
+    end
+
   end
 end
 
