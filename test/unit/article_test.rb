@@ -33,10 +33,10 @@ class ArticleTest < Test::Unit::TestCase
 
   should 'act as versioned' do
     a = Article.create!(:name => 'my article', :body => 'my text', :profile_id => profile.id)
-    assert_equal 1, a.versions.size
+    assert_equal 1, a.versions(true).size
     a.name = 'some other name'
     a.save!
-    assert_equal 2, a.versions.size
+    assert_equal 2, a.versions(true).size
   end
 
   should 'act as taggable' do

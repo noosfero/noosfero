@@ -24,6 +24,7 @@ module ActsAsFileSystem
         if record.path == record.slug && (! record.top_level?)
           record.path = record.calculate_path
         end
+        true
       end
 
       # when renaming a category, all children categories must have their paths
@@ -37,6 +38,7 @@ module ActsAsFileSystem
           end
         end
         record.recalculate_path = false
+        true
       end
 
     end
