@@ -308,7 +308,7 @@ module ApplicationHelper
   end
 
   def file_manager_button(title, icon, url)
-    content_tag('div', link_to(image_tag(icon, :alt => title, :title => title) + tag('br') + title, url), :class => 'file-manager-button')
+    content_tag('div', link_to(image_tag(icon, :alt => title, :title => title) + content_tag('div', title), url), :class => 'file-manager-button')
   end
 
 end
