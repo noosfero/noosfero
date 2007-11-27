@@ -20,5 +20,5 @@ empa = Enterprise.create!(:name => 'Empreendimento A', :identifier => 'empreendi
 owner_role = Role.create!(:name => 'owner', :permissions => ['edit_profile', 'destroy_profile', 'manage_memberships', 'post_content', 'edit_profile_design'])
 
 RoleAssignment.create!(:accessor => ze, :role => owner_role, :resource => empa)
-RoleAssignment.create!(:accessor => root, :role => owner_role, :resource => anhetegua)
+RoleAssignment.create!(:accessor => root, :role => owner_role, :resource => Environmnet.default) if Environmnet.default
 
