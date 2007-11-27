@@ -3,10 +3,14 @@ class ContentViewerController < PublicController
   needs_profile
 
   def view_page
-    path = params[:page].clone
-    path.unshift(params[:profile])
-    @path = path.join('/')
-    @page = Article.find_by_path(@path)
+    path = params[:page].join('/')
+
+    if path.blank?
+      @page = profile.home_page
+    else
+      @page = profile.articles.find_by_path(path)
+    end
+
     if @page.nil?
       render_not_found(@path)
     end

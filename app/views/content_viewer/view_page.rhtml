@@ -1,6 +1,6 @@
-<h1><%= @page.title %></h2>
+<h2><%= @page.title %></h2>
 
-<% if @page.parent && !@page.parent.full_path.blank? %>
+<% if @page.parent && !@page.parent.path.blank? %>
   <%= link_to_document(@page.parent, _('Up')) %>
 <% end %>
 <% if logged_in?  && current_user.person.has_permission?('post_content', profile) %>

@@ -105,9 +105,8 @@ module ApplicationHelper
 
   def link_to_document(doc, text = nil)
     text ||= doc.title
-    path = doc.full_path.split(/\//)
-    profile = path.shift
-    link_to text, homepage_path(:profile => profile , :page => path)
+    path = doc.path.split(/\//)
+    link_to text, homepage_path(:profile => doc.profile.identifier , :page => path)
   end
 
   # TODO: add the actual links
