@@ -7,10 +7,11 @@ class CreateProfiles < ActiveRecord::Migration
       t.column :environment_id,    :integer
       t.column :design_data, :text
 
-
       t.column :active,            :boolean, :default => true
       t.column :address,           :string
       t.column :contact_phone,     :string
+
+      t.column :home_page_id,      :integer
           
       #person fields
       t.column :user_id,           :integer

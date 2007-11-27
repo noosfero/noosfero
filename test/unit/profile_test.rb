@@ -46,11 +46,17 @@ class ProfileTest < Test::Unit::TestCase
     end
   end
  
-  def test_should_provide_access_to_homepage
+  should 'provide access to home page' do
     profile = Profile.create!(:identifier => 'newprofile', :name => 'New Profile')
-    page = profile.homepage
-    assert_kind_of Article, page
-    assert_equal profile.identifier, page.slug
+    assert_nil profile.home_page
+
+    page = profile.articles.build(:name => "My custom home page")
+    page.save!
+
+    profile.home_page = page
+    profile.save!
+
+    assert_equal page, profile.home_page
   end
 
   def test_name_should_be_mandatory
@@ -107,37 +113,11 @@ class ProfileTest < Test::Unit::TestCase
   end
 
   def test_should_provide_recent_documents
-    profile = Profile.create!(:name => 'Testing Recent documents', :identifier => 'testing_recent_documents')
-    doc1 = Article.new(:name => 'document 1', :body => 'la la la la la')
-    doc1.parent = profile.homepage
-    doc1.save!
-
-    doc2 = Article.new(:name => 'document 2', :body => 'la la la la la')
-    doc2.parent = profile.homepage
-    doc2.save!
-
-    docs = profile.recent_documents(2)
-    assert_equal 2, docs.size
-    assert docs.map(&:id).include?(doc1.id)
-    assert docs.map(&:id).include?(doc2.id)
+    flunk 'pending'
   end
 
   def test_should_provide_most_recent_documents
-    profile = Profile.create!(:name => 'Testing Recent documents', :identifier => 'testing_recent_documents')
-    doc1 = Article.new(:name => 'document 1', :body => 'la la la la la')
-    doc1.parent = profile.homepage
-    doc1.save!
-
-    docs = profile.recent_documents(1)
-    assert_equal 1, docs.size
-    assert_equal doc1.id, docs.first.id
-  end
-
-  should 'provide a contact_email method which returns a ... contact email address' do
-    p = Profile.create!(:name => 'Profile for testing ', :identifier => 'profilefortesting')
-    assert_nil p.contact_email
-    p.user = User.new(:email => 'testprofile@example.com')
-    assert_equal 'testprofile@example.com', p.contact_email
+    flunk 'pending'
   end
 
   should 'affiliate and provide a list of the affiliated users' do

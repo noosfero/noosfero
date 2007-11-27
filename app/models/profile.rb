@@ -43,6 +43,7 @@ class Profile < ActiveRecord::Base
   has_many :role_assignments, :as => :resource
 
   has_many :articles
+  belongs_to :home_page, :class_name => Article.name, :foreign_key => 'home_page_id'
 
   def top_level_articles(reload = false)
     if reload
@@ -76,11 +77,6 @@ class Profile < ActiveRecord::Base
   # Searches tags by tag or name
   def self.search(term)
     find_tagged_with(term) + find_all_by_name(term)
-  end
-
-  def homepage(reload = false)
-    # FIXME
-    raise 'needs to be implemented'
   end
 
   # Returns information about the profile's owner that was made public by

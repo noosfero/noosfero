@@ -96,10 +96,13 @@ margin-right: 20px;
 height: 20px;
 }
 
+/* file manager (big) style */
+
 div.file-manager {
   clear: both;
 }
 
+div.file-manager
 div.file-manager-button {
   float: left;
   width: 140px;
@@ -108,9 +111,12 @@ div.file-manager-button {
   margin-top: 0.5em;
 }
 
+div.file-manager
 div.file-manager-button a img {
   border: none;
 }
+
+div.file-manager
 div.file-manager-button a {
   border: 1px solid #e0e0e0;
   display: block;
@@ -118,8 +124,39 @@ div.file-manager-button a {
   height: 80px;
   overflow: hidden;
 }
+
+div.file-manager
 div.file-manager-button a:hover {
   border: 1px solid #006;
   background: #acf;
   color: #006;
 }
+
+/************* file manager (small) style *****************/
+div.file-manager-small li {
+  list-style: none;
+}
+
+div.file-manager-small
+div.file-manager-button a div {
+  display: inline;
+}
+
+div.file-manager-small
+div.file-manager-button a img {
+  border: none;
+  vertical-align: middle;
+}
+
+div.file-manager-small
+div.file-manager-button a {
+  border: 1px solid transparent;
+}
+
+div.file-manager-small
+div.file-manager-button a:hover {
+  border: 1px solid #006;
+  background: #acf;
+  color: #006;
+}
+

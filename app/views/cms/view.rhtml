@@ -1,3 +1,35 @@
-<%# FIXME %>
+<% if @article %>
+  <h2>
+    <%= link_to profile.identifier, :action => 'index' %>
+    <%= @article.hierarchy.map {|item| " / " + ((item == @article) ? item.name : link_to(item.name, :id => item.id)) } %>
+  </h2>
+<% end %>
 
-<h2><%= @document.title %></h2>
+<%# list the children  %>
+
+<div class='article-children'>
+
+  <div class='file-manager-small'>
+    <ul>
+    <% @subitems.each do |item| %>
+      <li>
+      <%= file_manager_button(item.name, "icons-mime/#{item.icon_name}", :action => 'view', :id => item.id) %>
+      </li>
+    <% end %>
+    </ul>
+  </div>
+  
+  <% if @article %>
+    <%= link_to _('New subitem'), :action => 'new', :parent_id => @article.id %>
+  <% else %>
+    <%= link_to _('New article'), :action => 'new' %>
+  <% end %>
+
+</div>
+
+<%# display the article content %>
+
+<% if @article %>
+  <h2><%= @article.name %></h2>
+  <%= @article.to_html %>
+<% end %>
