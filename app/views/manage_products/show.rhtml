@@ -1,5 +1,6 @@
 <h3> <%= @product.name %> </h3>
 
+<p> <%= image_tag @product.image.public_filename %> </p>
 <p> <%= _('Price: ') %> <%= @product.price %> </p>
 <p> <%= _('Description: ') %> <%= @product.description %> </p>
 <p> <%= _('Category: ') %> <%= @product.product_category ? @product.product_category.name : _('Uncategorized product')  %> </p>

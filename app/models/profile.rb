@@ -45,6 +45,8 @@ class Profile < ActiveRecord::Base
   has_many :articles
   belongs_to :home_page, :class_name => Article.name, :foreign_key => 'home_page_id'
 
+  has_one :image, :as => :owner
+  
   def top_level_articles(reload = false)
     if reload
       @top_level_articles = nil

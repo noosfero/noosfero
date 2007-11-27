@@ -111,3 +111,9 @@ div#notice .button a {
 div#notice .button a:hover {
   background-color: #ffd;
 }
+
+
+#design_editor .design_box{
+  border: 1px solid black;
+  height: 400px;
+}

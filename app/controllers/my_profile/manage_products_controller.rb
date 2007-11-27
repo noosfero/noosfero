@@ -1,7 +1,7 @@
 class ManageProductsController < ApplicationController
   needs_profile
 
-  protect 'manage_products', :profile
+#  protect 'manage_products', :profile
 
   def index
     @products = @profile.products
@@ -13,6 +13,7 @@ class ManageProductsController < ApplicationController
 
   def new
     @product = @profile.products.build(params[:product])
+    @product.build_image unless @product.image
     if request.post?
       if @product.save
         flash[:notice] = _('Product succesfully created')

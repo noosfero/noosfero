@@ -1,0 +1,5 @@
+<ul class='people_list_block'>
+  <% @people.each do |p| %>
+    <li> <%= link_to_homepage(content_tag('span', p.name), p.identifier) %> </li>
+  <% end %>
+</ul>

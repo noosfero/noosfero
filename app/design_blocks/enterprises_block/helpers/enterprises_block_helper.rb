@@ -1,0 +1,3 @@
+module EnterprisesBlockHelper
+
+end

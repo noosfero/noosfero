@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.3.0\n"
-"POT-Creation-Date: 2007-11-09 19:03-0300\n"
+"Project-Id-Version: noosfero 0.4.0\n"
+"POT-Creation-Date: 2007-11-27 13:39-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,92 +16,119 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: app/design_blocks/favourite_links/controllers/favourite_links_controller.rb:22
-msgid "Manage Links"
+#: app/design_blocks/enterprises_block/models/enterprises_block.rb:12
+msgid "Enterprises Block"
 msgstr ""
 
-#: app/design_blocks/favourite_links/controllers/favourite_links_controller.rb:23
+#: app/design_blocks/list_block/models/list_block.rb:12
+msgid "List Block"
+msgstr ""
+
+#: app/design_blocks/favorite_links/controllers/favorite_links_controller.rb:4
 #: app/views/role/index.rhtml:6 app/views/content_viewer/view_page.rhtml:7
-#: app/views/manage_tags/_a_tag.rhtml:3 app/views/profile_editor/index.rhtml:6
-#: app/views/profile_editor/index.rhtml:8
-#: app/views/categories/_category.rhtml:8
+#: app/views/manage_tags/_a_tag.rhtml:3 app/views/categories/_category.rhtml:8
 msgid "Edit"
 msgstr ""
 
-#: app/design_blocks/favourite_links/models/favourite_links.rb:4
-#: app/design_blocks/favourite_links/views/manage_links.rhtml:3
-msgid "Favourite Links"
+#: app/design_blocks/favorite_links/controllers/favorite_links_controller.rb:5
+msgid "Manage Links"
 msgstr ""
 
-#: app/controllers/environment_admin/manage_tags_controller.rb:26
+#: app/design_blocks/favorite_links/models/favorite_links.rb:4
+#: app/design_blocks/favorite_links_profile/models/favorite_links_profile.rb:4
+#: app/design_blocks/favorite_links/views/manage_links.rhtml:3
+msgid "Favorite Links"
+msgstr ""
+
+#: app/controllers/admin/manage_tags_controller.rb:26
 msgid "Tag was successfully created."
 msgstr ""
 
-#: app/controllers/environment_admin/manage_tags_controller.rb:44
+#: app/controllers/admin/manage_tags_controller.rb:44
 msgid "Tag was successfully updated."
 msgstr ""
 
-#: app/controllers/environment_admin/manage_tags_controller.rb:56
+#: app/controllers/admin/manage_tags_controller.rb:56
 msgid "Tag was successfuly destroyed"
 msgstr ""
 
-#: app/controllers/environment_admin/manage_tags_controller.rb:65
+#: app/controllers/admin/manage_tags_controller.rb:65
 msgid "Tag was successfuly approved"
 msgstr ""
 
-#: app/controllers/environment_admin/role_controller.rb:21
+#: app/controllers/admin/role_controller.rb:21
 msgid "Failed to create role"
 msgstr ""
 
-#: app/controllers/environment_admin/role_controller.rb:35
-#: app/controllers/environment_admin/role_controller.rb:45
+#: app/controllers/admin/role_controller.rb:35
+#: app/controllers/admin/role_controller.rb:45
 msgid "Failed to edit role"
 msgstr ""
 
-#: app/controllers/environment_admin/features_controller.rb:13
+#: app/controllers/admin/features_controller.rb:13
 msgid "Features updated successfully."
 msgstr ""
 
-#: app/controllers/environment_admin/environment_role_manager_controller.rb:17
-#: app/controllers/profile_admin/profile_members_controller.rb:17
+#: app/controllers/admin/environment_role_manager_controller.rb:17
+#: app/controllers/my_profile/profile_members_controller.rb:17
 msgid "Roles successfuly updated"
 msgstr ""
 
-#: app/controllers/environment_admin/environment_role_manager_controller.rb:19
-#: app/controllers/profile_admin/profile_members_controller.rb:19
+#: app/controllers/admin/environment_role_manager_controller.rb:19
+#: app/controllers/my_profile/profile_members_controller.rb:19
 msgid "Couldn't change the roles"
 msgstr ""
 
-#: app/controllers/environment_admin/environment_role_manager_controller.rb:45
-#: app/controllers/environment_admin/environment_role_manager_controller.rb:55
+#: app/controllers/admin/environment_role_manager_controller.rb:45
+#: app/controllers/admin/environment_role_manager_controller.rb:55
 msgid "Member succefully unassociated"
 msgstr ""
 
-#: app/controllers/environment_admin/environment_role_manager_controller.rb:47
-#: app/controllers/environment_admin/environment_role_manager_controller.rb:57
+#: app/controllers/admin/environment_role_manager_controller.rb:47
+#: app/controllers/admin/environment_role_manager_controller.rb:57
 msgid "Failed to unassociate member"
 msgstr ""
 
-#: app/controllers/profile_admin_controller.rb:17
-msgid "This action is not available for \"%s\"."
-msgstr ""
-
-#: app/controllers/profile_admin/enterprise_editor_controller.rb:21
+#: app/controllers/my_profile/enterprise_editor_controller.rb:21
 msgid "Could not update the enterprise"
 msgstr ""
 
-#: app/controllers/profile_admin/enterprise_editor_controller.rb:31
+#: app/controllers/my_profile/enterprise_editor_controller.rb:31
 msgid "Enterprise sucessfully erased from the system"
 msgstr ""
 
-#: app/controllers/profile_admin/membership_editor_controller.rb:25
+#: app/controllers/my_profile/membership_editor_controller.rb:25
 msgid ""
 "The enterprise was successfully created, the validation entity will cotact "
 "you as soon as your enterprise is approved"
 msgstr ""
 
-#: app/controllers/profile_admin/membership_editor_controller.rb:28
+#: app/controllers/my_profile/membership_editor_controller.rb:28
 msgid "Enterprise was not created"
+msgstr ""
+
+#: app/controllers/my_profile/manage_products_controller.rb:19
+msgid "Product succesfully created"
+msgstr ""
+
+#: app/controllers/my_profile/manage_products_controller.rb:22
+msgid "Could not create the product"
+msgstr ""
+
+#: app/controllers/my_profile/manage_products_controller.rb:31
+msgid "Product succesfully updated"
+msgstr ""
+
+#: app/controllers/my_profile/manage_products_controller.rb:34
+msgid "Could not update the product"
+msgstr ""
+
+#: app/controllers/my_profile/manage_products_controller.rb:42
+msgid "Product succesfully removed"
+msgstr ""
+
+#: app/controllers/my_profile/manage_products_controller.rb:45
+msgid "Could not remove the product"
 msgstr ""
 
 #: app/controllers/public/account_controller.rb:25
@@ -126,6 +153,38 @@ msgstr ""
 
 #: app/controllers/public/account_controller.rb:72
 msgid "The supplied current password is incorrect."
+msgstr ""
+
+#: app/controllers/my_profile_controller.rb:17
+msgid "This action is not available for \"%s\"."
+msgstr ""
+
+#: app/models/product.rb:-
+msgid "product"
+msgstr ""
+
+#: app/models/product.rb:-
+msgid "Product|Enterprise"
+msgstr ""
+
+#: app/models/product.rb:-
+msgid "Product|Product category"
+msgstr ""
+
+#: app/models/product.rb:-
+msgid "Product|Name"
+msgstr ""
+
+#: app/models/product.rb:-
+msgid "Product|Price"
+msgstr ""
+
+#: app/models/product.rb:-
+msgid "Product|Description"
+msgstr ""
+
+#: app/models/product.rb:-
+msgid "Product|Image"
 msgstr ""
 
 #: app/models/validation_info.rb:-
@@ -231,7 +290,51 @@ msgstr ""
 msgid "Profile|Region"
 msgstr ""
 
-#: app/models/profile.rb:7 app/helpers/application_helper.rb:199
+#: app/models/profile.rb:-
+msgid "article"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "Article|Name"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "Article|Slug"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "Article|Path"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "Article|Parent"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "Article|Body"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "Article|Profile"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "Article|Updated on"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "Article|Created on"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "Article|Version"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "Article|Lock version"
+msgstr ""
+
+#: app/models/profile.rb:7 app/helpers/application_helper.rb:188
 msgid "Edit profile"
 msgstr ""
 
@@ -251,7 +354,7 @@ msgstr ""
 msgid "Edit profile design"
 msgstr ""
 
-#: app/models/profile.rb:63
+#: app/models/profile.rb:59
 msgid "An existing profile cannot be renamed."
 msgstr ""
 
@@ -387,6 +490,10 @@ msgstr ""
 
 #: app/models/domain.rb:20
 msgid "%{fn} must not start with www."
+msgstr ""
+
+#: app/models/image.rb:-
+msgid "image"
 msgstr ""
 
 #: app/models/friendship.rb:-
@@ -757,369 +864,108 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: app/helpers/application_helper.rb:117 app/helpers/application_helper.rb:134
-msgid "My account"
+#: app/helpers/application_helper.rb:117 app/helpers/application_helper.rb:127
+#: app/views/profile_editor/index.rhtml:1
+msgid "My profile"
 msgstr ""
 
 #: app/helpers/application_helper.rb:118
 msgid "My Enterprises"
 msgstr ""
 
-#: app/helpers/application_helper.rb:119 app/helpers/application_helper.rb:137
+#: app/helpers/application_helper.rb:119 app/helpers/application_helper.rb:130
 #: app/views/environment_role_manager/make_admin.rhtml:4
 msgid "Admin"
 msgstr ""
 
-#: app/helpers/application_helper.rb:120
-msgid "About"
-msgstr ""
-
-#: app/helpers/application_helper.rb:126
-msgid "about"
-msgstr ""
-
-#: app/helpers/application_helper.rb:138 app/helpers/application_helper.rb:168
+#: app/helpers/application_helper.rb:131 app/helpers/application_helper.rb:157
 msgid "Logout"
 msgstr ""
 
-#: app/helpers/application_helper.rb:142 app/helpers/application_helper.rb:160
+#: app/helpers/application_helper.rb:135 app/helpers/application_helper.rb:149
 #: app/views/account/login.rhtml:1
 msgid "Login"
 msgstr ""
 
-#: app/helpers/application_helper.rb:164
+#: app/helpers/application_helper.rb:153
 msgid "Not a user yet? Register now!"
 msgstr ""
 
-#: app/helpers/application_helper.rb:182
+#: app/helpers/application_helper.rb:171
 msgid "Features"
 msgstr ""
 
-#: app/helpers/application_helper.rb:183
+#: app/helpers/application_helper.rb:172
 msgid "Edit visual"
 msgstr ""
 
-#: app/helpers/application_helper.rb:184
+#: app/helpers/application_helper.rb:173
 msgid "Manage categories"
 msgstr ""
 
-#: app/helpers/application_helper.rb:185
+#: app/helpers/application_helper.rb:174
 msgid "Manage permissions"
 msgstr ""
 
-#: app/helpers/application_helper.rb:186
+#: app/helpers/application_helper.rb:175
 msgid "Manage validators"
 msgstr ""
 
-#: app/helpers/application_helper.rb:192
+#: app/helpers/application_helper.rb:181
 msgid "New enterprise"
 msgstr ""
 
-#: app/helpers/application_helper.rb:198 app/helpers/application_helper.rb:207
+#: app/helpers/application_helper.rb:187 app/helpers/application_helper.rb:196
 msgid "Edit visual design"
 msgstr ""
 
-#: app/helpers/application_helper.rb:200 app/helpers/application_helper.rb:209
+#: app/helpers/application_helper.rb:189 app/helpers/application_helper.rb:198
 msgid "Manage content"
 msgstr ""
 
-#: app/helpers/application_helper.rb:208
+#: app/helpers/application_helper.rb:197
 msgid "Edit informations"
 msgstr ""
 
-#: app/helpers/application_helper.rb:216
+#: app/helpers/application_helper.rb:205
 #: app/views/account/new_password.rhtml:13
 #: app/views/account/change_password.rhtml:1
 #: app/views/account/change_password.rhtml:14
 msgid "Change password"
 msgstr ""
 
-#: app/helpers/application_helper.rb:222
-msgid "Report bug"
-msgstr ""
-
-#: app/helpers/application_helper.rb:228
+#: app/helpers/application_helper.rb:211
 msgid "Change template"
 msgstr ""
 
-#: app/helpers/application_helper.rb:229
+#: app/helpers/application_helper.rb:212
 msgid "Change block theme"
 msgstr ""
 
-#: app/helpers/application_helper.rb:230
+#: app/helpers/application_helper.rb:213
 msgid "Change icon theme"
 msgstr ""
 
-#: app/helpers/application_helper.rb:268
-msgid "accessibility"
-msgstr ""
-
-#: app/helpers/application_helper.rb:271
-msgid "Accessibility"
-msgstr ""
-
-#: app/helpers/application_helper.rb:276
+#: app/helpers/application_helper.rb:219
 #: app/views/region_validators/region.rhtml:22
 #: app/views/manage_tags/_search_box.rhtml:4
 #: app/views/membership_editor/index.rhtml:4
 msgid "Search"
 msgstr ""
 
-#: app/helpers/application_helper.rb:277
+#: app/helpers/application_helper.rb:220
 msgid "  "
 msgstr ""
 
-#: app/helpers/application_helper.rb:287
+#: app/helpers/application_helper.rb:230
 msgid "%s, version %s"
 msgstr ""
 
-#: app/helpers/application_helper.rb:365
-msgid "No Filter at all"
+#: app/views/cms/view.rhtml:23
+msgid "New subitem"
 msgstr ""
 
-#: app/helpers/application_helper.rb:366
-msgid "RDoc filter"
-msgstr ""
-
-#: app/helpers/application_helper.rb:367
-msgid "Simple"
-msgstr ""
-
-#: app/helpers/application_helper.rb:368
-msgid "Textile"
-msgstr ""
-
-#: app/views/cms/new.rhtml:2
-msgid "New Page"
-msgstr ""
-
-#: app/views/cms/_page_list_item.rhtml:6
-msgid "%d revision"
-msgstr ""
-
-#: app/views/cms/_page_list_item.rhtml:6
-msgid "%d revisions"
-msgstr ""
-
-#: app/views/cms/_page_list_item.rhtml:7
-msgid "add child document"
-msgstr ""
-
-#: app/views/cms/_page_list_item.rhtml:7
-msgid "Add a child to '%s'"
-msgstr ""
-
-#: app/views/cms/_page_list_item.rhtml:8
-msgid "reorder children"
-msgstr ""
-
-#: app/views/cms/_page_list_item.rhtml:8
-msgid "finished reordering"
-msgstr ""
-
-#: app/views/cms/_page_list_item.rhtml:8
-msgid "Reorder children of '%s'"
-msgstr ""
-
-#: app/views/cms/_page_list_item.rhtml:9
-msgid "delete"
-msgstr ""
-
-#: app/views/cms/_page_list_item.rhtml:9
-msgid "This will delete this page, and any children. Are you sure?"
-msgstr ""
-
-#: app/views/cms/_page_list_item.rhtml:9
-msgid "Delete page '%s' and all it's children"
-msgstr ""
-
-#: app/views/cms/_page_list_item.rhtml:26
-msgid "DRAG"
-msgstr ""
-
-#: app/views/cms/_form.rhtml:27
-#: app/design_blocks/favourite_links/views/add_link.rhtml:6
-#: app/design_blocks/favourite_links/views/edit.rhtml:7
-msgid "Title"
-msgstr ""
-
-#: app/views/cms/_form.rhtml:28
-msgid "More..."
-msgstr ""
-
-#: app/views/cms/_form.rhtml:28
-msgid "Less..."
-msgstr ""
-
-#: app/views/cms/_form.rhtml:32
-msgid "Slug"
-msgstr ""
-
-#: app/views/cms/_form.rhtml:38
-msgid "Keywords"
-msgstr ""
-
-#: app/views/cms/_form.rhtml:45
-msgid "Parent"
-msgstr ""
-
-#: app/views/cms/_form.rhtml:47
-msgid "%s is a root page"
-msgstr ""
-
-#: app/views/cms/_form.rhtml:55
-msgid "Content"
-msgstr ""
-
-#: app/views/cms/_form.rhtml:61
-msgid "Filter"
-msgstr ""
-
-#: app/views/cms/_form.rhtml:63
-msgid "Converts plain text into HTML"
-msgstr ""
-
-#: app/views/cms/_form.rhtml:69
-msgid "Created"
-msgstr ""
-
-#: app/views/cms/_form.rhtml:78
-msgid "One revision"
-msgid_plural "%d revisions"
-msgstr[0] ""
-msgstr[1] ""
-
-#: app/views/cms/_form.rhtml:84
-msgid "Loading preview ..."
-msgstr ""
-
-#: app/views/cms/_form.rhtml:85
-msgid "Save Changes"
-msgstr ""
-
-#: app/views/cms/_form.rhtml:85
-msgid "Create Page"
-msgstr ""
-
-#: app/views/cms/_form.rhtml:87
-msgid "Revert"
-msgstr ""
-
-#: app/views/cms/_form.rhtml:90
-msgid ""
-"Changes detected. You will lose all the updates you have made if you "
-"proceed..."
-msgstr ""
-
-#: app/views/cms/_form.rhtml:90 app/views/cms/delete.rhtml:16
-#: app/views/cms/versions.rhtml:25 app/views/role/_form.rhtml:13
-#: app/views/profile_members/change_role.rhtml:13
-#: app/views/enterprise_editor/edit.rhtml:8 app/views/manage_tags/new.rhtml:6
-#: app/views/manage_tags/edit.rhtml:6
-#: app/views/membership_editor/new_enterprise.rhtml:13
-#: app/views/enterprise_registration/basic_information.rhtml:33
-#: app/views/environment_role_manager/change_role.rhtml:12
-#: app/views/categories/_form.rhtml:17
-msgid "Cancel"
-msgstr ""
-
-#: app/views/cms/_form.rhtml:96
-msgid "Page Preview"
-msgstr ""
-
-#: app/views/cms/_form.rhtml:98
-msgid "Loading Preview..."
-msgstr ""
-
-#: app/views/cms/_form.rhtml:103
-msgid "Close Preview"
-msgstr ""
-
-#: app/views/cms/_form.rhtml:103 app/views/cms/versions.rhtml:24
-msgid "or"
-msgstr ""
-
-#: app/views/cms/_form.rhtml:103
-msgid "Back to top"
-msgstr ""
-
-#: app/views/cms/reorder.rhtml:1
-msgid "Reorder Pages"
-msgstr ""
-
-#: app/views/cms/reorder.rhtml:3
-msgid "\"%s\" child pages:"
-msgstr ""
-
-#: app/views/cms/reorder.rhtml:19
-msgid "Move Up"
-msgstr ""
-
-#: app/views/cms/reorder.rhtml:20
-msgid "Move Down"
-msgstr ""
-
-#: app/views/cms/reorder.rhtml:29
-msgid "Finished"
-msgstr ""
-
-#: app/views/cms/delete.rhtml:6
-msgid "Are you sure you want to delete the page titled \"%s\"?"
-msgstr ""
-
-#: app/views/cms/delete.rhtml:8
-msgid "It has %s child pages that will also be deleted..."
-msgstr ""
-
-#: app/views/cms/delete.rhtml:14
-msgid "Yes, Delete The Page"
-msgstr ""
-
-#: app/views/cms/versions.rhtml:1
-msgid "Page Revisions"
-msgstr ""
-
-#: app/views/cms/versions.rhtml:7
-msgid "View Version:"
-msgstr ""
-
-#: app/views/cms/versions.rhtml:11
-msgid "Version %s"
-msgstr ""
-
-#: app/views/cms/versions.rhtml:14 app/views/cms/versions.rhtml:35
-msgid "Title:"
-msgstr ""
-
-#: app/views/cms/versions.rhtml:15 app/views/cms/versions.rhtml:36
-msgid "Slug:"
-msgstr ""
-
-#: app/views/cms/versions.rhtml:17 app/views/cms/versions.rhtml:38
-msgid "Keywords:"
-msgstr ""
-
-#: app/views/cms/versions.rhtml:23
-msgid "Set As Current Version"
-msgstr ""
-
-#: app/views/cms/versions.rhtml:32
-msgid "Current Version"
-msgstr ""
-
-#: app/views/cms/edit.rhtml:2
-msgid "Edit Page"
-msgstr ""
-
-#: app/views/cms/index.rhtml:2
-msgid "Clear Page Cache"
-msgstr ""
-
-#: app/views/cms/index.rhtml:6
-msgid "Articles"
-msgstr ""
-
-#: app/views/cms/index.rhtml:17
+#: app/views/cms/view.rhtml:25
 msgid "New article"
 msgstr ""
 
@@ -1133,6 +979,7 @@ msgstr ""
 
 #: app/views/role/_form.rhtml:12
 #: app/views/profile_members/change_role.rhtml:12
+#: app/views/manage_products/_form.rhtml:11
 #: app/views/features/_features_table.rhtml:15
 #: app/views/environment_role_manager/change_role.rhtml:11
 msgid "Save changes"
@@ -1140,6 +987,17 @@ msgstr ""
 
 #: app/views/role/_form.rhtml:12
 msgid "Create role"
+msgstr ""
+
+#: app/views/role/_form.rhtml:13
+#: app/views/profile_members/change_role.rhtml:13
+#: app/views/enterprise_editor/edit.rhtml:8 app/views/manage_tags/new.rhtml:6
+#: app/views/manage_tags/edit.rhtml:6
+#: app/views/membership_editor/new_enterprise.rhtml:13
+#: app/views/enterprise_registration/basic_information.rhtml:33
+#: app/views/environment_role_manager/change_role.rhtml:12
+#: app/views/categories/_form.rhtml:17
+msgid "Cancel"
 msgstr ""
 
 #: app/views/role/show.rhtml:3
@@ -1250,6 +1108,74 @@ msgstr[1] ""
 msgid "Validators by Region"
 msgstr ""
 
+#: app/views/manage_products/new.rhtml:1
+#: app/views/manage_products/index.rhtml:3
+msgid "New product"
+msgstr ""
+
+#: app/views/manage_products/_form.rhtml:4
+msgid "Name:"
+msgstr ""
+
+#: app/views/manage_products/_form.rhtml:5
+msgid "Price:"
+msgstr ""
+
+#: app/views/manage_products/_form.rhtml:6
+msgid "Description:"
+msgstr ""
+
+#: app/views/manage_products/_form.rhtml:7
+msgid "Category:"
+msgstr ""
+
+#: app/views/manage_products/_form.rhtml:9
+msgid "Image:"
+msgstr ""
+
+#: app/views/manage_products/_form.rhtml:11
+msgid "Create product"
+msgstr ""
+
+#: app/views/manage_products/show.rhtml:4
+#: app/views/manage_products/index.rhtml:7
+msgid "Price: "
+msgstr ""
+
+#: app/views/manage_products/show.rhtml:5
+msgid "Description: "
+msgstr ""
+
+#: app/views/manage_products/show.rhtml:6
+msgid "Category: "
+msgstr ""
+
+#: app/views/manage_products/show.rhtml:6
+msgid "Uncategorized product"
+msgstr ""
+
+#: app/views/manage_products/show.rhtml:8
+#: app/views/manage_products/index.rhtml:8
+msgid "edit"
+msgstr ""
+
+#: app/views/manage_products/show.rhtml:9
+#: app/views/manage_products/index.rhtml:9
+msgid "destroy"
+msgstr ""
+
+#: app/views/manage_products/show.rhtml:11
+msgid "back"
+msgstr ""
+
+#: app/views/manage_products/edit.rhtml:1
+msgid "Editing"
+msgstr ""
+
+#: app/views/manage_products/index.rhtml:1
+msgid "Listing products"
+msgstr ""
+
 #: app/views/content_viewer/view_page.rhtml:4
 #: app/views/manage_tags/list.rhtml:17
 msgid "Up"
@@ -1260,14 +1186,14 @@ msgstr ""
 msgid "There is no such page: %s"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:29
-#: app/views/layouts/comatose_admin.rhtml:29
+#: app/views/layouts/application.rhtml:33
+#: app/views/layouts/comatose_admin.rhtml:33
 msgid "Image for Loading..."
 msgstr ""
 
-#: app/views/layouts/application.rhtml:34
-#: app/views/layouts/comatose_admin.rhtml:34
-msgid "Go Content"
+#: app/views/layouts/application.rhtml:39
+#: app/views/layouts/comatose_admin.rhtml:39
+msgid "Go to content"
 msgstr ""
 
 #: app/views/layouts/not_found.rhtml:5
@@ -1664,7 +1590,11 @@ msgid "Password"
 msgstr ""
 
 #: app/views/account/login.rhtml:20
-msgid "I forgot my password"
+msgid "I forgot my password!"
+msgstr ""
+
+#: app/views/account/login.rhtml:24
+msgid "I want to be an user!"
 msgstr ""
 
 #: app/views/account/password_recovery_sent.rhtml:1
@@ -1842,10 +1772,6 @@ msgstr ""
 msgid "Access denied"
 msgstr ""
 
-#: app/views/shared/categories_menu.rhtml:5
-msgid "Home"
-msgstr ""
-
 #: app/views/profile_editor/person_info.rhtml:1
 msgid "Edit person info"
 msgstr ""
@@ -1856,21 +1782,38 @@ msgstr ""
 
 #: app/views/profile_editor/person_info.rhtml:11
 #: app/views/categories/_form.rhtml:16
-#: app/design_blocks/favourite_links/views/add_link.rhtml:10
-#: app/design_blocks/favourite_links/views/edit.rhtml:26
+#: app/design_blocks/favorite_links/views/add_link.rhtml:10
+#: app/design_blocks/favorite_links/views/edit.rhtml:26
 msgid "Save"
 msgstr ""
 
-#: app/views/profile_editor/index.rhtml:1
-msgid "My profile"
+#: app/views/profile_editor/index.rhtml:8
+msgid "Edit Profile"
 msgstr ""
 
-#: app/views/profile_editor/index.rhtml:13
+#: app/views/profile_editor/index.rhtml:10
+#: app/views/profile_editor/index.rhtml:21
 msgid "Edit Visual Design"
 msgstr ""
 
-#: app/views/profile_editor/index.rhtml:15
+#: app/views/profile_editor/index.rhtml:12
+msgid "Manage Content"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:14
+msgid "Change Password"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:16
+msgid "Manage Products"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:22
 msgid "Menage content"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:25
+msgid "My organizations"
 msgstr ""
 
 #: app/views/enterprise_registration/basic_information.rhtml:27
@@ -1937,7 +1880,7 @@ msgid "Add subcategory"
 msgstr ""
 
 #: app/views/categories/_category.rhtml:9
-#: app/design_blocks/favourite_links/views/manage_links.rhtml:18
+#: app/design_blocks/favorite_links/views/manage_links.rhtml:18
 msgid "Remove"
 msgstr ""
 
@@ -1957,33 +1900,38 @@ msgstr ""
 msgid "Categories"
 msgstr ""
 
-#: app/design_blocks/favourite_links/views/add_link.rhtml:1
-#: app/design_blocks/favourite_links/views/edit.rhtml:2
-msgid "Editing Favourite Links"
+#: app/design_blocks/favorite_links/views/add_link.rhtml:1
+#: app/design_blocks/favorite_links/views/edit.rhtml:2
+msgid "Editing Favorite Links"
 msgstr ""
 
-#: app/design_blocks/favourite_links/views/manage_links.rhtml:4
+#: app/design_blocks/favorite_links/views/add_link.rhtml:6
+#: app/design_blocks/favorite_links/views/edit.rhtml:7
+msgid "Title"
+msgstr ""
+
+#: app/design_blocks/favorite_links/views/manage_links.rhtml:4
 msgid "Add Link"
 msgstr ""
 
-#: app/design_blocks/favourite_links/views/manage_links.rhtml:8
-#: app/design_blocks/favourite_links/views/index.rhtml:3
+#: app/design_blocks/favorite_links/views/manage_links.rhtml:8
+#: app/design_blocks/favorite_links/views/index.rhtml:4
 msgid "Previous"
 msgstr ""
 
-#: app/design_blocks/favourite_links/views/manage_links.rhtml:11
-#: app/design_blocks/favourite_links/views/index.rhtml:6
+#: app/design_blocks/favorite_links/views/manage_links.rhtml:11
+#: app/design_blocks/favorite_links/views/index.rhtml:7
 msgid "Next"
 msgstr ""
 
-#: app/design_blocks/favourite_links/views/edit.rhtml:12
+#: app/design_blocks/favorite_links/views/edit.rhtml:12
 msgid "Display header?"
 msgstr ""
 
-#: app/design_blocks/favourite_links/views/edit.rhtml:17
+#: app/design_blocks/favorite_links/views/edit.rhtml:17
 msgid "Display title?"
 msgstr ""
 
-#: app/design_blocks/favourite_links/views/edit.rhtml:22
+#: app/design_blocks/favorite_links/views/edit.rhtml:22
 msgid "Max number of links"
 msgstr ""

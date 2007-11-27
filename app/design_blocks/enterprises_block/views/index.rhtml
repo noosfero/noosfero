@@ -1,0 +1,5 @@
+<ul class='enterprises_list_block'>
+  <% @enterprises.each do |e| %>
+    <li> <%= link_to_homepage(content_tag('span', e.name), e.identifier) %> </li>
+  <% end %>
+</ul>

@@ -1,5 +1,7 @@
 <h2><%= _('My profile') %></h2>
 
+<%= link_to (@profile.image ? image_tag( @profile.image.public_filename(:thumb)) : _('Put image')), :action => 'change_image'  %>
+
 <%= display_profile_info(profile) %>
 
 

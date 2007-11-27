@@ -67,7 +67,7 @@ ActionController::Routing::Routes.draw do |map|
   ## Test controllers.
   ## FIXME: this should not be needed
   ######################################################
-  map.connect 'test/:controller/:action/:id', :controller => /.*test.*/
+  map.connect 'test/:controller/:action/:id'  #, :controller => /.*test.*/
 
   # *content viewing*
   # XXX this route must come last so other routes have priority over it.

@@ -8,6 +8,6 @@
   <% end %>
   <%= hidden_field_tag 'person', @admin.id %>
 
-  <%= submit_tag  _('Save changes') %>
+  <%= display_submit_tag  _('Save changes') %>
   <%= link_to _('Cancel'), :action => 'index' %>
 <% end %>

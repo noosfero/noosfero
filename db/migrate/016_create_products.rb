@@ -6,6 +6,7 @@ class CreateProducts < ActiveRecord::Migration
       t.column :name,                 :string
       t.column :price,                :decimal
       t.column :description,          :text
+      t.column :image,                :string
     end
   end
 

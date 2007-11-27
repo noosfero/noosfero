@@ -11,6 +11,7 @@ class ProfileEditorController < MyProfileController
     %w[
        FavoriteLinksProfile
        ListBlock
+       EnterprisesBlock
       ]
    end
 
@@ -32,6 +33,19 @@ class ProfileEditorController < MyProfileController
     else
       @info = profile.info
       render :action => @info.class.name.underscore
+    end
+  end
+
+  def change_image
+    @image = @profile.image ? @profile.image : @profile.build_image 
+    if request.post?
+      if @profile.image.update_attributes(params[:image])
+        flash[:notice] = _('Image successfully uploaded')
+        redirect_to :action => 'index'
+      else
+        flash[:notice] = _('Could not upload image')
+        render :action => 'change_imange'
+      end
     end
   end
 end
