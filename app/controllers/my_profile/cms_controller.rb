@@ -24,13 +24,4 @@ class CmsController < MyProfileController
 
   protected
 
-  def profile
-    Profile.find_by_identifier(params[:profile]) 
-  end
-
-  def user
-    current_user.person
-  end
-
-
 end
