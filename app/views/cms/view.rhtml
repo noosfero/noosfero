@@ -30,6 +30,7 @@
 <%# display the article content %>
 
 <% if @article %>
+  <%= link_to_edit_article(@article) %>
   <h2><%= @article.name %></h2>
   <%= @article.to_html %>
 <% end %>

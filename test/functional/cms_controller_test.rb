@@ -42,15 +42,42 @@ class CmsControllerTest < Test::Unit::TestCase
   end
 
   should 'be able to edit a document' do
-    flunk 'not yet'
+    flunk 'pending'
   end
 
   should 'be able to save a save a document' do
-    flunk 'not yet'
+    flunk 'pending'
   end
 
   should 'be able to set home page' do
     flunk 'pending'
+  end
+
+  should 'list available editors' do
+    editors = [ "#{RAILS_ROOT}/app/controllers/my_profile/cms/bli.rb", "#{RAILS_ROOT}/app/controllers/my_profile/cms/blo.rb" ]
+    Dir.expects(:glob).with("#{RAILS_ROOT}/app/controllers/my_profile/cms/*.rb").returns(editors)
+    assert_equal editors, CmsController.available_editors
+  end
+
+  should 'list available types' do
+    editors = [ "#{RAILS_ROOT}/app/controllers/my_profile/cms/text_html.rb", "#{RAILS_ROOT}/app/controllers/my_profile/cms/image.rb" ]
+    CmsController.expects(:available_editors).returns(editors)
+    assert_equal [ 'text/html', 'image' ], CmsController.available_types
+  end
+
+  should 'made the editor actions available' do
+    # ASSUMING that 'text/html' is always available and has 'new' and 'edit'
+    assert CmsController.instance_methods.include?('text_html_new')
+    assert CmsController.instance_methods.include?('text_html_edit')
+  end
+
+  should 'edit by redirecting to the correct editor depending on the mime-type' do
+    a = profile.articles.build(:name => 'test document')
+    a.save!
+    assert_equal 'text/html', a.mime_type
+
+    get :edit, :profile => profile.identifier, :id => a.id
+    assert_redirected_to :action => 'text_html_edit', :id => a.id
   end
 
 end

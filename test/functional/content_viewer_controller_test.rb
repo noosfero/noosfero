@@ -12,17 +12,27 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     @controller = ContentViewerController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
+
+    @profile = create_user('testinguser').person
+  end
+  attr_reader :profile
+
+  def test_should_display_page
+    page = profile.articles.build(:name => 'test')
+    page.save!
+
+    uses_host 'anhetegua.net'
+    get :view_page, :profile => profile.identifier, :page => [ 'test' ]
+    assert_response :success
+    assert_equal page, assigns(:page)
   end
 
   def test_should_display_homepage
-    uses_host 'anhetegua.net'
+    flunk 'pending'
+  end
 
-    a = Article.new
-    Article.expects(:find_by_path).with('ze').returns(a)
-
-    get :view_page, :profile => 'ze', :page => []
-    assert_response :success
-    assert_equal a, assigns(:page)
+  def test_should_display_something_else_for_empty_homepage
+    flunk 'pending'
   end
 
   def test_should_get_not_found_error_for_unexisting_page

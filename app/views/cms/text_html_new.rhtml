@@ -1,0 +1,13 @@
+<%= error_messages_for 'article' %>
+
+<% labelled_form_for 'article', @article do |f| %>
+
+  <%= hidden_field_tag 'parent_id', params[:parent_id] %>
+
+  <%= f.text_field 'name' %>
+  
+  <%= f.text_area('body') %>
+
+  <%= submit_tag _('Save') %>
+
+<% end %>

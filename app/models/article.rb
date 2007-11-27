@@ -31,4 +31,12 @@ class Article < ActiveRecord::Base
     'text-html'
   end
 
+  def mime_type
+    'text/html'
+  end
+
+  def title
+    name
+  end
+
 end
