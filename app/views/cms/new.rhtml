@@ -1,3 +1,9 @@
+<p>
+  <%= _('Choose the type of article:') %>
+</p>
+
+<ul>
 <% CmsController.available_types.each do |item| %>
-  <%= link_to_new_article(item) %>
+  <li><%= link_to_new_article(item) %></li>
 <% end %>
+</ul>

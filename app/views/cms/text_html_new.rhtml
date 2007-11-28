@@ -2,7 +2,7 @@
 
 <% labelled_form_for 'article', @article do |f| %>
 
-  <%= hidden_field_tag 'parent_id', params[:parent_id] %>
+  <%= hidden_field_tag('parent_id', params[:parent_id]) if params[:parent_id] %>
 
   <%= f.text_field 'name' %>
   

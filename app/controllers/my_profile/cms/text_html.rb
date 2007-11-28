@@ -2,7 +2,9 @@ class CmsController
 
   def text_html_new
     @article = Article.new(params[:article])
-    @article.parent = profile.articles.find(params[:parent_id])
+    if params[:parent_id]
+      @article.parent = profile.articles.find(params[:parent_id])
+    end
     @article.profile = profile
     if request.post?
       if @article.save

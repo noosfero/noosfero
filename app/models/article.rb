@@ -36,7 +36,7 @@ class Article < ActiveRecord::Base
   end
 
   def mime_type_description
-    _('Text document')
+    _('HTML Text document')
   end
 
   def title
