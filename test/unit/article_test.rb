@@ -70,4 +70,12 @@ class ArticleTest < Test::Unit::TestCase
     assert_equal 'text-html', Article.new.icon_name
   end
 
+  should 'provide a (translatable) description' do
+    result = 'the description'
+
+    a = Article.new
+    a.expects(:_).returns(result)
+    assert_same result, a.mime_type_description
+  end
+
 end

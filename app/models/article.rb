@@ -35,6 +35,10 @@ class Article < ActiveRecord::Base
     'text/html'
   end
 
+  def mime_type_description
+    _('Text document')
+  end
+
   def title
     name
   end
