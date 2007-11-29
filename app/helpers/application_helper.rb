@@ -314,4 +314,39 @@ module ApplicationHelper
     content_tag('div', link_to(image_tag(icon, :alt => title, :title => title) + content_tag('div', title), url), :class => 'file-manager-button')
   end
 
+  def hide(id)
+    "Element.hide(#{id.inspect});"
+  end
+
+  def show(id)
+    "Element.show(#{id.inspect});"
+  end
+
+  def toggle_panel(hide_label, show_label, id)
+    hide_button_id = id + "-hide"
+    show_button_id = id + "-show"
+
+    result = ""
+    result << button_to_function('close', hide_label, hide(id) + hide(hide_button_id) + show(show_button_id), :id => hide_button_id, :class => 'hide-button with_text')
+    result < " "
+    result << button_to_function('open', show_label, show(id) + show(hide_button_id) + hide(show_button_id), :id => show_button_id, :class => 'show-button with_text', :style => 'display: none;' )
+
+    result
+  end
+
+  def button(type, label, url, html_options = {})
+    design_display_button(type, label, url, { :class => 'with_text' }.merge(html_options))
+  end
+
+  def button_to_function(type, label, js_code, html_options = {})
+    #design_display_function_button(type, label, js_code, { :class => 'with_text' }.merge(html_options))
+    html_options[:class] = "" unless html_options[:class]
+    html_options[:class] << " button #{type}"
+    link_to_function(label, js_code, html_options)
+  end
+
+  def icon(icon_name)
+    design_display_icon(icon_name, :style => 'width: 24px; height: 24px; display: inline;')
+  end
+
 end

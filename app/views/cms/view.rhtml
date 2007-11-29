@@ -1,37 +1,53 @@
 <% if @article %>
-  <h2>
+  <h2 id='article-full-path'>
+    <%= icon('cms') %>
     <%= link_to profile.identifier, :action => 'index' %>
     <%= @article.hierarchy.map {|item| " / " + ((item == @article) ? item.name : link_to(item.name, :id => item.id)) } %>
   </h2>
+<% else %>
+  <h2>
+    <%= icon('cms') %>
+    <%= _('Content management') %>
+  </h2>
+  <div style='margin-bottom: 1em;'>
+    <%= button('new', _('New article'), :action => 'new') %>
+  </div>
 <% end %>
 
-<%# list the children  %>
+<%# subitem %>
+<%= toggle_panel(_('Hide subitems'), _('Show subitems'), 'article-subitems') unless @subitems.empty? %>
+<div id='article-subitems'>
+    <div class='file-manager-title'><%= @article ? _('Subitems') : _('Articles') %></div>
+    <div class='file-manager-small'>
+      <% unless @subitems.empty? %>
+        <ul>
+          <% @subitems.each do |item| %>
+            <li>
+            <%= file_manager_button(item.name, "icons-mime/#{item.icon_name}", :action => 'view', :id => item.id) %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
 
-<div class='article-children'>
+      <% if @article %>
+        <div class='file-manager-controls'>
+          <%= button('new',  _('New subitem'), :action => 'new', :parent_id => @article.id) %>
+        </div>
+      <% end %>
 
-  <div class='file-manager-small'>
-    <ul>
-    <% @subitems.each do |item| %>
-      <li>
-      <%= file_manager_button(item.name, "icons-mime/#{item.icon_name}", :action => 'view', :id => item.id) %>
-      </li>
-    <% end %>
-    </ul>
-  </div>
-  
-  <% if @article %>
-    <%= link_to _('New subitem'), :action => 'new', :parent_id => @article.id %>
-  <% else %>
-    <%= link_to _('New article'), :action => 'new' %>
-  <% end %>
-
-</div>
+    </div>
+</div> <!-- article-children -->
 
 <%# display the article content %>
+<div id='article-contents'>
+  <% if @article %>
+    <h2><%= @article.name %></h2>
+    <div id='article-controls'>
 
-<% if @article %>
-  <%= link_to_edit_article(@article) %>
-  <%= link_to _('Use as homepage'), { :action => 'set_home_page', :id => @article }, { :method => :post  } %>
-  <h2><%= @article.name %></h2>
-  <%= @article.to_html %>
-<% end %>
+      <%= link_to_edit_article(@article) %>
+
+      <%= button('home', _('Use as homepage'), { :action => 'set_home_page', :id => @article }, { :method => :post  }) %>
+    </div>
+    <%= @article.to_html %>
+  <% end %>
+</div>

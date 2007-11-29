@@ -3,6 +3,8 @@ class CmsController < MyProfileController
   # FIXME add the access control again
   # protect 'post_content', :profile, :only => [:edit, :new, :reorder, :delete]
 
+  design :holder => :profile
+
   include CmsHelper
 
   def view
@@ -11,7 +13,7 @@ class CmsController < MyProfileController
   end
 
   def index
-    @article = profile.home_page
+    @article = nil
     @subitems = profile.top_level_articles
     render :action => 'view'
   end

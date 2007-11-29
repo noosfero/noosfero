@@ -133,8 +133,29 @@ div.file-manager-button a:hover {
 }
 
 /************* file manager (small) style *****************/
-div.file-manager-small li {
+.file-manager-small {
+  background: white;
+  border: 1px solid gray;
+}
+
+.file-manager-title {
+  font-weight: bold;
+  border: 1px solid gray;
+  border-bottom: none;
+  border-top: none;
+  padding: 2px;
+  background: #579;
+  color: white;
+}
+
+.file-manager-small ul {
+  padding: 5px;
+  margin: 0px;
+}
+
+.file-manager-small li {
   list-style: none;
+  padding: 2px;
 }
 
 div.file-manager-small
@@ -160,3 +181,44 @@ div.file-manager-button a:hover {
   color: #006;
 }
 
+.file-manager-small {
+  position: relative;
+}
+
+.file-manager-small .file-manager-controls {
+  border-top: 1px solid gray;
+  padding: 4px;
+}
+
+.file-manager-small .file-manager-controls * {
+  text-align: right;
+}
+
+/*************************** cms stuff ******************************/
+
+#article-subitems-hide.hide-button {
+  float: right;
+  margin-top: 2px;
+  margin-right: 4px;
+  color: white;
+}
+#article-subitems-hide.hide-button:hover {
+  background-color: transparent;
+  color: black;
+}
+
+#article-full-path {
+  border: 1px solid gray;
+  margin: 0px;
+  font-size: 120%;
+  overflow: auto;
+  padding: 2px;
+  background: #abc;
+}
+
+#article-controls {
+  background: white;
+  border: 1px solid gray;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}

@@ -1,0 +1,20 @@
+.button {
+  border: none;
+  margin-left: 5px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: 0px;
+
+  padding-left: 25px;
+}
+
+a.button , a.button:visited {
+  color: black;
+  text-decoration: none;
+}
+
+a.button:hover {
+  background-color: #ace;
+}
+
+

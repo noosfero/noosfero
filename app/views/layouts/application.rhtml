@@ -14,6 +14,7 @@
     <%= stylesheet_link_tag 'common' %>
     <%= stylesheet_link_tag 'help' %>
     <%= stylesheet_link_tag 'menu' %>
+    <%= stylesheet_link_tag 'button' %>
     <%= javascript_include_tag 'menu' %>
     <%# cms stuff %>
     <% if params[:controller] == 'cms' %>
@@ -70,13 +71,8 @@
           <div id='header_content'>
           </div>
 
-          <% if params[:controller] == 'cms' %>
-            <div id='boxes'><a name="content"> </a>
-              <%= yield %>
-            </div>
-          <% else %>
-            <%= design_display(yield) %>
-          <% end %>
+          <%= design_display(yield) %>
+
         </div><!-- id="content" -->
         <div id="footer_content"><!-- Rodape do onteudo -->
         </div><!-- id="footer_content" -->

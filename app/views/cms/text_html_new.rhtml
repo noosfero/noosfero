@@ -6,9 +6,9 @@
 
   <%= hidden_field_tag('parent_id', params[:parent_id]) if params[:parent_id] %>
 
-  <%= f.text_field 'name' %>
+  <%= f.text_field 'name', :size => '64' %>
   
-  <%= f.text_area('body') %>
+  <%= f.text_area('body', :cols => 64) %>
 
   <%= submit_tag _('Save') %>
 
