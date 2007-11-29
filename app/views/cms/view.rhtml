@@ -31,6 +31,7 @@
 
 <% if @article %>
   <%= link_to_edit_article(@article) %>
+  <%= link_to _('Use as homepage'), { :action => 'set_home_page', :id => @article }, { :method => :post  } %>
   <h2><%= @article.name %></h2>
   <%= @article.to_html %>
 <% end %>
