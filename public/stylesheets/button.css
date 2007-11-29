@@ -6,6 +6,10 @@
   background-position: 0px;
 
   padding-left: 25px;
+
+  float: left;
+  display: block;
+  height: 26px;
 }
 
 a.button , a.button:visited {
@@ -16,5 +20,4 @@ a.button , a.button:visited {
 a.button:hover {
   background-color: #ace;
 }
-
 

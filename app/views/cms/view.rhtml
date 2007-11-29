@@ -9,45 +9,46 @@
     <%= icon('cms') %>
     <%= _('Content management') %>
   </h2>
-  <div style='margin-bottom: 1em;'>
+
+  <% button_bar(:style => 'margin-bottom: 1em;') do %>
     <%= button('new', _('New article'), :action => 'new') %>
-  </div>
+  <% end %>
+
 <% end %>
 
 <%# subitem %>
+
 <%= toggle_panel(_('Hide subitems'), _('Show subitems'), 'article-subitems') unless @subitems.empty? %>
+  
 <div id='article-subitems'>
-    <div class='file-manager-title'><%= @article ? _('Subitems') : _('Articles') %></div>
-    <div class='file-manager-small'>
-      <% unless @subitems.empty? %>
-        <ul>
-          <% @subitems.each do |item| %>
-            <li>
-            <%= file_manager_button(item.name, "icons-mime/#{item.icon_name}", :action => 'view', :id => item.id) %>
-            </li>
-          <% end %>
-        </ul>
-      <% end %>
+  <div class='file-manager-title'><%= @article ? _('Subitems') : _('Articles') %></div>
+  <div class='file-manager-small'>
+    <% unless @subitems.empty? %>
+      <ul>
+        <% @subitems.each do |item| %>
+          <li>
+          <%= file_manager_button(item.name, "icons-mime/#{item.icon_name}", :action => 'view', :id => item.id) %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
 
-      <% if @article %>
-        <div class='file-manager-controls'>
-          <%= button('new',  _('New subitem'), :action => 'new', :parent_id => @article.id) %>
-        </div>
+    <% if @article %>
+      <% button_bar(:class => 'file-manager-controls') do %>
+        <%= button('new',  _('New subitem'), :action => 'new', :parent_id => @article.id) %>
       <% end %>
-
-    </div>
+    <% end %>
+  </div>
 </div> <!-- article-children -->
 
 <%# display the article content %>
-<div id='article-contents'>
+<div id='article-contents' style='clear: left;'>
   <% if @article %>
     <h2><%= @article.name %></h2>
-    <div id='article-controls'>
-
+    <% button_bar(:id => 'article-controls') do %>
       <%= link_to_edit_article(@article) %>
-
       <%= button('home', _('Use as homepage'), { :action => 'set_home_page', :id => @article }, { :method => :post  }) %>
-    </div>
+    <% end %>
     <%= @article.to_html %>
   <% end %>
 </div>

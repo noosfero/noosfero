@@ -346,7 +346,11 @@ module ApplicationHelper
   end
 
   def icon(icon_name)
-    design_display_icon(icon_name, :style => 'width: 24px; height: 24px; display: inline;')
+    design_display_icon(icon_name)
+  end
+
+  def button_bar(options = {}, &block)
+    concat(content_tag('div', capture(&block) + tag('br', :style => 'clear: left;'), options), block.binding)
   end
 
 end
