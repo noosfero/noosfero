@@ -78,4 +78,19 @@ class ArticleTest < Test::Unit::TestCase
     assert_same result, a.mime_type_description
   end
 
+  should 'not accept articles with same slug under the same level' do
+    profile = create_user('testinguser').person
+    a1 = profile.articles.build(:name => 'test')
+    a1.save!
+
+    a2 = profile.articles.build(:name => 'test')
+    a2.valid?
+    assert a2.errors.invalid?(:slug)
+
+    a3 = profile.articles.build(:name => 'test')
+    a3.parent = a1
+    a3.valid?
+    assert !a3.errors.invalid?(:slug)
+  end
+
 end

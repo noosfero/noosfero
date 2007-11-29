@@ -3,6 +3,8 @@ class Article < ActiveRecord::Base
   belongs_to :profile
   validates_presence_of :profile_id, :name, :slug, :path
 
+  validates_uniqueness_of :slug, :scope => ['profile_id', 'parent_id'], :message => _('%{fn} (the code generated from the article name) is already being used by another article.')
+
   acts_as_taggable  
 
   acts_as_filesystem
