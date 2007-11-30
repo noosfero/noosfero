@@ -24,6 +24,7 @@ class CmsController < MyProfileController
       @article.last_changed_by = user
       if @article.update_attributes(params[:article])
         redirect_to :action => 'view', :id => @article.id
+        return
       end
     end
 

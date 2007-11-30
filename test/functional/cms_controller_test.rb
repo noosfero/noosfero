@@ -91,7 +91,18 @@ class CmsControllerTest < Test::Unit::TestCase
   end
 
   should 'set last_changed_by when updating article' do
-    flunk 'pending'
+    other_person = create_user('otherperson').person
+
+    a = profile.articles.build(:name => 'my article')
+    a.last_changed_by = other_person
+    a.save!
+    
+    login_as(profile.identifier)
+    post :edit, :profile => profile.identifier, :id => a.id, :article => { :body => 'new content for this article' }
+
+    a.reload
+
+    assert_equal profile, a.last_changed_by
   end
 
   should 'list available editors' do
