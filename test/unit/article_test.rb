@@ -79,18 +79,29 @@ class ArticleTest < Test::Unit::TestCase
   end
 
   should 'not accept articles with same slug under the same level' do
+
+    # top level articles first
     profile = create_user('testinguser').person
     a1 = profile.articles.build(:name => 'test')
     a1.save!
 
+    # cannot add another top level article with same slug
     a2 = profile.articles.build(:name => 'test')
     a2.valid?
     assert a2.errors.invalid?(:slug)
 
+    # now create a child of a1
     a3 = profile.articles.build(:name => 'test')
     a3.parent = a1
     a3.valid?
     assert !a3.errors.invalid?(:slug)
+    a3.save!
+
+    # cannot add another child of a1 with same slug
+    a4 = profile.articles.build(:name => 'test')
+    a4.parent = a1
+    a4.valid?
+    assert a4.errors.invalid?(:slug)
   end
 
 end
