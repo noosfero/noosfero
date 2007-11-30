@@ -81,7 +81,13 @@ class CmsControllerTest < Test::Unit::TestCase
   end
 
   should 'set last_changed_by when creating article' do
-    flunk 'pending'
+    login_as(profile.identifier)
+
+    post :new, :profile => profile.identifier, :article => { :name => 'changed by me', :body => 'content ...' }
+
+    a = profile.articles.find_by_path('changed-by-me')
+    assert_not_nil a
+    assert_equal profile, a.last_changed_by
   end
 
   should 'set last_changed_by when updating article' do
