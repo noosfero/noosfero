@@ -51,7 +51,7 @@
 
       <ul>
         <li>
-        <%= _('"%{article}", last changed by %{author}') % { :article => @article.name, :author => (@article.last_changed_by.name || _('Unknown User')) } %>
+        <%= _('"%{article}", last changed by %{author}') % { :article => @article.name, :author => (@article.last_changed_by ? @article.last_changed_by.name : _('Unknown User')) } %>
         </li>
         <li>
         <%= _('Public address of this article: %s') % (@article.public_path) %>
