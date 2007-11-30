@@ -67,7 +67,17 @@ class CmsControllerTest < Test::Unit::TestCase
   end
 
   should 'be able to set home page' do
-    flunk 'pending'
+    a = profile.articles.build(:name => 'my new home page')
+    a.save!
+    
+    assert_not_equal a, profile.home_page
+
+    post :set_home_page, :profile => profile.identifier, :id => a.id
+
+    assert_redirected_to :action => 'view', :id => a.id
+
+    profile.reload
+    assert_equal a, profile.home_page
   end
 
   should 'set last_changed_by when creating article' do

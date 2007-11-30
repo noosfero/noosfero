@@ -55,7 +55,7 @@ class CmsController < MyProfileController
     @article = profile.articles.find(params[:id])
     profile.home_page = @article
     profile.save!
-    redirect_to :back
+    redirect_to :action => 'view', :id => @article.id
   end
 
   protected
