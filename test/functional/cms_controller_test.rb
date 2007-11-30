@@ -55,7 +55,9 @@ class CmsControllerTest < Test::Unit::TestCase
   end
 
   should 'be able to create a new document' do
-    flunk 'pending'
+    get :new, :profile => profile.identifier
+    assert_template 'text_html_new'
+    assert_tag :tag => 'form', :attributes => { :action => "/myprofile/#{profile.identifier}/cms/new", :method => /post/i }
   end
 
   should 'be able to save a save a document' do
