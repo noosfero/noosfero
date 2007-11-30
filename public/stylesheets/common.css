@@ -146,6 +146,7 @@ div.file-manager-button a:hover {
   padding: 2px;
   background: #579;
   color: white;
+  height: 24px;
 }
 
 .file-manager-small ul {
@@ -198,7 +199,6 @@ div.file-manager-button a:hover {
 
 #article-subitems-hide.hide-button {
   float: right;
-  margin-right: 4px;
   color: white;
 }
 #article-subitems-hide.hide-button:hover {

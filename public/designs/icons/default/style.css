@@ -4,4 +4,5 @@
 .button.close { background-image: url(gtk-close.png); }
 .button.open { background-image: url(gtk-open.png); }
 .button.cms { background-image: url(abiword_48.png)}
-
+.button.save { background-image: url(gtk-save.png); }
+.button.up { background-image: url(gtk-go-up.png); }

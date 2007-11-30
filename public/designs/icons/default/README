@@ -1,11 +1,22 @@
 Source and Licensing
 ====================
 
-Icon                      Source theme Source section License
-------------------------- ------------ -------------- -------
-gtk-edit.png              dlg-neu      stock/         GPLv2+
-gnome-home.png            Nuovo        apps/          GPLv2+
-gtk-new.png               Nuovo        stock/         GPLv2+
-gtk-close.png             Nuovo        stock/         GPLv2+
-gtk-open.png              Nuovo        stock/         GPLv2+
-abiword_48.png            dlg-neu      apps/          GPLv2+
+Icons are taken from GNOME/Gtk+ themes on Debian systems. Normally they are
+converted from SVG to PNG using rsvg (from package librsvg2-bin).
+
+Icon                      Source theme Source section
+------------------------- ------------ --------------
+gtk-edit.png              dlg-neu      stock/
+gnome-home.png            Nuovo        apps/
+gtk-new.png               Nuovo        stock/
+gtk-close.png             Nuovo        stock/
+gtk-open.png              Nuovo        stock/
+abiword_48.png            dlg-neu      apps/
+gtk-save.png              Nuovo        stock/
+gtk-go-up.png             Nuovo        stock/
+
+Licensing of GNOME themes
+=========================
+
+Nuovo: GPL 2 or later
+dlg-neu: GPL 2 or later

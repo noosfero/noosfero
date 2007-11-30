@@ -17,8 +17,9 @@
 <% end %>
 
 <%# subitem %>
-
-<%= toggle_panel(_('Hide subitems'), _('Show subitems'), 'article-subitems') unless @subitems.empty? %>
+<% if !@subitems.empty? && @article %>
+  <%= toggle_panel(_('Hide subitems'), _('Show subitems'), 'article-subitems') %>
+<% end %>
   
 <div id='article-subitems'>
   <div class='file-manager-title'><%= @article ? _('Subitems') : _('Articles') %></div>
@@ -36,6 +37,7 @@
     <% if @article %>
       <% button_bar(:class => 'file-manager-controls') do %>
         <%= button('new',  _('New subitem'), :action => 'new', :parent_id => @article.id) %>
+        <%= button('up', _('Go up one level'), :action => (@article.parent ? 'view' : 'index'), :id => @article.parent) %>
       <% end %>
     <% end %>
   </div>

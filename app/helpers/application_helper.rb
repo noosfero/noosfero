@@ -327,9 +327,10 @@ module ApplicationHelper
     show_button_id = id + "-show"
 
     result = ""
-    result << button_to_function('close', hide_label, hide(id) + hide(hide_button_id) + show(show_button_id), :id => hide_button_id, :class => 'hide-button with_text')
-    result < " "
     result << button_to_function('open', show_label, show(id) + show(hide_button_id) + hide(show_button_id), :id => show_button_id, :class => 'show-button with_text', :style => 'display: none;' )
+
+    result < " "
+    result << button_to_function('close', hide_label, hide(id) + hide(hide_button_id) + show(show_button_id), :id => hide_button_id, :class => 'hide-button with_text')
 
     result
   end
