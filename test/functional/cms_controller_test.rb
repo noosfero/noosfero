@@ -42,6 +42,19 @@ class CmsControllerTest < Test::Unit::TestCase
   end
 
   should 'be able to edit a document' do
+    a = profile.articles.build(:name => 'test')
+    a.save!
+
+    get :edit, :profile => profile.identifier, :id => a.id
+    assert_template 'text_html_edit'
+  end
+
+  should 'be able to type a new document' do
+    get :new, :profile => profile.identifier
+    assert_template 'text_html_new'
+  end
+
+  should 'be able to create a new document' do
     flunk 'pending'
   end
 
@@ -73,19 +86,23 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_equal [ 'text/html', 'image' ], CmsController.available_types
   end
 
-  should 'made the editor actions available' do
-    # ASSUMING that 'text/html' is always available and has 'new' and 'edit'
-    assert CmsController.instance_methods.include?('text_html_new')
-    assert CmsController.instance_methods.include?('text_html_edit')
-  end
-
-  should 'edit by redirecting to the correct editor depending on the mime-type' do
+  should 'edit by using the correct template to display the editor depending on the mime-type' do
     a = profile.articles.build(:name => 'test document')
     a.save!
     assert_equal 'text/html', a.mime_type
 
     get :edit, :profile => profile.identifier, :id => a.id
-    assert_redirected_to :action => 'text_html_edit', :id => a.id
+    assert_response :success
+    assert_template 'text_html_edit'
+  end
+
+  should 'convert mime-types to action names' do
+    obj = mock
+    obj.extend(CmsHelper)
+
+    assert_equal 'text_html', obj.mime_type_to_action_name('text/html')
+    assert_equal 'image', obj.mime_type_to_action_name('image')
+    assert_equal 'application_xnoosferosomething', obj.mime_type_to_action_name('application/x-noosfero-something')
   end
 
 end

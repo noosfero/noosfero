@@ -19,8 +19,34 @@ class CmsController < MyProfileController
   end
 
   def edit
-    article = profile.articles.find(params[:id])
-    redirect_to(url_for_edit_article(article))
+    @article = Article.find(params[:id])
+    if request.post?
+      @article.last_changed_by = user
+      if @article.update_attributes(params[:article])
+        redirect_to :action => 'view', :id => @article.id
+      end
+    end
+
+    render :action => "#{mime_type_to_action_name(@article.mime_type)}_edit"
+  end
+
+  def new
+    # FIXME until now, use text/html by default
+    type = params[:type] || 'text/html'
+
+    @article = Article.new(params[:article])
+    if params[:parent_id]
+      @article.parent = profile.articles.find(params[:parent_id])
+    end
+    @article.profile = profile
+    @article.last_changed_by = user
+    if request.post?
+      if @article.save
+        redirect_to :action => 'view', :id => @article.id
+      end
+    end
+
+    render :action => "#{mime_type_to_action_name(type)}_new"
   end
 
   post_only :set_home_page

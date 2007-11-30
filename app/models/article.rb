@@ -31,6 +31,8 @@ class Article < ActiveRecord::Base
   # provides the icon name to be used for this article. In this class this
   # method just returns 'text-html', but subclasses may (and should) override
   # to return their specific icons.
+  #
+  # FIXME use mime_type and generate this name dinamically
   def icon_name
     'text-html'
   end
