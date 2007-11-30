@@ -85,7 +85,8 @@ class RoutingTest < ActionController::IntegrationTest
   end
 
   def test_routing_to_controllers_inside_design_blocks_directory
-    assert_routing('/block/favorite_links/show/1', :controller => 'favorite_links', :action => 'show', :id => '1')
+    assert_routing('/block/cojones/favorite_links_profile/show/1', :profile => 'cojones', :controller => 'favorite_links_profile', :action => 'show', :id => '1')
+    assert_routing('/block/cojones/favorite_links_profile/save', :profile => 'cojones', :controller => 'favorite_links_profile', :action => 'save')
   end
 
 end
