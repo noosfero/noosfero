@@ -201,6 +201,9 @@ div.file-manager-button a:hover {
   float: right;
   color: white;
 }
+#article-subitems-show.show-button {
+  float: right;
+}
 #article-subitems-hide.hide-button:hover {
   background-color: transparent;
   color: black;
@@ -220,4 +223,5 @@ div.file-manager-button a:hover {
   border: 1px solid gray;
   padding-top: 4px;
   padding-bottom: 4px;
+  margin-bottom: 1em;
 }

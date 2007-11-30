@@ -3,14 +3,14 @@
   margin-left: 5px;
   background-color: transparent;
   background-repeat: no-repeat;
-  background-position: 0px;
+  background-position: 0 0;
 
   padding-left: 25px;
   padding-right: 2px;
 
   float: left;
   display: block;
-  height: 26px;
+  height: 24px;
 
 }
 

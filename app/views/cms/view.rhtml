@@ -48,6 +48,16 @@
   <% if @article %>
     <h2><%= @article.name %></h2>
     <% button_bar(:id => 'article-controls') do %>
+
+      <ul>
+        <li>
+        <%= _('"%{article}", last changed by %{author}') % { :article => @article.name, :author => 'bli' } %>
+        </li>
+        <li>
+        <%= _('Public address of this article: %s') % (@article.public_path) %>
+        </li>
+      </ul>
+
       <%= link_to_edit_article(@article) %>
       <%= button('home', _('Use as homepage'), { :action => 'set_home_page', :id => @article }, { :method => :post  }) %>
     <% end %>

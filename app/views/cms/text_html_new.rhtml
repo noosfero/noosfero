@@ -11,5 +11,6 @@
   <%= f.text_area('body', :cols => 64) %>
 
   <%= design_display_button_submit('save', _('Save')) %>
+  <%= design_display_button('cancel', _('Cancel'), :action => 'view', :id => @article) %>
 
 <% end %>
