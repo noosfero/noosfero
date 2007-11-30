@@ -45,4 +45,8 @@ class Article < ActiveRecord::Base
     name
   end
 
+  def public_path
+    "/" + [profile.identifier, path].join('/')
+  end
+
 end

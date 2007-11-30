@@ -104,4 +104,17 @@ class ArticleTest < Test::Unit::TestCase
     assert a4.errors.invalid?(:slug)
   end
 
+  should 'calculate public path' do
+    # top level
+    a = profile.articles.build(:name => 'aaa')
+    a.save!
+    assert_equal "/#{profile.identifier}/aaa", a.public_path
+
+    # child articles
+    b = profile.articles.build(:name => 'bbb')
+    b.parent = a
+    b.save!
+    assert_equal "/#{profile.identifier}/aaa/bbb", b.public_path
+  end
+
 end
