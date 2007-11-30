@@ -5,6 +5,8 @@ class Article < ActiveRecord::Base
 
   validates_uniqueness_of :slug, :scope => ['profile_id', 'parent_id'], :message => _('%{fn} (the code generated from the article name) is already being used by another article.')
 
+  belongs_to :last_changed_by, :class_name => Person.name, :foreign_key => 'last_changed_by_id'
+
   acts_as_taggable  
 
   acts_as_filesystem

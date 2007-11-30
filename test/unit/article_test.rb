@@ -117,4 +117,18 @@ class ArticleTest < Test::Unit::TestCase
     assert_equal "/#{profile.identifier}/aaa/bbb", b.public_path
   end
 
+  should 'record who did the last change' do
+    a = profile.articles.build(:name => 'test')
+
+    # must be a person
+    assert_raise ActiveRecord::AssociationTypeMismatch do
+      a.last_changed_by = Profile.new
+    end
+    assert_nothing_raised do
+      a.last_changed_by = Person.new
+      a.save!
+    end
+
+  end
+
 end
