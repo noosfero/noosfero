@@ -7,13 +7,14 @@ class ContentViewerController < PublicController
 
     if path.blank?
       @page = profile.home_page
-      # FIXME need to do something when the user didn't set a homepage
+      if @page.nil?
+        render :action => 'no_home_page'
+      end
     else
       @page = profile.articles.find_by_path(path)
-    end
-
-    if @page.nil?
-      render_not_found(@path)
+      if @page.nil?
+        render_not_found(@path)
+      end
     end
   end
 

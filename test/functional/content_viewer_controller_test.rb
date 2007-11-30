@@ -28,11 +28,25 @@ class ContentViewerControllerTest < Test::Unit::TestCase
   end
 
   def test_should_display_homepage
-    flunk 'pending'
+    a = profile.articles.build(:name => 'test')
+    a.save!
+    profile.home_page = a
+    profile.save!
+
+    get :view_page, :profile => profile.identifier, :page => [ 'test']
+
+    assert_response :success
+    assert_template 'view_page'
+    assert_equal a, assigns(:page)
   end
 
   def test_should_display_something_else_for_empty_homepage
-    flunk 'pending'
+    profile.articles.destroy_all
+
+    get :view_page, :profile => profile.identifier, :page => []
+
+    assert_response :success
+    assert_template 'no_home_page'
   end
 
   def test_should_get_not_found_error_for_unexisting_page
