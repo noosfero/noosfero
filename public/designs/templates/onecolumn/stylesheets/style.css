@@ -51,7 +51,12 @@ height: 55px;
   padding: 3px;
 }
 
-#design_editor .box {
+
+#design_editor .design_blocks {
+  border: 2px dotted green;
+}
+
+#design_editor .design_box {
   border: 2px solid transparent;
 }
 
