@@ -61,7 +61,9 @@ class CmsControllerTest < Test::Unit::TestCase
   end
 
   should 'be able to save a save a document' do
-    flunk 'pending'
+    assert_difference Article, :count do
+      post :new, :profile => profile.identifier, :article => { :name => 'a test article', :body => 'the text of the article ...' }
+    end
   end
 
   should 'be able to set home page' do

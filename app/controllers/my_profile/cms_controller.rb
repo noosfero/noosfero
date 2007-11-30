@@ -43,6 +43,7 @@ class CmsController < MyProfileController
     if request.post?
       if @article.save
         redirect_to :action => 'view', :id => @article.id
+        return
       end
     end
 
