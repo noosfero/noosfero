@@ -15,7 +15,7 @@ class Profile < ActiveRecord::Base
 
   acts_as_design
 
-  acts_as_ferret :fields => [ :name ]
+#  acts_as_ferret :fields => [ :name ]
 
   # Valid identifiers must match this format.
   IDENTIFIER_FORMAT = /^[a-z][a-z0-9_]*[a-z0-9]$/
@@ -46,6 +46,9 @@ class Profile < ActiveRecord::Base
   belongs_to :home_page, :class_name => Article.name, :foreign_key => 'home_page_id'
 
   has_one :image, :as => :owner
+  
+  has_many :consumptions
+  has_many :consumed_product_categories, :through => :consumptions, :source => :product_category
   
   def top_level_articles(reload = false)
     if reload

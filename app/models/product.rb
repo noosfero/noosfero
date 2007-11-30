@@ -21,4 +21,9 @@ class Product < ActiveRecord::Base
   def save_image
     image.save if image
   end
+
+  def category_name
+    product_category ? product_category.name : _('Uncategorized product')
+  end
+
 end

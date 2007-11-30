@@ -11,5 +11,17 @@ class ListBlock < Design::Block
   def self.description
     _('List Block')
   end
+  
+  def limit_number= value
+    self.settings[:limit_number] = value.to_i == 0 ? nil : value.to_i
+  end
+
+  def limit_number
+    self.settings[:limit_number]
+  end
+
+  def people
+    Person.find(:all, :limit => limit_number)
+  end
 
 end

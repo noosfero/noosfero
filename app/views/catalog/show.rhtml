@@ -1,0 +1,6 @@
+<h2> <%= @product.name %> </h2>
+
+<%= image_tag @product.image.public_filename if @product.image %> <br/>
+<%= @product.price %> <br/>
+<%= @product.description %> <br/>
+<%= @product.category_name %> <br/>

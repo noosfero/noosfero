@@ -1,0 +1,11 @@
+<h2> <%= _('Catalog') %> </h2>
+
+<ul>
+<% @products.each do |p| %>
+  <li>
+    <%= link_to p.name, :action => 'show', :id => p %> <br/>
+    <%= image_tag p.image.public_filename if p.image %> <br/>
+    <%= p.price %> <br/><br/>
+  </li>
+<% end %>
+</ul>

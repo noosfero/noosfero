@@ -1,0 +1,13 @@
+<h3><%= @category.name %> </h3>
+
+<%= @products.size.to_s + " products in this category" %>
+<%= @enterprises.size.to_s + " enterprises sells products in this category" %>
+
+<ul>
+  <% @products.each do |p| %>
+    <li>
+      <%= image_tag p.image.public_filename(:thumb) %> <%= p.name %> <br/>
+      <% _('Price:') %> <% p.price %> <%= _('Enterprise:') %> <%= link_to_homepage p.enterprise.name, p.enterprise.identifier %> <br/><br/>
+    </li>
+  <% end %>
+</ul>

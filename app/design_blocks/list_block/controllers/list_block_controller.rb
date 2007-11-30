@@ -21,7 +21,7 @@ class ListBlockController < ApplicationController
   #
   # This hash will define the options menu on edit mode.
   CONTROL_ACTION_OPTIONS = {
-#    'edit' => _('Edit')
+    'edit' => _('Edit')
   } 
 
 
@@ -30,22 +30,28 @@ class ListBlockController < ApplicationController
   ###########################  
   
   def index
-    @people = Person.find(:all)
+    @people = @design_block.people
     design_render
   end
   
   ###########################
   # Other Sample of methods
   ###########################
-  
-#  def edit
-#    design_render_on_edit
-#  end
-  
-#  def save
-#    @design_block.update_attributes(params[:design_block])
-#    design_render_on_edit :nothing => true
-#  end
+ 
 
+  def edit
+    design_render_on_edit :controller => 'list_block', :action => 'edit'
+  end
+
+  def save
+    if @design_block.update_attributes(params[:design_block])
+      design_render_on_edit :controller => 'list_block', :action => 'show'
+    else
+      design_render_on_edit :nothing => true
+    end
+  end
+
+  def show
+  end
 
 end

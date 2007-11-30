@@ -1,0 +1,7 @@
+<h2> <%= _('Categories of products') %> </h2>
+
+<ul>
+<% @categories.each do |c| %>
+  <li> <%= link_to c.name, :action => 'view_category', :id => c.id %> </li>
+<% end %>
+</ul>
