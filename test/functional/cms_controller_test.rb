@@ -53,6 +53,14 @@ class CmsControllerTest < Test::Unit::TestCase
     flunk 'pending'
   end
 
+  should 'set last_changed_by when creating article' do
+    flunk 'pending'
+  end
+
+  should 'set last_changed_by when updating article' do
+    flunk 'pending'
+  end
+
   should 'list available editors' do
     editors = [ "#{RAILS_ROOT}/app/controllers/my_profile/cms/bli.rb", "#{RAILS_ROOT}/app/controllers/my_profile/cms/blo.rb" ]
     Dir.expects(:glob).with("#{RAILS_ROOT}/app/controllers/my_profile/cms/*.rb").returns(editors)
