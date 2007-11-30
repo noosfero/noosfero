@@ -14,9 +14,10 @@ class CreateArticles < ActiveRecord::Migration
       # belongs to profile
       t.column :profile_id, :integer
 
-      # keep track of timestamps
+      # keep track of changes
       t.column :updated_on,  :datetime
       t.column :created_on,  :datetime 
+      t.column :last_changed_by_id, :integer
 
       # acts as versioned
       t.column :version, :integer
