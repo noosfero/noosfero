@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.4.0\n"
 "POT-Creation-Date: 2007-11-27 13:39-0300\n"
-"PO-Revision-Date: 2007-11-09 19:17-0300\n"
+"PO-Revision-Date: 2007-12-01 20:47-0300\n"
 "Last-Translator: Rafael Tavares Bomfim <rafael@colivre.coop.br>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1925,7 +1925,7 @@ msgstr "Gerenciamento de informação"
 
 #: app/views/enterprise_registration/select_validator.rhtml:1
 msgid "Enterprise Registration: Select a validator organization"
-msgstr "Registo da Empresa: Selecione uma organização validadora"
+msgstr "Registo do Empreendimento: Selecione uma organização validadora"
 
 #: app/views/enterprise_registration/select_validator.rhtml:4
 msgid ""
@@ -1945,7 +1945,7 @@ msgstr "Limitações (se tiver):"
 
 #: app/views/enterprise_registration/select_validator.rhtml:20
 msgid "Confirm"
-msgstr "Confirme"
+msgstr "Confirmar"
 
 #: app/views/enterprise_registration/confirmation.rhtml:1
 msgid "Enterprise Registration completed"
