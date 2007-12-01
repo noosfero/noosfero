@@ -36,5 +36,7 @@ class CategoryController < ApplicationController
   def category
   end
 
+  def region
+  end
 
 end
