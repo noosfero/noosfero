@@ -60,6 +60,7 @@
 
       <%= button('edit', _('Edit'), { :action => 'edit', :id => @article}) %>
       <%= button('home', _('Use as homepage'), { :action => 'set_home_page', :id => @article }, { :method => :post  }) %>
+      <%= button('delete', _('Delete'), { :action => 'destroy', :id => @article }, :method => :post, :confirm => _('Tem certeza que quer excluir este artigo?')) %>
     <% end %>
     <%= @article.to_html %>
   <% end %>
