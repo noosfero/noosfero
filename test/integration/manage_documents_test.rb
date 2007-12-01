@@ -28,13 +28,45 @@ class ManageDocumentsTest < ActionController::IntegrationTest
   end
 
   def test_update_of_an_existing_article
-    # FIXME
-    fail 'need to be rewritten'
+    profile = create_user('myuser').person
+    article = profile.articles.build(:name => 'my-article')
+    article.save!
+
+    login('myuser', 'myuser')
+
+    assert_tag :tag => 'a', :attributes => { :href => '/myprofile/myuser'  }
+    get '/myprofile/myuser'
+    assert_response :success
+    
+    assert_tag :tag => 'a', :attributes => { :href => '/myprofile/myuser/cms' }
+    get '/myprofile/myuser/cms'
+    assert_response :success
+
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/myuser/cms/view/#{article.id}"}
+    get "/myprofile/myuser/cms/view/#{article.id}"
+    assert_response :success
+
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/myuser/cms/edit/#{article.id}"}
+    get "/myprofile/myuser/cms/edit/#{article.id}"
+    assert_response :success
+
+    assert_tag :tag => 'form', :attributes => { :action => "/myprofile/myuser/cms/edit/#{article.id}", :method => /post/i }
+
+    assert_no_difference Article, :count do
+      post "/myprofile/myuser/cms/edit/#{article.id}", :article => { :name => 'my article', :body => 'this is the body of the article'}
+    end
+
+    article.reload
+    assert_equal 'this is the body of the article', article.body
+
+    assert_response :redirect
+    follow_redirect!
+    a = Article.find_by_path('my-article')
+    assert_equal "/myprofile/myuser/cms/view/#{a.id}", path
   end
 
   def test_removing_an_article
-    # FIXME
-    fail 'need to be rewritten'
+    flunk 'pending'
   end
 
 end
