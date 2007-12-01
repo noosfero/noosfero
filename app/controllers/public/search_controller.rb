@@ -24,6 +24,10 @@ class SearchController < ApplicationController
     Profile.find_by_contents(query)
   end
 
+  search do |query|
+    Product.find_by_contents(query)
+  end
+
   # auxiliary method to search in all defined searches and collect the results 
   def search(query)
     SEARCHES.inject([]) do |acc,finder|
