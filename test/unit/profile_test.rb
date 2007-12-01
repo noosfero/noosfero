@@ -201,6 +201,11 @@ class ProfileTest < Test::Unit::TestCase
     assert both.include?(big)
   end
 
+  should 'provide a shortcut for picking a profile by its identifier' do
+    profile = Profile.create!(:name => 'bla', :identifier => 'testprofile')
+    assert_equal profile, Profile['testprofile']
+  end
+
 
   private
 

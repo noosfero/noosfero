@@ -122,6 +122,14 @@ class Profile < ActiveRecord::Base
     self.articles.recent(self, limit)
   end
 
+  class << self
+
+    def [](identifier)
+      self.find_by_identifier(identifier)
+    end
+
+  end
+
   def superior_instance
     environment
   end
