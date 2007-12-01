@@ -89,4 +89,8 @@ class RoutingTest < ActionController::IntegrationTest
     assert_routing('/block/cojones/favorite_links_profile/save', :profile => 'cojones', :controller => 'favorite_links_profile', :action => 'save')
   end
 
+  def test_tag_viewing
+    assert_routing('/tag/umboraminhaporra', :controller => 'tag', :action => 'index', :tag => 'umboraminhaporra')
+  end
+
 end
