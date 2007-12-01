@@ -127,33 +127,13 @@ module ApplicationHelper
 	# MUDAR, O ID acima deve ser no Link <a id=...
 	# O ID icon_accessibility tambem tem que aparcer e testei o link nao ta funcionado.
         ( link_to content_tag('span', _('Admin')), { :controller => 'admin_panel' }, :id => 'icon_admin' if current_user.person.is_admin?), 
-        ( link_to content_tag('span', _('Logout')), { :controller => 'account', :action => 'logout', :method => 'post'}, :id => 'icon_logout'),
+        ( link_to content_tag('span', _('Logout')), { :controller => 'account', :action => 'logout'}, :id => 'icon_logout', :method => 'post'),
       ]
     else
       [ 
         ( link_to content_tag('span', _('Login')), { :controller => 'account', :action => 'login' }, :id => 'icon_login' ),
       ]
     end.join(" ")
-  end
-
-  def login_or_register_or_logout
-    if logged_in?
-      user_links + " " + logout_box
-    else
-      login_box + " " + register_box
-    end
-  end
-
-  def login_box
-    content_tag('span', (link_to _('Login'), :controller => 'account', :action => 'login'), :id => 'login_box')
-  end
-
-  def register_box
-    content_tag('span', (link_to _('Not a user yet? Register now!'), :controller => 'account', :action => 'signup'), :id => 'register_box')
-  end
-
-  def logout_box
-    content_tag('span', (link_to _('Logout'), { :controller => 'account', :action => 'logout'}, :method => 'post'), :id => 'logout_box')
   end
 
   def link_if_permitted(link, permission = nil, target = nil)
