@@ -10,6 +10,8 @@ class Product < ActiveRecord::Base
 
   after_update :save_image
 
+  acts_as_searchable :fields => [:name, :description]
+  
   def image_builder=(img)
     if image && image.id == img[:id]
       image.attributes = img

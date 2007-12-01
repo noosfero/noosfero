@@ -3,9 +3,8 @@
 <p> <%= image_tag @product.image.public_filename if @product.image %> </p>
 <p> <%= _('Price: ') %> <%= @product.price %> </p>
 <p> <%= _('Description: ') %> <%= @product.description %> </p>
-<p> <%= _('Category: ') %> <%= link_to_category(@product.product_category) %> </p>
+<p> <%= _('Category: ') %> <%= @product.product_category ? @product.product_category.name : _('Uncategorized product')  %> </p>
 
-<%= link_to _('edit'), :action => 'edit', :id => @product %>
 <%= link_to _('destroy'), :action => 'destroy', :id => @product %>
 <br/>
 <%= link_to _('back'), :action => 'index' %>

@@ -1,0 +1,6 @@
+<h2> <%= _('Add product') %> </h2>
+
+<% form_for :consumption, @consuption do |f|  %>
+  <%= _('Product: ') %> <%= f.select "product_category_id", ProductCategory.find(:all).map{|pc| [pc.name, pc.id]} %>
+  <%= display_submit_tag _('Add product')  %>
+<% end %>

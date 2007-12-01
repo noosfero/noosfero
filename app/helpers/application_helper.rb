@@ -334,4 +334,13 @@ module ApplicationHelper
     concat(content_tag('div', capture(&block) + tag('br', :style => 'clear: left;'), options), block.binding)
   end
 
+  def link_to_category(category)
+    return _('Uncategorized product') unless category
+    link_to category.name, :controller => 'category', :action => 'view', :path => category.path.split('/')
+  end
+
+  def link_to_product(product)
+    return _('No product') unless product
+    link_to product.name, :controller => 'catalog', :action => 'show', :id => product, :profile => product.enterprise.identifier
+  end
 end
