@@ -1,0 +1,13 @@
+<h2>
+  <%= _('Tagged with "%s"') % content_tag('code', @tag) %>
+</h2>
+
+<% button_bar do %>
+  <%= button('back', _('Back to tag cloud'), :action => 'tags') %>
+<% end %>
+
+<div class='search-tagged-items'>
+<% @tagged.each do |hit| %>
+  <%= render :partial => partial_for_hit(hit.class), :locals => { :hit => hit } %>
+<% end %>
+</div>

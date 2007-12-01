@@ -46,4 +46,13 @@ class SearchController < ApplicationController
     @results = search(@query)
   end
 
+  def tags
+    @tags = Tag.find(:all)
+  end
+
+  def tag
+    @tag = Tag.find_by_name(params[:tag])
+    @tagged = @tag.taggings.map(&:taggable)
+  end
+
 end
