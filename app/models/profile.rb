@@ -31,6 +31,8 @@ class Profile < ActiveRecord::Base
   test
   search
   not_found
+  cat
+  tag
   ]
 
   acts_as_taggable

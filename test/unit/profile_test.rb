@@ -117,6 +117,8 @@ class ProfileTest < Test::Unit::TestCase
     assert_invalid_identifier 'cms'
     assert_invalid_identifier 'community'
     assert_invalid_identifier 'test'
+    assert_invalid_identifier 'tag'
+    assert_invalid_identifier 'cat'
   end
 
   should 'provide recent documents' do
