@@ -17,6 +17,9 @@ gtk-go-up.png             Nuovo        stock/
 gtk-cancel.png            Nuovo        stock/
 user_icon.png             Nuovo        apps/
 gnome-other.png           Nuovo        apps/
+gtk-delete.png            Nuovo        stock/
+gtk-find.png              Nuovo        stock/        
+### END OF ICONS LISTING ###
 
 Licensing of GNOME themes
 =========================

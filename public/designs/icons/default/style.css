@@ -9,3 +9,5 @@
 .button.cancel { background-image: url(gtk-cancel.png); }
 .button.person { background-image: url(user_icon.png); }
 .button.product { background-image: url(gnome-other.png); }
+.button.delete { background-image: url(gtk-delete.png); }
+.button.find { background-image: url(gtk-find.png); }
