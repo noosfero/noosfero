@@ -128,7 +128,19 @@ class ArticleTest < Test::Unit::TestCase
       a.last_changed_by = Person.new
       a.save!
     end
+  end
 
+  should 'search for recent documents for a given profile' do
+    first = profile.articles.build(:name => 'first'); first.save!
+    second = profile.articles.build(:name => 'second'); second.save!
+    third = profile.articles.build(:name => 'third'); third.save!
+    forth = profile.articles.build(:name => 'forth'); forth.save!
+    fifth = profile.articles.build(:name => 'fifth'); fifth.save!
+    
+    assert_equal [first,second,third], Article.recent(profile, 3)
+    
+    assert_equal [first,second,third,forth,fifth], Article.recent(profile, 10)
+    
   end
 
 end

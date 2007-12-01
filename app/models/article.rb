@@ -13,10 +13,16 @@ class Article < ActiveRecord::Base
 
   acts_as_versioned
 
-  # retrives all articles belonging to the given +profile+ that are not
+  # retrieves all articles belonging to the given +profile+ that are not
   # sub-articles of any other article.
-  def Article.top_level_for(profile)
+  def self.top_level_for(profile)
     self.find(:all, :conditions => [ 'parent_id is null and profile_id = ?', profile.id ])
+  end
+
+  # retrieves the latest +limit+ articles in profile +profile+, sorted from the
+  # most recent to the oldest.
+  def self.recent(profile, limit)
+    self.find(:all, :limit => limit, :order => 'created_on')
   end
 
   # produces the HTML code that is to be displayed as this article's contents.
