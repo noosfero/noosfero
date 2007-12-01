@@ -78,3 +78,4 @@ Tag.hierarchical = true
 require 'noosfero/transliterations'
 
 require 'acts_as_filesystem'
+require 'acts_as_searchable'
