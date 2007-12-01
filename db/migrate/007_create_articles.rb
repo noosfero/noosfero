@@ -10,6 +10,7 @@ class CreateArticles < ActiveRecord::Migration
 
       # main data
       t.column :body, :text
+      t.column :abstract, :text
 
       # belongs to profile
       t.column :profile_id, :integer

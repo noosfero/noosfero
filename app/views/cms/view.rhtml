@@ -58,7 +58,7 @@
         </li>
       </ul>
 
-      <%= link_to_edit_article(@article) %>
+      <%= button('edit', _('Edit'), { :action => 'edit', :id => @article}) %>
       <%= button('home', _('Use as homepage'), { :action => 'set_home_page', :id => @article }, { :method => :post  }) %>
     <% end %>
     <%= @article.to_html %>

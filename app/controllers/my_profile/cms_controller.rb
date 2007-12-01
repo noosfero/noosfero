@@ -19,7 +19,7 @@ class CmsController < MyProfileController
   end
 
   def edit
-    @article = Article.find(params[:id])
+    @article = profile.articles.find(params[:id])
     if request.post?
       @article.last_changed_by = user
       if @article.update_attributes(params[:article])
@@ -32,7 +32,7 @@ class CmsController < MyProfileController
   end
 
   def new
-    # FIXME until now, use text/html by default
+    # FIXME need to display a page and let the user choose a type of article.
     type = params[:type] || 'text/html'
 
     @article = Article.new(params[:article])
