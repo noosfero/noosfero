@@ -37,7 +37,8 @@ ActionController::Routing::Routes.draw do |map|
   map.category 'cat/*path', :controller => 'category', :action => 'view'
 
   # tags
-  map.tag 'tag/:tag', :controller => 'tag', :action => 'index'
+  map.tag 'tag', :controller => 'tag', :action => 'index'
+  map.tag 'tag/:tag', :controller => 'tag', :action => 'view'
 
   # controllers for blocks
   map.controllers 'block/:profile/:controller/:action/:id', :controller => Noosfero.pattern_for_controllers_from_design_blocks

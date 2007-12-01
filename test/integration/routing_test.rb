@@ -90,7 +90,8 @@ class RoutingTest < ActionController::IntegrationTest
   end
 
   def test_tag_viewing
-    assert_routing('/tag/umboraminhaporra', :controller => 'tag', :action => 'index', :tag => 'umboraminhaporra')
+    assert_routing('/tag', :controller => 'tag', :action => 'index')
+    assert_routing('/tag/umboraminhaporra', :controller => 'tag', :action => 'view', :tag => 'umboraminhaporra')
   end
 
 end
