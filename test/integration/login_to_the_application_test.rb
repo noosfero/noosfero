@@ -5,27 +5,16 @@ class LoginToTheApplicationTest < ActionController::IntegrationTest
 
   def test_anonymous_user_logins_to_application
     get '/'
-    assert_tag :tag => 'span', :attributes => { :id => 'login_box' }
-    assert_no_tag :tag => 'span', :attributes => { :id => 'user_links'  }
-    assert_no_tag :tag => 'span', :attributes => { :id => 'logout_box'  }
+    assert_tag :tag => 'a', :attributes => { :href => '/account/login' }
+    assert_no_tag :tag => 'a', :attributes => { :href => '/account/logout'  }
 
     get '/account/login'
     assert_response :success
 
     login('ze', 'test')
+    assert_no_tag :tag => 'a', :attributes => { :href => '/account/login' }
+    assert_tag :tag => 'a', :attributes => { :href => '/account/logout'  }
 
-    assert_no_tag :tag => 'span', :attributes => { :id => 'login_box' }
-    assert_tag :tag => 'span', :attributes => { :id => 'user_links'  }
-    assert_tag :tag => 'span', :attributes => { :id => 'logout_box'  }
-  end
-
-  def test_logged_in_does_not_see_login_box
-    login('ze', 'test')
-    get '/'
-    assert_no_tag :tag => 'span', :attributes => { :id => 'login_box' }
-    assert_no_tag :tag => 'span', :attributes => { :id => 'register_box' }
-    assert_tag :tag => 'span', :attributes => { :id => 'user_links'  }
-    assert_tag :tag => 'span', :attributes => { :id => 'logout_box'  }
   end
 
 end
