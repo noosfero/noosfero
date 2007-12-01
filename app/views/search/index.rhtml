@@ -1,8 +1,10 @@
 <h2> <%= _('Listing articles found')  %> </h2>
 
 <h3> <%= _('Searching for ') + @query  %></h3>
-<% @results.each do |a| %>
-  <h4> <%= link_to_document(a) if a.kind_of?(Article) %> </h4>
-  <h4> <%= link_to_homepage(a.name, a.identifier) if a.kind_of?(Profile) %> </h4>
-
+<% @results.each do |hit| %>
+  <%= render :partial => partial_for_hit(hit.class), :locals => { :hit => hit } %>
+  <div class='search-relevance'>
+    <%= _('Relevance: %d%%') % (hit.respond_to?(:ferret_score) ? (hit.ferret_score * 100.0).round : 100) %>
+  </div>
+  <br style='clear: left'/>
 <% end %>

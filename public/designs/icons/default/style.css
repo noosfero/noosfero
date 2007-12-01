@@ -7,3 +7,4 @@
 .button.save { background-image: url(gtk-save.png); }
 .button.up { background-image: url(gtk-go-up.png); }
 .button.cancel { background-image: url(gtk-cancel.png); }
+.button.person { background-image: url(user_icon.png); }

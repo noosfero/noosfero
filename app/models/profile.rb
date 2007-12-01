@@ -15,7 +15,7 @@ class Profile < ActiveRecord::Base
 
   acts_as_design
 
-  acts_as_ferret :fields => [ :name ]
+  acts_as_searchable :fields => [ :name, :identifier ]
 
   # Valid identifiers must match this format.
   IDENTIFIER_FORMAT = /^[a-z][a-z0-9_]*[a-z0-9]$/
