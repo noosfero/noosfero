@@ -136,4 +136,14 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_equal 'application_xnoosferosomething', obj.mime_type_to_action_name('application/x-noosfero-something')
   end
 
+  should 'be able to remove article' do
+    a = profile.articles.build(:name => 'my-article')
+    a.save!
+
+    assert_difference Article, :count, -1 do
+      post :destroy, :profile => profile.identifier, :id => a.id
+      assert_redirected_to :action => 'index'
+    end
+  end
+
 end

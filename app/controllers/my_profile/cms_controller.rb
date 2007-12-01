@@ -59,6 +59,13 @@ class CmsController < MyProfileController
     redirect_to :action => 'view', :id => @article.id
   end
 
+  post_only :destroy
+  def destroy
+    @article = profile.articles.find(params[:id])
+    @article.destroy
+    redirect_to :action => (@article.parent ? 'view' : 'index'), :id => @article.parent
+  end
+
   protected
 
   class << self
