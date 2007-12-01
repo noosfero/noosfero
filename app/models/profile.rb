@@ -126,6 +126,11 @@ class Profile < ActiveRecord::Base
 
     # finds a profile by its identifier. This method is a shortcut to
     # +find_by_identifier+.
+    #
+    # Examples:
+    #
+    #  person = Profile['username']
+    #  org = Profile.['orgname']
     def [](identifier)
       self.find_by_identifier(identifier)
     end
