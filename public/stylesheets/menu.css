@@ -1,8 +1,7 @@
 /* Geral Bar */
 #noosfero_bar {
   width: 100%;
-  height: 26px;
-  background: url("../images/bg_bgmenu.png") repeat-x;
+  height: 40px;
   padding: 0px;
   margin-top: -5px;
   margin-right: 5px;
@@ -13,7 +12,7 @@
 /* Top Bar */
 
 #top_bar {
-height: 20px;
+height: 30px;
 line-height: 20px;
 font-size: 12px !important ;
 font-family: Sans-serif !important ;
@@ -44,14 +43,17 @@ font-weight: normal;
 #path_category {
 font-weight: bold;
 color: #ffffff;
+z-index: 2000;
+padding-top: 4px;
 }
 
 /* Menu Itens Accessibility */
 
 #accessibility_menu {
   position: absolute;
+  top: 2px;
   right: 10px;
-  width: 300px;
+  width: 500px;
   text-align: right;
   font-family: Verdana, Arial, Serif-sans;
   font-size: 9px;
@@ -100,6 +102,8 @@ background-image: url('../images/icons-bar/accessibility.png');
 }
 
 #accessibility_menu a:hover span {
+  color: black;
+  background: white;
 }
 
 
@@ -107,7 +111,7 @@ background-image: url('../images/icons-bar/accessibility.png');
 
 #navigation_bar {
   position: absolute;
-  top: 20px;
+  top: 30px;
   left: 0px;
   width: 100%;
   padding: 0px !important;
@@ -174,11 +178,23 @@ z-index: 997;
 position: absolute;
 right: 0px;
 margin: 0px;
-width: 200px;
-height: 30px;
-padding-top: 5px;
-padding-left: 10px;
 z-index: 998;
+padding-top: 4px;
+padding-right: 4px;
+padding-bottom: 4px;
+}
+#search_box form, #search_box input {
+  display: inline;
+}
+#search_box .button {
+  color: white;
+  width: 24px;
+  padding: 0px;
+  margin-right: 2px;
+  margin-top: -2px;
+}
+#search_box .button:hover {
+  color: black;
 }
 
 #input_search {
@@ -194,20 +210,6 @@ font-size: 12px;
 border: 1px inset #dfdfdf;
 color: black;
 background-color: white;
-}
-
-#button_search {
-border: 1px outset #545454;
-background-color: #dfdfdf;
-color: #545454;
-height: 20px;
-font-size: 11px;
-}
-
-#button_search:hover, #button_search:focus {
-background-color: #ffffff;
-color: #545454;
-border: 1px inset #dfdfdf;
 }
 
 /* Itens Colors Change */

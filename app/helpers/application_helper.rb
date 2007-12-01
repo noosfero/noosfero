@@ -195,7 +195,7 @@ module ApplicationHelper
 
   def search_box
     [form_tag({:controller => 'search', :action => 'index'}, :method => 'get'),
-      submit_tag(_('Search'), :id => 'button_search', :name => ''),
+      design_display_button_submit('find', '', :title => _('Search')),
       text_field_tag( 'query', _('your search here'), :id => "input_search", :onfocus => 'javascript: if (this.value == %s) { this.value = ""; }' % _('your search here').inspect, :onblur => "javascript: if (this.value == '') { this.value = %s}" % _('your search here').inspect),
        '</form>',
     ].join("\n") 
