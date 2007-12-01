@@ -142,4 +142,8 @@ class Profile < ActiveRecord::Base
   def superior_instance
     environment
   end
+
+  def person?
+    false
+  end
 end
