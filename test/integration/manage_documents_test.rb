@@ -66,7 +66,35 @@ class ManageDocumentsTest < ActionController::IntegrationTest
   end
 
   def test_removing_an_article
-    flunk 'pending'
+    profile = create_user('myuser').person
+    article = profile.articles.build(:name => 'my-article')
+    article.save!
+
+    login('myuser', 'myuser')
+
+    assert_tag :tag => 'a', :attributes => { :href => '/myprofile/myuser'  }
+    get '/myprofile/myuser'
+    assert_response :success
+    
+    assert_tag :tag => 'a', :attributes => { :href => '/myprofile/myuser/cms' }
+    get '/myprofile/myuser/cms'
+    assert_response :success
+
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/myuser/cms/view/#{article.id}"}
+    get "/myprofile/myuser/cms/view/#{article.id}"
+    assert_response :success
+
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/myuser/cms/destroy/#{article.id}", :onclick => /confirm/ }
+    post "/myprofile/myuser/cms/destroy/#{article.id}"
+
+    assert_response :redirect
+    follow_redirect!
+    assert_equal "/myprofile/myuser/cms", path
+  
+    # the article was actually deleted
+    assert_raise ActiveRecord::RecordNotFound do
+      Article.find(article.id)
+    end
   end
 
 end
