@@ -124,6 +124,8 @@ class Profile < ActiveRecord::Base
 
   class << self
 
+    # finds a profile by its identifier. This method is a shortcut to
+    # +find_by_identifier+.
     def [](identifier)
       self.find_by_identifier(identifier)
     end

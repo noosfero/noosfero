@@ -206,7 +206,6 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal profile, Profile['testprofile']
   end
 
-
   private
 
   def assert_invalid_identifier(id)
