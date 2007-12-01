@@ -1,3 +1,15 @@
+Adding a new icons
+==================
+
+Use the fantastic script get-icon.sh! Suppose you want to add a new icon for
+the "open" action. You find that Nuovo theme has a nice button under stock,
+called gtk-open.svg. You call the script as follows:
+
+$ sh get-icon.sh open Nuovo stock/gtk-open.svg
+
+The script generates the PNG and updates both style.css and this very file
+(listing below).
+
 Source and Licensing
 ====================
 
