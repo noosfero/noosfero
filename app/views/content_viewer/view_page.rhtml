@@ -1,7 +1,7 @@
 <h2><%= @page.title %></h2>
 
 <div>
-  <%= _('Tags: %s') % @page.tags %>
+  <%= _('Tags: %s') % (@page.tags.map { |t| link_to(t, tag_url(:tag => t.name)) }.join(', ')) %>
 </div>
 
 <% if @page.parent && !@page.parent.path.blank? %>
