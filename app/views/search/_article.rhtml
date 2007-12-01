@@ -1,10 +1,14 @@
 <div>
-  <strong>
-    <%= design_display_icon('cms') %>
-    <%= link_to_document(hit) %>
-  </strong>
-</div>
-<div>
-  <%= hit.abstract %>
+  <%= icon('cms') %>
+  <div class='search-result-text'>
+    <div>
+      <strong>
+        <%= link_to_document(hit) %>
+      </strong>
+    </div>
+    <div>
+      <%= strip_tags(hit.abstract) %>
+    </div>
+  </div>
 </div>
 

@@ -2,8 +2,10 @@
 <%# FIXME add more information %>
 
 <div>
-  <strong>
-    <%= design_display_icon('person') %>
-    <%= link_to_homepage(hit.name, hit.identifier) %>
-  </strong>
+  <%= icon('person') %>
+  <div class='search-result-text'>
+    <strong>
+      <%= link_to_homepage(hit.name, hit.identifier) %>
+    </strong>
+  </div>
 </div>

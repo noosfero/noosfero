@@ -3,3 +3,8 @@
   font-style: italic;
   color: gray;
 }
+
+.search-relevance, .search-result-text {
+  margin-left: 40px;
+}
+

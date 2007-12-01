@@ -5,7 +5,7 @@
 <% @results.each do |hit| %>
   <%= render :partial => partial_for_hit(hit.class), :locals => { :hit => hit } %>
   <div class='search-relevance'>
-    <%= _('Relevance: %d%%') % (hit.respond_to?(:ferret_score) ? (hit.ferret_score * 100.0).round : 100) %>
+    <%= _('Relevance: %d%%') % relevance_for(hit) %>
   </div>
   <br style='clear: left'/>
 <% end %>

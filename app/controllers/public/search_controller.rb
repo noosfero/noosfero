@@ -29,11 +29,13 @@ class SearchController < ApplicationController
     SEARCHES.inject([]) do |acc,finder|
       acc += finder.call(query)
     end.sort_by do |hit|
-      (hit.respond_to? :ferret_score) ? (1.0 - hit.ferret_score) : (-1.0)
+      -(relevance_for(hit))
     end
   end
 
   public
+
+  include SearchHelper
 
   def index
     @query = params[:query] || ''
