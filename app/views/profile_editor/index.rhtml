@@ -13,15 +13,16 @@
 
   <%= file_manager_button(_('Manage Content'), 'icons-app/cms.png', :controller => 'cms') %>
 
-  <%= file_manager_button(_('Change Password'), 'icons-app/change-password.png', :controller => 'account', :action => 'change_password') %>
+  <%= file_manager_button(_('Change Password'), 'icons-app/change-password.png', :controller => 'account', :action => 'change_password') if profile.person? %>
   
-  <%= file_manager_button(_('Manage Products'), 'icons-app/products.png', :controller => 'manage_products') if @profile.kind_of?(Enterprise) %>
+  <%= file_manager_button(_('Manage Products'), 'icons-app/products.png', :controller => 'manage_products') if profile.enterprise? %>
 
 <% end %>
 
-<!--
-<p> <%= link_to _('Edit Visual Design'), :action => 'design_editor' %> </p>
-<p> <%= link_to _('Menage content'), :controller => 'cms' %> </p>
--->
-
 <h2><%= _('My organizations') %></h2>
+
+<% file_manager do %>
+
+  <%= file_manager_button(_('Register a new Enterprise'), 'icons-app/enterprise-registration.png', :controller => 'enterprise_registration') %>
+
+<% end %>

@@ -268,21 +268,7 @@ module ApplicationHelper
   end
 
   def text_editor(object, method, filter_type_method = nil, options = {})
-    filter_type = 
-      if filter_type_method.blank?
-        ''
-      else
-        instance_variable_get("@#{object}").send(filter_type_method)
-      end
-    if filter_type == '[No Filter]' || filter_type.blank?
-      html_class = "tiny_mce_editor"
-      if options[:class]
-        html_class << " #{options[:class]}"
-      end
-      text_area(object, method, { :size => '72x12' }.merge(options).merge({:class => html_class})) 
-    else
-      text_area(object, method, { :size => '72x12' }.merge(options))
-    end
+    text_area(object, method, { :rows => 10, :cols => 64 }.merge(options))
   end
 
   def file_manager(&block)
@@ -318,6 +304,10 @@ module ApplicationHelper
     design_display_button(type, label, url, { :class => 'with_text' }.merge(html_options))
   end
 
+  def submit_button(type, label, html_options = {})
+    design_display_button_submit(type, label, { :class => 'with_text' }.merge(html_options))
+  end
+
   def button_to_function(type, label, js_code, html_options = {})
     #design_display_function_button(type, label, js_code, { :class => 'with_text' }.merge(html_options))
     html_options[:class] = "" unless html_options[:class]
@@ -330,7 +320,7 @@ module ApplicationHelper
   end
 
   def button_bar(options = {}, &block)
-    concat(content_tag('div', capture(&block) + tag('br', :style => 'clear: left;'), options), block.binding)
+    concat(content_tag('div', capture(&block) + tag('br', :style => 'clear: left;'), { :class => 'button-bar' }.merge(options)), block.binding)
   end
 
   def link_to_category(category)

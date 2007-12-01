@@ -1,16 +1,28 @@
 dlg-neu icons in Noosfero
 =========================
 
-The icons in this directory are taken from the dlg-neu icon theme for GNOME,
+The icons in this directory are taken from the icon themes for GNOME,
 section "apps/". We take the SVG files and convert to 64x64 PNG images, so
 these icons are in fact derived works based on dlg-neu's SVG files.
 
 Structure
 =========
 
-To keep a trace back to dlg-neu theme, when rasterizing the SVG files we keep
+To keep a trace back to the theme theme, when rasterizing the SVG files we keep
 the original filenames (replacing .svg by .png, obviously) and create symbolic
 links with names more sensible for Noosfero.
+
+Source for icons
+================
+
+Icon                           Theme
+------------------------------ -------
+gnome-settings-background.png  dlg-neu
+gnome-settings-theme.png       Nuovo
+password.png                   dlg-neu
+abiword_48.png                 dlg-neu
+gnome-other.png                Nuovo
+user_icon.png                  dlg-neu
 
 Icons rasterization
 ===================

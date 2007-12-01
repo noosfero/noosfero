@@ -53,7 +53,4 @@ class Person < Profile
     end
   end
 
-  def person?
-    true
-  end
 end

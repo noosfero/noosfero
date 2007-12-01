@@ -28,9 +28,9 @@
 
   <%= f.select('region_id', @regions) %>
 
-  <div>
-    <%= submit_tag _('Register') %>
-    <%= link_to _('Cancel'), :action => 'index' %>
-  </div>
+  <% button_bar do %>
+    <%= submit_button('save', _('Register')) %>
+    <%= button 'cancel', _('Cancel'), :action => 'index' %>
+  <% end %>
 
 <% end %>

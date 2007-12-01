@@ -123,6 +123,7 @@ div.file-manager-button a {
   padding: 3px;
   height: 80px;
   overflow: hidden;
+  background: white;
 }
 
 div.file-manager

@@ -143,7 +143,17 @@ class Profile < ActiveRecord::Base
     environment
   end
 
+  # returns +false+
   def person?
-    false
+    self.kind_of?(Person) 
   end
+
+  def enterprise?
+    self.kind_of?(Enterprise)
+  end
+
+  def organization?
+    self.kind_of?(Organization)
+  end
+
 end
