@@ -94,8 +94,15 @@ class ProfileTest < Test::Unit::TestCase
     assert ! Profile.search('not_wanted').include?(p)
   end
 
-  def test_should_remove_pages_when_removing_profile
-    flunk 'pending'
+  should 'remove pages when removing profile' do
+    profile = Profile.create!(:name => 'testing profile', :identifier => 'testingprofile')
+    first = profile.articles.build(:name => 'first'); first.save!
+    second = profile.articles.build(:name => 'second'); second.save!
+    third = profile.articles.build(:name => 'third'); third.save!
+
+    n = Article.count
+    profile.destroy
+    assert_equal n - 3, Article.count
   end
 
   def test_should_define_info
@@ -112,12 +119,14 @@ class ProfileTest < Test::Unit::TestCase
     assert_invalid_identifier 'test'
   end
 
-  def test_should_provide_recent_documents
-    flunk 'pending'
-  end
+  should 'provide recent documents' do
+    profile = Profile.create!(:name => 'testing profile', :identifier => 'testingprofile')
+    first = profile.articles.build(:name => 'first'); first.save!
+    second = profile.articles.build(:name => 'second'); second.save!
+    third = profile.articles.build(:name => 'third'); third.save!
 
-  def test_should_provide_most_recent_documents
-    flunk 'pending'
+    assert_equal [first,second], profile.recent_documents(2)
+    assert_equal [first,second,third], profile.recent_documents
   end
 
   should 'affiliate and provide a list of the affiliated users' do
@@ -179,6 +188,19 @@ class ProfileTest < Test::Unit::TestCase
     other_list = profile.top_level_articles(true)
     assert_not_same list, other_list
   end
+
+  should 'be able to find profiles by their names with ferret' do
+    small = Profile.create!(:name => 'A small profile for testing ', :identifier => 'smallprofilefortesting')
+    big = Profile.create!(:name => 'A big profile for testing', :identifier => 'bigprofilefortesting')
+
+    assert Profile.find_by_contents('small').include?(small)
+    assert Profile.find_by_contents('big').include?(big)
+    
+    both = Profile.find_by_contents('profile testing')
+    assert both.include?(small)
+    assert both.include?(big)
+  end
+
 
   private
 

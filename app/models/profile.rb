@@ -15,7 +15,7 @@ class Profile < ActiveRecord::Base
 
   acts_as_design
 
-#  acts_as_ferret :fields => [ :name ]
+  acts_as_ferret :fields => [ :name ]
 
   # Valid identifiers must match this format.
   IDENTIFIER_FORMAT = /^[a-z][a-z0-9_]*[a-z0-9]$/
@@ -42,7 +42,7 @@ class Profile < ActiveRecord::Base
   
   has_many :role_assignments, :as => :resource
 
-  has_many :articles
+  has_many :articles, :dependent => :destroy
   belongs_to :home_page, :class_name => Article.name, :foreign_key => 'home_page_id'
 
   has_one :image, :as => :owner
@@ -113,13 +113,13 @@ class Profile < ActiveRecord::Base
     self.user ? self.user.email : nil
   end
 
-  # gets recent documents in this profile.
+  # gets recent documents in this profile, ordered from the most recent to the
+  # oldest.
   #
   # +limit+ is the maximum number of documents to be returned. It defaults to
   # 10.
   def recent_documents(limit = 10)
-    # FIXME not like this anymore
-    raise 'needs to be rewritten'
+    self.articles.recent(self, limit)
   end
 
   def superior_instance
