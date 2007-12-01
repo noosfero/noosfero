@@ -194,11 +194,10 @@ module ApplicationHelper
   end
 
   def search_box
-    [form_tag( :controller => 'search', :action => 'index'),
-      submit_tag(_('Search'), :id => 'button_search'),
-      text_field_tag( 'query', _('  '), :id => "input_search"),
+    [form_tag({:controller => 'search', :action => 'index'}, :method => 'get'),
+      submit_tag(_('Search'), :id => 'button_search', :name => ''),
+      text_field_tag( 'query', _('your search here'), :id => "input_search", :onfocus => 'javascript: if (this.value == %s) { this.value = ""; }' % _('your search here').inspect, :onblur => "javascript: if (this.value == '') { this.value = %s}" % _('your search here').inspect),
        '</form>',
- #     observe_field('input_search', :function => "element.value=''", :on => :focus)
     ].join("\n") 
   end
 
