@@ -12,3 +12,4 @@
 .button.delete { background-image: url(gtk-delete.png); }
 .button.find { background-image: url(gtk-find.png); }
 .button.back { background-image: url(gtk-go-back-ltr.png); }
+.button.next { background-image: url(gtk-media-next-ltr.png); }
