@@ -1,0 +1,11 @@
+<%# FIXME add photo if available %>
+<%# FIXME add more information %>
+
+<div>
+  <%= icon('product') %>
+  <div class='search-result-text'>
+    <strong>
+      <%= link_to( hit.name, :profile => hit.enterprise.identifier, :controller => 'catalog', :action => 'show', :id => hit) %>
+    </strong>
+  </div>
+</div>

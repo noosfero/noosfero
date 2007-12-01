@@ -1,0 +1,15 @@
+<h2> <%= _('Editing list of people') %> </h2>
+
+<% design_form_remote_tag( :url => {:action => 'save'}) do %>
+  <p>
+    <label for="design_block_title"> <%= _("Title") %> </label>
+    <%= text_field 'design_block', 'title'%>
+  </p>
+
+  <p>
+    <label for="design_block_limit_number"> <%= _("Max number of people") %> </label>
+    <%= text_field 'design_block', 'limit_number'%>
+  </p>
+
+  <%= submit_tag _('Save') %>
+<% end %>

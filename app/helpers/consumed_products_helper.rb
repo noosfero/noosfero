@@ -1,0 +1,2 @@
+module ConsumedProductsHelper
+end
