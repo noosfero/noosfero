@@ -35,8 +35,6 @@ class Profile < ActiveRecord::Base
   tag
   ]
 
-  acts_as_taggable
-
   belongs_to :user
 
   has_many :domains, :as => :owner
@@ -79,11 +77,6 @@ class Profile < ActiveRecord::Base
   def initialize(*args)
     super(*args)
     self.environment ||= Environment.default
-  end
-
-  # Searches tags by tag or name
-  def self.search(term)
-    find_tagged_with(term) + find_all_by_name(term)
   end
 
   # Returns information about the profile's owner that was made public by
