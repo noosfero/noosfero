@@ -11,7 +11,6 @@
 <p> <%= _('Legal Form: ') %> <%= @enterprise.organization_info.legal_form %> </p>
 <p> <%= _('Economic activity: ') %> <%= @enterprise.organization_info.economic_activity %> </p>
 <p> <%= _('Management infomation: ') %> <%= @enterprise.organization_info.management_information %> </p>
-<p> <%= _('Tags:') %> <%= @enterprise.tag_list %> </p>
 
 <%= link_to _('Edit enterprise'), :action => 'edit', :id => @enterprise %>
 <%= help _('Change the information about the enterprise') %>

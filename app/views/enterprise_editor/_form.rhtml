@@ -28,5 +28,3 @@
 <p class='formfield select'><label for="validation_entity"><%= _('Validation Entity') %></label><br/>
 <%= select 'validation_entity', 'id', @validation_entities.map{|v| [v.name, v.id]}, :include_blank => true %></p>
 
-<p class='formfield text_field'><label for="tag_list"><%= _('Tags') %></label><br/>
-<%= text_field 'enterprise', 'tag_list', 'size' => 20 %></p>
