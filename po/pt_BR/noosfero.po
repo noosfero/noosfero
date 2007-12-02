@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.4.0\n"
-"POT-Creation-Date: 2007-12-02 02:17-0300\n"
-"PO-Revision-Date: 2007-12-02 02:20-0300\n"
+"POT-Creation-Date: 2007-12-02 02:25-0300\n"
+"PO-Revision-Date: 2007-12-02 02:26-0300\n"
 "Last-Translator: Antonio Terceiro <terceiro@colivre.coop.br>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1138,8 +1138,8 @@ msgid "New Role"
 msgstr "Nova papel"
 
 #: app/views/role/_form.rhtml:7
-msgid "Permissions: "
-msgstr "Permissões: "
+msgid "Permissions:"
+msgstr "Permissões:"
 
 #: app/views/role/_form.rhtml:12
 #: app/views/profile_members/change_role.rhtml:12
@@ -1187,7 +1187,7 @@ msgstr "Mudando papel de %s"
 #: app/views/profile_members/change_role.rhtml:5
 #: app/views/environment_role_manager/change_role.rhtml:5
 #: app/views/environment_role_manager/make_admin.rhtml:8
-msgid "Roles: "
+msgid "Roles:"
 msgstr "Papéis:"
 
 #: app/views/profile_members/affiliate.rhtml:6
@@ -1271,11 +1271,11 @@ msgid "Add product"
 msgstr "Adicionar produto"
 
 #: app/views/consumed_products/new.rhtml:6
-msgid "Product: "
-msgstr "Produto: "
+msgid "Product:"
+msgstr "Produto:"
 
 #: app/views/consumed_products/new.rhtml:7
-msgid "Aditional specifications: "
+msgid "Aditional specifications:"
 msgstr "Especificações adicionais:"
 
 #: app/views/consumed_products/index.rhtml:1
@@ -1299,10 +1299,13 @@ msgid "Name:"
 msgstr "Nome:"
 
 #: app/views/manage_products/_form.rhtml:5
+#: app/views/manage_products/show.rhtml:4
+#: app/views/manage_products/index.rhtml:7
 msgid "Price:"
 msgstr "Preço:"
 
 #: app/views/manage_products/_form.rhtml:6
+#: app/views/manage_products/show.rhtml:5
 msgid "Description:"
 msgstr "Descrição:"
 
@@ -1318,18 +1321,9 @@ msgstr "categoria:"
 msgid "Create product"
 msgstr "Criar produto"
 
-#: app/views/manage_products/show.rhtml:4
-#: app/views/manage_products/index.rhtml:7
-msgid "Price: "
-msgstr "Preço:"
-
-#: app/views/manage_products/show.rhtml:5
-msgid "Description: "
-msgstr "Descrição: "
-
 #: app/views/manage_products/show.rhtml:6
-msgid "Category: "
-msgstr "Categoria: "
+msgid "Category:"
+msgstr "Categoria:"
 
 #: app/views/manage_products/show.rhtml:8
 #: app/views/manage_products/index.rhtml:8
@@ -1439,40 +1433,40 @@ msgid "Update"
 msgstr "Atualizar"
 
 #: app/views/enterprise_editor/index.rhtml:5
-msgid "Identifier: "
+msgid "Identifier:"
 msgstr "Identificador: "
 
 #: app/views/enterprise_editor/index.rhtml:6
-msgid "Address: "
-msgstr "Endereço: "
+msgid "Address:"
+msgstr "Endereço:"
 
 #: app/views/enterprise_editor/index.rhtml:7
-msgid "Contact phone: "
-msgstr "Telefone de contato"
+msgid "Contact phone:"
+msgstr "Telefone de contato:"
 
 #: app/views/enterprise_editor/index.rhtml:8
-msgid "Contact person: "
-msgstr "Pessoa de contato"
+msgid "Contact person:"
+msgstr "Pessoa de contato:"
 
 #: app/views/enterprise_editor/index.rhtml:9
-msgid "Acronym: "
-msgstr "Acrônimo"
+msgid "Acronym:"
+msgstr "Acrônimo:"
 
 #: app/views/enterprise_editor/index.rhtml:10
-msgid "Foundation year: "
-msgstr "Ano de fundação"
+msgid "Foundation year:"
+msgstr "Ano de fundação:"
 
 #: app/views/enterprise_editor/index.rhtml:11
-msgid "Legal Form: "
-msgstr "Formulário Legal"
+msgid "Legal Form:"
+msgstr "Estaturo jurídico:"
 
 #: app/views/enterprise_editor/index.rhtml:12
-msgid "Economic activity: "
-msgstr "Atividade econômica"
+msgid "Economic activity:"
+msgstr "Atividade econômica:"
 
 #: app/views/enterprise_editor/index.rhtml:13
-msgid "Management infomation: "
-msgstr "Informação de gerenciamento"
+msgid "Management infomation:"
+msgstr "Informação de gerenciamento:"
 
 #: app/views/enterprise_editor/index.rhtml:15
 msgid "Edit enterprise"
@@ -1607,9 +1601,13 @@ msgstr "Gerenciar Validadores por região"
 msgid "Category: %s"
 msgstr "Categoria: %s"
 
-#: app/views/category/view.rhtml:7
-msgid "Children categories: "
-msgstr "Categorias filhas: "
+#: app/views/category/view.rhtml:8
+msgid "No children categories"
+msgstr "Sem categorias filhas"
+
+#: app/views/category/view.rhtml:10
+msgid "Child categories:"
+msgstr "Categorias filhas:"
 
 #: app/views/category/_product_category.rhtml:2
 msgid "One product in this category."
@@ -2100,6 +2098,15 @@ msgstr "Mostrar título?"
 msgid "Max number of links"
 msgstr "Número máximo de links"
 
+#~ msgid "Price: "
+#~ msgstr "Preço:"
+
+#~ msgid "Description: "
+#~ msgstr "Descrição: "
+
+#~ msgid "Category: "
+#~ msgstr "Categoria: "
+
 #~ msgid "Tag was successfully created."
 #~ msgstr "Marcador criado com sucesso."
 
@@ -2160,10 +2167,6 @@ msgstr "Número máximo de links"
 
 #~ msgid "  "
 #~ msgstr "  "
-
-#, fuzzy
-#~ msgid "Category:"
-#~ msgstr "Categoria: %s"
 
 #~ msgid "Image for Loading..."
 #~ msgstr "Imagem para Carregamento..."

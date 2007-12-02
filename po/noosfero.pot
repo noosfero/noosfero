@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.4.0\n"
-"POT-Creation-Date: 2007-12-02 02:17-0300\n"
+"POT-Creation-Date: 2007-12-02 02:25-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1112,7 +1112,7 @@ msgid "New Role"
 msgstr ""
 
 #: app/views/role/_form.rhtml:7
-msgid "Permissions: "
+msgid "Permissions:"
 msgstr ""
 
 #: app/views/role/_form.rhtml:12
@@ -1161,7 +1161,7 @@ msgstr ""
 #: app/views/profile_members/change_role.rhtml:5
 #: app/views/environment_role_manager/change_role.rhtml:5
 #: app/views/environment_role_manager/make_admin.rhtml:8
-msgid "Roles: "
+msgid "Roles:"
 msgstr ""
 
 #: app/views/profile_members/affiliate.rhtml:6
@@ -1243,11 +1243,11 @@ msgid "Add product"
 msgstr ""
 
 #: app/views/consumed_products/new.rhtml:6
-msgid "Product: "
+msgid "Product:"
 msgstr ""
 
 #: app/views/consumed_products/new.rhtml:7
-msgid "Aditional specifications: "
+msgid "Aditional specifications:"
 msgstr ""
 
 #: app/views/consumed_products/index.rhtml:1
@@ -1271,10 +1271,13 @@ msgid "Name:"
 msgstr ""
 
 #: app/views/manage_products/_form.rhtml:5
+#: app/views/manage_products/show.rhtml:4
+#: app/views/manage_products/index.rhtml:7
 msgid "Price:"
 msgstr ""
 
 #: app/views/manage_products/_form.rhtml:6
+#: app/views/manage_products/show.rhtml:5
 msgid "Description:"
 msgstr ""
 
@@ -1290,17 +1293,8 @@ msgstr ""
 msgid "Create product"
 msgstr ""
 
-#: app/views/manage_products/show.rhtml:4
-#: app/views/manage_products/index.rhtml:7
-msgid "Price: "
-msgstr ""
-
-#: app/views/manage_products/show.rhtml:5
-msgid "Description: "
-msgstr ""
-
 #: app/views/manage_products/show.rhtml:6
-msgid "Category: "
+msgid "Category:"
 msgstr ""
 
 #: app/views/manage_products/show.rhtml:8
@@ -1411,39 +1405,39 @@ msgid "Update"
 msgstr ""
 
 #: app/views/enterprise_editor/index.rhtml:5
-msgid "Identifier: "
+msgid "Identifier:"
 msgstr ""
 
 #: app/views/enterprise_editor/index.rhtml:6
-msgid "Address: "
+msgid "Address:"
 msgstr ""
 
 #: app/views/enterprise_editor/index.rhtml:7
-msgid "Contact phone: "
+msgid "Contact phone:"
 msgstr ""
 
 #: app/views/enterprise_editor/index.rhtml:8
-msgid "Contact person: "
+msgid "Contact person:"
 msgstr ""
 
 #: app/views/enterprise_editor/index.rhtml:9
-msgid "Acronym: "
+msgid "Acronym:"
 msgstr ""
 
 #: app/views/enterprise_editor/index.rhtml:10
-msgid "Foundation year: "
+msgid "Foundation year:"
 msgstr ""
 
 #: app/views/enterprise_editor/index.rhtml:11
-msgid "Legal Form: "
+msgid "Legal Form:"
 msgstr ""
 
 #: app/views/enterprise_editor/index.rhtml:12
-msgid "Economic activity: "
+msgid "Economic activity:"
 msgstr ""
 
 #: app/views/enterprise_editor/index.rhtml:13
-msgid "Management infomation: "
+msgid "Management infomation:"
 msgstr ""
 
 #: app/views/enterprise_editor/index.rhtml:15
@@ -1571,8 +1565,12 @@ msgstr ""
 msgid "Category: %s"
 msgstr ""
 
-#: app/views/category/view.rhtml:7
-msgid "Children categories: "
+#: app/views/category/view.rhtml:8
+msgid "No children categories"
+msgstr ""
+
+#: app/views/category/view.rhtml:10
+msgid "Child categories:"
 msgstr ""
 
 #: app/views/category/_product_category.rhtml:2
