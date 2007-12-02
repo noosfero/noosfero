@@ -1,11 +1,16 @@
-<%= @products.size.to_s + " products in this category" %>
-<%= @enterprises.size.to_s + " enterprises sells products in this category" %>
+<ul>
+  <li><%= _("%d products in this category") % @products.size.to_s %></li>
+  <li><%= _("%d enterprises sells products in this category") % @enterprises.size.to_s %></li>
+</ul>
 
 <ul>
   <% @products.each do |p| %>
     <li>
     <%= image_tag p.image.public_filename(:thumb) if p.image%> <%= link_to_product(p) %> <br/>
-      <% _('Price:') %> <% p.price %> <%= _('Enterprise:') %> <%= link_to_homepage p.enterprise.name, p.enterprise.identifier %> <br/><br/>
+    <% if p.price %>
+      <%= _('Price: %d') % p.price %> <br/>
+    <% end %>
+    <%= _('Enterprise:') %> <%= link_to_homepage p.enterprise.name, p.enterprise.identifier %> <br/><br/>
     </li>
   <% end %>
 </ul>
