@@ -14,7 +14,7 @@ class Article < ActiveRecord::Base
 
   acts_as_versioned
 
-  acts_as_searchable :fields => [ :name, :abstract, :body ]
+  acts_as_searchable :fields => [ :name, :abstract, :body, :tag_list ]
 
   # retrieves all articles belonging to the given +profile+ that are not
   # sub-articles of any other article.

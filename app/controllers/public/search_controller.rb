@@ -13,10 +13,6 @@ class SearchController < ApplicationController
   #############################################
 
   search do |query|
-    Article.find_tagged_with(query)
-  end
-
-  search do |query|
     Article.find_by_contents(query)
   end
 
