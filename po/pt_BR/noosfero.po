@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.4.0\n"
-"POT-Creation-Date: 2007-11-27 13:39-0300\n"
+"POT-Creation-Date: 2007-12-02 01:33-0300\n"
 "PO-Revision-Date: 2007-12-02 00:34-0300\n"
 "Last-Translator: Rafael Tavares Bomfim <rafael@colivre.coop.br>\n"
 "Language-Team: \n"
@@ -24,15 +24,17 @@ msgstr ""
 msgid "Enterprises Block"
 msgstr "Meus Empreendimentos"
 
+#: app/design_blocks/list_block/controllers/list_block_controller.rb:24
+#: app/design_blocks/favorite_links/controllers/favorite_links_controller.rb:4
+#: app/views/cms/view.rhtml:61 app/views/role/index.rhtml:6
+#: app/views/content_viewer/view_page.rhtml:11
+#: app/views/categories/_category.rhtml:8
+msgid "Edit"
+msgstr "Editar"
+
 #: app/design_blocks/list_block/models/list_block.rb:12
 msgid "List Block"
 msgstr "Bloco de Lista"
-
-#: app/design_blocks/favorite_links/controllers/favorite_links_controller.rb:4
-#: app/views/role/index.rhtml:6 app/views/content_viewer/view_page.rhtml:7
-#: app/views/manage_tags/_a_tag.rhtml:3 app/views/categories/_category.rhtml:8
-msgid "Edit"
-msgstr "Editar"
 
 #: app/design_blocks/favorite_links/controllers/favorite_links_controller.rb:5
 msgid "Manage Links"
@@ -44,22 +46,6 @@ msgstr "Gerenciar Links"
 #, fuzzy
 msgid "Favorite Links"
 msgstr "Links Favoritos"
-
-#: app/controllers/admin/manage_tags_controller.rb:26
-msgid "Tag was successfully created."
-msgstr "Marcador criado com sucesso."
-
-#: app/controllers/admin/manage_tags_controller.rb:44
-msgid "Tag was successfully updated."
-msgstr "Marcador alterado com sucesso"
-
-#: app/controllers/admin/manage_tags_controller.rb:56
-msgid "Tag was successfuly destroyed"
-msgstr "Marcador removido com sucesso"
-
-#: app/controllers/admin/manage_tags_controller.rb:65
-msgid "Tag was successfuly approved"
-msgstr "Marcador aprovado com sucesso"
 
 #: app/controllers/admin/role_controller.rb:21
 msgid "Failed to create role"
@@ -75,12 +61,12 @@ msgid "Features updated successfully."
 msgstr "Funcionalidades alterada com sucesso"
 
 #: app/controllers/admin/environment_role_manager_controller.rb:17
-#: app/controllers/my_profile/profile_members_controller.rb:17
+#: app/controllers/my_profile/profile_members_controller.rb:18
 msgid "Roles successfuly updated"
 msgstr "Papéis alterado com sucesso"
 
 #: app/controllers/admin/environment_role_manager_controller.rb:19
-#: app/controllers/my_profile/profile_members_controller.rb:19
+#: app/controllers/my_profile/profile_members_controller.rb:20
 msgid "Couldn't change the roles"
 msgstr "Não pôde modificar os papéis"
 
@@ -102,27 +88,29 @@ msgstr "Não pôde modificar o empreendimento"
 msgid "Enterprise sucessfully erased from the system"
 msgstr "Empreendimento ativado com sucesso"
 
-#: app/controllers/my_profile/membership_editor_controller.rb:25
-msgid ""
-"The enterprise was successfully created, the validation entity will cotact "
-"you as soon as your enterprise is approved"
-msgstr ""
-"O empreendimento foi criado com sucesso, a entidade de validação irá entrar "
-"em contato com você assim que seu empreendimento for aprovado"
-
-#: app/controllers/my_profile/membership_editor_controller.rb:28
-msgid "Enterprise was not created"
-msgstr "Empreendimento não foi criado"
-
+#: app/controllers/my_profile/consumed_products_controller.rb:15
 #: app/controllers/my_profile/manage_products_controller.rb:19
 #, fuzzy
 msgid "Product succesfully created"
 msgstr "Marcador criado com sucesso."
 
+#: app/controllers/my_profile/consumed_products_controller.rb:18
 #: app/controllers/my_profile/manage_products_controller.rb:22
 #, fuzzy
 msgid "Could not create the product"
 msgstr "Não pôde modificar os papéis"
+
+#: app/controllers/my_profile/consumed_products_controller.rb:26
+#: app/controllers/my_profile/manage_products_controller.rb:42
+#, fuzzy
+msgid "Product succesfully removed"
+msgstr "Marcador aprovado com sucesso"
+
+#: app/controllers/my_profile/consumed_products_controller.rb:28
+#: app/controllers/my_profile/manage_products_controller.rb:45
+#, fuzzy
+msgid "Could not remove the product"
+msgstr "Não pôde modificar o empreendimento"
 
 #: app/controllers/my_profile/manage_products_controller.rb:31
 #, fuzzy
@@ -134,14 +122,14 @@ msgstr "Papéis alterado com sucesso"
 msgid "Could not update the product"
 msgstr "Não pôde modificar o empreendimento"
 
-#: app/controllers/my_profile/manage_products_controller.rb:42
+#: app/controllers/my_profile/profile_editor_controller.rb:43
 #, fuzzy
-msgid "Product succesfully removed"
-msgstr "Marcador aprovado com sucesso"
+msgid "Image successfully uploaded"
+msgstr "Marcador alterado com sucesso"
 
-#: app/controllers/my_profile/manage_products_controller.rb:45
+#: app/controllers/my_profile/profile_editor_controller.rb:46
 #, fuzzy
-msgid "Could not remove the product"
+msgid "Could not upload image"
 msgstr "Não pôde modificar o empreendimento"
 
 #: app/controllers/public/account_controller.rb:25
@@ -203,6 +191,10 @@ msgstr ""
 #, fuzzy
 msgid "Product|Image"
 msgstr "Categoria do Produto"
+
+#: app/models/product.rb:32 app/helpers/application_helper.rb:267
+msgid "Uncategorized product"
+msgstr ""
 
 #: app/models/validation_info.rb:-
 msgid "validation info"
@@ -303,11 +295,75 @@ msgid "Profile|Contact phone"
 msgstr "Telefone de contato"
 
 #: app/models/profile.rb:-
+#, fuzzy
+msgid "Profile|Home page"
+msgstr "Nome"
+
+#: app/models/profile.rb:-
 msgid "Profile|User"
 msgstr "Usuário"
 
 #: app/models/profile.rb:-
 msgid "Profile|Region"
+msgstr "Região"
+
+#: app/models/profile.rb:-
+#, fuzzy
+msgid "person"
+msgstr "informação pesoal"
+
+#: app/models/profile.rb:-
+#, fuzzy
+msgid "Person|Name"
+msgstr "Nome"
+
+#: app/models/profile.rb:-
+#, fuzzy
+msgid "Person|Type"
+msgstr "Tipo"
+
+#: app/models/profile.rb:-
+#, fuzzy
+msgid "Person|Identifier"
+msgstr "Identificador"
+
+#: app/models/profile.rb:-
+#, fuzzy
+msgid "Person|Environment"
+msgstr "Ambiente"
+
+#: app/models/profile.rb:-
+#, fuzzy
+msgid "Person|Design data"
+msgstr "Dados de design"
+
+#: app/models/profile.rb:-
+#, fuzzy
+msgid "Person|Active"
+msgstr "Ativo"
+
+#: app/models/profile.rb:-
+#, fuzzy
+msgid "Person|Address"
+msgstr "Endereço"
+
+#: app/models/profile.rb:-
+#, fuzzy
+msgid "Person|Contact phone"
+msgstr "Telefone de contato"
+
+#: app/models/profile.rb:-
+msgid "Person|Home page"
+msgstr ""
+
+#: app/models/profile.rb:-
+#, fuzzy
+msgid "Person|User"
+msgstr "Usuário"
+
+#: app/models/profile.rb:-
+#, fuzzy
+msgid "Person|Region"
 msgstr "Região"
 
 #: app/models/profile.rb:-
@@ -342,6 +398,11 @@ msgstr "Artigos"
 
 #: app/models/profile.rb:-
 #, fuzzy
+msgid "Article|Abstract"
+msgstr "Artigos"
+
+#: app/models/profile.rb:-
+#, fuzzy
 msgid "Article|Profile"
 msgstr "Artigos"
 
@@ -357,6 +418,11 @@ msgstr "Criado em"
 
 #: app/models/profile.rb:-
 #, fuzzy
+msgid "Article|Last changed by"
+msgstr "Atualizado em"
+
+#: app/models/profile.rb:-
+#, fuzzy
 msgid "Article|Version"
 msgstr "Artigos"
 
@@ -364,7 +430,7 @@ msgstr "Artigos"
 msgid "Article|Lock version"
 msgstr ""
 
-#: app/models/profile.rb:7 app/helpers/application_helper.rb:188
+#: app/models/profile.rb:7
 msgid "Edit profile"
 msgstr "perfil"
 
@@ -384,7 +450,7 @@ msgstr "Conteúdo da postagem"
 msgid "Edit profile design"
 msgstr "Editar design de perfil"
 
-#: app/models/profile.rb:59
+#: app/models/profile.rb:64
 msgid "An existing profile cannot be renamed."
 msgstr "Um perfil existente não pode ser renomeado"
 
@@ -496,6 +562,24 @@ msgstr "Informação de contato"
 msgid "PersonInfo|Person"
 msgstr "Pessoa"
 
+#: app/models/consumption.rb:-
+#, fuzzy
+msgid "consumption"
+msgstr "Opções da conta"
+
+#: app/models/consumption.rb:-
+#, fuzzy
+msgid "Consumption|Product category"
+msgstr "Categoria do Produto"
+
+#: app/models/consumption.rb:-
+msgid "Consumption|Profile"
+msgstr ""
+
+#: app/models/consumption.rb:-
+msgid "Consumption|Aditional specifications"
+msgstr ""
+
 #: app/models/domain.rb:-
 msgid "domain"
 msgstr "domínio"
@@ -526,6 +610,46 @@ msgstr "%{fn} não pode iniciar com www"
 
 #: app/models/image.rb:-
 msgid "image"
+msgstr ""
+
+#: app/models/image.rb:-
+#, fuzzy
+msgid "Image|Owner type"
+msgstr "Tipo do dono"
+
+#: app/models/image.rb:-
+#, fuzzy
+msgid "Image|Owner"
+msgstr "Dono"
+
+#: app/models/image.rb:-
+#, fuzzy
+msgid "Image|Parent"
+msgstr "Pais"
+
+#: app/models/image.rb:-
+#, fuzzy
+msgid "Image|Content type"
+msgstr "Gerenciar conteúdo"
+
+#: app/models/image.rb:-
+msgid "Image|Filename"
+msgstr ""
+
+#: app/models/image.rb:-
+msgid "Image|Thumbnail"
+msgstr ""
+
+#: app/models/image.rb:-
+msgid "Image|Size"
+msgstr ""
+
+#: app/models/image.rb:-
+msgid "Image|Width"
+msgstr ""
+
+#: app/models/image.rb:-
+msgid "Image|Height"
 msgstr ""
 
 #: app/models/friendship.rb:-
@@ -732,6 +856,22 @@ msgstr "Telefone de contato: %s"
 msgid "Contact person: %s"
 msgstr "Pessoa de contato: %s"
 
+#: app/models/article.rb:6
+#, fuzzy
+msgid ""
+"%{fn} (the code generated from the article name) is already being used by "
+"another article."
+msgstr "%{fn} já está sendo usado por outra categoria."
+
+#: app/models/article.rb:11
+#, fuzzy
+msgid "Tag list"
+msgstr "Marcadores"
+
+#: app/models/article.rb:54
+msgid "HTML Text document"
+msgstr ""
+
 #: app/models/environment.rb:-
 msgid "environment"
 msgstr "comunidade virtual"
@@ -912,110 +1052,135 @@ msgstr "Ajuda"
 msgid "Close"
 msgstr "Fechar"
 
-#: app/helpers/application_helper.rb:117 app/helpers/application_helper.rb:127
+#: app/helpers/application_helper.rb:115
 #: app/views/profile_editor/index.rhtml:1
 msgid "My profile"
 msgstr "Meu perfil"
 
 #: app/helpers/application_helper.rb:118
-msgid "My Enterprises"
-msgstr "Meus Empreendimentos"
-
-#: app/helpers/application_helper.rb:119 app/helpers/application_helper.rb:130
 #: app/views/environment_role_manager/make_admin.rhtml:4
 msgid "Admin"
 msgstr "Administrador"
 
-#: app/helpers/application_helper.rb:131 app/helpers/application_helper.rb:157
+#: app/helpers/application_helper.rb:119
 msgid "Logout"
 msgstr "Sair"
 
-#: app/helpers/application_helper.rb:135 app/helpers/application_helper.rb:149
-#: app/views/account/login.rhtml:1
+#: app/helpers/application_helper.rb:123 app/views/account/login.rhtml:1
 msgid "Login"
 msgstr "Entrar"
 
-#: app/helpers/application_helper.rb:153
-msgid "Not a user yet? Register now!"
-msgstr "Ainda não é usuário? Registre-se agora!"
-
-#: app/helpers/application_helper.rb:171
-msgid "Features"
-msgstr "Funcionalidades"
-
-#: app/helpers/application_helper.rb:172
-msgid "Edit visual"
-msgstr "Editar visual"
-
-#: app/helpers/application_helper.rb:173
-msgid "Manage categories"
-msgstr "Gerenciar categorias"
-
-#: app/helpers/application_helper.rb:174
-msgid "Manage permissions"
-msgstr "Gerenciar permissões"
-
-#: app/helpers/application_helper.rb:175
-msgid "Manage validators"
-msgstr "Gerenciar validadores"
-
-#: app/helpers/application_helper.rb:181
-msgid "New enterprise"
-msgstr "Novo empreendimento"
-
-#: app/helpers/application_helper.rb:187 app/helpers/application_helper.rb:196
-msgid "Edit visual design"
-msgstr "Editar aparência"
-
-#: app/helpers/application_helper.rb:189 app/helpers/application_helper.rb:198
-msgid "Manage content"
-msgstr "Gerenciar conteúdo"
-
-#: app/helpers/application_helper.rb:197
-msgid "Edit informations"
-msgstr "Editar informações"
-
-#: app/helpers/application_helper.rb:205
-#: app/views/account/new_password.rhtml:13
-#: app/views/account/change_password.rhtml:1
-#: app/views/account/change_password.rhtml:14
-msgid "Change password"
-msgstr "Alterar senha"
-
-#: app/helpers/application_helper.rb:211
-msgid "Change template"
-msgstr "Mudar template"
-
-#: app/helpers/application_helper.rb:212
-msgid "Change block theme"
-msgstr "Mude o tema de bloco"
-
-#: app/helpers/application_helper.rb:213
-msgid "Change icon theme"
-msgstr "Mudar tema do ícone"
-
-#: app/helpers/application_helper.rb:219
+#: app/helpers/application_helper.rb:138
 #: app/views/region_validators/region.rhtml:22
-#: app/views/manage_tags/_search_box.rhtml:4
-#: app/views/membership_editor/index.rhtml:4
 msgid "Search"
 msgstr "Busca"
 
-#: app/helpers/application_helper.rb:220
-msgid "  "
-msgstr "  "
+#: app/helpers/application_helper.rb:139
+msgid "your search here"
+msgstr ""
 
-#: app/helpers/application_helper.rb:230
+#: app/helpers/application_helper.rb:148
 msgid "%s, version %s"
 msgstr "%s, versão %s"
 
-#: app/views/cms/view.rhtml:23
-msgid "New subitem"
+#: app/helpers/application_helper.rb:272
+#, fuzzy
+msgid "No product"
+msgstr "Novo papel"
+
+#: app/helpers/cms_helper.rb:5
+#, fuzzy
+msgid "New %s"
+msgstr "Nome: %s"
+
+#: app/views/cms/new.rhtml:2
+msgid "Choose the type of article:"
+msgstr ""
+
+#: app/views/cms/view.rhtml:10
+msgid "Content management"
+msgstr ""
+
+#: app/views/cms/view.rhtml:14
+msgid "New article"
+msgstr "Novo artigo"
+
+#: app/views/cms/view.rhtml:21
+msgid "Hide subitems"
+msgstr ""
+
+#: app/views/cms/view.rhtml:21
+msgid "Show subitems"
 msgstr ""
 
 #: app/views/cms/view.rhtml:25
-msgid "New article"
-msgstr "Novo artigo"
+msgid "Subitems"
+msgstr ""
+
+#: app/views/cms/view.rhtml:25
+#, fuzzy
+msgid "Articles"
+msgstr "Artigos"
+
+#: app/views/cms/view.rhtml:39
+msgid "New subitem"
+msgstr ""
+
+#: app/views/cms/view.rhtml:40
+msgid "Go up one level"
+msgstr ""
+
+#: app/views/cms/view.rhtml:54
+msgid "\"%{article}\", last changed by %{author}"
+msgstr ""
+
+#: app/views/cms/view.rhtml:54
+msgid "Unknown User"
+msgstr ""
+
+#: app/views/cms/view.rhtml:57
+msgid "Public address of this article: %s"
+msgstr ""
+
+#: app/views/cms/view.rhtml:62
+#, fuzzy
+msgid "Use as homepage"
+msgstr "Veja sua página inicial."
+
+#: app/views/cms/view.rhtml:63
+#, fuzzy
+msgid "Delete"
+msgstr "excluir"
+
+#: app/views/cms/view.rhtml:63
+msgid "Tem certeza que quer excluir este artigo?"
+msgstr ""
+
+#: app/views/cms/text_html_edit.rhtml:11 app/views/cms/text_html_new.rhtml:11
+msgid "Separate tags with commas"
+msgstr ""
+
+#: app/views/cms/text_html_edit.rhtml:17 app/views/cms/text_html_new.rhtml:17
+#: app/views/profile_editor/person_info.rhtml:11
+#: app/views/categories/_form.rhtml:16
+#: app/design_blocks/list_block/views/edit.rhtml:14
+#: app/design_blocks/favorite_links/views/add_link.rhtml:10
+#: app/design_blocks/favorite_links/views/edit.rhtml:26
+msgid "Save"
+msgstr "Salvar"
+
+#: app/views/cms/text_html_edit.rhtml:18 app/views/cms/text_html_new.rhtml:18
+#: app/views/role/_form.rhtml:13
+#: app/views/profile_members/change_role.rhtml:13
+#: app/views/consumed_products/new.rhtml:9
+#: app/views/manage_products/_form.rhtml:10
+#: app/views/enterprise_editor/edit.rhtml:8
+#: app/views/profile_editor/change_image.rhtml:4
+#: app/views/enterprise_registration/basic_information.rhtml:33
+#: app/views/environment_role_manager/change_role.rhtml:12
+#: app/views/categories/_form.rhtml:17
+msgid "Cancel"
+msgstr "Cancelar"
 
 #: app/views/role/new.rhtml:1
 msgid "New Role"
@@ -1027,7 +1192,7 @@ msgstr "Permissões: "
 
 #: app/views/role/_form.rhtml:12
 #: app/views/profile_members/change_role.rhtml:12
-#: app/views/manage_products/_form.rhtml:11
+#: app/views/manage_products/_form.rhtml:9
 #: app/views/features/_features_table.rhtml:15
 #: app/views/environment_role_manager/change_role.rhtml:11
 msgid "Save changes"
@@ -1037,17 +1202,6 @@ msgstr "Salvar alterações"
 msgid "Create role"
 msgstr "Criar papel"
 
-#: app/views/role/_form.rhtml:13
-#: app/views/profile_members/change_role.rhtml:13
-#: app/views/enterprise_editor/edit.rhtml:8 app/views/manage_tags/new.rhtml:6
-#: app/views/manage_tags/edit.rhtml:6
-#: app/views/membership_editor/new_enterprise.rhtml:13
-#: app/views/enterprise_registration/basic_information.rhtml:33
-#: app/views/environment_role_manager/change_role.rhtml:12
-#: app/views/categories/_form.rhtml:17
-msgid "Cancel"
-msgstr "Cancelar"
-
 #: app/views/role/show.rhtml:3
 msgid "Permissions"
 msgstr "Permissões"
@@ -1055,8 +1209,9 @@ msgstr "Permissões"
 #: app/views/role/show.rhtml:10 app/views/role/index.rhtml:12
 #: app/views/profile_members/affiliate.rhtml:9
 #: app/views/profile_members/index.rhtml:13
-#: app/views/enterprise_editor/index.rhtml:23
-#: app/views/manage_tags/search.rhtml:12
+#: app/views/consumed_products/index.rhtml:11
+#: app/views/manage_products/index.rhtml:12
+#: app/views/enterprise_editor/index.rhtml:22
 #: app/views/enterprise_validation/view_processed.rhtml:3
 #: app/views/enterprise_validation/details.rhtml:3
 #: app/views/enterprise_validation/list_processed.rhtml:3
@@ -1069,7 +1224,7 @@ msgstr "Voltar"
 msgid "New role"
 msgstr "Novo papel"
 
-#: app/views/role/index.rhtml:7 app/views/manage_tags/_a_tag.rhtml:5
+#: app/views/role/index.rhtml:7
 msgid "Destroy"
 msgstr "Destruir"
 
@@ -1158,6 +1313,35 @@ msgstr[1] "%{num} validadores."
 msgid "Validators by Region"
 msgstr "Validadores por região"
 
+#: app/views/consumed_products/new.rhtml:1
+#: app/views/consumed_products/new.rhtml:8
+#: app/views/consumed_products/index.rhtml:3
+#, fuzzy
+msgid "Add product"
+msgstr "Novo papel"
+
+#: app/views/consumed_products/new.rhtml:6
+#, fuzzy
+msgid "Product: "
+msgstr "Nome"
+
+#: app/views/consumed_products/new.rhtml:7
+msgid "Aditional specifications: "
+msgstr ""
+
+#: app/views/consumed_products/index.rhtml:1
+#: app/views/manage_products/index.rhtml:1
+#, fuzzy
+msgid "Listing products"
+msgstr "Listando tags"
+
+#: app/views/consumed_products/index.rhtml:7
+#: app/views/manage_products/show.rhtml:9
+#: app/views/manage_products/index.rhtml:9
+#, fuzzy
+msgid "destroy"
+msgstr "Destruir"
+
 #: app/views/manage_products/new.rhtml:1
 #: app/views/manage_products/index.rhtml:3
 #, fuzzy
@@ -1170,6 +1354,7 @@ msgid "Name:"
 msgstr "Nome"
 
 #: app/views/manage_products/_form.rhtml:5
+#: app/views/category/_product_category.rhtml:8
 msgid "Price:"
 msgstr ""
 
@@ -1178,15 +1363,15 @@ msgid "Description:"
 msgstr ""
 
 #: app/views/manage_products/_form.rhtml:7
-#, fuzzy
-msgid "Category:"
-msgstr "Categoria: %s"
-
-#: app/views/manage_products/_form.rhtml:9
 msgid "Image:"
 msgstr ""
 
-#: app/views/manage_products/_form.rhtml:11
+#: app/views/manage_products/_form.rhtml:8
+#, fuzzy
+msgid "category:"
+msgstr "categoria"
+
+#: app/views/manage_products/_form.rhtml:9
 #, fuzzy
 msgid "Create product"
 msgstr "Criar papel"
@@ -1206,21 +1391,11 @@ msgstr "Permissões: "
 msgid "Category: "
 msgstr "Categoria: %s"
 
-#: app/views/manage_products/show.rhtml:6
-msgid "Uncategorized product"
-msgstr ""
-
 #: app/views/manage_products/show.rhtml:8
 #: app/views/manage_products/index.rhtml:8
 #, fuzzy
 msgid "edit"
 msgstr "Editar"
-
-#: app/views/manage_products/show.rhtml:9
-#: app/views/manage_products/index.rhtml:9
-#, fuzzy
-msgid "destroy"
-msgstr "Destruir"
 
 #: app/views/manage_products/show.rhtml:11
 #, fuzzy
@@ -1232,28 +1407,30 @@ msgstr "Voltar"
 msgid "Editing"
 msgstr "Editando %s"
 
-#: app/views/manage_products/index.rhtml:1
-#, fuzzy
-msgid "Listing products"
-msgstr "Listando tags"
-
 #: app/views/content_viewer/view_page.rhtml:4
-#: app/views/manage_tags/list.rhtml:17
+#, fuzzy
+msgid "Tags: %s"
+msgstr "Marcadores: "
+
+#: app/views/content_viewer/view_page.rhtml:8
 msgid "Up"
 msgstr "Acima"
+
+#: app/views/content_viewer/no_home_page.rhtml:1
+#, fuzzy
+msgid "Missing home page"
+msgstr "Minha página inicial."
+
+#: app/views/content_viewer/no_home_page.rhtml:4
+msgid "%s did not choose an article for homepage yet."
+msgstr ""
 
 #: app/views/content_viewer/not_found.rhtml:1
 #: app/views/shared/not_found.rhtml:1
 msgid "There is no such page: %s"
 msgstr "Não há página: %s"
 
-#: app/views/layouts/application.rhtml:33
-#: app/views/layouts/comatose_admin.rhtml:33
-msgid "Image for Loading..."
-msgstr "Imagem para Carregamento..."
-
-#: app/views/layouts/application.rhtml:39
-#: app/views/layouts/comatose_admin.rhtml:39
+#: app/views/layouts/application.rhtml:40
 #, fuzzy
 msgid "Go to content"
 msgstr "Conteúdo da postagem"
@@ -1263,9 +1440,7 @@ msgid "Page not found"
 msgstr "Página não encontrada"
 
 #: app/views/enterprise_editor/_form.rhtml:1
-#: app/views/manage_tags/_form.rhtml:1
 #: app/views/enterprise_validation/_details.rhtml:3
-#: app/views/membership_editor/_form.rhtml:1
 #: app/views/profile_editor/person_info.rhtml:5
 msgid "Name"
 msgstr "Nome"
@@ -1274,7 +1449,6 @@ msgstr "Nome"
 #: app/views/enterprise_validation/list_processed.rhtml:9
 #: app/views/enterprise_validation/_details.rhtml:7
 #: app/views/enterprise_validation/index.rhtml:7
-#: app/views/membership_editor/_form.rhtml:4
 #: app/views/profile_editor/person_info.rhtml:7
 msgid "Address"
 msgstr "Endereço"
@@ -1283,7 +1457,6 @@ msgstr "Endereço"
 #: app/views/enterprise_validation/list_processed.rhtml:13
 #: app/views/enterprise_validation/_details.rhtml:11
 #: app/views/enterprise_validation/index.rhtml:11
-#: app/views/membership_editor/_form.rhtml:7
 msgid "Contact Phone"
 msgstr "Telefone de Contato"
 
@@ -1291,55 +1464,43 @@ msgstr "Telefone de Contato"
 #: app/views/enterprise_validation/list_processed.rhtml:17
 #: app/views/enterprise_validation/_details.rhtml:15
 #: app/views/enterprise_validation/index.rhtml:15
-#: app/views/membership_editor/_form.rhtml:10
 msgid "Contact Person"
 msgstr "Pessoa de Contato"
 
 #: app/views/enterprise_editor/_form.rhtml:13
 #: app/views/enterprise_validation/_details.rhtml:19
-#: app/views/membership_editor/_form.rhtml:13
 msgid "Acronym"
 msgstr "Acrônimo"
 
 #: app/views/enterprise_editor/_form.rhtml:16
 #: app/views/enterprise_validation/_details.rhtml:27
-#: app/views/membership_editor/_form.rhtml:16
 msgid "Foundation Year"
 msgstr "Ano de Fundação"
 
 #: app/views/enterprise_editor/_form.rhtml:19
 #: app/views/enterprise_validation/_details.rhtml:31
-#: app/views/membership_editor/_form.rhtml:19
 msgid "Legal Form"
 msgstr "Formulário Legal"
 
 #: app/views/enterprise_editor/_form.rhtml:22
 #: app/views/enterprise_validation/_details.rhtml:35
-#: app/views/membership_editor/_form.rhtml:22
 msgid "Economic Activity"
 msgstr "Atividade Econômica"
 
 #: app/views/enterprise_editor/_form.rhtml:25
 #: app/views/enterprise_validation/_details.rhtml:39
-#: app/views/membership_editor/_form.rhtml:25
 msgid "Management Information"
 msgstr "Informação de Gerenciamento"
 
 #: app/views/enterprise_editor/_form.rhtml:28
-#: app/views/membership_editor/_form.rhtml:28
 msgid "Validation Entity"
 msgstr "Entidade de Validação"
-
-#: app/views/enterprise_editor/_form.rhtml:31
-#: app/views/membership_editor/_form.rhtml:31
-msgid "Tags"
-msgstr "Marcadores"
 
 #: app/views/enterprise_editor/edit.rhtml:3
 msgid "Edit enterprise informations"
 msgstr "Editar informações do empreendimento"
 
-#: app/views/enterprise_editor/edit.rhtml:7 app/views/manage_tags/edit.rhtml:5
+#: app/views/enterprise_editor/edit.rhtml:7
 msgid "Update"
 msgstr "Atualizar"
 
@@ -1379,118 +1540,29 @@ msgstr "Atividade econômica"
 msgid "Management infomation: "
 msgstr "Informação de gerenciamento"
 
-#: app/views/enterprise_editor/index.rhtml:14
-msgid "Tags:"
-msgstr "Marcadores: "
-
-#: app/views/enterprise_editor/index.rhtml:16
+#: app/views/enterprise_editor/index.rhtml:15
 msgid "Edit enterprise"
 msgstr "Editar empreendimento"
 
-#: app/views/enterprise_editor/index.rhtml:17
+#: app/views/enterprise_editor/index.rhtml:16
 msgid "Change the information about the enterprise"
 msgstr "Altera a informação sobre o empreendimento"
 
-#: app/views/enterprise_editor/index.rhtml:18
+#: app/views/enterprise_editor/index.rhtml:17
 msgid "Delete enterprise"
 msgstr "Excluir empreendimento"
 
-#: app/views/enterprise_editor/index.rhtml:19
+#: app/views/enterprise_editor/index.rhtml:18
 msgid "Remove the enterprise from the system"
 msgstr "Excluir o empreendimnto do sistema"
 
-#: app/views/enterprise_editor/index.rhtml:20
+#: app/views/enterprise_editor/index.rhtml:19
 msgid "Activate"
 msgstr "Ativar"
 
-#: app/views/enterprise_editor/index.rhtml:21
+#: app/views/enterprise_editor/index.rhtml:20
 msgid "Activate an approved enterprise"
 msgstr "Ativa um empreendimento aprovado"
-
-#: app/views/manage_tags/new.rhtml:1 app/views/manage_tags/list.rhtml:19
-msgid "New tag"
-msgstr "Novo marcador"
-
-#: app/views/manage_tags/new.rhtml:5
-msgid "Create"
-msgstr "Criar"
-
-#: app/views/manage_tags/_form.rhtml:2
-msgid "Parent tag"
-msgstr "Marcador pai"
-
-#: app/views/manage_tags/_form.rhtml:3
-msgid "Pending"
-msgstr "Pendente"
-
-#: app/views/manage_tags/search.rhtml:3
-msgid "Matching tags"
-msgstr "Tags relacionadas"
-
-#: app/views/manage_tags/search.rhtml:6
-msgid " was found"
-msgstr " foi encontrador"
-
-#: app/views/manage_tags/search.rhtml:9
-msgid "No tags found matching criteria"
-msgstr "Nenhum marcador achado segundo critério"
-
-#: app/views/manage_tags/_a_tag.rhtml:4
-msgid "Edit the attributes of this tag (name, parent and pending status)"
-msgstr "Editar atributos dessa tag (nome, filiação e estado pendente)"
-
-#: app/views/manage_tags/_a_tag.rhtml:6
-msgid "Erase the tag and all its subtags but not the tagged content"
-msgstr ""
-"Apagar essa tag e todas as suas subtags mas não o conteúdo marcado com elas"
-
-#: app/views/manage_tags/_a_tag.rhtml:7
-msgid "Filter by this tag"
-msgstr "Filtrar por essa tag"
-
-#: app/views/manage_tags/_a_tag.rhtml:8
-msgid "List only the tags that are subtags of this tag"
-msgstr "Listar apenas tags que são subtags desta tag"
-
-#: app/views/manage_tags/_a_tag.rhtml:10
-msgid "Approve tag"
-msgstr "Aprovar tag"
-
-#: app/views/manage_tags/_a_tag.rhtml:11
-msgid ""
-"Approve this tag so content can be tagged with it and subtags of it can br "
-"created"
-msgstr ""
-"Aprovar esta tag de forma qeu conteúdos possam ser idexados por ela e "
-"subtags possam ser criadas"
-
-#: app/views/manage_tags/list.rhtml:3
-msgid "Listing tags"
-msgstr "Listando tags"
-
-#: app/views/manage_tags/list.rhtml:9
-msgid "Pending Tags"
-msgstr "Tags pendentes"
-
-#: app/views/manage_tags/list.rhtml:15
-msgid "Top"
-msgstr "Topo"
-
-#: app/views/manage_tags/list.rhtml:16
-msgid "Go to the top view of the tags"
-msgstr "Ir para a visão da hierarquia superior das tags"
-
-#: app/views/manage_tags/list.rhtml:18
-msgid "Filter by the parent of the actual tag"
-msgstr "Filtrar pela tag pai da atual"
-
-#: app/views/manage_tags/list.rhtml:20
-msgid "Create a new tag"
-msgstr "Criar nova tag"
-
-#: app/views/manage_tags/edit.rhtml:1
-msgid "Editing Tag"
-msgstr "Editando tag"
 
 #: app/views/enterprise_validation/view_processed.rhtml:1
 msgid "Processed validation request for %s "
@@ -1553,7 +1625,6 @@ msgid "See details"
 msgstr "Ver os detalhes"
 
 #: app/views/enterprise_validation/_details.rhtml:23
-#: app/views/membership_editor/new_enterprise.rhtml:9
 msgid "Identifier"
 msgstr "Identificador"
 
@@ -1568,50 +1639,6 @@ msgstr "Ver detalhes/aprovar/rejeitar"
 #: app/views/enterprise_validation/index.rhtml:25
 msgid "See the list of processed enterprise validations"
 msgstr "Ver lista validações de empreendimentos processados"
-
-#: app/views/membership_editor/search.rhtml:1
-msgid " enterprises found"
-msgstr " empreendimento encontrado"
-
-#: app/views/membership_editor/new_enterprise.rhtml:3
-#: app/views/enterprise_registration/basic_information.rhtml:3
-msgid "Register enterprise"
-msgstr "Registrar empreendimento"
-
-#: app/views/membership_editor/new_enterprise.rhtml:5
-#: app/views/enterprise_registration/basic_information.rhtml:5
-msgid "How to proceed"
-msgstr "Como proceder"
-
-#: app/views/membership_editor/new_enterprise.rhtml:6
-#: app/views/enterprise_registration/basic_information.rhtml:6
-msgid ""
-"Fill the form and hit the Register button then the enterprise will be "
-"submitted for evaluation at the validation entitiy of your choice (within "
-"your state), when the enterprise is aproved you will be able to activate its "
-"profile"
-msgstr ""
-"Preencha o formulário e pressione o botão Registrar para que o "
-"empreendimento seja submetido a avaliação pela entidade de sua escolha. Uma "
-"vez aprovada, você poderá ativar o perfil do empreendimento"
-
-#: app/views/membership_editor/new_enterprise.rhtml:12
-#: app/views/account/signup.rhtml:1
-#: app/views/enterprise_registration/basic_information.rhtml:32
-msgid "Register"
-msgstr "Registrar"
-
-#: app/views/membership_editor/index.rhtml:1
-msgid "Listing memberships"
-msgstr "Listando associações em organizações"
-
-#: app/views/membership_editor/index.rhtml:11
-msgid "Manage"
-msgstr "Gerenciar"
-
-#: app/views/membership_editor/index.rhtml:16
-msgid "Request registration of a new enterprise"
-msgstr "Requisitar registro de um novo empreendimento"
 
 #: app/views/admin_panel/index.rhtml:1
 msgid "Administrator Panel"
@@ -1642,9 +1669,19 @@ msgstr "Gerencias papéis de usuários"
 msgid "Manage Validators by region"
 msgstr "Gerenciar Validadores por região"
 
-#: app/views/category/view.rhtml:1
+#: app/views/category/view.rhtml:3 app/views/search/_product.rhtml:13
 msgid "Category: %s"
 msgstr "Categoria: %s"
+
+#: app/views/category/view.rhtml:7
+#, fuzzy
+msgid "Children categories: "
+msgstr "Categorias"
+
+#: app/views/category/_product_category.rhtml:8
+#, fuzzy
+msgid "Enterprise:"
+msgstr "Meus Empreendimentos"
 
 #: app/views/account/invalid_change_password_code.rhtml:1
 msgid "Invalid change password code"
@@ -1703,6 +1740,12 @@ msgstr "Olá, %s! Por favor entre sua nova senha no formulário abaixo."
 msgid "Confirm the new password"
 msgstr "Confirme a nova senha"
 
+#: app/views/account/new_password.rhtml:13
+#: app/views/account/change_password.rhtml:1
+#: app/views/account/change_password.rhtml:14
+msgid "Change password"
+msgstr "Alterar senha"
+
 #: app/views/account/new_password_ok.rhtml:1
 msgid "Password changed sucessfully"
 msgstr "Senha alterada com sucesso"
@@ -1754,9 +1797,18 @@ msgstr "Nova senha"
 msgid "Confirm your new Password"
 msgstr "Confirme sua nova senha"
 
+#: app/views/account/signup.rhtml:1
+msgid "Register"
+msgstr "Registrar"
+
 #: app/views/account/signup.rhtml:17
 msgid "I accept the terms of use"
 msgstr "Eu aceito os termos de uso"
+
+#: app/views/account/signup.rhtml:21
+#, fuzzy
+msgid "Sign up"
+msgstr "Registre-se."
 
 #: app/views/account/forgot_password.rhtml:5
 msgid ""
@@ -1813,18 +1865,10 @@ msgid "Manage your content."
 msgstr "Gerenciar o seu conteúdo"
 
 #: app/views/account/index.rhtml:24
-msgid "Manage memberships."
-msgstr "Gerenciar associações em organizações."
-
-#: app/views/account/index.rhtml:25
-msgid "Manage your affiliation with other profiles."
-msgstr "Gerenciar sua afiliação com outros perfis."
-
-#: app/views/account/index.rhtml:29
 msgid "Logout."
 msgstr "Sair."
 
-#: app/views/account/index.rhtml:30
+#: app/views/account/index.rhtml:25
 msgid ""
 "It is always a good idea to make a logout when you finish using the "
 "environment."
@@ -1832,13 +1876,34 @@ msgstr ""
 "É sempre uma boa idéia fazer logout quando você terminar de usar a "
 "comunidade virtual."
 
-#: app/views/search/index.rhtml:1
-msgid "Listing articles found"
-msgstr "Listando os artigos encontrados"
+#: app/views/search/_product.rhtml:11
+msgid "Price: %d"
+msgstr ""
 
-#: app/views/search/index.rhtml:3
-msgid "Searching for "
-msgstr "Buscar por "
+#: app/views/search/_product.rhtml:12
+msgid "Suplier: %s"
+msgstr ""
+
+#: app/views/search/tags.rhtml:1
+msgid "Tag cloud"
+msgstr ""
+
+#: app/views/search/tag.rhtml:2
+msgid "Tagged with \"%s\""
+msgstr ""
+
+#: app/views/search/tag.rhtml:6
+#, fuzzy
+msgid "Back to tag cloud"
+msgstr "Voltar ao topo"
+
+#: app/views/search/index.rhtml:1
+msgid "Search results for \"%s\" "
+msgstr ""
+
+#: app/views/search/index.rhtml:6
+msgid "Relevance: %d%%"
+msgstr ""
 
 #: app/views/features/_features_table.rhtml:12
 msgid "Organization Approval Method"
@@ -1870,6 +1935,14 @@ msgstr ""
 msgid "Access denied"
 msgstr "Acesso negado"
 
+#: app/views/profile_editor/change_image.rhtml:2
+msgid "Image"
+msgstr ""
+
+#: app/views/profile_editor/change_image.rhtml:3
+msgid "Upload"
+msgstr ""
+
 #: app/views/profile_editor/person_info.rhtml:1
 msgid "Edit person info"
 msgstr "Editar dados pessoais"
@@ -1878,50 +1951,87 @@ msgstr "Editar dados pessoais"
 msgid "Contact Information"
 msgstr "Informação de contato"
 
-#: app/views/profile_editor/person_info.rhtml:11
-#: app/views/categories/_form.rhtml:16
-#: app/design_blocks/favorite_links/views/add_link.rhtml:10
-#: app/design_blocks/favorite_links/views/edit.rhtml:26
-msgid "Save"
-msgstr "Salvar"
+#: app/views/profile_editor/index.rhtml:3
+#, fuzzy
+msgid "Put image"
+msgstr "Categoria do Produto"
 
-#: app/views/profile_editor/index.rhtml:8
+#: app/views/profile_editor/index.rhtml:10
 #, fuzzy
 msgid "Edit Profile"
 msgstr "perfil"
 
-#: app/views/profile_editor/index.rhtml:10
-#: app/views/profile_editor/index.rhtml:21
+#: app/views/profile_editor/index.rhtml:12
 msgid "Edit Visual Design"
 msgstr "Editar Aparência"
 
-#: app/views/profile_editor/index.rhtml:12
+#: app/views/profile_editor/index.rhtml:14
 #, fuzzy
 msgid "Manage Content"
 msgstr "Gerenciar conteúdo"
 
-#: app/views/profile_editor/index.rhtml:14
+#: app/views/profile_editor/index.rhtml:16
 #, fuzzy
 msgid "Change Password"
 msgstr "Alterar senha"
 
-#: app/views/profile_editor/index.rhtml:16
+#: app/views/profile_editor/index.rhtml:18
+#, fuzzy
+msgid "Manage Members"
+msgstr "Gerenciar membros"
+
+#: app/views/profile_editor/index.rhtml:20
+#, fuzzy
+msgid "Consumed Products"
+msgstr "Gerenciar o seu conteúdo"
+
+#: app/views/profile_editor/index.rhtml:22
 #, fuzzy
 msgid "Manage Products"
 msgstr "Gerenciar o seu conteúdo"
 
-#: app/views/profile_editor/index.rhtml:22
-msgid "Menage content"
-msgstr "Garenciar conteúdo"
-
-#: app/views/profile_editor/index.rhtml:25
+#: app/views/profile_editor/index.rhtml:27
 #, fuzzy
 msgid "My organizations"
 msgstr "informação da organização"
 
+#: app/views/profile_editor/index.rhtml:35
+#, fuzzy
+msgid "Register a new Enterprise"
+msgstr "Registrar empreendimento"
+
+#: app/views/catalog/index.rhtml:1
+msgid "Catalog"
+msgstr ""
+
+#: app/views/enterprise_registration/basic_information.rhtml:3
+msgid "Register enterprise"
+msgstr "Registrar empreendimento"
+
+#: app/views/enterprise_registration/basic_information.rhtml:5
+msgid "How to proceed"
+msgstr "Como proceder"
+
+#: app/views/enterprise_registration/basic_information.rhtml:6
+msgid ""
+"Fill the form and hit the Register button then the enterprise will be "
+"submitted for evaluation at the validation entitiy of your choice (within "
+"your state), when the enterprise is aproved you will be able to activate its "
+"profile"
+msgstr ""
+"Preencha o formulário e pressione o botão Registrar para que o "
+"empreendimento seja submetido a avaliação pela entidade de sua escolha. Uma "
+"vez aprovada, você poderá ativar o perfil do empreendimento"
+
 #: app/views/enterprise_registration/basic_information.rhtml:27
 msgid "Management information"
 msgstr "Gerenciamento de informação"
+
+#: app/views/enterprise_registration/basic_information.rhtml:32
+#: app/design_blocks/favorite_links/views/manage_links.rhtml:11
+#: app/design_blocks/favorite_links/views/index.rhtml:7
+msgid "Next"
+msgstr "Próximo"
 
 #: app/views/enterprise_registration/select_validator.rhtml:1
 msgid "Enterprise Registration: Select a validator organization"
@@ -1943,7 +2053,7 @@ msgstr "Metodologia de Validação:"
 msgid "Restrictions (if any):"
 msgstr "Limitações (se tiver):"
 
-#: app/views/enterprise_registration/select_validator.rhtml:20
+#: app/views/enterprise_registration/select_validator.rhtml:21
 msgid "Confirm"
 msgstr "Confirmar"
 
@@ -2009,16 +2119,30 @@ msgstr "Editando %s"
 msgid "Categories"
 msgstr "Categorias"
 
+#: app/design_blocks/list_block/views/show.rhtml:1
+msgid "Limit number of people: "
+msgstr ""
+
+#: app/design_blocks/list_block/views/edit.rhtml:1
+msgid "Editing list of people"
+msgstr ""
+
+#: app/design_blocks/list_block/views/edit.rhtml:5
+#: app/design_blocks/favorite_links/views/add_link.rhtml:6
+#: app/design_blocks/favorite_links/views/edit.rhtml:7
+msgid "Title"
+msgstr "Título"
+
+#: app/design_blocks/list_block/views/edit.rhtml:10
+#, fuzzy
+msgid "Max number of people"
+msgstr "Número máximo de links"
+
 #: app/design_blocks/favorite_links/views/add_link.rhtml:1
 #: app/design_blocks/favorite_links/views/edit.rhtml:2
 #, fuzzy
 msgid "Editing Favorite Links"
 msgstr "Editar Links Favoritos"
-
-#: app/design_blocks/favorite_links/views/add_link.rhtml:6
-#: app/design_blocks/favorite_links/views/edit.rhtml:7
-msgid "Title"
-msgstr "Título"
 
 #: app/design_blocks/favorite_links/views/manage_links.rhtml:4
 msgid "Add Link"
@@ -2028,11 +2152,6 @@ msgstr "Adicionar Link"
 #: app/design_blocks/favorite_links/views/index.rhtml:4
 msgid "Previous"
 msgstr "Anterior"
-
-#: app/design_blocks/favorite_links/views/manage_links.rhtml:11
-#: app/design_blocks/favorite_links/views/index.rhtml:7
-msgid "Next"
-msgstr "Próximo"
 
 #: app/design_blocks/favorite_links/views/edit.rhtml:12
 msgid "Display header?"
@@ -2045,6 +2164,167 @@ msgstr "Mostrar título?"
 #: app/design_blocks/favorite_links/views/edit.rhtml:22
 msgid "Max number of links"
 msgstr "Número máximo de links"
+
+#~ msgid "Tag was successfully created."
+#~ msgstr "Marcador criado com sucesso."
+
+#~ msgid "Tag was successfuly destroyed"
+#~ msgstr "Marcador removido com sucesso"
+
+#~ msgid "Tag was successfuly approved"
+#~ msgstr "Marcador aprovado com sucesso"
+
+#~ msgid ""
+#~ "The enterprise was successfully created, the validation entity will "
+#~ "cotact you as soon as your enterprise is approved"
+#~ msgstr ""
+#~ "O empreendimento foi criado com sucesso, a entidade de validação irá "
+#~ "entrar em contato com você assim que seu empreendimento for aprovado"
+
+#~ msgid "Enterprise was not created"
+#~ msgstr "Empreendimento não foi criado"
+
+#~ msgid "Not a user yet? Register now!"
+#~ msgstr "Ainda não é usuário? Registre-se agora!"
+
+#~ msgid "Features"
+#~ msgstr "Funcionalidades"
+
+#~ msgid "Edit visual"
+#~ msgstr "Editar visual"
+
+#~ msgid "Manage categories"
+#~ msgstr "Gerenciar categorias"
+
+#~ msgid "Manage permissions"
+#~ msgstr "Gerenciar permissões"
+
+#~ msgid "Manage validators"
+#~ msgstr "Gerenciar validadores"
+
+#~ msgid "New enterprise"
+#~ msgstr "Novo empreendimento"
+
+#~ msgid "Edit visual design"
+#~ msgstr "Editar aparência"
+
+#~ msgid "Manage content"
+#~ msgstr "Gerenciar conteúdo"
+
+#~ msgid "Edit informations"
+#~ msgstr "Editar informações"
+
+#~ msgid "Change template"
+#~ msgstr "Mudar template"
+
+#~ msgid "Change block theme"
+#~ msgstr "Mude o tema de bloco"
+
+#~ msgid "Change icon theme"
+#~ msgstr "Mudar tema do ícone"
+
+#~ msgid "  "
+#~ msgstr "  "
+
+#, fuzzy
+#~ msgid "Category:"
+#~ msgstr "Categoria: %s"
+
+#~ msgid "Image for Loading..."
+#~ msgstr "Imagem para Carregamento..."
+
+#~ msgid "New tag"
+#~ msgstr "Novo marcador"
+
+#~ msgid "Create"
+#~ msgstr "Criar"
+
+#~ msgid "Parent tag"
+#~ msgstr "Marcador pai"
+
+#~ msgid "Pending"
+#~ msgstr "Pendente"
+
+#~ msgid "Matching tags"
+#~ msgstr "Tags relacionadas"
+
+#~ msgid " was found"
+#~ msgstr " foi encontrador"
+
+#~ msgid "No tags found matching criteria"
+#~ msgstr "Nenhum marcador achado segundo critério"
+
+#~ msgid "Edit the attributes of this tag (name, parent and pending status)"
+#~ msgstr "Editar atributos dessa tag (nome, filiação e estado pendente)"
+
+#~ msgid "Erase the tag and all its subtags but not the tagged content"
+#~ msgstr ""
+#~ "Apagar essa tag e todas as suas subtags mas não o conteúdo marcado com "
+#~ "elas"
+
+#~ msgid "Filter by this tag"
+#~ msgstr "Filtrar por essa tag"
+
+#~ msgid "List only the tags that are subtags of this tag"
+#~ msgstr "Listar apenas tags que são subtags desta tag"
+
+#~ msgid "Approve tag"
+#~ msgstr "Aprovar tag"
+
+#~ msgid ""
+#~ "Approve this tag so content can be tagged with it and subtags of it can "
+#~ "br created"
+#~ msgstr ""
+#~ "Aprovar esta tag de forma qeu conteúdos possam ser idexados por ela e "
+#~ "subtags possam ser criadas"
+
+#~ msgid "Listing tags"
+#~ msgstr "Listando tags"
+
+#~ msgid "Pending Tags"
+#~ msgstr "Tags pendentes"
+
+#~ msgid "Top"
+#~ msgstr "Topo"
+
+#~ msgid "Go to the top view of the tags"
+#~ msgstr "Ir para a visão da hierarquia superior das tags"
+
+#~ msgid "Filter by the parent of the actual tag"
+#~ msgstr "Filtrar pela tag pai da atual"
+
+#~ msgid "Create a new tag"
+#~ msgstr "Criar nova tag"
+
+#~ msgid "Editing Tag"
+#~ msgstr "Editando tag"
+
+#~ msgid " enterprises found"
+#~ msgstr " empreendimento encontrado"
+
+#~ msgid "Listing memberships"
+#~ msgstr "Listando associações em organizações"
+
+#~ msgid "Manage"
+#~ msgstr "Gerenciar"
+
+#~ msgid "Request registration of a new enterprise"
+#~ msgstr "Requisitar registro de um novo empreendimento"
+
+#~ msgid "Manage memberships."
+#~ msgstr "Gerenciar associações em organizações."
+
+#~ msgid "Manage your affiliation with other profiles."
+#~ msgstr "Gerenciar sua afiliação com outros perfis."
+
+#~ msgid "Listing articles found"
+#~ msgstr "Listando os artigos encontrados"
+
+#~ msgid "Searching for "
+#~ msgstr "Buscar por "
+
+#~ msgid "Menage content"
+#~ msgstr "Garenciar conteúdo"
 
 #~ msgid "My account"
 #~ msgstr "Minha conta"
@@ -2099,9 +2379,6 @@ msgstr "Número máximo de links"
 
 #~ msgid "Reorder children of '%s'"
 #~ msgstr "Reordenar filhos de '%s'"
-
-#~ msgid "delete"
-#~ msgstr "excluir"
 
 #~ msgid "This will delete this page, and any children. Are you sure?"
 #~ msgstr "Isto vai excluir esta página, e qualquer filho. Tem certeza?"
@@ -2177,9 +2454,6 @@ msgstr "Número máximo de links"
 
 #~ msgid "or"
 #~ msgstr "ou"
-
-#~ msgid "Back to top"
-#~ msgstr "Voltar ao topo"
 
 #~ msgid "Reorder Pages"
 #~ msgstr "Rordenar Páginas"
@@ -2318,9 +2592,6 @@ msgstr "Número máximo de links"
 
 #~ msgid "Blue"
 #~ msgstr "Azul"
-
-#~ msgid "Manage members"
-#~ msgstr "Gerenciar membros"
 
 #, fuzzy
 #~ msgid "Profile|Virtual community"
