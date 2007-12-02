@@ -46,4 +46,16 @@ class EnterpriseTest < Test::Unit::TestCase
     end
   end
 
+  should 'remove products when removing enterprise' do
+    e = Enterprise.create!(:name => "My enterprise", :identifier => 'myenterprise')
+    e.products.build(:name => 'One product').save!
+    e.products.build(:name => 'Another product').save!
+
+    assert_difference Product, :count, -2 do
+      e.destroy
+    end
+
+
+  end
+
 end
