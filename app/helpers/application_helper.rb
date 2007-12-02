@@ -109,17 +109,6 @@ module ApplicationHelper
     link_to text, homepage_path(:profile => doc.profile.identifier , :page => path)
   end
 
-  # TODO: add the actual links
-  # TODO: test this helper
-  def user_links
-    links = [
-       ( link_to_myprofile( _('My profile') )),
-       ( link_to_myprofile _('My Enterprises'), {:controller => 'membership_editor'} ),
-       ( link_to(_('Admin'), { :controller => 'admin_panel' }) if current_user.person.is_admin?),
-    ].join("\n")
-    content_tag('span', links, :id => 'user_links')
-  end
-
   def shortcut_header_links
     if logged_in?
       [
@@ -152,12 +141,6 @@ module ApplicationHelper
       [(link_to _('Manage categories'), :controller => 'categories'), 'manage_environment_categories', environment],
       [(link_to _('Manage permissions'), :controller => 'role'), 'manage_environment_roles', environment],
       [(link_to _('Manage validators'), :controller => 'region_validators'), 'manage_environment_validators', environment],
-    ]
-  end
-
-  def membership_links
-    links = [
-      [(link_to _('New enterprise'), :controller => 'membership_editor', :action => 'new_enterprise'),'create_enterprise_for_profile', profile],
     ]
   end
   
