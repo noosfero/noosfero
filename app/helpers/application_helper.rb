@@ -133,49 +133,6 @@ module ApplicationHelper
     end
   end
 
-  def admin_links
-    environment = current_user.person.environment
-    links = [
-      [(link_to _('Features'), :controller => 'features'), 'edit_environment_features', environment],
-      [(link_to _('Edit visual'), :controller => 'edit_template'), 'edit_environment_design', environment],
-      [(link_to _('Manage categories'), :controller => 'categories'), 'manage_environment_categories', environment],
-      [(link_to _('Manage permissions'), :controller => 'role'), 'manage_environment_roles', environment],
-      [(link_to _('Manage validators'), :controller => 'region_validators'), 'manage_environment_validators', environment],
-    ]
-  end
-  
-  def person_links
-    links = [
-      [(link_to_myprofile _('Edit visual design'), {:controller => 'profile_editor', :action => 'design_editor'}, profile.identifier), 'edit_profile_design', profile],
-      [(link_to_myprofile _('Edit profile'), {:controller => 'profile_editor'}, profile.identifier), 'edit_profile', profile],
-      [(link_to_myprofile _('Manage content'), {:controller => 'cms'}, profile.identifier), 'post_content', profile],
-    ]
-  end
-
-  
-  def enterprise_links
-    links = [
-      [(link_to_myprofile _('Edit visual design'), {:controller => 'profile_editor', :action => 'design_editor'}, profile.identifier), 'edit_profile_design', profile],
-      [(link_to_myprofile _('Edit informations'), {:controller => 'profile_editor'}, profile.identifier), 'edit_profile', profile],
-      [(link_to_myprofile _('Manage content'), {:controller => 'cms'}, profile.identifier), 'post_content', profile],
-#      [(link_to_myprofile _('Exclude'), {:controller => 'enterprise_editor', :action => 'destroy'}, profile.identifier), 'edit_profile', profile],
-    ]
-  end
-
-  def myprofile_links
-    links = [
-      [(link_to _('Change password'), {:controller => 'account', :action => 'change_password'}), 'edit_profile', profile]
-    ]
-  end
-
-  def design_links
-    links = [
-      [(link_to _('Change template'), :controller => 'profile_editor', :action => 'design_editor_change_template')],
-      [(link_to _('Change block theme'), :controller => 'profile_editor', :action => 'design_editor_change_theme')],
-      [(link_to _('Change icon theme'), :controller => 'profile_editor', :action => 'design_editor_change_icon_theme')],
-    ]
-  end
-
   def search_box
     [form_tag({:controller => 'search', :action => 'index'}, :method => 'get'),
       design_display_button_submit('find', '', :title => _('Search')),
