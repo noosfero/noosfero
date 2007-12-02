@@ -29,7 +29,7 @@ class CategoryController < ApplicationController
   
   protected
   def product_category
-    @products = Product.find(:all, :conditions => ['product_category_id = ?', @category.id])
+    @products = @category.all_products
     @enterprises = Enterprise.find(:all, :conditions => ['products.id in (?)', @products.map(&:id)], :include => :products)
   end
 
