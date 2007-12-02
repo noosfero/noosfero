@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.4.0\n"
 "POT-Creation-Date: 2007-11-27 13:39-0300\n"
-"PO-Revision-Date: 2007-12-01 20:47-0300\n"
+"PO-Revision-Date: 2007-12-02 00:34-0300\n"
 "Last-Translator: Rafael Tavares Bomfim <rafael@colivre.coop.br>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -414,7 +414,7 @@ msgstr "Ano de fundação"
 
 #: app/models/organization_info.rb:-
 msgid "OrganizationInfo|Legal form"
-msgstr "Formulário legal"
+msgstr "Estatuto Jurídico"
 
 #: app/models/organization_info.rb:-
 msgid "OrganizationInfo|Economic activity"
@@ -630,7 +630,7 @@ msgstr "Ano de fundação"
 
 #: app/models/create_enterprise.rb:10
 msgid "CreateEnterprise|Legal form"
-msgstr "Formulário legal"
+msgstr "Estatuto Jurídico"
 
 #: app/models/create_enterprise.rb:11
 msgid "CreateEnterprise|Economic activity"
