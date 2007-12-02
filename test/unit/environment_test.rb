@@ -191,4 +191,21 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal "?", env.to_s
   end
 
+  should 'remove boxes and blocks when removing environment' do
+    env = Environment.create!(:name => 'test environment')
+
+    env_boxes = env.boxes.size
+    env_blocks = env.blocks.size
+    assert env_boxes > 0
+    assert env_blocks > 0
+
+    boxes = Design::Box.count
+    blocks = Design::Block.count
+
+    env.destroy
+
+    assert_equal boxes - env_boxes, Design::Box.count
+    assert_equal blocks - env_blocks, Design::Block.count
+  end
+
 end

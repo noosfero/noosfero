@@ -68,12 +68,6 @@ class ProfileTest < Test::Unit::TestCase
     assert !p.errors.invalid?(:name)
   end
 
-  def test_can_be_tagged
-    p = Profile.create(:name => 'tagged_profile', :identifier => 'tagged')
-    p.tags << Tag.create(:name => 'a_tag')
-    assert Profile.find_tagged_with('a_tag').include?(p)
-  end
-
   def test_can_have_affiliated_people
     pr = Profile.create(:name => 'composite_profile', :identifier => 'composite')
     pe = User.create(:login => 'aff', :email => 'aff@pr.coop', :password => 'blih', :password_confirmation => 'blih').person
@@ -85,13 +79,11 @@ class ProfileTest < Test::Unit::TestCase
     assert pe.memberships.include?(pr)
   end
 
-  def test_search
+  def test_find_by_contents
     p = Profile.create(:name => 'wanted', :identifier => 'wanted')
-    p.update_attribute(:tag_list, 'bla')
 
-    assert Profile.search('wanted').include?(p)
-    assert Profile.search('bla').include?(p)
-    assert ! Profile.search('not_wanted').include?(p)
+    assert Profile.find_by_contents('wanted').include?(p)
+    assert ! Profile.find_by_contents('not_wanted').include?(p)
   end
 
   should 'remove pages when removing profile' do
@@ -206,6 +198,23 @@ class ProfileTest < Test::Unit::TestCase
   should 'provide a shortcut for picking a profile by its identifier' do
     profile = Profile.create!(:name => 'bla', :identifier => 'testprofile')
     assert_equal profile, Profile['testprofile']
+  end
+
+  should 'remove boxes and blocks when removing profile' do
+    profile = Profile.create!(:name => 'test environment', :identifier => 'testenv')
+
+    profile_boxes = profile.boxes.size
+    profile_blocks = profile.blocks.size
+    assert profile_boxes > 0
+    assert profile_blocks > 0
+
+    boxes = Design::Box.count
+    blocks = Design::Block.count
+
+    profile.destroy
+
+    assert_equal boxes - profile_boxes, Design::Box.count
+    assert_equal blocks - profile_blocks, Design::Block.count
   end
 
   private
