@@ -7,6 +7,7 @@ Profile.destroy_all
 Role.destroy_all
 RoleAssignment.destroy_all
 Category.destroy_all
+Product.destroy_all
 
 def new_category(parent, name, color = nil)
   category = Environment.default.categories.build(:name => name, :display_color => color, :parent_id => (parent ? parent.id: nil))
@@ -20,8 +21,8 @@ def new_region(parent, name, color = nil)
   region
 end
 
-def new_validator(region, name, identifier)
-  org = Organization.new(:name => name, :identifier => identifier)
+def new_validator(region, name, identifier, klass = Organization)
+  org = klass.new(:name => name, :identifier => identifier)
   org.validation_info = ValidationInfo.new(:validation_methodology => 'some methodology we don\'t care about')
   org.save!
   region.validators << org
@@ -48,7 +49,7 @@ new_category(cadeias, 'Algodão')
 new_category(cadeias, 'Tecnologia de Informação')
 
 # validators
-colivre = new_validator(ba, "Colivre", 'colivre')
+colivre = new_validator(ba, "Colivre", 'colivre', Enterprise)
 forum_bahia = new_validator(ba, "Forum Baiano de Economia Solidaraia", 'ecosolbahia')
 
 caritas = new_validator(df, 'Caritas', 'caritas')
@@ -74,27 +75,45 @@ empa.affiliate(ze, owner_role)
 colivre.affiliate(ze, owner_role)
 
 
-produtos = ProductCategory.create!(:name => 'Produtos', :environment => Environment.default, :display_color => 4)
+# product categories
+produtos = ProductCategory.create!(:name => 'Produtos/Serviços', :environment => Environment.default, :display_color => 4)
 
-alimentacao = ProductCategory.new(:name => 'Alimentação', :environment => Environment.default, :parent => produtos); alimentacao.save!
+alimentacao = ProductCategory.create!(:name => 'Alimentação', :environment => Environment.default, :parent => produtos)
+vegetais = ProductCategory.create!(:name => 'Vegetais', :environment => Environment.default, :parent => alimentacao)
 
-vegetais = ProductCategory.new(:name => 'Vegetais', :environment => Environment.default, :parent => alimentacao); vegetais.save!
+feijao = ProductCategory.create!(:name => 'Feijão', :environment => Environment.default, :parent => vegetais)
 
-feijao = ProductCategory.new(:name => 'Feijão', :environment => Environment.default, :parent => vegetais); feijao.save!
+arroz = ProductCategory.create!(:name => 'Arroz', :environment => Environment.default, :parent => vegetais)
 
-arroz = ProductCategory.new(:name => 'Arroz', :environment => Environment.default, :parent => vegetais); arroz.save!
+batata = ProductCategory.create!(:name => 'Batata', :environment => Environment.default, :parent => vegetais)
 
-batata = ProductCategory.new(:name => 'Batata', :environment => Environment.default, :parent => vegetais); batata.save!
+carnes = ProductCategory.create!(:name => 'Carnes', :environment => Environment.default, :parent => alimentacao)
 
-carnes = ProductCategory.new(:name => 'Carnes', :environment => Environment.default, :parent => alimentacao); carnes.save!
+boi = ProductCategory.create!(:name => 'Boi', :environment => Environment.default, :parent => carnes)
 
-boi = ProductCategory.new(:name => 'Boi', :environment => Environment.default, :parent => carnes); boi.save!
+frango = ProductCategory.create!(:name => 'Frango', :environment => Environment.default, :parent => carnes)
 
-frango = ProductCategory.new(:name => 'Frango', :environment => Environment.default, :parent => carnes)
+vestuario = ProductCategory.create!(:name => 'Vestuário', :environment => Environment.default, :parent => produtos)
 
-vestuario = ProductCategory.new(:name => 'Vestuário', :environment => Environment.default, :parent => produtos); vestuario.save!
+camisetas = ProductCategory.create!(:name => 'Camisetas', :environment => Environment.default, :parent => vestuario)
 
-camisetas = ProductCategory.new(:name => 'Camisetas', :environment => Environment.default, :parent => vestuario); camisetas.save!
+calcas = ProductCategory.create!(:name => 'Calças', :environment => Environment.default, :parent => vestuario)
 
-calcas = ProductCategory.new(:name => 'Calças', :environment => Environment.default, :parent => vestuario); calcas.save!
+software_livre = ProductCategory.create!(:name => 'Software Livre', :environment => Environment.default, :parent => produtos)
 
+desenv = ProductCategory.create!(:name => 'Desenvolvimento', :environment => Environment.default, :parent => software_livre)
+capacitacao = ProductCategory.create!(:name => 'Capacitação', :environment => Environment.default, :parent => software_livre)
+admin_de_sistemas = ProductCategory.create!(:name => 'Administração de sistemas', :environment => Environment.default, :parent => software_livre)
+arte_digital = ProductCategory.create!(:name => 'Arte Digital', :environment => Environment.default, :parent => software_livre)
+
+
+# actual products
+
+empa.products.build(:name => 'Feijão Mulatinho da Bahia', :product_category => feijao).save!
+empa.products.build(:name => 'Arroz plantado lá em casa', :product_category => arroz).save!
+empa.products.build(:name => 'Carne da vaca mimosa', :product_category => boi).save!
+
+colivre.products.build(:name => 'desenvolvimento de software livre', :product_category => desenv).save!
+colivre.products.build(:name => 'capacitação em software livre', :product_category => capacitacao).save!
+colivre.products.build(:name => 'arte digital', :product_category => arte_digital).save!
+colivre.products.build(:name => 'instalação e manutenção de servidores', :product_category => admin_de_sistemas).save!
