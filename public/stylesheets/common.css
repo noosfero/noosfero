@@ -121,9 +121,10 @@ div.file-manager-button a {
   border: 1px solid #e0e0e0;
   display: block;
   padding: 3px;
-  height: 80px;
+  height: 90px;
   overflow: hidden;
   background: white;
+  font-size: 90%;
 }
 
 div.file-manager
