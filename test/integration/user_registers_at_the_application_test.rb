@@ -5,7 +5,10 @@ class UserRegistersAtTheApplicationTest < ActionController::IntegrationTest
 
   def test_successfull_registration
     get '/'
-    assert_tag :tag => 'span', :attributes => { :id => 'register_box' }
+    assert_tag :tag => 'a', :attributes => { :href => '/account/login' }
+
+    get '/account/login'
+    assert_tag :tag => 'a', :attributes => { :href => '/account/signup'}
 
     get '/account/signup'
     assert_response :success
@@ -16,9 +19,8 @@ class UserRegistersAtTheApplicationTest < ActionController::IntegrationTest
 
     # user is logged in right after the registration
     follow_redirect!
-    assert_no_tag :tag => 'span', :attributes => { :id => 'login_box' }
-    assert_tag :tag => 'span', :attributes => { :id => 'user_links'  }
-    assert_tag :tag => 'span', :attributes => { :id => 'logout_box'  }
+    assert_no_tag :tag => 'a', :attributes => { :href => '/account/login' }
+    assert_tag :tag => 'a', :attributes => { :href => '/account/logout'  }
   end
 
   def test_trying_an_existing_login_name
@@ -26,7 +28,10 @@ class UserRegistersAtTheApplicationTest < ActionController::IntegrationTest
     assert User.find_by_login('ze') # just to make sure that 'ze' already exists
 
     get '/'
-    assert_tag :tag => 'span', :attributes => { :id => 'register_box' }
+    assert_tag :tag => 'a', :attributes => { :href => '/account/login'}
+
+    get '/account/login'
+    assert_tag :tag => 'a', :attributes => { :href => '/account/signup'}
 
     get '/account/signup'
     assert_response :success
