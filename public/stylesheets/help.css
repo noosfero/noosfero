@@ -1,11 +1,16 @@
 div.help_message {
-  z-index: 1000;
+  z-index: 10000;
   width: 600;
   position: absolute;
-  top: 50px;
+  top: 50%
+  height: 400px;
+  margin-top: -200px;
+
   left: 50%;
   margin-left: -300px;
   background: yellow;
+
+  overflow: auto;
 }
 
 a.help_button:before {
