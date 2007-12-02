@@ -1,6 +1,4 @@
-<h2> <%= _('Search results')  %> </h2>
-
-<h3> <%= _('Searching for: %s') % @query  %></h3>
+<h2> <%= _('Search results for "%s" ') % @query %> </h2>
 
 <% @results.each do |hit| %>
   <%= render :partial => partial_for_hit(hit.class), :locals => { :hit => hit } %>
