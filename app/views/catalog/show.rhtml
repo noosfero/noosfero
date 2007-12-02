@@ -3,4 +3,6 @@
 <%= image_tag @product.image.public_filename if @product.image %> <br/>
 <%= @product.price %> <br/>
 <%= @product.description %> <br/>
-<%= link_to_category(@product.product_category) %> <br/>
+
+
+<%= _('Category: %s ') % link_to_category(@product.product_category) %> <br/>

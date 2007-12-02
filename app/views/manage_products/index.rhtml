@@ -4,7 +4,7 @@
 
 <% @products.each do |product| %>
   <p> <b> <%= link_to product.name, :action => 'show', :id => product %> </b>  
-      <%= _('Price: ') %> <%= product.price %> 
+      <%= _('Price:') %> <%= product.price %> 
       <%= link_to _('edit'), :action => 'edit', :id => product %> 
       <%= link_to _('destroy'), :action => 'destroy', :id => product %> </p>
 <% end %>

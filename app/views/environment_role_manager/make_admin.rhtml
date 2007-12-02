@@ -5,7 +5,7 @@
   <% @people.each do |p| %>
     <%= labelled_form_field(p.name, (radio_button_tag "person", p.id)) %>
   <% end %>
-    <%= _('Roles: ') %> <br>
+    <%= _('Roles:') %> <br>
   <% @roles.each do |r| %>
     <%= labelled_form_field(r.name, (check_box_tag "roles[]", r.id)) %>
   <% end %>

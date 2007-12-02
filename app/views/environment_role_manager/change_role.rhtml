@@ -2,7 +2,7 @@
 
 <% labelled_form_for :member, @admin, :url => {:action => 'update_roles'} do |f| %>
   
-  <%= _('Roles: ') %> <br>
+  <%= _('Roles:') %> <br>
   <% @roles.each do |r| %>
     <%= labelled_form_field(r.name, (check_box_tag "roles[]", r.id, @admin.role_assignments.map{|ra|ra.role}.include?(r))) %>
   <% end %>

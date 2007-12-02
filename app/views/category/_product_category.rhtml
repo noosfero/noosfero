@@ -1,6 +1,6 @@
 <ul>
-  <li><%= _("%d products in this category") % @products.size.to_s %></li>
-  <li><%= _("%d enterprises sells products in this category") % @enterprises.size.to_s %></li>
+  <li><%= n_("One product in this category.", "%{num} products in this category.", @products.size) % { :num => @products.size } %></li>
+  <li><%= n_("One enterprise sells products in this category.", "%{num} enterprises sells products in this category.", @enterprises.size) % { :num => @enterprises.size} %></li>
 </ul>
 
 <ul>

@@ -4,8 +4,10 @@
 
 <%= render :partial => @category.class.name.underscore %>
 
-<h4> <%= _('Children categories: ')  %> </h4>
-<% unless @category.children.empty? %>
+<% if @category.children.empty? %>
+  <strong><%= _('No children categories') %></strong>
+<% else %>
+<h4> <%= _('Children categories:')  %> </h4>
   <ul>
     <% @category.children.each do |c| %>
       <li> <%= link_to_category(c) %> </li>
