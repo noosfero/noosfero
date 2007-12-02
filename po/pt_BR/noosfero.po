@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.4.0\n"
-"POT-Creation-Date: 2007-12-02 01:44-0300\n"
-"PO-Revision-Date: 2007-12-02 01:55-0300\n"
+"POT-Creation-Date: 2007-12-02 02:17-0300\n"
+"PO-Revision-Date: 2007-12-02 02:20-0300\n"
 "Last-Translator: Antonio Terceiro <terceiro@colivre.coop.br>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -816,7 +816,9 @@ msgstr "Pessoa de contato: %s"
 msgid ""
 "%{fn} (the code generated from the article name) is already being used by "
 "another article."
-msgstr "%{fn} (o código gerado a partir do nome do artigo) já está sendo usado por outro artigo"
+msgstr ""
+"%{fn} (o código gerado a partir do nome do artigo) já está sendo usado por "
+"outro artigo"
 
 #: app/models/article.rb:11
 msgid "Tag list"
@@ -1297,7 +1299,6 @@ msgid "Name:"
 msgstr "Nome:"
 
 #: app/views/manage_products/_form.rhtml:5
-#: app/views/category/_product_category.rhtml:8
 msgid "Price:"
 msgstr "Preço:"
 
@@ -1610,7 +1611,24 @@ msgstr "Categoria: %s"
 msgid "Children categories: "
 msgstr "Categorias filhas: "
 
-#: app/views/category/_product_category.rhtml:8
+#: app/views/category/_product_category.rhtml:2
+msgid "One product in this category."
+msgid_plural "%{num} products in this category."
+msgstr[0] "Um produto nessa categoria"
+msgstr[1] "%d produtos nessa categoria"
+
+#: app/views/category/_product_category.rhtml:3
+msgid "One enterprise sells products in this category."
+msgid_plural "%{num} enterprises sells products in this category."
+msgstr[0] "Um empreendimento vende produtos nessa categoria."
+msgstr[1] "%d empreendimentos vendem produtos nessa categoria."
+
+#: app/views/category/_product_category.rhtml:11
+#: app/views/search/_product.rhtml:11
+msgid "Price: %d"
+msgstr "Preço: %d"
+
+#: app/views/category/_product_category.rhtml:13
 msgid "Enterprise:"
 msgstr "Empreendimento:"
 
@@ -1805,10 +1823,6 @@ msgstr ""
 "É sempre uma boa idéia fazer logout quando você terminar de usar a "
 "comunidade virtual."
 
-#: app/views/search/_product.rhtml:11
-msgid "Price: %d"
-msgstr "Preço: %d"
-
 #: app/views/search/_product.rhtml:12
 msgid "Suplier: %s"
 msgstr "Fornecedor: %s"
@@ -1918,6 +1932,10 @@ msgstr "Minhas organizações"
 #: app/views/profile_editor/index.rhtml:35
 msgid "Register a new Enterprise"
 msgstr "Registrar novo Empreendimento"
+
+#: app/views/catalog/show.rhtml:8
+msgid "Category: %s "
+msgstr "Categoria: %s"
 
 #: app/views/catalog/index.rhtml:1
 msgid "Catalog"
