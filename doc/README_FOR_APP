@@ -91,7 +91,8 @@ To prepare a release of noosfero, you must follow the steps below:
   everything is ok, you are done. If not, maybe some files are not going into
   the tarball. See lib/tasks/package.rake, probably you'll need to change it.
 * Go to the version's wiki topic and edit it to reflect the new reality.
-* Attach the generated package to that topic.
+* Attach the generated package to that topic. Before attaching calculate the md5 of the package (with mu5sum and paste the MD5 hash as comment in the attachment form)
+* Download the attached and verify the MD5 hash
 * create a svn tag for the released version with <tt>rake tag</tt>. See
   lib/tasks/svn.rake in case of any questions.
 * IMMEDIATELY change the version in lib/noosfero.rb to the next version. (e.g.
