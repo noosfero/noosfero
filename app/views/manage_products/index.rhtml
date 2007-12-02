@@ -8,3 +8,5 @@
       <%= link_to _('edit'), :action => 'edit', :id => product %> 
       <%= link_to _('destroy'), :action => 'destroy', :id => product %> </p>
 <% end %>
+
+<%= link_to_myprofile(_('Back'), {}, @profile.identifier)  %>

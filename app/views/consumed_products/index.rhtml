@@ -3,6 +3,9 @@
 <p> <%= link_to _('Add product'), :action => 'new' %> </p>
 
 <% @consumptions.each do |consumption| %>
-  <p> <b> <%= link_to_category(consumption.product_category)  %> </b>  
-      <%= link_to _('destroy'), :action => 'destroy', :id => consumption %> <br/>
+  <p> <b> <%= link_to_category(consumption.product_category)  %> </b> </p> 
+  <%= link_to _('destroy'), :action => 'destroy', :id => consumption %> <br/>
+  <p> <%= consumption.aditional_specifications  %></p>
 <% end %>
+
+<%=  link_to_myprofile(_('Back'), {}, @profile.identifier)%>
