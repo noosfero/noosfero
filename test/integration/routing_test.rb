@@ -55,10 +55,6 @@ class RoutingTest < ActionController::IntegrationTest
     assert_routing('/admin/features/update', :controller => 'features', :action => 'update')
   end
 
-  def test_manage_tags_controller
-    assert_routing('/admin/manage_tags', :controller => 'manage_tags', :action => 'index')
-  end
-
   def test_categories_management
     assert_routing('/admin/categories', :controller => 'categories', :action => 'index')
     assert_routing('/admin/categories/new', :controller => 'categories', :action => 'new')

@@ -1,7 +1,0 @@
-<h2> <%= _('New tag') %> </h2>
-
-<% form_tag :action =>'create' do%>
-  <%= render :partial => 'form' %>
-  <%= submit_tag _('Create') %>
-  <%= link_to _('Cancel'), {:action => 'list'} %>
-<% end %>
