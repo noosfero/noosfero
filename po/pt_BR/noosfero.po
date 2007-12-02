@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.4.0\n"
 "POT-Creation-Date: 2007-12-02 02:25-0300\n"
-"PO-Revision-Date: 2007-12-02 02:26-0300\n"
+"PO-Revision-Date: 2007-12-02 02:27-0300\n"
 "Last-Translator: Antonio Terceiro <terceiro@colivre.coop.br>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1613,13 +1613,13 @@ msgstr "Categorias filhas:"
 msgid "One product in this category."
 msgid_plural "%{num} products in this category."
 msgstr[0] "Um produto nessa categoria"
-msgstr[1] "%d produtos nessa categoria"
+msgstr[1] "%{num} produtos nessa categoria"
 
 #: app/views/category/_product_category.rhtml:3
 msgid "One enterprise sells products in this category."
 msgid_plural "%{num} enterprises sells products in this category."
 msgstr[0] "Um empreendimento vende produtos nessa categoria."
-msgstr[1] "%d empreendimentos vendem produtos nessa categoria."
+msgstr[1] "%{num} empreendimentos vendem produtos nessa categoria."
 
 #: app/views/category/_product_category.rhtml:11
 #: app/views/search/_product.rhtml:11
