@@ -80,7 +80,7 @@ colivre.affiliate(ze, owner_role)
 
 
 # product categories
-produtos = ProductCategory.create!(:name => 'Produtos/Serviços', :environment => Environment.default, :display_color => 4)
+produtos = ProductCategory.create!(:name => 'Produtos', :environment => Environment.default, :display_color => 4)
 
 alimentacao = ProductCategory.create!(:name => 'Alimentação', :environment => Environment.default, :parent => produtos)
 vegetais = ProductCategory.create!(:name => 'Vegetais', :environment => Environment.default, :parent => alimentacao)
