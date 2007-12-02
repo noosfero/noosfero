@@ -1,3 +1,14 @@
-<h2><%= _('Category: %s') % @category.full_name %></h2>
+<%= @category.ancestors.reverse.map { |a| link_to_category(a) }.join(' → ') %>
+
+<h2><%= _('Category: %s') % @category.name %></h2>
 
 <%= render :partial => @category.class.name.underscore %>
+
+<h4> <%= _('Children categories: ')  %> </h4>
+<% unless @category.children.empty? %>
+  <ul>
+    <% @category.children.each do |c| %>
+      <li> <%= link_to_category(c) %> </li>
+    <% end %>
+  </ul>
+<% end %>

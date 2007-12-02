@@ -14,15 +14,30 @@
   <%= file_manager_button(_('Manage Content'), 'icons-app/cms.png', :controller => 'cms') %>
 
   <%= file_manager_button(_('Change Password'), 'icons-app/change-password.png', :controller => 'account', :action => 'change_password') if profile.person? %>
-  
+
+  <%= file_manager_button(_('Manage Members'), 'icons-app/members.png', :controller => 'profile_members')  %>
+
+  <%= file_manager_button(_('Needed Products'), 'icons-app/consumed_product.png', :controller => 'consumed_products')  %>
+
   <%= file_manager_button(_('Manage Products'), 'icons-app/products.png', :controller => 'manage_products') if profile.enterprise? %>
 
 <% end %>
 
-<h2><%= _('My organizations') %></h2>
+<% if @profile.person? %>
+  <h2><%= _('My organizations') %></h2>
+  
+  <% file_manager do %>
 
-<% file_manager do %>
+    <% @profile.enterprise_memberships.each do |em| %>
+      <% if em.image %>
+        <%= file_manager_button(em.name, em.image.public_filename(:minor), :profile => em.identifier, :controller => 'profile_editor' ) %>
+      <% else %>
+        <%= link_to_myprofile(em.name, {}, em.identifier)  %>
+      <% end %>
+    <% end %>
 
-  <%= file_manager_button(_('Register a new Enterprise'), 'icons-app/enterprise-registration.png', :controller => 'enterprise_registration') %>
+    <%= file_manager_button(_('Register a new Enterprise'), 'icons-app/enterprise-registration.png', :controller => 'enterprise_registration') %>
+
+  <% end %>
 
 <% end %>

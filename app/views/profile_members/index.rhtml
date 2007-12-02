@@ -1,6 +1,6 @@
 <h2> <%= _('Listing Members') %> </h2>
 
-<%= link_to _('Affiliate yourself'), :action => 'add_role', :person => current_user.person, :role => Role.find_by_name('member') %>
+<%= link_to _('Affiliate yourself'), :action => 'add_role', :person => current_user.person, :role => @member_role if @member_role %>
 
 <ul>
   <% @members.each do |m| %>

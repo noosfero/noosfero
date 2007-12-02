@@ -7,4 +7,5 @@
   <%= display_form_field( _('Image:'), file_field_tag( "product[image_builder][uploaded_data]" ) )  %>
   <%= display_form_field( _('category:'), f.select( :product_category_id,ProductCategory.find(:all).map{|pc|[pc.name,pc.id]}, {:include_blank => true} ))  %>
   <%= display_submit_tag(mode == 'new' ? _('Create product') : _('Save changes'))  %>
+  <%= link_to _('Cancel'), :action => 'index' %>
 <% end %>
