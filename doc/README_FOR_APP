@@ -96,6 +96,7 @@ To prepare a release of noosfero, you must follow the steps below:
   lib/tasks/svn.rake in case of any questions.
 * IMMEDIATELY change the version in lib/noosfero.rb to the next version. (e.g.
   0.2.0 -> 0.3.0)
+* write an announcement e-mail pointing to the release notes to the relevant maimling lists.
 
 If you had any problem during these steps, you can do <tt>rake clobber_package</tt> to
 completely delete the generated packages and start the process again.
