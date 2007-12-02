@@ -1,13 +1,15 @@
 #!/usr/bin/env ruby
 require File.dirname(__FILE__) + '/../config/environment'
 
-Environment.default.categories.destroy_all
+Environment.destroy_all
 User.destroy_all
 Profile.destroy_all
+
 Role.destroy_all
 RoleAssignment.destroy_all
 Category.destroy_all
 Product.destroy_all
+Article.destroy_all
 
 def new_category(parent, name, color = nil)
   category = Environment.default.categories.build(:name => name, :display_color => color, :parent_id => (parent ? parent.id: nil))
@@ -33,6 +35,8 @@ end
 def new_member(org, person)
   org.affiliate()
 end
+
+Environment.create!(:name => 'Economia Solidária', :is_default => true)
 
 tematicas = new_category(nil, 'Temáticas', 1)
 new_category(tematicas, 'Finanças Solidárias')
@@ -117,3 +121,12 @@ colivre.products.build(:name => 'desenvolvimento de software livre', :product_ca
 colivre.products.build(:name => 'capacitação em software livre', :product_category => capacitacao).save!
 colivre.products.build(:name => 'arte digital', :product_category => arte_digital).save!
 colivre.products.build(:name => 'instalação e manutenção de servidores', :product_category => admin_de_sistemas).save!
+
+colivre_hp = colivre.articles.build(:name => 'Colivre - Cooperativa de Tecnologias Livres', :body => '<p>A Colivre, Cooperativa de Tecnologias Livres, é uma organização baiana que presta serviços de instalação de redes, segurança, capacitação, migração e desenvolvimento de novas soluções, trabalhando exclusivamente com Tecnologias Livres. Para tanto, contamos com uma equipe formada por desenvolvedores/as de software, webdesigners e gestoras/es com vasta experiência na área.</p>', :tag_list => 'software livre, colivre, cooperativa' )
+colivre_hp.save!
+colivre.home_page = colivre_hp
+colivre.save!
+
+empa_hp = colivre.articles.build(:name => 'Empreendimento A - um empreendimento genérico', :body => '<p>Esse é um empreendimento cadastrado como exemplo no sitema</p>', :tag_list => 'cooperativa, teste')
+empa.home_page = empa_hp
+empa.save!
