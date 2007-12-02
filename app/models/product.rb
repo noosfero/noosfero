@@ -10,10 +10,10 @@ class Product < ActiveRecord::Base
 
   after_update :save_image
 
-  acts_as_searchable :fields => [ :name, :description, :category_name ]
+  acts_as_searchable :fields => [ :name, :description, :category_full_name ]
   
-  def category_name
-    product_category.name
+  def category_full_name
+    product_category.full_name(" ")
   end
 
   def image_builder=(img)

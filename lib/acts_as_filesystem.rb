@@ -58,8 +58,7 @@ module ActsAsFileSystem
     #
     # Then Category "C" will have "A/B/C" as its full name.
     def full_name(sep = '/')
-      my_name = self.name ? self.name : '?'
-      self.parent ? (self.parent.full_name(sep) + sep + my_name) : (my_name)
+      self.hierarchy.map {|item| item.name || '?' }.join(sep)
     end
 
     # calculates the level of the category in the category hierarchy. Top-level
