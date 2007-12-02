@@ -63,7 +63,7 @@ asl = new_validator(rs, 'Associacao Software Livre.Org', 'asl')
 forum_rs = new_validator(rs, 'Forum Gaucho de Economia Solidaria', 'ecosolrs')
 
 # Role for own things
-owner_role = Role.create!(:name => 'owner', :permissions => ['edit_profile', 'destroy_profile', 'manage_memberships', 'post_content', 'edit_profile_design'])
+owner_role = Role.create!(:name => 'dono', :permissions => ['edit_profile', 'destroy_profile', 'manage_memberships', 'post_content', 'edit_profile_design', 'manage_products'])
 
 # root user of the system, admin_role for him, the assignment of the role for him and the ownership of the system homepage
 root = User.create!(:login => 'root', :email => 'root@noosfero.org', :password => 'root', :password_confirmation => 'root').person
@@ -77,6 +77,9 @@ empa = Enterprise.create!(:name => 'Empreendimento A', :identifier => 'empreendi
 
 empa.affiliate(ze, owner_role)
 colivre.affiliate(ze, owner_role)
+
+member_role = Role.create!(:name => 'membro', :permissions => ['edit_profile',  'post_content', 'manage_products'] )
+moderator_role = Role.create!(:name => 'moderador', :permissions => ['manage_memberships', 'edit_profile_design', 'manage_products'] )
 
 
 # product categories
