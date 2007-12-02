@@ -4,11 +4,12 @@
 <div>
   <%= icon('product') %>
   <div class='search-result-text'>
-    <strong>
-      <%= link_to( hit.name, :profile => hit.enterprise.identifier, :controller => 'catalog', :action => 'show', :id => hit) %>
+    <%= image_tag(hit.image.public_filename(:minor), :style => 'float:right;') if hit.image %>
+      <strong>
+      <%= link_to_product(hit) %>
     </strong>
     <%= _('Price: %d') % hit.price %> <br>
-    <%= _('Producer: %s') % link_to_homepage( hit.enterprise.identifier) if  hit.enterprise  %> <br>
+    <%= _('Suplier: %s') % link_to_homepage(hit.enterprise.name, hit.enterprise.identifier) if  hit.enterprise  %> <br>
     <%= _('Category: %s') % link_to_category(hit.product_category) %>
   </div>
 </div>
