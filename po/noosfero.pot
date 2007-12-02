@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.4.0\n"
-"POT-Creation-Date: 2007-12-02 01:33-0300\n"
+"POT-Creation-Date: 2007-12-02 01:44-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1078,7 +1078,7 @@ msgid "Delete"
 msgstr ""
 
 #: app/views/cms/view.rhtml:63
-msgid "Tem certeza que quer excluir este artigo?"
+msgid "Are you sure you wan to remove this article?"
 msgstr ""
 
 #: app/views/cms/text_html_edit.rhtml:11 app/views/cms/text_html_new.rhtml:11
@@ -1778,7 +1778,7 @@ msgid "Back to tag cloud"
 msgstr ""
 
 #: app/views/search/index.rhtml:1
-msgid "Search results for \"%s\" "
+msgid "Search results for \"%s\""
 msgstr ""
 
 #: app/views/search/index.rhtml:6
