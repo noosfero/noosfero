@@ -9,6 +9,7 @@ class Profile < ActiveRecord::Base
     'manage_memberships' => N_('Manage memberships'),
     'post_content' => N_('Post content'),
     'edit_profile_design' => N_('Edit profile design'),
+    'manage_products' => N_('Manage products'),
   }
   
   acts_as_accessible

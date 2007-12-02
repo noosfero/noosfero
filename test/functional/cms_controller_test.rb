@@ -13,7 +13,8 @@ class CmsControllerTest < Test::Unit::TestCase
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
 
-    @profile = create_user('testinguser').person
+    @profile = create_user_with_permission('testinguser', 'post_content')
+    login_as :testinguser
   end
 
   attr_reader :profile

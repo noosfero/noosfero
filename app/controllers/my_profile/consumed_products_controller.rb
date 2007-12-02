@@ -1,7 +1,7 @@
 class ConsumedProductsController < ApplicationController
   needs_profile
 
-#  protect 'manage_products', :profile
+  protect 'manage_products', :profile
 
   def index
     @consumptions = @profile.consumptions

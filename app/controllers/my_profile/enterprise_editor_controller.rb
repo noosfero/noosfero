@@ -2,8 +2,9 @@ class EnterpriseEditorController < MyProfileController
   protect 'edit_profile', :profile, :user, :except => :destroy
   protect 'destroy_profile', :profile, :only => :destroy
   
-  before_filter :check_enterprise
-
+  requires_profile_class(Enterprise)
+  before_filter :enterprise
+  
   # Show details about an enterprise  
   def index
   end
@@ -35,13 +36,9 @@ class EnterpriseEditorController < MyProfileController
     end
   end
 
-  protected
+ protected
 
-  def check_enterprise
-    if profile.is_a?(Enterprise)
-      @enterprise = profile
-    else 
-      redirect_to :controller => 'account'  #:controller => 'profile_editor', :profile => current_user.login and return
-    end
+  def enterprise
+    @enterprise = @profile
   end
 end

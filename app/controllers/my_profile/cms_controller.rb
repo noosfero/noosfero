@@ -1,7 +1,6 @@
 class CmsController < MyProfileController
 
-  # FIXME add the access control again
-  # protect 'post_content', :profile, :only => [:edit, :new, :reorder, :delete]
+  protect 'post_content', :profile, :only => [:edit, :new, :reorder, :delete]
 
   design :holder => :profile
 

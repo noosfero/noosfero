@@ -67,12 +67,12 @@ class EnterpriseEditorControllerTest < Test::Unit::TestCase
     user = create_user_with_permission('test_user', 'edit_profile', ent)
     login_as :test_user
 
-    post 'update', :profile => 'test_enterprise', :enterprise => {:name => 'test_name'}
+    post 'update', :profile => 'test_enterprise', :organization_info => {:acronym => 'bla'}
 
     assert_response :redirect
     assert_redirected_to :action => 'index'
     ent.reload
-    assert_equal 'test_name',  ent.name
+    assert_equal 'bla',  ent.organization_info.acronym
   end
 
   should 'destroy' do
