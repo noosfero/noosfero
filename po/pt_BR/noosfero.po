@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.4.0\n"
 "POT-Creation-Date: 2007-12-02 01:44-0300\n"
-"PO-Revision-Date: 2007-12-02 01:44-0300\n"
+"PO-Revision-Date: 2007-12-02 01:55-0300\n"
 "Last-Translator: Antonio Terceiro <terceiro@colivre.coop.br>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -20,9 +20,8 @@ msgstr ""
 "X-Generator: Pootle 1.0.2\n"
 
 #: app/design_blocks/enterprises_block/models/enterprises_block.rb:12
-#, fuzzy
 msgid "Enterprises Block"
-msgstr "Meus Empreendimentos"
+msgstr "Bloco de Empreendimentos"
 
 #: app/design_blocks/list_block/controllers/list_block_controller.rb:24
 #: app/design_blocks/favorite_links/controllers/favorite_links_controller.rb:4
@@ -43,7 +42,6 @@ msgstr "Gerenciar Links"
 #: app/design_blocks/favorite_links/models/favorite_links.rb:4
 #: app/design_blocks/favorite_links_profile/models/favorite_links_profile.rb:4
 #: app/design_blocks/favorite_links/views/manage_links.rhtml:3
-#, fuzzy
 msgid "Favorite Links"
 msgstr "Links Favoritos"
 
@@ -90,47 +88,39 @@ msgstr "Empreendimento ativado com sucesso"
 
 #: app/controllers/my_profile/consumed_products_controller.rb:15
 #: app/controllers/my_profile/manage_products_controller.rb:19
-#, fuzzy
 msgid "Product succesfully created"
-msgstr "Marcador criado com sucesso."
+msgstr "Produto criado com sucesso"
 
 #: app/controllers/my_profile/consumed_products_controller.rb:18
 #: app/controllers/my_profile/manage_products_controller.rb:22
-#, fuzzy
 msgid "Could not create the product"
-msgstr "Não pôde modificar os papéis"
+msgstr "Não foi possível criar o produto"
 
 #: app/controllers/my_profile/consumed_products_controller.rb:26
 #: app/controllers/my_profile/manage_products_controller.rb:42
-#, fuzzy
 msgid "Product succesfully removed"
-msgstr "Marcador aprovado com sucesso"
+msgstr "Produto removido com sucesso"
 
 #: app/controllers/my_profile/consumed_products_controller.rb:28
 #: app/controllers/my_profile/manage_products_controller.rb:45
-#, fuzzy
 msgid "Could not remove the product"
-msgstr "Não pôde modificar o empreendimento"
+msgstr "Não foi possível remover o produto"
 
 #: app/controllers/my_profile/manage_products_controller.rb:31
-#, fuzzy
 msgid "Product succesfully updated"
-msgstr "Papéis alterado com sucesso"
+msgstr "Produto atualizado com sucesso"
 
 #: app/controllers/my_profile/manage_products_controller.rb:34
-#, fuzzy
 msgid "Could not update the product"
-msgstr "Não pôde modificar o empreendimento"
+msgstr "Não foi possível atualizar o produto"
 
 #: app/controllers/my_profile/profile_editor_controller.rb:43
-#, fuzzy
 msgid "Image successfully uploaded"
-msgstr "Marcador alterado com sucesso"
+msgstr "Imagem enviada com sucesso"
 
 #: app/controllers/my_profile/profile_editor_controller.rb:46
-#, fuzzy
 msgid "Could not upload image"
-msgstr "Não pôde modificar o empreendimento"
+msgstr "Não foi possível enviar imagem"
 
 #: app/controllers/public/account_controller.rb:25
 msgid "Logged in successfully"
@@ -165,17 +155,14 @@ msgid "product"
 msgstr "produto"
 
 #: app/models/product.rb:-
-#, fuzzy
 msgid "Product|Enterprise"
-msgstr "Editar empreendimento"
+msgstr "Empreendimento"
 
 #: app/models/product.rb:-
-#, fuzzy
 msgid "Product|Product category"
-msgstr "Categoria do Produto"
+msgstr "Categoria de Produto"
 
 #: app/models/product.rb:-
-#, fuzzy
 msgid "Product|Name"
 msgstr "Nome"
 
@@ -188,9 +175,8 @@ msgid "Product|Description"
 msgstr "Descrição"
 
 #: app/models/product.rb:-
-#, fuzzy
 msgid "Product|Image"
-msgstr "Categoria do Produto"
+msgstr "Imagem"
 
 #: app/models/product.rb:32 app/helpers/application_helper.rb:267
 msgid "Uncategorized product"
@@ -295,9 +281,8 @@ msgid "Profile|Contact phone"
 msgstr "Telefone de contato"
 
 #: app/models/profile.rb:-
-#, fuzzy
 msgid "Profile|Home page"
-msgstr "Nome"
+msgstr "Página inicial"
 
 #: app/models/profile.rb:-
 msgid "Profile|User"
@@ -308,47 +293,38 @@ msgid "Profile|Region"
 msgstr "Região"
 
 #: app/models/profile.rb:-
-#, fuzzy
 msgid "person"
-msgstr "informação pesoal"
+msgstr "pessoa"
 
 #: app/models/profile.rb:-
-#, fuzzy
 msgid "Person|Name"
 msgstr "Nome"
 
 #: app/models/profile.rb:-
-#, fuzzy
 msgid "Person|Type"
 msgstr "Tipo"
 
 #: app/models/profile.rb:-
-#, fuzzy
 msgid "Person|Identifier"
 msgstr "Identificador"
 
 #: app/models/profile.rb:-
-#, fuzzy
 msgid "Person|Environment"
 msgstr "Ambiente"
 
 #: app/models/profile.rb:-
-#, fuzzy
 msgid "Person|Design data"
 msgstr "Dados de design"
 
 #: app/models/profile.rb:-
-#, fuzzy
 msgid "Person|Active"
 msgstr "Ativo"
 
 #: app/models/profile.rb:-
-#, fuzzy
 msgid "Person|Address"
 msgstr "Endereço"
 
 #: app/models/profile.rb:-
-#, fuzzy
 msgid "Person|Contact phone"
 msgstr "Telefone de contato"
 
@@ -357,74 +333,60 @@ msgid "Person|Home page"
 msgstr "Página inicial"
 
 #: app/models/profile.rb:-
-#, fuzzy
 msgid "Person|User"
 msgstr "Usuário"
 
 #: app/models/profile.rb:-
-#, fuzzy
 msgid "Person|Region"
 msgstr "Região"
 
 #: app/models/profile.rb:-
-#, fuzzy
 msgid "article"
-msgstr "Artigos"
+msgstr "artigo"
 
 #: app/models/profile.rb:-
-#, fuzzy
 msgid "Article|Name"
 msgstr "Nome"
 
 #: app/models/profile.rb:-
-#, fuzzy
 msgid "Article|Slug"
-msgstr "Artigos"
+msgstr "Código"
 
 #: app/models/profile.rb:-
-#, fuzzy
 msgid "Article|Path"
-msgstr "Artigos"
+msgstr "Caminho"
 
 #: app/models/profile.rb:-
-#, fuzzy
 msgid "Article|Parent"
-msgstr "Artigos"
+msgstr "Pai"
 
 #: app/models/profile.rb:-
-#, fuzzy
 msgid "Article|Body"
-msgstr "Artigos"
+msgstr "Corpo"
 
 #: app/models/profile.rb:-
-#, fuzzy
 msgid "Article|Abstract"
-msgstr "Artigos"
+msgstr "Resumo"
 
 #: app/models/profile.rb:-
-#, fuzzy
 msgid "Article|Profile"
-msgstr "Artigos"
+msgstr "Perfil"
 
 #: app/models/profile.rb:-
-#, fuzzy
 msgid "Article|Updated on"
 msgstr "Atualizado em"
 
 #: app/models/profile.rb:-
-#, fuzzy
 msgid "Article|Created on"
 msgstr "Criado em"
 
 #: app/models/profile.rb:-
-#, fuzzy
 msgid "Article|Last changed by"
-msgstr "Atualizado em"
+msgstr "Atualizado por"
 
 #: app/models/profile.rb:-
-#, fuzzy
 msgid "Article|Version"
-msgstr "Artigos"
+msgstr "Versão"
 
 #: app/models/profile.rb:-
 msgid "Article|Lock version"
@@ -563,14 +525,12 @@ msgid "PersonInfo|Person"
 msgstr "Pessoa"
 
 #: app/models/consumption.rb:-
-#, fuzzy
 msgid "consumption"
-msgstr "Opções da conta"
+msgstr "consumo"
 
 #: app/models/consumption.rb:-
-#, fuzzy
 msgid "Consumption|Product category"
-msgstr "Categoria do Produto"
+msgstr "Categoria de Produto"
 
 #: app/models/consumption.rb:-
 msgid "Consumption|Profile"
@@ -613,24 +573,20 @@ msgid "image"
 msgstr "imagem"
 
 #: app/models/image.rb:-
-#, fuzzy
 msgid "Image|Owner type"
 msgstr "Tipo do dono"
 
 #: app/models/image.rb:-
-#, fuzzy
 msgid "Image|Owner"
 msgstr "Dono"
 
 #: app/models/image.rb:-
-#, fuzzy
 msgid "Image|Parent"
-msgstr "Pais"
+msgstr "Pai"
 
 #: app/models/image.rb:-
-#, fuzzy
 msgid "Image|Content type"
-msgstr "Gerenciar conteúdo"
+msgstr "Tipo de conteúdo"
 
 #: app/models/image.rb:-
 msgid "Image|Filename"
@@ -857,16 +813,14 @@ msgid "Contact person: %s"
 msgstr "Pessoa de contato: %s"
 
 #: app/models/article.rb:6
-#, fuzzy
 msgid ""
 "%{fn} (the code generated from the article name) is already being used by "
 "another article."
-msgstr "%{fn} já está sendo usado por outra categoria."
+msgstr "%{fn} (o código gerado a partir do nome do artigo) já está sendo usado por outro artigo"
 
 #: app/models/article.rb:11
-#, fuzzy
 msgid "Tag list"
-msgstr "Marcadores"
+msgstr "Lista de marcadores"
 
 #: app/models/article.rb:54
 msgid "HTML Text document"
@@ -1084,14 +1038,12 @@ msgid "%s, version %s"
 msgstr "%s, versão %s"
 
 #: app/helpers/application_helper.rb:272
-#, fuzzy
 msgid "No product"
-msgstr "Novo papel"
+msgstr "Sem produto"
 
 #: app/helpers/cms_helper.rb:5
-#, fuzzy
 msgid "New %s"
-msgstr "Nome: %s"
+msgstr "Novo %s"
 
 #: app/views/cms/new.rhtml:2
 msgid "Choose the type of article:"
@@ -1118,7 +1070,6 @@ msgid "Subitems"
 msgstr "Subitens"
 
 #: app/views/cms/view.rhtml:25
-#, fuzzy
 msgid "Articles"
 msgstr "Artigos"
 
@@ -1143,14 +1094,12 @@ msgid "Public address of this article: %s"
 msgstr "Endereço público desse artigo:"
 
 #: app/views/cms/view.rhtml:62
-#, fuzzy
 msgid "Use as homepage"
-msgstr "Veja sua página inicial."
+msgstr "Usar como página incial"
 
 #: app/views/cms/view.rhtml:63
-#, fuzzy
 msgid "Delete"
-msgstr "excluir"
+msgstr "Remover"
 
 #: app/views/cms/view.rhtml:63
 msgid "Are you sure you wan to remove this article?"
@@ -1158,7 +1107,7 @@ msgstr "Tem certeza que quer excluir este artigo?"
 
 #: app/views/cms/text_html_edit.rhtml:11 app/views/cms/text_html_new.rhtml:11
 msgid "Separate tags with commas"
-msgstr "Separe as tags com vírgulas"
+msgstr "Separe os marcadores com vírgulas"
 
 #: app/views/cms/text_html_edit.rhtml:17 app/views/cms/text_html_new.rhtml:17
 #: app/views/profile_editor/person_info.rhtml:11
@@ -1316,14 +1265,12 @@ msgstr "Validadores por região"
 #: app/views/consumed_products/new.rhtml:1
 #: app/views/consumed_products/new.rhtml:8
 #: app/views/consumed_products/index.rhtml:3
-#, fuzzy
 msgid "Add product"
-msgstr "Novo papel"
+msgstr "Adicionar produto"
 
 #: app/views/consumed_products/new.rhtml:6
-#, fuzzy
 msgid "Product: "
-msgstr "Nome"
+msgstr "Produto: "
 
 #: app/views/consumed_products/new.rhtml:7
 msgid "Aditional specifications: "
@@ -1331,27 +1278,23 @@ msgstr "Especificações adicionais:"
 
 #: app/views/consumed_products/index.rhtml:1
 #: app/views/manage_products/index.rhtml:1
-#, fuzzy
 msgid "Listing products"
-msgstr "Listando tags"
+msgstr "Listando marcadores"
 
 #: app/views/consumed_products/index.rhtml:7
 #: app/views/manage_products/show.rhtml:9
 #: app/views/manage_products/index.rhtml:9
-#, fuzzy
 msgid "destroy"
-msgstr "Destruir"
+msgstr "destruir"
 
 #: app/views/manage_products/new.rhtml:1
 #: app/views/manage_products/index.rhtml:3
-#, fuzzy
 msgid "New product"
-msgstr "Novo papel"
+msgstr "Novo produto"
 
 #: app/views/manage_products/_form.rhtml:4
-#, fuzzy
 msgid "Name:"
-msgstr "Nome"
+msgstr "Nome:"
 
 #: app/views/manage_products/_form.rhtml:5
 #: app/views/category/_product_category.rhtml:8
@@ -1367,14 +1310,12 @@ msgid "Image:"
 msgstr "Imagem:"
 
 #: app/views/manage_products/_form.rhtml:8
-#, fuzzy
 msgid "category:"
-msgstr "categoria"
+msgstr "categoria:"
 
 #: app/views/manage_products/_form.rhtml:9
-#, fuzzy
 msgid "Create product"
-msgstr "Criar papel"
+msgstr "Criar produto"
 
 #: app/views/manage_products/show.rhtml:4
 #: app/views/manage_products/index.rhtml:7
@@ -1382,44 +1323,37 @@ msgid "Price: "
 msgstr "Preço:"
 
 #: app/views/manage_products/show.rhtml:5
-#, fuzzy
 msgid "Description: "
-msgstr "Permissões: "
+msgstr "Descrição: "
 
 #: app/views/manage_products/show.rhtml:6
-#, fuzzy
 msgid "Category: "
-msgstr "Categoria: %s"
+msgstr "Categoria: "
 
 #: app/views/manage_products/show.rhtml:8
 #: app/views/manage_products/index.rhtml:8
-#, fuzzy
 msgid "edit"
-msgstr "Editar"
+msgstr "editar"
 
 #: app/views/manage_products/show.rhtml:11
-#, fuzzy
 msgid "back"
-msgstr "Voltar"
+msgstr "voltar"
 
 #: app/views/manage_products/edit.rhtml:1
-#, fuzzy
 msgid "Editing"
-msgstr "Editando %s"
+msgstr "Editando"
 
 #: app/views/content_viewer/view_page.rhtml:4
-#, fuzzy
 msgid "Tags: %s"
-msgstr "Marcadores: "
+msgstr "Marcadores: %s"
 
 #: app/views/content_viewer/view_page.rhtml:8
 msgid "Up"
 msgstr "Acima"
 
 #: app/views/content_viewer/no_home_page.rhtml:1
-#, fuzzy
 msgid "Missing home page"
-msgstr "Minha página inicial."
+msgstr "Sem página inicial."
 
 #: app/views/content_viewer/no_home_page.rhtml:4
 msgid "%s did not choose an article for homepage yet."
@@ -1431,9 +1365,8 @@ msgid "There is no such page: %s"
 msgstr "Não há página: %s"
 
 #: app/views/layouts/application.rhtml:40
-#, fuzzy
 msgid "Go to content"
-msgstr "Conteúdo da postagem"
+msgstr "Is para o conteúdo"
 
 #: app/views/layouts/not_found.rhtml:5
 msgid "Page not found"
@@ -1674,14 +1607,12 @@ msgid "Category: %s"
 msgstr "Categoria: %s"
 
 #: app/views/category/view.rhtml:7
-#, fuzzy
 msgid "Children categories: "
-msgstr "Categorias"
+msgstr "Categorias filhas: "
 
 #: app/views/category/_product_category.rhtml:8
-#, fuzzy
 msgid "Enterprise:"
-msgstr "Meus Empreendimentos"
+msgstr "Empreendimento:"
 
 #: app/views/account/invalid_change_password_code.rhtml:1
 msgid "Invalid change password code"
@@ -1706,9 +1637,8 @@ msgid "Password"
 msgstr "Senha"
 
 #: app/views/account/login.rhtml:20
-#, fuzzy
 msgid "I forgot my password!"
-msgstr "Eu esqueci a minha senha"
+msgstr "Eu esqueci a minha senha!"
 
 #: app/views/account/login.rhtml:24
 msgid "I want to be an user!"
@@ -1806,7 +1736,6 @@ msgid "I accept the terms of use"
 msgstr "Eu aceito os termos de uso"
 
 #: app/views/account/signup.rhtml:21
-#, fuzzy
 msgid "Sign up"
 msgstr "Registre-se."
 
@@ -1886,16 +1815,15 @@ msgstr "Fornecedor: %s"
 
 #: app/views/search/tags.rhtml:1
 msgid "Tag cloud"
-msgstr "Nuvem de tags"
+msgstr "Nuvem de marcadores"
 
 #: app/views/search/tag.rhtml:2
 msgid "Tagged with \"%s\""
 msgstr "Marcados com \"%s\""
 
 #: app/views/search/tag.rhtml:6
-#, fuzzy
 msgid "Back to tag cloud"
-msgstr "Voltar ao topo"
+msgstr "Voltar à nuvem de marcadores"
 
 #: app/views/search/index.rhtml:1
 msgid "Search results for \"%s\""
@@ -1952,53 +1880,44 @@ msgid "Contact Information"
 msgstr "Informação de contato"
 
 #: app/views/profile_editor/index.rhtml:3
-#, fuzzy
 msgid "Put image"
-msgstr "Categoria do Produto"
+msgstr "Colocar imagem"
 
 #: app/views/profile_editor/index.rhtml:10
-#, fuzzy
 msgid "Edit Profile"
-msgstr "perfil"
+msgstr "Editar Perfil"
 
 #: app/views/profile_editor/index.rhtml:12
 msgid "Edit Visual Design"
 msgstr "Editar Aparência"
 
 #: app/views/profile_editor/index.rhtml:14
-#, fuzzy
 msgid "Manage Content"
 msgstr "Gerenciar conteúdo"
 
 #: app/views/profile_editor/index.rhtml:16
-#, fuzzy
 msgid "Change Password"
 msgstr "Alterar senha"
 
 #: app/views/profile_editor/index.rhtml:18
-#, fuzzy
 msgid "Manage Members"
 msgstr "Gerenciar membros"
 
 #: app/views/profile_editor/index.rhtml:20
-#, fuzzy
 msgid "Consumed Products"
-msgstr "Gerenciar o seu conteúdo"
+msgstr "Produtos consumidos"
 
 #: app/views/profile_editor/index.rhtml:22
-#, fuzzy
 msgid "Manage Products"
-msgstr "Gerenciar o seu conteúdo"
+msgstr "Gerenciar Produtos"
 
 #: app/views/profile_editor/index.rhtml:27
-#, fuzzy
 msgid "My organizations"
-msgstr "informação da organização"
+msgstr "Minhas organizações"
 
 #: app/views/profile_editor/index.rhtml:35
-#, fuzzy
 msgid "Register a new Enterprise"
-msgstr "Registrar empreendimento"
+msgstr "Registrar novo Empreendimento"
 
 #: app/views/catalog/index.rhtml:1
 msgid "Catalog"
@@ -2134,13 +2053,11 @@ msgid "Title"
 msgstr "Título"
 
 #: app/design_blocks/list_block/views/edit.rhtml:10
-#, fuzzy
 msgid "Max number of people"
-msgstr "Número máximo de links"
+msgstr "Número máximo de pessoas"
 
 #: app/design_blocks/favorite_links/views/add_link.rhtml:1
 #: app/design_blocks/favorite_links/views/edit.rhtml:2
-#, fuzzy
 msgid "Editing Favorite Links"
 msgstr "Editar Links Favoritos"
 
