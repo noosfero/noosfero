@@ -1,5 +1,5 @@
 <ul class='people_list_block'>
   <% @people.each do |p| %>
-    <li> <%= link_to_homepage(content_tag('span', (p.image ? (image_tag p.image.public_filename) : p.name)), p.identifier) %> </li>
+    <li> <%= link_to_homepage(content_tag('span',p.name) + (p.image ? image_tag(p.image.public_filename :portrait) : ''), p.identifier) %> </li>
   <% end %>
 </ul>
