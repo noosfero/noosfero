@@ -1,0 +1,17 @@
+#!/bin/bash
+
+if [ "$1" = "" ]; then
+  echo "
+  Usage:
+  $0 <text to serach> [<file extension>]
+  "
+  exit 1
+fi
+
+if [ "$2" = "" ]; then
+  ext='.*'
+else
+  ext="$2"
+fi
+
+grep -r --ignore-case "$1" . | grep --ignore-case "\.$ext:"

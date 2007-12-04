@@ -16,8 +16,13 @@
   border: 1px solid #999;
   border-top: none;
   border-left: none;
-  padding: 3px;
   color: #585858;
+}
+.formfield input {
+  text-indent: 5px;
+}
+.formfield textarea {
+  padding: 0px 5px;
 }
 
 .submitline {
