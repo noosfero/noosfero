@@ -10,7 +10,8 @@
   padding: 2px 5px;
 }
 
-.formfield input,
+.formfield.text_field input,
+.formfield.password_field input,
 .formfield textarea {
   background: transparent url("../images/input-bg.gif") top left no-repeat;
   border: 1px solid #999;
@@ -22,7 +23,7 @@
   text-indent: 5px;
 }
 .formfield textarea {
-  padding: 0px 5px;
+  padding: 2px 0px 0px 5px;
 }
 
 .submitline {
@@ -31,8 +32,8 @@
 
 .submit {
   border: 1px solid #777;
-  color: #585858;
-  background: #EEE;
+  color: #505050;
+  background: #BBB url("../images/bt-bg.png") top left repeat-x;
   padding: 0px 30px;
 }
 
