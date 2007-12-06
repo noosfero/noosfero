@@ -1,0 +1,3 @@
+module ProfileInfoBlockHelper
+
+end

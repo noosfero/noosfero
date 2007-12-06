@@ -11,7 +11,7 @@ class ProfileEditorController < MyProfileController
     %w[
        FavoriteLinksProfile
        ListBlock
-       EnterprisesBlock
+       ProfileInfoBlock
       ]
    end
 

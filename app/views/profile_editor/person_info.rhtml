@@ -4,9 +4,16 @@
 
   <%= display_form_field(_('Name'), f.text_field(:name)) %>
 
-  <%= display_form_field(_('Address'), f.text_area(:address, :rows => 5)) %>
-
   <%= display_form_field(_('Contact Information'), f.text_area(:contact_information, :rows => 5)) %>
+  <%= display_form_field(_('Birth day'), f.date_select(:birth_date, :start_year => 1930, :use_month_numbers => true, :order => [:day, :month, :year])) %>
+
+  <%= _('Sex: ') %> 
+    <%= display_form_field(_('Male'), f.radio_button(:sex, 'male')) %> 
+    <%= display_form_field(_('Female'), f.radio_button(:sex, 'female')) %>
+  <%= display_form_field(_('Address'), f.text_area(:address, :rows => 3)) %>
+  <%= display_form_field(_('City'), f.text_field(:city)) %>
+  <%= display_form_field(_('State'), f.text_field(:state)) %>
+  <%= display_form_field(_('Country'), f.text_field(:country)) %>
 
   <%= submit_tag _('Save') %>
 

@@ -4,10 +4,15 @@
   <p>
     <label for="design_block_title"> <%= _("Title") %> </label>
     <%= text_field 'design_block', 'title'%>
+    </p>
+
+  <p>
+    <label for="design_block_type"> <%= _("Type of objects to list") %> </label>
+    <%= select 'design_block', 'element_type', @elements_types %>
   </p>
 
   <p>
-    <label for="design_block_limit_number"> <%= _("Max number of people") %> </label>
+    <label for="design_block_limit_number"> <%= _("Max number of elements") %> </label>
     <%= text_field 'design_block', 'limit_number'%>
   </p>
 

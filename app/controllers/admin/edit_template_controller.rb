@@ -4,7 +4,8 @@ class EditTemplateController < AdminController
 
   def block_types
     %w[
-       FavoriteLinksProfile
+       FavoriteLinks
+       ListBlock
      ]
   end
 

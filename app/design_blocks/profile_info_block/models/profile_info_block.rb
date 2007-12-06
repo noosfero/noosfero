@@ -1,4 +1,4 @@
-class EnterprisesBlock < Design::Block
+class ProfileInfoBlock < Design::Block
 
   # Define an specific method using the settings hash serialized 
   # variable to keep the value desired by method.
@@ -9,7 +9,7 @@ class EnterprisesBlock < Design::Block
   #   end
 
   def self.description
-    _('Enterprises Block')
+    'ProfileInfoBlock'
   end
 
 end

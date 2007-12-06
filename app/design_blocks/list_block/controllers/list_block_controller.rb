@@ -5,7 +5,7 @@ class ListBlockController < ApplicationController
   # this object.
 
   needs_profile
-
+  
   acts_as_design_block
 
   # You must have a hash on format:
@@ -30,8 +30,8 @@ class ListBlockController < ApplicationController
   ###########################  
   
   def index
-    @people = @design_block.people
-    design_render
+    @elements = @design_block.elements
+    design_render :action => @design_block.view
   end
   
   ###########################
@@ -40,6 +40,7 @@ class ListBlockController < ApplicationController
  
 
   def edit
+    @elements_types = @design_block.elements_types
     design_render_on_edit :controller => 'list_block', :action => 'edit'
   end
 

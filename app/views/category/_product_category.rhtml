@@ -1,3 +1,4 @@
+<%= link_to(_('I consume this'), {:profile => current_user.login, :controller => 'consumed_products', :action => 'new', 'consumption[product_category_id]' => @category.id }, :method => :post) %>
 <ul>
   <li><%= n_("One product in this category.", "%{num} products in this category.", @products.size) % { :num => @products.size } %></li>
   <li><%= n_("One enterprise sells products in this category.", "%{num} enterprises sells products in this category.", @enterprises.size) % { :num => @enterprises.size} %></li>

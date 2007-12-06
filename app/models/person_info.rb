@@ -1,15 +1,16 @@
 class PersonInfo < ActiveRecord::Base
 
-  # FIXME: add file_column :photo
-
   belongs_to :person
 
   def summary
-    [
-      [ PersonInfo.columns_hash['name'].human_name, self.name ],
-      [ PersonInfo.columns_hash['address'].human_name, self.address ],
-      [ PersonInfo.columns_hash['contact_information'].human_name, self.contact_information ],
-    ]
+    ['name', 'sex', 'birth_date', 'address', 'city', 'state', 'country'].map do |col|
+      [ PersonInfo.columns_hash[col] && PersonInfo.columns_hash[col].human_name, self.send(col) ]
+    end
+  end
+
+  def age
+    a = Date.today.year - birth_date.year
+    Date.today.yday > birth_date.yday ? a : a-1
   end
 
 end

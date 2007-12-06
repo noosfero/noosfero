@@ -34,6 +34,7 @@ class Profile < ActiveRecord::Base
   not_found
   cat
   tag
+  environment
   ]
 
   belongs_to :user

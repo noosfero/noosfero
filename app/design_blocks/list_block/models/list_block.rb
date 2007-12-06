@@ -20,8 +20,26 @@ class ListBlock < Design::Block
     self.settings[:limit_number]
   end
 
-  def people
-    Person.find(:all, :limit => limit_number)
+  def elements_types
+    ['Person', 'Enterprise']
+  end
+
+  def element_type
+    self.settings[:element_type]
+  end
+
+  def element_type= value
+    return nil unless elements_types.include?(value)
+    self.settings[:element_type] = value
+  end
+
+  def elements
+    return nil unless element_type
+    self.element_type.constantize.find(:all, :limit => limit_number)
+  end
+
+  def view
+    element_type.to_s.underscore
   end
 
 end

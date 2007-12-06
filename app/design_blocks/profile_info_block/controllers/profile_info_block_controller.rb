@@ -1,11 +1,11 @@
-class EnterprisesBlockController < ApplicationController
+class ProfileInfoBlockController < ApplicationController
 
   # This controller always has the object @design_block available to it.
   # The method acts_as_design_block load a before_filter that always load
   # this object.
 
   needs_profile
-
+  
   acts_as_design_block
 
   # You must have a hash on format:
@@ -30,7 +30,7 @@ class EnterprisesBlockController < ApplicationController
   ###########################  
   
   def index
-    @enterprises = Enterprise.find(:all)
+    @info = @profile.info
     design_render
   end
   
@@ -38,14 +38,14 @@ class EnterprisesBlockController < ApplicationController
   # Other Sample of methods
   ###########################
   
-#  def edit
-#    design_render_on_edit
-#  end
+  def edit
+    design_render_on_edit
+  end
   
-#  def save
-#    @design_block.update_attributes(params[:design_block])
-#    design_render_on_edit :nothing => true
-#  end
+  def save
+    @design_block.update_attributes(params[:design_block])
+    design_render_on_edit :nothing => true
+  end
 
 
 end
