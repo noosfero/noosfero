@@ -19,6 +19,7 @@ class CreateProfiles < ActiveRecord::Migration
       #enterprise fields
       t.column :region_id,         :integer
 
+      t.column :created_at,        :datetime
     end
   end
 

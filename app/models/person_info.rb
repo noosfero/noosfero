@@ -10,7 +10,7 @@ class PersonInfo < ActiveRecord::Base
 
   def age
     a = Date.today.year - birth_date.year
-    Date.today.yday > birth_date.yday ? a : a-1
+    Date.today.yday >= birth_date.yday ? a : a-1
   end
 
 end

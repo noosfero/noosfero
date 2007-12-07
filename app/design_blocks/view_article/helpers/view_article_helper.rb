@@ -1,0 +1,3 @@
+module ViewArticleHelper
+
+end

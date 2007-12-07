@@ -1,11 +1,11 @@
-class ProfileInfoBlockController < ApplicationController
+class ViewArticleController < ApplicationController
 
   # This controller always has the object @design_block available to it.
   # The method acts_as_design_block load a before_filter that always load
   # this object.
 
   needs_profile
-  
+
   acts_as_design_block
 
   # You must have a hash on format:
@@ -21,7 +21,7 @@ class ProfileInfoBlockController < ApplicationController
   #
   # This hash will define the options menu on edit mode.
   CONTROL_ACTION_OPTIONS = {
-#    'edit' => _('Edit')
+    'edit' => _('Edit')
   } 
 
 
@@ -30,8 +30,6 @@ class ProfileInfoBlockController < ApplicationController
   ###########################  
   
   def index
-    @info = @profile.info
-    @can_edit = current_user.person.has_permission?('edit_profile', @profile)
     design_render
   end
   

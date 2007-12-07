@@ -1,0 +1,15 @@
+<h2> <%= _('Editing article shown') %> </h2>
+
+<% design_form_remote_tag( :url => {:action => 'save'}) do %>
+  <p>
+    <label for="design_block_title"> <%= _("Title") %> </label>
+    <%= text_field 'design_block', 'title'%>
+    </p>
+
+  <p>
+    <label for="design_block_page"> <%= _("Page to show") %> </label>
+    <%= text_field 'design_block', 'page'%>
+  </p>
+
+  <%= submit_tag _('Save') %>
+<% end %>
