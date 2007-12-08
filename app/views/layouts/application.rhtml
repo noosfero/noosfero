@@ -23,7 +23,7 @@
     <% end %>
   </head>
 
-  <body>
+  <body class='category<%= category_color %>'>
 
     <% unless flash[:notice].nil? %>
       <div id='notice'>
@@ -33,33 +33,40 @@
     <% end %>
     <%= image_tag 'comatose/spinner.gif', :id=>'spinner', :align=>'absmiddle', :style=>'display:none;' %>
 
-    <div id="wrap" class='category<%= category_color %>'>
+    <div id="wrap">
 
-      <div id='noosfero_bar' class='category<%= category_color %>'>
-        <div id='accessibility_menu'>
-          <a href='#content' id='icon_go_content'><span><%= _('Go to content') %></span></a>
-          <%= shortcut_header_links %>
-        </div><!-- accessibility_menu -->
-
-        <div id='top_bar' class='category<%= category_color %>'>
-          <%= image_tag 'noosfero.png', :style => 'float: left;' %>
+      <div id='noosfero_bar' style='position: absolute;'>
+        <div id='accessibility_bar'>
+          <div id='accessibility_menu'>
+           <a href='#content' id='icon_go_content'><span><%= _('Go to content') %></span></a>
+           <!-- <%= shortcut_header_links %> -->
+          </div><!-- accessibility_menu -->
           <div id='path_category'>
+            Voce esta navgeando na FIXME.. 
             <% if @category %>
               <%= @category.full_name %>
             <% end %>
+            <%= javascript_tag(visual_effect(:fade, "path_category", :duration => 10)) %>
           </div>
-        </div>
-
+           </div><!-- accessibility_bar -->
         <div id='search_box'>
           <%= search_box %>
         </div><!-- id='search_box' -->
 
-        <div id='navigation_bar' class='category<%= category_color %>'>
+        <div id='navigation_bar'>
+          <SCRIPT LANGUAGE="JavaScript"> <!-- FIXME: Tirar o script daqui caso seja solucao adotada -->
+          function posset(chkbox, group) {
+          var posSetting = (chkbox.checked) ? "fixed" : "absolute"
+          document.getElementById(group).style.position = posSetting
+          }
+          </SCRIPT>
+          <INPUT TYPE="checkbox" NAME="Fix" VALUE="0" onClick="posset(this, 'noosfero_bar')" style='float: left; font-size: 2px'><%= image_tag 'noosfero.png', :style => 'float: left;' %>
+
           <%= render :file => 'shared/categories_menu' %>
         </div><!-- id='navigation_bar' -->
 
         <script type="text/javascript">
-          prepareMenu('navigation_bar', { timeout: 10 });
+          prepareMenu('navigation_bar', { timeout: 5 });
         </script>
       </div><!-- id="noosfero_bar" -->
 

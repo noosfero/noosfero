@@ -1,4 +1,5 @@
 <ul>
+  <li id='category'>Noosfero <ul><li><%= shortcut_header_links %></li></ul></li>
   <% @environment.display_categories.each do |item| %>
     <li id='category<%= item.display_color %>' <%= 'class="active"' if (@category && (@category.top_ancestor == item)) %> >
       <%= item.name %>
