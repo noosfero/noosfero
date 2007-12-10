@@ -8,7 +8,7 @@
 
   <p>
     <label for="design_block_page"> <%= _("Page to show") %> </label>
-    <%= text_field 'design_block', 'page'%>
+    <%= select 'design_block', 'article_id', @articles.map{|a|[a.full_name, a.id]} %>
   </p>
 
   <%= submit_tag _('Save') %>

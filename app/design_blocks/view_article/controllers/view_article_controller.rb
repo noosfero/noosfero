@@ -38,6 +38,7 @@ class ViewArticleController < ApplicationController
   ###########################
   
   def edit
+    @articles = @profile.articles
     design_render_on_edit
   end
   
@@ -45,6 +46,5 @@ class ViewArticleController < ApplicationController
     @design_block.update_attributes(params[:design_block])
     design_render_on_edit :nothing => true
   end
-
 
 end

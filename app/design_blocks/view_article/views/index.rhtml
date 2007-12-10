@@ -1,1 +1,1 @@
-<%= render_component(:controller => 'content_viewer', :action => 'view_page', :params => {:profile => @profile.identifier, :page => [@design_block.page], :no_layout => true}) %>
+<%= @design_block.article.to_html if @design_block.article %>

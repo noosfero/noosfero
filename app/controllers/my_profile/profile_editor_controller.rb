@@ -12,6 +12,7 @@ class ProfileEditorController < MyProfileController
        FavoriteLinksProfile
        ListBlock
        ProfileInfoBlock
+       ViewArticle
       ]
    end
 

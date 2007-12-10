@@ -3,7 +3,7 @@ class PersonInfo < ActiveRecord::Base
   belongs_to :person
 
   def summary
-    ['name', 'sex', 'birth_date', 'address', 'city', 'state', 'country'].map do |col|
+    ['name', 'contact_information', 'sex', 'birth_date', 'address', 'city', 'state', 'country'].map do |col|
       [ PersonInfo.columns_hash[col] && PersonInfo.columns_hash[col].human_name, self.send(col) ]
     end
   end

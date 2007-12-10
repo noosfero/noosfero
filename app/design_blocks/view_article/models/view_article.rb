@@ -12,20 +12,16 @@ class ViewArticle < Design::Block
     'ViewArticle'
   end
 
-  def page
-    self.settings[:page]
+  def article_id
+    self.settings[:article_id]
+  end
+  
+  def article_id= value
+    self.settings[:article_id] = value
   end
 
-  def page= value
-    self.settings[:page] = value
-  end
-
-  def profile
-    self.settings[:page]
-  end
-
-  def profile= value
-    self.settings[:page] = value
+  def article
+    Article.find(article_id) if article_id
   end
 
 end

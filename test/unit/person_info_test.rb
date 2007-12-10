@@ -20,7 +20,7 @@ class PersonInfoTest < Test::Unit::TestCase
     summary = person_info.summary
     assert(summary.any? { |line| line[1] == 'person name' })
     assert(summary.any? { |line| line[1] == 'my address' })
-    assert(summary.any? { |line| line[1] == 'my contact information' })
+    assert(summary.any? { |line| line[1] == 'my contact information' }, "summary (#{summary.map{|l| l[1] }.compact.join("; ")}) do not contain 'my contact informatidon'")
   end
 
 end
