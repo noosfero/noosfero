@@ -24,7 +24,8 @@ class RegionTest < Test::Unit::TestCase
 
     possible = region.search_possible_validators('organization')
     assert possible.include?(org2)
-    assert possible.include?(org1)
+    assert_includes possible, org2
+    assert_includes possible, org1
   end
 
   should 'return search results without validators that are already associated to the current region' do
@@ -35,8 +36,8 @@ class RegionTest < Test::Unit::TestCase
     region.validators << org1
 
     possible = region.search_possible_validators('organization')
-    assert possible.include?(org2)
-    assert !possible.include?(org1)
+    assert_includes possible, org2
+    assert_not_includes possible, org1
   end
 
 end
