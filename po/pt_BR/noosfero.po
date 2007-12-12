@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.4.0\n"
 "POT-Creation-Date: 2007-12-02 02:25-0300\n"
-"PO-Revision-Date: 2007-12-02 02:27-0300\n"
+"PO-Revision-Date: 2007-12-12 16:00-0300\n"
 "Last-Translator: Antonio Terceiro <terceiro@colivre.coop.br>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1361,7 +1361,7 @@ msgstr "Não há página: %s"
 
 #: app/views/layouts/application.rhtml:40
 msgid "Go to content"
-msgstr "Is para o conteúdo"
+msgstr "Ir para o conteúdo"
 
 #: app/views/layouts/not_found.rhtml:5
 msgid "Page not found"
