@@ -33,7 +33,7 @@ body {
 }
 
 #header {
-height: 145px;
+ height: 65px;
 }
 
 #design_boxes {
@@ -77,6 +77,9 @@ clear: both;
   color: #333;
   margin: 0px;
   padding: 5px;
+
+  position: absolute;
+  bottom: 0px;
 }
 
 /* Notice */ 
