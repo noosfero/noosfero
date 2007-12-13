@@ -77,9 +77,6 @@ clear: both;
   color: #333;
   margin: 0px;
   padding: 5px;
-
-  position: absolute;
-  bottom: 0px;
 }
 
 /* Notice */ 
@@ -91,28 +88,9 @@ div#notice {
   left: 50%;
   margin-left: -200px;
   width: 400px;
-  border: 1px solid black;
-  background: #efefef;
-  padding: 0.5em;
-}
-
-div#notice .button {
-  text-align: center;
-  margin-top: 1em;
-  margin-bottom: 0.25em;
-}
-  
-div#notice .button a {
-  border: 1px solid gray;
-  background: #ddd;
-  color: black;
-  padding: 4px;
-  padding-left: 28px;
-  background-position: top left;
-  background-repeat: no-repeat;
-}
-div#notice .button a:hover {
-  background-color: #ffd;
+  border: 5px solid #545454;
+  background: #ffffa9;
+  padding: 10px;
 }
 
 

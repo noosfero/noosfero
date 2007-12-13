@@ -29,9 +29,9 @@
   <body class='category<%= category_color %>'>
 
     <% unless flash[:notice].nil? %>
-      <div id='notice'>
+      <div id='notice' onClick="Element.hide('notice');">
         <%= flash[:notice] %>
-        <%= javascript_tag(visual_effect(:fade, "notice", :duration => 2.0)) %>
+        <%= javascript_tag(visual_effect(:fade, "notice", :duration => 15)) %>
       </div>
     <% end %>
 
@@ -62,8 +62,7 @@
           document.getElementById(group).style.position = posSetting
           }
           </SCRIPT>
-          <INPUT TYPE="checkbox" NAME="Fix" VALUE="0" onClick="posset(this, 'noosfero_bar')" style='float: left; font-size: 2px'><%= image_tag 'noosfero.png', :style => 'float: left;' %>
-
+          <INPUT TYPE="checkbox" NAME="Fix" VALUE="0" onClick="posset(this, 'noosfero_bar')" style='float: left;'>
           <%= render :file => 'shared/categories_menu' %>
         </div><!-- id='navigation_bar' -->
 

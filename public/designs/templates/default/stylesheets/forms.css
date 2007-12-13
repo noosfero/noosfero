@@ -13,10 +13,10 @@
 .formfield.text_field input,
 .formfield.password_field input,
 .formfield textarea {
-  background: transparent url("../images/input-bg.gif") top left no-repeat;
+/*  background: transparent url("../images/input-bg.gif") top left no-repeat; */
   border: 1px solid #999;
-  border-top: none;
-  border-left: none;
+/*  border-top: none;
+  border-left: none; */
   color: #585858;
 }
 .formfield input {
@@ -32,6 +32,7 @@
 
 .submit {
   border: 1px solid #777;
+  cursor: pointer;
   color: #505050;
   background: #BBB url("../images/bt-bg.png") top left repeat-x;
   padding: 0px 30px;
