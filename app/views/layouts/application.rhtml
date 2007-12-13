@@ -21,6 +21,9 @@
     <% if params[:controller] == 'cms' %>
       <%= javascript_include_tag 'cms' %>
     <% end %>
+
+    <%# FIXME this is temporary for tests  %>
+    <%= stylesheet_link_tag 'composer' %>
   </head>
 
   <body class='category<%= category_color %>'>
@@ -31,7 +34,6 @@
         <%= javascript_tag(visual_effect(:fade, "notice", :duration => 2.0)) %>
       </div>
     <% end %>
-    <%= image_tag 'comatose/spinner.gif', :id=>'spinner', :align=>'absmiddle', :style=>'display:none;' %>
 
     <div id="wrap">
 
@@ -42,7 +44,7 @@
            <!-- <%= shortcut_header_links %> -->
           </div><!-- accessibility_menu -->
           <div id='path_category'>
-            Voce esta navgeando na FIXME.. 
+            Voce esta navgeando na FIXME.
             <% if @category %>
               <%= @category.full_name %>
             <% end %>
@@ -79,7 +81,12 @@
           <div id='header_content'>
           </div>
 
-          <%= design_display(yield) %>
+          <%# FIXME this is temporary %>
+          <% if params[:controller] == 'composer' %>
+            <%= yield %>
+          <% else %>
+            <%= design_display(yield) %>
+          <% end %>
 
         </div><!-- id="content" -->
         <div id="footer_content"><!-- Rodape do onteudo -->
