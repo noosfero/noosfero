@@ -51,4 +51,8 @@ class SearchController < ApplicationController
     @tagged = @tag.taggings.map(&:taggable)
   end
 
+  def advanced_search
+      
+  end
+
 end
