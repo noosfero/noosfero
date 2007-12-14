@@ -2,9 +2,9 @@
 
 <% labelled_form_for :user, @user do |f| %>
 
-<%= f.text_field :login %>
+<%= display_form_field(_('Login'), text_field_tag(:login) ) %>
 
-<%= f.password_field :password %>
+<%= display_form_field(_('Password'), password_field_tag(:password) ) %>
 
 <%= display_submit_tag 'Log in' %>
 
