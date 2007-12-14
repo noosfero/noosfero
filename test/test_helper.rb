@@ -99,7 +99,7 @@ end
 
 class ActionController::IntegrationTest
   def login(username, password)
-    post '/account/login', :user => { :login => username, :password => password }
+    post '/account/login', :login => username, :password => password
     assert_response :redirect
     follow_redirect!
     assert_not_equal '/account/login', path
