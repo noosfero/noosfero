@@ -7,6 +7,17 @@ class ApplicationController < ActionController::Base
   
   design :holder => 'environment'
 
+  def self.no_design_blocks
+    @no_design_blocks = true
+  end
+  module UsesDesignBlocksHelper
+    def uses_design_blocks?
+      ! self.class.instance_variable_get('@no_design_blocks')
+    end
+  end
+  helper UsesDesignBlocksHelper
+  include UsesDesignBlocksHelper
+
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem
   include PermissionCheck

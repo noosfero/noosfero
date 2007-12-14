@@ -92,4 +92,30 @@ class ApplicationControllerTest < Test::Unit::TestCase
       :attributes => { :class => 'help_box'},
     })
   end
+
+  should 'be able to not use design blocks' do
+
+    class UsesBlocksTestController < ApplicationController
+    end
+    assert UsesBlocksTestController.new.uses_design_blocks?
+
+    class DoesNotUsesBlocksTestController < ApplicationController
+      no_design_blocks
+    end
+    assert !DoesNotUsesBlocksTestController.new.uses_design_blocks?
+  end
+
+  should 'use design plugin to generate blocks' do
+    get :index
+    assert_tag :tag => 'div', :attributes => { :id => 'boxes', :class => 'design_boxes' }
+  end
+
+  should 'not use design plugin when tells so' do
+    class NoDesignBlocksTestController < ApplicationController
+      no_design_blocks
+    end
+    @controller = NoDesignBlocksTestController.new
+    get :index
+    assert_no_tag :tag => 'div', :attributes => { :id => 'boxes', :class => 'design_boxes'  }
+  end
 end

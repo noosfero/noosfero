@@ -1,7 +1,7 @@
 class TestController < ApplicationController
 
   def index
-    render :text => 'index'
+    render :text => 'index', :layout => true
   end
 
   post_only 'post_only'

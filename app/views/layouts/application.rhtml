@@ -21,9 +21,6 @@
     <% if params[:controller] == 'cms' %>
       <%= javascript_include_tag 'cms' %>
     <% end %>
-
-    <%# FIXME this is temporary for tests  %>
-    <%= stylesheet_link_tag 'composer' %>
   </head>
 
   <body class='category<%= category_color %>'>
@@ -80,11 +77,10 @@
           <div id='header_content'>
           </div>
 
-          <%# FIXME this is temporary %>
-          <% if params[:controller] == 'composer' %>
-            <%= yield %>
-          <% else %>
+          <% if uses_design_blocks?  %>
             <%= design_display(yield) %>
+          <% else %>
+            <%= yield %>
           <% end %>
 
         </div><!-- id="content" -->
