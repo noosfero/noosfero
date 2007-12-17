@@ -14,21 +14,23 @@ class PersonTest < Test::Unit::TestCase
 
   def test_can_associate_to_a_profile
     pr = Profile.new(:identifier => 'mytestprofile', :name => 'My test profile')
-    assert pr.save
+    pr.save!
     pe = User.create(:login => 'person', :email => 'person@test.net', :password => 'dhoe', :password_confirmation => 'dhoe').person
-    assert pe.save
+    pe.save!
     member_role = Role.create(:name => 'member')
-    pr.affiliate(pe, member_role) 
+    pr.affiliate(pe, member_role)
+
     assert pe.memberships.include?(pr)
   end
 
-  def test_can_belongs_to_an_enterprise
+  def test_can_belong_to_an_enterprise
     e = Enterprise.new(:identifier => 'enterprise', :name => 'enterprise')
-    assert e.save
+    e.save!
     p = User.create(:login => 'person', :email => 'person@test.net', :password => 'dhoe', :password_confirmation => 'dhoe').person
-    assert p.save
+    p.save!
     member_role = Role.create(:name => 'member')
     e.affiliate(p, member_role)
+
     assert p.memberships.include?(e)
     assert p.enterprise_memberships.include?(e)
   end
