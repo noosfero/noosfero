@@ -89,6 +89,15 @@ class Test::Unit::TestCase
     assert(!array.include?(element), "<#{array.inspect}> expected to NOT include <#{element.inspect}>")
   end
 
+  def assert_mandatory(object, attribute, test_value = 'some random string')
+    object.send("#{attribute}=", nil)
+    object.valid?
+    assert object.errors.invalid?(attribute), "Attribute \"#{attribute.to_s}\" expected to be mandatory."
+    object.send("#{attribute}=", test_value)
+    object.valid?
+    assert !object.errors.invalid?(attribute), "Attribute \"#{attribute.to_s}\" expected to accept value #{test_value.inspect}"
+  end
+
   private
 
   def uses_host(name)
