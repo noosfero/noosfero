@@ -1,0 +1,102 @@
+/* Default Plain Theme for Blocks */
+
+.design_block
+{
+	background: #FFFFFF;
+	border: 3px solid #000000;
+	margin-bottom: 10px;
+}
+
+.design_block ul
+{
+	list-style: none;
+	margin-left: 15px;
+}
+
+
+.design_block h3
+{
+	color: #FFFFFF;
+	background: #545454;
+	font-family: Sans-serif;
+	font-size: 13px;
+	font-weight: normal;
+	border-bottom: 1px solid black;
+	height: 27px;
+	margin: 0px;
+	line-height: 27px;
+	padding-left: 10px;
+}
+
+a.design_button_block span {
+display: none;
+padding: 1px;
+color: #000;
+background: #dfdfdf;
+font-family: Sans-serif;
+font-size: 10px;
+font-weight: normal;
+border: 1px inset #545454;
+}
+
+.design_block a.desing_button_block:hover span {
+display: inline;
+position: absolute;
+color: white;
+background: #009900;
+font-family: Sans-serif;
+font-size: 13px;
+font-weight: normal;
+margin: 10px;
+padding-left: 5px;
+padding-right: 5px;
+}
+
+.design_block a.design_button_block {
+  display: block !important;
+  width: 20px !important;
+  height: 20px !important;
+  margin-top: 3px !important;
+  margin-right: 5px !important;
+  float: right !important;
+}
+
+.design_block a.button_block_hide {
+border-bottom: 2px solid #dfdfdf;
+}
+
+.design_block a:hover.button_block_hide {
+border-bottom: 2px solid #000000;
+}
+
+.design_block a.button_block_remove,
+.design_block a.button_block_item_options,
+.design_block a.button_block_options {
+  background: #dfdfdf;
+}
+
+.design_block a:hover.button_block_remove,
+.design_block a.hover.button_block_item_options,
+.design_block a.hover.button_block_options {
+  background: #000000;
+}
+
+.design_block_content 
+{
+	padding: 5px;
+}
+
+.design_block ul {
+  padding-left: 0px;
+  margin: 0px;
+}
+
+.design_block ul li a:link,
+.design_block ul li a:hover {
+  display: block;
+  color: #000;
+}
+.design_block ul li a:hover {
+  background: #ddd;
+}
+
