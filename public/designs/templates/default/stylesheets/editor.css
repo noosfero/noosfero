@@ -42,6 +42,7 @@ border: 1px inset #545454;
 
 #design_editor .design_blocks {
   border: 2px dotted green;
+  padding: 5px;
 }
 
 #design_editor .design_box {

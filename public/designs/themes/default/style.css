@@ -7,12 +7,17 @@
 	margin-bottom: 10px;
 }
 
+.design_editor ul, .design_box ul {
+list-style: none;
+margin: 0px;
+padding: 0px;
+}
+
 .design_block ul
 {
 	list-style: none;
 	margin-left: 15px;
 }
-
 
 .design_block h3
 {
@@ -25,7 +30,11 @@
 	height: 27px;
 	margin: 0px;
 	line-height: 27px;
-	padding-left: 10px;
+}
+
+#design_editor h3.design_block_header {
+ padding-left: 30px;
+ cursor: move;
 }
 
 a.design_button_block span {
@@ -100,3 +109,12 @@ border-bottom: 2px solid #000000;
   background: #ddd;
 }
 
+.button_block_options {
+position: absolute;
+left: 5px;
+}
+
+.button_block_options:hover div#design_block_control_options_11 {
+display: block;
+border: 3px solid red;
+}
