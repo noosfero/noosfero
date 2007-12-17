@@ -162,15 +162,15 @@ module ApplicationHelper
   #
   # Current implementation generates a <label> tag for +label+ and wrap the
   # label and the control with a <div> tag with class 'formfield' 
-  def display_form_field(label, html_for_field)
+  def labelled_form_field(label, html_for_field)
     content_tag('div', content_tag('div', content_tag('label', label)) + html_for_field, :class => 'formfield') 
   end
+  alias_method :display_form_field, :labelled_form_field
 
   def display_submit_tag(label)
     content_tag('p', submit_tag( label, :class => 'submit'), :class => 'submitline') 
   end
 
-  alias_method :labelled_form_field, :display_form_field
 
   def labelled_form_for(name, object = nil, options = {}, &proc)
     object ||= instance_variable_get("@#{name}")
