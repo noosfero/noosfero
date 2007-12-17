@@ -12,8 +12,8 @@
       <%= radio_button_tag('create_enterprise[target_id]', validator.id) %>
       <%= validator.name %>
 
-      <%= labelled_form_field(_('Validation Methodology:'), validator.validation_methodology) %>
-      <%= labelled_form_field(_('Restrictions (if any):'), validator.validation_restrictions) %>
+      <%= labelled_form_field(_('Validation Methodology:'), validator.validation_methodology || _("(not informed)")) %>
+      <%= labelled_form_field(_('Restrictions (if any):'), validator.validation_restrictions || _("(not informed)")) %>
     </div>
   <% end %>
 

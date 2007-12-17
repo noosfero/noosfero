@@ -35,7 +35,7 @@ class OrganizationTest < Test::Unit::TestCase
 
   should 'provide validation methodology' do
     org = Organization.new
-    assert_equal '<em>(not informed)</em>', org.validation_methodology
+    assert_nil org.validation_methodology
 
     info = ValidationInfo.new
     info.expects(:validation_methodology).returns('something')
@@ -45,7 +45,7 @@ class OrganizationTest < Test::Unit::TestCase
 
   should 'provide validation restrictions' do
     org = Organization.new
-    assert_equal '<em>(not informed)</em>', org.validation_restrictions
+    assert_nil org.validation_restrictions
 
     info = ValidationInfo.new
     info.expects(:restrictions).returns('something')

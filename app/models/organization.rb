@@ -15,13 +15,11 @@ class Organization < Profile
   end
 
   def validation_methodology
-    methodology = self.validation_info ? self.validation_info.validation_methodology : nil
-    methodology || ('<em>' + _('(not informed)') + '</em>')
+    self.validation_info ? self.validation_info.validation_methodology : nil
   end
 
   def validation_restrictions
-    restrictions = self.validation_info ? self.validation_info.restrictions : nil
-    restrictions || ('<em>' + _('(not informed)') + '</em>')
+    self.validation_info ? self.validation_info.restrictions : nil
   end
 
   def pending_validations
