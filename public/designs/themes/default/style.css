@@ -48,17 +48,13 @@ font-weight: normal;
 border: 1px inset #545454;
 }
 
-.design_block a.desing_button_block:hover span {
-display: inline;
-position: absolute;
-color: white;
-background: #009900;
-font-family: Sans-serif;
-font-size: 13px;
-font-weight: normal;
-margin: 10px;
-padding-left: 5px;
-padding-right: 5px;
+a.design_button_block:hover span {
+display: block;
+position: relative;
+margin-top: -20px;
+margin-left: -10px;
+z-index: 100;
+float: left;
 }
 
 .design_block a.design_button_block {
