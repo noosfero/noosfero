@@ -1,3 +1,5 @@
+#!/usr/bin/ruby -w
+
 #!/usr/local/bin/ruby -w
                                                                                 
 # This is a really simple session storage daemon, basically just a hash, 

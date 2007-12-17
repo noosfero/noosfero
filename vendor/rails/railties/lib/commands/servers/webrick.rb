@@ -3,7 +3,7 @@ require 'optparse'
 
 OPTIONS = {
   :port            => 3000,
-  :ip              => "0.0.0.0",
+  :ip              => "127.0.0.1",
   :environment     => (ENV['RAILS_ENV'] || "development").dup,
   :server_root     => File.expand_path(RAILS_ROOT + "/public/"),
   :server_type     => WEBrick::SimpleServer,
@@ -22,7 +22,7 @@ ARGV.options do |opts|
           "Default: 3000") { |v| OPTIONS[:port] = v }
   opts.on("-b", "--binding=ip", String,
           "Binds Rails to the specified ip.",
-          "Default: 0.0.0.0") { |v| OPTIONS[:ip] = v }
+          "Default: 127.0.0.1") { |v| OPTIONS[:ip] = v }
   opts.on("-e", "--environment=name", String,
           "Specifies the environment to run this server under (test/development/production).",
           "Default: development") { |v| OPTIONS[:environment] = v }

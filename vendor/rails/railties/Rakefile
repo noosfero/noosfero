@@ -1,7 +1,7 @@
 require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'
-require 'rake/gempackagetask'
+# require 'rake/gempackagetask'
 require 'rake/contrib/rubyforgepublisher'
 
 require 'date'
@@ -134,7 +134,7 @@ end
 desc "Link in all the Rails packages to vendor"
 task :link_vendor_libraries do
   mkdir File.join(PKG_DESTINATION, 'vendor', 'rails')
-  VENDOR_LIBS.each { |dir| ln_s File.join('..', '..', '..', dir), File.join(PKG_DESTINATION, 'vendor', 'rails', dir) }
+  VENDOR_LIBS.each { |dir| ln_s "/usr/share/rails/#{dir}", File.join(PKG_DESTINATION, 'vendor', 'rails', dir) }
 end
 
 
@@ -257,7 +257,7 @@ Rake::RDocTask.new { |rdoc|
 }
 
 # Generate GEM ----------------------------------------------------------------------------
-
+=begin
 task :copy_gem_environment do
   cp "environments/environment.rb", "#{PKG_DESTINATION}/config/environment.rb"
   chmod 0755, dest_file
@@ -288,11 +288,11 @@ spec = Gem::Specification.new do |s|
   EOF
 
   s.add_dependency('rake', '>= 0.7.2')
-  s.add_dependency('activesupport',    '= 1.4.2' + PKG_BUILD)
-  s.add_dependency('activerecord',     '= 1.15.3' + PKG_BUILD)
-  s.add_dependency('actionpack',       '= 1.13.3' + PKG_BUILD)
-  s.add_dependency('actionmailer',     '= 1.3.3' + PKG_BUILD)
-  s.add_dependency('actionwebservice', '= 1.2.3' + PKG_BUILD)
+  s.add_dependency('activesupport',    '= 1.4.4' + PKG_BUILD)
+  s.add_dependency('activerecord',     '= 1.15.6' + PKG_BUILD)
+  s.add_dependency('actionpack',       '= 1.13.6' + PKG_BUILD)
+  s.add_dependency('actionmailer',     '= 1.3.6' + PKG_BUILD)
+  s.add_dependency('actionwebservice', '= 1.2.6' + PKG_BUILD)
 
   s.rdoc_options << '--exclude' << '.'
   s.has_rdoc = false
@@ -332,3 +332,5 @@ task :release => [ :package ] do
   rubyforge.login
   rubyforge.add_release(PKG_NAME, PKG_NAME, "REL #{PKG_VERSION}", *packages)
 end
+
+=end

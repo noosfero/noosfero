@@ -119,7 +119,7 @@ module ActiveRecord
     #
     # * <tt>:host</tt> -- Defaults to localhost
     # * <tt>:port</tt> -- Defaults to 3306
-    # * <tt>:socket</tt> -- Defaults to /tmp/mysql.sock
+    # * <tt>:socket</tt> -- Defaults to /var/run/mysqld/mysqld.sock
     # * <tt>:username</tt> -- Defaults to root
     # * <tt>:password</tt> -- Defaults to nothing
     # * <tt>:database</tt> -- The name of the database. No default, must be provided.

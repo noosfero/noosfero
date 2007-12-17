@@ -1,3 +1,5 @@
+#!/usr/bin/ruby
+
 #!/usr/local/bin/ruby
 #
 # You may specify the path to the FastCGI crash log (a log of unhandled
