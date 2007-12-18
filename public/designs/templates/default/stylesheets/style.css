@@ -1,6 +1,7 @@
 @import url("editor.css");
 @import url("contentblocks.css");
 @import url("forms.css");
+@import url("table.css");
 
 body {
   font-family: Verdana, Sans-Serif;
@@ -44,13 +45,15 @@ body {
 }
 
 #design_box_3 {
-  width: 210px;
+  width: 200px;
   float: right;
+  margin-right: 10px;
 }
 
 #design_box_2 {
   float: left;
-  width: 280px;
+  width: 270px;
+  margin-left: 10px;
 }
 
 #design_box_1 {
