@@ -43,4 +43,12 @@ class ListBlock < Design::Block
     element_type.to_s.underscore
   end
 
+  def display_block
+    'true'
+  end
+
+  def display_header
+    'true'
+  end
+
 end
