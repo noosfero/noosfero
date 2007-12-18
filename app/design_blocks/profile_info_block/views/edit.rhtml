@@ -1,0 +1,10 @@
+<h2> <%= _('Editing profile exibition') %> </h2>
+
+<% design_form_remote_tag( :url => {:action => 'save'}) do %>
+  <p>
+    <label for="design_block_title"> <%= _("Title") %> </label>
+    <%= text_field 'design_block', 'title'%>
+  </p>
+    
+  <%= submit_tag _('Save') %>
+<% end %>

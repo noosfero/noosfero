@@ -21,7 +21,7 @@ class ProfileInfoBlockController < ApplicationController
   #
   # This hash will define the options menu on edit mode.
   CONTROL_ACTION_OPTIONS = {
-#    'edit' => _('Edit')
+    'edit' => _('Edit')
   } 
 
 

@@ -39,6 +39,7 @@ class ListBlock < Design::Block
   end
 
   def view
+    return 'nothing' unless element_type
     element_type.to_s.underscore
   end
 

@@ -12,4 +12,12 @@ class ProfileInfoBlock < Design::Block
     'ProfileInfoBlock'
   end
 
+  def title
+    self.settings[:title]
+  end
+
+  def title= value
+    self.settings[:title] = value
+  end
+
 end
