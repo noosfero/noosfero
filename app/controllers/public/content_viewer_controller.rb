@@ -19,6 +19,12 @@ class ContentViewerController < PublicController
       end
     end
 
+    if @page.mime_type != 'text/html'
+      headers['Content-Type'] = @page.mime_type
+      render :text => @page.data, :layout => false
+      return
+    end
+
     if request.post? && params[:comment]
       @comment = Comment.new(params[:comment])
       @comment.author = user if logged_in?

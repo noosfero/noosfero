@@ -85,5 +85,24 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     end
   end
 
+  should 'produce a download-like when article is not text/html' do
+
+    # for example, RSS feeds 
+    profile = create_user('someone').person
+    page = profile.articles.build(:name => 'myarticle', :body => 'the body of the text')
+    page.save!
+
+    feed = RssFeed.new(:name => 'feed')
+    feed.profile = profile
+    feed.save!
+
+    get :view_page, :profile => 'someone', :page => [ 'feed' ]
+
+    assert_response :success
+    assert_match /^text\/xml/, @response.headers['Content-Type']
+
+    assert_equal feed.data, @response.body
+  end
+
 
 end

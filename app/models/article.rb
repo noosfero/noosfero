@@ -39,6 +39,12 @@ class Article < ActiveRecord::Base
     body
   end
 
+  # returns the data of the article. Must be overriden in each subclass to
+  # provide the correct content for the article. 
+  def data
+    body
+  end
+
   # provides the icon name to be used for this article. In this class this
   # method just returns 'text-html', but subclasses may (and should) override
   # to return their specific icons.

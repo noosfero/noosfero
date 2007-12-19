@@ -23,6 +23,9 @@ class CreateArticles < ActiveRecord::Migration
       # acts as versioned
       t.column :version, :integer
       t.column :lock_version, :integer
+
+      # single-table inheritance
+      t.column :type, :string
     end
 
     Article.create_versioned_table
