@@ -7,6 +7,8 @@ class Article < ActiveRecord::Base
 
   belongs_to :last_changed_by, :class_name => Person.name, :foreign_key => 'last_changed_by_id'
 
+  has_many :comments
+
   acts_as_taggable  
   N_('Tag list')
 

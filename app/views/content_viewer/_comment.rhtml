@@ -1,0 +1,7 @@
+<div class'comment'>
+  <h4><%= comment.title %></h4>
+  <div><%= _('By %{author} on %{date}') % { :author => (comment.author ? comment.author.identifier : comment.name), :date => comment.created_on } %></div>
+  <div>
+    <%= comment.body %>
+  </div>
+</div>

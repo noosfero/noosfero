@@ -1,0 +1,19 @@
+<h3><%= _('Post a comment') %></h3>
+
+<% form_tag do %>
+
+  <% unless logged_in? %>
+
+    <%= labelled_form_field(_('Name'), text_field(:comment, :name)) %>
+    <%= labelled_form_field(_('e-mail'), text_field(:comment, :email)) %>
+
+    <p>
+    <%= _('If you are a registered user, you can login and be automatically recognized.') %>
+    </p>
+
+  <% end %>
+
+  <%= labelled_form_field(_('Title'), text_field(:comment, :title)) %>
+  <%= labelled_form_field(_('Enter your comment'), text_area(:comment, :body)) %>
+  <%= submit_tag _('Post comment') %>
+<% end %>

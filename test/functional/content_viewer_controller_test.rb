@@ -53,9 +53,6 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     uses_host 'anhetegua.net'
     get :view_page, :profile => 'aprofile', :page => ['some_unexisting_page']
     assert_response :missing
-    # This is an idea of instead of give an error search for the term
-#    assert_response :redirect
-#    assert_redirected_to :controller => 'search', :action => 'index'
   end
 
   def test_should_get_not_found_error_for_unexisting_profile
@@ -63,10 +60,30 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     uses_host 'anhetegua'
     get :view_page, :profile => 'some_unexisting_profile', :page => []
     assert_response :missing    
-    
-    # This is an idea of instead of give an error search for the term
-#    assert_response :redirect
-#    assert_redirected_to :controller => 'search', :action => 'index'
   end
+
+  def test_should_be_able_to_post_comment_while_authenticated
+    profile = create_user('popstar').person
+    page = profile.articles.build(:name => 'myarticle', :body => 'the body of the text')
+    page.save!
+    profile.home_page = page; profile.save!
+
+    assert_difference Comment, :count do
+      login_as('ze')
+      post :view_page, :profile => 'popstar', :page => [ 'myarticle' ], :comment => { :title => 'crap!', :body => 'I think that this article is crap' }
+    end
+  end
+
+  def test_should_be_able_to_post_comment_while_not_authenticated
+    profile = create_user('popstar').person
+    page = profile.articles.build(:name => 'myarticle', :body => 'the body of the text')
+    page.save!
+    profile.home_page = page; profile.save!
+
+    assert_difference Comment, :count do
+      post :view_page, :profile => 'popstar', :page => [ 'myarticle' ], :comment => { :title => 'crap!', :body => 'I think that this article is crap', :name => 'Anonymous coward', :email => 'coward@anonymous.com' }
+    end
+  end
+
 
 end
