@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class PersonTest < Test::Unit::TestCase
-  fixtures :profiles, :users
+  fixtures :profiles, :users, :environments
 
   def test_person_must_come_form_the_cration_of_an_user
     p = Person.new(:name => 'John', :identifier => 'john')
@@ -17,7 +17,7 @@ class PersonTest < Test::Unit::TestCase
     pr.save!
     pe = User.create(:login => 'person', :email => 'person@test.net', :password => 'dhoe', :password_confirmation => 'dhoe').person
     pe.save!
-    member_role = Role.create(:name => 'member')
+    member_role = Role.create(:name => 'somerandomrole')
     pr.affiliate(pe, member_role)
 
     assert pe.memberships.include?(pr)
@@ -28,7 +28,7 @@ class PersonTest < Test::Unit::TestCase
     e.save!
     p = User.create(:login => 'person', :email => 'person@test.net', :password => 'dhoe', :password_confirmation => 'dhoe').person
     p.save!
-    member_role = Role.create(:name => 'member')
+    member_role = Role.create(:name => 'somerandomrole')
     e.affiliate(p, member_role)
 
     assert p.memberships.include?(e)
