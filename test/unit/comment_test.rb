@@ -34,7 +34,29 @@ class CommentTest < Test::Unit::TestCase
   end
 
   should 'record unauthenticated author' do
-    flunk 'not yet'
+
+    assert_optional Comment.new, :name
+    assert_optional Comment.new, :email
+
+    # if given name, require email
+    c1 = Comment.new
+    c1.name = 'My Name'
+    assert_mandatory c1, :email
+
+    # if given email, require name
+    c2 = Comment.new
+    c2.email = 'my@email.com'
+    assert_mandatory c2, :name
+  end
+
+  should 'accept either an authenticated or unauthenticated author' do
+    assert_mandatory Comment.new, :author_id
+
+    c1 = Comment.new
+    c1.author = create_user('someperson').person
+    c1.name = 'my name'
+    c1.valid?
+    assert c1.errors.invalid?(:name)
   end
 
 end

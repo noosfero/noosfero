@@ -98,6 +98,12 @@ class Test::Unit::TestCase
     assert !object.errors.invalid?(attribute), "Attribute \"#{attribute.to_s}\" expected to accept value #{test_value.inspect}"
   end
 
+  def assert_optional(object, attribute)
+    object.send("#{attribute}=", nil)
+    object.valid?
+    assert !object.errors.invalid?(attribute)
+  end
+
   private
 
   def uses_host(name)
