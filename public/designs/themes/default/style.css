@@ -65,26 +65,28 @@ float: left;
   margin-top: 3px !important;
   margin-right: 5px !important;
   float: right !important;
+  opacity: 0.7;
 }
 
 .design_block a.button_block_hide {
-border-bottom: 2px solid #dfdfdf;
+background: url('icons.png') no-repeat;
+background-position: -60px 0px;
 }
-
-.design_block a:hover.button_block_hide {
-border-bottom: 2px solid #000000;
+.design_block a.button_block_remove {
+background: red url('icons.png') no-repeat;
+background-position: -80px 0px;
 }
-
-.design_block a.button_block_remove,
-.design_block a.button_block_item_options,
 .design_block a.button_block_options {
-  background: #dfdfdf;
+background: blue url('icons.png') no-repeat;
+background-position: 0px 0px;
+}
+.design_block a.button_block_item_options {
+background: url('icons.png') no-repeat;
+background-position: -40px 0px;
 }
 
-.design_block a:hover.button_block_remove,
-.design_block a.hover.button_block_item_options,
-.design_block a.hover.button_block_options {
-  background: #000000;
+.design_block a:hover.design_button_block {
+  opacity: 1.0;
 }
 
 .design_block_content 
@@ -101,9 +103,6 @@ border-bottom: 2px solid #000000;
 .design_block ul li a:hover {
   display: block;
   color: #000;
-}
-.design_block ul li a:hover {
-  background: #ddd;
 }
 
 .button_block_options {

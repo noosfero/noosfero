@@ -8,33 +8,33 @@ body {
   font-size: 14px;
 }
 
-#wrap.category {
+body.category #wrap {
  background-attachment: fixed;
  background: url("../images/bgblue.png") top left no-repeat;
 }
 
-#wrap.category1 {
+body.category1 #wrap {
  background-attachment: fixed;
-  background: url("../images/bgorange.png") top left no-repeat;
-  }
+ background: url("../images/bgorange.png") top left no-repeat;
+}
 
-#wrap.category2 {
+body.category2 #wrap {
  background-attachment: fixed;
-  background: url("../images/bggreen.png") top left no-repeat;
-  }
+ background: url("../images/bggreen.png") top left no-repeat;
+}
 
-#wrap.category3 {
+body.category3 #wrap {
  background-attachment: fixed;
-  background: url("../images/bgpurple.png") top left no-repeat;
-  }
+ background: url("../images/bgpurple.png") top left no-repeat;
+}
 
-#wrap.category4 {
+body.category4 #wrap {
  background-attachment: fixed;
  background: url("../images/bgred.png") top left no-repeat;
 }
 
 #header {
- height: 65px;
+ height: 150px;
 }
 
 #design_boxes {
@@ -48,6 +48,7 @@ body {
   width: 200px;
   float: right;
   margin-right: 10px;
+  margin-top: -80px;
 }
 
 #design_box_2 {
@@ -94,10 +95,4 @@ div#notice {
   border: 5px solid #545454;
   background: #ffffa9;
   padding: 10px;
-}
-
-
-#design_editor .design_box {
-  border: 1px solid black;
-  height: 400px;
 }
