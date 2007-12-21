@@ -17,8 +17,16 @@ class RssFeed < Article
     'text/xml'
   end
 
-  # FIXME - feed real data into the RSS feed
+  # FIXME feed real data into the RSS feed
   def data
+    articles =
+      if (self.settings[:include] == :parent_and_children) && self.parent
+        self.parent.map_traversal
+      else
+        profile.recent_documents(10)
+      end
+
+
     result = ""
     xml = Builder::XmlMarkup.new(:target => result)
 
@@ -29,14 +37,20 @@ class RssFeed < Article
         xml.link("http://www.yourDomain.com")
         xml.description('Description here')
         xml.language("pt_BR")
-        for article in profile.recent_documents(10)
-          xml.item do
-            xml.title(article.name)
-            xml.description(article.abstract)
-            # rfc822
-            xml.pubDate(article.created_on.rfc2822)
-            xml.link("http://www.yourDomain.com/linkToYourPost")
-            xml.guid("http://www.yourDomain.com/linkToYourPost")
+        for article in articles
+          unless self == article
+            xml.item do
+              xml.title(article.name)
+              if self.settings[:description] == :body
+                xml.description(article.body)
+              else
+                xml.description(article.abstract)
+              end
+              # rfc822
+              xml.pubDate(article.created_on.rfc2822)
+              xml.link("http://www.yourDomain.com/linkToYourPost")
+              xml.guid("http://www.yourDomain.com/linkToYourPost")
+            end
           end
         end
       end

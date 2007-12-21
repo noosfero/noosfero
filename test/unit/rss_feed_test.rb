@@ -11,8 +11,8 @@ class RssFeedTest < Test::Unit::TestCase
     assert_kind_of Hash, feed.body
 
     feed.body = {
-      :include => :abstract,
-      :search => :parent,
+      :description => :abstract,
+      :search => :parent_and_children,
     }
     feed.valid?
     assert !feed.errors.invalid?(:body)
@@ -34,9 +34,23 @@ class RssFeedTest < Test::Unit::TestCase
     feed.save!
   
     rss = feed.data
-    assert_match /<title>article 1<\/title>/, rss
-    assert_match /<title>article 2<\/title>/, rss
-    assert_match /<title>article 3<\/title>/, rss
+    assert_match /<item><title>article 1<\/title>/, rss
+    assert_match /<item><title>article 2<\/title>/, rss
+    assert_match /<item><title>article 3<\/title>/, rss
+  end
+
+  should 'not list self' do
+    profile = create_user('testuser').person
+    a1 = profile.articles.build(:name => 'article 1'); a1.save!
+    a2 = profile.articles.build(:name => 'article 2'); a2.save!
+    a3 = profile.articles.build(:name => 'article 3'); a3.save!
+
+    feed = RssFeed.new(:name => 'feed')
+    feed.profile = profile
+    feed.save!
+  
+    rss = feed.data
+    assert_no_match /<item><title>feed<\/title>/, rss
   end
 
   should 'list recent article from parent article' do
@@ -49,13 +63,47 @@ class RssFeedTest < Test::Unit::TestCase
   end
 
   should 'be able to choose to put abstract or entire body on feed' do
-    #feed = RssFeed.new
-    #feed.
-    flunk 'pending'
+    profile = create_user('testuser').person
+    a1 = profile.articles.build(:name => 'article 1', :abstract => 'my abstract', :body => 'my text'); a1.save!
+
+    feed = RssFeed.new(:name => 'feed')
+    feed.profile = profile
+    feed.save!
+
+    rss = feed.data
+    assert_match /<description>my abstract<\/description>/, rss
+    assert_no_match /<description>my text<\/description>/, rss
+
+    feed.settings[:description] = :body
+    rss = feed.data
+    assert_match /<description>my text<\/description>/, rss
+    assert_no_match /<description>my abstract<\/description>/, rss
   end
 
-  should 'be able to choose search in all articles or in subarticles of parent' do
-    flunk 'pending'
+  should "be able to search only children of feed's parent" do
+    profile = create_user('testuser').person
+    a1 = profile.articles.build(:name => 'article 1'); a1.save!
+    a2 = profile.articles.build(:name => 'article 2'); a2.save!
+
+    a3 = profile.articles.build(:name => 'article 3'); a3.save!
+    a3_1 = a3.children.build(:name => 'article 3.1', :parent => a3, :profile => profile); a3_1.save!
+    a3_2 = a3.children.build(:name => 'article 3.2', :parent => a3, :profile => profile); a3_2.save!
+    a3_2_1 = a3_2.children.build(:name => 'article 3.2.1', :parent => a3_2, :profile => profile); a3_2_1.save!
+
+    feed = RssFeed.new(:name => 'feed')
+    feed.parent = a3
+    feed.profile = profile
+    feed.settings[:include] = :parent_and_children
+    feed.save!
+
+    rss = feed.data
+    assert_match /<item><title>article 3<\/title>/, rss
+    assert_match /<item><title>article 3\.1<\/title>/, rss
+    assert_match /<item><title>article 3\.2<\/title>/, rss
+    assert_match /<item><title>article 3\.2\.1<\/title>/, rss
+
+    assert_no_match /<item><title>article 1<\/title>/, rss
+    assert_no_match /<item><title>article 2<\/title>/, rss
   end
 
   should 'be able to indicate maximum number of items' do
