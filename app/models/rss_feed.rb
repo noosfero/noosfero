@@ -3,6 +3,10 @@ class RssFeed < Article
   # store setting in body
   serialize Hash, :body
 
+  def body
+    self[:body] ||= {}
+  end
+
   # TODO
   def to_html
   end

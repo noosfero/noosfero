@@ -7,7 +7,8 @@ class RssFeedTest < Test::Unit::TestCase
   end
 
   should 'store settings in a hash serialized into body field' do
-    flunk 'pending'
+    feed = RssFeed.new
+    assert_kind_of Hash, feed.body
   end
 
   should 'list recent articles of profile when top-level' do
@@ -39,7 +40,7 @@ class RssFeedTest < Test::Unit::TestCase
     flunk 'pending'
   end
 
-  should 'be able to choose if search in all articles or in subarticles of parent' do
+  should 'be able to choose search in all articles or in subarticles of parent' do
     flunk 'pending'
   end
 
