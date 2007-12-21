@@ -18,6 +18,11 @@ class RssFeedTest < Test::Unit::TestCase
     assert !feed.errors.invalid?(:body)
   end
 
+  should 'alias body as "settings"' do
+    feed = RssFeed.new
+    assert_same feed.body, feed.settings
+  end
+
   should 'list recent articles of profile when top-level' do
     profile = create_user('testuser').person
     a1 = profile.articles.build(:name => 'article 1'); a1.save!
@@ -44,6 +49,8 @@ class RssFeedTest < Test::Unit::TestCase
   end
 
   should 'be able to choose to put abstract or entire body on feed' do
+    #feed = RssFeed.new
+    #feed.
     flunk 'pending'
   end
 

@@ -6,6 +6,7 @@ class RssFeed < Article
   def body
     self[:body] ||= {}
   end
+  alias :settings :body
 
   # TODO
   def to_html
