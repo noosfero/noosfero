@@ -9,6 +9,13 @@ class RssFeedTest < Test::Unit::TestCase
   should 'store settings in a hash serialized into body field' do
     feed = RssFeed.new
     assert_kind_of Hash, feed.body
+
+    feed.body = {
+      :include => :abstract,
+      :search => :parent,
+    }
+    feed.valid?
+    assert !feed.errors.invalid?(:body)
   end
 
   should 'list recent articles of profile when top-level' do
