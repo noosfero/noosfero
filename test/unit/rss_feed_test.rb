@@ -107,7 +107,21 @@ class RssFeedTest < Test::Unit::TestCase
   end
 
   should 'be able to indicate maximum number of items' do
-    flunk 'pending'
+    profile = create_user('testuser').person
+    a1 = profile.articles.build(:name => 'article 1'); a1.save!
+    a2 = profile.articles.build(:name => 'article 2'); a2.save!
+    a3 = profile.articles.build(:name => 'article 3'); a3.save!
+
+    feed = RssFeed.new(:name => 'feed')
+    feed.profile = profile
+    feed.save!
+
+    feed.profile.expects(:recent_documents).with(10).returns([]).once
+    feed.data
+
+    feed.settings[:limit] = 5
+    feed.profile.expects(:recent_documents).with(5).returns([]).once
+    feed.data
   end
 
 end

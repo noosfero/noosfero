@@ -23,7 +23,7 @@ class RssFeed < Article
       if (self.settings[:include] == :parent_and_children) && self.parent
         self.parent.map_traversal
       else
-        profile.recent_documents(10)
+        profile.recent_documents(self.settings[:limit] || 10)
       end
 
 
