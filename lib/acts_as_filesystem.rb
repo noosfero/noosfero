@@ -150,6 +150,21 @@ module ActsAsFileSystem
       @hierarchy
     end
 
+    def map_traversal(&block)
+      stack = []
+      result = []
+      stack.push(self)
+      while !stack.empty?
+        element = stack.pop
+        result.push(element)
+        element.children.each do |item|
+          stack.push(item)
+        end
+      end
+      block ||= (lambda { |x| x })
+      result.map(&block)
+    end
+
   end
 end
 

@@ -21,4 +21,33 @@ class ActsAsFilesystemTest < Test::Unit::TestCase
     assert_not_same list, a.hierarchy(true)
   end
 
+  should 'list the full tree' do
+    profile = create_user('testinguser').person
+
+    a1 = profile.articles.build(:name => 'a1'); a1.save!
+
+    a1_1 = profile.articles.build(:name => 'a1.1'); a1_1.parent = a1; a1_1.save!
+    a1_2 = profile.articles.build(:name => 'a1.2'); a1_2.parent = a1; a1_2.save!
+
+    a1_1_1 = profile.articles.build(:name => 'a1.1.1'); a1_1_1.parent = a1_1; a1_1_1.save!
+    a1_1_2 = profile.articles.build(:name => 'a1.1.2'); a1_1_2.parent = a1_1; a1_1_2.save!
+
+    assert_equivalent [a1, a1_1, a1_2, a1_1_1, a1_1_2], a1.map_traversal
+  end
+
+  should 'be able to traverse with a block' do
+    profile = create_user('testinguser').person
+
+    a1 = profile.articles.build(:name => 'a1'); a1.save!
+
+    a1_1 = profile.articles.build(:name => 'a1.1'); a1_1.parent = a1; a1_1.save!
+    a1_2 = profile.articles.build(:name => 'a1.2'); a1_2.parent = a1; a1_2.save!
+
+    a1_1_1 = profile.articles.build(:name => 'a1.1.1'); a1_1_1.parent = a1_1; a1_1_1.save!
+    a1_1_2 = profile.articles.build(:name => 'a1.1.2'); a1_1_2.parent = a1_1; a1_1_2.save!
+
+    assert_equivalent ['a1', 'a1.1', 'a1.2', 'a1.1.1', 'a1.1.2'], a1.map_traversal { |item| item.name }
+
+  end
+
 end
