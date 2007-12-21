@@ -272,4 +272,14 @@ module ApplicationHelper
     return _('No product') unless product
     link_to product.name, :controller => 'catalog', :action => 'show', :id => product, :profile => product.enterprise.identifier
   end
+
+  def partial_for_class(klass)
+    name = klass.name.underscore
+    if File.exists?(File.join(RAILS_ROOT, 'app', 'views', params[:controller], "_#{name}.rhtml"))
+      name
+    else
+      partial_for_class(klass.superclass)
+    end
+  end
+
 end
