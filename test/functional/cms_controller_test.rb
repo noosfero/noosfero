@@ -47,18 +47,18 @@ class CmsControllerTest < Test::Unit::TestCase
     a.save!
 
     get :edit, :profile => profile.identifier, :id => a.id
-    assert_template 'text_html_edit'
-  end
-
-  should 'be able to type a new document' do
-    get :new, :profile => profile.identifier
-    assert_template 'text_html_new'
+    assert_template 'edit'
   end
 
   should 'be able to create a new document' do
     get :new, :profile => profile.identifier
-    assert_template 'text_html_new'
+    assert_template 'select_article_type'
     assert_tag :tag => 'form', :attributes => { :action => "/myprofile/#{profile.identifier}/cms/new", :method => /post/i }
+  end
+
+  should 'present edit screen after choosing article type' do
+    get :new, :profile => profile.identifier, :article_type => 'Article'
+    assert_template 'edit'
   end
 
   should 'be able to save a save a document' do
@@ -125,7 +125,7 @@ class CmsControllerTest < Test::Unit::TestCase
 
     get :edit, :profile => profile.identifier, :id => a.id
     assert_response :success
-    assert_template 'text_html_edit'
+    assert_template 'edit'
   end
 
   should 'convert mime-types to action names' do

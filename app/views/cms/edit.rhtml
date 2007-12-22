@@ -1,3 +1,5 @@
+
+
 <%= render :file => 'shared/tiny_mce' %>
 
 <%= error_messages_for 'article' %>
@@ -6,15 +8,8 @@
 
   <%= hidden_field_tag('parent_id', params[:parent_id]) if params[:parent_id] %>
 
-  <%= f.text_field('name', :size => '64') %>
-
-  <%= f.text_field('tag_list', :size => 64, :title => _('Separate tags with commas')) %>
-
-  <%= f.text_area('abstract', :cols => 64, :rows => 5) %>
-
-  <%= f.text_area('body', :cols => 64) %>
+  <%= render :partial => partial_for_class(@article.class), :locals => { :f => f } %>
 
   <%= design_display_button_submit('save', _('Save')) %>
   <%= design_display_button('cancel', _('Cancel'), :action => (@article.parent ? 'view' : 'index'), :id => @article.parent) %>
-
 <% end %>

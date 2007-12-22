@@ -26,8 +26,6 @@ class CmsController < MyProfileController
         return
       end
     end
-
-    render :action => "#{mime_type_to_action_name(@article.mime_type)}_edit"
   end
 
   def new
@@ -47,7 +45,7 @@ class CmsController < MyProfileController
       end
     end
 
-    render :action => "#{mime_type_to_action_name(type)}_new"
+    render :action => 'edit'
   end
 
   post_only :set_home_page

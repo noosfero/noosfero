@@ -103,6 +103,10 @@ class Test::Unit::TestCase
     object.valid?
     assert !object.errors.invalid?(attribute)
   end
+  
+  def assert_subclass(parent, child)
+    assert_equal parent, child.superclass, "Class #{child} expected to be a subclass of #{parent}"
+  end
 
   private
 

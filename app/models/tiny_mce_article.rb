@@ -1,0 +1,2 @@
+class TinyMceArticle < Article
+end
