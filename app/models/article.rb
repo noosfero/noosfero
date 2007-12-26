@@ -70,4 +70,24 @@ class Article < ActiveRecord::Base
     "/" + [profile.identifier, path].join('/')
   end
 
+  def self.short_description
+    if self == Article
+      _('Article')
+    else
+      _('"%s" article') % self.article_type_name
+    end
+  end
+
+  def self.description
+    if self == Article
+      _('An ordinary article')
+    else
+      _('An article of type "%s"') % self.article_type_name
+    end
+  end
+
+  def self.article_type_name
+    self.name.gsub(/article$/i, '')
+  end
+
 end

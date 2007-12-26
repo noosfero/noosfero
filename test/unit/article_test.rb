@@ -143,4 +143,19 @@ class ArticleTest < Test::Unit::TestCase
     
   end
 
+  should 'provied proper descriptions' do
+    assert_equal "Article", Article.short_description
+    assert_equal "An ordinary article", Article.description
+  end
+
+  should 'provide a usable descriptions to subclasses that don\'t override them' do
+    klass = Class.new(Article)
+    klass.stubs(:name).returns("MyClass")
+    klass.expects(:_).with('"%s" article').returns('"%s" article')
+    klass.expects(:_).with('An article of type "%s"').returns('An article of type "%s"')
+
+    assert_equal '"MyClass" article', klass.short_description
+    assert_equal 'An article of type "MyClass"', klass.description
+  end
+
 end
