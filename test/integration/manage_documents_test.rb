@@ -15,10 +15,13 @@ class ManageDocumentsTest < ActionController::IntegrationTest
     assert_tag :tag => 'a', :attributes => { :href => '/myprofile/myuser/cms' }
     get '/myprofile/myuser/cms/new'
 
+    assert_tag :tag => 'a', :attributes => { :href => '/myprofile/myuser/cms/new?type=TinyMceArticle' }
+    get '/myprofile/myuser/cms/new?type=TinyMceArticle'
+
     assert_tag :tag => 'form', :attributes => { :action => '/myprofile/myuser/cms/new', :method => /post/i }
 
     assert_difference Article, :count do
-      post '/myprofile/myuser/cms/new', :article => { :name => 'my article', :body => 'this is the body of ther article'}
+      post '/myprofile/myuser/cms/new', :type => 'TinyMceArticle', :article => { :name => 'my article', :body => 'this is the body of ther article'}
     end
 
     assert_response :redirect

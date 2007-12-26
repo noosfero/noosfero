@@ -6,6 +6,10 @@ class CmsController < MyProfileController
 
   include CmsHelper
 
+  ARTICLE_TYPES = [
+    TinyMceArticle
+  ]
+
   def view
     @article = profile.articles.find(params[:id])
     @subitems = @article.children
@@ -29,10 +33,26 @@ class CmsController < MyProfileController
   end
 
   def new
-    # FIXME need to display a page and let the user choose a type of article.
-    type = params[:type] || 'text/html'
+    # user must choose an article type first
+    type = params[:type]
+    if type.blank?
+      @article_types = []
+      ARTICLE_TYPES.each do |type|
+        @article_types.push({
+          :name => type.name,
+          :short_description => type.short_description,
+          :description => type.description
+        })
+      end
+      render :action => 'select_article_type'
+      return
+    end
 
-    @article = Article.new(params[:article])
+    raise "Invalid article type #{type}" unless ARTICLE_TYPES.map {|item| item.name}.include?(type)
+    klass = type.constantize
+    @article = klass.new(params[:article])
+
+
     if params[:parent_id]
       @article.parent = profile.articles.find(params[:parent_id])
     end
@@ -63,20 +83,5 @@ class CmsController < MyProfileController
     redirect_to :action => (@article.parent ? 'view' : 'index'), :id => @article.parent
   end
 
-  protected
-
-  class << self
-    def available_editors
-      Dir.glob(File.join(File.dirname(__FILE__), 'cms', '*.rb'))
-    end
-
-    def available_types
-      available_editors.map {|item| File.basename(item).gsub(/\.rb$/, '').gsub('_', '/')  }
-    end
-  end
-
 end
 
-CmsController.available_editors.each do |item|
-  load item
-end

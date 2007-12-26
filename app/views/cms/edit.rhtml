@@ -6,6 +6,8 @@
 
 <% labelled_form_for 'article', @article do |f| %>
 
+  <%= hidden_field_tag("type", params[:type]) if params[:type] %>
+
   <%= hidden_field_tag('parent_id', params[:parent_id]) if params[:parent_id] %>
 
   <%= render :partial => partial_for_class(@article.class), :locals => { :f => f } %>

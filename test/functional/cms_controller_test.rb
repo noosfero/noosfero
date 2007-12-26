@@ -52,18 +52,25 @@ class CmsControllerTest < Test::Unit::TestCase
 
   should 'be able to create a new document' do
     get :new, :profile => profile.identifier
+    assert_response :success
     assert_template 'select_article_type'
-    assert_tag :tag => 'form', :attributes => { :action => "/myprofile/#{profile.identifier}/cms/new", :method => /post/i }
+
+    # TODO add more types here !!
+    [ 'TinyMceArticle' ].each do |item|
+      assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?type=#{item}" }
+    end
   end
 
   should 'present edit screen after choosing article type' do
-    get :new, :profile => profile.identifier, :article_type => 'Article'
+    get :new, :profile => profile.identifier, :type => 'TinyMceArticle'
     assert_template 'edit'
+
+    assert_tag :tag => 'form', :attributes => { :action => "/myprofile/#{profile.identifier}/cms/new", :method => /post/i }, :descendant => { :tag => "input", :attributes => { :type => 'hidden', :value => 'TinyMceArticle' }}
   end
 
-  should 'be able to save a save a document' do
+  should 'be able to save a document' do
     assert_difference Article, :count do
-      post :new, :profile => profile.identifier, :article => { :name => 'a test article', :body => 'the text of the article ...' }
+      post :new, :type => 'TinyMceArticle', :profile => profile.identifier, :article => { :name => 'a test article', :body => 'the text of the article ...' }
     end
   end
 
@@ -84,7 +91,7 @@ class CmsControllerTest < Test::Unit::TestCase
   should 'set last_changed_by when creating article' do
     login_as(profile.identifier)
 
-    post :new, :profile => profile.identifier, :article => { :name => 'changed by me', :body => 'content ...' }
+    post :new, :type => 'TinyMceArticle', :profile => profile.identifier, :article => { :name => 'changed by me', :body => 'content ...' }
 
     a = profile.articles.find_by_path('changed-by-me')
     assert_not_nil a
@@ -104,18 +111,6 @@ class CmsControllerTest < Test::Unit::TestCase
     a.reload
 
     assert_equal profile, a.last_changed_by
-  end
-
-  should 'list available editors' do
-    editors = [ "#{RAILS_ROOT}/app/controllers/my_profile/cms/bli.rb", "#{RAILS_ROOT}/app/controllers/my_profile/cms/blo.rb" ]
-    Dir.expects(:glob).with("#{RAILS_ROOT}/app/controllers/my_profile/cms/*.rb").returns(editors)
-    assert_equal editors, CmsController.available_editors
-  end
-
-  should 'list available types' do
-    editors = [ "#{RAILS_ROOT}/app/controllers/my_profile/cms/text_html.rb", "#{RAILS_ROOT}/app/controllers/my_profile/cms/image.rb" ]
-    CmsController.expects(:available_editors).returns(editors)
-    assert_equal [ 'text/html', 'image' ], CmsController.available_types
   end
 
   should 'edit by using the correct template to display the editor depending on the mime-type' do

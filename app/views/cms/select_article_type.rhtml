@@ -3,7 +3,10 @@
 </p>
 
 <ul>
-<% CmsController.available_types.each do |item| %>
-  <li><%= link_to_new_article(item) %></li>
-<% end %>
+  <% for type in @article_types %>
+    <li>
+    <%= link_to type[:short_description], :action => 'new', :type => type[:name] %>
+    <p><%= type[:description] %></p>
+    </li>
+  <% end %>
 </ul>
