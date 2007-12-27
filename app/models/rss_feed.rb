@@ -59,4 +59,12 @@ class RssFeed < Article
     result
   end
 
+  def self.short_description
+    _('RSS Feed')
+  end
+
+  def self.description
+    _('Provides a news feed of your more recent articles.')
+  end
+
 end

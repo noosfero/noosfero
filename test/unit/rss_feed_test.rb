@@ -124,4 +124,14 @@ class RssFeedTest < Test::Unit::TestCase
     feed.data
   end
 
+  should 'provide proper short description' do
+    RssFeed.expects(:==).with(Article).returns(true).at_least_once
+    assert_not_equal Article.short_description, RssFeed.short_description
+  end
+
+  should 'provide proper description' do
+    RssFeed.expects(:==).with(Article).returns(true).at_least_once
+    assert_not_equal Article.description, RssFeed.description
+  end
+
 end
