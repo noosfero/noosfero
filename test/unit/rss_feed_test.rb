@@ -11,7 +11,7 @@ class RssFeedTest < Test::Unit::TestCase
     assert_kind_of Hash, feed.body
 
     feed.body = {
-      :description => :abstract,
+      :feed_item_description => :abstract,
       :search => :parent_and_children,
     }
     feed.valid?
@@ -74,7 +74,7 @@ class RssFeedTest < Test::Unit::TestCase
     assert_match /<description>my abstract<\/description>/, rss
     assert_no_match /<description>my text<\/description>/, rss
 
-    feed.settings[:description] = :body
+    feed.feed_item_description = :body
     rss = feed.data
     assert_match /<description>my text<\/description>/, rss
     assert_no_match /<description>my abstract<\/description>/, rss
@@ -93,7 +93,7 @@ class RssFeedTest < Test::Unit::TestCase
     feed = RssFeed.new(:name => 'feed')
     feed.parent = a3
     feed.profile = profile
-    feed.settings[:include] = :parent_and_children
+    feed.include = :parent_and_children
     feed.save!
 
     rss = feed.data
@@ -119,7 +119,7 @@ class RssFeedTest < Test::Unit::TestCase
     feed.profile.expects(:recent_documents).with(10).returns([]).once
     feed.data
 
-    feed.settings[:limit] = 5
+    feed.limit = 5
     feed.profile.expects(:recent_documents).with(5).returns([]).once
     feed.data
   end

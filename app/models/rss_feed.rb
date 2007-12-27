@@ -8,6 +8,27 @@ class RssFeed < Article
   end
   alias :settings :body
 
+  def limit
+    settings[:limit]
+  end
+  def limit=(value)
+    settings[:limit] = value
+  end
+
+  def include
+    settings[:include]
+  end
+  def include=(value)
+    settings[:include] = value
+  end
+
+  def feed_item_description
+    settings[:feed_item_description]
+  end
+  def feed_item_description=(value)
+    settings[:feed_item_description] = value
+  end
+
   # TODO
   def to_html
   end
@@ -20,10 +41,10 @@ class RssFeed < Article
   # FIXME feed real data into the RSS feed
   def data
     articles =
-      if (self.settings[:include] == :parent_and_children) && self.parent
+      if (self.include == :parent_and_children) && self.parent
         self.parent.map_traversal
       else
-        profile.recent_documents(self.settings[:limit] || 10)
+        profile.recent_documents(self.limit || 10)
       end
 
 
@@ -41,7 +62,7 @@ class RssFeed < Article
           unless self == article
             xml.item do
               xml.title(article.name)
-              if self.settings[:description] == :body
+              if self.feed_item_description == :body
                 xml.description(article.body)
               else
                 xml.description(article.abstract)
