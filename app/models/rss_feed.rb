@@ -102,4 +102,8 @@ class RssFeed < Article
     _('Provides a news feed of your more recent articles.')
   end
 
+  def icon_name
+    'rss-feed'
+  end
+
 end

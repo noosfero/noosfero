@@ -5,6 +5,10 @@ The icons in this directory are taken from the dlg-neu icon theme for GNOME,
 section "mimetypes/". We take the SVG files and convert to 64x64 PNG images, so
 these icons are in fact derived works based on dlg-neu's SVG files.
 
+Exception: ico-feed-on.png was made by Aurélio A. Heckert
+<aurelio@colivre.coop.br> and is licensed under the GNU General Public License,
+version 3.
+
 Structure
 =========
 

@@ -174,4 +174,8 @@ class RssFeedTest < Test::Unit::TestCase
     assert_not_equal Article.description, RssFeed.description
   end
 
+  should 'provide the correct icon name' do
+    assert_equal 'rss-feed', RssFeed.new.icon_name
+  end
+
 end
