@@ -8,6 +8,7 @@ class RssFeed < Article
   end
   alias :settings :body
 
+  # The maximum number of articles to be displayed in the RSS feed.
   def limit
     settings[:limit]
   end
@@ -15,19 +16,32 @@ class RssFeed < Article
     settings[:limit] = value
   end
 
+  # FIXME this should be validates_numericality_of, but Rails 1.2.6 does not
+  # support validates_numericality_of with virtual attributes
+  validates_format_of :limit, :with => /^[0-9]+$/, :if => :limit
+
+  # determinates what to include in the feed. Possible values are +:all+
+  # (include everything from the profile) and :parent_and_children (include
+  # only articles that are siblings of the feed).
+  #
+  # The feed itself is never included.
   def include
     settings[:include]
   end
   def include=(value)
     settings[:include] = value
   end
+  validates_inclusion_of :include, :in => [ :all, :parent_and_children ], :if => :include
 
+  # determinates what to include in the feed as items' description. Possible
+  # values are +:body+ (default) and +:abstract+.
   def feed_item_description
     settings[:feed_item_description]
   end
   def feed_item_description=(value)
     settings[:feed_item_description] = value
   end
+  validates_inclusion_of :feed_item_description, :in => [ :body, :abstract ], :if => :feed_item_description
 
   # TODO
   def to_html

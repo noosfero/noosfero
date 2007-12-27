@@ -124,6 +124,46 @@ class RssFeedTest < Test::Unit::TestCase
     feed.data
   end
 
+  should 'limit should only accept integers' do
+    feed = RssFeed.new
+    feed.limit = 'text'
+    feed.valid?
+    assert feed.errors.invalid?(:limit)
+    feed.limit = 10
+    feed.valid?
+    assert !feed.errors.invalid?(:limit)
+  end
+
+  should 'allow only :parent_and_children and :all as include setting' do
+    feed = RssFeed.new
+    feed.include = :something_else
+    feed.valid?
+    assert feed.errors.invalid?(:include)
+
+    feed.include = :parent_and_children
+    feed.valid?
+    assert !feed.errors.invalid?(:include)
+
+    feed.include = :all
+    feed.valid?
+    assert !feed.errors.invalid?(:include)
+  end
+
+  should 'allow only :body and :abstract as feed_item_description' do
+    feed = RssFeed.new
+    feed.feed_item_description = :something_else
+    feed.valid?
+    assert feed.errors.invalid?(:feed_item_description)
+
+    feed.feed_item_description = :body
+    feed.valid?
+    assert !feed.errors.invalid?(:feed_item_description)
+
+    feed.feed_item_description = :abstract
+    feed.valid?
+    assert !feed.errors.invalid?(:feed_item_description)
+  end
+
   should 'provide proper short description' do
     RssFeed.expects(:==).with(Article).returns(true).at_least_once
     assert_not_equal Article.short_description, RssFeed.short_description
