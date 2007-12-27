@@ -1,7 +1,7 @@
 class RssFeed < Article
 
   # store setting in body
-  serialize Hash, :body
+  serialize :body, Hash
 
   def body
     self[:body] ||= {}

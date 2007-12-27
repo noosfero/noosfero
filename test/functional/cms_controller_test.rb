@@ -142,4 +142,24 @@ class CmsControllerTest < Test::Unit::TestCase
     end
   end
 
+  should 'be able to create a RSS feed' do
+    login_as('ze')
+    assert_difference RssFeed, :count do
+      post :new, :type => RssFeed.name, :profile => profile.identifier, :article => { :name => 'feed', :limit => 15, :include => 'all', :feed_item_description => 'body' }
+      assert_response :redirect
+    end
+  end
+
+  should 'be able to update a RSS feed' do
+    login_as('ze')
+    feed = RssFeed.create!(:name => 'myfeed', :limit => 5, :feed_item_description => 'body', :include => 'all', :profile_id => profile.id)
+    post :edit, :profile => profile.identifier, :id => feed.id, :article => { :limit => 77, :feed_item_description => 'abstract', :include => 'parent_and_children' }
+    assert_response :redirect
+
+    updated = RssFeed.find(feed.id)
+    assert_equal 77, updated.limit
+    assert_equal 'abstract', updated.feed_item_description
+    assert_equal 'parent_and_children', updated.include
+  end
+
 end

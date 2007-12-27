@@ -1,0 +1,7 @@
+<%= f.text_field :name %>
+
+<%= labelled_form_field(_('Limit of articles'), f.text_field(:limit)) %>
+
+<%= labelled_form_field(_('Use as item description:'), f.select(:feed_item_description, [ [ _('Article body'), 'body'], [ _('Article abstract'), 'abstract']])) %>
+
+<%= labelled_form_field(_('Include:'), f.select(:include, [ [ _('All articles'), 'all' ], [ _('Only articles child of the same article as the feed'), 'parent_and_children']] )) %>
