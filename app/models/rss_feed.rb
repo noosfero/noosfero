@@ -31,7 +31,7 @@ class RssFeed < Article
   def include=(value)
     settings[:include] = value
   end
-  validates_inclusion_of :include, :in => [ :all, :parent_and_children ], :if => :include
+  validates_inclusion_of :include, :in => [ 'all', 'parent_and_children' ], :if => :include
 
   # determinates what to include in the feed as items' description. Possible
   # values are +:body+ (default) and +:abstract+.
@@ -41,7 +41,7 @@ class RssFeed < Article
   def feed_item_description=(value)
     settings[:feed_item_description] = value
   end
-  validates_inclusion_of :feed_item_description, :in => [ :body, :abstract ], :if => :feed_item_description
+  validates_inclusion_of :feed_item_description, :in => [ 'body', 'abstract' ], :if => :feed_item_description
 
   # TODO
   def to_html
@@ -55,7 +55,7 @@ class RssFeed < Article
   # FIXME feed real data into the RSS feed
   def data
     articles =
-      if (self.include == :parent_and_children) && self.parent
+      if (self.include == 'parent_and_children') && self.parent
         self.parent.map_traversal
       else
         profile.recent_documents(self.limit || 10)
@@ -76,7 +76,7 @@ class RssFeed < Article
           unless self == article
             xml.item do
               xml.title(article.name)
-              if self.feed_item_description == :body
+              if self.feed_item_description == 'body'
                 xml.description(article.body)
               else
                 xml.description(article.abstract)

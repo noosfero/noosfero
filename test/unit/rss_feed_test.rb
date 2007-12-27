@@ -11,11 +11,11 @@ class RssFeedTest < Test::Unit::TestCase
     assert_kind_of Hash, feed.body
 
     feed.body = {
-      :feed_item_description => :abstract,
-      :search => :parent_and_children,
+      :feed_item_description => 'abstract',
+      :search => 'parent_and_children',
     }
     feed.valid?
-    assert !feed.errors.invalid?(:body)
+    assert !feed.errors.invalid?('body')
   end
 
   should 'alias body as "settings"' do
@@ -64,7 +64,7 @@ class RssFeedTest < Test::Unit::TestCase
 
   should 'be able to choose to put abstract or entire body on feed' do
     profile = create_user('testuser').person
-    a1 = profile.articles.build(:name => 'article 1', :abstract => 'my abstract', :body => 'my text'); a1.save!
+    a1 = profile.articles.build(:name => 'article 1', 'abstract' => 'my abstract', 'body' => 'my text'); a1.save!
 
     feed = RssFeed.new(:name => 'feed')
     feed.profile = profile
@@ -74,7 +74,7 @@ class RssFeedTest < Test::Unit::TestCase
     assert_match /<description>my abstract<\/description>/, rss
     assert_no_match /<description>my text<\/description>/, rss
 
-    feed.feed_item_description = :body
+    feed.feed_item_description = 'body'
     rss = feed.data
     assert_match /<description>my text<\/description>/, rss
     assert_no_match /<description>my abstract<\/description>/, rss
@@ -93,7 +93,7 @@ class RssFeedTest < Test::Unit::TestCase
     feed = RssFeed.new(:name => 'feed')
     feed.parent = a3
     feed.profile = profile
-    feed.include = :parent_and_children
+    feed.include = 'parent_and_children'
     feed.save!
 
     rss = feed.data
@@ -134,32 +134,32 @@ class RssFeedTest < Test::Unit::TestCase
     assert !feed.errors.invalid?(:limit)
   end
 
-  should 'allow only :parent_and_children and :all as include setting' do
+  should 'allow only parent_and_children and all as include setting' do
     feed = RssFeed.new
     feed.include = :something_else
     feed.valid?
     assert feed.errors.invalid?(:include)
 
-    feed.include = :parent_and_children
+    feed.include = 'parent_and_children'
     feed.valid?
     assert !feed.errors.invalid?(:include)
 
-    feed.include = :all
+    feed.include = 'all'
     feed.valid?
     assert !feed.errors.invalid?(:include)
   end
 
-  should 'allow only :body and :abstract as feed_item_description' do
+  should 'allow only body and abstract as feed_item_description' do
     feed = RssFeed.new
     feed.feed_item_description = :something_else
     feed.valid?
     assert feed.errors.invalid?(:feed_item_description)
 
-    feed.feed_item_description = :body
+    feed.feed_item_description = 'body'
     feed.valid?
     assert !feed.errors.invalid?(:feed_item_description)
 
-    feed.feed_item_description = :abstract
+    feed.feed_item_description = 'abstract'
     feed.valid?
     assert !feed.errors.invalid?(:feed_item_description)
   end
