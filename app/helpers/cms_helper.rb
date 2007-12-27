@@ -9,4 +9,9 @@ module CmsHelper
     mime_type.gsub('/', '_').gsub('-', '')
   end
 
+  def icon_for_article(article)
+    icon = article.icon_name
+    (icon =~ /\//) ? icon : "icons-mime/#{article.icon_name}"
+  end
+
 end

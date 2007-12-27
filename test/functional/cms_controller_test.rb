@@ -162,4 +162,12 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_equal 'parent_and_children', updated.include
   end
 
+  should 'be able to upload a file' do
+    flunk 'pending'
+  end
+
+  should 'be able to update an uploaded file' do
+    flunk 'pending'
+  end
+
 end

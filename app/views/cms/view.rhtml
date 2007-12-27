@@ -28,7 +28,7 @@
       <ul>
         <% @subitems.each do |item| %>
           <li>
-          <%= file_manager_button(item.name, "icons-mime/#{item.icon_name}", :action => 'view', :id => item.id) %>
+          <%= file_manager_button(item.name, icon_for_article(item), :action => 'view', :id => item.id) %>
           </li>
         <% end %>
       </ul>
