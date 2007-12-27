@@ -56,8 +56,8 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_template 'select_article_type'
 
     # TODO add more types here !!
-    [ 'TinyMceArticle' ].each do |item|
-      assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?type=#{item}" }
+    [ TinyMceArticle, TextileArticle ].each do |item|
+      assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?type=#{item.name}" }
     end
   end
 

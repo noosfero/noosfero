@@ -7,7 +7,9 @@ class CmsController < MyProfileController
   include CmsHelper
 
   ARTICLE_TYPES = [
-    TinyMceArticle
+    TinyMceArticle,
+    TextileArticle,
+    RssFeed
   ]
 
   def view
