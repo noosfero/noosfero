@@ -11,4 +11,12 @@ class UploadedFile < Article
     content_type
   end
 
+  def self.short_description
+    _("Uploaded file")
+  end
+
+  def self.description
+    _('Upload any kind of file you want.')
+  end
+
 end

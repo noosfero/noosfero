@@ -21,4 +21,15 @@ class UploadedFileTest < Test::Unit::TestCase
     f.expects(:content_type).returns('application/pdf')
     assert_equal 'application/pdf', f.mime_type
   end 
+
+  should 'provide proper description' do
+    UploadedFile.stubs(:==).with(Article).returns(true)
+    assert_not_equal Article.description, UploadedFile.description
+  end
+
+  should 'provide proper short description' do
+    UploadedFile.stubs(:==).with(Article).returns(true)
+    assert_not_equal Article.short_description, UploadedFile.short_description
+  end
+
 end
