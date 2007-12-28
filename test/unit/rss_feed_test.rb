@@ -106,6 +106,14 @@ class RssFeedTest < Test::Unit::TestCase
     assert_no_match /<item><title>article 2<\/title>/, rss
   end
 
+  should 'provide link to profile' do
+    flunk 'pending'
+  end
+
+  should 'provide link to each article' do
+    flunk 'pending'
+  end
+
   should 'be able to indicate maximum number of items' do
     profile = create_user('testuser').person
     a1 = profile.articles.build(:name => 'article 1'); a1.save!

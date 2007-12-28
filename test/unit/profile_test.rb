@@ -217,6 +217,10 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal blocks - profile_blocks, Design::Block.count
   end
 
+  should 'provide url to itself' do
+    flunk 'pending'
+  end
+
   private
 
   def assert_invalid_identifier(id)

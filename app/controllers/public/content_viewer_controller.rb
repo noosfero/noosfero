@@ -21,7 +21,14 @@ class ContentViewerController < PublicController
 
     if @page.mime_type != 'text/html'
       headers['Content-Type'] = @page.mime_type
-      render :text => @page.data, :layout => false
+      data = @page.data
+
+      # TODO test the condition
+      if data.nil?
+        raise "No data for file"
+      end
+
+      render :text => data, :layout => false
       return
     end
 

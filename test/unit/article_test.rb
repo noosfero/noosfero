@@ -158,4 +158,12 @@ class ArticleTest < Test::Unit::TestCase
     assert_equal 'An article of type "MyClass"', klass.description
   end
 
+  should 'indicate wheter children articles are allowed or not' do
+    flunk 'pending'
+  end
+
+  should 'provide a url to itself' do
+    flunk 'pending'
+  end
+
 end

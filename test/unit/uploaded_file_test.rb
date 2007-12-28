@@ -32,4 +32,17 @@ class UploadedFileTest < Test::Unit::TestCase
     assert_not_equal Article.short_description, UploadedFile.short_description
   end
 
+  should 'set name from uploaded filename' do
+    file = UploadedFile.new
+    file.filename = 'test.txt'
+    assert_equal 'test.txt', file.name
+  end
+
+  should 'provide file content as data' do
+    file = UploadedFile.new
+    file.expects(:full_filename).returns('myfilename')
+    File.expects(:read).with('myfilename').returns('my data')
+    assert_equal 'my data', file.data
+  end
+
 end

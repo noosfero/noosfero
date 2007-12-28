@@ -163,10 +163,16 @@ class CmsControllerTest < Test::Unit::TestCase
   end
 
   should 'be able to upload a file' do
-    flunk 'pending'
+    assert_difference UploadedFile, :count do
+      post :new, :type => UploadedFile.name, :profile => profile.identifier, :article => { :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain')}
+    end
   end
 
   should 'be able to update an uploaded file' do
+    flunk 'pending'
+  end
+
+  should 'not offer to create children if article does not accept them' do
     flunk 'pending'
   end
 

@@ -9,7 +9,8 @@ class CmsController < MyProfileController
   ARTICLE_TYPES = [
     TinyMceArticle,
     TextileArticle,
-    RssFeed
+    RssFeed,
+    UploadedFile,
   ]
 
   def view

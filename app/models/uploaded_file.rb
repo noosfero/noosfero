@@ -1,7 +1,7 @@
 class UploadedFile < Article
 
   # FIXME need to define min/max file size
-  has_attachment :thumbnails => { :icon => [24,24] }
+  has_attachment :thumbnails => { :icon => [24,24] }, :storage => :file_system
 
   def icon_name
     self.image? ? public_filename(:icon) : self.content_type.gsub('/', '-')
@@ -17,6 +17,16 @@ class UploadedFile < Article
 
   def self.description
     _('Upload any kind of file you want.')
+  end
+
+  alias :orig_set_filename :filename=
+  def filename=(value)
+    orig_set_filename(value)
+    self.name = self.filename
+  end
+
+  def data
+    File.read(self.full_filename)
   end
 
 end
