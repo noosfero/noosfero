@@ -11,7 +11,15 @@ module CmsHelper
 
   def icon_for_article(article)
     icon = article.icon_name
-    (icon =~ /\//) ? icon : "icons-mime/#{article.icon_name}"
+    if (icon =~ /\//)
+      icon
+    else
+      if File.exists?(File.join(RAILS_ROOT, 'public', 'images', 'icons-mime', "#{icon}.png"))
+        "icons-mime/#{icon}"
+      else
+        "icons-mime/unknown.png"
+      end
+    end
   end
 
 end
