@@ -57,7 +57,11 @@ class CmsController < MyProfileController
 
 
     if params[:parent_id]
-      @article.parent = profile.articles.find(params[:parent_id])
+      parent = profile.articles.find(params[:parent_id])
+      if ! parent.allow_children?
+        raise ArgumentError.new("cannot create child of article which does not accept children")
+      end
+      @article.parent = parent
     end
     @article.profile = profile
     @article.last_changed_by = user

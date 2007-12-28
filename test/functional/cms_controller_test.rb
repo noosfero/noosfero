@@ -143,7 +143,7 @@ class CmsControllerTest < Test::Unit::TestCase
   end
 
   should 'be able to create a RSS feed' do
-    login_as('ze')
+    login_as(profile.identifier)
     assert_difference RssFeed, :count do
       post :new, :type => RssFeed.name, :profile => profile.identifier, :article => { :name => 'feed', :limit => 15, :include => 'all', :feed_item_description => 'body' }
       assert_response :redirect
@@ -151,7 +151,7 @@ class CmsControllerTest < Test::Unit::TestCase
   end
 
   should 'be able to update a RSS feed' do
-    login_as('ze')
+    login_as(profile.identifier)
     feed = RssFeed.create!(:name => 'myfeed', :limit => 5, :feed_item_description => 'body', :include => 'all', :profile_id => profile.id)
     post :edit, :profile => profile.identifier, :id => feed.id, :article => { :limit => 77, :feed_item_description => 'abstract', :include => 'parent_and_children' }
     assert_response :redirect
@@ -198,8 +198,18 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?parent_id=#{article.id}"}
   end
 
-  should 'not allow to create children of non-child articles' do
-    flunk 'pending'
+  should 'refuse to create children of non-child articles' do
+    Article.any_instance.stubs(:allow_children?).returns(false)
+
+    article = Article.new(:name => 'test')
+    article.profile = profile
+    article.save!
+
+    assert_no_difference UploadedFile, :count do
+      assert_raise ArgumentError do
+        post :new, :type => UploadedFile.name, :parent_id => article.id, :profile => profile.identifier, :article => { :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain')}
+      end
+    end
   end
 
 end
