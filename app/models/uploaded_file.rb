@@ -29,4 +29,8 @@ class UploadedFile < Article
     File.read(self.full_filename)
   end
 
+  def allow_children?
+    false
+  end
+
 end

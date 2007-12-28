@@ -45,4 +45,8 @@ class UploadedFileTest < Test::Unit::TestCase
     assert_equal 'my data', file.data
   end
 
+  should 'not allow child articles' do
+    assert_equal false, UploadedFile.new.allow_children?
+  end
+
 end
