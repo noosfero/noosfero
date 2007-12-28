@@ -50,4 +50,8 @@ class ActsAsFilesystemTest < Test::Unit::TestCase
 
   end
 
+  should 'allow dots in slug' do
+    assert_equal 'test.txt', Article.new(:name => 'test.txt').slug
+  end
+
 end

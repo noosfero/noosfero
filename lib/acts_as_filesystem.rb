@@ -97,7 +97,7 @@ module ActsAsFileSystem
       unless self.name.blank?
         # FIXME encapsulate this pattern (transliterate -> downcase -> gsub
         # ...) in a String method, say, to_slug
-        self.slug = self.name.transliterate.downcase.gsub( /[^-a-z0-9~\s\.:;+=_]/, '').gsub(/[\s\.:;=_+]+/, '-').gsub(/[\-]{2,}/, '-').to_s
+        self.slug = self.name.transliterate.downcase.gsub( /[^-a-z0-9~\s\.:;+=_]/, '').gsub(/[\s:;=_+]+/, '-').gsub(/[\-]{2,}/, '-').to_s
       end
     end
 
