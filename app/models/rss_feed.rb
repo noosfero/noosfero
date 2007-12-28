@@ -84,8 +84,8 @@ class RssFeed < Article
               # rfc822
               xml.pubDate(article.created_on.rfc2822)
               # FIXME link to article
-              xml.link("http://www.yourDomain.com/linkToYourPost")
-              xml.guid("http://www.yourDomain.com/linkToYourPost")
+              xml.link(article.url)
+              xml.guid(article.url)
             end
           end
         end

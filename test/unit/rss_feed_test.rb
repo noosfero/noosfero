@@ -116,7 +116,15 @@ class RssFeedTest < Test::Unit::TestCase
   end
 
   should 'provide link to each article' do
-    flunk 'pending'
+    profile = create_user('testuser').person
+    art = profile.articles.build(:name => 'myarticle'); art.save!
+    feed = RssFeed.new(:name => 'feed')
+    feed.profile = profile
+    feed.save!
+
+    data = feed.data
+    assert_match "<link>#{art.url}</link>", data
+    assert_match "<guid>#{art.url}</guid>", data
   end
 
   should 'be able to indicate maximum number of items' do
