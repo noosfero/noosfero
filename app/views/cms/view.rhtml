@@ -48,7 +48,10 @@
 <%# display the article content %>
 <div id='article-contents' style='clear: left;'>
   <% if @article %>
-    <h2><%= @article.name %></h2>
+    <h2>
+      <%= @article.name %>
+      <%= image_tag(icon_for_article(@article)) %>
+    </h2>
     <% button_bar(:id => 'article-controls') do %>
 
       <ul>

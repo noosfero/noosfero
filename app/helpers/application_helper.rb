@@ -158,12 +158,10 @@ module ApplicationHelper
     @profile || raise("There is no current profile")
   end
 
-  # displays an 
-  #
-  # Current implementation generates a <label> tag for +label+ and wrap the
-  # label and the control with a <div> tag with class 'formfield' 
-  def labelled_form_field(label, html_for_field)
-    content_tag('div', content_tag('div', content_tag('label', label)) + html_for_field, :class => 'formfield') 
+  # create a form field structure (as if it were generated with
+  # labelled_form_for), but with a customized control and label.
+  def labelled_form_field(label, field_html)
+    NoosferoFormBuilder::output_field(label, field_html)
   end
   alias_method :display_form_field, :labelled_form_field
 
@@ -179,20 +177,32 @@ module ApplicationHelper
 
   class NoosferoFormBuilder < ActionView::Helpers::FormBuilder
     include GetText
+    extend ActionView::Helpers::TagHelper
+
+    def self.output_field(text, field_html, field_id = nil)
+      # try to guess an id if none given
+      if field_id.nil?
+        field_html =~ /id=['"]([^'"]*)['"]/
+        field_id = $1
+      end
+
+      label_html = content_tag('label', text, :class => 'formlabel', :for => field_id)
+      control_html = content_tag('div', field_html, :class => 'formfield' )
+
+      content_tag('div', label_html + control_html, :class => 'formfieldline' )
+    end
 
     (field_helpers - %w(hidden_field)).each do |selector|
       src = <<-END_SRC
         def #{selector}(field, *args, &proc)
           column = object.class.columns_hash[field.to_s]
-          "<div class='formfieldline'>" +
-          "\n  <label class='formlabel'" +
-          " for='\#{object.class.to_s.downcase}_\#{field}'>" +
-          ( column ?
-            column.human_name :
-            _(field.to_s.humanize)
-          ) +
-          "</label>" +
-          "\n  <div class='formfield #{selector}'>" + super + "</div>\n</div>"
+          text =
+            ( column ?
+              column.human_name :
+              _(field.to_s.humanize)
+            )
+
+          NoosferoFormBuilder::output_field(text, super)
         end
       END_SRC
       class_eval src, __FILE__, __LINE__
