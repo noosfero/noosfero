@@ -94,9 +94,12 @@ class Article < ActiveRecord::Base
     self.name.gsub(/article$/i, '')
   end
 
-  include ActionController::UrlWriter
   def url
     self.profile.url + self.public_path(false)
+  end
+
+  def allow_children?
+    true
   end
 
 end

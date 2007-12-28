@@ -159,7 +159,7 @@ class ArticleTest < Test::Unit::TestCase
   end
 
   should 'indicate wheter children articles are allowed or not' do
-    flunk 'pending'
+    assert_equal true, Article.new.allow_children?
   end
 
   should 'provide a url to itself' do
