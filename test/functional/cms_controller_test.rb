@@ -179,6 +179,12 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_equal 2, file.versions(true).size
   end
 
+  should 'be able to upload an image' do
+    assert_difference UploadedFile, :count do
+      post :new, :type => UploadedFile.name, :profile => profile.identifier, :article => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')}
+    end
+  end
+
   should 'offer to create children' do
     Article.any_instance.stubs(:allow_children?).returns(true)
 

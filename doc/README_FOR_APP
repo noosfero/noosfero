@@ -16,10 +16,11 @@ You need to have a Subversion client (svn) installed, as well as:
 * Ruby-sqlite3: http://rubyforge.org/projects/sqlite-ruby
 * rcov: http://eigenclass.org/hiki/rcov
 * Ferret: http://ferret.davebalmain.com/trac
+* RMagick: http://rmagick.rubyforge.org/
 
 There are Debian packages available for all of them but ferret. Try:
 
- # aptitude install subversion ruby rake libgettext-ruby libmocha-ruby libsqlite3-ruby rcov
+ # aptitude install subversion ruby rake libgettext-ruby libmocha-ruby libsqlite3-ruby rcov librmagick-ruby
 
 Ferret shall enter Debian soon (as <tt>libferret-ruby</tt>). until there you have two options:
 

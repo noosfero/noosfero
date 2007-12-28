@@ -35,11 +35,6 @@ class CreateArticles < ActiveRecord::Migration
       # attachment_fu data for images
       t.column :height,       :integer  # in pixels
       t.column :width,        :integer  # in pixels
-
-      # attachment_fu data for thumbnails
-      t.column :parent_id,    :integer  # id of parent image (on the same table, a self-referencing foreign-key).
-      t.column :thumbnail,    :string   # the 'type' of thumbnail this attachment record describes.
-
     end
 
     Article.create_versioned_table

@@ -5,7 +5,10 @@
 class UploadedFile < Article
 
   # FIXME need to define min/max file size
-  has_attachment :thumbnails => { :icon => [24,24] }, :storage => :file_system
+  has_attachment :storage => :file_system,
+    :thumbnails => { :icon => [24,24] },
+    :thumbnail_class => Thumbnail
+      
 
   validates_as_attachment
 

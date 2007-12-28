@@ -2,6 +2,11 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class UploadedFileTest < Test::Unit::TestCase
 
+  def setup
+    @profile = create_user('testinguser').person
+  end
+  attr_reader :profile
+
   should 'return a thumbnail as icon for images ' do
     f = UploadedFile.new
     f.expects(:image?).returns(true)
@@ -47,6 +52,12 @@ class UploadedFileTest < Test::Unit::TestCase
 
   should 'not allow child articles' do
     assert_equal false, UploadedFile.new.allow_children?
+  end
+
+  should 'properly save images' do
+    file = UploadedFile.new(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    file.profile = profile
+    assert file.save
   end
 
 end
