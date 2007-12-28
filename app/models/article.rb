@@ -66,8 +66,12 @@ class Article < ActiveRecord::Base
     name
   end
 
-  def public_path
-    "/" + [profile.identifier, path].join('/')
+  def public_path(with_profile = true)
+    elements = [path]
+    if with_profile
+      elements.unshift(profile.identifier)
+    end
+    "/" + elements.join('/')
   end
 
   def self.short_description
@@ -88,6 +92,11 @@ class Article < ActiveRecord::Base
 
   def self.article_type_name
     self.name.gsub(/article$/i, '')
+  end
+
+  include ActionController::UrlWriter
+  def url
+    self.profile.url + self.public_path(false)
   end
 
 end

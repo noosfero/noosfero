@@ -163,7 +163,10 @@ class ArticleTest < Test::Unit::TestCase
   end
 
   should 'provide a url to itself' do
-    flunk 'pending'
+    article = profile.articles.build(:name => 'myarticle')
+    article.save!
+
+    assert_equal(profile.url + "/myarticle", article.url)
   end
 
 end
