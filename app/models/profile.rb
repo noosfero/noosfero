@@ -151,4 +151,9 @@ class Profile < ActiveRecord::Base
     self.kind_of?(Organization)
   end
 
+  include ActionController::UrlWriter
+  def url
+    url_for(:host => self.environment.default_hostname, :profile => self.identifier, :controller => 'content_viewer', :action => 'view_page', :page => [])
+  end
+
 end

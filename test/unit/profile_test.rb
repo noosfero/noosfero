@@ -218,7 +218,12 @@ class ProfileTest < Test::Unit::TestCase
   end
 
   should 'provide url to itself' do
-    flunk 'pending'
+    env = Environment.default
+    assert_equal 'colivre.net', env.default_hostname
+
+    profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile', :environment_id => env.id)
+
+    assert_equal 'http://colivre.net/testprofile', profile.url
   end
 
   private
