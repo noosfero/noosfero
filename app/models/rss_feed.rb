@@ -52,7 +52,6 @@ class RssFeed < Article
     'text/xml'
   end
 
-  # FIXME feed real data into the RSS feed
   def data
     articles =
       if (self.include == 'parent_and_children') && self.parent
@@ -83,7 +82,7 @@ class RssFeed < Article
               end
               # rfc822
               xml.pubDate(article.created_on.rfc2822)
-              # FIXME link to article
+              # link to article
               xml.link(article.url)
               xml.guid(article.url)
             end
