@@ -107,7 +107,12 @@ class RssFeedTest < Test::Unit::TestCase
   end
 
   should 'provide link to profile' do
-    flunk 'pending'
+    profile = create_user('testuser').person
+    feed = RssFeed.new(:name => 'feed')
+    feed.profile = profile
+    feed.save!
+
+    assert_match "<link>#{profile.url}</link>", feed.data
   end
 
   should 'provide link to each article' do

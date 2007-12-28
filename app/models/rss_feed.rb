@@ -69,8 +69,7 @@ class RssFeed < Article
     xml.rss(:version=>"2.0") do
       xml.channel do
         xml.title(_("%s's RSS feed") % (self.profile.name))
-        # FIXME link to profile
-        xml.link("http://www.yourDomain.com")
+        xml.link(self.profile.url)
         xml.description(_("%s's content published at %s") % [self.profile.name, self.profile.environment.name])
         xml.language("pt_BR")
         for article in articles
