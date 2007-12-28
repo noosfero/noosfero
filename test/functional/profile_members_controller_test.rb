@@ -18,7 +18,7 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
 
     get 'index', :profile => 'test_enterprise'
 
-    assert_response :success
+    assert_response 403
     assert_template 'access_denied.rhtml'
   end
 

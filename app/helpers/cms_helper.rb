@@ -15,7 +15,7 @@ module CmsHelper
       icon
     else
       if File.exists?(File.join(RAILS_ROOT, 'public', 'images', 'icons-mime', "#{icon}.png"))
-        "icons-mime/#{icon}"
+        "icons-mime/#{icon}.png"
       else
         "icons-mime/unknown.png"
       end

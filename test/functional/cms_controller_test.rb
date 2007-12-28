@@ -169,7 +169,14 @@ class CmsControllerTest < Test::Unit::TestCase
   end
 
   should 'be able to update an uploaded file' do
-    flunk 'pending'
+    post :new, :type => UploadedFile.name, :profile => profile.identifier, :article => { :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain')}
+
+    file = profile.articles.find(:first)
+    assert_equal 'test.txt', file.name
+
+    post :edit, :profile => profile.identifier, :id => file.id, :article => { :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain')}
+
+    assert_equal 2, file.versions(true).size
   end
 
   should 'offer to create children' do

@@ -1,3 +1,7 @@
+# Article type that handles uploaded files.
+#
+# Limitation: only file metadata are versioned. Only the latest version
+# of the file itself is kept. (FIXME?)
 class UploadedFile < Article
 
   # FIXME need to define min/max file size

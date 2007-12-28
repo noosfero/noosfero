@@ -15,7 +15,7 @@ class EnterpriseEditorControllerTest < Test::Unit::TestCase
     ent1 = Enterprise.create!(:identifier => 'test_enterprise1', :name => 'Test enteprise1')
     get 'index', :profile => 'test_enterprise1'
 
-    assert_response :success
+    assert_response 403
     assert_template 'access_denied.rhtml'
   end
 
@@ -26,7 +26,7 @@ class EnterpriseEditorControllerTest < Test::Unit::TestCase
 
     get 'index', :profile => 'test_enterprise'
 
-    assert_response :success
+    assert_response 403
     assert @controller.send(:profile)
     assert_equal ent.identifier, @controller.send(:profile).identifier
     assert_template 'access_denied.rhtml'

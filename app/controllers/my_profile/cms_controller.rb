@@ -63,6 +63,7 @@ class CmsController < MyProfileController
       end
       @article.parent = parent
     end
+
     @article.profile = profile
     @article.last_changed_by = user
     if request.post?
