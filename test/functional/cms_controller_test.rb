@@ -172,7 +172,33 @@ class CmsControllerTest < Test::Unit::TestCase
     flunk 'pending'
   end
 
+  should 'offer to create children' do
+    Article.any_instance.stubs(:allow_children?).returns(true)
+
+    article = Article.new(:name => 'test')
+    article.profile = profile
+    article.save!
+
+    get :view, :profile => profile.identifier, :id => article.id
+    assert_response :success
+    assert_template 'view'
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?parent_id=#{article.id}"}
+  end
+
   should 'not offer to create children if article does not accept them' do
+    Article.any_instance.stubs(:allow_children?).returns(false)
+
+    article = Article.new(:name => 'test')
+    article.profile = profile
+    article.save!
+
+    get :view, :profile => profile.identifier, :id => article.id
+    assert_response :success
+    assert_template 'view'
+    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?parent_id=#{article.id}"}
+  end
+
+  should 'not allow to create children of non-child articles' do
     flunk 'pending'
   end
 

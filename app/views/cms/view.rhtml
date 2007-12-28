@@ -36,7 +36,9 @@
 
     <% if @article %>
       <% button_bar(:class => 'file-manager-controls') do %>
-        <%= button('new',  _('New subitem'), :action => 'new', :parent_id => @article.id) %>
+        <% if @article.allow_children? %>
+          <%= button('new',  _('New subitem'), :action => 'new', :parent_id => @article.id) %>
+        <% end %>
         <%= button('up', _('Go up one level'), :action => (@article.parent ? 'view' : 'index'), :id => @article.parent) %>
       <% end %>
     <% end %>
