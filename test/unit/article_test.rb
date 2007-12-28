@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class ArticleTest < Test::Unit::TestCase
 
+  fixtures :environments
+
   def setup
     @profile = create_user('testing').person
   end
