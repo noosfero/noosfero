@@ -21,7 +21,7 @@ class AccountController < PublicController
         self.current_user.remember_me
         cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
       end
-      redirect_back_or_default(myprofile_path(:controller => 'profile_editor', :profile => current_user.login))
+      go_to_user_initial_page
       flash[:notice] = _("Logged in successfully")
     else
       flash[:notice] = _('Incorrect username or password')
@@ -42,7 +42,7 @@ class AccountController < PublicController
         self.current_user = @user
         owner_role = Role.find_by_name('owner')
         @user.person.affiliate(@user.person, [owner_role]) if owner_role
-        redirect_back_or_default(myprofile_path(:controller => 'profile_editor', :profile => current_user.login))
+        go_to_user_initial_page
         flash[:notice] = _("Thanks for signing up!")
       end
     rescue ActiveRecord::RecordInvalid
@@ -126,4 +126,9 @@ class AccountController < PublicController
   def load_default_environment
     @environment = Environment.default
   end
+
+  def go_to_user_initial_page
+    redirect_back_or_default(myprofile_path(:controller => 'profile_editor', :profile => current_user.login))
+  end
+
 end
