@@ -15,7 +15,7 @@ class UserRegistersAtTheApplicationTest < ActionController::IntegrationTest
     
     post '/account/signup', :user => { :login => 'mylogin', :password => 'mypassword', :password_confirmation => 'mypassword', :email => 'mylogin@example.com' }
     assert_response :redirect
-    assert_redirected_to myprofile_path(:controller => 'profile_editor', :profile => 'mylogin')
+    assert_redirected_to '/mylogin'
 
     # user is logged in right after the registration
     follow_redirect!

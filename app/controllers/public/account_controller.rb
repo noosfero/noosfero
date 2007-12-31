@@ -128,7 +128,7 @@ class AccountController < PublicController
   end
 
   def go_to_user_initial_page
-    redirect_back_or_default(myprofile_path(:controller => 'profile_editor', :profile => current_user.login))
+    redirect_back_or_default(:controller => "content_viewer", :profile => current_user.login, :action => 'view_page', :page => [])
   end
 
 end
