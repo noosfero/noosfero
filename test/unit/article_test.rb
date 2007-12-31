@@ -171,4 +171,22 @@ class ArticleTest < Test::Unit::TestCase
     assert_equal(profile.url + "/myarticle", article.url)
   end
 
+  should 'associate with categories' do
+    env = Environment.default
+    c1 = env.categories.build(:name => "test category 1"); c1.save!
+    c2 = env.categories.build(:name => "test category 2"); c2.save!
+
+    article = profile.articles.build(:name => 'withcategories')
+    article.save!
+
+    assert_raise ActiveRecord::AssociationTypeMismatch do
+      article.categories << 1  
+    end
+
+    assert_nothing_raised do
+      article.categories << c1
+      article.categories << c2
+    end
+  end
+
 end

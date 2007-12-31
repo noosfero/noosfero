@@ -9,6 +9,8 @@ class Article < ActiveRecord::Base
 
   has_many :comments
 
+  has_and_belongs_to_many :categories
+
   acts_as_taggable  
   N_('Tag list')
 
