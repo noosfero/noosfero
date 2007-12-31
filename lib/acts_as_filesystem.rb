@@ -61,6 +61,15 @@ module ActsAsFileSystem
       self.hierarchy.map {|item| item.name || '?' }.join(sep)
     end
 
+    # gets the name without leading parents. Usefull when dividing categories
+    # in top-level groups and full names must not include the top-level
+    # category which is already a emphasized label
+    def full_name_without_leading(count, sep = '/')
+      parts = self.full_name(sep).split(sep)
+      count.times { parts.shift }
+      parts.join(sep)
+    end
+
     # calculates the level of the category in the category hierarchy. Top-level
     # categories have level 0; the children of the top-level categories have
     # level 1; the children of categories with level 1 have level 2, and so on.

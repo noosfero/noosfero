@@ -54,4 +54,12 @@ class ActsAsFilesystemTest < Test::Unit::TestCase
     assert_equal 'test.txt', Article.new(:name => 'test.txt').slug
   end
 
+  should 'provide name without leading parents' do
+    a = Article.new
+    a.expects(:full_name).with('/').returns('a/b/c/d').times(3)
+    assert_equal 'b/c/d', a.full_name_without_leading(1)
+    assert_equal 'c/d', a.full_name_without_leading(2)
+    assert_equal 'd', a.full_name_without_leading(3)
+  end
+
 end
