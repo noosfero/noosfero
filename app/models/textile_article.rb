@@ -9,7 +9,7 @@ class TextileArticle < Article
   end
 
   def to_html
-    RedCloth.new(self.body).to_html
+    RedCloth.new(self.body|| '').to_html
   end
 
 end

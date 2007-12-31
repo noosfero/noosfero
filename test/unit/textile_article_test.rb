@@ -23,4 +23,12 @@ class TextileArticleTest < Test::Unit::TestCase
     assert_equal '<p><strong>my text</strong></p>', TextileArticle.new(:body => '*my text*').to_html
   end
 
+  should 'accept empty body' do
+    a = TextileArticle.new
+    a.expects(:body).returns(nil)
+    assert_nothing_raised do
+      assert_equal '', a.to_html
+    end
+  end
+
 end
