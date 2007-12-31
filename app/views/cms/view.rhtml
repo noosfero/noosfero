@@ -61,6 +61,10 @@
         <li>
         <%= _('Public address of this article: %s') % (@article.public_path) %>
         </li>
+        <li>
+        <%= _('Tags:') %> <%= @article.tag_list %>
+        </li>
+        <%= _('Categories:') %> <%= @article.categories.map { |item| item.name }.join(', ') %>
       </ul>
 
       <%= button('edit', _('Edit'), { :action => 'edit', :id => @article}) %>

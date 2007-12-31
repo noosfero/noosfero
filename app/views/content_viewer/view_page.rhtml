@@ -25,6 +25,10 @@
 <% end %>
 -->
 
+<h3><%= _('Categories') %></h3>
+
+<%= @page.categories.map {|item| link_to_category(item) }.join(', ') %>
+
 <h3><%= @comments.size == 0 ? _('No comments yet') : (n_('One comment', '%{comments} comments', @comments.size)) % { :comments => @comments.size} %></h3>
 <%= render :partial => 'comment', :collection => @comments %>
 <%= render :partial => 'comment_form' %>

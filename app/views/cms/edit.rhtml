@@ -1,6 +1,3 @@
-
-
-
 <%= error_messages_for 'article' %>
 
 <% labelled_form_for 'article', @article, :html => { :multipart => true } do |f| %>
@@ -10,6 +7,8 @@
   <%= hidden_field_tag('parent_id', params[:parent_id]) if params[:parent_id] %>
 
   <%= render :partial => partial_for_class(@article.class), :locals => { :f => f } %>
+
+  <%= select_categories(:article) %>
 
   <%# TODO display the tooltip (title below) in a directly visible way %>
   <%= f.text_field('tag_list', :size => 64, :title => _('Separate tags with commas')) %>

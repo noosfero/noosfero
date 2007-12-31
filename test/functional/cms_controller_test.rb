@@ -225,4 +225,20 @@ class CmsControllerTest < Test::Unit::TestCase
     end
   end
 
+  should 'be able to associate articles with categories' do
+
+    env = Environment.default
+    c1 = env.categories.build(:name => "Test category 1"); c1.save!
+    c2 = env.categories.build(:name => "Test category 2"); c2.save!
+    c3 = env.categories.build(:name => "Test Category 3"); c3.save!
+  
+    # post is in c1 and c3
+    post :new, :type => TextileArticle.name, :profile => profile.identifier, :article => { :name => 'adding-categories-test', :category_ids => [ c1.id, c3.id] }
+
+    saved = TextileArticle.find_by_name('adding-categories-test')
+    assert_includes saved.categories, c1
+    assert_not_includes saved.categories, c2
+    assert_includes saved.categories, c3
+  end
+
 end
