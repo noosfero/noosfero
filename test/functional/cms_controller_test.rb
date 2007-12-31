@@ -225,6 +225,24 @@ class CmsControllerTest < Test::Unit::TestCase
     end
   end
 
+  should 'display checkboxes for selecting categories' do
+    env = Environment.default
+    top = env.categories.build(:name => 'Top-Level category'); top.save!
+    c1 = env.categories.build(:name => "Test category 1", :parent_id => top.id); c1.save!
+    c2 = env.categories.build(:name => "Test category 2", :parent_id => top.id); c2.save!
+    c3 = env.categories.build(:name => "Test Category 3", :parent_id => top.id); c3.save!
+
+    article = Article.new(:name => 'test')
+    article.profile = profile
+    article.save!
+
+    get :edit, :profile => profile.identifier, :id => article.id
+
+    [c1,c2,c3].each do |item|
+      assert_tag :tag => 'input', :attributes => { :name => 'article[category_ids][]', :value => item.id}
+    end
+  end
+
   should 'be able to associate articles with categories' do
 
     env = Environment.default
