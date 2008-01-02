@@ -28,8 +28,12 @@ class Article < ActiveRecord::Base
 
   # retrieves the latest +limit+ articles in profile +profile+, sorted from the
   # most recent to the oldest.
+  #
+  # If +profile+ is +nil+, then all profiles are searched for articles.
   def self.recent(profile, limit)
-    self.find(:all, :limit => limit, :order => 'created_on')
+    options = { :limit => limit, :order => 'created_on' }
+    options[:conditions] = { :profile_id => profile.id } if profile
+    self.find(:all, options)
   end
 
   # produces the HTML code that is to be displayed as this article's contents.

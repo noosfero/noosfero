@@ -138,11 +138,15 @@ class ArticleTest < Test::Unit::TestCase
     third = profile.articles.build(:name => 'third'); third.save!
     forth = profile.articles.build(:name => 'forth'); forth.save!
     fifth = profile.articles.build(:name => 'fifth'); fifth.save!
+
+    other_profile = create_user('otherpropfile').person
+    other_first = other_profile.articles.build(:name => 'first'); other_first.save!
     
     assert_equal [first,second,third], Article.recent(profile, 3)
     
     assert_equal [first,second,third,forth,fifth], Article.recent(profile, 10)
-    
+
+    assert_equal [first,second,third,forth,fifth,other_first], Article.recent(nil, 10)
   end
 
   should 'provied proper descriptions' do
