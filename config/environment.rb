@@ -67,6 +67,7 @@ end
 
 # Include your application configuration below
 
+
 require 'gettext/rails'
 Localist.supported_locales = %w[en-US pt-BR]
 Localist.default_locale = "pt-BR"
@@ -79,3 +80,8 @@ require 'noosfero/transliterations'
 
 require 'acts_as_filesystem'
 require 'acts_as_searchable'
+
+# to the hell, I want all my models loaded before the application run anything
+Dir.glob("#{RAILS_ROOT}/app/models/*.rb").each do |model|
+  require_dependency model
+end

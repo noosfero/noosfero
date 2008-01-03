@@ -1,4 +1,4 @@
-class TextileArticle < Article
+class TextileArticle < TextArticle
 
   def self.short_description
     _('Text article with Textile markup language')

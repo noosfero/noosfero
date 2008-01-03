@@ -1,6 +1,6 @@
 <h1><%= _('Login') %></h1>
 
-<% labelled_form_for :user, @user do |f| %>
+<% labelled_form_for :user, @user, :url => { :controller => 'account', :action => 'login' } do |f| %>
 
 <%= display_form_field(_('Login'), text_field_tag(:login) ) %>
 
@@ -11,9 +11,9 @@
 <% end %>
 
 <p>
-<%= link_to _("I forgot my password!"), :action => 'forgot_password' %>
+<%= link_to _("I forgot my password!"), :controller => 'account', :action => 'forgot_password' %>
 </p>
 
 <p>
-<%= link_to _("I want to be an user!"), :action => 'signup' %>
+<%= link_to _("I want to be an user!"), :controller => 'account', :action => 'signup' %>
 </p>
