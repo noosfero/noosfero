@@ -10,13 +10,12 @@
   padding: 2px 5px;
 }
 
-.formfield.text_field input,
-.formfield.password_field input,
+.formfield input,
 .formfield textarea {
-/*  background: transparent url("../images/input-bg.gif") top left no-repeat; */
+  background: transparent url("../images/input-bg.gif") top left no-repeat;
   border: 1px solid #999;
-/*  border-top: none;
-  border-left: none; */
+  border-top: none;
+  border-left: none;
   color: #585858;
 }
 .formfield input {
@@ -24,6 +23,12 @@
 }
 .formfield textarea {
   padding: 2px 0px 0px 5px;
+}
+
+.formfield.radio input,
+.formfield.checkbox input {
+  background: none;
+  border: none;
 }
 
 .submitline {
