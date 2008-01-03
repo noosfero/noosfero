@@ -11,7 +11,7 @@ module CategoriesHelper
   ]
 
   TYPES = [
-    [ _('Categoria Geral'), Category.to_s ],
+    [ _('General Category'), Category.to_s ],
     [ _('Product Category'), ProductCategory.to_s ],
     [ _('Region'), Region.to_s ],
   ]
