@@ -1,6 +1,6 @@
 class AddArticlesCategories < ActiveRecord::Migration
   def self.up
-    create_table :articles_categories do |t|
+    create_table :articles_categories, :id => false do |t|
       t.column :article_id, :integer
       t.column :category_id, :integer
     end
