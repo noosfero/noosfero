@@ -3,6 +3,7 @@ require File.dirname(__FILE__) + '/../config/environment'
 
 system "rm #{RAILS_ROOT}/tmp/*.db"
 system "rm #{RAILS_ROOT}/db/*.db"
+system "rm -rf #{RAILS_ROOT}/public/articles"
 system "rake db:migrate VERSION=0"
 system "rake db:migrate"
 system "#{RAILS_ROOT}/script/anhetegua"
