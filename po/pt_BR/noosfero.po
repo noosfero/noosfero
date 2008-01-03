@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.5.0\n"
 "POT-Creation-Date: 2008-01-02 21:55-0300\n"
-"PO-Revision-Date: 2007-12-12 16:00-0300\n"
+"PO-Revision-Date: 2008-01-02 22:09-0300\n"
 "Last-Translator: Antonio Terceiro <terceiro@colivre.coop.br>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -166,7 +166,7 @@ msgstr "%{fn} deve ser verificado para efetivar inscrição"
 
 #: app/models/comment.rb:14
 msgid "%{fn} can only be informed for unauthenticated authors"
-msgstr ""
+msgstr "%{fn} só pode ser informado para autores não autenticados"
 
 #: app/models/task.rb:86
 msgid "Generic task"
@@ -431,9 +431,8 @@ msgid "Edit profile design"
 msgstr "Editar design de perfil"
 
 #: app/models/profile.rb:12
-#, fuzzy
 msgid "Manage products"
-msgstr "Gerenciar Produtos"
+msgstr "Gerenciar produtos"
 
 #: app/models/profile.rb:66
 msgid "An existing profile cannot be renamed."
@@ -441,28 +440,27 @@ msgstr "Um perfil existente não pode ser renomeado"
 
 #: app/models/rss_feed.rb:70
 msgid "%s's RSS feed"
-msgstr ""
+msgstr "RSS feed do(a) %s"
 
 #: app/models/rss_feed.rb:72
 msgid "%s's content published at %s"
-msgstr ""
+msgstr "Conteúdo do(a) %s publicado no %s"
 
 #: app/models/rss_feed.rb:98
 msgid "RSS Feed"
-msgstr ""
+msgstr "Feed RSS"
 
 #: app/models/rss_feed.rb:102
 msgid "Provides a news feed of your more recent articles."
-msgstr ""
+msgstr "Fornece um feed RSS dos seus artigos mais recentes."
 
 #: app/models/uploaded_file.rb:24
-#, fuzzy
 msgid "Uploaded file"
-msgstr "Upload"
+msgstr "Arquivo enviado"
 
 #: app/models/uploaded_file.rb:28
 msgid "Upload any kind of file you want."
-msgstr ""
+msgstr "Envie qualquer tipo de arquivo que você queira."
 
 #: app/models/article.rb:6
 msgid ""
@@ -481,38 +479,36 @@ msgid "HTML Text document"
 msgstr "Documento de Texto HTML"
 
 #: app/models/article.rb:85
-#, fuzzy
 msgid "Article"
-msgstr "Artigos"
+msgstr "Artigo"
 
 #: app/models/article.rb:87
-#, fuzzy
 msgid "\"%s\" article"
-msgstr "artigo"
+msgstr "Artigo \"%s\""
 
 #: app/models/article.rb:93
 msgid "An ordinary article"
-msgstr ""
+msgstr "Um artigo comum"
 
 #: app/models/article.rb:95
 msgid "An article of type \"%s\""
-msgstr ""
+msgstr "Um artigo do tipo \"%s\""
 
 #: app/models/tiny_mce_article.rb:4
 msgid "Text article with visual editor."
-msgstr ""
+msgstr "Artigo de texto com editor visual."
 
 #: app/models/tiny_mce_article.rb:8
 msgid "Not accessible for visually impaired users."
-msgstr ""
+msgstr "Não acessível para usuários com deficiência visual."
 
 #: app/models/textile_article.rb:4
 msgid "Text article with Textile markup language"
-msgstr ""
+msgstr "Artigo de texto com linguagem de marcação Textile"
 
 #: app/models/textile_article.rb:8
 msgid "Accessible alternative for visually impaired users."
-msgstr ""
+msgstr "Alternativa acessível para usuários com deficiência visual."
 
 #: app/controllers/my_profile/profile_members_controller.rb:18
 #: app/controllers/admin/environment_role_manager_controller.rb:17
@@ -662,12 +658,11 @@ msgstr "Título"
 
 #: app/design_blocks/list_block/views/edit.rhtml:10
 msgid "Type of objects to list"
-msgstr ""
+msgstr "Tipo de objetos para listar"
 
 #: app/design_blocks/list_block/views/edit.rhtml:15
-#, fuzzy
 msgid "Max number of elements"
-msgstr "Número máximo de links"
+msgstr "Número máximo de elementos"
 
 #: app/design_blocks/list_block/views/edit.rhtml:19
 #: app/design_blocks/profile_info_block/views/edit.rhtml:9
@@ -681,38 +676,33 @@ msgstr "Salvar"
 
 #: app/design_blocks/list_block/views/nothing.rhtml:1
 msgid "Nothing to see here"
-msgstr ""
+msgstr "Nada pra ver aqui"
 
 #: app/design_blocks/profile_info_block/views/edit.rhtml:1
-#, fuzzy
 msgid "Editing profile exibition"
-msgstr "Editar design de perfil"
+msgstr "Editar exibição de perfil"
 
 #: app/design_blocks/profile_info_block/views/index.rhtml:2
-#, fuzzy
 msgid "Change photo"
-msgstr "Alterar senha"
+msgstr "Alterar foto"
 
 #: app/design_blocks/profile_info_block/views/index.rhtml:3
-#, fuzzy
 msgid "User since %d"
-msgstr "Preço: %d"
+msgstr "Usuário desde %d"
 
 #: app/design_blocks/profile_info_block/views/index.rhtml:5
 msgid "1 year"
 msgid_plural "%{num} years"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 ano"
+msgstr[1] "%{num} anos"
 
 #: app/design_blocks/view_article/views/edit.rhtml:1
-#, fuzzy
 msgid "Editing article shown"
-msgstr "Listando os artigos encontrados"
+msgstr "Editando artigo exibido"
 
 #: app/design_blocks/view_article/views/edit.rhtml:10
-#, fuzzy
 msgid "Page to show"
-msgstr "Página não encontrada"
+msgstr "Página a ser exibida"
 
 #: app/design_blocks/favorite_links/views/add_link.rhtml:1
 #: app/design_blocks/favorite_links/views/edit.rhtml:2
@@ -828,44 +818,39 @@ msgstr "Escolha o tipo de artigo:"
 
 #: app/views/cms/_uploaded_file.rhtml:1
 msgid "Select the file you want to upload."
-msgstr ""
+msgstr "Selecione o arquivo que você quer enviar."
 
 #: app/views/cms/_uploaded_file.rhtml:3
 msgid "Describe this file:"
-msgstr ""
+msgstr "Descreva o arquivo:"
 
 #: app/views/cms/_rss_feed.rhtml:3
-#, fuzzy
 msgid "Limit of articles"
-msgstr "Listando os artigos encontrados"
+msgstr "Limite de artigos"
 
 #: app/views/cms/_rss_feed.rhtml:5
-#, fuzzy
 msgid "Use as item description:"
-msgstr "Descrição:"
+msgstr "Usar como descrição do item:"
 
 #: app/views/cms/_rss_feed.rhtml:5
-#, fuzzy
 msgid "Article abstract"
-msgstr "Resumo"
+msgstr "Resumo do artigo"
 
 #: app/views/cms/_rss_feed.rhtml:5
-#, fuzzy
 msgid "Article body"
-msgstr "Corpo"
+msgstr "Corpo do artigo"
 
 #: app/views/cms/_rss_feed.rhtml:7
 msgid "Include in the feed:"
-msgstr ""
+msgstr "Incluir no feed:"
 
 #: app/views/cms/_rss_feed.rhtml:7
-#, fuzzy
 msgid "All articles"
-msgstr "Artigos"
+msgstr "Todos os artigos"
 
 #: app/views/cms/_rss_feed.rhtml:7
 msgid "Only articles child of the same article as the feed"
-msgstr ""
+msgstr "Apenas artigos filhos do mesmo artigo que o feed"
 
 #: app/views/cms/edit.rhtml:14
 msgid "Separate tags with commas"
@@ -916,14 +901,12 @@ msgid "Public address of this article: %s"
 msgstr "Endereço público desse artigo:"
 
 #: app/views/cms/view.rhtml:65
-#, fuzzy
 msgid "Tags:"
-msgstr "Marcadores: %s"
+msgstr "Marcadores:"
 
 #: app/views/cms/view.rhtml:67
-#, fuzzy
 msgid "Categories:"
-msgstr "Categorias"
+msgstr "Categorias:"
 
 #: app/views/cms/view.rhtml:71
 msgid "Use as homepage"
@@ -1094,9 +1077,8 @@ msgid "Activate an approved enterprise"
 msgstr "Ativa um empreendimento aprovado"
 
 #: app/views/home/index.rhtml:8
-#, fuzzy
 msgid "Recent articles"
-msgstr "Novo artigo"
+msgstr "Artigos recentes"
 
 #: app/views/enterprise_validation/view_processed.rhtml:1
 msgid "Processed validation request for %s "
@@ -1189,32 +1171,29 @@ msgstr "%s não escolheu uma página inicial ainda."
 
 #: app/views/content_viewer/_comment.rhtml:3
 msgid "By %{author} on %{date}"
-msgstr ""
+msgstr "Por %{author} em %{date}"
 
 #: app/views/content_viewer/_comment_form.rhtml:1
-#, fuzzy
 msgid "Post a comment"
-msgstr "Conteúdo da postagem"
+msgstr "Enviar um comentário"
 
 #: app/views/content_viewer/_comment_form.rhtml:8
-#, fuzzy
 msgid "e-mail"
-msgstr "E-mail"
+msgstr "e-mail"
 
 #: app/views/content_viewer/_comment_form.rhtml:11
 msgid ""
 "If you are a registered user, you can login and be automatically recognized."
 msgstr ""
+"Se você é um usuário registrado, pode se identificar e ser reconhecido automaticamente."
 
 #: app/views/content_viewer/_comment_form.rhtml:17
-#, fuzzy
 msgid "Enter your comment"
-msgstr "Gerenciar o seu conteúdo"
+msgstr "Digite seu comentário"
 
 #: app/views/content_viewer/_comment_form.rhtml:18
-#, fuzzy
 msgid "Post comment"
-msgstr "Conteúdo da postagem"
+msgstr "Enviar comentário"
 
 #: app/views/content_viewer/view_page.rhtml:4
 msgid "Tags: %s"
@@ -1226,14 +1205,13 @@ msgstr "Acima"
 
 #: app/views/content_viewer/view_page.rhtml:32
 msgid "No comments yet"
-msgstr ""
+msgstr "Sem comentários ainda"
 
 #: app/views/content_viewer/view_page.rhtml:32
-#, fuzzy
 msgid "One comment"
 msgid_plural "%{comments} comments"
-msgstr[0] "Gerenciar conteúdo"
-msgstr[1] "Gerenciar conteúdo"
+msgstr[0] "Um comentário"
+msgstr[1] "%{comments} comentários"
 
 #: app/views/task_mailer/target_notification.rhtml:6
 #: app/views/task_mailer/task_created.text.plain.rhtml:6
@@ -1530,7 +1508,6 @@ msgid "Relevance: %d%%"
 msgstr "Relevância: %d%%"
 
 #: app/views/profile_editor/enterprise_info.rhtml:31
-#, fuzzy
 msgid "Tags"
 msgstr "Lista de marcadores"
 
@@ -1544,33 +1521,31 @@ msgstr "Informação de contato"
 
 #: app/views/profile_editor/person_info.rhtml:8
 msgid "Birth day"
-msgstr ""
+msgstr "Data de nascimento"
 
 #: app/views/profile_editor/person_info.rhtml:10
 msgid "Sex: "
-msgstr ""
+msgstr "Sexo: "
 
 #: app/views/profile_editor/person_info.rhtml:11
-#, fuzzy
 msgid "Male"
-msgstr "Fazer"
+msgstr "Masculino"
 
 #: app/views/profile_editor/person_info.rhtml:12
 msgid "Female"
-msgstr ""
+msgstr "Feminino"
 
 #: app/views/profile_editor/person_info.rhtml:14
 msgid "City"
-msgstr ""
+msgstr "Cidade"
 
 #: app/views/profile_editor/person_info.rhtml:15
-#, fuzzy
 msgid "State"
-msgstr "Salvar"
+msgstr "Estado"
 
 #: app/views/profile_editor/person_info.rhtml:16
 msgid "Country"
-msgstr ""
+msgstr "País"
 
 #: app/views/profile_editor/change_image.rhtml:2
 msgid "Image"
@@ -1837,9 +1812,8 @@ msgid "Child categories:"
 msgstr "Categorias filhas:"
 
 #: app/views/category/_product_category.rhtml:1
-#, fuzzy
 msgid "I consume this"
-msgstr "consumo"
+msgstr "Eu consumo isto"
 
 #: app/views/category/_product_category.rhtml:3
 msgid "One product in this category."
@@ -1860,18 +1834,16 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: app/views/category/_product_category.rhtml:8
-#, fuzzy
 msgid "Products under this category:"
-msgstr "Um produto nessa categoria"
+msgstr "Produto nesta categoria:"
 
 #: app/views/category/_product_category.rhtml:16
 msgid "Enterprise:"
 msgstr "Empreendimento:"
 
 #: app/views/category/_product_category.rhtml:21
-#, fuzzy
 msgid "Users that consumes products in this category:"
-msgstr "Um produto nessa categoria"
+msgstr "Usuários que consomem produtos nessa categoria:"
 
 #: app/views/features/_features_table.rhtml:12
 msgid "Organization Approval Method"
