@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.5.0\n"
-"POT-Creation-Date: 2008-01-02 21:55-0300\n"
-"PO-Revision-Date: 2008-01-02 22:09-0300\n"
+"POT-Creation-Date: 2008-01-02 22:12-0300\n"
+"PO-Revision-Date: 2008-01-02 22:13-0300\n"
 "Last-Translator: Antonio Terceiro <terceiro@colivre.coop.br>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -26,46 +26,6 @@ msgstr "Administrador tem que aprovar todas as novas organizações"
 #: app/helpers/features_helper.rb:5
 msgid "Administrator assigns validator organizations per region."
 msgstr "Administrador atribui organizações validadoras por região."
-
-#: app/helpers/categories_helper.rb:6
-msgid "Do not display at the menu"
-msgstr "Não exibir no menu"
-
-#: app/helpers/categories_helper.rb:7
-msgid "Orange"
-msgstr "Laranja"
-
-#: app/helpers/categories_helper.rb:8
-msgid "Green"
-msgstr "Verde"
-
-#: app/helpers/categories_helper.rb:9
-msgid "Purple"
-msgstr "Roxo"
-
-#: app/helpers/categories_helper.rb:10
-msgid "Red"
-msgstr "Vermelho"
-
-#: app/helpers/categories_helper.rb:14
-msgid "Categoria Geral"
-msgstr "Categoria Geral"
-
-#: app/helpers/categories_helper.rb:15
-msgid "Product Category"
-msgstr "Categoria do Produto"
-
-#: app/helpers/categories_helper.rb:16
-msgid "Region"
-msgstr "Região"
-
-#: app/helpers/categories_helper.rb:21
-msgid "Display at the menu?"
-msgstr "Mostrar no menu?"
-
-#: app/helpers/categories_helper.rb:38
-msgid "Type of category"
-msgstr "Tipo de categoria"
 
 #: app/helpers/enterprise_validation_helper.rb:6
 msgid "Approved"
@@ -135,6 +95,46 @@ msgstr "Novo %s"
 #: app/views/content_viewer/view_page.rhtml:28
 msgid "Categories"
 msgstr "Categorias"
+
+#: app/helpers/categories_helper.rb:6
+msgid "Do not display at the menu"
+msgstr "Não exibir no menu"
+
+#: app/helpers/categories_helper.rb:7
+msgid "Orange"
+msgstr "Laranja"
+
+#: app/helpers/categories_helper.rb:8
+msgid "Green"
+msgstr "Verde"
+
+#: app/helpers/categories_helper.rb:9
+msgid "Purple"
+msgstr "Roxo"
+
+#: app/helpers/categories_helper.rb:10
+msgid "Red"
+msgstr "Vermelho"
+
+#: app/helpers/categories_helper.rb:14
+msgid "General Category"
+msgstr "Categoria geral"
+
+#: app/helpers/categories_helper.rb:15
+msgid "Product Category"
+msgstr "Categoria do Produto"
+
+#: app/helpers/categories_helper.rb:16
+msgid "Region"
+msgstr "Região"
+
+#: app/helpers/categories_helper.rb:21
+msgid "Display at the menu?"
+msgstr "Mostrar no menu?"
+
+#: app/helpers/categories_helper.rb:38
+msgid "Type of category"
+msgstr "Tipo de categoria"
 
 #: app/models/category.rb:3
 msgid "%{fn} cannot be like that."
@@ -1185,7 +1185,8 @@ msgstr "e-mail"
 msgid ""
 "If you are a registered user, you can login and be automatically recognized."
 msgstr ""
-"Se você é um usuário registrado, pode se identificar e ser reconhecido automaticamente."
+"Se você é um usuário registrado, pode se identificar e ser reconhecido "
+"automaticamente."
 
 #: app/views/content_viewer/_comment_form.rhtml:17
 msgid "Enter your comment"
@@ -1870,6 +1871,9 @@ msgstr ""
 "Marque todas as funcionalidades que você quer habilitar para sua comunidade "
 "virtual, desmarque todas que você não quer, e use o botão 'Salvar "
 "alterações' para confirmar suas mudanças."
+
+#~ msgid "Categoria Geral"
+#~ msgstr "Categoria Geral"
 
 #~ msgid "Enterprises Block"
 #~ msgstr "Bloco de Empreendimentos"

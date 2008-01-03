@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.5.0\n"
-"POT-Creation-Date: 2008-01-02 21:55-0300\n"
+"POT-Creation-Date: 2008-01-02 22:12-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,46 +22,6 @@ msgstr ""
 
 #: app/helpers/features_helper.rb:5
 msgid "Administrator assigns validator organizations per region."
-msgstr ""
-
-#: app/helpers/categories_helper.rb:6
-msgid "Do not display at the menu"
-msgstr ""
-
-#: app/helpers/categories_helper.rb:7
-msgid "Orange"
-msgstr ""
-
-#: app/helpers/categories_helper.rb:8
-msgid "Green"
-msgstr ""
-
-#: app/helpers/categories_helper.rb:9
-msgid "Purple"
-msgstr ""
-
-#: app/helpers/categories_helper.rb:10
-msgid "Red"
-msgstr ""
-
-#: app/helpers/categories_helper.rb:14
-msgid "Categoria Geral"
-msgstr ""
-
-#: app/helpers/categories_helper.rb:15
-msgid "Product Category"
-msgstr ""
-
-#: app/helpers/categories_helper.rb:16
-msgid "Region"
-msgstr ""
-
-#: app/helpers/categories_helper.rb:21
-msgid "Display at the menu?"
-msgstr ""
-
-#: app/helpers/categories_helper.rb:38
-msgid "Type of category"
 msgstr ""
 
 #: app/helpers/enterprise_validation_helper.rb:6
@@ -131,6 +91,46 @@ msgstr ""
 #: app/helpers/cms_helper.rb:30 app/views/categories/index.rhtml:1
 #: app/views/content_viewer/view_page.rhtml:28
 msgid "Categories"
+msgstr ""
+
+#: app/helpers/categories_helper.rb:6
+msgid "Do not display at the menu"
+msgstr ""
+
+#: app/helpers/categories_helper.rb:7
+msgid "Orange"
+msgstr ""
+
+#: app/helpers/categories_helper.rb:8
+msgid "Green"
+msgstr ""
+
+#: app/helpers/categories_helper.rb:9
+msgid "Purple"
+msgstr ""
+
+#: app/helpers/categories_helper.rb:10
+msgid "Red"
+msgstr ""
+
+#: app/helpers/categories_helper.rb:14
+msgid "General Category"
+msgstr ""
+
+#: app/helpers/categories_helper.rb:15
+msgid "Product Category"
+msgstr ""
+
+#: app/helpers/categories_helper.rb:16
+msgid "Region"
+msgstr ""
+
+#: app/helpers/categories_helper.rb:21
+msgid "Display at the menu?"
+msgstr ""
+
+#: app/helpers/categories_helper.rb:38
+msgid "Type of category"
 msgstr ""
 
 #: app/models/category.rb:3
