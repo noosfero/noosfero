@@ -25,8 +25,8 @@
   padding: 2px 0px 0px 5px;
 }
 
-.formfield.radio input,
-.formfield.checkbox input {
+.formfield.type-radio input,
+.formfield.type-checkbox input {
   background: none;
   border: none;
 }
