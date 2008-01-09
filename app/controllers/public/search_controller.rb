@@ -39,7 +39,8 @@ class SearchController < ApplicationController
 
   def index
     @query = params[:query] || ''
-    @results = search(@query)
+    @filtered_query = remove_stop_words(@query)
+    @results = search(@filtered_query)
   end
 
   def tags

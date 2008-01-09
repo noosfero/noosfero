@@ -21,4 +21,11 @@ class SearchControllerTest < Test::Unit::TestCase
 
   end
 
+  should 'filter stop words' do
+    get 'index', :query => 'a carne da vaca'
+    assert_response :success
+    assert_template 'index'
+    assert_equal 'carne vaca', assigns('filtered_query')
+  end
+
 end
