@@ -4,4 +4,8 @@ class OrganizationInfo < ActiveRecord::Base
   validates_numericality_of :foundation_year, :only_integer => true, :allow_nil => true
 
   validates_format_of :contact_email, :with => Noosfero::Constants::EMAIL_FORMAT, :if => (lambda { |info| ! info.contact_email.nil? })
+
+  def summary
+   [['acronym', acronym], ['foundation year',foundation_year], ['contact email', contact_email]] 
+  end
 end

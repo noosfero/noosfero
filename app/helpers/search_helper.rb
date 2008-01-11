@@ -12,6 +12,6 @@ module SearchHelper
   end
 
   def remove_stop_words(query)
-    (query.downcase.split(' ') - STOP_WORDS[Locale.current.to_s]).join(' ')
+    (query.downcase.split(/[ '".]/) - STOP_WORDS[Locale.current.to_s]).join(' ')
   end
 end

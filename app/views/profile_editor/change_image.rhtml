@@ -5,21 +5,3 @@
   <%= display_submit_tag(_('Upload')) %>
   <%= link_to _('Cancel'), :action => 'index' %>
 <% end %>
-
-<ximg id="imgPrev" src="file:///home/aurium/osso3.png" onerror="alert(999)" onload="alert(111)" />
-
-<iframe id="fimg" src=""></iframe>
-
-<script type="text/javascript">
-
-var imgPrev = $("imgPrev");
-
-setTimeout( '$("fimg").src = "http://google.com"', 2000 );
-setTimeout( '$("fimg").src = "file:///home/aurium/osso3.png"', 9000 );
-
-function updateImg( imgLocal ) {
-  imgPrev.src = "file://" + imgLocal;
-}
-
-</script>
-

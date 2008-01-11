@@ -38,4 +38,8 @@ class Organization < Profile
     CreateEnterprise.processed_for(self, :code => code).first
   end
 
+  def info
+    organization_info
+  end
+
 end

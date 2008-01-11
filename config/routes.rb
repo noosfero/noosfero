@@ -30,7 +30,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'enterprise_registration/:action', :controller => 'enterprise_registration'
 
   # search
-  map.connect 'search', :controller => 'search'
+  map.connect 'search/:action', :controller => 'search'
  
   # categories controller
   map.connect 'cat', :controller => 'category', :action => 'index'

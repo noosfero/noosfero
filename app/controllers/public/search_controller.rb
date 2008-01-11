@@ -53,7 +53,7 @@ class SearchController < ApplicationController
   end
 
   def advanced_search
-      
+    
   end
 
 end
