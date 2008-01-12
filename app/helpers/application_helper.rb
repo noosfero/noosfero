@@ -112,15 +112,14 @@ module ApplicationHelper
   def shortcut_header_links
     if logged_in?
       [
-        ( link_to_myprofile( content_tag('span', _('My profile')), {}, nil, { :id => 'icon_go_home'} ) ), 
-	# MUDAR, O ID acima deve ser no Link <a id=...
+        ( link_to_myprofile( content_tag('span', _('My profile')), {}, nil, { :id => 'link_go_home'} ) ), 
 	# O ID icon_accessibility tambem tem que aparcer e testei o link nao ta funcionado.
-        ( link_to content_tag('span', _('Admin')), { :controller => 'admin_panel' }, :id => 'icon_admin' if current_user.person.is_admin?), 
-        ( link_to content_tag('span', _('Logout')), { :controller => 'account', :action => 'logout'}, :id => 'icon_logout', :method => 'post'),
+        ( link_to content_tag('span', _('Admin')), { :controller => 'admin_panel' }, :id => 'link_admin_panel' if current_user.person.is_admin?), 
+        ( link_to content_tag('span', _('Logout')), { :controller => 'account', :action => 'logout'}, :id => 'link_logout'),
       ]
     else
       [ 
-        ( link_to content_tag('span', _('Login')), { :controller => 'account', :action => 'login' }, :id => 'icon_login' ),
+        ( link_to content_tag('span', _('Login')), { :controller => 'account', :action => 'login' }, :id => 'link_login' ),
       ]
     end.join(" ")
   end

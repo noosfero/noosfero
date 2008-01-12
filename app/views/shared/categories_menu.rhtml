@@ -1,8 +1,7 @@
-<%= image_tag 'noosfero.png', :style => 'float: left;' %>
-<ul>
-  <li id='category'>Noosfero <ul><li><%= shortcut_header_links %></li></ul></li>
+<ul id='cat_menu'>
+  <a href='/' id='link_to_home'><span><%= _("Go Home") %></span></a>
   <% @environment.display_categories.each do |item| %>
-    <li id='category<%= item.display_color %>' <%= 'class="active"' if (@category && (@category.top_ancestor == item)) %> >
+    <li id='category<%= item.display_color %>'<%= ' class="active"' if (@category && (@category.top_ancestor == item)) %>>
       <%= item.name %>
       <ul>
         <% item.children.each do |child| %>

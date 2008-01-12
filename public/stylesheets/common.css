@@ -1,14 +1,26 @@
 body {
-margin: 0px;
-padding: 0px;
+  margin: 0px;
+  padding: 0px;
 }
 
 #notice {
-cursor: pointer;
-} 
+  cursor: pointer;
+}
 
 #wrap {
-margin:0px;
+  border: 3px solid #2A5896;
+}
+body.category1 #wrap {
+  border-color: #E26B00;
+}
+body.category2 #wrap {
+  border-color: #61B60E;
+}
+body.category3 #wrap {
+  border-color: #694371;
+}
+body.category4 #wrap {
+  border-color: #B80000;
 }
 
 a img {
@@ -19,17 +31,17 @@ a:hover img {
 }
 
 #environment_identification {
-position: absolute !important;
-background: url("../images/bg_blue_logo.png") 5px no-repeat !important;
-vertical-align: bottom !important ;
-width: 230px !important ;
-height: 34px !important ;
-line-height: 34px !important ;
-padding-left: 60px !important ;
+  position: absolute !important;
+  background: url("../images/bg_blue_logo.png") 5px no-repeat !important;
+  vertical-align: bottom !important ;
+  width: 230px !important ;
+  height: 34px !important ;
+  line-height: 34px !important ;
+  padding-left: 60px !important ;
 }
 
 #environment_identification:hover {
-color: #dfdfdf !important ;
+  color: #DFDFDF !important ;
 }
 
 div.fieldWithErrors {
@@ -59,38 +71,38 @@ div#errorExplanation h2 {
 }
 
 div#footer {
-background: #ffffff url("../images/bg_footer.png") repeat-x !important;
-background-position: 0px 0px;
-font-family: Verdana, Arial, Serif-sans;
-margin: 0px !important;
-padding: 5px !important;
-text-align: center !important;
-clear: both !important;
-font-size: 10px !important;
-color: #545454 !important;
+  background: #ffffff url("../images/bg_footer.png") repeat-x !important;
+  background-position: 0px 0px;
+  font-family: Verdana, Arial, Serif-sans;
+  margin: 0px !important;
+  padding: 5px !important;
+  text-align: center !important;
+  clear: both !important;
+  font-size: 10px !important;
+  color: #545454 !important;
 }
 
 div#footer a {
-color: #545454;
-text-decoration: none;
-border-bottom: 1px dotted #545454;
+  color: #545454;
+  text-decoration: none;
+  border-bottom: 1px dotted #545454;
 }
 
 div#footer a:hover {
-color: #000000;
-border: 0px;
+  color: #000000;
+  border: 0px;
 }
 
 div#footer ul {
-margin: 0px;
-padding: 0px;
+  margin: 0px;
+  padding: 0px;
 }
 
 div#footer li {
-display: block;
-float: right;
-margin-right: 20px;
-height: 20px;
+  display: block;
+  float: right;
+  margin-right: 20px;
+  height: 20px;
 }
 
 /* file manager (big) style */
