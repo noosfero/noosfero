@@ -8,16 +8,18 @@ class ManageDocumentsTest < ActionController::IntegrationTest
     create_user('myuser')
 
     login('myuser', 'myuser')
-
     assert_tag :tag => 'a', :attributes => { :href => '/myprofile/myuser'  }
+
     get '/myprofile/myuser'
-    
+    assert_response :success
     assert_tag :tag => 'a', :attributes => { :href => '/myprofile/myuser/cms' }
+
     get '/myprofile/myuser/cms/new'
-
+    assert_response :success
     assert_tag :tag => 'a', :attributes => { :href => '/myprofile/myuser/cms/new?type=TinyMceArticle' }
-    get '/myprofile/myuser/cms/new?type=TinyMceArticle'
 
+    get '/myprofile/myuser/cms/new?type=TinyMceArticle'
+    assert_response :success
     assert_tag :tag => 'form', :attributes => { :action => '/myprofile/myuser/cms/new', :method => /post/i }
 
     assert_difference Article, :count do
@@ -36,23 +38,22 @@ class ManageDocumentsTest < ActionController::IntegrationTest
     article.save!
 
     login('myuser', 'myuser')
-
     assert_tag :tag => 'a', :attributes => { :href => '/myprofile/myuser'  }
+
     get '/myprofile/myuser'
     assert_response :success
-    
     assert_tag :tag => 'a', :attributes => { :href => '/myprofile/myuser/cms' }
+
     get '/myprofile/myuser/cms'
     assert_response :success
-
     assert_tag :tag => 'a', :attributes => { :href => "/myprofile/myuser/cms/view/#{article.id}"}
+
     get "/myprofile/myuser/cms/view/#{article.id}"
     assert_response :success
-
     assert_tag :tag => 'a', :attributes => { :href => "/myprofile/myuser/cms/edit/#{article.id}"}
+
     get "/myprofile/myuser/cms/edit/#{article.id}"
     assert_response :success
-
     assert_tag :tag => 'form', :attributes => { :action => "/myprofile/myuser/cms/edit/#{article.id}", :method => /post/i }
 
     assert_no_difference Article, :count do
