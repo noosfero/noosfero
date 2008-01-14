@@ -5,7 +5,7 @@ class Image < ActiveRecord::Base
                  :storage => :file_system, 
                  :max_size => 500.kilobytes,
                  :resize_to => '320x200>',
-                 :thumbnails => { :thumb => '100x100>', :minor => '64x64>', :portrait => 'x95' }
+                 :thumbnails => { :thumb => '100x100>', :minor => '64x64>', :portrait => 'x95' , :icon => '20x20'}
 
   validates_as_attachment
 end
