@@ -45,7 +45,7 @@ class ProfileEditorController < MyProfileController
         redirect_to :action => 'index'
       else
         flash[:notice] = _('Could not upload image')
-        render :action => 'change_imange'
+        render :action => 'change_image'
       end
     end
   end
