@@ -1,5 +1,5 @@
 <ul id='cat_menu'>
-  <a href='/' id='link_to_home'><span><%= _("Go Home") %></span></a>
+  <%= link_to( "<span>"+ _("Go Home") +"</span>", {:controller=>"home"}, :id=>"menu_link_to_envhome", :title=>@environment.name) %>
   <% @environment.display_categories.each do |item| %>
     <li id='category<%= item.display_color %>'<%= ' class="active"' if (@category && (@category.top_ancestor == item)) %>>
       <%= item.name %>

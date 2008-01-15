@@ -24,6 +24,9 @@
   </head>
 
   <body class='category<%= category_color %>'>
+    <script type="text/javascript">
+      if ( navigator.appName.indexOf("Microsoft") > -1 ) document.body.className += " msie";
+    </script>
 
     <% unless flash[:notice].nil? %>
       <div id='notice' onclick="Element.hide('notice');">
@@ -54,14 +57,8 @@
           prepareMenu('navigation_bar', { timeout: 5 });
         </script>
 
-        <!-- div id='search_box'>
-          We will not need it...
-          <%= search_box %>
-        </div>< !-- id='search_box' -->
-
         <div id='user_box'>
           <%= shortcut_header_links %>
-          <a href="javascript:alert('to do...')" id="open_search"><span>Search</span></a>
         </div><!-- id='user_box' -->
 
       </div><!-- id="noosfero_bar" -->

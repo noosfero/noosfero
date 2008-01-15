@@ -112,14 +112,21 @@ module ApplicationHelper
   def shortcut_header_links
     if logged_in?
       [
-        ( link_to_myprofile( content_tag('span', _('My profile')), {}, nil, { :id => 'link_go_home'} ) ), 
+        ( link_to_homepage '<img src="' +
+          ( (current_user.person.image)? current_user.person.image.public_filename(:icon) : "/images/icons-bar/photo.png" ) +
+          '" alt="Photo" title="" height="20" border="0"/>'+ current_user.login,
+          current_user.login, :id=>"link_go_home" ),
+        ( link_to_myprofile( content_tag('span', _('edit profile')), {}, nil, { :id => 'link_edit_profile'} ) ),
 	# O ID icon_accessibility tambem tem que aparcer e testei o link nao ta funcionado.
         ( link_to content_tag('span', _('Admin')), { :controller => 'admin_panel' }, :id => 'link_admin_panel' if current_user.person.is_admin?), 
         ( link_to content_tag('span', _('Logout')), { :controller => 'account', :action => 'logout'}, :id => 'link_logout'),
+        '<a href="javascript:alert(\'to do...\')" id="open_search"><span>Search</span></a>'
       ]
     else
-      [ 
+      [
+        ( link_to _("%s's home") % @environment.name, { :controller=>"home" }, :id=>"link_to_envhome" ),
         ( link_to content_tag('span', _('Login')), { :controller => 'account', :action => 'login' }, :id => 'link_login' ),
+        '<a href="javascript:alert(\'to do...\')" id="open_search"><span>Search</span></a>'
       ]
     end.join(" ")
   end

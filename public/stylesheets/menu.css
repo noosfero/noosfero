@@ -1,6 +1,8 @@
 #accessibility_menu {
   position: absolute;
+  top: -10px;
   font-size: 1px;
+  text-decoration: none;
 }
 
 #path_category {
@@ -19,17 +21,26 @@
   background-color: #3465A4;
 }
 
-#link_to_home {
+#menu_link_to_envhome {
   position: absolute;
   top: 0px;
   left: 0px;
   display: block;
-  width: 30px;
+  width: 35px;
   height: 100%;
-  background: url(/images/noosfero.png) 0px 50% no-repeat;
+  background: url(/images/icons-bar/ico-fbes-fundo-azul.gif) 0px 50% no-repeat;
   text-align: center;
   color: transparent;
   font-size: 0px;
+  text-decoration: none;
+}
+body.category1 #menu_link_to_envhome { background-image: url(/images/icons-bar/ico-fbes-fundo-laranja.gif)  }
+body.category2 #menu_link_to_envhome { background-image: url(/images/icons-bar/ico-fbes-fundo-verde.gif)    }
+body.category3 #menu_link_to_envhome { background-image: url(/images/icons-bar/ico-fbes-fundo-lilas.gif)    }
+body.category4 #menu_link_to_envhome { background-image: url(/images/icons-bar/ico-fbes-fundo-vermelho.gif) }
+#menu_link_to_envhome span {
+  position: relative;
+  left: -100px;
 }
 
 body.category #noosfero_bar { background-color: #2A5896 }
@@ -69,14 +80,47 @@ body.category4  #noosfero_bar { background-color: #B80000 }
   font-size: 11px;
   font-weight: bold;
   text-decoration: none;
-  line-height: 22px;
+  line-height: 20px;
   color: #FFF;
   margin-right: 10px;
   opacity: 0.7;
+  display: block;
+  float: left;
+  height: 20px;
 }
 #user_box a:hover,
 #user_box a:active {
   opacity: 1;
+}
+
+#user_box a#link_to_envhome {
+  margin-right: 50px;
+}
+
+#link_go_home,
+#link_go_home:hover {
+  position: relative;
+  padding: 0px;
+  margin: 0px;
+}
+#link_go_home img {
+  position: absolute;
+  top: -1px;
+  left: -23px;
+  border: none;
+}
+.msie #link_go_home img {
+  top: -1px;
+}
+
+#link_edit_profile {
+  padding-left: 20px;
+  background: url(/images/icons-bar/ico-edit.gif) 0px 0% no-repeat;
+}
+
+#link_logout {
+  padding-left: 20px;
+  background: url(/images/icons-bar/ico-exit.gif) 0px 0% no-repeat;
 }
 
 #cat_menu {
@@ -124,14 +168,6 @@ body.category4  #noosfero_bar { background-color: #B80000 }
   padding: 0px 0px 0px 20px;
   margin: 0px;
 }
-
-/*
-#cat_menu ul li {
-  padding: 0px;
-  margin: 0px;
-}
-*/
-
 
 #cat_menu ul a {
   background: url(/images/bolota.gif) 0% 50% no-repeat;
