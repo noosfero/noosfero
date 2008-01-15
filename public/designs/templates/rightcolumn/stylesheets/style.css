@@ -76,7 +76,7 @@ clear: both;
 /* Notice */ 
 
 div#notice {
-  z-index: 10000;
+  z-index: 4000;
   position: absolute;
   top: 100px;
   left: 50%;
