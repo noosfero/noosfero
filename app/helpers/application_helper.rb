@@ -129,7 +129,7 @@ module ApplicationHelper
       ]
     else
       [
-        ( link_to _("%s's home") % @environment.name, { :controller=>"home" }, :id=>"link_to_envhome" ),
+        #( link_to _("%s's home") % @environment.name, { :controller=>"home" }, :id=>"link_to_envhome" ),
         ( link_to content_tag('span', _('Login')), { :controller => 'account', :action => 'login' }, :id => 'link_login' ),
         search_link,
       ]

@@ -1,6 +1,6 @@
 function prepareMenu(id, options) {
 
-    var menuCloseTimeout = options.timeout || 333;
+    var menuCloseTimeout = options.timeout || 33;
 
     if ( document.all ) {
         // add a class for work arround msie&#180;s css bugs
@@ -20,9 +20,11 @@ function prepareMenu(id, options) {
         link.href = "#";
         link.className = "linkSubMenu";
         linkText.parentNode.insertBefore( link, linkText );
-        link.appendChild( linkText );
         link.parentNode.style.zIndex = zIndex++;
         link.subMenu = ul;
+        var span = document.createElement("span");
+        span.appendChild( linkText );
+        link.appendChild( span );
         ul.linkControle = link;
         link.openSubMenu =
             function ( isMouseClick ) {
@@ -35,12 +37,17 @@ function prepareMenu(id, options) {
                         return false;
                     }
                 } else {
+                    link.className += " menu-opened"
                     this.subMenu.style.display = "block";
                     clearTimeout(this.timeOutClose);
                     clearTimeout(this.subMenu.timeOutClose);
                 }
             }
-        link.closeSubMenu = function(){ this.subMenu.style.display = "none" }
+        link.closeSubMenu =
+            function(){
+              this.subMenu.style.display = "none";
+              link.className = link.className.replace( / menu-opened/g, "" );
+            }
 
         //link.onclick = function(){ this.openSubMenu(true); return false }Is not working
 
@@ -56,7 +63,8 @@ function prepareMenu(id, options) {
                 this.timeOutClose = setTimeout( this.closeSubMenu.bind(this), menuCloseTimeout );
             };
 
-        ul.closeSubMenu = function(){ this.style.display = "none" }
+        //ul.closeSubMenu = function(){ this.style.display = "none" }
+        ul.closeSubMenu = function(){ this.linkControle.closeSubMenu() }
 
         ul.onmouseover = ul.onfocus =
             function () {
@@ -68,7 +76,7 @@ function prepareMenu(id, options) {
             function () {
                 if ( this.blurCalledByIEWorkArroundBug ) { return false }
                 this.blurCalledByIEWorkArroundBug = true;
-                this.timeOutClose = setTimeout( this.closeSubMenu.bind(this), 333 );
+                this.timeOutClose = setTimeout( this.closeSubMenu.bind(this), menuCloseTimeout );
             };
     });
 
@@ -99,7 +107,7 @@ function prepareMenu(id, options) {
                 };
                 a.onblur = function() {
                     forceUlBlurFromLink(this);
-                    this.timeOutClose = setTimeout( this.closeSubMenu.bind(this), 333 );
+                    this.timeOutClose = setTimeout( this.closeSubMenu.bind(this), menuCloseTimeout );
                 };
             } else {
                 a.onfocus = function() { forceUlFocusFromLink(this) };
