@@ -176,8 +176,11 @@ module ApplicationHelper
   end
   alias_method :display_form_field, :labelled_form_field
 
-  def display_submit_tag(label)
-    content_tag('p', submit_tag( label, :class => 'submit'), :class => 'submitline') 
+  # FIXME: do not use window.history on the cancel button, instead go to the page where the user come from
+  def display_submit_tag(label, options = {})
+    cancel_button = ''
+    cancel_button = "<input type='button' class='bt_cancel' value='" + _('Cancel') + "' onclick='window.history.back()'> " if options[:with_cancel]
+    content_tag('p', submit_tag( label, :class => 'submit') + cancel_button, :class => 'submitline') 
   end
 
 
