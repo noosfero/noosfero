@@ -1,7 +1,10 @@
 # Methods added to this helper will be available to all templates in the
 # application.
 module ApplicationHelper
+
   include PermissionName
+
+  include LightboxHelper
   
   # Displays context help. You can pass the content of the help message as the
   # first parameter or using template code inside a block passed to this
@@ -110,6 +113,8 @@ module ApplicationHelper
   end
 
   def shortcut_header_links
+    search_link = ( lightbox_link_to content_tag('span', _('Search')), { :controller => 'search', :action => 'popup' }, { :id => 'open_search'} )
+
     if logged_in?
       [
         ( link_to_homepage '<img src="' +
@@ -120,13 +125,13 @@ module ApplicationHelper
 	# O ID icon_accessibility tambem tem que aparcer e testei o link nao ta funcionado.
         ( link_to content_tag('span', _('Admin')), { :controller => 'admin_panel' }, :id => 'link_admin_panel' if current_user.person.is_admin?), 
         ( link_to content_tag('span', _('Logout')), { :controller => 'account', :action => 'logout'}, :id => 'link_logout'),
-        '<a href="javascript:alert(\'to do...\')" id="open_search"><span>Search</span></a>'
+        search_link,
       ]
     else
       [
         ( link_to _("%s's home") % @environment.name, { :controller=>"home" }, :id=>"link_to_envhome" ),
         ( link_to content_tag('span', _('Login')), { :controller => 'account', :action => 'login' }, :id => 'link_login' ),
-        '<a href="javascript:alert(\'to do...\')" id="open_search"><span>Search</span></a>'
+        search_link,
       ]
     end.join(" ")
   end

@@ -1,0 +1,21 @@
+<h2><%= _('Search %s') % @environment.name %></h2>
+
+<% form_tag(:action => 'index') do%>
+  <div id='search-' style='text-align: center;'>
+    <%= text_field_tag('query', '', :style => 'width: 70%;') %>
+    <%= submit_tag(_('Search')) %>
+  </div>
+
+  <h3><%= _('Search options') %></h3>
+
+
+  <div>
+    <%= submit_tag(_('Search')) %>
+    <%= lightbox_close(_('Close')) %>
+  </div>
+
+<% end %>
+
+<script type='text/javascript'>
+  $('query').focus();
+</script>

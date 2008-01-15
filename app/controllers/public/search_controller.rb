@@ -52,8 +52,8 @@ class SearchController < ApplicationController
     @tagged = @tag.taggings.map(&:taggable)
   end
 
-  def advanced_search
-    
+  def popup
+    render :action => 'popup', :layout => false
   end
 
 end

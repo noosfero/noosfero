@@ -17,6 +17,7 @@
     <%= stylesheet_link_tag 'button' %>
     <%= stylesheet_link_tag 'search' %>
     <%= javascript_include_tag 'menu' %>
+    <%= include_lightbox_header %>
     <%# cms stuff %>
     <% if params[:controller] == 'cms' %>
       <%= javascript_include_tag 'cms' %>
