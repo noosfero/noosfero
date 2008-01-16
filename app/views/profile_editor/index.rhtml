@@ -21,6 +21,8 @@
 
   <%= file_manager_button(_('Manage Products'), 'icons-app/products.png', :controller => 'manage_products') if profile.enterprise? %>
 
+  <%= file_manager_button(_('Enterprise Validation'), 'icons-app/validation.png', :controller => 'enterprise_validation') if profile.is_validation_entity? %>
+
 <% end %>
 
 <% if @profile.person? %>

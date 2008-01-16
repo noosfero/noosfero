@@ -38,6 +38,10 @@ class Organization < Profile
     CreateEnterprise.processed_for(self, :code => code).first
   end
 
+  def is_validation_entity?
+    !self.validation_info.nil?
+  end
+
   def info
     organization_info
   end
