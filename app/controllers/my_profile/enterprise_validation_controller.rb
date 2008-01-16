@@ -49,4 +49,13 @@ class EnterpriseValidationController < MyProfileController
     end
   end
 
+  def edit_validation_info
+    @info = profile.validation_info
+    if request.post?
+      if @info.update_attributes(params[:info])
+        redirect_to :action => 'index'
+      end
+    end
+  end
+
 end
