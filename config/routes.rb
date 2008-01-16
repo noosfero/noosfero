@@ -29,16 +29,16 @@ ActionController::Routing::Routes.draw do |map|
   # enterprise registration
   map.connect 'enterprise_registration/:action', :controller => 'enterprise_registration'
 
+  # tags
+  map.tag 'tag', :controller => 'search', :action => 'tags'
+  map.tag 'tag/:tag', :controller => 'search', :action => 'tag'
+
   # search
   map.connect 'search/:action', :controller => 'search'
  
   # categories controller
   map.connect 'cat', :controller => 'category', :action => 'index'
   map.category 'cat/*path', :controller => 'category', :action => 'view'
-
-  # tags
-  map.tag 'tag', :controller => 'search', :action => 'tags'
-  map.tag 'tag/:tag', :controller => 'search', :action => 'tag'
 
   # controllers for blocks
   map.controllers 'block/:profile/:controller/:action/:id', :controller => Noosfero.pattern_for_controllers_from_design_blocks
