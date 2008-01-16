@@ -199,13 +199,24 @@ class EnvironmentTest < Test::Unit::TestCase
     assert env_boxes > 0
     assert env_blocks > 0
 
-    boxes = Design::Box.count
-    blocks = Design::Block.count
+    boxes = Box.count
+    blocks = Block.count
 
     env.destroy
 
-    assert_equal boxes - env_boxes, Design::Box.count
-    assert_equal blocks - env_blocks, Design::Block.count
+    assert_equal boxes - env_boxes, Box.count
+    assert_equal blocks - env_blocks, Block.count
+  end
+  
+  should 'have boxes and blocks upon creation' do
+    environment = Environment.create!(:name => 'a test environment')
+    assert environment.boxes.size > 0
+    assert environment.blocks.size > 0
+  end
+
+  should 'have at least one MainBlock upon creation' do
+    environment = Environment.create!(:name => 'a test environment')
+    assert(environment.blocks.any? { |block| block.kind_of? MainBlock })
   end
 
 end

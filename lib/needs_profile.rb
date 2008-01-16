@@ -3,7 +3,9 @@ module NeedsProfile
   module ClassMethods
     def needs_profile
       before_filter :load_profile
-      design :holder => 'profile' 
+      def boxes_holder
+        profile
+      end
     end
   end
 

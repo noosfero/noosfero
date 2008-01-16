@@ -1,0 +1,58 @@
+
+/* main box */
+#box-1 {
+  margin-left: 210px;
+  margin-right: 210px;
+}
+
+#box-2 {
+  float: left;
+  width: 200px;
+}
+
+#box-3 {
+  float: right;
+  width: 200px;
+}
+
+
+.block {
+  margin: 5px;
+  padding: 5px;
+}
+
+.block-target {
+  margin: 5px;
+  height: 2px;
+  height: 15px;
+  border: 1px dashed #e0e0e0;
+}
+
+.block-target-hover {
+  background: #ffd;
+  border: 1px solid red;
+  height: 30px;
+}
+
+.block iframe {
+  width: 100%;
+  border: none;
+}
+
+/***********************************************************
+ * put borders around boxes and blocks when organizing boxes
+ ***********************************************************/
+
+#box-organizer .box {
+  border: 1px solid #ccc;
+}
+
+#box-organizer #box-1 .block {
+  border: 2px dashed green;
+}
+#box-organizer #box-2 .block {
+  border: 2px dashed red;
+}
+#box-organizer #box-3 .block {
+  border: 2px dashed blue;
+}

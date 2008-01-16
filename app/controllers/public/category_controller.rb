@@ -5,7 +5,9 @@ class CategoryController < ApplicationController
   #FIXME This is not necessary because the application controller define the envrioment 
   # as the default holder
  
-  design :holder => 'environment'
+  def boxes_holder
+    environment
+  end
 
   def load_default_enviroment
     @environment = Environment.default

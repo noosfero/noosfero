@@ -80,12 +80,13 @@ class RoutingTest < ActionController::IntegrationTest
     assert_routing('/cat', :controller => 'category', :action => 'index')
   end
 
-  def test_routing_to_controllers_inside_design_blocks_directory
-    assert_routing('/block/cojones/favorite_links_profile/show/1', :profile => 'cojones', :controller => 'favorite_links_profile', :action => 'show', :id => '1')
-    assert_routing('/block/cojones/favorite_links_profile/save', :profile => 'cojones', :controller => 'favorite_links_profile', :action => 'save')
+  #FIXME remove this if design_blocks is not going to be used; or uncomment otherwise;
+  #def test_routing_to_controllers_inside_design_blocks_directory
+  #  assert_routing('/block/cojones/favorite_links_profile/show/1', :profile => 'cojones', :controller => 'favorite_links_profile', :action => 'show', :id => '1')
+  #  assert_routing('/block/cojones/favorite_links_profile/save', :profile => 'cojones', :controller => 'favorite_links_profile', :action => 'save')
 
-    assert_routing('/block/cojones/list_block/show/1', :profile => 'cojones', :controller => 'list_block', :action => 'show', :id => '1')
-  end
+  #  assert_routing('/block/cojones/list_block/show/1', :profile => 'cojones', :controller => 'list_block', :action => 'show', :id => '1')
+  #end
 
   def test_tag_viewing
     assert_routing('/tag', :controller => 'search', :action => 'tags')

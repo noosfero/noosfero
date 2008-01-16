@@ -27,7 +27,7 @@ class RegionValidatorsControllerTest < Test::Unit::TestCase
     environment.regions << region
     assert !region.new_record?
 
-    @controller.expects(:environment).returns(environment)
+    @controller.expects(:environment).returns(environment).at_least_once
 
     get :region, :id => region.id
 

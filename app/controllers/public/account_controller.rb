@@ -2,8 +2,6 @@ class AccountController < PublicController
 
   before_filter :load_default_environment
 
-  design :holder => 'environment'
-
   # say something nice, you goof!  something sweet.
   def index
     unless logged_in?

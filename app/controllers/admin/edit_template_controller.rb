@@ -1,6 +1,7 @@
 class EditTemplateController < AdminController
   
-  design_editor :holder => 'environment', :autosave => true, :block_types => :block_types
+  #FIXME
+  #design_editor :holder => 'environment', :autosave => true, :block_types => :block_types
 
   def block_types
     %w[

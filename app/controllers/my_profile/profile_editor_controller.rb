@@ -4,7 +4,8 @@ class ProfileEditorController < MyProfileController
 
   helper :profile
   
-  design_editor :holder => 'profile',:autosave => true, :block_types => :block_types
+  # FIXME
+  #design_editor :holder => 'profile',:autosave => true, :block_types => :block_types
 
 
    def block_types

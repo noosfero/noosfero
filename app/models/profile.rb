@@ -14,7 +14,7 @@ class Profile < ActiveRecord::Base
   
   acts_as_accessible
 
-  acts_as_design
+  acts_as_having_boxes
 
   acts_as_searchable :fields => [ :name, :identifier ]
 
@@ -79,6 +79,13 @@ class Profile < ActiveRecord::Base
   def initialize(*args)
     super(*args)
     self.environment ||= Environment.default
+  end
+
+  after_create do |profile|
+    3.times do
+      profile.boxes << Box.new
+    end
+    profile.boxes.first.blocks << MainBlock.new
   end
 
   # Returns information about the profile's owner that was made public by

@@ -1,4 +1,4 @@
-class RecentDocumentsBlock < Design::Block
+class RecentDocumentsBlock < Block
 
   def content
     lambda do

@@ -25,7 +25,14 @@ class Environment < ActiveRecord::Base
   # Relationships and applied behaviour
   # #################################################
 
-  acts_as_design
+  acts_as_having_boxes
+
+  after_create do |env|
+    3.times do
+      env.boxes << Box.new
+    end
+    env.boxes.first.blocks << MainBlock.new
+  end
 
   # One Environment can be reached by many domains
   has_many :domains, :as => :owner

@@ -107,7 +107,7 @@ class ApplicationControllerTest < Test::Unit::TestCase
 
   should 'use design plugin to generate blocks' do
     get :index
-    assert_tag :tag => 'div', :attributes => { :id => 'boxes', :class => 'design_boxes' }
+    assert_tag :tag => 'div', :attributes => { :id => 'boxes', :class => 'boxes' }
   end
 
   should 'not use design plugin when tells so' do
@@ -116,6 +116,6 @@ class ApplicationControllerTest < Test::Unit::TestCase
     end
     @controller = NoDesignBlocksTestController.new
     get :index
-    assert_no_tag :tag => 'div', :attributes => { :id => 'boxes', :class => 'design_boxes'  }
+    assert_no_tag :tag => 'div', :attributes => { :id => 'boxes', :class => 'boxes'  }
   end
 end

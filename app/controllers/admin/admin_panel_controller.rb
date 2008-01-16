@@ -8,7 +8,9 @@ class AdminPanelController < AdminController
   # as the default holder
   before_filter :load_default_enviroment
 
-  design :holder => 'environment'
+  def boxes_holder
+    environment
+  end
 
   protected
 

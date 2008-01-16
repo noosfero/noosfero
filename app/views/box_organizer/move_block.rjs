@@ -1,0 +1,8 @@
+from = "box-#{@source_box.position}"
+to = "box-#{@target_box.position}"
+
+page.replace_html(from, display_updated_box(@source_box))
+page.replace_html(to, display_updated_box(@target_box))
+
+page.visual_effect(:highlight, from)
+page.visual_effect(:highlight, to) unless (from == to)

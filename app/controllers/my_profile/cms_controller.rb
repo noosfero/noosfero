@@ -2,7 +2,9 @@ class CmsController < MyProfileController
 
   protect 'post_content', :profile, :only => [:edit, :new, :reorder, :delete]
 
-  design :holder => :profile
+  def boxes_holder
+    profile
+  end
 
   include CmsHelper
 
@@ -11,6 +13,7 @@ class CmsController < MyProfileController
     TextileArticle,
     RssFeed,
     UploadedFile,
+    ImageGallery,
   ]
 
   def view

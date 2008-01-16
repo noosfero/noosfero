@@ -1,4 +1,4 @@
-class LinkBlock < Design::Block
+class LinkBlock < Block
 
   def content
     Profile.find(:all).map{|p| p.name}

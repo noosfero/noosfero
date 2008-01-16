@@ -5,6 +5,8 @@ module ApplicationHelper
   include PermissionName
 
   include LightboxHelper
+
+  include BoxesHelper
   
   # Displays context help. You can pass the content of the help message as the
   # first parameter or using template code inside a block passed to this
@@ -144,14 +146,6 @@ module ApplicationHelper
     end
   end
 
-  def search_box
-    [form_tag({:controller => 'search', :action => 'index'}, :method => 'get'),
-      design_display_button_submit('find', '', :title => _('Search')),
-      text_field_tag( 'query', _('your search here'), :id => "input_search", :onfocus => 'javascript: if (this.value == %s) { this.value = ""; }' % _('your search here').inspect, :onblur => "javascript: if (this.value == '') { this.value = %s}" % _('your search here').inspect),
-       '</form>',
-    ].join("\n") 
-  end
-
   def footer
     # FIXME: add some information from the environment
     [
@@ -267,7 +261,11 @@ module ApplicationHelper
   end
 
   def button(type, label, url, html_options = {})
-    design_display_button(type, label, url, { :class => 'with_text' }.merge(html_options))
+    the_class = "button #{type}"
+    if html_options.has_key?(:class)
+      the_class << ' ' << html_options[:class]
+    end
+    link_to(content_tag('span', label), url, html_options.merge(:class => the_class ))
   end
 
   def submit_button(type, label, html_options = {})
@@ -275,20 +273,28 @@ module ApplicationHelper
 
     html_options[:class] = [html_options[:class], 'submit'].compact.join(' ')
     
-    bt_submit = design_display_button_submit(type, label, { :class => 'with_text' }.merge(html_options))
-    content_tag('p', bt_submit + bt_cancel, :class => 'submitline') 
+    the_class = "button with_text #{type}"
+    if html_options.has_key?(:class)
+      the_class << ' ' << html_options[:class]
+    end
 
+    bt_submit = submit_tag(label, html_options.merge(:class => the_class))
+
+    content_tag('p', bt_submit + bt_cancel, :class => 'submitline') 
   end
 
   def button_to_function(type, label, js_code, html_options = {})
-    #design_display_function_button(type, label, js_code, { :class => 'with_text' }.merge(html_options))
     html_options[:class] = "" unless html_options[:class]
     html_options[:class] << " button #{type}"
     link_to_function(label, js_code, html_options)
   end
 
-  def icon(icon_name)
-    design_display_icon(icon_name)
+  def icon(icon_name, html_options = {})
+    the_class = "button #{icon_name}"
+    if html_options.has_key?(:class)
+      the_class << ' ' << html_options[:class]
+    end
+    content_tag('div', '', html_options.merge(:class => the_class))
   end
 
   def button_bar(options = {}, &block)

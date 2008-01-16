@@ -5,7 +5,14 @@ class ApplicationController < ActionController::Base
   helper :document
   helper :language
   
-  design :holder => 'environment'
+  def boxes_holder
+    environment
+  end
+
+  def boxes_editor?
+    false
+  end
+  protected :boxes_editor?
 
   def self.no_design_blocks
     @no_design_blocks = true

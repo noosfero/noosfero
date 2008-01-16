@@ -14,3 +14,5 @@
 .button.back { background-image: url(gtk-go-back-ltr.png); }
 .button.next { background-image: url(gtk-media-next-ltr.png); }
 .button.add { background-image: url(gtk-add.png); }
+.button.up { background-image: url(gtk-go-up.png); }
+.button.down { background-image: url(gtk-go-down.png); }
