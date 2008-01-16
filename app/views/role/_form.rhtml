@@ -9,6 +9,7 @@
     <%= labelled_form_field(permission_name(p), (check_box_tag "role[permissions][]", p, @role.has_permission?(p))) %>
   <% end %>
 
-  <%= display_submit_tag (mode == :edit) ? _('Save changes') : _('Create role')%>
-  <%= link_to _('Cancel'), :action => 'index' %>
+  <% button_bar do %>
+    <%= submit_button('save', (mode == :edit) ? _('Save changes') : _('Create role'), :cancel => {:action => 'index'} ) %>
+  <% end %>
 <% end %>

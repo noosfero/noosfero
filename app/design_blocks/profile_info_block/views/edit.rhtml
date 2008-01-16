@@ -6,5 +6,7 @@
     <%= text_field 'design_block', 'title'%>
   </p>
     
-  <%= submit_tag _('Save') %>
+  <% button_bar do %>
+    <%= submit_button('save', _('Save')) %>
+  <% end %>
 <% end %>

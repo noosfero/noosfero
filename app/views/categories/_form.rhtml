@@ -13,6 +13,7 @@
   <%= select_color_for_category %>
 
   <%= f.text_field 'name' %>
-  <%= display_submit_tag _('Save') %>
-  <%= link_to _('Cancel'), :action => 'index' %>
+  <% button_bar do %>
+    <%= submit_button('save', _('Save'), :cancel => {:action => 'index'}) %>
+  <% end%>
 <% end %>

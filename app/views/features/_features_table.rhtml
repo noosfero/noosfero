@@ -12,7 +12,9 @@
 <%= labelled_form_field(_('Organization Approval Method'), select_organization_approval_method('environment', 'organization_approval_method')) %>
 
 <div>
-  <%= submit_tag _('Save changes') %>
+  <% button_bar do %>
+    <%= submit_button('save', _('Save changes')) %>
+  <% end %>
 </div>
 
 <% end %>

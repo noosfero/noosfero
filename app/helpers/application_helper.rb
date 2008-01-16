@@ -179,15 +179,8 @@ module ApplicationHelper
   def labelled_form_field(label, field_html, field_id = nil)
     NoosferoFormBuilder::output_field(label, field_html, field_id)
   end
+
   alias_method :display_form_field, :labelled_form_field
-
-  # FIXME: do not use window.history on the cancel button, instead go to the page where the user come from
-  def display_submit_tag(label, options = {})
-    cancel_button = ''
-    cancel_button = "<input type='button' class='bt_cancel' value='" + _('Cancel') + "' onclick='window.history.back()'> " if options[:with_cancel]
-    content_tag('p', submit_tag( label, :class => 'submit') + cancel_button, :class => 'submitline') 
-  end
-
 
   def labelled_form_for(name, object = nil, options = {}, &proc)
     object ||= instance_variable_get("@#{name}")
@@ -278,7 +271,13 @@ module ApplicationHelper
   end
 
   def submit_button(type, label, html_options = {})
-    design_display_button_submit(type, label, { :class => 'with_text' }.merge(html_options))
+    bt_cancel = html_options[:cancel] ? "<input type='button' class='button bt_cancel' value='" + _('Cancel') + "' onclick='document.location.href = \"#{url_for html_options.delete(:cancel)}\"'> " : ''
+
+    html_options[:class] = [html_options[:class], 'submit'].compact.join(' ')
+    
+    bt_submit = design_display_button_submit(type, label, { :class => 'with_text' }.merge(html_options))
+    content_tag('p', bt_submit + bt_cancel, :class => 'submitline') 
+
   end
 
   def button_to_function(type, label, js_code, html_options = {})

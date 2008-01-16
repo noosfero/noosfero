@@ -6,7 +6,9 @@
 
 <%= display_form_field(_('Password'), password_field_tag(:password) ) %>
 
-<%= display_submit_tag 'Log in' %>
+<% button_bar do %>
+  <%= submit_button( 'login', _('Log in') )%>
+<% end %>
 
 <% end %>
 

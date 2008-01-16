@@ -19,7 +19,9 @@
 
 <% form_tag({}, { :method => 'get' }) do %>
   <%= text_field_tag :search, nil, :id => 'search_validator' %>
-  <%= submit_tag _('Search') %>
+  <% button_bar do %>
+    <%= submit_button('search', _('Search')) %>
+  <% end %>
 <% end %>
 
 <%= observe_field 'search_validator', :url => { :action => 'search', :id => @region.id }, :with => 'search', :frequency => 1, :update => 'search_results' %>

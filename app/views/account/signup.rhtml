@@ -18,5 +18,7 @@
   </p>
 <% end %>
 
-<%= display_submit_tag _('Sign up')  %>
+<% button_bar do %>
+  <%= submit_button('save', _('Sign up'), :cancel => {:action => 'index'}) %>
+<% end %>
 <% end -%>

@@ -2,6 +2,7 @@
             :html => { :multipart => true },
             :url  => { :action => 'change_image'} do |f| %>
   <%= display_form_field(_('Image'), f.file_field( :uploaded_data, { :onchange => 'updateImg(this.value)' } ) ) %>
-  <%= display_submit_tag(_('Upload')) %>
-  <%= link_to _('Cancel'), :action => 'index' %>
+  <% button_bar do %>
+    <%= submit_button('save', _('Upload'), :cancel => {:action => 'index'}) %>
+  <% end %>
 <% end %>

@@ -9,6 +9,8 @@
   <%= f.text_field(:city) %>
   <%= f.text_field(:state) %>
   <%= f.text_field(:country) %>
-  <%= display_submit_tag _('Save') %>
+  <% button_bar do %>
+    <%= submit_button('save', _('Save'), :cancel => {:action => 'index'}) %>
+  <% end %>
 
 <% end %>

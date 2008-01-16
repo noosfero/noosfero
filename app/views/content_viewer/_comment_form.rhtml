@@ -15,5 +15,7 @@
 
   <%= labelled_form_field(_('Title'), text_field(:comment, :title)) %>
   <%= labelled_form_field(_('Enter your comment'), text_area(:comment, :body)) %>
-  <%= submit_tag _('Post comment') %>
+  <% button_bar do %>
+    <%= submit_button('post', _('Post comment')) %>
+  <% end %>
 <% end %>

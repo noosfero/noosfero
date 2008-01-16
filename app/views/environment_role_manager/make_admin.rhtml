@@ -9,5 +9,7 @@
   <% @roles.each do |r| %>
     <%= labelled_form_field(r.name, (check_box_tag "roles[]", r.id)) %>
   <% end %>
-<%= display_submit_tag _('Make') %>
+  <% button_bar do %>
+    <%= submit_button( 'save', _('Make'), :cancel => {:action => 'index'} ) %>
+  <% end %>
 <% end %>

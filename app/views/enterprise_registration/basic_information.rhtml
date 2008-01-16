@@ -29,8 +29,7 @@
   <%= f.select('region_id', @regions) %>
 
   <% button_bar do %>
-    <%= submit_button('next', _('Next')) %>
-    <%= button 'cancel', _('Cancel'), :action => 'index' %>
+    <%= submit_button('next', _('Next'), :cancel => {:action => 'index'}) %>
   <% end %>
 
 <% end %>

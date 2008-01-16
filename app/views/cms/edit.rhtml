@@ -13,6 +13,7 @@
   <%# TODO display the tooltip (title below) in a directly visible way %>
   <%= f.text_field('tag_list', :size => 64, :title => _('Separate tags with commas')) %>
 
-  <%= design_display_button_submit('save', _('Save')) %>
-  <%= design_display_button('cancel', _('Cancel'), :action => (@article.parent ? 'view' : 'index'), :id => @article.parent) %>
+  <% button_bar do %>
+    <%= submit_button('save', _('Save'), :cancel => [:action => (@article.parent ? 'view' : 'index')], :id => @article.parent) %>
+  <% end %>
 <% end %>
