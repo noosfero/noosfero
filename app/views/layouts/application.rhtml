@@ -24,10 +24,7 @@
     <% end %>
   </head>
 
-  <body class='category<%= category_color %>'>
-    <script type="text/javascript">
-      if ( navigator.appName.indexOf("Microsoft") > -1 ) document.body.className += " msie";
-    </script>
+  <body class='category<%= category_color %>' onload='noosfero_init();'>
 
     <% unless flash[:notice].nil? %>
       <div id='notice' onclick="Element.hide('notice');">
