@@ -94,4 +94,11 @@ class OrganizationTest < Test::Unit::TestCase
     assert_same empty, org.find_processed_validation('lalalala')
   end
 
+  should 'have boxes and blocks upon creation' do
+    profile = Organization.create!(:name => 'test org', :identifier => 'testorg')
+
+    assert profile.boxes.size > 0
+    assert profile.blocks.size > 0
+  end
+
 end
