@@ -5,15 +5,24 @@ module LightboxHelper
   end
 
   def lightbox_link_to(text, url, options = {})
-    the_class = 'lbOn'
-    the_class << " #{options[:class]}" if options.has_key?(:class)
-    link_to(text, url, options.merge(:class => the_class ))
+    link_to(text, url, lightbox_options(options))
   end
 
   def lightbox_close(text, options = {})
-    the_class = 'lbAction'
+    link_to(text, '#', lightbox_options(options, 'lbAction').merge(:rel => 'deactivate'))
+  end
+
+  def lightbox_button(type, label, url, options = {})
+    button(type, label, url, lightbox_options(options))
+  end
+
+  # options must be an HTML options hash as passed to link_to etc.
+  #
+  # returns a new hash with lightbox class added. Keeps existing classes. 
+  def lightbox_options(options, lightbox_type = 'lbOn')
+    the_class = lightbox_type
     the_class << " #{options[:class]}" if options.has_key?(:class)
-    link_to(text, '#', options.merge({ :class => the_class, :rel => 'deactivate' }))
+    options.merge(:class => the_class)
   end
 
 end

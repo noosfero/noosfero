@@ -38,4 +38,10 @@ class LightboxHelperTest < Test::Unit::TestCase
     assert_equal '[close-lightbox]', lightbox_close('text', :class => 'my-class', :id => 'my-id' )
   end
 
+  should 'provide lightbox_button' do
+    expects(:button).with('type', 'label', { :action => 'popup'}, { :class => 'lbOn' }).returns('[button]')
+
+    assert_equal '[button]', lightbox_button('type', 'label', { :action => 'popup'})
+  end
+
 end
