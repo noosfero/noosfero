@@ -9,7 +9,7 @@ module LightboxHelper
   end
 
   def lightbox_close(text, options = {})
-    link_to(text, '#', lightbox_options(options, 'lbAction').merge(:rel => 'deactivate'))
+    button(:close, text, '#', lightbox_options(options, 'lbAction').merge(:rel => 'deactivate'))
   end
 
   def lightbox_button(type, label, url, options = {})
