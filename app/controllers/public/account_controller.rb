@@ -26,6 +26,14 @@ class AccountController < PublicController
     end
   end
 
+  def logout_popup
+    render :action => 'logout_popup', :layout => false
+  end
+
+  def login_popup
+    render :action => 'login', :layout => false
+  end
+
   # action to register an user to the application
   def signup
     begin

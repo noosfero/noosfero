@@ -234,6 +234,18 @@ class AccountControllerTest < Test::Unit::TestCase
     assert !User.find(user.id).authenticated?('onepass')
   end
 
+  should 'display login popup' do
+    get :login_popup
+    assert_template 'login'
+    assert_no_tag :tag => "body" # e.g. no layout
+  end
+
+  should 'display logout popup' do
+    get :logout_popup
+    assert_template 'logout_popup'
+    assert_no_tag :tag => "body" # e.g. no layout
+  end
+
   protected
     def create_user(options = {})
       post :signup, :user => { :login => 'quire', :email => 'quire@example.com', 
