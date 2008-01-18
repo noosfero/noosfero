@@ -3,7 +3,7 @@ class ProfileDesignController < BoxOrganizerController
   needs_profile
 
   def index
-    render :text => '...', :layout => true
+    render :action => 'index', :layout => true
   end
 
   def boxes_editor?

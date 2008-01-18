@@ -1,5 +1,5 @@
-from = "box-#{@source_box.position}"
-to = "box-#{@target_box.position}"
+from = "box-#{@source_box.id}"
+to = "box-#{@target_box.id}"
 
 page.replace_html(from, display_updated_box(@source_box))
 page.replace_html(to, display_updated_box(@target_box))

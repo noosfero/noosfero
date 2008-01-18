@@ -26,7 +26,7 @@ module BoxesHelper
   end
 
   def display_box(box, main_content)
-    content_tag('div', content_tag('div', display_box_content(box, main_content), :class => 'blocks'), :class => 'box', :id => "box-#{box.position}" )
+    content_tag('div', content_tag('div', display_box_content(box, main_content), :class => 'blocks'), :class => "box box-#{box.position}", :id => "box-#{box.id}" )
   end
 
   def display_updated_box(box)
@@ -53,7 +53,7 @@ module BoxesHelper
         end
       end
 
-    classes = ['block', block.class.name.underscore.gsub('_', '-') ].uniq.join(' ')
+    classes = 'block' # ['block', block.class.name.underscore.gsub('_', '-') ].uniq.join(' ')
 
     box_decorator.block_target(block.box, block) + content_tag('div', result + box_decorator.block_move_buttons(block), :class => classes, :id => "block-#{block.id}") + box_decorator.block_handle(block)
   end

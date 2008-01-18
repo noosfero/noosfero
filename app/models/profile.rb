@@ -81,11 +81,17 @@ class Profile < ActiveRecord::Base
     self.environment ||= Environment.default
   end
 
-  after_create do |profile|
+  # registar callback for creating boxes after the object is created. 
+  after_create :create_boxes
+  
+  # creates the initial set of boxes when the profile is created. Can be
+  # overriden for each subclass to create a custom set of boxes for its
+  # instances.    
+  def create_boxes
     3.times do
-      profile.boxes << Box.new
+      self.boxes << Box.new
     end
-    profile.boxes.first.blocks << MainBlock.new
+    self.boxes.first.blocks << MainBlock.new
   end
 
   # Returns information about the profile's owner that was made public by

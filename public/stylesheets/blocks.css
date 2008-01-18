@@ -1,16 +1,16 @@
 
 /* main box */
-#box-1 {
+div.box-1 {
   margin-left: 210px;
   margin-right: 210px;
 }
 
-#box-2 {
+div.box-2 {
   float: left;
   width: 200px;
 }
 
-#box-3 {
+div.box-3 {
   float: right;
   width: 200px;
 }
@@ -47,12 +47,12 @@
   border: 1px solid #ccc;
 }
 
-#box-organizer #box-1 .block {
+#box-organizer div.box-1 .block {
   border: 2px dashed green;
 }
-#box-organizer #box-2 .block {
+#box-organizer div.box-2 .block {
   border: 2px dashed red;
 }
-#box-organizer #box-3 .block {
+#box-organizer div.box-3 .block {
   border: 2px dashed blue;
 }

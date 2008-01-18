@@ -4,10 +4,6 @@ class ApplicationController < ActionController::Base
 
   helper :document
   helper :language
-  
-  def boxes_holder
-    environment
-  end
 
   def boxes_editor?
     false

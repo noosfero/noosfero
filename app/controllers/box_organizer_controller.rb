@@ -13,7 +13,7 @@ class BoxOrganizerController < ApplicationController
 
       @target_box = block_before.box
     else
-      (params[:target] =~ /end-of-box-([0-9])+/)
+      (params[:target] =~ /end-of-box-([0-9]+)/)
 
       @target_box = boxes_holder.boxes.find($1)
     end
