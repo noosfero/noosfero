@@ -35,12 +35,3 @@
   text-align: center;
 }
 
-.submit {
-  border: 1px solid #777;
-  cursor: pointer;
-  color: #505050;
-  background: #BBB url("../images/bt-bg.png") top left repeat-x;
-  padding: 0px 30px;
-  margin: auto;
-}
-
