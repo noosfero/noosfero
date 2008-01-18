@@ -1,150 +1,25 @@
-@import url("editor.css");
-@import url("contentblocks.css");
-@import url("forms.css");
-@import url("table.css");
-@import url("login-box.css");
 
-body {
-  padding: 0px;
-  margin: 0px;
-  font-family: Verdana, Sans-Serif;
-  font-size: 14px;
-  /*
-  ** a imagem de fundo colorida é mais pesada, por isso carregamos
-  ** essa cinza mais leve antes para melhorar a esperiência do usuário.
-  */
-  background-position: 50% 25px;
-  background-repeat: repeat-x;
-  background-image: url(../images/bg-top-cinza.jpg);
-}
-
-#wrap {
-  background-position: 50% 22px;
-  background-repeat: repeat-x;
-  background-image: url(../images/bg-top-azul.png);
-}
-
-body.category1 #wrap { background-image: url("../images/bg-top-laranja.png");  }
-body.category2 #wrap { background-image: url("../images/bg-top-verde.png");    }
-body.category3 #wrap { background-image: url("../images/bg-top-lilas.png");    }
-body.category4 #wrap { background-image: url("../images/bg-top-vermelho.png"); }
-
-#header {
-  height: 20px;
-}
-
-#design_boxes {
+#boxes {
   position: relative;
-  margin-left: 10px;
-  margin-right: 10px;
-  padding: 0em;
 }
 
-#design_box_3 {
-  width: 200px;
-  float: right;
-  margin-right: 10px;
-  margin-top: -80px;
-}
-
-#design_box_2 {
-  float: left;
-  width: 270px;
-  margin-left: 10px;
-}
-
-#design_box_1 {
+.box-1 {
   margin-left: 285px;
   margin-right: 215px;
 }
 
-#spinner {
-  z-index: 1000;
+.box-2 {
   position: absolute;
-  left: 50%;
-  margin-left: -16px;
-  top: 200px;
+  top: 0px;
+  left: 0px;
+  width: 270px;
+  margin-left: 10px;
 }
 
-#footer_content {
-clear: both;
-}
-
-#footer {
-  clear: both;
-  text-align: center;
-  font-size: smaller;
-  color: #333;
-  margin: 0px;
-  padding: 5px;
-}
-
-/* Notice */ 
-
-div#notice {
-  z-index: 4000;
+.box-3 {
   position: absolute;
-  top: 100px;
-  left: 50%;
-  margin-left: -200px;
-  width: 400px;
-  border: 5px solid #545454;
-  background: #ffffa9;
-  padding: 10px;
-}
-
-/* * * Generic Content Formating * * */
-
-#content h1 {
-  text-align: center;
-}
-
-#content a {
-  color: #05B;
-}
-#content a:visited {
-  color: #68C;
-}
-#content a:hover,
-#content a:active {
-  color: #08F;
-}
-
-/* Category */
-
-#view-category { /* none */ }
-
-#categiry-name {
-  margin: 0px;
-  position: relative;
-  top: -5px;
-}
-
-#category-ancestors {
-  padding-top: 25px;
-  font-weight: bold;
-}
-
-#content #category-ancestors a {
-  color: #000;
-  text-decoration: none;
-}
-#content #category-ancestors a:hover {
-  color: #07F;
-  text-decoration: underline;
-}
-
-#category-childs h4,
-#category-childs ul {
-  margin: 0px;
-}
-
-#category-childs a {
-  font-weight: bold;
-  text-decoration: none;
-}
-
-#cat-no-child {
-  color: #AAA;
+  top: 0px;
+  right: 10px;
+  width: 200px;
 }
 
