@@ -15,14 +15,12 @@ body {
   */
   background-position: 50% 25px;
   background-repeat: repeat-x;
-  background-attachment: fixed;
   background-image: url(../images/bg-top-cinza.jpg);
 }
 
 #wrap {
-  background-position: 50% 25px;
+  background-position: 50% 23px;
   background-repeat: repeat-x;
-  background-attachment: fixed;
   background-image: url(../images/bg-top-azul.png);
 }
 
