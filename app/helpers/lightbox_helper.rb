@@ -25,4 +25,8 @@ module LightboxHelper
     options.merge(:class => the_class)
   end
 
+  def lightbox?
+    request.xhr?
+  end
+
 end
