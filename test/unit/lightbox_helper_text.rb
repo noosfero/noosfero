@@ -29,13 +29,13 @@ class LightboxHelperTest < Test::Unit::TestCase
   should 'provide link to close lightbox' do
     expects(:button).with(:close, 'text', '#', { :class => 'lbAction', :rel => 'deactivate', :id => 'my-id' }).returns('[close-lightbox]')
 
-    assert_equal '[close-lightbox]', lightbox_close('text', :id => 'my-id')
+    assert_equal '[close-lightbox]', lightbox_close_button('text', :id => 'my-id')
   end
 
-  should 'merge existing :class option in lightbox_close' do
+  should 'merge existing :class option in lightbox_close_button' do
     expects(:button).with(:close, 'text', '#', { :class => 'lbAction my-class', :rel => 'deactivate', :id => 'my-id' }).returns('[close-lightbox]')
 
-    assert_equal '[close-lightbox]', lightbox_close('text', :class => 'my-class', :id => 'my-id' )
+    assert_equal '[close-lightbox]', lightbox_close_button('text', :class => 'my-class', :id => 'my-id' )
   end
 
   should 'provide lightbox_button' do
