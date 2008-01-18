@@ -1,16 +1,27 @@
-<%= @category.ancestors.reverse.map { |a| link_to_category(a) }.join(' → ') %>
+<div id="view-category">
 
-<h2><%= _('Category: %s') % @category.name %></h2>
+  <div id="category-ancestors">
+    <%= @category.ancestors.reverse.map { |a| link_to_category(a) }.join(' &rarr; ') %>
+  </div><!-- end id="category-ancestors" -->
 
-<%= render :partial => @category.class.name.underscore %>
+  <h1 id="categiry-name"><%= _('Category: %s') % @category.name %></h1>
 
-<% if @category.children.empty? %>
-  <strong><%= _('No children categories') %></strong>
-<% else %>
-<h4> <%= _('Child categories:')  %> </h4>
-  <ul>
-    <% @category.children.each do |c| %>
-      <li> <%= link_to_category(c) %> </li>
+  <%= render :partial => @category.class.name.underscore %>
+
+  <div id="category-childs">
+
+    <% if @category.children.empty? %>
+      <strong id="cat-no-child"><%= _('No children categories') %></strong>
+    <% else %>
+    <h4> <%= _('Child categories:')  %> </h4>
+      <ul>
+        <% @category.children.each do |c| %>
+          <li> <%= link_to_category(c) %> </li>
+        <% end %>
+      </ul>
     <% end %>
-  </ul>
-<% end %>
+
+  </div><!-- end id="child-categories" -->
+
+</div><!-- end id="view-category" -->
+

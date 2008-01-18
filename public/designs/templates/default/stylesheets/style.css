@@ -2,39 +2,37 @@
 @import url("contentblocks.css");
 @import url("forms.css");
 @import url("table.css");
+@import url("login-box.css");
 
 body {
+  padding: 0px;
+  margin: 0px;
   font-family: Verdana, Sans-Serif;
   font-size: 14px;
+  /*
+  ** a imagem de fundo colorida é mais pesada, por isso carregamos
+  ** essa cinza mais leve antes para melhorar a esperiência do usuário.
+  */
+  background-position: 50% 25px;
+  background-repeat: repeat-x;
+  background-attachment: fixed;
+  background-image: url(../images/bg-top-cinza.jpg);
 }
 
-body.category #wrap {
- background-attachment: fixed;
- background: url("../images/bgblue.png") top left no-repeat;
+#wrap {
+  background-position: 50% 25px;
+  background-repeat: repeat-x;
+  background-attachment: fixed;
+  background-image: url(../images/bg-top-azul.png);
 }
 
-body.category1 #wrap {
- background-attachment: fixed;
- background: url("../images/bgorange.png") top left no-repeat;
-}
-
-body.category2 #wrap {
- background-attachment: fixed;
- background: url("../images/bggreen.png") top left no-repeat;
-}
-
-body.category3 #wrap {
- background-attachment: fixed;
- background: url("../images/bgpurple.png") top left no-repeat;
-}
-
-body.category4 #wrap {
- background-attachment: fixed;
- background: url("../images/bgred.png") top left no-repeat;
-}
+body.category1 #wrap { background-image: url("../images/bg-top-laranja.png");  }
+body.category2 #wrap { background-image: url("../images/bg-top-verde.png");    }
+body.category3 #wrap { background-image: url("../images/bg-top-lilas.png");    }
+body.category4 #wrap { background-image: url("../images/bg-top-vermelho.png"); }
 
 #header {
- height: 150px;
+  height: 60px;
 }
 
 #design_boxes {
@@ -96,3 +94,59 @@ div#notice {
   background: #ffffa9;
   padding: 10px;
 }
+
+/* * * Generic Content Formating * * */
+
+#content h1 {
+  text-align: center;
+}
+
+#content a {
+  color: #05B;
+}
+#content a:visited {
+  color: #68C;
+}
+#content a:hover,
+#content a:active {
+  color: #08F;
+}
+
+/* Category */
+
+#view-category { /* none */ }
+
+#categiry-name {
+  margin: 0px;
+  position: relative;
+  top: -5px;
+}
+
+#category-ancestors {
+  padding-top: 25px;
+  font-weight: bold;
+}
+
+#content #category-ancestors a {
+  color: #000;
+  text-decoration: none;
+}
+#content #category-ancestors a:hover {
+  color: #07F;
+  text-decoration: underline;
+}
+
+#category-childs h4,
+#category-childs ul {
+  margin: 0px;
+}
+
+#category-childs a {
+  font-weight: bold;
+  text-decoration: none;
+}
+
+#cat-no-child {
+  color: #AAA;
+}
+
