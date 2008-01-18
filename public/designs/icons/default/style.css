@@ -16,3 +16,5 @@
 .button.add { background-image: url(gtk-add.png); }
 .button.up { background-image: url(gtk-go-up.png); }
 .button.down { background-image: url(gtk-go-down.png); }
+.button.search { background-image: url(gnome-search.png); }
+.button.ok { background-image: url(gtk-ok.png); }
