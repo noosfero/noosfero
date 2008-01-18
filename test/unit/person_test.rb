@@ -110,4 +110,12 @@ class PersonTest < Test::Unit::TestCase
     person.reload
     assert person.is_admin?
   end
+
+  should 'have boxes and blocks created when person is created' do
+    person = create_user('testboxes').person
+
+    assert person.boxes.size > 0, 'Person should have boxes upon creation'
+    assert person.blocks.size > 0, 'Person should have blocks upon creation'
+  end
+
 end

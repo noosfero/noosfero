@@ -53,4 +53,16 @@ class Person < Profile
     end
   end
 
+  # FIXME this is *weird*, because this class is not inheriting the callback
+  # from Profile !!! 
+  after_create :create_default_set_of_boxes_for_person
+  def create_default_set_of_boxes_for_person
+    3.times do
+      self.boxes << Box.new
+    end
+    self.boxes.first.blocks << MainBlock.new
+      
+    true
+  end
+
 end
