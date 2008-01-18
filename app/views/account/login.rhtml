@@ -10,6 +10,7 @@
 
 <% button_bar do %>
   <%= submit_button( 'login', _('Log in') )%>
+  <%= lightbox_close_button(_('Cancel')) if lightbox? %>
 <% end %>
 
 <% end %>
