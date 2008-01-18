@@ -4,8 +4,8 @@ class ArticleBlock < Block
     _('Display one of your contents.')
   end
 
-  def content
-    article.to_html
+  def content(main = nil)
+    article ? article.to_html : _('Article not selected yet.')
   end
 
   def article_id
@@ -27,6 +27,10 @@ class ArticleBlock < Block
   def article=(obj)
     self.article_id = obj.id
     @article = obj
+  end
+
+  def editor
+    { :controller => 'profile_design', :action => 'edit', :id => self.id }
   end
 
 end

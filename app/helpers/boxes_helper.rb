@@ -55,7 +55,7 @@ module BoxesHelper
 
     classes = 'block' # ['block', block.class.name.underscore.gsub('_', '-') ].uniq.join(' ')
 
-    box_decorator.block_target(block.box, block) + content_tag('div', result + box_decorator.block_move_buttons(block), :class => classes, :id => "block-#{block.id}") + box_decorator.block_handle(block)
+    box_decorator.block_target(block.box, block) + content_tag('div', result + box_decorator.block_edit_buttons(block), :class => classes, :id => "block-#{block.id}") + box_decorator.block_handle(block)
   end
 
   module DontMoveBlocks
@@ -67,7 +67,7 @@ module BoxesHelper
     def self.block_handle(block)
       ''
     end
-    def self.block_move_buttons(block)
+    def self.block_edit_buttons(block)
       ''
     end
   end
@@ -96,14 +96,17 @@ module BoxesHelper
     draggable_element("block-#{block.id}", :revert => true)
   end
 
-  def block_move_buttons(block)
+  def block_edit_buttons(block)
     buttons = []
 
-    # FIXME hardcoded paths !!!
-    buttons << link_to(image_tag('/designs/icons/default/gtk-go-up.png', :alt => _('Move block up')), { :action => 'move_block_up', :id => block.id }, { :method => 'post' }) unless block.first?
-    buttons << link_to(image_tag('/designs/icons/default/gtk-go-down.png', :alt => _('Move block down')), { :action => 'move_block_down' ,:id => block.id }, { :method => 'post'}) unless block.last?
+    buttons << icon_button(:up, _('Move block up'), { :action => 'move_block_up', :id => block.id }, { :method => 'post' }) unless block.first?
+    buttons << icon_button(:down, _('Move block down'), { :action => 'move_block_down' ,:id => block.id }, { :method => 'post'}) unless block.last?
 
-    content_tag('div', buttons.join("\n"), :class => 'block-move-buttons')
+    if block.editor
+      buttons << lightbox_button(:edit, _('Edit'), block.editor)
+    end
+
+    content_tag('div', buttons.join("\n") + tag('br', :style => 'clear: left'), :class => 'button-bar')
   end
 
 end

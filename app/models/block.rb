@@ -15,4 +15,8 @@ class Block < ActiveRecord::Base
     "This is block number %d" % self.id
   end
 
+  def editor
+    nil
+  end
+
 end

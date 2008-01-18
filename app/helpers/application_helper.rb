@@ -261,7 +261,7 @@ module ApplicationHelper
   end
 
   def button(type, label, url, html_options = {})
-    the_class = "button #{type}"
+    the_class = "button with_text #{type}"
     if html_options.has_key?(:class)
       the_class << ' ' << html_options[:class]
     end
@@ -295,6 +295,15 @@ module ApplicationHelper
       the_class << ' ' << html_options[:class]
     end
     content_tag('div', '', html_options.merge(:class => the_class))
+  end
+
+  def icon_button(type, text, url, html_options = {})
+    the_class = "button #{type}"
+    if html_options.has_key?(:class)
+      the_class << ' ' << html_options[:class]
+    end
+
+    link_to(content_tag('span', text), url, html_options.merge(:class => the_class, :title => text))
   end
 
   def button_bar(options = {}, &block)
