@@ -43,18 +43,22 @@ div.box-3 {
  * put borders around boxes and blocks when organizing boxes
  ***********************************************************/
 
-#box-organizer .box {
+#box-organizer div.box {
   border: 1px solid #ccc;
+  background-color: white;
+  background-repeat: no-repeat;
+  background-position: top right;
 }
 
+
 #box-organizer div.box-1 {
-  background: white url(../images/blocks/1.png) top right no-repeat;
+  background-image: url(../images/blocks/1.png);
 }
 #box-organizer div.box-2 {
-  background: white url(../images/blocks/2.png) top right no-repeat;
+  background-image: url(../images/blocks/2.png);
 }
 #box-organizer div.box-3 {
-  background: white url(../images/blocks/3.png) top right no-repeat;
+  background-image: url(../images/blocks/3.png);
 }
 
 #box-organizer div.box-1 .block {
