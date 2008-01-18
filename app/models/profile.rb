@@ -158,6 +158,11 @@ class Profile < ActiveRecord::Base
     self.kind_of?(Organization)
   end
 
+  # returns false.
+  def is_validation_entity?
+    false
+  end
+
   include ActionController::UrlWriter
   def url
     url_for(:host => self.environment.default_hostname, :profile => self.identifier, :controller => 'content_viewer', :action => 'view_page', :page => [])
