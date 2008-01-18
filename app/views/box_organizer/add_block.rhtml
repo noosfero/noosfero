@@ -1,4 +1,21 @@
-<% button_bar do %>
-  <%= submit_button(:add, _("Add")) %>
-  <%= lightbox_close_button(_('Close')) %>
+<% form_tag do %>
+
+  <p><%= _('In what area do you want to put your new block?') %></p>
+  
+  <%= select_tag('box_id', options_for_select(@boxes.map {|item| [ _("Area %d") % item.position, item.id]})) %>
+  
+  <p><%= _('Select the type of block you want to add to your page.') %></p>
+  
+  <% @block_types.each do |item| %>
+    <div>
+      <%= radio_button_tag('type', item.name) %>
+      <%= item.description %>
+    </div>
+  <% end %>
+  
+  <% button_bar do %>
+    <%= submit_button(:add, _("Add")) %>
+    <%= lightbox_close_button(_('Close')) %>
+  <% end %>
+
 <% end %>

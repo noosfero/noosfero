@@ -58,9 +58,12 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
 
     @request.env['HTTP_REFERER'] = '/editor'
 
-    @controller.expects(:boxes_holder).returns(holder).at_least_once
+    @controller.stubs(:boxes_holder).returns(holder)
   end
 
+  ######################################################
+  # BEGIN - tests for BoxOrganizerController features 
+  ######################################################
   def test_should_move_block_to_the_end_of_another_block
     get :move_block, :profile => 'ze', :id => "block-#{@b1.id}", :target => "end-of-box-#{@box2.id}"
 
@@ -130,6 +133,36 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
 
     assert_equal [1,2], [@b2,@b1].map {|item| item.position}
   end
+
+  ######################################################
+  # END - tests for BoxOrganizerController features 
+  ######################################################
+
+  ######################################################
+  # BEGIN - tests for ProfileDesignController features 
+  ######################################################
+
+  should 'display popup for adding a new block' do
+    get :add_block, :profile => 'ze'
+    assert_response :success
+    assert_no_tag :tag => 'body' # e.g. no layout
+  end
+
+  should 'actually add a new block' do
+    assert_difference Block, :count do
+      post :add_block, :profile => 'ze', :box_id => 1, :type => Block.name
+      assert_redirected_to :action => 'index'
+    end
+  end
+
+  should 'not allow tp create unknown types' do
+    assert_no_difference Block, :count do
+      assert_raise ArgumentError do
+        post :add_block, :profile => 'ze', :box_id => 1, :type => "PleaseLetMeCrackYourSite"
+      end
+    end
+  end
+
 
 end
 

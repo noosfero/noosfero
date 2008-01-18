@@ -1,5 +1,5 @@
 <h2><%= _('Organizing visual design')%></h2>
 
-This is a test ... and this is a sample text.
-
-<%= @controller.boxes_holder.class %> 
+<% button_bar do %>
+  <%= lightbox_button('add', _('Add a block'), { :action => 'add_block' }) %>
+<% end %>
