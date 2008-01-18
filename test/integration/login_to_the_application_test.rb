@@ -5,15 +5,15 @@ class LoginToTheApplicationTest < ActionController::IntegrationTest
 
   def test_anonymous_user_logins_to_application
     get '/'
-    assert_tag :tag => 'a', :attributes => { :href => '/account/login' }
-    assert_no_tag :tag => 'a', :attributes => { :href => '/account/logout'  }
+    assert_tag :tag => 'a', :attributes => { :href => '/account/login_popup' }
+    assert_no_tag :tag => 'a', :attributes => { :href => '/account/logout_popup'  }
 
-    get '/account/login'
+    get '/account/login_popup'
     assert_response :success
 
     login('ze', 'test')
-    assert_no_tag :tag => 'a', :attributes => { :href => '/account/login' }
-    assert_tag :tag => 'a', :attributes => { :href => '/account/logout'  }
+    assert_no_tag :tag => 'a', :attributes => { :href => '/account/login_popup' }
+    assert_tag :tag => 'a', :attributes => { :href => '/account/logout_popup'  }
 
   end
 
