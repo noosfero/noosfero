@@ -10,12 +10,15 @@
   background-position: 0 0;
   padding-left: 25px;
   padding-right: 2px;
-  float: left;
-  display: block;
   height: 24px;
 }
 input.button {
   float: none;
+}
+
+.button-bar .button {
+  display: block;
+  float: left;
 }
 
 .button, .button:visited {
