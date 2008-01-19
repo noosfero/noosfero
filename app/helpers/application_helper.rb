@@ -252,16 +252,16 @@ module ApplicationHelper
     show_button_id = id + "-show"
 
     result = ""
-    result << button_to_function('open', show_label, show(id) + show(hide_button_id) + hide(show_button_id), :id => show_button_id, :class => 'show-button with_text', :style => 'display: none;' )
+    result << button_to_function('open', show_label, show(id) + show(hide_button_id) + hide(show_button_id), :id => show_button_id, :class => 'show-button with-text', :style => 'display: none;' )
 
     result < " "
-    result << button_to_function('close', hide_label, hide(id) + hide(hide_button_id) + show(show_button_id), :id => hide_button_id, :class => 'hide-button with_text')
+    result << button_to_function('close', hide_label, hide(id) + hide(hide_button_id) + show(show_button_id), :id => hide_button_id, :class => 'hide-button with-text')
 
     result
   end
 
   def button(type, label, url, html_options = {})
-    the_class = "button with_text #{type}"
+    the_class = "button with-text #{type}"
     if html_options.has_key?(:class)
       the_class << ' ' << html_options[:class]
     end
@@ -273,7 +273,7 @@ module ApplicationHelper
 
     html_options[:class] = [html_options[:class], 'submit'].compact.join(' ')
     
-    the_class = "button with_text #{type}"
+    the_class = "button with-text #{type}"
     if html_options.has_key?(:class)
       the_class << ' ' << html_options[:class]
     end
@@ -298,7 +298,7 @@ module ApplicationHelper
   end
 
   def icon_button(type, text, url, html_options = {})
-    the_class = "button #{type}"
+    the_class = "button icon-button #{type}"
     if html_options.has_key?(:class)
       the_class << ' ' << html_options[:class]
     end

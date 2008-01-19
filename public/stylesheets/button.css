@@ -43,3 +43,16 @@ input.button {
   cursor: pointer;
 }
 
+.button span {
+  display: none;
+}
+.button.with-text span {
+  display: inline;
+}
+
+.icon-button {
+  border: none;
+}
+.icon-button:hover {
+  border: none;
+}
