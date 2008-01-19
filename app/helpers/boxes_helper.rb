@@ -20,7 +20,7 @@ module BoxesHelper
 
   def display_boxes(holder, main_content)
     boxes = holder.boxes.first(holder.boxes_limit)
-    content = boxes.reverse.map { |item| display_box(item, main_content) }.join("\n")
+    content = boxes.map { |item| display_box(item, main_content) }.join("\n")
     content = main_content if (content.blank?)
     content_tag('div', content, :class => 'boxes', :id => 'boxes' )
   end
@@ -40,7 +40,7 @@ module BoxesHelper
   end
 
   def display_block(block, main_content = nil)
-    content = block.content(main_content)
+    content = block.main? ? main_content : block.content
     result = 
       case content
       when Hash
@@ -53,7 +53,7 @@ module BoxesHelper
         end
       end
 
-    classes = 'block' # ['block', block.class.name.underscore.gsub('_', '-') ].uniq.join(' ')
+    classes = ['block', block.class.name.underscore.gsub('_', '-') ].uniq.join(' ')
 
     box_decorator.block_target(block.box, block) + content_tag('div', result + box_decorator.block_edit_buttons(block), :class => classes, :id => "block-#{block.id}") + box_decorator.block_handle(block)
   end

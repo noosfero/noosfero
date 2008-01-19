@@ -6,8 +6,4 @@ class ProfileDesignController < BoxOrganizerController
     @available_blocks ||= [ Block, ArticleBlock ]
   end
 
-  def index
-  end
-
-
 end

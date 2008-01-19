@@ -1,25 +1,15 @@
+/***********************************************************
+ * style for blocks 
+ ***********************************************************/
 
-/* main box */
-div.box-1 {
-  margin-left: 210px;
-  margin-right: 210px;
+.block iframe {
+  width: 100%;
+  border: none;
 }
 
-div.box-2 {
-  float: left;
-  width: 200px;
-}
-
-div.box-3 {
-  float: right;
-  width: 200px;
-}
-
-
-.block {
-  margin: 5px;
-  padding: 5px;
-}
+/***********************************************************
+ * the handles to where you can drag the blocks
+ ***********************************************************/
 
 .block-target {
   margin: 5px;
@@ -32,11 +22,6 @@ div.box-3 {
   background: #ffd;
   border: 1px solid red;
   height: 30px;
-}
-
-.block iframe {
-  width: 100%;
-  border: none;
 }
 
 /***********************************************************

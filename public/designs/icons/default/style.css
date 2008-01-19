@@ -18,3 +18,4 @@
 .button.down { background-image: url(gtk-go-down.png); }
 .button.search { background-image: url(gnome-search.png); }
 .button.ok { background-image: url(gtk-ok.png); }
+.button.login { background-image: url(password.png); }

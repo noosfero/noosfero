@@ -1,0 +1,6 @@
+<h2><%= user.identifier %></h2>
+
+<ul>
+  <li><%= _('User since %d') % user.person_info.created_at.year %></li>
+  <li><%= link_to_homepage _('Homepage') %></li>
+</ul>

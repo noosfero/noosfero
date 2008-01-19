@@ -19,4 +19,8 @@ class Block < ActiveRecord::Base
     nil
   end
 
+  def main?
+    false
+  end
+
 end

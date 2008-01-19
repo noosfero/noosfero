@@ -1,0 +1,22 @@
+<div id="login-box">
+  <% unless logged_in? %>
+
+    <h2><%= _('Login') %></h2>
+    
+    <% labelled_form_for :user, @user, :url => { :controller => 'account', :action => 'login' } do |f| %>
+      <%= display_form_field(_('Username'), text_field_tag(:login) ) %>
+      <%= display_form_field(_('Password'), password_field_tag(:password) ) %>
+      <div>
+        <%= submit_button( 'login', _('Log in') )%>
+      </div>
+    <% end %>
+
+    <div>
+      <%= link_to _("New user"), :controller => 'account', :action => 'signup' %>
+    </div>
+  <% else %>
+    <h2><%= @profile.identifier %></h2>
+  <% end %>
+
+</div><!-- end id="login-box" -->
+

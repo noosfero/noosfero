@@ -1,0 +1,20 @@
+body.noosfero-block {
+  background: white;
+  font-size: 12px;
+}
+
+h2 {
+  padding: 0px;
+  margin: 0px;
+  font-size: 14px;
+  border-bottom: 1px solid black;
+}
+
+input {
+  font-size: 10px;
+}
+
+#login-box {
+  text-align: center;
+}
+

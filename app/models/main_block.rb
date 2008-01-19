@@ -8,4 +8,8 @@ class MainBlock < Block
     main_content
   end
 
+  def main?
+    true
+  end
+
 end

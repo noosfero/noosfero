@@ -246,6 +246,18 @@ class AccountControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => "body" # e.g. no layout
   end
 
+  should 'provide login block' do
+    get :login_block
+    assert_template 'login_block'
+    assert_tag :tag => 'body', :attributes => { :class => 'noosfero-block' }
+  end
+
+  should 'display user info in login block when logged in' do
+    login_as('ze')
+    get :login_block
+    assert_template 'user_info'
+  end
+
   protected
     def create_user(options = {})
       post :signup, :user => { :login => 'quire', :email => 'quire@example.com', 

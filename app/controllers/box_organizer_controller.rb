@@ -1,5 +1,8 @@
 class BoxOrganizerController < ApplicationController
 
+  def index
+  end
+
   def move_block
     @block = boxes_holder.blocks.find(params[:id].gsub(/^block-/, ''))
 

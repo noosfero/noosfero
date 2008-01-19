@@ -329,4 +329,8 @@ module ApplicationHelper
     end
   end
 
+  def user
+    @controller.send(:user)
+  end
+
 end
