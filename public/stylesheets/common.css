@@ -14,6 +14,18 @@ body.noosfero {
   background-image: url(../images/bg-top-cinza.jpg);
 }
 
+#beta-tag {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  background-image: url(../images/beta.gif);
+  width: 128px;
+  height: 36px;
+}
+#beta-tag span {
+  display: none;
+}
+
 #wrap {
   background-position: 50% 22px;
   background-repeat: repeat-x;
@@ -24,6 +36,14 @@ body.category1 #wrap { background-image: url("../images/bg-top-laranja.png");  }
 body.category2 #wrap { background-image: url("../images/bg-top-verde.png");    }
 body.category3 #wrap { background-image: url("../images/bg-top-lilas.png");    }
 body.category4 #wrap { background-image: url("../images/bg-top-vermelho.png"); }
+
+#path_category {
+  position: absolute;
+  top: 40px;
+  left: 30px;
+  font-weight: bold;
+  z-index: 10;
+}
 
 #header {
   height: 30px;
