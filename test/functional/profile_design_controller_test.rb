@@ -22,7 +22,7 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
     holder.boxes << @box3
 
     ###### BOX 1
-    @b1 = Block.new
+    @b1 = ArticleBlock.new
     @box1.blocks << @b1
     @b1.save!
 
@@ -161,6 +161,21 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
         post :add_block, :profile => 'ze', :box_id => 1, :type => "PleaseLetMeCrackYourSite"
       end
     end
+  end
+
+  should 'provide edit screen for blocks' do
+    get :edit, :profile => 'ze', :id => @b1.id
+    assert_template 'edit'
+    assert_no_tag :tag => 'body' # e.g. no layout
+  end
+
+  should 'be able to save a block' do
+    post :save, :profile => 'ze', :id => @b1.id, :block => { :article_id => 999 }
+
+    assert_redirected_to :action => 'index'
+
+    @b1.reload
+    assert_equal 999, @b1.article_id
   end
 
 

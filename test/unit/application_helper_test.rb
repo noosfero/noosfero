@@ -16,4 +16,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_equal 'runtime_error', partial_for_class(RuntimeError)
   end
 
+  should 'stop without reaching nil superclass' do
+  end
+
 end

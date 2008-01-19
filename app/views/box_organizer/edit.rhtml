@@ -1,0 +1,12 @@
+<h2><%= _('Editing block') %></h2>
+
+<% form_tag(:action => 'save', :id => @block.id) do %>
+
+  <%= render :partial => partial_for_class(@block.class) %>
+
+  <% button_bar do %>
+    <%= submit_button(:save, _('Save')) %>
+    <%= lightbox_close_button(_('Cancel')) %>
+  <% end %>
+
+<% end %>
