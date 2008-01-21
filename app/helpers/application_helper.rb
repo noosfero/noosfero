@@ -123,7 +123,7 @@ module ApplicationHelper
           ( (current_user.person.image)? current_user.person.image.public_filename(:icon) : "/images/icons-bar/photo.png" ) +
           '" alt="Photo" title="" height="20" border="0"/>'+ current_user.login,
           current_user.login, :id=>"link_go_home" ),
-        ( link_to_myprofile( content_tag('span', _('edit profile')), {}, nil, { :id => 'link_edit_profile'} ) ),
+        ( link_to_myprofile( content_tag('span', _('control panel')), {}, nil, { :id => 'link_edit_profile'} ) ),
 	# O ID icon_accessibility tambem tem que aparcer e testei o link nao ta funcionado.
         ( link_to content_tag('span', _('Admin')), { :controller => 'admin_panel' }, :id => 'link_admin_panel' if current_user.person.is_admin?), 
         ( lightbox_link_to content_tag('span', _('Logout')), { :controller => 'account', :action => 'logout_popup'}, :id => 'link_logout'),
