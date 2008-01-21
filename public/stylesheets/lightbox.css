@@ -10,17 +10,16 @@ Modified : February 1, 2006
 - - - - - - - - - - - - - - - - - - - - - */
 
 #lightbox{
-	display:none;
+	display: none;
 	position: absolute;
-	top:50%;
-	left:50%;
-	z-index:9999;
-	width:500px;
-	margin:-220px 0 0 -250px;
-	border:1px solid #fff;
-	background:#FDFCE9;
-	text-align:left;
-
+	top: 50%;
+	left: 50%;
+	z-index: 9999;
+	width: 500px;
+	margin: -200px 0 0 -250px;
+	border: 10px solid #000;
+  background: #FFF url(../images/bg-top-cinza.jpg) no-repeat 50% -15px;
+	text-align: left;
   padding: 1em;
 }
 #lightbox[id]{

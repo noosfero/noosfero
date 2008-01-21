@@ -336,12 +336,16 @@ div#notice {
   text-align: center;
 }
 
+#login-box a,
 #content a {
   color: #05B;
 }
+#login-box a:visited,
 #content a:visited {
   color: #68C;
 }
+#login-box a:hover,
+#login-box a:active,
 #content a:hover,
 #content a:active {
   color: #08F;

@@ -1,8 +1,10 @@
 
 #login-box {
-  border: 2px solid #888;
   padding: 3px 10% 8px 10%;
   font-size: 10px;
+}
+#lightbox #login-box {
+  padding: 3px 25% 8px 25%;
 }
 
 #login-box .formfieldline input {
@@ -20,6 +22,9 @@
   text-align: center;
   margin: 0px;
   padding: 0px;
+}
+#lightbox #login-box h2 {
+  color: #000;
 }
 
 #login-box p {
