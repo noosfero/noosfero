@@ -41,6 +41,14 @@ gtk-ok.png                Nuovo        stock/
 password.png              Nuovo        apps/
 ### END OF ICONS LISTING ###
 
+Icons made for Noosfero, by The Noosfero Team:
+Icon                      Theme        Author
+------------------------- ------------ -------
+cancel-HC.gif             Hi-Contrast  Aurium
+key-HC.gif                Hi-Contrast  Aurium
+cancel-fat-HC.gif         Hi-Contrast  Aurium
+
+
 Licensing of GNOME themes
 =========================
 

@@ -32,4 +32,4 @@ svn add $PNG
 LINE=$(printf "%-25s %-12s %s" $PNG $THEME $SECTION)
 sed -i -e "s!### END OF ICONS LISTING ###!$LINE\n&!" README
 
-echo ".button.$ICON { background-image: url($PNG); }" >> style.css
+echo ".icon-$ICON { background-image: url($PNG); }" >> style.css
