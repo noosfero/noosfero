@@ -1,4 +1,4 @@
-<h2><%= _('My profile') %></h2>
+<h1><%= _('My profile') %></h1>
 
 <%= link_to (@profile.image ? image_tag( @profile.image.public_filename) : _('Put image')), :action => 'change_image'  %>
 

@@ -18,6 +18,11 @@
     <%= stylesheet_link_tag 'blocks' %>
     <%= stylesheet_link_tag 'forms'  %>
     <%= stylesheet_link_tag 'login-box' %>
+    <%=
+      # Load the controller's css file if it exists:
+      css = "controller_"+ @controller.controller_name() +".css"
+      stylesheet_link_tag( css ) if File.exists?( "public/stylesheets/"+css )
+    %>
 
     <%# FIXME %>
     <%= stylesheet_link_tag '/designs/templates/default/stylesheets/style.css' %>
@@ -32,7 +37,11 @@
     <% end %>
   </head>
 
-  <body class='noosfero category<%= category_color %>' onload='noosfero_init();'>
+  <body class='noosfero category<%= category_color %><%=
+    # Identify the current controller and action for the CSS:
+    " controller_"+ @controller.controller_name() +
+    " action_"+ @controller.controller_name() +"_"+ @controller.action_name()
+    %>' onload='noosfero_init();'>
 
     <% unless flash[:notice].nil? %>
       <div id='notice' onclick="Element.hide('notice');">
