@@ -12,7 +12,7 @@
 
 .formfield input,
 .formfield textarea {
-  background: transparent url("../images/input-bg.gif") top left no-repeat;
+  background: transparent url("../images/input-bg.gif") no-repeat top left;
   border: 1px solid #999;
   border-top: none;
   border-left: none;
@@ -20,6 +20,11 @@
 }
 .formfield input {
   text-indent: 5px;
+  padding: 2px 0px;
+}
+.msie .formfield input {
+  background-attachment: fixed;
+  padding-left: 2px;
 }
 .formfield textarea {
   padding: 2px 0px 0px 5px;

@@ -261,7 +261,7 @@ module ApplicationHelper
   end
 
   def button(type, label, url, html_options = {})
-    the_class = "button with-text #{type}"
+    the_class = "button with-text icon-#{type}"
     if html_options.has_key?(:class)
       the_class << ' ' << html_options[:class]
     end
@@ -273,7 +273,7 @@ module ApplicationHelper
 
     html_options[:class] = [html_options[:class], 'submit'].compact.join(' ')
     
-    the_class = "button with-text #{type}"
+    the_class = "button with-text icon-#{type}"
     if html_options.has_key?(:class)
       the_class << ' ' << html_options[:class]
     end
