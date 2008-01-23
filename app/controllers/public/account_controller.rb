@@ -1,7 +1,5 @@
 class AccountController < PublicController
 
-  before_filter :load_default_environment
-
   # say something nice, you goof!  something sweet.
   def index
     unless logged_in?
@@ -130,16 +128,6 @@ class AccountController < PublicController
   end
 
   protected
-
-  before_filter :load_profile_for_user
-  def load_profile_for_user
-    return unless logged_in?
-    @profile = current_user.person
-  end
-
-  def load_default_environment
-    @environment = Environment.default
-  end
 
   def go_to_user_initial_page
     redirect_back_or_default(:controller => "content_viewer", :profile => current_user.login, :action => 'view_page', :page => [])

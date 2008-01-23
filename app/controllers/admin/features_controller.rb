@@ -1,8 +1,6 @@
 class FeaturesController < AdminController
   protect 'edit_environment_features', :environment
   
-  acts_as_environment_admin_controller
-
   def index
     @features = Environment.available_features
   end
