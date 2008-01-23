@@ -53,12 +53,7 @@ class ApplicationController < ActionController::Base
   def render_not_found(path = nil)
     @path ||= request.path
 #    raise "#{@path} not found"
-    render(:file => File.join(RAILS_ROOT, 'app', 'views', 'shared', 'not_found.rhtml'), :layout => 'not_found', :status => 404) && false
-  end
-
-  def load_profile
-    @profile = Profile.find_by_identifier(params[:profile])
-    render_not_found unless @profile
+    render(:file => File.join(RAILS_ROOT, 'app', 'views', 'shared', 'not_found.rhtml'), :layout => 'not_found', :status => 404) && fal
   end
 
   def user

@@ -162,7 +162,7 @@ module ApplicationHelper
   # should be a current profile (i.e. while viewing some profile's pages, or the
   # profile info, etc), because if there is no profile an exception is thrown.
   def profile
-    @profile || raise("There is no current profile")
+    @controller.send(:profile) || raise("There is no current profile")
   end
 
   # create a form field structure (as if it were generated with

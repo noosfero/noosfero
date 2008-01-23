@@ -20,4 +20,9 @@ module NeedsProfile
     @profile
   end
 
+  def load_profile
+    @profile = Profile.find_by_identifier(params[:profile])
+    render_not_found unless @profile
+  end
+
 end
