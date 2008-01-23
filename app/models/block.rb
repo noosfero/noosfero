@@ -23,4 +23,8 @@ class Block < ActiveRecord::Base
     false
   end
 
+  def owner
+    box ? box.owner : nil
+  end
+
 end

@@ -14,5 +14,22 @@ class BlockTest < Test::Unit::TestCase
 
     assert_kind_of Hash, Block.find(block.id).settings
   end
+  
+  
+  should 'access owner through box' do
+    user = create_user('testinguser').person
+
+    box = Box.create!(:owner => user)
+
+    block = Block.new
+    block.box = box
+    block.save!
+
+    assert_equal user, block.owner
+  end
+
+  should 'have no owner when there is no box' do
+    assert_nil Block.new.owner
+  end
 
 end
