@@ -1,5 +1,7 @@
 class SearchController < ApplicationController  
 
+  helper TagsHelper
+
   SEARCHES = []
 
   def self.search(&block)
@@ -44,7 +46,10 @@ class SearchController < ApplicationController
   end
 
   def tags
-    @tags = Tag.find(:all)
+    @tags = Tag.find(:all).inject({}) do |memo,tag|
+      memo[tag.name] = tag.taggings.count
+      memo
+    end
   end
 
   def tag

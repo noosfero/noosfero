@@ -13,4 +13,9 @@
   <%# FIXME %>
   <li><%= link_to_function _('Friends'), 'alert("not yet")' %></li>
   <li><%= link_to_function _('Communities'), 'alert("not yet")' %></li>
+
+  <li>
+    <%= _('Tags:') %>
+    <%= tag_cloud @tags, :id, { :action => 'tag' }, :max_size => 18, :min_size => 10%>
+  </li>
 </ul>

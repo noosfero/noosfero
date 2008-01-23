@@ -187,4 +187,23 @@ class Profile < ActiveRecord::Base
     options
   end
 
+  def tags(public_only = false)
+    totals = {}
+    articles.each do |article|
+      article.tags.each do |tag|
+        if totals[tag.name]
+          totals[tag.name] += 1
+        else
+          totals[tag.name] = 1
+        end
+      end
+    end
+    totals
+  end
+
+  def find_tagged_with(tag)
+    # FIXME: this can be SLOW
+    articles.select {|item| item.tags.map(&:name).include?(tag) }
+  end
+
 end

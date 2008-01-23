@@ -231,21 +231,43 @@ class ProfileTest < Test::Unit::TestCase
   end
 
   should 'provide url to itself' do
-    profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile', :environment_id => create_environment('colivre.net').id)
+    profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile', :environment_id => create_environment('mycolivre.net').id)
 
-    assert_equal 'http://colivre.net/testprofile', profile.url
+    assert_equal 'http://mycolivre.net/testprofile', profile.url
   end
 
   should 'generate URL' do
-    profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile', :environment_id => create_environment('colivre.net').id)
+    profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile', :environment_id => create_environment('mycolivre.net').id)
 
-    assert_equal 'http://colivre.net/profile/testprofile/friends', profile.generate_url(:controller => 'profile', :action => 'friends')
+    assert_equal 'http://mycolivre.net/profile/testprofile/friends', profile.generate_url(:controller => 'profile', :action => 'friends')
   end
 
   should 'provide URL options' do
-    profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile', :environment_id => create_environment('colivre.net').id)
+    profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile', :environment_id => create_environment('mycolivre.net').id)
 
-    assert_equal({:host => 'colivre.net', :profile => 'testprofile'}, profile.url_options)
+    assert_equal({:host => 'mycolivre.net', :profile => 'testprofile'}, profile.url_options)
+  end
+
+  should 'list tags for profile' do
+    profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile')
+    profile.articles.build(:name => 'first', :tag_list => 'first-tag').save!
+    profile.articles.build(:name => 'second', :tag_list => 'first-tag, second-tag').save!
+    profile.articles.build(:name => 'third', :tag_list => 'first-tag, second-tag, third-tag').save!
+
+    assert_equal({ 'first-tag' => 3, 'second-tag' => 2, 'third-tag' => 1 }, profile.tags)
+
+  end
+
+  should 'find content tagged with given tag' do
+    profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile')
+    first = profile.articles.build(:name => 'first', :tag_list => 'first-tag'); first.save!
+    second = profile.articles.build(:name => 'second', :tag_list => 'first-tag, second-tag'); second.save!
+    third = profile.articles.build(:name => 'third', :tag_list => 'first-tag, second-tag, third-tag'); third.save!
+    profile.reload
+
+    assert_equivalent [ first, second, third], profile.find_tagged_with('first-tag')
+    assert_equivalent [ second, third ], profile.find_tagged_with('second-tag')
+    assert_equivalent [ third], profile.find_tagged_with('third-tag')
   end
 
   private

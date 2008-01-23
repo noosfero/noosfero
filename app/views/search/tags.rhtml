@@ -1,5 +1,4 @@
 <h2><%= _('Tag cloud') %></h2>
 
-<% @tags.each do |t| %>
-  <%= link_to("#{t.name} (#{t.taggings.count})", { :action => 'tag', :tag => t.name }, :style => "font-size: #{14 + 2 * t.taggings.count}px;") %>
-<% end %>
+<%= tag_cloud(@tags, :tag, :action => 'tag') %>
+

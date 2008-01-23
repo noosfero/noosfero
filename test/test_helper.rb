@@ -56,6 +56,13 @@ class Test::Unit::TestCase
     admin_user.login
   end
 
+  def create_environment(domainname)
+    env = Environment.create!(:name => domainname) 
+    env.domains << Domain.new(:name => domainname)
+    env.save!
+    env
+  end
+
   def create_user(name)
     User.create!(:login => name, 
                  :email => name + '@noosfero.org', 
