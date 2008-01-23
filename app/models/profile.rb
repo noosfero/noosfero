@@ -173,7 +173,9 @@ class Profile < ActiveRecord::Base
 
   include ActionController::UrlWriter
   def url
-    url_for(:host => self.environment.default_hostname, :profile => self.identifier, :controller => 'content_viewer', :action => 'view_page', :page => [])
+    options = { :host => self.environment.default_hostname, :profile => self.identifier, :controller => 'content_viewer', :action => 'view_page', :page => [] }
+    options.merge!(:port => 3000) if ENV['RAILS_ENV'] == 'development'
+    url_for(options)
   end
 
 end
