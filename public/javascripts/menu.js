@@ -1,9 +1,9 @@
 function prepareMenu(id, options) {
 
-    var menuCloseTimeout = options.timeout || 33;
+    window.menuCloseTimeout = options.timeout || 333;
 
     if ( document.all ) {
-        // add a class for work arround msie&#180;s css bugs
+        // add a class for work arround msie's css bugs
         $(id).className += " msie";
     }
     
@@ -37,7 +37,9 @@ function prepareMenu(id, options) {
                         return false;
                     }
                 } else {
-                    link.className += " menu-opened"
+                    if ( window.openedMenu ) window.openedMenu.closeSubMenu();
+                    window.openedMenu = this.subMenu;
+                    this.className += " menu-opened"
                     this.subMenu.style.display = "block";
                     clearTimeout(this.timeOutClose);
                     clearTimeout(this.subMenu.timeOutClose);
@@ -60,7 +62,7 @@ function prepareMenu(id, options) {
             };
         link.onmouseout = link.onblur =
             function () {
-                this.timeOutClose = setTimeout( this.closeSubMenu.bind(this), menuCloseTimeout );
+                this.timeOutClose = setTimeout( this.closeSubMenu.bind(this), window.menuCloseTimeout );
             };
 
         //ul.closeSubMenu = function(){ this.style.display = "none" }
@@ -76,7 +78,7 @@ function prepareMenu(id, options) {
             function () {
                 if ( this.blurCalledByIEWorkArroundBug ) { return false }
                 this.blurCalledByIEWorkArroundBug = true;
-                this.timeOutClose = setTimeout( this.closeSubMenu.bind(this), menuCloseTimeout );
+                this.timeOutClose = setTimeout( this.closeSubMenu.bind(this), window.menuCloseTimeout );
             };
     });
 
@@ -107,7 +109,7 @@ function prepareMenu(id, options) {
                 };
                 a.onblur = function() {
                     forceUlBlurFromLink(this);
-                    this.timeOutClose = setTimeout( this.closeSubMenu.bind(this), menuCloseTimeout );
+                    this.timeOutClose = setTimeout( this.closeSubMenu.bind(this), window.menuCloseTimeout );
                 };
             } else {
                 a.onfocus = function() { forceUlFocusFromLink(this) };
