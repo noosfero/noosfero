@@ -1,0 +1,16 @@
+<h2><%= _("%s's profile") % profile.identifier %></h2>
+
+<ul>
+  <li>
+  <strong><%= _('Name:') %></strong>
+  <%= profile.name %>
+  </li>
+  <li>
+  <strong><%= _('Homepage: ') %></strong>
+  <%= link_to profile.url, profile.url %>
+  </li>
+
+  <%# FIXME %>
+  <li><%= link_to_function _('Friends'), 'alert("not yet")' %></li>
+  <li><%= link_to_function _('Communities'), 'alert("not yet")' %></li>
+</ul>
