@@ -43,6 +43,9 @@ ActionController::Routing::Routes.draw do |map|
   # controllers for blocks
   map.controllers 'block/:profile/:controller/:action/:id', :controller => Noosfero.pattern_for_controllers_from_design_blocks
 
+  # public profile information
+  map.profile 'profile/:profile/:action', :controller => 'profile', :action => 'index'
+
   ######################################################
   ## Controllers that are profile-specific (for profile admins )
   ######################################################

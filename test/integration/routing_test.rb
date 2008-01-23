@@ -93,4 +93,9 @@ class RoutingTest < ActionController::IntegrationTest
     assert_routing('/tag/umboraminhaporra', :controller => 'search', :action => 'tag', :tag => 'umboraminhaporra')
   end
 
+  def test_profile_routing
+    assert_routing('/profile/ze', :controller => 'profile', :profile => 'ze', :action => 'index')
+    assert_routing('/profile/ze/friends', :controller => 'profile', :profile => 'ze', :action => 'friends')
+  end
+
 end
