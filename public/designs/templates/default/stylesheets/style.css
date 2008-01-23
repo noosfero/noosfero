@@ -9,17 +9,12 @@
 }
 
 .box-2 {
-  position: absolute;
-  top: 0px;
-  left: 0px;
+  float: left;
   width: 270px;
-  margin-left: 10px;
 }
 
 .box-3 {
-  position: absolute;
-  top: 0px;
-  right: 10px;
+  float: right;
   width: 200px;
 }
 

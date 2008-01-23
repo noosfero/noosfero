@@ -1,7 +1,7 @@
-<ul id='cat_menu'>
+<ul id="cat_menu">
   <%= link_to( "<span>"+ @environment.name() +"</span>", {:controller=>"home"}, :id=>"menu_link_to_envhome", :title=>@environment.name) %>
   <% @environment.display_categories.each do |item| %>
-    <li id='category<%= item.display_color %>'<%= ' class="active"' if (@category && (@category.top_ancestor == item)) %>>
+    <li id="category<%= item.display_color %>"<%= ' class="active"' if (@category && (@category.top_ancestor == item)) %>>
       <%= item.name %>
       <ul>
         <% item.children.each do |child| %>
@@ -10,4 +10,15 @@
       </ul>
     </li>
   <% end %>
-</ul>
+</ul><!-- fim id="cat_menu" -->
+
+<div id="assets_menu">
+  <div id="assets_menu_list">
+    <ul id="assets_menu_ul">
+      <%= generate_assets_menu %>
+    </ul>
+  </div><!-- fim id="assets_menu_list" -->
+  <div id="assets_menu_layout_iten"></div>
+</div><!-- fim id="assets_menu" -->
+<%= javascript_include_tag 'assets-menu' %>
+

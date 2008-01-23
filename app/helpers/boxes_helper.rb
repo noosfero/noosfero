@@ -20,7 +20,7 @@ module BoxesHelper
 
   def display_boxes(holder, main_content)
     boxes = holder.boxes.first(holder.boxes_limit)
-    content = boxes.map { |item| display_box(item, main_content) }.join("\n")
+    content = boxes.reverse.map { |item| display_box(item, main_content) }.join("\n")
     content = main_content if (content.blank?)
     content_tag('div', content, :class => 'boxes', :id => 'boxes' )
   end
