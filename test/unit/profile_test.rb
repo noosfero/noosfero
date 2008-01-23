@@ -231,12 +231,21 @@ class ProfileTest < Test::Unit::TestCase
   end
 
   should 'provide url to itself' do
-    env = Environment.default
-    assert_equal 'colivre.net', env.default_hostname
-
-    profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile', :environment_id => env.id)
+    profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile', :environment_id => create_environment('colivre.net').id)
 
     assert_equal 'http://colivre.net/testprofile', profile.url
+  end
+
+  should 'generate URL' do
+    profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile', :environment_id => create_environment('colivre.net').id)
+
+    assert_equal 'http://colivre.net/profile/testprofile/friends', profile.generate_url(:controller => 'profile', :action => 'friends')
+  end
+
+  should 'provide URL options' do
+    profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile', :environment_id => create_environment('colivre.net').id)
+
+    assert_equal({:host => 'colivre.net', :profile => 'testprofile'}, profile.url_options)
   end
 
   private
