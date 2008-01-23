@@ -7,6 +7,8 @@ module ApplicationHelper
   include LightboxHelper
 
   include BoxesHelper
+
+  include FormsHelper
   
   # Displays context help. You can pass the content of the help message as the
   # first parameter or using template code inside a block passed to this
