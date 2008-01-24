@@ -8,7 +8,8 @@ class ProfileController < ApplicationController
   end
 
   def tag
-    @tag = profile.content_tagged_with(params[:id])
+    @tag = params[:id]
+    @tagged = profile.find_tagged_with(@tag)
   end
 
 end

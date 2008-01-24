@@ -1,0 +1,9 @@
+<h1><%= _('Content tagged with "%s"') % @tag %></h1>
+
+<div class='search-tagged-items'>
+  <ul>
+  <% for doc in @tagged %>
+    <li><%= link_to doc.title, doc.url %></li>
+  <% end %>
+  </ul>
+</div>
