@@ -26,7 +26,7 @@ class Block < ActiveRecord::Base
     _('A dummy block.')
   end
 
-  def content(main_content = nil)
+  def content
     "This is block number %d" % self.id
   end
 

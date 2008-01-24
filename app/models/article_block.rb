@@ -4,7 +4,7 @@ class ArticleBlock < Block
     _('Display one of your contents.')
   end
 
-  def content(main = nil)
+  def content
     article ? article.to_html : _('Article not selected yet.')
   end
 

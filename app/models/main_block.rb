@@ -4,7 +4,7 @@ class MainBlock < Block
     _('Block for main content (i.e. your articles, photos, etc)')
   end
 
-  def content(main_content = nil)
+  def content
     main_content
   end
 
