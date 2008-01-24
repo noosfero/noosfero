@@ -32,4 +32,23 @@ class BlockTest < Test::Unit::TestCase
     assert_nil Block.new.owner
   end
 
+  should 'be able to declare settings items' do
+    block_class = Class.new(Block)
+
+    block = block_class.new
+    assert !block.respond_to?(:limit)
+    assert !block.respond_to?(:limit=)
+
+    block_class.settings_item :limit
+
+    assert_respond_to block, :limit
+    assert_respond_to block, :limit=
+
+    assert_nil block.limit
+    block.limit = 10
+    assert_equal 10, block.limit
+
+    assert_equal({ :limit => 10}, block.settings)
+  end
+
 end

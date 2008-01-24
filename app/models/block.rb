@@ -11,6 +11,17 @@ class Block < ActiveRecord::Base
     self[:settings] ||= Hash.new
   end
 
+  def self.settings_item(name)
+    class_eval <<-CODE
+      def #{name}
+        settings[:#{name}]
+      end
+      def #{name}=(value)
+        settings[:#{name}] = value
+      end
+    CODE
+  end
+
   def self.description
     _('A dummy block.')
   end
