@@ -2,26 +2,44 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class RecentDocumentsBlockTest < Test::Unit::TestCase
 
-  # Replace this with your real tests.
-  def test_should_output_list_with_links_to_recent_documents
-    profile = mock
-    profile.stubs(:identifier).returns('a_test_profile')
+  def setup
+    profile = create_user('testinguser').person
+    profile.articles.build(:name => 'first').save!
+    profile.articles.build(:name => 'second').save!
+    profile.articles.build(:name => 'third').save!
+    profile.articles.build(:name => 'forth').save!
+    profile.articles.build(:name => 'fifth').save!
 
-    doc1 = mock
-    doc2 = mock
-    doc3 = mock
-    profile.expects(:recent_documents).returns([doc1, doc2, doc3])
+    box = Box.create!(:owner => profile)
+    @block = RecentDocumentsBlock.create!(:box_id => box.id)
 
-    helper = mock
-    helper.expects(:profile).returns(profile)
-    helper.expects(:link_to_document).with(doc1).returns('doc1')
-    helper.expects(:content_tag).with('li', 'doc1').returns('doc1')
-    helper.expects(:link_to_document).with(doc2).returns('doc2')
-    helper.expects(:content_tag).with('li', 'doc2').returns('doc2')
-    helper.expects(:link_to_document).with(doc3).returns('doc3')
-    helper.expects(:content_tag).with('li', 'doc3').returns('doc3')
-    helper.expects(:content_tag).with('ul', "doc1\ndoc2\ndoc3").returns('the_tag')
-
-    assert_equal('the_tag', helper.instance_eval(&RecentDocumentsBlock.new.content))
   end
+  attr_reader :block
+
+  should 'describe itself' do
+    assert_not_equal Block.description, RecentDocumentsBlock.description
+  end
+
+  should 'output list with links to recent documents' do
+    output = block.content
+    
+    assert_match /href=.*\/testinguser\/first/, output
+    assert_match /href=.*\/testinguser\/second/, output
+    assert_match /href=.*\/testinguser\/third/, output
+    assert_match /href=.*\/testinguser\/forth/, output
+    assert_match /href=.*\/testinguser\/fifth/, output
+  end
+
+  should 'respect the maximum number of items as configured' do
+    block.limit = 3
+
+    output = block.content
+
+    assert_match /href=.*\/testinguser\/first/, output
+    assert_match /href=.*\/testinguser\/second/, output
+    assert_match /href=.*\/testinguser\/third/, output
+    assert_no_match /href=.*\/testinguser\/forth/, output
+    assert_no_match /href=.*\/testinguser\/fifth/, output
+  end
+
 end

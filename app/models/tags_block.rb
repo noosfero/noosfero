@@ -1,7 +1,6 @@
 class TagsBlock < Block
 
   include TagsHelper
-  include ActionView::Helpers::UrlHelper
 
   def self.description
     _('List count of contents by tag')

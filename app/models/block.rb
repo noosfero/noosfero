@@ -1,6 +1,7 @@
 class Block < ActiveRecord::Base
 
   # to be able to generate HTML
+  include ActionView::Helpers::UrlHelper
   include ActionView::Helpers::TagHelper
 
   acts_as_list :scope => :box
