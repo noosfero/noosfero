@@ -119,27 +119,25 @@ module ApplicationHelper
   end
 
   def shortcut_header_links
-    search_link = ( lightbox_link_to content_tag('span', _('Search')), { :controller => 'search', :action => 'popup' }, { :id => 'open_search'} )
-
-    if logged_in?
-      [
-        ( link_to_homepage '<img src="' +
-          ( (current_user.person.image)? current_user.person.image.public_filename(:icon) : "/images/icons-bar/photo.png" ) +
-          '" alt="Photo" title="" height="20" border="0"/>'+ current_user.login,
-          current_user.login, :id=>"link_go_home" ),
-        ( link_to_myprofile( content_tag('span', _('control panel')), {}, nil, { :id => 'link_edit_profile'} ) ),
-	# O ID icon_accessibility tambem tem que aparcer e testei o link nao ta funcionado.
-        ( link_to content_tag('span', _('Admin')), { :controller => 'admin_panel' }, :id => 'link_admin_panel' if current_user.person.is_admin?), 
-        ( lightbox_link_to content_tag('span', _('Logout')), { :controller => 'account', :action => 'logout_popup'}, :id => 'link_logout'),
-        search_link,
-      ]
-    else
-      [
-        #( link_to _("%s's home") % @environment.name, { :controller=>"home" }, :id=>"link_to_envhome" ),
-        ( lightbox_link_to content_tag('span', _('Login')), { :controller => 'account', :action => 'login_popup' }, :id => 'link_login' ),
-        search_link,
-      ]
-    end.join(" ")
+#    search_link = ( lightbox_link_to content_tag('span', _('Search')), { :controller => 'search', :action => 'popup' }, { :id => 'open_search'} )
+#
+#    if logged_in?
+#      [
+#        ( link_to_homepage '<img src="' +
+#          ( (current_user.person.image)? current_user.person.image.public_filename(:icon) : "/images/icons-bar/photo.png" ) +
+#          '" alt="Photo" title="" height="20" border="0"/>'+ current_user.login,
+#          current_user.login, :id=>"link_go_home" ),
+#        ( link_to_myprofile( content_tag('span', _('control panel')), {}, nil, { :id => 'link_edit_profile'} ) ),
+#        ( link_to content_tag('span', _('Admin')), { :controller => 'admin_panel' }, :id => 'link_admin_panel' if current_user.person.is_admin?), 
+#        ( lightbox_link_to content_tag('span', _('Logout')), { :controller => 'account', :action => 'logout_popup'}, :id => 'link_logout'),
+#        search_link,
+#      ]
+#    else
+#      [
+#        ( lightbox_link_to content_tag('span', _('Login')), { :controller => 'account', :action => 'login_popup' }, :id => 'link_login' ),
+#        search_link,
+#      ]
+#    end.join(" ")
   end
 
   def link_if_permitted(link, permission = nil, target = nil)

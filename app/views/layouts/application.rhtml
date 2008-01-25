@@ -75,7 +75,11 @@
         </script>
 
         <div id='user_box'>
-          <%= shortcut_header_links %>
+          <%= render :file => 'layouts/user_menu' %>
+          <%=
+          lightbox_link_to '<span class="icon-menu-search"></span>'+ _('Search'),
+                           { :controller => 'search', :action => 'popup' }, :id => 'open_search'
+          %>
         </div><!-- id='user_box' -->
 
       </div><!-- id="noosfero_bar" -->

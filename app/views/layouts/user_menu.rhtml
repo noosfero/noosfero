@@ -1,0 +1,36 @@
+<div id="user_menu" class="top_extra_menu">
+
+<% if logged_in? %>
+  <%=
+  link_to_homepage '<img src="' + (
+      (current_user.person.image)? current_user.person.image.public_filename(:icon) : "/images/icons-bar/photo.png"
+    ) +
+    '" alt="'+ current_user.login() +' Icon-Photo" title="" height="20" border="0"/>'+
+    current_user.login, current_user.login, :id=>'link_go_home', :class => 'user_menu_first_link'
+  %>
+  <ul>
+    <li><a href="#"><span class="icon-menu-blog"></span> Meu Blog</a></li>
+    <%=
+      '<li>'+ link_to_myprofile( '<span class="icon-menu-ctrl-panel"></span>'+ _('control panel'),
+                                 {}, nil, :id => 'link_edit_profile' ) +'</li>'+
+      '<li>'+ lightbox_link_to( '<span class="icon-menu-logout"></span>'+ _('Logout'),
+                                { :controller => 'account', :action => 'logout_popup'}, :id => 'link_logout' ) +'</li>'
+    %>
+    <%=
+      '<li>'+ link_to( '<span class="icon-menu-"></span>'+ _('Admin'),
+                       { :controller => 'admin_panel' }, :id => 'link_admin_panel' ) +
+      '</li>' if current_user.person.is_admin?
+    %>
+    <li><a href="#"><span class="icon-menu-"></span><small>essa aba será 100% fechada</small></a></li>
+    <li><a href="#"><span class="icon-menu-"></span> soon...</a></li>
+  </ul>
+
+<% else %>
+
+<%= lightbox_link_to '<span class="icon-menu-login"></span>'+ _('Login'),
+                     { :controller => 'account', :action => 'login_popup' },
+                     :id => 'link_login', :class => 'user_menu_first_link' %>
+
+<% end %>
+
+</div><!-- fim id="user_menu" -->
