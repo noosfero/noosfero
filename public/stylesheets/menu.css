@@ -167,7 +167,7 @@ body.category3 #assets_menu_layout_iten { background: url(/images/top-bar/assets
 body.category4 #assets_menu_layout_iten { background: url(/images/top-bar/assets-menu-top-vermelho.gif)  }
 
 #assets_menu_list {
-  padding: 2px 0px 6px 5px;
+  padding: 0px 0px 6px 5px;
   background: url(/images/top-bar/assets-menu-bg-azul.gif) 0% 100%;
 }
 body.category1 #assets_menu_list { background-image: url(/images/top-bar/assets-menu-bg-laranja.gif)   }
@@ -180,7 +180,7 @@ body.category4 #assets_menu_list { background-image: url(/images/top-bar/assets-
   padding: 0px;
   overflow: hidden;
   height: 56px;
-  width: 165px;
+  width: 135px;
 }
 
 .top_extra_menu li {
@@ -196,8 +196,11 @@ body.category4 #assets_menu_list { background-image: url(/images/top-bar/assets-
   text-decoration: none;
   color: #B8CFE7;
   display: block;
-  padding-left: 0px;
+  padding-left: 20px;
   height: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
 }
 body.category1 #user_box a,
 body.category1 .top_extra_menu a { color: #FDD79E }
@@ -223,13 +226,15 @@ body.category4 .top_extra_menu a:hover { background: #CC0000; color: #FFF }
 
 #user_box a span,
 .top_extra_menu a span {
+	position: absolute;
+	top: 0px;
+	left: 0px;
   display: block;
   width: 18px;
-  height: 100%;
+  height: 18px;
   float: left;
   background-repeat: no-repeat;
   background-position: 50% 50%;
-  margin-right: 2px;
   opacity: 0.7;
 	filter: alpha(opacity=70);
 }
@@ -249,8 +254,9 @@ body.category4 .top_extra_menu a:hover { background: #CC0000; color: #FFF }
 }
 
 #open_search {
-  float: right;
-  margin-right: 10px;
+  position: absolute;
+  top: 2px;
+  left: 64px;
 }
 #user_box #open_search:hover {
   background: none;
@@ -261,8 +267,8 @@ body.category4 .top_extra_menu a:hover { background: #CC0000; color: #FFF }
 #user_menu {
   position: absolute;
   top: 0px;
-  right: 180px;
-  width: 130px;
+  right: 150px;
+  width: 170px;
 }
 
 .user_menu_first_link {
@@ -288,12 +294,20 @@ body.category4 .top_extra_menu a:hover { background: #CC0000; color: #FFF }
   position: absolute;
   top: 21px;
   right: 0px;
-  width: 130px;
-  max-width: 121px;
-  padding: 2px 4px 5px 5px;
+  width: 150px;
+  max-width: 140px;
+  padding: 0px 4px 5px 5px;
   margin: 0px;
   border: 1px solid #FFF;
   border-top: none;
   background: #2A5896;
 }
+#user_menu li {
+  width: 100%;
+  overflow: hidden;
+}
 
+#user_menu a {
+  Xposition: relative;
+  Xwidth: 100%;
+}

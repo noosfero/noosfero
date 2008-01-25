@@ -21,8 +21,10 @@
                        { :controller => 'admin_panel' }, :id => 'link_admin_panel' ) +
       '</li>' if current_user.person.is_admin?
     %>
-    <li><a href="#"><span class="icon-menu-"></span><small>essa aba será 100% fechada</small></a></li>
-    <li><a href="#"><span class="icon-menu-"></span> soon...</a></li>
+    <li><%= link_to( '<span class="icon-menu-"></span>'+_('Edit Profile'),
+                     :controller => 'profile_editor', :action => 'edit' ) %></li>
+    <li><%= link_to( '<span class="icon-menu-"></span>'+_('Consumed Products'),
+                     :controller => 'consumed_products' ) %></li>
   </ul>
 
 <% else %>
