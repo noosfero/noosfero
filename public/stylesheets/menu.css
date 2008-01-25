@@ -245,6 +245,7 @@ body.category4 .top_extra_menu a:hover { background: #CC0000; color: #FFF }
   position: absolute;
   top: 0px;
   right: 0px;
+  width: 200px;
 }
 
 #open_search {
