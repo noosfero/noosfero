@@ -3,16 +3,6 @@
 
 function noosfero_init() {
   focus_first_field();
-  detect_internet_explorer();
-}
-
-/* Adds a class to "msie" to the body element if a Microsoft browser is
- * detected. This is needed to workaround several of their limitations.
- */
-function detect_internet_explorer() {
-  if ( navigator.appName.indexOf("Microsoft") > -1 ) {
-    document.body.className += " msie";
-  }
 }
 
 /* If applicable, find the first field in which the user can type and move the
@@ -32,3 +22,4 @@ function focus_first_field() {
     }
   }
 }
+

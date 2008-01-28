@@ -335,4 +335,16 @@ module ApplicationHelper
     @controller.send(:user)
   end
 
+
+  def stylesheet_import(*sources)
+    options = sources.last.is_a?(Hash) ? sources.pop.stringify_keys : { }
+    content_tag( 'style', 
+      "\n" +
+      sources.flatten.collect do |source|
+        source = '  @import url('+ stylesheet_path(source.to_s()) +");\n";
+      end.join(),
+      { "type" => "text/css" }.merge(options)
+    )
+  end
+
 end
