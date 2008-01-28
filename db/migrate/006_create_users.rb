@@ -12,6 +12,8 @@ class CreateUsers < ActiveRecord::Migration
 
       t.column :terms_of_use,              :text
       t.column :terms_accepted,            :string, :limit => 1
+
+      t.column :environment_id,            :integer
     end
   end
 

@@ -7,11 +7,18 @@ class User < ActiveRecord::Base
   N_('User|Password')
   N_('User|Password confirmation')
 
+  before_create do |user|
+    if user.environment.nil?
+      user.environment = Environment.default
+    end
+  end
+
   after_create do |user|
-    Person.create!(:identifier => user.login, :name => user.login, :user_id => user.id)
+    Person.create!(:identifier => user.login, :name => user.login, :user_id => user.id, :environment_id => user.environment_id)
   end
   
   has_one :person, :dependent => :destroy
+  belongs_to :environment
 
   # Virtual attribute for the unencrypted password
   attr_accessor :password

@@ -148,6 +148,13 @@ class UserTest < Test::Unit::TestCase
     assert Person.find_by_identifier('lalala')
   end
 
+  should 'set the same environment for user and person objects' do
+    env = Environment.create!(:name => 'my test environment')
+    user = create_user(:environment_id => env.id)
+    assert_equal env, user.environment
+    assert_equal env, user.person.environment
+  end
+
   def test_should_destroy_person_when_destroying_user
     user = create_user(:login => 'lalala', :email => 'lalala@example.com')
     assert Person.find_by_identifier('lalala')
