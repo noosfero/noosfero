@@ -75,8 +75,8 @@ Localist.callback = lambda { |l| GetText.locale= l }
 
 Tag.hierarchical = true
 
-# string transliteration
-require 'noosfero/transliterations'
+# several local libraries
+require 'noosfero'
 
 require 'acts_as_filesystem'
 require 'acts_as_searchable'

@@ -28,3 +28,4 @@ module Noosfero
 end
 
 require 'noosfero/constants'
+require 'noosfero/core_ext'
