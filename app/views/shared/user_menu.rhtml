@@ -19,12 +19,12 @@
     <%=
       '<li>'+ link_to( '<span class="icon-menu-"></span>'+ _('Admin'),
                        { :controller => 'admin_panel' }, :id => 'link_admin_panel' ) +
-      '</li>' if current_user.person.is_admin?
+      '</li>' if user.is_admin?
     %>
     <li><%= link_to( '<span class="icon-menu-"></span>'+_('Edit Profile'),
-                     :controller => 'profile_editor', :action => 'edit' ) %></li>
+                    :controller => 'profile_editor', :profile => user.identifier, :action => 'edit' ) %></li>
     <li><%= link_to( '<span class="icon-menu-"></span>'+_('Consumed Products'),
-                     :controller => 'consumed_products' ) %></li>
+                    :profile => user.identifier, :controller => 'consumed_products' ) %></li>
   </ul>
 
 <% else %>
