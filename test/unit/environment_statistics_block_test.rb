@@ -17,6 +17,8 @@ class EnvironmentStatisticsBlockTest < Test::Unit::TestCase
 
     env.enterprises.build(:identifier => 'mytestenterprise', :name => 'My test enterprise').save!
 
+    env.communities.build(:identifier => 'mytestcommunity', :name => 'mytestcommunity').save!
+
     block = EnvironmentStatisticsBlock.new
     env.boxes.first.blocks << block
 
@@ -24,6 +26,7 @@ class EnvironmentStatisticsBlockTest < Test::Unit::TestCase
 
     assert_match /One enterprise/, content
     assert_match /2 users/, content
+    assert_match /One community/, content
   end
 
 end
