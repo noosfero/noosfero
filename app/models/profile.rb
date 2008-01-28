@@ -73,12 +73,12 @@ class Profile < ActiveRecord::Base
   validates_exclusion_of :identifier, :in => RESERVED_IDENTIFIERS
   validates_uniqueness_of :identifier
 
-  # creates a new Profile. By default, it is attached to the default
-  # Environment (see Environment#default), unless you tell it
-  # otherwise
-  def initialize(*args)
-    super(*args)
-    self.environment ||= Environment.default
+  before_create :set_default_environment
+  def set_default_environment
+    if self.environment.nil?
+      self.environment = Environment.default
+    end
+    true
   end
 
   # registar callback for creating boxes after the object is created. 

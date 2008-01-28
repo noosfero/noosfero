@@ -65,4 +65,7 @@ class Person < Profile
     true
   end
 
+  # FIXME this is *weird*, because this class is not inheriting the callback 
+  before_create :set_default_environment
+
 end

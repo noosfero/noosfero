@@ -28,6 +28,8 @@ class Test::Unit::TestCase
   # Add more helper methods to be used by all tests here...
 
   include AuthenticatedTestHelper
+
+  fixtures :environments
   
   def self.all_fixtures
     Dir.glob(File.join(RAILS_ROOT, 'test', 'fixtures', '*.yml')).each do |item|

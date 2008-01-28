@@ -34,9 +34,29 @@ class ProfileTest < Test::Unit::TestCase
     assert_kind_of Array, p.domains
   end
 
-  def test_belongs_to_environment_and_has_default
-    p = Profile.new
-    assert_kind_of Environment, p.environment
+  should 'be assigned to default environment if no environment is informed' do
+    assert_equal Environment.default, Profile.create!(:name => 'my test profile', :identifier => 'mytestprofile').environment
+  end
+
+  should 'not override environment informed before creation' do
+    env = Environment.create!(:name => 'My test environment')
+    p = Profile.create!(:identifier => 'mytestprofile', :name => 'My test profile', :environment_id => env.id)
+
+    assert_equal env, p.environment
+  end
+
+  should 'be able to set environment after instantiation and before creating' do
+    env = Environment.create!(:name => 'My test environment')
+    p = Profile.new(:identifier => 'mytestprofile', :name => 'My test profile')
+    p.environment = env
+    p.save!
+
+    p.reload
+    assert_equal env, p.environment
+  end
+
+  should 'set default environment for users created' do
+    assert_equal Environment.default, create_user('mytestuser').person.environment
   end
 
   def test_cannot_rename
