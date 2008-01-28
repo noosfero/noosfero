@@ -39,6 +39,8 @@ class Environment < ActiveRecord::Base
   has_many :profiles
 
   has_many :organizations
+  has_many :enterprises
+  has_many :people
 
   has_many :categories
   has_many :display_categories, :class_name => 'Category', :conditions => 'display_color is not null and parent_id is null', :order => 'display_color'

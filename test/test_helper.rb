@@ -63,11 +63,14 @@ class Test::Unit::TestCase
     env
   end
 
-  def create_user(name)
-    User.create!(:login => name, 
-                 :email => name + '@noosfero.org', 
-                 :password => name.underscore, 
-                 :password_confirmation => name.underscore)
+  def create_user(name, options = {})
+    data = {
+      :login => name, 
+      :email => name + '@noosfero.org', 
+      :password => name.underscore, 
+      :password_confirmation => name.underscore
+    }.merge(options)
+    User.create!(data)
   end
 
   def create_user_with_permission(name, permission, target= nil)

@@ -54,8 +54,6 @@ class EnterpriseTest < Test::Unit::TestCase
     assert_difference Product, :count, -2 do
       e.destroy
     end
-
-
   end
 
 end
