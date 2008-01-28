@@ -75,7 +75,7 @@
         </script>
 
         <div id='user_box'>
-          <%= render :file => 'layouts/user_menu' %>
+          <%= render :file => 'shared/user_menu' %>
           <%=
           lightbox_link_to '<span class="icon-menu-search"></span>'+ _('Search'),
                            { :controller => 'search', :action => 'popup' }, :id => 'open_search'
