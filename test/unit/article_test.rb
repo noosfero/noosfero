@@ -132,7 +132,7 @@ class ArticleTest < Test::Unit::TestCase
     end
   end
 
-  should 'search for recent documents for a given profile' do
+  should 'search for recent documents' do
     first = profile.articles.build(:name => 'first'); first.save!
     second = profile.articles.build(:name => 'second'); second.save!
     third = profile.articles.build(:name => 'third'); third.save!
@@ -142,11 +142,8 @@ class ArticleTest < Test::Unit::TestCase
     other_profile = create_user('otherpropfile').person
     other_first = other_profile.articles.build(:name => 'first'); other_first.save!
     
-    assert_equal [first,second,third], Article.recent(profile, 3)
-    
-    assert_equal [first,second,third,forth,fifth], Article.recent(profile, 10)
-
-    assert_equal [first,second,third,forth,fifth,other_first], Article.recent(nil, 10)
+    assert_equal [first,second,third], Article.recent(3)
+    assert_equal [first,second,third,forth,fifth,other_first], Article.recent(10)
   end
 
   should 'provied proper descriptions' do

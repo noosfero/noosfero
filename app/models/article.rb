@@ -26,13 +26,10 @@ class Article < ActiveRecord::Base
     self.find(:all, :conditions => [ 'parent_id is null and profile_id = ?', profile.id ])
   end
 
-  # retrieves the latest +limit+ articles in profile +profile+, sorted from the
-  # most recent to the oldest.
-  #
-  # If +profile+ is +nil+, then all profiles are searched for articles.
-  def self.recent(profile, limit)
+  # retrieves the latest +limit+ articles, sorted from the most recent to the
+  # oldest.
+  def self.recent(limit)
     options = { :limit => limit, :order => 'created_on' }
-    options[:conditions] = { :profile_id => profile.id } if profile
     self.find(:all, options)
   end
 

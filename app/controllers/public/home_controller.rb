@@ -1,7 +1,7 @@
 class HomeController < PublicController
 
   def index
-    @articles = TextArticle.recent(nil, 10)
+    @articles = environment.recent_documents(10)
   end
 
 end
