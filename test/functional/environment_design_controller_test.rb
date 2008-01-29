@@ -11,8 +11,7 @@ class EnvironmentDesignControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
   end
 
-  # Replace this with your real tests.
-  def test_truth
-    assert true
+  should 'have tests' do
+    flunk 'add some real test here'
   end
 end

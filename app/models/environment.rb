@@ -180,4 +180,9 @@ class Environment < ActiveRecord::Base
     self.name || '?'
   end
 
+  has_many :articles, :through => :profiles
+  def recent_documents(limit = 10)
+    self.articles.recent(limit)
+  end
+
 end
