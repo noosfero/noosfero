@@ -1,3 +1,4 @@
+
 .button-bar {
   margin-top: 1em;
 }
@@ -5,12 +6,11 @@
 a.button,
 a.button:visited,
 input.button {
-  margin-left: 5px;
+  margin: 0px 2px;
   background-repeat: no-repeat;
   background-position: 50% 50%;
-  padding: 1px 0px 1px 20px;
-  height: 24px;
-  line-height: 22px;
+  padding: 2px 0px 2px 20px;
+  line-height: 24px;
   font-size: 12px;
   color: black;
   text-decoration: none;
@@ -44,17 +44,24 @@ a.button.with-text,
 a.button.with-text:visited,
 input.button.with-text {
   background-color: #EEE;
-  padding: 1px 2px 1px 25px;
+  padding: 2px 2px 2px 25px;
   background-position: 2px 50%;
   border: 1px solid #AAA;
+  line-height: 26px;
+}
+.msie a.button.with-text,
+.msie a.button.with-text:visited,
+.msie input.button.with-text {
+  line-height: 16px;
+  margin: 2px;
 }
 
 a.button:hover,
 input.button:hover,
 a.button.with-text:hover,
 input.button.with-text:hover {
-  border: 1px solid #777;
-  background-color: #DDD;
+  border: 1px solid #678;
+  background-color: #CDE;
   color: #000;
 }
 
@@ -64,3 +71,4 @@ input.button.with-text:hover {
 .icon-button:hover {
   border: none;
 }
+

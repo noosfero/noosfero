@@ -190,7 +190,7 @@ body.category4 #assets_menu_list { background-image: url(/images/top-bar/assets-
 }
 
 #user_box a,
-#assets_menu a,
+/*#assets_menu a,*/
 .top_extra_menu a {
   font-size: 12px;
   font-weight: bold;
@@ -267,6 +267,7 @@ body.category4 .top_extra_menu a:hover { background: #CC0000; color: #FFF }
   position: absolute;
   top: 2px;
   left: 64px;
+  float: left;
 }
 #user_box #open_search:hover {
   background: none;

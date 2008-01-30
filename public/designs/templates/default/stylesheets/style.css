@@ -14,7 +14,11 @@
 }
 
 .box-3 {
+  margin-top: 20px;
   float: right;
   width: 200px;
 }
 
+.block {
+  padding: 10px 0px;
+}

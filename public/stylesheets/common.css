@@ -46,7 +46,7 @@ body.category4 #wrap { background-image: url("../images/bg-top-vermelho.png"); }
 }
 
 #header {
-  height: 50px;
+  height: 60px;
 }
 
 #design_boxes {
@@ -341,7 +341,21 @@ div#notice {
 #content h1, #content h2, #content h3,
 #content h4, #content h5, #content h6 {
   margin: 10px 0px;
+  color: #2A5896;
 }
+body.category1 #content h1, body.category1 #content h2, body.category1 #content h3,
+body.category1 #content h4, body.category1 #content h5, body.category1 #content h6
+ { color: #E26B00 }
+body.category2 #content h1, body.category2 #content h2, body.category2 #content h3,
+body.category2 #content h4, body.category2 #content h5, body.category2 #content h6
+ { color: #58A80A }
+body.category3 #content h1, body.category3 #content h2, body.category3 #content h3,
+body.category3 #content h4, body.category3 #content h5, body.category3 #content h6
+ { color: #694371 }
+body.category4 #content h1, body.category4 #content h2, body.category4 #content h3,
+body.category4 #content h4, body.category4 #content h5, body.category4 #content h6
+ { color: #B80000 }
+
 #content .block-title {
   margin: 0px 0px 10px 0px;
 }
