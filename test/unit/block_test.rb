@@ -51,4 +51,10 @@ class BlockTest < Test::Unit::TestCase
     assert_equal({ :limit => 10}, block.settings)
   end
 
+  should 'generate CSS class name' do
+    block = Block.new
+    block.class.expects(:name).returns('SomethingBlock')
+    assert_equal 'something-block', block.css_class_name
+  end
+
 end

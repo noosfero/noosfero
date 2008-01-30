@@ -53,7 +53,7 @@ module BoxesHelper
         end
       end
 
-    classes = ['block', block.class.name.underscore.gsub('_', '-') ].uniq.join(' ')
+    classes = ['block', block.css_class_name ].uniq.join(' ')
 
     box_decorator.block_target(block.box, block) + content_tag('div', result + box_decorator.block_edit_buttons(block), :class => classes, :id => "block-#{block.id}") + box_decorator.block_handle(block)
   end
