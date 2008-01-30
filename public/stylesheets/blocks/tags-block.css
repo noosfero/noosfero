@@ -1,0 +1,13 @@
+.tags-block {
+  position: relative;
+}
+
+.tags-block .block-title {
+  text-align: center;
+}
+
+.tags-block .help_tags {
+  position: absolute;
+  top: 10px;
+  right: 2px;
+}
