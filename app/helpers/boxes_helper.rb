@@ -114,8 +114,8 @@ module BoxesHelper
   end
 
   def import_blocks_stylesheets
-    stylesheet_import( current_blocks.map(&:css_class_name).uniq ) + "\n" +
-    stylesheet_import( current_blocks.map(&:css_class_name).uniq, :themed_source => true )
+    stylesheet_import( current_blocks.map{|b|'blocks/' + b.css_class_name}.uniq ) + "\n" +
+    stylesheet_import( current_blocks.map{|b|'blocks/' + b.css_class_name}.uniq, :themed_source => true )
   end
 
 end
