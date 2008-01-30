@@ -1,0 +1,10 @@
+
+#article_types li {
+  margin-bottom: 14px;
+  list-style: none;
+}
+
+#article_types a {
+  font-weight: bold;
+}
+
