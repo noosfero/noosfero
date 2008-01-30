@@ -1,12 +1,10 @@
-<p>
-  <%= _('Choose the type of article:') %>
-</p>
+<h2> <%= _('Choose the type of article:') %> </h2>
 
-<ul>
+<ul id="article_types">
   <% for type in @article_types %>
     <li>
     <%= link_to type[:short_description], :action => 'new', :type => type[:name] %>
-    <p><%= type[:description] %></p>
+    <br/> <%= type[:description] %>
     </li>
   <% end %>
 </ul>

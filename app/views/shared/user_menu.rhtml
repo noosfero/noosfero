@@ -10,20 +10,32 @@
   %>
   <div id="user_menu_ul">
     <ul>
+
       <li><a href="#"><span class="icon-menu-blog"></span> Meu Blog</a></li>
+
       <li><%= link_to_myprofile( '<span class="icon-menu-ctrl-panel"></span>'+ _('control panel'),
                                    {}, nil, :id => 'link_edit_profile' ) %></li>
-      <li><%= link_to( '<span class="icon-menu-"></span>'+_('Edit Profile'),
+
+      <li><%= link_to( '<span class="icon-menu-edit"></span>'+_('Edit Profile'),
                       :controller => 'profile_editor', :profile => user.identifier, :action => 'edit' ) %></li>
-      <li><%= link_to( '<span class="icon-menu-"></span>'+_('Consumed Products'),
+
+      <li><%= link_to( '<span class="icon-menu-product"></span>'+_('Consumed Products'),
                       :profile => user.identifier, :controller => 'consumed_products' ) %></li>
       <%=
         '<li>'+ link_to( '<span class="icon-menu-"></span>'+ _('Admin'),
                          { :controller => 'admin_panel' }, :id => 'link_admin_panel' ) +
         '</li>' if user.is_admin?
       %>
+
+      <li><%= link_to( '<span class="icon-menu-ed-design"></span>'+_('Edit Visual Design'),
+                       :controller => 'profile_design', :profile => user.identifier ) %></li>
+
+      <li><%= link_to( '<span class="icon-menu-"></span>'+_('Manage Content'),
+                       :controller => 'cms', :profile => user.identifier) %></li>
+
       <li><%= lightbox_link_to( '<span class="icon-menu-logout"></span>'+ _('Logout'),
-                                  { :controller => 'account', :action => 'logout_popup'}, :id => 'link_logout' ) %></li>
+                                { :controller => 'account', :action => 'logout_popup'}, :id => 'link_logout' ) %></li>
+
     </ul>
   </div><!-- id="user_menu_ul" -->
 

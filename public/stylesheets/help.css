@@ -14,10 +14,3 @@ div.help_message {
   overflow: auto;
 }
 
-a.help_button:before {
-  content: url(../images/help.png)
-}
-
-a.help_button:hover {
-  background: #ffa;
-}

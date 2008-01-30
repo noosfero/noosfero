@@ -46,7 +46,7 @@ body.category4 #wrap { background-image: url("../images/bg-top-vermelho.png"); }
 }
 
 #header {
-  height: 30px;
+  height: 50px;
 }
 
 #design_boxes {
@@ -77,11 +77,14 @@ body.category4 #wrap {
   border-color: #B80000;
 }
 
-a img {
-  border: 1px solid transparent;
+a {
+  color: #05B;
 }
-a:hover img {
-  border: 1px solid gray;
+a:visited {
+  color: #68C;
+}
+a:hover a:active {
+  color: #08F;
 }
 
 #environment_identification {
@@ -335,20 +338,12 @@ div#notice {
 #content h1 {
   text-align: center;
 }
-
-#login-box a,
-#content a {
-  color: #05B;
+#content h1, #content h2, #content h3,
+#content h4, #content h5, #content h6 {
+  margin: 10px 0px;
 }
-#login-box a:visited,
-#content a:visited {
-  color: #68C;
-}
-#login-box a:hover,
-#login-box a:active,
-#content a:hover,
-#content a:active {
-  color: #08F;
+#content .block-title {
+  margin: 0px 0px 10px 0px;
 }
 
 /* Category */

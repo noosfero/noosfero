@@ -50,7 +50,9 @@ module ApplicationHelper
   # textile, into HTML). It defaults to <tt>:html</tt>.
   #
   # TODO: implement correcly the 'Help' button click
-  def help(content = nil, type = :html, &block)
+  def help(content = nil, link_name = nil, options = {}, &block)
+
+    link_name ||= _('Help')
 
     @help_message_id ||= 1
     help_id = "help_message_#{@help_message_id}"
@@ -60,13 +62,16 @@ module ApplicationHelper
       content = capture(&block)
     end
 
-    if type == :textile
+    if options[:type] == :textile
       content = RedCloth.new(content).to_html
     end
+    
+    options[:class] = '' if ! options[:class]
+    options[:class] += ' button icon-help' # with-text
 
     # TODO: implement this button, and add style='display: none' to the help
     # message DIV
-    button = link_to_function(content_tag('span', _('Help')), "Element.show('#{help_id}')", :class => 'help_button' )
+    button = link_to_function(content_tag('span', link_name), "Element.show('#{help_id}')", options )
     close_button = content_tag("div", link_to_function(_("Close"), "Element.hide('#{help_id}')", :class => 'close_help_button'))
 
     text = content_tag('div', button + content_tag('div', content_tag('div', content) + close_button, :class => 'help_message', :id => help_id, :style => 'display: none;'), :class => 'help_box')
@@ -80,8 +85,9 @@ module ApplicationHelper
 
   # alias for <tt>help(content, :textile)</tt>. You can pass a block in the
   # same way you would do if you called <tt>help</tt> directly.
-  def help_textile(content = nil, &block)
-    help(content, :textile, &block)
+  def help_textile(content = nil, link_name = nil, options = {}, &block)
+    options[:type] = :textile
+    help(content, link_name, options, &block)
   end
 
   # TODO: do something more useful here

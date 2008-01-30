@@ -35,9 +35,9 @@ Modified : February 1, 2006
 	height:100%;
 	z-index:5000;
 	background-color:#000;
-	-moz-opacity: 0.8;
-	opacity:.80;
-	filter: alpha(opacity=80);
+	-moz-opacity: 0.5;
+	opacity:.50;
+	filter: alpha(opacity=50);
 }
 #overlay[id]{
 	position:fixed;

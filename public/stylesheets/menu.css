@@ -190,6 +190,7 @@ body.category4 #assets_menu_list { background-image: url(/images/top-bar/assets-
 }
 
 #user_box a,
+#assets_menu a,
 .top_extra_menu a {
   font-size: 12px;
   font-weight: bold;
@@ -304,6 +305,10 @@ body.category4 .top_extra_menu a:hover { background: #CC0000; color: #FFF }
   background: url(/images/top-bar/assets-menu-bg-azul.gif) 0% 100%;
   border-right: 1px solid #FFF;
 }
+body.category1 #user_menu_ul { background-image: url(/images/top-bar/assets-menu-bg-laranja.gif)   }
+body.category2 #user_menu_ul { background-image: url(/images/top-bar/assets-menu-bg-verde.gif)     }
+body.category3 #user_menu_ul { background-image: url(/images/top-bar/assets-menu-bg-lilas.gif)     }
+body.category4 #user_menu_ul { background-image: url(/images/top-bar/assets-menu-bg-vermelho.gif)  }
 
 #user_menu ul {
   width: 150px;

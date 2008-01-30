@@ -27,8 +27,12 @@ module TagsHelper
   # courtesy of Aurelio: http://www.colivre.coop.br/Aurium/Nuvem 
   # (pt_BR only).
   def tag_cloud(tags, tagname_option, url, options = {})
+  
 
-    return _('No tags yet.') if tags.empty?
+    return _('No tags yet.') + '<br/>' +
+           '<a href="' + _('http://en.wikipedia.org/wiki/Tag_%28metadata%29') +
+           '" class="button with-text icon-help" target="wptags"><span>' +
+           _('What are tags?') + '</span></a>' if tags.empty?
 
     max_size = options[:max_size] || Cloud::MAX_SIZE
     min_size = options[:min_size] || Cloud::MIN_SIZE

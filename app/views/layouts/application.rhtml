@@ -2,10 +2,9 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>
+      <%= @environment.name() %>
       <%- if @category -%>
-        Noosfero &rarr; <%= @category.full_name -%>
-      <%- else -%>
-        Noosfero
+        &rarr; <%= @category.full_name -%>
       <%- end -%>
     </title>
     <meta name="description" content="FIXME: Descriptions of Noosfero" />
