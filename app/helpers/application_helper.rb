@@ -343,14 +343,25 @@ module ApplicationHelper
 
 
   def stylesheet_import(*sources)
-    options = sources.last.is_a?(Hash) ? sources.pop.stringify_keys : { }
+    options = sources.last.is_a?(Hash) ? sources.pop : { }
+    themed_source = options.delete(:themed_source) 
     content_tag( 'style', 
       "\n" +
-      sources.flatten.collect do |source|
-        source = '  @import url('+ stylesheet_path(source.to_s()) +");\n";
+      sources.flatten.map do |source|
+        '  @import url(' +
+        ( themed_source ? theme_stylesheet_path(source.to_s) : stylesheet_path(source.to_s) ) +
+        ");\n";
       end.join(),
       { "type" => "text/css" }.merge(options)
     )
+  end 
+
+  def theme_stylesheet_path(file_name)
+    '/designs/templates/' + current_theme + '/stylesheets/' + file_name + '.css'
+  end
+
+  def current_theme
+    'default'
   end
 
 end

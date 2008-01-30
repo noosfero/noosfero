@@ -14,6 +14,7 @@
      must be loaded before the page show.
     %>
     <%= stylesheet_import %w( common help menu button search blocks forms login-box ) %>
+    <%= import_blocks_stylesheets %>
     <%=
       # Load the controller's css file if it exists:
       css = "controller_"+ @controller.controller_name() +".css"

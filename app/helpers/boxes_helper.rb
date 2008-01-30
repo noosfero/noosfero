@@ -109,4 +109,13 @@ module BoxesHelper
     content_tag('div', buttons.join("\n") + tag('br', :style => 'clear: left'), :class => 'button-bar')
   end
 
+  def current_blocks
+    @controller.boxes_holder.boxes.map(&:blocks).flatten
+  end
+
+  def import_blocks_stylesheets
+    stylesheet_import( current_blocks.map(&:css_class_name).uniq ) + "\n" +
+    stylesheet_import( current_blocks.map(&:css_class_name).uniq, :themed_source => true )
+  end
+
 end
