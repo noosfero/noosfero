@@ -44,8 +44,9 @@
       /* Adds a class to "msie" to the body element if a Microsoft browser is
        * detected. This is needed to workaround several of their limitations.
        */
-      if ( navigator.appName.indexOf("Microsoft") > -1 ) {
-        document.body.className += " msie";
+      if ( navigator.appVersion.indexOf("MSIE") > -1 ) {
+        document.body.className += " msie msie" +
+          navigator.appVersion.replace(/^.*MSIE\s+([0-9]+).*$/, "$1");
       }
     </script>
 
@@ -120,5 +121,17 @@
       <%= localist_menu %>
       <%= footer %>
     </div><!-- id="footer" -->
+
+    <div id="better-browser-promotion" style="display:none">
+      <h3><%=
+      _('Hey! Your web browser is really old!') +'</h3><p/>'+
+      _('This great website will be not so good on that.
+         Don\'t you want to use Firefox? That is a great web browser, free,
+         and made by people of all the world parts.')
+      %><p/>
+      <b id="bbp-getff"><a href="http://getfirefox.com" class="icon-firefox" target="getff"><%= _('Get Firefox Now!') %></a></b>
+    </div>
+    <%= javascript_include_tag 'better-browser-promotion' %>
+
   </body>
 </html>

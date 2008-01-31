@@ -360,6 +360,37 @@ body.category4 #content h4, body.category4 #content h5, body.category4 #content 
   margin: 0px 0px 10px 0px;
 }
 
+#better-browser-promotion {
+  position: absolute;
+  top: 100px;
+  left: 20%;
+  right: 20%;
+  border: 2px solid #000;
+  background: #FE0;
+  padding: 15px 5%;
+  text-align: justify;
+}
+
+#bbp-getff {
+  display: block;
+  text-align: center;
+}
+
+#bbp-getff a {
+  height: 24px;
+  line-height: 24px;
+  padding-left: 26px;
+  background-repeat: no-repeat;
+  background-position: 0px 50%;
+}
+
+#better-browser-promotion .button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  height: 20px;
+}
+
 /* Category */
 
 #view-category { /* none */ }
