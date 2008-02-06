@@ -1,0 +1,7 @@
+<h2><%= block.owner.name %></h2>
+
+<ul>
+  <li><%= _('Since %d') % block.owner.created_at.year %></li>
+  <li><%= link_to_homepage _('Homepage'), block.owner.url %></li>
+</ul>
+
