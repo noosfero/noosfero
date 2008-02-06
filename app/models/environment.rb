@@ -36,6 +36,8 @@ class Environment < ActiveRecord::Base
     env.boxes[1].blocks << EnvironmentStatisticsBlock.new
     env.boxes[1].blocks << RecentDocumentsBlock.new
 
+    env.boxes[2].blocks << LoginBlock.new
+
   end
 
   # One Environment can be reached by many domains

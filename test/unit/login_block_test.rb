@@ -12,7 +12,15 @@ class LoginBlockTest < Test::Unit::TestCase
   end
 
   should 'point to account/login_block' do
-    assert_equal({ :controller => 'account', :action => 'login_block' }, block.content)
+    self.expects(:logged_in?).returns(false)
+    self.expects(:render).with(:file => 'account/login_block')
+    self.instance_eval(& block.content)
+  end
+
+  should 'display user_info if not logged' do
+    self.expects(:logged_in?).returns(true)
+    self.expects(:render).with(:file => 'account/user_info')
+    self.instance_eval(& block.content)
   end
 
 end

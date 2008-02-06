@@ -5,7 +5,13 @@ class LoginBlock < Block
   end
 
   def content
-    { :controller => 'account', :action => 'login_block' }
+    lambda do
+      if logged_in?
+        render :file => 'account/user_info'
+      else
+        render :file => 'account/login_block'
+      end
+    end
   end
 
 end

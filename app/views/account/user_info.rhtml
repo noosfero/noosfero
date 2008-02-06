@@ -4,3 +4,7 @@
   <li><%= _('User since %d') % user.person_info.created_at.year %></li>
   <li><%= link_to_homepage _('Homepage') %></li>
 </ul>
+
+<ul>
+  <li><%= lightbox_link_to _('Logout'), :controller => 'account', :action => 'logout_popup' %></li>
+</ul>

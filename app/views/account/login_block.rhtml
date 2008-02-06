@@ -15,7 +15,7 @@
       <%= link_to _("New user"), :controller => 'account', :action => 'signup' %>
     </div>
   <% else %>
-    <h2><%= @profile.identifier %></h2>
+    <h2><%= user.identifier %></h2>
   <% end %>
 
 </div><!-- end id="login-box" -->

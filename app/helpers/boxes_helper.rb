@@ -51,6 +51,10 @@ module BoxesHelper
         else
           content
         end
+      when Proc
+        self.instance_eval(&content)
+      else
+        raise "Unsupported content for block (#{content.class})"
       end
 
     classes = ['block', block.css_class_name ].uniq.join(' ')

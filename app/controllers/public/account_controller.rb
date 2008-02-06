@@ -32,14 +32,6 @@ class AccountController < PublicController
     render :action => 'login', :layout => false
   end
 
-  def login_block
-    if logged_in?
-      render :action => 'user_info', :layout => 'block'
-    else
-      render :action => 'login_block', :layout => 'block'
-    end
-  end
-
   # action to register an user to the application
   def signup
     begin
