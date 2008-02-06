@@ -1,7 +1,3 @@
-<% Noosfero.locales.each do |locale_code,locale_name| %>
-  <% if GetText.locale.to_s == locale_code %>
-    <strong><%= locale_name %></strong>
-  <% else %>
-    <%= link_to locale_name, { :lang => locale_code }%>
-  <% end %>
-<% end %>
+<%= language_chooser %>
+
+<%= help(_('The language you choose here if the language used for options, buttons, etc. It does not affect the language of the content created by other users.'), _('Help on languages')) %>

@@ -157,8 +157,7 @@ module ApplicationHelper
   def footer
     # FIXME: add some information from the environment
     [
-      content_tag('div', 'Copyright © 2007, Noosfero - Change Me!'),
-      content_tag('div', _('%s, version %s' % [ link_to('developers', 'http://www.colivre.coop.br/Noosfero'), Noosfero::VERSION])),
+      content_tag('div', _('This is %s, version %s' % [ link_to(Noosfero::PROJECT, 'http://www.colivre.coop.br/Noosfero'), Noosfero::VERSION])),
     ].join("\n")
   end
 
