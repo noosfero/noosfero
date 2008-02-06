@@ -363,4 +363,8 @@ module ApplicationHelper
     'default'
   end
 
+  def profile_image(profile)
+    image_tag(profile.image.public_filename(:thumb)) if profile.image
+  end
+
 end
