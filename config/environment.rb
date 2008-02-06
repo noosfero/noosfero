@@ -69,9 +69,10 @@ end
 
 
 require 'gettext/rails'
-Localist.supported_locales = %w[en-US pt-BR]
-Localist.default_locale = "pt-BR"
-Localist.callback = lambda { |l| GetText.locale= l }
+Noosfero.locales = {
+  'en' => 'English',
+  'pt_BR' => 'Português Brasileiro',
+}
 
 Tag.hierarchical = true
 

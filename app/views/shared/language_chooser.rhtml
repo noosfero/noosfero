@@ -1,0 +1,7 @@
+<% Noosfero.locales.each do |locale_code,locale_name| %>
+  <% if GetText.locale.to_s == locale_code %>
+    <strong><%= locale_name %></strong>
+  <% else %>
+    <%= link_to locale_name, { :locale => locale_code }%>
+  <% end %>
+<% end %>

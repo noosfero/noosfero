@@ -24,7 +24,9 @@ class ApplicationController < ActionController::Base
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem
   include PermissionCheck
+
   init_gettext 'noosfero'
+  before_init_gettext :set_locale
 
   include NeedsProfile
 
@@ -58,6 +60,18 @@ class ApplicationController < ActionController::Base
 
   def user
     current_user.person if logged_in?
+  end
+
+  def set_locale
+    locale = cookies[:locale]
+    unless params[:locale].blank?
+      locale = params[:locale]
+    end
+
+    if locale
+      cookies[:locale] = locale
+      GetText.locale = locale
+    end
   end
 
 end

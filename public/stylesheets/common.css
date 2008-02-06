@@ -429,3 +429,7 @@ body.category4 #content h4, body.category4 #content h5, body.category4 #content 
   color: #AAA;
 }
 
+#language-chooser {
+  margin-bottom: 1em;
+  text-align: center;
+}

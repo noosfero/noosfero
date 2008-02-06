@@ -22,7 +22,7 @@ class SearchControllerTest < Test::Unit::TestCase
   end
 
   should 'filter stop words' do
-    Locale.current = Locale::Object.new('pt_BR')
+    GetText.locale = 'pt_BR'
     get 'index', :query => 'a carne da vaca'
     assert_response :success
     assert_template 'index'

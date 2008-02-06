@@ -118,4 +118,5 @@ class ApplicationControllerTest < Test::Unit::TestCase
     get :index
     assert_no_tag :tag => 'div', :attributes => { :id => 'boxes', :class => 'boxes'  }
   end
+
 end

@@ -16,6 +16,10 @@ module Noosfero
     Regexp.new(items.blank? ? '' : ('(' + items + ')'))
   end
 
+  class << self
+    attr_accessor :locales
+  end
+
   private
 
   def self.controllers_in_directory(dir)
