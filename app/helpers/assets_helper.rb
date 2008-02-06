@@ -1,15 +1,21 @@
 module AssetsHelper
 
   def generate_assets_menu()
-    '
-      <li><a href="#"><span class="icon-menu-blog"></span> Blogs</a></li>
-      <li><a href="#"><span class="icon-menu-album"></span> Albuns</a></li>
-      <li><a href="#"><span class="icon-menu-product"></span> Produtos</a></li>
-      <li><a href="#"><span class="icon-menu-enterprise"></span> Empreendimentos</a></li>
-      <li><a href="#"><span class="icon-menu-community"></span> Comunidades</a></li>
-      <li><a href="#"><span class="icon-menu-"></span> bli 6</a></li>
-      <li><a href="#"><span class="icon-menu-"></span> bli 7</a></li>
-    '
+    [
+
+      [ "#", "icon-menu-blog",       _('Blogs') ],
+      [ "#", "icon-menu-album",      _('Albuns') ],
+      [ "#", "icon-menu-product",    _('Products') ],
+      [ "#", "icon-menu-enterprise", _('Enterprises') ],
+      [ "#", "icon-menu-community",  _('Communities') ],
+
+      # FIXME remove these
+      [ "#", "icon-menu-",           _('bli 1') ],
+      [ "#", "icon-menu-",           _('bli 2') ],
+
+    ].map do |target,css_class,name|
+      content_tag('li', link_to(content_tag('span', '', :class => css_class) + name, target))
+    end.join("\n")
   end
 
 end
