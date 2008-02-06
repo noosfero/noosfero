@@ -1,3 +1,19 @@
 <%= flash[:notice] %>
 
 <%= @environment.description %>
+
+<div id='home-search' style='text-align: center'>
+  <h2><%= _('Search') %></h2>
+
+  <% form_tag :controller => 'search', :action => 'index' do %>
+
+    <div id='search-field' style='text-align: center;'>
+      <%= text_field_tag('query', '', :size => 50) %>
+      <%= submit_button(:search, _('Search')) %>
+    </div>
+
+    <div>
+      <%= lightbox_link_to _('More search options'), :controller => 'search', :action => 'popup' %>
+    </div>
+  <% end %>
+</div>
