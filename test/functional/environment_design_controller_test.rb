@@ -11,7 +11,7 @@ class EnvironmentDesignControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
   end
 
-  should 'have tests' do
-    flunk 'add some real test here'
+  should 'indicate only actual blocks as such' do
+    assert(@controller.available_blocks.all? {|item| item.new.is_a? Block})
   end
 end
