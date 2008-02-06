@@ -3,6 +3,7 @@
 <p><%= _('You, as an environment administrator, has the following options:')%></p>
 
 <ul>
+  <li><%= link_to _('Edit site info'), :action => 'site_info' %></li>
   <li><%= link_to _('Enable/disable features'), :controller => 'features' %></li>
   <li><%= link_to _('Edit the Visual Design'), :controller => 'edit_template'%></li>
   <li><%= link_to _('Manage Categories'), :controller => 'categories'%></li>

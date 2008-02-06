@@ -12,6 +12,14 @@ class AdminPanelController < AdminController
     environment
   end
 
+  def site_info
+    if request.post?
+      if @environment.update_attributes(params[:environment])
+        redirect_to :action => 'index'
+      end
+    end
+  end
+
   protected
 
   def load_default_enviroment

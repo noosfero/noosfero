@@ -1,12 +1,3 @@
 <%= flash[:notice] %>
 
-<h1><%= @environment.name %></h1>
-
-<h2><%= _('Recent articles') %></h2>
-
-<% for article in @articles %>
-  <h2><%= article.name %></h2>
-  <div>
-    <%= article.to_html %>
-  </div>
-<% end %>
+<%= @environment.description %>
