@@ -2,6 +2,6 @@
   <% if GetText.locale.to_s == locale_code %>
     <strong><%= locale_name %></strong>
   <% else %>
-    <%= link_to locale_name, { :locale => locale_code }%>
+    <%= link_to locale_name, { :lang => locale_code }%>
   <% end %>
 <% end %>

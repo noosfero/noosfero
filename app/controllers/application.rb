@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   include PermissionCheck
 
   init_gettext 'noosfero'
-  before_init_gettext :set_locale
+  before_init_gettext :force_language
 
   include NeedsProfile
 
@@ -62,15 +62,11 @@ class ApplicationController < ActionController::Base
     current_user.person if logged_in?
   end
 
-  def set_locale
-    locale = cookies[:locale]
-    unless params[:locale].blank?
-      locale = params[:locale]
-    end
-
-    if locale
-      cookies[:locale] = locale
-      GetText.locale = locale
+  def force_language
+    lang = params[:lang]
+    unless lang.blank?
+      cookies[:lang] = lang
+      GetText.locale = lang
     end
   end
 
