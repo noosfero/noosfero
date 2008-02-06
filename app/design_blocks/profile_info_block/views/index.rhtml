@@ -1,6 +1,0 @@
-<%= image_tag @profile.image.public_filename(:thumb) if @profile.image %> <br>
-<%= link_to_myprofile(_('Change photo'), {:action => 'change_image'}, @profile.identifier ) %><br>
-<%= _('User since %d') % @profile.created_at.year if @profile.created_at %><br>
-<%= @info.name ? @info.name : @profile.name if @profile.name %><br>
-<%= n_('1 year', '%{num} years', @info.age) % {:num => @info.age} if @info.birth_date%><br>
-

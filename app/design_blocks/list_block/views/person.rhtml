@@ -1,6 +1,0 @@
-<ul class='people_list_block'>
-  <% @elements.each do |p| %>
-    <li> <%= link_to_homepage(content_tag('span',p.name) + (p.image ? image_tag(p.image.public_filename :portrait) : ''), p.identifier) %> </li>
-  <% end %>
-</ul>
-<br style="clear: both;" />
