@@ -1,0 +1,2 @@
+module ManageCommunitiesHelper
+end
