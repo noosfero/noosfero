@@ -27,6 +27,10 @@ class ProfileTest < Test::Unit::TestCase
     p.identifier = 'right_format'
     p.valid?
     assert ! p.errors.invalid?(:identifier)
+
+    p.identifier = 'identifier-with-dashes'
+    p.valid?
+    assert ! p.errors.invalid?(:identifier), 'Profile should accept identifier with dashes'
   end
 
   def test_has_domains
