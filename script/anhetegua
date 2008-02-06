@@ -36,7 +36,22 @@ def new_member(org, person)
   org.affiliate()
 end
 
-Environment.create!(:name => 'Anheteguá', :is_default => true)
+environment_description = <<-EOF
+<p>
+Este sítio web tem como objetivo incentivar a troca de idéias sobre Economia Solidária, bem como viabilizar a prática desta nova economia através de rede mundial de computadores.
+</p>
+<p>
+O menu superior é o principal instrumento de navegação:
+</p>
+<ul>
+  <li>Do lado esquerdo, estão os recortes. <strong>Temáticas</strong> reune os principais temas debatidos. <strong>Territórios</strong> limita sua navegação a um estado de sua escolha. <strong>Cadeias</strong> exibe apenas informação relacionada à cadeia produtiva de sua preferência. <strong>Produtos</strong> permite visualizar produtos por sua categoria.</li>
+
+  <li>Do lado direito, estão as opções do usuário, bem como a nevegação por tipo de conteúdo. <strong>Busca</strong> permite que você procure conteúdo por palavras chave. <strong>Blogs</strong> te levará a ver blogs de outros usuário, etc. </li>
+</ul>
+EOF
+
+
+Environment.create!(:name => 'Anheteguá', :is_default => true, :description => environment_description)
 
 tematicas = new_category(nil, 'Temáticas', 1)
 new_category(tematicas, 'Finanças Solidárias')
