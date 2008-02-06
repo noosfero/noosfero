@@ -240,4 +240,11 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equivalent [doc1,doc2,doc3], environment.recent_documents(3)
   end
 
+  should 'have a description attribute' do
+    env = Environment.new
+
+    env.description = 'my fine environment'
+    assert_equal 'my fine environment', env.description
+  end
+
 end

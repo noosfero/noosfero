@@ -31,7 +31,11 @@ class Environment < ActiveRecord::Base
     3.times do
       env.boxes << Box.new
     end
-    env.boxes.first.blocks << MainBlock.new
+    env.boxes[0].blocks << MainBlock.new
+
+    env.boxes[1].blocks << EnvironmentStatisticsBlock.new
+    env.boxes[1].blocks << RecentDocumentsBlock.new
+
   end
 
   # One Environment can be reached by many domains
@@ -142,6 +146,16 @@ class Environment < ActiveRecord::Base
     self.settings['organization_approval_method'] = actual_value
   end
  
+  # the description of the environment. Normally used in the homepage.
+  def description
+    self.settings[:description]
+  end
+
+  # sets the #description of the environment
+  def description=(value)
+    self.settings[:description] = value
+  end
+
   # #################################################
   # Validations
   # #################################################
