@@ -50,7 +50,7 @@ class CmsController < MyProfileController
           :description => type.description
         })
       end
-      render :action => 'select_article_type'
+      render :action => 'select_article_type', :layout => false
       return
     end
 

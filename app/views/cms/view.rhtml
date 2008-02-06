@@ -11,7 +11,7 @@
   </h2>
 
   <% button_bar(:style => 'margin-bottom: 1em;') do %>
-    <%= button('new', _('New article'), :action => 'new') %>
+    <%= lightbox_button('new', _('New article'), :action => 'new') %>
   <% end %>
 
 <% end %>
@@ -37,7 +37,7 @@
     <% if @article %>
       <% button_bar(:class => 'file-manager-controls') do %>
         <% if @article.allow_children? %>
-          <%= button('new',  _('New subitem'), :action => 'new', :parent_id => @article.id) %>
+          <%= lightbox_button('new',  _('New subitem'), :action => 'new', :parent_id => @article.id) %>
         <% end %>
         <%= button('up', _('Go up one level'), :action => (@article.parent ? 'view' : 'index'), :id => @article.parent) %>
       <% end %>
