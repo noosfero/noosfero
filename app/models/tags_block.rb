@@ -13,9 +13,11 @@ class TagsBlock < Block
               _('The tag is created when you add some one to your article.
                  Try to add some tags to some articles and see your tag cloud to grow.'),
               _('How tags works here?'), :class => 'help_tags' ) +
+    "\n<div class='tag_cloud'>\n"+
     tag_cloud( owner.tags, :id,
                owner.generate_url(:controller => 'profile', :action => 'tag') + '/',
-               :max_size => 20, :min_size => 10 )
+               :max_size => 18, :min_size => 9 ) +
+    "\n</div><!-- end class='tag_cloud' -->\n";
   end
 
 end

@@ -8,3 +8,37 @@
   font-weight: bold;
 }
 
+#article-subitems-hide.hide-button {
+  float: right;
+  color: white;
+}
+#article-subitems-show.show-button {
+  float: right;
+}
+#article-subitems-hide.hide-button:hover {
+  background-color: transparent;
+  color: black;
+}
+
+#article-full-path {
+  border: 1px solid gray;
+  margin: 0px;
+  font-size: 120%;
+  overflow: auto;
+  padding: 2px;
+  background: #abc;
+}
+
+#article-controls {
+  background: white;
+  border: 1px solid gray;
+  padding-top: 0px;
+  padding-bottom: 4px;
+  margin-bottom: 1em;
+}
+
+#article-controls .button {
+  position: relative;
+  top: -5px;
+}
+

@@ -42,13 +42,12 @@ module TagsHelper
 
     tags.map do |tag,count|
       v = count.to_f / max
-      style = <<-EOS
-        font-size: #{ (v * delta).round + min_size }px;
-        top: #{ -4 - (v * 4).round }px;
-      EOS
+      style = ""+
+        "font-size: #{ (v * delta).round + min_size }px;"+
+        "top: #{ -4 - (v * 4).round }px;"
       destination = url.kind_of?(Hash) ? url_for(url.merge(tagname_option => tag)) : (url.to_s + tag)
 
-      link_to "#{tag} (#{count})", destination, :style => style
+      link_to "#{tag}<small><sup>(#{count})</sup></small>", destination, :style => style
     end.join("\n")
   end
 

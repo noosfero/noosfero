@@ -263,36 +263,6 @@ div.file-manager-button a:hover {
   text-align: right;
 }
 
-/*************************** cms stuff ******************************/
-
-#article-subitems-hide.hide-button {
-  float: right;
-  color: white;
-}
-#article-subitems-show.show-button {
-  float: right;
-}
-#article-subitems-hide.hide-button:hover {
-  background-color: transparent;
-  color: black;
-}
-
-#article-full-path {
-  border: 1px solid gray;
-  margin: 0px;
-  font-size: 120%;
-  overflow: auto;
-  padding: 2px;
-  background: #abc;
-}
-
-#article-controls {
-  background: white;
-  border: 1px solid gray;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  margin-bottom: 1em;
-}
 
 /*********************************************************/
 

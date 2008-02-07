@@ -20,5 +20,15 @@
 }
 
 .block {
+  position: relative;
   padding: 10px 0px;
+  float: none;
 }
+
+.msie .box-2 .block,
+.msie .box-3 .block {
+  /* IE SUX A LOT!!! */
+  top: -65px;
+  left: -2px;
+}
+
