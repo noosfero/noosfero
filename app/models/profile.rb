@@ -187,6 +187,10 @@ class Profile < ActiveRecord::Base
     generate_url(url_options.merge(:controller => 'content_viewer', :action => 'view_page', :page => []))
   end
 
+  def admin_url
+    generate_url(url_options.merge(:controller => 'profile_editor', :action => 'index'))
+  end
+
   def generate_url(options)
     url_for(url_options.merge(options))
   end

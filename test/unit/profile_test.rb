@@ -260,6 +260,11 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal 'http://mycolivre.net/testprofile', profile.url
   end
 
+  should 'provide URL to admin area' do
+    profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile', :environment_id => create_environment('mycolivre.net').id)
+    assert_equal 'http://mycolivre.net/myprofile/testprofile', profile.admin_url
+  end
+
   should 'generate URL' do
     profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile', :environment_id => create_environment('mycolivre.net').id)
 
