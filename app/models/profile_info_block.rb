@@ -5,9 +5,9 @@ class ProfileInfoBlock < Block
   end
 
   def content
-    user = owner
+    block = self
     lambda do
-      render :file => 'account/user_info', :locals => { :user => user }
+      render :file => 'blocks/profile_info', :locals => { :block => block }
     end
   end
 

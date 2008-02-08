@@ -1,5 +1,7 @@
 <h2><%= block.owner.name %></h2>
 
+<%= profile_image(block.owner) %>
+
 <ul>
   <li><%= _('Since %d') % block.owner.created_at.year %></li>
   <li><%= link_to_homepage _('Homepage'), block.owner.url %></li>
