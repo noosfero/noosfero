@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class ProfileTest < Test::Unit::TestCase
-  fixtures :profiles, :environments, :users
+  fixtures :profiles, :environments, :users, :roles
 
   def test_identifier_validation
     p = Profile.new
@@ -292,6 +292,16 @@ class ProfileTest < Test::Unit::TestCase
     assert_equivalent [ first, second, third], profile.find_tagged_with('first-tag')
     assert_equivalent [ second, third ], profile.find_tagged_with('second-tag')
     assert_equivalent [ third], profile.find_tagged_with('third-tag')
+  end
+
+  should 'have administator role' do
+    Role.expects(:find_by_key).with('profile_admin').returns(Role.new)
+    assert_kind_of Role, Profile::Roles.admin
+  end
+
+  should 'have member role' do
+    Role.expects(:find_by_key).with('profile_member').returns(Role.new)
+    assert_kind_of Role, Profile::Roles.member
   end
 
   private

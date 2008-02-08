@@ -3,6 +3,15 @@
 # which by default is the one returned by Environment:default.
 class Profile < ActiveRecord::Base
 
+  module Roles
+    def self.admin
+      ::Role.find_by_key('profile_admin')
+    end
+    def self.member
+      ::Role.find_by_key('profile_member')
+    end
+  end
+
   PERMISSIONS[:profile] = {
     'edit_profile' => N_('Edit profile'),
     'destroy_profile' => N_('Destroy profile'),
