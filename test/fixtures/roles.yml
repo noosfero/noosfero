@@ -27,3 +27,13 @@ four:
    - manage_environment_categories
    - manage_environment_roles
    - manage_environment_validators
+profile_admin:
+  id: 5
+  key: 'profile_admin'
+  name: 'Profile Administrator'
+  system: true
+profile_member:
+  id: 6
+  key: 'profile_member'
+  name: 'Profile Member'
+  system: true

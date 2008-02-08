@@ -29,7 +29,7 @@ class Test::Unit::TestCase
 
   include AuthenticatedTestHelper
 
-  fixtures :environments
+  fixtures :environments, :roles
   
   def self.all_fixtures
     Dir.glob(File.join(RAILS_ROOT, 'test', 'fixtures', '*.yml')).each do |item|

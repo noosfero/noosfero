@@ -24,7 +24,11 @@ class Person < Profile
   end
 
   def enterprise_memberships
-    memberships.select{|p|p.class == Enterprise}
+    memberships(:type => Enterprise.name)
+  end
+
+  def community_memberships
+    memberships(:type => Community.name)
   end
 
   

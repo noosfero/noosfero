@@ -34,6 +34,15 @@ class PersonTest < Test::Unit::TestCase
     assert p.memberships.include?(e)
     assert p.enterprise_memberships.include?(e)
   end
+
+  should 'belong to communities' do
+    c = Community.create!(:name => 'my test community')
+    p = create_user('mytestuser').person
+
+    c.add_member(p)
+
+    assert p.community_memberships.include?(c), "Community should add a new member"
+  end
   
   def test_can_have_user
     u = User.new(:login => 'john', :email => 'john@doe.org', :password => 'dhoe', :password_confirmation => 'dhoe')

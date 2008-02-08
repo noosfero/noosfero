@@ -18,4 +18,13 @@ class CommunityTest < Test::Unit::TestCase
     assert_equal 'the description of the community', c.description
   end
 
+  should 'allow to add new members' do
+    c = Community.create!(:name => 'my test community')
+    p = create_user('mytestuser').person
+
+    c.add_member(p)
+
+    assert c.members.include?(p), "Community should add the new member"
+  end
+
 end
