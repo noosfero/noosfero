@@ -4,6 +4,7 @@ class Role < ActiveRecord::Base
   serialize :permissions, Array
   validates_presence_of :name
   validates_uniqueness_of :name
+  validates_uniqueness_of :key, :if => lambda { |role| !role.key.blank? }
 
   def initialize(*args)
     super(*args)
@@ -20,6 +21,16 @@ class Role < ActiveRecord::Base
 
   def kind
     perms.keys.detect{|k| perms[k].keys.include?(permissions[0]) }
+  end
+
+  def name
+    text = self[:name]
+    self.class.included_modules.map {|item| item.to_s}.include?('GetText') ? gettext(text) : text
+  end
+
+  before_destroy :check_for_system_defined_role
+  def check_for_system_defined_role
+    ! system
   end
 
   protected

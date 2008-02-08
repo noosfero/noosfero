@@ -3,6 +3,8 @@ class AccessControlMigration < ActiveRecord::Migration
     create_table :roles do |t|
       t.column :name,        :string
       t.column :permissions, :string
+      t.column :key,         :string
+      t.column :system,      :boolean, :default => false
     end
 
     create_table :role_assignments do |t|
