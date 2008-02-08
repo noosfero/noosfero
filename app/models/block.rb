@@ -7,21 +7,7 @@ class Block < ActiveRecord::Base
   acts_as_list :scope => :box
   belongs_to :box
 
-  serialize :settings, Hash
-  def settings
-    self[:settings] ||= Hash.new
-  end
-
-  def self.settings_item(name)
-    class_eval <<-CODE
-      def #{name}
-        settings[:#{name}]
-      end
-      def #{name}=(value)
-        settings[:#{name}] = value
-      end
-    CODE
-  end
+  acts_as_having_settings
 
   def self.description
     _('A dummy block.')

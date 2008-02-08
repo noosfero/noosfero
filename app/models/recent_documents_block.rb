@@ -4,7 +4,7 @@ class RecentDocumentsBlock < Block
     _('List of recent content')
   end
 
-  settings_item :limit
+  settings_items :limit
 
   def content
     docs =
