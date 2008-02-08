@@ -1,4 +1,6 @@
-class Community < Profile
+class Community < Organization
+
+  settings_items :description
 
   def name=(value)
     super(value)

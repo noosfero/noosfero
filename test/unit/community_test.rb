@@ -12,4 +12,10 @@ class CommunityTest < Test::Unit::TestCase
     assert_equal 'my-shiny-new-community', c.identifier
   end
 
+  should 'have a description attribute' do
+    c = Community.new
+    c.description = 'the description of the community'
+    assert_equal 'the description of the community', c.description
+  end
+
 end
