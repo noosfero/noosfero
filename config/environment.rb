@@ -79,9 +79,11 @@ Tag.hierarchical = true
 # several local libraries
 require 'noosfero'
 
+# locally-developed modules
 require 'acts_as_filesystem'
 require 'acts_as_searchable'
 require 'acts_as_having_boxes'
+require 'acts_as_having_settings'
 
 # to the hell, I want all my models loaded before the application run anything
 Dir.glob("#{RAILS_ROOT}/app/models/*.rb").each do |model|
