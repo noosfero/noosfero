@@ -25,7 +25,7 @@ class Role < ActiveRecord::Base
 
   def name
     text = self[:name]
-    self.class.included_modules.map {|item| item.to_s}.include?('GetText') ? gettext(text) : text
+    self.class.included_modules.map(&:to_s).include?('GetText') ? gettext(text) : text
   end
 
   before_destroy :check_for_system_defined_role
