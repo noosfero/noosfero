@@ -11,12 +11,15 @@ class CreateProfiles < ActiveRecord::Migration
       t.column :contact_phone,     :string
 
       t.column :home_page_id,      :integer
-          
+
       #person fields
       t.column :user_id,           :integer
 
       #enterprise fields
       t.column :region_id,         :integer
+
+      # for everything else
+      t.column :data,              :text
 
       t.column :created_at,        :datetime
     end
