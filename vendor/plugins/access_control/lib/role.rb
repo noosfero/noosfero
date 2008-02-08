@@ -30,7 +30,7 @@ class Role < ActiveRecord::Base
 
   before_destroy :check_for_system_defined_role
   def check_for_system_defined_role
-    ! system
+    ! self.system
   end
 
   protected
