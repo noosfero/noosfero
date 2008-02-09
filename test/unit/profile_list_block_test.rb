@@ -40,19 +40,7 @@ class ProfileListBlockTest < Test::Unit::TestCase
     assert_kind_of String, instance_eval(&block.content)
   end
 
-  should 'pick random people' do
-    block = ProfileListBlock.new
-
-    Profile.expects(:count).returns(3)
-
-    block.expects(:random).times(3).returns(7).then.returns(4).then.returns(5)
-
-    Profile.expects(:find).with(8)
-    Profile.expects(:find).with(5)
-    Profile.expects(:find).with(6)
-
-    block.profiles
-  end
+  should 'pick random people'
 
   should 'use Kernel.rand to generate random numbers' do
     Kernel.expects(:rand).with(77).once

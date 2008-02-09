@@ -7,17 +7,8 @@ class ProfileListBlock < Block
   end
 
   def profiles
-    top = Profile.count
-
-    result = []
-    maxsize = [limit,top].compact.min
-
-    maxsize.times do
-      profile = Profile.find(random(top) + 1)
-      result << profile
-    end
-        
-    result
+    # FIXME pick random people instead
+    Profile.find(:all, :limit => self.limit, :order => 'created_at desc')
   end
 
   def random(top)
@@ -27,7 +18,7 @@ class ProfileListBlock < Block
   def content
     profiles = self.profiles
     lambda do
-      block_title(_('People')) +
+      block_title(_('People and Groups')) +
       profiles.map {|item| content_tag('div', profile_image_link(item)) }.join("\n")
     end
   end
