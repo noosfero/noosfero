@@ -41,25 +41,28 @@ module BoxesHelper
 
   def display_block(block, main_content = nil)
     content = block.main? ? main_content : block.content
-    result = 
-      case content
-      when Hash
-        content_tag('iframe', '', :src => url_for(content))
-      when String
-        if content =~ /^https?:\/\//
-          content_tag('iframe', '', :src => content)
-        else
-          content
-        end
-      when Proc
-        self.instance_eval(&content)
-      else
-        raise "Unsupported content for block (#{content.class})"
-      end
+    result = extract_block_content(content)
 
     classes = ['block', block.css_class_name ].uniq.join(' ')
 
     box_decorator.block_target(block.box, block) + content_tag('div', result + box_decorator.block_edit_buttons(block), :class => classes, :id => "block-#{block.id}") + box_decorator.block_handle(block)
+  end
+
+  def extract_block_content(content)
+    case content
+    when Hash
+      content_tag('iframe', '', :src => url_for(content))
+    when String
+      if content =~ /^https?:\/\//
+        content_tag('iframe', '', :src => content)
+      else
+        content
+      end
+    when Proc
+      self.instance_eval(&content)
+    else
+      raise "Unsupported content for block (#{content.class})"
+    end
   end
 
   module DontMoveBlocks

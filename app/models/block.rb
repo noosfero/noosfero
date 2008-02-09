@@ -16,8 +16,16 @@ class Block < ActiveRecord::Base
     _('A dummy block.')
   end
 
-  # TODO: must have some way to have access to request information (mainly the
-  # current user)
+  # Returns the content to be used for this block.
+  #
+  # This method can return several types of objects:
+  #
+  # * <tt>String</tt>: if the string starts with <tt>http://</tt> or <tt>https://</tt>, then it is assumed to be address of an IFRAME. Otherwise it's is used as regular HTML.
+  # * <tt>Hash</tt>: the hash is used to build an URL that is used as the address for a IFRAME. 
+  # * <tt>Proc</tt>: the Proc is evaluated in the scope of BoxesHelper. The
+  # block can then use <tt>render</tt>, <tt>link_to</tt>, etc.
+  #
+  # See BoxesHelper#extract_block_content for implementation details. 
   def content
     "This is block number %d" % self.id
   end
