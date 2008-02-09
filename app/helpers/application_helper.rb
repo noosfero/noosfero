@@ -11,6 +11,8 @@ module ApplicationHelper
   include FormsHelper
   
   include AssetsHelper
+
+  include BlockHelper
   
   # Displays context help. You can pass the content of the help message as the
   # first parameter or using template code inside a block passed to this

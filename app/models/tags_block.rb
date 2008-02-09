@@ -8,7 +8,7 @@ class TagsBlock < Block
   end
 
   def content
-    content_tag('h3', _('Tags'), :class => 'block-title') +
+    block_title(_('Tags')) +
     help_textile(
               _('The tag is created when you add some one to your article.
                  Try to add some tags to some articles and see your tag cloud to grow.'),

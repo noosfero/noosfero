@@ -4,6 +4,9 @@ class Block < ActiveRecord::Base
   include ActionView::Helpers::UrlHelper
   include ActionView::Helpers::TagHelper
 
+  # Block-specific stuff
+  include BlockHelper
+
   acts_as_list :scope => :box
   belongs_to :box
 
