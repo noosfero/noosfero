@@ -8,6 +8,9 @@ class Role < ActiveRecord::Base
 
   def initialize(*args)
     super(*args)
+  end
+
+  def permissions
     self[:permissions] ||= []
   end
 

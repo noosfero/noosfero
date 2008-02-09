@@ -68,4 +68,9 @@ class RoleTest < Test::Unit::TestCase
 
   end
 
+  def test_should_have_an_empty_array_as_permissions_by_default
+    role = Role.new
+    assert_equal [], role.permissions
+  end
+
 end
