@@ -6,6 +6,7 @@ function prepareMenu(id, options) {
         // add a class for work arround msie's css bugs
         $(id).className += " msie";
     }
+    $(id).className += " menuRoot";
     
     var zIndex = 10;
     
@@ -87,18 +88,24 @@ function prepareMenu(id, options) {
     // MS IE sucks, BTW.
     if ( document.all ) {
         function forceUlFocusFromLink ( a ) {
-            var stop = false;
+            /*var stop = false;
             a.ancestors().each( function(el) {
                 if ( el.id == "menu" ) { stop = true }
                 if ( ! stop && el.onfocus ) { el.onfocus() }
-            } );
+            } );*/
+            var el = a.parentNode;
+            while ( / menuRoot/.test(el.className) ) el = el.parentNode;
+            if ( el.onfocus ) { el.onfocus() }
         }
         function forceUlBlurFromLink ( a ) {
-            var stop = false;
+            /*var stop = false;
             a.ancestors().each( function(el) {
                 if ( el.id == "menu" ) { stop = true }
                 if ( ! stop && el.onblur ) { el.onblur() }
-            } );
+            } );*/
+            var el = a.parentNode;
+            while ( / menuRoot/.test(el.className) ) el = el.parentNode;
+            if ( el.onblur ) { el.onblur() }
         }
         $$("#" + id + " ul ul a").each( function( a ) {
             // os links do sub menu forçarão o foco do ul
