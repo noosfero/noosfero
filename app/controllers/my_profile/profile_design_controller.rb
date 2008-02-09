@@ -3,7 +3,13 @@ class ProfileDesignController < BoxOrganizerController
   needs_profile
 
   def available_blocks
-    @available_blocks ||= [ Block, ArticleBlock, TagsBlock, RecentDocumentsBlock, ProfileInfoBlock ]
+    blocks = [ ArticleBlock, TagsBlock, RecentDocumentsBlock, ProfileInfoBlock, TagsBlock ]
+
+    if profile.has_members?
+      blocks << MembersBlock
+    end
+
+    blocks
   end
 
 end
