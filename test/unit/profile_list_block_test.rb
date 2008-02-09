@@ -34,7 +34,6 @@ class ProfileListBlockTest < Test::Unit::TestCase
     self.expects(:profile_image_link).with(person3).once
 
     self.expects(:content_tag).returns('<div></div>').at_least_once
-    self.expects(:_).returns('text').at_least_once
     self.expects(:block_title).returns('block title').at_least_once
 
     assert_kind_of String, instance_eval(&block.content)
@@ -53,9 +52,9 @@ class ProfileListBlockTest < Test::Unit::TestCase
 
   should 'support non-class finders' do
     block = ProfileListBlock.new
-    profile = create_user('mytestuser').person
-    block.expects(:profile_finder).returns(profile.members).once
-    profile.members.expects(:find).with(is_a(Hash)).once
+    finder = mock
+    block.expects(:profile_finder).returns(finder).once
+    finder.expects(:find).with(is_a(Hash)).once
     block.profiles
   end
 

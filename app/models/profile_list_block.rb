@@ -37,10 +37,16 @@ class ProfileListBlock < Block
     Kernel.rand(top)
   end
 
+  # the title of the block. Probably will be overriden in subclasses.
+  def title
+    _('People and Groups')
+  end
+
   def content
     profiles = self.profiles
+    title = self.title
     lambda do
-      block_title(_('People and Groups')) +
+      block_title(title) +
       profiles.map {|item| content_tag('div', profile_image_link(item)) }.join("\n")
     end
   end
