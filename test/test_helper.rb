@@ -51,7 +51,7 @@ class Test::Unit::TestCase
       self.send(:define_method, destname, &block)
     else
       self.send(:define_method, destname) do
-        flunk 'pending'
+        flunk 'pending: should ' + name
       end
     end
 
