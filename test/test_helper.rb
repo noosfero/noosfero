@@ -47,7 +47,13 @@ class Test::Unit::TestCase
     end
 
     @shoulds << destname
-    self.send(:define_method, destname, &block)
+    if block_given?
+      self.send(:define_method, destname, &block)
+    else
+      self.send(:define_method, destname) do
+        flunk 'pending'
+      end
+    end
 
   end
 
