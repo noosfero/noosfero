@@ -47,7 +47,15 @@ class ProfileListBlockTest < Test::Unit::TestCase
   should 'ask profile finder for profiles' do
     block = ProfileListBlock.new
     block.expects(:profile_finder).returns(Profile).once
-    Profile.expects(:find).returns([])
+    Profile.expects(:find).with(:all, is_a(Hash)).returns([])
+    block.profiles
+  end
+
+  should 'support non-class finders' do
+    block = ProfileListBlock.new
+    profile = create_user('mytestuser').person
+    block.expects(:profile_finder).returns(profile.members).once
+    profile.members.expects(:find).with(is_a(Hash)).once
     block.profiles
   end
 
@@ -57,5 +65,6 @@ class ProfileListBlockTest < Test::Unit::TestCase
     Kernel.expects(:rand).with(77).once
     ProfileListBlock.new.random(77)
   end
+
 
 end

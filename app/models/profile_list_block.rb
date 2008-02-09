@@ -24,7 +24,13 @@ class ProfileListBlock < Block
 
   def profiles
     # FIXME pick random people instead
-    profile_finder.find(:all, :limit => self.limit, :order => 'created_at desc')
+    finder = profile_finder
+    options = { :limit => self.limit, :order => 'created_at desc' } 
+    if finder.is_a?(Class)
+      finder.find(:all, options)
+    else
+      finder.find(options)
+    end
   end
 
   def random(top)
