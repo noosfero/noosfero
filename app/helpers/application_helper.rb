@@ -367,4 +367,8 @@ module ApplicationHelper
     image_tag(profile.image.public_filename(:thumb)) if profile.image
   end
 
+  def profile_image_link(profile)
+    link_to(profile_image(profile) + tag('br') + profile.name, profile.url)
+  end
+
 end
