@@ -309,6 +309,10 @@ class ProfileTest < Test::Unit::TestCase
     assert_kind_of Role, Profile::Roles.member
   end
 
+  should 'not have members by default' do
+    assert_equal false, Profile.new.has_members?
+  end
+
   private
 
   def assert_invalid_identifier(id)

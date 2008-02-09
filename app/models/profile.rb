@@ -221,4 +221,11 @@ class Profile < ActiveRecord::Base
     articles.select {|item| item.tags.map(&:name).include?(tag) }
   end
 
+  # Tells whether a specified profile has members or nor.
+  #
+  # On this class, returns <tt>false</tt> by default.
+  def has_members?
+    false
+  end
+
 end

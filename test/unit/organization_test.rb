@@ -101,4 +101,8 @@ class OrganizationTest < Test::Unit::TestCase
     assert profile.blocks.size > 0
   end
 
+  should 'have members' do
+    assert_equal true, Organization.new.has_members?
+  end
+
 end

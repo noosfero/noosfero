@@ -46,4 +46,11 @@ class Organization < Profile
     organization_info
   end
 
+  # Yes, organizations have members.
+  #
+  # Returns <tt>true</tt>.
+  def has_members?
+    true
+  end
+
 end
