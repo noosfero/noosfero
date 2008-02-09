@@ -42,10 +42,11 @@ module BoxesHelper
   def display_block(block, main_content = nil)
     content = block.main? ? main_content : block.content
     result = extract_block_content(content)
+    footer = extract_block_content(footer)
 
     classes = ['block', block.css_class_name ].uniq.join(' ')
 
-    box_decorator.block_target(block.box, block) + content_tag('div', result + box_decorator.block_edit_buttons(block), :class => classes, :id => "block-#{block.id}") + box_decorator.block_handle(block)
+    box_decorator.block_target(block.box, block) + content_tag('div', result + footer + box_decorator.block_edit_buttons(block), :class => classes, :id => "block-#{block.id}") + box_decorator.block_handle(block)
   end
 
   def extract_block_content(content)

@@ -49,4 +49,12 @@ class Block < ActiveRecord::Base
     self.class.name.underscore.gsub('_', '-')
   end
 
+  # A footer to be appended to the end of the block. Returns an empty string.
+  #
+  # Override in your subclasses. You can return the same types supported by
+  # #content.
+  def footer
+    ''
+  end
+
 end
