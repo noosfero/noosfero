@@ -61,6 +61,8 @@ module BoxesHelper
       end
     when Proc
       self.instance_eval(&content)
+    when NilClass
+      ''
     else
       raise "Unsupported content for block (#{content.class})"
     end

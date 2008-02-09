@@ -28,8 +28,8 @@ class BlockTest < Test::Unit::TestCase
     assert_equal 'something-block', block.css_class_name
   end
 
-  should 'provide an empty footer by default' do
-    assert_equal '', Block.new.footer
+  should 'provide no footer by default' do
+    assert_nil Block.new.footer
   end
 
 end

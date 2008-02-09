@@ -25,9 +25,19 @@ class Block < ActiveRecord::Base
   # * <tt>Proc</tt>: the Proc is evaluated in the scope of BoxesHelper. The
   # block can then use <tt>render</tt>, <tt>link_to</tt>, etc.
   #
+  # The method can also return <tt>nil</tt>, which means "no footer".
+  #
   # See BoxesHelper#extract_block_content for implementation details. 
   def content
     "This is block number %d" % self.id
+  end
+
+  # A footer to be appended to the end of the block. Returns <tt>nil</tt>.
+  #
+  # Override in your subclasses. You can return the same types supported by
+  # #content.
+  def footer
+    nil
   end
 
   # must return a Hash with URL options poiting to the action that edits
@@ -47,14 +57,6 @@ class Block < ActiveRecord::Base
 
   def css_class_name
     self.class.name.underscore.gsub('_', '-')
-  end
-
-  # A footer to be appended to the end of the block. Returns an empty string.
-  #
-  # Override in your subclasses. You can return the same types supported by
-  # #content.
-  def footer
-    ''
   end
 
 end
