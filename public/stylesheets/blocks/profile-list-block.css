@@ -1,0 +1,13 @@
+div.profile-list-block div {
+  display: block;
+  float: left;
+
+  width: 100px;
+  height: 140px;
+  overflow: hidden;
+
+  font-size: smaller;
+  text-align: center;
+
+
+}
