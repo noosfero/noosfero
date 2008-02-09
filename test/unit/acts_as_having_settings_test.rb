@@ -42,4 +42,10 @@ class ActsAsHavingSettingsTest < Test::Unit::TestCase
     assert_equal 15, Block.find(block.id).limit
   end
 
+  should 'be able to specify default values' do
+    block_class = Class.new(Block)
+    block_class.settings_items :some_setting, :default => 10
+    assert_equal 10, block_class.new.some_setting
+  end
+
 end

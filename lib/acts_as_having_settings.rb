@@ -19,10 +19,14 @@ module ActsAsHavingSettings
     end
 
     def settings_items(*names)
+
+      options = names.last.is_a?(Hash) ? names.pop : {}
+      default = options[:default] ? "|| #{options[:default].inspect}"  : ""
+
       names.each do |setting|
         class_eval <<-CODE
           def #{setting}
-            send(self.class.settings_field)[:#{setting}]
+            send(self.class.settings_field)[:#{setting}] #{default}
           end
           def #{setting}=(value)
             send(self.class.settings_field)[:#{setting}] = value
