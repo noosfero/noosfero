@@ -40,6 +40,17 @@ class ProfileListBlockTest < Test::Unit::TestCase
     assert_kind_of String, instance_eval(&block.content)
   end
 
+  should 'find in Profile by default' do
+    assert_equal Profile, ProfileListBlock.new.profile_finder
+  end
+
+  should 'ask profile finder for profiles' do
+    block = ProfileListBlock.new
+    block.expects(:profile_finder).returns(Profile).once
+    Profile.expects(:find).returns([])
+    block.profiles
+  end
+
   should 'pick random people'
 
   should 'use Kernel.rand to generate random numbers' do
