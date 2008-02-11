@@ -25,7 +25,7 @@ class Block < ActiveRecord::Base
   # * <tt>Proc</tt>: the Proc is evaluated in the scope of BoxesHelper. The
   # block can then use <tt>render</tt>, <tt>link_to</tt>, etc.
   #
-  # The method can also return <tt>nil</tt>, which means "no footer".
+  # The method can also return <tt>nil</tt>, which means "no content".
   #
   # See BoxesHelper#extract_block_content for implementation details. 
   def content
