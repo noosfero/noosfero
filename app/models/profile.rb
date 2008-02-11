@@ -191,6 +191,10 @@ class Profile < ActiveRecord::Base
     generate_url(url_options.merge(:controller => 'profile_editor', :action => 'index'))
   end
 
+  def public_profile_url
+    generate_url(url_options.merge(:controller => 'profile', :action => 'index'))
+  end
+
   def generate_url(options)
     url_for(url_options.merge(options))
   end
