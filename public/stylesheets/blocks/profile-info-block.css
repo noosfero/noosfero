@@ -1,0 +1,20 @@
+div.profile-info-block img {
+  float: right;
+  margin-left: 1em;
+}
+
+div.profile-info-block {
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+div.profile-info-block ul {
+  padding: 0px;
+}
+
+div.profile-info-block li {
+  list-style: none;
+  border-bottom: 1px solid #d0d0d0;
+  background: #f0f0f0;
+  padding: 2px;
+}
