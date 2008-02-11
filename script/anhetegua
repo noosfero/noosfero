@@ -37,10 +37,12 @@ def new_member(org, person)
 end
 
 environment_description = <<-EOF
-<p>
+<h1>
 Boas vindas ao Anheteguá:
 A Comunidade virtual das Redes de Economia Solidária!
-</p>
+</h1>
+
+<img src='/images/logo-anhetegua.png' style='float: right'/>
 
 <p>
 O Anheteguá é uma plataforma livre e colaborativa que visa contribuir para o fortalecimento das redes de economia solidária em todo o Brasil, facilitando os fluxos de produção, comercialização, troca e consumo solidários. Cadastre-se, divirta-se e navegue nessa outra economia!
