@@ -372,7 +372,11 @@ module ApplicationHelper
     if profile.image
       image_tag(profile.image.public_filename(:thumb))
     else
-      image_tag('peopleblock.png')
+      if profile.organization?
+        image_tag('organization-default.png')
+      else
+        image_tag('person-default.png')
+      end
     end
   end
 
