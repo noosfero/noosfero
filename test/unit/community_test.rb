@@ -27,4 +27,17 @@ class CommunityTest < Test::Unit::TestCase
     assert c.members.include?(p), "Community should add the new member"
   end
 
+  should 'create default set of blocks' do
+    c = Community.create!(:name => 'my new community')
+
+    assert c.boxes[0].blocks.map(&:class).include?(MainBlock)
+
+    assert c.boxes[1].blocks.map(&:class).include?(ProfileInfoBlock)
+    assert c.boxes[1].blocks.map(&:class).include?(RecentDocumentsBlock)
+
+    assert c.boxes[2].blocks.map(&:class).include?(MembersBlock)
+    assert c.boxes[2].blocks.map(&:class).include?(TagsBlock)
+
+  end
+
 end
