@@ -84,6 +84,7 @@ class CmsController < MyProfileController
     @article = profile.articles.find(params[:id])
     profile.home_page = @article
     profile.save!
+    flash[:notice] = _('Artigo "%s" configurado como página inicial.') % @article.name
     redirect_to :action => 'view', :id => @article.id
   end
 
