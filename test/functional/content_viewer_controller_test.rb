@@ -92,11 +92,11 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     page = profile.articles.build(:name => 'myarticle', :body => 'the body of the text')
     page.save!
 
-    feed = RssFeed.new(:name => 'feed')
+    feed = RssFeed.new(:name => 'testfeed')
     feed.profile = profile
     feed.save!
 
-    get :view_page, :profile => 'someone', :page => [ 'feed' ]
+    get :view_page, :profile => 'someone', :page => [ 'testfeed' ]
 
     assert_response :success
     assert_match /^text\/xml/, @response.headers['Content-Type']
