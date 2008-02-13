@@ -15,20 +15,33 @@ class MembersBlock < ProfileListBlock
     end
   end
 
-  class Finder
-
-    def initialize(members)
-      @members = members
-    end
-
-    # FIXME optimize this !!!
-    def find(options)
-      Profile.find(:all, options.merge(:conditions => { :id => @members.map(&:id) }))
-    end
-  end
-
   def profile_finder
-    @profile_finder ||= Finder.new(owner.members)
+    @profile_finder ||= MembersBlock::Finder.new(self)
   end
+
+  # Finds random members, up to the limit.
+  class Finder
+    def initialize(block)
+      @block = block
+    end
+    attr_reader :block
+
+    def find
+      ids = block.owner.members.map(&:id)
+      result = []
+      [block.limit, ids.size].min.times do
+        i = pick_random(ids.size)
+        result << Profile.find(ids[i])
+        ids.delete_at(i)
+      end
+      result
+    end
+
+    def pick_random(top)
+      rand(top)
+    end
+
+  end
+
 
 end

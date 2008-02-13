@@ -22,13 +22,30 @@ class MembersBlockTest < Test::Unit::TestCase
     assert_equal 'link-to-members', instance_eval(&block.footer)
   end
 
-  should 'pick only members' do
+  should 'pick random members' do
+
     profile = create_user('mytestuser').person
     block = MembersBlock.new
     block.box = profile.boxes.first
+    block.limit = 2
     block.save!
 
-    assert_equal profile.members, block.profiles
+    owner = mock
+    block.expects(:owner).returns(owner)
+
+    member1 = mock; member1.stubs(:id).returns(1)
+    member2 = mock; member2.stubs(:id).returns(2)
+    member3 = mock; member3.stubs(:id).returns(3)
+
+    owner.expects(:members).returns([member1, member2, member3])
+    
+    block.profile_finder.expects(:pick_random).with(3).returns(2)
+    block.profile_finder.expects(:pick_random).with(2).returns(0)
+
+    Profile.expects(:find).with(3).returns(member3)
+    Profile.expects(:find).with(1).returns(member1)
+
+    assert_equal [member3, member1], block.profiles
   end
 
 end

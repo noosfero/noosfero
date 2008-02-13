@@ -19,22 +19,22 @@ class ProfileListBlock < Block
   # have a <tt>find</tt> method that accepts the same interface as the
   # ActiveRecord::Base's find method .
   def profile_finder
-    Profile
+    @profile_finder ||= ProfileListBlock::Finder.new(self)
   end
 
-  def profiles
-    # FIXME pick random people instead
-    finder = profile_finder
-    options = { :limit => self.limit, :order => 'created_at desc' } 
-    if finder.is_a?(Class)
-      finder.find(:all, options)
-    else
-      finder.find(options)
+  # Default finder. Finds the most recently added profiles.
+  class Finder
+    def initialize(block)
+      @block = block
+    end
+    attr_reader :block
+    def find
+      Profile.find(:all, :limit => block.limit, :order => 'created_at desc')
     end
   end
 
-  def random(top)
-    Kernel.rand(top)
+  def profiles
+    profile_finder.find
   end
 
   # the title of the block. Probably will be overriden in subclasses.

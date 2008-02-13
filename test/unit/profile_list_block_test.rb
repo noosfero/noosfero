@@ -39,30 +39,20 @@ class ProfileListBlockTest < Test::Unit::TestCase
     assert_kind_of String, instance_eval(&block.content)
   end
 
-  should 'find in Profile by default' do
-    assert_equal Profile, ProfileListBlock.new.profile_finder
-  end
+  should 'pick most recently-added profiles by default' do
+    Profile.expects(:find).with(:all, { :limit => 10, :order => 'created_at desc'})
 
-  should 'ask profile finder for profiles' do
     block = ProfileListBlock.new
-    block.expects(:profile_finder).returns(Profile).once
-    Profile.expects(:find).with(:all, is_a(Hash)).returns([])
+    block.limit = 10
     block.profiles
   end
 
-  should 'support non-class finders' do
+  should 'use finders to find profiles to be listed' do
     block = ProfileListBlock.new
     finder = mock
     block.expects(:profile_finder).returns(finder).once
-    finder.expects(:find).with(is_a(Hash)).once
+    finder.expects(:find)
     block.profiles
-  end
-
-  should 'pick random people'
-
-  should 'use Kernel.rand to generate random numbers' do
-    Kernel.expects(:rand).with(77).once
-    ProfileListBlock.new.random(77)
   end
 
 
