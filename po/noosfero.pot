@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.5.0\n"
-"POT-Creation-Date: 2008-01-02 22:12-0300\n"
+"Project-Id-Version: noosfero 0.6.0\n"
+"POT-Creation-Date: 2008-02-11 15:57-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,12 +16,113 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: app/helpers/features_helper.rb:4
-msgid "Administrator must approve all new organizations"
+#: app/controllers/admin/features_controller.rb:11
+msgid "Features updated successfully."
 msgstr ""
 
-#: app/helpers/features_helper.rb:5
-msgid "Administrator assigns validator organizations per region."
+#: app/controllers/admin/environment_role_manager_controller.rb:17
+#: app/controllers/my_profile/profile_members_controller.rb:18
+msgid "Roles successfuly updated"
+msgstr ""
+
+#: app/controllers/admin/environment_role_manager_controller.rb:19
+#: app/controllers/my_profile/profile_members_controller.rb:20
+msgid "Couldn't change the roles"
+msgstr ""
+
+#: app/controllers/admin/environment_role_manager_controller.rb:45
+#: app/controllers/admin/environment_role_manager_controller.rb:55
+msgid "Member succefully unassociated"
+msgstr ""
+
+#: app/controllers/admin/environment_role_manager_controller.rb:47
+#: app/controllers/admin/environment_role_manager_controller.rb:57
+msgid "Failed to unassociate member"
+msgstr ""
+
+#: app/controllers/admin/role_controller.rb:21
+msgid "Failed to create role"
+msgstr ""
+
+#: app/controllers/admin/role_controller.rb:35
+#: app/controllers/admin/role_controller.rb:45
+msgid "Failed to edit role"
+msgstr ""
+
+#: app/controllers/my_profile/consumed_products_controller.rb:15
+#: app/controllers/my_profile/manage_products_controller.rb:19
+msgid "Product succesfully created"
+msgstr ""
+
+#: app/controllers/my_profile/consumed_products_controller.rb:18
+#: app/controllers/my_profile/manage_products_controller.rb:22
+msgid "Could not create the product"
+msgstr ""
+
+#: app/controllers/my_profile/consumed_products_controller.rb:26
+#: app/controllers/my_profile/manage_products_controller.rb:42
+msgid "Product succesfully removed"
+msgstr ""
+
+#: app/controllers/my_profile/consumed_products_controller.rb:28
+#: app/controllers/my_profile/manage_products_controller.rb:45
+msgid "Could not remove the product"
+msgstr ""
+
+#: app/controllers/my_profile/enterprise_editor_controller.rb:22
+msgid "Could not update the enterprise"
+msgstr ""
+
+#: app/controllers/my_profile/enterprise_editor_controller.rb:32
+msgid "Enterprise sucessfully erased from the system"
+msgstr ""
+
+#: app/controllers/my_profile/manage_products_controller.rb:31
+msgid "Product succesfully updated"
+msgstr ""
+
+#: app/controllers/my_profile/manage_products_controller.rb:34
+msgid "Could not update the product"
+msgstr ""
+
+#: app/controllers/my_profile/profile_editor_controller.rb:45
+msgid "Image successfully uploaded"
+msgstr ""
+
+#: app/controllers/my_profile/profile_editor_controller.rb:48
+msgid "Could not upload image"
+msgstr ""
+
+#: app/controllers/my_profile/cms_controller.rb:87
+msgid "Artigo \"%s\" configurado como página inicial."
+msgstr ""
+
+#: app/controllers/public/account_controller.rb:21
+msgid "Logged in successfully"
+msgstr ""
+
+#: app/controllers/public/account_controller.rb:23
+msgid "Incorrect username or password"
+msgstr ""
+
+#: app/controllers/public/account_controller.rb:50
+msgid "Thanks for signing up!"
+msgstr ""
+
+#: app/controllers/public/account_controller.rb:62
+msgid "You have been logged out."
+msgstr ""
+
+#: app/controllers/public/account_controller.rb:73
+msgid "Your password has been changed successfully!"
+msgstr ""
+
+#: app/controllers/public/account_controller.rb:76
+msgid "The supplied current password is incorrect."
+msgstr ""
+
+#: app/controllers/my_profile_controller.rb:17
+msgid "This action is not available for \"%s\"."
 msgstr ""
 
 #: app/helpers/enterprise_validation_helper.rb:6
@@ -32,65 +133,34 @@ msgstr ""
 msgid "Rejected"
 msgstr ""
 
+#: app/helpers/features_helper.rb:4
+msgid "Administrator must approve all new organizations"
+msgstr ""
+
+#: app/helpers/features_helper.rb:5
+msgid "Administrator assigns validator organizations per region."
+msgstr ""
+
 #: app/helpers/profile_helper.rb:6
 msgid "This profile does not have any public information"
 msgstr ""
 
-#: app/helpers/application_helper.rb:60
-msgid "Help"
+#: app/helpers/boxes_helper.rb:17 app/helpers/boxes_helper.rb:34
+msgid "Main content"
 msgstr ""
 
-#: app/helpers/application_helper.rb:61
-msgid "Close"
+#: app/helpers/boxes_helper.rb:112
+msgid "Move block up"
 msgstr ""
 
-#: app/helpers/application_helper.rb:115
-#: app/views/profile_editor/index.rhtml:1
-msgid "My profile"
+#: app/helpers/boxes_helper.rb:113
+msgid "Move block down"
 msgstr ""
 
-#: app/helpers/application_helper.rb:118
-#: app/views/environment_role_manager/make_admin.rhtml:4
-msgid "Admin"
-msgstr ""
-
-#: app/helpers/application_helper.rb:119
-msgid "Logout"
-msgstr ""
-
-#: app/helpers/application_helper.rb:123 app/views/account/login.rhtml:1
-#: app/views/account/login.rhtml:5
-msgid "Login"
-msgstr ""
-
-#: app/helpers/application_helper.rb:138
-#: app/views/region_validators/region.rhtml:22
-msgid "Search"
-msgstr ""
-
-#: app/helpers/application_helper.rb:139
-msgid "your search here"
-msgstr ""
-
-#: app/helpers/application_helper.rb:148
-msgid "%s, version %s"
-msgstr ""
-
-#: app/helpers/application_helper.rb:282 app/models/product.rb:32
-msgid "Uncategorized product"
-msgstr ""
-
-#: app/helpers/application_helper.rb:287
-msgid "No product"
-msgstr ""
-
-#: app/helpers/cms_helper.rb:5
-msgid "New %s"
-msgstr ""
-
-#: app/helpers/cms_helper.rb:30 app/views/categories/index.rhtml:1
-#: app/views/content_viewer/view_page.rhtml:28
-msgid "Categories"
+#: app/helpers/boxes_helper.rb:116 app/views/categories/_category.rhtml:8
+#: app/views/cms/view.rhtml:70 app/views/content_viewer/view_page.rhtml:11
+#: app/views/role/index.rhtml:6
+msgid "Edit"
 msgstr ""
 
 #: app/helpers/categories_helper.rb:6
@@ -133,52 +203,155 @@ msgstr ""
 msgid "Type of category"
 msgstr ""
 
-#: app/models/category.rb:3
-msgid "%{fn} cannot be like that."
+#: app/helpers/cms_helper.rb:5
+msgid "New %s"
 msgstr ""
 
-#: app/models/category.rb:5
-msgid "%{fn} is already being used by another category."
+#: app/helpers/cms_helper.rb:30 app/views/categories/index.rhtml:1
+#: app/views/content_viewer/view_page.rhtml:28
+msgid "Categories"
 msgstr ""
 
-#: app/models/category.rb:9
-msgid "%{fn} was already assigned to another category."
+#: app/helpers/assets_helper.rb:6
+msgid "Blogs"
 msgstr ""
 
-#: app/models/category.rb:13
-msgid "%{fn} must be the same as the parents'"
+#: app/helpers/assets_helper.rb:7
+msgid "Albuns"
 msgstr ""
 
-#: app/models/user.rb:7
-msgid "User|Password"
+#: app/helpers/assets_helper.rb:8
+msgid "Products"
 msgstr ""
 
-#: app/models/user.rb:8
-msgid "User|Password confirmation"
+#: app/helpers/assets_helper.rb:9
+msgid "Enterprises"
 msgstr ""
 
-#: app/models/user.rb:31
-msgid "%{fn} must be checked in order to signup."
+#: app/helpers/assets_helper.rb:10 app/views/profile/index.rhtml:15
+msgid "Communities"
 msgstr ""
 
-#: app/models/comment.rb:14
-msgid "%{fn} can only be informed for unauthenticated authors"
+#: app/helpers/assets_helper.rb:13
+msgid "bli 1"
 msgstr ""
 
-#: app/models/task.rb:86
-msgid "Generic task"
+#: app/helpers/assets_helper.rb:14
+msgid "bli 2"
 msgstr ""
 
-#: app/models/task.rb:93
-msgid "The task was created at %s"
+#: app/helpers/tags_helper.rb:32
+msgid "No tags yet."
 msgstr ""
 
-#: app/models/task.rb:99
-msgid "The task was finished at %s"
+#: app/helpers/tags_helper.rb:33
+msgid "http://en.wikipedia.org/wiki/Tag_%28metadata%29"
 msgstr ""
 
-#: app/models/task.rb:105
-msgid "The task was cancelled at %s"
+#: app/helpers/tags_helper.rb:35
+msgid "What are tags?"
+msgstr ""
+
+#: app/helpers/application_helper.rb:57 app/views/features/index.rhtml:7
+msgid "Help"
+msgstr ""
+
+#: app/helpers/application_helper.rb:77 app/views/search/popup.rhtml:15
+#: app/views/box_organizer/add_block.rhtml:18
+msgid "Close"
+msgstr ""
+
+#: app/helpers/application_helper.rb:162
+msgid "This is %s, version %s"
+msgstr ""
+
+#: app/helpers/application_helper.rb:281 app/views/account/login.rhtml:13
+#: app/views/admin_panel/site_info.rhtml:11
+#: app/views/cms/select_article_type.rhtml:12
+#: app/views/box_organizer/edit.rhtml:9
+#: app/views/manage_communities/new.rhtml:9
+msgid "Cancel"
+msgstr ""
+
+#: app/helpers/application_helper.rb:323 app/models/product.rb:32
+msgid "Uncategorized product"
+msgstr ""
+
+#: app/helpers/application_helper.rb:328
+msgid "No product"
+msgstr ""
+
+#: app/models/environment_statistics_block.rb:4
+msgid "Statitical overview of your environment."
+msgstr ""
+
+#: app/models/environment_statistics_block.rb:13
+msgid "One user"
+msgid_plural "%{num} users"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/models/environment_statistics_block.rb:14
+msgid "One enterprise"
+msgid_plural "%{num} enterprises"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/models/environment_statistics_block.rb:15
+msgid "One community"
+msgid_plural "%{num} communities"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/models/profile_list_block.rb:6
+msgid "A block that displays random profiles"
+msgstr ""
+
+#: app/models/profile_list_block.rb:42
+msgid "People and Groups"
+msgstr ""
+
+#: app/models/change_password.rb:13
+msgid "ChangePassword|Login"
+msgstr ""
+
+#: app/models/change_password.rb:14
+msgid "ChangePassword|Email"
+msgstr ""
+
+#: app/models/change_password.rb:15
+msgid "ChangePassword|Password"
+msgstr ""
+
+#: app/models/change_password.rb:16
+msgid "ChangePassword|Password Confirmation"
+msgstr ""
+
+#: app/models/change_password.rb:31
+msgid "%{fn} is not a valid username."
+msgstr ""
+
+#: app/models/change_password.rb:34
+msgid "%{fn} is invalid."
+msgstr ""
+
+#: app/models/change_password.rb:65
+msgid "Your password change request was cancelled at %s."
+msgstr ""
+
+#: app/models/change_password.rb:69
+msgid "Your password was changed successfully."
+msgstr ""
+
+#: app/models/change_password.rb:78
+msgid ""
+"In order to change your password, please visit the following address:\n"
+"\n"
+"%s"
+msgstr ""
+
+#: app/models/change_password.rb:83
+msgid "Password change request"
 msgstr ""
 
 #: app/models/create_enterprise.rb:3 app/models/create_enterprise.rb:160
@@ -297,6 +470,46 @@ msgstr ""
 msgid "Contact person: %s"
 msgstr ""
 
+#: app/models/rss_feed.rb:70
+msgid "%s's RSS feed"
+msgstr ""
+
+#: app/models/rss_feed.rb:72
+msgid "%s's content published at %s"
+msgstr ""
+
+#: app/models/rss_feed.rb:98
+msgid "RSS Feed"
+msgstr ""
+
+#: app/models/rss_feed.rb:102
+msgid "Provides a news feed of your more recent articles."
+msgstr ""
+
+#: app/models/article_block.rb:4
+msgid "Display one of your contents."
+msgstr ""
+
+#: app/models/article_block.rb:8
+msgid "Article not selected yet."
+msgstr ""
+
+#: app/models/main_block.rb:4
+msgid "Block for main content (i.e. your articles, photos, etc)"
+msgstr ""
+
+#: app/models/profile_info_block.rb:4
+msgid "Profile information block"
+msgstr ""
+
+#: app/models/recent_documents_block.rb:4
+msgid "List of recent content"
+msgstr ""
+
+#: app/models/recent_documents_block.rb:17
+msgid "Recent content"
+msgstr ""
+
 #: app/models/environment.rb:7
 msgid "View environment admin panel"
 msgstr ""
@@ -329,105 +542,48 @@ msgstr ""
 msgid "Other feature"
 msgstr ""
 
-#: app/models/environment.rb:143
+#: app/models/environment.rb:173
 msgid "Only one Virtual Community can be the default one"
 msgstr ""
 
-#: app/models/domain.rb:13
-msgid ""
-"%{fn} must be composed only of lowercase latters (a to z), numbers (0 to 9) "
-"and \"_\""
+#: app/models/task.rb:86
+msgid "Generic task"
 msgstr ""
 
-#: app/models/domain.rb:20
-msgid "%{fn} must not start with www."
+#: app/models/task.rb:93
+msgid "The task was created at %s"
 msgstr ""
 
-#: app/models/change_password.rb:13
-msgid "ChangePassword|Login"
+#: app/models/task.rb:99
+msgid "The task was finished at %s"
 msgstr ""
 
-#: app/models/change_password.rb:14
-msgid "ChangePassword|Email"
+#: app/models/task.rb:105
+msgid "The task was cancelled at %s"
 msgstr ""
 
-#: app/models/change_password.rb:15
-msgid "ChangePassword|Password"
+#: app/models/image_gallery.rb:4
+msgid "Image gallery"
 msgstr ""
 
-#: app/models/change_password.rb:16
-msgid "ChangePassword|Password Confirmation"
+#: app/models/image_gallery.rb:8
+msgid "A collection of photos, logos or other kinds of images."
 msgstr ""
 
-#: app/models/change_password.rb:31
-msgid "%{fn} is not a valid username."
+#: app/models/textile_article.rb:4
+msgid "Text article with Textile markup language"
 msgstr ""
 
-#: app/models/change_password.rb:34
-msgid "%{fn} is invalid."
+#: app/models/textile_article.rb:8
+msgid "Accessible alternative for visually impaired users."
 msgstr ""
 
-#: app/models/change_password.rb:65
-msgid "Your password change request was cancelled at %s."
+#: app/models/tiny_mce_article.rb:4
+msgid "Text article with visual editor."
 msgstr ""
 
-#: app/models/change_password.rb:69
-msgid "Your password was changed successfully."
-msgstr ""
-
-#: app/models/change_password.rb:78
-msgid ""
-"In order to change your password, please visit the following address:\n"
-"\n"
-"%s"
-msgstr ""
-
-#: app/models/change_password.rb:83
-msgid "Password change request"
-msgstr ""
-
-#: app/models/profile.rb:7
-msgid "Edit profile"
-msgstr ""
-
-#: app/models/profile.rb:8
-msgid "Destroy profile"
-msgstr ""
-
-#: app/models/profile.rb:9
-msgid "Manage memberships"
-msgstr ""
-
-#: app/models/profile.rb:10
-msgid "Post content"
-msgstr ""
-
-#: app/models/profile.rb:11
-msgid "Edit profile design"
-msgstr ""
-
-#: app/models/profile.rb:12
-msgid "Manage products"
-msgstr ""
-
-#: app/models/profile.rb:66
-msgid "An existing profile cannot be renamed."
-msgstr ""
-
-#: app/models/rss_feed.rb:70
-msgid "%s's RSS feed"
-msgstr ""
-
-#: app/models/rss_feed.rb:72
-msgid "%s's content published at %s"
-msgstr ""
-
-#: app/models/rss_feed.rb:98
-msgid "RSS Feed"
-msgstr ""
-
-#: app/models/rss_feed.rb:102
-msgid "Provides a news feed of your more recent articles."
+#: app/models/tiny_mce_article.rb:8
+msgid "Not accessible for visually impaired users."
 msgstr ""
 
 #: app/models/uploaded_file.rb:24
@@ -448,354 +604,486 @@ msgstr ""
 msgid "Tag list"
 msgstr ""
 
-#: app/models/article.rb:68
+#: app/models/article.rb:65
 msgid "HTML Text document"
 msgstr ""
 
-#: app/models/article.rb:85
+#: app/models/article.rb:82
 msgid "Article"
 msgstr ""
 
-#: app/models/article.rb:87
+#: app/models/article.rb:84
 msgid "\"%s\" article"
 msgstr ""
 
-#: app/models/article.rb:93
+#: app/models/article.rb:90
 msgid "An ordinary article"
 msgstr ""
 
-#: app/models/article.rb:95
+#: app/models/article.rb:92
 msgid "An article of type \"%s\""
 msgstr ""
 
-#: app/models/tiny_mce_article.rb:4
-msgid "Text article with visual editor."
+#: app/models/login_block.rb:4
+msgid "A login box for your users."
 msgstr ""
 
-#: app/models/tiny_mce_article.rb:8
-msgid "Not accessible for visually impaired users."
+#: app/models/tags_block.rb:7
+msgid "List count of contents by tag"
 msgstr ""
 
-#: app/models/textile_article.rb:4
-msgid "Text article with Textile markup language"
+#: app/models/tags_block.rb:11
+msgid "Tags"
 msgstr ""
 
-#: app/models/textile_article.rb:8
-msgid "Accessible alternative for visually impaired users."
+#: app/models/tags_block.rb:13
+msgid ""
+"The tag is created when you add some one to your article.\n"
+"                 Try to add some tags to some articles and see your tag "
+"cloud to grow."
 msgstr ""
 
-#: app/controllers/my_profile/profile_members_controller.rb:18
-#: app/controllers/admin/environment_role_manager_controller.rb:17
-msgid "Roles successfuly updated"
+#: app/models/tags_block.rb:15
+msgid "How tags works here?"
 msgstr ""
 
-#: app/controllers/my_profile/profile_members_controller.rb:20
-#: app/controllers/admin/environment_role_manager_controller.rb:19
-msgid "Couldn't change the roles"
+#: app/models/members_block.rb:4
+msgid "A block that displays members."
 msgstr ""
 
-#: app/controllers/my_profile/manage_products_controller.rb:19
-#: app/controllers/my_profile/consumed_products_controller.rb:15
-msgid "Product succesfully created"
+#: app/models/members_block.rb:8
+msgid "Members"
 msgstr ""
 
-#: app/controllers/my_profile/manage_products_controller.rb:22
-#: app/controllers/my_profile/consumed_products_controller.rb:18
-msgid "Could not create the product"
+#: app/models/members_block.rb:14
+msgid "All members"
 msgstr ""
 
-#: app/controllers/my_profile/manage_products_controller.rb:31
-msgid "Product succesfully updated"
+#: app/models/category.rb:3
+msgid "%{fn} cannot be like that."
 msgstr ""
 
-#: app/controllers/my_profile/manage_products_controller.rb:34
-msgid "Could not update the product"
+#: app/models/category.rb:5
+msgid "%{fn} is already being used by another category."
 msgstr ""
 
-#: app/controllers/my_profile/manage_products_controller.rb:42
-#: app/controllers/my_profile/consumed_products_controller.rb:26
-msgid "Product succesfully removed"
+#: app/models/category.rb:9
+msgid "%{fn} was already assigned to another category."
 msgstr ""
 
-#: app/controllers/my_profile/manage_products_controller.rb:45
-#: app/controllers/my_profile/consumed_products_controller.rb:28
-msgid "Could not remove the product"
+#: app/models/category.rb:13
+msgid "%{fn} must be the same as the parents'"
 msgstr ""
 
-#: app/controllers/my_profile/enterprise_editor_controller.rb:22
-msgid "Could not update the enterprise"
+#: app/models/comment.rb:14
+msgid "%{fn} can only be informed for unauthenticated authors"
 msgstr ""
 
-#: app/controllers/my_profile/enterprise_editor_controller.rb:32
-msgid "Enterprise sucessfully erased from the system"
+#: app/models/domain.rb:13
+msgid ""
+"%{fn} must be composed only of lowercase latters (a to z), numbers (0 to 9) "
+"and \"_\""
 msgstr ""
 
-#: app/controllers/my_profile/profile_editor_controller.rb:44
-msgid "Image successfully uploaded"
+#: app/models/domain.rb:20
+msgid "%{fn} must not start with www."
 msgstr ""
 
-#: app/controllers/my_profile/profile_editor_controller.rb:47
-msgid "Could not upload image"
+#: app/models/user.rb:7
+msgid "User|Password"
 msgstr ""
 
-#: app/controllers/admin/features_controller.rb:13
-msgid "Features updated successfully."
+#: app/models/user.rb:8
+msgid "User|Password confirmation"
 msgstr ""
 
-#: app/controllers/admin/environment_role_manager_controller.rb:45
-#: app/controllers/admin/environment_role_manager_controller.rb:55
-msgid "Member succefully unassociated"
+#: app/models/user.rb:38
+msgid "%{fn} must be checked in order to signup."
 msgstr ""
 
-#: app/controllers/admin/environment_role_manager_controller.rb:47
-#: app/controllers/admin/environment_role_manager_controller.rb:57
-msgid "Failed to unassociate member"
+#: app/models/block.rb:16
+msgid "A dummy block."
 msgstr ""
 
-#: app/controllers/admin/role_controller.rb:21
-msgid "Failed to create role"
+#: app/models/profile.rb:16
+msgid "Edit profile"
 msgstr ""
 
-#: app/controllers/admin/role_controller.rb:35
-#: app/controllers/admin/role_controller.rb:45
-msgid "Failed to edit role"
+#: app/models/profile.rb:17
+msgid "Destroy profile"
 msgstr ""
 
-#: app/controllers/public/account_controller.rb:25
-msgid "Logged in successfully"
+#: app/models/profile.rb:18
+msgid "Manage memberships"
 msgstr ""
 
-#: app/controllers/public/account_controller.rb:27
-msgid "Incorrect username or password"
+#: app/models/profile.rb:19
+msgid "Post content"
 msgstr ""
 
-#: app/controllers/public/account_controller.rb:46
-msgid "Thanks for signing up!"
+#: app/models/profile.rb:20
+msgid "Edit profile design"
 msgstr ""
 
-#: app/controllers/public/account_controller.rb:58
-msgid "You have been logged out."
+#: app/models/profile.rb:21
+msgid "Manage products"
 msgstr ""
 
-#: app/controllers/public/account_controller.rb:69
-msgid "Your password has been changed successfully!"
+#: app/models/profile.rb:77
+msgid "An existing profile cannot be renamed."
 msgstr ""
 
-#: app/controllers/public/account_controller.rb:72
-msgid "The supplied current password is incorrect."
+#: app/models/profile.rb:237
+msgid "Home page"
 msgstr ""
 
-#: app/controllers/my_profile_controller.rb:17
-msgid "This action is not available for \"%s\"."
+#: app/models/profile.rb:237
+msgid ""
+"<h1>%s's home page</h1> <p>This is a default homepage created for %s. It can "
+"be changed though the control panel.</p>"
 msgstr ""
 
-#: app/design_blocks/favorite_links_profile/models/favorite_links_profile.rb:4
-#: app/design_blocks/favorite_links/models/favorite_links.rb:4
-#: app/design_blocks/favorite_links/views/manage_links.rhtml:3
-msgid "Favorite Links"
+#: app/views/account/change_password.rhtml:1
+#: app/views/account/change_password.rhtml:14
+#: app/views/account/new_password.rhtml:14
+msgid "Change password"
 msgstr ""
 
-#: app/design_blocks/list_block/models/list_block.rb:12
-msgid "List Block"
+#: app/views/account/change_password.rhtml:5
+msgid "Current password"
 msgstr ""
 
-#: app/design_blocks/list_block/controllers/list_block_controller.rb:24
-#: app/design_blocks/profile_info_block/controllers/profile_info_block_controller.rb:24
-#: app/design_blocks/view_article/controllers/view_article_controller.rb:24
-#: app/design_blocks/favorite_links/controllers/favorite_links_controller.rb:4
-#: app/design_blocks/login_box/controllers/login_box_controller.rb:22
-#: app/views/cms/view.rhtml:70 app/views/categories/_category.rhtml:8
-#: app/views/content_viewer/view_page.rhtml:11 app/views/role/index.rhtml:6
-msgid "Edit"
+#: app/views/account/change_password.rhtml:8
+msgid "New password"
 msgstr ""
 
-#: app/design_blocks/favorite_links/controllers/favorite_links_controller.rb:5
-msgid "Manage Links"
+#: app/views/account/change_password.rhtml:11
+msgid "Confirm your new Password"
 msgstr ""
 
-#: app/design_blocks/list_block/views/show.rhtml:1
-msgid "Limit number of people: "
+#: app/views/account/forgot_password.rhtml:1
+#: app/views/account/password_recovery_sent.rhtml:1
+msgid "Password recovery"
 msgstr ""
 
-#: app/design_blocks/list_block/views/edit.rhtml:1
-msgid "Editing list of people"
+#: app/views/account/forgot_password.rhtml:5
+msgid ""
+"To change your password, please fill the form on this screen using yout "
+"username and your e-mail. You will receive a message at that e-mail address "
+"with a web address you can access to create a new password."
 msgstr ""
 
-#: app/design_blocks/list_block/views/edit.rhtml:5
-#: app/design_blocks/profile_info_block/views/edit.rhtml:5
-#: app/design_blocks/view_article/views/edit.rhtml:5
-#: app/design_blocks/favorite_links/views/add_link.rhtml:6
-#: app/design_blocks/favorite_links/views/edit.rhtml:7
-#: app/views/content_viewer/_comment_form.rhtml:16
-msgid "Title"
+#: app/views/account/forgot_password.rhtml:8
+#: app/views/account/login_block.rhtml:7
+msgid "Username"
 msgstr ""
 
-#: app/design_blocks/list_block/views/edit.rhtml:10
-msgid "Type of objects to list"
+#: app/views/account/forgot_password.rhtml:9
+msgid "E-mail"
 msgstr ""
 
-#: app/design_blocks/list_block/views/edit.rhtml:15
-msgid "Max number of elements"
+#: app/views/account/forgot_password.rhtml:12
+msgid "Send change password procedure by e-mail"
 msgstr ""
 
-#: app/design_blocks/list_block/views/edit.rhtml:19
-#: app/design_blocks/profile_info_block/views/edit.rhtml:9
-#: app/design_blocks/view_article/views/edit.rhtml:14
-#: app/design_blocks/favorite_links/views/add_link.rhtml:10
-#: app/design_blocks/favorite_links/views/edit.rhtml:26
-#: app/views/cms/edit.rhtml:16 app/views/categories/_form.rhtml:16
-#: app/views/profile_editor/person_info.rhtml:18
-msgid "Save"
+#: app/views/account/index.rhtml:1
+msgid "Account options"
 msgstr ""
 
-#: app/design_blocks/list_block/views/nothing.rhtml:1
-msgid "Nothing to see here"
+#: app/views/account/index.rhtml:4
+msgid "Change password."
 msgstr ""
 
-#: app/design_blocks/profile_info_block/views/edit.rhtml:1
-msgid "Editing profile exibition"
+#: app/views/account/index.rhtml:5
+msgid "It is a good idea to change your password from times to times."
 msgstr ""
 
-#: app/design_blocks/profile_info_block/views/index.rhtml:2
-msgid "Change photo"
+#: app/views/account/index.rhtml:9
+msgid "Edit Personal details."
 msgstr ""
 
-#: app/design_blocks/profile_info_block/views/index.rhtml:3
+#: app/views/account/index.rhtml:10
+msgid "You can change your personal details."
+msgstr ""
+
+#: app/views/account/index.rhtml:14
+msgid "My home page."
+msgstr ""
+
+#: app/views/account/index.rhtml:15
+msgid "See your homepage."
+msgstr ""
+
+#: app/views/account/index.rhtml:19
+msgid "Manage content."
+msgstr ""
+
+#: app/views/account/index.rhtml:20
+msgid "Manage your content."
+msgstr ""
+
+#: app/views/account/index.rhtml:24
+msgid "Logout."
+msgstr ""
+
+#: app/views/account/index.rhtml:25
+msgid ""
+"It is always a good idea to make a logout when you finish using the "
+"environment."
+msgstr ""
+
+#: app/views/account/index_anonymous.rhtml:1
+msgid "Identify yourself"
+msgstr ""
+
+#: app/views/account/index_anonymous.rhtml:4
+msgid "Login."
+msgstr ""
+
+#: app/views/account/index_anonymous.rhtml:5
+msgid ""
+"You need to login to be able to use all the features in this environment."
+msgstr ""
+
+#: app/views/account/index_anonymous.rhtml:9
+msgid "Sign up."
+msgstr ""
+
+#: app/views/account/index_anonymous.rhtml:10
+msgid ""
+"If you are not an user already, you can register now to become a member of "
+"this environment."
+msgstr ""
+
+#: app/views/account/invalid_change_password_code.rhtml:1
+msgid "Invalid change password code"
+msgstr ""
+
+#: app/views/account/invalid_change_password_code.rhtml:4
+msgid ""
+"The code you are using for password change is not valid. Please try to "
+"request password change using the <a href=\"%s\">\"I forgot my password\"</"
+"a> functionality."
+msgstr ""
+
+#: app/views/account/logout_popup.rhtml:1
+msgid "Are you sure you want to get out?"
+msgstr ""
+
+#: app/views/account/logout_popup.rhtml:4
+msgid "Yes"
+msgstr ""
+
+#: app/views/account/logout_popup.rhtml:5
+msgid "No, I want to stay."
+msgstr ""
+
+#: app/views/account/new_password.rhtml:1
+#: app/views/account/new_password.rhtml:11
+msgid "Enter new password"
+msgstr ""
+
+#: app/views/account/new_password.rhtml:4
+msgid "Hello, %s! Please enter your new password in the form below."
+msgstr ""
+
+#: app/views/account/new_password.rhtml:12
+msgid "Confirm the new password"
+msgstr ""
+
+#: app/views/account/new_password_ok.rhtml:1
+msgid "Password changed sucessfully"
+msgstr ""
+
+#: app/views/account/new_password_ok.rhtml:4
+msgid "%s, your new password was successfully installed."
+msgstr ""
+
+#: app/views/account/new_password_ok.rhtml:8
+msgid "You can <a href='%s'>login</a> now."
+msgstr ""
+
+#: app/views/account/password_recovery_sent.rhtml:4
+msgid ""
+"An e-mail was just sent to your e-mail address, with instructions for "
+"changing your password. You should receive it in a few minutes."
+msgstr ""
+
+#: app/views/account/signup.rhtml:1
+msgid "Register"
+msgstr ""
+
+#: app/views/account/signup.rhtml:17
+msgid "I accept the terms of use"
+msgstr ""
+
+#: app/views/account/signup.rhtml:22
+msgid "Sign up"
+msgstr ""
+
+#: app/views/account/login.rhtml:3 app/views/account/login.rhtml:7
+#: app/views/account/login_block.rhtml:4 app/views/shared/user_menu.rhtml:44
+msgid "Login"
+msgstr ""
+
+#: app/views/account/login.rhtml:9 app/views/account/login_block.rhtml:8
+msgid "Password"
+msgstr ""
+
+#: app/views/account/login.rhtml:12 app/views/account/login_block.rhtml:10
+msgid "Log in"
+msgstr ""
+
+#: app/views/account/login.rhtml:19
+msgid "I forgot my password!"
+msgstr ""
+
+#: app/views/account/login.rhtml:23
+msgid "I want to be an user!"
+msgstr ""
+
+#: app/views/account/login_block.rhtml:15
+msgid "New user"
+msgstr ""
+
+#: app/views/account/user_info.rhtml:4
 msgid "User since %d"
 msgstr ""
 
-#: app/design_blocks/profile_info_block/views/index.rhtml:5
-msgid "1 year"
-msgid_plural "%{num} years"
-msgstr[0] ""
-msgstr[1] ""
-
-#: app/design_blocks/view_article/views/edit.rhtml:1
-msgid "Editing article shown"
+#: app/views/account/user_info.rhtml:5 app/views/blocks/profile_info.rhtml:7
+msgid "Homepage"
 msgstr ""
 
-#: app/design_blocks/view_article/views/edit.rhtml:10
-msgid "Page to show"
+#: app/views/account/user_info.rhtml:9 app/views/shared/user_menu.rhtml:36
+msgid "Logout"
 msgstr ""
 
-#: app/design_blocks/favorite_links/views/add_link.rhtml:1
-#: app/design_blocks/favorite_links/views/edit.rhtml:2
-msgid "Editing Favorite Links"
+#: app/views/admin_panel/index.rhtml:1
+msgid "Administrator Panel"
 msgstr ""
 
-#: app/design_blocks/favorite_links/views/edit.rhtml:12
-msgid "Display header?"
+#: app/views/admin_panel/index.rhtml:3
+msgid "You, as an environment administrator, has the following options:"
 msgstr ""
 
-#: app/design_blocks/favorite_links/views/edit.rhtml:17
-msgid "Display title?"
+#: app/views/admin_panel/index.rhtml:6
+msgid "Edit site info"
 msgstr ""
 
-#: app/design_blocks/favorite_links/views/edit.rhtml:22
-msgid "Max number of links"
+#: app/views/admin_panel/index.rhtml:7
+msgid "Enable/disable features"
 msgstr ""
 
-#: app/design_blocks/favorite_links/views/index.rhtml:4
-#: app/design_blocks/favorite_links/views/manage_links.rhtml:8
-msgid "Previous"
+#: app/views/admin_panel/index.rhtml:8
+msgid "Edit the Visual Design"
 msgstr ""
 
-#: app/design_blocks/favorite_links/views/index.rhtml:7
-#: app/design_blocks/favorite_links/views/manage_links.rhtml:11
-#: app/views/enterprise_registration/basic_information.rhtml:32
-msgid "Next"
+#: app/views/admin_panel/index.rhtml:9
+msgid "Manage Categories"
 msgstr ""
 
-#: app/design_blocks/favorite_links/views/manage_links.rhtml:4
-msgid "Add Link"
+#: app/views/admin_panel/index.rhtml:10
+msgid "Manage User roles"
 msgstr ""
 
-#: app/design_blocks/favorite_links/views/manage_links.rhtml:18
+#: app/views/admin_panel/index.rhtml:11
+msgid "Manage Validators by region"
+msgstr ""
+
+#: app/views/admin_panel/site_info.rhtml:1
+msgid "Site info"
+msgstr ""
+
+#: app/views/admin_panel/site_info.rhtml:10
+#: app/views/categories/_form.rhtml:17 app/views/cms/edit.rhtml:19
+#: app/views/enterprise_validation/edit_validation_info.rhtml:9
+#: app/views/profile_editor/organization_info.rhtml:9
+#: app/views/profile_editor/person_info.rhtml:13
+#: app/views/box_organizer/edit.rhtml:8
+msgid "Save"
+msgstr ""
+
+#: app/views/catalog/index.rhtml:1
+msgid "Catalog"
+msgstr ""
+
+#: app/views/catalog/show.rhtml:8
+msgid "Category: %s "
+msgstr ""
+
+#: app/views/categories/_category.rhtml:7
+msgid "Add subcategory"
+msgstr ""
+
 #: app/views/categories/_category.rhtml:9
 msgid "Remove"
 msgstr ""
 
-#: app/views/environment_role_manager/affiliate.rhtml:6
-#: app/views/profile_members/affiliate.rhtml:6
-msgid "Affiliate"
+#: app/views/categories/_category.rhtml:9
+msgid "Are you sure you want to remove \"%s\"?"
 msgstr ""
 
-#: app/views/environment_role_manager/affiliate.rhtml:9
-#: app/views/environment_role_manager/index.rhtml:13
-#: app/views/enterprise_editor/index.rhtml:22
-#: app/views/enterprise_validation/view_processed.rhtml:3
-#: app/views/enterprise_validation/list_processed.rhtml:3
-#: app/views/enterprise_validation/details.rhtml:3
-#: app/views/consumed_products/index.rhtml:11 app/views/role/show.rhtml:10
-#: app/views/role/index.rhtml:12 app/views/profile_members/affiliate.rhtml:9
-#: app/views/profile_members/index.rhtml:13
-#: app/views/manage_products/index.rhtml:12
-msgid "Back"
+#: app/views/categories/_category.rhtml:9
+msgid "Are you sure you want to remove \"%s\" and all its subcategories?"
 msgstr ""
 
-#: app/views/environment_role_manager/make_admin.rhtml:1
-#: app/views/environment_role_manager/index.rhtml:3
-msgid "Make new admin"
+#: app/views/categories/edit.rhtml:1
+msgid "Editing %s"
 msgstr ""
 
-#: app/views/environment_role_manager/make_admin.rhtml:8
-#: app/views/environment_role_manager/change_role.rhtml:5
-#: app/views/profile_members/change_role.rhtml:5
-msgid "Roles:"
+#: app/views/categories/index.rhtml:8 app/views/categories/new.rhtml:1
+msgid "New category"
 msgstr ""
 
-#: app/views/environment_role_manager/make_admin.rhtml:12
-msgid "Make"
+#: app/views/category/_product_category.rhtml:1
+msgid "I consume this"
 msgstr ""
 
-#: app/views/environment_role_manager/change_role.rhtml:1
-#: app/views/profile_members/change_role.rhtml:1
-msgid "Changing role of %s"
+#: app/views/category/_product_category.rhtml:3
+msgid "One product in this category."
+msgid_plural "%{num} products in this category."
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/views/category/_product_category.rhtml:4
+msgid "One enterprise sells products in this category."
+msgid_plural "%{num} enterprises sells products in this category."
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/views/category/_product_category.rhtml:5
+msgid "One user consumes this product."
+msgid_plural "%{num} users consumes this product"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/views/category/_product_category.rhtml:8
+msgid "Products under this category:"
 msgstr ""
 
-#: app/views/environment_role_manager/change_role.rhtml:11
-#: app/views/role/_form.rhtml:12
-#: app/views/profile_members/change_role.rhtml:12
-#: app/views/manage_products/_form.rhtml:9
-#: app/views/features/_features_table.rhtml:15
-msgid "Save changes"
+#: app/views/category/_product_category.rhtml:14
+#: app/views/search/_product.rhtml:11
+msgid "Price: %d"
 msgstr ""
 
-#: app/views/environment_role_manager/change_role.rhtml:12
-#: app/views/cms/edit.rhtml:17 app/views/categories/_form.rhtml:17
-#: app/views/enterprise_editor/edit.rhtml:8
-#: app/views/consumed_products/new.rhtml:9 app/views/role/_form.rhtml:13
-#: app/views/profile_editor/change_image.rhtml:4
-#: app/views/enterprise_registration/basic_information.rhtml:33
-#: app/views/profile_members/change_role.rhtml:13
-#: app/views/manage_products/_form.rhtml:10
-msgid "Cancel"
+#: app/views/category/_product_category.rhtml:16
+msgid "Enterprise:"
 msgstr ""
 
-#: app/views/environment_role_manager/index.rhtml:1
-msgid "Listing Administrators"
+#: app/views/category/_product_category.rhtml:21
+msgid "Users that consumes products in this category:"
 msgstr ""
 
-#: app/views/environment_role_manager/index.rhtml:8
-#: app/views/profile_members/index.rhtml:8
-msgid "Edit member role"
+#: app/views/category/view.rhtml:7 app/views/search/_product.rhtml:13
+msgid "Category: %s"
 msgstr ""
 
-#: app/views/environment_role_manager/index.rhtml:9
-#: app/views/profile_members/index.rhtml:9
-msgid "Remove member"
+#: app/views/category/view.rhtml:14
+msgid "No children categories"
 msgstr ""
 
-#: app/views/cms/select_article_type.rhtml:2
-msgid "Choose the type of article:"
-msgstr ""
-
-#: app/views/cms/_uploaded_file.rhtml:1
-msgid "Select the file you want to upload."
-msgstr ""
-
-#: app/views/cms/_uploaded_file.rhtml:3
-msgid "Describe this file:"
+#: app/views/category/view.rhtml:16
+msgid "Child categories:"
 msgstr ""
 
 #: app/views/cms/_rss_feed.rhtml:3
@@ -826,8 +1114,16 @@ msgstr ""
 msgid "Only articles child of the same article as the feed"
 msgstr ""
 
-#: app/views/cms/edit.rhtml:14
-msgid "Separate tags with commas"
+#: app/views/cms/_uploaded_file.rhtml:1
+msgid "Select the file you want to upload."
+msgstr ""
+
+#: app/views/cms/_uploaded_file.rhtml:3
+msgid "Describe this file:"
+msgstr ""
+
+#: app/views/cms/select_article_type.rhtml:1
+msgid "Choose the type of article:"
 msgstr ""
 
 #: app/views/cms/view.rhtml:10
@@ -874,7 +1170,7 @@ msgstr ""
 msgid "Public address of this article: %s"
 msgstr ""
 
-#: app/views/cms/view.rhtml:65
+#: app/views/cms/view.rhtml:65 app/views/profile/index.rhtml:18
 msgid "Tags:"
 msgstr ""
 
@@ -894,91 +1190,164 @@ msgstr ""
 msgid "Are you sure you wan to remove this article?"
 msgstr ""
 
-#: app/views/categories/_category.rhtml:7
-msgid "Add subcategory"
+#: app/views/cms/edit.rhtml:15
+msgid "Separate tags with commas"
 msgstr ""
 
-#: app/views/categories/_category.rhtml:9
-msgid "Are you sure you want to remove \"%s\"?"
+#: app/views/consumed_products/index.rhtml:1
+#: app/views/manage_products/index.rhtml:1
+msgid "Listing products"
 msgstr ""
 
-#: app/views/categories/_category.rhtml:9
-msgid "Are you sure you want to remove \"%s\" and all its subcategories?"
+#: app/views/consumed_products/index.rhtml:3
+#: app/views/consumed_products/new.rhtml:1
+#: app/views/consumed_products/new.rhtml:9
+msgid "Add product"
 msgstr ""
 
-#: app/views/categories/edit.rhtml:1
-msgid "Editing %s"
+#: app/views/consumed_products/index.rhtml:7
+#: app/views/manage_products/index.rhtml:9
+#: app/views/manage_products/show.rhtml:9
+msgid "destroy"
 msgstr ""
 
-#: app/views/categories/index.rhtml:8 app/views/categories/new.rhtml:1
-msgid "New category"
+#: app/views/consumed_products/index.rhtml:11
+#: app/views/enterprise_editor/index.rhtml:22
+#: app/views/enterprise_validation/details.rhtml:3
+#: app/views/enterprise_validation/list_processed.rhtml:3
+#: app/views/enterprise_validation/view_processed.rhtml:3
+#: app/views/environment_role_manager/index.rhtml:13
+#: app/views/manage_products/index.rhtml:12
+#: app/views/profile_members/index.rhtml:13 app/views/role/index.rhtml:12
+#: app/views/role/show.rhtml:10
+msgid "Back"
 msgstr ""
 
+#: app/views/consumed_products/new.rhtml:6
+msgid "Product:"
+msgstr ""
+
+#: app/views/consumed_products/new.rhtml:7
+msgid "Aditional specifications:"
+msgstr ""
+
+#: app/views/content_viewer/_comment.rhtml:3
+msgid "By %{author} on %{date}"
+msgstr ""
+
+#: app/views/content_viewer/_comment_form.rhtml:1
+msgid "Post a comment"
+msgstr ""
+
+#: app/views/content_viewer/_comment_form.rhtml:7
 #: app/views/enterprise_editor/_form.rhtml:1
 #: app/views/enterprise_validation/_details.rhtml:3
-#: app/views/content_viewer/_comment_form.rhtml:7
-#: app/views/profile_editor/enterprise_info.rhtml:1
-#: app/views/profile_editor/person_info.rhtml:5
 msgid "Name"
 msgstr ""
 
+#: app/views/content_viewer/_comment_form.rhtml:8
+msgid "e-mail"
+msgstr ""
+
+#: app/views/content_viewer/_comment_form.rhtml:11
+msgid ""
+"If you are a registered user, you can login and be automatically recognized."
+msgstr ""
+
+#: app/views/content_viewer/_comment_form.rhtml:16
+msgid "Title"
+msgstr ""
+
+#: app/views/content_viewer/_comment_form.rhtml:17
+msgid "Enter your comment"
+msgstr ""
+
+#: app/views/content_viewer/_comment_form.rhtml:19
+msgid "Post comment"
+msgstr ""
+
+#: app/views/content_viewer/not_found.rhtml:1
+#: app/views/shared/not_found.rhtml:1
+msgid "There is no such page: %s"
+msgstr ""
+
+#: app/views/content_viewer/view_page.rhtml:4
+msgid "Tags: %s"
+msgstr ""
+
+#: app/views/content_viewer/view_page.rhtml:8
+msgid "Up"
+msgstr ""
+
+#: app/views/content_viewer/view_page.rhtml:32
+msgid "No comments yet"
+msgstr ""
+
+#: app/views/content_viewer/view_page.rhtml:32
+msgid "One comment"
+msgid_plural "%{comments} comments"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/views/content_viewer/no_home_page.rhtml:1
+msgid "Missing home page"
+msgstr ""
+
+#: app/views/content_viewer/no_home_page.rhtml:4
+msgid "%s did not choose an article for homepage yet."
+msgstr ""
+
+#: app/views/content_viewer/no_home_page.rhtml:9
+msgid "Click here to set your homepage now!"
+msgstr ""
+
 #: app/views/enterprise_editor/_form.rhtml:4
-#: app/views/enterprise_validation/list_processed.rhtml:9
 #: app/views/enterprise_validation/_details.rhtml:7
 #: app/views/enterprise_validation/index.rhtml:7
-#: app/views/profile_editor/enterprise_info.rhtml:4
-#: app/views/profile_editor/person_info.rhtml:13
+#: app/views/enterprise_validation/list_processed.rhtml:9
 msgid "Address"
 msgstr ""
 
 #: app/views/enterprise_editor/_form.rhtml:7
-#: app/views/enterprise_validation/list_processed.rhtml:13
 #: app/views/enterprise_validation/_details.rhtml:11
 #: app/views/enterprise_validation/index.rhtml:11
-#: app/views/profile_editor/enterprise_info.rhtml:7
+#: app/views/enterprise_validation/list_processed.rhtml:13
 msgid "Contact Phone"
 msgstr ""
 
 #: app/views/enterprise_editor/_form.rhtml:10
-#: app/views/enterprise_validation/list_processed.rhtml:17
 #: app/views/enterprise_validation/_details.rhtml:15
 #: app/views/enterprise_validation/index.rhtml:15
-#: app/views/profile_editor/enterprise_info.rhtml:10
+#: app/views/enterprise_validation/list_processed.rhtml:17
 msgid "Contact Person"
 msgstr ""
 
 #: app/views/enterprise_editor/_form.rhtml:13
 #: app/views/enterprise_validation/_details.rhtml:19
-#: app/views/profile_editor/enterprise_info.rhtml:13
 msgid "Acronym"
 msgstr ""
 
 #: app/views/enterprise_editor/_form.rhtml:16
 #: app/views/enterprise_validation/_details.rhtml:27
-#: app/views/profile_editor/enterprise_info.rhtml:16
 msgid "Foundation Year"
 msgstr ""
 
 #: app/views/enterprise_editor/_form.rhtml:19
 #: app/views/enterprise_validation/_details.rhtml:31
-#: app/views/profile_editor/enterprise_info.rhtml:19
 msgid "Legal Form"
 msgstr ""
 
 #: app/views/enterprise_editor/_form.rhtml:22
 #: app/views/enterprise_validation/_details.rhtml:35
-#: app/views/profile_editor/enterprise_info.rhtml:22
 msgid "Economic Activity"
 msgstr ""
 
 #: app/views/enterprise_editor/_form.rhtml:25
 #: app/views/enterprise_validation/_details.rhtml:39
-#: app/views/profile_editor/enterprise_info.rhtml:25
 msgid "Management Information"
 msgstr ""
 
 #: app/views/enterprise_editor/_form.rhtml:28
-#: app/views/profile_editor/enterprise_info.rhtml:28
 msgid "Validation Entity"
 msgstr ""
 
@@ -986,7 +1355,7 @@ msgstr ""
 msgid "Edit enterprise informations"
 msgstr ""
 
-#: app/views/enterprise_editor/edit.rhtml:7
+#: app/views/enterprise_editor/edit.rhtml:8
 msgid "Update"
 msgstr ""
 
@@ -1050,533 +1419,44 @@ msgstr ""
 msgid "Activate an approved enterprise"
 msgstr ""
 
-#: app/views/home/index.rhtml:8
-msgid "Recent articles"
+#: app/views/enterprise_registration/basic_information.rhtml:3
+msgid "Register enterprise"
 msgstr ""
 
-#: app/views/enterprise_validation/view_processed.rhtml:1
-msgid "Processed validation request for %s "
+#: app/views/enterprise_registration/basic_information.rhtml:5
+msgid "How to proceed"
 msgstr ""
 
-#: app/views/enterprise_validation/list_processed.rhtml:1
-#: app/views/enterprise_validation/index.rhtml:23
-msgid "Processed enterprise validations"
-msgstr ""
-
-#: app/views/enterprise_validation/list_processed.rhtml:23
-msgid "See details"
-msgstr ""
-
-#: app/views/enterprise_validation/_details.rhtml:23
-msgid "Identifier"
-msgstr ""
-
-#: app/views/enterprise_validation/details.rhtml:1
-msgid "%s's validation"
-msgstr ""
-
-#: app/views/enterprise_validation/details.rhtml:7
-msgid "Provided information"
-msgstr ""
-
-#: app/views/enterprise_validation/details.rhtml:11
-msgid "Final decision:"
-msgstr ""
-
-#: app/views/enterprise_validation/details.rhtml:13
-#: app/views/enterprise_validation/details.rhtml:18
-msgid "Approve"
-msgstr ""
-
-#: app/views/enterprise_validation/details.rhtml:15
+#: app/views/enterprise_registration/basic_information.rhtml:6
 msgid ""
-"If this enterprise passes the criteria to be considered an solidarity "
-"enconomy enterprise, you can approve it by click the button below."
+"Fill the form and hit the Register button then the enterprise will be "
+"submitted for evaluation at the validation entitiy of your choice (within "
+"your state), when the enterprise is aproved you will be able to activate its "
+"profile"
 msgstr ""
 
-#: app/views/enterprise_validation/details.rhtml:21
-#: app/views/enterprise_validation/details.rhtml:28
-msgid "Reject"
+#: app/views/enterprise_registration/basic_information.rhtml:27
+msgid "Management information"
 msgstr ""
 
-#: app/views/enterprise_validation/details.rhtml:23
+#: app/views/enterprise_registration/basic_information.rhtml:32
+msgid "Next"
+msgstr ""
+
+#: app/views/enterprise_registration/confirmation.rhtml:1
+msgid "Enterprise Registration completed"
+msgstr ""
+
+#: app/views/enterprise_registration/confirmation.rhtml:4
 msgid ""
-"If this enterprise does not pass the criteria do be considered, use this "
-"form."
+"Your enterprise registration request was successfully registered. The "
+"validator organization you choose (%s) should get in touch with to start the "
+"validation process. As soon as the validators approve (or reject) your "
+"request, you will be notified by e-mail."
 msgstr ""
 
-#: app/views/enterprise_validation/details.rhtml:26
-msgid ""
-"Please provide an explanation for the rejection. This explanation will be "
-"sent to the requestor (required)."
-msgstr ""
-
-#: app/views/enterprise_validation/index.rhtml:1
-msgid "Pending enterprise validations"
-msgstr ""
-
-#: app/views/enterprise_validation/index.rhtml:20
-msgid "See details/approve/reject"
-msgstr ""
-
-#: app/views/enterprise_validation/index.rhtml:25
-msgid "See the list of processed enterprise validations"
-msgstr ""
-
-#: app/views/content_viewer/not_found.rhtml:1
-#: app/views/shared/not_found.rhtml:1
-msgid "There is no such page: %s"
-msgstr ""
-
-#: app/views/content_viewer/no_home_page.rhtml:1
-msgid "Missing home page"
-msgstr ""
-
-#: app/views/content_viewer/no_home_page.rhtml:4
-msgid "%s did not choose an article for homepage yet."
-msgstr ""
-
-#: app/views/content_viewer/_comment.rhtml:3
-msgid "By %{author} on %{date}"
-msgstr ""
-
-#: app/views/content_viewer/_comment_form.rhtml:1
-msgid "Post a comment"
-msgstr ""
-
-#: app/views/content_viewer/_comment_form.rhtml:8
-msgid "e-mail"
-msgstr ""
-
-#: app/views/content_viewer/_comment_form.rhtml:11
-msgid ""
-"If you are a registered user, you can login and be automatically recognized."
-msgstr ""
-
-#: app/views/content_viewer/_comment_form.rhtml:17
-msgid "Enter your comment"
-msgstr ""
-
-#: app/views/content_viewer/_comment_form.rhtml:18
-msgid "Post comment"
-msgstr ""
-
-#: app/views/content_viewer/view_page.rhtml:4
-msgid "Tags: %s"
-msgstr ""
-
-#: app/views/content_viewer/view_page.rhtml:8
-msgid "Up"
-msgstr ""
-
-#: app/views/content_viewer/view_page.rhtml:32
-msgid "No comments yet"
-msgstr ""
-
-#: app/views/content_viewer/view_page.rhtml:32
-msgid "One comment"
-msgid_plural "%{comments} comments"
-msgstr[0] ""
-msgstr[1] ""
-
-#: app/views/task_mailer/target_notification.rhtml:6
-#: app/views/task_mailer/task_created.text.plain.rhtml:6
-#: app/views/task_mailer/task_finished.text.plain.rhtml:6
-#: app/views/task_mailer/task_cancelled.text.plain.rhtml:6
-msgid "%s environment system"
-msgstr ""
-
-#: app/views/task_mailer/task_created.text.plain.rhtml:1
-#: app/views/task_mailer/task_finished.text.plain.rhtml:1
-#: app/views/task_mailer/task_cancelled.text.plain.rhtml:1
-msgid "Dear %s,"
-msgstr ""
-
-#: app/views/account/new_password.rhtml:1
-#: app/views/account/new_password.rhtml:11
-msgid "Enter new password"
-msgstr ""
-
-#: app/views/account/new_password.rhtml:4
-msgid "Hello, %s! Please enter your new password in the form below."
-msgstr ""
-
-#: app/views/account/new_password.rhtml:12
-msgid "Confirm the new password"
-msgstr ""
-
-#: app/views/account/new_password.rhtml:13
-#: app/views/account/change_password.rhtml:1
-#: app/views/account/change_password.rhtml:14
-msgid "Change password"
-msgstr ""
-
-#: app/views/account/index_anonymous.rhtml:1
-msgid "Identify yourself"
-msgstr ""
-
-#: app/views/account/index_anonymous.rhtml:4
-msgid "Login."
-msgstr ""
-
-#: app/views/account/index_anonymous.rhtml:5
-msgid ""
-"You need to login to be able to use all the features in this environment."
-msgstr ""
-
-#: app/views/account/index_anonymous.rhtml:9
-msgid "Sign up."
-msgstr ""
-
-#: app/views/account/index_anonymous.rhtml:10
-msgid ""
-"If you are not an user already, you can register now to become a member of "
-"this environment."
-msgstr ""
-
-#: app/views/account/forgot_password.rhtml:1
-#: app/views/account/password_recovery_sent.rhtml:1
-msgid "Password recovery"
-msgstr ""
-
-#: app/views/account/forgot_password.rhtml:5
-msgid ""
-"To change your password, please fill the form on this screen using yout "
-"username and your e-mail. You will receive a message at that e-mail address "
-"with a web address you can access to create a new password."
-msgstr ""
-
-#: app/views/account/forgot_password.rhtml:8
-msgid "Username"
-msgstr ""
-
-#: app/views/account/forgot_password.rhtml:9
-msgid "E-mail"
-msgstr ""
-
-#: app/views/account/forgot_password.rhtml:11
-msgid "Send change password procedure by e-mail"
-msgstr ""
-
-#: app/views/account/new_password_ok.rhtml:1
-msgid "Password changed sucessfully"
-msgstr ""
-
-#: app/views/account/new_password_ok.rhtml:4
-msgid "%s, your new password was successfully installed."
-msgstr ""
-
-#: app/views/account/new_password_ok.rhtml:8
-msgid "You can <a href='%s'>login</a> now."
-msgstr ""
-
-#: app/views/account/signup.rhtml:1
-msgid "Register"
-msgstr ""
-
-#: app/views/account/signup.rhtml:17
-msgid "I accept the terms of use"
-msgstr ""
-
-#: app/views/account/signup.rhtml:21
-msgid "Sign up"
-msgstr ""
-
-#: app/views/account/change_password.rhtml:5
-msgid "Current password"
-msgstr ""
-
-#: app/views/account/change_password.rhtml:8
-msgid "New password"
-msgstr ""
-
-#: app/views/account/change_password.rhtml:11
-msgid "Confirm your new Password"
-msgstr ""
-
-#: app/views/account/index.rhtml:1
-msgid "Account options"
-msgstr ""
-
-#: app/views/account/index.rhtml:4
-msgid "Change password."
-msgstr ""
-
-#: app/views/account/index.rhtml:5
-msgid "It is a good idea to change your password from times to times."
-msgstr ""
-
-#: app/views/account/index.rhtml:9
-msgid "Edit Personal details."
-msgstr ""
-
-#: app/views/account/index.rhtml:10
-msgid "You can change your personal details."
-msgstr ""
-
-#: app/views/account/index.rhtml:14
-msgid "My home page."
-msgstr ""
-
-#: app/views/account/index.rhtml:15
-msgid "See your homepage."
-msgstr ""
-
-#: app/views/account/index.rhtml:19
-msgid "Manage content."
-msgstr ""
-
-#: app/views/account/index.rhtml:20
-msgid "Manage your content."
-msgstr ""
-
-#: app/views/account/index.rhtml:24
-msgid "Logout."
-msgstr ""
-
-#: app/views/account/index.rhtml:25
-msgid ""
-"It is always a good idea to make a logout when you finish using the "
-"environment."
-msgstr ""
-
-#: app/views/account/invalid_change_password_code.rhtml:1
-msgid "Invalid change password code"
-msgstr ""
-
-#: app/views/account/invalid_change_password_code.rhtml:4
-msgid ""
-"The code you are using for password change is not valid. Please try to "
-"request password change using the <a href=\"%s\">\"I forgot my password\"</"
-"a> functionality."
-msgstr ""
-
-#: app/views/account/password_recovery_sent.rhtml:4
-msgid ""
-"An e-mail was just sent to your e-mail address, with instructions for "
-"changing your password. You should receive it in a few minutes."
-msgstr ""
-
-#: app/views/account/login.rhtml:7
-msgid "Password"
-msgstr ""
-
-#: app/views/account/login.rhtml:14
-msgid "I forgot my password!"
-msgstr ""
-
-#: app/views/account/login.rhtml:18
-msgid "I want to be an user!"
-msgstr ""
-
-#: app/views/consumed_products/index.rhtml:1
-#: app/views/manage_products/index.rhtml:1
-msgid "Listing products"
-msgstr ""
-
-#: app/views/consumed_products/index.rhtml:3
-#: app/views/consumed_products/new.rhtml:1
-#: app/views/consumed_products/new.rhtml:8
-msgid "Add product"
-msgstr ""
-
-#: app/views/consumed_products/index.rhtml:7
-#: app/views/manage_products/show.rhtml:9
-#: app/views/manage_products/index.rhtml:9
-msgid "destroy"
-msgstr ""
-
-#: app/views/consumed_products/new.rhtml:6
-msgid "Product:"
-msgstr ""
-
-#: app/views/consumed_products/new.rhtml:7
-msgid "Aditional specifications:"
-msgstr ""
-
-#: app/views/layouts/not_found.rhtml:5
-msgid "Page not found"
-msgstr ""
-
-#: app/views/layouts/application.rhtml:40
-msgid "Go to content"
-msgstr ""
-
-#: app/views/role/show.rhtml:3
-msgid "Permissions"
-msgstr ""
-
-#: app/views/role/_form.rhtml:7
-msgid "Permissions:"
-msgstr ""
-
-#: app/views/role/_form.rhtml:12
-msgid "Create role"
-msgstr ""
-
-#: app/views/role/index.rhtml:1
-msgid "New role"
-msgstr ""
-
-#: app/views/role/index.rhtml:7
-msgid "Destroy"
-msgstr ""
-
-#: app/views/role/new.rhtml:1
-msgid "New Role"
-msgstr ""
-
-#: app/views/search/tag.rhtml:2
-msgid "Tagged with \"%s\""
-msgstr ""
-
-#: app/views/search/tag.rhtml:6
-msgid "Back to tag cloud"
-msgstr ""
-
-#: app/views/search/tags.rhtml:1
-msgid "Tag cloud"
-msgstr ""
-
-#: app/views/search/_product.rhtml:11
-#: app/views/category/_product_category.rhtml:14
-msgid "Price: %d"
-msgstr ""
-
-#: app/views/search/_product.rhtml:12
-msgid "Suplier: %s"
-msgstr ""
-
-#: app/views/search/_product.rhtml:13 app/views/category/view.rhtml:3
-msgid "Category: %s"
-msgstr ""
-
-#: app/views/search/index.rhtml:1
-msgid "Search results for \"%s\""
-msgstr ""
-
-#: app/views/search/index.rhtml:6
-msgid "Relevance: %d%%"
-msgstr ""
-
-#: app/views/profile_editor/enterprise_info.rhtml:31
-msgid "Tags"
-msgstr ""
-
-#: app/views/profile_editor/person_info.rhtml:1
-msgid "Edit person info"
-msgstr ""
-
-#: app/views/profile_editor/person_info.rhtml:7
-msgid "Contact Information"
-msgstr ""
-
-#: app/views/profile_editor/person_info.rhtml:8
-msgid "Birth day"
-msgstr ""
-
-#: app/views/profile_editor/person_info.rhtml:10
-msgid "Sex: "
-msgstr ""
-
-#: app/views/profile_editor/person_info.rhtml:11
-msgid "Male"
-msgstr ""
-
-#: app/views/profile_editor/person_info.rhtml:12
-msgid "Female"
-msgstr ""
-
-#: app/views/profile_editor/person_info.rhtml:14
-msgid "City"
-msgstr ""
-
-#: app/views/profile_editor/person_info.rhtml:15
-msgid "State"
-msgstr ""
-
-#: app/views/profile_editor/person_info.rhtml:16
-msgid "Country"
-msgstr ""
-
-#: app/views/profile_editor/change_image.rhtml:2
-msgid "Image"
-msgstr ""
-
-#: app/views/profile_editor/change_image.rhtml:3
-msgid "Upload"
-msgstr ""
-
-#: app/views/profile_editor/index.rhtml:3
-msgid "Put image"
-msgstr ""
-
-#: app/views/profile_editor/index.rhtml:10
-msgid "Edit Profile"
-msgstr ""
-
-#: app/views/profile_editor/index.rhtml:12
-msgid "Edit Visual Design"
-msgstr ""
-
-#: app/views/profile_editor/index.rhtml:14
-msgid "Manage Content"
-msgstr ""
-
-#: app/views/profile_editor/index.rhtml:16
-msgid "Change Password"
-msgstr ""
-
-#: app/views/profile_editor/index.rhtml:18
-msgid "Manage Members"
-msgstr ""
-
-#: app/views/profile_editor/index.rhtml:20
-msgid "Consumed Products"
-msgstr ""
-
-#: app/views/profile_editor/index.rhtml:22
-msgid "Manage Products"
-msgstr ""
-
-#: app/views/profile_editor/index.rhtml:27
-msgid "My organizations"
-msgstr ""
-
-#: app/views/profile_editor/index.rhtml:35
-msgid "Register a new Enterprise"
-msgstr ""
-
-#: app/views/shared/access_denied.rhtml:1
-msgid "Access denied"
-msgstr ""
-
-#: app/views/admin_panel/index.rhtml:1
-msgid "Administrator Panel"
-msgstr ""
-
-#: app/views/admin_panel/index.rhtml:3
-msgid "You, as an environment administrator, has the following options:"
-msgstr ""
-
-#: app/views/admin_panel/index.rhtml:6
-msgid "Enable/disable features"
-msgstr ""
-
-#: app/views/admin_panel/index.rhtml:7
-msgid "Edit the Visual Design"
-msgstr ""
-
-#: app/views/admin_panel/index.rhtml:8
-msgid "Manage Categories"
-msgstr ""
-
-#: app/views/admin_panel/index.rhtml:9
-msgid "Manage User roles"
-msgstr ""
-
-#: app/views/admin_panel/index.rhtml:10
-msgid "Manage Validators by region"
+#: app/views/enterprise_registration/confirmation.rhtml:8
+msgid "You can continue to browse this environment."
 msgstr ""
 
 #: app/views/enterprise_registration/select_validator.rhtml:1
@@ -1606,84 +1486,197 @@ msgstr ""
 msgid "Confirm"
 msgstr ""
 
-#: app/views/enterprise_registration/basic_information.rhtml:3
-msgid "Register enterprise"
+#: app/views/enterprise_validation/_details.rhtml:23
+msgid "Identifier"
 msgstr ""
 
-#: app/views/enterprise_registration/basic_information.rhtml:5
-msgid "How to proceed"
+#: app/views/enterprise_validation/details.rhtml:1
+msgid "%s's validation"
 msgstr ""
 
-#: app/views/enterprise_registration/basic_information.rhtml:6
+#: app/views/enterprise_validation/details.rhtml:7
+msgid "Provided information"
+msgstr ""
+
+#: app/views/enterprise_validation/details.rhtml:11
+msgid "Final decision:"
+msgstr ""
+
+#: app/views/enterprise_validation/details.rhtml:13
+#: app/views/enterprise_validation/details.rhtml:19
+msgid "Approve"
+msgstr ""
+
+#: app/views/enterprise_validation/details.rhtml:15
 msgid ""
-"Fill the form and hit the Register button then the enterprise will be "
-"submitted for evaluation at the validation entitiy of your choice (within "
-"your state), when the enterprise is aproved you will be able to activate its "
-"profile"
+"If this enterprise passes the criteria to be considered an solidarity "
+"enconomy enterprise, you can approve it by click the button below."
 msgstr ""
 
-#: app/views/enterprise_registration/basic_information.rhtml:27
-msgid "Management information"
+#: app/views/enterprise_validation/details.rhtml:23
+#: app/views/enterprise_validation/details.rhtml:31
+msgid "Reject"
 msgstr ""
 
-#: app/views/enterprise_registration/confirmation.rhtml:1
-msgid "Enterprise Registration completed"
-msgstr ""
-
-#: app/views/enterprise_registration/confirmation.rhtml:4
+#: app/views/enterprise_validation/details.rhtml:25
 msgid ""
-"Your enterprise registration request was successfully registered. The "
-"validator organization you choose (%s) should get in touch with to start the "
-"validation process. As soon as the validators approve (or reject) your "
-"request, you will be notified by e-mail."
+"If this enterprise does not pass the criteria do be considered, use this "
+"form."
 msgstr ""
 
-#: app/views/enterprise_registration/confirmation.rhtml:8
-msgid "You can continue to browse this environment."
+#: app/views/enterprise_validation/details.rhtml:28
+msgid ""
+"Please provide an explanation for the rejection. This explanation will be "
+"sent to the requestor (required)."
 msgstr ""
 
-#: app/views/catalog/show.rhtml:8
-msgid "Category: %s "
+#: app/views/enterprise_validation/edit_validation_info.rhtml:1
+msgid "Editing the validation info"
 msgstr ""
 
-#: app/views/catalog/index.rhtml:1
-msgid "Catalog"
+#: app/views/enterprise_validation/index.rhtml:1
+msgid "Pending enterprise validations"
 msgstr ""
 
-#: app/views/profile_members/index.rhtml:1
-msgid "Listing Members"
+#: app/views/enterprise_validation/index.rhtml:20
+msgid "See details/approve/reject"
 msgstr ""
 
-#: app/views/profile_members/index.rhtml:3
-msgid "Affiliate yourself"
+#: app/views/enterprise_validation/index.rhtml:23
+#: app/views/enterprise_validation/list_processed.rhtml:1
+msgid "Processed enterprise validations"
 msgstr ""
 
-#: app/views/manage_products/show.rhtml:4
+#: app/views/enterprise_validation/index.rhtml:25
+msgid "See the list of processed enterprise validations"
+msgstr ""
+
+#: app/views/enterprise_validation/list_processed.rhtml:23
+msgid "See details"
+msgstr ""
+
+#: app/views/enterprise_validation/view_processed.rhtml:1
+msgid "Processed validation request for %s "
+msgstr ""
+
+#: app/views/environment_role_manager/affiliate.rhtml:7
+#: app/views/profile_members/affiliate.rhtml:7
+msgid "Affiliate"
+msgstr ""
+
+#: app/views/environment_role_manager/change_role.rhtml:1
+#: app/views/profile_members/change_role.rhtml:1
+msgid "Changing role of %s"
+msgstr ""
+
+#: app/views/environment_role_manager/change_role.rhtml:5
+#: app/views/environment_role_manager/make_admin.rhtml:8
+#: app/views/profile_members/change_role.rhtml:5
+msgid "Roles:"
+msgstr ""
+
+#: app/views/environment_role_manager/change_role.rhtml:12
+#: app/views/features/_features_table.rhtml:16
+#: app/views/manage_products/_form.rhtml:10
+#: app/views/profile_members/change_role.rhtml:13
+#: app/views/role/_form.rhtml:13
+msgid "Save changes"
+msgstr ""
+
+#: app/views/environment_role_manager/index.rhtml:1
+msgid "Listing Administrators"
+msgstr ""
+
+#: app/views/environment_role_manager/index.rhtml:3
+#: app/views/environment_role_manager/make_admin.rhtml:1
+msgid "Make new admin"
+msgstr ""
+
+#: app/views/environment_role_manager/index.rhtml:8
+#: app/views/profile_members/index.rhtml:8
+msgid "Edit member role"
+msgstr ""
+
+#: app/views/environment_role_manager/index.rhtml:9
+#: app/views/profile_members/index.rhtml:9
+msgid "Remove member"
+msgstr ""
+
+#: app/views/environment_role_manager/make_admin.rhtml:4
+#: app/views/shared/user_menu.rhtml:25
+msgid "Admin"
+msgstr ""
+
+#: app/views/environment_role_manager/make_admin.rhtml:13
+msgid "Make"
+msgstr ""
+
+#: app/views/features/_features_table.rhtml:12
+msgid "Organization Approval Method"
+msgstr ""
+
+#: app/views/features/index.rhtml:1
+msgid "Enable/Disable features"
+msgstr ""
+
+#: app/views/features/index.rhtml:5
+msgid ""
+"Here you can enable or disable several features of your environment. Each "
+"feature represents some funcionality that your environment can use if you "
+"enable it.\n"
+"\n"
+"Check all the features you want to enable for your environment, uncheck all "
+"the ones you don't want, and use the *\"Save changes\" button* to confirm "
+"your changes."
+msgstr ""
+
+#: app/views/home/index.rhtml:7 app/views/home/index.rhtml:13
+#: app/views/layouts/application.rhtml:84
+#: app/views/region_validators/region.rhtml:23 app/views/search/popup.rhtml:7
+#: app/views/search/popup.rhtml:14
+msgid "Search"
+msgstr ""
+
+#: app/views/home/index.rhtml:17
+msgid "More search options"
+msgstr ""
+
+#: app/views/layouts/not_found.rhtml:5
+msgid "Page not found"
+msgstr ""
+
+#: app/views/layouts/application.rhtml:58
+msgid "Go to content"
+msgstr ""
+
+#: app/views/layouts/application.rhtml:127
+msgid "Hey! Your web browser is really old!"
+msgstr ""
+
+#: app/views/layouts/application.rhtml:128
+msgid ""
+"This great website will be not so good on that.\n"
+"         Don't you want to use Firefox? That is a great web browser, free,\n"
+"         and made by people of all the world parts."
+msgstr ""
+
+#: app/views/layouts/application.rhtml:132
+msgid "Get Firefox Now!"
+msgstr ""
+
+#: app/views/manage_products/_form.rhtml:4 app/views/profile/index.rhtml:5
+msgid "Name:"
+msgstr ""
+
 #: app/views/manage_products/_form.rhtml:5
 #: app/views/manage_products/index.rhtml:7
+#: app/views/manage_products/show.rhtml:4
 msgid "Price:"
 msgstr ""
 
-#: app/views/manage_products/show.rhtml:5
 #: app/views/manage_products/_form.rhtml:6
+#: app/views/manage_products/show.rhtml:5
 msgid "Description:"
-msgstr ""
-
-#: app/views/manage_products/show.rhtml:6
-msgid "Category:"
-msgstr ""
-
-#: app/views/manage_products/show.rhtml:8
-#: app/views/manage_products/index.rhtml:8
-msgid "edit"
-msgstr ""
-
-#: app/views/manage_products/show.rhtml:11
-msgid "back"
-msgstr ""
-
-#: app/views/manage_products/_form.rhtml:4
-msgid "Name:"
 msgstr ""
 
 #: app/views/manage_products/_form.rhtml:7
@@ -1694,7 +1687,7 @@ msgstr ""
 msgid "category:"
 msgstr ""
 
-#: app/views/manage_products/_form.rhtml:9
+#: app/views/manage_products/_form.rhtml:10
 msgid "Create product"
 msgstr ""
 
@@ -1707,11 +1700,113 @@ msgstr ""
 msgid "New product"
 msgstr ""
 
+#: app/views/manage_products/index.rhtml:8
+#: app/views/manage_products/show.rhtml:8
+msgid "edit"
+msgstr ""
+
+#: app/views/manage_products/show.rhtml:6
+msgid "Category:"
+msgstr ""
+
+#: app/views/manage_products/show.rhtml:11
+msgid "back"
+msgstr ""
+
+#: app/views/profile_editor/change_image.rhtml:4
+msgid "Image"
+msgstr ""
+
+#: app/views/profile_editor/change_image.rhtml:6
+msgid "Upload"
+msgstr ""
+
+#: app/views/profile_editor/person_info.rhtml:1
+msgid "Edit person info"
+msgstr ""
+
+#: app/views/profile_editor/person_info.rhtml:6
+msgid "Sex: "
+msgstr ""
+
+#: app/views/profile_editor/person_info.rhtml:7
+msgid "Male"
+msgstr ""
+
+#: app/views/profile_editor/person_info.rhtml:8
+msgid "Female"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:1
+msgid "My profile"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:3
+msgid "Put image"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:10 app/views/shared/user_menu.rhtml:19
+msgid "Edit Profile"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:12 app/views/shared/user_menu.rhtml:30
+msgid "Edit Visual Design"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:14 app/views/shared/user_menu.rhtml:33
+msgid "Manage Content"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:16
+msgid "Change Password"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:18
+msgid "Manage Members"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:20 app/views/shared/user_menu.rhtml:22
+msgid "Consumed Products"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:22
+msgid "Manage Products"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:24
+msgid "Enterprise Validation"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:29
+msgid "My organizations"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:37
+msgid "Register a new Enterprise"
+msgstr ""
+
+#: app/views/profile_members/index.rhtml:1
+msgid "Listing Members"
+msgstr ""
+
+#: app/views/profile_members/index.rhtml:3
+msgid "Affiliate yourself"
+msgstr ""
+
 #: app/views/region_validators/_region.rhtml:5
 msgid "1 validator"
 msgid_plural "%{num} validators."
 msgstr[0] ""
 msgstr[1] ""
+
+#: app/views/region_validators/_search.rhtml:9
+#: app/views/box_organizer/add_block.rhtml:17
+msgid "Add"
+msgstr ""
+
+#: app/views/region_validators/index.rhtml:1
+msgid "Validators by Region"
+msgstr ""
 
 #: app/views/region_validators/region.rhtml:1
 msgid "Validators for region %s"
@@ -1735,71 +1830,153 @@ msgid ""
 "result to add them as validators for this region. "
 msgstr ""
 
-#: app/views/region_validators/_search.rhtml:8
-msgid "Adicionar"
+#: app/views/role/_form.rhtml:7
+msgid "Permissions:"
 msgstr ""
 
-#: app/views/region_validators/index.rhtml:1
-msgid "Validators by Region"
+#: app/views/role/_form.rhtml:13
+msgid "Create role"
 msgstr ""
 
-#: app/views/category/view.rhtml:8
-msgid "No children categories"
+#: app/views/role/index.rhtml:1
+msgid "New role"
 msgstr ""
 
-#: app/views/category/view.rhtml:10
-msgid "Child categories:"
+#: app/views/role/index.rhtml:7
+msgid "Destroy"
 msgstr ""
 
-#: app/views/category/_product_category.rhtml:1
-msgid "I consume this"
+#: app/views/role/new.rhtml:1
+msgid "New Role"
 msgstr ""
 
-#: app/views/category/_product_category.rhtml:3
-msgid "One product in this category."
-msgid_plural "%{num} products in this category."
-msgstr[0] ""
-msgstr[1] ""
-
-#: app/views/category/_product_category.rhtml:4
-msgid "One enterprise sells products in this category."
-msgid_plural "%{num} enterprises sells products in this category."
-msgstr[0] ""
-msgstr[1] ""
-
-#: app/views/category/_product_category.rhtml:5
-msgid "One user consumes this product."
-msgid_plural "%{num} users consumes this product"
-msgstr[0] ""
-msgstr[1] ""
-
-#: app/views/category/_product_category.rhtml:8
-msgid "Products under this category:"
+#: app/views/role/show.rhtml:3
+msgid "Permissions"
 msgstr ""
 
-#: app/views/category/_product_category.rhtml:16
-msgid "Enterprise:"
+#: app/views/search/_product.rhtml:12
+msgid "Suplier: %s"
 msgstr ""
 
-#: app/views/category/_product_category.rhtml:21
-msgid "Users that consumes products in this category:"
+#: app/views/search/index.rhtml:1
+msgid "Search results for \"%s\""
 msgstr ""
 
-#: app/views/features/_features_table.rhtml:12
-msgid "Organization Approval Method"
+#: app/views/search/index.rhtml:6
+msgid "Relevance: %d%%"
 msgstr ""
 
-#: app/views/features/index.rhtml:1
-msgid "Enable/Disable features"
+#: app/views/search/popup.rhtml:1
+msgid "Search %s"
 msgstr ""
 
-#: app/views/features/index.rhtml:5
+#: app/views/search/popup.rhtml:10
+msgid "Search options"
+msgstr ""
+
+#: app/views/search/tag.rhtml:2
+msgid "Tagged with \"%s\""
+msgstr ""
+
+#: app/views/search/tag.rhtml:6
+msgid "Back to tag cloud"
+msgstr ""
+
+#: app/views/search/tags.rhtml:1
+msgid "Tag cloud"
+msgstr ""
+
+#: app/views/shared/access_denied.rhtml:1
+msgid "Access denied"
+msgstr ""
+
+#: app/views/shared/user_menu.rhtml:16
+msgid "control panel"
+msgstr ""
+
+#: app/views/shared/language_chooser.rhtml:3
 msgid ""
-"Here you can enable or disable several features of your environment. Each "
-"feature represents some funcionality that your environment can use if you "
-"enable it.\n"
-"\n"
-"Check all the features you want to enable for your environment, uncheck all "
-"the ones you don\t want, and use the 'Save changes' button to confirm your "
-"changes."
+"The language you choose here if the language used for options, buttons, etc. "
+"It does not affect the language of the content created by other users."
+msgstr ""
+
+#: app/views/shared/language_chooser.rhtml:3
+msgid "Help on languages"
+msgstr ""
+
+#: app/views/task_mailer/target_notification.rhtml:6
+#: app/views/task_mailer/task_cancelled.text.plain.rhtml:6
+#: app/views/task_mailer/task_created.text.plain.rhtml:6
+#: app/views/task_mailer/task_finished.text.plain.rhtml:6
+msgid "%s environment system"
+msgstr ""
+
+#: app/views/task_mailer/task_cancelled.text.plain.rhtml:1
+#: app/views/task_mailer/task_created.text.plain.rhtml:1
+#: app/views/task_mailer/task_finished.text.plain.rhtml:1
+msgid "Dear %s,"
+msgstr ""
+
+#: app/views/box_organizer/add_block.rhtml:3
+msgid "In what area do you want to put your new block?"
+msgstr ""
+
+#: app/views/box_organizer/add_block.rhtml:5
+msgid "Area %d"
+msgstr ""
+
+#: app/views/box_organizer/add_block.rhtml:7
+msgid "Select the type of block you want to add to your page."
+msgstr ""
+
+#: app/views/box_organizer/edit.rhtml:1
+msgid "Editing block"
+msgstr ""
+
+#: app/views/box_organizer/index.rhtml:1
+msgid "Organizing visual design"
+msgstr ""
+
+#: app/views/box_organizer/index.rhtml:4
+msgid "Add a block"
+msgstr ""
+
+#: app/views/profile/index.rhtml:1
+msgid "%s's profile"
+msgstr ""
+
+#: app/views/profile/index.rhtml:9
+msgid "Homepage: "
+msgstr ""
+
+#: app/views/profile/index.rhtml:14
+msgid "Friends"
+msgstr ""
+
+#: app/views/profile/tag.rhtml:1
+msgid "Content tagged with \"%s\""
+msgstr ""
+
+#: app/views/manage_communities/new.rhtml:8
+msgid "Create"
+msgstr ""
+
+#: app/views/manage_communities/index.rhtml:1
+msgid "%s's communities"
+msgstr ""
+
+#: app/views/manage_communities/index.rhtml:7
+msgid "(manage)"
+msgstr ""
+
+#: app/views/manage_communities/index.rhtml:12
+msgid "Create a new community"
+msgstr ""
+
+#: app/views/blocks/profile_info.rhtml:6
+msgid "Since %d"
+msgstr ""
+
+#: app/views/blocks/profile_info.rhtml:8
+msgid "View profile"
 msgstr ""
