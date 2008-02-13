@@ -127,4 +127,11 @@ class PersonTest < Test::Unit::TestCase
     assert person.blocks.size > 0, 'Person should have blocks upon creation'
   end
 
+  should 'get a default home page and a RSS feed' do
+    person = create_user('mytestuser').person
+
+    assert_kind_of Article, person.home_page
+    assert_kind_of RssFeed, person.articles.find_by_path('feed')
+  end
+
 end

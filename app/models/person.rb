@@ -64,12 +64,22 @@ class Person < Profile
     3.times do
       self.boxes << Box.new
     end
+
+    # main area
     self.boxes.first.blocks << MainBlock.new
+
+    # "left" area
+    self.boxes[1].blocks << ProfileInfoBlock.new
+
+    # right area
+    self.boxes[2].blocks << TagsBlock.new
+    self.boxes[2].blocks << RecentDocumentsBlock.new
       
     true
   end
 
-  # FIXME this is *weird*, because this class is not inheriting the callback 
+  # FIXME this is *weird*, because this class is not inheriting the callbacks
   before_create :set_default_environment
+  after_create :insert_default_homepage_and_feed
 
 end

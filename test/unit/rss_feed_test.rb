@@ -29,7 +29,7 @@ class RssFeedTest < Test::Unit::TestCase
     a2 = profile.articles.build(:name => 'article 2'); a2.save!
     a3 = profile.articles.build(:name => 'article 3'); a3.save!
 
-    feed = RssFeed.new(:name => 'feed')
+    feed = RssFeed.new(:name => 'testfeed')
     feed.profile = profile
     feed.save!
   
@@ -45,12 +45,12 @@ class RssFeedTest < Test::Unit::TestCase
     a2 = profile.articles.build(:name => 'article 2'); a2.save!
     a3 = profile.articles.build(:name => 'article 3'); a3.save!
 
-    feed = RssFeed.new(:name => 'feed')
+    feed = RssFeed.new(:name => 'testfeed')
     feed.profile = profile
     feed.save!
   
     rss = feed.data
-    assert_no_match /<item><title>feed<\/title>/, rss
+    assert_no_match /<item><title>testfeed<\/title>/, rss
   end
 
   should 'list recent article from parent article' do
@@ -66,7 +66,7 @@ class RssFeedTest < Test::Unit::TestCase
     profile = create_user('testuser').person
     a1 = profile.articles.build(:name => 'article 1', 'abstract' => 'my abstract', 'body' => 'my text'); a1.save!
 
-    feed = RssFeed.new(:name => 'feed')
+    feed = RssFeed.new(:name => 'testfeed')
     feed.profile = profile
     feed.save!
 
@@ -90,7 +90,7 @@ class RssFeedTest < Test::Unit::TestCase
     a3_2 = a3.children.build(:name => 'article 3.2', :parent => a3, :profile => profile); a3_2.save!
     a3_2_1 = a3_2.children.build(:name => 'article 3.2.1', :parent => a3_2, :profile => profile); a3_2_1.save!
 
-    feed = RssFeed.new(:name => 'feed')
+    feed = RssFeed.new(:name => 'testfeed')
     feed.parent = a3
     feed.profile = profile
     feed.include = 'parent_and_children'
@@ -108,7 +108,7 @@ class RssFeedTest < Test::Unit::TestCase
 
   should 'provide link to profile' do
     profile = create_user('testuser').person
-    feed = RssFeed.new(:name => 'feed')
+    feed = RssFeed.new(:name => 'testfeed')
     feed.profile = profile
     feed.save!
 
@@ -118,7 +118,7 @@ class RssFeedTest < Test::Unit::TestCase
   should 'provide link to each article' do
     profile = create_user('testuser').person
     art = profile.articles.build(:name => 'myarticle'); art.save!
-    feed = RssFeed.new(:name => 'feed')
+    feed = RssFeed.new(:name => 'testfeed')
     feed.profile = profile
     feed.save!
 
@@ -133,7 +133,7 @@ class RssFeedTest < Test::Unit::TestCase
     a2 = profile.articles.build(:name => 'article 2'); a2.save!
     a3 = profile.articles.build(:name => 'article 3'); a3.save!
 
-    feed = RssFeed.new(:name => 'feed')
+    feed = RssFeed.new(:name => 'testfeed')
     feed.profile = profile
     feed.save!
 

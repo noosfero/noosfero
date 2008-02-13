@@ -7,7 +7,7 @@ class RecentDocumentsBlockTest < Test::Unit::TestCase
     profile.articles.build(:name => 'first').save!
     profile.articles.build(:name => 'second').save!
     profile.articles.build(:name => 'third').save!
-    profile.articles.build(:name => 'forth').save!
+    profile.articles.build(:name => 'fourth').save!
     profile.articles.build(:name => 'fifth').save!
 
     box = Box.create!(:owner => profile)
@@ -26,7 +26,7 @@ class RecentDocumentsBlockTest < Test::Unit::TestCase
     assert_match /href=.*\/testinguser\/first/, output
     assert_match /href=.*\/testinguser\/second/, output
     assert_match /href=.*\/testinguser\/third/, output
-    assert_match /href=.*\/testinguser\/forth/, output
+    assert_match /href=.*\/testinguser\/fourth/, output
     assert_match /href=.*\/testinguser\/fifth/, output
   end
 
@@ -35,11 +35,11 @@ class RecentDocumentsBlockTest < Test::Unit::TestCase
 
     output = block.content
 
-    assert_match /href=.*\/testinguser\/first/, output
-    assert_match /href=.*\/testinguser\/second/, output
+    assert_match /href=.*\/testinguser\/fifth/, output
+    assert_match /href=.*\/testinguser\/fourth/, output
     assert_match /href=.*\/testinguser\/third/, output
-    assert_no_match /href=.*\/testinguser\/forth/, output
-    assert_no_match /href=.*\/testinguser\/fifth/, output
+    assert_no_match /href=.*\/testinguser\/second/, output
+    assert_no_match /href=.*\/testinguser\/first/, output
   end
 
 end

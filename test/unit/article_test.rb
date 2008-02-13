@@ -133,17 +133,20 @@ class ArticleTest < Test::Unit::TestCase
   end
 
   should 'search for recent documents' do
+    other_profile = create_user('otherpropfile').person
+
+    Article.destroy_all
+
     first = profile.articles.build(:name => 'first'); first.save!
     second = profile.articles.build(:name => 'second'); second.save!
     third = profile.articles.build(:name => 'third'); third.save!
-    forth = profile.articles.build(:name => 'forth'); forth.save!
+    fourth = profile.articles.build(:name => 'fourth'); fourth.save!
     fifth = profile.articles.build(:name => 'fifth'); fifth.save!
 
-    other_profile = create_user('otherpropfile').person
     other_first = other_profile.articles.build(:name => 'first'); other_first.save!
     
-    assert_equal [first,second,third], Article.recent(3)
-    assert_equal [first,second,third,forth,fifth,other_first], Article.recent(10)
+    assert_equal [other_first, fifth, fourth], Article.recent(3)
+    assert_equal [other_first, fifth, fourth, third, second, first], Article.recent(6)
   end
 
   should 'provied proper descriptions' do
@@ -187,6 +190,23 @@ class ArticleTest < Test::Unit::TestCase
     assert_nothing_raised do
       article.categories << c1
       article.categories << c2
+    end
+  end
+
+  should 'remove comments when removing article' do
+    assert_no_difference Comment, :count do
+      a = profile.articles.build(:name => 'test article')
+      a.save!
+
+      assert_difference Comment, :count, 1 do
+        comment = a.comments.build
+        comment.author = profile
+        comment.title = 'test comment'
+        comment.body = 'you suck!'
+        comment.save!
+      end
+
+      a.destroy
     end
   end
 

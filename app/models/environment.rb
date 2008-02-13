@@ -31,13 +31,17 @@ class Environment < ActiveRecord::Base
     3.times do
       env.boxes << Box.new
     end
+
+    # main area
     env.boxes[0].blocks << MainBlock.new
 
+    # "left" area
+    env.boxes[1].blocks << LoginBlock.new
     env.boxes[1].blocks << EnvironmentStatisticsBlock.new
     env.boxes[1].blocks << RecentDocumentsBlock.new
 
-    env.boxes[2].blocks << LoginBlock.new
-
+    # "right" area
+    env.boxes[2].blocks << ProfileListBlock.new
   end
 
   # One Environment can be reached by many domains

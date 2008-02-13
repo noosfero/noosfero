@@ -72,15 +72,7 @@ class ProfileTest < Test::Unit::TestCase
  
   should 'provide access to home page' do
     profile = Profile.create!(:identifier => 'newprofile', :name => 'New Profile')
-    assert_nil profile.home_page
-
-    page = profile.articles.build(:name => "My custom home page")
-    page.save!
-
-    profile.home_page = page
-    profile.save!
-
-    assert_equal page, profile.home_page
+    assert_kind_of Article, profile.home_page
   end
 
   def test_name_should_be_mandatory
@@ -116,9 +108,10 @@ class ProfileTest < Test::Unit::TestCase
     second = profile.articles.build(:name => 'second'); second.save!
     third = profile.articles.build(:name => 'third'); third.save!
 
-    n = Article.count
+    total = Article.count
+    mine = profile.articles.count
     profile.destroy
-    assert_equal n - 3, Article.count
+    assert_equal total - mine, Article.count
   end
 
   def test_should_define_info
@@ -139,12 +132,14 @@ class ProfileTest < Test::Unit::TestCase
 
   should 'provide recent documents' do
     profile = Profile.create!(:name => 'testing profile', :identifier => 'testingprofile')
+    profile.articles.destroy_all
+
     first = profile.articles.build(:name => 'first'); first.save!
     second = profile.articles.build(:name => 'second'); second.save!
     third = profile.articles.build(:name => 'third'); third.save!
 
-    assert_equal [first,second], profile.recent_documents(2)
-    assert_equal [first,second,third], profile.recent_documents
+    assert_equal [third, second], profile.recent_documents(2)
+    assert_equal [third, second, first], profile.recent_documents
   end
 
   should 'affiliate and provide a list of the affiliated users' do
@@ -317,6 +312,14 @@ class ProfileTest < Test::Unit::TestCase
   should 'not have members by default' do
     assert_equal false, Profile.new.has_members?
   end
+
+  should 'create a homepage and a feed on creation' do
+    profile = Profile.create!(:name => 'my test profile', :identifier => 'mytestprofile')
+
+    assert_kind_of Article, profile.home_page
+    assert_kind_of RssFeed, profile.articles.find_by_path('feed')
+  end
+
 
   private
 

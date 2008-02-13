@@ -145,7 +145,7 @@ class CmsControllerTest < Test::Unit::TestCase
   should 'be able to create a RSS feed' do
     login_as(profile.identifier)
     assert_difference RssFeed, :count do
-      post :new, :type => RssFeed.name, :profile => profile.identifier, :article => { :name => 'feed', :limit => 15, :include => 'all', :feed_item_description => 'body' }
+      post :new, :type => RssFeed.name, :profile => profile.identifier, :article => { :name => 'new-feed', :limit => 15, :include => 'all', :feed_item_description => 'body' }
       assert_response :redirect
     end
   end
@@ -171,7 +171,7 @@ class CmsControllerTest < Test::Unit::TestCase
   should 'be able to update an uploaded file' do
     post :new, :type => UploadedFile.name, :profile => profile.identifier, :article => { :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain')}
 
-    file = profile.articles.find(:first)
+    file = profile.articles.find_by_path('test.txt')
     assert_equal 'test.txt', file.name
 
     post :edit, :profile => profile.identifier, :id => file.id, :article => { :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain')}

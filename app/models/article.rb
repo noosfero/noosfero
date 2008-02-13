@@ -7,7 +7,7 @@ class Article < ActiveRecord::Base
 
   belongs_to :last_changed_by, :class_name => Person.name, :foreign_key => 'last_changed_by_id'
 
-  has_many :comments
+  has_many :comments, :dependent => :destroy
 
   has_and_belongs_to_many :categories
 
@@ -29,7 +29,7 @@ class Article < ActiveRecord::Base
   # retrieves the latest +limit+ articles, sorted from the most recent to the
   # oldest.
   def self.recent(limit)
-    options = { :limit => limit, :order => 'created_on' }
+    options = { :limit => limit, :order => 'created_on desc, articles.id desc' }
     self.find(:all, options)
   end
 

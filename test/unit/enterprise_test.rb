@@ -55,4 +55,11 @@ class EnterpriseTest < Test::Unit::TestCase
     end
   end
 
+  should 'get a default homepage and RSS feed' do
+    enterprise = Enterprise.create!(:name => 'my test enterprise', :identifier => 'myenterprise')
+
+    assert_kind_of Article, enterprise.home_page
+    assert_kind_of RssFeed, enterprise.articles.find_by_path('feed')
+  end
+
 end

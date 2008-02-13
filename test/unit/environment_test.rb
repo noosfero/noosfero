@@ -222,22 +222,33 @@ class EnvironmentTest < Test::Unit::TestCase
   should 'provide recent_documents' do
     environment = Environment.create(:name => 'a test environment')
 
+    p1 = environment.profiles.build(:identifier => 'testprofile1', :name => 'test profile 1'); p1.save!
+    p2 = environment.profiles.build(:identifier => 'testprofile2', :name => 'test profile 2'); p2.save!
+
+    # clear the articles
+    Article.destroy_all
+
     # p1 creates one article
-    p1 = environment.profiles.build(:identifier => 'testprofile1', :name => 'test profile 1')
-    p1.save!
     doc1 = p1.articles.build(:name => 'text 1'); doc1.save!
 
     # p2 creates two articles
-    p2 = environment.profiles.build(:identifier => 'testprofile2', :name => 'test profile 2')
-    p2.save!
     doc2 = p2.articles.build(:name => 'text 2'); doc2.save!
     doc3 = p2.articles.build(:name => 'text 3'); doc3.save!
 
     # p1 creates another article
     doc4 = p1.articles.build(:name => 'text 4'); doc4.save!
 
-    assert_equivalent [doc1,doc2,doc3,doc4], environment.recent_documents
-    assert_equivalent [doc1,doc2,doc3], environment.recent_documents(3)
+    all_recent = environment.recent_documents
+    [doc1,doc2,doc3,doc4].each do |item|
+      assert_includes all_recent, item
+    end
+
+    last_three = environment.recent_documents(3)
+    [doc2, doc3, doc4].each do |item|
+      assert_includes last_three, item
+    end
+    assert_not_includes last_three, doc1
+
   end
 
   should 'have a description attribute' do
