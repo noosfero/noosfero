@@ -38,6 +38,14 @@ class CommunityTest < Test::Unit::TestCase
     assert c.boxes[2].blocks.map(&:class).include?(MembersBlock)
     assert c.boxes[2].blocks.map(&:class).include?(TagsBlock)
 
+    assert_equal 5,  c.blocks.size
+  end
+
+  should 'get a default home page and RSS feed' do
+    community = Community.create!(:name => 'my new community')
+
+    assert_kind_of Article, community.home_page
+    assert_kind_of RssFeed, community.articles.find_by_path('feed')
   end
 
 end
