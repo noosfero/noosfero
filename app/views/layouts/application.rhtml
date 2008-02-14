@@ -39,7 +39,8 @@
     # Identify the current controller and action for the CSS:
     " controller_"+ @controller.controller_name() +
     " action_"+ @controller.controller_name() +"_"+ @controller.action_name()
-    %>' onload='noosfero_init();'>
+    %>' onload='noosfero_init();'
+    help="Passe o mouse sobre os elementos da página para ver a ajuda.">
     <script type="text/javascript">
       /* Adds a class to "msie" to the body element if a Microsoft browser is
        * detected. This is needed to workaround several of their limitations.
@@ -57,11 +58,11 @@
       </div>
     <% end %>
 
-    <div id='accessibility_menu'>
-      <a href='#content' id='link_go_content'><span><%= _('Go to content') %></span></a>
+    <div id="accessibility_menu">
+      <a href="#content" id="link_go_content"><span><%= _('Go to content') %></span></a>
     </div><!-- accessibility_menu -->
 
-    <div id='path_category'>
+    <div id="path_category">
       <% if @category -%>
         <%= @category.full_name(" &rarr; ") %>
       <% end -%>
@@ -72,7 +73,18 @@
 
       <div id="beta-tag"><span>BETA</span></div>
 
-      <div id='noosfero_bar' style='position: absolute;'>
+      <div id="noosfero_bar" help="#noosfero_bar_help">
+        <div id="noosfero_bar_help" style="display:none">
+          Esta é a <b>barra de atalhos do <%= @environment.name() %></b>.
+          Atravêz dela você acessa as principais funcionalidades do ambiente
+          e encontra mais rapidamente as informações do seu interesse.
+          <p/>
+          Essa barra te ajuda a encontrar informações por dois caminhos
+          ou <b><i>dimensões</i></b>. A primeira dimensão são as <i>categorias</i>
+          que você encontra nas abas coloridas da barra. A segunda dimensão
+          são os <i>tipos de conteúdo</i> que você encontra na aba animada
+          da direita.
+        </div>
 
         <div id='navigation_bar'>
           <%= render :file => 'shared/categories_menu' %>
@@ -88,6 +100,10 @@
                            { :controller => 'search', :action => 'popup' }, :id => 'open_search'
           %>
         </div><!-- id='user_box' -->
+
+        <a href="#" id="btShowHelp" class="icon-help32on"
+           title="<%= _('Turn help on/off') %>"
+           onclick="mouseHelpOnOff()"><span><%= _('Help') %></span></a>
 
       </div><!-- id="noosfero_bar" -->
 
@@ -124,6 +140,15 @@
       <!-- <a name='footer'/></a> -->
       <%= footer %>
     </div><!-- id="footer" -->
+
+    <div id="helpBox" style="display:none">
+      <div id="helpBoxBody">
+        <div id="helpAvatar"></div>
+        <div id="helpBoxContent"></div>
+      </div>
+    </div>
+    <%= javascript_include_tag 'show-mouse-help' %>
+    <%= javascript_include_tag 'noosfero-show-help' %>
 
     <div id="better-browser-promotion" style="display:none">
       <h3><%=

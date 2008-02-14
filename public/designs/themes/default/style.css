@@ -1,26 +1,23 @@
 /* Default Plain Theme for Blocks */
 
-.design_block
-{
+.design_block {
 	background: #FFFFFF;
 	border: 3px solid #000000;
 	margin-bottom: 10px;
 }
 
 .design_editor ul, .design_box ul {
-list-style: none;
-margin: 0px;
-padding: 0px;
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
 }
 
-.design_block ul
-{
+.design_block ul {
 	list-style: none;
 	margin-left: 15px;
 }
 
-.design_block h3
-{
+.design_block h3 {
 	color: #FFFFFF;
 	background: #545454;
 	font-family: Sans-serif;
@@ -34,28 +31,28 @@ padding: 0px;
 }
 
 #design_editor h3.design_block_header {
- padding-left: 30px;
- cursor: move;
+  padding-left: 30px;
+  cursor: move;
 }
 
 a.design_button_block span {
-display: none;
-padding: 1px;
-color: #000;
-background: #dfdfdf;
-font-family: Sans-serif;
-font-size: 10px;
-font-weight: normal;
-border: 1px inset #545454;
+  display: none;
+  padding: 1px;
+  color: #000;
+  background: #dfdfdf;
+  font-family: Sans-serif;
+  font-size: 10px;
+  font-weight: normal;
+  border: 1px inset #545454;
 }
 
 a.design_button_block:hover span {
-display: block;
-position: relative;
-margin-top: -20px;
-margin-left: -10px;
-z-index: 100;
-float: left;
+  display: block;
+  position: relative;
+  margin-top: -20px;
+  margin-left: -10px;
+  z-index: 100;
+  float: left;
 }
 
 .design_block a.design_button_block {
@@ -69,28 +66,27 @@ float: left;
 }
 
 .design_block a.button_block_hide {
-background: url('icons.png') no-repeat;
-background-position: -60px 0px;
+  background: url('icons.png') no-repeat;
+  background-position: -60px 0px;
 }
 .design_block a.button_block_remove {
-background: red url('icons.png') no-repeat;
-background-position: -80px 0px;
+  background: red url('icons.png') no-repeat;
+  background-position: -80px 0px;
 }
 .design_block a.button_block_options {
-background: blue url('icons.png') no-repeat;
-background-position: 0px 0px;
+  background: blue url('icons.png') no-repeat;
+  background-position: 0px 0px;
 }
 .design_block a.button_block_item_options {
-background: url('icons.png') no-repeat;
-background-position: -40px 0px;
+  background: url('icons.png') no-repeat;
+  background-position: -40px 0px;
 }
 
 .design_block a:hover.design_button_block {
   opacity: 1.0;
 }
 
-.design_block_content 
-{
+.design_block_content {
 	padding: 5px;
 }
 
@@ -106,11 +102,11 @@ background-position: -40px 0px;
 }
 
 .button_block_options {
-position: absolute;
-left: 5px;
+  position: absolute;
+  left: 5px;
 }
 
 .button_block_options:hover div#design_block_control_options_11 {
-display: block;
-border: 3px solid red;
+  display: block;
+  border: 3px solid red;
 }

@@ -1,16 +1,53 @@
 
-div.help_message {
-  z-index: 10000;
-  width: 600;
+#btShowHelp {
   position: absolute;
-  top: 50%
-  height: 400px;
-  margin-top: -200px;
+  top: 2px;
+  right: 2px;
+  display: block;
+  width: 32px;
+  height: 32px;
+  opacity: 0.5;
+	filter: alpha(opacity=50);
+}
+#btShowHelp:hover {
+  opacity: 1;
+	filter: alpha(opacity=100);
+}
+#btShowHelp span {
+  display: none;
+}
 
-  left: 50%;
-  margin-left: -300px;
-  background: yellow;
+#helpBox {
+  position: absolute;
+  top: 350px;
+  border: 2px solid #26A;
+  background: #A0B8D0;
+  width: 35%;
+  z-index: 2000;
+}
 
-  overflow: auto;
+#helpBoxBody {
+  border: 1px solid #E8F0F8;
+  padding: 0px 5px 0px 10px;
+}
+
+#helpAvatar {
+  float: left;
+  margin: 5px 10px 5px -5px;
+  width: 48px;
+  height: 48px;
+  background: url("/images/help-avatar.gif");
+}
+.msie6 #helpAvatar {
+  margin: 5px 8px 5px -2px;
+}
+
+#helpBoxBody p {
+  margin: 0px;
+  padding: 8px 0px 0px 0px;
+}
+
+.help-force-clear-ieworkarroundbug {
+  margin-top: -2px;
 }
 
