@@ -8,3 +8,7 @@
   <li><%= link_to _('View profile'), block.owner.public_profile_url %></li>
 </ul>
 
+<div class='profile-info-options'>
+  <%= render :file => 'blocks/profile_info_actions/' +  block.owner.class.name.underscore %>
+</div>
+
