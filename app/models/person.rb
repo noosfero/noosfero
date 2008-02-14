@@ -70,15 +70,16 @@ class Person < Profile
 
     # "left" area
     self.boxes[1].blocks << ProfileInfoBlock.new
+    self.boxes[1].blocks << RecentDocumentsBlock.new
 
     # right area
     self.boxes[2].blocks << TagsBlock.new
-    self.boxes[2].blocks << RecentDocumentsBlock.new
       
     true
   end
 
   # FIXME this is *weird*, because this class is not inheriting the callbacks
   before_create :set_default_environment
+  after_create :insert_default_homepage_and_feed
 
 end

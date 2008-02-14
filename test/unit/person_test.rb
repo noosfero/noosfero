@@ -120,18 +120,25 @@ class PersonTest < Test::Unit::TestCase
     assert person.is_admin?
   end
 
-  should 'have boxes and blocks created when person is created' do
-    person = create_user('testboxes').person
-
-    assert person.boxes.size > 0, 'Person should have boxes upon creation'
-    assert person.blocks.size > 0, 'Person should have blocks upon creation'
-  end
-
   should 'get a default home page and a RSS feed' do
     person = create_user('mytestuser').person
 
     assert_kind_of Article, person.home_page
     assert_kind_of RssFeed, person.articles.find_by_path('feed')
+  end
+
+  should 'create default set of blocks' do
+    p = create_user('testingblocks').person
+
+    assert p.boxes[0].blocks.map(&:class).include?(MainBlock), 'person must have a MainBlock upon creation'
+
+    assert p.boxes[1].blocks.map(&:class).include?(ProfileInfoBlock), 'person must have a ProfileInfoBlock upon creation'
+    assert p.boxes[1].blocks.map(&:class).include?(RecentDocumentsBlock), 'person must have a RecentDocumentsBlock upon creation'
+
+    assert p.boxes[2].blocks.map(&:class).include?(TagsBlock), 'person must have a Tags Block upon creation'
+    # TODO check also for a "friends" block
+
+    assert_equal 4,  p.blocks.size
   end
 
 end
