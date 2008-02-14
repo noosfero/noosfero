@@ -53,4 +53,18 @@ class Organization < Profile
     true
   end
 
+  after_create :create_default_set_of_blocks_for_organization
+  def create_default_set_of_blocks_for_organization
+    # "main" area
+    # nothing ..., MainBlock is already there
+    
+    # "left" area
+    self.boxes[1].blocks << ProfileInfoBlock.new
+    self.boxes[1].blocks << RecentDocumentsBlock.new
+
+    # "right" area
+    self.boxes[2].blocks << MembersBlock.new
+    self.boxes[2].blocks << TagsBlock.new
+  end
+
 end
