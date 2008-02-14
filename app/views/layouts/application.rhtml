@@ -40,7 +40,7 @@
     " controller_"+ @controller.controller_name() +
     " action_"+ @controller.controller_name() +"_"+ @controller.action_name()
     %>' onload='noosfero_init();'
-    help="Passe o mouse sobre os elementos da página para ver a ajuda.">
+    help=<%= _('Pass the mouse over page elements to get help on them').inspect %> >
     <script type="text/javascript">
       /* Adds a class to "msie" to the body element if a Microsoft browser is
        * detected. This is needed to workaround several of their limitations.
@@ -75,15 +75,21 @@
 
       <div id="noosfero_bar" help="#noosfero_bar_help">
         <div id="noosfero_bar_help" style="display:none">
-          Esta é a <b>barra de atalhos do <%= @environment.name() %></b>.
-          Atravêz dela você acessa as principais funcionalidades do ambiente
-          e encontra mais rapidamente as informações do seu interesse.
-          <p/>
-          Essa barra te ajuda a encontrar informações por dois caminhos
-          ou <b><i>dimensões</i></b>. A primeira dimensão são as <i>categorias</i>
-          que você encontra nas abas coloridas da barra. A segunda dimensão
-          são os <i>tipos de conteúdo</i> que você encontra na aba animada
-          da direita.
+          <%= _(<<-CODE
+                <p>
+                This is %s's shortcuts bar. Using it you have access to the
+                main features of the environment and you find the information
+                of your interest more quickly.
+                </p>
+                <p>
+                This bar helps you find information following two paths or
+                <strong>dimensions</strong>. First dimension are
+                <em>categories</em>, which you'll find in the colored tabs in
+                the bar. Second dimensions are <em>content types</em>, and
+                you'll find them in the animated bar on your right.
+                </p>
+          CODE
+               ) % @environment.name %>
         </div>
 
         <div id='navigation_bar'>
