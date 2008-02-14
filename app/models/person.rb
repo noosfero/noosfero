@@ -80,6 +80,5 @@ class Person < Profile
 
   # FIXME this is *weird*, because this class is not inheriting the callbacks
   before_create :set_default_environment
-  after_create :insert_default_homepage_and_feed
 
 end
