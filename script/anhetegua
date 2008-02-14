@@ -32,10 +32,6 @@ def new_validator(region, name, identifier, klass = Organization)
   org
 end
 
-def new_member(org, person)
-  org.affiliate()
-end
-
 environment_description = <<-EOF
 <h1>
 Boas vindas ao Anheteguá:
@@ -86,7 +82,7 @@ asl = new_validator(rs, 'Associacao Software Livre.Org', 'asl')
 forum_rs = new_validator(rs, 'Forum Gaucho de Economia Solidaria', 'ecosolrs')
 
 # Role for own things
-owner_role = Role.create!(:name => 'dono', :permissions => ['edit_profile', 'destroy_profile', 'manage_memberships', 'post_content', 'edit_profile_design', 'manage_products'])
+owner_role = Profile::Roles.admin
 
 # root user of the system, admin_role for him, the assignment of the role for him and the ownership of the system homepage
 root = User.create!(:login => 'root', :email => 'root@noosfero.org', :password => 'root', :password_confirmation => 'root').person
@@ -158,3 +154,11 @@ empa_hp = TinyMceArticle.new(:name => 'Empreendimento A - um empreendimento gen�
 empa_hp.profile = empa
 empa.home_page = empa_hp
 empa.save!
+
+# creating sample communities
+comm1 = Community.create!(:name => 'Outra Economia é Possível')
+comm1.affiliate(ze, owner_role)
+
+comm2 = Community.create!(:name => 'Software Livre e Economia Solidária')
+comm2.affiliate(ze, owner_role)
+
