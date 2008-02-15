@@ -247,4 +247,9 @@ class Profile < ActiveRecord::Base
     feed.save!
   end
 
+  # Adds a person as member of this Profile.
+  def add_member(person)
+    self.affiliate(person, Profile::Roles.member)
+  end
+
 end

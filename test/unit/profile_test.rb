@@ -325,6 +325,15 @@ class ProfileTest < Test::Unit::TestCase
     assert_kind_of RssFeed, profile.articles.find_by_path('feed')
   end
 
+  should 'allow to add new members' do
+    c = Profile.create!(:name => 'my test profile', :identifier => 'mytestprofile')
+    p = create_user('mytestuser').person
+
+    c.add_member(p)
+
+    assert c.members.include?(p), "Profile should add the new member"
+  end
+
 
   private
 
