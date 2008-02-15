@@ -30,6 +30,10 @@ Rake::PackageTask.new(Noosfero::PROJECT, Noosfero::VERSION) do |p|
   p.package_files.include('tmp/sessions')
   p.package_files.include('tmp/sockets')
 
+  # symbolic links
+  p.package_files.include('app/views/profile_design/*.rhtml')
+  p.package_files.include('app/views/environment_design/*.rhtml')
+
   # external resources
   p.package_files.include('vendor/**/*')
 
