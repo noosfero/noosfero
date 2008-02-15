@@ -1,4 +1,8 @@
-div.profile-list-block div {
+div.profile-list-block div.profile-list-block-link,
+div.communities-block div.profile-list-block-link,
+div.members-block div.profile-list-block-link,
+div.enterprises-block div.profile-list-block-link
+{
   display: block;
   float: left;
 
@@ -10,3 +14,11 @@ div.profile-list-block div {
   text-align: center;
 
 }
+
+div.profile-list-block,
+div.communities-block,
+div.members-block,
+div.enterprises-block {
+  clear: both;
+}
+
