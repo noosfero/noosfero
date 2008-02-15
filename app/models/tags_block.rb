@@ -7,12 +7,13 @@ class TagsBlock < Block
     _('List count of contents by tag')
   end
 
+  def help
+    _('The tag is created when you add some one to your article. <p/>
+       Try to add some tags to some articles and see your tag cloud to grow.')
+  end
+
   def content
     block_title(_('Tags')) +
-    help_textile(
-              _('The tag is created when you add some one to your article.
-                 Try to add some tags to some articles and see your tag cloud to grow.'),
-              _('How tags works here?'), :class => 'help_tags' ) +
     "\n<div class='tag_cloud'>\n"+
     tag_cloud( owner.tags, :id,
                owner.generate_url(:controller => 'profile', :action => 'tag') + '/',

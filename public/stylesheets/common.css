@@ -313,6 +313,12 @@ div#notice {
   margin: 10px 0px;
   color: #2A5896;
 }
+#content h1 { font-size: 24px }
+#content h2 { font-size: 20px }
+#content h3 { font-size: 18px }
+#content h4 { font-size: 16px }
+#content h5 { font-size: 14px }
+#content h6 { font-size: 12px }
 body.category1 #content h1, body.category1 #content h2, body.category1 #content h3,
 body.category1 #content h4, body.category1 #content h5, body.category1 #content h6
  { color: #E26B00 }

@@ -121,7 +121,7 @@ function getHelp( ev ) {
             var txtEl = el.ownerDocument.getElementById( txt.replace(/#/,"") );
             if ( txtEl ) txt = txtEl.innerHTML;
           }
-          box.content.innerHTML = '<p/>'+ txt +
+          box.content.innerHTML = '<p>'+ txt +'</p>'+
                                   '<br style="clear:both" />'+
                                   '<div class="help-force-clear-ieworkarroundbug"'+
                                   ' style="height:1px; overflow:hidden"></div>';
