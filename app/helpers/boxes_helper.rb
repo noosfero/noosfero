@@ -42,7 +42,10 @@ module BoxesHelper
   def display_block(block, main_content = nil)
     content = block.main? ? main_content : block.content
     result = extract_block_content(content)
-    footer = extract_block_content(footer)
+    footer_content = extract_block_content(block.footer)
+    unless footer_content.blank?
+      footer_content = content_tag('div', footer_content, :class => 'block-footer-content' )
+    end
 
     options = {
       :class => classes = ['block', block.css_class_name ].uniq.join(' '),
@@ -53,7 +56,7 @@ module BoxesHelper
     end
 
     box_decorator.block_target(block.box, block) +
-    content_tag('div', result + footer + box_decorator.block_edit_buttons(block),
+    content_tag('div', result + footer_content + box_decorator.block_edit_buttons(block),
                 options) +
     box_decorator.block_handle(block)
   end
