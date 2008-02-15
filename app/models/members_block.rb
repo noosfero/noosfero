@@ -37,10 +37,6 @@ class MembersBlock < ProfileListBlock
       result
     end
 
-    def pick_random(top)
-      rand(top)
-    end
-
   end
 
 

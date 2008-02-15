@@ -25,7 +25,6 @@ class ProfileListBlockTest < Test::Unit::TestCase
     owner.boxes.first.blocks << block
     block.save!
 
-    # faking that we are picking random people
     profiles = [person1, person3]
     block.expects(:profiles).returns(profiles)
 

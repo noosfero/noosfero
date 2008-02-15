@@ -31,6 +31,9 @@ class ProfileListBlock < Block
     def find
       Profile.find(:all, :limit => block.limit, :order => 'created_at desc')
     end
+    def pick_random(top)
+      rand(top)
+    end
   end
 
   def profiles
