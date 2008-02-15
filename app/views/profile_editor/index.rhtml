@@ -26,16 +26,19 @@
 <% end %>
 
 <% if @profile.person? %>
-  <h2><%= _('My organizations') %></h2>
+  <h2><%= _('My groups') %></h2>
  
   <% file_manager do %>
 
-    <% @profile.enterprise_memberships.each do |em| %>
-      <%= file_manager_button(em.name, em.image ? em.image.public_filename(:minor) : 'icons-app/organization.png', :profile => em.identifier, :controller => 'profile_editor' ) %>
+    <% @profile.memberships.each do |group| %>
+      <%= file_manager_button(group.name, profile_icon(group) , :profile => group.identifier, :controller => 'profile_editor' ) %>
     <% end %>
 
   <% end %>
 
-  <%= button(:add, _('Register a new Enterprise'), :controller => 'enterprise_registration') %>
+  <% button_bar do %>
+    <%= button(:add, _('Register a new Enterprise'), :controller => 'enterprise_registration') %>
+    <%= button(:edit, _('Manage my organizations'), :controller => 'memberships') %>
+  <% end %>
 
 <% end %>
