@@ -92,7 +92,7 @@ RoleAssignment.create!(:accessor => root, :role => admin_role, :resource => Envi
 
 # Sample user and sample enterprise owned by him
 ze = User.create!(:login => 'ze', :email => 'ze@localhost.localdomain', :password => 'test', :password_confirmation => 'test').person
-empa = Enterprise.create!(:name => 'Empreendimento A', :identifier => 'empreendimento_a')
+empa = Enterprise.create!(:name => 'Cooperativa A', :identifier => 'coop_a')
 
 empa.affiliate(ze, owner_role)
 colivre.affiliate(ze, owner_role)
