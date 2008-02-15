@@ -51,4 +51,8 @@ class ProfileListBlock < Block
     end
   end
 
+  def help
+    _('Clicking on the people or groups will take you to their home page.')
+  end
+
 end
