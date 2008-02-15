@@ -1,0 +1,19 @@
+<h1><%= _("%s's groups") % profile.name %></h1>
+
+<p>
+<%= _('%s is a member of the following groups:') % profile.name %>
+</p>
+
+
+<table>
+  <tr>
+    <th><%= _('Name') %></th>
+    <th><%= _('Type') %></th>
+  </tr>
+<% for membership in @memberships %>
+  <tr>
+    <td><%= link_to membership.name, membership.url %></td>
+    <td><%= _(membership.class.name) %></td>
+  </tr>
+<% end %>
+</table>
