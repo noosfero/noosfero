@@ -55,3 +55,8 @@
 #box-organizer div.box-3 .block {
   border: 2px dashed blue;
 }
+
+.block-footer-content {
+  margin-top: 1em;
+}
+
