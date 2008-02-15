@@ -55,7 +55,10 @@ O menu superior é o principal instrumento de navegação:
 EOF
 
 
-Environment.create!(:name => 'Anheteguá', :is_default => true, :description => environment_description)
+env = Environment.create!(:name => 'Anheteguá', :is_default => true, :description => environment_description)
+domain =  Domain.new(:name => 'ecosol.noosfero.com.br')
+domain.owner = env
+domain.save!
 
 tematicas = new_category(nil, 'Temáticas', 1)
 new_category(tematicas, 'Finanças Solidárias')
