@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.6.0\n"
-"POT-Creation-Date: 2008-02-11 15:57-0300\n"
+"POT-Creation-Date: 2008-02-15 15:23-0300\n"
 "PO-Revision-Date: 2008-01-02 22:13-0300\n"
 "Last-Translator: Antonio Terceiro <terceiro@colivre.coop.br>\n"
 "Language-Team: \n"
@@ -128,6 +128,29 @@ msgstr "A senha informada está incorreta"
 msgid "This action is not available for \"%s\"."
 msgstr "Esta ação não está disponível para \"%s\"."
 
+#: app/helpers/assets_helper.rb:6
+#, fuzzy
+msgid "Blogs"
+msgstr "Fechar"
+
+#: app/helpers/assets_helper.rb:7
+msgid "Albuns"
+msgstr ""
+
+#: app/helpers/assets_helper.rb:8
+#, fuzzy
+msgid "Products"
+msgstr "Produto:"
+
+#: app/helpers/assets_helper.rb:9
+#, fuzzy
+msgid "Enterprises"
+msgstr "Empreendimento:"
+
+#: app/helpers/assets_helper.rb:10 app/views/profile/index.rhtml:15
+msgid "Communities"
+msgstr ""
+
 #: app/helpers/enterprise_validation_helper.rb:6
 msgid "Approved"
 msgstr "Aprovado"
@@ -153,21 +176,52 @@ msgstr "Este perfil não tem nenhuma informação pública"
 msgid "Main content"
 msgstr "Gerenciar conteúdo."
 
-#: app/helpers/boxes_helper.rb:112
+#: app/helpers/boxes_helper.rb:121
 #, fuzzy
 msgid "Move block up"
 msgstr "Mover para cima"
 
-#: app/helpers/boxes_helper.rb:113
+#: app/helpers/boxes_helper.rb:122
 #, fuzzy
 msgid "Move block down"
 msgstr "Mover para baixo"
 
-#: app/helpers/boxes_helper.rb:116 app/views/categories/_category.rhtml:8
+#: app/helpers/boxes_helper.rb:125 app/views/categories/_category.rhtml:8
 #: app/views/cms/view.rhtml:70 app/views/content_viewer/view_page.rhtml:11
 #: app/views/role/index.rhtml:6
 msgid "Edit"
 msgstr "Editar"
+
+#: app/helpers/application_helper.rb:57 app/views/features/index.rhtml:7
+#: app/views/layouts/application.rhtml:97
+msgid "Help"
+msgstr "Ajuda"
+
+#: app/helpers/application_helper.rb:77 app/views/search/popup.rhtml:15
+#: app/views/box_organizer/add_block.rhtml:18
+msgid "Close"
+msgstr "Fechar"
+
+#: app/helpers/application_helper.rb:162
+#, fuzzy
+msgid "This is %s, version %s"
+msgstr "%s, versão %s"
+
+#: app/helpers/application_helper.rb:281 app/views/account/login.rhtml:13
+#: app/views/admin_panel/site_info.rhtml:11
+#: app/views/cms/select_article_type.rhtml:12
+#: app/views/box_organizer/edit.rhtml:9
+#: app/views/manage_communities/new.rhtml:9
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: app/helpers/application_helper.rb:323 app/models/product.rb:32
+msgid "Uncategorized product"
+msgstr "Produto não categorizado"
+
+#: app/helpers/application_helper.rb:328
+msgid "No product"
+msgstr "Sem produto"
 
 #: app/helpers/categories_helper.rb:6
 msgid "Do not display at the menu"
@@ -218,37 +272,6 @@ msgstr "Novo %s"
 msgid "Categories"
 msgstr "Categorias"
 
-#: app/helpers/assets_helper.rb:6
-#, fuzzy
-msgid "Blogs"
-msgstr "Fechar"
-
-#: app/helpers/assets_helper.rb:7
-msgid "Albuns"
-msgstr ""
-
-#: app/helpers/assets_helper.rb:8
-#, fuzzy
-msgid "Products"
-msgstr "Produto:"
-
-#: app/helpers/assets_helper.rb:9
-#, fuzzy
-msgid "Enterprises"
-msgstr "Empreendimento:"
-
-#: app/helpers/assets_helper.rb:10 app/views/profile/index.rhtml:15
-msgid "Communities"
-msgstr ""
-
-#: app/helpers/assets_helper.rb:13
-msgid "bli 1"
-msgstr ""
-
-#: app/helpers/assets_helper.rb:14
-msgid "bli 2"
-msgstr ""
-
 #: app/helpers/tags_helper.rb:32
 #, fuzzy
 msgid "No tags yet."
@@ -262,36 +285,6 @@ msgstr ""
 #, fuzzy
 msgid "What are tags?"
 msgstr "Criar nova tag"
-
-#: app/helpers/application_helper.rb:57 app/views/features/index.rhtml:7
-msgid "Help"
-msgstr "Ajuda"
-
-#: app/helpers/application_helper.rb:77 app/views/search/popup.rhtml:15
-#: app/views/box_organizer/add_block.rhtml:18
-msgid "Close"
-msgstr "Fechar"
-
-#: app/helpers/application_helper.rb:162
-#, fuzzy
-msgid "This is %s, version %s"
-msgstr "%s, versão %s"
-
-#: app/helpers/application_helper.rb:281 app/views/account/login.rhtml:13
-#: app/views/admin_panel/site_info.rhtml:11
-#: app/views/cms/select_article_type.rhtml:12
-#: app/views/box_organizer/edit.rhtml:9
-#: app/views/manage_communities/new.rhtml:9
-msgid "Cancel"
-msgstr "Cancelar"
-
-#: app/helpers/application_helper.rb:323 app/models/product.rb:32
-msgid "Uncategorized product"
-msgstr "Produto não categorizado"
-
-#: app/helpers/application_helper.rb:328
-msgid "No product"
-msgstr "Sem produto"
 
 #: app/models/environment_statistics_block.rb:4
 msgid "Statitical overview of your environment."
@@ -317,14 +310,6 @@ msgid "One community"
 msgid_plural "%{num} communities"
 msgstr[0] "Um comentário"
 msgstr[1] "%{comments} comentários"
-
-#: app/models/profile_list_block.rb:6
-msgid "A block that displays random profiles"
-msgstr ""
-
-#: app/models/profile_list_block.rb:42
-msgid "People and Groups"
-msgstr ""
 
 #: app/models/change_password.rb:13
 msgid "ChangePassword|Login"
@@ -533,6 +518,45 @@ msgstr ""
 msgid "Block for main content (i.e. your articles, photos, etc)"
 msgstr ""
 
+#: app/models/profile.rb:19
+msgid "Edit profile"
+msgstr "perfil"
+
+#: app/models/profile.rb:20
+msgid "Destroy profile"
+msgstr "Remover perfil"
+
+#: app/models/profile.rb:21
+msgid "Manage memberships"
+msgstr "Gerenciar associação em organização"
+
+#: app/models/profile.rb:22
+msgid "Post content"
+msgstr "Conteúdo da postagem"
+
+#: app/models/profile.rb:23
+msgid "Edit profile design"
+msgstr "Editar design de perfil"
+
+#: app/models/profile.rb:24
+msgid "Manage products"
+msgstr "Gerenciar produtos"
+
+#: app/models/profile.rb:80
+msgid "An existing profile cannot be renamed."
+msgstr "Um perfil existente não pode ser renomeado"
+
+#: app/models/profile.rb:241
+#, fuzzy
+msgid "Home page"
+msgstr "Minha página inicial."
+
+#: app/models/profile.rb:241
+msgid ""
+"<h1>%s's home page</h1> <p>This is a default homepage created for %s. It can "
+"be changed though the control panel.</p>"
+msgstr ""
+
 #: app/models/profile_info_block.rb:4
 #, fuzzy
 msgid "Profile information block"
@@ -547,90 +571,6 @@ msgstr "Ir para o conteúdo"
 #, fuzzy
 msgid "Recent content"
 msgstr "Garenciar conteúdo"
-
-#: app/models/environment.rb:7
-msgid "View environment admin panel"
-msgstr "Ver painel de administração de ambiente"
-
-#: app/models/environment.rb:8
-msgid "Edit environment features"
-msgstr "Editar funcionalidades do ambiente"
-
-#: app/models/environment.rb:9
-msgid "Edit environment design"
-msgstr "Editar design do ambiente"
-
-#: app/models/environment.rb:10
-msgid "Manage environment categories"
-msgstr "Gerenciar categorias do ambiente"
-
-#: app/models/environment.rb:11
-msgid "Manage environment roles"
-msgstr "Gerencias papéis do ambiente"
-
-#: app/models/environment.rb:12
-msgid "Manage environment validators"
-msgstr "Gerenciar ambiente de validadores"
-
-#: app/models/environment.rb:19
-msgid "Some feature"
-msgstr "Alguma funcionalidade"
-
-#: app/models/environment.rb:20
-msgid "Other feature"
-msgstr "Outra funcionalidade"
-
-#: app/models/environment.rb:173
-msgid "Only one Virtual Community can be the default one"
-msgstr "Apenas uma comunidade virtual pode ser a padrão"
-
-#: app/models/task.rb:86
-msgid "Generic task"
-msgstr "Tarefa genérica"
-
-#: app/models/task.rb:93
-msgid "The task was created at %s"
-msgstr "A tarefa foi criada em %s"
-
-#: app/models/task.rb:99
-msgid "The task was finished at %s"
-msgstr "A tarefa foi finalizada em %s"
-
-#: app/models/task.rb:105
-msgid "The task was cancelled at %s"
-msgstr "A tarefa foi cancelada em %s"
-
-#: app/models/image_gallery.rb:4
-msgid "Image gallery"
-msgstr ""
-
-#: app/models/image_gallery.rb:8
-msgid "A collection of photos, logos or other kinds of images."
-msgstr ""
-
-#: app/models/textile_article.rb:4
-msgid "Text article with Textile markup language"
-msgstr "Artigo de texto com linguagem de marcação Textile"
-
-#: app/models/textile_article.rb:8
-msgid "Accessible alternative for visually impaired users."
-msgstr "Alternativa acessível para usuários com deficiência visual."
-
-#: app/models/tiny_mce_article.rb:4
-msgid "Text article with visual editor."
-msgstr "Artigo de texto com editor visual."
-
-#: app/models/tiny_mce_article.rb:8
-msgid "Not accessible for visually impaired users."
-msgstr "Não acessível para usuários com deficiência visual."
-
-#: app/models/uploaded_file.rb:24
-msgid "Uploaded file"
-msgstr "Arquivo enviado"
-
-#: app/models/uploaded_file.rb:28
-msgid "Upload any kind of file you want."
-msgstr "Envie qualquer tipo de arquivo que você queira."
 
 #: app/models/article.rb:6
 msgid ""
@@ -664,8 +604,36 @@ msgstr "Um artigo comum"
 msgid "An article of type \"%s\""
 msgstr "Um artigo do tipo \"%s\""
 
-#: app/models/login_block.rb:4
-msgid "A login box for your users."
+#: app/models/profile_list_block.rb:6
+msgid "A block that displays random profiles"
+msgstr ""
+
+#: app/models/profile_list_block.rb:42
+msgid "People and Groups"
+msgstr ""
+
+#: app/models/profile_list_block.rb:55
+msgid "Clicking on the people or groups will take you to their home page."
+msgstr ""
+
+#: app/models/task.rb:86
+msgid "Generic task"
+msgstr "Tarefa genérica"
+
+#: app/models/task.rb:93
+msgid "The task was created at %s"
+msgstr "A tarefa foi criada em %s"
+
+#: app/models/task.rb:99
+msgid "The task was finished at %s"
+msgstr "A tarefa foi finalizada em %s"
+
+#: app/models/task.rb:105
+msgid "The task was cancelled at %s"
+msgstr "A tarefa foi cancelada em %s"
+
+#: app/models/block.rb:16
+msgid "A dummy block."
 msgstr ""
 
 #: app/models/tags_block.rb:7
@@ -673,32 +641,86 @@ msgid "List count of contents by tag"
 msgstr ""
 
 #: app/models/tags_block.rb:11
+msgid ""
+"The tag is created when you add some one to your article. <p/>\n"
+"       Try to add some tags to some articles and see your tag cloud to grow."
+msgstr ""
+
+#: app/models/tags_block.rb:16
 msgid "Tags"
 msgstr "Lista de marcadores"
 
-#: app/models/tags_block.rb:13
-msgid ""
-"The tag is created when you add some one to your article.\n"
-"                 Try to add some tags to some articles and see your tag "
-"cloud to grow."
+#: app/models/image_gallery.rb:4
+msgid "Image gallery"
 msgstr ""
 
-#: app/models/tags_block.rb:15
-msgid "How tags works here?"
+#: app/models/image_gallery.rb:8
+msgid "A collection of photos, logos or other kinds of images."
 msgstr ""
 
-#: app/models/members_block.rb:4
-msgid "A block that displays members."
+#: app/models/textile_article.rb:4
+msgid "Text article with Textile markup language"
+msgstr "Artigo de texto com linguagem de marcação Textile"
+
+#: app/models/textile_article.rb:8
+msgid "Accessible alternative for visually impaired users."
+msgstr "Alternativa acessível para usuários com deficiência visual."
+
+#: app/models/tiny_mce_article.rb:4
+msgid "Text article with visual editor."
+msgstr "Artigo de texto com editor visual."
+
+#: app/models/tiny_mce_article.rb:8
+msgid "Not accessible for visually impaired users."
+msgstr "Não acessível para usuários com deficiência visual."
+
+#: app/models/uploaded_file.rb:24
+msgid "Uploaded file"
+msgstr "Arquivo enviado"
+
+#: app/models/uploaded_file.rb:28
+msgid "Upload any kind of file you want."
+msgstr "Envie qualquer tipo de arquivo que você queira."
+
+#: app/models/login_block.rb:4
+msgid "A login box for your users."
 msgstr ""
 
-#: app/models/members_block.rb:8
-#, fuzzy
-msgid "Members"
-msgstr "Gerenciar membros"
+#: app/models/environment.rb:7
+msgid "View environment admin panel"
+msgstr "Ver painel de administração de ambiente"
 
-#: app/models/members_block.rb:14
-msgid "All members"
-msgstr ""
+#: app/models/environment.rb:8
+msgid "Edit environment features"
+msgstr "Editar funcionalidades do ambiente"
+
+#: app/models/environment.rb:9
+msgid "Edit environment design"
+msgstr "Editar design do ambiente"
+
+#: app/models/environment.rb:10
+msgid "Manage environment categories"
+msgstr "Gerenciar categorias do ambiente"
+
+#: app/models/environment.rb:11
+msgid "Manage environment roles"
+msgstr "Gerencias papéis do ambiente"
+
+#: app/models/environment.rb:12
+msgid "Manage environment validators"
+msgstr "Gerenciar ambiente de validadores"
+
+#: app/models/environment.rb:25
+msgid "Some feature"
+msgstr "Alguma funcionalidade"
+
+#: app/models/environment.rb:26
+msgid "Other feature"
+msgstr "Outra funcionalidade"
+
+#: app/models/environment.rb:179
+msgid "Only one Virtual Community can be the default one"
+msgstr "Apenas uma comunidade virtual pode ser a padrão"
 
 #: app/models/category.rb:3
 msgid "%{fn} cannot be like that."
@@ -744,47 +766,17 @@ msgstr "Confirmação de senha"
 msgid "%{fn} must be checked in order to signup."
 msgstr "%{fn} deve ser verificado para efetivar inscrição"
 
-#: app/models/block.rb:16
-msgid "A dummy block."
+#: app/models/members_block.rb:4
+msgid "A block that displays members."
 msgstr ""
 
-#: app/models/profile.rb:16
-msgid "Edit profile"
-msgstr "perfil"
-
-#: app/models/profile.rb:17
-msgid "Destroy profile"
-msgstr "Remover perfil"
-
-#: app/models/profile.rb:18
-msgid "Manage memberships"
-msgstr "Gerenciar associação em organização"
-
-#: app/models/profile.rb:19
-msgid "Post content"
-msgstr "Conteúdo da postagem"
-
-#: app/models/profile.rb:20
-msgid "Edit profile design"
-msgstr "Editar design de perfil"
-
-#: app/models/profile.rb:21
-msgid "Manage products"
-msgstr "Gerenciar produtos"
-
-#: app/models/profile.rb:77
-msgid "An existing profile cannot be renamed."
-msgstr "Um perfil existente não pode ser renomeado"
-
-#: app/models/profile.rb:237
+#: app/models/members_block.rb:8
 #, fuzzy
-msgid "Home page"
-msgstr "Minha página inicial."
+msgid "Members"
+msgstr "Gerenciar membros"
 
-#: app/models/profile.rb:237
-msgid ""
-"<h1>%s's home page</h1> <p>This is a default homepage created for %s. It can "
-"be changed though the control panel.</p>"
+#: app/models/members_block.rb:14
+msgid "All members"
 msgstr ""
 
 #: app/views/account/change_password.rhtml:1
@@ -1307,6 +1299,7 @@ msgstr "Enviar um comentário"
 #: app/views/content_viewer/_comment_form.rhtml:7
 #: app/views/enterprise_editor/_form.rhtml:1
 #: app/views/enterprise_validation/_details.rhtml:3
+#: app/views/memberships/index.rhtml:10
 msgid "Name"
 msgstr "Nome"
 
@@ -1722,14 +1715,14 @@ msgstr ""
 "virtual, desmarque todas que você não quer, e use o botão 'Salvar "
 "alterações' para confirmar suas mudanças."
 
-#: app/views/home/index.rhtml:7 app/views/home/index.rhtml:13
-#: app/views/layouts/application.rhtml:84
+#: app/views/home/index.rhtml:6 app/views/home/index.rhtml:12
+#: app/views/layouts/application.rhtml:90
 #: app/views/region_validators/region.rhtml:23 app/views/search/popup.rhtml:7
 #: app/views/search/popup.rhtml:14
 msgid "Search"
 msgstr "Busca"
 
-#: app/views/home/index.rhtml:17
+#: app/views/home/index.rhtml:16
 msgid "More search options"
 msgstr ""
 
@@ -1737,22 +1730,57 @@ msgstr ""
 msgid "Page not found"
 msgstr "Página não encontrada"
 
-#: app/views/layouts/application.rhtml:58
+#: app/views/layouts/application.rhtml:40
+msgid ""
+"Pass the mouse over page elements to get help on them. Click the question "
+"mark icon on the top-right corner to deactivate this help window."
+msgstr ""
+
+#: app/views/layouts/application.rhtml:59
 msgid "Go to content"
 msgstr "Ir para o conteúdo"
 
-#: app/views/layouts/application.rhtml:127
-msgid "Hey! Your web browser is really old!"
+#: app/views/layouts/application.rhtml:75
+msgid ""
+"This is %s's shortcuts bar. Using it you have access to the main features of "
+"the environment and you find the information of your interest more quickly."
 msgstr ""
 
-#: app/views/layouts/application.rhtml:128
+#: app/views/layouts/application.rhtml:77
 msgid ""
-"This great website will be not so good on that.\n"
+"This bar helps you find information following two paths or "
+"<strong>dimensions</strong>. First dimension is composed of <em>categories</"
+"em>, which you'll find in the colored tabs in the top. Second dimension has "
+"<em>content types</em>, and you'll find them in the animated bar on your "
+"right."
+msgstr ""
+
+#: app/views/layouts/application.rhtml:96
+msgid "Turn help on/off"
+msgstr ""
+
+#: app/views/layouts/application.rhtml:143
+msgid "Do you want to activate the automatic help mode?"
+msgstr ""
+
+#: app/views/layouts/application.rhtml:143
+msgid ""
+"If needed, you can activate the automatic help mode by clicking the question "
+"mark symbol in the top-right corner"
+msgstr ""
+
+#: app/views/layouts/application.rhtml:147
+msgid "Your web browser is obsolete!"
+msgstr ""
+
+#: app/views/layouts/application.rhtml:148
+msgid ""
+"This website will not look as good as it could.\n"
 "         Don't you want to use Firefox? That is a great web browser, free,\n"
 "         and made by people of all the world parts."
 msgstr ""
 
-#: app/views/layouts/application.rhtml:132
+#: app/views/layouts/application.rhtml:152
 msgid "Get Firefox Now!"
 msgstr ""
 
@@ -1871,12 +1899,17 @@ msgid "Enterprise Validation"
 msgstr "Validações de empreendimento pendentes"
 
 #: app/views/profile_editor/index.rhtml:29
-msgid "My organizations"
-msgstr "Minhas organizações"
+msgid "My groups"
+msgstr ""
 
-#: app/views/profile_editor/index.rhtml:37
+#: app/views/profile_editor/index.rhtml:40
 msgid "Register a new Enterprise"
 msgstr "Registrar novo Empreendimento"
+
+#: app/views/profile_editor/index.rhtml:41
+#, fuzzy
+msgid "Manage my organizations"
+msgstr "Minhas organizações"
 
 #: app/views/profile_members/index.rhtml:1
 msgid "Listing Members"
@@ -2081,6 +2114,11 @@ msgstr "Gerenciar"
 msgid "Create a new community"
 msgstr "Criar nova tag"
 
+#: app/views/blocks/profile_info_actions/community.rhtml:3
+#, fuzzy
+msgid "Join this community"
+msgstr "Um comentário"
+
 #: app/views/blocks/profile_info.rhtml:6
 #, fuzzy
 msgid "Since %d"
@@ -2090,6 +2128,37 @@ msgstr "Preço: %d"
 #, fuzzy
 msgid "View profile"
 msgstr "perfil"
+
+#: app/views/memberships/index.rhtml:1
+#, fuzzy
+msgid "%s's groups"
+msgstr "perfil"
+
+#: app/views/memberships/index.rhtml:4
+msgid "%s is a member of the following groups:"
+msgstr ""
+
+#: app/views/memberships/index.rhtml:11
+msgid "Type"
+msgstr ""
+
+#: app/views/memberships/join.rhtml:1
+#, fuzzy
+msgid "Joining %s"
+msgstr "Editando %s"
+
+#: app/views/memberships/join.rhtml:4
+#, fuzzy
+msgid "Are you sure you want to join %s?"
+msgstr "Tem certeza que quer excluir \"%s\"?"
+
+#: app/views/memberships/join.rhtml:9
+msgid "Yes, I want to join."
+msgstr ""
+
+#: app/views/memberships/join.rhtml:10
+msgid "No, I don't want."
+msgstr ""
 
 #~ msgid "your search here"
 #~ msgstr "sua busca aqui"
