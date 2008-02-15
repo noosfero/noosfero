@@ -38,14 +38,6 @@ class ProfileListBlockTest < Test::Unit::TestCase
     assert_kind_of String, instance_eval(&block.content)
   end
 
-  should 'pick most recently-added profiles by default' do
-    Profile.expects(:find).with(:all, { :limit => 10, :order => 'created_at desc'})
-
-    block = ProfileListBlock.new
-    block.limit = 10
-    block.profiles
-  end
-
   should 'use finders to find profiles to be listed' do
     block = ProfileListBlock.new
     finder = mock
