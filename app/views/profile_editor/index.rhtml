@@ -27,15 +27,15 @@
 
 <% if @profile.person? %>
   <h2><%= _('My organizations') %></h2>
-  
+ 
   <% file_manager do %>
 
     <% @profile.enterprise_memberships.each do |em| %>
       <%= file_manager_button(em.name, em.image ? em.image.public_filename(:minor) : 'icons-app/organization.png', :profile => em.identifier, :controller => 'profile_editor' ) %>
     <% end %>
 
-    <%= file_manager_button(_('Register a new Enterprise'), 'icons-app/enterprise-registration.png', :controller => 'enterprise_registration') %>
-
   <% end %>
+
+  <%= button(:add, _('Register a new Enterprise'), :controller => 'enterprise_registration') %>
 
 <% end %>
