@@ -20,23 +20,10 @@ class MembersBlock < ProfileListBlock
   end
 
   # Finds random members, up to the limit.
-  class Finder
-    def initialize(block)
-      @block = block
+  class Finder < ProfileListBlock::Finder
+    def ids
+      block.owner.members.map(&:id)
     end
-    attr_reader :block
-
-    def find
-      ids = block.owner.members.map(&:id)
-      result = []
-      [block.limit, ids.size].min.times do
-        i = pick_random(ids.size)
-        result << Profile.find(ids[i])
-        ids.delete_at(i)
-      end
-      result
-    end
-
   end
 
 

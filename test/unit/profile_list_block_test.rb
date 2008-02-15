@@ -54,5 +54,9 @@ class ProfileListBlockTest < Test::Unit::TestCase
     block.profiles
   end
 
+  should 'provide random numbers' do
+    assert_respond_to ProfileListBlock::Finder.new(nil), :pick_random
+  end
+
 
 end

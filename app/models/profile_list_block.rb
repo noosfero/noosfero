@@ -29,10 +29,20 @@ class ProfileListBlock < Block
     end
     attr_reader :block
     def find
-      Profile.find(:all, :limit => block.limit, :order => 'created_at desc')
+      id_list = self.ids
+      result = []
+      [block.limit, id_list.size].min.times do
+        i = pick_random(id_list.size)
+        result << Profile.find(id_list[i])
+        id_list.delete_at(i)
+      end
+      result
     end
     def pick_random(top)
       rand(top)
+    end
+    def ids
+      Profile.connection.select_all('select id from profiles').map { |entry| entry['id'].to_i }
     end
   end
 
@@ -50,7 +60,7 @@ class ProfileListBlock < Block
     title = self.title
     lambda do
       block_title(title) +
-      profiles.map {|item| content_tag('div', profile_image_link(item)) }.join("\n")
+      profiles.map {|item| content_tag('div', profile_image_link(item), :class => 'profile-list-block-link') }.join("\n")
     end
   end
 
