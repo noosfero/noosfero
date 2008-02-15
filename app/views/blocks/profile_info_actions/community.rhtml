@@ -1,3 +1,5 @@
 <ul>
-  <li><%= link_to _('Join this community') %></li>
+  <% if logged_in? %>
+    <li><%= link_to _('Join this community'), :profile => user.identifier, :controller => 'memberships', :action => 'join', :id => profile.id %></li>
+  <% end %>
 </ul>
