@@ -1,7 +1,7 @@
 class TagsBlock < Block
 
   include TagsHelper
-  include ApplicationHelper
+  include BlockHelper
 
   def self.description
     _('List count of contents by tag')
