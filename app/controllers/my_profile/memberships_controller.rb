@@ -12,4 +12,14 @@ class MembershipsController < MyProfileController
     end
   end
 
+  def new_community
+    @community = Community.new(params[:community])
+    if request.post?
+      if @community.save
+        @community.add_member(profile)
+        redirect_to :action => 'index'
+      end
+    end
+  end
+
 end

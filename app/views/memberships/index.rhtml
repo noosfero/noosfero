@@ -9,11 +9,20 @@
   <tr>
     <th><%= _('Name') %></th>
     <th><%= _('Type') %></th>
+    <th><%= _('Actions') %></th>
   </tr>
 <% for membership in @memberships %>
   <tr>
     <td><%= link_to membership.name, membership.url %></td>
     <td><%= _(membership.class.name) %></td>
+    <td>
+      <%= link_to _('Manage'), membership.admin_url %>
+    </td>
   </tr>
 <% end %>
 </table>
+
+<% button_bar do %>
+  <%= button(:add, _('Register a new Enterprise'), :controller => 'enterprise_registration') %>
+  <%= button(:add, _('Create a new community'), :action => 'new_community') %>
+<% end %>
