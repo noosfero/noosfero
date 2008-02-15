@@ -410,3 +410,17 @@ body.category4 #content h4, body.category4 #content h5, body.category4 #content 
   text-align: center;
 }
 
+/* tables */
+table {
+  border-collapse: collapse;
+}
+th, td {
+  font-size: 14px;
+  border: 1px solid #999999;
+  padding: 2px;
+}
+th {
+  background: #f0f0f0;
+  color: black;
+  font-weight: bold;
+}
