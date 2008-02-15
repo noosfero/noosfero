@@ -74,6 +74,7 @@ class Person < Profile
 
     # right area
     self.boxes[2].blocks << TagsBlock.new
+    self.boxes[2].blocks << CommunitiesBlock.new
       
     true
   end

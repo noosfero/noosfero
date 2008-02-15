@@ -136,9 +136,10 @@ class PersonTest < Test::Unit::TestCase
     assert p.boxes[1].blocks.map(&:class).include?(RecentDocumentsBlock), 'person must have a RecentDocumentsBlock upon creation'
 
     assert p.boxes[2].blocks.map(&:class).include?(TagsBlock), 'person must have a Tags Block upon creation'
+    assert p.boxes[2].blocks.map(&:class).include?(CommunitiesBlock), 'person must have a CommunitiesBlock upon creation'
     # TODO check also for a "friends" block
 
-    assert_equal 4,  p.blocks.size
+    assert_equal 5,  p.blocks.size
   end
 
 end
