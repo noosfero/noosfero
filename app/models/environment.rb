@@ -12,6 +12,12 @@ class Environment < ActiveRecord::Base
     'manage_environment_validators' => N_('Manage environment validators'),
   }
 
+  module Roles
+    def self.admin
+      Role.find_by_key('environment_administrator')
+    end
+  end
+
   # returns the available features for a Environment, in the form of a
   # hash, with pairs in the form <tt>'feature_name' => 'Feature name'</tt>.
   def self.available_features

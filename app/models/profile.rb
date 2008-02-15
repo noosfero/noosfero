@@ -10,6 +10,9 @@ class Profile < ActiveRecord::Base
     def self.member
       ::Role.find_by_key('profile_member')
     end
+    def self.moderator
+      ::Role.find_by_key('profile_moderator')
+    end
   end
 
   PERMISSIONS[:profile] = {

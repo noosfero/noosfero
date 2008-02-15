@@ -86,7 +86,7 @@ owner_role = Profile::Roles.admin
 
 # root user of the system, admin_role for him, the assignment of the role for him and the ownership of the system homepage
 root = User.create!(:login => 'root', :email => 'root@noosfero.org', :password => 'root', :password_confirmation => 'root').person
-admin_role = Role.create!(:name => 'admin', :permissions => ['view_environment_admin_panel','edit_environment_features', 'edit_environment_design', 'manage_environment_categories', 'manage_environment_roles', 'manage_environment_validators'])
+admin_role = Environment::Roles.admin
 
 RoleAssignment.create!(:accessor => root, :role => admin_role, :resource => Environment.default)
 
@@ -97,9 +97,8 @@ empa = Enterprise.create!(:name => 'Empreendimento A', :identifier => 'empreendi
 empa.affiliate(ze, owner_role)
 colivre.affiliate(ze, owner_role)
 
-member_role = Role.create!(:name => 'membro', :permissions => ['edit_profile',  'post_content', 'manage_products'] )
-moderator_role = Role.create!(:name => 'moderador', :permissions => ['manage_memberships', 'edit_profile_design', 'manage_products'] )
-
+member_role = Profile::Roles.member
+moderator_role = Profile::Roles.moderator
 
 # product categories
 produtos = ProductCategory.create!(:name => 'Produtos', :environment => Environment.default, :display_color => 4)

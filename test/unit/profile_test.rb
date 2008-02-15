@@ -309,6 +309,11 @@ class ProfileTest < Test::Unit::TestCase
     assert_kind_of Role, Profile::Roles.member
   end
 
+  should 'have moderator role' do
+    Role.expects(:find_by_key).with('profile_moderator').returns(Role.new)
+    assert_kind_of Role, Profile::Roles.moderator
+  end
+
   should 'not have members by default' do
     assert_equal false, Profile.new.has_members?
   end

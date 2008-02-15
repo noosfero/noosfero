@@ -258,4 +258,9 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal 'my fine environment', env.description
   end
 
+  should 'have admin role' do
+    Role.expects(:find_by_key).with('environment_administrator').returns(Role.new)
+    assert_kind_of Role, Environment::Roles.admin
+  end
+
 end
