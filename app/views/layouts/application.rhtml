@@ -40,7 +40,7 @@
     " controller_"+ @controller.controller_name() +
     " action_"+ @controller.controller_name() +"_"+ @controller.action_name()
     %>' onload='noosfero_init();'
-    help=<%= _('Pass the mouse over page elements to get help on them').inspect %> >
+    help=<%= _('Pass the mouse over page elements to get help on them. Click the question mark icon on the top-right corner to deactivate this help window.').inspect %> >
     <script type="text/javascript">
       /* Adds a class to "msie" to the body element if a Microsoft browser is
        * detected. This is needed to workaround several of their limitations.
@@ -155,11 +155,12 @@
     </div>
     <%= javascript_include_tag 'show-mouse-help' %>
     <%= javascript_include_tag 'noosfero-show-help' %>
+    <%= javascript_tag('noosferoHelpInit(%s, %s)' % [ _('Do you want to activate the automatic help mode?').inspect, _('If needed, you can activate the automatic help mode by clicking the question mark symbol in the top-right corner').inspect ])  %>
 
     <div id="better-browser-promotion" style="display:none">
       <h3><%=
-      _('Hey! Your web browser is really old!') +'</h3><p/>'+
-      _('This great website will be not so good on that.
+      _('Your web browser is obsolete!') +'</h3><p/>'+
+      _('This website will not look as good as it could.
          Don\'t you want to use Firefox? That is a great web browser, free,
          and made by people of all the world parts.')
       %><p/>
