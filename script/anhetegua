@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 require File.dirname(__FILE__) + '/../config/environment'
 
+GetText.locale = 'pt_BR'
+
 Environment.destroy_all
 User.destroy_all
 Profile.destroy_all
