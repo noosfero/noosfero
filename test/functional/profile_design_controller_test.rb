@@ -150,7 +150,7 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
 
   should 'actually add a new block' do
     assert_difference Block, :count do
-      post :add_block, :profile => 'ze', :box_id => 1, :type => RecentDocumentsBlock.name
+      post :add_block, :profile => 'ze', :box_id => @box1.id, :type => RecentDocumentsBlock.name
       assert_redirected_to :action => 'index'
     end
   end
@@ -158,7 +158,7 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
   should 'not allow to create unknown types' do
     assert_no_difference Block, :count do
       assert_raise ArgumentError do
-        post :add_block, :profile => 'ze', :box_id => 1, :type => "PleaseLetMeCrackYourSite"
+        post :add_block, :profile => 'ze', :box_id => @box1.id, :type => "PleaseLetMeCrackYourSite"
       end
     end
   end
