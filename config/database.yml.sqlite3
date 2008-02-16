@@ -7,8 +7,5 @@ test:
   database: tmp/anhetegua_test.db
 
 production:
-  adapter: mysql
-  database: anhetegua_production
-  username: root
-  password: 
-  host: localhost
+  adapter: sqlite3
+  database: tmp/anhetegua_production.db
