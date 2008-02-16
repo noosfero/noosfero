@@ -22,6 +22,7 @@ module TagsHelper
   #
   # * <tt>:max_size</tt>: font size for the tag with largest count 
   # * <tt>:min_size</tt>: font size for the tag with smallest count 
+  # * <tt>:show_count</tt>: whether to show the count of contents for each tag.   Defauls to <tt>false</tt>.
   # 
   # The algorithm for generating the different sizes and positions is a
   # courtesy of Aurelio: http://www.colivre.coop.br/Aurium/Nuvem 
@@ -47,7 +48,9 @@ module TagsHelper
         "top: #{ -4 - (v * 4).round }px;"
       destination = url.kind_of?(Hash) ? url_for(url.merge(tagname_option => tag)) : (url.to_s + tag)
 
-      link_to "#{tag}<small><sup>(#{count})</sup></small>", destination, :style => style
+      display_count = options[:show_count] ? "<small><sup>(#{count})</sup></small>" : ""
+
+      link_to tag + display_count, destination, :style => style
     end.join("\n")
   end
 
