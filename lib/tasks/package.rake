@@ -5,7 +5,7 @@ Rake::PackageTask.new(Noosfero::PROJECT, Noosfero::VERSION) do |p|
   p.need_tar_gz = true
 
   # application files
-  p.package_files.include('app/**/*.{rb,rhtml}')
+  p.package_files.include('app/**/*.{rb,rhtml,rjs,rxml}')
   p.package_files.include('config/**/*.{rb,sqlite3}')
   p.package_files.include('config/ferret_server.yml')
   p.package_files.include('db/migrate/*.rb')
@@ -31,8 +31,8 @@ Rake::PackageTask.new(Noosfero::PROJECT, Noosfero::VERSION) do |p|
   p.package_files.include('tmp/sockets')
 
   # symbolic links
-  p.package_files.include('app/views/profile_design/*.rhtml')
-  p.package_files.include('app/views/environment_design/*.rhtml')
+  p.package_files.include('app/views/profile_design/*')
+  p.package_files.include('app/views/environment_design/*')
 
   # external resources
   p.package_files.include('vendor/**/*')
