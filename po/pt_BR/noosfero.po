@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.6.0\n"
-"POT-Creation-Date: 2008-02-16 06:35-0300\n"
-"PO-Revision-Date: 2008-02-16 07:20-0300\n"
+"POT-Creation-Date: 2008-02-16 08:47-0300\n"
+"PO-Revision-Date: 2008-02-16 08:48-0300\n"
 "Last-Translator: Aurélio A. Heckert <aurium@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -175,8 +175,8 @@ msgid ""
 "The language you choose here is the language used for options, buttons, etc. "
 "It does not affect the language of the content created by other users."
 msgstr ""
-"O idioma que você escolher aqui será usado para opções, botões, etc. "
-"Ele não afeta o idioma do conteúdo criado por outros usuários."
+"O idioma que você escolher aqui será usado para opções, botões, etc. Ele não "
+"afeta o idioma do conteúdo criado por outros usuários."
 
 #: app/helpers/application_helper.rb:57 app/views/features/index.rhtml:7
 #: app/views/layouts/application.rhtml:97
@@ -207,6 +207,18 @@ msgstr "Produto não categorizado"
 #: app/helpers/application_helper.rb:328
 msgid "No product"
 msgstr "Sem produto"
+
+#: app/helpers/tags_helper.rb:33
+msgid "No tags yet."
+msgstr "Sem tags ainda."
+
+#: app/helpers/tags_helper.rb:34
+msgid "http://en.wikipedia.org/wiki/Tag_%28metadata%29"
+msgstr "http://pt.wikipedia.org/wiki/Tag_%28metadata%29"
+
+#: app/helpers/tags_helper.rb:36
+msgid "What are tags?"
+msgstr "O que são tags?"
 
 #: app/helpers/categories_helper.rb:6
 msgid "Do not display at the menu"
@@ -257,18 +269,6 @@ msgstr "Novo %s"
 msgid "Categories"
 msgstr "Categorias"
 
-#: app/helpers/tags_helper.rb:32
-msgid "No tags yet."
-msgstr "Sem tags ainda."
-
-#: app/helpers/tags_helper.rb:33
-msgid "http://en.wikipedia.org/wiki/Tag_%28metadata%29"
-msgstr "http://pt.wikipedia.org/wiki/Tag_%28metadata%29"
-
-#: app/helpers/tags_helper.rb:35
-msgid "What are tags?"
-msgstr "O que são tags?"
-
 #: app/helpers/boxes_helper.rb:17 app/helpers/boxes_helper.rb:34
 msgid "Main content"
 msgstr "Gerenciar conteúdo"
@@ -287,21 +287,61 @@ msgstr "Mover para baixo"
 msgid "Edit"
 msgstr "Editar"
 
-#: app/models/tags_block.rb:7
-msgid "Block listing content count by tag"
-msgstr "Block que lista a contagem de conteúdo por tag"
-
-#: app/models/tags_block.rb:11
+#: app/models/article.rb:6
 msgid ""
-"The tag is created when you add some one to your article. <p/>\n"
-"       Try to add some tags to some articles and see your tag cloud to grow."
+"%{fn} (the code generated from the article name) is already being used by "
+"another article."
 msgstr ""
-"A tag é criada quando você a adiciona ao seu artigo.<p/>Trente adicionar "
-"algumas tags para alguns artigos e veja sua nuvem de tags crescer."
+"%{fn} (o código gerado a partir do nome do artigo) já está sendo usado por "
+"outro artigo"
 
-#: app/models/tags_block.rb:16
-msgid "Tags"
-msgstr "Tags"
+#: app/models/article.rb:15
+msgid "Tag list"
+msgstr "Lista de marcadores"
+
+#: app/models/article.rb:65
+msgid "HTML Text document"
+msgstr "Documento de Texto HTML"
+
+#: app/models/article.rb:82
+msgid "Article"
+msgstr "Artigo"
+
+#: app/models/article.rb:84
+msgid "\"%s\" article"
+msgstr "Artigo \"%s\""
+
+#: app/models/article.rb:90
+msgid "An ordinary article"
+msgstr "Um artigo comum"
+
+#: app/models/article.rb:92
+msgid "An article of type \"%s\""
+msgstr "Um artigo do tipo \"%s\""
+
+#: app/models/article_block.rb:4
+msgid "Display one of your contents."
+msgstr "Apresentar um dos seus conteúdos."
+
+#: app/models/article_block.rb:8
+msgid "Article not selected yet."
+msgstr "Nenhum artigo selecionado ainda."
+
+#: app/models/category.rb:3
+msgid "%{fn} cannot be like that."
+msgstr "%{fn} não pode ser assim."
+
+#: app/models/category.rb:5
+msgid "%{fn} is already being used by another category."
+msgstr "%{fn} já está sendo usado por outra categoria."
+
+#: app/models/category.rb:9
+msgid "%{fn} was already assigned to another category."
+msgstr "%{fn} já foi atribuído a outra categoria."
+
+#: app/models/category.rb:13
+msgid "%{fn} must be the same as the parents'"
+msgstr "%{fn} tem que ser o mesmo que o dos pais'"
 
 #: app/models/change_password.rb:13
 msgid "ChangePassword|Login"
@@ -348,6 +388,18 @@ msgstr ""
 #: app/models/change_password.rb:83
 msgid "Password change request"
 msgstr "Pedido de alteração de senha"
+
+#: app/models/comment.rb:14
+msgid "%{fn} can only be informed for unauthenticated authors"
+msgstr "%{fn} só pode ser informado para autores não autenticados"
+
+#: app/models/communities_block.rb:4
+msgid "A block that displays your communities"
+msgstr "Um bloco que apresenta suas comunidades"
+
+#: app/models/communities_block.rb:14
+msgid "All communities"
+msgstr "Todas comunidades"
 
 #: app/models/create_enterprise.rb:3 app/models/create_enterprise.rb:160
 msgid "CreateEnterprise|Identifier"
@@ -481,33 +533,17 @@ msgstr "Telefone de contato: %s"
 msgid "Contact person: %s"
 msgstr "Pessoa de contato: %s"
 
-#: app/models/rss_feed.rb:70
-msgid "%s's RSS feed"
-msgstr "RSS feed do(a) %s"
+#: app/models/domain.rb:13
+msgid ""
+"%{fn} must be composed only of lowercase latters (a to z), numbers (0 to 9) "
+"and \"_\""
+msgstr ""
+"%{fn} deve ser composto apenas por letras minúsculas (a a z), números (0 a "
+"9)  e \"_\""
 
-#: app/models/rss_feed.rb:72
-msgid "%s's content published at %s"
-msgstr "Conteúdo do(a) %s publicado no %s"
-
-#: app/models/rss_feed.rb:98
-msgid "RSS Feed"
-msgstr "Feed RSS"
-
-#: app/models/rss_feed.rb:102
-msgid "Provides a news feed of your more recent articles."
-msgstr "Fornece um feed RSS dos seus artigos mais recentes."
-
-#: app/models/article_block.rb:4
-msgid "Display one of your contents."
-msgstr "Apresentar um dos seus conteúdos."
-
-#: app/models/article_block.rb:8
-msgid "Article not selected yet."
-msgstr "Nenhum artigo selecionado ainda."
-
-#: app/models/main_block.rb:4
-msgid "Block for main content (i.e. your articles, photos, etc)"
-msgstr "Bloco para o conteúdo principal (exemplo: seus artigos, fotos, etc)"
+#: app/models/domain.rb:20
+msgid "%{fn} must not start with www."
+msgstr "%{fn} não pode iniciar com www"
 
 #: app/models/enterprises_block.rb:8
 msgid "A block that displays your enterprises"
@@ -516,162 +552,6 @@ msgstr "Um bloco que apresenta seus empreendimentos"
 #: app/models/enterprises_block.rb:14
 msgid "All enterprises"
 msgstr "Todos empreendimentos"
-
-#: app/models/profile_info_block.rb:4
-msgid "Profile information block"
-msgstr "Bloco de informações do profile"
-
-#: app/models/recent_documents_block.rb:4
-msgid "List of recent content"
-msgstr "Lista de conteúdos recentes"
-
-#: app/models/recent_documents_block.rb:17
-msgid "Recent content"
-msgstr "Conteúdo recente"
-
-#: app/models/article.rb:6
-msgid ""
-"%{fn} (the code generated from the article name) is already being used by "
-"another article."
-msgstr ""
-"%{fn} (o código gerado a partir do nome do artigo) já está sendo usado por "
-"outro artigo"
-
-#: app/models/article.rb:15
-msgid "Tag list"
-msgstr "Lista de marcadores"
-
-#: app/models/article.rb:65
-msgid "HTML Text document"
-msgstr "Documento de Texto HTML"
-
-#: app/models/article.rb:82
-msgid "Article"
-msgstr "Artigo"
-
-#: app/models/article.rb:84
-msgid "\"%s\" article"
-msgstr "Artigo \"%s\""
-
-#: app/models/article.rb:90
-msgid "An ordinary article"
-msgstr "Um artigo comum"
-
-#: app/models/article.rb:92
-msgid "An article of type \"%s\""
-msgstr "Um artigo do tipo \"%s\""
-
-#: app/models/members_block.rb:4
-msgid "A block that displays members."
-msgstr "Um bloco que apresenta os membros."
-
-#: app/models/members_block.rb:8
-msgid "Members"
-msgstr "Membros"
-
-#: app/models/members_block.rb:14
-msgid "All members"
-msgstr "Todos os membros"
-
-#: app/models/task.rb:86
-msgid "Generic task"
-msgstr "Tarefa genérica"
-
-#: app/models/task.rb:93
-msgid "The task was created at %s"
-msgstr "A tarefa foi criada em %s"
-
-#: app/models/task.rb:99
-msgid "The task was finished at %s"
-msgstr "A tarefa foi finalizada em %s"
-
-#: app/models/task.rb:105
-msgid "The task was cancelled at %s"
-msgstr "A tarefa foi cancelada em %s"
-
-#: app/models/communities_block.rb:4
-msgid "A block that displays your communities"
-msgstr "Um bloco que apresenta suas comunidades"
-
-#: app/models/communities_block.rb:14
-msgid "All communities"
-msgstr "Todas comunidades"
-
-#: app/models/profile.rb:19
-msgid "Edit profile"
-msgstr "perfil"
-
-#: app/models/profile.rb:20
-msgid "Destroy profile"
-msgstr "Remover perfil"
-
-#: app/models/profile.rb:21
-msgid "Manage memberships"
-msgstr "Gerenciar associação em organização"
-
-#: app/models/profile.rb:22
-msgid "Post content"
-msgstr "Conteúdo da postagem"
-
-#: app/models/profile.rb:23
-msgid "Edit profile design"
-msgstr "Editar design de perfil"
-
-#: app/models/profile.rb:24
-msgid "Manage products"
-msgstr "Gerenciar produtos"
-
-#: app/models/profile.rb:80
-msgid "An existing profile cannot be renamed."
-msgstr "Um perfil existente não pode ser renomeado"
-
-#: app/models/profile.rb:239
-msgid "Home page"
-msgstr "Página inicial"
-
-#: app/models/profile.rb:239
-msgid ""
-"<h1>%s's home page</h1> <p>This is a default homepage created for %s. It can "
-"be changed though the control panel.</p>"
-msgstr ""
-"<h1>Pagina inicial de %s</h1> <p>Esta é a pagina inicial padrão criada para %"
-"s. Esta página pode ser modificada pelo painel de controle.</p>"
-
-#: app/models/image_gallery.rb:4
-msgid "Image gallery"
-msgstr "Galeria de Imagens"
-
-#: app/models/image_gallery.rb:8
-msgid "A collection of photos, logos or other kinds of images."
-msgstr "Uma coleção de fotos, logos ou outros tipos de imagens."
-
-#: app/models/textile_article.rb:4
-msgid "Text article with Textile markup language"
-msgstr "Artigo de texto com linguagem de marcação Textile"
-
-#: app/models/textile_article.rb:8
-msgid "Accessible alternative for visually impaired users."
-msgstr "Alternativa acessível para usuários com deficiência visual."
-
-#: app/models/tiny_mce_article.rb:4
-msgid "Text article with visual editor."
-msgstr "Artigo de texto com editor visual."
-
-#: app/models/tiny_mce_article.rb:8
-msgid "Not accessible for visually impaired users."
-msgstr "Não acessível para usuários com deficiência visual."
-
-#: app/models/uploaded_file.rb:24
-msgid "Uploaded file"
-msgstr "Arquivo enviado"
-
-#: app/models/uploaded_file.rb:28
-msgid "Upload any kind of file you want."
-msgstr "Envie qualquer tipo de arquivo que você queira."
-
-#: app/models/login_block.rb:4
-msgid "A login box for your users."
-msgstr "Uma caixa de login para seus usuários."
 
 #: app/models/environment.rb:7
 msgid "View environment admin panel"
@@ -731,49 +611,77 @@ msgid_plural "%{num} communities"
 msgstr[0] "Uma comunidade"
 msgstr[1] "%{num} comunidades"
 
-#: app/models/category.rb:3
-msgid "%{fn} cannot be like that."
-msgstr "%{fn} não pode ser assim."
+#: app/models/image_gallery.rb:4
+msgid "Image gallery"
+msgstr "Galeria de Imagens"
 
-#: app/models/category.rb:5
-msgid "%{fn} is already being used by another category."
-msgstr "%{fn} já está sendo usado por outra categoria."
+#: app/models/image_gallery.rb:8
+msgid "A collection of photos, logos or other kinds of images."
+msgstr "Uma coleção de fotos, logos ou outros tipos de imagens."
 
-#: app/models/category.rb:9
-msgid "%{fn} was already assigned to another category."
-msgstr "%{fn} já foi atribuído a outra categoria."
+#: app/models/login_block.rb:4
+msgid "A login box for your users."
+msgstr "Uma caixa de login para seus usuários."
 
-#: app/models/category.rb:13
-msgid "%{fn} must be the same as the parents'"
-msgstr "%{fn} tem que ser o mesmo que o dos pais'"
+#: app/models/main_block.rb:4
+msgid "Block for main content (i.e. your articles, photos, etc)"
+msgstr "Bloco para o conteúdo principal (exemplo: seus artigos, fotos, etc)"
 
-#: app/models/comment.rb:14
-msgid "%{fn} can only be informed for unauthenticated authors"
-msgstr "%{fn} só pode ser informado para autores não autenticados"
+#: app/models/members_block.rb:4
+msgid "A block that displays members."
+msgstr "Um bloco que apresenta os membros."
 
-#: app/models/domain.rb:13
+#: app/models/members_block.rb:8
+msgid "Members"
+msgstr "Membros"
+
+#: app/models/members_block.rb:14
+msgid "All members"
+msgstr "Todos os membros"
+
+#: app/models/profile.rb:19
+msgid "Edit profile"
+msgstr "perfil"
+
+#: app/models/profile.rb:20
+msgid "Destroy profile"
+msgstr "Remover perfil"
+
+#: app/models/profile.rb:21
+msgid "Manage memberships"
+msgstr "Gerenciar associação em organização"
+
+#: app/models/profile.rb:22
+msgid "Post content"
+msgstr "Conteúdo da postagem"
+
+#: app/models/profile.rb:23
+msgid "Edit profile design"
+msgstr "Editar design de perfil"
+
+#: app/models/profile.rb:24
+msgid "Manage products"
+msgstr "Gerenciar produtos"
+
+#: app/models/profile.rb:80
+msgid "An existing profile cannot be renamed."
+msgstr "Um perfil existente não pode ser renomeado"
+
+#: app/models/profile.rb:239
+msgid "Home page"
+msgstr "Página inicial"
+
+#: app/models/profile.rb:239
 msgid ""
-"%{fn} must be composed only of lowercase latters (a to z), numbers (0 to 9) "
-"and \"_\""
+"<h1>%s's home page</h1> <p>This is a default homepage created for %s. It can "
+"be changed though the control panel.</p>"
 msgstr ""
-"%{fn} deve ser composto apenas por letras minúsculas (a a z), números (0 a "
-"9)  e \"_\""
+"<h1>Pagina inicial de %s</h1> <p>Esta é a pagina inicial padrão criada para %"
+"s. Esta página pode ser modificada pelo painel de controle.</p>"
 
-#: app/models/domain.rb:20
-msgid "%{fn} must not start with www."
-msgstr "%{fn} não pode iniciar com www"
-
-#: app/models/user.rb:7
-msgid "User|Password"
-msgstr "Senha"
-
-#: app/models/user.rb:8
-msgid "User|Password confirmation"
-msgstr "Confirmação de senha"
-
-#: app/models/user.rb:38
-msgid "%{fn} must be checked in order to signup."
-msgstr "%{fn} deve ser verificado para efetivar inscrição"
+#: app/models/profile_info_block.rb:4
+msgid "Profile information block"
+msgstr "Bloco de informações do profile"
 
 #: app/models/profile_list_block.rb:6
 msgid "A block that displays random profiles"
@@ -787,6 +695,98 @@ msgstr "Pessoas e Grupos"
 msgid "Clicking on the people or groups will take you to their home page."
 msgstr ""
 "Clicando em uma pessoa ou grupo você será enviado para sua página inicial."
+
+#: app/models/recent_documents_block.rb:4
+msgid "List of recent content"
+msgstr "Lista de conteúdos recentes"
+
+#: app/models/recent_documents_block.rb:17
+msgid "Recent content"
+msgstr "Conteúdo recente"
+
+#: app/models/rss_feed.rb:70
+msgid "%s's RSS feed"
+msgstr "RSS feed do(a) %s"
+
+#: app/models/rss_feed.rb:72
+msgid "%s's content published at %s"
+msgstr "Conteúdo do(a) %s publicado no %s"
+
+#: app/models/rss_feed.rb:98
+msgid "RSS Feed"
+msgstr "Feed RSS"
+
+#: app/models/rss_feed.rb:102
+msgid "Provides a news feed of your more recent articles."
+msgstr "Fornece um feed RSS dos seus artigos mais recentes."
+
+#: app/models/tags_block.rb:7
+msgid "Block listing content count by tag"
+msgstr "Block que lista a contagem de conteúdo por tag"
+
+#: app/models/tags_block.rb:11
+msgid ""
+"The tag is created when you add some one to your article. <p/>\n"
+"       Try to add some tags to some articles and see your tag cloud to grow."
+msgstr ""
+"A tag é criada quando você a adiciona ao seu artigo.<p/>Trente adicionar "
+"algumas tags para alguns artigos e veja sua nuvem de tags crescer."
+
+#: app/models/tags_block.rb:16
+msgid "Tags"
+msgstr "Tags"
+
+#: app/models/task.rb:86
+msgid "Generic task"
+msgstr "Tarefa genérica"
+
+#: app/models/task.rb:93
+msgid "The task was created at %s"
+msgstr "A tarefa foi criada em %s"
+
+#: app/models/task.rb:99
+msgid "The task was finished at %s"
+msgstr "A tarefa foi finalizada em %s"
+
+#: app/models/task.rb:105
+msgid "The task was cancelled at %s"
+msgstr "A tarefa foi cancelada em %s"
+
+#: app/models/textile_article.rb:4
+msgid "Text article with Textile markup language"
+msgstr "Artigo de texto com linguagem de marcação Textile"
+
+#: app/models/textile_article.rb:8
+msgid "Accessible alternative for visually impaired users."
+msgstr "Alternativa acessível para usuários com deficiência visual."
+
+#: app/models/tiny_mce_article.rb:4
+msgid "Text article with visual editor."
+msgstr "Artigo de texto com editor visual."
+
+#: app/models/tiny_mce_article.rb:8
+msgid "Not accessible for visually impaired users."
+msgstr "Não acessível para usuários com deficiência visual."
+
+#: app/models/uploaded_file.rb:24
+msgid "Uploaded file"
+msgstr "Arquivo enviado"
+
+#: app/models/uploaded_file.rb:28
+msgid "Upload any kind of file you want."
+msgstr "Envie qualquer tipo de arquivo que você queira."
+
+#: app/models/user.rb:7
+msgid "User|Password"
+msgstr "Senha"
+
+#: app/models/user.rb:8
+msgid "User|Password confirmation"
+msgstr "Confirmação de senha"
+
+#: app/models/user.rb:38
+msgid "%{fn} must be checked in order to signup."
+msgstr "%{fn} deve ser verificado para efetivar inscrição"
 
 #: app/views/account/change_password.rhtml:1
 #: app/views/account/change_password.rhtml:14
@@ -1762,9 +1762,10 @@ msgid ""
 "right."
 msgstr ""
 "Essa barra te ajuda a encontrar informações por dois caminhos ou "
-"<strong>dimensões</strong>. A primeira dimensão é formada pesas <em>categorias</em> "
-"que você encontra nas abas coloridas da barra. A segunda dimensão contém os "
-"<em>tipos de conteúdo</em> que você encontra na aba animada da direita."
+"<strong>dimensões</strong>. A primeira dimensão é formada pesas "
+"<em>categorias</em> que você encontra nas abas coloridas da barra. A segunda "
+"dimensão contém os <em>tipos de conteúdo</em> que você encontra na aba "
+"animada da direita."
 
 #: app/views/layouts/application.rhtml:96
 msgid "Turn help on/off"
@@ -2118,6 +2119,10 @@ msgstr "Sim, quero entrar."
 msgid "No, I don't want."
 msgstr "Não, não quero."
 
+#: app/views/memberships/new_community.rhtml:11
+msgid "Create"
+msgstr "Criar"
+
 #: app/views/memberships/index.rhtml:1
 msgid "%s's groups"
 msgstr "Grupos de %s"
@@ -2142,9 +2147,9 @@ msgstr "Gerenciar"
 msgid "Create a new community"
 msgstr "Criar nova comunidade"
 
-#: app/views/memberships/new_community.rhtml:11
-msgid "Create"
-msgstr "Criar"
+#: app/views/memberships/index.rhtml:28
+msgid "Go back"
+msgstr "Voltar"
 
 #~ msgid "your search here"
 #~ msgstr "sua busca aqui"

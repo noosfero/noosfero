@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.6.0\n"
-"POT-Creation-Date: 2008-02-16 06:35-0300\n"
+"POT-Creation-Date: 2008-02-16 08:47-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -203,6 +203,18 @@ msgstr ""
 msgid "No product"
 msgstr ""
 
+#: app/helpers/tags_helper.rb:33
+msgid "No tags yet."
+msgstr ""
+
+#: app/helpers/tags_helper.rb:34
+msgid "http://en.wikipedia.org/wiki/Tag_%28metadata%29"
+msgstr ""
+
+#: app/helpers/tags_helper.rb:36
+msgid "What are tags?"
+msgstr ""
+
 #: app/helpers/categories_helper.rb:6
 msgid "Do not display at the menu"
 msgstr ""
@@ -252,18 +264,6 @@ msgstr ""
 msgid "Categories"
 msgstr ""
 
-#: app/helpers/tags_helper.rb:32
-msgid "No tags yet."
-msgstr ""
-
-#: app/helpers/tags_helper.rb:33
-msgid "http://en.wikipedia.org/wiki/Tag_%28metadata%29"
-msgstr ""
-
-#: app/helpers/tags_helper.rb:35
-msgid "What are tags?"
-msgstr ""
-
 #: app/helpers/boxes_helper.rb:17 app/helpers/boxes_helper.rb:34
 msgid "Main content"
 msgstr ""
@@ -282,18 +282,58 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: app/models/tags_block.rb:7
-msgid "Block listing content count by tag"
-msgstr ""
-
-#: app/models/tags_block.rb:11
+#: app/models/article.rb:6
 msgid ""
-"The tag is created when you add some one to your article. <p/>\n"
-"       Try to add some tags to some articles and see your tag cloud to grow."
+"%{fn} (the code generated from the article name) is already being used by "
+"another article."
 msgstr ""
 
-#: app/models/tags_block.rb:16
-msgid "Tags"
+#: app/models/article.rb:15
+msgid "Tag list"
+msgstr ""
+
+#: app/models/article.rb:65
+msgid "HTML Text document"
+msgstr ""
+
+#: app/models/article.rb:82
+msgid "Article"
+msgstr ""
+
+#: app/models/article.rb:84
+msgid "\"%s\" article"
+msgstr ""
+
+#: app/models/article.rb:90
+msgid "An ordinary article"
+msgstr ""
+
+#: app/models/article.rb:92
+msgid "An article of type \"%s\""
+msgstr ""
+
+#: app/models/article_block.rb:4
+msgid "Display one of your contents."
+msgstr ""
+
+#: app/models/article_block.rb:8
+msgid "Article not selected yet."
+msgstr ""
+
+#: app/models/category.rb:3
+msgid "%{fn} cannot be like that."
+msgstr ""
+
+#: app/models/category.rb:5
+msgid "%{fn} is already being used by another category."
+msgstr ""
+
+#: app/models/category.rb:9
+msgid "%{fn} was already assigned to another category."
+msgstr ""
+
+#: app/models/category.rb:13
+msgid "%{fn} must be the same as the parents'"
 msgstr ""
 
 #: app/models/change_password.rb:13
@@ -337,6 +377,18 @@ msgstr ""
 
 #: app/models/change_password.rb:83
 msgid "Password change request"
+msgstr ""
+
+#: app/models/comment.rb:14
+msgid "%{fn} can only be informed for unauthenticated authors"
+msgstr ""
+
+#: app/models/communities_block.rb:4
+msgid "A block that displays your communities"
+msgstr ""
+
+#: app/models/communities_block.rb:14
+msgid "All communities"
 msgstr ""
 
 #: app/models/create_enterprise.rb:3 app/models/create_enterprise.rb:160
@@ -455,32 +507,14 @@ msgstr ""
 msgid "Contact person: %s"
 msgstr ""
 
-#: app/models/rss_feed.rb:70
-msgid "%s's RSS feed"
+#: app/models/domain.rb:13
+msgid ""
+"%{fn} must be composed only of lowercase latters (a to z), numbers (0 to 9) "
+"and \"_\""
 msgstr ""
 
-#: app/models/rss_feed.rb:72
-msgid "%s's content published at %s"
-msgstr ""
-
-#: app/models/rss_feed.rb:98
-msgid "RSS Feed"
-msgstr ""
-
-#: app/models/rss_feed.rb:102
-msgid "Provides a news feed of your more recent articles."
-msgstr ""
-
-#: app/models/article_block.rb:4
-msgid "Display one of your contents."
-msgstr ""
-
-#: app/models/article_block.rb:8
-msgid "Article not selected yet."
-msgstr ""
-
-#: app/models/main_block.rb:4
-msgid "Block for main content (i.e. your articles, photos, etc)"
+#: app/models/domain.rb:20
+msgid "%{fn} must not start with www."
 msgstr ""
 
 #: app/models/enterprises_block.rb:8
@@ -489,158 +523,6 @@ msgstr ""
 
 #: app/models/enterprises_block.rb:14
 msgid "All enterprises"
-msgstr ""
-
-#: app/models/profile_info_block.rb:4
-msgid "Profile information block"
-msgstr ""
-
-#: app/models/recent_documents_block.rb:4
-msgid "List of recent content"
-msgstr ""
-
-#: app/models/recent_documents_block.rb:17
-msgid "Recent content"
-msgstr ""
-
-#: app/models/article.rb:6
-msgid ""
-"%{fn} (the code generated from the article name) is already being used by "
-"another article."
-msgstr ""
-
-#: app/models/article.rb:15
-msgid "Tag list"
-msgstr ""
-
-#: app/models/article.rb:65
-msgid "HTML Text document"
-msgstr ""
-
-#: app/models/article.rb:82
-msgid "Article"
-msgstr ""
-
-#: app/models/article.rb:84
-msgid "\"%s\" article"
-msgstr ""
-
-#: app/models/article.rb:90
-msgid "An ordinary article"
-msgstr ""
-
-#: app/models/article.rb:92
-msgid "An article of type \"%s\""
-msgstr ""
-
-#: app/models/members_block.rb:4
-msgid "A block that displays members."
-msgstr ""
-
-#: app/models/members_block.rb:8
-msgid "Members"
-msgstr ""
-
-#: app/models/members_block.rb:14
-msgid "All members"
-msgstr ""
-
-#: app/models/task.rb:86
-msgid "Generic task"
-msgstr ""
-
-#: app/models/task.rb:93
-msgid "The task was created at %s"
-msgstr ""
-
-#: app/models/task.rb:99
-msgid "The task was finished at %s"
-msgstr ""
-
-#: app/models/task.rb:105
-msgid "The task was cancelled at %s"
-msgstr ""
-
-#: app/models/communities_block.rb:4
-msgid "A block that displays your communities"
-msgstr ""
-
-#: app/models/communities_block.rb:14
-msgid "All communities"
-msgstr ""
-
-#: app/models/profile.rb:19
-msgid "Edit profile"
-msgstr ""
-
-#: app/models/profile.rb:20
-msgid "Destroy profile"
-msgstr ""
-
-#: app/models/profile.rb:21
-msgid "Manage memberships"
-msgstr ""
-
-#: app/models/profile.rb:22
-msgid "Post content"
-msgstr ""
-
-#: app/models/profile.rb:23
-msgid "Edit profile design"
-msgstr ""
-
-#: app/models/profile.rb:24
-msgid "Manage products"
-msgstr ""
-
-#: app/models/profile.rb:80
-msgid "An existing profile cannot be renamed."
-msgstr ""
-
-#: app/models/profile.rb:239
-msgid "Home page"
-msgstr ""
-
-#: app/models/profile.rb:239
-msgid ""
-"<h1>%s's home page</h1> <p>This is a default homepage created for %s. It can "
-"be changed though the control panel.</p>"
-msgstr ""
-
-#: app/models/image_gallery.rb:4
-msgid "Image gallery"
-msgstr ""
-
-#: app/models/image_gallery.rb:8
-msgid "A collection of photos, logos or other kinds of images."
-msgstr ""
-
-#: app/models/textile_article.rb:4
-msgid "Text article with Textile markup language"
-msgstr ""
-
-#: app/models/textile_article.rb:8
-msgid "Accessible alternative for visually impaired users."
-msgstr ""
-
-#: app/models/tiny_mce_article.rb:4
-msgid "Text article with visual editor."
-msgstr ""
-
-#: app/models/tiny_mce_article.rb:8
-msgid "Not accessible for visually impaired users."
-msgstr ""
-
-#: app/models/uploaded_file.rb:24
-msgid "Uploaded file"
-msgstr ""
-
-#: app/models/uploaded_file.rb:28
-msgid "Upload any kind of file you want."
-msgstr ""
-
-#: app/models/login_block.rb:4
-msgid "A login box for your users."
 msgstr ""
 
 #: app/models/environment.rb:7
@@ -701,46 +583,74 @@ msgid_plural "%{num} communities"
 msgstr[0] ""
 msgstr[1] ""
 
-#: app/models/category.rb:3
-msgid "%{fn} cannot be like that."
+#: app/models/image_gallery.rb:4
+msgid "Image gallery"
 msgstr ""
 
-#: app/models/category.rb:5
-msgid "%{fn} is already being used by another category."
+#: app/models/image_gallery.rb:8
+msgid "A collection of photos, logos or other kinds of images."
 msgstr ""
 
-#: app/models/category.rb:9
-msgid "%{fn} was already assigned to another category."
+#: app/models/login_block.rb:4
+msgid "A login box for your users."
 msgstr ""
 
-#: app/models/category.rb:13
-msgid "%{fn} must be the same as the parents'"
+#: app/models/main_block.rb:4
+msgid "Block for main content (i.e. your articles, photos, etc)"
 msgstr ""
 
-#: app/models/comment.rb:14
-msgid "%{fn} can only be informed for unauthenticated authors"
+#: app/models/members_block.rb:4
+msgid "A block that displays members."
 msgstr ""
 
-#: app/models/domain.rb:13
+#: app/models/members_block.rb:8
+msgid "Members"
+msgstr ""
+
+#: app/models/members_block.rb:14
+msgid "All members"
+msgstr ""
+
+#: app/models/profile.rb:19
+msgid "Edit profile"
+msgstr ""
+
+#: app/models/profile.rb:20
+msgid "Destroy profile"
+msgstr ""
+
+#: app/models/profile.rb:21
+msgid "Manage memberships"
+msgstr ""
+
+#: app/models/profile.rb:22
+msgid "Post content"
+msgstr ""
+
+#: app/models/profile.rb:23
+msgid "Edit profile design"
+msgstr ""
+
+#: app/models/profile.rb:24
+msgid "Manage products"
+msgstr ""
+
+#: app/models/profile.rb:80
+msgid "An existing profile cannot be renamed."
+msgstr ""
+
+#: app/models/profile.rb:239
+msgid "Home page"
+msgstr ""
+
+#: app/models/profile.rb:239
 msgid ""
-"%{fn} must be composed only of lowercase latters (a to z), numbers (0 to 9) "
-"and \"_\""
+"<h1>%s's home page</h1> <p>This is a default homepage created for %s. It can "
+"be changed though the control panel.</p>"
 msgstr ""
 
-#: app/models/domain.rb:20
-msgid "%{fn} must not start with www."
-msgstr ""
-
-#: app/models/user.rb:7
-msgid "User|Password"
-msgstr ""
-
-#: app/models/user.rb:8
-msgid "User|Password confirmation"
-msgstr ""
-
-#: app/models/user.rb:38
-msgid "%{fn} must be checked in order to signup."
+#: app/models/profile_info_block.rb:4
+msgid "Profile information block"
 msgstr ""
 
 #: app/models/profile_list_block.rb:6
@@ -753,6 +663,96 @@ msgstr ""
 
 #: app/models/profile_list_block.rb:68
 msgid "Clicking on the people or groups will take you to their home page."
+msgstr ""
+
+#: app/models/recent_documents_block.rb:4
+msgid "List of recent content"
+msgstr ""
+
+#: app/models/recent_documents_block.rb:17
+msgid "Recent content"
+msgstr ""
+
+#: app/models/rss_feed.rb:70
+msgid "%s's RSS feed"
+msgstr ""
+
+#: app/models/rss_feed.rb:72
+msgid "%s's content published at %s"
+msgstr ""
+
+#: app/models/rss_feed.rb:98
+msgid "RSS Feed"
+msgstr ""
+
+#: app/models/rss_feed.rb:102
+msgid "Provides a news feed of your more recent articles."
+msgstr ""
+
+#: app/models/tags_block.rb:7
+msgid "Block listing content count by tag"
+msgstr ""
+
+#: app/models/tags_block.rb:11
+msgid ""
+"The tag is created when you add some one to your article. <p/>\n"
+"       Try to add some tags to some articles and see your tag cloud to grow."
+msgstr ""
+
+#: app/models/tags_block.rb:16
+msgid "Tags"
+msgstr ""
+
+#: app/models/task.rb:86
+msgid "Generic task"
+msgstr ""
+
+#: app/models/task.rb:93
+msgid "The task was created at %s"
+msgstr ""
+
+#: app/models/task.rb:99
+msgid "The task was finished at %s"
+msgstr ""
+
+#: app/models/task.rb:105
+msgid "The task was cancelled at %s"
+msgstr ""
+
+#: app/models/textile_article.rb:4
+msgid "Text article with Textile markup language"
+msgstr ""
+
+#: app/models/textile_article.rb:8
+msgid "Accessible alternative for visually impaired users."
+msgstr ""
+
+#: app/models/tiny_mce_article.rb:4
+msgid "Text article with visual editor."
+msgstr ""
+
+#: app/models/tiny_mce_article.rb:8
+msgid "Not accessible for visually impaired users."
+msgstr ""
+
+#: app/models/uploaded_file.rb:24
+msgid "Uploaded file"
+msgstr ""
+
+#: app/models/uploaded_file.rb:28
+msgid "Upload any kind of file you want."
+msgstr ""
+
+#: app/models/user.rb:7
+msgid "User|Password"
+msgstr ""
+
+#: app/models/user.rb:8
+msgid "User|Password confirmation"
+msgstr ""
+
+#: app/models/user.rb:38
+msgid "%{fn} must be checked in order to signup."
 msgstr ""
 
 #: app/views/account/change_password.rhtml:1
@@ -2028,6 +2028,10 @@ msgstr ""
 msgid "No, I don't want."
 msgstr ""
 
+#: app/views/memberships/new_community.rhtml:11
+msgid "Create"
+msgstr ""
+
 #: app/views/memberships/index.rhtml:1
 msgid "%s's groups"
 msgstr ""
@@ -2052,6 +2056,6 @@ msgstr ""
 msgid "Create a new community"
 msgstr ""
 
-#: app/views/memberships/new_community.rhtml:11
-msgid "Create"
+#: app/views/memberships/index.rhtml:28
+msgid "Go back"
 msgstr ""
