@@ -56,9 +56,13 @@ EOF
 
 
 env = Environment.create!(:name => 'Anheteguá', :is_default => true, :description => environment_description)
-domain =  Domain.new(:name => 'ecosol.noosfero.com.br')
-domain.owner = env
-domain.save!
+
+# on production (i.e. anhetegua demo site, use a real domain)
+if ENV['RAILS_ENV'] == 'production'
+  domain =  Domain.new(:name => 'ecosol.noosfero.com.br')
+  domain.owner = env
+  domain.save!
+end
 
 tematicas = new_category(nil, 'Temáticas', 1)
 new_category(tematicas, 'Finanças Solidárias')
