@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.6.0\n"
-"POT-Creation-Date: 2008-02-16 08:47-0300\n"
+"POT-Creation-Date: 2008-02-16 10:27-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1316,22 +1316,22 @@ msgstr ""
 
 #: app/views/enterprise_editor/_form.rhtml:4
 #: app/views/enterprise_validation/_details.rhtml:7
-#: app/views/enterprise_validation/index.rhtml:7
 #: app/views/enterprise_validation/list_processed.rhtml:9
+#: app/views/enterprise_validation/index.rhtml:14
 msgid "Address"
 msgstr ""
 
 #: app/views/enterprise_editor/_form.rhtml:7
 #: app/views/enterprise_validation/_details.rhtml:11
-#: app/views/enterprise_validation/index.rhtml:11
 #: app/views/enterprise_validation/list_processed.rhtml:13
+#: app/views/enterprise_validation/index.rhtml:18
 msgid "Contact Phone"
 msgstr ""
 
 #: app/views/enterprise_editor/_form.rhtml:10
 #: app/views/enterprise_validation/_details.rhtml:15
-#: app/views/enterprise_validation/index.rhtml:15
 #: app/views/enterprise_validation/list_processed.rhtml:17
+#: app/views/enterprise_validation/index.rhtml:22
 msgid "Contact Person"
 msgstr ""
 
@@ -1547,21 +1547,9 @@ msgstr ""
 msgid "Editing the validation info"
 msgstr ""
 
-#: app/views/enterprise_validation/index.rhtml:1
-msgid "Pending enterprise validations"
-msgstr ""
-
-#: app/views/enterprise_validation/index.rhtml:20
-msgid "See details/approve/reject"
-msgstr ""
-
-#: app/views/enterprise_validation/index.rhtml:23
 #: app/views/enterprise_validation/list_processed.rhtml:1
+#: app/views/enterprise_validation/index.rhtml:30
 msgid "Processed enterprise validations"
-msgstr ""
-
-#: app/views/enterprise_validation/index.rhtml:25
-msgid "See the list of processed enterprise validations"
 msgstr ""
 
 #: app/views/enterprise_validation/list_processed.rhtml:23
@@ -1570,6 +1558,42 @@ msgstr ""
 
 #: app/views/enterprise_validation/view_processed.rhtml:1
 msgid "Processed validation request for %s "
+msgstr ""
+
+#: app/views/enterprise_validation/index.rhtml:1
+msgid "Enterprise validations"
+msgstr ""
+
+#: app/views/enterprise_validation/index.rhtml:4
+msgid "Edit validation info"
+msgstr ""
+
+#: app/views/enterprise_validation/index.rhtml:4
+msgid ""
+"Validation info is the information the enterprises will see about how your "
+"organization processes the enterprises validations it receives: validation "
+"methodology, restrictions to the types of enterprises the organization "
+"validates etc."
+msgstr ""
+
+#: app/views/enterprise_validation/index.rhtml:5
+msgid "Go Back"
+msgstr ""
+
+#: app/views/enterprise_validation/index.rhtml:5
+msgid "Go back to the control panel."
+msgstr ""
+
+#: app/views/enterprise_validation/index.rhtml:8
+msgid "Pending enterprise validations"
+msgstr ""
+
+#: app/views/enterprise_validation/index.rhtml:27
+msgid "See details/approve/reject"
+msgstr ""
+
+#: app/views/enterprise_validation/index.rhtml:32
+msgid "See the list of processed enterprise validations"
 msgstr ""
 
 #: app/views/environment_role_manager/affiliate.rhtml:7
