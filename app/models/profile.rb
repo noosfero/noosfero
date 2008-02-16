@@ -96,7 +96,7 @@ class Profile < ActiveRecord::Base
   end
 
   # registar callback for creating boxes after the object is created. 
-  after_create :create_default_set_of_boxes
+  hacked_after_create :create_default_set_of_boxes
   
   # creates the initial set of boxes when the profile is created. Can be
   # overriden for each subclass to create a custom set of boxes for its
@@ -236,7 +236,7 @@ class Profile < ActiveRecord::Base
     false
   end
 
-  after_create :insert_default_homepage_and_feed
+  hacked_after_create :insert_default_homepage_and_feed
   def insert_default_homepage_and_feed
     hp = self.articles.build(:name => _('Home page'), :body => _("<h1>%s's home page</h1> <p>This is a default homepage created for %s. It can be changed though the control panel.</p>") % [ self.name, self.name])
     hp.save!

@@ -59,7 +59,7 @@ class Person < Profile
 
   # FIXME this is *weird*, because this class is not inheriting the callback
   # from Profile !!! 
-  after_create :create_default_set_of_boxes_for_person
+  hacked_after_create :create_default_set_of_boxes_for_person
   def create_default_set_of_boxes_for_person
     3.times do
       self.boxes << Box.new
@@ -82,6 +82,6 @@ class Person < Profile
 
   # FIXME this is *weird*, because this class is not inheriting the callbacks
   before_create :set_default_environment
-  after_create :insert_default_homepage_and_feed
+  hacked_after_create :insert_default_homepage_and_feed
 
 end

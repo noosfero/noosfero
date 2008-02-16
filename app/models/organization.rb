@@ -53,7 +53,7 @@ class Organization < Profile
     true
   end
 
-  after_create :create_default_set_of_blocks_for_organization
+  hacked_after_create :create_default_set_of_blocks_for_organization
   def create_default_set_of_blocks_for_organization
     # "main" area
     # nothing ..., MainBlock is already there
