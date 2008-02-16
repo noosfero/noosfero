@@ -38,7 +38,11 @@ class LanguageHelperTest < Test::Unit::TestCase
 
   protected
 
-  def content_tag(tag, text)
+  def _(s)
+    s
+  end
+
+  def content_tag(tag, text, options = {})
     "<#{tag}>#{text}</#{tag}>"
   end
 
