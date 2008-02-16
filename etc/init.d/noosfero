@@ -32,13 +32,23 @@ SCRIPTNAME=/etc/init.d/$NAME
 # Load the VERBOSE setting and other rcS variables
 . /lib/init/vars.sh
 
-if [ -z $NOOSFERO_DIR ]; then
-  echo "NOOSFERO_DIR not defined, noosfero not being started."
+if [ -z $NOOSFERO_DIR ] || [ -z $NOOSFERO_USER ]; then
+  echo "NOOSFERO_DIR or NOOSFERO_USER not defined, noosfero not being started."
+  echo "Both variables must be defined in /etc/default/noosfero"
   exit 0
 fi
 
 ######################
 FERRET_PID_FILE=$NOOSFERO_DIR/log/ferret.pid
+
+main_script() {
+  cd $NOOSFERO_DIR
+  if [ "$NOOSFERO_USER" != "$USER" ]; then
+    su $NOOSFERO_USER -c "./script/production $1"
+  else
+    ./script/production $1
+  fi
+}
 
 do_start() {
 
@@ -48,8 +58,7 @@ do_start() {
     exit 2
   fi
 
-  cd $NOOSFERO_DIR
-  ./script/production start
+  main_script start
 }
 
 do_stop() {
@@ -60,8 +69,7 @@ do_stop() {
     exit 2
   fi
 
-  cd $NOOSFERO_DIR
-  ./script/production stop
+  main_script stop
 }
 
 do_restart() {

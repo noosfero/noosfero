@@ -1,0 +1,37 @@
+#!/bin/sh
+
+export RAILS_ENV=production
+
+ACTION=$1
+shift
+
+do_start() {
+  ./script/ferret_start
+  sleep 1
+  mongrel_rails cluster::start
+  sleep 3
+}
+
+do_stop() {
+  mongrel_rails cluster::stop
+  sleep 1
+  ./script/ferret_stop
+}
+
+case "$ACTION" in
+  start|stop)
+    do_$ACTION
+    ;;
+
+  restart)
+    do_stop
+    sleep 1
+    do_start
+    ;;
+
+  *)
+    echo "usage: $0 start|stop|restart"
+    exit 1
+    ;;
+esac
+
