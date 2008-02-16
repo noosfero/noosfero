@@ -105,8 +105,6 @@ class Profile < ActiveRecord::Base
     3.times do
       self.boxes << Box.new
     end
-    self.boxes.first.blocks << MainBlock.new
-
     true
   end
 

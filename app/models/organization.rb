@@ -56,7 +56,7 @@ class Organization < Profile
   hacked_after_create :create_default_set_of_blocks_for_organization
   def create_default_set_of_blocks_for_organization
     # "main" area
-    # nothing ..., MainBlock is already there
+    self.boxes[0].blocks << MainBlock.new
     
     # "left" area
     self.boxes[1].blocks << ProfileInfoBlock.new
