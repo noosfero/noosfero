@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.6.0\n"
-"POT-Creation-Date: 2008-02-15 15:23-0300\n"
+"POT-Creation-Date: 2008-02-16 06:19-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -94,7 +94,7 @@ msgid "Could not upload image"
 msgstr ""
 
 #: app/controllers/my_profile/cms_controller.rb:87
-msgid "Artigo \"%s\" configurado como página inicial."
+msgid "Article \"%s\" configured as home page."
 msgstr ""
 
 #: app/controllers/public/account_controller.rb:21
@@ -137,11 +137,12 @@ msgstr ""
 msgid "Products"
 msgstr ""
 
-#: app/helpers/assets_helper.rb:9
+#: app/helpers/assets_helper.rb:9 app/models/enterprises_block.rb:4
 msgid "Enterprises"
 msgstr ""
 
-#: app/helpers/assets_helper.rb:10 app/views/profile/index.rhtml:15
+#: app/helpers/assets_helper.rb:10 app/models/communities_block.rb:8
+#: app/views/profile/index.rhtml:15
 msgid "Communities"
 msgstr ""
 
@@ -165,24 +166,6 @@ msgstr ""
 msgid "This profile does not have any public information"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:17 app/helpers/boxes_helper.rb:34
-msgid "Main content"
-msgstr ""
-
-#: app/helpers/boxes_helper.rb:121
-msgid "Move block up"
-msgstr ""
-
-#: app/helpers/boxes_helper.rb:122
-msgid "Move block down"
-msgstr ""
-
-#: app/helpers/boxes_helper.rb:125 app/views/categories/_category.rhtml:8
-#: app/views/cms/view.rhtml:70 app/views/content_viewer/view_page.rhtml:11
-#: app/views/role/index.rhtml:6
-msgid "Edit"
-msgstr ""
-
 #: app/helpers/application_helper.rb:57 app/views/features/index.rhtml:7
 #: app/views/layouts/application.rhtml:97
 msgid "Help"
@@ -201,7 +184,7 @@ msgstr ""
 #: app/views/admin_panel/site_info.rhtml:11
 #: app/views/cms/select_article_type.rhtml:12
 #: app/views/box_organizer/edit.rhtml:9
-#: app/views/manage_communities/new.rhtml:9
+#: app/views/memberships/new_community.rhtml:12
 msgid "Cancel"
 msgstr ""
 
@@ -274,27 +257,37 @@ msgstr ""
 msgid "What are tags?"
 msgstr ""
 
-#: app/models/environment_statistics_block.rb:4
-msgid "Statitical overview of your environment."
+#: app/helpers/boxes_helper.rb:17 app/helpers/boxes_helper.rb:34
+msgid "Main content"
 msgstr ""
 
-#: app/models/environment_statistics_block.rb:13
-msgid "One user"
-msgid_plural "%{num} users"
-msgstr[0] ""
-msgstr[1] ""
+#: app/helpers/boxes_helper.rb:124
+msgid "Move block up"
+msgstr ""
 
-#: app/models/environment_statistics_block.rb:14
-msgid "One enterprise"
-msgid_plural "%{num} enterprises"
-msgstr[0] ""
-msgstr[1] ""
+#: app/helpers/boxes_helper.rb:125
+msgid "Move block down"
+msgstr ""
 
-#: app/models/environment_statistics_block.rb:15
-msgid "One community"
-msgid_plural "%{num} communities"
-msgstr[0] ""
-msgstr[1] ""
+#: app/helpers/boxes_helper.rb:128 app/views/categories/_category.rhtml:8
+#: app/views/cms/view.rhtml:70 app/views/content_viewer/view_page.rhtml:11
+#: app/views/role/index.rhtml:6
+msgid "Edit"
+msgstr ""
+
+#: app/models/tags_block.rb:7
+msgid "List count of contents by tag"
+msgstr ""
+
+#: app/models/tags_block.rb:11
+msgid ""
+"The tag is created when you add some one to your article. <p/>\n"
+"       Try to add some tags to some articles and see your tag cloud to grow."
+msgstr ""
+
+#: app/models/tags_block.rb:16
+msgid "Tags"
+msgstr ""
 
 #: app/models/change_password.rb:13
 msgid "ChangePassword|Login"
@@ -483,42 +476,12 @@ msgstr ""
 msgid "Block for main content (i.e. your articles, photos, etc)"
 msgstr ""
 
-#: app/models/profile.rb:19
-msgid "Edit profile"
+#: app/models/enterprises_block.rb:8
+msgid "A block that displays your enterprises"
 msgstr ""
 
-#: app/models/profile.rb:20
-msgid "Destroy profile"
-msgstr ""
-
-#: app/models/profile.rb:21
-msgid "Manage memberships"
-msgstr ""
-
-#: app/models/profile.rb:22
-msgid "Post content"
-msgstr ""
-
-#: app/models/profile.rb:23
-msgid "Edit profile design"
-msgstr ""
-
-#: app/models/profile.rb:24
-msgid "Manage products"
-msgstr ""
-
-#: app/models/profile.rb:80
-msgid "An existing profile cannot be renamed."
-msgstr ""
-
-#: app/models/profile.rb:241
-msgid "Home page"
-msgstr ""
-
-#: app/models/profile.rb:241
-msgid ""
-"<h1>%s's home page</h1> <p>This is a default homepage created for %s. It can "
-"be changed though the control panel.</p>"
+#: app/models/enterprises_block.rb:14
+msgid "All enterprises"
 msgstr ""
 
 #: app/models/profile_info_block.rb:4
@@ -563,16 +526,16 @@ msgstr ""
 msgid "An article of type \"%s\""
 msgstr ""
 
-#: app/models/profile_list_block.rb:6
-msgid "A block that displays random profiles"
+#: app/models/members_block.rb:4
+msgid "A block that displays members."
 msgstr ""
 
-#: app/models/profile_list_block.rb:42
-msgid "People and Groups"
+#: app/models/members_block.rb:8
+msgid "Members"
 msgstr ""
 
-#: app/models/profile_list_block.rb:55
-msgid "Clicking on the people or groups will take you to their home page."
+#: app/models/members_block.rb:14
+msgid "All members"
 msgstr ""
 
 #: app/models/task.rb:86
@@ -591,22 +554,50 @@ msgstr ""
 msgid "The task was cancelled at %s"
 msgstr ""
 
-#: app/models/block.rb:16
-msgid "A dummy block."
+#: app/models/communities_block.rb:4
+msgid "A block that displays your communities"
 msgstr ""
 
-#: app/models/tags_block.rb:7
-msgid "List count of contents by tag"
+#: app/models/communities_block.rb:14
+msgid "All communities"
 msgstr ""
 
-#: app/models/tags_block.rb:11
+#: app/models/profile.rb:19
+msgid "Edit profile"
+msgstr ""
+
+#: app/models/profile.rb:20
+msgid "Destroy profile"
+msgstr ""
+
+#: app/models/profile.rb:21
+msgid "Manage memberships"
+msgstr ""
+
+#: app/models/profile.rb:22
+msgid "Post content"
+msgstr ""
+
+#: app/models/profile.rb:23
+msgid "Edit profile design"
+msgstr ""
+
+#: app/models/profile.rb:24
+msgid "Manage products"
+msgstr ""
+
+#: app/models/profile.rb:80
+msgid "An existing profile cannot be renamed."
+msgstr ""
+
+#: app/models/profile.rb:239
+msgid "Home page"
+msgstr ""
+
+#: app/models/profile.rb:239
 msgid ""
-"The tag is created when you add some one to your article. <p/>\n"
-"       Try to add some tags to some articles and see your tag cloud to grow."
-msgstr ""
-
-#: app/models/tags_block.rb:16
-msgid "Tags"
+"<h1>%s's home page</h1> <p>This is a default homepage created for %s. It can "
+"be changed though the control panel.</p>"
 msgstr ""
 
 #: app/models/image_gallery.rb:4
@@ -681,6 +672,28 @@ msgstr ""
 msgid "Only one Virtual Community can be the default one"
 msgstr ""
 
+#: app/models/environment_statistics_block.rb:4
+msgid "Statistical overview of your environment."
+msgstr ""
+
+#: app/models/environment_statistics_block.rb:13
+msgid "One user"
+msgid_plural "%{num} users"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/models/environment_statistics_block.rb:14
+msgid "One enterprise"
+msgid_plural "%{num} enterprises"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/models/environment_statistics_block.rb:15
+msgid "One community"
+msgid_plural "%{num} communities"
+msgstr[0] ""
+msgstr[1] ""
+
 #: app/models/category.rb:3
 msgid "%{fn} cannot be like that."
 msgstr ""
@@ -723,16 +736,16 @@ msgstr ""
 msgid "%{fn} must be checked in order to signup."
 msgstr ""
 
-#: app/models/members_block.rb:4
-msgid "A block that displays members."
+#: app/models/profile_list_block.rb:6
+msgid "A block that displays random profiles"
 msgstr ""
 
-#: app/models/members_block.rb:8
-msgid "Members"
+#: app/models/profile_list_block.rb:55
+msgid "People and Groups"
 msgstr ""
 
-#: app/models/members_block.rb:14
-msgid "All members"
+#: app/models/profile_list_block.rb:68
+msgid "Clicking on the people or groups will take you to their home page."
 msgstr ""
 
 #: app/views/account/change_password.rhtml:1
@@ -1810,6 +1823,7 @@ msgid "My groups"
 msgstr ""
 
 #: app/views/profile_editor/index.rhtml:40
+#: app/views/memberships/index.rhtml:26
 msgid "Register a new Enterprise"
 msgstr ""
 
@@ -1989,22 +2003,6 @@ msgstr ""
 msgid "Content tagged with \"%s\""
 msgstr ""
 
-#: app/views/manage_communities/new.rhtml:8
-msgid "Create"
-msgstr ""
-
-#: app/views/manage_communities/index.rhtml:1
-msgid "%s's communities"
-msgstr ""
-
-#: app/views/manage_communities/index.rhtml:7
-msgid "(manage)"
-msgstr ""
-
-#: app/views/manage_communities/index.rhtml:12
-msgid "Create a new community"
-msgstr ""
-
 #: app/views/blocks/profile_info_actions/community.rhtml:3
 msgid "Join this community"
 msgstr ""
@@ -2015,18 +2013,6 @@ msgstr ""
 
 #: app/views/blocks/profile_info.rhtml:8
 msgid "View profile"
-msgstr ""
-
-#: app/views/memberships/index.rhtml:1
-msgid "%s's groups"
-msgstr ""
-
-#: app/views/memberships/index.rhtml:4
-msgid "%s is a member of the following groups:"
-msgstr ""
-
-#: app/views/memberships/index.rhtml:11
-msgid "Type"
 msgstr ""
 
 #: app/views/memberships/join.rhtml:1
@@ -2043,4 +2029,32 @@ msgstr ""
 
 #: app/views/memberships/join.rhtml:10
 msgid "No, I don't want."
+msgstr ""
+
+#: app/views/memberships/index.rhtml:1
+msgid "%s's groups"
+msgstr ""
+
+#: app/views/memberships/index.rhtml:4
+msgid "%s is a member of the following groups:"
+msgstr ""
+
+#: app/views/memberships/index.rhtml:11
+msgid "Type"
+msgstr ""
+
+#: app/views/memberships/index.rhtml:12
+msgid "Actions"
+msgstr ""
+
+#: app/views/memberships/index.rhtml:19
+msgid "Manage"
+msgstr ""
+
+#: app/views/memberships/index.rhtml:27
+msgid "Create a new community"
+msgstr ""
+
+#: app/views/memberships/new_community.rhtml:11
+msgid "Create"
 msgstr ""

@@ -12,8 +12,13 @@ class Block < ActiveRecord::Base
 
   acts_as_having_settings
 
+  # returns the description of the block, used when the user sees a list of
+  # blocks to choose one to include in the design.
+  #
+  # Must be redefined in subclasses to match the description of each block
+  # type. 
   def self.description
-    _('A dummy block.')
+    '(dummy)'
   end
 
   # Returns the content to be used for this block.

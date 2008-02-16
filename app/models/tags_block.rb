@@ -4,7 +4,7 @@ class TagsBlock < Block
   include BlockHelper
 
   def self.description
-    _('List count of contents by tag')
+    _('Block listing content count by tag')
   end
 
   def help
