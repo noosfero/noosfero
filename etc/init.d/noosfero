@@ -1,0 +1,82 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          skeleton
+# Required-Start:    $remote_fs
+# Required-Stop:     $remote_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Example initscript
+# Description:       This file should be used to construct scripts to be
+#                    placed in /etc/init.d.
+### END INIT INFO
+
+# Sample init.d script for noosfero.
+# 
+# This script was based on the skeleton init.d script present in a Debian
+# GNU/Linux system (sid), on Sat Feb 16 11:12:03 BRT 2008. It must be placed in
+# /etc/init.d/ (or whatever place your system uses for startup scripts), and you must create a file /etc/default/noosfero defining the variable
+# 
+# Author: Antonio Terceiro <terceiro@colivre.coop.br>
+
+# Do NOT "set -e"
+
+# PATH should only include /usr/* if it runs after the mountnfs.sh script
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
+DESC="Noosfero web platform"
+NAME=noosfero
+SCRIPTNAME=/etc/init.d/$NAME
+
+# Read configuration variable file if it is present
+[ -r /etc/default/$NAME ] && . /etc/default/$NAME
+
+# Load the VERBOSE setting and other rcS variables
+. /lib/init/vars.sh
+
+if [ -z $NOOSFERO_DIR ]; then
+  echo "NOOSFERO_DIR not defined, noosfero not being started."
+  exit 0
+fi
+
+######################
+FERRET_PID_FILE=$NOOSFERO_DIR/log/ferret.pid
+
+do_start() {
+
+  # FIXME should not test for ferret only
+  if [ -e $FERRET_PID_FILE ]; then
+    echo 'noosfero already running, cannot start.'
+    exit 2
+  fi
+
+  cd $NOOSFERO_DIR
+  ./script/production start
+}
+
+do_stop() {
+
+  # FIXME should not test for ferret only
+  if [ ! -e $FERRET_PID_FILE ]; then
+    echo 'noosfero not running, cannot stop'
+    exit 2
+  fi
+
+  cd $NOOSFERO_DIR
+  ./script/production stop
+}
+
+do_restart() {
+  do_stop
+  do_start
+}
+
+case "$1" in
+  start|stop|restart)
+    do_$1
+    ;;
+  *)
+    echo "Usage: $SCRIPTNAME {start|stop|restart}" >&2
+    exit 3
+    ;;
+esac
+
+:
