@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.6.0\n"
 "POT-Creation-Date: 2008-02-16 06:35-0300\n"
-"PO-Revision-Date: 2008-02-16 06:49-0300\n"
+"PO-Revision-Date: 2008-02-16 07:20-0300\n"
 "Last-Translator: Aurélio A. Heckert <aurium@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -259,7 +259,7 @@ msgstr "Categorias"
 
 #: app/helpers/tags_helper.rb:32
 msgid "No tags yet."
-msgstr "Sem comentários ainda"
+msgstr "Sem tags ainda."
 
 #: app/helpers/tags_helper.rb:33
 msgid "http://en.wikipedia.org/wiki/Tag_%28metadata%29"
@@ -1749,7 +1749,7 @@ msgid ""
 "This is %s's shortcuts bar. Using it you have access to the main features of "
 "the environment and you find the information of your interest more quickly."
 msgstr ""
-"Esta é a barra de atalhos do ambiente %s. Atravêz dela você acessa as "
+"Esta é a barra de atalhos do ambiente %s. Através dela você acessa as "
 "principais funcionalidades do ambiente e encontra mais rapidamente as "
 "informações do seu interesse."
 
@@ -1762,8 +1762,8 @@ msgid ""
 "right."
 msgstr ""
 "Essa barra te ajuda a encontrar informações por dois caminhos ou "
-"<strong>dimensões</strong>. A primeira dimensão são as <em>categorias</em> "
-"que você encontra nas abas coloridas da barra. A segunda dimensão são os "
+"<strong>dimensões</strong>. A primeira dimensão é formada pesas <em>categorias</em> "
+"que você encontra nas abas coloridas da barra. A segunda dimensão contém os "
 "<em>tipos de conteúdo</em> que você encontra na aba animada da direita."
 
 #: app/views/layouts/application.rhtml:96
