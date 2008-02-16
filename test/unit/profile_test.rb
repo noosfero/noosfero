@@ -219,26 +219,21 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal profile, Profile['testprofile']
   end
 
-  should 'have boxes and blocks upon creation' do
+  should 'have boxes upon creation' do
     profile = Profile.create!(:name => 'test profile', :identifier => 'testprofile')
 
     assert profile.boxes.size > 0
-    assert profile.blocks.size > 0
-  end
-
-  should 'have at least one MainBlock upon creation' do
-    profile = Profile.create!(:name => 'test profile', :identifier => 'testprofile')
-    assert(profile.blocks.any? { |block| block.kind_of? MainBlock })
   end
 
   should 'remove boxes and blocks when removing profile' do
     profile = Profile.create!(:name => 'test profile', :identifier => 'testprofile')
+    profile.boxes.first.blocks << MainBlock.new
 
     profile_boxes = profile.boxes.size
     profile_blocks = profile.blocks.size
     
-    assert profile_boxes > 0
-    assert profile_blocks > 0
+    assert profile_boxes > 0, 'profile should have some boxes'
+    assert profile_blocks > 0, 'profile should have some blocks'
 
     boxes = Box.count
     blocks = Block.count
