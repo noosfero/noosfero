@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.6.0\n"
-"POT-Creation-Date: 2008-02-16 06:19-0300\n"
+"POT-Creation-Date: 2008-02-16 06:35-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -138,6 +138,7 @@ msgid "Products"
 msgstr ""
 
 #: app/helpers/assets_helper.rb:9 app/models/enterprises_block.rb:4
+#: app/views/profile/index.rhtml:16
 msgid "Enterprises"
 msgstr ""
 
@@ -164,6 +165,12 @@ msgstr ""
 
 #: app/helpers/profile_helper.rb:6
 msgid "This profile does not have any public information"
+msgstr ""
+
+#: app/helpers/language_helper.rb:20
+msgid ""
+"The language you choose here is the language used for options, buttons, etc. "
+"It does not affect the language of the content created by other users."
 msgstr ""
 
 #: app/helpers/application_helper.rb:57 app/views/features/index.rhtml:7
@@ -276,7 +283,7 @@ msgid "Edit"
 msgstr ""
 
 #: app/models/tags_block.rb:7
-msgid "List count of contents by tag"
+msgid "Block listing content count by tag"
 msgstr ""
 
 #: app/models/tags_block.rb:11
@@ -1175,7 +1182,7 @@ msgstr ""
 msgid "Public address of this article: %s"
 msgstr ""
 
-#: app/views/cms/view.rhtml:65 app/views/profile/index.rhtml:18
+#: app/views/cms/view.rhtml:65 app/views/profile/index.rhtml:19
 msgid "Tags:"
 msgstr ""
 
@@ -1680,28 +1687,28 @@ msgstr ""
 msgid "Turn help on/off"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:143
+#: app/views/layouts/application.rhtml:141
 msgid "Do you want to activate the automatic help mode?"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:143
+#: app/views/layouts/application.rhtml:141
 msgid ""
 "If needed, you can activate the automatic help mode by clicking the question "
 "mark symbol in the top-right corner"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:147
+#: app/views/layouts/application.rhtml:145
 msgid "Your web browser is obsolete!"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:148
+#: app/views/layouts/application.rhtml:146
 msgid ""
 "This website will not look as good as it could.\n"
 "         Don't you want to use Firefox? That is a great web browser, free,\n"
 "         and made by people of all the world parts."
 msgstr ""
 
-#: app/views/layouts/application.rhtml:152
+#: app/views/layouts/application.rhtml:150
 msgid "Get Firefox Now!"
 msgstr ""
 
@@ -1938,16 +1945,6 @@ msgstr ""
 
 #: app/views/shared/user_menu.rhtml:16
 msgid "control panel"
-msgstr ""
-
-#: app/views/shared/language_chooser.rhtml:3
-msgid ""
-"The language you choose here if the language used for options, buttons, etc. "
-"It does not affect the language of the content created by other users."
-msgstr ""
-
-#: app/views/shared/language_chooser.rhtml:3
-msgid "Help on languages"
 msgstr ""
 
 #: app/views/task_mailer/target_notification.rhtml:6
