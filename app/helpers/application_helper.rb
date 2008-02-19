@@ -278,7 +278,7 @@ module ApplicationHelper
   end
 
   def submit_button(type, label, html_options = {})
-    bt_cancel = html_options[:cancel] ? "<input type='button' class='button bt_cancel' value='" + _('Cancel') + "' onclick='document.location.href = \"#{url_for html_options.delete(:cancel)}\"'> " : ''
+    bt_cancel = html_options[:cancel] ? button(:cancel, _('Cancel'), html_options[:cancel]) : ''
 
     html_options[:class] = [html_options[:class], 'submit'].compact.join(' ')
     
@@ -289,7 +289,7 @@ module ApplicationHelper
 
     bt_submit = submit_tag(label, html_options.merge(:class => the_class))
 
-    bt_submit + bt_cancel
+    bt_submit
   end
 
   def button_to_function(type, label, js_code, html_options = {})
