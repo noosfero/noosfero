@@ -8,13 +8,6 @@ class RoutingTest < ActionController::IntegrationTest
     assert_routing('/', :controller => 'home', :action => 'index')
   end
 
-  # auxiliary (development) controllers
-  ################################################################
-  def test_doc_controller
-    require File.join(RAILS_ROOT, 'vendor', 'plugins', 'doc_browser', 'controllers', 'doc_controller')
-    assert_routing('/doc', :controller => 'doc', :action => 'index')
-  end
-
   # user-targeted controllers (account/*, cms/*, customize/*)
   ################################################################
   def test_account_controller

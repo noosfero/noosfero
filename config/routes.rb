@@ -19,9 +19,6 @@ ActionController::Routing::Routes.draw do |map|
   # -- just remember to delete public/index.html.
   map.connect '', :controller => "home"
 
-  # documentation browser
-  map.connect 'doc', :controller => 'doc'
-
   # user account controller
   map.connect 'account/new_password/:code', :controller => 'account', :action => 'new_password'
   map.connect 'account/:action', :controller => 'account'
