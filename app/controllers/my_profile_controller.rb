@@ -15,7 +15,7 @@ class MyProfileController < ApplicationController
     before_filter do |controller|
       unless controller.send(:profile).kind_of?(some_class)
         controller.instance_variable_set('@message',  _("This action is not available for \"%s\".") % controller.send(:profile).name)
-        controller.render :file => File.join(RAILS_ROOT, 'app', 'views', 'shared', 'access_denied.rhtml'), :layout => true, :status => 403
+        controller.send(:render, :file => File.join(RAILS_ROOT, 'app', 'views', 'shared', 'access_denied.rhtml'), :layout => true, :status => 403)
       end
     end
   end
