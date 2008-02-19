@@ -44,6 +44,11 @@ Rails::Initializer.run do |config|
   # config.active_record.observers = :cacher, :garbage_collector
   # Make Active Record use UTC-base instead of local time
   # config.active_record.default_timezone = :utc
+
+  config.action_controller.session = {
+    :session_key => '_tets_session',
+    :secret      => '7372009258e02886ca36278257637a008959504400f6286cd09133f6e9131d23460dd77e289bf99b480a3b4d017be0578b59335ce6a1c74e3644e37514926009'
+  }
   
   # See Rails::Configuration for more options
 
