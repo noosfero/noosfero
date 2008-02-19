@@ -99,7 +99,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     get :view_page, :profile => 'someone', :page => [ 'testfeed' ]
 
     assert_response :success
-    assert_match /^text\/xml/, @response.headers['Content-Type']
+    assert_match /^text\/xml/, @response.headers['type']
 
     assert_equal feed.data, @response.body
   end
