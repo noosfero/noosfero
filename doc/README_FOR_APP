@@ -109,6 +109,6 @@ completely delete the generated packages and start the process again.
 
 * Update translation files: <tt>rake updatepo</tt>. Then <tt>svn commit</tt> them.
 * Send the PO files to the translators.
-* Get tha PO files back from translators, put in po/ under the correct language
+* Get the PO files back from translators, put in po/ under the correct language
   name (e.,g. po/pt_BR/) and <tt>svn commit</tt>.
 * test translations: <tt>rake makemo</tt> and browse the application on the web.
