@@ -5,7 +5,7 @@
 #ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '1.1.6'
+RAILS_GEM_VERSION = '2.0.2' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -45,8 +45,12 @@ Rails::Initializer.run do |config|
   # Make Active Record use UTC-base instead of local time
   # config.active_record.default_timezone = :utc
 
+  # Your secret key for verifying cookie session data integrity.
+  # If you change this key, all old sessions will become invalid!
+  # Make sure the secret is at least 30 characters and all random, 
+  # no regular words or you'll be exposed to dictionary attacks.
   config.action_controller.session = {
-    :session_key => '_tets_session',
+    :session_key => '_noosfero_session',
     :secret      => '7372009258e02886ca36278257637a008959504400f6286cd09133f6e9131d23460dd77e289bf99b480a3b4d017be0578b59335ce6a1c74e3644e37514926009'
   }
   
@@ -91,3 +95,4 @@ require 'acts_as_having_boxes'
 require 'acts_as_having_settings'
 require 'hacked_after_create'
 
+require 'app/models/profile'
