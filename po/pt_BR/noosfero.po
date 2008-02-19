@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.6.0\n"
 "POT-Creation-Date: 2008-02-16 10:27-0300\n"
-"PO-Revision-Date: 2008-02-16 10:30-0300\n"
+"PO-Revision-Date: 2008-02-18 17:24-0300\n"
 "Last-Translator: Aurélio A. Heckert <aurium@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -706,7 +706,7 @@ msgstr "Conteúdo recente"
 
 #: app/models/rss_feed.rb:70
 msgid "%s's RSS feed"
-msgstr "RSS feed do(a) %s"
+msgstr "Feed RSS do(a) %s"
 
 #: app/models/rss_feed.rb:72
 msgid "%s's content published at %s"
