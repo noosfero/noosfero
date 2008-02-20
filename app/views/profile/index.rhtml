@@ -11,9 +11,9 @@
   </li>
 
   <%# FIXME %>
-  <li><%= link_to_function _('Friends'), 'alert("not yet")' %></li>
-  <li><%= link_to_function _('Communities'), 'alert("not yet")' %></li>
-  <li><%= link_to_function _('Enterprises'), 'alert("not yet")' %></li>
+  <li><%= link_to_function _('Friends'), 'alert(%s)' % _('This function is not available yet.').inspect %></li>
+  <li><%= link_to_function _('Communities'), 'alert(%s")' % _('This function is not available yet.').inspect %></li>
+  <li><%= link_to_function _('Enterprises'), 'alert(%s)' % _('This function is not available yet.').inspect %></li>
 
   <li>
     <%= _('Tags:') %>
