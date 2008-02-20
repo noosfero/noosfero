@@ -95,4 +95,3 @@ require 'acts_as_having_boxes'
 require 'acts_as_having_settings'
 require 'hacked_after_create'
 
-require 'app/models/profile'
