@@ -95,3 +95,9 @@ require 'acts_as_having_boxes'
 require 'acts_as_having_settings'
 require 'hacked_after_create'
 
+# load a local configuration if present
+lambda do |localconfig|
+  if File.exists?(localconfig)
+    require localconfig
+  end
+end.call(File.join(RAILS_ROOT, 'config', 'local.rb'))
