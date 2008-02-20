@@ -64,10 +64,15 @@ class ApplicationController < ActionController::Base
 
   def force_language
     lang = params[:lang]
-    unless lang.blank?
+    if lang.blank?
+      # no language forced, get language from cookie
+      lang = cookies[:lang] || Noosfero.default_locale
+    else
+      # save forced language in the cookie
       cookies[:lang] = lang
-      GetText.locale = lang
     end
+
+    set_locale lang unless lang.blank?
   end
 
 end

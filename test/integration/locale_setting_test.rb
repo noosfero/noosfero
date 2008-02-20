@@ -7,6 +7,13 @@ class LocaleSettingTest < ActionController::IntegrationTest
     GetText.locale = nil
   end
 
+  should 'be able to set a default language' do
+    Noosfero.expects(:default_locale).returns('pt_BR').at_least_once
+
+    get '/'
+    assert_equal 'pt_BR', GetText.locale.to_s
+  end
+
   should 'detect locale from the browser' do
 
     # user has pt_BR
