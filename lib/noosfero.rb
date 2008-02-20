@@ -18,6 +18,7 @@ module Noosfero
 
   class << self
     attr_accessor :locales
+    attr_accessor :default_locale
   end
 
   private

@@ -23,4 +23,9 @@ class NoosferoTest < Test::Unit::TestCase
     assert_equal(/(block1|block2)/, Noosfero.pattern_for_controllers_from_design_blocks)
   end
 
+  should 'support setting default locale' do
+    Noosfero.default_locale = 'pt_BR'
+    assert_equal 'pt_BR', Noosfero.default_locale
+  end
+
 end
