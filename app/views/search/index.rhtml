@@ -2,8 +2,5 @@
 
 <% @results.each do |hit| %>
   <%= render :partial => partial_for_class(hit.class), :locals => { :hit => hit } %>
-  <div class='search-relevance'>
-    <%= _('Relevance: %d%%') % relevance_for(hit) %>
-  </div>
   <br style='clear: left'/>
 <% end %>
