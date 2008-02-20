@@ -81,7 +81,7 @@ new_category(cadeias, 'Algodão')
 new_category(cadeias, 'Tecnologia de Informação')
 
 # validators
-#colivre = new_validator(ba, "Colivre", 'colivre', Enterprise)
+colivre = new_validator(ba, "Colivre", 'colivre', Enterprise)
 #forum_bahia = new_validator(ba, "Forum Baiano de Economia Solidaraia", 'ecosolbahia')
 #
 #caritas = new_validator(df, 'Caritas', 'caritas')
