@@ -81,14 +81,14 @@ new_category(cadeias, 'Algodão')
 new_category(cadeias, 'Tecnologia de Informação')
 
 # validators
-colivre = new_validator(ba, "Colivre", 'colivre', Enterprise)
-forum_bahia = new_validator(ba, "Forum Baiano de Economia Solidaraia", 'ecosolbahia')
-
-caritas = new_validator(df, 'Caritas', 'caritas')
-fbes = new_validator(df, 'Forum Brasileiro de Economia Solidaria', 'fbes')
-
-asl = new_validator(rs, 'Associacao Software Livre.Org', 'asl')
-forum_rs = new_validator(rs, 'Forum Gaucho de Economia Solidaria', 'ecosolrs')
+#colivre = new_validator(ba, "Colivre", 'colivre', Enterprise)
+#forum_bahia = new_validator(ba, "Forum Baiano de Economia Solidaraia", 'ecosolbahia')
+#
+#caritas = new_validator(df, 'Caritas', 'caritas')
+#fbes = new_validator(df, 'Forum Brasileiro de Economia Solidaria', 'fbes')
+#
+#asl = new_validator(rs, 'Associacao Software Livre.Org', 'asl')
+#forum_rs = new_validator(rs, 'Forum Gaucho de Economia Solidaria', 'ecosolrs')
 
 # Role for own things
 owner_role = Profile::Roles.admin
