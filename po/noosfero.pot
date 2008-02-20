@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.6.0\n"
-"POT-Creation-Date: 2008-02-16 10:27-0300\n"
+"Project-Id-Version: noosfero 0.7.0\n"
+"POT-Creation-Date: 2008-02-19 17:43-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -282,6 +282,186 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
+#: app/models/article.rb:-
+msgid "profile"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "person"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Person|Name"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Person|Type"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Person|Identifier"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Person|Environment"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Person|Active"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Person|Address"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Person|Contact phone"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Person|Home page"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Person|User"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Person|Region"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Person|Data"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Person|Created at"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "article"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Article|Name"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Article|Slug"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Article|Path"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Article|Parent"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Article|Body"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Article|Abstract"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Article|Profile"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Article|Updated on"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Article|Created on"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Article|Last changed by"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Article|Version"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Article|Lock version"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Article|Type"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Article|Size"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Article|Content type"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Article|Filename"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Article|Height"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Article|Width"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Profile|Name"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Profile|Type"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Profile|Identifier"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Profile|Environment"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Profile|Active"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Profile|Address"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Profile|Contact phone"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Profile|Home page"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Profile|User"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Profile|Region"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Profile|Data"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Profile|Created at"
+msgstr ""
+
 #: app/models/article.rb:6
 msgid ""
 "%{fn} (the code generated from the article name) is already being used by "
@@ -318,6 +498,78 @@ msgstr ""
 
 #: app/models/article_block.rb:8
 msgid "Article not selected yet."
+msgstr ""
+
+#: app/models/block.rb:-
+msgid "block"
+msgstr ""
+
+#: app/models/block.rb:-
+msgid "Block|Title"
+msgstr ""
+
+#: app/models/block.rb:-
+msgid "Block|Box"
+msgstr ""
+
+#: app/models/block.rb:-
+msgid "Block|Type"
+msgstr ""
+
+#: app/models/block.rb:-
+msgid "Block|Settings"
+msgstr ""
+
+#: app/models/block.rb:-
+msgid "Block|Position"
+msgstr ""
+
+#: app/models/box.rb:-
+msgid "box"
+msgstr ""
+
+#: app/models/box.rb:-
+msgid "Box|Owner type"
+msgstr ""
+
+#: app/models/box.rb:-
+msgid "Box|Owner"
+msgstr ""
+
+#: app/models/box.rb:-
+msgid "Box|Position"
+msgstr ""
+
+#: app/models/category.rb:-
+msgid "category"
+msgstr ""
+
+#: app/models/category.rb:-
+msgid "Category|Name"
+msgstr ""
+
+#: app/models/category.rb:-
+msgid "Category|Slug"
+msgstr ""
+
+#: app/models/category.rb:-
+msgid "Category|Path"
+msgstr ""
+
+#: app/models/category.rb:-
+msgid "Category|Display color"
+msgstr ""
+
+#: app/models/category.rb:-
+msgid "Category|Environment"
+msgstr ""
+
+#: app/models/category.rb:-
+msgid "Category|Parent"
+msgstr ""
+
+#: app/models/category.rb:-
+msgid "Category|Type"
 msgstr ""
 
 #: app/models/category.rb:3
@@ -379,6 +631,38 @@ msgstr ""
 msgid "Password change request"
 msgstr ""
 
+#: app/models/comment.rb:-
+msgid "comment"
+msgstr ""
+
+#: app/models/comment.rb:-
+msgid "Comment|Title"
+msgstr ""
+
+#: app/models/comment.rb:-
+msgid "Comment|Body"
+msgstr ""
+
+#: app/models/comment.rb:-
+msgid "Comment|Article"
+msgstr ""
+
+#: app/models/comment.rb:-
+msgid "Comment|Author"
+msgstr ""
+
+#: app/models/comment.rb:-
+msgid "Comment|Name"
+msgstr ""
+
+#: app/models/comment.rb:-
+msgid "Comment|Email"
+msgstr ""
+
+#: app/models/comment.rb:-
+msgid "Comment|Created on"
+msgstr ""
+
 #: app/models/comment.rb:14
 msgid "%{fn} can only be informed for unauthenticated authors"
 msgstr ""
@@ -389,6 +673,22 @@ msgstr ""
 
 #: app/models/communities_block.rb:14
 msgid "All communities"
+msgstr ""
+
+#: app/models/consumption.rb:-
+msgid "consumption"
+msgstr ""
+
+#: app/models/consumption.rb:-
+msgid "Consumption|Product category"
+msgstr ""
+
+#: app/models/consumption.rb:-
+msgid "Consumption|Profile"
+msgstr ""
+
+#: app/models/consumption.rb:-
+msgid "Consumption|Aditional specifications"
 msgstr ""
 
 #: app/models/create_enterprise.rb:3 app/models/create_enterprise.rb:160
@@ -507,6 +807,22 @@ msgstr ""
 msgid "Contact person: %s"
 msgstr ""
 
+#: app/models/domain.rb:-
+msgid "domain"
+msgstr ""
+
+#: app/models/domain.rb:-
+msgid "Domain|Name"
+msgstr ""
+
+#: app/models/domain.rb:-
+msgid "Domain|Owner type"
+msgstr ""
+
+#: app/models/domain.rb:-
+msgid "Domain|Owner"
+msgstr ""
+
 #: app/models/domain.rb:13
 msgid ""
 "%{fn} must be composed only of lowercase latters (a to z), numbers (0 to 9) "
@@ -523,6 +839,30 @@ msgstr ""
 
 #: app/models/enterprises_block.rb:14
 msgid "All enterprises"
+msgstr ""
+
+#: app/models/environment.rb:-
+msgid "environment"
+msgstr ""
+
+#: app/models/environment.rb:-
+msgid "Environment|Name"
+msgstr ""
+
+#: app/models/environment.rb:-
+msgid "Environment|Contact email"
+msgstr ""
+
+#: app/models/environment.rb:-
+msgid "Environment|Is default"
+msgstr ""
+
+#: app/models/environment.rb:-
+msgid "Environment|Settings"
+msgstr ""
+
+#: app/models/environment.rb:-
+msgid "Environment|Design data"
 msgstr ""
 
 #: app/models/environment.rb:7
@@ -583,6 +923,62 @@ msgid_plural "%{num} communities"
 msgstr[0] ""
 msgstr[1] ""
 
+#: app/models/friendship.rb:-
+msgid "friendship"
+msgstr ""
+
+#: app/models/friendship.rb:-
+msgid "Friendship|Person"
+msgstr ""
+
+#: app/models/friendship.rb:-
+msgid "Friendship|Friend"
+msgstr ""
+
+#: app/models/friendship.rb:-
+msgid "Friendship|Created at"
+msgstr ""
+
+#: app/models/image.rb:-
+msgid "image"
+msgstr ""
+
+#: app/models/image.rb:-
+msgid "Image|Owner type"
+msgstr ""
+
+#: app/models/image.rb:-
+msgid "Image|Owner"
+msgstr ""
+
+#: app/models/image.rb:-
+msgid "Image|Parent"
+msgstr ""
+
+#: app/models/image.rb:-
+msgid "Image|Content type"
+msgstr ""
+
+#: app/models/image.rb:-
+msgid "Image|Filename"
+msgstr ""
+
+#: app/models/image.rb:-
+msgid "Image|Thumbnail"
+msgstr ""
+
+#: app/models/image.rb:-
+msgid "Image|Size"
+msgstr ""
+
+#: app/models/image.rb:-
+msgid "Image|Width"
+msgstr ""
+
+#: app/models/image.rb:-
+msgid "Image|Height"
+msgstr ""
+
 #: app/models/image_gallery.rb:4
 msgid "Image gallery"
 msgstr ""
@@ -611,42 +1007,84 @@ msgstr ""
 msgid "All members"
 msgstr ""
 
-#: app/models/profile.rb:19
-msgid "Edit profile"
+#: app/models/person_info.rb:-
+msgid "person info"
 msgstr ""
 
-#: app/models/profile.rb:20
-msgid "Destroy profile"
+#: app/models/person_info.rb:-
+msgid "PersonInfo|Name"
 msgstr ""
 
-#: app/models/profile.rb:21
-msgid "Manage memberships"
+#: app/models/person_info.rb:-
+msgid "PersonInfo|Photo"
 msgstr ""
 
-#: app/models/profile.rb:22
-msgid "Post content"
+#: app/models/person_info.rb:-
+msgid "PersonInfo|Contact information"
 msgstr ""
 
-#: app/models/profile.rb:23
-msgid "Edit profile design"
+#: app/models/person_info.rb:-
+msgid "PersonInfo|Birth date"
 msgstr ""
 
-#: app/models/profile.rb:24
-msgid "Manage products"
+#: app/models/person_info.rb:-
+msgid "PersonInfo|Sex"
 msgstr ""
 
-#: app/models/profile.rb:80
-msgid "An existing profile cannot be renamed."
+#: app/models/person_info.rb:-
+msgid "PersonInfo|Address"
 msgstr ""
 
-#: app/models/profile.rb:239
-msgid "Home page"
+#: app/models/person_info.rb:-
+msgid "PersonInfo|City"
 msgstr ""
 
-#: app/models/profile.rb:239
-msgid ""
-"<h1>%s's home page</h1> <p>This is a default homepage created for %s. It can "
-"be changed though the control panel.</p>"
+#: app/models/person_info.rb:-
+msgid "PersonInfo|State"
+msgstr ""
+
+#: app/models/person_info.rb:-
+msgid "PersonInfo|Country"
+msgstr ""
+
+#: app/models/person_info.rb:-
+msgid "PersonInfo|Created at"
+msgstr ""
+
+#: app/models/person_info.rb:-
+msgid "PersonInfo|Updated at"
+msgstr ""
+
+#: app/models/person_info.rb:-
+msgid "PersonInfo|Person"
+msgstr ""
+
+#: app/models/product.rb:-
+msgid "product"
+msgstr ""
+
+#: app/models/product.rb:-
+msgid "Product|Enterprise"
+msgstr ""
+
+#: app/models/product.rb:-
+msgid "Product|Product category"
+msgstr ""
+
+#: app/models/product.rb:-
+msgid "Product|Name"
+msgstr ""
+
+#: app/models/product.rb:-
+msgid "Product|Price"
+msgstr ""
+
+#: app/models/product.rb:-
+msgid "Product|Description"
+msgstr ""
+
+#: app/models/product.rb:-
+msgid "Product|Image"
 msgstr ""
 
 #: app/models/profile_info_block.rb:4
@@ -703,6 +1141,34 @@ msgstr ""
 msgid "Tags"
 msgstr ""
 
+#: app/models/task.rb:-
+msgid "task"
+msgstr ""
+
+#: app/models/task.rb:-
+msgid "Task|Data"
+msgstr ""
+
+#: app/models/task.rb:-
+msgid "Task|Status"
+msgstr ""
+
+#: app/models/task.rb:-
+msgid "Task|End date"
+msgstr ""
+
+#: app/models/task.rb:-
+msgid "Task|Requestor"
+msgstr ""
+
+#: app/models/task.rb:-
+msgid "Task|Target"
+msgstr ""
+
+#: app/models/task.rb:-
+msgid "Task|Code"
+msgstr ""
+
 #: app/models/task.rb:86
 msgid "Generic task"
 msgstr ""
@@ -727,6 +1193,38 @@ msgstr ""
 msgid "Accessible alternative for visually impaired users."
 msgstr ""
 
+#: app/models/thumbnail.rb:-
+msgid "thumbnail"
+msgstr ""
+
+#: app/models/thumbnail.rb:-
+msgid "Thumbnail|Size"
+msgstr ""
+
+#: app/models/thumbnail.rb:-
+msgid "Thumbnail|Content type"
+msgstr ""
+
+#: app/models/thumbnail.rb:-
+msgid "Thumbnail|Filename"
+msgstr ""
+
+#: app/models/thumbnail.rb:-
+msgid "Thumbnail|Height"
+msgstr ""
+
+#: app/models/thumbnail.rb:-
+msgid "Thumbnail|Width"
+msgstr ""
+
+#: app/models/thumbnail.rb:-
+msgid "Thumbnail|Parent"
+msgstr ""
+
+#: app/models/thumbnail.rb:-
+msgid "Thumbnail|Thumbnail"
+msgstr ""
+
 #: app/models/tiny_mce_article.rb:4
 msgid "Text article with visual editor."
 msgstr ""
@@ -743,6 +1241,54 @@ msgstr ""
 msgid "Upload any kind of file you want."
 msgstr ""
 
+#: app/models/user.rb:-
+msgid "user"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Login"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Email"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Crypted password"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Salt"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Created at"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Updated at"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Remember token"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Remember token expires at"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Terms of use"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Terms accepted"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Environment"
+msgstr ""
+
 #: app/models/user.rb:7
 msgid "User|Password"
 msgstr ""
@@ -753,6 +1299,114 @@ msgstr ""
 
 #: app/models/user.rb:38
 msgid "%{fn} must be checked in order to signup."
+msgstr ""
+
+#: app/models/validation_info.rb:-
+msgid "validation info"
+msgstr ""
+
+#: app/models/validation_info.rb:-
+msgid "ValidationInfo|Validation methodology"
+msgstr ""
+
+#: app/models/validation_info.rb:-
+msgid "ValidationInfo|Restrictions"
+msgstr ""
+
+#: app/models/validation_info.rb:-
+msgid "ValidationInfo|Organization"
+msgstr ""
+
+#: app/models/profile.rb:19
+msgid "Edit profile"
+msgstr ""
+
+#: app/models/profile.rb:20
+msgid "Destroy profile"
+msgstr ""
+
+#: app/models/profile.rb:21
+msgid "Manage memberships"
+msgstr ""
+
+#: app/models/profile.rb:22
+msgid "Post content"
+msgstr ""
+
+#: app/models/profile.rb:23
+msgid "Edit profile design"
+msgstr ""
+
+#: app/models/profile.rb:24
+msgid "Manage products"
+msgstr ""
+
+#: app/models/profile.rb:80
+msgid "An existing profile cannot be renamed."
+msgstr ""
+
+#: app/models/profile.rb:239
+msgid "Home page"
+msgstr ""
+
+#: app/models/profile.rb:239
+msgid ""
+"<h1>%s's home page</h1> <p>This is a default homepage created for %s. It can "
+"be changed though the control panel.</p>"
+msgstr ""
+
+#: app/models/organization_info.rb:-
+msgid "organization info"
+msgstr ""
+
+#: app/models/organization_info.rb:-
+msgid "OrganizationInfo|Organization"
+msgstr ""
+
+#: app/models/organization_info.rb:-
+msgid "OrganizationInfo|Contact person"
+msgstr ""
+
+#: app/models/organization_info.rb:-
+msgid "OrganizationInfo|Contact email"
+msgstr ""
+
+#: app/models/organization_info.rb:-
+msgid "OrganizationInfo|Acronym"
+msgstr ""
+
+#: app/models/organization_info.rb:-
+msgid "OrganizationInfo|Foundation year"
+msgstr ""
+
+#: app/models/organization_info.rb:-
+msgid "OrganizationInfo|Legal form"
+msgstr ""
+
+#: app/models/organization_info.rb:-
+msgid "OrganizationInfo|Economic activity"
+msgstr ""
+
+#: app/models/organization_info.rb:-
+msgid "OrganizationInfo|Management information"
+msgstr ""
+
+#: app/models/organization_info.rb:-
+msgid "OrganizationInfo|Validated"
+msgstr ""
+
+#: app/models/organization_info.rb:9
+#: app/views/enterprise_editor/_form.rhtml:13
+#: app/views/enterprise_validation/_details.rhtml:19
+msgid "Acronym"
+msgstr ""
+
+#: app/models/organization_info.rb:9
+msgid "Foundation year"
+msgstr ""
+
+#: app/models/organization_info.rb:9
+msgid "Contact e-mail"
 msgstr ""
 
 #: app/views/account/change_password.rhtml:1
@@ -1333,11 +1987,6 @@ msgstr ""
 #: app/views/enterprise_validation/list_processed.rhtml:17
 #: app/views/enterprise_validation/index.rhtml:22
 msgid "Contact Person"
-msgstr ""
-
-#: app/views/enterprise_editor/_form.rhtml:13
-#: app/views/enterprise_validation/_details.rhtml:19
-msgid "Acronym"
 msgstr ""
 
 #: app/views/enterprise_editor/_form.rhtml:16

@@ -8,9 +8,9 @@
 # This file is distributed under the same license as noosfero itself.
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.6.0\n"
-"POT-Creation-Date: 2008-02-16 10:27-0300\n"
-"PO-Revision-Date: 2008-02-18 17:24-0300\n"
+"Project-Id-Version: noosfero 0.7.0\n"
+"POT-Creation-Date: 2008-02-19 17:43-0300\n"
+"PO-Revision-Date: 2008-02-19 17:45-0300\n"
 "Last-Translator: Aurélio A. Heckert <aurium@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -287,6 +287,200 @@ msgstr "Mover para baixo"
 msgid "Edit"
 msgstr "Editar"
 
+#: app/models/article.rb:-
+#, fuzzy
+msgid "profile"
+msgstr "Meu perfil"
+
+#: app/models/article.rb:-
+msgid "person"
+msgstr "pessoa"
+
+#: app/models/article.rb:-
+msgid "Person|Name"
+msgstr "Nome"
+
+#: app/models/article.rb:-
+msgid "Person|Type"
+msgstr "Tipo"
+
+#: app/models/article.rb:-
+msgid "Person|Identifier"
+msgstr "Identificador"
+
+#: app/models/article.rb:-
+msgid "Person|Environment"
+msgstr "Ambiente"
+
+#: app/models/article.rb:-
+msgid "Person|Active"
+msgstr "Ativo"
+
+#: app/models/article.rb:-
+msgid "Person|Address"
+msgstr "Endereço"
+
+#: app/models/article.rb:-
+msgid "Person|Contact phone"
+msgstr "Telefone de contato"
+
+#: app/models/article.rb:-
+msgid "Person|Home page"
+msgstr "Página inicial"
+
+#: app/models/article.rb:-
+msgid "Person|User"
+msgstr "Usuário"
+
+#: app/models/article.rb:-
+msgid "Person|Region"
+msgstr "Região"
+
+#: app/models/article.rb:-
+#, fuzzy
+msgid "Person|Data"
+msgstr "Dados de design"
+
+#: app/models/article.rb:-
+#, fuzzy
+msgid "Person|Created at"
+msgstr "Criado em"
+
+#: app/models/article.rb:-
+#, fuzzy
+msgid "article"
+msgstr "Artigo"
+
+#: app/models/article.rb:-
+msgid "Article|Name"
+msgstr "Nome"
+
+#: app/models/article.rb:-
+msgid "Article|Slug"
+msgstr "Código"
+
+#: app/models/article.rb:-
+msgid "Article|Path"
+msgstr "Caminho"
+
+#: app/models/article.rb:-
+msgid "Article|Parent"
+msgstr "Pai"
+
+#: app/models/article.rb:-
+#, fuzzy
+msgid "Article|Body"
+msgstr "Corpo do artigo"
+
+#: app/models/article.rb:-
+#, fuzzy
+msgid "Article|Abstract"
+msgstr "Resumo do artigo"
+
+#: app/models/article.rb:-
+msgid "Article|Profile"
+msgstr "Perfil"
+
+#: app/models/article.rb:-
+msgid "Article|Updated on"
+msgstr "Atualizado em"
+
+#: app/models/article.rb:-
+msgid "Article|Created on"
+msgstr "Criado em"
+
+#: app/models/article.rb:-
+msgid "Article|Last changed by"
+msgstr "Atualizado por"
+
+#: app/models/article.rb:-
+msgid "Article|Version"
+msgstr "Versão"
+
+#: app/models/article.rb:-
+msgid "Article|Lock version"
+msgstr "Trava da versão"
+
+#: app/models/article.rb:-
+#, fuzzy
+msgid "Article|Type"
+msgstr "Tipo"
+
+#: app/models/article.rb:-
+#, fuzzy
+msgid "Article|Size"
+msgstr "Nome"
+
+#: app/models/article.rb:-
+#, fuzzy
+msgid "Article|Content type"
+msgstr "Tipo de conteúdo"
+
+#: app/models/article.rb:-
+#, fuzzy
+msgid "Article|Filename"
+msgstr "Nome"
+
+#: app/models/article.rb:-
+#, fuzzy
+msgid "Article|Height"
+msgstr "Pai"
+
+#: app/models/article.rb:-
+#, fuzzy
+msgid "Article|Width"
+msgstr "Caminho"
+
+#: app/models/article.rb:-
+msgid "Profile|Name"
+msgstr "Nome"
+
+#: app/models/article.rb:-
+msgid "Profile|Type"
+msgstr "Tipo"
+
+#: app/models/article.rb:-
+msgid "Profile|Identifier"
+msgstr "Identificador"
+
+#: app/models/article.rb:-
+msgid "Profile|Environment"
+msgstr "Ambiente"
+
+#: app/models/article.rb:-
+msgid "Profile|Active"
+msgstr "Ativo"
+
+#: app/models/article.rb:-
+msgid "Profile|Address"
+msgstr "Endereço"
+
+#: app/models/article.rb:-
+msgid "Profile|Contact phone"
+msgstr "Telefone de contato"
+
+#: app/models/article.rb:-
+msgid "Profile|Home page"
+msgstr "Página inicial"
+
+#: app/models/article.rb:-
+msgid "Profile|User"
+msgstr "Usuário"
+
+#: app/models/article.rb:-
+msgid "Profile|Region"
+msgstr "Região"
+
+#: app/models/article.rb:-
+#, fuzzy
+msgid "Profile|Data"
+msgstr "Dados de design"
+
+#: app/models/article.rb:-
+#, fuzzy
+msgid "Profile|Created at"
+msgstr "Criado em"
+
 #: app/models/article.rb:6
 msgid ""
 "%{fn} (the code generated from the article name) is already being used by "
@@ -326,6 +520,82 @@ msgstr "Apresentar um dos seus conteúdos."
 #: app/models/article_block.rb:8
 msgid "Article not selected yet."
 msgstr "Nenhum artigo selecionado ainda."
+
+#: app/models/block.rb:-
+#, fuzzy
+msgid "block"
+msgstr "voltar"
+
+#: app/models/block.rb:-
+#, fuzzy
+msgid "Block|Title"
+msgstr "Título"
+
+#: app/models/block.rb:-
+msgid "Block|Box"
+msgstr ""
+
+#: app/models/block.rb:-
+msgid "Block|Type"
+msgstr ""
+
+#: app/models/block.rb:-
+msgid "Block|Settings"
+msgstr ""
+
+#: app/models/block.rb:-
+msgid "Block|Position"
+msgstr ""
+
+#: app/models/box.rb:-
+msgid "box"
+msgstr ""
+
+#: app/models/box.rb:-
+#, fuzzy
+msgid "Box|Owner type"
+msgstr "Tipo do dono"
+
+#: app/models/box.rb:-
+#, fuzzy
+msgid "Box|Owner"
+msgstr "Dono"
+
+#: app/models/box.rb:-
+msgid "Box|Position"
+msgstr ""
+
+#: app/models/category.rb:-
+msgid "category"
+msgstr "categoria"
+
+#: app/models/category.rb:-
+msgid "Category|Name"
+msgstr "Nome"
+
+#: app/models/category.rb:-
+msgid "Category|Slug"
+msgstr "Slug"
+
+#: app/models/category.rb:-
+msgid "Category|Path"
+msgstr "Caminho"
+
+#: app/models/category.rb:-
+msgid "Category|Display color"
+msgstr "Mostrar cor"
+
+#: app/models/category.rb:-
+msgid "Category|Environment"
+msgstr "Ambiente"
+
+#: app/models/category.rb:-
+msgid "Category|Parent"
+msgstr "Pais"
+
+#: app/models/category.rb:-
+msgid "Category|Type"
+msgstr "Tipo"
 
 #: app/models/category.rb:3
 msgid "%{fn} cannot be like that."
@@ -389,6 +659,44 @@ msgstr ""
 msgid "Password change request"
 msgstr "Pedido de alteração de senha"
 
+#: app/models/comment.rb:-
+#, fuzzy
+msgid "comment"
+msgstr "Um comentário"
+
+#: app/models/comment.rb:-
+#, fuzzy
+msgid "Comment|Title"
+msgstr "Comunidades"
+
+#: app/models/comment.rb:-
+msgid "Comment|Body"
+msgstr ""
+
+#: app/models/comment.rb:-
+#, fuzzy
+msgid "Comment|Article"
+msgstr "Artigo"
+
+#: app/models/comment.rb:-
+msgid "Comment|Author"
+msgstr ""
+
+#: app/models/comment.rb:-
+#, fuzzy
+msgid "Comment|Name"
+msgstr "Nome"
+
+#: app/models/comment.rb:-
+#, fuzzy
+msgid "Comment|Email"
+msgstr "E-mail"
+
+#: app/models/comment.rb:-
+#, fuzzy
+msgid "Comment|Created on"
+msgstr "Criado em"
+
 #: app/models/comment.rb:14
 msgid "%{fn} can only be informed for unauthenticated authors"
 msgstr "%{fn} só pode ser informado para autores não autenticados"
@@ -400,6 +708,23 @@ msgstr "Um bloco que apresenta suas comunidades"
 #: app/models/communities_block.rb:14
 msgid "All communities"
 msgstr "Todas comunidades"
+
+#: app/models/consumption.rb:-
+#, fuzzy
+msgid "consumption"
+msgstr "Perfil"
+
+#: app/models/consumption.rb:-
+msgid "Consumption|Product category"
+msgstr "Categoria de Produto"
+
+#: app/models/consumption.rb:-
+msgid "Consumption|Profile"
+msgstr "Perfil"
+
+#: app/models/consumption.rb:-
+msgid "Consumption|Aditional specifications"
+msgstr "Especificações adicionais"
 
 #: app/models/create_enterprise.rb:3 app/models/create_enterprise.rb:160
 msgid "CreateEnterprise|Identifier"
@@ -533,6 +858,22 @@ msgstr "Telefone de contato: %s"
 msgid "Contact person: %s"
 msgstr "Pessoa de contato: %s"
 
+#: app/models/domain.rb:-
+msgid "domain"
+msgstr "domínio"
+
+#: app/models/domain.rb:-
+msgid "Domain|Name"
+msgstr "Nome"
+
+#: app/models/domain.rb:-
+msgid "Domain|Owner type"
+msgstr "Tipo do dono"
+
+#: app/models/domain.rb:-
+msgid "Domain|Owner"
+msgstr "Dono"
+
 #: app/models/domain.rb:13
 msgid ""
 "%{fn} must be composed only of lowercase latters (a to z), numbers (0 to 9) "
@@ -552,6 +893,30 @@ msgstr "Um bloco que apresenta seus empreendimentos"
 #: app/models/enterprises_block.rb:14
 msgid "All enterprises"
 msgstr "Todos empreendimentos"
+
+#: app/models/environment.rb:-
+msgid "environment"
+msgstr "comunidade virtual"
+
+#: app/models/environment.rb:-
+msgid "Environment|Name"
+msgstr "Nome"
+
+#: app/models/environment.rb:-
+msgid "Environment|Contact email"
+msgstr "Email de contato"
+
+#: app/models/environment.rb:-
+msgid "Environment|Is default"
+msgstr "É padrão"
+
+#: app/models/environment.rb:-
+msgid "Environment|Settings"
+msgstr "Configurações"
+
+#: app/models/environment.rb:-
+msgid "Environment|Design data"
+msgstr "Informações de design"
 
 #: app/models/environment.rb:7
 msgid "View environment admin panel"
@@ -611,6 +976,63 @@ msgid_plural "%{num} communities"
 msgstr[0] "Uma comunidade"
 msgstr[1] "%{num} comunidades"
 
+#: app/models/friendship.rb:-
+#, fuzzy
+msgid "friendship"
+msgstr "Amigos"
+
+#: app/models/friendship.rb:-
+msgid "Friendship|Person"
+msgstr "Pessoa"
+
+#: app/models/friendship.rb:-
+msgid "Friendship|Friend"
+msgstr "Amigo"
+
+#: app/models/friendship.rb:-
+msgid "Friendship|Created at"
+msgstr "Criado em"
+
+#: app/models/image.rb:-
+msgid "image"
+msgstr "imagem"
+
+#: app/models/image.rb:-
+msgid "Image|Owner type"
+msgstr "Tipo do dono"
+
+#: app/models/image.rb:-
+msgid "Image|Owner"
+msgstr "Dono"
+
+#: app/models/image.rb:-
+msgid "Image|Parent"
+msgstr "Pai"
+
+#: app/models/image.rb:-
+msgid "Image|Content type"
+msgstr "Tipo de conteúdo"
+
+#: app/models/image.rb:-
+msgid "Image|Filename"
+msgstr "Nome de arquivo"
+
+#: app/models/image.rb:-
+msgid "Image|Thumbnail"
+msgstr "Miniatura"
+
+#: app/models/image.rb:-
+msgid "Image|Size"
+msgstr "Tamanho"
+
+#: app/models/image.rb:-
+msgid "Image|Width"
+msgstr "Largura"
+
+#: app/models/image.rb:-
+msgid "Image|Height"
+msgstr "Altura"
+
 #: app/models/image_gallery.rb:4
 msgid "Image gallery"
 msgstr "Galeria de Imagens"
@@ -639,45 +1061,91 @@ msgstr "Membros"
 msgid "All members"
 msgstr "Todos os membros"
 
-#: app/models/profile.rb:19
-msgid "Edit profile"
-msgstr "perfil"
+#: app/models/person_info.rb:-
+msgid "person info"
+msgstr "informação pesoal"
 
-#: app/models/profile.rb:20
-msgid "Destroy profile"
-msgstr "Remover perfil"
+#: app/models/person_info.rb:-
+msgid "PersonInfo|Name"
+msgstr "Nome"
 
-#: app/models/profile.rb:21
-msgid "Manage memberships"
-msgstr "Gerenciar associação em organização"
+#: app/models/person_info.rb:-
+msgid "PersonInfo|Photo"
+msgstr "Fotografia"
 
-#: app/models/profile.rb:22
-msgid "Post content"
-msgstr "Conteúdo da postagem"
+#: app/models/person_info.rb:-
+msgid "PersonInfo|Contact information"
+msgstr "Informação de contato"
 
-#: app/models/profile.rb:23
-msgid "Edit profile design"
-msgstr "Editar design de perfil"
+#: app/models/person_info.rb:-
+#, fuzzy
+msgid "PersonInfo|Birth date"
+msgstr "Nome"
 
-#: app/models/profile.rb:24
-msgid "Manage products"
-msgstr "Gerenciar produtos"
+#: app/models/person_info.rb:-
+#, fuzzy
+msgid "PersonInfo|Sex"
+msgstr "Nome"
 
-#: app/models/profile.rb:80
-msgid "An existing profile cannot be renamed."
-msgstr "Um perfil existente não pode ser renomeado"
+#: app/models/person_info.rb:-
+msgid "PersonInfo|Address"
+msgstr "Endereço"
 
-#: app/models/profile.rb:239
-msgid "Home page"
-msgstr "Página inicial"
+#: app/models/person_info.rb:-
+msgid "PersonInfo|City"
+msgstr "Cidade"
 
-#: app/models/profile.rb:239
-msgid ""
-"<h1>%s's home page</h1> <p>This is a default homepage created for %s. It can "
-"be changed though the control panel.</p>"
-msgstr ""
-"<h1>Pagina inicial de %s</h1> <p>Esta é a pagina inicial padrão criada para %"
-"s. Esta página pode ser modificada pelo painel de controle.</p>"
+#: app/models/person_info.rb:-
+#, fuzzy
+msgid "PersonInfo|State"
+msgstr "Nome"
+
+#: app/models/person_info.rb:-
+#, fuzzy
+msgid "PersonInfo|Country"
+msgstr "Fotografia"
+
+#: app/models/person_info.rb:-
+#, fuzzy
+msgid "PersonInfo|Created at"
+msgstr "Nome"
+
+#: app/models/person_info.rb:-
+#, fuzzy
+msgid "PersonInfo|Updated at"
+msgstr "Nome"
+
+#: app/models/person_info.rb:-
+msgid "PersonInfo|Person"
+msgstr "Pessoa"
+
+#: app/models/product.rb:-
+msgid "product"
+msgstr "produto"
+
+#: app/models/product.rb:-
+msgid "Product|Enterprise"
+msgstr "Empreendimento"
+
+#: app/models/product.rb:-
+msgid "Product|Product category"
+msgstr "Categoria de Produto"
+
+#: app/models/product.rb:-
+msgid "Product|Name"
+msgstr "Nome"
+
+#: app/models/product.rb:-
+msgid "Product|Price"
+msgstr "Preço"
+
+#: app/models/product.rb:-
+msgid "Product|Description"
+msgstr "Descrição"
+
+#: app/models/product.rb:-
+msgid "Product|Image"
+msgstr "Imagem"
 
 #: app/models/profile_info_block.rb:4
 msgid "Profile information block"
@@ -736,6 +1204,34 @@ msgstr ""
 msgid "Tags"
 msgstr "Tags"
 
+#: app/models/task.rb:-
+msgid "task"
+msgstr "tarefa"
+
+#: app/models/task.rb:-
+msgid "Task|Data"
+msgstr "Dados"
+
+#: app/models/task.rb:-
+msgid "Task|Status"
+msgstr "Estado"
+
+#: app/models/task.rb:-
+msgid "Task|End date"
+msgstr "Data de término"
+
+#: app/models/task.rb:-
+msgid "Task|Requestor"
+msgstr "Solicitante"
+
+#: app/models/task.rb:-
+msgid "Task|Target"
+msgstr "Alvo"
+
+#: app/models/task.rb:-
+msgid "Task|Code"
+msgstr "Código"
+
 #: app/models/task.rb:86
 msgid "Generic task"
 msgstr "Tarefa genérica"
@@ -760,6 +1256,46 @@ msgstr "Artigo de texto com linguagem de marcação Textile"
 msgid "Accessible alternative for visually impaired users."
 msgstr "Alternativa acessível para usuários com deficiência visual."
 
+#: app/models/thumbnail.rb:-
+#, fuzzy
+msgid "thumbnail"
+msgstr "Miniatura"
+
+#: app/models/thumbnail.rb:-
+#, fuzzy
+msgid "Thumbnail|Size"
+msgstr "Miniatura"
+
+#: app/models/thumbnail.rb:-
+#, fuzzy
+msgid "Thumbnail|Content type"
+msgstr "Tipo de conteúdo"
+
+#: app/models/thumbnail.rb:-
+#, fuzzy
+msgid "Thumbnail|Filename"
+msgstr "Nome de arquivo"
+
+#: app/models/thumbnail.rb:-
+#, fuzzy
+msgid "Thumbnail|Height"
+msgstr "Altura"
+
+#: app/models/thumbnail.rb:-
+#, fuzzy
+msgid "Thumbnail|Width"
+msgstr "Largura"
+
+#: app/models/thumbnail.rb:-
+#, fuzzy
+msgid "Thumbnail|Parent"
+msgstr "Pai"
+
+#: app/models/thumbnail.rb:-
+#, fuzzy
+msgid "Thumbnail|Thumbnail"
+msgstr "Miniatura"
+
 #: app/models/tiny_mce_article.rb:4
 msgid "Text article with visual editor."
 msgstr "Artigo de texto com editor visual."
@@ -776,6 +1312,56 @@ msgstr "Arquivo enviado"
 msgid "Upload any kind of file you want."
 msgstr "Envie qualquer tipo de arquivo que você queira."
 
+#: app/models/user.rb:-
+#, fuzzy
+msgid "user"
+msgstr "Um usuário"
+
+#: app/models/user.rb:-
+msgid "User|Login"
+msgstr "Nome de usuário"
+
+#: app/models/user.rb:-
+msgid "User|Email"
+msgstr "E-mail"
+
+#: app/models/user.rb:-
+msgid "User|Crypted password"
+msgstr "Senha criptografada"
+
+#: app/models/user.rb:-
+msgid "User|Salt"
+msgstr "Salto"
+
+#: app/models/user.rb:-
+msgid "User|Created at"
+msgstr "Criado em"
+
+#: app/models/user.rb:-
+msgid "User|Updated at"
+msgstr "Atualizado em"
+
+#: app/models/user.rb:-
+msgid "User|Remember token"
+msgstr "Lembrar token"
+
+#: app/models/user.rb:-
+msgid "User|Remember token expires at"
+msgstr "Token lembrado expira em"
+
+#: app/models/user.rb:-
+msgid "User|Terms of use"
+msgstr "Termos de Uso"
+
+#: app/models/user.rb:-
+msgid "User|Terms accepted"
+msgstr "Termos aceitos"
+
+#: app/models/user.rb:-
+#, fuzzy
+msgid "User|Environment"
+msgstr "Ambiente"
+
 #: app/models/user.rb:7
 msgid "User|Password"
 msgstr "Senha"
@@ -787,6 +1373,119 @@ msgstr "Confirmação de senha"
 #: app/models/user.rb:38
 msgid "%{fn} must be checked in order to signup."
 msgstr "%{fn} deve ser verificado para efetivar inscrição"
+
+#: app/models/validation_info.rb:-
+#, fuzzy
+msgid "validation info"
+msgstr "Editando informações de validação"
+
+#: app/models/validation_info.rb:-
+msgid "ValidationInfo|Validation methodology"
+msgstr "Metodologia de validação"
+
+#: app/models/validation_info.rb:-
+msgid "ValidationInfo|Restrictions"
+msgstr "Restrições"
+
+#: app/models/validation_info.rb:-
+msgid "ValidationInfo|Organization"
+msgstr "Organização"
+
+#: app/models/profile.rb:19
+msgid "Edit profile"
+msgstr "perfil"
+
+#: app/models/profile.rb:20
+msgid "Destroy profile"
+msgstr "Remover perfil"
+
+#: app/models/profile.rb:21
+msgid "Manage memberships"
+msgstr "Gerenciar associação em organização"
+
+#: app/models/profile.rb:22
+msgid "Post content"
+msgstr "Conteúdo da postagem"
+
+#: app/models/profile.rb:23
+msgid "Edit profile design"
+msgstr "Editar design de perfil"
+
+#: app/models/profile.rb:24
+msgid "Manage products"
+msgstr "Gerenciar produtos"
+
+#: app/models/profile.rb:80
+msgid "An existing profile cannot be renamed."
+msgstr "Um perfil existente não pode ser renomeado"
+
+#: app/models/profile.rb:239
+msgid "Home page"
+msgstr "Página inicial"
+
+#: app/models/profile.rb:239
+msgid ""
+"<h1>%s's home page</h1> <p>This is a default homepage created for %s. It can "
+"be changed though the control panel.</p>"
+msgstr ""
+"<h1>Pagina inicial de %s</h1> <p>Esta é a pagina inicial padrão criada para %"
+"s. Esta página pode ser modificada pelo painel de controle.</p>"
+
+#: app/models/organization_info.rb:-
+msgid "organization info"
+msgstr "informação da organização"
+
+#: app/models/organization_info.rb:-
+msgid "OrganizationInfo|Organization"
+msgstr "Organização"
+
+#: app/models/organization_info.rb:-
+msgid "OrganizationInfo|Contact person"
+msgstr "Pessoa de contato"
+
+#: app/models/organization_info.rb:-
+msgid "OrganizationInfo|Contact email"
+msgstr "email de contato"
+
+#: app/models/organization_info.rb:-
+msgid "OrganizationInfo|Acronym"
+msgstr "Acrônimo"
+
+#: app/models/organization_info.rb:-
+msgid "OrganizationInfo|Foundation year"
+msgstr "Ano de fundação"
+
+#: app/models/organization_info.rb:-
+msgid "OrganizationInfo|Legal form"
+msgstr "Estatuto Jurídico"
+
+#: app/models/organization_info.rb:-
+msgid "OrganizationInfo|Economic activity"
+msgstr "Atividade econômica"
+
+#: app/models/organization_info.rb:-
+msgid "OrganizationInfo|Management information"
+msgstr "Informação de gerenciamento"
+
+#: app/models/organization_info.rb:-
+msgid "OrganizationInfo|Validated"
+msgstr "Validado"
+
+#: app/models/organization_info.rb:9
+#: app/views/enterprise_editor/_form.rhtml:13
+#: app/views/enterprise_validation/_details.rhtml:19
+msgid "Acronym"
+msgstr "Acrônimo"
+
+#: app/models/organization_info.rb:9
+#, fuzzy
+msgid "Foundation year"
+msgstr "Ano de fundação:"
+
+#: app/models/organization_info.rb:9
+#, fuzzy
+msgid "Contact e-mail"
+msgstr "Telefone de Contato"
 
 #: app/views/account/change_password.rhtml:1
 #: app/views/account/change_password.rhtml:14
@@ -1385,11 +2084,6 @@ msgstr "Telefone de Contato"
 msgid "Contact Person"
 msgstr "Pessoa de Contato"
 
-#: app/views/enterprise_editor/_form.rhtml:13
-#: app/views/enterprise_validation/_details.rhtml:19
-msgid "Acronym"
-msgstr "Acrônimo"
-
 #: app/views/enterprise_editor/_form.rhtml:16
 #: app/views/enterprise_validation/_details.rhtml:27
 msgid "Foundation Year"
@@ -1642,9 +2336,9 @@ msgid ""
 "validates etc."
 msgstr ""
 "Informações de validação são as informações que os empreendimentos verão "
-"sobre como sua organização processa as validações de empreendimento que "
-"ela recebe: metodologia de validação, restrição de tipos de empreendimentos "
-"que a organização valida etc."
+"sobre como sua organização processa as validações de empreendimento que ela "
+"recebe: metodologia de validação, restrição de tipos de empreendimentos que "
+"a organização valida etc."
 
 #: app/views/enterprise_validation/index.rhtml:5
 msgid "Go Back"
@@ -2267,336 +2961,6 @@ msgstr "Voltar"
 
 #~ msgid "Enterprises Block"
 #~ msgstr "Bloco de Empreendimentos"
-
-#~ msgid "product"
-#~ msgstr "produto"
-
-#~ msgid "Product|Enterprise"
-#~ msgstr "Empreendimento"
-
-#~ msgid "Product|Product category"
-#~ msgstr "Categoria de Produto"
-
-#~ msgid "Product|Name"
-#~ msgstr "Nome"
-
-#~ msgid "Product|Price"
-#~ msgstr "Preço"
-
-#~ msgid "Product|Description"
-#~ msgstr "Descrição"
-
-#~ msgid "Product|Image"
-#~ msgstr "Imagem"
-
-#~ msgid "ValidationInfo|Validation methodology"
-#~ msgstr "Metodologia de validação"
-
-#~ msgid "ValidationInfo|Restrictions"
-#~ msgstr "Restrições"
-
-#~ msgid "ValidationInfo|Organization"
-#~ msgstr "Organização"
-
-#~ msgid "Profile|Name"
-#~ msgstr "Nome"
-
-#~ msgid "Profile|Type"
-#~ msgstr "Tipo"
-
-#~ msgid "Profile|Identifier"
-#~ msgstr "Identificador"
-
-#~ msgid "Profile|Environment"
-#~ msgstr "Ambiente"
-
-#~ msgid "Profile|Design data"
-#~ msgstr "Dados de design"
-
-#~ msgid "Profile|Active"
-#~ msgstr "Ativo"
-
-#~ msgid "Profile|Address"
-#~ msgstr "Endereço"
-
-#~ msgid "Profile|Contact phone"
-#~ msgstr "Telefone de contato"
-
-#~ msgid "Profile|Home page"
-#~ msgstr "Página inicial"
-
-#~ msgid "Profile|User"
-#~ msgstr "Usuário"
-
-#~ msgid "Profile|Region"
-#~ msgstr "Região"
-
-#~ msgid "person"
-#~ msgstr "pessoa"
-
-#~ msgid "Person|Name"
-#~ msgstr "Nome"
-
-#~ msgid "Person|Type"
-#~ msgstr "Tipo"
-
-#~ msgid "Person|Identifier"
-#~ msgstr "Identificador"
-
-#~ msgid "Person|Environment"
-#~ msgstr "Ambiente"
-
-#~ msgid "Person|Design data"
-#~ msgstr "Dados de design"
-
-#~ msgid "Person|Active"
-#~ msgstr "Ativo"
-
-#~ msgid "Person|Address"
-#~ msgstr "Endereço"
-
-#~ msgid "Person|Contact phone"
-#~ msgstr "Telefone de contato"
-
-#~ msgid "Person|Home page"
-#~ msgstr "Página inicial"
-
-#~ msgid "Person|User"
-#~ msgstr "Usuário"
-
-#~ msgid "Person|Region"
-#~ msgstr "Região"
-
-#~ msgid "Article|Name"
-#~ msgstr "Nome"
-
-#~ msgid "Article|Slug"
-#~ msgstr "Código"
-
-#~ msgid "Article|Path"
-#~ msgstr "Caminho"
-
-#~ msgid "Article|Parent"
-#~ msgstr "Pai"
-
-#~ msgid "Article|Profile"
-#~ msgstr "Perfil"
-
-#~ msgid "Article|Updated on"
-#~ msgstr "Atualizado em"
-
-#~ msgid "Article|Created on"
-#~ msgstr "Criado em"
-
-#~ msgid "Article|Last changed by"
-#~ msgstr "Atualizado por"
-
-#~ msgid "Article|Version"
-#~ msgstr "Versão"
-
-#~ msgid "Article|Lock version"
-#~ msgstr "Trava da versão"
-
-#~ msgid "organization info"
-#~ msgstr "informação da organização"
-
-#~ msgid "OrganizationInfo|Organization"
-#~ msgstr "Organização"
-
-#~ msgid "OrganizationInfo|Contact person"
-#~ msgstr "Pessoa de contato"
-
-#~ msgid "OrganizationInfo|Contact email"
-#~ msgstr "email de contato"
-
-#~ msgid "OrganizationInfo|Acronym"
-#~ msgstr "Acrônimo"
-
-#~ msgid "OrganizationInfo|Foundation year"
-#~ msgstr "Ano de fundação"
-
-#~ msgid "OrganizationInfo|Legal form"
-#~ msgstr "Estatuto Jurídico"
-
-#~ msgid "OrganizationInfo|Economic activity"
-#~ msgstr "Atividade econômica"
-
-#~ msgid "OrganizationInfo|Management information"
-#~ msgstr "Informação de gerenciamento"
-
-#~ msgid "OrganizationInfo|Validated"
-#~ msgstr "Validado"
-
-#~ msgid "task"
-#~ msgstr "tarefa"
-
-#~ msgid "Task|Data"
-#~ msgstr "Dados"
-
-#~ msgid "Task|Status"
-#~ msgstr "Estado"
-
-#~ msgid "Task|End date"
-#~ msgstr "Data de término"
-
-#~ msgid "Task|Requestor"
-#~ msgstr "Solicitante"
-
-#~ msgid "Task|Target"
-#~ msgstr "Alvo"
-
-#~ msgid "Task|Code"
-#~ msgstr "Código"
-
-#~ msgid "person info"
-#~ msgstr "informação pesoal"
-
-#~ msgid "PersonInfo|Name"
-#~ msgstr "Nome"
-
-#~ msgid "PersonInfo|Photo"
-#~ msgstr "Fotografia"
-
-#~ msgid "PersonInfo|Address"
-#~ msgstr "Endereço"
-
-#~ msgid "PersonInfo|Contact information"
-#~ msgstr "Informação de contato"
-
-#~ msgid "PersonInfo|Person"
-#~ msgstr "Pessoa"
-
-#~ msgid "Consumption|Product category"
-#~ msgstr "Categoria de Produto"
-
-#~ msgid "Consumption|Profile"
-#~ msgstr "Perfil"
-
-#~ msgid "Consumption|Aditional specifications"
-#~ msgstr "Especificações adicionais"
-
-#~ msgid "domain"
-#~ msgstr "domínio"
-
-#~ msgid "Domain|Name"
-#~ msgstr "Nome"
-
-#~ msgid "Domain|Owner type"
-#~ msgstr "Tipo do dono"
-
-#~ msgid "Domain|Owner"
-#~ msgstr "Dono"
-
-#~ msgid "image"
-#~ msgstr "imagem"
-
-#~ msgid "Image|Owner type"
-#~ msgstr "Tipo do dono"
-
-#~ msgid "Image|Owner"
-#~ msgstr "Dono"
-
-#~ msgid "Image|Parent"
-#~ msgstr "Pai"
-
-#~ msgid "Image|Content type"
-#~ msgstr "Tipo de conteúdo"
-
-#~ msgid "Image|Filename"
-#~ msgstr "Nome de arquivo"
-
-#~ msgid "Image|Thumbnail"
-#~ msgstr "Miniatura"
-
-#~ msgid "Image|Size"
-#~ msgstr "Tamanho"
-
-#~ msgid "Image|Width"
-#~ msgstr "Largura"
-
-#~ msgid "Image|Height"
-#~ msgstr "Altura"
-
-#~ msgid "Friendship|Person"
-#~ msgstr "Pessoa"
-
-#~ msgid "Friendship|Friend"
-#~ msgstr "Amigo"
-
-#~ msgid "Friendship|Created at"
-#~ msgstr "Criado em"
-
-#~ msgid "User|Login"
-#~ msgstr "Nome de usuário"
-
-#~ msgid "User|Email"
-#~ msgstr "E-mail"
-
-#~ msgid "User|Crypted password"
-#~ msgstr "Senha criptografada"
-
-#~ msgid "User|Salt"
-#~ msgstr "Salto"
-
-#~ msgid "User|Created at"
-#~ msgstr "Criado em"
-
-#~ msgid "User|Updated at"
-#~ msgstr "Atualizado em"
-
-#~ msgid "User|Remember token"
-#~ msgstr "Lembrar token"
-
-#~ msgid "User|Remember token expires at"
-#~ msgstr "Token lembrado expira em"
-
-#~ msgid "User|Terms of use"
-#~ msgstr "Termos de Uso"
-
-#~ msgid "User|Terms accepted"
-#~ msgstr "Termos aceitos"
-
-#~ msgid "environment"
-#~ msgstr "comunidade virtual"
-
-#~ msgid "Environment|Name"
-#~ msgstr "Nome"
-
-#~ msgid "Environment|Contact email"
-#~ msgstr "Email de contato"
-
-#~ msgid "Environment|Is default"
-#~ msgstr "É padrão"
-
-#~ msgid "Environment|Settings"
-#~ msgstr "Configurações"
-
-#~ msgid "Environment|Design data"
-#~ msgstr "Informações de design"
-
-#~ msgid "category"
-#~ msgstr "categoria"
-
-#~ msgid "Category|Name"
-#~ msgstr "Nome"
-
-#~ msgid "Category|Slug"
-#~ msgstr "Slug"
-
-#~ msgid "Category|Path"
-#~ msgstr "Caminho"
-
-#~ msgid "Category|Display color"
-#~ msgstr "Mostrar cor"
-
-#~ msgid "Category|Environment"
-#~ msgstr "Ambiente"
-
-#~ msgid "Category|Parent"
-#~ msgstr "Pais"
-
-#~ msgid "Category|Type"
-#~ msgstr "Tipo"
 
 #~ msgid "Max number of people"
 #~ msgstr "Número máximo de pessoas"

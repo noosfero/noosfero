@@ -6,6 +6,9 @@ class OrganizationInfo < ActiveRecord::Base
   validates_format_of :contact_email, :with => Noosfero::Constants::EMAIL_FORMAT, :if => (lambda { |info| ! info.contact_email.nil? })
 
   def summary
-   [['acronym', acronym], ['foundation year',foundation_year], ['contact email', contact_email]] 
+    # FIXME diplays too few fields
+    [ 'acronym', 'foundation_year', 'contact_email'].map do |col|
+      [ OrganizationInfo.columns_hash[col].human_name, self.send(col) ]
+    end
   end
 end
