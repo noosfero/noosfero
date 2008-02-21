@@ -142,3 +142,5 @@ class ActionController::IntegrationTest
     assert_not_equal '/account/login', path
   end
 end
+
+Profile
