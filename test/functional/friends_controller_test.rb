@@ -21,6 +21,13 @@ class FriendsControllerTest < Test::Unit::TestCase
   end
   attr_accessor :profile, :friend
 
+  should 'list friends' do
+    get :index
+    assert_response :success
+    assert_template 'index'
+    assert_kind_of Array, assigns(:friends)
+  end
+
   should 'confirm addition of new friend' do
     get :add, :id => friend.id
 
