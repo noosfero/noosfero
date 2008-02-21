@@ -143,4 +143,19 @@ class PersonTest < Test::Unit::TestCase
     assert_equal 6,  p.blocks.size
   end
 
+  should 'have friends' do
+    p1 = create_user('testuser1').person
+    p2 = create_user('testuser2').person
+    
+    Friendship.create!(:person => p1, :friend => p2)
+
+    assert_equal [p2], p1.friends
+
+    p3 = create_user('testuser3').person
+    Friendship.create!(:person => p1, :friend => p3)
+
+    assert_equal [p2,p3], p1.friends(true) # force reload
+
+  end
+
 end

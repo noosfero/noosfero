@@ -2,8 +2,9 @@
 class Person < Profile
   acts_as_accessor
 
-#  has_many :friendships
-#  has_many :friends, :class_name => 'Person', :through => :friendships
+  has_many :friendships
+  has_many :friends, :class_name => 'Person', :through => :friendships
+
 #  has_many :person_friendships
 #  has_many :people, :through => :person_friendships, :foreign_key => 'friend_id'
   
