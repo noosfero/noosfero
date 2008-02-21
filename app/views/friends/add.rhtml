@@ -1,0 +1,17 @@
+<h1><%= _('Adding %s as a friend') % @friend.name %></h1>
+
+<p>
+<%= _('Are you sure you want to add %s as your friend?') % @friend.name %>
+</p>
+
+<p>
+<em>
+<%= _('Note that %s will need to accept being added as your friend.') % @friend.name %>
+</em>
+</p>
+
+<% form_tag do %>
+  <%= hidden_field_tag(:confirmation, 1) %>
+  <%= submit_button(:ok, _("Yes, I want to add %s as my friend") % @friend.name) %>
+  <%= button(:cancel, _("No, I don't want"), :action => 'index') %>
+<% end %>
