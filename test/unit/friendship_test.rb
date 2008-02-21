@@ -1,10 +1,25 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class FriendshipTest < Test::Unit::TestCase
-  fixtures :friendships
 
-  # Replace this with your real tests.
-  def test_truth
-    assert true
+  should 'connect a person to another' do
+    p1 = Person.new
+    p2 = Person.new
+
+    f = Friendship.new
+    assert_raise ActiveRecord::AssociationTypeMismatch do
+      f.person = Organization.new
+    end
+    assert_raise ActiveRecord::AssociationTypeMismatch do
+      f.friend = Organization.new
+    end
+    assert_nothing_raised do
+      f.person = p1
+      f.friend = p2
+    end
+
+    f.save!
+
   end
+
 end
