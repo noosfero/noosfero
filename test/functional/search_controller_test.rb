@@ -16,9 +16,8 @@ class SearchControllerTest < Test::Unit::TestCase
     get 'index', :query => 'teste'
     assert_response :success
     assert_template 'index'
-    assert assigns('results')
-    assert assigns('results').include?(ent)
-
+    assert assigns('enterprises')
+    assert assigns('enterprises').include?(ent)
   end
 
   should 'filter stop words' do

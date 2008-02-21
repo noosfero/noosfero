@@ -1,11 +1,8 @@
-<%# FIXME add photo if available %>
 <%# FIXME add more information %>
 
-<div>
-  <%= icon('person', :style => 'float: left') %>
-  <div class='search-result-text'>
-    <strong>
-      <%= link_to_homepage(hit.name, hit.identifier) %>
-    </strong>
-  </div>
+<div class='search-result-text'>
+  <%= image_tag(hit.image.public_filename(:minor)) if hit.image %>
+  <strong>
+    <%= link_to_homepage(hit.name, hit.identifier) %>
+  </strong>
 </div>

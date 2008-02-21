@@ -1,15 +1,15 @@
-<%# FIXME add photo if available %>
 <%# FIXME add more information %>
 
-<div>
-  <%= icon('product', :style => 'float: left') %>
   <div class='search-result-text'>
-    <%= image_tag(hit.image.public_filename(:minor), :style => 'float:right;') if hit.image %>
-      <strong>
+    <%= image_tag(hit.image.public_filename(:minor)) if hit.image %>
+    <strong>
       <%= link_to_product(hit) %>
-    </strong> <br/>
-    <%= _('Price: %d') % hit.price %> <br>
-    <%= _('Suplier: %s') % link_to_homepage(hit.enterprise.name, hit.enterprise.identifier) if  hit.enterprise  %> <br>
-    <%= _('Category: %s') % link_to_category(hit.product_category) %>
+    </strong> 
+    <ul>
+      <li> <%= _('Price: %d') % hit.price %> </li>
+      <% if hit.enterprise %>
+        <li> <%= _('Suplier: %s') % link_to_homepage(hit.enterprise.name, hit.enterprise.identifier) %> </li>
+      <% end %>
+      <li> <%= _('Category: %s') % link_to_category(hit.product_category) %> </li>
+    </ul>
   </div>
-</div>

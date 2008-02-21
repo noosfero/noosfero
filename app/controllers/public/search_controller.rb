@@ -2,35 +2,10 @@ class SearchController < ApplicationController
 
   helper TagsHelper
 
-  SEARCHES = []
-
-  def self.search(&block)
-    SEARCHES << block
-  end
-
   protected
 
-  #############################################
-  # XXX add yours searches here
-  #############################################
-
-  search do |query|
-    Article.find_by_contents(query)
-  end
-
-  search do |query|
-    Profile.find_by_contents(query)
-  end
-
-  search do |query|
-    Product.find_by_contents(query)
-  end
-
-  # auxiliary method to search in all defined searches and collect the results 
-  def search(query)
-    SEARCHES.inject([]) do |acc,finder|
-      acc += finder.call(query)
-    end.sort_by do |hit|
+  def search(klass, query)
+    klass.find_by_contents(query).sort_by do |hit|
       -(relevance_for(hit))
     end
   end
@@ -42,7 +17,8 @@ class SearchController < ApplicationController
   def index
     @query = params[:query] || ''
     @filtered_query = remove_stop_words(@query)
-    @results = search(@filtered_query)
+    @articles, @people, @enterprises, @communities, @products = 
+      [Article, Person, Enterprise, Community, Product].map{ |klass| search(klass, @query) }
   end
 
   def tags

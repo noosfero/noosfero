@@ -1,6 +1,16 @@
 <h2> <%= _('Search results for "%s"') % @query %> </h2>
 
-<% @results.each do |hit| %>
-  <%= render :partial => partial_for_class(hit.class), :locals => { :hit => hit } %>
-  <br style='clear: left'/>
+<% [ [@articles, _('Articles'), 'articles'], 
+     [@people, _('People'), 'people'], 
+     [@enterprises, _('Entreprises'), 'enterprises'], 
+     [@communities, _('Communities'), 'communities'], 
+     [@products, _('Products'), 'products'] ].each do |results, iname, name| %>
+  <% if results && !results.empty? %>
+    <div id="search-result-<%= name %>">
+      <h3> <%= iname %> </h3>
+      <% results.each do |hit| %>
+        <%= render :partial => partial_for_class(hit.class), :locals => { :hit => hit } %>
+      <% end %>
+    </div>
+  <% end %>
 <% end %>
