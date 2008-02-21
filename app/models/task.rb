@@ -128,9 +128,23 @@ class Task < ActiveRecord::Base
   def perform
   end
 
+  # Tells wheter e-mail notifications must be sent or not. Returns
+  # <tt>true</tt> by default (i.e. notification are sent), but can be overriden
+  # in subclasses to disable notifications or even to send notifications based
+  # on some conditions.
+  def sends_email?
+    true
+  end
+
   # sends notification e-mail about a task, if the task has a requestor.
+  #
+  # If 
   def send_notification(action)
-    TaskMailer.send("deliver_task_#{action}", self) if self.requestor
+    if sends_email?
+      if self.requestor
+        TaskMailer.send("deliver_task_#{action}", self)
+      end
+    end
   end
 
   class << self
