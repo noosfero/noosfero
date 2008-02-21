@@ -60,7 +60,10 @@ class ProfileListBlock < Block
     title = self.title
     lambda do
       block_title(title) +
-      profiles.map {|item| content_tag('div', profile_image_link(item), :class => 'profile-list-block-link') }.join("\n")
+      content_tag(
+        'ul',
+        profiles.map {|item| content_tag('li', profile_image_link(item)) }.join("\n")
+      )
     end
   end
 
