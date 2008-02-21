@@ -1,0 +1,5 @@
+<ul>
+  <%if logged_in? && (user != profile) %>
+    <li><%= link_to _('Add friend'), :profile => user.identifier, :controller => 'friends', :action => 'add', :id => profile.id %></li>
+  <% end %>
+</ul>
