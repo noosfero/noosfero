@@ -13,6 +13,7 @@ class TasksControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
 
     self.profile = create_user('testuser').person
+    @controller.stubs(:profile).returns(profile)
   end
   attr_accessor :profile
 
@@ -24,10 +25,32 @@ class TasksControllerTest < Test::Unit::TestCase
     assert_kind_of Array, assigns(:tasks)
   end
 
-  should 'display form for resolving a task'
+  should 'list processed tasks' do
+    get :processed
 
-  should 'be able to finish a task'
+    assert_response :success
+    assert_template 'processed'
+    assert_kind_of Array, assigns(:tasks)
+  end
 
-  should 'be able to cancel a task'
+  should 'be able to finish a task' do
+    t = profile.tasks.build; t.save!
+
+    post :close, :decision => 'finish', :id => t.id
+    assert_redirected_to :action => 'index'
+
+    t.reload
+    ok('task should be finished') { t.status == Task::Status::FINISHED }
+  end
+
+  should 'be able to cancel a task' do
+    t = profile.tasks.build; t.save!
+
+    post :close, :decision => 'cancel', :id => t.id
+    assert_redirected_to :action => 'index'
+
+    t.reload
+    ok('task should be cancelled') { t.status == Task::Status::CANCELLED }
+  end
 
 end

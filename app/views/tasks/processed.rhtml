@@ -1,0 +1,15 @@
+<h1><%= _("%s's processed tasks") % profile.name %></h1>
+
+<% if @tasks.empty? %>
+  <p><em><%= _('No processed tasks.') %></em></p>
+<% else %>
+  <ul>
+    <% @tasks.each do |item| %>
+      <li><%= item.class.name %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% button_bar do %>
+  <%= button(:back, _('Back'), :action => 'index') %>
+<% end %>

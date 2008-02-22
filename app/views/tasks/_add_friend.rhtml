@@ -7,12 +7,12 @@
 <% labelled_form_for('task', task, :url => { :action => 'close', :id => task.id } ) do |f| %>
 
   <div>
-  <%= radio_button_tag(:action, 'accept', true) %>
+  <%= radio_button_tag(:decision, 'finish', true) %>
   <%= _('Accept') %>
   </div>
 
   <div>
-  <%= radio_button_tag(:action, 'ignore', false) %>
+  <%= radio_button_tag(:decision, 'cancel', false) %>
   <%= _('Ignore') %>
   </div>
 
