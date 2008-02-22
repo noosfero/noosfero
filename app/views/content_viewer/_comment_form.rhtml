@@ -1,6 +1,15 @@
-<h3><%= _('Post a comment') %></h3>
+<%
+  comment_form_id = 'comment_form'+ rand(9999).to_s
+%>
+<div
+  class="post_comment_box closed"
+  onclick="f=$(<%= comment_form_id %>); f.style.display='block';
+           this.className = this.className.replace(/closed/,'opened');
+           f.commit.focus(); f['comment[title]'].focus()">
 
-<% form_tag do %>
+<h4><%= _('Post a comment') %></h4>
+
+<% form_tag( {}, { :id => comment_form_id, :style => 'display:none' } ) do %>
 
   <% unless logged_in? %>
 
@@ -14,8 +23,10 @@
   <% end %>
 
   <%= labelled_form_field(_('Title'), text_field(:comment, :title)) %>
-  <%= labelled_form_field(_('Enter your comment'), text_area(:comment, :body)) %>
+  <%= labelled_form_field(_('Enter your comment'), text_area(:comment, :body, :rows => 5)) %>
   <% button_bar do %>
-    <%= submit_button('post', _('Post comment')) %>
+    <%= submit_button('add', _('Post comment')) %>
   <% end %>
 <% end %>
+
+</div><!-- end class="post_comment_box" -->

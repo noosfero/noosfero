@@ -172,7 +172,6 @@ body.category4 #assets_menu_layout_iten { background: url(/images/top-bar/assets
 #assets_menu_list {
   padding: 0px 0px 6px 5px;
   background: url(/images/top-bar/assets-menu-bg-azul.gif) 0% 100%;
-  Xborder-right: 1px solid #2A5896;
 }
 body.category1 #assets_menu_list { background-image: url(/images/top-bar/assets-menu-bg-laranja.gif)   }
 body.category2 #assets_menu_list { background-image: url(/images/top-bar/assets-menu-bg-verde.gif)     }
@@ -194,8 +193,9 @@ body.category4 #assets_menu_list { background-image: url(/images/top-bar/assets-
   list-style: none;
 }
 
+#user_menu_head,
 #user_box a,
-/*#assets_menu a,*/
+#assets_menu a,
 .top_extra_menu a {
   font-size: 12px;
   font-weight: bold;
@@ -208,13 +208,21 @@ body.category4 #assets_menu_list { background-image: url(/images/top-bar/assets-
   overflow: hidden;
   position: relative;
 }
+body.category1 #user_menu_head,
 body.category1 #user_box a,
+body.category1 #assets_menu a,
 body.category1 .top_extra_menu a { color: #FDD79E }
+body.category2 #user_menu_head,
 body.category2 #user_box a,
+body.category2 #assets_menu a,
 body.category2 .top_extra_menu a { color: #C4F099 }
+body.category3 #user_menu_head,
 body.category3 #user_box a,
+body.category3 #assets_menu a,
 body.category3 .top_extra_menu a { color: #D6BFD3 }
+body.category4 #user_menu_head,
 body.category4 #user_box a,
+body.category4 #assets_menu a,
 body.category4 .top_extra_menu a { color: #F79494 }
 #user_box a:hover,
 .top_extra_menu a:hover {
@@ -235,7 +243,7 @@ body.category3 .top_extra_menu a:hover { background: #75507B; color: #FFF }
 body.category4 #user_box a:hover,
 body.category4 .top_extra_menu a:hover { background: #CC0000; color: #FFF }
 
-#user_box a img,
+#user_box img,
 #user_box a span,
 .top_extra_menu a span {
 	position: absolute;
@@ -250,18 +258,18 @@ body.category4 .top_extra_menu a:hover { background: #CC0000; color: #FFF }
   opacity: 0.7;
 	filter: alpha(opacity=70);
 }
-.msie5 #user_box a img,
+/*.msie5 #user_box img,*/
 .msie5 #user_box a span,
 .msie5 .top_extra_menu a span {
   display: none;
 }
-#user_box a img,
+#user_box img,
 #user_box a:hover span,
 .top_extra_menu a:hover span {
   opacity: 1;
 	filter: alpha(opacity=100);
 }
-#user_box a img {
+#user_box img {
   border: none;
   top: -1px;
   left: -1px;
@@ -297,11 +305,21 @@ body.category4 .top_extra_menu a:hover { background: #CC0000; color: #FFF }
   width: 170px;
 }
 
-#user_box a.user_menu_first_link {
+#user_menu_head {
+  overflow: visible;
+  cursor: default;
+}
+#user_menu_head span {
+  position: relative;
+  top: 1px;
+}
+
+#user_menu_head,
+#user_box a#link_login {
   margin-left: 25px;
   display: inline;
 }
-#user_menu .user_menu_first_link:hover {
+#user_menu a#link_login:hover {
   background: none;
 }
 

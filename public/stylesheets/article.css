@@ -1,0 +1,50 @@
+/*
+** Style for Article Related Elements
+*/
+
+.post_comment_box {
+  text-align: center;
+  padding: 0px 15px 5px 15px;
+  margin: 10px;
+}
+
+.post_comment_box h4 {
+  padding: 1px 20px;
+  margin: 0px;
+  background: #B8CFE7;
+}
+
+.post_comment_box.closed h4 {
+  display: inline;
+  border: 1px solid #729FCF;
+  cursor: pointer;
+}
+
+.post_comment_box.opened {
+  border: 1px solid #729FCF;
+  background: #B8CFE7;
+}
+
+.post_comment_box form {
+  text-align: left;
+  margin: -10px 0px 0px 0px;
+}
+
+.post_comment_box .formfield * {
+  width: 99%;
+}
+
+.post_comment_box .button-bar {
+  text-align: center;
+}
+
+.post_comment_box input.button {
+  position: relative;
+  float: none;
+  margin: auto;
+}
+
+.post_comment_box .button-bar br {
+  display: none;
+}
+

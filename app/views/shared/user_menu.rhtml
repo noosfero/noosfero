@@ -1,37 +1,30 @@
 <div id="user_menu" class="top_extra_menu AOM_paddingBottom_6">
 
 <% if logged_in? %>
-  <%=
-  link_to_homepage '<img src="' + (
-      (current_user.person.image)? current_user.person.image.public_filename(:icon) : "/images/icons-bar/photo.png"
-    ) +
-    '" alt="'+ current_user.login() +' Icon-Photo" title="" height="20" border="0"/>'+
-    current_user.login, current_user.login, :id=>'link_go_home', :class => 'user_menu_first_link'
-  %>
+
+  <div id="user_menu_head">
+    <img src="<%=
+    (current_user.person.image)?
+    current_user.person.image.public_filename(:icon) : "/images/icons-bar/photo.png"
+    %>" alt="<%= current_user.login %> Icon-Photo" title="" height="20" border="0"/>
+    <span><%= _("%s's Menu") % current_user.login %></span>
+  </div>
+
   <div id="user_menu_ul">
     <ul>
 
-      <li><a href="#"><span class="icon-menu-blog"></span> Meu Blog</a></li>
+      <li><a href="<%= homepage_path(:profile => current_user.login) %>"><span class="icon-menu-home"></span><%= _('My Home Page') %></a></li>
+
+      <!-- li><a href="#"><span class="icon-menu-blog"></span> Meu Blog</a></li -->
 
       <li><%= link_to_myprofile( '<span class="icon-menu-ctrl-panel"></span>'+ _('control panel'),
                                    {}, nil, :id => 'link_edit_profile' ) %></li>
 
-      <li><%= link_to( '<span class="icon-menu-edit"></span>'+_('Edit Profile'),
-                      :controller => 'profile_editor', :profile => user.identifier, :action => 'edit' ) %></li>
-
-      <li><%= link_to( '<span class="icon-menu-product"></span>'+_('Consumed Products'),
-                      :profile => user.identifier, :controller => 'consumed_products' ) %></li>
       <%=
         '<li>'+ link_to( '<span class="icon-menu-"></span>'+ _('Admin'),
                          { :controller => 'admin_panel' }, :id => 'link_admin_panel' ) +
         '</li>' if user.is_admin?
       %>
-
-      <li><%= link_to( '<span class="icon-menu-ed-design"></span>'+_('Edit Visual Design'),
-                       :controller => 'profile_design', :profile => user.identifier ) %></li>
-
-      <li><%= link_to( '<span class="icon-menu-"></span>'+_('Manage Content'),
-                       :controller => 'cms', :profile => user.identifier) %></li>
 
       <li><%= lightbox_link_to( '<span class="icon-menu-logout"></span>'+ _('Logout'),
                                 { :controller => 'account', :action => 'logout_popup'}, :id => 'link_logout' ) %></li>
@@ -43,7 +36,7 @@
 
 <%= lightbox_link_to '<span class="icon-menu-login"></span>'+ _('Login'),
                      { :controller => 'account', :action => 'login_popup' },
-                     :id => 'link_login', :class => 'user_menu_first_link' %>
+                     :id => 'link_login' %>
 
 <% end %>
 
