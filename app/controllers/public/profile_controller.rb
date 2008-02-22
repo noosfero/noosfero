@@ -12,4 +12,12 @@ class ProfileController < ApplicationController
     @tagged = profile.find_tagged_with(@tag)
   end
 
+  def communities
+    @communities = profile.communities
+  end
+
+  def enterprises
+    @enterprises = profile.enterprises
+  end
+
 end

@@ -28,9 +28,13 @@ class Person < Profile
     memberships(:type => Enterprise.name)
   end
 
+  alias :enterprises :enterprise_memberships
+
   def community_memberships
     memberships(:type => Community.name)
   end
+
+  alias :communities :community_memberships
 
   
   def info
