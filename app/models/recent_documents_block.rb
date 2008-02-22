@@ -6,6 +6,7 @@ class RecentDocumentsBlock < Block
 
   settings_items :limit
 
+  include ActionController::UrlWriter
   def content
     docs =
       if self.limit.nil?

@@ -2,6 +2,7 @@ class TagsBlock < Block
 
   include TagsHelper
   include BlockHelper
+  include ActionController::UrlWriter
 
   def self.description
     _('Block listing content count by tag')
@@ -16,7 +17,7 @@ class TagsBlock < Block
     block_title(_('Tags')) +
     "\n<div class='tag_cloud'>\n"+
     tag_cloud( owner.tags, :id,
-               owner.generate_url(:controller => 'profile', :action => 'tag') + '/',
+               owner.generate_url(:controller => 'profile', :action => 'tag'),
                :max_size => 18, :min_size => 9 ) +
     "\n</div><!-- end class='tag_cloud' -->\n";
   end

@@ -59,7 +59,7 @@
         <%= _('"%{article}", last changed by %{author}') % { :article => @article.name, :author => (@article.last_changed_by ? @article.last_changed_by.name : _('Unknown User')) } %>
         </li>
         <li>
-        <%= _('Public address of this article: %s') % link_to(@article.public_path, @article.public_path) %>
+        <%= _('Public address of this article: %s') % link_to(@article.url, @article.url) %>
         </li>
         <li>
         <%= _('Tags:') %> <%= @article.tag_list %>

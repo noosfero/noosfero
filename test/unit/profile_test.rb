@@ -247,23 +247,23 @@ class ProfileTest < Test::Unit::TestCase
   should 'provide url to itself' do
     profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile', :environment_id => create_environment('mycolivre.net').id)
 
-    assert_equal 'http://mycolivre.net/testprofile', profile.url
+    assert_equal({ :host => 'mycolivre.net', :profile => 'testprofile', :controller => 'content_viewer', :action => 'view_page', :page => []}, profile.url)
   end
 
   should 'provide URL to admin area' do
     profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile', :environment_id => create_environment('mycolivre.net').id)
-    assert_equal 'http://mycolivre.net/myprofile/testprofile', profile.admin_url
+    assert_equal({ :host => 'mycolivre.net', :profile => 'testprofile', :controller => 'profile_editor', :action => 'index'}, profile.admin_url)
   end
 
   should 'provide URL to public profile' do
     profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile', :environment_id => create_environment('mycolivre.net').id)
-    assert_equal 'http://mycolivre.net/profile/testprofile', profile.public_profile_url
+    assert_equal({ :host => 'mycolivre.net', :profile => 'testprofile', :controller => 'profile', :action => 'index' }, profile.public_profile_url)
   end
 
   should 'generate URL' do
     profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile', :environment_id => create_environment('mycolivre.net').id)
 
-    assert_equal 'http://mycolivre.net/profile/testprofile/friends', profile.generate_url(:controller => 'profile', :action => 'friends')
+    assert_equal({ :host => 'mycolivre.net', :profile => 'testprofile', :controller => 'profile', :action => 'friends' }, profile.generate_url(:controller => 'profile', :action => 'friends'))
   end
 
   should 'provide URL options' do

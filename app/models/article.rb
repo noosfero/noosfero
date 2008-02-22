@@ -69,14 +69,6 @@ class Article < ActiveRecord::Base
     name
   end
 
-  def public_path(with_profile = true)
-    elements = [path]
-    if with_profile
-      elements.unshift(profile.identifier)
-    end
-    "/" + elements.join('/')
-  end
-
   def self.short_description
     if self == Article
       _('Article')
@@ -98,7 +90,7 @@ class Article < ActiveRecord::Base
   end
 
   def url
-    self.profile.url + self.public_path(false)
+    self.profile.url.merge(:page => path.split('/'))
   end
 
   def allow_children?

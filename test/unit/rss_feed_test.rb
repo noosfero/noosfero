@@ -32,7 +32,7 @@ class RssFeedTest < Test::Unit::TestCase
     feed = RssFeed.new(:name => 'testfeed')
     feed.profile = profile
     feed.save!
-  
+
     rss = feed.data
     assert_match /<item><title>article 1<\/title>/, rss
     assert_match /<item><title>article 2<\/title>/, rss
@@ -48,7 +48,7 @@ class RssFeedTest < Test::Unit::TestCase
     feed = RssFeed.new(:name => 'testfeed')
     feed.profile = profile
     feed.save!
-  
+
     rss = feed.data
     assert_no_match /<item><title>testfeed<\/title>/, rss
   end
@@ -112,7 +112,9 @@ class RssFeedTest < Test::Unit::TestCase
     feed.profile = profile
     feed.save!
 
-    assert_match "<link>#{profile.url}</link>", feed.data
+    profile.environment.expects(:default_hostname).returns('mysite.net').at_least_once
+
+    assert_match "<link>http://mysite.net/testuser</link>", feed.data
   end
 
   should 'provide link to each article' do
@@ -123,8 +125,8 @@ class RssFeedTest < Test::Unit::TestCase
     feed.save!
 
     data = feed.data
-    assert_match "<link>#{art.url}</link>", data
-    assert_match "<guid>#{art.url}</guid>", data
+    assert_match "<link>http://#{art.profile.environment.default_hostname}/testuser/myarticle</link>", data
+    assert_match "<guid>http://#{art.profile.environment.default_hostname}/testuser/myarticle</guid>", data
   end
 
   should 'be able to indicate maximum number of items' do

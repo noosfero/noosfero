@@ -106,19 +106,6 @@ class ArticleTest < Test::Unit::TestCase
     assert a4.errors.invalid?(:slug)
   end
 
-  should 'calculate public path' do
-    # top level
-    a = profile.articles.build(:name => 'aaa')
-    a.save!
-    assert_equal "/#{profile.identifier}/aaa", a.public_path
-
-    # child articles
-    b = profile.articles.build(:name => 'bbb')
-    b.parent = a
-    b.save!
-    assert_equal "/#{profile.identifier}/aaa/bbb", b.public_path
-  end
-
   should 'record who did the last change' do
     a = profile.articles.build(:name => 'test')
 
@@ -172,7 +159,14 @@ class ArticleTest < Test::Unit::TestCase
     article = profile.articles.build(:name => 'myarticle')
     article.save!
 
-    assert_equal(profile.url + "/myarticle", article.url)
+    assert_equal(profile.url.merge(:page => ['myarticle']), article.url)
+  end
+
+  should 'provide a url to itself having a parent topic' do
+    parent = profile.articles.build(:name => 'parent');  parent.save!
+    child = profile.articles.build(:name => 'child', :parent => parent); child.save!
+
+    assert_equal(profile.url.merge(:page => [ 'parent', 'child']), child.url)
   end
 
   should 'associate with categories' do

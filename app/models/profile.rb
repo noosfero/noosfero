@@ -183,7 +183,6 @@ class Profile < ActiveRecord::Base
     false
   end
 
-  include ActionController::UrlWriter
   def url
     generate_url(url_options.merge(:controller => 'content_viewer', :action => 'view_page', :page => []))
   end
@@ -197,14 +196,11 @@ class Profile < ActiveRecord::Base
   end
 
   def generate_url(options)
-    url_for(url_options.merge(options))
+    url_options.merge(options)
   end
 
   def url_options
-    options = { :host => self.environment.default_hostname, :profile => self.identifier}
-    options.merge!(:port => 3000) if ENV['RAILS_ENV'] == 'development'
-
-    options
+    { :host => self.environment.default_hostname, :profile => self.identifier}
   end
 
   # FIXME this can be SLOW
