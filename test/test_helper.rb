@@ -2,7 +2,8 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'test_help'
 require 'mocha'
-require 'noosfero_test'
+
+require 'noosfero/test'
 
 class Test::Unit::TestCase
   # Transactional fixtures accelerate your tests by wrapping each test method

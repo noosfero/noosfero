@@ -1,4 +1,4 @@
-module NoosferoTest
+module Noosfero::Test
 
   def get(path, parameters = nil, headers = nil)
     super(path, (parameters ? self.class.extra_parameters.merge(parameters) : self.class.extra_parameters) , headers)
@@ -14,10 +14,10 @@ module NoosferoTest
       def extra_parameters
         @noosfero_test_extra_parameters
       end
-      include NoosferoTest
+      include Noosfero::Test
     end
   end
 
 end
 
-Test::Unit::TestCase.send(:extend, NoosferoTest::ClassMethods)
+Test::Unit::TestCase.send(:extend, Noosfero::Test::ClassMethods)
