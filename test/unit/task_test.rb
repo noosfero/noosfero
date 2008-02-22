@@ -149,51 +149,24 @@ class TaskTest < Test::Unit::TestCase
     task.save!
   end
 
-  should 'be able to list pending tasks for a given target' do
-    target = sample_user 
+  should 'be able to list pending tasks' do
+    Task.delete_all
+    t1 = Task.create!
+    t2 = Task.create!
+    t2.finish
+    t3 = Task.create!
 
-    assert_equal [], Task.pending_for(target)
-
-    task = Task.new
-    task.target = target
-    task.save!
-
-    assert_equal [task], Task.pending_for(target)
+    assert_equal [t1,t3], Task.pending
   end
 
-  should 'be able to pass extra conditions for getting pending tasks' do
-    target = sample_user
+  should 'be able to list finished tasks' do
+    Task.delete_all
+    t1 = Task.create!
+    t2 = Task.create!
+    t2.finish
+    t3 = Task.create!
 
-    task = Task.new
-    task.target = target
-    task.save!
-
-    assert_equal [], Task.pending_for(target, :id => -1)
-  end
-
-  should 'be able to list processed tasks' do
-    target = sample_user
-
-    task = Task.new
-    task.target = target
-    task.finish
-
-    # this one shouldn't be listed as processed, since it was not
-    task2 = Task.new
-    task2.target = target
-    target.save!
-
-    assert_equal [task], Task.processed_for(target)
-  end
-
-  should 'be able to pass optional parameters for getting processed tasks' do
-    target = sample_user
-
-    task = Task.new
-    task.target = target
-    task.finish
-
-    assert_equal [], Task.processed_for(target, :id => -1)
+    assert_equal [t2], Task.finished
   end
 
   protected
