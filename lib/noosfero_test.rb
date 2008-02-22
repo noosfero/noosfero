@@ -8,5 +8,16 @@ module NoosferoTest
     super(path, (parameters ? self.class.extra_parameters.merge(parameters) : self.class.extra_parameters), headers)
   end
 
+  module ClassMethods
+    def noosfero_test(parameters)
+      instance_variable_set('@noosfero_test_extra_parameters', parameters)
+      def extra_parameters
+        @noosfero_test_extra_parameters
+      end
+      include NoosferoTest
+    end
+  end
 
 end
+
+Test::Unit::TestCase.send(:extend, NoosferoTest::ClassMethods)
