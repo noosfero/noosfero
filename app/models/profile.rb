@@ -200,7 +200,26 @@ class Profile < ActiveRecord::Base
   end
 
   def url_options
-    { :host => self.environment.default_hostname, :profile => self.identifier}
+    options = { :host => self.environment.default_hostname, :profile => self.identifier}
+
+    # help developers by generating a suitable URL for development environment 
+    if (ENV['RAILS_ENV'] == 'development')
+      options.merge!(development_url_options)
+    end
+
+    options
+  end
+
+  # FIXME couldn't think of a way to test this.
+  #
+  # Works (tested by hand) on Rails 2.0.2, with mongrel. Should work with
+  # webrick too.
+  def development_url_options # :nodoc:
+    if Object.const_defined?('OPTIONS')
+      { :port => OPTIONS[:port ]}
+    else
+      {}
+    end
   end
 
   # FIXME this can be SLOW

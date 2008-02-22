@@ -272,6 +272,14 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal({:host => 'mycolivre.net', :profile => 'testprofile'}, profile.url_options)
   end
 
+  should 'help developers by adding a suitable port to url options' do
+    profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile', :environment_id => create_environment('mycolivre.net').id)
+
+    ENV.expects(:[]).with('RAILS_ENV').returns('development')
+    profile.expects(:development_url_options).returns({ :port => 9999 })
+    ok('Profile#url_options must include port option when running in development mode') { profile.url_options[:port] == 9999 }
+  end
+
   should 'list tags for profile' do
     profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile')
     profile.articles.build(:name => 'first', :tag_list => 'first-tag').save!
