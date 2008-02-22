@@ -324,21 +324,30 @@ module ApplicationHelper
   def stylesheet_import(*sources)
     options = sources.last.is_a?(Hash) ? sources.pop : { }
     themed_source = options.delete(:themed_source) 
-    content_tag( 'style', 
+    content_tag(
+      'style',
       "\n" +
       sources.flatten.map do |source|
-        '  @import url(' +
-        ( themed_source ? theme_stylesheet_path(source.to_s) : stylesheet_path(source.to_s) ) +
-        ");\n";
+        filename = filename_for_stylesheet(source.to_s, themed_source)
+        if File.exists?(File.join(RAILS_ROOT, 'public', filename))
+          "@import url(#{filename});\n"
+        else
+          ''
+        end
       end.join(),
       { "type" => "text/css" }.merge(options)
     )
   end 
 
-  def theme_stylesheet_path(file_name)
-    '/designs/templates/' + current_theme + '/stylesheets/' + file_name + '.css'
+  def filename_for_stylesheet(name, in_theme)
+    result = ''
+    if in_theme
+      result << '/designs/templates/' + current_theme
+    end
+    result << '/stylesheets/' << name << '.css'
   end
 
+  # FIXME do not hardcode 'default' like this
   def current_theme
     'default'
   end
