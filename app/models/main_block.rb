@@ -5,7 +5,7 @@ class MainBlock < Block
   end
 
   def content
-    main_content
+    nil
   end
 
   def main?

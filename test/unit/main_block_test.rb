@@ -7,4 +7,8 @@ class MainBlockTest < Test::Unit::TestCase
     assert_not_equal Block.description, MainBlock.description
   end
 
+  should 'have no content' do
+    ok("MainBlock must not have a content") { MainBlock.new.content.blank? }
+  end
+
 end
