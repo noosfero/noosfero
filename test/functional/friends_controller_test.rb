@@ -5,11 +5,7 @@ class FriendsController; def rescue_action(e) raise e end; end
 
 class FriendsControllerTest < Test::Unit::TestCase
 
-  include NoosferoTest
-
-  def self.extra_parameters
-    { :profile => 'testuser' }
-  end
+  noosfero_test :profile => 'testuser'
 
   def setup
     @controller = FriendsController.new
