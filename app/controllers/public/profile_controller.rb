@@ -20,4 +20,8 @@ class ProfileController < ApplicationController
     @enterprises = profile.enterprises
   end
 
+  def friends
+    @friends= profile.friends
+  end
+
 end

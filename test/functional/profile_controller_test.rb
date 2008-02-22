@@ -9,10 +9,18 @@ class ProfileControllerTest < Test::Unit::TestCase
     @controller = ProfileController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
+
+    @profile = create_user('testuser').person
   end
 
-  # Replace this with your real tests.
-  def test_truth
-    assert true
+  noosfero_test :profile => 'testuser'
+
+  should 'list friends' do
+    get :friends
+
+    assert_response :success
+    assert_template 'friends'
+    assert_kind_of Array, assigns(:friends)
   end
+
 end
