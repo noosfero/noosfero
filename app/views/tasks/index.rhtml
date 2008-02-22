@@ -1,0 +1,7 @@
+<h1><%= _('Pending tasks') %></h1>
+
+<ul class='task-list'>
+  <% @tasks.each do |item| %>
+    <li><%= render :partial => partial_for_class(item.class), :locals => { :task => item } %></li>
+  <% end %>
+</ul>

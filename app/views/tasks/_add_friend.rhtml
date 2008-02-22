@@ -1,0 +1,22 @@
+<h2><%= _('New friend')  %></h2>
+
+<p>
+<%= _('%s wants to connect to you as a friend.') % task.requestor.name %>
+</p>
+
+<% labelled_form_for('task', task, :url => { :action => 'close', :id => task.id } ) do |f| %>
+
+  <div>
+  <%= radio_button_tag(:action, 'accept', true) %>
+  <%= _('Accept') %>
+  </div>
+
+  <div>
+  <%= radio_button_tag(:action, 'ignore', false) %>
+  <%= _('Ignore') %>
+  </div>
+
+  <% button_bar do %>
+    <%= submit_button(:ok, _('OK')) %>
+  <% end %>
+<% end %>
