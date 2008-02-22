@@ -345,7 +345,7 @@ class ProfileTest < Test::Unit::TestCase
     t2 = c.tasks.build
     t2.save!
 
-    assert_equal [t1, t2]. c.tasks
+    assert_equal [t1, t2], c.tasks
   end
 
   should 'have pending tasks' do
