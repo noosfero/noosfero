@@ -13,7 +13,7 @@ class TasksController < MyProfileController
   def close
     decision = params[:decision]
     if request.post? && VALID_DECISIONS.include?(decision) && params[:id]
-      task = Task.find(params[:id])
+      task = profile.tasks.find(params[:id])
       task.update_attributes!(params[:task])
       task.send(decision)
     end
