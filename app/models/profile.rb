@@ -66,6 +66,8 @@ class Profile < ActiveRecord::Base
   has_many :consumptions
   has_many :consumed_product_categories, :through => :consumptions, :source => :product_category
   
+  has_many :tasks, :foreign_key => :target_id
+
   def top_level_articles(reload = false)
     if reload
       @top_level_articles = nil

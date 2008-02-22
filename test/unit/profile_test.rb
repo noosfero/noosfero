@@ -337,6 +337,34 @@ class ProfileTest < Test::Unit::TestCase
     assert c.members.include?(p), "Profile should add the new member"
   end
 
+  should 'have tasks' do
+    c = Profile.create!(:name => 'my test profile', :identifier => 'mytestprofile')
+    t1 = c.tasks.build
+    t1.save!
+
+    t2 = c.tasks.build
+    t2.save!
+
+    assert_equal [t1, t2]. c.tasks
+  end
+
+  should 'have pending tasks' do
+    c = Profile.create!(:name => 'my test profile', :identifier => 'mytestprofile')
+    t1 = c.tasks.build; t1.save!
+    t2 = c.tasks.build; t2.save!; t2.finish
+    t3 = c.tasks.build; t3.save!
+
+    assert_equal [t1, t3], c.tasks.pending
+  end
+
+  should 'have finished tasks' do
+    c = Profile.create!(:name => 'my test profile', :identifier => 'mytestprofile')
+    t1 = c.tasks.build; t1.save!
+    t2 = c.tasks.build; t2.save!; t2.finish
+    t3 = c.tasks.build; t3.save!; t3.finish
+
+    assert_equal [t2, t3], c.tasks.finished
+  end
 
   private
 
