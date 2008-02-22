@@ -332,7 +332,8 @@ body.category4 #content h1, body.category4 #content h2, body.category4 #content 
 body.category4 #content h4, body.category4 #content h5, body.category4 #content h6
  { color: #B80000 }
 
-#content .block-title {
+.block-title {
+  color: red;
   margin: 0px 0px 10px 0px;
 }
 

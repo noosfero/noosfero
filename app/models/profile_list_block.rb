@@ -58,12 +58,17 @@ class ProfileListBlock < Block
   def content
     profiles = self.profiles
     title = self.title
+    nl = "\n"
     lambda do
-      block_title(title) +
-      content_tag(
-        'ul',
-        profiles.map {|item| content_tag('li', profile_image_link(item)) }.join("\n")
-      )
+      list = profiles.map {|item| content_tag( 'li', profile_image_link(item) ) }.join("\n  ")
+      if list.empty?
+        list = '<i>'+ _('None') +'</i>'
+      else
+        list = content_tag( 'ul', nl +'  '+ list + nl )
+      end
+      '<div class="common-profile-list-block">' +
+      nl + block_title(title) + nl + list + nl +
+      '</div>'
     end
   end
 
