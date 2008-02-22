@@ -5,5 +5,6 @@ class AddFriendshipFields < ActiveRecord::Migration
   end
 
   def self.down
+    remove_column :friendships, :group
   end
 end
