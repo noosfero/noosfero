@@ -55,6 +55,10 @@ class ProfileListBlock < Block
     _('People and Groups')
   end
 
+  def help
+    _('Clicking on the people or groups will take you to their home page.')
+  end
+
   def content
     profiles = self.profiles
     title = self.title
@@ -70,10 +74,6 @@ class ProfileListBlock < Block
       nl + block_title(title) + nl + list + nl +
       '</div>'
     end
-  end
-
-  def help
-    _('Clicking on the people or groups will take you to their home page.')
   end
 
 end

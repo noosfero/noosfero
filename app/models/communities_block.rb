@@ -8,6 +8,10 @@ class CommunitiesBlock < ProfileListBlock
     _('Communities')
   end
 
+  def help
+    _('Here you can see the communities where this user is part.')
+  end
+
   def footer
     profile = self.owner
     lambda do

@@ -1,4 +1,6 @@
-<div id="user_menu" class="top_extra_menu AOM_paddingBottom_6">
+<div id="user_menu" class="top_extra_menu AOM_paddingBottom_6"<%=
+  ' help="'+ _('This is your menu, for your personal functionalies.') +'"' if logged_in?
+  %>">
 
 <% if logged_in? %>
 
@@ -13,21 +15,30 @@
   <div id="user_menu_ul">
     <ul>
 
-      <li><a href="<%= homepage_path(:profile => current_user.login) %>"><span class="icon-menu-home"></span><%= _('My Home Page') %></a></li>
+      <li><a href="<%= homepage_path(:profile => current_user.login) %>"
+             help="<%= _('Go to your home page. <p/> Is good to see if it\'s cool enought and you can make this rock! <b>;-)</b>') %>"
+             ><span class="icon-menu-home"></span><%= _('My Home Page') %></a></li>
 
       <!-- li><a href="#"><span class="icon-menu-blog"></span> Meu Blog</a></li -->
 
       <li><%= link_to_myprofile( '<span class="icon-menu-ctrl-panel"></span>'+ _('control panel'),
-                                   {}, nil, :id => 'link_edit_profile' ) %></li>
+                                   {}, nil, :id => 'link_edit_profile',
+                                   :help => _('The control panel is where you find all <b>cool features</b> to make your site rock! <p/> There you will find how to <b>change your picture</b>, or your <b>personal information</b>, add <b>content to your site</b>, <b>change your look</b>, and <b>more</b>...')
+                               ) %></li>
 
       <%=
         '<li>'+ link_to( '<span class="icon-menu-"></span>'+ _('Admin'),
-                         { :controller => 'admin_panel' }, :id => 'link_admin_panel' ) +
+                         { :controller => 'admin_panel' }, :id => 'link_admin_panel',
+                         :help => _('This link will take you to the page where you can use your <b>super-powers</b>!')
+                       ) +
         '</li>' if user.is_admin?
       %>
 
       <li><%= lightbox_link_to( '<span class="icon-menu-logout"></span>'+ _('Logout'),
-                                { :controller => 'account', :action => 'logout_popup'}, :id => 'link_logout' ) %></li>
+                                { :controller => 'account', :action => 'logout_popup'},
+                                :id => 'link_logout',
+                                :help => _('If you\'ll not use more this web site (for now), or will exit from this computer, <b>where other peple may use</b>, is better to click on this <i>Logout</i> link.')
+                              ) %></li>
 
     </ul>
   </div><!-- id="user_menu_ul" -->
@@ -36,7 +47,8 @@
 
 <%= lightbox_link_to '<span class="icon-menu-login"></span>'+ _('Login'),
                      { :controller => 'account', :action => 'login_popup' },
-                     :id => 'link_login' %>
+                     :id => 'link_login',
+                     :help => _('Open the logion box to allow you to be recognized and to use the <b>cool functions</b> of this enviroment.') %>
 
 <% end %>
 

@@ -4,6 +4,10 @@ class EnterprisesBlock < ProfileListBlock
     _('Enterprises')
   end
 
+  def help
+    _('Here you can see the enterprises where this user works.')
+  end
+
   def self.description
     _('A block that displays your enterprises')
   end
