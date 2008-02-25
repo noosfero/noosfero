@@ -13,7 +13,6 @@ class CmsController < MyProfileController
     TextileArticle,
     RssFeed,
     UploadedFile,
-    ImageGallery,
   ]
 
   def view
