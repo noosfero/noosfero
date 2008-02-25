@@ -23,4 +23,10 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_kind_of Array, assigns(:friends)
   end
 
+  should 'list communities'
+
+  should 'list environments'
+
+  should 'list members (for organizations)'
+
 end
