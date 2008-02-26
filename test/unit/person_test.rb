@@ -158,4 +158,17 @@ class PersonTest < Test::Unit::TestCase
 
   end
 
+  should 'list friend groups' do
+    p1 = create_user('testuser1').person
+    p2 = create_user('testuser2').person
+    p3 = create_user('testuser3').person
+    p4 = create_user('testuser4').person
+    
+    Friendship.create!(:person => p1, :friend => p2, :group => 'family')
+    Friendship.create!(:person => p1, :friend => p3, :group => 'school')
+    Friendship.create!(:person => p1, :friend => p4, :group => 'school')
+
+    assert_equivalent ['family', 'school'], p1.friend_groups
+  end
+
 end

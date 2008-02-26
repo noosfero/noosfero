@@ -5,6 +5,10 @@ class Person < Profile
   has_many :friendships
   has_many :friends, :class_name => 'Person', :through => :friendships
 
+  def friend_groups
+    friendships.map {|item| item.group}.uniq
+  end
+
 #  has_many :person_friendships
 #  has_many :people, :through => :person_friendships, :foreign_key => 'friend_id'
   
