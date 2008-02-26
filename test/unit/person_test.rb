@@ -158,8 +158,15 @@ class PersonTest < Test::Unit::TestCase
 
   end
 
-  should 'provide default friend groups list' do
-    assert_equivalent [ 'friends', 'work', 'school', 'family' ], Person.new.friend_groups
+  should 'suggest default friend groups list' do
+    p = Person.new
+    assert_equivalent [ 'friends', 'work', 'school', 'family' ], p.suggested_friend_groups
+  end
+
+  should 'suggest current groups as well' do
+    p = Person.new
+    p.expects(:friend_groups).returns(['group1', 'group2'])
+    assert_equivalent [ 'friends', 'work', 'school', 'family', 'group1', 'group2' ], p.suggested_friend_groups
   end
 
   should 'list friend groups' do
@@ -172,8 +179,7 @@ class PersonTest < Test::Unit::TestCase
     Friendship.create!(:person => p1, :friend => p3, :group => 'group2')
     Friendship.create!(:person => p1, :friend => p4, :group => 'group1')
 
-    assert_includes p1.friend_groups, 'group1'
-    assert_includes p1.friend_groups, 'group2'
+    assert_equivalent ['group1', 'group2'], p1.friend_groups
   end
 
 end

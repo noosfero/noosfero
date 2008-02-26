@@ -5,8 +5,12 @@ class Person < Profile
   has_many :friendships
   has_many :friends, :class_name => 'Person', :through => :friendships
 
+  def suggested_friend_groups
+    friend_groups + [ _('friends'), _('work'), _('school'), _('family') ]
+  end
+
   def friend_groups
-    ([_('friends'), _('work'), _('school'), _('family')] + friendships.map {|item| item.group}).uniq
+    friendships.map {|item| item.group}.uniq
   end
 
 #  has_many :person_friendships
