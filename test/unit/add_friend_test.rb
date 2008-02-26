@@ -20,6 +20,20 @@ class AddFriendTest < ActiveSupport::TestCase
     ok('p2 should have p1 as friend') { p2.friends.include?(p1) }
   end
 
+  should 'put friendships in the right groups' do
+    p1 = create_user('testuser1').person
+    p2 = create_user('testuser2').person
+
+    task = AddFriend.create!(:person => p1, :group_for_person => 'friend1', :friend => p2, :group_for_friend => 'friend2')
+
+    assert_difference Friendship, :count, 2 do
+      task.finish
+    end
+
+    ok('p1 should list p2 as friend1') { p1.friendships.first.group == 'friend1' }
+    ok('p2 should have p1 as friend2') { p2.friendships.first.group == 'friend2' }
+  end
+
   should 'require requestor (person adding other as friend)' do
     task = AddFriend.new
     task.valid?
