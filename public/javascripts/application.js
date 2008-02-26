@@ -17,8 +17,10 @@ function focus_first_field() {
   for (var i = 0; i < form.elements.length; i++) {
     field = form.elements[i];
     if (field.type == 'text' || field.type == 'textarea') {
-      field.focus();
-      return;
+      try {
+        field.focus();
+        return;
+      } catch(e) { }
     }
   }
 }
