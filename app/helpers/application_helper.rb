@@ -383,4 +383,13 @@ module ApplicationHelper
              :help => _('Click on this icon to go to the <b>%s</b>\'s home page') % profile.name )
   end
 
+  def text_field_with_local_autocomplete(name, choices, html_options = {})
+    id = html_options[:id] || name
+
+    text_field_tag(name, '', html_options) +
+    content_tag('div', '', :id => "autocomplete-for-#{id}", :class => 'auto-complete', :style => 'display: none;') +
+    javascript_tag('new Autocompleter.Local(%s, %s, %s)' % [ id.to_json, "autocomplete-for-#{id}".to_json, choices.to_json ] )
+
+  end
+
 end

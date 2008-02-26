@@ -12,6 +12,15 @@
 
 <% form_tag do %>
   <%= hidden_field_tag(:confirmation, 1) %>
+
+  <div>
+    <%= _('Classify your new friend %s: ') % @friend.name %>
+    <%= text_field_with_local_autocomplete('group', profile.suggested_friend_groups) %>
+    <p>
+    <%= _('Suggestions: %s') % profile.suggested_friend_groups.join(', ') %>
+    </p>
+  </div>
+
   <%= submit_button(:ok, _("Yes, I want to add %s as my friend") % @friend.name) %>
   <%= button(:cancel, _("No, I don't want"), :action => 'index') %>
 <% end %>

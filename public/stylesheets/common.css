@@ -425,3 +425,22 @@ th {
   color: black;
   font-weight: bold;
 }
+
+div.auto-complete {
+  background: #729FCF;
+  border: 2px solid #204A87;
+}
+div.auto-complete ul {
+  margin: 0px;
+  padding: 0px;
+}
+div.auto-complete li {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+  color: #204A87;
+}
+div.auto-complete li.selected {
+  background: #B8CFE7;
+  color: #204A87;
+}
