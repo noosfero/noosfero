@@ -40,12 +40,17 @@ module TagsHelper
 
     delta = max_size - min_size
     max = tags.values.max.to_f
+    min = tags.values.min.to_f
 
     tags.map do |tag,count|
-      v = count.to_f / max
+      if ( max == min )
+        v = 0.5
+      else
+        v = (count.to_f - min) / (max - min)
+      end
       style = ""+
         "font-size: #{ (v * delta).round + min_size }px;"+
-        "top: #{ -4 - (v * 4).round }px;"
+        "top: #{ -(delta/2) - (v * (delta/2)).round }px;"
       destination = url.kind_of?(Hash) ? url_for(url.merge(tagname_option => tag)) : (url.to_s + tag)
 
       display_count = options[:show_count] ? "<small><sup>(#{count})</sup></small>" : ""

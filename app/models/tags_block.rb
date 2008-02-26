@@ -18,7 +18,7 @@ class TagsBlock < Block
     "\n<div class='tag_cloud'>\n"+
     tag_cloud( owner.tags, :id,
                owner.generate_url(:controller => 'profile', :action => 'tag'),
-               :max_size => 18, :min_size => 9 ) +
+               :max_size => 16, :min_size => 9 ) +
     "\n</div><!-- end class='tag_cloud' -->\n";
   end
 

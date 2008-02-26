@@ -1,5 +1,5 @@
 <ul>
   <%if logged_in? && (user != profile) && (! user.friends.include?(profile)) %>
-    <li><%= link_to _('Add friend'), :profile => user.identifier, :controller => 'friends', :action => 'add', :id => profile.id %></li>
+    <li><%= link_to content_tag('span', _('Add friend')), { :profile => user.identifier, :controller => 'friends', :action => 'add', :id => profile.id }, :class => 'button with-text icon-add' %></li>
   <% end %>
 </ul>

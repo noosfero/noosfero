@@ -59,6 +59,20 @@
 .communities-block .block-footer-content {
   text-align: center;
   font-size: 80%;
-  padding: 10px 0px 0px 0px;
+  padding: 5px 0px 0px 0px;
+}
+.msie .enterprises-block .block-footer-content,
+.msie .communities-block .block-footer-content {
+  padding: 0px;
+  margin-top: -5px;
+}
+
+.common-profile-list-block-none {
+  font-style: italic;
+  margin-bottom: -10px;
+}
+.msie .common-profile-list-block-none {
+  margin-bottom: 0px;
+  padding-bottom: 10px;
 }
 

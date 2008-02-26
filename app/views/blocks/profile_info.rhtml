@@ -1,14 +1,14 @@
 <h2><%= block.owner.name %></h2>
 
-<%= profile_image(block.owner) %>
+<div class="profile-info-picture"><%= profile_image(block.owner) %></div>
 
-<ul>
-  <li><%= _('Since %d') % block.owner.created_at.year %></li>
+<ul class="profile-info-data">
+  <li><%= _('Since %{year}/%{month}') % { :year => block.owner.created_at.year, :month => block.owner.created_at.month } %></li>
   <li><%= link_to _('Homepage'), block.owner.url %></li>
   <li><%= link_to _('View profile'), block.owner.public_profile_url %></li>
 </ul>
 
-<div class='profile-info-options'>
+<div class="profile-info-options">
   <%= render :file => 'blocks/profile_info_actions/' +  block.owner.class.name.underscore %>
 </div>
 

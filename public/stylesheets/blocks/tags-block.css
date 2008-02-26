@@ -1,18 +1,11 @@
 .tags-block {
 }
 
-.tags-block .help_tags {
-  position: absolute;
-  top: 10px;
-  right: 2px;
-}
-
-.tag_cloud a {
+.tags-block .tag_cloud a {
   text-decoration: none;
   padding: 0px 4px;
 }
 
-.tag_cloud a:hover {
+.tags-block .tag_cloud a:hover {
   color: red;
-  background: #f0f0f0;
 }

@@ -66,7 +66,7 @@ class ProfileListBlock < Block
     lambda do
       list = profiles.map {|item| content_tag( 'li', profile_image_link(item) ) }.join("\n  ")
       if list.empty?
-        list = '<i>'+ _('None') +'</i>'
+        list = '<div class="common-profile-list-block-none">'+ _('None') +'</div>'
       else
         list = content_tag( 'ul', nl +'  '+ list + nl )
       end
