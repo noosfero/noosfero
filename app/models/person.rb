@@ -6,7 +6,7 @@ class Person < Profile
   has_many :friends, :class_name => 'Person', :through => :friendships
 
   def friend_groups
-    friendships.map {|item| item.group}.uniq
+    ([_('friends'), _('work'), _('school'), _('family')] + friendships.map {|item| item.group}).uniq
   end
 
 #  has_many :person_friendships
