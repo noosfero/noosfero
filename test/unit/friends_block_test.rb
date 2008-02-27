@@ -31,4 +31,16 @@ class FriendsBlockTest < ActiveSupport::TestCase
     assert_equivalent [p2, p3, p4], block.profiles
   end
 
+  should 'point to list with all friends' do
+    block = FriendsBlock.new
+    user = mock
+    user.expects(:identifier).returns('theuser')
+    block.expects(:owner).returns(user)
+
+    def self._(s); s; end
+    expects(:link_to).with('All friends', :profile => 'theuser', :controller => 'profile', :action => 'friends')
+
+    instance_eval(&block.footer)
+  end
+
 end

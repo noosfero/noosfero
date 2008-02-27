@@ -56,12 +56,14 @@
 }
 
 .enterprises-block .block-footer-content,
+.friends-block .block-footer-content,
 .communities-block .block-footer-content {
   text-align: center;
   font-size: 80%;
   padding: 5px 0px 0px 0px;
 }
 .msie .enterprises-block .block-footer-content,
+.msie .friends-block .block-footer-content,
 .msie .communities-block .block-footer-content {
   padding: 0px;
   margin-top: -5px;

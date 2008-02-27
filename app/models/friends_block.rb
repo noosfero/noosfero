@@ -8,6 +8,13 @@ class FriendsBlock < ProfileListBlock
     _('Friends')
   end
 
+  def footer
+    owner_id = owner.identifier
+    lambda do
+      link_to _('All friends'), :profile => owner_id, :controller => 'profile', :action => 'friends'
+    end
+  end
+
   class FriendsBlock::Finder < ProfileListBlock::Finder
     def ids
       self.block.owner.friend_ids
