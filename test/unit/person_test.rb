@@ -147,12 +147,12 @@ class PersonTest < Test::Unit::TestCase
     p1 = create_user('testuser1').person
     p2 = create_user('testuser2').person
     
-    Friendship.create!(:person => p1, :friend => p2)
+    p1.add_friend(p2)
 
     assert_equal [p2], p1.friends
 
     p3 = create_user('testuser3').person
-    Friendship.create!(:person => p1, :friend => p3)
+    p1.add_friend(p3)
 
     assert_equal [p2,p3], p1.friends(true) # force reload
 
@@ -174,10 +174,10 @@ class PersonTest < Test::Unit::TestCase
     p2 = create_user('testuser2').person
     p3 = create_user('testuser3').person
     p4 = create_user('testuser4').person
-    
-    Friendship.create!(:person => p1, :friend => p2, :group => 'group1')
-    Friendship.create!(:person => p1, :friend => p3, :group => 'group2')
-    Friendship.create!(:person => p1, :friend => p4, :group => 'group1')
+   
+    p1.add_friend(p2, 'group1')
+    p1.add_friend(p3, 'group2')
+    p1.add_friend(p4, 'group1')
 
     assert_equivalent ['group1', 'group2'], p1.friend_groups
   end

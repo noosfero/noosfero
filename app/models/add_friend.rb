@@ -11,8 +11,8 @@ class AddFriend < Task
   alias :friend= :target=
 
   def perform
-    Friendship.create!(:person => requestor, :friend => target, :group => group_for_person)
-    Friendship.create!(:person => target, :friend => requestor, :group => group_for_friend)
+    requestor.add_friend(target, group_for_person)
+    target.add_friend(requestor, group_for_friend)
   end
 
   # Returns <tt>false</tt>. Adding friends by itself does not trigger e-mail

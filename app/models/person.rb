@@ -13,6 +13,10 @@ class Person < Profile
     friendships.map {|item| item.group}.uniq
   end
 
+  def add_friend(friend, group = nil)
+    self.friendships.build(:friend => friend, :group => group).save!
+  end
+
 #  has_many :person_friendships
 #  has_many :people, :through => :person_friendships, :foreign_key => 'friend_id'
   
