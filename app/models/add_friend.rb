@@ -21,4 +21,8 @@ class AddFriend < Task
     false
   end
 
+  def description
+    _('%s wants to be your friend') % requestor.name
+  end
+
 end

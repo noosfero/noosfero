@@ -70,4 +70,16 @@ class AddFriendTest < ActiveSupport::TestCase
 
   end
 
+  should 'provide proper description' do
+    p1 = create_user('testuser1').person
+    p2 = create_user('testuser2').person
+
+    TaskMailer.expects(:deliver_task_finished).never
+    TaskMailer.expects(:deliver_task_created).never
+
+    task = AddFriend.create!(:person => p1, :friend => p2)
+
+    assert_equal 'testuser1 wants to be your friend', task.description
+  end
+
 end
