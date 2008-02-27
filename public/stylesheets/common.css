@@ -444,3 +444,13 @@ div.auto-complete li.selected {
   background: #B8CFE7;
   color: #204A87;
 }
+
+/* pending tasks list */
+
+div.pending-tasks {
+  background: #B8CFE7;
+  color: #204A87;
+  border: 2px solid #204A87;
+  padding: 2px;
+  margin: 1em;
+}

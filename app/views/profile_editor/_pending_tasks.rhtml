@@ -1,0 +1,9 @@
+<% unless @pending_tasks.empty? %>
+  <div class='pending-tasks'>
+    <h2><%= _('You have pending requests') %></h2>
+    <ul>
+      <%= @pending_tasks.map {|item| content_tag('li', item.description)} %>
+    </ul>
+    <%= button(:todo, _('Process requests'), :controller => 'tasks', :action => 'index') %>
+  </div>
+<% end %>

@@ -31,6 +31,19 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'td', :content => 'my contact information'
   end
 
+  def test_should_present_pending_tasks_in_index
+    ze = Profile['ze'] # a fixture >:-(
+    @controller.expects(:profile).returns(ze).at_least_once
+    tasks = mock
+    pending = []
+    pending.expects(:empty?).returns(false) # force the display of the pending tasks list
+    tasks.expects(:pending).returns(pending)
+    ze.expects(:tasks).returns(tasks)
+    get :index, :profile => ze.identifier
+    assert_same pending, assigns(:pending_tasks)
+    assert_tag :tag => 'div', :attributes => { :class => 'pending-tasks' }, :descendant => { :tag => 'a', :attributes =>  { :href => '/myprofile/ze/tasks' } }
+  end
+
   def test_edit_person_info
     person = User.create(:login => 'test_profile', :email => 'test@noosfero.org', :password => 'test', :password_confirmation => 'test').person
 
