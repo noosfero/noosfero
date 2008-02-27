@@ -6,7 +6,7 @@ class Person < Profile
   has_many :friends, :class_name => 'Person', :through => :friendships
 
   def suggested_friend_groups
-    friend_groups + [ _('friends'), _('work'), _('school'), _('family') ]
+    (friend_groups + [ _('friends'), _('work'), _('school'), _('family') ]).uniq
   end
 
   def friend_groups

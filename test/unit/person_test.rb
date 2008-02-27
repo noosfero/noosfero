@@ -182,4 +182,13 @@ class PersonTest < Test::Unit::TestCase
     assert_equivalent ['group1', 'group2'], p1.friend_groups
   end
 
+  should 'not suggest duplicated friend groups' do
+    p1 = create_user('testuser1').person
+    p2 = create_user('testuser2').person
+   
+    p1.add_friend(p2, 'friends')
+
+    assert_equal p1.suggested_friend_groups, p1.suggested_friend_groups.uniq
+  end
+
 end
