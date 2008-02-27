@@ -24,4 +24,7 @@ class ProfileController < ApplicationController
     @friends= profile.friends
   end
 
+  def members
+    @members = profile.members
+  end
 end

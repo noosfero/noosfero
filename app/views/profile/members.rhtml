@@ -1,0 +1,11 @@
+<h1><%= _("%s' members") % profile.name %></h1>
+
+<ul class='profile-list'>
+  <% @members.each do |member| %>
+    <li><%= profile_image_link(member) %></li>
+  <% end %>
+</ul>
+
+<% button_bar do %>
+  <%= button(:back, _('Go back'), :controller => 'profile') %>
+<% end %>

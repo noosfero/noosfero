@@ -14,6 +14,9 @@
   <li><%= link_to_function _('Friends'), 'alert(%s)' % _('This function is not available yet.').inspect %></li>
   <li><%= link_to _('Communities'), :action => 'communities' %></li>
   <li><%= link_to _('Enterprises'), :action => 'enterprises' %></li>
+  <% if profile.kind_of? Organization %>
+    <li><%= link_to _('Members'), :action => 'members' %></li>
+  <% end %>
 
   <li>
     <%= _('Tags:') %>

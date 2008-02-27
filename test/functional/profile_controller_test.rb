@@ -23,10 +23,27 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_kind_of Array, assigns(:friends)
   end
 
-  should 'list communities'
+  should 'list communities' do
+    get :communities
 
-  should 'list environments'
+    assert_response :success
+    assert_template 'communities'
+    assert_kind_of Array, assigns(:communities)
+  end
 
-  should 'list members (for organizations)'
+  should 'list enterprises' do
+    get :enterprises
 
+    assert_response :success
+    assert_template 'enterprises'
+    assert_kind_of Array, assigns(:enterprises)
+  end
+
+  should 'list members (for organizations)' do
+    get :members
+
+    assert_response :success
+    assert_template 'members'
+    assert_kind_of Array, assigns(:members)
+  end
 end
