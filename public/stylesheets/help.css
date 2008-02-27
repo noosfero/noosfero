@@ -31,14 +31,14 @@
   padding: 0px 5px 0px 10px;
 }
 
-#helpAvatar {
+.helpAvatar {
   float: left;
   margin: 5px 10px 5px -5px;
   width: 48px;
   height: 48px;
   background: url("/images/help-avatar.gif");
 }
-.msie6 #helpAvatar {
+.msie6 .helpAvatar {
   margin: 5px 8px 5px -2px;
 }
 
@@ -49,5 +49,27 @@
 
 .help-force-clear-ieworkarroundbug {
   margin-top: -2px;
+}
+
+/* * *  Notice About Help Box  * * */
+
+#noticeAboutHelp {
+  position: absolute;
+  top: 200px;
+  left: 50%;
+  width: 400px;
+  max-width: 370px;
+  padding: 10px 15px 0px 15px;
+  margin-left: -200px;
+  border: 2px solid #204A87;
+  background: #729FCF;
+  text-align: justify;
+}
+.msie #noticeAboutHelp {
+  padding: 10px 15px;
+}
+
+#noticeAboutHelp .bts {
+  text-align: center;
 }
 
