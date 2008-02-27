@@ -425,6 +425,7 @@ th {
   font-weight: bold;
 }
 
+/* for fields with auto-completion */
 div.auto-complete {
   background: #729FCF;
   border: 2px solid #204A87;
