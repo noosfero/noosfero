@@ -10,7 +10,6 @@ Profile.destroy_all
 Role.destroy_all
 RoleAssignment.destroy_all
 Category.destroy_all
-Product.destroy_all
 Article.destroy_all
 
 def new_category(parent, name, color = nil)
@@ -50,9 +49,9 @@ O Anheteguá é uma plataforma livre e colaborativa que visa contribuir para o f
 O menu superior é o principal instrumento de navegação:
 </p>
 <ul>
-  <li>Do lado esquerdo, estão os recortes. <strong>Temáticas</strong> reune os principais temas debatidos. <strong>Territórios</strong> limita sua navegação a um estado de sua escolha. <strong>Cadeias</strong> exibe apenas informação relacionada à cadeia produtiva de sua preferência. <strong>Produtos</strong> permite visualizar produtos por sua categoria.</li>
+  <li>Do lado esquerdo, estão os recortes. <strong>Temáticas</strong> reune os principais temas debatidos. <strong>Territórios</strong> limita sua navegação a um estado de sua escolha. <strong>Cadeias</strong> exibe apenas informação relacionada à cadeia produtiva de sua preferência. </li>
 
-  <li>Do lado direito, estão as opções do usuário, bem como a nevegação por tipo de conteúdo. <strong>Busca</strong> permite que você procure conteúdo por palavras chave. <strong>Blogs</strong> te levará a ver blogs de outros usuário, etc. </li>
+  <li>Do lado direito, estão as opções do usuário, bem como a nevegação por tipo de conteúdo. <strong>Busca</strong> permite que você procure conteúdo por palavras chave. <strong>Blogs</strong> te levará a ver blogs de outros usuário. <strong>Produtos</strong> permitirá nevegar pelos produtos ... etc. </li>
 </ul>
 EOF
 
@@ -109,36 +108,6 @@ colivre.affiliate(ze, owner_role)
 member_role = Profile::Roles.member
 moderator_role = Profile::Roles.moderator
 
-# product categories
-produtos = ProductCategory.create!(:name => 'Produtos', :environment => Environment.default, :display_color => 4)
-
-alimentacao = ProductCategory.create!(:name => 'Alimentação', :environment => Environment.default, :parent => produtos)
-vegetais = ProductCategory.create!(:name => 'Vegetais', :environment => Environment.default, :parent => alimentacao)
-
-feijao = ProductCategory.create!(:name => 'Feijão', :environment => Environment.default, :parent => vegetais)
-
-arroz = ProductCategory.create!(:name => 'Arroz', :environment => Environment.default, :parent => vegetais)
-
-batata = ProductCategory.create!(:name => 'Batata', :environment => Environment.default, :parent => vegetais)
-
-carnes = ProductCategory.create!(:name => 'Carnes', :environment => Environment.default, :parent => alimentacao)
-
-boi = ProductCategory.create!(:name => 'Boi', :environment => Environment.default, :parent => carnes)
-
-frango = ProductCategory.create!(:name => 'Frango', :environment => Environment.default, :parent => carnes)
-
-vestuario = ProductCategory.create!(:name => 'Vestuário', :environment => Environment.default, :parent => produtos)
-
-camisetas = ProductCategory.create!(:name => 'Camisetas', :environment => Environment.default, :parent => vestuario)
-
-calcas = ProductCategory.create!(:name => 'Calças', :environment => Environment.default, :parent => vestuario)
-
-software_livre = ProductCategory.create!(:name => 'Software Livre', :environment => Environment.default, :parent => produtos)
-
-desenv = ProductCategory.create!(:name => 'Desenvolvimento', :environment => Environment.default, :parent => software_livre)
-capacitacao = ProductCategory.create!(:name => 'Capacitação', :environment => Environment.default, :parent => software_livre)
-admin_de_sistemas = ProductCategory.create!(:name => 'Administração de sistemas', :environment => Environment.default, :parent => software_livre)
-arte_digital = ProductCategory.create!(:name => 'Arte Digital', :environment => Environment.default, :parent => software_livre)
 
 
 # actual products
