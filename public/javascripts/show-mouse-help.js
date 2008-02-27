@@ -114,21 +114,26 @@ function getHelp( ev ) {
       debug += " :: "+ el.nodeName +" "+ el.getAttribute("help");
       debug += "<br>"+ pageHelp.myFrame.src +" x:"+ mX +" y:"+ mY;
       var txt = el.getAttribute("help");
-      if ( txt ) {
-        box.style.display = "block";
-        if ( txt != "FALSE" ) {
-          if ( /^#.+/.test( txt ) ) {
-            var txtEl = el.ownerDocument.getElementById( txt.replace(/#/,"") );
-            if ( txtEl ) txt = txtEl.innerHTML;
+      if ( txt != box.txt ) {
+        if ( txt ) {
+          helpWow(true);
+          box.style.display = "block";
+          if ( txt != "FALSE" ) {
+            var realTxt = txt;
+            if ( /^#.+/.test( txt ) ) {
+              var txtEl = el.ownerDocument.getElementById( txt.replace(/#/,"") );
+              if ( txtEl ) realTxt = txtEl.innerHTML;
+            }
+            box.content.innerHTML = '<p>'+ realTxt +'</p>'+
+                                    '<br style="clear:both" />'+
+                                    '<div class="help-force-clear-ieworkarroundbug"'+
+                                    ' style="height:1px; overflow:hidden"></div>';
           }
-          box.content.innerHTML = '<p>'+ txt +'</p>'+
-                                  '<br style="clear:both" />'+
-                                  '<div class="help-force-clear-ieworkarroundbug"'+
-                                  ' style="height:1px; overflow:hidden"></div>';
+        } else {
+          box.style.display = "none";
         }
-      } else {
-        box.style.display = "none";
       }
+      box.txt = txt;
       box.style.left = ( mX + helpInfo.incPos.x ) +"px";
       box.style.top  = ( mY + helpInfo.incPos.y ) +"px";
     }
@@ -180,12 +185,60 @@ if( window.attachEvent ) { // IE
   document.body.attachEvent( "onmousemove", getHelp );
 }
 
+function helpWow( start ) {
+  var bg = pageHelp.info.bg;
+  var box = pageHelp.info.helpBox.style;
+  var change = false;
+  if ( start ) {
+    box.backgroundColor = "rgb("+ bg.r.wow +","+ bg.g.wow +","+ bg.b.wow +")";
+    bg.r.cur = bg.r.wow;
+    bg.g.cur = bg.g.wow;
+    bg.b.cur = bg.b.wow;
+    change = true;
+  } else {
+    for ( c in bg ) {
+      if ( bg[c].cur != bg[c].orig ) {
+        bg[c].cur += bg[c].inc;
+        if ( ( bg[c].inc > 0 ) && ( bg[c].cur > bg[c].orig ) ) bg[c].cur = bg[c].orig
+        if ( ( bg[c].inc < 0 ) && ( bg[c].cur < bg[c].orig ) ) bg[c].cur = bg[c].orig
+        change = true;
+      }
+    }
+  }
+  if ( change ) {
+    box.backgroundColor = "rgb("+ Math.round(bg.r.cur) +","+
+                                  Math.round(bg.g.cur) +","+
+                                  Math.round(bg.b.cur) +")";
+    setTimeout( "helpWow()", 20 )
+  }
+}
+
 function showMouseHelpOn() {
   pageHelp.info.helpBox = document.getElementById("helpBox");
   pageHelp.info.helpBox.content = document.getElementById("helpBoxContent");
   pageHelp.info.helpBox.setAttribute( "help", "FALSE" ); 
   pageHelp.info.updateBox = true;
   pageHelp.info.myDoc.body.style.cursor = "help";
+  if ( window.getComputedStyle ) {
+    var bg = window.getComputedStyle( pageHelp.info.helpBox, "" ).backgroundColor;
+  } else {
+    var bg = pageHelp.info.helpBox.currentStyle.backgroundColor;
+  }
+  if ( /^#/.test(bg) ) {
+    var r = parseInt( bg.replace(/^#(..)..../,"$1"), 16 );
+    var g = parseInt( bg.replace(/^#..(..)../,"$1"), 16 );
+    var b = parseInt( bg.replace(/^#....(..)/,"$1"), 16 );
+  } else {
+    bg = bg.replace(/\s/g, "");
+    var r = parseInt( bg.replace(/^rgb\(([0-9]+),[0-9]+,[0-9]+\)/,"$1") );
+    var g = parseInt( bg.replace(/^rgb\([0-9]+,([0-9]+),[0-9]+\)/,"$1") );
+    var b = parseInt( bg.replace(/^rgb\([0-9]+,[0-9]+,([0-9]+)\)/,"$1") );
+  }
+  bg = { r:{orig:r,wow:255}, g:{orig:g,wow:250}, b:{orig:b,wow:100} }
+  for ( c in bg ) {
+    bg[c].inc = ( bg[c].orig -  bg[c].wow ) / 20;
+  }
+  pageHelp.info.bg = bg;
 }
 
 function showMouseHelpOff() {
