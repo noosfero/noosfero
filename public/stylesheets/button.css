@@ -26,8 +26,7 @@ input.button {
   float: left;
 }
 
-#content a.button, #content a.button:visited,
-#login-box a.button, #login-box a.button:visited {
+#content a.button, #content a.button:visited {
   height: 22px;
   color: #000;
 }

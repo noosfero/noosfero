@@ -1,11 +1,11 @@
 
 #boxes {
-  position: relative;
+  /* none */
 }
 
 .box-1 {
-  margin-left: 285px;
-  margin-right: 215px;
+  /* the width of this element is seted by javascript for Firefox */
+  float: left;
 }
 
 .box-2 {
@@ -23,12 +23,5 @@
   position: relative;
   padding: 10px 0px;
   float: none;
-}
-
-.msie .box-2 .block,
-.msie .box-3 .block {
-  /* IE SUX A LOT!!! */
-  top: -65px;
-  left: -2px;
 }
 

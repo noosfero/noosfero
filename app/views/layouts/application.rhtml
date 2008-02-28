@@ -26,6 +26,7 @@
     <%= stylesheet_link_tag '/designs/icons/default/style.css' %>
 
     <%= javascript_include_tag(:defaults) %>
+    <%# javascript_include_tag 'animator' %>
     <%= javascript_include_tag 'menu' %>
     <%= javascript_include_tag 'auto-open-menu' %>
     <%= include_lightbox_header %>
@@ -135,13 +136,27 @@
 
     <div id="helpBox" style="display:none">
       <div id="helpBoxBody">
-        <div id="helpAvatar"></div>
+        <div class="helpAvatar"></div>
         <div id="helpBoxContent"></div>
       </div>
     </div>
     <%= javascript_include_tag 'show-mouse-help' %>
+    <div id="noticeAboutHelp" style="display:none">
+      <div class="helpAvatar"></div>
+      <%= _('Do you want to activate the automatic help mode?') %>
+      <div class="bts">
+      <a href="javascript:mouseHelpOn()"  class="button with-text icon-ok">
+        <span><%= _('Yes') %></span></a>
+      &nbsp;
+      <a href="javascript:mouseHelpOff()" class="button with-text icon-cancel">
+        <span><%= _('No') %></span></a>
+      </div><!-- end class="bts" -->
+      <p/>
+      <%= _('If needed, you can activate or inactivate the automatic help mode by clicking the question mark symbol in the top-right corner') %>
+    </div>
     <%= javascript_include_tag 'noosfero-show-help' %>
-    <%= javascript_tag('noosferoHelpInit(%s, %s)' % [ _('Do you want to activate the automatic help mode?').inspect, _('If needed, you can activate the automatic help mode by clicking the question mark symbol in the top-right corner').inspect ])  %>
+
+    <%# javascript_tag('noosferoHelpInit(%s, %s)' % [ _('Do you want to activate the automatic help mode?').inspect, _('If needed, you can activate the automatic help mode by clicking the question mark symbol in the top-right corner').inspect ])  %>
 
     <div id="better-browser-promotion" style="display:none">
       <h3><%=

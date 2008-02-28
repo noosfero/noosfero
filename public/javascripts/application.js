@@ -25,3 +25,20 @@ function focus_first_field() {
   }
 }
 
+/* * *  Template Box Size Help  * * */
+function resizePrincipalTemplateBox() {
+  var box1 = $$( "div.box-1" )[0];
+  var otherBoxSum = 0;
+  var i = 2;
+  var b = $$( "div.box-" + i++ )[0];
+  while ( b.nodeName ) {
+    otherBoxSum += b.clientWidth;
+    b = $$( "div.box-" + i++ )[0] || false;
+  }
+  box1.style.width = ( $("boxes").clientWidth - otherBoxSum ) +"px"
+}
+
+if ( window.addEventListener ) {
+  window.addEventListener( 'resize', resizePrincipalTemplateBox, false );
+  window.addEventListener( 'load',   resizePrincipalTemplateBox, false );
+}

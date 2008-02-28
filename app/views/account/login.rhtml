@@ -1,4 +1,4 @@
-<div id="login-box">
+<div class="login-box">
 
 <h2><%= _('Login') %></h2>
 
@@ -15,15 +15,15 @@
 
 <% end %>
 
-<p id="forgot-passwd">
+<p class="forgot-passwd">
 <%= link_to _("I forgot my password!"), :controller => 'account', :action => 'forgot_password' %>
 </p>
 
-<p id="want-to-be-an-user"><strong>
+<p class="want-to-be-an-user"><strong>
 <%= link_to _("I want to be an user!"), :controller => 'account', :action => 'signup' %>
 </strong></p>
 
-</div><!-- end id="login-box" -->
+</div><!-- end class="login-box" -->
 
 <% if lightbox? %>
   <script type='text/javascript'>

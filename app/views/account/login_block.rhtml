@@ -1,19 +1,32 @@
-<div id="login-box">
+<div class="login-box">
   <% unless logged_in? %>
 
     <h2><%= _('Login') %></h2>
+
+    <div class="login-box-content">
     
-    <% labelled_form_for :user, @user, :url => { :controller => 'account', :action => 'login' } do |f| %>
+    <% labelled_form_for :user, @user,
+       :url => { :controller => 'account', :action => 'login' } do |f| %>
+
       <%= display_form_field(_('Username'), text_field_tag(:login) ) %>
       <%= display_form_field(_('Password'), password_field_tag(:password) ) %>
-      <div>
+
+      <% button_bar do %>
         <%= submit_button( 'login', _('Log in') )%>
-      </div>
+        <%= link_to content_tag( 'span', _('New user') ),
+            { :controller => 'account', :action => 'signup' },
+            :class => 'button with-text icon-add' %>
+      <% end %>
+
     <% end %>
 
-    <div>
-      <%= link_to _("New user"), :controller => 'account', :action => 'signup' %>
+    <div class="forgot-passwd">
+    <%= link_to _("I forgot my password!"),
+       :controller => 'account', :action => 'forgot_password' %>
     </div>
+
+    </div>
+
   <% else %>
     <h2><%= user.identifier %></h2>
   <% end %>

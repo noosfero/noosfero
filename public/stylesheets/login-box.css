@@ -1,41 +1,62 @@
 
-#login-box {
+.login-box {
   padding: 3px 10% 8px 10%;
   font-size: 10px;
 }
-#lightbox #login-box {
+#lightbox .login-box {
   padding: 3px 25% 8px 25%;
 }
 
-#login-box .formfieldline input {
+.login-block .login-box {
+}
+
+.login-box-content {
+  margin-top: -16px;
+  border: 2px solid #729FCF;
+  background: #B8CFE7;
+  padding: 0px 10px 5px 10px;
+}
+
+.login-box-content .button-bar .button {
+  position: relative;
+}
+
+.login-box .formfieldline input {
   width: 99%;
 }
 
-#login-box form {
+.login-box form {
   margin: 0px;
   padding: 0px 0px 10px 0px;
 }
 
-#login-box h2 {
+.login-box h2 {
   font-size: 18px;
   text-align: center;
   margin: 0px;
   padding: 0px;
 }
-#lightbox #login-box h2 {
+#lightbox .login-box h2 {
   color: #000;
 }
 
-#login-box p {
+.login-box p {
   text-align: center;
   margin: 0px;
   padding: 0px;
 }
 
-#login-box #forgot-passwd {
+.login-box #forgot-passwd {
   padding-bottom: 6px;
 }
 
-#want-to-be-an-user {
+.want-to-be-an-user {
   font-size: 13px;
 }
+
+/*
+.login-box a.button, .login-box a.button:visited {
+  height: 22px;
+  color: #000;
+}
+*/
