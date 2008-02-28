@@ -17,6 +17,10 @@ class Person < Profile
     self.friendships.build(:friend => friend, :group => group).save!
   end
 
+  def remove_friend(friend)
+    friends.delete(friend)
+  end
+
 #  has_many :person_friendships
 #  has_many :people, :through => :person_friendships, :foreign_key => 'friend_id'
   

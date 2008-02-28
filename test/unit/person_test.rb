@@ -191,4 +191,15 @@ class PersonTest < Test::Unit::TestCase
     assert_equal p1.suggested_friend_groups, p1.suggested_friend_groups.uniq
   end
 
+  should 'remove friend' do
+    p1 = create_user('testuser1').person
+    p2 = create_user('testuser2').person
+    p1.add_friend(p2, 'friends')
+
+    assert_difference Friendship, :count, -1 do
+      p1.remove_friend(p2)
+    end
+    assert_not_includes p1.friends(true), p2
+  end
+
 end
