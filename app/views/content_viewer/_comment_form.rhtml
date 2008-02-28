@@ -5,7 +5,8 @@
   class="post_comment_box closed"
   onclick="f=$(<%= comment_form_id %>); f.style.display='block';
            this.className = this.className.replace(/closed/,'opened');
-           f.commit.focus(); f['comment[title]'].focus()">
+           f.commit.focus(); f['comment[title]'].focus();
+           this.onclick=null">
 
 <h4><%= _('Post a comment') %></h4>
 

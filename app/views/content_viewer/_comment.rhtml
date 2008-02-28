@@ -1,7 +1,17 @@
-<div class'comment'>
+<div class="article-comment<%=
+     ' comment-from-owner' if ( @page.profile.name == comment.author.name ) %>">
+  <%= link_to content_tag( 'span', comment.author.name() ), comment.author.url,
+      :class => 'comment-picture',
+      :style => 'background-image:url(%s)' % profile_icon(comment.author, :minor) %>
   <h4><%= comment.title %></h4>
-  <div><%= _('By %{author} on %{date}') % { :author => (comment.author ? comment.author.identifier : comment.name), :date => comment.created_on } %></div>
-  <div>
+  <div class="comment-info">
+    <%= _('By %{author} on %{date}') % {
+        :author => link_to(
+           (comment.author ? comment.author.identifier : comment.name),
+            comment.author.url),
+        :date => comment.created_on } %>
+  </div>
+  <div class="comment-text">
     <%= comment.body %>
   </div>
 </div>

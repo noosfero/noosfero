@@ -13,11 +13,11 @@
 }
 
 .profile-info-data {
-  width: 140px;
+  width: 110px;
   font-size: 10px;
   text-align: right;
   position: relative;
-  top: 6px;
+  top: 20px;
 }
 
 .profile-info-options {

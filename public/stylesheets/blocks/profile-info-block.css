@@ -13,8 +13,9 @@
   margin: 0px;
 }
 
-.profile-info-block li {
+#content .profile-info-block ul li {
   list-style: none;
+  list-style-image: none;
   margin: 0px;
   padding: 2px;
 }

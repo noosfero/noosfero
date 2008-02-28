@@ -1,0 +1,12 @@
+
+#content .environment-statistics-block .block-title {
+  padding-left: 30px;
+  font-size: 12px;
+}
+
+#content .environment-statistics-block ul {
+  margin: 0px 0px 0px 5px;
+}
+.msie #content .environment-statistics-block ul {
+  margin: 0px 0px 0px 45px;
+}

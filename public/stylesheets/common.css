@@ -336,6 +336,11 @@ body.category4 #content h4, body.category4 #content h5, body.category4 #content 
   margin: 0px 0px 10px 0px;
 }
 
+#content ul li {
+  list-style: url(/images/list-dot.gif);
+}
+
+
 #better-browser-promotion {
   position: absolute;
   top: 100px;
