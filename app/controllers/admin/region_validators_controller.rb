@@ -2,7 +2,7 @@ class RegionValidatorsController < ApplicationController
 
   before_filter :load_region_and_search, :except => 'index'
 
-#  protect 'manage_environment_validators', :environment
+  protect 'manage_environment_validators', :environment
 
   def index
     @regions = Region.top_level_for(environment)
