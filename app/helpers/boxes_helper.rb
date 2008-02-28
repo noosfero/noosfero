@@ -123,6 +123,7 @@ module BoxesHelper
 
     buttons << icon_button(:up, _('Move block up'), { :action => 'move_block_up', :id => block.id }, { :method => 'post' }) unless block.first?
     buttons << icon_button(:down, _('Move block down'), { :action => 'move_block_down' ,:id => block.id }, { :method => 'post'}) unless block.last?
+    buttons << icon_button(:delete, _('Remove block'), { :action => 'remove', :id => block.id }, { :method => 'post'}) unless block.main?
 
     if block.editor
       buttons << lightbox_button(:edit, _('Edit'), block.editor)

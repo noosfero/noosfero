@@ -285,7 +285,7 @@ module ApplicationHelper
   end
 
   def icon_button(type, text, url, html_options = {})
-    the_class = "button icon-button #{type}"
+    the_class = "button icon-button icon-#{type}"
     if html_options.has_key?(:class)
       the_class << ' ' << html_options[:class]
     end

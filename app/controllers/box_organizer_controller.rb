@@ -82,6 +82,16 @@ class BoxOrganizerController < ApplicationController
   def boxes_editor?
     true
   end
+
+  def remove
+    @block = Block.find(params[:id])
+    if @block.destroy
+      redirect_to :action => 'index'
+    else
+      flash[:notice] = _('Failed to remove block')
+    end
+  end
+
   protected :boxes_editor?
 
 end
