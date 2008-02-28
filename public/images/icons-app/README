@@ -15,18 +15,19 @@ links with names more sensible for Noosfero.
 Source for icons
 ================
 
-Icon                           Source Theme
------------------------------- ------------
-gnome-settings-background.png  dlg-neu
-gnome-settings-theme.png       Nuovo
-password.png                   dlg-neu
-abiword_48.png                 dlg-neu
-gnome-other.png                Nuovo
-user_icon.png                  dlg-neu
-gnome-home.png                 Nuovo
-gtk-yes.png                    dlg-neu
-users.png (locally modified)   dlg-neu
-stock_todo.png                 Nuovo
+Icon                                        Source Theme
+------------------------------              ------------
+gnome-settings-background.png               dlg-neu
+gnome-settings-theme.png                    Nuovo
+password.png                                dlg-neu
+abiword_48.png                              dlg-neu
+gnome-other.png                             Nuovo
+user_icon.png                               dlg-neu
+gnome-home.png                              Nuovo
+gtk-yes.png                                 dlg-neu
+users.png (locally modified)                dlg-neu
+stock_todo.png                              Nuovo
+friends.png (modified version of users.png) Nuovo
 
 Icons rasterization
 ===================

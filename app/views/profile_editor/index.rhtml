@@ -19,6 +19,8 @@
 
   <%= file_manager_button(_('Change Password'), 'icons-app/change-password.png', :controller => 'account', :action => 'change_password') if profile.person? %>
 
+  <%= file_manager_button(_('Manage friends'), 'icons-app/friends.png', :controller => 'friends', :action => 'index') if profile.person? %>
+
   <%= file_manager_button(_('Manage Members'), 'icons-app/members.png', :controller => 'profile_members') if profile.organization?  %>
 
   <%= file_manager_button(_('Consumed Products'), 'icons-app/consumed_product.png', :controller => 'consumed_products')  %>

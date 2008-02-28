@@ -10,6 +10,14 @@
 <% end %>
 </ul>
 
+<% if @friends.empty? %>
+<p>
+<em>
+  <%= _('You have no friends yet. Go make some.') %>
+</em>
+</p>
+<% end %>
+
 
 <% button_bar do %>
   <%= button(:back, _('Go back'), :controller => 'profile_editor') %>
