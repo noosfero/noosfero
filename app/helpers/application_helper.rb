@@ -394,10 +394,12 @@ module ApplicationHelper
 
   end
 
+  # formats a date for displaying.
   def show_date(date)
     date.strftime(_('%d %B %Y'))
   end
 
+  # formats a datetime for displaying. 
   def show_time(time)
     time.strftime(_('%d %B %Y, %H:%m'))
   end

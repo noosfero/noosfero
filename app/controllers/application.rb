@@ -27,6 +27,7 @@ class ApplicationController < ActionController::Base
 
   init_gettext 'noosfero'
   before_init_gettext :force_language
+  after_init_gettext :set_system_locale
 
   include NeedsProfile
 
@@ -72,7 +73,20 @@ class ApplicationController < ActionController::Base
       cookies[:lang] = lang
     end
 
-    set_locale lang unless lang.blank?
+    unless lang.blank?
+      set_locale lang
+    end
+  end
+
+  def set_system_locale
+    lang = GetText.locale.to_s
+    system_locale =
+      if (lang == 'en') || lang.blank?
+        'C'
+      else
+        ('%s.utf8' % lang)
+      end
+    Locale.setlocale(Locale::LC_ALL, system_locale)
   end
 
 end

@@ -82,6 +82,7 @@ Noosfero.locales = {
   'en' => 'English',
   'pt_BR' => 'Português Brasileiro',
 }
+require 'locale'
 
 Tag.hierarchical = true
 
