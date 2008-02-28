@@ -28,6 +28,20 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_equal '', stylesheet_import('something')
   end
 
+  should 'translate date' do
+    date = mock
+    expects(:_).with('%d %B %Y').returns('the date')
+    date.expects(:strftime).with('the date').returns('translated date')
+    assert_equal 'translated date', show_date(date)
+  end
+
+  should 'translate time' do
+    time = mock
+    expects(:_).with('%d %B %Y, %H:%m').returns('the time')
+    time.expects(:strftime).with('the time').returns('translated time')
+    assert_equal 'translated time', show_time(time)
+  end
+
   protected
 
   def content_tag(tag, content, options)

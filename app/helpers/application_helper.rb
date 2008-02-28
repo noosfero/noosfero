@@ -394,4 +394,12 @@ module ApplicationHelper
 
   end
 
+  def show_date(date)
+    date.strftime(_('%d %B %Y'))
+  end
+
+  def show_time(time)
+    time.strftime(_('%d %B %Y, %H:%m'))
+  end
+
 end
