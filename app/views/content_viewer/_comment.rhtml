@@ -9,7 +9,7 @@
         :author => link_to(
            (comment.author ? comment.author.identifier : comment.name),
             comment.author.url),
-        :date => comment.created_on } %>
+        :date => show_time(comment.created_on) } %>
   </div>
   <div class="comment-text">
     <%= comment.body %>
