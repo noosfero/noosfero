@@ -17,4 +17,12 @@ class FriendsController < MyProfileController
     end
   end
 
+  def remove
+    @friend = profile.friends.find(params[:id])
+    if request.post? && params[:confirmation]
+      profile.remove_friend(@friend)
+      redirect_to :action => 'index'
+    end
+  end
+
 end

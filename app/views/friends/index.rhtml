@@ -2,7 +2,11 @@
 
 <ul class='profile-list'>
 <% @friends.each do |friend| %>
-  <li><%= profile_image_link(friend)%></li>
+  <li>
+  <%= profile_image_link(friend)%>
+  <br/>
+  <%= link_to '(remove)', :action => 'remove', :id => friend.id %>
+  </li>
 <% end %>
 </ul>
 

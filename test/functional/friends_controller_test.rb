@@ -42,4 +42,22 @@ class FriendsControllerTest < Test::Unit::TestCase
     end
   end
 
+  should 'confirm removal of friend' do
+    profile.add_friend(friend)
+
+    get :remove, :id => friend.id
+    assert_response :success
+    assert_template 'remove'
+    ok("must load the friend being removed") { friend == assigns(:friend) }
+  end
+
+  should 'actually remove friend' do
+    profile.add_friend(friend)
+
+    assert_difference Friendship, :count, -1 do
+      post :remove, :id => friend.id, :confirmation => '1'
+      assert_redirected_to :action => 'index'
+    end
+  end
+
 end
