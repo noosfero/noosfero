@@ -11,6 +11,7 @@ class MembershipsControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
 
     @profile = create_user('testuser').person
+    login_as('testuser')
   end
   attr_reader :profile
 

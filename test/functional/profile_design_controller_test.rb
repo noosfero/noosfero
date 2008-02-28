@@ -59,6 +59,7 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
     @request.env['HTTP_REFERER'] = '/editor'
 
     @controller.stubs(:boxes_holder).returns(holder)
+    login_as 'ze'
   end
 
   ######################################################

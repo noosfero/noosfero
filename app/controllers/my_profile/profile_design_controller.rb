@@ -2,6 +2,8 @@ class ProfileDesignController < BoxOrganizerController
 
   needs_profile
 
+  protect 'edit_profile_design', :profile
+  
   def available_blocks
     blocks = [ ArticleBlock, TagsBlock, RecentDocumentsBlock, ProfileInfoBlock ]
 

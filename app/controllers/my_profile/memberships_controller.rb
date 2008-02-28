@@ -1,5 +1,7 @@
 class MembershipsController < MyProfileController
 
+  protect 'manage_memberships', :profile
+  
   def index
     @memberships = profile.memberships
   end

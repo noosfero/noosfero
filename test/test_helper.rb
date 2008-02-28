@@ -83,8 +83,8 @@ class Test::Unit::TestCase
     User.create!(data)
   end
 
-  def create_user_with_permission(name, permission, target= nil)
-    user = create_user(name).person
+  def give_permission(user, permission, target)
+    user = Person.find_by_identifier(user) if user.kind_of?(String)
     target ||= user
     i = 0
     while Role.find_by_name('test_role' + i.to_s)
@@ -95,6 +95,11 @@ class Test::Unit::TestCase
     assert user.add_role(role, target) 
     assert user.has_permission?(permission, target)
     user
+  end
+
+  def create_user_with_permission(name, permission, target= nil)
+    user = create_user(name).person
+    give_permission(user, permission, target)
   end
 
   alias :ok :assert_block

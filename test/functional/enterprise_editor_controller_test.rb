@@ -85,4 +85,5 @@ class EnterpriseEditorControllerTest < Test::Unit::TestCase
     assert_response :redirect
     assert_redirected_to :controller => 'profile_editor', :profile => 'test_user'
   end
+
 end

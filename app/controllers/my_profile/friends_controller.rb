@@ -1,5 +1,7 @@
 class FriendsController < MyProfileController
   
+  protect 'manage_friends', :profile
+  
   def index
     @friends = profile.friends
   end

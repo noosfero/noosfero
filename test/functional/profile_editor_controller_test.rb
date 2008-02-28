@@ -67,4 +67,10 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     assert_redirected_to :action => 'index'
   end
 
+  should 'not permmit if not logged' do
+    logout
+    person = create_user('test_user')
+    get :index, :profile => 'test_user'
+  end
+
 end

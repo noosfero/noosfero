@@ -12,9 +12,10 @@ class EnterpriseValidationControllerTest < Test::Unit::TestCase
     @controller = EnterpriseValidationController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
+    
     login_as 'ze'
-
     @org = Organization.create!(:identifier => 'myorg', :name => "My Org")
+    give_permission('ze', 'validate_enterprise', @org)
     Profile.expects(:find_by_identifier).with('myorg').returns(@org).at_least_once
   end
 

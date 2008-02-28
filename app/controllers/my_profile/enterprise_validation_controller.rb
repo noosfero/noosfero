@@ -1,5 +1,7 @@
 class EnterpriseValidationController < MyProfileController
 
+  protect 'validate_enterprise', :profile
+  
   def index
     @pending_validations = profile.pending_validations
   end

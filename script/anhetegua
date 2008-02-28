@@ -10,6 +10,7 @@ Profile.destroy_all
 Role.destroy_all
 RoleAssignment.destroy_all
 Category.destroy_all
+Product.destroy_all
 Article.destroy_all
 
 def new_category(parent, name, color = nil)
@@ -108,6 +109,36 @@ colivre.affiliate(ze, owner_role)
 member_role = Profile::Roles.member
 moderator_role = Profile::Roles.moderator
 
+# product categories
+produtos = ProductCategory.create!(:name => 'Produtos', :environment => Environment.default, :display_color => 4)
+
+alimentacao = ProductCategory.create!(:name => 'Alimentação', :environment => Environment.default, :parent => produtos)
+vegetais = ProductCategory.create!(:name => 'Vegetais', :environment => Environment.default, :parent => alimentacao)
+
+feijao = ProductCategory.create!(:name => 'Feijão', :environment => Environment.default, :parent => vegetais)
+
+arroz = ProductCategory.create!(:name => 'Arroz', :environment => Environment.default, :parent => vegetais)
+
+batata = ProductCategory.create!(:name => 'Batata', :environment => Environment.default, :parent => vegetais)
+
+carnes = ProductCategory.create!(:name => 'Carnes', :environment => Environment.default, :parent => alimentacao)
+
+boi = ProductCategory.create!(:name => 'Boi', :environment => Environment.default, :parent => carnes)
+
+frango = ProductCategory.create!(:name => 'Frango', :environment => Environment.default, :parent => carnes)
+
+vestuario = ProductCategory.create!(:name => 'Vestuário', :environment => Environment.default, :parent => produtos)
+
+camisetas = ProductCategory.create!(:name => 'Camisetas', :environment => Environment.default, :parent => vestuario)
+
+calcas = ProductCategory.create!(:name => 'Calças', :environment => Environment.default, :parent => vestuario)
+
+software_livre = ProductCategory.create!(:name => 'Software Livre', :environment => Environment.default, :parent => produtos)
+
+desenv = ProductCategory.create!(:name => 'Desenvolvimento', :environment => Environment.default, :parent => software_livre)
+capacitacao = ProductCategory.create!(:name => 'Capacitação', :environment => Environment.default, :parent => software_livre)
+admin_de_sistemas = ProductCategory.create!(:name => 'Administração de sistemas', :environment => Environment.default, :parent => software_livre)
+arte_digital = ProductCategory.create!(:name => 'Arte Digital', :environment => Environment.default, :parent => software_livre)
 
 
 # actual products

@@ -44,6 +44,9 @@ class EnterpriseRegistrationTest < ActionController::IntegrationTest
     code = CreateEnterprise.find(:first, :order => 'id desc').code
 
     # steps done by the validator
+    validator = create_user_with_permission('validator', 'validate_enterprise', org)
+    login 'validator', 'validator'
+    
     get "/myprofile/myorg/enterprise_validation"
     assert_response :success
     assert_tag :tag => 'a', :attributes => { :href => "/myprofile/myorg/enterprise_validation/details/#{code}" }

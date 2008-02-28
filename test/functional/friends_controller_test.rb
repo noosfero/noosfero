@@ -14,6 +14,7 @@ class FriendsControllerTest < Test::Unit::TestCase
 
     self.profile = create_user('testuser').person
     self.friend = create_user('thefriend').person
+    login_as ('testuser')
   end
   attr_accessor :profile, :friend
 

@@ -1,6 +1,7 @@
 class CmsController < MyProfileController
 
-  protect 'post_content', :profile, :only => [:edit, :new, :reorder, :delete]
+  protect 'post_content', :profile, :except => [:set_home_page]
+  protect 'edit_profile', :profile, :only => [:set_home_page]
 
   def boxes_holder
     profile

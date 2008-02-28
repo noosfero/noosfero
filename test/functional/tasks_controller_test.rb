@@ -14,6 +14,7 @@ class TasksControllerTest < Test::Unit::TestCase
 
     self.profile = create_user('testuser').person
     @controller.stubs(:profile).returns(profile)
+    login_as 'testuser'
   end
   attr_accessor :profile
 

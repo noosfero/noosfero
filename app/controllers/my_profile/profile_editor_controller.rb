@@ -1,6 +1,6 @@
 class ProfileEditorController < MyProfileController
 
-#  protect 'edit_profile', :profile, :only => [:index, :edit]
+  protect 'edit_profile', :profile, :only => [:index, :edit]
 
   def index
     @pending_tasks = profile.tasks.pending
