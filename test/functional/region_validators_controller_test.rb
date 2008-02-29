@@ -23,6 +23,7 @@ class RegionValidatorsControllerTest < Test::Unit::TestCase
 
   should 'view validators for a  specific region' do
     environment = Environment.create!(:name => "my environment")
+    give_permission('ze', 'manage_environment_validators', environment)
     region = Region.new(:name => 'my region')
     environment.regions << region
     assert !region.new_record?
@@ -38,12 +39,13 @@ class RegionValidatorsControllerTest < Test::Unit::TestCase
 
   should 'search possible validators by name' do
     environment = Environment.create!(:name => "my environment")
+    give_permission('ze', 'manage_environment_validators', environment)    
     region = Region.new(:name => 'my region')
     environment.regions << region
     assert !region.new_record?
     org = Organization.create!(:name => "My frufru organization", :identifier => 'frufru', :environment_id => environment.id)
 
-    @controller.expects(:environment).returns(environment)
+    @controller.expects(:environment).returns(environment).at_least_once
 
     get :search, :id => region.id, :search => 'frufru'
 
@@ -53,6 +55,7 @@ class RegionValidatorsControllerTest < Test::Unit::TestCase
 
   should 'be able to add validators to the current region' do
     environment = Environment.create!(:name => "my environment")
+    give_permission('ze', 'manage_environment_validators', environment)
     region = Region.new(:name => 'my region')
     environment.regions << region
     assert !region.new_record?
@@ -69,6 +72,7 @@ class RegionValidatorsControllerTest < Test::Unit::TestCase
 
   should 'be able to remove validators from the current region' do
     environment = Environment.create!(:name => "my environment")
+    give_permission('ze', 'manage_environment_validators', environment)
     region = Region.new(:name => 'my region')
     environment.regions << region
     assert !region.new_record?

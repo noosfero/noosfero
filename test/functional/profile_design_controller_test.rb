@@ -135,6 +135,14 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
     assert_equal [1,2], [@b2,@b1].map {|item| item.position}
   end
 
+  def test_should_remove_block
+    assert_difference Block, :count, -1 do
+      post :remove, :profile => 'ze', :id => @b2.id
+      assert_response :redirect
+      assert_redirected_to :action => 'index'
+    end
+  end
+
   ######################################################
   # END - tests for BoxOrganizerController features 
   ######################################################
