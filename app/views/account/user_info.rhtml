@@ -1,10 +1,16 @@
-<h2><%= user.identifier %></h2>
+<div class="logged-user-info">
+
+<h2><%= _('Logged in as %s') % user.identifier %></h2>
 
 <ul>
-  <li><%= _('User since %d') % user.person_info.created_at.year %></li>
+  <li><%= _('User since %{year}/%{month}') % { :year => user.person_info.created_at.year, :month => user.person_info.created_at.month } %></li>
   <li><%= link_to_homepage _('Homepage') %></li>
 </ul>
 
-<ul>
-  <li><%= lightbox_link_to _('Logout'), :controller => 'account', :action => 'logout_popup' %></li>
-</ul>
+<div class="user-actions">
+<%= lightbox_link_to content_tag('span', _('Logout')),
+    { :controller => 'account', :action => 'logout_popup' },
+    :class => 'button with-text icon-menu-logout' %>
+</div>
+
+</div>
