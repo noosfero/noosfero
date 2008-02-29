@@ -1,3 +1,6 @@
+<div class="common-profile-list-block"
+     help="<%= _('Here are all <b>%s</b>\'s communities.') % profile.name %>">
+
 <h1><%= _("%s's communities") % profile.name %></h1>
 
 <ul class='profile-list'>
@@ -7,5 +10,9 @@
 </ul>
 
 <% button_bar do %>
-  <%= button(:back, _('Go back'), :controller => 'profile') %>
+  <%= button :back, _('Go back'), { :controller => 'profile' },
+      :help => _('Back to the page where you come from.') %>
 <% end %>
+
+</div><!-- fim class="common-profile-list-block" -->
+
