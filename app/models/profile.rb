@@ -256,7 +256,7 @@ class Profile < ActiveRecord::Base
 
   hacked_after_create :insert_default_homepage_and_feed
   def insert_default_homepage_and_feed
-    hp = self.articles.build(:name => _('Home page'), :body => _("<h1>%s's home page</h1> <p>This is a default homepage created for %s. It can be changed though the control panel.</p>") % [ self.name, self.name])
+    hp = self.articles.build(:name => _("%s's home page") % self.name, :body => _("<p>This is a default homepage created for %s. It can be changed though the control panel.</p>") % self.name)
     hp.save!
     self.home_page = hp
     self.save!
