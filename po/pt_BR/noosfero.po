@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.7.0\n"
 "POT-Creation-Date: 2008-02-28 19:07-0300\n"
-"PO-Revision-Date: 2008-02-28 19:08-0300\n"
+"PO-Revision-Date: 2008-02-29 18:40-0300\n"
 "Last-Translator: Aurélio A. Heckert <aurium@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -785,14 +785,12 @@ msgid "PersonInfo|Contact information"
 msgstr "Informação de contato"
 
 #: app/models/person_info.rb:-
-#, fuzzy
 msgid "PersonInfo|Birth date"
 msgstr "Nome"
 
 #: app/models/person_info.rb:-
-#, fuzzy
 msgid "PersonInfo|Sex"
-msgstr "Nome"
+msgstr "Sexo"
 
 #: app/models/person_info.rb:-
 msgid "PersonInfo|Address"
@@ -803,14 +801,12 @@ msgid "PersonInfo|City"
 msgstr "Cidade"
 
 #: app/models/person_info.rb:-
-#, fuzzy
 msgid "PersonInfo|State"
-msgstr "Nome"
+msgstr "Estado"
 
 #: app/models/person_info.rb:-
-#, fuzzy
 msgid "PersonInfo|Country"
-msgstr "Fotografia"
+msgstr "País"
 
 #: app/models/person_info.rb:-
 #, fuzzy
