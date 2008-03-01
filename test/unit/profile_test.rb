@@ -337,6 +337,15 @@ class ProfileTest < Test::Unit::TestCase
     assert c.members.include?(p), "Profile should add the new member"
   end
 
+  should 'allow to add administrators' do
+    c = Profile.create!(:name => 'my test profile', :identifier => 'mytestprofile')
+    p = create_user('mytestuser').person
+
+    c.add_admin(p)
+
+    assert c.members.include?(p), "Profile should add the new admin"
+  end
+
   should 'have tasks' do
     c = Profile.create!(:name => 'my test profile', :identifier => 'mytestprofile')
     t1 = c.tasks.build
