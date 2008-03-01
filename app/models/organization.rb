@@ -6,6 +6,8 @@ class Organization < Profile
 
   has_one :validation_info
 
+  has_many :validations, :class_name => 'CreateEnterprise', :foreign_key => :target_id
+
   after_create do |org|
       OrganizationInfo.create!(:organization_id => org.id)
   end
@@ -23,19 +25,19 @@ class Organization < Profile
   end
 
   def pending_validations
-    CreateEnterprise.pending_for(self)
+    validations.pending
   end
 
   def find_pending_validation(code)
-    CreateEnterprise.pending_for(self, :code => code).first
+    validations.pending.find { |pending| pending.code == code }
   end
 
   def processed_validations
-    CreateEnterprise.processed_for(self)
+    validations.finished
   end
 
   def find_processed_validation(code)
-    CreateEnterprise.processed_for(self, :code => code).first
+    validations.finished.find { |pending| pending.code == code }
   end
 
   def is_validation_entity?

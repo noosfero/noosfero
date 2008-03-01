@@ -3,6 +3,28 @@ require File.dirname(__FILE__) + '/../test_helper'
 class OrganizationTest < Test::Unit::TestCase
   fixtures :profiles
 
+  def create_create_enterprise(org)
+    region = Region.create!(:name => 'some region', :environment => Environment.default)
+    region.validators << org
+
+    requestor = create_user('testreq').person
+
+    data = {
+      :name => 'My new enterprise',
+      :identifier => 'mynewenterprise',
+      :address => 'satan street, 666',
+      :contact_phone => '1298372198',
+      :contact_person => 'random joe',
+      :legal_form => 'cooperative',
+      :economic_activity => 'free software',
+      :region_id => region.id,
+      :requestor => requestor,
+      :target => org,
+    }
+    CreateEnterprise.create!(data)
+  end
+
+
   should 'reference organization info' do
     org = Organization.new
     assert_raise ActiveRecord::AssociationTypeMismatch do
@@ -62,36 +84,33 @@ class OrganizationTest < Test::Unit::TestCase
 
   should 'list pending enterprise validations' do
     org = Organization.new
-    empty = []
-    CreateEnterprise.expects(:pending_for).with(org).returns(empty)
-    assert_same empty, org.pending_validations
+    assert_kind_of Array, org.pending_validations
   end
 
   should 'be able to find a pending validation by its code' do
-    org = Organization.new
-    validation = mock
-    CreateEnterprise.expects(:pending_for).with(org, { :code => 'lele'}).returns([validation])
-    assert_same validation, org.find_pending_validation('lele')
+    org = Organization.create!(:name => 'test org', :identifier => 'testorg')
+
+    validation = create_create_enterprise(org)
+
+    ok('should find pending validation by code') { validation == org.find_pending_validation(validation.code) }
   end
 
   should 'return nil when finding for an unexisting pending validation' do
     org = Organization.new
-    CreateEnterprise.expects(:pending_for).with(org, { :code => 'lele'}).returns([])
-    assert_nil org.find_pending_validation('lele')
+    assert_nil org.find_pending_validation('xxxxxxxxxxxxxxxxxxx')
   end
 
-  should 'be able to find already processed validations by target' do
+  should 'be able to find already processed validations' do
     org = Organization.new
-    empty = mock
-    CreateEnterprise.expects(:processed_for).with(org).returns(empty)
-    assert_same empty, org.processed_validations
+    assert_kind_of Array, org.processed_validations
   end
 
   should 'be able to find an already processed validation by its code' do
-    org = Organization.new
-    empty = mock
-    CreateEnterprise.expects(:processed_for).with(org, {:code => 'lalalala'}).returns([empty])
-    assert_same empty, org.find_processed_validation('lalalala')
+    org = Organization.create!(:name => 'test org', :identifier => 'testorg')
+    validation = create_create_enterprise(org)
+    validation.finish
+
+    ok('should find processed validation by code') { validation == org.find_processed_validation(validation.code) }
   end
 
   should 'have boxes and blocks upon creation' do
