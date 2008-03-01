@@ -1,4 +1,8 @@
 .profile_info th {
   text-align: right;
-  padding-right: 20px;
+}
+
+.profile_info td,
+.profile_info th {
+  padding: 2px 10px;
 }

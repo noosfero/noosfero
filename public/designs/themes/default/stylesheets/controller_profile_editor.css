@@ -1,0 +1,12 @@
+
+#profile-editor-index .change-user-picture img {
+  border: 2px solid #3465A4;
+  padding: 1px;
+}
+
+#profile-editor-index .set-user-picture {
+  text-decoration: none;
+  border: 2px solid #3465A4;
+  background: #B8CFE7;
+  padding: 1px 5px;
+}

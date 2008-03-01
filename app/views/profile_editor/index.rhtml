@@ -1,8 +1,16 @@
+<div id="profile-editor-index">
+
 <h1 class="block-title"><%= _('My profile') %></h1>
 
 <%= render :partial => 'pending_tasks' %>
 
-<%= link_to (@profile.image ? image_tag( @profile.image.public_filename) : _('Put image')), :action => 'change_image'  %>
+<%= link_to (@profile.image ? image_tag( @profile.image.public_filename) :
+                              _('Upload your picture') ),
+    { :action => 'change_image' },
+    :class => (@profile.image ? 'change-user-picture' : 'set-user-picture' ),
+    :help => _('Click here to upload any image to be your picture') %>
+
+<p/>
 
 <%= display_profile_info(profile) %>
 
@@ -48,3 +56,5 @@
   <% end %>
 
 <% end %>
+
+</div><!-- end id="profile-editor-index" -->
