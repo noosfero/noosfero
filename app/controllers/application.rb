@@ -79,6 +79,19 @@ class ApplicationController < ActionController::Base
   end
 
   def set_system_locale
+    # don't allow unsupported locales
+    available_locales = Noosfero.locales.keys
+    if !available_locales.include?(GetText.locale.to_s)
+      # guess similar locales by using same language
+      similar = available_locales.find { |loc| GetText.locale.to_s.split('_').first == loc.split('_').first }
+      if similar
+        set_locale similar
+      else
+        set_locale(Noosfero.default_locale || 'en')
+      end
+    end
+
+    # actually set the system locale
     lang = GetText.locale.to_s
     system_locale =
       if (lang == 'en') || lang.blank?

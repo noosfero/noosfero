@@ -23,7 +23,23 @@ class LocaleSettingTest < ActionController::IntegrationTest
     # user now wants en
     get '/', { }, { 'HTTP_ACCEPT_LANGUAGE' => 'en' }
     assert_locale 'en'
+  end
 
+  should 'not use unsupported browser-informed locale and use C instead' do
+    get '/', { }, { 'HTTP_ACCEPT_LANGUAGE' => 'xx-yy, pt-br, en' }
+    assert_locale 'en'
+  end
+
+  should 'fallback to similar languages' do
+    # FIXME this assumes pt_PT is unsupported. If a pt_PT translation is added
+    # this test will break.
+    get '/', { }, { 'HTTP_ACCEPT_LANGUAGE' => 'pt-pt, en' }
+    assert_locale 'pt_BR'
+  end
+
+  should 'accept language without country code and pick a suitable language' do
+    get '/', { }, { 'HTTP_ACCEPT_LANGUAGE' => 'pt, en'}
+    assert_locale 'pt_BR'
   end
 
   should 'be able to force locale' do
