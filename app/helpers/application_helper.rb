@@ -396,12 +396,20 @@ module ApplicationHelper
 
   # formats a date for displaying.
   def show_date(date)
-    date.strftime(_('%d %B %Y'))
+    if date
+      date.strftime(_('%d %B %Y'))
+    else
+      ''
+    end
   end
 
   # formats a datetime for displaying. 
   def show_time(time)
-    time.strftime(_('%d %B %Y, %H:%m'))
+    if time
+      time.strftime(_('%d %B %Y, %H:%m'))
+    else
+      ''
+    end
   end
 
 end

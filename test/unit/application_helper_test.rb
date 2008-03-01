@@ -35,11 +35,19 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_equal 'translated date', show_date(date)
   end
 
+  should 'handle nil dates' do
+    assert_equal '', show_date(nil)
+  end
+
   should 'translate time' do
     time = mock
     expects(:_).with('%d %B %Y, %H:%m').returns('the time')
     time.expects(:strftime).with('the time').returns('translated time')
     assert_equal 'translated time', show_time(time)
+  end
+
+  should 'handle nil time' do
+    assert_equal '', show_time(nil)
   end
 
   protected
