@@ -5,7 +5,22 @@
 <% else %>
   <ul>
     <% @tasks.each do |item| %>
-      <li><%= item.class.name %></li>
+      <li>
+      <table>
+        <tr>
+          <th><%= _('Task') %></th>
+          <td><%= item.description %></td>
+        </tr>
+        <tr>
+          <th><%= _('Created') %></th>
+          <td><%= show_date (item.created_at) %></th>
+        </tr>
+        <tr>
+          <th><%= _('Processed') %></th>
+          <td><%= show_date (item.end_date) %></th>
+        </tr>
+      </table>
+      </li>
     <% end %>
   </ul>
 <% end %>
