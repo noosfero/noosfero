@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.7.0\n"
 "POT-Creation-Date: 2008-02-28 19:07-0300\n"
-"PO-Revision-Date: 2008-02-29 18:43-0300\n"
+"PO-Revision-Date: 2008-03-01 00:50-0300\n"
 "Last-Translator: Aurélio A. Heckert <aurium@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -2904,7 +2904,7 @@ msgstr ""
 #: app/views/task_mailer/task_created.text.plain.rhtml:6
 #: app/views/task_mailer/task_finished.text.plain.rhtml:6
 msgid "%s environment system"
-msgstr "%s ambiente do sistema"
+msgstr "Sistema do ambiente %s"
 
 #: app/views/task_mailer/task_cancelled.text.plain.rhtml:1
 #: app/views/task_mailer/task_created.text.plain.rhtml:1
