@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.7.0\n"
 "POT-Creation-Date: 2008-02-28 19:07-0300\n"
-"PO-Revision-Date: 2008-02-29 18:40-0300\n"
+"PO-Revision-Date: 2008-02-29 18:43-0300\n"
 "Last-Translator: Aurélio A. Heckert <aurium@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -564,7 +564,7 @@ msgstr "Nome: %s"
 
 #: app/models/create_enterprise.rb:149
 msgid "Acronym: %s"
-msgstr "Acrônimo: %s"
+msgstr "Sigla: %s"
 
 #: app/models/create_enterprise.rb:150
 msgid "Address: %s"
@@ -1205,7 +1205,7 @@ msgstr "email de contato"
 
 #: app/models/organization_info.rb:-
 msgid "OrganizationInfo|Acronym"
-msgstr "Acrônimo"
+msgstr "Sigla"
 
 #: app/models/organization_info.rb:-
 msgid "OrganizationInfo|Foundation year"
@@ -2148,7 +2148,7 @@ msgstr "Pessoa de Contato"
 #: app/views/enterprise_editor/_form.rhtml:13
 #: app/views/enterprise_validation/_details.rhtml:19
 msgid "Acronym"
-msgstr "Acrônimo"
+msgstr "Sigla"
 
 #: app/views/enterprise_editor/_form.rhtml:16
 #: app/views/enterprise_validation/_details.rhtml:27
@@ -2200,7 +2200,7 @@ msgstr "Pessoa de contato:"
 
 #: app/views/enterprise_editor/index.rhtml:9
 msgid "Acronym:"
-msgstr "Acrônimo:"
+msgstr "Sigla:"
 
 #: app/views/enterprise_editor/index.rhtml:10
 msgid "Foundation year:"
