@@ -1,0 +1,19 @@
+<%# a generic task solver %>
+<h2><%= _('Processing task: %s') % task.description %></h2>
+
+<% form_for('task', task, :url => { :action => 'close', :id => task.id}) do |f| %>
+
+  <div>
+    <%= radio_button_tag(:decision, 'finish', true) %>
+    <%= _('OK') %>
+  </div>
+  <div>
+    <%= radio_button_tag(:decision, 'cancel', false) %>
+    <%= _('Cancel') %>
+  </div>
+
+  <% button_bar do %>
+    <%= submit_button(:ok, _('OK')) %>
+  <% end %>
+
+<% end %>
