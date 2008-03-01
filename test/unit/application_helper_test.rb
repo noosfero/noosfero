@@ -25,7 +25,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
   should 'not generate link to unexisting stylesheet' do
     File.expects(:exists?).with(File.join(RAILS_ROOT, 'public', 'stylesheets', 'something.css')).returns(false)
     expects(:filename_for_stylesheet).with('something', nil).returns('/stylesheets/something.css')
-    assert_equal '', stylesheet_import('something')
+    assert_no_match %r{@import url(/stylesheets/something.css)}, stylesheet_import('something')
   end
 
   should 'translate date' do
