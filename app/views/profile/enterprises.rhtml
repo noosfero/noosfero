@@ -13,7 +13,7 @@
   <%= button :back, _('Go back'), { :controller => 'profile' },
       :help => _('Back to the page where you come from.') %>
   <%= button :add, _('Register a new Enterprise'),
-      :controller => 'enterprise_registration' %>
+      :controller => 'enterprise_registration' if logged_in? %>
 <% end %>
 
 </div><!-- fim class="common-profile-list-block" -->
