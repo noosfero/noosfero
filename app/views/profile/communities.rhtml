@@ -12,6 +12,8 @@
 <% button_bar do %>
   <%= button :back, _('Go back'), { :controller => 'profile' },
       :help => _('Back to the page where you come from.') %>
+  <%= button :add, _('Create a new community'),
+      :controller => 'memberships', :action => 'new_community' %>
 <% end %>
 
 </div><!-- fim class="common-profile-list-block" -->
