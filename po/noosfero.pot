@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.7.0\n"
-"POT-Creation-Date: 2008-03-03 11:04-0300\n"
+"POT-Creation-Date: 2008-03-04 09:03-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2613,7 +2613,7 @@ msgid "My groups"
 msgstr ""
 
 #: app/views/profile_editor/index.rhtml:54
-#: app/views/memberships/index.rhtml:26
+#: app/views/profile/enterprises.rhtml:15 app/views/memberships/index.rhtml:26
 msgid "Register a new Enterprise"
 msgstr ""
 
@@ -2820,16 +2820,33 @@ msgstr ""
 msgid "Content tagged with \"%s\""
 msgstr ""
 
-#: app/views/profile/index.rhtml:1
-msgid "%s's profile"
+#: app/views/profile/friends.rhtml:2
+msgid "Here are all <b>%s</b>'s friends."
 msgstr ""
 
-#: app/views/profile/index.rhtml:9
-msgid "Homepage: "
+#: app/views/profile/friends.rhtml:4
+msgid "%s' friends"
 msgstr ""
 
-#: app/views/profile/index.rhtml:14
-msgid "This function is not available yet."
+#: app/views/profile/friends.rhtml:13 app/views/profile/members.rhtml:13
+#: app/views/profile/communities.rhtml:13
+#: app/views/profile/enterprises.rhtml:13 app/views/memberships/index.rhtml:28
+#: app/views/friends/index.rhtml:23
+msgid "Go back"
+msgstr ""
+
+#: app/views/profile/friends.rhtml:14 app/views/profile/members.rhtml:14
+#: app/views/profile/communities.rhtml:14
+#: app/views/profile/enterprises.rhtml:14
+msgid "Back to the page where you come from."
+msgstr ""
+
+#: app/views/profile/members.rhtml:2
+msgid "Here are all <b>%s</b>'s members."
+msgstr ""
+
+#: app/views/profile/members.rhtml:4
+msgid "%s' members"
 msgstr ""
 
 #: app/views/profile/communities.rhtml:2
@@ -2840,17 +2857,8 @@ msgstr ""
 msgid "%s's communities"
 msgstr ""
 
-#: app/views/profile/communities.rhtml:13
-#: app/views/profile/enterprises.rhtml:13 app/views/profile/friends.rhtml:13
-#: app/views/profile/members.rhtml:13 app/views/memberships/index.rhtml:28
-#: app/views/friends/index.rhtml:23
-msgid "Go back"
-msgstr ""
-
-#: app/views/profile/communities.rhtml:14
-#: app/views/profile/enterprises.rhtml:14 app/views/profile/friends.rhtml:14
-#: app/views/profile/members.rhtml:14
-msgid "Back to the page where you come from."
+#: app/views/profile/communities.rhtml:15 app/views/memberships/index.rhtml:27
+msgid "Create a new community"
 msgstr ""
 
 #: app/views/profile/enterprises.rhtml:2
@@ -2861,20 +2869,12 @@ msgstr ""
 msgid "%s's enterprises"
 msgstr ""
 
-#: app/views/profile/friends.rhtml:2
-msgid "Here are all <b>%s</b>'s friends."
+#: app/views/profile/index.rhtml:1
+msgid "%s's profile"
 msgstr ""
 
-#: app/views/profile/friends.rhtml:4
-msgid "%s' friends"
-msgstr ""
-
-#: app/views/profile/members.rhtml:2
-msgid "Here are all <b>%s</b>'s members."
-msgstr ""
-
-#: app/views/profile/members.rhtml:4
-msgid "%s' members"
+#: app/views/profile/index.rhtml:9
+msgid "Homepage: "
 msgstr ""
 
 #: app/views/blocks/profile_info_actions/community.rhtml:3
@@ -2931,10 +2931,6 @@ msgstr ""
 
 #: app/views/memberships/index.rhtml:19
 msgid "Manage"
-msgstr ""
-
-#: app/views/memberships/index.rhtml:27
-msgid "Create a new community"
 msgstr ""
 
 #: app/views/friends/add.rhtml:1

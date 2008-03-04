@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.7.0\n"
-"POT-Creation-Date: 2008-03-03 11:04-0300\n"
+"POT-Creation-Date: 2008-03-04 09:03-0300\n"
 "PO-Revision-Date: 2008-03-01 00:50-0300\n"
 "Last-Translator: Aurélio A. Heckert <aurium@gmail.com>\n"
 "Language-Team: \n"
@@ -2765,7 +2765,7 @@ msgid "My groups"
 msgstr "Meus grupos"
 
 #: app/views/profile_editor/index.rhtml:54
-#: app/views/memberships/index.rhtml:26
+#: app/views/profile/enterprises.rhtml:15 app/views/memberships/index.rhtml:26
 msgid "Register a new Enterprise"
 msgstr "Registrar novo Empreendimento"
 
@@ -2981,18 +2981,36 @@ msgstr "Adicionar um bloco"
 msgid "Content tagged with \"%s\""
 msgstr "Conteúdo marcado com \"%s\""
 
-#: app/views/profile/index.rhtml:1
-msgid "%s's profile"
-msgstr "Perfil de %s"
+#: app/views/profile/friends.rhtml:2
+msgid "Here are all <b>%s</b>'s friends."
+msgstr ""
 
-#: app/views/profile/index.rhtml:9
-msgid "Homepage: "
-msgstr "Página: "
-
-#: app/views/profile/index.rhtml:14
+#: app/views/profile/friends.rhtml:4
 #, fuzzy
-msgid "This function is not available yet."
-msgstr "Esta ação não está disponível para \"%s\"."
+msgid "%s' friends"
+msgstr "Amigos"
+
+#: app/views/profile/friends.rhtml:13 app/views/profile/members.rhtml:13
+#: app/views/profile/communities.rhtml:13
+#: app/views/profile/enterprises.rhtml:13 app/views/memberships/index.rhtml:28
+#: app/views/friends/index.rhtml:23
+msgid "Go back"
+msgstr "Voltar"
+
+#: app/views/profile/friends.rhtml:14 app/views/profile/members.rhtml:14
+#: app/views/profile/communities.rhtml:14
+#: app/views/profile/enterprises.rhtml:14
+msgid "Back to the page where you come from."
+msgstr ""
+
+#: app/views/profile/members.rhtml:2
+msgid "Here are all <b>%s</b>'s members."
+msgstr ""
+
+#: app/views/profile/members.rhtml:4
+#, fuzzy
+msgid "%s' members"
+msgstr "Todos os membros"
 
 #: app/views/profile/communities.rhtml:2
 #, fuzzy
@@ -3004,18 +3022,9 @@ msgstr "Todas comunidades"
 msgid "%s's communities"
 msgstr "Todas comunidades"
 
-#: app/views/profile/communities.rhtml:13
-#: app/views/profile/enterprises.rhtml:13 app/views/profile/friends.rhtml:13
-#: app/views/profile/members.rhtml:13 app/views/memberships/index.rhtml:28
-#: app/views/friends/index.rhtml:23
-msgid "Go back"
-msgstr "Voltar"
-
-#: app/views/profile/communities.rhtml:14
-#: app/views/profile/enterprises.rhtml:14 app/views/profile/friends.rhtml:14
-#: app/views/profile/members.rhtml:14
-msgid "Back to the page where you come from."
-msgstr ""
+#: app/views/profile/communities.rhtml:15 app/views/memberships/index.rhtml:27
+msgid "Create a new community"
+msgstr "Criar nova comunidade"
 
 #: app/views/profile/enterprises.rhtml:2
 #, fuzzy
@@ -3027,23 +3036,13 @@ msgstr "Todos empreendimentos"
 msgid "%s's enterprises"
 msgstr "Todos empreendimentos"
 
-#: app/views/profile/friends.rhtml:2
-msgid "Here are all <b>%s</b>'s friends."
-msgstr ""
+#: app/views/profile/index.rhtml:1
+msgid "%s's profile"
+msgstr "Perfil de %s"
 
-#: app/views/profile/friends.rhtml:4
-#, fuzzy
-msgid "%s' friends"
-msgstr "Amigos"
-
-#: app/views/profile/members.rhtml:2
-msgid "Here are all <b>%s</b>'s members."
-msgstr ""
-
-#: app/views/profile/members.rhtml:4
-#, fuzzy
-msgid "%s' members"
-msgstr "Todos os membros"
+#: app/views/profile/index.rhtml:9
+msgid "Homepage: "
+msgstr "Página: "
 
 #: app/views/blocks/profile_info_actions/community.rhtml:3
 msgid "Join this community"
@@ -3101,10 +3100,6 @@ msgstr "Ações"
 #: app/views/memberships/index.rhtml:19
 msgid "Manage"
 msgstr "Gerenciar"
-
-#: app/views/memberships/index.rhtml:27
-msgid "Create a new community"
-msgstr "Criar nova comunidade"
 
 #: app/views/friends/add.rhtml:1
 msgid "Adding %s as a friend"
@@ -3238,6 +3233,10 @@ msgstr "Criado"
 #, fuzzy
 msgid "Processed"
 msgstr "Pedido de alteração de senha"
+
+#, fuzzy
+#~ msgid "This function is not available yet."
+#~ msgstr "Esta ação não está disponível para \"%s\"."
 
 #~ msgid "Home page"
 #~ msgstr "Página inicial"
