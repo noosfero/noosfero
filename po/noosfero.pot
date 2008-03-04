@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.7.0\n"
-"POT-Creation-Date: 2008-02-28 19:07-0300\n"
+"POT-Creation-Date: 2008-03-03 11:04-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -85,20 +85,20 @@ msgstr ""
 msgid "Could not update the product"
 msgstr ""
 
-#: app/controllers/my_profile/cms_controller.rb:86
-msgid "Article \"%s\" configured as home page."
-msgstr ""
-
-#: app/controllers/my_profile/friends_controller.rb:12
-msgid "%s still needs to accept being your friend."
-msgstr ""
-
 #: app/controllers/my_profile/profile_editor_controller.rb:26
 msgid "Image successfully uploaded"
 msgstr ""
 
 #: app/controllers/my_profile/profile_editor_controller.rb:29
 msgid "Could not upload image"
+msgstr ""
+
+#: app/controllers/my_profile/friends_controller.rb:14
+msgid "%s still needs to accept being your friend."
+msgstr ""
+
+#: app/controllers/my_profile/cms_controller.rb:87
+msgid "Article \"%s\" configured as home page."
 msgstr ""
 
 #: app/controllers/public/account_controller.rb:21
@@ -127,6 +127,10 @@ msgstr ""
 
 #: app/controllers/my_profile_controller.rb:17
 msgid "This action is not available for \"%s\"."
+msgstr ""
+
+#: app/controllers/box_organizer_controller.rb:91
+msgid "Failed to remove block"
 msgstr ""
 
 #: app/helpers/assets_helper.rb:6
@@ -234,7 +238,7 @@ msgid "New %s"
 msgstr ""
 
 #: app/helpers/cms_helper.rb:30 app/views/categories/index.rhtml:1
-#: app/views/content_viewer/view_page.rhtml:28
+#: app/views/content_viewer/view_page.rhtml:36
 msgid "Categories"
 msgstr ""
 
@@ -250,14 +254,18 @@ msgstr ""
 msgid "Move block down"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:128 app/views/categories/_category.rhtml:8
-#: app/views/cms/view.rhtml:70 app/views/content_viewer/view_page.rhtml:11
+#: app/helpers/boxes_helper.rb:126
+msgid "Remove block"
+msgstr ""
+
+#: app/helpers/boxes_helper.rb:129 app/views/categories/_category.rhtml:8
+#: app/views/cms/view.rhtml:70 app/views/content_viewer/view_page.rhtml:7
 #: app/views/role/index.rhtml:6
 msgid "Edit"
 msgstr ""
 
 #: app/helpers/application_helper.rb:57 app/views/features/index.rhtml:7
-#: app/views/layouts/application.rhtml:98
+#: app/views/layouts/application.rhtml:101
 msgid "Help"
 msgstr ""
 
@@ -274,7 +282,7 @@ msgstr ""
 #: app/views/admin_panel/site_info.rhtml:11
 #: app/views/cms/select_article_type.rhtml:12
 #: app/views/box_organizer/edit.rhtml:9
-#: app/views/memberships/new_community.rhtml:12
+#: app/views/memberships/new_community.rhtml:12 app/views/tasks/_task.rhtml:12
 msgid "Cancel"
 msgstr ""
 
@@ -286,15 +294,15 @@ msgstr ""
 msgid "No product"
 msgstr ""
 
-#: app/helpers/application_helper.rb:383
+#: app/helpers/application_helper.rb:385
 msgid "Click on this icon to go to the <b>%s</b>'s home page"
 msgstr ""
 
-#: app/helpers/application_helper.rb:397
+#: app/helpers/application_helper.rb:400
 msgid "%d %B %Y"
 msgstr ""
 
-#: app/helpers/application_helper.rb:402
+#: app/helpers/application_helper.rb:409
 msgid "%d %B %Y, %H:%m"
 msgstr ""
 
@@ -669,46 +677,6 @@ msgid "One community"
 msgid_plural "%{num} communities"
 msgstr[0] ""
 msgstr[1] ""
-
-#: app/models/image.rb:-
-msgid "image"
-msgstr ""
-
-#: app/models/image.rb:-
-msgid "Image|Owner type"
-msgstr ""
-
-#: app/models/image.rb:-
-msgid "Image|Owner"
-msgstr ""
-
-#: app/models/image.rb:-
-msgid "Image|Parent"
-msgstr ""
-
-#: app/models/image.rb:-
-msgid "Image|Content type"
-msgstr ""
-
-#: app/models/image.rb:-
-msgid "Image|Filename"
-msgstr ""
-
-#: app/models/image.rb:-
-msgid "Image|Thumbnail"
-msgstr ""
-
-#: app/models/image.rb:-
-msgid "Image|Size"
-msgstr ""
-
-#: app/models/image.rb:-
-msgid "Image|Width"
-msgstr ""
-
-#: app/models/image.rb:-
-msgid "Image|Height"
-msgstr ""
 
 #: app/models/image_gallery.rb:4
 msgid "Image gallery"
@@ -1182,6 +1150,96 @@ msgstr ""
 msgid "None"
 msgstr ""
 
+#: app/models/image.rb:-
+msgid "image"
+msgstr ""
+
+#: app/models/image.rb:-
+msgid "Image|Owner type"
+msgstr ""
+
+#: app/models/image.rb:-
+msgid "Image|Owner"
+msgstr ""
+
+#: app/models/image.rb:-
+msgid "Image|Parent"
+msgstr ""
+
+#: app/models/image.rb:-
+msgid "Image|Content type"
+msgstr ""
+
+#: app/models/image.rb:-
+msgid "Image|Filename"
+msgstr ""
+
+#: app/models/image.rb:-
+msgid "Image|Thumbnail"
+msgstr ""
+
+#: app/models/image.rb:-
+msgid "Image|Size"
+msgstr ""
+
+#: app/models/image.rb:-
+msgid "Image|Width"
+msgstr ""
+
+#: app/models/image.rb:-
+msgid "Image|Height"
+msgstr ""
+
+#: app/models/profile.rb:19
+msgid "Edit profile"
+msgstr ""
+
+#: app/models/profile.rb:20
+msgid "Destroy profile"
+msgstr ""
+
+#: app/models/profile.rb:21
+msgid "Manage memberships"
+msgstr ""
+
+#: app/models/profile.rb:22
+msgid "Post content"
+msgstr ""
+
+#: app/models/profile.rb:23
+msgid "Edit profile design"
+msgstr ""
+
+#: app/models/profile.rb:24
+msgid "Manage products"
+msgstr ""
+
+#: app/models/profile.rb:25 app/views/profile_editor/index.rhtml:30
+msgid "Manage friends"
+msgstr ""
+
+#: app/models/profile.rb:26
+msgid "Validate enterprise"
+msgstr ""
+
+#: app/models/profile.rb:27
+msgid "Peform task"
+msgstr ""
+
+#: app/models/profile.rb:85
+msgid "An existing profile cannot be renamed."
+msgstr ""
+
+#: app/models/profile.rb:259
+msgid "%s's home page"
+msgstr ""
+
+#: app/models/profile.rb:259
+msgid ""
+"<p>This is a default homepage created for %s. It can be changed though the "
+"control panel.</p>"
+msgstr ""
+
 #: app/models/friendship.rb:-
 msgid "friendship"
 msgstr ""
@@ -1275,14 +1333,6 @@ msgstr ""
 msgid "Password change request"
 msgstr ""
 
-#: app/models/recent_documents_block.rb:4
-msgid "List of recent content"
-msgstr ""
-
-#: app/models/recent_documents_block.rb:18
-msgid "Recent content"
-msgstr ""
-
 #: app/models/rss_feed.rb:71
 msgid "%s's RSS feed"
 msgstr ""
@@ -1335,6 +1385,10 @@ msgstr ""
 msgid "Task|Type"
 msgstr ""
 
+#: app/models/task.rb:-
+msgid "Task|Created at"
+msgstr ""
+
 #: app/models/task.rb:86
 msgid "Generic task"
 msgstr ""
@@ -1349,44 +1403,6 @@ msgstr ""
 
 #: app/models/task.rb:105
 msgid "The task was cancelled at %s"
-msgstr ""
-
-#: app/models/profile.rb:19
-msgid "Edit profile"
-msgstr ""
-
-#: app/models/profile.rb:20
-msgid "Destroy profile"
-msgstr ""
-
-#: app/models/profile.rb:21
-msgid "Manage memberships"
-msgstr ""
-
-#: app/models/profile.rb:22
-msgid "Post content"
-msgstr ""
-
-#: app/models/profile.rb:23
-msgid "Edit profile design"
-msgstr ""
-
-#: app/models/profile.rb:24
-msgid "Manage products"
-msgstr ""
-
-#: app/models/profile.rb:82
-msgid "An existing profile cannot be renamed."
-msgstr ""
-
-#: app/models/profile.rb:256
-msgid "Home page"
-msgstr ""
-
-#: app/models/profile.rb:256
-msgid ""
-"<h1>%s's home page</h1> <p>This is a default homepage created for %s. It can "
-"be changed though the control panel.</p>"
 msgstr ""
 
 #: app/models/communities_block.rb:4
@@ -1441,6 +1457,18 @@ msgstr ""
 msgid "%s wants to be your friend"
 msgstr ""
 
+#: app/models/friends_block.rb:4
+msgid "A block that displays your friends"
+msgstr ""
+
+#: app/models/friends_block.rb:8 app/views/profile/index.rhtml:14
+msgid "Friends"
+msgstr ""
+
+#: app/models/friends_block.rb:14
+msgid "All friends"
+msgstr ""
+
 #: app/models/person.rb:9
 msgid "friends"
 msgstr ""
@@ -1457,16 +1485,12 @@ msgstr ""
 msgid "family"
 msgstr ""
 
-#: app/models/friends_block.rb:4
-msgid "A block that displays your friends"
+#: app/models/recent_documents_block.rb:4
+msgid "List of recent content"
 msgstr ""
 
-#: app/models/friends_block.rb:8 app/views/profile/index.rhtml:14
-msgid "Friends"
-msgstr ""
-
-#: app/models/friends_block.rb:14
-msgid "All friends"
+#: app/models/recent_documents_block.rb:20
+msgid "Recent content"
 msgstr ""
 
 #: app/views/account/login.rhtml:3 app/views/account/login.rhtml:7
@@ -1488,6 +1512,22 @@ msgstr ""
 
 #: app/views/account/login.rhtml:23
 msgid "I want to be an user!"
+msgstr ""
+
+#: app/views/account/user_info.rhtml:3
+msgid "Logged in as %s"
+msgstr ""
+
+#: app/views/account/user_info.rhtml:6
+msgid "User since %{year}/%{month}"
+msgstr ""
+
+#: app/views/account/user_info.rhtml:7 app/views/blocks/profile_info.rhtml:7
+msgid "Homepage"
+msgstr ""
+
+#: app/views/account/user_info.rhtml:11 app/views/shared/user_menu.rhtml:37
+msgid "Logout"
 msgstr ""
 
 #: app/views/account/change_password.rhtml:1
@@ -1618,7 +1658,7 @@ msgid "Are you sure you want to get out?"
 msgstr ""
 
 #: app/views/account/logout_popup.rhtml:4
-#: app/views/layouts/application.rhtml:146
+#: app/views/layouts/application.rhtml:149
 msgid "Yes"
 msgstr ""
 
@@ -1667,18 +1707,6 @@ msgstr ""
 
 #: app/views/account/signup.rhtml:22
 msgid "Sign up"
-msgstr ""
-
-#: app/views/account/user_info.rhtml:4
-msgid "User since %d"
-msgstr ""
-
-#: app/views/account/user_info.rhtml:5 app/views/blocks/profile_info.rhtml:7
-msgid "Homepage"
-msgstr ""
-
-#: app/views/account/user_info.rhtml:9 app/views/shared/user_menu.rhtml:37
-msgid "Logout"
 msgstr ""
 
 #: app/views/account/login_block.rhtml:16
@@ -1946,7 +1974,7 @@ msgstr ""
 #: app/views/environment_role_manager/index.rhtml:13
 #: app/views/manage_products/index.rhtml:12
 #: app/views/profile_members/index.rhtml:13 app/views/role/index.rhtml:12
-#: app/views/role/show.rhtml:10 app/views/tasks/processed.rhtml:14
+#: app/views/role/show.rhtml:10 app/views/tasks/processed.rhtml:29
 msgid "Back"
 msgstr ""
 
@@ -1963,24 +1991,6 @@ msgstr ""
 msgid "There is no such page: %s"
 msgstr ""
 
-#: app/views/content_viewer/view_page.rhtml:4
-msgid "Tags: %s"
-msgstr ""
-
-#: app/views/content_viewer/view_page.rhtml:8
-msgid "Up"
-msgstr ""
-
-#: app/views/content_viewer/view_page.rhtml:32
-msgid "No comments yet"
-msgstr ""
-
-#: app/views/content_viewer/view_page.rhtml:32
-msgid "One comment"
-msgid_plural "%{comments} comments"
-msgstr[0] ""
-msgstr[1] ""
-
 #: app/views/content_viewer/no_home_page.rhtml:1
 msgid "Missing home page"
 msgstr ""
@@ -1993,39 +2003,53 @@ msgstr ""
 msgid "Click here to set your homepage now!"
 msgstr ""
 
-#: app/views/content_viewer/_comment_form.rhtml:10
+#: app/views/content_viewer/_comment_form.rhtml:11
 msgid "Post a comment"
 msgstr ""
 
-#: app/views/content_viewer/_comment_form.rhtml:16
+#: app/views/content_viewer/_comment_form.rhtml:17
 #: app/views/enterprise_editor/_form.rhtml:1
 #: app/views/enterprise_validation/_details.rhtml:3
 #: app/views/memberships/index.rhtml:10
 msgid "Name"
 msgstr ""
 
-#: app/views/content_viewer/_comment_form.rhtml:17
+#: app/views/content_viewer/_comment_form.rhtml:18
 msgid "e-mail"
 msgstr ""
 
-#: app/views/content_viewer/_comment_form.rhtml:20
+#: app/views/content_viewer/_comment_form.rhtml:21
 msgid ""
 "If you are a registered user, you can login and be automatically recognized."
 msgstr ""
 
-#: app/views/content_viewer/_comment_form.rhtml:25
+#: app/views/content_viewer/_comment_form.rhtml:26
 msgid "Title"
 msgstr ""
 
-#: app/views/content_viewer/_comment_form.rhtml:26
+#: app/views/content_viewer/_comment_form.rhtml:27
 msgid "Enter your comment"
 msgstr ""
 
-#: app/views/content_viewer/_comment_form.rhtml:28
+#: app/views/content_viewer/_comment_form.rhtml:29
 msgid "Post comment"
 msgstr ""
 
-#: app/views/content_viewer/_comment.rhtml:3
+#: app/views/content_viewer/view_page.rhtml:19
+msgid "Up"
+msgstr ""
+
+#: app/views/content_viewer/view_page.rhtml:40
+msgid "No comments yet"
+msgstr ""
+
+#: app/views/content_viewer/view_page.rhtml:40
+msgid "One comment"
+msgid_plural "%{comments} comments"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/views/content_viewer/_comment.rhtml:13
 msgid "By %{author} on %{date}"
 msgstr ""
 
@@ -2383,7 +2407,7 @@ msgid ""
 msgstr ""
 
 #: app/views/home/index.rhtml:6 app/views/home/index.rhtml:12
-#: app/views/layouts/application.rhtml:91
+#: app/views/layouts/application.rhtml:94
 #: app/views/region_validators/region.rhtml:23 app/views/search/popup.rhtml:7
 #: app/views/search/popup.rhtml:14
 msgid "Search"
@@ -2397,23 +2421,23 @@ msgstr ""
 msgid "Page not found"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:41
+#: app/views/layouts/application.rhtml:44
 msgid ""
 "Pass the mouse over page elements to get help on them. Click the question "
 "mark icon on the top-right corner to deactivate this help window."
 msgstr ""
 
-#: app/views/layouts/application.rhtml:60
+#: app/views/layouts/application.rhtml:63
 msgid "Go to content"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:76
+#: app/views/layouts/application.rhtml:79
 msgid ""
 "This is %s's shortcuts bar. Using it you have access to the main features of "
 "the environment and you find the information of your interest more quickly."
 msgstr ""
 
-#: app/views/layouts/application.rhtml:78
+#: app/views/layouts/application.rhtml:81
 msgid ""
 "This bar helps you find information following two paths or "
 "<strong>dimensions</strong>. First dimension is composed of <em>categories</"
@@ -2422,36 +2446,36 @@ msgid ""
 "right."
 msgstr ""
 
-#: app/views/layouts/application.rhtml:97
+#: app/views/layouts/application.rhtml:100
 msgid "Turn help on/off"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:143
+#: app/views/layouts/application.rhtml:146
 msgid "Do you want to activate the automatic help mode?"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:149
+#: app/views/layouts/application.rhtml:152
 msgid "No"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:152
+#: app/views/layouts/application.rhtml:155
 msgid ""
 "If needed, you can activate or inactivate the automatic help mode by "
 "clicking the question mark symbol in the top-right corner"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:160
+#: app/views/layouts/application.rhtml:163
 msgid "Your web browser is obsolete!"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:161
+#: app/views/layouts/application.rhtml:164
 msgid ""
 "This website will not look as good as it could.\n"
 "         Don't you want to use Firefox? That is a great web browser, free,\n"
 "         and made by people of all the world parts."
 msgstr ""
 
-#: app/views/layouts/application.rhtml:165
+#: app/views/layouts/application.rhtml:168
 msgid "Get Firefox Now!"
 msgstr ""
 
@@ -2536,60 +2560,64 @@ msgstr ""
 msgid "Process requests"
 msgstr ""
 
-#: app/views/profile_editor/index.rhtml:1
+#: app/views/profile_editor/index.rhtml:3
 msgid "My profile"
 msgstr ""
 
-#: app/views/profile_editor/index.rhtml:5
-msgid "Put image"
+#: app/views/profile_editor/index.rhtml:8
+msgid "Upload your picture"
 msgstr ""
 
-#: app/views/profile_editor/index.rhtml:12
-msgid "Edit Profile"
-msgstr ""
-
-#: app/views/profile_editor/index.rhtml:14
-msgid "Pending tasks"
-msgstr ""
-
-#: app/views/profile_editor/index.rhtml:16
-msgid "Edit Visual Design"
-msgstr ""
-
-#: app/views/profile_editor/index.rhtml:18
-msgid "Manage Content"
+#: app/views/profile_editor/index.rhtml:11
+msgid "Click here to upload any image to be your picture"
 msgstr ""
 
 #: app/views/profile_editor/index.rhtml:20
-msgid "Change Password"
+msgid "Edit Profile"
 msgstr ""
 
 #: app/views/profile_editor/index.rhtml:22
-msgid "Manage Members"
+msgid "Pending tasks"
 msgstr ""
 
 #: app/views/profile_editor/index.rhtml:24
-msgid "Consumed Products"
+msgid "Edit Visual Design"
 msgstr ""
 
 #: app/views/profile_editor/index.rhtml:26
-msgid "Manage Products"
+msgid "Manage Content"
 msgstr ""
 
 #: app/views/profile_editor/index.rhtml:28
+msgid "Change Password"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:32
+msgid "Manage Members"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:34
+msgid "Consumed Products"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:36
+msgid "Manage Products"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:38
 msgid "Enterprise Validation"
 msgstr ""
 
-#: app/views/profile_editor/index.rhtml:33
+#: app/views/profile_editor/index.rhtml:43
 msgid "My groups"
 msgstr ""
 
-#: app/views/profile_editor/index.rhtml:44
+#: app/views/profile_editor/index.rhtml:54
 #: app/views/memberships/index.rhtml:26
 msgid "Register a new Enterprise"
 msgstr ""
 
-#: app/views/profile_editor/index.rhtml:45
+#: app/views/profile_editor/index.rhtml:55
 msgid "Manage my organizations"
 msgstr ""
 
@@ -2747,8 +2775,8 @@ msgstr ""
 
 #: app/views/shared/user_menu.rhtml:51
 msgid ""
-"Open the logion box to allow you to be recognized and to use the <b>cool "
-"functions</b> of this enviroment."
+"Open the login box to allow you to be recognized and to use the <b>cool "
+"features</b> of this enviroment."
 msgstr ""
 
 #: app/views/task_mailer/target_notification.rhtml:6
@@ -2792,25 +2820,6 @@ msgstr ""
 msgid "Content tagged with \"%s\""
 msgstr ""
 
-#: app/views/profile/communities.rhtml:1
-msgid "%s's communities"
-msgstr ""
-
-#: app/views/profile/communities.rhtml:10
-#: app/views/profile/enterprises.rhtml:10 app/views/profile/friends.rhtml:10
-#: app/views/profile/members.rhtml:10 app/views/memberships/index.rhtml:28
-#: app/views/friends/index.rhtml:11
-msgid "Go back"
-msgstr ""
-
-#: app/views/profile/enterprises.rhtml:1
-msgid "%s's enterprises"
-msgstr ""
-
-#: app/views/profile/friends.rhtml:1
-msgid "%s' friends"
-msgstr ""
-
 #: app/views/profile/index.rhtml:1
 msgid "%s's profile"
 msgstr ""
@@ -2823,7 +2832,48 @@ msgstr ""
 msgid "This function is not available yet."
 msgstr ""
 
-#: app/views/profile/members.rhtml:1
+#: app/views/profile/communities.rhtml:2
+msgid "Here are all <b>%s</b>'s communities."
+msgstr ""
+
+#: app/views/profile/communities.rhtml:4
+msgid "%s's communities"
+msgstr ""
+
+#: app/views/profile/communities.rhtml:13
+#: app/views/profile/enterprises.rhtml:13 app/views/profile/friends.rhtml:13
+#: app/views/profile/members.rhtml:13 app/views/memberships/index.rhtml:28
+#: app/views/friends/index.rhtml:23
+msgid "Go back"
+msgstr ""
+
+#: app/views/profile/communities.rhtml:14
+#: app/views/profile/enterprises.rhtml:14 app/views/profile/friends.rhtml:14
+#: app/views/profile/members.rhtml:14
+msgid "Back to the page where you come from."
+msgstr ""
+
+#: app/views/profile/enterprises.rhtml:2
+msgid "Here are all <b>%s</b>'s enterprises."
+msgstr ""
+
+#: app/views/profile/enterprises.rhtml:4
+msgid "%s's enterprises"
+msgstr ""
+
+#: app/views/profile/friends.rhtml:2
+msgid "Here are all <b>%s</b>'s friends."
+msgstr ""
+
+#: app/views/profile/friends.rhtml:4
+msgid "%s' friends"
+msgstr ""
+
+#: app/views/profile/members.rhtml:2
+msgid "Here are all <b>%s</b>'s members."
+msgstr ""
+
+#: app/views/profile/members.rhtml:4
 msgid "%s' members"
 msgstr ""
 
@@ -2887,10 +2937,6 @@ msgstr ""
 msgid "Create a new community"
 msgstr ""
 
-#: app/views/friends/index.rhtml:1
-msgid "%s's friends"
-msgstr ""
-
 #: app/views/friends/add.rhtml:1
 msgid "Adding %s as a friend"
 msgstr ""
@@ -2915,16 +2961,34 @@ msgstr ""
 msgid "Yes, I want to add %s as my friend"
 msgstr ""
 
-#: app/views/friends/add.rhtml:25
+#: app/views/friends/add.rhtml:25 app/views/friends/remove.rhtml:17
 msgid "No, I don't want"
 msgstr ""
 
-#: app/views/tasks/processed.rhtml:1
-msgid "%s's processed tasks"
+#: app/views/friends/remove.rhtml:1
+msgid "Removing friend: %s"
 msgstr ""
 
-#: app/views/tasks/processed.rhtml:4
-msgid "No processed tasks."
+#: app/views/friends/remove.rhtml:4
+msgid "Are you sure you want to remove %s from your friends list?"
+msgstr ""
+
+#: app/views/friends/remove.rhtml:9
+msgid ""
+"Note that %s will still have you as a friend, unless he/she also wants to "
+"remove you from his/her friend list."
+msgstr ""
+
+#: app/views/friends/remove.rhtml:16
+msgid "Yes, I want to remove %s from my friend list"
+msgstr ""
+
+#: app/views/friends/index.rhtml:1
+msgid "%s's friends"
+msgstr ""
+
+#: app/views/friends/index.rhtml:16
+msgid "You have no friends yet. Go make some."
 msgstr ""
 
 #: app/views/tasks/index.rhtml:1
@@ -2964,6 +3028,31 @@ msgstr ""
 msgid "Ignore"
 msgstr ""
 
-#: app/views/tasks/_add_friend.rhtml:30
+#: app/views/tasks/_add_friend.rhtml:30 app/views/tasks/_task.rhtml:8
+#: app/views/tasks/_task.rhtml:16
 msgid "OK"
+msgstr ""
+
+#: app/views/tasks/_task.rhtml:2
+msgid "Processing task: %s"
+msgstr ""
+
+#: app/views/tasks/processed.rhtml:1
+msgid "%s's processed tasks"
+msgstr ""
+
+#: app/views/tasks/processed.rhtml:4
+msgid "No processed tasks."
+msgstr ""
+
+#: app/views/tasks/processed.rhtml:11
+msgid "Task"
+msgstr ""
+
+#: app/views/tasks/processed.rhtml:15
+msgid "Created"
+msgstr ""
+
+#: app/views/tasks/processed.rhtml:19
+msgid "Processed"
 msgstr ""
