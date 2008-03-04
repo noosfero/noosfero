@@ -19,6 +19,9 @@ module Noosfero
   class << self
     attr_accessor :locales
     attr_accessor :default_locale
+    def available_locales
+      Dir.glob(File.join(RAILS_ROOT, 'locale', '*')).map { |f| File.basename(f) }
+    end
   end
 
   private
