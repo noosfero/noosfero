@@ -5,7 +5,7 @@ class EnterprisesBlock < ProfileListBlock
   end
 
   def help
-    _('Here you can see the enterprises where this user works.')
+    _('The enterprises where this user works.')
   end
 
   def self.description
