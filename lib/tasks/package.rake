@@ -39,5 +39,6 @@ Rake::PackageTask.new(Noosfero::PROJECT, Noosfero::VERSION) do |p|
 
   # exclusions
   p.package_files.exclude('coverage/**/*')
+  p.package_files.exclude('public/images/[0-9][0-9][0-9][0-9]/**/*')
 
 end
