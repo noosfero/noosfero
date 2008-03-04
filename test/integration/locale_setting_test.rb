@@ -5,6 +5,8 @@ class LocaleSettingTest < ActionController::IntegrationTest
   def setup
     # reset GetText before every test
     GetText.locale = nil
+    Noosfero.stubs(:default_locale).returns('en')
+    Noosfero.stubs(:available_locales).returns(['pt_BR'])
   end
 
   should 'be able to set a default language' do

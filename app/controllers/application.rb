@@ -25,9 +25,9 @@ class ApplicationController < ActionController::Base
   include AuthenticatedSystem
   include PermissionCheck
 
+  before_init_gettext :maybe_save_locale
+  after_init_gettext :check_locale
   init_gettext 'noosfero'
-  before_init_gettext :force_language
-  after_init_gettext :set_system_locale
 
   include NeedsProfile
 
@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
     verify :method => :post, :only => actions, :redirect_to => redirect
   end
 
-  protected 
+  protected
 
   # TODO: move this logic somewhere else (Domain class?)
   def detect_stuff_by_domain
@@ -63,43 +63,43 @@ class ApplicationController < ActionController::Base
     current_user.person if logged_in?
   end
 
-  def force_language
-    lang = params[:lang]
-    if lang.blank?
-      # no language forced, get language from cookie
-      lang = cookies[:lang] || Noosfero.default_locale
-    else
-      # save forced language in the cookie
-      cookies[:lang] = lang
+  def maybe_save_locale
+    # save locale if forced
+    if params[:lang]
+      cookies[:lang] = params[:lang]
     end
-
-    unless lang.blank?
-      set_locale lang
-    end
+    # force GetText to load a matching locale
+    GetText.locale = nil
   end
 
-  def set_system_locale
-    # don't allow unsupported locales
-    available_locales = Noosfero.locales.keys
-    if !available_locales.include?(GetText.locale.to_s)
-      # guess similar locales by using same language
-      similar = available_locales.find { |loc| GetText.locale.to_s.split('_').first == loc.split('_').first }
+  def check_locale
+    available_locales = Noosfero.available_locales
+
+    # do not accept unsupported locales
+    if !available_locales.include?(locale.to_s)
+      old_locale = locale.to_s
+      # find a similar locale
+      similar = available_locales.find { |loc| locale.to_s.split('_').first == loc.split('_').first }
       if similar
         set_locale similar
+        cookies[:lang] = similar
       else
-        set_locale(Noosfero.default_locale || 'en')
+        # no similar locale, fallback to default
+        set_locale(Noosfero.default_locale)
+        cookies[:lang] = Noosfero.default_locale
       end
+      RAILS_DEFAULT_LOGGER.info('Locale reverted from %s to %s' % [old_locale, locale])
     end
 
-    # actually set the system locale
-    lang = GetText.locale.to_s
-    system_locale =
-      if (lang == 'en') || lang.blank?
-        'C'
-      else
-        ('%s.utf8' % lang)
-      end
-    Locale.setlocale(Locale::LC_ALL, system_locale)
+    # now set the system locale
+    system_locale = '%s.utf8' % locale
+    begin
+      Locale.setlocale(Locale::LC_ALL, system_locale)
+    rescue Exception => e
+      # fallback to C
+      RAILS_DEFAULT_LOGGER.info("Locale #{system_locale} not available, falling back to the portable \"C\" locale (consider installing the #{system_locale} locale in your system)")
+      Locale.setlocale(Locale::LC_ALL, 'C')
+    end
   end
 
 end
