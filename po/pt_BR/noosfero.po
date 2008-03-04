@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.7.0\n"
-"POT-Creation-Date: 2008-03-04 09:03-0300\n"
-"PO-Revision-Date: 2008-03-01 00:50-0300\n"
+"POT-Creation-Date: 2008-03-04 10:07-0300\n"
+"PO-Revision-Date: 2008-03-04 10:09-0300\n"
 "Last-Translator: Aurélio A. Heckert <aurium@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -98,7 +98,7 @@ msgstr "Não foi possível enviar imagem"
 
 #: app/controllers/my_profile/friends_controller.rb:14
 msgid "%s still needs to accept being your friend."
-msgstr ""
+msgstr "%s ainda precisa aceitar ser seu(sua) amigo(a)."
 
 #: app/controllers/my_profile/cms_controller.rb:87
 msgid "Article \"%s\" configured as home page."
@@ -133,9 +133,8 @@ msgid "This action is not available for \"%s\"."
 msgstr "Esta ação não está disponível para \"%s\"."
 
 #: app/controllers/box_organizer_controller.rb:91
-#, fuzzy
 msgid "Failed to remove block"
-msgstr "Falhou em criar papel"
+msgstr "Falhou ao remove bloco"
 
 #: app/helpers/assets_helper.rb:6
 msgid "Blogs"
@@ -261,9 +260,8 @@ msgid "Move block down"
 msgstr "Mover para baixo"
 
 #: app/helpers/boxes_helper.rb:126
-#, fuzzy
 msgid "Remove block"
-msgstr "Mover para cima"
+msgstr "Remover bloco"
 
 #: app/helpers/boxes_helper.rb:129 app/views/categories/_category.rhtml:8
 #: app/views/cms/view.rhtml:70 app/views/content_viewer/view_page.rhtml:7
@@ -303,7 +301,7 @@ msgstr "Sem produto"
 
 #: app/helpers/application_helper.rb:385
 msgid "Click on this icon to go to the <b>%s</b>'s home page"
-msgstr ""
+msgstr "Clique nesse ícone para ir para a página inicial de <b>%s</b>"
 
 #: app/helpers/application_helper.rb:400
 msgid "%d %B %Y"
@@ -322,48 +320,44 @@ msgid "Article not selected yet."
 msgstr "Nenhum artigo selecionado ainda."
 
 #: app/models/block.rb:-
-#, fuzzy
 msgid "block"
 msgstr "voltar"
 
 #: app/models/block.rb:-
-#, fuzzy
 msgid "Block|Title"
 msgstr "Título"
 
 #: app/models/block.rb:-
 msgid "Block|Box"
-msgstr ""
+msgstr "Caixa"
 
 #: app/models/block.rb:-
 msgid "Block|Type"
-msgstr ""
+msgstr "Tipo"
 
 #: app/models/block.rb:-
 msgid "Block|Settings"
-msgstr ""
+msgstr "Configurações"
 
 #: app/models/block.rb:-
 msgid "Block|Position"
-msgstr ""
+msgstr "Posição"
 
 #: app/models/box.rb:-
 msgid "box"
-msgstr ""
+msgstr "caixa"
 
 #: app/models/box.rb:-
-#, fuzzy
 msgid "Box|Owner type"
 msgstr "Tipo do dono"
 
 #: app/models/box.rb:-
-#, fuzzy
 msgid "Box|Owner"
 msgstr "Dono"
 
 #: app/models/box.rb:-
 msgid "Box|Position"
-msgstr ""
+msgstr "Posição"
 
 #: app/models/category.rb:-
 msgid "category"
@@ -414,40 +408,34 @@ msgid "%{fn} must be the same as the parents'"
 msgstr "%{fn} tem que ser o mesmo que o dos pais'"
 
 #: app/models/comment.rb:-
-#, fuzzy
 msgid "comment"
-msgstr "Um comentário"
+msgstr "comentário"
 
 #: app/models/comment.rb:-
-#, fuzzy
 msgid "Comment|Title"
-msgstr "Comunidades"
+msgstr "Título"
 
 #: app/models/comment.rb:-
 msgid "Comment|Body"
-msgstr ""
+msgstr "Corpo"
 
 #: app/models/comment.rb:-
-#, fuzzy
 msgid "Comment|Article"
 msgstr "Artigo"
 
 #: app/models/comment.rb:-
 msgid "Comment|Author"
-msgstr ""
+msgstr "Autor"
 
 #: app/models/comment.rb:-
-#, fuzzy
 msgid "Comment|Name"
 msgstr "Nome"
 
 #: app/models/comment.rb:-
-#, fuzzy
 msgid "Comment|Email"
 msgstr "E-mail"
 
 #: app/models/comment.rb:-
-#, fuzzy
 msgid "Comment|Created on"
 msgstr "Criado em"
 
@@ -456,9 +444,8 @@ msgid "%{fn} can only be informed for unauthenticated authors"
 msgstr "%{fn} só pode ser informado para autores não autenticados"
 
 #: app/models/consumption.rb:-
-#, fuzzy
 msgid "consumption"
-msgstr "Perfil"
+msgstr "consumo"
 
 #: app/models/consumption.rb:-
 msgid "Consumption|Product category"
@@ -779,14 +766,12 @@ msgid "PersonInfo|Country"
 msgstr "País"
 
 #: app/models/person_info.rb:-
-#, fuzzy
 msgid "PersonInfo|Created at"
-msgstr "Nome"
+msgstr "Criado em"
 
 #: app/models/person_info.rb:-
-#, fuzzy
 msgid "PersonInfo|Updated at"
-msgstr "Nome"
+msgstr "Atualizado em"
 
 #: app/models/person_info.rb:-
 msgid "PersonInfo|Person"
@@ -829,42 +814,34 @@ msgid "Accessible alternative for visually impaired users."
 msgstr "Alternativa acessível para usuários com deficiência visual."
 
 #: app/models/thumbnail.rb:-
-#, fuzzy
 msgid "thumbnail"
-msgstr "Miniatura"
+msgstr "miniatura"
 
 #: app/models/thumbnail.rb:-
-#, fuzzy
 msgid "Thumbnail|Size"
-msgstr "Miniatura"
+msgstr "Tamanho"
 
 #: app/models/thumbnail.rb:-
-#, fuzzy
 msgid "Thumbnail|Content type"
 msgstr "Tipo de conteúdo"
 
 #: app/models/thumbnail.rb:-
-#, fuzzy
 msgid "Thumbnail|Filename"
 msgstr "Nome de arquivo"
 
 #: app/models/thumbnail.rb:-
-#, fuzzy
 msgid "Thumbnail|Height"
 msgstr "Altura"
 
 #: app/models/thumbnail.rb:-
-#, fuzzy
 msgid "Thumbnail|Width"
 msgstr "Largura"
 
 #: app/models/thumbnail.rb:-
-#, fuzzy
 msgid "Thumbnail|Parent"
 msgstr "Pai"
 
 #: app/models/thumbnail.rb:-
-#, fuzzy
 msgid "Thumbnail|Thumbnail"
 msgstr "Miniatura"
 
@@ -885,9 +862,8 @@ msgid "Upload any kind of file you want."
 msgstr "Envie qualquer tipo de arquivo que você queira."
 
 #: app/models/user.rb:-
-#, fuzzy
 msgid "article"
-msgstr "Artigo"
+msgstr "artigo"
 
 #: app/models/user.rb:-
 msgid "Article|Name"
@@ -906,12 +882,10 @@ msgid "Article|Parent"
 msgstr "Pai"
 
 #: app/models/user.rb:-
-#, fuzzy
 msgid "Article|Body"
 msgstr "Corpo do artigo"
 
 #: app/models/user.rb:-
-#, fuzzy
 msgid "Article|Abstract"
 msgstr "Resumo do artigo"
 
@@ -940,39 +914,32 @@ msgid "Article|Lock version"
 msgstr "Trava da versão"
 
 #: app/models/user.rb:-
-#, fuzzy
 msgid "Article|Type"
 msgstr "Tipo"
 
 #: app/models/user.rb:-
-#, fuzzy
 msgid "Article|Size"
-msgstr "Nome"
+msgstr "Tamanho"
 
 #: app/models/user.rb:-
-#, fuzzy
 msgid "Article|Content type"
 msgstr "Tipo de conteúdo"
 
 #: app/models/user.rb:-
-#, fuzzy
 msgid "Article|Filename"
-msgstr "Nome"
+msgstr "Nome de arquivo"
 
 #: app/models/user.rb:-
-#, fuzzy
 msgid "Article|Height"
-msgstr "Pai"
+msgstr "Altura"
 
 #: app/models/user.rb:-
-#, fuzzy
 msgid "Article|Width"
-msgstr "Caminho"
+msgstr "Largura"
 
 #: app/models/user.rb:-
-#, fuzzy
 msgid "user"
-msgstr "Um usuário"
+msgstr "usuário"
 
 #: app/models/user.rb:-
 msgid "User|Login"
@@ -1015,14 +982,12 @@ msgid "User|Terms accepted"
 msgstr "Termos aceitos"
 
 #: app/models/user.rb:-
-#, fuzzy
 msgid "User|Environment"
 msgstr "Ambiente"
 
 #: app/models/user.rb:-
-#, fuzzy
 msgid "profile"
-msgstr "Meu perfil"
+msgstr "perfil"
 
 #: app/models/user.rb:-
 msgid "person"
@@ -1069,12 +1034,10 @@ msgid "Person|Region"
 msgstr "Região"
 
 #: app/models/user.rb:-
-#, fuzzy
 msgid "Person|Data"
-msgstr "Dados de design"
+msgstr "Dados"
 
 #: app/models/user.rb:-
-#, fuzzy
 msgid "Person|Created at"
 msgstr "Criado em"
 
@@ -1119,12 +1082,10 @@ msgid "Profile|Region"
 msgstr "Região"
 
 #: app/models/user.rb:-
-#, fuzzy
 msgid "Profile|Data"
-msgstr "Dados de design"
+msgstr "Dados"
 
 #: app/models/user.rb:-
-#, fuzzy
 msgid "Profile|Created at"
 msgstr "Criado em"
 
@@ -1141,9 +1102,8 @@ msgid "%{fn} must be checked in order to signup."
 msgstr "%{fn} deve ser verificado para efetivar inscrição"
 
 #: app/models/validation_info.rb:-
-#, fuzzy
 msgid "validation info"
-msgstr "Editando informações de validação"
+msgstr "informações de validação"
 
 #: app/models/validation_info.rb:-
 msgid "ValidationInfo|Validation methodology"
@@ -1212,7 +1172,7 @@ msgstr ""
 
 #: app/models/profile_list_block.rb:69
 msgid "None"
-msgstr ""
+msgstr "Nenhum(a)"
 
 #: app/models/image.rb:-
 msgid "image"
@@ -1279,42 +1239,36 @@ msgid "Manage products"
 msgstr "Gerenciar produtos"
 
 #: app/models/profile.rb:25 app/views/profile_editor/index.rhtml:30
-#, fuzzy
 msgid "Manage friends"
-msgstr "Gerenciar Links"
+msgstr "Gerenciar amigos"
 
 #: app/models/profile.rb:26
-#, fuzzy
 msgid "Validate enterprise"
-msgstr "Excluir empreendimento"
+msgstr "validar empreendimento"
 
 #: app/models/profile.rb:27
-#, fuzzy
 msgid "Peform task"
-msgstr "Tarefa genérica"
+msgstr "Realizar tarefa"
 
 #: app/models/profile.rb:85
 msgid "An existing profile cannot be renamed."
 msgstr "Um perfil existente não pode ser renomeado"
 
 #: app/models/profile.rb:259
-#, fuzzy
 msgid "%s's home page"
-msgstr "Sem página inicial."
+msgstr "Página inicial de %s"
 
 #: app/models/profile.rb:259
-#, fuzzy
 msgid ""
 "<p>This is a default homepage created for %s. It can be changed though the "
 "control panel.</p>"
 msgstr ""
-"<h1>Pagina inicial de %s</h1> <p>Esta é a pagina inicial padrão criada para %"
-"s. Esta página pode ser modificada pelo painel de controle.</p>"
+"<p>Esta é a pagina inicial padrão criada para %s. Esta página pode ser "
+"modificada pelo painel de controle.</p>"
 
 #: app/models/friendship.rb:-
-#, fuzzy
 msgid "friendship"
-msgstr "Amigos"
+msgstr "amizade"
 
 #: app/models/friendship.rb:-
 msgid "Friendship|Person"
@@ -1329,9 +1283,8 @@ msgid "Friendship|Created at"
 msgstr "Criado em"
 
 #: app/models/friendship.rb:-
-#, fuzzy
 msgid "Friendship|Group"
-msgstr "Pessoa"
+msgstr "Grupo"
 
 #: app/models/article.rb:6
 msgid ""
@@ -1427,6 +1380,18 @@ msgstr "Feed RSS"
 msgid "Provides a news feed of your more recent articles."
 msgstr "Fornece um feed RSS dos seus artigos mais recentes."
 
+#: app/models/profile_info_block.rb:4
+msgid "Profile information block"
+msgstr "Bloco de informações do profile"
+
+#: app/models/profile_info_block.rb:8
+msgid ""
+"Basic information about <i>%{user}</i>: how long <i>%{user}</i> is part of "
+"<i>%{env}</i> and useful links."
+msgstr ""
+"Informações básicas sobre <i>%{user}</i>: a quanto tempo <i>%{user}</i> é "
+"parte de <i>%{env}</i> e links úteis."
+
 #: app/models/main_block.rb:4
 msgid "Block for main content (i.e. your articles, photos, etc)"
 msgstr "Bloco para o conteúdo principal (exemplo: seus artigos, fotos, etc)"
@@ -1460,12 +1425,10 @@ msgid "Task|Code"
 msgstr "Código"
 
 #: app/models/task.rb:-
-#, fuzzy
 msgid "Task|Type"
-msgstr "Alvo"
+msgstr "Tipo"
 
 #: app/models/task.rb:-
-#, fuzzy
 msgid "Task|Created at"
 msgstr "Criado em"
 
@@ -1485,21 +1448,9 @@ msgstr "A tarefa foi finalizada em %s"
 msgid "The task was cancelled at %s"
 msgstr "A tarefa foi cancelada em %s"
 
-#: app/models/communities_block.rb:4
-msgid "A block that displays your communities"
-msgstr "Um bloco que apresenta suas comunidades"
-
-#: app/models/communities_block.rb:12
-msgid "Here you can see the communities where this user is part."
-msgstr ""
-
-#: app/models/communities_block.rb:18
-msgid "All communities"
-msgstr "Todas comunidades"
-
 #: app/models/enterprises_block.rb:8
-msgid "Here you can see the enterprises where this user works."
-msgstr ""
+msgid "The enterprises where this user works."
+msgstr "Os empreendimentos onde esse usuário trabalha."
 
 #: app/models/enterprises_block.rb:12
 msgid "A block that displays your enterprises"
@@ -1508,16 +1459,6 @@ msgstr "Um bloco que apresenta seus empreendimentos"
 #: app/models/enterprises_block.rb:18
 msgid "All enterprises"
 msgstr "Todos empreendimentos"
-
-#: app/models/profile_info_block.rb:4
-msgid "Profile information block"
-msgstr "Bloco de informações do profile"
-
-#: app/models/profile_info_block.rb:8
-msgid ""
-"Basic information about <i>%{user}</i>. Here you see how much time <i>%{user}"
-"</i> is part of the <i>%{env}</i> enviroment, and useful links."
-msgstr ""
 
 #: app/models/tags_block.rb:8
 msgid "Block listing content count by tag"
@@ -1537,39 +1478,35 @@ msgstr "Tags"
 
 #: app/models/add_friend.rb:25
 msgid "%s wants to be your friend"
-msgstr ""
+msgstr "%s quer ser seu(sua) amigo(a)"
 
 #: app/models/friends_block.rb:4
-#, fuzzy
 msgid "A block that displays your friends"
-msgstr "Um bloco que apresenta seus empreendimentos"
+msgstr "Um bloco que apresenta seus amigos"
 
 #: app/models/friends_block.rb:8 app/views/profile/index.rhtml:14
 msgid "Friends"
 msgstr "Amigos"
 
 #: app/models/friends_block.rb:14
-#, fuzzy
 msgid "All friends"
-msgstr "Todos os artigos"
+msgstr "Todos os amigos"
 
 #: app/models/person.rb:9
-#, fuzzy
 msgid "friends"
-msgstr "Amigos"
+msgstr "amigos"
 
 #: app/models/person.rb:9
-#, fuzzy
 msgid "work"
-msgstr "ou"
+msgstr "trabalho"
 
 #: app/models/person.rb:9
 msgid "school"
-msgstr ""
+msgstr "escola"
 
 #: app/models/person.rb:9
 msgid "family"
-msgstr ""
+msgstr "família"
 
 #: app/models/recent_documents_block.rb:4
 msgid "List of recent content"
@@ -1578,6 +1515,18 @@ msgstr "Lista de conteúdos recentes"
 #: app/models/recent_documents_block.rb:20
 msgid "Recent content"
 msgstr "Conteúdo recente"
+
+#: app/models/communities_block.rb:4
+msgid "A block that displays your communities"
+msgstr "Um bloco que apresenta suas comunidades"
+
+#: app/models/communities_block.rb:12
+msgid "The communities in which the user is a member"
+msgstr "As comunidades das quais esse(a) usuário(a) é membro."
+
+#: app/models/communities_block.rb:18
+msgid "All communities"
+msgstr "Todas comunidades"
 
 #: app/views/account/login.rhtml:3 app/views/account/login.rhtml:7
 #: app/views/account/login_block.rhtml:4 app/views/shared/user_menu.rhtml:48
@@ -1601,14 +1550,12 @@ msgid "I want to be an user!"
 msgstr "Quero ser um usuário!"
 
 #: app/views/account/user_info.rhtml:3
-#, fuzzy
 msgid "Logged in as %s"
-msgstr "Login bem sucedido"
+msgstr "Identificado(a) como %s"
 
 #: app/views/account/user_info.rhtml:6
-#, fuzzy
 msgid "User since %{year}/%{month}"
-msgstr "Usuário desde %d"
+msgstr "Usuário desde %{month}/%{year}"
 
 #: app/views/account/user_info.rhtml:7 app/views/blocks/profile_info.rhtml:7
 msgid "Homepage"
@@ -2599,16 +2546,15 @@ msgstr "Você gostaria de ativar o modo de ajuda automática?"
 
 #: app/views/layouts/application.rhtml:152
 msgid "No"
-msgstr ""
+msgstr "Não"
 
 #: app/views/layouts/application.rhtml:155
-#, fuzzy
 msgid ""
-"If needed, you can activate or inactivate the automatic help mode by "
+"If needed, you can activate or deactivate the automatic help mode by "
 "clicking the question mark symbol in the top-right corner"
 msgstr ""
-"Caso precise, você pode ativar o modo de ajuda automática clicando no ícone "
-"de ajuda no canto superior direito da página."
+"Caso precise, você pode ativar ou dasativar o modo de ajuda automática "
+"clicando no símbolo de interrogação no canto superior direito da página."
 
 #: app/views/layouts/application.rhtml:163
 msgid "Your web browser is obsolete!"
@@ -2702,14 +2648,12 @@ msgid "Female"
 msgstr "Feminino"
 
 #: app/views/profile_editor/_pending_tasks.rhtml:3
-#, fuzzy
 msgid "You have pending requests"
-msgstr "Você se saiu do sistema"
+msgstr "Você tem solicações pendentes"
 
 #: app/views/profile_editor/_pending_tasks.rhtml:7
-#, fuzzy
 msgid "Process requests"
-msgstr "Pedido de alteração de senha"
+msgstr "Processar solicitações"
 
 #: app/views/profile_editor/index.rhtml:3
 msgid "My profile"
@@ -2717,20 +2661,19 @@ msgstr "Meu perfil"
 
 #: app/views/profile_editor/index.rhtml:8
 msgid "Upload your picture"
-msgstr ""
+msgstr "Envie sua foto"
 
 #: app/views/profile_editor/index.rhtml:11
 msgid "Click here to upload any image to be your picture"
-msgstr ""
+msgstr "Clique aqui para enviar uma imagem para ser sua foto"
 
 #: app/views/profile_editor/index.rhtml:20
 msgid "Edit Profile"
 msgstr "Editar Perfil"
 
 #: app/views/profile_editor/index.rhtml:22
-#, fuzzy
 msgid "Pending tasks"
-msgstr "Tags pendentes"
+msgstr "Tarefas pendentes"
 
 #: app/views/profile_editor/index.rhtml:24
 msgid "Edit Visual Design"
@@ -2873,12 +2816,10 @@ msgid "Search results for \"%s\""
 msgstr "Resultados da busca por \"%s\""
 
 #: app/views/search/index.rhtml:4
-#, fuzzy
 msgid "People"
-msgstr "Roxo"
+msgstr "Pessoas"
 
 #: app/views/search/index.rhtml:5
-#, fuzzy
 msgid "Entreprises"
 msgstr "Empreendimentos"
 
@@ -2887,24 +2828,20 @@ msgid "Access denied"
 msgstr "Acesso negado"
 
 #: app/views/shared/user_menu.rhtml:2
-msgid "This is your menu, for your personal functionalies."
-msgstr ""
+msgid "This menu gives you access to your personal functionalities."
+msgstr "Este menu te dá acesso às suas funcionalidades pessoais."
 
 #: app/views/shared/user_menu.rhtml:12
-#, fuzzy
 msgid "%s's Menu"
-msgstr "Grupos de %s"
+msgstr "Menu de %s"
 
 #: app/views/shared/user_menu.rhtml:19
-msgid ""
-"Go to your home page. <p/> Is good to see if it's cool enought and you can "
-"make this rock! <b>;-)</b>"
-msgstr ""
+msgid "Go to your home page."
+msgstr "Vá à sua página inicial."
 
 #: app/views/shared/user_menu.rhtml:20
-#, fuzzy
 msgid "My Home Page"
-msgstr "Minha página inicial."
+msgstr "Minha página inicial"
 
 #: app/views/shared/user_menu.rhtml:24
 msgid "control panel"
@@ -2912,33 +2849,31 @@ msgstr "painel de controle"
 
 #: app/views/shared/user_menu.rhtml:26
 msgid ""
-"The control panel is where you find all <b>cool features</b> to make your "
-"site rock! <p/> There you will find how to <b>change your picture</b>, or "
-"your <b>personal information</b>, add <b>content to your site</b>, <b>change "
-"your look</b>, and <b>more</b>..."
+"Control panel: change your picture, edit your personal information, create "
+"content or change the way your home page looks."
 msgstr ""
+"Painel de controle: altere sua foto, edite suas informações pessoais, crie "
+"conteúdo ou altere o visual da sua página."
 
 #: app/views/shared/user_menu.rhtml:32
-msgid ""
-"This link will take you to the page where you can use your <b>super-powers</"
-"b>!"
-msgstr ""
+msgid "Access the site administration panel."
+msgstr "Acesso o painel de administrador do site."
 
 #: app/views/shared/user_menu.rhtml:40
 msgid ""
-"If you'll not use more this web site (for now), or will exit from this "
-"computer, <b>where other peple may use</b>, is better to click on this "
-"<i>Logout</i> link."
+"This link takes you out of the system. You should logout if other people are "
+"willing to use the same computer after you."
 msgstr ""
+"Este link te leva pra fora do sistema. Você deve sair se outras pessoas vão "
+"usar o mesmo computador depois de você."
 
 #: app/views/shared/user_menu.rhtml:51
-#, fuzzy
 msgid ""
-"Open the login box to allow you to be recognized and to use the <b>cool "
-"features</b> of this enviroment."
+"Click here to enter your username and password  and be recognized by the "
+"system."
 msgstr ""
-"Você precisa se identificar para usar todas as funcionalidades desse "
-"ambiente."
+"Clique aqui para informar seu nome de usuário e senha e ser reconhecido pelo "
+"sistema."
 
 #: app/views/task_mailer/target_notification.rhtml:6
 #: app/views/task_mailer/task_cancelled.text.plain.rhtml:6
@@ -2983,12 +2918,11 @@ msgstr "Conteúdo marcado com \"%s\""
 
 #: app/views/profile/friends.rhtml:2
 msgid "Here are all <b>%s</b>'s friends."
-msgstr ""
+msgstr "Aqui estão todos os amigos de <b>%s</b>."
 
 #: app/views/profile/friends.rhtml:4
-#, fuzzy
 msgid "%s' friends"
-msgstr "Amigos"
+msgstr "Amigos de %s"
 
 #: app/views/profile/friends.rhtml:13 app/views/profile/members.rhtml:13
 #: app/views/profile/communities.rhtml:13
@@ -3001,40 +2935,35 @@ msgstr "Voltar"
 #: app/views/profile/communities.rhtml:14
 #: app/views/profile/enterprises.rhtml:14
 msgid "Back to the page where you come from."
-msgstr ""
+msgstr "De volta à página de onde você veio."
 
 #: app/views/profile/members.rhtml:2
 msgid "Here are all <b>%s</b>'s members."
-msgstr ""
+msgstr "Aqui estão todos os membros de <b>%s</b>."
 
 #: app/views/profile/members.rhtml:4
-#, fuzzy
 msgid "%s' members"
-msgstr "Todos os membros"
+msgstr "Membros de %s"
 
 #: app/views/profile/communities.rhtml:2
-#, fuzzy
 msgid "Here are all <b>%s</b>'s communities."
-msgstr "Todas comunidades"
+msgstr "Aqui estão todas a comunidades de <b>%s</b>"
 
 #: app/views/profile/communities.rhtml:4
-#, fuzzy
 msgid "%s's communities"
-msgstr "Todas comunidades"
+msgstr "Comunidades de %s"
 
 #: app/views/profile/communities.rhtml:15 app/views/memberships/index.rhtml:27
 msgid "Create a new community"
 msgstr "Criar nova comunidade"
 
 #: app/views/profile/enterprises.rhtml:2
-#, fuzzy
 msgid "Here are all <b>%s</b>'s enterprises."
-msgstr "Todos empreendimentos"
+msgstr "Aqui estão todos os empreendimentos de <b>%s</b>"
 
 #: app/views/profile/enterprises.rhtml:4
-#, fuzzy
 msgid "%s's enterprises"
-msgstr "Todos empreendimentos"
+msgstr "Empreendimentos de %s"
 
 #: app/views/profile/index.rhtml:1
 msgid "%s's profile"
@@ -3049,13 +2978,12 @@ msgid "Join this community"
 msgstr "Entrar nessa comunidade"
 
 #: app/views/blocks/profile_info_actions/person.rhtml:3
-#, fuzzy
 msgid "Add friend"
-msgstr "Adicionar Link"
+msgstr "Adicionar amigo"
 
 #: app/views/blocks/profile_info.rhtml:6
 msgid "Since %{year}/%{month}"
-msgstr ""
+msgstr "Desde %{month}/%{year}"
 
 #: app/views/blocks/profile_info.rhtml:8
 msgid "View profile"
@@ -3103,136 +3031,146 @@ msgstr "Gerenciar"
 
 #: app/views/friends/add.rhtml:1
 msgid "Adding %s as a friend"
-msgstr ""
+msgstr "Adicionando %s como amigo(a)"
 
 #: app/views/friends/add.rhtml:4
-#, fuzzy
 msgid "Are you sure you want to add %s as your friend?"
-msgstr "Tem certeza que quer sair?"
+msgstr "Tem certeza que quer adicionar %s como seu(sua) amigo(a)?"
 
 #: app/views/friends/add.rhtml:9
 msgid "Note that %s will need to accept being added as your friend."
-msgstr ""
+msgstr "Note que %s precisará aceitar ser adicionado como seu amigo."
 
-#: app/views/friends/add.rhtml:17 app/views/tasks/_add_friend.rhtml:15
+#: app/views/friends/add.rhtml:17
 msgid "Classify your new friend %s: "
-msgstr ""
+msgstr "Classifique seu(sua) novo(a) amigo(a) %s:"
 
 #: app/views/friends/add.rhtml:20 app/views/tasks/_add_friend.rhtml:18
-#, fuzzy
 msgid "Suggestions: %s"
-msgstr "Versão %s"
+msgstr "Sugestões: %s"
 
 #: app/views/friends/add.rhtml:24
-#, fuzzy
 msgid "Yes, I want to add %s as my friend"
-msgstr "Sim, quero entrar."
+msgstr "Sim, quero adicionar %s como amigo(a)"
 
 #: app/views/friends/add.rhtml:25 app/views/friends/remove.rhtml:17
-#, fuzzy
 msgid "No, I don't want"
 msgstr "Não, não quero."
 
 #: app/views/friends/remove.rhtml:1
 msgid "Removing friend: %s"
-msgstr ""
+msgstr "Removendo amigo: %s"
 
 #: app/views/friends/remove.rhtml:4
-#, fuzzy
 msgid "Are you sure you want to remove %s from your friends list?"
-msgstr "Tem certeza que quer sair?"
+msgstr "Tem certeza que quer remover %s da sua lista de amigos?"
 
 #: app/views/friends/remove.rhtml:9
 msgid ""
 "Note that %s will still have you as a friend, unless he/she also wants to "
 "remove you from his/her friend list."
 msgstr ""
+"Note que %s ainda vai te ter como amigo(a), a não ser que ele(a) também "
+"queira remover você da sua lista de amigos."
 
 #: app/views/friends/remove.rhtml:16
-#, fuzzy
 msgid "Yes, I want to remove %s from my friend list"
-msgstr "Sim, quero entrar."
+msgstr "Sim, quero remover %s da minha lista de amigos"
 
 #: app/views/friends/index.rhtml:1
-#, fuzzy
 msgid "%s's friends"
-msgstr "Perfil de %s"
+msgstr "Amigos de %s"
 
 #: app/views/friends/index.rhtml:16
 msgid "You have no friends yet. Go make some."
-msgstr ""
+msgstr "Você não tem amigos ainda. Vá fazer alguns."
 
 #: app/views/tasks/index.rhtml:1
-#, fuzzy
 msgid "%s's pending tasks"
-msgstr "Tags pendentes"
+msgstr "Tarefas pendentes de %s"
 
 #: app/views/tasks/index.rhtml:4
 msgid "No pending tasks for %s"
-msgstr ""
+msgstr "Sem tarefas pendentes para %s"
 
 #: app/views/tasks/index.rhtml:14
 msgid "View processed tasks"
-msgstr ""
+msgstr "Ver tarefas processadas"
 
 #: app/views/tasks/index.rhtml:15
-#, fuzzy
 msgid "Back to control panel"
 msgstr "Voltar ao painel de controle"
 
-#: app/views/tasks/_add_friend.rhtml:1
-#, fuzzy
-msgid "New friend"
-msgstr "Novo artigo"
-
-#: app/views/tasks/_add_friend.rhtml:4
-msgid "%s wants to connect to you as a friend."
-msgstr ""
-
-#: app/views/tasks/_add_friend.rhtml:11
-msgid "Accept"
-msgstr ""
-
-#: app/views/tasks/_add_friend.rhtml:14
-msgid ""
-"You can select one of the existing groups or type the name of a new group."
-msgstr ""
-
-#: app/views/tasks/_add_friend.rhtml:26
-msgid "Ignore"
-msgstr ""
-
-#: app/views/tasks/_add_friend.rhtml:30 app/views/tasks/_task.rhtml:8
-#: app/views/tasks/_task.rhtml:16
-msgid "OK"
-msgstr ""
-
 #: app/views/tasks/_task.rhtml:2
-#, fuzzy
 msgid "Processing task: %s"
-msgstr "Tags pendentes"
+msgstr "Processando tarefa: %s"
+
+#: app/views/tasks/_task.rhtml:8 app/views/tasks/_task.rhtml:16
+#: app/views/tasks/_add_friend.rhtml:30
+msgid "OK"
+msgstr "OK"
 
 #: app/views/tasks/processed.rhtml:1
 msgid "%s's processed tasks"
-msgstr ""
+msgstr "Tarefas processadas de %s"
 
 #: app/views/tasks/processed.rhtml:4
 msgid "No processed tasks."
-msgstr ""
+msgstr "Sem tarefas processadas."
 
 #: app/views/tasks/processed.rhtml:11
-#, fuzzy
 msgid "Task"
-msgstr "tarefa"
+msgstr "Tarefa"
 
 #: app/views/tasks/processed.rhtml:15
 msgid "Created"
 msgstr "Criado"
 
 #: app/views/tasks/processed.rhtml:19
-#, fuzzy
 msgid "Processed"
-msgstr "Pedido de alteração de senha"
+msgstr "Processada"
+
+#: app/views/tasks/_add_friend.rhtml:1
+msgid "New friend"
+msgstr "Novo amigo"
+
+#: app/views/tasks/_add_friend.rhtml:4
+msgid "%s wants to connect to you as a friend."
+msgstr "%s quer se conectar com você como amigo."
+
+#: app/views/tasks/_add_friend.rhtml:11
+msgid "Accept"
+msgstr "Aceitar"
+
+#: app/views/tasks/_add_friend.rhtml:14
+msgid ""
+"You can type the first letters of an existing group and have the system "
+"present you the available options, or you can type the name of a new group "
+"if you want."
+msgstr ""
+"Você pode digitar as primeiras letras de um grupo que já existe e deixar o "
+"sistema te apresentar as opções disponíveis, ou então digitar o nome de um "
+"novo grupo de você quiser."
+
+#: app/views/tasks/_add_friend.rhtml:15
+msgid "Classify your new friend %s:"
+msgstr "Classifique seu(sua) novo(a) amigo(a) %s:"
+
+#: app/views/tasks/_add_friend.rhtml:26
+msgid "Ignore"
+msgstr "Ignorar"
+
+#, fuzzy
+#~ msgid "Classify your new friend %s. "
+#~ msgstr "Classifique seu(sua) novo(a) amigo(a) %s:"
+
+#, fuzzy
+#~ msgid ""
+#~ "Open the login box to allow you to be recognized and to use the <b>cool "
+#~ "features</b> of this enviroment."
+#~ msgstr ""
+#~ "Você precisa se identificar para usar todas as funcionalidades desse "
+#~ "ambiente."
 
 #, fuzzy
 #~ msgid "This function is not available yet."

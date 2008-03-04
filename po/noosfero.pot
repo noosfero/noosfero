@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.7.0\n"
-"POT-Creation-Date: 2008-03-04 09:03-0300\n"
+"POT-Creation-Date: 2008-03-04 10:07-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1349,6 +1349,16 @@ msgstr ""
 msgid "Provides a news feed of your more recent articles."
 msgstr ""
 
+#: app/models/profile_info_block.rb:4
+msgid "Profile information block"
+msgstr ""
+
+#: app/models/profile_info_block.rb:8
+msgid ""
+"Basic information about <i>%{user}</i>: how long <i>%{user}</i> is part of "
+"<i>%{env}</i> and useful links."
+msgstr ""
+
 #: app/models/main_block.rb:4
 msgid "Block for main content (i.e. your articles, photos, etc)"
 msgstr ""
@@ -1405,20 +1415,8 @@ msgstr ""
 msgid "The task was cancelled at %s"
 msgstr ""
 
-#: app/models/communities_block.rb:4
-msgid "A block that displays your communities"
-msgstr ""
-
-#: app/models/communities_block.rb:12
-msgid "Here you can see the communities where this user is part."
-msgstr ""
-
-#: app/models/communities_block.rb:18
-msgid "All communities"
-msgstr ""
-
 #: app/models/enterprises_block.rb:8
-msgid "Here you can see the enterprises where this user works."
+msgid "The enterprises where this user works."
 msgstr ""
 
 #: app/models/enterprises_block.rb:12
@@ -1427,16 +1425,6 @@ msgstr ""
 
 #: app/models/enterprises_block.rb:18
 msgid "All enterprises"
-msgstr ""
-
-#: app/models/profile_info_block.rb:4
-msgid "Profile information block"
-msgstr ""
-
-#: app/models/profile_info_block.rb:8
-msgid ""
-"Basic information about <i>%{user}</i>. Here you see how much time <i>%{user}"
-"</i> is part of the <i>%{env}</i> enviroment, and useful links."
 msgstr ""
 
 #: app/models/tags_block.rb:8
@@ -1491,6 +1479,18 @@ msgstr ""
 
 #: app/models/recent_documents_block.rb:20
 msgid "Recent content"
+msgstr ""
+
+#: app/models/communities_block.rb:4
+msgid "A block that displays your communities"
+msgstr ""
+
+#: app/models/communities_block.rb:12
+msgid "The communities in which the user is a member"
+msgstr ""
+
+#: app/models/communities_block.rb:18
+msgid "All communities"
 msgstr ""
 
 #: app/views/account/login.rhtml:3 app/views/account/login.rhtml:7
@@ -2460,7 +2460,7 @@ msgstr ""
 
 #: app/views/layouts/application.rhtml:155
 msgid ""
-"If needed, you can activate or inactivate the automatic help mode by "
+"If needed, you can activate or deactivate the automatic help mode by "
 "clicking the question mark symbol in the top-right corner"
 msgstr ""
 
@@ -2731,7 +2731,7 @@ msgid "Access denied"
 msgstr ""
 
 #: app/views/shared/user_menu.rhtml:2
-msgid "This is your menu, for your personal functionalies."
+msgid "This menu gives you access to your personal functionalities."
 msgstr ""
 
 #: app/views/shared/user_menu.rhtml:12
@@ -2739,9 +2739,7 @@ msgid "%s's Menu"
 msgstr ""
 
 #: app/views/shared/user_menu.rhtml:19
-msgid ""
-"Go to your home page. <p/> Is good to see if it's cool enought and you can "
-"make this rock! <b>;-)</b>"
+msgid "Go to your home page."
 msgstr ""
 
 #: app/views/shared/user_menu.rhtml:20
@@ -2754,29 +2752,24 @@ msgstr ""
 
 #: app/views/shared/user_menu.rhtml:26
 msgid ""
-"The control panel is where you find all <b>cool features</b> to make your "
-"site rock! <p/> There you will find how to <b>change your picture</b>, or "
-"your <b>personal information</b>, add <b>content to your site</b>, <b>change "
-"your look</b>, and <b>more</b>..."
+"Control panel: change your picture, edit your personal information, create "
+"content or change the way your home page looks."
 msgstr ""
 
 #: app/views/shared/user_menu.rhtml:32
-msgid ""
-"This link will take you to the page where you can use your <b>super-powers</"
-"b>!"
+msgid "Access the site administration panel."
 msgstr ""
 
 #: app/views/shared/user_menu.rhtml:40
 msgid ""
-"If you'll not use more this web site (for now), or will exit from this "
-"computer, <b>where other peple may use</b>, is better to click on this "
-"<i>Logout</i> link."
+"This link takes you out of the system. You should logout if other people are "
+"willing to use the same computer after you."
 msgstr ""
 
 #: app/views/shared/user_menu.rhtml:51
 msgid ""
-"Open the login box to allow you to be recognized and to use the <b>cool "
-"features</b> of this enviroment."
+"Click here to enter your username and password  and be recognized by the "
+"system."
 msgstr ""
 
 #: app/views/task_mailer/target_notification.rhtml:6
@@ -2945,7 +2938,7 @@ msgstr ""
 msgid "Note that %s will need to accept being added as your friend."
 msgstr ""
 
-#: app/views/friends/add.rhtml:17 app/views/tasks/_add_friend.rhtml:15
+#: app/views/friends/add.rhtml:17
 msgid "Classify your new friend %s: "
 msgstr ""
 
@@ -3003,34 +2996,13 @@ msgstr ""
 msgid "Back to control panel"
 msgstr ""
 
-#: app/views/tasks/_add_friend.rhtml:1
-msgid "New friend"
-msgstr ""
-
-#: app/views/tasks/_add_friend.rhtml:4
-msgid "%s wants to connect to you as a friend."
-msgstr ""
-
-#: app/views/tasks/_add_friend.rhtml:11
-msgid "Accept"
-msgstr ""
-
-#: app/views/tasks/_add_friend.rhtml:14
-msgid ""
-"You can select one of the existing groups or type the name of a new group."
-msgstr ""
-
-#: app/views/tasks/_add_friend.rhtml:26
-msgid "Ignore"
-msgstr ""
-
-#: app/views/tasks/_add_friend.rhtml:30 app/views/tasks/_task.rhtml:8
-#: app/views/tasks/_task.rhtml:16
-msgid "OK"
-msgstr ""
-
 #: app/views/tasks/_task.rhtml:2
 msgid "Processing task: %s"
+msgstr ""
+
+#: app/views/tasks/_task.rhtml:8 app/views/tasks/_task.rhtml:16
+#: app/views/tasks/_add_friend.rhtml:30
+msgid "OK"
 msgstr ""
 
 #: app/views/tasks/processed.rhtml:1
@@ -3051,4 +3023,31 @@ msgstr ""
 
 #: app/views/tasks/processed.rhtml:19
 msgid "Processed"
+msgstr ""
+
+#: app/views/tasks/_add_friend.rhtml:1
+msgid "New friend"
+msgstr ""
+
+#: app/views/tasks/_add_friend.rhtml:4
+msgid "%s wants to connect to you as a friend."
+msgstr ""
+
+#: app/views/tasks/_add_friend.rhtml:11
+msgid "Accept"
+msgstr ""
+
+#: app/views/tasks/_add_friend.rhtml:14
+msgid ""
+"You can type the first letters of an existing group and have the system "
+"present you the available options, or you can type the name of a new group "
+"if you want."
+msgstr ""
+
+#: app/views/tasks/_add_friend.rhtml:15
+msgid "Classify your new friend %s:"
+msgstr ""
+
+#: app/views/tasks/_add_friend.rhtml:26
+msgid "Ignore"
 msgstr ""
