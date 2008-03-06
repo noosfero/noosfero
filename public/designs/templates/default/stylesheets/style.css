@@ -6,6 +6,10 @@
 .box-1 {
   /* the width of this element is seted by javascript for Firefox */
   float: left;
+  margin-left: 4px;
+}
+.msie .box-1 {
+  margin-right: 4px;
 }
 
 .box-2 {

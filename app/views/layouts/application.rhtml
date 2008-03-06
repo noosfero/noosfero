@@ -172,5 +172,11 @@
     </div>
     <%= javascript_include_tag 'better-browser-promotion' %>
 
+    <script type="text/javascript">
+      // the onload will run only after all related documents load.
+      // by that we need to cal this here:
+      if ( window.addEventListener ) resizePrincipalTemplateBox()
+    </script>
+
   </body>
 </html>

@@ -9,7 +9,7 @@
 .icon-cancel    { background-image: url(cancel-HC.gif)           }
 .icon-person    { background-image: url(user_icon.png)           }
 .icon-product   { background-image: url(gnome-other.png)         }
-.icon-delete    { background-image: url(gtk-delete.png)          }
+.icon-delete    { background-image: url(cancel-HC.gif)           }
 .icon-find      { background-image: url(noosfero-find.png)       }
 .icon-back      { background-image: url(go-back-HC.gif)          }
 .icon-next      { background-image: url(gtk-media-next-ltr.png)  }
