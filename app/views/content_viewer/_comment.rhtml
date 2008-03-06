@@ -1,11 +1,15 @@
-<div class="article-comment<%= ' comment-from-owner' if ( comment.author && (@page.profile.name == comment.author.name) ) %>">
+<div class="article-comment<%= ' comment-from-owner' if ( comment.author && (@page.profile.name == comment.author.name) ) %> comment-logged-<%= comment.author ? 'in' : 'out' %>">
   <% if comment.author %>
     <%= link_to content_tag( 'span', comment.author.name() ), comment.author.url,
         :class => 'comment-picture',
-        :style => 'background-image:url(%s)' % profile_icon(comment.author, :minor) %>
+        :style => 'background-image:url(%s)' % profile_icon(comment.author, :minor)
+    %>
   <% else %>
-    <%# unauthenticated user: display default icon %>
-    <%= content_tag('span', '&nbsp;', :class => 'comment-picture', :style => 'background-image: url(/images/icons-app/user_icon_size-minor.png)' )%>
+    <%# unauthenticated user: display gravatar icon %>
+    <%= content_tag 'span', '&nbsp;',
+        :class => 'comment-picture',
+        :style => 'background-image:url(%s)' % str_gravatar_url_for( comment.email, :size => 50 )
+    %>
   <% end %>
 
   <h4><%= comment.title %></h4>
@@ -13,6 +17,7 @@
     <%= _('By %{author} on %{date}') % {
         :author => comment.author ? link_to(comment.author.name, comment.author.url) : content_tag('u', comment.name),
         :date => show_time(comment.created_on) } %>
+    <%= '<br/>' + _('(unauthenticated user)') if ! comment.author %>
   </div>
   <div class="comment-text">
     <%= comment.body %>

@@ -412,4 +412,25 @@ module ApplicationHelper
     end
   end
 
+  def gravatar_url_for(email, options = {})
+    # Ta dando erro de roteamento
+    url_for( { :gravatar_id => Digest::MD5.hexdigest(email),
+               :host => 'www.gravatar.com',
+               :protocol => 'http://',
+               :only_path => false,
+               :controller => 'avatar.php'
+             }.merge(options) )
+  end
+    
+  def str_gravatar_url_for(email, options = {})
+    url = 'http://www.gravatar.com/avatar.php?gravatar_id=' +
+           Digest::MD5.hexdigest(email)
+    { :only_path => false }.merge(options).each { |k,v|
+      url += ( '&%s=%s' % [ k,v ] )
+    }
+    # we can set the default imgage with this:
+    # :default => 'DOMAIN/images/icons-app/gravatar-minor.gif'
+    url
+  end
+
 end

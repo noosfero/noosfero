@@ -90,3 +90,8 @@
 .comment-text {
   clear: left;
 }
+
+.comment-logged-out .comment-text {
+  color: #888;
+}
+
