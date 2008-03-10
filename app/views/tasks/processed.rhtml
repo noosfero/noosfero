@@ -1,29 +1,23 @@
 <h1><%= _("%s's processed tasks") % profile.name %></h1>
 
+<p>
 <% if @tasks.empty? %>
-  <p><em><%= _('No processed tasks.') %></em></p>
+  <em><%= _('No processed tasks.') %></em>
 <% else %>
   <ul>
     <% @tasks.each do |item| %>
       <li>
-      <table>
-        <tr>
-          <th><%= _('Task') %></th>
-          <td><%= item.description %></td>
-        </tr>
-        <tr>
-          <th><%= _('Created') %></th>
-          <td><%= show_date (item.created_at) %></th>
-        </tr>
-        <tr>
-          <th><%= _('Processed') %></th>
-          <td><%= show_date (item.end_date) %></th>
-        </tr>
-      </table>
+        <strong><%= item.description %></strong> <br/>
+        <small>
+          <%= _('Created:')   +' '+ show_date(item.created_at) %>
+          &nbsp; &#151; &nbsp;
+          <%= _('Processed:') +' '+ show_date(item.end_date) %>
+        </small>
       </li>
     <% end %>
   </ul>
 <% end %>
+</p>
 
 <% button_bar do %>
   <%= button(:back, _('Back'), :action => 'index') %>

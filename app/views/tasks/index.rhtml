@@ -1,14 +1,16 @@
 <h1><%= _("%s's pending tasks") % profile.name %></h1>
 
+<p>
 <% if @tasks.empty? %>
-  <p><em><%= _('No pending tasks for %s' % profile.name) %></em></p>
+  <em><%= _('No pending tasks for %s' % profile.name) %></em>
 <% else %>
   <ul class='task-list'>
     <% @tasks.each do |item| %>
-      <li><%= render :partial => partial_for_class(item.class), :locals => { :task => item } %></li>
+      <li class="task-<%= item.class %>"><%= render :partial => partial_for_class(item.class), :locals => { :task => item } %></li>
     <% end %>
   </ul>
 <% end %>
+</p>
 
 <% button_bar do %>
   <%= button(:edit, _('View processed tasks'), :action => 'processed') %>
