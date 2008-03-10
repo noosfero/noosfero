@@ -6,11 +6,11 @@ class Person < Profile
   has_many :friends, :class_name => 'Person', :through => :friendships
 
   def suggested_friend_groups
-    (friend_groups + [ _('friends'), _('work'), _('school'), _('family') ]).uniq
+    (friend_groups + [ _('friends'), _('work'), _('school'), _('family') ]).map {|i| i if !i.empty?}.compact.uniq
   end
 
   def friend_groups
-    friendships.map {|item| item.group}.uniq
+    friendships.map { |item| item.group }.uniq
   end
 
   def add_friend(friend, group = nil)
