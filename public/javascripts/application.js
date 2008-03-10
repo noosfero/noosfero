@@ -25,6 +25,20 @@ function focus_first_field() {
   }
 }
 
+/* * * Convert a string to a valid login name * * */
+function convToValidLogin( str ) {
+  return str.toLowerCase()
+            .replace( /á|à|ã|â/g, "a" )
+            .replace( /é|ê/g,     "e" )
+            .replace( /í/g,       "i" )
+            .replace( /ó|ô|õ|ö/g, "o" )
+            .replace( /ú|ũ|ü/g,   "u" )
+            .replace( /ñ/g,       "n" )
+            .replace( /ç/g,       "c" )
+            .replace( /[^-_a-z0-9]+/g, "" )
+}
+
+
 /* * *  Template Box Size Help  * * */
 function resizePrincipalTemplateBox() {
   var box1 = $$( "div.box-1" )[0];

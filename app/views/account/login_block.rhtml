@@ -8,7 +8,9 @@
     <% labelled_form_for :user, @user,
        :url => { :controller => 'account', :action => 'login' } do |f| %>
 
-      <%= display_form_field(_('Username'), text_field_tag(:login) ) %>
+      <%= display_form_field(_('Username'),
+          text_field_tag(:login, nil,
+          :onchange => 'this.value = convToValidLogin( this.value )') ) %>
       <%= display_form_field(_('Password'), password_field_tag(:password) ) %>
 
       <% button_bar do %>

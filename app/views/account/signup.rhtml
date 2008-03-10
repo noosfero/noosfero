@@ -3,7 +3,9 @@
 <%= error_messages_for :user %>
 <% labelled_form_for :user, @user do |f| -%>
   
-<%= f.text_field :login %>
+<%= f.text_field :login,
+                 :onchange => 'this.value = convToValidLogin( this.value )' %>
+
 <%= f.text_field :email %>
 <%= f.password_field :password %>
 <%= f.password_field :password_confirmation %>
