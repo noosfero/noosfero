@@ -66,7 +66,7 @@ module BoxesHelper
     when Hash
       content_tag('iframe', '', :src => url_for(content))
     when String
-      if content =~ /^https?:\/\//
+      if content.split("\n").size == 1 and content =~ /^https?:\/\//
         content_tag('iframe', '', :src => content)
       else
         content
