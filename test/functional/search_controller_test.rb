@@ -21,7 +21,7 @@ class SearchControllerTest < Test::Unit::TestCase
   end
 
   should 'filter stop words' do
-    GetText.locale = 'pt_BR'
+    @controller.expects(:locale).returns('pt_BR').at_least_once
     get 'index', :query => 'a carne da vaca'
     assert_response :success
     assert_template 'index'

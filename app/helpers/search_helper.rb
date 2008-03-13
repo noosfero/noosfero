@@ -12,6 +12,6 @@ module SearchHelper
   end
 
   def remove_stop_words(query)
-     (query.downcase.scan(/"[^"]*"?|'[^']*'?|[^'"\s]+/) - STOP_WORDS[Locale.current.to_s]).join(' ')
+    (query.downcase.scan(/"[^"]*"?|'[^']*'?|[^'"\s]+/) - (STOP_WORDS[locale] || [])).join(' ')
   end
 end
