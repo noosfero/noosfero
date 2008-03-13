@@ -58,6 +58,7 @@ class ContentViewerController < PublicController
     @comment = @page.comments.find(params[:remove_comment])
     if (user == @comment.author) || (user == @page.profile)
       @comment.destroy
+      flash[:notice] = _('Comment succesfully deleted')
     end
     redirect_to :action => 'view_page'
   end

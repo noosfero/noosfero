@@ -1,11 +1,14 @@
 <%
   comment_form_id = 'comment_form'+ rand(9999).to_s
 %>
+
+<% focus_on = logged_in? ? 'title' : 'name' %>
+
 <div
   class="post_comment_box closed"
   onclick="f=$(<%= comment_form_id %>); f.style.display='block';
            this.className = this.className.replace(/closed/,'opened');
-           f.commit.focus(); f['comment[title]'].focus();
+           f.commit.focus(); f['comment[<%= focus_on %>]'].focus();
            this.onclick=null">
 
 <h4><%= _('Post a comment') %></h4>
