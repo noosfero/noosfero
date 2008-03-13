@@ -128,6 +128,8 @@ class ProfileTest < Test::Unit::TestCase
     assert_invalid_identifier 'test'
     assert_invalid_identifier 'tag'
     assert_invalid_identifier 'cat'
+    assert_invalid_identifier 'webmaster'
+    assert_invalid_identifier 'info'
   end
 
   should 'provide recent documents' do

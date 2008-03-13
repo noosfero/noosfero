@@ -52,6 +52,8 @@ class Profile < ActiveRecord::Base
   cat
   tag
   environment
+  webmaster
+  info
   ]
 
   belongs_to :user
