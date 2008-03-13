@@ -1,5 +1,6 @@
 # Represents any organization of the system and has an organization_info object to hold its info
-class Organization < Profile  
+class Organization < Profile
+
   has_one :organization_info
 
   belongs_to :region

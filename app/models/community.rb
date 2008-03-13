@@ -1,4 +1,5 @@
 class Community < Organization
+  N_('Community')
 
   settings_items :description
 

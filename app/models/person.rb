@@ -1,5 +1,6 @@
 # A person is the profile of an user holding all relationships with the rest of the system
 class Person < Profile
+
   acts_as_accessor
 
   has_many :friendships
