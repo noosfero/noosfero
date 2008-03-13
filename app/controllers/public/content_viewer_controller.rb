@@ -33,14 +33,33 @@ class ContentViewerController < PublicController
     end
 
     if request.post? && params[:comment]
-      @comment = Comment.new(params[:comment])
-      @comment.author = user if logged_in?
-      @comment.article = @page
-      if @comment.save!
-        @comment = nil # clear the comment form
-      end
+      add_comment
     end
+
+    if request.post? && params[:remove_comment]
+      remove_comment
+    end
+    
     @comments = @page.comments(true)
+  end
+
+  protected
+
+  def add_comment
+    @comment = Comment.new(params[:comment])
+    @comment.author = user if logged_in?
+    @comment.article = @page
+    if @comment.save!
+      @comment = nil # clear the comment form
+    end
+  end
+
+  def remove_comment
+    @comment = @page.comments.find(params[:remove_comment])
+    if (user == @comment.author) || (user == @page.profile)
+      @comment.destroy
+    end
+    redirect_to :action => 'view_page'
   end
 
 end

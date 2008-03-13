@@ -33,7 +33,8 @@ module CmsHelper
         if cat.top_level?
           result << content_tag('h5', toplevel.name)
         else
-          result << content_tag('div', check_box_tag("#{object_name}[category_ids][]", cat.id, object.category_ids.include?(cat.id)) + cat.full_name_without_leading(1))
+          checkbox_id = "#{object_name}_#{cat.full_name.downcase.gsub(/\s+|\//, '_')}"
+          result << content_tag('label', check_box_tag("#{object_name}[category_ids][]", cat.id, object.category_ids.include?(cat.id), :id => checkbox_id) + cat.full_name_without_leading(1), :for => checkbox_id)
         end
       end
     end

@@ -90,7 +90,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     # for example, RSS feeds 
     profile = create_user('someone').person
     page = profile.articles.build(:name => 'myarticle', :body => 'the body of the text')
-    page.save!
+page.save!
 
     feed = RssFeed.new(:name => 'testfeed')
     feed.profile = profile
@@ -102,6 +102,55 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_match /^text\/xml/, @response.headers['type']
 
     assert_equal feed.data, @response.body
+  end
+
+  should 'be able to remove comment' do
+    profile = create_user('testuser').person
+    article = profile.articles.build(:name => 'test')
+    article.save!
+    comment = article.comments.build(:author => profile, :title => 'a comment', :body => 'lalala')
+    comment.save!
+
+    login_as 'testuser'
+    assert_difference Comment, :count, -1 do
+      post :view_page, :profile => profile.identifier, :page => [ 'test' ], :remove_comment => comment.id
+      assert_response :redirect
+    end
+    
+  end
+  
+  should "not be able to remove other people's comments" do
+    profile = create_user('testuser').person
+    article = profile.articles.build(:name => 'test')
+    article.save!
+    
+    commenter = create_user('otheruser').person
+    comment = article.comments.build(:author => commenter, :title => 'a comment', :body => 'lalala')
+    comment.save!
+
+    login_as 'ze' # ze cannot remove other people's comments
+    assert_no_difference Comment, :count do 
+      post :view_page, :profile => profile.identifier, :page => [ 'test' ], :remove_comment => comment.id
+      assert_response :redirect
+    end
+    
+  end
+
+  should 'be able to remove comments on their articles' do
+    profile = create_user('testuser').person
+    article = profile.articles.build(:name => 'test')
+    article.save!
+    
+    commenter = create_user('otheruser').person
+    comment = article.comments.build(:author => commenter, :title => 'a comment', :body => 'lalala')
+    comment.save!
+
+    login_as 'testuser' # testuser must be able to remove comments in his articles
+    assert_difference Comment, :count, -1 do 
+      post :view_page, :profile => profile.identifier, :page => [ 'test' ], :remove_comment => comment.id
+      assert_response :redirect
+    end
+
   end
 
 
