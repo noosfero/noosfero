@@ -11,8 +11,11 @@ class CategoryControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
   end
 
-  # Replace this with your real tests.
-  def test_truth
-    assert true
+  def test_should_display_a_given_category
+    category = Category.create!(:name => 'my category', :environment => Environment.default)
+
+    get :view, :path => [ 'my-category' ]
+    assert_equal category, assigns(:category)
   end
+
 end
