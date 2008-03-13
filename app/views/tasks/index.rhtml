@@ -2,7 +2,7 @@
 
 <p>
 <% if @tasks.empty? %>
-  <em><%= _('No pending tasks for %s' % profile.name) %></em>
+  <em><%= _('No pending tasks for %s') % profile.name %></em>
 <% else %>
   <ul class='task-list'>
     <% @tasks.each do |item| %>
