@@ -47,7 +47,7 @@ class LightboxHelperTest < Test::Unit::TestCase
   should 'tell if rendering inside lightbox' do
     request = mock
     expects(:request).returns(request)
-    request.espects(:xhr?).returns(true)
+    request.expects(:xhr?).returns(true)
 
     assert lightbox?
   end
