@@ -248,12 +248,17 @@ module ApplicationHelper
   end
 
   def button(type, label, url, html_options = {})
-    the_class = "button with-text icon-#{type}"
+    button_without_text type, label, url, html_options.merge(:class=>'with-text')
+  end
+
+  def button_without_text(type, label, url, html_options = {})
+    the_class = "button icon-#{type}"
     if html_options.has_key?(:class)
       the_class << ' ' << html_options[:class]
     end
     link_to(content_tag('span', label), url, html_options.merge(:class => the_class ))
   end
+  alias icon_button button_without_text
 
   def submit_button(type, label, html_options = {})
     bt_cancel = html_options[:cancel] ? button(:cancel, _('Cancel'), html_options[:cancel]) : ''

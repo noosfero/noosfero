@@ -56,9 +56,13 @@
     </script>
 
     <% unless flash[:notice].nil? %>
-      <div id='notice' onclick="Element.hide('notice');">
+      <div id="notice" onclick="Element.hide('notice');" style="display:none">
         <%= flash[:notice] %>
-        <%= javascript_tag(visual_effect(:fade, "notice", :duration => 15)) %>
+        <%= javascript_tag(
+          visual_effect( :appear,    'notice', :duration => 2, :queue => :end ) +
+          visual_effect( :highlight, 'notice', :duration => 3, :queue => :end ) +
+          visual_effect( :fade,      'notice', :duration => 2, :queue => :end )
+        ) %>
       </div>
     <% end %>
 
