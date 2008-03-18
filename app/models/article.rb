@@ -33,6 +33,12 @@ class Article < ActiveRecord::Base
     self.find(:all, options)
   end
 
+  # retrives the most commented articles, sorted by the comment count (largest
+  # first)
+  def self.most_commented(limit)
+    find(:all, :order => 'comments_count DESC', :limit => limit)
+  end
+
   # produces the HTML code that is to be displayed as this article's contents.
   #
   # The implementation in this class just provides the +body+ attribute as the

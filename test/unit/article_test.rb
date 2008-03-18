@@ -204,4 +204,17 @@ class ArticleTest < Test::Unit::TestCase
     end
   end
 
+  should 'list most commented articles' do
+    Article.delete_all
+
+    person = create_user('testuser').person
+    articles = (1..4).map {|n| a = person.articles.build(:name => "art #{n}"); a.save!; a }
+
+    2.times { articles[0].comments.build(:title => 'test', :body => 'asdsad', :author => person).save! }
+    4.times { articles[1].comments.build(:title => 'test', :body => 'asdsad', :author => person).save! }
+
+    # should respect the order (more commented comes first)
+    assert_equal [articles[1], articles[0]], person.articles.most_commented(2)
+  end
+
 end

@@ -210,4 +210,58 @@ class CategoryTest < Test::Unit::TestCase
     assert_equal [ 'parent', 'child'], c2.explode_path
   end
 
+  ################################################################
+  # category filter stuff
+  ################################################################
+
+  should 'list recent articles' do
+    c = @env.categories.build(:name => 'my category'); c.save!
+    person = create_user('testuser').person
+
+    a1 = person.articles.build(:name => 'art1')
+    a1.categories << c
+    a1.save!
+
+    a2 = person.articles.build(:name => 'art2')
+    a2.categories << c
+    a2.save!
+
+    assert_equivalent [a1, a2], c.recent_articles
+  end
+
+
+  should 'list recent comments' do
+    c = @env.categories.build(:name => 'my category'); c.save!
+    person = create_user('testuser').person
+
+    a1 = person.articles.build(:name => 'art1')
+    a1.categories << c
+    a1.save!
+    c1 = a1.comments.build(:title => 'comm1', :body => 'khdkashd ', :author => person); c1.save!
+
+    a2 = person.articles.build(:name => 'art2')
+    a2.categories << c
+    a2.save!
+    c2 = a2.comments.build(:title => 'comm1', :body => 'khdkashd ', :author => person); c2.save!
+
+    assert_equivalent [c1, c2], c.recent_comments
+  end
+
+  should 'list most commented articles' do
+    c = @env.categories.build(:name => 'my category'); c.save!
+    person = create_user('testuser').person
+
+    a1 = person.articles.build(:name => 'art1', :categories => [c]); a1.save!
+    a2 = person.articles.build(:name => 'art2', :categories => [c]); a2.save!
+    a3 = person.articles.build(:name => 'art3', :categories => [c]); a3.save!
+
+    a1.comments.build(:title => 'test', :body => 'asdsa', :author => person).save!
+    5.times { a2.comments.build(:title => 'test', :body => 'asdsa', :author => person).save! }
+
+    10.times { a3.comments.build(:title => 'test', :body => 'kajsdsa', :author => person).save! }
+
+    assert_equal [a3, a2], c.most_commented_articles(2)
+
+  end
+
 end

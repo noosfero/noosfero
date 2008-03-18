@@ -59,4 +59,14 @@ class CommentTest < Test::Unit::TestCase
     assert c1.errors.invalid?(:name)
   end
 
+  should 'update counter cache in article' do
+    owner = create_user('testuser').person
+    art = owner.articles.build(:name => 'ytest'); art.save!
+
+    cc = art.comments_count
+    art.comments.build(:title => 'test comment', :body => 'anything', :author => owner).save!
+    art.reload
+    assert_equal cc + 1, art.comments_count
+  end
+
 end
