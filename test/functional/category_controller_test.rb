@@ -9,13 +9,45 @@ class CategoryControllerTest < Test::Unit::TestCase
     @controller = CategoryController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
+
+    @category = Category.create!(:name => 'my category', :environment => Environment.default)
   end
 
   def test_should_display_a_given_category
-    category = Category.create!(:name => 'my category', :environment => Environment.default)
+    get :view, :path => [ 'my-category' ]
+    assert_equal @category, assigns(:category)
+  end
+
+  should 'expose category in a method' do
+    get :view, :path => [ 'my-category' ]
+    assert_same assigns(:category), @controller.category
+  end
+
+  should 'list recent articles in the category' do
+    @controller.expects(:category).returns(@category).at_least_once
+    recent = []
+    @category.expects(:recent_articles).returns(recent)
 
     get :view, :path => [ 'my-category' ]
-    assert_equal category, assigns(:category)
+    assert_same recent, assigns(:recent_articles)
+  end
+
+  should 'list recent comments in the category' do
+    @controller.expects(:category).returns(@category).at_least_once
+    recent = []
+    @category.expects(:recent_comments).returns(recent)
+
+    get :view, :path => [ 'my-category' ]
+    assert_same recent, assigns(:recent_comments)
+  end
+
+  should 'list most commented articles in the category' do
+    @controller.expects(:category).returns(@category).at_least_once
+    most_commented = []
+    @category.expects(:most_commented_articles).returns(most_commented)
+
+    get :view, :path => [ 'my-category' ]
+    assert_same most_commented, assigns(:most_commented_articles)
   end
 
 end

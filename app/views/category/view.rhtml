@@ -9,11 +9,11 @@
   <%= render :partial => @category.class.name.underscore %>
 
   <div id="category-childs">
+    <h2> <%= _('Sub-categories')  %> </h2>
 
     <% if @category.children.empty? %>
-      <strong id="cat-no-child"><%= _('No children categories') %></strong>
+      <strong id="cat-no-child"><%= _('No sub-categories') %></strong>
     <% else %>
-    <h4> <%= _('Child categories:')  %> </h4>
       <ul>
         <% @category.children.each do |c| %>
           <li> <%= link_to_category(c) %> </li>

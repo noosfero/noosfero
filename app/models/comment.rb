@@ -15,4 +15,20 @@ class Comment < ActiveRecord::Base
     end
   end
 
+  def author_name
+    if author
+      author.name
+    else
+      name
+    end
+  end
+
+  def url
+    article.url.merge(:anchor => anchor)
+  end
+
+  def anchor
+    "comment-#{id}"
+  end
+
 end

@@ -1,10 +1,16 @@
-<%# FIXME  %>
-<p>
-This page will list everything (articles, documents, photos, etc) that is
-related to <%= @category.full_name %>. Actually generating this content is not
-implement yet, though.
-</p>
+<h2><%= _('Recent articles') %></h2>
+<ul>
+  <%= render :partial => 'article', :collection => @recent_articles %>
+</ul>
 
-<p>
-And yes, this placeholder text is not translated.
-</p>
+<h2><%= _('Recent Comments') %></h2>
+<ul>
+<% @recent_comments.each do |comment| %>
+  <li><%= _('"%{comment}" by %{author} on "%{article}"') % { :comment => link_to(comment.title, comment.url), :article => link_to(comment.article.title, comment.article.url), :author => comment.author_name } %></li>
+<% end %>
+</ul>
+
+<h2><%= _('Most commented articles') %></h2>
+<ul>
+  <%= render :partial => 'article', :collection => @most_commented_articles %>
+</ul>

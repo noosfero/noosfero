@@ -69,4 +69,28 @@ class CommentTest < Test::Unit::TestCase
     assert_equal cc + 1, art.comments_count
   end
 
+  should 'provide author name for authenticated authors' do
+    owner = create_user('testuser').person
+    assert_equal 'testuser', Comment.new(:author => owner).author_name
+  end
+
+  should 'provide author name for unauthenticated author' do
+    assert_equal 'anonymous coward', Comment.new(:name => 'anonymous coward').author_name
+  end
+
+  should 'provide url to comment' do
+    art = Article.new
+    art.expects(:url).returns({ :controller => 'lala', :action => 'something' })
+    comment = Comment.new(:article => art)
+    comment.expects(:id).returns(9876)
+
+    assert_equal({ :controller => 'lala', :action => 'something', :anchor => 'comment-9876'}, comment.url)
+  end
+
+  should 'provide anchor' do
+    comment = Comment.new
+    comment.expects(:id).returns(4321)
+    assert_equal 'comment-4321', comment.anchor
+  end
+
 end
