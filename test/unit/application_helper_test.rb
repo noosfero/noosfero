@@ -50,6 +50,11 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_equal '', show_time(nil)
   end
 
+  should 'append with-text class and keep existing classes' do
+    expects(:button_without_text).with('type', 'label', 'url', { :class => 'with-text class1'})
+    button('type', 'label', 'url', { :class => 'class1' })
+  end
+
   protected
 
   def content_tag(tag, content, options)

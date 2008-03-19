@@ -248,7 +248,11 @@ module ApplicationHelper
   end
 
   def button(type, label, url, html_options = {})
-    button_without_text type, label, url, html_options.merge(:class=>'with-text')
+    the_class = 'with-text'
+    if html_options.has_key?(:class)
+      the_class << ' ' << html_options[:class]
+    end
+    button_without_text type, label, url, html_options.merge(:class => the_class)
   end
 
   def button_without_text(type, label, url, html_options = {})
