@@ -69,7 +69,7 @@ class RoutingTest < ActionController::IntegrationTest
   end
 
   def test_category_browser
-    assert_routing('/cat/products/eletronics', :controller => 'category', :action => 'view', :path => [ 'products', 'eletronics'])
+    assert_routing('/cat/products/eletronics', :controller => 'category', :action => 'view', :category_path => [ 'products', 'eletronics'])
     assert_routing('/cat', :controller => 'category', :action => 'index')
   end
 
@@ -89,6 +89,14 @@ class RoutingTest < ActionController::IntegrationTest
   def test_profile_routing
     assert_routing('/profile/ze', :controller => 'profile', :profile => 'ze', :action => 'index')
     assert_routing('/profile/ze/friends', :controller => 'profile', :profile => 'ze', :action => 'friends')
+  end
+
+  def test_search_routing
+    assert_routing('/search', :controller => 'search', :action => 'index')
+  end
+
+  def test_search_filter_routing
+    assert_routing('/search/filter/a/b', :controller => 'search', :action => 'filter', :category_path => ['a','b'])
   end
 
 end

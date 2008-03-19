@@ -211,4 +211,7 @@ class Environment < ActiveRecord::Base
     self.articles.recent(limit)
   end
 
+  # FIXME is this the better/faster way to do this?
+  has_many :comments, :finder_sql => 'select comments.* from comments left join articles on articles.id = comments.article_id left join profiles on profiles.id = articles.profile_id where profiles.environment_id = #{id}'
+
 end
