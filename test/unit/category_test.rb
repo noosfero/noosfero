@@ -264,4 +264,19 @@ class CategoryTest < Test::Unit::TestCase
 
   end
 
+  should 'have comments' do
+    c = @env.categories.build(:name => 'my category'); c.save!
+    person = create_user('testuser').person
+
+    a1 = person.articles.build(:name => 'art1', :categories => [c]); a1.save!
+    a2 = person.articles.build(:name => 'art2', :categories => [c]); a2.save!
+    a3 = person.articles.build(:name => 'art3', :categories => [c]); a3.save!
+
+    c1 = a1.comments.build(:title => 'test', :body => 'asdsa', :author => person); c1.save!
+    c2 = a2.comments.build(:title => 'test', :body => 'asdsa', :author => person); c2.save!
+    c3 = a3.comments.build(:title => 'test', :body => 'asdsa', :author => person); c3.save!
+
+    assert_equivalent [c1, c2, c3], c.comments
+  end
+
 end

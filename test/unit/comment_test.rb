@@ -93,12 +93,20 @@ class CommentTest < Test::Unit::TestCase
     assert_equal 'comment-4321', comment.anchor
   end
 
-  should 'be searched by contents' do 
+  should 'be searched by contents of title' do 
     owner = create_user('testuser').person
     art = owner.articles.build(:name => 'ytest'); art.save!
     c1 = art.comments.build(:title => 'test comment', :body => 'anything', :author => owner); c1.save!
 
     assert_includes Comment.find_by_contents('test'), c1
+  end
+
+  should 'be searched by contents of body' do 
+    owner = create_user('testuser').person
+    art = owner.articles.build(:name => 'ytest'); art.save!
+    c1 = art.comments.build(:title => 'test comment', :body => 'anything', :author => owner); c1.save!
+
+    assert_includes Comment.find_by_contents('anything'), c1
   end
 
 end

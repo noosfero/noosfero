@@ -21,17 +21,21 @@ class Category < ActiveRecord::Base
 
   acts_as_filesystem
 
-  has_and_belongs_to_many :articles
+  has_many :article_categorizations
+  has_many :articles, :through => :article_categorizations
+  has_many :comments, :through => :articles
+
   def recent_articles(limit = 10)
     self.articles.recent(limit)
   end
 
   def recent_comments(limit = 10)
-    # FIXME this can become SLOW
-    Comment.find(:all, :order => 'created_on DESC, comments.id DESC', :limit => limit, :conditions => { :article_id => article_ids})
+    comments.find(:all, :order => 'created_on DESC, comments.id DESC', :limit => limit)
   end
 
   def most_commented_articles(limit = 10)
     self.articles.most_commented(limit)
   end
+
+
 end
