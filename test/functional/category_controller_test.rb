@@ -14,12 +14,12 @@ class CategoryControllerTest < Test::Unit::TestCase
   end
 
   def test_should_display_a_given_category
-    get :view, :path => [ 'my-category' ]
+    get :view, :category_path => [ 'my-category' ]
     assert_equal @category, assigns(:category)
   end
 
   should 'expose category in a method' do
-    get :view, :path => [ 'my-category' ]
+    get :view, :category_path => [ 'my-category' ]
     assert_same assigns(:category), @controller.category
   end
 
@@ -28,7 +28,7 @@ class CategoryControllerTest < Test::Unit::TestCase
     recent = []
     @category.expects(:recent_articles).returns(recent)
 
-    get :view, :path => [ 'my-category' ]
+    get :view, :category_path => [ 'my-category' ]
     assert_same recent, assigns(:recent_articles)
   end
 
@@ -37,7 +37,7 @@ class CategoryControllerTest < Test::Unit::TestCase
     recent = []
     @category.expects(:recent_comments).returns(recent)
 
-    get :view, :path => [ 'my-category' ]
+    get :view, :category_path => [ 'my-category' ]
     assert_same recent, assigns(:recent_comments)
   end
 
@@ -46,7 +46,7 @@ class CategoryControllerTest < Test::Unit::TestCase
     most_commented = []
     @category.expects(:most_commented_articles).returns(most_commented)
 
-    get :view, :path => [ 'my-category' ]
+    get :view, :category_path => [ 'my-category' ]
     assert_same most_commented, assigns(:most_commented_articles)
   end
 
