@@ -1,0 +1,49 @@
+NestedHasManyThrough
+====================
+
+This plugin makes it possible to define has_many :through relationships that
+go through other has_many :through relationships, possibly through an
+arbitrarily deep hierarchy. This allows associations across any number of
+tables to be constructed, without having to resort to find_by_sql (which isn't
+a suitable solution if you need to do eager loading through :include as well).
+
+It is hoped that this feature will in time be applied to the Rails core, after
+which this plugin will become unnecessary.
+See: http://dev.rubyonrails.org/ticket/6461
+
+Example
+-------
+
+class Pub < ActiveRecord::Base
+  belongs_to :city
+end
+
+class City < ActiveRecord::Base
+  belongs_to :country
+  has_many :pubs
+end
+
+class Country < ActiveRecord::Base
+  belongs_to :planet
+  has_many :cities
+  has_many :pubs, :through => cities
+end
+
+class Planet < ActiveRecord::Base
+  belongs_to :star_system
+  has_many :countries
+  has_many :cities, :through => :countries
+
+  # Now we go through a has_many :through association -
+  # something that wasn't previously possible
+  has_many :pubs, :through => :cities
+end
+
+class StarSystem < ActiveRecord::Base
+  has_many :planets
+  has_many :countries, :through => :planets
+  
+  # We can also use a has_many :through association for the source
+  # association; in this case, Country#pubs 
+  has_many :pubs, :through => countries
+end
