@@ -61,6 +61,9 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_includes assigns(:results)[:articles], art1
     assert_not_includes assigns(:results)[:articles], art2
   end
+  
+  # 'assets' menu
+  should 'list articles in a specific category'
 
   should 'search in comments' do
     person = create_user('teste').person
@@ -71,7 +74,25 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_includes assigns(:results)[:comments], comment
   end
 
-  should 'search in comments in a specific category'
+  should 'search in comments in a specific category' do
+    person = create_user('teste').person
+    category = Category.create!(:name => 'my category', :environment => Environment.default)
+
+    # in category
+    art1 = person.articles.build(:name => 'an article to be found')
+    art1.categories << category
+    art1.save!
+    comment1 = art1.comments.build(:title => 'comment to be found', :body => 'hfyfyh', :author => person); comment1.save!
+
+    # not in category
+    art2 = person.articles.build(:name => 'another article to be found')
+    art2.save! 
+    comment2 = art2.comments.build(:title => 'comment to be found', :body => 'hfyfyh', :author => person); comment2.save!
+    get 'filter', :category_path => ['my-category'], :query => 'found', :find_in => [ 'comments' ]
+
+    assert_includes assigns(:results)[:comments], comment1
+    assert_not_includes assigns(:results)[:comments], comment2
+  end
 
 
   should 'find in environment' do
@@ -88,15 +109,44 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_same articles, finder.articles
   end
 
-  should 'find people'
-  should 'find communities'
-
   should 'find enterprises' do
     ent = Enterprise.create!(:name => 'teste', :identifier => 'teste')
     get 'index', :query => 'teste'
     assert_includes assigns(:results)[:enterprises], ent
   end
+  
+  should 'find enterprises in a specified category' do
+    category = Category.create!(:name => 'my category', :environment => Environment.default)
+
+    # in category
+    ent1 = Enterprise.create!(:name => 'test enterprise 1', :identifier => 'test1', :categories => [category])
+
+    # not in category
+    ent2 = Enterprise.create!(:name => 'test enterprise 2', :identifier => 'test1')
+
+    get :filter, :category_path => [ 'my-category' ], :query => 'test', :find_in => [ 'enterprises' ]
+
+    assert_includes ent1, assigns(:results)[:enterprises]
+    assert_not_includes ent2, assigns(:results)[:enterprises]
+  end
+
+  # 'assets' menu
+  should 'list enterprises in a specified category'
+
+  should 'find people'
+  should 'find people in a specific category'
+
+  # 'assets' menu
+  should 'list people in a specified category'
+
+  should 'find communities'
+  should 'find communities in a specified category'
+  # 'assets' menu
+  should 'list communities in a specified category'
 
   should 'find products'
+  should 'find products in a specific category'
+  # 'assets' menu
+  should 'list products in a specific category'
 
 end

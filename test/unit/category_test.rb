@@ -229,7 +229,6 @@ class CategoryTest < Test::Unit::TestCase
     assert_equivalent [a1, a2], c.recent_articles
   end
 
-
   should 'list recent comments' do
     c = @env.categories.build(:name => 'my category'); c.save!
     person = create_user('testuser').person
@@ -261,9 +260,7 @@ class CategoryTest < Test::Unit::TestCase
     10.times { a3.comments.build(:title => 'test', :body => 'kajsdsa', :author => person).save! }
 
     assert_equal [a3, a2], c.most_commented_articles(2)
-
   end
-
   should 'have comments' do
     c = @env.categories.build(:name => 'my category'); c.save!
     person = create_user('testuser').person

@@ -73,4 +73,13 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     get :index, :profile => 'test_user'
   end
 
+  should 'display categories to choose to associate profile' do
+    cat = Environment.default.categories.build(:name => 'a category'); cat.save!
+    person = create_user('test_user').person
+    get :edit, :profile => 'test_user'
+    assert_tag :tag => 'input', :attributes => {:name => 'profile[category_ids][]'}
+  end
+
+  should 'save categorization of profile'
+
 end

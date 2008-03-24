@@ -50,4 +50,9 @@ class CategoryControllerTest < Test::Unit::TestCase
     assert_same most_commented, assigns(:most_commented_articles)
   end
 
+  should 'display category of products' do
+    cat = ProductCategory.create!(:name => 'Food', :environment => Environment.default)
+    get :view, :category_path => cat.path.split('/')
+  end
+
 end
