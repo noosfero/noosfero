@@ -96,9 +96,9 @@ class CommentTest < Test::Unit::TestCase
   should 'be searched by contents of title' do 
     owner = create_user('testuser').person
     art = owner.articles.build(:name => 'ytest'); art.save!
-    c1 = art.comments.build(:title => 'test comment', :body => 'anything', :author => owner); c1.save!
+    c1 = art.comments.build(:title => 'a nice comment', :body => 'anything', :author => owner); c1.save!
 
-    assert_includes Comment.find_by_contents('test'), c1
+    assert_includes Comment.find_by_contents('nice'), c1
   end
 
   should 'be searched by contents of body' do 
