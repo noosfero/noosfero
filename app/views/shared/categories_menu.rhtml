@@ -5,7 +5,7 @@
       <%= item.name %>
       <ul>
         <% item.children.each do |child| %>
-          <li><%= link_to(content_tag('span', child.name), :controller => 'category', :action => 'view', :path => child.explode_path) %></li>
+          <li><%= link_to(content_tag('span', child.name), :controller => 'category', :action => 'view', :category_path => child.explode_path) %></li>
         <% end %>
       </ul>
     </li>
