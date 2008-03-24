@@ -1,0 +1,46 @@
+# This is an example of a yml to auto generate validable forms.
+
+# The base squence list is a hash where the keys are the field names.
+# each hash iten has a hash to dedfine it's properties.
+# The attributes:
+#  _: text - friendly name for the user interface - must add to POT file
+#  mandatory: boolean - obviously
+#  type: prededfined text - text, textarea, hidden, password, radio, checkbox, select
+#  val: text or list - the field value
+#  val-h: text or list - the value for the user interface - must add to POT file
+#  selected: text or list - the selected field(s) on any list fields
+#  validate: hash - contais validation information
+
+# You can use variables (wordos inside %...%) where will be replacebe by hash
+# values gave to the form generator method.
+
+form:
+
+- name: {
+  _: Full Name,
+  type: text,
+  mandatory: true,
+  size: 40,
+  max_size: 255
+}
+- paswd: {
+  _: Password,
+  type: password,
+  mandatory: true,
+  validate: {
+    min_size: 4
+  }
+}
+- sex: {
+  _: Sex,
+  type: radio,
+  val: [ M, F ],
+  val-h: [ Male, Female ]
+}
+- country: {
+  _: Living Country,
+  type: select,
+  val: %COUNTRY_CODES%,
+  val-h: %COUNTRY_NAMES%
+  selected: BR,
+}
