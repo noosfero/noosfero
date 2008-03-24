@@ -55,6 +55,16 @@ class ApplicationHelperTest < Test::Unit::TestCase
     button('type', 'label', 'url', { :class => 'class1' })
   end
 
+  should 'generate correct link to category' do
+    cat = mock
+    cat.expects(:path).returns('my-category/my-subcatagory')
+    cat.expects(:full_name).returns('category name')
+
+    result = "/cat/my-category/my-subcatagory"
+    expects(:link_to).with('category name', :controller => 'category', :action => 'view', :category_path => ['my-category', 'my-subcatagory']).returns(result)
+    assert_same result, link_to_category(cat)
+  end
+
   protected
 
   def content_tag(tag, content, options)
