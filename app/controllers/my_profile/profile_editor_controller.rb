@@ -31,5 +31,15 @@ class ProfileEditorController < MyProfileController
       end
     end
   end
+  
+  def edit_categories
+    @profile_object = profile
+    if request.post?
+      if profile.update_attributes(params[:profile_object])
+        redirect_to :action => 'index'
+      end
+    end
+  end
+
 end
 

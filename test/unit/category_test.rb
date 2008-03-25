@@ -276,4 +276,14 @@ class CategoryTest < Test::Unit::TestCase
     assert_equivalent [c1, c2, c3], c.comments
   end
 
+  should 'have profiles' do
+    c = @env.categories.build(:name => 'my category'); c.save!
+    person1 = create_user('testuser_one').person
+    person1.categories << c
+    person2 = create_user('testuser_two').person
+    person2.categories << c
+    assert_includes c.profiles, person1
+    assert_includes c.profiles, person2
+  end
+
 end

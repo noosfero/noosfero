@@ -74,12 +74,23 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
   end
 
   should 'display categories to choose to associate profile' do
-    cat = Environment.default.categories.build(:name => 'a category'); cat.save!
+    cat1 = Environment.default.categories.build(:name => 'top category'); cat1.save!
+    cat2 = Environment.default.categories.build(:name => 'sub category', :parent => cat1); cat2.save!
     person = create_user('test_user').person
-    get :edit, :profile => 'test_user'
-    assert_tag :tag => 'input', :attributes => {:name => 'profile[category_ids][]'}
+    get :edit_categories, :profile => 'test_user'
+    assert_response :success
+    assert_template 'edit_categories'
+    assert_tag :tag => 'input', :attributes => {:name => 'profile_object[category_ids][]'}
   end
 
-  should 'save categorization of profile'
+  should 'save categorization of profile' do
+    cat1 = Environment.default.categories.build(:name => 'top category'); cat1.save!
+    cat2 = Environment.default.categories.build(:name => 'sub category', :parent => cat1); cat2.save!
+    person = create_user('test_user').person
+    post :edit_categories, :profile => 'test_user', :profile_object => {:category_ids => [cat2.id]}
+    assert_response :redirect
+    assert_redirected_to :action => 'index'
+    assert_includes person.categories, cat2
+  end
 
 end

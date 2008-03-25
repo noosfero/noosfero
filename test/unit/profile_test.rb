@@ -377,6 +377,19 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal [t2, t3], c.tasks.finished
   end
 
+  should 'responds to categories' do
+    c = Profile.create!(:name => 'my test profile', :identifier => 'mytestprofile')
+    assert_respond_to c, :categories
+  end
+
+  should 'have categories' do
+    c = Profile.create!(:name => 'my test profile', :identifier => 'mytestprofile')
+    cat = Environment.default.categories.build(:name => 'a category'); cat.save!
+    c.categories << cat
+    c.save!
+    assert_includes c.categories, cat
+  end
+
   private
 
   def assert_invalid_identifier(id)

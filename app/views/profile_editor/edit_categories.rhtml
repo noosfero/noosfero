@@ -1,0 +1,7 @@
+<% form_for :profile_object, @profile_object, :url  => { :action => 'edit_categories'} do |f| %>
+  <%= select_categories('profile_object') %>
+  <% button_bar do %>
+    <%= submit_button('save', _('Save'), :cancel => {:action => 'edit_categories'}) %>
+    <%= button(:back, _('Back to control panel'), :controller => 'profile_editor') %>
+  <% end %>
+<% end %>

@@ -73,6 +73,8 @@ class Profile < ActiveRecord::Base
   
   has_many :tasks, :foreign_key => :target_id
 
+  has_and_belongs_to_many :categories
+  
   def top_level_articles(reload = false)
     if reload
       @top_level_articles = nil
