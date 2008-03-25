@@ -15,6 +15,11 @@
 # values gave to the form generator method.
 
 form:
+-
+  action: bli.rb
+  method: post
+  id: registration_form
+  default_size: 25
 
 - name: {
   _: Full Name,
@@ -22,6 +27,17 @@ form:
   mandatory: true,
   size: 40,
   max_size: 255
+}
+- login: {
+  _: Login,
+  type: text,
+  mandatory: true,
+  max_size: 20,
+  validate: {
+    min_size: [ 3, "The minimal login size is 3" ],
+    regexp: [ "^[-_a-z0-9]+$",
+              "The login can only have lowercase letters, numbers hiphen and undescore. (no spaces!)" ]
+  }
 }
 - paswd: {
   _: Password,
@@ -41,6 +57,17 @@ form:
   _: Living Country,
   type: select,
   val: %COUNTRY_CODES%,
-  val-h: %COUNTRY_NAMES%
-  selected: BR,
+  val-h: %COUNTRY_NAMES%,
+  selected: BR
 }
+
+- butons:
+  - submit: {
+    _: Enter,
+    class: icon_enter
+  }
+  - reset: {
+    _: Reset,
+    class: icon_clear
+  }
+
