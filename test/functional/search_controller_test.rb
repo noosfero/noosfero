@@ -19,6 +19,13 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_equal 'carne vaca', assigns('filtered_query')
   end
 
+  should 'search with filtered query' do
+    @controller.expects(:locale).returns('pt_BR').at_least_once
+    @controller.expects(:search).with(anything, 'carne vaca').at_least_once
+    @controller.expects(:search).with(anything, 'a carne da vaca').never
+    get 'index', :query => 'a carne da vaca'
+  end
+
   should 'search only in specified types of content' do
     get :index, :query => 'something not important', :find_in => [ 'articles' ]
     assert_equal [:articles], assigns(:results).keys
@@ -94,24 +101,9 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_not_includes assigns(:results)[:comments], comment2
   end
 
-
-  should 'find in environment' do
-    env = mock
-    finder = SearchController::Finder.new(env)
-    assert_same env, finder.environment
-  end
-
-  should 'delegate to environment in default finder' do
-    env = mock
-    articles = mock
-    finder = SearchController::Finder.new(env)
-    env.expects(:articles).returns(articles)
-    assert_same articles, finder.articles
-  end
-
   should 'find enterprises' do
     ent = Enterprise.create!(:name => 'teste', :identifier => 'teste')
-    get 'index', :query => 'teste'
+    get 'index', :query => 'teste', :find_in => [ 'enterprises' ]
     assert_includes assigns(:results)[:enterprises], ent
   end
   
@@ -119,22 +111,34 @@ class SearchControllerTest < Test::Unit::TestCase
     category = Category.create!(:name => 'my category', :environment => Environment.default)
 
     # in category
-    ent1 = Enterprise.create!(:name => 'test enterprise 1', :identifier => 'test1', :categories => [category])
+    ent1 = Enterprise.create!(:name => 'testing enterprise 1', :identifier => 'test1', :categories => [category])
 
     # not in category
-    ent2 = Enterprise.create!(:name => 'test enterprise 2', :identifier => 'test1')
+    ent2 = Enterprise.create!(:name => 'testing enterprise 2', :identifier => 'test2')
 
-    get :filter, :category_path => [ 'my-category' ], :query => 'test', :find_in => [ 'enterprises' ]
+    get :filter, :category_path => [ 'my-category' ], :query => 'testing', :find_in => [ 'enterprises' ]
 
-    assert_includes ent1, assigns(:results)[:enterprises]
-    assert_not_includes ent2, assigns(:results)[:enterprises]
+    assert_includes assigns(:results)[:enterprises], ent1
+    assert_not_includes assigns(:results)[:enterprises], ent2
   end
 
   # 'assets' menu
   should 'list enterprises in a specified category'
 
-  should 'find people'
-  should 'find people in a specific category'
+  should 'find people' do
+    p1 = create_user('people_1').person; p1.name = 'a beatiful person'; p1.save!
+    get :index, :query => 'beatiful', :find_in => [ 'people' ]
+    assert_includes assigns(:results)[:people], p1
+  end
+
+  should 'find people in a specific category' do
+    c = Category.create!(:name => 'my category', :environment => Environment.default)
+    p1 = create_user('people_1').person; p1.name = 'a beatiful person'; p1.categories << c; p1.save!
+    p2 = create_user('people_2').person; p2.name = 'another beatiful person'; p2.save!
+    get :filter, :category_path => [ 'my-category' ], :query => 'beatiful', :find_in => [ 'people' ]
+    assert_includes assigns(:results)[:people], p1
+    assert_not_includes assigns(:results)[:people], p2
+  end
 
   # 'assets' menu
   should 'list people in a specified category'

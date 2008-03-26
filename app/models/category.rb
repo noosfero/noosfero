@@ -26,7 +26,8 @@ class Category < ActiveRecord::Base
   has_many :comments, :through => :articles
 
   has_many :profile_categorizations
-  has_many :profiles, :through => :profile_categorizations
+  has_many :enterprises, :through => :profile_categorizations, :source => :profile
+  has_many :people, :through => :profile_categorizations, :source => :profile
 
   def recent_articles(limit = 10)
     self.articles.recent(limit)

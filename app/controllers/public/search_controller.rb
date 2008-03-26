@@ -16,29 +16,18 @@ class SearchController < ApplicationController
 
   ######################################################
 
-  class Finder
-    attr_reader :environment
-    def initialize(env)
-      @environment = env
-    end
-
-    def articles
-      environment.articles
-    end
-
-    def comments
-      environment.comments
-    end
-  end
-
   def index
     @query = params[:query] || ''
     @filtered_query = remove_stop_words(@query)
 
-    @finder ||= SearchController::Finder.new(@environment)
+    @finder ||= @environment
 
-    @results = { :articles => search(@finder.articles, @query), 
-      :comments => search(@finder.comments, @query) }
+    @results = {
+      :articles => search(@finder.articles, @filtered_query), 
+      :comments => search(@finder.comments, @filtered_query),
+      :enterprises => search(@finder.enterprises, @filtered_query),
+      :people => search(@finder.people, @filtered_query),
+    }
   end
 
   before_filter :load_category, :only => :filter
