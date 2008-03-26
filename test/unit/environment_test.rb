@@ -277,4 +277,36 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equivalent [c1,c2], environment.comments
   end
 
+  should 'have products through enterprises' do
+    env = Environment.default
+    e1 = Enterprise.create!(:name => 'test_ent1', :identifier => 'test_ent1')
+    p1 = e1.products.create!(:name => 'test_prod1')
+
+    assert_includes env.products, p1
+  end
+  
+  should 'not have person through communities' do
+    env = Environment.default
+    com = Community.create!(:identifier => 'community_1', :name => 'Community one')
+    person = create_user('test_user').person
+    assert_includes env.communities, com
+    assert_not_includes env.communities, person
+  end
+
+  should 'not have person through enterprises' do
+    env = Environment.default
+    ent = Enterprise.create!(:identifier => 'enterprise_1', :name => 'Enterprise one')
+    person = create_user('test_user').person
+    assert_includes env.enterprises, ent
+    assert_not_includes env.enterprises, person
+  end
+
+  should 'not have enterprises through people' do
+    env = Environment.default
+    person = create_user('test_user').person
+    ent = Enterprise.create!(:identifier => 'enterprise_1', :name => 'Enterprise one')
+    assert_includes env.people, person
+    assert_not_includes env.people, ent
+  end
+
 end

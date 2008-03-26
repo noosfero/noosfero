@@ -126,16 +126,16 @@ class SearchControllerTest < Test::Unit::TestCase
   should 'list enterprises in a specified category'
 
   should 'find people' do
-    p1 = create_user('people_1').person; p1.name = 'a beatiful person'; p1.save!
-    get :index, :query => 'beatiful', :find_in => [ 'people' ]
+    p1 = create_user('people_1').person; p1.name = 'a beautiful person'; p1.save!
+    get :index, :query => 'beautiful', :find_in => [ 'people' ]
     assert_includes assigns(:results)[:people], p1
   end
 
   should 'find people in a specific category' do
     c = Category.create!(:name => 'my category', :environment => Environment.default)
-    p1 = create_user('people_1').person; p1.name = 'a beatiful person'; p1.categories << c; p1.save!
-    p2 = create_user('people_2').person; p2.name = 'another beatiful person'; p2.save!
-    get :filter, :category_path => [ 'my-category' ], :query => 'beatiful', :find_in => [ 'people' ]
+    p1 = create_user('people_1').person; p1.name = 'a beautiful person'; p1.categories << c; p1.save!
+    p2 = create_user('people_2').person; p2.name = 'another beautiful person'; p2.save!
+    get :filter, :category_path => [ 'my-category' ], :query => 'beautiful', :find_in => [ 'people' ]
     assert_includes assigns(:results)[:people], p1
     assert_not_includes assigns(:results)[:people], p2
   end
@@ -143,13 +143,42 @@ class SearchControllerTest < Test::Unit::TestCase
   # 'assets' menu
   should 'list people in a specified category'
 
-  should 'find communities'
-  should 'find communities in a specified category'
+  should 'find communities' do
+    c1 = Community.create!(:name => 'a beautiful community', :identifier => 'bea_comm', :environment => Environment.default)
+    get :index, :query => 'beautiful', :find_in => [ 'communities' ]
+    assert_includes assigns(:results)[:communities], c1
+  end
+
+  should 'find communities in a specified category' do
+    c = Category.create!(:name => 'my category', :environment => Environment.default)
+    c1 = Community.create!(:name => 'a beautiful community', :identifier => 'bea_comm', :environment => Environment.default)
+    c2 = Community.create!(:name => 'another beautiful community', :identifier => 'an_bea_comm', :environment => Environment.default)
+    c1.categories << c; c1.save!
+    get :filter, :category_path => [ 'my-category' ], :query => 'beautiful', :find_in => [ 'communities' ]
+    assert_includes assigns(:results)[:communities], c1
+    assert_not_includes assigns(:results)[:communities], c2
+  end
   # 'assets' menu
   should 'list communities in a specified category'
 
-  should 'find products'
-  should 'find products in a specific category'
+  should 'find products' do
+    ent = Enterprise.create!(:name => 'teste', :identifier => 'teste')
+    prod = ent.products.create!(:name => 'a beautiful product')
+    get 'index', :query => 'beautiful', :find_in => ['products']
+    assert_includes assigns(:results)[:products], prod
+  end
+
+  should 'find products in a specific category' do
+    c = Category.create!(:name => 'my category', :environment => Environment.default)
+    ent1 = Enterprise.create!(:name => 'teste1', :identifier => 'teste1'); ent1.categories << c
+    ent2 = Enterprise.create!(:name => 'teste2', :identifier => 'teste2')
+    prod1 = ent1.products.create!(:name => 'a beautiful product')
+    prod2 = ent2.products.create!(:name => 'another beautiful product')
+    get 'filter', :category_path => ['my-category'], :query => 'beautiful', :find_in => ['products']
+    assert_includes assigns(:results)[:products], prod1
+    assert_not_includes assigns(:results)[:products], prod2
+  end
+
   # 'assets' menu
   should 'list products in a specific category'
 

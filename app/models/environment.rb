@@ -56,6 +56,7 @@ class Environment < ActiveRecord::Base
 
   has_many :organizations
   has_many :enterprises
+  has_many :products, :through => :enterprises
   has_many :people
   has_many :communities
 

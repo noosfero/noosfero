@@ -295,4 +295,54 @@ class CategoryTest < Test::Unit::TestCase
     assert_equal [p1, p2], c.people
   end
 
+  should 'have communities' do
+    c = @env.categories.build(:name => 'my category'); c.save!
+    c1 = Environment.default.communities.create!(:name => 'testcommunity_1')
+    c1.categories << c
+    c2 = Environment.default.communities.create!(:name => 'testcommunity_2')
+    c2.categories << c
+    assert_equal [c1, c2], c.communities
+  end
+
+  should 'have products through enteprises' do
+    c = @env.categories.build(:name => 'my category'); c.save!
+    ent1 = Enterprise.create!(:identifier => 'enterprise_1', :name => 'Enterprise one')
+    ent1.categories << c
+    ent2 = Enterprise.create!(:identifier => 'enterprise_2', :name => 'Enterprise one')
+    ent2.categories << c
+    prod1 = ent1.products.create!(:name => 'test_prod1')
+    prod2 = ent2.products.create!(:name => 'test_prod2')
+    assert_includes c.products, prod1
+    assert_includes c.products, prod2
+  end
+
+  should 'not have person through communities' do
+    c = @env.categories.build(:name => 'my category'); c.save!
+    com = Community.create!(:identifier => 'community_1', :name => 'Community one')
+    com.categories << c
+    person = create_user('test_user').person
+    person.categories << c
+    assert_includes c.communities, com
+    assert_not_includes c.communities, person
+  end
+
+  should 'not have person through enterprises' do
+    c = @env.categories.build(:name => 'my category'); c.save!
+    ent = Enterprise.create!(:identifier => 'enterprise_1', :name => 'Enterprise one')
+    ent.categories << c
+    person = create_user('test_user').person
+    person.categories << c
+    assert_includes c.enterprises, ent
+    assert_not_includes c.enterprises, person
+  end
+
+  should 'not have enterprises through people' do
+    c = @env.categories.build(:name => 'my category'); c.save!
+    person = create_user('test_user').person
+    person.categories << c
+    ent = Enterprise.create!(:identifier => 'enterprise_1', :name => 'Enterprise one')
+    ent.categories << c
+    assert_includes c.people, person
+    assert_not_includes c.people, ent
+  end
 end

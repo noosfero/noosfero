@@ -21,13 +21,11 @@ class SearchController < ApplicationController
     @filtered_query = remove_stop_words(@query)
 
     @finder ||= @environment
-
-    @results = {
-      :articles => search(@finder.articles, @filtered_query), 
-      :comments => search(@finder.comments, @filtered_query),
-      :enterprises => search(@finder.enterprises, @filtered_query),
-      :people => search(@finder.people, @filtered_query),
-    }
+    
+    @results = {}
+    [:articles, :comments, :enterprises, :people, :communities, :products].each do |key|
+      @results[key] = search(@finder.send(key), @filtered_query) if params[:find_in].nil? || params[:find_in].empty? || params[:find_in].include?(key.to_s)
+    end
   end
 
   before_filter :load_category, :only => :filter
