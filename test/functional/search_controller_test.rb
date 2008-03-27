@@ -182,4 +182,28 @@ class SearchControllerTest < Test::Unit::TestCase
   # 'assets' menu
   should 'list products in a specific category'
 
+  should 'display search results' do
+    ent = Enterprise.create!(:name => 'display enterprise', :identifier => 'teste1')
+    product = ent.products.create!(:name => 'display product')
+    person = create_user('displayperson').person; person.name = 'display person'; person.save!
+    article = person.articles.create!(:name => 'display article')
+    comment = article.comments.create!(:title => 'display comment', :body => '...', :author => person)
+    community = Community.create!(:name => 'display community', :identifier => 'an_bea_comm')
+    
+    get :index, :query => 'display'
+    
+    names = {
+        :articles => 'Articles',
+        :comments => 'Comments',
+        :people => 'People',
+        :enterprises => 'Enterprises',
+        :communities => 'Communities',
+        :products => 'Products',
+    }
+    names.each do |thing, description|
+      assert_tag :tag => 'div', :attributes => { :id => "search-results-#{thing}" }, :descendant => { :tag => 'h3', :content => description }
+      assert_tag :tag => 'a', :content => "display #{thing.to_s.singularize}"
+    end
+  end
+
 end

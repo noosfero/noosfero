@@ -23,8 +23,17 @@ class SearchController < ApplicationController
     @finder ||= @environment
     
     @results = {}
-    [:articles, :comments, :enterprises, :people, :communities, :products].each do |key|
+    @names = {}
+    [
+      [ :articles, _('Articles') ],
+      [ :comments, _('Comments') ],
+      [ :enterprises, _('Enterprises') ],
+      [ :people, _('People') ],
+      [ :communities, _('Communities') ],
+      [ :products, _('Products') ]
+    ].each do |key, description|
       @results[key] = search(@finder.send(key), @filtered_query) if params[:find_in].nil? || params[:find_in].empty? || params[:find_in].include?(key.to_s)
+      @names[key] = description
     end
   end
 

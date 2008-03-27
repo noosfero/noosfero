@@ -16,6 +16,12 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_equal 'runtime_error', partial_for_class(RuntimeError)
   end
 
+  should 'give error when there is no partial for class' do
+    assert_raises ArgumentError do
+      partial_for_class(nil)
+    end
+  end
+
   should 'generate link to stylesheet' do
     File.expects(:exists?).with(File.join(RAILS_ROOT, 'public', 'stylesheets', 'something.css')).returns(true)
     expects(:filename_for_stylesheet).with('something', nil).returns('/stylesheets/something.css')

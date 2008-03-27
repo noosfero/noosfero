@@ -318,6 +318,10 @@ module ApplicationHelper
   end
 
   def partial_for_class(klass)
+    if klass.nil?
+      raise ArgumentError, 'No partial for object. Is there a partial for any class in the inheritance hierarchy?'
+    end
+    
     name = klass.name.underscore
     if File.exists?(File.join(RAILS_ROOT, 'app', 'views', params[:controller], "_#{name}.rhtml"))
       name
