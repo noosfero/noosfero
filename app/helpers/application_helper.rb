@@ -306,9 +306,10 @@ module ApplicationHelper
     concat(content_tag('div', capture(&block) + tag('br', :style => 'clear: left;'), { :class => 'button-bar' }.merge(options)), block.binding)
   end
 
-  def link_to_category(category)
+  def link_to_category(category, full = true)
     return _('Uncategorized product') unless category
-    link_to category.full_name, :controller => 'category', :action => 'view', :category_path => category.path.split('/')
+    name = full ? category.full_name : category.name
+    link_to name, :controller => 'category', :action => 'view', :category_path => category.path.split('/')
   end
 
   def link_to_product(product)

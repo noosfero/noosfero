@@ -9,7 +9,8 @@
 <ul>
   <% @products.each do |p| %>
     <li>
-    <%= image_tag p.image.public_filename(:thumb) if p.image%> <%= link_to_product(p) %> <br/>
+    <%= image_tag p.image.public_filename(:thumb) if p.image%>
+    <%= link_to_product(p) %> <br/>
     <% if p.price %>
       <%= _('Price: %d') % p.price %> <br/>
     <% end %>

@@ -52,7 +52,10 @@ class CategoryControllerTest < Test::Unit::TestCase
 
   should 'display category of products' do
     cat = ProductCategory.create!(:name => 'Food', :environment => Environment.default)
+    ent = Enterprise.create!(:name => 'Enterprise test', :identifier => 'enterprise_test')
+    p = cat.products.create!(:name => 'product test', :enterprise => ent)
     get :view, :category_path => cat.path.split('/')
+    assert_includes assigns(:products), p
   end
 
 end
