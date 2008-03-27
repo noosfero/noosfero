@@ -1,0 +1,29 @@
+InverseCaptcha
+==============
+
+Implement simple Anti-Comment-Spam Technique.
+
+Basic Usage
+===========
+
+Add method inverse_captcha on controller:
+
+ps.: dont use this method more than once time on same controller.
+
+  inverse_captcha :field => 'e-mail'[, class => 'ghost']
+
+Add the field in view form:
+
+  <%= icaptcha_field() %>
+
+Check if field is blank in your controller:
+
+  if params[controller.icaptcha_field].blank?
+    do...
+  else
+    dont...
+  end
+
+---
+Joenio Costa <joenio@colivre.coop.br>
+Qui Mar 27 15:48:12 BRT 2008
