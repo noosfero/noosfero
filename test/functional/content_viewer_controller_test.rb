@@ -90,7 +90,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     # for example, RSS feeds 
     profile = create_user('someone').person
     page = profile.articles.build(:name => 'myarticle', :body => 'the body of the text')
-page.save!
+    page.save!
 
     feed = RssFeed.new(:name => 'testfeed')
     feed.profile = profile
@@ -153,5 +153,24 @@ page.save!
 
   end
 
+  should 'not be able to post comment while inverse captcha field filled' do
+    profile = create_user('popstar').person
+    page = profile.articles.build(:name => 'myarticle', :body => 'the body of the text')
+    page.save!
+    profile.home_page = page; profile.save!
+
+    assert_no_difference Comment, :count do
+      post :view_page, :profile => profile.identifier, :page => [ 'myarticle' ], @controller.icaptcha_field => 'filled', :comment => { :title => 'crap!', :body => 'I think that this article is crap', :name => 'Anonymous coward', :email => 'coward@anonymous.com' }
+    end
+  end
+
+  should 'render inverse captcha field' do
+    profile = create_user('popstar').person
+    page = profile.articles.build(:name => 'myarticle', :body => 'the body of the text')
+    page.save!
+    profile.home_page = page; profile.save!
+    get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ]
+    assert_tag :tag => 'input', :attributes => { :type => 'text', :name => @controller.icaptcha_field }
+  end
 
 end

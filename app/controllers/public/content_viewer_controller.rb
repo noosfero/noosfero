@@ -2,6 +2,8 @@ class ContentViewerController < PublicController
 
   needs_profile
 
+  inverse_captcha :field => 'e_mail'
+
   def view_page
     path = params[:page].join('/')
 
@@ -32,7 +34,7 @@ class ContentViewerController < PublicController
       return
     end
 
-    if request.post? && params[:comment]
+    if request.post? && params[:comment] && params[self.icaptcha_field].blank?
       add_comment
     end
 

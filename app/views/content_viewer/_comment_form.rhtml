@@ -19,6 +19,7 @@
 
     <%= labelled_form_field(_('Name'), text_field(:comment, :name)) %>
     <%= labelled_form_field(_('e-mail'), text_field(:comment, :email)) %>
+    <%= icaptcha_field() %>
 
     <p>
     <%= _('If you are a registered user, you can login and be automatically recognized.') %>
