@@ -173,4 +173,18 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'input', :attributes => { :type => 'text', :name => @controller.icaptcha_field }
   end
 
+  should 'show error messages when make a blank comment' do
+    login_as @profile.identifier
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
+    post :view_page, :profile => @profile.identifier, :page => [ 'myarticle' ], :comment => { :title => '', :body => '' }
+    assert_tag :tag => 'div', :attributes => { :class => 'errorExplanation', :id => 'errorExplanation' }
+  end
+
+  should 'show comment form opened on error' do
+    login_as @profile.identifier
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
+    post :view_page, :profile => @profile.identifier, :page => [ 'myarticle' ], :comment => { :title => '', :body => '' }
+    assert_tag :tag => 'div', :attributes => { :class => 'post_comment_box opened' }
+  end
+  
 end

@@ -48,3 +48,10 @@
   display: none;
 }
 
+.post_comment_box.closed form {
+  display: none;
+}
+
+.post_comment_box.opened form {
+  display: block;
+}

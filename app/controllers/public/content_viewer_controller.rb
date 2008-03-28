@@ -51,8 +51,10 @@ class ContentViewerController < PublicController
     @comment = Comment.new(params[:comment])
     @comment.author = user if logged_in?
     @comment.article = @page
-    if @comment.save!
+    if @comment.save
       @comment = nil # clear the comment form
+    else
+      @form_div = 'opened'
     end
   end
 

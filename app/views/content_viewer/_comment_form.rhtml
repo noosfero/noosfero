@@ -4,16 +4,20 @@
 
 <% focus_on = logged_in? ? 'title' : 'name' %>
 
+<%= error_messages_for :comment %>
+
+<% @form_div ||= 'closed' %>
+
 <div
-  class="post_comment_box closed"
-  onclick="f=$(<%= comment_form_id %>); f.style.display='block';
+  class="post_comment_box <%= @form_div %>"
+  onclick="f=$(<%= comment_form_id %>);
            this.className = this.className.replace(/closed/,'opened');
            f.commit.focus(); f['comment[<%= focus_on %>]'].focus();
            this.onclick=null">
 
 <h4><%= _('Post a comment') %></h4>
 
-<% form_tag( {}, { :id => comment_form_id, :style => 'display:none' } ) do %>
+<% form_tag( {}, { :id => comment_form_id } ) do %>
 
   <% unless logged_in? %>
 
