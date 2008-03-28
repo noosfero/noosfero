@@ -1,5 +1,5 @@
 <ul>
-  <% if logged_in? %>
+  <% if logged_in? && !profile.members.include?(user) %>
     <li><%= link_to content_tag('span', _('Join this community')), { :profile => user.identifier, :controller => 'memberships', :action => 'join', :id => profile.id }, :class => 'button with-text icon-add' %></li>
   <% end %>
 </ul>

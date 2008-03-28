@@ -46,4 +46,26 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_template 'members'
     assert_kind_of Array, assigns(:members)
   end
+
+  should 'show Join This Community button for non-member users' do
+    login_as(@profile.identifier)
+    community = Community.create!(:name => 'my test community')
+    get :index, :profile => community.identifier
+    assert_tag :tag => 'a', :content => 'Join this community'
+  end
+
+  should 'not show Join This Community button for member users' do
+    login_as(@profile.identifier)
+    community = Community.create!(:name => 'my test community')
+    community.add_member(@profile)
+    get :index, :profile => community.identifier
+    assert_no_tag :tag => 'a', :content => 'Join this community'
+  end
+
+  should 'not show Join This Community button for non-registered users' do
+    community = Community.create!(:name => 'my test community')
+    get :index, :profile => community.identifier
+    assert_no_tag :tag => 'a', :content => 'Join this community'
+  end
+
 end
