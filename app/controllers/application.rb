@@ -103,10 +103,12 @@ class ApplicationController < ActionController::Base
   end
 
   def load_category
-    path = params[:category_path].join('/')
-    @category = environment.categories.find_by_path(path)
-    if @category.nil?
-      render_not_found(path)
+    unless params[:category_path].blank?
+      path = params[:category_path].join('/')
+      @category = environment.categories.find_by_path(path)
+      if @category.nil?
+        render_not_found(path)
+      end
     end
   end
 

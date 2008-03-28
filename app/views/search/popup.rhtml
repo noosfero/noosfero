@@ -1,13 +1,36 @@
 <h2><%= _('Search %s') % @environment.name %></h2>
 
-<% form_tag(:action => 'index') do%>
+<% form_tag({:action => 'index', :category_path => (@category ? @category.explode_path : [])}, :method => 'get') do%>
 
   <div id='search-field' style='text-align: center;'>
     <%= text_field_tag('query', '', :size => 50) %>
     <%= submit_button(:search, _('Search')) %>
   </div>
 
-  <h3><%= _('Search options') %></h3>
+  <% if @category %>
+    <h3><%= _('Search in:') %></h3>
+    <ul>
+      <li>
+      <%= radio_button_tag :search_whole_site, 'no', true %>
+      <span><%= _('Only in %{category}') % { :category => @category.full_name } %></span>
+      </li>
+      <li>
+      <%= radio_button_tag :search_whole_site, 'yes' %>
+      <span><%= _('Whole site') %></span>
+      </li>
+    </ul>
+  <% end %>
+
+  <h3><%= _('Search for:') %></h3>
+
+  <ul>
+    <% @search_in.each do |thing, name| %>
+      <li>
+      <%= check_box_tag 'find_in[]', thing.to_s, true %>
+      <span><%= name %></span>
+      </li>
+    <% end %>
+  </ul>
 
 
   <% button_bar do %>

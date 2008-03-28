@@ -9,13 +9,6 @@ module Noosfero
     Regexp.new(pattern)
   end
 
-  def self.pattern_for_controllers_from_design_blocks
-    items = Dir.glob(File.join(RAILS_ROOT, 'app', 'design_blocks', '*', 'controllers', '*_controller.rb')).map do |item|
-      item.gsub(/^.*\/([^\/]+)_controller.rb$/, '\1')
-    end.join('|')
-    Regexp.new(items.blank? ? '' : ('(' + items + ')'))
-  end
-
   class << self
     attr_accessor :locales
     attr_accessor :default_locale

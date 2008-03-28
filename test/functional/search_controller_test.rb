@@ -63,7 +63,7 @@ class SearchControllerTest < Test::Unit::TestCase
     art2 = person.articles.build(:name => 'another article to be found')
     art2.save!
 
-    get :filter, :category_path => [ 'my-category' ], :query => 'article found', :find_in => [ 'articles' ]
+    get :index, :category_path => [ 'my-category' ], :query => 'article found', :find_in => [ 'articles' ]
 
     assert_includes assigns(:results)[:articles], art1
     assert_not_includes assigns(:results)[:articles], art2
@@ -95,7 +95,7 @@ class SearchControllerTest < Test::Unit::TestCase
     art2 = person.articles.build(:name => 'another article to be found')
     art2.save! 
     comment2 = art2.comments.build(:title => 'comment to be found', :body => 'hfyfyh', :author => person); comment2.save!
-    get 'filter', :category_path => ['my-category'], :query => 'found', :find_in => [ 'comments' ]
+    get :index, :category_path => ['my-category'], :query => 'found', :find_in => [ 'comments' ]
 
     assert_includes assigns(:results)[:comments], comment1
     assert_not_includes assigns(:results)[:comments], comment2
@@ -116,7 +116,7 @@ class SearchControllerTest < Test::Unit::TestCase
     # not in category
     ent2 = Enterprise.create!(:name => 'testing enterprise 2', :identifier => 'test2')
 
-    get :filter, :category_path => [ 'my-category' ], :query => 'testing', :find_in => [ 'enterprises' ]
+    get :index, :category_path => [ 'my-category' ], :query => 'testing', :find_in => [ 'enterprises' ]
 
     assert_includes assigns(:results)[:enterprises], ent1
     assert_not_includes assigns(:results)[:enterprises], ent2
@@ -135,7 +135,7 @@ class SearchControllerTest < Test::Unit::TestCase
     c = Category.create!(:name => 'my category', :environment => Environment.default)
     p1 = create_user('people_1').person; p1.name = 'a beautiful person'; p1.categories << c; p1.save!
     p2 = create_user('people_2').person; p2.name = 'another beautiful person'; p2.save!
-    get :filter, :category_path => [ 'my-category' ], :query => 'beautiful', :find_in => [ 'people' ]
+    get :index, :category_path => [ 'my-category' ], :query => 'beautiful', :find_in => [ 'people' ]
     assert_includes assigns(:results)[:people], p1
     assert_not_includes assigns(:results)[:people], p2
   end
@@ -154,7 +154,7 @@ class SearchControllerTest < Test::Unit::TestCase
     c1 = Community.create!(:name => 'a beautiful community', :identifier => 'bea_comm', :environment => Environment.default)
     c2 = Community.create!(:name => 'another beautiful community', :identifier => 'an_bea_comm', :environment => Environment.default)
     c1.categories << c; c1.save!
-    get :filter, :category_path => [ 'my-category' ], :query => 'beautiful', :find_in => [ 'communities' ]
+    get :index, :category_path => [ 'my-category' ], :query => 'beautiful', :find_in => [ 'communities' ]
     assert_includes assigns(:results)[:communities], c1
     assert_not_includes assigns(:results)[:communities], c2
   end
@@ -174,7 +174,7 @@ class SearchControllerTest < Test::Unit::TestCase
     ent2 = Enterprise.create!(:name => 'teste2', :identifier => 'teste2')
     prod1 = ent1.products.create!(:name => 'a beautiful product')
     prod2 = ent2.products.create!(:name => 'another beautiful product')
-    get 'filter', :category_path => ['my-category'], :query => 'beautiful', :find_in => ['products']
+    get :index, :category_path => ['my-category'], :query => 'beautiful', :find_in => ['products']
     assert_includes assigns(:results)[:products], prod1
     assert_not_includes assigns(:results)[:products], prod2
   end
@@ -204,6 +204,61 @@ class SearchControllerTest < Test::Unit::TestCase
       assert_tag :tag => 'div', :attributes => { :id => "search-results-#{thing}" }, :descendant => { :tag => 'h3', :content => description }
       assert_tag :tag => 'a', :content => "display #{thing.to_s.singularize}"
     end
+  end
+
+  should 'present options of where to search' do
+    get :popup
+    names = {
+        :articles => 'Articles',
+        :comments => 'Comments',
+        :people => 'People',
+        :enterprises => 'Enterprises',
+        :communities => 'Communities',
+        :products => 'Products',
+    }
+    names.each do |thing,description|
+      assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => "find_in[]", :value => thing.to_s, :checked => 'checked' }
+      assert_tag :tag => 'span', :content => description
+    end
+  end
+
+  should 'not display option to choose where to search when not inside filter' do
+    get :popup
+    assert_no_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'search_whole_site', :value => 'yes' }
+  end
+
+  should 'display option to choose searching in whole site or in current category' do
+    parent = Category.create!(:name => 'cat', :environment => Environment.default)
+    Category.create!(:name => 'sub', :environment => Environment.default, :parent => parent)
+
+    get :popup, :category_path => [ 'cat', 'sub']
+    assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'search_whole_site', :value => 'yes' }
+    assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'search_whole_site', :value => 'no', :checked => 'checked' }
+  end
+
+  should 'search in whole site when told so' do
+    parent = Category.create!(:name => 'randomcat', :environment => Environment.default)
+    Category.create!(:name => 'randomchild', :environment => Environment.default, :parent => parent)
+
+    get :index, :category_path => [ 'randomcat', 'randomchild' ], :query => 'some random query', :search_whole_site => 'yes'
+
+    # search_whole_site must be removed to precent a infinite redirect loop
+    assert_redirected_to :action => 'index', :category_path => [], :query => 'some random query', :search_whole_site => nil
+  end
+
+  should 'submit form to root when not inside a filter' do
+    get :popup
+    assert_tag :tag => 'form', :attributes => { :action => '/search' }
+  end
+
+  should 'submit form to category path when inside a filter' do
+    get :popup, :category_path => Category.create!(:name => 'mycat', :environment => Environment.default).explode_path
+    assert_tag :tag => 'form', :attributes => { :action => '/search/index/mycat' }
+  end
+
+  should 'use GET method to search' do
+    get :popup
+    assert_tag :tag => 'form' , :attributes => { :method => 'get' }
   end
 
 end
