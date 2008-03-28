@@ -92,7 +92,7 @@ class RoutingTest < ActionController::IntegrationTest
   end
 
   def test_search_routing
-    assert_routing('/search', :controller => 'search', :action => 'index')
+    assert_routing('/search', :controller => 'search', :action => 'index', :category_path => [])
   end
 
   def test_search_filter_routing

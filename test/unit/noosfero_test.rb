@@ -18,11 +18,6 @@ class NoosferoTest < Test::Unit::TestCase
     assert_equal(//, Noosfero.pattern_for_controllers_in_directory('lala'))
   end
 
-  should 'support controllers from design_blocks directory' do
-    Dir.expects(:glob).with("#{RAILS_ROOT}/app/design_blocks/*/controllers/*_controller.rb").returns(['app/design_blocks/block1/controllers/block1_controller.rb', 'app/design_blocks/block2/controllers/block2_controller.rb'])
-    assert_equal(/(block1|block2)/, Noosfero.pattern_for_controllers_from_design_blocks)
-  end
-
   should 'support setting default locale' do
     Noosfero.default_locale = 'pt_BR'
     assert_equal 'pt_BR', Noosfero.default_locale

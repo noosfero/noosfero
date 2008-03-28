@@ -31,15 +31,11 @@ ActionController::Routing::Routes.draw do |map|
   map.tag 'tag/:tag', :controller => 'search', :action => 'tag'
 
   # search
-  map.connect 'search/filter/*category_path', :controller => 'search', :action => 'filter'
-  map.connect 'search/:action', :controller => 'search'
+  map.connect 'search/:action/*category_path', :controller => 'search'
  
   # categories controller
   map.connect 'cat', :controller => 'category', :action => 'index'
   map.category 'cat/*category_path', :controller => 'category', :action => 'view'
-
-  # controllers for blocks
-  map.controllers 'block/:profile/:controller/:action/:id', :controller => Noosfero.pattern_for_controllers_from_design_blocks
 
   # public profile information
   map.profile 'profile/:profile/:action/:id', :controller => 'profile', :action => 'index'
