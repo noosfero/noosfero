@@ -19,7 +19,14 @@ class ArticleBlock < Block
   def article(reload = false)
     @article = nil if reload
     if @article || article_id
-      @article = Article.find(article_id)
+      begin
+        @article = Article.find(article_id)
+      rescue ActiveRecord::RecordNotFound
+        # dangling reference, clear it
+        @article = nil
+        self.article_id = nil
+        self.save!
+      end
     end
     @article
   end

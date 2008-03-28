@@ -30,4 +30,26 @@ class ArticleBlockTest < Test::Unit::TestCase
 
   end
 
+  should 'not crash when referenced article is removed' do
+    person = create_user('testuser').person
+    a = person.articles.create!(:name => 'test')
+    block = ArticleBlock.create(:article => a)
+    person.boxes.first.blocks << block
+    block.save!
+
+    a.destroy
+    block.reload
+    assert_nil block.article
+  end
+
+  should 'nullify reference to unexisting article' do
+    Article.delete_all
+
+    block = ArticleBlock.new
+    block.article_id = 999
+
+    block.article
+    assert_nil block.article_id
+  end
+
 end
