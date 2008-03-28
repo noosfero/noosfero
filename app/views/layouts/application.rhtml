@@ -15,8 +15,10 @@
     %>
     <%=
       # Load the principal css files:
-      stylesheet_import( %w( common help menu article button search blocks forms login-box ) ) +
-      "\n" +
+      stylesheet_import( %w( common help menu article button search blocks forms login-box )
+                         ) + "\n" +
+      stylesheet_import( %w( common help menu article button search blocks forms login-box ),
+                         :themed_source => true ) + "\n" +
       # Load the boxes's css file if each exists:
       import_blocks_stylesheets +
       # Load the controller's css file if it exists:

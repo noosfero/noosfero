@@ -1,16 +1,24 @@
 <h2><%= _('Recent articles') %></h2>
-<ul>
+<ul class="recent_on_cat recent_articles">
   <%= render :partial => 'article', :collection => @recent_articles %>
 </ul>
 
 <h2><%= _('Recent Comments') %></h2>
-<ul>
+<ul class="recent_on_cat recent_comments">
 <% @recent_comments.each do |comment| %>
-  <li><%= _('"%{comment}" by %{author} on "%{article}"') % { :comment => link_to(comment.title, comment.url), :article => link_to(comment.article.title, comment.article.url), :author => comment.author_name } %></li>
+  <li>
+    <strong><%= link_to(comment.title, comment.url) %></strong>
+    <div class="item_meta">
+      <%= _('by %{author} on "%{article}"') % {
+                :comment => link_to(comment.title, comment.url),
+                :article => link_to(comment.article.title, comment.article.url),
+                :author => comment.author_name } %>
+    </div>
+  </li>
 <% end %>
 </ul>
 
 <h2><%= _('Most commented articles') %></h2>
-<ul>
+<ul class="most_commented">
   <%= render :partial => 'article', :collection => @most_commented_articles %>
 </ul>
