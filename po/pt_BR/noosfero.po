@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.8.0\n"
 "POT-Creation-Date: 2008-03-28 10:49-0300\n"
-"PO-Revision-Date: 2008-03-13 11:17-0300\n"
+"PO-Revision-Date: 2008-03-28 10:55-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -129,18 +129,16 @@ msgid "The supplied current password is incorrect."
 msgstr "A senha informada está incorreta"
 
 #: app/controllers/public/content_viewer_controller.rb:63
-#, fuzzy
 msgid "Comment succesfully deleted"
-msgstr "Produto criado com sucesso"
+msgstr "Comentário removido com sucesso"
 
 #: app/controllers/public/search_controller.rb:34 app/views/cms/view.rhtml:25
 msgid "Articles"
 msgstr "Artigos"
 
 #: app/controllers/public/search_controller.rb:35
-#, fuzzy
 msgid "Comments"
-msgstr "comentário"
+msgstr "Comentários"
 
 #: app/controllers/public/search_controller.rb:36
 #: app/helpers/assets_helper.rb:9 app/models/enterprises_block.rb:4
@@ -967,9 +965,8 @@ msgid "Article|Width"
 msgstr "Largura"
 
 #: app/models/user.rb:-
-#, fuzzy
 msgid "Article|Comments count"
-msgstr "Tipo de conteúdo"
+msgstr "Número de comentários"
 
 #: app/models/user.rb:7
 msgid "User|Password"
@@ -1048,22 +1045,20 @@ msgid "%{fn} must be the same as the parents'"
 msgstr "%{fn} tem que ser o mesmo que o dos pais'"
 
 #: app/models/profile_categorization.rb:-
-#, fuzzy
 msgid "categories profile"
-msgstr "Produto não categorizado"
+msgstr "categories perfil"
 
 #: app/models/profile_categorization.rb:-
-#, fuzzy
 msgid "profilecategorization"
-msgstr "Região"
+msgstr "categorizaçãoperfil"
 
 #: app/models/profile_categorization.rb:-
 msgid "ProfileCategorization|Profile"
-msgstr ""
+msgstr "Perfil"
 
 #: app/models/profile_categorization.rb:-
 msgid "ProfileCategorization|Category"
-msgstr ""
+msgstr "Categoria"
 
 #: app/models/organization_info.rb:-
 msgid "organization info"
@@ -1183,22 +1178,20 @@ msgid "family"
 msgstr "família"
 
 #: app/models/article_categorization.rb:-
-#, fuzzy
 msgid "articles category"
-msgstr "Nova categoria"
+msgstr "artigos categoria"
 
 #: app/models/article_categorization.rb:-
-#, fuzzy
 msgid "articlecategorization"
-msgstr "Versão"
+msgstr "categorizaçãoartigo"
 
 #: app/models/article_categorization.rb:-
 msgid "ArticleCategorization|Article"
-msgstr ""
+msgstr "Artigo"
 
 #: app/models/article_categorization.rb:-
 msgid "ArticleCategorization|Category"
-msgstr ""
+msgstr "Categoria"
 
 #: app/models/friendship.rb:-
 msgid "friendship"
@@ -1916,19 +1909,16 @@ msgid "Recent articles"
 msgstr "Artigos recentes"
 
 #: app/views/category/_region.rhtml:6 app/views/category/_category.rhtml:6
-#, fuzzy
 msgid "Recent Comments"
-msgstr "Conteúdo recente"
+msgstr "Comentários recentes"
 
 #: app/views/category/_region.rhtml:12 app/views/category/_category.rhtml:12
-#, fuzzy
 msgid "by %{author} on \"%{article}\""
-msgstr "Por %{author} em %{date}"
+msgstr "por %{author} em \"%{article}\""
 
 #: app/views/category/_region.rhtml:21 app/views/category/_category.rhtml:21
-#, fuzzy
 msgid "Most commented articles"
-msgstr "Artigos recentes"
+msgstr "Artigos mais comentados"
 
 #: app/views/category/_product_category.rhtml:1
 msgid "I consume this"
@@ -1971,25 +1961,23 @@ msgstr "Usuários que consomem produtos nessa categoria:"
 
 #: app/views/category/_article.rhtml:5
 msgid "by %s"
-msgstr ""
+msgstr "por %s"
 
 #: app/views/category/_article.rhtml:7
 msgid "Last update: %s."
-msgstr ""
+msgstr "Última atualização: %s."
 
 #: app/views/category/view.rhtml:7 app/views/search/_product.rhtml:13
 msgid "Category: %s"
 msgstr "Categoria: %s"
 
 #: app/views/category/view.rhtml:14
-#, fuzzy
 msgid "Sub-categories"
-msgstr "Categorias"
+msgstr "Sub-categorias"
 
 #: app/views/category/view.rhtml:17
-#, fuzzy
 msgid "No sub-categories"
-msgstr "Adicionar subcategoria"
+msgstr "Sem sub-categorias"
 
 #: app/views/cms/_rss_feed.rhtml:3
 msgid "Limit of articles"
@@ -2164,9 +2152,8 @@ msgstr[0] "Um comentário"
 msgstr[1] "%{comments} comentários"
 
 #: app/views/content_viewer/_comment.rhtml:5
-#, fuzzy
 msgid "Are you sure you want to remove this comment?"
-msgstr "Tem certeza que quer excluir este artigo?"
+msgstr "Tem certeza que quer excluir este comentário?"
 
 #: app/views/content_viewer/_comment.rhtml:24
 msgid "By %{author} on %{date}"
@@ -2174,7 +2161,7 @@ msgstr "Por %{author} em %{date}"
 
 #: app/views/content_viewer/_comment.rhtml:27
 msgid "(unauthenticated user)"
-msgstr ""
+msgstr "(usuário não identificado)"
 
 #: app/views/content_viewer/_comment_form.rhtml:14
 msgid "Post a comment"
@@ -2794,9 +2781,8 @@ msgid "Manage Content"
 msgstr "Gerenciar conteúdo"
 
 #: app/views/profile_editor/index.rhtml:28
-#, fuzzy
 msgid "Edit Categories"
-msgstr "Categorias"
+msgstr "Editar Categorias"
 
 #: app/views/profile_editor/index.rhtml:30
 msgid "Change Password"
@@ -2919,9 +2905,8 @@ msgid "Suplier: %s"
 msgstr "Fornecedor: %s"
 
 #: app/views/search/index.rhtml:1
-#, fuzzy
 msgid "Search results for \"%{query}\" in %{category}"
-msgstr "Resultados da busca por \"%s\""
+msgstr "Resultados da busca por \"%s\" em %{categoria}"
 
 #: app/views/search/index.rhtml:1
 msgid "Search results for \"%s\""
@@ -2932,24 +2917,20 @@ msgid "Search %s"
 msgstr "Busca em %s"
 
 #: app/views/search/popup.rhtml:11
-#, fuzzy
 msgid "Search in:"
-msgstr "Busca"
+msgstr "Buscar em:"
 
 #: app/views/search/popup.rhtml:15
-#, fuzzy
 msgid "Only in %{category}"
-msgstr "Tipo de categoria"
+msgstr "Apenas em %{category}"
 
 #: app/views/search/popup.rhtml:19
-#, fuzzy
 msgid "Whole site"
-msgstr "Mostrar subitens"
+msgstr "Todo o site"
 
 #: app/views/search/popup.rhtml:24
-#, fuzzy
 msgid "Search for:"
-msgstr "Buscar por "
+msgstr "Buscar por:"
 
 #: app/views/shared/access_denied.rhtml:1
 msgid "Access denied"
@@ -3248,13 +3229,12 @@ msgstr ""
 "novo grupo de você quiser."
 
 #: app/views/tasks/_add_friend.rhtml:27
-#, fuzzy
 msgid "Classify your new friend:"
-msgstr "Classifique seu(sua) novo(a) amigo(a) %s:"
+msgstr "Classifique seu(sua) novo(a) amigo(a):"
 
 #: app/views/tasks/_add_friend.rhtml:39
 msgid "Ok!"
-msgstr ""
+msgstr "Ok!"
 
 #: app/views/tasks/processed.rhtml:1
 msgid "%s's processed tasks"
