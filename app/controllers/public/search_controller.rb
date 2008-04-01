@@ -31,12 +31,12 @@ class SearchController < ApplicationController
   ######################################################
 
   SEARCH_IN = [
-    [ :articles, _('Articles') ],
-    [ :comments, _('Comments') ],
-    [ :enterprises, _('Enterprises') ],
-    [ :people, _('People') ],
-    [ :communities, _('Communities') ],
-    [ :products, _('Products') ]
+    [ :articles, N_('Articles') ],
+    [ :comments, N_('Comments') ],
+    [ :enterprises, N_('Enterprises') ],
+    [ :people, N_('People') ],
+    [ :communities, N_('Communities') ],
+    [ :products, N_('Products') ]
   ]
 
   def index
@@ -47,7 +47,7 @@ class SearchController < ApplicationController
     @names = {}
     SEARCH_IN.each do |key, description|
       @results[key] = search(@finder.send(key), @filtered_query) if params[:find_in].nil? || params[:find_in].empty? || params[:find_in].include?(key.to_s)
-      @names[key] = description
+      @names[key] = gettext(description)
     end
   end
 
