@@ -37,3 +37,7 @@
 .icon-menu-search     { background-image: url(search-HC.gif)           }
 .icon-menu-ed-design  { background-image: url(edit-design-HC.gif)      }
 .icon-todo { background-image: url(stock_todo.png); }
+
+.icon-menu-articles      { background-image: url(edit-HC.gif)             }
+.icon-menu-comments      { background-image: url(blog-HC.gif)             }
+.icon-menu-people        { background-image: url(album-HC.gif)            }

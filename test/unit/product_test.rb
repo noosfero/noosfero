@@ -23,4 +23,27 @@ class ProductTest < Test::Unit::TestCase
       assert !p.save
     end
   end
+
+  should 'list recent products' do
+    enterprise = Enterprise.create!(:name => "My enterprise", :identifier => 'my-enterprise')
+    Product.delete_all
+
+    p1 = enterprise.products.create!(:name => 'product 1')
+    p2 = enterprise.products.create!(:name => 'product 2')
+    p3 = enterprise.products.create!(:name => 'product 3')
+
+    assert_equal [p3, p2, p1], Product.recent
+  end
+
+  should 'list recent products with limit' do
+    enterprise = Enterprise.create!(:name => "My enterprise", :identifier => 'my-enterprise')
+    Product.delete_all
+
+    p1 = enterprise.products.create!(:name => 'product 1')
+    p2 = enterprise.products.create!(:name => 'product 2')
+    p3 = enterprise.products.create!(:name => 'product 3')
+    
+    assert_equal [p3, p2], Product.recent(2)
+  end
+
 end

@@ -284,4 +284,8 @@ class Profile < ActiveRecord::Base
     self.affiliate(person, Profile::Roles.admin)
   end
 
+  def self.recent(limit = nil)
+    self.find(:all, :order => 'id desc', :limit => limit)
+  end
+
 end

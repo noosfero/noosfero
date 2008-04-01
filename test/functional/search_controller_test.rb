@@ -70,8 +70,38 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_not_includes assigns(:results)[:articles], art2
   end
   
-  # 'assets' menu
-  should 'list articles in a specific category'
+  # 'assets' outside any category
+  should 'list articles in general' do
+    person = create_user('testuser').person
+    person2 = create_user('anotheruser').person
+
+    art1 = person.articles.create!(:name => 'one article', :categories => [@category])
+
+    art2 = person2.articles.create!(:name => 'two article', :categories => [@category])
+
+    get :assets, :asset => 'articles'
+
+    assert_includes assigns(:results)[:articles], art1
+    assert_includes assigns(:results)[:articles], art2
+  end
+  
+  # 'assets' inside a category
+  should 'list articles in a specific category' do
+    person = create_user('testuser').person
+
+    # in category
+    art1 = person.articles.create!(:name => 'one article', :categories => [@category])
+    art2 = person.articles.create!(:name => 'other article', :categories => [@category])
+
+    # not in category
+    art3 = person.articles.create!(:name => 'another article')
+
+    get :assets, :asset => 'articles', :category_path => ['my-category']
+
+    assert_includes assigns(:results)[:articles], art1
+    assert_includes assigns(:results)[:articles], art2
+    assert_not_includes assigns(:results)[:articles], art3
+  end
 
   should 'search in comments' do
     person = create_user('teste').person
@@ -121,8 +151,27 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_not_includes assigns(:results)[:enterprises], ent2
   end
 
-  # 'assets' menu
-  should 'list enterprises in a specified category'
+  should 'list enterprises in general' do
+    ent1 = Enterprise.create!(:name => 'teste 1', :identifier => 'teste1')
+    ent2 = Enterprise.create!(:name => 'teste 2', :identifier => 'teste2')
+
+    get :assets, :asset => 'enterprises'
+    assert_includes assigns(:results)[:enterprises], ent1
+    assert_includes assigns(:results)[:enterprises], ent2
+  end
+
+  # 'assets' menu inside a category
+  should 'list enterprises in a specified category' do
+    # in category
+    ent1 = Enterprise.create!(:name => 'teste 1', :identifier => 'teste1', :categories => [@category])
+
+    # not in category
+    ent2 = Enterprise.create!(:name => 'teste 2', :identifier => 'teste2')
+
+    get :assets, :asset => 'enterprises', :category_path => [ 'my-category' ]
+    assert_includes assigns(:results)[:enterprises], ent1
+    assert_not_includes assigns(:results)[:enterprises], ent2
+  end
 
   should 'find people' do
     p1 = create_user('people_1').person; p1.name = 'a beautiful person'; p1.save!
@@ -138,8 +187,30 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_not_includes assigns(:results)[:people], p2
   end
 
-  # 'assets' menu
-  should 'list people in a specified category'
+  # 'assets' menu outside any category
+  should 'list people in general' do
+    Profile.delete_all
+
+    p1 = create_user('test1').person
+    p2 = create_user('test2').person
+
+    get :assets, :asset => 'people'
+    assert_equal [p2,p1], assigns(:results)[:people]
+  end
+
+  # 'assets' menu inside a category
+  should 'list people in a specified category' do
+    Profile.delete_all
+
+    # in category
+    p1 = create_user('test1').person; p1.categories << @category
+
+    # not in category
+    p2 = create_user('test2').person
+
+    get :assets, :asset => 'people', :category_path => [ 'my-category' ]
+    assert_equal [p1], assigns(:results)[:people]
+  end
 
   should 'find communities' do
     c1 = Community.create!(:name => 'a beautiful community', :identifier => 'bea_comm', :environment => Environment.default)
@@ -155,8 +226,33 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_includes assigns(:results)[:communities], c1
     assert_not_includes assigns(:results)[:communities], c2
   end
+
+  # 'assets' menu outside any category
+  should 'list communities in general' do
+    c1 = Community.create!(:name => 'a beautiful community', :identifier => 'bea_comm', :environment => Environment.default)
+    c2 = Community.create!(:name => 'another beautiful community', :identifier => 'an_bea_comm', :environment => Environment.default)
+
+    get :assets, :asset => 'communities'
+    assert_equal [c2, c1], assigns(:results)[:communities]
+  end
+
   # 'assets' menu
-  should 'list communities in a specified category'
+  should 'list communities in a specified category' do
+
+    # in category
+    c1 = Community.create!(:name => 'a beautiful community', :identifier => 'bea_comm', :environment => Environment.default)
+    c1.categories << @category
+
+    # not in category
+    c2 = Community.create!(:name => 'another beautiful community', :identifier => 'an_bea_comm', :environment => Environment.default)
+
+    # in category
+    c3 = Community.create!(:name => 'yet another beautiful community', :identifier => 'yet_an_bea_comm', :environment => Environment.default)
+    c3.categories << @category
+
+    get :assets, :asset => 'communities', :category_path => [ 'my-category' ]
+    assert_equal [c3, c1], assigns(:results)[:communities]
+  end
 
   should 'find products' do
     ent = Enterprise.create!(:name => 'teste', :identifier => 'teste')
@@ -175,8 +271,35 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_not_includes assigns(:results)[:products], prod2
   end
 
-  # 'assets' menu
-  should 'list products in a specific category'
+  # 'assets' menu outside any category
+  should 'list products in general' do
+    Profile.delete_all
+
+    ent1 = Enterprise.create!(:name => 'teste1', :identifier => 'teste1')
+    ent2 = Enterprise.create!(:name => 'teste2', :identifier => 'teste2')
+    prod1 = ent1.products.create!(:name => 'a beautiful product')
+    prod2 = ent2.products.create!(:name => 'another beautiful product')
+
+    get :assets, :asset => 'products'
+    assert_equal [prod2, prod1], assigns(:results)[:products]
+  end
+
+  # 'assets' menu inside a category
+  should 'list products in a specific category' do
+    Profile.delete_all
+
+    # in category
+    ent1 = Enterprise.create!(:name => 'teste1', :identifier => 'teste1'); ent1.categories << @category
+    prod1 = ent1.products.create!(:name => 'a beautiful product')
+
+    # not in category
+    ent2 = Enterprise.create!(:name => 'teste2', :identifier => 'teste2')
+    prod2 = ent2.products.create!(:name => 'another beautiful product')
+
+    get :assets, :asset => 'products', :category_path => [ 'my-category' ]
+
+    assert_equal [prod1], assigns(:results)[:products]
+  end
 
   should 'display search results' do
     ent = Enterprise.create!(:name => 'display enterprise', :identifier => 'teste1')
@@ -300,6 +423,12 @@ class SearchControllerTest < Test::Unit::TestCase
     p = cat.products.create!(:name => 'product test', :enterprise => ent)
     get :category_index, :category_path => cat.path.split('/')
     assert_includes assigns(:products), p
+  end
+
+  # SECURITY
+  should 'not allow unrecognized assets' do
+    get :assets, :asset => 'unexisting_asset'
+    assert_response 403
   end
 
 end

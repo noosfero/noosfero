@@ -390,6 +390,26 @@ class ProfileTest < Test::Unit::TestCase
     assert_includes c.categories, cat
   end
 
+  should 'be able to list recent profiles' do
+    Profile.delete_all
+
+    p1 = Profile.create!(:name => 'first test profile', :identifier => 'first')
+    p2 = Profile.create!(:name => 'second test profile', :identifier => 'second')
+    p3 = Profile.create!(:name => 'thirs test profile', :identifier => 'third')
+
+    assert_equal [p3,p2,p1], Profile.recent
+  end
+
+  should 'be able to list recent profiles with limit' do
+    Profile.delete_all
+
+    p1 = Profile.create!(:name => 'first test profile', :identifier => 'first')
+    p2 = Profile.create!(:name => 'second test profile', :identifier => 'second')
+    p3 = Profile.create!(:name => 'thirs test profile', :identifier => 'third')
+
+    assert_equal [p3,p2], Profile.recent(2)
+  end
+
   private
 
   def assert_invalid_identifier(id)

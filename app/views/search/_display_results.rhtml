@@ -1,0 +1,12 @@
+<% @results.each do |name,results| %>
+  <% if !results.nil? and !results.empty? %>
+    <div id="search-results-<%= name %>">
+      <h3><%= @names[name] %></h3>
+      <ul>
+      <% results.each do |hit| %>
+        <%= render :partial => partial_for_class(hit.class), :locals => { :hit => hit } %>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<% end %>

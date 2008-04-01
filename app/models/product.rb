@@ -32,4 +32,8 @@ class Product < ActiveRecord::Base
     product_category ? product_category.name : _('Uncategorized product')
   end
 
+  def self.recent(limit = nil)
+    self.find(:all, :order => 'id desc', :limit => limit)
+  end
+
 end

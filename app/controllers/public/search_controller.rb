@@ -52,6 +52,9 @@ class SearchController < ApplicationController
     [ :products, N_('Products') ]
   ]
 
+  # TODO don't hardcode like this >:-(
+  LIST_LIMIT = 10
+
   def index
     @query = params[:query] || ''
     @filtered_query = remove_stop_words(@query)
@@ -71,6 +74,18 @@ class SearchController < ApplicationController
     send('action_' + @category.class.name.underscore) 
   end
   attr_reader :category
+
+  def assets
+    asset = params[:asset].to_sym
+    if !SEARCH_IN.map(&:first).include?(asset)
+      render :text => 'go away', :status => 403
+      return
+    end
+
+
+    @results = { asset => @finder.send(asset).recent(LIST_LIMIT) }
+    @names = { asset => gettext(SEARCH_IN.find { |entry| entry.first == asset }[1]) }
+  end
 
   def tags
     @tags = Tag.find(:all).inject({}) do |memo,tag|
