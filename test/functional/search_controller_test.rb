@@ -431,4 +431,9 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_response 403
   end
 
+  should 'expose asset name in instance variable' do
+    get :assets, :asset => 'products'
+    assert_equal 'Products', assigns(:asset_name)
+  end
+
 end

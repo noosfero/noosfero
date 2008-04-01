@@ -84,7 +84,9 @@ class SearchController < ApplicationController
 
 
     @results = { asset => @finder.send(asset).recent(LIST_LIMIT) }
-    @names = { asset => gettext(SEARCH_IN.find { |entry| entry.first == asset }[1]) }
+
+    @asset_name = gettext(SEARCH_IN.find { |entry| entry.first == asset }[1])
+    @names = { asset => @asset_name }
   end
 
   def tags
