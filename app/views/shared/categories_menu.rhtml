@@ -5,7 +5,11 @@
       <%= item.name %>
       <ul>
         <% item.children.each do |child| %>
-          <li><%= link_to(content_tag('span', child.name), :controller => 'search', :action => 'category_index', :category_path => child.explode_path) %></li>
+          <% if (params[:controller] == 'search') && (params[:action] == 'assets') %>
+            <li><%= link_to(content_tag('span', child.name), :controller => 'search', :action => 'assets', :asset => params[:asset], :category_path => child.explode_path) %></li>
+          <% else %>
+            <li><%= link_to(content_tag('span', child.name), :controller => 'search', :action => 'category_index', :category_path => child.explode_path) %></li>
+          <% end %>
         <% end %>
       </ul>
     </li>
