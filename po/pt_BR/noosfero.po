@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.8.0\n"
 "POT-Creation-Date: 2008-03-28 10:49-0300\n"
-"PO-Revision-Date: 2008-03-28 10:55-0300\n"
+"PO-Revision-Date: 2008-03-28 10:58-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -2906,7 +2906,7 @@ msgstr "Fornecedor: %s"
 
 #: app/views/search/index.rhtml:1
 msgid "Search results for \"%{query}\" in %{category}"
-msgstr "Resultados da busca por \"%s\" em %{categoria}"
+msgstr "Resultados da busca por \"%{query}\" em %{category}"
 
 #: app/views/search/index.rhtml:1
 msgid "Search results for \"%s\""
