@@ -1,5 +1,6 @@
 <%# FIXME add more information %>
 
+<li>
   <div class='search-result-text'>
     <%= image_tag(hit.image.public_filename(:minor)) if hit.image %>
     <strong>
@@ -13,3 +14,4 @@
       <li> <%= _('Category: %s') % link_to_category(hit.product_category) %> </li>
     </ul>
   </div>
+</li>

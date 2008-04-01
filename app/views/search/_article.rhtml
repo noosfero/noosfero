@@ -1,10 +1,11 @@
-  <div class='search-result-text'>
-    <div>
-      <strong>
-        <%= link_to_document(hit) %>
-      </strong>
-    </div>
-    <div>
-      <%= strip_tags(hit.abstract) %>
-    </div>
+<li>
+  <strong><%= link_to(hit.title, hit.url) %></strong>
+  <div class="item_meta">
+    <% if hit.last_changed_by %>
+      <span class="cat_item_by">
+      <%= _('by %s') % link_to(hit.last_changed_by.name, hit.last_changed_by.url) %>
+      </span>
+    <% end %>
+    <span class="cat_item_update"><%= _('Last update: %s.') % show_date(hit.updated_on) %></span>
   </div>
+</li>

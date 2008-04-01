@@ -67,7 +67,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
     cat.expects(:full_name).returns('category name')
 
     result = "/cat/my-category/my-subcatagory"
-    expects(:link_to).with('category name', :controller => 'category', :action => 'view', :category_path => ['my-category', 'my-subcatagory']).returns(result)
+    expects(:link_to).with('category name', :controller => 'search', :action => 'category_index', :category_path => ['my-category', 'my-subcatagory']).returns(result)
     assert_same result, link_to_category(cat)
   end
 

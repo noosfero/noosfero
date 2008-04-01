@@ -309,7 +309,7 @@ module ApplicationHelper
   def link_to_category(category, full = true)
     return _('Uncategorized product') unless category
     name = full ? category.full_name : category.name
-    link_to name, :controller => 'category', :action => 'view', :category_path => category.path.split('/')
+    link_to name, :controller => 'search', :action => 'category_index', :category_path => category.path.split('/')
   end
 
   def link_to_product(product)

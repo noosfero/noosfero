@@ -69,8 +69,7 @@ class RoutingTest < ActionController::IntegrationTest
   end
 
   def test_category_browser
-    assert_routing('/cat/products/eletronics', :controller => 'category', :action => 'view', :category_path => [ 'products', 'eletronics'])
-    assert_routing('/cat', :controller => 'category', :action => 'index')
+    assert_routing('/cat/products/eletronics', :controller => 'search', :action => 'category_index', :category_path => [ 'products', 'eletronics'])
   end
 
   #FIXME remove this if design_blocks is not going to be used; or uncomment otherwise;
@@ -97,6 +96,10 @@ class RoutingTest < ActionController::IntegrationTest
 
   def test_search_filter_routing
     assert_routing('/search/filter/a/b', :controller => 'search', :action => 'filter', :category_path => ['a','b'])
+  end
+
+  def test_assets_routing
+    assert_routing('/assets/my-asset/a/b/c', :controller => 'search', :action => 'assets', :asset => 'my-asset', :category_path => ['a', 'b', 'c'])
   end
 
 end

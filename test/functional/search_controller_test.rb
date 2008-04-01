@@ -9,6 +9,8 @@ class SearchControllerTest < Test::Unit::TestCase
     @controller = SearchController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
+
+    @category = Category.create!(:name => 'my category', :environment => Environment.default)
   end
 
   should 'filter stop words' do
@@ -52,11 +54,10 @@ class SearchControllerTest < Test::Unit::TestCase
 
   should 'search for articles in a specific category' do
     person = create_user('teste').person
-    category = Category.create!(:name => 'my category', :environment => Environment.default)
 
     # in category
     art1 = person.articles.build(:name => 'an article to be found')
-    art1.categories << category
+    art1.categories << @category
     art1.save!
 
     # not in category
@@ -83,11 +84,10 @@ class SearchControllerTest < Test::Unit::TestCase
 
   should 'search in comments in a specific category' do
     person = create_user('teste').person
-    category = Category.create!(:name => 'my category', :environment => Environment.default)
 
     # in category
     art1 = person.articles.build(:name => 'an article to be found')
-    art1.categories << category
+    art1.categories << @category
     art1.save!
     comment1 = art1.comments.build(:title => 'comment to be found', :body => 'hfyfyh', :author => person); comment1.save!
 
@@ -108,10 +108,9 @@ class SearchControllerTest < Test::Unit::TestCase
   end
   
   should 'find enterprises in a specified category' do
-    category = Category.create!(:name => 'my category', :environment => Environment.default)
 
     # in category
-    ent1 = Enterprise.create!(:name => 'testing enterprise 1', :identifier => 'test1', :categories => [category])
+    ent1 = Enterprise.create!(:name => 'testing enterprise 1', :identifier => 'test1', :categories => [@category])
 
     # not in category
     ent2 = Enterprise.create!(:name => 'testing enterprise 2', :identifier => 'test2')
@@ -132,8 +131,7 @@ class SearchControllerTest < Test::Unit::TestCase
   end
 
   should 'find people in a specific category' do
-    c = Category.create!(:name => 'my category', :environment => Environment.default)
-    p1 = create_user('people_1').person; p1.name = 'a beautiful person'; p1.categories << c; p1.save!
+    p1 = create_user('people_1').person; p1.name = 'a beautiful person'; p1.categories << @category; p1.save!
     p2 = create_user('people_2').person; p2.name = 'another beautiful person'; p2.save!
     get :index, :category_path => [ 'my-category' ], :query => 'beautiful', :find_in => [ 'people' ]
     assert_includes assigns(:results)[:people], p1
@@ -150,10 +148,9 @@ class SearchControllerTest < Test::Unit::TestCase
   end
 
   should 'find communities in a specified category' do
-    c = Category.create!(:name => 'my category', :environment => Environment.default)
     c1 = Community.create!(:name => 'a beautiful community', :identifier => 'bea_comm', :environment => Environment.default)
     c2 = Community.create!(:name => 'another beautiful community', :identifier => 'an_bea_comm', :environment => Environment.default)
-    c1.categories << c; c1.save!
+    c1.categories << @category; c1.save!
     get :index, :category_path => [ 'my-category' ], :query => 'beautiful', :find_in => [ 'communities' ]
     assert_includes assigns(:results)[:communities], c1
     assert_not_includes assigns(:results)[:communities], c2
@@ -169,8 +166,7 @@ class SearchControllerTest < Test::Unit::TestCase
   end
 
   should 'find products in a specific category' do
-    c = Category.create!(:name => 'my category', :environment => Environment.default)
-    ent1 = Enterprise.create!(:name => 'teste1', :identifier => 'teste1'); ent1.categories << c
+    ent1 = Enterprise.create!(:name => 'teste1', :identifier => 'teste1'); ent1.categories << @category
     ent2 = Enterprise.create!(:name => 'teste2', :identifier => 'teste2')
     prod1 = ent1.products.create!(:name => 'a beautiful product')
     prod2 = ent2.products.create!(:name => 'another beautiful product')
@@ -259,6 +255,51 @@ class SearchControllerTest < Test::Unit::TestCase
   should 'use GET method to search' do
     get :popup
     assert_tag :tag => 'form' , :attributes => { :method => 'get' }
+  end
+
+  def test_should_display_a_given_category
+    get :category_index, :category_path => [ 'my-category' ]
+    assert_equal @category, assigns(:category)
+  end
+
+  should 'expose category in a method' do
+    get :category_index, :category_path => [ 'my-category' ]
+    assert_same assigns(:category), @controller.category
+  end
+
+  should 'list recent articles in the category' do
+    @controller.expects(:category).returns(@category).at_least_once
+    recent = []
+    @category.expects(:recent_articles).returns(recent)
+
+    get :category_index, :category_path => [ 'my-category' ]
+    assert_same recent, assigns(:recent_articles)
+  end
+
+  should 'list recent comments in the category' do
+    @controller.expects(:category).returns(@category).at_least_once
+    recent = []
+    @category.expects(:recent_comments).returns(recent)
+
+    get :category_index, :category_path => [ 'my-category' ]
+    assert_same recent, assigns(:recent_comments)
+  end
+
+  should 'list most commented articles in the category' do
+    @controller.expects(:category).returns(@category).at_least_once
+    most_commented = []
+    @category.expects(:most_commented_articles).returns(most_commented)
+
+    get :category_index, :category_path => [ 'my-category' ]
+    assert_same most_commented, assigns(:most_commented_articles)
+  end
+
+  should 'display category of products' do
+    cat = ProductCategory.create!(:name => 'Food', :environment => Environment.default)
+    ent = Enterprise.create!(:name => 'Enterprise test', :identifier => 'enterprise_test')
+    p = cat.products.create!(:name => 'product test', :enterprise => ent)
+    get :category_index, :category_path => cat.path.split('/')
+    assert_includes assigns(:products), p
   end
 
 end

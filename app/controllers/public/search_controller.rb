@@ -24,6 +24,19 @@ class SearchController < ApplicationController
     end
   end
 
+  def action_product_category
+    @products = category.products
+    @enterprises = category.products.map{|p| p.enterprise}.flatten.uniq
+    @users = category.consumers
+  end
+
+  def action_category
+    @recent_articles = category.recent_articles
+    @recent_comments = category.recent_comments
+    @most_commented_articles = category.most_commented_articles
+  end
+  alias :action_region :action_category
+
   public
 
   include SearchHelper
@@ -52,6 +65,12 @@ class SearchController < ApplicationController
   end
 
   #######################################################
+
+  # view the summary of one category
+  def category_index
+    send('action_' + @category.class.name.underscore) 
+  end
+  attr_reader :category
 
   def tags
     @tags = Tag.find(:all).inject({}) do |memo,tag|

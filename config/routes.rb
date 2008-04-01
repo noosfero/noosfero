@@ -29,13 +29,12 @@ ActionController::Routing::Routes.draw do |map|
   # tags
   map.tag 'tag', :controller => 'search', :action => 'tags'
   map.tag 'tag/:tag', :controller => 'search', :action => 'tag'
-
+  # categories index
+  map.category 'cat/*category_path', :controller => 'search', :action => 'category_index'
+  map.assets 'assets/:asset/*category_path', :controller => 'search', :action => 'assets'
   # search
   map.connect 'search/:action/*category_path', :controller => 'search'
  
-  # categories controller
-  map.connect 'cat', :controller => 'category', :action => 'index'
-  map.category 'cat/*category_path', :controller => 'category', :action => 'view'
 
   # public profile information
   map.profile 'profile/:profile/:action/:id', :controller => 'profile', :action => 'index'

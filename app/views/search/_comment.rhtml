@@ -1,10 +1,8 @@
-  <div class='search-result-text'>
-    <div>
-      <strong>
-        <%= link_to(hit.title, hit.url) %>
-      </strong>
-    </div>
-    <div>
-      <%= strip_tags(hit.body) %>
-    </div>
+<li>
+  <strong><%= link_to(hit.title, hit.url)%></strong>
+  <div class="item_meta">
+    <span class="cat_item_by"><%= _('by %s, on "%s"') % [hit.author_name, link_to(hit.article.name, hit.article.url)] %></span>
   </div>
+</li>
+
+
