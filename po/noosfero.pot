@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.8.0\n"
-"POT-Creation-Date: 2008-03-28 10:49-0300\n"
+"POT-Creation-Date: 2008-04-01 17:54-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -125,36 +125,39 @@ msgstr ""
 msgid "The supplied current password is incorrect."
 msgstr ""
 
-#: app/controllers/public/content_viewer_controller.rb:63
+#: app/controllers/public/content_viewer_controller.rb:65
 msgid "Comment succesfully deleted"
 msgstr ""
 
-#: app/controllers/public/search_controller.rb:34 app/views/cms/view.rhtml:25
+#: app/controllers/public/search_controller.rb:47
+#: app/helpers/assets_helper.rb:7 app/views/cms/view.rhtml:25
 msgid "Articles"
 msgstr ""
 
-#: app/controllers/public/search_controller.rb:35
+#: app/controllers/public/search_controller.rb:48
+#: app/helpers/assets_helper.rb:12
 msgid "Comments"
 msgstr ""
 
-#: app/controllers/public/search_controller.rb:36
-#: app/helpers/assets_helper.rb:9 app/models/enterprises_block.rb:4
+#: app/controllers/public/search_controller.rb:49
+#: app/helpers/assets_helper.rb:10 app/models/enterprises_block.rb:4
 #: app/views/profile/index.rhtml:16
 msgid "Enterprises"
 msgstr ""
 
-#: app/controllers/public/search_controller.rb:37
+#: app/controllers/public/search_controller.rb:50
+#: app/helpers/assets_helper.rb:8
 msgid "People"
 msgstr ""
 
-#: app/controllers/public/search_controller.rb:38
-#: app/helpers/assets_helper.rb:10 app/models/communities_block.rb:8
+#: app/controllers/public/search_controller.rb:51
+#: app/helpers/assets_helper.rb:11 app/models/communities_block.rb:8
 #: app/views/profile/index.rhtml:15
 msgid "Communities"
 msgstr ""
 
-#: app/controllers/public/search_controller.rb:39
-#: app/helpers/assets_helper.rb:8
+#: app/controllers/public/search_controller.rb:52
+#: app/helpers/assets_helper.rb:9
 msgid "Products"
 msgstr ""
 
@@ -164,14 +167,6 @@ msgstr ""
 
 #: app/controllers/box_organizer_controller.rb:91
 msgid "Failed to remove block"
-msgstr ""
-
-#: app/helpers/assets_helper.rb:6
-msgid "Blogs"
-msgstr ""
-
-#: app/helpers/assets_helper.rb:7
-msgid "Albuns"
 msgstr ""
 
 #: app/helpers/cms_helper.rb:5
@@ -214,53 +209,6 @@ msgstr ""
 
 #: app/helpers/tags_helper.rb:36
 msgid "What are tags?"
-msgstr ""
-
-#: app/helpers/application_helper.rb:57 app/views/features/index.rhtml:7
-#: app/views/layouts/application.rhtml:107
-msgid "Help"
-msgstr ""
-
-#: app/helpers/application_helper.rb:77 app/views/search/popup.rhtml:38
-#: app/views/box_organizer/add_block.rhtml:18
-msgid "Close"
-msgstr ""
-
-#: app/helpers/application_helper.rb:140
-msgid "This is %s, version %s"
-msgstr ""
-
-#: app/helpers/application_helper.rb:268 app/views/account/login.rhtml:15
-#: app/views/admin_panel/site_info.rhtml:11
-#: app/views/cms/select_article_type.rhtml:12
-#: app/views/box_organizer/edit.rhtml:9
-#: app/views/memberships/new_community.rhtml:12 app/views/tasks/_task.rhtml:12
-msgid "Cancel"
-msgstr ""
-
-#: app/helpers/application_helper.rb:310 app/models/product.rb:32
-msgid "Uncategorized product"
-msgstr ""
-
-#: app/helpers/application_helper.rb:316
-msgid "No product"
-msgstr ""
-
-#: app/helpers/application_helper.rb:399
-msgid "Click on this icon to go to the <b>%s</b>'s home page"
-msgstr ""
-
-#: app/helpers/application_helper.rb:414
-msgid "%d %B %Y"
-msgstr ""
-
-#: app/helpers/application_helper.rb:423
-msgid "%d %B %Y, %H:%m"
-msgstr ""
-
-#: app/helpers/application_helper.rb:454 app/views/categories/index.rhtml:1
-#: app/views/content_viewer/view_page.rhtml:36
-msgid "Categories"
 msgstr ""
 
 #: app/helpers/categories_helper.rb:6
@@ -323,6 +271,53 @@ msgstr ""
 #: app/views/cms/view.rhtml:70 app/views/content_viewer/view_page.rhtml:7
 #: app/views/role/index.rhtml:6
 msgid "Edit"
+msgstr ""
+
+#: app/helpers/application_helper.rb:57 app/views/features/index.rhtml:7
+#: app/views/layouts/application.rhtml:110
+msgid "Help"
+msgstr ""
+
+#: app/helpers/application_helper.rb:77 app/views/search/popup.rhtml:38
+#: app/views/box_organizer/add_block.rhtml:18
+msgid "Close"
+msgstr ""
+
+#: app/helpers/application_helper.rb:140
+msgid "This is %s, version %s"
+msgstr ""
+
+#: app/helpers/application_helper.rb:268 app/views/account/login.rhtml:15
+#: app/views/admin_panel/site_info.rhtml:11
+#: app/views/cms/select_article_type.rhtml:12
+#: app/views/box_organizer/edit.rhtml:9
+#: app/views/memberships/new_community.rhtml:12 app/views/tasks/_task.rhtml:12
+msgid "Cancel"
+msgstr ""
+
+#: app/helpers/application_helper.rb:310 app/models/product.rb:32
+msgid "Uncategorized product"
+msgstr ""
+
+#: app/helpers/application_helper.rb:316
+msgid "No product"
+msgstr ""
+
+#: app/helpers/application_helper.rb:399
+msgid "Click on this icon to go to the <b>%s</b>'s home page"
+msgstr ""
+
+#: app/helpers/application_helper.rb:414
+msgid "%d %B %Y"
+msgstr ""
+
+#: app/helpers/application_helper.rb:423
+msgid "%d %B %Y, %H:%m"
+msgstr ""
+
+#: app/helpers/application_helper.rb:454 app/views/categories/index.rhtml:1
+#: app/views/content_viewer/view_page.rhtml:36
+msgid "Categories"
 msgstr ""
 
 #: app/models/article_block.rb:4
@@ -627,34 +622,6 @@ msgstr ""
 
 #: app/models/person_info.rb:-
 msgid "PersonInfo|Person"
-msgstr ""
-
-#: app/models/product.rb:-
-msgid "product"
-msgstr ""
-
-#: app/models/product.rb:-
-msgid "Product|Enterprise"
-msgstr ""
-
-#: app/models/product.rb:-
-msgid "Product|Product category"
-msgstr ""
-
-#: app/models/product.rb:-
-msgid "Product|Name"
-msgstr ""
-
-#: app/models/product.rb:-
-msgid "Product|Price"
-msgstr ""
-
-#: app/models/product.rb:-
-msgid "Product|Description"
-msgstr ""
-
-#: app/models/product.rb:-
-msgid "Product|Image"
 msgstr ""
 
 #: app/models/textile_article.rb:4
@@ -1294,6 +1261,34 @@ msgstr ""
 msgid "%{fn} can only be informed for unauthenticated authors"
 msgstr ""
 
+#: app/models/product.rb:-
+msgid "product"
+msgstr ""
+
+#: app/models/product.rb:-
+msgid "Product|Enterprise"
+msgstr ""
+
+#: app/models/product.rb:-
+msgid "Product|Product category"
+msgstr ""
+
+#: app/models/product.rb:-
+msgid "Product|Name"
+msgstr ""
+
+#: app/models/product.rb:-
+msgid "Product|Price"
+msgstr ""
+
+#: app/models/product.rb:-
+msgid "Product|Description"
+msgstr ""
+
+#: app/models/product.rb:-
+msgid "Product|Image"
+msgstr ""
+
 #: app/models/profile.rb:19
 msgid "Edit profile"
 msgstr ""
@@ -1721,7 +1716,7 @@ msgid "Are you sure you want to get out?"
 msgstr ""
 
 #: app/views/account/logout_popup.rhtml:4
-#: app/views/layouts/application.rhtml:155
+#: app/views/layouts/application.rhtml:158
 msgid "Yes"
 msgstr ""
 
@@ -1852,81 +1847,6 @@ msgstr ""
 
 #: app/views/categories/index.rhtml:8 app/views/categories/new.rhtml:1
 msgid "New category"
-msgstr ""
-
-#: app/views/category/_region.rhtml:1 app/views/category/_category.rhtml:1
-msgid "Recent articles"
-msgstr ""
-
-#: app/views/category/_region.rhtml:6 app/views/category/_category.rhtml:6
-msgid "Recent Comments"
-msgstr ""
-
-#: app/views/category/_region.rhtml:12 app/views/category/_category.rhtml:12
-msgid "by %{author} on \"%{article}\""
-msgstr ""
-
-#: app/views/category/_region.rhtml:21 app/views/category/_category.rhtml:21
-msgid "Most commented articles"
-msgstr ""
-
-#: app/views/category/_product_category.rhtml:1
-msgid "I consume this"
-msgstr ""
-
-#: app/views/category/_product_category.rhtml:3
-msgid "One product in this category."
-msgid_plural "%{num} products in this category."
-msgstr[0] ""
-msgstr[1] ""
-
-#: app/views/category/_product_category.rhtml:4
-msgid "One enterprise sells products in this category."
-msgid_plural "%{num} enterprises sells products in this category."
-msgstr[0] ""
-msgstr[1] ""
-
-#: app/views/category/_product_category.rhtml:5
-msgid "One user consumes this product."
-msgid_plural "%{num} users consumes this product"
-msgstr[0] ""
-msgstr[1] ""
-
-#: app/views/category/_product_category.rhtml:8
-msgid "Products under this category:"
-msgstr ""
-
-#: app/views/category/_product_category.rhtml:15
-#: app/views/search/_product.rhtml:9
-msgid "Price: %d"
-msgstr ""
-
-#: app/views/category/_product_category.rhtml:17
-msgid "Enterprise:"
-msgstr ""
-
-#: app/views/category/_product_category.rhtml:22
-msgid "Users that consumes products in this category:"
-msgstr ""
-
-#: app/views/category/_article.rhtml:5
-msgid "by %s"
-msgstr ""
-
-#: app/views/category/_article.rhtml:7
-msgid "Last update: %s."
-msgstr ""
-
-#: app/views/category/view.rhtml:7 app/views/search/_product.rhtml:13
-msgid "Category: %s"
-msgstr ""
-
-#: app/views/category/view.rhtml:14
-msgid "Sub-categories"
-msgstr ""
-
-#: app/views/category/view.rhtml:17
-msgid "No sub-categories"
 msgstr ""
 
 #: app/views/cms/_rss_feed.rhtml:3
@@ -2113,35 +2033,35 @@ msgstr ""
 msgid "(unauthenticated user)"
 msgstr ""
 
-#: app/views/content_viewer/_comment_form.rhtml:14
+#: app/views/content_viewer/_comment_form.rhtml:18
 msgid "Post a comment"
 msgstr ""
 
-#: app/views/content_viewer/_comment_form.rhtml:20
+#: app/views/content_viewer/_comment_form.rhtml:24
 #: app/views/enterprise_editor/_form.rhtml:1
 #: app/views/enterprise_validation/_details.rhtml:3
 #: app/views/memberships/index.rhtml:10
 msgid "Name"
 msgstr ""
 
-#: app/views/content_viewer/_comment_form.rhtml:21
+#: app/views/content_viewer/_comment_form.rhtml:25
 msgid "e-mail"
 msgstr ""
 
-#: app/views/content_viewer/_comment_form.rhtml:25
+#: app/views/content_viewer/_comment_form.rhtml:29
 msgid ""
 "If you are a registered user, you can login and be automatically recognized."
 msgstr ""
 
-#: app/views/content_viewer/_comment_form.rhtml:30
+#: app/views/content_viewer/_comment_form.rhtml:34
 msgid "Title"
 msgstr ""
 
-#: app/views/content_viewer/_comment_form.rhtml:31
+#: app/views/content_viewer/_comment_form.rhtml:35
 msgid "Enter your comment"
 msgstr ""
 
-#: app/views/content_viewer/_comment_form.rhtml:33
+#: app/views/content_viewer/_comment_form.rhtml:37
 msgid "Post comment"
 msgstr ""
 
@@ -2499,7 +2419,7 @@ msgid ""
 msgstr ""
 
 #: app/views/home/index.rhtml:6 app/views/home/index.rhtml:12
-#: app/views/layouts/application.rhtml:100
+#: app/views/layouts/application.rhtml:103
 #: app/views/region_validators/region.rhtml:23 app/views/search/popup.rhtml:7
 #: app/views/search/popup.rhtml:37
 msgid "Search"
@@ -2513,23 +2433,23 @@ msgstr ""
 msgid "Page not found"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:46
+#: app/views/layouts/application.rhtml:49
 msgid ""
 "Pass the mouse over page elements to get help on them. Click the question "
 "mark icon on the top-right corner to deactivate this help window."
 msgstr ""
 
-#: app/views/layouts/application.rhtml:69
+#: app/views/layouts/application.rhtml:72
 msgid "Go to content"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:85
+#: app/views/layouts/application.rhtml:88
 msgid ""
 "This is %s's shortcuts bar. Using it you have access to the main features of "
 "the environment and you find the information of your interest more quickly."
 msgstr ""
 
-#: app/views/layouts/application.rhtml:87
+#: app/views/layouts/application.rhtml:90
 msgid ""
 "This bar helps you find information following two paths or "
 "<strong>dimensions</strong>. First dimension is composed of <em>categories</"
@@ -2538,36 +2458,36 @@ msgid ""
 "right."
 msgstr ""
 
-#: app/views/layouts/application.rhtml:106
+#: app/views/layouts/application.rhtml:109
 msgid "Turn help on/off"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:152
+#: app/views/layouts/application.rhtml:155
 msgid "Do you want to activate the automatic help mode?"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:158
+#: app/views/layouts/application.rhtml:161
 msgid "No"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:161
+#: app/views/layouts/application.rhtml:164
 msgid ""
 "If needed, you can activate or deactivate the automatic help mode by "
 "clicking the question mark symbol in the top-right corner"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:169
+#: app/views/layouts/application.rhtml:172
 msgid "Your web browser is obsolete!"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:170
+#: app/views/layouts/application.rhtml:173
 msgid ""
 "This website will not look as good as it could.\n"
 "         Don't you want to use Firefox? That is a great web browser, free,\n"
 "         and made by people of all the world parts."
 msgstr ""
 
-#: app/views/layouts/application.rhtml:174
+#: app/views/layouts/application.rhtml:177
 msgid "Get Firefox Now!"
 msgstr ""
 
@@ -2803,18 +2723,6 @@ msgstr ""
 msgid "Tag cloud"
 msgstr ""
 
-#: app/views/search/_product.rhtml:11
-msgid "Suplier: %s"
-msgstr ""
-
-#: app/views/search/index.rhtml:1
-msgid "Search results for \"%{query}\" in %{category}"
-msgstr ""
-
-#: app/views/search/index.rhtml:1
-msgid "Search results for \"%s\""
-msgstr ""
-
 #: app/views/search/popup.rhtml:1
 msgid "Search %s"
 msgstr ""
@@ -2833,6 +2741,101 @@ msgstr ""
 
 #: app/views/search/popup.rhtml:24
 msgid "Search for:"
+msgstr ""
+
+#: app/views/search/_category.rhtml:1 app/views/search/_region.rhtml:1
+msgid "Recent articles"
+msgstr ""
+
+#: app/views/search/_category.rhtml:6 app/views/search/_region.rhtml:6
+msgid "Recent Comments"
+msgstr ""
+
+#: app/views/search/_category.rhtml:12 app/views/search/_region.rhtml:12
+msgid "by %{author} on \"%{article}\""
+msgstr ""
+
+#: app/views/search/_category.rhtml:21 app/views/search/_region.rhtml:21
+msgid "Most commented articles"
+msgstr ""
+
+#: app/views/search/_product_category.rhtml:1
+msgid "I consume this"
+msgstr ""
+
+#: app/views/search/_product_category.rhtml:3
+msgid "One product in this category."
+msgid_plural "%{num} products in this category."
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/views/search/_product_category.rhtml:4
+msgid "One enterprise sells products in this category."
+msgid_plural "%{num} enterprises sells products in this category."
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/views/search/_product_category.rhtml:5
+msgid "One user consumes this product."
+msgid_plural "%{num} users consumes this product"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/views/search/_product_category.rhtml:8
+msgid "Products under this category:"
+msgstr ""
+
+#: app/views/search/_product_category.rhtml:15
+#: app/views/search/_product.rhtml:10
+msgid "Price: %d"
+msgstr ""
+
+#: app/views/search/_product_category.rhtml:17
+msgid "Enterprise:"
+msgstr ""
+
+#: app/views/search/_product_category.rhtml:22
+msgid "Users that consumes products in this category:"
+msgstr ""
+
+#: app/views/search/category_index.rhtml:7 app/views/search/_product.rhtml:14
+msgid "Category: %s"
+msgstr ""
+
+#: app/views/search/category_index.rhtml:14
+msgid "Sub-categories"
+msgstr ""
+
+#: app/views/search/category_index.rhtml:17
+msgid "No sub-categories"
+msgstr ""
+
+#: app/views/search/assets.rhtml:1
+msgid "%{asset_name} in %{category}"
+msgstr ""
+
+#: app/views/search/index.rhtml:1
+msgid "Search results for \"%{query}\" in %{category}"
+msgstr ""
+
+#: app/views/search/index.rhtml:1
+msgid "Search results for \"%s\""
+msgstr ""
+
+#: app/views/search/_article.rhtml:6
+msgid "by %s"
+msgstr ""
+
+#: app/views/search/_article.rhtml:9
+msgid "Last update: %s."
+msgstr ""
+
+#: app/views/search/_comment.rhtml:4
+msgid "by %s, on \"%s\""
+msgstr ""
+
+#: app/views/search/_product.rhtml:12
+msgid "Suplier: %s"
 msgstr ""
 
 #: app/views/shared/access_denied.rhtml:1
@@ -2979,12 +2982,12 @@ msgstr ""
 msgid "Homepage: "
 msgstr ""
 
-#: app/views/blocks/profile_info_actions/community.rhtml:3
-msgid "Join this community"
-msgstr ""
-
 #: app/views/blocks/profile_info_actions/person.rhtml:3
 msgid "Add friend"
+msgstr ""
+
+#: app/views/blocks/profile_info_actions/community.rhtml:3
+msgid "Join this community"
 msgstr ""
 
 #: app/views/blocks/profile_info.rhtml:6
