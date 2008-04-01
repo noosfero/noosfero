@@ -2,16 +2,16 @@
 
 <li>
   <div class='search-result-text'>
-    <%= image_tag(hit.image.public_filename(:minor)) if hit.image %>
+    <%= image_tag(product.image.public_filename(:minor)) if product.image %>
     <strong>
-      <%= link_to_product(hit) %>
+      <%= link_to_product(product) %>
     </strong> 
     <ul>
-      <li> <%= _('Price: %d') % hit.price %> </li>
-      <% if hit.enterprise %>
-        <li> <%= _('Suplier: %s') % link_to_homepage(hit.enterprise.name, hit.enterprise.identifier) %> </li>
+      <li> <%= _('Price: %d') % product.price %> </li>
+      <% if product.enterprise %>
+        <li> <%= _('Suplier: %s') % link_to_homepage(product.enterprise.name, product.enterprise.identifier) %> </li>
       <% end %>
-      <li> <%= _('Category: %s') % link_to_category(hit.product_category) %> </li>
+      <li> <%= _('Category: %s') % link_to_category(product.product_category) %> </li>
     </ul>
   </div>
 </li>

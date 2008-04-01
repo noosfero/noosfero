@@ -1,9 +1,9 @@
 <%# FIXME add more information %>
 <li>
   <div class='search-result-text'>
-    <%= image_tag(hit.image.public_filename(:minor)) if hit.image %>
+    <%= image_tag(profile.image.public_filename(:minor)) if profile.image %>
     <strong>
-      <%= link_to_homepage(hit.name, hit.identifier) %>
+      <%= link_to_homepage(profile.name, profile.identifier) %>
     </strong>
   </div>
 </li>

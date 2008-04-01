@@ -1,7 +1,7 @@
 <li>
-  <strong><%= link_to(hit.title, hit.url)%></strong>
+  <strong><%= link_to(comment.title, comment.url)%></strong>
   <div class="item_meta">
-    <span class="cat_item_by"><%= _('by %s, on "%s"') % [hit.author_name, link_to(hit.article.name, hit.article.url)] %></span>
+    <span class="cat_item_by"><%= _('by %s, on "%s"') % [comment.author_name, link_to(comment.article.name, comment.article.url)] %></span>
   </div>
 </li>
 

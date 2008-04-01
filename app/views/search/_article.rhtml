@@ -1,11 +1,11 @@
 <li>
-  <strong><%= link_to(hit.title, hit.url) %></strong>
+  <strong><%= link_to(article.title, article.url) %></strong>
   <div class="item_meta">
-    <% if hit.last_changed_by %>
+    <% if article.last_changed_by %>
       <span class="cat_item_by">
-      <%= _('by %s') % link_to(hit.last_changed_by.name, hit.last_changed_by.url) %>
+      <%= _('by %s') % link_to(article.last_changed_by.name, article.last_changed_by.url) %>
       </span>
     <% end %>
-    <span class="cat_item_update"><%= _('Last update: %s.') % show_date(hit.updated_on) %></span>
+    <span class="cat_item_update"><%= _('Last update: %s.') % show_date(article.updated_on) %></span>
   </div>
 </li>
