@@ -35,6 +35,20 @@ class ActsAsFilesystemTest < Test::Unit::TestCase
     assert_equivalent [a1, a1_1, a1_2, a1_1_1, a1_1_2], a1.map_traversal
   end
 
+  should 'list the full tree without the root' do
+    profile = create_user('testinguser').person
+
+    a1 = profile.articles.build(:name => 'a1'); a1.save!
+
+    a1_1 = profile.articles.build(:name => 'a1.1'); a1_1.parent = a1; a1_1.save!
+    a1_2 = profile.articles.build(:name => 'a1.2'); a1_2.parent = a1; a1_2.save!
+
+    a1_1_1 = profile.articles.build(:name => 'a1.1.1'); a1_1_1.parent = a1_1; a1_1_1.save!
+    a1_1_2 = profile.articles.build(:name => 'a1.1.2'); a1_1_2.parent = a1_1; a1_1_2.save!
+
+    assert_equivalent [a1_1, a1_2, a1_1_1, a1_1_2].map(&:id), a1.all_children.map(&:id)
+  end
+
   should 'be able to traverse with a block' do
     profile = create_user('testinguser').person
 

@@ -164,12 +164,18 @@ module ActsAsFileSystem
       while !stack.empty?
         element = stack.pop
         result.push(element)
-        element.children.each do |item|
+        element.children.reverse.each do |item|
           stack.push(item)
         end
       end
       block ||= (lambda { |x| x })
       result.map(&block)
+    end
+
+    def all_children
+      res = map_traversal
+      res.shift
+      res
     end
 
   end
