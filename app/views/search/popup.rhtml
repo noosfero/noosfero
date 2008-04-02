@@ -27,7 +27,7 @@
     <% @search_in.each do |thing, name| %>
       <li>
       <%= check_box_tag 'find_in[]', thing.to_s, true %>
-      <span><%= name %></span>
+      <span><%= gettext(name) %></span>
       </li>
     <% end %>
   </ul>
