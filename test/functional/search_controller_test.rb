@@ -436,4 +436,9 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_equal 'Products', assigns(:asset_name)
   end
 
+  should 'show assets comments' do
+    get :assets, :asset => 'comments'
+    assert_tag :tag => 'div', :attributes => {:id => 'boxes'}, :content => {:tag => 'h2', :content => "Comments"}
+  end
+  
 end
