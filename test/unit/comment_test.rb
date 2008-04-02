@@ -109,4 +109,33 @@ class CommentTest < Test::Unit::TestCase
     assert_includes Comment.find_by_contents('anything'), c1
   end
 
+  should 'be able to find recent comments' do
+    Comment.delete_all
+
+    owner = create_user('testuser').person
+    art = owner.articles.build(:name => 'ytest'); art.save!
+    comments = []
+    3.times do
+      comments.unshift art.comments.create!(:title => 'a test comment', :body => 'bla', :author => owner)
+    end
+
+    assert_equal comments, Comment.recent
+  end
+
+  should 'be able to find recent comments with limit' do
+    Comment.delete_all
+
+    owner = create_user('testuser').person
+    art = owner.articles.build(:name => 'ytest'); art.save!
+    comments = []
+    3.times do
+      comments.unshift art.comments.create!(:title => 'a test comment', :body => 'bla', :author => owner)
+    end
+
+    comments.pop
+
+    assert_equal comments, Comment.recent(2)
+  end
+
+
 end

@@ -34,4 +34,8 @@ class Comment < ActiveRecord::Base
     "comment-#{id}"
   end
 
+  def self.recent(limit = nil)
+    self.find(:all, :order => 'created_on desc, id desc', :limit => limit)
+  end
+
 end

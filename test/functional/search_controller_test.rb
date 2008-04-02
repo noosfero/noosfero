@@ -131,6 +131,38 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_not_includes assigns(:results)[:comments], comment2
   end
 
+  # 'assets' menu outside any category
+  should 'list comments in general' do
+    person = create_user('teste').person
+    art = person.articles.build(:name => 'an article to be found'); art.save!
+    comment = art.comments.build(:title => 'comment to be found', :body => 'hfyfyh', :author => person); comment.save!
+
+    get :assets, :asset => 'comments'
+    assert_includes assigns(:results)[:comments], comment
+  end
+
+  # 'assets' menu inside a specific category
+  should 'list comments in a specified category' do
+    person = create_user('teste').person
+
+    # in category
+    art1 = person.articles.build(:name => 'an article to be found')
+    art1.categories << @category
+    art1.save!
+    comment1 = art1.comments.build(:title => 'comment to be found', :body => 'hfyfyh', :author => person); comment1.save!
+
+    # not in category
+    art2 = person.articles.build(:name => 'another article to be found')
+    art2.save!
+    comment2 = art2.comments.build(:title => 'comment to be found', :body => 'hfyfyh', :author => person); comment2.save!
+
+
+    get :assets, :asset => 'comments', :category_path => [ 'my-category' ]
+
+    assert_includes assigns(:results)[:comments], comment1
+    assert_not_includes assigns(:results)[:comments], comment2
+  end
+
   should 'find enterprises' do
     ent = Enterprise.create!(:name => 'teste', :identifier => 'teste')
     get 'index', :query => 'teste', :find_in => [ 'enterprises' ]
@@ -434,11 +466,6 @@ class SearchControllerTest < Test::Unit::TestCase
   should 'expose asset name in instance variable' do
     get :assets, :asset => 'products'
     assert_equal 'Products', assigns(:asset_name)
-  end
-
-  should 'show assets comments' do
-    get :assets, :asset => 'comments'
-    assert_tag :tag => 'div', :attributes => {:id => 'boxes'}, :content => {:tag => 'h2', :content => "Comments"}
   end
   
 end
