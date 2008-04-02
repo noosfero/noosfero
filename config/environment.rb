@@ -98,9 +98,10 @@ require 'acts_as_having_boxes'
 require 'acts_as_having_settings'
 require 'hacked_after_create'
 
-# load a local configuration if present
-lambda do |localconfig|
-  if File.exists?(localconfig)
-    require localconfig
+# load a local configuration if present, but not under test environment.
+if ENV['RAILS_ENV'] != 'test'
+  localconfigfile = File.join(RAILS_ROOT, 'config', 'local.rb')
+  if File.exists?(localconfigfile)
+    require localconfigfile
   end
-end.call(File.join(RAILS_ROOT, 'config', 'local.rb'))
+end
