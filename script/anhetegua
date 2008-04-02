@@ -117,7 +117,7 @@ pr = new_region(sul, 'Paraná')
 rs = new_region(sul, 'Rio Grande do Sul')
 sc = new_region(sul, 'Santa Catarina')
 
-cadeias = new_category(nil, 'Cadeias', 3)
+cadeias = new_category(nil, 'Redes/Cadeias', 3)
 new_category(cadeias, 'Agropecuária, extrativismo e pesca')
 new_category(cadeias, 'Alimentação')
 new_category(cadeias, 'Artesanato')
