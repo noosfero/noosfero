@@ -91,6 +91,9 @@ Tag.hierarchical = true
 # several local libraries
 require 'noosfero'
 
+# sqlite extensions to able to test/develop georeference with sqlite
+require 'sqlite_extension'
+
 # locally-developed modules
 require 'acts_as_filesystem'
 require 'acts_as_searchable'
