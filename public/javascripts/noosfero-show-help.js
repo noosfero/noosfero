@@ -8,8 +8,8 @@ function mouseHelpOnOff() {
     $("btShowHelp").className = "icon-help32off";
   }
   var date = new Date();
-  // open/close help on help button is remembed by 30 days:
-  date.setTime( date.getTime() + ( 30*24*60*60*1000 ) );
+  // open/close help on help button is remembed by one year:
+  date.setTime( date.getTime() + ( 365*24*60*60*1000 ) );
   var expires = "; expires=" + date.toGMTString();
   document.cookie = "mouseHelpTurnOn="+ pageHelp.info.updateBox + expires +"; path=/";
 }
@@ -33,7 +33,9 @@ if ( document.cookie.indexOf("mouseHelpTurnOn=") > -1 ) {
     mouseHelpOnOff();
   }
 }
+
+/* O Noosfero não deve mais propor o help na entrada
 else {
   new Effect.Appear( "noticeAboutHelp", {duration:2} );
 }
-
+*/

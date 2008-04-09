@@ -1,14 +1,28 @@
 <h1><%= _('Register') %></h1>
 
 <%= error_messages_for :user %>
-<% labelled_form_for :user, @user do |f| -%>
-  
-<%= f.text_field :login,
-                 :onchange => 'this.value = convToValidLogin( this.value )' %>
+<% labelled_form_for :user, @user,
+   :html => { :help=>_('Fill all this fields to join in this environment.' +
+                       '<p/>If you forgot your password, do not create a new account,' +
+                       ' click on the "<b>I forgot my password!</b>" link. ;-)')
+            } do |f| -%>
 
-<%= f.text_field :email %>
-<%= f.password_field :password %>
-<%= f.password_field :password_confirmation %>
+<%= f.text_field :login,
+    :help => help=_('"Username" is a simple nickname to recognize you on this environment.'),
+    :onchange => 'this.value = convToValidLogin( this.value )' %>
+<small><%= help %></small>
+
+<%= f.text_field :email,
+    :help => help=_('We\'ll send you an e-mail to validate your registration.') %>
+<small><%= help %></small>
+
+<%= f.password_field :password,
+    :help => help=_('Do not use a obviously password, but try some unforgettable word.') %>
+<small><%= help %></small>
+
+<%= f.password_field :password_confirmation,
+    :help => help=_('We need to be sure that you wrote correctly your password.') %>
+<small><%= help %></small>
 
 <% if @terms_of_use %>
   <p>
@@ -21,6 +35,6 @@
 <% end %>
 
 <% button_bar do %>
-  <%= submit_button('save', _('Sign up'), :cancel => {:action => 'index'}) %>
+  <%= submit_button('save', _('Sign up'), :cancel => {:action => 'index'}, :class => 'icon-menu-login') %>
 <% end %>
 <% end -%>

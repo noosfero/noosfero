@@ -2,13 +2,20 @@
 
 <h2><%= _('Login') %></h2>
 
-<% labelled_form_for :user, @user, :url => { :controller => 'account', :action => 'login' } do |f| %>
+<%
+  @user = User.new  if ! @user
+%>
 
-<%= display_form_field(_('Login'),
-    text_field_tag(:login, nil,
-    :onchange => 'this.value = convToValidLogin( this.value )') ) %>
+<% labelled_form_for :user, @user,
+   :url => { :controller => 'account', :action => 'login' },
+   :html => { :help => _('If you are a registered user, enter your username and password to be authenticated.')+'<p/>'+_('To join on this environment, click on "<b>I want to be an user!</b>".')+'<p/>'+_('If you forgot your password, click on "<b>I forgot my password!</b>" link.') } do |f| %>
 
-<%= display_form_field(_('Password'), password_field_tag(:password) ) %>
+<%= f.text_field :login,
+                 :help => _('Here goes the nickname that you give on the registration.'),
+                 :onchange => 'this.value = convToValidLogin( this.value )' %>
+
+<%= f.password_field :password,
+                     :help => _('your password is personal, protect it.') %>
 
 <% button_bar do %>
   <%= submit_button( 'login', _('Log in') )%>
@@ -17,11 +24,11 @@
 
 <% end %>
 
-<p class="forgot-passwd">
+<p class="forgot-passwd" help="<%= _('You can recover your password clicking on this link.') %>">
 <%= link_to _("I forgot my password!"), :controller => 'account', :action => 'forgot_password' %>
 </p>
 
-<p class="want-to-be-an-user"><strong>
+<p class="want-to-be-an-user" help="<%= _('Click here to join to this environment, if you is not already an user.') %>"><strong>
 <%= link_to _("I want to be an user!"), :controller => 'account', :action => 'signup' %>
 </strong></p>
 

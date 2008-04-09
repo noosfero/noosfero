@@ -1,11 +1,23 @@
 # TODO: send an e-mail with a hash code to the task after the ChangePassword is creatd -> override messages from #Task
 
+class HumanName
+  def human_name
+    @name
+  end
+  def initialize(name)
+    @name = name
+  end
+end
+
 class ChangePassword < Task
 
   serialize :data, Hash
   def data
     self[:data] ||= {}
   end
+
+  self.columns_hash['login'] = HumanName.new _('Username')
+  self.columns_hash['email'] = HumanName.new _('e-Mail')
 
   attr_accessor :login, :email, :password, :password_confirmation
   N_('ChangePassword|Login')

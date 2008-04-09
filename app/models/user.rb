@@ -7,6 +7,14 @@ class User < ActiveRecord::Base
   N_('User|Password')
   N_('User|Password confirmation')
 
+  def self.human_attribute_name(attrib)
+    case attrib.to_sym
+      when :login:  return _('Username')
+      when :email:  return _('e-Mail')
+      else self.superclass.human_attribute_name(attrib)
+    end
+  end
+
   before_create do |user|
     if user.environment.nil?
       user.environment = Environment.default
