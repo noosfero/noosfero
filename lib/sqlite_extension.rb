@@ -30,11 +30,15 @@ if ActiveRecord::Base.connection.adapter_name =~ /^sqlite$/i
     func.set_result(Math.sqrt(value))
   end
 
-#  database.create_function('dist', 5, :numeric) do |func, lat1, long1, lat2, long2, radius|
-#    lat2, long2 = [lat2, long2].map{|l|l * Math::PI/180.0}
-#    func.set_result = radius * Math.acos([1,
-#      Math.cos(lat1.to_f) * Math.cos(long1.to_f) * Math.cos(lat2.to_f) * Math.cos(long2.to_f) + 
-#      Math.cos(lat1.to_f) * Math.sin(long1.to_f) * Math.cos(lat2.to_f) * Math.sin(long2.to_f) + 
-#      Math.sin(lat1.to_f) * Math.sin(lat2.to_f)].min)
-#  end
+  database.create_function('spheric_distance', 5, :real) do |func, lat1, long1, lat2, long2, radius|
+    func.set_result(
+      radius.to_f * Math.acos(
+	[1,
+        Math.cos(lat1.to_f) * Math.cos(long1.to_f) * Math.cos(lat2.to_f) * Math.cos(long2.to_f) + 
+         Math.cos(lat1.to_f) * Math.sin(long1.to_f) * Math.cos(lat2.to_f) * Math.sin(long2.to_f) + 
+         Math.sin(lat1.to_f) * Math.sin(lat2.to_f)
+        ].min
+      )
+    )
+  end
 end

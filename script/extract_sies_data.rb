@@ -1,3 +1,5 @@
+#!/usr/bin/ruby
+
 $LOAD_PATH.unshift('/usr/share/rails/activerecord/lib')
 $LOAD_PATH.unshift('/usr/share/rails/activesupport/lib')
 
@@ -6,13 +8,8 @@ require 'active_support'
 
 LIMIT = 5
 
-ActiveRecord::Base.establish_connection(
-  :adapter => 'mysql',
-  :host => 'localhost',
-  :database => 'farejador',
-  :username => 'root',
-  :password => 'root'
-)
+# To connect with the database that contains the data to be extracted cofigure it in the 'database_farejador.yml' with the name 'farejador'
+ActiveRecord::Base.establish_connection(YAML::load(IO.read('database_farejador.yml'))['farejador'])
 
 class Enterprise < ActiveRecord::Base
   set_table_name 'cons_dadosbasicos'

@@ -32,8 +32,9 @@ class SQliteExtensionTest < Test::Unit::TestCase
     assert_in_delta 1.4142, ActiveRecord::Base.connection.execute('select sqrt(2) as sqrt').first['sqrt'], 0.0001
   end
 
-#  should 'have a distance function' do
-#    assert_in_delta 2.28402, ActiveRecord::Base.connection.execute('select dist(32.918593, -96.958444, 32.895155, -96.958444, 3963.19) as dist').first['dist'], 0.0001
-#  end
+  should 'have a distance function' do
+    args = [32.918593, -96.958444, 32.951613, -96.958444].map{|l|l * Math::PI/180}
+    assert_in_delta 2.28402, ActiveRecord::Base.connection.execute("select spheric_distance(#{args.inspect[1..-2]}, 3963.19) as dist").first['dist'], 0.0001
+  end
 
 end
