@@ -6,12 +6,12 @@
 
 #content .tags-block .block-title {
   margin-bottom: 0px;
-  background: url(../../images/bg-tags-top.png) 0% 0%;
+  background: url(../../images/bg-tags-top.png) no-repeat 0% 0%;
   padding: 3px 0px 0px 20px;
 }
 
 .tags-block .tag_cloud {
-  background: url(../../images/bg-tags.png) 0% 100%;
+  background: url(../../images/bg-tags.png) no-repeat 0% 100%;
   padding: 0px 0px 5px 5px;
 }
 
