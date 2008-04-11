@@ -1,10 +1,15 @@
 <p><%= _('Current category:') %></p>
-<%= hidden_field_tag 'product[product_category_id]', @current_category.id %>
+<%= hidden_field_tag 'product[product_category_id]', @current_category ? @current_category.id : nil %>
 <%
   categories = [@current_category]
   categories.push(@current_category) while @current_category and @current_category = @current_category.parent
 %>
-<%= categories.compact.reverse.map{|i| link_to(i.name, {}, :class => 'select-current-category-link')}.join(' &rarr; ') %>
+<%= categories.compact.reverse.map{|i|
+  link_to_remote(i.name, 
+    :update => "subcategories",
+    :url => { :action => 'update_subcategories', :id => i, :loaded => visual_effect(:highlight, "subcategories") },
+    :class => 'select-current-category-link')}.join(' &rarr; ')
+%>
 
 <% unless @categories.empty? %>
   <p><%= _('Select a subcategory:') %></p>
