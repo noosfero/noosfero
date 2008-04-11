@@ -1,4 +1,5 @@
 <p><%= _('Current category:') %></p>
+<%= hidden_field_tag 'product[product_category_id]', @current_category.id %>
 <%
   categories = [@current_category]
   categories.push(@current_category) while @current_category and @current_category = @current_category.parent

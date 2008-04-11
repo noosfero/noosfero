@@ -137,5 +137,15 @@ class ManageProductsControllerTest < Test::Unit::TestCase
     get 'update_subcategories', :profile => @enterprise.identifier, :id => category1.id
     assert_no_tag :tag => 'p', :content => 'Select a subcategory:'
   end
+
+  should "create new product categorized" do
+    environment = Environment.default
+    category1 = ProductCategory.create!(:name => 'Category 1', :environment => environment)
+    category2 = ProductCategory.create!(:name => 'Category 2', :environment => environment, :parent => category1)
+    assert_difference Product, :count do
+      post 'new', :profile => @enterprise.identifier, :product => { :name => 'test product', :product_category_id => category2.id }
+      assert_equal category2, assigns(:product).product_category
+    end
+  end
   
 end
