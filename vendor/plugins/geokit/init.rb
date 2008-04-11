@@ -5,6 +5,7 @@ require 'geo_kit/defaults'
 require 'geo_kit/mappable'
 require 'geo_kit/acts_as_mappable'
 require 'geo_kit/ip_geocode_lookup'
+require 'geo_kit/sqlite_extension'
 
 # Automatically mix in distance finder support into ActiveRecord classes.
 ActiveRecord::Base.send :include, GeoKit::ActsAsMappable
