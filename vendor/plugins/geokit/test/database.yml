@@ -10,3 +10,6 @@ postgresql:
   username: root
   password: 
   database: geokit_plugin_test
+sqlite:
+  adapter: sqlite3
+  database: tmp/geokit_plugin_test.sqlite3

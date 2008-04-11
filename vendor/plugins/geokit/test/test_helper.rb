@@ -16,3 +16,5 @@ load(File.join(plugin_test_dir, 'schema.rb'))
 
 # Load fixtures from the plugin
 Test::Unit::TestCase.fixture_path = File.join(plugin_test_dir, 'fixtures/')
+
+require File.join(plugin_test_dir, '../../../../lib/sqlite_extension')

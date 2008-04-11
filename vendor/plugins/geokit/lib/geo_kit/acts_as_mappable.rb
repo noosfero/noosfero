@@ -390,6 +390,11 @@ module GeoKit
                   COS(#{lat})*SIN(#{lng})*COS(RADIANS(#{qualified_lat_column_name}))*SIN(RADIANS(#{qualified_lng_column_name}))+
                   SIN(#{lat})*SIN(RADIANS(#{qualified_lat_column_name}))))*#{multiplier})
                   SQL_END
+	  when "sqlite"
+		  # The /1.0 in the end is to force the convertion to float
+            sql=<<-SQL_END
+	          (SPHERIC_DISTANCE(#{lat},#{lng},RADIANS(#{qualified_lat_column_name}),RADIANS(#{qualified_lng_column_name}),#{multiplier})/1.0)
+                  SQL_END
           else
             sql = "unhandled #{connection.adapter_name.downcase} adapter"
           end        
@@ -410,6 +415,11 @@ module GeoKit
             sql=<<-SQL_END
                   SQRT(POW(#{lat_degree_units}*(#{origin.lat}-#{qualified_lat_column_name}),2)+
                   POW(#{lng_degree_units}*(#{origin.lng}-#{qualified_lng_column_name}),2))
+                  SQL_END
+	  when "sqlite"
+            sql=<<-SQL_END
+                  (SQRT(POW(#{lat_degree_units}*(#{origin.lat}-#{qualified_lat_column_name}),2)+
+                  POW(#{lng_degree_units}*(#{origin.lng}-#{qualified_lng_column_name}),2))/1.0)
                   SQL_END
           else
             sql = "unhandled #{connection.adapter_name.downcase} adapter"
