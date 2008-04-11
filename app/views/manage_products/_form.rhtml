@@ -5,7 +5,11 @@
   <%= display_form_field( _('Price:'), f.text_field(:price) )  %>
   <%= display_form_field( _('Description:'), f.text_area(:description) )  %>
   <%= display_form_field( _('Image:'), file_field_tag( "product[image_builder][uploaded_data]" ) )  %>
-  <%= display_form_field( _('category:'), f.select( :product_category_id,ProductCategory.find(:all).map{|pc|[pc.name,pc.id]}, {:include_blank => true} ))  %>
+
+  <div id='subcategories'>
+    <%= render :partial => 'subcategories' %>
+  </div>
+
   <% button_bar do %>
     <%= submit_button('save', (mode == 'new' ? _('Create product') : _('Save changes')), :cancel => {:action => 'index'} ) %>
   <% end %>

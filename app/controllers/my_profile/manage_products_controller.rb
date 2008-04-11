@@ -12,6 +12,8 @@ class ManageProductsController < ApplicationController
   end
 
   def new
+    @current_category = ProductCategory.top_level_for(environment).first
+    @categories = @current_category.nil? ? [] : @current_category.children
     @product = @profile.products.build(params[:product])
     @product.build_image unless @product.image
     if request.post?
@@ -26,6 +28,8 @@ class ManageProductsController < ApplicationController
 
   def edit
     @product = @profile.products.find(params[:id])
+    @current_category = @product.product_category
+    @categories = @current_category.nil? ? [] : @current_category.children
     if request.post?
       if @product.update_attributes(params[:product])
         flash[:notice] = _('Product succesfully updated')
@@ -45,6 +49,12 @@ class ManageProductsController < ApplicationController
       flash[:notice] = _('Could not remove the product')
       redirect_back_or_default :action => 'show', :id => @product
     end
+  end
+
+  def update_subcategories
+    @current_category = ProductCategory.find(params[:id])
+    @categories = @current_category.children
+    render :partial => 'subcategories'
   end
  
 end

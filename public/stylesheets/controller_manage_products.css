@@ -1,0 +1,11 @@
+a.select-subcategory-link:hover {
+  background-color: gray;
+}
+a.select-subcategory-link {
+  border: 1px solid gray;
+  padding: 2px 4px 2px 4px;
+  text-decoration: none;
+}
+a.select-current-category-link {
+  /* ... */
+}

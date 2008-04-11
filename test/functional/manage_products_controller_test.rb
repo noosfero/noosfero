@@ -103,5 +103,39 @@ class ManageProductsControllerTest < Test::Unit::TestCase
       assert Product.find_by_name('test product')      
     end    
   end
+
+  should 'show current category' do
+    environment = Environment.default
+    category1 = ProductCategory.create!(:name => 'Category 1', :environment => environment)
+    category2 = ProductCategory.create!(:name => 'Category 2', :environment => environment, :parent => category1)
+    category3 = ProductCategory.create!(:name => 'Category 3', :environment => environment, :parent => category2)
+    category4 = ProductCategory.create!(:name => 'Category 4', :environment => environment, :parent => category3)
+    get :new, :profile => @enterprise.identifier
+    assert_tag :tag => 'p', :content => /Current category:/, :sibling => { :tag => 'a', :content => /#{category1.name}/ }
+  end
+
+  should 'show subcategories list' do
+    environment = Environment.default
+    category1 = ProductCategory.create!(:name => 'Category 1', :environment => environment)
+    category2 = ProductCategory.create!(:name => 'Category 2', :environment => environment, :parent => category1)
+    get 'new', :profile => @enterprise.identifier
+    assert !assigns(:categories).empty?
+    assert_tag :tag => 'p', :content => /Select a subcategory:/, :sibling => { :tag => 'a', :attributes => { :href => '#' }, :content => /#{category2.name}/ }
+  end
+
+  should 'update subcategories' do
+    environment = Environment.default
+    category1 = ProductCategory.create!(:name => 'Category 1', :environment => environment)
+    category2 = ProductCategory.create!(:name => 'Category 2', :environment => environment, :parent => category1)
+    get 'update_subcategories', :profile => @enterprise.identifier, :id => category1.id
+    assert_tag :tag => 'a', :attributes => { :href => '#' }, :content => /#{category2.name}/
+  end
+
+  should 'not show subcategories list when no subcategories' do
+    environment = Environment.default
+    category1 = ProductCategory.create!(:name => 'Category 1', :environment => environment)
+    get 'update_subcategories', :profile => @enterprise.identifier, :id => category1.id
+    assert_no_tag :tag => 'p', :content => 'Select a subcategory:'
+  end
   
 end
