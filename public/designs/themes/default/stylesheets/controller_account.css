@@ -1,0 +1,15 @@
+
+.main-block form {
+  border: 2px solid #3465A4;
+  padding: 10px 5px 10px 20px;
+  background: #B8CFE7;
+}
+
+.main-block label {
+  font-weight: bold;
+}
+
+.main-block small {
+  color: #3465A4;
+}
+

@@ -1,0 +1,9 @@
+# This file configures all Web 2.0 services used by this noosfero instalation
+
+# You can add (or remove) any addthis option here.
+# Know more: http://www.addthis.com/customization.php
+addthis:
+  pub: your-user-name
+  logo: http://localhost:3000/images/logo-200x50.png
+  options: favorites, email, digg, delicious, technorati, slashdot, twitter, more
+

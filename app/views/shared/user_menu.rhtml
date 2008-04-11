@@ -34,8 +34,8 @@
         '</li>' if user.is_admin?
       %>
 
-      <li><%= lightbox_link_to( '<span class="icon-menu-logout"></span>'+ _('Logout'),
-                                { :controller => 'account', :action => 'logout_popup'},
+      <li><%= link_to( '<span class="icon-menu-logout"></span>'+ _('Logout'),
+                                { :controller => 'account', :action => 'logout'},
                                 :id => 'link_logout',
                                 :help => _('This link takes you out of the system. You should logout if other people are willing to use the same computer after you.')
                               ) %></li>
