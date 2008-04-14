@@ -2,7 +2,7 @@
 
 <%
   # AddThis Button
-  if block_given?
+  if block_given? and File.exists?( RAILS_ROOT + '/config/web2.0.yml')
     opts = YAML.load_file( RAILS_ROOT + '/config/web2.0.yml' )
     if opts['addthis']
       opts = opts['addthis']

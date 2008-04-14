@@ -166,6 +166,7 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_difference UploadedFile, :count do
       post :new, :type => UploadedFile.name, :profile => profile.identifier, :article => { :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain')}
     end
+    assert_not_nil profile.articles.find_by_path('test.txt')
   end
 
   should 'be able to update an uploaded file' do

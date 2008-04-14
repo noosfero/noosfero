@@ -4,24 +4,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 # will just pass. The idea is to test our local extensions to SQLite.
 class SQliteExtensionTest < Test::Unit::TestCase
 
-  should 'have sine function' do
-    assert_in_delta 0.0, ActiveRecord::Base.connection.execute('select sin(3.14159265358979) as sin').first['sin'], 0.0001
-  end
-
-  should 'have cosine function' do
-    assert_in_delta -1.0, ActiveRecord::Base.connection.execute('select cos(3.14159265358979) as cos').first['cos'], 0.0001
-  end
-
   should 'have power function' do
     assert_in_delta 8.0, ActiveRecord::Base.connection.execute('select pow(2.0, 3.0) as result').first['result'], 0.0001
-  end
-
-  should 'have arcsine function' do
-    assert_in_delta Math::PI/2, ActiveRecord::Base.connection.execute('select asin(1) as asin').first['asin'], 0.0001
-  end
-  
-  should 'have arccosine function' do
-    assert_in_delta Math::PI, ActiveRecord::Base.connection.execute('select acos(-1.0) as acos').first['acos'], 0.0001
   end
 
   should 'have radians function' do

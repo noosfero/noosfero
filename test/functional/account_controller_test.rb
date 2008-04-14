@@ -18,13 +18,13 @@ class AccountControllerTest < Test::Unit::TestCase
   end
 
   def test_should_login_and_redirect
-    post :login, :login => 'johndoe', :password => 'test'
+    post :login, :user => {:login => 'johndoe', :password => 'test'}
     assert session[:user]
     assert_response :redirect
   end
 
   def test_should_fail_login_and_not_redirect
-    post :login, :login => 'johndoe', :password => 'bad password'
+    post :login, :user => {:login => 'johndoe', :password => 'bad password'}
     assert_nil session[:user]
     assert_response :success
   end
@@ -92,12 +92,12 @@ class AccountControllerTest < Test::Unit::TestCase
   end
 
   def test_should_remember_me
-    post :login, :login => 'johndoe', :password => 'test', :remember_me => "1"
+    post :login, :user => {:login => 'johndoe', :password => 'test'}, :remember_me => "1"
     assert_not_nil @response.cookies["auth_token"]
   end
 
   def test_should_not_remember_me
-    post :login, :login => 'johndoe', :password => 'test', :remember_me => "0"
+    post :login, :user => {:login => 'johndoe', :password => 'test'}, :remember_me => "0"
     assert_nil @response.cookies["auth_token"]
   end
   
