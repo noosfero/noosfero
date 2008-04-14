@@ -147,5 +147,26 @@ class ManageProductsControllerTest < Test::Unit::TestCase
       assert_equal category2, assigns(:product).product_category
     end
   end
+
+  should 'show thumbnail image when edit product' do
+    p = @enterprise.products.create!(:name => 'test product1', :image_builder => {
+      :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
+    })
+    get 'edit', :profile => @enterprise.identifier, :id => p.id
+    assert_tag :tag => 'img', :attributes => { :src => /#{p.image.public_filename(:thumb)}/ }
+  end
+
+  should 'show change image link above thumbnail image' do
+    p = @enterprise.products.create!(:name => 'test product1', :image_builder => {
+      :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
+    })
+    get 'edit', :profile => @enterprise.identifier, :id => p.id
+    assert_tag :tag => 'a', :attributes => { :href => '#' }, :content => 'Change image'
+  end
   
+  should 'show change image field when new product' do
+    get 'new', :profile => @enterprise.identifier
+    assert_tag :tag => 'input', :attributes => { :type => 'file', :name => 'product[image_builder][uploaded_data]' }
+  end
+
 end

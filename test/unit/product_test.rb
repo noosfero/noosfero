@@ -46,4 +46,13 @@ class ProductTest < Test::Unit::TestCase
     assert_equal [p3, p2], Product.recent(2)
   end
 
+  should 'save image on create product' do
+    assert_difference Product, :count do
+      p = Product.create!(:name => 'test product1', :image_builder => {
+        :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
+      })
+      assert_equal p.image(true).filename, 'rails.png'
+    end    
+  end
+
 end

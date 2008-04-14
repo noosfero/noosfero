@@ -1,0 +1,8 @@
+  <%= file_field_tag("product[image_builder][uploaded_data]") %>
+
+  <br/>
+
+  <%= link_to_function(_('Cancel'), nil, :id => 'cancel-change-image-link', :style => 'display: none') do |page|
+    page['change-image-link'].show
+    page['change-image'].replace_html ''
+  end %>
