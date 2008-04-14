@@ -6,7 +6,7 @@
       <% end %>
       <ul>
       <% results.each do |hit| %>
-        <%= render :partial => partial_for_class(hit.class), :object => hit, :locals => { :hit => hit } %>
+        <%= render :partial => partial_for_class(hit.class), :object => hit %>
       <% end %>
       </ul>
     </div>

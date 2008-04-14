@@ -8,7 +8,7 @@
 
 <div class='search-tagged-items'>
 <% @tagged.each do |hit| %>
-  <%= render :partial => partial_for_class(hit.class), :locals => { :hit => hit } %>
+  <%= render :partial => partial_for_class(hit.class), :object => hit %>
   <br style='clear: left;'/>
 <% end %>
 </div>
