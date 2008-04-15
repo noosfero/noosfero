@@ -246,6 +246,16 @@ class AccountControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => "body" # e.g. no layout
   end
 
+  should 'restrict multiple users with the same e-mail' do
+    assert_difference User, :count do
+      create_user(:login => 'user1', :email => 'user@example.com')
+      assert assigns(:user).valid?
+      create_user(:login => 'user2', :email => 'user@example.com')
+      assert assigns(:user).errors.on(:email)
+    end
+  end
+
+
   protected
     def create_user(options = {})
       post :signup, :user => { :login => 'quire', :email => 'quire@example.com', 
