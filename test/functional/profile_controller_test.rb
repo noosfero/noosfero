@@ -68,4 +68,24 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'a', :content => 'Join this community'
   end
 
+  should 'dont show enterprises link to enterprise' do
+    ent = Enterprise.create!(:identifier => 'test_enterprise1', :name => 'Test enteprise1')
+    get :index, :profile => ent.identifier
+    assert_tag :tag => 'h2', :content => "#{ent.identifier}'s profile"
+    assert_no_tag :tag => 'a', :content => 'Enterprises', :attributes => { :href => /profile\/#{ent.identifier}\/enterprises$/ }
+  end
+
+  should 'dont show members link to person' do
+    person = create_user('person_1').person
+    get :index, :profile => person.identifier
+    assert_tag :tag => 'h2', :content => "#{person.identifier}'s profile"
+    assert_no_tag :tag => 'a', :content => 'Members', :attributes => { :href => /profile\/#{person.identifier}\/members$/ }
+  end
+
+  should 'show friends link to person' do
+    person = create_user('person_1').person
+    get :index, :profile => person.identifier
+    assert_tag :tag => 'a', :content => 'Friends', :attributes => { :href => /profile\/#{person.identifier}\/friends$/ }
+  end
+
 end

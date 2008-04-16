@@ -21,9 +21,6 @@ class Person < Profile
   def remove_friend(friend)
     friends.delete(friend)
   end
-
-#  has_many :person_friendships
-#  has_many :people, :through => :person_friendships, :foreign_key => 'friend_id'
   
   has_one :person_info
 
