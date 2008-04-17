@@ -7,6 +7,7 @@ require 'activerecord'
 require 'active_support'
 require File.dirname(__FILE__) + "/../" + 'lib/noosfero/core_ext/string.rb'
 
+
 LIMIT = (ENV['DUMP_ALL'] ? nil : 5)
 DUMP_ALL = LIMIT.nil?
 
@@ -65,7 +66,7 @@ class Dumper
     
     @seqs[cat] = @seq
     puts <<-EOF
-cat#{@seq} = ProductCategory.create!(:name => #{pretty(cat.nome, cat.nome_alt).inspect}, :parent => #{parent ? 'cat' + @seqs[parent].to_s : 'nil' })
+cat#{@seq} = new_cat(#{pretty(cat.nome, cat.nome_alt).inspect}, #{parent ? 'cat' + @seqs[parent].to_s : 'nil' })
 categories[#{cat.id}] = cat#{@seq}.id
     EOF
     @seq += 1
@@ -90,59 +91,25 @@ categories[#{cat.id}] = cat#{@seq}.id
       endereco << " CEP: " << ent.cep
     end
 
-    puts <<-EOF
-enterprise = Enterprise.create!(
-  :name => #{ent.nome.inspect},
-  :identifier => #{ent.nome.to_slug.inspect},
-  :contact_phone => #{ent.tel.inspect},
-  :address => #{endereco.inspect},
-  :lat => #{ent.lat.inspect},
-  :lng => #{ent.long.inspect},
-  :geocode_precision => #{ent.geomodificou.inspect},
-  :data => {
-    :id_sies => #{ent.id_sies.inspect}
-  },
-  :organization_info => OrganizationInfo.new(
-    :contact_email => #{email.inspect}
-  )
-)
-    EOF
-
-    ent.products.each do |p|
-      cat = p.category
-      puts <<-EOF
-enterprise.products.create!(
-  :name => #{cat.nome.inspect},
-  :product_category_id => categories[#{cat.id}]
-)
-      EOF
-    end
-
-    ent.input_products.each do |i|
-      cat = i.category
-      puts <<-EOF
-enterprise.consumptions.create!(
-  :product_category_id => categories[#{cat.id}]
-)
-      EOF
-    end
-
+    puts "new_ent({ :name => #{ent.nome.inspect}, :identifier => #{ent.nome.to_slug.inspect}, :contact_phone => #{ent.tel.inspect}, :address => #{endereco.inspect}, :lat => #{ent.lat.inspect}, :lng => #{ent.long.inspect}, :geocode_precision => #{ent.geomodificou.inspect}, :data => { :id_sies => #{ent.id_sies.inspect} }, :organization_info => OrganizationInfo.new(:contact_email => #{email.inspect}) }, #{ent.products.map{|p| { :name => p.category.nome , :product_category_id => p.category.id } }.inspect}, #{ent.input_products.map{|p| {:product_category_id => p.category.id} }.inspect})"
   end
 
   def dump_city(city)
-    puts <<-EOF
-Region.create!(
-  :name => #{city.cidade.inspect},
-  :parent => STATES[#{city.id.to_s[0..1]}],
-  :lat => #{city.latitude},
-  :lng => #{city.longitude}
-)
-    EOF
+    puts "Region.create!(:name => #{city.cidade.inspect}, :parent => STATES[#{city.id.to_s[0..1]}], :lat => #{city.latitude}, :lng => #{city.longitude})"
   end
 
 end
 
 dumper = Dumper.new
+
+puts <<-EOF
+#!/usr/bin/env ruby
+require File.dirname(__FILE__) + '/../config/environment'
+require File.dirname(__FILE__) + '/fbes_populate_helper.rb'
+
+GetText.locale = 'pt_BR'
+
+EOF
 
 puts "categories = {}"
 Category.find(:all, :conditions => 'id_mae is null or id_mae = -1', :limit => LIMIT).each do |cat|
@@ -152,38 +119,6 @@ end
 Enterprise.find(:all, :limit => LIMIT).each do |ent|
   dumper.dump_enterprise(ent)
 end
-
-puts <<-EOF
-STATES = {
-  12 => Region.find_by_name('Acre'),
-  27 => Region.find_by_name('Alagoas'),
-  13 => Region.find_by_name('Amazonas'),
-  16 => Region.find_by_name('Amapá'),
-  29 => Region.find_by_name('Bahia'),
-  23 => Region.find_by_name('Ceará'),
-  53 => Region.find_by_name('Distrito Federal'),
-  32 => Region.find_by_name('Espírito Santo'),
-  52 => Region.find_by_name('Goiás'),
-  21 => Region.find_by_name('Maranhão'),
-  31 => Region.find_by_name('Minas Gerais'),
-  50 => Region.find_by_name('Mato Grosso do Sul'),
-  51 => Region.find_by_name('Mato Grosso'),
-  15 => Region.find_by_name('Pará'),
-  25 => Region.find_by_name('Paraíba'),
-  26 => Region.find_by_name('Pernambuco'),
-  22 => Region.find_by_name('Piauí'),
-  41 => Region.find_by_name('Paraná'),
-  33 => Region.find_by_name('Rio de Janeiro'),
-  24 => Region.find_by_name('Rio Grande do Norte'),
-  11 => Region.find_by_name('Rondônia'),
-  14 => Region.find_by_name('Roraima'),
-  43 => Region.find_by_name('Rio Grande do Sul'),
-  42 => Region.find_by_name('Santa Catarina'),
-  28 => Region.find_by_name('Sergipe'),
-  35 => Region.find_by_name('São Paulo'),
-  17 => Region.find_by_name('Tocantins'),
-}
-EOF
 
 City.find(:all, :limit => LIMIT).each do |city|
   dumper.dump_city(city)
