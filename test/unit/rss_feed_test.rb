@@ -201,4 +201,10 @@ class RssFeedTest < Test::Unit::TestCase
     assert_equal 'rss-feed', RssFeed.new.icon_name
   end
 
+  should 'advertise is false before create' do
+    profile = create_user('testuser').person
+    feed = RssFeed.create!(:name => 'testfeed', :profile => profile)
+    assert !feed.advertise?
+  end
+
 end

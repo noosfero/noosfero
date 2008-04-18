@@ -35,6 +35,10 @@ class CreateArticles < ActiveRecord::Migration
       # attachment_fu data for images
       t.column :height,       :integer  # in pixels
       t.column :width,        :integer  # in pixels
+      
+      # show in recent content?
+      t.column :advertise, :boolean, :default => true
+
     end
 
     Article.create_versioned_table

@@ -88,4 +88,26 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'a', :content => 'Friends', :attributes => { :href => /profile\/#{person.identifier}\/friends$/ }
   end
 
+  should 'not show homepage and feed automatically created on recent content' do
+    person = create_user('person_1').person
+    get :index, :profile => person.identifier
+    assert_tag :tag => 'div', :content => 'Recent content', :attributes => { :class => 'block recent-documents-block' }, :child => { :tag => 'ul', :content => '' }
+  end
+
+  should 'show homepage on recent content after update' do
+    person = create_user('person_1').person
+    person.home_page.name = 'Changed name'
+    assert person.home_page.save!
+    get :index, :profile => person.identifier
+    assert_tag :tag => 'div', :content => 'Recent content', :attributes => { :class => 'block recent-documents-block' }, :child => { :tag => 'ul', :content => /#{person.home_page.name}/ }
+  end
+
+  should 'show feed on recent content after update' do
+    person = create_user('person_1').person
+    person.articles.find_by_path('feed').name = 'Changed name'
+    assert person.articles.find_by_path('feed').save!
+    get :index, :profile => person.identifier
+    assert_tag :tag => 'div', :content => 'Recent content', :attributes => { :class => 'block recent-documents-block' }, :child => { :tag => 'ul', :content => /#{person.articles.find_by_path('feed').name}/ }
+  end
+
 end

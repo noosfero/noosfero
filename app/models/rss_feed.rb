@@ -1,8 +1,14 @@
 class RssFeed < Article
 
+  # i dont know why before filter dont work here
+  def initialize(*args)
+    super(*args)
+    self.advertise = false
+  end
+
   # store setting in body
   serialize :body, Hash
-
+  
   def body
     self[:body] ||= {}
   end

@@ -40,14 +40,19 @@ class RecentDocumentsBlockTest < Test::Unit::TestCase
     assert_no_match /href=.*\/testinguser\/first/, output
   end
 
-  should 'not list rss feed articles' do
-    profile.articles << RssFeed.create(:name => 'sixth')
-    profile.save!
-
+  should 'not list rss feed articles automatically created' do
+    assert_equal 'feed', profile.articles.find_by_path('feed').name
     output = block.content
-
     assert_match /href=.*\/testinguser\/first/, output
-    assert_no_match /href=.*\/testinguser\/sixth/, output
+    assert_no_match /href=.*\/testinguser\/feed/, output
+  end
+
+  should 'list rss feed articles after update' do
+    profile.articles.find_by_path('feed').name = 'chaged name'
+    assert profile.articles.find_by_path('feed').save!
+    output = block.content
+    assert_match /href=.*\/testinguser\/first/, output
+    assert_match /href=.*\/testinguser\/feed/, output
   end
 
 end

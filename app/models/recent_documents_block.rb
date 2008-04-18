@@ -8,14 +8,9 @@ class RecentDocumentsBlock < Block
 
   include ActionController::UrlWriter
   def content
-    docs =
-      if self.limit.nil?
-        owner.recent_documents
-      else
-        owner.recent_documents(self.limit)
-      end
+    docs = self.limit.nil? ? owner.recent_documents : owner.recent_documents(self.limit)
 
-    docs = docs.select{|d| d.kind_of?(TextArticle)}
+    docs.delete_if{|d| d.kind_of?(Article) and !d.advertise?}
 
     block_title(_('Recent content')) +
     content_tag('ul', docs.map {|item| content_tag('li', link_to(item.title, item.url))}.join("\n"))

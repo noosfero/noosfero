@@ -410,6 +410,28 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal [p3,p2], Profile.recent(2)
   end
 
+  should 'advertise false to homepage and feed on creation' do
+    profile = Profile.create!(:name => 'my test profile', :identifier => 'mytestprofile')
+    assert !profile.home_page.advertise?
+    assert !profile.articles.find_by_path('feed').advertise?
+  end
+
+  should 'advertise true to homepage after update' do
+    profile = Profile.create!(:name => 'my test profile', :identifier => 'mytestprofile')
+    assert !profile.home_page.advertise?
+    profile.home_page.name = 'Changed name'
+    assert profile.home_page.save!
+    assert profile.home_page.advertise?
+  end
+
+  should 'advertise true to feed after update' do
+    profile = Profile.create!(:name => 'my test profile', :identifier => 'mytestprofile')
+    assert !profile.articles.find_by_path('feed').advertise?
+    profile.articles.find_by_path('feed').name = 'Changed name'
+    assert profile.articles.find_by_path('feed').save!
+    assert profile.articles.find_by_path('feed').advertise?
+  end
+
   private
 
   def assert_invalid_identifier(id)
@@ -417,4 +439,5 @@ class ProfileTest < Test::Unit::TestCase
     assert !profile.valid?
     assert profile.errors.invalid?(:identifier)
   end
+
 end
