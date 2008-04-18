@@ -1,14 +1,30 @@
+<div id="search-results" class="<%= 'only-one-result-box' if @results.size == 1 %>">
+<% pos = :odd %>
 <% @results.each do |name,results| %>
   <% if !results.nil? and !results.empty? %>
-    <div id="search-results-<%= name %>">
+    <div class="search-results-<%= name %> search-results-box <%= pos==:odd ? pos=:even : pos=:odd %>">
       <% if params[:action] != 'assets' %>
         <h3><%= @names[name] %></h3>
       <% end %>
-      <ul>
-      <% results.each do |hit| %>
-        <%= render :partial => partial_for_class(hit.class), :object => hit %>
+      <% partial = partial_for_class results.first.class %>
+      <div class="search-results-innerbox search-results-type-<%= partial %> <%= 'common-profile-list-block' if partial == 'profile' %>">
+        <ul>
+        <% results.each do |hit| %>
+          <%= render :partial => partial, :object => hit %>
+        <% end %>
+        </ul>
+      </div><!-- end class="search-results-innerbox" -->
+    </div><!-- end class="search-results-<%= name %>" -->
+  <% else %>
+    <div class="search-results-<%= name %> search-results-empty search-results-box <%= pos==:odd ? pos=:even : pos=:odd %>">
+      <% if params[:action] != 'assets' %>
+        <h3><%= @names[name] %></h3>
       <% end %>
-      </ul>
-    </div>
+      <div class="search-results-innerbox search-results-type-empty">
+        <div> <%= _('None') %> </div>
+      </div><!-- end class="search-results-innerbox" -->
+    </div><!-- end class="search-results-<%= name %>" -->
   <% end %>
 <% end %>
+<br style="clear:both" />
+<div><!-- end id="search-results" -->

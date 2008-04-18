@@ -1,0 +1,100 @@
+#search-results {
+  /* none by default, but... Who knows the future?  :-) */
+}
+
+#search-results h3 {
+  margin: 20px 0px 0px 20px;
+}
+
+.search-results-box {
+  float: left;
+  width: 49%;
+}
+
+.only-one-result-box .search-results-box {
+  width: 100%;
+}
+
+.search-results-box.odd {
+  margin-left: 1%;
+}
+
+.search-results-innerbox {
+  border: 1px solid #2A5896;
+  padding: 10px 0px 10px 10px;
+  height: 205px;
+  overflow: auto;
+}
+
+.search-results-innerbox.common-profile-list-block {
+  padding: 10px 0px 0px 10px;
+  height: 215px;
+}
+
+.only-one-result-box .search-results-innerbox,
+.only-one-result-box .search-results-innerbox.common-profile-list-block {
+  height: auto;
+  padding: 10px 4px 10px 10px;
+}
+
+#content .search-results-type-article ul,
+#content .search-results-type-article li {
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+}
+#content .search-results-type-article li {
+  padding: 2px 0px 4px 0px;
+}
+
+.search-results-type-article .item_meta {
+  font-size: 10px;
+  color: #888;
+}
+
+#content .search-results-type-product ul,
+#content .search-results-type-product li {
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+  font-size: 10px;
+}
+#content .search-results-type-product li strong {
+  display: block;
+  margin-left: 55px;
+  font-size: 12px;
+}
+
+#content .search-results-type-product li {
+  padding-bottom: 10px;
+}
+#content .search-results-type-product li li {
+  padding-bottom: 0px;
+}
+
+.product-pic {
+  display: block;
+  float: left;
+  width: 50px;
+  height: 50px;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  position: relative;
+  top: 5px;
+}
+.product-pic span {
+  display: none;
+}
+
+#content .search-results-type-product ul ul {
+  margin-left: 55px;
+}
+
+.search-results-type-empty div {
+  text-align: center;
+  color: #DDD;
+  font-weight: bold;
+  font-size: 30px;
+  padding: 70px 10px 0px 0px;
+}
+

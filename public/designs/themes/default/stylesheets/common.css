@@ -152,3 +152,6 @@ div.file-manager-button a:hover {
 }
 
 
+#lightbox{
+  background: #FFF url(../images/bg-top-cinza.jpg) no-repeat 50% -15px;
+}

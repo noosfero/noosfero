@@ -1,0 +1,32 @@
+
+.search-results-innerbox {
+  border: none;
+  background: #B8CFE7;
+  -moz-border-radius: 15px;
+}
+
+.search-results-type-article a,
+.search-results-type-product a {
+  text-decoration: none;
+}
+.search-results-type-article a:hover,
+.search-results-type-product a:hover {
+  text-decoration: underline;
+}
+
+.search-results-type-product li li a {
+  color: #204A87;
+}
+
+#search-results .common-profile-list-block li a {
+  border: 2px solid #B8CFE7;
+}
+#search-results .common-profile-list-block li a:hover {
+  border: 2px solid #2A5896;
+  background: #CFDFF7;
+}
+
+.search-results-type-empty div {
+  color: #729FCF;
+}
+

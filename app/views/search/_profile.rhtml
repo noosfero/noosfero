@@ -1,9 +1,2 @@
 <%# FIXME add more information %>
-<li>
-  <div class='search-result-text'>
-    <%= image_tag(profile.image.public_filename(:minor)) if profile.image %>
-    <strong>
-      <%= link_to_homepage(profile.name, profile.identifier) %>
-    </strong>
-  </div>
-</li>
+<li> <%= profile_image_link profile, :portrait %> </li>

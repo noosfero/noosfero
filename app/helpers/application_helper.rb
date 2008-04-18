@@ -312,9 +312,11 @@ module ApplicationHelper
     link_to name, :controller => 'search', :action => 'category_index', :category_path => category.path.split('/')
   end
 
-  def link_to_product(product)
+  def link_to_product(product, opts={})
     return _('No product') unless product
-    link_to product.name, :controller => 'catalog', :action => 'show', :id => product, :profile => product.enterprise.identifier
+    link_to content_tag( 'span', product.name ),
+            { :controller => 'catalog', :action => 'show', :id => product, :profile => product.enterprise.identifier },
+            opts
   end
 
   def partial_for_class(klass)

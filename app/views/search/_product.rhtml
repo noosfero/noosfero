@@ -1,10 +1,11 @@
 <%# FIXME add more information %>
 
 <li>
-  <div class='search-result-text'>
-    <%= image_tag(product.image.public_filename(:minor)) if product.image %>
+    <%= link_to_product product, :class => 'product-pic', :style => 'background-image:url(%s)' %
+                        ( product.image ? product.image.public_filename(:minor) :
+                                         '/images/icons-app/product-default-pic-minor.png' ) %>
     <strong>
-      <%= link_to_product(product) %>
+      <%= link_to_product product %>
     </strong> 
     <ul>
       <li> <%= _('Price: %d') % product.price %> </li>
@@ -13,5 +14,4 @@
       <% end %>
       <li> <%= _('Category: %s') % link_to_category(product.product_category) %> </li>
     </ul>
-  </div>
 </li>
