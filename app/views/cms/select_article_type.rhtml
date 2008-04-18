@@ -3,7 +3,7 @@
 <ul id="article_types">
   <% for type in @article_types %>
     <li>
-    <%= link_to type[:short_description], :action => 'new', :type => type[:name], :parent_id => params[:parent_id] %>
+    <%= link_to type[:short_description], :action => 'new', :type => type[:name], :parent_id => @parent_id %>
     <br/> <%= type[:description] %>
     </li>
   <% end %>

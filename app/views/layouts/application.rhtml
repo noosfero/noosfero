@@ -39,7 +39,7 @@
     <%= javascript_include_tag 'auto-open-menu' %>
     <%= include_lightbox_header %>
     <%# cms stuff %>
-    <% if params[:controller] == 'cms' %>
+    <% if @controller.controller_name == 'cms' %>
       <%= javascript_include_tag 'cms' %>
     <% end %>
   </head>

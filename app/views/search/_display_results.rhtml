@@ -3,7 +3,7 @@
 <% @results.each do |name,results| %>
   <% if !results.nil? and !results.empty? %>
     <div class="search-results-<%= name %> search-results-box <%= pos==:odd ? pos=:even : pos=:odd %>">
-      <% if params[:action] != 'assets' %>
+      <% if @controller.action_name != 'assets' %>
         <h3><%= @names[name] %></h3>
       <% end %>
       <% partial = partial_for_class results.first.class %>
@@ -17,7 +17,7 @@
     </div><!-- end class="search-results-<%= name %>" -->
   <% else %>
     <div class="search-results-<%= name %> search-results-empty search-results-box <%= pos==:odd ? pos=:even : pos=:odd %>">
-      <% if params[:action] != 'assets' %>
+      <% if @controller.action_name != 'assets' %>
         <h3><%= @names[name] %></h3>
       <% end %>
       <div class="search-results-innerbox search-results-type-empty">

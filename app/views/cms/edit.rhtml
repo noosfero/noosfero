@@ -2,9 +2,9 @@
 
 <% labelled_form_for 'article', @article, :html => { :multipart => true } do |f| %>
 
-  <%= hidden_field_tag("type", params[:type]) if params[:type] %>
+  <%= hidden_field_tag("type", @type) if @type %>
 
-  <%= hidden_field_tag('parent_id', params[:parent_id]) if params[:parent_id] %>
+  <%= hidden_field_tag('parent_id', @parent_id) if @parent_id %>
 
   <%= render :partial => partial_for_class(@article.class), :locals => { :f => f } %>
 

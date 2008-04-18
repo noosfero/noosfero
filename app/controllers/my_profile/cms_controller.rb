@@ -29,6 +29,8 @@ class CmsController < MyProfileController
 
   def edit
     @article = profile.articles.find(params[:id])
+    @parent_id = params[:parent_id]
+    @type = params[:type]
     if request.post?
       @article.last_changed_by = user
       if @article.update_attributes(params[:article])
@@ -50,6 +52,7 @@ class CmsController < MyProfileController
           :description => type.description
         })
       end
+      @parent_id = params[:parent_id]
       render :action => 'select_article_type', :layout => false
       return
     end
