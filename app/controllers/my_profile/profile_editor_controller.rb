@@ -41,5 +41,15 @@ class ProfileEditorController < MyProfileController
     end
   end
 
+  private
+
+  require 'erb'
+  include ERB::Util
+  def sanitize
+    if params[:info]
+      params[:info][:name] = html_escape(params[:info][:name]) if params[:info][:name]
+    end
+  end
+
 end
 

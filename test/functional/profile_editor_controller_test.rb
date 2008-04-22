@@ -52,7 +52,6 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     assert_template 'person_info'
     assert_response :success
     assert_template 'person_info'
-
   end
 
   def test_saving_profile_info 
@@ -91,6 +90,13 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     assert_response :redirect
     assert_redirected_to :action => 'index'
     assert_includes person.categories, cat2
+  end
+
+  should 'filter html from name when edit person_info' do
+    person = create_user('test_profile').person
+    name = "name <strong id='name_html_test'>with</strong> html"
+    post :edit, :profile => person.identifier, :info => { :name => name }
+    assert_not_equal name, assigns(:profile).info.name
   end
 
 end
