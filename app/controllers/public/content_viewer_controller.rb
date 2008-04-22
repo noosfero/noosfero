@@ -67,4 +67,16 @@ class ContentViewerController < PublicController
     redirect_to :action => 'view_page'
   end
 
+  private
+
+  include ERB::Util
+
+  def sanitize
+    if params[:comment]
+      if params[:comment][:body]
+        params[:comment][:body] = html_escape(params[:comment][:body]) 
+      end
+    end
+  end
+
 end

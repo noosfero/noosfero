@@ -187,4 +187,12 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'div', :attributes => { :class => 'post_comment_box opened' }
   end
   
+  should 'filter html content from body' do
+    login_as @profile.identifier
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
+    post :view_page, :profile => @profile.identifier, :page => [ 'myarticle' ],
+      :comment => { :title => 'html comment', :body => "this is a <strong id='html_test_comment'>html comment</strong>" }
+    assert_no_tag :tag => 'strong', :attributes => { :id => 'html_test_comment' }
+  end
+
 end

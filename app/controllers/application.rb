@@ -40,6 +40,9 @@ class ApplicationController < ActionController::Base
     verify :method => :post, :only => actions, :redirect_to => redirect
   end
 
+  # to sanitize params[...] add method sanitize to controller
+  before_filter :sanitize
+
   protected
 
   # TODO: move this logic somewhere else (Domain class?)
@@ -112,5 +115,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  private
+
+  def sanitize
+    # dont sanitize anything for default
+  end
 
 end
