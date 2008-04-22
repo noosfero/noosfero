@@ -104,7 +104,7 @@ class EnterpriseValidationControllerTest < Test::Unit::TestCase
   should 'save an alteration of the validation info' do
     info = ValidationInfo.new(:validation_methodology => 'none')
     @org.expects(:validation_info).returns(info)
-    post :edit_validation_info, :profile => 'myorg', :validation_info => {:validatin_methodology => 'new methodaology'}
+    post :edit_validation_info, :profile => 'myorg', :info => {:validation_methodology => 'new methodology'}
     
     assert_response :redirect
     assert_redirected_to :action => 'index'
@@ -118,6 +118,22 @@ class EnterpriseValidationControllerTest < Test::Unit::TestCase
     
     assert_response :success
     assert_equal info, assigns(:info)
+  end
+
+  should 'filter html from methodology of the validation info' do
+    info = ValidationInfo.new(:validation_methodology => 'none')
+    @org.expects(:validation_info).returns(info)
+    post :edit_validation_info, :profile => 'myorg', :info => {:validation_methodology => 'new <b>methodology</b>'}
+
+    assert_not_equal assigns(:info).validation_methodology, 'new <b>methodology</b>'
+  end
+
+  should 'filter html from restriction of the validation info' do
+    info = ValidationInfo.new(:validation_methodology => 'none')
+    @org.expects(:validation_info).returns(info)
+    post :edit_validation_info, :profile => 'myorg', :info => {:restrictions => 'new <b>methodology</b>'}
+
+    assert_not_equal assigns(:info).restrictions, 'new <b>methodology</b>'
   end
 
 end

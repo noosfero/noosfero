@@ -60,4 +60,15 @@ class EnterpriseValidationController < MyProfileController
     end
   end
 
+  private
+
+  require 'erb'
+  include ERB::Util
+  def sanitize
+    if params[:info]
+      params[:info][:validation_methodology] = html_escape(params[:info][:validation_methodology]) if params[:info][:validation_methodology]
+      params[:info][:restrictions] = html_escape(params[:info][:restrictions]) if params[:info][:restrictions]
+    end
+  end
+
 end
