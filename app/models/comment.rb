@@ -9,6 +9,7 @@ class Comment < ActiveRecord::Base
   # unauthenticated authors:
   validates_presence_of :name, :if => (lambda { |record| !record.email.blank? })
   validates_presence_of :email, :if => (lambda { |record| !record.name.blank? })
+  validates_format_of :email, :with => Noosfero::Constants::EMAIL_FORMAT, :if => (lambda { |record| !record.email.blank? })
 
   # require either a recognized author or an external person
   validates_presence_of :author_id, :if => (lambda { |rec| rec.name.blank? && rec.email.blank? })

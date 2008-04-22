@@ -41,7 +41,7 @@ class CommentTest < Test::Unit::TestCase
     # if given name, require email
     c1 = Comment.new
     c1.name = 'My Name'
-    assert_mandatory c1, :email
+    assert_mandatory c1, :email, 'my@email.com'
 
     # if given email, require name
     c2 = Comment.new
@@ -137,5 +137,10 @@ class CommentTest < Test::Unit::TestCase
     assert_equal comments, Comment.recent(2)
   end
 
+  should 'not accept invalid email' do
+    c = Comment.new(:name => 'My Name', :email => 'my@invalid')
+    c.valid?
+    assert c.errors.invalid?(:email)
+  end
 
 end
