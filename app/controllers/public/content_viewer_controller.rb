@@ -69,13 +69,12 @@ class ContentViewerController < PublicController
 
   private
 
+  require 'erb'
   include ERB::Util
-
   def sanitize
     if params[:comment]
-      if params[:comment][:body]
-        params[:comment][:body] = html_escape(params[:comment][:body]) 
-      end
+      params[:comment][:body] = html_escape(params[:comment][:body]) if params[:comment][:body]
+      params[:comment][:title] = html_escape(params[:comment][:title]) if params[:comment][:title]
     end
   end
 

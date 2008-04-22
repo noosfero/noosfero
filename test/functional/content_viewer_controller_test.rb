@@ -195,4 +195,12 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'strong', :attributes => { :id => 'html_test_comment' }
   end
 
+  should 'filter html content from title' do
+    login_as @profile.identifier
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
+    post :view_page, :profile => @profile.identifier, :page => [ 'myarticle' ],
+      :comment => { :title => "html <strong id='html_test_comment'>comment</strong>", :body => "this is a comment" }
+    assert_no_tag :tag => 'strong', :attributes => { :id => 'html_test_comment' }
+  end
+
 end

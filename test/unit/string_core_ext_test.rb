@@ -1,8 +1,9 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-# tests for String#to_slug core extension. See lib/noosfero/core_ext/string.rb
-class SlugTest < Test::Unit::TestCase
+# tests for String core extension. See lib/noosfero/core_ext/string.rb
+class StringCoreExtTest < Test::Unit::TestCase
 
+  # tests for String#to_slug
   should 'keep only alphanum' do
     assert_equal 'abc', 'abc!)@(*#&@!*#*)'.to_slug
   end
@@ -21,6 +22,11 @@ class SlugTest < Test::Unit::TestCase
 
   should 'not remove dots' do
     assert_equal 'a.b', 'a.b'.to_slug
+  end
+
+  # tests for String#transliterate
+  should 'transliterate' do
+    assert_equal 'eeeeEEOOoocaaaiIIiuuyYnN', 'éèëêÊËÖÔöôçäàâîÏÎïûüÿŸñÑ'.transliterate
   end
 
 end
