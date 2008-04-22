@@ -56,5 +56,16 @@ class ManageProductsController < ApplicationController
     @categories = @current_category.children
     render :partial => 'subcategories'
   end
+
+  private
+
+  require 'erb'
+  include ERB::Util
+  def sanitize
+    if params[:product]
+      params[:product][:name] = html_escape(params[:product][:name]) if params[:product][:name]
+      params[:product][:description] = html_escape(params[:product][:description]) if params[:product][:description]
+    end
+  end
  
 end

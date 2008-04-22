@@ -169,4 +169,16 @@ class ManageProductsControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'input', :attributes => { :type => 'file', :name => 'product[image_builder][uploaded_data]' }
   end
 
+  should 'filter html from name of product' do
+    category = ProductCategory.create!(:name => 'Category 1', :environment => Environment.default)
+    post 'new', :profile => @enterprise.identifier, :product => { :name => "<b id='html_name'>name bold</b>", :product_category_id => category.id }
+    assert_not_equal assigns(:product).name, "<b id='html_name'>name bold</b>"
+  end
+
+  should 'filter html from description of product' do
+    category = ProductCategory.create!(:name => 'Category 1', :environment => Environment.default)
+    post 'new', :profile => @enterprise.identifier, :product => { :name => 'name', :description => "<b id='html_descr'>descr bold</b>", :product_category_id => category.id }
+    assert_not_equal assigns(:product).description, "<b id='html_descr'>descr bold</b>"
+  end
+
 end
