@@ -6,6 +6,6 @@
       <%= _('by %s') % link_to(article.last_changed_by.name, article.last_changed_by.url) %>
       </span>
     <% end %>
-    <span class="cat_item_update"><%= _('Last update: %s.') % show_date(article.updated_on) %></span>
+    <span class="cat_item_update"><%= _('Last update: %s.') % show_date(article.updated_at) %></span>
   </div>
 </li>

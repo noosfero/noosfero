@@ -88,7 +88,7 @@ class RssFeed < Article
                 xml.description(article.abstract)
               end
               # rfc822
-              xml.pubDate(article.created_on.rfc2822)
+              xml.pubDate(article.created_at.rfc2822)
               # link to article
               xml.link(url_for(article.url))
               xml.guid(url_for(article.url))

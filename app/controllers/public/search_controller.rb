@@ -9,7 +9,7 @@ class SearchController < ApplicationController
   protected
 
   def search(finder, query)
-    finder.find_by_contents(query).sort_by(&:created_at).sort_by do |hit|
+    finder.find_by_contents(query).sort_by do |hit|
       -(relevance_for(hit))
     end
   end

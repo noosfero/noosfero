@@ -37,7 +37,7 @@ class Category < ActiveRecord::Base
   end
 
   def recent_comments(limit = 10)
-    comments.find(:all, :order => 'created_on DESC, comments.id DESC', :limit => limit)
+    comments.find(:all, :order => 'created_at DESC, comments.id DESC', :limit => limit)
   end
 
   def most_commented_articles(limit = 10)

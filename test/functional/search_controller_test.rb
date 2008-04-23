@@ -352,7 +352,7 @@ class SearchControllerTest < Test::Unit::TestCase
         :products => 'Products',
     }
     names.each do |thing, description|
-      assert_tag :tag => 'div', :attributes => { :id => "search-results-#{thing}" }, :descendant => { :tag => 'h3', :content => description }
+      assert_tag :tag => 'div', :attributes => { :class => /search-results-#{thing}/ }, :descendant => { :tag => 'h3', :content => description }
       assert_tag :tag => 'a', :content => "display #{thing.to_s.singularize}"
     end
   end

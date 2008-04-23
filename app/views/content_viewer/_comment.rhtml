@@ -23,7 +23,7 @@
   <div class="comment-info">
     <%= _('By %{author} on %{date}') % {
         :author => comment.author ? link_to(comment.author.name, comment.author.url) : content_tag('u', comment.name),
-        :date => show_time(comment.created_on) } %>
+        :date => show_time(comment.created_at) } %>
     <%= '<br/>' + _('(unauthenticated user)') if ! comment.author %>
   </div>
   <div class="comment-text">

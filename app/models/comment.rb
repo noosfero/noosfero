@@ -36,7 +36,7 @@ class Comment < ActiveRecord::Base
   end
 
   def self.recent(limit = nil)
-    self.find(:all, :order => 'created_on desc, id desc', :limit => limit)
+    self.find(:all, :order => 'created_at desc, id desc', :limit => limit)
   end
 
 end
