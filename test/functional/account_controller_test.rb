@@ -17,6 +17,14 @@ class AccountControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
   end
 
+  def test_local_files_reference
+    assert_local_files_reference
+  end
+  
+  def test_valid_xhtml
+    assert_valid_xhtml
+  end
+  
   def test_should_login_and_redirect
     post :login, :user => {:login => 'johndoe', :password => 'test'}
     assert session[:user]

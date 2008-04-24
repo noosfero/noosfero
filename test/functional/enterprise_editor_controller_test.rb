@@ -11,6 +11,14 @@ class EnterpriseEditorControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
   end
 
+  def test_local_files_reference
+    assert_local_files_reference
+  end
+  
+  def test_valid_xhtml
+    assert_valid_xhtml
+  end
+  
   should 'not see index if do not logged in' do
     ent1 = Enterprise.create!(:identifier => 'test_enterprise1', :name => 'Test enteprise1')
     get 'index', :profile => 'test_enterprise1'

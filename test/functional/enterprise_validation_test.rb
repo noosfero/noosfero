@@ -19,6 +19,14 @@ class EnterpriseValidationControllerTest < Test::Unit::TestCase
     Profile.expects(:find_by_identifier).with('myorg').returns(@org).at_least_once
   end
 
+  def test_local_files_reference
+    assert_local_files_reference
+  end
+  
+  def test_valid_xhtml
+    assert_valid_xhtml
+  end
+  
   should 'list pending validations on index' do
     empty = []
     @org.expects(:pending_validations).returns(empty)

@@ -19,6 +19,14 @@ class CmsControllerTest < Test::Unit::TestCase
 
   attr_reader :profile
 
+  def test_local_files_reference
+    assert_local_files_reference
+  end
+  
+  def test_valid_xhtml
+    assert_valid_xhtml
+  end
+  
   should 'list top level documents on index' do
     get :index, :profile => profile.identifier
 

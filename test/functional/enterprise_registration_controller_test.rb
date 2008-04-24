@@ -15,6 +15,14 @@ all_fixtures
     login_as 'ze'
   end
 
+  def test_local_files_reference
+    assert_local_files_reference
+  end
+  
+  def test_valid_xhtml
+    assert_valid_xhtml
+  end
+  
   should 'go to the first step on index' do
     get :index
     assert_response :success

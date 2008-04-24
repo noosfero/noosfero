@@ -17,6 +17,14 @@ class ConsumedProductsControllerTest < Test::Unit::TestCase
   end
   attr_reader :profile
 
+  def test_local_files_reference
+    assert_local_files_reference
+  end
+  
+  def test_valid_xhtml
+    assert_valid_xhtml
+  end
+  
   should 'display new form' do
     login_as(profile.identifier)
     get :new, :profile => profile.identifier

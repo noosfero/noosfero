@@ -2,6 +2,8 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'test_help'
 require 'mocha'
+require 'tidy'
+require 'hpricot'
 
 require 'noosfero/test'
 
@@ -133,6 +135,55 @@ class Test::Unit::TestCase
   
   def assert_subclass(parent, child)
     assert_equal parent, child.superclass, "Class #{child} expected to be a subclass of #{parent}"
+  end
+
+  def assert_valid_xhtml(method=:get, action=:index, params = {})
+    if method.to_s() == 'post'
+      post action, params
+    else
+      get action, params
+    end
+    tidy = Tidy.open(:show_warnings=>false)
+    tidy.options.output_xml = true
+    tidy.clean @response.body
+    if tidy.errors
+      flunk "HTML ERROR - Tidy Diagnostics:\n  "+
+            tidy.errors.join("\n  ") +"\n  "+
+            tidy.diagnostics.join("\n  ")
+    end
+  end
+
+  def assert_local_files_reference(method=:get, action=:index, params = {})
+    if method.to_s() == 'post'
+      post action, params
+    else
+      get action, params
+    end
+    doc = Hpricot @response.body
+    
+    # Test style references:
+    (doc/'style').each do |s|
+      s = s.to_s().gsub( /\/\*.*\*\//, '' ).
+                   split( /;|<|>|\n/ ).
+                   map do |l|
+                     patch = l.match( /@import url\((.*)\)/ )
+                     patch ? patch[1] : nil
+                   end.compact
+      s.each do |css_ref|
+        if ! File.exists?( RAILS_ROOT.to_s() +'/public/'+ css_ref )
+          flunk 'CSS reference missed on HTML: "%s"' % css_ref
+        end
+      end
+    end
+
+    # Test image references:
+    (doc/'img').each do |img|
+      src = img.get_attribute( 'src' )
+      if ! File.exists?( RAILS_ROOT.to_s() +'/public/'+ src )
+        flunk 'Image reference missed on HTML: "%s"' % src
+      end
+    end
+
   end
 
   # this check only if string has html tag

@@ -20,6 +20,14 @@ class MyProfileControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
   end
 
+  def test_local_files_reference
+    assert_local_files_reference
+  end
+  
+  def test_valid_xhtml
+    assert_valid_xhtml
+  end
+  
   def test_should_allow_person
     @controller = OnlyForPersonTestController.new
     person = create_user('random_joe')

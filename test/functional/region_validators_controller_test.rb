@@ -13,6 +13,14 @@ class RegionValidatorsControllerTest < Test::Unit::TestCase
     login_as('ze')
   end
 
+  def test_local_files_reference
+    assert_local_files_reference
+  end
+  
+  def test_valid_xhtml
+    assert_valid_xhtml
+  end
+  
   # Replace this with your real tests.
   should 'list regions at index' do
     get :index

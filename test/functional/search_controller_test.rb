@@ -13,6 +13,14 @@ class SearchControllerTest < Test::Unit::TestCase
     @category = Category.create!(:name => 'my category', :environment => Environment.default)
   end
 
+  def test_local_files_reference
+    assert_local_files_reference
+  end
+  
+  def test_valid_xhtml
+    assert_valid_xhtml
+  end
+
   should 'filter stop words' do
     @controller.expects(:locale).returns('pt_BR').at_least_once
     get 'index', :query => 'a carne da vaca'

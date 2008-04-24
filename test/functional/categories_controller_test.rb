@@ -20,6 +20,14 @@ class CategoriesControllerTest < Test::Unit::TestCase
 
   attr_reader :env, :cat1, :cat2
 
+  def test_local_files_reference
+    assert_local_files_reference
+  end
+  
+  def test_valid_xhtml
+    assert_valid_xhtml
+  end
+  
   def test_index
     assert user =  login_as(create_admin_user(Environment.default))
     assert user.person.has_permission?('manage_environment_categories',Environment.default ), "#{user.login} don't have permission to manage_environment_categories in #{Environment.default.name}"

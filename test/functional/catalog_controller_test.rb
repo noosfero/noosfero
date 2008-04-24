@@ -11,6 +11,14 @@ class CatalogControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
   end
 
+  def test_local_files_reference
+    assert_local_files_reference
+  end
+  
+  def test_valid_xhtml
+    assert_valid_xhtml
+  end
+  
   should 'list products of enterprise' do
     ent = Enterprise.create!(:identifier => 'test_enterprise1', :name => 'Test enteprise1')
     get :index, :profile => ent.identifier

@@ -11,6 +11,14 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
   end
 
+  def test_local_files_reference
+    assert_local_files_reference
+  end
+  
+  def test_valid_xhtml
+    assert_valid_xhtml
+  end
+  
   should 'not access index if dont have permission' do
     user = create_user('test_user')
     Enterprise.create!(:identifier => 'test_enterprise', :name => 'test enterprise')

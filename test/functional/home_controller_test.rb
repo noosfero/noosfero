@@ -14,6 +14,14 @@ all_fixtures
     @response   = ActionController::TestResponse.new
   end
 
+  def test_local_files_reference
+    assert_local_files_reference
+  end
+  
+  def test_valid_xhtml
+    assert_valid_xhtml
+  end
+  
   def test_detection_of_environment_by_host
     uses_host 'www.colivre.net'
     get :index

@@ -14,6 +14,14 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     login_as('ze')
   end
 
+  def test_local_files_reference
+    assert_local_files_reference
+  end
+  
+  def test_valid_xhtml
+    assert_valid_xhtml
+  end
+  
   def test_index
     person = User.create(:login => 'test_profile', :email => 'test@noosfero.org', :password => 'test', :password_confirmation => 'test').person
     person.person_info.name = 'a test profile'
