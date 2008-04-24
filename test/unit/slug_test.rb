@@ -19,8 +19,8 @@ class SlugTest < Test::Unit::TestCase
     assert_equal 'a-b', 'a b'.to_slug
   end
 
-  should 'remove dots' do
-    assert_equal 'a-b', 'a.b'.to_slug
+  should 'not remove dots' do
+    assert_equal 'a.b', 'a.b'.to_slug
   end
 
 end
