@@ -75,13 +75,6 @@
       <a href="#content" id="link_go_content"><span><%= _('Go to content') %></span></a>
     </div><!-- accessibility_menu -->
 
-    <div id="path_category">
-      <% if @category -%>
-        <%= @category.full_name(" &rarr; ") %>
-      <% end -%>
-      <%= javascript_tag(visual_effect(:fade, "path_category", :duration => 10)) %>
-    </div>
-
     <div id="wrap">
 
       <div id="beta-tag"><span>BETA</span></div>
