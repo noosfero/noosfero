@@ -467,5 +467,10 @@ class SearchControllerTest < Test::Unit::TestCase
     get :assets, :asset => 'products'
     assert_equal 'Products', assigns(:asset_name)
   end
+
+  should 'not use design blocks' do
+    get :index
+    assert_no_tag :tag => 'div', :attributes => { :id => 'boxes', :class => 'boxes' }
+  end
   
 end

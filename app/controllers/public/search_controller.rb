@@ -6,6 +6,8 @@ class SearchController < ApplicationController
   before_filter :prepare_filter
   before_filter :check_search_whole_site
 
+  no_design_blocks
+
   protected
 
   def search(finder, query)
