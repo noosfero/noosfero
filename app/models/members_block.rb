@@ -11,7 +11,7 @@ class MembersBlock < ProfileListBlock
   def footer
     profile = self.owner
     lambda do
-      link_to _('All members'), :profile => profile.identifier, :controller => 'profile', :action => 'members'
+      link_to _('View all'), :profile => profile.identifier, :controller => 'profile', :action => 'members'
     end
   end
 

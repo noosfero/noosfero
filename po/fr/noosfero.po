@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.9.0\n"
-"POT-Creation-Date: 2008-04-17 11:27-0300\n"
+"POT-Creation-Date: 2008-04-24 12:10-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -93,7 +93,7 @@ msgstr ""
 msgid "Could not update the product"
 msgstr ""
 
-#: app/controllers/my_profile/cms_controller.rb:87
+#: app/controllers/my_profile/cms_controller.rb:90
 msgid "Article \"%s\" configured as home page."
 msgstr ""
 
@@ -195,6 +195,14 @@ msgstr ""
 
 #: app/models/product.rb:-
 msgid "Product|Image"
+msgstr ""
+
+#: app/models/product.rb:-
+msgid "Product|Created at"
+msgstr ""
+
+#: app/models/product.rb:-
+msgid "Product|Updated at"
 msgstr ""
 
 #: app/models/product.rb:32 app/helpers/application_helper.rb:310
@@ -339,11 +347,11 @@ msgid "Article|Profile"
 msgstr ""
 
 #: app/models/profile.rb:-
-msgid "Article|Updated on"
+msgid "Article|Updated at"
 msgstr ""
 
 #: app/models/profile.rb:-
-msgid "Article|Created on"
+msgid "Article|Created at"
 msgstr ""
 
 #: app/models/profile.rb:-
@@ -384,6 +392,10 @@ msgstr ""
 
 #: app/models/profile.rb:-
 msgid "Article|Comments count"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "Article|Advertise"
 msgstr ""
 
 #: app/models/profile.rb:-
@@ -591,6 +603,7 @@ msgid "Clicking on the people or groups will take you to their home page."
 msgstr ""
 
 #: app/models/profile_list_block.rb:69
+#: app/views/search/_display_results.rhtml:24
 msgid "None"
 msgstr ""
 
@@ -1106,7 +1119,7 @@ msgstr ""
 msgid "List of recent content"
 msgstr ""
 
-#: app/models/recent_documents_block.rb:20
+#: app/models/recent_documents_block.rb:15
 msgid "Recent content"
 msgstr ""
 
@@ -1120,23 +1133,23 @@ msgstr ""
 msgid "Tag list"
 msgstr ""
 
-#: app/models/article.rb:71
+#: app/models/article.rb:75
 msgid "HTML Text document"
 msgstr ""
 
-#: app/models/article.rb:80
+#: app/models/article.rb:84
 msgid "Article"
 msgstr ""
 
-#: app/models/article.rb:82
+#: app/models/article.rb:86
 msgid "\"%s\" article"
 msgstr ""
 
-#: app/models/article.rb:88
+#: app/models/article.rb:92
 msgid "An ordinary article"
 msgstr ""
 
-#: app/models/article.rb:90
+#: app/models/article.rb:94
 msgid "An article of type \"%s\""
 msgstr ""
 
@@ -1237,26 +1250,26 @@ msgid "Comment|Email"
 msgstr ""
 
 #: app/models/comment.rb:-
-msgid "Comment|Created on"
+msgid "Comment|Created at"
 msgstr ""
 
-#: app/models/comment.rb:17
+#: app/models/comment.rb:18
 msgid "%{fn} can only be informed for unauthenticated authors"
 msgstr ""
 
-#: app/models/rss_feed.rb:71
+#: app/models/rss_feed.rb:77
 msgid "%s's RSS feed"
 msgstr ""
 
-#: app/models/rss_feed.rb:73
+#: app/models/rss_feed.rb:79
 msgid "%s's content published at %s"
 msgstr ""
 
-#: app/models/rss_feed.rb:99
+#: app/models/rss_feed.rb:105
 msgid "RSS Feed"
 msgstr ""
 
-#: app/models/rss_feed.rb:103
+#: app/models/rss_feed.rb:109
 msgid "Provides a news feed of your more recent articles."
 msgstr ""
 
@@ -1301,7 +1314,7 @@ msgid "Members"
 msgstr ""
 
 #: app/models/members_block.rb:14
-msgid "All members"
+msgid "View all"
 msgstr ""
 
 #: app/models/category.rb:-
@@ -1484,7 +1497,7 @@ msgid "Help"
 msgstr ""
 
 #: app/helpers/application_helper.rb:77
-#: app/views/box_organizer/add_block.rhtml:18 app/views/search/popup.rhtml:38
+#: app/views/box_organizer/add_block.rhtml:18 app/views/search/popup.rhtml:45
 msgid "Close"
 msgstr ""
 
@@ -1505,19 +1518,19 @@ msgstr ""
 msgid "No product"
 msgstr ""
 
-#: app/helpers/application_helper.rb:399
+#: app/helpers/application_helper.rb:401
 msgid "Click on this icon to go to the <b>%s</b>'s home page"
 msgstr ""
 
-#: app/helpers/application_helper.rb:414
+#: app/helpers/application_helper.rb:416
 msgid "%d %B %Y"
 msgstr ""
 
-#: app/helpers/application_helper.rb:423
+#: app/helpers/application_helper.rb:425
 msgid "%d %B %Y, %H:%m"
 msgstr ""
 
-#: app/helpers/application_helper.rb:454
+#: app/helpers/application_helper.rb:456
 #: app/views/content_viewer/view_page.rhtml:55
 #: app/views/categories/index.rhtml:1
 msgid "Categories"
@@ -1650,8 +1663,8 @@ msgstr ""
 
 #: app/views/home/index.rhtml:6 app/views/home/index.rhtml:12
 #: app/views/region_validators/region.rhtml:23
-#: app/views/layouts/application.rhtml:103 app/views/search/popup.rhtml:7
-#: app/views/search/popup.rhtml:37
+#: app/views/layouts/application.rhtml:103 app/views/search/popup.rhtml:12
+#: app/views/search/popup.rhtml:44
 msgid "Search"
 msgstr ""
 
@@ -2740,7 +2753,7 @@ msgstr ""
 msgid "%{asset_name} in %{category}"
 msgstr ""
 
-#: app/views/search/category_index.rhtml:7 app/views/search/_product.rhtml:14
+#: app/views/search/category_index.rhtml:7 app/views/search/_product.rhtml:15
 msgid "Category: %s"
 msgstr ""
 
@@ -2748,23 +2761,23 @@ msgstr ""
 msgid "Sub-categories"
 msgstr ""
 
-#: app/views/search/category_index.rhtml:17
+#: app/views/search/category_index.rhtml:16
 msgid "No sub-categories"
 msgstr ""
 
-#: app/views/search/_category.rhtml:1 app/views/search/_region.rhtml:1
+#: app/views/search/_category.rhtml:3 app/views/search/_region.rhtml:3
 msgid "Recent articles"
 msgstr ""
 
-#: app/views/search/_category.rhtml:6 app/views/search/_region.rhtml:6
+#: app/views/search/_category.rhtml:14 app/views/search/_region.rhtml:14
 msgid "Recent Comments"
 msgstr ""
 
-#: app/views/search/_category.rhtml:12 app/views/search/_region.rhtml:12
+#: app/views/search/_category.rhtml:33 app/views/search/_region.rhtml:33
 msgid "by %{author} on \"%{article}\""
 msgstr ""
 
-#: app/views/search/_category.rhtml:21 app/views/search/_region.rhtml:21
+#: app/views/search/_category.rhtml:45 app/views/search/_region.rhtml:45
 msgid "Most commented articles"
 msgstr ""
 
@@ -2795,7 +2808,7 @@ msgid "Products under this category:"
 msgstr ""
 
 #: app/views/search/_product_category.rhtml:15
-#: app/views/search/_product.rhtml:10
+#: app/views/search/_product.rhtml:11
 msgid "Price: %d"
 msgstr ""
 
@@ -2807,7 +2820,7 @@ msgstr ""
 msgid "Users that consumes products in this category:"
 msgstr ""
 
-#: app/views/search/_product.rhtml:12
+#: app/views/search/_product.rhtml:13
 msgid "Suplier: %s"
 msgstr ""
 
@@ -2819,23 +2832,23 @@ msgstr ""
 msgid "Last update: %s."
 msgstr ""
 
-#: app/views/search/popup.rhtml:1
+#: app/views/search/popup.rhtml:3
 msgid "Search %s"
 msgstr ""
 
-#: app/views/search/popup.rhtml:11
+#: app/views/search/popup.rhtml:16
 msgid "Search in:"
 msgstr ""
 
-#: app/views/search/popup.rhtml:15
+#: app/views/search/popup.rhtml:20
 msgid "Only in %{category}"
 msgstr ""
 
-#: app/views/search/popup.rhtml:19
+#: app/views/search/popup.rhtml:24
 msgid "Whole site"
 msgstr ""
 
-#: app/views/search/popup.rhtml:24
+#: app/views/search/popup.rhtml:30
 msgid "Search for:"
 msgstr ""
 

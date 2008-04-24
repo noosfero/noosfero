@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.9.0\n"
-"POT-Creation-Date: 2008-04-17 11:27-0300\n"
+"POT-Creation-Date: 2008-04-24 12:10-0300\n"
 "PO-Revision-Date: 2008-04-01 17:56-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: \n"
@@ -96,7 +96,7 @@ msgstr "Produto atualizado com sucesso"
 msgid "Could not update the product"
 msgstr "Não foi possível atualizar o produto"
 
-#: app/controllers/my_profile/cms_controller.rb:87
+#: app/controllers/my_profile/cms_controller.rb:90
 msgid "Article \"%s\" configured as home page."
 msgstr "Artigo \"%s\" configurado como página inicial."
 
@@ -199,6 +199,16 @@ msgstr "Descrição"
 #: app/models/product.rb:-
 msgid "Product|Image"
 msgstr "Imagem"
+
+#: app/models/product.rb:-
+#, fuzzy
+msgid "Product|Created at"
+msgstr "Criado em"
+
+#: app/models/product.rb:-
+#, fuzzy
+msgid "Product|Updated at"
+msgstr "Atualizado em"
 
 #: app/models/product.rb:32 app/helpers/application_helper.rb:310
 msgid "Uncategorized product"
@@ -348,11 +358,13 @@ msgid "Article|Profile"
 msgstr "Perfil"
 
 #: app/models/profile.rb:-
-msgid "Article|Updated on"
+#, fuzzy
+msgid "Article|Updated at"
 msgstr "Atualizado em"
 
 #: app/models/profile.rb:-
-msgid "Article|Created on"
+#, fuzzy
+msgid "Article|Created at"
 msgstr "Criado em"
 
 #: app/models/profile.rb:-
@@ -394,6 +406,11 @@ msgstr "Largura"
 #: app/models/profile.rb:-
 msgid "Article|Comments count"
 msgstr "Número de comentários"
+
+#: app/models/profile.rb:-
+#, fuzzy
+msgid "Article|Advertise"
+msgstr "Tamanho"
 
 #: app/models/profile.rb:-
 msgid "profile"
@@ -606,6 +623,7 @@ msgstr ""
 "Clicando em uma pessoa ou grupo você será enviado para sua página inicial."
 
 #: app/models/profile_list_block.rb:69
+#: app/views/search/_display_results.rhtml:24
 msgid "None"
 msgstr "Nenhum(a)"
 
@@ -1143,7 +1161,7 @@ msgstr "Pessoa de contato: %s"
 msgid "List of recent content"
 msgstr "Lista de conteúdos recentes"
 
-#: app/models/recent_documents_block.rb:20
+#: app/models/recent_documents_block.rb:15
 msgid "Recent content"
 msgstr "Conteúdo recente"
 
@@ -1159,23 +1177,23 @@ msgstr ""
 msgid "Tag list"
 msgstr "Lista de marcadores"
 
-#: app/models/article.rb:71
+#: app/models/article.rb:75
 msgid "HTML Text document"
 msgstr "Documento de Texto HTML"
 
-#: app/models/article.rb:80
+#: app/models/article.rb:84
 msgid "Article"
 msgstr "Artigo"
 
-#: app/models/article.rb:82
+#: app/models/article.rb:86
 msgid "\"%s\" article"
 msgstr "Artigo \"%s\""
 
-#: app/models/article.rb:88
+#: app/models/article.rb:92
 msgid "An ordinary article"
 msgstr "Um artigo comum"
 
-#: app/models/article.rb:90
+#: app/models/article.rb:94
 msgid "An article of type \"%s\""
 msgstr "Um artigo do tipo \"%s\""
 
@@ -1276,26 +1294,27 @@ msgid "Comment|Email"
 msgstr "E-mail"
 
 #: app/models/comment.rb:-
-msgid "Comment|Created on"
+#, fuzzy
+msgid "Comment|Created at"
 msgstr "Criado em"
 
-#: app/models/comment.rb:17
+#: app/models/comment.rb:18
 msgid "%{fn} can only be informed for unauthenticated authors"
 msgstr "%{fn} só pode ser informado para autores não autenticados"
 
-#: app/models/rss_feed.rb:71
+#: app/models/rss_feed.rb:77
 msgid "%s's RSS feed"
 msgstr "Feed RSS do(a) %s"
 
-#: app/models/rss_feed.rb:73
+#: app/models/rss_feed.rb:79
 msgid "%s's content published at %s"
 msgstr "Conteúdo do(a) %s publicado no %s"
 
-#: app/models/rss_feed.rb:99
+#: app/models/rss_feed.rb:105
 msgid "RSS Feed"
 msgstr "Feed RSS"
 
-#: app/models/rss_feed.rb:103
+#: app/models/rss_feed.rb:109
 msgid "Provides a news feed of your more recent articles."
 msgstr "Fornece um feed RSS dos seus artigos mais recentes."
 
@@ -1333,15 +1352,15 @@ msgstr "Miniatura"
 
 #: app/models/members_block.rb:4
 msgid "A block that displays members."
-msgstr "Um bloco que apresenta os membros."
+msgstr "Um bloco que apresenta integrantes."
 
 #: app/models/members_block.rb:8 app/views/profile/index.rhtml:20
 msgid "Members"
-msgstr "Membros"
+msgstr "Integrantes"
 
 #: app/models/members_block.rb:14
-msgid "All members"
-msgstr "Todos os membros"
+msgid "View all"
+msgstr "Ver todas e todos"
 
 #: app/models/category.rb:-
 msgid "category"
@@ -1525,7 +1544,7 @@ msgid "Help"
 msgstr "Ajuda"
 
 #: app/helpers/application_helper.rb:77
-#: app/views/box_organizer/add_block.rhtml:18 app/views/search/popup.rhtml:38
+#: app/views/box_organizer/add_block.rhtml:18 app/views/search/popup.rhtml:45
 msgid "Close"
 msgstr "Fechar"
 
@@ -1546,19 +1565,19 @@ msgstr "Cancelar"
 msgid "No product"
 msgstr "Sem produto"
 
-#: app/helpers/application_helper.rb:399
+#: app/helpers/application_helper.rb:401
 msgid "Click on this icon to go to the <b>%s</b>'s home page"
 msgstr "Clique nesse ícone para ir para a página inicial de <b>%s</b>"
 
-#: app/helpers/application_helper.rb:414
+#: app/helpers/application_helper.rb:416
 msgid "%d %B %Y"
 msgstr "%d de %B de %Y"
 
-#: app/helpers/application_helper.rb:423
+#: app/helpers/application_helper.rb:425
 msgid "%d %B %Y, %H:%m"
 msgstr "%d de %B de %Y, %H:%m"
 
-#: app/helpers/application_helper.rb:454
+#: app/helpers/application_helper.rb:456
 #: app/views/content_viewer/view_page.rhtml:55
 #: app/views/categories/index.rhtml:1
 msgid "Categories"
@@ -1693,8 +1712,8 @@ msgstr "Salvar"
 
 #: app/views/home/index.rhtml:6 app/views/home/index.rhtml:12
 #: app/views/region_validators/region.rhtml:23
-#: app/views/layouts/application.rhtml:103 app/views/search/popup.rhtml:7
-#: app/views/search/popup.rhtml:37
+#: app/views/layouts/application.rhtml:103 app/views/search/popup.rhtml:12
+#: app/views/search/popup.rhtml:44
 msgid "Search"
 msgstr "Busca"
 
@@ -1764,7 +1783,7 @@ msgstr "Afiliar"
 
 #: app/views/profile_members/index.rhtml:1
 msgid "Listing Members"
-msgstr "Listando Membros"
+msgstr "Listando Integrantes"
 
 #: app/views/profile_members/index.rhtml:3
 msgid "Affiliate yourself"
@@ -2841,7 +2860,7 @@ msgstr ""
 msgid "%{asset_name} in %{category}"
 msgstr "%{asset_name} em %{category}"
 
-#: app/views/search/category_index.rhtml:7 app/views/search/_product.rhtml:14
+#: app/views/search/category_index.rhtml:7 app/views/search/_product.rhtml:15
 msgid "Category: %s"
 msgstr "Categoria: %s"
 
@@ -2849,23 +2868,23 @@ msgstr "Categoria: %s"
 msgid "Sub-categories"
 msgstr "Sub-categorias"
 
-#: app/views/search/category_index.rhtml:17
+#: app/views/search/category_index.rhtml:16
 msgid "No sub-categories"
 msgstr "Sem sub-categorias"
 
-#: app/views/search/_category.rhtml:1 app/views/search/_region.rhtml:1
+#: app/views/search/_category.rhtml:3 app/views/search/_region.rhtml:3
 msgid "Recent articles"
 msgstr "Artigos recentes"
 
-#: app/views/search/_category.rhtml:6 app/views/search/_region.rhtml:6
+#: app/views/search/_category.rhtml:14 app/views/search/_region.rhtml:14
 msgid "Recent Comments"
 msgstr "Comentários recentes"
 
-#: app/views/search/_category.rhtml:12 app/views/search/_region.rhtml:12
+#: app/views/search/_category.rhtml:33 app/views/search/_region.rhtml:33
 msgid "by %{author} on \"%{article}\""
 msgstr "por %{author} em \"%{article}\""
 
-#: app/views/search/_category.rhtml:21 app/views/search/_region.rhtml:21
+#: app/views/search/_category.rhtml:45 app/views/search/_region.rhtml:45
 msgid "Most commented articles"
 msgstr "Artigos mais comentados"
 
@@ -2896,7 +2915,7 @@ msgid "Products under this category:"
 msgstr "Produto nesta categoria:"
 
 #: app/views/search/_product_category.rhtml:15
-#: app/views/search/_product.rhtml:10
+#: app/views/search/_product.rhtml:11
 msgid "Price: %d"
 msgstr "Preço: %d"
 
@@ -2908,7 +2927,7 @@ msgstr "Empreendimento:"
 msgid "Users that consumes products in this category:"
 msgstr "Usuários que consomem produtos nessa categoria:"
 
-#: app/views/search/_product.rhtml:12
+#: app/views/search/_product.rhtml:13
 msgid "Suplier: %s"
 msgstr "Fornecedor: %s"
 
@@ -2920,23 +2939,23 @@ msgstr "por %s"
 msgid "Last update: %s."
 msgstr "Última atualização: %s."
 
-#: app/views/search/popup.rhtml:1
+#: app/views/search/popup.rhtml:3
 msgid "Search %s"
 msgstr "Busca em %s"
 
-#: app/views/search/popup.rhtml:11
+#: app/views/search/popup.rhtml:16
 msgid "Search in:"
 msgstr "Buscar em:"
 
-#: app/views/search/popup.rhtml:15
+#: app/views/search/popup.rhtml:20
 msgid "Only in %{category}"
 msgstr "Apenas em %{category}"
 
-#: app/views/search/popup.rhtml:19
+#: app/views/search/popup.rhtml:24
 msgid "Whole site"
 msgstr "Todo o site"
 
-#: app/views/search/popup.rhtml:24
+#: app/views/search/popup.rhtml:30
 msgid "Search for:"
 msgstr "Buscar por:"
 
@@ -3117,7 +3136,7 @@ msgstr "Alterar senha"
 
 #: app/views/profile_editor/index.rhtml:34
 msgid "Manage Members"
-msgstr "Gerenciar membros"
+msgstr "Gerenciar integrantes"
 
 #: app/views/profile_editor/index.rhtml:36
 msgid "Consumed Products"
@@ -3251,11 +3270,11 @@ msgstr "De volta à página de onde você veio."
 
 #: app/views/profile/members.rhtml:2
 msgid "Here are all <b>%s</b>'s members."
-msgstr "Aqui estão todos os membros de <b>%s</b>."
+msgstr "Aqui estão todos os integrantes de <b>%s</b>."
 
 #: app/views/profile/members.rhtml:4
 msgid "%s' members"
-msgstr "Membros de %s"
+msgstr "Integrantes de %s"
 
 #: app/views/profile/enterprises.rhtml:2
 msgid "Here are all <b>%s</b>'s enterprises."
@@ -3309,6 +3328,9 @@ msgstr "Tem certeza que quer excluir \"%s\" e todas as suas subcategorias?"
 msgid "Editing %s"
 msgstr "Editando %s"
 
+#~ msgid "All members"
+#~ msgstr "Todos as/os integrantes"
+
 #~ msgid "User|Login"
 #~ msgstr "Nome de usuário"
 
@@ -3347,9 +3369,6 @@ msgstr "Editando %s"
 
 #~ msgid "Person|Data"
 #~ msgstr "Dados"
-
-#~ msgid "Person|Created at"
-#~ msgstr "Criado em"
 
 #~ msgid "Password"
 #~ msgstr "Senha"
