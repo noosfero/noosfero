@@ -16,8 +16,8 @@ class MembersBlockTest < Test::Unit::TestCase
     block.box = profile.boxes.first
     block.save!
 
-    expects(:_).with('All members').returns('All members')
-    expects(:link_to).with('All members' , :profile => 'mytestuser', :controller => 'profile', :action => 'members').returns('link-to-members')
+    expects(:_).with('View all').returns('View all')
+    expects(:link_to).with('View all' , :profile => 'mytestuser', :controller => 'profile', :action => 'members').returns('link-to-members')
 
     assert_equal 'link-to-members', instance_eval(&block.footer)
   end
