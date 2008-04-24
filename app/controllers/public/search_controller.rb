@@ -5,10 +5,15 @@ class SearchController < ApplicationController
   before_filter :load_category
   before_filter :prepare_filter
   before_filter :check_search_whole_site
+  before_filter :load_search_assets
 
   no_design_blocks
 
   protected
+
+  def load_search_assets
+    @search_in = SEARCH_IN
+  end
 
   def search(finder, query)
     finder.find_by_contents(query).sort_by do |hit|
@@ -106,7 +111,6 @@ class SearchController < ApplicationController
   #######################################################
 
   def popup
-    @search_in = SEARCH_IN
     render :action => 'popup', :layout => false
   end
 

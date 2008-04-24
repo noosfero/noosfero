@@ -1,9 +1,6 @@
-<div id='new-search'>
-<% form_tag(:action => 'index') do %>
-  <%= text_field_tag 'query', @query %>
-  <%= submit_button :search, _('Search') %>
-<% end %>
+<%= render :partial => 'search_form' %>
 
+<div>
 <%= link_to _('Search for "%s" in the whole site') % @query, :controller => 'search', :action => 'index', :category_path => [], :query => @query if @category %>
 </div>
 
