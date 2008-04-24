@@ -472,5 +472,26 @@ class SearchControllerTest < Test::Unit::TestCase
     get :index
     assert_no_tag :tag => 'div', :attributes => { :id => 'boxes', :class => 'boxes' }
   end
+
+  should 'offer text box to enter a new search in general context' do
+    get :index, :query => 'a sample search'
+    assert_tag :tag => 'form', :attributes => { :action => '/search' }, :descendant => {
+      :tag => 'input',
+      :attributes => { :name => 'query', :value => 'a sample search' }
+    }
+  end
+
+  should 'offer text box to enter a new seach in specific context' do
+    get :index, :category_path => [ 'my-category'], :query => 'a sample search'
+    assert_tag :tag => 'form', :attributes => { :action => '/search/index/my-category' }, :descendant => {
+      :tag => 'input',
+      :attributes => { :name => 'query', :value => 'a sample search' }
+    }
+  end
+
+  should 'offer link to do the same search as before in general context' do
+    get :index, :category_path => [ 'my-category' ], :query => 'a sample search'
+    assert_tag :tag => 'a', :attributes => { :href => "/search?query=a+sample+search" }, :content => 'Search for "a sample search" in the whole site'
+  end
   
 end

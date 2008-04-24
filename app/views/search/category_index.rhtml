@@ -4,7 +4,7 @@
     <%= @category.ancestors.reverse.map { |a| link_to_category(a, false) }.join(' &rarr; ') %>
   </div><!-- end id="category-ancestors" -->
 
-  <h1 id="categiry-name"><%= _('Category: %s') % @category.name %></h1>
+  <h1 id="category-name"><%= _('Category: %s') % @category.name %></h1>
 
   <div class="category_itens">
   <%= render :partial => @category.class.name.underscore %>
