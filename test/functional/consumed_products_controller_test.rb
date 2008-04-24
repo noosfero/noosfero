@@ -44,7 +44,7 @@ class ConsumedProductsControllerTest < Test::Unit::TestCase
     product_category = ProductCategory.create!(:name => 'Food', :environment => Environment.default)
     post :new, :profile => profile.identifier,
       :consumption => { :product_category_id => product_category.id, :aditional_specifications => 'extra <b>info</b>' }
-    assert_not_equal assigns(:consumption).aditional_specifications, 'extra <b>info</b>'
+    assert_sanitized assigns(:consumption).aditional_specifications
   end
 
   should 'destroy product' do

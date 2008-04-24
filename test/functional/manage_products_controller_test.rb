@@ -172,13 +172,13 @@ class ManageProductsControllerTest < Test::Unit::TestCase
   should 'filter html from name of product' do
     category = ProductCategory.create!(:name => 'Category 1', :environment => Environment.default)
     post 'new', :profile => @enterprise.identifier, :product => { :name => "<b id='html_name'>name bold</b>", :product_category_id => category.id }
-    assert_not_equal assigns(:product).name, "<b id='html_name'>name bold</b>"
+    assert_sanitized assigns(:product).name
   end
 
   should 'filter html from description of product' do
     category = ProductCategory.create!(:name => 'Category 1', :environment => Environment.default)
     post 'new', :profile => @enterprise.identifier, :product => { :name => 'name', :description => "<b id='html_descr'>descr bold</b>", :product_category_id => category.id }
-    assert_not_equal assigns(:product).description, "<b id='html_descr'>descr bold</b>"
+    assert_sanitized assigns(:product).description
   end
 
 end

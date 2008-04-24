@@ -24,4 +24,15 @@ class MembershipsController < MyProfileController
     end
   end
 
+  private
+
+  require 'erb'
+  include ERB::Util
+  def sanitize
+    if params[:community]
+      params[:community][:name] = html_escape(params[:community][:name]) if params[:community][:name]
+      params[:community][:description] = html_escape(params[:community][:description]) if params[:community][:description]
+    end
+  end
+
 end

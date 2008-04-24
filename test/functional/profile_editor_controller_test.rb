@@ -96,42 +96,42 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     person = create_user('test_profile').person
     name = "name <strong id='name_html_test'>with</strong> html"
     post :edit, :profile => person.identifier, :info => { :name => name }
-    assert_not_equal name, assigns(:profile).info.name
+    assert_sanitized assigns(:profile).info.name
   end
 
   should 'filter html from contact_person to organization' do
     org = Organization.create!(:name => 'test org', :identifier => 'testorg')
     contact = "name <strong id='name_html_test'>with</strong> html"
     post :edit, :profile => org.identifier, :info => { :contact_person => contact }
-    assert_not_equal contact, assigns(:profile).info.contact_person
+    assert_sanitized assigns(:profile).info.contact_person
   end
 
   should 'filter html from acronym organization' do
     org = Organization.create!(:name => 'test org', :identifier => 'testorg')
     value = "name <strong id='name_html_test'>with</strong> html"
     post :edit, :profile => org.identifier, :info => { :acronym => value }
-    assert_not_equal value, assigns(:profile).info.acronym
+    assert_sanitized assigns(:profile).info.acronym
   end
 
   should 'filter html from legal_form organization' do
     org = Organization.create!(:name => 'test org', :identifier => 'testorg')
     value = "name <strong id='name_html_test'>with</strong> html"
     post :edit, :profile => org.identifier, :info => { :legal_form => value }
-    assert_not_equal value, assigns(:profile).info.legal_form
+    assert_sanitized assigns(:profile).info.legal_form
   end
 
   should 'filter html from economic_activity organization' do
     org = Organization.create!(:name => 'test org', :identifier => 'testorg')
     value = "name <strong id='name_html_test'>with</strong> html"
     post :edit, :profile => org.identifier, :info => { :economic_activity => value }
-    assert_not_equal value, assigns(:profile).info.economic_activity
+    assert_sanitized assigns(:profile).info.economic_activity
   end
 
   should 'filter html from management_information organization' do
     org = Organization.create!(:name => 'test org', :identifier => 'testorg')
     value = "name <strong id='name_html_test'>with</strong> html"
     post :edit, :profile => org.identifier, :info => { :management_information => value }
-    assert_not_equal value, assigns(:profile).info.management_information
+    assert_sanitized assigns(:profile).info.management_information
   end
 
 end

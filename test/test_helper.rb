@@ -135,6 +135,11 @@ class Test::Unit::TestCase
     assert_equal parent, child.superclass, "Class #{child} expected to be a subclass of #{parent}"
   end
 
+  # this check only if string has html tag
+  def assert_sanitized(string)
+    assert_no_match /<[^>]+\/?>/, string, "String #{string} expected to be sanitized"
+  end
+
   private
 
   def uses_host(name)

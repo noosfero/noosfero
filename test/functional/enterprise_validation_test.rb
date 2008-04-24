@@ -124,16 +124,14 @@ class EnterpriseValidationControllerTest < Test::Unit::TestCase
     info = ValidationInfo.new(:validation_methodology => 'none')
     @org.expects(:validation_info).returns(info)
     post :edit_validation_info, :profile => 'myorg', :info => {:validation_methodology => 'new <b>methodology</b>'}
-
-    assert_not_equal assigns(:info).validation_methodology, 'new <b>methodology</b>'
+    assert_sanitized assigns(:info).validation_methodology
   end
 
   should 'filter html from restriction of the validation info' do
     info = ValidationInfo.new(:validation_methodology => 'none')
     @org.expects(:validation_info).returns(info)
     post :edit_validation_info, :profile => 'myorg', :info => {:restrictions => 'new <b>methodology</b>'}
-
-    assert_not_equal assigns(:info).restrictions, 'new <b>methodology</b>'
+    assert_sanitized assigns(:info).restrictions
   end
 
 end

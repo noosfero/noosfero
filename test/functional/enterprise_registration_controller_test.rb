@@ -86,4 +86,49 @@ all_fixtures
     assert_template 'confirmation'
   end
 
+  should 'filter html from name' do
+    post :index, :create_enterprise => { 'name' => '<b>name</b>', 'identifier' => 'mynew' }
+    assert_sanitized assigns(:create_enterprise).name
+  end
+
+  should 'filter html from address' do
+    post :index, :create_enterprise => { 'name' => 'name', 'identifier' => 'mynew', :address => '<b>address</b>' }
+    assert_sanitized assigns(:create_enterprise).address
+  end
+
+  should 'filter html from contact_phone' do
+    post :index, :create_enterprise => { 'name' => 'name', 'identifier' => 'mynew', :contact_phone => '<b>contact_phone</b>' }
+    assert_sanitized assigns(:create_enterprise).contact_phone
+  end
+
+  should 'filter html from contact_person' do
+    post :index, :create_enterprise => { 'name' => 'name', 'identifier' => 'mynew', :contact_person => '<b>contact_person</b>' }
+    assert_sanitized assigns(:create_enterprise).contact_person
+  end
+
+  should 'filter html from acronym' do
+    post :index, :create_enterprise => { 'name' => 'name', 'identifier' => 'mynew', :acronym => '<b>acronym</b>' }
+    assert_sanitized assigns(:create_enterprise).acronym
+  end
+
+  should 'filter html from foundation_year' do
+    post :index, :create_enterprise => { 'name' => 'name', 'identifier' => 'mynew', :foundation_year => '<b>foundation_year</b>' }
+    assert_sanitized assigns(:create_enterprise).foundation_year
+  end
+
+  should 'filter html from legal_form' do
+    post :index, :create_enterprise => { 'name' => 'name', 'identifier' => 'mynew', :legal_form => '<b>legal_form</b>' }
+    assert_sanitized assigns(:create_enterprise).legal_form
+  end
+
+  should 'filter html from economic_activity' do
+    post :index, :create_enterprise => { 'name' => 'name', 'identifier' => 'mynew', :economic_activity => '<b>economic_activity</b>' }
+    assert_sanitized assigns(:create_enterprise).economic_activity
+  end
+  
+  should 'filter html from management_information' do
+    post :index, :create_enterprise => { 'name' => 'name', 'identifier' => 'mynew', :management_information => '<b>management_information</b>' }
+    assert_sanitized assigns(:create_enterprise).management_information
+  end
+
 end

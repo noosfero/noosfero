@@ -5,6 +5,7 @@ require 'memberships_controller'
 class MembershipsController; def rescue_action(e) raise e end; end
 
 class MembershipsControllerTest < Test::Unit::TestCase
+
   def setup
     @controller = MembershipsController.new
     @request    = ActionController::TestRequest.new
@@ -59,6 +60,18 @@ class MembershipsControllerTest < Test::Unit::TestCase
   should 'link to new community creation in index' do
     get :index, :profile => profile.identifier
     assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/memberships/new_community" }
+  end
+
+  should 'filter html from name' do
+    login_as(profile.identifier)
+    post :new_community, :profile => profile.identifier, :community => { :name => '<b>new</b> community' }
+    assert_sanitized assigns(:community).name
+  end
+
+  should 'filter html from description' do
+    login_as(profile.identifier)
+    post :new_community, :profile => profile.identifier, :community => { :name => 'new community', :description => '<b>new</b> community' }
+    assert_sanitized assigns(:community).description
   end
 
 end
