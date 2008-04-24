@@ -1,24 +1,54 @@
-<h2><%= _('Recent articles') %></h2>
-<ul class="recent_on_cat recent_articles">
-  <%= render :partial => 'article', :collection => @recent_articles %>
-</ul>
 
-<h2><%= _('Recent Comments') %></h2>
-<ul class="recent_on_cat recent_comments">
-<% @recent_comments.each do |comment| %>
-  <li>
-    <strong><%= link_to(comment.title, comment.url) %></strong>
-    <div class="item_meta">
-      <%= _('by %{author} on "%{article}"') % {
-                :comment => link_to(comment.title, comment.url),
-                :article => link_to(comment.article.title, comment.article.url),
-                :author => comment.author_name } %>
-    </div>
-  </li>
-<% end %>
-</ul>
+<div id="category-recent-articles">
+  <h2><%= _('Recent articles') %></h2>
+  <div class="category-innerbox">
+    <ul class="recent_on_cat recent_articles">
+      <%= render :partial => 'article', :collection => @recent_articles %>
+    </ul>
+  </div><!-- end class="category-innerbox" -->
+</div><!-- end id="category-recent-articles" -->
 
-<h2><%= _('Most commented articles') %></h2>
-<ul class="most_commented">
-  <%= render :partial => 'article', :collection => @most_commented_articles %>
-</ul>
+<div id="category-comments">
+
+<div id="category-recent-comments">
+  <h2><%= _('Recent Comments') %></h2>
+  <div class="category-innerbox">
+    <ul class="recent_on_cat recent_comments">
+    <% @recent_comments.each do |comment| %>
+      <li>
+        <% if comment.author %>
+          <%= link_to content_tag( 'span', comment.author.name() ), comment.author.url,
+              :class => 'comment-picture',
+              :style => 'background-image:url(%s)' % profile_icon(comment.author, :icon)
+          %>
+        <% else %>
+          <%# unauthenticated user: display gravatar icon %>
+          <%= content_tag 'span', '&nbsp;',
+              :class => 'comment-picture',
+              :style => 'background-image:url(%s)' % str_gravatar_url_for( comment.email, :size => 20 )
+          %>
+        <% end %>
+        <strong><%= link_to(comment.title, comment.url) %></strong>
+        <div class="item_meta">
+          <%= _('by %{author} on "%{article}"') % {
+                    :comment => link_to(comment.title, comment.url),
+                    :article => link_to(comment.article.title, comment.article.url),
+                    :author => comment.author_name } %>
+        </div>
+      </li>
+    <% end %>
+    </ul>
+  </div><!-- end class="category-innerbox" -->
+</div><!-- end id="category-recent-articles" -->
+
+<div id="most-commented">
+  <h2><%= _('Most commented articles') %></h2>
+  <div class="category-innerbox">
+    <ul class="most_commented">
+      <%= render :partial => 'article', :collection => @most_commented_articles %>
+    </ul>
+  </div><!-- end class="category-innerbox" -->
+</div><!-- end id="most-commented" -->
+
+</div><!-- end id="category-comments" -->
+

@@ -256,16 +256,6 @@ body.category4 #content h4, body.category4 #content h5, body.category4 #content 
   text-decoration: underline;
 }
 
-#category-childs h4,
-#category-childs ul {
-  margin: 0px;
-}
-
-#category-childs a {
-  font-weight: bold;
-  text-decoration: none;
-}
-
 #cat-no-child {
   color: #AAA;
 }

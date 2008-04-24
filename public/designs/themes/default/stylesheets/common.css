@@ -35,21 +35,6 @@ body.category2 a:visited { color: #8A6 }
 a:hover, a:active        { color: #08F }
 body.category2 a:hover   { color: #5C0 }
 
-/* List of Category Item */
-
-.category_itens ul a {
-  text-decoration: none;
-}
-
-.category_itens .item_meta {
-  font-size: 12px;
-  padding: 0px 0px 5px 0px;
-}
-
-.category_itens .cat_item_update {
-  color: #999;
-}
-
 /* file manager (big) style */
 
 div.file-manager {

@@ -12,18 +12,17 @@
 
   <div id="category-childs">
     <h2> <%= _('Sub-categories')  %> </h2>
-
     <% if @category.children.empty? %>
       <strong id="cat-no-child"><%= _('No sub-categories') %></strong>
     <% else %>
       <ul>
         <% @category.children.each do |c| %>
-          <li> <%= link_to_category(c) %> </li>
+          <li> <%= link_to_category c, false %> </li>
         <% end %>
       </ul>
     <% end %>
-
   </div><!-- end id="child-categories" -->
 
+<br style="clear:both" />
 </div><!-- end id="view-category" -->
 

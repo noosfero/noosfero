@@ -1,4 +1,4 @@
-<%= tag('a', :name => comment.anchor) %>
+<%= content_tag('a', '', :name => comment.anchor) %>
 <div class="article-comment<%= ' comment-from-owner' if ( comment.author && (@page.profile.name == comment.author.name) ) %> comment-logged-<%= comment.author ? 'in' : 'out' %>">
   <% if logged_in? && (user == @page.profile || user == comment.author) %>
     <% button_bar(:style => 'float: right; margin-top: 0;') do %>
