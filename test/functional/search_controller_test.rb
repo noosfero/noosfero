@@ -493,5 +493,13 @@ class SearchControllerTest < Test::Unit::TestCase
     get :index, :category_path => [ 'my-category' ], :query => 'a sample search'
     assert_tag :tag => 'a', :attributes => { :href => "/search?query=a+sample+search" }, :content => 'Search for "a sample search" in the whole site'
   end
+
+  should 'display only category name in "search results for ..." title' do
+    parent = Category.create!(:name => 'Parent Category', :environment => Environment.default)
+    child = Category.create!(:name => "Child Category", :environment => Environment.default, :parent => parent)
+
+    get :index, :category_path => [ 'parent-category', 'child-category' ], :query => 'a sample search'
+    assert_tag :tag => 'h2', :content => /Search results for &quot;a sample search&quot; in &quot;Child Category&quot;/
+  end
   
 end

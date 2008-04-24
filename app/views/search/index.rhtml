@@ -1,4 +1,4 @@
-<h2> <%=h @category ? (_('Search results for "%{query}" in %{category}') % { :query => @query, :category => @category.full_name}) : (_('Search results for "%s"') % @query) %> </h2>
+<h2> <%=h @category ? (_('Search results for "%{query}" in "%{category}"') % { :query => @query, :category => @category.name}) : (_('Search results for "%s"') % @query) %> </h2>
 
 <%= render :partial => 'display_results' %>
 
