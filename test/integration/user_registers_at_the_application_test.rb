@@ -20,7 +20,7 @@ class UserRegistersAtTheApplicationTest < ActionController::IntegrationTest
     # user is logged in right after the registration
     follow_redirect!
     assert_no_tag :tag => 'a', :attributes => { :href => '/account/login_popup' }
-    assert_tag :tag => 'a', :attributes => { :href => '/account/logout_popup'  }
+    assert_tag :tag => 'a', :attributes => { :href => '/account/logout'  }
   end
 
   def test_trying_an_existing_login_name
