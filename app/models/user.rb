@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   N_('User|Password')
   N_('User|Password confirmation')
 
+  # FIXME ugly workaround
   def self.human_attribute_name(attrib)
     case attrib.to_sym
       when :login:  return _('Username')

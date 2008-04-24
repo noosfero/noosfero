@@ -1,5 +1,6 @@
 # TODO: send an e-mail with a hash code to the task after the ChangePassword is creatd -> override messages from #Task
 
+# FIXME remove this workaround
 class HumanName
   def human_name
     @name
@@ -16,6 +17,7 @@ class ChangePassword < Task
     self[:data] ||= {}
   end
 
+  # FIXME ugly workaround
   self.columns_hash['login'] = HumanName.new _('Username')
   self.columns_hash['email'] = HumanName.new _('e-Mail')
 
