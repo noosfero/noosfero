@@ -202,4 +202,11 @@ class PersonTest < Test::Unit::TestCase
     assert_not_includes p1.friends(true), p2
   end
 
+  should 'return info name instead of name when info is setted' do
+    p = create_user('ze_maria').person
+    p.person_info = PersonInfo.create!(:name => 'José')
+
+    assert_equal 'José', p.name
+  end
+
 end
