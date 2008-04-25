@@ -1,3 +1,6 @@
+<h1> <%= _('Edit organization info') %> </h1>
+
+<%= error_messages_for :info %>
 <% labelled_form_for :info, @info do |f| %>
   <%= f.text_field(:contact_person) %>
   <%= f.text_field(:acronym) %>

@@ -1,5 +1,7 @@
 <h1><%= _('Edit person info') %></h1>
 
+<%= error_messages_for :info %>
+
 <% labelled_form_for :info, @info do |f| %>
 
   <%= f.text_field(:name) %>

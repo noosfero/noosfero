@@ -8,8 +8,8 @@
     <img src="<%=
     (current_user.person.image)?
     current_user.person.image.public_filename(:icon) : "/images/icons-bar/photo.png"
-    %>" alt="<%= current_user.login %> Icon-Photo" title="" height="20" border="0"/>
-    <span><%= _("%s's Menu") % current_user.login %></span>
+    %>" alt="<%= current_user.name %> Icon-Photo" title="" height="20" border="0"/>
+    <span><%= _("%s's Menu") % current_user.name %></span>
   </div>
 
   <div id="user_menu_ul">

@@ -103,4 +103,8 @@ class Person < Profile
   before_create :set_default_environment
   hacked_after_create :insert_default_homepage_and_feed
 
+  def name
+    person_info.name || self[:name]
+  end
+
 end

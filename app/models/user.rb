@@ -106,6 +106,10 @@ class User < ActiveRecord::Base
     save! unless new_record?
   end
 
+  def name
+    person.name
+  end
+
   protected
     # before filter 
     def encrypt_password
