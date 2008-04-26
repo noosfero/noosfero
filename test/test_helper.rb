@@ -187,9 +187,9 @@ class Test::Unit::TestCase
 
   end
 
-  # this check only if string has html tag
-  def assert_sanitized(string)
-    assert_no_match /<[^>]+\/?>/, string, "String #{string} expected to be sanitized"
+  # this check only if text has html tag
+  def assert_sanitized(text)
+    assert !text.index('<'), "Text '#{text}' expected to be sanitized"
   end
 
   private
