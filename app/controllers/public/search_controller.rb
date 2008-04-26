@@ -15,14 +15,12 @@ class SearchController < ApplicationController
     @search_in = SEARCH_IN
   end
 
-  def search(finder, query)
-    finder.find_by_contents(query).sort_by do |hit|
-      -(relevance_for(hit))
-    end
-  end
-
   def prepare_filter
-    @finder = @category || @environment
+    if @category
+      @finder = CategoryFinder.new(@category)
+    else
+      @finder = EnvironmentFinder.new(@environment)
+    end
   end
 
   def check_search_whole_site
@@ -38,8 +36,8 @@ class SearchController < ApplicationController
   end
 
   def action_category
-    @recent_articles = category.recent_articles
-    @recent_comments = category.recent_comments
+    @recent_articles = @finder.recent('articles')
+    @recent_comments = @finder.recent('comments')
     @most_commented_articles = category.most_commented_articles
   end
   alias :action_region :action_category
@@ -69,7 +67,7 @@ class SearchController < ApplicationController
     @results = {}
     @names = {}
     SEARCH_IN.each do |key, description|
-      @results[key] = search(@finder.send(key), @filtered_query) if params[:find_in].nil? || params[:find_in].empty? || params[:find_in].include?(key.to_s)
+      @results[key] = @finder.send(key, @filtered_query) if params[:find_in].nil? || params[:find_in].empty? || params[:find_in].include?(key.to_s)
       @names[key] = gettext(description)
     end
   end
@@ -90,7 +88,7 @@ class SearchController < ApplicationController
     end
 
 
-    @results = { asset => @finder.send(asset).recent(LIST_LIMIT) }
+    @results = { asset => @finder.recent(asset, LIST_LIMIT) }
 
     @asset_name = gettext(SEARCH_IN.find { |entry| entry.first == asset }[1])
     @names = { asset => @asset_name }

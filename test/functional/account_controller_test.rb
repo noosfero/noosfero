@@ -31,6 +31,13 @@ class AccountControllerTest < Test::Unit::TestCase
     assert_response :redirect
   end
 
+  should 'redirect to user control panel on login' do
+    u = create_user
+    post :login, :user => {:login => 'quire', :password => 'quire'}
+
+    assert_redirected_to :controller => 'profile_editor', :action => 'index', :profile => 'quire'
+  end
+
   def test_should_fail_login_and_not_redirect
     post :login, :user => {:login => 'johndoe', :password => 'bad password'}
     assert_nil session[:user]
@@ -262,6 +269,7 @@ class AccountControllerTest < Test::Unit::TestCase
       assert assigns(:user).errors.on(:email)
     end
   end
+
 
 
   protected

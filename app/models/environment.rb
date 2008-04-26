@@ -76,6 +76,10 @@ class Environment < ActiveRecord::Base
   # store the Environment settings as YAML-serialized Hash.
   serialize :settings
 
+  def homepage
+     settings[:homepage]
+  end
+
   # returns a Hash containing the Environment configuration
   def settings
     self[:settings] ||= {}

@@ -235,7 +235,8 @@ class SearchControllerTest < Test::Unit::TestCase
     p2 = create_user('test2').person
 
     get :assets, :asset => 'people'
-    assert_equal [p2,p1], assigns(:results)[:people]
+    
+    assert_equal [p2,p1], assigns(:results)[:people].instance_variable_get('@results')
   end
 
   # 'assets' menu inside a category
@@ -249,7 +250,7 @@ class SearchControllerTest < Test::Unit::TestCase
     p2 = create_user('test2').person
 
     get :assets, :asset => 'people', :category_path => [ 'my-category' ]
-    assert_equal [p1], assigns(:results)[:people]
+    assert_equal [p1], assigns(:results)[:people].instance_variable_get('@results')
   end
 
   should 'find communities' do
@@ -273,7 +274,7 @@ class SearchControllerTest < Test::Unit::TestCase
     c2 = Community.create!(:name => 'another beautiful community', :identifier => 'an_bea_comm', :environment => Environment.default)
 
     get :assets, :asset => 'communities'
-    assert_equal [c2, c1], assigns(:results)[:communities]
+    assert_equal [c2, c1], assigns(:results)[:communities].instance_variable_get('@results')
   end
 
   # 'assets' menu
@@ -291,7 +292,8 @@ class SearchControllerTest < Test::Unit::TestCase
     c3.categories << @category
 
     get :assets, :asset => 'communities', :category_path => [ 'my-category' ]
-    assert_equal [c3, c1], assigns(:results)[:communities]
+
+    assert_equal [c3, c1], assigns(:results)[:communities].instance_variable_get('@results')
   end
 
   should 'find products' do
@@ -321,7 +323,7 @@ class SearchControllerTest < Test::Unit::TestCase
     prod2 = ent2.products.create!(:name => 'another beautiful product')
 
     get :assets, :asset => 'products'
-    assert_equal [prod2, prod1], assigns(:results)[:products]
+    assert_equivalent [prod2, prod1], assigns(:results)[:products]
   end
 
   # 'assets' menu inside a category
@@ -508,6 +510,21 @@ class SearchControllerTest < Test::Unit::TestCase
 
     get :index, :category_path => [ 'parent-category', 'child-category' ], :query => 'a sample search'
     assert_tag :tag => 'h2', :content => /Search results for &quot;a sample search&quot; in &quot;Child Category&quot;/
+  end
+
+  should 'search in categoty hierachy' do
+    parent = Category.create!(:name => 'Parent Category', :environment => Environment.default)
+    child  = Category.create!(:name => 'Child Category', :environment => Environment.default, :parent => parent)
+ 
+    p = create_user('test_profile').person
+    p.categories << child
+    p.save!
+
+    Profile.rebuild_index
+
+    get :index, :category_path => ['parent-category'], :query => 'test_profile', :find_in => ['people']
+
+    assert_includes assigns(:results)[:people], p
   end
   
 end
