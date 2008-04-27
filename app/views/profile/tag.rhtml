@@ -7,3 +7,7 @@
   <% end %>
   </ul>
 </div>
+
+<div>
+  <%= link_to _('See content tagged with "%s" in the entire site') % @tag, :controller => 'search', :action => 'tag', :tag => @tag %>
+</div>

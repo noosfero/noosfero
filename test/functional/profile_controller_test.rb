@@ -118,4 +118,18 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'div', :content => 'Recent content', :attributes => { :class => 'block recent-documents-block' }, :child => { :tag => 'ul', :content => /#{person.articles.find_by_path('feed').name}/ }
   end
 
+  should 'display tag for profile' do
+    @profile.articles.create!(:name => 'testarticle', :tag_list => 'tag1')
+
+    get :tag, :profile => @profile.identifier, :id => 'tag1'
+    assert_tag :tag => 'a', :attributes => { :href => /testuser\/testarticle$/ }
+  end
+
+  should 'link to the same tag but for whole environment' do
+    @profile.articles.create!(:name => 'testarticle', :tag_list => 'tag1')
+    get :tag, :profile => @profile.identifier, :id => 'tag1'
+
+    assert_tag :tag => 'a', :attributes => { :href => '/tag/tag1' }, :content => 'See content tagged with "tag1" in the entire site'
+  end
+
 end
