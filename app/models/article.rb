@@ -32,8 +32,10 @@ class Article < ActiveRecord::Base
 
   # retrieves the latest +limit+ articles, sorted from the most recent to the
   # oldest.
+  #
+  # Only includes articles where advertise == true
   def self.recent(limit)
-    options = { :limit => limit, :order => 'created_at desc, articles.id desc' }
+    options = { :limit => limit, :conditions => { :advertise => true }, :order => 'created_at desc, articles.id desc' }
     self.find(:all, options)
   end
 
