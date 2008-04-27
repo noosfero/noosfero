@@ -30,7 +30,8 @@
 <% end %>
 
 <div class="article-tags">
-<%= @page.tags.map { |t| link_to(t, tag_url(:tag => t.name)) }.join("\n") %>
+  <%= _("This article's tags:") %>
+  <%= @page.tags.map { |t| link_to(t, :controller => 'profile', :profile => @profile.identifier, :action => 'tag', :id => t.name ) }.join("\n") %>
 </div>
 
 <% if @page.parent && !@page.parent.path.blank? %>
