@@ -14,7 +14,7 @@ class TagsBlock < Block
   end
 
   def content
-    block_title(_('Tags')) +
+    block_title(_("%s's tags") % owner.name) +
     "\n<div class='tag_cloud'>\n"+
     tag_cloud( owner.tags, :id,
                owner.generate_url(:controller => 'profile', :action => 'tag'),

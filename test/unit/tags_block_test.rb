@@ -23,4 +23,8 @@ class TagsBlockTest < Test::Unit::TestCase
     assert_match /profile\/testinguser\/tag\/third-tag/, block.content
   end
 
+  should 'display owner name in tags' do
+    assert_match "testinguser's tags", block.content
+  end
+
 end
