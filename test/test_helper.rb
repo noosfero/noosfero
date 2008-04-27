@@ -181,7 +181,7 @@ class Test::Unit::TestCase
 
     # Test image references:
     (doc/'img').each do |img|
-      src = img.get_attribute( 'src' )
+      src = img.get_attribute( 'src' ).gsub(/\?[0-9]+$/, '')
       if ! File.exists?( RAILS_ROOT.to_s() +'/public/'+ src )
         flunk 'Image reference missed on HTML: "%s"' % src
       end
