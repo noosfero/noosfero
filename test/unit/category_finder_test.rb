@@ -88,9 +88,9 @@ class CategoryFinderTest < ActiveSupport::TestCase
   end
 
   should 'search in category hierarchy' do
-    parent = Category.create!(:name => 'child category', :environment => Environment.default)
+    parent = Category.create!(:name => 'parent category', :environment => Environment.default)
     child  = Category.create!(:name => 'child category', :environment => Environment.default, :parent => parent)
-    p1 = create_user('people_1').person; p1.name = 'a beautiful person'; p1.categories << parent; p1.save!
+    p1 = create_user('people_1').person; p1.name = 'a beautiful person'; p1.categories << child; p1.save!
 
     f = CategoryFinder.new(parent)
     assert_includes f.people, p1
@@ -105,13 +105,56 @@ class CategoryFinderTest < ActiveSupport::TestCase
     ent1 = Enterprise.create!(:name => 'teste1', :identifier => 'teste1', :categories => [@category])
     ent2 = Enterprise.create!(:name => 'teste2', :identifier => 'teste2', :categories => [@category])
     recent = @finder.recent('enterprises', 1)
-    assert_includes recent, ent1
-    assert_not_includes recent, ent2
+    assert_includes recent, ent2
+    assert_not_includes recent, ent1
   end
 
   should 'count entrprises' do
     count = @finder.count('enterprises')
     ent1 = Enterprise.create!(:name => 'teste1', :identifier => 'teste1', :categories => [@category])
     assert_equal count+1, @finder.count('enterprises')
+  end
+  
+  should 'not list more people than limit' do
+    p1 = create_user('test1').person; p1.categories << @category
+    p2 = create_user('test2').person; p2.categories << @category
+    recent = @finder.recent('people', 1)
+    assert_includes recent, p2
+    assert_not_includes recent, p1
+  end
+
+  should 'list recent articles' do
+    person = create_user('teste').person
+    art1 = person.articles.build(:name => 'an article to be found'); art1.categories << @category; art1.save!
+
+    art2 = person.articles.build(:name => 'another article to be found'); art2.categories << @category; art2.save!
+
+    result = @finder.recent('articles', 1)
+    assert_includes result, art2
+    assert_not_includes result, art1
+  end
+
+  should 'not return the same result twice' do
+    parent = Category.create!(:name => 'parent category', :environment => Environment.default)
+    child  = Category.create!(:name => 'child category', :environment => Environment.default, :parent => parent)
+    p1 = create_user('people_1').person; p1.name = 'a beautiful person'; p1.categories << child; p1.save!
+    p1.categories << parent; p1.save!
+
+    f = CategoryFinder.new(parent)
+    result = f.people
+    assert_equal 1, result.size
+  end
+
+  should 'return most commented articles' do
+    Article.delete_all
+
+    person = create_user('testuser').person
+    articles = (1..4).map {|n| a = person.articles.build(:name => "art #{n}", :categories => [@category]); a.save!; a }
+
+    2.times { articles[0].comments.build(:title => 'test', :body => 'asdsad', :author => person).save! }
+    4.times { articles[1].comments.build(:title => 'test', :body => 'asdsad', :author => person).save! }
+
+    # should respect the order (more commented comes first)
+    assert_equal [articles[1], articles[0]], @finder.most_commented_articles(2)
   end
 end

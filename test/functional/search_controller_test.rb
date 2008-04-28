@@ -31,9 +31,9 @@ class SearchControllerTest < Test::Unit::TestCase
 
   should 'search with filtered query' do
     @controller.expects(:locale).returns('pt_BR').at_least_once
-    @controller.expects(:search).with(anything, 'carne vaca').at_least_once
-    @controller.expects(:search).with(anything, 'a carne da vaca').never
     get 'index', :query => 'a carne da vaca'
+
+    assert_equal 'carne vaca', assigns('filtered_query')
   end
 
   should 'search only in specified types of content' do
@@ -250,7 +250,7 @@ class SearchControllerTest < Test::Unit::TestCase
     p2 = create_user('test2').person
 
     get :assets, :asset => 'people', :category_path => [ 'my-category' ]
-    assert_equal [p1], assigns(:results)[:people].instance_variable_get('@results')
+    assert_equal [p1], assigns(:results)[:people]
   end
 
   should 'find communities' do
@@ -293,7 +293,7 @@ class SearchControllerTest < Test::Unit::TestCase
 
     get :assets, :asset => 'communities', :category_path => [ 'my-category' ]
 
-    assert_equal [c3, c1], assigns(:results)[:communities].instance_variable_get('@results')
+    assert_equal [c3, c1], assigns(:results)[:communities]
   end
 
   should 'find products' do
@@ -379,7 +379,7 @@ class SearchControllerTest < Test::Unit::TestCase
     }
     names.each do |thing,description|
       assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => "find_in[]", :value => thing.to_s, :checked => 'checked' }
-      assert_tag :tag => 'span', :content => description
+      assert_tag :tag => 'label', :content => description
     end
   end
 
@@ -435,7 +435,10 @@ class SearchControllerTest < Test::Unit::TestCase
   should 'list recent articles in the category' do
     @controller.expects(:category).returns(@category).at_least_once
     recent = []
-    @category.expects(:recent_articles).returns(recent)
+    finder = CategoryFinder.new(@category)
+    finder.expects(:recent).with('comments').returns(recent)
+    finder.expects(:recent).with('articles').returns(recent)
+    CategoryFinder.expects(:new).with(@category).returns(finder)
 
     get :category_index, :category_path => [ 'my-category' ]
     assert_same recent, assigns(:recent_articles)
@@ -444,7 +447,10 @@ class SearchControllerTest < Test::Unit::TestCase
   should 'list recent comments in the category' do
     @controller.expects(:category).returns(@category).at_least_once
     recent = []
-    @category.expects(:recent_comments).returns(recent)
+    finder = CategoryFinder.new(@category)
+    finder.expects(:recent).with('comments').returns(recent)
+    finder.expects(:recent).with('articles').returns(recent)
+    CategoryFinder.expects(:new).with(@category).returns(finder)
 
     get :category_index, :category_path => [ 'my-category' ]
     assert_same recent, assigns(:recent_comments)
@@ -453,7 +459,9 @@ class SearchControllerTest < Test::Unit::TestCase
   should 'list most commented articles in the category' do
     @controller.expects(:category).returns(@category).at_least_once
     most_commented = []
-    @category.expects(:most_commented_articles).returns(most_commented)
+    finder = CategoryFinder.new(@category)
+    finder.expects(:most_commented_articles).returns(most_commented)
+    CategoryFinder.expects(:new).with(@category).returns(finder)
 
     get :category_index, :category_path => [ 'my-category' ]
     assert_same most_commented, assigns(:most_commented_articles)
@@ -509,7 +517,7 @@ class SearchControllerTest < Test::Unit::TestCase
     child = Category.create!(:name => "Child Category", :environment => Environment.default, :parent => parent)
 
     get :index, :category_path => [ 'parent-category', 'child-category' ], :query => 'a sample search'
-    assert_tag :tag => 'h2', :content => /Search results for &quot;a sample search&quot; in &quot;Child Category&quot;/
+    assert_tag :tag => 'h1', :content => /Search results for &quot;a sample search&quot; in &quot;Child Category&quot;/
   end
 
   should 'search in categoty hierachy' do

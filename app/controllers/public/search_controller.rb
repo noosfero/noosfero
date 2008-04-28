@@ -38,7 +38,7 @@ class SearchController < ApplicationController
   def action_category
     @recent_articles = @finder.recent('articles')
     @recent_comments = @finder.recent('comments')
-    @most_commented_articles = category.most_commented_articles
+    @most_commented_articles = @finder.most_commented_articles
   end
   alias :action_region :action_category
 
@@ -76,7 +76,7 @@ class SearchController < ApplicationController
 
   # view the summary of one category
   def category_index
-    send('action_' + @category.class.name.underscore) 
+    send('action_' + category.class.name.underscore) 
   end
   attr_reader :category
 

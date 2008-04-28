@@ -24,33 +24,49 @@ class CategoryFinder
   end
 
   def products(query='*', options={})
-    Product.find_by_contents(query, {}, {:select => 'products.*', :joins => 'inner join categories_profiles on products.enterprise_id = categories_profiles.profile_id', :conditions => ['categories_profiles.category_id in (?)', category_ids]}.merge!(options))
+    find_in_categorized(Product, query, options)
   end
 
   def comments(query='*', options={})
-    Comment.find_by_contents(query, {}, {:select => 'comments.*', :joins => 'inner join articles_categories on articles_categories.article_id = comments.article_id', :conditions => ['articles_categories.category_id in (?)', category_ids]}.merge!(options))
+    find_in_categorized(Comment, query, options)
   end
 
   def recent(asset, limit = 10)
-    table = case asset
-              when 'people', 'communities', 'enterprises'
-                'profiles'
-              else
-                asset
-              end
-
-    with_options :limit => limit, :order => "created_at desc, #{table}.id desc" do |finder|
-      finder.send(asset, '*', {})
-    end
+    asset_class(asset).find(:all, options_for_find(asset_class(asset), {:limit => limit, :order => "created_at desc, #{asset_table(asset)}.id desc"}))
   end
 
   def count(asset)
-    send(asset).size
+    asset_class(asset).count(:all, options_for_find(asset_class(asset)))
+  end
+
+  def most_commented_articles(limit=10)
+    Article.find(:all, options_for_find(Article, :limit => limit, :order => 'comments_count DESC'))
   end
 
   protected
 
   def find_in_categorized(klass, query, options={})
-    klass.find_by_contents(query, {}, {:include => 'categories', :conditions => ['categories.id IN (?)', category_ids]}.merge!(options))
+    klass.find_by_contents(query, {}, options_for_find(klass, options)).uniq
+  end
+
+  def options_for_find(klass, options={})
+    case klass.name
+    when 'Comment'
+      {:select => 'distinct comments.*', :joins => 'inner join articles_categories on articles_categories.article_id = comments.article_id', :conditions => ['articles_categories.category_id in (?)', category_ids]}.merge!(options)
+    when 'Product'
+      {:select => 'distinct products.*', :joins => 'inner join categories_profiles on products.enterprise_id = categories_profiles.profile_id', :conditions => ['categories_profiles.category_id in (?)', category_ids]}.merge!(options)
+    when 'Article', 'Person', 'Community', 'Enterprise'
+      {:include => 'categories', :conditions => ['categories.id IN (?)', category_ids]}.merge!(options)
+    else
+      raise "unreconized class #{klass.name}"
+    end
+  end
+
+  def asset_class(asset)
+    asset.to_s.singularize.camelize.constantize
+  end
+  
+  def asset_table(asset)
+    asset_class(asset).table_name
   end
 end
