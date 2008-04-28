@@ -32,4 +32,13 @@ class PeopleBlockTest < ActiveSupport::TestCase
     block.content
   end
 
+  should 'link to people directory' do
+    block = PeopleBlock.new
+    block.stubs(:owner).returns(Environment.default)
+
+    expects(:link_to).with('All people', :controller => 'search', :action => 'assets', :asset => 'people')
+    expects(:_).with('All people').returns('All people')
+    instance_eval(&block.footer)
+  end
+
 end

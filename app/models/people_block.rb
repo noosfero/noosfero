@@ -22,4 +22,10 @@ class PeopleBlock < ProfileListBlock
     end
   end
 
+  def footer
+    lambda do
+      link_to _('All people'), :controller => 'search', :action => 'assets', :asset => 'people'
+    end
+  end
+
 end
