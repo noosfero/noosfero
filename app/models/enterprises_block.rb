@@ -26,7 +26,9 @@ class EnterprisesBlock < ProfileListBlock
 
   class Finder < ProfileListBlock::Finder
     def ids
-      block.owner.enterprise_memberships.map(&:id)
+      # FIXME when owner is an environment (i.e. listing enterprises globally
+      # this can become SLOW)
+      block.owner.enterprises.map(&:id)
     end
   end
 

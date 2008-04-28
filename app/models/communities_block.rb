@@ -25,7 +25,9 @@ class CommunitiesBlock < ProfileListBlock
 
   class Finder < ProfileListBlock::Finder
     def ids
-      block.owner.community_memberships.map(&:id)
+      # FIXME when owner is an environment (i.e. listing communities globally
+      # this can become SLOW)
+      block.owner.communities.map(&:id)
     end
   end
 

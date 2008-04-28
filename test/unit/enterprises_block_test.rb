@@ -31,7 +31,7 @@ class EnterprisesBlockTest < Test::Unit::TestCase
     member2 = mock; member2.stubs(:id).returns(2)
     member3 = mock; member3.stubs(:id).returns(3)
 
-    owner.expects(:enterprise_memberships).returns([member1, member2, member3])
+    owner.expects(:enterprises).returns([member1, member2, member3])
     
     block.profile_finder.expects(:pick_random).with(3).returns(2)
     block.profile_finder.expects(:pick_random).with(2).returns(0)
