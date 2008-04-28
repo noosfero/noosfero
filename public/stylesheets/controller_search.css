@@ -2,6 +2,11 @@
   /* none by default, but... Who knows the future?  :-) */
 }
 
+#search-whole-site {
+  text-align: right;
+  margin-top: -15px;
+}
+
 #search-results h3 {
   margin: 20px 0px 0px 20px;
 }
