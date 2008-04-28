@@ -140,3 +140,40 @@ div.file-manager-button a:hover {
 #lightbox{
   background: #FFF url(../images/bg-top-cinza.jpg) no-repeat 50% -15px;
 }
+
+#footer {
+  background: #ffffff url("/images/bg_footer.png") repeat-x;
+  background-position: 0px 0px;
+  margin: 0px;
+  padding: 10px;
+}
+
+#footer a {
+  border-bottom: 1px dotted #777;
+}
+#footer a:hover {
+  border: 0px;
+}
+
+#footer a#footer-esq {
+  background: url(../images/logo-fbes-footer.gif) no-repeat 0% 50%;
+  padding: 5px 0px 5px 45px;
+  float: left;
+  text-align: left;
+  border: none;
+  opacity: 0.5;
+}
+
+#footer a#footer-dir {
+  background: url(../images/logo-colivre-footer.gif) no-repeat 100% 50%;
+  padding: 5px 35px 5px 0px;
+  float: right;
+  text-align: right;
+  border: none;
+  opacity: 0.5;
+}
+
+#footer a#footer-esq:hover,
+#footer a#footer-dir:hover {
+  opacity: 1;
+}

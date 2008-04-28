@@ -2,11 +2,13 @@
 // This file is automatically included by javascript_include_tag :defaults
 
 function noosfero_init() {
-  focus_first_field();
+  // focus_first_field(); it is moving the page view when de form is down.
 }
 
 /* If applicable, find the first field in which the user can type and move the
  * keyboard focus to it.
+ *
+ * ToDo: focus only inside the view box to do not roll the page.
  */
 function focus_first_field() {
   form = document.forms[0];

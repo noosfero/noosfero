@@ -93,10 +93,6 @@ div#errorExplanation h2 {
 }
 
 #footer {
-  background: #ffffff url("../images/bg_footer.png") repeat-x;
-  background-position: 0px 0px;
-  margin: 0px;
-  padding: 10px;
   text-align: center;
   clear: both;
   font-size: 10px;
@@ -106,40 +102,10 @@ div#errorExplanation h2 {
 #footer a {
   color: #777;
   text-decoration: none;
-  border-bottom: 1px dotted #777;
 }
-
 #footer a:hover {
   color: #555;
-  border: 0px;
 }
-
-#footer ul {
-  margin: 0px;
-  padding: 0px;
-}
-
-#footer li {
-  display: block;
-  float: right;
-  margin-right: 20px;
-  height: 20px;
-}
-
-#footer a#footer-esq {
-  padding: 5px 0px 0px 10px;
-  float: left;
-  text-align: left;
-  border: none;
-}
-
-#footer a#footer-dir {
-  padding: 5px 10px 0px 0px;
-  float: right;
-  text-align: right;
-  border: none;
-}
-
 
 /*********************************************************/
 

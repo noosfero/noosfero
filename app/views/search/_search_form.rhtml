@@ -4,8 +4,8 @@
 
   <div class="search-field">
     <span class="formfield">
-      <%= text_field_tag 'query', @query, :id => 'popup-search-input', :size => 50 %>
-      <%= javascript_tag '$("popup-search-input").focus()' %>
+      <%= text_field_tag 'query', @query, :id => ( lightbox? ? 'popup-search-input' : '' ), :size => 50 %>
+      <%= javascript_tag '$("popup-search-input").focus()' if lightbox? %>
     </span>
     <%= submit_button(:search, _('Search')) %>
   </div>
