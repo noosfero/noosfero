@@ -3,8 +3,14 @@
 <%= error_messages_for :consumption  %>
 
 <% form_for :consumption, @consumption do |f|  %>
-  <p> <%= _('Product:') %> <%= f.select "product_category_id", ProductCategory.find(:all).map{|pc| [pc.name, pc.id]} %></p>
-  <p> <%= _('Aditional specifications:') %><br> <%= f.text_area "aditional_specifications" %> </p>
+  <p>
+    <%= _('Product:') %>
+    <span class="formfield"> <%= f.select "product_category_id", ProductCategory.find(:all).map{|pc| [pc.name, pc.id]} %> </span>
+  </p>
+  <p>
+    <%= _('Aditional specifications:') %> <br />
+    <span class="formfield"> <%= f.text_area "aditional_specifications", :rows => 5 %> </span>
+  </p>
   <% button_bar do %>
     <%= submit_button('add', _('Add product'), :cancel => {:action => 'index'})  %>
   <% end %>

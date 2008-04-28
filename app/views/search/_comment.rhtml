@@ -1,7 +1,22 @@
 <li>
-  <strong><%= link_to(comment.title, comment.url)%></strong>
+  <%- if comment.author -%>
+    <%= link_to content_tag( 'span', comment.author.name() ), comment.author.url,
+        :class => 'comment-picture',
+        :style => 'background-image:url(%s)' % profile_icon(comment.author, :icon)
+    %>
+  <%- else -%>
+    <%# unauthenticated user: display gravatar icon %>
+    <%= content_tag 'span', '&nbsp;',
+        :class => 'comment-picture',
+        :style => 'background-image:url(%s)' % str_gravatar_url_for( comment.email, :size => 20 )
+    %>
+  <%- end %>
+  <strong><%= link_to(comment.title, comment.url) %></strong>
   <div class="item_meta">
-    <span class="cat_item_by"><%= _('by %s, on "%s"') % [comment.author_name, link_to(comment.article.name, comment.article.url)] %></span>
+    <%= _('by %{author} on "%{article}"') % {
+              :comment => link_to(comment.title, comment.url),
+              :article => link_to(comment.article.title, comment.article.url),
+              :author => comment.author_name } %>
   </div>
 </li>
 

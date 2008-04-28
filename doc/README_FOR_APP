@@ -49,6 +49,8 @@ commands and make sure you understand what you are doing):
  rake makemo
  # create some test data:
  ./script/populate
+ # install the test dependences:
+ aptitude install libtidy-ruby libhpricot-ruby
  # run the automated test suite to make sure your environment is sane:
  rake test
 

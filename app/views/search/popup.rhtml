@@ -1,8 +1,6 @@
 <div id="search-popup">
 
-<h2><%= _('Search %s') % @environment.name %></h2>
-
-<%= render :partial => 'search_form' %>
+<%= render :partial => 'search_form', :locals => { :form_title => _('Search %s') % @environment.name } %>
 
 <script type='text/javascript'>
   $('query').focus();

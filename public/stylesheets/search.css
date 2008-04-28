@@ -15,11 +15,11 @@
 
 /***** search-popup ***************************/
 
-#search-popup h2 {
+#search-popup h3 {
   color: #2A5896;
   font-size: 20px;
 }
-#search-popup h3 {
+#search-popup h4 {
   color: #2A5896;
   font-size: 16px;
 }
@@ -28,8 +28,8 @@
   text-align: center;
 }
 
-.search-options ul,
-.search-options li {
+#content .search-options ul, .search-options ul,
+#content .search-options li, .search-options li {
   margin: 0px;
   padding: 0px;
   list-style: none;
@@ -44,7 +44,8 @@
   margin-top: 20px;
 }
 
-.search-options h3 {
+.search-options h4,
+#content .search-options h4 {
   float: left;
   margin: -10px 0px 0px 0px;
   background: #FFF;
@@ -57,8 +58,17 @@
   padding: 2px 0px;
 }
 
+.search-in li {
+  float: none;
+  width: auto;
+}
+.search-in br {
+  clear: none;
+}
+
 #search-popup .button-bar {
   clear: left;
   padding-top: 0px;
+  margin-bottom: -20px;
 }
 

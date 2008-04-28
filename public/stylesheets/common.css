@@ -1,7 +1,7 @@
 body {
   padding: 0px;
   margin: 0px;
-  font-family: Verdana, Sans-Serif;
+  font-family: Verdana, sans-serif;
   font-size: 14px;
 }
 
@@ -88,39 +88,56 @@ div#errorExplanation h2 {
   text-align: center;
 }
 
-div#footer {
-  background: #ffffff url("../images/bg_footer.png") repeat-x !important;
+#footer_content {
+  clear: both;
+}
+
+#footer {
+  background: #ffffff url("../images/bg_footer.png") repeat-x;
   background-position: 0px 0px;
-  font-family: Verdana, Arial, Serif-sans;
-  margin: 0px !important;
-  padding: 5px !important;
-  text-align: center !important;
-  clear: both !important;
-  font-size: 10px !important;
-  color: #545454 !important;
+  margin: 0px;
+  padding: 10px;
+  text-align: center;
+  clear: both;
+  font-size: 10px;
+  color: #777;
 }
 
-div#footer a {
-  color: #545454;
+#footer a {
+  color: #777;
   text-decoration: none;
-  border-bottom: 1px dotted #545454;
+  border-bottom: 1px dotted #777;
 }
 
-div#footer a:hover {
-  color: #000000;
+#footer a:hover {
+  color: #555;
   border: 0px;
 }
 
-div#footer ul {
+#footer ul {
   margin: 0px;
   padding: 0px;
 }
 
-div#footer li {
+#footer li {
   display: block;
   float: right;
   margin-right: 20px;
   height: 20px;
+}
+
+#footer a#footer-esq {
+  padding: 5px 0px 0px 10px;
+  float: left;
+  text-align: left;
+  border: none;
+}
+
+#footer a#footer-dir {
+  padding: 5px 10px 0px 0px;
+  float: right;
+  text-align: right;
+  border: none;
 }
 
 
@@ -134,20 +151,6 @@ div#footer li {
   margin-left: -16px;
   top: 200px;
 }
-
-#footer_content {
-clear: both;
-}
-
-#footer {
-  clear: both;
-  text-align: center;
-  font-size: smaller;
-  color: #333;
-  margin: 0px;
-  padding: 5px;
-}
-
 
 /* Notice */ 
 

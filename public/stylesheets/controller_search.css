@@ -52,6 +52,27 @@
   color: #888;
 }
 
+#category-comments {
+  margin-left: 55%;
+}
+
+#content .search-results-comments ul,
+#content .search-results-comments li,
+#content #category-comments ul,
+#content #category-comments li {
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+  color: #888;
+}
+
+.search-results-comments .comment-picture,
+#category-comments .comment-picture {
+  width: 20px;
+  height: 20px;
+  margin: -2px 5px 0px 0px;
+}
+
 #content .search-results-type-product ul,
 #content .search-results-type-product li {
   margin: 0px;

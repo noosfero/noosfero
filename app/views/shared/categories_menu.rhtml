@@ -6,7 +6,7 @@
       <ul>
         <% item.all_children.each do |child| %>
           <% if (@controller.controller_name == 'search') && (@controller.action_name == 'assets') %>
-            <li><%=h link_to(content_tag('span', child.name), :controller => 'search', :action => 'assets', :asset => params[:asset], :category_path => child.explode_path) %></li>
+            <li><%= link_to(content_tag('span', child.name), :controller => 'search', :action => 'assets', :asset => params[:asset], :category_path => child.explode_path) %></li>
           <% else %>
             <li><%= link_to(content_tag('span', child.name), :controller => 'search', :action => 'category_index', :category_path => child.explode_path) %></li>
           <% end %>

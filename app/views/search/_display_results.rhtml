@@ -1,15 +1,15 @@
-<%= render :partial => 'search_form' %>
-
-<div>
-<%= link_to _('Search for "%s" in the whole site') % @query, :controller => 'search', :action => 'index', :category_path => [], :query => @query if @category %>
-</div>
-
-
 <div id="search-results" class="<%= 'only-one-result-box' if @results.size == 1 %>">
-<% pos = :odd %>
-<% @results.each do |name,results| %>
+<%
+  pos2 = :odd  # allow to format in a two colons layout
+  pos3 = 3     # allow to format in a thre colons layout
+%>
+<% @results.sort_by { |name,results| @names[name] }.each do |name,results| %>
+  <%
+    pos3 += 1;  pos3 = 1 if pos3 > 3
+    pos2==:odd ? pos2=:even : pos2=:odd
+  %>
   <% if !results.nil? and !results.empty? %>
-    <div class="search-results-<%= name %> search-results-box <%= pos==:odd ? pos=:even : pos=:odd %>">
+    <div class="search-results-<%= name %> search-results-box <%= pos2 %> <%= 'col%s_of3' % pos3.to_s %>">
       <% if @controller.action_name != 'assets' %>
         <h3><%= @names[name] %></h3>
       <% end %>
@@ -23,7 +23,7 @@
       </div><!-- end class="search-results-innerbox" -->
     </div><!-- end class="search-results-<%= name %>" -->
   <% else %>
-    <div class="search-results-<%= name %> search-results-empty search-results-box <%= pos==:odd ? pos=:even : pos=:odd %>">
+    <div class="search-results-<%= name %> search-results-empty search-results-box <%= pos2 %> <%= 'col%s_of3' % pos3.to_s %>">
       <% if @controller.action_name != 'assets' %>
         <h3><%= @names[name] %></h3>
       <% end %>
@@ -35,3 +35,4 @@
 <% end %>
 <br style="clear:both" />
 </div><!-- end id="search-results" -->
+
