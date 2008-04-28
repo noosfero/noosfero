@@ -56,7 +56,7 @@ module XssTerminate
       columns_serialized = self.class.serialized_attributes.keys
 
       if !xss_terminate_options[:only].empty?
-        columns.select{ |i| xss_terminate_options[:only].include?( i ) }
+        columns = columns.select{ |i| xss_terminate_options[:only].include?( i.to_sym ) }
       elsif !xss_terminate_options[:except].empty?
         columns.delete_if{ |i| xss_terminate_options[:except].include?( i.to_sym ) }
       end
@@ -67,7 +67,7 @@ module XssTerminate
           next unless self[field]
           self[field].each_key { |key|
             key = key.to_sym
-            self[field][key] = xss_terminate_options[:sanitizer].sanitize(self[field][key].to_s)
+            self[field][key] = xss_terminate_options[:sanitizer].sanitize(self[field][key])
           }
         else
           self[field] = xss_terminate_options[:sanitizer].sanitize(self[field])
