@@ -22,15 +22,34 @@ class AdminPanelControllerTest < Test::Unit::TestCase
     assert_valid_xhtml
   end
   
-  def test_index
+  should 'link to site_info editing page' do
     get :index
-    assert_template 'index'
-    assert_tag :tag => 'a', :attributes => { :href => /site_info/ }
-    assert_tag :tag => 'a', :attributes => { :href => /categories/ }
-    assert_tag :tag => 'a', :attributes => { :href => /edit_template/ }
-    assert_tag :tag => 'a', :attributes => { :href => /features/ }
-    assert_tag :tag => 'a', :attributes => { :href => /role/ }
-    assert_tag :tag => 'a', :attributes => { :href => /region_validators/ }
+    assert_tag :tag => 'a', :attributes => { :href => '/admin/admin_panel/site_info' }
+  end
+
+  should 'link to cateogries editing' do
+    get :index
+    assert_tag :tag => 'a', :attributes => { :href => '/admin/categories' }
+  end
+
+  should 'link to design editor' do
+    get :index
+    assert_tag :tag => 'a', :attributes => { :href => '/admin/environment_design' }
+  end
+
+  should 'link to features editing screen' do
+    get :index
+    assert_tag :tag => 'a', :attributes => { :href => '/admin/features' }
+  end
+
+  should 'link to role editing screen' do
+    get :index
+    assert_tag :tag => 'a', :attributes => { :href => '/admin/role' }
+  end
+
+  should 'link to region validator screen' do
+    get :index
+    assert_tag :tag => 'a', :attributes => { :href => '/admin/region_validators' }
   end
   
   should 'display form for editing site info' do
