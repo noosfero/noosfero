@@ -5,7 +5,7 @@ class AddTimestampsInProduct < ActiveRecord::Migration
   end
 
   def self.down
-    remove_column :products, :created_at, :datetime
-    remove_column :products, :updated_at, :datetime
+    remove_column :products, :created_at
+    remove_column :products, :updated_at
   end
 end
