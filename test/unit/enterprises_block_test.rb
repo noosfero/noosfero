@@ -42,4 +42,32 @@ class EnterprisesBlockTest < Test::Unit::TestCase
     assert_equal [member3, member1], block.profiles
   end
 
+  should 'link to all enterprises for profile' do
+    profile = Profile.new
+    profile.expects(:identifier).returns('theprofile')
+    block = EnterprisesBlock.new
+    block.expects(:owner).returns(profile)
+
+    expects(:_).with('All enterprises').returns('All enterprises')
+    expects(:link_to).with('All enterprises', :controller => 'profile', :profile => 'theprofile', :action => 'enterprises')
+
+    instance_eval(&block.footer)
+  end
+
+  should 'link to all enterprises for environment' do
+    env = Environment.default
+    block = EnterprisesBlock.new
+    block.expects(:owner).returns(env)
+
+    expects(:_).with('All enterprises').returns('All enterprises')
+    expects(:link_to).with('All enterprises', :controller => 'search', :action => 'assets', :asset => 'enterprises')
+    instance_eval(&block.footer)
+  end
+
+  should 'give empty footer for unsupported owner type' do
+    block = EnterprisesBlock.new
+    block.expects(:owner).returns(1)
+    assert_equal '', block.footer
+  end
+
 end

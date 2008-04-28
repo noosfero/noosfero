@@ -13,9 +13,18 @@ class CommunitiesBlock < ProfileListBlock
   end
 
   def footer
-    profile = self.owner
-    lambda do
-      link_to _('All communities'), :profile => profile.identifier, :controller => 'profile', :action => 'communities'
+    owner = self.owner
+    case owner
+    when Profile
+      lambda do
+        link_to _('All communities'), :profile => owner.identifier, :controller => 'profile', :action => 'communities'
+      end
+    when Environment
+      lambda do
+        link_to _('All communities'), :controller => 'search', :action => 'assets', :asset => 'communities'
+      end
+    else
+      ''
     end
   end
 

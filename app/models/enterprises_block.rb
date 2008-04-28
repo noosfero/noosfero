@@ -13,9 +13,18 @@ class EnterprisesBlock < ProfileListBlock
   end
 
   def footer
-    profile = self.owner
-    lambda do
-      link_to _('All enterprises'), :profile => profile.identifier, :controller => 'profile', :action => 'enterprises'
+    owner = self.owner
+    case owner
+    when Profile
+      lambda do
+        link_to _('All enterprises'), :profile => owner.identifier, :controller => 'profile', :action => 'enterprises'
+      end
+    when Environment
+      lambda do
+        link_to _('All enterprises'), :controller => 'search', :action => 'assets', :asset => 'enterprises'
+      end
+    else
+      ''
     end
   end
 

@@ -42,4 +42,33 @@ class CommunitiesBlockTest < Test::Unit::TestCase
     assert_equal [member3, member1], block.profiles
   end
 
+  should 'link to all communities of profile' do
+    profile = Profile.new
+    profile.expects(:identifier).returns("theprofile")
+
+    block = CommunitiesBlock.new
+    block.expects(:owner).returns(profile)
+
+    expects(:_).with('All communities').returns('All communities')
+    expects(:link_to).with('All communities', :controller => 'profile', :profile => 'theprofile', :action => 'communities')
+    instance_eval(&block.footer)
+  end
+
+  should 'support environment as owner' do
+    env = Environment.default
+    block = CommunitiesBlock.new
+    block.expects(:owner).returns(env)
+
+    expects(:_).with('All communities').returns('All communities')
+    expects(:link_to).with('All communities', :controller => 'search', :action => 'assets', :asset => 'communities')
+
+    instance_eval(&block.footer)
+  end
+
+  should 'give empty footer on unsupported owner type' do
+    block = CommunitiesBlock.new
+    block.expects(:owner).returns(1)
+    assert_equal '', block.footer
+  end
+
 end
