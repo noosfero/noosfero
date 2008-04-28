@@ -42,3 +42,20 @@
   top: -5px;
 }
 
+.categorie_box .button {
+  float: left;
+}
+.categorie_box h5 {
+  line-height: 24px;
+}
+
+#content ul.categories,
+#content ul.categories li {
+  margin: 0px;
+  padding: 1px 0px 1px 4px;
+  list-style: none;
+}
+ul.categories li.cat_checked {
+  background: #B8CFE7;
+}
+

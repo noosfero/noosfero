@@ -1,0 +1,27 @@
+
+.categorie_box {
+  -moz-border-radius: 4px;
+  border: 1px solid #729FCF;
+  margin-bottom: 2px;
+  padding: 2px 0px;
+}
+
+#content .categorie_box h5 {
+  margin: 0px;
+  padding: 0px;
+  line-height: 22px;
+}
+
+#content ul.categories {
+  padding: 5px 4px 3px 4px;
+}
+
+ul.categories li {
+  -moz-border-radius: 9px;
+  border-bottom: 1px solid #FFF;
+}
+
+ul.categories li.cat_checked {
+  border-bottom: 1px solid #729FCF;
+}
+

@@ -454,16 +454,36 @@ module ApplicationHelper
   def select_categories(object_name)
     object = instance_variable_get("@#{object_name}")
 
-    result = content_tag('h4', _('Categories'))
+    result = content_tag 'h4', _('Categories')
+    result << javascript_tag( 'function open_close_cat( link ) {
+      var div = link.parentNode.getElementsByTagName("div")[0];
+      var end = function(){
+        if ( div.style.display == "none" ) {
+          this.link.className="button icon-button icon-down"
+        } else {
+          this.link.className="button icon-button icon-up"
+        }
+      }
+      Effect.toggle( div, "slide", { link:link, div:div, afterFinish:end } )
+    }')
     environment.top_level_categories.each do |toplevel|
       toplevel.map_traversal do |cat|
         if cat.top_level?
+          result << '<div class="categorie_box">'
+          result << icon_button( :down, _('open'), '#', :onclick => 'open_close_cat(this); return false' )
           result << content_tag('h5', toplevel.name)
+          result << '<div style="display:none"><ul class="categories">'
         else
           checkbox_id = "#{object_name}_#{cat.full_name.downcase.gsub(/\s+|\//, '_')}"
-          result << content_tag('label', check_box_tag("#{object_name}[category_ids][]", cat.id, object.category_ids.include?(cat.id), :id => checkbox_id) + cat.full_name_without_leading(1), :for => checkbox_id)
+          result << content_tag('li', labelled_check_box(
+                      cat.full_name_without_leading(1, " &rarr; "),
+                      "#{object_name}[category_ids][]", cat.id,
+                      object.category_ids.include?(cat.id), :id => checkbox_id,
+                      :onchange => 'this.parentNode.className=(this.checked?"cat_checked":"")' ),
+                    :class => ( object.category_ids.include?(cat.id) ? 'cat_checked' : '' ) ) + "\n"
         end
       end
+      result << '</ul></div></div>'
     end
 
     content_tag('div', result)
