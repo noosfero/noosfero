@@ -1,0 +1,118 @@
+= xss_terminate
+
+*this version is changed by joenio and should be re-documented*
+
++xss_terminate+ is a plugin in that makes stripping and sanitizing HTML 
+stupid-simple. Install and forget. And forget about forgetting to <tt>h()</tt>
+your output, because you won't need to anymore.
+
+But +xss_terminate+ is also flexible. By default, it will strip all HTML tags
+from user input. This is usually what you want, but sometimes you need users to be 
+able to enter HTML. The plugin allows you remove bad HTML with your choice
+of two whitelist-based sanitizers, or to skip HTML sanitization entirely on
+a per-field basis.
+
+To install, do:
+
+  script/plugin install http://xssterminate.googlecode.com/svn/trunk/xss_terminate
+
+== HTML sanitization
+
+A note on your choices.
+
+* Strip tags: removes all HTML using Rails's built-in +strip_tags+ method. Tags are removed, but their content is not.
+* Rails sanitization: Removes bad HTML with Rails's built-in sanitize method. Bad tags are removed completely, including their content.
+* HTML5lib sanitization: Removes bad HTML after parsing it with {HTML5lib}[http://code.google.com/p/html5lib/], a library that parses HTML like browsers do. It should be very tolerant of invalid HTML. Bad tags are escaped, not removed.
+* Do nothing. You can chose not to process given fields.
+
+== Usage
+
+Installing the plugin creates a +before_save+ hook that will strip HTML tags 
+from all string and text fields. No further configuration is necessary if this
+is what you want. To customize the behavior, you use the +xss_terminate+ class 
+method.
+
+To exempt some fields from sanitization, use the <tt>:except</tt> option 
+with a list of fields not to process:
+
+ class Comment < ActiveRecord::Base
+   xss_terminate :except => [ :body ]
+ end
+
+To sanitize only fields, use the <tt>:only</tt> option:
+  
+  class Person < ActiveRecord::Base
+    xss_sanitize :only => [ :email, :name ]
+  end
+
+
+By default sanitization use HTML sanitize Rails's built-in, to use other add <tt>:with</tt> option.
+
+To sanitize using Rails white list use:
+
+  class Review < ActiveRecord::Base
+    xss_sanitize :only => [ :body, :author_name ], :with => 'white_list'
+  end
+ 
+To sanitize HTML with {HTML5Lib}[http://code.google.com/p/html5lib/] 
+(<tt>gem install html5</tt> to get it), use the <tt>:with => 'html5lib'</tt> option:
+
+ class Entry < ActiveRecord::Base
+   xss_terminate :only => [ :body, :author_name ], :with => 'html5lib'
+ end
+ 
+You can redefine when sanitize/filter will be executed with option <tt>:on</tt>. By default
+sanitization is on before_save, but if you need to sanitize on before_validation use:
+
+ class Message < ActiveRecord::Base
+   xss_terminate :executed => [ :body ], :on => 'validation'
+ end
+
+== Configuration
+
+By default all fields in all models will be sanitized after install this plugin.
+
+To change it add in our environment.rb:
+
+  XssTerminate.sanitize_by_default = false
+
+== Sanitizing existing records (FIXME tests this)
+
+After installing +xss_terminate+ and configuring it to your liking, you can 
+run <tt>rake xss_terminate MODELS=Foo,Bar,Baz</tt> to execute it against your
+existing records. This will load each model found and save it again to invoke
+the before_save hook.
+
+== Unique features
+
++xss_terminate+ is based on +acts_as_sanitized+. Here is what's different:
+
+* Rails 2.0-ready.
+* Automatic. It is included with default options in <tt>ActiveReord::Base</tt> so all your models are sanitized.
+* It works with migrations. Columns are fetched when model is saved, not when the class is loaded.
+* You can decide whether to sanitize or strip tags on a field-by-field basis instead of model-by-model.
+* HTML5lib support.
+
+== TODO
+
+* Performance tests
+* Test suites with "real world" HTML
+* Test/make work with Rails 1.2.x (Rails 1.2 sanitization is crap, so you'd want to use HTML5lib)
+* Add Tests to HTML5lib to new API (changed by joenio)
+* Add tests to new API
+* Adapt to keep compatibility with old API
+* Create tests to serializable fields
+* Document new API and changes
+* Create and send path to author
+
+== Credits
+
+Written by {Luke Francl}[http://railspikes.com] and based on acts_as_sanitized by 
+{Alex Payne}[http://www.al3x.net].
+
+HTML5Lib sanitization by {Jacques Distler}[http://golem.ph.utexas.edu/~distler].
+
+== License
+
+MIT License, except for lib/html5lib_sanitize.rb which is under the 
+Ruby license and copyright to Jacques Distler.

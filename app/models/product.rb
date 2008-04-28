@@ -11,6 +11,8 @@ class Product < ActiveRecord::Base
   after_update :save_image
 
   acts_as_searchable :fields => [ :name, :description, :category_full_name ]
+
+  xss_terminate :only => [ :name, :description ]
   
   def category_full_name
     product_category.full_name(" ")

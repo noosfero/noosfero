@@ -2,6 +2,8 @@ class PersonInfo < ActiveRecord::Base
 
   belongs_to :person
 
+  xss_terminate :only => [ :name ]
+
   def summary
     ['name', 'contact_information', 'sex', 'birth_date', 'address', 'city', 'state', 'country'].map do |col|
       [ PersonInfo.columns_hash[col] && PersonInfo.columns_hash[col].human_name, self.send(col) ]

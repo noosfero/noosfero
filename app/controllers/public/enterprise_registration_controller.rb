@@ -51,16 +51,4 @@ class EnterpriseRegistrationController < ApplicationController
     @create_enterprise.save!
   end
 
-  private
-
-  require 'erb'
-  include ERB::Util
-  def sanitize
-    if params[:create_enterprise]
-      %w[name address contact_phone contact_person acronym foundation_year legal_form economic_activity management_information].each{ |i|
-        params[:create_enterprise][i] = html_escape(params[:create_enterprise][i]) if params[:create_enterprise][i]
-      }
-    end
-  end
-
 end

@@ -4,6 +4,10 @@ class OrganizationInfo < ActiveRecord::Base
   validates_numericality_of :foundation_year, :only_integer => true, :allow_nil => true
 
   validates_format_of :contact_email, :with => Noosfero::Constants::EMAIL_FORMAT, :if => (lambda { |info| ! info.contact_email.nil? })
+                                                                                     
+  xss_terminate :only => [ :acronym, :contact_person, :contact_email, :foundation_year, :legal_form, :economic_activity, :management_information ]
+
+  #xss_terminate :only => [ :acronym, :contact_person, :contact_phone, :economic_activity, :foundation_year, :legal_form, :management_information, :address, :name ]
 
   def summary
     # FIXME diplays too few fields

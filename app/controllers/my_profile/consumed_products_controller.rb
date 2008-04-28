@@ -30,14 +30,4 @@ class ConsumedProductsController < ApplicationController
     redirect_back_or_default :action => 'index'
   end
 
-  private
-  
-  require 'erb'
-  include ERB::Util
-  def sanitize
-    if params[:consumption]
-      params[:consumption][:aditional_specifications] = html_escape(params[:consumption][:aditional_specifications]) if params[:consumption][:aditional_specifications]
-    end
-  end
-
 end

@@ -117,6 +117,8 @@ class Profile < ActiveRecord::Base
     true
   end
 
+  xss_terminate :only => [ :address, :contact_phone ]
+
   # Returns information about the profile's owner that was made public by
   # him/her.
   #

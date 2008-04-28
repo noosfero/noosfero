@@ -19,6 +19,8 @@ class Comment < ActiveRecord::Base
     end
   end
 
+  xss_terminate :only => [ :body, :title ]
+
   def author_name
     if author
       author.name
