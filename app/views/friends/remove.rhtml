@@ -1,4 +1,8 @@
+<div id="remove_friend">
+
 <h1><%= _('Removing friend: %s') % @friend.name %></h1>
+
+<%= profile_image @friend, :thumb, :class => 'friend_picture' %>
 
 <p>
 <%= _('Are you sure you want to remove %s from your friends list?') % @friend.name %>
@@ -16,3 +20,5 @@
   <%= submit_button(:ok, _("Yes, I want to remove %s from my friend list") % @friend.name) %>
   <%= button(:cancel, _("No, I don't want"), :action => 'index') %>
 <% end %>
+
+</div><!-- end id="remove_friend" -->

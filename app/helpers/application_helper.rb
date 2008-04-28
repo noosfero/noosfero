@@ -398,6 +398,7 @@ module ApplicationHelper
   # #profile_image) and its name below it.
   def profile_image_link(profile, size=:portrait)
     link_to( '<div>'+ profile_image(profile, size) +'</div><span>'+ profile.name() +'</span>', profile.url,
+             :class => 'profile_link',
              :help => _('Click on this icon to go to the <b>%s</b>\'s home page') % profile.name )
   end
 

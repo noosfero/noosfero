@@ -1,0 +1,9 @@
+
+.profile-list .profile_link span {
+  font-weight: bold;
+}
+
+.profile-list li:hover .profile_link span {
+  color: #FFF;
+}
+

@@ -1,11 +1,18 @@
+<div id="manage_friends">
+
 <h1><%= _("%s's friends") % profile.name %></h1>
 
 <ul class='profile-list'>
 <% @friends.each do |friend| %>
   <li>
-  <%= profile_image_link(friend)%>
-  <br/>
-  <%= link_to '(remove)', :action => 'remove', :id => friend.id %>
+    <%= profile_image_link friend %>
+    <div class="controll">
+      <%= link_to content_tag('span',_('remove')),
+          { :action => 'remove', :id => friend.id },
+            :class => 'button icon-delete',
+            :title => _('remove'),
+            :help => _('Clicking on this button will remove your friend relation with %s.') % friend.name %>
+    </div><!-- end class="controll" -->
   </li>
 <% end %>
 </ul>
@@ -18,7 +25,9 @@
 </p>
 <% end %>
 
-
 <% button_bar do %>
   <%= button(:back, _('Go back'), :controller => 'profile_editor') %>
 <% end %>
+
+</div><!-- end id="manage_friends" -->
+
