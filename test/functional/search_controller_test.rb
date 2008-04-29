@@ -16,7 +16,7 @@ class SearchControllerTest < Test::Unit::TestCase
   def test_local_files_reference
     assert_local_files_reference
   end
-  
+
   def test_valid_xhtml
     assert_valid_xhtml
   end
@@ -77,7 +77,7 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_includes assigns(:results)[:articles], art1
     assert_not_includes assigns(:results)[:articles], art2
   end
-  
+
   # 'assets' outside any category
   should 'list articles in general' do
     person = create_user('testuser').person
@@ -92,7 +92,7 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_includes assigns(:results)[:articles], art1
     assert_includes assigns(:results)[:articles], art2
   end
-  
+
   # 'assets' inside a category
   should 'list articles in a specific category' do
     person = create_user('testuser').person
@@ -131,7 +131,7 @@ class SearchControllerTest < Test::Unit::TestCase
 
     # not in category
     art2 = person.articles.build(:name => 'another article to be found')
-    art2.save! 
+    art2.save!
     comment2 = art2.comments.build(:title => 'comment to be found', :body => 'hfyfyh', :author => person); comment2.save!
     get :index, :category_path => ['my-category'], :query => 'found', :find_in => [ 'comments' ]
 
@@ -176,7 +176,7 @@ class SearchControllerTest < Test::Unit::TestCase
     get 'index', :query => 'teste', :find_in => [ 'enterprises' ]
     assert_includes assigns(:results)[:enterprises], ent
   end
-  
+
   should 'find enterprises in a specified category' do
 
     # in category
@@ -235,7 +235,7 @@ class SearchControllerTest < Test::Unit::TestCase
     p2 = create_user('test2').person
 
     get :assets, :asset => 'people'
-    
+
     assert_equal [p2,p1], assigns(:results)[:people].instance_variable_get('@results')
   end
 
@@ -350,9 +350,9 @@ class SearchControllerTest < Test::Unit::TestCase
     article = person.articles.create!(:name => 'display article')
     comment = article.comments.create!(:title => 'display comment', :body => '...', :author => person)
     community = Community.create!(:name => 'display community', :identifier => 'an_bea_comm')
-    
+
     get :index, :query => 'display'
-    
+
     names = {
         :articles => 'Articles',
         :comments => 'Comments',
@@ -539,7 +539,7 @@ class SearchControllerTest < Test::Unit::TestCase
   should 'search in categoty hierachy' do
     parent = Category.create!(:name => 'Parent Category', :environment => Environment.default)
     child  = Category.create!(:name => 'Child Category', :environment => Environment.default, :parent => parent)
- 
+
     p = create_user('test_profile').person
     p.categories << child
     p.save!
@@ -558,5 +558,194 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'input', :attributes =>  { :name => 'find_in[]', :value => 'enterprises', :checked => 'checked' }
     assert_no_tag :tag => 'input', :attributes =>  { :name => 'find_in[]', :value => 'products', :checked => 'checked' }
   end
-  
+
+  ############## directory ####################
+  should 'link to people directory in index' do
+    get :assets, :asset => 'people'
+    assert_tag :tag => 'a', :attributes => { :href => '/directory/people/a'}, :content => 'A'
+    assert_tag :tag => 'a', :attributes => { :href => '/directory/people/b'}, :content => 'B'
+  end
+
+  should 'display link in people directory to other initials but not to the same' do
+    get :directory, :asset => 'people', :initial => 'r'
+    assert_tag :tag => 'a', :attributes => { :href => '/directory/people/a' }
+    assert_no_tag :tag => 'a', :attributes => { :href => '/directory/people/r' }
+  end
+
+  should 'display link to recent people while in directory' do
+    get :directory, :asset => 'people', :initial => 'a'
+    assert_tag :tag => 'a', :attributes => { :href => '/assets/people' }, :content => 'Recent'
+  end
+
+  ############### directory for every kind of asset #################
+  should 'display people with a given initial' do
+    included = create_user('fergunson').person
+    not_included = create_user('yanerson').person
+
+    get :directory, :asset => 'people', :initial => 'f'
+    assert_includes assigns(:results)[:people], included
+    assert_not_includes assigns(:results)[:people], not_included
+  end
+
+  should 'display communities with a given initial' do
+    c1 = Community.create!(:name => 'a beautiful community', :identifier => 'bea_comm', :environment => Environment.default)
+    c2 = Community.create!(:name => 'beautiful community (another)', :identifier => 'an_bea_comm', :environment => Environment.default)
+
+    get :directory, :asset => 'communities', :initial => 'a'
+
+    assert_includes assigns(:results)[:communities], c1
+    assert_not_includes assigns(:results)[:communities], c2
+  end
+
+  should 'display enterprises with a given initial' do
+    ent1 = Enterprise.create!(:name => 'aaaaa', :identifier => 'teste1')
+    ent2 = Enterprise.create!(:name => 'bbbbb', :identifier => 'teste2')
+
+    get :directory, :asset => 'enterprises', :initial => 'a'
+
+    assert_includes assigns(:results)[:enterprises], ent1
+    assert_not_includes assigns(:results)[:enterprises], ent2
+  end
+
+  should 'display products with a given initial' do
+    ent = Enterprise.create!(:name => 'teste', :identifier => 'teste')
+    prod1 = ent.products.create!(:name => 'a beautiful product')
+    prod2 = ent.products.create!(:name => 'beautiful product (another)')
+
+    get :directory, :asset => 'products', :initial => 'a'
+
+    assert_includes assigns(:results)[:products], prod1
+    assert_not_includes assigns(:results)[:products], prod2
+  end
+
+  should 'display articles with a given initial' do
+    person = create_user('teste').person
+    art1 = person.articles.build(:name => 'an article to be found'); art1.save!
+    art2 = person.articles.build(:name => 'better article'); art2.save!
+
+    get :directory, :asset => 'articles', :initial => 'a'
+
+    assert_includes assigns(:results)[:articles], art1
+    assert_not_includes assigns(:results)[:articles], art2
+  end
+
+  should 'display comments with a given initial' do
+    person = create_user('teste').person
+    art = person.articles.build(:name => 'an article to be found'); art.save!
+
+    comment1 = art.comments.build(:title => 'a comment to be found', :body => 'hfyfyh', :author => person); comment1.save!
+    comment2 = art.comments.build(:title => 'better comment, but not found', :body => 'hfyfyh', :author => person); comment2.save!
+
+    get :directory, :asset => 'comments', :initial => 'a'
+
+    assert_includes assigns(:results)[:comments], comment1
+    assert_not_includes assigns(:results)[:comments], comment2
+  end
+
+
+  should 'display people with a given initial, under a specific category' do
+
+    in_category_and_with_initial = create_user('fergunson').person
+    in_category_and_with_initial.categories << @category
+
+    in_category_but_without_initial = create_user('yanerson').person
+    in_category_but_without_initial.categories << @category
+
+    not_in_category_but_with_initial = create_user('fergy').person
+    not_in_category_and_without_initial = create_user('xalanxalan').person
+
+    get :directory, :asset => 'people', :initial => 'f', :category_path => [ 'my-category' ]
+
+    assert_includes assigns(:results)[:people], in_category_and_with_initial
+    assert_not_includes assigns(:results)[:people], in_category_but_without_initial
+    assert_not_includes assigns(:results)[:people], not_in_category_but_with_initial
+    assert_not_includes assigns(:results)[:people], not_in_category_and_without_initial
+  end
+
+  should 'display communities with a given initial, under a specific category' do
+    c1 = Community.create!(:name => 'a beautiful community', :identifier => 'bea_comm', :environment => Environment.default); c1.categories << @category
+    c2 = Community.create!(:name => 'beautiful community (another)', :identifier => 'an_bea_comm', :environment => Environment.default); c2.categories << @category
+
+    c3 = Community.create!(:name => 'another beautiful community', :identifier => 'lalala', :environment => Environment.default);
+    c4 = Community.create!(:name => 'damn beautiful community (another)', :identifier => 'lelele', :environment => Environment.default)
+
+    get :directory, :asset => 'communities', :initial => 'a', :category_path => [ 'my-category' ]
+
+    assert_includes assigns(:results)[:communities], c1
+    assert_not_includes assigns(:results)[:communities], c2
+    assert_not_includes assigns(:results)[:communities], c3
+    assert_not_includes assigns(:results)[:communities], c4
+  end
+
+  should 'display enterprises with a given initial, under a specific category' do
+    ent1 = Enterprise.create!(:name => 'aaaaa', :identifier => 'teste1'); ent1.categories << @category
+    ent2 = Enterprise.create!(:name => 'bbbbb', :identifier => 'teste2'); ent1.categories << @category
+    ent3 = Enterprise.create!(:name => 'aaaa1111', :identifier => 'teste1111')
+    ent4 = Enterprise.create!(:name => 'ddddd', :identifier => 'teste2222')
+
+    get :directory, :asset => 'enterprises', :initial => 'a', :category_path => [ 'my-category' ]
+
+    assert_includes assigns(:results)[:enterprises], ent1
+    assert_not_includes assigns(:results)[:enterprises], ent2
+    assert_not_includes assigns(:results)[:enterprises], ent3
+    assert_not_includes assigns(:results)[:enterprises], ent4
+  end
+
+  should 'display products with a given initial, under a specific category' do
+    ent = Enterprise.create!(:name => 'teste', :identifier => 'teste')
+    ent.categories << @category
+    prod1 = ent.products.create!(:name => 'a beautiful product')
+    prod2 = ent.products.create!(:name => 'beautiful product (another)')
+
+    ent2 = Enterprise.create!(:name => 'test2', :identifier => 'test2')
+    prod3 = ent2.products.create!(:name => 'another product')
+    prod4 = ent2.products.create!(:name => 'damn product (another)')
+
+    get :directory, :asset => 'products', :initial => 'a', :category_path => [ 'my-category' ]
+
+    assert_includes assigns(:results)[:products], prod1
+    assert_not_includes assigns(:results)[:products], prod2
+    assert_not_includes assigns(:results)[:products], prod3
+    assert_not_includes assigns(:results)[:products], prod4
+  end
+
+  should 'display articles with a given initial, under a specific category' do
+    person = create_user('teste').person
+    art1 = person.articles.build(:name => 'an article to be found'); art1.save!
+    art1.categories << @category
+    art2 = person.articles.build(:name => 'better article'); art2.save!
+    art2.categories << @category
+
+    art3 = person.articles.build(:name => 'another article to be found'); art3.save!
+    art4 = person.articles.build(:name => 'damn article'); art4.save!
+
+
+    get :directory, :asset => 'articles', :initial => 'a', :category_path => [ 'my-category' ]
+
+    assert_includes assigns(:results)[:articles], art1
+    assert_not_includes assigns(:results)[:articles], art2
+    assert_not_includes assigns(:results)[:articles], art3
+    assert_not_includes assigns(:results)[:articles], art4
+  end
+
+  should 'display comments with a given initial, under a specific category' do
+    person = create_user('teste').person
+    art = person.articles.build(:name => 'an article to be found'); art.save!
+    art.categories << @category
+    comment1 = art.comments.build(:title => 'a comment to be found', :body => 'hfyfyh', :author => person); comment1.save!
+    comment2 = art.comments.build(:title => 'better comment, but not found', :body => 'hfyfyh', :author => person); comment2.save!
+
+    art2 = person.articles.build(:name => 'another article to be found'); art2.save!
+    comment3 = art2.comments.build(:title => 'a comment to be found', :body => 'hfyfyh', :author => person); comment1.save!
+    comment4 = art2.comments.build(:title => 'better comment, but not found', :body => 'hfyfyh', :author => person); comment2.save!
+
+
+    get :directory, :asset => 'comments', :initial => 'a', :category_path => [ 'my-category' ]
+
+    assert_includes assigns(:results)[:comments], comment1
+    assert_not_includes assigns(:results)[:comments], comment2
+    assert_not_includes assigns(:results)[:comments], comment3
+    assert_not_includes assigns(:results)[:comments], comment4
+  end
+
 end

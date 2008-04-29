@@ -143,4 +143,16 @@ class CommentTest < Test::Unit::TestCase
     assert c.errors.invalid?(:email)
   end
 
+  should 'find by initial' do
+    owner = create_user('testuser').person
+    article = owner.articles.create!(:name => 'test', :body => '...')
+    c1 = article.comments.create!(:title => "A comment", :body => '...', :author => owner)
+    c2 = article.comments.create!(:title => "Better one", :body => '...', :author => owner)
+
+    list = Comment.find_by_initial('a')
+
+    assert_includes list, c1
+    assert_not_includes list, c2
+  end
+
 end

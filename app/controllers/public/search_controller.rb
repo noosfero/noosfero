@@ -6,6 +6,7 @@ class SearchController < ApplicationController
   before_filter :prepare_filter
   before_filter :check_search_whole_site
   before_filter :load_search_assets
+  before_filter :check_valid_assets, :only => [ :assets, :directory ]
 
   no_design_blocks
 
@@ -30,6 +31,14 @@ class SearchController < ApplicationController
   def check_search_whole_site
     if params[:search_whole_site] == 'yes'
       redirect_to params.merge(:category_path => [], :search_whole_site => nil)
+    end
+  end
+
+  def check_valid_assets
+    @asset = params[:asset].to_sym
+    if !SEARCH_IN.map(&:first).include?(@asset)
+      render :text => 'go away', :status => 403
+      return
     end
   end
 
@@ -83,17 +92,20 @@ class SearchController < ApplicationController
   attr_reader :category
 
   def assets
-    asset = params[:asset].to_sym
-    if !SEARCH_IN.map(&:first).include?(asset)
-      render :text => 'go away', :status => 403
-      return
-    end
+    @results = { @asset => @finder.recent(@asset, LIST_LIMIT) }
 
+    @asset_name = gettext(SEARCH_IN.find { |entry| entry.first == @asset }[1])
+    @names = { @asset => @asset_name }
+  end
 
-    @results = { asset => @finder.recent(asset, LIST_LIMIT) }
+  def directory
+    @results = { @asset => @finder.find_by_initial(@asset, params[:initial]) }
 
-    @asset_name = gettext(SEARCH_IN.find { |entry| entry.first == asset }[1])
-    @names = { asset => @asset_name }
+    # FIXME remove this duplication with assets action
+    @asset_name = gettext(SEARCH_IN.find { |entry| entry.first == @asset }[1])
+    @names = { @asset => @asset_name }
+
+    render :action => 'assets'
   end
 
   def tags

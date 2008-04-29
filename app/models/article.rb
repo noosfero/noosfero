@@ -112,6 +112,10 @@ class Article < ActiveRecord::Base
     true
   end
 
+  def self.find_by_initial(initial)
+    self.find(:all, :order => 'articles.name', :conditions => [ 'articles.name like (?)', initial + '%'])
+  end
+
   private
 
   def sanitize_tag_list

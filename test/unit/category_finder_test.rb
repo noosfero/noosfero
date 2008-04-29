@@ -157,4 +157,72 @@ class CategoryFinderTest < ActiveSupport::TestCase
     # should respect the order (more commented comes first)
     assert_equal [articles[1], articles[0]], @finder.most_commented_articles(2)
   end
+
+  should 'find people by initial' do
+    p1 = create_user('aaaa').person; p1.categories << @category
+    p2 = create_user('bbbb').person; p2.categories << @category
+
+    list = CategoryFinder.new(@category).find_by_initial(:people, 'a')
+
+    assert_includes list, p1
+    assert_not_includes list, p2
+  end
+
+  should 'find enterprises by initial' do
+    ent1 = Enterprise.create!(:name => 'aaaa', :identifier => 'aaaa'); ent1.categories << @category
+    ent2 = Enterprise.create!(:name => 'bbbb', :identifier => 'bbbb'); ent2.categories << @category
+
+    list = CategoryFinder.new(@category).find_by_initial(:enterprises, 'a')
+
+    assert_includes list, ent1
+    assert_not_includes list, ent2
+  end
+
+  should 'find communities by initial' do
+    comm1 = Community.create!(:name => 'aaaa', :identifier => 'aaaa'); comm1.categories << @category
+    comm2 = Community.create!(:name => 'bbbb', :identifier => 'bbbb'); comm2.categories << @category
+
+    list = CategoryFinder.new(@category).find_by_initial(:communities, 'a')
+
+    assert_includes list, comm1
+    assert_not_includes list, comm2
+  end
+
+  should 'find products by initial' do
+    ent = Enterprise.create!(:name => 'my enterprise', :identifier => 'myent')
+    ent.categories << @category
+
+    p1 = ent.products.create!(:name => 'A product')
+    p2 = ent.products.create!(:name => 'Better product')
+
+    list = CategoryFinder.new(@category).find_by_initial(:products, 'a')
+
+    assert_includes list, p1
+    assert_not_includes list, p2
+  end
+
+  should 'find articles by initial' do
+    person = create_user('testuser').person
+    a1 = person.articles.create!(:name => 'aaaa', :body => '...', :categories => [@category])
+    a2 = person.articles.create!(:name => 'bbbb', :body => '...', :categories => [@category])
+
+    list = CategoryFinder.new(@category).find_by_initial(:articles, 'a')
+
+    assert_includes list, a1
+    assert_not_includes list, a2
+  end
+
+  should 'find comments by initial' do
+    person = create_user('testuser').person
+    a1 = person.articles.create!(:name => 'aaaa', :body => '...', :categories => [@category])
+
+    c1 = a1.comments.create!(:title => 'aaaaa', :body => '...', :author => person)
+    c2 = a1.comments.create!(:title => 'bbbbb', :body => '...', :author => person)
+
+    list = CategoryFinder.new(@category).find_by_initial(:comments, 'a')
+
+    assert_includes list, c1
+    assert_not_includes list, c2
+  end
+
 end

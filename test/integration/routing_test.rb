@@ -102,4 +102,8 @@ class RoutingTest < ActionController::IntegrationTest
     assert_routing('/assets/my-asset/a/b/c', :controller => 'search', :action => 'assets', :asset => 'my-asset', :category_path => ['a', 'b', 'c'])
   end
 
+  def test_directory_routing
+    assert_routing('/directory/my-asset/f/a/b/c', :controller => 'search', :action => 'directory', :asset => 'my-asset', :initial => 'f', :category_path => [ 'a', 'b', 'c'])
+  end
+
 end

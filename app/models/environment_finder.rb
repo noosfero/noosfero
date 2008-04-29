@@ -34,6 +34,10 @@ class EnvironmentFinder
     end
   end
 
+  def find_by_initial(asset, initial)
+    @environment.send(asset).find_by_initial(initial)
+  end
+
   def count(asset)
     @environment.send(asset).count
   end

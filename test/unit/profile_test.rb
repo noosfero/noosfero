@@ -432,6 +432,16 @@ class ProfileTest < Test::Unit::TestCase
     assert profile.articles.find_by_path('feed').advertise?
   end
 
+  should 'find by initial' do
+    inside = Profile.create!(:name => 'A person', :identifier => 'aperson')
+    outside = Profile.create!(:name => 'B Movie', :identifier => 'bmovie')
+
+    list = Profile.find_by_initial('a')
+
+    assert_includes list, inside
+    assert_not_includes list, outside
+  end
+
   private
 
   def assert_invalid_identifier(id)

@@ -289,4 +289,8 @@ class Profile < ActiveRecord::Base
     self.find(:all, :order => 'id desc', :limit => limit)
   end
 
+  def self.find_by_initial(initial)
+    self.find(:all, :order => 'profiles.name', :conditions => [ 'profiles.name like (?)', (initial + '%') ])
+  end
+
 end

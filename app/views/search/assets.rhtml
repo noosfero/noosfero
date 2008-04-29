@@ -1,3 +1,10 @@
 <h1><%= @category ? (_('%{asset_name} in %{category}') % { :asset_name => @asset_name, :category => @category.name}) : @asset_name %></h1>
 
+<div style='text-align: center'>
+  <%= link_to_unless_current(_('Recent'), :action => 'assets') %>
+  &nbsp;
+  <%= (?a..?z).map { |initial| link_to_unless_current(('' << initial).upcase, :action => 'directory', :initial => ('' << initial)) }.join(' &nbsp; ') %>
+</div>
+<br style='clear:both'/>
+
 <%= render :partial => 'display_results' %>

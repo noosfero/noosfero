@@ -217,4 +217,16 @@ class ArticleTest < Test::Unit::TestCase
     assert_equal [articles[1], articles[0]], person.articles.most_commented(2)
   end
 
+  should 'find by initial' do
+    person = create_user('testuser').person
+
+    a1 = person.articles.create!(:name => 'An nice article')
+    a2 = person.articles.create!(:name => 'Better stay off here')
+
+    list = Article.find_by_initial('a')
+
+    assert_includes list, a1
+    assert_not_includes list, a2
+  end
+
 end
