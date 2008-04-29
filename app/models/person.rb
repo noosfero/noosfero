@@ -104,7 +104,7 @@ class Person < Profile
   hacked_after_create :insert_default_homepage_and_feed
 
   def name
-    person_info.name || self[:name]
+    person_info.nil? ? self[:name] : (person_info.name || self[:name])
   end
 
 end

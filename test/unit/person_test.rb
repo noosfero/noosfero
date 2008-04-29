@@ -209,4 +209,10 @@ class PersonTest < Test::Unit::TestCase
     assert_equal 'José', p.name
   end
 
+  should 'fallback to login when person_info is not present' do
+    p = create_user('randomhacker').person
+    p.person_info = nil
+    assert_equal 'randomhacker', p.name
+  end
+
 end
