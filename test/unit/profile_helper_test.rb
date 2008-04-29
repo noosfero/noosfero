@@ -31,15 +31,13 @@ class ProfileHelperTest < Test::Unit::TestCase
     info.expects(:summary).returns(array)
     profile.stubs(:info).returns(info)
 
-    helper.expects(:content_tag).with('th', f1).returns(f1)
-    helper.expects(:content_tag).with('td', v1).returns(v1)
-    helper.expects(:content_tag).with('tr', f1 + v1).returns('r1')
-    helper.expects(:content_tag).with('th', f2).returns(f2)
-    helper.expects(:content_tag).with('td', v2).returns(v2)
-    helper.expects(:content_tag).with('tr', f2 + v2).returns('r2')
-    helper.expects(:content_tag).with('table', "r1\nr2\n", :class => 'profile_info' ).returns('final')
+    helper.expects(:content_tag).returns('').at_least_once
 
-    assert_equal 'final', helper.display_profile_info(profile)
+    helper.expects(:_).with('edit your information').returns('edit your information')
+    helper.expects(:button).with(:edit, 'edit your information', :controller => 'profile_editor', :action => 'edit').returns("BUTTON")
+
+
+    helper.display_profile_info(profile)
   end
 
   def test_should_call_blocks

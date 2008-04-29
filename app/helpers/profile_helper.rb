@@ -8,7 +8,7 @@ module ProfileHelper
       table_rows = content_tag( 'tr',
                      content_tag( 'th',
                        "\n" +
-                       button( :edit, _('edit your informations'), :controller => 'profile_editor', :action => 'edit' ) +
+                       button( :edit, _('edit your information'), :controller => 'profile_editor', :action => 'edit' ) +
                        "\n",
                      :colspan => 2, :class => 'header' )
                    ) + "\n"
