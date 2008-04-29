@@ -51,6 +51,9 @@ class ProfileHelperTest < Test::Unit::TestCase
 
     helper.expects(:instance_eval).with(myproc)
 
+    helper.expects(:_)
+    helper.expects(:button).returns('')
+
     helper.display_profile_info(profile)
   end
 
