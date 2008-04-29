@@ -11,7 +11,7 @@
   pos2 = :odd  # allow to format in a two colons layout
   pos3 = 3     # allow to format in a thre colons layout
 %>
-<% @results.sort_by { |name,results| @names[name] }.each do |name,results| %>
+<% @results.each do |name,results| %>
   <%
     pos3 += 1;  pos3 = 1 if pos3 > 3
     pos2==:odd ? pos2=:even : pos2=:odd
