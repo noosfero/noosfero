@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.9.0\n"
-"POT-Creation-Date: 2008-04-28 18:51-0300\n"
+"POT-Creation-Date: 2008-04-29 08:47-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -179,34 +179,34 @@ msgid "Type of category"
 msgstr ""
 
 #: app/helpers/assets_helper.rb:7
-#: app/controllers/public/search_controller.rb:43 app/views/cms/view.rhtml:25
+#: app/controllers/public/search_controller.rb:52 app/views/cms/view.rhtml:25
 msgid "Articles"
 msgstr ""
 
 #: app/helpers/assets_helper.rb:8 app/models/people_block.rb:4
-#: app/controllers/public/search_controller.rb:46
+#: app/controllers/public/search_controller.rb:55
 msgid "People"
 msgstr ""
 
 #: app/helpers/assets_helper.rb:9
-#: app/controllers/public/search_controller.rb:48
+#: app/controllers/public/search_controller.rb:57
 msgid "Products"
 msgstr ""
 
 #: app/helpers/assets_helper.rb:10 app/models/enterprises_block.rb:4
-#: app/controllers/public/search_controller.rb:45
+#: app/controllers/public/search_controller.rb:54
 #: app/views/profile/index.rhtml:17
 msgid "Enterprises"
 msgstr ""
 
 #: app/helpers/assets_helper.rb:11 app/models/communities_block.rb:8
-#: app/controllers/public/search_controller.rb:47
+#: app/controllers/public/search_controller.rb:56
 #: app/views/profile/index.rhtml:16
 msgid "Communities"
 msgstr ""
 
 #: app/helpers/assets_helper.rb:12
-#: app/controllers/public/search_controller.rb:44
+#: app/controllers/public/search_controller.rb:53
 msgid "Comments"
 msgstr ""
 
@@ -1535,23 +1535,23 @@ msgstr ""
 msgid "This action is not available for \"%s\"."
 msgstr ""
 
-#: app/controllers/public/search_controller.rb:73
+#: app/controllers/public/search_controller.rb:82
 msgid "Recently registered people"
 msgstr ""
 
-#: app/controllers/public/search_controller.rb:74
+#: app/controllers/public/search_controller.rb:83
 msgid "Recently created communities"
 msgstr ""
 
-#: app/controllers/public/search_controller.rb:75
+#: app/controllers/public/search_controller.rb:84
 msgid "Recent articles"
 msgstr ""
 
-#: app/controllers/public/search_controller.rb:76
+#: app/controllers/public/search_controller.rb:85
 msgid "Recent comments"
 msgstr ""
 
-#: app/controllers/public/search_controller.rb:77
+#: app/controllers/public/search_controller.rb:86
 msgid "Most commented articles"
 msgstr ""
 
@@ -2372,6 +2372,10 @@ msgstr ""
 
 #: app/views/search/assets.rhtml:1
 msgid "%{asset_name} in %{category}"
+msgstr ""
+
+#: app/views/search/assets.rhtml:4
+msgid "Recent"
 msgstr ""
 
 #: app/views/search/_display_results.rhtml:5

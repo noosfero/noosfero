@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.9.0\n"
-"POT-Creation-Date: 2008-04-28 18:51-0300\n"
-"PO-Revision-Date: 2008-04-28 19:10-0300\n"
+"POT-Creation-Date: 2008-04-29 08:47-0300\n"
+"PO-Revision-Date: 2008-04-29 08:48-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -184,34 +184,34 @@ msgid "Type of category"
 msgstr "Tipo de categoria"
 
 #: app/helpers/assets_helper.rb:7
-#: app/controllers/public/search_controller.rb:43 app/views/cms/view.rhtml:25
+#: app/controllers/public/search_controller.rb:52 app/views/cms/view.rhtml:25
 msgid "Articles"
 msgstr "Artigos"
 
 #: app/helpers/assets_helper.rb:8 app/models/people_block.rb:4
-#: app/controllers/public/search_controller.rb:46
+#: app/controllers/public/search_controller.rb:55
 msgid "People"
 msgstr "Pessoas"
 
 #: app/helpers/assets_helper.rb:9
-#: app/controllers/public/search_controller.rb:48
+#: app/controllers/public/search_controller.rb:57
 msgid "Products"
 msgstr "Produtos"
 
 #: app/helpers/assets_helper.rb:10 app/models/enterprises_block.rb:4
-#: app/controllers/public/search_controller.rb:45
+#: app/controllers/public/search_controller.rb:54
 #: app/views/profile/index.rhtml:17
 msgid "Enterprises"
 msgstr "Empreendimentos"
 
 #: app/helpers/assets_helper.rb:11 app/models/communities_block.rb:8
-#: app/controllers/public/search_controller.rb:47
+#: app/controllers/public/search_controller.rb:56
 #: app/views/profile/index.rhtml:16
 msgid "Communities"
 msgstr "Comunidades"
 
 #: app/helpers/assets_helper.rb:12
-#: app/controllers/public/search_controller.rb:44
+#: app/controllers/public/search_controller.rb:53
 msgid "Comments"
 msgstr "Comentários"
 
@@ -1570,23 +1570,23 @@ msgstr "Empreendimento ativado com sucesso"
 msgid "This action is not available for \"%s\"."
 msgstr "Esta ação não está disponível para \"%s\"."
 
-#: app/controllers/public/search_controller.rb:73
+#: app/controllers/public/search_controller.rb:82
 msgid "Recently registered people"
 msgstr "Pessoas registradas recentemente"
 
-#: app/controllers/public/search_controller.rb:74
+#: app/controllers/public/search_controller.rb:83
 msgid "Recently created communities"
 msgstr "Comunidades criadas recentemente"
 
-#: app/controllers/public/search_controller.rb:75
+#: app/controllers/public/search_controller.rb:84
 msgid "Recent articles"
 msgstr "Artigos recentes"
 
-#: app/controllers/public/search_controller.rb:76
+#: app/controllers/public/search_controller.rb:85
 msgid "Recent comments"
 msgstr "Comentários recentes"
 
-#: app/controllers/public/search_controller.rb:77
+#: app/controllers/public/search_controller.rb:86
 msgid "Most commented articles"
 msgstr "Artigos mais comentados"
 
@@ -2423,6 +2423,10 @@ msgstr "Refine sua busca"
 msgid "%{asset_name} in %{category}"
 msgstr "%{asset_name} em %{category}"
 
+#: app/views/search/assets.rhtml:4
+msgid "Recent"
+msgstr "Recente"
+
 #: app/views/search/_display_results.rhtml:5
 msgid "Search for \"%s\" in the whole site"
 msgstr "Pesquisar por \"%s\" em todo o site"
@@ -2986,8 +2990,8 @@ msgid ""
 msgstr ""
 "Ups... Parece que você está usando Internet Explorer.\n"
 "\n"
-"Desculpe, mas algumas coisas não vão funcionar bem com este navegador web, por"
-"enquanto...\n"
+"Desculpe, mas algumas coisas não vão funcionar bem com este navegador web, "
+"porenquanto...\n"
 "Nós propomos que você use o Firefox, para este web site ou qualquer outro.\n"
 "\n"
 "Você quer baixar Firefox agora?"
@@ -3057,13 +3061,15 @@ msgstr ""
 
 #: app/views/account/login.rhtml:11
 msgid "To join on this environment, click on \"<b>I want to be an user!</b>\"."
-msgstr "Para entrar neste ambiente, clique em \"<b>Quero ser um usuário!</b>\"."
+msgstr ""
+"Para entrar neste ambiente, clique em \"<b>Quero ser um usuário!</b>\"."
 
 #: app/views/account/login.rhtml:11 app/views/account/login_block.rhtml:13
 msgid ""
 "If you forgot your password, click on \"<b>I forgot my password!</b>\" link."
 msgstr ""
-"Se você esqueceu sua senha, clique no link \"<b>Eu esqueci a minha senha!</b>\"."
+"Se você esqueceu sua senha, clique no link \"<b>Eu esqueci a minha senha!</b>"
+"\"."
 
 #: app/views/account/login.rhtml:14 app/views/account/login_block.rhtml:17
 msgid "Here goes the nickname that you give on the registration."
@@ -3237,12 +3243,13 @@ msgid ""
 "password!</b>\" link. ;-)"
 msgstr ""
 "Preencha todos os campos para entrar neste ambiente.<p/>Se você esqueceu sua "
-"senha, não crie uma nova conta, clique no link \"<b>Eu esqueci minha "
-"senha!</b>\". ;-)"
+"senha, não crie uma nova conta, clique no link \"<b>Eu esqueci minha senha!</"
+"b>\". ;-)"
 
 #: app/views/account/signup.rhtml:11
 msgid "\"Username\" is a simple nickname to recognize you on this environment."
-msgstr "\"Nome de usuário\" é um simples apelido para reconhece-lo neste ambiente."
+msgstr ""
+"\"Nome de usuário\" é um simples apelido para reconhece-lo neste ambiente."
 
 #: app/views/account/signup.rhtml:16
 msgid "We'll send you an e-mail to validate your registration."
