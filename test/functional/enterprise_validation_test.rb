@@ -20,11 +20,15 @@ class EnterpriseValidationControllerTest < Test::Unit::TestCase
   end
 
   def test_local_files_reference
-    assert_local_files_reference :get, :index, :profile => 'ze'
+    assert_local_files_reference :get, :index, :profile => 'myorg'
   end
   
   def test_valid_xhtml
-    assert_valid_xhtml
+
+    # FIXME remove this after enable assert_valid_xhtml
+    Profile.find_by_identifier('myorg')
+
+    assert_valid_xhtml :get, :index, :profile => 'myorg'
   end
   
   should 'list pending validations on index' do

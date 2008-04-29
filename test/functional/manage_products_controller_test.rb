@@ -16,7 +16,7 @@ class ManageProductsControllerTest < Test::Unit::TestCase
   end
 
   def test_local_files_reference
-    assert_local_files_reference :get, :index, :profile => 'test_user'
+    assert_local_files_reference :get, :index, :profile => @enterprise.identifier
   end
   
   def test_valid_xhtml
