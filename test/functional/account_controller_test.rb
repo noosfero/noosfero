@@ -270,7 +270,10 @@ class AccountControllerTest < Test::Unit::TestCase
     end
   end
 
-
+  should 'correct redirect after login' do
+    post :login, :user => {:login => 'johndoe', :password => 'test'}
+    assert_redirected_to :controller => 'profile_editor'
+  end
 
   protected
     def create_user(options = {})
