@@ -24,7 +24,6 @@ class MyProfileControllerTest < Test::Unit::TestCase
     @controller = OnlyForPersonTestController.new
     user = create_user('test_user').person
     assert_local_files_reference :get, :index, :profile => user.identifier
-    #get :index, :profile => user.identifier
   end
   
   def test_valid_xhtml

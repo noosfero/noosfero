@@ -6,6 +6,9 @@
   <li><%= _('Since %{year}/%{month}') % { :year => block.owner.created_at.year, :month => block.owner.created_at.month } %></li>
   <li><%= link_to _('Homepage'), block.owner.url %></li>
   <li><%= link_to _('View profile'), block.owner.public_profile_url %></li>
+  <% if profile == user %>
+    <li><%= link_to _('Control panel'), :controller => 'profile_editor' %></li>
+  <% end %>
 </ul>
 
 <div class="profile-info-options">

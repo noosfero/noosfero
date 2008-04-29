@@ -132,4 +132,17 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'a', :attributes => { :href => '/tag/tag1' }, :content => 'See content tagged with "tag1" in the entire site'
   end
 
+  should 'show a link to own control panel' do
+    login_as(@profile.identifier)
+    get :index, :profile => @profile.identifier
+    assert_tag :tag => 'ul', :attributes => { :class => 'profile-info-data' }, :descendant => { :tag => 'a', :content => 'Control panel' }
+  end
+
+  should 'not show a link to others control panel' do
+    login_as(@profile.identifier)
+    other = create_user('person_1').person
+    get :index, :profile => other.identifier
+    assert_no_tag :tag => 'ul', :attributes => { :class => 'profile-info-data' }, :descendant => { :tag => 'a', :content => 'Control panel' }
+  end
+
 end
