@@ -1,6 +1,8 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class EnvironmentFinderTest < ActiveSupport::TestCase
+
+  all_fixtures
   
   should 'find articles' do
     person = create_user('teste').person
@@ -22,11 +24,10 @@ class EnvironmentFinderTest < ActiveSupport::TestCase
   end
 
   should 'find comments' do
-    finder = EnvironmentFinder.new(Environment.default)
     person = create_user('teste').person
     art = person.articles.build(:name => 'an article to be found'); art.save!
-    comment = art.comments.build(:title => 'comment to be found', :body => 'hfyfyh', :author => person); comment.save!
-    assert_includes finder.comments, comment
+    comment = art.comments.build(:title => 'comment to be found', :body => 'some sample text', :author => person); comment.save!
+    assert_includes EnvironmentFinder.new(Environment.default).comments('found'), comment
   end
 
   should 'find products' do
