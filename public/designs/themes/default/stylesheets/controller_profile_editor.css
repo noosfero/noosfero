@@ -1,12 +1,23 @@
+@import url(controller_cms.css);
 
-#profile-editor-index .change-user-picture img {
+.profile_info {
   border: 2px solid #3465A4;
-  padding: 1px;
 }
 
-#profile-editor-index .set-user-picture {
-  text-decoration: none;
-  border: 2px solid #3465A4;
+.profile_info .button:hover {
+  color: #FFF !important;
+}
+
+.profile_info th,
+.profile_info td {
+  border: 1px solid #729FCF;
+}
+
+.profile_info .header {
+  background: #729FCF;
+  border: 1px solid #3465A4;
+}
+.profile_info th {
   background: #B8CFE7;
-  padding: 1px 5px;
 }
+

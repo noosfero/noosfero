@@ -451,10 +451,14 @@ module ApplicationHelper
   end
 
   attr_reader :environment
-  def select_categories(object_name)
+  def select_categories(object_name, title=nil, title_size=4)
+    if title.nil?
+      title = _('Categories')
+    end
+
     object = instance_variable_get("@#{object_name}")
 
-    result = content_tag 'h4', _('Categories')
+    result = content_tag 'h'+title_size.to_s(), title
     result << javascript_tag( 'function open_close_cat( link ) {
       var div = link.parentNode.getElementsByTagName("div")[0];
       var end = function(){

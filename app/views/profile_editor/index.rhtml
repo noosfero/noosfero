@@ -4,20 +4,13 @@
 
 <%= render :partial => 'pending_tasks' %>
 
-<%= link_to (@profile.image ? image_tag( @profile.image.public_filename) :
-                              _('Upload your picture') ),
-    { :action => 'change_image' },
-    :class => (@profile.image ? 'change-user-picture' : 'set-user-picture' ),
-    :help => _('Click here to upload any image to be your picture') %>
-
-<p/>
-
 <%= display_profile_info(profile) %>
-
 
 <% file_manager do %>
 
-  <%= file_manager_button(_('Edit Profile'), 'icons-app/edit-profile.png', :controller => 'profile_editor', :action => 'edit') %>
+  <%= file_manager_button(_('Change your picture'), profile_icon(@profile, :portrait), :controller => 'profile_editor', :action => 'change_image') %>
+
+  <%# file_manager_button(_('Edit Profile'), 'icons-app/edit-profile.png', :controller => 'profile_editor', :action => 'edit') %>
 
   <%= file_manager_button(_('Pending tasks'), 'icons-app/todo.png', :controller => 'tasks', :action => 'index') %>
 
@@ -25,7 +18,7 @@
 
   <%= file_manager_button(_('Manage Content'), 'icons-app/cms.png', :controller => 'cms') %>
 
-  <%= file_manager_button(_('Edit Categories'), 'icons-app/categories.png', :controller => 'profile_editor', :action => 'edit_categories')  %>
+  <%= file_manager_button(_('My Interests'), 'icons-app/categories.png', :controller => 'profile_editor', :action => 'edit_categories')  %>
 
   <%= file_manager_button(_('Change Password'), 'icons-app/change-password.png', :controller => 'account', :action => 'change_password') if profile.person? %>
 
@@ -33,7 +26,7 @@
 
   <%= file_manager_button(_('Manage Members'), 'icons-app/members.png', :controller => 'profile_members') if profile.organization?  %>
 
-  <%= file_manager_button(_('Consumed Products'), 'icons-app/consumed_product.png', :controller => 'consumed_products')  %>
+  <%= file_manager_button(_('Consumed Products'), 'icons-app/consumed_product.png', :controller => 'consumed_products') if profile.enterprise? %>
 
   <%= file_manager_button(_('Manage Products'), 'icons-app/products.png', :controller => 'manage_products') if profile.enterprise? %>
 

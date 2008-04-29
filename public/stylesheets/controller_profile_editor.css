@@ -1,8 +1,25 @@
+@import url(controller_cms.css);
+
+.profile_info {
+  width: 100%;
+}
+
 .profile_info th {
+  width: 10%;
   text-align: right;
+  white-space: nowrap;
 }
 
 .profile_info td,
 .profile_info th {
   padding: 2px 10px;
+}
+
+.profile_info .header {
+  background: #BBB;
+}
+
+.profile_info .button {
+  border: none !important;
+  background-color: transparent !important;
 }
