@@ -433,46 +433,62 @@ class SearchControllerTest < Test::Unit::TestCase
   end
 
   should 'list recent articles in the category' do
-    @controller.expects(:category).returns(@category).at_least_once
     recent = []
-    finder = CategoryFinder.new(@category)
-    finder.expects(:recent).with('comments').returns(recent)
-    finder.expects(:recent).with('articles').returns(recent)
-    CategoryFinder.expects(:new).with(@category).returns(finder)
+    finger = CategoryFinder.new(@category)
+    finger.expects(:recent).with(anything).at_least_once
+    finger.expects(:recent).with('articles').returns(recent)
+    CategoryFinder.expects(:new).with(@category).returns(finger)
 
     get :category_index, :category_path => [ 'my-category' ]
-    assert_same recent, assigns(:recent_articles)
+    assert_same recent, assigns(:results)[:recent_articles]
   end
 
   should 'list recent comments in the category' do
-    @controller.expects(:category).returns(@category).at_least_once
     recent = []
-    finder = CategoryFinder.new(@category)
-    finder.expects(:recent).with('comments').returns(recent)
-    finder.expects(:recent).with('articles').returns(recent)
-    CategoryFinder.expects(:new).with(@category).returns(finder)
+    finger = CategoryFinder.new(@category)
+    finger.expects(:recent).with(anything).at_least_once
+    finger.expects(:recent).with('comments').returns(recent)
+    CategoryFinder.expects(:new).with(@category).returns(finger)
 
     get :category_index, :category_path => [ 'my-category' ]
-    assert_same recent, assigns(:recent_comments)
+    assert_same recent, assigns(:results)[:recent_comments]
   end
 
   should 'list most commented articles in the category' do
-    @controller.expects(:category).returns(@category).at_least_once
     most_commented = []
-    finder = CategoryFinder.new(@category)
-    finder.expects(:most_commented_articles).returns(most_commented)
-    CategoryFinder.expects(:new).with(@category).returns(finder)
+    finger = CategoryFinder.new(@category)
+    finger.expects(:most_commented_articles).returns(most_commented)
+    CategoryFinder.expects(:new).with(@category).returns(finger)
 
     get :category_index, :category_path => [ 'my-category' ]
-    assert_same most_commented, assigns(:most_commented_articles)
+    assert_same most_commented, assigns(:results)[:most_commented_articles]
   end
 
-  should 'display category of products' do
-    cat = ProductCategory.create!(:name => 'Food', :environment => Environment.default)
-    ent = Enterprise.create!(:name => 'Enterprise test', :identifier => 'enterprise_test')
-    p = cat.products.create!(:name => 'product test', :enterprise => ent)
-    get :category_index, :category_path => cat.path.split('/')
-    assert_includes assigns(:products), p
+  should 'list recently registered people in the category' do
+    recent_people = []
+    finger = CategoryFinder.new(@category)
+    finger.expects(:recent).with(anything).at_least_once
+    finger.expects(:recent).with('people').returns(recent_people)
+    CategoryFinder.expects(:new).with(@category).returns(finger)
+
+    get :category_index, :category_path => [ 'my-category' ]
+    assert_same recent_people, assigns(:results)[:recent_people]
+  end
+
+  should 'list recently registered communities in the category' do
+    recent_communities = []
+    finger = CategoryFinder.new(@category)
+    finger.expects(:recent).with(anything).at_least_once
+    finger.expects(:recent).with('communities').returns(recent_communities)
+    CategoryFinder.expects(:new).with(@category).returns(finger)
+
+    get :category_index, :category_path => [ 'my-category' ]
+    assert_same recent_communities, assigns(:results)[:recent_communities]
+  end
+
+  should 'not list "Search for ..." in category_index' do
+    get :category_index, :category_path => [ 'my-category' ]
+    assert_no_tag :content => /Search for ".*" in the whole site/
   end
 
   # SECURITY

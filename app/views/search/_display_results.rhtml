@@ -1,6 +1,6 @@
 <div id="search-results" class="<%= 'only-one-result-box' if @results.size == 1 %>">
 
-<% if @category %>
+<% if @category && !@query.blank? %>
 <div id="search-whole-site">
 <%= link_to _('Search for "%s" in the whole site') % @query,
            :controller => 'search', :action => 'index', :category_path => [], :query => @query %>

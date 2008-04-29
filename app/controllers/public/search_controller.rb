@@ -29,19 +29,6 @@ class SearchController < ApplicationController
     end
   end
 
-  def action_product_category
-    @products = category.products
-    @enterprises = category.products.map{|p| p.enterprise}.flatten.uniq
-    @users = category.consumers
-  end
-
-  def action_category
-    @recent_articles = @finder.recent('articles')
-    @recent_comments = @finder.recent('comments')
-    @most_commented_articles = @finder.most_commented_articles
-  end
-  alias :action_region :action_category
-
   public
 
   include SearchHelper
@@ -58,7 +45,7 @@ class SearchController < ApplicationController
   ]
 
   # TODO don't hardcode like this >:-(
-  LIST_LIMIT = 10
+  LIST_LIMIT = 20
 
   def index
     @query = params[:query] || ''
@@ -76,7 +63,18 @@ class SearchController < ApplicationController
 
   # view the summary of one category
   def category_index
-    send('action_' + category.class.name.underscore) 
+    @results = {}
+    @names = {}
+    [
+      [ :recent_people, _('Recently registered people'), @finder.recent('people') ],
+      [ :recent_communities, _('Recently created communities'), @finder.recent('communities') ],
+      [ :recent_articles, _('Recent articles'), @finder.recent('articles') ],
+      [ :recent_comments, _('Recent comments'), @finder.recent('comments') ],
+      [ :most_commented_articles, _('Most commented articles'), @finder.most_commented_articles ]
+    ].each do |key, name, list|
+      @results[key] = list
+      @names[key] = name
+    end
   end
   attr_reader :category
 

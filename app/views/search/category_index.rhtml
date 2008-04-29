@@ -6,10 +6,8 @@
 
   <h1 id="category-name"><%= _('Category: %s') % @category.name %></h1>
 
-  <div class="category_itens">
-  <%= render :partial => @category.class.name.underscore %>
-  </div><!-- end class="category_itens" -->
-
+  <%= render :partial => 'display_results' %>
+    
   <div id="category-childs">
     <h2> <%= _('Sub-categories')  %> </h2>
     <% if @category.children.empty? %>

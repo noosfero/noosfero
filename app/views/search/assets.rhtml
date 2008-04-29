@@ -1,3 +1,3 @@
-<h2><%= @category ? (_('%{asset_name} in %{category}') % { :asset_name => @asset_name, :category => @category.full_name}) : @asset_name %></h2>
+<h1><%= @category ? (_('%{asset_name} in %{category}') % { :asset_name => @asset_name, :category => @category.name}) : @asset_name %></h1>
 
 <%= render :partial => 'display_results' %>
