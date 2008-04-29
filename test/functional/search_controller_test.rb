@@ -451,7 +451,7 @@ class SearchControllerTest < Test::Unit::TestCase
     CategoryFinder.expects(:new).with(@category).returns(finger)
 
     get :category_index, :category_path => [ 'my-category' ]
-    assert_same recent, assigns(:results)[:recent_comments]
+    assert_same recent, assigns(:results)[:comments]
   end
 
   should 'list most commented articles in the category' do
