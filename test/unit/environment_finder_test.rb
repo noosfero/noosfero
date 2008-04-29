@@ -53,8 +53,8 @@ class EnvironmentFinderTest < ActiveSupport::TestCase
     ent1 = Enterprise.create!(:name => 'teste1', :identifier => 'teste1')
     ent2 = Enterprise.create!(:name => 'teste2', :identifier => 'teste2')
     recent = finder.recent('enterprises', 1)
-    assert_includes recent, ent1
-    assert_not_includes recent, ent2
+    assert_includes recent, ent2 # newer
+    assert_not_includes recent, ent1 # older
   end
 
   should 'count entrprises' do
