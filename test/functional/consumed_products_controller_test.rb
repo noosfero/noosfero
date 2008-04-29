@@ -18,7 +18,7 @@ class ConsumedProductsControllerTest < Test::Unit::TestCase
   attr_reader :profile
 
   def test_local_files_reference
-    assert_local_files_reference
+    assert_local_files_reference :get, :index, :profile => profile.identifier
   end
   
   def test_valid_xhtml

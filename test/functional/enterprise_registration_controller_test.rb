@@ -119,11 +119,6 @@ all_fixtures
     assert_sanitized assigns(:create_enterprise).acronym
   end
 
-  should 'filter html from foundation_year' do
-    post :index, :create_enterprise => { 'name' => 'name', 'identifier' => 'mynew', :foundation_year => '<b>foundation_year</b>' }
-    assert_sanitized assigns(:create_enterprise).foundation_year
-  end
-
   should 'filter html from legal_form' do
     post :index, :create_enterprise => { 'name' => 'name', 'identifier' => 'mynew', :legal_form => '<b>legal_form</b>' }
     assert_sanitized assigns(:create_enterprise).legal_form

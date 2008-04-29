@@ -63,7 +63,7 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
   end
 
   def test_local_files_reference
-    assert_local_files_reference
+    assert_local_files_reference :get, :index, :profile => 'ze'
   end
   
   def test_valid_xhtml

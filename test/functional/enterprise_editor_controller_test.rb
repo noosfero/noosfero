@@ -12,7 +12,8 @@ class EnterpriseEditorControllerTest < Test::Unit::TestCase
   end
 
   def test_local_files_reference
-    assert_local_files_reference
+    user = create_user('test_user').person
+    assert_local_files_reference :get, :index, :profile => user.identifier
   end
   
   def test_valid_xhtml

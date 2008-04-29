@@ -18,7 +18,9 @@ class ContentViewerControllerTest < Test::Unit::TestCase
   attr_reader :profile
 
   def test_local_files_reference
-    assert_local_files_reference
+    page = profile.articles.build(:name => 'test')
+    page.save!
+    assert_local_files_reference :get, :view_page, :profile => profile.identifier, :page => [ 'test' ]
   end
   
   def test_valid_xhtml

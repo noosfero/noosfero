@@ -3,7 +3,7 @@ class Community < Organization
 
   settings_items :description
 
-  xss_terminate :only => [ :description ]
+  xss_terminate :only => [ :name, :address, :contact_phone, :description ]
 
   def name=(value)
     super(value)

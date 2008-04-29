@@ -20,7 +20,7 @@ class CmsControllerTest < Test::Unit::TestCase
   attr_reader :profile
 
   def test_local_files_reference
-    assert_local_files_reference
+    assert_local_files_reference :get, :index, :profile => profile.identifier
   end
   
   def test_valid_xhtml
@@ -266,6 +266,41 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_includes saved.categories, c1
     assert_not_includes saved.categories, c2
     assert_includes saved.categories, c3
+  end
+  
+  should 'filter html from textile article name' do
+    post :new, :type => 'TextileArticle', :profile => profile.identifier, :article => { :name => 'a <strong>test</strong> article', :body => 'the text of the article ...' }
+    assert_sanitized assigns(:article).name
+  end
+  
+  should 'filter html from textile article abstract' do
+    post :new, :type => 'TextileArticle', :profile => profile.identifier, :article => { :name => 'article', :abstract => '<strong>abstract</strong>', :body => 'the text of the article ...' }
+    assert_sanitized assigns(:article).abstract
+  end
+  
+  should 'filter html from textile article body' do
+    post :new, :type => 'TextileArticle', :profile => profile.identifier, :article => { :name => 'article', :abstract => 'abstract', :body => 'the <b>text</b> of <a href=#>the</a> article ...' }
+    assert_sanitized assigns(:article).body
+  end
+  
+  should 'filter html with white_list from tiny mce article name' do
+    post :new, :type => 'TinyMceArticle', :profile => profile.identifier, :article => { :name => "<strong>test</strong>", :body => 'the text of the article ...' }
+    assert_equal "<strong>test</strong>", assigns(:article).name
+  end
+  
+  should 'filter html with white_list from tiny mce article abstract' do
+    post :new, :type => 'TinyMceArticle', :profile => profile.identifier, :article => { :name => 'article', :abstract => "<script>alert('test')</script> article", :body => 'the text of the article ...' }
+    assert_equal " article", assigns(:article).abstract
+  end
+  
+  should 'filter html with white_list from tiny mce article body' do
+    post :new, :type => 'TinyMceArticle', :profile => profile.identifier, :article => { :name => 'article', :abstract => 'abstract', :body => "the <script>alert('text')</script> of article ..." }
+    assert_equal "the  of article ...", assigns(:article).body
+  end
+  
+  should 'not filter html tags permitted from tiny mce article body' do
+    post :new, :type => 'TinyMceArticle', :profile => profile.identifier, :article => { :name => 'article', :abstract => 'abstract', :body => "<b>the</b> <script>alert('text')</script> <strong>of</strong> article ..." }
+    assert_equal "<b>the</b>  <strong>of</strong> article ...", assigns(:article).body
   end
 
 end
