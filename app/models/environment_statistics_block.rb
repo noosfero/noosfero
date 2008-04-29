@@ -15,7 +15,7 @@ class EnvironmentStatisticsBlock < Block
       n_('One community', '%{num} communities', communities) % { :num => communities },
     ]
 
-    block_title(_('Statistics for  %s') % owner.name) + content_tag('ul', info.map {|item| content_tag('li', item) }.join("\n"))
+    block_title(_('Statistics for %s') % owner.name) + content_tag('ul', info.map {|item| content_tag('li', item) }.join("\n"))
   end
 
 end
