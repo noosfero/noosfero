@@ -13,6 +13,10 @@ class SearchController < ApplicationController
 
   def load_search_assets
     @search_in = SEARCH_IN
+    @searching = {}
+    @search_in.each do |key, name|
+      @searching[key] = params[:find_in].nil? || params[:find_in].empty? || params[:find_in].include?(key.to_s)
+    end
   end
 
   def prepare_filter
@@ -54,7 +58,7 @@ class SearchController < ApplicationController
     @results = {}
     @names = {}
     SEARCH_IN.each do |key, description|
-      @results[key] = @finder.send(key, @filtered_query) if params[:find_in].nil? || params[:find_in].empty? || params[:find_in].include?(key.to_s)
+      @results[key] = @finder.send(key, @filtered_query) if @searching[key]
       @names[key] = gettext(description)
     end
   end

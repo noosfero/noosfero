@@ -550,5 +550,13 @@ class SearchControllerTest < Test::Unit::TestCase
 
     assert_includes assigns(:results)[:people], p
   end
+
+  should 'keep asset selection for new searches' do
+    get :index, :query => 'a sample query', :find_in => [ 'people', 'communities' ]
+    assert_tag :tag => 'input', :attributes =>  { :name => 'find_in[]', :value => 'people', :checked => 'checked' }
+    assert_tag :tag => 'input', :attributes =>  { :name => 'find_in[]', :value => 'communities', :checked => 'checked' }
+    assert_no_tag :tag => 'input', :attributes =>  { :name => 'find_in[]', :value => 'enterprises', :checked => 'checked' }
+    assert_no_tag :tag => 'input', :attributes =>  { :name => 'find_in[]', :value => 'products', :checked => 'checked' }
+  end
   
 end
