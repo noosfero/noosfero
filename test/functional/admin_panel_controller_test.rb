@@ -66,4 +66,10 @@ class AdminPanelControllerTest < Test::Unit::TestCase
     assert_equal "This is my new environment", Environment.default.description
   end
 
+  should 'sanitize description' do
+    post :site_info, :environment => { :description => "This <strong>is</strong> my new environment" }
+    assert_redirected_to :action => 'index'
+    assert_sanitized Environment.default.description
+  end
+
 end
