@@ -14,7 +14,7 @@
   <div class="search-options search-in">
     <h4><%= _('Search in:') %></h4>
     <ul>
-      <li><%= labelled_radio_button _('Only in %s') % @category.full_name(' &rarr; '), :search_whole_site, 'no', true %></li>
+      <li><%= labelled_radio_button _('Only in %s') % @category.name, :search_whole_site, 'no', true %></li>
       <li><%= labelled_radio_button _('Whole site'), :search_whole_site, 'yes' %></li>
     </ul>
   </div><!-- fim class="search-options" -->
