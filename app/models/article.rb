@@ -1,5 +1,8 @@
 class Article < ActiveRecord::Base
 
+  # xss_terminate plugin can't sanitize array fields
+  before_save :sanitize_tag_list
+
   belongs_to :profile
   validates_presence_of :profile_id, :name, :slug, :path
 
@@ -107,6 +110,13 @@ class Article < ActiveRecord::Base
 
   def allow_children?
     true
+  end
+
+  private
+
+  def sanitize_tag_list
+    sanitizer = HTML::FullSanitizer.new
+    self.tag_list.names.map!{|i| sanitizer.sanitize(i) }
   end
 
 end
