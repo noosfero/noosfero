@@ -145,4 +145,17 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'ul', :attributes => { :class => 'profile-info-data' }, :descendant => { :tag => 'a', :content => 'Control panel' }
   end
 
+  should 'show create community in own profile' do
+    login_as(@profile.identifier)
+    get :communities, :profile => @profile.identifier
+    assert_tag :tag => 'a', :child => { :tag => 'span', :content => 'Create a new community' }
+  end
+
+  should 'not show create community on profile of other users' do
+    login_as(@profile.identifier)
+    person = create_user('person_1').person
+    get :communities, :profile => person.identifier
+    assert_no_tag :tag => 'a', :child => { :tag => 'span', :content => 'Create a new community' }
+  end
+
 end

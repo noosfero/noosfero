@@ -13,7 +13,7 @@
   <%= button :back, _('Go back'), { :controller => 'profile' },
       :help => _('Back to the page where you come from.') %>
   <%= button :add, _('Create a new community'),
-      :controller => 'memberships', :action => 'new_community' if logged_in? %>
+      :controller => 'memberships', :action => 'new_community' if logged_in? && user == profile %>
 <% end %>
 
 </div><!-- fim class="common-profile-list-block" -->
