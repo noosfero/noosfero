@@ -123,8 +123,8 @@ body.category4 .search-results-type-profile.common-profile-list-block li a {
 
 /* * * Category Page * * * * * * * * * * * * */
 
-#view-category h2 {
-  font-size: 16px;
+#view-category h3 {
+  font-size: 14px;
   line-height: 20px;
   margin: 0px;
   padding: 20px 0px 0px 20px;

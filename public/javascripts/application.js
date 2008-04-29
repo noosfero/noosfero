@@ -47,11 +47,12 @@ function resizePrincipalTemplateBox() {
   var otherBoxSum = 10;
   var i = 2;
   var b = $$( "div.box-" + i++ )[0];
-  while ( b.nodeName ) {
+  while ( b && b.nodeName ) {
     otherBoxSum += b.clientWidth;
     b = $$( "div.box-" + i++ )[0] || false;
   }
-  box1.style.width = ( $("boxes").clientWidth - otherBoxSum ) +"px"
+  if ( box1 )
+    box1.style.width = ( $("boxes").clientWidth - otherBoxSum ) +"px"
 }
 
 if ( window.addEventListener ) {
