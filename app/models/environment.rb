@@ -185,7 +185,7 @@ class Environment < ActiveRecord::Base
 
   validates_format_of :contact_email, :with => Noosfero::Constants::EMAIL_FORMAT, :if => (lambda { |record| ! record.contact_email.blank? })
 
-  xss_terminate :only => [ :description ]
+  xss_terminate :only => [ :description ], :with => 'white_list'
 
   # #################################################
   # Business logic in general
