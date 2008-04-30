@@ -1,2 +1,3 @@
 title: "Default"
 description: "A simple theme"
+js: [ auto-open-menu ]
