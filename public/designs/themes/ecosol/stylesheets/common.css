@@ -142,7 +142,7 @@ div.file-manager-button a:hover {
 }
 
 #footer {
-  background: #ffffff url("/images/bg_footer.png") repeat-x;
+  background: #FFF url("../images/bg_footer.png") repeat-x;
   background-position: 0px 0px;
   margin: 0px;
   padding: 10px;

@@ -493,6 +493,24 @@ module ApplicationHelper
     content_tag('div', result)
   end
 
+  def theme_javascript()
+    js = YAML.load_file( RAILS_ROOT.to_s() +
+           '/public/designs/themes/' +
+           current_theme.to_s() +
+           '/theme.yml' )['js']
+    html = []
+    js.each do |file|
+      file = '/designs/themes/'+ current_theme.to_s() +
+             '/javascript/'+ file +'.js'
+      if File.exists? RAILS_ROOT.to_s() +'/public'+ file
+        html << javascript_src_tag( file, {} )
+      else
+        html << '<!-- Not included: '+ file +' -->'
+      end
+    end
+    html.join "\n"
+  end
+
 #  def select_city(name, top_level='Nacional')
 #    city_field_name = "#{object}[#{method}]"
 #    state_field_name = "#{object}_#{method}_state"

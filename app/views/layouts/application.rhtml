@@ -33,15 +33,15 @@
     <%= stylesheet_link_tag '/designs/templates/default/stylesheets/style.css' %>
     <%= stylesheet_link_tag '/designs/icons/default/style.css' %>
 
-    <%= javascript_include_tag(:defaults) %>
+    <%= javascript_include_tag :defaults %>
     <%# javascript_include_tag 'animator' %>
     <%= javascript_include_tag 'menu' %>
-    <%= javascript_include_tag 'auto-open-menu' %>
     <%= include_lightbox_header %>
     <%# cms stuff %>
     <% if @controller.controller_name == 'cms' %>
       <%= javascript_include_tag 'cms' %>
     <% end %>
+    <%= theme_javascript %>
   </head>
 
   <body class='noosfero category<%= category_color %><%=
