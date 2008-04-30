@@ -236,7 +236,7 @@ class SearchControllerTest < Test::Unit::TestCase
 
     get :assets, :asset => 'people'
 
-    assert_equal [p2,p1], assigns(:results)[:people].instance_variable_get('@results')
+    assert_equivalent [p2,p1], assigns(:results)[:people]
   end
 
   # 'assets' menu inside a category
@@ -274,7 +274,7 @@ class SearchControllerTest < Test::Unit::TestCase
     c2 = Community.create!(:name => 'another beautiful community', :identifier => 'an_bea_comm', :environment => Environment.default)
 
     get :assets, :asset => 'communities'
-    assert_equal [c2, c1], assigns(:results)[:communities].instance_variable_get('@results')
+    assert_equivalent [c2, c1], assigns(:results)[:communities]
   end
 
   # 'assets' menu

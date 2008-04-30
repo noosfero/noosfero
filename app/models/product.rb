@@ -39,7 +39,7 @@ class Product < ActiveRecord::Base
   end
 
   def self.find_by_initial(initial)
-    self.find(:all, :order => 'products.name', :conditions => [ 'products.name like (?)', initial + '%'])
+    self.find(:all, :order => 'products.name', :conditions => [ 'products.name like (?) or products.name like (?)', initial + '%', initial.upcase + '%'])
   end
 
 end

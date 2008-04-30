@@ -7,28 +7,8 @@ class CategoryFinder
 
   attr_reader :category_ids
 
-  def articles(query='*', options={})
-    find_in_categorized(Article, query, options)
-  end
-
-  def people(query='*', options={})
-    find_in_categorized(Person, query, options)
-  end
-
-  def communities(query='*', options={})
-    find_in_categorized(Community, query, options)
-  end
-
-  def enterprises(query='*', options={})
-    find_in_categorized(Enterprise, query, options)
-  end
-
-  def products(query='*', options={})
-    find_in_categorized(Product, query, options)
-  end
-
-  def comments(query='*', options={})
-    find_in_categorized(Comment, query, options)
+  def find(asset, query)
+    find_in_categorized(asset.to_s.singularize.camelize.constantize, query)
   end
 
   def recent(asset, limit = 10)
@@ -70,11 +50,11 @@ class CategoryFinder
     # FIXME copy/pasted from options_for_find above !!!
     case klass.name
     when 'Comment'
-      {:select => 'distinct comments.*', :joins => 'inner join articles_categories on articles_categories.article_id = comments.article_id', :conditions => ['articles_categories.category_id in (?) and comments.title like (?)', category_ids, initial + '%']}
+      {:select => 'distinct comments.*', :joins => 'inner join articles_categories on articles_categories.article_id = comments.article_id', :conditions => ['articles_categories.category_id in (?) and (comments.title like (?) or comments.title like (?))', category_ids, initial + '%', initial.upcase + '%']}
     when 'Product'
-      {:select => 'distinct products.*', :joins => 'inner join categories_profiles on products.enterprise_id = categories_profiles.profile_id', :conditions => ['categories_profiles.category_id in (?) and products.name like (?)', category_ids, initial + '%']}
+      {:select => 'distinct products.*', :joins => 'inner join categories_profiles on products.enterprise_id = categories_profiles.profile_id', :conditions => ['categories_profiles.category_id in (?) and (products.name like (?) or products.name like (?))', category_ids, initial + '%', initial.upcase + '%']}
     when 'Article', 'Person', 'Community', 'Enterprise'
-      {:include => 'categories', :conditions => ['categories.id IN (?) and %s.name like (?)' % klass.table_name, category_ids, initial + '%']}
+      {:include => 'categories', :conditions => ['categories.id IN (?) and (%s.name like (?) or %s.name like (?))' % [klass.table_name, klass.table_name], category_ids, initial + '%', initial.upcase + '%']}
     else
       raise "unreconized class #{klass.name}"
     end

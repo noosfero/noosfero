@@ -19,8 +19,9 @@ class CategoryFinderTest < ActiveSupport::TestCase
     art2 = person.articles.build(:name => 'another article to be found')
     art2.save!
 
-    assert_includes @finder.articles, art1
-    assert_not_includes @finder.articles, art2
+    list = @finder.find(:articles, 'found')
+    assert_includes list, art1
+    assert_not_includes list, art2
   end
 
   should 'search for comments in a specific category' do
@@ -37,35 +38,41 @@ class CategoryFinderTest < ActiveSupport::TestCase
     art2.save! 
     comment2 = art2.comments.build(:title => 'comment to be found', :body => 'hfyfyh', :author => person); comment2.save!
 
-    assert_includes @finder.comments, comment1
-    assert_not_includes @finder.comments, comment2
+    list = @finder.find(:comments, 'found')
+    assert_includes list, comment1
+    assert_not_includes list, comment2
   end
 
   should 'search for enterprises in a specific category' do
 
     # in category
-    ent1 = Enterprise.create!(:name => 'testing enterprise 1', :identifier => 'test1', :categories => [@category])
+    ent1 = Enterprise.create!(:name => 'beautiful enterprise 1', :identifier => 'test1', :categories => [@category])
 
     # not in category
-    ent2 = Enterprise.create!(:name => 'testing enterprise 2', :identifier => 'test2')
+    ent2 = Enterprise.create!(:name => 'beautiful enterprise 2', :identifier => 'test2')
 
-    assert_includes @finder.enterprises, ent1
-    assert_not_includes @finder.enterprises, ent2
+    list = @finder.find(:enterprises, 'beautiful')
+    assert_includes list, ent1
+    assert_not_includes list, ent2
   end
 
   should 'search for people in a specific category' do
     p1 = create_user('people_1').person; p1.name = 'a beautiful person'; p1.categories << @category; p1.save!
     p2 = create_user('people_2').person; p2.name = 'another beautiful person'; p2.save!
-    assert_includes @finder.people, p1
-    assert_not_includes @finder.people, p2
+
+    list = @finder.find(:people, 'beautiful')
+    assert_includes list, p1
+    assert_not_includes list, p2
   end
 
   should 'search for communities in a specific category' do
     c1 = Community.create!(:name => 'a beautiful community', :identifier => 'bea_comm', :environment => Environment.default)
     c2 = Community.create!(:name => 'another beautiful community', :identifier => 'an_bea_comm', :environment => Environment.default)
     c1.categories << @category; c1.save!
-    assert_includes @finder.communities, c1
-    assert_not_includes @finder.communities, c2
+
+    list = @finder.find(:communities, 'beautiful')
+    assert_includes list, c1
+    assert_not_includes list, c2
   end
 
   should 'search for products in a specific category' do
@@ -73,8 +80,10 @@ class CategoryFinderTest < ActiveSupport::TestCase
     ent2 = Enterprise.create!(:name => 'teste2', :identifier => 'teste2')
     prod1 = ent1.products.create!(:name => 'a beautiful product')
     prod2 = ent2.products.create!(:name => 'another beautiful product')
-    assert_includes @finder.products, prod1
-    assert_not_includes @finder.products, prod2
+
+    list = @finder.find(:products, 'beautiful')
+    assert_includes list, prod1
+    assert_not_includes list, prod2
   end
 
   should 'load ids for category full hierarchy' do
@@ -93,7 +102,7 @@ class CategoryFinderTest < ActiveSupport::TestCase
     p1 = create_user('people_1').person; p1.name = 'a beautiful person'; p1.categories << child; p1.save!
 
     f = CategoryFinder.new(parent)
-    assert_includes f.people, p1
+    assert_includes f.find(:people, 'beautiful'), p1
   end
 
   should 'list recent enterprises' do
@@ -141,7 +150,9 @@ class CategoryFinderTest < ActiveSupport::TestCase
     p1.categories << parent; p1.save!
 
     f = CategoryFinder.new(parent)
-    result = f.people
+    result = f.find(:people, 'beautiful')
+
+    assert_equivalent [p1], result
     assert_equal 1, result.size
   end
 

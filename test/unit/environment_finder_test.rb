@@ -8,39 +8,39 @@ class EnvironmentFinderTest < ActiveSupport::TestCase
     person = create_user('teste').person
     art = person.articles.build(:name => 'an article to be found'); art.save!
     finder = EnvironmentFinder.new(Environment.default)
-    assert_includes finder.articles, art
+    assert_includes finder.find(:articles, 'found'), art
   end
 
   should 'find people' do
     p1 = create_user('people_1').person; p1.name = 'a beautiful person'; p1.save!
     finder = EnvironmentFinder.new(Environment.default)
-    assert_includes finder.people, p1
+    assert_includes finder.find(:people, 'beautiful'), p1
   end
 
   should 'find communities' do
     c1 = Community.create!(:name => 'a beautiful community', :identifier => 'bea_comm', :environment => Environment.default)
     finder = EnvironmentFinder.new(Environment.default)
-    assert_includes finder.communities, c1
+    assert_includes finder.find(:communities, 'beautiful'), c1
   end
 
   should 'find comments' do
     person = create_user('teste').person
     art = person.articles.build(:name => 'an article to be found'); art.save!
     comment = art.comments.build(:title => 'comment to be found', :body => 'some sample text', :author => person); comment.save!
-    assert_includes EnvironmentFinder.new(Environment.default).comments('found'), comment
+    assert_includes EnvironmentFinder.new(Environment.default).find(:comments, 'found'), comment
   end
 
   should 'find products' do
     finder = EnvironmentFinder.new(Environment.default)
     ent = Enterprise.create!(:name => 'teste', :identifier => 'teste')
     prod = ent.products.create!(:name => 'a beautiful product')
-    assert_includes finder.products, prod
+    assert_includes finder.find(:products, 'beautiful'), prod
   end
 
   should 'find enterprises' do
     finder = EnvironmentFinder.new(Environment.default)
-    ent = Enterprise.create!(:name => 'teste', :identifier => 'teste')
-    assert_includes finder.enterprises, ent
+    ent = Enterprise.create!(:name => 'a beautiful enterprise', :identifier => 'teste')
+    assert_includes finder.find(:enterprises, 'beautiful'), ent
   end
 
   should 'list recent enterprises' do

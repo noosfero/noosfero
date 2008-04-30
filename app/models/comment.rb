@@ -42,7 +42,7 @@ class Comment < ActiveRecord::Base
   end
 
   def self.find_by_initial(initial)
-    self.find(:all, :order => 'comments.title', :conditions => ['comments.title like (?)', initial + '%'])
+    self.find(:all, :order => 'comments.title', :conditions => ['comments.title like (?) or comments.title like (?)', initial + '%', initial.upcase + '%'])
   end
 
 end

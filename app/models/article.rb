@@ -113,7 +113,7 @@ class Article < ActiveRecord::Base
   end
 
   def self.find_by_initial(initial)
-    self.find(:all, :order => 'articles.name', :conditions => [ 'articles.name like (?)', initial + '%'])
+    self.find(:all, :order => 'articles.name', :conditions => [ 'articles.name like (?) or articles.name like (?)', initial + '%', initial.upcase + '%'])
   end
 
   private

@@ -67,7 +67,7 @@ class SearchController < ApplicationController
     @results = {}
     @names = {}
     SEARCH_IN.each do |key, description|
-      @results[key] = @finder.send(key, @filtered_query) if @searching[key]
+      @results[key] = @finder.find(key, @filtered_query) if @searching[key]
       @names[key] = gettext(description)
     end
   end
