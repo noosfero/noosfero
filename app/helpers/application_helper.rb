@@ -465,7 +465,7 @@ module ApplicationHelper
         if ( div.style.display == "none" ) {
           this.link.className="button icon-button icon-down"
         } else {
-          this.link.className="button icon-button icon-up"
+          this.link.className="button icon-button icon-up-red"
         }
       }
       Effect.toggle( div, "slide", { link:link, div:div, afterFinish:end } )
