@@ -498,7 +498,7 @@ module ApplicationHelper
            '/public/designs/themes/' +
            current_theme.to_s() +
            '/theme.yml'
-    js = File.exists?(conf) ? YAML.load_file(  )['js'] : []
+    js = File.exists?(conf) ? YAML.load_file(conf)['js'] : []
     html = []
     js.each do |file|
       file = '/designs/themes/'+ current_theme.to_s() +

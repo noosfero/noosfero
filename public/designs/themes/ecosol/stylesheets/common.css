@@ -13,6 +13,19 @@ body.noosfero {
   background-position: 50% 22px;
   background-repeat: repeat-x;
   background-image: url(../images/bg-top-azul.png);
+  border: 3px solid #2A5896;
+}
+body.category1 #wrap {
+  border-color: #E26B00;
+}
+body.category2 #wrap {
+  border-color: #58A80A;
+}
+body.category3 #wrap {
+  border-color: #694371;
+}
+body.category4 #wrap {
+  border-color: #B80000;
 }
 
 body.category1 #wrap { background-image: url("../images/bg-top-laranja.png");  }

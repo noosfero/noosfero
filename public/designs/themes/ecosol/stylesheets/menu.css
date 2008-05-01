@@ -13,6 +13,11 @@ body.category2 #menu_link_to_envhome { background-image: url(../images/ico-fbes-
 body.category3 #menu_link_to_envhome { background-image: url(../images/ico-fbes-fundo-lilas.gif)    }
 body.category4 #menu_link_to_envhome { background-image: url(../images/ico-fbes-fundo-vermelho.gif) }
 
+#noosfero_bar {
+  left: 3px;
+  right: 3px;
+}
+
 body.category1  #noosfero_bar { background-color: #E26B00 }
 #category1       .linkSubMenu,
 #category1       ul           { background-color: #F57900 }
