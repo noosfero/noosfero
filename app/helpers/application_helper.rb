@@ -494,10 +494,11 @@ module ApplicationHelper
   end
 
   def theme_javascript()
-    js = YAML.load_file( RAILS_ROOT.to_s() +
+    conf = RAILS_ROOT.to_s() +
            '/public/designs/themes/' +
            current_theme.to_s() +
-           '/theme.yml' )['js']
+           '/theme.yml'
+    js = File.exists?(conf) ? YAML.load_file(  )['js'] : []
     html = []
     js.each do |file|
       file = '/designs/themes/'+ current_theme.to_s() +
