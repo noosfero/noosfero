@@ -71,9 +71,21 @@
   line-height: 20px
 }
 
-#user_menu a,
 #user_menu_head a {
   color: #FFF;
+}
+
+#user_menu a {
+  color: #FFF;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+#user_menu a:hover {
+  background: #FCAF3E;
+}
+#user_menu a span {
+  top: 2px;
+  left: 2px;
 }
 
 #user_menu img {
