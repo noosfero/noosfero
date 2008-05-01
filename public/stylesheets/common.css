@@ -7,11 +7,11 @@ body {
 
 #beta-tag {
   position: absolute;
-  top: 50px;
-  left: 50px;
+  top: 40px;
+  left: 40px;
   background-image: url(../images/beta.gif);
-  width: 128px;
-  height: 36px;
+  width: 79px;
+  height: 25px;
 }
 #beta-tag span {
   display: none;
@@ -132,25 +132,9 @@ div#notice {
 #content h4 { font-size: 16px }
 #content h5 { font-size: 14px }
 #content h6 { font-size: 12px }
-body.category1 #content h1, body.category1 #content h2, body.category1 #content h3,
-body.category1 #content h4, body.category1 #content h5, body.category1 #content h6
- { color: #E26B00 }
-body.category2 #content h1, body.category2 #content h2, body.category2 #content h3,
-body.category2 #content h4, body.category2 #content h5, body.category2 #content h6
- { color: #58A80A }
-body.category3 #content h1, body.category3 #content h2, body.category3 #content h3,
-body.category3 #content h4, body.category3 #content h5, body.category3 #content h6
- { color: #694371 }
-body.category4 #content h1, body.category4 #content h2, body.category4 #content h3,
-body.category4 #content h4, body.category4 #content h5, body.category4 #content h6
- { color: #B80000 }
 
 #content .block-title {
   margin: 0px 0px 10px 0px;
-}
-
-#content ul li {
-  list-style: url(/images/list-dot.gif);
 }
 
 

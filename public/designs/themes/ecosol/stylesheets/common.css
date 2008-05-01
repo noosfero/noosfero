@@ -48,6 +48,25 @@ body.category2 a:visited { color: #8A6 }
 a:hover, a:active        { color: #08F }
 body.category2 a:hover   { color: #5C0 }
 
+
+body.category1 #content h1, body.category1 #content h2, body.category1 #content h3,
+body.category1 #content h4, body.category1 #content h5, body.category1 #content h6
+ { color: #E26B00 }
+body.category2 #content h1, body.category2 #content h2, body.category2 #content h3,
+body.category2 #content h4, body.category2 #content h5, body.category2 #content h6
+ { color: #58A80A }
+body.category3 #content h1, body.category3 #content h2, body.category3 #content h3,
+body.category3 #content h4, body.category3 #content h5, body.category3 #content h6
+ { color: #694371 }
+body.category4 #content h1, body.category4 #content h2, body.category4 #content h3,
+body.category4 #content h4, body.category4 #content h5, body.category4 #content h6
+ { color: #B80000 }
+
+#content ul li {
+  list-style: url(../images/list-dot.gif);
+}
+
+
 /* file manager (big) style */
 
 div.file-manager {

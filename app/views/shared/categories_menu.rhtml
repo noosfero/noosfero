@@ -25,4 +25,8 @@
   <div id="assets_menu_layout_iten"></div>
 </div><!-- fim id="assets_menu" -->
 
-<script> setAutoOpenMenu( $("assets_menu") ); </script>
+<script type="text/javascript">
+  if ( assetsMenu.autoOpen ) {
+    setAutoOpenMenu( $("assets_menu") );
+  }
+</script>
