@@ -24,6 +24,8 @@ function setAutoOpenMenu( menu ) {
 
   menu.onmouseover = function () {
     clearTimeout( this.timeoutClose );
+    this.className = this.className.replace( / closed/g, "" );
+    if ( !/menu-opened/.test(this.className) ) { this.className += " opened" }
     var mul = this.mul;
     if ( mul.paddingBottom ) mul.parentNode.style.paddingBottom = mul.paddingBottom +"px";
     if ( mul.h < mul.maxSize ) {
@@ -54,7 +56,9 @@ function setAutoOpenMenu( menu ) {
         mul.style.height = mul.h +"px";
         if ( mul.paddingBottom ) mul.parentNode.style.paddingBottom = "0px";
         mul.inc = 2;
-      }
+        this.className = this.className.replace( / opened/g, "" );
+        this.className += " closed"
+     }
     } else {
       // Work arround IE bug
       this.timeoutClose = setTimeout( "window['autoOpenMenu-"+this.id+"'].onmouseout(true, true)", 200 );

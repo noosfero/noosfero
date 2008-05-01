@@ -49,7 +49,8 @@ function prepareMenu(id, options) {
         link.closeSubMenu =
             function(){
               this.subMenu.style.display = "none";
-              link.className = link.className.replace( / menu-opened/g, "" );
+              //link.className = link.className.replace( / menu-opened/g, "" );
+              this.className = this.className.replace( / menu-opened/g, "" );
             }
 
         //link.onclick = function(){ this.openSubMenu(true); return false }Is not working

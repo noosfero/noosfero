@@ -12,7 +12,11 @@ module AssetsHelper
       [ options.merge(:asset => 'comments'), "icon-menu-comments",   _('Comments') ],
 
     ].map do |target,css_class,name|
-      content_tag('li', link_to(content_tag('span', '', :class => css_class) + name, target))
+      content_tag('li',
+                  link_to(
+                    content_tag('span', '', :class => css_class) +
+                    content_tag('strong', name),
+                    target ))
     end.join("\n")
   end
 

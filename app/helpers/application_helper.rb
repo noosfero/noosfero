@@ -493,14 +493,43 @@ module ApplicationHelper
     content_tag('div', result)
   end
 
-  def theme_javascript()
+  def theme_option( opt=nil )
     conf = RAILS_ROOT.to_s() +
            '/public/designs/themes/' +
            current_theme.to_s() +
            '/theme.yml'
-    js = File.exists?(conf) ? YAML.load_file(conf)['js'] : []
+    if File.exists?(conf)
+      opt ? YAML.load_file(conf)[opt.to_s()] : YAML.load_file(conf)
+    else
+      nil
+    end
+  end
+
+  def theme_opt_menu_search
+    opt = theme_option( :menu_search )
+    if    opt == 'none'
+      ""
+    elsif opt == 'simple_search'
+      s = _('Search...')
+      '<form action="search" id="simple-search" class="focus-out"'+
+      ' help="'+_('Thet is a search box. Click, write your query, and press enter to find')+'"'+
+      ' title="'+_('Click, write and press enter to find')+'">'+
+      '<input name="query" value="'+s+'"'+
+      ' onfocus="if(this.value==\''+s+'\'){this.value=\'\'} this.form.className=\'focus-in\'"'+
+      ' onblur="if(/^\s*$/.test(this.value)){this.value=\''+s+'\'} this.form.className=\'focus-out\'">'+
+      '</form>'
+    else #opt == 'lightbox_link' is default
+      lightbox_link_to '<span class="icon-menu-search"></span>'+ _('Search'), {
+                       :controller => 'search',
+                       :action => 'popup',
+                       :category_path => (@category ? @category.explode_path : []) },
+                       :id => 'open_search'
+    end
+  end
+
+  def theme_javascript
     html = []
-    js.each do |file|
+    theme_option(:js).each do |file|
       file = '/designs/themes/'+ current_theme.to_s() +
              '/javascript/'+ file +'.js'
       if File.exists? RAILS_ROOT.to_s() +'/public'+ file

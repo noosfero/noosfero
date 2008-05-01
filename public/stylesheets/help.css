@@ -36,7 +36,7 @@
   margin: 5px 10px 5px -5px;
   width: 48px;
   height: 48px;
-  background: url("/images/help-avatar.gif");
+  background: url("../images/help-avatar.gif");
 }
 .msie6 .helpAvatar {
   margin: 5px 8px 5px -2px;

@@ -78,6 +78,9 @@
     </div><!-- accessibility_menu -->
 
     <div id="wrap">
+    <div id="wrap2">
+    <div id="wrap3">
+    <div id="wrap4">
 
       <div id="beta-tag"><span>BETA</span></div>
 
@@ -97,13 +100,10 @@
 
         <div id='user_box'>
           <%= render :file => 'shared/user_menu' %>
-          <%=
-          lightbox_link_to '<span class="icon-menu-search"></span>'+ _('Search'),
-          { :controller => 'search', :action => 'popup', :category_path => (@category ? @category.explode_path : []) }, :id => 'open_search'
-          %>
+          <%= theme_opt_menu_search %>
         </div><!-- id='user_box' -->
 
-        <a href="#" id="btShowHelp" class="icon-help32on"
+        <a href="#" id="btShowHelp" class="icon-help32on help-on"
            title="<%= _('Turn help on/off') %>"
            onclick="mouseHelpOnOff(); return false"><span><%= _('Help') %></span></a>
 
@@ -132,6 +132,9 @@
         <div id="footer_content"><!-- Rodape do Conteudo -->
         </div><!-- id="footer_content" -->
       </div><!-- id="frame" -->
+    </div><!-- id="wrap4" -->
+    </div><!-- id="wrap3" -->
+    </div><!-- id="wrap2" -->
     </div><!-- id="wrap" -->
 
     <div id="footer">

@@ -1,0 +1,149 @@
+
+#noosfero_bar {
+  height: 34px;
+  z-index: 100;
+  font-size: 12px;
+  letter-spacing: -1px;
+  background: #F57900 url(../images/menu-bg.png) 0% 100% repeat-x;
+}
+
+#menu_link_to_envhome {
+  display: block;
+  width: 80px;
+  height: 33px;
+  background: url(../images/menu-logo.png) 0% 100% no-repeat;
+}
+
+#menu_link_to_envhome span {
+  display: none;
+}
+
+#cat_menu li {
+  display: none;
+}
+
+
+/* * * Menu Search Box * * * * * * * * * * * */
+
+#simple-search {
+  margin: 0px;
+  padding: 5px 0px 0px 0px;
+}
+
+#simple-search input {
+  width: 100px;
+  height: 22px;
+  line-height: 22px;
+  border: 1px solid #A40000;
+  background: #F57900 url(../images/search.gif) 1px 50% no-repeat;
+  color: #000;
+  text-align: center;
+}
+
+#simple-search.focus-in input {
+  opacity: 1;
+	filter: alpha(opacity=100);
+  background: #FFF url(../images/search-light.gif) 1px 50% no-repeat;
+}
+
+#simple-search.focus-out {
+  opacity: 0.3;
+	filter: alpha(opacity=30);
+}
+
+
+/* * * User Menu * * * * * * * * * * * */
+
+#user_menu {
+  top: 4px;
+  right: 350px;
+  width: 150px;
+  padding: 2px 0px;
+  border: 1px solid transparent;
+}
+#user_menu.opened {
+  border: 1px solid #A40000;
+  background: #F57900;
+}
+
+#user_menu_head {
+  overflow: hidden;
+  line-height: 20px
+}
+
+#user_menu a,
+#user_menu_head a {
+  color: #FFF;
+}
+
+#user_menu img {
+  top: -2px;
+}
+
+#user_menu_ul {
+  position: relative;
+  top: 3px;
+  left: 0px;
+  background: transparent;
+  border: none;
+}
+
+/* * * Assets Menu * * * * * * * * * * * */
+
+#assets_menu {
+  position: absolute;
+  top: 6px;
+  right: 160px;
+  padding: 0px;
+}
+
+#assets_menu_layout_iten {
+  display: none;
+}
+
+#assets_menu_list {
+  padding: 0px;
+  background: transparent;
+}
+
+#assets_menu ul {
+  height: auto;
+  max-width: none;
+  width: auto;
+  overflow: visible;
+}
+#assets_menu li {
+  margin: 0px;
+  padding: 0px 4px;
+  float: left;
+}
+
+#assets_menu a {
+  letter-spacing: 0px;
+  color: #FFF;
+  position: relative;
+  overflow: visible;
+  opacity: 0.6;
+	filter: alpha(opacity=60);
+}
+#assets_menu a:hover {
+  background: transparent;
+  opacity: 1;
+	filter: alpha(opacity=100);
+}
+
+#assets_menu a strong {
+  position: absolute;
+  top: 20px;
+  left: -10px;
+  background: #F57900;
+  border: 1px solid #A40000;
+  padding: 1px 4px;
+  display: none;
+}
+
+#assets_menu a:hover strong {
+  display: block;
+  -moz-border-radius: 4px;
+}
+

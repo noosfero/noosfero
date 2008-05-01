@@ -1,0 +1,22 @@
+
+#btShowHelp {
+  background: url(../images/helper-question.gif) no-repeat;
+  width: 36px;
+  height: 30px;
+}
+
+#btShowHelp.help-off {
+  background: url(../images/helper-exclamation.gif) no-repeat;
+  opacity: 1;
+	filter: alpha(opacity=100);
+}
+
+/* Tenho que criar o boneco gif para fundo laranja antes de mudar a cor
+#helpBox {
+  border: 2px solid #CE5C00;
+  background: #F57900;
+}
+#helpBoxBody {
+  border: 1px solid #FCAF3E;
+}
+*/
