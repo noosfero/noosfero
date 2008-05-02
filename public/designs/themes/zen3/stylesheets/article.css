@@ -1,0 +1,17 @@
+/*
+** Style for Article Related Elements
+*/
+
+#article .post_comment_box h4 {
+  background: #FD8;
+}
+
+#article .post_comment_box.closed h4 {
+  border: 1px solid #f57900;
+}
+
+#article .post_comment_box.opened {
+  border: 1px solid #f57900;
+  background: #FD8;
+}
+

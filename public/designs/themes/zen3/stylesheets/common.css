@@ -17,6 +17,30 @@ body {
   background: #FFF url(../images/bg-top.png) repeat-x;
 }
 
+/* * * Content * * * * * * * * * * * * * * * * * * * */
+
+#content h1, #content h2, #content h3,
+#content h4, #content h5, #content h6 {
+  margin: 10px 0px;
+  color: #A40000;
+}
+
+a {
+  color: #ce5c00;
+}
+a:visited {
+  color: #ab835c;
+}
+a:hover {
+  color: #EA0;
+}
+
+ul li {
+  list-style: url(../images/list-dot.gif);
+}
+
+/* * * Footer * * * * * * * * * * * * * * * * * * * */
+
 #footer {
   background: url("../images/bg-footer.png") repeat-x;
   margin: 0px;

@@ -1,0 +1,13 @@
+
+.common-profile-list-block li a {
+  border: 2px solid #FFF;
+  color: #C00;
+  -moz-border-radius: 4px;
+}
+
+.common-profile-list-block li a:hover {
+  border: 2px solid #C00;
+  background: #fcaf3e;
+  color: #FFF;
+}
+

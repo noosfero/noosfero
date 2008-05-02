@@ -1,4 +1,4 @@
-<div class="article">
+<div id="article">
 
 <%
   # AddThis Button
@@ -19,23 +19,31 @@
 <a href="http://www.addthis.com/bookmark.php" class="bt_addthis" target="_blank" onmouseover="return addthis_open(this, '', '[URL]', '<%= escape_javascript( @environment.name()+' :: '+@page.title ) %>')" onmouseout="addthis_close()" onclick="return addthis_sendto()"><img src="/images/bt-bookmark.gif" width="53" height="16" border="0" alt="" /></a><script type="text/javascript" src="http://s7.addthis.com/js/152/addthis_widget.js"></script>
 <% end; end %>
 
-<h2><%= @page.title %></h2>
-
-<% if logged_in?  && current_user.person.has_permission?('post_content', profile) %>
-<div class="article-actions">
-  <%= link_to content_tag( 'span', _('Edit') ),
-      { :controller => 'cms', :action => 'edit', :id => @page },
-      :class => 'button with-text icon-edit' %>
+<div onmouseover="showArticleActions(true)"
+     onmouseout="showArticleActions(false)">
+  <h1><%= @page.title %></h1>
+  <script type="text/javascript">
+    function showArticleActions( show ) {
+      var act = $("article-actions");
+      if ( act ) act.style.display = ( show ? "block" : "none" );
+    }
+  </script>
+  <% if logged_in?  && current_user.person.has_permission?('post_content', profile) %>
+    <div id="article-actions" style="display:none">
+      <%= link_to content_tag( 'span', _('Edit') ),
+          { :controller => 'cms', :action => 'edit', :id => @page },
+          :class => 'button with-text icon-edit' %>
+    </div>
+  <% end %>
 </div>
-<% end %>
 
-<div class="article-tags">
+<div id="article-tags">
   <%= _("This article's tags:") %>
   <%= @page.tags.map { |t| link_to(t, :controller => 'profile', :profile => @profile.identifier, :action => 'tag', :id => t.name ) }.join("\n") %>
 </div>
 
 <% if @page.parent && !@page.parent.path.blank? %>
-<div class="article-parent">
+<div id="article-parent">
   <%= link_to_document(@page.parent, _('Up')) %>
 </div>
 <% end %>
@@ -52,13 +60,15 @@
 <% end %>
 -->
 
-<div class="article-cat">
-  <h3><%= _('Categories') %></h3>
-  <%= @page.categories.map {|item| link_to_category(item) }.join(', ') %>
+<div id="article-cat">
+  <h4><%= _('Categories') %></h4>
+  <ul>
+    <li><%= @page.categories.map {|item| link_to_category(item) }.join("</li>\n<li>") %></li>
+  </ul>
 </div>
 
 <h3><%= @comments.size == 0 ? _('No comments yet') : (n_('One comment', '%{comments} comments', @comments.size)) % { :comments => @comments.size} %></h3>
 <%= render :partial => 'comment', :collection => @comments %>
 <%= render :partial => 'comment_form' %>
 
-</div><!-- end class="article" -->
+</div><!-- end id="article" -->
