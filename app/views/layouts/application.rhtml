@@ -9,6 +9,16 @@
     </title>
     <meta name="description" content="FIXME: Descriptions of Noosfero" />
     <meta name="keywords" content="Noosfero, Community, Open Source" />
+
+    <%= javascript_include_tag 'default-config' %>
+    <%= javascript_include_tag :defaults %>
+    <%# javascript_include_tag 'animator' %>
+    <%= javascript_include_tag 'menu' %>
+    <%= javascript_include_tag 'auto-open-menu' %>
+    <%= include_lightbox_header %>
+    <%= javascript_include_tag 'cms' if @controller.controller_name == 'cms' %>
+    <%= theme_javascript %>
+
     <%#
      stylesheet_import is better then stylesheet_link_tag because the stylesheet
      must be loaded before the page show.
@@ -33,17 +43,6 @@
     <%= stylesheet_link_tag '/designs/templates/default/stylesheets/style.css' %>
     <%= stylesheet_link_tag '/designs/icons/default/style.css' %>
 
-    <%= javascript_include_tag 'default-config' %>
-    <%= javascript_include_tag :defaults %>
-    <%# javascript_include_tag 'animator' %>
-    <%= javascript_include_tag 'menu' %>
-    <%= javascript_include_tag 'auto-open-menu' %>
-    <%= include_lightbox_header %>
-    <%# cms stuff %>
-    <% if @controller.controller_name == 'cms' %>
-      <%= javascript_include_tag 'cms' %>
-    <% end %>
-    <%= theme_javascript %>
   </head>
 
   <body class='noosfero category<%= category_color %><%=

@@ -23,3 +23,44 @@
   border: none !important;
   background-color: transparent !important;
 }
+
+
+/* file manager (big) style */
+
+div.file-manager {
+  clear: both;
+}
+
+div.file-manager
+div.file-manager-button {
+  float: left;
+  width: 140px;
+  text-align: center;
+  margin-right: 0.5em;
+  margin-top: 0.5em;
+}
+
+div.file-manager
+div.file-manager-button a img {
+  border: none;
+}
+
+div.file-manager
+div.file-manager-button a {
+  border: 1px solid #e0e0e0;
+  display: block;
+  padding: 3px;
+  height: 90px;
+  overflow: hidden;
+  background: white;
+  font-size: 90%;
+  text-decoration: none;
+}
+
+div.file-manager
+div.file-manager-button a:hover {
+  border: 1px solid #006;
+  background: #acf;
+  color: #006;
+}
+

@@ -1,6 +1,6 @@
 
 body {
-  background: #888A85;
+  background: #BABDB6; #888A85;
 }
 
 #wrap {
@@ -13,3 +13,48 @@ body {
   background: url(../images/bg-down.png) 0% 100% repeat-x;
 }
 
+#lightbox{
+  background: #FFF url(../images/bg-top.png) repeat-x;
+}
+
+#footer {
+  background: url("../images/bg-footer.png") repeat-x;
+  margin: 0px;
+  padding: 10px;
+  color: #FFF;
+}
+#footer a {
+  color: #FFF;
+}
+#footer a:hover {
+  color: #FFF;
+}
+
+#footer div a {
+  border-bottom: 1px dotted #FFF;
+}
+#footer div a:hover {
+  border-bottom: 1px solid #FFF;
+}
+
+#footer-esq,
+#footer-dir,
+#footer div {
+  opacity: 0.4;
+	filter: alpha(opacity=40);
+}
+
+#footer-esq {
+  float: left;
+  text-align: left;
+}
+#footer-dir {
+  float: right;
+  text-align: right;
+}
+
+#footer-esq:hover,
+#footer-dir:hover {
+  opacity: 0.7;
+	filter: alpha(opacity=70);
+}
