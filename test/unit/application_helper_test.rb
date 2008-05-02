@@ -71,6 +71,35 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_same result, link_to_category(cat)
   end
 
+  should 'get current theme' do
+    assert_equal 'default', current_theme()
+  end
+
+  should 'nil theme option when no exists theme' do
+    File.expects(:exists?).returns(false)
+    assert_nil theme_option()
+  end
+
+  should 'not nil to ecosol theme option' do
+    expects(:current_theme).returns('ecosol')
+    assert_not_nil theme_option()
+  end
+
+  should 'not nil to zen3 theme option' do
+    expects(:current_theme).returns('zen3')
+    assert_not_nil theme_option()
+  end
+
+  should 'nil javascript theme when no exists theme' do
+    File.expects(:exists?).returns(false)
+    assert_nil theme_javascript
+  end
+
+  should 'not nil javascript theme to ecosol theme' do
+    expects(:current_theme).returns('ecosol')
+    assert_not_nil theme_javascript
+  end
+
   protected
 
   def content_tag(tag, content, options)

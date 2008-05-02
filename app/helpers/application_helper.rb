@@ -493,7 +493,7 @@ module ApplicationHelper
     content_tag('div', result)
   end
 
-  def theme_option( opt=nil )
+  def theme_option(opt = nil)
     conf = RAILS_ROOT.to_s() +
            '/public/designs/themes/' +
            current_theme.to_s() +
@@ -528,8 +528,10 @@ module ApplicationHelper
   end
 
   def theme_javascript
+    option = theme_option(:js)
+    return if option.nil?
     html = []
-    theme_option(:js).each do |file|
+    option.each do |file|
       file = '/designs/themes/'+ current_theme.to_s() +
              '/javascript/'+ file +'.js'
       if File.exists? RAILS_ROOT.to_s() +'/public'+ file
