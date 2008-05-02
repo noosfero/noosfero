@@ -91,11 +91,21 @@ categories[#{cat.id}] = cat#{@seq}.id
       endereco << " CEP: " << ent.cep
     end
 
-    puts "new_ent({ :name => #{ent.nome.inspect}, :identifier => #{ent.nome.to_slug.inspect}, :contact_phone => #{ent.tel.inspect}, :address => #{endereco.inspect}, :lat => #{ent.lat.inspect}, :lng => #{ent.long.inspect}, :geocode_precision => #{ent.geomodificou.inspect}, :data => { :id_sies => #{ent.id_sies.inspect} }, :organization_info => OrganizationInfo.new(:contact_email => #{email.inspect}) }, #{ent.products.map{|p| { :name => p.category.nome , :product_category_id => p.category.id } }.inspect}, #{ent.input_products.map{|p| {:product_category_id => p.category.id} }.inspect})"
+    puts "new_ent({ :name => #{ent.nome.inspect}, 
+                    :identifier => #{ent.nome.to_slug.inspect}, 
+                    :contact_phone => #{ent.tel.inspect}, 
+                    :address => #{endereco.inspect}, 
+                    :lat => #{ent.lat.inspect}, 
+                    :lng => #{ent.long.inspect}, 
+                    :geocode_precision => #{ent.geomodificou.inspect}, 
+                    :data => { :id_sies => #{ent.id_sies.inspect} }, 
+                    :organization_info => OrganizationInfo.new(:contact_email => #{email.inspect}) }, 
+                    [#{ent.products.map{|p| "{ :name => #{p.category.nome.inspect} , :product_category_id => categories[#{p.category.id}] }"}.join(', ')}], 
+                    [#{ent.input_products.map{|p| "{ :product_category_id => categories[#{p.category.id}]}" }.join(', ')}])"
   end
 
   def dump_city(city)
-    puts "Region.create!(:name => #{city.cidade.inspect}, :parent => STATES[#{city.id.to_s[0..1]}], :lat => #{city.latitude}, :lng => #{city.longitude})"
+    puts "Region.create!(:name => #{city.cidade.inspect}, :parent => STATES[#{city.id.to_s[0..1]}], :lat => #{city.latitude}, :lng => #{city.longitude}, :environment => Environment.default)"
   end
 
 end
