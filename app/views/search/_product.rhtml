@@ -2,8 +2,7 @@
 
 <li>
     <%= link_to_product product, :class => 'product-pic', :style => 'background-image:url(%s)' %
-                        ( product.image ? product.image.public_filename(:minor) :
-                                         '/images/icons-app/product-default-pic-minor.png' ) %>
+          ( product.image ? product.image.public_filename(:minor) : '/images/icons-app/product-default-pic-minor.png' ) %>
     <strong>
       <%= link_to_product product %>
     </strong> 
@@ -12,6 +11,6 @@
       <% if product.enterprise %>
         <li> <%= _('Suplier: %s') % link_to_homepage(product.enterprise.name, product.enterprise.identifier) %> </li>
       <% end %>
-      <li> <%= _('Category: %s') % link_to_category(product.product_category) %> </li>
+      <li> <%= link_to_category(product.product_category) %> </li>
     </ul>
 </li>

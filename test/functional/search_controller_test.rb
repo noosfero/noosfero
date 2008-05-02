@@ -748,4 +748,13 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_not_includes assigns(:results)[:comments], comment4
   end
 
+  should 'not show term "Category:" before product category' do
+    Profile.delete_all
+    ent = Enterprise.create!(:name => 'teste1', :identifier => 'teste1')
+    prod1 = ent.products.create!(:name => 'a beautiful product')
+    prod2 = ent.products.create!(:name => 'another beautiful product')
+    get :assets, :asset => 'products'
+    assert_no_match /Category:/, @response.body
+  end
+
 end
