@@ -25,11 +25,11 @@
   <script type="text/javascript">
     function showArticleActions( show ) {
       var act = $("article-actions");
-      if ( act ) act.style.display = ( show ? "block" : "none" );
+      if ( act ) act.className = ( show ? "show" : "hidden" );
     }
   </script>
   <% if logged_in?  && current_user.person.has_permission?('post_content', profile) %>
-    <div id="article-actions" style="display:none">
+    <div id="article-actions" class="hidden">
       <%= link_to content_tag( 'span', _('Edit') ),
           { :controller => 'cms', :action => 'edit', :id => @page },
           :class => 'button with-text icon-edit' %>

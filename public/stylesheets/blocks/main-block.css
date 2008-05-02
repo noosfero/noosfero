@@ -10,6 +10,10 @@
   right: 0px;
   padding-right: 15px;
 }
+#article-actions.hidden {
+  opacity: 0.3;
+	filter: alpha(opacity=30);
+}
 
 #article-tags {
   font-size: 10px;
