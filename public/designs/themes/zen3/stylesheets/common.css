@@ -71,10 +71,14 @@ ul li {
 #footer-esq {
   float: left;
   text-align: left;
+  background: url(../images/logo-ynternet-footer.gif) no-repeat 0% 50%;
+  padding: 5px 0px 10px 45px;
 }
 #footer-dir {
   float: right;
   text-align: right;
+  background: url(../images/logo-colivre-footer.gif) no-repeat 100% 50%;
+  padding: 5px 45px 10px 0px;
 }
 
 #footer-esq:hover,
