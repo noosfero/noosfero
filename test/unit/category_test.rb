@@ -346,6 +346,27 @@ class CategoryTest < Test::Unit::TestCase
     assert_not_includes c.people, ent
   end
 
+  should 'report the total items in this category' do
+    @category = Category.create!(:name => 'my category', :environment => @env)
+    # in category
+    person1 = create_user('test1').person; person1.categories << @category; person1.save!
+    art1 = person1.articles.build(:name => 'an article to be counted'); art1.categories << @category; art1.save!
+    comment1 = art1.comments.build(:title => 'comment to be counted', :body => 'hfyfyh', :author => person1); comment1.save!
+    ent1 = Enterprise.create!(:name => 'test2', :identifier => 'test2', :categories => [@category])
+    com1 = Community.create!(:name => 'test3', :identifier => 'test3', :categories => [@category])
+    prod1 = Product.create!(:name => 'test4', :enterprise => ent1)
+
+    # not in category
+    person2 = create_user('test5').person
+    art2 = person2.articles.build(:name => 'an article not to be counted'); art2.save!
+    comment2 = art2.comments.build(:title => 'comment not to be counted', :body => 'hfh', :author => person2); comment2.save!
+    ent2 = Enterprise.create!(:name => 'test6', :identifier => 'test6')
+    com2 = Community.create!(:name => 'test7', :identifier => 'test7')
+    prod2 = Product.create!(:name => 'test8', :enterprise => ent2)
+
+    assert_equal 6, @category.total_items
+  end
+
   # NOT YET
   #should 'list people that are categorized in children categories' do
   #  c1 = @env.categories.create!(:name => 'top category')

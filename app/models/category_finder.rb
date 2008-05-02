@@ -20,7 +20,7 @@ class CategoryFinder
   end
 
   def count(asset)
-    asset_class(asset).count(:all, options_for_find(asset_class(asset)))
+    asset_class(asset).count(:all, options_for_find(asset_class(asset), :select => "#{asset_table(asset)}.id"))
   end
 
   def most_commented_articles(limit=10)
@@ -30,7 +30,11 @@ class CategoryFinder
   protected
 
   def find_in_categorized(klass, query, options={})
-    klass.find_by_contents(query, {}, options_for_find(klass, options)).uniq
+    if query.nil?
+      klass.find(:all, options_for_find(klass, options))
+    else
+      klass.find_by_contents(query, {}, options_for_find(klass, options)).uniq
+    end
   end
 
   def options_for_find(klass, options={})

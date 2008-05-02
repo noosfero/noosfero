@@ -23,6 +23,22 @@ class CategoryFinderTest < ActiveSupport::TestCase
     assert_includes list, art1
     assert_not_includes list, art2
   end
+  
+  should 'search with query for articles in a specific category' do
+    person = create_user('teste').person
+
+    # in category
+    art1 = person.articles.build(:name => 'an article to be found')
+    art1.categories << @category
+    art1.save!
+
+    # not in category
+    art2 = person.articles.build(:name => 'another article to be found')
+    art2.save!
+
+    assert_includes @finder.find('articles', 'found'), art1
+    assert_not_includes @finder.find('articles','found'), art2
+  end
 
   should 'search for comments in a specific category' do
     person = create_user('teste').person
