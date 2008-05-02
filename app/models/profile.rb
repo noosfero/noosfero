@@ -35,6 +35,8 @@ class Profile < ActiveRecord::Base
 
   acts_as_having_settings :field => :data
 
+  acts_as_mappable :default_units => :kms
+
   # Valid identifiers must match this format.
   IDENTIFIER_FORMAT = /^[a-z][a-z0-9~.]*([_-][a-z0-9~.]+)*$/
 

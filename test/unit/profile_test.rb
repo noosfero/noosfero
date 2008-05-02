@@ -442,6 +442,20 @@ class ProfileTest < Test::Unit::TestCase
     assert_not_includes list, outside
   end
 
+  should 'have latitude and longitude' do
+    e = Enterprise.create!(:name => 'test1', :identifier => 'test1')
+    e.lat, e.lng = 45, 45 ; e.save!
+
+    assert_includes Enterprise.find_within(2, :origin => [45, 45]), e    
+  end
+
+  should 'have latitude and longitude and find' do
+    e = Enterprise.create!(:name => 'test1', :identifier => 'test1')
+    e.lat, e.lng = 45, 45 ; e.save!
+
+    assert_includes Enterprise.find(:all, :within => 2, :origin => [45, 45]), e    
+  end
+
   private
 
   def assert_invalid_identifier(id)

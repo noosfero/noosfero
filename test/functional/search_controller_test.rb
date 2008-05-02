@@ -748,6 +748,29 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_not_includes assigns(:results)[:comments], comment4
   end
 
+  should 'find enterprise by product category' do
+    ent1 = Enterprise.create!(:name => 'test1', :identifier => 'test1')
+    prod_cat = ProductCategory.create!(:name => 'pc-test', :environment => Environment.default)
+    prod = ent1.products.create!(:name => 'teste', :product_category => prod_cat)
+
+    ent2 = Enterprise.create!(:name => 'test2', :identifier => 'test2')
+
+    get :sellers, :product_category => ['pc-test']
+
+    assert_includes assigns('enterprises'), ent1
+    assert_not_includes assigns('enterprises'), ent2
+  end
+
+  should 'find enterprise by origin and radius' do
+    ent1 = Enterprise.create!(:name => 'test1', :identifier => 'test1', :lat => 45.0, :lng => 45.0)
+    ent2 = Enterprise.create!(:name => 'test2', :identifier => 'test2', :lat => 30.0, :lng => 30.0)
+
+    get :sellers, :lat => 45.0, :long => 45.0, :radius => 10
+
+    assert_includes assigns('enterprises'), ent1
+    assert_not_includes assigns('enterprises'), ent2
+  end
+
   should 'not show term "Category:" before product category' do
     Profile.delete_all
     ent = Enterprise.create!(:name => 'teste1', :identifier => 'teste1')

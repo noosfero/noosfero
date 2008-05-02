@@ -120,6 +120,14 @@ class SearchController < ApplicationController
     @tagged = @tag.taggings.map(&:taggable)
   end
 
+  def sellers
+    options = {}
+    @product_category = ProductCategory.find_by_path(params[:product_category].join('/')) if params[:product_category]
+    options.merge!({:include => :products, :conditions => ['products.product_category_id = ?', @product_category.id]}) if @product_category
+    options.merge!({:origin => [params[:lat].to_f, params[:long].to_f], :within => params[:radius] }) if params[:lat] && params[:long] && params[:radius]
+    @enterprises = Enterprise.find(:all, options)
+  end
+
   #######################################################
 
   def popup
