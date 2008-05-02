@@ -38,6 +38,7 @@
   background: #F57900 url(../images/search.gif) 1px 50% no-repeat;
   color: #000;
   text-align: center;
+	color: #400;
 }
 
 #simple-search.focus-in input {
@@ -46,9 +47,9 @@
   background: #FFF url(../images/search-light.gif) 1px 50% no-repeat;
 }
 
-#simple-search.focus-out {
-  opacity: 0.3;
-	filter: alpha(opacity=30);
+#simple-search.focus-out input {
+  opacity: 0.4;
+	filter: alpha(opacity=40);
 }
 
 
@@ -106,6 +107,19 @@
   left: 0px;
   background: transparent;
   border: none;
+}
+
+#user_box a#link_login {
+  letter-spacing: 0px;
+  opacity: 0.6;
+	filter: alpha(opacity=60);
+}
+#user_box a#link_login:hover {
+  opacity: 1;
+	filter: alpha(opacity=100);
+}
+#link_login .icon-menu-login {
+  margin-left: -3px;
 }
 
 /* * * Assets Menu * * * * * * * * * * * */
