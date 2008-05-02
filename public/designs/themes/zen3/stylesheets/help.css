@@ -3,6 +3,7 @@
   background: url(../images/helper-question.gif) no-repeat;
   width: 36px;
   height: 30px;
+  top: 0px;
 }
 
 #btShowHelp.help-off {

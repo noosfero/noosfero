@@ -109,6 +109,11 @@ class User < ActiveRecord::Base
   def name
     person.name
   end
+  
+  def first_name
+    re = '[-+*_\s\'´"]'
+    person.name.gsub(/^#{re}*/,'').split(/#{re}/)[0]
+  end
 
   protected
     # before filter 

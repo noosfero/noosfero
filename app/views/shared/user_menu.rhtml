@@ -9,7 +9,7 @@
     (current_user.person.image)?
     current_user.person.image.public_filename(:icon) : "/images/icons-bar/photo.png"
     %>" alt="<%= current_user.name %> Icon-Photo" title="" height="20" border="0"/>
-    <span><%= _("%s's Menu") % current_user.name %></span>
+    <span><%= _("%s's Menu") % current_user.first_name %> </span>
   </div>
 
   <div id="user_menu_ul">

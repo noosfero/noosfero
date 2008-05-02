@@ -58,6 +58,7 @@
   top: 4px;
   right: 350px;
   width: 150px;
+  overflow: hidden;
   padding: 2px 0px;
   border: 1px solid transparent;
 }
@@ -68,17 +69,24 @@
 
 #user_menu_head {
   overflow: hidden;
-  line-height: 20px
+  line-height: 20px;
+  padding-left: 4px;
 }
 
-#user_menu_head a {
+#user_menu_head img {
+  margin-left: -20px;
+}
+
+#user_menu_head span {
   color: #FFF;
+  opacity: 0.6;
+	filter: alpha(opacity=60);
 }
 
 #user_menu a {
   color: #FFF;
-  padding-top: 2px;
-  padding-bottom: 2px;
+  padding-top: 3px;
+  padding-bottom: 1px;
 }
 #user_menu a:hover {
   background: #FCAF3E;
