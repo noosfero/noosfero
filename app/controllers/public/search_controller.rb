@@ -83,7 +83,8 @@ class SearchController < ApplicationController
       [ :recent_communities, _('Recently created communities'), @finder.recent('communities') ],
       [ :recent_articles, _('Recent articles'), @finder.recent('articles') ],
       [ :comments, _('Recent comments'), @finder.recent('comments') ],
-      [ :most_commented_articles, _('Most commented articles'), @finder.most_commented_articles ]
+      [ :most_commented_articles, _('Most commented articles'), @finder.most_commented_articles ],
+      [ :recent_enterptises, _('Recently created enterprises'), @finder.recent('enterprises') ]
     ].each do |key, name, list|
       @results[key] = list
       @names[key] = name

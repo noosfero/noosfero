@@ -422,7 +422,7 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'form' , :attributes => { :method => 'get' }
   end
 
-  def test_should_display_a_given_category
+  should 'display a given category' do
     get :category_index, :category_path => [ 'my-category' ]
     assert_equal @category, assigns(:category)
   end
@@ -484,6 +484,17 @@ class SearchControllerTest < Test::Unit::TestCase
 
     get :category_index, :category_path => [ 'my-category' ]
     assert_same recent_communities, assigns(:results)[:recent_communities]
+  end
+
+  should 'list recently registered enterprises in the category' do
+    recent_enterptises = []
+    finger = CategoryFinder.new(@category)
+    finger.expects(:recent).with(anything).at_least_once
+    finger.expects(:recent).with('enterprises').returns(recent_enterptises)
+    CategoryFinder.expects(:new).with(@category).returns(finger)
+
+    get :category_index, :category_path => [ 'my-category' ]
+    assert_same recent_enterptises, assigns(:results)[:recent_enterptises]
   end
 
   should 'not list "Search for ..." in category_index' do
