@@ -456,6 +456,15 @@ class ProfileTest < Test::Unit::TestCase
     assert_includes Enterprise.find(:all, :within => 2, :origin => [45, 45]), e    
   end
 
+  should 'allow to remove members' do
+    c = Profile.create!(:name => 'my other test profile', :identifier => 'myothertestprofile')
+    p = create_user('myothertestuser').person
+
+    c.add_member(p)
+    c.remove_member(p)
+    assert !c.members.include?(p)
+  end
+
   private
 
   def assert_invalid_identifier(id)

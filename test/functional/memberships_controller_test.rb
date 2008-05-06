@@ -113,4 +113,30 @@ class MembershipsControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'td', :content => /Description:/
   end
 
+  should 'show link to leave from community' do
+    community = Community.create!(:name => 'my test community', :description => 'description test')
+    community.add_member(profile)
+    get :index, :profile => profile.identifier
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/memberships/leave/#{community.id}" }, :content => 'Leave'
+  end
+
+  should 'present confirmation before leaving a profile' do
+    community = Community.create!(:name => 'my test community')
+    get :leave, :profile => profile.identifier, :id => community.id
+
+    assert_response :success
+    assert_template 'leave'
+  end
+
+  should 'actually leave profile' do
+    community = Community.create!(:name => 'my test community')
+    post :leave, :profile => profile.identifier, :id => community.id, :confirmation => '1'
+
+    assert_response :redirect
+    assert_redirected_to :action => 'index'
+
+    profile.reload
+    assert !profile.memberships.include?(community)
+  end
+
 end

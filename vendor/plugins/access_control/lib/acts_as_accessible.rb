@@ -19,6 +19,11 @@ class ActiveRecord::Base
       roles.map {|role| accessor.add_role(role, self)}.any? 
     end
 
+    def disaffiliate(accessor, roles)
+      roles = [roles] unless roles.kind_of?(Array)
+      roles.map {|role| accessor.remove_role(role, self)}.any? 
+    end
+
     def members
       role_assignments.map(&:accessor).uniq
     end

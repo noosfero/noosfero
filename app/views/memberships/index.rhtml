@@ -14,7 +14,8 @@
       <%= _('Description: %s') % membership.description  + '<br/>' if membership.kind_of?(Community) %>
       <%= _('Members: %s') % membership.members.size.to_s %> <br/>
       <%= _('Created at: %s') % show_date(membership.created_at) %> <br/>
-      <%= _('Actions: %s') % link_to(_('Manage'), membership.admin_url) %> <br/>
+      <%= _('Actions: %s') % link_to(_('Manage'), membership.admin_url) + ', ' + link_to(_('Leave'), { :profile => profile.identifier, :controller => 'memberships', :action => 'leave', :id => membership.id }) %> <br/>
+
     </td>
   </tr>
 <% end %>

@@ -23,7 +23,7 @@ class ActiveRecord::Base
         false
       end
     end
-    
+
     def remove_role(role, resource)
       return unless role
       roles_destroy = RoleAssignment.find(:all, :conditions => role_attributes(role, resource))

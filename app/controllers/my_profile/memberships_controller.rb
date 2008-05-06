@@ -14,6 +14,14 @@ class MembershipsController < MyProfileController
     end
   end
 
+  def leave
+    @to_leave = Profile.find(params[:id])
+    if request.post? && params[:confirmation]
+      @to_leave.remove_member(profile)
+      redirect_to :action => 'index'
+    end
+  end
+
   def new_community
     @community = Community.new(params[:community])
     if request.post?

@@ -281,6 +281,10 @@ class Profile < ActiveRecord::Base
   def add_member(person)
     self.affiliate(person, Profile::Roles.member)
   end
+  
+  def remove_member(person)
+    self.disaffiliate(person, Profile::Roles.member)
+  end
 
   # adds a person as administrator os this profile
   def add_admin(person)
