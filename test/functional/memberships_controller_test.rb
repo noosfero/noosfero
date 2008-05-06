@@ -1,10 +1,13 @@
 require File.dirname(__FILE__) + '/../test_helper'
 require 'memberships_controller'
 
+
 # Re-raise errors caught by the controller.
 class MembershipsController; def rescue_action(e) raise e end; end
 
 class MembershipsControllerTest < Test::Unit::TestCase
+  
+  include ApplicationHelper
 
   def setup
     @controller = MembershipsController.new
@@ -88,6 +91,15 @@ class MembershipsControllerTest < Test::Unit::TestCase
     get :index, :profile => profile.identifier
     assert_tag :tag => 'th', :content => 'Members'
     assert_tag :tag => 'td', :content => '1'
+  end
+
+  should 'show created at on list' do
+    community = Community.create!(:name => 'my test community')
+    community.add_member(profile)
+    created = show_date(community.created_at)
+    get :index, :profile => profile.identifier
+    assert_tag :tag => 'th', :content => 'Created at'
+    assert_tag :tag => 'td', :content => created
   end
 
 end

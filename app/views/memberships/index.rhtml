@@ -10,13 +10,15 @@
     <th><%= _('Name') %></th>
     <th><%= _('Type') %></th>
     <th><%= _('Members') %></th>
+    <th><%= _('Created at') %></th>
     <th><%= _('Actions') %></th>
   </tr>
 <% for membership in @memberships %>
   <tr>
     <td><%= link_to membership.name, membership.url %></td>
     <td><%= _(membership.class.name) %></td>
-    <td><%= _(membership.members.size.to_s) %></td>
+    <td><%= membership.members.size.to_s %></td>
+    <td><%= show_date(membership.created_at) %></td>
     <td>
       <%= link_to _('Manage'), membership.admin_url %>
     </td>
