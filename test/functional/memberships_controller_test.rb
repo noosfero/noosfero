@@ -89,17 +89,28 @@ class MembershipsControllerTest < Test::Unit::TestCase
     community = Community.create!(:name => 'my test community')
     community.add_member(profile)
     get :index, :profile => profile.identifier
-    assert_tag :tag => 'th', :content => 'Members'
-    assert_tag :tag => 'td', :content => '1'
+    assert_tag :tag => 'td', :content => /Members: 1/
   end
 
   should 'show created at on list' do
     community = Community.create!(:name => 'my test community')
     community.add_member(profile)
-    created = show_date(community.created_at)
     get :index, :profile => profile.identifier
-    assert_tag :tag => 'th', :content => 'Created at'
-    assert_tag :tag => 'td', :content => created
+    assert_tag :tag => 'td', :content => /Created at: #{show_date(community.created_at)}/
+  end
+
+  should 'show description on list' do
+    community = Community.create!(:name => 'my test community', :description => 'description test')
+    community.add_member(profile)
+    get :index, :profile => profile.identifier
+    assert_tag :tag => 'td', :content => /Description: description test/
+  end
+
+  should 'not show description to enterprises on list' do
+    enterprise = Enterprise.create!(:identifier => 'enterprise-test', :name => 'my test enterprise')
+    enterprise.add_member(profile)
+    get :index, :profile => profile.identifier
+    assert_no_tag :tag => 'td', :content => /Description:/
   end
 
 end

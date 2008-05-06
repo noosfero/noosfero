@@ -4,23 +4,17 @@
 <%= _('%s is a member of the following groups:') % profile.name %>
 </p>
 
-
 <table>
-  <tr>
-    <th><%= _('Name') %></th>
-    <th><%= _('Type') %></th>
-    <th><%= _('Members') %></th>
-    <th><%= _('Created at') %></th>
-    <th><%= _('Actions') %></th>
-  </tr>
 <% for membership in @memberships %>
   <tr>
-    <td><%= link_to membership.name, membership.url %></td>
-    <td><%= _(membership.class.name) %></td>
-    <td><%= membership.members.size.to_s %></td>
-    <td><%= show_date(membership.created_at) %></td>
+    <td> <%= image_tag(profile_icon(membership)) %> </td>
     <td>
-      <%= link_to _('Manage'), membership.admin_url %>
+      <%= _('Name: %s:') % link_to(membership.name, membership.url) %> <br/>
+      <%= _('Type: %s') % _(membership.class.name) %> <br/>
+      <%= _('Description: %s') % membership.description  + '<br/>' if membership.kind_of?(Community) %>
+      <%= _('Members: %s') % membership.members.size.to_s %> <br/>
+      <%= _('Created at: %s') % show_date(membership.created_at) %> <br/>
+      <%= _('Actions: %s') % link_to(_('Manage'), membership.admin_url) %> <br/>
     </td>
   </tr>
 <% end %>
