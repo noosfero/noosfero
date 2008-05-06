@@ -1,0 +1,26 @@
+<h2>
+<% if @product_category %>
+  <% if params[:lat] && params[:long] && params[:radius] %>
+    <%= _('Listing sellers of %s witin %s km from %s %s') % [@product_category.name, params[:radius], params[:lat], params[:long]] %>
+  <% else %>  
+    <%= _('Listing sellers of %s') % @product_category.name %>
+  <% end %>
+<% else %>
+  <% if params[:lat] && params[:long] && params[:radius] %>
+    <%= _('Listing sellers witin %s km from %s %s') % [params[:radius], params[:lat], params[:long]] %>
+  <% else %>  
+    <%= _('Listing sellers') %>
+  <% end %>
+<% end %>
+</h2>
+
+<% form_tag({}, {:method => 'get'}) do %>
+  <%= _('Category: ') %> <%= select_tag 'category', options_from_collection_for_select(@categories, :id, :name, @product_category) %><br/>
+  <%= _('Distance form point: ') %> <%= text_field_tag 'radius' %><br/>
+  <%= _('Region') %> <%= select_tag 'region', options_from_collection_for_select(@regions, :id, :name, @region) %><br/>
+  <%= submit_tag _('Search') %>
+<% end %>
+
+<div class="search-results-innerbox search-results-type-profile common-profile-list-block %>">
+  <ul> <%= render :partial => 'profile', :collection => @enterprises %> </ul>
+</div>

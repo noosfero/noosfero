@@ -759,6 +759,16 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_not_includes assigns(:results)[:comments], comment4
   end
 
+  should 'list all sellers' do
+    ent1 = Enterprise.create!(:name => 'test1', :identifier => 'test1')
+    ent2 = Enterprise.create!(:name => 'test2', :identifier => 'test2')
+
+    get :sellers
+
+    assert_includes assigns('enterprises'), ent1
+    assert_includes assigns('enterprises'), ent2
+  end
+
   should 'find enterprise by product category' do
     ent1 = Enterprise.create!(:name => 'test1', :identifier => 'test1')
     prod_cat = ProductCategory.create!(:name => 'pc-test', :environment => Environment.default)
@@ -766,7 +776,7 @@ class SearchControllerTest < Test::Unit::TestCase
 
     ent2 = Enterprise.create!(:name => 'test2', :identifier => 'test2')
 
-    get :sellers, :product_category => ['pc-test']
+    get :sellers, :category => prod_cat.id
 
     assert_includes assigns('enterprises'), ent1
     assert_not_includes assigns('enterprises'), ent2
