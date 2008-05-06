@@ -82,4 +82,12 @@ class MembershipsControllerTest < Test::Unit::TestCase
     assert_sanitized assigns(:community).description
   end
 
+  should 'show number of members on list' do
+    community = Community.create!(:name => 'my test community')
+    community.add_member(profile)
+    get :index, :profile => profile.identifier
+    assert_tag :tag => 'th', :content => 'Members'
+    assert_tag :tag => 'td', :content => '1'
+  end
+
 end
