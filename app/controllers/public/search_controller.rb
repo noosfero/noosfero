@@ -127,8 +127,12 @@ class SearchController < ApplicationController
     @product_category = ProductCategory.find(params[:category]) if params[:category]
     @region = Region.find(params[:region]) if params[:region]
     options = {}
-    options.merge!({:include => :products, :conditions => ['products.product_category_id = ?', @product_category.id]}) if @product_category
-    options.merge!({:origin => [params[:lat].to_f, params[:long].to_f], :within => params[:radius] }) if params[:lat] && params[:long] && params[:radius]
+    options.merge! :include => :products, :conditions => ['products.product_category_id = ?', @product_category.id] if @product_category
+
+    options.merge! :origin => [params[:lat].to_f, params[:long].to_f], :within => params[:radius] if !params[:lat].blank? && !params[:long].blank? && !params[:radius].blank?
+
+    options.merge! :origin => [@region.lat, @region.lng], :within => params[:radius] if !params[:region].blank? && !params[:radius].blank?
+
     @enterprises = Enterprise.find(:all, options)
   end
 

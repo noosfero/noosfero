@@ -792,6 +792,47 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_not_includes assigns('enterprises'), ent2
   end
 
+  should 'find enterprise by an region with georeference' do
+    region = Region.create!(:name => 'r-test', :environment => Environment.default, :lat => 45.0, :lng => 45.0)
+    ent1 = Enterprise.create!(:name => 'test1', :identifier => 'test1', :lat => 45.0, :lng => 45.0)
+    ent2 = Enterprise.create!(:name => 'test2', :identifier => 'test2', :lat => 30.0, :lng => 30.0)
+
+    get :sellers, :region => region.id, :radius => 10
+
+    assert_includes assigns('enterprises'), ent1
+    assert_not_includes assigns('enterprises'), ent2
+  end
+
+  should 'find enterprise by region and product category' do
+    region = Region.create!(:name => 'r-test', :environment => Environment.default, :lat => 45.0, :lng => 45.0)
+    ent1 = Enterprise.create!(:name => 'test1', :identifier => 'test1', :lat => 45.0, :lng => 45.0)
+    prod_cat = ProductCategory.create!(:name => 'pc-test', :environment => Environment.default)
+    prod = ent1.products.create!(:name => 'teste', :product_category => prod_cat)
+
+    ent2 = Enterprise.create!(:name => 'test2', :identifier => 'test2', :lat => 30.0, :lng => 30.0)
+
+    get :sellers, :region => region.id, :radius => 10, :category => prod_cat.id
+ 
+    assert_includes assigns('enterprises'), ent1
+    assert_not_includes assigns('enterprises'), ent2
+  end
+
+  should 'find enterprise by region and product category in brazilian portuguese' do
+    region = Region.create!(:name => 'r-test', :environment => Environment.default, :lat => 45.0, :lng => 45.0)
+    ent1 = Enterprise.create!(:name => 'test1', :identifier => 'test1', :lat => 45.0, :lng => 45.0)
+    prod_cat = ProductCategory.create!(:name => 'pc-test', :environment => Environment.default)
+    prod = ent1.products.create!(:name => 'teste', :product_category => prod_cat)
+
+    ent2 = Enterprise.create!(:name => 'test2', :identifier => 'test2', :lat => 30.0, :lng => 30.0)
+
+    assert_nothing_raised do
+      get :sellers, :region => region.id, :radius => 10, :category => prod_cat.id, :lang => 'pt_BR'
+    end
+ 
+    assert_includes assigns('enterprises'), ent1
+    assert_not_includes assigns('enterprises'), ent2
+  end
+
   should 'not show term "Category:" before product category' do
     Profile.delete_all
     ent = Enterprise.create!(:name => 'teste1', :identifier => 'teste1')
