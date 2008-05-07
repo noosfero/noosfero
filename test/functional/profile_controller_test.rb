@@ -158,4 +158,25 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'a', :child => { :tag => 'span', :content => 'Create a new community' }
   end
 
+  should 'not show Leave This Community button for non-member users' do
+    login_as(@profile.identifier)
+    community = Community.create!(:name => 'my test community')
+    get :index, :profile => community.identifier
+    assert_no_tag :tag => 'a', :content => 'Leave this community'
+  end
+
+  should 'show Leave This Community button for member users' do
+    login_as(@profile.identifier)
+    community = Community.create!(:name => 'my test community')
+    community.add_member(@profile)
+    get :index, :profile => community.identifier
+    assert_tag :tag => 'a', :content => 'Leave this community'
+  end
+
+  should 'not show Leave This Community button for non-registered users' do
+    community = Community.create!(:name => 'my test community')
+    get :index, :profile => community.identifier
+    assert_no_tag :tag => 'a', :content => 'Leave this community'
+  end
+
 end

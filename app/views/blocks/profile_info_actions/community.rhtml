@@ -1,5 +1,9 @@
 <ul>
-  <% if logged_in? && !profile.members.include?(user) %>
-    <li><%= link_to content_tag('span', _('Join this community')), { :profile => user.identifier, :controller => 'memberships', :action => 'join', :id => profile.id }, :class => 'button with-text icon-add' %></li>
+  <% if logged_in? %>
+    <% if profile.members.include?(user) %>
+      <li><%= link_to content_tag('span', _('Leave this community')), { :profile => user.identifier, :controller => 'memberships', :action => 'leave', :id => profile.id }, :class => 'button with-text icon-delete' %></li>
+    <% else %>
+      <li><%= link_to content_tag('span', _('Join this community')), { :profile => user.identifier, :controller => 'memberships', :action => 'join', :id => profile.id }, :class => 'button with-text icon-add' %></li>
+    <% end %>
   <% end %>
 </ul>
