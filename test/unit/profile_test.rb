@@ -461,8 +461,10 @@ class ProfileTest < Test::Unit::TestCase
     p = create_user('myothertestuser').person
 
     c.add_member(p)
+    assert_includes c.members, p
     c.remove_member(p)
-    assert !c.members.include?(p)
+    c.reload
+    assert_not_includes c.members, p
   end
 
   private

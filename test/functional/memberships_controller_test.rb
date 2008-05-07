@@ -122,6 +122,7 @@ class MembershipsControllerTest < Test::Unit::TestCase
 
   should 'present confirmation before leaving a profile' do
     community = Community.create!(:name => 'my test community')
+    community.add_member(profile)
     get :leave, :profile => profile.identifier, :id => community.id
 
     assert_response :success
@@ -130,13 +131,15 @@ class MembershipsControllerTest < Test::Unit::TestCase
 
   should 'actually leave profile' do
     community = Community.create!(:name => 'my test community')
+    community.add_member(profile)
+    assert_includes profile.memberships, community
     post :leave, :profile => profile.identifier, :id => community.id, :confirmation => '1'
 
     assert_response :redirect
     assert_redirected_to :action => 'index'
 
     profile.reload
-    assert !profile.memberships.include?(community)
+    assert_not_includes profile.memberships, community
   end
 
 end

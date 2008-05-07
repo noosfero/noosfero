@@ -21,7 +21,7 @@ class ActiveRecord::Base
 
     def disaffiliate(accessor, roles)
       roles = [roles] unless roles.kind_of?(Array)
-      roles.map {|role| accessor.remove_role(role, self)}.any? 
+      role_assignments.map{|ra|ra.destroy if roles.include?(ra.role) && ra.accessor == accessor} 
     end
 
     def members
