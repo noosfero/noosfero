@@ -6,12 +6,12 @@ if ActiveRecord::Base.connection.adapter_name =~ /^sqlite$/i
     func.set_result(base.to_f ** exponent.to_f)
   end
   
-  database.create_function('radians', 1, :numeric) do |func, value|
-    func.set_result(value.to_f * Math::PI / 180.0)
-  end
-  
   database.create_function('sqrt', 1, :numeric) do |func, value|
     func.set_result(Math.sqrt(value))
+  end
+
+  database.create_function('radians', 1, :numeric) do |func, value|
+    func.set_result(value.to_f * Math::PI / 180.0)
   end
 
   database.create_function('spheric_distance', 5, :real) do |func, lat1, long1, lat2, long2, radius|
