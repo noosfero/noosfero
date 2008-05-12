@@ -10,6 +10,7 @@ class CmsController < MyProfileController
   include CmsHelper
 
   ARTICLE_TYPES = [
+    Folder,
     TinyMceArticle,
     TextileArticle,
     RssFeed,
@@ -70,6 +71,7 @@ class CmsController < MyProfileController
         raise ArgumentError.new("cannot create child of article which does not accept children")
       end
       @article.parent = parent
+      @parent_id = parent.id
     end
 
     @article.profile = profile

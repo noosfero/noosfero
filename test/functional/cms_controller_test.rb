@@ -308,4 +308,11 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_sanitized assigns(:article).tag_list.names.join(', ')
   end
 
+  should 'keep informed parent_id' do
+    get :new, :profile => @profile.identifier, :parent_id => profile.home_page.id, :type => 'TextileArticle'
+    assert_tag :tag => 'input', :attributes => { :name => 'parent_id', :value => profile.home_page.id }
+  end
+
+
+
 end
