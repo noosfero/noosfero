@@ -5,7 +5,11 @@ class Folder < Article
   end
 
   def self.description
-    _('A folder, inside which you can put other articles')
+    _('A folder, inside which you can put other articles.')
+  end
+
+  def icon_name
+    'folder'
   end
 
   # FIXME we should not need all this just to write a link

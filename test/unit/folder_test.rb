@@ -16,6 +16,10 @@ class FolderTest < ActiveSupport::TestCase
     assert_not_equal Article.short_description, Folder.short_description
   end
 
+  should 'provide own icon name' do
+    assert_not_equal Article.new.icon_name, Folder.new.icon_name
+  end
+
   should 'list subitems as HTML content' do
     p = create_user('testuser').person
     f = Folder.create!(:profile => p, :name => 'f')
