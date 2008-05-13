@@ -174,19 +174,6 @@
       // the onload will run only after all related documents load.
       // by that we need to cal this here:
       if ( window.addEventListener ) resizePrincipalTemplateBox()
-
-      // Sory IE:
-      if ( document.all ) {
-        if ( confirm("<%=
-_("Ups... It seems you are using Internet Explorer.
-
-We are sory, but some things will not work well on this web browser for now...
-We propose you to use Firefox, for this web site and any other.
-
-Do you want to get your Firefox now?").gsub(/\n/,'\n') %>") ) {
-          document.location.href = "http://getfirefox.com";
-        }
-      }
     </script>
 
   </body>
