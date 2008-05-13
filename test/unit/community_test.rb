@@ -39,4 +39,11 @@ class CommunityTest < Test::Unit::TestCase
     assert_kind_of RssFeed, community.articles.find_by_path('feed')
   end
 
+  should 'save info' do
+    community = Community.create!(:name => 'my new community')
+    community.info = {:contact_person => 'my contact'}
+    community.save!
+    assert_equal 'my contact', community.info.contact_person
+  end
+
 end

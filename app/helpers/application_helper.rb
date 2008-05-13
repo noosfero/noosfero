@@ -163,6 +163,11 @@ module ApplicationHelper
 
   alias_method :display_form_field, :labelled_form_field
 
+  def labelled_fields_for(name, object = nil, options = {}, &proc)
+    object ||= instance_variable_get("@#{name}")
+    fields_for(name, object, { :builder => NoosferoFormBuilder }.merge(options), &proc)
+  end
+
   def labelled_form_for(name, object = nil, options = {}, &proc)
     object ||= instance_variable_get("@#{name}")
     form_for(name, object, { :builder => NoosferoFormBuilder }.merge(options), &proc)

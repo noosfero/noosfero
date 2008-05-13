@@ -124,4 +124,11 @@ class OrganizationTest < Test::Unit::TestCase
     assert_equal true, Organization.new.has_members?
   end
 
+  should 'update organization_info' do
+    org = Organization.create!(:name => 'test org', :identifier => 'testorg')
+    assert_nil org.info.contact_person
+    org.info = {:contact_person => 'new person'}
+    assert_not_nil org.info.contact_person
+  end
+
 end

@@ -142,6 +142,10 @@ class Profile < ActiveRecord::Base
     nil
   end
 
+  def info=(args = {})
+    self.info.attributes = args if self.info
+  end
+
   # returns the contact email for this profile. By default returns the the
   # e-mail of the owner user.
   #

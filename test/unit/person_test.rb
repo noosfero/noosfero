@@ -215,4 +215,11 @@ class PersonTest < Test::Unit::TestCase
     assert_equal 'randomhacker', p.name
   end
 
+  should 'save info' do
+    person = create_user('new_person').person
+    person.info = {:contact_information => 'my contact'}
+    person.save!
+    assert_equal 'my contact', person.info.contact_information
+  end
+
 end
