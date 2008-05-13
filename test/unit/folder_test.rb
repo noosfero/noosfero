@@ -30,4 +30,8 @@ class FolderTest < ActiveSupport::TestCase
     assert_match(/<li><a href=".*\/testuser\/f\/otherarticle">otherarticle<\/a><\/li>/, f.to_html)
   end
 
+  should 'identify as folder' do
+    assert Folder.new.folder?, 'folder must identity itself as folder'
+  end
+
 end

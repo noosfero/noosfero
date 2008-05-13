@@ -313,6 +313,89 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'input', :attributes => { :name => 'parent_id', :value => profile.home_page.id }
   end
 
+  should 'list folders at top level' do
+    f1 = Folder.new(:name => 'f1'); profile.articles << f1;  f1.save!
+    f2 = Folder.new(:name => 'f2'); profile.articles << f2;  f2.save!
 
+    get :index, :profile => profile.identifier
+    assert_equal [f1, f2], assigns(:folders)
+    assert_not_includes assigns(:subitems), f1
+    assert_not_includes assigns(:subitems), f2
+  end
+
+  should 'list folders inside another folder' do
+    parent = Folder.new(:name => 'parent'); profile.articles << parent;  parent.save!
+    f1 = Folder.new(:name => 'f1', :parent => parent); profile.articles << f1;  f1.save!
+    f2 = Folder.new(:name => 'f2', :parent => parent); profile.articles << f2;  f2.save!
+
+    get :view, :profile => profile.identifier, :id => parent.id
+    assert_equal [f1, f2], assigns(:folders)
+    assert_not_includes assigns(:subitems), f1
+    assert_not_includes assigns(:subitems), f2
+  end
+
+  should 'offer to create new top-level folder' do
+    get :index, :profile => profile.identifier
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?type=Folder"}
+  end
+
+  should 'offer to create sub-folder' do
+    f = Folder.new(:name => 'f'); profile.articles << f; f.save!
+    get :view, :profile => profile.identifier, :id => f.id
+
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?parent_id=#{f.id}&amp;type=Folder" }
+  end
+
+  should 'redirect back to index after creating top-level article' do
+    post :new, :profile => profile.identifier, :type => 'TextileArticle', :article => { :name => 'test' }
+    assert_redirected_to :action => 'index'
+  end
+
+  should 'redirect back to folder after creating article inside it' do
+    f = Folder.new(:name => 'f'); profile.articles << f; f.save!
+    post :new, :profile => profile.identifier, :type => 'TextileArticle', :parent_id => f.id, :article => { :name => 'test' }
+    assert_redirected_to :action => 'view', :id => f.id
+  end
+
+  should 'redirect back to index after editing top-level article' do
+    f = Folder.new(:name => 'f'); profile.articles << f; f.save!
+    post :edit, :profile => profile.identifier, :id => f.id
+    assert_redirected_to :action => 'index'
+  end
+
+  should 'redirect back to folder after editing article inside it' do
+    f = Folder.new(:name => 'f'); profile.articles << f; f.save!
+    a = TextileArticle.create!(:parent => f, :name => 'test', :profile_id => profile.id)
+
+    post :edit, :profile => profile.identifier, :id => a.id
+    assert_redirected_to :action => 'view', :id => f.id
+  end
+
+  should 'point back to index when cancelling creation of top-level article' do
+    get :new, :profile => profile.identifier, :type => 'Folder'
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms" }, :descendant => { :content => /Cancel/ }
+  end
+
+  should 'point back to index when cancelling edition of top-level article' do
+    f = Folder.new(:name => 'f'); profile.articles << f; f.save!
+    get :edit, :profile => profile.identifier, :id => f.id
+
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms" }, :descendant => { :content => /Cancel/ }
+  end
+
+  should 'point back to folder when cancelling creation of an article inside it' do
+    f = Folder.new(:name => 'f'); profile.articles << f; f.save!
+    get :new, :profile => profile.identifier, :type => 'Folder', :parent_id => f.id
+
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/view/#{f.id}" }, :descendant => { :content => /Cancel/ }
+  end
+
+  should 'point back to folder when cancelling edition of an article inside it' do
+    f = Folder.new(:name => 'f'); profile.articles << f; f.save!
+    a = TextileArticle.create!(:name => 'test', :parent => f, :profile_id => profile.id)
+    get :edit, :profile => profile.identifier, :id => a.id
+
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/view/#{f.id}" }, :descendant => { :content => /Cancel/ }
+  end
 
 end

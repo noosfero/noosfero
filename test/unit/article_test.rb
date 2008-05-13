@@ -229,4 +229,8 @@ class ArticleTest < Test::Unit::TestCase
     assert_not_includes list, a2
   end
 
+  should 'identify itself as a non-folder' do
+    assert !Article.new.folder?, 'should identify itself as non-folder'
+  end
+
 end

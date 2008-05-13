@@ -9,68 +9,59 @@
     <%= icon('cms') %>
     <%= _('Content management') %>
   </h2>
-
-  <% button_bar(:style => 'margin-bottom: 1em;') do %>
-    <%= lightbox_button('new', _('New article'), :action => 'new') %>
-  <% end %>
-
 <% end %>
 
-<%# subitem %>
-<% if !@subitems.empty? && @article %>
-  <%= toggle_panel(_('Hide subitems'), _('Show subitems'), 'article-subitems') %>
+<% button_bar(:style => 'margin-bottom: 1em;') do %>
+  <% parent_id = ((@article && @article.allow_children?) ? @article : nil) %>
+  <%= button :add, _('New folder'), :action => 'new', :type => 'Folder', :parent_id => parent_id %>
+  <%= lightbox_button('new', _('New article'), :action => 'new', :parent_id => parent_id) %>
 <% end %>
-  
-<div id='article-subitems'>
-  <div class='file-manager-title'><%= @article ? _('Subitems') : _('Articles') %></div>
-  <div class='file-manager-small'>
-    <% unless @subitems.empty? %>
-      <ul>
-        <% @subitems.each do |item| %>
-          <li>
-          <%= file_manager_button(item.name, icon_for_article(item), :action => 'view', :id => item.id) %>
-          </li>
-        <% end %>
-      </ul>
-    <% end %>
 
-    <% if @article %>
-      <% button_bar(:class => 'file-manager-controls') do %>
-        <% if @article.allow_children? %>
-          <%= lightbox_button('new',  _('New subitem'), :action => 'new', :parent_id => @article.id) %>
-        <% end %>
-        <%= button('up', _('Go up one level'), :action => (@article.parent ? 'view' : 'index'), :id => @article.parent) %>
-      <% end %>
-    <% end %>
-  </div>
-</div> <!-- article-children -->
+<table width='100%'>
 
-<%# display the article content %>
-<div id='article-contents' style='clear: left;'>
-  <% if @article %>
-    <h2>
-      <%= @article.name %>
-      <%= image_tag(icon_for_article(@article)) %>
-    </h2>
-    <% button_bar(:id => 'article-controls') do %>
-
-      <ul>
-        <li>
-        <%= _('"%{article}", last changed by %{author}') % { :article => @article.name, :author => (@article.last_changed_by ? @article.last_changed_by.name : _('Unknown User')) } %>
-        </li>
-        <li>
-        <%= _('Public address of this article: %s') % link_to(url_for(@article.url), @article.url) %>
-        </li>
-        <li>
-        <%= _('Tags:') %> <%= @article.tag_list %>
-        </li>
-        <%= _('Categories:') %> <%= @article.categories.map { |item| item.name }.join(', ') %>
-      </ul>
-
-      <%= button('edit', _('Edit'), { :action => 'edit', :id => @article}) %>
-      <%= button('home', _('Use as homepage'), { :action => 'set_home_page', :id => @article }, { :method => :post  }) %>
-      <%= button('delete', _('Delete'), { :action => 'destroy', :id => @article }, :method => :post, :confirm => _('Are you sure you wan to remove this article?')) %>
-    <% end %>
-    <%= @article.to_html %>
+  <%# folders %>
+  <tr>
+    <th colspan='2'>
+      <%= _('Folders') %>
+    </th>
+  </tr>
+  <% if @folders.empty? %>
+    <tr><td colspan='2' align='center'><em><%= _('None') %></em></td></tr>
   <% end %>
-</div>
+  <% for folder in @folders %>
+    <tr>
+      <td>
+        <%= image_tag(icon_for_article(folder)) %>
+        <%= link_to folder.name, :action => 'view', :id => folder.id %>
+      </td>
+      <td>
+        <%= link_to _('Properties'), :action => 'edit', :id => folder.id %>
+        <%= link_to _('View'), folder.url %>
+      </td>
+    </tr>
+  <% end %>
+
+  <%# non-folder subitems %>
+  <tr>
+    <th colspan='2'>
+      <%= _('Articles') %>
+    </th>
+  </tr>
+  <% if @subitems.empty? %>
+    <tr><td colspan='2' align='center'><em><%= _('None') %></em></td></tr>
+  <% end %>
+  <% for item in @subitems %>
+    <tr>
+      <td>
+        <%= image_tag(icon_for_article(item)) %>
+        <%= link_to item.name, :id => item.id %>
+      </td>
+      <td>
+        <%= link_to _('Edit'), :action => 'edit', :id => item.id %>
+        <%= link_to _('View'), item.url %>
+      </td>
+    </tr>
+  <% end %>
+
+
+</table>

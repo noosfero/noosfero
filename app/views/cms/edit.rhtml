@@ -16,6 +16,11 @@
   %>
 
   <% button_bar do %>
-    <%= submit_button('save', _('Save'), :cancel => (@article.parent ? { :action => 'view', :id => @article.parent.id } : { :action => 'index' } )) %>
+    <%= submit_button :save, _('Save') %>
+    <% if @parent_id || @article.parent %>
+      <%= button :cancel, _('Cancel'), :action => 'view', :id => @parent_id || @article.parent %>
+    <% else %>
+      <%= button :cancel, _('Cancel'), :action => 'index' %>
+    <% end %>
   <% end %>
 <% end %>

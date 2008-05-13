@@ -112,6 +112,10 @@ class Article < ActiveRecord::Base
     true
   end
 
+  def folder?
+    false
+  end
+
   def self.find_by_initial(initial)
     self.find(:all, :order => 'articles.name', :conditions => [ 'articles.name like (?) or articles.name like (?)', initial + '%', initial.upcase + '%'])
   end

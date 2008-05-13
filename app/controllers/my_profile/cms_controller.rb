@@ -19,12 +19,14 @@ class CmsController < MyProfileController
 
   def view
     @article = profile.articles.find(params[:id])
-    @subitems = @article.children
+    @subitems = @article.children.reject {|item| item.folder? }
+    @folders = @article.children.select {|item| item.folder? }
   end
 
   def index
     @article = nil
-    @subitems = profile.top_level_articles
+    @subitems = profile.top_level_articles.reject {|item| item.folder? }
+    @folders = profile.top_level_articles.select {|item| item.folder?}
     render :action => 'view'
   end
 
@@ -35,7 +37,7 @@ class CmsController < MyProfileController
     if request.post?
       @article.last_changed_by = user
       if @article.update_attributes(params[:article])
-        redirect_to :action => 'view', :id => @article.id
+        redirect_back
         return
       end
     end
@@ -78,7 +80,7 @@ class CmsController < MyProfileController
     @article.last_changed_by = user
     if request.post?
       if @article.save
-        redirect_to :action => 'view', :id => @article.id
+        redirect_back
         return
       end
     end
@@ -100,6 +102,16 @@ class CmsController < MyProfileController
     @article = profile.articles.find(params[:id])
     @article.destroy
     redirect_to :action => (@article.parent ? 'view' : 'index'), :id => @article.parent
+  end
+
+  protected
+
+  def redirect_back
+    if @article.parent
+      redirect_to :action => 'view', :id => @article.parent
+    else
+      redirect_to :action => 'index'
+    end
   end
 
 end

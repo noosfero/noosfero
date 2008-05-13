@@ -20,4 +20,8 @@ class Folder < Article
     content_tag('ul', children.map { |child| content_tag('li', link_to(child.name, child.url)) }, :class => 'folder-listing')
   end
 
+  def folder?
+    true
+  end
+
 end
