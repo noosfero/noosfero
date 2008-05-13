@@ -17,6 +17,7 @@ class Folder < Article
   include ActionView::Helpers::UrlHelper
   include ActionController::UrlWriter
   def to_html
+    content_tag('div', body) +
     content_tag('ul', children.map { |child| content_tag('li', link_to(child.name, child.url)) }, :class => 'folder-listing')
   end
 

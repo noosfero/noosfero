@@ -30,6 +30,13 @@ class FolderTest < ActiveSupport::TestCase
     assert_match(/<li><a href=".*\/testuser\/f\/otherarticle">otherarticle<\/a><\/li>/, f.to_html)
   end
 
+  should 'show text body in HTML content' do
+    p = create_user('testuser').person
+    f = Folder.create!(:name => 'f', :profile => p, :body => 'this-is-the-text')
+
+    assert_match(/this-is-the-text/, f.to_html)
+  end
+
   should 'identify as folder' do
     assert Folder.new.folder?, 'folder must identity itself as folder'
   end

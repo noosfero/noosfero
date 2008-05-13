@@ -1,5 +1,7 @@
 
 <%# TODO add Textile help here %>
+<%= render :file => 'shared/tiny_mce' %>
 
 <%= f.text_field('name', :size => '64') %>
 
+<%= labelled_form_field(_('Description:'), text_area(:article, :body, :cols => 64)) %>
