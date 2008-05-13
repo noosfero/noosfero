@@ -17,22 +17,24 @@
   <%= lightbox_button('new', _('New article'), :action => 'new', :parent_id => parent_id) %>
 <% end %>
 
-<table width='100%'>
+<table class='cms-articles'>
+
+  <%# header %>
+  <tr>
+    <th><%= _('Name') %></th>
+    <th><%= _('Type') %></th>
+    <th><%= _('Actions') %></th>
+  </tr>
 
   <%# folders %>
-  <tr>
-    <th colspan='2'>
-      <%= _('Folders') %>
-    </th>
-  </tr>
-  <% if @folders.empty? %>
-    <tr><td colspan='2' align='center'><em><%= _('None') %></em></td></tr>
-  <% end %>
   <% for folder in @folders %>
     <tr>
       <td>
         <%= image_tag(icon_for_article(folder)) %>
         <%= link_to folder.name, :action => 'view', :id => folder.id %>
+      </td>
+      <td>
+        <%= folder.class.short_description %>
       </td>
       <td>
         <%= link_to _('Properties'), :action => 'edit', :id => folder.id %>
@@ -42,11 +44,13 @@
   <% end %>
 
   <%# non-folder subitems %>
-  <tr>
-    <th colspan='2'>
-      <%= _('Articles') %>
-    </th>
-  </tr>
+  <% unless @folders.empty? %>
+    <tr>
+      <td colspan='3'>
+        &nbsp;
+      </td>
+    </tr>
+  <% end %>
   <% if @subitems.empty? %>
     <tr><td colspan='2' align='center'><em><%= _('None') %></em></td></tr>
   <% end %>
@@ -54,7 +58,10 @@
     <tr>
       <td>
         <%= image_tag(icon_for_article(item)) %>
-        <%= link_to item.name, :id => item.id %>
+        <%= link_to item.name, :action => 'edit', :id => item.id %>
+      </td>
+      <td>
+        <%= item.class.short_description %>
       </td>
       <td>
         <%= link_to _('Edit'), :action => 'edit', :id => item.id %>
