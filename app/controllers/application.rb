@@ -99,11 +99,11 @@ class ApplicationController < ActionController::Base
     # now set the system locale
     system_locale = '%s.utf8' % locale
     begin
-      Locale.setlocale(Locale::LC_ALL, system_locale)
+      Locale.setlocale(Locale::LC_TIME, system_locale)
     rescue Exception => e
       # fallback to C
       RAILS_DEFAULT_LOGGER.info("Locale #{system_locale} not available, falling back to the portable \"C\" locale (consider installing the #{system_locale} locale in your system)")
-      Locale.setlocale(Locale::LC_ALL, 'C')
+      Locale.setlocale(Locale::LC_TIME, 'C')
     end
   end
 
