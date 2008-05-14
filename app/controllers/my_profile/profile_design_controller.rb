@@ -12,8 +12,10 @@ class ProfileDesignController < BoxOrganizerController
       blocks << MembersBlock
     end
 
+    # blocks exclusive to person
     if profile.person?
       blocks << FriendsBlock
+      blocks << FavoriteEnterprisesBlock
     end
 
     blocks

@@ -1,0 +1,18 @@
+<div class="common-profile-list-block"
+     help="<%= _('Here are all <b>%s</b>\'s favorite enterprises.') % profile.name %>">
+
+<h1><%= _("%s's favorite enterprises") % profile.name %></h1>
+
+<ul class='profile-list'>
+<% @favorite_enterprises.each do |enterprise| %>
+  <li><%= profile_image_link(enterprise)%></li>
+<% end %>
+</ul>
+
+<% button_bar do %>
+  <%= button :back, _('Go back'), { :controller => 'profile' },
+      :help => _('Back to the page where you come from.') %>
+<% end %>
+
+</div><!-- fim class="common-profile-list-block" -->
+

@@ -54,6 +54,14 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_template 'members'
     assert_kind_of Array, assigns(:members)
   end
+  
+  should 'list favorite enterprises' do
+    get :favorite_enterprises
+
+    assert_response :success
+    assert_template 'favorite_enterprises'
+    assert_kind_of Array, assigns(:favorite_enterprises)
+  end
 
   should 'show Join This Community button for non-member users' do
     login_as(@profile.identifier)

@@ -27,4 +27,8 @@ class ProfileController < ApplicationController
   def members
     @members = profile.members
   end
+
+  def favorite_enterprises
+    @favorite_enterprises = profile.favorite_enterprises
+  end
 end

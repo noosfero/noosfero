@@ -215,6 +215,15 @@ class PersonTest < Test::Unit::TestCase
     assert_equal 'randomhacker', p.name
   end
 
+  should 'have favorite enterprises' do
+    p = create_user('test_person').person
+    e = Enterprise.create!(:name => 'test_ent', :identifier => 'test_ent')
+
+    p.favorite_enterprises << e
+
+    assert_includes Person.find(p.id).favorite_enterprises, e
+  end
+
   should 'save info' do
     person = create_user('new_person').person
     person.info = {:contact_information => 'my contact'}

@@ -108,4 +108,6 @@ class Person < Profile
     person_info.nil? ? self[:name] : (person_info.name || self[:name])
   end
 
+  has_and_belongs_to_many :favorite_enterprises, :class_name => 'Enterprise', :join_table => 'favorite_enteprises_people'
+
 end
