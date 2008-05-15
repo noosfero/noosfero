@@ -3,6 +3,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 class ActsAsHavingSettingsTest < Test::Unit::TestCase
 
   # using Block class as a sample user of the module 
+  class TestClass < Block
+    settings_items :flag, :type => :boolean
+  end
 
   should 'store settings in a hash' do
     block = Block.new
@@ -49,11 +52,15 @@ class ActsAsHavingSettingsTest < Test::Unit::TestCase
   end
 
   should 'be able to set boolean attributes to false with a default of true' do
-    klass = Class.new(Block)
-    klass.settings_items :flag, :default => true
-    obj = klass.new
+    obj = TestClass.new
     obj.flag = false
     assert_equal false, obj.flag
+  end
+
+  should 'be able to specify type of atrributes (boolean)' do
+    obj = TestClass.new
+    obj.flag = 'true'
+    assert_equal true, obj.flag
   end
 
 end

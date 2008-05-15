@@ -22,6 +22,7 @@ module ActsAsHavingSettings
 
       options = names.last.is_a?(Hash) ? names.pop : {}
       default = options[:default] ? options[:default].inspect : "val"
+      data_type = options[:type] || :string
 
       names.each do |setting|
         class_eval <<-CODE
@@ -30,10 +31,16 @@ module ActsAsHavingSettings
             val.nil? ? #{default} : val
           end
           def #{setting}=(value)
-            send(self.class.settings_field)[:#{setting}] = value
+            send(self.class.settings_field)[:#{setting}] = self.class.acts_as_having_settings_type_cast(value, #{data_type.inspect})
           end
         CODE
       end
+    end
+
+    def acts_as_having_settings_type_cast(value, type)
+      # FIXME creating a new instance at every call, will the garbage collector
+      # be able to cope with it?
+      ActiveRecord::ConnectionAdapters::Column.new(:dummy, nil, type.to_s).type_cast(value)
     end
 
   end
