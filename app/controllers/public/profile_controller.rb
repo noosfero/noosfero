@@ -1,5 +1,7 @@
 class ProfileController < ApplicationController
+
   needs_profile
+  before_filter :check_public_profile
 
   helper TagsHelper
 
@@ -31,4 +33,13 @@ class ProfileController < ApplicationController
   def favorite_enterprises
     @favorite_enterprises = profile.favorite_enterprises
   end
+
+  protected
+
+  def check_public_profile
+    if !profile.public_profile
+      render :action => 'private_profile', :status => 403, :layout => false
+    end
+  end
+
 end

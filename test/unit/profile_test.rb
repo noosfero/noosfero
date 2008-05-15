@@ -467,6 +467,26 @@ class ProfileTest < Test::Unit::TestCase
     assert_not_includes c.members, p
   end
 
+  should 'have a public profile by default' do
+    assert_equal true, Profile.new.public_profile
+  end
+
+  should 'be able to turn profile private' do
+    p = Profile.new
+    p.public_profile = false
+    assert_equal false, p.public_profile
+  end
+
+  should 'have public content by default' do
+    assert_equal true, Profile.new.public_content
+  end
+
+  should 'be able to turn content private' do
+    p = Profile.new
+    p.public_content = false
+    assert_equal false, p.public_content
+  end
+
   private
 
   def assert_invalid_identifier(id)

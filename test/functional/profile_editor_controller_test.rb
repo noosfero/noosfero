@@ -192,6 +192,23 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'input', :attributes => { :name => 'profile_data[info][contact_person]', :value => 'my contact' }
   end
 
+  should 'display profile publication option in edit profile screen' do
+    profile = Profile['ze']
+    get :edit, :profile => 'ze'
+    assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :checked => 'checked', :name => 'profile_data[public_profile]', :value => 'true' }    
+    assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'profile_data[public_profile]', :value => false }
+  end
+
+  should 'save profile publication option set to true' do
+    post :edit, :profile => 'ze', :profile_data => { :public_profile => 'true' }
+    assert_equal true, Profile['ze'].public_profile
+  end
+
+  should 'save profile publication option set to false' do
+    post :edit, :profile => 'ze', :profile_data => { :public_profile => 'false' }
+    assert_equal false, Profile['ze'].public_profile
+  end
+
   should 'show error messages for'
 
 end

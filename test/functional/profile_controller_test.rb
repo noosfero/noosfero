@@ -187,4 +187,10 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'a', :content => 'Leave this community'
   end
 
+  should 'not display private profile' do
+    @profile.update_attributes!(:public_profile => false)
+    get :index, :profile => @profile.identifier
+    assert_response 403
+  end
+
 end
