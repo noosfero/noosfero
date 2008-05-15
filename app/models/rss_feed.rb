@@ -22,9 +22,9 @@ class RssFeed < Article
     settings[:limit] = value
   end
 
-  # FIXME this should be validates_numericality_of, but Rails 1.2.6 does not
+  # FIXME this should be validates_numericality_of, but Rails 2.0.2 does not
   # support validates_numericality_of with virtual attributes
-  validates_format_of :limit, :with => /^[0-9]+$/, :if => :limit
+  validates_format_of :limit, :with => /^\d+$/, :if => :limit
 
   # determinates what to include in the feed. Possible values are +:all+
   # (include everything from the profile) and :parent_and_children (include
