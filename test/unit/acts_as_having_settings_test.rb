@@ -48,4 +48,12 @@ class ActsAsHavingSettingsTest < Test::Unit::TestCase
     assert_equal 10, block_class.new.some_setting
   end
 
+  should 'be able to set boolean attributes to false with a default of true' do
+    klass = Class.new(Block)
+    klass.settings_items :flag, :default => true
+    obj = klass.new
+    obj.flag = false
+    assert_equal false, obj.flag
+  end
+
 end
