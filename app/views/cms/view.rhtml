@@ -39,6 +39,7 @@
       <td>
         <%= link_to _('Properties'), :action => 'edit', :id => folder.id %>
         <%= link_to _('Public view'), folder.url %>
+        <%= link_to _('Delete'), { :action => 'destroy', :id => folder.id }, :method => :post, :confirm => _('Are you sure that you want to remove this folder? Note that all the items inside it will also be removed!') %>
       </td>
     </tr>
   <% end %>
@@ -50,9 +51,6 @@
         &nbsp;
       </td>
     </tr>
-  <% end %>
-  <% if @subitems.empty? %>
-    <tr><td colspan='2' align='center'><em><%= _('None') %></em></td></tr>
   <% end %>
   <% for item in @subitems %>
     <tr>
@@ -66,8 +64,13 @@
       <td>
         <%= link_to _('Edit'), :action => 'edit', :id => item.id %>
         <%= link_to _('Public view'), item.url %>
+        <%= link_to _('Delete'), { :action => 'destroy', :id => item.id }, :method => :post, :confirm => _('Are you sure that you want to remove this item?') %>
       </td>
     </tr>
+  <% end %>
+
+  <% if @subitems.empty? || @folders.empty? %>
+    <tr><td colspan='3' align='center'><em><%= _('None') %></em></td></tr>
   <% end %>
 
 

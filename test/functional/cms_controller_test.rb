@@ -150,6 +150,8 @@ class CmsControllerTest < Test::Unit::TestCase
     end
   end
 
+  should 'display'
+
   should 'be able to create a RSS feed' do
     login_as(profile.identifier)
     assert_difference RssFeed, :count do
