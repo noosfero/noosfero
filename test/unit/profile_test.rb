@@ -483,6 +483,23 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal false, p.public_content
   end
 
+  should 'not display private profile to unauthenticated user' do
+    assert !Profile.new(:public_profile => false).display_info_to?(nil)
+  end
+
+  should 'display private profile for its owner' do
+    p = Profile.new(:public_profile => false)
+    assert p.display_info_to?(p)
+  end
+
+  should 'display private profile for members' do
+    p = create_user('testuser').person
+    c = Community.create!(:name => 'my community', :public_profile => false)
+    c.add_member(p)
+
+    assert c.display_info_to?(p)
+  end
+
   private
 
   def assert_invalid_identifier(id)

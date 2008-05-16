@@ -280,4 +280,15 @@ class Profile < ActiveRecord::Base
     self.find(:all, :order => 'profiles.name', :conditions => [ 'profiles.name like (?) or profiles.name like (?)', (initial + '%'), (initial.upcase + '%') ])
   end
 
+  # returns +true+ if the given +user+ can see profile information about this
+  # +profile+, and +false+ otherwise.
+  def display_info_to?(user)
+    if self.public_profile
+      true
+    else
+      # other possibilities would come here 
+      (user == self)
+    end
+  end
+
 end

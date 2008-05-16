@@ -187,8 +187,8 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'a', :content => 'Leave this community'
   end
 
-  should 'not display private profile' do
-    @profile.update_attributes!(:public_profile => false)
+  should 'check access before displaying profile' do
+    Person.any_instance.expects(:display_info_to?).with(anything).returns(false)
     get :index, :profile => @profile.identifier
     assert_response 403
   end
