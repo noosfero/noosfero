@@ -215,4 +215,11 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     assert_response :success
   end
 
+  should 'back when update organization info fail' do
+    org = Organization.create!(:name => 'test org', :identifier => 'testorg', :contact_person => 'my contact')
+    Organization.any_instance.stubs(:update_attributes).returns(false)
+    post :edit, :profile => 'testorg'
+    assert_template 'organization'
+  end
+
 end

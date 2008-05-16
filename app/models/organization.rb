@@ -37,15 +37,14 @@ class Organization < Profile
 
   settings_items :contact_person, :contact_email, :acronym, :foundation_year, :legal_form, :economic_activity, :management_information, :validated
 
-  validates_format_of :foundation_year, :with => Noosfero::Constants::INTEGER_FORMAT, :if => (lambda { |org| ! org.foundation_year.nil? })
+  validates_format_of :foundation_year, :with => Noosfero::Constants::INTEGER_FORMAT
 
-  validates_format_of :contact_email, :with => Noosfero::Constants::EMAIL_FORMAT, :if => (lambda { |org| ! org.contact_email.nil? })
+  validates_format_of :contact_email, :with => Noosfero::Constants::EMAIL_FORMAT, :if => (lambda { |org| !org.contact_email.nil? })
 
   xss_terminate :only => [ :acronym, :contact_person, :contact_email, :legal_form, :economic_activity, :management_information ]
 
   def summary
-    # FIXME diplays too few fields
-    ['acronym', 'foundation_year', 'contact_email'].map do |col|
+    [ 'acronym', 'foundation_year', 'contact_person', 'contact_email', 'legal_form', 'economic_activity' ].map do |col|
       [ col.humanize, self.send(col) ]
     end
   end

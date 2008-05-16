@@ -13,10 +13,10 @@ class ProfileEditorController < MyProfileController
     if request.post?
       if profile.update_attributes(params[:profile_data])
         redirect_to :action => 'index'
+        return
       end 
-    else
-      render :action => profile.class.name.underscore
     end
+    render :action => profile.class.name.underscore
   end
 
   def change_image
