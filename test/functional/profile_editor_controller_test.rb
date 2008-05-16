@@ -33,10 +33,6 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     assert_template 'index'
     assert_response :success
     assert_not_nil assigns(:profile)
-
-    assert_tag :tag => 'td', :content => 'a test profile'
-    assert_tag :tag => 'td', :content => 'my address'
-    assert_tag :tag => 'td', :content => 'my contact information'
   end
 
   def test_should_present_pending_tasks_in_index
@@ -207,7 +203,11 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     assert_equal false, Profile['ze'].public_profile
   end
 
-  should 'show error messages for'
+  should 'show error messages for invalid foundation_year' do
+    org = Organization.create!(:name => 'test org', :identifier => 'testorg')
+    post :edit, :profile => 'testorg', :profile_data => { :foundation_year => 'aaa' }
+    assert_tag :tag => 'div', :attributes => { :id => 'errorExplanation' }
+  end
 
   should 'edit enterprise' do
     ent = Enterprise.create!(:name => 'test org', :identifier => 'testent')

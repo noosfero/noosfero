@@ -13,9 +13,7 @@ class EditingPersonInfoTest < ActionController::IntegrationTest
     get '/myprofile/ze'
     assert_response :success
 
-    assert_tag :tag => 'td', :content => profile.name
-    assert_tag :tag => 'td', :content => profile.address
-    assert_tag :tag => 'td', :content => profile.contact_information
+    assert_tag :tag => 'a', :content => 'Edit Profile'
 
     get '/myprofile/ze/profile_editor/edit'
     assert_response :success

@@ -4,8 +4,6 @@
 
 <%= render :partial => 'pending_tasks' %>
 
-<%= display_profile_info(profile) %>
-
 <% file_manager do %>
 
   <%= file_manager_button(_('Change your picture'), profile_icon(@profile, :portrait), :controller => 'profile_editor', :action => 'change_image') %>
