@@ -24,10 +24,10 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
   
   def test_index
     person = User.create(:login => 'test_profile', :email => 'test@noosfero.org', :password => 'test', :password_confirmation => 'test').person
-    person.person_info.name = 'a test profile'
-    person.person_info.address = 'my address'
-    person.person_info.contact_information = 'my contact information'
-    person.person_info.save
+    person.name = 'a test profile'
+    person.address = 'my address'
+    person.contact_information = 'my contact information'
+    person.save!
 
     get :index, :profile => person.identifier
     assert_template 'index'
@@ -57,18 +57,17 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
 
     assert person.valid?
     get :edit, :profile => person.identifier
-    assert_template 'person_info'
     assert_response :success
-    assert_template 'person_info'
+    assert_template 'person'
   end
 
   def test_saving_profile_info 
     person = User.create(:login => 'test_profile', :email => 'test@noosfero.org', :password => 'test', :password_confirmation => 'test').person
-    person.person_info.address = 'my address'
-    person.person_info.contact_information = 'my contact information'
-    person.person_info.save!
+    person.address = 'my address'
+    person.contact_information = 'my contact information'
+    person.save!
     
-    post :edit, :profile => 'test_profile', :info => { 'contact_information' => 'new contact information', 'address' => 'new address' }
+    post :edit, :profile => 'test_profile', :profile_data => { 'contact_information' => 'new contact information', 'address' => 'new address' }
 
     assert_redirected_to :action => 'index'
   end
@@ -102,56 +101,55 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
   should 'filter html from name when edit person_info' do
     person = create_user('test_profile').person
     name = "name <strong id='name_html_test'>with</strong> html"
-    post :edit, :profile => person.identifier, :profile_data => { :info => { :name => name } }
-    assert_sanitized assigns(:profile).info.name
+    post :edit, :profile => person.identifier, :profile_data => { :name => name }
+    assert_sanitized assigns(:profile).name
   end
 
   should 'filter html from contact_person to organization' do
     org = Organization.create!(:name => 'test org', :identifier => 'testorg')
     contact = "name <strong id='name_html_test'>with</strong> html"
-    post :edit, :profile => org.identifier, :profile_data => { :info => { :contact_person => contact } }
-    assert_sanitized assigns(:profile).info.contact_person
+    post :edit, :profile => org.identifier, :profile_data => { :contact_person => contact }
+    assert_sanitized assigns(:profile).contact_person
   end
 
   should 'filter html from acronym organization' do
     org = Organization.create!(:name => 'test org', :identifier => 'testorg')
     value = "name <strong id='name_html_test'>with</strong> html"
-    post :edit, :profile => org.identifier, :profile_data => { :info => { :acronym => value } }
-    assert_sanitized assigns(:profile).info.acronym
+    post :edit, :profile => org.identifier, :profile_data => { :acronym => value }
+    assert_sanitized assigns(:profile).acronym
   end
 
   should 'filter html from legal_form organization' do
     org = Organization.create!(:name => 'test org', :identifier => 'testorg')
     value = "name <strong id='name_html_test'>with</strong> html"
-    post :edit, :profile => org.identifier, :profile_data => { :info => { :legal_form => value } }
-    assert_sanitized assigns(:profile).info.legal_form
+    post :edit, :profile => org.identifier, :profile_data => { :legal_form => value }
+    assert_sanitized assigns(:profile).legal_form
   end
 
   should 'filter html from economic_activity organization' do
     org = Organization.create!(:name => 'test org', :identifier => 'testorg')
     value = "name <strong id='name_html_test'>with</strong> html"
-    post :edit, :profile => org.identifier, :profile_data => { :info => { :economic_activity => value } }
-    assert_sanitized assigns(:profile).info.economic_activity
+    post :edit, :profile => org.identifier, :profile_data => { :economic_activity => value }
+    assert_sanitized assigns(:profile).economic_activity
   end
 
   should 'filter html from management_information organization' do
     org = Organization.create!(:name => 'test org', :identifier => 'testorg')
     value = "name <strong id='name_html_test'>with</strong> html"
-    post :edit, :profile => org.identifier, :profile_data => { :info => { :management_information => value } }
-    assert_sanitized assigns(:profile).info.management_information
+    post :edit, :profile => org.identifier, :profile_data => { :management_information => value }
+    assert_sanitized assigns(:profile).management_information
   end
 
   should 'saving profile organization_info' do
     org = Organization.create!(:name => 'test org', :identifier => 'testorg')
-    org.organization_info.create!
-    post :edit, :profile => 'testorg', :profile_data => { :info => { :contact_person => 'contact person' } }
-    assert_equal 'contact person', Organization.find(org.id).organization_info.contact_person
+    post :edit, :profile => 'testorg', :profile_data => { :contact_person => 'contact person' }
+    assert_equal 'contact person', Organization.find(org.id).contact_person
   end
 
   should 'show contact_person field on edit organization' do
     org = Organization.create!(:name => 'test org', :identifier => 'testorg')
     get :edit, :profile => org.identifier
-    assert_tag :tag => 'input', :attributes => { :name => 'profile_data[info][contact_person]' }
+    assert_tag :tag => 'input', :attributes => { :name => 'profile_data[contact_person]' }
   end
 
   should 'save community description' do
@@ -174,22 +172,22 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
 
   should 'save organization contact_person' do
     org = Organization.create!(:name => 'test org', :identifier => 'testorg')
-    post :edit, :profile => 'testorg', :profile_data => { :info => { :contact_person => 'my contact' } }
-    assert_equal 'my contact', Organization.find(org.id).info.contact_person
+    post :edit, :profile => 'testorg', :profile_data => { :contact_person => 'my contact' }
+    assert_equal 'my contact', Organization.find(org.id).contact_person
   end
 
   should 'save enterprise contact_person' do
     org = Enterprise.create!(:name => 'test org', :identifier => 'testorg')
-    post :edit, :profile => 'testorg', :profile_data => { :info => { :contact_person => 'my contact' } }
-    assert_equal 'my contact', Enterprise.find(org.id).info.contact_person
+    post :edit, :profile => 'testorg', :profile_data => { :contact_person => 'my contact' }
+    assert_equal 'my contact', Enterprise.find(org.id).contact_person
   end
 
   should 'show field values on edit organization info' do
     org = Organization.create!(:name => 'test org', :identifier => 'testorg')
-    org.info = { :contact_person => 'my contact' }
-    org.info.save!
+    org.contact_person = 'my contact'
+    org.save!
     get :edit, :profile => 'testorg'
-    assert_tag :tag => 'input', :attributes => { :name => 'profile_data[info][contact_person]', :value => 'my contact' }
+    assert_tag :tag => 'input', :attributes => { :name => 'profile_data[contact_person]', :value => 'my contact' }
   end
 
   should 'display profile publication option in edit profile screen' do
@@ -210,5 +208,11 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
   end
 
   should 'show error messages for'
+
+  should 'edit enterprise' do
+    ent = Enterprise.create!(:name => 'test org', :identifier => 'testent')
+    get :edit, :profile => 'testent'
+    assert_response :success
+  end
 
 end

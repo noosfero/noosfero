@@ -11,12 +11,11 @@ class ProfileEditorController < MyProfileController
   # edits the profile info (posts back)
   def edit
     if request.post?
-      if profile.update_attributes(params[:profile_data]) and profile.info.save
+      if profile.update_attributes(params[:profile_data])
         redirect_to :action => 'index'
       end 
     else
-      @info = profile.info
-      render :action => @info.class.name.underscore
+      render :action => profile.class.name.underscore
     end
   end
 

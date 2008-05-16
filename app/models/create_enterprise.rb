@@ -112,13 +112,13 @@ class CreateEnterprise < Task
       enterprise.send("#{field}=", self.send(field))
     end
 
-    organization_info_data = self.data.reject do |key,value|
+    organization_data = self.data.reject do |key,value|
       profile_fields.include?(key.to_s)
     end
 
     enterprise.user = self.requestor.user
 
-    enterprise.organization_info = OrganizationInfo.new(organization_info_data)
+    enterprise.update_attributes(organization_data)
     enterprise.save!
   end
 

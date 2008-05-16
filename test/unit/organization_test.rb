@@ -25,13 +25,10 @@ class OrganizationTest < Test::Unit::TestCase
   end
 
 
-  should 'reference organization info' do
+  should 'not reference organization info' do
     org = Organization.new
-    assert_raise ActiveRecord::AssociationTypeMismatch do
-      org.organization_info = 1
-    end
-    assert_nothing_raised do
-      org.organization_info = OrganizationInfo.new
+    assert_raise NoMethodError do
+      org.organization_info
     end
   end
 
@@ -75,11 +72,9 @@ class OrganizationTest < Test::Unit::TestCase
     assert_equal 'something', org.validation_restrictions
   end
 
-  should 'override contact_email to get it from organization_info' do
+  should 'have contact_email' do
     org = Organization.new
-    assert_nil org.contact_email
-    org.organization_info = OrganizationInfo.new(:contact_email => 'test@example.com')
-    assert_equal 'test@example.com', org.contact_email
+    assert_respond_to org, :contact_email
   end
 
   should 'list pending enterprise validations' do
@@ -124,11 +119,41 @@ class OrganizationTest < Test::Unit::TestCase
     assert_equal true, Organization.new.has_members?
   end
 
-  should 'update organization_info' do
+  should 'update contact_person' do
     org = Organization.create!(:name => 'test org', :identifier => 'testorg')
-    assert_nil org.info.contact_person
-    org.info = {:contact_person => 'new person'}
-    assert_not_nil org.info.contact_person
+    assert_nil org.contact_person
+    org.contact_person = 'person'
+    assert_not_nil org.contact_person
+  end
+
+  should 'numericality year' do
+    count = Organization.count
+
+    org = Organization.new
+    org.foundation_year = 'xxxx'
+    org.valid?
+    assert org.errors.invalid?(:foundation_year)
+
+    org.foundation_year = 20.07
+    org.valid?
+    assert org.errors.invalid?(:foundation_year)
+    
+    org.foundation_year = 2007
+    org.valid?
+    assert ! org.errors.invalid?(:foundation_year)
+  end
+
+  should 'provide needed information in summary' do
+    organization = Organization.new
+
+    organization.acronym = 'organization acronym'
+    organization.foundation_year = '2007'
+    organization.contact_email = 'my contact email'
+
+    summary = organization.summary
+    assert(summary.any? { |line| line[1] == 'organization acronym' })
+    assert(summary.any? { |line| line[1] == '2007' })
+    assert(summary.any? { |line| line[1] == 'my contact email' })
   end
 
 end

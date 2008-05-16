@@ -114,10 +114,6 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal total - mine, Article.count
   end
 
-  def test_should_define_info
-    assert_nil Profile.new.info
-  end
-
   def test_should_avoid_reserved_identifiers
     assert_invalid_identifier 'admin'
     assert_invalid_identifier 'system'

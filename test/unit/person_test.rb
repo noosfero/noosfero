@@ -43,8 +43,8 @@ class PersonTest < Test::Unit::TestCase
 
     assert p.community_memberships.include?(c), "Community should add a new member"
   end
-  
-  def test_can_have_user
+
+  should 'can have user' do
     u = User.new(:login => 'john', :email => 'john@doe.org', :password => 'dhoe', :password_confirmation => 'dhoe')
     p = Person.new(:name => 'John', :identifier => 'john')
     u.person = p
@@ -53,7 +53,7 @@ class PersonTest < Test::Unit::TestCase
     assert_equal 'John', u.person.name
   end
 
-  def test_only_one_person_per_user
+  should 'only one person per user' do
     u = User.new(:login => 'john', :email => 'john@doe.org', :password => 'dhoe', :password_confirmation => 'dhoe')
     assert u.save
 
@@ -66,14 +66,18 @@ class PersonTest < Test::Unit::TestCase
     assert p2.errors.invalid?(:user_id)
   end
 
-  should "have person info" do
+  should "have person info fields" do
     p = Person.new
-    assert_kind_of PersonInfo, p.person_info
+    [ :name, :photo, :contact_information, :birth_date, :sex, :address, :city, :state, :country ].each do |i|
+      assert_respond_to p, i
+    end
   end
 
-  should 'return person_info as info' do
+  should 'not have person_info class' do
     p = Person.new
-    assert_equal p.person_info, p.info
+    assert_raise NoMethodError do
+      p.person_info
+    end
   end
 
   should 'change the roles of the user' do
@@ -204,14 +208,14 @@ class PersonTest < Test::Unit::TestCase
 
   should 'return info name instead of name when info is setted' do
     p = create_user('ze_maria').person
-    p.person_info = PersonInfo.create!(:name => 'José')
-
+    assert_equal 'ze_maria', p.name
+    p.name = 'José'
     assert_equal 'José', p.name
   end
 
   should 'fallback to login when person_info is not present' do
     p = create_user('randomhacker').person
-    p.person_info = nil
+    p.name = nil
     assert_equal 'randomhacker', p.name
   end
 
@@ -224,11 +228,31 @@ class PersonTest < Test::Unit::TestCase
     assert_includes Person.find(p.id).favorite_enterprises, e
   end
 
-  should 'save info' do
+  should 'save info contact_information field' do
     person = create_user('new_person').person
-    person.info = {:contact_information => 'my contact'}
+    person.contact_information = 'my contact'
     person.save!
-    assert_equal 'my contact', person.info.contact_information
+    assert_equal 'my contact', person.contact_information
+  end
+
+  should 'provide desired info fields' do 
+    p = Person.new
+    assert p.respond_to?(:photo)
+    assert p.respond_to?(:address)
+    assert p.respond_to?(:contact_information)
+  end
+
+  should 'provide needed information in summary' do
+    person = Person.new
+
+    person.name = 'person name'
+    person.address = 'my address'
+    person.contact_information = 'my contact information'
+
+    summary = person.summary
+    assert(summary.any? { |line| line[1] == 'person name' })
+    assert(summary.any? { |line| line[1] == 'my address' })
+    assert(summary.any? { |line| line[1] == 'my contact information' }, "summary (#{summary.map{|l| l[1] }.compact.join("; ")}) do not contain 'my contact informatidon'")
   end
 
 end

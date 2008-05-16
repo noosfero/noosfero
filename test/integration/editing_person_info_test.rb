@@ -2,7 +2,7 @@ require "#{File.dirname(__FILE__)}/../test_helper"
 
 class EditingPersonInfoTest < ActionController::IntegrationTest
 
-  fixtures :users, :profiles, :domains, :environments, :person_infos
+  fixtures :users, :profiles, :domains, :environments
 
   should 'allow to edit person info' do
 
@@ -13,14 +13,14 @@ class EditingPersonInfoTest < ActionController::IntegrationTest
     get '/myprofile/ze'
     assert_response :success
 
-    assert_tag :tag => 'td', :content => profile.person_info.name
-    assert_tag :tag => 'td', :content => profile.person_info.address
-    assert_tag :tag => 'td', :content => profile.person_info.contact_information
+    assert_tag :tag => 'td', :content => profile.name
+    assert_tag :tag => 'td', :content => profile.address
+    assert_tag :tag => 'td', :content => profile.contact_information
 
     get '/myprofile/ze/profile_editor/edit'
     assert_response :success
 
-    post '/myprofile/ze/profile_editor/edit', :info => { :address => 'a new address', :contact_information => 'a new contact information' }
+    post '/myprofile/ze/profile_editor/edit', :profile_data => { :address => 'a new address', :contact_information => 'a new contact information' }
     assert_response :redirect
 
   end

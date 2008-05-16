@@ -1,21 +1,11 @@
-# Represents any organization of the system and has an organization_info object to hold its info
+# Represents any organization of the system
 class Organization < Profile
-
-  has_one :organization_info
 
   belongs_to :region
 
   has_one :validation_info
 
   has_many :validations, :class_name => 'CreateEnterprise', :foreign_key => :target_id
-
-  after_create do |org|
-      OrganizationInfo.create!(:organization_id => org.id)
-  end
-
-  def contact_email
-    self.organization_info ? self.organization_info.contact_email : nil
-  end
 
   def validation_methodology
     self.validation_info ? self.validation_info.validation_methodology : nil
@@ -45,8 +35,19 @@ class Organization < Profile
     !self.validation_info.nil?
   end
 
-  def info
-    organization_info
+  settings_items :contact_person, :contact_email, :acronym, :foundation_year, :legal_form, :economic_activity, :management_information, :validated
+
+  validates_format_of :foundation_year, :with => Noosfero::Constants::INTEGER_FORMAT, :if => (lambda { |org| ! org.foundation_year.nil? })
+
+  validates_format_of :contact_email, :with => Noosfero::Constants::EMAIL_FORMAT, :if => (lambda { |org| ! org.contact_email.nil? })
+
+  xss_terminate :only => [ :acronym, :contact_person, :contact_email, :legal_form, :economic_activity, :management_information ]
+
+  def summary
+    # FIXME diplays too few fields
+    ['acronym', 'foundation_year', 'contact_email'].map do |col|
+      [ col.humanize, self.send(col) ]
+    end
   end
 
   # Yes, organizations have members.

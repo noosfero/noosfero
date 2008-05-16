@@ -3,7 +3,7 @@
 <h2><%= _('Logged in as %s') % user.identifier %></h2>
 
 <ul>
-  <li><%= _('User since %{year}/%{month}') % { :year => user.person_info.created_at.year, :month => user.person_info.created_at.month } %></li>
+  <li><%= _('User since %{year}/%{month}') % { :year => user.created_at.year, :month => user.created_at.month } %></li>
   <li><%= link_to_homepage _('Homepage') %></li>
 </ul>
 

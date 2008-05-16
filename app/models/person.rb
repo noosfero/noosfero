@@ -21,8 +21,14 @@ class Person < Profile
   def remove_friend(friend)
     friends.delete(friend)
   end
-  
-  has_one :person_info
+
+  settings_items :photo, :contact_information, :birth_date, :sex, :city, :state, :country
+
+  def summary
+    ['name', 'contact_information', 'sex', 'birth_date', 'address', 'city', 'state', 'country'].map do |col|
+      [ col.humanize, self.send(col) ]
+    end
+  end
 
   def self.conditions_for_profiles(conditions, person)
     new_conditions = sanitize_sql(['role_assignments.accessor_id = ?', person])
@@ -50,19 +56,8 @@ class Person < Profile
 
   alias :communities :community_memberships
 
-  
-  def info
-    person_info
-  end
-
   validates_presence_of :user_id
   validates_uniqueness_of :user_id
-
-  def initialize(*args)
-    super(*args)
-    self.person_info ||= PersonInfo.new
-    self.person_info.person = self
-  end
 
   def email
     self.user.nil? ? nil : self.user.email
@@ -105,7 +100,11 @@ class Person < Profile
   hacked_after_create :insert_default_homepage_and_feed
 
   def name
-    person_info.nil? ? self[:name] : (person_info.name || self[:name])
+    if !self[:name].nil?
+      self[:name]
+    else
+      self.user ? self.user.login : nil
+    end
   end
 
   has_and_belongs_to_many :favorite_enterprises, :class_name => 'Enterprise', :join_table => 'favorite_enteprises_people'

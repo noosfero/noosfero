@@ -16,7 +16,7 @@ class EnterpriseEditorController < MyProfileController
 
   # Saves the changes made in an enterprise
   def update
-    if @enterprise.update_attributes(params[:enterprise]) && @enterprise.organization_info.update_attributes(params[:organization_info])
+    if @enterprise.update_attributes(params[:enterprise])
       redirect_to :action => 'index'
     else
       flash[:notice] = _('Could not update the enterprise')
