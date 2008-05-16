@@ -207,16 +207,6 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     assert_equal false, Profile['ze'].public_profile
   end
 
-  should 'save profile publication option set to true' do
-    post :edit, :profile => 'ze', :profile_data => { :public_profile => 'true' }
-    assert_equal true, Profile['ze'].public_profile
-  end
-
-  should 'save profile publication option set to false' do
-    post :edit, :profile => 'ze', :profile_data => { :public_profile => 'false' }
-    assert_equal false, Profile['ze'].public_profile
-  end
-
   should 'show error messages for'
 
   should 'edit enterprise' do
