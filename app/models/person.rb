@@ -25,7 +25,7 @@ class Person < Profile
   settings_items :photo, :contact_information, :birth_date, :sex, :city, :state, :country
 
   def summary
-    ['name', 'contact_information', 'sex', 'birth_date', 'address', 'city', 'state', 'country'].map do |col|
+    ['name', 'contact_information', 'contact_phone', 'sex', 'birth_date', 'address', 'city', 'state', 'country'].map do |col|
       [ col.humanize, self.send(col) ]
     end
   end
