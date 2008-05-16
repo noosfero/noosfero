@@ -239,4 +239,10 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     assert_template 'organization'
   end
 
+  should 'show edit profile button' do
+    person = create_user('testuser').person
+    get :index, :profile => 'testuser'
+    assert_tag :tag => 'a', :content => 'Edit Profile'
+  end
+
 end

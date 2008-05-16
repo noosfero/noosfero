@@ -10,6 +10,8 @@
 
   <%= file_manager_button(_('Change your picture'), profile_icon(@profile, :portrait), :controller => 'profile_editor', :action => 'change_image') %>
 
+  <%= file_manager_button(_('Edit Profile'), 'icons-app/edit-profile.png', :controller => 'profile_editor', :action => 'edit') %>
+
   <%= file_manager_button(_('Pending tasks'), 'icons-app/todo.png', :controller => 'tasks', :action => 'index') %>
 
   <%= file_manager_button(_('Edit Visual Design'), 'icons-app/design-editor.png', :controller => 'profile_design', :action => 'index') %>
