@@ -13,31 +13,13 @@ class ProfileEditorController < MyProfileController
     @profile_data = profile
     if request.post?
       profile.image || profile.build_image 
-      if profile.update_attributes(params[:profile_data]) and profile.image.update_attributes(params[:image])
+      if profile.update_attributes(params[:profile_data])
+        if !params[:image].blank? && !params[:image][:uploaded_data].blank? && !profile.image.update_attributes(params[:image])
+          flash[:notice] = _('Could not upload image')
+          return
+        end
         redirect_to :action => 'index'
       end 
-    end
-  end
-
-  def change_image
-    @image = @profile.image ? @profile.image : @profile.build_image 
-    if request.post?
-      if @profile.image.update_attributes(params[:image])
-        flash[:notice] = _('Image successfully uploaded')
-        redirect_to :action => 'index'
-      else
-        flash[:notice] = _('Could not upload image')
-        render :action => 'change_image'
-      end
-    end
-  end
-  
-  def edit_categories
-    @profile_object = profile
-    if request.post?
-      if profile.update_attributes(params[:profile_object])
-        redirect_to :action => 'index'
-      end
     end
   end
 

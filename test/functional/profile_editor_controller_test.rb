@@ -82,7 +82,7 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     cat1 = Environment.default.categories.build(:name => 'top category'); cat1.save!
     cat2 = Environment.default.categories.build(:name => 'sub category', :parent => cat1); cat2.save!
     person = create_user('test_user').person
-    post :edit_categories, :profile => 'test_user', :profile_object => {:category_ids => [cat2.id]}
+    post :edit, :profile => 'test_user', :profile_data => {:category_ids => [cat2.id]}
     assert_response :redirect
     assert_redirected_to :action => 'index'
     assert_includes person.categories, cat2
@@ -248,4 +248,10 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'input', :attributes => { :name => 'profile_data[contact_phone]' }
   end
 
+  should 'be able to upload an image' do
+    person = create_user('test_profile').person
+    assert_nil person.image
+    post :edit, :profile => 'test_profile', :image => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')}
+    assert_not_nil assigns(:profile).image
+  end
 end
