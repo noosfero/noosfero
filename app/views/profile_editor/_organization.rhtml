@@ -1,8 +1,3 @@
-<h1> <%= _('Edit organization info') %> </h1>
-
-<%= error_messages_for :profile %>
-
-<% labelled_form_for :profile_data, @profile do |f| %>
   <%= f.text_field(:acronym) %>
   <%= f.text_field(:foundation_year) %>
   <%= f.text_field(:contact_person) %>
@@ -11,7 +6,3 @@
   <%= f.text_field(:economic_activity) %>
   <%= f.text_area(:management_information, :rows => 5) %>
   <%= f.text_area(:description, :rows => 5) if @profile.kind_of?(Community) %>
-  <% button_bar do %>
-    <%= submit_button('save' , _('Save'), :cancel => {:action => 'index'}) %>
-  <% end %>
-<% end %>

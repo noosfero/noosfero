@@ -255,4 +255,10 @@ class PersonTest < Test::Unit::TestCase
     assert(summary.any? { |line| line[1] == 'my contact information' }, "summary (#{summary.map{|l| l[1] }.compact.join("; ")}) do not contain 'my contact informatidon'")
   end
 
+  should 'required name' do
+    person = Person.new
+    assert !person.valid?
+    assert person.errors.invalid?(:name)
+  end
+
 end

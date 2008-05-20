@@ -50,21 +50,15 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
 
   def test_edit_person_info
     person = User.create(:login => 'test_profile', :email => 'test@noosfero.org', :password => 'test', :password_confirmation => 'test').person
-
     assert person.valid?
     get :edit, :profile => person.identifier
     assert_response :success
-    assert_template 'person'
+    assert_template 'edit'
   end
 
-  def test_saving_profile_info 
-    person = User.create(:login => 'test_profile', :email => 'test@noosfero.org', :password => 'test', :password_confirmation => 'test').person
-    person.address = 'my address'
-    person.contact_information = 'my contact information'
-    person.save!
-    
-    post :edit, :profile => 'test_profile', :profile_data => { 'contact_information' => 'new contact information', 'address' => 'new address' }
-
+  should 'saving profile info' do
+    person = create_user('test_profile').person
+    post :edit, :profile => 'test_profile', :profile_data => { 'name' => 'new person', 'contact_information' => 'new contact information', 'address' => 'new address' }
     assert_redirected_to :action => 'index'
   end
 
@@ -219,13 +213,39 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     org = Organization.create!(:name => 'test org', :identifier => 'testorg', :contact_person => 'my contact')
     Organization.any_instance.stubs(:update_attributes).returns(false)
     post :edit, :profile => 'testorg'
-    assert_template 'organization'
+    assert_template 'edit'
   end
 
   should 'show edit profile button' do
     person = create_user('testuser').person
     get :index, :profile => 'testuser'
     assert_tag :tag => 'a', :content => 'Edit Profile'
+  end
+
+  should 'show image field on edit profile' do
+    person = create_user('testuser').person
+    get :edit, :profile => 'testuser'
+    assert_tag :tag => 'input', :attributes => { :name => 'image[uploaded_data]' }
+  end
+
+  should 'show categories field on edit profile' do
+    cat1 = Environment.default.categories.create!(:name => 'top category')
+    cat2 = Environment.default.categories.create!(:name => 'sub category', :parent => cat1)
+    person = create_user('testuser').person
+    get :edit, :profile => 'testuser'
+    assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'profile_data[category_ids][]' }
+  end
+
+  should 'render edit template' do
+    person = create_user('test_profile').person
+    get :edit, :profile => person.identifier
+    assert_template 'edit'
+  end
+
+  should 'render person partial' do
+    person = create_user('test_profile').person
+    get :edit, :profile => person.identifier
+    assert_tag :tag => 'input', :attributes => { :name => 'profile_data[contact_phone]' }
   end
 
 end

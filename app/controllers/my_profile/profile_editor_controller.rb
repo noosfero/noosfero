@@ -10,13 +10,13 @@ class ProfileEditorController < MyProfileController
 
   # edits the profile info (posts back)
   def edit
+    @profile_data = profile
     if request.post?
-      if profile.update_attributes(params[:profile_data])
+      profile.image || profile.build_image 
+      if profile.update_attributes(params[:profile_data]) and profile.image.update_attributes(params[:image])
         redirect_to :action => 'index'
-        return
       end 
     end
-    render :action => profile.class.name.underscore
   end
 
   def change_image

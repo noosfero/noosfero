@@ -64,21 +64,21 @@ class Profile < ActiveRecord::Base
 
   has_many :domains, :as => :owner
   belongs_to :environment
-  
+
   has_many :role_assignments, :as => :resource
 
   has_many :articles, :dependent => :destroy
   belongs_to :home_page, :class_name => Article.name, :foreign_key => 'home_page_id'
 
   has_one :image, :as => :owner
-  
+
   has_many :consumptions
   has_many :consumed_product_categories, :through => :consumptions, :source => :product_category
-  
+
   has_many :tasks, :foreign_key => :target_id
 
   has_and_belongs_to_many :categories
-  
+
   def top_level_articles(reload = false)
     if reload
       @top_level_articles = nil

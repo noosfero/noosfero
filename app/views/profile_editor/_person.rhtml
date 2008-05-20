@@ -1,8 +1,3 @@
-<h1><%= _('Edit person info') %></h1>
-
-<%= error_messages_for :profile %>
-
-<% labelled_form_for :profile_data, @profile do |f| %>
   <%= f.text_field(:name) %>
   <%= f.text_field(:contact_information) %>
   <%= f.text_field(:contact_phone) %>
@@ -14,9 +9,3 @@
   <%= f.text_field(:city) %>
   <%= f.text_field(:state) %>
   <%= f.text_field(:country) %>
-  <% button_bar do %>
-    <%= submit_button('save', _('Save'), :cancel => {:action => 'index'}) %>
-  <% end %>
-<% end %>
-
-<%# = generate_form :info, @info, {...} %>
