@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.9.0\n"
 "POT-Creation-Date: 2008-04-29 08:47-0300\n"
-"PO-Revision-Date: 2008-04-29 08:48-0300\n"
+"PO-Revision-Date: 2008-05-21 17:06-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -577,7 +577,7 @@ msgstr "Precisão do georeferenciamento"
 
 #: app/models/profile.rb:19
 msgid "Edit profile"
-msgstr "perfil"
+msgstr "Editar perfil"
 
 #: app/models/profile.rb:20
 msgid "Destroy profile"
