@@ -229,31 +229,22 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'div', :attributes => { :class => 'article-tags' }, :descendant => { :content => /This article's tags:/ }
   end
 
-  should 'not display articles from private content' do
+  should 'not display forbidden articles' do
     profile.articles.create!(:name => 'test')
     profile.update_attributes!(:public_content => false)
 
+    Article.any_instance.expects(:display_to?).with(anything).returns(false)
     get :view_page, :profile => profile.identifier, :page => [ 'test' ]
     assert_response 403
   end
 
-  #should 'display articles to its owner' do
-    #profile.articles.create!(:name => 'test')
-    #profile.update_attributes!(:public_content => false)
+  should 'display allowed articles' do
+    profile.articles.create!(:name => 'test')
+    profile.update_attributes!(:public_content => false)
 
-    #login_as(@profile.identifier)
-    #get :view_page, :profile => profile.identifier, :page => [ 'test' ]
-    #assert_response 200
-  #end
-
-  #should 'display articles to profile members' do
-    #c = Community.create!(:name => 'my community')
-    #c.update_attributes!(:public_content => false)
-    #c.add_member(@profile)
-
-    #login_as(@profile.identifier)
-    #get :view_page, :profile => profile.identifier, :page => [ 'test' ]
-    #assert_response 200
-  #end
+    Article.any_instance.expects(:display_to?).with(anything).returns(true)
+    get :view_page, :profile => profile.identifier, :page => [ 'test' ]
+    assert_response 200
+  end
 
 end

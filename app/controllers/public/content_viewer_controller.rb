@@ -21,6 +21,10 @@ class ContentViewerController < PublicController
       end
     end
 
+    if !@page.display_to?(user)
+      render :action => 'access_denied', :status => 403
+    end
+
     if @page.mime_type != 'text/html'
       headers['Content-Type'] = @page.mime_type
       data = @page.data
