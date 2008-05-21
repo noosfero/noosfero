@@ -286,8 +286,12 @@ class Profile < ActiveRecord::Base
     if self.public_profile
       true
     else
-      # other possibilities would come here 
-      (user == self)
+      if user.nil?
+        false
+      else
+        # other possibilities would come here
+        (user == self) || (user.memberships.include?(self))
+      end
     end
   end
 
