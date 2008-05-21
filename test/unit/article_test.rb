@@ -233,4 +233,60 @@ class ArticleTest < Test::Unit::TestCase
     assert !Article.new.folder?, 'should identify itself as non-folder'
   end
 
+  should 'always display if public content' do
+    person = create_user('testuser').person
+    assert_equal true, person.home_page.display_to?(nil)
+  end
+
+  should 'display to owner' do
+    # a person with private contents ...
+    person = create_user('testuser').person
+    person.update_attributes!(:public_content => false)
+
+    # ... can see his own articles
+    a = person.articles.create!(:name => 'test article')
+    assert_equal true, a.display_to?(person)
+  end
+
+  should 'not display to other unauthenticated user if private' do
+    # a person with private contents ...
+    person = create_user('testuser').person
+    person.update_attributes!(:public_content => false)
+
+    # ... has an article ...
+    a1 = person.articles.create!(:name => 'test article')
+
+    # ... which anonymous users cannot view
+    assert_equal false, a1.display_to?(nil)
+  end
+
+  should 'not display to another user if private' do
+    # a person with private contents ...
+    person = create_user('testuser').person
+    person.update_attributes!(:public_content => false)
+
+    # ... has an article ...
+    a1 = person.articles.create!(:name => 'test article')
+
+    # ... which another user cannot see
+    another_user = create_user('another_user').person
+    assert_equal false, a1.display_to?(another_user)
+  end
+
+  should 'display for members of profile' do
+    # a community with private content ...
+    community = Community.create!(:name => 'test community')
+    community.update_attributes!(:public_content => false)
+
+    # ... has an article ...
+    a1 = community.articles.create!(:name => 'test article')
+
+    # ... and its members ...
+    member = create_user('testuser').person
+    community.add_member(member)
+
+    # ... can view that article
+    assert_equal true, a1.display_to?(member)
+  end
+
 end

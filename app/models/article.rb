@@ -120,6 +120,18 @@ class Article < ActiveRecord::Base
     self.find(:all, :order => 'articles.name', :conditions => [ 'articles.name like (?) or articles.name like (?)', initial + '%', initial.upcase + '%'])
   end
 
+  def display_to?(user)
+    if self.profile.public_content
+      true
+    else
+      if user.nil?
+        false
+      else
+        (user == self.profile) || user.memberships.include?(self.profile)
+      end
+    end
+  end
+
   private
 
   def sanitize_tag_list
