@@ -183,8 +183,16 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
   should 'display profile publication option in edit profile screen' do
     profile = Profile['ze']
     get :edit, :profile => 'ze'
-    assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :checked => 'checked', :name => 'profile_data[public_profile]', :value => 'true' }
-    assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'profile_data[public_profile]', :value => false }
+    assert_tag :tag => 'input', :attributes => { :type => 'radio', :checked => 'checked', :name => 'profile_data[public_profile]', :value => 'true' }
+    assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[public_profile]', :value => 'false' }
+  end
+
+  should 'display properly that the profile is non-public' do
+    profile = Profile['ze']
+    profile.update_attributes!(:public_profile => false)
+    get :edit, :profile => 'ze'
+    assert_tag :tag => 'input', :attributes => { :type => 'radio', :checked => 'checked', :name => 'profile_data[public_profile]', :value => 'false' }
+    assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[public_profile]', :value => 'true' }
   end
 
   should 'save profile publication option set to true' do

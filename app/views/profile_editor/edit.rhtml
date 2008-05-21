@@ -4,11 +4,26 @@
 
 <% labelled_form_for :profile_data, @profile, :html => { :multipart => true } do |f| %>
   <%= render :partial => partial_for_class(@profile.class), :locals => { :f => f } %>
-  <h1><%= _('Change your picture') %></h1>
+
+  <h1><%= _('Change picture') %></h1>
   <% f.fields_for :image_builder, @profile.image do |i| %>
     <%= file_field_or_thumbnail(_('Image:'), @profile.image, i) %>
   <% end %>
+
+  <h1><%= _('Privacy options') %></h1>
+  <p>
+    <%= _('This profile is:') %>
+    <div>
+      <%= radio_button 'profile_data', 'public_profile', 'true' %>
+    </div>
+    <div>
+      <%= radio_button 'profile_data', 'public_profile', 'false' %>
+    </div>
+  </p>
+
   <%= select_categories(:profile_data, _('Select the categories of your interest'), 1) %>
+
+
   <% button_bar do %>
     <%= submit_button('save', _('Save'), :cancel => {:action => 'index'}) %>
     <%= button(:back, _('Back to control panel'), :controller => 'profile_editor') %>
