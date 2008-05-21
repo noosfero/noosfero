@@ -127,4 +127,16 @@ class ApplicationControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'div', :attributes => { :id => 'boxes', :class => 'boxes'  }
   end
 
+  # FIXME why this not work???
+  should 'display categories in menu' do
+    c1 = Category.create!(:name => 'category 1', :environment => Environment.default)
+    c2 = Category.create!(:name => 'category 2', :environment => Environment.default, :parent => c1)
+    c3 = Category.create!(:name => 'category 3', :environment => Environment.default, :parent => c1)
+    c2.expects(:display_in_menu?).returns(true)
+    c3.expects(:display_in_menu?).returns(false)
+    get :index
+    assert_tag :tag => 'a', :attributes => { :content => /category 2/ }
+    assert_no_tag :tag => 'a', :attributes => { :content => /category 3/ }
+  end
+
 end

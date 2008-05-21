@@ -14,8 +14,6 @@
 
   <%= file_manager_button(_('Manage Content'), 'icons-app/cms.png', :controller => 'cms') %>
 
-  <%= file_manager_button(_('My Interests'), 'icons-app/categories.png', :controller => 'profile_editor', :action => 'edit_categories')  %>
-
   <%= file_manager_button(_('Change Password'), 'icons-app/change-password.png', :controller => 'account', :action => 'change_password') if profile.person? %>
 
   <%= file_manager_button(_('Manage friends'), 'icons-app/friends.png', :controller => 'friends', :action => 'index') if profile.person? %>

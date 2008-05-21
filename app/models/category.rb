@@ -47,7 +47,13 @@ class Category < ActiveRecord::Base
   end
 
   def total_items
+    # FIXME this can be SLOW (??)
     articles.count + comments.count + enterprises.count + people.count + communities.count + products.count
+  end
+
+  def display_in_menu?
+    # FIXME don't hardcode like this. Should be a setting of the environment, maybe
+    total_items >= 10
   end
 
 end

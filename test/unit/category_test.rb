@@ -385,4 +385,16 @@ class CategoryTest < Test::Unit::TestCase
     end
   end
 
+  should 'display in menu' do
+    c = Category.create!(:name => 'test category1', :environment => Environment.default)
+    c.expects(:total_items).returns(10)
+    assert c.display_in_menu?
+  end
+
+  should 'not display in menu' do
+    c = Category.create!(:name => 'test category1', :environment => Environment.default)
+    c.expects(:total_items).returns(1)
+    assert !c.display_in_menu?
+  end
+
 end
