@@ -376,4 +376,13 @@ class CategoryTest < Test::Unit::TestCase
   #  assert_includes c1.people, person
   #end
 
+  should 'have image' do
+    assert_difference Category, :count do
+      c = Category.create!(:name => 'test category1', :environment => Environment.default, :image_builder => {
+        :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
+      })
+      assert_equal c.image(true).filename, 'rails.png'
+    end
+  end
+
 end

@@ -96,6 +96,7 @@ require 'acts_as_filesystem'
 require 'acts_as_searchable'
 require 'acts_as_having_boxes'
 require 'acts_as_having_settings'
+require 'acts_as_having_image'
 require 'hacked_after_create'
 
 # load a local configuration if present, but not under test environment.

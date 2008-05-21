@@ -70,7 +70,7 @@ class Profile < ActiveRecord::Base
   has_many :articles, :dependent => :destroy
   belongs_to :home_page, :class_name => Article.name, :foreign_key => 'home_page_id'
 
-  has_one :image, :as => :owner
+  acts_as_having_image
 
   has_many :consumptions
   has_many :consumed_product_categories, :through => :consumptions, :source => :product_category

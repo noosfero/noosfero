@@ -72,7 +72,7 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     cat1 = Environment.default.categories.build(:name => 'top category'); cat1.save!
     cat2 = Environment.default.categories.build(:name => 'sub category', :parent => cat1); cat2.save!
     person = create_user('test_user').person
-    get :edit_categories, :profile => 'test_user'
+    get :edit, :profile => 'test_user'
     assert_response :success
     assert_template 'edit_categories'
     assert_tag :tag => 'input', :attributes => {:name => 'profile_object[category_ids][]'}
@@ -225,7 +225,7 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
   should 'show image field on edit profile' do
     person = create_user('testuser').person
     get :edit, :profile => 'testuser'
-    assert_tag :tag => 'input', :attributes => { :name => 'image[uploaded_data]' }
+    assert_tag :tag => 'input', :attributes => { :name => 'profile_data[image_builder][uploaded_data]' }
   end
 
   should 'show categories field on edit profile' do
@@ -251,7 +251,7 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
   should 'be able to upload an image' do
     person = create_user('test_profile').person
     assert_nil person.image
-    post :edit, :profile => 'test_profile', :image => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')}
+    post :edit, :profile => 'test_profile', :profile_data => { :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png') } }
     assert_not_nil assigns(:profile).image
   end
 end

@@ -6,8 +6,6 @@ class Product < ActiveRecord::Base
   validates_uniqueness_of :name, :scope => :enterprise_id
   validates_numericality_of :price, :allow_nil => true
 
-  has_one :image, :as => :owner
-
   after_update :save_image
 
   acts_as_searchable :fields => [ :name, :description, :category_full_name ]
@@ -18,13 +16,7 @@ class Product < ActiveRecord::Base
     product_category.full_name(" ")
   end
 
-  def image_builder=(img)
-    if image && image.id == img[:id]
-      image.attributes = img
-    else
-      build_image(img)
-    end
-  end
+  acts_as_having_image
 
   def save_image
     image.save if image

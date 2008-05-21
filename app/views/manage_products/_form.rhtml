@@ -4,7 +4,9 @@
   <%= display_form_field( _('Name:'), f.text_field(:name) ) %>
   <%= display_form_field( _('Price:'), f.text_field(:price) ) %>
   <%= display_form_field( _('Description:'), f.text_area(:description, :rows => 10) ) %>
-  <%= display_form_field( _('Image:'), (render :partial => @product.image && @product.image.valid? ? 'show_thumbnail' : 'change_image') ) %>
+  <% f.fields_for :image_builder, @product.image do |i| %>
+    <%= file_field_or_thumbnail(_('Image:'), @product.image, i) %>
+  <% end %>
 
   <div id='subcategories'>
     <%= render :partial => 'subcategories' %>

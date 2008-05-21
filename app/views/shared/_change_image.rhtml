@@ -1,4 +1,4 @@
-  <%= file_field_tag("product[image_builder][uploaded_data]") %>
+  <%= i.file_field( :uploaded_data, { :onchange => 'updateImg(this.value)' } ) %>
 
   <br/>
 

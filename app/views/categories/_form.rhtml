@@ -1,6 +1,6 @@
 <%= error_messages_for 'category' %>
 
-<% labelled_form_for 'category' do |f| %>
+<% labelled_form_for 'category', @category, :html => { :multipart => true} do |f| %>
   <% if @category.new_record? %>
     <% if @category.parent %>
       <%= hidden_field_tag('parent_id', @category.parent.id) %>
@@ -13,6 +13,11 @@
   <%= select_color_for_category %>
 
   <%= f.text_field 'name' %>
+
+  <% f.fields_for :image_builder, @category.image do |i| %>
+    <%= file_field_or_thumbnail(_('Image:'), @category.image, i) %>
+  <% end %>
+
   <% button_bar do %>
     <%= submit_button('save', _('Save'), :cancel => {:action => 'index'}) %>
   <% end%>

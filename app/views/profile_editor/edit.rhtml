@@ -1,0 +1,18 @@
+<h1><%= _('Edit profile') %></h1>
+
+<%= error_messages_for :profile %>
+
+<% labelled_form_for :profile_data, @profile, :html => { :multipart => true } do |f| %>
+  <%= render :partial => partial_for_class(@profile.class), :locals => { :f => f } %>
+  <h1><%= _('Change your picture') %></h1>
+  <% f.fields_for :image_builder, @profile.image do |i| %>
+    <%= file_field_or_thumbnail(_('Image:'), @profile.image, i) %>
+  <% end %>
+  <%= select_categories(:profile_data, _('Select the categories of your interest'), 1) %>
+  <% button_bar do %>
+    <%= submit_button('save', _('Save'), :cancel => {:action => 'index'}) %>
+    <%= button(:back, _('Back to control panel'), :controller => 'profile_editor') %>
+  <% end %>
+<% end %>
+
+<%# = generate_form :info, @info, {...} %>

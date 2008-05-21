@@ -1,9 +1,9 @@
-  <%= image_tag(@product.image.public_filename(:thumb)) %>
+  <%= image_tag(image.public_filename(:thumb)) %>
 
   <br/>
 
   <%= link_to_function(_('Change image'), nil, :id => 'change-image-link') do |page|
-    page['change-image'].replace_html :partial => 'change_image'
+    page['change-image'].replace_html :partial => 'shared/change_image', :locals => { :i => i, :image => image }
     page['change-image-link'].hide
     page['cancel-change-image-link'].show
   end %>

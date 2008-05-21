@@ -32,6 +32,8 @@ class Category < ActiveRecord::Base
 
   has_many :products, :through => :enterprises
 
+  acts_as_having_image
+
   def recent_articles(limit = 10)
     self.articles.recent(limit)
   end

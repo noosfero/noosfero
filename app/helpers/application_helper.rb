@@ -567,4 +567,8 @@ module ApplicationHelper
 #    observe_field(state_field_name, :update => city_field_name, :url => { :controller => 'geography', :action => 'cities' }, :with => 'state_id')
 #  end
 
+  def file_field_or_thumbnail(label, image, i)
+    display_form_field( label, (render :partial => (image && image.valid? ? 'shared/show_thumbnail' : 'shared/change_image'), :locals => { :i => i, :image => image }) )
+  end
+
 end

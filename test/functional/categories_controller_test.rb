@@ -81,5 +81,11 @@ class CategoriesControllerTest < Test::Unit::TestCase
     end
   end
 
+  should 'be able to upload a file' do
+    assert_difference Category, :count do
+      post :new, :category => { :name => 'new category', :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png') } }
+      assert_equal assigns(:category).image.filename, 'rails.png'
+    end
+  end
 
 end
