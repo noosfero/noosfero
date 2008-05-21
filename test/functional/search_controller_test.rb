@@ -842,4 +842,13 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_no_match /Category:/, @response.body
   end
 
+  should 'display category image while in directory' do
+    parent = Category.create!(:name => 'category1', :environment => Environment.default)
+    cat = Category.create!(:name => 'category2', :environment => Environment.default, :parent => parent,
+      :image_builder => {:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')}
+    )
+    get :category_index, :category_path => [ 'category1', 'category2' ], :query => 'teste'
+    assert_tag :tag => 'img', :attributes => { :src => /rails_thumb\.png/ }
+  end
+
 end

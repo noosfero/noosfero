@@ -173,6 +173,10 @@ div#notice {
 
 #view-category { /* none */ }
 
+#category-image {
+  text-align: center;
+}
+
 #categiry-name {
   margin: 0px;
   position: relative;
