@@ -217,16 +217,16 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     page = profile.articles.create!(:name => 'myarticle', :body => 'test article', :tag_list => 'tag1, tag2')
 
     get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ]
-    assert_tag :tag => 'div', :attributes => { :class => 'article-tags' }, :descendant => {
+    assert_tag :tag => 'div', :attributes => { :id => 'article-tags' }, :descendant => {
       :tag => 'a',
       :attributes => { :href => "/profile/#{profile.identifier}/tag/tag1" }
     }
-    assert_tag :tag => 'div', :attributes => { :class => 'article-tags' }, :descendant => {
+    assert_tag :tag => 'div', :attributes => { :id => 'article-tags' }, :descendant => {
       :tag => 'a',
       :attributes => { :href => "/profile/#{profile.identifier}/tag/tag2" }
     }
 
-    assert_tag :tag => 'div', :attributes => { :class => 'article-tags' }, :descendant => { :content => /This article's tags:/ }
+    assert_tag :tag => 'div', :attributes => { :id => 'article-tags' }, :descendant => { :content => /This article's tags:/ }
   end
 
   should 'not display forbidden articles' do
