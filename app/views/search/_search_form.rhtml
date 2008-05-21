@@ -13,10 +13,10 @@
   <% if @category %>
   <div class="search-options search-in">
     <h4><%= _('Search in:') %></h4>
-    <ul>
-      <li><%= labelled_radio_button _('Only in %s') % @category.name, :search_whole_site, 'no', true %></li>
-      <li><%= labelled_radio_button _('Whole site'), :search_whole_site, 'yes' %></li>
-    </ul>
+    <div>
+      <%= labelled_radio_button _('Only in %s') % @category.name, :search_whole_site, 'no', true %>
+      <%= labelled_radio_button _('Whole site'), :search_whole_site, 'yes' %>
+    </div>
   </div><!-- fim class="search-options" -->
   <% end %>
 
