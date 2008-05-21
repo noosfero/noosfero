@@ -74,8 +74,8 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     person = create_user('test_user').person
     get :edit, :profile => 'test_user'
     assert_response :success
-    assert_template 'edit_categories'
-    assert_tag :tag => 'input', :attributes => {:name => 'profile_object[category_ids][]'}
+    assert_template 'edit'
+    assert_tag :tag => 'input', :attributes => {:name => 'profile_data[category_ids][]'}
   end
 
   should 'save categorization of profile' do
