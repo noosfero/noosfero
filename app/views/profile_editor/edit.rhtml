@@ -20,6 +20,15 @@
       <%= radio_button 'profile_data', 'public_profile', 'false' %>
     </div>
   </p>
+  <p>
+    <%= _("This profile's content is:") %>
+    <div>
+      <%= radio_button 'profile_data', 'public_content', 'true' %>
+    </div>
+    <div>
+      <%= radio_button 'profile_data', 'public_content', 'false' %>
+    </div>
+  </p>
 
   <%= select_categories(:profile_data, _('Select the categories of your interest'), 1) %>
 
