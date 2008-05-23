@@ -22,6 +22,7 @@ class ProfileHelperTest < Test::Unit::TestCase
 
     helper.expects(:content_tag).returns('').at_least_once
 
+    helper.expects(:_).at_least_once
     helper.expects(:_).with('edit your information').returns('edit your information')
     helper.expects(:button).with(:edit, 'edit your information', :controller => 'profile_editor', :action => 'edit').returns("BUTTON")
 
@@ -35,7 +36,7 @@ class ProfileHelperTest < Test::Unit::TestCase
 
     helper.expects(:instance_eval).with(myproc)
 
-    helper.expects(:_)
+    helper.expects(:_).at_least_once
     helper.expects(:button).returns('')
 
     helper.display_profile_info(profile)
