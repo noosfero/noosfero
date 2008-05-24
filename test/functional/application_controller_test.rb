@@ -127,23 +127,20 @@ class ApplicationControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'div', :attributes => { :id => 'boxes', :class => 'boxes'  }
   end
 
-  # FIXME why 'expects' not work???
   should 'display only some categories in menu' do
-
     c1 = Environment.default.categories.create!(:name => 'Category 1', :display_color => 1, :parent_id => nil)
     c2 = Environment.default.categories.create!(:name => 'Category 2', :display_color => nil, :parent_id => c1)
-    c3 = Environment.default.categories.create!(:name => 'Category 3', :display_color => nil, :parent_id => c1)
-
-    assert_equal [c1], Environment.default.display_categories
-    assert_equal [c2, c3], c1.all_children
-
-    c2.expects(:display_in_menu?).returns(true)
-    c3.expects(:display_in_menu?).returns(false)
-
+    Category.any_instance.expects(:display_in_menu?).returns(true)
     get :index
-
     assert_tag :tag => 'a', :content => /Category 2/
-    assert_no_tag :tag => 'a', :content => /Category 3/
+  end
+
+  should 'not display some categories in menu' do
+    c1 = Environment.default.categories.create!(:name => 'Category 1', :display_color => 1, :parent_id => nil)
+    c2 = Environment.default.categories.create!(:name => 'Category 2', :display_color => nil, :parent_id => c1)
+    Category.any_instance.expects(:display_in_menu?).returns(false)
+    get :index
+    assert_no_tag :tag => 'a', :content => /Category 2/
   end
 
 end
