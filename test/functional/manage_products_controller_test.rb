@@ -112,21 +112,30 @@ class ManageProductsControllerTest < Test::Unit::TestCase
     end    
   end
 
+  should 'show categories list' do
+    environment = Environment.default
+    category1 = ProductCategory.create!(:name => 'Category 1', :environment => environment)
+    category2 = ProductCategory.create!(:name => 'Category 2', :environment => environment, :parent => category1)
+    category3 = ProductCategory.create!(:name => 'Category 3', :environment => environment, :parent => category2)
+    get :new, :profile => @enterprise.identifier
+    assert_tag :tag => 'p', :content => /Select a category:/, :sibling => { :tag => 'a', :content => /#{category2.name}/ }
+  end
+
   should 'show current category' do
     environment = Environment.default
     category1 = ProductCategory.create!(:name => 'Category 1', :environment => environment)
     category2 = ProductCategory.create!(:name => 'Category 2', :environment => environment, :parent => category1)
     category3 = ProductCategory.create!(:name => 'Category 3', :environment => environment, :parent => category2)
-    category4 = ProductCategory.create!(:name => 'Category 4', :environment => environment, :parent => category3)
-    get :new, :profile => @enterprise.identifier
-    assert_tag :tag => 'p', :content => /Current category:/, :sibling => { :tag => 'a', :content => /#{category1.name}/ }
+    get 'update_subcategories', :profile => @enterprise.identifier, :id => category2.id
+    assert_tag :tag => 'p', :content => /Current category:/, :sibling => { :tag => 'a', :content => /#{category3.name}/ }
   end
 
   should 'show subcategories list' do
     environment = Environment.default
     category1 = ProductCategory.create!(:name => 'Category 1', :environment => environment)
     category2 = ProductCategory.create!(:name => 'Category 2', :environment => environment, :parent => category1)
-    get 'new', :profile => @enterprise.identifier
+    category3 = ProductCategory.create!(:name => 'Category 3', :environment => environment, :parent => category2)
+    get 'update_subcategories', :profile => @enterprise.identifier, :id => category2.id
     assert !assigns(:categories).empty?
     assert_tag :tag => 'p', :content => /Select a subcategory:/, :sibling => { :tag => 'a', :attributes => { :href => '#' }, :content => /#{category2.name}/ }
   end

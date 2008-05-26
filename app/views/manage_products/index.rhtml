@@ -1,6 +1,6 @@
-<h2> <%=_('Listing products') %> </h2>
+<h2> <%=_('Listing products and services') %> </h2>
 
-<p> <%= link_to _('New product'), :action => 'new' %> </p>
+<p> <%= link_to _('New product or service'), :action => 'new' %> </p>
 
 <% @products.each do |product| %>
   <p> <b> <%= link_to product.name, :action => 'show', :id => product %> </b>  

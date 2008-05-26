@@ -1,12 +1,12 @@
-<h2> <%=_('Listing products') %> </h2>
+<h2> <%=_('Listing consumed products') %> </h2>
 
 <p> <%= link_to _('Add product'), :action => 'new' %> </p>
 
 <% @consumptions.each do |consumption| %>
-  <p> <b> <%= link_to_category(consumption.product_category)  %> </b> </p> 
+  <p> <b> <%= link_to_category(consumption.product_category)  %> </b>
   <%= link_to _('remove'), { :action => 'destroy', :id => consumption },
               :confirm => _('Are you sure, you want to remove this product from your list') %>
-  <pre><%= consumption.aditional_specifications  %></pre>
+  <pre><%= consumption.aditional_specifications  %></pre> </p> 
 <% end %>
 
 <%=  link_to_myprofile(_('Back'), {}, @profile.identifier)%>
