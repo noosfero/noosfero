@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.9.0\n"
 "POT-Creation-Date: 2008-04-29 08:47-0300\n"
-"PO-Revision-Date: 2008-05-21 17:06-0300\n"
+"PO-Revision-Date: 2008-05-24 13:59-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1809,7 +1809,7 @@ msgstr "Salvar alterações"
 #: app/views/manage_products/index.rhtml:1
 #: app/views/consumed_products/index.rhtml:1
 msgid "Listing products"
-msgstr "Listando marcadores"
+msgstr "Listando produtos"
 
 #: app/views/manage_products/index.rhtml:12
 #: app/views/environment_role_manager/index.rhtml:13
