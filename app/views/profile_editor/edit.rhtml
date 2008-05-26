@@ -5,10 +5,12 @@
 <% labelled_form_for :profile_data, @profile, :html => { :multipart => true } do |f| %>
   <%= render :partial => partial_for_class(@profile.class), :locals => { :f => f } %>
 
-  <h1><%= _('Change picture') %></h1>
-  <% f.fields_for :image_builder, @profile.image do |i| %>
-    <%= file_field_or_thumbnail(_('Image:'), @profile.image, i) %>
-  <% end %>
+  <div id="profile_change_picture">
+    <h1><%= _('Change picture') %></h1>
+    <% f.fields_for :image_builder, @profile.image do |i| %>
+      <%= file_field_or_thumbnail(_('Image:'), @profile.image, i) %>
+    <% end %>
+  </div>
 
   <h1><%= _('Privacy options') %></h1>
   <p>

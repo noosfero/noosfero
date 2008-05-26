@@ -209,6 +209,47 @@ module ApplicationHelper
       END_SRC
       class_eval src, __FILE__, __LINE__
     end
+    
+    # Create a formatable radio collection
+    # Tha values parameter is a array of [value, label] arrays like this:
+    # [ ['en',_('English')], ['pt',_('Portuguese')], ['es',_('Spanish')] ]
+    # The option :size will set how many radios will be showed in each line
+    # Example: use :size => 3 as option if you want 3 radios by line
+    def radio_group( object_name, method, values, options = {} )
+      line_size = options[:size] || 0
+      line_item = 0
+      html = "\n"
+      values.each { |val, h_val|
+        id = object_name.to_s() +'_'+ method.to_s() +'_'+ val.to_s()
+        # Não está apresentando o sexo selecionado ao revisitar
+        # http://localhost:3000/myprofile/manuel/profile_editor/edit  :-(
+        html += self.class.content_tag( 'span',
+            @template.radio_button( object_name, method, val,
+                                    :id => id, :object => @object ) +
+            self.class.content_tag( 'label', h_val, :for => id ),
+            :class => 'lineitem' + (line_item+=1).to_s() ) +"\n"
+        if line_item == line_size
+          line_item = 0
+          html += "<br />\n"
+        end
+      }
+      html += "<br />\n"  if line_size == 0 || ( values.size % line_size ) > 0
+      column = object.class.columns_hash[method.to_s]
+      text =
+        ( column ?
+          column.human_name :
+          _(method.to_s.humanize)
+        )
+      label_html = self.class.content_tag 'label', text,
+                                        :class => 'formlabel'
+      control_html = self.class.content_tag 'div', html,
+                                        :class => 'formfield type-radio '+
+                                        'fieldgroup linesize'+line_size.to_s()
+
+      self.class.content_tag 'div', label_html + control_html,
+                                          :class => 'formfieldline'
+    end
+    
   end
 
   def category_color
@@ -568,7 +609,10 @@ module ApplicationHelper
 #  end
 
   def file_field_or_thumbnail(label, image, i)
-    display_form_field( label, (render :partial => (image && image.valid? ? 'shared/show_thumbnail' : 'shared/change_image'), :locals => { :i => i, :image => image }) )
+    display_form_field label, (
+      render :partial => (image && image.valid? ? 'shared/show_thumbnail' : 'shared/change_image'),
+      :locals => { :i => i, :image => image }
+      )
   end
 
 end

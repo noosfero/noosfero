@@ -2,10 +2,10 @@
 
   <br/>
 
-  <%= link_to_function(_('Change image'), nil, :id => 'change-image-link') do |page|
+  <%= link_to_function(_('Change image'), nil, :id => 'change-image-link', :class => 'button icon-open with-text') do |page|
     page['change-image'].replace_html :partial => 'shared/change_image', :locals => { :i => i, :image => image }
     page['change-image-link'].hide
     page['cancel-change-image-link'].show
   end %>
 
-  <div id='change-image'> </div>
+  <div id='change-image'> </div> <br/>

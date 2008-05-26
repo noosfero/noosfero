@@ -43,3 +43,31 @@
   text-align: center;
 }
 
+.fieldgroup span {
+  display: block;
+  float: left;
+}
+.fieldgroup br {
+  clear: left;
+}
+
+.linesize0 span { padding-right: 15px }
+.linesize1 span { width: 99% }
+.linesize2 span { width: 49% }
+.linesize3 span { width: 33% }
+
+.type-img input {
+  float: left;
+  margin-right: 10px;
+}
+.type-img br {
+  clear: left;
+}
+
+#profile_change_picture label {
+  display: none;
+}
+#profile_change_picture img {
+  margin-left: 10px;
+}
+
