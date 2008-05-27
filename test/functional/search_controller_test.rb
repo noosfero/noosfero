@@ -393,8 +393,8 @@ class SearchControllerTest < Test::Unit::TestCase
     Category.create!(:name => 'sub', :environment => Environment.default, :parent => parent)
 
     get :popup, :category_path => [ 'cat', 'sub']
-    assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'search_whole_site', :value => 'yes' }
-    assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'search_whole_site', :value => 'no', :checked => 'checked' }
+    assert_tag :tag => 'input', :attributes => { :type => 'submit', :name => 'search_whole_site_yes' }
+    assert_tag :tag => 'input', :attributes => { :type => 'submit', :name => 'search_whole_site_no' }
   end
 
   should 'search in whole site when told so' do
@@ -534,9 +534,9 @@ class SearchControllerTest < Test::Unit::TestCase
     }
   end
 
-  should 'offer link to do the same search as before in general context' do
+  should 'offer button search in the whole site' do
     get :index, :category_path => [ 'my-category' ], :query => 'a sample search'
-    assert_tag :tag => 'a', :attributes => { :href => "/search?query=a+sample+search" }, :content => 'Search for "a sample search" in the whole site'
+    assert_tag :tag => 'input', :attributes => { :type => 'submit', :name => 'search_whole_site_yes' }
   end
 
   should 'display only category name in "search results for ..." title' do
@@ -562,6 +562,7 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_includes assigns(:results)[:people], p
   end
 
+  # FIXME how do test link_to_remote?
   should 'keep asset selection for new searches' do
     get :index, :query => 'a sample query', :find_in => [ 'people', 'communities' ]
     assert_tag :tag => 'input', :attributes =>  { :name => 'find_in[]', :value => 'people', :checked => 'checked' }

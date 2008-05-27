@@ -29,8 +29,8 @@ class SearchController < ApplicationController
   end
 
   def check_search_whole_site
-    if params[:search_whole_site] == 'yes'
-      redirect_to params.merge(:category_path => [], :search_whole_site => nil)
+    if params[:search_whole_site_yes] or params[:search_whole_site] == 'yes'
+      redirect_to params.merge(:category_path => [], :search_whole_site => nil, :search_whole_site_yes => nil)
     end
   end
 

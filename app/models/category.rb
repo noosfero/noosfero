@@ -54,6 +54,7 @@ class Category < ActiveRecord::Base
   def display_in_menu?
     # FIXME don't hardcode like this. Should be a setting of the environment, maybe
     total_items >= 10
+    true
   end
 
 end

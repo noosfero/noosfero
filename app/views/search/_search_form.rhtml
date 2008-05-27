@@ -7,20 +7,13 @@
       <%= text_field_tag 'query', @query, :id => ( lightbox? ? 'popup-search-input' : '' ), :size => 50 %>
       <%= javascript_tag '$("popup-search-input").focus()' if lightbox? %>
     </span>
-    <%= submit_button(:search, _('Search')) %>
+    <%= submit_button(:search, _('Search'), :name => :search_whole_site_no) %>
+    <% if @category %>
+      <%= submit_button(:search, _('Search in whole site'), :name => :search_whole_site_yes) %>
+    <% end %>
   </div>
 
-  <% if @category %>
-  <div class="search-options search-in">
-    <h4><%= _('Search in:') %></h4>
-    <div>
-      <%= labelled_radio_button _('Only in %s') % @category.name, :search_whole_site, 'no', true %>
-      <%= labelled_radio_button _('Whole site'), :search_whole_site, 'yes' %>
-    </div>
-  </div><!-- fim class="search-options" -->
-  <% end %>
-
-  <div class="search-options search-for">
+  <div class="search-options search-for" id='advanced-search-options' style="display: <%= simple_search ? 'none' : 'block' %>">
     <h4><%= _('Search for:') %></h4>
     <ul>
       <% @search_in.map { |t,n| [t,gettext(n)] } .
@@ -32,6 +25,13 @@
     </ul>
     <br style="clear:both" />
   </div><!-- fim class="search-options" -->
+
+  <% if simple_search %>
+    <%= link_to_function(_('Advanced search'), nil, :id => 'advanced_search_link') do |page|
+      page['advanced_search_link'].hide
+      page['advanced-search-options'].toggle
+    end %>
+  <% end %>
 
   <% if lightbox?; button_bar do %>
   <%= lightbox_close_button _('Close') %>

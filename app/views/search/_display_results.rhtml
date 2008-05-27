@@ -1,15 +1,8 @@
 <div id="search-results" class="<%= 'only-one-result-box' if @results.size == 1 %>">
 
-<% if @category && !@query.blank? %>
-<div id="search-whole-site">
-<%= link_to _('Search for "%s" in the whole site') % @query,
-           :controller => 'search', :action => 'index', :category_path => [], :query => @query %>
-</div>
-<% end %>
-
 <%
-  pos2 = :odd  # allow to format in a two colons layout
-  pos3 = 3     # allow to format in a thre colons layout
+  pos2 = :odd  # allow to format in a two columns layout
+  pos3 = 3     # allow to format in a thre columns layout
 %>
 <% @results.each do |name,results| %>
   <%
