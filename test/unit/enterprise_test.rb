@@ -76,4 +76,24 @@ class EnterpriseTest < Test::Unit::TestCase
     assert_equal 5,  e.blocks.size
   end
 
+  should 'allow to add new members' do
+    o = Enterprise.create!(:name => 'my test profile', :identifier => 'mytestprofile')
+    p = create_user('mytestuser').person
+
+    o.add_member(p)
+
+    assert o.members.include?(p), "Enterprise should add the new member"
+  end
+  
+  should 'allow to remove members' do
+    c = Enterprise.create!(:name => 'my other test profile', :identifier => 'myothertestprofile')
+    p = create_user('myothertestuser').person
+
+    c.add_member(p)
+    assert_includes c.members, p
+    c.remove_member(p)
+    c.reload
+    assert_not_includes c.members, p
+  end
+
 end

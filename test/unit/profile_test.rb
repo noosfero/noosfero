@@ -320,19 +320,18 @@ class ProfileTest < Test::Unit::TestCase
   end
 
   should 'create a homepage and a feed on creation' do
-    profile = Profile.create!(:name => 'my test profile', :identifier => 'mytestprofile')
+    profile = Organization.create!(:name => 'my test profile', :identifier => 'mytestprofile')
 
     assert_kind_of Article, profile.home_page
     assert_kind_of RssFeed, profile.articles.find_by_path('feed')
   end
 
-  should 'allow to add new members' do
+  should 'raises when add members' do
     c = Profile.create!(:name => 'my test profile', :identifier => 'mytestprofile')
     p = create_user('mytestuser').person
-
-    c.add_member(p)
-
-    assert c.members.include?(p), "Profile should add the new member"
+    assert_raise RuntimeError do
+      c.add_member(p)
+    end
   end
 
   should 'allow to add administrators' do
@@ -450,17 +449,6 @@ class ProfileTest < Test::Unit::TestCase
     e.lat, e.lng = 45, 45 ; e.save!
 
     assert_includes Enterprise.find(:all, :within => 2, :origin => [45, 45]), e    
-  end
-
-  should 'allow to remove members' do
-    c = Profile.create!(:name => 'my other test profile', :identifier => 'myothertestprofile')
-    p = create_user('myothertestuser').person
-
-    c.add_member(p)
-    assert_includes c.members, p
-    c.remove_member(p)
-    c.reload
-    assert_not_includes c.members, p
   end
 
   should 'have a public profile by default' do

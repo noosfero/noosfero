@@ -255,12 +255,12 @@ class Profile < ActiveRecord::Base
   end
 
   # Adds a person as member of this Profile.
-  #
-  # TODO if the subscription to the profile (closed Community, Enterprise etc)
-  # is not open, instead of affiliating directly this method should create a
-  # suitable task and assign it to the profile.
   def add_member(person)
-    self.affiliate(person, Profile::Roles.member)
+    if self.has_members?
+      self.affiliate(person, Profile::Roles.member)
+    else
+      raise _("%s can't has members") % self.class.name
+    end
   end
   
   def remove_member(person)

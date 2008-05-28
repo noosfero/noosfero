@@ -44,4 +44,24 @@ class CommunityTest < Test::Unit::TestCase
     assert_respond_to community, :contact_person
   end
 
+  should 'allow to add new members' do
+    c = Community.create!(:name => 'my test profile', :identifier => 'mytestprofile')
+    p = create_user('mytestuser').person
+
+    c.add_member(p)
+
+    assert c.members.include?(p), "Community should add the new member"
+  end
+
+  should 'allow to remove members' do
+    c = Community.create!(:name => 'my other test profile', :identifier => 'myothertestprofile')
+    p = create_user('myothertestuser').person
+
+    c.add_member(p)
+    assert_includes c.members, p
+    c.remove_member(p)
+    c.reload
+    assert_not_includes c.members, p
+  end
+
 end

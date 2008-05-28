@@ -161,5 +161,25 @@ class OrganizationTest < Test::Unit::TestCase
     assert_respond_to org, :closed
     assert_respond_to org, :closed?
   end
+
+  should 'allow to add new members' do
+    o = Organization.create!(:name => 'my test profile', :identifier => 'mytestprofile')
+    p = create_user('mytestuser').person
+
+    o.add_member(p)
+
+    assert o.members.include?(p), "Organization should add the new member"
+  end
   
+  should 'allow to remove members' do
+    c = Organization.create!(:name => 'my other test profile', :identifier => 'myothertestprofile')
+    p = create_user('myothertestuser').person
+
+    c.add_member(p)
+    assert_includes c.members, p
+    c.remove_member(p)
+    c.reload
+    assert_not_includes c.members, p
+  end
+
 end
