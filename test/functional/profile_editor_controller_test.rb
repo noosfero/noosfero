@@ -277,4 +277,11 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     post :edit, :profile => 'test_profile', :profile_data => { :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png') } }
     assert_not_nil assigns(:profile).image
   end
+
+  should 'show field to set closed organization' do
+    org = Organization.create!(:name => 'test org', :identifier => 'testorg', :contact_person => 'my contact')
+    get :edit, :profile => 'testorg'
+    assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'profile_data[closed]' }
+  end
+
 end
