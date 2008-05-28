@@ -61,4 +61,9 @@ class AddMemberTest < ActiveSupport::TestCase
     assert_equal 'testuser1 wants to be a member', task.description
   end
 
+  should 'has community alias to target' do
+    t = AddMember.new
+    assert_same t.target, t.community
+  end
+
 end

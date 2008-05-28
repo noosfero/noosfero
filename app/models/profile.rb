@@ -257,7 +257,11 @@ class Profile < ActiveRecord::Base
   # Adds a person as member of this Profile.
   def add_member(person)
     if self.has_members?
-      self.affiliate(person, Profile::Roles.member)
+      if self.closed?
+        AddMember.create!(:person => person, :organization => self)
+      else
+        self.affiliate(person, Profile::Roles.member)
+      end
     else
       raise _("%s can't has members") % self.class.name
     end

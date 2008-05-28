@@ -7,9 +7,13 @@ class AddMember < Task
 
   alias :community :target
   alias :community= :target=
+  alias :organization :target
+  alias :organization= :target=
+  alias :enterprise :target
+  alias :enterprise= :target=
 
   def perform
-    target.add_member(requestor)
+    target.affiliate(requestor, Profile::Roles.member)
   end
 
   # FIXME should send email to community admin?
