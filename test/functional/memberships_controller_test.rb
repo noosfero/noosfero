@@ -142,4 +142,13 @@ class MembershipsControllerTest < Test::Unit::TestCase
     assert_not_includes profile.memberships, community
   end
 
+  should 'create task when join to closed organization' do
+    community = Community.create!(:name => 'my test community', :closed => true)
+    assert_difference AddMember, :count do
+      post :join, :profile => profile.identifier, :id => community.id, :confirmation => '1'
+    end
+  end
+
+  should 'show task to organization administrador'
+
 end

@@ -1,6 +1,11 @@
 # Represents any organization of the system
 class Organization < Profile
 
+  settings_items :closed, :type => :boolean, :default => false
+  def closed?
+    closed
+  end
+
   belongs_to :region
 
   has_one :validation_info

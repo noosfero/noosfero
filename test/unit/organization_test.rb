@@ -156,4 +156,10 @@ class OrganizationTest < Test::Unit::TestCase
     assert(summary.any? { |line| line[1] == 'my contact email' })
   end
 
+  should 'has closed' do
+    org = Organization.new
+    assert_respond_to org, :closed
+    assert_respond_to org, :closed?
+  end
+  
 end
