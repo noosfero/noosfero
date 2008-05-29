@@ -76,6 +76,33 @@ class EnterpriseTest < Test::Unit::TestCase
     assert_equal 5,  e.blocks.size
   end
 
+  should 'be found in search for its product categories' do
+    ent1 = Enterprise.create!(:name => 'test1', :identifier => 'test1')
+    prod_cat = ProductCategory.create!(:name => 'pctest', :environment => Environment.default)
+    prod = ent1.products.create!(:name => 'teste', :product_category => prod_cat)
+
+    ent2 = Enterprise.create!(:name => 'test2', :identifier => 'test2')
+
+    result = Enterprise.find_by_contents(prod_cat.name)
+
+    assert_includes result, ent1
+    assert_not_includes result, ent2
+  end
+
+   should 'be found in search for its product categories hierarchy' do
+    ent1 = Enterprise.create!(:name => 'test1', :identifier => 'test1')
+    prod_cat = ProductCategory.create!(:name => 'pctest', :environment => Environment.default)
+    prod_child = ProductCategory.create!(:name => 'pchild', :environment => Environment.default, :parent => prod_cat)
+    prod = ent1.products.create!(:name => 'teste', :product_category => prod_child)
+
+    ent2 = Enterprise.create!(:name => 'test2', :identifier => 'test2')
+
+    result = Enterprise.find_by_contents(prod_cat.name)
+
+    assert_includes result, ent1
+    assert_not_includes result, ent2
+  end
+
   should 'allow to add new members' do
     o = Enterprise.create!(:name => 'my test profile', :identifier => 'mytestprofile')
     p = create_user('mytestuser').person

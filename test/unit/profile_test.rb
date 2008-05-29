@@ -69,7 +69,7 @@ class ProfileTest < Test::Unit::TestCase
       p.identifier = 'other_profile'
     end
   end
- 
+
   should 'provide access to home page' do
     profile = Profile.create!(:identifier => 'newprofile', :name => 'New Profile')
     assert_kind_of Article, profile.home_page
@@ -87,7 +87,7 @@ class ProfileTest < Test::Unit::TestCase
   def test_can_have_affiliated_people
     pr = Profile.create(:name => 'composite_profile', :identifier => 'composite')
     pe = User.create(:login => 'aff', :email => 'aff@pr.coop', :password => 'blih', :password_confirmation => 'blih').person
-    
+
     member_role = Role.new(:name => 'new_member_role')
     assert member_role.save
     assert pr.affiliate(pe, member_role)
@@ -164,7 +164,7 @@ class ProfileTest < Test::Unit::TestCase
     assert_raise ActiveRecord::AssociationTypeMismatch do
       profile.articles << 1
     end
-    
+
     assert_nothing_raised do
       profile.articles << Article.new(:name => 'testing article')
     end
@@ -206,7 +206,7 @@ class ProfileTest < Test::Unit::TestCase
 
     assert Profile.find_by_contents('small').include?(small)
     assert Profile.find_by_contents('big').include?(big)
-    
+
     both = Profile.find_by_contents('profile testing')
     assert both.include?(small)
     assert both.include?(big)
@@ -229,7 +229,7 @@ class ProfileTest < Test::Unit::TestCase
 
     profile_boxes = profile.boxes.size
     profile_blocks = profile.blocks.size
-    
+
     assert profile_boxes > 0, 'profile should have some boxes'
     assert profile_blocks > 0, 'profile should have some blocks'
 
@@ -486,6 +486,37 @@ class ProfileTest < Test::Unit::TestCase
     c.add_member(p)
 
     assert c.display_info_to?(p)
+  end
+
+  should 'be able to add extra data for index' do
+    klass = Class.new(Profile)
+    klass.any_instance.expects(:random_method)
+    klass.extra_data_for_index :random_method
+
+    klass.new.extra_data_for_index
+  end
+
+  should 'be able to add a block as extra data for index' do
+    klass = Class.new(Profile)
+    result = mock
+    klass.extra_data_for_index do |obj|
+      result
+    end
+
+    assert_includes klass.new.extra_data_for_index, result
+  end
+
+  should 'actually index by results of extra_data_for_index' do
+
+    class ::TestingExtraDataForIndex < Profile
+      extra_data_for_index do |obj|
+        'sample indexed text'
+      end
+    end
+
+    profile = TestingExtraDataForIndex.create!(:name => 'testprofile', :identifier => 'testprofile')
+
+    assert_includes TestingExtraDataForIndex.find_by_contents('sample'), profile
   end
 
   private

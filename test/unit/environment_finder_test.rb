@@ -131,4 +131,24 @@ class EnvironmentFinderTest < ActiveSupport::TestCase
     assert_not_includes found, ent2
   end
 
+  should 'find person and enterprise by radius and region' do
+    finder = EnvironmentFinder.new(Environment.default)
+    
+    region = Region.create!(:name => 'r-test', :environment => Environment.default, :lat => 45.0, :lng => 45.0)
+    ent1 = Enterprise.create!(:name => 'test 1', :identifier => 'test1', :lat => 45.0, :lng => 45.0)
+    p1 = create_user('test2').person
+    p1.name = 'test 2'; p1.lat = 45.0; p1.lng = 45.0; p1.save!
+    ent2 = Enterprise.create!(:name => 'test 3', :identifier => 'test3', :lat => 30.0, :lng => 30.0)
+    p2 = create_user('test4').person
+    p2.name = 'test 4'; p2.lat = 30.0; p2.lng = 30.0; p2.save!
+
+    ents = finder.find(:enterprises, 'test', :within => 10, :region => region.id)
+    people = finder.find(:people, 'test', :within => 10, :region => region.id)
+
+    assert_includes ents, ent1
+    assert_not_includes ents, ent2
+    assert_includes people, p1
+    assert_not_includes people, p2
+  end
+
 end

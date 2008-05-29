@@ -7,8 +7,8 @@ class CategoryFinder
 
   attr_reader :category_ids
 
-  def find(asset, query)
-    find_in_categorized(asset.to_s.singularize.camelize.constantize, query)
+  def find(asset, query, options={})
+    find_in_categorized(asset.to_s.singularize.camelize.constantize, query, options)
   end
 
   def recent(asset, limit = 10)
@@ -30,6 +30,13 @@ class CategoryFinder
   protected
 
   def find_in_categorized(klass, query, options={})
+    @region = Region.find_by_id(options.delete(:region)) if options.has_key?(:region)
+    if @region && options[:within]
+      options[:origin] = [@region.lat, @region.lng]
+    else
+      options.delete(:within)
+    end
+
     if query.nil?
       klass.find(:all, options_for_find(klass, options))
     else

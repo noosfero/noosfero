@@ -31,7 +31,19 @@ class Profile < ActiveRecord::Base
 
   acts_as_having_boxes
 
-  acts_as_searchable :fields => [ :name, :identifier ]
+  acts_as_searchable :fields => [ :name, :identifier, :extra_data_for_index ]
+
+  class_inheritable_accessor :extra_index_methods
+  self.extra_index_methods = []
+
+  def extra_data_for_index
+    self.class.extra_index_methods.map { |meth| meth.to_proc.call(self) }
+  end
+
+  def self.extra_data_for_index(sym = nil, &block)
+    self.extra_index_methods.push(sym) if sym
+    self.extra_index_methods.push(block) if block_given?
+  end
 
   acts_as_having_settings :field => :data
 

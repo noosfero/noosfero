@@ -397,6 +397,13 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'input', :attributes => { :type => 'submit', :name => 'search_whole_site_no' }
   end
 
+  should 'display option to search within a given point and distance' do
+    get :popup
+
+    assert_tag :tag => 'input', :attributes => {:type => 'text', :name => 'radius'}
+    assert_tag :tag => 'input', :attributes => {:type => 'text', :name => 'region[name]'}
+  end
+
   should 'search in whole site when told so' do
     parent = Category.create!(:name => 'randomcat', :environment => Environment.default)
     Category.create!(:name => 'randomchild', :environment => Environment.default, :parent => parent)
@@ -547,7 +554,7 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'h1', :content => /Search results for &quot;a sample search&quot; in &quot;Child Category&quot;/
   end
 
-  should 'search in categoty hierachy' do
+  should 'search in category hierachy' do
     parent = Category.create!(:name => 'Parent Category', :environment => Environment.default)
     child  = Category.create!(:name => 'Child Category', :environment => Environment.default, :parent => parent)
 
@@ -760,78 +767,34 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_not_includes assigns(:results)[:comments], comment4
   end
 
-  should 'list all sellers' do
-    ent1 = Enterprise.create!(:name => 'test1', :identifier => 'test1')
-    ent2 = Enterprise.create!(:name => 'test2', :identifier => 'test2')
-
-    get :sellers
-
-    assert_includes assigns('enterprises'), ent1
-    assert_includes assigns('enterprises'), ent2
-  end
-
   should 'find enterprise by product category' do
     ent1 = Enterprise.create!(:name => 'test1', :identifier => 'test1')
-    prod_cat = ProductCategory.create!(:name => 'pc-test', :environment => Environment.default)
+    prod_cat = ProductCategory.create!(:name => 'pctest', :environment => Environment.default)
     prod = ent1.products.create!(:name => 'teste', :product_category => prod_cat)
 
     ent2 = Enterprise.create!(:name => 'test2', :identifier => 'test2')
 
-    get :sellers, :category => prod_cat.id
+    get :index, :query => prod_cat.name
 
-    assert_includes assigns('enterprises'), ent1
-    assert_not_includes assigns('enterprises'), ent2
+    assert_includes assigns('results')[:enterprises], ent1
+    assert_not_includes assigns('results')[:enterprises], ent2
   end
 
-  should 'find enterprise by origin and radius' do
-    ent1 = Enterprise.create!(:name => 'test1', :identifier => 'test1', :lat => 45.0, :lng => 45.0)
-    ent2 = Enterprise.create!(:name => 'test2', :identifier => 'test2', :lat => 30.0, :lng => 30.0)
-
-    get :sellers, :lat => 45.0, :long => 45.0, :radius => 10
-
-    assert_includes assigns('enterprises'), ent1
-    assert_not_includes assigns('enterprises'), ent2
-  end
-
-  should 'find enterprise by an region with georeference' do
+  should 'find profiles by radius and region' do
     region = Region.create!(:name => 'r-test', :environment => Environment.default, :lat => 45.0, :lng => 45.0)
-    ent1 = Enterprise.create!(:name => 'test1', :identifier => 'test1', :lat => 45.0, :lng => 45.0)
-    ent2 = Enterprise.create!(:name => 'test2', :identifier => 'test2', :lat => 30.0, :lng => 30.0)
+    ent1 = Enterprise.create!(:name => 'test 1', :identifier => 'test1', :lat => 45.0, :lng => 45.0)
+    p1 = create_user('test2').person
+    p1.name = 'test 2'; p1.lat = 45.0; p1.lng = 45.0; p1.save!
+    ent2 = Enterprise.create!(:name => 'test 3', :identifier => 'test3', :lat => 30.0, :lng => 30.0)
+    p2 = create_user('test4').person
+    p2.name = 'test 4'; p2.lat = 30.0; p2.lng = 30.0; p2.save!
 
-    get :sellers, :region => region.id, :radius => 10
+    get :index, :region => { :name => region.name }, :radius => 10, :query => 'test'
 
-    assert_includes assigns('enterprises'), ent1
-    assert_not_includes assigns('enterprises'), ent2
-  end
-
-  should 'find enterprise by region and product category' do
-    region = Region.create!(:name => 'r-test', :environment => Environment.default, :lat => 45.0, :lng => 45.0)
-    ent1 = Enterprise.create!(:name => 'test1', :identifier => 'test1', :lat => 45.0, :lng => 45.0)
-    prod_cat = ProductCategory.create!(:name => 'pc-test', :environment => Environment.default)
-    prod = ent1.products.create!(:name => 'teste', :product_category => prod_cat)
-
-    ent2 = Enterprise.create!(:name => 'test2', :identifier => 'test2', :lat => 30.0, :lng => 30.0)
-
-    get :sellers, :region => region.id, :radius => 10, :category => prod_cat.id
- 
-    assert_includes assigns('enterprises'), ent1
-    assert_not_includes assigns('enterprises'), ent2
-  end
-
-  should 'find enterprise by region and product category in brazilian portuguese' do
-    region = Region.create!(:name => 'r-test', :environment => Environment.default, :lat => 45.0, :lng => 45.0)
-    ent1 = Enterprise.create!(:name => 'test1', :identifier => 'test1', :lat => 45.0, :lng => 45.0)
-    prod_cat = ProductCategory.create!(:name => 'pc-test', :environment => Environment.default)
-    prod = ent1.products.create!(:name => 'teste', :product_category => prod_cat)
-
-    ent2 = Enterprise.create!(:name => 'test2', :identifier => 'test2', :lat => 30.0, :lng => 30.0)
-
-    assert_nothing_raised do
-      get :sellers, :region => region.id, :radius => 10, :category => prod_cat.id, :lang => 'pt_BR'
-    end
- 
-    assert_includes assigns('enterprises'), ent1
-    assert_not_includes assigns('enterprises'), ent2
+    assert_includes assigns('results')[:enterprises], ent1
+    assert_not_includes assigns('results')[:enterprises], ent2
+    assert_includes assigns('results')[:people], p1
+    assert_not_includes assigns('results')[:people], p2
   end
 
   should 'not show term "Category:" before product category' do
@@ -850,6 +813,31 @@ class SearchControllerTest < Test::Unit::TestCase
     )
     get :category_index, :category_path => [ 'category1', 'category2' ], :query => 'teste'
     assert_tag :tag => 'img', :attributes => { :src => /rails_thumb\.png/ }
+  end
+
+  should 'complete region name' do
+    r1 = Region.create!(:name => 'One region', :environment => Environment.default, :lat => 111.07, :lng => '88.9')
+    r2 = Region.create!(:name => 'Another region', :environment => Environment.default, :lat => 111.07, :lng => '88.9')
+
+    get :complete_region, :region => { :name => 'one' }
+    assert_includes assigns(:regions), r1
+    assert_tag :tag => 'ul', :descendant => { :tag => 'li', :content => 'One region' }
+  end
+
+  should 'render completion results without layout' do
+    get :complete_region, :region => { :name => 'test' }
+    assert_no_tag :tag => 'body'
+  end
+
+  should 'complete only georeferenced regions' do
+    r1 = Region.create!(:name => 'One region', :environment => Environment.default, :lat => 111.07, :lng => '88.9')
+    r2 = Region.create!(:name => 'Another region', :environment => Environment.default)
+
+    get :complete_region, :region => { :name => 'region' }
+    assert_includes assigns(:regions), r1
+    assert_tag :tag => 'ul', :descendant => { :tag => 'li', :content => r1.name }
+    assert_not_includes assigns(:regions), r2
+    assert_no_tag :tag => 'ul', :descendant => { :tag => 'li', :content => r2.name }
   end
 
 end

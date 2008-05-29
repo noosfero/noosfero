@@ -60,14 +60,24 @@ class SearchController < ApplicationController
   # TODO don't hardcode like this >:-(
   LIST_LIMIT = 20
 
+  def complete_region
+    @regions = Region.find(:all, :conditions => [ 'name like ? and lat is not null and lng is not null', '%' + params[:region][:name] + '%' ])
+    render :action => 'complete_region', :layout => false
+  end
+
   def index
     @query = params[:query] || ''
     @filtered_query = remove_stop_words(@query)
+    @region = Region.find_by_name(params[:region][:name]) if params[:region]
 
     @results = {}
     @names = {}
     SEARCH_IN.each do |key, description|
-      @results[key] = @finder.find(key, @filtered_query) if @searching[key]
+      if [:enterprises, :people].include?(key) && @region
+        @results[key] = @finder.find(key, @filtered_query, :within => params[:radius], :region => @region.id) if @searching[key]
+      else
+        @results[key] = @finder.find(key, @filtered_query) if @searching[key]
+      end
       @names[key] = gettext(description)
     end
   end
@@ -122,16 +132,20 @@ class SearchController < ApplicationController
   end
 
   def sellers
+    # FIXME use a better select for category
     @categories = ProductCategory.find(:all)
     @regions = Region.find(:all).select{|r|r.lat && r.lng}
     @product_category = ProductCategory.find(params[:category]) if params[:category]
     @region = Region.find(params[:region]) if params[:region]
+    
     options = {}
-    options.merge! :include => :products, :conditions => ['products.product_category_id = ?', @product_category.id] if @product_category
-
     options.merge! :origin => [params[:lat].to_f, params[:long].to_f], :within => params[:radius] if !params[:lat].blank? && !params[:long].blank? && !params[:radius].blank?
-
     options.merge! :origin => [@region.lat, @region.lng], :within => params[:radius] if !params[:region].blank? && !params[:radius].blank?
+    if @product_category
+      finder = CategoryFinder.new(@product_category)
+      product_ids = finder.find('products',nil)
+      options.merge! :include => :products, :conditions => ['products.id IN ?', product_ids ]
+    end
 
     @enterprises = Enterprise.find(:all, options)
   end
@@ -139,6 +153,7 @@ class SearchController < ApplicationController
   #######################################################
 
   def popup
+    @regions = Region.find(:all).select{|r|r.lat && r.lng}
     render :action => 'popup', :layout => false
   end
 

@@ -1,0 +1,9 @@
+<% form_tag({:controller => 'search', :action => 'index'}, {:method => 'get'}) do %>
+  <%= _('Category: ') %> <%= select_tag 'query', options_from_collection_for_select(@categories, :name, :name, @product_category), :width => 15 %><br/>
+  <%= _('Distance: ') %> <%= text_field_tag 'radius' %><br/>
+  <%= _('From: ') %> <%= text_field :region, :name, :id => 'search_region_block' %>
+  <div id='search_region_block_auto_complete' class='auto-complete'></div>
+  <%= auto_complete_field('search_region_block', :url => {:controller => 'search', :action => 'complete_region'}) %>
+  <br/>
+  <%= submit_tag _('Search') %>
+<% end %>

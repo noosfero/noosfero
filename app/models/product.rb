@@ -8,6 +8,14 @@ class Product < ActiveRecord::Base
 
   after_update :save_image
 
+  after_create do |p|
+    p.enterprise.save if p.enterprise
+  end
+
+  after_update do |p|
+    p.enterprise.save if p.enterprise
+  end
+
   acts_as_searchable :fields => [ :name, :description, :category_full_name ]
 
   xss_terminate :only => [ :name, :description ]

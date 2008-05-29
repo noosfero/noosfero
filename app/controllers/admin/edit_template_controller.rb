@@ -9,6 +9,7 @@ class EditTemplateController < AdminController
     %w[
        FavoriteLinks
        ListBlock
+       SellersSearchBlock
      ]
   end
 
