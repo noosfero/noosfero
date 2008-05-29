@@ -73,4 +73,22 @@ class RoleTest < Test::Unit::TestCase
     assert_equal [], role.permissions
   end
 
+  def test_should_not_allow_changing_key_of_system_roles
+    role = Role.create!(:name => 'a test role', :system => true, :key => 'some_unprobable_key')
+
+    assert_raise(ArgumentError) do
+      role.key = 'another_key'
+    end
+    assert_equal 'some_unprobable_key', role.key
+  end
+
+  def test_should_allow_changing_key_of_non_system_role
+    role = Role.create!(:name => 'a test role', :system => false, :key => 'some_unprobable_key')
+
+    assert_nothing_raised do
+      role.key = 'another_key'
+    end
+    assert_equal 'another_key', role.key
+  end
+
 end
