@@ -1,3 +1,5 @@
+<% simple_search = false unless defined? simple_search %>
+
 <% form_tag( { :action => 'index', :category_path => ( @category ? @category.explode_path : [] ) },
                :method => 'get', :class => 'search_form' ) do %>
   <%= '<h3>%s</h3>' % form_title if defined? form_title %>
@@ -13,18 +15,31 @@
     <% end %>
   </div>
 
-  <div class="search-options search-for" id='advanced-search-options' style="display: <%= simple_search ? 'none' : 'block' %>">
-    <h4><%= _('Search for:') %></h4>
-    <ul>
-      <% @search_in.map { |t,n| [t,gettext(n)] } .
-                    sort_by(&:last).each do |thing, name| %>
-        <li>
-        <%= labelled_check_box name, 'find_in[]', thing.to_s, @searching[thing.to_sym] %>
-        </li>
-      <% end %>
-    </ul>
-    <br style="clear:both" />
-  </div><!-- fim class="search-options" -->
+  <div id='advanced-search-options' style="display: <%= simple_search ? 'none' : 'block' %>">  
+    <div class="search-options search-within">
+      <h4><%= _('Search within:') %></h4>
+      <br style='clear:left'/>
+      <div>
+        <label for="search-radius"><%= _('Distance: ') %></label><%= text_field_tag 'radius', '',:id => 'search-radius' %>
+        <label for="search_region"><%= _('From: ') %></label><%= text_field :region, :name, :id => 'search_region' %>
+        <div id='search_region_auto_complete' class='auto-complete'></div>
+        <%= auto_complete_field('search_region', :url => {:action => 'complete_region'}) %>
+      </div>
+    </div><!-- fim class="search-options" -->
+
+    <div class="search-options search-for">
+      <h4><%= _('Search for:') %></h4>
+      <ul>
+        <% @search_in.map { |t,n| [t,gettext(n)] } .
+          sort_by(&:last).each do |thing, name| %>
+            <li>
+            <%= labelled_check_box name, 'find_in[]', thing.to_s, @searching[thing.to_sym] %>
+            </li>
+          <% end %>
+        </ul>
+        <br style="clear:both" />
+      </div><!-- fim class="search-options" -->
+    </div><!-- end id="advanced-search-options" -->
 
   <% if simple_search %>
     <%= link_to_function(_('Advanced search'), nil, :id => 'advanced_search_link') do |page|
