@@ -17,18 +17,22 @@
     <%= _('This profile is:') %>
     <div>
       <%= radio_button 'profile_data', 'public_profile', 'true' %>
+      <%= _('Public') %>
     </div>
     <div>
       <%= radio_button 'profile_data', 'public_profile', 'false' %>
+      <%= _('Private') %>
     </div>
   </p>
   <p>
     <%= _("This profile's content is:") %>
     <div>
       <%= radio_button 'profile_data', 'public_content', 'true' %>
+      <%= _('Public') %>
     </div>
     <div>
       <%= radio_button 'profile_data', 'public_content', 'false' %>
+      <%= _('Private') %>
     </div>
   </p>
 
