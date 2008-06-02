@@ -162,6 +162,95 @@ class UserTest < Test::Unit::TestCase
     assert !Person.find_by_identifier('lalala')
   end
 
+  def test_should_encrypt_password_with_salted_sha1
+    user = User.new(:login => 'lalala', :email => 'lalala@example.com', :password => 'test', :password_confirmation => 'test')
+    user.expects(:salt).returns('testsalt')
+    user.save!
+
+    # SHA1+salt crypted form for password 'test', and salt 'testsalt',
+    # calculated by hand at IRB
+    crypted_password = '77606e8e9227f73618eefdfd36f8eb1b8b52ca5f'
+
+    assert_equal crypted_password, user.crypted_password
+  end
+
+  def test_should_support_md5_passwords
+    # ATTENTION this test explicitly exposes the crypted form of 'test'. This
+    # makes 'test' a terrible password. :)
+    user = create_user(:login => 'lalala', :email => 'lalala@example.com', :password => 'test', :password_confirmation => 'test', :password_type => 'md5')
+    assert_equal '098f6bcd4621d373cade4e832627b4f6', user.crypted_password
+  end
+
+  def test_should_support_clear_passwords
+    assert_equal 'test', create_user(:password => 'test', :password_confirmation => 'test', :password_type => 'clear').crypted_password
+  end
+
+  def test_should_only_allow_know_encryption_methods
+    assert_raise User::UnsupportedEncryptionType do
+      User.create(
+        :login => 'lalala',
+        :email => 'lalala@example.com',
+        :password => 'test',
+        :password_confirmation => 'test',
+        :password_type => 'AN_ENCRYPTION_METHOD_NOT_LIKELY_TO_EXIST' # <<<<
+      )
+    end
+  end
+
+  def test_should_use_salted_sha1_by_default
+    assert_equal :salted_sha1, User.system_encryption_method
+  end
+
+  def test_should_be_able_to_set_system_encryption_method
+    # save
+    saved = User.system_encryption_method
+
+    User.system_encryption_method = :some_method
+    assert_equal :some_method, User.system_encryption_method
+
+    # restore
+    User.system_encryption_method = saved
+  end
+
+  def test_new_instances_should_use_system_encryption_method
+    User.expects(:system_encryption_method).returns(:clear)
+    assert_equal 'clear', create_user.password_type
+  end
+
+  def test_should_reencrypt_password_when_using_different_encryption_method_from_the_system_default
+    User.stubs(:system_encryption_method).returns(:salted_sha1)
+
+    # a user was created ...
+    user = create_user(:login => 'lalala', :email => 'lalala@example.com', :password => 'test', :password_confirmation => 'test', :password_type => 'salted_sha1')
+
+    # then the sysadmin decided to change the encryption method
+    User.expects(:system_encryption_method).returns(:md5).at_least_once
+
+    # when the user logs in, her password must be reencrypted with the new
+    # method
+    user.authenticated?('test')
+
+    # and the new password must be saved back to the database
+    user.reload
+    assert_equal '098f6bcd4621d373cade4e832627b4f6', user.crypted_password
+  end
+
+  def test_should_not_update_encryption_if_password_incorrect
+    # a user was created
+    User.stubs(:system_encryption_method).returns(:salted_sha1)
+    user = create_user(:login => 'lalala', :email => 'lalala@example.com', :password => 'test', :password_confirmation => 'test', :password_type => 'salted_sha1')
+    crypted_password = user.crypted_password
+
+    # then the sysadmin deciced to change the encryption method
+    User.expects(:system_encryption_method).returns(:md5).at_least_once
+
+    # but the user provided the wrong password
+    user.authenticated?('WRONG_PASSWORD')
+
+    # and then her password is not updated
+    assert_equal crypted_password, user.crypted_password
+  end
+
   protected
     def create_user(options = {})
       User.create({ :login => 'quire', :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire' }.merge(options))

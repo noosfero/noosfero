@@ -52,18 +52,63 @@ class User < ActiveRecord::Base
     u && u.authenticated?(password) ? u : nil
   end
 
-  # Encrypts some data with the salt.
-  def self.encrypt(password, salt)
+  class UnsupportedEncryptionType < Exception; end
+
+  def self.system_encryption_method
+    @system_encryption_method || :salted_sha1
+  end
+
+  def self.system_encryption_method=(method)
+    @system_encryption_method = method
+  end
+
+  # a Hash containing the available encryption methods. Keys are symbols,
+  # values are Proc objects that contain the actual encryption code.
+  def self.encryption_methods
+    @encryption_methods ||= {}
+  end
+
+  # adds a new encryption method.
+  def self.add_encryption_method(sym, &block)
+    encryption_methods[sym] = block
+  end
+
+  # the encryption method used for this instance 
+  def encryption_method
+    (password_type || User.system_encryption_method).to_sym
+  end
+
+  # Encrypts the password using the chosen method
+  def encrypt(password)
+    method = self.class.encryption_methods[encryption_method]
+    if method
+      method.call(password, salt)
+    else
+      raise UnsupportedEncryptionType, "Unsupported encryption type: #{encryption_method}"
+    end
+  end
+
+  add_encryption_method :salted_sha1 do |password, salt|
     Digest::SHA1.hexdigest("--#{salt}--#{password}--")
   end
 
-  # Encrypts the password with the user salt
-  def encrypt(password)
-    self.class.encrypt(password, salt)
+  add_encryption_method :md5 do |password, salt|
+    Digest::MD5.hexdigest(password)
+  end
+
+  add_encryption_method :clear do |password, salt|
+    password
   end
 
   def authenticated?(password)
-    crypted_password == encrypt(password)
+    result = (crypted_password == encrypt(password))
+    if (encryption_method != User.system_encryption_method) && result
+      self.password_type = User.system_encryption_method.to_s
+      self.password = password
+      self.password_confirmation = password
+      self.save!
+    end
+    result
   end
 
   def remember_token?
@@ -120,6 +165,7 @@ class User < ActiveRecord::Base
     def encrypt_password
       return if password.blank?
       self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{login}--") if new_record?
+      self.password_type ||= User.system_encryption_method.to_s
       self.crypted_password = encrypt(password)
     end
     
