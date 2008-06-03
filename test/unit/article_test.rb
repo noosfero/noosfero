@@ -136,19 +136,16 @@ class ArticleTest < Test::Unit::TestCase
     assert_equal [other_first, fifth, fourth, third, second, first], Article.recent(6)
   end
 
-  should 'provied proper descriptions' do
-    assert_equal "Article", Article.short_description
-    assert_equal "An ordinary article", Article.description
+  should 'require that subclasses define description' do
+    assert_raise NotImplementedError do
+      Article.description
+    end
   end
 
-  should 'provide a usable descriptions to subclasses that don\'t override them' do
-    klass = Class.new(Article)
-    klass.stubs(:name).returns("MyClass")
-    klass.expects(:_).with('"%s" article').returns('"%s" article')
-    klass.expects(:_).with('An article of type "%s"').returns('An article of type "%s"')
-
-    assert_equal '"MyClass" article', klass.short_description
-    assert_equal 'An article of type "MyClass"', klass.description
+  should 'require that subclasses define short description' do
+    assert_raise NotImplementedError do
+      Article.short_description
+    end
   end
 
   should 'indicate wheter children articles are allowed or not' do
@@ -288,5 +285,6 @@ class ArticleTest < Test::Unit::TestCase
     # ... can view that article
     assert_equal true, a1.display_to?(member)
   end
+
 
 end

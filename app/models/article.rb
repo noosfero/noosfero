@@ -80,28 +80,16 @@ class Article < ActiveRecord::Base
     _('HTML Text document')
   end
 
-  def title
-    name
+  def self.description
+    raise NotImplementedError, "#{self} does not implement #description"
   end
 
   def self.short_description
-    if self == Article
-      _('Article')
-    else
-      _('"%s" article') % self.article_type_name
-    end
+    raise NotImplementedError, "#{self} does not implement #short_description"
   end
 
-  def self.description
-    if self == Article
-      _('An ordinary article')
-    else
-      _('An article of type "%s"') % self.article_type_name
-    end
-  end
-
-  def self.article_type_name
-    self.name.gsub(/article$/i, '')
+  def title
+    name
   end
 
   def url

@@ -7,13 +7,11 @@ class ImageGalleryTest < Test::Unit::TestCase
   end
 
   should 'provide description' do
-    ImageGallery.stubs(:==).with(Article).returns(true)
-    assert_not_equal Article.description, ImageGallery.description
+    assert_kind_of String, ImageGallery.description
   end
 
   should 'provide short description' do
-    ImageGallery.stubs(:==).with(Article).returns(true)
-    assert_not_equal Article.short_description, ImageGallery.short_description
+    assert_kind_of String, ImageGallery.short_description
   end
 
 end

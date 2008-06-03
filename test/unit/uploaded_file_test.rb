@@ -28,13 +28,11 @@ class UploadedFileTest < Test::Unit::TestCase
   end 
 
   should 'provide proper description' do
-    UploadedFile.stubs(:==).with(Article).returns(true)
-    assert_not_equal Article.description, UploadedFile.description
+    assert_kind_of String, UploadedFile.description
   end
 
   should 'provide proper short description' do
-    UploadedFile.stubs(:==).with(Article).returns(true)
-    assert_not_equal Article.short_description, UploadedFile.short_description
+    assert_kind_of String, UploadedFile.short_description
   end
 
   should 'set name from uploaded filename' do

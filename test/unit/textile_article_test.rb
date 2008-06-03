@@ -8,15 +8,11 @@ class TextileArticleTest < Test::Unit::TestCase
   attr_reader :profile
 
   should 'provide a proper short description' do
-    # not test the actual text, though
-    TextileArticle.stubs(:==).with(Article).returns(true)
-    assert_not_equal Article.short_description, TextileArticle.short_description
+    assert_kind_of String, TextileArticle.short_description
   end
 
   should 'provide a proper description' do
-    # not test the actual text, though
-    TextileArticle.stubs(:==).with(Article).returns(true)
-    assert_not_equal Article.description, TextileArticle.description
+    assert_kind_of String, TextileArticle.description
   end
 
   should 'convert Textile to HTML' do

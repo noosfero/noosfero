@@ -7,4 +7,12 @@ class TinyMceArticleTest < Test::Unit::TestCase
     assert_subclass TextArticle, TinyMceArticle
   end
 
+  should 'define description' do
+    assert_kind_of String, TinyMceArticle.description
+  end
+
+  should 'define short description' do
+    assert_kind_of String, TinyMceArticle.short_description
+  end
+
 end
