@@ -4,7 +4,7 @@ module ActiveSupport #:nodoc:
       # Define methods for handling unicode data.
       module Unicode
         def self.included(base)
-          if '1.8.7'.respond_to?(:chars)
+          if RUBY_VERSION == '1.8.7' && '1.8.7'.respond_to?(:chars)
             base.class_eval { remove_method :chars }
           end
         end
