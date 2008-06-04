@@ -247,4 +247,10 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_response 200
   end
 
+  should 'show unpublished articles as unexisting' do
+    profile.articles.create!(:name => 'test', :published => false)
+    get :view_page, :profile => profile.identifier, :page => [ 'test' ]
+    assert_response 404
+  end
+
 end
