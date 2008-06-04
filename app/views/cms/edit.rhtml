@@ -18,10 +18,8 @@
 
   <%= select_categories(:article, _('Categorize your article')) %>
 
-  <%# TODO display the tooltip (title below) in a directly visible way %>
-  <%= f.text_field('tag_list', :size => 64) +
-      content_tag( 'small', _('Separate tags with commas') )
-  %>
+  <%= f.text_field('tag_list', :size => 64) %>
+  <%= content_tag( 'small', _('Separate tags with commas') ) %>
 
   <% button_bar do %>
     <%= submit_button :save, _('Save') %>
