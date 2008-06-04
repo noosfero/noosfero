@@ -104,6 +104,10 @@ class CmsController < MyProfileController
     redirect_to :action => (@article.parent ? 'view' : 'index'), :id => @article.parent
   end
 
+  def why_categorize
+    render :action => params[:action], :layout => false
+  end
+
   protected
 
   def redirect_back

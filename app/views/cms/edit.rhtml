@@ -8,7 +8,15 @@
 
   <%= render :partial => partial_for_class(@article.class), :locals => { :f => f } %>
 
-  <%= select_categories(:article) %>
+  <% button_bar do %>
+    <%= submit_button :save, _('Save') %>
+  <% end %>
+
+  <div style='float: right'>
+    <%= lightbox_button :help, _('Why categorize?'), :action => 'why_categorize' %>
+  </div>
+
+  <%= select_categories(:article, _('Categorize your article')) %>
 
   <%# TODO display the tooltip (title below) in a directly visible way %>
   <%= f.text_field('tag_list', :size => 64) +

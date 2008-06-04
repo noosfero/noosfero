@@ -400,4 +400,20 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/view/#{f.id}" }, :descendant => { :content => /Cancel/ }
   end
 
+  should 'link to page explaining about categorization' do
+    get :edit, :profile => profile.identifier, :id => profile.home_page.id
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/why_categorize" }
+  end
+
+  should 'present popup' do
+    get :why_categorize, :profile => profile.identifier
+    assert_template 'why_categorize'
+    assert_no_tag :tag => 'body'
+  end
+
+  should 'display OK button on why_categorize popup' do
+    get :why_categorize, :profile => profile.identifier
+    assert_tag :tag => 'a', :attributes => { :rel => 'deactivate'} # lightbox close button
+  end
+
 end
