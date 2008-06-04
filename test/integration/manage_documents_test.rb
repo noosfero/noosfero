@@ -29,12 +29,12 @@ class ManageDocumentsTest < ActionController::IntegrationTest
     assert_response :redirect
     follow_redirect!
     a = Article.find_by_path('my-article')
-    assert_equal "/myprofile/myuser/cms/view/#{a.id}", path
+    assert_equal "/myprofile/myuser/cms", path
   end
 
   def test_update_of_an_existing_article
     profile = create_user('myuser').person
-    article = profile.articles.build(:name => 'my-article')
+    article = create_article(profile, :name => 'my-article')
     article.save!
 
     login('myuser', 'myuser')
@@ -45,10 +45,6 @@ class ManageDocumentsTest < ActionController::IntegrationTest
     assert_tag :tag => 'a', :attributes => { :href => '/myprofile/myuser/cms' }
 
     get '/myprofile/myuser/cms'
-    assert_response :success
-    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/myuser/cms/view/#{article.id}"}
-
-    get "/myprofile/myuser/cms/view/#{article.id}"
     assert_response :success
     assert_tag :tag => 'a', :attributes => { :href => "/myprofile/myuser/cms/edit/#{article.id}"}
 
@@ -66,12 +62,12 @@ class ManageDocumentsTest < ActionController::IntegrationTest
     assert_response :redirect
     follow_redirect!
     a = Article.find_by_path('my-article')
-    assert_equal "/myprofile/myuser/cms/view/#{a.id}", path
+    assert_equal "/myprofile/myuser/cms", path
   end
 
   def test_removing_an_article
     profile = create_user('myuser').person
-    article = profile.articles.build(:name => 'my-article')
+    article = create_article(profile, :name => 'my-article')
     article.save!
 
     login('myuser', 'myuser')
@@ -82,10 +78,6 @@ class ManageDocumentsTest < ActionController::IntegrationTest
     
     assert_tag :tag => 'a', :attributes => { :href => '/myprofile/myuser/cms' }
     get '/myprofile/myuser/cms'
-    assert_response :success
-
-    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/myuser/cms/view/#{article.id}"}
-    get "/myprofile/myuser/cms/view/#{article.id}"
     assert_response :success
 
     assert_tag :tag => 'a', :attributes => { :href => "/myprofile/myuser/cms/destroy/#{article.id}", :onclick => /confirm/ }
@@ -99,6 +91,15 @@ class ManageDocumentsTest < ActionController::IntegrationTest
     assert_raise ActiveRecord::RecordNotFound do
       Article.find(article.id)
     end
+  end
+
+  protected
+
+  def create_article(profile, options)
+    a = TinyMceArticle.new(options)
+    a.profile = profile
+    a.save!
+    a
   end
 
 end
