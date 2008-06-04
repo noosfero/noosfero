@@ -26,7 +26,8 @@ class ContentViewerController < PublicController
     end
 
     if !@page.display_to?(user)
-      render :action => 'access_denied', :status => 403
+      # FIXME find a nice "access denied" layout
+      render :action => 'access_denied', :status => 403, :layout => false
     end
 
     if @page.mime_type != 'text/html'
