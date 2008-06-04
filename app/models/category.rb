@@ -52,6 +52,10 @@ class Category < ActiveRecord::Base
   end
 
   def display_in_menu?
+    if ENV['RAILS_ENV'] == 'development'
+      return true
+    end
+
     # FIXME don't hardcode like this. Should be a setting of the environment, maybe
     total_items >= 10
   end
