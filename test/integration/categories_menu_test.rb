@@ -6,6 +6,9 @@ class CategoriesMenuTest < ActionController::IntegrationTest
     Category.delete_all
     @cat1 = Category.create!(:name => 'Food', :environment => Environment.default, :display_color => 1)
     @cat2 = Category.create!(:name => 'Vegetables', :environment => Environment.default, :parent => @cat1)
+
+    # all categories must be shown for these tests 
+    Category.any_instance.stubs(:display_in_menu?).returns(true)
   end
 
   should 'display link to categories' do

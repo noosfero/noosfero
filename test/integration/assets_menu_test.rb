@@ -9,7 +9,7 @@ class AssetsMenuTest < ActionController::IntegrationTest
   
   should 'link to uncategorized assets at site root' do
     get '/'
-    assert_tag :tag => 'a', :attributes => { :href => '/cat/parent-category/category-a' }
+    assert_tag :tag => 'a', :attributes => { :href => '/assets/articles' }
   end
 
   should 'link to assets inside category root' do
