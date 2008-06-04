@@ -67,4 +67,21 @@ class ProductTest < Test::Unit::TestCase
     assert_not_includes list, p3
   end
 
+  should 'calculate catagory full name' do
+    cat = mock
+    cat.expects(:full_name).returns('A B C')
+
+    p = Product.new
+    p.expects(:product_category).returns(cat)
+    assert_equal 'A B C', p.category_full_name
+  end
+
+  should 'be indexed by category full name' do
+    p = Product.new(:name => 'a test product')
+    p.expects(:category_full_name).returns('interesting category')
+    p.save!
+
+    assert_includes Product.find_by_contents('interesting'), p
+  end
+
 end

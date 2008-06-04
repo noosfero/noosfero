@@ -21,7 +21,7 @@ class Article < ActiveRecord::Base
 
   acts_as_versioned
 
-  acts_as_searchable :fields => [ :name, :abstract, :body, :tag_list ]
+  acts_as_searchable
   
   before_update do |article|
     article.advertise = true

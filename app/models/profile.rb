@@ -37,7 +37,7 @@ class Profile < ActiveRecord::Base
 
   acts_as_having_boxes
 
-  acts_as_searchable :fields => [ :name, :identifier, :extra_data_for_index ]
+  acts_as_searchable :additional_fields => [ :extra_data_for_index ]
 
   class_inheritable_accessor :extra_index_methods
   self.extra_index_methods = []

@@ -9,7 +9,7 @@ class Enterprise < Organization
   extra_data_for_index :product_categories
 
   def product_categories
-    products.map{|p| p.product_category.full_name.split('/') }.join(' ')
+    products.map{|p| p.product_category.full_name(' ') }.join(' ')
   end
 
 end
