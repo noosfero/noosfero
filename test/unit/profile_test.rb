@@ -519,6 +519,16 @@ class ProfileTest < Test::Unit::TestCase
     assert_includes TestingExtraDataForIndex.find_by_contents('sample'), profile
   end
 
+  should 'index profile identifier for searching' do
+    p = Profile.create!(:identifier => 'testprofile', :name => 'Interesting Profile')
+    assert_includes Profile.find_by_contents('testprofile'), p
+  end
+
+  should 'index profile name for searching' do
+    p = Profile.create!(:identifier => 'testprofile', :name => 'Interesting Profile')
+    assert_includes Profile.find_by_contents('interesting'), p
+  end
+
   private
 
   def assert_invalid_identifier(id)
