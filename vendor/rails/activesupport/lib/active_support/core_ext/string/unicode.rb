@@ -3,6 +3,8 @@ module ActiveSupport #:nodoc:
     module String #:nodoc:
       # Define methods for handling unicode data.
       module Unicode
+
+        # removes incompatible String#chars from Ruby 1.8.7
         def self.included(base)
           if RUBY_VERSION == '1.8.7' && '1.8.7'.respond_to?(:chars)
             base.class_eval { remove_method :chars }
