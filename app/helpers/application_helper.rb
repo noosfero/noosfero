@@ -517,6 +517,7 @@ module ApplicationHelper
       Effect.toggle( div, "slide", { link:link, div:div, afterFinish:end } )
     }')
     environment.top_level_categories.each do |toplevel|
+      next if toplevel.is_a?(ProductCategory)
       toplevel.map_traversal do |cat|
         if cat.top_level?
           result << '<div class="categorie_box">'
