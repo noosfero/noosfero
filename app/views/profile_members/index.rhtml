@@ -2,12 +2,20 @@
 
 <%= link_to _('Affiliate yourself'), :action => 'add_role', :person => current_user.person, :role => @member_role if @member_role %>
 
-<ul>
+<table>
+  <tr>
+    <th><%= _('Member') %></th>
+    <th><%= _('Actions') %></th>
+  </tr>
   <% @members.each do |m| %>
-    <li> <%= m.name %> 
-         <%= link_to _('Edit member role'), :action => 'change_role', :id => m %> 
-         <%= link_to _('Remove member'), :action => 'unassociate', :id => m %></li>
+    <tr>
+      <td><%= m.name %> </td>
+      <td>
+        <%= button :edit, _('Edit'), :action => 'change_role', :id => m %>
+        <%= button :delete, _('Remove'), :action => 'unassociate', :id => m %>
+      </td>
+    </tr>
   <% end %>
-</ul>
+</table>
 
 <%= link_to _('Back'), :controller => 'profile_editor' %>

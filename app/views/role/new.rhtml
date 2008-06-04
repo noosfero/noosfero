@@ -1,6 +1,6 @@
 <h2> <%= _('New Role') %> </h2>
 
 <% ActiveRecord::Base::PERMISSIONS.keys.each do |perm_class| %>
-    <h3> <%= perm_class %> </h3>
+    <h3> <%= gettext(perm_class.downcase).capitalize %> </h3>
   <%= render :partial => 'form', :locals => { :mode => :new, :permissions => ActiveRecord::Base::PERMISSIONS[perm_class] } %>
 <% end %>

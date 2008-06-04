@@ -13,9 +13,15 @@ class Profile < ActiveRecord::Base
     def self.moderator
       ::Role.find_by_key('profile_moderator')
     end
+    def self.owner
+      ::Role.find_by_key('profile_owner')
+    end
+    def self.editor
+      ::Role.find_by_key('profile_editor')
+    end
   end
 
-  PERMISSIONS[:profile] = {
+  PERMISSIONS['Profile'] = {
     'edit_profile'        => N_('Edit profile'),
     'destroy_profile'     => N_('Destroy profile'),
     'manage_memberships'  => N_('Manage memberships'),
@@ -26,7 +32,7 @@ class Profile < ActiveRecord::Base
     'validate_enterprise' => N_('Validate enterprise'),
     'peform_task'         => N_('Peform task'),
   }
-  
+
   acts_as_accessible
 
   acts_as_having_boxes

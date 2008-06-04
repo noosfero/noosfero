@@ -55,6 +55,8 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
     assert_response :success
     assert_equal member, assigns('member')
     assert_template 'change_role'
+    assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'roles[]'}
+    assert_tag :tag => 'label', :content => role.name
   end
 
   should 'update roles' do
@@ -73,7 +75,5 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
     member.reload
     assert member.find_roles(ent).map(&:role).include?(orole)
     assert !member.find_roles(ent).map(&:role).include?(role)
-
-    
   end
 end

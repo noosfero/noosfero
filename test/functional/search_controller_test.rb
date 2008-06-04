@@ -839,5 +839,4 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_not_includes assigns(:regions), r2
     assert_no_tag :tag => 'ul', :descendant => { :tag => 'li', :content => r2.name }
   end
-
 end

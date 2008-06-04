@@ -6,7 +6,7 @@
 
   <%= _('Permissions:') %> <br>
   <% permissions.keys.each do |p| %>
-    <%= labelled_form_field(permission_name(p), (check_box_tag "role[permissions][]", p, @role.has_permission?(p))) %>
+    <%= labelled_check_box(permission_name(p), (check_box_tag "role[permissions][]", p, @role.has_permission?(p))) %> <br/>
   <% end %>
 
   <% button_bar do %>

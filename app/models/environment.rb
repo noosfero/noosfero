@@ -3,7 +3,7 @@
 # domains.
 class Environment < ActiveRecord::Base
 
-  PERMISSIONS[:environment] = {
+  PERMISSIONS['Environment'] = {
     'view_environment_admin_panel' => N_('View environment admin panel'),
     'edit_environment_features' => N_('Edit environment features'),
     'edit_environment_design' => N_('Edit environment design'),

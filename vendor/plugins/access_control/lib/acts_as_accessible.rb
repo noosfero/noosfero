@@ -27,5 +27,11 @@ class ActiveRecord::Base
     def members
       role_assignments.map(&:accessor).uniq
     end
+
+    def roles
+      Role.find(:all).select do |r| 
+        r.permissions.any?{ |p| PERMISSIONS[self.class.base_class.name].include?(p) }
+      end
+    end
   end
 end

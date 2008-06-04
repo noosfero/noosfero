@@ -23,7 +23,7 @@ class ProfileMembersController < MyProfileController
   end
   
   def change_role
-    @roles = Role.find(:all).select{ |r| r.has_kind?(:profile) }
+    @roles = profile.roles
     @member = Person.find(params[:id])
     @associations = @member.find_roles(@profile)
   end

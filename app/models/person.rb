@@ -66,7 +66,7 @@ class Person < Profile
   def is_admin?
     role_assignments.map{|ra|ra.role.permissions}.any? do |ps|
       ps.any? do |p|
-        ActiveRecord::Base::PERMISSIONS[:environment].keys.include?(p)
+        ActiveRecord::Base::PERMISSIONS['Environment'].keys.include?(p)
       end
     end
   end

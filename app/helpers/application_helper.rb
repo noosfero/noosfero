@@ -322,7 +322,7 @@ module ApplicationHelper
 
     bt_submit = submit_tag(label, html_options.merge(:class => the_class))
 
-    bt_submit
+    bt_submit + bt_cancel
   end
 
   def button_to_function(type, label, js_code, html_options = {})

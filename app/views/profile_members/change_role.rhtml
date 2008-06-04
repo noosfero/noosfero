@@ -1,11 +1,10 @@
-<%= _('Changing role of %s') % @member.name %>
+<h3> <%= _('Changing role of %s') % @member.name %> </h3>
 
 <% labelled_form_for :member, @member, :url => {:action => 'update_roles'} do |f| %>
   
   <%= _('Roles:') %> <br>
   <% @roles.each do |r| %>
-    <%= check_box_tag "roles[]", r.id, @associations.map(&:role).include?(r) %>
-      <%= r.name.capitalize %><br/>
+    <%= labelled_check_box(r.name, 'roles[]', r.id, @associations.map(&:role).include?(r) ) %><br/>
   <% end %>
   <%= hidden_field_tag 'person', @member.id %>
 

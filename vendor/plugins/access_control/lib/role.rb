@@ -10,6 +10,14 @@ class Role < ActiveRecord::Base
     super(*args)
   end
 
+  def key=(value)
+    if self[:key] && system
+      raise ArgumentError, 'Can\'t change key of system role'
+    else
+      self[:key] = value
+    end
+  end
+
   def permissions
     self[:permissions] ||= []
   end
@@ -19,7 +27,7 @@ class Role < ActiveRecord::Base
   end
 
   def has_kind?(k)
-    permissions.any?{|p| perms[k].keys.include?(p)}
+    perms[k] && permissions.any?{|p| perms[k].keys.include?(p)}
   end
 
   def kind

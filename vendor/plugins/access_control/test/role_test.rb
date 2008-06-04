@@ -59,13 +59,11 @@ class RoleTest < Test::Unit::TestCase
   end
 
   def test_should_not_allow_to_remove_system_defined_roles
-
     role = Role.create!(:name => 'not to be removed', :permissions => [], :system => true)
 
     count = Role.count
     role.destroy
     assert_equal count, Role.count
-
   end
 
   def test_should_have_an_empty_array_as_permissions_by_default
@@ -89,6 +87,15 @@ class RoleTest < Test::Unit::TestCase
       role.key = 'another_key'
     end
     assert_equal 'another_key', role.key
+  end
+
+  def test_should_have_kind
+    role = Role.create!(:name => 'a test role', :permissions => ['perm1'])
+    role.stubs(:perms).returns({'kind1' => {'perm1' => 'perm1 name', 'perm2' => 'perm2 name'}, 'kind2' => {'perm3' => 'perm3 name'}})
+
+    assert role.has_kind?('kind1')
+    assert ! role.has_kind?('kind2')
+    assert ! role.has_kind?('kind3')
   end
 
 end
