@@ -17,8 +17,11 @@ class ContentViewerController < PublicController
       @page = profile.articles.find_by_path(path)
 
       # do not show unpublished articles
-      @page = nil unless @page.published
+      if @page && !@page.published
+        @page = nil
+      end
 
+      # page not found, give error
       if @page.nil?
         render_not_found(@path)
         return

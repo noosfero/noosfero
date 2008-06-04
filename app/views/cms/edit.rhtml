@@ -21,6 +21,14 @@
   <%= f.text_field('tag_list', :size => 64) %>
   <%= content_tag( 'small', _('Separate tags with commas') ) %>
 
+  <div id='edit-article-options'>
+    <h4><%= _('Options') %></h4>
+    <div>
+      <%= check_box :article, :published %>
+      <label for='article_published'><%= _('Published')%></label>
+    </div>
+  </div>
+
   <% button_bar do %>
     <%= submit_button :save, _('Save') %>
     <% if @parent_id || @article.parent %>

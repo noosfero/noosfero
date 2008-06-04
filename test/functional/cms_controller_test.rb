@@ -416,4 +416,17 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'a', :attributes => { :rel => 'deactivate'} # lightbox close button
   end
 
+  should 'display published option' do
+    get :edit, :profile => profile.identifier, :id => profile.home_page.id
+    assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'article[published]', :checked => 'checked' }
+  end
+
+  should "display properly a non-published articles' status" do
+    article = profile.articles.create!(:name => 'test', :published => false)
+
+    get :edit, :profile => profile.identifier, :id => article.id
+    assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'article[published]' }
+    assert_no_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'article[published]', :checked => 'checked' }
+  end
+
 end

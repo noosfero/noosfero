@@ -247,6 +247,12 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_response 200
   end
 
+  should 'give 404 status on unexisting article' do
+    profile.articles.delete_all
+    get :view_page, :profile => profile.identifier, :page => [ 'VERY-UNPROBABLE-PAGE' ]
+    assert_response 404
+  end
+
   should 'show unpublished articles as unexisting' do
     profile.articles.create!(:name => 'test', :published => false)
     get :view_page, :profile => profile.identifier, :page => [ 'test' ]
