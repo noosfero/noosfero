@@ -4,9 +4,7 @@ class Event < Article
 
   settings_items :description, :type => :string
   settings_items :link, :type => :string
-
-  settings_items :start_date, :type => :date
-  settings_items :end_date, :type => :date
+  settings_items :address, :type => :string
 
   validates_presence_of :title, :start_date
 

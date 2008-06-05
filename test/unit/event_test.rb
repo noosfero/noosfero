@@ -24,6 +24,11 @@ class EventTest < ActiveSupport::TestCase
     assert_equal 'http://some.nice.site/', e.link
   end
 
+  should 'have an address' do
+    e = Event.new(:address => 'South Noosfero street, 88')
+    assert_equal 'South Noosfero street, 88', e.address
+  end
+
   should 'have a start date' do
     e = Event.new
     e.start_date = Date.today

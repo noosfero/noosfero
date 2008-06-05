@@ -218,6 +218,8 @@ class Environment < ActiveRecord::Base
     self.articles.recent(limit)
   end
 
+  has_many :events, :through => :profiles, :source => :articles, :class_name => 'Event' 
+
   # FIXME is this the better/faster way to do this?
   has_many :comments, :through => :articles
 

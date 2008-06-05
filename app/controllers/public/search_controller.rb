@@ -54,7 +54,8 @@ class SearchController < ApplicationController
     [ :enterprises, N_('Enterprises') ],
     [ :people, N_('People') ],
     [ :communities, N_('Communities') ],
-    [ :products, N_('Products') ]
+    [ :products, N_('Products') ],
+    [ :events, N_('Events') ]
   ]
 
   # TODO don't hardcode like this >:-(

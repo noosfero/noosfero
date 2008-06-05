@@ -839,4 +839,74 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_not_includes assigns(:regions), r2
     assert_no_tag :tag => 'ul', :descendant => { :tag => 'li', :content => r2.name }
   end
+
+  should 'search for events' do
+    person = create_user('teste').person
+    ev = create_event(person, :name => 'an event to be found')
+
+    get 'index', :query => 'event found', :find_in => [ 'events' ]
+
+    assert_includes assigns(:results)[:events], ev
+  end
+
+  should 'search for events in a specific category' do
+    person = create_user('teste').person
+
+    # in category
+    ev1 = create_event(person, :name => 'an event to be found')
+    ev1.categories << @category
+    ev1.save!
+
+    # not in category
+    ev2 = create_event(person, :name => 'another event to be found')
+    ev2.save!
+
+    get :index, :category_path => [ 'my-category' ], :query => 'event found', :find_in => [ 'events' ]
+
+    assert_includes assigns(:results)[:events], ev1
+    assert_not_includes assigns(:results)[:events], ev2
+  end
+
+  # 'assets' outside any category
+  should 'list events in general' do
+    person = create_user('testuser').person
+    person2 = create_user('anotheruser').person
+
+    ev1 = create_event(person, :name => 'one event', :categories => [@category])
+
+    ev2 = create_event(person2, :name => 'two event', :categories => [@category])
+
+    get :assets, :asset => 'events'
+
+    assert_includes assigns(:results)[:events], ev1
+    assert_includes assigns(:results)[:events], ev2
+  end
+
+  # 'assets' inside a category
+  should 'list events in a specific category' do
+    person = create_user('testuser').person
+
+    # in category
+    ev1 = create_event(person, :name => 'one event', :categories => [@category])
+    ev2 = create_event(person, :name => 'other event', :categories => [@category])
+
+    # not in category
+    ev3 = create_event(person, :name => 'another event')
+
+    get :assets, :asset => 'events', :category_path => ['my-category']
+
+    assert_includes assigns(:results)[:events], ev1
+    assert_includes assigns(:results)[:events], ev2
+    assert_not_includes assigns(:results)[:events], ev3
+  end
+
+  ##################################################################
+  ##################################################################
+
+  def create_event(profile, options)
+    ev = Event.new({ :name => 'some event', :start_date => Date.new(2008,1,1) }.merge(options))
+    ev.profile = profile
+    ev.save!
+    ev
+  end
 end
