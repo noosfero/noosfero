@@ -362,7 +362,7 @@ class SearchControllerTest < Test::Unit::TestCase
         :products => 'Products',
     }
     names.each do |thing, description|
-      assert_tag :tag => 'div', :attributes => { :class => /search-results-#{thing}/ }, :descendant => { :tag => 'h3', :content => description }
+      assert_tag :tag => 'div', :attributes => { :class => /search-results-#{thing}/ }, :descendant => { :tag => 'h3', :content => Regexp.new(description) }
       assert_tag :tag => 'a', :content => "display #{thing.to_s.singularize}"
     end
   end
@@ -447,7 +447,7 @@ class SearchControllerTest < Test::Unit::TestCase
     CategoryFinder.expects(:new).with(@category).returns(finger)
 
     get :category_index, :category_path => [ 'my-category' ]
-    assert_same recent, assigns(:results)[:recent_articles]
+    assert_same recent, assigns(:results)[:articles]
   end
 
   should 'list recent comments in the category' do
@@ -479,7 +479,7 @@ class SearchControllerTest < Test::Unit::TestCase
     CategoryFinder.expects(:new).with(@category).returns(finger)
 
     get :category_index, :category_path => [ 'my-category' ]
-    assert_same recent_people, assigns(:results)[:recent_people]
+    assert_same recent_people, assigns(:results)[:people]
   end
 
   should 'list recently registered communities in the category' do
@@ -490,7 +490,7 @@ class SearchControllerTest < Test::Unit::TestCase
     CategoryFinder.expects(:new).with(@category).returns(finger)
 
     get :category_index, :category_path => [ 'my-category' ]
-    assert_same recent_communities, assigns(:results)[:recent_communities]
+    assert_same recent_communities, assigns(:results)[:communities]
   end
 
   should 'list recently registered enterprises in the category' do
@@ -501,7 +501,7 @@ class SearchControllerTest < Test::Unit::TestCase
     CategoryFinder.expects(:new).with(@category).returns(finger)
 
     get :category_index, :category_path => [ 'my-category' ]
-    assert_same recent_enterptises, assigns(:results)[:recent_enterptises]
+    assert_same recent_enterptises, assigns(:results)[:enterprises]
   end
 
   should 'not list "Search for ..." in category_index' do
@@ -898,6 +898,15 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_includes assigns(:results)[:events], ev1
     assert_includes assigns(:results)[:events], ev2
     assert_not_includes assigns(:results)[:events], ev3
+  end
+
+  %w[ people enterprises articles events communities products comments ].each do |asset|
+
+    should "render asset-specific template when searching for #{asset}" do
+      get :index, :find_in => [ asset ]
+      assert_template asset
+    end
+
   end
 
   ##################################################################

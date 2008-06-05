@@ -69,6 +69,8 @@ class SearchController < ApplicationController
   def index
     @query = params[:query] || ''
     @filtered_query = remove_stop_words(@query)
+
+    # FIXME name is not unique
     @region = Region.find_by_name(params[:region][:name]) if params[:region]
 
     @results = {}
@@ -81,6 +83,12 @@ class SearchController < ApplicationController
       end
       @names[key] = gettext(description)
     end
+
+    if @results.keys.size == 1
+      specific_action = @results.keys.first
+      send(specific_action)
+      render :action => specific_action
+    end
   end
 
   #######################################################
@@ -90,12 +98,13 @@ class SearchController < ApplicationController
     @results = {}
     @names = {}
     [
-      [ :recent_people, _('Recently registered people'), @finder.recent('people') ],
-      [ :recent_communities, _('Recently created communities'), @finder.recent('communities') ],
-      [ :recent_articles, _('Recent articles'), @finder.recent('articles') ],
+      [ :people, _('Recently registered people'), @finder.recent('people') ],
+      [ :communities, _('Recently created communities'), @finder.recent('communities') ],
+      [ :articles, _('Recent articles'), @finder.recent('articles') ],
       [ :comments, _('Recent comments'), @finder.recent('comments') ],
       [ :most_commented_articles, _('Most commented articles'), @finder.most_commented_articles ],
-      [ :recent_enterptises, _('Recently created enterprises'), @finder.recent('enterprises') ]
+      [ :enterprises, _('Recently created enterprises'), @finder.recent('enterprises') ],
+      [ :events, _('Recently added events'), @finder.recent('events') ]
     ].each do |key, name, list|
       @results[key] = list
       @names[key] = name

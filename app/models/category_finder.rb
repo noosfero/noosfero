@@ -7,12 +7,16 @@ class CategoryFinder
 
   attr_reader :category_ids
 
-  def find(asset, query, options={})
-    find_in_categorized(asset.to_s.singularize.camelize.constantize, query, options)
+  def find(asset, query = nil, options={}, limit = nil)
+    if query.blank?
+      asset_class(asset).find(:all, options_for_find(asset_class(asset), {:limit => limit, :order => "created_at desc, #{asset_table(asset)}.id desc"}))
+    else
+      find_in_categorized(asset.to_s.singularize.camelize.constantize, query, options)
+    end
   end
 
-  def recent(asset, limit = 10)
-    asset_class(asset).find(:all, options_for_find(asset_class(asset), {:limit => limit, :order => "created_at desc, #{asset_table(asset)}.id desc"}))
+  def recent(asset, limit = nil)
+    find(asset, nil, {}, limit)
   end
 
   def find_by_initial(asset, initial)
