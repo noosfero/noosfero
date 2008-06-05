@@ -37,7 +37,9 @@ class AccessControlMigration < ActiveRecord::Migration
       ])
 
       # moderators for enterprises, communities etc
-      Role.create!(:key => 'profile_moderator', :name => N_('Moderator'), :permissions => [ 'manage_memberships', 'edit_profile_design', 'manage_products' ])
+      Role.create!(:key => 'profile_moderator', :name => N_('Moderator'), :permissions => [
+        'manage_memberships', 'edit_profile_design', 'manage_products'
+      ])
 
     end
   end

@@ -326,7 +326,7 @@ class ProfileTest < Test::Unit::TestCase
     assert_kind_of RssFeed, profile.articles.find_by_path('feed')
   end
 
-  should 'raises when add members' do
+  should 'not allow to add members' do
     c = Profile.create!(:name => 'my test profile', :identifier => 'mytestprofile')
     p = create_user('mytestuser').person
     assert_raise RuntimeError do
@@ -341,6 +341,14 @@ class ProfileTest < Test::Unit::TestCase
     c.add_admin(p)
 
     assert c.members.include?(p), "Profile should add the new admin"
+  end
+
+  should 'not allow to add moderators' do
+    c = Profile.create!(:name => 'my test profile', :identifier => 'mytestprofile')
+    p = create_user('mytestuser').person
+    assert_raise RuntimeError do
+      c.add_moderator(p)
+    end
   end
 
   should 'have tasks' do

@@ -162,7 +162,7 @@ class OrganizationTest < Test::Unit::TestCase
     assert_respond_to org, :closed?
   end
 
-  should 'allow to add new members' do
+  should 'allow to add new member' do
     o = Organization.create!(:name => 'my test profile', :identifier => 'mytestprofile')
     p = create_user('mytestuser').person
 
@@ -180,6 +180,17 @@ class OrganizationTest < Test::Unit::TestCase
     c.remove_member(p)
     c.reload
     assert_not_includes c.members, p
+  end
+
+  # FIXME why members dont return moderators???
+  should 'allow to add new moderator' do
+    o = Organization.create!(:name => 'my test profile', :identifier => 'mytestprofile')
+    p = create_user('myanothertestuser').person
+
+    o.add_moderator(p)
+    o.reload
+
+    assert o.members.include?(p), "Organization should add the new moderator"
   end
 
 end

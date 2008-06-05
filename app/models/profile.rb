@@ -295,6 +295,14 @@ class Profile < ActiveRecord::Base
     self.affiliate(person, Profile::Roles.admin)
   end
 
+  def add_moderator(person)
+    if self.has_members?
+      self.affiliate(person, Profile::Roles.moderator)
+    else
+      raise _("%s can't has moderators") % self.class.name
+    end
+  end
+
   def self.recent(limit = nil)
     self.find(:all, :order => 'id desc', :limit => limit)
   end

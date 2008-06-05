@@ -284,4 +284,24 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'profile_data[closed]' }
   end
 
+  should 'display manage members options if has permission' do
+    profile = Profile['ze']
+    community = Community.create!(:name => 'test org', :identifier => 'testorg', :contact_person => 'my contact')
+    @controller.stubs(:user).returns(profile)
+    @controller.stubs(:profile).returns(community)
+    profile.stubs(:has_permission?).returns(true)
+    get :index, :profile => 'testorg'
+    assert_tag :tag => 'a', :content => 'Manage Members'
+  end
+
+  should 'not display manage members options if has no permission' do
+    profile = Profile['ze']
+    community = Community.create!(:name => 'test org', :identifier => 'testorg', :contact_person => 'my contact')
+    @controller.stubs(:user).returns(profile)
+    @controller.stubs(:profile).returns(community)
+    profile.stubs(:has_permission?).returns(false)
+    get :index, :profile => 'testorg'
+    assert_no_tag :tag => 'a', :content => 'Manage Members'
+  end
+
 end
