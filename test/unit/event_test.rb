@@ -56,4 +56,19 @@ class EventTest < ActiveSupport::TestCase
     e = Event.create!(:name => 'bli', :start_date => Date.new(2008, 06, 06), :profile => profile, :description => 'my surprisingly long description about my freaking nice event')
     assert_includes Event.find_by_contents('surprisingly'), e
   end
+
+  should 'use its own icon' do
+    assert_equal 'event', Event.new.icon_name
+  end
+
+  should 'not allow end date before start date' do
+    e = Event.new(:start_date => Date.new(2008, 01, 01), :end_date => Date.new(2007,01,01))
+    e.valid?
+    assert e.errors.invalid?(:start_date)
+
+    e.end_date = Date.new(2008,01,05)
+    e.valid?
+    assert !e.errors.invalid?(:start_date)
+  end
+
 end
