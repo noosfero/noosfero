@@ -116,6 +116,11 @@ class Task < ActiveRecord::Base
     nil
   end
 
+  # What permission is required to perform task?
+  def permission
+    :perform_task
+  end
+
   protected
 
   # This method must be overrided in subclasses, and its implementation must do

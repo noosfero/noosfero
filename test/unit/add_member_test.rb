@@ -66,4 +66,9 @@ class AddMemberTest < ActiveSupport::TestCase
     assert_same t.target, t.community
   end
 
+  should 'has permission to manage members' do
+    t = AddMember.new
+    assert_equal :manage_memberships, t.permission
+  end
+
 end

@@ -3,7 +3,7 @@ class ProfileEditorController < MyProfileController
   protect 'edit_profile', :profile, :only => [:index, :edit]
 
   def index
-    @pending_tasks = profile.tasks.pending
+    @pending_tasks = profile.tasks.pending.select{|i| user.has_permission?(i.permission, profile)}
   end
 
   helper :profile

@@ -25,4 +25,8 @@ class AddFriend < Task
     _('%s wants to be your friend') % requestor.name
   end
 
+  def permission
+    :manage_friends
+  end
+
 end

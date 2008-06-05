@@ -25,4 +25,8 @@ class AddMember < Task
     _('%s wants to be a member') % requestor.name
   end
 
+  def permission
+    :manage_memberships
+  end
+
 end

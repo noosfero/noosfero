@@ -169,6 +169,11 @@ class TaskTest < Test::Unit::TestCase
     assert_equal [t2], Task.finished
   end
 
+  should 'has perform task permission' do
+    t = Task.new
+    assert_equal :perform_task, t.permission
+  end
+  
   protected
 
   def sample_user

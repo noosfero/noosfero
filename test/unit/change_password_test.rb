@@ -105,5 +105,10 @@ class ChangePasswordTest < Test::Unit::TestCase
     end
   end
 
+  should 'has default permission' do
+    t1 = Task.new
+    t2 = ChangePassword.new
+    assert_equal t1.permission, t2.permission
+  end
 
 end

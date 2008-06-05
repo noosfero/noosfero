@@ -164,4 +164,8 @@ class CreateEnterprise < Task
     msg
   end
 
+  def permission
+    :validate_enterprise
+  end
+
 end

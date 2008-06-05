@@ -82,4 +82,9 @@ class AddFriendTest < ActiveSupport::TestCase
     assert_equal 'testuser1 wants to be your friend', task.description
   end
 
+  should 'has permission to manage friends' do
+    t = AddFriend.new
+    assert_equal :manage_friends, t.permission
+  end
+
 end

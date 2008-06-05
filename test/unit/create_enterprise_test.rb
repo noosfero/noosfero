@@ -186,4 +186,9 @@ class CreateEnterpriseTest < Test::Unit::TestCase
     assert request.errors.invalid?(:identifier)
   end
 
+  should 'has permission to validate enterprise' do
+    t = CreateEnterprise.new
+    assert_equal :validate_enterprise, t.permission
+  end
+
 end
