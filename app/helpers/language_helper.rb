@@ -7,6 +7,8 @@ module LanguageHelper
     language.downcase
   end
 
+  alias :calendar_date_select_language :tinymce_language
+
   def language_chooser
     current = language
     languages = Noosfero.locales.map do |code,name|

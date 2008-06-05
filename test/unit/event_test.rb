@@ -19,9 +19,9 @@ class EventTest < ActiveSupport::TestCase
     assert_equal 'some useful description', e.description
   end
 
-  should 'have a url' do
-    e = Event.new(:url => 'http://some.nice.site/')
-    assert_equal 'http://some.nice.site/', e.url
+  should 'have a link' do
+    e = Event.new(:link => 'http://some.nice.site/')
+    assert_equal 'http://some.nice.site/', e.link
   end
 
   should 'have a start date' do
