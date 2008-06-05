@@ -1,6 +1,6 @@
 class TasksController < MyProfileController
 
-  protect 'peform_task', :profile
+  protect 'perform_task', :profile
   
   def index
     @tasks = profile.tasks.pending

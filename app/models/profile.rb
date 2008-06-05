@@ -30,7 +30,7 @@ class Profile < ActiveRecord::Base
     'manage_products'     => N_('Manage products'),
     'manage_friends'      => N_('Manage friends'),
     'validate_enterprise' => N_('Validate enterprise'),
-    'peform_task'         => N_('Peform task'),
+    'perform_task'        => N_('Perform task'),
   }
 
   acts_as_accessible
