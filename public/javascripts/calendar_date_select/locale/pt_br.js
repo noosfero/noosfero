@@ -1,5 +1,6 @@
+
 Date.weekdays = $w("Seg Ter Qua Qui Sex Sab Dom");
-Date.months = $w("Janeiro Fevereiro Março Abril Maio Junho Julho Agosto Setembro Outubro Novembro Dezembro" );
+Date.months = $w("Janeiro Fevereiro MarÃ§o Abril Maio Junho Julho Agosto Setembro Outubro Novembro Dezembro" );
 
 Date.first_day_of_week = 1
 
