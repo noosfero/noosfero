@@ -40,6 +40,7 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     @controller.expects(:profile).returns(ze).at_least_once
     tasks = mock
     pending = []
+    pending.expects(:select).returns(pending)
     pending.expects(:empty?).returns(false) # force the display of the pending tasks list
     tasks.expects(:pending).returns(pending)
     ze.expects(:tasks).returns(tasks)
@@ -302,6 +303,30 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     profile.stubs(:has_permission?).returns(false)
     get :index, :profile => 'testorg'
     assert_no_tag :tag => 'a', :content => 'Manage Members'
+  end
+
+  should 'show task if user has permission' do
+    user1 = create_user('userone').person
+    user2 = create_user('usertwo').person
+    AddFriend.create!(:person => user1, :friend => user2)
+    @controller.stubs(:user).returns(user2)
+    user2.expects(:has_permission?).with('edit_profile', anything).returns(true)
+    user2.expects(:has_permission?).with(:manage_friends, anything).returns(true)
+    login_as('usertwo')
+    get :index, :profile => 'usertwo'
+    assert_tag :tag => 'div', :attributes => { :class => 'pending-tasks' }
+  end
+
+  should 'not show task if user has no permission' do
+    user1 = create_user('userone').person
+    user2 = create_user('usertwo').person
+    task = AddFriend.create!(:person => user1, :friend => user2)
+    @controller.stubs(:user).returns(user2)
+    user2.expects(:has_permission?).with('edit_profile', anything).returns(true)
+    user2.expects(:has_permission?).with(:manage_friends, anything).returns(false)
+    login_as('usertwo')
+    get :index, :profile => 'usertwo'
+    assert_no_tag :tag => 'div', :attributes => { :class => 'pending-tasks' }
   end
 
 end
