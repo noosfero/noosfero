@@ -16,7 +16,7 @@ class SearchController < ApplicationController
     @search_in = SEARCH_IN
     @searching = {}
     @search_in.each do |key, name|
-      @searching[key] = params[:find_in].nil? || params[:find_in].empty? || params[:find_in].include?(key.to_s)
+      @searching[key] = (params[:asset].blank? && (params[:find_in].nil? || params[:find_in].empty? || params[:find_in].include?(key.to_s))) || (params[:asset] == key.to_s)
     end
   end
 
@@ -91,6 +91,33 @@ class SearchController < ApplicationController
     end
   end
 
+  def events
+    @events = @results[:events]
+    @calendar = Event.date_range(params[:year], params[:month]).map do |date|
+      [
+        # the day itself
+        date, 
+        # list of events of that day
+        @events.select do |event|
+          event.date_range.include?(date)
+        end,
+        # is this date in the current month?
+        true
+      ]
+    end
+
+    # pad with days before
+    while @calendar.first.first.wday != 0
+      @calendar.unshift([@calendar.first.first - 1.day, [], false])
+    end
+
+    # pad with days after (until Saturday)
+    while @calendar.last.first.wday != 6
+      @calendar << [@calendar.last.first + 1.day, [], false]
+    end
+
+  end
+
   #######################################################
 
   # view the summary of one category
@@ -104,7 +131,7 @@ class SearchController < ApplicationController
       [ :comments, _('Recent comments'), @finder.recent('comments') ],
       [ :most_commented_articles, _('Most commented articles'), @finder.most_commented_articles ],
       [ :enterprises, _('Recently created enterprises'), @finder.recent('enterprises') ],
-      [ :events, _('Recently added events'), @finder.recent('events') ]
+      [ :events, _('Recently added events'), @finder.current_events(params[:year], params[:month]) ]
     ].each do |key, name, list|
       @results[key] = list
       @names[key] = name
@@ -112,12 +139,12 @@ class SearchController < ApplicationController
   end
   attr_reader :category
 
-  def assets
-    @results = { @asset => @finder.recent(@asset, LIST_LIMIT) }
+  #def assets
+    #@results = { @asset => @finder.recent(@asset, LIST_LIMIT) }
 
-    @asset_name = gettext(SEARCH_IN.find { |entry| entry.first == @asset }[1])
-    @names = { @asset => @asset_name }
-  end
+    #@asset_name = gettext(SEARCH_IN.find { |entry| entry.first == @asset }[1])
+    #@names = { @asset => @asset_name }
+  #end
 
   def directory
     @results = { @asset => @finder.find_by_initial(@asset, params[:initial]) }

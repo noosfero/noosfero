@@ -1,0 +1,35 @@
+<h1><%= show_month(params[:year], params[:month]) %></h1>
+
+<div style='text-align: center; margin: 1em;'>
+  <%= link_to_previous_month(params[:year], params[:month]) %>
+  &nbsp;
+  &nbsp;
+  &nbsp;
+  <%= link_to_next_month(params[:year], params[:month]) %>
+</div>
+
+<table align='center'>
+  <tr>
+    <% @calendar.first(7).each do |day,event| %>
+      <th style='width: 10%;'><%= show_day_of_week(day) %></th>
+    <% end %>
+  </tr>
+  <% @calendar.in_groups_of(7).each do |week| %>
+    <tr style='height: 80px;'>
+      <% week.each do |date, events, this_month| %>
+        <td style='vertical-align: top; <%= ("background-color: gray;" unless this_month) %> <%= ("background-color: #ff9" if date == Date.today) %>'>
+          <div style='text-align: center;'>
+            <strong><%= date.day %></strong>
+          </div>
+
+          <% events.each do |event| %>
+            <div style='border: 1px solid gray; margin: 0.25em;'>
+              <%= link_to event.name, event.url, :style => 'display: block;' %>
+            </div>
+          <% end %>
+
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>

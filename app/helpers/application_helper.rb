@@ -13,6 +13,8 @@ module ApplicationHelper
   include AssetsHelper
 
   include BlockHelper
+
+  include DatesHelper
   
   # Displays context help. You can pass the content of the help message as the
   # first parameter or using template code inside a block passed to this
@@ -455,32 +457,6 @@ module ApplicationHelper
     content_tag('div', '', :id => "autocomplete-for-#{id}", :class => 'auto-complete', :style => 'display: none;') +
     javascript_tag('new Autocompleter.Local(%s, %s, %s)' % [ id.to_json, "autocomplete-for-#{id}".to_json, choices.to_json ] )
 
-  end
-
-  # formats a date for displaying.
-  def show_date(date)
-    if date
-      date.strftime(_('%d %B %Y'))
-    else
-      ''
-    end
-  end
-
-  # formats a datetime for displaying. 
-  def show_time(time)
-    if time
-      time.strftime(_('%d %B %Y, %H:%m'))
-    else
-      ''
-    end
-  end
-
-  def show_period(date1, date2 = nil)
-    if (date1 == date2) || (date2.nil?)
-      show_date(date1)
-    else
-      _('from %s to %s') % [show_date(date1), show_date(date2)]
-    end
   end
 
   def gravatar_url_for(email, options = {})

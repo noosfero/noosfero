@@ -25,6 +25,8 @@ class Category < ActiveRecord::Base
   has_many :articles, :through => :article_categorizations
   has_many :comments, :through => :articles
 
+  has_many :events, :through => :article_categorizations, :class_name => 'Event', :source => :article
+
   has_many :profile_categorizations
   has_many :enterprises, :through => :profile_categorizations, :source => :profile, :class_name => 'Enterprise'
   has_many :people, :through => :profile_categorizations, :source => :profile, :class_name => 'Person'

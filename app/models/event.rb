@@ -26,4 +26,61 @@ class Event < Article
     'event'
   end
 
+  def self.by_month(year = nil, month = nil)
+    self.find(:all, :conditions => { :start_date => date_range(year, month) })
+  end
+
+  def self.date_range(year, month)
+    if year.nil? || month.nil?
+      today = Date.today
+      year = today.year
+      month = today.month
+    else
+      year = year.to_i
+      month = month.to_i
+    end
+
+    first_day = Date.new(year, month, 1)
+    last_day = Date.new(year, month, 1) + 1.month - 1.day
+
+    first_day..last_day
+  end
+
+  def date_range
+    start_date..(end_date||start_date)
+  end
+
+  # FIXME this shouldn't be needed
+  include ActionView::Helpers::TagHelper
+  include ActionView::Helpers::UrlHelper
+  include ActionController::UrlWriter
+  include DatesHelper
+
+  def to_html
+
+    result = ''
+    html = Builder::XmlMarkup.new(:target => result)
+
+    html.div {
+      html.ul {
+        html.li {
+          html.strong _('URL:')
+          html.a(self.link || "", 'href' => self.link || "")
+        }
+        html.li {
+          html.strong _('Address:')
+          html.text! self.address || ""
+        }
+        html.li {
+          html.strong _('When:')
+          html.text! show_period(start_date, end_date)
+        }
+      }
+
+      html.div self.description
+    }
+
+    result
+  end
+
 end

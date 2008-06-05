@@ -31,6 +31,12 @@ class CategoryFinder
     Article.find(:all, options_for_find(Article, :limit => limit, :order => 'comments_count DESC'))
   end
 
+  def current_events(year, month)
+    range = Event.date_range(year, month)
+
+    Event.find(:all, :include => :categories, :conditions => { 'categories.id' => category_ids, :start_date => range })
+  end
+
   protected
 
   def find_in_categorized(klass, query, options={})

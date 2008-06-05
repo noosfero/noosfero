@@ -901,13 +901,13 @@ class SearchControllerTest < Test::Unit::TestCase
   end
 
   %w[ people enterprises articles events communities products comments ].each do |asset|
-
     should "render asset-specific template when searching for #{asset}" do
       get :index, :find_in => [ asset ]
       assert_template asset
     end
-
   end
+
+  should 'test somehow the display of events as calendar'
 
   ##################################################################
   ##################################################################

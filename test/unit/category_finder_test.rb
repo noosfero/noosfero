@@ -272,4 +272,18 @@ class CategoryFinderTest < ActiveSupport::TestCase
     assert_not_includes people, p2
   end
 
+  should 'find current events' do
+    finder = CategoryFinder.new(@category)
+    person = create_user('testuser').person
+
+    e1 = Event.create!(:name => 'e1', :profile => person, :start_date => Date.new(2008,1,1), :categories => [@category])
+
+    # not in category
+    e2 = Event.create!(:name => 'e2', :profile => person, :start_date => Date.new(2008,1,15))
+
+    events = finder.current_events(2008, 1)
+    assert_includes events, e1
+    assert_not_includes events, e2
+  end
+
 end
