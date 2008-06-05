@@ -47,6 +47,8 @@ class FavoriteEnterprisesControllerTest < Test::Unit::TestCase
     assert_difference profile.favorite_enterprises, :count do
       post :add, :id => favorite_enterprise.id, :confirmation => '1'
       assert_response :redirect
+
+      profile.favorite_enterprises.reload
     end
   end
 
@@ -65,6 +67,8 @@ class FavoriteEnterprisesControllerTest < Test::Unit::TestCase
     assert_difference profile.favorite_enterprises, :count, -1 do
       post :remove, :id => favorite_enterprise.id, :confirmation => '1'
       assert_redirected_to :action => 'index'
+
+      profile.favorite_enterprises.reload
     end
   end
 

@@ -1,0 +1,11 @@
+
+<%# TODO add Textile help here %>
+<%= render :file => 'shared/tiny_mce' %>
+
+<%= f.text_field('name', :size => '64') %>
+
+<%= labelled_form_field(_('Description:'), text_area(:article, :description, :cols => 64)) %>
+
+<%= labelled_form_field(_('Start date'), date_select(:article, :start_date)) %>
+
+<%= labelled_form_field(_('End date'), date_select(:article, :end_date)) %>

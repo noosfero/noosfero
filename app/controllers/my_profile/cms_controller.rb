@@ -15,6 +15,7 @@ class CmsController < MyProfileController
     TextileArticle,
     RssFeed,
     UploadedFile,
+    Event,
   ]
 
   def view
