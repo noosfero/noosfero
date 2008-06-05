@@ -475,6 +475,14 @@ module ApplicationHelper
     end
   end
 
+  def show_period(date1, date2 = nil)
+    if (date1 == date2) || (date2.nil?)
+      show_date(date1)
+    else
+      _('from %s to %s') % [show_date(date1), show_date(date2)]
+    end
+  end
+
   def gravatar_url_for(email, options = {})
     # Ta dando erro de roteamento
     url_for( { :gravatar_id => Digest::MD5.hexdigest(email),
