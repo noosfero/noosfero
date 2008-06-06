@@ -42,8 +42,8 @@ class SearchControllerTest < Test::Unit::TestCase
   end
 
   should 'search in more than one specified types of content' do
-    get :index, :query => 'something not important', :find_in => [ 'articles', 'comments' ]
-    assert_equivalent [:articles, :comments ], assigns(:results).keys
+    get :index, :query => 'something not important', :find_in => [ 'articles', 'people' ]
+    assert_equivalent [:articles, :people ], assigns(:results).keys
   end
 
   should 'render success in search' do
@@ -109,66 +109,6 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_includes assigns(:results)[:articles], art1
     assert_includes assigns(:results)[:articles], art2
     assert_not_includes assigns(:results)[:articles], art3
-  end
-
-  should 'search in comments' do
-    person = create_user('teste').person
-    art = person.articles.build(:name => 'an article to be found'); art.save!
-    comment = art.comments.build(:title => 'comment to be found', :body => 'hfyfyh', :author => person); comment.save!
-    get 'index', :query => 'found', :find_in => [ 'comments' ]
-
-    assert_includes assigns(:results)[:comments], comment
-  end
-
-  should 'search in comments in a specific category' do
-    person = create_user('teste').person
-
-    # in category
-    art1 = person.articles.build(:name => 'an article to be found')
-    art1.categories << @category
-    art1.save!
-    comment1 = art1.comments.build(:title => 'comment to be found', :body => 'hfyfyh', :author => person); comment1.save!
-
-    # not in category
-    art2 = person.articles.build(:name => 'another article to be found')
-    art2.save!
-    comment2 = art2.comments.build(:title => 'comment to be found', :body => 'hfyfyh', :author => person); comment2.save!
-    get :index, :category_path => ['my-category'], :query => 'found', :find_in => [ 'comments' ]
-
-    assert_includes assigns(:results)[:comments], comment1
-    assert_not_includes assigns(:results)[:comments], comment2
-  end
-
-  # 'assets' menu outside any category
-  should 'list comments in general' do
-    person = create_user('teste').person
-    art = person.articles.build(:name => 'an article to be found'); art.save!
-    comment = art.comments.build(:title => 'comment to be found', :body => 'hfyfyh', :author => person); comment.save!
-
-    get :assets, :asset => 'comments'
-    assert_includes assigns(:results)[:comments], comment
-  end
-
-  # 'assets' menu inside a specific category
-  should 'list comments in a specified category' do
-    person = create_user('teste').person
-
-    # in category
-    art1 = person.articles.build(:name => 'an article to be found')
-    art1.categories << @category
-    art1.save!
-    comment1 = art1.comments.build(:title => 'comment to be found', :body => 'hfyfyh', :author => person); comment1.save!
-
-    # not in category
-    art2 = person.articles.build(:name => 'another article to be found')
-    art2.save!
-    comment2 = art2.comments.build(:title => 'comment to be found', :body => 'hfyfyh', :author => person); comment2.save!
-
-
-    get :assets, :asset => 'comments', :category_path => [ 'my-category' ]
-
-    assert_includes assigns(:results)[:comments], comment1
-    assert_not_includes assigns(:results)[:comments], comment2
   end
 
   should 'find enterprises' do
@@ -355,11 +295,11 @@ class SearchControllerTest < Test::Unit::TestCase
 
     names = {
         :articles => 'Articles',
-        :comments => 'Comments',
         :people => 'People',
         :enterprises => 'Enterprises',
         :communities => 'Communities',
         :products => 'Products',
+        :events => 'Events',
     }
     names.each do |thing, description|
       assert_tag :tag => 'div', :attributes => { :class => /search-results-#{thing}/ }, :descendant => { :tag => 'h3', :content => Regexp.new(description) }
@@ -371,11 +311,11 @@ class SearchControllerTest < Test::Unit::TestCase
     get :popup
     names = {
         :articles => 'Articles',
-        :comments => 'Comments',
         :people => 'People',
         :enterprises => 'Enterprises',
         :communities => 'Communities',
         :products => 'Products',
+        :events => 'Events'
     }
     names.each do |thing,description|
       assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => "find_in[]", :value => thing.to_s, :checked => 'checked' }
@@ -643,20 +583,6 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_not_includes assigns(:results)[:articles], art2
   end
 
-  should 'display comments with a given initial' do
-    person = create_user('teste').person
-    art = person.articles.build(:name => 'an article to be found'); art.save!
-
-    comment1 = art.comments.build(:title => 'a comment to be found', :body => 'hfyfyh', :author => person); comment1.save!
-    comment2 = art.comments.build(:title => 'better comment, but not found', :body => 'hfyfyh', :author => person); comment2.save!
-
-    get :directory, :asset => 'comments', :initial => 'a'
-
-    assert_includes assigns(:results)[:comments], comment1
-    assert_not_includes assigns(:results)[:comments], comment2
-  end
-
-
   should 'display people with a given initial, under a specific category' do
 
     in_category_and_with_initial = create_user('fergunson').person
@@ -740,26 +666,6 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_not_includes assigns(:results)[:articles], art2
     assert_not_includes assigns(:results)[:articles], art3
     assert_not_includes assigns(:results)[:articles], art4
-  end
-
-  should 'display comments with a given initial, under a specific category' do
-    person = create_user('teste').person
-    art = person.articles.build(:name => 'an article to be found'); art.save!
-    art.categories << @category
-    comment1 = art.comments.build(:title => 'a comment to be found', :body => 'hfyfyh', :author => person); comment1.save!
-    comment2 = art.comments.build(:title => 'better comment, but not found', :body => 'hfyfyh', :author => person); comment2.save!
-
-    art2 = person.articles.build(:name => 'another article to be found'); art2.save!
-    comment3 = art2.comments.build(:title => 'a comment to be found', :body => 'hfyfyh', :author => person); comment1.save!
-    comment4 = art2.comments.build(:title => 'better comment, but not found', :body => 'hfyfyh', :author => person); comment2.save!
-
-
-    get :directory, :asset => 'comments', :initial => 'a', :category_path => [ 'my-category' ]
-
-    assert_includes assigns(:results)[:comments], comment1
-    assert_not_includes assigns(:results)[:comments], comment2
-    assert_not_includes assigns(:results)[:comments], comment3
-    assert_not_includes assigns(:results)[:comments], comment4
   end
 
   should 'find enterprise by product category' do
@@ -895,7 +801,7 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_not_includes assigns(:results)[:events], ev3
   end
 
-  %w[ people enterprises articles events communities products comments ].each do |asset|
+  %w[ people enterprises articles events communities products ].each do |asset|
     should "render asset-specific template when searching for #{asset}" do
       get :index, :find_in => [ asset ]
       assert_template asset
