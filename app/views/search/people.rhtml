@@ -1,0 +1,18 @@
+<% if @query.blank? %>
+  <h1><%= _('People') %></h1>
+  <%= render :partial => 'directory' %>
+<% else %>
+  <h1> <%= h(@category ? (_('Search results for "%{query}" in "%{category}"') % { :query => @query, :category => @category.name}) : (_('Search results for "%s"') % @query)) %> </h1>
+  <div style='text-align: center'>
+    <%= link_to _('Browse by name'), :action => 'index', :asset => 'people' %>
+  </div>
+<% end %>
+
+
+<div style='text-align: center'>
+  <%= render :partial => 'search_form', :locals => { :form_title => @query.blank? ? _('Search') : _("Refine your search"), :simple_search => true } %>
+</div>
+
+<%= render :partial => 'display_results' %>
+
+<br style="clear:both" />

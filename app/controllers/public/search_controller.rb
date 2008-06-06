@@ -86,10 +86,17 @@ class SearchController < ApplicationController
 
     if @results.keys.size == 1
       specific_action = @results.keys.first
-      send(specific_action)
-      render :action => specific_action
+      if respond_to?(specific_action)
+        send(specific_action)
+        render :action => specific_action
+        return
+      end
     end
+
+    render :action => 'index'
   end
+
+  alias :assets :index
 
   def events
     @events = @results[:events]
@@ -118,6 +125,10 @@ class SearchController < ApplicationController
 
   end
 
+  def people
+    #nothing, just to enable
+  end
+
   #######################################################
 
   # view the summary of one category
@@ -139,13 +150,6 @@ class SearchController < ApplicationController
   end
   attr_reader :category
 
-  #def assets
-    #@results = { @asset => @finder.recent(@asset, LIST_LIMIT) }
-
-    #@asset_name = gettext(SEARCH_IN.find { |entry| entry.first == @asset }[1])
-    #@names = { @asset => @asset_name }
-  #end
-
   def directory
     @results = { @asset => @finder.find_by_initial(@asset, params[:initial]) }
 
@@ -153,7 +157,7 @@ class SearchController < ApplicationController
     @asset_name = gettext(SEARCH_IN.find { |entry| entry.first == @asset }[1])
     @names = { @asset => @asset_name }
 
-    render :action => 'assets'
+    render :action => @asset
   end
 
   def tags

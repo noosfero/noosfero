@@ -14,7 +14,9 @@
       <% if @controller.action_name != 'assets' %>
         <h3>
           <%= @names[name] %>
-          <%= link_to _('(see more ...)'), params.merge(:action => 'index', :find_in => [ name ]) %>
+          <% if @results.size != 1 %>
+            <%= link_to _('(see more ...)'), params.merge(:action => 'index', :find_in => [ name ]) %>
+          <% end %>
         </h3>
       <% end %>
       <% partial = partial_for_class results.first.class %>
@@ -24,7 +26,7 @@
           <%= render :partial => partial, :object => hit %>
         <% end %>
         </ul>
-        <hr />
+        <br />
       </div><!-- end class="search-results-innerbox" -->
 
     </div><!-- end class="search-results-<%= name %>" -->
