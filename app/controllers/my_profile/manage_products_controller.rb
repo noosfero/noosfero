@@ -62,10 +62,10 @@ class ManageProductsController < ApplicationController
     @consumption = @profile.consumptions.build(params[:consumption])
     if request.post?
       if @consumption.save
-        flash[:notice] = _('Product succesfully created')
+        flash[:notice] = _('Raw material succesfully created')
         redirect_to :action => 'index'
       else
-        flash[:notice] = _('Could not create the product')
+        flash[:notice] = _('Could not create the raw material')
       end
     end
   end
@@ -73,9 +73,9 @@ class ManageProductsController < ApplicationController
   def destroy_consumption
     @consumption = @profile.consumptions.find(params[:id])
     if @consumption.destroy
-      flash[:notice] = _('Product succesfully removed')
+      flash[:notice] = _('Raw material succesfully removed')
     else
-      flash[:notice] = _('Could not remove the product')
+      flash[:notice] = _('Could not remove the raw material')
     end
     redirect_back_or_default :action => 'index'
   end
@@ -84,10 +84,10 @@ class ManageProductsController < ApplicationController
     @consumption = @profile.consumptions.find(params[:id])
     if request.post?
       if @consumption.update_attributes(params[:consumption])
-        flash[:notice] = _('Consumed product succesfully updated')
+        flash[:notice] = _('Raw material succesfully updated')
         redirect_back_or_default :action => 'index'
       else
-        flash[:notice] = _('Could not update the consumed product')
+        flash[:notice] = _('Could not update the raw material')
       end
     end
   end
