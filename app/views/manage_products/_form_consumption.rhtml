@@ -1,0 +1,9 @@
+<%= error_messages_for :consumption %> <br/>
+
+<% form_for :consumption, @consumption, nil, :url => {:action => action} do |f|  %>
+  <%= display_form_field( _('Raw material:'), f.select("product_category_id", ProductCategory.find(:all).map{|pc| [pc.name, pc.id]}) ) if action == 'new_consumption' %>
+  <%= display_form_field( _('Aditional specifications:'), f.text_area("aditional_specifications", :rows => 5) ) %>
+  <% button_bar do %>
+    <%= submit_button('save', (action == 'new_consumption' ? _('Add raw material') : _('Save changes')), :cancel => {:action => 'index'} ) %>
+  <% end %>
+<% end %>
