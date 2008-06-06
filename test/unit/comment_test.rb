@@ -93,22 +93,6 @@ class CommentTest < Test::Unit::TestCase
     assert_equal 'comment-4321', comment.anchor
   end
 
-  should 'be searched by contents of title' do 
-    owner = create_user('testuser').person
-    art = owner.articles.build(:name => 'ytest'); art.save!
-    c1 = art.comments.build(:title => 'a nice comment', :body => 'anything', :author => owner); c1.save!
-
-    assert_includes Comment.find_by_contents('nice'), c1
-  end
-
-  should 'be searched by contents of body' do 
-    owner = create_user('testuser').person
-    art = owner.articles.build(:name => 'ytest'); art.save!
-    c1 = art.comments.build(:title => 'test comment', :body => 'anything', :author => owner); c1.save!
-
-    assert_includes Comment.find_by_contents('anything'), c1
-  end
-
   should 'be able to find recent comments' do
     Comment.delete_all
 
@@ -153,6 +137,27 @@ class CommentTest < Test::Unit::TestCase
 
     assert_includes list, c1
     assert_not_includes list, c2
+  end
+
+  should 'notify article to reindex after saving' do
+    owner = create_user('testuser').person
+    article = owner.articles.create!(:name => 'test', :body => '...')
+
+    article.expects(:comments_updated)
+
+    c1 = article.comments.new(:title => "A comment", :body => '...', :author => owner)
+    c1.stubs(:article).returns(article)
+    c1.save!
+  end
+
+  should 'notify article to reindex after being removed' do
+    owner = create_user('testuser').person
+    article = owner.articles.create!(:name => 'test', :body => '...')
+    c1 = article.comments.create!(:title => "A comment", :body => '...', :author => owner)
+
+    c1.stubs(:article).returns(article)
+    article.expects(:comments_updated)
+    c1.destroy
   end
 
 end
