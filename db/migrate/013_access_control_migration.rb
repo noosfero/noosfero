@@ -20,7 +20,14 @@ class AccessControlMigration < ActiveRecord::Migration
     Role.with_scope(:create => { :system => true }) do
 
       # Environment administrator!
-      Role.create!(:key => 'environment_administrator', :name => N_('Environment Administrator'), :permissions => ['view_environment_admin_panel','edit_environment_features', 'edit_environment_design', 'manage_environment_categories', 'manage_environment_roles', 'manage_environment_validators'])
+      Role.create!(:key => 'environment_administrator', :name => N_('Environment Administrator'), :permissions => [
+        'view_environment_admin_panel',
+        'edit_environment_features', 
+        'edit_environment_design', 
+        'manage_environment_categories', 
+        'manage_environment_roles', 
+        'manage_environment_validators'
+      ])
 
       Role.create!(:key => 'profile_admin', :name => N_('Profile Administrator'), :permissions => [
         'edit_profile',
@@ -33,12 +40,16 @@ class AccessControlMigration < ActiveRecord::Migration
 
       # members for enterprises, communities etc
       Role.create!(:key => "profile_member", :name => N_('Member'), :permissions => [
-        'edit_profile', 'post_content', 'manage_products' 
+        'edit_profile', 
+        'post_content', 
+        'manage_products' 
       ])
 
       # moderators for enterprises, communities etc
       Role.create!(:key => 'profile_moderator', :name => N_('Moderator'), :permissions => [
-        'manage_memberships', 'edit_profile_design', 'manage_products'
+        'manage_memberships', 
+        'edit_profile_design', 
+        'manage_products'
       ])
 
     end
