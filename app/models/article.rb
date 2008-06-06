@@ -21,7 +21,11 @@ class Article < ActiveRecord::Base
 
   acts_as_versioned
 
-  acts_as_searchable
+  acts_as_searchable :additional_fields => [ :comment_data ]
+
+  def comment_data
+    comments.map {|item| [item.title, item.body].join(' ') }.join(' ')
+  end
   
   before_update do |article|
     article.advertise = true
@@ -118,6 +122,10 @@ class Article < ActiveRecord::Base
         (user == self.profile) || user.memberships.include?(self.profile)
       end
     end
+  end
+
+  def comments_updated
+    ferret_update
   end
 
   private

@@ -90,7 +90,6 @@ class SearchController < ApplicationController
 
   SEARCH_IN = [
     [ :articles, N_('Articles') ],
-    [ :comments, N_('Comments') ],
     [ :enterprises, N_('Enterprises') ],
     [ :people, N_('People') ],
     [ :communities, N_('Communities') ],
