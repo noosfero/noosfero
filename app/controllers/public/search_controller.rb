@@ -42,6 +42,46 @@ class SearchController < ApplicationController
     end
   end
 
+  def events
+    @events = @results[:events]
+    @calendar = Event.date_range(params[:year], params[:month]).map do |date|
+      [
+        # the day itself
+        date, 
+        # list of events of that day
+        @events.select do |event|
+          event.date_range.include?(date)
+        end,
+        # is this date in the current month?
+        true
+      ]
+    end
+
+    # pad with days before
+    while @calendar.first.first.wday != 0
+      @calendar.unshift([@calendar.first.first - 1.day, [], false])
+    end
+
+    # pad with days after (until Saturday)
+    while @calendar.last.first.wday != 6
+      @calendar << [@calendar.last.first + 1.day, [], false]
+    end
+
+  end
+
+  def people
+    #nothing, just to enable
+  end
+  def enterprises
+    #nothing, just to enable
+  end
+  def communities
+    #nothing, just to enable
+  end
+  def articles
+    #nothins, just to enable
+  end
+
   public
 
   include SearchHelper
@@ -87,6 +127,7 @@ class SearchController < ApplicationController
     if @results.keys.size == 1
       specific_action = @results.keys.first
       if respond_to?(specific_action)
+        @asset_name = gettext(@names[@results.keys.first])
         send(specific_action)
         render :action => specific_action
         return
@@ -97,37 +138,6 @@ class SearchController < ApplicationController
   end
 
   alias :assets :index
-
-  def events
-    @events = @results[:events]
-    @calendar = Event.date_range(params[:year], params[:month]).map do |date|
-      [
-        # the day itself
-        date, 
-        # list of events of that day
-        @events.select do |event|
-          event.date_range.include?(date)
-        end,
-        # is this date in the current month?
-        true
-      ]
-    end
-
-    # pad with days before
-    while @calendar.first.first.wday != 0
-      @calendar.unshift([@calendar.first.first - 1.day, [], false])
-    end
-
-    # pad with days after (until Saturday)
-    while @calendar.last.first.wday != 6
-      @calendar << [@calendar.last.first + 1.day, [], false]
-    end
-
-  end
-
-  def people
-    #nothing, just to enable
-  end
 
   #######################################################
 
@@ -152,8 +162,6 @@ class SearchController < ApplicationController
 
   def directory
     @results = { @asset => @finder.find_by_initial(@asset, params[:initial]) }
-
-    # FIXME remove this duplication with assets action
     @asset_name = gettext(SEARCH_IN.find { |entry| entry.first == @asset }[1])
     @names = { @asset => @asset_name }
 

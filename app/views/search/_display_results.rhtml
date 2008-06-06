@@ -12,12 +12,12 @@
   <% if !results.nil? and !results.empty? %>
     <div class="search-results-<%= name %> search-results-box <%= pos2 %> <%= 'col%s_of3' % pos3.to_s %>">
       <% if @controller.action_name != 'assets' %>
-        <h3>
-          <%= @names[name] %>
-          <% if @results.size != 1 %>
-            <%= link_to _('(see more ...)'), params.merge(:action => 'index', :find_in => [ name ]) %>
-          <% end %>
-        </h3>
+        <% if @results.size != 1 %>
+          <h3>
+            <%= @names[name] %>
+            <%= link_to _('(more ...)'), params.merge(:action => 'index', :find_in => [ name ]) %>
+          </h3>
+        <% end %>
       <% end %>
       <% partial = partial_for_class results.first.class %>
       <div class="search-results-innerbox search-results-type-<%= partial %> <%= 'common-profile-list-block' if partial == 'profile' %>">
@@ -33,7 +33,9 @@
   <% else %>
     <div class="search-results-<%= name %> search-results-empty search-results-box <%= pos2 %> <%= 'col%s_of3' % pos3.to_s %>">
       <% if @controller.action_name != 'assets' %>
-        <h3><%= @names[name] %></h3>
+        <% if @results.size != 1 %>
+          <h3><%= @names[name] %></h3>
+        <% end %>
       <% end %>
       <div class="search-results-innerbox search-results-type-empty">
         <div> <%= _('None') %> </div>

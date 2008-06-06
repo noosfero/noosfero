@@ -24,7 +24,7 @@
   font-size: 16px;
 }
 
-#search-popup .search-field {
+#search-popup .search-field, .search-form {
   text-align: center;
 }
 
@@ -50,6 +50,10 @@
   margin: -10px 0px 0px 0px;
   background: #FFF;
   padding: 0px 5px;
+}
+
+.search-options {
+  text-align: left;
 }
 
 .search-options li {

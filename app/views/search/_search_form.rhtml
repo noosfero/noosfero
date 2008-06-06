@@ -1,3 +1,5 @@
+<div class='search-form'>
+
 <% simple_search = false unless defined? simple_search %>
 
 <% form_tag( { :action => 'index', :category_path => ( @category ? @category.explode_path : [] ) },
@@ -53,3 +55,5 @@
   <% end; end %>
 
 <% end %>
+
+</div> <!-- id="search-form" -->

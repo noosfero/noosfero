@@ -62,28 +62,16 @@ module DatesHelper
   end
 
   def link_to_previous_month(year, month)
-    year = year.to_i
-    month = month.to_i
-    if month == 1
-      year -= 1
-      month = 12
-    else
-      month -= 1
-    end
+    date = (year.blank? || month.blank?) ? Date.today : Date.new(year.to_i, month.to_i, 1)
+    previous_month_date = date - 1.month
 
-    link_to '&larr; ' + show_month(year, month), :year => year, :month => month
+    link_to '&larr; ' + show_month(previous_month_date.year, previous_month_date.month), :year => previous_month_date.year, :month => previous_month_date.month
   end
 
   def link_to_next_month(year, month)
-    year = year.to_i
-    month = month.to_i
-    if month == 12
-      year += 1
-      month = 1
-    else
-      month += 1
-    end
+    date = (year.blank? || month.blank?) ? Date.today : Date.new(year.to_i, month.to_i, 1)
+    next_month_date = date + 1.month
 
-    link_to show_month(year, month) + ' &rarr;', :year => year, :month => month
+    link_to show_month(next_month_date.year, next_month_date.month) + ' &rarr;', :year => next_month_date.year, :month => next_month_date.month
   end
 end

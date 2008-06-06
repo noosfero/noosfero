@@ -58,4 +58,16 @@ class DatesHelperTest < Test::Unit::TestCase
     link_to_next_month('2008', '12')
   end
 
+  should 'get current date when year and month are not informed for next month' do
+    Date.expects(:today).returns(Date.new(2008,1,1))
+    expects(:link_to).with('February 2008 &rarr;', { :year => 2008, :month => 2})
+    link_to_next_month(nil, nil)
+  end
+
+  should 'get current date when year and month are not informed for previous month' do
+    Date.expects(:today).returns(Date.new(2008,1,1))
+    expects(:link_to).with('&larr; December 2007', { :year => 2007, :month => 12})
+    link_to_previous_month(nil, nil)
+  end
+
 end

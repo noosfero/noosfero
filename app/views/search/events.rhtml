@@ -1,4 +1,9 @@
-<h1><%= show_month(params[:year], params[:month]) %></h1>
+<h1>
+  <% if @category %>
+    <%= @category.name %>:
+  <% end %>
+  <%= show_month(params[:year], params[:month]) %>
+</h1>
 
 <div style='text-align: center; margin: 1em;'>
   <%= link_to_previous_month(params[:year], params[:month]) %>
