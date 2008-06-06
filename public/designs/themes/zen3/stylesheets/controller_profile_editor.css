@@ -26,3 +26,7 @@ ul.categories li.cat_checked {
   border-bottom: 1px solid #CE5C00;
 }
 
+div.file-manager-button a:hover {
+  background: #FCAF3E !important;
+  color: #000 !important;
+}
