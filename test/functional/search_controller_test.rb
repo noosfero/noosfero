@@ -288,6 +288,7 @@ class SearchControllerTest < Test::Unit::TestCase
     product = ent.products.create!(:name => 'display product')
     person = create_user('displayperson').person; person.name = 'display person'; person.save!
     article = person.articles.create!(:name => 'display article')
+    event = Event.new(:name => 'display event', :start_date => Date.today); event.profile = person; event.save!
     comment = article.comments.create!(:title => 'display comment', :body => '...', :author => person)
     community = Community.create!(:name => 'display community', :identifier => 'an_bea_comm')
 
@@ -315,7 +316,7 @@ class SearchControllerTest < Test::Unit::TestCase
         :enterprises => 'Enterprises',
         :communities => 'Communities',
         :products => 'Products',
-        :events => 'Events'
+        :events => 'Events',
     }
     names.each do |thing,description|
       assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => "find_in[]", :value => thing.to_s, :checked => 'checked' }
