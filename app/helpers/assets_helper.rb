@@ -9,6 +9,7 @@ module AssetsHelper
       [ options.merge(:asset => 'products'), "icon-menu-product",    _('Products') ],
       [ options.merge(:asset => 'enterprises'), "icon-menu-enterprise", _('Enterprises') ],
       [ options.merge(:asset => 'communities'), "icon-menu-community",  _('Communities') ],
+      [ options.merge(:asset => 'comments'), "icon-menu-comments",   _('Comments') ],
       [ options.merge(:asset => 'events'), "icon-menu-events",   _('Events') ],
 
     ].map do |target,css_class,name|

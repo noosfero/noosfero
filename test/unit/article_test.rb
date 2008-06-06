@@ -286,26 +286,5 @@ class ArticleTest < Test::Unit::TestCase
     assert_equal true, a1.display_to?(member)
   end
 
-  should 'reindex when comments are changed' do
-    a = Article.new
-    a.expects(:ferret_update)
-    a.comments_updated
-  end
-
-  should 'index comments title together with article' do
-    owner = create_user('testuser').person
-    art = owner.articles.build(:name => 'ytest'); art.save!
-    c1 = art.comments.build(:title => 'a nice comment', :body => 'anything', :author => owner); c1.save!
-
-    assert_includes Article.find_by_contents('nice'), art
-  end
-
-  should 'index comments body together with article' do
-    owner = create_user('testuser').person
-    art = owner.articles.build(:name => 'ytest'); art.save!
-    c1 = art.comments.build(:title => 'test comment', :body => 'anything', :author => owner); c1.save!
-
-    assert_includes Article.find_by_contents('anything'), art
-  end
 
 end
