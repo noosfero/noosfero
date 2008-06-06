@@ -198,4 +198,52 @@ class ManageProductsControllerTest < Test::Unit::TestCase
     assert_sanitized assigns(:product).description
   end
 
+  should 'display new consumption form' do
+    get :new_consumption, :profile => @enterprise.identifier
+    assert_tag :tag => 'h2', :content => 'Add consumed product'
+  end
+
+  should 'create consumption product' do
+    product_category = ProductCategory.create!(:name => 'Food', :environment => Environment.default)
+    assert_difference Consumption, :count do
+      post :new_consumption, :profile => @enterprise.identifier, :consumption => { :product_category_id => product_category.id }
+    end
+  end
+
+  should 'display list of consumption products' do
+    product_category = ProductCategory.create!(:name => 'Food', :environment => Environment.default)
+    @enterprise.consumptions.create!(:product_category_id => product_category.id, :aditional_specifications => 'extra info')
+    get :index, :profile => @enterprise.identifier
+    assert_tag :tag => 'em', :content => 'extra info'
+  end
+
+  should 'filter html from consumption specifications' do
+    product_category = ProductCategory.create!(:name => 'Food', :environment => Environment.default)
+    post :new_consumption, :profile => @enterprise.identifier,
+      :consumption => { :product_category_id => product_category.id, :aditional_specifications => 'extra <b>info</b>' }
+    assert_sanitized assigns(:consumption).aditional_specifications
+  end
+
+  should 'destroy consumption product' do
+    product_category = ProductCategory.create!(:name => 'Food', :environment => Environment.default)
+    product = @enterprise.consumptions.create!(:product_category_id => product_category.id, :aditional_specifications => 'extra info')
+    assert_difference Consumption, :count, -1 do
+      post :destroy_consumption, :profile => @enterprise.identifier, :id => product.id
+    end
+  end
+  
+  should 'display edit consumption form' do
+    product_category = ProductCategory.create!(:name => 'Food', :environment => Environment.default)
+    product = @enterprise.consumptions.create!(:product_category_id => product_category.id, :aditional_specifications => 'extra info')
+    get :edit_consumption, :profile => @enterprise.identifier, :id => product
+    assert_tag :tag => 'h2', :content => 'Editing Food'
+  end
+
+  should 'update consumption product' do
+    product_category = ProductCategory.create!(:name => 'Food', :environment => Environment.default)
+    product = @enterprise.consumptions.create!(:product_category_id => product_category.id, :aditional_specifications => 'extra info')
+    post :edit_consumption, :profile => @enterprise.identifier, :id => product, :consumption => { :aditional_specifications => 'new extra info' }
+    assert_equal 'new extra info', @enterprise.consumptions.find(product.reload.id).aditional_specifications
+  end
+
 end

@@ -5,6 +5,7 @@ class ManageProductsController < ApplicationController
 
   def index
     @products = @profile.products
+    @consumptions = @profile.consumptions
   end
 
   def show
@@ -56,5 +57,39 @@ class ManageProductsController < ApplicationController
     @categories = @current_category.children
     render :partial => 'subcategories'
   end
+  
+  def new_consumption
+    @consumption = @profile.consumptions.build(params[:consumption])
+    if request.post?
+      if @consumption.save
+        flash[:notice] = _('Product succesfully created')
+        redirect_to :action => 'index'
+      else
+        flash[:notice] = _('Could not create the product')
+      end
+    end
+  end
+
+  def destroy_consumption
+    @consumption = @profile.consumptions.find(params[:id])
+    if @consumption.destroy
+      flash[:notice] = _('Product succesfully removed')
+    else
+      flash[:notice] = _('Could not remove the product')
+    end
+    redirect_back_or_default :action => 'index'
+  end
  
+  def edit_consumption
+    @consumption = @profile.consumptions.find(params[:id])
+    if request.post?
+      if @consumption.update_attributes(params[:consumption])
+        flash[:notice] = _('Consumed product succesfully updated')
+        redirect_back_or_default :action => 'index'
+      else
+        flash[:notice] = _('Could not update the consumed product')
+      end
+    end
+  end
+
 end

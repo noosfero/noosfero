@@ -1,12 +1,47 @@
 <h2> <%=_('Listing products and services') %> </h2>
 
+<table>
+  <tr>
+    <th><%= _('Product') %></th>
+    <th><%= _('Price') %></th>
+    <th><%= _('Actions') %></th>
+  </tr>
+  <% @products.each do |product| %>
+    <tr>
+      <td><strong><%= link_to product.name, :action => 'show', :id => product %></strong></td>
+      <td><%= product.price %></td>
+      <td>
+        <%= button :edit, _('Edit'), :action => 'edit', :id => product %>
+        <%= button :delete, _('Destroy'), :action => 'destroy', :id => product %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
 <p> <%= link_to _('New product or service'), :action => 'new' %> </p>
 
-<% @products.each do |product| %>
-  <p> <b> <%= link_to product.name, :action => 'show', :id => product %> </b>  
-      <%= _('Price:') %> <%= product.price %> 
-      <%= link_to _('edit'), :action => 'edit', :id => product %> 
-      <%= link_to _('destroy'), :action => 'destroy', :id => product %> </p>
-<% end %>
+<h3> <%=_('Listing consumed products') %> </h3>
+
+<table>
+  <tr>
+    <th><%= _('Consumed product') %></th>
+    <th><%= _('Actions') %></th>
+  </tr>
+  <% @consumptions.each do |consumption| %>
+    <tr>
+      <td>
+        <strong><%= link_to_category(consumption.product_category) %></strong>
+        <br/>
+        <em><%= consumption.aditional_specifications  %></em>
+      </td>
+      <td>
+        <%= button :edit, _('Edit'), :action => 'edit_consumption', :id => consumption %>
+        <%= button :delete, _('Remove'), { :action => 'destroy_consumption', :id => consumption }, :confirm => _('Are you sure, you want to remove this product from your list') %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<p> <%= link_to _('Add cunsumed product'), :action => 'new_consumption' %> </p>
 
 <%= link_to_myprofile(_('Back'), {}, @profile.identifier)  %>

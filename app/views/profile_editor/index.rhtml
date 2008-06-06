@@ -20,8 +20,6 @@
 
   <%= file_manager_button(_('Manage Members'), 'icons-app/members.png', :controller => 'profile_members') if profile.organization? && user.has_permission?(:manage_memberships, profile) %>
 
-  <%= file_manager_button(_('Consumed Products'), 'icons-app/consumed_product.png', :controller => 'consumed_products') if profile.enterprise? %>
-
   <%= file_manager_button(_('Manage Products and Services'), 'icons-app/products.png', :controller => 'manage_products') if profile.enterprise? %>
 
   <%= file_manager_button(_('Enterprise Validation'), 'icons-app/validation.png', :controller => 'enterprise_validation') if profile.is_validation_entity? %>
