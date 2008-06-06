@@ -600,4 +600,22 @@ module ApplicationHelper
       )
   end
 
+  def rolename_for(profile, resource)
+    role = profile.role_assignments.find_by_resource_id(resource.id).role
+    content_tag('span', role.name, :style => "color: #{role_color(role)}")
+  end
+
+  def role_color(role)
+    case role
+      when Profile::Roles.admin
+        'blue'
+      when Profile::Roles.member
+        'green'
+      when Profile::Roles.moderator
+        'gray'
+      else
+        'black'
+    end
+  end
+
 end

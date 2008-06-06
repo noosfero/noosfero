@@ -9,7 +9,8 @@
   <tr>
     <td> <%= image_tag(profile_icon(membership)) %> </td>
     <td>
-      <%= _('Name: %s:') % link_to(membership.name, membership.url) %> <br/>
+      <%= _('Name: %s') % link_to(membership.name, membership.url) %> <br/>
+      <%= _('Role: %s') % rolename_for(profile, membership) %> <br/>
       <%= _('Type: %s') % _(membership.class.name) %> <br/>
       <%= _('Description: %s') % membership.description  + '<br/>' if membership.kind_of?(Community) %>
       <%= _('Members: %s') % membership.members.size.to_s %> <br/>

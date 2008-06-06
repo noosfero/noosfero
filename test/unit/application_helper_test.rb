@@ -100,6 +100,26 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_not_nil theme_javascript
   end
 
+  should 'role color for admin role' do
+    assert_equal 'blue', role_color(Profile::Roles.admin)
+  end
+  should 'role color for member role' do
+    assert_equal 'green', role_color(Profile::Roles.member)
+  end
+  should 'role color for moderator role' do
+    assert_equal 'gray', role_color(Profile::Roles.moderator)
+  end
+  should 'default role color' do
+    assert_equal 'black', role_color('none')
+  end
+
+  should 'rolename for' do
+    person = create_user('usertest').person
+    community = Community.create!(:name => 'new community', :identifier => 'new-community', :environment => Environment.default)
+    community.add_member(person)
+    assert_equal 'Profile Member', rolename_for(person, community)
+  end
+
   protected
 
   def content_tag(tag, content, options)
