@@ -219,6 +219,12 @@ class PersonTest < Test::Unit::TestCase
     assert_equal 'randomhacker', p.name
   end
 
+  should 'fallback to login when name is blank' do
+    p = create_user('randomhacker').person
+    p.name = ''
+    assert_equal 'randomhacker', p.name
+  end
+
   should 'have favorite enterprises' do
     p = create_user('test_person').person
     e = Enterprise.create!(:name => 'test_ent', :identifier => 'test_ent')

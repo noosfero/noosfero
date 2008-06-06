@@ -100,7 +100,7 @@ class Person < Profile
   hacked_after_create :insert_default_homepage_and_feed
 
   def name
-    if !self[:name].nil?
+    if !self[:name].blank?
       self[:name]
     else
       self.user ? self.user.login : nil
