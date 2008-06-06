@@ -27,7 +27,7 @@ class MembershipsController < MyProfileController
     @community = Community.new(params[:community])
     if request.post?
       if @community.save
-        @community.add_member(profile)
+        @community.add_admin(profile)
         redirect_to :action => 'index'
       end
     end
