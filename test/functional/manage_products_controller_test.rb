@@ -200,7 +200,7 @@ class ManageProductsControllerTest < Test::Unit::TestCase
 
   should 'display new consumption form' do
     get :new_consumption, :profile => @enterprise.identifier
-    assert_tag :tag => 'h2', :content => 'Add consumed product'
+    assert_tag :tag => 'h2', :content => 'Add raw material'
   end
 
   should 'create consumption product' do
@@ -246,4 +246,11 @@ class ManageProductsControllerTest < Test::Unit::TestCase
     assert_equal 'new extra info', @enterprise.consumptions.find(product.reload.id).aditional_specifications
   end
 
+  should 'not show product_category field on edit consumption form' do
+    product_category = ProductCategory.create!(:name => 'Food', :environment => Environment.default)
+    product = @enterprise.consumptions.create!(:product_category_id => product_category.id, :aditional_specifications => 'extra info')
+    get :edit_consumption, :profile => @enterprise.identifier, :id => product
+    assert_no_tag :tag => 'select', :attributes => { :name => 'consumption[product_category_id]' }
+  end
+  
 end

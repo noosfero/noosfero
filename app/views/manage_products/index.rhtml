@@ -20,11 +20,11 @@
 
 <p> <%= link_to _('New product or service'), :action => 'new' %> </p>
 
-<h3> <%=_('Listing consumed products') %> </h3>
+<h3> <%=_('Listing raw materials') %> </h3>
 
 <table>
   <tr>
-    <th><%= _('Consumed product') %></th>
+    <th><%= _('Raw material') %></th>
     <th><%= _('Actions') %></th>
   </tr>
   <% @consumptions.each do |consumption| %>
@@ -36,12 +36,12 @@
       </td>
       <td>
         <%= button :edit, _('Edit'), :action => 'edit_consumption', :id => consumption %>
-        <%= button :delete, _('Remove'), { :action => 'destroy_consumption', :id => consumption }, :confirm => _('Are you sure, you want to remove this product from your list') %>
+        <%= button :delete, _('Remove'), { :action => 'destroy_consumption', :id => consumption }, :confirm => _('Are you sure, you want to remove this raw material from your list') %>
       </td>
     </tr>
   <% end %>
 </table>
 
-<p> <%= link_to _('Add cunsumed product'), :action => 'new_consumption' %> </p>
+<p> <%= link_to _('Add raw material'), :action => 'new_consumption' %> </p>
 
 <%= link_to_myprofile(_('Back'), {}, @profile.identifier)  %>
