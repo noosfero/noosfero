@@ -2,7 +2,7 @@
 <div class="article-comment<%= ' comment-from-owner' if ( comment.author && (@page.profile.name == comment.author.name) ) %> comment-logged-<%= comment.author ? 'in' : 'out' %>">
   <% if logged_in? && (user == @page.profile || user == comment.author) %>
     <% button_bar(:style => 'float: right; margin-top: 0;') do %>
-      <%= icon_button(:delete, 'Delete', { :remove_comment => comment.id }, :method => :post, :confirm => _('Are you sure you want to remove this comment?')) %>
+      <%= icon_button(:delete, _('Remove'), { :remove_comment => comment.id }, :method => :post, :confirm => _('Are you sure you want to remove this comment?')) %>
     <% end %>
   <% end %>
   
