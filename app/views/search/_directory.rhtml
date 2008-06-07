@@ -1,4 +1,4 @@
-<div style='text-align: center'>
+<div class="search-index">
   <%= link_to_unless_current(_('Recent'), :action => 'index') %>
   &nbsp;
   <%= (?a..?z).map { |initial| link_to_unless_current(('' << initial).upcase, :action => 'directory', :asset => @asset, :initial => ('' << initial)) }.join(' &nbsp; ') %>

@@ -1,7 +1,10 @@
+<div id="search-page">
+
 <h1> <%=h @category ? (_('Search results for "%{query}" in "%{category}"') % { :query => @query, :category => @category.name}) : (_('Search results for "%s"') % @query) %> </h1>
 
 <%= render :partial => 'search_form', :locals => { :form_title => _("Refine your search"), :simple_search => true } %>
 
 <%= render :partial => 'display_results' %>
 
+</div><!-- end id="search-page" -->
 <br style="clear:both" />

@@ -24,6 +24,7 @@
 .icon-firefox   { background-image: url(firefox-24x24.gif)       }
 .icon-help32on  { background-image: url(help-on-32x32-HC.gif)    }
 .icon-help32off { background-image: url(help-off-32x32-HC.gif)   }
+.icon-todo            { background-image: url(stock_todo.png)          }
 .icon-menu-           { background-image: url(menu-without-ico-HC.gif) }
 .icon-menu-home       { background-image: url(home-HC.gif)             }
 .icon-menu-blog       { background-image: url(blog-HC.gif)             }
@@ -37,9 +38,7 @@
 .icon-menu-logout     { background-image: url(exit-HC.gif)             }
 .icon-menu-search     { background-image: url(search-HC.gif)           }
 .icon-menu-ed-design  { background-image: url(edit-design-HC.gif)      }
-.icon-menu-events     { background-image: url(calendar.gif)      }
-.icon-todo { background-image: url(stock_todo.png); }
-
-.icon-menu-articles      { background-image: url(edit-HC.gif)             }
-.icon-menu-comments      { background-image: url(blog-HC.gif)             }
-.icon-menu-people        { background-image: url(album-HC.gif)            }
+.icon-menu-events     { background-image: url(calendar-HC.gif)         }
+.icon-menu-articles   { background-image: url(edit-HC.gif)             }
+.icon-menu-comments   { background-image: url(blog-HC.gif)             }
+.icon-menu-people     { background-image: url(album-HC.gif)            }

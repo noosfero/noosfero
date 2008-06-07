@@ -1,4 +1,8 @@
 
+.search-index {
+  color: #EA5;
+}
+
 #view-category,
 #search-results {
   padding: 0% 2% 10px 2%;
@@ -50,18 +54,6 @@
   border: none;
   background: #FD8;
   -moz-border-radius: 15px;
-}
-
-.search-results-innerbox hr {
-  display: none;
-}
-
-.msie .search-results-innerbox hr {
-  display: inline;
-  clear: both;
-  margin: -10px 0px 0px 0px;
-  height: 0px;
-  visibility: hidden;
 }
 
 .search-results-type-product li li a {
