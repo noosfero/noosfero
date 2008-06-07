@@ -17,8 +17,17 @@ function putMarker(lat, lng, title) {
   });
 }
 
+window.unload = function() {
+  GUnload();
+};
+
 if (GBrowserIsCompatible()) {
   var map = new GMap2(document.getElementById("map"));
+
+  new GKeyboardHandler(map);
+  map.addControl(new GLargeMapControl());
+  map.addControl(new GMapTypeControl());
+
   map.setCenter(new GLatLng(-15.0, -50.1419), 4);
 <%
   @results.each do |name,results|
