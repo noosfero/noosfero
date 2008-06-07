@@ -10,11 +10,13 @@ class GoogleMapsTest < Test::Unit::TestCase
   end
 
   should 'retrieve key from "web2.0" config file' do
+    File.expects(:exists?).with(CONFIG_FILE).returns(true)
     YAML.expects(:load_file).with(CONFIG_FILE).returns({'googlemaps' => { 'key' => 'MYKEY' }})
     assert_equal 'MYKEY', GoogleMaps.key
   end
 
   should 'enable when key is defined' do
+    File.expects(:exists?).with(CONFIG_FILE).returns(true)
     YAML.expects(:load_file).with(CONFIG_FILE).returns({'googlemaps' => { 'key' => 'MYKEY' }})
     assert GoogleMaps.enabled?
   end
