@@ -4,25 +4,31 @@ class GoogleMaps
 
   class << self
 
+    def erase_config
+      @config = nil
+    end
+
     def config_file
       File.join(RAILS_ROOT, 'config', 'web2.0.yml')
     end
 
+    def config
+      if @config.nil?
+        if File.exists?(config_file)
+          yaml = YAML.load_file(config_file)
+          @config = yaml['googlemaps']
+        end
+      end
+
+      @config ||= {}
+    end
+
     def enabled?
-      File.exists?(config_file)
+      !config['key'].nil?
     end
 
     def key
-      if enabled?
-        config = YAML.load_file(config_file)
-        if config.has_key?(:googlemaps)
-          config[:googlemaps][:key]
-        else
-          nil
-        end
-      else
-        nil
-      end
+      config['key']
     end
 
     def api_url

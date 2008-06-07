@@ -4,13 +4,29 @@ class GoogleMapsTest < Test::Unit::TestCase
 
   CONFIG_FILE = File.join(RAILS_ROOT, 'config', 'web2.0.yml')
 
+  def setup
+    # force loading of config at every test
+    GoogleMaps.erase_config
+  end
+
   should 'retrieve key from "web2.0" config file' do
-    YAML.expects(:load_file).with(CONFIG_FILE).returns({:googlemaps => { :key => 'MYKEY' }})
+    YAML.expects(:load_file).with(CONFIG_FILE).returns({'googlemaps' => { 'key' => 'MYKEY' }})
     assert_equal 'MYKEY', GoogleMaps.key
+  end
+
+  should 'enable when key is defined' do
+    YAML.expects(:load_file).with(CONFIG_FILE).returns({'googlemaps' => { 'key' => 'MYKEY' }})
+    assert GoogleMaps.enabled?
   end
 
   should 'disable if config file not present' do
     File.expects(:exists?).with(CONFIG_FILE).returns(false)
+    assert !GoogleMaps.enabled?
+  end
+
+  should 'disable if key not defined' do
+    File.expects(:exists?).with(CONFIG_FILE).returns(true)
+    YAML.expects(:load_file).with(CONFIG_FILE).returns({})
     assert !GoogleMaps.enabled?
   end
   

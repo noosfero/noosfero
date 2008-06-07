@@ -16,20 +16,27 @@ module SearchHelper
   end
 
   def display_results
+
+    unless GoogleMaps.enabled?
+      return render(:partial => 'display_results')
+    end
+
     data =
       if params[:display] == 'map'
         {
           :partial => 'google_maps',
-          :toggle => link_to(_('Display in list'), params.merge(:display => 'list'))
+          :toggle => button(:search, _('Display in list'), params.merge(:display => 'list'), :class => "map-toggle-button" ),
+          :class => 'map' ,
         }
       else
         {
           :partial => 'display_results',
-          :toggle => link_to(_('Display in map'), params.merge(:display => 'map'))
+          :toggle => button(:search, _('Display in map'), params.merge(:display => 'map'), :class => "map-toggle-button" ),
+          :class => 'list' ,
         }
       end
 
-    data[:toggle] + (render :partial => data[:partial])
+    content_tag('div', data[:toggle] + (render :partial => data[:partial]), :class => "map-or-list-search-results #{data[:class]}")
   end
 
 end
