@@ -38,6 +38,9 @@
 .only-one-result-box .search-results-box {
   width: 100%;
 }
+.msie .only-one-result-box .search-results-box {
+  width: 95% !important;
+}
 
 .search-results-box.odd {
   margin-left: 1%;
