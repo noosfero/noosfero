@@ -814,6 +814,11 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_equal 0, assigns(:calendar).size % 7
   end
 
+  should 'submit search form to /search when viewing asset' do
+    get :index, :asset => 'people'
+    assert_tag :tag => "form", :attributes => { :class => 'search_form', :action => '/search' }
+  end
+
   ##################################################################
   ##################################################################
 

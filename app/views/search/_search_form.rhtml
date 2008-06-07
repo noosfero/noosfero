@@ -2,7 +2,7 @@
 
 <% simple_search = false unless defined? simple_search %>
 
-<% form_tag( { :action => 'index', :category_path => ( @category ? @category.explode_path : [] ) },
+<% form_tag( { :action => 'index', :asset => nil, :category_path => ( @category ? @category.explode_path : [] ) },
                :method => 'get', :class => 'search_form' ) do %>
   <%= '<h3>%s</h3>' % form_title if defined? form_title %>
 
