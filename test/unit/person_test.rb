@@ -267,4 +267,11 @@ class PersonTest < Test::Unit::TestCase
     assert person.errors.invalid?(:name)
   end
 
+  should 'already request friendship' do
+    p1 = create_user('testuser1').person
+    p2 = create_user('testuser2').person
+    AddFriend.create!(:person => p1, :friend => p2)
+    assert p1.already_request_friendship?(p2)
+  end
+  
 end

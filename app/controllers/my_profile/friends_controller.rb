@@ -9,6 +9,7 @@ class FriendsController < MyProfileController
   def add
     @friend = Person.find(params[:id])
     if request.post? && params[:confirmation]
+      # FIXME this shouldn't be in Person model?
       AddFriend.create!(:person => profile, :friend => @friend, :group_for_person => params[:group])
 
       flash[:notice] = _('%s still needs to accept being your friend.') % @friend.name

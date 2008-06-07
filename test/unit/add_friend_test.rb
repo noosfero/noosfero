@@ -87,4 +87,13 @@ class AddFriendTest < ActiveSupport::TestCase
     assert_equal :manage_friends, t.permission
   end
 
+  should 'not add friend twice' do
+    p1 = create_user('testuser1').person
+    p2 = create_user('testuser2').person
+    AddFriend.create!(:person => p1, :friend => p2)
+    assert_raise ActiveRecord::RecordInvalid do
+      AddFriend.create!(:person => p1, :friend => p2)
+    end
+  end
+
 end

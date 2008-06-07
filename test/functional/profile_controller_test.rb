@@ -193,4 +193,18 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_response 403
   end
 
+  should 'display add friend button' do
+    login_as(@profile.identifier)
+    friend = create_user('friendtestuser').person
+    get :index, :profile => friend.identifier
+    assert_tag :tag => 'a', :content => 'Add friend'
+  end
+
+  should 'not display add friend button if user already request friendship' do
+    friend = create_user('friendtestuser').person
+    AddFriend.create!(:person => @profile, :friend => friend)
+    get :index, :profile => friend.identifier
+    assert_no_tag :tag => 'a', :content => 'Add friend'
+  end
+
 end

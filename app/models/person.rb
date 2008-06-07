@@ -18,6 +18,10 @@ class Person < Profile
     self.friendships.build(:friend => friend, :group => group).save!
   end
 
+  def already_request_friendship?(person)
+    person.tasks.find_by_requestor_id(self.id, :conditions => { :type => 'AddFriend' })
+  end
+
   def remove_friend(friend)
     friends.delete(friend)
   end

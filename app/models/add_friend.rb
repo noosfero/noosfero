@@ -4,6 +4,8 @@ class AddFriend < Task
 
   validates_presence_of :requestor_id, :target_id
 
+  validates_uniqueness_of :target_id, :scope => [ :requestor_id ]
+
   alias :person :requestor
   alias :person= :requestor=
 
