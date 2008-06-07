@@ -263,20 +263,6 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_kind_of Role, Environment::Roles.admin
   end
 
-  should 'have comments on the articles' do
-    environment = Environment.default
-
-    p1 = create_user('testuser').person
-
-    doc1 = p1.articles.build(:name => 'text 1'); doc1.save!
-    doc2 = p1.articles.build(:name => 'text 2'); doc2.save!
-
-    c1 = doc1.comments.build(:title => 'a comment', :body => 'bli', :author => p1); c1.save!
-    c2 = doc2.comments.build(:title => 'a comment', :body => 'bli', :author => p1); c2.save!
-
-    assert_equivalent [c1,c2], environment.comments
-  end
-
   should 'have products through enterprises' do
     env = Environment.default
     e1 = Enterprise.create!(:name => 'test_ent1', :identifier => 'test_ent1')
