@@ -31,7 +31,7 @@ ActionController::Routing::Routes.draw do |map|
   map.tag 'tag/:tag', :controller => 'search', :action => 'tag'
   # categories index
   map.category 'cat/*category_path', :controller => 'search', :action => 'category_index'
-  map.assets 'assets/:asset/*category_path', :controller => 'search', :action => 'index'
+  map.assets 'assets/:asset/*category_path', :controller => 'search', :action => 'assets'
   map.directory 'directory/:asset/:initial/*category_path', :controller => 'search', :action => 'directory'
   # search
   map.connect 'search/:action/*category_path', :controller => 'search'
