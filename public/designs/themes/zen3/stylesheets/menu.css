@@ -137,6 +137,10 @@
   margin-left: -3px;
 }
 
+.action_home_index #user_box #link_login {
+  display: none; /* do not show this link in the fist page */
+}
+
 /* * * Assets Menu * * * * * * * * * * * */
 
 #assets_menu {

@@ -1,6 +1,6 @@
 
 body {
-  background: #BABDB6; #888A85;
+  background: #9ca09a; #A1A59F; /* #BABDB6; #888A85; */
 }
 
 #wrap {
@@ -42,7 +42,9 @@ ul li {
 /* * * Footer * * * * * * * * * * * * * * * * * * * */
 
 #footer {
-  background: url("../images/bg-footer.png") repeat-x;
+  background: url("../images/bg-footer.gif") repeat-x;
+  height: 55px;
+  max-height: 35px;
   margin: 0px;
   padding: 10px;
   color: #FFF;
@@ -72,13 +74,13 @@ ul li {
   float: left;
   text-align: left;
   background: url(../images/logo-ynternet-footer.gif) no-repeat 0% 50%;
-  padding: 5px 0px 10px 45px;
+  padding: 6px 0px 10px 45px;
 }
 #footer-dir {
   float: right;
   text-align: right;
-  background: url(../images/logo-colivre-footer.gif) no-repeat 100% 50%;
-  padding: 5px 45px 10px 0px;
+  background: url(../images/logo-loterie-footer.gif) no-repeat 100% 50%;
+  padding: 6px 45px 10px 0px;
 }
 
 #footer-esq:hover,

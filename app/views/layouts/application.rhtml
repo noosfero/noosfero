@@ -9,6 +9,7 @@
     </title>
     <meta name="description" content="FIXME: Descriptions of Noosfero" />
     <meta name="keywords" content="Noosfero, Community, Open Source" />
+    <link rel="shortcut icon" href="<%= '/designs/themes/' + current_theme + '/images/favicon.ico' %>" type="image/x-icon" />
 
     <%= javascript_include_tag 'default-config' %>
     <%= javascript_include_tag :defaults %>
@@ -137,17 +138,7 @@
     </div><!-- id="wrap" -->
 
     <div id="footer">
-      <a href="http://ynternet.org" id="footer-esq">
-        <%= _('A Ynternet.org project') %><br/>
-        Communication libre pour une société libre
-      </a>
-      <a href="http://colivre.coop.br" id="footer-dir">
-        <%= _('Developed by Colivre') %><br/>
-        Free Technologies Cooperative
-      </a>
-      <%= language_chooser %>
-      <p/>
-      <%= footer %>
+      <%= render :file => ('../../public/designs/themes/' + current_theme + '/footer.rhtml' ) %>
     </div><!-- id="footer" -->
 
     <div id="helpBox" style="display:none">
