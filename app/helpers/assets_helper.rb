@@ -2,7 +2,7 @@ module AssetsHelper
 
   def generate_assets_menu()
 
-    options = { :controller => 'search', :action => 'index', :category_path => (@category ? @category.explode_path : []) }
+    options = { :controller => 'search', :action => 'assets', :category_path => (@category ? @category.explode_path : []) }
     [
       [ options.merge(:asset => 'articles'), "icon-menu-articles",   _('Articles') ],
       [ options.merge(:asset => 'people'), "icon-menu-people",     _('People') ],
