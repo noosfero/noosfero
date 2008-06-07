@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.10.0\n"
-"POT-Creation-Date: 2008-06-07 13:47-0300\n"
-"PO-Revision-Date: 2008-06-07 18:36-0300\n"
+"POT-Creation-Date: 2008-06-07 16:56-0300\n"
+"PO-Revision-Date: 2008-06-07 16:56-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -20,13 +20,13 @@ msgstr ""
 "X-Generator: Pootle 1.0.2\n"
 
 #: app/helpers/application_helper.rb:59
-#: app/views/layouts/application.rhtml:104 app/views/features/index.rhtml:7
+#: app/views/layouts/application.rhtml:109 app/views/features/index.rhtml:7
 msgid "Help"
 msgstr "Ajuda"
 
 #: app/helpers/application_helper.rb:79
 #: app/views/box_organizer/add_block.rhtml:18
-#: app/views/search/_search_form.rhtml:54
+#: app/views/search/_search_form.rhtml:56
 msgid "Close"
 msgstr "Fechar"
 
@@ -81,13 +81,21 @@ msgstr "Clique, escreva e pressione enter para pesquisar"
 
 #: app/helpers/application_helper.rb:553
 #: app/views/region_validators/region.rhtml:23
-#: app/views/search/enterprises.rhtml:12 app/views/search/people.rhtml:12
-#: app/views/search/_sellers_form.rhtml:8
-#: app/views/search/_search_form.rhtml:14
-#: app/views/search/communities.rhtml:12 app/views/search/articles.rhtml:12
+#: app/views/search/enterprises.rhtml:19 app/views/search/people.rhtml:19
+#: app/views/search/_sellers_form.rhtml:11
+#: app/views/search/_search_form.rhtml:16
+#: app/views/search/communities.rhtml:19 app/views/search/articles.rhtml:19
 #: app/views/home/index.rhtml:6 app/views/home/index.rhtml:12
 msgid "Search"
 msgstr "Busca"
+
+#: app/helpers/search_helper.rb:28
+msgid "Display in list"
+msgstr "Mostrar como lista"
+
+#: app/helpers/search_helper.rb:34
+msgid "Display in map"
+msgstr "Mostrar no mapa"
 
 #: app/helpers/dates_helper.rb:8
 msgid "%d %B %Y"
@@ -193,7 +201,7 @@ msgstr "Aprovado"
 msgid "Rejected"
 msgstr "Rejeitado"
 
-#: app/helpers/language_helper.rb:22
+#: app/helpers/language_helper.rb:18 app/helpers/language_helper.rb:28
 msgid ""
 "The language you choose here is the language used for options, buttons, etc. "
 "It does not affect the language of the content created by other users."
@@ -301,12 +309,13 @@ msgstr "Pessoas"
 
 #: app/helpers/assets_helper.rb:9
 #: app/controllers/public/search_controller.rb:96
+#: app/views/search/products.rhtml:5 app/views/search/_sellers_form.rhtml:4
 msgid "Products"
 msgstr "Produtos"
 
 #: app/helpers/assets_helper.rb:10 app/models/enterprises_block.rb:4
 #: app/controllers/public/search_controller.rb:93
-#: app/views/profile/index.rhtml:17
+#: app/views/profile/index.rhtml:17 app/views/search/_sellers_form.rhtml:5
 msgid "Enterprises"
 msgstr "Empreendimentos"
 
@@ -324,14 +333,6 @@ msgstr "Eventos"
 #: app/models/enterprise.rb:5
 msgid "Enterprise"
 msgstr "Empreendimento"
-
-#: app/models/product_search_block.rb:4
-msgid "A block to search products."
-msgstr "Um bloco para buscar produtos."
-
-#: app/models/product_search_block.rb:8
-msgid "Product search"
-msgstr "Buscar produto"
 
 #: app/models/community.rb:2
 msgid "Community"
@@ -2606,30 +2607,52 @@ msgstr "Aqui estão todos os empreendimentos fovoritos de <b>%s</b>"
 msgid "%s's favorite enterprises"
 msgstr "Empreendimentos favoritos de %s"
 
+#: app/views/search/products.rhtml:3
+msgid "Products results for \"%{query}\" of enterprises in \"%{category}\""
+msgstr ""
+"Resultados da busca por \"%{query}\" de empreendimentos em \"%{category}\""
+
+#: app/views/search/products.rhtml:3
+msgid "Products results for \"%s\""
+msgstr "Produtos encontrados por \"%s\""
+
+#: app/views/search/products.rhtml:5
+msgid "Products of enterprises in \"%s\""
+msgstr "Produtos de empreendimento em \"%s\""
+
+#: app/views/search/products.rhtml:10
+msgid "Within %s km from %s"
+msgstr "No raio de %s km até %s"
+
+#: app/views/search/products.rhtml:13 app/views/search/index.rhtml:5
+#: app/views/search/enterprises.rhtml:19 app/views/search/people.rhtml:19
+#: app/views/search/communities.rhtml:19 app/views/search/articles.rhtml:19
+msgid "Refine your search"
+msgstr "Refine sua busca"
+
 #: app/views/search/_comment.rhtml:16
 msgid "by %{author} on \"%{article}\""
 msgstr "por %{author} em \"%{article}\""
 
-#: app/views/search/index.rhtml:3 app/views/search/enterprises.rhtml:5
-#: app/views/search/people.rhtml:5 app/views/search/communities.rhtml:5
-#: app/views/search/articles.rhtml:5
+#: app/views/search/index.rhtml:3 app/views/search/enterprises.rhtml:12
+#: app/views/search/people.rhtml:12 app/views/search/communities.rhtml:12
+#: app/views/search/articles.rhtml:12
 msgid "Search results for \"%{query}\" in \"%{category}\""
 msgstr "Resultados da busca por \"%{query}\" em \"%{category}\""
 
-#: app/views/search/index.rhtml:3 app/views/search/enterprises.rhtml:5
-#: app/views/search/people.rhtml:5 app/views/search/communities.rhtml:5
-#: app/views/search/articles.rhtml:5
+#: app/views/search/index.rhtml:3 app/views/search/enterprises.rhtml:12
+#: app/views/search/people.rhtml:12 app/views/search/communities.rhtml:12
+#: app/views/search/articles.rhtml:12
 msgid "Search results for \"%s\""
 msgstr "Resultados da busca por \"%s\""
 
-#: app/views/search/index.rhtml:5 app/views/search/enterprises.rhtml:12
-#: app/views/search/people.rhtml:12 app/views/search/communities.rhtml:12
-#: app/views/search/articles.rhtml:12
-msgid "Refine your search"
-msgstr "Refine sua busca"
-
 #: app/views/search/enterprises.rhtml:7 app/views/search/people.rhtml:7
 #: app/views/search/communities.rhtml:7 app/views/search/articles.rhtml:7
+msgid "(recently added)"
+msgstr "(adicionado recentemente)"
+
+#: app/views/search/enterprises.rhtml:14 app/views/search/people.rhtml:14
+#: app/views/search/communities.rhtml:14 app/views/search/articles.rhtml:14
 msgid "Browse by name"
 msgstr "Navegar por nome"
 
@@ -2645,19 +2668,13 @@ msgstr "(mais ...)"
 msgid "Search %s"
 msgstr "Busca em %s"
 
-#: app/views/search/_sellers_form.rhtml:2
-msgid "Category: "
-msgstr "Categoria: "
+#: app/views/search/_sellers_form.rhtml:1
+msgid "Search for sellers"
+msgstr "Buscar por vendedores:"
 
 #: app/views/search/_sellers_form.rhtml:3
-#: app/views/search/_search_form.rhtml:25
-msgid "Distance: "
-msgstr "Distância: "
-
-#: app/views/search/_sellers_form.rhtml:4
-#: app/views/search/_search_form.rhtml:26
-msgid "From: "
-msgstr "De: "
+msgid "Search in:"
+msgstr "Buscar em:"
 
 #: app/views/search/_product.rhtml:10
 msgid "Price: %d"
@@ -2679,19 +2696,27 @@ msgstr "Sub-categorias"
 msgid "No sub-categories"
 msgstr "Sem sub-categorias"
 
-#: app/views/search/_search_form.rhtml:16
+#: app/views/search/_search_form.rhtml:18
 msgid "Search in whole site"
 msgstr "Pesquisar em todo o site"
 
-#: app/views/search/_search_form.rhtml:22
+#: app/views/search/_search_form.rhtml:24
 msgid "Search within:"
 msgstr "Buscar dentro de:"
 
-#: app/views/search/_search_form.rhtml:33
+#: app/views/search/_search_form.rhtml:27
+msgid "Distance (km): "
+msgstr "Distância (km): "
+
+#: app/views/search/_search_form.rhtml:28
+msgid "From: "
+msgstr "De: "
+
+#: app/views/search/_search_form.rhtml:35
 msgid "Search for:"
 msgstr "Buscar por:"
 
-#: app/views/search/_search_form.rhtml:47
+#: app/views/search/_search_form.rhtml:49
 msgid "Advanced search"
 msgstr "Busca avançada"
 
@@ -3208,7 +3233,7 @@ msgstr "Criado:"
 msgid "Processed:"
 msgstr "Processado:"
 
-#: app/views/layouts/application.rhtml:50
+#: app/views/layouts/application.rhtml:51
 msgid ""
 "Pass the mouse over page elements to get help on them. Click the question "
 "mark icon on the top-right corner to deactivate this help window."
@@ -3217,11 +3242,11 @@ msgstr ""
 "Clique no ícone de ajuda no canto superior direito para desativar essa "
 "janela de ajuda."
 
-#: app/views/layouts/application.rhtml:73
+#: app/views/layouts/application.rhtml:74
 msgid "Go to content"
 msgstr "Ir para o conteúdo"
 
-#: app/views/layouts/application.rhtml:85
+#: app/views/layouts/application.rhtml:86
 msgid ""
 "This is %s's shortcuts bar. Using it you have access to the main features of "
 "the environment and you find the information of your interest more quickly."
@@ -3230,7 +3255,7 @@ msgstr ""
 "principais funcionalidades do ambiente e encontra mais rapidamente as "
 "informações do seu interesse."
 
-#: app/views/layouts/application.rhtml:87
+#: app/views/layouts/application.rhtml:88
 msgid ""
 "This bar helps you find information following two paths or "
 "<strong>dimensions</strong>. First dimension is composed of <em>categories</"
@@ -3244,23 +3269,15 @@ msgstr ""
 "dimensão contém os <em>tipos de conteúdo</em> que você encontra na aba "
 "animada da direita."
 
-#: app/views/layouts/application.rhtml:103
+#: app/views/layouts/application.rhtml:108
 msgid "Turn help on/off"
 msgstr "Ligar e desligar a Ajuda"
 
-#: app/views/layouts/application.rhtml:138
-msgid "A Ynternet.org project"
-msgstr "Um projeto da Ynternet.org"
-
-#: app/views/layouts/application.rhtml:142
-msgid "Developed by Colivre"
-msgstr "Desenvolvimento Colivre"
-
-#: app/views/layouts/application.rhtml:161
+#: app/views/layouts/application.rhtml:156
 msgid "Your web browser is obsolete!"
 msgstr "Seu navegador web esta obsoleto!"
 
-#: app/views/layouts/application.rhtml:162
+#: app/views/layouts/application.rhtml:157
 msgid ""
 "This website will not look as good as it could.\n"
 "         Don't you want to use Firefox? That is a great web browser, free,\n"
@@ -3270,7 +3287,7 @@ msgstr ""
 "Firefox? É um ótimo navegador, livre e feito por pessoas de todos os cantos "
 "do mundo."
 
-#: app/views/layouts/application.rhtml:166
+#: app/views/layouts/application.rhtml:161
 msgid "Get Firefox Now!"
 msgstr "Baixe o Firefox Já!"
 
@@ -3634,6 +3651,21 @@ msgid ""
 msgstr ""
 "Clique aqui para informar seu nome de usuário e senha e ser reconhecido pelo "
 "sistema."
+
+#~ msgid "A block to search products."
+#~ msgstr "Um bloco para buscar produtos."
+
+#~ msgid "Product search"
+#~ msgstr "Buscar produto"
+
+#~ msgid "Category: "
+#~ msgstr "Categoria: "
+
+#~ msgid "A Ynternet.org project"
+#~ msgstr "Um projeto da Ynternet.org"
+
+#~ msgid "Developed by Colivre"
+#~ msgstr "Desenvolvimento Colivre"
 
 #~ msgid "Comments"
 #~ msgstr "Comentários"
@@ -4012,9 +4044,6 @@ msgstr ""
 
 #~ msgid "Display header?"
 #~ msgstr "Mostrar menu?"
-
-#~ msgid "Display title?"
-#~ msgstr "Mostrar título?"
 
 #~ msgid "Max number of links"
 #~ msgstr "Número máximo de links"

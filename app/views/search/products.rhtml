@@ -7,7 +7,7 @@
 </h1>
 
 <% if @radius && @region %>
-  <h2><%=h (_('Within %s from %s') % [@radius, @region.name]) %><h2>
+  <h2><%=h (_('Within %s km from %s') % [@radius, @region.name]) %><h2>
 <% end %>
 
 <%= render :partial => 'search_form', :locals => { :form_title => _("Refine your search"), :simple_search => true } %>
