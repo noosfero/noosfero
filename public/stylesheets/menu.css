@@ -105,6 +105,8 @@
   top: 21px;
   right: 0px;
   padding: 0px 0px 0px 10px;
+  border: none; /* work arround IE Bug */
+  background: transparent; /* work arround IE Bug */
 }
 .msie #assets_menu {
   right: -1px;
@@ -227,6 +229,8 @@
   top: 0px;
   right: 150px;
   width: 170px;
+  border: none; /* work arround IE Bug */
+  background: transparent; /* work arround IE Bug */
 }
 
 #user_menu_head {

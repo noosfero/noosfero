@@ -36,6 +36,12 @@ body.category4 .search-options {
 .search-results-box {
   width: 32.5%;
 }
+.msie .search-results-box {
+  width: 31% !important;
+}
+.msie .only-one-result-box .search-results-box {
+  width: 95% !important;
+}
 
 .search-results-box.odd {
   margin-left: 0px;
