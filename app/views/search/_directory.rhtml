@@ -1,6 +1,6 @@
 <div class="search-index">
-  <%= link_to_unless_current(_('Recent'), :action => 'assets') %>
+  <%= link_to_unless(params[:initial].blank?, _('Recent'), :action => 'assets', :display => params[:display]) %>
   &nbsp;
-  <%= (?a..?z).map { |initial| link_to_unless_current(('' << initial).upcase, :action => 'directory', :asset => @asset, :initial => ('' << initial)) }.join(' &nbsp; ') %>
+  <%= (?a..?z).map { |initial| link_to_unless(params[:initial] == ('' << initial), ('' << initial).upcase, :action => 'directory', :asset => @asset, :initial => ('' << initial), :display => params[:display]) }.join(' &nbsp; ') %>
 </div>
 <br style='clear:both'/>

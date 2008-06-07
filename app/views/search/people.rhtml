@@ -1,10 +1,17 @@
 <% if @query.blank? %>
-  <h1><%= @asset_name %></h1>
+  <h1>
+    <%= @asset_name %>
+    <% if params[:initial] %>
+      <%= '(%s)' % params[:initial].upcase %>
+    <% else %>
+      <%= _('(recently added)') %>
+    <% end %>
+  </h1>
   <%= render :partial => 'directory' %>
 <% else %>
   <h1> <%= @asset_name %>: <%= h(@category ? (_('Search results for "%{query}" in "%{category}"') % { :query => @query, :category => @category.name}) : (_('Search results for "%s"') % @query)) %> </h1>
   <div style='text-align: center'>
-    <%= link_to _('Browse by name'), :action => 'index', :asset => 'people' %>
+    <%= link_to _('Browse by name'), :action => 'assets', :asset => @results.first.first %>
   </div>
 <% end %>
 

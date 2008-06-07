@@ -6,6 +6,8 @@
                :method => 'get', :class => 'search_form' ) do %>
   <%= '<h3>%s</h3>' % form_title if defined? form_title %>
 
+  <%= hidden_field_tag :display, params[:display] %>
+
   <div class="search-field">
     <span class="formfield">
       <%= text_field_tag 'query', @query, :id => ( lightbox? ? 'popup-search-input' : '' ), :size => 50 %>
