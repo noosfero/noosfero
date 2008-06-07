@@ -9,17 +9,25 @@ module LanguageHelper
 
   alias :calendar_date_select_language :tinymce_language
 
-  def language_chooser
+  def language_chooser(options = {})
     current = language
-    languages = Noosfero.locales.map do |code,name|
-      if code == current
-        content_tag('strong', name)
-      else
-        link_to(name, :lang => code)
-      end
-    end.join(' &mdash; ')
+    if options[:element] == 'dropdown'
+      select_tag('lang', 
+        options_for_select(Noosfero.locales.map{|code,name| [name, code]}, current),
+        :onchange => remote_function(:update => 'wrap', :url => { :action => :index }, :with => "'lang='+value"),
+        :help => _('The language you choose here is the language used for options, buttons, etc. It does not affect the language of the content created by other users.')
+      )
+    else
+      languages = Noosfero.locales.map do |code,name|
+        if code == current
+          content_tag('strong', name)
+        else
+          link_to(name, :lang => code)
+        end
+      end.join(' &mdash; ')
+      content_tag('div', languages, :id => 'language-chooser', :help => _('The language you choose here is the language used for options, buttons, etc. It does not affect the language of the content created by other users.'))
+    end
 
-    content_tag('div', languages, :id => 'language-chooser', :help => _('The language you choose here is the language used for options, buttons, etc. It does not affect the language of the content created by other users.'))
   end
 
 end

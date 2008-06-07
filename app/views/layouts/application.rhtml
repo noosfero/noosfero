@@ -98,6 +98,10 @@
           prepareMenu('navigation_bar', { timeout: 1000 });
         </script>
 
+        <div id='language-selector'>
+           <%= language_chooser(:element => 'dropdown') %>
+        </div>
+
         <div id='user_box'>
           <%= render :file => 'shared/user_menu' %>
           <%= theme_opt_menu_search %>
