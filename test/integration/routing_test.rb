@@ -85,9 +85,17 @@ class RoutingTest < ActionController::IntegrationTest
     assert_routing('/tag/umboraminhaporra', :controller => 'search', :action => 'tag', :tag => 'umboraminhaporra')
   end
 
+  def test_view_tag_with_dot
+    assert_routing('/tag/tag.withdot', :controller => 'search', :action => 'tag', :tag => 'tag.withdot')
+  end
+
   def test_profile_routing
     assert_routing('/profile/ze', :controller => 'profile', :profile => 'ze', :action => 'index')
     assert_routing('/profile/ze/friends', :controller => 'profile', :profile => 'ze', :action => 'friends')
+  end
+  
+  def test_profile_route_for_tags_with_dot
+    assert_routing('/profile/ze/tag/tag.withdot', :controller => 'profile', :profile => 'ze', :action => 'tag', :id => 'tag.withdot')
   end
 
   def test_search_routing

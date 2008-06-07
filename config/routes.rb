@@ -28,7 +28,8 @@ ActionController::Routing::Routes.draw do |map|
 
   # tags
   map.tag 'tag', :controller => 'search', :action => 'tags'
-  map.tag 'tag/:tag', :controller => 'search', :action => 'tag'
+  map.tag 'tag/:tag', :controller => 'search', :action => 'tag', :tag => /.*/
+  
   # categories index
   map.category 'cat/*category_path', :controller => 'search', :action => 'category_index'
   map.assets 'assets/:asset/*category_path', :controller => 'search', :action => 'assets'
@@ -38,7 +39,7 @@ ActionController::Routing::Routes.draw do |map|
  
 
   # public profile information
-  map.profile 'profile/:profile/:action/:id', :controller => 'profile', :action => 'index'
+  map.profile 'profile/:profile/:action/:id', :controller => 'profile', :action => 'index', :id => /.*/
 
   ######################################################
   ## Controllers that are profile-specific (for profile admins )
