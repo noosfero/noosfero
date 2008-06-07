@@ -191,4 +191,21 @@ class EnvironmentFinderTest < ActiveSupport::TestCase
     assert ents.index(ent2) < ents.index(ent1), "expected #{ents.index(ent2)} be smaller than #{ents.index(ent1)}"
   end
 
+  should 'find enterprises by its products categories' do
+    finder = EnvironmentFinder.new(Environment.default)
+
+    pc1 = ProductCategory.create!(:name => 'test_cat1', :environment => Environment.default)
+    pc2 = ProductCategory.create!(:name => 'test_cat2', :environment => Environment.default)
+
+    ent1 = Enterprise.create!(:name => 'test enterprise 1', :identifier => 'test_ent1')
+    ent1.products.create!(:name => 'test product 1', :product_category => pc1)
+    ent2 = Enterprise.create!(:name => 'test enterprise 2', :identifier => 'test_ent2')
+    ent2.products.create!(:name => 'test product 2', :product_category => pc2)
+
+    ents = finder.find(:enterprises, nil, :product_category => pc1)
+
+    assert_includes ents, ent1
+    assert_not_includes ents, ent2
+  end
+
 end
