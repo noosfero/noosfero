@@ -809,8 +809,6 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_equal 1, assigns(:counts)[cat2.id][1]
   end
 
-  should 'test somehow the display of events as calendar'
-
   should 'provide calendar for events' do
     get :index, :find_in => [ 'events' ]
     assert_equal 0, assigns(:calendar).size % 7
