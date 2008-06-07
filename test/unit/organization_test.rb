@@ -188,7 +188,6 @@ class OrganizationTest < Test::Unit::TestCase
     p = create_user('myanothertestuser').person
 
     o.add_moderator(p)
-    o.reload
 
     assert o.members.include?(p), "Organization should add the new moderator"
   end
