@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class ApplicationHelperTest < Test::Unit::TestCase
+class AssetsHelperTest < Test::Unit::TestCase
 
   include AssetsHelper
 
@@ -10,7 +10,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
         products
         enterprises
         communities
-        comments
+        events
     ].each do |asset|
       expects(:link_to).with(anything, { :controller => 'search', :action => 'assets', :asset => asset, :category_path => []})
     end
@@ -26,7 +26,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
         products
         enterprises
         communities
-        comments
+        events
     ].each do |asset|
       expects(:link_to).with(anything, { :controller => 'search', :action => 'assets', :asset => asset, :category_path => [ 'my-category' ]})
     end
