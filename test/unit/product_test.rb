@@ -69,11 +69,11 @@ class ProductTest < Test::Unit::TestCase
 
   should 'calculate catagory full name' do
     cat = mock
-    cat.expects(:full_name).returns('A B C')
+    cat.expects(:full_name).returns('A/B/C')
 
     p = Product.new
     p.expects(:product_category).returns(cat)
-    assert_equal 'A B C', p.category_full_name
+    assert_equal ['A','B','C'], p.category_full_name
   end
 
   should 'be indexed by category full name' do

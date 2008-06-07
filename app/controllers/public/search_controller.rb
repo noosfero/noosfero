@@ -108,6 +108,7 @@ class SearchController < ApplicationController
   def index
     @query = params[:query] || ''
     @filtered_query = remove_stop_words(@query)
+    @product_category = ProductCategory.find(params[:product_category]) if params[:product_category]
 
     # FIXME name is not unique
     @region = Region.find_by_name(params[:region][:name]) if params[:region]
@@ -116,9 +117,9 @@ class SearchController < ApplicationController
     @names = {}
     SEARCH_IN.each do |key, description|
       if [:enterprises, :people].include?(key) && @region
-        @results[key] = @finder.find(key, @filtered_query, :within => params[:radius], :region => @region.id) if @searching[key]
+        @results[key] = @finder.find(key, @filtered_query, :within => params[:radius], :region => @region.id, :product_category => @product_category) if @searching[key]
       else
-        @results[key] = @finder.find(key, @filtered_query) if @searching[key]
+        @results[key] = @finder.find(key, @filtered_query, :product_category => @product_category) if @searching[key]
       end
       @names[key] = gettext(description)
     end
@@ -136,6 +137,22 @@ class SearchController < ApplicationController
     render :action => 'index'
   end
 
+  def products
+    @categories = @results[:products].map(&:product_category).compact
+    @counts = @categories.uniq.inject({}) do |h, cat| 
+      h[cat.id] = [cat, 0]
+      h 
+    end
+
+    @categories.each do |cat|
+      cat.hierarchy.each do |each_cat|
+        @counts[each_cat.id][1] += 1 if @counts[each_cat.id]
+      end
+    end
+
+    @cats = @counts.values.sort_by{|v|v[0].full_name}
+  end
+
   alias :assets :index
 
   #######################################################
@@ -148,7 +165,6 @@ class SearchController < ApplicationController
       [ :people, _('Recently registered people'), @finder.recent('people') ],
       [ :communities, _('Recently created communities'), @finder.recent('communities') ],
       [ :articles, _('Recent articles'), @finder.recent('articles') ],
-      [ :comments, _('Recent comments'), @finder.recent('comments') ],
       [ :most_commented_articles, _('Most commented articles'), @finder.most_commented_articles ],
       [ :enterprises, _('Recently created enterprises'), @finder.recent('enterprises') ],
       [ :events, _('Recently added events'), @finder.current_events(params[:year], params[:month]) ]

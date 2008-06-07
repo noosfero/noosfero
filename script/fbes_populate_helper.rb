@@ -35,6 +35,11 @@ require File.dirname(__FILE__) + '/../config/environment'
     ProductCategory.find_by_path(path) || ProductCategory.create!(:name => name, :parent => parent, :environment => Environment.default)
   end
 
+  def new_region(name, parent, lat, lng)
+    path = (parent ? parent.path + '/' : '') + name.to_slug
+    Region.find_by_path(path) || Region.create!(:name => name, :parent => parent, :lat => lat, :lng => lng, :environment => Environment.default)
+  end
+
   def new_ent(data, products, consumptions)
     posfix = ''
     count = 1

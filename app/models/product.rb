@@ -21,7 +21,7 @@ class Product < ActiveRecord::Base
   xss_terminate :only => [ :name, :description ]
   
   def category_full_name
-    product_category.full_name(" ")
+    product_category.full_name.split('/')
   end
 
   acts_as_having_image

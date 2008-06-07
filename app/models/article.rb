@@ -26,7 +26,7 @@ class Article < ActiveRecord::Base
   def comment_data
     comments.map {|item| [item.title, item.body].join(' ') }.join(' ')
   end
-  
+
   before_update do |article|
     article.advertise = true
   end

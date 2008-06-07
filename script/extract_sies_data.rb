@@ -8,7 +8,7 @@ require 'active_support'
 require File.dirname(__FILE__) + "/../" + 'lib/noosfero/core_ext/string.rb'
 
 
-LIMIT = (ENV['DUMP_ALL'] ? nil : 5)
+LIMIT = (ENV['DUMP_ALL'] ? nil : 10)
 DUMP_ALL = LIMIT.nil?
 
 # To connect with the database that contains the data to be extracted cofigure it in the 'database_farejador.yml' with the name 'farejador'
@@ -52,6 +52,8 @@ class Dumper
   def initialize
     @seq = 0
     @seqs = {}
+    @r_seq = 0
+    @r_seqs = {}
   end
 
   def pretty(str, alt = nil)
@@ -72,7 +74,7 @@ categories[#{cat.id}] = cat#{@seq}.id
     @seq += 1
 
     Category.find(:all, :conditions => { :id_mae => cat.id }).each do |child|
-      dump_category(child, cat) if (DUMP_ALL || (@seq <= LIMIT))
+      dump_category(child, cat) #if (DUMP_ALL || (@seq <= LIMIT))
     end
 
   end
@@ -99,13 +101,19 @@ categories[#{cat.id}] = cat#{@seq}.id
                     :lng => #{ent.long.inspect}, 
                     :geocode_precision => #{ent.geomodificou.inspect}, 
                     :data => { :id_sies => #{ent.id_sies.inspect} }, 
-                    :organization_info => OrganizationInfo.new(:contact_email => #{email.inspect}) }, 
+                    :contact_email => #{email.inspect},
+                    :categories => [cities[#{ent.id_cidade}]]},
                     [#{ent.products.map{|p| "{ :name => #{p.category.nome.inspect} , :product_category_id => categories[#{p.category.id}] }"}.join(', ')}], 
                     [#{ent.input_products.map{|p| "{ :product_category_id => categories[#{p.category.id}]}" }.join(', ')}])"
   end
 
   def dump_city(city)
-    puts "Region.create!(:name => #{city.cidade.inspect}, :parent => STATES[#{city.id.to_s[0..1]}], :lat => #{city.latitude}, :lng => #{city.longitude}, :environment => Environment.default)"
+    @r_seqs[city] = @r_seq
+    puts <<-EOF
+city#{@r_seq} = new_region(#{city.cidade.inspect}, STATES[#{city.id.to_s[0..1]}], #{city.latitude}, #{city.longitude})
+cities[#{city.id}] = city#{@r_seq}.id
+    EOF
+    @r_seq += 1
   end
 
 end
@@ -126,10 +134,11 @@ Category.find(:all, :conditions => 'id_mae is null or id_mae = -1', :limit => LI
   dumper.dump_category(cat, nil)
 end
 
-Enterprise.find(:all, :limit => LIMIT).each do |ent|
-  dumper.dump_enterprise(ent)
-end
-
+puts "regions = {}"
 City.find(:all, :limit => LIMIT).each do |city|
   dumper.dump_city(city)
+end
+
+Enterprise.find(:all, :limit => LIMIT).each do |ent|
+  dumper.dump_enterprise(ent)
 end

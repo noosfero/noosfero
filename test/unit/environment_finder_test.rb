@@ -131,4 +131,64 @@ class EnvironmentFinderTest < ActiveSupport::TestCase
     assert_not_includes people, p2
   end
 
+  should 'find person and enterprise by radius and region even without query' do
+    finder = EnvironmentFinder.new(Environment.default)
+    
+    region = Region.create!(:name => 'r-test', :environment => Environment.default, :lat => 45.0, :lng => 45.0)
+    ent1 = Enterprise.create!(:name => 'test 1', :identifier => 'test1', :lat => 45.0, :lng => 45.0)
+    p1 = create_user('test2').person
+    p1.name = 'test 2'; p1.lat = 45.0; p1.lng = 45.0; p1.save!
+    ent2 = Enterprise.create!(:name => 'test 3', :identifier => 'test3', :lat => 30.0, :lng => 30.0)
+    p2 = create_user('test4').person
+    p2.name = 'test 4'; p2.lat = 30.0; p2.lng = 30.0; p2.save!
+
+    ents = finder.find(:enterprises, nil, :within => 10, :region => region.id)
+    people = finder.find(:people, nil, :within => 10, :region => region.id)
+
+    assert_includes ents, ent1
+    assert_not_includes ents, ent2
+    assert_includes people, p1
+    assert_not_includes people, p2
+  end
+
+  should 'find products wihin product category' do
+    finder = EnvironmentFinder.new(Environment.default)
+    cat = ProductCategory.create!(:name => 'test category', :environment => Environment.default)
+    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent')
+    prod1 = ent.products.create!(:name => 'test product 1', :product_category => cat)
+    prod2 = ent.products.create!(:name => 'test product 2')    
+
+    prods = finder.find(:products, nil, :product_category => cat)
+
+    assert_includes prods, prod1
+    assert_not_includes prods, prod2
+  end
+
+  should 'find products wihin product category with query' do
+    finder = EnvironmentFinder.new(Environment.default)
+    cat = ProductCategory.create!(:name => 'test category', :environment => Environment.default)
+    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent')
+    prod1 = ent.products.create!(:name => 'test product a_word 1', :product_category => cat)
+    prod2 = ent.products.create!(:name => 'test product b_word 1', :product_category => cat)
+    prod3 = ent.products.create!(:name => 'test product a_word 2')    
+    prod4 = ent.products.create!(:name => 'test product b_word 2')    
+
+    prods = finder.find(:products, 'a_word', :product_category => cat)
+
+    assert_includes prods, prod1
+    assert_not_includes prods, prod2
+    assert_not_includes prods, prod3
+    assert_not_includes prods, prod4
+  end
+
+  should 'find in order of creation' do
+    finder = EnvironmentFinder.new(Environment.default)
+    ent1 = Enterprise.create!(:name => 'test enterprise 1', :identifier => 'test_ent1')
+    ent2 = Enterprise.create!(:name => 'test enterprise 2', :identifier => 'test_ent2')
+
+    ents = finder.find(:enterprises, nil)
+
+    assert ents.index(ent2) < ents.index(ent1), "expected #{ents.index(ent2)} be smaller than #{ents.index(ent1)}"
+  end
+
 end

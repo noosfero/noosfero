@@ -43,7 +43,7 @@ class Profile < ActiveRecord::Base
   self.extra_index_methods = []
 
   def extra_data_for_index
-    self.class.extra_index_methods.map { |meth| meth.to_proc.call(self) }
+    self.class.extra_index_methods.map { |meth| meth.to_proc.call(self) }.flatten
   end
 
   def self.extra_data_for_index(sym = nil, &block)

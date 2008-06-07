@@ -391,17 +391,6 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_same recent, assigns(:results)[:articles]
   end
 
-  should 'list recent comments in the category' do
-    recent = []
-    finger = CategoryFinder.new(@category)
-    finger.expects(:recent).with(anything).at_least_once
-    finger.expects(:recent).with('comments').returns(recent)
-    CategoryFinder.expects(:new).with(@category).returns(finger)
-
-    get :category_index, :category_path => [ 'my-category' ]
-    assert_same recent, assigns(:results)[:comments]
-  end
-
   should 'list most commented articles in the category' do
     most_commented = []
     finger = CategoryFinder.new(@category)
@@ -562,17 +551,6 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_not_includes assigns(:results)[:enterprises], ent2
   end
 
-  should 'display products with a given initial' do
-    ent = Enterprise.create!(:name => 'teste', :identifier => 'teste')
-    prod1 = ent.products.create!(:name => 'a beautiful product')
-    prod2 = ent.products.create!(:name => 'beautiful product (another)')
-
-    get :directory, :asset => 'products', :initial => 'a'
-
-    assert_includes assigns(:results)[:products], prod1
-    assert_not_includes assigns(:results)[:products], prod2
-  end
-
   should 'display articles with a given initial' do
     person = create_user('teste').person
     art1 = person.articles.build(:name => 'an article to be found'); art1.save!
@@ -630,24 +608,6 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_not_includes assigns(:results)[:enterprises], ent2
     assert_not_includes assigns(:results)[:enterprises], ent3
     assert_not_includes assigns(:results)[:enterprises], ent4
-  end
-
-  should 'display products with a given initial, under a specific category' do
-    ent = Enterprise.create!(:name => 'teste', :identifier => 'teste')
-    ent.categories << @category
-    prod1 = ent.products.create!(:name => 'a beautiful product')
-    prod2 = ent.products.create!(:name => 'beautiful product (another)')
-
-    ent2 = Enterprise.create!(:name => 'test2', :identifier => 'test2')
-    prod3 = ent2.products.create!(:name => 'another product')
-    prod4 = ent2.products.create!(:name => 'damn product (another)')
-
-    get :directory, :asset => 'products', :initial => 'a', :category_path => [ 'my-category' ]
-
-    assert_includes assigns(:results)[:products], prod1
-    assert_not_includes assigns(:results)[:products], prod2
-    assert_not_includes assigns(:results)[:products], prod3
-    assert_not_includes assigns(:results)[:products], prod4
   end
 
   should 'display articles with a given initial, under a specific category' do
@@ -808,6 +768,48 @@ class SearchControllerTest < Test::Unit::TestCase
       assert_template asset
     end
   end
+
+  should 'list only categories with products' do
+    cat1 = ProductCategory.create!(:name => 'pc test 1', :environment => Environment.default)
+    cat2 = ProductCategory.create!(:name => 'pc test 2', :environment => Environment.default)
+    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent')
+    
+    cat1.products.create!(:name => 'prod test 1', :enterprise => ent)
+    
+    get :index, :find_in => 'products'
+
+    assert_equal 1, assigns(:counts)[cat1.id][1]
+    assert_equal nil, assigns(:counts)[cat2.id]
+  end
+
+  should 'not list ancestor if no product in it' do
+    cat1 = ProductCategory.create!(:name => 'pc test 1', :environment => Environment.default)
+    cat2 = ProductCategory.create!(:name => 'pc test 2', :environment => Environment.default, :parent => cat1)
+    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent')
+    
+    cat1.products.create!(:name => 'prod test 1', :enterprise => ent)
+    
+    get :index, :find_in => 'products'
+
+    assert_equal 1, assigns(:counts)[cat1.id][1]
+    assert_equal nil, assigns(:counts)[cat2.id]
+  end
+
+  should 'add hits of children in ancestor when it has products on results' do
+    cat1 = ProductCategory.create!(:name => 'pc test 1', :environment => Environment.default)
+    cat2 = ProductCategory.create!(:name => 'pc test 2', :environment => Environment.default, :parent => cat1)
+    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent')
+    
+    cat1.products.create!(:name => 'prod test 1', :enterprise => ent)
+    cat2.products.create!(:name => 'prod test 2', :enterprise => ent)
+    
+    get :index, :find_in => 'products'
+
+    assert_equal 2, assigns(:counts)[cat1.id][1]
+    assert_equal 1, assigns(:counts)[cat2.id][1]
+  end
+
+  should 'test somehow the display of events as calendar'
 
   should 'provide calendar for events' do
     get :index, :find_in => [ 'events' ]
