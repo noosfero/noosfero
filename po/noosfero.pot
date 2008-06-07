@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.10.0\n"
-"POT-Creation-Date: 2008-06-07 13:28-0300\n"
+"POT-Creation-Date: 2008-06-07 13:47-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1636,27 +1636,27 @@ msgstr ""
 msgid "This action is not available for \"%s\"."
 msgstr ""
 
-#: app/controllers/public/search_controller.rb:165
+#: app/controllers/public/search_controller.rb:179
 msgid "Recently registered people"
 msgstr ""
 
-#: app/controllers/public/search_controller.rb:166
+#: app/controllers/public/search_controller.rb:180
 msgid "Recently created communities"
 msgstr ""
 
-#: app/controllers/public/search_controller.rb:167
+#: app/controllers/public/search_controller.rb:181
 msgid "Recent articles"
 msgstr ""
 
-#: app/controllers/public/search_controller.rb:168
+#: app/controllers/public/search_controller.rb:182
 msgid "Most commented articles"
 msgstr ""
 
-#: app/controllers/public/search_controller.rb:169
+#: app/controllers/public/search_controller.rb:183
 msgid "Recently created enterprises"
 msgstr ""
 
-#: app/controllers/public/search_controller.rb:170
+#: app/controllers/public/search_controller.rb:184
 msgid "Recently added events"
 msgstr ""
 

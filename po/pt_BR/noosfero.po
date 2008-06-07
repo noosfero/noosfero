@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.10.0\n"
-"POT-Creation-Date: 2008-06-07 13:28-0300\n"
-"PO-Revision-Date: 2008-06-07 13:30-0300\n"
+"POT-Creation-Date: 2008-06-07 13:47-0300\n"
+"PO-Revision-Date: 2008-06-07 13:47-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -71,7 +71,9 @@ msgstr "Busca..."
 
 #: app/helpers/application_helper.rb:546
 msgid "This is a search box. Click, write your query, and press enter to find"
-msgstr "Isto é uma caixa de busca. Clique, escreva sua consulta, e pressione enter para pesquisar"
+msgstr ""
+"Isto é uma caixa de busca. Clique, escreva sua consulta, e pressione enter "
+"para pesquisar"
 
 #: app/helpers/application_helper.rb:547
 msgid "Click, write and press enter to find"
@@ -1177,7 +1179,7 @@ msgstr "Miniatura"
 
 #: app/models/sellers_search_block.rb:4
 msgid "A search for enterprises by products selled and local"
-msgstr ""
+msgstr "Uma busca de empreendimentos por produtos vendidos e localização"
 
 #: app/models/person.rb:10
 msgid "friends"
@@ -1671,27 +1673,27 @@ msgstr "Empreendimento ativado com sucesso"
 msgid "This action is not available for \"%s\"."
 msgstr "Esta ação não está disponível para \"%s\"."
 
-#: app/controllers/public/search_controller.rb:165
+#: app/controllers/public/search_controller.rb:179
 msgid "Recently registered people"
 msgstr "Pessoas registradas recentemente"
 
-#: app/controllers/public/search_controller.rb:166
+#: app/controllers/public/search_controller.rb:180
 msgid "Recently created communities"
 msgstr "Comunidades criadas recentemente"
 
-#: app/controllers/public/search_controller.rb:167
+#: app/controllers/public/search_controller.rb:181
 msgid "Recent articles"
 msgstr "Artigos recentes"
 
-#: app/controllers/public/search_controller.rb:168
+#: app/controllers/public/search_controller.rb:182
 msgid "Most commented articles"
 msgstr "Artigos mais comentados"
 
-#: app/controllers/public/search_controller.rb:169
+#: app/controllers/public/search_controller.rb:183
 msgid "Recently created enterprises"
 msgstr "Empreendimentos criados recentemente"
 
-#: app/controllers/public/search_controller.rb:170
+#: app/controllers/public/search_controller.rb:184
 msgid "Recently added events"
 msgstr "Eventos adicionados recentemente"
 
@@ -2903,7 +2905,7 @@ msgstr "Características"
 
 #: app/views/cms/view.rhtml:41 app/views/cms/view.rhtml:66
 msgid "Public view"
-msgstr ""
+msgstr "Visualização pública"
 
 #: app/views/cms/view.rhtml:42 app/views/cms/view.rhtml:67
 msgid "Delete"
@@ -2964,6 +2966,10 @@ msgid ""
 "categorize your article in \"Regions/Bahia\", then there is a good change "
 "that your article is going to be found."
 msgstr ""
+"Ao categorizar o seu conteúdo, você aumenta a possibilidade de outras "
+"pessoas acessá-lo. Quando eles estão procurando, por exemplo, artigos sobre "
+"Bahia e você categorizar o seu artigo em \"Regiões/Bahia\", então há uma boa "
+"chance que seu artigo seja encontrado."
 
 #: app/views/cms/why_categorize.rhtml:8 app/views/tasks/_task.rhtml:8
 #: app/views/tasks/_task.rhtml:16
