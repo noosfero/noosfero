@@ -98,6 +98,7 @@ require 'acts_as_having_boxes'
 require 'acts_as_having_settings'
 require 'acts_as_having_image'
 require 'hacked_after_create'
+require 'sqlite_extension'
 
 # load a local configuration if present, but not under test environment.
 if ENV['RAILS_ENV'] != 'test'

@@ -231,19 +231,21 @@ table.cms-articles th, table.cms-articles td {
 /* for fields with auto-completion */
 div.auto-complete {
   display: block;
-  float: none;
   background: #729FCF;
   border: 2px solid #204A87;
+  z-index: 100;
 }
 div.auto-complete ul {
   margin: 0px;
   padding: 0px;
 }
-div.auto-complete li {
+#content div.auto-complete li, div.auto-complete li {
   list-style: none;
   margin: 0px;
   padding: 0px;
   color: #204A87;
+  float: none;
+  width: auto;
 }
 div.auto-complete li.selected {
   background: #B8CFE7;

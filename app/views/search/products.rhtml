@@ -1,0 +1,34 @@
+<h1> 
+  <% if !@query.blank? %>
+      <%=h @category ? (_('Products results for "%{query}" of enterprises in "%{category}"') % { :query => @query, :category => @category.name}) : (_('Products results for "%s"') % @query) %> 
+  <% else %>
+    <%=h @category ? (_('Products of enterprises in "%s"') % @category.name) : _('Products') %>
+  <% end %>
+</h1>
+
+<% if @radius && @region %>
+  <h2><%=h (_('Within %s from %s') % [@radius, @region.name]) %><h2>
+<% end %>
+
+<%= render :partial => 'search_form', :locals => { :form_title => _("Refine your search"), :simple_search => true } %>
+
+<% if @found_product_categories %>
+  <div id="product-categories-menu">
+    <ul>
+      <% @found_product_categories.each do |cat, hits| %>
+        <li><%= link_to (cat.name + "(#{hits})"), params.merge({:product_category => cat.id}) %> </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div id="search-results" class="only-one-result-box">
+  <div class="search-results-products search-results-box">
+    <div class="search-results-innerbox search-results-type-product">
+      <ul><%= render :partial => 'product', :collection => @results[:products] %></ul>
+    </div>
+    <hr />
+  </div>
+</div>
+
+<br style="clear:both" />

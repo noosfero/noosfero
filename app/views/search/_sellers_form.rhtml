@@ -1,7 +1,10 @@
-<% form_tag({:controller => 'search', :action => 'index'}, {:method => 'get'}) do %>
-  <%= _('Category: ') %> <%= select_tag 'query', options_from_collection_for_select(@categories, :name, :name, @product_category), :width => 15 %><br/>
-  <%= _('Distance: ') %> <%= text_field_tag 'radius' %><br/>
-  <%= _('From: ') %> <%= text_field :region, :name, :id => 'search_region_block' %>
+<h3><%= _('Search for sellers') %></h3>
+<% form_tag({:controller => 'search', :action => 'assets'}, {:method => 'get'}) do %>
+  <p class="search-in-opt"><%= _('Search in:') %><dir>
+     <%= labelled_radio_button _('Products'), 'asset', 'products', true %><br />
+     <%= labelled_radio_button _('Enterprises'), 'asset', 'enterprises', false %></dir></p>
+   <p class="search-distance-opt"><%= labelled_text_field 'Distance (km): ', 'radius' %></p>
+  <p class="search-from-opt"><%= labelled_text_field 'From: ', 'region[name]', nil, :id => 'search_region_block' %></p>
   <div id='search_region_block_auto_complete' class='auto-complete'></div>
   <%= auto_complete_field('search_region_block', :url => {:controller => 'search', :action => 'complete_region'}) %>
   <br/>
