@@ -59,6 +59,13 @@ body.category4 .linkSubMenu { background-image: url(../images/borda-esq-aba-verm
 
 /* * * Assets Menu * * * * * * * * * * * */
 
+#assets_menu {
+  overflow: hidden; /* MSIE workarround bug */
+}
+#assets_menu ul {
+  height: 55px;
+}
+
 body.category1 #assets_menu_layout_iten { background: url(../images/top-bar/assets-menu-top-laranja.gif)   }
 body.category2 #assets_menu_layout_iten { background: url(../images/top-bar/assets-menu-top-verde.gif)     }
 body.category3 #assets_menu_layout_iten { background: url(../images/top-bar/assets-menu-top-lilas.gif)     }

@@ -31,19 +31,16 @@
   float: left;
   width: 49%;
 }
-.Xmsie .search-results-box {
-  width: 47% !important;
-}
 
 .only-one-result-box .search-results-box {
   width: 100%;
 }
-.Xmsie .only-one-result-box .search-results-box {
-  width: 95% !important;
-}
 
 .search-results-box.odd {
   margin-left: 1%;
+}
+.msie .search-results-box.odd {
+  float: right;
 }
 
 .search-results-innerbox {

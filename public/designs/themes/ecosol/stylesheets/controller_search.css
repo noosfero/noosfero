@@ -43,6 +43,9 @@ body.category4 .search-options {
 .search-results-box.odd {
   margin-left: 0px;
 }
+.msie .search-results-box.odd {
+  float: left;
+}
 
 .search-results-box.col2_of3,
 .search-results-box.col3_of3 {
