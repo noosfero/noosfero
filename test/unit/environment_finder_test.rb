@@ -23,13 +23,6 @@ class EnvironmentFinderTest < ActiveSupport::TestCase
     assert_includes finder.find(:communities, 'beautiful'), c1
   end
 
-  should 'find comments' do
-    person = create_user('teste').person
-    art = person.articles.build(:name => 'an article to be found'); art.save!
-    comment = art.comments.build(:title => 'comment to be found', :body => 'some sample text', :author => person); comment.save!
-    assert_includes EnvironmentFinder.new(Environment.default).find(:comments, 'found'), comment
-  end
-
   should 'find products' do
     finder = EnvironmentFinder.new(Environment.default)
     ent = Enterprise.create!(:name => 'teste', :identifier => 'teste')
@@ -93,19 +86,6 @@ class EnvironmentFinderTest < ActiveSupport::TestCase
 
     assert_includes found, c1
     assert_not_includes found, c2
-  end
-
-  should 'find comments by initial' do
-    person = create_user('teste').person
-    art = person.articles.build(:name => 'an article to be found'); art.save!
-
-    comment1 = art.comments.build(:title => 'a comment to be found', :body => 'some sample text', :author => person); comment1.save!
-    comment2 = art.comments.build(:title => 'b: a comment to be found', :body => 'some sample text', :author => person); comment2.save!
-
-    found = EnvironmentFinder.new(Environment.default).find_by_initial(:comments, 'a')
-
-    assert_includes found, comment1
-    assert_not_includes found, comment2
   end
 
   should 'find products by initial' do

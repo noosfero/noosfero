@@ -40,25 +40,6 @@ class CategoryFinderTest < ActiveSupport::TestCase
     assert_not_includes @finder.find('articles','found'), art2
   end
 
-  should 'search for comments in a specific category' do
-    person = create_user('teste').person
-
-    # in category
-    art1 = person.articles.build(:name => 'an article to be found')
-    art1.categories << @category
-    art1.save!
-    comment1 = art1.comments.build(:title => 'comment to be found', :body => 'hfyfyh', :author => person); comment1.save!
-
-    # not in category
-    art2 = person.articles.build(:name => 'another article to be found')
-    art2.save! 
-    comment2 = art2.comments.build(:title => 'comment to be found', :body => 'hfyfyh', :author => person); comment2.save!
-
-    list = @finder.find(:comments, 'found')
-    assert_includes list, comment1
-    assert_not_includes list, comment2
-  end
-
   should 'search for enterprises in a specific category' do
 
     # in category
@@ -237,19 +218,6 @@ class CategoryFinderTest < ActiveSupport::TestCase
 
     assert_includes list, a1
     assert_not_includes list, a2
-  end
-
-  should 'find comments by initial' do
-    person = create_user('testuser').person
-    a1 = person.articles.create!(:name => 'aaaa', :body => '...', :categories => [@category])
-
-    c1 = a1.comments.create!(:title => 'aaaaa', :body => '...', :author => person)
-    c2 = a1.comments.create!(:title => 'bbbbb', :body => '...', :author => person)
-
-    list = CategoryFinder.new(@category).find_by_initial(:comments, 'a')
-
-    assert_includes list, c1
-    assert_not_includes list, c2
   end
 
   should 'find person and enterprise by radius and region' do

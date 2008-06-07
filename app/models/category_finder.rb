@@ -56,8 +56,6 @@ class CategoryFinder
 
   def options_for_find(klass, options={})
     case klass.name
-    when 'Comment'
-      {:select => 'distinct comments.*', :joins => 'inner join articles_categories on articles_categories.article_id = comments.article_id', :conditions => ['articles_categories.category_id in (?)', category_ids]}.merge!(options)
     when 'Product'
       {:select => 'distinct products.*', :joins => 'inner join categories_profiles on products.enterprise_id = categories_profiles.profile_id', :conditions => ['categories_profiles.category_id in (?)', category_ids]}.merge!(options)
     when 'Article', 'Person', 'Community', 'Enterprise', 'Event'
@@ -70,8 +68,6 @@ class CategoryFinder
   def options_for_find_by_initial(klass, initial)
     # FIXME copy/pasted from options_for_find above !!!
     case klass.name
-    when 'Comment'
-      {:select => 'distinct comments.*', :joins => 'inner join articles_categories on articles_categories.article_id = comments.article_id', :conditions => ['articles_categories.category_id in (?) and (comments.title like (?) or comments.title like (?))', category_ids, initial + '%', initial.upcase + '%']}
     when 'Product'
       {:select => 'distinct products.*', :joins => 'inner join categories_profiles on products.enterprise_id = categories_profiles.profile_id', :conditions => ['categories_profiles.category_id in (?) and (products.name like (?) or products.name like (?))', category_ids, initial + '%', initial.upcase + '%']}
     when 'Article', 'Person', 'Community', 'Enterprise'

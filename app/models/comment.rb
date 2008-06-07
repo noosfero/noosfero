@@ -39,10 +39,6 @@ class Comment < ActiveRecord::Base
     self.find(:all, :order => 'created_at desc, id desc', :limit => limit)
   end
 
-  def self.find_by_initial(initial)
-    self.find(:all, :order => 'comments.title', :conditions => ['comments.title like (?) or comments.title like (?)', initial + '%', initial.upcase + '%'])
-  end
-
   after_save :notify_article
   after_destroy :notify_article
   def notify_article
