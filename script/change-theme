@@ -1,0 +1,31 @@
+#!/bin/bash
+
+cd "$( dirname $0 )/../public/designs/themes/"
+
+test -L default && rm default
+
+echo 'Select Theme:'
+n=0
+ls -1 | while read theme; do
+  let n++
+  echo "  [$n] $theme"
+done
+
+ok=false
+while ! [ -L default ]; do
+  
+  read t
+  n=0
+  ls -1 | while read theme; do
+    let n++
+    if [ "$t" = "$n" ]; then
+      echo "Theme selected: $theme"
+      ln -s "$theme" default
+    fi
+  done
+  
+  if ! [ -L default ]; then
+    echo "Invalid number $t"
+  fi
+  
+done
