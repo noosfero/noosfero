@@ -1,7 +1,3 @@
-<div style='float: left;'>
-  <%= link_to _('Display in list'), :display => 'list' %>
-</div>
-
 <%= content_tag('script', '', :src => GoogleMaps.api_url, :type => 'text/javascript') %>
 
 
@@ -10,14 +6,30 @@
 </div>
 
 <script type='text/javascript'>
+
+function putMarker(lat, lng, title) {
+  var point = new GLatLng(lat, lng);
+  var options = { 'title' : title };
+  var marker = new GMarker(point, options);
+  map.addOverlay(marker);
+  GEvent.addListener(marker, 'click', function() {
+    map.openInfoWindowHtml(point, title);
+  });
+}
+
 if (GBrowserIsCompatible()) {
   var map = new GMap2(document.getElementById("map"));
   map.setCenter(new GLatLng(-15.0, -50.1419), 4);
-
-  point = new GLatLng(-15, -40);
-  marker = new GMarker(point);
-  map.addOverlay(marker);
-  GEvent.addListener(marker, 'click', function() { marker.openInfoWindow("teste") });
-
+<%
+  @results.each do |name,results|
+    results.each do |item|
+      if item.lat && item.lng
+      %>
+  putMarker(<%= item.lat.to_json %>, <%= item.lng.to_json %>, <%= item.name.to_json %>);
+      <%
+      end
+    end
+  end
+%>
 }
 </script>

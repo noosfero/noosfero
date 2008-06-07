@@ -16,13 +16,20 @@ module SearchHelper
   end
 
   def display_results
-    partial =
+    data =
       if params[:display] == 'map'
-        'google_maps'
+        {
+          :partial => 'google_maps',
+          :toggle => link_to(_('Display in list'), params.merge(:display => 'list'))
+        }
       else
-        'display_results'
+        {
+          :partial => 'display_results',
+          :toggle => link_to(_('Display in map'), params.merge(:display => 'map'))
+        }
       end
-    render :partial => partial
+
+    data[:toggle] + (render :partial => data[:partial])
   end
 
 end
