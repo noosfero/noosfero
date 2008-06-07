@@ -543,7 +543,7 @@ module ApplicationHelper
     elsif opt == 'simple_search'
       s = _('Search...')
       '<form action="search" id="simple-search" class="focus-out"'+
-      ' help="'+_('Thet is a search box. Click, write your query, and press enter to find')+'"'+
+      ' help="'+_('This is a search box. Click, write your query, and press enter to find')+'"'+
       ' title="'+_('Click, write and press enter to find')+'">'+
       '<input name="query" value="'+s+'"'+
       ' onfocus="if(this.value==\''+s+'\'){this.value=\'\'} this.form.className=\'focus-in\'"'+
