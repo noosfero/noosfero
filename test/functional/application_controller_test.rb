@@ -143,4 +143,23 @@ class ApplicationControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'a', :content => /Category 2/
   end
 
+  should 'display dropdown for select language' do
+    Noosfero.expects(:locales).returns({ 'en' => 'English', 'pt_BR' => 'Português Brasileiro', 'fr' => 'Français', 'it' => 'Italiano' }).at_least_once
+    get :index, :lang => 'en'
+    assert_tag :tag => 'option', :attributes => { :value => 'en', :selected => 'selected' }, :content => 'English'
+    assert_no_tag :tag => 'option', :attributes => { :value => 'pt_BR', :selected => 'selected' }, :content => 'Português Brasileiro'
+    assert_tag :tag => 'option', :attributes => { :value => 'pt_BR' }, :content => 'Português Brasileiro'
+    assert_tag :tag => 'option', :attributes => { :value => 'fr' }, :content => 'Français'
+    assert_tag :tag => 'option', :attributes => { :value => 'it' }, :content => 'Italiano'
+  end
+
+  should 'display links for select language' do
+    Noosfero.expects(:locales).returns({ 'en' => 'English', 'pt_BR' => 'Português Brasileiro', 'fr' => 'Français', 'it' => 'Italiano' }).at_least_once
+    get :index, :lang => 'en'
+    assert_no_tag :tag => 'a', :attributes => { :href => /\?lang=en/ }, :content => 'English'
+    assert_tag :tag => 'a', :attributes => { :href => /\?lang=pt_BR/ }, :content => 'Português Brasileiro'
+    assert_tag :tag => 'a', :attributes => { :href => /\?lang=fr/ }, :content => 'Français'
+    assert_tag :tag => 'a', :attributes => { :href => /\?lang=it/ }, :content => 'Italiano'
+  end
+
 end
