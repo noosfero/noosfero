@@ -74,7 +74,7 @@ categories[#{cat.id}] = cat#{@seq}.id
     @seq += 1
 
     Category.find(:all, :conditions => { :id_mae => cat.id }).each do |child|
-      dump_category(child, cat) #if (DUMP_ALL || (@seq <= LIMIT))
+      dump_category(child, cat) if (DUMP_ALL || (@seq <= LIMIT))
     end
 
   end
@@ -111,7 +111,7 @@ categories[#{cat.id}] = cat#{@seq}.id
     @r_seqs[city] = @r_seq
     puts <<-EOF
 city#{@r_seq} = new_region(#{city.cidade.inspect}, STATES[#{city.id.to_s[0..1]}], #{city.latitude}, #{city.longitude})
-cities[#{city.id}] = city#{@r_seq}.id
+cities[#{city.id}] = city#{@r_seq}
     EOF
     @r_seq += 1
   end
@@ -134,7 +134,7 @@ Category.find(:all, :conditions => 'id_mae is null or id_mae = -1', :limit => LI
   dumper.dump_category(cat, nil)
 end
 
-puts "regions = {}"
+puts "cities = {}"
 City.find(:all, :limit => LIMIT).each do |city|
   dumper.dump_city(city)
 end

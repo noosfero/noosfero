@@ -4,7 +4,7 @@ class EnvironmentFinder
     @environment = env
   end
 
-  def find(asset, query = nil, options={}, limit = nil)
+  def find(asset, query = nil, options={})
     @region = Region.find_by_id(options.delete(:region)) if options.has_key?(:region)
     if @region && options[:within]
       options[:origin] = [@region.lat, @region.lng]
@@ -17,9 +17,9 @@ class EnvironmentFinder
 
     if query.blank?
         if product_category && asset == :products
-          @environment.send(asset).find(:all, options.merge({:limit => limit, :order => 'created_at desc, id desc', :conditions => ['product_category_id in (?)', product_category_ids]}))
+          @environment.send(asset).find(:all, options.merge({:order => 'created_at desc, id desc', :conditions => ['product_category_id in (?)', product_category_ids]}))
         else
-          @environment.send(asset).find( :all, options.merge( {:limit => limit, :order => 'created_at desc, id desc'} ) )
+          @environment.send(asset).find( :all, options.merge( {:order => 'created_at desc, id desc'} ) )
         end
     else
       if product_category && asset == :products
@@ -32,7 +32,7 @@ class EnvironmentFinder
   end
 
   def recent(asset, limit = nil)
-    find(asset, nil, {}, limit)
+    find(asset, nil, :limit => limit)
   end
 
   def find_by_initial(asset, initial)

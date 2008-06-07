@@ -9,7 +9,7 @@ class CategoryFinder
 
   
 
-  def find(asset, query = nil, options={}, limit = nil)
+  def find(asset, query = nil, options={})
    @region = Region.find_by_id(options.delete(:region)) if options.has_key?(:region)
     if @region && options[:within]
       options[:origin] = [@region.lat, @region.lng]
@@ -18,14 +18,14 @@ class CategoryFinder
     end
 
     if query.blank?
-      asset_class(asset).find(:all, options_for_find(asset_class(asset), {:limit => limit, :order => "created_at desc, #{asset_table(asset)}.id desc"}.merge(options)))
+      asset_class(asset).find(:all, options_for_find(asset_class(asset), {:order => "created_at desc, #{asset_table(asset)}.id desc"}.merge(options)))
     else 
       asset_class(asset).find_by_contents(query, {}, options_for_find(asset_class(asset), options)).uniq
     end
   end
 
   def recent(asset, limit = nil)
-    find(asset, nil, {}, limit)
+    find(asset, nil, :limit => limit)
   end
 
   def find_by_initial(asset, initial)
@@ -59,9 +59,9 @@ class CategoryFinder
       {:select => 'distinct comments.*', :joins => 'inner join articles_categories on articles_categories.article_id = comments.article_id', :conditions => ['articles_categories.category_id in (?)', category_ids]}.merge!(options)
     when 'Product'
       if prod_cat_ids
-        {:select => 'distinct products.*', :joins => 'inner join categories_profiles on products.enterprise_id = categories_profiles.profile_id', :conditions => ['categories_profiles.category_id in (?) and products.product_category_id in (?)', category_ids, prod_cat_ids]}.merge!(options)
+        {:joins => 'inner join categories_profiles on products.enterprise_id = categories_profiles.profile_id', :conditions => ['categories_profiles.category_id in (?) and products.product_category_id in (?)', category_ids, prod_cat_ids]}.merge!(options)
       else
-        {:select => 'distinct products.*', :joins => 'inner join categories_profiles on products.enterprise_id = categories_profiles.profile_id', :conditions => ['categories_profiles.category_id in (?)', category_ids]}.merge!(options)
+        {:joins => 'inner join categories_profiles on products.enterprise_id = categories_profiles.profile_id', :conditions => ['categories_profiles.category_id in (?)', category_ids]}.merge!(options)
       end
     when 'Article', 'Person', 'Community', 'Enterprise', 'Event'
       {:include => 'categories', :conditions => ['categories.id IN (?)', category_ids]}.merge!(options)

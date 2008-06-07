@@ -776,7 +776,7 @@ class SearchControllerTest < Test::Unit::TestCase
     
     cat1.products.create!(:name => 'prod test 1', :enterprise => ent)
     
-    get :index, :find_in => 'products'
+    get :index, :find_in => 'products', :query => 'test'
 
     assert_equal 1, assigns(:counts)[cat1.id][1]
     assert_equal nil, assigns(:counts)[cat2.id]
@@ -789,7 +789,7 @@ class SearchControllerTest < Test::Unit::TestCase
     
     cat1.products.create!(:name => 'prod test 1', :enterprise => ent)
     
-    get :index, :find_in => 'products'
+    get :index, :find_in => 'products', :query => 'test'
 
     assert_equal 1, assigns(:counts)[cat1.id][1]
     assert_equal nil, assigns(:counts)[cat2.id]
@@ -803,7 +803,7 @@ class SearchControllerTest < Test::Unit::TestCase
     cat1.products.create!(:name => 'prod test 1', :enterprise => ent)
     cat2.products.create!(:name => 'prod test 2', :enterprise => ent)
     
-    get :index, :find_in => 'products'
+    get :index, :find_in => 'products', :query => 'test'
 
     assert_equal 2, assigns(:counts)[cat1.id][1]
     assert_equal 1, assigns(:counts)[cat2.id][1]

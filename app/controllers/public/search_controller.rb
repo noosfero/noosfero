@@ -98,7 +98,7 @@ class SearchController < ApplicationController
   ]
 
   # TODO don't hardcode like this >:-(
-  LIST_LIMIT = 20
+  LIST_LIMIT = 10
 
   def complete_region
     @regions = Region.find(:all, :conditions => [ 'name like ? and lat is not null and lng is not null', '%' + params[:region][:name] + '%' ])
@@ -113,13 +113,21 @@ class SearchController < ApplicationController
     # FIXME name is not unique
     @region = Region.find_by_name(params[:region][:name]) if params[:region]
 
+    # how many assets we are searching for?
+    number_of_result_assets = @searching.values.select{|v| v}.size
+
+    # apply limit when searching for only one type of asset
+    limit = (number_of_result_assets == 1) ? LIST_LIMIT : nil
+
     @results = {}
     @names = {}
     SEARCH_IN.each do |key, description|
-      if [:enterprises, :people].include?(key) && @region
-        @results[key] = @finder.find(key, @filtered_query, :within => params[:radius], :region => @region.id, :product_category => @product_category) if @searching[key]
-      else
-        @results[key] = @finder.find(key, @filtered_query, :product_category => @product_category) if @searching[key]
+      if @searching[key]
+        if [:enterprises, :people].include?(key) && @region
+          @results[key] = @finder.find(key, @filtered_query, :within => params[:radius], :region => @region.id, :product_category => @product_category, :limit => limit)
+        else
+          @results[key] = @finder.find(key, @filtered_query, :product_category => @product_category, :limit => limit) 
+        end
       end
       @names[key] = gettext(description)
     end
@@ -138,6 +146,12 @@ class SearchController < ApplicationController
   end
 
   def products
+    @results[:products].uniq!
+    if !(@category || @product_category || @region || (!@query.blank?))
+      # not searching, no menu
+      return
+    end
+
     @categories = @results[:products].map(&:product_category).compact
     @counts = @categories.uniq.inject({}) do |h, cat| 
       h[cat.id] = [cat, 0]
@@ -150,7 +164,7 @@ class SearchController < ApplicationController
       end
     end
 
-    @cats = @counts.values.sort_by{|v|v[0].full_name}
+    @found_product_categories = @counts.values.sort_by{|v|v[0].full_name}
   end
 
   alias :assets :index
