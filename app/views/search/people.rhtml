@@ -11,6 +11,6 @@
 
 <%= render :partial => 'search_form', :locals => { :form_title => @query.blank? ? _('Search') : _("Refine your search"), :simple_search => true } %>
 
-<%= render :partial => 'display_results' %>
+<%= display_results %>
 
 <br style="clear:both" />

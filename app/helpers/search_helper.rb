@@ -14,4 +14,15 @@ module SearchHelper
   def remove_stop_words(query)
     (query.downcase.scan(/"[^"]*"?|'[^']*'?|[^'"\s]+/) - (STOP_WORDS[locale] || [])).join(' ')
   end
+
+  def display_results
+    partial =
+      if params[:display] == 'map'
+        'google_maps'
+      else
+        'display_results'
+      end
+    render :partial => partial
+  end
+
 end

@@ -3,7 +3,7 @@
   <div id="category-image"><%= image_tag(@category.image.public_filename(:thumb), :id => 'category-image') if @category.image %></div>
   <h1 id="category-name"><%= _('Category: %s') % @category.name %></h1>
 
-  <%= render :partial => 'display_results' %>
+  <%= display_results %>
     
   <div id="category-childs">
     <h2> <%= _('Sub-categories')  %> </h2>

@@ -1,0 +1,23 @@
+<div style='float: left;'>
+  <%= link_to _('Display in list'), :display => 'list' %>
+</div>
+
+<%= content_tag('script', '', :src => GoogleMaps.api_url, :type => 'text/javascript') %>
+
+
+<div style='text-align: center; margin: 2em;'>
+  <div id="map" style="margin: auto; width: 100%; height: 500px"></div>
+</div>
+
+<script type='text/javascript'>
+if (GBrowserIsCompatible()) {
+  var map = new GMap2(document.getElementById("map"));
+  map.setCenter(new GLatLng(-15.0, -50.1419), 4);
+
+  point = new GLatLng(-15, -40);
+  marker = new GMarker(point);
+  map.addOverlay(marker);
+  GEvent.addListener(marker, 'click', function() { marker.openInfoWindow("teste") });
+
+}
+</script>
