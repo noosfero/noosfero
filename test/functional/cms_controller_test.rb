@@ -150,8 +150,6 @@ class CmsControllerTest < Test::Unit::TestCase
     end
   end
 
-  should 'display'
-
   should 'be able to create a RSS feed' do
     login_as(profile.identifier)
     assert_difference RssFeed, :count do
@@ -427,6 +425,18 @@ class CmsControllerTest < Test::Unit::TestCase
     get :edit, :profile => profile.identifier, :id => article.id
     assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'article[published]' }
     assert_no_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'article[published]', :checked => 'checked' }
+  end
+
+  should 'be able to add image with alignment' do
+    post :new, :type => 'TinyMceArticle', :profile => profile.identifier, :article => { :name => 'image-alignment', :body => "the text of the article with image <img src='#' align='right'/> right align..." }
+    saved = TinyMceArticle.find_by_name('image-alignment')
+    assert_match /<img src="#" align="right" \/>/, saved.body
+  end
+
+  should 'not be able to add image with alignment when textile' do
+    post :new, :type => 'TextileArticle', :profile => profile.identifier, :article => { :name => 'image-alignment', :body => "the text of the article with image <img src='#' align='right'/> right align..." }
+    saved = TextileArticle.find_by_name('image-alignment')
+    assert_no_match /align="right"/, saved.body
   end
 
 end

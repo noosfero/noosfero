@@ -53,6 +53,9 @@ Rails::Initializer.run do |config|
     :session_key => '_noosfero_session',
     :secret      => '7372009258e02886ca36278257637a008959504400f6286cd09133f6e9131d23460dd77e289bf99b480a3b4d017be0578b59335ce6a1c74e3644e37514926009'
   }
+
+  # Adds custom attributes to the Set of allowed html attributes for the #sanitize helper
+  config.action_view.sanitized_allowed_attributes = 'align'
   
   # See Rails::Configuration for more options
 
