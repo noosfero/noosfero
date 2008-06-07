@@ -145,12 +145,12 @@
 
 #assets_menu {
   position: absolute;
-  top: 6px;
+  top: 7px;
   right: 160px;
   padding: 0px;
 }
 .msie #assets_menu {
-  margin-right: 90px;
+  margin-right: 170px;
 }
 
 #assets_menu_layout_iten {
@@ -172,12 +172,18 @@
   margin: 0px;
   padding: 0px 4px;
   float: left;
+  width: 22px;
+  height: 20px;
+  position: relative;
+  Xborder: 1px solid red;
 }
 
 #assets_menu a {
   letter-spacing: 0px;
   color: #FFF;
-  position: relative;
+  position: absolute;
+  left: 0px;
+  top: 0px;
   overflow: visible;
   opacity: 0.6;
 	filter: alpha(opacity=60);
@@ -185,7 +191,7 @@
 .msie #assets_menu a {
   width: 100px;
   height: 20px;
-  margin-left: -80px;
+  margin-left: 0px;
 }
 #assets_menu a:hover {
   background: transparent;
@@ -216,5 +222,11 @@
 #assets_menu a:hover strong {
   display: block;
   -moz-border-radius: 4px;
+}
+
+/* * * Language Selector * * * * * * * * * */
+
+#language-selector {
+	display: block;
 }
 
