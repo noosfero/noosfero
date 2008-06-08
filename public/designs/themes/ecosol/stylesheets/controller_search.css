@@ -37,7 +37,10 @@ body.category4 .search-options {
   width: 32.5%;
 }
 .msie .search-results-box {
-  width: 31% !important;
+  width: 31%;
+}
+.msie .only-one-result-box .search-results-box {
+  width: 100%;
 }
 
 .search-results-box.odd {

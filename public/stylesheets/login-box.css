@@ -1,10 +1,11 @@
 
 .login-box {
-  padding: 3px 10% 8px 10%;
+  padding: 3px 20px 8px 20px;
   font-size: 10px;
 }
 #lightbox .login-box {
-  padding: 3px 25% 8px 25%;
+  width: 50%;
+  margin: auto;
 }
 
 .login-block .login-box {
@@ -14,7 +15,7 @@
   margin-top: -6px;
   border: 2px solid #729FCF;
   background: #B8CFE7;
-  padding: 0px 10px 5px 10px;
+  padding: 0px 20px 5px 20px;
 }
 
 .login-box-content .button-bar .button {
@@ -29,6 +30,9 @@
   margin: 0px;
   padding: 0px 0px 10px 0px;
 }
+.msie7 .login-box form {
+  padding: 0px 10px 10px 0px;
+}
 
 #content .login-block h2 {
   font-size: 20px;
@@ -37,6 +41,7 @@
   padding: 0px;
 }
 #lightbox .login-box h2 {
+  font-size: 20px;
   color: #000;
 }
 
