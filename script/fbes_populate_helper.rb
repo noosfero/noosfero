@@ -33,11 +33,13 @@ require File.dirname(__FILE__) + '/../config/environment'
   def new_cat(name, parent = nil)
     path = (parent ? parent.path + '/' : '') + name.to_slug
     ProductCategory.find_by_path(path) || ProductCategory.create!(:name => name, :parent => parent, :environment => Environment.default)
+    print '.'
   end
 
   def new_region(name, parent, lat, lng)
     path = (parent ? parent.path + '/' : '') + name.to_slug
     Region.find_by_path(path) || Region.create!(:name => name, :parent => parent, :lat => lat, :lng => lng, :environment => Environment.default)
+    print '.'
   end
 
   def new_ent(data, products, consumptions)
@@ -54,4 +56,5 @@ require File.dirname(__FILE__) + '/../config/environment'
     consumptions.each do |c|
       ent.consumptions.create!(c) unless ent.consumptions.find(:first, :conditions => c)
     end
+    print '.'
   end

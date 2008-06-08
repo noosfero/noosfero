@@ -84,4 +84,34 @@ class ProductTest < Test::Unit::TestCase
     assert_includes Product.find_by_contents('interesting'), p
   end
 
+  should 'have same lat and lng of its enterprise' do
+    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_enterprise', :lat => 30.0, :lng => 30.0 )
+    prod = ent.products.create!(:name => 'test product')
+
+    assert_equal ent.lat, prod.lat
+    assert_equal ent.lng, prod.lng
+  end
+
+  should 'update lat and lng of product afer update enterprise' do
+    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_enterprise', :lat => 30.0, :lng => 30.0 )
+    prod = ent.products.create!(:name => 'test product')
+
+    ent.lat = 45.0; ent.lng = 45.0; ent.save!
+
+    prod.reload
+   
+    assert_in_delta 45.0, prod.lat, 0.0001
+    assert_in_delta 45.0, prod.lng, 0.0001
+  end
+
+  should 'be searched by radius and distance' do
+    prod1 = Product.create!(:name => 'prod test 1', :lat => 30.0, :lng => 30.0)
+    prod2 = Product.create!(:name => 'prod test 2', :lat => 45.0, :lng => 45.0)
+
+    prods = Product.find(:all, :within => 10, :origin => [30.0, 30.0])
+
+    assert_includes prods, prod1
+    assert_not_includes prods, prod2
+  end
+
 end

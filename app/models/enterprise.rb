@@ -12,4 +12,12 @@ class Enterprise < Organization
     products.map{|p| p.category_full_name}
   end
 
+  def product_updated
+    ferret_update
+  end
+
+  after_save do |e|
+    e.products.each{ |p| p.enterprise_updated(e) }
+  end
+
 end
