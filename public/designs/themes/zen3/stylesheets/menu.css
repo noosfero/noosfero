@@ -32,8 +32,8 @@
 
 #simple-search input {
   width: 100px;
-  height: 22px;
-  line-height: 22px;
+  padding-top: 2px;
+  height: 16px;
   border: 1px solid #A40000;
   background: #F57900 url(../images/search.gif) 1px 90% no-repeat;
   color: #000;
@@ -41,6 +41,8 @@
 	color: #400;
 }
 .msie #simple-search input {
+  padding-top: 0px;
+  height: 18px;
   line-height: 18px;
 }
 
@@ -149,8 +151,11 @@
   right: 160px;
   padding: 0px;
 }
-.msie #assets_menu {
+.msie6 #assets_menu {
   margin-right: 170px;
+}
+.msie7 #assets_menu {
+  margin-right: 10px;
 }
 
 #assets_menu_layout_iten {
@@ -175,7 +180,6 @@
   width: 22px;
   height: 20px;
   position: relative;
-  Xborder: 1px solid red;
 }
 
 #assets_menu a {
