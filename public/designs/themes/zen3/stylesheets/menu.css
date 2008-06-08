@@ -192,6 +192,7 @@
   width: 100px;
   height: 20px;
   margin-left: 0px;
+  cursor: pointer;
 }
 #assets_menu a:hover {
   background: transparent;

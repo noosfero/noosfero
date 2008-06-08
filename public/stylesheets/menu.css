@@ -18,6 +18,10 @@
   background: #2A5896 url(../images/white-pixel.gif) 0px 100% repeat-x;
 }
 
+#navigation_bar {
+  width: 100%; /* MSIE workarround bug */
+}
+
 #menu_link_to_envhome {
   float: left;
 }
@@ -25,7 +29,10 @@
 #cat_menu {
   padding: 0px;
   margin: 0px;
+}
+.msie #cat_menu {
   width: 100%;
+  position: relative;
 }
 
 #cat_menu .linkSubMenu,
@@ -85,7 +92,7 @@
   border-top: none;
 }
 .msie #cat_menu ul {
-  width: 100%;
+  /* width: 100%; */
 }
 
 #cat_menu ul a {
@@ -108,7 +115,7 @@
   border: none; /* work arround IE Bug */
   background: transparent; /* work arround IE Bug */
 }
-.msie #assets_menu {
+.msie6 #assets_menu {
   right: -1px;
 }
 
