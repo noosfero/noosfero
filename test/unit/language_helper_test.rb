@@ -67,5 +67,13 @@ class LanguageHelperTest < Test::Unit::TestCase
     "<a href='?lang=#{opts[:lang]}'>#{text}</a>"
   end
 
+  def params
+    {}
+  end
+
+  def url_for(x)
+    x.inspect
+  end
+  
 end
 
