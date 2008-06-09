@@ -40,20 +40,13 @@ module SearchHelper
   end
 
   def display_profile_info(profile)
-    profile = Enterprise.find :first
-    table_rows = ''
-    profile.summary.each do |item|
-      name = item[0]
-      value = item[1]
-      if value.is_a?(Proc)
-        value = self.instance_eval(value)
-      end
-      table_rows << content_tag('tr', content_tag('td', _(name)) + content_tag('td', value))
-    end
+    profile_info = ''
+    profile_info << content_tag('strong', profile.name) + '<br/>'
+    profile_info << link_to(url_for(profile.url), profile.url) + '<br/>'
     content_tag( 'table',
       content_tag( 'tr',
         content_tag('td', content_tag('div', profile_image(profile, :thumb), :class => 'profile-info-picture')) +
-        content_tag('td', content_tag('table', table_rows))
+        content_tag('td', profile_info)
       ),
       :class => 'profile-info'
     )
