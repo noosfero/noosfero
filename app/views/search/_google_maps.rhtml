@@ -28,17 +28,24 @@ if (GBrowserIsCompatible()) {
   map.addControl(new GLargeMapControl());
   map.addControl(new GMapTypeControl());
 
-  map.setCenter(new GLatLng(-15.0, -50.1419), 4);
+  centerPoint = new GLatLng(-15.0, -50.1419);
+  map.setCenter(centerPoint, 4);
 <%
+  missed = false
   @results.each do |name,results|
     results.each do |item|
       if item.lat && item.lng
       %>
         putMarker(<%= item.lat.to_json %>, <%= item.lng.to_json %>, <%= item.name.to_json %>, <%= display_profile_info(item).to_json %>);
       <%
-      end
+        else
+          missed = true
+        end
     end
   end
 %>
+  <% if missed %>
+  <%= "map.openInfoWindowHtml(centerPoint, %s);" % _("One or more items don't have geographical information, and won't be shown in the map. Choose \"Display in list\" to see them.").to_json %>
+  <% end %>
 }
 </script>
