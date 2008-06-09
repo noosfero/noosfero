@@ -29,7 +29,7 @@ if (GBrowserIsCompatible()) {
   map.addControl(new GMapTypeControl());
 
   centerPoint = new GLatLng(-15.0, -50.1419);
-  map.setCenter(centerPoint, 4);
+  map.setCenter(centerPoint, <%= GoogleMaps.initial_zoom.to_json %>);
 <%
   missed = false
   @results.each do |name,results|

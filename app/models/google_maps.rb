@@ -31,6 +31,10 @@ class GoogleMaps
       config['key']
     end
 
+    def initial_zoom
+      config['initial_zoom'] || 4
+    end
+
     def api_url
       "http://maps.google.com/maps?file=api&amp;v=2&amp;key=#{key}"
     end
