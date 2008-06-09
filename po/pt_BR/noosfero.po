@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.10.0\n"
-"POT-Creation-Date: 2008-06-09 10:31-0300\n"
+"POT-Creation-Date: 2008-06-09 12:28-0300\n"
 "PO-Revision-Date: 2008-06-07 16:56-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: \n"
@@ -575,6 +575,16 @@ msgstr "Criado em"
 #: app/models/product.rb:-
 msgid "Product|Updated at"
 msgstr "Atualizado em"
+
+#: app/models/product.rb:-
+#, fuzzy
+msgid "Product|Lat"
+msgstr "Nome"
+
+#: app/models/product.rb:-
+#, fuzzy
+msgid "Product|Lng"
+msgstr "Produto"
 
 #: app/models/domain.rb:-
 msgid "domain"

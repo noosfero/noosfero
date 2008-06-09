@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.10.0\n"
-"POT-Creation-Date: 2008-06-09 10:31-0300\n"
+"POT-Creation-Date: 2008-06-09 12:28-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -567,6 +567,14 @@ msgstr ""
 
 #: app/models/product.rb:-
 msgid "Product|Updated at"
+msgstr ""
+
+#: app/models/product.rb:-
+msgid "Product|Lat"
+msgstr ""
+
+#: app/models/product.rb:-
+msgid "Product|Lng"
 msgstr ""
 
 #: app/models/domain.rb:-
