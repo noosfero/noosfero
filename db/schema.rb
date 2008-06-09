@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 38) do
+ActiveRecord::Schema.define(:version => 39) do
 
   create_table "article_versions", :force => true do |t|
     t.integer  "article_id"
@@ -88,13 +88,14 @@ ActiveRecord::Schema.define(:version => 38) do
   create_table "categories", :force => true do |t|
     t.string  "name"
     t.string  "slug"
-    t.text    "path",           :default => ""
+    t.text    "path",            :default => ""
     t.integer "display_color"
     t.integer "environment_id"
     t.integer "parent_id"
     t.string  "type"
     t.float   "lat"
     t.float   "lng"
+    t.boolean "display_in_menu", :default => false
   end
 
   create_table "categories_profiles", :id => false, :force => true do |t|
