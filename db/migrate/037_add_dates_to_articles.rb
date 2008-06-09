@@ -8,8 +8,8 @@ class AddDatesToArticles < ActiveRecord::Migration
 
   def self.up
     each_table do |table|
-      add_column table, :start_date, :type => :date
-      add_column table, :end_date, :type => :date
+      add_column table, :start_date, :date
+      add_column table, :end_date, :date
     end
   end
 

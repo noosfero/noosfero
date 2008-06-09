@@ -1,7 +1,7 @@
 class AddPublishedFieldToArticle < ActiveRecord::Migration
   def self.up
     add_column :articles, :published, :boolean, :default => true
-    execute('update articles set published = 1')
+    execute('update articles set published = (1>0)')
 
     add_column :article_versions, :published, :boolean, :default => true
   end
