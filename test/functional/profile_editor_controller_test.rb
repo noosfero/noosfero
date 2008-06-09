@@ -329,4 +329,16 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'div', :attributes => { :class => 'pending-tasks' }
   end
 
+  should 'show favorite enterprises button for person' do
+    person = create_user('testuser').person
+    get :index, :profile => 'testuser'
+    assert_tag :tag => 'a', :content => 'Favorite Enterprises'
+  end
+
+  should 'not show favorite enterprises button for organization' do
+    org = Organization.create!(:name => 'test org', :identifier => 'testorg', :contact_person => 'my contact')
+    get :index, :profile => 'testorg'
+    assert_no_tag :tag => 'a', :content => 'Favorite Enterprises'
+  end
+
 end

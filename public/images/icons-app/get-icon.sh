@@ -4,36 +4,37 @@ ICON=$1
 THEME=$2
 SVG=$3
 
+SECTION='apps'
+
 if [ -z $ICON ] || [ -z $THEME ] || [ -z $SVG ]; then
   echo "use: $0 <ICON> <THEME> <ICON>"
   echo "example:"
-  echo "  $0 close Nuovo stock/gtk-close.svg"
+  echo "  $0 favorites dlg-neu epiphany-bookmarks.svg"
   exit 1
 fi
 
-SECTION="$(dirname $SVG)/"
 PNG=$(basename $SVG | sed -e 's/\.svg/\.png/')
-SVGFILE=/usr/share/icons/$THEME/scalable/$SVG
+SVGFILE=/usr/share/icons/$THEME/scalable/$SECTION/$SVG
 
 if [ ! -f $SVGFILE ]; then
   echo "$SVGFILE not found, stopping."
   exit 2
 fi
 
-rsvg -h 24 -h 24 $SVGFILE $PNG
+rsvg -w 64 -h 64 $SVGFILE $PNG
 
 if [ ! -f $PNG ]; then
   echo "Error creating $PNG, stopping."
   exit 2
 fi
 
+ln -s $PNG ${ICON}.png
+
 if [ -e .svn ]; then
-  svn add $PNG
+  svn add $PNG ${ICON}.png
 else
-  git add $PNG
+  git add $PNG ${ICON}.png
 fi
 
-LINE=$(printf "%-25s %-12s %s" $PNG $THEME $SECTION)
+LINE=$(printf "%-43s %s" $PNG $THEME)
 sed -i -e "s!### END OF ICONS LISTING ###!$LINE\n&!" README
-
-echo ".icon-$ICON { background-image: url($PNG); }" >> style.css

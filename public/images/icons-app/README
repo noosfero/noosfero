@@ -12,6 +12,17 @@ To keep a trace back to the theme theme, when rasterizing the SVG files we keep
 the original filenames (replacing .svg by .png, obviously) and create symbolic
 links with names more sensible for Noosfero.
 
+Adding a new icons
+==================
+
+Use the fantastic script get-icon.sh! Suppose you want to add a new icon for
+the "favorites". You find that dlg-neu theme has a nice button under apps,
+called gtk-open.svg. You call the script as follows:
+
+$ sh get-icon.sh favorites epiphany-bookmarks.svg
+
+The script generates the PNG and create symbolic link from PNG using ICON name.
+
 Source for icons
 ================
 
@@ -29,6 +40,8 @@ users.png (locally modified)                dlg-neu
 stock_todo.png                              Nuovo
 friends.png (modified version of users.png) Nuovo
 gtk-folder.png                              Nuovo
+epiphany-bookmarks.png                      dlg-neu
+### END OF ICONS LISTING ###
 
 Icons rasterization
 ===================
