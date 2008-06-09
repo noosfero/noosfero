@@ -502,7 +502,8 @@ module ApplicationHelper
     }')
     environment.top_level_categories.each do |toplevel|
       next if toplevel.is_a?(ProductCategory)
-      toplevel.map_traversal do |cat|
+      # FIXME
+      toplevel.children_for_menu do |cat|
         if cat.top_level?
           result << '<div class="categorie_box">'
           result << icon_button( :down, _('open'), '#', :onclick => 'open_close_cat(this); return false' )
