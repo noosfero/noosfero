@@ -39,4 +39,24 @@ module SearchHelper
     content_tag('div', data[:toggle] + (render :partial => data[:partial]), :class => "map-or-list-search-results #{data[:class]}")
   end
 
+  def display_profile_info(profile)
+    profile = Enterprise.find :first
+    table_rows = ''
+    profile.summary.each do |item|
+      name = item[0]
+      value = item[1]
+      if value.is_a?(Proc)
+        value = self.instance_eval(value)
+      end
+      table_rows << content_tag('tr', content_tag('td', _(name)) + content_tag('td', value))
+    end
+    content_tag( 'table',
+      content_tag( 'tr',
+        content_tag('td', content_tag('div', profile_image(profile, :thumb), :class => 'profile-info-picture')) +
+        content_tag('td', content_tag('table', table_rows))
+      ),
+      :class => 'profile-info'
+    )
+  end
+
 end

@@ -7,13 +7,13 @@
 
 <script type='text/javascript'>
 
-function putMarker(lat, lng, title) {
+function putMarker(lat, lng, title, summary) {
   var point = new GLatLng(lat, lng);
   var options = { 'title' : title };
   var marker = new GMarker(point, options);
   map.addOverlay(marker);
   GEvent.addListener(marker, 'click', function() {
-    map.openInfoWindowHtml(point, title);
+    map.openInfoWindowHtml(point, summary);
   });
 }
 
@@ -34,7 +34,7 @@ if (GBrowserIsCompatible()) {
     results.each do |item|
       if item.lat && item.lng
       %>
-  putMarker(<%= item.lat.to_json %>, <%= item.lng.to_json %>, <%= item.name.to_json %>);
+        putMarker(<%= item.lat.to_json %>, <%= item.lng.to_json %>, <%= item.name.to_json %>, <%= display_profile_info(item).to_json %>);
       <%
       end
     end
