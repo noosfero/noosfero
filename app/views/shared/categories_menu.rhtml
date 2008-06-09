@@ -4,7 +4,7 @@
     <li id="category<%= item.display_color %>"<%= ' class="active"' if (@category && (@category.top_ancestor == item)) %>>
       <%= item.name %>
       <ul>
-        <% item.all_children.select{|i| i.display_in_menu?}.each do |child| %>
+        <% item.children_for_menu.each do |child| %>
           <% if (@controller.controller_name == 'search') && (@controller.action_name == 'assets') %>
             <li><%= link_to(content_tag('span', child.name), :controller => 'search', :action => 'assets', :asset => params[:asset], :category_path => child.explode_path) %></li>
           <% else %>

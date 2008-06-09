@@ -385,16 +385,14 @@ class CategoryTest < Test::Unit::TestCase
     end
   end
 
-  should 'display in menu' do
-    c = Category.create!(:name => 'test category1', :environment => Environment.default)
-    c.expects(:total_items).returns(10)
-    assert c.display_in_menu?
-  end
+  should 'display in menu only if have display_menu setted to true' do
+    c = Category.create!(:name => 'test category top',  :environment => Environment.default, :display_in_menu => true)
+    c1 = Category.create!(:name => 'test category 1',   :environment => Environment.default, :display_in_menu => true, :parent => c)
+    c11 = Category.create!(:name => 'test category 11', :environment => Environment.default, :display_in_menu => true, :parent => c1)
+    c2 = Category.create!(:name => 'test category 2',   :environment => Environment.default, :display_in_menu => true, :parent => c)
+    c3 = Category.create!(:name => 'test category 3',   :environment => Environment.default, :parent => c)
 
-  should 'not display in menu' do
-    c = Category.create!(:name => 'test category1', :environment => Environment.default)
-    c.expects(:total_items).returns(1)
-    assert !c.display_in_menu?
+    assert_equivalent [c1, c11, c2], c.children_for_menu
   end
 
 end

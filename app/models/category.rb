@@ -54,12 +54,19 @@ class Category < ActiveRecord::Base
   end
 
   def display_in_menu?
-    if ENV['RAILS_ENV'] == 'development'
-      return true
+    display_in_menu
+  end
+
+  def children_for_menu
+    results = []
+    pending = children.find(:all, :conditions => { :display_in_menu => true})
+    while !pending.empty?
+      cat = pending.shift
+      results << cat
+      pending += cat.children.find(:all, :conditions => { :display_in_menu => true} )
     end
 
-    # FIXME don't hardcode like this. Should be a setting of the environment, maybe
-    total_items >= 10
+    results
   end
 
 end
