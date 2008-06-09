@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.10.0\n"
 "POT-Creation-Date: 2008-06-09 19:40-0300\n"
-"PO-Revision-Date: 2008-06-07 16:56-0300\n"
+"PO-Revision-Date: 2008-06-09 19:43-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -577,14 +577,12 @@ msgid "Product|Updated at"
 msgstr "Atualizado em"
 
 #: app/models/product.rb:-
-#, fuzzy
 msgid "Product|Lat"
-msgstr "Nome"
+msgstr "Latitude"
 
 #: app/models/product.rb:-
-#, fuzzy
 msgid "Product|Lng"
-msgstr "Produto"
+msgstr "Longitude"
 
 #: app/models/domain.rb:-
 msgid "domain"
@@ -1538,9 +1536,8 @@ msgid "Category|Lng"
 msgstr "Longitude"
 
 #: app/models/category.rb:-
-#, fuzzy
 msgid "Category|Display in menu"
-msgstr "Mostrar cor"
+msgstr "Mostrar no menu"
 
 #: app/models/category.rb:3
 msgid "%{fn} cannot be like that."
@@ -3235,6 +3232,8 @@ msgid ""
 "One or more items don't have geographical information, and won't be shown in "
 "the map. Choose \"Display in list\" to see them."
 msgstr ""
+"Um ou mais items não possuem informações geográficas, e não serão exibidos "
+"no mapa. Escolha \"Mostrar como lista\" para vê-los."
 
 #: app/views/shared/user_menu.rhtml:2
 msgid "This menu gives you access to your personal functionalities."
