@@ -128,17 +128,15 @@ class ApplicationControllerTest < Test::Unit::TestCase
   end
 
   should 'display only some categories in menu' do
-    c1 = Environment.default.categories.create!(:name => 'Category 1', :display_color => 1, :parent_id => nil)
-    c2 = Environment.default.categories.create!(:name => 'Category 2', :display_color => nil, :parent_id => c1)
-    Category.any_instance.expects(:display_in_menu?).returns(true)
+    c1 = Environment.default.categories.create!(:name => 'Category 1', :display_color => 1, :parent_id => nil, :display_in_menu => true )
+    c2 = Environment.default.categories.create!(:name => 'Category 2', :display_color => nil, :parent_id => c1, :display_in_menu => true )
     get :index
     assert_tag :tag => 'a', :content => /Category 2/
   end
 
   should 'not display some categories in menu' do
-    c1 = Environment.default.categories.create!(:name => 'Category 1', :display_color => 1, :parent_id => nil)
+    c1 = Environment.default.categories.create!(:name => 'Category 1', :display_color => 1, :parent_id => nil, :display_in_menu => true)
     c2 = Environment.default.categories.create!(:name => 'Category 2', :display_color => nil, :parent_id => c1)
-    Category.any_instance.expects(:display_in_menu?).returns(false)
     get :index
     assert_no_tag :tag => 'a', :content => /Category 2/
   end
