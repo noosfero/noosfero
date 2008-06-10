@@ -236,10 +236,10 @@ class CmsControllerTest < Test::Unit::TestCase
 
   should 'display checkboxes for selecting categories' do
     env = Environment.default
-    top = env.categories.build(:name => 'Top-Level category'); top.save!
-    c1 = env.categories.build(:name => "Test category 1", :parent_id => top.id); c1.save!
-    c2 = env.categories.build(:name => "Test category 2", :parent_id => top.id); c2.save!
-    c3 = env.categories.build(:name => "Test Category 3", :parent_id => top.id); c3.save!
+    top = env.categories.build(:display_in_menu => true, :name => 'Top-Level category'); top.save!
+    c1  = env.categories.build(:display_in_menu => true, :name => "Test category 1", :parent_id => top.id); c1.save!
+    c2  = env.categories.build(:display_in_menu => true, :name => "Test category 2", :parent_id => top.id); c2.save!
+    c3  = env.categories.build(:display_in_menu => true, :name => "Test Category 3", :parent_id => top.id); c3.save!
 
     article = Article.new(:name => 'test')
     article.profile = profile

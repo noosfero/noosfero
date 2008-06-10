@@ -70,13 +70,13 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
   end
 
   should 'display categories to choose to associate profile' do
-    cat1 = Environment.default.categories.build(:name => 'top category'); cat1.save!
-    cat2 = Environment.default.categories.build(:name => 'sub category', :parent => cat1); cat2.save!
+    cat1 = Environment.default.categories.build(:display_in_menu => true, :name => 'top category'); cat1.save!
+    cat2 = Environment.default.categories.build(:display_in_menu => true, :name => 'sub category', :parent => cat1); cat2.save!
     person = create_user('test_user').person
     get :edit, :profile => 'test_user'
     assert_response :success
     assert_template 'edit'
-    assert_tag :tag => 'input', :attributes => {:name => 'profile_data[category_ids][]'}
+    assert_tag :tag => 'input', :attributes => {:name => 'profile_data[category_ids][]', :value => cat2.id}
   end
 
   should 'save categorization of profile' do
@@ -253,11 +253,11 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
   end
 
   should 'show categories field on edit profile' do
-    cat1 = Environment.default.categories.create!(:name => 'top category')
-    cat2 = Environment.default.categories.create!(:name => 'sub category', :parent => cat1)
+    cat1 = Environment.default.categories.create!(:display_in_menu => true, :name => 'top category')
+    cat2 = Environment.default.categories.create!(:display_in_menu => true, :name => 'sub category', :parent => cat1)
     person = create_user('testuser').person
     get :edit, :profile => 'testuser'
-    assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'profile_data[category_ids][]' }
+    assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'profile_data[category_ids][]', :value => cat2.id}
   end
 
   should 'render edit template' do
