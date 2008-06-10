@@ -76,6 +76,6 @@ ActionController::Routing::Routes.draw do |map|
 
   # *content viewing*
   # XXX this route must come last so other routes have priority over it.
-  map.homepage ':profile/*page', :controller => 'content_viewer', :action => 'view_page'
+  map.homepage ':profile/*page', :controller => 'content_viewer', :action => 'view_page', :profile => /[a-z][a-z0-9._-]*/
 
 end
