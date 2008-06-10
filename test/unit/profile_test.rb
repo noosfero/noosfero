@@ -506,7 +506,7 @@ class ProfileTest < Test::Unit::TestCase
 
   should 'be able to add a block as extra data for index' do
     klass = Class.new(Profile)
-    result = mock
+    result = Object.new
     klass.extra_data_for_index do |obj|
       result
     end
