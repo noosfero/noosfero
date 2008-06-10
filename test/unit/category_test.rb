@@ -162,10 +162,10 @@ class CategoryTest < Test::Unit::TestCase
 
     root1 = Category.create!(:name => 'root category 1', :environment_id => @env.id)
 
-    #assert_nothing_raised ActiveRecord::RecordInvalid do
+    assert_nothing_raised ActiveRecord::RecordInvalid do
       Category.create!(:name => 'test category', :environment_id => @env.id, :parent => root1)
       Category.create!(:name => 'test category', :environment_id => @env.id, :parent => nil)
-    #end
+    end
   end
 
   def test_renaming_a_category_should_change_path_of_children
