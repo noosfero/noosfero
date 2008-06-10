@@ -101,7 +101,8 @@ class SearchController < ApplicationController
   LIST_LIMIT = 10
 
   def complete_region
-    @regions = Region.find(:all, :conditions => [ 'name like ? and lat is not null and lng is not null', '%' + params[:region][:name] + '%' ])
+    # FIXME this logic should be in the model
+    @regions = Region.find(:all, :conditions => [ '(name like ? or name like ?) and lat is not null and lng is not null', '%' + params[:region][:name] + '%', '%' + params[:region][:name].capitalize + '%' ])
     render :action => 'complete_region', :layout => false
   end
 
