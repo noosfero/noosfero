@@ -114,4 +114,12 @@ class RoutingTest < ActionController::IntegrationTest
     assert_routing('/directory/my-asset/f/a/b/c', :controller => 'search', :action => 'directory', :asset => 'my-asset', :initial => 'f', :category_path => [ 'a', 'b', 'c'])
   end
 
+  def test_content_view_with_dot
+    assert_routing('/ze.withdot', :controller => 'content_viewer', :action => 'view_page', :profile => 'ze.withdot', :page => [])
+  end
+
+  def test_content_view_with_dash
+    assert_routing('/ze-withdash', :controller => 'content_viewer', :action => 'view_page', :profile => 'ze.withdash', :page => [])
+  end
+
 end
