@@ -11,7 +11,8 @@ SELECT
   users.login                                             as maildir,
   NULL                                                    as quota,
   profiles.name                                           as fullname,
-  ''                                                      as options
+  ''                                                      as options,
+  users.crypted_password                                  as pam_passwd
 from users
 JOIN profiles on
   (profiles.user_id = users.id and
@@ -20,5 +21,8 @@ JOIN environments on
   (environments.id = profiles.environment_id)
 JOIN domains on
   (domains.owner_id = environments.id and
-   domains.owner_type = 'Environment');
+   domains.owner_type = 'Environment')
+WHERE
+  users.password_type = 'md5'
+  AND users.email_enabled;
 
