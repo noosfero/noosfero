@@ -1,0 +1,6 @@
+user = pam
+password = pam
+dbname = noosfero_development
+query = select name AS virtual from domains where name = '%s'
+hosts = 127.0.0.1
+ssl = false

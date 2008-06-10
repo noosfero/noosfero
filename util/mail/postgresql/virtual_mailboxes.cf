@@ -1,0 +1,6 @@
+user = pam
+password = pam
+dbname = noosfero_development
+query = select domains.name || '/' || users.login || '/' from users join profiles on (profiles.user_id = users.id and profiles.type = 'Person') join environments on (environments.id = profiles.environment_id) join domains on (domains.owner_id = environments.id and domains.owner_type = 'Environment') where (users.login || '@' || domains.name) = '%s'
+hosts = 127.0.0.1
+ssl = false

@@ -1,0 +1,108 @@
+About
+=====
+
+This directory contains sample files for setting up a Noosfero-integrated mail
+service with Postfix, Courier Mail Server and PostgreSQL. The instructions
+assume a Debian GNU/Linux system, and were tested specifically in the "etch"
+release (the stable release at the time of writing the instructions).
+
+Installation
+============
+
+Install and configure Noosfero
+-------------------------------
+
+Follow Noosfero's own instructions. Before letting users register at your Noosfero site, add the following line to config/local.rb:
+
+User.system_encryption_method = :md5
+
+In the instructions below, replace **NOOSFERO_DB** with the name of the
+Noosfero database you'll use for production (e.g. "noosfero_production",
+"noosfero" etc).
+
+Install the required packages for the mail system
+-------------------------------------------------
+
+Create a system user for the virtual mail folders. This user will be used by
+Postfix for delivering mail into the folders.
+
+addgroup --gid 5000 vmail
+adduser --system --uid 5000 --gid 5000 vmail
+
+Configure a read-only user for your database
+--------------------------------------------
+
+Create a user in the PostgreSQL database that will be used by the mail authentication mechanisms to connect to the database. Become the postgres user and issue the command (replace **DBUSER** with the name you choose for this user):
+
+createuser -P **DBUSER**
+
+The -P option tells createuser to ask you for a password. Remember to take note
+of this password. From now on, we'll refer to it as **DBPASSWORD**. When you
+see **DBPASSWORD** in the instructions below, replace it with the password you
+typed. Similarly, when you see **DBUSER** in the instructions below, replace it
+with the username you chose to this database user.
+
+Configure the PostgreSQL database
+---------------------------------
+
+Create the database view that will be queried by Courier's PostgreSQL
+authentication module:
+
+psql **NOOSFERO_DB** < mail_users.sql
+
+After that, assure you give read permissions on the recently-created view to the  user you created before:
+
+psql **NOOSFERO_DB**
+[...]
+=> grant select on mail_users to **DBUSER**;
+
+Configure courier to authenticate against the PostgreSQL database:
+------------------------------------------------------------------
+
+in /etc/courier/authdaemonrc, find the line that defines authmodulelist and change it to look like this:
+
+authmodulelist="authpgsql"
+
+Then find the authpgsqlrc file and set the indicated settings as follows:
+
+PGSQL_HOST		127.0.0.1
+PGSQL_USERNAME		**DBUSER**
+PGSQL_PASSWORD		**DBPASSWORD**
+PGSQL_DATABASE		**NOOSFERO_DB**
+PGSQL_USER_TABLE	mail_users
+PGSQL_CRYPT_PWFIELD	passwd
+PGSQL_UID_FIELD		uid
+PGSQL_GID_FIELD		gid
+PGSQL_LOGIN_FIELD	username
+PGSQL_HOME_FIELD	home
+PGSQL_NAME_FIELD	fullname
+PGSQL_MAILDIR_FIELD	maildir
+
+Configure Postfix do deliver the mail in the right place
+--------------------------------------------------------
+
+Create a directory called "postgres" in /etc/postfix, and copy (or symlink) the
+files virtual_domains.cf and virtual_mailboxes.cf there.
+
+Then in main Postfix configuration file, add the following lines to the end of the file:
+
+virtual_mailbox_domains = proxy:pgsql:/etc/postfix/postgres/virtual_domains.cf
+virtual_mailbox_maps = proxy:pgsql:/etc/postfix/postgres/virtual_mailboxes.cf
+virtual_mailbox_base = /home/vmail
+virtual_uid_maps = static:5000
+virtual_gid_maps = static:5000
+smtp_sasl_auth_enable = yes
+broken_sasl_auth_clients = yes
+smtpd_recipient_restrictions =
+	permit_mynetworks,
+	permit_sasl_authenticated,
+	reject_unauth_destination
+virtual_create_maildirsize = yes
+virtual_mailbox_extended = yes
+proxy_read_maps = $virtual_mailbox_domains $virtual_mailbox_maps
+
+Configuring PAM-PostgreSQL for Postfix (SMTP) authentication
+------------------------------------------------------------
+
+copy the file pam_pgsql.conf over /etc/pam_pgsql.conf and adjust the parameters
+database, user and password accordingly to your configuration.
