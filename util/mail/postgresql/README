@@ -101,8 +101,15 @@ virtual_create_maildirsize = yes
 virtual_mailbox_extended = yes
 proxy_read_maps = $virtual_mailbox_domains $virtual_mailbox_maps
 
-Configuring PAM-PostgreSQL for Postfix (SMTP) authentication
-------------------------------------------------------------
+Configuring PAM-PostgreSQL for Postfix (SMTP) authentication through SASL
+-------------------------------------------------------------------------
 
 copy the file pam_pgsql.conf over /etc/pam_pgsql.conf and adjust the parameters
 database, user and password accordingly to your configuration.
+
+Then edit /etc/default/saslauthd and change the line that defines "MECHANISMS" to read like this:
+
+MECHANISMS="pam"
+
+Also modify the options as explained in the comment just above it. (see /usr/share/doc/sasl2-bin/README.Debian) for the proper setup for postfix.
+
