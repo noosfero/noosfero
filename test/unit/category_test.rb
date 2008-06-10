@@ -145,6 +145,29 @@ class CategoryTest < Test::Unit::TestCase
 
   end
 
+  should 'be able to duplicated slug in different scope' do
+    @env.categories.destroy_all
+
+    root1 = Category.create!(:name => 'root category 1', :environment_id => @env.id)
+    root2 = Category.create!(:name => 'root category 2', :environment_id => @env.id)
+
+    assert_nothing_raised ActiveRecord::RecordInvalid do
+      Category.create!(:name => 'test category', :environment_id => @env.id, :parent => root1)
+      Category.create!(:name => 'test category', :environment_id => @env.id, :parent => root2)
+    end
+  end
+
+  should 'be able to duplicated slug in different scope without parent' do
+    @env.categories.destroy_all
+
+    root1 = Category.create!(:name => 'root category 1', :environment_id => @env.id)
+
+    #assert_nothing_raised ActiveRecord::RecordInvalid do
+      Category.create!(:name => 'test category', :environment_id => @env.id, :parent => root1)
+      Category.create!(:name => 'test category', :environment_id => @env.id, :parent => nil)
+    #end
+  end
+
   def test_renaming_a_category_should_change_path_of_children
     c1 = Category.create!(:name => 'parent', :environment_id => @env.id)
     c2 = Category.create!(:name => 'child', :environment_id => @env.id, :parent_id => c1.id)

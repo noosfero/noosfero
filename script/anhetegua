@@ -7,8 +7,6 @@ Environment.destroy_all
 User.destroy_all
 Profile.destroy_all
 
-Role.destroy_all
-RoleAssignment.destroy_all
 Category.destroy_all
 Product.destroy_all
 Article.destroy_all
