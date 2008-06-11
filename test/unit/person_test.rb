@@ -273,5 +273,13 @@ class PersonTest < Test::Unit::TestCase
     AddFriend.create!(:person => p1, :friend => p2)
     assert p1.already_request_friendship?(p2)
   end
+
+  should 'have e-mail addresses' do
+    env = Environment.create!(:name => 'sample env', :domains => [Domain.new(:name => 'somedomain.com')])
+    person = Person.new(:identifier => 'testuser')
+    person.expects(:environment).returns(env)
+
+    assert_equal ['testuser@somedomain.com'], person.email_addresses
+  end
   
 end

@@ -113,4 +113,9 @@ class Person < Profile
 
   has_and_belongs_to_many :favorite_enterprises, :class_name => 'Enterprise', :join_table => 'favorite_enteprises_people'
 
+  def email_addresses
+    # TODO for now, only one e-mail address
+    ['%s@%s' % [self.identifier, self.environment.default_hostname ] ]
+  end
+
 end
