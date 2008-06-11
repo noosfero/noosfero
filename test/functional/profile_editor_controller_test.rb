@@ -342,20 +342,20 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
   end
 
   should 'link to mailconf' do
-    MailConf.expects(:enabled?).returns(true)
+    MailConf.expects(:enabled?).returns(true).at_least_once
     get :index, :profile => 'ze'
     assert_tag :tag => 'a', :attributes => { :href => '/myprofile/ze/mailconf' }
   end
 
   should 'not link to mailconf for organizations' do
-    MailConf.stubs(:enabled?).returns(true)
+    MailConf.stubs(:enabled?).returns(true).at_least_once
     org = Organization.create!(:name => 'test org', :identifier => 'testorg', :contact_person => 'my contact')
     get :index, :profile => 'testorg'
     assert_no_tag :tag => 'a', :attributes => { :href => '/myprofile/testorg/mailconf' }
   end
 
   should 'not link to mailconf if mail not enabled' do
-    MailConf.expects(:enabled?).returns(false)
+    MailConf.expects(:enabled?).returns(false).at_least_once
     get :index, :profile => 'ze'
     assert_no_tag :tag => 'a', :attributes => { :href => '/myprofile/ze/mailconf' }
   end
