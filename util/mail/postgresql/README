@@ -25,6 +25,82 @@ Noosfero database you'll use for production (e.g. "noosfero_production",
 Install the required packages for the mail system
 -------------------------------------------------
 
+The following packages must be installed:
+
+courier-authlib-postgresql
+courier-imap
+courier-imap-ssl
+courier-pop
+courier-pop-ssl
+imp4
+libapache2-mod-php5
+libpam-pgsql
+php5-imap
+php5-pear
+php5-pgsql
+postfix
+postfix-pgsql
+sasl2-bin
+
+Answer the configuration questions like this:
+
+Package: courier-base
+Question: create directories for web-based administration?
+Answer: No
+
+Package: postfix
+Question: General type of configuration?
+Answer: Internet Site
+
+Package: postfix
+Question: Mail name?
+Answer: mail.YOURDOMAIN.COM (e.g.)
+
+Package: libc-client2002edebian
+Question: Continue installing libc-client without Maildir support?
+Answer: Yes
+
+Create a better SSL certificate for the mail system
+---------------------------------------------------
+
+(cf http://sial.org/howto/openssl/self-signed/)
+
+	cd /etc/ssl
+
+	openssl genrsa 1024 > private/mail.zen3.net.key
+
+	openssl req -new -x509 -nodes -sha1 -days $[10*365] -key private/mail.zen3.net.key -out certs/mail.zen3.net.cert -config mail.zen3.net.cnf
+
+	cat private/mail.zen3.net.key certs/mail.zen3.net.cert > certs/mail.zen3.net.pem
+
+Configure courier SSL to use your new certificate
+-------------------------------------------------
+
+Change imapd-ssl and pop-ssl with:
+
+TLS_CERTFILE=/etc/ssl/certs/mail.zen3.net.pem
+
+and restart the services:
+
+	invoke-rc.d courier-imap-ssl restart
+	invoke-rc.d courier-pop-ssl restart
+
+
+Configure postfix to use your new certificate
+---------------------------------------------
+
+update /etc/postfix/main.cf with
+
+smtpd_tls_cert_file=/etc/ssl/certs/mail.zen3.net.cert
+smtpd_tls_key_file=/etc/ssl/private/mail.zen3.net.key
+
+The restart postfix:
+
+	invoke-rc.d postfix restart
+
+Create a user for the virtual mail system
+-----------------------------------------
+
 Create a system user for the virtual mail folders. This user will be used by
 Postfix for delivering mail into the folders.
 
@@ -52,11 +128,16 @@ authentication module:
 
 psql **NOOSFERO_DB** < mail_users.sql
 
-After that, assure you give read permissions on the recently-created view to the  user you created before:
+After that, assure you give read permissions on the recently-created view to the  user you created before and on tables domains and users:
 
 psql **NOOSFERO_DB**
 [...]
 => grant select on mail_users to **DBUSER**;
+=> grant select on domains to **DBUSER**;
+=> grant select on users to **DBUSER**;
+=> grant select on profiles to **DBUSER**;
+=> grant select on environments to **DBUSER**;
+
 
 Configure courier to authenticate against the PostgreSQL database:
 ------------------------------------------------------------------
@@ -67,7 +148,7 @@ authmodulelist="authpgsql"
 
 Then find the authpgsqlrc file and set the indicated settings as follows:
 
---------------------8<--------------------------8<---------------------
+<<<<<<<<<
 PGSQL_HOST		127.0.0.1
 PGSQL_USERNAME		**DBUSER**
 PGSQL_PASSWORD		**DBPASSWORD**
@@ -80,7 +161,12 @@ PGSQL_LOGIN_FIELD	username
 PGSQL_HOME_FIELD	home
 PGSQL_NAME_FIELD	fullname
 PGSQL_MAILDIR_FIELD	maildir
---------------------8<--------------------------8<---------------------
+>>>>>>>>
+
+Restart courier-authdaemon:
+
+	invoke-rc.d courier-authdaemon restart
+
 
 Configure Postfix do deliver the mail in the right place
 --------------------------------------------------------
@@ -90,7 +176,7 @@ files virtual_domains.cf and virtual_mailboxes.cf there.
 
 Then in main Postfix configuration file, add the following lines to the end of the file:
 
---------------------8<--------------------------8<---------------------
+<<<<<<<<<<<<<<<
 virtual_mailbox_domains = proxy:pgsql:/etc/postfix/postgres/virtual_domains.cf
 virtual_mailbox_maps = proxy:pgsql:/etc/postfix/postgres/virtual_mailboxes.cf
 virtual_mailbox_base = /home/vmail
@@ -130,9 +216,9 @@ virtual_mailbox_extended = yes
 # TODO limits (quota)
 
 proxy_read_maps = $virtual_mailbox_domains $virtual_mailbox_maps proxy:unix:passwd.byname
---------------------8<--------------------------8<---------------------
+>>>>>>>>>>>>>>
 
-
+Don't restart postfix yet, wait for the next step.
 
 Configuring PAM-PostgreSQL for Postfix (SMTP) authentication through SASL
 -------------------------------------------------------------------------
@@ -143,6 +229,8 @@ database, user and password accordingly to your configuration.
 Then edit /etc/default/saslauthd and change the line that defines "MECHANISMS" to read like this:
 
 MECHANISMS="pam"
+
+Also change START=no to START=yes at the begining of the file
 
 Also modify the options as explained in the comment just above it. (see
 /usr/share/doc/sasl2-bin/README.Debian) for the proper setup for postfix. In a
@@ -155,3 +243,149 @@ and you must set /var/spool/postfix/var/run/saslauthd with
 
   dpkg-statoverride --add root sasl 710 /var/spool/postfix/var/run/saslauthd
   adduser postfix sasl
+
+
+Then create /etc/pam.d/pgsql with:
+
+<<<<<<<<<<<<<<<
+auth    required        pam_pgsql.so
+account required        pam_pgsql.so
+>>>>>>>>>>>>>>>
+
+Create /etc/pam.d/smtp with:
+
+>>>>>>>>>>>>>>>
+@include pgsql
+<<<<<<<<<<<<<<<
+
+And /etc/postfix/sasl/smtpd.conf with:
+
+<<<<<<<<<<<<<<<
+pwcheck_method: saslauthd
+mech_list: PLAIN LOGIN
+>>>>>>>>>>>>>>>
+
+Restart saslauthd:
+
+	invoke-rc.d saslauthd restart
+
+Restart postfix:
+
+	invoke-rc.d postfix restart
+
+
+Configure Horde platform and IMP webmail
+----------------------------------------
+
+Create a virtual host in file e.g. /etc/apache2/sites-available/mail.YOURDOMAIN.COM:
+
+<<<<<<<<<<<<<<<
+<VirtualHost *>
+  ServerAdmin YOU@YOURDOMAIN.COM
+
+  ServerName mail.YOURDOMAIN.COM
+
+  DocumentRoot /usr/share/horde3/
+  <Directory /usr/share/horde3/>
+    Options FollowSymLinks
+    AllowOverride Limit
+  </Directory>
+
+</VirtualHost>
+>>>>>>>>>>>>>>>
+
+Then enable the VirtualHost and reload apache:
+
+	a2ensite mail.zen3.net
+	invoke-rc.d apache2 reload
+
+Now fix the default conf.php in /etc/horde/horde3 removing the backslashes in
+the last line, remove the first 2 commands to enable the web configuration and
+point your web browser to http://mail.YOURDOMAIN.COM/
+
+Lets's first create a database for horde in PostgreSQL.
+
+	su - potsgres
+	createuser -P horde
+	createdb -O horde horde
+	psql -h localhost -U horde horde < /usr/share/doc/horde3/examples/scripts/sql/create.pgsql.sql
+
+Take note of the password you enter for the horde user in the second command.
+It will be referred below as **HORDEPASS**
+
+You can ignore the two error messages in the begining, it is trying to create a
+database and a user. Since we already created both with the proper settings,
+than nothing more is needed.
+
+In the left bar, open the item "Administration", then choose "Setup". Now in
+each of the tabs set the following basic options:
+
+	General
+
+		What path should we set cookies to?
+		=> /
+
+	Database
+
+		What database backend should we use?
+		=> PostgreSQL
+
+		Database server/host
+		=> localhost
+
+		Username to connect to the database as
+		=> horde
+
+		Password to connect with
+		=> **HORDEPASS**
+
+		How should we connect to the database?
+		=> TCP/IP
+
+		Database name to use
+		=> horde
+
+	Preference System
+
+		What preferences driver should we use?
+		=> SQL Database
+
+		Driver Configuration
+		=> Horde defaults
+
+Click Generate Horde configuration. Horde will not be able to write the configutation to the disk and will show you the configuration file contents. Copy and paste it into /etc/horde/horde3/conf.php
+
+Now configure IMP: edit /et/horde/imp4/servers.php and change the first server listed as follows:
+
+$servers['imap'] = array(
+    'name' => 'YOURDOMAIN.COM',
+    'server' => 'localhost',
+    'hordeauth' => false,
+    'protocol' => 'imap/notls',
+    'port' => 143,
+    'maildomain' => 'YOURDOMAIN.COM',
+    'smtphost' => 'localhost',
+    'smtpport' => 25,
+    'realm' => '',
+    'preferred' => '',
+);
+
+You can remove (or comment) all the other server snippets below the first.
+
+Then go back to the browser, choose "Administration", "Setup", then "imp". You can look for setting to change, but for now we'll leave the default values. Just click in "Generate Mail COnfiguration" button and copy/paste the generated configuration in /etc/horde/imp4/conf.php (just as you did before for horde3).
+
+Now go back to horde setup and, in the tab "Authentication", change the followinf:
+
+	Which users should be treated as administrators
+	=> YOU@YOURDOMAIN.COM (i.e.. your noosfero/e-mail account)
+
+	What backend should we use for authenticating users to Horde?
+	=> Let a Horde application handle authentication
+
+	The application which is providing authentication
+	=> imp
+
+Click "Generate Horde Configuration", and as before, copy/paste the generated configuration into /etc/horde/horde3/conf.php.
+
+Now we realized that you could have configure IMP before Horde, and do the
+horde configuration all in one pass.

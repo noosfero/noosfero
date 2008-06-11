@@ -24,5 +24,5 @@ JOIN domains on
    domains.owner_type = 'Environment')
 WHERE
   users.password_type = 'md5'
-  AND users.email_enabled;
+  AND users.enable_email;
 
