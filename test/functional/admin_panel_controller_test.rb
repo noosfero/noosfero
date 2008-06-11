@@ -72,9 +72,4 @@ class AdminPanelControllerTest < Test::Unit::TestCase
     assert_equal "This <strong>is</strong> alert('alow')my new environment", Environment.default.description
   end
 
-  should 'link to manage enterprises' do
-    get :index
-    assert_tag :tag => 'a', :attributes => { :href => '/admin/enterprises' }
-  end
-
 end

@@ -310,7 +310,7 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     user2 = create_user('usertwo').person
     AddFriend.create!(:person => user1, :friend => user2)
     @controller.stubs(:user).returns(user2)
-    user2.expects(:has_permission?).with('edit_profile', anything).returns(true)
+    user2.stubs(:has_permission?).with('edit_profile', anything).returns(true)
     user2.expects(:has_permission?).with(:manage_friends, anything).returns(true)
     login_as('usertwo')
     get :index, :profile => 'usertwo'
@@ -322,7 +322,7 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     user2 = create_user('usertwo').person
     task = AddFriend.create!(:person => user1, :friend => user2)
     @controller.stubs(:user).returns(user2)
-    user2.expects(:has_permission?).with('edit_profile', anything).returns(true)
+    user2.stubs(:has_permission?).with('edit_profile', anything).returns(true)
     user2.expects(:has_permission?).with(:manage_friends, anything).returns(false)
     login_as('usertwo')
     get :index, :profile => 'usertwo'
