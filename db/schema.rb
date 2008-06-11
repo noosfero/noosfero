@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 39) do
+ActiveRecord::Schema.define(:version => 41) do
 
   create_table "article_versions", :force => true do |t|
     t.integer  "article_id"
@@ -186,6 +186,7 @@ ActiveRecord::Schema.define(:version => 39) do
     t.float    "lat"
     t.float    "lng"
     t.integer  "geocode_precision"
+    t.boolean  "enabled",           :default => true
   end
 
   create_table "region_validators", :id => false, :force => true do |t|

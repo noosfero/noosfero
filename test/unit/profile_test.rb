@@ -537,6 +537,11 @@ class ProfileTest < Test::Unit::TestCase
     assert_includes Profile.find_by_contents('interesting'), p
   end
 
+  should 'enabled by default on creation' do
+    profile = Profile.create!(:name => 'my test profile', :identifier => 'mytestprofile')
+    assert profile.enabled?
+  end
+
   private
 
   def assert_invalid_identifier(id)
