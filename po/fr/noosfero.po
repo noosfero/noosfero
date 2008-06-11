@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.10.0\n"
-"POT-Creation-Date: 2008-06-09 19:40-0300\n"
+"POT-Creation-Date: 2008-06-11 14:42-0300\n"
 "PO-Revision-Date: 2008-05-08 05:14+0200\n"
 "Last-Translator: Raphael Rousseau <pootle.colivre.coop.br@r4f.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -124,6 +124,11 @@ msgstr "Il faut encore que %s accepte d'être votre ami."
 msgid "%s administrator still needs to accept you as member."
 msgstr "Il faut encore que %s accepte d'être votre ami."
 
+#: app/controllers/my_profile/mailconf_controller.rb:21
+#, fuzzy
+msgid "e-Mail settings saved successfully."
+msgstr "Fonctionnalités mises à jour avec succès."
+
 #: app/controllers/public/content_viewer_controller.rb:77
 msgid "Comment succesfully deleted"
 msgstr "Le commentaire a bien été effacé"
@@ -161,28 +166,28 @@ msgstr "Produits"
 msgid "Events"
 msgstr ""
 
-#: app/controllers/public/search_controller.rb:179
+#: app/controllers/public/search_controller.rb:180
 msgid "Recently registered people"
 msgstr "Personnes enregistrées récemment"
 
-#: app/controllers/public/search_controller.rb:180
+#: app/controllers/public/search_controller.rb:181
 msgid "Recently created communities"
 msgstr "Groupes créés récemment"
 
-#: app/controllers/public/search_controller.rb:181
+#: app/controllers/public/search_controller.rb:182
 msgid "Recent articles"
 msgstr "Articles récents"
 
-#: app/controllers/public/search_controller.rb:182
+#: app/controllers/public/search_controller.rb:183
 msgid "Most commented articles"
 msgstr "Articles les plus commentés"
 
-#: app/controllers/public/search_controller.rb:183
+#: app/controllers/public/search_controller.rb:184
 #, fuzzy
 msgid "Recently created enterprises"
 msgstr "Groupes créés récemment"
 
-#: app/controllers/public/search_controller.rb:184
+#: app/controllers/public/search_controller.rb:185
 #, fuzzy
 msgid "Recently added events"
 msgstr "Groupes créés récemment"
@@ -434,14 +439,6 @@ msgstr ""
 msgid "Search"
 msgstr "Chercher"
 
-#: app/helpers/search_helper.rb:28
-msgid "Display in list"
-msgstr ""
-
-#: app/helpers/search_helper.rb:34
-msgid "Display in map"
-msgstr ""
-
 #: app/helpers/categories_helper.rb:6
 msgid "Do not display at the menu"
 msgstr "Ne pas afficher dans le menu"
@@ -505,6 +502,14 @@ msgstr "Effacer le bloc"
 #: app/views/profile_members/index.rhtml:14 app/views/role/index.rhtml:6
 msgid "Edit"
 msgstr "Éditer"
+
+#: app/helpers/search_helper.rb:28
+msgid "Display in list"
+msgstr ""
+
+#: app/helpers/search_helper.rb:34
+msgid "Display in map"
+msgstr ""
 
 #: app/models/article_block.rb:4
 msgid "Display one of your contents."
@@ -760,6 +765,7 @@ msgid "The data provided by the enterprise was the following:\n"
 msgstr "Les données fournies par l'entreprise sont les suivantes :\n"
 
 #: app/models/create_enterprise.rb:150 app/views/memberships/index.rhtml:12
+#: app/views/enterprises/index.rhtml:8
 msgid "Name: %s"
 msgstr "Nom : %s"
 
@@ -794,6 +800,75 @@ msgstr "Téléphone de contact : %s"
 #: app/models/create_enterprise.rb:160
 msgid "Contact person: %s"
 msgstr "Personne de contact : %s"
+
+#: app/models/profile.rb:-
+msgid "profile"
+msgstr "profil"
+
+#: app/models/profile.rb:-
+msgid "Profile|Name"
+msgstr "Nom"
+
+#: app/models/profile.rb:-
+msgid "Profile|Type"
+msgstr "Type"
+
+#: app/models/profile.rb:-
+msgid "Profile|Identifier"
+msgstr "Identifiant"
+
+#: app/models/profile.rb:-
+msgid "Profile|Environment"
+msgstr "Environnement"
+
+#: app/models/profile.rb:-
+msgid "Profile|Active"
+msgstr "Actif"
+
+#: app/models/profile.rb:-
+msgid "Profile|Address"
+msgstr "Adresse"
+
+#: app/models/profile.rb:-
+msgid "Profile|Contact phone"
+msgstr "Téléphone de contact"
+
+#: app/models/profile.rb:-
+msgid "Profile|Home page"
+msgstr "Page personnelle"
+
+#: app/models/profile.rb:-
+msgid "Profile|User"
+msgstr "Utilisateur"
+
+#: app/models/profile.rb:-
+msgid "Profile|Region"
+msgstr "Région"
+
+#: app/models/profile.rb:-
+msgid "Profile|Data"
+msgstr "Données"
+
+#: app/models/profile.rb:-
+msgid "Profile|Created at"
+msgstr "Créé le"
+
+#: app/models/profile.rb:-
+msgid "Profile|Lat"
+msgstr "Latitude"
+
+#: app/models/profile.rb:-
+msgid "Profile|Lng"
+msgstr "Longitude"
+
+#: app/models/profile.rb:-
+msgid "Profile|Geocode precision"
+msgstr "Précision geocode"
+
+#: app/models/profile.rb:-
+#, fuzzy
+msgid "Profile|Enabled"
+msgstr "Nom"
 
 #: app/models/profile.rb:-
 msgid "article"
@@ -894,70 +969,6 @@ msgstr "Mis à jour le "
 msgid "Article|End date"
 msgstr "Nom"
 
-#: app/models/profile.rb:-
-msgid "profile"
-msgstr "profil"
-
-#: app/models/profile.rb:-
-msgid "Profile|Name"
-msgstr "Nom"
-
-#: app/models/profile.rb:-
-msgid "Profile|Type"
-msgstr "Type"
-
-#: app/models/profile.rb:-
-msgid "Profile|Identifier"
-msgstr "Identifiant"
-
-#: app/models/profile.rb:-
-msgid "Profile|Environment"
-msgstr "Environnement"
-
-#: app/models/profile.rb:-
-msgid "Profile|Active"
-msgstr "Actif"
-
-#: app/models/profile.rb:-
-msgid "Profile|Address"
-msgstr "Adresse"
-
-#: app/models/profile.rb:-
-msgid "Profile|Contact phone"
-msgstr "Téléphone de contact"
-
-#: app/models/profile.rb:-
-msgid "Profile|Home page"
-msgstr "Page personnelle"
-
-#: app/models/profile.rb:-
-msgid "Profile|User"
-msgstr "Utilisateur"
-
-#: app/models/profile.rb:-
-msgid "Profile|Region"
-msgstr "Région"
-
-#: app/models/profile.rb:-
-msgid "Profile|Data"
-msgstr "Données"
-
-#: app/models/profile.rb:-
-msgid "Profile|Created at"
-msgstr "Créé le"
-
-#: app/models/profile.rb:-
-msgid "Profile|Lat"
-msgstr "Latitude"
-
-#: app/models/profile.rb:-
-msgid "Profile|Lng"
-msgstr "Longitude"
-
-#: app/models/profile.rb:-
-msgid "Profile|Geocode precision"
-msgstr "Précision geocode"
-
 #: app/models/profile.rb:25 app/views/profile_editor/edit.rhtml:1
 msgid "Edit profile"
 msgstr "Éditer le profil"
@@ -982,7 +993,7 @@ msgstr "Éditer l'identité visuelle du profil"
 msgid "Manage products"
 msgstr "Gérer les produits"
 
-#: app/models/profile.rb:31 app/views/profile_editor/index.rhtml:19
+#: app/models/profile.rb:31 app/views/profile_editor/index.rhtml:21
 msgid "Manage friends"
 msgstr "Gérer les amis"
 
@@ -1418,6 +1429,11 @@ msgstr "Environnement"
 msgid "User|Password type"
 msgstr "Mot de passe"
 
+#: app/models/user.rb:-
+#, fuzzy
+msgid "User|Enable email"
+msgstr "Adresse e-mail"
+
 #: app/models/user.rb:7
 msgid "User|Password"
 msgstr "Mot de passe"
@@ -1761,7 +1777,7 @@ msgid "Enterprise"
 msgstr "Entreprise"
 
 #: app/models/favorite_enterprises_block.rb:4
-#: app/views/profile_editor/index.rhtml:27
+#: app/views/profile_editor/index.rhtml:29
 #, fuzzy
 msgid "Favorite Enterprises"
 msgstr "Valider l'entreprise"
@@ -1861,7 +1877,7 @@ msgstr "Utilisateur depuis %{month}/%{year}"
 msgid "Homepage"
 msgstr "Accueil"
 
-#: app/views/account/user_info.rhtml:11 app/views/shared/user_menu.rhtml:37
+#: app/views/account/user_info.rhtml:11 app/views/shared/user_menu.rhtml:43
 msgid "Logout"
 msgstr "Déconnexion"
 
@@ -2023,7 +2039,7 @@ msgstr ""
 "recevoir dans quelques instants."
 
 #: app/views/account/login.rhtml:3 app/views/account/login_block.rhtml:4
-#: app/views/shared/user_menu.rhtml:48
+#: app/views/shared/user_menu.rhtml:54
 msgid "Login"
 msgstr "Connexion"
 
@@ -2099,6 +2115,7 @@ msgstr "Infos du site"
 #: app/views/cms/edit.rhtml:33
 #: app/views/enterprise_validation/edit_validation_info.rhtml:9
 #: app/views/profile_editor/edit.rhtml:43 app/views/box_organizer/edit.rhtml:8
+#: app/views/mailconf/index.rhtml:14
 msgid "Save"
 msgstr "Enregistrer"
 
@@ -2137,6 +2154,11 @@ msgstr "Gérer les rôles des utilisateurs"
 #: app/views/admin_panel/index.rhtml:11
 msgid "Manage Validators by region"
 msgstr "Gérer les validateurs par région"
+
+#: app/views/admin_panel/index.rhtml:12
+#, fuzzy
+msgid "Manage Enterprises"
+msgstr "Entreprises"
 
 #: app/views/catalog/index.rhtml:1
 msgid "Catalog"
@@ -2780,7 +2802,7 @@ msgid "Remove member"
 msgstr "Ôter le membre"
 
 #: app/views/environment_role_manager/make_admin.rhtml:4
-#: app/views/shared/user_menu.rhtml:30
+#: app/views/shared/user_menu.rhtml:36
 msgid "Admin"
 msgstr "Admin"
 
@@ -3045,6 +3067,7 @@ msgid "Select the categories of your interest"
 msgstr "Choisissez les catégories de vos centres d'intérêt"
 
 #: app/views/profile_editor/edit.rhtml:44 app/views/tasks/index.rhtml:17
+#: app/views/mailconf/index.rhtml:15
 msgid "Back to control panel"
 msgstr "Retour au panneau de contrôle"
 
@@ -3057,44 +3080,48 @@ msgid "Edit Profile"
 msgstr "Éditer le profil"
 
 #: app/views/profile_editor/index.rhtml:11
+msgid "Mail settings"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:13
 msgid "Pending tasks"
 msgstr "Tâches en attente"
 
-#: app/views/profile_editor/index.rhtml:13
+#: app/views/profile_editor/index.rhtml:15
 msgid "Edit Visual Design"
 msgstr "Éditer l'apparence"
 
-#: app/views/profile_editor/index.rhtml:15
+#: app/views/profile_editor/index.rhtml:17
 msgid "Manage Content"
 msgstr "Gérer le contenu"
 
-#: app/views/profile_editor/index.rhtml:17
+#: app/views/profile_editor/index.rhtml:19
 msgid "Change Password"
 msgstr "Modifier le mot de passe"
 
-#: app/views/profile_editor/index.rhtml:21
+#: app/views/profile_editor/index.rhtml:23
 msgid "Manage Members"
 msgstr "Gérer les membres"
 
-#: app/views/profile_editor/index.rhtml:23
+#: app/views/profile_editor/index.rhtml:25
 #, fuzzy
 msgid "Manage Products and Services"
 msgstr "Gérer les produits"
 
-#: app/views/profile_editor/index.rhtml:25
+#: app/views/profile_editor/index.rhtml:27
 msgid "Enterprise Validation"
 msgstr "Validation d'entreprises"
 
-#: app/views/profile_editor/index.rhtml:32
+#: app/views/profile_editor/index.rhtml:34
 msgid "My groups"
 msgstr "Mes groupes"
 
-#: app/views/profile_editor/index.rhtml:43
+#: app/views/profile_editor/index.rhtml:45
 #: app/views/profile/enterprises.rhtml:15 app/views/memberships/index.rhtml:26
 msgid "Register a new Enterprise"
 msgstr "Enregistrer une nouvelle entreprise"
 
-#: app/views/profile_editor/index.rhtml:44
+#: app/views/profile_editor/index.rhtml:46
 msgid "Manage my organizations"
 msgstr "Gérer mes organisations"
 
@@ -3335,6 +3362,10 @@ msgid ""
 "the map. Choose \"Display in list\" to see them."
 msgstr ""
 
+#: app/views/shared/_show_thumbnail.rhtml:5
+msgid "Change image"
+msgstr "Modifier l'image"
+
 #: app/views/shared/user_menu.rhtml:2
 msgid "This menu gives you access to your personal functionalities."
 msgstr "Ce menu donne accès à vos fonctionnalités personnelles."
@@ -3351,11 +3382,16 @@ msgstr "Aller à votre page d'accueil."
 msgid "My Home Page"
 msgstr "Ma page d'accueil"
 
-#: app/views/shared/user_menu.rhtml:24 app/views/blocks/profile_info.rhtml:10
+#: app/views/shared/user_menu.rhtml:26
+#, fuzzy
+msgid "Webmail"
+msgstr "courrier électronique"
+
+#: app/views/shared/user_menu.rhtml:30 app/views/blocks/profile_info.rhtml:10
 msgid "Control panel"
 msgstr "Panneau de contrôle"
 
-#: app/views/shared/user_menu.rhtml:26
+#: app/views/shared/user_menu.rhtml:32
 msgid ""
 "Control panel: change your picture, edit your personal information, create "
 "content or change the way your home page looks."
@@ -3363,11 +3399,11 @@ msgstr ""
 "Panneau de contrôle : modifiez votre photo, éditez vos informations "
 "personnelles, créez du contenu ou modifiez l'allure de votre page d'accueil."
 
-#: app/views/shared/user_menu.rhtml:32
+#: app/views/shared/user_menu.rhtml:38
 msgid "Access the site administration panel."
 msgstr "Accéder au panneau d'administration du site."
 
-#: app/views/shared/user_menu.rhtml:40
+#: app/views/shared/user_menu.rhtml:46
 msgid ""
 "This link takes you out of the system. You should logout if other people are "
 "willing to use the same computer after you."
@@ -3376,17 +3412,13 @@ msgstr ""
 "explicitement si d'autres personnes désirent utiliser le même ordinateur "
 "après vous."
 
-#: app/views/shared/user_menu.rhtml:51
+#: app/views/shared/user_menu.rhtml:57
 msgid ""
 "Click here to enter your username and password  and be recognized by the "
 "system."
 msgstr ""
 "Cliquez ici pour entrer vos identifiant et mot de passe et être reconnu(e) "
 "par le système."
-
-#: app/views/shared/_show_thumbnail.rhtml:5
-msgid "Change image"
-msgstr "Modifier l'image"
 
 #: app/views/task_mailer/target_notification.rhtml:6
 #: app/views/task_mailer/task_cancelled.text.plain.rhtml:6
@@ -3469,7 +3501,7 @@ msgstr "Les membres de %s"
 msgid "Here are all <b>%s</b>'s enterprises."
 msgstr "Voici toutes les entreprises de <b>%s</b>."
 
-#: app/views/profile/enterprises.rhtml:4
+#: app/views/profile/enterprises.rhtml:4 app/views/enterprises/index.rhtml:1
 msgid "%s's enterprises"
 msgstr "Les entreprises de <b>%s</b>"
 
@@ -3601,17 +3633,17 @@ msgstr "Description :"
 msgid "Members: %s"
 msgstr "Membres"
 
-#: app/views/memberships/index.rhtml:17
+#: app/views/memberships/index.rhtml:17 app/views/enterprises/index.rhtml:10
 #, fuzzy
 msgid "Created at: %s"
 msgstr "Créé le :"
 
-#: app/views/memberships/index.rhtml:18
+#: app/views/memberships/index.rhtml:18 app/views/enterprises/index.rhtml:11
 #, fuzzy
 msgid "Actions: %s"
 msgstr "Actions"
 
-#: app/views/memberships/index.rhtml:18
+#: app/views/memberships/index.rhtml:18 app/views/enterprises/index.rhtml:11
 msgid "Manage"
 msgstr "Gérer"
 
@@ -3795,6 +3827,21 @@ msgstr "Les entreprises de <b>%s</b>"
 msgid "You have no favorite enteprises yet."
 msgstr "Vous n'avez pas encore d'ami(e). Allez vous en faire."
 
+#: app/views/mailconf/index.rhtml:1
+#, fuzzy
+msgid "e-Mail configuration"
+msgstr "Mot de passe (confirmation)"
+
+#: app/views/mailconf/index.rhtml:7
+msgid "Enable e-mail %s"
+msgstr ""
+
+#: app/views/mailconf/index.rhtml:9
+msgid ""
+"Marking this option gives you an e-mail account with the address above. "
+"You'll be able to access a webmail from your user menu."
+msgstr ""
+
 #~ msgid "Image successfully uploaded"
 #~ msgstr "L'image a bien été téléversée"
 
@@ -3848,9 +3895,6 @@ msgstr "Vous n'avez pas encore d'ami(e). Allez vous en faire."
 
 #~ msgid "User|Login"
 #~ msgstr "Identifiant"
-
-#~ msgid "User|Email"
-#~ msgstr "Adresse e-mail"
 
 #~ msgid "person"
 #~ msgstr "personne"
