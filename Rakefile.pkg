@@ -47,6 +47,9 @@ Rake::PackageTask.new(Noosfero::PROJECT, Noosfero::VERSION) do |p|
   p.package_files.include('app/views/profile_design/*')
   p.package_files.include('app/views/environment_design/*')
 
+  # util
+  p.package_files.include('util/**/*')
+
   # external resources
   p.package_files.include('vendor/**/*')
 
