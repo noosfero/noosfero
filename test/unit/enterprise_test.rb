@@ -103,17 +103,19 @@ class EnterpriseTest < Test::Unit::TestCase
     assert_not_includes result, ent2
   end
 
-  should 'allow to add new members' do
+  should 'not allow to add new members' do
     o = Enterprise.create!(:name => 'my test profile', :identifier => 'mytestprofile')
     p = create_user('mytestuser').person
 
     o.add_member(p)
+    o.reload
 
-    assert o.members.include?(p), "Enterprise should add the new member"
+    assert_not_includes  o.members, p
   end
-  
+
   should 'allow to remove members' do
     c = Enterprise.create!(:name => 'my other test profile', :identifier => 'myothertestprofile')
+    c.expects(:closed?).returns(false)
     p = create_user('myothertestuser').person
 
     c.add_member(p)
@@ -122,5 +124,14 @@ class EnterpriseTest < Test::Unit::TestCase
     c.reload
     assert_not_includes c.members, p
   end
+
+  should 'return coherent code' do
+    ent = Enterprise.create!(:name => 'my test profile', :identifier => 'mytestprofile')
+    ent2 = Enterprise.create!(:name => 'my test profile 2', :identifier => 'mytestprofile2')
+
+    assert_equal ent, Enterprise.return_by_code(ent.code)
+    assert_nil Enterprise.return_by_code(ent.code.next)
+  end
+
 
 end

@@ -20,4 +20,20 @@ class Enterprise < Organization
     e.products.each{ |p| p.enterprise_updated(e) }
   end
 
+  def closed?
+    true
+  end
+
+  def code
+    ("%06d" % id) + Digest::MD5.hexdigest(id.to_s)[0..5]
+  end
+
+  def self.return_by_code(code)
+    id = code[0..5].to_i
+    md5 = code[6..11]
+    return unless md5 == Digest::MD5.hexdigest(id.to_s)[0..5]
+
+    Enterprise.find(id)
+  end
+
 end

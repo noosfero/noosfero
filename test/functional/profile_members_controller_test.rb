@@ -53,6 +53,7 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
     get 'change_role', :profile => 'test_enterprise' , :id => member
 
     assert_response :success
+    assert_includes assigns(:roles), role
     assert_equal member, assigns('member')
     assert_template 'change_role'
     assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'roles[]'}
@@ -61,19 +62,20 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
 
   should 'update roles' do
     ent = Enterprise.create!(:identifier => 'test_enterprise', :name => 'test enterprise')
-    role = Role.create!(:name => 'member_role', :permissions => ['edit_profile'])
-    orole = Role.create!(:name => 'owner_role', :permissions => ['edit_profile', 'destroy_profile'])
+    role1 = Role.create!(:name => 'member_role', :permissions => ['edit_profile'])
+    role2 = Role.create!(:name => 'owner_role', :permissions => ['edit_profile', 'destroy_profile'])
 
     member = create_user('test_member').person
-    member.add_role(role, ent)
+    member.add_role(role1, ent)
     user = create_user_with_permission('test_user', 'manage_memberships', ent)
     login_as :test_user
 
-    post 'update_roles', :profile => 'test_enterprise', :roles => [orole.id], :person => member
+    post 'update_roles', :profile => 'test_enterprise', :roles => [role2.id], :person => member
 
     assert_response :redirect
     member.reload
-    assert member.find_roles(ent).map(&:role).include?(orole)
-    assert !member.find_roles(ent).map(&:role).include?(role)
+    roles = member.find_roles(ent).map(&:role)
+    assert_includes  roles, role2
+    assert_not_includes roles, role1
   end
 end

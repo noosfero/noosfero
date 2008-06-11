@@ -13,6 +13,7 @@ class ProfileMembersController < MyProfileController
 
   def update_roles
     @roles = params[:roles] ? Role.find(params[:roles]) : []
+    @roles = @roles.select{|r| r.has_kind?('Profile') }
     @person = Person.find(params[:person])      
     if @person.define_roles(@roles, profile)
       flash[:notice] = _('Roles successfuly updated')
@@ -35,7 +36,7 @@ class ProfileMembersController < MyProfileController
       redirect_to :action => 'index'
     else
       @member = Person.find(params[:person])
-      @roles = Role.find(:all).select{ |r| r.has_kind?(:profile) }
+      @roles = Role.find(:all).select{ |r| r.has_kind?('Profile') }
       render :action => 'affiliate'
     end
   end

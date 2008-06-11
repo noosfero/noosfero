@@ -29,7 +29,7 @@ def create_roles
     'edit_environment_design', 
     'manage_environment_categories', 
     'manage_environment_roles', 
-    'manage_environment_validators'
+    'manage_environment_validators',
   ])
   Role.create!(:key => 'profile_admin', :name => N_('Profile Administrator'), :permissions => [
     'edit_profile',
