@@ -16,6 +16,8 @@ Follow Noosfero's own instructions. Before letting users register at your Noosfe
 
 User.system_encryption_method = :md5
 
+NOTE: the mail system will work __only__ if Noosfero uses md5 passwords!
+
 In the instructions below, replace **NOOSFERO_DB** with the name of the
 Noosfero database you'll use for production (e.g. "noosfero_production",
 "noosfero" etc).
