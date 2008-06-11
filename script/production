@@ -6,7 +6,7 @@ ACTION=$1
 shift
 
 do_start() {
-  ./script/ferret_start
+  ./script/ferret_server -e $RAILS_ENV start
   sleep 1
   mongrel_rails cluster::start
   sleep 3
@@ -15,7 +15,7 @@ do_start() {
 do_stop() {
   mongrel_rails cluster::stop
   sleep 1
-  ./script/ferret_stop
+  ./script/ferret_server -e $RAILS_ENV stop
 }
 
 case "$ACTION" in
