@@ -69,8 +69,12 @@ class AdminPanelControllerTest < Test::Unit::TestCase
   should 'sanitize description with white_list' do
     post :site_info, :environment => { :description => "This <strong>is</strong> <scrypt>alert('alow')</script>my new environment" }
     assert_redirected_to :action => 'index'
-    #assert_sanitized Environment.default.description
     assert_equal "This <strong>is</strong> alert('alow')my new environment", Environment.default.description
+  end
+
+  should 'link to manage enterprises' do
+    get :index
+    assert_tag :tag => 'a', :attributes => { :href => '/admin/enterprises' }
   end
 
 end

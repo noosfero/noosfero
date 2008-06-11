@@ -1,0 +1,22 @@
+<h1><%= _("%s's enterprises") % environment.name %></h1>
+
+<table>
+<% for enterprise in @enterprises %>
+  <tr>
+    <td> <%= image_tag(profile_icon(enterprise)) %> </td>
+    <td>
+      <%= _('Name: %s') % link_to(enterprise.name, enterprise.url) %> <br/>
+      <%#= _('Description: %s') % enterprise.description  + '<br/>' if enterprise.kind_of?(Community) %>
+      <%= _('Created at: %s') % show_date(enterprise.created_at) %> <br/>
+      <%= _('Actions: %s') % link_to(_('Manage'), enterprise.admin_url) %> <br/>
+
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<% button_bar do %>
+  <%#= button :add, _('Register a new Enterprise'), :controller => 'enterprise_registration' %>
+  <%#= button :add, _('Create a new community'), :action => 'new_community' %>
+  <%#= button :back, _('Go back'), :controller => 'profile_editor' %>
+<% end %>
