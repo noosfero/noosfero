@@ -160,4 +160,31 @@ class ApplicationControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'a', :attributes => { :href => /\?lang=it/ }, :content => 'Italiano'
   end
 
+  should 'display link to webmail if enabled for system and for user' do
+    login_as('ze')
+    MailConf.expects(:enabled?).returns(true)
+    MailConf.expects(:webmail_url).returns('http://web.mail/')
+    User.any_instance.expects(:enable_email).returns(true)
+
+    get :index
+    assert_tag :tag => 'div', :attributes => { :id => 'user_box' }, :descendant => { :tag => 'a', :attributes => { :href => 'http://web.mail/' } }
+  end
+
+  should 'not display link to webmail if not enabled for system' do
+    login_as('ze')
+    MailConf.expects(:enabled?).returns(false)
+
+    get :index
+    assert_no_tag :tag => 'div', :attributes => { :id => 'user_box' }, :descendant => { :tag => 'a', :attributes => { :href => 'http://web.mail/' } }
+  end
+
+  should 'not display link in menu to webmail if not enabled for user' do
+    login_as('ze')
+    MailConf.expects(:enabled?).returns(true)
+    User.any_instance.expects(:enable_email).returns(false)
+
+    get :index
+    assert_no_tag :tag => 'div', :attributes => { :id => 'user_box' }, :descendant => { :tag => 'a', :attributes => { :href => 'http://web.mail/' } }
+  end
+
 end

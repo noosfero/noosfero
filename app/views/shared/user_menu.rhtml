@@ -21,6 +21,12 @@
 
       <!-- li><a href="#"><span class="icon-menu-blog"></span> Meu Blog</a></li -->
 
+      <% if MailConf.enabled? && current_user.enable_email %>
+        <li>
+        <%= link_to '<span class="icon-menu-mail"></span>' + _('Webmail'), MailConf.webmail_url %>
+        </li>
+      <% end %>
+
       <li><%= link_to_myprofile( '<span class="icon-menu-ctrl-panel"></span>'+ _('Control panel'),
                                    {}, nil, :id => 'link_edit_profile',
                                    :help => _('Control panel: change your picture, edit your personal information, create content or change the way your home page looks.')
