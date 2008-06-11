@@ -260,6 +260,7 @@ ActiveRecord::Schema.define(:version => 41) do
     t.string   "terms_accepted",            :limit => 1
     t.integer  "environment_id"
     t.string   "password_type"
+    t.boolean  "enable_email",                            :default => false
   end
 
   create_table "validation_infos", :force => true do |t|

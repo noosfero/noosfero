@@ -1,0 +1,17 @@
+<h1><%= _('e-Mail configuration') %></h1>
+
+<% form_tag(:action => 'save') do %>
+
+  <div>
+    <%= check_box :user, :enable_email  %>
+    <label for='user_enable_email'><%= _('Enable e-mail %s') % profile.email_addresses.join(', ') %></label>
+    <blockquote>
+      <%= _('Marking this options gives you an e-mail account with the address above.') %>
+    </blockquote>
+  </div>
+
+  <% button_bar do %>
+    <%= submit_button :save, _('Save') %>
+    <%= button :back, _('Back to control panel'), :controller => 'profile_editor' %>
+  <% end %>
+<% end %>

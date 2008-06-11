@@ -251,6 +251,16 @@ class UserTest < Test::Unit::TestCase
     assert_equal crypted_password, user.crypted_password
   end
 
+  def test_should_have_enable_email_setting
+    u = User.new
+    u.enable_email = true
+    assert_equal true, u.enable_email
+  end
+
+  def test_should_have_enable_email_as_false_by_default
+    assert_equal false, User.new.enable_email
+  end
+
   protected
     def create_user(options = {})
       User.create({ :login => 'quire', :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire' }.merge(options))

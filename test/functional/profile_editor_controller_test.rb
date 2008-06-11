@@ -341,4 +341,23 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'a', :content => 'Favorite Enterprises'
   end
 
+  should 'link to mailconf' do
+    MailConf.expects(:enabled?).returns(true)
+    get :index, :profile => 'ze'
+    assert_tag :tag => 'a', :attributes => { :href => '/myprofile/ze/mailconf' }
+  end
+
+  should 'not link to mailconf for organizations' do
+    MailConf.stubs(:enabled?).returns(true)
+    org = Organization.create!(:name => 'test org', :identifier => 'testorg', :contact_person => 'my contact')
+    get :index, :profile => 'testorg'
+    assert_no_tag :tag => 'a', :attributes => { :href => '/myprofile/testorg/mailconf' }
+  end
+
+  should 'not link to mailconf if mail not enabled' do
+    MailConf.expects(:enabled?).returns(false)
+    get :index, :profile => 'ze'
+    assert_no_tag :tag => 'a', :attributes => { :href => '/myprofile/ze/mailconf' }
+  end
+
 end

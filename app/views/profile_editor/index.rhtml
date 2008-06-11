@@ -8,6 +8,8 @@
 
   <%= file_manager_button(_('Edit Profile'), 'icons-app/edit-profile.png', :controller => 'profile_editor', :action => 'edit') %>
 
+  <%= file_manager_button(_('Mail settings'), 'icons-app/mail.png', :controller => 'mailconf') if profile.person? && MailConf.enabled? %>
+
   <%= file_manager_button(_('Pending tasks'), 'icons-app/todo.png', :controller => 'tasks', :action => 'index') %>
 
   <%= file_manager_button(_('Edit Visual Design'), 'icons-app/design-editor.png', :controller => 'profile_design', :action => 'index') %>
