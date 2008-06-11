@@ -39,7 +39,7 @@ ActionController::Routing::Routes.draw do |map|
  
 
   # public profile information
-  map.profile 'profile/:profile/:action/:id', :controller => 'profile', :action => 'index', :id => /.*/
+  map.profile 'profile/:profile/:action/:id', :controller => 'profile', :action => 'index', :id => /.*/, :profile => /[a-z][a-z0-9._-]*/
 
   ######################################################
   ## Controllers that are profile-specific (for profile admins )

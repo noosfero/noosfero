@@ -93,6 +93,19 @@ class RoutingTest < ActionController::IntegrationTest
     assert_routing('/profile/ze', :controller => 'profile', :profile => 'ze', :action => 'index')
     assert_routing('/profile/ze/friends', :controller => 'profile', :profile => 'ze', :action => 'friends')
   end
+
+  def test_profile_with_dot_routing
+    assert_routing('/profile/ze.withdot', :controller => 'profile', :action => 'index', :profile => 'ze.withdot')
+  end
+
+  def test_profile_with_dash_routing
+    assert_routing('/profile/ze-withdash', :controller => 'profile', :action => 'index', :profile => 'ze-withdash')
+  end
+
+  def test_profile_with_underscore_routing
+    assert_routing('/profile/ze_with_underscore', :controller => 'profile', :action => 'index', :profile => 'ze_with_underscore')
+  end
+
   
   def test_profile_route_for_tags_with_dot
     assert_routing('/profile/ze/tag/tag.withdot', :controller => 'profile', :profile => 'ze', :action => 'tag', :id => 'tag.withdot')
