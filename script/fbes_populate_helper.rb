@@ -45,15 +45,14 @@ require File.dirname(__FILE__) + '/../config/environment'
   end
 
   def new_ent(data, products, consumptions)
-    posfix = ''
     count = 1
-    while Enterprise.find_by_identifier(data[:identifier] = (data[:identifier] + posfix)) do
+    while Enterprise.find_by_identifier(data[:identifier])
+      data[:identifier] = data[:identifier] + "-#{count}"
       count += 1
-      posfix = "-#{count}"
     end
     ent = Enterprise.create!({:environment => Environment.default}.merge(data))
     products.each do |p|
-      ent.products.create!(p)
+      ent.products.create!(p) unless ent.products.find(:first, :conditions => p)
     end
     consumptions.each do |c|
       ent.consumptions.create!(c) unless ent.consumptions.find(:first, :conditions => c)
