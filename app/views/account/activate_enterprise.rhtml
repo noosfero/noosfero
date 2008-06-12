@@ -1,0 +1,42 @@
+<h1><%= _('Register and activate enterprise') %></h1>
+
+<%= error_messages_for :user %>
+<% labelled_form_for :user, @user,
+   :html => { :help=>_('Fill all this fields to activate your enterprise and join in this environment.' +
+                       '<p/>If you forgot your password, do not create a new account,' +
+                       ' click on the "<b>I forgot my password!</b>" link. ;-)')
+            } do |f| -%>
+
+<%= f.text_field :login,
+    :help => help=_('"Username" is a simple nickname to recognize you on this environment.'),
+    :onchange => 'this.value = convToValidLogin( this.value )' %>
+<small><%= help %></small>
+
+<%= f.text_field :email,
+    :help => help=_('We\'ll send you an e-mail to validate your registration.') %>
+<small><%= help %></small>
+
+<%= f.password_field :password,
+    :help => help=_('Do not use a obviously password, but try some unforgettable word.') %>
+<small><%= help %></small>
+
+<%= f.password_field :password_confirmation,
+    :help => help=_('We need to be sure that you wrote correctly your password.') %>
+<small><%= help %></small>
+
+<%= ApplicationHelper::NoosferoFormBuilder::output_field(@question == :foundation_year ? _('What year your enterprise was founded?') : _('What is the CNPJ of your enterprise?'), text_field_tag(:answer, nil,:help => help=_('We need to be sure that this is your enterprise'))) %>
+
+<% if @terms_of_use %>
+  <p>
+    <%= @terms_of_use %>
+  </p>
+  <p>
+    <%= check_box 'user', 'terms_accepted' %> 
+    <%= _('I accept the terms of use') %>
+  </p>
+<% end %>
+
+<% button_bar do %>
+  <%= submit_button('save', _('Sign up'), :cancel => {:action => 'index'}, :class => 'icon-menu-login') %>
+<% end %>
+<% end -%>

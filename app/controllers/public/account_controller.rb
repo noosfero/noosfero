@@ -38,7 +38,6 @@ class AccountController < PublicController
       @user = User.new(params[:user])
       @user.terms_of_use = environment.terms_of_use
       @terms_of_use = environment.terms_of_use
-
       if request.post?
         @user.save!
         @user.person.environment = environment
@@ -49,11 +48,16 @@ class AccountController < PublicController
         go_to_user_initial_page
         flash[:notice] = _("Thanks for signing up!")
       end
+      activate_enterprise if params[:enterprise_code]
     rescue ActiveRecord::RecordInvalid
-      render :action => 'signup'
+      if params[:enterprise_code]
+        render :action => 'activate_enteprise'
+      else
+        render :action => 'signup'
+      end
     end
   end
-  
+
   # action to perform logout from the application
   def logout
     self.current_user.forget_me if logged_in?
@@ -120,6 +124,27 @@ class AccountController < PublicController
   end
 
   protected
+
+  def activate_enterprise
+    @enterprise = Enterprise.return_by_code(params[:enterprise_code])
+    unless @enterprise
+      render :action => 'invalid_enterprise_code'
+      return
+    end
+
+    if !@enterprise.foundation_year.blank?
+      @question = :foundation_year
+    elsif !@enterprise.cnpj.blank?
+      @question = :cnpj
+    end
+
+    unless @question 
+      render :action => 'blocked'
+      return
+    end
+
+    render :action => 'activate_enterprise'; return
+  end
 
   def go_to_user_initial_page
     redirect_back_or_default(:controller => "profile_editor", :profile => current_user.login, :action => 'index')

@@ -275,6 +275,31 @@ class AccountControllerTest < Test::Unit::TestCase
     assert_redirected_to :controller => 'profile_editor'
   end
 
+  should 'report invalid enterprise code on signup' do
+    get :signup, :enterprise_code => 'some_invalid_code'
+
+    assert_template 'invalid_enterprise_code'
+  end
+
+  should 'load enterprise from code on signup' do
+    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent')
+    get :signup, :enterprise_code => ent.code
+
+    assert_equal ent, assigns(:enterprise)
+  end
+
+  should 'block enterprises that do not have foundation_year or cnpj'
+
+  should 'show form to those enterprises that have foundation year'
+
+  should 'show form to those enterprises that have cnpj'
+
+  should 'block those who failed to answer the question'
+
+  should 'activate enterprise for those who answer the question right'
+
+  should 'make new user admin of new enterprise'
+
   protected
     def create_user(options = {})
       post :signup, :user => { :login => 'quire', :email => 'quire@example.com', 

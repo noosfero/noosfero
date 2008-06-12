@@ -98,22 +98,25 @@ categories[#{cat.id}] = cat#{@seq}.id
       endereco << " CEP: " << ent.cep
     end
 
-    puts "new_ent({ :name => #{ent.nome.inspect}, 
-                    :identifier => #{ent.nome.to_slug.inspect}, 
-                    :contact_phone => #{ent.tel.inspect}, 
-                    :address => #{endereco.inspect}, 
-                    :lat => #{ent.lat.inspect}, 
-                    :lng => #{ent.long.inspect}, 
-                    :geocode_precision => #{ent.geomodificou.inspect}, 
-                    :data => { 
-                      :id_sies => #{ent.id_sies.inspect},
-                      :foundation_year => #{ent.extra_data.ANO.inspect},
-                      :cnpj => #{ent.extra_data.CNPJ.inspect}
-                      }, 
-                    :contact_email => #{email.inspect},
-                    :categories => [cities[#{ent.id_cidade}]]},
-                    [#{ent.products.map{|p| "{ :name => #{p.category.nome.inspect} , :product_category_id => categories[#{p.category.id}] }"}.join(', ')}], 
-                    [#{ent.input_products.map{|p| "{ :product_category_id => categories[#{p.category.id}]}" }.join(', ')}])"
+    puts <<-EOF
+new_ent({ :name => #{ent.nome.inspect}, 
+          :identifier => #{ent.nome.to_slug.inspect}, 
+          :contact_phone => #{ent.tel.inspect}, 
+          :address => #{endereco.inspect}, 
+          :lat => #{ent.lat.inspect}, 
+          :lng => #{ent.long.inspect}, 
+          :geocode_precision => #{ent.geomodificou.inspect}, 
+          :data => { 
+            :id_sies => #{ent.id_sies.inspect}
+           }, 
+          :contact_email => #{email.inspect},
+          :foundation_year => #{ent.extra_data.ANO.inspect},
+          :cnpj => #{ent.extra_data.CNPJ.inspect},
+          :categories => [cities[#{ent.id_cidade}]]
+        },
+      [#{ent.products.map{|p| "{ :name => #{p.category.nome.inspect} , :product_category_id => categories[#{p.category.id}] }"}.join(', ')}], 
+      [#{ent.input_products.map{|p| "{ :product_category_id => categories[#{p.category.id}]}" }.join(', ')}])
+EOF
   end
 
   def dump_city(city)

@@ -133,5 +133,18 @@ class EnterpriseTest < Test::Unit::TestCase
     assert_nil Enterprise.return_by_code(ent.code.next)
   end
 
+  should 'have foudation_year' do
+    ent = Enterprise.create!(:name => 'test enteprise', :identifier => 'test_ent')
+
+    assert_respond_to ent, 'foundation_year'
+    assert_respond_to ent, 'foundation_year='
+  end
+
+  should 'have cnpj' do
+    ent = Enterprise.create!(:name => 'test enteprise', :identifier => 'test_ent')
+
+    assert_respond_to ent, 'cnpj'
+    assert_respond_to ent, 'cnpj='
+  end
 
 end
