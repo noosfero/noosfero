@@ -360,4 +360,52 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'a', :attributes => { :href => '/myprofile/ze/mailconf' }
   end
 
+  should 'link to enable enterprise' do
+    ent = Enterprise.create!(:name => 'test org', :identifier => 'testent', :enabled => false)
+    get :index, :profile => 'testent'
+    assert_tag :tag => 'a', :attributes => { :href => '/myprofile/testent/profile_editor/enable' }
+  end
+  
+  should 'link to disable enterprise' do
+    ent = Enterprise.create!(:name => 'test org', :identifier => 'testent', :enabled => true)
+    get :index, :profile => 'testent'
+    assert_tag :tag => 'a', :attributes => { :href => '/myprofile/testent/profile_editor/disable' }
+  end
+
+  should 'not link to enable/disable for non enterprises' do
+    ent = Organization.create!(:name => 'test org', :identifier => 'testorg', :enabled => true)
+    get :index, :profile => 'testorg'
+    assert_no_tag :tag => 'a', :attributes => { :href => '/myprofile/testorg/profile_editor/disable' }
+  end
+
+  should 'request enable enterprise confirmation' do
+    ent = Enterprise.create!(:name => 'test org', :identifier => 'testent', :enabled => false)
+    get :enable, :profile => 'testent'
+    assert_tag :tag => 'form', :attributes => { :action => '/myprofile/testent/profile_editor/enable', :method => 'post' }
+  end
+
+  should 'enable enterprise after confirmation' do
+    ent = Enterprise.create!(:name => 'test org', :identifier => 'testent', :enabled => false)
+    post :enable, :profile => 'testent', :confirmation => 1
+    assert assigns(:to_enable).enabled?
+  end
+
+  should 'not enable enterprise without confirmation' do
+    ent = Enterprise.create!(:name => 'test org', :identifier => 'testent', :enabled => false)
+    post :enable, :profile => 'testent'
+    assert !assigns(:to_enable).enabled?
+  end
+
+  should 'disable enterprise after confirmation' do
+    ent = Enterprise.create!(:name => 'test org', :identifier => 'testent', :enabled => true)
+    post :disable, :profile => 'testent', :confirmation => 1
+    assert !assigns(:to_disable).enabled?
+  end
+
+  should 'not disable enterprise without confirmation' do
+    ent = Enterprise.create!(:name => 'test org', :identifier => 'testent', :enabled => true)
+    post :disable, :profile => 'testent'
+    assert assigns(:to_disable).enabled?
+  end
+
 end

@@ -42,7 +42,6 @@ class Test::Unit::TestCase
       fixtures File.basename(item).sub(/\.yml$/, '').to_s
     end
   end
-#  all_fixtures
 
   def self.should(name, &block)
     @shoulds ||= []
