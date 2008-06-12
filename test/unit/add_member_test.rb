@@ -71,4 +71,24 @@ class AddMemberTest < ActiveSupport::TestCase
     assert_equal :manage_memberships, t.permission
   end
 
+  should 'have roles' do
+    p = create_user('testuser1').person
+    c = Community.create!(:name => 'community_test')
+    task = AddMember.create!(:roles => [1,2,3], :person => p, :community => c)
+    assert_equal [1,2,3], task.roles
+  end
+
+  should 'put member with the right roles' do
+    p = create_user('testuser1').person
+    c = Community.create!(:name => 'community_test')
+
+    roles = [Profile::Roles.member, Profile::Roles.admin]
+    task = AddMember.create!(:roles => roles.map(&:id), :person => p, :community => c)
+    task.finish
+
+    current_roles = p.find_roles(c).map(&:role)
+    assert_includes current_roles, roles[0]
+    assert_includes current_roles, roles[1]
+  end
+
 end

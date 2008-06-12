@@ -12,8 +12,11 @@ class AddMember < Task
   alias :enterprise :target
   alias :enterprise= :target=
 
+  acts_as_having_settings :roles, :field => :data
+
   def perform
-    target.affiliate(requestor, Profile::Roles.member)
+    self.roles ||= [Profile::Roles.member.id]
+    target.affiliate(requestor, self.roles.map{|i| Role.find(i)})
   end
 
   # FIXME should send email to community admin?

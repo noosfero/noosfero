@@ -6,11 +6,6 @@ class ProfileMembersController < MyProfileController
     @member_role = Role.find_by_name('member')
   end
 
-  def change_roles
-    @member = Person.find(params[:id])
-    @roles = Role.find(:all).select{ |r| r.has_kind?(:profile) }
-  end  
-
   def update_roles
     @roles = params[:roles] ? Role.find(params[:roles]) : []
     @roles = @roles.select{|r| r.has_kind?('Profile') }

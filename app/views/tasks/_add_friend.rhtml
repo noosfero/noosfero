@@ -3,7 +3,7 @@
 <%= link_to( profile_image(task.requestor, :minor, :border => 0), task.requestor.public_profile_url ) %>
 
 <%= _('%s wants to connect to you as a friend.') %
-    content_tag('b', link_to( task.requestor.name, task.requestor.public_profile_url ) ) %>
+    content_tag('strong', link_to( task.requestor.name, task.requestor.public_profile_url ) ) %>
 
 <% form_for('task', task, :url => { :action => 'close', :id => task.id } ) do |f| %>
 

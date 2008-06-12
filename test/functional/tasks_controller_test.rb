@@ -62,4 +62,6 @@ class TasksControllerTest < Test::Unit::TestCase
     ok('task should be cancelled') { t.status == Task::Status::CANCELLED }
   end
 
+  should 'affiliate roles to user after finish add member task'
+
 end
