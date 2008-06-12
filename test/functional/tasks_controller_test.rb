@@ -64,4 +64,10 @@ class TasksControllerTest < Test::Unit::TestCase
 
   should 'affiliate roles to user after finish add member task'
 
+  should 'display form to add members task'
+
+  should 'display all roles checked if target has no members'
+
+  should 'display member role checked if target has members'
+
 end
