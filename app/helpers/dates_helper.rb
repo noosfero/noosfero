@@ -42,6 +42,14 @@ module DatesHelper
   end
 
   def show_month(year, month)
+
+    if year.blank?
+      year = Date.today.year
+    end
+    if month.blank?
+      month = Date.today.month
+    end
+
     # FIXME Date#strftime should translate this for us !!! 
     monthname = _([
                   N_('January'),

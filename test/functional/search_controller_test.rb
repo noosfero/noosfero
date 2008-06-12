@@ -814,6 +814,13 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_equal 0, assigns(:calendar).size % 7
   end
 
+  should 'display current year/month by default' do
+    Date.expects(:today).returns(Date.new(2008, 8, 1)).at_least_once
+
+    get :assets, :asset => 'events'
+    assert_tag :tag => 'h1', :content => /^\s*August 2008\s*$/
+  end
+
   should 'submit search form to /search when viewing asset' do
     get :index, :asset => 'people'
     assert_tag :tag => "form", :attributes => { :class => 'search_form', :action => '/search' }

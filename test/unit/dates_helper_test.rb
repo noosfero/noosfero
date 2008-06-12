@@ -38,6 +38,15 @@ class DatesHelperTest < Test::Unit::TestCase
     assert_equal 'January 2008', show_month(2008, 1)
   end
 
+  should 'fallback to current year/month in show_month' do
+    Date.expects(:today).returns(Date.new(2008,11,1)).at_least_once
+
+    expects(:_).with('November').returns('November').at_least_once
+    expects(:_).with('%{month} %{year}').returns('%{month} %{year}').at_least_once
+    assert_equal 'November 2008', show_month(nil, nil)
+    assert_equal 'November 2008', show_month('', '')
+  end
+
   should 'provide link to previous month' do
     expects(:link_to).with('&larr; January 2008', { :year => 2008, :month => 1})
     link_to_previous_month('2008', '2')
