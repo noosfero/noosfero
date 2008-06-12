@@ -19,6 +19,11 @@ class Enterprise < ActiveRecord::Base
   set_primary_key :id_sies
   has_many :products, :foreign_key => 'V00', :conditions => "tipo = 'produto'"
   has_many :input_products, :class_name => 'Product', :foreign_key => 'V00', :conditions => "tipo = 'insumo'"
+  has_one :extra_data, :foreign_key => 'V00'
+end
+
+class ExtraData < ActiveRecord::Base
+  set_table_name 'dados_extra'
 end
 
 class Product < ActiveRecord::Base
@@ -100,7 +105,11 @@ categories[#{cat.id}] = cat#{@seq}.id
                     :lat => #{ent.lat.inspect}, 
                     :lng => #{ent.long.inspect}, 
                     :geocode_precision => #{ent.geomodificou.inspect}, 
-                    :data => { :id_sies => #{ent.id_sies.inspect} }, 
+                    :data => { 
+                      :id_sies => #{ent.id_sies.inspect},
+                      :foundation_year => #{ent.extra_data.ANO.inspect},
+                      :cnpj => #{ent.extra_data.CNPJ.inspect}
+                      }, 
                     :contact_email => #{email.inspect},
                     :categories => [cities[#{ent.id_cidade}]]},
                     [#{ent.products.map{|p| "{ :name => #{p.category.nome.inspect} , :product_category_id => categories[#{p.category.id}] }"}.join(', ')}], 

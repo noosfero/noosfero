@@ -52,7 +52,7 @@ require File.dirname(__FILE__) + '/../config/environment'
       count += 1
     end
     data[:identifier] = ident
-    ent = Enterprise.create!({:environment => Environment.default}.merge(data))
+    ent = Enterprise.create!({:environment => Environment.default}.merge(data), :enabled => false)
     products.each do |p|
       ent.products.create!(p) unless ent.products.find(:first, :conditions => p)
     end
