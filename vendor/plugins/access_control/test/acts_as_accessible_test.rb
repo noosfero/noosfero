@@ -20,4 +20,14 @@ class AccessControlTest < Test::Unit::TestCase
     assert !a.has_permission?('bli', r)
   end
 
+  def test_can_affiliate_more_than_one_role
+    r = AccessControlTestResource.create(:name => 'bla')
+    a = AccessControlTestAccessor.create(:name => 'ze')
+    member_role = Role.create(:name => 'member', :permissions => ['bli'])
+    admin_role = Role.create(:name => 'admin', :permissions => ['bla'])
+    r.affiliate(a, [member_role, admin_role])
+    assert a.has_permission?('bli', r)
+    assert a.has_permission?('bla', r)
+  end
+
 end
