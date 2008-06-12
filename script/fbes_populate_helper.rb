@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../config/environment'
 
- STATES = {
+STATES = {
   12 => Region.find_by_name('Acre'),
   27 => Region.find_by_name('Alagoas'),
   13 => Region.find_by_name('Amazonas'),
@@ -30,17 +30,22 @@ require File.dirname(__FILE__) + '/../config/environment'
   17 => Region.find_by_name('Tocantins'),
 }
 
+def step
+  print '.'
+  $stdout.flush
+end
+
   def new_cat(name, parent = nil)
     path = (parent ? parent.path + '/' : '') + name.to_slug
     pc = ProductCategory.find_by_path(path) || ProductCategory.create!(:name => name, :parent => parent, :environment => Environment.default)
-    print '.'
+    step
     pc
   end
 
   def new_region(name, parent, lat, lng)
     path = (parent ? parent.path + '/' : '') + name.to_slug
     region = Region.find_by_path(path) || Region.create!(:name => name, :parent => parent, :lat => lat, :lng => lng, :environment => Environment.default)
-    print '.'
+    step
     region
   end
 
@@ -59,5 +64,5 @@ require File.dirname(__FILE__) + '/../config/environment'
     consumptions.each do |c|
       ent.consumptions.create!(c) unless ent.consumptions.find(:first, :conditions => c)
     end
-    print '.'
+    step
   end
