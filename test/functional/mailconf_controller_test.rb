@@ -10,6 +10,7 @@ class MailconfControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
 
     MailConf.stubs(:enabled?).returns(true)
+    MailConf.stubs(:webmail_url).returns('http://web.mail.net/')
   end
 
   should 'check if mail is enabled' do
