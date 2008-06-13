@@ -6,6 +6,8 @@ class Event < Article
   settings_items :link, :type => :string
   settings_items :address, :type => :string
 
+  xss_terminate :only => [ :description ], :with => 'white_list'
+
   validates_presence_of :title, :start_date
 
   validates_each :start_date do |event,field,value|
@@ -77,10 +79,10 @@ class Event < Article
         }
       }
 
-      html.div self.description
+      html.div '_____XXXX_DESCRIPTION_GOES_HERE_XXXX_____'
     }
 
-    result
+    result.sub('_____XXXX_DESCRIPTION_GOES_HERE_XXXX_____', self.description)
   end
 
   def link=(value)

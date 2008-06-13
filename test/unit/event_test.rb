@@ -149,12 +149,32 @@ class EventTest < ActiveSupport::TestCase
     assert_equal 'http://www.gnu.org', a.link
   end
 
+  should 'not escape HTML in description' do
+    a = Event.new(:description => '<p>a paragraph of text</p>', :link => 'www.gnu.org')
+
+    assert_match '<p>a paragraph of text</p>', a.to_html
+  end
+
+  should 'filter HTML in description' do
+    profile = create_user('testuser').person
+    e = Event.create!(:profile => profile, :name => 'test', :description => '<p>a paragraph (valid)</p><script type="text/javascript">/* this is invalid */</script>"', :link => 'www.colivre.coop.br', :start_date => Date.today)
+
+    assert_tag_in_string e.description, :tag => 'p', :content => 'a paragraph (valid)'
+    assert_no_tag_in_string e.description, :tag => 'script'
+  end
+
   protected
 
   def assert_tag_in_string(text, options)
     doc = HTML::Document.new(text, false, false)
     tag = doc.find(options)
     assert tag, "expected tag #{options.inspect}, but not found in #{text.inspect}"
+  end
+
+  def assert_no_tag_in_string(text, options)
+    doc = HTML::Document.new(text, false, false)
+    tag = doc.find(options)
+    assert !tag, "expected no tag #{options.inspect}, but tag found in #{text.inspect}"
   end
 
 end
