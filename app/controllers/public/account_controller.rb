@@ -38,20 +38,22 @@ class AccountController < PublicController
       @user = User.new(params[:user])
       @user.terms_of_use = environment.terms_of_use
       @terms_of_use = environment.terms_of_use
-      if request.post?
+      if request.post? && answer_correct
         @user.save!
         @user.person.environment = environment
         @user.person.save!
         self.current_user = @user
         owner_role = Role.find_by_name('owner')
         @user.person.affiliate(@user.person, [owner_role]) if owner_role
+        post_activate_enterprise if params[:enterprise_code]
         go_to_user_initial_page
         flash[:notice] = _("Thanks for signing up!")
+      else
+        activate_enterprise if params[:enterprise_code]
       end
-      activate_enterprise if params[:enterprise_code]
     rescue ActiveRecord::RecordInvalid
       if params[:enterprise_code]
-        render :action => 'activate_enteprise'
+        render :action => 'activate_enterprise'
       else
         render :action => 'signup'
       end
@@ -126,24 +128,60 @@ class AccountController < PublicController
   protected
 
   def activate_enterprise
-    @enterprise = Enterprise.return_by_code(params[:enterprise_code])
+    load_enterprise
     unless @enterprise
       render :action => 'invalid_enterprise_code'
       return
     end
 
+    if @enterprise.enabled
+      render :action => 'already_activated'
+      return
+    end
+    
+    # Reaches here only if answer is not correct
+    if request.post? && !answer_correct
+      @enterprise.block
+    end
+
+    define_question
+
+    if !@question || @enterprise.blocked?
+      render :action => 'blocked'
+      return
+    end
+
+    render :action => 'activate_enterprise'
+  end
+
+  def post_activate_enterprise
+    if @enterprise
+      @enterprise.enable(@user.person)
+    end
+  end
+
+  def load_enterprise
+    @enterprise ||= Enterprise.return_by_code(params[:enterprise_code])
+  end
+
+  def define_question  
+    return if @question
     if !@enterprise.foundation_year.blank?
       @question = :foundation_year
     elsif !@enterprise.cnpj.blank?
       @question = :cnpj
     end
+  end
 
-    unless @question 
-      render :action => 'blocked'
-      return
-    end
+  def answer_correct
+    return true unless params[:enterprise_code]
 
-    render :action => 'activate_enterprise'; return
+    load_enterprise
+    define_question
+    return false unless @question
+    return false if @enterprise.enabled
+
+    params[:answer] == @enterprise.send(@question).to_s
   end
 
   def go_to_user_initial_page

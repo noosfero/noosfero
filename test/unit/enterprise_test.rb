@@ -133,6 +133,10 @@ class EnterpriseTest < Test::Unit::TestCase
     assert_nil Enterprise.return_by_code(ent.code.next)
   end
 
+  should 'return nil when asked for an enterprise with code nil' do
+    assert_nil Enterprise.return_by_code(nil)
+  end
+
   should 'have foudation_year' do
     ent = Enterprise.create!(:name => 'test enteprise', :identifier => 'test_ent')
 
@@ -145,6 +149,22 @@ class EnterpriseTest < Test::Unit::TestCase
 
     assert_respond_to ent, 'cnpj'
     assert_respond_to ent, 'cnpj='
+  end
+
+  should 'block' do
+    ent = Enterprise.create!(:name => 'test enteprise', :identifier => 'test_ent')
+    ent.block
+    assert Enterprise.find(ent.id).blocked?
+  end
+
+  should 'enable and make user admin' do
+    ent = Enterprise.create!(:name => 'test enteprise', :identifier => 'test_ent', :enabled => false)
+    p = create_user('test_user').person
+
+    assert ent.enable(p)
+    ent.reload
+    assert ent.enabled
+    assert_includes ent.members, p
   end
 
 end

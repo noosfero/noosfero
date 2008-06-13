@@ -281,6 +281,13 @@ class AccountControllerTest < Test::Unit::TestCase
     assert_template 'invalid_enterprise_code'
   end
 
+  should 'report enterprise already enabled' do
+    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :cnpj => '0'*14, :enabled => true)
+    get :signup, :enterprise_code => ent.code
+
+    assert_template 'already_activated'
+  end
+
   should 'load enterprise from code on signup' do
     ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent')
     get :signup, :enterprise_code => ent.code
@@ -288,28 +295,69 @@ class AccountControllerTest < Test::Unit::TestCase
     assert_equal ent, assigns(:enterprise)
   end
 
-  should 'block enterprises that do not have foundation_year or cnpj'
+  should 'block enterprises that do not have foundation_year or cnpj' do
+    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :enabled => false)
+    get :signup, :enterprise_code => ent.code
 
-  should 'show form to those enterprises that have foundation year'
+    assert_template 'blocked'
+  end
 
-  should 'show form to those enterprises that have cnpj'
+  should 'show form to those enterprises that have foundation year' do
+    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :foundation_year => 1998, :enabled => false)
+    get :signup, :enterprise_code => ent.code
 
-  should 'block those who failed to answer the question'
+    assert_template 'activate_enterprise'
+  end
 
-  should 'activate enterprise for those who answer the question right'
+  should 'show form to those enterprises that have cnpj' do
+    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :cnpj => '0'*14, :enabled => false)
+    get :signup, :enterprise_code => ent.code
 
-  should 'make new user admin of new enterprise'
+    assert_template 'activate_enterprise'
+  end
+
+  should 'block those who are blocked' do
+    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :foundation_year => '1998', :enabled => false)
+    ent.block
+    get :signup, :enterprise_code => ent.code
+
+    assert_template 'blocked'
+  end
+
+  should 'block those who failed to answer the question' do
+    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :foundation_year => 1998, :enabled => false)
+
+    create_user({}, :enterprise_code => ent.code, :answer => '1997')
+    ent.reload
+
+    assert_nil User.find_by_login('test_user')
+    assert ent.blocked?
+    assert_template 'blocked'
+  end
+
+  should 'activate enterprise for those who answer the question right and make them admin of the enterprise' do
+    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :foundation_year => 1998, :enabled => false)
+    create_user({}, :enterprise_code => ent.code, :answer => '1998')
+    ent.reload
+
+    assert ent.enabled
+    assert_includes ent.members, assigns(:user).person
+  end
 
   protected
-    def create_user(options = {})
-      post :signup, :user => { :login => 'quire', :email => 'quire@example.com', 
-        :password => 'quire', :password_confirmation => 'quire' }.merge(options)
+    def create_user(options = {}, extra_options ={})
+      post :signup, { :user => { :login => 'quire',
+                                 :email => 'quire@example.com',
+                                 :password => 'quire',
+                                 :password_confirmation => 'quire'
+                              }.merge(options)
+                    }.merge(extra_options)
     end
-    
+
     def auth_token(token)
       CGI::Cookie.new('name' => 'auth_token', 'value' => token)
     end
-    
+
     def cookie_for(user)
       auth_token users(user).remember_token
     end

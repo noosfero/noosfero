@@ -19,6 +19,9 @@ class Profile < ActiveRecord::Base
     def self.editor
       ::Role.find_by_key('profile_editor')
     end
+    def self.all_roles
+      [admin, member, moderator, owner, editor]
+    end
   end
 
   PERMISSIONS['Profile'] = {

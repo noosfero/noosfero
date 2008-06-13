@@ -29,11 +29,28 @@ class Enterprise < Organization
   end
 
   def self.return_by_code(code)
+    return unless code
     id = code[0..5].to_i
     md5 = code[6..11]
     return unless md5 == Digest::MD5.hexdigest(id.to_s)[0..5]
 
     Enterprise.find(id)
+  end
+
+  def blocked?
+    data[:blocked]
+  end
+
+  def block
+    data[:blocked] = true
+    save
+  end
+
+  def enable(owner)
+    return if enabled
+    affiliate(owner, Profile::Roles.all_roles)
+    update_attribute(:enabled,true)
+    save
   end
 
 end
