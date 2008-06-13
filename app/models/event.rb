@@ -83,4 +83,13 @@ class Event < Article
     result
   end
 
+  def link=(value)
+    self.body[:link] =
+      if value =~ /https?:\/\//
+        value
+      else
+        'http://' + value
+      end
+  end
+
 end

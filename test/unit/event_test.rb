@@ -138,6 +138,11 @@ class EventTest < ActiveSupport::TestCase
     
   end
 
+  should 'add http:// to the link if not already present' do
+    a = Event.new(:link => 'www.nohttp.net')
+    assert_equal 'http://www.nohttp.net', a.link
+  end
+
   protected
 
   def assert_tag_in_string(text, options)
