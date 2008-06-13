@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.10.0\n"
 "POT-Creation-Date: 2008-06-11 14:42-0300\n"
-"PO-Revision-Date: 2008-06-11 14:43-0300\n"
+"PO-Revision-Date: 2008-06-13 16:35-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -199,7 +199,7 @@ msgstr "Obrigado por se registrar!"
 
 #: app/controllers/public/account_controller.rb:62
 msgid "You have been logged out."
-msgstr "Você se saiu do sistema"
+msgstr "Você saiu do sistema."
 
 #: app/controllers/public/account_controller.rb:73
 msgid "Your password has been changed successfully!"
