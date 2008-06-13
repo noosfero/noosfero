@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.10.0\n"
 "POT-Creation-Date: 2008-06-11 14:42-0300\n"
-"PO-Revision-Date: 2008-05-08 05:14+0200\n"
+"PO-Revision-Date: 2008-06-13 16:15-0300\n"
 "Last-Translator: Raphael Rousseau <pootle.colivre.coop.br@r4f.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -280,56 +280,51 @@ msgstr ""
 
 #: app/helpers/dates_helper.rb:47
 msgid "January"
-msgstr ""
+msgstr "Janvier"
 
 #: app/helpers/dates_helper.rb:48
 msgid "February"
-msgstr ""
+msgstr "Février"
 
 #: app/helpers/dates_helper.rb:49
-#, fuzzy
 msgid "March"
-msgstr "Chercher"
+msgstr "Mars"
 
 #: app/helpers/dates_helper.rb:50
-#, fuzzy
 msgid "April"
-msgstr "profil"
+msgstr "Avril"
 
 #: app/helpers/dates_helper.rb:51
 msgid "May"
-msgstr ""
+msgstr "Mai"
 
 #: app/helpers/dates_helper.rb:52
 msgid "June"
-msgstr ""
+msgstr "Juin"
 
 #: app/helpers/dates_helper.rb:53
 msgid "July"
-msgstr ""
+msgstr "Julliet"
 
 #: app/helpers/dates_helper.rb:54
 msgid "August"
-msgstr ""
+msgstr "Août"
 
 #: app/helpers/dates_helper.rb:55
-#, fuzzy
 msgid "September"
-msgstr "Membres"
+msgstr "Septembre"
 
 #: app/helpers/dates_helper.rb:56
 msgid "October"
-msgstr ""
+msgstr "Octobre"
 
 #: app/helpers/dates_helper.rb:57
-#, fuzzy
 msgid "November"
-msgstr "Membres"
+msgstr "Novembre"
 
 #: app/helpers/dates_helper.rb:58
-#, fuzzy
 msgid "December"
-msgstr "Membres"
+msgstr "Décembre"
 
 #: app/helpers/dates_helper.rb:61
 msgid "%{month} %{year}"
