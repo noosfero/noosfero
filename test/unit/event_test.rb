@@ -143,6 +143,12 @@ class EventTest < ActiveSupport::TestCase
     assert_equal 'http://www.nohttp.net', a.link
   end
 
+  should 'add http:// when reading link' do
+    a = Event.new
+    a.body[:link] = 'www.gnu.org'
+    assert_equal 'http://www.gnu.org', a.link
+  end
+
   protected
 
   def assert_tag_in_string(text, options)
