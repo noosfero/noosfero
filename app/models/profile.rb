@@ -76,6 +76,8 @@ class Profile < ActiveRecord::Base
   environment
   webmaster
   info
+  root
+  assets
   ]
 
   belongs_to :user

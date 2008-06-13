@@ -126,6 +126,8 @@ class ProfileTest < Test::Unit::TestCase
     assert_invalid_identifier 'cat'
     assert_invalid_identifier 'webmaster'
     assert_invalid_identifier 'info'
+    assert_invalid_identifier 'root'
+    assert_invalid_identifier 'assets'
   end
 
   should 'provide recent documents' do
