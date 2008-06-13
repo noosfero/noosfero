@@ -14,7 +14,7 @@ class TaskMailer < ActionMailer::Base
 
     recipients task.target.contact_email
 
-    from task.requestor.environment.contact_email
+    from self.class.generate_from(task)
     subject task.description
     body :requestor => task.requestor.name,
       :target => task.target.name,
@@ -38,12 +38,16 @@ class TaskMailer < ActionMailer::Base
     text = extract_message(message)
 
     recipients task.requestor.email
-    from task.requestor.environment.contact_email
+    from self.class.generate_from(task)
     subject task.description
     body :requestor => task.requestor.name,
       :message => text,
       :environment => task.requestor.environment.name,
       :url => url_for(:host => task.requestor.environment.default_hostname, :controller => 'home')
+  end
+
+  def self.generate_from(task)
+    "#{task.requestor.environment.name} <#{task.requestor.environment.contact_email}>"
   end
 
 end

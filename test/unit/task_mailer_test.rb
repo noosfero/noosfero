@@ -29,7 +29,7 @@ class TaskMailerTest < Test::Unit::TestCase
     environment = mock()
     environment.expects(:contact_email).returns('sender@example.com')
     environment.expects(:default_hostname).returns('example.com')
-    environment.expects(:name).returns('example')
+    environment.expects(:name).returns('example').at_least_once
 
     task.expects(:requestor).returns(requestor).at_least_once
     requestor.expects(:environment).returns(environment).at_least_once
@@ -50,7 +50,7 @@ class TaskMailerTest < Test::Unit::TestCase
     environment = mock()
     environment.expects(:contact_email).returns('sender@example.com')
     environment.expects(:default_hostname).returns('example.com')
-    environment.expects(:name).returns('example')
+    environment.expects(:name).returns('example').at_least_once
 
     task.expects(:requestor).returns(requestor).at_least_once
     requestor.expects(:environment).returns(environment).at_least_once
@@ -72,7 +72,7 @@ class TaskMailerTest < Test::Unit::TestCase
     environment = mock()
     environment.expects(:contact_email).returns('sender@example.com')
     environment.expects(:default_hostname).returns('example.com')
-    environment.expects(:name).returns('example')
+    environment.expects(:name).returns('example').at_least_once
 
     task.expects(:requestor).returns(requestor).at_least_once
     requestor.expects(:environment).returns(environment).at_least_once
@@ -94,13 +94,26 @@ class TaskMailerTest < Test::Unit::TestCase
     environment = mock()
     environment.expects(:contact_email).returns('sender@example.com')
     environment.expects(:default_hostname).returns('example.com')
-    environment.expects(:name).returns('example')
+    environment.expects(:name).returns('example').at_least_once
 
     task.expects(:requestor).returns(requestor).at_least_once
     task.expects(:target).returns(target).at_least_once
     requestor.expects(:environment).returns(environment).at_least_once
 
     TaskMailer.deliver_target_notification(task, 'the message')
+  end
+
+  should 'use environment name and contact email' do
+    task = mock
+    requestor = mock
+    environment = mock
+    environment.expects(:name).returns('My name')
+    environment.expects(:contact_email).returns('email@example.com')
+
+    task.expects(:requestor).returns(requestor).at_least_once
+    requestor.expects(:environment).returns(environment).at_least_once
+
+    assert_equal 'My name <email@example.com>', TaskMailer.generate_from(task)
   end
 
 
