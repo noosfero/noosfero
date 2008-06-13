@@ -1,14 +1,14 @@
 <% if @article %>
-  <h2 id='article-full-path'>
+  <h1 id='article-full-path'>
     <%= icon('cms') %>
     <%= link_to profile.identifier, :action => 'index' %>
     <%= @article.hierarchy.map {|item| " / " + ((item == @article) ? item.name : link_to(item.name, :id => item.id)) } %>
-  </h2>
+  </h1>
 <% else %>
-  <h2>
+  <h1>
     <%= icon('cms') %>
     <%= _('Content management') %>
-  </h2>
+  </h1>
 <% end %>
 
 <% button_bar(:style => 'margin-bottom: 1em;') do %>
