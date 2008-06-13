@@ -79,4 +79,24 @@ class DatesHelperTest < Test::Unit::TestCase
     link_to_previous_month(nil, nil)
   end
 
+  should 'provide an intertionalized date selector pass month names' do
+
+    expects(:gettext).with('January').returns('January')
+    expects(:gettext).with('February').returns('February')
+    expects(:gettext).with('March').returns('March')
+    expects(:gettext).with('April').returns('April')
+    expects(:gettext).with('May').returns('May')
+    expects(:gettext).with('June').returns('June')
+    expects(:gettext).with('July').returns('July')
+    expects(:gettext).with('August').returns('August')
+    expects(:gettext).with('September').returns('September')
+    expects(:gettext).with('October').returns('October')
+    expects(:gettext).with('November').returns('November')
+    expects(:gettext).with('December').returns('December')
+
+    expects(:date_select).with(:object, :method, {:use_month_names => ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']}).returns("KKKKKKKK")
+
+    assert_equal 'KKKKKKKK', pick_date(:object, :method)
+  end
+
 end

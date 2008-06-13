@@ -1,13 +1,11 @@
-<%= calendar_date_select_includes 'silver', :locale => calendar_date_select_language %>
-
 <%# TODO add Textile help here %>
 <%= render :file => 'shared/tiny_mce' %>
 
 <%= f.text_field('name', :size => '64') %>
 
-<%= labelled_form_field(_('Start date'), calendar_date_select(:article, :start_date)) %>
+<%= labelled_form_field(_('Start date'), pick_date(:article, :start_date)) %>
 
-<%= labelled_form_field(_('End date'), calendar_date_select(:article, :end_date)) %>
+<%= labelled_form_field(_('End date'), pick_date(:article, :end_date)) %>
 
 <%= labelled_form_field(_('Event website:'), text_field(:article, :link)) %>
 

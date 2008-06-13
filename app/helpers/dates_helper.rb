@@ -2,6 +2,21 @@ module DatesHelper
 
   include GetText
 
+  MONTHS = [
+    N_('January'),
+    N_('February'),
+    N_('March'),
+    N_('April'),
+    N_('May'),
+    N_('June'),
+    N_('July'),
+    N_('August'),
+    N_('September'),
+    N_('October'),
+    N_('November'),
+    N_('December')
+  ]
+
   # formats a date for displaying.
   def show_date(date)
     if date
@@ -51,20 +66,7 @@ module DatesHelper
     end
 
     # FIXME Date#strftime should translate this for us !!! 
-    monthname = _([
-                  N_('January'),
-                  N_('February'),
-                  N_('March'),
-                  N_('April'),
-                  N_('May'),
-                  N_('June'),
-                  N_('July'),
-                  N_('August'),
-                  N_('September'),
-                  N_('October'),
-                  N_('November'),
-                  N_('December')
-    ][month.to_i - 1])
+    monthname = _(MONTHS[month.to_i - 1])
 
     _('%{month} %{year}') % { :year => year, :month => monthname }
   end
@@ -82,4 +84,9 @@ module DatesHelper
 
     link_to show_month(next_month_date.year, next_month_date.month) + ' &rarr;', :year => next_month_date.year, :month => next_month_date.month
   end
+
+  def pick_date(object, method)
+    date_select(object, method, :use_month_names => MONTHS.map {|item| gettext(item)})
+  end
+
 end
