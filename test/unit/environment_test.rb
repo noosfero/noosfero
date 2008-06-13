@@ -295,4 +295,10 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_not_includes env.people, ent
   end
 
+  should 'have a message_for_disabled_enterprise attribute' do
+    env = Environment.new
+    env.message_for_disabled_enterprise = 'this enterprise was disabled'
+    assert_equal 'this enterprise was disabled', env.message_for_disabled_enterprise
+  end
+
 end

@@ -213,4 +213,11 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'a', :content => 'Add friend'
   end
 
+  should 'show message for disabled enterprises' do
+    login_as(@profile.identifier)
+    ent = Enterprise.create!(:name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false)
+    get :index, :profile => ent.identifier
+    assert_tag :tag => 'div', :attributes => { :id => 'profile-disabled' }, :content => Environment.default.message_for_disabled_enterprise
+  end
+
 end

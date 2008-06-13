@@ -91,6 +91,17 @@ div#errorExplanation h2 {
   color: #555;
 }
 
+div#profile-disabled {
+  border: 2px solid #944;
+  text-align: center;
+  margin: auto;
+  padding: 5px;
+  padding-left: 60px;
+  min-height: 40px;
+  width: 400px;
+  background: url("../images/icons-app/alert.png") no-repeat 5px #ffffa9;
+}
+
 /*********************************************************/
 
 

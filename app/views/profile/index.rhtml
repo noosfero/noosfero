@@ -1,3 +1,9 @@
+<% unless profile.enabled? %>
+  <div id='profile-disabled'>
+    <%= environment.message_for_disabled_enterprise %>
+  </div>
+<% end %>
+
 <h2><%= _("%s's profile") % profile.identifier %></h2>
 
 <ul>

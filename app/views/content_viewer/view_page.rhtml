@@ -48,6 +48,12 @@
 </div>
 <% end %>
 
+<% unless profile.enabled? %>
+  <div id='profile-disabled'>
+    <%= environment.message_for_disabled_enterprise %>
+  </div>
+<% end %>
+
 <%= @page.to_html %>
 
 <div id="article-cat">

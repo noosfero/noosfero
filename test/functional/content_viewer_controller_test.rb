@@ -259,4 +259,11 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_response 404
   end
 
+  should 'show message for disabled enterprises' do
+    login_as(@profile.identifier)
+    ent = Enterprise.create!(:name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false)
+    get :view_page, :profile => ent.identifier, :page => []
+    assert_tag :tag => 'div', :attributes => { :id => 'profile-disabled' }, :content => Environment.default.message_for_disabled_enterprise
+  end
+
 end

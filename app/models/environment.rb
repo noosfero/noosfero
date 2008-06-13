@@ -131,6 +131,14 @@ class Environment < ActiveRecord::Base
     ! self.settings['terms_of_use'].nil?
   end
 
+  def message_for_disabled_enterprise
+    self.settings['message_for_disabled_enterprise']
+  end
+
+  def message_for_disabled_enterprise=(value)
+    self.settings['message_for_disabled_enterprise'] = value
+  end
+
   # returns the approval method used for this environment. Possible values are:
   #
   # Defaults to <tt>:admim</tt>.
