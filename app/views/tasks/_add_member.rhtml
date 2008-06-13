@@ -27,7 +27,7 @@
         @roles = Role.find(:all).select{ |r| r.has_kind?('Profile') }
       %>
       <% @roles.each do |r| %>
-        <%= labelled_check_box(r.name, 'task[roles][]', r.id, task.target.members.nil?) %><br/>
+        <%= labelled_check_box(r.name, 'task[roles][]', r.id, ( task.target.members.empty? ? true : ( r.id == Profile::Roles.member.id ) ) ) %><br/>
       <% end %>
     </p>
   </div>

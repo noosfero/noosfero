@@ -37,6 +37,10 @@ profile_member:
   key: 'profile_member'
   name: 'Profile Member'
   system: true
+  permissions:
+   - edit_profile
+   - post_content
+   - manage_products
 profile_moderator:
   id: 7
   key: 'profile_moderator'
