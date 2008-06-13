@@ -153,7 +153,11 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'ul', :attributes => { :class => 'profile-info-data' }, :descendant => { :tag => 'a', :content => 'Control panel' }
   end
 
-  should 'show a link to control panel if user has profile_editor permission'
+  should 'show a link to control panel if user has profile_editor permission' do
+    login_as(@profile.identifier)
+    get :index, :profile => @profile.identifier
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{@profile.identifier}" }, :content => 'Control panel'
+  end
 
   should 'show create community in own profile' do
     login_as(@profile.identifier)
