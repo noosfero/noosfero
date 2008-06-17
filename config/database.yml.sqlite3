@@ -1,11 +1,11 @@
 development:
   adapter: sqlite3
-  database: tmp/anhetegua_development.db
+  database: db/development.db
 
 test:
   adapter: sqlite3
-  database: tmp/anhetegua_test.db
+  database: db/test.db
 
 production:
   adapter: sqlite3
-  database: tmp/anhetegua_production.db
+  database: db/production.db
