@@ -208,7 +208,8 @@ class AccountControllerTest < Test::Unit::TestCase
     change = ChangePassword.new
     ChangePassword.expects(:find_by_code).with('osidufgiashfkjsadfhkj99999').returns(change)
     person = mock
-    person.stubs(:name).returns('joe')
+    person.stubs(:identifier).returns('joe')
+    person.stubs(:name).returns('Joe')
     change.stubs(:requestor).returns(person)
 
     get :new_password, :code => 'osidufgiashfkjsadfhkj99999'
