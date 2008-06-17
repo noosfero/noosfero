@@ -13,7 +13,8 @@
     <td colspan="2">
       <ul>
         <li>
-          <strong><%= _('Price:') %></strong><%= @product.price || _('not informed') %>
+        <strong><%= _('Price:') %></strong>
+        <%= @product.price || _('not informed') %>
         </li>
         <li>
         <%= _('Category: %s ') % link_to_category(@product.product_category) %> <br/>
@@ -26,5 +27,5 @@
 
 
 <% button_bar do %>
-  <%= button :back, _('View products/services listing'), :action => 'index', :id => nil %>
+  <%= button :back, _("%s's products/services listing"), :action => 'index', :id => nil %>
 <% end %>
