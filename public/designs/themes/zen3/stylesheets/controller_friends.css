@@ -1,0 +1,11 @@
+#content #manage_friends li {
+  border: 2px solid #FEE;
+  color: #C00;
+  -moz-border-radius: 4px;
+}
+
+#content #manage_friends li:hover {
+  border: 2px solid #C00;
+  background: #fcaf3e;
+  color: #FFF;
+}
