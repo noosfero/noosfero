@@ -82,6 +82,20 @@ class CmsControllerTest < Test::Unit::TestCase
     end
   end
 
+  should 'display set as home page link to non folder' do
+    a = profile.articles.create!(:name => 'my new home page')
+    Article.stubs(:short_description).returns('bli')
+    get :index, :profile => profile.identifier
+    assert_tag :tag => 'a', :content => 'Use as homepage', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/set_home_page/#{a.id}" }
+  end
+
+  should 'not display set as home page link to folder' do
+    a = Folder.new(:name => 'article folder'); profile.articles << a;  a.save!
+    Article.stubs(:short_description).returns('bli')
+    get :index, :profile => profile.identifier
+    assert_no_tag :tag => 'a', :content => 'Use as homepage', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/set_home_page/#{a.id}" }
+  end
+
   should 'be able to set home page' do
     a = profile.articles.build(:name => 'my new home page')
     a.save!

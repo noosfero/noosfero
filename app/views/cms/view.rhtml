@@ -64,6 +64,7 @@
       <td>
         <%= link_to _('Edit'), :action => 'edit', :id => item.id %>
         <%= link_to _('Public view'), item.url %>
+        <%= link_to _('Use as homepage'), { :action => 'set_home_page', :id => item.id }, :method => :post %>
         <%= link_to _('Delete'), { :action => 'destroy', :id => item.id }, :method => :post, :confirm => _('Are you sure that you want to remove this item?') %>
       </td>
     </tr>
