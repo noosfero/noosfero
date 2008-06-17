@@ -22,7 +22,7 @@ module LanguageHelper
         if code == current
           content_tag('strong', name)
         else
-          link_to(name, :lang => code)
+          link_to(name, params.merge(:lang => code))
         end
       end.join(' &mdash; ')
       content_tag('div', languages, :id => 'language-chooser', :help => _('The language you choose here is the language used for options, buttons, etc. It does not affect the language of the content created by other users.'))

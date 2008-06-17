@@ -130,7 +130,7 @@ TinyMCE_Popup.prototype = {
 			window.resizeBy(0, 10);
 			return;
 		}
-
+		
 		if (this.isWindow) {
 			doc = document;
 			body = doc.body;
@@ -181,6 +181,13 @@ TinyMCE_Popup.prototype = {
 			// Resize window
 			// tinyMCE.debug(tinyMCE.getWindowArg('mce_width') + "," + tinyMCE.getWindowArg('mce_height') + " - " + dx + "," + dy);
 			window.resizeBy(dx, dy);
+			//
+			// http://tinymce.moxiecode.com/punbb/viewtopic.php?id=2866
+		  /*/ Gecko workaround
+      if (tinyMCE.isGecko)
+        window.resizeBy(dx + 40, dy);
+      else
+			  window.resizeBy(dx, dy); */
 
 			// Hide iframe and show wrapper
 			body.style.margin = oldMargin;
