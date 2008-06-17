@@ -220,4 +220,16 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'div', :attributes => { :id => 'profile-disabled' }, :content => Environment.default.message_for_disabled_enterprise
   end
 
+  should 'display "Products" link for enterprise' do
+    ent = Enterprise.create!(:name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false)
+
+    get :index, :profile => 'my-test-enterprise'
+    assert_tag :tag => 'a', :attributes => { :href => '/catalog/my-test-enterprise'}, :content => /Products\/Services/
+  end
+
+  should 'not display "Products" link for people' do
+    get :index, :profile => 'ze'
+    assert_no_tag :tag => 'a', :attributes => { :href => '/catalog/my-test-enterprise'}, :content => /Products\/Services/
+  end
+
 end

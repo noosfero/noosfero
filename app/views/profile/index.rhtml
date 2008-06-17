@@ -25,6 +25,9 @@
   <% if profile.kind_of? Organization %>
     <li><%= link_to _('Members'), :action => 'members' %></li>
   <% end %>
+  <% if profile.kind_of? Enterprise %>
+    <li><%= link_to _('Products/Services'), :controller => 'catalog', :action => 'index' %></li>
+  <% end %>
 
   <li>
     <%= _('Tags:') %>

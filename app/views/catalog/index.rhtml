@@ -1,11 +1,15 @@
-<h2> <%= _('Catalog') %> </h2>
+<h1> <%= _('%s:Products/Services') % @profile.name %> </h1>
 
-<ul>
+<table align='center'>
+  <tr>
+    <th colspan="2"><%= _('Product/Service') %></th>
+    <th><%= _('Price') %></th>
+  </tr>
 <% @products.each do |p| %>
-  <li>
-    <%= link_to p.name, :action => 'show', :id => p %> <br/>
-    <%= image_tag p.image.public_filename if p.image %> <br/>
-    <%= p.price %> <br/><br/>
-  </li>
+  <tr>
+    <td> <%= image_tag p.image.public_filename if p.image %> </td>
+    <td> <%= link_to p.name, :action => 'show', :id => p %> </td>
+    <td> <%= p.price || content_tag('em', _('not informed'))  %> </th>
+  </tr>
 <% end %>
-</ul>
+</table>

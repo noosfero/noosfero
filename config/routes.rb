@@ -41,6 +41,10 @@ ActionController::Routing::Routes.draw do |map|
   # public profile information
   map.profile 'profile/:profile/:action/:id', :controller => 'profile', :action => 'index', :id => /.*/, :profile => /[a-z][a-z0-9._-]*/
 
+  # catalog
+  map.catalog 'catalog/:profile', :controller => 'catalog', :action => 'index'
+  map.product 'catalog/:profile/:id', :controller => 'catalog', :action => 'show'
+
   ######################################################
   ## Controllers that are profile-specific (for profile admins )
   ######################################################
@@ -69,10 +73,7 @@ ActionController::Routing::Routes.draw do |map|
   ## Test controllers.
   ## FIXME: this should not be needed
   ######################################################
-  map.connect 'test/:controller/:action/:id'  , :controller => /.*test.*/
-
-  map.connect ':profile/catalog/:action/:id', :controller => 'catalog'
-  
+  map.connect 'test/:controller/:action/:id'  , :controller => /.*test.*/ 
 
   # *content viewing*
   # XXX this route must come last so other routes have priority over it.

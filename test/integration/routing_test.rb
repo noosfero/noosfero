@@ -139,4 +139,9 @@ class RoutingTest < ActionController::IntegrationTest
     assert_routing('/ze_with_underscore', :controller => 'content_viewer', :action => 'view_page', :profile => 'ze_with_underscore', :page => [])
   end
 
+  def test_catalog_routing
+    assert_routing('/catalog/colivre', :controller => 'catalog', :action => 'index', :profile => 'colivre')
+    assert_routing('/catalog/colivre/1234', :controller => 'catalog', :action => 'show', :profile => 'colivre', :id => '1234')
+  end
+
 end

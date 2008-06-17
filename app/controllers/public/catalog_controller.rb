@@ -12,7 +12,9 @@ class CatalogController < ApplicationController
   
   protected
   def check_enterprise
-    @profile.kind_of? Enterprise
+    unless @profile.kind_of? Enterprise
+      redirect_to :controller => 'profile', :profile => profile.identifier, :action => 'index'
+    end
   end
 
 end
