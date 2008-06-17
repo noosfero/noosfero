@@ -1,7 +1,9 @@
 <h1><%= _('Identify yourself') %></h1>
 
 <p>
-<%= link_to _('Login.'), :action => 'login' %>
+<%= lightbox_link_to _('Login.'), { :controller => 'account', :action => 'login_popup' },
+      :help => _('Click here to enter your username and password and be recognized by the system.') %>
+
 <%= _('You need to login to be able to use all the features in this environment.') %>
 </p>
 
