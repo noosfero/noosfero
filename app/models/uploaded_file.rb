@@ -5,12 +5,15 @@
 class UploadedFile < Article
 
   # FIXME need to define min/max file size
+  #
+  # default max_size is 1.megabyte to redefine it set options:
+  #  :min_size => 2.megabytes
+  #  :max_size => 5.megabytes
   has_attachment :storage => :file_system,
     :thumbnails => { :icon => [24,24] },
     :thumbnail_class => Thumbnail
-      
 
-  validates_as_attachment
+  validates_attachment :size => _('The file you uploaded was larger than the maximum size of 1MB')
 
   def icon_name
     self.image? ? public_filename(:icon) : self.content_type.gsub('/', '-')

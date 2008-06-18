@@ -58,4 +58,14 @@ class UploadedFileTest < Test::Unit::TestCase
     assert file.save
   end
 
+  should 'has attachment_fu validation options' do
+    file = UploadedFile.new(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    assert_respond_to file, :attachment_validation_options
+  end
+
+  should 'has attachment_fu validation option for size' do
+    file = UploadedFile.new(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    assert_includes file.attachment_validation_options, :size
+  end
+
 end
