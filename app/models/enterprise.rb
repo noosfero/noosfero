@@ -24,19 +24,6 @@ class Enterprise < Organization
     true
   end
 
-  def code
-    ("%06d" % id) + Digest::MD5.hexdigest(id.to_s)[0..5]
-  end
-
-  def self.return_by_code(code)
-    return unless code
-    id = code[0..5].to_i
-    md5 = code[6..11]
-    return unless md5 == Digest::MD5.hexdigest(id.to_s)[0..5]
-
-    Enterprise.find(id)
-  end
-
   def blocked?
     data[:blocked]
   end
@@ -51,6 +38,23 @@ class Enterprise < Organization
     affiliate(owner, Profile::Roles.all_roles)
     update_attribute(:enabled,true)
     save
+  end
+
+  def question
+    if !self.foundation_year.blank?
+      :foundation_year
+    elsif !self.cnpj.blank?
+      :cnpj
+    else
+      nil
+    end
+  end
+
+  after_create :create_activation_task
+  def create_activation_task
+    if !self.enabled
+      EnterpriseActivation.create!(:enterprise => self, :code_length => 7)
+    end
   end
 
 end

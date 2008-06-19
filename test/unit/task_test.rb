@@ -135,6 +135,15 @@ class TaskTest < Test::Unit::TestCase
     assert_not_nil Task.find_by_code(task.code)
   end
 
+  should 'use 36-chars codes by default' do
+    assert_equal 36, Task.create.code.size
+  end
+
+  should 'be able to limit the length of the generated code' do
+    assert_equal 3, Task.create(:code_length => 3).code.size
+    assert_equal 7, Task.create(:code_length => 7).code.size
+  end
+
   should 'not send notification to target when target_notification_message is nil (as in Task base class)' do
     task = Task.new
     TaskMailer.expects(:deliver_target_notification).never

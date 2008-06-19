@@ -277,6 +277,8 @@ class AccountControllerTest < Test::Unit::TestCase
   end
 
   should 'report invalid enterprise code on signup' do
+    EnterpriseActivation.expects(:find_by_code).with('some_invalid_code').returns(nil).at_least_once
+
     get :signup, :enterprise_code => 'some_invalid_code'
 
     assert_template 'invalid_enterprise_code'
@@ -284,35 +286,60 @@ class AccountControllerTest < Test::Unit::TestCase
 
   should 'report enterprise already enabled' do
     ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :cnpj => '0'*14, :enabled => true)
-    get :signup, :enterprise_code => ent.code
+    task = mock
+    task.expects(:enterprise).returns(ent).at_least_once
+    EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
+
+    get :signup, :enterprise_code => '0123456789'
 
     assert_template 'already_activated'
   end
 
   should 'load enterprise from code on signup' do
     ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent')
-    get :signup, :enterprise_code => ent.code
+    
+    task = mock
+    task.expects(:enterprise).returns(ent).at_least_once
+    EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
+
+    get :signup, :enterprise_code => '0123456789'
 
     assert_equal ent, assigns(:enterprise)
   end
 
   should 'block enterprises that do not have foundation_year or cnpj' do
     ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :enabled => false)
-    get :signup, :enterprise_code => ent.code
+    
+    task = mock
+    task.expects(:enterprise).returns(ent).at_least_once
+    EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
+
+    get :signup, :enterprise_code => '0123456789'
 
     assert_template 'blocked'
   end
 
   should 'show form to those enterprises that have foundation year' do
     ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :foundation_year => 1998, :enabled => false)
-    get :signup, :enterprise_code => ent.code
+
+    task = mock
+    task.expects(:enterprise).returns(ent).at_least_once
+    EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
+
+    get :signup, :enterprise_code => '0123456789'
 
     assert_template 'activate_enterprise'
   end
 
   should 'show form to those enterprises that have cnpj' do
     ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :cnpj => '0'*14, :enabled => false)
-    get :signup, :enterprise_code => ent.code
+
+
+    task = mock
+    task.expects(:enterprise).returns(ent).at_least_once
+    EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
+
+    get :signup, :enterprise_code => '0123456789'
 
     assert_template 'activate_enterprise'
   end
@@ -320,7 +347,13 @@ class AccountControllerTest < Test::Unit::TestCase
   should 'block those who are blocked' do
     ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :foundation_year => '1998', :enabled => false)
     ent.block
-    get :signup, :enterprise_code => ent.code
+
+
+    task = mock
+    task.expects(:enterprise).returns(ent).at_least_once
+    EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
+
+    get :signup, :enterprise_code => '0123456789'
 
     assert_template 'blocked'
   end
@@ -328,7 +361,11 @@ class AccountControllerTest < Test::Unit::TestCase
   should 'block those who failed to answer the question' do
     ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :foundation_year => 1998, :enabled => false)
 
-    create_user({}, :enterprise_code => ent.code, :answer => '1997')
+    task = mock
+    task.expects(:enterprise).returns(ent).at_least_once
+    EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
+
+    create_user({}, :enterprise_code => '0123456789', :answer => '1997')
     ent.reload
 
     assert_nil User.find_by_login('test_user')
@@ -338,11 +375,28 @@ class AccountControllerTest < Test::Unit::TestCase
 
   should 'activate enterprise for those who answer the question right and make them admin of the enterprise' do
     ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :foundation_year => 1998, :enabled => false)
-    create_user({}, :enterprise_code => ent.code, :answer => '1998')
+
+    task = EnterpriseActivation.create!(:enterprise => ent)
+    EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
+
+    create_user({}, :enterprise_code => '0123456789', :answer => '1998')
     ent.reload
 
     assert ent.enabled
     assert_includes ent.members, assigns(:user).person
+  end
+
+  should 'put hidden field with enterprise code for answering question' do
+    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :foundation_year => 1998, :enabled => false)
+
+    task = mock
+    task.expects(:enterprise).returns(ent).at_least_once
+    EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
+
+    get :signup, :enterprise_code => '0123456789'
+
+    assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'enterprise_code', :value => '0123456789'}
+
   end
 
   protected

@@ -128,25 +128,27 @@ class AccountController < PublicController
   protected
 
   def activate_enterprise
-    load_enterprise
-    unless @enterprise
+    enterprise = load_enterprise
+    @enterprise = enterprise
+
+    unless enterprise
       render :action => 'invalid_enterprise_code'
       return
     end
 
-    if @enterprise.enabled
+    if enterprise.enabled
       render :action => 'already_activated'
       return
     end
     
     # Reaches here only if answer is not correct
     if request.post? && !answer_correct
-      @enterprise.block
+      enterprise.block
     end
 
-    define_question
+    @question = enterprise.question
 
-    if !@question || @enterprise.blocked?
+    if !@question || enterprise.blocked?
       render :action => 'blocked'
       return
     end
@@ -155,33 +157,34 @@ class AccountController < PublicController
   end
 
   def post_activate_enterprise
-    if @enterprise
-      @enterprise.enable(@user.person)
+    activation = load_enterprise_activation
+    if activation
+      activation.requestor = user
+      activation.finish
     end
   end
 
-  def load_enterprise
-    @enterprise ||= Enterprise.return_by_code(params[:enterprise_code])
+  def load_enterprise_activation
+    EnterpriseActivation.find_by_code(params[:enterprise_code])
   end
 
-  def define_question  
-    return if @question
-    if !@enterprise.foundation_year.blank?
-      @question = :foundation_year
-    elsif !@enterprise.cnpj.blank?
-      @question = :cnpj
+  def load_enterprise
+    activation = load_enterprise_activation
+    if activation.nil?
+      nil
+    else
+      activation.enterprise
     end
   end
 
   def answer_correct
     return true unless params[:enterprise_code]
 
-    load_enterprise
-    define_question
-    return false unless @question
-    return false if @enterprise.enabled
+    enterprise = load_enterprise
+    return false unless enterprise.question
+    return false if enterprise.enabled
 
-    params[:answer] == @enterprise.send(@question).to_s
+    params[:answer] == enterprise.send(enterprise.question).to_s
   end
 
   def go_to_user_initial_page

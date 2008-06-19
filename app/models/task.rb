@@ -35,11 +35,12 @@ class Task < ActiveRecord::Base
     self.status ||= Task::Status::ACTIVE
   end
 
+  attr_accessor :code_length
   before_validation_on_create do |task|
     if task.code.nil?
-      task.code = Task.generate_code
+      task.code = Task.generate_code(task.code_length)
       while (Task.find_by_code(task.code))
-        task.code = Task.generate_code
+        task.code = Task.generate_code(task.code_length)
       end
     end
   end
@@ -162,12 +163,12 @@ class Task < ActiveRecord::Base
       self.find(:all, :conditions => { :status =>  [Task::Status::CANCELLED, Task::Status::FINISHED]})
     end
 
-    # generates a random code string consisting of 36 characters in the ranges
-    # a-z and 0-9
-    def generate_code
+    # generates a random code string consisting of length characters (or 36 by
+    # default) in the ranges a-z and 0-9
+    def generate_code(length = nil)
       chars = ('a'..'z').to_a + ('0'..'9').to_a
       code = ""
-      chars.size.times do |n|
+      (length || chars.size).times do |n|
         code << chars[rand(chars.size)]
       end
       code

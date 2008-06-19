@@ -26,7 +26,7 @@
 
 <%= ApplicationHelper::NoosferoFormBuilder::output_field(@question == :foundation_year ? _('What year your enterprise was founded?') : _('What is the CNPJ of your enterprise?'), text_field_tag(:answer, nil,:help => help=_('We need to be sure that this is your enterprise'))) %>
 
-<%= hidden_field_tag :enterprise_code, @enterprise.code %>
+<%= hidden_field_tag :enterprise_code, params[:enterprise_code] %>
 
 <% if @terms_of_use %>
   <p>

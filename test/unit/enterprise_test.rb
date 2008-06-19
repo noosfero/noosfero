@@ -125,18 +125,6 @@ class EnterpriseTest < Test::Unit::TestCase
     assert_not_includes c.members, p
   end
 
-  should 'return coherent code' do
-    ent = Enterprise.create!(:name => 'my test profile', :identifier => 'mytestprofile')
-    ent2 = Enterprise.create!(:name => 'my test profile 2', :identifier => 'mytestprofile2')
-
-    assert_equal ent, Enterprise.return_by_code(ent.code)
-    assert_nil Enterprise.return_by_code(ent.code.next)
-  end
-
-  should 'return nil when asked for an enterprise with code nil' do
-    assert_nil Enterprise.return_by_code(nil)
-  end
-
   should 'have foudation_year' do
     ent = Enterprise.create!(:name => 'test enteprise', :identifier => 'test_ent')
 
@@ -165,6 +153,24 @@ class EnterpriseTest < Test::Unit::TestCase
     ent.reload
     assert ent.enabled
     assert_includes ent.members, p
+  end
+
+  should 'create EnterpriseActivation task when creating with enabled = false' do
+    EnterpriseActivation.delete_all
+    ent = Enterprise.create!(:name => 'test enteprise', :identifier => 'test_ent', :enabled => false)
+    assert_equal [ent], EnterpriseActivation.find(:all).map(&:enterprise)
+  end
+
+  should 'create EnterpriseActivation with 7-characters codes' do
+    EnterpriseActivation.delete_all
+    Enterprise.create!(:name => 'test enteprise', :identifier => 'test_ent', :enabled => false)
+    assert_equal 7, EnterpriseActivation.find(:first).code.size
+  end
+
+  should 'not create activation task when enabled = true' do
+    assert_no_difference EnterpriseActivation, :count do
+      Enterprise.create!(:name => 'test enteprise', :identifier => 'test_ent', :enabled => true)
+    end
   end
 
 end
