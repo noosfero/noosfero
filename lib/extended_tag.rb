@@ -13,8 +13,6 @@ class Tag
     end
   end
 
-  acts_as_ferret :fields => [:name]
-
   # Return all the tags that were suggested but not yet approved
   def self.find_pendings
     self.find_with_pendings(:all, :conditions => ['pending = ?', true])
