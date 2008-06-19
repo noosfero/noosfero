@@ -30,6 +30,10 @@
   <% end %>
 
   <li>
+  <%= link_to _('Site map'), :action => 'sitemap' %>
+  </li>
+
+  <li>
     <%= _('Tags:') %>
     <%= tag_cloud @tags, :id, { :action => 'tag' }, :max_size => 18, :min_size => 10%>
   </li>

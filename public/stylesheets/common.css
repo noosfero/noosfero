@@ -239,6 +239,10 @@ table.cms-articles th, table.cms-articles td {
   border: 1px solid #e0e0e0;
 }
 
+table.noborder th, table.noborder td{
+  border: none;
+}
+
 /* for fields with auto-completion */
 div.auto-complete {
   display: block;
@@ -282,5 +286,20 @@ div.pending-tasks {
   border: 2px solid #204A87;
   padding: 2px;
   margin: 1em;
+}
+
+/* sitemap */
+div.sitemap-item a:link,
+div.sitemap-item a:visited {
+  display: block;
+  border: none;
+  text-decoration: none;
+}
+div.sitemap-item img {
+  border: none;
+}
+div.sitemap-item a:hover {
+  background-color: #f0f0f0;
+  color: red;
 }
 

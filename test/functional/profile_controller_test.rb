@@ -232,4 +232,14 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'a', :attributes => { :href => '/catalog/my-test-enterprise'}, :content => /Products\/Services/
   end
 
+  should 'display "Site map" link for profiles' do
+    get :index, :profile => 'ze'
+    assert_tag :tag => 'a', :content => "Site map", :attributes => { :href => '/profile/ze/sitemap' }
+  end
+
+  should 'list top level articles in sitemap' do
+    get :sitemap, :profile => 'testuser'
+    assert_equal @profile.top_level_articles, assigns(:articles)
+  end
+
 end

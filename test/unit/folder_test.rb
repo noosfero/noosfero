@@ -24,8 +24,8 @@ class FolderTest < ActiveSupport::TestCase
     f.children.create!(:profile => p, :name => 'onearticle')
     f.children.create!(:profile => p, :name => 'otherarticle')
 
-    assert_match(/<li><a href=".*\/testuser\/f\/onearticle">onearticle<\/a><\/li>/, f.to_html)
-    assert_match(/<li><a href=".*\/testuser\/f\/otherarticle">otherarticle<\/a><\/li>/, f.to_html)
+    assert_tag_in_string f.to_html, :tag => 'div', :descendant => { :tag => 'a', :attributes => { :href => /.*\/testuser\/f\/onearticle$/ } }, :content => /onearticle/
+    assert_tag_in_string f.to_html, :tag => 'div', :descendant => { :tag => 'a', :attributes => { :href => /.*\/testuser\/f\/otherarticle$/ } }, :content => /otherarticle/
   end
 
   should 'show text body in HTML content' do

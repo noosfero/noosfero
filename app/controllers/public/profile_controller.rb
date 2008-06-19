@@ -34,6 +34,10 @@ class ProfileController < ApplicationController
     @favorite_enterprises = profile.favorite_enterprises
   end
 
+  def sitemap
+    @articles = profile.top_level_articles
+  end
+
   protected
 
   def check_access_to_profile

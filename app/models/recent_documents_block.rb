@@ -15,4 +15,11 @@ class RecentDocumentsBlock < Block
 
   end
 
+  def footer
+    profile = self.owner
+    lambda do
+      link_to _('All content'), :profile => profile.identifier, :controller => 'profile', :action => 'sitemap'
+    end
+  end
+
 end

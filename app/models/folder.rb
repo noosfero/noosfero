@@ -12,13 +12,14 @@ class Folder < Article
     'folder'
   end
 
-  # FIXME we should not need all this just to write a link
+  # FIXME isn't this too much including just to be able to generate some HTML?
   include ActionView::Helpers::TagHelper
   include ActionView::Helpers::UrlHelper
   include ActionController::UrlWriter
+  include ActionView::Helpers::AssetTagHelper
+  include FolderHelper
   def to_html
-    content_tag('div', body) +
-    content_tag('ul', children.map { |child| content_tag('li', link_to(child.name, child.url)) }, :class => 'folder-listing')
+    content_tag('div', body) + tag('hr') + list_articles(children)
   end
 
   def folder?

@@ -55,4 +55,11 @@ class RecentDocumentsBlockTest < Test::Unit::TestCase
     assert_match /href=.*\/testinguser\/feed/, output
   end
 
+  should 'display a link to sitemap with title "All content"' do
+    expects(:link_to).with('All content', :controller => 'profile', :action => 'sitemap', :profile => profile.identifier)
+    expects(:_).with('All content').returns('All content')
+
+    instance_eval(&(block.footer))
+  end
+
 end

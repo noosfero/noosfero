@@ -9,19 +9,6 @@ module CmsHelper
     mime_type.gsub('/', '_').gsub('-', '')
   end
 
-  def icon_for_article(article)
-    icon = article.icon_name
-    if (icon =~ /\//)
-      icon
-    else
-      if File.exists?(File.join(RAILS_ROOT, 'public', 'images', 'icons-mime', "#{icon}.png"))
-        "icons-mime/#{icon}.png"
-      else
-        "icons-mime/unknown.png"
-      end
-    end
-  end
-
   attr_reader :environment
 
 end
