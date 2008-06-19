@@ -163,18 +163,4 @@ class EventTest < ActiveSupport::TestCase
     assert_no_tag_in_string e.description, :tag => 'script'
   end
 
-  protected
-
-  def assert_tag_in_string(text, options)
-    doc = HTML::Document.new(text, false, false)
-    tag = doc.find(options)
-    assert tag, "expected tag #{options.inspect}, but not found in #{text.inspect}"
-  end
-
-  def assert_no_tag_in_string(text, options)
-    doc = HTML::Document.new(text, false, false)
-    tag = doc.find(options)
-    assert !tag, "expected no tag #{options.inspect}, but tag found in #{text.inspect}"
-  end
-
 end

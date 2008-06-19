@@ -193,6 +193,18 @@ class Test::Unit::TestCase
     assert !text.index('<'), "Text '#{text}' expected to be sanitized"
   end
 
+  def assert_tag_in_string(text, options)
+    doc = HTML::Document.new(text, false, false)
+    tag = doc.find(options)
+    assert tag, "expected tag #{options.inspect}, but not found in #{text.inspect}"
+  end
+
+  def assert_no_tag_in_string(text, options)
+    doc = HTML::Document.new(text, false, false)
+    tag = doc.find(options)
+    assert !tag, "expected no tag #{options.inspect}, but tag found in #{text.inspect}"
+  end
+
   private
 
   def uses_host(name)
