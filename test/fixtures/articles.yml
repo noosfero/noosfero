@@ -2,3 +2,4 @@ ze_homepage:
   id: 1
   name: 'Ze home page'
   profile_id: 4
+  type: 'TinyMceArticle'

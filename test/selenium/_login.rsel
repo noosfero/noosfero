@@ -1,0 +1,6 @@
+open '/account/login'
+type :user_login, 'ze'
+type :user_password, 'test'
+click_and_wait :commit
+
+# vim: ft=ruby

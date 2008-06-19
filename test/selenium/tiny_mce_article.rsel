@@ -1,0 +1,9 @@
+setup :fixtures => :all
+include_partial 'login'
+click_and_wait 'link=Manage Content'
+click 'link=New article'
+click_and_wait 'link=Text article with visual editor.'
+type 'id=article_name', 'selenium test'
+type 'id=article_body', 'typing article with TinyMce...'
+
+# vim: ft=ruby
