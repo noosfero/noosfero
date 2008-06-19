@@ -39,4 +39,3 @@ class ProfileEditorController < MyProfileController
   end
 
 end
-

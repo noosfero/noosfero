@@ -13,7 +13,11 @@ class UploadedFile < Article
     :thumbnails => { :icon => [24,24] },
     :thumbnail_class => Thumbnail
 
-  validates_attachment :size => _('The file you uploaded was larger than the maximum size of 1MB')
+  def self.max_size
+    UploadedFile.attachment_options[:max_size]
+  end
+
+  validates_attachment :size => _("The file you uploaded was larger than the maximum size of %s") % UploadedFile.max_size.to_humanreadable
 
   def icon_name
     self.image? ? public_filename(:icon) : self.content_type.gsub('/', '-')

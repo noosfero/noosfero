@@ -248,6 +248,11 @@ class CmsControllerTest < Test::Unit::TestCase
     end
   end
 
+  should 'display max size of uploaded file' do
+    get :new, :type => UploadedFile.name, :profile => profile.identifier
+    assert_tag :tag => 'label', :attributes => { :for => 'article_uploaded_data' }, :content => /max size #{UploadedFile.max_size.to_humanreadable}/
+  end
+
   should 'display checkboxes for selecting categories' do
     env = Environment.default
     top = env.categories.build(:display_in_menu => true, :name => 'Top-Level category'); top.save!
