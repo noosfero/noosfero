@@ -25,6 +25,13 @@
 
 #search-results h3 {
   margin: 20px 0px 0px 20px;
+  position: relative;
+}
+
+#search-results h3 .button {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
 }
 
 .search-results-box {

@@ -27,6 +27,7 @@ function setAutoOpenMenu( menu ) {
     this.className = this.className.replace( / closed/g, "" );
     if ( !/menu-opened/.test(this.className) ) { this.className += " opened" }
     var mul = this.mul;
+    mul.style.display = "block";
     if ( mul.paddingBottom ) mul.parentNode.style.paddingBottom = mul.paddingBottom +"px";
     if ( mul.h < mul.maxSize ) {
       mul.h += mul.inc;
@@ -48,6 +49,7 @@ function setAutoOpenMenu( menu ) {
       if ( mul.h > mul.minSize ) {
         mul.h -= mul.inc++;
         if ( mul.h < 0 ) mul.h = 0;
+        if ( mul.h == 0 ) mul.style.display = "none";
         if ( this.isIE ) if ( mul.h < 1 ) mul.h = 1;
         mul.style.height = mul.h +"px";
         this.timeoutClose = setTimeout( "window['autoOpenMenu-"+this.id+"'].onmouseout(true)", 33 );

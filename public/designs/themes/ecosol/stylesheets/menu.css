@@ -1,3 +1,8 @@
+#navigation_bar {
+  top: 3px;
+  left: 3px;
+  right: 3px;
+}
 
 #menu_link_to_envhome {
   display: block;
@@ -12,11 +17,6 @@ body.category1 #menu_link_to_envhome { background-image: url(../images/ico-fbes-
 body.category2 #menu_link_to_envhome { background-image: url(../images/ico-fbes-fundo-verde.gif)    }
 body.category3 #menu_link_to_envhome { background-image: url(../images/ico-fbes-fundo-lilas.gif)    }
 body.category4 #menu_link_to_envhome { background-image: url(../images/ico-fbes-fundo-vermelho.gif) }
-
-#noosfero_bar {
-  left: 3px;
-  right: 3px;
-}
 
 body.category1  #noosfero_bar { background-color: #E26B00 }
 #category1       .linkSubMenu,
@@ -61,9 +61,6 @@ body.category4 .linkSubMenu { background-image: url(../images/borda-esq-aba-verm
 
 #assets_menu {
   overflow: hidden; /* MSIE workarround bug */
-}
-#assets_menu ul {
-  height: 55px;
 }
 
 body.category1 #assets_menu_layout_iten { background: url(../images/top-bar/assets-menu-top-laranja.gif)   }

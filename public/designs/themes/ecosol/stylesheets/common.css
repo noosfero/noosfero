@@ -33,6 +33,10 @@ body.category2 #wrap { background-image: url("../images/bg-top-verde.png");    }
 body.category3 #wrap { background-image: url("../images/bg-top-lilas.png");    }
 body.category4 #wrap { background-image: url("../images/bg-top-vermelho.png"); }
 
+.box-3 {
+  padding-top: 35px;
+}
+
 #path_category {
   position: absolute;
   top: 40px;

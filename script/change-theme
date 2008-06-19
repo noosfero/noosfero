@@ -1,5 +1,7 @@
 #!/bin/bash
 
+t_ini="$1"
+
 cd "$( dirname $0 )/../public/designs/themes/"
 
 test -L default && rm default
@@ -14,7 +16,12 @@ done
 ok=false
 while ! [ -L default ]; do
   
-  read t
+  if [ "$t_ini" = "" ]; then
+    read t
+  else
+    t="$t_ini"
+    t_ini=""
+  fi
   n=0
   ls -1 | while read theme; do
     let n++

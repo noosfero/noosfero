@@ -15,7 +15,7 @@
         <% if @results.size != 1 %>
           <h3>
             <%= @names[name] %>
-            <%= link_to _('(more ...)'), params.merge(:action => 'index', :find_in => [ name ]) %>
+            <%= icon_button :more, _('more...'), params.merge(:action => 'index', :find_in => [ name ]) %>
           </h3>
         <% end %>
       <% end %>

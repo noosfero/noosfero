@@ -19,11 +19,7 @@ input.button {
 .button span {
   display: none;
 }
-.msie .button span {
-  display: inline;
-  width: 0px;
-  overflow: hidden;
-}
+
 .button.with-text span,
 .msie .button.with-text span {
   display: inline;

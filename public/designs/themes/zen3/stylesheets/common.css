@@ -1,6 +1,6 @@
 
 body {
-  background: #9ca09a; #A1A59F; /* #BABDB6; #888A85; */
+  background: #9CA09A;
 }
 
 #wrap {
@@ -18,6 +18,10 @@ body {
 }
 
 /* * * Content * * * * * * * * * * * * * * * * * * * */
+
+#content {
+  padding: 0px 0px 15px 0px;
+}
 
 #content h1, #content h2, #content h3,
 #content h4, #content h5, #content h6 {

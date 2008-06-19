@@ -1,8 +1,11 @@
 
 .common-profile-list-block li a {
-  border: 2px solid #FFF;
+  border: 2px solid transparent;
   color: #C00;
   -moz-border-radius: 4px;
+}
+.msie6 .common-profile-list-block li a {
+  border: 2px solid #FFF;
 }
 
 .common-profile-list-block li a:hover {

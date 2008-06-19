@@ -93,6 +93,10 @@
         </div>
 
         <div id="navigation_bar">
+          <%= link_to "<span>"+ @environment.name() +"</span>",
+                      { :controller=>"home" },
+                        :id=>"menu_link_to_envhome",
+                        :title=>@environment.name  %>
           <%= render :file => 'shared/categories_menu' %>
         </div><!-- id='navigation_bar' -->
         <script type="text/javascript">
@@ -105,7 +109,6 @@
 
         <div id="user_box">
           <%= render :file => 'shared/user_menu' %>
-          <%= theme_opt_menu_search %>
         </div><!-- id='user_box' -->
 
         <a href="#" id="btShowHelp" class="icon-help32on help-on"
