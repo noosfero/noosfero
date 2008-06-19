@@ -10,7 +10,7 @@
 
 <div
   class="post_comment_box <%= @form_div %>"
-  onclick="f=$(<%= comment_form_id %>);
+  onclick="f=$('<%= comment_form_id %>');
            this.className = this.className.replace(/closed/,'opened');
            f.commit.focus(); f['comment[<%= focus_on %>]'].focus();
            this.onclick=null">

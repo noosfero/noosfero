@@ -1,0 +1,7 @@
+setup :fixtures => :all
+open '/ze'
+assert_not_visible 'css=div[class=post_comment_box closed] form'
+click 'css=div[class=post_comment_box closed]'
+assert_visible 'css=div[class=post_comment_box opened] form'
+
+# vim: ft=ruby
