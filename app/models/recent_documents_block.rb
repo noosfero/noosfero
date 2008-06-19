@@ -16,6 +16,8 @@ class RecentDocumentsBlock < Block
   end
 
   def footer
+    return nil unless self.owner.is_a?(Profile)
+
     profile = self.owner
     lambda do
       link_to _('All content'), :profile => profile.identifier, :controller => 'profile', :action => 'sitemap'

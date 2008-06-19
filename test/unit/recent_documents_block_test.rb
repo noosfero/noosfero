@@ -62,4 +62,12 @@ class RecentDocumentsBlockTest < Test::Unit::TestCase
     instance_eval(&(block.footer))
   end
 
+  should 'not display link to sitemap when owner is environment' do
+    block = RecentDocumentsBlock.new
+    box = mock
+    block.expects(:box).returns(box).at_least_once
+    box.expects(:owner).returns(Environment.new).at_least_once
+    assert_equal nil, block.footer
+  end
+
 end
