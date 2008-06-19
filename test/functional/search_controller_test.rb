@@ -487,8 +487,6 @@ class SearchControllerTest < Test::Unit::TestCase
     p.categories << child
     p.save!
 
-    Profile.rebuild_index
-
     get :index, :category_path => ['parent-category'], :query => 'test_profile', :find_in => ['people']
 
     assert_includes assigns(:results)[:people], p

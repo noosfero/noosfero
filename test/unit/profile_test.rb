@@ -516,14 +516,10 @@ class ProfileTest < Test::Unit::TestCase
     assert_includes klass.new.extra_data_for_index, result
   end
 
+  # TestingExtraDataForIndex is a subclass of profile that adds a block as
+  # content to be added to the index. The block returns "sample indexed text"
+  # see test/mocks/test/testing_extra_data_for_index.rb
   should 'actually index by results of extra_data_for_index' do
-
-    class ::TestingExtraDataForIndex < Profile
-      extra_data_for_index do |obj|
-        'sample indexed text'
-      end
-    end
-
     profile = TestingExtraDataForIndex.create!(:name => 'testprofile', :identifier => 'testprofile')
 
     assert_includes TestingExtraDataForIndex.find_by_contents('sample'), profile
