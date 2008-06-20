@@ -25,6 +25,7 @@ browsers:
 
   # Gnu/Linux
   firefox: '/usr/bin/firefox'
+  #ie: '$HOME/bin/ie6'
 
 #host: 'localhost'
 #port_start: 3000

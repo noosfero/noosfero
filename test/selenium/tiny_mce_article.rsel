@@ -3,7 +3,10 @@ include_partial 'login'
 click_and_wait 'link=Manage Content'
 click 'link=New article'
 click_and_wait 'link=Text article with visual editor.'
+assert_editable 'id=article_name'
 type 'id=article_name', 'selenium test'
-type 'id=article_body', 'typing article with TinyMce...'
+assert_editable 'id=article_body'
+# for some reason command 'type' dont work for TinyMce textarea
+store_eval 'selenium.browserbot.getCurrentWindow().tinyMCE.setContent("selenium body text...")', 'bli'
 
 # vim: ft=ruby
