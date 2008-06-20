@@ -418,4 +418,17 @@ class CategoryTest < Test::Unit::TestCase
     assert_equivalent [c1, c11, c2], c.children_for_menu
   end
 
+  should 'cache children count' do
+    c = Category.create!(:name => 'test', :environment => Environment.default)
+
+    # two children catagories
+    c.children.create!(:name => 'test1', :environment => Environment.default)
+    c.children.create!(:name => 'test2', :environment => Environment.default)
+
+    c.reload
+
+    assert_equal 2, c.children_count
+    assert_equal 2, c.children.size
+  end
+
 end

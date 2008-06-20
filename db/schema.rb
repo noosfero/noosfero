@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 41) do
+ActiveRecord::Schema.define(:version => 42) do
 
   create_table "article_versions", :force => true do |t|
     t.integer  "article_id"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(:version => 41) do
     t.boolean  "published",          :default => true
     t.date     "start_date"
     t.date     "end_date"
+    t.integer  "children_count",     :default => 0
   end
 
   create_table "articles", :force => true do |t|
@@ -61,6 +62,7 @@ ActiveRecord::Schema.define(:version => 41) do
     t.boolean  "published",          :default => true
     t.date     "start_date"
     t.date     "end_date"
+    t.integer  "children_count",     :default => 0
   end
 
   create_table "articles_categories", :id => false, :force => true do |t|
@@ -96,6 +98,7 @@ ActiveRecord::Schema.define(:version => 41) do
     t.float   "lat"
     t.float   "lng"
     t.boolean "display_in_menu", :default => false
+    t.integer "children_count",  :default => 0
   end
 
   create_table "categories_profiles", :id => false, :force => true do |t|

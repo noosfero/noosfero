@@ -26,11 +26,14 @@ class ActsAsFilesystemTest < Test::Unit::TestCase
 
     a1 = profile.articles.build(:name => 'a1'); a1.save!
 
-    a1_1 = profile.articles.build(:name => 'a1.1'); a1_1.parent = a1; a1_1.save!
-    a1_2 = profile.articles.build(:name => 'a1.2'); a1_2.parent = a1; a1_2.save!
+    a1_1 = a1.children.create!(:name => 'a1.1', :profile => profile)
 
-    a1_1_1 = profile.articles.build(:name => 'a1.1.1'); a1_1_1.parent = a1_1; a1_1_1.save!
-    a1_1_2 = profile.articles.build(:name => 'a1.1.2'); a1_1_2.parent = a1_1; a1_1_2.save!
+    a1_2 = a1.children.create!(:name => 'a1.2', :profile => profile)
+
+    a1_1_1 = a1_1.children.create!(:name => 'a1.1.1', :profile => profile)
+    a1_1_2 = a1_1.children.create!(:name => 'a1.1.2', :profile => profile)
+
+    a1.reload
 
     assert_equivalent [a1, a1_1, a1_2, a1_1_1, a1_1_2], a1.map_traversal
   end
@@ -40,11 +43,14 @@ class ActsAsFilesystemTest < Test::Unit::TestCase
 
     a1 = profile.articles.build(:name => 'a1'); a1.save!
 
-    a1_1 = profile.articles.build(:name => 'a1.1'); a1_1.parent = a1; a1_1.save!
-    a1_2 = profile.articles.build(:name => 'a1.2'); a1_2.parent = a1; a1_2.save!
+    a1_1 = a1.children.create!(:name => 'a1.1', :profile => profile)
 
-    a1_1_1 = profile.articles.build(:name => 'a1.1.1'); a1_1_1.parent = a1_1; a1_1_1.save!
-    a1_1_2 = profile.articles.build(:name => 'a1.1.2'); a1_1_2.parent = a1_1; a1_1_2.save!
+    a1_2 = a1.children.create!(:name => 'a1.2', :profile => profile)
+
+    a1_1_1 = a1_1.children.create!(:name => 'a1.1.1', :profile => profile)
+    a1_1_2 = a1_1.children.create!(:name => 'a1.1.2', :profile => profile)
+
+    a1.reload
 
     assert_equivalent [a1_1, a1_2, a1_1_1, a1_1_2].map(&:id), a1.all_children.map(&:id)
   end
@@ -54,11 +60,14 @@ class ActsAsFilesystemTest < Test::Unit::TestCase
 
     a1 = profile.articles.build(:name => 'a1'); a1.save!
 
-    a1_1 = profile.articles.build(:name => 'a1.1'); a1_1.parent = a1; a1_1.save!
-    a1_2 = profile.articles.build(:name => 'a1.2'); a1_2.parent = a1; a1_2.save!
+    a1_1 = a1.children.create!(:name => 'a1.1', :profile => profile)
 
-    a1_1_1 = profile.articles.build(:name => 'a1.1.1'); a1_1_1.parent = a1_1; a1_1_1.save!
-    a1_1_2 = profile.articles.build(:name => 'a1.1.2'); a1_1_2.parent = a1_1; a1_1_2.save!
+    a1_2 = a1.children.create!(:name => 'a1.2', :profile => profile)
+
+    a1_1_1 = a1_1.children.create!(:name => 'a1.1.1', :profile => profile)
+    a1_1_2 = a1_1.children.create!(:name => 'a1.1.2', :profile => profile)
+
+    a1.reload
 
     assert_equivalent ['a1', 'a1.1', 'a1.2', 'a1.1.1', 'a1.1.2'], a1.map_traversal { |item| item.name }
 
@@ -74,6 +83,13 @@ class ActsAsFilesystemTest < Test::Unit::TestCase
     assert_equal 'b/c/d', a.full_name_without_leading(1)
     assert_equal 'c/d', a.full_name_without_leading(2)
     assert_equal 'd', a.full_name_without_leading(3)
+  end
+
+  should 'cache children count' do
+    profile = create_user('testinguser').person
+    a1 = profile.articles.create!(:name => 'a1')
+    a11 = profile.articles.create!(:name => 'a11', :parent => a1)
+    a12 = profile.articles.create!(:name => 'a12', :parent => a1)
   end
 
 end

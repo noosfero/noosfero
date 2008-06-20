@@ -12,12 +12,13 @@ module ActsAsFileSystem
     #   non-alphanumericd characters changed into dashed)
     # * path (+:text+)- stores the full path of the object (the full path of
     #   the parent, a "/" and the slug of the object)
+    # * children_count - a cache of the number of children elements.
     def acts_as_filesystem
 
       include ActsAsFileSystem::InstanceMethods
 
       # a filesystem is a tree
-      acts_as_tree :order => 'name'
+      acts_as_tree :order => 'name', :counter_cache => :children_count
 
       # calculate the right path
       before_create do |record|
@@ -163,7 +164,7 @@ module ActsAsFileSystem
 
       while !current_level.empty?
         result += current_level
-        ids = current_level.map(&:id)
+        ids = current_level.select {|item| item.children_count > 0}.map(&:id)
         current_level = self.class.find(:all, :conditions => { :parent_id => ids})
       end
       block ||= (lambda { |x| x })

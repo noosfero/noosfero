@@ -55,6 +55,7 @@ class ArticleTest < Test::Unit::TestCase
     b.save!
     assert_equal 'my-article/child-article', b.path
 
+    a = Article.find(a.id);
     a.name = 'another name'
     a.save!
 
@@ -306,6 +307,21 @@ class ArticleTest < Test::Unit::TestCase
     c1 = art.comments.build(:title => 'test comment', :body => 'anything', :author => owner); c1.save!
 
     assert_includes Article.find_by_contents('anything'), art
+  end
+
+  should 'cache children count' do
+    owner = create_user('testuser').person
+    art = owner.articles.build(:name => 'ytest'); art.save!
+
+    # two children articles
+    art.children.create!(:profile => owner, :name => 'c1')
+    art.children.create!(:profile => owner, :name => 'c2')
+
+    art.reload
+
+    assert_equal 2, art.children_count
+    assert_equal 2, art.children.size
+
   end
 
 end
