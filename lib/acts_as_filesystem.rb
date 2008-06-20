@@ -158,15 +158,13 @@ module ActsAsFileSystem
     end
 
     def map_traversal(&block)
-      stack = []
       result = []
-      stack.push(self)
-      while !stack.empty?
-        element = stack.pop
-        result.push(element)
-        element.children.reverse.each do |item|
-          stack.push(item)
-        end
+      current_level = [self]
+
+      while !current_level.empty?
+        result += current_level
+        ids = current_level.map(&:id)
+        current_level = self.class.find(:all, :conditions => { :parent_id => ids})
       end
       block ||= (lambda { |x| x })
       result.map(&block)
