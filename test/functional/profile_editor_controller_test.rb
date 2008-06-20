@@ -408,4 +408,10 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     assert assigns(:to_disable).enabled?
   end
 
+  should 'link to create community' do
+    profile = Person['ze']
+    get :index, :profile => profile.identifier
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/memberships/new_community" }
+  end
+  
 end

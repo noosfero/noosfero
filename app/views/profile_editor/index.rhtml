@@ -40,6 +40,11 @@
 
 <% if @profile.person? %>
   <h2><%= _('Manage my groups') %></h2>
+
+  <% button_bar do %>
+    <%= button(:add, _('Create a new community'), :controller => 'memberships', :action => 'new_community') %>
+    <%= button(:add, _('Register a new Enterprise'), :controller => 'enterprise_registration') %>
+  <% end %>
  
   <% file_manager do %>
 
@@ -47,11 +52,6 @@
       <%= file_manager_button(group.name, profile_icon(group) , :profile => group.identifier, :controller => 'profile_editor' ) %>
     <% end %>
 
-  <% end %>
-
-  <% button_bar do %>
-    <%= button(:add, _('Register a new Enterprise'), :controller => 'enterprise_registration') %>
-    <%= button(:edit, _('Manage my organizations'), :controller => 'memberships') %>
   <% end %>
 
 <% end %>

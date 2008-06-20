@@ -25,6 +25,7 @@
 }
 
 .profile-info-options {
-  text-align: center;
+  padding-top: 20px;
+  text-align: right;
+  padding-right: 5px;
 }
-
