@@ -90,6 +90,8 @@ class CategoryFinderTest < ActiveSupport::TestCase
     c4 = Category.create!(:name => 'child 2', :environment => Environment.default, :parent => c1)
     c5 = Category.create!(:name => 'grandchild 2', :environment => Environment.default, :parent => c4)
 
+    c1.reload
+
     assert_equivalent [c1,c2,c3,c4,c5].map(&:id), CategoryFinder.new(c1).category_ids
   end
 
@@ -97,6 +99,8 @@ class CategoryFinderTest < ActiveSupport::TestCase
     parent = Category.create!(:name => 'parent category', :environment => Environment.default)
     child  = Category.create!(:name => 'child category', :environment => Environment.default, :parent => parent)
     p1 = create_user('people_1').person; p1.name = 'a beautiful person'; p1.categories << child; p1.save!
+
+    parent.reload
 
     f = CategoryFinder.new(parent)
     assert_includes f.find(:people, 'beautiful'), p1

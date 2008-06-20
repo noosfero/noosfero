@@ -90,6 +90,7 @@ class RssFeedTest < Test::Unit::TestCase
     a3_2 = a3.children.build(:name => 'article 3.2', :parent => a3, :profile => profile); a3_2.save!
     a3_2_1 = a3_2.children.build(:name => 'article 3.2.1', :parent => a3_2, :profile => profile); a3_2_1.save!
 
+    a3.reload
     feed = RssFeed.new(:name => 'testfeed')
     feed.parent = a3
     feed.profile = profile
