@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.10.0\n"
-"POT-Creation-Date: 2008-06-20 21:48-0300\n"
-"PO-Revision-Date: 2008-06-20 22:06-0300\n"
+"POT-Creation-Date: 2008-06-20 22:23-0300\n"
+"PO-Revision-Date: 2008-06-20 22:23-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -3653,7 +3653,7 @@ msgstr ""
 "comunidade virtual."
 
 #: app/views/account/invalid_enterprise_code.rhtml:1
-msgid "Invalid enteprise code"
+msgid "Invalid enterprise code"
 msgstr "Código de empreendimento inválido"
 
 #: app/views/account/invalid_enterprise_code.rhtml:4
@@ -3782,8 +3782,8 @@ msgid ""
 "click on the \"<b>I forgot my password!</b>\" link. ;-)"
 msgstr ""
 "Preencha todos os campos para ativar seu empreendimento e entrar neste "
-"ambiente.<p/>Se você esqueceu sua senha, não crie uma nova conta, "
-"clique no link \"<b>Eu esqueci minha senha!</b>\". ;-)"
+"ambiente.<p/>Se você esqueceu sua senha, não crie uma nova conta, clique no "
+"link \"<b>Eu esqueci minha senha!</b>\". ;-)"
 
 #: app/views/account/activate_enterprise.rhtml:27
 msgid "What year your enterprise was founded?"
