@@ -51,6 +51,11 @@ class AdminPanelControllerTest < Test::Unit::TestCase
     get :index
     assert_tag :tag => 'a', :attributes => { :href => '/admin/region_validators' }
   end
+
+  should 'link to edit message for disabled enterprise' do
+    get :index
+    assert_tag :tag => 'a', :attributes => { :href => '/admin/admin_panel/message_for_disabled_enterprise' }
+  end
   
   should 'display form for editing site info' do
     get :site_info
@@ -58,18 +63,36 @@ class AdminPanelControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'textarea', :attributes => { :name => 'environment[description]'}
   end
 
-  should 'save site description' do
+  should 'display form for editing message for disabled enterprise' do
+    get :message_for_disabled_enterprise
+    assert_template 'message_for_disabled_enterprise'
+    assert_tag :tag => 'textarea', :attributes => { :name => 'environment[message_for_disabled_enterprise]'}
+  end
 
+  should 'save site description' do
     post :site_info, :environment => { :description => "This is my new environment" }
     assert_redirected_to :action => 'index'
 
     assert_equal "This is my new environment", Environment.default.description
   end
 
-  should 'sanitize description with white_list' do
-    post :site_info, :environment => { :description => "This <strong>is</strong> <scrypt>alert('alow')</script>my new environment" }
+  should 'save message for disabled enterprise' do
+    post :site_info, :environment => { :message_for_disabled_enterprise => "This enterprise is disabled" }
     assert_redirected_to :action => 'index'
-    assert_equal "This <strong>is</strong> alert('alow')my new environment", Environment.default.description
+
+    assert_equal "This enterprise is disabled", Environment.default.message_for_disabled_enterprise
+  end
+
+  should 'sanitize description with white_list' do
+    post :site_info, :environment => { :description => "This <strong>is</strong> <script>alert('alow')</script>my new environment" }
+    assert_redirected_to :action => 'index'
+    assert_equal "This <strong>is</strong> my new environment", Environment.default.description
+  end
+
+  should 'sanitize message for disabled enterprise with white_list' do
+    post :site_info, :environment => { :message_for_disabled_enterprise => "This <strong>is</strong> <script>alert('alow')</script>my new environment" }
+    assert_redirected_to :action => 'index'
+    assert_equal "This <strong>is</strong> my new environment", Environment.default.message_for_disabled_enterprise
   end
 
 end
