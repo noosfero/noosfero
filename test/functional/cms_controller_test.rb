@@ -464,4 +464,15 @@ class CmsControllerTest < Test::Unit::TestCase
     end
   end
 
+  should 'be able to create a new event document' do
+    get :new, :type => 'Event', :profile => profile.identifier
+    assert_response :success
+    #assert_template 'select_article_type'
+
+    ## TODO add more types here !!
+    #[ TinyMceArticle, TextileArticle ].each do |item|
+    #  assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?type=#{item.name}" }
+    #end
+  end
+
 end
