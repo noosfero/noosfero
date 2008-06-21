@@ -112,7 +112,7 @@ new_ent({ :name => #{ent.nome.inspect},
           :contact_email => #{email.inspect},
           :foundation_year => #{ent.extra_data.ANO.inspect},
           :cnpj => #{ent.extra_data.CNPJ.inspect},
-          :categories => [cities[#{ent.id_cidade}]]
+          :category_ids => [cities[#{ent.id_cidade}]].map(&:id)
         },
       [#{ent.products.map{|p| "{ :name => #{p.category.nome.inspect} , :product_category_id => categories[#{p.category.id}] }"}.join(', ')}], 
       [#{ent.input_products.map{|p| "{ :product_category_id => categories[#{p.category.id}]}" }.join(', ')}])
