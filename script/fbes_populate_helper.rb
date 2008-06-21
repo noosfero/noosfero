@@ -1,4 +1,5 @@
 require File.dirname(__FILE__) + '/../config/environment'
+require 'console_with_helpers'
 
 STATES = {
   12 => Region.find_by_name('Acre'),
