@@ -21,7 +21,7 @@ class Article < ActiveRecord::Base
 
   def add_category(c)
     if self.id
-      ArticleCategorization.create!(:category => c, :article => self)
+      ArticleCategorization.add_category_to_article(c, self)
     else
       pending_categorizations << c
     end
@@ -37,7 +37,7 @@ class Article < ActiveRecord::Base
   after_create :create_pending_categorizations
   def create_pending_categorizations
     pending_categorizations.each do |item|
-      ArticleCategorization.create!(:category => item, :article => self)
+      ArticleCategorization.add_category_to_article(item, self)
     end
     pending_categorizations.clear
   end

@@ -390,7 +390,7 @@ class ProfileTest < Test::Unit::TestCase
   should 'have categories' do
     c = Profile.create!(:name => 'my test profile', :identifier => 'mytestprofile')
     cat = Environment.default.categories.build(:name => 'a category'); cat.save!
-    c.categories << cat
+    c.add_category cat
     c.save!
     assert_includes c.categories, cat
   end

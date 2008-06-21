@@ -109,7 +109,7 @@ class Profile < ActiveRecord::Base
 
   def add_category(c)
     if self.id
-      ProfileCategorization.create!(:category => c, :profile => self)
+      ProfileCategorization.add_category_to_profile(c, self)
     else
       pending_categorizations << c
     end
@@ -125,7 +125,7 @@ class Profile < ActiveRecord::Base
   after_create :create_pending_categorizations
   def create_pending_categorizations
     pending_categorizations.each do |item|
-      ProfileCategorization.create!(:category => item, :profile => self)
+      ProfileCategorization.add_category_to_profile(item, self)
     end
     pending_categorizations.clear
   end

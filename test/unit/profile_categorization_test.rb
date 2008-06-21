@@ -5,7 +5,7 @@ class ProfileCategorizationTest < ActiveSupport::TestCase
   should 'have profile and category' do
     person = create_user('test_user').person
     cat = Environment.default.categories.build(:name => 'a category'); cat.save!
-    person.categories << cat
+    person.add_category cat
     person.save!
     assert_includes person.categories, cat
     assert_includes cat.people, person
@@ -19,7 +19,7 @@ class ProfileCategorizationTest < ActiveSupport::TestCase
     p = create_user('testuser').person
 
     assert_difference ProfileCategorization, :count, 2 do
-      ProfileCategorization.create!(:category => c2, :profile => p)
+      ProfileCategorization.add_category_to_profile(c2, p)
     end
 
     assert_equal 2, ProfileCategorization.find_all_by_profile_id(p.id).size
@@ -33,8 +33,8 @@ class ProfileCategorizationTest < ActiveSupport::TestCase
     p = create_user('testuser').person
 
     assert_difference ProfileCategorization, :count, 3 do
-      ac = ProfileCategorization.create!(:category => c2, :profile => p)
-      ac = ProfileCategorization.create!(:category => c3, :profile => p)
+      ProfileCategorization.add_category_to_profile(c2, p)
+      ProfileCategorization.add_category_to_profile(c3, p)
     end
   end
 
@@ -45,8 +45,8 @@ class ProfileCategorizationTest < ActiveSupport::TestCase
 
     p = create_user('testuser').person
 
-    ac = ProfileCategorization.create!(:category => c2, :profile => p)
-    ac = ProfileCategorization.create!(:category => c3, :profile => p)
+    ProfileCategorization.add_category_to_profile(c2, p)
+    ProfileCategorization.add_category_to_profile(c3, p)
 
     assert_difference ProfileCategorization, :count, -3 do
       ProfileCategorization.remove_all_for(p)

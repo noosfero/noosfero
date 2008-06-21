@@ -484,7 +484,7 @@ class SearchControllerTest < Test::Unit::TestCase
     child  = Category.create!(:name => 'Child Category', :environment => Environment.default, :parent => parent)
 
     p = create_user('test_profile').person
-    p.categories << child
+    p.add_category child
     p.save!
 
     get :index, :category_path => ['parent-category'], :query => 'test_profile', :find_in => ['people']
@@ -563,10 +563,10 @@ class SearchControllerTest < Test::Unit::TestCase
   should 'display people with a given initial, under a specific category' do
 
     in_category_and_with_initial = create_user('fergunson').person
-    in_category_and_with_initial.categories << @category
+    in_category_and_with_initial.add_category @category
 
     in_category_but_without_initial = create_user('yanerson').person
-    in_category_but_without_initial.categories << @category
+    in_category_but_without_initial.add_category  @category
 
     not_in_category_but_with_initial = create_user('fergy').person
     not_in_category_and_without_initial = create_user('xalanxalan').person
@@ -580,8 +580,8 @@ class SearchControllerTest < Test::Unit::TestCase
   end
 
   should 'display communities with a given initial, under a specific category' do
-    c1 = Community.create!(:name => 'a beautiful community', :identifier => 'bea_comm', :environment => Environment.default); c1.categories << @category
-    c2 = Community.create!(:name => 'beautiful community (another)', :identifier => 'an_bea_comm', :environment => Environment.default); c2.categories << @category
+    c1 = Community.create!(:name => 'a beautiful community', :identifier => 'bea_comm', :environment => Environment.default); c1.add_category @category
+    c2 = Community.create!(:name => 'beautiful community (another)', :identifier => 'an_bea_comm', :environment => Environment.default); c2.add_category @category
 
     c3 = Community.create!(:name => 'another beautiful community', :identifier => 'lalala', :environment => Environment.default);
     c4 = Community.create!(:name => 'damn beautiful community (another)', :identifier => 'lelele', :environment => Environment.default)
@@ -595,8 +595,8 @@ class SearchControllerTest < Test::Unit::TestCase
   end
 
   should 'display enterprises with a given initial, under a specific category' do
-    ent1 = Enterprise.create!(:name => 'aaaaa', :identifier => 'teste1'); ent1.categories << @category
-    ent2 = Enterprise.create!(:name => 'bbbbb', :identifier => 'teste2'); ent1.categories << @category
+    ent1 = Enterprise.create!(:name => 'aaaaa', :identifier => 'teste1'); ent1.add_category @category
+    ent2 = Enterprise.create!(:name => 'bbbbb', :identifier => 'teste2'); ent1.add_category @category
     ent3 = Enterprise.create!(:name => 'aaaa1111', :identifier => 'teste1111')
     ent4 = Enterprise.create!(:name => 'ddddd', :identifier => 'teste2222')
 
@@ -611,9 +611,9 @@ class SearchControllerTest < Test::Unit::TestCase
   should 'display articles with a given initial, under a specific category' do
     person = create_user('teste').person
     art1 = person.articles.build(:name => 'an article to be found'); art1.save!
-    art1.categories << @category
+    art1.add_category @category
     art2 = person.articles.build(:name => 'better article'); art2.save!
-    art2.categories << @category
+    art2.add_category @category
 
     art3 = person.articles.build(:name => 'another article to be found'); art3.save!
     art4 = person.articles.build(:name => 'damn article'); art4.save!

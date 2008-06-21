@@ -175,14 +175,8 @@ class ArticleTest < Test::Unit::TestCase
     article = profile.articles.build(:name => 'withcategories')
     article.save!
 
-    assert_raise ActiveRecord::AssociationTypeMismatch do
-      article.categories << 1  
-    end
-
-    assert_nothing_raised do
-      article.categories << c1
-      article.categories << c2
-    end
+    article.add_category c1
+    article.add_category c2
 
     assert_equivalent [c1,c2], article.categories(true)
   end

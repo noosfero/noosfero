@@ -3,13 +3,13 @@ class ProfileCategorization < ActiveRecord::Base
   belongs_to :profile
   belongs_to :category
 
-  after_create :associate_with_entire_hierarchy
-  def associate_with_entire_hierarchy
-    return if virtual
+  def self.add_category_to_profile(category, profile)
+
+    connection.execute("insert into categories_profiles (category_id, profile_id) values(#{category.id}, #{profile.id})")
 
     c = category.parent
-    while !c.nil? && !self.class.find(:first, :conditions => {:profile_id => profile, :category_id => c}) 
-      self.class.create!(:profile => profile, :category => c, :virtual => true)
+    while !c.nil? && !self.find(:first, :conditions => {:profile_id => profile, :category_id => c}) 
+      connection.execute("insert into categories_profiles (category_id, profile_id, virtual) values(#{c.id}, #{profile.id}, 1>0)")
       c = c.parent
     end
   end

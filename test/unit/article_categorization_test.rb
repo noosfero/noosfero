@@ -25,7 +25,7 @@ class ArticleCategorizationTest < Test::Unit::TestCase
     a = p.articles.create!(:name => 'test')
 
     assert_difference ArticleCategorization, :count, 2 do
-      ArticleCategorization.create!(:category => c2, :article => a)
+      ArticleCategorization.add_category_to_article(c2, a)
     end
 
     assert_equal 2, ArticleCategorization.find_all_by_article_id(a.id).size
@@ -40,8 +40,8 @@ class ArticleCategorizationTest < Test::Unit::TestCase
     a = p.articles.create!(:name => 'test')
 
     assert_difference ArticleCategorization, :count, 3 do
-      ac = ArticleCategorization.create!(:category => c2, :article => a)
-      ac = ArticleCategorization.create!(:category => c3, :article => a)
+      ArticleCategorization.add_category_to_article(c2, a)
+      ArticleCategorization.add_category_to_article(c3, a)
     end
   end
 
@@ -53,8 +53,8 @@ class ArticleCategorizationTest < Test::Unit::TestCase
     p = create_user('testuser').person
     a = p.articles.create!(:name => 'test')
 
-    ac = ArticleCategorization.create!(:category => c2, :article => a)
-    ac = ArticleCategorization.create!(:category => c3, :article => a)
+    ArticleCategorization.add_category_to_article(c2, a)
+    ArticleCategorization.add_category_to_article(c3, a)
 
     assert_difference ArticleCategorization, :count, -3 do
       ArticleCategorization.remove_all_for(a)

@@ -3,13 +3,12 @@ class ArticleCategorization < ActiveRecord::Base
   belongs_to :article
   belongs_to :category
 
-  after_create :associate_with_entire_hierarchy
-  def associate_with_entire_hierarchy
-    return if virtual
+  def self.add_category_to_article(category, article)
+    connection.execute("insert into articles_categories (category_id, article_id) values(#{category.id}, #{article.id})")
 
     c = category.parent
-    while !c.nil? && !self.class.find(:first, :conditions => {:article_id => article, :category_id => c}) 
-      self.class.create!(:article => article, :category => c, :virtual => true)
+    while !c.nil? && !self.find(:first, :conditions => {:article_id => article, :category_id => c})
+      connection.execute("insert into articles_categories (category_id, article_id, virtual) values(#{c.id}, #{article.id}, 1>0)")
       c = c.parent
     end
   end

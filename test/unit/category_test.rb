@@ -312,9 +312,9 @@ class CategoryTest < Test::Unit::TestCase
   should 'have people' do
     c = @env.categories.build(:name => 'my category'); c.save!
     p1 = create_user('testuser_1').person
-    p1.categories << c
+    p1.add_category c
     p2 = create_user('testuser_2').person
-    p2.categories << c
+    p2.add_category c
     assert_equal [p1, p2], c.people
   end
 
