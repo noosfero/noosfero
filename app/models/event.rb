@@ -96,6 +96,7 @@ class Event < Article
   protected
 
   def maybe_add_http(value)
+    return unless value
     if value =~ /https?:\/\//
       value
     else

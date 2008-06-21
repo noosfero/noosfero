@@ -163,4 +163,11 @@ class EventTest < ActiveSupport::TestCase
     assert_no_tag_in_string e.description, :tag => 'script'
   end
 
+  should 'nil to link' do
+    e = Event.new
+    assert_nothing_raised TypeError do
+      e.link = nil
+    end
+  end
+
 end
