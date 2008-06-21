@@ -100,7 +100,35 @@ class Profile < ActiveRecord::Base
 
   has_many :tasks, :foreign_key => :target_id
 
-  has_and_belongs_to_many :categories
+  has_many :profile_categorizations, :conditions => { :virtual => false }
+  has_many :categories, :through => :profile_categorizations
+
+  def pending_categorizations
+    @pending_categorizations ||= []
+  end
+
+  def add_category(c)
+    if self.id
+      ProfileCategorization.create!(:category => c, :profile => self)
+    else
+      pending_categorizations << c
+    end
+  end
+
+  def category_ids=(ids)
+    ProfileCategorization.remove_all_for(self)
+    ids.each do |item|
+      add_category(Category.find(item))
+    end
+  end
+
+  after_create :create_pending_categorizations
+  def create_pending_categorizations
+    pending_categorizations.each do |item|
+      ProfileCategorization.create!(:category => item, :profile => self)
+    end
+    pending_categorizations.clear
+  end
 
   def top_level_articles(reload = false)
     if reload

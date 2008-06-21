@@ -540,6 +540,46 @@ class ProfileTest < Test::Unit::TestCase
     assert profile.enabled?
   end
 
+  should 'categorize in the entire category hierarchy' do
+    c1 = Category.create!(:environment => Environment.default, :name => 'c1')
+    c2 = c1.children.create!(:environment => Environment.default, :name => 'c2')
+    c3 = c2.children.create!(:environment => Environment.default, :name => 'c3')
+
+    profile = create_user('testuser').person
+    profile.add_category(c3)
+
+
+    assert_equal [c3], profile.categories(true)
+    assert_equal [profile], c2.people(true)
+
+    assert_includes c3.people(true), profile
+    assert_includes c2.people(true), profile
+    assert_includes c1.people(true), profile
+  end
+
+  should 'redefine the entire category set at once' do
+    c1 = Category.create!(:environment => Environment.default, :name => 'c1')
+    c2 = c1.children.create!(:environment => Environment.default, :name => 'c2')
+    c3 = c2.children.create!(:environment => Environment.default, :name => 'c3')
+    c4 = c1.children.create!(:environment => Environment.default, :name => 'c4')
+    profile = Profile.create!(:name => 'my test profile', :identifier => 'mytestprofile')
+
+    profile.add_category(c4)
+
+    profile.category_ids = [c2,c3].map(&:id)
+
+    assert_equivalent [c2, c3], profile.categories(true)
+  end
+
+  should 'be able to create an profile already with categories' do
+    c1 = Category.create!(:environment => Environment.default, :name => 'c1')
+    c2 = Category.create!(:environment => Environment.default, :name => 'c2')
+
+    profile = Profile.create!(:name => 'my test profile', :identifier => 'mytestprofile', :category_ids => [c1.id, c2.id])
+
+    assert_equivalent [c1, c2], profile.categories(true)
+  end
+
   private
 
   def assert_invalid_identifier(id)
