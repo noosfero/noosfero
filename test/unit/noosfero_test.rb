@@ -23,4 +23,12 @@ class NoosferoTest < Test::Unit::TestCase
     assert_equal 'pt_BR', Noosfero.default_locale
   end
 
+  should 'identifier format' do
+    assert_match /^#{Noosfero.identifier_format}$/, 'bli-bla'
+    assert_no_match /^#{Noosfero.identifier_format}$/, 'UPPER'
+    assert_no_match /^#{Noosfero.identifier_format}$/, '129812startingwithnumber'
+    assert_match /^#{Noosfero.identifier_format}$/, 'with~tilde'
+    assert_match /^#{Noosfero.identifier_format}$/, 'with.dot'
+  end
+
 end

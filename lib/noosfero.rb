@@ -1,6 +1,6 @@
 module Noosfero
   PROJECT = 'noosfero'
-  VERSION = '0.10.0'
+  VERSION = '0.10.1'
   SVN_ROOT = 'https://svn.colivre.coop.br/svn/noosfero'
 
   def self.pattern_for_controllers_in_directory(dir)
@@ -15,6 +15,10 @@ module Noosfero
     def available_locales
       Dir.glob(File.join(RAILS_ROOT, 'locale', '*')).map { |f| File.basename(f) }
     end
+  end
+
+  def self.identifier_format
+    '[a-z][a-z0-9~.]*([_-][a-z0-9~.]+)*'
   end
 
   private

@@ -106,9 +106,12 @@ class RoutingTest < ActionController::IntegrationTest
     assert_routing('/profile/ze_with_underscore', :controller => 'profile', :action => 'index', :profile => 'ze_with_underscore')
   end
 
-  
   def test_profile_route_for_tags_with_dot
     assert_routing('/profile/ze/tag/tag.withdot', :controller => 'profile', :profile => 'ze', :action => 'tag', :id => 'tag.withdot')
+  end
+
+  def test_profile_with_tilde_routing
+    assert_routing('/profile/ze~withtilde', :controller => 'profile', :action => 'index', :profile => 'ze~withtilde')
   end
 
   def test_search_routing
@@ -137,6 +140,10 @@ class RoutingTest < ActionController::IntegrationTest
 
   def test_content_view_with_underscore
     assert_routing('/ze_with_underscore', :controller => 'content_viewer', :action => 'view_page', :profile => 'ze_with_underscore', :page => [])
+  end
+
+  def test_content_view_with_tilde_routing
+    assert_routing('/ze~withtilde', :controller => 'content_viewer', :action => 'view_page', :profile => 'ze~withtilde', :page => [])
   end
 
   def test_catalog_routing

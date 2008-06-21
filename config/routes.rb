@@ -39,7 +39,7 @@ ActionController::Routing::Routes.draw do |map|
  
 
   # public profile information
-  map.profile 'profile/:profile/:action/:id', :controller => 'profile', :action => 'index', :id => /.*/, :profile => /[a-z][a-z0-9._-]*/
+  map.profile 'profile/:profile/:action/:id', :controller => 'profile', :action => 'index', :id => /.*/, :profile => /#{Noosfero.identifier_format}/
 
   # catalog
   map.catalog 'catalog/:profile', :controller => 'catalog', :action => 'index'
@@ -77,6 +77,6 @@ ActionController::Routing::Routes.draw do |map|
 
   # *content viewing*
   # XXX this route must come last so other routes have priority over it.
-  map.homepage ':profile/*page', :controller => 'content_viewer', :action => 'view_page', :profile => /[a-z][a-z0-9._-]*/
+  map.homepage ':profile/*page', :controller => 'content_viewer', :action => 'view_page', :profile => /#{Noosfero.identifier_format}/
 
 end
