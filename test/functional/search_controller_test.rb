@@ -65,7 +65,7 @@ class SearchControllerTest < Test::Unit::TestCase
 
     # in category
     art1 = person.articles.build(:name => 'an article to be found')
-    art1.categories << @category
+    art1.add_category @category
     art1.save!
 
     # not in category
@@ -83,9 +83,9 @@ class SearchControllerTest < Test::Unit::TestCase
     person = create_user('testuser').person
     person2 = create_user('anotheruser').person
 
-    art1 = person.articles.create!(:name => 'one article', :categories => [@category])
+    art1 = person.articles.create!(:name => 'one article', :category_ids => [@category.id])
 
-    art2 = person2.articles.create!(:name => 'two article', :categories => [@category])
+    art2 = person2.articles.create!(:name => 'two article', :category_ids => [@category.id])
 
     get :assets, :asset => 'articles'
 
@@ -98,8 +98,8 @@ class SearchControllerTest < Test::Unit::TestCase
     person = create_user('testuser').person
 
     # in category
-    art1 = person.articles.create!(:name => 'one article', :categories => [@category])
-    art2 = person.articles.create!(:name => 'other article', :categories => [@category])
+    art1 = person.articles.create!(:name => 'one article', :category_ids => [@category.id])
+    art2 = person.articles.create!(:name => 'other article', :category_ids => [@category.id])
 
     # not in category
     art3 = person.articles.create!(:name => 'another article')
@@ -120,7 +120,7 @@ class SearchControllerTest < Test::Unit::TestCase
   should 'find enterprises in a specified category' do
 
     # in category
-    ent1 = Enterprise.create!(:name => 'testing enterprise 1', :identifier => 'test1', :categories => [@category])
+    ent1 = Enterprise.create!(:name => 'testing enterprise 1', :identifier => 'test1', :category_ids => [@category.id])
 
     # not in category
     ent2 = Enterprise.create!(:name => 'testing enterprise 2', :identifier => 'test2')
@@ -143,7 +143,7 @@ class SearchControllerTest < Test::Unit::TestCase
   # 'assets' menu inside a category
   should 'list enterprises in a specified category' do
     # in category
-    ent1 = Enterprise.create!(:name => 'teste 1', :identifier => 'teste1', :categories => [@category])
+    ent1 = Enterprise.create!(:name => 'teste 1', :identifier => 'teste1', :category_ids => [@category.id])
 
     # not in category
     ent2 = Enterprise.create!(:name => 'teste 2', :identifier => 'teste2')
@@ -160,7 +160,7 @@ class SearchControllerTest < Test::Unit::TestCase
   end
 
   should 'find people in a specific category' do
-    p1 = create_user('people_1').person; p1.name = 'a beautiful person'; p1.categories << @category; p1.save!
+    p1 = create_user('people_1').person; p1.name = 'a beautiful person'; p1.add_category @category; p1.save!
     p2 = create_user('people_2').person; p2.name = 'another beautiful person'; p2.save!
     get :index, :category_path => [ 'my-category' ], :query => 'beautiful', :find_in => [ 'people' ]
     assert_includes assigns(:results)[:people], p1
@@ -184,7 +184,7 @@ class SearchControllerTest < Test::Unit::TestCase
     Profile.delete_all
 
     # in category
-    p1 = create_user('test1').person; p1.categories << @category
+    p1 = create_user('test1').person; p1.add_category @category
 
     # not in category
     p2 = create_user('test2').person
@@ -202,7 +202,7 @@ class SearchControllerTest < Test::Unit::TestCase
   should 'find communities in a specified category' do
     c1 = Community.create!(:name => 'a beautiful community', :identifier => 'bea_comm', :environment => Environment.default)
     c2 = Community.create!(:name => 'another beautiful community', :identifier => 'an_bea_comm', :environment => Environment.default)
-    c1.categories << @category; c1.save!
+    c1.add_category @category; c1.save!
     get :index, :category_path => [ 'my-category' ], :query => 'beautiful', :find_in => [ 'communities' ]
     assert_includes assigns(:results)[:communities], c1
     assert_not_includes assigns(:results)[:communities], c2
@@ -222,14 +222,14 @@ class SearchControllerTest < Test::Unit::TestCase
 
     # in category
     c1 = Community.create!(:name => 'a beautiful community', :identifier => 'bea_comm', :environment => Environment.default)
-    c1.categories << @category
+    c1.add_category @category
 
     # not in category
     c2 = Community.create!(:name => 'another beautiful community', :identifier => 'an_bea_comm', :environment => Environment.default)
 
     # in category
     c3 = Community.create!(:name => 'yet another beautiful community', :identifier => 'yet_an_bea_comm', :environment => Environment.default)
-    c3.categories << @category
+    c3.add_category @category
 
     get :assets, :asset => 'communities', :category_path => [ 'my-category' ]
 
@@ -244,7 +244,7 @@ class SearchControllerTest < Test::Unit::TestCase
   end
 
   should 'find products in a specific category' do
-    ent1 = Enterprise.create!(:name => 'teste1', :identifier => 'teste1'); ent1.categories << @category
+    ent1 = Enterprise.create!(:name => 'teste1', :identifier => 'teste1'); ent1.add_category @category
     ent2 = Enterprise.create!(:name => 'teste2', :identifier => 'teste2')
     prod1 = ent1.products.create!(:name => 'a beautiful product')
     prod2 = ent2.products.create!(:name => 'another beautiful product')
@@ -271,7 +271,7 @@ class SearchControllerTest < Test::Unit::TestCase
     Profile.delete_all
 
     # in category
-    ent1 = Enterprise.create!(:name => 'teste1', :identifier => 'teste1'); ent1.categories << @category
+    ent1 = Enterprise.create!(:name => 'teste1', :identifier => 'teste1'); ent1.add_category @category
     prod1 = ent1.products.create!(:name => 'a beautiful product')
 
     # not in category
@@ -714,7 +714,7 @@ class SearchControllerTest < Test::Unit::TestCase
 
     # in category
     ev1 = create_event(person, :name => 'an event to be found')
-    ev1.categories << @category
+    ev1.add_category @category
     ev1.save!
 
     # not in category
@@ -732,9 +732,9 @@ class SearchControllerTest < Test::Unit::TestCase
     person = create_user('testuser').person
     person2 = create_user('anotheruser').person
 
-    ev1 = create_event(person, :name => 'one event', :categories => [@category])
+    ev1 = create_event(person, :name => 'one event', :category_ids => [@category.id])
 
-    ev2 = create_event(person2, :name => 'two event', :categories => [@category])
+    ev2 = create_event(person2, :name => 'two event', :category_ids => [@category.id])
 
     get :assets, :asset => 'events'
 
@@ -747,8 +747,8 @@ class SearchControllerTest < Test::Unit::TestCase
     person = create_user('testuser').person
 
     # in category
-    ev1 = create_event(person, :name => 'one event', :categories => [@category])
-    ev2 = create_event(person, :name => 'other event', :categories => [@category])
+    ev1 = create_event(person, :name => 'one event', :category_ids => [@category.id])
+    ev2 = create_event(person, :name => 'other event', :category_ids => [@category.id])
 
     # not in category
     ev3 = create_event(person, :name => 'another event')

@@ -100,7 +100,7 @@ class Profile < ActiveRecord::Base
 
   has_many :tasks, :foreign_key => :target_id
 
-  has_many :profile_categorizations, :conditions => { :virtual => false }
+  has_many :profile_categorizations, :conditions => [ 'categories_profiles.virtual = ?', false ]
   has_many :categories, :through => :profile_categorizations
 
   def pending_categorizations

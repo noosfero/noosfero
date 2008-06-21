@@ -242,11 +242,11 @@ class CategoryTest < Test::Unit::TestCase
     person = create_user('testuser').person
 
     a1 = person.articles.build(:name => 'art1')
-    a1.categories << c
+    a1.add_category c
     a1.save!
 
     a2 = person.articles.build(:name => 'art2')
-    a2.categories << c
+    a2.add_category c
     a2.save!
 
     assert_equivalent [a1, a2], c.recent_articles
@@ -257,12 +257,12 @@ class CategoryTest < Test::Unit::TestCase
     person = create_user('testuser').person
 
     a1 = person.articles.build(:name => 'art1')
-    a1.categories << c
+    a1.add_category c
     a1.save!
     c1 = a1.comments.build(:title => 'comm1', :body => 'khdkashd ', :author => person); c1.save!
 
     a2 = person.articles.build(:name => 'art2')
-    a2.categories << c
+    a2.add_category c
     a2.save!
     c2 = a2.comments.build(:title => 'comm1', :body => 'khdkashd ', :author => person); c2.save!
 
@@ -273,9 +273,9 @@ class CategoryTest < Test::Unit::TestCase
     c = @env.categories.build(:name => 'my category'); c.save!
     person = create_user('testuser').person
 
-    a1 = person.articles.build(:name => 'art1', :categories => [c]); a1.save!
-    a2 = person.articles.build(:name => 'art2', :categories => [c]); a2.save!
-    a3 = person.articles.build(:name => 'art3', :categories => [c]); a3.save!
+    a1 = person.articles.build(:name => 'art1', :category_ids => [c.id]); a1.save!
+    a2 = person.articles.build(:name => 'art2', :category_ids => [c.id]); a2.save!
+    a3 = person.articles.build(:name => 'art3', :category_ids => [c.id]); a3.save!
 
     a1.comments.build(:title => 'test', :body => 'asdsa', :author => person).save!
     5.times { a2.comments.build(:title => 'test', :body => 'asdsa', :author => person).save! }
@@ -288,9 +288,9 @@ class CategoryTest < Test::Unit::TestCase
     c = @env.categories.build(:name => 'my category'); c.save!
     person = create_user('testuser').person
 
-    a1 = person.articles.build(:name => 'art1', :categories => [c]); a1.save!
-    a2 = person.articles.build(:name => 'art2', :categories => [c]); a2.save!
-    a3 = person.articles.build(:name => 'art3', :categories => [c]); a3.save!
+    a1 = person.articles.build(:name => 'art1', :category_ids => [c]); a1.save!
+    a2 = person.articles.build(:name => 'art2', :category_ids => [c]); a2.save!
+    a3 = person.articles.build(:name => 'art3', :category_ids => [c]); a3.save!
 
     c1 = a1.comments.build(:title => 'test', :body => 'asdsa', :author => person); c1.save!
     c2 = a2.comments.build(:title => 'test', :body => 'asdsa', :author => person); c2.save!
@@ -302,9 +302,9 @@ class CategoryTest < Test::Unit::TestCase
   should 'have enterprises' do
     c = @env.categories.build(:name => 'my category'); c.save!
     ent1 = Enterprise.create!(:identifier => 'enterprise_1', :name => 'Enterprise one')
-    ent1.categories << c
+    ent1.add_category c
     ent2 = Enterprise.create!(:identifier => 'enterprise_2', :name => 'Enterprise one')
-    ent2.categories << c
+    ent2.add_category c
     assert_includes c.enterprises, ent1
     assert_includes c.enterprises, ent2
   end
@@ -321,18 +321,18 @@ class CategoryTest < Test::Unit::TestCase
   should 'have communities' do
     c = @env.categories.build(:name => 'my category'); c.save!
     c1 = Environment.default.communities.create!(:name => 'testcommunity_1')
-    c1.categories << c
+    c1.add_category c
     c2 = Environment.default.communities.create!(:name => 'testcommunity_2')
-    c2.categories << c
+    c2.add_category c
     assert_equal [c1, c2], c.communities
   end
 
   should 'have products through enteprises' do
     c = @env.categories.build(:name => 'my category'); c.save!
     ent1 = Enterprise.create!(:identifier => 'enterprise_1', :name => 'Enterprise one')
-    ent1.categories << c
+    ent1.add_category c
     ent2 = Enterprise.create!(:identifier => 'enterprise_2', :name => 'Enterprise one')
-    ent2.categories << c
+    ent2.add_category c
     prod1 = ent1.products.create!(:name => 'test_prod1')
     prod2 = ent2.products.create!(:name => 'test_prod2')
     assert_includes c.products, prod1
@@ -342,9 +342,9 @@ class CategoryTest < Test::Unit::TestCase
   should 'not have person through communities' do
     c = @env.categories.build(:name => 'my category'); c.save!
     com = Community.create!(:identifier => 'community_1', :name => 'Community one')
-    com.categories << c
+    com.add_category c
     person = create_user('test_user').person
-    person.categories << c
+    person.add_category c
     assert_includes c.communities, com
     assert_not_includes c.communities, person
   end
@@ -352,9 +352,9 @@ class CategoryTest < Test::Unit::TestCase
   should 'not have person through enterprises' do
     c = @env.categories.build(:name => 'my category'); c.save!
     ent = Enterprise.create!(:identifier => 'enterprise_1', :name => 'Enterprise one')
-    ent.categories << c
+    ent.add_category c
     person = create_user('test_user').person
-    person.categories << c
+    person.add_category c
     assert_includes c.enterprises, ent
     assert_not_includes c.enterprises, person
   end
@@ -362,9 +362,9 @@ class CategoryTest < Test::Unit::TestCase
   should 'not have enterprises through people' do
     c = @env.categories.build(:name => 'my category'); c.save!
     person = create_user('test_user').person
-    person.categories << c
+    person.add_category c
     ent = Enterprise.create!(:identifier => 'enterprise_1', :name => 'Enterprise one')
-    ent.categories << c
+    ent.add_category c
     assert_includes c.people, person
     assert_not_includes c.people, ent
   end
@@ -372,11 +372,11 @@ class CategoryTest < Test::Unit::TestCase
   should 'report the total items in this category' do
     @category = Category.create!(:name => 'my category', :environment => @env)
     # in category
-    person1 = create_user('test1').person; person1.categories << @category; person1.save!
-    art1 = person1.articles.build(:name => 'an article to be counted'); art1.categories << @category; art1.save!
+    person1 = create_user('test1').person; person1.add_category @category; person1.save!
+    art1 = person1.articles.build(:name => 'an article to be counted'); art1.add_category @category; art1.save!
     comment1 = art1.comments.build(:title => 'comment to be counted', :body => 'hfyfyh', :author => person1); comment1.save!
-    ent1 = Enterprise.create!(:name => 'test2', :identifier => 'test2', :categories => [@category])
-    com1 = Community.create!(:name => 'test3', :identifier => 'test3', :categories => [@category])
+    ent1 = Enterprise.create!(:name => 'test2', :identifier => 'test2', :category_ids => [@category.id])
+    com1 = Community.create!(:name => 'test3', :identifier => 'test3', :category_ids => [@category.id])
     prod1 = Product.create!(:name => 'test4', :enterprise => ent1)
 
     # not in category
@@ -389,15 +389,6 @@ class CategoryTest < Test::Unit::TestCase
 
     assert_equal 6, @category.total_items
   end
-
-  # NOT YET
-  #should 'list people that are categorized in children categories' do
-  #  c1 = @env.categories.create!(:name => 'top category')
-  #  c2 = @env.categories.create!(:name => 'child category', :parent => c1)
-  #  person = create_user('test_user').person
-  #  person.categories << c2
-  #  assert_includes c1.people, person
-  #end
 
   should 'have image' do
     assert_difference Category, :count do

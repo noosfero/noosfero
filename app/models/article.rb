@@ -12,7 +12,7 @@ class Article < ActiveRecord::Base
 
   has_many :comments, :dependent => :destroy
 
-  has_many :article_categorizations, :conditions => { :virtual => false }
+  has_many :article_categorizations, :conditions => [ 'articles_categories.virtual = ?', false ]
   has_many :categories, :through => :article_categorizations
 
   def pending_categorizations
