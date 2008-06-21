@@ -18,7 +18,9 @@
   <% end %>
 </table>
 
-<p> <%= link_to _('New product or service'), :action => 'new' %> </p>
+<%= button :add, _('New product or service'), :action => 'new' %>
+
+<br /> &nbsp;
 
 <h3> <%=_('Listing raw materials') %> </h3>
 
@@ -42,6 +44,9 @@
   <% end %>
 </table>
 
-<p> <%= link_to _('Add raw material'), :action => 'new_consumption' %> </p>
+<%= button :add, _('Add raw material'), :action => 'new_consumption' %>
 
-<%= link_to_myprofile(_('Back'), {}, @profile.identifier)  %>
+<p>
+<%= link_to_myprofile( '<span>'+ _('Back') +'</span>', {}, @profile.identifier, :class => 'button with-text icon-back' ) %>
+</p>
+

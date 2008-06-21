@@ -1,11 +1,12 @@
 <h3> <%= @product.name %> </h3>
 
 <p> <%= image_tag @product.image.public_filename if @product.image %> </p>
-<p> <%= _('Price:') %> <%= @product.price %> </p>
-<p> <%= _('Description:') %> <%= @product.description %> </p>
-<p> <%= _('Category:') %> <%= link_to_category(@product.product_category) %> </p>
+<p> <strong><%= _('Price:') %></strong> <%= @product.price %> </p>
+<p> <strong><%= _('Description:') %></strong> <%= txt2html @product.description  if @product.description %> </p>
+<p> <strong><%= _('Category:') %></strong> <%= link_to_category(@product.product_category) %> </p>
 
-<%= link_to _('edit'), :action => 'edit', :id => @product %>
-<%= link_to _('destroy'), :action => 'destroy', :id => @product %>
-<br/>
-<%= link_to _('back'), :action => 'index' %>
+<%= button :back, _('back'), :action => 'index' %>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<%= button :delete, _('destroy'), :action => 'destroy', :id => @product %>
+<%= button :edit, _('edit'), :action => 'edit', :id => @product %>
+
