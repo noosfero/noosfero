@@ -83,27 +83,60 @@ class CategoryFinderTest < ActiveSupport::TestCase
     assert_not_includes list, prod2
   end
 
-  should 'load ids for category full hierarchy' do
-    c1 = Category.create!(:name => 'parent', :environment => Environment.default)
-    c2 = Category.create!(:name => 'child 1', :environment => Environment.default, :parent => c1)
-    c3 = Category.create!(:name => 'grandchild', :environment => Environment.default, :parent => c2)
-    c4 = Category.create!(:name => 'child 2', :environment => Environment.default, :parent => c1)
-    c5 = Category.create!(:name => 'grandchild 2', :environment => Environment.default, :parent => c4)
-
-    c1.reload
-
-    assert_equivalent [c1,c2,c3,c4,c5].map(&:id), CategoryFinder.new(c1).category_ids
-  end
-
-  should 'search in category hierarchy' do
+  should 'search people in category hierarchy' do
     parent = Category.create!(:name => 'parent category', :environment => Environment.default)
     child  = Category.create!(:name => 'child category', :environment => Environment.default, :parent => parent)
-    p1 = create_user('people_1').person; p1.name = 'a beautiful person'; p1.add_category(child); p1.save!
+    p1 = create_user('people_1').person
+    p1.name = 'a beautiful person'
+    p1.add_category(child)
+    p1.save!
 
     parent.reload
 
     f = CategoryFinder.new(parent)
     assert_includes f.find(:people, 'beautiful'), p1
+  end
+
+  should 'search article in category hierarchy' do
+    parent = Category.create!(:name => 'parent category', :environment => Environment.default)
+    child  = Category.create!(:name => 'child category', :environment => Environment.default, :parent => parent)
+
+    p1 = create_user('people_1').person
+
+    article = p1.articles.create!(:name => 'a beautiful article', :category_ids => [child.id])
+
+    parent.reload
+
+    f = CategoryFinder.new(parent)
+    assert_includes f.find(:articles, 'beautiful'), article
+  end
+
+  should 'find communites by initial in category hierarchy' do
+    parent = Category.create!(:name => 'parent category', :environment => Environment.default)
+    child  = Category.create!(:name => 'child category', :environment => Environment.default, :parent => parent)
+    p1 = create_user('people_1').person
+    p1.name = 'person with inner beaity'
+    p1.add_category(child)
+    p1.save!
+
+    parent.reload
+
+    f = CategoryFinder.new(parent)
+    assert_includes f.find_by_initial(:people, 'p'), p1
+  end
+
+  should 'find articles by initial in category hierarchy' do
+    parent = Category.create!(:name => 'parent category', :environment => Environment.default)
+    child  = Category.create!(:name => 'child category', :environment => Environment.default, :parent => parent)
+
+    p1 = create_user('people_1').person
+
+    article = p1.articles.create!(:name => 'fucking beautiful article', :category_ids => [child.id])
+
+    parent.reload
+
+    f = CategoryFinder.new(parent)
+    assert_includes f.find_by_initial(:articles, 'f'), article
   end
 
   should 'list recent enterprises' do

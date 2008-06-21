@@ -2,10 +2,10 @@ class CategoryFinder
 
   def initialize(cat)
     @category = cat
-    @category_ids = @category.map_traversal(&:id)
+    @category_id = @category.id
   end
 
-  attr_reader :category_ids
+  attr_reader :category_id
 
   
 
@@ -43,7 +43,7 @@ class CategoryFinder
   def current_events(year, month)
     range = Event.date_range(year, month)
 
-    Event.find(:all, :include => :categories, :conditions => { 'categories.id' => category_ids, :start_date => range })
+    Event.find(:all, :include => :categories, :conditions => { 'categories.id' => category_id, :start_date => range })
   end
 
   protected
@@ -57,15 +57,17 @@ class CategoryFinder
     
     case klass.name
     when 'Comment'
-      {:select => 'distinct comments.*', :joins => 'inner join articles_categories on articles_categories.article_id = comments.article_id', :conditions => ['articles_categories.category_id in (?)', category_ids]}.merge!(options)
+      {:select => 'distinct comments.*', :joins => 'inner join articles_categories on articles_categories.article_id = comments.article_id', :conditions => ['articles_categories.category_id = (?)', category_id]}.merge!(options)
     when 'Product'
       if prod_cat_ids
-        {:joins => 'inner join categories_profiles on products.enterprise_id = categories_profiles.profile_id', :conditions => ['categories_profiles.category_id in (?) and products.product_category_id in (?)', category_ids, prod_cat_ids]}.merge!(options)
+        {:joins => 'inner join categories_profiles on products.enterprise_id = categories_profiles.profile_id', :conditions => ['categories_profiles.category_id in (?) and products.product_category_id = (?)', category_id, prod_cat_ids]}.merge!(options)
       else
-        {:joins => 'inner join categories_profiles on products.enterprise_id = categories_profiles.profile_id', :conditions => ['categories_profiles.category_id in (?)', category_ids]}.merge!(options)
+        {:joins => 'inner join categories_profiles on products.enterprise_id = categories_profiles.profile_id', :conditions => ['categories_profiles.category_id = (?)', category_id]}.merge!(options)
       end
-    when 'Article', 'Person', 'Community', 'Enterprise', 'Event'
-      {:include => 'categories', :conditions => ['categories.id IN (?)', category_ids]}.merge!(options)
+    when 'Article', 'Event'
+      {:joins => 'inner join articles_categories on (articles_categories.article_id = articles.id)', :conditions => ['articles_categories.category_id = (?)', category_id]}.merge!(options)
+    when 'Person', 'Community', 'Enterprise'
+      {:joins => 'inner join categories_profiles on (categories_profiles.profile_id = profiles.id)', :conditions => ['categories_profiles.category_id = (?)', category_id]}.merge!(options)
     else
       raise "unreconized class #{klass.name}"
     end
@@ -75,9 +77,11 @@ class CategoryFinder
     # FIXME copy/pasted from options_for_find above !!!
     case klass.name
     when 'Product'
-      {:select => 'distinct products.*', :joins => 'inner join categories_profiles on products.enterprise_id = categories_profiles.profile_id', :conditions => ['categories_profiles.category_id in (?) and (products.name like (?) or products.name like (?))', category_ids, initial + '%', initial.upcase + '%']}
-    when 'Article', 'Person', 'Community', 'Enterprise'
-      {:include => 'categories', :conditions => ['categories.id IN (?) and (%s.name like (?) or %s.name like (?))' % [klass.table_name, klass.table_name], category_ids, initial + '%', initial.upcase + '%']}
+      {:select => 'distinct products.*', :joins => 'inner join categories_profiles on products.enterprise_id = categories_profiles.profile_id', :conditions => ['categories_profiles.category_id = (?) and (products.name like (?) or products.name like (?))', category_id, initial + '%', initial.upcase + '%']}
+    when 'Article'
+      {:joins => 'inner join articles_categories on (articles_categories.article_id = articles.id)', :conditions => ['articles_categories.category_id = (?) and (%s.name like (?) or %s.name like (?))' % [klass.table_name, klass.table_name], category_id, initial + '%', initial.upcase + '%']}
+    when 'Person', 'Community', 'Enterprise'
+      {:joins => 'inner join categories_profiles on (categories_profiles.profile_id = profiles.id)', :conditions => ['categories_profiles.category_id = (?) and (%s.name like (?) or %s.name like (?))' % [klass.table_name, klass.table_name], category_id, initial + '%', initial.upcase + '%']}
     else
       raise "unreconized class #{klass.name}"
     end
