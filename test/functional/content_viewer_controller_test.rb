@@ -266,4 +266,11 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'div', :attributes => { :id => 'profile-disabled' }, :content => Environment.default.message_for_disabled_enterprise
   end
 
+  should 'not show message for disabled enterprise to non-enterprises' do
+    login_as(@profile.identifier)
+    @profile.enabled = false; @profile.save!
+    get :view_page, :profile => @profile.identifier, :page => []
+    assert_no_tag :tag => 'div', :attributes => { :id => 'profile-disabled' }, :content => Environment.default.message_for_disabled_enterprise
+  end
+
 end

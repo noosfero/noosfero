@@ -1,4 +1,4 @@
-<% unless profile.enabled? %>
+<% if profile.enterprise? and !profile.enabled? %>
   <div id='profile-disabled'>
     <%= environment.message_for_disabled_enterprise %>
   </div>
