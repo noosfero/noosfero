@@ -1,15 +1,25 @@
 <h1> <%= _('%s:Products/Services') % @profile.name %> </h1>
 
-<table align='center'>
-  <tr>
-    <th colspan="2"><%= _('Product/Service') %></th>
-    <th><%= _('Price') %></th>
-  </tr>
-<% @products.each do |p| %>
-  <tr>
-    <td> <%= image_tag p.image.public_filename if p.image %> </td>
-    <td> <%= link_to p.name, :action => 'show', :id => p %> </td>
-    <td> <%= p.price || content_tag('em', _('not informed'))  %> </th>
-  </tr>
+<ul id="product_list">
+<% @products.each do |product| %>
+  <li class="product">
+    <%= link_to_product product, :class => 'product-pic', :style => 'background-image:url(%s)' %
+          ( product.image ? product.image.public_filename(:portrait) : '/images/icons-app/product-default-pic-portrait.png' ) %>
+    <h3>
+      <%= link_to_product product %>
+    </h3> 
+    <ul>
+      <li class="product_price"> <%= _('Price: %s') % ( product.price ? "%.2f" % product.price : content_tag('em', _('not informed')) ) %> </li>
+      <li class="product_category"> <%= link_to_category(product.product_category) %> </li>
+    </ul>
+    <% if product.description %>
+    <div class="description">
+      <%= txt2html product.description %>
+    <div>
+    <% else %>
+    <br style="clear:both" />
+    <% end %>
+  </li>
 <% end %>
-</table>
+<ul>
+

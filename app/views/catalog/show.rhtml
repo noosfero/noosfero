@@ -1,31 +1,23 @@
+<div id="show_product">
+
 <h1> <%= @product.name %> </h1>
 
-<table>
-  <tr>
-    <td>
-      <%= image_tag @product.image.public_filename, :style => 'float: left;' if @product.image %>
-    </td>
-    <td>
-      <%= @product.description %>
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <ul>
-        <li>
-        <strong><%= _('Price:') %></strong>
-        <%= @product.price || _('not informed') %>
-        </li>
-        <li>
-        <%= _('Category: %s ') % link_to_category(@product.product_category) %> <br/>
-        </li>
-      </ul>
-    </td>
-  </tr>
-</table>
+<%= image_tag @product.image.public_filename, :class => 'product-pic' if @product.image %>
 
+<div class="product_description">
+<%= txt2html @product.description  if @product.description %>
+</div>
 
+<p class="product_price">
+<%= _('Price: %s') % ( @product.price ? "<strong>%.2f</strong>" % @product.price : content_tag('em', _('not informed')) ) %>
+</p>
+
+<p class="product_category">
+<%= _('Category: %s ') % link_to_category(@product.product_category) %>
+</p>
 
 <% button_bar do %>
   <%= button :back, _("%s's products/services listing") % profile.name, :action => 'index', :id => nil %>
 <% end %>
+
+</div>

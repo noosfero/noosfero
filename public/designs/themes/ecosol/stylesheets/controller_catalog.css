@@ -1,0 +1,19 @@
+
+/* * * List Products * * * * * * * * * * * * */
+
+#content #product_list li {
+  list-style-image: none;
+}
+
+#content #product_list li.product {
+  border: none;
+  background: #B8CFE7;
+  -moz-border-radius: 15px;
+}
+
+/* * * Show Product * * * * * * * * * * * * */
+
+#show_product .product-pic {
+  border: 1px solid #027;
+}
+

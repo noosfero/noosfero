@@ -621,4 +621,15 @@ module ApplicationHelper
     end
   end
 
+  def txt2html(txt)
+    txt.
+      gsub( /\n\s*\n/, ' <p/> ' ).
+      gsub( /\n/, ' <br/> ' ).
+      gsub( /(^|\s)(www\.[^\s])/, '\1http://\2' ).
+      gsub( /(https?:\/\/([^\s]+))/,
+            '<a href="\1" target="_blank" rel="nofolow" onclick="return confirm(\'' +
+            escape_javascript( _('Are you sure you want to visit this web site?') ) +
+            '\n\n\'+this.href)">\2</a>' )
+  end
+
 end
