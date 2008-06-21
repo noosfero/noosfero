@@ -51,6 +51,7 @@ class CategoryFinder
   def options_for_find(klass, options={})
     if defined? options[:product_category]
       prod_cat = options.delete(:product_category)
+      # FIXME this is SLOOOOW
       prod_cat_ids = prod_cat.map_traversal(&:id) if prod_cat
     end
     
