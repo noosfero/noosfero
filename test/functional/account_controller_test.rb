@@ -39,9 +39,10 @@ class AccountControllerTest < Test::Unit::TestCase
   end
 
   def test_should_fail_login_and_not_redirect
+    @request.env["HTTP_REFERER"] = 'bli'
     post :login, :user => {:login => 'johndoe', :password => 'bad password'}
     assert_nil session[:user]
-    assert_response :success
+    assert_response :redirect
   end
 
   def test_should_allow_signup

@@ -21,6 +21,7 @@ class AccountController < PublicController
       flash[:notice] = _("Logged in successfully")
     else
       flash[:notice] = _('Incorrect username or password')
+      redirect_to :back
     end
   end
 
