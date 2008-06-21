@@ -1,0 +1,8 @@
+setup :fixtures => :all
+include_partial 'login'
+click_and_wait 'link=My Home Page'
+assert_not_visible 'id=addthis_dropdown15'
+mouse_over 'css=a[class=bt_addthis]'
+assert_visible 'id=addthis_dropdown15'
+
+# vim: ft=ruby
