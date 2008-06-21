@@ -47,9 +47,9 @@ if ( window.parent == window ) {
 } else {
   var randTit = "iframe"+ Math.random();
   window.frameHelpId = randTit;
-  var frames = window.parent.document.getElementsByTagName("iframe");
+  var docFrames = window.parent.document.getElementsByTagName("iframe");
   var f;
-  for ( var i=0; f=frames[i]; i++ ) {
+  for ( var i=0; f=docFrames[i]; i++ ) {
     if ( f.contentWindow && ( f.contentWindow.frameHelpId == randTit ) ) {
       pageHelp.myFrame = f;
     }

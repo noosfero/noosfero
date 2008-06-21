@@ -267,17 +267,6 @@ div.auto-complete li.selected {
   color: #204A87;
 }
 
-/* addThis button */
-
-.bt_addthis {
-  float: right;
-  margin: 0px;
-}
-
-#addthis_dropdown15 table td {
-  border: none;
-}
-
 /* pending tasks list */
 
 div.pending-tasks {
