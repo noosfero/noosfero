@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.10.0\n"
-"POT-Creation-Date: 2008-06-20 22:23-0300\n"
+"POT-Creation-Date: 2008-06-20 22:37-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -83,6 +83,10 @@ msgstr ""
 #: app/views/search/communities.rhtml:19 app/views/search/articles.rhtml:19
 #: app/views/home/index.rhtml:6 app/views/home/index.rhtml:12
 msgid "Search"
+msgstr ""
+
+#: app/helpers/application_helper.rb:631
+msgid "Are you sure you want to visit this web site?"
 msgstr ""
 
 #: app/helpers/search_helper.rb:28
@@ -221,7 +225,7 @@ msgstr ""
 
 #: app/helpers/boxes_helper.rb:129 app/views/categories/_category.rhtml:8
 #: app/views/manage_products/index.rhtml:14
-#: app/views/manage_products/index.rhtml:38
+#: app/views/manage_products/index.rhtml:40
 #: app/views/content_viewer/view_page.rhtml:35 app/views/cms/view.rhtml:65
 #: app/views/role/index.rhtml:6 app/views/profile_members/index.rhtml:14
 msgid "Edit"
@@ -1859,33 +1863,24 @@ msgstr ""
 msgid "%s environment system"
 msgstr ""
 
-#: app/views/catalog/show.rhtml:16 app/views/manage_products/show.rhtml:4
-#: app/views/manage_products/_form.rhtml:5
-msgid "Price:"
+#: app/views/catalog/show.rhtml:12 app/views/catalog/index.rhtml:12
+msgid "Price: %s"
 msgstr ""
 
-#: app/views/catalog/show.rhtml:17 app/views/catalog/index.rhtml:12
+#: app/views/catalog/show.rhtml:12 app/views/catalog/index.rhtml:12
 msgid "not informed"
 msgstr ""
 
-#: app/views/catalog/show.rhtml:20
+#: app/views/catalog/show.rhtml:16
 msgid "Category: %s "
 msgstr ""
 
-#: app/views/catalog/show.rhtml:30
+#: app/views/catalog/show.rhtml:20
 msgid "%s's products/services listing"
 msgstr ""
 
 #: app/views/catalog/index.rhtml:1
 msgid "%s:Products/Services"
-msgstr ""
-
-#: app/views/catalog/index.rhtml:5
-msgid "Product/Service"
-msgstr ""
-
-#: app/views/catalog/index.rhtml:6 app/views/manage_products/index.rhtml:6
-msgid "Price"
 msgstr ""
 
 #: app/views/categories/new.rhtml:1 app/views/categories/index.rhtml:8
@@ -1912,7 +1907,7 @@ msgid "Add subcategory"
 msgstr ""
 
 #: app/views/categories/_category.rhtml:9
-#: app/views/manage_products/index.rhtml:39
+#: app/views/manage_products/index.rhtml:41
 #: app/views/content_viewer/_comment.rhtml:5
 #: app/views/profile_members/index.rhtml:15
 msgid "Remove"
@@ -1936,7 +1931,7 @@ msgid "Current category:"
 msgstr ""
 
 #: app/views/manage_products/_subcategories.rhtml:8
-#: app/views/manage_products/index.rhtml:47
+#: app/views/manage_products/index.rhtml:50
 #: app/views/environment_role_manager/index.rhtml:13
 #: app/views/enterprise_editor/index.rhtml:22
 #: app/views/enterprise_validation/list_processed.rhtml:3
@@ -1955,6 +1950,11 @@ msgstr ""
 msgid "Select a subcategory:"
 msgstr ""
 
+#: app/views/manage_products/show.rhtml:4
+#: app/views/manage_products/_form.rhtml:5
+msgid "Price:"
+msgstr ""
+
 #: app/views/manage_products/show.rhtml:5
 #: app/views/manage_products/_form.rhtml:6 app/views/cms/_folder.rhtml:7
 msgid "Description:"
@@ -1965,15 +1965,15 @@ msgid "Category:"
 msgstr ""
 
 #: app/views/manage_products/show.rhtml:8
-msgid "edit"
+msgid "back"
 msgstr ""
 
-#: app/views/manage_products/show.rhtml:9
+#: app/views/manage_products/show.rhtml:10
 msgid "destroy"
 msgstr ""
 
 #: app/views/manage_products/show.rhtml:11
-msgid "back"
+msgid "edit"
 msgstr ""
 
 #: app/views/manage_products/new.rhtml:1
@@ -2005,8 +2005,12 @@ msgstr ""
 msgid "Product"
 msgstr ""
 
+#: app/views/manage_products/index.rhtml:6
+msgid "Price"
+msgstr ""
+
 #: app/views/manage_products/index.rhtml:7
-#: app/views/manage_products/index.rhtml:28 app/views/cms/view.rhtml:26
+#: app/views/manage_products/index.rhtml:30 app/views/cms/view.rhtml:26
 #: app/views/profile_members/index.rhtml:8
 msgid "Actions"
 msgstr ""
@@ -2019,19 +2023,19 @@ msgstr ""
 msgid "New product or service"
 msgstr ""
 
-#: app/views/manage_products/index.rhtml:23
+#: app/views/manage_products/index.rhtml:25
 msgid "Listing raw materials"
 msgstr ""
 
-#: app/views/manage_products/index.rhtml:27
+#: app/views/manage_products/index.rhtml:29
 msgid "Raw material"
 msgstr ""
 
-#: app/views/manage_products/index.rhtml:39
+#: app/views/manage_products/index.rhtml:41
 msgid "Are you sure, you want to remove this raw material from your list"
 msgstr ""
 
-#: app/views/manage_products/index.rhtml:45
+#: app/views/manage_products/index.rhtml:47
 #: app/views/manage_products/new_consumption.rhtml:1
 #: app/views/manage_products/_form_consumption.rhtml:7
 msgid "Add raw material"
@@ -2172,10 +2176,6 @@ msgstr ""
 
 #: app/views/content_viewer/_comment.rhtml:27
 msgid "(unauthenticated user)"
-msgstr ""
-
-#: app/views/content_viewer/_comment.rhtml:38
-msgid "Are you sure you want to visit this web site?"
 msgstr ""
 
 #: app/views/content_viewer/no_home_page.rhtml:1

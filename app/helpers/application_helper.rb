@@ -192,7 +192,7 @@ module ApplicationHelper
       field_type = $1
       field_class = 'formfield type-' + field_type if field_type
 
-      label_html = content_tag('label', text, :class => 'formlabel', :for => field_id)
+      label_html = content_tag('label', _(text), :class => 'formlabel', :for => field_id)
       control_html = content_tag('div', field_html, :class => field_class )
 
       content_tag('div', label_html + control_html, :class => 'formfieldline' )
