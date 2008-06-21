@@ -12,7 +12,35 @@ class Article < ActiveRecord::Base
 
   has_many :comments, :dependent => :destroy
 
-  has_and_belongs_to_many :categories
+  has_many :article_categorizations, :conditions => { :virtual => false }
+  has_many :categories, :through => :article_categorizations
+
+  def pending_categorizations
+    @pending_categorizations ||= []
+  end
+
+  def add_category(c)
+    if self.id
+      ArticleCategorization.create!(:category => c, :article => self)
+    else
+      pending_categorizations << c
+    end
+  end
+
+  def category_ids=(ids)
+    ArticleCategorization.remove_all_for(self)
+    ids.each do |item|
+      add_category(Category.find(item))
+    end
+  end
+
+  after_create :create_pending_categorizations
+  def create_pending_categorizations
+    pending_categorizations.each do |item|
+      ArticleCategorization.create!(:category => item, :article => self)
+    end
+    pending_categorizations.clear
+  end
 
   acts_as_taggable  
   N_('Tag list')

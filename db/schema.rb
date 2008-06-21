@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 42) do
+ActiveRecord::Schema.define(:version => 43) do
 
   create_table "article_versions", :force => true do |t|
     t.integer  "article_id"
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(:version => 42) do
   create_table "articles_categories", :id => false, :force => true do |t|
     t.integer "article_id"
     t.integer "category_id"
+    t.boolean "virtual",     :default => false
   end
 
   add_index "articles_categories", ["category_id"], :name => "index_articles_categories_on_category_id"
@@ -104,6 +105,7 @@ ActiveRecord::Schema.define(:version => 42) do
   create_table "categories_profiles", :id => false, :force => true do |t|
     t.integer "profile_id"
     t.integer "category_id"
+    t.boolean "virtual",     :default => false
   end
 
   create_table "comments", :force => true do |t|

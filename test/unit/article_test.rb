@@ -183,6 +183,8 @@ class ArticleTest < Test::Unit::TestCase
       article.categories << c1
       article.categories << c2
     end
+
+    assert_equivalent [c1,c2], article.categories(true)
   end
 
   should 'remove comments when removing article' do
@@ -321,6 +323,50 @@ class ArticleTest < Test::Unit::TestCase
 
     assert_equal 2, art.children_count
     assert_equal 2, art.children.size
+
+  end
+
+  should 'categorize in the entire category hierarchy' do
+    c1 = Category.create!(:environment => Environment.default, :name => 'c1')
+    c2 = c1.children.create!(:environment => Environment.default, :name => 'c2')
+    c3 = c2.children.create!(:environment => Environment.default, :name => 'c3')
+
+    owner = create_user('testuser').person
+    art = owner.articles.create!(:name => 'ytest')
+
+    art.add_category(c3)
+
+    assert_equal [c3], art.categories(true)
+    assert_equal [art], c2.articles(true)
+
+    assert_includes c3.articles(true), art
+    assert_includes c2.articles(true), art
+    assert_includes c1.articles(true), art
+  end
+
+  should 'redefine the entire category set at once' do
+    c1 = Category.create!(:environment => Environment.default, :name => 'c1')
+    c2 = c1.children.create!(:environment => Environment.default, :name => 'c2')
+    c3 = c2.children.create!(:environment => Environment.default, :name => 'c3')
+    c4 = c1.children.create!(:environment => Environment.default, :name => 'c4')
+    owner = create_user('testuser').person
+    art = owner.articles.create!(:name => 'ytest')
+
+    art.add_category(c4)
+
+    art.category_ids = [c2,c3].map(&:id)
+
+    assert_equivalent [c2, c3], art.categories(true)
+  end
+
+  should 'be able to create an article already with categories' do
+    c1 = Category.create!(:environment => Environment.default, :name => 'c1')
+    c2 = Category.create!(:environment => Environment.default, :name => 'c2')
+
+    p = create_user('testinguser').person
+    a = p.articles.create!(:name => 'test', :category_ids => [c1.id, c2.id])
+
+    assert_equivalent [c1, c2], a.categories(true)
 
   end
 
