@@ -1,47 +1,6 @@
 
-.common-profile-list-block {
-  color: #B8CFE7;
-}
-
-#content .common-profile-list-block .block-title {
-  font-size: 14px;
-}
-
-.common-profile-list-block li a {
-  border: 2px solid #FFF;
-}
-
-.common-profile-list-block li a:hover {
-  border: 2px solid #2A5896;
-  background: #B8CFE7;
-  color: #035;
-}
-
-.enterprises-block .block-footer-content,
-.friends-block .block-footer-content,
-.communities-block .block-footer-content {
-  text-align: center;
-  font-size: 80%;
-  padding: 5px 0px 0px 0px;
-}
-.msie .enterprises-block .block-footer-content,
-.msie .friends-block .block-footer-content,
-.msie .communities-block .block-footer-content {
-  padding: 0px;
-  margin-top: -5px;
-}
-
-.common-profile-list-block-none {
-  font-style: italic;
-  margin-bottom: -10px;
-}
-.msie .common-profile-list-block-none {
-  margin-bottom: 0px;
-  padding-bottom: 10px;
-}
-
-.common-profile-list-block .button-bar {
-  padding-top: 15px;
-  clear: left;
+.common-profile-list-block .vcard a {
+  -moz-border-radius: 10px;
+  color: #026;
 }
 

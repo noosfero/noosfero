@@ -1,12 +1,25 @@
 <h3><%= _('Search for sellers') %></h3>
+
 <% form_tag({:controller => 'search', :action => 'assets'}, {:method => 'get'}) do %>
-  <p class="search-in-opt"><%= _('Search in:') %><dir>
-     <%= labelled_radio_button _('Products'), 'asset', 'products', true %><br />
-     <%= labelled_radio_button _('Enterprises'), 'asset', 'enterprises', false %></dir></p>
-   <p class="search-distance-opt"><%= labelled_text_field _('Distance (km): '), 'radius' %></p>
-  <p class="search-from-opt"><%= labelled_text_field _('From: '), 'region[name]', nil, :id => 'search_region_block' %></p>
-  <div id='search_region_block_auto_complete' class='auto-complete'></div>
-  <%= auto_complete_field('search_region_block', :url => {:controller => 'search', :action => 'complete_region'}) %>
-  <br/>
-  <%= submit_tag _('Search') %>
+
+  <div class="search-in-opt"><%= _('Search in:') %>
+    <dir>
+      <%= labelled_radio_button _('Products'), 'asset', 'products', true %><br />
+      <%= labelled_radio_button _('Enterprises'), 'asset', 'enterprises', false %>
+    </dir>
+  </div>
+
+  <div class="formfield search-distance-opt">
+    <%= labelled_text_field _('Distance (km): '), 'radius' %>
+  </div>
+  <div class="formfield search-from-opt">
+    <%= labelled_text_field _('From: '), 'region[name]', nil, :id => 'search_region_block' %>
+    <div id="search_region_block_auto_complete" class="auto-complete"></div>
+    <%= auto_complete_field('search_region_block', :url => {:controller => 'search', :action => 'complete_region'}) %>
+  </div>
+
+  <div class="button-bar">
+    <%= submit_tag _('Search'), :class => 'button with-text icon-search' %>
+  </div>
+
 <% end %>

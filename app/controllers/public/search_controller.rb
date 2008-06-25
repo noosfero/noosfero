@@ -177,12 +177,12 @@ class SearchController < ApplicationController
     @results = {}
     @names = {}
     [
-      [ :people, _('Recently registered people'), @finder.recent('people') ],
-      [ :communities, _('Recently created communities'), @finder.recent('communities') ],
-      [ :articles, _('Recent articles'), @finder.recent('articles') ],
+      [ :people, _('Newer profiles'), @finder.recent('people') ],
+      [ :communities, _('Newer communities'), @finder.recent('communities') ],
+      [ :articles, _('Newer articles'), @finder.recent('articles') ],
       [ :most_commented_articles, _('Most commented articles'), @finder.most_commented_articles ],
-      [ :enterprises, _('Recently created enterprises'), @finder.recent('enterprises') ],
-      [ :events, _('Recently added events'), @finder.current_events(params[:year], params[:month]) ]
+      [ :enterprises, _('Newer enterprises'), @finder.recent('enterprises') ],
+      [ :events, _('Near events TODO'), @finder.current_events(params[:year], params[:month]) ]
     ].each do |key, name, list|
       @results[key] = list
       @names[key] = name
