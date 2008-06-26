@@ -38,9 +38,6 @@
       stylesheet_import( "controller_"+ @controller.controller_name(), :themed_source => true )
     %>
 
-    <%# FIXME: for unknow reason the @import url(.../article.css) above dont work for class .post_comment_box.opened/closed %>
-    <%= stylesheet_link_tag 'article' %>
-
     <%# FIXME %>
     <%= stylesheet_link_tag '/designs/templates/default/stylesheets/style.css' %>
     <%= stylesheet_link_tag '/designs/icons/default/style.css' %>

@@ -1,0 +1,49 @@
+
+#content .sellers-search-block {
+  border: 1px solid #AAA;
+  margin: 10px 10px 5px 20px;
+  padding: 5px 0px 10px 0px;
+  font-size: 12px;
+}
+
+#content .sellers-search-block h3 {
+  font-size: 14px;
+  margin: 0px 0px 10px 0px;
+  text-align: center;
+}
+
+.sellers-search-block form {
+  padding: 0px;
+  margin: 0px;
+}
+
+.sellers-search-block .search-in-opt {
+  padding-left: 40px;
+}
+
+.sellers-search-block .search-in-opt dir {
+  margin: 0px 0px 10px 0px;
+  padding-left: 20px;
+}
+
+.sellers-search-block .formfield {
+  text-align: right;
+  padding: 0px 10px 5px 0px;
+  font-size: 11px;
+}
+
+.sellers-search-block .formfield input {
+  width: 120px;
+}
+
+.sellers-search-block .button-bar {
+  text-align: right;
+  padding: 0px 10px 0px 0px;
+  margin: 0px;
+}
+
+.sellers-search-block .button-bar input {
+  margin: 0px;
+  float: none;
+}
+

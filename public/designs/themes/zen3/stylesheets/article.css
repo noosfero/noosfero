@@ -15,3 +15,15 @@
   background: #FD8;
 }
 
+
+/* * *  Comments  * * */
+
+.article-comment {
+  border: 1px solid #FD8;
+}
+
+.comment-from-owner {
+  border: 1px solid #f57900;
+  background: #FD8;
+}
+

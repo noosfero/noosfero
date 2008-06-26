@@ -40,22 +40,3 @@ function convToValidLogin( str ) {
             .replace( /[^-_a-z0-9]+/g, "" )
 }
 
-
-/* * *  Template Box Size Help  * * */
-function resizePrincipalTemplateBox() {
-  var box1 = $$( "div.box-1" )[0];
-  var otherBoxSum = 10;
-  var i = 2;
-  var b = $$( "div.box-" + i++ )[0];
-  while ( b && b.nodeName ) {
-    otherBoxSum += b.clientWidth;
-    b = $$( "div.box-" + i++ )[0] || false;
-  }
-  if ( box1 )
-    box1.style.width = ( $("boxes").clientWidth - otherBoxSum ) +"px"
-}
-
-if ( window.addEventListener ) {
-  window.addEventListener( 'resize', resizePrincipalTemplateBox, false );
-  window.addEventListener( 'load',   resizePrincipalTemplateBox, false );
-}

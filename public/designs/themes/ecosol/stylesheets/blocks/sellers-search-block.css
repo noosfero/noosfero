@@ -1,0 +1,16 @@
+
+#content .sellers-search-block {
+  -moz-border-radius: 18px;
+  border: 2px solid #729FCF;
+  background: #B8CFE7;
+}
+
+#content .sellers-search-block h3 {
+  -moz-border-radius: 3px;
+  -moz-border-radius-topleft: 10px;
+  -moz-border-radius-topright: 10px;
+  background: #729FCF;
+  margin: 0px 5px 5px 5px;
+  padding: 2px 0px;
+  color: #FFF;
+}
