@@ -813,6 +813,30 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_equal 1, assigns(:counts)[cat2.id][1]
   end
 
+  should 'display only within a product category when specified' do
+    prod_cat = ProductCategory.create!(:name => 'prod cat test', :environment => Environment.default)
+    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent')
+
+    p = prod_cat.products.create!(:name => 'prod test 1', :enterprise => ent)
+
+    get :index, :find_in => 'products', :product_category => prod_cat.id
+
+    assert_includes assigns(:results)[:products], p
+  end
+
+  should 'display properly in conjuntion with a category' do
+    cat = Category.create(:name => 'cat', :environment => Environment.default)
+    prod_cat1 = ProductCategory.create!(:name => 'prod cat test 1', :environment => Environment.default)
+    prod_cat2 = ProductCategory.create!(:name => 'prod cat test 2', :environment => Environment.default, :parent => prod_cat1)
+    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent', :category_ids => [cat.id])
+
+    p = prod_cat2.products.create!(:name => 'prod test 1', :enterprise => ent)
+
+    get :index, :find_in => 'products', :category_path => cat.path.split('/'), :product_category => prod_cat1.id
+
+    assert_includes assigns(:results)[:products], p
+  end
+
   should 'provide calendar for events' do
     get :index, :find_in => [ 'events' ]
     assert_equal 0, assigns(:calendar).size % 7
