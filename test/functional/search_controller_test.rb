@@ -519,6 +519,12 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'a', :attributes => { :href => '/assets/people' }, :content => 'Recent'
   end
 
+  should 'not leave category in link to other char in directory' do
+    cat = Category.create!(:name => 'just_a_category', :environment => Environment.default)
+    get :directory, :asset => 'people', :initial => 'r', :category_path => cat.path.split('/')
+    assert_tag :tag => 'a', :attributes => { :href => "/directory/people/k/#{cat.path}" }
+  end
+
   ############### directory for every kind of asset #################
   should 'display people with a given initial' do
     included = create_user('fergunson').person
