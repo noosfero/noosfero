@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.10.0\n"
-"POT-Creation-Date: 2008-06-20 22:37-0300\n"
+"Project-Id-Version: noosfero 0.10.1\n"
+"POT-Creation-Date: 2008-06-25 11:11-0300\n"
 "PO-Revision-Date: 2008-06-13 16:15-0300\n"
 "Last-Translator: Raphael Rousseau <pootle.colivre.coop.br@r4f.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,80 +16,224 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 1.0.2\n"
 
-#: app/helpers/application_helper.rb:61
-#: app/views/layouts/application.rhtml:113 app/views/features/index.rhtml:7
-msgid "Help"
-msgstr "Aide"
+#: app/controllers/admin/features_controller.rb:11
+msgid "Features updated successfully."
+msgstr "Fonctionnalités mises à jour avec succès."
 
-#: app/helpers/application_helper.rb:81
-#: app/views/box_organizer/add_block.rhtml:18
-#: app/views/search/_search_form.rhtml:56
-msgid "Close"
-msgstr "Fermer"
+#: app/controllers/admin/environment_role_manager_controller.rb:17
+#: app/controllers/my_profile/profile_members_controller.rb:14
+msgid "Roles successfuly updated"
+msgstr "Les rôles ont bien été mis à jour"
 
-#: app/helpers/application_helper.rb:144
-msgid "This is %s, version %s"
-msgstr "Site sous %s, version %s"
+#: app/controllers/admin/environment_role_manager_controller.rb:19
+#: app/controllers/my_profile/profile_members_controller.rb:16
+msgid "Couldn't change the roles"
+msgstr "Impossible de changer les rôles"
 
-#: app/helpers/application_helper.rb:318
-#: app/views/memberships/new_community.rhtml:12
-#: app/views/box_organizer/edit.rhtml:9
-#: app/views/admin_panel/site_info.rhtml:11
-#: app/views/admin_panel/message_for_disabled_enterprise.rhtml:11
-#: app/views/cms/edit.rhtml:35 app/views/cms/edit.rhtml:37
-#: app/views/cms/select_article_type.rhtml:12 app/views/tasks/_task.rhtml:12
-#: app/views/account/login.rhtml:24 app/views/shared/_change_image.rhtml:2
-msgid "Cancel"
-msgstr "Annuler"
+#: app/controllers/admin/environment_role_manager_controller.rb:45
+#: app/controllers/admin/environment_role_manager_controller.rb:55
+msgid "Member succefully unassociated"
+msgstr "Le membre a bien été dissocié"
 
-#: app/helpers/application_helper.rb:360 app/models/product.rb:39
-msgid "Uncategorized product"
-msgstr "Produit sans catégorie"
+#: app/controllers/admin/environment_role_manager_controller.rb:47
+#: app/controllers/admin/environment_role_manager_controller.rb:57
+msgid "Failed to unassociate member"
+msgstr "Impossible de dissocier le membre"
 
-#: app/helpers/application_helper.rb:366
-msgid "No product"
-msgstr "Pas de produit"
+#: app/controllers/admin/role_controller.rb:21
+msgid "Failed to create role"
+msgstr "Échec dans la création du rôle"
 
-#: app/helpers/application_helper.rb:452
-msgid "Click on this icon to go to the <b>%s</b>'s home page"
-msgstr ""
-"Cliquez sur cet icône pour vous rendre sur la page d'accueil de <b>%s</b>"
+#: app/controllers/admin/role_controller.rb:35
+#: app/controllers/admin/role_controller.rb:45
+msgid "Failed to edit role"
+msgstr "Échec dans l'édition du rôle"
 
-#: app/helpers/application_helper.rb:488 app/views/categories/index.rhtml:1
-#: app/views/content_viewer/view_page.rhtml:62
-msgid "Categories"
-msgstr "Catégories"
+#: app/controllers/my_profile/cms_controller.rb:97
+msgid "Article \"%s\" configured as home page."
+msgstr "L'article «%s» est bien configuré pour être votre page d'accueil."
 
-#: app/helpers/application_helper.rb:511
-msgid "open"
-msgstr "ouvrir"
+#: app/controllers/my_profile/enterprise_editor_controller.rb:22
+msgid "Could not update the enterprise"
+msgstr "Impossible de mettre à jour l'entreprise"
 
-#: app/helpers/application_helper.rb:547
+#: app/controllers/my_profile/enterprise_editor_controller.rb:32
+msgid "Enterprise sucessfully erased from the system"
+msgstr "L'entreprise a bien été effacée du système"
+
+#: app/controllers/my_profile/friends_controller.rb:15
+msgid "%s still needs to accept being your friend."
+msgstr "Il faut encore que %s accepte d'être votre ami."
+
+#: app/controllers/my_profile/mailconf_controller.rb:21
 #, fuzzy
-msgid "Search..."
-msgstr "Chercher"
+msgid "e-Mail settings saved successfully."
+msgstr "Fonctionnalités mises à jour avec succès."
 
-#: app/helpers/application_helper.rb:549
-msgid "This is a search box. Click, write your query, and press enter to find"
+#: app/controllers/my_profile/manage_products_controller.rb:22
+msgid "Product succesfully created"
+msgstr "Le produit a bien été créé"
+
+#: app/controllers/my_profile/manage_products_controller.rb:25
+msgid "Could not create the product"
+msgstr "Impossible de créer le produit"
+
+#: app/controllers/my_profile/manage_products_controller.rb:36
+msgid "Product succesfully updated"
+msgstr "Le produit a bien été mis à jour"
+
+#: app/controllers/my_profile/manage_products_controller.rb:39
+msgid "Could not update the product"
+msgstr "Impossible de mettre à jour le produit"
+
+#: app/controllers/my_profile/manage_products_controller.rb:47
+msgid "Product succesfully removed"
+msgstr "Le produit a bien été ôté"
+
+#: app/controllers/my_profile/manage_products_controller.rb:50
+msgid "Could not remove the product"
+msgstr "Impossible d'ôter le produit"
+
+#: app/controllers/my_profile/manage_products_controller.rb:65
+#, fuzzy
+msgid "Raw material succesfully created"
+msgstr "Le produit a bien été créé"
+
+#: app/controllers/my_profile/manage_products_controller.rb:68
+#, fuzzy
+msgid "Could not create the raw material"
+msgstr "Impossible de créer le produit"
+
+#: app/controllers/my_profile/manage_products_controller.rb:76
+#, fuzzy
+msgid "Raw material succesfully removed"
+msgstr "Le produit a bien été ôté"
+
+#: app/controllers/my_profile/manage_products_controller.rb:78
+#, fuzzy
+msgid "Could not remove the raw material"
+msgstr "Impossible d'ôter le produit"
+
+#: app/controllers/my_profile/manage_products_controller.rb:87
+#, fuzzy
+msgid "Raw material succesfully updated"
+msgstr "Les rôles ont bien été mis à jour"
+
+#: app/controllers/my_profile/manage_products_controller.rb:90
+#, fuzzy
+msgid "Could not update the raw material"
+msgstr "Impossible de mettre à jour l'entreprise"
+
+#: app/controllers/my_profile/memberships_controller.rb:13
+#, fuzzy
+msgid "%s administrator still needs to accept you as member."
+msgstr "Il faut encore que %s accepte d'être votre ami."
+
+#: app/controllers/my_profile/profile_editor_controller.rb:25
+#, fuzzy
+msgid "%s was not enabled."
+msgstr "Je rejoins cette communauté !"
+
+#: app/controllers/my_profile/profile_editor_controller.rb:35
+msgid "%s was not disabled."
 msgstr ""
 
-#: app/helpers/application_helper.rb:550
-msgid "Click, write and press enter to find"
+#: app/controllers/public/content_viewer_controller.rb:77
+msgid "Comment succesfully deleted"
+msgstr "Le commentaire a bien été effacé"
+
+#: app/controllers/public/account_controller.rb:21
+msgid "Logged in successfully"
+msgstr "Connexion réussie"
+
+#: app/controllers/public/account_controller.rb:23
+msgid "Incorrect username or password"
+msgstr "Identifiant ou mot de passe incorrect"
+
+#: app/controllers/public/account_controller.rb:51
+msgid "Thanks for signing up!"
+msgstr "Merci de vous être inscrit(e) !"
+
+#: app/controllers/public/account_controller.rb:69
+msgid "You have been logged out."
+msgstr "Vous avez été déconnecté(e)."
+
+#: app/controllers/public/account_controller.rb:80
+msgid "Your password has been changed successfully!"
+msgstr "Votre mot de passe a bien été modifié !"
+
+#: app/controllers/public/account_controller.rb:83
+msgid "The supplied current password is incorrect."
+msgstr "Le mot de passe actuel fourni est incorrect."
+
+#: app/controllers/public/search_controller.rb:92
+#: app/helpers/assets_helper.rb:7
+msgid "Articles"
+msgstr "Articles"
+
+#: app/controllers/public/search_controller.rb:93
+#: app/helpers/assets_helper.rb:10 app/models/enterprises_block.rb:4
+#: app/views/search/_sellers_form.rhtml:8 app/views/profile/index.rhtml:23
+msgid "Enterprises"
+msgstr "Entreprises"
+
+#: app/controllers/public/search_controller.rb:94
+#: app/helpers/assets_helper.rb:8 app/models/people_block.rb:4
+msgid "People"
+msgstr "Personnes"
+
+#: app/controllers/public/search_controller.rb:95
+#: app/helpers/assets_helper.rb:11 app/models/communities_block.rb:8
+#: app/views/profile/index.rhtml:22
+msgid "Communities"
+msgstr "Groupes"
+
+#: app/controllers/public/search_controller.rb:96
+#: app/helpers/assets_helper.rb:9 app/views/search/products.rhtml:5
+#: app/views/search/_sellers_form.rhtml:7
+msgid "Products"
+msgstr "Produits"
+
+#: app/controllers/public/search_controller.rb:97
+#: app/helpers/assets_helper.rb:12
+msgid "Events"
 msgstr ""
 
-#: app/helpers/application_helper.rb:556
-#: app/views/region_validators/region.rhtml:23
-#: app/views/search/enterprises.rhtml:19 app/views/search/people.rhtml:19
-#: app/views/search/_sellers_form.rhtml:11
-#: app/views/search/_search_form.rhtml:16
-#: app/views/search/communities.rhtml:19 app/views/search/articles.rhtml:19
-#: app/views/home/index.rhtml:6 app/views/home/index.rhtml:12
-msgid "Search"
-msgstr "Chercher"
+#: app/controllers/public/search_controller.rb:180
+#, fuzzy
+msgid "Newer profiles"
+msgstr "Voir le profil"
 
-#: app/helpers/application_helper.rb:631
-msgid "Are you sure you want to visit this web site?"
-msgstr "Êtes-vous sûr(e) de vouloir visiter ce site web ?"
+#: app/controllers/public/search_controller.rb:181
+#, fuzzy
+msgid "Newer communities"
+msgstr "Tous ses groupes"
+
+#: app/controllers/public/search_controller.rb:182
+#, fuzzy
+msgid "Newer articles"
+msgstr "Nouvel article"
+
+#: app/controllers/public/search_controller.rb:183
+msgid "Most commented articles"
+msgstr "Articles les plus commentés"
+
+#: app/controllers/public/search_controller.rb:184
+#, fuzzy
+msgid "Newer enterprises"
+msgstr "Enregistrer une entreprise"
+
+#: app/controllers/public/search_controller.rb:185
+msgid "Near events TODO"
+msgstr ""
+
+#: app/controllers/my_profile_controller.rb:17
+msgid "This action is not available for \"%s\"."
+msgstr "Cette action n'est pas disponible pour «%s»."
+
+#: app/controllers/box_organizer_controller.rb:91
+msgid "Failed to remove block"
+msgstr "Impossible de retirer le bloc"
 
 #: app/helpers/search_helper.rb:28
 msgid "Display in list"
@@ -98,6 +242,38 @@ msgstr ""
 #: app/helpers/search_helper.rb:34
 msgid "Display in map"
 msgstr ""
+
+#: app/helpers/enterprise_validation_helper.rb:6
+msgid "Approved"
+msgstr "Approuvé"
+
+#: app/helpers/enterprise_validation_helper.rb:11
+msgid "Rejected"
+msgstr "Rejeté"
+
+#: app/helpers/features_helper.rb:4
+msgid "Administrator must approve all new organizations"
+msgstr "Toute nouvelle organisation doit être approuvée"
+
+#: app/helpers/features_helper.rb:5
+msgid "Administrator assigns validator organizations per region."
+msgstr "Les validateurs sont assignés par région par les administrateurs."
+
+#: app/helpers/tags_helper.rb:33
+msgid "No tags yet."
+msgstr "Pas encore de tag."
+
+#: app/helpers/tags_helper.rb:34
+msgid "http://en.wikipedia.org/wiki/Tag_%28metadata%29"
+msgstr "http://fr.wikipedia.org/wiki/Tag_%28m%C3%A9tadonn%C3%A9e%29"
+
+#: app/helpers/tags_helper.rb:36
+msgid "What are tags?"
+msgstr "Qu'est-ce qu'un tag ?"
+
+#: app/helpers/cms_helper.rb:5
+msgid "New %s"
+msgstr "Nouveau %s"
 
 #: app/helpers/dates_helper.rb:6
 msgid "January"
@@ -196,18 +372,6 @@ msgstr ""
 msgid "%{month} %{year}"
 msgstr ""
 
-#: app/helpers/cms_helper.rb:5
-msgid "New %s"
-msgstr "Nouveau %s"
-
-#: app/helpers/enterprise_validation_helper.rb:6
-msgid "Approved"
-msgstr "Approuvé"
-
-#: app/helpers/enterprise_validation_helper.rb:11
-msgid "Rejected"
-msgstr "Rejeté"
-
 #: app/helpers/language_helper.rb:18 app/helpers/language_helper.rb:28
 msgid ""
 "The language you choose here is the language used for options, buttons, etc. "
@@ -217,54 +381,77 @@ msgstr ""
 "boutons, etc. Elle n'affecte pas la langue du contenu créé par d'autres "
 "utilisateurs."
 
-#: app/helpers/boxes_helper.rb:17 app/helpers/boxes_helper.rb:34
-msgid "Main content"
-msgstr "Contenu principal"
+#: app/helpers/application_helper.rb:61 app/views/features/index.rhtml:7
+#: app/views/layouts/application.rhtml:113
+msgid "Help"
+msgstr "Aide"
 
-#: app/helpers/boxes_helper.rb:124
-msgid "Move block up"
-msgstr "Vers le haut"
+#: app/helpers/application_helper.rb:81 app/views/search/_search_form.rhtml:56
+#: app/views/box_organizer/add_block.rhtml:18
+msgid "Close"
+msgstr "Fermer"
 
-#: app/helpers/boxes_helper.rb:125
-msgid "Move block down"
-msgstr "Vers le bas"
+#: app/helpers/application_helper.rb:144
+msgid "This is %s, version %s"
+msgstr "Site sous %s, version %s"
 
-#: app/helpers/boxes_helper.rb:126
-msgid "Remove block"
-msgstr "Effacer le bloc"
+#: app/helpers/application_helper.rb:318 app/views/account/login.rhtml:24
+#: app/views/admin_panel/message_for_disabled_enterprise.rhtml:11
+#: app/views/admin_panel/site_info.rhtml:11
+#: app/views/cms/select_article_type.rhtml:12 app/views/cms/edit.rhtml:35
+#: app/views/cms/edit.rhtml:37 app/views/shared/_change_image.rhtml:2
+#: app/views/box_organizer/edit.rhtml:9
+#: app/views/memberships/new_community.rhtml:12 app/views/tasks/_task.rhtml:12
+msgid "Cancel"
+msgstr "Annuler"
 
-#: app/helpers/boxes_helper.rb:129 app/views/categories/_category.rhtml:8
-#: app/views/manage_products/index.rhtml:14
-#: app/views/manage_products/index.rhtml:40
-#: app/views/content_viewer/view_page.rhtml:35 app/views/cms/view.rhtml:65
-#: app/views/role/index.rhtml:6 app/views/profile_members/index.rhtml:14
-msgid "Edit"
-msgstr "Éditer"
+#: app/helpers/application_helper.rb:360 app/models/product.rb:39
+msgid "Uncategorized product"
+msgstr "Produit sans catégorie"
 
-#: app/helpers/profile_helper.rb:7
+#: app/helpers/application_helper.rb:366
+msgid "No product"
+msgstr "Pas de produit"
+
+#: app/helpers/application_helper.rb:461
+msgid "Click on this icon to go to the <b>%s</b>'s home page"
+msgstr ""
+"Cliquez sur cet icône pour vous rendre sur la page d'accueil de <b>%s</b>"
+
+#: app/helpers/application_helper.rb:498 app/views/categories/index.rhtml:1
+#: app/views/content_viewer/view_page.rhtml:62
+msgid "Categories"
+msgstr "Catégories"
+
+#: app/helpers/application_helper.rb:521
+msgid "open"
+msgstr "ouvrir"
+
+#: app/helpers/application_helper.rb:557
 #, fuzzy
-msgid "edit your information"
-msgstr "Éditer vos informations"
+msgid "Search..."
+msgstr "Chercher"
 
-#: app/helpers/tags_helper.rb:33
-msgid "No tags yet."
-msgstr "Pas encore de tag."
+#: app/helpers/application_helper.rb:559
+msgid "This is a search box. Click, write your query, and press enter to find"
+msgstr ""
 
-#: app/helpers/tags_helper.rb:34
-msgid "http://en.wikipedia.org/wiki/Tag_%28metadata%29"
-msgstr "http://fr.wikipedia.org/wiki/Tag_%28m%C3%A9tadonn%C3%A9e%29"
+#: app/helpers/application_helper.rb:560
+msgid "Click, write and press enter to find"
+msgstr ""
 
-#: app/helpers/tags_helper.rb:36
-msgid "What are tags?"
-msgstr "Qu'est-ce qu'un tag ?"
+#: app/helpers/application_helper.rb:566 app/views/home/index.rhtml:6
+#: app/views/home/index.rhtml:12 app/views/region_validators/region.rhtml:23
+#: app/views/search/articles.rhtml:19 app/views/search/_search_form.rhtml:16
+#: app/views/search/enterprises.rhtml:19
+#: app/views/search/_sellers_form.rhtml:22
+#: app/views/search/communities.rhtml:19 app/views/search/people.rhtml:19
+msgid "Search"
+msgstr "Chercher"
 
-#: app/helpers/features_helper.rb:4
-msgid "Administrator must approve all new organizations"
-msgstr "Toute nouvelle organisation doit être approuvée"
-
-#: app/helpers/features_helper.rb:5
-msgid "Administrator assigns validator organizations per region."
-msgstr "Les validateurs sont assignés par région par les administrateurs."
+#: app/helpers/application_helper.rb:641
+msgid "Are you sure you want to visit this web site?"
+msgstr "Êtes-vous sûr(e) de vouloir visiter ce site web ?"
 
 #: app/helpers/categories_helper.rb:6
 msgid "Do not display at the menu"
@@ -306,159 +493,149 @@ msgstr "Afficher dans le menu ?"
 msgid "Type of category"
 msgstr "Type de catégorie"
 
-#: app/helpers/assets_helper.rb:7
-#: app/controllers/public/search_controller.rb:92
-msgid "Articles"
-msgstr "Articles"
+#: app/helpers/boxes_helper.rb:17 app/helpers/boxes_helper.rb:34
+msgid "Main content"
+msgstr "Contenu principal"
 
-#: app/helpers/assets_helper.rb:8 app/models/people_block.rb:4
-#: app/controllers/public/search_controller.rb:94
-msgid "People"
-msgstr "Personnes"
+#: app/helpers/boxes_helper.rb:124
+msgid "Move block up"
+msgstr "Vers le haut"
 
-#: app/helpers/assets_helper.rb:9
-#: app/controllers/public/search_controller.rb:96
-#: app/views/search/products.rhtml:5 app/views/search/_sellers_form.rhtml:4
-msgid "Products"
-msgstr "Produits"
+#: app/helpers/boxes_helper.rb:125
+msgid "Move block down"
+msgstr "Vers le bas"
 
-#: app/helpers/assets_helper.rb:10 app/models/enterprises_block.rb:4
-#: app/controllers/public/search_controller.rb:93
-#: app/views/profile/index.rhtml:23 app/views/search/_sellers_form.rhtml:5
-msgid "Enterprises"
-msgstr "Entreprises"
+#: app/helpers/boxes_helper.rb:126
+msgid "Remove block"
+msgstr "Effacer le bloc"
 
-#: app/helpers/assets_helper.rb:11 app/models/communities_block.rb:8
-#: app/controllers/public/search_controller.rb:95
-#: app/views/profile/index.rhtml:22
-msgid "Communities"
-msgstr "Groupes"
+#: app/helpers/boxes_helper.rb:129 app/views/categories/_category.rhtml:8
+#: app/views/cms/view.rhtml:65 app/views/content_viewer/view_page.rhtml:35
+#: app/views/manage_products/index.rhtml:14
+#: app/views/manage_products/index.rhtml:40
+#: app/views/profile_members/index.rhtml:14 app/views/role/index.rhtml:6
+msgid "Edit"
+msgstr "Éditer"
 
-#: app/helpers/assets_helper.rb:12
-#: app/controllers/public/search_controller.rb:97
-msgid "Events"
-msgstr ""
+#: app/helpers/profile_helper.rb:7
+#, fuzzy
+msgid "edit your information"
+msgstr "Éditer vos informations"
 
-#: app/models/enterprise.rb:5
-msgid "Enterprise"
-msgstr "Entreprise"
+#: app/models/article_block.rb:4
+msgid "Display one of your contents."
+msgstr "Afficher un de vos contenus."
+
+#: app/models/article_block.rb:8
+msgid "Article not selected yet."
+msgstr "Article non encore sélectionné."
+
+#: app/models/block.rb:-
+msgid "block"
+msgstr "bloc"
+
+#: app/models/block.rb:-
+msgid "Block|Title"
+msgstr "Titre"
+
+#: app/models/block.rb:-
+msgid "Block|Box"
+msgstr "Boîte"
+
+#: app/models/block.rb:-
+msgid "Block|Type"
+msgstr "Type"
+
+#: app/models/block.rb:-
+msgid "Block|Settings"
+msgstr "Paramètres"
+
+#: app/models/block.rb:-
+msgid "Block|Position"
+msgstr "Position"
+
+#: app/models/box.rb:-
+msgid "box"
+msgstr "boîte"
+
+#: app/models/box.rb:-
+msgid "Box|Owner type"
+msgstr "Type de propriétaire"
+
+#: app/models/box.rb:-
+msgid "Box|Owner"
+msgstr "Propriétaire"
+
+#: app/models/box.rb:-
+msgid "Box|Position"
+msgstr "Position"
 
 #: app/models/community.rb:2
 msgid "Community"
 msgstr "Groupe"
 
-#: app/models/enterprises_block.rb:8
-msgid "The enterprises where this user works."
-msgstr "Les entreprises pour lesquelles travaille cet utilisateur."
-
-#: app/models/enterprises_block.rb:12
-msgid "A block that displays your enterprises"
-msgstr "Un bloc qui affiche vos entreprises"
-
-#: app/models/enterprises_block.rb:20 app/models/enterprises_block.rb:24
-msgid "All enterprises"
-msgstr "Toutes les entreprises"
-
-#: app/models/main_block.rb:4
-msgid "Block for main content (i.e. your articles, photos, etc)"
-msgstr "Bloc du contenu principal (i.e. : vos articles, photos, etc.)"
-
-#: app/models/task.rb:-
-msgid "task"
-msgstr "tâche"
-
-#: app/models/task.rb:-
-msgid "Task|Data"
-msgstr "Données"
-
-#: app/models/task.rb:-
-msgid "Task|Status"
-msgstr "Statut"
-
-#: app/models/task.rb:-
-msgid "Task|End date"
-msgstr "Date de fin"
-
-#: app/models/task.rb:-
-msgid "Task|Requestor"
-msgstr "Requérant"
-
-#: app/models/task.rb:-
-msgid "Task|Target"
-msgstr "Cible"
-
-#: app/models/task.rb:-
-msgid "Task|Code"
-msgstr "Code"
-
-#: app/models/task.rb:-
-msgid "Task|Type"
-msgstr "Type"
-
-#: app/models/task.rb:-
-msgid "Task|Created at"
-msgstr "Créée le "
-
-#: app/models/task.rb:87
-msgid "Generic task"
-msgstr "Tâche générique"
-
-#: app/models/task.rb:94
-msgid "The task was created at %s"
-msgstr "La tâche a été créée à %s"
-
-#: app/models/task.rb:100
-msgid "The task was finished at %s"
-msgstr "La tâche a été achevée à %s"
-
-#: app/models/task.rb:106
-msgid "The task was cancelled at %s"
-msgstr "La tâche a été annulée à %s"
-
-#: app/models/favorite_enterprises_block.rb:4
-#: app/views/profile_editor/index.rhtml:29
+#: app/models/add_member.rb:28
 #, fuzzy
-msgid "Favorite Enterprises"
-msgstr "Valider l'entreprise"
+msgid "%s wants to be a member"
+msgstr "Je rejoins cette communauté !"
 
-#: app/models/favorite_enterprises_block.rb:8
+#: app/models/domain.rb:-
+msgid "domain"
+msgstr "domaine"
+
+#: app/models/domain.rb:-
+msgid "Domain|Name"
+msgstr "Nom"
+
+#: app/models/domain.rb:-
+msgid "Domain|Owner type"
+msgstr "Type de propriétaire"
+
+#: app/models/domain.rb:-
+msgid "Domain|Owner"
+msgstr "Propriétaire"
+
+#: app/models/domain.rb:13
+msgid ""
+"%{fn} must be composed only of lowercase latters (a to z), numbers (0 to 9) "
+"and \"_\""
+msgstr ""
+"%{fn} doit être composé uniquement de lettres minuscules (a à z), chiffres "
+"(0 à 9) ou \"_\""
+
+#: app/models/domain.rb:20
+msgid "%{fn} must not start with www."
+msgstr "%{fn} ne peut pas commencer par www."
+
+#: app/models/environment_statistics_block.rb:4
+msgid "Statistical overview of your environment."
+msgstr "Statistiques générales de votre communauté."
+
+# (first try of this type of contents to be translated, could be wrong)
+#: app/models/environment_statistics_block.rb:13
 #, fuzzy
-msgid "This user's favorite enterprises."
-msgstr "Les entreprises de <b>%s</b>"
+msgid "One user"
+msgid_plural "%{num} users"
+msgstr[0] "Un utilisateur"
+msgstr[1] "%{num} utilisateurs"
 
-#: app/models/favorite_enterprises_block.rb:12
+# (second try of this knid of contents)
+#: app/models/environment_statistics_block.rb:14
 #, fuzzy
-msgid "A block that displays your favorite enterprises"
-msgstr "Un bloc qui affiche vos entreprises"
+msgid "One enterprise"
+msgid_plural "%{num} enterprises"
+msgstr[0] "Une entreprise"
+msgstr[1] "%{num} entreprises"
 
-#: app/models/favorite_enterprises_block.rb:19
-#, fuzzy
-msgid "All favorite enterprises"
-msgstr "Toutes les entreprises"
+#: app/models/environment_statistics_block.rb:15
+msgid "One community"
+msgid_plural "%{num} communities"
+msgstr[0] "Un groupe"
+msgstr[1] "%{num} groupes"
 
-#: app/models/rss_feed.rb:77
-msgid "%s's RSS feed"
-msgstr "Flux RSS de %s"
-
-#: app/models/rss_feed.rb:79
-msgid "%s's content published at %s"
-msgstr "Le contenu de %s publié à %s"
-
-#: app/models/rss_feed.rb:105
-msgid "RSS Feed"
-msgstr "Flux RSS"
-
-#: app/models/rss_feed.rb:109
-msgid "Provides a news feed of your more recent articles."
-msgstr "Fournit un flux de nouvelles de vos articles les plus récents."
-
-#: app/models/textile_article.rb:4
-msgid "Text article with Textile markup language"
-msgstr "Article en texte avec marquage en langage «Textile»"
-
-#: app/models/textile_article.rb:8
-msgid "Accessible alternative for visually impaired users."
-msgstr "Alternative accessible pour personnes malvoyantes."
+#: app/models/environment_statistics_block.rb:18
+msgid "Statistics for %s"
+msgstr "Statistiques pour %s"
 
 #: app/models/article.rb:-
 msgid "article"
@@ -580,92 +757,244 @@ msgstr "Liste de tags"
 msgid "HTML Text document"
 msgstr "Document texte au format HTML"
 
-#: app/models/box.rb:-
-msgid "box"
-msgstr "boîte"
+#: app/models/image_gallery.rb:4
+msgid "Image gallery"
+msgstr "Galerie d'images"
 
-#: app/models/box.rb:-
-msgid "Box|Owner type"
-msgstr "Type de propriétaire"
+#: app/models/image_gallery.rb:8
+msgid "A collection of photos, logos or other kinds of images."
+msgstr "Un ensemble de photos, logos ou autres types d'images."
 
-#: app/models/box.rb:-
-msgid "Box|Owner"
-msgstr "Propriétaire"
+#: app/models/login_block.rb:4
+msgid "A login box for your users."
+msgstr "Une boîte de connexion pour vos utilisateurs."
 
-#: app/models/box.rb:-
-msgid "Box|Position"
-msgstr "Position"
+#: app/models/enterprises_block.rb:8
+msgid "The enterprises where this user works."
+msgstr "Les entreprises pour lesquelles travaille cet utilisateur."
 
-#: app/models/friends_block.rb:4
-msgid "A block that displays your friends"
-msgstr "Un bloc qui affiche vos amis"
+#: app/models/enterprises_block.rb:12
+msgid "A block that displays your enterprises"
+msgstr "Un bloc qui affiche vos entreprises"
 
-#: app/models/friends_block.rb:8 app/views/profile/index.rhtml:21
-msgid "Friends"
-msgstr "Amis"
+#: app/models/enterprises_block.rb:20 app/models/enterprises_block.rb:24
+msgid "All enterprises"
+msgstr "Toutes les entreprises"
 
-#: app/models/friends_block.rb:14
-msgid "All friends"
-msgstr "Tous ses amis"
-
-#: app/models/profile_categorization.rb:-
+#: app/models/favorite_enterprises_block.rb:4
+#: app/views/profile_editor/index.rhtml:29
 #, fuzzy
-msgid "categories profile"
-msgstr "profil de catégories"
+msgid "Favorite Enterprises"
+msgstr "Valider l'entreprise"
 
-#: app/models/profile_categorization.rb:-
-msgid "profilecategorization"
-msgstr "categorisationdeprofils"
+#: app/models/favorite_enterprises_block.rb:8
+#, fuzzy
+msgid "This user's favorite enterprises."
+msgstr "Les entreprises de <b>%s</b>"
 
-#: app/models/profile_categorization.rb:-
-msgid "ProfileCategorization|Profile"
-msgstr "Profil"
+#: app/models/favorite_enterprises_block.rb:12
+#, fuzzy
+msgid "A block that displays your favorite enterprises"
+msgstr "Un bloc qui affiche vos entreprises"
 
-#: app/models/profile_categorization.rb:-
-msgid "ProfileCategorization|Category"
+#: app/models/favorite_enterprises_block.rb:19
+#, fuzzy
+msgid "All favorite enterprises"
+msgstr "Toutes les entreprises"
+
+#: app/models/change_password.rb:21 app/models/user.rb:13
+msgid "Username"
+msgstr "Identifiant"
+
+#: app/models/change_password.rb:22 app/models/user.rb:14
+msgid "e-Mail"
+msgstr "Courrier électronique"
+
+#: app/models/change_password.rb:25
+msgid "ChangePassword|Login"
+msgstr "Identifiant"
+
+#: app/models/change_password.rb:26
+msgid "ChangePassword|Email"
+msgstr "Adresse électronique"
+
+#: app/models/change_password.rb:27
+msgid "ChangePassword|Password"
+msgstr "Mot de passe"
+
+#: app/models/change_password.rb:28
+msgid "ChangePassword|Password Confirmation"
+msgstr "Mot de passe (confirmation)"
+
+#: app/models/change_password.rb:43
+msgid "%{fn} is not a valid username."
+msgstr "%{fn} n'est pas un identifiant valide."
+
+#: app/models/change_password.rb:46
+msgid "%{fn} is invalid."
+msgstr "%{fn} est invalide."
+
+#: app/models/change_password.rb:77
+msgid "Your password change request was cancelled at %s."
+msgstr "Votre requête de changement de mot de passe a été annulée à %s."
+
+#: app/models/change_password.rb:81
+msgid "Your password was changed successfully."
+msgstr "Votre mot de passe a bien été modifié."
+
+#: app/models/change_password.rb:91
+msgid ""
+"In order to change your password, please visit the following address:\n"
+"\n"
+"%s"
+msgstr ""
+"Pour modifier votre mot de passe, veuillez visiter l'adresse suivante :\n"
+"\n"
+"%s"
+
+#: app/models/change_password.rb:96
+msgid "Password change request"
+msgstr "Requête de modification de mot de passe"
+
+#: app/models/recent_documents_block.rb:4
+msgid "List of recent content"
+msgstr "Liste de contenu récent"
+
+#: app/models/recent_documents_block.rb:13
+msgid "Recent content"
+msgstr "Contenu récent"
+
+#: app/models/recent_documents_block.rb:23
+#, fuzzy
+msgid "All content"
+msgstr "Contenu principal"
+
+#: app/models/category.rb:-
+msgid "category"
+msgstr "catégorie"
+
+#: app/models/category.rb:-
+msgid "Category|Name"
+msgstr "Nom"
+
+#: app/models/category.rb:-
+msgid "Category|Slug"
+msgstr ""
+
+#: app/models/category.rb:-
+msgid "Category|Path"
+msgstr "Chemin"
+
+#: app/models/category.rb:-
+msgid "Category|Display color"
+msgstr "Couleur d'affichage"
+
+#: app/models/category.rb:-
+msgid "Category|Environment"
+msgstr "Environnement"
+
+#: app/models/category.rb:-
+msgid "Category|Parent"
+msgstr "Parent"
+
+#: app/models/category.rb:-
+msgid "Category|Type"
+msgstr "Type"
+
+#: app/models/category.rb:-
+msgid "Category|Lat"
+msgstr "Latitude"
+
+#: app/models/category.rb:-
+msgid "Category|Lng"
+msgstr "Longitude"
+
+#: app/models/category.rb:-
+#, fuzzy
+msgid "Category|Display in menu"
+msgstr "Couleur d'affichage"
+
+#: app/models/category.rb:-
+#, fuzzy
+msgid "Category|Children count"
+msgstr "Parent"
+
+#: app/models/category.rb:3
+msgid "%{fn} cannot be like that."
+msgstr "%{fn} ne peut pas être comme ça."
+
+#: app/models/category.rb:5
+msgid "%{fn} is already being used by another category."
+msgstr "%{fn} est déjà utilisé par une autre catégorie."
+
+#: app/models/category.rb:9
+msgid "%{fn} was already assigned to another category."
+msgstr "%{fn} était déjà assigné à une autre catégorie."
+
+#: app/models/category.rb:13
+msgid "%{fn} must be the same as the parents'"
+msgstr "%{fn} doit être le même que celui de ses parents"
+
+#: app/models/textile_article.rb:4
+msgid "Text article with Textile markup language"
+msgstr "Article en texte avec marquage en langage «Textile»"
+
+#: app/models/textile_article.rb:8
+msgid "Accessible alternative for visually impaired users."
+msgstr "Alternative accessible pour personnes malvoyantes."
+
+#: app/models/thumbnail.rb:-
+msgid "thumbnail"
+msgstr "aperçu"
+
+#: app/models/thumbnail.rb:-
+msgid "Thumbnail|Size"
+msgstr "Taille"
+
+#: app/models/thumbnail.rb:-
+msgid "Thumbnail|Content type"
+msgstr "Type de contenu"
+
+#: app/models/thumbnail.rb:-
+msgid "Thumbnail|Filename"
+msgstr "Nom de fichier"
+
+#: app/models/thumbnail.rb:-
+msgid "Thumbnail|Height"
+msgstr "Hauteur"
+
+#: app/models/thumbnail.rb:-
+msgid "Thumbnail|Width"
+msgstr "Largeur"
+
+#: app/models/thumbnail.rb:-
+msgid "Thumbnail|Parent"
+msgstr "Parent"
+
+#: app/models/thumbnail.rb:-
+msgid "Thumbnail|Thumbnail"
+msgstr "Aperçu"
+
+#: app/models/article_categorization.rb:-
+msgid "articles category"
+msgstr "catégorie d'articles"
+
+#: app/models/article_categorization.rb:-
+msgid "articlecategorization"
+msgstr "categorisationarticle"
+
+#: app/models/article_categorization.rb:-
+msgid "ArticleCategorization|Article"
+msgstr "Article"
+
+#: app/models/article_categorization.rb:-
+msgid "ArticleCategorization|Category"
 msgstr "Catégorie"
 
-#: app/models/profile_categorization.rb:-
+#: app/models/article_categorization.rb:-
 #, fuzzy
-msgid "ProfileCategorization|Virtual"
-msgstr "Profil"
-
-#: app/models/tags_block.rb:8
-msgid "Block listing content count by tag"
-msgstr "Bloc listant le nombre de contenus par tag"
-
-#: app/models/tags_block.rb:12
-msgid ""
-"The tag is created when you add some one to your article. <p/>\n"
-"       Try to add some tags to some articles and see your tag cloud to grow."
-msgstr ""
-"Un tag est créé lorsque vous l'ajoutez à vote article. <p/>\n"
-"       Essayer d'ajouter quelques tags à des articles et vous verrez le "
-"nuage grossir."
-
-#: app/models/tags_block.rb:17
-msgid "%s's tags"
-msgstr "Les tags de %s"
-
-#: app/models/friendship.rb:-
-msgid "friendship"
-msgstr "amitié"
-
-#: app/models/friendship.rb:-
-msgid "Friendship|Person"
-msgstr "Personne"
-
-#: app/models/friendship.rb:-
-msgid "Friendship|Friend"
-msgstr "Ami"
-
-#: app/models/friendship.rb:-
-msgid "Friendship|Created at"
-msgstr "Créé le"
-
-#: app/models/friendship.rb:-
-msgid "Friendship|Group"
-msgstr "Groupe"
+msgid "ArticleCategorization|Virtual"
+msgstr "Article"
 
 #: app/models/profile.rb:-
 msgid "profile"
@@ -798,80 +1127,6 @@ msgstr "Les membres de %s"
 msgid "%s can't has moderators"
 msgstr ""
 
-#: app/models/category.rb:-
-msgid "category"
-msgstr "catégorie"
-
-#: app/models/category.rb:-
-msgid "Category|Name"
-msgstr "Nom"
-
-#: app/models/category.rb:-
-msgid "Category|Slug"
-msgstr ""
-
-#: app/models/category.rb:-
-msgid "Category|Path"
-msgstr "Chemin"
-
-#: app/models/category.rb:-
-msgid "Category|Display color"
-msgstr "Couleur d'affichage"
-
-#: app/models/category.rb:-
-msgid "Category|Environment"
-msgstr "Environnement"
-
-#: app/models/category.rb:-
-msgid "Category|Parent"
-msgstr "Parent"
-
-#: app/models/category.rb:-
-msgid "Category|Type"
-msgstr "Type"
-
-#: app/models/category.rb:-
-msgid "Category|Lat"
-msgstr "Latitude"
-
-#: app/models/category.rb:-
-msgid "Category|Lng"
-msgstr "Longitude"
-
-#: app/models/category.rb:-
-#, fuzzy
-msgid "Category|Display in menu"
-msgstr "Couleur d'affichage"
-
-#: app/models/category.rb:-
-#, fuzzy
-msgid "Category|Children count"
-msgstr "Parent"
-
-#: app/models/category.rb:3
-msgid "%{fn} cannot be like that."
-msgstr "%{fn} ne peut pas être comme ça."
-
-#: app/models/category.rb:5
-msgid "%{fn} is already being used by another category."
-msgstr "%{fn} est déjà utilisé par une autre catégorie."
-
-#: app/models/category.rb:9
-msgid "%{fn} was already assigned to another category."
-msgstr "%{fn} était déjà assigné à une autre catégorie."
-
-#: app/models/category.rb:13
-msgid "%{fn} must be the same as the parents'"
-msgstr "%{fn} doit être le même que celui de ses parents"
-
-#: app/models/article_block.rb:4
-msgid "Display one of your contents."
-msgstr "Afficher un de vos contenus."
-
-#: app/models/article_block.rb:8
-msgid "Article not selected yet."
-msgstr "Article non encore sélectionné."
-
 #: app/models/people_block.rb:8
 msgid "Clicking a person takes you to his/her homepage"
 msgstr "Cliquer sur une personne vous amène à sa page personnelle"
@@ -884,166 +1139,21 @@ msgstr "Un bloc qui affiche des personnes au hasard"
 msgid "All people"
 msgstr "Toutes les personnes"
 
-#: app/models/recent_documents_block.rb:4
-msgid "List of recent content"
-msgstr "Liste de contenu récent"
+#: app/models/validation_info.rb:-
+msgid "validation info"
+msgstr "info de validation"
 
-#: app/models/recent_documents_block.rb:13
-msgid "Recent content"
-msgstr "Contenu récent"
+#: app/models/validation_info.rb:-
+msgid "ValidationInfo|Validation methodology"
+msgstr "Méthode de validation"
 
-#: app/models/recent_documents_block.rb:23
-#, fuzzy
-msgid "All content"
-msgstr "Contenu principal"
+#: app/models/validation_info.rb:-
+msgid "ValidationInfo|Restrictions"
+msgstr "Restrictions"
 
-#: app/models/change_password.rb:21 app/models/user.rb:13
-msgid "Username"
-msgstr "Identifiant"
-
-#: app/models/change_password.rb:22 app/models/user.rb:14
-msgid "e-Mail"
-msgstr "Courrier électronique"
-
-#: app/models/change_password.rb:25
-msgid "ChangePassword|Login"
-msgstr "Identifiant"
-
-#: app/models/change_password.rb:26
-msgid "ChangePassword|Email"
-msgstr "Adresse électronique"
-
-#: app/models/change_password.rb:27
-msgid "ChangePassword|Password"
-msgstr "Mot de passe"
-
-#: app/models/change_password.rb:28
-msgid "ChangePassword|Password Confirmation"
-msgstr "Mot de passe (confirmation)"
-
-#: app/models/change_password.rb:43
-msgid "%{fn} is not a valid username."
-msgstr "%{fn} n'est pas un identifiant valide."
-
-#: app/models/change_password.rb:46
-msgid "%{fn} is invalid."
-msgstr "%{fn} est invalide."
-
-#: app/models/change_password.rb:77
-msgid "Your password change request was cancelled at %s."
-msgstr "Votre requête de changement de mot de passe a été annulée à %s."
-
-#: app/models/change_password.rb:81
-msgid "Your password was changed successfully."
-msgstr "Votre mot de passe a bien été modifié."
-
-#: app/models/change_password.rb:91
-msgid ""
-"In order to change your password, please visit the following address:\n"
-"\n"
-"%s"
-msgstr ""
-"Pour modifier votre mot de passe, veuillez visiter l'adresse suivante :\n"
-"\n"
-"%s"
-
-#: app/models/change_password.rb:96
-msgid "Password change request"
-msgstr "Requête de modification de mot de passe"
-
-#: app/models/user.rb:-
-msgid "user"
-msgstr "utilisateur"
-
-#: app/models/user.rb:-
-msgid "User|Username"
-msgstr "Nom d'utilisateur"
-
-#: app/models/user.rb:-
-msgid "User|e-Mail"
-msgstr "Adresse électronique"
-
-#: app/models/user.rb:-
-msgid "User|Crypted password"
-msgstr "Mot de passe crypté"
-
-#: app/models/user.rb:-
-msgid "User|Salt"
-msgstr "Sel"
-
-#: app/models/user.rb:-
-msgid "User|Created at"
-msgstr "Créé le"
-
-#: app/models/user.rb:-
-msgid "User|Updated at"
-msgstr "Mis à jour le"
-
-#: app/models/user.rb:-
-msgid "User|Remember token"
-msgstr "Mémoriser le token"
-
-#: app/models/user.rb:-
-msgid "User|Remember token expires at"
-msgstr "Le token mémorisé expire le"
-
-#: app/models/user.rb:-
-msgid "User|Terms of use"
-msgstr "Conditions d'utilisation"
-
-#: app/models/user.rb:-
-msgid "User|Terms accepted"
-msgstr "Conditions acceptées"
-
-#: app/models/user.rb:-
-msgid "User|Environment"
-msgstr "Environnement"
-
-#: app/models/user.rb:-
-#, fuzzy
-msgid "User|Password type"
-msgstr "Mot de passe"
-
-#: app/models/user.rb:-
-#, fuzzy
-msgid "User|Enable email"
-msgstr "Adresse e-mail"
-
-#: app/models/user.rb:7
-msgid "User|Password"
-msgstr "Mot de passe"
-
-#: app/models/user.rb:8
-msgid "User|Password confirmation"
-msgstr "Mot de passe (confirmation)"
-
-#: app/models/user.rb:47
-msgid "%{fn} must be checked in order to signup."
-msgstr "%{fn} doit être validé avant de pouvoir s'inscrire."
-
-#: app/models/block.rb:-
-msgid "block"
-msgstr "bloc"
-
-#: app/models/block.rb:-
-msgid "Block|Title"
-msgstr "Titre"
-
-#: app/models/block.rb:-
-msgid "Block|Box"
-msgstr "Boîte"
-
-#: app/models/block.rb:-
-msgid "Block|Type"
-msgstr "Type"
-
-#: app/models/block.rb:-
-msgid "Block|Settings"
-msgstr "Paramètres"
-
-#: app/models/block.rb:-
-msgid "Block|Position"
-msgstr "Position"
+#: app/models/validation_info.rb:-
+msgid "ValidationInfo|Organization"
+msgstr "Organisation"
 
 #: app/models/folder.rb:4
 msgid "Folder"
@@ -1052,55 +1162,6 @@ msgstr ""
 #: app/models/folder.rb:8
 msgid "A folder, inside which you can put other articles."
 msgstr ""
-
-#: app/models/communities_block.rb:4
-msgid "A block that displays your communities"
-msgstr "Un bloc qui affiche vos groupes"
-
-#: app/models/communities_block.rb:12
-msgid "The communities in which the user is a member"
-msgstr "Les groupes dont l'utilisateur est membre"
-
-#: app/models/communities_block.rb:20 app/models/communities_block.rb:24
-msgid "All communities"
-msgstr "Tous ses groupes"
-
-#: app/models/article_categorization.rb:-
-msgid "articles category"
-msgstr "catégorie d'articles"
-
-#: app/models/article_categorization.rb:-
-msgid "articlecategorization"
-msgstr "categorisationarticle"
-
-#: app/models/article_categorization.rb:-
-msgid "ArticleCategorization|Article"
-msgstr "Article"
-
-#: app/models/article_categorization.rb:-
-msgid "ArticleCategorization|Category"
-msgstr "Catégorie"
-
-#: app/models/article_categorization.rb:-
-#, fuzzy
-msgid "ArticleCategorization|Virtual"
-msgstr "Article"
-
-#: app/models/consumption.rb:-
-msgid "consumption"
-msgstr "consommation"
-
-#: app/models/consumption.rb:-
-msgid "Consumption|Product category"
-msgstr "Catégorie de produits"
-
-#: app/models/consumption.rb:-
-msgid "Consumption|Profile"
-msgstr "Profil"
-
-#: app/models/consumption.rb:-
-msgid "Consumption|Aditional specifications"
-msgstr "Spécifications supplémentaires"
 
 #: app/models/profile_list_block.rb:6
 msgid "A block that displays random profiles"
@@ -1115,50 +1176,10 @@ msgid "Clicking on the people or groups will take you to their home page."
 msgstr ""
 "Cliquer sur les personnes ou groupes vous amène sur leur page personnelle."
 
-#: app/models/profile_list_block.rb:69
-#: app/views/search/_display_results.rhtml:40 app/views/cms/view.rhtml:74
+#: app/models/profile_list_block.rb:75 app/views/cms/view.rhtml:74
+#: app/views/search/_display_results.rhtml:40
 msgid "None"
 msgstr "Aucun(e)"
-
-#: app/models/login_block.rb:4
-msgid "A login box for your users."
-msgstr "Une boîte de connexion pour vos utilisateurs."
-
-#: app/models/comment.rb:-
-msgid "comment"
-msgstr "commentaire"
-
-#: app/models/comment.rb:-
-msgid "Comment|Title"
-msgstr "Titre"
-
-#: app/models/comment.rb:-
-msgid "Comment|Body"
-msgstr "Corps"
-
-#: app/models/comment.rb:-
-msgid "Comment|Article"
-msgstr "Article"
-
-#: app/models/comment.rb:-
-msgid "Comment|Author"
-msgstr "Auteur"
-
-#: app/models/comment.rb:-
-msgid "Comment|Name"
-msgstr "Nom"
-
-#: app/models/comment.rb:-
-msgid "Comment|Email"
-msgstr "Adresse électronique"
-
-#: app/models/comment.rb:-
-msgid "Comment|Created at"
-msgstr "Créé le"
-
-#: app/models/comment.rb:16
-msgid "%{fn} can only be informed for unauthenticated authors"
-msgstr "%{fn} peut seulement être renseigné pour les auteurs non authentifiés"
 
 #: app/models/image.rb:-
 msgid "image"
@@ -1199,112 +1220,6 @@ msgstr "Largeur"
 #: app/models/image.rb:-
 msgid "Image|Height"
 msgstr "Hauteur"
-
-#: app/models/image_gallery.rb:4
-msgid "Image gallery"
-msgstr "Galerie d'images"
-
-#: app/models/image_gallery.rb:8
-msgid "A collection of photos, logos or other kinds of images."
-msgstr "Un ensemble de photos, logos ou autres types d'images."
-
-#: app/models/thumbnail.rb:-
-msgid "thumbnail"
-msgstr "aperçu"
-
-#: app/models/thumbnail.rb:-
-msgid "Thumbnail|Size"
-msgstr "Taille"
-
-#: app/models/thumbnail.rb:-
-msgid "Thumbnail|Content type"
-msgstr "Type de contenu"
-
-#: app/models/thumbnail.rb:-
-msgid "Thumbnail|Filename"
-msgstr "Nom de fichier"
-
-#: app/models/thumbnail.rb:-
-msgid "Thumbnail|Height"
-msgstr "Hauteur"
-
-#: app/models/thumbnail.rb:-
-msgid "Thumbnail|Width"
-msgstr "Largeur"
-
-#: app/models/thumbnail.rb:-
-msgid "Thumbnail|Parent"
-msgstr "Parent"
-
-#: app/models/thumbnail.rb:-
-msgid "Thumbnail|Thumbnail"
-msgstr "Aperçu"
-
-#: app/models/sellers_search_block.rb:4
-msgid "A search for enterprises by products selled and local"
-msgstr ""
-
-#: app/models/person.rb:10
-msgid "friends"
-msgstr "amis"
-
-#: app/models/person.rb:10
-msgid "work"
-msgstr "travail"
-
-#: app/models/person.rb:10
-msgid "school"
-msgstr "école"
-
-#: app/models/person.rb:10
-msgid "family"
-msgstr "famille"
-
-#: app/models/validation_info.rb:-
-msgid "validation info"
-msgstr "info de validation"
-
-#: app/models/validation_info.rb:-
-msgid "ValidationInfo|Validation methodology"
-msgstr "Méthode de validation"
-
-#: app/models/validation_info.rb:-
-msgid "ValidationInfo|Restrictions"
-msgstr "Restrictions"
-
-#: app/models/validation_info.rb:-
-msgid "ValidationInfo|Organization"
-msgstr "Organisation"
-
-#: app/models/environment_statistics_block.rb:4
-msgid "Statistical overview of your environment."
-msgstr "Statistiques générales de votre communauté."
-
-# (first try of this type of contents to be translated, could be wrong)
-#: app/models/environment_statistics_block.rb:13
-#, fuzzy
-msgid "One user"
-msgid_plural "%{num} users"
-msgstr[0] "Un utilisateur"
-msgstr[1] "%{num} utilisateurs"
-
-# (second try of this knid of contents)
-#: app/models/environment_statistics_block.rb:14
-#, fuzzy
-msgid "One enterprise"
-msgid_plural "%{num} enterprises"
-msgstr[0] "Une entreprise"
-msgstr[1] "%{num} entreprises"
-
-#: app/models/environment_statistics_block.rb:15
-msgid "One community"
-msgid_plural "%{num} communities"
-msgstr[0] "Un groupe"
-msgstr[1] "%{num} groupes"
-
-#: app/models/environment_statistics_block.rb:18
-msgid "Statistics for %s"
-msgstr "Statistiques pour %s"
 
 #: app/models/create_enterprise.rb:3 app/models/create_enterprise.rb:162
 msgid "CreateEnterprise|Identifier"
@@ -1439,96 +1354,43 @@ msgstr "Téléphone de contact : %s"
 msgid "Contact person: %s"
 msgstr "Personne de contact : %s"
 
-#: app/models/product.rb:-
-msgid "product"
-msgstr "produit"
-
-#: app/models/product.rb:-
-msgid "Product|Enterprise"
-msgstr "Entrprise"
-
-#: app/models/product.rb:-
-msgid "Product|Product category"
-msgstr "Catégorie de produit"
-
-#: app/models/product.rb:-
-msgid "Product|Name"
-msgstr "Nom"
-
-#: app/models/product.rb:-
-msgid "Product|Price"
-msgstr "Prix"
-
-#: app/models/product.rb:-
-msgid "Product|Description"
-msgstr "Description"
-
-#: app/models/product.rb:-
-msgid "Product|Image"
-msgstr "Image"
-
-#: app/models/product.rb:-
-msgid "Product|Created at"
-msgstr "Créé le"
-
-#: app/models/product.rb:-
-msgid "Product|Updated at"
-msgstr "Mis à jour le "
-
-#: app/models/product.rb:-
+#: app/models/profile_categorization.rb:-
 #, fuzzy
-msgid "Product|Lat"
-msgstr "Nom"
+msgid "categories profile"
+msgstr "profil de catégories"
 
-#: app/models/product.rb:-
+#: app/models/profile_categorization.rb:-
+msgid "profilecategorization"
+msgstr "categorisationdeprofils"
+
+#: app/models/profile_categorization.rb:-
+msgid "ProfileCategorization|Profile"
+msgstr "Profil"
+
+#: app/models/profile_categorization.rb:-
+msgid "ProfileCategorization|Category"
+msgstr "Catégorie"
+
+#: app/models/profile_categorization.rb:-
 #, fuzzy
-msgid "Product|Lng"
-msgstr "Image"
+msgid "ProfileCategorization|Virtual"
+msgstr "Profil"
 
-#: app/models/domain.rb:-
-msgid "domain"
-msgstr "domaine"
+#: app/models/members_block.rb:4
+msgid "A block that displays members."
+msgstr "Un bloc qui affiche des membres."
 
-#: app/models/domain.rb:-
-msgid "Domain|Name"
-msgstr "Nom"
+#: app/models/members_block.rb:8 app/views/profile/index.rhtml:26
+msgid "Members"
+msgstr "Membres"
 
-#: app/models/domain.rb:-
-msgid "Domain|Owner type"
-msgstr "Type de propriétaire"
+#: app/models/members_block.rb:14
+msgid "View all"
+msgstr "Voir tout"
 
-#: app/models/domain.rb:-
-msgid "Domain|Owner"
-msgstr "Propriétaire"
-
-#: app/models/domain.rb:13
-msgid ""
-"%{fn} must be composed only of lowercase latters (a to z), numbers (0 to 9) "
-"and \"_\""
-msgstr ""
-"%{fn} doit être composé uniquement de lettres minuscules (a à z), chiffres "
-"(0 à 9) ou \"_\""
-
-#: app/models/domain.rb:20
-msgid "%{fn} must not start with www."
-msgstr "%{fn} ne peut pas commencer par www."
-
-#: app/models/add_member.rb:28
-#, fuzzy
-msgid "%s wants to be a member"
-msgstr "Je rejoins cette communauté !"
-
-#: app/models/add_friend.rb:27
-msgid "%s wants to be your friend"
-msgstr "%s veut être votre ami"
-
-#: app/models/tiny_mce_article.rb:4
-msgid "Text article with visual editor."
-msgstr "Article de texte avec éditeur visuel."
-
-#: app/models/tiny_mce_article.rb:8
-msgid "Not accessible for visually impaired users."
-msgstr "Non accessible pour les personnes malvoyantes."
+#: app/models/enterprise.rb:5
+msgid "Enterprise"
+msgstr "Entreprise"
 
 #: app/models/environment.rb:-
 msgid "environment"
@@ -1590,6 +1452,42 @@ msgstr "Autres fonctionnalités"
 msgid "Only one Virtual Community can be the default one"
 msgstr "Seule une CoVi peut être celle par défaut"
 
+#: app/models/friendship.rb:-
+msgid "friendship"
+msgstr "amitié"
+
+#: app/models/friendship.rb:-
+msgid "Friendship|Person"
+msgstr "Personne"
+
+#: app/models/friendship.rb:-
+msgid "Friendship|Friend"
+msgstr "Ami"
+
+#: app/models/friendship.rb:-
+msgid "Friendship|Created at"
+msgstr "Créé le"
+
+#: app/models/friendship.rb:-
+msgid "Friendship|Group"
+msgstr "Groupe"
+
+#: app/models/consumption.rb:-
+msgid "consumption"
+msgstr "consommation"
+
+#: app/models/consumption.rb:-
+msgid "Consumption|Product category"
+msgstr "Catégorie de produits"
+
+#: app/models/consumption.rb:-
+msgid "Consumption|Profile"
+msgstr "Profil"
+
+#: app/models/consumption.rb:-
+msgid "Consumption|Aditional specifications"
+msgstr "Spécifications supplémentaires"
+
 #: app/models/profile_info_block.rb:4
 msgid "Profile information block"
 msgstr "Bloc d'information de profil"
@@ -1601,6 +1499,221 @@ msgid ""
 msgstr ""
 "Informations de base concernant <i>%{user}</i> : depuis quand <i>%{user}</i> "
 "est membre de <i>%{env}</i> et liens utiles."
+
+#: app/models/add_friend.rb:27
+msgid "%s wants to be your friend"
+msgstr "%s veut être votre ami"
+
+#: app/models/tiny_mce_article.rb:4
+msgid "Text article with visual editor."
+msgstr "Article de texte avec éditeur visuel."
+
+#: app/models/tiny_mce_article.rb:8
+msgid "Not accessible for visually impaired users."
+msgstr "Non accessible pour les personnes malvoyantes."
+
+#: app/models/task.rb:-
+msgid "task"
+msgstr "tâche"
+
+#: app/models/task.rb:-
+msgid "Task|Data"
+msgstr "Données"
+
+#: app/models/task.rb:-
+msgid "Task|Status"
+msgstr "Statut"
+
+#: app/models/task.rb:-
+msgid "Task|End date"
+msgstr "Date de fin"
+
+#: app/models/task.rb:-
+msgid "Task|Requestor"
+msgstr "Requérant"
+
+#: app/models/task.rb:-
+msgid "Task|Target"
+msgstr "Cible"
+
+#: app/models/task.rb:-
+msgid "Task|Code"
+msgstr "Code"
+
+#: app/models/task.rb:-
+msgid "Task|Type"
+msgstr "Type"
+
+#: app/models/task.rb:-
+msgid "Task|Created at"
+msgstr "Créée le "
+
+#: app/models/task.rb:87
+msgid "Generic task"
+msgstr "Tâche générique"
+
+#: app/models/task.rb:94
+msgid "The task was created at %s"
+msgstr "La tâche a été créée à %s"
+
+#: app/models/task.rb:100
+msgid "The task was finished at %s"
+msgstr "La tâche a été achevée à %s"
+
+#: app/models/task.rb:106
+msgid "The task was cancelled at %s"
+msgstr "La tâche a été annulée à %s"
+
+#: app/models/main_block.rb:4
+msgid "Block for main content (i.e. your articles, photos, etc)"
+msgstr "Bloc du contenu principal (i.e. : vos articles, photos, etc.)"
+
+#: app/models/user.rb:-
+msgid "user"
+msgstr "utilisateur"
+
+#: app/models/user.rb:-
+msgid "User|Username"
+msgstr "Nom d'utilisateur"
+
+#: app/models/user.rb:-
+msgid "User|e-Mail"
+msgstr "Adresse électronique"
+
+#: app/models/user.rb:-
+msgid "User|Crypted password"
+msgstr "Mot de passe crypté"
+
+#: app/models/user.rb:-
+msgid "User|Salt"
+msgstr "Sel"
+
+#: app/models/user.rb:-
+msgid "User|Created at"
+msgstr "Créé le"
+
+#: app/models/user.rb:-
+msgid "User|Updated at"
+msgstr "Mis à jour le"
+
+#: app/models/user.rb:-
+msgid "User|Remember token"
+msgstr "Mémoriser le token"
+
+#: app/models/user.rb:-
+msgid "User|Remember token expires at"
+msgstr "Le token mémorisé expire le"
+
+#: app/models/user.rb:-
+msgid "User|Terms of use"
+msgstr "Conditions d'utilisation"
+
+#: app/models/user.rb:-
+msgid "User|Terms accepted"
+msgstr "Conditions acceptées"
+
+#: app/models/user.rb:-
+msgid "User|Environment"
+msgstr "Environnement"
+
+#: app/models/user.rb:-
+#, fuzzy
+msgid "User|Password type"
+msgstr "Mot de passe"
+
+#: app/models/user.rb:-
+#, fuzzy
+msgid "User|Enable email"
+msgstr "Adresse e-mail"
+
+#: app/models/user.rb:7
+msgid "User|Password"
+msgstr "Mot de passe"
+
+#: app/models/user.rb:8
+msgid "User|Password confirmation"
+msgstr "Mot de passe (confirmation)"
+
+#: app/models/user.rb:47
+msgid "%{fn} must be checked in order to signup."
+msgstr "%{fn} doit être validé avant de pouvoir s'inscrire."
+
+#: app/models/uploaded_file.rb:20
+msgid "The file you uploaded was larger than the maximum size of %s"
+msgstr ""
+
+#: app/models/uploaded_file.rb:31
+msgid "Uploaded file"
+msgstr "Fichier téléversé"
+
+#: app/models/uploaded_file.rb:35
+msgid "Upload any kind of file you want."
+msgstr "Téléversez le type de fichiers que vous souhaitez."
+
+#: app/models/tags_block.rb:8
+msgid "Block listing content count by tag"
+msgstr "Bloc listant le nombre de contenus par tag"
+
+#: app/models/tags_block.rb:12
+msgid ""
+"The tag is created when you add some one to your article. <p/>\n"
+"       Try to add some tags to some articles and see your tag cloud to grow."
+msgstr ""
+"Un tag est créé lorsque vous l'ajoutez à vote article. <p/>\n"
+"       Essayer d'ajouter quelques tags à des articles et vous verrez le "
+"nuage grossir."
+
+#: app/models/tags_block.rb:17
+msgid "%s's tags"
+msgstr "Les tags de %s"
+
+#: app/models/communities_block.rb:4
+msgid "A block that displays your communities"
+msgstr "Un bloc qui affiche vos groupes"
+
+#: app/models/communities_block.rb:12
+msgid "The communities in which the user is a member"
+msgstr "Les groupes dont l'utilisateur est membre"
+
+#: app/models/communities_block.rb:20 app/models/communities_block.rb:24
+msgid "All communities"
+msgstr "Tous ses groupes"
+
+#: app/models/comment.rb:-
+msgid "comment"
+msgstr "commentaire"
+
+#: app/models/comment.rb:-
+msgid "Comment|Title"
+msgstr "Titre"
+
+#: app/models/comment.rb:-
+msgid "Comment|Body"
+msgstr "Corps"
+
+#: app/models/comment.rb:-
+msgid "Comment|Article"
+msgstr "Article"
+
+#: app/models/comment.rb:-
+msgid "Comment|Author"
+msgstr "Auteur"
+
+#: app/models/comment.rb:-
+msgid "Comment|Name"
+msgstr "Nom"
+
+#: app/models/comment.rb:-
+msgid "Comment|Email"
+msgstr "Adresse électronique"
+
+#: app/models/comment.rb:-
+msgid "Comment|Created at"
+msgstr "Créé le"
+
+#: app/models/comment.rb:16
+msgid "%{fn} can only be informed for unauthenticated authors"
+msgstr "%{fn} peut seulement être renseigné pour les auteurs non authentifiés"
 
 #: app/models/event.rb:15
 #, fuzzy
@@ -1620,8 +1733,8 @@ msgstr ""
 msgid "URL:"
 msgstr ""
 
-#: app/models/event.rb:73 app/views/enterprise_editor/index.rhtml:6
-#: app/views/cms/_event.rhtml:12
+#: app/models/event.rb:73 app/views/cms/_event.rhtml:12
+#: app/views/enterprise_editor/index.rhtml:6
 msgid "Address:"
 msgstr "Adresse :"
 
@@ -1629,604 +1742,474 @@ msgstr "Adresse :"
 msgid "When:"
 msgstr ""
 
-#: app/models/members_block.rb:4
-msgid "A block that displays members."
-msgstr "Un bloc qui affiche des membres."
-
-#: app/models/members_block.rb:8 app/views/profile/index.rhtml:26
-msgid "Members"
-msgstr "Membres"
-
-#: app/models/members_block.rb:14
-msgid "View all"
-msgstr "Voir tout"
-
-#: app/models/uploaded_file.rb:20
-msgid "The file you uploaded was larger than the maximum size of %s"
-msgstr ""
-
-#: app/models/uploaded_file.rb:31
-msgid "Uploaded file"
-msgstr "Fichier téléversé"
-
-#: app/models/uploaded_file.rb:35
-msgid "Upload any kind of file you want."
-msgstr "Téléversez le type de fichiers que vous souhaitez."
-
-#: app/controllers/admin/features_controller.rb:11
-msgid "Features updated successfully."
-msgstr "Fonctionnalités mises à jour avec succès."
-
-#: app/controllers/admin/environment_role_manager_controller.rb:17
-#: app/controllers/my_profile/profile_members_controller.rb:14
-msgid "Roles successfuly updated"
-msgstr "Les rôles ont bien été mis à jour"
-
-#: app/controllers/admin/environment_role_manager_controller.rb:19
-#: app/controllers/my_profile/profile_members_controller.rb:16
-msgid "Couldn't change the roles"
-msgstr "Impossible de changer les rôles"
-
-#: app/controllers/admin/environment_role_manager_controller.rb:45
-#: app/controllers/admin/environment_role_manager_controller.rb:55
-msgid "Member succefully unassociated"
-msgstr "Le membre a bien été dissocié"
-
-#: app/controllers/admin/environment_role_manager_controller.rb:47
-#: app/controllers/admin/environment_role_manager_controller.rb:57
-msgid "Failed to unassociate member"
-msgstr "Impossible de dissocier le membre"
-
-#: app/controllers/admin/role_controller.rb:21
-msgid "Failed to create role"
-msgstr "Échec dans la création du rôle"
-
-#: app/controllers/admin/role_controller.rb:35
-#: app/controllers/admin/role_controller.rb:45
-msgid "Failed to edit role"
-msgstr "Échec dans l'édition du rôle"
-
-#: app/controllers/my_profile/memberships_controller.rb:13
-#, fuzzy
-msgid "%s administrator still needs to accept you as member."
-msgstr "Il faut encore que %s accepte d'être votre ami."
-
-#: app/controllers/my_profile/profile_editor_controller.rb:25
-#, fuzzy
-msgid "%s was not enabled."
-msgstr "Je rejoins cette communauté !"
-
-#: app/controllers/my_profile/profile_editor_controller.rb:35
-msgid "%s was not disabled."
-msgstr ""
-
-#: app/controllers/my_profile/friends_controller.rb:15
-msgid "%s still needs to accept being your friend."
-msgstr "Il faut encore que %s accepte d'être votre ami."
-
-#: app/controllers/my_profile/cms_controller.rb:97
-msgid "Article \"%s\" configured as home page."
-msgstr "L'article «%s» est bien configuré pour être votre page d'accueil."
-
-#: app/controllers/my_profile/mailconf_controller.rb:21
-#, fuzzy
-msgid "e-Mail settings saved successfully."
-msgstr "Fonctionnalités mises à jour avec succès."
-
-#: app/controllers/my_profile/manage_products_controller.rb:22
-msgid "Product succesfully created"
-msgstr "Le produit a bien été créé"
-
-#: app/controllers/my_profile/manage_products_controller.rb:25
-msgid "Could not create the product"
-msgstr "Impossible de créer le produit"
-
-#: app/controllers/my_profile/manage_products_controller.rb:36
-msgid "Product succesfully updated"
-msgstr "Le produit a bien été mis à jour"
-
-#: app/controllers/my_profile/manage_products_controller.rb:39
-msgid "Could not update the product"
-msgstr "Impossible de mettre à jour le produit"
-
-#: app/controllers/my_profile/manage_products_controller.rb:47
-msgid "Product succesfully removed"
-msgstr "Le produit a bien été ôté"
-
-#: app/controllers/my_profile/manage_products_controller.rb:50
-msgid "Could not remove the product"
-msgstr "Impossible d'ôter le produit"
-
-#: app/controllers/my_profile/manage_products_controller.rb:65
-#, fuzzy
-msgid "Raw material succesfully created"
-msgstr "Le produit a bien été créé"
-
-#: app/controllers/my_profile/manage_products_controller.rb:68
-#, fuzzy
-msgid "Could not create the raw material"
-msgstr "Impossible de créer le produit"
-
-#: app/controllers/my_profile/manage_products_controller.rb:76
-#, fuzzy
-msgid "Raw material succesfully removed"
-msgstr "Le produit a bien été ôté"
-
-#: app/controllers/my_profile/manage_products_controller.rb:78
-#, fuzzy
-msgid "Could not remove the raw material"
-msgstr "Impossible d'ôter le produit"
-
-#: app/controllers/my_profile/manage_products_controller.rb:87
-#, fuzzy
-msgid "Raw material succesfully updated"
-msgstr "Les rôles ont bien été mis à jour"
-
-#: app/controllers/my_profile/manage_products_controller.rb:90
-#, fuzzy
-msgid "Could not update the raw material"
-msgstr "Impossible de mettre à jour l'entreprise"
-
-#: app/controllers/my_profile/enterprise_editor_controller.rb:22
-msgid "Could not update the enterprise"
-msgstr "Impossible de mettre à jour l'entreprise"
-
-#: app/controllers/my_profile/enterprise_editor_controller.rb:32
-msgid "Enterprise sucessfully erased from the system"
-msgstr "L'entreprise a bien été effacée du système"
-
-#: app/controllers/my_profile_controller.rb:17
-msgid "This action is not available for \"%s\"."
-msgstr "Cette action n'est pas disponible pour «%s»."
-
-#: app/controllers/public/search_controller.rb:180
-msgid "Recently registered people"
-msgstr "Personnes enregistrées récemment"
-
-#: app/controllers/public/search_controller.rb:181
-msgid "Recently created communities"
-msgstr "Groupes créés récemment"
-
-#: app/controllers/public/search_controller.rb:182
-msgid "Recent articles"
-msgstr "Articles récents"
-
-#: app/controllers/public/search_controller.rb:183
-msgid "Most commented articles"
-msgstr "Articles les plus commentés"
-
-#: app/controllers/public/search_controller.rb:184
-#, fuzzy
-msgid "Recently created enterprises"
-msgstr "Groupes créés récemment"
-
-#: app/controllers/public/search_controller.rb:185
-#, fuzzy
-msgid "Recently added events"
-msgstr "Groupes créés récemment"
-
-#: app/controllers/public/account_controller.rb:21
-msgid "Logged in successfully"
-msgstr "Connexion réussie"
-
-#: app/controllers/public/account_controller.rb:23
-msgid "Incorrect username or password"
-msgstr "Identifiant ou mot de passe incorrect"
-
-#: app/controllers/public/account_controller.rb:51
-msgid "Thanks for signing up!"
-msgstr "Merci de vous être inscrit(e) !"
-
-#: app/controllers/public/account_controller.rb:69
-msgid "You have been logged out."
-msgstr "Vous avez été déconnecté(e)."
-
-#: app/controllers/public/account_controller.rb:80
-msgid "Your password has been changed successfully!"
-msgstr "Votre mot de passe a bien été modifié !"
-
-#: app/controllers/public/account_controller.rb:83
-msgid "The supplied current password is incorrect."
-msgstr "Le mot de passe actuel fourni est incorrect."
-
-#: app/controllers/public/content_viewer_controller.rb:77
-msgid "Comment succesfully deleted"
-msgstr "Le commentaire a bien été effacé"
-
-#: app/controllers/box_organizer_controller.rb:91
-msgid "Failed to remove block"
-msgstr "Impossible de retirer le bloc"
-
-#: app/views/memberships/new_community.rhtml:11
-msgid "Create"
-msgstr "Créer"
-
-#: app/views/memberships/index.rhtml:1
-msgid "%s's groups"
-msgstr "Les groupes de %s"
-
-#: app/views/memberships/index.rhtml:4
-msgid "%s is a member of the following groups:"
-msgstr "%s est membre des groupes suivants :"
-
-#: app/views/memberships/index.rhtml:13
-#, fuzzy
-msgid "Role: %s"
-msgstr "Rôles :"
-
-#: app/views/memberships/index.rhtml:14
-#, fuzzy
-msgid "Type: %s"
-msgstr "Type"
-
-#: app/views/memberships/index.rhtml:15
-#, fuzzy
-msgid "Description: %s"
-msgstr "Description :"
-
-#: app/views/memberships/index.rhtml:16
-#, fuzzy
-msgid "Members: %s"
-msgstr "Membres"
-
-#: app/views/memberships/index.rhtml:17
-#, fuzzy
-msgid "Created at: %s"
-msgstr "Créé le :"
-
-#: app/views/memberships/index.rhtml:18
-#, fuzzy
-msgid "Actions: %s"
-msgstr "Actions"
-
-#: app/views/memberships/index.rhtml:18
-msgid "Manage"
-msgstr "Gérer"
-
-#: app/views/memberships/index.rhtml:18
-#, fuzzy
-msgid "Leave"
-msgstr "Enregistrer"
-
-#: app/views/memberships/index.rhtml:26
-#: app/views/profile_editor/index.rhtml:46
-#: app/views/profile/enterprises.rhtml:15
-msgid "Register a new Enterprise"
-msgstr "Enregistrer une nouvelle entreprise"
-
-#: app/views/memberships/index.rhtml:27
-#: app/views/profile_editor/index.rhtml:45
-#: app/views/profile/communities.rhtml:15
-msgid "Create a new community"
-msgstr "Créer un nouveau groupe"
-
-#: app/views/memberships/index.rhtml:28 app/views/profile/friends.rhtml:13
-#: app/views/profile/enterprises.rhtml:13 app/views/profile/members.rhtml:13
-#: app/views/profile/communities.rhtml:13
-#: app/views/profile/favorite_enterprises.rhtml:13
-#: app/views/favorite_enterprises/index.rhtml:29
-#: app/views/friends/index.rhtml:29
-msgid "Go back"
-msgstr "Retour"
-
-#: app/views/memberships/join.rhtml:1
-msgid "Joining %s"
-msgstr "Rejoindre %s"
-
-#: app/views/memberships/join.rhtml:4
-msgid "Are you sure you want to join %s?"
-msgstr "Êtes-vous sûr(e) de vouloir rejoindre %s ?"
-
-#: app/views/memberships/join.rhtml:9
-msgid "Yes, I want to join."
-msgstr "Oui, je veux la rejoindre."
-
-#: app/views/memberships/join.rhtml:10 app/views/memberships/leave.rhtml:10
-#: app/views/profile_editor/enable.rhtml:10
-#: app/views/profile_editor/disable.rhtml:10
-msgid "No, I don't want."
-msgstr "Non, je ne veux pas."
-
-#: app/views/memberships/leave.rhtml:1
-#, fuzzy
-msgid "Leaving %s"
-msgstr "Édition de %s"
-
-#: app/views/memberships/leave.rhtml:4
-#, fuzzy
-msgid "Are you sure you want to leave %s?"
-msgstr "Êtes-vous sûr(e) d'ôter/effacer «%s» ?"
-
-#: app/views/memberships/leave.rhtml:9
-#, fuzzy
-msgid "Yes, I want to leave."
-msgstr "Oui, je veux la rejoindre."
-
-#: app/views/task_mailer/task_cancelled.text.plain.rhtml:1
-#: app/views/task_mailer/task_created.text.plain.rhtml:1
-#: app/views/task_mailer/task_finished.text.plain.rhtml:1
-msgid "Dear %s,"
-msgstr "Cher/chère %s,"
-
-#: app/views/task_mailer/task_cancelled.text.plain.rhtml:6
-#: app/views/task_mailer/task_created.text.plain.rhtml:6
-#: app/views/task_mailer/task_finished.text.plain.rhtml:6
-#: app/views/task_mailer/target_notification.rhtml:6
-msgid "%s environment system"
-msgstr ""
-
-#: app/views/catalog/show.rhtml:12 app/views/catalog/index.rhtml:12
-#, fuzzy
-msgid "Price: %s"
-msgstr "Prix : %d"
-
-#: app/views/catalog/show.rhtml:12 app/views/catalog/index.rhtml:12
-#, fuzzy
-msgid "not informed"
-msgstr "(non renseigné)"
-
-#: app/views/catalog/show.rhtml:16
-msgid "Category: %s "
-msgstr "Catégorie : %s "
-
-#: app/views/catalog/show.rhtml:20
-#, fuzzy
-msgid "%s's products/services listing"
-msgstr "Liste des produits"
-
-#: app/views/catalog/index.rhtml:1
-#, fuzzy
-msgid "%s:Products/Services"
+#: app/models/friends_block.rb:4
+msgid "A block that displays your friends"
+msgstr "Un bloc qui affiche vos amis"
+
+#: app/models/friends_block.rb:8 app/views/profile/index.rhtml:21
+msgid "Friends"
+msgstr "Amis"
+
+#: app/models/friends_block.rb:14
+msgid "All friends"
+msgstr "Tous ses amis"
+
+#: app/models/person.rb:10
+msgid "friends"
+msgstr "amis"
+
+#: app/models/person.rb:10
+msgid "work"
+msgstr "travail"
+
+#: app/models/person.rb:10
+msgid "school"
+msgstr "école"
+
+#: app/models/person.rb:10
+msgid "family"
+msgstr "famille"
+
+#: app/models/product.rb:-
+msgid "product"
+msgstr "produit"
+
+#: app/models/product.rb:-
+msgid "Product|Enterprise"
+msgstr "Entrprise"
+
+#: app/models/product.rb:-
+msgid "Product|Product category"
+msgstr "Catégorie de produit"
+
+#: app/models/product.rb:-
+msgid "Product|Name"
+msgstr "Nom"
+
+#: app/models/product.rb:-
+msgid "Product|Price"
 msgstr "Prix"
 
-#: app/views/categories/new.rhtml:1 app/views/categories/index.rhtml:8
-msgid "New category"
-msgstr "Nouvelle catégorie"
+#: app/models/product.rb:-
+msgid "Product|Description"
+msgstr "Description"
 
-#: app/views/categories/_form.rhtml:18 app/views/manage_products/_form.rhtml:8
-#: app/views/profile_editor/edit.rhtml:11
-msgid "Image:"
-msgstr "Image :"
+#: app/models/product.rb:-
+msgid "Product|Image"
+msgstr "Image"
 
-#: app/views/categories/_form.rhtml:22 app/views/box_organizer/edit.rhtml:8
-#: app/views/admin_panel/site_info.rhtml:10
-#: app/views/admin_panel/message_for_disabled_enterprise.rhtml:10
-#: app/views/profile_editor/edit.rhtml:43
-#: app/views/enterprise_validation/edit_validation_info.rhtml:9
-#: app/views/cms/edit.rhtml:12 app/views/cms/edit.rhtml:33
-#: app/views/mailconf/index.rhtml:14
-msgid "Save"
-msgstr "Enregistrer"
+#: app/models/product.rb:-
+msgid "Product|Created at"
+msgstr "Créé le"
 
-#: app/views/categories/_category.rhtml:7
-msgid "Add subcategory"
-msgstr "Ajouter une sous-catégorie"
+#: app/models/product.rb:-
+msgid "Product|Updated at"
+msgstr "Mis à jour le "
 
-#: app/views/categories/_category.rhtml:9
-#: app/views/manage_products/index.rhtml:41
-#: app/views/content_viewer/_comment.rhtml:5
-#: app/views/profile_members/index.rhtml:15
-msgid "Remove"
-msgstr "Ôter/effacer"
-
-#: app/views/categories/_category.rhtml:9
-msgid "Are you sure you want to remove \"%s\"?"
-msgstr "Êtes-vous sûr(e) d'ôter/effacer «%s» ?"
-
-#: app/views/categories/_category.rhtml:9
-msgid "Are you sure you want to remove \"%s\" and all its subcategories?"
-msgstr "Êtes-vous sûr(e) d'ôter/effacer «%s» et toutes ses sous-catégories ?"
-
-#: app/views/categories/edit.rhtml:1
-#: app/views/manage_products/edit_consumption.rhtml:1
-msgid "Editing %s"
-msgstr "Édition de %s"
-
-#: app/views/manage_products/_subcategories.rhtml:3
-msgid "Current category:"
-msgstr "Catégorie courante :"
-
-#: app/views/manage_products/_subcategories.rhtml:8
-#: app/views/manage_products/index.rhtml:50
-#: app/views/environment_role_manager/index.rhtml:13
-#: app/views/enterprise_editor/index.rhtml:22
-#: app/views/enterprise_validation/list_processed.rhtml:3
-#: app/views/enterprise_validation/details.rhtml:3
-#: app/views/enterprise_validation/view_processed.rhtml:3
-#: app/views/role/show.rhtml:10 app/views/role/index.rhtml:12
-#: app/views/profile_members/index.rhtml:21 app/views/tasks/processed.rhtml:23
-msgid "Back"
-msgstr "Retour"
-
-#: app/views/manage_products/_subcategories.rhtml:22
+#: app/models/product.rb:-
 #, fuzzy
-msgid "Select a category:"
-msgstr "Choisissez une sous-catégorie :"
+msgid "Product|Lat"
+msgstr "Nom"
 
-#: app/views/manage_products/_subcategories.rhtml:24
-msgid "Select a subcategory:"
-msgstr "Choisissez une sous-catégorie :"
-
-#: app/views/manage_products/show.rhtml:4
-#: app/views/manage_products/_form.rhtml:5
-msgid "Price:"
-msgstr "Prix :"
-
-#: app/views/manage_products/show.rhtml:5
-#: app/views/manage_products/_form.rhtml:6 app/views/cms/_folder.rhtml:7
-msgid "Description:"
-msgstr "Description :"
-
-#: app/views/manage_products/show.rhtml:6
-msgid "Category:"
-msgstr "Catégorie :"
-
-#: app/views/manage_products/show.rhtml:8
-msgid "back"
-msgstr "retour"
-
-#: app/views/manage_products/show.rhtml:10
-msgid "destroy"
-msgstr "detruire"
-
-#: app/views/manage_products/show.rhtml:11
-msgid "edit"
-msgstr "editer"
-
-#: app/views/manage_products/new.rhtml:1
-msgid "New product"
-msgstr "Nouveau produit"
-
-#: app/views/manage_products/_form.rhtml:4 app/views/profile/index.rhtml:11
-msgid "Name:"
-msgstr "Nom :"
-
-#: app/views/manage_products/_form.rhtml:16
-msgid "Create product"
-msgstr "Créer un produit"
-
-#: app/views/manage_products/_form.rhtml:16
-#: app/views/manage_products/_form_consumption.rhtml:7
-#: app/views/environment_role_manager/change_role.rhtml:12
-#: app/views/role/_form.rhtml:13
-#: app/views/profile_members/change_role.rhtml:12
-#: app/views/features/_features_table.rhtml:16
-msgid "Save changes"
-msgstr "Enregistrer les modifications"
-
-#: app/views/manage_products/index.rhtml:1
+#: app/models/product.rb:-
 #, fuzzy
-msgid "Listing products and services"
-msgstr "Liste des produits"
+msgid "Product|Lng"
+msgstr "Image"
 
-#: app/views/manage_products/index.rhtml:5
-#, fuzzy
-msgid "Product"
-msgstr "Produits"
+#: app/models/rss_feed.rb:77
+msgid "%s's RSS feed"
+msgstr "Flux RSS de %s"
 
-#: app/views/manage_products/index.rhtml:6
-#, fuzzy
-msgid "Price"
-msgstr "Prix :"
+#: app/models/rss_feed.rb:79
+msgid "%s's content published at %s"
+msgstr "Le contenu de %s publié à %s"
 
-#: app/views/manage_products/index.rhtml:7
-#: app/views/manage_products/index.rhtml:30 app/views/cms/view.rhtml:26
-#: app/views/profile_members/index.rhtml:8
-msgid "Actions"
-msgstr "Actions"
+#: app/models/rss_feed.rb:105
+msgid "RSS Feed"
+msgstr "Flux RSS"
 
-#: app/views/manage_products/index.rhtml:15 app/views/role/index.rhtml:7
-msgid "Destroy"
-msgstr "Détruire"
+#: app/models/rss_feed.rb:109
+msgid "Provides a news feed of your more recent articles."
+msgstr "Fournit un flux de nouvelles de vos articles les plus récents."
 
-#: app/views/manage_products/index.rhtml:21
-#, fuzzy
-msgid "New product or service"
-msgstr "Nouveau produit"
-
-#: app/views/manage_products/index.rhtml:25
-#, fuzzy
-msgid "Listing raw materials"
-msgstr "Liste des membres"
-
-#: app/views/manage_products/index.rhtml:29
-msgid "Raw material"
+#: app/models/sellers_search_block.rb:4
+msgid "A search for enterprises by products selled and local"
 msgstr ""
 
-#: app/views/manage_products/index.rhtml:41
+#: app/views/account/forgot_password.rhtml:1
+#: app/views/account/password_recovery_sent.rhtml:1
+msgid "Password recovery"
+msgstr "Retrouver son mot de passe"
+
+#: app/views/account/forgot_password.rhtml:7
+msgid ""
+"To change your password, please fill the form on this screen using your "
+"username and your e-mail. You will receive a message at that e-mail address "
+"with a web address you can access to create a new password."
+msgstr ""
+"Pour modifier votre mot de passe, remplissez le formulaire de cet écran en "
+"utilisant votre identifiant et votre adresse électronique. Vous recevrez un "
+"message à votre adresse électronique avec une adresse web à laquelle vous "
+"pourrez accéder pour créer un nouveau mot de passe."
+
+#: app/views/account/forgot_password.rhtml:16
+msgid "Send change password procedure by e-mail"
+msgstr ""
+"Envoyer le procédure de changement de mot de passe par courrier électronique"
+
+#: app/views/account/signup.rhtml:1
+msgid "Register"
+msgstr "S'enregistrer"
+
+#: app/views/account/signup.rhtml:5
+msgid ""
+"Fill all this fields to join in this environment.<p/>If you forgot your "
+"password, do not create a new account, click on the \"<b>I forgot my "
+"password!</b>\" link. ;-)"
+msgstr ""
+"Remplissez tous ces champs pour rejoindre cette communauté.<p/>Si vous avez "
+"oublié votre mot de passe, ne créez pas un nouveau compte, cliquez sur le "
+"lien «<b>J'ai oublié mon mot de passe</b>»."
+
+#: app/views/account/signup.rhtml:11
+#: app/views/account/activate_enterprise.rhtml:11
+msgid "\"Username\" is a simple nickname to recognize you on this environment."
+msgstr ""
+"«Identifiant» est un simple surnom pour vous reconnaître dans cette "
+"communauté."
+
+#: app/views/account/signup.rhtml:16
+#: app/views/account/activate_enterprise.rhtml:16
+msgid "We'll send you an e-mail to validate your registration."
+msgstr ""
+"Nous vous enverrons un courrier électronique pour valider votre "
+"enregistrement."
+
+#: app/views/account/signup.rhtml:20
+#: app/views/account/activate_enterprise.rhtml:20
+msgid "Do not use a obviously password, but try some unforgettable word."
+msgstr ""
+"Ne choisissez pas un mot de passe évident, mais essayez de trouver quelque "
+"chose que vous n'oublierez pas."
+
+#: app/views/account/signup.rhtml:24
+#: app/views/account/activate_enterprise.rhtml:24
+msgid "We need to be sure that you wrote correctly your password."
+msgstr ""
+"Nous devons nous assurer que vous avez écrit correctement votre mot de passe."
+
+#: app/views/account/signup.rhtml:33
+#: app/views/account/activate_enterprise.rhtml:37
+msgid "I accept the terms of use"
+msgstr "J'accepte les conditions d'utilisation"
+
+# Je ne suis pas sûr de la distinction "sign up" / "register"
+#: app/views/account/signup.rhtml:38
+#: app/views/account/activate_enterprise.rhtml:42
 #, fuzzy
-msgid "Are you sure, you want to remove this raw material from your list"
-msgstr "Êtes-vous sûr(e) de vouloir ôter ce produit de votre liste ?"
+msgid "Sign up"
+msgstr "S'enregistrer"
 
-#: app/views/manage_products/index.rhtml:47
-#: app/views/manage_products/new_consumption.rhtml:1
-#: app/views/manage_products/_form_consumption.rhtml:7
-msgid "Add raw material"
+#: app/views/account/blocked.rhtml:2
+msgid "Your enterprise has been blocked"
 msgstr ""
 
-#: app/views/manage_products/edit.rhtml:1
-msgid "Editing"
-msgstr "Édition"
+#: app/views/account/user_info.rhtml:3
+msgid "Logged in as %s"
+msgstr "Connecté en tant que %s"
 
-#: app/views/manage_products/_form_consumption.rhtml:4
-msgid "Raw material:"
+#: app/views/account/user_info.rhtml:6
+msgid "User since %{year}/%{month}"
+msgstr "Utilisateur depuis %{month}/%{year}"
+
+#: app/views/account/user_info.rhtml:7 app/views/blocks/profile_info.rhtml:7
+msgid "Homepage"
+msgstr "Accueil"
+
+#: app/views/account/user_info.rhtml:11 app/views/shared/user_menu.rhtml:43
+msgid "Logout"
+msgstr "Déconnexion"
+
+#: app/views/account/login.rhtml:3 app/views/account/login_block.rhtml:4
+#: app/views/shared/user_menu.rhtml:54
+msgid "Login"
+msgstr "Connexion"
+
+#: app/views/account/login.rhtml:11 app/views/account/login_block.rhtml:13
+msgid ""
+"If you are a registered user, enter your username and password to be "
+"authenticated."
+msgstr ""
+"Si vous êtes un utilisateur enregistré, entrez vos identifiant et mot de "
+"passe pour être authentifié(e)."
+
+# 1- Verify consistency between translations.
+# 2- In English "an user" -> "a user" Cf. http://forum.wordreference.com/showthread.php?t=480322
+#
+#: app/views/account/login.rhtml:11
+msgid "To join on this environment, click on \"<b>I want to be an user!</b>\"."
+msgstr ""
+"Pour rejoindre cette communauté, cliquez sur  \"<b>Je rejoins cette "
+"communauté !</b>\"."
+
+#: app/views/account/login.rhtml:11 app/views/account/login_block.rhtml:13
+msgid ""
+"If you forgot your password, click on \"<b>I forgot my password!</b>\" link."
+msgstr ""
+"Si vous avez oublié votre mot de passe, cliquez sur le lien «<b>J'ai oublié "
+"mon mot de passe !</b>»."
+
+#: app/views/account/login.rhtml:15 app/views/account/login_block.rhtml:17
+msgid "Here goes the nickname that you give on the registration."
+msgstr "Ici, le nom que vous avez donné à l'enregistrement."
+
+#: app/views/account/login.rhtml:20 app/views/account/login_block.rhtml:21
+msgid "your password is personal, protect it."
+msgstr "votre mot de passe est personnel, protégez-le."
+
+#: app/views/account/login.rhtml:23 app/views/account/login_block.rhtml:24
+msgid "Log in"
+msgstr "Se connecter"
+
+#: app/views/account/login.rhtml:29 app/views/account/login_block.rhtml:33
+msgid "You can recover your password clicking on this link."
+msgstr "Vous pouvez retrouver votre mot de passe en cliquant sur ce lien."
+
+#: app/views/account/login.rhtml:30 app/views/account/login_block.rhtml:34
+msgid "I forgot my password!"
+msgstr "J'ai oublié mon mot de passe !"
+
+#: app/views/account/login.rhtml:33 app/views/account/login_block.rhtml:27
+msgid "Click here to join to this environment, if you is not already an user."
+msgstr ""
+"Cliquez ici pour rejoindre cette communauté, si vous n'en êtes pas déjà "
+"membre."
+
+#: app/views/account/login.rhtml:34
+msgid "I want to be an user!"
+msgstr "Je rejoins cette communauté !"
+
+#: app/views/account/change_password.rhtml:1
+#: app/views/account/change_password.rhtml:14
+#: app/views/account/new_password.rhtml:14
+msgid "Change password"
+msgstr "Modifier son mot de passe"
+
+#: app/views/account/change_password.rhtml:5
+msgid "Current password"
+msgstr "Mot de passe actuel"
+
+#: app/views/account/change_password.rhtml:8
+msgid "New password"
+msgstr "Nouveau mot de passe"
+
+#: app/views/account/change_password.rhtml:11
+msgid "Confirm your new Password"
+msgstr "Confirmer votre nouveau mot de passe"
+
+#: app/views/account/index.rhtml:1
+msgid "Account options"
+msgstr "Options du compte"
+
+#: app/views/account/index.rhtml:4
+msgid "Change password."
+msgstr "Modifier son mot de passe."
+
+#: app/views/account/index.rhtml:5
+msgid "It is a good idea to change your password from times to times."
+msgstr ""
+"C'est une bonne idée que de changer son mot de passe de temps en temps."
+
+#: app/views/account/index.rhtml:9
+msgid "Edit Personal details."
+msgstr "Éditer vos informations personnelles."
+
+#: app/views/account/index.rhtml:10
+msgid "You can change your personal details."
+msgstr "Vous pouvez modifier vos informations personnelles."
+
+#: app/views/account/index.rhtml:14
+msgid "My home page."
+msgstr "Ma page personnelle."
+
+#: app/views/account/index.rhtml:15
+msgid "See your homepage."
+msgstr "Voir votre page personnelle."
+
+#: app/views/account/index.rhtml:19
+msgid "Manage content."
+msgstr "Gérer le contenu."
+
+#: app/views/account/index.rhtml:20
+msgid "Manage your content."
+msgstr "Gérer votre contenu."
+
+#: app/views/account/index.rhtml:24
+msgid "Logout."
+msgstr "Déconnexion."
+
+#: app/views/account/index.rhtml:25
+msgid ""
+"It is always a good idea to make a logout when you finish using the "
+"environment."
+msgstr ""
+"C'est toujours une bonne idée que de se déconnecter explicitement lorsque "
+"vous avez terminé d'utiliser l'environnement."
+
+#: app/views/account/invalid_change_password_code.rhtml:1
+msgid "Invalid change password code"
+msgstr "Code de changement de mot de passe invalide"
+
+#: app/views/account/invalid_change_password_code.rhtml:4
+msgid ""
+"The code you are using for password change is not valid. Please try to "
+"request password change using the <a href=\"%s\">\"I forgot my password\"</"
+"a> functionality."
+msgstr ""
+"Le code que vous utilisez pour changer votre mot de passe est invalide. Vous "
+"devriez sans doute tenter de faire une demande de changement de mot de passe "
+"en utilisant la fonctionnalité <a href=\"%s\">«J'ai oublié mon mot de passe»</"
+"a>."
+
+#: app/views/account/logout_popup.rhtml:1
+msgid "Are you sure you want to get out?"
+msgstr "Êtes-vous sûr(e) de vouloir sortir ?"
+
+#: app/views/account/logout_popup.rhtml:4
+msgid "Yes"
+msgstr "Oui"
+
+#: app/views/account/logout_popup.rhtml:5
+msgid "No, I want to stay."
+msgstr "Non, je désire rester."
+
+#: app/views/account/new_password_ok.rhtml:1
+msgid "Password changed sucessfully"
+msgstr "Le mot de passe a bien été modifié"
+
+#: app/views/account/new_password_ok.rhtml:4
+msgid "%s, your new password was successfully installed."
+msgstr "%s, votre nouveau mot de passe a bien été installé."
+
+#: app/views/account/new_password_ok.rhtml:8
+msgid "You can <a href='%s'>login</a> now."
+msgstr "Maintenant, vous pouvez vous <a href='%s'>commecter</a>."
+
+#: app/views/account/password_recovery_sent.rhtml:4
+msgid ""
+"An e-mail was just sent to your e-mail address, with instructions for "
+"changing your password. You should receive it in a few minutes."
+msgstr ""
+"Un message vient d'être envoyé à votre adresse électronique ; il contient "
+"les instructions sur comment modifier votre mot de passe. Vous devriez le "
+"recevoir dans quelques instants."
+
+#: app/views/account/login_block.rhtml:13
+msgid "To join on this environment, click on \"<b>New user</b>\"."
+msgstr ""
+"Pour rejoindre cette communauté, cliquez sur «<b>Nouvel utilisateur</b>»."
+
+#: app/views/account/login_block.rhtml:25
+msgid "New user"
+msgstr "Nouvel utilisateur"
+
+#: app/views/account/already_activated.rhtml:1
+#, fuzzy
+msgid "This enterprise is already active"
+msgstr "Validations d'entreprises en attente"
+
+#: app/views/account/index_anonymous.rhtml:1
+msgid "Identify yourself"
+msgstr "Identifiez-vous"
+
+#: app/views/account/index_anonymous.rhtml:4
+msgid "Login."
+msgstr "Identifiant."
+
+#: app/views/account/index_anonymous.rhtml:5
+#: app/views/shared/user_menu.rhtml:57
+#, fuzzy
+msgid ""
+"Click here to enter your username and password and be recognized by the "
+"system."
+msgstr ""
+"Cliquez ici pour entrer vos identifiant et mot de passe et être reconnu(e) "
+"par le système."
+
+#: app/views/account/index_anonymous.rhtml:7
+msgid ""
+"You need to login to be able to use all the features in this environment."
+msgstr ""
+"Vous devez être connecté(e) pour pouvoir utiliser toutes les fonctions de "
+"cette communauté."
+
+#: app/views/account/index_anonymous.rhtml:11
+msgid "Sign up."
+msgstr "S'inscrire."
+
+#: app/views/account/index_anonymous.rhtml:12
+msgid ""
+"If you are not an user already, you can register now to become a member of "
+"this environment."
+msgstr ""
+"Si vous ne n'avez pas déjà fait, vous pouvez vous enregistrer dès à présent "
+"pour devenir membre de cette communauté."
+
+#: app/views/account/new_password.rhtml:1
+#: app/views/account/new_password.rhtml:11
+msgid "Enter new password"
+msgstr "Entrez un nouveau mot de passe"
+
+#: app/views/account/new_password.rhtml:4
+msgid "Hello, %s! Please enter your new password in the form below."
+msgstr ""
+"Bonjour, %s ! Veuillez entrer votre nouveau mot de passe dans le formulaire "
+"ci-dessous."
+
+#: app/views/account/new_password.rhtml:12
+msgid "Confirm the new password"
+msgstr "Confirmer votre nouveau mot de passe"
+
+#: app/views/account/activate_enterprise.rhtml:1
+#, fuzzy
+msgid "Register and activate enterprise"
+msgstr "Enregistrer une nouvelle entreprise"
+
+#: app/views/account/activate_enterprise.rhtml:5
+#, fuzzy
+msgid ""
+"Fill all this fields to activate your enterprise and join in this "
+"environment.<p/>If you forgot your password, do not create a new account, "
+"click on the \"<b>I forgot my password!</b>\" link. ;-)"
+msgstr ""
+"Remplissez tous ces champs pour rejoindre cette communauté.<p/>Si vous avez "
+"oublié votre mot de passe, ne créez pas un nouveau compte, cliquez sur le "
+"lien «<b>J'ai oublié mon mot de passe</b>»."
+
+#: app/views/account/activate_enterprise.rhtml:27
+msgid "What year your enterprise was founded?"
 msgstr ""
 
-#: app/views/manage_products/_form_consumption.rhtml:5
-msgid "Aditional specifications:"
-msgstr "Spécifications supplémentaires :"
+#: app/views/account/activate_enterprise.rhtml:27
+msgid "What is the CNPJ of your enterprise?"
+msgstr ""
 
-#: app/views/environment_role_manager/affiliate.rhtml:7
-#: app/views/profile_members/affiliate.rhtml:7
-msgid "Affiliate"
-msgstr "Affilié"
+#: app/views/account/activate_enterprise.rhtml:27
+#, fuzzy
+msgid "We need to be sure that this is your enterprise"
+msgstr ""
+"Nous devons nous assurer que vous avez écrit correctement votre mot de passe."
 
-#: app/views/environment_role_manager/make_admin.rhtml:1
-#: app/views/environment_role_manager/index.rhtml:3
-msgid "Make new admin"
-msgstr "Créer un nouvel administrateur"
+#: app/views/account/invalid_enterprise_code.rhtml:1
+#, fuzzy
+msgid "Invalid enterprise code"
+msgstr "Valider l'entreprise"
 
-#: app/views/environment_role_manager/make_admin.rhtml:4
-#: app/views/shared/user_menu.rhtml:36
-msgid "Admin"
-msgstr "Admin"
-
-#: app/views/environment_role_manager/make_admin.rhtml:8
-#: app/views/environment_role_manager/change_role.rhtml:5
-#: app/views/profile_members/change_role.rhtml:5
-#: app/views/tasks/_add_member.rhtml:25
-msgid "Roles:"
-msgstr "Rôles :"
-
-#: app/views/environment_role_manager/make_admin.rhtml:13
-msgid "Make"
-msgstr "Faire"
-
-#: app/views/environment_role_manager/index.rhtml:1
-msgid "Listing Administrators"
-msgstr "Liste des administrateurs"
-
-#: app/views/environment_role_manager/index.rhtml:8
-msgid "Edit member role"
-msgstr "Édition du rôle du membre"
-
-#: app/views/environment_role_manager/index.rhtml:9
-msgid "Remove member"
-msgstr "Ôter le membre"
-
-#: app/views/environment_role_manager/change_role.rhtml:1
-#: app/views/profile_members/change_role.rhtml:1
-msgid "Changing role of %s"
-msgstr "Changement du rôle de %s"
-
-#: app/views/box_organizer/index.rhtml:1
-msgid "Organizing visual design"
-msgstr "Organisation du visuel"
-
-#: app/views/box_organizer/index.rhtml:4
-msgid "Add a block"
-msgstr "Ajouter un bloc"
-
-#: app/views/box_organizer/edit.rhtml:1
-msgid "Editing block"
-msgstr "Édition du bloc"
-
-#: app/views/box_organizer/add_block.rhtml:3
-msgid "In what area do you want to put your new block?"
-msgstr "Dans quel partie désirez-vous placer ce nouveau bloc ?"
-
-#: app/views/box_organizer/add_block.rhtml:5
-msgid "Area %d"
-msgstr "Partie %d"
-
-#: app/views/box_organizer/add_block.rhtml:7
-msgid "Select the type of block you want to add to your page."
-msgstr "Choisissez le type de bloc que vous voulez ajouter à la page."
-
-#: app/views/box_organizer/add_block.rhtml:17
-#: app/views/region_validators/_search.rhtml:9
-msgid "Add"
-msgstr "Ajouter"
+#: app/views/account/invalid_enterprise_code.rhtml:4
+msgid ""
+"The code you are using for validate your enterprise is not valid. Please "
+"check if you are typing it correctly."
+msgstr ""
 
 #: app/views/admin_panel/index.rhtml:1
 msgid "Administrator Panel"
@@ -2269,22 +2252,240 @@ msgstr "Gérer les rôles des utilisateurs"
 msgid "Manage Validators by region"
 msgstr "Gérer les validateurs par région"
 
-#: app/views/admin_panel/site_info.rhtml:1
 #: app/views/admin_panel/message_for_disabled_enterprise.rhtml:1
+#: app/views/admin_panel/site_info.rhtml:1
 msgid "Site info"
 msgstr "Infos du site"
 
+#: app/views/admin_panel/message_for_disabled_enterprise.rhtml:10
+#: app/views/admin_panel/site_info.rhtml:10
+#: app/views/categories/_form.rhtml:22 app/views/cms/edit.rhtml:12
+#: app/views/cms/edit.rhtml:33
+#: app/views/enterprise_validation/edit_validation_info.rhtml:9
+#: app/views/profile_editor/edit.rhtml:43 app/views/box_organizer/edit.rhtml:8
+#: app/views/mailconf/index.rhtml:14
+msgid "Save"
+msgstr "Enregistrer"
+
+#: app/views/catalog/index.rhtml:1
+#, fuzzy
+msgid "%s:Products/Services"
+msgstr "Prix"
+
+#: app/views/catalog/index.rhtml:12 app/views/catalog/show.rhtml:12
+#, fuzzy
+msgid "Price: %s"
+msgstr "Prix : %d"
+
+#: app/views/catalog/index.rhtml:12 app/views/catalog/show.rhtml:12
+#, fuzzy
+msgid "not informed"
+msgstr "(non renseigné)"
+
+#: app/views/catalog/show.rhtml:16
+msgid "Category: %s "
+msgstr "Catégorie : %s "
+
+#: app/views/catalog/show.rhtml:20
+#, fuzzy
+msgid "%s's products/services listing"
+msgstr "Liste des produits"
+
+#: app/views/categories/_category.rhtml:7
+msgid "Add subcategory"
+msgstr "Ajouter une sous-catégorie"
+
+#: app/views/categories/_category.rhtml:9
 #: app/views/content_viewer/_comment.rhtml:5
-msgid "Are you sure you want to remove this comment?"
-msgstr "Êtes-vous sûr(e) que vous voulez retirer ce commentaire ?"
+#: app/views/manage_products/index.rhtml:41
+#: app/views/profile_members/index.rhtml:15
+msgid "Remove"
+msgstr "Ôter/effacer"
 
-#: app/views/content_viewer/_comment.rhtml:24
-msgid "By %{author} on %{date}"
-msgstr "Par %{author} le %{date}"
+#: app/views/categories/_category.rhtml:9
+msgid "Are you sure you want to remove \"%s\"?"
+msgstr "Êtes-vous sûr(e) d'ôter/effacer «%s» ?"
 
-#: app/views/content_viewer/_comment.rhtml:27
-msgid "(unauthenticated user)"
-msgstr "(utilisateur inconnu)"
+#: app/views/categories/_category.rhtml:9
+msgid "Are you sure you want to remove \"%s\" and all its subcategories?"
+msgstr "Êtes-vous sûr(e) d'ôter/effacer «%s» et toutes ses sous-catégories ?"
+
+#: app/views/categories/edit.rhtml:1
+#: app/views/manage_products/edit_consumption.rhtml:1
+msgid "Editing %s"
+msgstr "Édition de %s"
+
+#: app/views/categories/index.rhtml:8 app/views/categories/new.rhtml:1
+msgid "New category"
+msgstr "Nouvelle catégorie"
+
+#: app/views/categories/_form.rhtml:18 app/views/manage_products/_form.rhtml:8
+#: app/views/profile_editor/edit.rhtml:11
+msgid "Image:"
+msgstr "Image :"
+
+#: app/views/cms/_rss_feed.rhtml:3
+msgid "Limit of articles"
+msgstr "Limite d'articles"
+
+#: app/views/cms/_rss_feed.rhtml:5
+msgid "Use as item description:"
+msgstr "Utiliser comme description d'élément :"
+
+#: app/views/cms/_rss_feed.rhtml:5
+msgid "Article abstract"
+msgstr "Résumé de l'article"
+
+#: app/views/cms/_rss_feed.rhtml:5
+msgid "Article body"
+msgstr "Corps de l'article"
+
+#: app/views/cms/_rss_feed.rhtml:7
+msgid "Include in the feed:"
+msgstr "Inclure dans le flux :"
+
+#: app/views/cms/_rss_feed.rhtml:7
+msgid "All articles"
+msgstr "Tous les articles"
+
+# Really not clear in English
+#: app/views/cms/_rss_feed.rhtml:7
+#, fuzzy
+msgid "Only articles child of the same article as the feed"
+msgstr "Only articles child of the same article as the feed (untranslated)"
+
+#: app/views/cms/select_article_type.rhtml:1
+msgid "Choose the type of article:"
+msgstr "Choisissez le type de l'article :"
+
+#: app/views/cms/view.rhtml:3
+msgid "Content management"
+msgstr "Gestion du contenu"
+
+#: app/views/cms/view.rhtml:16
+#, fuzzy
+msgid "New folder"
+msgstr "Nouveau rôle"
+
+#: app/views/cms/view.rhtml:17
+msgid "New article"
+msgstr "Nouvel article"
+
+#: app/views/cms/view.rhtml:24 app/views/content_viewer/_comment_form.rhtml:24
+#: app/views/enterprise_editor/_form.rhtml:1
+#: app/views/enterprise_validation/_details.rhtml:3
+msgid "Name"
+msgstr "Nom"
+
+#: app/views/cms/view.rhtml:25
+msgid "Type"
+msgstr "Type"
+
+#: app/views/cms/view.rhtml:26 app/views/manage_products/index.rhtml:7
+#: app/views/manage_products/index.rhtml:30
+#: app/views/profile_members/index.rhtml:8
+msgid "Actions"
+msgstr "Actions"
+
+#: app/views/cms/view.rhtml:40
+msgid "Properties"
+msgstr ""
+
+#: app/views/cms/view.rhtml:41 app/views/cms/view.rhtml:66
+msgid "Public view"
+msgstr ""
+
+#: app/views/cms/view.rhtml:42 app/views/cms/view.rhtml:68
+msgid "Delete"
+msgstr "Détruire"
+
+#: app/views/cms/view.rhtml:42
+msgid ""
+"Are you sure that you want to remove this folder? Note that all the items "
+"inside it will also be removed!"
+msgstr ""
+
+#: app/views/cms/view.rhtml:67
+msgid "Use as homepage"
+msgstr "Utiliser comme page d'accueil"
+
+#: app/views/cms/view.rhtml:68
+#, fuzzy
+msgid "Are you sure that you want to remove this item?"
+msgstr "Êtes-vous sûr(e) de vouloir ôter cet article ?"
+
+#: app/views/cms/why_categorize.rhtml:1 app/views/cms/edit.rhtml:16
+#, fuzzy
+msgid "Why categorize?"
+msgstr "Catégories"
+
+#: app/views/cms/why_categorize.rhtml:4
+msgid ""
+"By categorizing your content, you increase the possibility that other people "
+"access it. When they are looking for, say, articles about Bahia and you "
+"categorize your article in \"Regions/Bahia\", then there is a good change "
+"that your article is going to be found."
+msgstr ""
+
+#: app/views/cms/why_categorize.rhtml:8 app/views/tasks/_task.rhtml:8
+#: app/views/tasks/_task.rhtml:16
+msgid "OK"
+msgstr "Ok"
+
+#: app/views/cms/_event.rhtml:6
+msgid "Start date"
+msgstr ""
+
+#: app/views/cms/_event.rhtml:8
+#, fuzzy
+msgid "End date"
+msgstr "Date de fin"
+
+#: app/views/cms/_event.rhtml:10
+msgid "Event website:"
+msgstr ""
+
+#: app/views/cms/_event.rhtml:14
+#, fuzzy
+msgid "Information about the event:"
+msgstr "Informations concernant les dirigeants :\n"
+
+#: app/views/cms/_folder.rhtml:7 app/views/manage_products/_form.rhtml:6
+#: app/views/manage_products/show.rhtml:5
+msgid "Description:"
+msgstr "Description :"
+
+#: app/views/cms/edit.rhtml:19
+#, fuzzy
+msgid "Categorize your article"
+msgstr "profil de catégories"
+
+#: app/views/cms/edit.rhtml:22
+msgid "Separate tags with commas"
+msgstr "Séparez les tags par des virgules"
+
+#: app/views/cms/edit.rhtml:25
+#, fuzzy
+msgid "Options"
+msgstr "Actions"
+
+#: app/views/cms/edit.rhtml:28
+msgid "Published"
+msgstr ""
+
+#: app/views/cms/_uploaded_file.rhtml:1
+#, fuzzy
+msgid "Select the file you want to upload (max size %s)."
+msgstr "Choisissez le document que vous voulez téléverser."
+
+#: app/views/cms/_uploaded_file.rhtml:3
+msgid "Describe this file:"
+msgstr "Décrivez ce document :"
+
+#: app/views/content_viewer/not_found.rhtml:1
+#: app/views/shared/not_found.rhtml:1
+msgid "There is no such page: %s"
+msgstr "Il n'existe pas une telle page : %s"
 
 #: app/views/content_viewer/no_home_page.rhtml:1
 msgid "Missing home page"
@@ -2308,39 +2509,9 @@ msgstr "Accès interdit"
 msgid "You are not allowed to view this content."
 msgstr "Vous pouvez continuer à naviguer sur cette communauté."
 
-#: app/views/content_viewer/view_page.rhtml:43
-msgid "This article's tags:"
-msgstr "Les tags de cet article :"
-
-#: app/views/content_viewer/view_page.rhtml:49
-msgid "Up"
-msgstr "En haut"
-
-#: app/views/content_viewer/view_page.rhtml:68
-msgid "No comments yet"
-msgstr "Pas encore de commentaire"
-
-#: app/views/content_viewer/view_page.rhtml:68
-msgid "One comment"
-msgid_plural "%{comments} comments"
-msgstr[0] "Un commentaire"
-msgstr[1] "%{comments} commentaires"
-
-#: app/views/content_viewer/not_found.rhtml:1
-#: app/views/shared/not_found.rhtml:1
-msgid "There is no such page: %s"
-msgstr "Il n'existe pas une telle page : %s"
-
 #: app/views/content_viewer/_comment_form.rhtml:18
 msgid "Post a comment"
 msgstr "Poster un commentaire"
-
-#: app/views/content_viewer/_comment_form.rhtml:24
-#: app/views/enterprise_editor/_form.rhtml:1
-#: app/views/enterprise_validation/_details.rhtml:3
-#: app/views/cms/view.rhtml:24
-msgid "Name"
-msgstr "Nom"
 
 #: app/views/content_viewer/_comment_form.rhtml:25
 msgid "e-mail"
@@ -2365,104 +2536,64 @@ msgstr "Entrez votre commentaire"
 msgid "Post comment"
 msgstr "Poster votre commentaire"
 
-#: app/views/enterprise_registration/confirmation.rhtml:1
-msgid "Enterprise Registration completed"
-msgstr "Enregistrement d'entreprise terminé"
+#: app/views/content_viewer/_comment.rhtml:5
+msgid "Are you sure you want to remove this comment?"
+msgstr "Êtes-vous sûr(e) que vous voulez retirer ce commentaire ?"
 
-#: app/views/enterprise_registration/confirmation.rhtml:4
-msgid ""
-"Your enterprise registration request was successfully registered. The "
-"validator organization you choose (%s) should get in touch with to start the "
-"validation process. As soon as the validators approve (or reject) your "
-"request, you will be notified by e-mail."
-msgstr ""
-"Votre demande d'enregistrement d'entreprise a bien été prise en compte. "
-"L'organisme de validation que vous avez choisi (%s) devrait vous contacter "
-"pour commencer la procédure de validation. Dès que les validateurs auront "
-"approuvé (ou rejeté) vitre requête, vous en serez averti(e) par courrier "
-"électronique."
+#: app/views/content_viewer/_comment.rhtml:24
+msgid "By %{author} on %{date}"
+msgstr "Par %{author} le %{date}"
 
-#: app/views/enterprise_registration/confirmation.rhtml:8
-msgid "You can continue to browse this environment."
-msgstr "Vous pouvez continuer à naviguer sur cette communauté."
+#: app/views/content_viewer/_comment.rhtml:27
+msgid "(unauthenticated user)"
+msgstr "(utilisateur inconnu)"
 
-#: app/views/enterprise_registration/select_validator.rhtml:1
-msgid "Enterprise Registration: Select a validator organization"
-msgstr ""
-"Enregistrement d'entreprise : choisissez une organisation de validation"
+#: app/views/content_viewer/view_page.rhtml:43
+msgid "This article's tags:"
+msgstr "Les tags de cet article :"
 
-#: app/views/enterprise_registration/select_validator.rhtml:4
-msgid ""
-"Select one organization to validate your enterprise registration request. "
-"Check the provided information about their validation methodoly and criteria."
-msgstr ""
-"Sélectionnez une organisation pour valider la demande d'enregistrement de "
-"votre entreprise. Vérifiez les informations fournies sur leur méthode de "
-"validation et leurs critères."
+#: app/views/content_viewer/view_page.rhtml:49
+msgid "Up"
+msgstr "En haut"
 
-#: app/views/enterprise_registration/select_validator.rhtml:15
-msgid "Validation Methodology:"
-msgstr "Méthodologie de validation :"
+#: app/views/content_viewer/view_page.rhtml:68
+msgid "No comments yet"
+msgstr "Pas encore de commentaire"
 
-#: app/views/enterprise_registration/select_validator.rhtml:15
-#: app/views/enterprise_registration/select_validator.rhtml:16
-msgid "(not informed)"
-msgstr "(non renseigné)"
+#: app/views/content_viewer/view_page.rhtml:68
+msgid "One comment"
+msgid_plural "%{comments} comments"
+msgstr[0] "Un commentaire"
+msgstr[1] "%{comments} commentaires"
 
-#: app/views/enterprise_registration/select_validator.rhtml:16
-msgid "Restrictions (if any):"
-msgstr "Restrictions (si fournies) :"
+# No 's' to "information" in English (like for "data")
+#: app/views/enterprise_editor/edit.rhtml:3
+#, fuzzy
+msgid "Edit enterprise informations"
+msgstr "Éditer les informations sur l'entreprise"
 
-#: app/views/enterprise_registration/select_validator.rhtml:21
-msgid "Confirm"
-msgstr "Confirmez"
-
-#: app/views/enterprise_registration/basic_information.rhtml:3
-msgid "Register enterprise"
-msgstr "Enregistrer une entreprise"
-
-#: app/views/enterprise_registration/basic_information.rhtml:5
-msgid "How to proceed"
-msgstr "Comment procéder"
-
-#: app/views/enterprise_registration/basic_information.rhtml:6
-msgid ""
-"Fill the form and hit the Register button then the enterprise will be "
-"submitted for evaluation at the validation entitiy of your choice (within "
-"your state), when the enterprise is aproved you will be able to activate its "
-"profile"
-msgstr ""
-"Remplissez le formulaire et cliquez sur le bouton «Enregistrer». L'entreprise "
-"sera alors soumise à l'évaluation par l'entité d'évaluation de votre choix "
-"(de votre état) ; lorsque l'entreprise est validée, vous pourrez activer son "
-"profil"
-
-#: app/views/enterprise_registration/basic_information.rhtml:27
-msgid "Management information"
-msgstr "Information sur les dirigeants"
-
-#: app/views/enterprise_registration/basic_information.rhtml:32
-msgid "Next"
-msgstr "Suivant"
+#: app/views/enterprise_editor/edit.rhtml:8
+msgid "Update"
+msgstr "Mise à jour"
 
 #: app/views/enterprise_editor/_form.rhtml:4
+#: app/views/enterprise_validation/_details.rhtml:7
 #: app/views/enterprise_validation/list_processed.rhtml:9
 #: app/views/enterprise_validation/index.rhtml:14
-#: app/views/enterprise_validation/_details.rhtml:7
 msgid "Address"
 msgstr "Adresse"
 
 #: app/views/enterprise_editor/_form.rhtml:7
+#: app/views/enterprise_validation/_details.rhtml:11
 #: app/views/enterprise_validation/list_processed.rhtml:13
 #: app/views/enterprise_validation/index.rhtml:18
-#: app/views/enterprise_validation/_details.rhtml:11
 msgid "Contact Phone"
 msgstr "Téléphone de contact"
 
 #: app/views/enterprise_editor/_form.rhtml:10
+#: app/views/enterprise_validation/_details.rhtml:15
 #: app/views/enterprise_validation/list_processed.rhtml:17
 #: app/views/enterprise_validation/index.rhtml:22
-#: app/views/enterprise_validation/_details.rhtml:15
 msgid "Contact Person"
 msgstr "Personne de contact"
 
@@ -2553,550 +2684,101 @@ msgstr "Activer"
 msgid "Activate an approved enterprise"
 msgstr "Activer une entreprise approuvée"
 
-# No 's' to "information" in English (like for "data")
-#: app/views/enterprise_editor/edit.rhtml:3
-#, fuzzy
-msgid "Edit enterprise informations"
-msgstr "Éditer les informations sur l'entreprise"
+#: app/views/enterprise_editor/index.rhtml:22
+#: app/views/enterprise_validation/details.rhtml:3
+#: app/views/enterprise_validation/list_processed.rhtml:3
+#: app/views/enterprise_validation/view_processed.rhtml:3
+#: app/views/environment_role_manager/index.rhtml:13
+#: app/views/manage_products/_subcategories.rhtml:8
+#: app/views/manage_products/index.rhtml:50
+#: app/views/profile_members/index.rhtml:21 app/views/role/index.rhtml:12
+#: app/views/role/show.rhtml:10 app/views/tasks/processed.rhtml:23
+msgid "Back"
+msgstr "Retour"
 
-#: app/views/enterprise_editor/edit.rhtml:8
-msgid "Update"
-msgstr "Mise à jour"
+#: app/views/enterprise_registration/basic_information.rhtml:3
+msgid "Register enterprise"
+msgstr "Enregistrer une entreprise"
 
-#: app/views/profile_editor/index.rhtml:3
-msgid "My profile"
-msgstr "Mon profil"
+#: app/views/enterprise_registration/basic_information.rhtml:5
+msgid "How to proceed"
+msgstr "Comment procéder"
 
-#: app/views/profile_editor/index.rhtml:9
-msgid "Edit Profile"
-msgstr "Éditer le profil"
-
-#: app/views/profile_editor/index.rhtml:11
-msgid "Mail settings"
-msgstr ""
-
-#: app/views/profile_editor/index.rhtml:13
-msgid "Pending tasks"
-msgstr "Tâches en attente"
-
-#: app/views/profile_editor/index.rhtml:15
-msgid "Edit Visual Design"
-msgstr "Éditer l'apparence"
-
-#: app/views/profile_editor/index.rhtml:17
-msgid "Manage Content"
-msgstr "Gérer le contenu"
-
-#: app/views/profile_editor/index.rhtml:19
-msgid "Change Password"
-msgstr "Modifier le mot de passe"
-
-#: app/views/profile_editor/index.rhtml:23
-msgid "Manage Members"
-msgstr "Gérer les membres"
-
-#: app/views/profile_editor/index.rhtml:25
-#, fuzzy
-msgid "Manage Products and Services"
-msgstr "Gérer les produits"
-
-#: app/views/profile_editor/index.rhtml:27
-msgid "Enterprise Validation"
-msgstr "Validation d'entreprises"
-
-#: app/views/profile_editor/index.rhtml:33
-#, fuzzy
-msgid "Disable Enterprise"
-msgstr "Détruire l'entreprise"
-
-#: app/views/profile_editor/index.rhtml:35
-#, fuzzy
-msgid "Enable Enterprise"
-msgstr "Entreprises"
-
-#: app/views/profile_editor/index.rhtml:42
-#, fuzzy
-msgid "Manage my groups"
-msgstr "Mes groupes"
-
-#: app/views/profile_editor/_pending_tasks.rhtml:3
-msgid "You have pending requests"
-msgstr "Vous avez des requêtes en attente"
-
-#: app/views/profile_editor/_pending_tasks.rhtml:7
-msgid "Process requests"
-msgstr "Gérer les requêtes"
-
-#: app/views/profile_editor/edit.rhtml:9
-#, fuzzy
-msgid "Change picture"
-msgstr "Modifiez votre image"
-
-#: app/views/profile_editor/edit.rhtml:15
-#, fuzzy
-msgid "Privacy options"
-msgstr "Recherche détaillée"
-
-#: app/views/profile_editor/edit.rhtml:17
-#, fuzzy
-msgid "This profile is:"
-msgstr "Les tags de cet article :"
-
-#: app/views/profile_editor/edit.rhtml:20
-#: app/views/profile_editor/edit.rhtml:31
-msgid "Public"
-msgstr ""
-
-#: app/views/profile_editor/edit.rhtml:24
-#: app/views/profile_editor/edit.rhtml:35
-#, fuzzy
-msgid "Private"
-msgstr "Activer"
-
-#: app/views/profile_editor/edit.rhtml:28
-#, fuzzy
-msgid "This profile's content is:"
-msgstr "Les tags de cet article :"
-
-#: app/views/profile_editor/edit.rhtml:39
-msgid "Select the categories of your interest"
-msgstr "Choisissez les catégories de vos centres d'intérêt"
-
-#: app/views/profile_editor/edit.rhtml:44 app/views/mailconf/index.rhtml:15
-#: app/views/tasks/index.rhtml:17
-msgid "Back to control panel"
-msgstr "Retour au panneau de contrôle"
-
-#: app/views/profile_editor/_organization.rhtml:9
-#, fuzzy
-msgid "Moderation options"
-msgstr "Recherche détaillée"
-
-#: app/views/profile_editor/_organization.rhtml:12
-#, fuzzy
-msgid "Closed %s"
-msgstr "Fermer"
-
-#: app/views/profile_editor/_person.rhtml:5
-msgid "Male"
-msgstr "Homme"
-
-#: app/views/profile_editor/_person.rhtml:5
-msgid "Female"
-msgstr "Femme"
-
-#: app/views/profile_editor/enable.rhtml:1
-#, fuzzy
-msgid "Enabling '%s' enterprise"
-msgstr "Les entreprises de <b>%s</b>"
-
-#: app/views/profile_editor/enable.rhtml:4
-#, fuzzy
-msgid "Are you sure you want to enable %s?"
-msgstr "Êtes-vous sûr(e) d'ôter/effacer «%s» ?"
-
-#: app/views/profile_editor/enable.rhtml:9
-#, fuzzy
-msgid "Yes, I want to enable."
-msgstr "Oui, je veux la rejoindre."
-
-#: app/views/profile_editor/disable.rhtml:1
-#, fuzzy
-msgid "Disabling '%s' enterprise"
-msgstr "Les entreprises de <b>%s</b>"
-
-#: app/views/profile_editor/disable.rhtml:4
-#, fuzzy
-msgid "Are you sure you want to disable %s?"
-msgstr "Êtes-vous sûr(e) d'ôter/effacer «%s» ?"
-
-#: app/views/profile_editor/disable.rhtml:9
-#, fuzzy
-msgid "Yes, I want to disable."
-msgstr "Oui, je veux la rejoindre."
-
-#: app/views/region_validators/index.rhtml:1
-msgid "Validators by Region"
-msgstr "Validateurs par région"
-
-#: app/views/region_validators/region.rhtml:1
-msgid "Validators for region %s"
-msgstr "Validateurs pour le région %s"
-
-#: app/views/region_validators/region.rhtml:3
-msgid "Current validators"
-msgstr "Validateurs actuels"
-
-#: app/views/region_validators/region.rhtml:9
-msgid "Remove validation rights"
-msgstr "Ôter les droits de validation"
-
-#: app/views/region_validators/region.rhtml:14
-msgid "Add new validators"
-msgstr "Ajouter de nouveaux validateurs"
-
-#: app/views/region_validators/region.rhtml:17
+#: app/views/enterprise_registration/basic_information.rhtml:6
 msgid ""
-"First search organizations by their name, then use the buttons in the search "
-"result to add them as validators for this region. "
+"Fill the form and hit the Register button then the enterprise will be "
+"submitted for evaluation at the validation entitiy of your choice (within "
+"your state), when the enterprise is aproved you will be able to activate its "
+"profile"
 msgstr ""
-"D'abord, rechercher les organisations par leurs noms, ensuite utiliser les "
-"boutons dans les résultats de recherche pour les ajouter comme validateurs "
-"de cette région. "
+"Remplissez le formulaire et cliquez sur le bouton «Enregistrer». L'entreprise "
+"sera alors soumise à l'évaluation par l'entité d'évaluation de votre choix "
+"(de votre état) ; lorsque l'entreprise est validée, vous pourrez activer son "
+"profil"
 
-#: app/views/region_validators/_region.rhtml:5
-msgid "1 validator"
-msgid_plural "%{num} validators."
-msgstr[0] "Un validateur"
-msgstr[1] "%{num} validateurs."
+#: app/views/enterprise_registration/basic_information.rhtml:27
+msgid "Management information"
+msgstr "Information sur les dirigeants"
 
-#: app/views/profile/friends.rhtml:2
-msgid "Here are all <b>%s</b>'s friends."
-msgstr "Voici tous les amis de <b>%s</b>."
+#: app/views/enterprise_registration/basic_information.rhtml:32
+msgid "Next"
+msgstr "Suivant"
 
-#: app/views/profile/friends.rhtml:4
-msgid "%s' friends"
-msgstr "Les amis de %s"
+#: app/views/enterprise_registration/confirmation.rhtml:1
+msgid "Enterprise Registration completed"
+msgstr "Enregistrement d'entreprise terminé"
 
-#: app/views/profile/friends.rhtml:14 app/views/profile/enterprises.rhtml:14
-#: app/views/profile/members.rhtml:14 app/views/profile/communities.rhtml:14
-#: app/views/profile/favorite_enterprises.rhtml:14
-msgid "Back to the page where you come from."
-msgstr "Retour à la page dont vous venez."
-
-#: app/views/profile/index.rhtml:7
-msgid "%s's profile"
-msgstr "Le profil de %s"
-
-#: app/views/profile/index.rhtml:15
-msgid "Homepage: "
-msgstr "Page personnelle : "
-
-#: app/views/profile/index.rhtml:29 app/views/blocks/profile_info.rhtml:9
-#, fuzzy
-msgid "Products/Services"
-msgstr "Prix"
-
-#: app/views/profile/index.rhtml:33
-#, fuzzy
-msgid "Site map"
-msgstr "Sous-éléments"
-
-#: app/views/profile/index.rhtml:37
-msgid "Tags:"
-msgstr "Tags :"
-
-#: app/views/profile/enterprises.rhtml:2
-msgid "Here are all <b>%s</b>'s enterprises."
-msgstr "Voici toutes les entreprises de <b>%s</b>."
-
-#: app/views/profile/enterprises.rhtml:4
-msgid "%s's enterprises"
-msgstr "Les entreprises de <b>%s</b>"
-
-#: app/views/profile/sitemap.rhtml:1
-msgid "%s: site map"
-msgstr ""
-
-#: app/views/profile/members.rhtml:2
-msgid "Here are all <b>%s</b>'s members."
-msgstr "Voici tous les membres de <b>%s</b>."
-
-#: app/views/profile/members.rhtml:4
-msgid "%s' members"
-msgstr "Les membres de %s"
-
-#: app/views/profile/communities.rhtml:2
-msgid "Here are all <b>%s</b>'s communities."
-msgstr "Voici toutes les groupes de <b>%s</b>."
-
-#: app/views/profile/communities.rhtml:4
-msgid "%s's communities"
-msgstr "Les groupes de <b>%s</b>"
-
-#: app/views/profile/tag.rhtml:1
-msgid "Content tagged with \"%s\""
-msgstr "Contenu associé aux tags «%s»"
-
-#: app/views/profile/tag.rhtml:12
-msgid "See content tagged with \"%s\" in the entire site"
-msgstr "Voir les contenus associés à «%s» dans tout le site"
-
-#: app/views/profile/private_profile.rhtml:4
-#, fuzzy
-msgid "This profile is not public."
-msgstr "Ce profil n'a pas d'information publique"
-
-#: app/views/profile/favorite_enterprises.rhtml:2
-#, fuzzy
-msgid "Here are all <b>%s</b>'s favorite enterprises."
-msgstr "Voici toutes les entreprises de <b>%s</b>."
-
-#: app/views/profile/favorite_enterprises.rhtml:4
-#, fuzzy
-msgid "%s's favorite enterprises"
-msgstr "Les entreprises de <b>%s</b>"
-
-#: app/views/search/products.rhtml:3
-#, fuzzy
-msgid "Products results for \"%{query}\" of enterprises in \"%{category}\""
-msgstr "Résultats de la recherche sur «%{query}» dans «%{category}»"
-
-#: app/views/search/products.rhtml:3
-#, fuzzy
-msgid "Products results for \"%s\""
-msgstr "Résultats de recherche pour «%s»"
-
-#: app/views/search/products.rhtml:5
-#, fuzzy
-msgid "Products of enterprises in \"%s\""
-msgstr "Entrprise"
-
-#: app/views/search/products.rhtml:10
-msgid "Within %s km from %s"
-msgstr ""
-
-#: app/views/search/products.rhtml:13 app/views/search/index.rhtml:5
-#: app/views/search/enterprises.rhtml:19 app/views/search/people.rhtml:19
-#: app/views/search/communities.rhtml:19 app/views/search/articles.rhtml:19
-msgid "Refine your search"
-msgstr "Affiner votre recherche"
-
-#: app/views/search/_comment.rhtml:16
-msgid "by %{author} on \"%{article}\""
-msgstr "par %{author} sur «%{article}»"
-
-#: app/views/search/index.rhtml:3 app/views/search/enterprises.rhtml:12
-#: app/views/search/people.rhtml:12 app/views/search/communities.rhtml:12
-#: app/views/search/articles.rhtml:12
-msgid "Search results for \"%{query}\" in \"%{category}\""
-msgstr "Résultats de la recherche sur «%{query}» dans «%{category}»"
-
-#: app/views/search/index.rhtml:3 app/views/search/enterprises.rhtml:12
-#: app/views/search/people.rhtml:12 app/views/search/communities.rhtml:12
-#: app/views/search/articles.rhtml:12
-msgid "Search results for \"%s\""
-msgstr "Résultats de recherche pour «%s»"
-
-#: app/views/search/enterprises.rhtml:7 app/views/search/people.rhtml:7
-#: app/views/search/communities.rhtml:7 app/views/search/articles.rhtml:7
-msgid "(recently added)"
-msgstr ""
-
-#: app/views/search/enterprises.rhtml:14 app/views/search/people.rhtml:14
-#: app/views/search/communities.rhtml:14 app/views/search/articles.rhtml:14
-msgid "Browse by name"
-msgstr ""
-
-#: app/views/search/_directory.rhtml:2
-msgid "Recent"
-msgstr "Récents"
-
-#: app/views/search/_display_results.rhtml:18
-msgid "more..."
-msgstr ""
-
-#: app/views/search/popup.rhtml:3
-msgid "Search %s"
-msgstr "Recherche sur «%s»"
-
-#: app/views/search/_sellers_form.rhtml:1
-#, fuzzy
-msgid "Search for sellers"
-msgstr "Rechercher :"
-
-#: app/views/search/_sellers_form.rhtml:3
-msgid "Search in:"
-msgstr "Recherche dans :"
-
-#: app/views/search/_sellers_form.rhtml:6
-#: app/views/search/_search_form.rhtml:27
-msgid "Distance (km): "
-msgstr ""
-
-#: app/views/search/_sellers_form.rhtml:7
-#: app/views/search/_search_form.rhtml:28
-msgid "From: "
-msgstr ""
-
-#: app/views/search/_product.rhtml:10
-msgid "Price: %d"
-msgstr "Prix : %d"
-
-#: app/views/search/_product.rhtml:12
-msgid "Suplier: %s"
-msgstr "Fournisseur : %s"
-
-#: app/views/search/category_index.rhtml:4
-msgid "Category: %s"
-msgstr "Catégorie : %s"
-
-#: app/views/search/category_index.rhtml:9
-msgid "Sub-categories"
-msgstr "Sous-catégories :"
-
-#: app/views/search/category_index.rhtml:11
-msgid "No sub-categories"
-msgstr "Pas de sous-catégorie"
-
-#: app/views/search/_search_form.rhtml:18
-#, fuzzy
-msgid "Search in whole site"
-msgstr "Recherche de «%s» dans tout le site"
-
-#: app/views/search/_search_form.rhtml:24
-#, fuzzy
-msgid "Search within:"
-msgstr "Recherche dans :"
-
-#: app/views/search/_search_form.rhtml:35
-msgid "Search for:"
-msgstr "Rechercher :"
-
-#: app/views/search/_search_form.rhtml:49
-msgid "Advanced search"
-msgstr ""
-
-#: app/views/search/_article.rhtml:6
-msgid "by %s"
-msgstr "par %s"
-
-#: app/views/search/_article.rhtml:9
-msgid "Last update: %s."
-msgstr "Dernière mise à jour : %s."
-
-#: app/views/search/_google_maps.rhtml:48
+#: app/views/enterprise_registration/confirmation.rhtml:4
 msgid ""
-"One or more items don't have geographical information, and won't be shown in "
-"the map. Choose \"Display in list\" to see them."
+"Your enterprise registration request was successfully registered. The "
+"validator organization you choose (%s) should get in touch with to start the "
+"validation process. As soon as the validators approve (or reject) your "
+"request, you will be notified by e-mail."
 msgstr ""
+"Votre demande d'enregistrement d'entreprise a bien été prise en compte. "
+"L'organisme de validation que vous avez choisi (%s) devrait vous contacter "
+"pour commencer la procédure de validation. Dès que les validateurs auront "
+"approuvé (ou rejeté) vitre requête, vous en serez averti(e) par courrier "
+"électronique."
 
-#: app/views/search/tag.rhtml:2
-msgid "Tagged with \"%s\""
-msgstr "Associé au tag «%s»"
+#: app/views/enterprise_registration/confirmation.rhtml:8
+msgid "You can continue to browse this environment."
+msgstr "Vous pouvez continuer à naviguer sur cette communauté."
 
-#: app/views/search/tag.rhtml:6
-msgid "Back to tag cloud"
-msgstr "Retour au nuage de tags"
-
-#: app/views/search/tags.rhtml:1
-msgid "Tag cloud"
-msgstr "Nuage de tags"
-
-#: app/views/search/sellers.rhtml:4
-msgid "Listing sellers of %s witin %s km from %s %s"
+#: app/views/enterprise_registration/select_validator.rhtml:1
+msgid "Enterprise Registration: Select a validator organization"
 msgstr ""
+"Enregistrement d'entreprise : choisissez une organisation de validation"
 
-#: app/views/search/sellers.rhtml:6
-#, fuzzy
-msgid "Listing sellers of %s"
-msgstr "Liste des membres"
-
-#: app/views/search/sellers.rhtml:10
-msgid "Listing sellers witin %s km from %s %s"
-msgstr ""
-
-#: app/views/search/sellers.rhtml:12
-#, fuzzy
-msgid "Listing sellers"
-msgstr "Liste des membres"
-
-#: app/views/blocks/profile_info_actions/person.rhtml:3
-msgid "Add friend"
-msgstr "Ajouter un ami"
-
-#: app/views/blocks/profile_info_actions/community.rhtml:4
-#, fuzzy
-msgid "Leave this community"
-msgstr "Rejoindre ce groupe"
-
-#: app/views/blocks/profile_info_actions/community.rhtml:6
-msgid "Join this community"
-msgstr "Rejoindre ce groupe"
-
-#: app/views/blocks/profile_info_actions/enterprise.rhtml:4
-#, fuzzy
-msgid "Add favorite enterprise"
-msgstr "Éditer l'entreprise"
-
-#: app/views/blocks/profile_info_actions/enterprise.rhtml:7
-#, fuzzy
-msgid "Leave this enterprise"
-msgstr "Détruire l'entreprise"
-
-#: app/views/blocks/profile_info_actions/enterprise.rhtml:9
-#, fuzzy
-msgid "Join this enterprise"
-msgstr "Éditer l'entreprise"
-
-#: app/views/blocks/profile_info.rhtml:6
-msgid "Since %{year}/%{month}"
-msgstr "Depuis %{month}/%{year}"
-
-#: app/views/blocks/profile_info.rhtml:7 app/views/account/user_info.rhtml:7
-msgid "Homepage"
-msgstr "Accueil"
-
-#: app/views/blocks/profile_info.rhtml:8
-msgid "View profile"
-msgstr "Voir le profil"
-
-#: app/views/blocks/profile_info.rhtml:11 app/views/shared/user_menu.rhtml:30
-msgid "Control panel"
-msgstr "Panneau de contrôle"
-
-#: app/views/home/index.rhtml:16
-msgid "More search options"
-msgstr "Recherche détaillée"
-
-#: app/views/enterprise_validation/list_processed.rhtml:1
-#: app/views/enterprise_validation/index.rhtml:30
-msgid "Processed enterprise validations"
-msgstr "Validations d'entreprises gérées"
-
-#: app/views/enterprise_validation/list_processed.rhtml:23
-msgid "See details"
-msgstr "Voir détails"
-
-#: app/views/enterprise_validation/index.rhtml:1
-msgid "Enterprise validations"
-msgstr "Validations d'entreprises"
-
-#: app/views/enterprise_validation/index.rhtml:4
-msgid "Edit validation info"
-msgstr "Éditer les informations de validation"
-
-#: app/views/enterprise_validation/index.rhtml:4
+#: app/views/enterprise_registration/select_validator.rhtml:4
 msgid ""
-"Validation info is the information the enterprises will see about how your "
-"organization processes the enterprises validations it receives: validation "
-"methodology, restrictions to the types of enterprises the organization "
-"validates etc."
+"Select one organization to validate your enterprise registration request. "
+"Check the provided information about their validation methodoly and criteria."
 msgstr ""
-"Les informations de validation sont celles que les entreprises verront "
-"concernant comment votre entreprise gère les validations d'entreprises "
-"qu'elle reçoit : méthodologie de validation, restrictions éventuelles sur "
-"les types d'entreprises qu'elles valide, etc."
+"Sélectionnez une organisation pour valider la demande d'enregistrement de "
+"votre entreprise. Vérifiez les informations fournies sur leur méthode de "
+"validation et leurs critères."
 
-#: app/views/enterprise_validation/index.rhtml:5
-msgid "Go Back"
-msgstr "Revenir en arrière"
+#: app/views/enterprise_registration/select_validator.rhtml:15
+msgid "Validation Methodology:"
+msgstr "Méthodologie de validation :"
 
-#: app/views/enterprise_validation/index.rhtml:5
-msgid "Go back to the control panel."
-msgstr "Retourner au panneau de contrôle."
+#: app/views/enterprise_registration/select_validator.rhtml:15
+#: app/views/enterprise_registration/select_validator.rhtml:16
+msgid "(not informed)"
+msgstr "(non renseigné)"
 
-#: app/views/enterprise_validation/index.rhtml:8
-msgid "Pending enterprise validations"
-msgstr "Validations d'entreprises en attente"
+#: app/views/enterprise_registration/select_validator.rhtml:16
+msgid "Restrictions (if any):"
+msgstr "Restrictions (si fournies) :"
 
-#: app/views/enterprise_validation/index.rhtml:27
-msgid "See details/approve/reject"
-msgstr "Voir les détails/approuver/rejeter"
+#: app/views/enterprise_registration/select_validator.rhtml:21
+msgid "Confirm"
+msgstr "Confirmez"
 
-#: app/views/enterprise_validation/index.rhtml:32
-msgid "See the list of processed enterprise validations"
-msgstr "Voir la liste des validations d'entreprises déjà évaluées"
+#: app/views/enterprise_validation/_details.rhtml:23
+msgid "Identifier"
+msgstr "Identifiant"
 
 #: app/views/enterprise_validation/details.rhtml:1
 msgid "%s's validation"
@@ -3144,391 +2826,148 @@ msgstr ""
 "Fournissez une explication pour le rejet SVP. Cette explication sera envoyée "
 "au requérant (champ nécessaire)."
 
-#: app/views/enterprise_validation/view_processed.rhtml:1
-msgid "Processed validation request for %s "
-msgstr "Requête de validation effectuée pour %s "
-
-#: app/views/enterprise_validation/_details.rhtml:23
-msgid "Identifier"
-msgstr "Identifiant"
-
 #: app/views/enterprise_validation/edit_validation_info.rhtml:1
 msgid "Editing the validation info"
 msgstr "Édition des informations de validation"
 
-#: app/views/cms/_uploaded_file.rhtml:1
-#, fuzzy
-msgid "Select the file you want to upload (max size %s)."
-msgstr "Choisissez le document que vous voulez téléverser."
+#: app/views/enterprise_validation/list_processed.rhtml:1
+#: app/views/enterprise_validation/index.rhtml:30
+msgid "Processed enterprise validations"
+msgstr "Validations d'entreprises gérées"
 
-#: app/views/cms/_uploaded_file.rhtml:3
-msgid "Describe this file:"
-msgstr "Décrivez ce document :"
+#: app/views/enterprise_validation/list_processed.rhtml:23
+msgid "See details"
+msgstr "Voir détails"
 
-#: app/views/cms/view.rhtml:3
-msgid "Content management"
-msgstr "Gestion du contenu"
+#: app/views/enterprise_validation/view_processed.rhtml:1
+msgid "Processed validation request for %s "
+msgstr "Requête de validation effectuée pour %s "
 
-#: app/views/cms/view.rhtml:16
-#, fuzzy
-msgid "New folder"
-msgstr "Nouveau rôle"
+#: app/views/enterprise_validation/index.rhtml:1
+msgid "Enterprise validations"
+msgstr "Validations d'entreprises"
 
-#: app/views/cms/view.rhtml:17
-msgid "New article"
-msgstr "Nouvel article"
+#: app/views/enterprise_validation/index.rhtml:4
+msgid "Edit validation info"
+msgstr "Éditer les informations de validation"
 
-#: app/views/cms/view.rhtml:25
-msgid "Type"
-msgstr "Type"
-
-#: app/views/cms/view.rhtml:40
-msgid "Properties"
-msgstr ""
-
-#: app/views/cms/view.rhtml:41 app/views/cms/view.rhtml:66
-msgid "Public view"
-msgstr ""
-
-#: app/views/cms/view.rhtml:42 app/views/cms/view.rhtml:68
-msgid "Delete"
-msgstr "Détruire"
-
-#: app/views/cms/view.rhtml:42
+#: app/views/enterprise_validation/index.rhtml:4
 msgid ""
-"Are you sure that you want to remove this folder? Note that all the items "
-"inside it will also be removed!"
+"Validation info is the information the enterprises will see about how your "
+"organization processes the enterprises validations it receives: validation "
+"methodology, restrictions to the types of enterprises the organization "
+"validates etc."
 msgstr ""
+"Les informations de validation sont celles que les entreprises verront "
+"concernant comment votre entreprise gère les validations d'entreprises "
+"qu'elle reçoit : méthodologie de validation, restrictions éventuelles sur "
+"les types d'entreprises qu'elles valide, etc."
 
-#: app/views/cms/view.rhtml:67
-msgid "Use as homepage"
-msgstr "Utiliser comme page d'accueil"
+#: app/views/enterprise_validation/index.rhtml:5
+msgid "Go Back"
+msgstr "Revenir en arrière"
 
-#: app/views/cms/view.rhtml:68
-#, fuzzy
-msgid "Are you sure that you want to remove this item?"
-msgstr "Êtes-vous sûr(e) de vouloir ôter cet article ?"
+#: app/views/enterprise_validation/index.rhtml:5
+msgid "Go back to the control panel."
+msgstr "Retourner au panneau de contrôle."
 
-#: app/views/cms/_event.rhtml:6
-msgid "Start date"
-msgstr ""
+#: app/views/enterprise_validation/index.rhtml:8
+msgid "Pending enterprise validations"
+msgstr "Validations d'entreprises en attente"
 
-#: app/views/cms/_event.rhtml:8
-#, fuzzy
-msgid "End date"
-msgstr "Date de fin"
+#: app/views/enterprise_validation/index.rhtml:27
+msgid "See details/approve/reject"
+msgstr "Voir les détails/approuver/rejeter"
 
-#: app/views/cms/_event.rhtml:10
-msgid "Event website:"
-msgstr ""
+#: app/views/enterprise_validation/index.rhtml:32
+msgid "See the list of processed enterprise validations"
+msgstr "Voir la liste des validations d'entreprises déjà évaluées"
 
-#: app/views/cms/_event.rhtml:14
-#, fuzzy
-msgid "Information about the event:"
-msgstr "Informations concernant les dirigeants :\n"
+#: app/views/environment_role_manager/affiliate.rhtml:7
+#: app/views/profile_members/affiliate.rhtml:7
+msgid "Affiliate"
+msgstr "Affilié"
 
-#: app/views/cms/edit.rhtml:16 app/views/cms/why_categorize.rhtml:1
-#, fuzzy
-msgid "Why categorize?"
-msgstr "Catégories"
+#: app/views/environment_role_manager/change_role.rhtml:1
+#: app/views/profile_members/change_role.rhtml:1
+msgid "Changing role of %s"
+msgstr "Changement du rôle de %s"
 
-#: app/views/cms/edit.rhtml:19
-#, fuzzy
-msgid "Categorize your article"
-msgstr "profil de catégories"
+#: app/views/environment_role_manager/change_role.rhtml:5
+#: app/views/environment_role_manager/make_admin.rhtml:8
+#: app/views/profile_members/change_role.rhtml:5
+#: app/views/tasks/_add_member.rhtml:25
+msgid "Roles:"
+msgstr "Rôles :"
 
-#: app/views/cms/edit.rhtml:22
-msgid "Separate tags with commas"
-msgstr "Séparez les tags par des virgules"
-
-#: app/views/cms/edit.rhtml:25
-#, fuzzy
-msgid "Options"
-msgstr "Actions"
-
-#: app/views/cms/edit.rhtml:28
-msgid "Published"
-msgstr ""
-
-#: app/views/cms/why_categorize.rhtml:4
-msgid ""
-"By categorizing your content, you increase the possibility that other people "
-"access it. When they are looking for, say, articles about Bahia and you "
-"categorize your article in \"Regions/Bahia\", then there is a good change "
-"that your article is going to be found."
-msgstr ""
-
-#: app/views/cms/why_categorize.rhtml:8 app/views/tasks/_task.rhtml:8
-#: app/views/tasks/_task.rhtml:16
-msgid "OK"
-msgstr "Ok"
-
-#: app/views/cms/_rss_feed.rhtml:3
-msgid "Limit of articles"
-msgstr "Limite d'articles"
-
-#: app/views/cms/_rss_feed.rhtml:5
-msgid "Use as item description:"
-msgstr "Utiliser comme description d'élément :"
-
-#: app/views/cms/_rss_feed.rhtml:5
-msgid "Article abstract"
-msgstr "Résumé de l'article"
-
-#: app/views/cms/_rss_feed.rhtml:5
-msgid "Article body"
-msgstr "Corps de l'article"
-
-#: app/views/cms/_rss_feed.rhtml:7
-msgid "Include in the feed:"
-msgstr "Inclure dans le flux :"
-
-#: app/views/cms/_rss_feed.rhtml:7
-msgid "All articles"
-msgstr "Tous les articles"
-
-# Really not clear in English
-#: app/views/cms/_rss_feed.rhtml:7
-#, fuzzy
-msgid "Only articles child of the same article as the feed"
-msgstr "Only articles child of the same article as the feed (untranslated)"
-
-#: app/views/cms/select_article_type.rhtml:1
-msgid "Choose the type of article:"
-msgstr "Choisissez le type de l'article :"
-
-#: app/views/mailconf/index.rhtml:1
-#, fuzzy
-msgid "e-Mail configuration"
-msgstr "Mot de passe (confirmation)"
-
-#: app/views/mailconf/index.rhtml:7
-msgid "Enable e-mail %s"
-msgstr ""
-
-#: app/views/mailconf/index.rhtml:9
-msgid ""
-"Marking this option gives you an e-mail account with the address above. "
-"You'll be able to access a webmail from your user menu."
-msgstr ""
-
-#: app/views/favorite_enterprises/index.rhtml:3
-#, fuzzy
-msgid "%s's favorite enteprises"
-msgstr "Les entreprises de <b>%s</b>"
-
-#: app/views/favorite_enterprises/index.rhtml:10
-#: app/views/favorite_enterprises/index.rhtml:13
-#: app/views/friends/index.rhtml:10 app/views/friends/index.rhtml:13
-msgid "remove"
-msgstr "ôter"
-
-#: app/views/favorite_enterprises/index.rhtml:14
-#: app/views/friends/index.rhtml:14
-msgid "Clicking on this button will remove your friend relation with %s."
-msgstr "En cliquant sur ce bouton, vous ôterez %s de vos relations."
-
-#: app/views/favorite_enterprises/index.rhtml:23
-#, fuzzy
-msgid "You have no favorite enteprises yet."
-msgstr "Vous n'avez pas encore d'ami(e). Allez vous en faire."
-
-#: app/views/favorite_enterprises/remove.rhtml:3
-#, fuzzy
-msgid "Removing favorite enterprise: %s"
-msgstr "Enlever l'ami : %s"
-
-#: app/views/favorite_enterprises/remove.rhtml:8
-#, fuzzy
-msgid "Are you sure you want to remove %s from your favorite enterprise list?"
-msgstr "Êtes-vous sûr(e) de vouloir enlever %s de la liste de vos amis ?"
-
-#: app/views/favorite_enterprises/remove.rhtml:14
-#, fuzzy
-msgid "Yes, I want to remove %s from my favorite enterprise list"
-msgstr "Oui, je veux retirer %s de ma liste d'ami(e)s"
-
-#: app/views/favorite_enterprises/remove.rhtml:15
-#: app/views/favorite_enterprises/add.rhtml:11
-#: app/views/friends/remove.rhtml:21 app/views/friends/add.rhtml:25
-msgid "No, I don't want"
-msgstr "Non, je ne veux pas"
-
-#: app/views/favorite_enterprises/add.rhtml:1
-#, fuzzy
-msgid "Adding %s as a favorite enterprise"
-msgstr "Ajouter %s comme ami"
-
-#: app/views/favorite_enterprises/add.rhtml:4
-#, fuzzy
-msgid "Are you sure you want to add %s as your favorite enterprise?"
-msgstr "Êtes-vous sûr(e) de vouloir ajouter %s comme ami ?"
-
-#: app/views/favorite_enterprises/add.rhtml:10
-#, fuzzy
-msgid "Yes, I want to add %s as a favorite enterprise"
-msgstr "Oui, je veux ajouter %s comme ami"
-
-#: app/views/friends/index.rhtml:3
-msgid "%s's friends"
-msgstr "Les ami(e)s de %s"
-
-#: app/views/friends/index.rhtml:23
-msgid "You have no friends yet. Go make some."
-msgstr "Vous n'avez pas encore d'ami(e). Allez vous en faire."
-
-#: app/views/friends/remove.rhtml:3
-msgid "Removing friend: %s"
-msgstr "Enlever l'ami : %s"
-
-#: app/views/friends/remove.rhtml:8
-msgid "Are you sure you want to remove %s from your friends list?"
-msgstr "Êtes-vous sûr(e) de vouloir enlever %s de la liste de vos amis ?"
-
-#: app/views/friends/remove.rhtml:13
-msgid ""
-"Note that %s will still have you as a friend, unless he/she also wants to "
-"remove you from his/her friend list."
-msgstr ""
-"Notez que %s vous gardera comme ami(e), à moins qu'il/elle ne veuille "
-"également vous retirer de sa liste d'ami(e)s."
-
-#: app/views/friends/remove.rhtml:20
-msgid "Yes, I want to remove %s from my friend list"
-msgstr "Oui, je veux retirer %s de ma liste d'ami(e)s"
-
-#: app/views/friends/add.rhtml:1
-msgid "Adding %s as a friend"
-msgstr "Ajouter %s comme ami"
-
-#: app/views/friends/add.rhtml:4
-msgid "Are you sure you want to add %s as your friend?"
-msgstr "Êtes-vous sûr(e) de vouloir ajouter %s comme ami ?"
-
-#: app/views/friends/add.rhtml:9
-msgid "Note that %s will need to accept being added as your friend."
-msgstr "Notez que %s devra accepter d'être ajouté comme votre ami."
-
-#: app/views/friends/add.rhtml:17
-msgid "Classify your new friend %s: "
-msgstr "Classez votre nouvel ami %s : "
-
-#: app/views/friends/add.rhtml:20 app/views/tasks/_add_friend.rhtml:32
-msgid "Suggestions: %s"
-msgstr "Suggestions : %s"
-
-#: app/views/friends/add.rhtml:24
-msgid "Yes, I want to add %s as my friend"
-msgstr "Oui, je veux ajouter %s comme ami"
-
-#: app/views/role/show.rhtml:3
-msgid "Permissions"
-msgstr "Permissions"
-
-#: app/views/role/new.rhtml:1
-msgid "New Role"
-msgstr "Nouveau rôle"
-
-#: app/views/role/_form.rhtml:7
-msgid "Permissions:"
-msgstr "Permissions :"
-
+#: app/views/environment_role_manager/change_role.rhtml:12
+#: app/views/features/_features_table.rhtml:16
+#: app/views/manage_products/_form.rhtml:16
+#: app/views/manage_products/_form_consumption.rhtml:7
+#: app/views/profile_members/change_role.rhtml:12
 #: app/views/role/_form.rhtml:13
-msgid "Create role"
-msgstr "Créer un rôle"
+msgid "Save changes"
+msgstr "Enregistrer les modifications"
 
-#: app/views/role/index.rhtml:1
-msgid "New role"
-msgstr "Nouveau rôle"
+#: app/views/environment_role_manager/index.rhtml:1
+msgid "Listing Administrators"
+msgstr "Liste des administrateurs"
 
-#: app/views/profile_members/index.rhtml:1
-msgid "Listing Members"
-msgstr "Liste des membres"
+#: app/views/environment_role_manager/index.rhtml:3
+#: app/views/environment_role_manager/make_admin.rhtml:1
+msgid "Make new admin"
+msgstr "Créer un nouvel administrateur"
 
-#: app/views/profile_members/index.rhtml:3
-msgid "Affiliate yourself"
-msgstr "Vous affilier"
+#: app/views/environment_role_manager/index.rhtml:8
+msgid "Edit member role"
+msgstr "Édition du rôle du membre"
 
-#: app/views/profile_members/index.rhtml:7
-#, fuzzy
-msgid "Member"
-msgstr "Membres"
-
-#: app/views/tasks/index.rhtml:1
-msgid "%s's pending tasks"
-msgstr "Les tâches de %s en attente"
-
-#: app/views/tasks/index.rhtml:5
-msgid "No pending tasks for %s"
-msgstr "Pas de tâche en attente pour %s"
-
-#: app/views/tasks/index.rhtml:16
-msgid "View processed tasks"
-msgstr "Voir les tâches gérées"
-
-#: app/views/tasks/_add_member.rhtml:1
-#, fuzzy
-msgid "New member"
+#: app/views/environment_role_manager/index.rhtml:9
+msgid "Remove member"
 msgstr "Ôter le membre"
 
-#: app/views/tasks/_add_member.rhtml:5
-#, fuzzy
-msgid "%s wants to be a member of %s."
-msgstr "Je rejoins cette communauté !"
+#: app/views/environment_role_manager/make_admin.rhtml:4
+#: app/views/shared/user_menu.rhtml:36
+msgid "Admin"
+msgstr "Admin"
 
-#: app/views/tasks/_add_member.rhtml:15 app/views/tasks/_add_friend.rhtml:15
-msgid "Accept"
-msgstr "Accepter"
+#: app/views/environment_role_manager/make_admin.rhtml:13
+msgid "Make"
+msgstr "Faire"
 
-#: app/views/tasks/_add_member.rhtml:22 app/views/tasks/_add_friend.rhtml:22
-msgid "Ignore"
-msgstr "Ignore"
+#: app/views/features/_features_table.rhtml:12
+msgid "Organization Approval Method"
+msgstr "Méthode d'approbation de l'organisation"
 
-#: app/views/tasks/_add_member.rhtml:36 app/views/tasks/_add_friend.rhtml:39
-msgid "Ok!"
-msgstr "Ok !"
+#: app/views/features/index.rhtml:1
+msgid "Enable/Disable features"
+msgstr "Autoriser/interdire des fonctionnalités"
 
-#: app/views/tasks/_add_friend.rhtml:1
-msgid "New friend"
-msgstr "Nouvel(le) ami(e)"
-
-#: app/views/tasks/_add_friend.rhtml:5
-msgid "%s wants to connect to you as a friend."
-msgstr "%s veut se connecter à vous comme ami(e)."
-
-#: app/views/tasks/_add_friend.rhtml:26
+#: app/views/features/index.rhtml:5
 msgid ""
-"You can type the first letters of an existing group and have the system "
-"present you the available options, or you can type the name of a new group "
-"if you want."
+"Here you can enable or disable several features of your environment. Each "
+"feature represents some funcionality that your environment can use if you "
+"enable it.\n"
+"\n"
+"Check all the features you want to enable for your environment, uncheck all "
+"the ones you don't want, and use the *\"Save changes\" button* to confirm "
+"your changes."
 msgstr ""
-"Vous pouvez taper les première lettre d'un groupe existant et le système "
-"vous présentera les choix possibles, ou taper le nom d'un nouveau groupe si "
-"vous le désirez."
+"Vous pouvez autoriser/interdire plusieurs fonctions de votre communauté ici. "
+"Chaque fonction représente des fonctionnalités que votre communauté peut "
+"utiliser si vous l'autorisez.\n"
+"\n"
+"Cochez toutes les fonctionnalités que vous voulez autoriser pour votre "
+"communauté, décochez celles que vous ne voulez pas, et utiliser le bouton "
+"*«Sauvegarder les modifications»* pour confirmer vos modifications."
 
-#: app/views/tasks/_add_friend.rhtml:27
-msgid "Classify your new friend:"
-msgstr "Classez votre nouvel(le) ami(e) :"
+#: app/views/home/index.rhtml:16
+msgid "More search options"
+msgstr "Recherche détaillée"
 
-#: app/views/tasks/_task.rhtml:2
-msgid "Processing task: %s"
-msgstr "Gestion de la tâche : %s"
-
-#: app/views/tasks/processed.rhtml:1
-msgid "%s's processed tasks"
-msgstr "Les tâches gérées par %s"
-
-#: app/views/tasks/processed.rhtml:5
-msgid "No processed tasks."
-msgstr "Pas de tâches gérées."
-
-#: app/views/tasks/processed.rhtml:12
-msgid "Created:"
-msgstr "Créé le :"
-
-#: app/views/tasks/processed.rhtml:14
-msgid "Processed:"
-msgstr "Géré le :"
+#: app/views/layouts/not_found.rhtml:5
+msgid "Page not found"
+msgstr "Page non trouvée"
 
 #: app/views/layouts/application.rhtml:52
 msgid ""
@@ -3589,410 +3028,512 @@ msgstr ""
 msgid "Get Firefox Now!"
 msgstr "Obtenir Firefox maintenant !"
 
-#: app/views/layouts/not_found.rhtml:5
-msgid "Page not found"
-msgstr "Page non trouvée"
+#: app/views/manage_products/edit.rhtml:1
+msgid "Editing"
+msgstr "Édition"
 
-#: app/views/account/new_password.rhtml:1
-#: app/views/account/new_password.rhtml:11
-msgid "Enter new password"
-msgstr "Entrez un nouveau mot de passe"
+#: app/views/manage_products/new.rhtml:1
+msgid "New product"
+msgstr "Nouveau produit"
 
-#: app/views/account/new_password.rhtml:4
-msgid "Hello, %s! Please enter your new password in the form below."
+#: app/views/manage_products/_form.rhtml:4 app/views/profile/index.rhtml:11
+msgid "Name:"
+msgstr "Nom :"
+
+#: app/views/manage_products/_form.rhtml:5
+#: app/views/manage_products/show.rhtml:4
+msgid "Price:"
+msgstr "Prix :"
+
+#: app/views/manage_products/_form.rhtml:16
+msgid "Create product"
+msgstr "Créer un produit"
+
+#: app/views/manage_products/_form_consumption.rhtml:4
+msgid "Raw material:"
 msgstr ""
-"Bonjour, %s ! Veuillez entrer votre nouveau mot de passe dans le formulaire "
-"ci-dessous."
 
-#: app/views/account/new_password.rhtml:12
-msgid "Confirm the new password"
-msgstr "Confirmer votre nouveau mot de passe"
+#: app/views/manage_products/_form_consumption.rhtml:5
+msgid "Aditional specifications:"
+msgstr "Spécifications supplémentaires :"
 
-#: app/views/account/new_password.rhtml:14
-#: app/views/account/change_password.rhtml:1
-#: app/views/account/change_password.rhtml:14
-msgid "Change password"
-msgstr "Modifier son mot de passe"
+#: app/views/manage_products/_form_consumption.rhtml:7
+#: app/views/manage_products/new_consumption.rhtml:1
+#: app/views/manage_products/index.rhtml:47
+msgid "Add raw material"
+msgstr ""
 
-#: app/views/account/index_anonymous.rhtml:1
-msgid "Identify yourself"
-msgstr "Identifiez-vous"
+#: app/views/manage_products/_subcategories.rhtml:3
+msgid "Current category:"
+msgstr "Catégorie courante :"
 
-#: app/views/account/index_anonymous.rhtml:4
-msgid "Login."
-msgstr "Identifiant."
-
-#: app/views/account/index_anonymous.rhtml:5
-#: app/views/shared/user_menu.rhtml:57
+#: app/views/manage_products/_subcategories.rhtml:22
 #, fuzzy
-msgid ""
-"Click here to enter your username and password and be recognized by the "
-"system."
-msgstr ""
-"Cliquez ici pour entrer vos identifiant et mot de passe et être reconnu(e) "
-"par le système."
+msgid "Select a category:"
+msgstr "Choisissez une sous-catégorie :"
 
-#: app/views/account/index_anonymous.rhtml:7
-msgid ""
-"You need to login to be able to use all the features in this environment."
-msgstr ""
-"Vous devez être connecté(e) pour pouvoir utiliser toutes les fonctions de "
-"cette communauté."
+#: app/views/manage_products/_subcategories.rhtml:24
+msgid "Select a subcategory:"
+msgstr "Choisissez une sous-catégorie :"
 
-#: app/views/account/index_anonymous.rhtml:11
-msgid "Sign up."
-msgstr "S'inscrire."
-
-#: app/views/account/index_anonymous.rhtml:12
-msgid ""
-"If you are not an user already, you can register now to become a member of "
-"this environment."
-msgstr ""
-"Si vous ne n'avez pas déjà fait, vous pouvez vous enregistrer dès à présent "
-"pour devenir membre de cette communauté."
-
-#: app/views/account/login.rhtml:3 app/views/account/login_block.rhtml:4
-#: app/views/shared/user_menu.rhtml:54
-msgid "Login"
-msgstr "Connexion"
-
-#: app/views/account/login.rhtml:11 app/views/account/login_block.rhtml:13
-msgid ""
-"If you are a registered user, enter your username and password to be "
-"authenticated."
-msgstr ""
-"Si vous êtes un utilisateur enregistré, entrez vos identifiant et mot de "
-"passe pour être authentifié(e)."
-
-# 1- Verify consistency between translations.
-# 2- In English "an user" -> "a user" Cf. http://forum.wordreference.com/showthread.php?t=480322
-#
-#: app/views/account/login.rhtml:11
-msgid "To join on this environment, click on \"<b>I want to be an user!</b>\"."
-msgstr ""
-"Pour rejoindre cette communauté, cliquez sur  \"<b>Je rejoins cette "
-"communauté !</b>\"."
-
-#: app/views/account/login.rhtml:11 app/views/account/login_block.rhtml:13
-msgid ""
-"If you forgot your password, click on \"<b>I forgot my password!</b>\" link."
-msgstr ""
-"Si vous avez oublié votre mot de passe, cliquez sur le lien «<b>J'ai oublié "
-"mon mot de passe !</b>»."
-
-#: app/views/account/login.rhtml:15 app/views/account/login_block.rhtml:17
-msgid "Here goes the nickname that you give on the registration."
-msgstr "Ici, le nom que vous avez donné à l'enregistrement."
-
-#: app/views/account/login.rhtml:20 app/views/account/login_block.rhtml:21
-msgid "your password is personal, protect it."
-msgstr "votre mot de passe est personnel, protégez-le."
-
-#: app/views/account/login.rhtml:23 app/views/account/login_block.rhtml:24
-msgid "Log in"
-msgstr "Se connecter"
-
-#: app/views/account/login.rhtml:29 app/views/account/login_block.rhtml:33
-msgid "You can recover your password clicking on this link."
-msgstr "Vous pouvez retrouver votre mot de passe en cliquant sur ce lien."
-
-#: app/views/account/login.rhtml:30 app/views/account/login_block.rhtml:34
-msgid "I forgot my password!"
-msgstr "J'ai oublié mon mot de passe !"
-
-#: app/views/account/login.rhtml:33 app/views/account/login_block.rhtml:27
-msgid "Click here to join to this environment, if you is not already an user."
-msgstr ""
-"Cliquez ici pour rejoindre cette communauté, si vous n'en êtes pas déjà "
-"membre."
-
-#: app/views/account/login.rhtml:34
-msgid "I want to be an user!"
-msgstr "Je rejoins cette communauté !"
-
-#: app/views/account/forgot_password.rhtml:1
-#: app/views/account/password_recovery_sent.rhtml:1
-msgid "Password recovery"
-msgstr "Retrouver son mot de passe"
-
-#: app/views/account/forgot_password.rhtml:7
-msgid ""
-"To change your password, please fill the form on this screen using your "
-"username and your e-mail. You will receive a message at that e-mail address "
-"with a web address you can access to create a new password."
-msgstr ""
-"Pour modifier votre mot de passe, remplissez le formulaire de cet écran en "
-"utilisant votre identifiant et votre adresse électronique. Vous recevrez un "
-"message à votre adresse électronique avec une adresse web à laquelle vous "
-"pourrez accéder pour créer un nouveau mot de passe."
-
-#: app/views/account/forgot_password.rhtml:16
-msgid "Send change password procedure by e-mail"
-msgstr ""
-"Envoyer le procédure de changement de mot de passe par courrier électronique"
-
-#: app/views/account/login_block.rhtml:13
-msgid "To join on this environment, click on \"<b>New user</b>\"."
-msgstr ""
-"Pour rejoindre cette communauté, cliquez sur «<b>Nouvel utilisateur</b>»."
-
-#: app/views/account/login_block.rhtml:25
-msgid "New user"
-msgstr "Nouvel utilisateur"
-
-#: app/views/account/index.rhtml:1
-msgid "Account options"
-msgstr "Options du compte"
-
-#: app/views/account/index.rhtml:4
-msgid "Change password."
-msgstr "Modifier son mot de passe."
-
-#: app/views/account/index.rhtml:5
-msgid "It is a good idea to change your password from times to times."
-msgstr ""
-"C'est une bonne idée que de changer son mot de passe de temps en temps."
-
-#: app/views/account/index.rhtml:9
-msgid "Edit Personal details."
-msgstr "Éditer vos informations personnelles."
-
-#: app/views/account/index.rhtml:10
-msgid "You can change your personal details."
-msgstr "Vous pouvez modifier vos informations personnelles."
-
-#: app/views/account/index.rhtml:14
-msgid "My home page."
-msgstr "Ma page personnelle."
-
-#: app/views/account/index.rhtml:15
-msgid "See your homepage."
-msgstr "Voir votre page personnelle."
-
-#: app/views/account/index.rhtml:19
-msgid "Manage content."
-msgstr "Gérer le contenu."
-
-#: app/views/account/index.rhtml:20
-msgid "Manage your content."
-msgstr "Gérer votre contenu."
-
-#: app/views/account/index.rhtml:24
-msgid "Logout."
-msgstr "Déconnexion."
-
-#: app/views/account/index.rhtml:25
-msgid ""
-"It is always a good idea to make a logout when you finish using the "
-"environment."
-msgstr ""
-"C'est toujours une bonne idée que de se déconnecter explicitement lorsque "
-"vous avez terminé d'utiliser l'environnement."
-
-#: app/views/account/invalid_enterprise_code.rhtml:1
+#: app/views/manage_products/index.rhtml:1
 #, fuzzy
-msgid "Invalid enterprise code"
-msgstr "Valider l'entreprise"
+msgid "Listing products and services"
+msgstr "Liste des produits"
 
-#: app/views/account/invalid_enterprise_code.rhtml:4
-msgid ""
-"The code you are using for validate your enterprise is not valid. Please "
-"check if you are typing it correctly."
-msgstr ""
-
-#: app/views/account/invalid_change_password_code.rhtml:1
-msgid "Invalid change password code"
-msgstr "Code de changement de mot de passe invalide"
-
-#: app/views/account/invalid_change_password_code.rhtml:4
-msgid ""
-"The code you are using for password change is not valid. Please try to "
-"request password change using the <a href=\"%s\">\"I forgot my password\"</"
-"a> functionality."
-msgstr ""
-"Le code que vous utilisez pour changer votre mot de passe est invalide. Vous "
-"devriez sans doute tenter de faire une demande de changement de mot de passe "
-"en utilisant la fonctionnalité <a href=\"%s\">«J'ai oublié mon mot de passe»</"
-"a>."
-
-#: app/views/account/password_recovery_sent.rhtml:4
-msgid ""
-"An e-mail was just sent to your e-mail address, with instructions for "
-"changing your password. You should receive it in a few minutes."
-msgstr ""
-"Un message vient d'être envoyé à votre adresse électronique ; il contient "
-"les instructions sur comment modifier votre mot de passe. Vous devriez le "
-"recevoir dans quelques instants."
-
-#: app/views/account/already_activated.rhtml:1
+#: app/views/manage_products/index.rhtml:5
 #, fuzzy
-msgid "This enterprise is already active"
-msgstr "Validations d'entreprises en attente"
+msgid "Product"
+msgstr "Produits"
 
-#: app/views/account/logout_popup.rhtml:1
-msgid "Are you sure you want to get out?"
-msgstr "Êtes-vous sûr(e) de vouloir sortir ?"
-
-#: app/views/account/logout_popup.rhtml:4
-msgid "Yes"
-msgstr "Oui"
-
-#: app/views/account/logout_popup.rhtml:5
-msgid "No, I want to stay."
-msgstr "Non, je désire rester."
-
-#: app/views/account/new_password_ok.rhtml:1
-msgid "Password changed sucessfully"
-msgstr "Le mot de passe a bien été modifié"
-
-#: app/views/account/new_password_ok.rhtml:4
-msgid "%s, your new password was successfully installed."
-msgstr "%s, votre nouveau mot de passe a bien été installé."
-
-#: app/views/account/new_password_ok.rhtml:8
-msgid "You can <a href='%s'>login</a> now."
-msgstr "Maintenant, vous pouvez vous <a href='%s'>commecter</a>."
-
-#: app/views/account/user_info.rhtml:3
-msgid "Logged in as %s"
-msgstr "Connecté en tant que %s"
-
-#: app/views/account/user_info.rhtml:6
-msgid "User since %{year}/%{month}"
-msgstr "Utilisateur depuis %{month}/%{year}"
-
-#: app/views/account/user_info.rhtml:11 app/views/shared/user_menu.rhtml:43
-msgid "Logout"
-msgstr "Déconnexion"
-
-#: app/views/account/signup.rhtml:1
-msgid "Register"
-msgstr "S'enregistrer"
-
-#: app/views/account/signup.rhtml:5
-msgid ""
-"Fill all this fields to join in this environment.<p/>If you forgot your "
-"password, do not create a new account, click on the \"<b>I forgot my "
-"password!</b>\" link. ;-)"
-msgstr ""
-"Remplissez tous ces champs pour rejoindre cette communauté.<p/>Si vous avez "
-"oublié votre mot de passe, ne créez pas un nouveau compte, cliquez sur le "
-"lien «<b>J'ai oublié mon mot de passe</b>»."
-
-#: app/views/account/signup.rhtml:11
-#: app/views/account/activate_enterprise.rhtml:11
-msgid "\"Username\" is a simple nickname to recognize you on this environment."
-msgstr ""
-"«Identifiant» est un simple surnom pour vous reconnaître dans cette "
-"communauté."
-
-#: app/views/account/signup.rhtml:16
-#: app/views/account/activate_enterprise.rhtml:16
-msgid "We'll send you an e-mail to validate your registration."
-msgstr ""
-"Nous vous enverrons un courrier électronique pour valider votre "
-"enregistrement."
-
-#: app/views/account/signup.rhtml:20
-#: app/views/account/activate_enterprise.rhtml:20
-msgid "Do not use a obviously password, but try some unforgettable word."
-msgstr ""
-"Ne choisissez pas un mot de passe évident, mais essayez de trouver quelque "
-"chose que vous n'oublierez pas."
-
-#: app/views/account/signup.rhtml:24
-#: app/views/account/activate_enterprise.rhtml:24
-msgid "We need to be sure that you wrote correctly your password."
-msgstr ""
-"Nous devons nous assurer que vous avez écrit correctement votre mot de passe."
-
-#: app/views/account/signup.rhtml:33
-#: app/views/account/activate_enterprise.rhtml:37
-msgid "I accept the terms of use"
-msgstr "J'accepte les conditions d'utilisation"
-
-# Je ne suis pas sûr de la distinction "sign up" / "register"
-#: app/views/account/signup.rhtml:38
-#: app/views/account/activate_enterprise.rhtml:42
+#: app/views/manage_products/index.rhtml:6
 #, fuzzy
-msgid "Sign up"
-msgstr "S'enregistrer"
+msgid "Price"
+msgstr "Prix :"
 
-#: app/views/account/activate_enterprise.rhtml:1
+#: app/views/manage_products/index.rhtml:15 app/views/role/index.rhtml:7
+msgid "Destroy"
+msgstr "Détruire"
+
+#: app/views/manage_products/index.rhtml:21
 #, fuzzy
-msgid "Register and activate enterprise"
+msgid "New product or service"
+msgstr "Nouveau produit"
+
+#: app/views/manage_products/index.rhtml:25
+#, fuzzy
+msgid "Listing raw materials"
+msgstr "Liste des membres"
+
+#: app/views/manage_products/index.rhtml:29
+msgid "Raw material"
+msgstr ""
+
+#: app/views/manage_products/index.rhtml:41
+#, fuzzy
+msgid "Are you sure, you want to remove this raw material from your list"
+msgstr "Êtes-vous sûr(e) de vouloir ôter ce produit de votre liste ?"
+
+#: app/views/manage_products/show.rhtml:6
+msgid "Category:"
+msgstr "Catégorie :"
+
+#: app/views/manage_products/show.rhtml:8
+msgid "back"
+msgstr "retour"
+
+#: app/views/manage_products/show.rhtml:10
+msgid "destroy"
+msgstr "detruire"
+
+#: app/views/manage_products/show.rhtml:11
+msgid "edit"
+msgstr "editer"
+
+#: app/views/profile_editor/_pending_tasks.rhtml:3
+msgid "You have pending requests"
+msgstr "Vous avez des requêtes en attente"
+
+#: app/views/profile_editor/_pending_tasks.rhtml:7
+msgid "Process requests"
+msgstr "Gérer les requêtes"
+
+#: app/views/profile_editor/_organization.rhtml:9
+#, fuzzy
+msgid "Moderation options"
+msgstr "Recherche détaillée"
+
+#: app/views/profile_editor/_organization.rhtml:12
+#, fuzzy
+msgid "Closed %s"
+msgstr "Fermer"
+
+#: app/views/profile_editor/_person.rhtml:5
+msgid "Male"
+msgstr "Homme"
+
+#: app/views/profile_editor/_person.rhtml:5
+msgid "Female"
+msgstr "Femme"
+
+#: app/views/profile_editor/disable.rhtml:1
+#, fuzzy
+msgid "Disabling '%s' enterprise"
+msgstr "Les entreprises de <b>%s</b>"
+
+#: app/views/profile_editor/disable.rhtml:4
+#, fuzzy
+msgid "Are you sure you want to disable %s?"
+msgstr "Êtes-vous sûr(e) d'ôter/effacer «%s» ?"
+
+#: app/views/profile_editor/disable.rhtml:9
+#, fuzzy
+msgid "Yes, I want to disable."
+msgstr "Oui, je veux la rejoindre."
+
+#: app/views/profile_editor/disable.rhtml:10
+#: app/views/profile_editor/enable.rhtml:10
+#: app/views/memberships/join.rhtml:10 app/views/memberships/leave.rhtml:10
+msgid "No, I don't want."
+msgstr "Non, je ne veux pas."
+
+#: app/views/profile_editor/edit.rhtml:9
+#, fuzzy
+msgid "Change picture"
+msgstr "Modifiez votre image"
+
+#: app/views/profile_editor/edit.rhtml:15
+#, fuzzy
+msgid "Privacy options"
+msgstr "Recherche détaillée"
+
+#: app/views/profile_editor/edit.rhtml:17
+#, fuzzy
+msgid "This profile is:"
+msgstr "Les tags de cet article :"
+
+#: app/views/profile_editor/edit.rhtml:20
+#: app/views/profile_editor/edit.rhtml:31
+msgid "Public"
+msgstr ""
+
+#: app/views/profile_editor/edit.rhtml:24
+#: app/views/profile_editor/edit.rhtml:35
+#, fuzzy
+msgid "Private"
+msgstr "Activer"
+
+#: app/views/profile_editor/edit.rhtml:28
+#, fuzzy
+msgid "This profile's content is:"
+msgstr "Les tags de cet article :"
+
+#: app/views/profile_editor/edit.rhtml:39
+msgid "Select the categories of your interest"
+msgstr "Choisissez les catégories de vos centres d'intérêt"
+
+#: app/views/profile_editor/edit.rhtml:44 app/views/tasks/index.rhtml:17
+#: app/views/mailconf/index.rhtml:15
+msgid "Back to control panel"
+msgstr "Retour au panneau de contrôle"
+
+#: app/views/profile_editor/enable.rhtml:1
+#, fuzzy
+msgid "Enabling '%s' enterprise"
+msgstr "Les entreprises de <b>%s</b>"
+
+#: app/views/profile_editor/enable.rhtml:4
+#, fuzzy
+msgid "Are you sure you want to enable %s?"
+msgstr "Êtes-vous sûr(e) d'ôter/effacer «%s» ?"
+
+#: app/views/profile_editor/enable.rhtml:9
+#, fuzzy
+msgid "Yes, I want to enable."
+msgstr "Oui, je veux la rejoindre."
+
+#: app/views/profile_editor/index.rhtml:3
+msgid "My profile"
+msgstr "Mon profil"
+
+#: app/views/profile_editor/index.rhtml:9
+msgid "Edit Profile"
+msgstr "Éditer le profil"
+
+#: app/views/profile_editor/index.rhtml:11
+msgid "Mail settings"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:13
+msgid "Pending tasks"
+msgstr "Tâches en attente"
+
+#: app/views/profile_editor/index.rhtml:15
+msgid "Edit Visual Design"
+msgstr "Éditer l'apparence"
+
+#: app/views/profile_editor/index.rhtml:17
+msgid "Manage Content"
+msgstr "Gérer le contenu"
+
+#: app/views/profile_editor/index.rhtml:19
+msgid "Change Password"
+msgstr "Modifier le mot de passe"
+
+#: app/views/profile_editor/index.rhtml:23
+msgid "Manage Members"
+msgstr "Gérer les membres"
+
+#: app/views/profile_editor/index.rhtml:25
+#, fuzzy
+msgid "Manage Products and Services"
+msgstr "Gérer les produits"
+
+#: app/views/profile_editor/index.rhtml:27
+msgid "Enterprise Validation"
+msgstr "Validation d'entreprises"
+
+#: app/views/profile_editor/index.rhtml:33
+#, fuzzy
+msgid "Disable Enterprise"
+msgstr "Détruire l'entreprise"
+
+#: app/views/profile_editor/index.rhtml:35
+#, fuzzy
+msgid "Enable Enterprise"
+msgstr "Entreprises"
+
+#: app/views/profile_editor/index.rhtml:42
+#, fuzzy
+msgid "Manage my groups"
+msgstr "Mes groupes"
+
+#: app/views/profile_editor/index.rhtml:45
+#: app/views/profile/communities.rhtml:15 app/views/memberships/index.rhtml:27
+msgid "Create a new community"
+msgstr "Créer un nouveau groupe"
+
+#: app/views/profile_editor/index.rhtml:46
+#: app/views/profile/enterprises.rhtml:15 app/views/memberships/index.rhtml:26
+msgid "Register a new Enterprise"
 msgstr "Enregistrer une nouvelle entreprise"
 
-#: app/views/account/activate_enterprise.rhtml:5
+#: app/views/profile_members/index.rhtml:1
+msgid "Listing Members"
+msgstr "Liste des membres"
+
+#: app/views/profile_members/index.rhtml:3
+msgid "Affiliate yourself"
+msgstr "Vous affilier"
+
+#: app/views/profile_members/index.rhtml:7
 #, fuzzy
+msgid "Member"
+msgstr "Membres"
+
+#: app/views/region_validators/_region.rhtml:5
+msgid "1 validator"
+msgid_plural "%{num} validators."
+msgstr[0] "Un validateur"
+msgstr[1] "%{num} validateurs."
+
+#: app/views/region_validators/_search.rhtml:9
+#: app/views/box_organizer/add_block.rhtml:17
+msgid "Add"
+msgstr "Ajouter"
+
+#: app/views/region_validators/index.rhtml:1
+msgid "Validators by Region"
+msgstr "Validateurs par région"
+
+#: app/views/region_validators/region.rhtml:1
+msgid "Validators for region %s"
+msgstr "Validateurs pour le région %s"
+
+#: app/views/region_validators/region.rhtml:3
+msgid "Current validators"
+msgstr "Validateurs actuels"
+
+#: app/views/region_validators/region.rhtml:9
+msgid "Remove validation rights"
+msgstr "Ôter les droits de validation"
+
+#: app/views/region_validators/region.rhtml:14
+msgid "Add new validators"
+msgstr "Ajouter de nouveaux validateurs"
+
+#: app/views/region_validators/region.rhtml:17
 msgid ""
-"Fill all this fields to activate your enterprise and join in this "
-"environment.<p/>If you forgot your password, do not create a new account, "
-"click on the \"<b>I forgot my password!</b>\" link. ;-)"
+"First search organizations by their name, then use the buttons in the search "
+"result to add them as validators for this region. "
 msgstr ""
-"Remplissez tous ces champs pour rejoindre cette communauté.<p/>Si vous avez "
-"oublié votre mot de passe, ne créez pas un nouveau compte, cliquez sur le "
-"lien «<b>J'ai oublié mon mot de passe</b>»."
+"D'abord, rechercher les organisations par leurs noms, ensuite utiliser les "
+"boutons dans les résultats de recherche pour les ajouter comme validateurs "
+"de cette région. "
 
-#: app/views/account/activate_enterprise.rhtml:27
-msgid "What year your enterprise was founded?"
+#: app/views/role/index.rhtml:1
+msgid "New role"
+msgstr "Nouveau rôle"
+
+#: app/views/role/show.rhtml:3
+msgid "Permissions"
+msgstr "Permissions"
+
+#: app/views/role/_form.rhtml:7
+msgid "Permissions:"
+msgstr "Permissions :"
+
+#: app/views/role/_form.rhtml:13
+msgid "Create role"
+msgstr "Créer un rôle"
+
+#: app/views/role/new.rhtml:1
+msgid "New Role"
+msgstr "Nouveau rôle"
+
+#: app/views/search/tag.rhtml:2
+msgid "Tagged with \"%s\""
+msgstr "Associé au tag «%s»"
+
+#: app/views/search/tag.rhtml:6
+msgid "Back to tag cloud"
+msgstr "Retour au nuage de tags"
+
+#: app/views/search/_article.rhtml:6
+msgid "by %s"
+msgstr "par %s"
+
+#: app/views/search/_article.rhtml:9
+msgid "Last update: %s."
+msgstr "Dernière mise à jour : %s."
+
+#: app/views/search/_comment.rhtml:16
+msgid "by %{author} on \"%{article}\""
+msgstr "par %{author} sur «%{article}»"
+
+#: app/views/search/sellers.rhtml:4
+msgid "Listing sellers of %s witin %s km from %s %s"
 msgstr ""
 
-#: app/views/account/activate_enterprise.rhtml:27
-msgid "What is the CNPJ of your enterprise?"
-msgstr ""
-
-#: app/views/account/activate_enterprise.rhtml:27
+#: app/views/search/sellers.rhtml:6
 #, fuzzy
-msgid "We need to be sure that this is your enterprise"
-msgstr ""
-"Nous devons nous assurer que vous avez écrit correctement votre mot de passe."
+msgid "Listing sellers of %s"
+msgstr "Liste des membres"
 
-#: app/views/account/change_password.rhtml:5
-msgid "Current password"
-msgstr "Mot de passe actuel"
-
-#: app/views/account/change_password.rhtml:8
-msgid "New password"
-msgstr "Nouveau mot de passe"
-
-#: app/views/account/change_password.rhtml:11
-msgid "Confirm your new Password"
-msgstr "Confirmer votre nouveau mot de passe"
-
-#: app/views/account/blocked.rhtml:2
-msgid "Your enterprise has been blocked"
+#: app/views/search/sellers.rhtml:10
+msgid "Listing sellers witin %s km from %s %s"
 msgstr ""
 
-#: app/views/features/index.rhtml:1
-msgid "Enable/Disable features"
-msgstr "Autoriser/interdire des fonctionnalités"
+#: app/views/search/sellers.rhtml:12
+#, fuzzy
+msgid "Listing sellers"
+msgstr "Liste des membres"
 
-#: app/views/features/index.rhtml:5
+#: app/views/search/_directory.rhtml:2
+msgid "Recent"
+msgstr "Récents"
+
+#: app/views/search/_product.rhtml:10
+msgid "Price: %d"
+msgstr "Prix : %d"
+
+#: app/views/search/_product.rhtml:12
+msgid "Suplier: %s"
+msgstr "Fournisseur : %s"
+
+#: app/views/search/articles.rhtml:7 app/views/search/enterprises.rhtml:7
+#: app/views/search/communities.rhtml:7 app/views/search/people.rhtml:7
+msgid "(recently added)"
+msgstr ""
+
+#: app/views/search/articles.rhtml:12 app/views/search/index.rhtml:3
+#: app/views/search/enterprises.rhtml:12 app/views/search/communities.rhtml:12
+#: app/views/search/people.rhtml:12
+msgid "Search results for \"%{query}\" in \"%{category}\""
+msgstr "Résultats de la recherche sur «%{query}» dans «%{category}»"
+
+#: app/views/search/articles.rhtml:12 app/views/search/index.rhtml:3
+#: app/views/search/enterprises.rhtml:12 app/views/search/communities.rhtml:12
+#: app/views/search/people.rhtml:12
+msgid "Search results for \"%s\""
+msgstr "Résultats de recherche pour «%s»"
+
+#: app/views/search/articles.rhtml:14 app/views/search/enterprises.rhtml:14
+#: app/views/search/communities.rhtml:14 app/views/search/people.rhtml:14
+msgid "Browse by name"
+msgstr ""
+
+#: app/views/search/articles.rhtml:19 app/views/search/index.rhtml:5
+#: app/views/search/enterprises.rhtml:19 app/views/search/products.rhtml:13
+#: app/views/search/communities.rhtml:19 app/views/search/people.rhtml:19
+msgid "Refine your search"
+msgstr "Affiner votre recherche"
+
+#: app/views/search/_display_results.rhtml:18
+msgid "more..."
+msgstr ""
+
+#: app/views/search/tags.rhtml:1
+msgid "Tag cloud"
+msgstr "Nuage de tags"
+
+#: app/views/search/_google_maps.rhtml:48
 msgid ""
-"Here you can enable or disable several features of your environment. Each "
-"feature represents some funcionality that your environment can use if you "
-"enable it.\n"
-"\n"
-"Check all the features you want to enable for your environment, uncheck all "
-"the ones you don't want, and use the *\"Save changes\" button* to confirm "
-"your changes."
+"One or more items don't have geographical information, and won't be shown in "
+"the map. Choose \"Display in list\" to see them."
 msgstr ""
-"Vous pouvez autoriser/interdire plusieurs fonctions de votre communauté ici. "
-"Chaque fonction représente des fonctionnalités que votre communauté peut "
-"utiliser si vous l'autorisez.\n"
-"\n"
-"Cochez toutes les fonctionnalités que vous voulez autoriser pour votre "
-"communauté, décochez celles que vous ne voulez pas, et utiliser le bouton "
-"*«Sauvegarder les modifications»* pour confirmer vos modifications."
 
-#: app/views/features/_features_table.rhtml:12
-msgid "Organization Approval Method"
-msgstr "Méthode d'approbation de l'organisation"
+#: app/views/search/_search_form.rhtml:18
+#, fuzzy
+msgid "Search in whole site"
+msgstr "Recherche de «%s» dans tout le site"
 
-#: app/views/shared/_show_thumbnail.rhtml:5
-msgid "Change image"
-msgstr "Modifier l'image"
+#: app/views/search/_search_form.rhtml:24
+#, fuzzy
+msgid "Search within:"
+msgstr "Recherche dans :"
+
+#: app/views/search/_search_form.rhtml:27
+#: app/views/search/_sellers_form.rhtml:13
+msgid "Distance (km): "
+msgstr ""
+
+#: app/views/search/_search_form.rhtml:28
+#: app/views/search/_sellers_form.rhtml:16
+msgid "From: "
+msgstr ""
+
+#: app/views/search/_search_form.rhtml:35
+msgid "Search for:"
+msgstr "Rechercher :"
+
+#: app/views/search/_search_form.rhtml:49
+msgid "Advanced search"
+msgstr ""
+
+#: app/views/search/category_index.rhtml:4
+msgid "Category: %s"
+msgstr "Catégorie : %s"
+
+#: app/views/search/category_index.rhtml:9
+msgid "Sub-categories"
+msgstr "Sous-catégories :"
+
+#: app/views/search/category_index.rhtml:11
+msgid "No sub-categories"
+msgstr "Pas de sous-catégorie"
+
+#: app/views/search/products.rhtml:3
+#, fuzzy
+msgid "Products results for \"%{query}\" of enterprises in \"%{category}\""
+msgstr "Résultats de la recherche sur «%{query}» dans «%{category}»"
+
+#: app/views/search/products.rhtml:3
+#, fuzzy
+msgid "Products results for \"%s\""
+msgstr "Résultats de recherche pour «%s»"
+
+#: app/views/search/products.rhtml:5
+#, fuzzy
+msgid "Products of enterprises in \"%s\""
+msgstr "Entrprise"
+
+#: app/views/search/products.rhtml:10
+msgid "Within %s km from %s"
+msgstr ""
+
+#: app/views/search/popup.rhtml:3
+msgid "Search %s"
+msgstr "Recherche sur «%s»"
+
+#: app/views/search/_sellers_form.rhtml:1
+#, fuzzy
+msgid "Search for sellers"
+msgstr "Rechercher :"
+
+#: app/views/search/_sellers_form.rhtml:5
+msgid "Search in:"
+msgstr "Recherche dans :"
 
 #: app/views/shared/user_menu.rhtml:2
 msgid "This menu gives you access to your personal functionalities."
@@ -4015,6 +3556,10 @@ msgstr "Ma page d'accueil"
 msgid "Webmail"
 msgstr "courrier électronique"
 
+#: app/views/shared/user_menu.rhtml:30 app/views/blocks/profile_info.rhtml:11
+msgid "Control panel"
+msgstr "Panneau de contrôle"
+
 #: app/views/shared/user_menu.rhtml:32
 msgid ""
 "Control panel: change your picture, edit your personal information, create "
@@ -4035,6 +3580,491 @@ msgstr ""
 "Ce lien vous fait sortir du système. Vous devriez vous déconnecter "
 "explicitement si d'autres personnes désirent utiliser le même ordinateur "
 "après vous."
+
+#: app/views/shared/_show_thumbnail.rhtml:5
+msgid "Change image"
+msgstr "Modifier l'image"
+
+#: app/views/task_mailer/target_notification.rhtml:6
+#: app/views/task_mailer/task_cancelled.text.plain.rhtml:6
+#: app/views/task_mailer/task_created.text.plain.rhtml:6
+#: app/views/task_mailer/task_finished.text.plain.rhtml:6
+msgid "%s environment system"
+msgstr ""
+
+#: app/views/task_mailer/task_cancelled.text.plain.rhtml:1
+#: app/views/task_mailer/task_created.text.plain.rhtml:1
+#: app/views/task_mailer/task_finished.text.plain.rhtml:1
+msgid "Dear %s,"
+msgstr "Cher/chère %s,"
+
+#: app/views/box_organizer/add_block.rhtml:3
+msgid "In what area do you want to put your new block?"
+msgstr "Dans quel partie désirez-vous placer ce nouveau bloc ?"
+
+#: app/views/box_organizer/add_block.rhtml:5
+msgid "Area %d"
+msgstr "Partie %d"
+
+#: app/views/box_organizer/add_block.rhtml:7
+msgid "Select the type of block you want to add to your page."
+msgstr "Choisissez le type de bloc que vous voulez ajouter à la page."
+
+#: app/views/box_organizer/edit.rhtml:1
+msgid "Editing block"
+msgstr "Édition du bloc"
+
+#: app/views/box_organizer/index.rhtml:1
+msgid "Organizing visual design"
+msgstr "Organisation du visuel"
+
+#: app/views/box_organizer/index.rhtml:4
+msgid "Add a block"
+msgstr "Ajouter un bloc"
+
+#: app/views/profile/tag.rhtml:1
+msgid "Content tagged with \"%s\""
+msgstr "Contenu associé aux tags «%s»"
+
+#: app/views/profile/tag.rhtml:12
+msgid "See content tagged with \"%s\" in the entire site"
+msgstr "Voir les contenus associés à «%s» dans tout le site"
+
+#: app/views/profile/friends.rhtml:2
+msgid "Here are all <b>%s</b>'s friends."
+msgstr "Voici tous les amis de <b>%s</b>."
+
+#: app/views/profile/friends.rhtml:4
+msgid "%s' friends"
+msgstr "Les amis de %s"
+
+#: app/views/profile/friends.rhtml:13 app/views/profile/members.rhtml:13
+#: app/views/profile/enterprises.rhtml:13
+#: app/views/profile/communities.rhtml:13
+#: app/views/profile/favorite_enterprises.rhtml:13
+#: app/views/memberships/index.rhtml:28 app/views/friends/index.rhtml:29
+#: app/views/favorite_enterprises/index.rhtml:29
+msgid "Go back"
+msgstr "Retour"
+
+#: app/views/profile/friends.rhtml:14 app/views/profile/members.rhtml:14
+#: app/views/profile/enterprises.rhtml:14
+#: app/views/profile/communities.rhtml:14
+#: app/views/profile/favorite_enterprises.rhtml:14
+msgid "Back to the page where you come from."
+msgstr "Retour à la page dont vous venez."
+
+#: app/views/profile/members.rhtml:2
+msgid "Here are all <b>%s</b>'s members."
+msgstr "Voici tous les membres de <b>%s</b>."
+
+#: app/views/profile/members.rhtml:4
+msgid "%s' members"
+msgstr "Les membres de %s"
+
+#: app/views/profile/enterprises.rhtml:2
+msgid "Here are all <b>%s</b>'s enterprises."
+msgstr "Voici toutes les entreprises de <b>%s</b>."
+
+#: app/views/profile/enterprises.rhtml:4
+msgid "%s's enterprises"
+msgstr "Les entreprises de <b>%s</b>"
+
+#: app/views/profile/communities.rhtml:2
+msgid "Here are all <b>%s</b>'s communities."
+msgstr "Voici toutes les groupes de <b>%s</b>."
+
+#: app/views/profile/communities.rhtml:4
+msgid "%s's communities"
+msgstr "Les groupes de <b>%s</b>"
+
+#: app/views/profile/favorite_enterprises.rhtml:2
+#, fuzzy
+msgid "Here are all <b>%s</b>'s favorite enterprises."
+msgstr "Voici toutes les entreprises de <b>%s</b>."
+
+#: app/views/profile/favorite_enterprises.rhtml:4
+#, fuzzy
+msgid "%s's favorite enterprises"
+msgstr "Les entreprises de <b>%s</b>"
+
+#: app/views/profile/private_profile.rhtml:4
+#, fuzzy
+msgid "This profile is not public."
+msgstr "Ce profil n'a pas d'information publique"
+
+#: app/views/profile/sitemap.rhtml:1
+msgid "%s: site map"
+msgstr ""
+
+#: app/views/profile/index.rhtml:7
+msgid "%s's profile"
+msgstr "Le profil de %s"
+
+#: app/views/profile/index.rhtml:15
+msgid "Homepage: "
+msgstr "Page personnelle : "
+
+#: app/views/profile/index.rhtml:29 app/views/blocks/profile_info.rhtml:9
+#, fuzzy
+msgid "Products/Services"
+msgstr "Prix"
+
+#: app/views/profile/index.rhtml:33
+#, fuzzy
+msgid "Site map"
+msgstr "Sous-éléments"
+
+#: app/views/profile/index.rhtml:37
+msgid "Tags:"
+msgstr "Tags :"
+
+#: app/views/blocks/profile_info_actions/community.rhtml:4
+#, fuzzy
+msgid "Leave this community"
+msgstr "Rejoindre ce groupe"
+
+#: app/views/blocks/profile_info_actions/community.rhtml:6
+msgid "Join this community"
+msgstr "Rejoindre ce groupe"
+
+#: app/views/blocks/profile_info_actions/enterprise.rhtml:4
+#, fuzzy
+msgid "Add favorite enterprise"
+msgstr "Éditer l'entreprise"
+
+#: app/views/blocks/profile_info_actions/enterprise.rhtml:7
+#, fuzzy
+msgid "Leave this enterprise"
+msgstr "Détruire l'entreprise"
+
+#: app/views/blocks/profile_info_actions/enterprise.rhtml:9
+#, fuzzy
+msgid "Join this enterprise"
+msgstr "Éditer l'entreprise"
+
+#: app/views/blocks/profile_info_actions/person.rhtml:3
+msgid "Add friend"
+msgstr "Ajouter un ami"
+
+#: app/views/blocks/profile_info.rhtml:6
+msgid "Since %{year}/%{month}"
+msgstr "Depuis %{month}/%{year}"
+
+#: app/views/blocks/profile_info.rhtml:8
+msgid "View profile"
+msgstr "Voir le profil"
+
+#: app/views/memberships/join.rhtml:1
+msgid "Joining %s"
+msgstr "Rejoindre %s"
+
+#: app/views/memberships/join.rhtml:4
+msgid "Are you sure you want to join %s?"
+msgstr "Êtes-vous sûr(e) de vouloir rejoindre %s ?"
+
+#: app/views/memberships/join.rhtml:9
+msgid "Yes, I want to join."
+msgstr "Oui, je veux la rejoindre."
+
+#: app/views/memberships/new_community.rhtml:11
+msgid "Create"
+msgstr "Créer"
+
+#: app/views/memberships/index.rhtml:1
+msgid "%s's groups"
+msgstr "Les groupes de %s"
+
+#: app/views/memberships/index.rhtml:4
+msgid "%s is a member of the following groups:"
+msgstr "%s est membre des groupes suivants :"
+
+#: app/views/memberships/index.rhtml:13
+#, fuzzy
+msgid "Role: %s"
+msgstr "Rôles :"
+
+#: app/views/memberships/index.rhtml:14
+#, fuzzy
+msgid "Type: %s"
+msgstr "Type"
+
+#: app/views/memberships/index.rhtml:15
+#, fuzzy
+msgid "Description: %s"
+msgstr "Description :"
+
+#: app/views/memberships/index.rhtml:16
+#, fuzzy
+msgid "Members: %s"
+msgstr "Membres"
+
+#: app/views/memberships/index.rhtml:17
+#, fuzzy
+msgid "Created at: %s"
+msgstr "Créé le :"
+
+#: app/views/memberships/index.rhtml:18
+#, fuzzy
+msgid "Actions: %s"
+msgstr "Actions"
+
+#: app/views/memberships/index.rhtml:18
+msgid "Manage"
+msgstr "Gérer"
+
+#: app/views/memberships/index.rhtml:18
+#, fuzzy
+msgid "Leave"
+msgstr "Enregistrer"
+
+#: app/views/memberships/leave.rhtml:1
+#, fuzzy
+msgid "Leaving %s"
+msgstr "Édition de %s"
+
+#: app/views/memberships/leave.rhtml:4
+#, fuzzy
+msgid "Are you sure you want to leave %s?"
+msgstr "Êtes-vous sûr(e) d'ôter/effacer «%s» ?"
+
+#: app/views/memberships/leave.rhtml:9
+#, fuzzy
+msgid "Yes, I want to leave."
+msgstr "Oui, je veux la rejoindre."
+
+#: app/views/friends/add.rhtml:1
+msgid "Adding %s as a friend"
+msgstr "Ajouter %s comme ami"
+
+#: app/views/friends/add.rhtml:4
+msgid "Are you sure you want to add %s as your friend?"
+msgstr "Êtes-vous sûr(e) de vouloir ajouter %s comme ami ?"
+
+#: app/views/friends/add.rhtml:9
+msgid "Note that %s will need to accept being added as your friend."
+msgstr "Notez que %s devra accepter d'être ajouté comme votre ami."
+
+#: app/views/friends/add.rhtml:17
+msgid "Classify your new friend %s: "
+msgstr "Classez votre nouvel ami %s : "
+
+#: app/views/friends/add.rhtml:20 app/views/tasks/_add_friend.rhtml:32
+msgid "Suggestions: %s"
+msgstr "Suggestions : %s"
+
+#: app/views/friends/add.rhtml:24
+msgid "Yes, I want to add %s as my friend"
+msgstr "Oui, je veux ajouter %s comme ami"
+
+#: app/views/friends/add.rhtml:25 app/views/friends/remove.rhtml:21
+#: app/views/favorite_enterprises/add.rhtml:11
+#: app/views/favorite_enterprises/remove.rhtml:15
+msgid "No, I don't want"
+msgstr "Non, je ne veux pas"
+
+#: app/views/friends/index.rhtml:3
+msgid "%s's friends"
+msgstr "Les ami(e)s de %s"
+
+#: app/views/friends/index.rhtml:10 app/views/friends/index.rhtml:13
+#: app/views/favorite_enterprises/index.rhtml:10
+#: app/views/favorite_enterprises/index.rhtml:13
+msgid "remove"
+msgstr "ôter"
+
+#: app/views/friends/index.rhtml:14
+#: app/views/favorite_enterprises/index.rhtml:14
+msgid "Clicking on this button will remove your friend relation with %s."
+msgstr "En cliquant sur ce bouton, vous ôterez %s de vos relations."
+
+#: app/views/friends/index.rhtml:23
+msgid "You have no friends yet. Go make some."
+msgstr "Vous n'avez pas encore d'ami(e). Allez vous en faire."
+
+#: app/views/friends/remove.rhtml:3
+msgid "Removing friend: %s"
+msgstr "Enlever l'ami : %s"
+
+#: app/views/friends/remove.rhtml:8
+msgid "Are you sure you want to remove %s from your friends list?"
+msgstr "Êtes-vous sûr(e) de vouloir enlever %s de la liste de vos amis ?"
+
+#: app/views/friends/remove.rhtml:13
+msgid ""
+"Note that %s will still have you as a friend, unless he/she also wants to "
+"remove you from his/her friend list."
+msgstr ""
+"Notez que %s vous gardera comme ami(e), à moins qu'il/elle ne veuille "
+"également vous retirer de sa liste d'ami(e)s."
+
+#: app/views/friends/remove.rhtml:20
+msgid "Yes, I want to remove %s from my friend list"
+msgstr "Oui, je veux retirer %s de ma liste d'ami(e)s"
+
+#: app/views/tasks/_task.rhtml:2
+msgid "Processing task: %s"
+msgstr "Gestion de la tâche : %s"
+
+#: app/views/tasks/processed.rhtml:1
+msgid "%s's processed tasks"
+msgstr "Les tâches gérées par %s"
+
+#: app/views/tasks/processed.rhtml:5
+msgid "No processed tasks."
+msgstr "Pas de tâches gérées."
+
+#: app/views/tasks/processed.rhtml:12
+msgid "Created:"
+msgstr "Créé le :"
+
+#: app/views/tasks/processed.rhtml:14
+msgid "Processed:"
+msgstr "Géré le :"
+
+#: app/views/tasks/index.rhtml:1
+msgid "%s's pending tasks"
+msgstr "Les tâches de %s en attente"
+
+#: app/views/tasks/index.rhtml:5
+msgid "No pending tasks for %s"
+msgstr "Pas de tâche en attente pour %s"
+
+#: app/views/tasks/index.rhtml:16
+msgid "View processed tasks"
+msgstr "Voir les tâches gérées"
+
+#: app/views/tasks/_add_friend.rhtml:1
+msgid "New friend"
+msgstr "Nouvel(le) ami(e)"
+
+#: app/views/tasks/_add_friend.rhtml:5
+msgid "%s wants to connect to you as a friend."
+msgstr "%s veut se connecter à vous comme ami(e)."
+
+#: app/views/tasks/_add_friend.rhtml:15 app/views/tasks/_add_member.rhtml:15
+msgid "Accept"
+msgstr "Accepter"
+
+#: app/views/tasks/_add_friend.rhtml:22 app/views/tasks/_add_member.rhtml:22
+msgid "Ignore"
+msgstr "Ignore"
+
+#: app/views/tasks/_add_friend.rhtml:26
+msgid ""
+"You can type the first letters of an existing group and have the system "
+"present you the available options, or you can type the name of a new group "
+"if you want."
+msgstr ""
+"Vous pouvez taper les première lettre d'un groupe existant et le système "
+"vous présentera les choix possibles, ou taper le nom d'un nouveau groupe si "
+"vous le désirez."
+
+#: app/views/tasks/_add_friend.rhtml:27
+msgid "Classify your new friend:"
+msgstr "Classez votre nouvel(le) ami(e) :"
+
+#: app/views/tasks/_add_friend.rhtml:39 app/views/tasks/_add_member.rhtml:36
+msgid "Ok!"
+msgstr "Ok !"
+
+#: app/views/tasks/_add_member.rhtml:1
+#, fuzzy
+msgid "New member"
+msgstr "Ôter le membre"
+
+#: app/views/tasks/_add_member.rhtml:5
+#, fuzzy
+msgid "%s wants to be a member of %s."
+msgstr "Je rejoins cette communauté !"
+
+#: app/views/favorite_enterprises/add.rhtml:1
+#, fuzzy
+msgid "Adding %s as a favorite enterprise"
+msgstr "Ajouter %s comme ami"
+
+#: app/views/favorite_enterprises/add.rhtml:4
+#, fuzzy
+msgid "Are you sure you want to add %s as your favorite enterprise?"
+msgstr "Êtes-vous sûr(e) de vouloir ajouter %s comme ami ?"
+
+#: app/views/favorite_enterprises/add.rhtml:10
+#, fuzzy
+msgid "Yes, I want to add %s as a favorite enterprise"
+msgstr "Oui, je veux ajouter %s comme ami"
+
+#: app/views/favorite_enterprises/index.rhtml:3
+#, fuzzy
+msgid "%s's favorite enteprises"
+msgstr "Les entreprises de <b>%s</b>"
+
+#: app/views/favorite_enterprises/index.rhtml:23
+#, fuzzy
+msgid "You have no favorite enteprises yet."
+msgstr "Vous n'avez pas encore d'ami(e). Allez vous en faire."
+
+#: app/views/favorite_enterprises/remove.rhtml:3
+#, fuzzy
+msgid "Removing favorite enterprise: %s"
+msgstr "Enlever l'ami : %s"
+
+#: app/views/favorite_enterprises/remove.rhtml:8
+#, fuzzy
+msgid "Are you sure you want to remove %s from your favorite enterprise list?"
+msgstr "Êtes-vous sûr(e) de vouloir enlever %s de la liste de vos amis ?"
+
+#: app/views/favorite_enterprises/remove.rhtml:14
+#, fuzzy
+msgid "Yes, I want to remove %s from my favorite enterprise list"
+msgstr "Oui, je veux retirer %s de ma liste d'ami(e)s"
+
+#: app/views/mailconf/index.rhtml:1
+#, fuzzy
+msgid "e-Mail configuration"
+msgstr "Mot de passe (confirmation)"
+
+#: app/views/mailconf/index.rhtml:7
+msgid "Enable e-mail %s"
+msgstr ""
+
+#: app/views/mailconf/index.rhtml:9
+msgid ""
+"Marking this option gives you an e-mail account with the address above. "
+"You'll be able to access a webmail from your user menu."
+msgstr ""
+
+#: public/designs/themes/ecosol/footer.rhtml:2
+msgid "A FBES project"
+msgstr "Un projet du FBES"
+
+#: public/designs/themes/ecosol/footer.rhtml:6
+msgid "Developed by Colivre"
+msgstr "Développé par Colivre"
+
+#: public/designs/themes/zen3/footer.rhtml:2
+msgid "A Ynternet.org project"
+msgstr ""
+
+#: public/designs/themes/zen3/footer.rhtml:6
+msgid "Sponsored by Loterie Romande"
+msgstr ""
+
+#~ msgid "Recently registered people"
+#~ msgstr "Personnes enregistrées récemment"
+
+#~ msgid "Recently created communities"
+#~ msgstr "Groupes créés récemment"
+
+#~ msgid "Recent articles"
+#~ msgstr "Articles récents"
+
+#, fuzzy
+#~ msgid "Recently created enterprises"
+#~ msgstr "Groupes créés récemment"
+
+#, fuzzy
+#~ msgid "Recently added events"
+#~ msgstr "Groupes créés récemment"
 
 #, fuzzy
 #~ msgid "Product/Service"
@@ -4339,12 +4369,6 @@ msgstr ""
 
 #~ msgid "Only in %s"
 #~ msgstr "Uniquement dans %s"
-
-#~ msgid "A FBES project"
-#~ msgstr "Un projet du FBES"
-
-#~ msgid "Developed by Colivre"
-#~ msgstr "Développé par Colivre"
 
 #~ msgid ""
 #~ "Ups... It seems you are using Internet Explorer.\n"
