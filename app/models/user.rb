@@ -156,8 +156,7 @@ class User < ActiveRecord::Base
   end
   
   def first_name
-    re = '[-+*_\s\'´"]'
-    person.name.gsub(/^#{re}*/,'').split(/#{re}/)[0]
+    person.first_name
   end
 
   protected

@@ -20,6 +20,7 @@
   font-size: 11px;
   text-decoration: none;
   color: #000;
+  position: relative;
 }
 .msie6 .common-profile-list-block .vcard a {
   border: 2px solid #FFF;
@@ -43,5 +44,48 @@
 
 .common-profile-list-block img {
   border: none;
+}
+
+#content .common-profile-list-block .sex-male,
+#content .common-profile-list-block .sex-female,
+#content .common-profile-list-block .sex-undef {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  display: block;
+  width: 14px;
+  height: 18px;
+}
+
+.common-profile-list-block .locality {
+  font-size: 9px;
+}
+
+.common-profile-list-block .sex-male {
+  background: url(/images/icons-app/ico-male.png);
+}
+.common-profile-list-block .sex-female {
+  background: url(/images/icons-app/ico-female.png);
+}
+.common-profile-list-block .sex-undef {
+  background: url(/images/icons-app/ico-sex-undef.png);
+}
+.msie6 .common-profile-list-block .sex-male {
+  background: none;
+  filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/icons-app/ico-male.png',sizingMethod='scale');
+}
+.msie6 .common-profile-list-block .sex-female {
+  background: none;
+  filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/icons-app/ico-female.png',sizingMethod='scale');
+}
+.msie6 .common-profile-list-block .sex-undef {
+  background: none;
+  filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/icons-app/ico-sex-undef.png',sizingMethod='scale');
+}
+
+#content .common-profile-list-block .sex-male span,
+#content .common-profile-list-block .sex-female span,
+#content .common-profile-list-block .sex-undef span {
+  display: none;
 }
 

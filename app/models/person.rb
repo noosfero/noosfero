@@ -111,6 +111,11 @@ class Person < Profile
     end
   end
 
+  def first_name
+    re = '[-+*_\s\'´"]'
+    self.name.gsub(/^#{re}*/,'').split(/#{re}/)[0]
+  end
+
   has_and_belongs_to_many :favorite_enterprises, :class_name => 'Enterprise', :join_table => 'favorite_enteprises_people'
 
   def email_addresses
