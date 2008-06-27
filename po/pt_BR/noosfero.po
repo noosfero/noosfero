@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.10.1\n"
 "POT-Creation-Date: 2008-06-25 11:11-0300\n"
-"PO-Revision-Date: 2008-06-25 11:12-0300\n"
+"PO-Revision-Date: 2008-06-26 18:34-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -3046,7 +3046,7 @@ msgstr "Opções de moderação"
 
 #: app/views/profile_editor/_organization.rhtml:12
 msgid "Closed %s"
-msgstr "Fechado %s"
+msgstr "%s fechado(a)"
 
 #: app/views/profile_editor/_person.rhtml:5
 msgid "Male"
