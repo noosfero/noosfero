@@ -26,6 +26,7 @@ class Person < Profile
     friends.delete(friend)
   end
 
+  N_('Contact information'); N_('Birth date'); N_('City'); N_('State'); N_('Country'); N_('Sex');
   settings_items :photo, :contact_information, :birth_date, :sex, :city, :state, :country
 
   def summary

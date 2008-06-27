@@ -40,6 +40,7 @@ class Organization < Profile
     !self.validation_info.nil?
   end
 
+  N_('Contact person'); N_('Contact email'); N_('Acronym'); N_('Foundation year'); N_('Legal form'); N_('Economic activity'); N_('Management information'); N_('Validated')
   settings_items :contact_person, :contact_email, :acronym, :foundation_year, :legal_form, :economic_activity, :management_information, :validated, :cnpj
 
   validates_format_of :foundation_year, :with => Noosfero::Constants::INTEGER_FORMAT
