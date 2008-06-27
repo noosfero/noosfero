@@ -59,6 +59,8 @@
 
 .common-profile-list-block .locality {
   font-size: 9px;
+  opacity: 0.5;
+	filter: alpha(opacity=50);
 }
 
 .common-profile-list-block .sex-male {
