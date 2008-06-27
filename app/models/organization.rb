@@ -44,7 +44,7 @@ class Organization < Profile
 
   validates_format_of :foundation_year, :with => Noosfero::Constants::INTEGER_FORMAT
 
-  validates_format_of :contact_email, :with => Noosfero::Constants::EMAIL_FORMAT, :if => (lambda { |org| !org.contact_email.nil? })
+  validates_format_of :contact_email, :with => Noosfero::Constants::EMAIL_FORMAT, :if => (lambda { |org| !org.contact_email.blank? })
 
   xss_terminate :only => [ :acronym, :contact_person, :contact_email, :legal_form, :economic_activity, :management_information ]
 

@@ -77,6 +77,25 @@ class OrganizationTest < Test::Unit::TestCase
     assert_respond_to org, :contact_email
   end
 
+  should 'validate contact_email if filled' do
+    org = Organization.new
+    org.valid?
+    assert !org.errors.invalid?(:contact_email)
+
+    org.contact_email = ''
+    org.valid?
+    assert !org.errors.invalid?(:contact_email)
+
+
+    org.contact_email = 'invalid-email'
+    org.valid?
+    assert org.errors.invalid?(:contact_email)
+
+    org.contact_email = 'someone@somedomain.com'
+    org.valid?
+    assert !org.errors.invalid?(:contact_email)
+  end
+
   should 'list pending enterprise validations' do
     org = Organization.new
     assert_kind_of Array, org.pending_validations
