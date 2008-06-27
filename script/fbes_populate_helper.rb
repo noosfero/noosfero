@@ -37,6 +37,7 @@ COUNT = {
   :categories => 0,
 }
 
+$default_env = Environment.default_
 def step(what)
   COUNT[what] += 1
   puts "#{what}: #{COUNT[what]}"
@@ -45,7 +46,7 @@ end
   def new_cat(name, parent = nil)
     path = (parent ? parent.path + '/' : '') + name.to_slug
     pc = Category.find_by_path(path) 
-    pc = ProductCategory.create!(:name => name, :parent => parent, :environment => Environment.default) unless pc
+    pc = ProductCategory.create!(:name => name, :parent => parent, :environment => $default_env) unless pc
     step(:categories)
     pc
   end
@@ -53,7 +54,7 @@ end
   def new_region(name, parent, lat, lng)
     path = (parent ? parent.path + '/' : '') + name.to_slug
     region = Region.find_by_path(path) 
-    region = Region.create!(:name => name, :parent => parent, :lat => lat, :lng => lng, :environment => Environment.default) unless region
+    region = Region.create!(:name => name, :parent => parent, :lat => lat, :lng => lng, :environment => $default_env) unless region
     step(:regions)
     region
   end
@@ -61,12 +62,13 @@ end
   def new_ent(data, products, consumptions)
     count = 2
     ident = data[:identifier]
-    while Enterprise.find_by_identifier(ident)
+    idents = Enterprise.find(:all, :conditons => ['identifier like ?', ident + '%']).map(&:identifier)
+    while idents.includes?(ident)
       ident = data[:identifier] + "-#{count}"
       count += 1
     end
     data[:identifier] = ident
-    ent = Enterprise.create!({:environment => Environment.default, :enabled => false}.merge(data))
+    ent = Enterprise.create!({:environment => $default_env, :enabled => false}.merge(data))
     products.each do |p|
       ent.products.create(p)
     end
