@@ -118,7 +118,9 @@ class SearchController < ApplicationController
     number_of_result_assets = @searching.values.select{|v| v}.size
 
     # apply limit when searching for only one type of asset
-    limit = (number_of_result_assets == 1) ? LIST_LIMIT : nil
+#    limit = (number_of_result_assets == 1) ? LIST_LIMIT : nil
+    # apply limit to all searches
+    limit = nil
 
     @results = {}
     @names = {}
@@ -148,10 +150,10 @@ class SearchController < ApplicationController
 
   def products
     @results[:products].uniq!
-    if !(@category || @product_category || @region || (!@query.blank?))
-      # not searching, no menu
-      return
-    end
+#    if !(@category || @product_category || @region || (!@query.blank?))
+#      # not searching, no menu
+#      return
+#    end
 
     @categories = @results[:products].map(&:product_category).compact
     @counts = @categories.uniq.inject({}) do |h, cat| 

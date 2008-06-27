@@ -296,7 +296,6 @@ class SearchControllerTest < Test::Unit::TestCase
 
     names = {
         :articles => 'Articles',
-        :people => 'People',
         :enterprises => 'Enterprises',
         :communities => 'Communities',
         :products => 'Products',
@@ -306,6 +305,10 @@ class SearchControllerTest < Test::Unit::TestCase
       assert_tag :tag => 'div', :attributes => { :class => /search-results-#{thing}/ }, :descendant => { :tag => 'h3', :content => Regexp.new(description) }
       assert_tag :tag => 'a', :content => "display #{thing.to_s.singularize}"
     end
+
+    # display only first name on people listing
+    assert_tag :tag => 'div', :attributes => { :class => /search-results-people/ }, :descendant => { :tag => 'h3', :content => /People/ }
+    assert_tag :tag => 'a', :content => "display"
   end
 
   should 'present options of where to search' do
