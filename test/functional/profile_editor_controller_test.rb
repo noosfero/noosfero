@@ -59,8 +59,13 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
 
   should 'saving profile info' do
     person = create_user('test_profile').person
-    post :edit, :profile => 'test_profile', :profile_data => { 'name' => 'new person', 'contact_information' => 'new contact information', 'address' => 'new address' }
+    post :edit, :profile => 'test_profile', :profile_data => { 'name' => 'new person', 'contact_information' => 'new contact information', 'address' => 'new address', 'sex' => 'female' }
     assert_redirected_to :action => 'index'
+    person.reload
+    assert_equal 'new person', person.name
+    assert_equal 'new contact information', person.contact_information
+    assert_equal 'new address', person.address
+    assert_equal 'female', person.sex
   end
 
   should 'not permmit if not logged' do
