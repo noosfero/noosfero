@@ -334,7 +334,7 @@ module ApplicationHelper
   def profile_image_link( profile, size=:portrait, tag='li' )
     if profile.class == Person
       sex = ( profile.sex ? profile.sex.to_s() : 'undef' )
-      title = ( sex == 'undef' ? _('undefined gender') : ( sex == 'male' ? _('Male') : _('Female') ) )
+      title = ( sex == 'undef' ? _('non registered gender') : ( sex == 'male' ? _('Male') : _('Female') ) )
       sex = content_tag 'span',
                         content_tag( 'span', sex ),
                         :class => 'sex-'+sex,
