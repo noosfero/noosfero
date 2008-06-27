@@ -97,17 +97,19 @@ body.category4 .search-results-innerbox {
   padding: 0px 0px 5px 0px;
 }
 
-.search-results-type-profile.common-profile-list-block a {
+/*
+.Xsearch-results-type-profile.common-profile-list-block a {
   width: 90px;
 }
-.search-results-type-profile.common-profile-list-block li div {
+.Xsearch-results-type-profile.common-profile-list-block li div {
   width: 88px;
   height: 64px;
 }
-.search-results-type-profile.common-profile-list-block li span {
+.Xsearch-results-type-profile.common-profile-list-block li span {
   display: block;
   width: 82px;
 }
+*/
 
 .search-results-type-profile.common-profile-list-block li a {
   color: #000;

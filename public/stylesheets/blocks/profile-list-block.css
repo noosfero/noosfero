@@ -8,7 +8,6 @@
 }
 
 .common-profile-list-block .vcard a {
-  width: 92px;
   height: 95px;
   max-height: 92px;
   padding-top: 3px;
@@ -21,6 +20,7 @@
   text-decoration: none;
   color: #000;
   position: relative;
+  cursor: pointer; /* work arround bug for MSIE */
 }
 .msie6 .common-profile-list-block .vcard a {
   border: 2px solid #FFF;
@@ -32,11 +32,12 @@
 
 .common-profile-list-block span {
   display: block;
+  width: 92px;
   overflow: hidden;
 }
 
 .common-profile-list-block .profile-image {
-  width: 96px;
+  width: 92px;
   display: table-cell;
   vertical-align: middle;
   height: 64px;
@@ -46,15 +47,15 @@
   border: none;
 }
 
-#content .common-profile-list-block .sex-male,
-#content .common-profile-list-block .sex-female,
-#content .common-profile-list-block .sex-undef {
+.common-profile-list-block .sex-male,
+.common-profile-list-block .sex-female,
+.common-profile-list-block .sex-undef {
   position: absolute;
-  top: 2px;
-  right: 2px;
+  top: 4px;
+  right: 15px;
   display: block;
-  width: 14px;
-  height: 18px;
+  width: 15px;
+  height: 15px;
 }
 
 .common-profile-list-block .locality {
