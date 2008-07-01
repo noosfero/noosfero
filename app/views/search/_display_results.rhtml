@@ -15,9 +15,9 @@
         <% if @results.size != 1 %>
           <h3>
             <%= @names[name] %>
-            <%= icon_button :more, _('more...'), params.merge(:action => 'index', :find_in => [ name ]) %>
           </h3>
         <% end %>
+      <%= link_to _('see more...'), params.merge(:action => 'index', :find_in => [ name ]), :class => 'see-more' %>
       <% end %>
       <% partial = partial_for_class results.first.class %>
       <div class="search-results-innerbox search-results-type-<%= partial %> <%= 'common-profile-list-block' if partial == 'profile' %>">

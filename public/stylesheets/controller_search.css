@@ -24,19 +24,15 @@
 }
 
 #search-results h3 {
-  margin: 20px 0px 0px 20px;
+  margin: 0px 0px 0px 20px;
   position: relative;
-}
-
-#search-results h3 .button {
-  position: absolute;
-  right: 0px;
-  bottom: 0px;
 }
 
 .search-results-box {
   float: left;
   width: 49%;
+  padding-bottom: 14px;
+  position: relative;
 }
 
 .only-one-result-box .search-results-box {
@@ -49,6 +45,24 @@
 .msie .search-results-box.odd {
   float: right;
 }
+
+#content .search-results-box a.see-more {
+  position: absolute;
+  bottom: 0px;
+  right: 25px;
+  font-size: 11px;
+  line-height: 11px;
+  background: #B8CFE7;
+  border: 1px solid #B8CFE7;
+  border-top: none;
+  padding: 0px 5px 2px 5px;
+}
+#content .search-results-box a.see-more:hover {
+  background: #729FCF;
+  color: #FFF;
+  text-decoration: none;
+}
+
 
 .search-results-innerbox {
   border: 1px solid #2A5896;

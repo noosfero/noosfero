@@ -210,7 +210,6 @@ module ApplicationHelper
     end
     link_to(content_tag('span', label), url, html_options.merge(:class => the_class ))
   end
-  alias icon_button button_without_text
 
   def button_to_function(type, label, js_code, html_options = {})
     html_options[:class] = "" unless html_options[:class]
