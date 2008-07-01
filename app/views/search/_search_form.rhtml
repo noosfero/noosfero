@@ -11,8 +11,7 @@
   <div class="search-field">
     <span class="formfield">
       <%= text_field_tag 'query', @query, :id => ( lightbox? ? 'popup-search-input' : '' ), :size => 50 %>
-      <%# javascript_tag 'alert(123); alert( $("popup-search-input") )' if lightbox? %>
-      <%= javascript_tag 'setTimeout( $("popup-search-input").focus(), 10 )' if lightbox? %>
+      <%= javascript_tag 'setTimeout("$(\"popup-search-input\").focus()", 10 )' if lightbox? %>
     </span>
     <%= submit_button(:search, _('Search'), :name => :search_whole_site_no) %>
     <% if @category %>
