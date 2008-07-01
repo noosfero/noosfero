@@ -1,6 +1,15 @@
 <h2><%= block.owner.name %></h2>
 
-<div class="profile-info-picture"><%= profile_image(block.owner, :thumb) %></div>
+<div class="profile-info-picture">
+  <div class="profile-info-picture-inner1">
+    <span class="profile-info-picture-inner2">
+      <%=
+        profile_image(block.owner, :thumb) +"\n"+
+        profile_sex_icon( profile )
+      %>
+    </span>
+  </div>
+</div>
 
 <ul class="profile-info-data">
   <li><%= _('Since %{year}/%{month}') % { :year => block.owner.created_at.year, :month => block.owner.created_at.month } %></li>

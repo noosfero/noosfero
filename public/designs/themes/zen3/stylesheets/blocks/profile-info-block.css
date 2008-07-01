@@ -1,31 +1,7 @@
-.profile-info-block h2 {
-  text-align: center;
-}
 
-.profile-info-picture {
-  border: 2px solid #A40000;
-  padding: 1px;
+.profile-info-picture img {
+  border: 1px solid #A40000;
+  padding: 2px;
   background: #FFF;
-  margin-right: 40px;
-}
-.msie6 .profile-info-picture {
-  margin-right: 20px;
 }
 
-.profile-info-data {
-  width: 110px;
-  font-size: 10px;
-  text-align: right;
-  position: relative;
-  top: 20px;
-}
-
-.profile-info-options {
-  clear: both;
-}
-
-.profile-info-options {
-  padding-top: 20px;
-  text-align: right;
-  padding-right: 5px;
-}

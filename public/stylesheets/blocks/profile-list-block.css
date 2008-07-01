@@ -47,6 +47,12 @@
   border: none;
 }
 
+.common-profile-list-block .locality {
+  font-size: 9px;
+  opacity: 0.5;
+	filter: alpha(opacity=50);
+}
+
 .common-profile-list-block .sex-male,
 .common-profile-list-block .sex-female,
 .common-profile-list-block .sex-undef {
@@ -56,12 +62,6 @@
   display: block;
   width: 15px;
   height: 15px;
-}
-
-.common-profile-list-block .locality {
-  font-size: 9px;
-  opacity: 0.5;
-	filter: alpha(opacity=50);
 }
 
 .common-profile-list-block .sex-male {
