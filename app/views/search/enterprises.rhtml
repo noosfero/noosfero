@@ -1,1 +1,19 @@
-people.rhtml
+<h1> 
+  <% if !@query.blank? %>
+    <%=h @category ? (_('Enterprise results for "%{query}" in "%{category}"') % { :query => @query, :category => @category.name}) : (_('Enterprise results for "%s"') % @query) %>
+  <% else %>
+    <%=h @category ? (_('Enterprises in "%s"') % @category.name) : _('Enterprise') %>
+  <% end %>
+</h1>
+
+<% if @radius && @region %>
+  <h2><%=h (_('Within %s km from %s') % [@radius, @region.name]) %><h2>
+<% end %>
+
+<%= render :partial => 'search_form', :locals => { :form_title => _("Refine your search"), :simple_search => true } %>
+
+<%= render :partial => 'product_categories_menu', :object => @categories_menu %>
+
+<%= display_results %>
+
+<br style="clear:both" />

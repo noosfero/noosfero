@@ -9,7 +9,7 @@ class CategoryFinder
 
   
 
-  def find(asset, query = nil, options={})
+  def find(asset, query='', options={})
    @region = Region.find_by_id(options.delete(:region)) if options.has_key?(:region)
     if @region && options[:within]
       options[:origin] = [@region.lat, @region.lng]
@@ -17,9 +17,15 @@ class CategoryFinder
       options.delete(:within)
     end
 
+    # FIXME: can break if more things is added in the extra_data_for_index ferret field in enterprise
+    # this searches for enterprise using its products categories criteria
+    if options[:product_category] && asset.to_s == 'enterprises'
+      query = query.blank? ? "extra_data_for_index:#{options[:product_category].name}" : query + " +extra_data_for_index:#{options[:product_category].name}"
+    end
+
     if query.blank?
       asset_class(asset).find(:all, options_for_find(asset_class(asset), {:order => "created_at desc, #{asset_table(asset)}.id desc"}.merge(options)))
-    else 
+    else
       asset_class(asset).find_by_contents(query, {}, options_for_find(asset_class(asset), options)).uniq
     end
   end

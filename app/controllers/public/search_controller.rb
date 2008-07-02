@@ -73,13 +73,24 @@ class SearchController < ApplicationController
     #nothing, just to enable
   end
   def enterprises
-    #nothing, just to enable
+    load_product_categories_menu(:enterprises)
   end
   def communities
     #nothing, just to enable
   end
   def articles
     #nothins, just to enable
+  end
+
+  def products
+    load_product_categories_menu(:products)
+  end
+
+  def load_product_categories_menu(asset)
+    @results[asset].uniq!
+    @categories_menu = ProductCategory.menu_categories(@product_category, environment).map do |cat|
+      [cat, @finder.count(:products, @filtered_query, calculate_find_options(asset, nil, cat, @region, params[:radius]))]
+    end.select{|cat, hits| hits > 0 }
   end
 
   def calculate_find_options(asset, limit, product_category, region, radius)
@@ -128,7 +139,7 @@ class SearchController < ApplicationController
     number_of_result_assets = @searching.values.select{|v| v}.size
 
     # apply limit when searching for only one type of asset
-    limit = (number_of_result_assets == 1) ? LIST_LIMIT : nil
+    limit = (number_of_result_assets == 1) ? nil: LIST_LIMIT
     # apply limit to all searches
 #    limit = nil
 
@@ -151,13 +162,6 @@ class SearchController < ApplicationController
     end
 
     render :action => 'index'
-  end
-
-  def products
-    @results[:products].uniq!
-    @categories_menu = ProductCategory.menu_categories(@product_category, environment).map do |cat|
-      [cat, @finder.count(:products, @filtered_query, calculate_find_options(:products, nil, cat, @region, params[:radius]))]
-    end.select{|cat, hits| hits > 0 }
   end
 
   alias :assets :index

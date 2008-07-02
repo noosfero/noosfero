@@ -838,6 +838,68 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_not_includes assigns(:categories_menu).map(&:first), cat12
   end
 
+  should 'list only product categories with enterprises' do
+    cat1 = ProductCategory.create!(:name => 'pc test 1', :environment => Environment.default)
+    cat2 = ProductCategory.create!(:name => 'pc test 2', :environment => Environment.default)
+    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent')
+    
+    cat1.products.create!(:name => 'prod test 1', :enterprise => ent)
+    
+    get :index, :find_in => 'enterprises', :query => 'test'
+
+    assert_includes assigns(:categories_menu).map(&:first), cat1
+    assert_not_includes assigns(:categories_menu).map(&:first), cat2
+  end
+
+  should 'display enteprises only within a product category when specified' do
+    prod_cat = ProductCategory.create!(:name => 'prod cat test', :environment => Environment.default)
+    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent')
+
+    p = prod_cat.products.create!(:name => 'prod test 1', :enterprise => ent)
+
+    get :index, :find_in => 'enterprises', :product_category => prod_cat.id
+
+    assert_includes assigns(:results)[:enterprises], ent
+  end
+
+  should 'display enterprises properly in conjuntion with a category' do
+    cat = Category.create(:name => 'cat', :environment => Environment.default)
+    prod_cat1 = ProductCategory.create!(:name => 'prod cat test 1', :environment => Environment.default)
+    prod_cat2 = ProductCategory.create!(:name => 'prod cat test 2', :environment => Environment.default, :parent => prod_cat1)
+    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent', :category_ids => [cat.id])
+
+    p = prod_cat2.products.create!(:name => 'prod test 1', :enterprise => ent)
+
+    get :index, :find_in => 'enterprises', :category_path => cat.path.split('/'), :product_category => prod_cat1.id
+
+    assert_includes assigns(:results)[:enterprises], ent
+  end
+
+  should 'display only top level product categories that has enterprises when no product category filter is specified' do
+    cat1 = ProductCategory.create(:name => 'prod cat 1', :environment => Environment.default)
+    cat2 = ProductCategory.create(:name => 'prod cat 2', :environment => Environment.default)
+    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent')
+    p = cat1.products.create!(:name => 'prod test 1', :enterprise => ent)
+
+    get :index, :find_in => 'enterprises'
+
+    assert_includes assigns(:categories_menu).map(&:first), cat1
+    assert_not_includes assigns(:categories_menu).map(&:first), cat2
+  end
+
+  should 'display children categories that has enterprises when product category filter is selected' do
+    cat1 = ProductCategory.create(:name => 'prod cat 1', :environment => Environment.default)
+    cat11 = ProductCategory.create(:name => 'prod cat 11', :environment => Environment.default, :parent => cat1)
+    cat12 = ProductCategory.create(:name => 'prod cat 12', :environment => Environment.default, :parent => cat1)
+    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent')
+    p = cat11.products.create!(:name => 'prod test 1', :enterprise => ent)
+
+    get :index, :find_in => 'enterprises', :product_category => cat1.id
+
+    assert_includes assigns(:categories_menu).map(&:first), cat11
+    assert_not_includes assigns(:categories_menu).map(&:first), cat12
+  end
+
   should 'provide calendar for events' do
     get :index, :find_in => [ 'events' ]
     assert_equal 0, assigns(:calendar).size % 7
