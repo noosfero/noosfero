@@ -23,8 +23,9 @@ class TagsBlockTest < Test::Unit::TestCase
     assert_match /profile\/testinguser\/tag\/third-tag/, block.content
   end
 
-  should 'display owner name in tags' do
-    assert_match "testinguser's tags", block.content
+  should 'return (none) when no tags to display' do
+    block.owner.expects(:tags).returns([])
+    assert_equal '', block.content
   end
 
 end

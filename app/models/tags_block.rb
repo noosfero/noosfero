@@ -14,6 +14,9 @@ class TagsBlock < Block
   end
 
   def content
+    tags = owner.tags
+    return '' if tags.empty?
+
     block_title( _('tags') ) +
     "\n<div class='tag_cloud'>\n"+
     tag_cloud( owner.tags, :id,
