@@ -37,7 +37,7 @@ COUNT = {
   :categories => 0,
 }
 
-$default_env = Environment.default_
+$default_env = Environment.default
 def step(what)
   COUNT[what] += 1
   puts "#{what}: #{COUNT[what]}"

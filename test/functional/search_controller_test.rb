@@ -785,35 +785,8 @@ class SearchControllerTest < Test::Unit::TestCase
     
     get :index, :find_in => 'products', :query => 'test'
 
-    assert_equal 1, assigns(:counts)[cat1.id][1]
-    assert_equal nil, assigns(:counts)[cat2.id]
-  end
-
-  should 'not list ancestor if no product in it' do
-    cat1 = ProductCategory.create!(:name => 'pc test 1', :environment => Environment.default)
-    cat2 = ProductCategory.create!(:name => 'pc test 2', :environment => Environment.default, :parent => cat1)
-    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent')
-    
-    cat1.products.create!(:name => 'prod test 1', :enterprise => ent)
-    
-    get :index, :find_in => 'products', :query => 'test'
-
-    assert_equal 1, assigns(:counts)[cat1.id][1]
-    assert_equal nil, assigns(:counts)[cat2.id]
-  end
-
-  should 'add hits of children in ancestor when it has products on results' do
-    cat1 = ProductCategory.create!(:name => 'pc test 1', :environment => Environment.default)
-    cat2 = ProductCategory.create!(:name => 'pc test 2', :environment => Environment.default, :parent => cat1)
-    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent')
-    
-    cat1.products.create!(:name => 'prod test 1', :enterprise => ent)
-    cat2.products.create!(:name => 'prod test 2', :enterprise => ent)
-    
-    get :index, :find_in => 'products', :query => 'test'
-
-    assert_equal 2, assigns(:counts)[cat1.id][1]
-    assert_equal 1, assigns(:counts)[cat2.id][1]
+    assert_includes assigns(:categories_menu).map(&:first), cat1
+    assert_not_includes assigns(:categories_menu).map(&:first), cat2
   end
 
   should 'display only within a product category when specified' do
@@ -838,6 +811,31 @@ class SearchControllerTest < Test::Unit::TestCase
     get :index, :find_in => 'products', :category_path => cat.path.split('/'), :product_category => prod_cat1.id
 
     assert_includes assigns(:results)[:products], p
+  end
+
+  should 'display only top level product categories that has products when no product category filter is specified' do
+    cat1 = ProductCategory.create(:name => 'prod cat 1', :environment => Environment.default)
+    cat2 = ProductCategory.create(:name => 'prod cat 2', :environment => Environment.default)
+    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent')
+    p = cat1.products.create!(:name => 'prod test 1', :enterprise => ent)
+
+    get :index, :find_in => 'products'
+
+    assert_includes assigns(:categories_menu).map(&:first), cat1
+    assert_not_includes assigns(:categories_menu).map(&:first), cat2
+  end
+
+  should 'display children categories that has products when product category filter is selected' do
+    cat1 = ProductCategory.create(:name => 'prod cat 1', :environment => Environment.default)
+    cat11 = ProductCategory.create(:name => 'prod cat 11', :environment => Environment.default, :parent => cat1)
+    cat12 = ProductCategory.create(:name => 'prod cat 12', :environment => Environment.default, :parent => cat1)
+    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent')
+    p = cat11.products.create!(:name => 'prod test 1', :enterprise => ent)
+
+    get :index, :find_in => 'products', :product_category => cat1.id
+
+    assert_includes assigns(:categories_menu).map(&:first), cat11
+    assert_not_includes assigns(:categories_menu).map(&:first), cat12
   end
 
   should 'provide calendar for events' do

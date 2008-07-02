@@ -12,10 +12,10 @@
 
 <%= render :partial => 'search_form', :locals => { :form_title => _("Refine your search"), :simple_search => true } %>
 
-<% if @found_product_categories %>
+<% if @categories_menu %>
   <div id="product-categories-menu" class="product-search-filter">
     <ul>
-      <% @found_product_categories.each do |cat, hits| %>
+      <% @categories_menu.each do |cat, hits| %>
         <li><%= link_to (cat.name + "(#{hits})"), params.merge({:product_category => cat.id}) %> </li>
       <% end %>
     </ul>

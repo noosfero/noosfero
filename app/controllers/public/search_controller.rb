@@ -155,12 +155,9 @@ class SearchController < ApplicationController
 
   def products
     @results[:products].uniq!
-    @categories = ProductCategory.menu_categories(@product_category)
-    @categories.map do |cat|
+    @categories_menu = ProductCategory.menu_categories(@product_category, environment).map do |cat|
       [cat, @finder.count(:products, @filtered_query, calculate_find_options(:products, nil, cat, @region, params[:radius]))]
-    end
-
-    @found_product_categories = @counts.values.sort_by{|v|v[0].full_name}
+    end.select{|cat, hits| hits > 0 }
   end
 
   alias :assets :index

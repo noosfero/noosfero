@@ -61,4 +61,22 @@ class ProductCategoryTest < Test::Unit::TestCase
     assert_includes c.consumers, person
   end
 
+  should 'return top level product categories for environment when no parent product category specified' do
+    env1 = Environment.create!(:name => 'test env 1')
+    env2 = Environment.create!(:name => 'test env 2')
+
+    c1 = ProductCategory.create!(:name => 'test cat 1', :environment => env1)
+    c2 = ProductCategory.create!(:name => 'test cat 2', :environment => env2)
+
+    assert_equal [c1], ProductCategory.menu_categories(nil, env1)
+  end
+
+  should 'return chlidren of parent category' do
+    c1 = ProductCategory.create!(:name => 'test cat 1', :environment => Environment.default)
+    c11 = ProductCategory.create!(:name => 'test cat 11', :environment => Environment.default, :parent => c1)
+    c2 = ProductCategory.create!(:name => 'test cat 2', :environment => Environment.default)
+
+    assert_equal [c11], ProductCategory.menu_categories(c1, nil)
+  end
+
 end
