@@ -7,8 +7,21 @@
 
 <script type='text/javascript'>
 
+var points = {};
+   
 function putMarker(lat, lng, title, summary) {
+      
+  var point_str = lat + ":" + lng;
+   
+  if (points[point_str]) {
+    lng += (Math.random() - 0.5) * 0.02;
+    lat += (Math.random() - 0.5) * 0.02;
+  } else {
+    points[point_str] = true;
+  }
+     
   var point = new GLatLng(lat, lng);
+   
   var options = { 'title' : title };
   var marker = new GMarker(point, options);
   map.addOverlay(marker);
