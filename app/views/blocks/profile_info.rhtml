@@ -1,4 +1,6 @@
-<h2><%= block.owner.name %></h2>
+<div class="vcard">
+
+<h2 class="<%= profile.class == Person ? 'fn' : 'org' %>"><%= block.owner.name %></h2>
 
 <div class="profile-info-picture">
   <div class="profile-info-picture-inner1">
@@ -13,7 +15,7 @@
 
 <ul class="profile-info-data">
   <li><%= _('Since %{year}/%{month}') % { :year => block.owner.created_at.year, :month => block.owner.created_at.month } %></li>
-  <li><%= link_to _('Homepage'), block.owner.url %></li>
+  <li><%= link_to _('Homepage'), block.owner.url, :class => 'url' %></li>
   <li><%= link_to _('View profile'), block.owner.public_profile_url %></li>
   <li><%= link_to(_('Products/Services'), :controller => 'catalog', :profile => block.owner.identifier) if block.owner.enterprise? %></li>
   <% if !user.nil? and user.has_permission?('edit_profile', profile) %>
@@ -21,7 +23,17 @@
   <% end %>
 </ul>
 
+<div class="adr">
+<%=
+  [ [ profile.city, 'locality' ],
+    [ profile.state, 'region' ],
+    [ profile.country, 'country-name' ]
+  ].map{ |s,c| s =~ /^\s*$/ ? nil : content_tag( 'span', s, :class => c ) }.compact.join ' - '
+%>
+</div>
+
 <div class="profile-info-options">
   <%= render :file => 'blocks/profile_info_actions/' +  block.owner.class.name.underscore %>
 </div>
 
+</div><!-- end class="vcard" -->

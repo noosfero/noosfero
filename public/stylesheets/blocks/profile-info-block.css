@@ -80,6 +80,16 @@
   top: 20px;
 }
 
+.profile-info-block .adr {
+  padding-top: 5px;
+  font-size: 11px;
+  clear: both;
+  text-align: center;
+}
+.profile-info-block .adr span {
+  white-space: nowrap;
+}
+
 .profile-info-options {
   clear: both;
 }
