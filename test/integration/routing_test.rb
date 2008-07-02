@@ -151,4 +151,9 @@ class RoutingTest < ActionController::IntegrationTest
     assert_routing('/catalog/colivre/1234', :controller => 'catalog', :action => 'show', :profile => 'colivre', :id => '1234')
   end
 
+  def test_catalog_with_dot_routing
+    assert_routing('/catalog/profile.withdot', :controller => 'catalog', :action => 'index', :profile => 'profile.withdot')
+    assert_routing('/catalog/profile.withdot/1234', :controller => 'catalog', :action => 'show', :profile => 'profile.withdot', :id => '1234')
+  end
+
 end

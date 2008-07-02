@@ -42,8 +42,8 @@ ActionController::Routing::Routes.draw do |map|
   map.profile 'profile/:profile/:action/:id', :controller => 'profile', :action => 'index', :id => /.*/, :profile => /#{Noosfero.identifier_format}/
 
   # catalog
-  map.catalog 'catalog/:profile', :controller => 'catalog', :action => 'index'
-  map.product 'catalog/:profile/:id', :controller => 'catalog', :action => 'show'
+  map.catalog 'catalog/:profile', :controller => 'catalog', :action => 'index', :profile => /#{Noosfero.identifier_format}/
+  map.product 'catalog/:profile/:id', :controller => 'catalog', :action => 'show', :profile => /#{Noosfero.identifier_format}/
 
   ######################################################
   ## Controllers that are profile-specific (for profile admins )
