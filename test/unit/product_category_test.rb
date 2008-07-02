@@ -71,12 +71,11 @@ class ProductCategoryTest < Test::Unit::TestCase
     assert_equal [c1], ProductCategory.menu_categories(nil, env1)
   end
 
-  should 'return chlidren of parent category' do
+  should 'return children of parent category' do
     c1 = ProductCategory.create!(:name => 'test cat 1', :environment => Environment.default)
     c11 = ProductCategory.create!(:name => 'test cat 11', :environment => Environment.default, :parent => c1)
     c2 = ProductCategory.create!(:name => 'test cat 2', :environment => Environment.default)
 
     assert_equal [c11], ProductCategory.menu_categories(c1, nil)
   end
-
 end

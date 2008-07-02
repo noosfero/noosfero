@@ -904,6 +904,19 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_not_includes assigns(:categories_menu).map(&:first), cat12
   end
 
+  should 'load two level of the product categories tree' do
+    cat1 = ProductCategory.create(:name => 'prod cat 1', :environment => Environment.default)
+    cat11 = ProductCategory.create(:name => 'prod cat 11', :environment => Environment.default, :parent => cat1)
+    cat12 = ProductCategory.create(:name => 'prod cat 12', :environment => Environment.default, :parent => cat1)
+    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent')
+    p = cat11.products.create!(:name => 'prod test 1', :enterprise => ent)
+
+    get :index, :find_in => 'enterprises'
+
+    assert_includes assigns(:categories_menu).map{|a|a[2].map(&:first)}.flatten, cat11
+    assert_not_includes assigns(:categories_menu).map{|a|a[2].map(&:first)}.flatten, cat12
+  end
+
   should 'provide calendar for events' do
     get :index, :find_in => [ 'events' ]
     assert_equal 0, assigns(:calendar).size % 7
