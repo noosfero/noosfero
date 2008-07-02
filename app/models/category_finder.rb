@@ -17,12 +17,6 @@ class CategoryFinder
       options.delete(:within)
     end
 
-    # FIXME: can break if more things is added in the extra_data_for_index ferret field in enterprise
-    # this searches for enterprise using its products categories criteria
-    if options[:product_category] && asset.to_s == 'enterprises'
-      query = query.blank? ? "extra_data_for_index:#{options[:product_category].name}" : query + " +extra_data_for_index:#{options[:product_category].name}"
-    end
-
     if query.blank?
       asset_class(asset).find(:all, options_for_find(asset_class(asset), {:order => "created_at desc, #{asset_table(asset)}.id desc"}.merge(options)))
     else
@@ -76,7 +70,13 @@ class CategoryFinder
       end
     when 'Article', 'Event'
       {:joins => 'inner join articles_categories on (articles_categories.article_id = articles.id)', :conditions => ['articles_categories.category_id = (?)', category_id]}.merge!(options)
-    when 'Person', 'Community', 'Enterprise'
+    when 'Enterprise'
+      if prod_cat_ids
+        {:joins => 'inner join categories_profiles on (categories_profiles.profile_id = profiles.id) inner join products on (products.enterprise_id = profiles.id)', :conditions => ['categories_profiles.category_id = (?) and products.product_category_id in (?)', category_id, prod_cat_ids]}.merge!(options)
+      else
+        {:joins => 'inner join categories_profiles on (categories_profiles.profile_id = profiles.id)', :conditions => ['categories_profiles.category_id = (?)', category_id]}.merge!(options)
+      end    
+    when 'Person', 'Community'
       {:joins => 'inner join categories_profiles on (categories_profiles.profile_id = profiles.id)', :conditions => ['categories_profiles.category_id = (?)', category_id]}.merge!(options)
     else
       raise "unreconized class #{klass.name}"

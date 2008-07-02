@@ -19,7 +19,7 @@ class EnvironmentFinder
         if product_category && asset == :products
           @environment.send(asset).find(:all, options.merge({:order => 'created_at desc, id desc', :conditions => ['product_category_id in (?)', product_category_ids]}))
         elsif product_category && asset == :enterprises
-          @environment.send(asset).find_by_contents("extra_data_for_index:#{product_category.name}", {}, options.merge( {:order => 'created_at desc, id desc'} ) )
+          @environment.send(asset).find(:all, options.merge(:order => 'profiles.created_at desc, profiles.id desc', :include => 'products', :conditions => ['products.product_category_id in (?)', product_category_ids]))
         else
           @environment.send(asset).find( :all, options.merge( {:order => 'created_at desc, id desc'} ) )
         end

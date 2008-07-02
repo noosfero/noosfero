@@ -851,28 +851,32 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_not_includes assigns(:categories_menu).map(&:first), cat2
   end
 
-  should 'display enteprises only within a product category when specified' do
+  should 'display only enterprises in the product category when its specified' do
     prod_cat = ProductCategory.create!(:name => 'prod cat test', :environment => Environment.default)
-    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent')
+    ent1 = Enterprise.create!(:name => 'test ent 1', :identifier => 'test_ent1')
+    p = prod_cat.products.create!(:name => 'prod test 1', :enterprise => ent1)
 
-    p = prod_cat.products.create!(:name => 'prod test 1', :enterprise => ent)
+    ent2 = Enterprise.create!(:name => 'test ent 2', :identifier => 'test_ent2')
 
     get :index, :find_in => 'enterprises', :product_category => prod_cat.id
 
-    assert_includes assigns(:results)[:enterprises], ent
+    assert_includes assigns(:results)[:enterprises], ent1
+    assert_not_includes assigns(:results)[:enterprises], ent2
   end
 
   should 'display enterprises properly in conjuntion with a category' do
     cat = Category.create(:name => 'cat', :environment => Environment.default)
     prod_cat1 = ProductCategory.create!(:name => 'prod cat test 1', :environment => Environment.default)
     prod_cat2 = ProductCategory.create!(:name => 'prod cat test 2', :environment => Environment.default, :parent => prod_cat1)
-    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent', :category_ids => [cat.id])
+    ent1 = Enterprise.create!(:name => 'test ent 1', :identifier => 'test_ent1', :category_ids => [cat.id])
+    p = prod_cat2.products.create!(:name => 'prod test 1', :enterprise => ent1)
 
-    p = prod_cat2.products.create!(:name => 'prod test 1', :enterprise => ent)
+    ent2 = Enterprise.create!(:name => 'test ent 2', :identifier => 'test_ent2', :category_ids => [cat.id])
 
     get :index, :find_in => 'enterprises', :category_path => cat.path.split('/'), :product_category => prod_cat1.id
 
-    assert_includes assigns(:results)[:enterprises], ent
+    assert_includes assigns(:results)[:enterprises], ent1
+    assert_not_includes assigns(:results)[:enterprises], ent2
   end
 
   should 'display only top level product categories that has enterprises when no product category filter is specified' do

@@ -253,5 +253,38 @@ class EnvironmentFinderTest < ActiveSupport::TestCase
     assert_includes ents, ent1
     assert_not_includes ents, ent2
   end
+  
+  should 'find enterprises by its products categories with query' do
+    finder = EnvironmentFinder.new(Environment.default)
+    
+    pc1 = ProductCategory.create!(:name => 'test_cat1', :environment => Environment.default)
+    pc2 = ProductCategory.create!(:name => 'test_cat2', :environment => Environment.default)
 
+    ent1 = Enterprise.create!(:name => 'test enterprise 1', :identifier => 'test_ent1')
+    ent1.products.create!(:name => 'test product 1', :product_category => pc1)
+    ent2 = Enterprise.create!(:name => 'test enterprise 2', :identifier => 'test_ent2')
+    ent2.products.create!(:name => 'test product 2', :product_category => pc2)
+
+    ents = finder.find(:enterprises, 'test', :product_category => pc1)
+
+    assert_includes ents, ent1
+    assert_not_includes ents, ent2
+  end
+
+  should 'find enterprises by a product category with name with spaces' do
+    finder = EnvironmentFinder.new(Environment.default)
+    
+    pc1 = ProductCategory.create!(:name => 'test cat1', :environment => Environment.default)
+    pc2 = ProductCategory.create!(:name => 'test cat2', :environment => Environment.default)
+
+    ent1 = Enterprise.create!(:name => 'test enterprise 1', :identifier => 'test_ent1')
+    ent1.products.create!(:name => 'test product 1', :product_category => pc1)
+    ent2 = Enterprise.create!(:name => 'test enterprise 2', :identifier => 'test_ent2')
+    ent2.products.create!(:name => 'test product 2', :product_category => pc2)
+
+    ents = finder.find(:enterprises, 'test', :product_category => pc1)
+
+    assert_includes ents, ent1
+    assert_not_includes ents, ent2
+  end
 end
