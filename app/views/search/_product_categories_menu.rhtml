@@ -1,0 +1,10 @@
+<% if product_categories_menu %>
+  <div id="product-categories-menu" class="product-search-filter">
+    <ul>
+      <% product_categories_menu.each do |cat, hits| %>
+        <li><%= link_to (cat.name + "(#{hits})"), params.merge({:product_category => cat.id}) %> </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
