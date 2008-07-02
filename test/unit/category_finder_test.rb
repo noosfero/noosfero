@@ -157,6 +157,60 @@ class CategoryFinderTest < ActiveSupport::TestCase
     ent1 = Enterprise.create!(:name => 'teste1', :identifier => 'teste1', :category_ids => [@category.id])
     assert_equal count+1, @finder.count('enterprises')
   end
+
+   should 'count people' do
+    count = @finder.count('people')
+    p = create_user('testinguser').person
+    p.category_ids = [@category.id]
+    p.save!
+
+    assert_equal count+1, @finder.count('people')
+  end
+  should 'count products' do
+    count = @finder.count('products')
+    
+    ent = Enterprise.create!(:name => 'teste1', :identifier => 'teste1', :category_ids => [@category.id])
+    ent.products.create!(:name => 'test prodduct')
+
+    assert_equal count+1, @finder.count('products')
+  end
+  should 'count articles' do
+    ent1 = Enterprise.create!(:name => 'teste1', :identifier => 'teste1')
+
+    count = @finder.count('articles')
+    ent1.articles.create!(:name => 'teste1', :category_ids => [@category.id])
+
+    assert_equal count+1, @finder.count('articles')
+  end
+  should 'count events' do
+    count = @finder.count('events')
+    ent1 = Enterprise.create!(:name => 'teste1', :identifier => 'teste1')
+
+    Event.create!(:name => 'teste2', :profile => ent1, :start_date => Date.today, :category_ids => [@category.id])
+    assert_equal count+1, @finder.count('events')
+  end
+
+  should 'count enterprises with query and options' do
+    options = mock
+    results = mock
+
+    @finder.expects(:find).with('people', 'my query', options).returns(results)
+
+    results.expects(:total_hits).returns(99)
+
+    assert_equal 99, @finder.count('people', 'my query', options)
+  end
+  
+  should 'count enterprises without query but with options' do
+    options = mock
+    results = mock
+
+    @finder.expects(:find).with('people', nil, options).returns(results)
+
+    results.expects(:size).returns(99)
+
+    assert_equal 99, @finder.count('people', nil, options)
+  end
   
   should 'not list more people than limit' do
     p1 = create_user('test1').person; p1.add_category(@category)

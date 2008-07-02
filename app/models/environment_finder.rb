@@ -43,8 +43,13 @@ class EnvironmentFinder
     @environment.send(asset).find_by_initial(initial)
   end
 
-  def count(asset)
-    @environment.send(asset).count
+  def count(asset, query = '', options = {})
+    if query.blank?
+      # SLOW
+      find(asset, query, options).size
+    else
+      find(asset, query, options).total_hits
+    end
   end
 
 end

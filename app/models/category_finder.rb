@@ -32,8 +32,12 @@ class CategoryFinder
     asset_class(asset).find(:all, options_for_find_by_initial(asset_class(asset), initial))
   end
 
-  def count(asset)
-    asset_class(asset).count(:all, options_for_find(asset_class(asset), :select => "#{asset_table(asset)}.id"))
+  def count(asset, query='', options={})
+    if query.blank?
+      find(asset, query, options).size
+    else
+      find(asset, query, options).total_hits
+    end
   end
 
   def most_commented_articles(limit=10)

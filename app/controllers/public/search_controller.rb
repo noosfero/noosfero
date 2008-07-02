@@ -82,6 +82,16 @@ class SearchController < ApplicationController
     #nothins, just to enable
   end
 
+  def calculate_find_options(asset, limit, product_category, region, radius)
+
+    result = { :limit => limit, :product_category => product_category}
+    if [:enterprises, :people].include?(asset) && region
+      result.merge!(:within => radius, :region => region.id)
+    end
+
+    result
+  end
+
   public
 
   include SearchHelper
@@ -118,20 +128,15 @@ class SearchController < ApplicationController
     number_of_result_assets = @searching.values.select{|v| v}.size
 
     # apply limit when searching for only one type of asset
-#    limit = (number_of_result_assets == 1) ? LIST_LIMIT : nil
+    limit = (number_of_result_assets == 1) ? LIST_LIMIT : nil
     # apply limit to all searches
-    limit = nil
+#    limit = nil
 
     @results = {}
     @names = {}
-    SEARCH_IN.each do |key, description|
-      if @searching[key]
-        if [:enterprises, :people].include?(key) && @region
-          @results[key] = @finder.find(key, @filtered_query, :within => params[:radius], :region => @region.id, :product_category => @product_category, :limit => limit)
-        else
-          @results[key] = @finder.find(key, @filtered_query, :product_category => @product_category, :limit => limit) 
-        end
-      end
+
+    SEARCH_IN.select { |key,description| @searching[key]  }.each do |key, description|
+      @results[key] = @finder.find(key, @filtered_query, calculate_find_options(key, limit, @product_category, @region, params[:radius])) 
       @names[key] = gettext(description)
     end
 
@@ -150,21 +155,9 @@ class SearchController < ApplicationController
 
   def products
     @results[:products].uniq!
-#    if !(@category || @product_category || @region || (!@query.blank?))
-#      # not searching, no menu
-#      return
-#    end
-
-    @categories = @results[:products].map(&:product_category).compact
-    @counts = @categories.uniq.inject({}) do |h, cat| 
-      h[cat.id] = [cat, 0]
-      h 
-    end
-
-    @categories.each do |cat|
-      cat.hierarchy.each do |each_cat|
-        @counts[each_cat.id][1] += 1 if @counts[each_cat.id]
-      end
+    @categories = ProductCategory.menu_categories(@product_category)
+    @categories.map do |cat|
+      [cat, @finder.count(:products, @filtered_query, calculate_find_options(:products, nil, cat, @region, params[:radius]))]
     end
 
     @found_product_categories = @counts.values.sort_by{|v|v[0].full_name}

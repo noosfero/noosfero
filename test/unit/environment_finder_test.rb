@@ -51,11 +51,57 @@ class EnvironmentFinderTest < ActiveSupport::TestCase
     assert_not_includes recent, ent1 # older
   end
 
-  should 'count entrprises' do
+  should 'count enterprises' do
     finder = EnvironmentFinder.new(Environment.default)
     count = finder.count('enterprises')
-    ent1 = Enterprise.create!(:name => 'teste1', :identifier => 'teste1')
+    Enterprise.create!(:name => 'teste1', :identifier => 'teste1')
     assert_equal count+1, finder.count('enterprises')
+  end
+  should 'count people' do
+    finder = EnvironmentFinder.new(Environment.default)
+    count = finder.count('people')
+    create_user('testinguser')
+    assert_equal count+1, finder.count('people')
+  end
+  should 'count products' do
+    finder = EnvironmentFinder.new(Environment.default)
+    count = finder.count('products')
+    
+    ent = Enterprise.create!(:name => 'teste1', :identifier => 'teste1')
+    ent.products.create!(:name => 'test prodduct')
+
+    assert_equal count+1, finder.count('products')
+  end
+  should 'count articles' do
+    finder = EnvironmentFinder.new(Environment.default)
+
+    ent1 = Enterprise.create!(:name => 'teste1', :identifier => 'teste1')
+
+    count = finder.count('articles')
+    ent1.articles.create!(:name => 'teste1')
+
+    assert_equal count+1, finder.count('articles')
+  end
+  should 'count events' do
+    finder = EnvironmentFinder.new(Environment.default)
+    count = finder.count('events')
+    ent1 = Enterprise.create!(:name => 'teste1', :identifier => 'teste1')
+
+    Event.create!(:name => 'teste2', :profile => ent1, :start_date => Date.today)
+    assert_equal count+1, finder.count('events')
+  end
+
+  should 'count enterprises with query and options' do
+    env = Environment.default
+    finder = EnvironmentFinder.new(env)
+    options = mock
+    results = mock
+
+    finder.expects(:find).with('people', 'my query', options).returns(results)
+
+    results.expects(:total_hits).returns(99)
+
+    assert_equal 99, finder.count('people', 'my query', options)
   end
 
   should 'find articles by initial' do
