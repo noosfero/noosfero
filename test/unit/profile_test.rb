@@ -580,6 +580,82 @@ class ProfileTest < Test::Unit::TestCase
     assert_equivalent [c1, c2], profile.categories(true)
   end
 
+  should 'be associated with a region' do
+    region = Region.create!(:name => "Salvador", :environment => Environment.default)
+    profile = Profile.create!(:name => 'testprofile', :identifier => 'testprofile', :region => region)
+
+    assert_equal region, profile.region
+  end
+
+  should 'categorized automatically in its region' do
+    region = Region.create!(:name => "Salvador", :environment => Environment.default)
+    profile = Profile.create!(:name => 'testprofile', :identifier => 'testprofile', :region => region)
+
+    assert_equal [region], profile.categories(true)
+  end
+
+  should 'change categorization when changing region' do
+    region = Region.create!(:name => "Salvador", :environment => Environment.default)
+    profile = Profile.create!(:name => 'testprofile', :identifier => 'testprofile', :region => region)
+
+    region2 = Region.create!(:name => "Feira de Santana", :environment => Environment.default)
+
+    profile.region = region2
+    profile.save!
+
+    assert_equal [region2], profile.categories(true)
+  end
+
+  should 'remove categorization when removing region' do
+    region = Region.create!(:name => "Salvador", :environment => Environment.default)
+    profile = Profile.create!(:name => 'testprofile', :identifier => 'testprofile', :region => region)
+
+    profile.region = nil
+    profile.save!
+
+    assert_equal [], profile.categories(true)
+  end
+
+  should 'not remove region, only dissasociate from it' do
+    region = Region.create!(:name => "Salvador", :environment => Environment.default)
+    profile = Profile.create!(:name => 'testprofile', :identifier => 'testprofile', :region => region)
+
+    profile.region = nil
+    profile.save!
+
+    assert_nothing_raised do
+      Region.find(region.id)
+    end
+  end
+
+  should 'be able to create with categories and region at the same time' do
+    region = Region.create!(:name => "Salvador", :environment => Environment.default)
+    category = Category.create!(:name => 'test category', :environment => Environment.default)
+    profile = Profile.create!(:name => 'testprofile', :identifier => 'testprofile', :region => region, :category_ids => [category.id])
+
+    assert_equivalent [region, category], profile.categories(true)
+  end
+
+  should 'be able to update categories and not get regions removed' do
+    region = Region.create!(:name => "Salvador", :environment => Environment.default)
+    category = Category.create!(:name => 'test category', :environment => Environment.default)
+    profile = Profile.create!(:name => 'testprofile', :identifier => 'testprofile', :region => region, :category_ids => [category.id])
+
+    category2 = Category.create!(:name => 'test category 2', :environment => Environment.default)
+
+    profile.update_attributes!(:category_ids => [category2.id])
+
+    assert_includes profile.categories(true), region
+  end
+
+  should 'not accept product category as category' do
+    assert !Profile.new.accept_category?(ProductCategory.new)
+  end
+
+  should 'not accept region as a category' do
+    assert !Profile.new.accept_category?(Region.new)
+  end
+
   private
 
   def assert_invalid_identifier(id)

@@ -364,4 +364,8 @@ class ArticleTest < Test::Unit::TestCase
 
   end
 
+  should 'not accept Product category as category' do
+    assert !Article.new.accept_category?(ProductCategory.new)
+  end
+
 end

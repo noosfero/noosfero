@@ -103,6 +103,8 @@ class Profile < ActiveRecord::Base
   has_many :profile_categorizations, :conditions => [ 'categories_profiles.virtual = ?', false ]
   has_many :categories, :through => :profile_categorizations
 
+  belongs_to :region
+
   def pending_categorizations
     @pending_categorizations ||= []
   end
@@ -357,6 +359,21 @@ class Profile < ActiveRecord::Base
         (user == self) || (user.memberships.include?(self))
       end
     end
+  end
+
+  after_save :update_category_from_region
+  def update_category_from_region
+    categories.find(:all, :conditions => "type = 'Region'").each do |cat|
+      categories.delete(cat)
+    end
+    if region
+      categories << region
+    end
+  end
+
+  def accept_category?(cat)
+    forbidden = [ ProductCategory, Region ]
+    !forbidden.include?(cat.class)
   end
 
 end

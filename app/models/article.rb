@@ -156,6 +156,10 @@ class Article < ActiveRecord::Base
     ferret_update
   end
 
+  def accept_category?(cat)
+    !cat.is_a?(ProductCategory)
+  end
+
   private
 
   def sanitize_tag_list
