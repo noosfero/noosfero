@@ -9,7 +9,7 @@ class Enterprise < Organization
   extra_data_for_index :product_categories
 
   def product_categories
-    products.map{|p| p.category_full_name}
+    products.map{|p| p.category_full_name}.compact
   end
 
   def product_updated

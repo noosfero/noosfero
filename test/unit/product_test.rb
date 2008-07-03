@@ -72,8 +72,14 @@ class ProductTest < Test::Unit::TestCase
     cat.expects(:full_name).returns('A/B/C')
 
     p = Product.new
-    p.expects(:product_category).returns(cat)
+    p.stubs(:product_category).returns(cat)
     assert_equal ['A','B','C'], p.category_full_name
+  end
+
+  should 'return a nil cateory full name when not categorized' do
+    p = Product.new
+    p.stubs(:product_category).returns(nil)
+    assert_equal nil, p.category_full_name
   end
 
   should 'be indexed by category full name' do

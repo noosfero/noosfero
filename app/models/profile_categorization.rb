@@ -4,7 +4,7 @@ class ProfileCategorization < ActiveRecord::Base
   belongs_to :category
 
   def self.add_category_to_profile(category, profile)
-
+    return if self.find_by_category_id_and_profile_id(category.id, profile.id)
     connection.execute("insert into categories_profiles (category_id, profile_id) values(#{category.id}, #{profile.id})")
 
     c = category.parent

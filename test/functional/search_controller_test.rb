@@ -244,11 +244,11 @@ class SearchControllerTest < Test::Unit::TestCase
   end
 
   should 'find products in a specific category' do
-    ent1 = Enterprise.create!(:name => 'teste1', :identifier => 'teste1'); ent1.add_category @category
+    ent1 = Enterprise.create!(:name => 'teste1', :identifier => 'teste1', :category_ids => [@category.id])
     ent2 = Enterprise.create!(:name => 'teste2', :identifier => 'teste2')
     prod1 = ent1.products.create!(:name => 'a beautiful product')
     prod2 = ent2.products.create!(:name => 'another beautiful product')
-    get :index, :category_path => ['my-category'], :query => 'beautiful', :find_in => ['products']
+    get :index, :category_path => @category.path.split('/'), :query => 'beautiful', :find_in => ['products']
     assert_includes assigns(:results)[:products], prod1
     assert_not_includes assigns(:results)[:products], prod2
   end

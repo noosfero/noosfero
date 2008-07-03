@@ -20,7 +20,7 @@ class CategoryFinder
       asset_class(asset).paginate(:all, options_for_find(asset_class(asset), {:order => "created_at desc, #{asset_table(asset)}.id desc"}.merge(options)))
     else
       ferret_options = {:page => options.delete(:page), :per_page => options.delete(:per_page)}
-      asset_class(asset).find_by_contents(query, ferret_options, options_for_find(asset_class(asset), options)).uniq
+      asset_class(asset).find_by_contents(query, ferret_options, options_for_find(asset_class(asset), options))
     end
   end
 
@@ -63,7 +63,7 @@ class CategoryFinder
     
     case klass.name
     when 'Comment'
-      {:select => 'distinct comments.*', :joins => 'inner join articles_categories on articles_categories.article_id = comments.article_id', :conditions => ['articles_categories.category_id = (?)', category_id]}.merge!(options)
+      {:joins => 'inner join articles_categories on articles_categories.article_id = comments.article_id', :conditions => ['articles_categories.category_id = (?)', category_id]}.merge!(options)
     when 'Product'
       if prod_cat_ids
         {:joins => 'inner join categories_profiles on products.enterprise_id = categories_profiles.profile_id', :conditions => ['categories_profiles.category_id = (?) and products.product_category_id in (?)', category_id, prod_cat_ids]}.merge!(options)

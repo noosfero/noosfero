@@ -3,7 +3,11 @@
 <div id="product-categories-menu">
   <ul>
     <% if product_categories_menu.empty? %>
-      <li class="cat-empty"> <%= _('There is no sub-categories for %s.') % @product_category.name %> </li>
+      <% if @product_category %>
+        <li class="cat-empty"> <%= _('There is no sub-categories for %s.') % @product_category.name %> </li>
+      <% else %>
+        <li class="cat-empty"> <%= _('There is no categories.') %> </li>
+      <% end %>
     <% end %>
     <% product_categories_menu.each do |cat, hits, childs| %>
       <li class="cat-parent" onmouseover="prodCatMenuOver(this)" onmouseout="prodCatMenuOut(this)">

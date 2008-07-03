@@ -173,4 +173,22 @@ class EnterpriseTest < Test::Unit::TestCase
     end
   end
 
+  should 'list product categories full name' do
+    full_name = mock
+    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent')
+    p = ent.products.create!(:name => 'test prod')
+    p.expects(:category_full_name).returns(full_name)
+
+    assert_equal [full_name], ent.product_categories
+  end
+
+  should 'not return nil values when have uncategorized products' do
+    full_name = mock
+    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent')
+    p1 = ent.products.create!(:name => 'test prod 1')
+    p1.expects(:category_full_name).returns(full_name)
+    p2 = ent.products.create!(:name => 'test prod 2')
+
+    assert_equal [full_name], ent.product_categories
+  end
 end

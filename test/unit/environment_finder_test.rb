@@ -116,14 +116,13 @@ class EnvironmentFinderTest < ActiveSupport::TestCase
   should 'count enterprises with query and options' do
     env = Environment.default
     finder = EnvironmentFinder.new(env)
-    options = mock
     results = mock
 
-    finder.expects(:find).with('people', 'my query', options).returns(results)
+    finder.expects(:find).with('people', 'my query', kind_of(Hash)).returns(results)
 
     results.expects(:total_hits).returns(99)
 
-    assert_equal 99, finder.count('people', 'my query', options)
+    assert_equal 99, finder.count('people', 'my query', {})
   end
 
   should 'find articles by initial' do

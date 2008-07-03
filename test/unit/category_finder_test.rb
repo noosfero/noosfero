@@ -167,6 +167,8 @@ class CategoryFinderTest < ActiveSupport::TestCase
     p1 = @finder.find('enterprises', 'teste', :per_page => 1, :page => 1)
     p2 = @finder.find('enterprises', 'teste', :per_page => 1, :page => 2)
 
+    assert_respond_to p1, :total_entries
+    assert_respond_to p2, :total_entries
     assert (p1 == [ent1] && p2 == [ent2]) || (p1 == [ent2] && p2 == [ent1]) # consistent paging
   end
 
@@ -209,25 +211,23 @@ class CategoryFinderTest < ActiveSupport::TestCase
   end
 
   should 'count enterprises with query and options' do
-    options = mock
     results = mock
 
-    @finder.expects(:find).with('people', 'my query', options).returns(results)
+    @finder.expects(:find).with('people', 'my query', kind_of(Hash)).returns(results)
 
     results.expects(:total_hits).returns(99)
 
-    assert_equal 99, @finder.count('people', 'my query', options)
+    assert_equal 99, @finder.count('people', 'my query', {})
   end
   
   should 'count enterprises without query but with options' do
-    options = mock
     results = mock
 
-    @finder.expects(:find).with('people', nil, options).returns(results)
+    @finder.expects(:find).with('people', nil, kind_of(Hash)).returns(results)
 
-    results.expects(:size).returns(99)
+    results.expects(:total_entries).returns(99)
 
-    assert_equal 99, @finder.count('people', nil, options)
+    assert_equal 99, @finder.count('people', nil, {})
   end
   
   should 'not list more people than limit' do
@@ -252,13 +252,14 @@ class CategoryFinderTest < ActiveSupport::TestCase
   should 'not return the same result twice' do
     parent = Category.create!(:name => 'parent category', :environment => Environment.default)
     child  = Category.create!(:name => 'child category', :environment => Environment.default, :parent => parent)
-    p1 = create_user('people_1').person; p1.name = 'a beautiful person'; p1.add_category(child); p1.save!
-    p1.add_category(parent); p1.save!
+    p1 = create_user('people_1').person
+    p1.name = 'a beautiful person'
+    p1.category_ids = [child.id, parent.id]; p1.save!
 
     f = CategoryFinder.new(parent)
     result = f.find(:people, 'beautiful')
 
-    assert_equivalent [p1], result
+    assert_equal [p1], result
     assert_equal 1, result.size
   end
 
