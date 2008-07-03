@@ -1,19 +1,19 @@
 <% if product_categories_menu %>
-  <div id="product-categories-menu" class="product-search-filter">
-    <ul>
-      <% product_categories_menu.each do |cat, hits, childs| %>
-        <li>
-          <%= link_to (cat.name + "(#{hits})"), params.merge({:product_category => cat.id}) %>
-          <% if !childs.blank? %>
-            <ul>
-              <% childs.each do |child, child_hits| %>
-                <li> <%= link_to (child.name + "(#{child_hits})"), params.merge({:product_category => child.id}) %>  </li>
-              <% end %>
-            </ul>
-          <% end %>
-        </li>
+<div id="product-categories-menu" class="product-search-filter">
+<ul>
+  <% product_categories_menu.each do |cat, hits, childs| %>
+    <li>
+    <%= link_to (cat.name + "(#{hits})"), params.merge({:product_category => cat.id}) %>
+    <% if !childs.blank? %>
+      <ul>
+      <% childs.each do |child, child_hits| %>
+        <li> <%= link_to (child.name + "(#{child_hits})"), params.merge({:product_category => child.id}) %>  </li>
       <% end %>
-    </ul>
-  </div>
+      </ul>
+    <% end %>
+    </li>
+  <% end %>
+</ul>
+</div>
 <% end %>
 
