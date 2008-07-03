@@ -215,7 +215,7 @@ class CategoryFinderTest < ActiveSupport::TestCase
 
     @finder.expects(:find).with('people', 'my query', kind_of(Hash)).returns(results)
 
-    results.expects(:total_hits).returns(99)
+    results.expects(:total_entries).returns(99)
 
     assert_equal 99, @finder.count('people', 'my query', {})
   end

@@ -35,11 +35,7 @@ class CategoryFinder
   def count(asset, query='', options={})
     # because will_paginate needs a page
     options = {:page => 1}.merge(options)
-    if query.blank?
-      find(asset, query, options).total_entries
-    else
-      find(asset, query, options).total_hits
-    end
+    find(asset, query, options).total_entries
   end
 
   def most_commented_articles(limit=10)

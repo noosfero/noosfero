@@ -113,7 +113,7 @@ class SearchController < ApplicationController
   # limit the number of results per page
   # TODO: dont hardcore like this
   def limit
-    10
+    (@searching.size == 1) ? 10 : 6
   end
 
   public
