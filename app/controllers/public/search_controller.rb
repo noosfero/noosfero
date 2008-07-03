@@ -180,7 +180,7 @@ class SearchController < ApplicationController
     @results = {}
     @names = {}
     [
-      [ :people, _('Newer profiles'), @finder.recent('people') ],
+      [ :people, _('Newer people'), @finder.recent('people') ],
       [ :communities, _('Newer communities'), @finder.recent('communities') ],
       [ :articles, _('Newer articles'), @finder.recent('articles') ],
       [ :most_commented_articles, _('Most commented articles'), @finder.most_commented_articles ],
