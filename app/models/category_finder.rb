@@ -7,8 +7,6 @@ class CategoryFinder
 
   attr_reader :category_id
 
-  
-
   def find(asset, query='', options={})
    @region = Region.find_by_id(options.delete(:region)) if options.has_key?(:region)
     if @region && options[:within]
@@ -17,10 +15,12 @@ class CategoryFinder
       options.delete(:within)
     end
 
+    options = {:page => 1, :per_page => options.delete(:limit)}.merge(options)
     if query.blank?
-      asset_class(asset).find(:all, options_for_find(asset_class(asset), {:order => "created_at desc, #{asset_table(asset)}.id desc"}.merge(options)))
+      asset_class(asset).paginate(:all, options_for_find(asset_class(asset), {:order => "created_at desc, #{asset_table(asset)}.id desc"}.merge(options)))
     else
-      asset_class(asset).find_by_contents(query, {}, options_for_find(asset_class(asset), options)).uniq
+      ferret_options = {:page => options.delete(:page), :per_page => options.delete(:per_page)}
+      asset_class(asset).find_by_contents(query, ferret_options, options_for_find(asset_class(asset), options)).uniq
     end
   end
 
@@ -33,8 +33,10 @@ class CategoryFinder
   end
 
   def count(asset, query='', options={})
+    # because will_paginate needs a page
+    options = {:page => 1}.merge(options)
     if query.blank?
-      find(asset, query, options).size
+      find(asset, query, options).total_entries
     else
       find(asset, query, options).total_hits
     end

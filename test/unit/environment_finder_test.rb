@@ -49,6 +49,27 @@ class EnvironmentFinderTest < ActiveSupport::TestCase
     recent = finder.recent('enterprises', 1)
     assert_includes recent, ent2 # newer
     assert_not_includes recent, ent1 # older
+  end  
+  
+  should 'paginate the list of more enterprises than limit' do
+    finder = EnvironmentFinder.new(Environment.default)
+    ent1 = Enterprise.create!(:name => 'teste1', :identifier => 'teste1')
+    ent2 = Enterprise.create!(:name => 'teste2', :identifier => 'teste2')
+    
+    assert_equal [ent2], finder.find('enterprises', nil, :per_page => 1, :page => 1) #newer
+    assert_equal [ent1], finder.find('enterprises', nil, :per_page => 1, :page => 2) #older
+  end
+
+  should 'paginate the list of more enterprises than limit with query' do
+    finder = EnvironmentFinder.new(Environment.default)
+
+    ent1 = Enterprise.create!(:name => 'teste 1', :identifier => 'teste1')
+    ent2 = Enterprise.create!(:name => 'teste 2', :identifier => 'teste2')
+
+    p1 = finder.find('enterprises', 'teste', :per_page => 1, :page => 1)
+    p2 = finder.find('enterprises', 'teste', :per_page => 1, :page => 2)
+
+    assert (p1 == [ent1] && p2 == [ent2]) || (p1 == [ent2] && p2 == [ent1])
   end
 
   should 'count enterprises' do
@@ -57,6 +78,7 @@ class EnvironmentFinderTest < ActiveSupport::TestCase
     Enterprise.create!(:name => 'teste1', :identifier => 'teste1')
     assert_equal count+1, finder.count('enterprises')
   end
+
   should 'count people' do
     finder = EnvironmentFinder.new(Environment.default)
     count = finder.count('people')

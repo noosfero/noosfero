@@ -151,6 +151,24 @@ class CategoryFinderTest < ActiveSupport::TestCase
     assert_includes recent, ent2
     assert_not_includes recent, ent1
   end
+  
+  should 'paginate the list of more enterprises than limit' do
+    ent1 = Enterprise.create!(:name => 'teste1', :identifier => 'teste1', :category_ids => [@category.id])
+    ent2 = Enterprise.create!(:name => 'teste2', :identifier => 'teste2', :category_ids => [@category.id])
+
+    assert_equal [ent2], @finder.find('enterprises', nil, :per_page => 1, :page => 1)
+    assert_equal [ent1], @finder.find('enterprises', nil, :per_page => 1, :page => 2)
+  end
+  
+  should 'paginate the list of more enterprises than limit with query' do
+    ent1 = Enterprise.create!(:name => 'teste 1', :identifier => 'teste1', :category_ids => [@category.id])
+    ent2 = Enterprise.create!(:name => 'teste 2', :identifier => 'teste2', :category_ids => [@category.id])
+    
+    p1 = @finder.find('enterprises', 'teste', :per_page => 1, :page => 1)
+    p2 = @finder.find('enterprises', 'teste', :per_page => 1, :page => 2)
+
+    assert (p1 == [ent1] && p2 == [ent2]) || (p1 == [ent2] && p2 == [ent1]) # consistent paging
+  end
 
   should 'count enterprises' do
     count = @finder.count('enterprises')

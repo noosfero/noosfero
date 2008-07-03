@@ -89,25 +89,31 @@ class SearchController < ApplicationController
   def load_product_categories_menu(asset)
     @results[asset].uniq!
     @categories_menu = ProductCategory.menu_categories(@product_category, environment).map do |cat|
-      hits = @finder.count(:products, @filtered_query, calculate_find_options(asset, nil, cat, @region, params[:radius]))
+      hits = @finder.count(:products, @filtered_query, calculate_find_options(asset, nil, nil, cat, @region, params[:radius]))
       childs = []
       # REFACTOR DUPLICATED CODE inner loop doing the same thing that outter loop
       childs = cat.children.map do |child|
-        child_hits = @finder.count(:products, @filtered_query, calculate_find_options(asset, nil, child, @region, params[:radius]))
+        child_hits = @finder.count(:products, @filtered_query, calculate_find_options(asset, nil, nil, child, @region, params[:radius]))
         [child, child_hits]
       end.select{|child, child_hits| child_hits > 0 }
       [cat, hits, childs]
     end.select{|cat, hits| hits > 0 }
   end
 
-  def calculate_find_options(asset, limit, product_category, region, radius)
+  def calculate_find_options(asset, limit, page, product_category, region, radius)
 
-    result = { :limit => limit, :product_category => product_category}
+    result = { :product_category => product_category, :per_page => limit, :page => page }
     if [:enterprises, :people].include?(asset) && region
       result.merge!(:within => radius, :region => region.id)
     end
 
     result
+  end
+
+  # limit the number of results per page
+  # TODO: dont hardcore like this
+  def limit
+    10
   end
 
   public
@@ -124,9 +130,6 @@ class SearchController < ApplicationController
     [ :products, N_('Products') ],
     [ :events, N_('Events') ]
   ]
-
-  # TODO don't hardcode like this >:-(
-  LIST_LIMIT = 10
 
   def complete_region
     # FIXME this logic should be in the model
@@ -145,16 +148,11 @@ class SearchController < ApplicationController
     # how many assets we are searching for?
     number_of_result_assets = @searching.values.select{|v| v}.size
 
-    # apply limit when searching for only one type of asset
-    limit = (number_of_result_assets == 1) ? nil: LIST_LIMIT
-    # apply limit to all searches
-#    limit = nil
-
     @results = {}
     @names = {}
 
     SEARCH_IN.select { |key,description| @searching[key]  }.each do |key, description|
-      @results[key] = @finder.find(key, @filtered_query, calculate_find_options(key, limit, @product_category, @region, params[:radius])) 
+      @results[key] = @finder.find(key, @filtered_query, calculate_find_options(key, limit, params[:page], @product_category, @region, params[:radius])) 
       @names[key] = gettext(description)
     end
 

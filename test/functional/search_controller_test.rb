@@ -283,6 +283,16 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_equal [prod1], assigns(:results)[:products]
   end
 
+  should 'paginate enterprise listing' do
+    @controller.expects(:limit).returns(1)
+    ent1 = Enterprise.create!(:name => 'teste 1', :identifier => 'teste_1')
+    ent2 = Enterprise.create!(:name => 'teste 2', :identifier => 'teste_2')
+
+    get :assets, :asset => 'enterprises', :page => '2'
+
+    assert_equal [ent1], assigns(:results)[:enterprises] # older on page 2
+  end
+
   should 'display search results' do
     ent = Enterprise.create!(:name => 'display enterprise', :identifier => 'teste1')
     product = ent.products.create!(:name => 'display product')
