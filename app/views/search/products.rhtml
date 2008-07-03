@@ -18,6 +18,10 @@
 
 <%= render :partial => 'search_form', :locals => { :form_title => _("Refine your search"), :simple_search => true } %>
 
+<% if @categories_menu %>
+<div class="has_cat_list">
+<% end %>
+
 <%= render :partial => 'product_categories_menu', :object => @categories_menu %>
 
 <div id="search-results" class="only-one-result-box">
@@ -28,6 +32,10 @@
     <hr />
   </div>
 </div>
+
+<% if @categories_menu %>
+</div><!-- class="has_cat_list" -->
+<% end %>
 
 <%= will_paginate @results[:products], :id => 'products-pagination' %>
 

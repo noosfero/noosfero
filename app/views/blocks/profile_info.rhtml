@@ -23,15 +23,29 @@
   <% end %>
 </ul>
 
-<% if block.owner.person? %>
-  <div class="adr">
-  <%=
-    [ [ profile.city, 'locality' ],
-      [ profile.state, 'region' ],
-      [ profile.country, 'country-name' ]
-    ].map{ |s,c| s =~ /^\s*$/ ? nil : content_tag( 'span', s, :class => c ) }.compact.join ' - '
-  %>
-  </div>
+<% if profile.respond_to? :city %>
+<div class="adr">
+<%=
+  [ [ profile.city, 'locality' ],
+    [ profile.state, 'region' ],
+    [ profile.country, 'country-name' ]
+  ].map{ |s,c| s =~ /^\s*$/ ? nil : content_tag( 'span', s, :class => c ) }.compact.join ' - '
+%>
+</div>
+<% end %>
+
+<% if profile.class == Enterprise %>
+<div class="product-categories">
+<%=
+  profile.product_categories.map{ |c| c.size > 1 ? [c[0],c[1]] : nil }.
+          compact.uniq.map{ |c|
+              content_tag 'span',
+                          content_tag( 'span', c.join(' &rarr; ') ),
+                          :title => c[0] +' &rarr; '+ c[1],
+                          :class => 'product_cat_' + (c[0]+'_'+c[1]).gsub( /\s/, '_' )
+          }.join "\n"
+%>
+</div>
 <% end %>
 
 <div class="profile-info-options">
