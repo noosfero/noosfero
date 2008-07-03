@@ -1,5 +1,9 @@
 <% if @query.blank? %>
   <h1>
+    <% if @category %>
+      <%= @category.name %>:<br/>
+    <% end %>
+
     <%= @asset_name %>
     <% if params[:initial] %>
       <%= '(%s)' % params[:initial].upcase %>
