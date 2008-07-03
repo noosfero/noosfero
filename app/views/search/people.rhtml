@@ -11,7 +11,6 @@
       <%= _('(recently added)') %>
     <% end %>
   </h1>
-  <%= render :partial => 'directory' %>
 <% else %>
   <h1> <%= @asset_name %>: <%= h(@category ? (_('Search results for "%{query}" in "%{category}"') % { :query => @query, :category => @category.name}) : (_('Search results for "%s"') % @query)) %> </h1>
   <div style='text-align: center'>

@@ -43,10 +43,6 @@ class Product < ActiveRecord::Base
     self.find(:all, :order => 'id desc', :limit => limit)
   end
 
-  def self.find_by_initial(initial)
-    self.find(:all, :order => 'products.name', :conditions => [ 'products.name like (?) or products.name like (?)', initial + '%', initial.upcase + '%'])
-  end
-
   def enterprise_updated(e)
     self.lat = e.lat
     self.lng = e.lng

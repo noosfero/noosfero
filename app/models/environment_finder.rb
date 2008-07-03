@@ -42,10 +42,6 @@ class EnvironmentFinder
     find(asset, nil, :limit => limit)
   end
 
-  def find_by_initial(asset, initial)
-    @environment.send(asset).find_by_initial(initial)
-  end
-
   def count(asset, query = '', options = {})
     # because will_paginate needs a page
     options = {:page => 1}.merge(options)

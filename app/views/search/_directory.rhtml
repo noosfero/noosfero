@@ -1,6 +1,0 @@
-<div class="search-index">
-  <%= link_to_unless(params[:initial].blank?, _('Recent'), params.merge(:action => 'assets', :initial => nil)) %>
-  &nbsp;
-    <%= ('a'..'z').map { |initial| link_to_unless(params[:initial] == initial, initial.upcase, params.merge(:action => 'directory', :asset => @asset, :initial => initial)) }.join(' &nbsp; ') %>
-</div>
-<br style='clear:both'/>

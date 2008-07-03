@@ -2,17 +2,6 @@
   position: relative; /* to the text appear on MSIE 6 */
 }
 
-.search-index {
-  text-align: center;
-  position: relative;
-  font-weight: bold;
-}
-
-.search-index a {
-  text-decoration: none;
-  font-weight: normal;
-}
-
 #search-results {
   margin-top: 10px;
   /* none by default, but... Who knows the future?  :-) */

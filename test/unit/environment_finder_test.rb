@@ -125,59 +125,6 @@ class EnvironmentFinderTest < ActiveSupport::TestCase
     assert_equal 99, finder.count('people', 'my query', {})
   end
 
-  should 'find articles by initial' do
-    person = create_user('teste').person
-    art1 = person.articles.create!(:name => 'an article to be found')
-    art2 = person.articles.create!(:name => 'blah: an article that cannot be found')
-    found = EnvironmentFinder.new(Environment.default).find_by_initial(:articles, 'a')
-
-    assert_includes found, art1
-    assert_not_includes found, art2
-  end
-
-  should 'find people by initial' do
-    finder = EnvironmentFinder.new(Environment.default)
-    p1 = create_user('alalala').person
-    p2 = create_user('blablabla').person
-
-    found = finder.find_by_initial(:people, 'a')
-    assert_includes found, p1
-    assert_not_includes found, p2
-  end
-
-  should 'find communities by initial' do
-    c1 = Community.create!(:name => 'a beautiful community', :identifier => 'bea_comm', :environment => Environment.default)
-    c2 = Community.create!(:name => 'b: another beautiful community', :identifier => 'bbbbb', :environment => Environment.default)
-
-    found = EnvironmentFinder.new(Environment.default).find_by_initial(:communities, 'a')
-
-    assert_includes found, c1
-    assert_not_includes found, c2
-  end
-
-  should 'find products by initial' do
-    finder = EnvironmentFinder.new(Environment.default)
-    ent = Enterprise.create!(:name => 'teste', :identifier => 'teste')
-    prod1 = ent.products.create!(:name => 'a beautiful product')
-    prod2 = ent.products.create!(:name => 'b: a beautiful product')
-
-    found = finder.find_by_initial(:products, 'a')
-
-    assert_includes found, prod1
-    assert_not_includes found, prod2
-  end
-
-  should 'find enterprises by initial' do
-    finder = EnvironmentFinder.new(Environment.default)
-    ent1 = Enterprise.create!(:name => 'aaaa', :identifier => 'aaaa')
-    ent2 = Enterprise.create!(:name => 'bbbb', :identifier => 'bbbb')
-
-    found = finder.find_by_initial(:enterprises, 'a')
-
-    assert_includes found, ent1
-    assert_not_includes found, ent2
-  end
-
   should 'find person and enterprise by radius and region' do
     finder = EnvironmentFinder.new(Environment.default)
     

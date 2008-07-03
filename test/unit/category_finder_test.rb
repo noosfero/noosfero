@@ -111,34 +111,6 @@ class CategoryFinderTest < ActiveSupport::TestCase
     assert_includes f.find(:articles, 'beautiful'), article
   end
 
-  should 'find communites by initial in category hierarchy' do
-    parent = Category.create!(:name => 'parent category', :environment => Environment.default)
-    child  = Category.create!(:name => 'child category', :environment => Environment.default, :parent => parent)
-    p1 = create_user('people_1').person
-    p1.name = 'person with inner beaity'
-    p1.add_category(child)
-    p1.save!
-
-    parent.reload
-
-    f = CategoryFinder.new(parent)
-    assert_includes f.find_by_initial(:people, 'p'), p1
-  end
-
-  should 'find articles by initial in category hierarchy' do
-    parent = Category.create!(:name => 'parent category', :environment => Environment.default)
-    child  = Category.create!(:name => 'child category', :environment => Environment.default, :parent => parent)
-
-    p1 = create_user('people_1').person
-
-    article = p1.articles.create!(:name => 'fucking beautiful article', :category_ids => [child.id])
-
-    parent.reload
-
-    f = CategoryFinder.new(parent)
-    assert_includes f.find_by_initial(:articles, 'f'), article
-  end
-
   should 'list recent enterprises' do
     ent = Enterprise.create!(:name => 'teste', :identifier => 'teste', :category_ids => [@category.id])
     assert_includes @finder.recent('enterprises'), ent
@@ -274,60 +246,6 @@ class CategoryFinderTest < ActiveSupport::TestCase
 
     # should respect the order (more commented comes first)
     assert_equal [articles[1], articles[0]], @finder.most_commented_articles(2)
-  end
-
-  should 'find people by initial' do
-    p1 = create_user('aaaa').person; p1.add_category(@category)
-    p2 = create_user('bbbb').person; p2.add_category(@category)
-
-    list = CategoryFinder.new(@category).find_by_initial(:people, 'a')
-
-    assert_includes list, p1
-    assert_not_includes list, p2
-  end
-
-  should 'find enterprises by initial' do
-    ent1 = Enterprise.create!(:name => 'aaaa', :identifier => 'aaaa'); ent1.add_category(@category)
-    ent2 = Enterprise.create!(:name => 'bbbb', :identifier => 'bbbb'); ent2.add_category(@category)
-
-    list = CategoryFinder.new(@category).find_by_initial(:enterprises, 'a')
-
-    assert_includes list, ent1
-    assert_not_includes list, ent2
-  end
-
-  should 'find communities by initial' do
-    comm1 = Community.create!(:name => 'aaaa', :identifier => 'aaaa'); comm1.add_category(@category)
-    comm2 = Community.create!(:name => 'bbbb', :identifier => 'bbbb'); comm2.add_category(@category)
-
-    list = CategoryFinder.new(@category).find_by_initial(:communities, 'a')
-
-    assert_includes list, comm1
-    assert_not_includes list, comm2
-  end
-
-  should 'find products by initial' do
-    ent = Enterprise.create!(:name => 'my enterprise', :identifier => 'myent')
-    ent.add_category(@category)
-
-    p1 = ent.products.create!(:name => 'A product')
-    p2 = ent.products.create!(:name => 'Better product')
-
-    list = CategoryFinder.new(@category).find_by_initial(:products, 'a')
-
-    assert_includes list, p1
-    assert_not_includes list, p2
-  end
-
-  should 'find articles by initial' do
-    person = create_user('testuser').person
-    a1 = person.articles.create!(:name => 'aaaa', :body => '...', :category_ids => [@category.id])
-    a2 = person.articles.create!(:name => 'bbbb', :body => '...', :category_ids => [@category.id])
-
-    list = CategoryFinder.new(@category).find_by_initial(:articles, 'a')
-
-    assert_includes list, a1
-    assert_not_includes list, a2
   end
 
   should 'find person and enterprise by radius and region' do

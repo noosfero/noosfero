@@ -342,10 +342,6 @@ class Profile < ActiveRecord::Base
     self.find(:all, :order => 'id desc', :limit => limit)
   end
 
-  def self.find_by_initial(initial)
-    self.find(:all, :order => 'profiles.name', :conditions => [ 'profiles.name like (?) or profiles.name like (?)', (initial + '%'), (initial.upcase + '%') ])
-  end
-
   # returns +true+ if the given +user+ can see profile information about this
   # +profile+, and +false+ otherwise.
   def display_info_to?(user)

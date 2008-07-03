@@ -437,16 +437,6 @@ class ProfileTest < Test::Unit::TestCase
     assert profile.articles.find_by_path('feed').advertise?
   end
 
-  should 'find by initial' do
-    inside = Profile.create!(:name => 'A person', :identifier => 'aperson')
-    outside = Profile.create!(:name => 'B Movie', :identifier => 'bmovie')
-
-    list = Profile.find_by_initial('a')
-
-    assert_includes list, inside
-    assert_not_includes list, outside
-  end
-
   should 'have latitude and longitude' do
     e = Enterprise.create!(:name => 'test1', :identifier => 'test1')
     e.lat, e.lng = 45, 45 ; e.save!

@@ -6,7 +6,7 @@ class SearchController < ApplicationController
   before_filter :prepare_filter
   before_filter :check_search_whole_site
   before_filter :load_search_assets
-  before_filter :check_valid_assets, :only => [ :assets, :directory ]
+  before_filter :check_valid_assets, :only => [ :assets ]
 
   no_design_blocks
 
@@ -191,14 +191,6 @@ class SearchController < ApplicationController
   end
   attr_reader :category
 
-  def directory
-    @results = { @asset => @finder.find_by_initial(@asset, params[:initial]) }
-    @asset_name = gettext(SEARCH_IN.find { |entry| entry.first == @asset }[1])
-    @names = { @asset => @asset_name }
-
-    render :action => @asset
-  end
-
   def tags
     @tags = Tag.find(:all).inject({}) do |memo,tag|
       memo[tag.name] = tag.taggings.count
@@ -209,25 +201,6 @@ class SearchController < ApplicationController
   def tag
     @tag = Tag.find_by_name(params[:tag])
     @tagged = @tag.taggings.map(&:taggable)
-  end
-
-  def sellers
-    # FIXME use a better select for category
-    @categories = ProductCategory.find(:all)
-    @regions = Region.find(:all).select{|r|r.lat && r.lng}
-    @product_category = ProductCategory.find(params[:category]) if params[:category]
-    @region = Region.find(params[:region]) if params[:region]
-    
-    options = {}
-    options.merge! :origin => [params[:lat].to_f, params[:long].to_f], :within => params[:radius] if !params[:lat].blank? && !params[:long].blank? && !params[:radius].blank?
-    options.merge! :origin => [@region.lat, @region.lng], :within => params[:radius] if !params[:region].blank? && !params[:radius].blank?
-    if @product_category
-      finder = CategoryFinder.new(@product_category)
-      product_ids = finder.find('products',nil)
-      options.merge! :include => :products, :conditions => ['products.id IN ?', product_ids ]
-    end
-
-    @enterprises = Enterprise.find(:all, options)
   end
 
   #######################################################

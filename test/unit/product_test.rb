@@ -55,18 +55,6 @@ class ProductTest < Test::Unit::TestCase
     end    
   end
 
-  should 'find by initial' do
-    p1 = Product.create!(:name => 'a test product')
-    p2 = Product.create!(:name => 'A Capitalize Product')
-    p3 = Product.create!(:name => 'b-class test product')
-
-    list = Product.find_by_initial('a')
-
-    assert_includes list, p1
-    assert_includes list, p2
-    assert_not_includes list, p3
-  end
-
   should 'calculate catagory full name' do
     cat = mock
     cat.expects(:full_name).returns('A/B/C')

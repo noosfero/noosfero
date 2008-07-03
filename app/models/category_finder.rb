@@ -28,10 +28,6 @@ class CategoryFinder
     find(asset, nil, :limit => limit)
   end
 
-  def find_by_initial(asset, initial)
-    asset_class(asset).find(:all, options_for_find_by_initial(asset_class(asset), initial))
-  end
-
   def count(asset, query='', options={})
     # because will_paginate needs a page
     options = {:page => 1}.merge(options)
@@ -76,20 +72,6 @@ class CategoryFinder
       end    
     when 'Person', 'Community'
       {:joins => 'inner join categories_profiles on (categories_profiles.profile_id = profiles.id)', :conditions => ['categories_profiles.category_id = (?)', category_id]}.merge!(options)
-    else
-      raise "unreconized class #{klass.name}"
-    end
-  end
-
-  def options_for_find_by_initial(klass, initial)
-    # FIXME copy/pasted from options_for_find above !!!
-    case klass.name
-    when 'Product'
-      {:select => 'distinct products.*', :joins => 'inner join categories_profiles on products.enterprise_id = categories_profiles.profile_id', :conditions => ['categories_profiles.category_id = (?) and (products.name like (?) or products.name like (?))', category_id, initial + '%', initial.upcase + '%']}
-    when 'Article'
-      {:joins => 'inner join articles_categories on (articles_categories.article_id = articles.id)', :conditions => ['articles_categories.category_id = (?) and (%s.name like (?) or %s.name like (?))' % [klass.table_name, klass.table_name], category_id, initial + '%', initial.upcase + '%']}
-    when 'Person', 'Community', 'Enterprise'
-      {:joins => 'inner join categories_profiles on (categories_profiles.profile_id = profiles.id)', :conditions => ['categories_profiles.category_id = (?) and (%s.name like (?) or %s.name like (?))' % [klass.table_name, klass.table_name], category_id, initial + '%', initial.upcase + '%']}
     else
       raise "unreconized class #{klass.name}"
     end
