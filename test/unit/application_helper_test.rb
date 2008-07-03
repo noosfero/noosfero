@@ -120,10 +120,40 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_equal 'Profile Member', rolename_for(person, community)
   end
 
+  should 'display categories' do
+    category = Category.create!(:name => 'parent category for testing', :environment_id => Environment.default)
+    child = Category.create!(:name => 'child category for testing',   :environment => Environment.default, :display_in_menu => true, :parent => category)
+    owner = create_user('testuser').person
+    @article = owner.articles.create!(:name => 'ytest')
+    @article.add_category(category)
+    expects(:environment).returns(Environment.default)
+    result = select_categories(:article)
+    assert_match /parent category/, result
+  end
+
+  should 'not display categories if has no child' do
+    category = Category.create!(:name => 'parent category for testing', :environment_id => Environment.default)
+    owner = create_user('testuser').person
+    @article = owner.articles.create!(:name => 'ytest')
+    @article.add_category(category)
+    expects(:environment).returns(Environment.default)
+    result = select_categories(:article)
+    assert_no_match /parent category/, result
+  end
+
   protected
 
-  def content_tag(tag, content, options)
+  def content_tag(tag, content, options = {})
     content.strip
+  end
+  def javascript_tag(any)
+    ''
+  end
+  def link_to(label, action, options = {})
+    label
+  end
+  def check_box_tag(name, value = 1, checked = false, options = {})
+    name
   end
 
 end

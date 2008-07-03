@@ -404,7 +404,7 @@ module ApplicationHelper
       }
       Effect.toggle( div, "slide", { link:link, div:div, afterFinish:end } )
     }')
-    environment.top_level_categories.each do |toplevel|
+    environment.top_level_categories.select{|i| !i.children.empty?}.each do |toplevel|
       next unless object.accept_category?(toplevel)
       # FIXME
       ([toplevel] + toplevel.children_for_menu).each do |cat|
