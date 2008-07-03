@@ -19,9 +19,10 @@
   </div>
 <% end %>
 
-
 <%= render :partial => 'search_form', :locals => { :form_title => @query.blank? ? _('Search') : _("Refine your search"), :simple_search => true } %>
 
 <%= display_results %>
+
+<%= pagination_links @results.values.first %>
 
 <br style="clear:both" />

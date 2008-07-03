@@ -24,19 +24,12 @@
 
 <%= render :partial => 'product_categories_menu', :object => @categories_menu %>
 
-<div id="search-results" class="only-one-result-box">
-  <div class="search-results-products search-results-box">
-    <div class="search-results-innerbox search-results-type-product">
-      <ul><%= render :partial => 'product', :collection => @results[:products] %></ul>
-    </div>
-    <hr />
-  </div>
-</div>
+<%= display_results %>
 
 <% if @categories_menu %>
 </div><!-- class="has_cat_list" -->
 <% end %>
 
-<%= will_paginate @results[:products], :id => 'products-pagination' %>
+<%= will_paginate @results[:products] %>
 
 <br style="clear:both" />

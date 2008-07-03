@@ -39,6 +39,14 @@ module SearchHelper
     content_tag('div', data[:toggle] + (render :partial => data[:partial]), :class => "map-or-list-search-results #{data[:class]}")
   end
 
+  def display_item_map_info(item)
+    if item.kind_of?(Profile)
+      display_profile_info
+    elsif item.kind_of?(Product)
+      display_product_info
+    end
+  end
+  
   def display_profile_info(profile)
     # FIXME add distance
     data = ''
@@ -65,6 +73,11 @@ module SearchHelper
       ),
       :class => 'profile-info'
     )
+  end
+
+  def pagination_links(collection, options={})
+    options = {:prev_label => '&laquo; ' + _('Previous'), :next_label => _('Next') + ' &raquo;'}.merge(options)
+    will_paginate(collection, options)
   end
 
 end

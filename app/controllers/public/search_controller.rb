@@ -89,11 +89,11 @@ class SearchController < ApplicationController
   def load_product_categories_menu(asset)
     @results[asset].uniq!
     @categories_menu = ProductCategory.menu_categories(@product_category, environment).map do |cat|
-      hits = @finder.count(:products, @filtered_query, calculate_find_options(asset, nil, nil, cat, @region, params[:radius]))
+      hits = @finder.count(asset, @filtered_query, calculate_find_options(asset, nil, nil, cat, @region, params[:radius]))
       childs = []
       # REFACTOR DUPLICATED CODE inner loop doing the same thing that outter loop
       childs = cat.children.map do |child|
-        child_hits = @finder.count(:products, @filtered_query, calculate_find_options(asset, nil, nil, child, @region, params[:radius]))
+        child_hits = @finder.count(asset, @filtered_query, calculate_find_options(asset, nil, nil, child, @region, params[:radius]))
         [child, child_hits]
       end.select{|child, child_hits| child_hits > 0 }
       [cat, hits, childs]
