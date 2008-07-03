@@ -6,8 +6,6 @@ class Organization < Profile
     closed
   end
 
-  belongs_to :region
-
   has_one :validation_info
 
   has_many :validations, :class_name => 'CreateEnterprise', :foreign_key => :target_id
