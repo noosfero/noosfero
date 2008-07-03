@@ -48,6 +48,9 @@ module SearchHelper
     unless profile.contact_phone.nil?
       data << content_tag('strong', _('Phone(s): ')) + profile.contact_phone + '<br/>'
     end
+    unless profile.region.nil?
+      data << content_tag('strong', _('Location: ')) + profile.region.name + '<br/>'
+    end
     unless profile.address.nil?
       data << content_tag('strong', _('Address: ')) + profile.address + '<br/>'
     end
