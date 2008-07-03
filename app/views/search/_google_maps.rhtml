@@ -6,7 +6,6 @@
 </div>
 
 <script type='text/javascript'>
-
 var points = {};
    
 function putMarker(lat, lng, title, summary) {
@@ -20,7 +19,7 @@ function putMarker(lat, lng, title, summary) {
   }
      
   var point = new GLatLng(lat, lng);
-  var options = { 'title' : title };
+  var options = { 'title' : title, 'icon' : icon };
   var marker = new GMarker(point, options);
   map.addOverlay(marker);
   GEvent.addListener(marker, 'click', function() {
@@ -44,13 +43,19 @@ if (GBrowserIsCompatible()) {
   map.setCenter(centerPoint, <%= GoogleMaps.initial_zoom.to_json %>);
   var bounds = new GLatLngBounds();
 
+  var baseIcon = new GIcon();
+      baseIcon.iconSize=new GSize(32,32);
+      baseIcon.shadowSize=new GSize(36,32);
+      baseIcon.iconAnchor=new GPoint(16,32);
+      baseIcon.infoWindowAnchor=new GPoint(16,0);
+  var icon = new GIcon(baseIcon, "/images/icons-map/enterprise.png", null, "/images/icons-map/enterprise_shadow.png");
+
 <%
   missed = false
   @results.each do |name,results|
     results.each do |item|
       if item.lat && item.lng
       %>
-   
         putMarker(<%= item.lat.to_json %>, <%= item.lng.to_json %>, <%= item.name.to_json %>, <%= display_profile_info(item).to_json %>);
       <%
         else
