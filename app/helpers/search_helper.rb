@@ -43,20 +43,21 @@ module SearchHelper
     # FIXME add distance
     data = ''
     unless profile.contact_email.nil?
-      data << content_tag('strong', _('E-Mail:')) + profile.contact_email + '<br/>'
+      data << content_tag('strong', _('E-Mail: ')) + profile.contact_email + '<br/>'
     end
     unless profile.contact_phone.nil?
-      data << content_tag('strong', _('Phone:')) + profile.contact_phone + '<br/>'
+      data << content_tag('strong', _('Phone(s): ')) + profile.contact_phone + '<br/>'
     end
     unless profile.address.nil?
-      data << content_tag('strong', _('Address:')) + profile.address + '<br/>'
+      data << content_tag('strong', _('Address: ')) + profile.address + '<br/>'
+    end
+    unless profile.products.empty?
+      data << content_tag('strong', _('Products/Services: ')) + profile.products.map{|i| link_to(i.name, :controller => 'catalog', :profile => profile.identifier, :action => 'show', :id => i)}.join(', ') + '<br/>'
     end
     content_tag('table',
       content_tag('tr',
         content_tag('td', content_tag('div', profile_image(profile, :thumb), :class => 'profile-info-picture')) +
-        content_tag('td', content_tag('strong', profile.name) + '<br/>' +
-          link_to(url_for(profile.url), profile.url) + '<br/>' + data +
-          link_to(_('Products/Services'), :controller => 'catalog', :profile => profile.identifier)
+        content_tag('td', content_tag('strong', link_to(profile.name, url_for(profile.url))) + '<br/>' + data
         )
       ),
       :class => 'profile-info'
