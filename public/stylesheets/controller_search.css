@@ -2,6 +2,18 @@
   position: relative; /* to the text appear on MSIE 6 */
 }
 
+#content .map-toggle-button {
+  float: right;
+  margin-top: -35px;
+}
+
+.current-cat-path {
+  padding-left: 25px;
+}
+.current-cat-path * {
+  white-space: nowrap;
+}
+
 #search-results {
   margin-top: 10px;
   /* none by default, but... Who knows the future?  :-) */
@@ -195,6 +207,14 @@
   line-height: 12px;
 }
 
+#content .only-one-result-box .search-results-type-product .product-item {
+  width: 50%;
+  height: 80px;
+  max-height: 70px;
+  overflow: hidden;
+  float: left;
+}
+
 .product-pic {
   display: block;
   float: left;
@@ -225,3 +245,27 @@
 .profile-info {
   text-align: left;
 }
+
+
+/* * * Pagination * * * * * * * * * * * */
+
+.pagination {
+  text-align: center;
+}
+
+.pagination .disabled {
+  color: #888;
+}
+
+.pagination .current {
+  font-weight: bold;
+}
+
+.pagination a {
+  text-decoration: none;
+}
+
+.pagination a:hover {
+  color: #026;
+}
+

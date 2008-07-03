@@ -1,3 +1,9 @@
+<% if @product_category %>
+  <h3 class="current-cat-path">
+    <%= @product_category.hierarchy.map {|cat| ((cat == @product_category) ? content_tag('span', cat.name) : link_to((cat.name), params.merge({:product_category => cat.id}))) }.join(' &rarr; ') %>
+  </h3>
+<% end %>
+
 <% if product_categories_menu %>
 
 <div id="product-categories-menu">
@@ -44,7 +50,7 @@ function prodCatMenuOver( li ) {
     li.opening = true;
     li.className = "cat-parent sub-opening";
     li.subMenu.className = "opening";
-    li.e = Effect.BlindDown(li.subMenu);
+    li.e = Effect.BlindDown(li.subMenu, { duration: 0.33 });
     li.e._finish = li.e.finish;
     li.e.finish = function(){
         this._finish();
@@ -68,7 +74,7 @@ function prodCatMenuOut( li ) {
         this.closeing = true;
         this.className = "cat-parent sub-closeing";
         this.subMenu.className = "closeing";
-        this.e = Effect.BlindUp(this.subMenu);
+        this.e = Effect.BlindUp(this.subMenu, { duration: 0.5 });
         this.e._finish = this.e.finish;
         this.e.finish = function(){
             this._finish();

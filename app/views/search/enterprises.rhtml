@@ -12,9 +12,17 @@
 
 <%= render :partial => 'search_form', :locals => { :form_title => _("Refine your search"), :simple_search => true } %>
 
+<% if @categories_menu %>
+<div class="has_cat_list">
+<% end %>
+
 <%= render :partial => 'product_categories_menu', :object => @categories_menu %>
 
 <%= display_results %>
+
+<% if @categories_menu %>
+</div><!-- class="has_cat_list" -->
+<% end %>
 
 <%= pagination_links @results[:enterprises] %>
 

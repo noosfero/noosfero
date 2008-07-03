@@ -225,3 +225,20 @@ body.category4 .category-innerbox {
   font-weight: bold;
 }
 
+
+/* * * Pagination * * * * * * * * * * * */
+
+.pagination * {
+  padding: 0px 3px 2px 3px;
+  -moz-border-radius: 5px;
+}
+
+.pagination a {
+  text-decoration: none;
+}
+
+.pagination a:hover {
+  color: #FFF;
+  background: #729FCF;
+}
+

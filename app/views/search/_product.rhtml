@@ -1,6 +1,11 @@
 <%# FIXME add more information %>
 
-<li>
+<%
+product_item_pos = 0  if ! product_item_pos
+product_item_pos += 1
+%>
+
+<li class="product-item <%= ( pos % 2 == 0 ) ? 'odd' : 'even' %>">
     <%= link_to_product product, :class => 'product-pic', :style => 'background-image:url(%s)' %
           ( product.image ? product.image.public_filename(:minor) : '/images/icons-app/product-default-pic-minor.png' ) %>
     <strong>

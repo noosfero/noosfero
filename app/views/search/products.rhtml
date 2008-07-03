@@ -10,12 +10,6 @@
   <h2><%=h (_('Within %s km from %s') % [@radius, @region.name]) %><h2>
 <% end %>
 
-<% if @product_category %>
-  <h3>
-    <%= @product_category.hierarchy.map {|cat| ((cat == @product_category) ? cat.name : link_to((cat.name), params.merge({:product_category => cat.id}))) }.join(' &rarr; ') %>
-  </h3>
-<% end %>
-
 <%= render :partial => 'search_form', :locals => { :form_title => _("Refine your search"), :simple_search => true } %>
 
 <% if @categories_menu %>
