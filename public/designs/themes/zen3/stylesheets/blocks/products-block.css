@@ -1,0 +1,12 @@
+.products-block li a {
+  border: 2px solid transparent;
+}
+
+.msie6 .products-block li a {
+  border: 2px solid white;
+}
+
+.products-block li a:hover {
+  border: 2px solid #C00;
+  background: #FCAF3E;
+}
