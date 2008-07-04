@@ -48,7 +48,6 @@ module SearchHelper
   end
   
   def display_profile_info(profile)
-    # FIXME add distance
     data = ''
     unless profile.contact_email.nil?
       data << content_tag('strong', _('E-Mail: ')) + profile.contact_email + '<br/>'
@@ -64,6 +63,9 @@ module SearchHelper
     end
     unless profile.products.empty?
       data << content_tag('strong', _('Products/Services: ')) + profile.products.map{|i| link_to(i.name, :controller => 'catalog', :profile => profile.identifier, :action => 'show', :id => i)}.join(', ') + '<br/>'
+    end
+    if profile.respond_to?(:distance) and !profile.distance.nil?
+      data << content_tag('strong', _('Distance: ')) + "%.2f%" % profile.distance + '<br/>'
     end
     content_tag('table',
       content_tag('tr',
