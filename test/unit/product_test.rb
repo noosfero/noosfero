@@ -108,4 +108,18 @@ class ProductTest < Test::Unit::TestCase
     assert_not_includes prods, prod2
   end
 
+  should 'provide url' do
+    product = Product.new
+
+    result = mock
+
+    enterprise = Enterprise.new
+    enterprise.expects(:generate_url).with(:controller => 'catalog', :action => 'show', :id => 999).returns(result)
+
+    product.expects(:id).returns(999)
+    product.expects(:enterprise).returns(enterprise)
+
+    assert_same result, product.url
+  end
+
 end

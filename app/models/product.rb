@@ -49,4 +49,8 @@ class Product < ActiveRecord::Base
     save!
   end
 
+  def url
+    enterprise.generate_url(:controller => 'catalog', :action => 'show', :id => id)
+  end
+
 end
