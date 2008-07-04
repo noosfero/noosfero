@@ -149,9 +149,11 @@ class SearchController < ApplicationController
     number_of_result_assets = @searching.values.select{|v| v}.size
 
     @results = {}
+    @order = []
     @names = {}
 
     SEARCH_IN.select { |key,description| @searching[key]  }.each do |key, description|
+      @order << key
       @results[key] = @finder.find(key, @filtered_query, calculate_find_options(key, limit, params[:page], @product_category, @region, params[:radius])) 
       @names[key] = gettext(description)
     end
@@ -176,15 +178,18 @@ class SearchController < ApplicationController
   # view the summary of one category
   def category_index
     @results = {}
+    @order = []
     @names = {}
     [
-      [ :people, _('Newer people'), @finder.recent('people') ],
-      [ :communities, _('Newer communities'), @finder.recent('communities') ],
-      [ :articles, _('Newer articles'), @finder.recent('articles') ],
-      [ :most_commented_articles, _('Most commented articles'), @finder.most_commented_articles ],
-      [ :enterprises, _('Newer enterprises'), @finder.recent('enterprises') ],
-      [ :events, _('Near events TODO'), @finder.current_events(params[:year], params[:month]) ]
+      [ :people, _('Newer people'), @finder.recent('people', limit) ],
+      [ :enterprises, _('Newer enterprises'), @finder.recent('enterprises', limit) ],
+      [ :products, ('Newer products'), @finder.recent('products', limit) ],
+      [ :events, _('Near events TODO'), @finder.current_events(params[:year], params[:month], {:per_page => limit}) ],
+      [ :communities, _('Newer communities'), @finder.recent('communities', limit) ],
+      [ :articles, _('Newer articles'), @finder.recent('articles', limit) ],
+      [ :most_commented_articles, _('Most commented articles'), @finder.most_commented_articles(limit) ]
     ].each do |key, name, list|
+      @order << key
       @results[key] = list
       @names[key] = name
     end

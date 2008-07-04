@@ -34,14 +34,16 @@ class CategoryFinder
     find(asset, query, options).total_entries
   end
 
-  def most_commented_articles(limit=10)
-    Article.find(:all, options_for_find(Article, :limit => limit, :order => 'comments_count DESC'))
+  def most_commented_articles(limit=10, options={})
+    options = {:page => 1, :per_page => limit, :order => 'comments_count DESC'}.merge(options)
+    Article.paginate(:all, options_for_find(Article, options))
   end
 
-  def current_events(year, month)
+  def current_events(year, month, options={})
+    options = {:page => 1}.merge(options)
     range = Event.date_range(year, month)
 
-    Event.find(:all, :include => :categories, :conditions => { 'categories.id' => category_id, :start_date => range })
+    Event.paginate(:all, {:include => :categories, :conditions => { 'categories.id' => category_id, :start_date => range }}.merge(options))
   end
 
   protected

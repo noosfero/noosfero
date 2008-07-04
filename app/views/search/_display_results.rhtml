@@ -4,7 +4,8 @@
   pos2 = :odd  # allow to format in a two columns layout
   pos3 = 3     # allow to format in a thre columns layout
 %>
-<% @results.each do |name,results| %>
+<% @order.each do |name| %>
+  <% results = @results[name] %>
   <%
     pos3 += 1;  pos3 = 1 if pos3 > 3
     pos2==:odd ? pos2=:even : pos2=:odd
@@ -17,7 +18,7 @@
             <%= @names[name] %>
           </h3>
         <% end %>
-      <%= link_to( _('see all (%d)') % results.total_entries,
+      <%= link_to( results.respond_to?(:total_entries) ? _('see all (%d)') % results.total_entries : _('see all...'),
                    params.merge(:action => 'index',
                    :find_in => [ name ]),
                    :class => 'see-more' ) if @results.size > 1 %>

@@ -115,6 +115,11 @@ class CategoryFinderTest < ActiveSupport::TestCase
     ent = Enterprise.create!(:name => 'teste', :identifier => 'teste', :category_ids => [@category.id])
     assert_includes @finder.recent('enterprises'), ent
   end
+  
+  should 'respond to total_entries in the recent enterprises result' do
+    ent = Enterprise.create!(:name => 'teste', :identifier => 'teste', :category_ids => [@category.id])
+    assert_respond_to @finder.recent('enterprises'), :total_entries
+  end
 
   should 'not list more enterprises than limit' do
     ent1 = Enterprise.create!(:name => 'teste1', :identifier => 'teste1', :category_ids => [@category.id])
@@ -244,8 +249,10 @@ class CategoryFinderTest < ActiveSupport::TestCase
     2.times { articles[0].comments.build(:title => 'test', :body => 'asdsad', :author => person).save! }
     4.times { articles[1].comments.build(:title => 'test', :body => 'asdsad', :author => person).save! }
 
+    result = @finder.most_commented_articles(2)
     # should respect the order (more commented comes first)
-    assert_equal [articles[1], articles[0]], @finder.most_commented_articles(2)
+    assert_equal [articles[1], articles[0]], result
+    assert_respond_to result, :total_entries
   end
 
   should 'find person and enterprise by radius and region' do
@@ -280,6 +287,7 @@ class CategoryFinderTest < ActiveSupport::TestCase
     events = finder.current_events(2008, 1)
     assert_includes events, e1
     assert_not_includes events, e2
+    assert_respond_to events, :total_entries
   end
 
   should 'find person and enterprise in category by radius and region even without query' do
