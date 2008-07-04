@@ -396,8 +396,8 @@ class SearchControllerTest < Test::Unit::TestCase
   should 'list recent articles in the category' do
     recent = []
     finger = CategoryFinder.new(@category)
-    finger.expects(:recent).with(anything).at_least_once
-    finger.expects(:recent).with('articles').returns(recent)
+    finger.expects(:recent).with(any_parameters).at_least_once
+    finger.expects(:recent).with('articles', anything).returns(recent)
     CategoryFinder.expects(:new).with(@category).returns(finger)
 
     get :category_index, :category_path => [ 'my-category' ]
@@ -417,8 +417,8 @@ class SearchControllerTest < Test::Unit::TestCase
   should 'list recently registered people in the category' do
     recent_people = []
     finger = CategoryFinder.new(@category)
-    finger.expects(:recent).with(anything).at_least_once
-    finger.expects(:recent).with('people').returns(recent_people)
+    finger.expects(:recent).with(any_parameters).at_least_once
+    finger.expects(:recent).with('people', kind_of(Integer)).returns(recent_people)
     CategoryFinder.expects(:new).with(@category).returns(finger)
 
     get :category_index, :category_path => [ 'my-category' ]
@@ -428,8 +428,8 @@ class SearchControllerTest < Test::Unit::TestCase
   should 'list recently registered communities in the category' do
     recent_communities = []
     finger = CategoryFinder.new(@category)
-    finger.expects(:recent).with(anything).at_least_once
-    finger.expects(:recent).with('communities').returns(recent_communities)
+    finger.expects(:recent).with(any_parameters).at_least_once
+    finger.expects(:recent).with('communities', anything).returns(recent_communities)
     CategoryFinder.expects(:new).with(@category).returns(finger)
 
     get :category_index, :category_path => [ 'my-category' ]
@@ -439,8 +439,8 @@ class SearchControllerTest < Test::Unit::TestCase
   should 'list recently registered enterprises in the category' do
     recent_enterptises = []
     finger = CategoryFinder.new(@category)
-    finger.expects(:recent).with(anything).at_least_once
-    finger.expects(:recent).with('enterprises').returns(recent_enterptises)
+    finger.expects(:recent).with(any_parameters).at_least_once
+    finger.expects(:recent).with('enterprises', anything).returns(recent_enterptises)
     CategoryFinder.expects(:new).with(@category).returns(finger)
 
     get :category_index, :category_path => [ 'my-category' ]
@@ -720,9 +720,9 @@ class SearchControllerTest < Test::Unit::TestCase
     cat1 = ProductCategory.create!(:name => 'pc test 1', :environment => Environment.default)
     cat2 = ProductCategory.create!(:name => 'pc test 2', :environment => Environment.default)
     ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent')
-    
+
     cat1.products.create!(:name => 'prod test 1', :enterprise => ent)
-    
+
     get :index, :find_in => 'enterprises', :query => 'test'
 
     assert_includes assigns(:categories_menu).map(&:first), cat1

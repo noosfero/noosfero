@@ -31,7 +31,7 @@ class EnvironmentFinder
         # SECURITY no risk of SQL injection, since product_category_ids comes from trusted source
         @environment.send(asset).find_by_contents(query, ferret_options, options.merge({:conditions => 'product_category_id in (%s)' % product_category_ids.join(',') }))
       elsif product_category && asset == :enterprises
-        @environment.send(asset).find_by_contents(query + " +extra_data_for_index:#{product_category.name}", ferret_options, options)
+        @environment.send(asset).find_by_contents(query, ferret_options, options.merge(:include => 'products', :conditions => "products.product_category_id in (#{product_category_ids})"))
       else
         @environment.send(asset).find_by_contents(query, ferret_options, options)
       end
