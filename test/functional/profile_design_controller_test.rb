@@ -5,12 +5,13 @@ class ProfileDesignController; def rescue_action(e) raise e end; end
 
 class ProfileDesignControllerTest < Test::Unit::TestCase
   
+  attr_reader :holder
   def setup
     @controller = ProfileDesignController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
 
-    holder = create_user('designtestuser').person
+    @holder = create_user('designtestuser').person
     holder.save!
  
     @box1 = Box.new
@@ -59,11 +60,11 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
     @request.env['HTTP_REFERER'] = '/editor'
 
     @controller.stubs(:boxes_holder).returns(holder)
-    login_as 'ze'
+    login_as 'designtestuser'
   end
 
   def test_local_files_reference
-    assert_local_files_reference :get, :index, :profile => 'ze'
+    assert_local_files_reference :get, :index, :profile => 'designtestuser'
   end
   
   def test_valid_xhtml
@@ -74,7 +75,7 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
   # BEGIN - tests for BoxOrganizerController features 
   ######################################################
   def test_should_move_block_to_the_end_of_another_block
-    get :move_block, :profile => 'ze', :id => "block-#{@b1.id}", :target => "end-of-box-#{@box2.id}"
+    get :move_block, :profile => 'designtestuser', :id => "block-#{@b1.id}", :target => "end-of-box-#{@box2.id}"
 
     assert_response :success
 
@@ -88,7 +89,7 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
 
   def test_should_move_block_to_the_middle_of_another_block
     # block 4 is in box 2
-    get :move_block, :profile => 'ze', :id => "block-#{@b1.id}", :target => "before-block-#{@b4.id}"
+    get :move_block, :profile => 'designtestuser', :id => "block-#{@b1.id}", :target => "before-block-#{@b4.id}"
 
     assert_response :success
 
@@ -101,7 +102,7 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
   end
 
   def test_block_can_be_moved_up
-    get :move_block, :profile => 'ze', :id => "block-#{@b4.id}", :target => "before-block-#{@b3.id}"
+    get :move_block, :profile => 'designtestuser', :id => "block-#{@b4.id}", :target => "before-block-#{@b3.id}"
 
     assert_response :success
     @b4.reload
@@ -114,7 +115,7 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
     assert_equal [1,2,3], [@b3,@b4,@b5].map {|item| item.position}
 
     # b3 -> before b5
-    get :move_block, :profile => 'ze', :id => "block-#{@b3.id}", :target => "before-block-#{@b5.id}"
+    get :move_block, :profile => 'designtestuser', :id => "block-#{@b3.id}", :target => "before-block-#{@b5.id}"
 
     [@b3,@b4,@b5].each do |item|
       item.reload
@@ -124,7 +125,7 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
   end
 
   def test_should_be_able_to_move_block_directly_down
-    post :move_block_down, :profile => 'ze', :id => @b1.id
+    post :move_block_down, :profile => 'designtestuser', :id => @b1.id
     assert_response :redirect
 
     @b1.reload
@@ -134,7 +135,7 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
   end
 
   def test_should_be_able_to_move_block_directly_up
-    post :move_block_up, :profile => 'ze', :id => @b2.id
+    post :move_block_up, :profile => 'designtestuser', :id => @b2.id
     assert_response :redirect
 
     @b1.reload
@@ -145,7 +146,7 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
 
   def test_should_remove_block
     assert_difference Block, :count, -1 do
-      post :remove, :profile => 'ze', :id => @b2.id
+      post :remove, :profile => 'designtestuser', :id => @b2.id
       assert_response :redirect
       assert_redirected_to :action => 'index'
     end
@@ -160,14 +161,14 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
   ######################################################
 
   should 'display popup for adding a new block' do
-    get :add_block, :profile => 'ze'
+    get :add_block, :profile => 'designtestuser'
     assert_response :success
     assert_no_tag :tag => 'body' # e.g. no layout
   end
 
   should 'actually add a new block' do
     assert_difference Block, :count do
-      post :add_block, :profile => 'ze', :box_id => @box1.id, :type => RecentDocumentsBlock.name
+      post :add_block, :profile => 'designtestuser', :box_id => @box1.id, :type => RecentDocumentsBlock.name
       assert_redirected_to :action => 'index'
     end
   end
@@ -175,19 +176,19 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
   should 'not allow to create unknown types' do
     assert_no_difference Block, :count do
       assert_raise ArgumentError do
-        post :add_block, :profile => 'ze', :box_id => @box1.id, :type => "PleaseLetMeCrackYourSite"
+        post :add_block, :profile => 'designtestuser', :box_id => @box1.id, :type => "PleaseLetMeCrackYourSite"
       end
     end
   end
 
   should 'provide edit screen for blocks' do
-    get :edit, :profile => 'ze', :id => @b1.id
+    get :edit, :profile => 'designtestuser', :id => @b1.id
     assert_template 'edit'
     assert_no_tag :tag => 'body' # e.g. no layout
   end
 
   should 'be able to save a block' do
-    post :save, :profile => 'ze', :id => @b1.id, :block => { :article_id => 999 }
+    post :save, :profile => 'designtestuser', :id => @b1.id, :block => { :article_id => 999 }
 
     assert_redirected_to :action => 'index'
 
@@ -195,6 +196,45 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
     assert_equal 999, @b1.article_id
   end
 
+  should 'be able to edit ProductsBlock' do
+    block = ProductsBlock.new
+
+    enterprise = Enterprise.create!(:name => "test", :identifier => 'testenterprise')
+    p1 = enterprise.products.create!(:name => 'product one')
+    p2 = enterprise.products.create!(:name => 'product two')
+    enterprise.boxes.first.blocks << block
+    enterprise.add_admin(holder)
+
+    @controller.stubs(:boxes_holder).returns(enterprise)
+    login_as('designtestuser')
+
+    get :edit, :profile => 'testenterprise', :id => block.id
+
+    assert_response :success
+    assert_tag :tag => 'input', :attributes => { :name => "block[product_ids][]", :value => p1.id.to_s }
+    assert_tag :tag => 'input', :attributes => { :name => "block[product_ids][]", :value => p2.id.to_s }
+  end
+
+  should 'be able to save ProductsBlock' do
+    block = ProductsBlock.new
+
+    enterprise = Enterprise.create!(:name => "test", :identifier => 'testenterprise')
+    p1 = enterprise.products.create!(:name => 'product one')
+    p2 = enterprise.products.create!(:name => 'product two')
+    enterprise.boxes.first.blocks << block
+    enterprise.add_admin(holder)
+
+    @controller.stubs(:boxes_holder).returns(enterprise)
+    login_as('designtestuser')
+
+    post :save, :profile => 'testenterprise', :id => block.id, :block => { :product_ids => [p1.id.to_s, p2.id.to_s ] }
+
+    assert_response :redirect
+
+    block.reload
+    assert_equal [p1.id, p2.id], block.product_ids
+
+  end
 
 end
 

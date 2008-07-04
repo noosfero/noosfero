@@ -18,6 +18,11 @@ class ProfileDesignController < BoxOrganizerController
       blocks << FavoriteEnterprisesBlock
     end
 
+    # blocks exclusive for enterprises
+    if profile.enterprise?
+      blocks << ProductsBlock
+    end
+
     blocks
   end
 

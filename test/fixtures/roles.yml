@@ -32,6 +32,8 @@ profile_admin:
   key: 'profile_admin'
   name: 'Profile Administrator'
   system: true
+  permissions:
+   - edit_profile_design
 profile_member:
   id: 6
   key: 'profile_member'

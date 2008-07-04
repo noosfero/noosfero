@@ -44,6 +44,12 @@ class LightboxHelperTest < Test::Unit::TestCase
     assert_equal '[button]', lightbox_button('type', 'label', { :action => 'popup'})
   end
 
+  should 'provide lightbox_icon_button' do
+    expects(:icon_button).with('type', 'label', { :action => 'popup'}, { :class => 'lbOn' }).returns('[button]')
+
+    assert_equal '[button]', lightbox_icon_button('type', 'label', { :action => 'popup'})
+  end
+
   should 'tell if rendering inside lightbox' do
     request = mock
     expects(:request).returns(request)

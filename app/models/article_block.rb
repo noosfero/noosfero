@@ -36,8 +36,8 @@ class ArticleBlock < Block
     @article = obj
   end
 
-  def editor
-    { :controller => 'profile_design', :action => 'edit', :id => self.id }
+  def editable?
+    true
   end
 
 end

@@ -16,6 +16,10 @@ module LightboxHelper
     button(type, label, url, lightbox_options(options))
   end
 
+  def lightbox_icon_button(type, label, url, options = {})
+    icon_button(type, label, url, lightbox_options(options))
+  end
+
   # options must be an HTML options hash as passed to link_to etc.
   #
   # returns a new hash with lightbox class added. Keeps existing classes. 

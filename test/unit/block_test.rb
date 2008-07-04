@@ -32,4 +32,8 @@ class BlockTest < Test::Unit::TestCase
     assert_nil Block.new.footer
   end
 
+  should 'not be editable by default' do
+    assert !Block.new.editable?
+  end
+
 end

@@ -121,12 +121,20 @@ module BoxesHelper
   def block_edit_buttons(block)
     buttons = []
 
-    buttons << icon_button(:up, _('Move block up'), { :action => 'move_block_up', :id => block.id }, { :method => 'post' }) unless block.first?
-    buttons << icon_button(:down, _('Move block down'), { :action => 'move_block_down' ,:id => block.id }, { :method => 'post'}) unless block.last?
-    buttons << icon_button(:delete, _('Remove block'), { :action => 'remove', :id => block.id }, { :method => 'post'}) unless block.main?
+    if !block.first?
+      buttons << icon_button(:up, _('Move block up'), { :action => 'move_block_up', :id => block.id }, { :method => 'post' })
+    end
 
-    if block.editor
-      buttons << lightbox_button(:edit, _('Edit'), block.editor)
+    if !block.last?
+      buttons << icon_button(:down, _('Move block down'), { :action => 'move_block_down' ,:id => block.id }, { :method => 'post'})
+    end
+
+    if block.editable?
+      buttons << lightbox_icon_button(:edit, _('Edit'), { :controller => 'profile_design', :action => 'edit', :id => block.id })
+    end
+
+    if !block.main?
+      buttons << icon_button(:delete, _('Remove block'), { :action => 'remove', :id => block.id }, { :method => 'post'})
     end
 
     content_tag('div', buttons.join("\n") + tag('br', :style => 'clear: left'), :class => 'button-bar')

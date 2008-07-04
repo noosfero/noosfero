@@ -11,14 +11,13 @@ class ProductsBlockTest < ActiveSupport::TestCase
     assert_kind_of Block, block
   end
 
-  should "list owner's products" do
+  should "list owner products" do
 
     enterprise = Enterprise.create!(:name => 'testenterprise', :identifier => 'testenterprise')
     enterprise.products.create!(:name => 'product one')
     enterprise.products.create!(:name => 'product two')
 
-    block.stubs(:owner).returns(enterprise)
-
+    block.expects(:products).returns(enterprise.products)
 
     content = block.content
 
@@ -38,7 +37,7 @@ class ProductsBlockTest < ActiveSupport::TestCase
 
     footer = block.footer
 
-    assert_tag_in_string footer, :tag => 'a', :attributes => { :href => /\/catalog\/testenterprise$/ }, :content => 'View all'
+    assert_tag_in_string footer, :tag => 'a', :attributes => { :href => /\/catalog\/testenterprise$/ }, :content => 'View all products'
   end
 
   should 'list 4 random products by default' do
@@ -92,6 +91,16 @@ class ProductsBlockTest < ActiveSupport::TestCase
     block.save!
 
     assert_equal [p1.id, p2.id], ProductsBlock.find(block.id).product_ids
+  end
+
+  should 'accept strings in product_ids but store integers' do
+    block = ProductsBlock.new
+    block.product_ids = [ '1', '2']
+    assert_equal [1, 2], block.product_ids
+  end
+
+  should 'be editable' do
+    assert ProductsBlock.new.editable?
   end
 
 end

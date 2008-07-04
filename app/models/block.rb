@@ -45,10 +45,9 @@ class Block < ActiveRecord::Base
     nil
   end
 
-  # must return a Hash with URL options poiting to the action that edits
-  # properties of the block
-  def editor
-    nil
+  # Is this block editable? (Default to <tt>false</tt>)
+  def editable?
+    false
   end
 
   # must always return false, except on MainBlock clas.

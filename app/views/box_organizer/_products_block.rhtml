@@ -1,0 +1,13 @@
+<strong></strong>
+
+<p>
+<strong>
+<%= _('Select the products that must be shown.') %>
+</strong>
+</p>
+
+<% for product in @block.owner.products %>
+  <%= check_box_tag("block[product_ids][]", product.id, (!@block.product_ids.blank? && @block.product_ids.include?(product.id)), :id => "block_product_ids_#{product.id}" ) %>
+  <label for="block_product_ids_<%= product.id %>"><%= product.name %></label>
+  <br/>
+<% end %>
