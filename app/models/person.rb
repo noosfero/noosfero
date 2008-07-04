@@ -29,12 +29,6 @@ class Person < Profile
   N_('Contact information'); N_('Birth date'); N_('City'); N_('State'); N_('Country'); N_('Sex');
   settings_items :photo, :contact_information, :birth_date, :sex, :city, :state, :country
 
-  def summary
-    ['name', 'contact_information', 'contact_phone', 'sex', 'birth_date', 'address', 'city', 'state', 'country'].map do |col|
-      [ col.humanize, self.send(col) ]
-    end
-  end
-
   def self.conditions_for_profiles(conditions, person)
     new_conditions = sanitize_sql(['role_assignments.accessor_id = ?', person])
     new_conditions << ' AND ' +  sanitize_sql(conditions) unless conditions.blank?

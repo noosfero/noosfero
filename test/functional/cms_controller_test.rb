@@ -470,4 +470,14 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_tag :input, :attributes => { :id => 'article_link' }
   end
 
+  should 'not make enterprise homepage available to person' do
+    @controller.stubs(:profile).returns(Person.new)
+    assert_not_includes @controller.available_article_types, EnterpriseHomepage
+  end
+
+  should 'make enterprise homepage available to enterprises' do
+    @controller.stubs(:profile).returns(Enterprise.new)
+    assert_includes @controller.available_article_types, EnterpriseHomepage
+  end
+
 end

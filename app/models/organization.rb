@@ -47,12 +47,6 @@ class Organization < Profile
 
   xss_terminate :only => [ :acronym, :contact_person, :contact_email, :legal_form, :economic_activity, :management_information ]
 
-  def summary
-    [ 'acronym', 'foundation_year', 'contact_person', 'contact_email', 'legal_form', 'economic_activity' ].map do |col|
-      [ col.humanize, self.send(col) ]
-    end
-  end
-
   # Yes, organizations have members.
   #
   # Returns <tt>true</tt>.

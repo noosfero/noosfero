@@ -9,14 +9,20 @@ class CmsController < MyProfileController
 
   include CmsHelper
 
-  ARTICLE_TYPES = [
-    Folder,
-    TinyMceArticle,
-    TextileArticle,
-    RssFeed,
-    UploadedFile,
-    Event,
-  ]
+  def available_article_types
+    articles = [
+      Folder,
+      TinyMceArticle,
+      TextileArticle,
+      RssFeed,
+      UploadedFile,
+      Event
+    ]
+    if profile.enterprise?
+      articles << EnterpriseHomepage
+    end
+    articles
+  end
 
   def view
     @article = profile.articles.find(params[:id])
@@ -51,7 +57,7 @@ class CmsController < MyProfileController
     @type = params[:type]
     if @type.blank?
       @article_types = []
-      ARTICLE_TYPES.each do |type|
+      available_article_types.each do |type|
         @article_types.push({
           :name => type.name,
           :short_description => type.short_description,
@@ -63,7 +69,7 @@ class CmsController < MyProfileController
       return
     end
 
-    raise "Invalid article type #{@type}" unless ARTICLE_TYPES.map {|item| item.name}.include?(@type)
+    raise "Invalid article type #{@type}" unless available_article_types.map {|item| item.name}.include?(@type)
     klass = @type.constantize
     @article = klass.new(params[:article])
 

@@ -162,19 +162,6 @@ class OrganizationTest < Test::Unit::TestCase
     assert ! org.errors.invalid?(:foundation_year)
   end
 
-  should 'provide needed information in summary' do
-    organization = Organization.new
-
-    organization.acronym = 'organization acronym'
-    organization.foundation_year = '2007'
-    organization.contact_email = 'my contact email'
-
-    summary = organization.summary
-    assert(summary.any? { |line| line[1] == 'organization acronym' })
-    assert(summary.any? { |line| line[1] == '2007' })
-    assert(summary.any? { |line| line[1] == 'my contact email' })
-  end
-
   should 'has closed' do
     org = Organization.new
     assert_respond_to org, :closed

@@ -248,19 +248,6 @@ class PersonTest < Test::Unit::TestCase
     assert p.respond_to?(:contact_information)
   end
 
-  should 'provide needed information in summary' do
-    person = Person.new
-
-    person.name = 'person name'
-    person.address = 'my address'
-    person.contact_information = 'my contact information'
-
-    summary = person.summary
-    assert(summary.any? { |line| line[1] == 'person name' })
-    assert(summary.any? { |line| line[1] == 'my address' })
-    assert(summary.any? { |line| line[1] == 'my contact information' }, "summary (#{summary.map{|l| l[1] }.compact.join("; ")}) do not contain 'my contact informatidon'")
-  end
-
   should 'required name' do
     person = Person.new
     assert !person.valid?
