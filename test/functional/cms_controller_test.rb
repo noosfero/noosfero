@@ -89,11 +89,11 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'a', :content => 'Use as homepage', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/set_home_page/#{a.id}" }
   end
 
-  should 'not display set as home page link to folder' do
+  should 'display set as home page link to folder' do
     a = Folder.new(:name => 'article folder'); profile.articles << a;  a.save!
     Article.stubs(:short_description).returns('bli')
     get :index, :profile => profile.identifier
-    assert_no_tag :tag => 'a', :content => 'Use as homepage', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/set_home_page/#{a.id}" }
+    assert_tag :tag => 'a', :content => 'Use as homepage', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/set_home_page/#{a.id}" }
   end
 
   should 'be able to set home page' do
