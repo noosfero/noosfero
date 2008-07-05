@@ -1,1 +1,14 @@
+/************* enterprise homepage style *****************/
+
+.enterprise-info {
+  background: #FEA;
+  border: 2px solid #fcaf3e;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.msie6 .enterprise-info {
+  padding: 1px 5px 0px 5px;
+  margin-bottom: 20px;
+}
 

@@ -142,7 +142,6 @@ body.category4 .search-results-type-profile.common-profile-list-block li a {
 
 #product-categories-menu .cat-parent {
   background-color: #E0E8F0;
-  Xborder: 1px solid #729FCF;
   -moz-border-radius: 10px;
   padding: 3px 0px 3px 10px;
 }
@@ -152,8 +151,6 @@ body.category4 .search-results-type-profile.common-profile-list-block li a {
 }
 #product-categories-menu .sub-opened {
   background-color: #CDE;
-  Xborder: 1px solid #3465A4;
-  X-moz-border-radius: 10px;
 }
 
 

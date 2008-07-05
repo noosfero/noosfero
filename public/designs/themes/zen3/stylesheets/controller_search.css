@@ -97,6 +97,27 @@ body.category4 .search-results-type-profile.common-profile-list-block li a {
   background: #F79494;
 }
 
+#product-categories-menu a {
+  text-decoration: none;
+}
+#product-categories-menu a:hover {
+  text-decoration: underline;
+}
+
+#product-categories-menu .cat-parent {
+  -moz-border-radius: 10px;
+  padding: 3px 0px 3px 10px;
+}
+
+#product-categories-menu .sub-opening,
+#product-categories-menu .sub-closeing {
+  background-color: #FFF8B0;
+}
+#product-categories-menu .sub-opened {
+  background-color: #FE8;
+}
+
+
 /* * * Category Page * * * * * * * * * * * * */
 
 #view-category h3 {

@@ -1,8 +1,18 @@
 /************* enterprise homepage style *****************/
 
-.profile-info {
-  border: none;
+.enterprise-info {
   background: #B8CFE7;
   -moz-border-radius: 15px;
-  padding: 10px;
+  padding: 5px;
+  margin-bottom: 10px;
 }
+
+.msie6 .enterprise-info {
+  padding: 1px 5px 0px 5px;
+  margin-bottom: 20px;
+}
+
+.enterprise-info strong {
+  color: #058;
+}
+

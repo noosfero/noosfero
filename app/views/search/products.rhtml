@@ -1,8 +1,8 @@
 <h1> 
   <% if !@query.blank? %>
-      <%=h @category ? (_('Products results for "%{query}" of enterprises in "%{category}"') % { :query => @query, :category => @category.name}) : (_('Products results for "%s"') % @query) %> 
+      <%=h @category ? (_('Products and Services results for "%{query}" of enterprises in "%{category}"') % { :query => @query, :category => @category.name}) : (_('Products and Services results for "%s"') % @query) %> 
   <% else %>
-    <%=h @category ? (_('Products of enterprises in "%s"') % @category.name) : _('Products') %>
+    <%=h @category ? (_('Products and Services of enterprises in "%s"') % @category.name) : _('Products and Services') %>
   <% end %>
 </h1>
 

@@ -104,6 +104,10 @@ class Profile < ActiveRecord::Base
   has_many :categories, :through => :profile_categorizations
 
   belongs_to :region
+  
+  def location
+    self.region.name
+  end
 
   def pending_categorizations
     @pending_categorizations ||= []
