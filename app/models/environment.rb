@@ -9,10 +9,10 @@ class Environment < ActiveRecord::Base
 
   has_many :tasks, :dependent => :destroy, :as => 'target'
 
-  IDENTIFY_SCRIPTS = /(?:php[0-9s]?(\..*)?|[sp]htm[l]?(\..*)?|pl|py|cgi|rb)/
+  IDENTIFY_SCRIPTS = /(php[0-9s]?|[sp]htm[l]?|pl|py|cgi|rb)/
 
   def self.verify_filename(filename)
-    filename += '.txt' if filename =~ IDENTIFY_SCRIPTS
+    filename += '.txt' if File.extname(filename) =~ IDENTIFY_SCRIPTS
     filename
   end
 
