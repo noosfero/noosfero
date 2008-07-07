@@ -1,5 +1,7 @@
 class AccountController < PublicController
 
+  inverse_captcha :field => 'e_mail'
+
   # say something nice, you goof!  something sweet.
   def index
     unless logged_in?
@@ -39,7 +41,7 @@ class AccountController < PublicController
       @user = User.new(params[:user])
       @user.terms_of_use = environment.terms_of_use
       @terms_of_use = environment.terms_of_use
-      if request.post? && answer_correct
+      if request.post? && params[self.icaptcha_field].blank? && answer_correct
         @user.save!
         @user.person.environment = environment
         @user.person.save!

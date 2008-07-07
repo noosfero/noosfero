@@ -400,6 +400,17 @@ class AccountControllerTest < Test::Unit::TestCase
 
   end
 
+  should 'not be able to signup while inverse captcha field filled' do
+    assert_no_difference User, :count do
+      create_user({}, @controller.icaptcha_field => 'bli@bla.email.foo')
+    end
+  end
+
+  should 'render inverse captcha field' do
+    get :signup
+    assert_tag :tag => 'input', :attributes => { :type => 'text', :name => @controller.icaptcha_field }
+  end
+
   protected
     def create_user(options = {}, extra_options ={})
       post :signup, { :user => { :login => 'quire',

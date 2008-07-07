@@ -24,6 +24,8 @@
     :help => help=_('We need to be sure that you wrote correctly your password.') %>
 <small><%= help %></small>
 
+<%= icaptcha_field() %>
+
 <% if @terms_of_use %>
   <p>
     <%= @terms_of_use %>
