@@ -21,3 +21,13 @@
   background: #B8CFE7;
 }
 
+div.file-manager
+div.file-manager-button a:hover {
+  color: #006;
+  border-color: #2A5896;
+  background-color: #CFDFF7;
+}
+
+div#profile-editor-index div.control-panel {
+  background: #B8CFE7;
+}

@@ -4,6 +4,8 @@
   
 <%= render :partial => 'pending_tasks' %>
 
+<div class='control-panel'>
+
 <% file_manager do %>
 
   <%= file_manager_button(_('Edit Profile'), 'icons-app/edit-profile.png', :controller => 'profile_editor', :action => 'edit') %>
@@ -55,5 +57,7 @@
   <% end %>
 
 <% end %>
+
+</div>
 
 </div><!-- end id="profile-editor-index" -->

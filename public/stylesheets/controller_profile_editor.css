@@ -47,20 +47,21 @@ div.file-manager-button a img {
 
 div.file-manager
 div.file-manager-button a {
-  border: 1px solid #e0e0e0;
+  border: 2px solid transparent;
   display: block;
   padding: 3px;
   height: 90px;
   overflow: hidden;
-  background: white;
   font-size: 90%;
   text-decoration: none;
 }
 
 div.file-manager
 div.file-manager-button a:hover {
-  border: 1px solid #006;
-  background: #acf;
-  color: #006;
+  -moz-border-radius: 15px;
 }
 
+div#profile-editor-index div.control-panel {
+  padding: 10px;
+  -moz-border-radius: 15px;
+}
