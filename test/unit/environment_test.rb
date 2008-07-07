@@ -372,14 +372,25 @@ class EnvironmentTest < Test::Unit::TestCase
   end
 
   should 'be able to add admins easily' do
-    Environment.any_instance.stubs(:create_templates) # avoid creating templates, it's expensive
-    env = Environment.create!(:name => 'bli')
+    env = Environment.default
     user = create_user('testuser').person
     env.add_admin(user)
     env.reload
 
     assert_includes env.admins, user
   end
+
+  should 'be able to remove admins easily' do
+    env = Environment.default
+    user = create_user('testuser').person
+    env.affiliate(user, Environment::Roles.admin(env.id))
+    env.reload
+    assert_includes env.admins, user
+
+    env.remove_admin(user)
+    assert_not_includes env.admins, user
+  end
+
 
   should 'have products through enterprises' do
     product_category = fast_create(ProductCategory, :name => 'Products', :environment_id => Environment.default.id)
