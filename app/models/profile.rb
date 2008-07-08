@@ -106,7 +106,12 @@ class Profile < ActiveRecord::Base
   belongs_to :region
   
   def location
-    self.region.name
+    myregion = self.region
+    if myregion
+      myregion.name
+    else
+      ''
+    end
   end
 
   def pending_categorizations

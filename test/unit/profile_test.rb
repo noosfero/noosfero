@@ -646,6 +646,19 @@ class ProfileTest < Test::Unit::TestCase
     assert !Profile.new.accept_category?(Region.new)
   end
 
+  should 'query region for location' do
+    p = Profile.new
+    region = mock; region.expects(:name).returns('Some ackwrad region name')
+    p.expects(:region).returns(region)
+    assert_equal 'Some ackwrad region name', p.location
+  end
+
+  should 'fallback graciously when no region' do
+    p = Profile.new
+    p.expects(:region).returns(nil)
+    assert_equal '', p.location
+  end
+
   private
 
   def assert_invalid_identifier(id)
