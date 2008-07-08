@@ -88,14 +88,16 @@ class SearchController < ApplicationController
 
   def load_product_categories_menu(asset)
     @results[asset].uniq!
+    # REFACTOR DUPLICATED CODE inner loop doing the same thing that outter loop
     @categories_menu = ProductCategory.menu_categories(@product_category, environment).map do |cat|
       hits = @finder.count(asset, @filtered_query, calculate_find_options(asset, nil, nil, cat, @region, params[:radius], nil, nil))
       childs = []
-      # REFACTOR DUPLICATED CODE inner loop doing the same thing that outter loop
-      childs = cat.children.map do |child|
-        child_hits = @finder.count(asset, @filtered_query, calculate_find_options(asset, nil, nil, child, @region, params[:radius], nil, nil))
-        [child, child_hits]
-      end.select{|child, child_hits| child_hits > 0 }
+      if hits > 0
+        childs = cat.children.map do |child|
+          child_hits = @finder.count(asset, @filtered_query, calculate_find_options(asset, nil, nil, child, @region, params[:radius]))
+          [child, child_hits]
+        end.select{|child, child_hits| child_hits > 0 }
+      end
       [cat, hits, childs]
     end.select{|cat, hits| hits > 0 }
   end
@@ -117,7 +119,8 @@ class SearchController < ApplicationController
   # limit the number of results per page
   # TODO: dont hardcore like this
   def limit
-    (@searching.size == 1) ? 10 : 6
+    searching = @searching.values.select{|v|v}
+    (searching.size == 1) ? 10 : 6
   end
 
   public
@@ -173,6 +176,7 @@ class SearchController < ApplicationController
     end
 
     render :action => 'index'
+    render :text => 'bla'
   end
 
   alias :assets :index

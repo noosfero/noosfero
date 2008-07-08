@@ -18,27 +18,6 @@ class ProductCategoryTest < Test::Unit::TestCase
     assert !c3.errors.invalid?(:type)
   end
 
-  def test_tree
-    c0 = ProductCategory.create!(:name => 'base_cat', :environment => Environment.default)
-    assert ! c0.new_record?
-    assert_equivalent [c0], c0.tree
-
-    c1 = ProductCategory.create!(:name => 'cat_1', :parent => c0, :environment => Environment.default)
-    c0.reload
-    assert_equivalent [c1], c1.tree
-    assert_equivalent [c0, c1], c0.tree
-
-    c2 = ProductCategory.create!(:name => 'cat_2', :parent => c0, :environment => Environment.default)
-    c0.reload; c1.reload;
-    assert_equivalent [c0,c1,c2] , c0.tree
-
-    c3 = ProductCategory.create!(:name => 'cat_3', :parent => c2, :environment => Environment.default)
-    c0.reload; c1.reload; c2.reload
-    assert_equivalent [c0,c1,c2,c3], c0.tree
-    assert_equivalent [c2,c3], c2.tree
-    
-  end
-
   def test_all_products
     c0 = ProductCategory.create!(:name => 'base_cat', :environment => Environment.default)
     assert_equivalent [], c0.all_products
