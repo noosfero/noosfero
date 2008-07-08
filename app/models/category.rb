@@ -8,12 +8,6 @@ class Category < ActiveRecord::Base
   validates_inclusion_of :display_color, :in => [ 1, 2, 3, 4, nil ]
   validates_uniqueness_of :display_color, :scope => :environment_id, :if => (lambda { |cat| ! cat.display_color.nil? }), :message => N_('%{fn} was already assigned to another category.')
 
-  def validate
-    if self.parent && (self.class != self.parent.class)
-      self.errors.add(:type, _("%{fn} must be the same as the parents'"))
-    end
-  end
-
   # Finds all top level categories for a given environment. 
   def self.top_level_for(environment)
     self.find(:all, :conditions => ['parent_id is null and environment_id = ?', environment.id ])

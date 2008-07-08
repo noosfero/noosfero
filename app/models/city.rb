@@ -1,0 +1,2 @@
+class City < Region
+end

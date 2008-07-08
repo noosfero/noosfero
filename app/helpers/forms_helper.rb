@@ -24,7 +24,7 @@ module FormsHelper
     text_field_tag( name, value, options )
   end
 
-  def labelled_select( human_name, name, value_method, text_method, selected, collection, options )
+  def labelled_select( human_name, name, value_method, text_method, selected, collection, options={} )
     options[:id] ||= 'select-' + FormsHelper.next_id_number
     content_tag('label', human_name, :for => options[:id]) +
     select_tag( name, options_from_collection_for_select(collection, value_method, text_method, selected), options)
@@ -51,6 +51,20 @@ module FormsHelper
     text_field_tag(name, '', html_options) +
     content_tag('div', '', :id => "autocomplete-for-#{id}", :class => 'auto-complete', :style => 'display: none;') +
     javascript_tag('new Autocompleter.Local(%s, %s, %s)' % [ id.to_json, "autocomplete-for-#{id}".to_json, choices.to_json ] )
+  end
+
+  def select_city
+    states = State.find(:all, :order => 'name')
+    states = [State.new(:name => '---')] + states
+    cities = [City.new(:name => '---')]
+
+    state_id = 'state-' + FormsHelper.next_id_number
+    city_id = 'city-' + FormsHelper.next_id_number
+    
+    content_tag('div', labelled_select(_('State:'), 'state', :id, :name, nil, states, :id => state_id), :class => 'select_state_for_origin' ) +
+    content_tag('div', labelled_select(_('City:'), 'city', :id, :name, nil, cities, :id => city_id), :class => 'select_city_for_origin' ) +
+
+    observe_field(state_id, :update => city_id, :url => { :controller => 'search', :action => 'cities' }, :with => 'state_id')
   end
 
 protected

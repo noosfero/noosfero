@@ -528,7 +528,7 @@ class SearchControllerTest < Test::Unit::TestCase
   end
 
   should 'find profiles by radius and region' do
-    region = Region.create!(:name => 'r-test', :environment => Environment.default, :lat => 45.0, :lng => 45.0)
+    city = City.create!(:name => 'r-test', :environment => Environment.default, :lat => 45.0, :lng => 45.0)
     ent1 = Enterprise.create!(:name => 'test 1', :identifier => 'test1', :lat => 45.0, :lng => 45.0)
     p1 = create_user('test2').person
     p1.name = 'test 2'; p1.lat = 45.0; p1.lng = 45.0; p1.save!
@@ -536,7 +536,7 @@ class SearchControllerTest < Test::Unit::TestCase
     p2 = create_user('test4').person
     p2.name = 'test 4'; p2.lat = 30.0; p2.lng = 30.0; p2.save!
 
-    get :index, :region => { :name => region.name }, :radius => 10, :query => 'test'
+    get :index, :city => city.id, :radius => 10, :query => 'test'
 
     assert_includes assigns('results')[:enterprises], ent1
     assert_not_includes assigns('results')[:enterprises], ent2
@@ -585,6 +585,35 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'ul', :descendant => { :tag => 'li', :content => r1.name }
     assert_not_includes assigns(:regions), r2
     assert_no_tag :tag => 'ul', :descendant => { :tag => 'li', :content => r2.name }
+  end
+  
+  should 'return options of cities by its state' do
+    state1 = State.create!(:name => 'State One', :environment => Environment.default)
+    state2 = State.create!(:name => 'State Two', :environment => Environment.default)
+    city1 = City.create!(:name => 'City One', :environment => Environment.default, :lat => 111.07, :lng => '88.9', :parent => state1)
+    city2 = City.create!(:name => 'City Two', :environment => Environment.default, :lat => 111.07, :lng => '88.9', :parent => state2)
+
+    get :cities, :state_id => state1.id
+    assert_includes assigns(:cities), city1
+    assert_tag :tag => 'option', :content => city1.name, :attributes => {:value => city1.id}
+    assert_not_includes assigns(:cities), city2
+    assert_no_tag :tag => 'option', :content => city2.name, :attributes => {:value => city2.id}
+  end
+
+  should 'render cities results without layout' do
+    get :cities, :state_id => 1
+    assert_no_tag :tag => 'body'
+  end
+
+  should 'list only georeferenced cities' do
+    state = State.create!(:name => 'State One', :environment => Environment.default)
+    city1 = City.create!(:name => 'City One', :environment => Environment.default, :lat => 111.07, :lng => '88.9', :parent => state)
+    city2 = City.create!(:name => 'City Two', :environment => Environment.default, :parent => state)
+
+    get :cities, :state_id => state.id
+
+    assert_includes assigns(:cities), city1
+    assert_not_includes assigns(:cities), city2
   end
 
   should 'search for events' do

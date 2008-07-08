@@ -9,13 +9,12 @@
     </dir>
   </div>
 
+  <div class="formfield search-from-opt">
+    <%= select_city %>
+  </div>
+  
   <div class="formfield search-distance-opt">
     <%= labelled_text_field _('Distance (km): '), 'radius' %>
-  </div>
-  <div class="formfield search-from-opt">
-    <%= labelled_text_field _('From: '), 'region[name]', nil, :id => 'search_region_block' %>
-    <div id="search_region_block_auto_complete" class="auto-complete"></div>
-    <%= auto_complete_field('search_region_block', :url => {:controller => 'search', :action => 'complete_region'}) %>
   </div>
 
   <div class="button-bar">

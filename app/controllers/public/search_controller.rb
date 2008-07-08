@@ -138,6 +138,11 @@ class SearchController < ApplicationController
     [ :events, N_('Events') ]
   ]
 
+  def cities
+    @cities = City.find(:all, :order => 'name', :conditions => ['parent_id = ? and lat is not null and lng is not null', params[:state_id]])
+    render :action => 'cities', :layout => false
+  end
+  
   def complete_region
     # FIXME this logic should be in the model
     @regions = Region.find(:all, :conditions => [ '(name like ? or name like ?) and lat is not null and lng is not null', '%' + params[:region][:name] + '%', '%' + params[:region][:name].capitalize + '%' ])
@@ -150,7 +155,7 @@ class SearchController < ApplicationController
     @product_category = ProductCategory.find(params[:product_category]) if params[:product_category]
 
     # FIXME name is not unique
-    @region = Region.find_by_name(params[:region][:name]) if params[:region]
+    @region = City.find_by_id(params[:city]) if params[:city]
 
     # how many assets we are searching for?
     number_of_result_assets = @searching.values.select{|v| v}.size
@@ -176,7 +181,6 @@ class SearchController < ApplicationController
     end
 
     render :action => 'index'
-    render :text => 'bla'
   end
 
   alias :assets :index

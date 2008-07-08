@@ -483,25 +483,6 @@ module ApplicationHelper
     html.join "\n"
   end
 
-#  def select_city(name, top_level='Nacional')
-#    city_field_name = "#{object}[#{method}]"
-#    state_field_name = "#{object}_#{method}_state"
-#    region_field_name = "#{object}_#{method}_region"
-#
-#    selected_state = nil
-#    selected_region = nil
-#
-#    regions = Region.find_by_name(top_level).children
-#
-#    select_tag(region_field_name, options_for_select(regions.map {|r| [r.name, r.id] } + ['---','']) +
-#    select_tag(state_field_name, options_for_select(['---', ''])) + 
-#    select_tag(city_fied_name, options_for_select(['---',''])) +
-#
-#    observe_field(country_field_name, :update => state_field_name, :url => { :controller => 'geography', :action => 'states' }, :with => 'country' ) +
-#    observe_field(country_field_name, :update => city_field_name, :url => { :controller => 'geography', :action => 'cities_by_country' }, :with => 'country') +
-#    observe_field(state_field_name, :update => city_field_name, :url => { :controller => 'geography', :action => 'cities' }, :with => 'state_id')
-#  end
-
   def file_field_or_thumbnail(label, image, i)
     display_form_field label, (
       render :partial => (image && image.valid? ? 'shared/show_thumbnail' : 'shared/change_image'),
