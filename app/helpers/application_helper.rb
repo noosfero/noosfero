@@ -323,7 +323,7 @@ module ApplicationHelper
         if profile.kind_of?(Community)
           '/images/icons-app/users_size-'+ size.to_s() +'.png'
         else
-          '/images/icons-app/gnome-home_size-'+ size.to_s() +'.png'
+          '/images/icons-app/enterprise-default-pic-'+ size.to_s() +'.png'
         end
       else
         '/images/icons-app/user_icon_size-'+ size.to_s() +'.png'
