@@ -1,0 +1,7 @@
+<% if !@cities.empty? %>
+  <% @cities.each do |city| %>
+    <option value=<%= city.id.to_s.inspect %>><%= city.name %></option>
+  <% end %>
+<% else %>
+  <option value=''>---</option>
+<% end%>
