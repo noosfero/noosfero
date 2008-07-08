@@ -1,22 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class ProductCategoryTest < Test::Unit::TestCase
-  # TODO: please write tests here when ProductCategory has something
-  def test_require_same_class_for_children
-    c1 = ProductCategory.new(:name => 'Some Product Type', :environment => Environment.default)
-    c1.save!
-
-    c2 = Category.new(:name => 'wrong', :environment => Environment.default)
-    c1.children << c2
-
-    assert !c2.valid?
-    assert c2.errors.invalid?(:type)
-
-    c3 = ProductCategory.new(:name => 'right', :environment => Environment.default)
-    c1.children << c3
-    assert c3.valid?
-    assert !c3.errors.invalid?(:type)
-  end
 
   def test_all_products
     c0 = ProductCategory.create!(:name => 'base_cat', :environment => Environment.default)
