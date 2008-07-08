@@ -69,10 +69,7 @@ module DatesHelper
       month = Date.today.month
     end
 
-    # FIXME Date#strftime should translate this for us !!! 
-    monthname = month_name(month.to_i)
-
-    _('%{month} %{year}') % { :year => year, :month => monthname }
+    _('%{month} %{year}') % { :year => year, :month => month_name(month.to_i) }
   end
 
   def link_to_previous_month(year, month)
