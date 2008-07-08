@@ -15,12 +15,14 @@ class CategoryFinder
       options.delete(:within)
     end
 
+    date_range = options.delete(:date_range)
+
     options = {:page => 1, :per_page => options.delete(:limit)}.merge(options)
     if query.blank?
-      asset_class(asset).paginate(:all, options_for_find(asset_class(asset), {:order => "created_at desc, #{asset_table(asset)}.id desc"}.merge(options)))
+      asset_class(asset).paginate(:all, options_for_find(asset_class(asset), {:order => "created_at desc, #{asset_table(asset)}.id desc"}.merge(options), date_range))
     else
       ferret_options = {:page => options.delete(:page), :per_page => options.delete(:per_page)}
-      asset_class(asset).find_by_contents(query, ferret_options, options_for_find(asset_class(asset), options))
+      asset_class(asset).find_by_contents(query, ferret_options, options_for_find(asset_class(asset), options, date_range))
     end
   end
 
@@ -46,9 +48,15 @@ class CategoryFinder
     Event.paginate(:all, {:include => :categories, :conditions => { 'categories.id' => category_id, :start_date => range }}.merge(options))
   end
 
+  def upcoming_events(options = {})
+    options = { :page => 1}.merge(options)
+
+    Event.paginate(:all, {:include => :categories, :conditions => [ 'categories.id = ? and start_date >= ?', category_id, Date.today ], :order => :start_date }.merge(options))
+  end
+
   protected
 
-  def options_for_find(klass, options={})
+  def options_for_find(klass, options={}, date_range = nil)
     if defined? options[:product_category]
       prod_cat = options.delete(:product_category)
       # FIXME this is SLOOOOW
@@ -64,8 +72,16 @@ class CategoryFinder
       else
         {:joins => 'inner join categories_profiles on products.enterprise_id = categories_profiles.profile_id', :conditions => ['categories_profiles.category_id = (?)', category_id]}.merge!(options)
       end
-    when 'Article', 'Event'
+    when 'Article'
       {:joins => 'inner join articles_categories on (articles_categories.article_id = articles.id)', :conditions => ['articles_categories.category_id = (?)', category_id]}.merge!(options)
+    when 'Event'
+      conditions =
+        if date_range
+          ['articles_categories.category_id = (?) and start_date between ? and ?', category_id, date_range.first, date_range.last]
+        else
+          ['articles_categories.category_id = (?) ', category_id ]
+        end
+      {:joins => 'inner join articles_categories on (articles_categories.article_id = articles.id)', :conditions => conditions}.merge!(options)
     when 'Enterprise'
       if prod_cat_ids
         {:joins => 'inner join categories_profiles on (categories_profiles.profile_id = profiles.id) inner join products on (products.enterprise_id = profiles.id)', :conditions => ['categories_profiles.category_id = (?) and products.product_category_id in (?)', category_id, prod_cat_ids]}.merge!(options)

@@ -15,6 +15,8 @@ class EnvironmentFinder
     product_category = options.delete(:product_category)
     product_category_ids = product_category.map_traversal(&:id) if product_category
 
+    date_range = options.delete(:date_range)
+
     options = {:page => 1, :per_page => options.delete(:limit)}.merge(options)
     if query.blank?
       options = {:order => 'created_at desc, id desc'}.merge(options)
@@ -23,7 +25,11 @@ class EnvironmentFinder
       elsif product_category && asset == :enterprises
         @environment.send(asset).paginate(:all, options.merge(:order => 'profiles.created_at desc, profiles.id desc', :include => 'products', :conditions => ['products.product_category_id in (?)', product_category_ids]))
       else
-        @environment.send(asset).paginate(:all, options)
+        if (asset == :events) && date_range
+          @environment.send(asset).paginate(:all, options.merge(:conditions => { :start_date => date_range}))
+        else
+          @environment.send(asset).paginate(:all, options)
+        end
       end
     else
       ferret_options = {:page => options.delete(:page), :per_page => options.delete(:per_page)}

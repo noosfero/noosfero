@@ -647,6 +647,50 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_not_includes assigns(:results)[:events], ev3
   end
 
+  should 'list events for a given month' do
+    person = create_user('testuser').person
+
+    create_event(person, :name => 'upcoming event 1', :category_ids => [@category.id], :start_date => Date.new(2008, 1, 25))
+    create_event(person, :name => 'upcoming event 2', :category_ids => [@category.id], :start_date => Date.new(2008, 2, 27))
+
+    get :assets, :asset => 'events', :year => '2008', :month => '1'
+
+    assert_equal [ 'upcoming event 1' ], assigns(:results)[:events].map(&:name)
+  end
+
+  should 'list events for a given month in a specific category' do
+    person = create_user('testuser').person
+
+    create_event(person, :name => 'upcoming event 1', :category_ids => [@category.id], :start_date => Date.new(2008, 1, 25))
+    create_event(person, :name => 'upcoming event 2', :category_ids => [@category.id], :start_date => Date.new(2008, 2, 27))
+
+    get :assets, :asset => 'events', :category_path => [ 'my-category' ], :year => '2008', :month => '1'
+
+    assert_equal [ 'upcoming event 1' ], assigns(:results)[:events].map(&:name)
+  end
+
+  should 'list upcoming events in a specific category' do
+    person = create_user('testuser').person
+
+    # today is January 15th, 2008
+    Date.expects(:today).returns(Date.new(2008,1,15)).at_least_once
+
+    # in category, but in the past
+    create_event(person, :name => 'past event', :category_ids => [@category.id], :start_date => Date.new(2008, 1, 1))
+
+    # in category, upcoming
+    create_event(person, :name => 'upcoming event 1', :category_ids => [@category.id], :start_date => Date.new(2008, 1, 25))
+    create_event(person, :name => 'upcoming event 2', :category_ids => [@category.id], :start_date => Date.new(2008, 1, 27))
+
+    # not in category
+    create_event(person, :name => 'event not in category')
+
+    get :category_index, :category_path => ['my-category']
+
+    assert_equal [ 'upcoming event 1', 'upcoming event 2' ], assigns(:results)[:events].map(&:name)
+  end
+
+
   %w[ people enterprises articles events communities products ].each do |asset|
     should "render asset-specific template when searching for #{asset}" do
       get :index, :find_in => [ asset ]

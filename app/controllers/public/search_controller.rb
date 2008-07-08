@@ -89,22 +89,26 @@ class SearchController < ApplicationController
   def load_product_categories_menu(asset)
     @results[asset].uniq!
     @categories_menu = ProductCategory.menu_categories(@product_category, environment).map do |cat|
-      hits = @finder.count(asset, @filtered_query, calculate_find_options(asset, nil, nil, cat, @region, params[:radius]))
+      hits = @finder.count(asset, @filtered_query, calculate_find_options(asset, nil, nil, cat, @region, params[:radius], nil, nil))
       childs = []
       # REFACTOR DUPLICATED CODE inner loop doing the same thing that outter loop
       childs = cat.children.map do |child|
-        child_hits = @finder.count(asset, @filtered_query, calculate_find_options(asset, nil, nil, child, @region, params[:radius]))
+        child_hits = @finder.count(asset, @filtered_query, calculate_find_options(asset, nil, nil, child, @region, params[:radius], nil, nil))
         [child, child_hits]
       end.select{|child, child_hits| child_hits > 0 }
       [cat, hits, childs]
     end.select{|cat, hits| hits > 0 }
   end
 
-  def calculate_find_options(asset, limit, page, product_category, region, radius)
+  def calculate_find_options(asset, limit, page, product_category, region, radius, year, month)
 
     result = { :product_category => product_category, :per_page => limit, :page => page }
     if [:enterprises, :people].include?(asset) && region
       result.merge!(:within => radius, :region => region.id)
+    end
+
+    if month || year
+      result[:date_range] = Event.date_range(year, month)
     end
 
     result
@@ -154,7 +158,7 @@ class SearchController < ApplicationController
 
     SEARCH_IN.select { |key,description| @searching[key]  }.each do |key, description|
       @order << key
-      @results[key] = @finder.find(key, @filtered_query, calculate_find_options(key, limit, params[:page], @product_category, @region, params[:radius])) 
+      @results[key] = @finder.find(key, @filtered_query, calculate_find_options(key, limit, params[:page], @product_category, @region, params[:radius], params[:year], params[:month]))
       @names[key] = gettext(description)
     end
 
@@ -184,7 +188,7 @@ class SearchController < ApplicationController
       [ :people, _('Newer people'), @finder.recent('people', limit) ],
       [ :enterprises, _('Newer enterprises'), @finder.recent('enterprises', limit) ],
       [ :products, ('Newer products'), @finder.recent('products', limit) ],
-      [ :events, _('Near events TODO'), @finder.current_events(params[:year], params[:month], {:per_page => limit}) ],
+      [ :events, _('Upcoming events'), @finder.upcoming_events({:per_page => limit}) ],
       [ :communities, _('Newer communities'), @finder.recent('communities', limit) ],
       [ :articles, _('Newer articles'), @finder.recent('articles', limit) ],
       [ :most_commented_articles, _('Most commented articles'), @finder.most_commented_articles(limit) ]

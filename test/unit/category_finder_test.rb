@@ -290,6 +290,34 @@ class CategoryFinderTest < ActiveSupport::TestCase
     assert_respond_to events, :total_entries
   end
 
+  should 'list upcoming events' do
+    person = create_user('testuser').person
+
+    Date.expects(:today).returns(Date.new(2008, 1, 15)).at_least_once
+
+    past_event = Event.create!(:name => 'past event', :profile => person, :start_date => Date.new(2008,1,1), :category_ids => [@category.id])
+
+    # event 2 is created after, but must be listed before (since it happens before)
+    upcoming_event_2 = Event.create!(:name => 'upcoming event 2', :profile => person, :start_date => Date.new(2008,1,25), :category_ids => [@category.id])
+    upcoming_event_1 = Event.create!(:name => 'upcoming event 1', :profile => person, :start_date => Date.new(2008,1,20), :category_ids => [@category.id])
+    not_in_category = Event.create!(:name => 'e1', :profile => person, :start_date => Date.new(2008,1,20))
+
+    assert_equal [upcoming_event_1, upcoming_event_2], @finder.upcoming_events
+  end
+
+  should 'limit events' do
+    person = create_user('testuser').person
+
+    Date.expects(:today).returns(Date.new(2008, 1, 15)).at_least_once
+
+    past_event = Event.create!(:name => 'past event', :profile => person, :start_date => Date.new(2008,1,1), :category_ids => [@category.id])
+    upcoming_event_1 = Event.create!(:name => 'upcoming event 1', :profile => person, :start_date => Date.new(2008,1,20), :category_ids => [@category.id])
+    upcoming_event_2 = Event.create!(:name => 'upcoming event 2', :profile => person, :start_date => Date.new(2008,1,25), :category_ids => [@category.id])
+    not_in_category = Event.create!(:name => 'e1', :profile => person, :start_date => Date.new(2008,1,20))
+
+    assert_equal [upcoming_event_1], @finder.upcoming_events(:per_page => 1)
+  end
+
   should 'find person and enterprise in category by radius and region even without query' do
     cat = Category.create!(:name => 'test category', :environment => Environment.default)
     finder = CategoryFinder.new(cat)
