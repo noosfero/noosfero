@@ -63,24 +63,25 @@ class Event < Article
     result = ''
     html = Builder::XmlMarkup.new(:target => result)
 
-    html.div {
-      html.ul {
+    html.div(:class => 'event-info' ) {
+
+      html.ul(:class => 'event-data' ) {
+        html.li(:class => 'event-dates' ) {
+          html.span _('When:')
+          html.text! show_period(start_date, end_date)
+        }
         html.li {
-          html.strong _('URL:')
+          html.span _('URL:')
           html.a(self.link || "", 'href' => self.link || "")
         }
         html.li {
-          html.strong _('Address:')
+          html.span _('Address:')
           html.text! self.address || ""
-        }
-        html.li {
-          html.strong _('When:')
-          html.text! show_period(start_date, end_date)
         }
       }
 
       if self.description
-        html.div '_____XXXX_DESCRIPTION_GOES_HERE_XXXX_____'
+        html.div('_____XXXX_DESCRIPTION_GOES_HERE_XXXX_____', :class => 'event-description') 
       end
     }
 

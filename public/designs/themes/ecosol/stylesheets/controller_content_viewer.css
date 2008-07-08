@@ -16,3 +16,18 @@
   color: #058;
 }
 
+
+div.event-info {
+  -moz-border-radius: 20px;
+  background-color: #B8CFE7;
+}
+
+li.event-dates {
+  border: 1px solid #729FCF;
+  -moz-border-radius: 5px;
+}
+
+div.event-info div.event-description {
+  border: 1px solid #729FCF;
+  -moz-border-radius: 10px;
+}

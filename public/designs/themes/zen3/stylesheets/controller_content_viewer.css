@@ -12,3 +12,15 @@
   margin-bottom: 20px;
 }
 
+div.event-info {
+  background: #FEA;
+  border: 2px solid #fcaf3e;
+}
+
+li.event-dates {
+  border: 1px solid #fcaf3e;
+}
+
+div.event-info div.event-description {
+  border: 1px solid #fcaf3e;
+}

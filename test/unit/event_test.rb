@@ -132,7 +132,7 @@ class EventTest < ActiveSupport::TestCase
   should 'provide nice display format' do
     e = Event.new(:start_date => Date.new(2008,1,1), :end_date => Date.new(2008,1,1), :link => 'http://www.myevent.org', :description => 'my somewhat short description')
 
-    assert_tag_in_string e.to_html, :content => Regexp.new("1 January 2008")
+    assert_tag_in_string e.to_html, :content => Regexp.new("January 1, 2008")
     assert_tag_in_string e.to_html, :content => 'my somewhat short description'
     assert_tag_in_string e.to_html, :tag => 'a', :attributes => { :href  => 'http://www.myevent.org' }, :content => 'http://www.myevent.org'
     
