@@ -68,12 +68,13 @@ class EnterpriseTest < Test::Unit::TestCase
     assert e.boxes[0].blocks.map(&:class).include?(MainBlock), 'enterprise must have a MainBlock upon creation'
 
     assert e.boxes[1].blocks.map(&:class).include?(ProfileInfoBlock), 'enterprise must have a ProfileInfoBlock upon creation'
+    assert e.boxes[1].blocks.map(&:class).include?(ProductsBlock), 'enterprise must have a ProductsBlock upon creation'
     assert e.boxes[1].blocks.map(&:class).include?(RecentDocumentsBlock), 'enterprise must have a RecentDocumentsBlock upon creation'
 
     assert e.boxes[2].blocks.map(&:class).include?(MembersBlock), 'enterprise must have a MembersBlock upon creation'
     assert e.boxes[2].blocks.map(&:class).include?(TagsBlock), 'enterprise must have a TagsBlock upon creation'
 
-    assert_equal 5,  e.blocks.size
+    assert_equal 6,  e.blocks.size
   end
 
   should 'be found in search for its product categories' do

@@ -70,33 +70,13 @@ class Person < Profile
     end
   end
 
-  # FIXME this is *weird*, because this class is not inheriting the callback
-  # from Profile !!! 
-  hacked_after_create :create_default_set_of_boxes_for_person
-  def create_default_set_of_boxes_for_person
-    3.times do
-      self.boxes << Box.new
-    end
-
-    # main area
-    self.boxes.first.blocks << MainBlock.new
-
-    # "left" area
-    self.boxes[1].blocks << ProfileInfoBlock.new
-    self.boxes[1].blocks << RecentDocumentsBlock.new
-
-    # right area
-    self.boxes[2].blocks << TagsBlock.new
-    self.boxes[2].blocks << FriendsBlock.new
-    self.boxes[2].blocks << CommunitiesBlock.new
-    self.boxes[2].blocks << EnterprisesBlock.new
-      
-    true
+  def default_set_of_blocks
+    [
+      [MainBlock],
+      [ProfileInfoBlock, RecentDocumentsBlock],
+      [TagsBlock, FriendsBlock, CommunitiesBlock, EnterprisesBlock]
+    ]
   end
-
-  # FIXME this is *weird*, because this class is not inheriting the callbacks
-  before_create :set_default_environment
-  hacked_after_create :insert_default_homepage_and_feed
 
   def name
     if !self[:name].blank?

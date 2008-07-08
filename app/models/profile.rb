@@ -166,7 +166,7 @@ class Profile < ActiveRecord::Base
   end
 
   # registar callback for creating boxes after the object is created. 
-  hacked_after_create :create_default_set_of_boxes
+  after_create :create_default_set_of_boxes
   
   # creates the initial set of boxes when the profile is created. Can be
   # overriden for each subclass to create a custom set of boxes for its
@@ -175,6 +175,15 @@ class Profile < ActiveRecord::Base
     3.times do
       self.boxes << Box.new
     end
+
+    if self.respond_to?(:default_set_of_blocks)
+      default_set_of_blocks.each_with_index do |blocks,i|
+        blocks.each do |block|
+          self.boxes[i].blocks << block.new
+        end
+      end
+    end
+
     true
   end
 
@@ -300,7 +309,7 @@ class Profile < ActiveRecord::Base
     false
   end
 
-  hacked_after_create :insert_default_homepage_and_feed
+  after_create :insert_default_homepage_and_feed
   def insert_default_homepage_and_feed
     hp = TinyMceArticle.new(:name => _("%s's home page") % self.name, :body => _("<p>This is a default homepage created for %s. It can be changed though the control panel.</p>") % self.name, :advertise => false)
     hp.profile = self

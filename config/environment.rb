@@ -101,7 +101,6 @@ require 'acts_as_searchable'
 require 'acts_as_having_boxes'
 require 'acts_as_having_settings'
 require 'acts_as_having_image'
-require 'hacked_after_create'
 require 'sqlite_extension'
 require 'will_paginate'
 

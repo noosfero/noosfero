@@ -54,18 +54,12 @@ class Organization < Profile
     true
   end
 
-  hacked_after_create :create_default_set_of_blocks_for_organization
-  def create_default_set_of_blocks_for_organization
-    # "main" area
-    self.boxes[0].blocks << MainBlock.new
-    
-    # "left" area
-    self.boxes[1].blocks << ProfileInfoBlock.new
-    self.boxes[1].blocks << RecentDocumentsBlock.new
-
-    # "right" area
-    self.boxes[2].blocks << MembersBlock.new
-    self.boxes[2].blocks << TagsBlock.new
+  def default_set_of_blocks
+    [
+      [MainBlock],
+      [ProfileInfoBlock, RecentDocumentsBlock],
+      [MembersBlock, TagsBlock]
+    ]
   end
 
 end

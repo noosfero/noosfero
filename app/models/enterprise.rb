@@ -57,4 +57,13 @@ class Enterprise < Organization
     end
   end
 
+
+  def default_set_of_blocks
+    [
+      [MainBlock],
+      [ProfileInfoBlock, ProductsBlock, RecentDocumentsBlock],
+      [MembersBlock, TagsBlock]
+    ]
+  end
+
 end
