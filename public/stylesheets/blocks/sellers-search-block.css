@@ -36,6 +36,11 @@
   width: 120px;
 }
 
+.sellers-search-block select {
+  width: 160px;
+  font-size: 11px;
+}
+
 .sellers-search-block .button-bar {
   text-align: right;
   padding: 0px 10px 0px 0px;
