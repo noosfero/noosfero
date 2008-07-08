@@ -39,6 +39,11 @@ a:hover {
   color: #EA0;
 }
 
+hr {
+  border: none;
+  border-top: 2px dotted #CE5C00;
+}
+
 ul li {
   list-style: url(../images/list-dot.gif);
 }

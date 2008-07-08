@@ -25,13 +25,26 @@ ul.categories li.cat_checked {
   border-bottom: 1px solid #CE5C00;
 }
 
-div.file-manager
-div.file-manager-button a:hover {
+.file-manager
+.file-manager-button a:hover {
   background: #FCAF3E !important;
   color: #000 !important;
   border-color: #CE5C00;
 }
 
-div#profile-editor-index div.control-panel {
-  background: #FFE890;
+#profile-editor-index .control-panel {
 }
+
+#profile-editor-index .file-manager {
+  background: #FFE890;
+  padding: 0px 0px 0px 10px;
+  border: 2px solid #CE5C00;
+}
+.msie6 #profile-editor-index .file-manager div {
+  position: relative;
+}
+
+.button-bar {
+  margin-bottom: 5px;
+}
+

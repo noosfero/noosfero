@@ -54,14 +54,6 @@ div.file-manager-button a {
   overflow: hidden;
   font-size: 90%;
   text-decoration: none;
+  line-height: 100%;
 }
 
-div.file-manager
-div.file-manager-button a:hover {
-  -moz-border-radius: 15px;
-}
-
-div#profile-editor-index div.control-panel {
-  padding: 10px;
-  -moz-border-radius: 15px;
-}

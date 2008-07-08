@@ -70,6 +70,10 @@ body.category4 #content h4, body.category4 #content h5, body.category4 #content 
   list-style: url(../images/list-dot.gif);
 }
 
+hr {
+  border: none;
+  border-top: 2px dotted #2A5896;
+}
 
 #lightbox{
   background: #FFF url(../images/bg-top-cinza.jpg) no-repeat 50% -15px;

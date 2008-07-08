@@ -21,13 +21,30 @@
   background: #B8CFE7;
 }
 
-div.file-manager
-div.file-manager-button a:hover {
+.file-manager
+.file-manager-button a:hover {
   color: #006;
   border-color: #2A5896;
   background-color: #CFDFF7;
+  -moz-border-radius: 15px;
 }
 
-div#profile-editor-index div.control-panel {
-  background: #B8CFE7;
+#profile-editor-index .control-panel {
 }
+
+#profile-editor-index .file-manager {
+  background: #B8CFE7;
+  -moz-border-radius: 25px;
+  padding: 0px 0px 0px 10px;
+}
+.msie #profile-editor-index .file-manager {
+  border: 2px solid #2A5896;
+}
+.msie6 #profile-editor-index .file-manager div {
+  position: relative;
+}
+
+.button-bar {
+  margin-bottom: 5px;
+}
+

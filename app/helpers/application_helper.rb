@@ -167,7 +167,11 @@ module ApplicationHelper
   end
 
   def file_manager(&block)
-    concat(content_tag('div', capture(&block), :class => 'file-manager') + "<br style='clear: left;'/>", block.binding)
+    concat(
+      content_tag('div',
+        content_tag('div', capture(&block) + '<br style="clear:left;"/>&nbsp;'),
+        :class => 'file-manager'),
+      block.binding)
   end
 
   def file_manager_button(title, icon, url)
