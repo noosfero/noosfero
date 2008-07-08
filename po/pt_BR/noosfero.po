@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.10.1\n"
 "POT-Creation-Date: 2008-06-27 14:57-0300\n"
-"PO-Revision-Date: 2008-06-27 14:54-0300\n"
+"PO-Revision-Date: 2008-07-08 18:56-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -160,7 +160,7 @@ msgstr "%d de %B de %Y, %H:%m"
 
 #: app/helpers/dates_helper.rb:42
 msgid "from %s to %s"
-msgstr "de %s para %s"
+msgstr "%s a %s"
 
 #: app/helpers/dates_helper.rb:49
 msgid "Sunday"
