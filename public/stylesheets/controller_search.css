@@ -151,16 +151,20 @@
 }
 
 #content .search-results-type-article ul,
-#content .search-results-type-article li {
+#content .search-results-type-article ul,
+#content .search-results-type-event ul,
+#content .search-results-type-event li {
   margin: 0px;
   padding: 0px;
   list-style: none;
 }
-#content .search-results-type-article li {
+#content .search-results-type-article li,
+#content .search-results-type-event li {
   padding: 2px 0px 4px 0px;
 }
 
-.search-results-type-article .item_meta {
+.search-results-type-article .item_meta,
+.search-results-type-event .item_meta {
   font-size: 10px;
   color: #888;
 }

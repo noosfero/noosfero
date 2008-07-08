@@ -138,6 +138,12 @@ class EventTest < ActiveSupport::TestCase
     
   end
 
+  should 'not crash when description is blank' do
+    e = Event.new
+    assert_nil e.description
+    assert_no_match(/_____XXXX_DESCRIPTION_GOES_HERE_XXXX_____/, e.to_html)
+  end
+
   should 'add http:// to the link if not already present' do
     a = Event.new(:link => 'www.nohttp.net')
     assert_equal 'http://www.nohttp.net', a.link

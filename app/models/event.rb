@@ -79,10 +79,16 @@ class Event < Article
         }
       }
 
-      html.div '_____XXXX_DESCRIPTION_GOES_HERE_XXXX_____'
+      if self.description
+        html.div '_____XXXX_DESCRIPTION_GOES_HERE_XXXX_____'
+      end
     }
 
-    result.sub('_____XXXX_DESCRIPTION_GOES_HERE_XXXX_____', self.description)
+    if self.description
+      result.sub!('_____XXXX_DESCRIPTION_GOES_HERE_XXXX_____', self.description)
+    end
+
+    result
   end
 
   def link=(value)

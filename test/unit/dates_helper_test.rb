@@ -4,6 +4,17 @@ class DatesHelperTest < Test::Unit::TestCase
 
   include DatesHelper
 
+  should 'translate month names' do
+    expects(:_).with('January').returns('Janeiro')
+    assert_equal "Janeiro", month_name(1)
+  end
+
+  should 'display date with translation' do
+    expects(:_).with('%{month} %{day}, %{year}').returns('%{day} de %{month} de %{year}')
+    expects(:_).with('January').returns('Janeiro')
+    assert_equal '11 de Janeiro de 2008', show_date(Date.new(2008, 1, 11))
+  end
+
   should 'generate period with two dates' do
     date1 = mock
     expects(:show_date).with(date1).returns('XXX')

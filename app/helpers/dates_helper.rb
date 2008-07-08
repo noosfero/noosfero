@@ -17,10 +17,14 @@ module DatesHelper
     N_('December')
   ]
 
+  def month_name(n)
+    _(MONTHS[n-1])
+  end
+
   # formats a date for displaying.
   def show_date(date)
     if date
-      date.strftime(_('%d %B %Y'))
+      _('%{month} %{day}, %{year}') % { :day => date.day, :month => month_name(date.month), :year => date.year }
     else
       ''
     end
@@ -66,7 +70,7 @@ module DatesHelper
     end
 
     # FIXME Date#strftime should translate this for us !!! 
-    monthname = _(MONTHS[month.to_i - 1])
+    monthname = month_name(month.to_i)
 
     _('%{month} %{year}') % { :year => year, :month => monthname }
   end
