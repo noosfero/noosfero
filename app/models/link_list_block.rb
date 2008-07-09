@@ -1,6 +1,5 @@
 class LinkListBlock < Block
 
-  settings_items :title, String
   settings_items :links, Array, :default => []
 
   before_save do |block|

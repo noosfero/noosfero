@@ -1,3 +1,21 @@
+#edit-link-list-block {
+  overflow: auto;
+  overflow-x: hidden;
+  height: 120px;
+}
+ 
+#edit-link-list-block table {
+  width: 100%;
+}
+
+#edit-link-list-block table .cel-address {
+  width: 300px;
+}
+
+#edit-link-list-block table .cel-address input {
+  width: 100%;
+}
+
 #content .link-list-block {
   padding: 10px 20px 10px 10px;
   

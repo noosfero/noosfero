@@ -1,9 +1,4 @@
 <p>
-<label for='block_title'><strong><%= _('Block title') %></strong></label>
-<%= text_field_tag 'block[title]', @block.title %>
-</p>
-
-<p>
 <strong><%= _('Links') %></strong>
 <div id='edit-link-list-block'>
 <table id='links' class='noborder'>
@@ -14,14 +9,11 @@
       <td class='cel-address'><%= text_field_tag 'block[links][][address]', link[:address] %></td>
     </tr>
   <% end %>
-  <tr>
-  <td><%= text_field_tag 'block[links][][name]' %></td>
-  <td class='cel-address'><%= text_field_tag 'block[links][][address]' %></td>
-  </tr>
 </table>
 </div>
 </p>
 
 <%= link_to_function(_('New link'), nil, :class => 'button icon-add with-text') do |page|
-        page.insert_html :bottom, 'links', content_tag('tr', content_tag('td',text_field_tag('block[links][][name]')) + content_tag('td',text_field_tag('block[links][][address]', nil, :class => 'cel-address')))
+      page.insert_html :bottom, 'links', content_tag('tr', content_tag('td',text_field_tag('block[links][][name]')) + content_tag('td',text_field_tag('block[links][][address]', nil, :class => 'cel-address'))) +
+        javascript_tag("$('edit-link-list-block').scrollTop = $('edit-link-list-block').scrollHeight")
 end %>
