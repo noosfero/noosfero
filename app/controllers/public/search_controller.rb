@@ -94,7 +94,7 @@ class SearchController < ApplicationController
       childs = []
       if hits > 0
         childs = cat.children.map do |child|
-          child_hits = @finder.count(asset, @filtered_query, calculate_find_options(asset, nil, nil, child, @region, params[:radius]))
+          child_hits = @finder.count(asset, @filtered_query, calculate_find_options(asset, nil, nil, child, @region, params[:radius], nil, nil))
           [child, child_hits]
         end.select{|child, child_hits| child_hits > 0 }
       end
