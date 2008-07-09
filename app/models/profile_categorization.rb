@@ -18,4 +18,12 @@ class ProfileCategorization < ActiveRecord::Base
     self.delete_all(:profile_id => profile.id)
   end
 
+  def self.remove_region(profile)
+    region = profile.categories.find(:first, :conditions => "type = 'Region'")
+    if region
+      ids = region.hierarchy.map(&:id)
+      self.delete_all(:profile_id => profile.id, :category_id => ids)
+    end
+  end
+
 end

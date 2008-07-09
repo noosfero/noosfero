@@ -377,11 +377,9 @@ class Profile < ActiveRecord::Base
 
   after_save :update_category_from_region
   def update_category_from_region
-    categories.find(:all, :conditions => "type = 'Region'").each do |cat|
-      categories.delete(cat)
-    end
+    ProfileCategorization.remove_region(self)
     if region
-      categories << region
+      self.add_category(region)
     end
   end
 

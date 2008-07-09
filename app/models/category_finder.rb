@@ -51,7 +51,7 @@ class CategoryFinder
   def upcoming_events(options = {})
     options = { :page => 1}.merge(options)
 
-    Event.paginate(:all, {:include => :categories, :conditions => [ 'categories.id = ? and start_date >= ?', category_id, Date.today ], :order => :start_date }.merge(options))
+    Event.paginate(:all, {:include => :categories, :conditions => [ 'categories.id = ? and start_date >= ?', category_id, Date.today ], :order => 'start_date' }.merge(options))
   end
 
   protected

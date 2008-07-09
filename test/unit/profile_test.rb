@@ -516,8 +516,9 @@ class ProfileTest < Test::Unit::TestCase
   end
 
   should 'index profile identifier for searching' do
-    p = Profile.create!(:identifier => 'testprofile', :name => 'Interesting Profile')
-    assert_includes Profile.find_by_contents('testprofile'), p
+    Profile.destroy_all
+    p = Profile.create!(:identifier => 'lalala', :name => 'Interesting Profile')
+    assert_includes Profile.find_by_contents('lalala'), p
   end
 
   should 'index profile name for searching' do
@@ -636,6 +637,18 @@ class ProfileTest < Test::Unit::TestCase
     profile.update_attributes!(:category_ids => [category2.id])
 
     assert_includes profile.categories(true), region
+  end
+
+  should 'be able to update region and not get categories removed' do
+    region = Region.create!(:name => "Salvador", :environment => Environment.default)
+    category = Category.create!(:name => 'test category', :environment => Environment.default)
+    profile = Profile.create!(:name => 'testprofile', :identifier => 'testprofile', :region => region, :category_ids => [category.id])
+
+    region2 = Region.create!(:name => "Aracaju", :environment => Environment.default)
+
+    profile.update_attributes!(:region => region2)
+
+    assert_includes profile.categories(true), category
   end
 
   should 'not accept product category as category' do
