@@ -34,13 +34,6 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_no_match %r{@import url(/stylesheets/something.css)}, stylesheet_import('something')
   end
 
-  should 'translate date' do
-    date = mock
-    expects(:_).with('%d %B %Y').returns('the date')
-    date.expects(:strftime).with('the date').returns('translated date')
-    assert_equal 'translated date', show_date(date)
-  end
-
   should 'handle nil dates' do
     assert_equal '', show_date(nil)
   end
