@@ -41,9 +41,9 @@ module SearchHelper
 
   def display_item_map_info(item)
     if item.kind_of?(Profile)
-      display_profile_info
+      display_profile_info(item)
     elsif item.kind_of?(Product)
-      display_product_info
+      display_product_info(item)
     end
   end
   
@@ -75,6 +75,24 @@ module SearchHelper
       ),
       :class => 'profile-info'
     )
+  end
+
+  def display_product_info(product)
+    data = ''
+    unless product.price.nil?
+      data << content_tag('strong', _('Price: ')) + product.price + '<br/>'
+    end
+    unless product.enterprise.nil?
+      data << content_tag('strong', _('Provider: ')) + link_to_profile(product.enterprise.name, product.enterprise.identifier)
+    end
+    unless product.product_category.nil?
+      data << content_tag('strong', _('Category: ')) + link_to(product.product_category.name, :controller => 'search', :action => 'assets', :asset => 'products', :product_category => product.product_category.id)
+    end
+    content_tag('table',
+      content_tag('tr',
+        content_tag('td', content_tag('div', image_tag(product.image ? product.image.public_filename(:thumb) : '/images/icons-app/product-default-pic-portrait.png'), :class => 'profile-info-picture')) +
+        content_tag('td', content_tag('strong', link_to(product.name, :controller => 'catalog', :profile => product.enterprise.identifier, :action => 'show', :id => product)) + '<br/>' + data)
+        ), :class => 'profile-info')
   end
 
   def pagination_links(collection, options={})

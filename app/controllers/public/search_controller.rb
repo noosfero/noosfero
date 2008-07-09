@@ -120,7 +120,11 @@ class SearchController < ApplicationController
   # TODO: dont hardcore like this
   def limit
     searching = @searching.values.select{|v|v}
-    (searching.size == 1) ? 10 : 6
+    if params[:display] == 'map'
+      100
+    else
+      (searching.size == 1) ? 20 : 6
+    end
   end
 
   public
