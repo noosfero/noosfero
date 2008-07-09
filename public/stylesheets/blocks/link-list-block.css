@@ -1,0 +1,20 @@
+#content .link-list-block {
+  padding: 10px 20px 10px 10px;
+  
+}
+
+.link-list-block ul {
+  padding: 0px;
+  margin: 0px;
+}
+
+#content .link-list-block li {
+  padding: 2px 0px 2px 8px;
+  margin: 2px 0px 0px 0px;
+  list-style: none;
+  background: #B8CFE7;
+}
+
+.link-list-block a {
+  text-decoration: none;
+}
