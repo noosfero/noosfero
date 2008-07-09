@@ -659,6 +659,11 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal '', p.location
   end
 
+  should 'default home page is a TinyMceArticle' do
+    profile = Profile.create!(:identifier => 'newprofile', :name => 'New Profile')
+    assert_kind_of TinyMceArticle, profile.home_page
+  end
+
   private
 
   def assert_invalid_identifier(id)

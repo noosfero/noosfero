@@ -66,4 +66,10 @@ class Enterprise < Organization
     ]
   end
 
+  protected
+
+  def default_homepage(attrs)
+    EnterpriseHomepage.new(attrs)
+  end
+
 end

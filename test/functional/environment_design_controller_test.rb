@@ -29,7 +29,7 @@ class EnvironmentDesignControllerTest < Test::Unit::TestCase
 
   should 'be able to edit LinkListBlock' do
     login_as(create_admin_user(Environment.default))
-    l = LinkListBlock.create!()
+    l = LinkListBlock.create!(:links => [{:name => 'link 1', :address => '/address_1'}])
     Environment.default.boxes.create!
     Environment.default.boxes.first.blocks << l
     get :edit, :id => l.id

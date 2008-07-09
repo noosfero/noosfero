@@ -192,4 +192,10 @@ class EnterpriseTest < Test::Unit::TestCase
 
     assert_equal [full_name], ent.product_categories
   end
+
+  should 'default home page is a EnterpriseHomepage' do
+    enterprise = Enterprise.create!(:name => 'my test enterprise', :identifier => 'myenterprise')
+    assert_kind_of EnterpriseHomepage, enterprise.home_page
+  end
+
 end

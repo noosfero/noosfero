@@ -316,7 +316,7 @@ class Profile < ActiveRecord::Base
 
   after_create :insert_default_homepage_and_feed
   def insert_default_homepage_and_feed
-    hp = TinyMceArticle.new(:name => _("%s's home page") % self.name, :body => _("<p>This is a default homepage created for %s. It can be changed though the control panel.</p>") % self.name, :advertise => false)
+    hp = default_homepage(:name => _("%s's home page") % self.name, :body => _("<p>This is a default homepage created for %s. It can be changed though the control panel.</p>") % self.name, :advertise => false)
     hp.profile = self
     hp.save!
     self.home_page = hp
@@ -388,6 +388,10 @@ class Profile < ActiveRecord::Base
   def accept_category?(cat)
     forbidden = [ ProductCategory, Region ]
     !forbidden.include?(cat.class)
+  end
+
+  def default_homepage(attrs)
+    TinyMceArticle.new(attrs)
   end
 
 end
