@@ -88,8 +88,6 @@ class Profile < ActiveRecord::Base
   has_many :domains, :as => :owner
   belongs_to :environment
 
-  has_many :role_assignments, :as => :resource
-
   has_many :articles, :dependent => :destroy
   belongs_to :home_page, :class_name => Article.name, :foreign_key => 'home_page_id'
 

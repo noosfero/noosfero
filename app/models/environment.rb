@@ -65,7 +65,8 @@ class Environment < ActiveRecord::Base
 
   has_many :regions
 
-  has_many :role_assignments, :as => 'resource'
+  acts_as_accessible
+
   def superior_intances
     [self, nil]
   end
