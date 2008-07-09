@@ -1,22 +1,8 @@
-<% if @query.blank? %>
-  <h1>
-    <% if @category %>
-      <%= @category.name %>:<br/>
-    <% end %>
-
-    <%= @asset_name %>
-    <% if params[:initial] %>
-      <%= '(%s)' % params[:initial].upcase %>
-    <% else %>
-      <%= _('(recently added)') %>
-    <% end %>
-  </h1>
-<% else %>
-  <h1> <%= @asset_name %>: <%= h(@category ? (_('Search results for "%{query}" in "%{category}"') % { :query => @query, :category => @category.name}) : (_('Search results for "%s"') % @query)) %> </h1>
-  <div style='text-align: center'>
-    <%= link_to _('Browse by name'), :action => 'assets', :asset => @results.keys.first %>
-  </div>
-<% end %>
+<%= search_page_title( _('People'), { :query => @query, 
+                                      :category => @category, 
+                                      :total_results => @total_results, 
+                                      :region => @region ? @region.name : nil, 
+                                      :distance => @radius } ) %>
 
 <%= render :partial => 'search_form', :locals => { :form_title => @query.blank? ? _('Search') : _("Refine your search"), :simple_search => true } %>
 

@@ -1,14 +1,8 @@
-<h1> 
-  <% if !@query.blank? %>
-      <%=h @category ? (_('Products and Services results for "%{query}" of enterprises in "%{category}"') % { :query => @query, :category => @category.name}) : (_('Products and Services results for "%s"') % @query) %> 
-  <% else %>
-    <%=h @category ? (_('Products and Services of enterprises in "%s"') % @category.name) : _('Products and Services') %>
-  <% end %>
-</h1>
-
-<% if @radius && @region %>
-  <h2><%=h (_('Within %s km from %s') % [@radius, @region.name]) %><h2>
-<% end %>
+<%= search_page_title( _('Products and Services'), { :query => @query, 
+                                                     :category => @category, 
+                                                     :total_results => @total_results, 
+                                                     :region => @region ? @region.name : nil, 
+                                                     :distance => @radius } ) %>
 
 <%= render :partial => 'search_form', :locals => { :form_title => _("Refine your search"), :simple_search => true } %>
 

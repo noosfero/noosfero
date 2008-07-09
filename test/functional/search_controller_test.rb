@@ -354,8 +354,9 @@ class SearchControllerTest < Test::Unit::TestCase
   should 'display option to search within a given point and distance' do
     get :popup
 
-    assert_tag :tag => 'input', :attributes => {:type => 'text', :name => 'radius'}
-    assert_tag :tag => 'input', :attributes => {:type => 'text', :name => 'region[name]'}
+    assert_tag :tag => 'select', :attributes => {:name => 'radius'}
+    assert_tag :tag => 'select', :attributes => {:name => 'state'}
+    assert_tag :tag => 'select', :attributes => {:name => 'city'}
   end
 
   should 'search in whole site when told so' do
@@ -489,7 +490,8 @@ class SearchControllerTest < Test::Unit::TestCase
     child = Category.create!(:name => "Child Category", :environment => Environment.default, :parent => parent)
 
     get :index, :category_path => [ 'parent-category', 'child-category' ], :query => 'a sample search'
-    assert_tag :tag => 'h1', :content => /Search results for &quot;a sample search&quot; in &quot;Child Category&quot;/
+    assert_tag :tag => 'h2', :content => /Searched for 'a sample search'/
+    assert_tag :tag => 'h2', :content => /In category Child Category/
   end
 
   should 'search in category hierachy' do
@@ -883,6 +885,18 @@ class SearchControllerTest < Test::Unit::TestCase
   should 'submit search form to /search when viewing asset' do
     get :index, :asset => 'people'
     assert_tag :tag => "form", :attributes => { :class => 'search_form', :action => '/search' }
+  end
+
+  should 'treat blank input for the city id' do
+    get :index, :city => ''
+
+    assert_equal nil, assigns(:region)
+  end
+  
+  should 'treat non-numeric input for the city id' do
+    get :index, :city => 'bla'
+
+    assert_equal nil, assigns(:region)
   end
 
   ##################################################################

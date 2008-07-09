@@ -158,8 +158,7 @@ class SearchController < ApplicationController
     @filtered_query = remove_stop_words(@query)
     @product_category = ProductCategory.find(params[:product_category]) if params[:product_category]
 
-    # FIXME name is not unique
-    @region = City.find_by_id(params[:city]) if params[:city]
+    @region = City.find_by_id(params[:city]) if !params[:city].blank? && params[:city] =~ /^\d+$/
 
     # how many assets we are searching for?
     number_of_result_assets = @searching.values.select{|v| v}.size
