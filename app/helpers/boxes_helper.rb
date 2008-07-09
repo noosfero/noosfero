@@ -130,7 +130,7 @@ module BoxesHelper
     end
 
     if block.editable?
-      buttons << lightbox_icon_button(:edit, _('Edit'), { :controller => 'profile_design', :action => 'edit', :id => block.id })
+      buttons << lightbox_icon_button(:edit, _('Edit'), { :action => 'edit', :id => block.id })
     end
 
     if !block.main?

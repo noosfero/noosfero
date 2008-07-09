@@ -218,6 +218,7 @@ div#notice {
 }
 
 /* tables */
+
 table {
   border-collapse: collapse;
 }
@@ -241,6 +242,24 @@ table.cms-articles th, table.cms-articles td {
 
 table.noborder th, table.noborder td{
   border: none;
+}
+
+#edit-link-list-block {
+  overflow: auto;
+  overflow-x: hidden;
+  height: 120px;
+}
+ 
+#edit-link-list-block table {
+  width: 100%;
+}
+
+#edit-link-list-block table .cel-address {
+  width: 300px;
+}
+
+#edit-link-list-block table .cel-address input {
+  width: 100%;
 }
 
 /* for fields with auto-completion */
