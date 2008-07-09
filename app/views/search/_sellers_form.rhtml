@@ -14,7 +14,7 @@
   </div>
   
   <div class="formfield search-distance-opt">
-    <%= labelled_text_field _('Distance (km): '), 'radius' %>
+    <%= labelled_select(_('Distance:'), 'radius', :first, :last, nil, [15, 30, 50, 100, 150, 200, 300, 400, 500, 1000].map{|n|[n, n.to_s + 'km']}) %>
   </div>
 
   <div class="button-bar">

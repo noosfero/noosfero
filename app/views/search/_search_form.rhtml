@@ -25,16 +25,11 @@
       <br style='clear:left'/>
       <div>
         <span class="formfield">
-          <label for="search-radius"><%= _('Distance (km):') %></label>
-          <%= text_field_tag 'radius', '', :id => 'search-radius', :size => 3 %>
+          <%= select_city %>
         </span>
-        &nbsp;
         <span class="formfield">
-          <label for="search_region"><%= _('From:') %></label>
-          <%= text_field :region, :name, :id => 'search_region', :size => 30 %>
+          <%= labelled_select(_('Distance:'), 'radius', :first, :last, nil, [15, 30, 50, 100, 150, 200, 300, 400, 500, 1000].map{|n|[n, n.to_s + 'km']}) %>
         </span>
-        <div id='search_region_auto_complete' class='auto-complete'></div>
-        <%= auto_complete_field('search_region', :url => {:action => 'complete_region'}) %>
       </div>
     </div><!-- fim class="search-options" -->
 
