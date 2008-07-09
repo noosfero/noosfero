@@ -11,4 +11,8 @@ class MainBlockTest < Test::Unit::TestCase
     ok("MainBlock must not have a content") { MainBlock.new.content.blank? }
   end
 
+  should 'not be editable' do
+    assert !MainBlock.new.editable?
+  end
+
 end

@@ -4,7 +4,7 @@ class CommunitiesBlock < ProfileListBlock
     _('A block that displays your communities')
   end
 
-  def title
+  def default_title
     _('Communities')
   end
 

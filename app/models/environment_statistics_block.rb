@@ -4,6 +4,10 @@ class EnvironmentStatisticsBlock < Block
     _('Statistical overview of your environment.')
   end
 
+  def default_title
+    _('Statistics for %s') % owner.name
+  end
+
   def content
     users = owner.people.count
     enterprises = owner.enterprises.count
@@ -15,7 +19,7 @@ class EnvironmentStatisticsBlock < Block
       n_('One community', '%{num} communities', communities) % { :num => communities },
     ]
 
-    block_title(_('Statistics for %s') % owner.name) + content_tag('ul', info.map {|item| content_tag('li', item) }.join("\n"))
+    block_title(title) + content_tag('ul', info.map {|item| content_tag('li', item) }.join("\n"))
   end
 
 end

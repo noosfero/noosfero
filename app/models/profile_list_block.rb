@@ -51,7 +51,7 @@ class ProfileListBlock < Block
   end
 
   # the title of the block. Probably will be overriden in subclasses.
-  def title
+  def default_title
     _('People and Groups')
   end
 

@@ -32,8 +32,20 @@ class BlockTest < Test::Unit::TestCase
     assert_nil Block.new.footer
   end
 
-  should 'not be editable by default' do
-    assert !Block.new.editable?
+  should 'provide an empty default title' do
+    assert_equal '', Block.new.default_title
   end
+
+  should 'be editable by default' do
+    assert Block.new.editable?
+  end
+
+  should 'have default titles' do
+    b = Block.new
+    b.expects(:default_title).returns('my title')
+    assert_equal 'my title', b.title
+  end
+
+
 
 end

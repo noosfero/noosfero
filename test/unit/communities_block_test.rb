@@ -6,8 +6,8 @@ class CommunitiesBlockTest < Test::Unit::TestCase
     assert_kind_of ProfileListBlock, CommunitiesBlock.new
   end
 
-  should 'declare its title' do
-    assert_not_equal ProfileListBlock.new.title, CommunitiesBlock.new.title
+  should 'declare its default title' do
+    assert_not_equal ProfileListBlock.new.default_title, CommunitiesBlock.new.default_title
   end
 
   should 'describe itself' do

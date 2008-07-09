@@ -15,4 +15,8 @@ class ProfileInfoBlock < Block
     end
   end
 
+  def editable?
+    false
+  end
+
 end

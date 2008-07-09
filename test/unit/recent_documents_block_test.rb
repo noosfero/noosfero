@@ -18,6 +18,10 @@ class RecentDocumentsBlockTest < Test::Unit::TestCase
     assert_not_equal Block.description, RecentDocumentsBlock.description
   end
 
+  should 'provide a default title' do
+    assert_not_equal Block.new.default_title, RecentDocumentsBlock.new.default_title
+  end
+
   should 'output list with links to recent documents' do
     output = block.content
     

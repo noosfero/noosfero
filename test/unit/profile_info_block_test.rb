@@ -20,5 +20,9 @@ class ProfileInfoBlockTest < Test::Unit::TestCase
     self.expects(:render).with(:file => 'blocks/profile_info', :locals => { :block => block})
     instance_eval(& block.content)
   end
+
+  should 'not be editable' do
+    assert !ProfileInfoBlock.new.editable?
+  end
   
 end

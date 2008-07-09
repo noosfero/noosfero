@@ -6,6 +6,10 @@ class ProfileListBlockTest < Test::Unit::TestCase
     assert_not_equal Block.description, ProfileListBlock.description
   end
 
+  should 'provide a default title' do
+    assert_not_equal Block.new.default_title, ProfileListBlock.new.default_title
+  end
+
   should 'accept a limit of people to be displayed (and default to 6)' do
     block = ProfileListBlock.new
     assert_equal 6, block.limit

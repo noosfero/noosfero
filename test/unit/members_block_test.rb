@@ -10,6 +10,10 @@ class MembersBlockTest < Test::Unit::TestCase
     assert_not_equal ProfileListBlock.description, MembersBlock.description
   end
 
+  should 'provide a default title' do
+    assert_not_equal ProfileListBlock.new.default_title, MembersBlock.new.default_title
+  end
+
   should 'link to "all members" page' do
     profile = create_user('mytestuser').person
     block = MembersBlock.new

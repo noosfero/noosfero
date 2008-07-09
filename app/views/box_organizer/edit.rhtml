@@ -2,6 +2,8 @@
 
 <% form_tag(:action => 'save', :id => @block.id) do %>
 
+  <%= labelled_form_field(_('Custom title for this block: '), text_field(:block, :title)) %>
+
   <%= render :partial => partial_for_class(@block.class) %>
 
   <% button_bar do %>

@@ -6,8 +6,8 @@ class FavoriteEnterprisesBlockTest < ActiveSupport::TestCase
     assert_kind_of ProfileListBlock, FavoriteEnterprisesBlock.new
   end
 
-  should 'declare its title' do
-    assert_not_equal ProfileListBlock.new.title, FavoriteEnterprisesBlock.new.title
+  should 'declare its default title' do
+    assert_not_equal ProfileListBlock.new.default_title, FavoriteEnterprisesBlock.new.default_title
   end
 
   should 'describe itself' do

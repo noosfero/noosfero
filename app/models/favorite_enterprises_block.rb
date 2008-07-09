@@ -1,6 +1,6 @@
 class FavoriteEnterprisesBlock < ProfileListBlock
 
-  def title
+  def default_title
     _('Favorite Enterprises')
   end
 

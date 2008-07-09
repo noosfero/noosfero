@@ -12,4 +12,8 @@ class MainBlock < Block
     true
   end
 
+  def editable?
+    false
+  end
+
 end

@@ -17,6 +17,10 @@ class TagsBlockTest < Test::Unit::TestCase
     assert_not_equal Block.description, TagsBlock.description
   end
 
+  should 'provide a default title' do
+    assert_not_equal Block.new.default_title, TagsBlock.new.default_title
+  end
+
   should 'generate links to tags' do
     assert_match /profile\/testinguser\/tag\/first-tag/, block.content
     assert_match /profile\/testinguser\/tag\/second-tag/, block.content

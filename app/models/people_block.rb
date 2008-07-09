@@ -1,6 +1,6 @@
 class PeopleBlock < ProfileListBlock
 
-  def title
+  def default_title
     _('People')
   end
 

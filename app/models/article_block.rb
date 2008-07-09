@@ -36,8 +36,4 @@ class ArticleBlock < Block
     @article = obj
   end
 
-  def editable?
-    true
-  end
-
 end

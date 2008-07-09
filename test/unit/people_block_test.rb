@@ -6,8 +6,8 @@ class PeopleBlockTest < ActiveSupport::TestCase
     assert_kind_of ProfileListBlock, PeopleBlock.new
   end
 
-  should 'declare its title' do
-    assert_not_equal ProfileListBlock.new.title, PeopleBlock.new.title
+  should 'declare its default title' do
+    assert_not_equal ProfileListBlock.new.default_title, PeopleBlock.new.default_title
   end
 
   should 'describe itself' do

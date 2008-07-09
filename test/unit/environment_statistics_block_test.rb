@@ -10,6 +10,15 @@ class EnvironmentStatisticsBlockTest < Test::Unit::TestCase
     assert_not_equal Block.description, EnvironmentStatisticsBlock.description
   end
 
+  should 'provide a default title' do
+    owner = mock
+    owner.expects(:name).returns('my environment')
+
+    block = EnvironmentStatisticsBlock.new
+    block.expects(:owner).returns(owner)
+    assert_equal 'Statistics for my environment', block.title
+  end
+
   should 'generate statistics' do
     env = Environment.create!(:name => "My test environment")
     user1 = create_user('testuser1', :environment_id => env.id)

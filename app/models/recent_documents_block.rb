@@ -4,13 +4,17 @@ class RecentDocumentsBlock < Block
     _('List of recent content')
   end
 
+  def default_title
+    _('Recent content')
+  end
+
   settings_items :limit
 
   include ActionController::UrlWriter
   def content
     docs = self.limit.nil? ? owner.recent_documents : owner.recent_documents(self.limit)
 
-    block_title(_('Recent content')) +
+    block_title(title) +
     content_tag('ul', docs.map {|item| content_tag('li', link_to(item.title, item.url))}.join("\n"))
 
   end

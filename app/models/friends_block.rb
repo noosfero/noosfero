@@ -4,7 +4,7 @@ class FriendsBlock < ProfileListBlock
     _('A block that displays your friends')
   end
 
-  def title
+  def default_title
     _('Friends')
   end
 

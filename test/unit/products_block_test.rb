@@ -11,6 +11,10 @@ class ProductsBlockTest < ActiveSupport::TestCase
     assert_kind_of Block, block
   end
 
+  should 'provide default title' do
+    assert_not_equal Block.new.default_title, ProductsBlock.new.default_title
+  end
+
   should "list owner products" do
 
     enterprise = Enterprise.create!(:name => 'testenterprise', :identifier => 'testenterprise')
@@ -97,10 +101,6 @@ class ProductsBlockTest < ActiveSupport::TestCase
     block = ProductsBlock.new
     block.product_ids = [ '1', '2']
     assert_equal [1, 2], block.product_ids
-  end
-
-  should 'be editable' do
-    assert ProductsBlock.new.editable?
   end
 
 end

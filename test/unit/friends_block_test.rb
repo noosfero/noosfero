@@ -6,8 +6,8 @@ class FriendsBlockTest < ActiveSupport::TestCase
     assert_not_equal ProfileListBlock.description, FriendsBlock.description
   end
 
-  should 'declare its title' do
-    assert_not_equal ProfileListBlock.new.title, FriendsBlock.new.title
+  should 'declare its default title' do
+    assert_not_equal ProfileListBlock.new.default_title, FriendsBlock.new.default_title
   end
 
   should 'use its own finder' do

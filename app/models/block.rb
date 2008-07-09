@@ -47,7 +47,7 @@ class Block < ActiveRecord::Base
 
   # Is this block editable? (Default to <tt>false</tt>)
   def editable?
-    false
+    true
   end
 
   # must always return false, except on MainBlock clas.
@@ -61,6 +61,18 @@ class Block < ActiveRecord::Base
 
   def css_class_name
     self.class.name.underscore.gsub('_', '-')
+  end
+
+  def default_title
+    ''
+  end
+
+  def title
+    if self[:title].blank?
+      self.default_title
+    else
+      self[:title]
+    end
   end
 
 end

@@ -4,8 +4,12 @@ class ProductsBlock < Block
   include ActionView::Helpers::UrlHelper
   include ActionController::UrlWriter
 
+  def default_title
+    _('Products')
+  end
+
   def content
-    block_title(_('Products')) +
+    block_title(title) +
     content_tag(
       'ul',
       products.map {|product| content_tag('li', link_to(product.name, product.url, :style => 'background-image:url(%s)' % ( product.image ? product.image.public_filename(:minor) : '/images/icons-app/product-default-pic-minor.png' )), :class => 'product' )}
@@ -35,10 +39,6 @@ class ProductsBlock < Block
     else
       product_ids.map {|item| owner.products.find(item) }
     end
-  end
-
-  def editable?
-    true
   end
 
 end

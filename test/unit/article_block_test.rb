@@ -52,8 +52,4 @@ class ArticleBlockTest < Test::Unit::TestCase
     assert_nil block.article_id
   end
 
-  should 'be editable' do
-    assert ArticleBlock.new.editable?
-  end
-
 end
