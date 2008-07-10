@@ -26,7 +26,7 @@
   
   <%= labelled_form_field(_('Management information'), text_editor('create_enterprise', 'management_information')) %>
 
-  <%= f.select('region_id', @regions) %>
+  <%= labelled_form_field(_('Region'), f.select('region_id', @regions)) %>
 
   <% button_bar do %>
     <%= submit_button('next', _('Next'), :cancel => {:action => 'index'}) %>

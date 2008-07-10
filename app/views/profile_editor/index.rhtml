@@ -48,7 +48,7 @@
 
   <% button_bar do %>
     <%= button(:add, _('Create a new community'), :controller => 'memberships', :action => 'new_community') %>
-    <%= button(:add, _('Register a new Enterprise'), :controller => 'enterprise_registration') %>
+    <%= button(:add, _('Register a new Enterprise'), :controller => 'enterprise_registration') if environment.regions.any?{|i| i.has_validator?} %>
   <% end %>
  
   <% file_manager do %>

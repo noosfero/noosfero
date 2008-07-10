@@ -33,7 +33,7 @@ class EnterpriseRegistrationController < ApplicationController
   #
   # Posts back.
   def basic_information
-    @regions = environment.regions.map {|item| [item.name, item.id]}
+    @regions = environment.regions.select{|i| i.has_validator?}.map {|item| [item.name, item.id]}
   end
 
   # present information about validator organizations, and the user one to

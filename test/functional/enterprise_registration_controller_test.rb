@@ -134,4 +134,18 @@ all_fixtures
     assert_sanitized assigns(:create_enterprise).management_information
   end
 
+  should 'load only regions with validator organizations' do
+    env = Environment.default
+
+    reg1 = env.regions.create!(:name => 'Region with validator')
+    reg1.validators.create!(:name => 'Validator one', :identifier => 'validator-one')
+    reg2 = env.regions.create!(:name => 'Region without validator')
+
+    get :index
+
+    assert_includes assigns(:regions), [reg1.name, reg1.id]
+    assert_tag :tag => 'option', :content => "Region with validator"
+    assert_no_tag :tag => 'option', :content => "Region without validator"
+  end
+
 end

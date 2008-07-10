@@ -418,5 +418,19 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     get :index, :profile => profile.identifier
     assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/memberships/new_community" }
   end
+
+  should 'not display link to register new enterprise if there is no validators' do
+    person = create_user('testuser').person
+    get :index, :profile => 'testuser'
+    assert_no_tag :tag => 'a', :content => 'Register a new Enterprise'
+  end
+
+  should 'display link to register new enterprise' do
+    reg = Environment.default.regions.create!(:name => 'Region test')
+    reg.validators.create!(:name => 'Validator test', :identifier => 'validator-test')
+    person = create_user('testuser').person
+    get :index, :profile => 'testuser'
+    assert_tag :tag => 'a', :content => 'Register a new Enterprise'
+  end
   
 end

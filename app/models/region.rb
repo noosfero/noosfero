@@ -8,4 +8,9 @@ class Region < Category
   def search_possible_validators(search)
     Organization.find_by_contents(search).reject {|item| self.validator_ids.include?(item.id) }
   end
+
+  def has_validator?
+    validators.count > 0
+  end
+  
 end

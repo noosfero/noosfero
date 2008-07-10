@@ -40,4 +40,17 @@ class RegionTest < Test::Unit::TestCase
     assert_not_includes possible, org1
   end
 
+  should 'has validator' do
+    env = Environment.create!(:name => "my test environment")
+    region = Region.create!(:environment_id => env.id, :name => 'My Region')
+    region.validators.create!(:name => 'Validator entity', :identifier => 'validator-entity')
+    assert region.has_validator?
+  end
+
+  should 'has no validator' do
+    env = Environment.create!(:name => "my test environment")
+    region = Region.create!(:environment_id => env.id, :name => 'My Region')
+    assert !region.has_validator?
+  end
+
 end
