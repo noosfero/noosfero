@@ -236,5 +236,10 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
 
   end
 
+  should 'display back to control panel button' do
+    get :index, :profile => 'designtestuser'
+    assert_tag :tag => 'a', :content => 'Back to control panel'
+  end
+ 
 end
 
