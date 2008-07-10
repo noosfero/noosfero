@@ -61,4 +61,17 @@ class ArticleCategorizationTest < Test::Unit::TestCase
     end
   end
 
+  should 'not duplicate when adding the parent of a category by witch the article is already categorized' do
+    c1 = Category.create!(:name => 'c1', :environment => Environment.default)
+    c2 = c1.children.create!(:name => 'c2', :environment => Environment.default)
+
+    p = create_user('testuser').person
+    a = p.articles.create!(:name => 'test')
+
+    assert_difference ArticleCategorization, :count, 2 do
+      ArticleCategorization.add_category_to_article(c2, a)
+      ArticleCategorization.add_category_to_article(c1, a)
+    end
+  end
+
 end
