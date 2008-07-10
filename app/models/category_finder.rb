@@ -59,16 +59,14 @@ class CategoryFinder
   def options_for_find(klass, options={}, date_range = nil)
     if defined? options[:product_category]
       prod_cat = options.delete(:product_category)
-      # FIXME this is SLOOOOW
-      prod_cat_ids = prod_cat.map_traversal(&:id) if prod_cat
     end
     
     case klass.name
     when 'Comment'
       {:joins => 'inner join articles_categories on articles_categories.article_id = comments.article_id', :conditions => ['articles_categories.category_id = (?)', category_id]}.merge!(options)
     when 'Product'
-      if prod_cat_ids
-        {:joins => 'inner join categories_profiles on products.enterprise_id = categories_profiles.profile_id', :conditions => ['categories_profiles.category_id = (?) and products.product_category_id in (?)', category_id, prod_cat_ids]}.merge!(options)
+      if prod_cat
+        {:joins => 'inner join categories_profiles on products.enterprise_id = categories_profiles.profile_id inner join product_categorizations on (product_categorizations.product_id = products.id)', :conditions => ['categories_profiles.category_id = (?) and product_categorizations.category_id = (?)', category_id, prod_cat.id]}.merge!(options)
       else
         {:joins => 'inner join categories_profiles on products.enterprise_id = categories_profiles.profile_id', :conditions => ['categories_profiles.category_id = (?)', category_id]}.merge!(options)
       end
@@ -83,8 +81,8 @@ class CategoryFinder
         end
       {:joins => 'inner join articles_categories on (articles_categories.article_id = articles.id)', :conditions => conditions}.merge!(options)
     when 'Enterprise'
-      if prod_cat_ids
-        {:joins => 'inner join categories_profiles on (categories_profiles.profile_id = profiles.id) inner join products on (products.enterprise_id = profiles.id)', :conditions => ['categories_profiles.category_id = (?) and products.product_category_id in (?)', category_id, prod_cat_ids]}.merge!(options)
+      if prod_cat
+        {:joins => 'inner join categories_profiles on (categories_profiles.profile_id = profiles.id) inner join products on (products.enterprise_id = profiles.id) inner join product_categorizations on (product_categorizations.product_id = products.id)', :conditions => ['categories_profiles.category_id = (?) and product_categorizations.category_id = (?)', category_id, prod_cat.id]}.merge!(options)
       else
         {:joins => 'inner join categories_profiles on (categories_profiles.profile_id = profiles.id)', :conditions => ['categories_profiles.category_id = (?)', category_id]}.merge!(options)
       end    
