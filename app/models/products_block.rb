@@ -4,6 +4,10 @@ class ProductsBlock < Block
   include ActionView::Helpers::UrlHelper
   include ActionController::UrlWriter
 
+  def self.description
+    _('A block that displays products')
+  end
+
   def default_title
     _('Products')
   end

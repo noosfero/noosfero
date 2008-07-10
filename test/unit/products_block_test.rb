@@ -15,6 +15,10 @@ class ProductsBlockTest < ActiveSupport::TestCase
     assert_not_equal Block.new.default_title, ProductsBlock.new.default_title
   end
 
+  should 'provide default description' do
+    assert_not_equal Block.description, ProductsBlock.description
+  end
+
   should "list owner products" do
 
     enterprise = Enterprise.create!(:name => 'testenterprise', :identifier => 'testenterprise')
