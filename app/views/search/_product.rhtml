@@ -6,16 +6,16 @@ product_item_pos += 1
 %>
 
 <li class="product-item <%= ( pos % 2 == 0 ) ? 'odd' : 'even' %>">
-    <%= link_to_product product, :class => 'product-pic', :style => 'background-image:url(%s)' %
-          ( product.image ? product.image.public_filename(:minor) : '/images/icons-app/product-default-pic-minor.png' ) %>
-    <strong>
-      <%= link_to_product product %>
-    </strong> 
-    <ul>
-      <li> <%= _('Price: %d') % product.price %> </li>
-      <% if product.enterprise %>
-        <li> <%= _('Suplier: %s') % link_to_homepage(product.enterprise.name, product.enterprise.identifier) %> </li>
-      <% end %>
-      <li> <%= link_to_category(product.product_category) %> </li>
-    </ul>
+  <%= link_to_product product, :class => 'product-pic', :style => 'background-image:url(%s)' %
+       ( product.image ? product.image.public_filename(:minor) : '/images/icons-app/product-default-pic-minor.png' ) %>
+  <strong>
+    <%= link_to_product product %>
+  </strong> 
+  <ul>
+    <li> <%= _('Price: %s') % (product.price ? product.price : _('Not informed')) %> </li>
+    <% if product.enterprise %>
+      <li> <%= _('Suplier: %s') % link_to_homepage(product.enterprise.name, product.enterprise.identifier) %> </li>
+    <% end %>
+    <li> <%= _('Category:') + ' ' + link_to_category(product.product_category, false) %> </li>
+  </ul>
 </li>
