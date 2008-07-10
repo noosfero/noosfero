@@ -63,9 +63,7 @@
 <% if ! @page.categories.empty? %>
 <div id="article-cat">
   <h4><%= _('Categories') %></h4>
-  <ul>
-    <li><%= @page.categories.map {|item| link_to_category(item) }.join("</li>\n<li>") %></li>
-  </ul>
+    <%= @page.categories.map {|item| link_to_category(item, false) }.join(", ") %>
 </div>
 <% end %>
 
