@@ -9,6 +9,8 @@ module Categorization
         connection.execute("insert into #{table_name} (category_id, #{object_id_column}, virtual) values(#{c.id}, #{object.id}, 1>0)")
         c = c.parent
       end
+    else
+      connection.execute "update #{table_name} set virtual = (1!=1) where #{object_id_column} = #{object.id} and category_id = #{category.id}"
     end
   end
 

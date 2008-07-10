@@ -74,4 +74,15 @@ class ArticleCategorizationTest < Test::Unit::TestCase
     end
   end
 
+  should 'make parent real when categorized after child' do
+    c1 = Category.create!(:name => 'c1', :environment => Environment.default)
+    c2 = c1.children.create!(:name => 'c2', :environment => Environment.default)
+
+    p = create_user('testuser').person
+    a = p.articles.create!(:name => 'test')
+    ArticleCategorization.add_category_to_article(c2, a)
+    ArticleCategorization.add_category_to_article(c1, a)
+
+    assert ArticleCategorization.find(:first, :conditions => [ 'category_id = ? and article_id = ? and not virtual', c1.id, a.id ]), 'categorization must be promoted to not virtual'
+  end
 end
