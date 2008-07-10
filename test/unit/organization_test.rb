@@ -188,7 +188,6 @@ class OrganizationTest < Test::Unit::TestCase
     assert_not_includes c.members, p
   end
 
-  # FIXME why members dont return moderators???
   should 'allow to add new moderator' do
     o = Organization.create!(:name => 'my test profile', :identifier => 'mytestprofile')
     p = create_user('myanothertestuser').person
@@ -196,6 +195,13 @@ class OrganizationTest < Test::Unit::TestCase
     o.add_moderator(p)
 
     assert o.members.include?(p), "Organization should add the new moderator"
+  end
+
+  should 'moderator has moderate_comments permission' do
+    o = Organization.create!(:name => 'my test profile', :identifier => 'mytestprofile')
+    p = create_user('myanothertestuser').person
+    o.add_moderator(p)
+    assert p.has_permission?(:moderate_comments, o)
   end
 
 end

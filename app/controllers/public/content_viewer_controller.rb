@@ -72,7 +72,7 @@ class ContentViewerController < PublicController
 
   def remove_comment
     @comment = @page.comments.find(params[:remove_comment])
-    if (user == @comment.author) || (user == @page.profile)
+    if (user == @comment.author || user == @page.profile || user.has_permission?(:moderate_comments, @page.profile))
       @comment.destroy
       flash[:notice] = _('Comment succesfully deleted')
     end

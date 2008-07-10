@@ -160,7 +160,6 @@ class ContentViewerControllerTest < Test::Unit::TestCase
       post :view_page, :profile => profile.identifier, :page => [ 'test' ], :remove_comment => comment.id
       assert_response :redirect
     end
-
   end
 
   should 'not be able to post comment while inverse captcha field filled' do
@@ -171,6 +170,19 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
     assert_no_difference Comment, :count do
       post :view_page, :profile => profile.identifier, :page => [ 'myarticle' ], @controller.icaptcha_field => 'filled', :comment => { :title => 'crap!', :body => 'I think that this article is crap', :name => 'Anonymous coward', :email => 'coward@anonymous.com' }
+    end
+  end
+
+  should 'be able to remove comments if is moderator' do
+    commenter = create_user('commenter_user').person
+    community = Community.create!(:name => 'Community test', :identifier => 'community-test')
+    article = community.articles.create!(:name => 'test')
+    comment = article.comments.create!(:author => commenter, :title => 'a comment', :body => 'lalala')
+    community.add_moderator(profile)
+    login_as profile.identifier
+    assert_difference Comment, :count, -1 do 
+      post :view_page, :profile => community.identifier, :page => [ 'test' ], :remove_comment => comment.id
+      assert_response :redirect
     end
   end
 

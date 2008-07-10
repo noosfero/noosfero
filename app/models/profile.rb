@@ -34,6 +34,7 @@ class Profile < ActiveRecord::Base
     'manage_friends'      => N_('Manage friends'),
     'validate_enterprise' => N_('Validate enterprise'),
     'perform_task'        => N_('Perform task'),
+    'moderate_comments'   => N_('Moderate comments'),
   }
 
   acts_as_accessible

@@ -3,7 +3,7 @@ one:
   id: 1
   name: 'member'
   permissions: 
-    - post_content
+   - post_content
 two:
   id: 2
   name: 'owner'
@@ -16,7 +16,7 @@ three:
   id: 3
   name: 'moderator'
   permissions:
-    - manage_memberships
+   - manage_memberships
 four:
   id: 4
   name: 'admin'
@@ -27,6 +27,7 @@ four:
    - manage_environment_categories
    - manage_environment_roles
    - manage_environment_validators
+   - moderate_comments
 profile_admin:
   id: 5
   key: 'profile_admin'
@@ -34,6 +35,7 @@ profile_admin:
   system: true
   permissions:
    - edit_profile_design
+   - moderate_comments
 profile_member:
   id: 6
   key: 'profile_member'
@@ -48,3 +50,5 @@ profile_moderator:
   key: 'profile_moderator'
   name: 'Profile Moderator'
   system: true
+  permissions:
+   - moderate_comments
