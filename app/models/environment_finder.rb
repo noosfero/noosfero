@@ -13,7 +13,6 @@ class EnvironmentFinder
     end
 
     product_category = options.delete(:product_category)
-    product_category_ids = product_category.map_traversal(&:id) if product_category
 
     date_range = options.delete(:date_range)
 
@@ -21,9 +20,9 @@ class EnvironmentFinder
     if query.blank?
       options = {:order => 'created_at desc, id desc'}.merge(options)
       if product_category && asset == :products
-        @environment.send(asset).paginate(:all, options.merge(:conditions => ['product_category_id in (?)', product_category_ids]))
+        @environment.send(asset).paginate(:all, options.merge(:joins => 'inner join product_categorizations on (product_categorizations.product_id = products.id)', :conditions => ['product_categorizations.category_id = (?)', product_category.id]))
       elsif product_category && asset == :enterprises
-        @environment.send(asset).paginate(:all, options.merge(:order => 'profiles.created_at desc, profiles.id desc', :include => 'products', :conditions => ['products.product_category_id in (?)', product_category_ids]))
+        @environment.send(asset).paginate(:all, options.merge(:order => 'profiles.created_at desc, profiles.id desc', :include => 'products', :joins => 'inner join product_categorizations on (product_categorizations.product_id = products.id)', :conditions => ['product_categorizations.category_id = (?)', product_category.id]))
       else
         if (asset == :events) && date_range
           @environment.send(asset).paginate(:all, options.merge(:conditions => { :start_date => date_range}))
@@ -35,9 +34,9 @@ class EnvironmentFinder
       ferret_options = {:page => options.delete(:page), :per_page => options.delete(:per_page)}
       if product_category && asset == :products
         # SECURITY no risk of SQL injection, since product_category_ids comes from trusted source
-        @environment.send(asset).find_by_contents(query, ferret_options, options.merge({:conditions => 'product_category_id in (%s)' % product_category_ids.join(',') }))
+        @environment.send(asset).find_by_contents(query, ferret_options, options.merge({:include => 'product_categorizations', :conditions => 'product_categorizations.category_id = (%s)' % product_category.id }))
       elsif product_category && asset == :enterprises
-        @environment.send(asset).find_by_contents(query, ferret_options, options.merge(:include => 'products', :conditions => "products.product_category_id in (#{product_category_ids})"))
+        @environment.send(asset).find_by_contents(query, ferret_options, options.merge(:joins => 'inner join product_categorizations on (product_categorizations.product_id = products.id)', :include => 'products', :conditions => "product_categorizations.category_id = (#{product_category.id})"))
       else
         @environment.send(asset).find_by_contents(query, ferret_options, options)
       end
