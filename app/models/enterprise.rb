@@ -61,8 +61,8 @@ class Enterprise < Organization
   def default_set_of_blocks
     [
       [MainBlock],
-      [ProfileInfoBlock, ProductsBlock, RecentDocumentsBlock],
-      [MembersBlock, TagsBlock]
+      [ProfileInfoBlock, MembersBlock],
+      [ProductsBlock, RecentDocumentsBlock]
     ]
   end
 

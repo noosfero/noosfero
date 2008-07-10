@@ -138,8 +138,8 @@ class PersonTest < Test::Unit::TestCase
 
     assert p.boxes[1].blocks.map(&:class).include?(ProfileInfoBlock), 'person must have a ProfileInfoBlock upon creation'
     assert p.boxes[1].blocks.map(&:class).include?(RecentDocumentsBlock), 'person must have a RecentDocumentsBlock upon creation'
+    assert p.boxes[1].blocks.map(&:class).include?(TagsBlock), 'person must have a Tags Block upon creation'
 
-    assert p.boxes[2].blocks.map(&:class).include?(TagsBlock), 'person must have a Tags Block upon creation'
     assert p.boxes[2].blocks.map(&:class).include?(CommunitiesBlock), 'person must have a CommunitiesBlock upon creation'
     assert p.boxes[2].blocks.map(&:class).include?(EnterprisesBlock), 'person must have a EnterprisesBlock upon creation'
     assert p.boxes[2].blocks.map(&:class).include?(FriendsBlock), 'person must have a FriendsBlock upon creation'

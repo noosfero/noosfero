@@ -73,8 +73,8 @@ class Person < Profile
   def default_set_of_blocks
     [
       [MainBlock],
-      [ProfileInfoBlock, RecentDocumentsBlock],
-      [TagsBlock, FriendsBlock, CommunitiesBlock, EnterprisesBlock]
+      [ProfileInfoBlock, RecentDocumentsBlock, TagsBlock],
+      [FriendsBlock, EnterprisesBlock, CommunitiesBlock]
     ]
   end
 

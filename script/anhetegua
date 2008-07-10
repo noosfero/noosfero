@@ -201,17 +201,6 @@ colivre.products.build(:name => 'capacitação em software livre', :product_cate
 colivre.products.build(:name => 'arte digital', :product_category => arte_digital).save!
 colivre.products.build(:name => 'instalação e manutenção de servidores', :product_category => admin_de_sistemas).save!
 
-colivre_hp = TinyMceArticle.new(:name => 'Colivre - Cooperativa de Tecnologias Livres', :body => '<p>A Colivre, Cooperativa de Tecnologias Livres, é uma organização baiana que presta serviços de instalação de redes, segurança, capacitação, migração e desenvolvimento de novas soluções, trabalhando exclusivamente com Tecnologias Livres. Para tanto, contamos com uma equipe formada por desenvolvedores/as de software, webdesigners e gestoras/es com vasta experiência na área.</p>', :tag_list => 'software livre, colivre, cooperativa' )
-colivre_hp.profile = colivre
-colivre_hp.save!
-colivre.home_page = colivre_hp
-colivre.save!
-
-empa_hp = TinyMceArticle.new(:name => 'Empreendimento A - um empreendimento genérico', :body => '<p>Esse é um empreendimento cadastrado como exemplo no sitema</p>', :tag_list => 'cooperativa, teste')
-empa_hp.profile = empa
-empa.home_page = empa_hp
-empa.save!
-
 # creating sample communities
 comm1 = Community.create!(:name => 'Outra Economia é Possível')
 comm1.affiliate(ze, owner_role)

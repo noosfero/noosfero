@@ -129,7 +129,8 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     
   end
   
-  should "not be able to remove other people's comments" do
+  should "not be able to remove other people's comments if not moderator or admin" do
+    create_user('normaluser')
     profile = create_user('testuser').person
     article = profile.articles.build(:name => 'test')
     article.save!
@@ -138,7 +139,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     comment = article.comments.build(:author => commenter, :title => 'a comment', :body => 'lalala')
     comment.save!
 
-    login_as 'ze' # ze cannot remove other people's comments
+    login_as 'normaluser' # normaluser cannot remove other people's comments
     assert_no_difference Comment, :count do 
       post :view_page, :profile => profile.identifier, :page => [ 'test' ], :remove_comment => comment.id
       assert_response :redirect
