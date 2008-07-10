@@ -546,15 +546,6 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_not_includes assigns('results')[:people], p2
   end
 
-  should 'not show term "Category:" before product category' do
-    Profile.delete_all
-    ent = Enterprise.create!(:name => 'teste1', :identifier => 'teste1')
-    prod1 = ent.products.create!(:name => 'a beautiful product')
-    prod2 = ent.products.create!(:name => 'another beautiful product')
-    get :assets, :asset => 'products'
-    assert_no_match /Category:/, @response.body
-  end
-
   should 'display category image while in directory' do
     parent = Category.create!(:name => 'category1', :environment => Environment.default)
     cat = Category.create!(:name => 'category2', :environment => Environment.default, :parent => parent,
