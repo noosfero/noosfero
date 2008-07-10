@@ -19,6 +19,15 @@ class Product < ActiveRecord::Base
     p.enterprise.product_updated if p.enterprise
   end
 
+  after_save do |p|
+    if (p.product_category && !ProductCategorization.find(:first, :conditions => {:category_id => p.product_category.id, :product_id => p.id})) || (!p.product_category)
+      ProductCategorization.remove_all_for(p)
+      if p.product_category
+        ProductCategorization.add_category_to_product(p.product_category, p)
+      end
+    end
+  end
+
   acts_as_searchable :fields => [ :name, :description, :category_full_name ]
 
   xss_terminate :only => [ :name, :description ]

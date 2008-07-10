@@ -122,4 +122,50 @@ class ProductTest < Test::Unit::TestCase
     assert_same result, product.url
   end
 
+  should 'categorize also with product categorization' do
+    cat = ProductCategory.create(:name => 'test cat', :environment => Environment.default)
+    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent')
+    p = ent.products.create!(:name => 'test product')
+    p.product_category = cat
+    p.save!
+
+    assert ProductCategorization.find(:first, :conditions => {:product_id => p, :category_id => cat}) 
+  end
+  
+  should 'categorize parent cateogries with product categorization' do
+    parent_cat = ProductCategory.create(:name => 'test cat', :environment => Environment.default)
+    child_cat = ProductCategory.create(:name => 'test cat', :environment => Environment.default, :parent => parent_cat)
+    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent')
+    p = ent.products.create!(:name => 'test product')
+    p.product_category = child_cat
+    p.save!
+
+    assert ProductCategorization.find(:first, :conditions => {:product_id => p, :category_id => parent_cat}) 
+    assert ProductCategorization.find(:first, :conditions => {:product_id => p, :category_id => child_cat}) 
+  end
+
+  should 'change product categorization when product category changes' do
+    cat1 = ProductCategory.create(:name => 'test cat 1', :environment => Environment.default)
+    cat2 = ProductCategory.create(:name => 'test cat 2', :environment => Environment.default)
+    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent')
+    p = ent.products.create!(:name => 'test product', :product_category => cat1)
+
+    p.product_category = cat2
+    p.save!
+
+    assert ProductCategorization.find(:first, :conditions => {:product_id => p, :category_id => cat2}), 'must include the new category'
+    assert !ProductCategorization.find(:first, :conditions => {:product_id => p, :category_id => cat1}), 'must exclude the old category'
+  end
+
+  should 'remove categorization when product category is removed' do
+    cat = ProductCategory.create(:name => 'test cat', :environment => Environment.default)
+    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent')
+    p = ent.products.create!(:name => 'test product', :product_category => cat)
+
+    p.product_category = nil
+    p.save!
+
+    assert !ProductCategorization.find(:first, :conditions => {:product_id => p, :category_id => cat}) 
+  end
+
 end
