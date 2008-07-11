@@ -343,3 +343,13 @@ div.sitemap-item a:hover {
   float: left;
 }
 
+.select-subcategory-link {
+  border: 1px solid #BBB;
+  padding: 0px 3px;
+  margin: 2px 0px;
+  text-decoration: none;
+}
+.select-subcategory-link:hover {
+  background-color: #FFA;
+}
+
