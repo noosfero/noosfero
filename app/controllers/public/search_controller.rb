@@ -91,20 +91,27 @@ class SearchController < ApplicationController
     # REFACTOR DUPLICATED CODE inner loop doing the same thing that outter loop
     
     cats = ProductCategory.menu_categories(@product_category, environment)
-    cats += cats.map(:children).flatten
+    cats += cats.map(&:children).flatten
     product_categories_ids = cats.map(&:id)
 
+    object_ids = nil
+    if !@query.blank? || @region && !params[:radius].blank?
+      object_ids = @finder.find(asset, @filtered_query, calculate_find_options(asset, nil, params[:page], @product_category, @region, params[:radius], params[:year], params[:month]).merge({:limit => :all}))
+    end
+
+    counts = @finder.product_categories_count(asset, product_categories_ids, object_ids)
+
     @categories_menu = ProductCategory.menu_categories(@product_category, environment).map do |cat|
-      hits = @finder.count(asset, @filtered_query, calculate_find_options(asset, nil, nil, cat, @region, params[:radius], nil, nil))
+      hits = counts[cat.id]
       childs = []
-      if hits > 0
+      if hits
         childs = cat.children.map do |child|
-          child_hits = @finder.count(asset, @filtered_query, calculate_find_options(asset, nil, nil, child, @region, params[:radius], nil, nil))
+          child_hits = counts[child.id] 
           [child, child_hits]
-        end.select{|child, child_hits| child_hits > 0 }
+        end.select{|child, child_hits| child_hits }
       end
       [cat, hits, childs]
-    end.select{|cat, hits| hits > 0 }
+    end.select{|cat, hits| hits }
   end
 
   def calculate_find_options(asset, limit, page, product_category, region, radius, year, month)
