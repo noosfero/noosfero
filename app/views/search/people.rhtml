@@ -1,5 +1,5 @@
 <%= search_page_title( _('People'), { :query => @query, 
-                                      :category => @category, 
+                                      :category => @category ? @category.name : nil, 
                                       :total_results => @total_results, 
                                       :region => @region ? @region.name : nil, 
                                       :distance => @radius } ) %>
