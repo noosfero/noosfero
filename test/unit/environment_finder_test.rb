@@ -195,6 +195,18 @@ class EnvironmentFinderTest < ActiveSupport::TestCase
     assert_not_includes prods, prod4
   end
 
+  should 'count products wihin product category without query' do
+    finder = EnvironmentFinder.new(Environment.default)
+    cat = ProductCategory.create!(:name => 'test category', :environment => Environment.default)
+    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent')
+    prod1 = ent.products.create!(:name => 'test product 1', :product_category => cat)
+    prod3 = ent.products.create!(:name => 'test product 2')    
+
+    prods_count = finder.count(:products, nil, :product_category => cat)
+
+    assert_equal 1, prods_count
+  end
+
   should 'find in order of creation' do
     finder = EnvironmentFinder.new(Environment.default)
     ent1 = Enterprise.create!(:name => 'test enterprise 1', :identifier => 'test_ent1')
