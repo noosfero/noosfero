@@ -4,7 +4,7 @@ class EnvironmentFinder
     @environment = env
   end
 
-  def find(asset, query = nil, options={})
+  def find(asset, query = nil, options={}, finder_method = 'paginate')
     @region = Region.find_by_id(options.delete(:region)) if options.has_key?(:region)
     if @region && options[:within]
       options[:origin] = [@region.lat, @region.lng]
@@ -16,18 +16,21 @@ class EnvironmentFinder
 
     date_range = options.delete(:date_range)
 
-    options = {:page => 1, :per_page => options.delete(:limit)}.merge(options)
+    if finder_method == 'paginate'
+      options = {:page => 1, :per_page => options.delete(:limit)}.merge(options)
+    end
+
     if query.blank?
       options = {:order => "#{asset_table(asset)}.created_at desc, #{asset_table(asset)}.id desc"}.merge(options)
       if product_category && asset == :products
-        @environment.send(asset).paginate(:all, options.merge(:include => 'product_categorizations', :conditions => ['product_categorizations.category_id = (?)', product_category.id]))
+        @environment.send(asset).send(finder_method, :all, options.merge(:include => 'product_categorizations', :conditions => ['product_categorizations.category_id = (?)', product_category.id]))
       elsif product_category && asset == :enterprises
-        @environment.send(asset).paginate(:all, options.merge(:order => 'profiles.created_at desc, profiles.id desc', :include => 'products', :joins => 'inner join product_categorizations on (product_categorizations.product_id = products.id)', :conditions => ['product_categorizations.category_id = (?)', product_category.id]))
+        @environment.send(asset).send(finder_method, :all, options.merge(:order => 'profiles.created_at desc, profiles.id desc', :include => 'products', :joins => 'inner join product_categorizations on (product_categorizations.product_id = products.id)', :conditions => ['product_categorizations.category_id = (?)', product_category.id]))
       else
         if (asset == :events) && date_range
-          @environment.send(asset).paginate(:all, options.merge(:conditions => { :start_date => date_range}))
+          @environment.send(asset).send(finder_method, :all, options.merge(:conditions => { :start_date => date_range}))
         else
-          @environment.send(asset).paginate(:all, options)
+          @environment.send(asset).send(finder_method, :all, options)
         end
       end
     else
@@ -48,9 +51,12 @@ class EnvironmentFinder
   end
 
   def count(asset, query = '', options = {})
-    # because will_paginate needs a page
-    options = {:page => 1}.merge(options)
-    find(asset, query, options).total_entries
+    if query.blank?
+      find(asset, query, options.except(:page, :per_page), 'count')
+    else
+      # will_paginate needs a page
+      find(asset, query, {:page => 1}.merge(options)).total_entries
+    end
   end
 
   protected
