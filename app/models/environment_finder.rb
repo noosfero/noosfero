@@ -18,9 +18,9 @@ class EnvironmentFinder
 
     options = {:page => 1, :per_page => options.delete(:limit)}.merge(options)
     if query.blank?
-      options = {:order => 'created_at desc, id desc'}.merge(options)
+      options = {:order => "#{asset_table(asset)}.created_at desc, #{asset_table(asset)}.id desc"}.merge(options)
       if product_category && asset == :products
-        @environment.send(asset).paginate(:all, options.merge(:joins => 'inner join product_categorizations on (product_categorizations.product_id = products.id)', :conditions => ['product_categorizations.category_id = (?)', product_category.id]))
+        @environment.send(asset).paginate(:all, options.merge(:include => 'product_categorizations', :conditions => ['product_categorizations.category_id = (?)', product_category.id]))
       elsif product_category && asset == :enterprises
         @environment.send(asset).paginate(:all, options.merge(:order => 'profiles.created_at desc, profiles.id desc', :include => 'products', :joins => 'inner join product_categorizations on (product_categorizations.product_id = products.id)', :conditions => ['product_categorizations.category_id = (?)', product_category.id]))
       else
@@ -51,6 +51,16 @@ class EnvironmentFinder
     # because will_paginate needs a page
     options = {:page => 1}.merge(options)
     find(asset, query, options).total_entries
+  end
+
+  protected
+
+  def asset_class(asset)
+    asset.to_s.singularize.camelize.constantize
+  end
+  
+  def asset_table(asset)
+    asset_class(asset).table_name
   end
 
 end

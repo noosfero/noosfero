@@ -47,8 +47,8 @@ class EnvironmentFinderTest < ActiveSupport::TestCase
     ent1 = Enterprise.create!(:name => 'teste1', :identifier => 'teste1')
     ent2 = Enterprise.create!(:name => 'teste2', :identifier => 'teste2')
     recent = finder.recent('enterprises', 1)
-    assert_includes recent, ent2 # newer
-    assert_not_includes recent, ent1 # older
+    
+    assert_equal 1, recent.size
   end  
   
   should 'paginate the list of more enterprises than limit' do
@@ -56,8 +56,7 @@ class EnvironmentFinderTest < ActiveSupport::TestCase
     ent1 = Enterprise.create!(:name => 'teste1', :identifier => 'teste1')
     ent2 = Enterprise.create!(:name => 'teste2', :identifier => 'teste2')
     
-    assert_equal [ent2], finder.find('enterprises', nil, :per_page => 1, :page => 1) #newer
-    assert_equal [ent1], finder.find('enterprises', nil, :per_page => 1, :page => 2) #older
+    assert_equal 1, finder.find('enterprises', nil, :per_page => 1, :page => 1).size
   end
 
   should 'paginate the list of more enterprises than limit with query' do
@@ -195,16 +194,17 @@ class EnvironmentFinderTest < ActiveSupport::TestCase
     assert_not_includes prods, prod4
   end
 
-  should 'count products wihin product category without query' do
+  should 'count products wihin product category without query paginating' do
     finder = EnvironmentFinder.new(Environment.default)
     cat = ProductCategory.create!(:name => 'test category', :environment => Environment.default)
     ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent')
     prod1 = ent.products.create!(:name => 'test product 1', :product_category => cat)
-    prod3 = ent.products.create!(:name => 'test product 2')    
+    prod1 = ent.products.create!(:name => 'test product 2', :product_category => cat)
+    prod3 = ent.products.create!(:name => 'test product 3')    
 
-    prods_count = finder.count(:products, nil, :product_category => cat)
+    prods_count = finder.count(:products, nil, :product_category => cat, :per_page => 1)
 
-    assert_equal 1, prods_count
+    assert_equal 2, prods_count
   end
 
   should 'find in order of creation' do
