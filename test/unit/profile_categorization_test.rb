@@ -53,4 +53,17 @@ class ProfileCategorizationTest < ActiveSupport::TestCase
     end
   end
 
+  [ Region, State, City ].each do |klass|
+    should "be able to remove #{klass.name} from profile" do
+      region = klass.create!(:name => 'my region', :environment => Environment.default)
+      p = create_user('testuser').person
+      p.region = region
+      p.save!
+
+      ProfileCategorization.remove_region(p)
+
+      assert_equal [], p.categories(true)
+    end
+  end
+
 end
