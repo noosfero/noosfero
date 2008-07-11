@@ -118,7 +118,7 @@ class ManageProductsControllerTest < Test::Unit::TestCase
     category2 = ProductCategory.create!(:name => 'Category 2', :environment => environment, :parent => category1)
     category3 = ProductCategory.create!(:name => 'Category 3', :environment => environment, :parent => category2)
     get :new, :profile => @enterprise.identifier
-    assert_tag :tag => 'p', :content => /Select a category:/, :sibling => { :tag => 'a', :content => /#{category2.name}/ }
+    assert_tag :tag => 'h3', :content => /Select a category:/, :sibling => { :tag => 'a', :content => /#{category2.name}/ }
   end
 
   should 'show current category' do
@@ -127,7 +127,7 @@ class ManageProductsControllerTest < Test::Unit::TestCase
     category2 = ProductCategory.create!(:name => 'Category 2', :environment => environment, :parent => category1)
     category3 = ProductCategory.create!(:name => 'Category 3', :environment => environment, :parent => category2)
     get 'update_subcategories', :profile => @enterprise.identifier, :id => category2.id
-    assert_tag :tag => 'p', :content => /Current category:/, :sibling => { :tag => 'a', :content => /#{category3.name}/ }
+    assert_tag :tag => 'h3', :content => /Current category:/, :sibling => { :tag => 'a', :content => /#{category3.name}/ }
   end
 
   should 'show subcategories list' do
@@ -137,7 +137,7 @@ class ManageProductsControllerTest < Test::Unit::TestCase
     category3 = ProductCategory.create!(:name => 'Category 3', :environment => environment, :parent => category2)
     get 'update_subcategories', :profile => @enterprise.identifier, :id => category2.id
     assert !assigns(:categories).empty?
-    assert_tag :tag => 'p', :content => /Select a subcategory:/, :sibling => { :tag => 'a', :attributes => { :href => '#' }, :content => /#{category2.name}/ }
+    assert_tag :tag => 'h3', :content => /Select a subcategory:/, :sibling => { :tag => 'a', :attributes => { :href => '#' }, :content => /#{category2.name}/ }
   end
 
   should 'update subcategories' do

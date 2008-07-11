@@ -1,27 +1,27 @@
+<div id="category-ajax-selector">
 <% if !@current_category.nil? and !@current_category.top_level? %>
 
-  <p><%= _('Current category:') %></p>
-  <%= hidden_field_tag 'product[product_category_id]', @current_category.id %>
-  <%
-    categories = [@current_category]
-    categories.push(@current_category) while @current_category = @current_category.parent
-    categories.last.name = _('Back')
-  %>
-  <% if categories.size > 1 %>
-    <%= categories.compact.reverse.map{|i|
-      link_to_remote(i.name, 
-        :update => "subcategories",
-        :url => { :action => 'update_subcategories', :id => i, :loaded => visual_effect(:highlight, "subcategories") },
-        :class => 'select-current-category-link')}.join(' &rarr; ')
+  <h3 class="box-title"><%= _('Current category:') %></h3>
+    <%= hidden_field_tag 'product[product_category_id]', @current_category.id %>
+    <%
+      categories = [@current_category]
+      categories.push(@current_category) while @current_category = @current_category.parent
     %>
-  <% end %>
+    <% if categories.size > 1 %>
+      <%= categories.compact.reverse.map{|i|
+        link_to_remote(i.name, 
+          :update => "subcategories",
+          :url => { :action => 'update_subcategories', :id => i, :loaded => visual_effect(:highlight, "subcategories") },
+          :class => 'select-current-category-link')}.join(' &rarr; ')
+      %>
+    <% end %>
 
 <% end %>
 
 <% if @current_category %>
-  <p><%= _('Select a category:') %></p>
+  <h3 class="box-title"><%= _('Select a category:') %></h3>
 <% elsif !@categories.empty?  %>
-  <p><%= _('Select a subcategory:') %></p>
+  <h3><%= _('Select a subcategory:') %></h3>
 <% end %>
 
 <% for category in @categories do %>
@@ -32,3 +32,4 @@
     :class => 'select-subcategory-link'
   %>
 <% end %>
+</div>

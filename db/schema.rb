@@ -71,8 +71,8 @@ ActiveRecord::Schema.define(:version => 45) do
     t.boolean "virtual",     :default => false
   end
 
-  add_index "articles_categories", ["article_id"], :name => "index_articles_categories_on_article_id"
   add_index "articles_categories", ["category_id"], :name => "index_articles_categories_on_category_id"
+  add_index "articles_categories", ["article_id"], :name => "index_articles_categories_on_article_id"
 
   create_table "blocks", :force => true do |t|
     t.string  "title"
@@ -230,8 +230,8 @@ ActiveRecord::Schema.define(:version => 45) do
     t.datetime "created_at"
   end
 
-  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
   add_index "taggings", ["taggable_id", "taggable_type"], :name => "index_taggings_on_taggable_id_and_taggable_type"
+  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
 
   create_table "tags", :force => true do |t|
     t.string  "name"

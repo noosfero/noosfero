@@ -7,11 +7,13 @@
     <span class="profile-info-picture-inner2">
       <%=
         profile_image(block.owner, :thumb) +"\n"+
-        profile_sex_icon( profile )
+        profile_sex_icon( profile ) +
+        profile_cat_icons( profile )
       %>
     </span>
   </div>
 </div>
+
 
 <ul class="profile-info-data">
   <li><%= _('Since %{year}/%{month}') % { :year => block.owner.created_at.year, :month => block.owner.created_at.month } %></li>
