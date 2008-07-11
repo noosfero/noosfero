@@ -89,6 +89,11 @@ class SearchController < ApplicationController
   def load_product_categories_menu(asset)
     @results[asset].uniq!
     # REFACTOR DUPLICATED CODE inner loop doing the same thing that outter loop
+    
+    cats = ProductCategory.menu_categories(@product_category, environment)
+    cats += cats.map(:children).flatten
+    product_categories_ids = cats.map(&:id)
+
     @categories_menu = ProductCategory.menu_categories(@product_category, environment).map do |cat|
       hits = @finder.count(asset, @filtered_query, calculate_find_options(asset, nil, nil, cat, @region, params[:radius], nil, nil))
       childs = []

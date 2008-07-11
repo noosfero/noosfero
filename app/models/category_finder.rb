@@ -30,12 +30,6 @@ class CategoryFinder
     find(asset, nil, :limit => limit)
   end
 
-  def count(asset, query='', options={})
-    # because will_paginate needs a page
-    options = {:page => 1}.merge(options)
-    find(asset, query, options).total_entries
-  end
-
   def most_commented_articles(limit=10, options={})
     options = {:page => 1, :per_page => limit, :order => 'comments_count DESC'}.merge(options)
     Article.paginate(:all, options_for_find(Article, options))
@@ -52,6 +46,41 @@ class CategoryFinder
     options = { :page => 1}.merge(options)
 
     Event.paginate(:all, {:include => :categories, :conditions => [ 'categories.id = ? and start_date >= ?', category_id, Date.today ], :order => 'start_date' }.merge(options))
+  end
+
+  def product_categories_count(asset, product_categories_ids, objects_ids=nil)
+    conditions = [ "product_categorizations.category_id in (?) and #{ProfileCategorization.table_name}.category_id = ?", product_categories_ids, category_id]
+
+    if asset == :products
+      if objects_ids
+        conditions[0] += ' and product_categorizations.product_id in (?)'
+        conditions << objects_ids
+      end
+      ProductCategory.find(
+        :all, 
+        :select => 'categories.id, count(*) as total', 
+        :joins => "inner join product_categorizations on (product_categorizations.category_id = categories.id) inner join products on (products.id = product_categorizations.product_id) inner join #{ProfileCategorization.table_name} on (#{ProfileCategorization.table_name}.profile_id = products.enterprise_id)", 
+        :group => 'categories.id', 
+        :conditions => conditions
+      )
+    elsif asset == :enterprises
+      if objects_ids
+        conditions[0] += ' and products.enterprise_id in (?)'
+        conditions << objects_ids
+      end
+      ProductCategory.find(
+        :all,
+        :select => 'categories.id, count(distinct products.enterprise_id) as total',
+        :joins => "inner join product_categorizations on (product_categorizations.category_id = categories.id) inner join products on (products.id = product_categorizations.product_id) inner join #{ProfileCategorization.table_name} on (#{ProfileCategorization.table_name}.profile_id = products.enterprise_id)",
+        :group => 'categories.id', 
+        :conditions => conditions 
+      )
+    else
+      raise ArgumentError, 'only products and enterprises supported'
+    end.inject({}) do |results,pc| 
+        results[pc.id]= pc.total.to_i
+        results
+    end
   end
 
   protected
