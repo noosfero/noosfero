@@ -50,13 +50,34 @@ class EnvironmentFinder
     find(asset, nil, :limit => limit)
   end
 
-  def count(asset, query = '', options = {})
-    if query.blank?
-      find(asset, query, options.except(:page, :per_page), 'count')
+  def product_categories_count(asset, product_categories_ids, objects_ids=nil)
+    conditions = ['product_categorizations.category_id in (?)', product_categories_ids]
+
+    if asset == :products
+      if objects_ids
+        conditions[0] += ' and product_categorizations.product_id in (?)'
+        conditions << objects_ids
+      end
+      ProductCategory.find(:all, :select => 'categories.id, count(*) as total', :joins => 'inner join product_categorizations on (product_categorizations.category_id = categories.id)', :group => 'categories.id', :conditions => conditions )
+    elsif asset == :enterprises
+      if objects_ids
+        conditions[0] += ' and products.enterprise_id in (?)'
+        conditions << objects_ids
+      end
+      ProductCategory.find(
+        :all,
+        :select => 'categories.id, count(distinct products.enterprise_id) as total',
+        :joins => 'inner join product_categorizations on (product_categorizations.category_id = categories.id) inner join products on (products.id = product_categorizations.product_id)',
+        :group => 'categories.id', 
+        :conditions => conditions 
+      )
     else
-      # will_paginate needs a page
-      find(asset, query, {:page => 1}.merge(options)).total_entries
+      raise ArgumentError, 'only products and enterprises supported'
+    end.inject({}) do |results,pc| 
+        results[pc.id]= pc.total.to_i
+        results
     end
+
   end
 
   protected

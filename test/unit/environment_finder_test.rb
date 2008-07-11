@@ -70,60 +70,7 @@ class EnvironmentFinderTest < ActiveSupport::TestCase
 
     assert (p1 == [ent1] && p2 == [ent2]) || (p1 == [ent2] && p2 == [ent1])
   end
-
-  should 'count enterprises' do
-    finder = EnvironmentFinder.new(Environment.default)
-    count = finder.count('enterprises')
-    Enterprise.create!(:name => 'teste1', :identifier => 'teste1')
-    assert_equal count+1, finder.count('enterprises')
-  end
-
-  should 'count people' do
-    finder = EnvironmentFinder.new(Environment.default)
-    count = finder.count('people')
-    create_user('testinguser')
-    assert_equal count+1, finder.count('people')
-  end
-  should 'count products' do
-    finder = EnvironmentFinder.new(Environment.default)
-    count = finder.count('products')
-    
-    ent = Enterprise.create!(:name => 'teste1', :identifier => 'teste1')
-    ent.products.create!(:name => 'test prodduct')
-
-    assert_equal count+1, finder.count('products')
-  end
-  should 'count articles' do
-    finder = EnvironmentFinder.new(Environment.default)
-
-    ent1 = Enterprise.create!(:name => 'teste1', :identifier => 'teste1')
-
-    count = finder.count('articles')
-    ent1.articles.create!(:name => 'teste1')
-
-    assert_equal count+1, finder.count('articles')
-  end
-  should 'count events' do
-    finder = EnvironmentFinder.new(Environment.default)
-    count = finder.count('events')
-    ent1 = Enterprise.create!(:name => 'teste1', :identifier => 'teste1')
-
-    Event.create!(:name => 'teste2', :profile => ent1, :start_date => Date.today)
-    assert_equal count+1, finder.count('events')
-  end
-
-  should 'count enterprises with query and options' do
-    env = Environment.default
-    finder = EnvironmentFinder.new(env)
-    results = mock
-
-    finder.expects(:find).with('people', 'my query', kind_of(Hash)).returns(results)
-
-    results.expects(:total_entries).returns(99)
-
-    assert_equal 99, finder.count('people', 'my query', {})
-  end
-
+  
   should 'find person and enterprise by radius and region' do
     finder = EnvironmentFinder.new(Environment.default)
     
@@ -194,19 +141,6 @@ class EnvironmentFinderTest < ActiveSupport::TestCase
     assert_not_includes prods, prod4
   end
 
-  should 'count products wihin product category without query paginating' do
-    finder = EnvironmentFinder.new(Environment.default)
-    cat = ProductCategory.create!(:name => 'test category', :environment => Environment.default)
-    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent')
-    prod1 = ent.products.create!(:name => 'test product 1', :product_category => cat)
-    prod1 = ent.products.create!(:name => 'test product 2', :product_category => cat)
-    prod3 = ent.products.create!(:name => 'test product 3')    
-
-    prods_count = finder.count(:products, nil, :product_category => cat, :per_page => 1)
-
-    assert_equal 2, prods_count
-  end
-
   should 'find in order of creation' do
     finder = EnvironmentFinder.new(Environment.default)
     ent1 = Enterprise.create!(:name => 'test enterprise 1', :identifier => 'test_ent1')
@@ -266,5 +200,108 @@ class EnvironmentFinderTest < ActiveSupport::TestCase
 
     assert_includes ents, ent1
     assert_not_includes ents, ent2
+  end
+
+  should 'count product categories results by products' do
+    finder = EnvironmentFinder.new(Environment.default)
+    
+    pc1 = ProductCategory.create!(:name => 'test cat1', :environment => Environment.default)
+    pc11 = ProductCategory.create!(:name => 'test cat11', :environment => Environment.default, :parent => pc1)
+    pc2 = ProductCategory.create!(:name => 'test cat2', :environment => Environment.default)
+    pc3 = ProductCategory.create!(:name => 'test cat3', :environment => Environment.default)
+
+
+    ent = Enterprise.create!(:name => 'test enterprise 1', :identifier => 'test_ent1')
+    p1 = ent.products.create!(:name => 'test product 1', :product_category => pc1)
+    p2 = ent.products.create!(:name => 'test product 2', :product_category => pc11)
+    p3 = ent.products.create!(:name => 'test product 3', :product_category => pc2)
+    p4 = ent.products.create!(:name => 'test product 4', :product_category => pc2) # not in the count
+    p5 = ent.products.create!(:name => 'test product 5', :product_category => pc3) # not in the count
+
+    counts = finder.product_categories_count(:products, [pc1.id, pc11.id, pc2.id], [p1.id, p2.id, p3.id] )
+
+    assert_equal 2, counts[pc1.id]
+    assert_equal 1, counts[pc11.id]
+    assert_equal 1, counts[pc2.id]
+    assert_nil counts[pc3.id]
+  end
+  
+  should 'count product categories results by all products' do
+    finder = EnvironmentFinder.new(Environment.default)
+    
+    pc1 = ProductCategory.create!(:name => 'test cat1', :environment => Environment.default)
+    pc11 = ProductCategory.create!(:name => 'test cat11', :environment => Environment.default, :parent => pc1)
+    pc2 = ProductCategory.create!(:name => 'test cat2', :environment => Environment.default)
+    pc3 = ProductCategory.create!(:name => 'test cat3', :environment => Environment.default)
+
+
+    ent = Enterprise.create!(:name => 'test enterprise 1', :identifier => 'test_ent1')
+    p1 = ent.products.create!(:name => 'test product 1', :product_category => pc1)
+    p2 = ent.products.create!(:name => 'test product 2', :product_category => pc11)
+    p3 = ent.products.create!(:name => 'test product 3', :product_category => pc2)
+    p4 = ent.products.create!(:name => 'test product 4', :product_category => pc3) # not in the count
+
+    counts = finder.product_categories_count(:products, [pc1.id, pc11.id, pc2.id] )
+
+    assert_equal 2, counts[pc1.id]
+    assert_equal 1, counts[pc11.id]
+    assert_equal 1, counts[pc2.id]
+    assert_nil counts[pc3.id]
+  end
+  
+  should 'count product categories results by enterprises' do
+    finder = EnvironmentFinder.new(Environment.default)
+    
+    pc1 = ProductCategory.create!(:name => 'test cat1', :environment => Environment.default)
+    pc11 = ProductCategory.create!(:name => 'test cat11', :environment => Environment.default, :parent => pc1)
+    pc2 = ProductCategory.create!(:name => 'test cat2', :environment => Environment.default)
+    pc3 = ProductCategory.create!(:name => 'test cat3', :environment => Environment.default)
+
+    ent1 = Enterprise.create!(:name => 'test enterprise 1', :identifier => 'test_ent1')
+    ent1.products.create!(:name => 'test product 1', :product_category => pc1)
+    ent1.products.create!(:name => 'test product 2', :product_category => pc1)
+    ent2 = Enterprise.create!(:name => 'test enterprise 2', :identifier => 'test_ent2')
+    ent2.products.create!(:name => 'test product 2', :product_category => pc11)
+    ent3 = Enterprise.create!(:name => 'test enterprise 3', :identifier => 'test_ent3')
+    ent3.products.create!(:name => 'test product 3', :product_category => pc2)
+    ent4 = Enterprise.create!(:name => 'test enterprise 4', :identifier => 'test_ent4')
+    ent4.products.create!(:name => 'test product 4', :product_category => pc2)
+    ent5 = Enterprise.create!(:name => 'test enterprise 5', :identifier => 'test_ent5') # not in the count
+    ent5.products.create!(:name => 'test product 5', :product_category => pc2)
+    ent5.products.create!(:name => 'test product 6', :product_category => pc3)
+
+    counts = finder.product_categories_count(:enterprises, [pc1.id, pc11.id, pc2.id], [ent1.id, ent2.id, ent3.id, ent4.id] )
+
+    assert_equal 2, counts[pc1.id]
+    assert_equal 1, counts[pc11.id]
+    assert_equal 2, counts[pc2.id]
+    assert_nil counts[pc3.id]
+  end
+  
+  should 'count product categories results by all enterprises' do
+    finder = EnvironmentFinder.new(Environment.default)
+    
+    pc1 = ProductCategory.create!(:name => 'test cat1', :environment => Environment.default)
+    pc11 = ProductCategory.create!(:name => 'test cat11', :environment => Environment.default, :parent => pc1)
+    pc2 = ProductCategory.create!(:name => 'test cat2', :environment => Environment.default)
+    pc3 = ProductCategory.create!(:name => 'test cat3', :environment => Environment.default)
+
+    ent1 = Enterprise.create!(:name => 'test enterprise 1', :identifier => 'test_ent1')
+    ent1.products.create!(:name => 'test product 1', :product_category => pc1)
+    ent1.products.create!(:name => 'test product 2', :product_category => pc1)
+    ent2 = Enterprise.create!(:name => 'test enterprise 2', :identifier => 'test_ent2')
+    ent2.products.create!(:name => 'test product 2', :product_category => pc11)
+    ent3 = Enterprise.create!(:name => 'test enterprise 3', :identifier => 'test_ent3')
+    ent3.products.create!(:name => 'test product 3', :product_category => pc2)
+    ent4 = Enterprise.create!(:name => 'test enterprise 4', :identifier => 'test_ent4')
+    ent4.products.create!(:name => 'test product 4', :product_category => pc2)
+    ent4.products.create!(:name => 'test product 5', :product_category => pc3)
+
+    counts = finder.product_categories_count(:enterprises, [pc1.id, pc11.id, pc2.id] )
+
+    assert_equal 2, counts[pc1.id]
+    assert_equal 1, counts[pc11.id]
+    assert_equal 2, counts[pc2.id]
+    assert_nil counts[pc3.id]
   end
 end
