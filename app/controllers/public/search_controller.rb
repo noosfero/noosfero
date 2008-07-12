@@ -91,7 +91,7 @@ class SearchController < ApplicationController
     # REFACTOR DUPLICATED CODE inner loop doing the same thing that outter loop
     
     cats = ProductCategory.menu_categories(@product_category, environment)
-    cats += cats.map(&:children).flatten
+    cats += cats.select { |c| c.children_count > 0 }.map(&:children).flatten
     product_categories_ids = cats.map(&:id)
 
     object_ids = nil
@@ -105,10 +105,14 @@ class SearchController < ApplicationController
       hits = counts[cat.id]
       childs = []
       if hits
-        childs = cat.children.map do |child|
-          child_hits = counts[child.id] 
-          [child, child_hits]
-        end.select{|child, child_hits| child_hits }
+        if cat.children_count > 0
+          childs = cat.children.map do |child|
+            child_hits = counts[child.id]
+            [child, child_hits]
+          end.select{|child, child_hits| child_hits }
+        else
+          childs = []
+        end
       end
       [cat, hits, childs]
     end.select{|cat, hits| hits }
