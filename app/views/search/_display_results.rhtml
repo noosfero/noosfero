@@ -20,7 +20,7 @@
         <% end %>
       <%= link_to( results.respond_to?(:total_entries) ? _('see all (%d)') % results.total_entries : _('see all...'),
                    params.merge(:action => 'index',
-                   :find_in => [ name ]),
+                   :asset => name ),
                    :class => 'see-more' ) if @results.size > 1 %>
       <% end %>
       <% partial = partial_for_class results.first.class %>
