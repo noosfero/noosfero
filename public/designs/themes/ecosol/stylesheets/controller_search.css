@@ -204,12 +204,13 @@ body.category4 .category-innerbox {
 
 #category-childs ul {
   margin: 0px;
-  padding: 0px 0px 0px 20px;
+  padding: 0px 0px 0px 50px;
+  -moz-border-radius: 20px;
 }
 
 #category-childs li {
   margin: 0px;
-  padding: 0px;
+  padding: 3px 0px 3px 0px;
   float: left;
   width: 33%;
   font-size: 12px;
@@ -219,6 +220,18 @@ body.category4 .category-innerbox {
   font-weight: bold;
 }
 
+.category1 #category-childs ul {
+  background: #FDD79E;
+}
+.category2 #category-childs ul {
+  background: #C4F099;
+}
+.category3 #category-childs ul {
+  background: #D6BFD3;
+}
+.category4 #category-childs ul {
+  background: #F79494;
+}
 
 /* * * Pagination * * * * * * * * * * * */
 

@@ -258,6 +258,13 @@
 }
 
 
+/* * * Sub-category stuff * * * * * * * */
+
+#category-childs ul {
+  height: 150px;
+  overflow: auto;
+}
+
 /* * * Pagination * * * * * * * * * * * */
 
 .pagination {
