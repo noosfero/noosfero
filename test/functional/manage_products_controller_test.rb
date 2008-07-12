@@ -118,7 +118,7 @@ class ManageProductsControllerTest < Test::Unit::TestCase
     category2 = ProductCategory.create!(:name => 'Category 2', :environment => environment, :parent => category1)
     category3 = ProductCategory.create!(:name => 'Category 3', :environment => environment, :parent => category2)
     get :new, :profile => @enterprise.identifier
-    assert_tag :tag => 'h3', :content => /Select a category:/, :sibling => { :tag => 'a', :content => /#{category2.name}/ }
+    assert_tag :tag => 'h3', :content => /Categories:/, :sibling => { :tag => 'a', :content => /#{category2.name}/ }
   end
 
   should 'show current category' do
@@ -126,7 +126,7 @@ class ManageProductsControllerTest < Test::Unit::TestCase
     category1 = ProductCategory.create!(:name => 'Category 1', :environment => environment)
     category2 = ProductCategory.create!(:name => 'Category 2', :environment => environment, :parent => category1)
     category3 = ProductCategory.create!(:name => 'Category 3', :environment => environment, :parent => category2)
-    get 'update_subcategories', :profile => @enterprise.identifier, :id => category2.id
+    get 'update_categories', :profile => @enterprise.identifier, :category_id => category2.id
     assert_tag :tag => 'h3', :content => /Current category:/, :sibling => { :tag => 'a', :content => /#{category3.name}/ }
   end
 
@@ -135,24 +135,24 @@ class ManageProductsControllerTest < Test::Unit::TestCase
     category1 = ProductCategory.create!(:name => 'Category 1', :environment => environment)
     category2 = ProductCategory.create!(:name => 'Category 2', :environment => environment, :parent => category1)
     category3 = ProductCategory.create!(:name => 'Category 3', :environment => environment, :parent => category2)
-    get 'update_subcategories', :profile => @enterprise.identifier, :id => category2.id
+    get 'update_categories', :profile => @enterprise.identifier, :category_id => category2.id
     assert !assigns(:categories).empty?
-    assert_tag :tag => 'h3', :content => /Select a subcategory:/, :sibling => { :tag => 'a', :attributes => { :href => '#' }, :content => /#{category2.name}/ }
+    assert_tag :tag => 'h3', :content => /Categories:/, :sibling => { :tag => 'a', :attributes => { :href => '#' }, :content => /#{category2.name}/ }
   end
 
   should 'update subcategories' do
     environment = Environment.default
     category1 = ProductCategory.create!(:name => 'Category 1', :environment => environment)
     category2 = ProductCategory.create!(:name => 'Category 2', :environment => environment, :parent => category1)
-    get 'update_subcategories', :profile => @enterprise.identifier, :id => category1.id
+    get 'update_categories', :profile => @enterprise.identifier, :category_id => category1.id
     assert_tag :tag => 'a', :attributes => { :href => '#' }, :content => /#{category2.name}/
   end
 
   should 'not show subcategories list when no subcategories' do
     environment = Environment.default
-    category1 = ProductCategory.create!(:name => 'Category 1', :environment => environment)
-    get 'update_subcategories', :profile => @enterprise.identifier, :id => category1.id
-    assert_no_tag :tag => 'p', :content => 'Select a subcategory:'
+    category1 = @enterprise.products.create!(:name => 'Category 1')
+    get 'update_categories', :profile => @enterprise.identifier, :id => category1.id
+    assert_no_tag :tag => 'h3', :content => 'Categories:'
   end
 
   should "create new product categorized" do

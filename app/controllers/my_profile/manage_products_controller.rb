@@ -63,7 +63,7 @@ class ManageProductsController < ApplicationController
       @current_category = ProductCategory.top_level_for(environment).first
       @categories = @current_category.nil? ? [] : @current_category.children
     end
-    render :partial => 'shared/select_categories', :locals => {:object_name => 'product'}, :layout => false
+    render :partial => 'shared/select_categories', :locals => {:object_name => 'product', :multiple => false}, :layout => false
   end
   
   def new_consumption

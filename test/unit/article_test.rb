@@ -354,7 +354,7 @@ class ArticleTest < Test::Unit::TestCase
   should 'not add a category twice to article' do
     c1 = Category.create!(:environment => Environment.default, :name => 'c1')
     c2 = c1.children.create!(:environment => Environment.default, :name => 'c2')
-    c3 = c2.children.create!(:environment => Environment.default, :name => 'c3')
+    c3 = c1.children.create!(:environment => Environment.default, :name => 'c3')
     owner = create_user('testuser').person
     art = owner.articles.create!(:name => 'ytest')
     art.category_ids = [c2,c3,c3].map(&:id)
