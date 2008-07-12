@@ -369,7 +369,7 @@ module ApplicationHelper
       icons =
         profile.product_categories.map{ |c| c.size > 1 ? c[1] : nil }.
           compact.uniq.map{ |c|
-            cat_name = c.gsub( /[-\s,.;'"]+/, '_' )
+            cat_name = c.gsub( /[-_\s,.;'"]+/, '_' )
             cat_icon = "/images/icons-cat/#{cat_name}.png"
             if ! File.exists? RAILS_ROOT.to_s() + '/public/' + cat_icon
               cat_icon = '/images/icons-cat/undefined.png'
