@@ -29,7 +29,7 @@ class EnvironmentFinder
       if product_category && asset == :products
         @environment.send(asset).send(finder_method, :all, options.merge(:include => 'product_categorizations', :conditions => ['product_categorizations.category_id = (?)', product_category.id]))
       elsif product_category && asset == :enterprises
-        @environment.send(asset).send(finder_method, :all, options.merge(:order => 'profiles.name', :include => 'products', :joins => 'inner join product_categorizations on (product_categorizations.product_id = products.id)', :conditions => ['product_categorizations.category_id = (?)', product_category.id]))
+        @environment.send(asset).send(finder_method, :all, options.merge( :order => 'profiles.name', :joins => 'inner join products on (products.enterprise_id = profiles.id) inner join product_categorizations on (product_categorizations.product_id = products.id)', :conditions => ['product_categorizations.category_id = (?)', product_category.id]))
       else
         if (asset == :events) && date_range
           @environment.send(asset).send(finder_method, :all, options.merge(:conditions => { :start_date => date_range}))
