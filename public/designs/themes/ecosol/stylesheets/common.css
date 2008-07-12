@@ -77,6 +77,8 @@ hr {
 
 #lightbox{
   background: #FFF url(../images/bg-top-cinza.jpg) no-repeat 50% -15px;
+
+  -moz-border-radius: 40px;
 }
 
 #footer {
