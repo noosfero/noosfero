@@ -19,5 +19,3 @@ cat_to_produtos.each do |cat|
   cat.parent = cat_servicos_diversos
   cat.save!
 end
-
-cat_diversos.destroy
