@@ -9,10 +9,16 @@ class CreateProductCategorizations < ActiveRecord::Migration
       t.timestamps
     end
 
-# FIXME:uncomment after implementation
-#    Product.find(:all).each do |p|
-#      ProductCategorization.add_category_to_product(p.product_category, p)
-#    end
+    Product.find(:all).each do |p|
+      if p.product_category
+        ProductCategorization.add_category_to_product(p.product_category, p)
+        print ".\0"
+      else
+        print "x\0"
+      end
+      $stdout.flush
+    end
+    print "\n"
 
   end
 

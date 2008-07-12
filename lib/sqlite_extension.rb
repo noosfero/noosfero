@@ -1,4 +1,4 @@
-if ActiveRecord::Base.connection.is_a?(ActiveRecord::ConnectionAdapters::SQLite3Adapter)
+if ActiveRecord::Base.connection.adapter_name.downcase == 'sqlite'
 
   database = ActiveRecord::Base.connection.raw_connection
 

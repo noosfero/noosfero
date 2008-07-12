@@ -10,3 +10,7 @@ production:
 #  host: localhost
 #  port: 9009
 #  pid_file: log/ferret.pid
+staging:
+  host: localhost
+  port: 9011
+  pid_file: log/ferret.pid

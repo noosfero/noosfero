@@ -16,12 +16,16 @@ class EnvironmentFinder
 
     date_range = options.delete(:date_range)
 
+    # FIXME this test is in more than one place
     if finder_method == 'paginate'
       options = {:page => 1, :per_page => options.delete(:limit)}.merge(options)
     end
 
     if query.blank?
-      options = {:order => "#{asset_table(asset)}.name"}.merge(options)
+      # FIXME this test is in more than one place
+      if finder_method == 'paginate'
+        options = {:order => "#{asset_table(asset)}.name"}.merge(options)
+      end
       if product_category && asset == :products
         @environment.send(asset).send(finder_method, :all, options.merge(:include => 'product_categorizations', :conditions => ['product_categorizations.category_id = (?)', product_category.id]))
       elsif product_category && asset == :enterprises

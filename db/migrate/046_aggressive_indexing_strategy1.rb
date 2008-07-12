@@ -20,13 +20,13 @@ class AggressiveIndexingStrategy1 < ActiveRecord::Migration
   end
 
   def self.down
-    add_index(:categories_profiles, :column => :profile_id)
-    add_index(:categories_profiles, :column => :category_id)
-    add_index(:product_categorizations, :column => :product_id)
-    add_index(:product_categorizations, :column => :category_id)
-    add_index(:products, :column => :enterprise_id)
-    add_index(:profiles, :column => :environment_id)
-    add_index(:blocks, :column => :box_id)
-    add_index(:box, :column => [:owner_type, :owner_id])
+    remove_index(:categories_profiles, :column => :profile_id)
+    remove_index(:categories_profiles, :column => :category_id)
+    remove_index(:product_categorizations, :column => :product_id)
+    remove_index(:product_categorizations, :column => :category_id)
+    remove_index(:products, :column => :enterprise_id)
+    remove_index(:profiles, :column => :environment_id)
+    remove_index(:blocks, :column => :box_id)
+    remove_index(:boxes, :column => [:owner_type, :owner_id])
   end
 end
