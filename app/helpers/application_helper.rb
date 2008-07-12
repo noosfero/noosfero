@@ -367,16 +367,16 @@ module ApplicationHelper
   def profile_cat_icons( profile )
     if profile.class == Enterprise
       icons =
-        profile.product_categories.map{ |c| c.size > 1 ? [c[0],c[1]] : nil }.
+        profile.product_categories.map{ |c| c.size > 1 ? c[1] : nil }.
           compact.uniq.map{ |c|
-            cat_name = (c[0]+'_'+c[1]).gsub( /\s/, '_' )
+            cat_name = c.gsub( /[-\s,.;'"]/, '_' )
             cat_icon = "/images/icons-cat/#{cat_name}.png"
             if ! File.exists? RAILS_ROOT.to_s() + '/public/' + cat_icon
               cat_icon = '/images/icons-cat/undefined.png'
             end
             content_tag 'span',
-                        content_tag( 'span', c.join(' &rarr; ') ),
-                        :title => c.join(' &rarr; '),
+                        content_tag( 'span', c ),
+                        :title => c,
                         :class => 'product-cat-icon cat_icon_' + cat_name,
                         :style => "background-image:url(#{cat_icon})"
           }.join "\n"
