@@ -2,22 +2,45 @@
 # Krishnamurti Lelis Lima Vieira Nunes <krishna@colivre.coop.br>, 2007.
 # noosfero - Brazilian Portuguese translation
 # Copyright (C) 2007,
-#   Forum Brasileiro de Economia Solidaria <http://www.fbes.org.br/>
+# Forum Brasileiro de Economia Solidaria <http://www.fbes.org.br/>
 # Copyright (C) 2007,
-#   Ynternet.org Foundation <http://www.ynternet.org/>
+# Ynternet.org Foundation <http://www.ynternet.org/>
 # This file is distributed under the same license as noosfero itself.
+# Joenio Costa <joenio@colivre.coop.br>, 2008.
+# 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.10.1\n"
+"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-07-12 17:50-0300\n"
-"PO-Revision-Date: 2008-06-27 14:54-0300\n"
-"Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2008-07-12 18:56-0300\n"
+"Last-Translator: Vicente Aguiar <vicenteaguiar@colivre.coop.br>\n"
+"Language-Team: Project-Id-Version: gtranslator"
+"Report-Msgid-Bugs-To: "
+"POT-Creation-Date: 2004-07-27 14:56-0400"
+"PO-Revision-Date: 2004-07-27 14:57-0400"
+"Last-Translator: Afonso Celso Medina <medina@maua.br>"
+"Language-Team: Portuguese/Brazil <gnome-l10n-br@listas.cipsga.org.br>"
+"MIME-Version: 1.0"
+"Content-Type: text/plain; charset=UTF-8"
+"Content-Transfer-Encoding: 8bit"
+"Plural-Forms: nplurals=2; plural=(n != 1);"
+" <Project-Id-Version: gtranslator"
+"Report-Msgid-Bugs-To: "
+"POT-Creation-Date: 2004-07-27 14:56-0400"
+"PO-Revision-Date: 2004-07-27 14:57-0400"
+"Last-Translator: Afonso Celso Medina <medina@maua.br>"
+"Language-Team: Portuguese/Brazil <gnome-l10n-br@listas.cipsga.org.br>"
+"MIME-Version: 1.0"
+"Content-Type: text/plain; charset=UTF-8"
+"Content-Transfer-Encoding: 8bit"
+"Plural-Forms: nplurals=2; plural=(n != 1);"
+">\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Pootle 1.0.2\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);"
 
 #: app/helpers/application_helper.rb:61
 #: app/views/layouts/application.rhtml:112 app/views/features/index.rhtml:7
@@ -44,9 +67,8 @@ msgid "No product"
 msgstr "Sem produto"
 
 #: app/helpers/application_helper.rb:362
-#, fuzzy
 msgid "non registered gender"
-msgstr "Pessoas registradas recentemente"
+msgstr "gênero não registrado"
 
 #: app/helpers/application_helper.rb:362
 #: app/views/profile_editor/_person.rhtml:5
@@ -59,9 +81,8 @@ msgid "Female"
 msgstr "Feminino"
 
 #: app/helpers/application_helper.rb:390
-#, fuzzy
 msgid "Principal Product Categories"
-msgstr "Categoria do Produto"
+msgstr "Categorias do Produto Principal"
 
 #: app/helpers/application_helper.rb:414
 msgid "Click on this icon to go to the <b>%s</b>'s home page"
@@ -109,24 +130,20 @@ msgid "Are you sure you want to visit this web site?"
 msgstr "Tem certeza que quer visitar este web site?"
 
 #: app/helpers/application_helper.rb:658
-#, fuzzy
 msgid "Searched for '%s'"
-msgstr "Buscar por:"
+msgstr "Buscar por.'%'"
 
 #: app/helpers/application_helper.rb:659
-#, fuzzy
 msgid "In category %s"
-msgstr "Categoria: %s"
+msgstr "Na categoria %s"
 
 #: app/helpers/application_helper.rb:660
-#, fuzzy
 msgid "within %d from %s"
 msgstr "No raio de %s km até %s"
 
 #: app/helpers/application_helper.rb:661
-#, fuzzy
 msgid "%d results found"
-msgstr " foi encontrador"
+msgstr "%d resultados encontrados"
 
 #: app/helpers/search_helper.rb:28
 msgid "Display in list"
@@ -137,31 +154,27 @@ msgid "Display in map"
 msgstr "Mostrar no mapa"
 
 #: app/helpers/search_helper.rb:53
-#, fuzzy
 msgid "E-Mail: "
-msgstr "e-Mail"
+msgstr "e-Mail: "
+""
 
 #: app/helpers/search_helper.rb:56
 msgid "Phone(s): "
-msgstr ""
+msgstr "Telefone(s):"
 
 #: app/helpers/search_helper.rb:59
-#, fuzzy
 msgid "Location: "
-msgstr "Ações: %s"
+msgstr "Localização: "
 
 #: app/helpers/search_helper.rb:62
-#, fuzzy
 msgid "Address: "
-msgstr "Endereço:"
+msgstr "Endereço: "
 
 #: app/helpers/search_helper.rb:65
-#, fuzzy
 msgid "Products/Services: "
-msgstr "Produtos/Serviços"
+msgstr "Produtos/Serviços: "
 
 #: app/helpers/search_helper.rb:68
-#, fuzzy
 msgid "Distance: "
 msgstr "Distância (km): "
 
@@ -170,9 +183,8 @@ msgid "Price: "
 msgstr "Preço:"
 
 #: app/helpers/search_helper.rb:86
-#, fuzzy
 msgid "Provider: "
-msgstr "Preço:"
+msgstr "Fornecedor: "
 
 #: app/helpers/search_helper.rb:89
 msgid "Category: "
@@ -236,9 +248,8 @@ msgid "December"
 msgstr "Dezembro"
 
 #: app/helpers/dates_helper.rb:27
-#, fuzzy
 msgid "%{month} %{day}, %{year}"
-msgstr "%{month} %{year}"
+msgstr "%{mês} %{dia},.%{ano}"
 
 #: app/helpers/dates_helper.rb:36
 msgid "%d %B %Y, %H:%m"
@@ -306,18 +317,16 @@ msgid "Contact person:"
 msgstr "Pessoa de contato:"
 
 #: app/helpers/enterprise_homepage_helper.rb:7
-#, fuzzy
 msgid "e-Mail:"
-msgstr "e-Mail"
+msgstr "e-Mail:"
 
 #: app/helpers/enterprise_homepage_helper.rb:8
 msgid "Phone(s):"
-msgstr ""
+msgstr "Telefone(s)"
 
 #: app/helpers/enterprise_homepage_helper.rb:9
-#, fuzzy
 msgid "Location:"
-msgstr "Ações"
+msgstr "Localização:"
 
 #: app/helpers/enterprise_homepage_helper.rb:10 app/models/event.rb:78
 #: app/views/enterprise_editor/index.rhtml:6 app/views/cms/_event.rhtml:12
@@ -325,9 +334,8 @@ msgid "Address:"
 msgstr "Endereço:"
 
 #: app/helpers/enterprise_homepage_helper.rb:11
-#, fuzzy
 msgid "Legal form:"
-msgstr "Formulário Legal"
+msgstr "Natureza legal:"
 
 #: app/helpers/enterprise_homepage_helper.rb:12
 #: app/views/enterprise_editor/index.rhtml:10
@@ -342,9 +350,8 @@ msgstr "Atividade econômica:"
 #: app/helpers/enterprise_homepage_helper.rb:21
 #: app/views/search/_sellers_form.rhtml:17
 #: app/views/search/_search_form.rhtml:31
-#, fuzzy
 msgid "Distance:"
-msgstr "Distância (km): "
+msgstr "Distância:"
 
 #: app/helpers/boxes_helper.rb:17 app/helpers/boxes_helper.rb:34
 msgid "Main content"
@@ -402,14 +409,12 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #: app/helpers/forms_helper.rb:64
-#, fuzzy
 msgid "State:"
-msgstr "Estado"
+msgstr "Estado:"
 
 #: app/helpers/forms_helper.rb:65
-#, fuzzy
 msgid "City:"
-msgstr "Cidade"
+msgstr "Cidade:"
 
 #: app/helpers/categories_helper.rb:6
 msgid "Do not display at the menu"
@@ -527,9 +532,8 @@ msgid "Management information"
 msgstr "Gerenciamento de informação"
 
 #: app/models/organization.rb:41
-#, fuzzy
 msgid "Validated"
-msgstr "1 validador"
+msgstr "Validado"
 
 #: app/models/enterprises_block.rb:8
 msgid "The enterprises where this user works."
@@ -572,9 +576,8 @@ msgid "Target"
 msgstr "Alvo"
 
 #: app/models/task.rb:-
-#, fuzzy
 msgid "Code"
-msgstr "Fechar"
+msgstr "Código"
 
 #: app/models/task.rb:- app/models/article.rb:- app/models/profile.rb:-
 #: app/models/category.rb:- app/models/block.rb:- app/views/cms/view.rhtml:25
@@ -585,9 +588,8 @@ msgstr "Tipo"
 #: app/models/product_categorization.rb:- app/models/friendship.rb:-
 #: app/models/profile.rb:- app/models/user.rb:- app/models/comment.rb:-
 #: app/models/product.rb:-
-#, fuzzy
 msgid "Created at"
-msgstr "Criado em: %s"
+msgstr "Criado em"
 
 #: app/models/task.rb:87
 msgid "Generic task"
@@ -606,9 +608,8 @@ msgid "The task was cancelled at %s"
 msgstr "A tarefa foi cancelada em %s"
 
 #: app/models/link_list_block.rb:10
-#, fuzzy
 msgid "Display a list of links."
-msgstr "Mostrar como lista"
+msgstr "Mostrar uma lista de links"
 
 #: app/models/favorite_enterprises_block.rb:4
 #: app/views/profile_editor/index.rhtml:31
@@ -671,9 +672,8 @@ msgid "Slug"
 msgstr "Atalho"
 
 #: app/models/article.rb:- app/models/category.rb:-
-#, fuzzy
 msgid "Path"
-msgstr "Pai"
+msgstr "Caminho"
 
 #: app/models/article.rb:- app/models/category.rb:- app/models/image.rb:-
 #: app/models/thumbnail.rb:-
@@ -685,9 +685,8 @@ msgid "Body"
 msgstr "Corpo"
 
 #: app/models/article.rb:-
-#, fuzzy
 msgid "Abstract"
-msgstr "Resumo do artigo"
+msgstr "Resumo"
 
 #: app/models/article.rb:- app/models/profile_categorization.rb:-
 #: app/models/consumption.rb:-
@@ -700,53 +699,44 @@ msgid "Updated at"
 msgstr "Atualizado em"
 
 #: app/models/article.rb:-
-#, fuzzy
 msgid "Last changed by"
-msgstr "Atualizado por"
+msgstr "Última atualização de"
 
 #: app/models/article.rb:-
 msgid "Version"
 msgstr "Versão"
 
 #: app/models/article.rb:-
-#, fuzzy
 msgid "Lock version"
-msgstr "Trava da versão"
+msgstr "Trancar a versão"
 
 #: app/models/article.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
-#, fuzzy
 msgid "Size"
-msgstr "Simples"
+msgstr "Tamanho"
 
 #: app/models/article.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
-#, fuzzy
 msgid "Content type"
 msgstr "Tipo de conteúdo"
 
 #: app/models/article.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
-#, fuzzy
 msgid "Filename"
-msgstr "Nome de arquivo"
+msgstr "Nome do arquivo"
 
 #: app/models/article.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
-#, fuzzy
 msgid "Height"
 msgstr "Altura"
 
 #: app/models/article.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
-#, fuzzy
 msgid "Width"
 msgstr "Largura"
 
 #: app/models/article.rb:-
-#, fuzzy
 msgid "Comments count"
 msgstr "Número de comentários"
 
 #: app/models/article.rb:-
-#, fuzzy
 msgid "Advertise"
-msgstr "Publicado"
+msgstr "Publicar"
 
 #: app/models/article.rb:- app/views/cms/edit.rhtml:28
 msgid "Published"
@@ -757,7 +747,6 @@ msgid "Start date"
 msgstr "Data de início"
 
 #: app/models/article.rb:- app/models/category.rb:-
-#, fuzzy
 msgid "Children count"
 msgstr "Quantidade de filhos"
 
@@ -782,17 +771,14 @@ msgid "box"
 msgstr "caixa"
 
 #: app/models/box.rb:- app/models/image.rb:- app/models/domain.rb:-
-#, fuzzy
 msgid "Owner type"
-msgstr "Tipo do dono"
+msgstr "Tipo de dono"
 
 #: app/models/box.rb:- app/models/image.rb:- app/models/domain.rb:-
-#, fuzzy
 msgid "Owner"
 msgstr "Dono"
 
 #: app/models/box.rb:- app/models/block.rb:-
-#, fuzzy
 msgid "Position"
 msgstr "Posição"
 
@@ -826,26 +812,23 @@ msgstr "Categoria"
 #: app/models/product_categorization.rb:-
 #: app/models/article_categorization.rb:-
 msgid "Virtual"
-msgstr ""
+msgstr "Virtual"
 
 #: app/models/products_block.rb:8
-#, fuzzy
 msgid "A block that displays products"
-msgstr "Um bloco que apresenta integrantes."
+msgstr "Um bloco que apresenta produtos"
 
 #: app/models/products_block.rb:24
-#, fuzzy
 msgid "View all products"
-msgstr "Novo produto"
+msgstr "Ver todos os produtos"
 
 #: app/models/tags_block.rb:8
 msgid "Block listing content count by tag"
 msgstr "Block que lista a contagem de conteúdo por tag"
 
 #: app/models/tags_block.rb:12
-#, fuzzy
 msgid "tags"
-msgstr "tarefa"
+msgstr "tags"
 
 #: app/models/tags_block.rb:16
 msgid ""
@@ -856,9 +839,8 @@ msgstr ""
 "algumas tags para alguns artigos e veja sua nuvem de tags crescer."
 
 #: app/models/product_categorization.rb:-
-#, fuzzy
 msgid "product categorization"
-msgstr "categorizaçãoperfil"
+msgstr "categorização do produto"
 
 #: app/models/product_categorization.rb:-
 #: app/views/manage_products/index.rhtml:5
@@ -919,14 +901,13 @@ msgstr "usuário"
 
 #: app/models/profile.rb:- app/models/category.rb:- app/models/product.rb:-
 msgid "Lat"
-msgstr ""
+msgstr "Lat"
 
 #: app/models/profile.rb:- app/models/category.rb:- app/models/product.rb:-
 msgid "Lng"
-msgstr ""
+msgstr "Lng"
 
 #: app/models/profile.rb:-
-#, fuzzy
 msgid "Geocode precision"
 msgstr "Precisão do georeferenciamento"
 
@@ -971,9 +952,8 @@ msgid "Perform task"
 msgstr "Realizar tarefa"
 
 #: app/models/profile.rb:37
-#, fuzzy
 msgid "Moderate comments"
-msgstr "Enviar comentário"
+msgstr "Moderar comentários"
 
 #: app/models/profile.rb:154
 msgid "An existing profile cannot be renamed."
@@ -1004,14 +984,12 @@ msgid "category"
 msgstr "categoria"
 
 #: app/models/category.rb:-
-#, fuzzy
 msgid "Display color"
-msgstr "Mostrar cor"
+msgstr "Cor de exibição"
 
 #: app/models/category.rb:-
-#, fuzzy
 msgid "Display in menu"
-msgstr "Mostrar no mapa"
+msgstr "Mostrar no menu"
 
 #: app/models/category.rb:3
 msgid "%{fn} cannot be like that."
@@ -1116,44 +1094,36 @@ msgid "user"
 msgstr "usuário"
 
 #: app/models/user.rb:-
-#, fuzzy
 msgid "Crypted password"
 msgstr "Senha criptografada"
 
 #: app/models/user.rb:-
-#, fuzzy
 msgid "Salt"
-msgstr "Salto"
+msgstr "Sal"
 
 #: app/models/user.rb:-
-#, fuzzy
 msgid "Remember token"
 msgstr "Lembrar token"
 
 #: app/models/user.rb:-
-#, fuzzy
 msgid "Remember token expires at"
-msgstr "Token lembrado expira em"
+msgstr "Lembre do token que expira em"
 
 #: app/models/user.rb:-
-#, fuzzy
 msgid "Terms of use"
 msgstr "Termos de Uso"
 
 #: app/models/user.rb:-
-#, fuzzy
 msgid "Terms accepted"
 msgstr "Termos aceitos"
 
 #: app/models/user.rb:-
-#, fuzzy
 msgid "Password type"
 msgstr "Tipo de senha"
 
 #: app/models/user.rb:-
-#, fuzzy
 msgid "Enable email"
-msgstr "Habilitar e-mail %s"
+msgstr "Habilitar e-mail"
 
 #: app/models/user.rb:7
 msgid "User|Password"
@@ -1177,12 +1147,10 @@ msgid "Title"
 msgstr "Título"
 
 #: app/models/block.rb:-
-#, fuzzy
 msgid "Box"
-msgstr "caixa"
+msgstr "Caixa"
 
 #: app/models/block.rb:- app/models/environment.rb:-
-#, fuzzy
 msgid "Settings"
 msgstr "Configurações"
 
@@ -1215,7 +1183,6 @@ msgid "articlecategorization"
 msgstr "categorizaçãoartigo"
 
 #: app/models/article_categorization.rb:- app/models/comment.rb:-
-#, fuzzy
 msgid "Article"
 msgstr "Artigos"
 
@@ -1224,14 +1191,12 @@ msgid "consumption"
 msgstr "consumo"
 
 #: app/models/consumption.rb:- app/models/product.rb:-
-#, fuzzy
 msgid "Product category"
 msgstr "Categoria do Produto"
 
 #: app/models/consumption.rb:-
-#, fuzzy
 msgid "Aditional specifications"
-msgstr "Especificações adicionais:"
+msgstr "Especificações adicionais"
 
 #: app/models/profile_list_block.rb:6
 msgid "A block that displays random profiles"
@@ -1260,12 +1225,10 @@ msgid "comment"
 msgstr "comentário"
 
 #: app/models/comment.rb:-
-#, fuzzy
 msgid "Author"
 msgstr "Autor"
 
 #: app/models/comment.rb:-
-#, fuzzy
 msgid "Email"
 msgstr "E-mail"
 
@@ -1278,9 +1241,8 @@ msgid "image"
 msgstr "imagem"
 
 #: app/models/image.rb:- app/models/thumbnail.rb:-
-#, fuzzy
 msgid "Thumbnail"
-msgstr "miniatura"
+msgstr "Miniatura"
 
 #: app/models/image_gallery.rb:4
 msgid "Image gallery"
@@ -1295,13 +1257,12 @@ msgid "thumbnail"
 msgstr "miniatura"
 
 #: app/models/enterprise_homepage.rb:4
-#, fuzzy
 msgid "Enterprise homepage."
-msgstr "Empreendimento"
+msgstr "Página do Empreendimento"
 
 #: app/models/enterprise_homepage.rb:8
 msgid "Display the summary of profile."
-msgstr ""
+msgstr "Apresenta o resumo do perfil"
 
 #: app/models/sellers_search_block.rb:4
 msgid "A search for enterprises by products selled and local"
@@ -1352,14 +1313,12 @@ msgid "validation info"
 msgstr "informações de validação"
 
 #: app/models/validation_info.rb:-
-#, fuzzy
 msgid "Validation methodology"
-msgstr "Metodologia de Validação:"
+msgstr "Método de Validação"
 
 #: app/models/validation_info.rb:-
-#, fuzzy
 msgid "Restrictions"
-msgstr "Limitações (se tiver):"
+msgstr "Limitações"
 
 #: app/models/validation_info.rb:-
 msgid "Organization"
@@ -1576,12 +1535,10 @@ msgid "environment"
 msgstr "comunidade virtual"
 
 #: app/models/environment.rb:-
-#, fuzzy
 msgid "Is default"
 msgstr "É padrão"
 
 #: app/models/environment.rb:-
-#, fuzzy
 msgid "Design data"
 msgstr "Informações de design"
 
@@ -1795,28 +1752,24 @@ msgid "This action is not available for \"%s\"."
 msgstr "Esta ação não está disponível para \"%s\"."
 
 #: app/controllers/public/search_controller.rb:195
-#, fuzzy
 msgid "Newer people"
-msgstr "Ver perfil"
+msgstr "Pessoas recentes"
 
 #: app/controllers/public/search_controller.rb:196
-#, fuzzy
 msgid "Newer enterprises"
-msgstr "Registrar empreendimento"
+msgstr "Empreendimentos recentes"
 
 #: app/controllers/public/search_controller.rb:198
 msgid "Upcoming events"
-msgstr ""
+msgstr "Próximos eventos"
 
 #: app/controllers/public/search_controller.rb:199
-#, fuzzy
 msgid "Newer communities"
-msgstr "Todas comunidades"
+msgstr "Comunidades recentes"
 
 #: app/controllers/public/search_controller.rb:200
-#, fuzzy
 msgid "Newer articles"
-msgstr "Novo artigo"
+msgstr "Artigos recentes"
 
 #: app/controllers/public/search_controller.rb:201
 msgid "Most commented articles"
@@ -2185,7 +2138,7 @@ msgstr "Voltar ao painel de controle"
 
 #: app/views/box_organizer/_products_block.rhtml:5
 msgid "Select the products that must be shown."
-msgstr ""
+msgstr "Escolha os produtos que serão exibidos."
 
 #: app/views/box_organizer/edit.rhtml:1
 msgid "Editing block"
@@ -2193,17 +2146,15 @@ msgstr "Editando bloco"
 
 #: app/views/box_organizer/edit.rhtml:5
 msgid "Custom title for this block: "
-msgstr ""
+msgstr "Título resumido para este bloco: "
 
 #: app/views/box_organizer/_link_list_block.rhtml:2
-#, fuzzy
 msgid "Links"
-msgstr "Entrar"
+msgstr "Links"
 
 #: app/views/box_organizer/_link_list_block.rhtml:16
-#, fuzzy
 msgid "New link"
-msgstr "Novo amigo"
+msgstr "Novo link"
 
 #: app/views/box_organizer/add_block.rhtml:3
 msgid "In what area do you want to put your new block?"
@@ -2598,7 +2549,7 @@ msgstr "Opções de moderação"
 #: app/views/profile_editor/_organization.rhtml:12
 msgid ""
 "New members must be approved by an administrator before joining this group?"
-msgstr ""
+msgstr "Os novos membros devem ser aprovados pelo administrador antes de entrarem neste grupo?"
 
 #: app/views/profile_editor/enable.rhtml:1
 msgid "Enabling '%s' enterprise"
@@ -2741,9 +2692,8 @@ msgid "%s's favorite enterprises"
 msgstr "Empreendimentos favoritos de %s"
 
 #: app/views/search/products.rhtml:1
-#, fuzzy
 msgid "Products and Services"
-msgstr "Gerenciar Produtos e Serviços"
+msgstr "Produtos e Serviços"
 
 #: app/views/search/products.rhtml:7 app/views/search/index.rhtml:5
 #: app/views/search/enterprises.rhtml:13 app/views/search/people.rhtml:7
@@ -2756,29 +2706,24 @@ msgid "by %{author} on \"%{article}\""
 msgstr "por %{author} em \"%{article}\""
 
 #: app/views/search/_product_categories_menu.rhtml:13
-#, fuzzy
 msgid "There is no sub-categories for %s."
-msgstr "Não há página: %s"
+msgstr "Não há subcategorias para %s."
 
 #: app/views/search/_product_categories_menu.rhtml:15
-#, fuzzy
 msgid "There is no categories."
-msgstr "Não há página: %s"
+msgstr "Não há categorias."
 
 #: app/views/search/enterprises.rhtml:3
-#, fuzzy
 msgid "Enterprise results for \"%{query}\" in \"%{category}\""
-msgstr "Resultados da busca por \"%{query}\" em \"%{category}\""
+msgstr "Resultados de empreendimentos por \"%{consulta}\" em \"%{category}\""
 
 #: app/views/search/enterprises.rhtml:3
-#, fuzzy
 msgid "Enterprise results for \"%s\""
-msgstr "Resultados da busca por \"%s\""
+msgstr "Resultados de empreendimentos para \"%s\""
 
 #: app/views/search/enterprises.rhtml:5
-#, fuzzy
 msgid "Enterprises in \"%s\""
-msgstr "Cadastro de empreendimento: \"%s\""
+msgstr "Empreendimentos em \"%s\""
 
 #: app/views/search/enterprises.rhtml:10
 msgid "Within %s km from %s"
@@ -2786,11 +2731,11 @@ msgstr "No raio de %s km até %s"
 
 #: app/views/search/_display_results.rhtml:21
 msgid "see all (%d)"
-msgstr ""
+msgstr "ver todos (%d)"
 
 #: app/views/search/_display_results.rhtml:21
 msgid "see all..."
-msgstr ""
+msgstr "ver todos..."
 
 #: app/views/search/popup.rhtml:3
 msgid "Search %s"
@@ -2805,9 +2750,8 @@ msgid "Search in:"
 msgstr "Buscar em:"
 
 #: app/views/search/_product.rhtml:15
-#, fuzzy
 msgid "Not informed"
-msgstr "não informado"
+msgstr "Não informado"
 
 #: app/views/search/_product.rhtml:17
 msgid "Suplier: %s"
@@ -3868,7 +3812,7 @@ msgstr "Um projeto da Ynternet.org"
 
 #: public/designs/themes/zen3/footer.rhtml:6
 msgid "Sponsored by Loterie Romande"
-msgstr ""
+msgstr "Patrocinado pela Loterie Romande"
 
 #: public/designs/themes/ecosol/footer.rhtml:2
 msgid "A FBES project"
