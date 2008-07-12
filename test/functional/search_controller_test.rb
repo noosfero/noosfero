@@ -729,8 +729,8 @@ class SearchControllerTest < Test::Unit::TestCase
     
     get :index, :find_in => 'products', :query => 'test'
 
-    assert_includes assigns(:categories_menu).map(&:first), cat1
-    assert_not_includes assigns(:categories_menu).map(&:first), cat2
+    assert_tag :attributes => { :id => "product-categories-menu" }, :descendant => { :tag => 'a', :content => /pc test 1/ }
+    assert_no_tag :attributes => { :id => "product-categories-menu" }, :descendant => { :tag => 'a', :content => /pc test c/ }
   end
 
   should 'display only within a product category when specified' do
@@ -765,8 +765,8 @@ class SearchControllerTest < Test::Unit::TestCase
 
     get :index, :find_in => 'products'
 
-    assert_includes assigns(:categories_menu).map(&:first), cat1
-    assert_not_includes assigns(:categories_menu).map(&:first), cat2
+    assert_tag :attributes => { :id => "product-categories-menu" }, :descendant => { :tag => 'a', :content => /prod cat 1/ }
+    assert_no_tag :attributes => { :id => "product-categories-menu" }, :descendant => { :tag => 'a', :content => /prod cat 2/ }
   end
 
   should 'display children categories that has products when product category filter is selected' do
@@ -778,8 +778,8 @@ class SearchControllerTest < Test::Unit::TestCase
 
     get :index, :find_in => 'products', :product_category => cat1.id
 
-    assert_includes assigns(:categories_menu).map(&:first), cat11
-    assert_not_includes assigns(:categories_menu).map(&:first), cat12
+    assert_tag :attributes => { :id => "product-categories-menu" }, :descendant => { :tag => 'a', :content => /prod cat 11/ }
+    assert_no_tag :attributes => { :id => "product-categories-menu" }, :descendant => { :tag => 'a', :content => /prod cat 12/ }
   end
 
   should 'list only product categories with enterprises' do
@@ -791,8 +791,8 @@ class SearchControllerTest < Test::Unit::TestCase
 
     get :index, :find_in => 'enterprises', :query => 'test'
 
-    assert_includes assigns(:categories_menu).map(&:first), cat1
-    assert_not_includes assigns(:categories_menu).map(&:first), cat2
+    assert_tag :attributes => { :id => "product-categories-menu" }, :descendant => { :tag => 'a', :content => /pc test 1/ }
+    assert_no_tag :attributes => { :id => "product-categories-menu" }, :descendant => { :tag => 'a', :content => /pc test c/ }
   end
 
   should 'display only enterprises in the product category when its specified' do
@@ -831,8 +831,8 @@ class SearchControllerTest < Test::Unit::TestCase
 
     get :index, :find_in => 'enterprises'
 
-    assert_includes assigns(:categories_menu).map(&:first), cat1
-    assert_not_includes assigns(:categories_menu).map(&:first), cat2
+    assert_tag :attributes => { :id => "product-categories-menu" }, :descendant => { :tag => 'a', :content => /prod cat 1/ }
+    assert_no_tag :attributes => { :id => "product-categories-menu" }, :descendant => { :tag => 'a', :content => /prod cat 2/ }
   end
 
   should 'display children categories that has enterprises when product category filter is selected' do
@@ -844,8 +844,8 @@ class SearchControllerTest < Test::Unit::TestCase
 
     get :index, :find_in => 'enterprises', :product_category => cat1.id
 
-    assert_includes assigns(:categories_menu).map(&:first), cat11
-    assert_not_includes assigns(:categories_menu).map(&:first), cat12
+    assert_tag :attributes => { :id => "product-categories-menu" }, :descendant => { :tag => 'a', :content => /prod cat 11/ }
+    assert_no_tag :attributes => { :id => "product-categories-menu" }, :descendant => { :tag => 'a', :content => /prod cat 12/ }
   end
 
   should 'load two level of the product categories tree' do
@@ -857,8 +857,8 @@ class SearchControllerTest < Test::Unit::TestCase
 
     get :index, :find_in => 'enterprises'
 
-    assert_includes assigns(:categories_menu).map{|a|a[2].map(&:first)}.flatten, cat11
-    assert_not_includes assigns(:categories_menu).map{|a|a[2].map(&:first)}.flatten, cat12
+    assert_tag :attributes => { :id => "product-categories-menu" }, :descendant => { :tag => 'a', :content => /prod cat 11/ }
+    assert_no_tag :attributes => { :id => "product-categories-menu" }, :descendant => { :tag => 'a', :content => /prod cat 12/ }
   end
 
   should 'provide calendar for events' do

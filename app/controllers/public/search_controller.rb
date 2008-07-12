@@ -74,6 +74,7 @@ class SearchController < ApplicationController
   end
   def enterprises
     load_product_categories_menu(:enterprises)
+    @categories_menu = true
   end
   def communities
     #nothing, just to enable
@@ -84,38 +85,17 @@ class SearchController < ApplicationController
 
   def products
     load_product_categories_menu(:products)
+    @categories_menu = true
   end
 
   def load_product_categories_menu(asset)
     @results[asset].uniq!
     # REFACTOR DUPLICATED CODE inner loop doing the same thing that outter loop
-    
-    cats = ProductCategory.menu_categories(@product_category, environment)
-    cats += cats.select { |c| c.children_count > 0 }.map(&:children).flatten
-    product_categories_ids = cats.map(&:id)
 
-    object_ids = nil
     if !@query.blank? || @region && !params[:radius].blank?
-      object_ids = @finder.find(asset, @filtered_query, calculate_find_options(asset, nil, params[:page], @product_category, @region, params[:radius], params[:year], params[:month]).merge({:limit => :all}))
+      @result_ids = @finder.find(asset, @filtered_query, calculate_find_options(asset, nil, params[:page], @product_category, @region, params[:radius], params[:year], params[:month]).merge({:limit => :all}))
     end
 
-    counts = @finder.product_categories_count(asset, product_categories_ids, object_ids)
-
-    @categories_menu = ProductCategory.menu_categories(@product_category, environment).map do |cat|
-      hits = counts[cat.id]
-      childs = []
-      if hits
-        if cat.children_count > 0
-          childs = cat.children.map do |child|
-            child_hits = counts[child.id]
-            [child, child_hits]
-          end.select{|child, child_hits| child_hits }
-        else
-          childs = []
-        end
-      end
-      [cat, hits, childs]
-    end.select{|cat, hits| hits }
   end
 
   def calculate_find_options(asset, limit, page, product_category, region, radius, year, month)
