@@ -127,7 +127,7 @@ class Profile < ActiveRecord::Base
 
   def category_ids=(ids)
     ProfileCategorization.remove_all_for(self)
-    ids.each do |item|
+    ids.uniq.each do |item|
       add_category(Category.find(item))
     end
   end

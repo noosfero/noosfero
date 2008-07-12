@@ -677,6 +677,15 @@ class ProfileTest < Test::Unit::TestCase
     assert_kind_of TinyMceArticle, profile.home_page
   end
 
+  should 'not add a category twice to profile' do
+    c1 = Category.create!(:environment => Environment.default, :name => 'c1')
+    c2 = c1.children.create!(:environment => Environment.default, :name => 'c2')
+    c3 = c1.children.create!(:environment => Environment.default, :name => 'c3')
+    profile = create_user('testuser').person
+    profile.category_ids = [c2,c3,c3].map(&:id)
+    assert_equal [c2, c3], profile.categories(true)
+  end
+
   private
 
   def assert_invalid_identifier(id)
