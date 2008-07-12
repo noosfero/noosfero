@@ -68,12 +68,8 @@ ActionController::Routing::Routes.draw do |map|
   map.system 'system', :controller => 'system'
   map.system 'system/:controller/:action/:id', :controller => Noosfero.pattern_for_controllers_in_directory('system')
 
-
-  ######################################################
-  ## Test controllers.
-  ## FIXME: this should not be needed
-  ######################################################
-  map.connect 'test/:controller/:action/:id'  , :controller => /.*test.*/ 
+  # cache stuff - hack
+  map.cache 'public/:action/:id', :controller => 'public'
 
   # *content viewing*
   # XXX this route must come last so other routes have priority over it.

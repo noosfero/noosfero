@@ -88,4 +88,52 @@ class CategoriesControllerTest < Test::Unit::TestCase
     end
   end
 
+  should 'expire categories menu cache when some menu category is updated' do
+    cat = Category.create!(:name => 'test category in menu', :environment => Environment.default, :display_in_menu => true)
+    @controller.expects(:expire_fragment).with(:controller => 'public', :action => 'categories_menu').once
+    post :edit, :id => cat.id, :category => { :name => 'new name for category in menu' }
+  end
+
+  should 'not touch categories menu cache whem updated category is not in menu' do
+    cat = Category.create!(:name => 'test category not in menu', :environment => Environment.default, :display_in_menu => false)
+    @controller.expects(:expire_fragment).with(:controller => 'public', :action => 'categories_menu').never
+    post :edit, :id => cat.id, :category => { :name => 'new name for category not in menu' }
+  end
+
+  should 'expire categories menu cache when new category is created for the menu' do
+    @controller.expects(:expire_fragment).with(:controller => 'public', :action => 'categories_menu').once
+    post :new, :category => { :name => 'my new category for the menu', :display_in_menu => '1' }
+  end
+
+  should 'not handle cache when viewing "edit category" screen' do
+    cat = Category.create!(:name => 'test category in menu', :environment => Environment.default, :display_in_menu => true)
+    @controller.expects(:expire_fragment).with(:controller => 'public', :action => 'categories_menu').never
+    get :edit, :id => cat.id
+  end
+
+  should 'not expire categories menu cache when new category is created, but not for the menu' do
+    @controller.expects(:expire_fragment).with(:controller => 'public', :action => 'categories_menu').never
+    post :new, :category => { :name => 'my new category for the menu', :display_in_menu => '0' }
+  end
+
+  should 'not handle cache when viewing "new category" screen' do
+    @controller.expects(:expire_fragment).with(:controller => 'public', :action => 'categories_menu').never
+    get :new
+  end
+
+  should 'not expire cache when updating fails' do
+    cat = Category.create!(:name => 'test category in menu', :environment => Environment.default, :display_in_menu => true)
+    @controller.expects(:expire_fragment).with(:controller => 'public', :action => 'categories_menu').never
+
+    post :edit, :id => cat.id, :category => { :name => '' }
+
+    cat.reload
+    assert_equal 'test category in menu', cat.name
+  end
+
+  should 'not expire cache when creating fails' do
+    @controller.expects(:expire_fragment).with(:controller => 'public', :action => 'categories_menu').never
+    post :new, :category => { :display_in_menu => '1' }
+  end
+
 end

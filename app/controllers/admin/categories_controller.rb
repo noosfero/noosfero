@@ -23,6 +23,7 @@ class CategoriesController < AdminController
     if request.post?
       begin
         @category.save!
+        @saved = true
         redirect_to :action => 'index'
       rescue Exception => e
         render :action => 'new'
@@ -36,6 +37,7 @@ class CategoriesController < AdminController
       @category = environment.categories.find(params[:id])
       if request.post?
         @category.update_attributes!(params[:category])
+        @saved = true
         redirect_to :action => 'index'
       end
     rescue Exception => e
@@ -43,10 +45,20 @@ class CategoriesController < AdminController
     end
   end
 
+  after_filter :manage_categories_menu_cache, :only => [:edit, :new]
+
   post_only :remove
   def remove
     environment.categories.find(params[:id]).destroy
     redirect_to :action => 'index'
+  end
+
+  protected
+
+  def manage_categories_menu_cache
+    if @saved && request.post? && @category.display_in_menu?
+      expire_fragment(:controller => 'public', :action => 'categories_menu')
+    end
   end
 
 end

@@ -94,7 +94,9 @@
                       { :controller=>"home" },
                         :id=>"menu_link_to_envhome",
                         :title=>@environment.name  %>
-          <%= render :file => 'shared/categories_menu' %>
+          <% cache(:controller => 'public', :action => 'categories_menu') do %>
+            <%= render :file => 'shared/categories_menu' %>
+          <% end %>
         </div><!-- id='navigation_bar' -->
         <script type="text/javascript">
           prepareMenu('navigation_bar', { timeout: 1000 });
