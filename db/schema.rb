@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 45) do
+ActiveRecord::Schema.define(:version => 46) do
 
   create_table "article_versions", :force => true do |t|
     t.integer  "article_id"
@@ -71,8 +71,8 @@ ActiveRecord::Schema.define(:version => 45) do
     t.boolean "virtual",     :default => false
   end
 
-  add_index "articles_categories", ["category_id"], :name => "index_articles_categories_on_category_id"
   add_index "articles_categories", ["article_id"], :name => "index_articles_categories_on_article_id"
+  add_index "articles_categories", ["category_id"], :name => "index_articles_categories_on_category_id"
 
   create_table "blocks", :force => true do |t|
     t.string  "title"
@@ -82,11 +82,15 @@ ActiveRecord::Schema.define(:version => 45) do
     t.integer "position"
   end
 
+  add_index "blocks", ["box_id"], :name => "index_blocks_on_box_id"
+
   create_table "boxes", :force => true do |t|
     t.string  "owner_type"
     t.integer "owner_id"
     t.integer "position"
   end
+
+  add_index "boxes", ["owner_type", "owner_id"], :name => "index_boxes_on_owner_type_and_owner_id"
 
   create_table "categories", :force => true do |t|
     t.string  "name"
@@ -107,6 +111,9 @@ ActiveRecord::Schema.define(:version => 45) do
     t.integer "category_id"
     t.boolean "virtual",     :default => false
   end
+
+  add_index "categories_profiles", ["category_id"], :name => "index_categories_profiles_on_category_id"
+  add_index "categories_profiles", ["profile_id"], :name => "index_categories_profiles_on_profile_id"
 
   create_table "comments", :force => true do |t|
     t.string   "title"
@@ -170,6 +177,9 @@ ActiveRecord::Schema.define(:version => 45) do
     t.datetime "updated_at"
   end
 
+  add_index "product_categorizations", ["category_id"], :name => "index_product_categorizations_on_category_id"
+  add_index "product_categorizations", ["product_id"], :name => "index_product_categorizations_on_product_id"
+
   create_table "products", :force => true do |t|
     t.integer  "enterprise_id"
     t.integer  "product_category_id"
@@ -182,6 +192,8 @@ ActiveRecord::Schema.define(:version => 45) do
     t.float    "lat"
     t.float    "lng"
   end
+
+  add_index "products", ["enterprise_id"], :name => "index_products_on_enterprise_id"
 
   create_table "profiles", :force => true do |t|
     t.string   "name"
@@ -201,6 +213,8 @@ ActiveRecord::Schema.define(:version => 45) do
     t.integer  "geocode_precision"
     t.boolean  "enabled",           :default => true
   end
+
+  add_index "profiles", ["environment_id"], :name => "index_profiles_on_environment_id"
 
   create_table "region_validators", :id => false, :force => true do |t|
     t.integer "region_id"
@@ -230,8 +244,8 @@ ActiveRecord::Schema.define(:version => 45) do
     t.datetime "created_at"
   end
 
-  add_index "taggings", ["taggable_id", "taggable_type"], :name => "index_taggings_on_taggable_id_and_taggable_type"
   add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
+  add_index "taggings", ["taggable_id", "taggable_type"], :name => "index_taggings_on_taggable_id_and_taggable_type"
 
   create_table "tags", :force => true do |t|
     t.string  "name"
