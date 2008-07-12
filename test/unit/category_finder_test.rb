@@ -124,17 +124,21 @@ class CategoryFinderTest < ActiveSupport::TestCase
   should 'not list more enterprises than limit' do
     ent1 = Enterprise.create!(:name => 'teste1', :identifier => 'teste1', :category_ids => [@category.id])
     ent2 = Enterprise.create!(:name => 'teste2', :identifier => 'teste2', :category_ids => [@category.id])
-    recent = @finder.recent('enterprises', 1)
-    assert_includes recent, ent2
-    assert_not_includes recent, ent1
+    result = @finder.recent('enterprises', 1)
+    
+    assert_equal 1, result.size
   end
   
   should 'paginate the list of more enterprises than limit' do
     ent1 = Enterprise.create!(:name => 'teste1', :identifier => 'teste1', :category_ids => [@category.id])
     ent2 = Enterprise.create!(:name => 'teste2', :identifier => 'teste2', :category_ids => [@category.id])
 
-    assert_equal [ent2], @finder.find('enterprises', nil, :per_page => 1, :page => 1)
-    assert_equal [ent1], @finder.find('enterprises', nil, :per_page => 1, :page => 2)
+    page_1 = @finder.find('enterprises', nil, :per_page => 1, :page => 1)
+    page_2 = @finder.find('enterprises', nil, :per_page => 1, :page => 2)
+    
+    assert_equal 1, page_1.size
+    assert_equal 1, page_2.size
+    assert_equivalent [ent1, ent2], page_1 + page_2
   end
   
   should 'paginate the list of more enterprises than limit with query' do
@@ -152,9 +156,9 @@ class CategoryFinderTest < ActiveSupport::TestCase
   should 'not list more people than limit' do
     p1 = create_user('test1').person; p1.add_category(@category)
     p2 = create_user('test2').person; p2.add_category(@category)
-    recent = @finder.recent('people', 1)
-    assert_includes recent, p2
-    assert_not_includes recent, p1
+    result = @finder.recent('people', 1)
+    
+    assert_equal 1, result.size
   end
 
   should 'list recent articles' do
@@ -164,8 +168,8 @@ class CategoryFinderTest < ActiveSupport::TestCase
     art2 = person.articles.build(:name => 'another article to be found'); art2.add_category(@category); art2.save!
 
     result = @finder.recent('articles', 1)
-    assert_includes result, art2
-    assert_not_includes result, art1
+    
+    assert_equal 1, result.size
   end
 
   should 'not return the same result twice' do
@@ -430,6 +434,17 @@ class CategoryFinderTest < ActiveSupport::TestCase
     assert_equal 1, counts[pc11.id]
     assert_equal 2, counts[pc2.id]
     assert_nil counts[pc3.id]
+  end
+
+  should 'find enterprises in alphabetical order of name' do
+    ent1 = Enterprise.create!(:name => 'test enterprise B', :identifier => 'test_ent_b', :category_ids => [@category.id])
+    ent2 = Enterprise.create!(:name => 'test enterprise A', :identifier => 'test_ent_a', :category_ids => [@category.id])
+    ent3 = Enterprise.create!(:name => 'test enterprise C', :identifier => 'test_ent_c', :category_ids => [@category.id])
+
+    ents = @finder.find(:enterprises, nil)
+
+    assert ents.index(ent2) < ents.index(ent1), "expected #{ents.index(ent2)} be smaller than #{ents.index(ent1)}"
+    assert ents.index(ent1) < ents.index(ent3), "expected #{ents.index(ent1)} be smaller than #{ents.index(ent3)}"
   end
   
 end

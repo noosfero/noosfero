@@ -19,7 +19,7 @@ class CategoryFinder
 
     options = {:page => 1, :per_page => options.delete(:limit)}.merge(options)
     if query.blank?
-      asset_class(asset).paginate(:all, options_for_find(asset_class(asset), {:order => "created_at desc, #{asset_table(asset)}.id desc"}.merge(options), date_range))
+      asset_class(asset).paginate(:all, options_for_find(asset_class(asset), {:order => "#{asset_table(asset)}.name"}.merge(options), date_range))
     else
       ferret_options = {:page => options.delete(:page), :per_page => options.delete(:per_page)}
       asset_class(asset).find_by_contents(query, ferret_options, options_for_find(asset_class(asset), options, date_range))

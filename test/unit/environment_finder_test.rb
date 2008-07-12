@@ -141,14 +141,17 @@ class EnvironmentFinderTest < ActiveSupport::TestCase
     assert_not_includes prods, prod4
   end
 
-  should 'find in order of creation' do
+  should 'find enterprises in alphabetical order of name' do
     finder = EnvironmentFinder.new(Environment.default)
-    ent1 = Enterprise.create!(:name => 'test enterprise 1', :identifier => 'test_ent1')
-    ent2 = Enterprise.create!(:name => 'test enterprise 2', :identifier => 'test_ent2')
+
+    ent1 = Enterprise.create!(:name => 'test enterprise B', :identifier => 'test_ent_b')
+    ent2 = Enterprise.create!(:name => 'test enterprise A', :identifier => 'test_ent_a')
+    ent3 = Enterprise.create!(:name => 'test enterprise C', :identifier => 'test_ent_c')
 
     ents = finder.find(:enterprises, nil)
 
     assert ents.index(ent2) < ents.index(ent1), "expected #{ents.index(ent2)} be smaller than #{ents.index(ent1)}"
+    assert ents.index(ent1) < ents.index(ent3), "expected #{ents.index(ent1)} be smaller than #{ents.index(ent3)}"
   end
 
   should 'find enterprises by its products categories' do
