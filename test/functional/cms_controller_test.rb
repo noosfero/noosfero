@@ -253,7 +253,7 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'label', :attributes => { :for => 'article_uploaded_data' }, :content => /max size #{UploadedFile.max_size.to_humanreadable}/
   end
 
-  should 'display checkboxes for selecting categories' do
+  should 'display link for selecting categories' do
     env = Environment.default
     top = env.categories.build(:display_in_menu => true, :name => 'Top-Level category'); top.save!
     c1  = env.categories.build(:display_in_menu => true, :name => "Test category 1", :parent_id => top.id); c1.save!
@@ -267,12 +267,11 @@ class CmsControllerTest < Test::Unit::TestCase
     get :edit, :profile => profile.identifier, :id => article.id
 
     [c1,c2,c3].each do |item|
-      assert_tag :tag => 'input', :attributes => { :name => 'article[category_ids][]', :value => item.id}
+      assert_tag :tag => 'a', :attributes => { :id => "select-category-#{item.id}-link" }
     end
   end
 
   should 'be able to associate articles with categories' do
-
     env = Environment.default
     c1 = env.categories.build(:name => "Test category 1"); c1.save!
     c2 = env.categories.build(:name => "Test category 2"); c2.save!

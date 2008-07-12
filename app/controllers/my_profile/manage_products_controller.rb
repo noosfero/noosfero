@@ -14,6 +14,7 @@ class ManageProductsController < ApplicationController
 
   def new
     @current_category = ProductCategory.top_level_for(environment).first
+    @object = Product.new
     @categories = @current_category.nil? ? [] : @current_category.children
     @product = @profile.products.build(params[:product])
     @product.build_image unless @product.image
@@ -29,6 +30,7 @@ class ManageProductsController < ApplicationController
 
   def edit
     @product = @profile.products.find(params[:id])
+    @object = @profile.products.find(params[:id])
     @current_category = @product.product_category
     @categories = @current_category.nil? ? [] : @current_category.children
     if request.post?
@@ -52,10 +54,16 @@ class ManageProductsController < ApplicationController
     end
   end
 
-  def update_subcategories
-    @current_category = ProductCategory.find(params[:id])
-    @categories = @current_category.children
-    render :partial => 'subcategories'
+  def update_categories
+    @object = params[:id] ? @profile.products.find(params[:id]) : Product.new
+    if params[:category_id]
+      @current_category = Category.find(params[:category_id])
+      @categories = @current_category.children
+    else
+      @current_category = ProductCategory.top_level_for(environment).first
+      @categories = @current_category.nil? ? [] : @current_category.children
+    end
+    render :partial => 'shared/select_categories', :locals => {:object_name => 'product'}, :layout => false
   end
   
   def new_consumption
