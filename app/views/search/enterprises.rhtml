@@ -16,8 +16,8 @@
 <div class="has_cat_list">
 <% end %>
 
-<% cache(:action => 'assets', :asset => 'enterprises', :category_path => params[:category_path], :query => @query, :ragion => @region, :radius => params[:radius]) do %>
-  <%= product_categories_menu(:enterprises, @product_category, @result_ids)  %>
+<% cache(:action => 'assets', :asset => 'enterprises', :category_path => params[:category_path], :query => @query, :product_category => @product_category.id, :region => @region, :radius => params[:radius]) do %>
+  <%= product_categories_menu(:enterprises, @product_category, @result_ids) %>
 <% end %>
 
 <%= display_results %>
