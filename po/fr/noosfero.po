@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.10.1\n"
-"POT-Creation-Date: 2008-07-08 19:03-0300\n"
+"POT-Creation-Date: 2008-07-12 17:50-0300\n"
 "PO-Revision-Date: 2008-06-13 16:15-0300\n"
 "Last-Translator: Raphael Rousseau <pootle.colivre.coop.br@r4f.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,13 +17,13 @@ msgstr ""
 "X-Generator: Pootle 1.0.2\n"
 
 #: app/helpers/application_helper.rb:61
-#: app/views/layouts/application.rhtml:110 app/views/features/index.rhtml:7
+#: app/views/layouts/application.rhtml:112 app/views/features/index.rhtml:7
 msgid "Help"
 msgstr "Aide"
 
 #: app/helpers/application_helper.rb:81
 #: app/views/box_organizer/add_block.rhtml:18
-#: app/views/search/_search_form.rhtml:63
+#: app/views/search/_search_form.rhtml:58
 msgid "Close"
 msgstr "Fermer"
 
@@ -31,68 +31,97 @@ msgstr "Fermer"
 msgid "This is %s, version %s"
 msgstr "Site sous %s, version %s"
 
-#: app/helpers/application_helper.rb:246 app/models/product.rb:39
+#: app/helpers/application_helper.rb:270 app/models/product.rb:49
+#: app/views/search/_product.rhtml:19
 msgid "Uncategorized product"
 msgstr "Produit sans catégorie"
 
-#: app/helpers/application_helper.rb:252
+#: app/helpers/application_helper.rb:276
 msgid "No product"
 msgstr "Pas de produit"
 
-#: app/helpers/application_helper.rb:338
+#: app/helpers/application_helper.rb:362
 #, fuzzy
 msgid "non registered gender"
 msgstr "Personnes enregistrées récemment"
 
-#: app/helpers/application_helper.rb:338
+#: app/helpers/application_helper.rb:362
 #: app/views/profile_editor/_person.rhtml:5
 msgid "Male"
 msgstr "Homme"
 
-#: app/helpers/application_helper.rb:338
+#: app/helpers/application_helper.rb:362
 #: app/views/profile_editor/_person.rhtml:5
 msgid "Female"
 msgstr "Femme"
 
-#: app/helpers/application_helper.rb:366
+#: app/helpers/application_helper.rb:390
+#, fuzzy
+msgid "Principal Product Categories"
+msgstr "Catégorie de produit"
+
+#: app/helpers/application_helper.rb:414
 msgid "Click on this icon to go to the <b>%s</b>'s home page"
 msgstr ""
 "Cliquez sur cet icône pour vous rendre sur la page d'accueil de <b>%s</b>"
 
-#: app/helpers/application_helper.rb:394 app/views/categories/index.rhtml:1
+#: app/helpers/application_helper.rb:448 app/views/categories/index.rhtml:1
 #: app/views/content_viewer/view_page.rhtml:65
 msgid "Categories"
 msgstr "Catégories"
 
-#: app/helpers/application_helper.rb:417
-msgid "open"
-msgstr "ouvrir"
+#: app/helpers/application_helper.rb:458
+#: app/views/categories/_category.rhtml:9
+#: app/views/manage_products/index.rhtml:41
+#: app/views/content_viewer/_comment.rhtml:5
+#: app/views/profile_members/index.rhtml:15
+#: app/views/shared/_select_categories.rhtml:20
+msgid "Remove"
+msgstr "Ôter/effacer"
 
-#: app/helpers/application_helper.rb:453
+#: app/helpers/application_helper.rb:484
 #, fuzzy
 msgid "Search..."
 msgstr "Chercher"
 
-#: app/helpers/application_helper.rb:455
+#: app/helpers/application_helper.rb:486
 msgid "This is a search box. Click, write your query, and press enter to find"
 msgstr ""
 
-#: app/helpers/application_helper.rb:456
+#: app/helpers/application_helper.rb:487
 msgid "Click, write and press enter to find"
 msgstr ""
 
-#: app/helpers/application_helper.rb:462
-#: app/views/region_validators/region.rhtml:23
-#: app/views/search/people.rhtml:21 app/views/search/_sellers_form.rhtml:21
-#: app/views/search/_search_form.rhtml:16
-#: app/views/search/communities.rhtml:21 app/views/search/articles.rhtml:21
-#: app/views/home/index.rhtml:6 app/views/home/index.rhtml:12
+#: app/helpers/application_helper.rb:493
+#: app/views/region_validators/region.rhtml:23 app/views/search/people.rhtml:7
+#: app/views/search/_sellers_form.rhtml:21
+#: app/views/search/_search_form.rhtml:16 app/views/search/communities.rhtml:7
+#: app/views/search/articles.rhtml:7 app/views/home/index.rhtml:6
+#: app/views/home/index.rhtml:12
 msgid "Search"
 msgstr "Chercher"
 
-#: app/helpers/application_helper.rb:518
+#: app/helpers/application_helper.rb:549
 msgid "Are you sure you want to visit this web site?"
 msgstr "Êtes-vous sûr(e) de vouloir visiter ce site web ?"
+
+#: app/helpers/application_helper.rb:658
+#, fuzzy
+msgid "Searched for '%s'"
+msgstr "Rechercher :"
+
+#: app/helpers/application_helper.rb:659
+#, fuzzy
+msgid "In category %s"
+msgstr "Catégorie : %s"
+
+#: app/helpers/application_helper.rb:660
+msgid "within %d from %s"
+msgstr ""
+
+#: app/helpers/application_helper.rb:661
+msgid "%d results found"
+msgstr ""
 
 #: app/helpers/search_helper.rb:28
 msgid "Display in list"
@@ -130,12 +159,27 @@ msgstr "Prix"
 msgid "Distance: "
 msgstr ""
 
-#: app/helpers/search_helper.rb:81
+#: app/helpers/search_helper.rb:83
+#, fuzzy
+msgid "Price: "
+msgstr "Prix :"
+
+#: app/helpers/search_helper.rb:86
+#, fuzzy
+msgid "Provider: "
+msgstr "Prix : %d"
+
+#: app/helpers/search_helper.rb:89
+#, fuzzy
+msgid "Category: "
+msgstr "Catégorie :"
+
+#: app/helpers/search_helper.rb:99
 #, fuzzy
 msgid "Previous"
 msgstr "Produits"
 
-#: app/helpers/search_helper.rb:81
+#: app/helpers/search_helper.rb:99
 #: app/views/enterprise_registration/basic_information.rhtml:32
 msgid "Next"
 msgstr "Suivant"
@@ -275,7 +319,7 @@ msgstr ""
 msgid "Location:"
 msgstr "Actions"
 
-#: app/helpers/enterprise_homepage_helper.rb:10 app/models/event.rb:73
+#: app/helpers/enterprise_homepage_helper.rb:10 app/models/event.rb:78
 #: app/views/enterprise_editor/index.rhtml:6 app/views/cms/_event.rhtml:12
 msgid "Address:"
 msgstr "Adresse :"
@@ -296,6 +340,8 @@ msgid "Economic activity:"
 msgstr "Activité économique :"
 
 #: app/helpers/enterprise_homepage_helper.rb:21
+#: app/views/search/_sellers_form.rhtml:17
+#: app/views/search/_search_form.rhtml:31
 msgid "Distance:"
 msgstr ""
 
@@ -344,12 +390,13 @@ msgid "Administrator assigns validator organizations per region."
 msgstr "Les validateurs sont assignés par région par les administrateurs."
 
 #: app/helpers/forms_helper.rb:34 app/views/memberships/new_community.rhtml:12
-#: app/views/box_organizer/edit.rhtml:9
+#: app/views/box_organizer/edit.rhtml:11
 #: app/views/admin_panel/site_info.rhtml:11
 #: app/views/admin_panel/message_for_disabled_enterprise.rhtml:11
 #: app/views/cms/edit.rhtml:35 app/views/cms/edit.rhtml:37
 #: app/views/cms/select_article_type.rhtml:12 app/views/tasks/_task.rhtml:12
 #: app/views/account/login.rhtml:24 app/views/shared/_change_image.rhtml:2
+#: app/views/shared/_select_categories.rhtml:22
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -392,6 +439,7 @@ msgid "Product Category"
 msgstr "Catégorie de produit"
 
 #: app/helpers/categories_helper.rb:16 app/models/profile.rb:-
+#: app/views/enterprise_registration/basic_information.rhtml:29
 msgid "Region"
 msgstr "Région"
 
@@ -410,10 +458,12 @@ msgstr "Articles"
 
 #: app/helpers/assets_helper.rb:8 app/models/people_block.rb:4
 #: app/controllers/public/search_controller.rb:135
+#: app/views/search/people.rhtml:1 app/views/search/communities.rhtml:1
+#: app/views/search/articles.rhtml:1
 msgid "People"
 msgstr "Personnes"
 
-#: app/helpers/assets_helper.rb:9 app/models/products_block.rb:8
+#: app/helpers/assets_helper.rb:9 app/models/products_block.rb:12
 #: app/controllers/public/search_controller.rb:137
 #: app/views/search/_sellers_form.rhtml:7
 msgid "Products"
@@ -540,7 +590,8 @@ msgstr "Fermer"
 msgid "Type"
 msgstr "Type"
 
-#: app/models/task.rb:- app/models/article.rb:- app/models/friendship.rb:-
+#: app/models/task.rb:- app/models/article.rb:-
+#: app/models/product_categorization.rb:- app/models/friendship.rb:-
 #: app/models/profile.rb:- app/models/user.rb:- app/models/comment.rb:-
 #: app/models/product.rb:-
 #, fuzzy
@@ -563,7 +614,7 @@ msgstr "La tâche a été achevée à %s"
 msgid "The task was cancelled at %s"
 msgstr "La tâche a été annulée à %s"
 
-#: app/models/link_list_block.rb:7
+#: app/models/link_list_block.rb:10
 msgid "Display a list of links."
 msgstr ""
 
@@ -618,7 +669,9 @@ msgstr "article"
 
 #: app/models/article.rb:- app/models/profile.rb:- app/models/category.rb:-
 #: app/models/comment.rb:- app/models/product.rb:- app/models/domain.rb:-
-#: app/models/environment.rb:- app/views/content_viewer/_comment_form.rhtml:24
+#: app/models/environment.rb:-
+#: app/views/box_organizer/_link_list_block.rhtml:5
+#: app/views/content_viewer/_comment_form.rhtml:24
 #: app/views/enterprise_editor/_form.rhtml:1
 #: app/views/enterprise_validation/_details.rhtml:3
 #: app/views/cms/view.rhtml:24
@@ -655,7 +708,8 @@ msgstr "Résumé"
 msgid "Profile"
 msgstr "profil"
 
-#: app/models/article.rb:- app/models/user.rb:- app/models/product.rb:-
+#: app/models/article.rb:- app/models/product_categorization.rb:-
+#: app/models/user.rb:- app/models/product.rb:-
 #, fuzzy
 msgid "Updated at"
 msgstr "Mis à jour le"
@@ -779,17 +833,24 @@ msgid "profilecategorization"
 msgstr "categorisationdeprofils"
 
 #: app/models/profile_categorization.rb:-
+#: app/models/product_categorization.rb:-
 #: app/models/article_categorization.rb:-
 #, fuzzy
 msgid "Category"
 msgstr "Catégorie :"
 
 #: app/models/profile_categorization.rb:-
+#: app/models/product_categorization.rb:-
 #: app/models/article_categorization.rb:-
 msgid "Virtual"
 msgstr ""
 
-#: app/models/products_block.rb:16
+#: app/models/products_block.rb:8
+#, fuzzy
+msgid "A block that displays products"
+msgstr "Un bloc qui affiche des membres."
+
+#: app/models/products_block.rb:24
 #, fuzzy
 msgid "View all products"
 msgstr "Nouveau produit"
@@ -799,6 +860,11 @@ msgid "Block listing content count by tag"
 msgstr "Bloc listant le nombre de contenus par tag"
 
 #: app/models/tags_block.rb:12
+#, fuzzy
+msgid "tags"
+msgstr "tâche"
+
+#: app/models/tags_block.rb:16
 msgid ""
 "The tag is created when you add some one to your article. <p/>\n"
 "       Try to add some tags to some articles and see your tag cloud to grow."
@@ -807,10 +873,16 @@ msgstr ""
 "       Essayer d'ajouter quelques tags à des articles et vous verrez le "
 "nuage grossir."
 
-#: app/models/tags_block.rb:20
+#: app/models/product_categorization.rb:-
 #, fuzzy
-msgid "tags"
-msgstr "tâche"
+msgid "product categorization"
+msgstr "categorisationdeprofils"
+
+#: app/models/product_categorization.rb:-
+#: app/views/manage_products/index.rhtml:5
+#, fuzzy
+msgid "Product"
+msgstr "Produits"
 
 #: app/models/friendship.rb:-
 msgid "friendship"
@@ -848,7 +920,8 @@ msgstr "environnement"
 msgid "Active"
 msgstr "Activer"
 
-#: app/models/profile.rb:- app/views/enterprise_editor/_form.rhtml:4
+#: app/models/profile.rb:- app/views/box_organizer/_link_list_block.rhtml:5
+#: app/views/enterprise_editor/_form.rhtml:4
 #: app/views/enterprise_validation/list_processed.rhtml:9
 #: app/views/enterprise_validation/index.rhtml:14
 #: app/views/enterprise_validation/_details.rhtml:7
@@ -925,15 +998,20 @@ msgstr "Valider l'entreprise"
 msgid "Perform task"
 msgstr "Réaliser une tâche"
 
-#: app/models/profile.rb:155
+#: app/models/profile.rb:37
+#, fuzzy
+msgid "Moderate comments"
+msgstr "Poster votre commentaire"
+
+#: app/models/profile.rb:154
 msgid "An existing profile cannot be renamed."
 msgstr "Un profil existant ne peut pas être renommé."
 
-#: app/models/profile.rb:319
+#: app/models/profile.rb:318
 msgid "%s's home page"
 msgstr "Page d'accueil de %s"
 
-#: app/models/profile.rb:319
+#: app/models/profile.rb:318
 msgid ""
 "<p>This is a default homepage created for %s. It can be changed though the "
 "control panel.</p>"
@@ -941,12 +1019,12 @@ msgstr ""
 "<p>C'est la page d'accueil par défaut créée pour %s. Elle peut être modifiée "
 "dans le panneau de contrôle.</p>"
 
-#: app/models/profile.rb:338
+#: app/models/profile.rb:337
 #, fuzzy
 msgid "%s can't has members"
 msgstr "Les membres de %s"
 
-#: app/models/profile.rb:355
+#: app/models/profile.rb:354
 msgid "%s can't has moderators"
 msgstr ""
 
@@ -1000,11 +1078,11 @@ msgstr "Toutes les personnes"
 msgid "List of recent content"
 msgstr "Liste de contenu récent"
 
-#: app/models/recent_documents_block.rb:13
+#: app/models/recent_documents_block.rb:8
 msgid "Recent content"
 msgstr "Contenu récent"
 
-#: app/models/recent_documents_block.rb:23
+#: app/models/recent_documents_block.rb:27
 #, fuzzy
 msgid "All content"
 msgstr "Contenu principal"
@@ -1327,8 +1405,12 @@ msgstr "info organisation"
 msgid "Statistical overview of your environment."
 msgstr "Statistiques générales de votre communauté."
 
+#: app/models/environment_statistics_block.rb:8
+msgid "Statistics for %s"
+msgstr "Statistiques pour %s"
+
 # (first try of this type of contents to be translated, could be wrong)
-#: app/models/environment_statistics_block.rb:13
+#: app/models/environment_statistics_block.rb:17
 #, fuzzy
 msgid "One user"
 msgid_plural "%{num} users"
@@ -1336,22 +1418,18 @@ msgstr[0] "Un utilisateur"
 msgstr[1] "%{num} utilisateurs"
 
 # (second try of this knid of contents)
-#: app/models/environment_statistics_block.rb:14
+#: app/models/environment_statistics_block.rb:18
 #, fuzzy
 msgid "One enterprise"
 msgid_plural "%{num} enterprises"
 msgstr[0] "Une entreprise"
 msgstr[1] "%{num} entreprises"
 
-#: app/models/environment_statistics_block.rb:15
+#: app/models/environment_statistics_block.rb:19
 msgid "One community"
 msgid_plural "%{num} communities"
 msgstr[0] "Un groupe"
 msgstr[1] "%{num} groupes"
-
-#: app/models/environment_statistics_block.rb:18
-msgid "Statistics for %s"
-msgstr "Statistiques pour %s"
 
 #: app/models/create_enterprise.rb:3 app/models/create_enterprise.rb:162
 msgid "CreateEnterprise|Identifier"
@@ -1583,7 +1661,7 @@ msgstr "Quelques fonctionnalités"
 msgid "Other feature"
 msgstr "Autres fonctionnalités"
 
-#: app/models/environment.rb:192
+#: app/models/environment.rb:193
 msgid "Only one Virtual Community can be the default one"
 msgstr "Seule une CoVi peut être celle par défaut"
 
@@ -1613,12 +1691,12 @@ msgstr "Parent"
 msgid "Event"
 msgstr ""
 
-#: app/models/event.rb:69
-msgid "URL:"
+#: app/models/event.rb:70
+msgid "When:"
 msgstr ""
 
-#: app/models/event.rb:77
-msgid "When:"
+#: app/models/event.rb:74
+msgid "URL:"
 msgstr ""
 
 #: app/models/members_block.rb:4
@@ -1705,56 +1783,56 @@ msgstr "L'article «%s» est bien configuré pour être votre page d'accueil."
 msgid "e-Mail settings saved successfully."
 msgstr "Fonctionnalités mises à jour avec succès."
 
-#: app/controllers/my_profile/manage_products_controller.rb:22
+#: app/controllers/my_profile/manage_products_controller.rb:23
 msgid "Product succesfully created"
 msgstr "Le produit a bien été créé"
 
-#: app/controllers/my_profile/manage_products_controller.rb:25
+#: app/controllers/my_profile/manage_products_controller.rb:26
 msgid "Could not create the product"
 msgstr "Impossible de créer le produit"
 
-#: app/controllers/my_profile/manage_products_controller.rb:36
+#: app/controllers/my_profile/manage_products_controller.rb:38
 msgid "Product succesfully updated"
 msgstr "Le produit a bien été mis à jour"
 
-#: app/controllers/my_profile/manage_products_controller.rb:39
+#: app/controllers/my_profile/manage_products_controller.rb:41
 msgid "Could not update the product"
 msgstr "Impossible de mettre à jour le produit"
 
-#: app/controllers/my_profile/manage_products_controller.rb:47
+#: app/controllers/my_profile/manage_products_controller.rb:49
 msgid "Product succesfully removed"
 msgstr "Le produit a bien été ôté"
 
-#: app/controllers/my_profile/manage_products_controller.rb:50
+#: app/controllers/my_profile/manage_products_controller.rb:52
 msgid "Could not remove the product"
 msgstr "Impossible d'ôter le produit"
 
-#: app/controllers/my_profile/manage_products_controller.rb:65
+#: app/controllers/my_profile/manage_products_controller.rb:73
 #, fuzzy
 msgid "Raw material succesfully created"
 msgstr "Le produit a bien été créé"
 
-#: app/controllers/my_profile/manage_products_controller.rb:68
+#: app/controllers/my_profile/manage_products_controller.rb:76
 #, fuzzy
 msgid "Could not create the raw material"
 msgstr "Impossible de créer le produit"
 
-#: app/controllers/my_profile/manage_products_controller.rb:76
+#: app/controllers/my_profile/manage_products_controller.rb:84
 #, fuzzy
 msgid "Raw material succesfully removed"
 msgstr "Le produit a bien été ôté"
 
-#: app/controllers/my_profile/manage_products_controller.rb:78
+#: app/controllers/my_profile/manage_products_controller.rb:86
 #, fuzzy
 msgid "Could not remove the raw material"
 msgstr "Impossible d'ôter le produit"
 
-#: app/controllers/my_profile/manage_products_controller.rb:87
+#: app/controllers/my_profile/manage_products_controller.rb:95
 #, fuzzy
 msgid "Raw material succesfully updated"
 msgstr "Les rôles ont bien été mis à jour"
 
-#: app/controllers/my_profile/manage_products_controller.rb:90
+#: app/controllers/my_profile/manage_products_controller.rb:98
 #, fuzzy
 msgid "Could not update the raw material"
 msgstr "Impossible de mettre à jour l'entreprise"
@@ -1771,31 +1849,31 @@ msgstr "L'entreprise a bien été effacée du système"
 msgid "This action is not available for \"%s\"."
 msgstr "Cette action n'est pas disponible pour «%s»."
 
-#: app/controllers/public/search_controller.rb:196
+#: app/controllers/public/search_controller.rb:195
 #, fuzzy
 msgid "Newer people"
 msgstr "Voir le profil"
 
-#: app/controllers/public/search_controller.rb:197
+#: app/controllers/public/search_controller.rb:196
 #, fuzzy
 msgid "Newer enterprises"
 msgstr "Enregistrer une entreprise"
 
-#: app/controllers/public/search_controller.rb:199
+#: app/controllers/public/search_controller.rb:198
 msgid "Upcoming events"
 msgstr ""
 
-#: app/controllers/public/search_controller.rb:200
+#: app/controllers/public/search_controller.rb:199
 #, fuzzy
 msgid "Newer communities"
 msgstr "Tous ses groupes"
 
-#: app/controllers/public/search_controller.rb:201
+#: app/controllers/public/search_controller.rb:200
 #, fuzzy
 msgid "Newer articles"
 msgstr "Nouvel article"
 
-#: app/controllers/public/search_controller.rb:202
+#: app/controllers/public/search_controller.rb:201
 msgid "Most commented articles"
 msgstr "Articles les plus commentés"
 
@@ -1950,6 +2028,7 @@ msgid "%s environment system"
 msgstr ""
 
 #: app/views/catalog/show.rhtml:12 app/views/catalog/index.rhtml:12
+#: app/views/search/_product.rhtml:15
 #, fuzzy
 msgid "Price: %s"
 msgstr "Prix : %d"
@@ -1982,26 +2061,20 @@ msgstr "Nouvelle catégorie"
 msgid "Image:"
 msgstr "Image :"
 
-#: app/views/categories/_form.rhtml:22 app/views/box_organizer/edit.rhtml:8
+#: app/views/categories/_form.rhtml:22 app/views/box_organizer/edit.rhtml:10
 #: app/views/admin_panel/site_info.rhtml:10
 #: app/views/admin_panel/message_for_disabled_enterprise.rhtml:10
-#: app/views/profile_editor/edit.rhtml:43
+#: app/views/profile_editor/edit.rhtml:42
 #: app/views/enterprise_validation/edit_validation_info.rhtml:9
 #: app/views/cms/edit.rhtml:12 app/views/cms/edit.rhtml:33
 #: app/views/mailconf/index.rhtml:14
+#: app/views/shared/_select_categories.rhtml:17
 msgid "Save"
 msgstr "Enregistrer"
 
 #: app/views/categories/_category.rhtml:7
 msgid "Add subcategory"
 msgstr "Ajouter une sous-catégorie"
-
-#: app/views/categories/_category.rhtml:9
-#: app/views/manage_products/index.rhtml:41
-#: app/views/content_viewer/_comment.rhtml:5
-#: app/views/profile_members/index.rhtml:15
-msgid "Remove"
-msgstr "Ôter/effacer"
 
 #: app/views/categories/_category.rhtml:9
 msgid "Are you sure you want to remove \"%s\"?"
@@ -2016,31 +2089,6 @@ msgstr "Êtes-vous sûr(e) d'ôter/effacer «%s» et toutes ses sous-catégories
 msgid "Editing %s"
 msgstr "Édition de %s"
 
-#: app/views/manage_products/_subcategories.rhtml:3
-msgid "Current category:"
-msgstr "Catégorie courante :"
-
-#: app/views/manage_products/_subcategories.rhtml:8
-#: app/views/manage_products/index.rhtml:50
-#: app/views/environment_role_manager/index.rhtml:13
-#: app/views/enterprise_editor/index.rhtml:22
-#: app/views/enterprise_validation/list_processed.rhtml:3
-#: app/views/enterprise_validation/details.rhtml:3
-#: app/views/enterprise_validation/view_processed.rhtml:3
-#: app/views/role/show.rhtml:10 app/views/role/index.rhtml:12
-#: app/views/profile_members/index.rhtml:21 app/views/tasks/processed.rhtml:23
-msgid "Back"
-msgstr "Retour"
-
-#: app/views/manage_products/_subcategories.rhtml:22
-#, fuzzy
-msgid "Select a category:"
-msgstr "Choisissez une sous-catégorie :"
-
-#: app/views/manage_products/_subcategories.rhtml:24
-msgid "Select a subcategory:"
-msgstr "Choisissez une sous-catégorie :"
-
 #: app/views/manage_products/show.rhtml:4
 #: app/views/manage_products/_form.rhtml:5
 msgid "Price:"
@@ -2051,7 +2099,7 @@ msgstr "Prix :"
 msgid "Description:"
 msgstr "Description :"
 
-#: app/views/manage_products/show.rhtml:6
+#: app/views/manage_products/show.rhtml:6 app/views/search/_product.rhtml:19
 msgid "Category:"
 msgstr "Catégorie :"
 
@@ -2075,11 +2123,11 @@ msgstr "Nouveau produit"
 msgid "Name:"
 msgstr "Nom :"
 
-#: app/views/manage_products/_form.rhtml:16
+#: app/views/manage_products/_form.rhtml:14
 msgid "Create product"
 msgstr "Créer un produit"
 
-#: app/views/manage_products/_form.rhtml:16
+#: app/views/manage_products/_form.rhtml:14
 #: app/views/manage_products/_form_consumption.rhtml:7
 #: app/views/environment_role_manager/change_role.rhtml:12
 #: app/views/role/_form.rhtml:13
@@ -2092,11 +2140,6 @@ msgstr "Enregistrer les modifications"
 #, fuzzy
 msgid "Listing products and services"
 msgstr "Liste des produits"
-
-#: app/views/manage_products/index.rhtml:5
-#, fuzzy
-msgid "Product"
-msgstr "Produits"
 
 #: app/views/manage_products/index.rhtml:7
 #: app/views/manage_products/index.rhtml:30 app/views/cms/view.rhtml:26
@@ -2132,6 +2175,17 @@ msgstr "Êtes-vous sûr(e) de vouloir ôter ce produit de votre liste ?"
 #: app/views/manage_products/_form_consumption.rhtml:7
 msgid "Add raw material"
 msgstr ""
+
+#: app/views/manage_products/index.rhtml:50
+#: app/views/environment_role_manager/index.rhtml:13
+#: app/views/enterprise_editor/index.rhtml:22
+#: app/views/enterprise_validation/list_processed.rhtml:3
+#: app/views/enterprise_validation/details.rhtml:3
+#: app/views/enterprise_validation/view_processed.rhtml:3
+#: app/views/role/show.rhtml:10 app/views/role/index.rhtml:12
+#: app/views/profile_members/index.rhtml:21 app/views/tasks/processed.rhtml:23
+msgid "Back"
+msgstr "Retour"
 
 #: app/views/manage_products/edit.rhtml:1
 msgid "Editing"
@@ -2196,14 +2250,33 @@ msgstr "Organisation du visuel"
 msgid "Add a block"
 msgstr "Ajouter un bloc"
 
+#: app/views/box_organizer/index.rhtml:5
+#: app/views/profile_editor/edit.rhtml:43 app/views/mailconf/index.rhtml:15
+#: app/views/tasks/index.rhtml:17
+msgid "Back to control panel"
+msgstr "Retour au panneau de contrôle"
+
 #: app/views/box_organizer/_products_block.rhtml:5
-#: app/views/box_organizer/_link_list_block.rhtml:3
 msgid "Select the products that must be shown."
 msgstr ""
 
 #: app/views/box_organizer/edit.rhtml:1
 msgid "Editing block"
 msgstr "Édition du bloc"
+
+#: app/views/box_organizer/edit.rhtml:5
+msgid "Custom title for this block: "
+msgstr ""
+
+#: app/views/box_organizer/_link_list_block.rhtml:2
+#, fuzzy
+msgid "Links"
+msgstr "Connexion"
+
+#: app/views/box_organizer/_link_list_block.rhtml:16
+#, fuzzy
+msgid "New link"
+msgstr "Nouvel(le) ami(e)"
 
 #: app/views/box_organizer/add_block.rhtml:3
 msgid "In what area do you want to put your new block?"
@@ -2310,11 +2383,11 @@ msgstr "Les tags de cet article :"
 msgid "Up"
 msgstr "En haut"
 
-#: app/views/content_viewer/view_page.rhtml:72
+#: app/views/content_viewer/view_page.rhtml:70
 msgid "No comments yet"
 msgstr "Pas encore de commentaire"
 
-#: app/views/content_viewer/view_page.rhtml:72
+#: app/views/content_viewer/view_page.rhtml:70
 msgid "One comment"
 msgid_plural "%{comments} comments"
 msgstr[0] "Un commentaire"
@@ -2613,11 +2686,6 @@ msgstr "Les tags de cet article :"
 msgid "Select the categories of your interest"
 msgstr "Choisissez les catégories de vos centres d'intérêt"
 
-#: app/views/profile_editor/edit.rhtml:44 app/views/mailconf/index.rhtml:15
-#: app/views/tasks/index.rhtml:17
-msgid "Back to control panel"
-msgstr "Retour au panneau de contrôle"
-
 #: app/views/profile_editor/_organization.rhtml:9
 #, fuzzy
 msgid "Moderation options"
@@ -2715,7 +2783,7 @@ msgstr "Le profil de %s"
 msgid "Homepage: "
 msgstr "Page personnelle : "
 
-#: app/views/profile/index.rhtml:29 app/views/blocks/profile_info.rhtml:20
+#: app/views/profile/index.rhtml:29 app/views/blocks/profile_info.rhtml:22
 #, fuzzy
 msgid "Products/Services"
 msgstr "Prix"
@@ -2780,51 +2848,20 @@ msgstr "Voici toutes les entreprises de <b>%s</b>."
 msgid "%s's favorite enterprises"
 msgstr "Les entreprises de <b>%s</b>"
 
-#: app/views/search/products.rhtml:3
-#, fuzzy
-msgid ""
-"Products and Services results for \"%{query}\" of enterprises in \"%"
-"{category}\""
-msgstr "Résultats de la recherche sur «%{query}» dans «%{category}»"
-
-#: app/views/search/products.rhtml:3
-#, fuzzy
-msgid "Products and Services results for \"%s\""
-msgstr "Résultats de recherche pour «%s»"
-
-#: app/views/search/products.rhtml:5
-#, fuzzy
-msgid "Products and Services of enterprises in \"%s\""
-msgstr "Entrprise"
-
-#: app/views/search/products.rhtml:5
+#: app/views/search/products.rhtml:1
 #, fuzzy
 msgid "Products and Services"
 msgstr "Gérer les produits"
 
-#: app/views/search/products.rhtml:10 app/views/search/enterprises.rhtml:10
-msgid "Within %s km from %s"
-msgstr ""
-
-#: app/views/search/products.rhtml:13 app/views/search/index.rhtml:5
-#: app/views/search/enterprises.rhtml:13 app/views/search/people.rhtml:21
-#: app/views/search/communities.rhtml:21 app/views/search/articles.rhtml:21
+#: app/views/search/products.rhtml:7 app/views/search/index.rhtml:5
+#: app/views/search/enterprises.rhtml:13 app/views/search/people.rhtml:7
+#: app/views/search/communities.rhtml:7 app/views/search/articles.rhtml:7
 msgid "Refine your search"
 msgstr "Affiner votre recherche"
 
 #: app/views/search/_comment.rhtml:16
 msgid "by %{author} on \"%{article}\""
 msgstr "par %{author} sur «%{article}»"
-
-#: app/views/search/index.rhtml:3 app/views/search/people.rhtml:15
-#: app/views/search/communities.rhtml:15 app/views/search/articles.rhtml:15
-msgid "Search results for \"%{query}\" in \"%{category}\""
-msgstr "Résultats de la recherche sur «%{query}» dans «%{category}»"
-
-#: app/views/search/index.rhtml:3 app/views/search/people.rhtml:15
-#: app/views/search/communities.rhtml:15 app/views/search/articles.rhtml:15
-msgid "Search results for \"%s\""
-msgstr "Résultats de recherche pour «%s»"
 
 #: app/views/search/_product_categories_menu.rhtml:13
 #, fuzzy
@@ -2851,6 +2888,10 @@ msgstr "Résultats de recherche pour «%s»"
 msgid "Enterprises in \"%s\""
 msgstr "Enregistrement de l'enterprise : \"%s\""
 
+#: app/views/search/enterprises.rhtml:10
+msgid "Within %s km from %s"
+msgstr ""
+
 #: app/views/search/_display_results.rhtml:21
 msgid "see all (%d)"
 msgstr ""
@@ -2863,16 +2904,6 @@ msgstr ""
 msgid "Search %s"
 msgstr "Recherche sur «%s»"
 
-#: app/views/search/people.rhtml:11 app/views/search/communities.rhtml:11
-#: app/views/search/articles.rhtml:11
-msgid "(recently added)"
-msgstr ""
-
-#: app/views/search/people.rhtml:17 app/views/search/communities.rhtml:17
-#: app/views/search/articles.rhtml:17
-msgid "Browse by name"
-msgstr ""
-
 #: app/views/search/_sellers_form.rhtml:1
 #, fuzzy
 msgid "Search for sellers"
@@ -2882,13 +2913,10 @@ msgstr "Rechercher :"
 msgid "Search in:"
 msgstr "Recherche dans :"
 
-#: app/views/search/_sellers_form.rhtml:17
-msgid "Distance (km): "
-msgstr ""
-
 #: app/views/search/_product.rhtml:15
-msgid "Price: %d"
-msgstr "Prix : %d"
+#, fuzzy
+msgid "Not informed"
+msgstr "(non renseigné)"
 
 #: app/views/search/_product.rhtml:17
 msgid "Suplier: %s"
@@ -2912,20 +2940,11 @@ msgstr "Recherche de «%s» dans tout le site"
 msgid "Search within:"
 msgstr "Recherche dans :"
 
-#: app/views/search/_search_form.rhtml:28
-msgid "Distance (km):"
-msgstr ""
-
-#: app/views/search/_search_form.rhtml:33
-#, fuzzy
-msgid "From:"
-msgstr "Sigle :"
-
-#: app/views/search/_search_form.rhtml:42
+#: app/views/search/_search_form.rhtml:37
 msgid "Search for:"
 msgstr "Rechercher :"
 
-#: app/views/search/_search_form.rhtml:56
+#: app/views/search/_search_form.rhtml:51
 msgid "Advanced search"
 msgstr ""
 
@@ -3001,19 +3020,19 @@ msgstr "Détruire l'entreprise"
 msgid "Join this enterprise"
 msgstr "Éditer l'entreprise"
 
-#: app/views/blocks/profile_info.rhtml:17
+#: app/views/blocks/profile_info.rhtml:19
 msgid "Since %{year}/%{month}"
 msgstr "Depuis %{month}/%{year}"
 
-#: app/views/blocks/profile_info.rhtml:18 app/views/account/user_info.rhtml:7
+#: app/views/blocks/profile_info.rhtml:20 app/views/account/user_info.rhtml:7
 msgid "Homepage"
 msgstr "Accueil"
 
-#: app/views/blocks/profile_info.rhtml:19
+#: app/views/blocks/profile_info.rhtml:21
 msgid "View profile"
 msgstr "Voir le profil"
 
-#: app/views/blocks/profile_info.rhtml:22 app/views/shared/user_menu.rhtml:30
+#: app/views/blocks/profile_info.rhtml:24 app/views/shared/user_menu.rhtml:30
 msgid "Control panel"
 msgstr "Panneau de contrôle"
 
@@ -3517,15 +3536,15 @@ msgstr ""
 "de page. La seconde dimension est celle des <em>types contenus</em>, et vous "
 "les trouverez dans la barre animée de votre droite."
 
-#: app/views/layouts/application.rhtml:109
+#: app/views/layouts/application.rhtml:111
 msgid "Turn help on/off"
 msgstr "Activer/désactiver l'aide"
 
-#: app/views/layouts/application.rhtml:157
+#: app/views/layouts/application.rhtml:159
 msgid "Your web browser is obsolete!"
 msgstr "Vote navigateur web est obsolète !"
 
-#: app/views/layouts/application.rhtml:158
+#: app/views/layouts/application.rhtml:160
 msgid ""
 "This website will not look as good as it could.\n"
 "         Don't you want to use Firefox? That is a great web browser, free,\n"
@@ -3536,7 +3555,7 @@ msgstr ""
 "web, libre et gratuit\n"
 "         et élaboré par des gens de partout dans le monde."
 
-#: app/views/layouts/application.rhtml:162
+#: app/views/layouts/application.rhtml:164
 msgid "Get Firefox Now!"
 msgstr "Obtenir Firefox maintenant !"
 
@@ -3987,6 +4006,19 @@ msgstr ""
 "explicitement si d'autres personnes désirent utiliser le même ordinateur "
 "après vous."
 
+#: app/views/shared/_select_categories.rhtml:3
+msgid "Current category:"
+msgstr "Catégorie courante :"
+
+#: app/views/shared/_select_categories.rhtml:30
+#, fuzzy
+msgid "Select a category:"
+msgstr "Choisissez une sous-catégorie :"
+
+#: app/views/shared/_select_categories.rhtml:34
+msgid "Categories:"
+msgstr "Catégories :"
+
 #: public/designs/themes/zen3/footer.rhtml:2
 msgid "A Ynternet.org project"
 msgstr ""
@@ -4002,6 +4034,39 @@ msgstr "Un projet du FBES"
 #: public/designs/themes/ecosol/footer.rhtml:6
 msgid "Developed by Colivre"
 msgstr "Développé par Colivre"
+
+#~ msgid "open"
+#~ msgstr "ouvrir"
+
+#~ msgid "Select a subcategory:"
+#~ msgstr "Choisissez une sous-catégorie :"
+
+#, fuzzy
+#~ msgid ""
+#~ "Products and Services results for \"%{query}\" of enterprises in \"%"
+#~ "{category}\""
+#~ msgstr "Résultats de la recherche sur «%{query}» dans «%{category}»"
+
+#, fuzzy
+#~ msgid "Products and Services results for \"%s\""
+#~ msgstr "Résultats de recherche pour «%s»"
+
+#, fuzzy
+#~ msgid "Products and Services of enterprises in \"%s\""
+#~ msgstr "Entrprise"
+
+#~ msgid "Search results for \"%{query}\" in \"%{category}\""
+#~ msgstr "Résultats de la recherche sur «%{query}» dans «%{category}»"
+
+#~ msgid "Search results for \"%s\""
+#~ msgstr "Résultats de recherche pour «%s»"
+
+#~ msgid "Price: %d"
+#~ msgstr "Prix : %d"
+
+#, fuzzy
+#~ msgid "From:"
+#~ msgstr "Sigle :"
 
 # How is this used? (which function/method?)
 #, fuzzy
@@ -4337,9 +4402,6 @@ msgstr "Développé par Colivre"
 #~ msgid "Environment|Settings"
 #~ msgstr "Paramètres"
 
-#~ msgid "Category: %s"
-#~ msgstr "Catégorie : %s"
-
 #~ msgid "Recently created communities"
 #~ msgstr "Groupes créés récemment"
 
@@ -4529,9 +4591,6 @@ msgstr "Développé par Colivre"
 
 #~ msgid "Public address of this article: %s"
 #~ msgstr "Adresse publique de cet article : %s"
-
-#~ msgid "Categories:"
-#~ msgstr "Catégories :"
 
 #~ msgid "Add product"
 #~ msgstr "Ajouter un produit"
