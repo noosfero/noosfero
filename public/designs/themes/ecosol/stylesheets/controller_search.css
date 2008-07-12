@@ -143,6 +143,12 @@ body.category4 .search-results-type-profile.common-profile-list-block li a {
   padding: 3px 0px 3px 10px;
 }
 
+#product-categories-menu .cat-parent ul {
+  border: 1px solid red;
+  max-height: 90px;
+  overflow: auto;
+}
+
 #product-categories-menu .sub-opening,
 #product-categories-menu .sub-closeing {
 }
