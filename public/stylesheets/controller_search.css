@@ -57,12 +57,18 @@
   display: block;
 }
 
+#product-categories-menu div {
+  position: relative;
+}
+
 #product-categories-menu ul {
+  position: relative;
   margin: 0px 0px 0px 20px;
   padding: 0px;
 }
 
 #product-categories-menu .cat-parent {
+  position: relative;
   font-weight: bold;
   margin: 2px 0px;
   padding: 5px 0px 0px 10px;
@@ -78,7 +84,7 @@
   padding-bottom: 5px;
 }
 
-#product-categories-menu .cat-parent li {
+#product-categories-menu .cat-parent li,
   font-weight: normal;
   margin: 0px;
   padding: 0px;

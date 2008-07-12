@@ -25,13 +25,17 @@
       <% end %>
       <% partial = partial_for_class results.first.class %>
       <div class="search-results-innerbox search-results-type-<%= partial %> <%= 'common-profile-list-block' if partial == 'profile' %>">
-        <ul>
-        <% hit_pos = 0 %>
-        <% results.each do |hit| %>
-          <%= render :partial => partial, :object => hit, :locals => { :pos => ( hit_pos += 1 ) } %>
-        <% end %>
-        </ul>
-        <hr />
+        <div class="search-results-innerbox2"><!-- the innerbox2 is a workarround for MSIE -->
+          <ul>
+          <% hit_pos = 0 %>
+          <% results.each do |hit| %>
+            <%= render :partial => partial,
+                       :object => hit,
+                       :locals => { :pos => ( hit_pos += 1 ) } %>
+          <% end %>
+          </ul>
+          <hr />
+        </div><!-- end class="search-results-innerbox2" -->
       </div><!-- end class="search-results-innerbox" -->
     </div><!-- end class="search-results-<%= name %>" -->
   <% else %>
