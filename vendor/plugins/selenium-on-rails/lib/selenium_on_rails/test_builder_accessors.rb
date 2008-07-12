@@ -870,6 +870,20 @@ module SeleniumOnRails::TestBuilderAccessors
     raise 'Not supported in Selenium Core at the moment'
   end
 
+  # Returns the number of nodes that match the specified xpath,
+  # eg. "//table" would give the number of tables.
+  #
+  # Related Assertions, automatically generated:
+  # * <tt>assertXpathCount ( xpath, pattern )</tt>
+  # * <tt>assertNotXpathCount ( xpath, pattern )</tt>
+  # * <tt>verifyXpathCount ( xpath, pattern )</tt>
+  # * <tt>verifyNotXpathCount ( xpath, pattern )</tt>
+  # * <tt>waitForXpathCount ( xpath, pattern )</tt>
+  # * <tt>waitForNotXpathCount ( xpath, pattern )</tt>
+  def store_xpath_count xpath, pattern
+    command 'storeXpathCount', xpath, pattern
+  end
+
 private
   # Generates all assertions for the accessors.
   def self.generate_methods
@@ -930,7 +944,8 @@ private
            'store_expression',
            'store_ordered',
            'store_whether_this_frame_match_frame_expression',
-           'store_whether_this_window_match_window_expression'
+           'store_whether_this_window_match_window_expression',
+           'store_xpath_count'
         each_assertion method do |assertion_method, command_name|
           define_method assertion_method do |arg1, arg2|
              command command_name, arg1, arg2

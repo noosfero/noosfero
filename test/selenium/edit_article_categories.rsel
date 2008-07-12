@@ -4,26 +4,33 @@ include_partial 'login'
 Category.destroy_all
 env = Environment.default
 top = env.categories.create!(:display_in_menu => true, :name => 'Top-Level category')
-c1  = env.categories.create!(:display_in_menu => true, :name => "Test category 1", :parent_id => top.id)
-c2  = env.categories.create!(:display_in_menu => true, :name => "Test category 2", :parent_id => top.id)
+c1  = env.categories.create!(:display_in_menu => true, :name => "Test Category 1", :parent_id => top.id)
+c2  = env.categories.create!(:display_in_menu => true, :name => "Test Category 2", :parent_id => top.id)
 c3  = env.categories.create!(:display_in_menu => true, :name => "Test Category 3", :parent_id => top.id)
 
 click_and_wait 'link=Manage Content'
 click 'link=New article'
 click_and_wait 'link=Text article with Textile markup language'
-click 'link=Add category'
 
-assert_visible 'css=div[id=select-categories]'
+
+click 'link=Add category'
 assert_visible 'css=a[class=select-subcategory-link]'
 assert_text 'css=a[class=select-subcategory-link]', 'Top-Level category'
-
 click 'link=Top-Level category'
+click "id=select-category-#{c3.id}-link"
+click 'id=save-category-button'
+assert_text 'id=select-categories', ''
+assert_text "id=selected-category-#{c3.id}", 'Top-Level category/Test Category 3Remove'
 
+click 'link=Add category'
 assert_visible 'css=a[class=select-subcategory-link]'
-assert_text 'css=a[class=select-subcategory-link]', 'Test category 1'
-click 'link=Test category 1'
-assert_not_visible 'css=div[id=select-categories]'
+assert_text 'css=a[class=select-subcategory-link]', 'Top-Level category'
+click 'link=Top-Level category'
+click "id=select-category-#{c2.id}-link"
+click 'id=save-category-button'
+assert_text 'id=select-categories', ''
+assert_text "id=selected-category-#{c2.id}", 'Top-Level category/Test Category 2Remove'
 
-#assert_visible 'css=a[class=select-subcategory-link]'
+assert_xpath_count "xpath=//ul[@id='selected-categories']//li", 2
 
 # vim: ft=ruby

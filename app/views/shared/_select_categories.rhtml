@@ -30,11 +30,12 @@
     @categories = environment.top_level_categories.select{|i| !i.children.empty?}
 end %>
 <% for category in @categories.each do %>
-  <%= link_to_remote category.name, {
-    :update => "select-categories",
-    :url => { :action => "update_categories", :category_id => category.id },
-    :loaded => visual_effect(:highlight, "select-categories") },
-    :class => 'select-subcategory-link'
+  <%= link_to_remote category.name,
+    { :update => "select-categories",
+      :url => { :action => "update_categories", :category_id => category.id },
+      :loaded => visual_effect(:highlight, "select-categories")
+    },
+    :class => 'select-subcategory-link',
+    :id => "select-category-#{category.id}-link"
   %>
 <% end %>
-

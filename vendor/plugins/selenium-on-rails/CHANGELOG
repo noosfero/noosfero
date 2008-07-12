@@ -1,3 +1,7 @@
+== update selenium-core to 0.8.3 - Jul 12 13:25:08 BRT 2008
+
+=== change made by Joenio Costa to add storeXpathCount methods to noosfero project
+
 == REVISION 38[http://svn.openqa.org/fisheye/changelog/selenium-on-rails/?cs=38]
 
 === change made by Flanagan
