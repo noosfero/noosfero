@@ -94,7 +94,7 @@
                       { :controller=>"home" },
                         :id=>"menu_link_to_envhome",
                         :title=>@environment.name  %>
-          <% cache(:controller => 'public', :action => 'categories_menu') do %>
+         <% cache(:controller => 'public', :action => 'categories_menu', :asset => params[:asset]) do %>
             <%= render :file => 'shared/categories_menu' %>
           <% end %>
         </div><!-- id='navigation_bar' -->
