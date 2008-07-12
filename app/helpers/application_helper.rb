@@ -216,9 +216,27 @@ module ApplicationHelper
   end
 
   def button_to_function(type, label, js_code, html_options = {})
-    html_options[:class] = "" unless html_options[:class]
-    html_options[:class] << " button #{type}"
+    html_options[:class] = "button with-text" unless html_options[:class]
+    html_options[:class] << " icon-#{type}"
     link_to_function(label, js_code, html_options)
+  end
+
+  def button_to_function(type, label, js_code, html_options = {}, &block)
+    html_options[:class] = "button with-text" unless html_options[:class]
+    html_options[:class] << " icon-#{type}"
+    link_to_function(label, js_code, html_options, &block)
+  end
+
+  def button_to_function_without_text(type, label, js_code, html_options = {})
+    html_options[:class] = "" unless html_options[:class]
+    html_options[:class] << " button icon-#{type}"
+    link_to_function(content_tag('span', label), js_code, html_options)
+  end
+
+  def button_to_function_without_text(type, label, js_code, html_options = {}, &block)
+    html_options[:class] = "" unless html_options[:class]
+    html_options[:class] << " button icon-#{type}"
+    link_to_function(content_tag('span', label), js_code, html_options, &block)
   end
 
   def icon(icon_name, html_options = {})
@@ -420,39 +438,28 @@ module ApplicationHelper
 
     object = instance_variable_get("@#{object_name}")
 
-    result = content_tag 'h'+title_size.to_s(), title
-    result << javascript_tag( 'function open_close_cat( link ) {
-      var div = link.parentNode.getElementsByTagName("div")[0];
-      var end = function(){
-        if ( div.style.display == "none" ) {
-          this.link.className="button icon-button icon-down"
-        } else {
-          this.link.className="button icon-button icon-up-red"
-        }
-      }
-      Effect.toggle( div, "slide", { link:link, div:div, afterFinish:end } )
-    }')
-    environment.top_level_categories.select{|i| !i.children.empty?}.each do |toplevel|
-      next unless object.accept_category?(toplevel)
-      # FIXME
-      ([toplevel] + toplevel.children_for_menu).each do |cat|
-        if cat.top_level?
-          result << '<div class="categorie_box">'
-          result << icon_button( :down, _('open'), '#', :onclick => 'open_close_cat(this); return false' )
-          result << content_tag('h5', toplevel.name)
-          result << '<div style="display:none"><ul class="categories">'
-        else
-          checkbox_id = "#{object_name}_#{cat.full_name.downcase.gsub(/\s+|\//, '_')}"
-          result << content_tag('li', labelled_check_box(
-                      cat.full_name_without_leading(1, " &rarr; "),
-                      "#{object_name}[category_ids][]", cat.id,
-                      object.category_ids.include?(cat.id), :id => checkbox_id,
-                      :onchange => 'this.parentNode.className=(this.checked?"cat_checked":"")' ),
-                    :class => ( object.category_ids.include?(cat.id) ? 'cat_checked' : '' ) ) + "\n"
-        end
-      end
-      result << '</ul></div></div>'
+    result = content_tag("h#{title_size}", title) +
+    content_tag('ul', object.categories.map{|i| content_tag('li', i.full_name + hidden_field_tag("#{object_name}[category_ids][]", i.id) + button_to_function_without_text(:cancel, _('Remove'), nil, :id => "remove-selected-category-#{i.id}-button"){|page| page["selected-category-#{i.id}"].remove}, :id => "selected-category-#{i.id}")}, :id => 'selected-categories') +
+    content_tag('div', nil, :id => 'select-categories') +
+    button_to_function(:add, _('Add category'), nil, :id => 'add-category-button') do |page|
+      page['add-category-button'].hide
+      page['select-categories'].replace_html :partial => 'shared/select_categories', :locals => {:object_name => object_name}
     end
+
+    #environment.top_level_categories.select{|i| !i.children.empty?}.each do |toplevel|
+    #  next unless object.accept_category?(toplevel)
+    #  ([toplevel] + toplevel.children_for_menu).each do |cat|
+    #    if cat.top_level?
+    #      result << '<div class="categorie_box">'
+    #      result << icon_button( :down, _('open'), '#', :onclick => remote_function(:update => "categories_#{cat.id}", :url => { :action => :update_categories, :id => cat, :object_name => object_name, :object_id => object.id}))
+    #      result << content_tag('h5', toplevel.name)
+    #      result << "<div id='categories_#{cat.id}'>"
+    #    else
+    #      ...
+    #    end
+    #  end
+    #  result << '</div></div>'
+    #end
 
     content_tag('div', result)
   end

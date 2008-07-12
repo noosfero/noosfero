@@ -349,7 +349,16 @@ class ArticleTest < Test::Unit::TestCase
     a = p.articles.create!(:name => 'test', :category_ids => [c1.id, c2.id])
 
     assert_equivalent [c1, c2], a.categories(true)
+  end
 
+  should 'not add a category twice to article' do
+    c1 = Category.create!(:environment => Environment.default, :name => 'c1')
+    c2 = c1.children.create!(:environment => Environment.default, :name => 'c2')
+    c3 = c2.children.create!(:environment => Environment.default, :name => 'c3')
+    owner = create_user('testuser').person
+    art = owner.articles.create!(:name => 'ytest')
+    art.category_ids = [c2,c3,c3].map(&:id)
+    assert_equal [c2, c3], art.categories(true)
   end
 
   should 'not accept Product category as category' do

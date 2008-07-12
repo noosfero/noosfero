@@ -286,6 +286,19 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_not_includes saved.categories, c2
     assert_includes saved.categories, c3
   end
+
+  should 'not associate articles with category twice' do
+    env = Environment.default
+    c1 = env.categories.build(:name => "Test category 1"); c1.save!
+    c2 = env.categories.build(:name => "Test category 2"); c2.save!
+    c3 = env.categories.build(:name => "Test Category 3"); c3.save!
+  
+    # post is in c1, c3 and c3
+    post :new, :type => TextileArticle.name, :profile => profile.identifier, :article => { :name => 'adding-categories-test', :category_ids => [ c1.id, c3.id, c3.id ] }
+
+    saved = profile.articles.find_by_name('adding-categories-test')
+    assert_equal [c1, c3, c3], saved.categories
+  end
   
   should 'filter html from textile article name' do
     post :new, :type => 'TextileArticle', :profile => profile.identifier, :article => { :name => 'a <strong>test</strong> article', :body => 'the text of the article ...' }
@@ -478,6 +491,17 @@ class CmsControllerTest < Test::Unit::TestCase
   should 'make enterprise homepage available to enterprises' do
     @controller.stubs(:profile).returns(Enterprise.new)
     assert_includes @controller.available_article_types, EnterpriseHomepage
+  end
+
+  should 'update categories' do
+    env = Environment.default
+    top = env.categories.create!(:display_in_menu => true, :name => 'Top-Level category')
+    c1  = env.categories.create!(:display_in_menu => true, :name => "Test category 1", :parent_id => top.id)
+    c2  = env.categories.create!(:display_in_menu => true, :name => "Test category 2", :parent_id => top.id)
+    get :update_categories, :profile => profile.identifier, :category_id => top.id
+    assert_template 'shared/_select_categories'
+    assert_equal top, assigns(:current_category)
+    assert_equal [c1, c2], assigns(:categories)
   end
 
 end

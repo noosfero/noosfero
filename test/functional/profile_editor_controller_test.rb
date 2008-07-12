@@ -12,7 +12,9 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
     login_as('ze')
+    @profile = Person['ze']
   end
+  attr_reader :profile
 
   def test_local_files_reference
     assert_local_files_reference :get, :index, :profile => 'ze'
@@ -431,6 +433,17 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     person = create_user('testuser').person
     get :index, :profile => 'testuser'
     assert_tag :tag => 'a', :content => 'Register a new Enterprise'
+  end
+
+  should 'update categories' do
+    env = Environment.default
+    top = env.categories.create!(:display_in_menu => true, :name => 'Top-Level category')
+    c1  = env.categories.create!(:display_in_menu => true, :name => "Test category 1", :parent_id => top.id)
+    c2  = env.categories.create!(:display_in_menu => true, :name => "Test category 2", :parent_id => top.id)
+    get :update_categories, :profile => profile.identifier, :category_id => top.id
+    assert_template 'shared/_select_categories'
+    assert_equal top, assigns(:current_category)
+    assert_equal [c1, c2], assigns(:categories)
   end
   
 end

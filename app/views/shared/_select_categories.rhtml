@@ -1,0 +1,40 @@
+<% if !@current_category.nil? %>
+  <%
+    categories = [@current_category]
+    categories.push(@current_category) while @current_category = @current_category.parent
+  %>
+  <% if categories.size > 0 %>
+    <%= categories.compact.reverse.map{|i|
+      link_to_remote(i.name, 
+        :update => "select-categories",
+        :url => { :action => 'update_categories', :category_id => i.id, :loaded => visual_effect(:highlight, "select-categories") },
+        :class => 'select-current-category-link')}.join(' &rarr; ')
+    %>
+    <strong>
+    <%= button_to_function_without_text(:save, _('Save'), nil, :id => 'save-category-button') do |page|
+      page.replace_html 'select-categories', ''
+      page['add-category-button'].show
+      page.insert_html :bottom, 'selected-categories', content_tag('li', categories.first.full_name +
+        hidden_field_tag("#{object_name}[category_ids][]", categories.first.id) +
+        button_to_function_without_text(:cancel, _('Remove'), nil, :id => "remove-selected-category-#{categories.first.id}-button") {|page| page["selected-category-#{categories.first.id}"].remove}, :id => "selected-category-#{categories.first.id}")
+    end %>
+    <%= button_to_function_without_text(:cancel, _('Cancel'), nil, :id => 'cancel-category-button') do |page|
+      page.replace_html 'select-categories', ''
+      page['add-category-button'].show
+    end %>
+    </strong>
+  <% end %>
+<br/>
+<% end %>
+<% if @categories.nil?
+    @categories = environment.top_level_categories.select{|i| !i.children.empty?}
+end %>
+<% for category in @categories.each do %>
+  <%= link_to_remote category.name, {
+    :update => "select-categories",
+    :url => { :action => "update_categories", :category_id => category.id },
+    :loaded => visual_effect(:highlight, "select-categories") },
+    :class => 'select-subcategory-link'
+  %>
+<% end %>
+

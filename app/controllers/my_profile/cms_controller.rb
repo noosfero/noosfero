@@ -115,6 +115,12 @@ class CmsController < MyProfileController
     render :action => params[:action], :layout => false
   end
 
+  def update_categories
+    @current_category = Category.find(params[:category_id])
+    @categories = @current_category.children
+    render :partial => 'shared/select_categories', :locals => {:object_name => 'article'}, :layout => false
+  end
+
   protected
 
   def redirect_back
