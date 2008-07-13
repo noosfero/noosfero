@@ -3,5 +3,5 @@
     <option value=<%= city.id.to_s.inspect %>><%= city.name %></option>
   <% end %>
 <% else %>
-  <option value=''>---</option>
+  <option value=''><%= _('No City') %></option>
 <% end%>

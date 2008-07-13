@@ -90,13 +90,22 @@ function prodCatMenuOut( li ) {
   }
 }
 
-$$("#product-categories-menu ul div").each( function(subMenu){
-  var li = subMenu.parentNode;
-  subMenu.li = li;
-  li.subMenu = subMenu;
-  li.subMenu.style.display = "none";
-  li.closed = true;
-})
+if ( document.all ) {
+
+  function prodCatMenuOver( li ) { li.className = "cat-parent sub-opened" }
+  function prodCatMenuOut( li )  { li.className = "cat-parent sub-closed" }
+
+} else {
+
+  $$("#product-categories-menu ul div").each( function(subMenu){
+    var li = subMenu.parentNode;
+    subMenu.li = li;
+    li.subMenu = subMenu;
+    li.subMenu.style.display = "none";
+    li.closed = true;
+  })
+
+}
 
 </script>
 
