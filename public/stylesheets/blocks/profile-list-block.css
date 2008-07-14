@@ -6,6 +6,8 @@
 #content .common-profile-list-block ul {
   margin: 0px auto;
   padding: 0px;
+}
+#content .profile-list-block ul {
   width: 200px;
 }
 
