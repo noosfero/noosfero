@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: noosfero 0.10.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-07-12 17:50-0300\n"
-"PO-Revision-Date: 2008-07-12 18:56-0300\n"
+"PO-Revision-Date: 2008-07-14 14:44-0300\n"
 "Last-Translator: Vicente Aguiar <vicenteaguiar@colivre.coop.br>\n"
 "Language-Team: Project-Id-Version: gtranslator"
 "Report-Msgid-Bugs-To: "
@@ -131,7 +131,7 @@ msgstr "Tem certeza que quer visitar este web site?"
 
 #: app/helpers/application_helper.rb:658
 msgid "Searched for '%s'"
-msgstr "Buscar por.'%'"
+msgstr "Busca por '%s'"
 
 #: app/helpers/application_helper.rb:659
 msgid "In category %s"
@@ -249,7 +249,7 @@ msgstr "Dezembro"
 
 #: app/helpers/dates_helper.rb:27
 msgid "%{month} %{day}, %{year}"
-msgstr "%{mês} %{dia},.%{ano}"
+msgstr "%{day} de %{month} de %{year}"
 
 #: app/helpers/dates_helper.rb:36
 msgid "%d %B %Y, %H:%m"
@@ -1404,7 +1404,7 @@ msgid ""
 "position about your request."
 msgstr ""
 "Seu pedido para cadastro de empreendimento \"%{enterprise}\" em %"
-"{environment}foi recebido. Ele será revisado por um organização "
+"{environment} foi recebido. Ele será revisado por um organização "
 "validadoraque você escolheu, de acordo com seu métodos e critério.\n"
 "\n"
 "Você será notificado assim que a organização validadora tiver umaposição "
