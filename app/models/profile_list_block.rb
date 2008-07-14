@@ -78,7 +78,7 @@ class ProfileListBlock < Block
       end
       block_title(title) + nl +
       '<div class="common-profile-list-block">' +
-      nl + list + nl + '</div>'
+      nl + list + nl + '<br style="clear:both" /></div>'
     end
   end
 

@@ -1,5 +1,14 @@
 
-#content .common-profile-list-block ul,
+#content .profile-list-block h3 {
+  text-align: center;
+}
+
+#content .common-profile-list-block ul {
+  margin: 0px auto;
+  padding: 0px;
+  width: 200px;
+}
+
 #content .common-profile-list-block li {
   margin: 0px;
   padding: 0px;
