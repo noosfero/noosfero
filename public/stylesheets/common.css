@@ -366,10 +366,10 @@ div.sitemap-item a:hover {
 #category-ajax-selector .button {
   display: block;
   position: absolute;
-  top: 2px;
-  right: 0px;
+  top: 4px;
+  right: 2px;
 }
 #category-ajax-selector .icon-save {
-  right: 23px;
+  right: 25px;
 }
 
