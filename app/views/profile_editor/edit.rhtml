@@ -36,7 +36,7 @@
     </div>
   </p>
 
-  <%= select_categories(:profile_data, _('Select the categories of your interest'), :title_size => 1, :multiple => true) %>
+  <%= select_categories(:profile_data, _('Select the categories of your interest'), 1) %>
 
   <% button_bar do %>
     <%= submit_button('save', _('Save'), :cancel => {:action => 'index'}) %>

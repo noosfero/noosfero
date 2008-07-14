@@ -118,7 +118,8 @@ class ManageProductsControllerTest < Test::Unit::TestCase
     category2 = ProductCategory.create!(:name => 'Category 2', :environment => environment, :parent => category1)
     category3 = ProductCategory.create!(:name => 'Category 3', :environment => environment, :parent => category2)
     get :new, :profile => @enterprise.identifier
-    assert_tag :tag => 'h3', :content => /Categories:/, :sibling => { :tag => 'a', :content => /#{category2.name}/ }
+    assert_tag :tag => 'p', :content => /Select a category:/
+    assert_tag :tag => 'a', :content => /#{category2.name}/
   end
 
   should 'show current category' do

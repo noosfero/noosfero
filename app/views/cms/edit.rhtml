@@ -16,7 +16,7 @@
     <%= lightbox_button :help, _('Why categorize?'), :action => 'why_categorize' %>
   </div>
 
-  <%= select_categories(:article, _('Categorize your article'), :multiple => true) %>
+  <%= select_categories(:article, _('Categorize your article')) %>
 
   <%= f.text_field('tag_list', :size => 64) %>
   <%= content_tag( 'small', _('Separate tags with commas') ) %>

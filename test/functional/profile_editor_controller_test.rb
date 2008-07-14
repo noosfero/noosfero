@@ -83,7 +83,7 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     get :edit, :profile => 'test_user'
     assert_response :success
     assert_template 'edit'
-    assert_tag :tag => 'a', :attributes => { :id => "select-category-#{cat1.id}-link" }
+    assert_tag :tag => 'input', :attributes => {:name => 'profile_data[category_ids][]', :value => cat2.id}
   end
 
   should 'save categorization of profile' do
@@ -264,7 +264,7 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     cat2 = Environment.default.categories.create!(:display_in_menu => true, :name => 'sub category', :parent => cat1)
     person = create_user('testuser').person
     get :edit, :profile => 'testuser'
-    assert_tag :tag => 'a', :attributes => { :id => "select-category-#{cat1.id}-link" }
+    assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'profile_data[category_ids][]', :value => cat2.id}
   end
 
   should 'render edit template' do

@@ -65,6 +65,11 @@ class ManageProductsController < ApplicationController
     end
     render :partial => 'shared/select_categories', :locals => {:object_name => 'product', :multiple => false}, :layout => false
   end
+  def update_subcategories
+    @current_category = ProductCategory.find(params[:id])
+    @categories = @current_category.children
+    render :partial => 'subcategories'
+  end
   
   def new_consumption
     @consumption = @profile.consumptions.build(params[:consumption])
