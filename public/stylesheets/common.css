@@ -324,11 +324,16 @@ div.sitemap-item a:hover {
   padding: 15px 0px 15px 20px;
   margin: 30px 0px 0px 0px;
   position: relative;
+  font-size: 18px;
+}
+
+#category-ajax-selector a {
+  font-size: 14px;
 }
 
 #category-ajax-selector h3 {
   margin: 10px 0px;
-  font-size: 100%;
+  font-size: 14px;
 }
 
 #category-ajax-selector .box-title {
@@ -342,14 +347,29 @@ div.sitemap-item a:hover {
   background: #EEE;
   float: left;
 }
-
-.select-subcategory-link {
-  border: 1px solid #BBB;
-  padding: 0px 3px;
-  margin: 2px 0px;
-  text-decoration: none;
+.msie6 #category-ajax-selector .box-title {
+  top: -29px;
 }
-.select-subcategory-link:hover {
+
+#category-ajax-selector .select-subcategory-link {
+  border: 1px solid #BBB;
+  padding: 1px 3px;
+  margin: 0px 1px;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: 11px;
+}
+#category-ajax-selector .select-subcategory-link:hover {
   background-color: #FFA;
+}
+
+#category-ajax-selector .button {
+  display: block;
+  position: absolute;
+  top: 2px;
+  right: 0px;
+}
+#category-ajax-selector .icon-save {
+  right: 23px;
 }
 

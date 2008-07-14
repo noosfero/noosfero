@@ -25,3 +25,12 @@ ul.categories li.cat_checked {
   border-bottom: 1px solid #729FCF;
 }
 
+.msie.action_cms_edit li {
+  height: 23px;
+}
+.msie.action_cms_edit li .button {
+  display: block;
+  float: right;
+  margin-top: -20px;
+}
+
