@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: noosfero 0.10.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-07-12 17:50-0300\n"
-"PO-Revision-Date: 2008-07-14 14:44-0300\n"
+"PO-Revision-Date: 2008-07-14 16:32-0300\n"
 "Last-Translator: Vicente Aguiar <vicenteaguiar@colivre.coop.br>\n"
 "Language-Team: Project-Id-Version: gtranslator"
 "Report-Msgid-Bugs-To: "
@@ -257,7 +257,7 @@ msgstr "%d de %B de %Y, %H:%m"
 
 #: app/helpers/dates_helper.rb:46
 msgid "from %s to %s"
-msgstr "de %s para %s"
+msgstr "de %s a %s"
 
 #: app/helpers/dates_helper.rb:53
 msgid "Sunday"
