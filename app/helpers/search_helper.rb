@@ -15,9 +15,9 @@ module SearchHelper
     (query.downcase.scan(/"[^"]*"?|'[^']*'?|[^'"\s]+/) - (STOP_WORDS[locale] || [])).join(' ')
   end
 
-  def display_results
+  def display_results(use_map = true)
 
-    unless GoogleMaps.enabled?
+    unless use_map && GoogleMaps.enabled?
       return render(:partial => 'display_results')
     end
 
