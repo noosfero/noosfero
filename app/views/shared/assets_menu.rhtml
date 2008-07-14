@@ -1,0 +1,15 @@
+<div id="assets_menu">
+  <%= theme_opt_menu_search %>
+  <div id="assets_menu_list" class="top_extra_menu">
+    <ul id="assets_menu_ul">
+      <%= generate_assets_menu %>
+    </ul>
+  </div><!-- fim id="assets_menu_list" -->
+  <div id="assets_menu_layout_iten"></div>
+</div><!-- fim id="assets_menu" -->
+
+<script type="text/javascript">
+  if ( assetsMenu.autoOpen ) {
+    setAutoOpenMenu( $("assets_menu") );
+  }
+</script>
