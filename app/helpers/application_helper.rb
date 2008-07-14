@@ -657,7 +657,7 @@ module ApplicationHelper
     title = "<h1>" + title + "</h1>"
     title += "<h2 align='center'>" + _("Searched for '%s'") % options[:query] + "</h2>" if !options[:query].blank?
     title += "<h2 align='center'>" + _("In category %s") % options[:category] + "</h2>" if !options[:category].blank?
-    title += "<h2 align='center'>" + _("within %d from %s") % [options[:distance], options[:region]] + "</h2>" if !options[:distance].blank? && !options[:region].blank?
+    title += "<h2 align='center'>" + _("within %d km from %s") % [options[:distance], options[:region]] + "</h2>" if !options[:distance].blank? && !options[:region].blank?
     title += "<h2 align='center'>" + _("%d results found") % options[:total_results] + "</h2>" if !options[:total_results].blank?
     title
   end
