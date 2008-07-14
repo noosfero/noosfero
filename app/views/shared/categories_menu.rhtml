@@ -4,29 +4,9 @@
       <%= item.name %>
       <ul>
         <% item.children_for_menu.each do |child| %>
-          <% if (@controller.controller_name == 'search') && (@controller.action_name == 'assets') %>
-            <li><%= link_to(content_tag('span', child.name), :controller => 'search', :action => 'assets', :asset => params[:asset], :category_path => child.explode_path) %></li>
-          <% else %>
-            <li><%= link_to(content_tag('span', child.name), :controller => 'search', :action => 'category_index', :category_path => child.explode_path) %></li>
-          <% end %>
+          <li><%= link_to(content_tag('span', child.name), :controller => 'search', :action => 'category_index', :category_path => child.explode_path) %></li>
         <% end %>
       </ul>
     </li>
   <% end %>
 </ul><!-- fim id="cat_menu" -->
-
-<div id="assets_menu">
-  <%= theme_opt_menu_search %>
-  <div id="assets_menu_list" class="top_extra_menu">
-    <ul id="assets_menu_ul">
-      <%= generate_assets_menu %>
-    </ul>
-  </div><!-- fim id="assets_menu_list" -->
-  <div id="assets_menu_layout_iten"></div>
-</div><!-- fim id="assets_menu" -->
-
-<script type="text/javascript">
-  if ( assetsMenu.autoOpen ) {
-    setAutoOpenMenu( $("assets_menu") );
-  }
-</script>

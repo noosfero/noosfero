@@ -13,19 +13,30 @@ class CategoriesMenuTest < ActionController::IntegrationTest
 
   should 'display link to categories' do
     get '/'
-    assert_tag :tag => 'a', :attributes => { :href => '/cat/food/vegetables' }
+    assert_tag :attributes => { :id => 'cat_menu' }, :descendant => { :tag => 'a', :attributes => { :href => '/cat/food/vegetables' } }
   end
 
   should 'display link to sub-categories' do
     get '/cat/food'
     # there must be a link to the subcategory
-    assert_tag :tag => 'a', :attributes => { :href => '/cat/food/vegetables' }
+    assert_tag :attributes => { :id => 'cat_menu' }, :descendant => { :tag => 'a', :attributes => { :href => '/cat/food/vegetables' } }
   end
 
   should 'link to other assets in the same category when viewing an asset' do
     get '/assets/articles/food/vegetables'
-    assert_no_tag :tag => 'a', :attributes => { :href => '/cat/food/vegetables' }
-    assert_tag :tag => 'a', :attributes => { :href => '/assets/enterprises/food/vegetables' }
+    assert_no_tag :attributes => { :id => 'assets_menu' }, :descendant => { :tag => 'a', :attributes => { :href => '/cat/food/vegetables' } }
+    assert_tag :attributes => { :id => 'assets_menu' }, :descendant => { :tag => 'a', :attributes => { :href => '/assets/enterprises/food/vegetables' } }
+  end
+
+  should "always link to category's initial page in category menu" do
+    get '/assets/products/food/vegetables'
+    assert_tag :attributes => { :id => 'cat_menu' }, :descendant => { :tag => 'a', :attributes => { :href => '/cat/food/vegetables' } }
+    assert_no_tag :attributes => { :id => 'cat_menu' }, :descendant => { :tag => 'a', :attributes => { :href => '/assets/products/food/vegetables' } }
+  end
+
+  should 'cache the categories menu' do
+    ActionView::Base.any_instance.expects(:cache).with(:controller => 'public', :action => 'categories_menu')
+    get '/'
   end
 
 end
