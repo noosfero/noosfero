@@ -9,16 +9,14 @@ class CreateProductCategorizations < ActiveRecord::Migration
       t.timestamps
     end
 
-    Product.find(:all).each do |p|
+    total = Product.count.to_f
+    percent = 0
+    Product.find(:all).each_with_index do |p,i|
       if p.product_category
         ProductCategorization.add_category_to_product(p.product_category, p)
-        print ".\0"
-      else
-        print "x\0"
       end
-      $stdout.flush
+      puts "%02.02f" % ((100.0 * i.to_f)/total)
     end
-    print "\n"
 
   end
 
