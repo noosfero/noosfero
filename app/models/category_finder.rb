@@ -8,7 +8,7 @@ class CategoryFinder
   attr_reader :category_id
 
   def find(asset, query='', options={})
-   @region = Region.find_by_id(options.delete(:region)) if options.has_key?(:region)
+    @region = Region.find_by_id(options.delete(:region)) if options.has_key?(:region)
     if @region && options[:within]
       options[:origin] = [@region.lat, @region.lng]
     else
@@ -99,7 +99,7 @@ class CategoryFinder
       else
         {:joins => 'inner join categories_profiles on products.enterprise_id = categories_profiles.profile_id', :conditions => ['categories_profiles.category_id = (?)', category_id]}.merge!(options)
       end
-    when 'Article'
+    when 'Article', 'TextArticle'
       {:joins => 'inner join articles_categories on (articles_categories.article_id = articles.id)', :conditions => ['articles_categories.category_id = (?)', category_id]}.merge!(options)
     when 'Event'
       conditions =

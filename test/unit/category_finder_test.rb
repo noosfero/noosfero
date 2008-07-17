@@ -446,5 +446,21 @@ class CategoryFinderTest < ActiveSupport::TestCase
     assert ents.index(ent2) < ents.index(ent1), "expected #{ents.index(ent2)} be smaller than #{ents.index(ent1)}"
     assert ents.index(ent1) < ents.index(ent3), "expected #{ents.index(ent1)} be smaller than #{ents.index(ent3)}"
   end
+
+  should 'search for text articles in a specific category' do
+    person = create_user('teste').person
+
+    # in category
+    art1 = TextileArticle.create!(:name => 'an article to be found', :profile => person)
+    art1.add_category(@category)
+    art1.save!
+
+    # not in category
+    art2 = TextileArticle.create!(:name => 'another article to be found', :profile => person)
+
+    list = @finder.find(:text_articles, 'found')
+    assert_includes list, art1
+    assert_not_includes list, art2
+  end
   
 end

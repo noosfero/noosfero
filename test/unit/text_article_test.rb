@@ -7,4 +7,17 @@ class TextArticleTest < Test::Unit::TestCase
   should 'inherit from Article' do
     assert_kind_of Article, TextArticle.new
   end
+
+  should 'found TextileArticle by TextArticle class' do
+    person = create_user('testuser').person
+    article = TextileArticle.create!(:name => 'textile article test', :profile => person)
+    assert_includes TextArticle.find(:all), article
+  end
+  
+  should 'found TextileArticle by TextArticle indexes' do
+    person = create_user('testuser').person
+    article = TextileArticle.create!(:name => 'found article test', :profile => person)
+    assert_equal TextileArticle.find_by_contents('found'), TextArticle.find_by_contents('found')
+  end
+  
 end

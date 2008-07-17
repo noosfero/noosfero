@@ -890,6 +890,15 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_equal nil, assigns(:region)
   end
 
+  should 'found TextileArticle in articles' do
+    person = create_user('teste').person
+    art = TextileArticle.create!(:name => 'an text_article article to be found', :profile => person)
+
+    get 'index', :query => 'article found', :find_in => [ 'articles' ]
+
+    assert_includes assigns(:results)[:articles], art
+  end
+
   ##################################################################
   ##################################################################
 
