@@ -15,4 +15,11 @@ class TinyMceArticleTest < Test::Unit::TestCase
     assert_kind_of String, TinyMceArticle.short_description
   end
 
+  should 'be found when searching for articles by query' do
+    ze = create_user('zezinho').person
+    tma = TinyMceArticle.create!(:name => 'test tinymce article', :body => '---', :profile => ze)
+    assert_includes TinyMceArticle.find_by_contents('article'), tma
+    assert_includes Article.find_by_contents('article'), tma
+  end
+
 end
