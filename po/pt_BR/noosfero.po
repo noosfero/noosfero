@@ -22,6 +22,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 1.0.2\n"
 
+msgid "Select the City"
+msgstr "Selecione a Cidade"
+
+msgid "Select the State"
+msgstr "Selecione o Estado"
 
 #: app/helpers/application_helper.rb:61
 #: app/views/layouts/application.rhtml:112 app/views/features/index.rhtml:7
@@ -2696,7 +2701,7 @@ msgstr "Não há categorias."
 
 #: app/views/search/enterprises.rhtml:3
 msgid "Enterprise results for \"%{query}\" in \"%{category}\""
-msgstr "Resultados de empreendimentos por \"%{consulta}\" em \"%{category}\""
+msgstr "Resultados de empreendimentos por \"%{query}\" em \"%{category}\""
 
 #: app/views/search/enterprises.rhtml:3
 msgid "Enterprise results for \"%s\""
