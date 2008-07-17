@@ -1,6 +1,6 @@
 class ActiveRecord::Base
   def self.acts_as_accessor
-    has_many :role_assignments, :as => :accessor
+    has_many :role_assignments, :as => :accessor, :dependent => :destroy
 
     def has_permission?(permission, resource = nil)
       return true if resource == self

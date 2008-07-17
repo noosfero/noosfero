@@ -686,6 +686,17 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal [c2, c3], profile.categories(true)
   end
 
+  should 'not return nil members when a member is removed from system' do
+    p = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
+    member = create_user('test_user').person
+    p.affiliate(member, Profile::Roles.member)
+
+    member.destroy
+    p.reload
+
+    assert_not_includes p.members, nil
+  end
+
   private
 
   def assert_invalid_identifier(id)

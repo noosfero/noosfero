@@ -6,7 +6,7 @@ class ActiveRecord::Base
   
   # Acts as accessible makes a model acts as a resource that can be targeted by a permission
   def self.acts_as_accessible
-    has_many :role_assignments, :as => :resource
+    has_many :role_assignments, :as => :resource, :dependent => :destroy
     
     # A superior instance is an object that has higher level an thus can be targeted by a permission
     # to represent an permission over a group of related resources rather than a single one
