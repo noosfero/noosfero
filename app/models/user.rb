@@ -154,10 +154,6 @@ class User < ActiveRecord::Base
   def name
     person.name
   end
-  
-  def first_name
-    person.first_name
-  end
 
   protected
     # before filter 
