@@ -45,6 +45,12 @@ class ApplicationController < ActionController::Base
     verify :method => :post, :only => actions, :redirect_to => redirect
   end
 
+  # Fix some problems with Single Table Inheritance
+  require_dependency 'textile_article'
+  require_dependency 'tiny_mce_article'
+  require_dependency 'text_article'
+  require_dependency 'article'
+
   protected
 
   # TODO: move this logic somewhere else (Domain class?)
