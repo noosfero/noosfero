@@ -697,6 +697,35 @@ class ProfileTest < Test::Unit::TestCase
     assert_not_includes p.members, nil
   end
 
+  should 'have nickname' do
+    p = Profile.new
+    assert_respond_to p, :nickname
+  end
+
+  should 'nickname has limit of 16 characters' do
+    p = Profile.new(:nickname => 'A name with more then 16 characters')
+    p.valid?
+    assert_not_nil p.errors[:nickname]
+  end
+
+  should 'nickname be able to be nil' do
+    p = Profile.new()
+    p.valid?
+    assert_nil p.errors[:nickname]
+  end
+
+  should 'filter html from nickname' do
+    p = Profile.create!(:identifier => 'testprofile', :name => 'test profile', :environment => Environment.default)
+    p.nickname = "<b>code</b>"
+    p.save!
+    assert_equal 'code', p.nickname
+  end
+
+  should 'display_name return name if nickname is blank' do
+    p = Profile.new(:name => 'test profile')
+    assert_equal 'test profile', p.display_name
+  end
+
   private
 
   def assert_invalid_identifier(id)

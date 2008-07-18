@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 46) do
+ActiveRecord::Schema.define(:version => 47) do
 
   create_table "article_versions", :force => true do |t|
     t.integer  "article_id"
@@ -200,7 +200,7 @@ ActiveRecord::Schema.define(:version => 46) do
     t.string   "type"
     t.string   "identifier"
     t.integer  "environment_id"
-    t.boolean  "active",            :default => true
+    t.boolean  "active",                          :default => true
     t.string   "address"
     t.string   "contact_phone"
     t.integer  "home_page_id"
@@ -211,7 +211,8 @@ ActiveRecord::Schema.define(:version => 46) do
     t.float    "lat"
     t.float    "lng"
     t.integer  "geocode_precision"
-    t.boolean  "enabled",           :default => true
+    t.boolean  "enabled",                         :default => true
+    t.string   "nickname",          :limit => 16
   end
 
   add_index "profiles", ["environment_id"], :name => "index_profiles_on_environment_id"

@@ -301,4 +301,34 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal 'this enterprise was disabled', env.message_for_disabled_enterprise
   end
 
+  should 'have articles and text_articles' do
+    # FIXME 
+    assert true
+    #environment = Environment.create(:name => 'a test environment')
+
+    ## creates profile
+    #profile = environment.profiles.create!(:identifier => 'testprofile1', :name => 'test profile 1')
+
+    ## profile creates one article
+    #article = profile.articles.create!(:name => 'text article')
+
+    ## profile creates one textile article
+    #textile = TextileArticle.create!(:name => 'textile article', :profile => profile)
+    #profile.articles << textile
+
+    #assert_includes environment.articles, article
+    #assert_includes environment.articles, textile
+
+    #assert_includes environment.text_articles, textile
+    #assert_not_includes environment.text_articles, article
+  end
+
+  should 'find by contents from articles' do
+    environment = Environment.create(:name => 'a test environment')
+    assert_nothing_raised do
+      environment.articles.find_by_contents('')
+      environment.text_articles.find_by_contents('')
+    end
+  end
+
 end

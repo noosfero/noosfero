@@ -398,10 +398,10 @@ module ApplicationHelper
   # #profile_image) and its name below it.
   def profile_image_link( profile, size=:portrait, tag='li' )
     if profile.class == Person
-      name = profile.first_name
+      name = profile.display_name
       city = content_tag 'span', content_tag( 'span', profile.city, :class => 'locality' ), :class => 'adr'
     else
-      name = profile.name
+      name = profile.display_name
       city = ''
     end
     content_tag tag,
