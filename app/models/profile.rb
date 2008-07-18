@@ -161,6 +161,8 @@ class Profile < ActiveRecord::Base
   validates_exclusion_of :identifier, :in => RESERVED_IDENTIFIERS
   validates_uniqueness_of :identifier
 
+  validates_length_of :nickname, :maximum => 16, :allow_nil => true
+
   before_create :set_default_environment
   def set_default_environment
     if self.environment.nil?
@@ -191,7 +193,7 @@ class Profile < ActiveRecord::Base
     true
   end
 
-  xss_terminate :only => [ :name, :address, :contact_phone ]
+  xss_terminate :only => [ :name, :nickname, :address, :contact_phone ]
 
   # returns the contact email for this profile. By default returns the the
   # e-mail of the owner user.
@@ -389,6 +391,14 @@ class Profile < ActiveRecord::Base
 
   def default_homepage(attrs)
     TinyMceArticle.new(attrs)
+  end
+
+  def display_name
+    if self[:nickname].blank?
+      self.name
+    else
+      self[:nickname]
+    end
   end
 
 end

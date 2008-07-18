@@ -1,3 +1,9 @@
+  <div class="formfieldline">
+  <label class="formlabel" for="profile_data_nickname"><%= _('Display name') %></label>
+  <div class="formfield type-text">
+  <%= text_field_tag 'profile_data[nickname]', @profile_data.nickname, :id => 'profile_data_nickname', :size => 30, :maxlength => 16 %>
+  </div>
+  </div>
   <%= f.text_field(:acronym) %>
   <%= f.text_field(:foundation_year) %>
   <%= f.text_field(:contact_person) %>
