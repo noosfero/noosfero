@@ -3,9 +3,12 @@
 <h1><%= _("%s's friends") % profile.name %></h1>
 
 <ul class='profile-list'>
-<% @friends.each do |friend| %>
-  <li>
-    <%= profile_image_link friend %>
+  <% @friends.each do |friend| %>
+    <li>
+    <center>
+      <%= link_to_profile(profile_image(friend) + '<br/>' + friend.name, friend.identifier) %>
+    </center>
+    <!--<%= button(:delete, _('Remove'), {:action => 'remove', :id => friend.id}, :method => :post) %>-->
     <div class="controll">
       <%= link_to content_tag('span',_('remove')),
           { :action => 'remove', :id => friend.id },
@@ -13,8 +16,9 @@
             :title => _('remove'),
             :help => _('Clicking on this button will remove your friend relation with %s.') % friend.name %>
     </div><!-- end class="controll" -->
-  </li>
-<% end %>
+
+    </li>
+  <% end %>
 </ul>
 
 <% if @friends.empty? %>

@@ -8,7 +8,7 @@
 #content #manage_friends li {
   float: left;
   width: 200px;
-  height: 68px;
+  height: 100px;
   margin: 5px;
   padding: 5px;
   border: 2px solid #B8CFE7;
@@ -21,8 +21,11 @@
   background: #729FCF;
 }
 
-.profile-list img {
+#content #manage_friends li center {
   float: left;
+}
+
+.profile-list img {
   border: none;
 }
 
@@ -34,12 +37,6 @@
   width: 200px;
   display: block;
   overflow: hidden;
-}
-
-.controll {
-  position: absolute;
-  right: 5px;
-  bottom: 10px;
 }
 
 #manage_friends .button-bar {
