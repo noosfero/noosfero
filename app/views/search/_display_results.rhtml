@@ -29,6 +29,7 @@
           <ul>
           <% hit_pos = 0 %>
           <% results.each do |hit| %>
+            <% next if hit.respond_to?(:public_profile) && !hit.public_profile  %>
             <%= render :partial => partial,
                        :object => hit,
                        :locals => { :pos => ( hit_pos += 1 ) } %>
