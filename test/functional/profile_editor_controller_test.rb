@@ -415,26 +415,6 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     assert assigns(:to_disable).enabled?
   end
 
-  should 'link to create community' do
-    profile = Person['ze']
-    get :index, :profile => profile.identifier
-    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/memberships/new_community" }
-  end
-
-  should 'not display link to register new enterprise if there is no validators' do
-    person = create_user('testuser').person
-    get :index, :profile => 'testuser'
-    assert_no_tag :tag => 'a', :content => 'Register a new Enterprise'
-  end
-
-  should 'display link to register new enterprise' do
-    reg = Environment.default.regions.create!(:name => 'Region test')
-    reg.validators.create!(:name => 'Validator test', :identifier => 'validator-test')
-    person = create_user('testuser').person
-    get :index, :profile => 'testuser'
-    assert_tag :tag => 'a', :content => 'Register a new Enterprise'
-  end
-
   should 'update categories' do
     env = Environment.default
     top = env.categories.create!(:display_in_menu => true, :name => 'Top-Level category')
@@ -445,5 +425,11 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     assert_equal top, assigns(:current_category)
     assert_equal [c1, c2], assigns(:categories)
   end
-  
+
+  should 'display manage my groups button for person' do
+    person = create_user('testuser').person
+    get :index, :profile => 'testuser'
+    assert_tag :tag => 'a', :content => 'Manage my groups'
+  end
+
 end

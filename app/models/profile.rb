@@ -244,6 +244,10 @@ class Profile < ActiveRecord::Base
     self.kind_of?(Organization)
   end
 
+  def community?
+    self.kind_of?(Community)
+  end
+
   # returns false.
   def is_validation_entity?
     false

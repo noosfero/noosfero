@@ -1,9 +1,8 @@
 dlg-neu icons in Noosfero
 =========================
 
-The icons in this directory are taken from the icon themes for GNOME,
-section "apps/". We take the SVG files and convert to 64x64 PNG images, so
-these icons are in fact derived works based on dlg-neu's SVG files.
+The icons in this directory are taken from the icon themes for GNOME.
+We take the SVG files and convert to 64x64 PNG images.
 
 Structure
 =========
@@ -19,7 +18,7 @@ Use the fantastic script get-icon.sh! Suppose you want to add a new icon for
 the "favorites". You find that dlg-neu theme has a nice button under apps,
 called gtk-open.svg. You call the script as follows:
 
-$ sh get-icon.sh favorites epiphany-bookmarks.svg
+$ sh get-icon.sh favorites dlg-neu apps/epiphany-bookmarks.svg
 
 The script generates the PNG and create symbolic link from PNG using ICON name.
 
@@ -44,6 +43,7 @@ epiphany-bookmarks.png                      dlg-neu
 mozilla-mail.png                            dlg-neu
 gtk-cancel.png                              dlg-neu
 emblem-important.png                        dlg-neu
+gnome-globe.png                             gnome
 ### END OF ICONS LISTING ###
 
 Icons rasterization
@@ -57,8 +57,12 @@ $ rsvg -w 64 -h 64 user_icon.svg user_icon.png
 Licensing
 =========
 
+dlg-neu and Nuovo
+-----------------
+
 Their License is as follows (taken from
-/usr/share/doc/gnome-icon-theme-dlg-neu/copyright on a Debian system):
+/usr/share/doc/gnome-icon-theme-dlg-neu/copyright and
+/usr/share/doc/gnome-icon-theme-nuovo/copyright on a Debian system):
 
    This package is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -78,3 +82,25 @@ Their License is as follows (taken from
 On Debian systems, the complete text of the GNU General
 Public License can be found in `/usr/share/common-licenses/GPL'.
 
+gnome
+-----
+
+Their License is as follows (taken from
+/usr/share/doc/gnome-icon-theme/copyright on a Debian system):
+
+   This package is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; version 2 dated June, 1991.
+
+   This package is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this package; if not, write to the Free Software
+   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301,
+   USA.
+
+On Debian GNU/Linux systems, the complete text of the GNU General
+Public License can be found in `/usr/share/common-licenses/GPL'.

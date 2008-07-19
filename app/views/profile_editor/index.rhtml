@@ -38,26 +38,7 @@
     <% end %>
   <% end %>
 
-<% end %>
-
-<% if @profile.person? %>
-
-  &nbsp;<hr />
-
-  <h2><%= _('Manage my groups') %></h2>
-
-  <% button_bar do %>
-    <%= button(:add, _('Create a new community'), :controller => 'memberships', :action => 'new_community') %>
-    <%= button(:add, _('Register a new Enterprise'), :controller => 'enterprise_registration') if environment.regions.any?{|i| i.has_validator?} %>
-  <% end %>
- 
-  <% file_manager do %>
-
-    <% @profile.memberships.each do |group| %>
-      <%= file_manager_button(group.name, profile_icon(group) , :profile => group.identifier, :controller => 'profile_editor' ) %>
-    <% end %>
-
-  <% end %>
+  <%= file_manager_button(_('Manage my groups'), 'icons-app/groups.png', :controller => 'memberships') if profile.person? %>
 
 <% end %>
 

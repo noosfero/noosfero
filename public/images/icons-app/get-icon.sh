@@ -4,17 +4,15 @@ ICON=$1
 THEME=$2
 SVG=$3
 
-SECTION='apps'
-
 if [ -z $ICON ] || [ -z $THEME ] || [ -z $SVG ]; then
-  echo "use: $0 <ICON> <THEME> <ICON>"
+  echo "use: $0 <ICON> <THEME> <SVG>"
   echo "example:"
-  echo "  $0 favorites dlg-neu epiphany-bookmarks.svg"
+  echo "  $0 favorites dlg-neu emblems/epiphany-bookmarks.svg"
   exit 1
 fi
 
 PNG=$(basename $SVG | sed -e 's/\.svg/\.png/')
-SVGFILE=/usr/share/icons/$THEME/scalable/$SECTION/$SVG
+SVGFILE=/usr/share/icons/$THEME/scalable/$SVG
 
 if [ ! -f $SVGFILE ]; then
   echo "$SVGFILE not found, stopping."

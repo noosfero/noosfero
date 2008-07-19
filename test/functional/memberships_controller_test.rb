@@ -89,28 +89,28 @@ class MembershipsControllerTest < Test::Unit::TestCase
     community = Community.create!(:name => 'my test community')
     community.add_member(profile)
     get :index, :profile => profile.identifier
-    assert_tag :tag => 'td', :content => /Members: 1/
+    assert_tag :tag => 'li', :content => /Members: 1/
   end
 
   should 'show created at on list' do
     community = Community.create!(:name => 'my test community')
     community.add_member(profile)
     get :index, :profile => profile.identifier
-    assert_tag :tag => 'td', :content => /Created at: #{show_date(community.created_at)}/
+    assert_tag :tag => 'li', :content => /Created at: #{show_date(community.created_at)}/
   end
 
   should 'show description on list' do
     community = Community.create!(:name => 'my test community', :description => 'description test')
     community.add_member(profile)
     get :index, :profile => profile.identifier
-    assert_tag :tag => 'td', :content => /Description: description test/
+    assert_tag :tag => 'li', :content => /Description: description test/
   end
 
   should 'not show description to enterprises on list' do
     enterprise = Enterprise.create!(:identifier => 'enterprise-test', :name => 'my test enterprise')
     enterprise.add_member(profile)
     get :index, :profile => profile.identifier
-    assert_no_tag :tag => 'td', :content => /Description:/
+    assert_no_tag :tag => 'li', :content => /Description:/
   end
 
   should 'show link to leave from community' do
@@ -152,6 +152,23 @@ class MembershipsControllerTest < Test::Unit::TestCase
   should 'current user is added as admin after create new community' do
     post :new_community, :profile => profile.identifier, :community => { :name => 'My shiny new community', :description => 'This is a community devoted to anything interesting we find in the internet '}
     assert_equal Profile::Roles.admin, profile.find_roles(Community.find_by_identifier('my-shiny-new-community')).first.role
+  end
+
+  should 'display button to create community' do
+    get :index, :profile => 'testuser'
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testuser/memberships/new_community" }
+  end
+
+  should 'not display link to register new enterprise if there is no validators' do
+    get :index, :profile => 'testuser'
+    assert_no_tag :tag => 'a', :content => 'Register a new Enterprise'
+  end
+
+  should 'display link to register new enterprise' do
+    reg = Environment.default.regions.create!(:name => 'Region test')
+    reg.validators.create!(:name => 'Validator test', :identifier => 'validator-test')
+    get :index, :profile => 'testuser'
+    assert_tag :tag => 'a', :content => 'Register a new Enterprise'
   end
 
 end

@@ -1,29 +1,34 @@
-<h1><%= _("%s's groups") % profile.name %></h1>
+<div id="memberships-index">
 
-<p>
-<%= _('%s is a member of the following groups:') % profile.name %>
-</p>
+<h1><%= _('Manage my groups') %></h1>
 
-<table>
+<ul>
 <% for membership in @memberships %>
-  <tr>
-    <td> <%= image_tag(profile_icon(membership)) %> </td>
-    <td>
-      <%= _('Name: %s') % link_to(membership.name, membership.url) %> <br/>
+  <li>
+    <div class='common-profile-list-block'>
+      <%= profile_image_link(membership, :portrait, 'div') %>
+    </div>
+    <span class='profile-details'>
+      <strong><%= membership.display_name %></strong><br/>
       <%= _('Role: %s') % rolename_for(profile, membership) %> <br/>
       <%= _('Type: %s') % _(membership.class.name) %> <br/>
       <%= _('Description: %s') % membership.description  + '<br/>' if membership.kind_of?(Community) %>
       <%= _('Members: %s') % membership.members.size.to_s %> <br/>
       <%= _('Created at: %s') % show_date(membership.created_at) %> <br/>
-      <%= _('Actions: %s') % link_to(_('Manage'), membership.admin_url) + ', ' + link_to(_('Leave'), { :profile => profile.identifier, :controller => 'memberships', :action => 'leave', :id => membership.id }) %> <br/>
-
-    </td>
-  </tr>
+      <%= [ link_to(_('Manage'), membership.admin_url),
+            link_to(_('Leave'), { :profile => profile.identifier, :controller => 'memberships', :action => 'leave', :id => membership.id }),
+            link_to(_('Destroy'), { :profile => profile.identifier, :controller => 'memberships', :action => 'destroy', :id => membership.id })
+          ].join(', ')
+      %>
+    </span>
+  </li>
 <% end %>
-</table>
+</ul>
 
 <% button_bar do %>
-  <%= button :add, _('Register a new Enterprise'), :controller => 'enterprise_registration' %>
-  <%= button :add, _('Create a new community'), :action => 'new_community' %>
+  <%= button(:add, _('Create a new community'), :controller => 'memberships', :action => 'new_community') %>
+  <%= button(:add, _('Register a new Enterprise'), :controller => 'enterprise_registration') if environment.regions.any?{|i| i.has_validator?} %>
   <%= button :back, _('Go back'), :controller => 'profile_editor' %>
 <% end %>
+
+</div>
