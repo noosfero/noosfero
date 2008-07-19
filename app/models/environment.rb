@@ -22,8 +22,12 @@ class Environment < ActiveRecord::Base
   # hash, with pairs in the form <tt>'feature_name' => 'Feature name'</tt>.
   def self.available_features
     {
-      'some_feature' => _('Some feature'),
-      'other_feature' => _('Other feature'),
+      'disable_asset_articles' => _('Disable search for articles '),
+      'disable_asset_enterprises' => _('Disable search for enterprises'),
+      'disable_asset_people' => _('Disable search for people'),
+      'disable_asset_communities' => _('Disable search for communities'),
+      'disable_asset_products' => _('Disable search for products'),
+      'disable_asset_events' => _('Disable search for events'),
     }
   end
   

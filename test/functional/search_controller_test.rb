@@ -899,6 +899,20 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_includes assigns(:results)[:articles], art
   end
 
+  should 'know about disabled assets' do
+    env = mock
+    %w[ articles enterprises people communities events].each do |item|
+      env.expects(:enabled?).with('disable_asset_' + item).returns(false).at_least_once
+    end
+    env.expects(:enabled?).with('disable_asset_products').returns(true).at_least_once
+    @controller.stubs(:environment).returns(env)
+
+    %w[ articles enterprises people communities events].each do |item|
+      assert_includes @controller.where_to_search.map(&:first), item.to_sym
+    end
+    assert_not_includes @controller.where_to_search.map(&:first), :products
+  end
+
   ##################################################################
   ##################################################################
 

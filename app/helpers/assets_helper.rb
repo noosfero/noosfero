@@ -11,7 +11,9 @@ module AssetsHelper
       [ options.merge(:asset => 'communities'), "icon-menu-community",  _('Communities') ],
       [ options.merge(:asset => 'events'), "icon-menu-events",   _('Events') ],
 
-    ].map do |target,css_class,name|
+    ].select do |target, css_class, name|
+      !environment.enabled?('disable_asset_' + target[:asset])
+    end.map do |target,css_class,name|
       content_tag('li',
                   link_to(
                     content_tag('span', '', :class => css_class) +

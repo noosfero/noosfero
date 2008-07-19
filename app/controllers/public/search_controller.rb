@@ -13,7 +13,7 @@ class SearchController < ApplicationController
   protected
 
   def load_search_assets
-    @search_in = SEARCH_IN
+    @search_in = where_to_search
     @searching = {}
     @search_in.each do |key, name|
       @searching[key] = (params[:asset].blank? && (params[:find_in].nil? || params[:find_in].empty? || params[:find_in].include?(key.to_s))) || (params[:asset] == key.to_s)
@@ -36,7 +36,7 @@ class SearchController < ApplicationController
 
   def check_valid_assets
     @asset = params[:asset].to_sym
-    if !SEARCH_IN.map(&:first).include?(@asset)
+    if !where_to_search.map(&:first).include?(@asset)
       render :text => 'go away', :status => 403
       return
     end
@@ -129,14 +129,16 @@ class SearchController < ApplicationController
 
   ######################################################
 
-  SEARCH_IN = [
-    [ :articles, N_('Articles') ],
-    [ :enterprises, N_('Enterprises') ],
-    [ :people, N_('People') ],
-    [ :communities, N_('Communities') ],
-    [ :products, N_('Products') ],
-    [ :events, N_('Events') ]
-  ]
+  def where_to_search
+    [
+      [ :articles, N_('Articles') ],
+      [ :enterprises, N_('Enterprises') ],
+      [ :people, N_('People') ],
+      [ :communities, N_('Communities') ],
+      [ :products, N_('Products') ],
+      [ :events, N_('Events') ]
+    ].select {|key, name| !environment.enabled?('disable_asset_' + key.to_s) }
+  end
 
   def cities
     @cities = City.find(:all, :order => 'name', :conditions => ['parent_id = ? and lat is not null and lng is not null', params[:state_id]])
@@ -163,7 +165,7 @@ class SearchController < ApplicationController
     @order = []
     @names = {}
 
-    SEARCH_IN.select { |key,description| @searching[key]  }.each do |key, description|
+    where_to_search.select { |key,description| @searching[key]  }.each do |key, description|
       @order << key
       @results[key] = @finder.find(key, @filtered_query, calculate_find_options(key, limit, params[:page], @product_category, @region, params[:radius], params[:year], params[:month]))
       @names[key] = gettext(description)
