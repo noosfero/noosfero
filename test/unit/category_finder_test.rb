@@ -163,13 +163,12 @@ class CategoryFinderTest < ActiveSupport::TestCase
 
   should 'list recent articles' do
     person = create_user('teste').person
-    art1 = person.articles.build(:name => 'an article to be found'); art1.add_category(@category); art1.save!
-
-    art2 = person.articles.build(:name => 'another article to be found'); art2.add_category(@category); art2.save!
+    art1 = person.articles.create!(:name => 'an article to be found', :category_ids => [@category.id])
+    art2 = person.articles.create!(:name => 'another article to be found', :category_ids => [@category.id])
 
     result = @finder.recent('articles', 1)
     
-    assert_equal 1, result.size
+    assert_equal [art2], result
   end
 
   should 'not return the same result twice' do

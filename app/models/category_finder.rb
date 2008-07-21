@@ -27,7 +27,7 @@ class CategoryFinder
   end
 
   def recent(asset, limit = nil)
-    find(asset, nil, :limit => limit)
+    find(asset, nil, :limit => limit, :order => 'created_at DESC, id DESC')
   end
 
   def most_commented_articles(limit=10, options={})
