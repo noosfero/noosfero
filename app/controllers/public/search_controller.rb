@@ -99,9 +99,8 @@ class SearchController < ApplicationController
   end
 
   def calculate_find_options(asset, limit, page, product_category, region, radius, year, month)
-
     result = { :product_category => product_category, :per_page => limit, :page => page }
-    if [:enterprises, :people].include?(asset) && region
+    if [:enterprises, :people, :products].include?(asset) && region
       result.merge!(:within => radius, :region => region.id)
     end
 
@@ -199,8 +198,8 @@ class SearchController < ApplicationController
       [ :products, ('Products'), @finder.recent('products', limit) ],
       [ :events, _('Upcoming events'), @finder.upcoming_events({:per_page => limit}) ],
       [ :communities, _('Communities'), @finder.recent('communities', limit) ],
-      [ :articles, _('Articles'), @finder.recent('articles', limit) ],
-      [ :most_commented_articles, _('Most commented articles'), @finder.most_commented_articles(limit) ]
+      [ :most_commented_articles, _('Most commented articles'), @finder.most_commented_articles(limit) ],
+      [ :articles, _('Articles'), @finder.recent('text_articles', limit) ]
     ].each do |key, name, list|
       @order << key
       @results[key] = list

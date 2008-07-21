@@ -913,6 +913,21 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_not_includes @controller.where_to_search.map(&:first), :products
   end
 
+  should 'search for products by origin and radius correctly' do
+    s = City.create!(:name => 'Salvador', :lat => -12.97, :lng => -38.51, :environment => Environment.default)
+    e1 = Enterprise.create!(:name => 'test ent 1', :identifier => 'test_ent1', :lat => -12.97, :lng => -38.51)
+    p1 = e1.products.create!(:name => 'test_product1')
+    e1.save!
+    e2 = Enterprise.create!(:name => 'test ent 2', :identifier => 'test_ent2', :lat => -14.97, :lng => -40.51)
+    p2 = e2.products.create!(:name => 'test_product2')
+    e2.save!
+
+    get :assets, :asset => 'products', :city => s.id, :radius => 15
+
+    assert_includes assigns(:results)[:products], p1
+    assert_not_includes assigns(:results)[:products], p2
+  end
+
   ##################################################################
   ##################################################################
 
