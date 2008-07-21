@@ -35,7 +35,3 @@
 #memberships-index li .vcard a.profile_link.url:hover {
   border: 2px solid  #2A5896;
 }
-
-#memberships-index li .vcard span.org {
-  display: none;
-}
