@@ -11,7 +11,7 @@
     <span class='profile-details'>
       <strong><%= membership.display_name %></strong><br/>
       <%= _('Role: %s') % rolename_for(profile, membership) %> <br/>
-      <%= _('Type: %s') % _(membership.class.name) %> <br/>
+      <%= _('Type: %s') % getterm(membership.class.name) %> <br/>
       <%= _('Description: %s') % membership.description  + '<br/>' if membership.community? %>
       <%= _('Members: %s') % membership.members.size.to_s %> <br/>
       <%= _('Created at: %s') % show_date(membership.created_at) %> <br/>

@@ -19,7 +19,7 @@
   <%# FIXME %>
   <% if profile.kind_of? Person %>
     <li><%= link_to _('Friends'), :action => 'friends' %></li>
-    <li><%= link_to _('Communities'), :action => 'communities' %></li>
+    <li><%= link_to __('Communities'), :action => 'communities' %></li>
     <li><%= link_to _('Enterprises'), :action => 'enterprises' %></li>
   <% end %>
   <% if profile.kind_of? Organization %>

@@ -1,15 +1,15 @@
 class CommunitiesBlock < ProfileListBlock
 
   def self.description
-    _('A block that displays your communities')
+    __('A block that displays your communities')
   end
 
   def default_title
-    _('Communities')
+    __('Communities')
   end
 
   def help
-    _('The communities in which the user is a member')
+    __('The communities in which the user is a member')
   end
 
   def footer
@@ -17,11 +17,11 @@ class CommunitiesBlock < ProfileListBlock
     case owner
     when Profile
       lambda do
-        link_to _('All communities'), :profile => owner.identifier, :controller => 'profile', :action => 'communities'
+        link_to __('All communities'), :profile => owner.identifier, :controller => 'profile', :action => 'communities'
       end
     when Environment
       lambda do
-        link_to _('All communities'), :controller => 'search', :action => 'assets', :asset => 'communities'
+        link_to __('All communities'), :controller => 'search', :action => 'assets', :asset => 'communities'
       end
     else
       ''

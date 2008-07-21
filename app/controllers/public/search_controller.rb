@@ -167,13 +167,13 @@ class SearchController < ApplicationController
     where_to_search.select { |key,description| @searching[key]  }.each do |key, description|
       @order << key
       @results[key] = @finder.find(key, @filtered_query, calculate_find_options(key, limit, params[:page], @product_category, @region, params[:radius], params[:year], params[:month]))
-      @names[key] = gettext(description)
+      @names[key] = getterm(description)
     end
 
     if @results.keys.size == 1
       specific_action = @results.keys.first
       if respond_to?(specific_action)
-        @asset_name = gettext(@names[@results.keys.first])
+        @asset_name = getterm(@names[@results.keys.first])
         send(specific_action)
         render :action => specific_action
         return
