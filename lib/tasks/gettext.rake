@@ -14,6 +14,7 @@ desc "Update pot/po files to match new version."
 task :updatepo do
   require 'gettext/utils'
   GetText::RubyParser::ID << '__'
+  GetText::RubyParser::PLURAL_ID << 'n__'
   GetText::ActiveRecordParser.init(:use_classname => false)
   GetText.update_pofiles(Noosfero::PROJECT, Dir.glob("{app,lib,public/designs}/**/*.{rb,rhtml}"),
                          "#{Noosfero::PROJECT} #{Noosfero::VERSION}")

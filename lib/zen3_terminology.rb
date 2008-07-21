@@ -13,6 +13,9 @@ class Zen3Terminology < Noosfero::Terminology::Custom
       'The communities in which the user is a member' => N_('The groups in which the user is a member'),
       'All communities' => N_('All groups'),
       'Community' => N_('Group'),
+      'One community' => N_('One group'),
+      '%{num} communities' => N_('%{num} groups'),
+      'Disable search for communities' => N_('Disable search for groups'),
     })
   end
 
