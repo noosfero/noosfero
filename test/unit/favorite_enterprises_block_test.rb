@@ -48,7 +48,7 @@ class FavoriteEnterprisesBlockTest < ActiveSupport::TestCase
     block = FavoriteEnterprisesBlock.new
     block.expects(:owner).returns(person)
 
-    expects(:_).with('All favorite enterprises').returns('All enterprises')
+    expects(:__).with('All favorite enterprises').returns('All enterprises')
     expects(:link_to).with('All enterprises', :controller => 'profile', :profile => 'theprofile', :action => 'favorite_enterprises')
 
     instance_eval(&block.footer)
