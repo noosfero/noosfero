@@ -1,5 +1,3 @@
-require 'gettext'
-
 module Noosfero
   PROJECT = 'noosfero'
   VERSION = '0.11.0'
@@ -33,7 +31,7 @@ module Noosfero
   end
 
   def self.term(t)
-    gettext(self.terminology.get(t))
+    self.terminology.get(t)
   end
   def self.terminology
     @terminology ||= Noosfero::Terminology::Default.new
