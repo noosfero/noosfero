@@ -27,9 +27,9 @@ class CommunitiesBlockTest < Test::Unit::TestCase
     owner = mock
     block.expects(:owner).returns(owner)
 
-    member1 = mock; member1.stubs(:id).returns(1)
-    member2 = mock; member2.stubs(:id).returns(2)
-    member3 = mock; member3.stubs(:id).returns(3)
+    member1 = mock; member1.stubs(:id).returns(1); member1.stubs(:public_profile).returns(true)
+    member2 = mock; member2.stubs(:id).returns(2); member2.stubs(:public_profile).returns(true)
+    member3 = mock; member3.stubs(:id).returns(3); member3.stubs(:public_profile).returns(true)
 
     owner.expects(:communities).returns([member1, member2, member3])
     
@@ -69,6 +69,21 @@ class CommunitiesBlockTest < Test::Unit::TestCase
     block = CommunitiesBlock.new
     block.expects(:owner).returns(1)
     assert_equal '', block.footer
+  end
+
+  should 'not list non-public communities' do
+    user = create_user('testuser').person
+
+    public_community = Community.create!(:name => 'test community 1', :identifier => 'comm1', :environment => Environment.default)
+    public_community.add_member(user)
+
+    private_community = Community.create!(:name => 'test community 2', :identifier => 'comm2', :environment => Environment.default, :public_profile => false)
+    private_community.add_member(user)
+
+    block = CommunitiesBlock.new
+    block.expects(:owner).returns(user)
+
+    assert_equal [public_community], block.profiles
   end
 
 end

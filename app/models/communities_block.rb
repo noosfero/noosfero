@@ -36,7 +36,7 @@ class CommunitiesBlock < ProfileListBlock
     def ids
       # FIXME when owner is an environment (i.e. listing communities globally
       # this can become SLOW)
-      block.owner.communities.map(&:id)
+      block.owner.communities.select(&:public_profile).map(&:id)
     end
   end
 
