@@ -318,7 +318,6 @@ class SearchControllerTest < Test::Unit::TestCase
 
     # display only first name on people listing
     assert_tag :tag => 'div', :attributes => { :class => /search-results-people/ }, :descendant => { :tag => 'h3', :content => /People/ }
-    assert_tag :tag => 'a', :content => "display"
   end
 
   should 'present options of where to search' do
@@ -398,7 +397,7 @@ class SearchControllerTest < Test::Unit::TestCase
     recent = []
     finger = CategoryFinder.new(@category)
     finger.expects(:recent).with(any_parameters).at_least_once
-    finger.expects(:recent).with('articles', anything).returns(recent)
+    finger.expects(:recent).with('text_articles', anything).returns(recent)
     CategoryFinder.expects(:new).with(@category).returns(finger)
 
     get :category_index, :category_path => [ 'my-category' ]
