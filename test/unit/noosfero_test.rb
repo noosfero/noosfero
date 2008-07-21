@@ -31,4 +31,13 @@ class NoosferoTest < Test::Unit::TestCase
     assert_match /^#{Noosfero.identifier_format}$/, 'with.dot'
   end
 
+  should 'delegate terminology' do
+    Noosfero.terminology.expects(:get).with('lalala').returns('lelele')
+    assert_equal 'lelele', Noosfero.term('lalala')
+  end
+
+  should 'use default terminology by default' do
+    assert_equal 'lalalalala', Noosfero.term('lalalalala')
+  end
+
 end

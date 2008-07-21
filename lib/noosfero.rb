@@ -1,3 +1,5 @@
+require 'gettext'
+
 module Noosfero
   PROJECT = 'noosfero'
   VERSION = '0.11.0'
@@ -28,6 +30,16 @@ module Noosfero
     app_controller_path.map do |item|
       item.gsub(/^.*\/([^\/]+)_controller.rb$/, '\1')
     end
+  end
+
+  def self.term(t)
+    gettext(self.terminology.get(t))
+  end
+  def self.terminology
+    @terminology ||= Noosfero::Terminology::Default.new
+  end
+  def self.terminology=(term)
+    @terminology = term
   end
 
 end
