@@ -4,13 +4,13 @@
   width: 100%;
   padding: 0px;
   margin: 0px;
-  display: table;
-  border-spacing: 10px
+  display: block;
 }
 
 #memberships-index li {
-  display: table-row;
+  display: block;
   list-style: none;
+  margin-bottom: 20px
 }
 
 #memberships-index li {
