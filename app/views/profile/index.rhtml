@@ -20,7 +20,7 @@
   <% if profile.kind_of? Person %>
     <li><%= link_to _('Friends'), :action => 'friends' %></li>
     <li><%= link_to __('Communities'), :action => 'communities' %></li>
-    <li><%= link_to _('Enterprises'), :action => 'enterprises' %></li>
+    <li><%= link_to __('Enterprises'), :action => 'enterprises' %></li>
   <% end %>
   <% if profile.kind_of? Organization %>
     <li><%= link_to _('Members'), :action => 'members' %></li>

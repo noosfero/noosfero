@@ -26,15 +26,15 @@
 
   <%= file_manager_button(_('Manage Products and Services'), 'icons-app/products.png', :controller => 'manage_products') if profile.enterprise? %>
 
-  <%= file_manager_button(_('Enterprise Validation'), 'icons-app/validation.png', :controller => 'enterprise_validation') if profile.is_validation_entity? %>
+  <%= file_manager_button(__('Enterprise Validation'), 'icons-app/validation.png', :controller => 'enterprise_validation') if profile.is_validation_entity? %>
 
-  <%= file_manager_button(_('Favorite Enterprises'), 'icons-app/favorites.png', :controller => 'favorite_enterprises') if profile.person? %>
+  <%= file_manager_button(__('Favorite Enterprises'), 'icons-app/favorites.png', :controller => 'favorite_enterprises') if profile.person? %>
 
   <% if profile.enterprise? %>
     <% if profile.enabled? %>
-      <%= file_manager_button(_('Disable Enterprise'), 'icons-app/disable.png', :action => 'disable') %>
+      <%= file_manager_button(__('Disable Enterprise'), 'icons-app/disable.png', :action => 'disable') %>
     <% else %>
-      <%= file_manager_button(_('Enable Enterprise'), 'icons-app/enable.png', :action => 'enable') %>
+      <%= file_manager_button(__('Enable Enterprise'), 'icons-app/enable.png', :action => 'enable') %>
     <% end %>
   <% end %>
 

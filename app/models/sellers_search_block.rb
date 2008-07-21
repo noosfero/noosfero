@@ -1,7 +1,7 @@
 class SellersSearchBlock < Block
 
   def self.description
-    _('A search for enterprises by products selled and local')
+    __('A search for enterprises by products selled and local')
   end
 
   def self.short_description

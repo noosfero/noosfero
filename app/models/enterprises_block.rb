@@ -1,15 +1,15 @@
 class EnterprisesBlock < ProfileListBlock
 
   def default_title
-    _('Enterprises')
+    __('Enterprises')
   end
 
   def help
-    _('The enterprises where this user works.')
+    __('The enterprises where this user works.')
   end
 
   def self.description
-    _('A block that displays your enterprises')
+    __('A block that displays your enterprises')
   end
 
   def footer
@@ -17,11 +17,11 @@ class EnterprisesBlock < ProfileListBlock
     case owner
     when Profile
       lambda do
-        link_to _('All enterprises'), :profile => owner.identifier, :controller => 'profile', :action => 'enterprises'
+        link_to __('All enterprises'), :profile => owner.identifier, :controller => 'profile', :action => 'enterprises'
       end
     when Environment
       lambda do
-        link_to _('All enterprises'), :controller => 'search', :action => 'assets', :asset => 'enterprises'
+        link_to __('All enterprises'), :controller => 'search', :action => 'assets', :asset => 'enterprises'
       end
     else
       ''

@@ -23,7 +23,7 @@ class Environment < ActiveRecord::Base
   def self.available_features
     {
       'disable_asset_articles' => _('Disable search for articles '),
-      'disable_asset_enterprises' => _('Disable search for enterprises'),
+      'disable_asset_enterprises' => __('Disable search for enterprises'),
       'disable_asset_people' => _('Disable search for people'),
       'disable_asset_communities' => __('Disable search for communities'),
       'disable_asset_products' => _('Disable search for products'),

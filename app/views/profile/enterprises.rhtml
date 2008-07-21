@@ -1,7 +1,7 @@
 <div class="common-profile-list-block"
-     help="<%= _('Here are all <b>%s</b>\'s enterprises.') % profile.name %>">
+     help="<%= __('Here are all <b>%s</b>\'s enterprises.') % profile.name %>">
 
-<h1><%= _("%s's enterprises") % profile.name %></h1>
+<h1><%= __("%s's enterprises") % profile.name %></h1>
 
 <ul class='profile-list'>
 <% @enterprises.each do |enterprise| %>
@@ -12,7 +12,7 @@
 <% button_bar do %>
   <%= button :back, _('Go back'), { :controller => 'profile' },
       :help => _('Back to the page where you come from.') %>
-  <%= button :add, _('Register a new Enterprise'),
+  <%= button :add, __('Register a new Enterprise'),
       :controller => 'enterprise_registration' if logged_in? %>
 <% end %>
 
