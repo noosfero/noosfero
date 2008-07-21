@@ -11,6 +11,10 @@ class << ActiveRecord::Base
       end
       
       ids = find_ids_with_ferret(query, ferret_options)[1].map{|r|r[:id].to_i}
+      if ids.empty?
+        ids << -1
+      end
+
       if db_options[:conditions]
         db_options[:conditions] = sanitize_sql_for_conditions(db_options[:conditions]) + " and #{table_name}.id in (#{ids.join(', ')})"
       else
