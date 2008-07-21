@@ -36,6 +36,7 @@ profile_admin:
   permissions:
    - edit_profile_design
    - moderate_comments
+   - destroy_profile
 profile_member:
   id: 6
   key: 'profile_member'

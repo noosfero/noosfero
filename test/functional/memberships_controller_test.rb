@@ -171,4 +171,48 @@ class MembershipsControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'a', :content => 'Register a new Enterprise'
   end
 
+  should 'render destroy_community template' do
+    community = Community.create!(:name => 'A community to destroy')
+    get :destroy_community, :profile => 'testuser', :id => community.id
+    assert_template 'destroy_community'
+  end
+
+  should 'display destroy link only to communities' do
+    community = Community.create!(:name => 'A community to destroy')
+    enterprise = Enterprise.create!(:name => 'A enterprise test', :identifier => 'enterprise-test')
+
+    person = Person['testuser']
+    community.add_admin(person)
+    enterprise.add_admin(person)
+
+    get :index, :profile => 'testuser'
+
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testuser/memberships/destroy_community/#{community.id}" }
+    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/testuser/memberships/destroy_community/#{enterprise.id}" }
+  end
+
+  should 'be able to destroy communities' do
+    community = Community.create!(:name => 'A community to destroy')
+
+    person = Person['testuser']
+    community.add_admin(person)
+
+    assert_difference Community, :count, -1 do
+      post :destroy_community, :profile => 'testuser', :id => community.id
+    end
+  end
+
+  should 'not display destroy link to normal members' do
+    community = Community.create!(:name => 'A community to destroy')
+
+    person = Person['testuser']
+    community.add_member(person)
+
+    login_as('testuser')
+    get :index, :profile => 'testuser'
+
+    assert_template 'index'
+    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/testuser/memberships/destroy_community/#{community.id}" }
+  end
+
 end

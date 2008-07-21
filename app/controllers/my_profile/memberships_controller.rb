@@ -33,4 +33,14 @@ class MembershipsController < MyProfileController
     end
   end
 
+  def destroy_community
+    @community = Community.find(params[:id])
+    if request.post?
+      if @community.destroy
+        flash[:notice] = _('%s was destroyed!') % @community.display_name
+        redirect_to :action => 'index'
+      end
+    end
+  end
+
 end

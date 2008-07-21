@@ -12,13 +12,13 @@
       <strong><%= membership.display_name %></strong><br/>
       <%= _('Role: %s') % rolename_for(profile, membership) %> <br/>
       <%= _('Type: %s') % _(membership.class.name) %> <br/>
-      <%= _('Description: %s') % membership.description  + '<br/>' if membership.kind_of?(Community) %>
+      <%= _('Description: %s') % membership.description  + '<br/>' if membership.community? %>
       <%= _('Members: %s') % membership.members.size.to_s %> <br/>
       <%= _('Created at: %s') % show_date(membership.created_at) %> <br/>
       <%= [ link_to(_('Manage'), membership.admin_url),
-            link_to(_('Leave'), { :profile => profile.identifier, :controller => 'memberships', :action => 'leave', :id => membership.id }),
-            link_to(_('Destroy'), { :profile => profile.identifier, :controller => 'memberships', :action => 'destroy', :id => membership.id })
-          ].join(', ')
+            link_to(_('Leave'), { :profile => profile.identifier, :controller => 'memberships', :action => 'leave', :id => membership }),
+            (membership.community? && user.has_permission?(:destroy_profile, membership) ? link_to(_('Destroy'), { :action => 'destroy_community', :id => membership }) : nil)
+          ].compact.join(', ')
       %>
     </span>
   </li>

@@ -64,4 +64,23 @@ class CommunityTest < Test::Unit::TestCase
     assert_not_includes c.members, p
   end
 
+  should 'clear relationships after destroy' do
+    c = Community.create!(:name => 'my test profile', :identifier => 'mytestprofile')
+    member = create_user('memberuser').person
+    admin = create_user('adminuser').person
+    moderator = create_user('moderatoruser').person
+
+    c.add_member(member)
+    c.add_admin(admin)
+    c.add_moderator(moderator)
+
+    relationships = c.role_assignments
+    assert_not_nil relationships
+
+    c.destroy
+    relationships.each do |i|
+      assert !RoleAssignment.exists?(i.id)
+    end
+  end
+
 end
