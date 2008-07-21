@@ -167,7 +167,7 @@
 }
 
 #content .search-results-type-article ul,
-#content .search-results-type-article ul,
+#content .search-results-type-article li,
 #content .search-results-type-event ul,
 #content .search-results-type-event li {
   margin: 0px;

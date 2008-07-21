@@ -30,7 +30,8 @@
           <% hit_pos = 0 %>
           <% results.each do |hit| %>
             <% next if hit.respond_to?(:public_profile) && !hit.public_profile  %>
-            <%= render :partial => partial,
+            <%= render :partial => partial_for_class(hit.class),
+
                        :object => hit,
                        :locals => { :pos => ( hit_pos += 1 ) } %>
           <% end %>
