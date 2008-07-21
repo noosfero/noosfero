@@ -17,7 +17,7 @@
 
 <ul class="profile-info-data">
   <li><%= _('Since %{year}/%{month}') % { :year => block.owner.created_at.year, :month => block.owner.created_at.month } %></li>
-  <li><%= link_to _('Homepage'), block.owner.url, :class => 'url' %></li>
+  <li><%= link_to __('Homepage'), block.owner.url, :class => 'url' %></li>
   <li><%= link_to _('View profile'), block.owner.public_profile_url %></li>
   <li><%= link_to(_('Products/Services'), :controller => 'catalog', :profile => block.owner.identifier) if block.owner.enterprise? %></li>
   <% if !user.nil? and user.has_permission?('edit_profile', profile) %>

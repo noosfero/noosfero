@@ -7,6 +7,7 @@ class Zen3Terminology < Noosfero::Terminology::Custom
     # NOTE: the hash values must be marked for translation!! 
     super({
       'My Home Page' => N_('My ePortfolio'),
+      'Homepage' => N_('ePortfolio')
     })
   end
 
