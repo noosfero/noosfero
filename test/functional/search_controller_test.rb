@@ -928,6 +928,17 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_not_includes assigns(:results)[:products], p2
   end
 
+  should 'show link to article asset in the see all foot link of the most_commented_articles block in the category page' do
+    art = create_user('teste').person.articles.create!(:name => 'an article to be found')
+    most_commented = [art]
+    finder = CategoryFinder.new(@category)
+    finder.expects(:most_commented_articles).returns(most_commented)
+    CategoryFinder.expects(:new).with(@category).returns(finder)
+
+    get :category_index, :category_path => [ 'my-category' ]
+    assert_tag :tag => 'div', :attributes => {:class => /search-results-most_commented_articles/} , :descendant => {:tag => 'a', :attributes => { :href => '/search/index/my-category?asset=articles'}}
+  end
+
   ##################################################################
   ##################################################################
 
