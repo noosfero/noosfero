@@ -1,1 +1,14 @@
-people.rhtml
+<%= search_page_title( __('Communities'), { :query => @query, 
+                                      :category => @category ? @category.name : nil, 
+                                      :total_results => @total_results, 
+                                      :region => @region ? @region.name : nil, 
+                                      :distance => @radius } ) %>
+
+<%= render :partial => 'search_form', :locals => { :form_title => @query.blank? ? _('Search') : _("Refine your search"), :simple_search => true } %>
+
+<%# FIXME ARMENGUE %>
+<%= display_results(false) %>
+
+<%= pagination_links @results.values.first %>
+
+<br style="clear:both" />

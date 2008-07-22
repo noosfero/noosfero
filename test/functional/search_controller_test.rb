@@ -938,6 +938,11 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'div', :attributes => {:class => /search-results-most_commented_articles/} , :descendant => {:tag => 'a', :attributes => { :href => '/search/index/my-category?asset=articles'}}
   end
 
+  should 'display correct title on list communities' do
+    get :assets, :asset => 'communities'
+    assert_tag :tag => 'h1', :content => 'Communities'
+  end
+
   ##################################################################
   ##################################################################
 
