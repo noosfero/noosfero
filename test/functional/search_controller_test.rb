@@ -11,6 +11,8 @@ class SearchControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
 
     @category = Category.create!(:name => 'my category', :environment => Environment.default)
+    Profile.rebuild_index
+    Article.rebuild_index
   end
 
   def test_local_files_reference

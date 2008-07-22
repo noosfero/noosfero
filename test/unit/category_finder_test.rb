@@ -5,6 +5,8 @@ class CategoryFinderTest < ActiveSupport::TestCase
   def setup
     @category = Category.create!(:name => 'my category', :environment => Environment.default)
     @finder = CategoryFinder.new(@category)
+
+    Profile.rebuild_index
   end
 	
   should 'search for articles in a specific category' do

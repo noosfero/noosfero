@@ -2,8 +2,12 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class EnvironmentFinderTest < ActiveSupport::TestCase
 
-  all_fixtures
+#  all_fixtures
 
+  def setup
+    Profile.rebuild_index
+  end
+  
   should 'find articles' do
     person = create_user('teste').person
     art = person.articles.build(:name => 'an article to be found'); art.save!
