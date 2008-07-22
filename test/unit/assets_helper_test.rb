@@ -19,6 +19,7 @@ class AssetsHelperTest < Test::Unit::TestCase
     end
 
     stubs(:_).returns('')
+    stubs(:__).returns('')
     stubs(:content_tag).returns('')
     generate_assets_menu
   end
@@ -38,6 +39,7 @@ class AssetsHelperTest < Test::Unit::TestCase
     end
 
     stubs(:_).returns('')
+    stubs(:__).returns('')
     stubs(:content_tag).returns('')
     @category = mock
     @category.expects(:explode_path).returns(['my-category']).at_least_once
@@ -65,6 +67,7 @@ class AssetsHelperTest < Test::Unit::TestCase
     expects(:link_to).with(anything, { :controller => 'search', :action => 'assets', :asset => 'enterprises', :category_path => [ 'my-category' ]}).never
 
     stubs(:_).returns('')
+    stubs(:__).returns('')
     stubs(:content_tag).returns('')
     @category = mock
     @category.expects(:explode_path).returns(['my-category']).at_least_once

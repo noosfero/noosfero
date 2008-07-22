@@ -49,7 +49,7 @@ class CommunitiesBlockTest < Test::Unit::TestCase
     block = CommunitiesBlock.new
     block.expects(:owner).returns(profile)
 
-    expects(:_).with('All communities').returns('All communities')
+    expects(:__).with('All communities').returns('All communities')
     expects(:link_to).with('All communities', :controller => 'profile', :profile => 'theprofile', :action => 'communities')
     instance_eval(&block.footer)
   end
@@ -59,7 +59,7 @@ class CommunitiesBlockTest < Test::Unit::TestCase
     block = CommunitiesBlock.new
     block.expects(:owner).returns(env)
 
-    expects(:_).with('All communities').returns('All communities')
+    expects(:__).with('All communities').returns('All communities')
     expects(:link_to).with('All communities', :controller => 'search', :action => 'assets', :asset => 'communities')
 
     instance_eval(&block.footer)
