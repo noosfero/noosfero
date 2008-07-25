@@ -187,4 +187,10 @@ class ApplicationControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'div', :attributes => { :id => 'user_box' }, :descendant => { :tag => 'a', :attributes => { :href => 'http://web.mail/' } }
   end
 
+  should 'use environment top_url as base' do
+    Environment.any_instance.expects(:top_url).returns('http://www.lala.net')
+    get :index
+    assert_tag :tag => 'base', :attributes => { :href => 'http://www.lala.net' }
+  end
+
 end
