@@ -222,6 +222,14 @@ class Environment < ActiveRecord::Base
     end
   end
 
+  def top_url
+    result = "http://#{default_hostname}"
+    if Noosfero.url_options.has_key?(:port)
+      result << ':' << Noosfero.url_options[:port].to_s
+    end
+    result
+  end
+
   def to_s
     self.name || '?'
   end

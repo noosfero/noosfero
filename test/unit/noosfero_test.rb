@@ -40,4 +40,10 @@ class NoosferoTest < Test::Unit::TestCase
     assert_equal 'lalalalala', Noosfero.term('lalalalala')
   end
 
+  should 'provide url options to identify development environment' do
+    ENV.expects(:[]).with('RAILS_ENV').returns('development')
+    Noosfero.expects(:development_url_options).returns({ :port => 9999 })
+    assert_equal({:port => 9999}, Noosfero.url_options)
+  end
+
 end

@@ -156,6 +156,21 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal 'localhost', env.default_hostname
   end
 
+  should 'provide default top URL' do
+    env = Environment.new
+    env.expects(:default_hostname).returns('www.lalala.net')
+    assert_equal 'http://www.lalala.net', env.top_url
+  end
+
+  should 'include port in default top URL for development environment' do
+    env = Environment.new
+    env.expects(:default_hostname).returns('www.lalala.net')
+
+    Noosfero.expects(:url_options).returns({ :port => 9999 }).at_least_once
+
+    assert_equal 'http://www.lalala.net:9999', env.top_url
+  end
+
   should 'provide an approval_method setting' do
     env = Environment.new
 

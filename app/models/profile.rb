@@ -257,12 +257,7 @@ class Profile < ActiveRecord::Base
     if self.domains.empty?
       generate_url(:controller => 'content_viewer', :action => 'view_page', :page => [])
     else
-      options = { :host => self.domains.first.name, :controller => 'content_viewer', :action => 'view_page', :page => []}
-      # help developers by generating a suitable URL for development environment 
-      if (ENV['RAILS_ENV'] == 'development')
-        options.merge!(development_url_options)
-      end
-      options
+      Noosfero.url_options.merge({ :host => self.domains.first.name, :controller => 'content_viewer', :action => 'view_page', :page => []})
     end
   end
 
@@ -279,26 +274,7 @@ class Profile < ActiveRecord::Base
   end
 
   def url_options
-    options = { :host => self.environment.default_hostname, :profile => self.identifier}
-
-    # help developers by generating a suitable URL for development environment 
-    if (ENV['RAILS_ENV'] == 'development')
-      options.merge!(development_url_options)
-    end
-
-    options
-  end
-
-  # FIXME couldn't think of a way to test this.
-  #
-  # Works (tested by hand) on Rails 2.0.2, with mongrel. Should work with
-  # webrick too.
-  def development_url_options # :nodoc:
-    if Object.const_defined?('OPTIONS')
-      { :port => OPTIONS[:port ]}
-    else
-      {}
-    end
+    Noosfero.url_options.merge({ :host => self.environment.default_hostname, :profile => self.identifier})
   end
 
   # FIXME this can be SLOW
