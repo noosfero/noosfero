@@ -75,9 +75,11 @@ hr {
   border-top: 2px dotted #2A5896;
 }
 
-#lightbox{
+#lightbox,
+#TB_window {
   background: #FFF url(../images/bg-top-cinza.jpg) no-repeat 50% -15px;
 }
+
 
 #footer {
   background: #FFF url("../images/bg_footer.png") repeat-x;

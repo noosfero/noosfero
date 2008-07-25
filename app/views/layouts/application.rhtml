@@ -15,6 +15,13 @@
     <%= javascript_include_tag 'default-config' %>
     <%= javascript_include_tag :defaults %>
     <%# javascript_include_tag 'animator' %>
+
+    <%= javascript_include_tag 'jquery-latest.js' %>
+    <script type="text/javascript">
+      jQuery.noConflict();
+    </script>
+    <%= javascript_include_tag 'thickbox.js' %>
+
     <%= javascript_include_tag 'menu' %>
     <%= javascript_include_tag 'auto-open-menu' %>
     <%= include_lightbox_header %>
@@ -27,7 +34,7 @@
     %>
     <%=
       # Load the principal css files:
-      stylesheet_import( %w( common help menu article button search blocks forms login-box )
+      stylesheet_import( %w( common help menu article button search blocks forms login-box thickbox )
                          ) + "\n" +
       stylesheet_import( %w( common help menu article button search blocks forms login-box ),
                          :themed_source => true ) + "\n" +
