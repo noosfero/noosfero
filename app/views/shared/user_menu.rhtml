@@ -58,9 +58,9 @@
 
 <div id='inlineLoginBox' style='display: none;'>
   <%= render :file => 'account/login' %>
-  <center><%= button_to_function(:close, _('Close'), 'tb_remove();') %></center>
+  <center><%= thickbox_close_button _('Close') %></center>
 </div>
-<a href="#TB_inline?height=300&width=500&inlineId=inlineLoginBox&modal=true" class="thickbox"><span class='icon-menu-login'></span><%= _('Login') %></a>
+<%= thickbox_inline_popup_link '<span class="icon-menu-login"></span>'+ _('Login'), 'inlineLoginBox' %>
 
 <% end %>
 

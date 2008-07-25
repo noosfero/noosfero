@@ -6,6 +6,8 @@ module ApplicationHelper
 
   include LightboxHelper
 
+  include ThickboxHelper
+
   include BoxesHelper
 
   include FormsHelper
