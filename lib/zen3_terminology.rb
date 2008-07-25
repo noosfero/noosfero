@@ -37,6 +37,7 @@ class Zen3Terminology < Noosfero::Terminology::Custom
       'Here are all <b>%s</b>\'s favorite enterprises.' => N_('Here are all <b>%s</b>\'s favorite organizations.'),
       'Favorite Enterprises' => N_('Favorite Organizations'),
       'Enterprises in "%s"' => N_('Organizations in "%s"'),
+      'Register a new Enterprise' => N_('Register a new organization'),
     })
   end
 
