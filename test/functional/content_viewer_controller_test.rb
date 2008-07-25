@@ -226,6 +226,15 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'strong', :attributes => { :id => 'html_test_comment' }
   end
 
+  should "point to article's url in comment form" do
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
+    Article.any_instance.stubs(:url).returns('http://www.mysite.com/person/article')
+
+    get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ]
+
+    assert_tag :tag => 'form', :attributes => { :id => /^comment_form/, :action => 'http://www.mysite.com/person/article' }
+  end
+
   should "display current article's tags" do
     page = profile.articles.create!(:name => 'myarticle', :body => 'test article', :tag_list => 'tag1, tag2')
 

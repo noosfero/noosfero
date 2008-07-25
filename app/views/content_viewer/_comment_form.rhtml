@@ -17,7 +17,7 @@
 
 <h4><%= _('Post a comment') %></h4>
 
-<% form_tag( {}, { :id => comment_form_id } ) do %>
+<% form_tag( @page.url, { :id => comment_form_id } ) do %>
 
   <% unless logged_in? %>
 
