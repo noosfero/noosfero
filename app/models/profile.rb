@@ -254,15 +254,24 @@ class Profile < ActiveRecord::Base
   end
 
   def url
-    generate_url(url_options.merge(:controller => 'content_viewer', :action => 'view_page', :page => []))
+    if self.domains.empty?
+      generate_url(:controller => 'content_viewer', :action => 'view_page', :page => [])
+    else
+      options = { :host => self.domains.first.name, :controller => 'content_viewer', :action => 'view_page', :page => []}
+      # help developers by generating a suitable URL for development environment 
+      if (ENV['RAILS_ENV'] == 'development')
+        options.merge!(development_url_options)
+      end
+      options
+    end
   end
 
   def admin_url
-    generate_url(url_options.merge(:controller => 'profile_editor', :action => 'index'))
+    generate_url(:controller => 'profile_editor', :action => 'index')
   end
 
   def public_profile_url
-    generate_url(url_options.merge(:controller => 'profile', :action => 'index'))
+    generate_url(:controller => 'profile', :action => 'index')
   end
 
   def generate_url(options)

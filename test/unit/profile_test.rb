@@ -272,12 +272,26 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal({:host => 'mycolivre.net', :profile => 'testprofile'}, profile.url_options)
   end
 
+  should "use own domain name instead of environment's for home page url" do
+    profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile', :environment_id => create_environment('mycolivre.net').id)
+    profile.domains << Domain.new(:name => 'micojones.net')
+    assert_equal({:host => 'micojones.net', :controller => 'content_viewer', :action => 'view_page', :page => []}, profile.url)
+  end
+
   should 'help developers by adding a suitable port to url options' do
     profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile', :environment_id => create_environment('mycolivre.net').id)
 
     ENV.expects(:[]).with('RAILS_ENV').returns('development')
     profile.expects(:development_url_options).returns({ :port => 9999 })
     ok('Profile#url_options must include port option when running in development mode') { profile.url_options[:port] == 9999 }
+  end
+
+  should 'help developers by adding a suitable port to url options for own domain urls' do
+    profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile', :environment_id => create_environment('mycolivre.net').id)
+    profile.domains << Domain.new(:name => 'micojones.net')
+    ENV.expects(:[]).with('RAILS_ENV').returns('development')
+    profile.expects(:development_url_options).returns({ :port => 9999 })
+    ok('Profile#url must include port options when running in developers mode') { profile.url[:port] == 9999 }
   end
 
   should 'list tags for profile' do
