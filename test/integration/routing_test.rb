@@ -156,4 +156,14 @@ class RoutingTest < ActionController::IntegrationTest
     assert_routing('/catalog/profile.withdot/1234', :controller => 'catalog', :action => 'show', :profile => 'profile.withdot', :id => '1234')
   end
 
+  def test_hosted_domain_routing
+
+    user = create_user('testuser').person
+    domain = Domain.create!(:name => 'example.com', :owner => user)
+
+    ActionController::TestRequest.any_instance.expects(:host).returns('www.example.com')
+
+    assert_routing('/work/free-software', :controller => 'content_viewer', :action =>  'view_page', :page => [ 'work', 'free-software'] )
+  end
+
 end

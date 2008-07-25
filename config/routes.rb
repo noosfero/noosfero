@@ -15,9 +15,14 @@ ActionController::Routing::Routes.draw do |map|
   ## Public controllers
   ######################################################
 
- map.connect 'test/:controller/:action/:id'  , :controller => /.*test.*/ 
+  # You can have the root of your site routed by hooking up ''
+  hosted_domain_matcher = lambda do |env|
+    Domain.find_by_name(env[:host])
+  end
+  map.connect '*page', :controller => 'content_viewer', :action => 'view_page', :conditions => { :if => hosted_domain_matcher }
+
+  map.connect 'test/:controller/:action/:id'  , :controller => /.*test.*/
  
- # You can have the root of your site routed by hooking up '' 
   # -- just remember to delete public/index.html.
   map.connect '', :controller => "home"
 

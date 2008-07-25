@@ -286,4 +286,16 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'div', :attributes => { :id => 'profile-disabled' }, :content => Environment.default.message_for_disabled_enterprise
   end
 
+  should 'load the correct profile when using hosted domain' do
+    profile = create_user('mytestuser').person
+    profile.domains << Domain.create!(:name => 'micojones.net')
+    profile.save!
+
+    ActionController::TestRequest.any_instance.expects(:host).returns('www.micojones.net').at_least_once
+
+    get :view_page, :page => []
+
+    assert_equal profile, assigns(:profile)
+  end
+
 end

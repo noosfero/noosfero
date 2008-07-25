@@ -104,6 +104,8 @@ require 'acts_as_having_image'
 require 'sqlite_extension'
 require 'will_paginate'
 
+require 'route_if'
+
 # load a local configuration if present, but not under test environment.
 if ENV['RAILS_ENV'] != 'test'
   localconfigfile = File.join(RAILS_ROOT, 'config', 'local.rb')
