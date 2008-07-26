@@ -27,6 +27,10 @@ class RoutingTest < ActionController::IntegrationTest
     assert_routing('/myprofile/ze/cms', :profile => 'ze', :controller => 'cms', :action => 'index')
   end
 
+  def test_cms_when_identifier_has_a_dot
+    assert_routing('/myprofile/ynternet.org/cms', :profile => 'ynternet.org', :controller => 'cms', :action => 'index')
+  end
+
   def test_edit_template
     # FIXME: this is wrong
     assert_routing('/admin/edit_template', :controller => 'edit_template', :action => 'index')
@@ -34,6 +38,10 @@ class RoutingTest < ActionController::IntegrationTest
 
   def test_profile_editor
     assert_routing('/myprofile/ze', :profile => 'ze', :controller => 'profile_editor', :action => 'index')
+  end
+
+  def test_profile_editor_when_identifier_has_a_dot
+    assert_routing('/myprofile/ynternet.org', :profile => 'ynternet.org', :controller => 'profile_editor', :action => 'index')
   end
 
   # environment administrative controllers (admin/*)
