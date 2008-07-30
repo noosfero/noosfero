@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.11.0\n"
 "POT-Creation-Date: 2008-07-21 21:21-0300\n"
-"PO-Revision-Date: 2008-07-21 21:46-0300\n"
+"PO-Revision-Date: 2008-07-30 11:20-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2173,7 +2173,7 @@ msgstr "Editando bloco"
 
 #: app/views/box_organizer/edit.rhtml:5
 msgid "Custom title for this block: "
-msgstr "Título resumido para este bloco: "
+msgstr "Título personalizado para este bloco: "
 
 #: app/views/box_organizer/_link_list_block.rhtml:2
 msgid "Links"
