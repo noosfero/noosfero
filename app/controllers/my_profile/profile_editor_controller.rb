@@ -49,4 +49,14 @@ class ProfileEditorController < MyProfileController
     render :partial => 'shared/select_categories', :locals => {:object_name => 'profile_data', :multiple => true}, :layout => false
   end
 
+  def header_footer
+    if request.post?
+      @profile.update_attributes!(:custom_footer => params[:custom_footer], :custom_header => params[:custom_header])
+      redirect_to :action => 'index'
+    else
+      @header = boxes_holder.custom_header
+      @footer = boxes_holder.custom_footer
+    end
+  end
+
 end
