@@ -37,7 +37,7 @@ class MembershipsController < MyProfileController
     @community = Community.find(params[:id])
     if request.post?
       if @community.destroy
-        flash[:notice] = _('%s was destroyed!') % @community.display_name
+        flash[:notice] = _('%s was destroyed!') % @community.short_name
         redirect_to :action => 'index'
       end
     end

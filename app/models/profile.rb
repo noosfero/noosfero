@@ -382,9 +382,10 @@ class Profile < ActiveRecord::Base
     TinyMceArticle.new(attrs)
   end
 
-  def display_name
+  include ActionView::Helpers::TextHelper
+  def short_name
     if self[:nickname].blank?
-      self.name
+      truncate self.identifier, 15, '...'
     else
       self[:nickname]
     end

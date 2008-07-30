@@ -736,9 +736,9 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal 'code', p.nickname
   end
 
-  should 'display_name return name if nickname is blank' do
-    p = Profile.new(:name => 'test profile')
-    assert_equal 'test profile', p.display_name
+  should 'short_name return truncated identifier if nickname is blank' do
+    p = Profile.new(:identifier => 'a123456789abcdefghij')
+    assert_equal 'a123456789ab...', p.short_name
   end
 
   private

@@ -9,7 +9,7 @@
       <%= profile_image_link(membership, :portrait, 'div') %>
     </div>
     <span class='profile-details'>
-      <strong><%= membership.display_name %></strong><br/>
+      <strong><%= membership.short_name %></strong><br/>
       <%= _('Role: %s') % rolename_for(profile, membership) %> <br/>
       <%= _('Type: %s') % getterm(membership.class.name) %> <br/>
       <%= _('Description: %s') % membership.description  + '<br/>' if membership.community? %>

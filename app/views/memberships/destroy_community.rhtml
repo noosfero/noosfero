@@ -1,9 +1,9 @@
-<h1><%= _('Destroy %s') % @community.display_name %></h1>
+<h1><%= _('Destroy %s') % @community.short_name %></h1>
 
-<p><strong><%= _('Are you sure you want to destroy %s?') % @community.display_name %></strong></p>
+<p><strong><%= _('Are you sure you want to destroy %s?') % @community.short_name %></strong></p>
 
 <% form_tag do %>
   <%= hidden_field_tag(:confirmation, 1) %>
-  <%= submit_button(:ok, _("Yes, I want to destroy.") % @community.display_name) %>
+  <%= submit_button(:ok, _("Yes, I want to destroy.") % @community.short_name) %>
   <%= button(:cancel, _("No, I don't want."), :action => 'index') %>
 <% end %>
