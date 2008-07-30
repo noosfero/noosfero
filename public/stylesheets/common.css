@@ -275,18 +275,22 @@ div.pending-tasks {
 }
 
 /* sitemap */
-div.sitemap-item a:link,
-div.sitemap-item a:visited {
+.sitemap-item a:link,
+.sitemap-item a:visited {
   display: block;
   border: none;
   text-decoration: none;
 }
-div.sitemap-item img {
+.sitemap-item img {
   border: none;
 }
-div.sitemap-item a:hover {
-  background-color: #f0f0f0;
+.sitemap-item a:hover {
+  background: #e0e0e0;
   color: red;
+  text-decoration: underline;
+}
+.last-update {
+  font-size: small;
 }
 
 

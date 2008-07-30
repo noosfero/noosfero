@@ -18,8 +18,9 @@ class Folder < Article
   include ActionController::UrlWriter
   include ActionView::Helpers::AssetTagHelper
   include FolderHelper
+  include DatesHelper
   def to_html
-    content_tag('div', body) + tag('hr') + list_articles(children)
+    content_tag('div', body) + tag('hr') + (children.empty? ? content_tag('em', _('(empty folder)')) : list_articles(children))
   end
 
   def folder?
