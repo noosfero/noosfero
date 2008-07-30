@@ -214,6 +214,27 @@ class Test::Unit::TestCase
 end
 
 class ActionController::IntegrationTest
+  def assert_can_login
+    assert_tag :tag => 'a', :attributes => { :id => 'link_login' }
+  end
+
+  def assert_can_signup
+    assert_tag :tag => 'a', :attributes => { :href => '/account/signup'}
+  end
+
+  def assert_cannot_logout
+    assert_no_tag :tag => 'a', :attributes => { :href => '/account/logout'  }
+  end
+
+  def assert_cannot_login
+    assert_no_tag :tag => 'a', :attributes => { :id => 'link_login' }
+  end
+
+  def assert_can_logout
+    assert_tag :tag => 'a', :attributes => { :href => '/account/logout'  }
+  end
+
+
   def login(username, password)
     post '/account/login', :user => { :login => username, :password => password }
     assert_response :redirect

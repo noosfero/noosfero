@@ -5,10 +5,8 @@ class UserRegistersAtTheApplicationTest < ActionController::IntegrationTest
 
   def test_successfull_registration
     get '/'
-    assert_tag :tag => 'a', :attributes => { :href => '/account/login_popup' }
-
-    get '/account/login_popup'
-    assert_tag :tag => 'a', :attributes => { :href => '/account/signup'}
+    assert_can_login
+    assert_can_signup
 
     get '/account/signup'
     assert_response :success
@@ -28,10 +26,8 @@ class UserRegistersAtTheApplicationTest < ActionController::IntegrationTest
     assert User.find_by_login('ze') # just to make sure that 'ze' already exists
 
     get '/'
-    assert_tag :tag => 'a', :attributes => { :href => '/account/login_popup'}
-
-    get '/account/login_popup'
-    assert_tag :tag => 'a', :attributes => { :href => '/account/signup'}
+    assert_can_login
+    assert_can_signup
 
     get '/account/signup'
     assert_response :success
