@@ -307,4 +307,42 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_equal profile, assigns(:profile)
   end
 
+  should 'give link to edit the article for owner ' do
+    login_as('testinguser')
+    get :view_page, :profile => 'testinguser', :page => []
+    assert_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{@profile.home_page.id}" } }
+  end
+  should 'not give link to edit the article for non-logged-in people' do
+    get :view_page, :profile => 'testinguser', :page => []
+    assert_no_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{@profile.home_page.id}" } }
+  end
+  should 'not give link to edit article for other people' do
+    login_as(create_user('anotheruser').login)
+
+    get :view_page, :profile => 'testinguser', :page => []
+    assert_no_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{@profile.home_page.id}" } }
+  end
+
+  should 'give link to create new article' do
+    login_as('testinguser')
+    get :view_page, :profile => 'testinguser', :page => []
+    assert_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/new" } }
+  end
+  should 'give no link to create new article for non-logged in people ' do
+    get :view_page, :profile => 'testinguser', :page => []
+    assert_no_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/new" } }
+  end
+  should 'give no link to create new article for other people' do
+    login_as(create_user('anotheruser').login)
+    get :view_page, :profile => 'testinguser', :page => []
+    assert_no_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/new" } }
+  end
+
+  should 'give link to create new article inside folder' do
+    login_as('testinguser')
+    folder = Folder.create!(:name => 'myfolder', :profile => @profile)
+    get :view_page, :profile => 'testinguser', :page => [ 'myfolder' ]
+    assert_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/new?parent_id=#{folder.id}" } }
+  end
+
 end
