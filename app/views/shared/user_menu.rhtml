@@ -57,7 +57,7 @@
 
     <% else # theme_option( :menu_login ) != 'full_form' %>
 
-      <%= thickbox_inline_popup_link('<span class="icon-menu-login"></span>'+ _('Login'), 'inlineLoginBox', :help => _('Click here to enter your username and password and be recognized by the system.')) %>
+      <%= thickbox_inline_popup_link('<span class="icon-menu-login"></span>'+ _('Login'), 'inlineLoginBox', :id => 'link_login', :help => _('Click here to enter your username and password and be recognized by the system.')) %>
       <div id='inlineLoginBox' style='display: none;'>
         <%= render :file => 'account/login' %>
         <center><%= thickbox_close_button _('Close') %></center>
