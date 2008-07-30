@@ -22,7 +22,18 @@ module BoxesHelper
     boxes = holder.boxes.first(holder.boxes_limit)
     content = boxes.reverse.map { |item| display_box(item, main_content) }.join("\n")
     content = main_content if (content.blank?)
-    content_tag('div', content, :class => 'boxes', :id => 'boxes' )
+
+    maybe_display_custom_element(holder, :custom_header, :id => 'profile-header') +
+    content_tag('div', content, :class => 'boxes', :id => 'boxes' ) +
+    maybe_display_custom_element(holder, :custom_footer, :id => 'profile-footer')
+  end
+
+  def maybe_display_custom_element(holder, element, options = {})
+    if holder.respond_to?(element)
+      content_tag('div', holder.send(element), options)
+    else
+      ''
+    end
   end
 
   def display_box(box, main_content)

@@ -347,4 +347,12 @@ class EnvironmentTest < Test::Unit::TestCase
     end
   end
 
+  should 'provide custom header' do
+    assert_equal 'my header', Environment.new(:custom_header => 'my header').custom_header
+  end
+
+  should 'provide custom footer' do
+    assert_equal 'my footer', Environment.new(:custom_footer => "my footer").custom_footer
+  end
+
 end

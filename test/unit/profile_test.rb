@@ -741,6 +741,32 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal 'a123456789ab...', p.short_name
   end
 
+  should 'provide custom header' do
+    assert_equal 'my custom header',  Profile.new(:custom_header => 'my custom header').custom_header
+  end
+
+  should 'provide custom footer' do
+    assert_equal 'my custom footer',  Profile.new(:custom_footer => 'my custom footer').custom_footer
+  end
+
+  should 'provide environment header if profile header is blank' do
+    profile = Profile.new
+    env = mock
+    env.expects(:custom_header).returns('environment header')
+    profile.expects(:environment).returns(env)
+
+    assert_equal 'environment header', profile.custom_header
+  end
+
+  should 'provide environment footer if profile footer is blank' do
+    profile = Profile.new
+    env = mock
+    env.expects(:custom_footer).returns('environment footer')
+    profile.expects(:environment).returns(env)
+
+    assert_equal 'environment footer', profile.custom_footer
+  end
+
   private
 
   def assert_invalid_identifier(id)

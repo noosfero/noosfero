@@ -391,4 +391,12 @@ class Profile < ActiveRecord::Base
     end
   end
 
+  def custom_header
+    self[:custom_header] || environment.custom_header
+  end
+
+  def custom_footer
+    self[:custom_footer] || environment.custom_footer
+  end
+
 end
