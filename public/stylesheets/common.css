@@ -379,6 +379,7 @@ div.pending-tasks {
 
 #profile-header, #profile-footer {
   clear: both;
-  height: 60px;
+  max-height: 150px;
+  max-width: 100%;
   overflow: hidden;
 }
