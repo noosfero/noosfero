@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
     !@no_design_blocks
   end
   def uses_design_blocks?
-    self.class.uses_design_blocks?
+    !@no_design_blocks && self.class.uses_design_blocks?
   end
   module UsesDesignBlocksHelper
     def uses_design_blocks?

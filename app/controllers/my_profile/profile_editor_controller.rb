@@ -50,6 +50,7 @@ class ProfileEditorController < MyProfileController
   end
 
   def header_footer
+    @no_design_blocks = true
     if request.post?
       @profile.update_attributes!(:custom_footer => params[:custom_footer], :custom_header => params[:custom_header])
       redirect_to :action => 'index'
