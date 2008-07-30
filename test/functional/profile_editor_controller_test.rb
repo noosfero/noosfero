@@ -432,4 +432,35 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'a', :content => 'Manage my groups'
   end
 
+  should 'display footer edit screen' do
+
+    person = create_user('designtestuser').person
+    person.custom_header = 'my custom header'
+    person.custom_footer = 'my custom footer'
+    person.save!
+
+    get :header_footer, :profile => 'designtestuser'
+    assert_tag :tag => 'textarea', :content => 'my custom header'
+    assert_tag :tag => 'textarea', :content => 'my custom footer'
+  end
+
+  should 'save footer and header' do
+    person = create_user('designtestuser').person
+    post :header_footer, :profile => 'designtestuser', :custom_header => 'new header', :custom_footer => 'new footer'
+    person.reload
+    assert_equal 'new header', person.custom_header
+    assert_equal 'new footer', person.custom_footer
+  end
+
+  should 'go back to editor after saving header/footer' do
+    person = create_user('designtestuser').person
+    post :header_footer, :profile => 'designtestuser', :custom_header => 'new header', :custom_footer => 'new footer'
+    assert_redirected_to :action => 'index'
+  end
+
+  should 'point to header/footer editing in control panel' do
+    get :index, :profile => 'ze'
+    assert_tag :tag => 'a', :attributes => { :href => '/myprofile/ze/profile_editor/header_footer' }
+  end
+
 end
