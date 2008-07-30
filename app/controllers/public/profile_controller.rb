@@ -9,6 +9,10 @@ class ProfileController < ApplicationController
     @tags = profile.tags
   end
 
+  def tags
+    @tags = profile.tags
+  end
+
   def tag
     @tag = params[:id]
     @tagged = profile.find_tagged_with(@tag)

@@ -249,4 +249,12 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_equal @profile.top_level_articles, assigns(:articles)
   end
 
+  should 'list tags' do
+    Person.any_instance.stubs(:tags).returns({ 'one' => 1, 'two' => 2})
+    get :tags, :profile => 'testuser'
+
+    assert_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => '/profile/testuser/tag/one'} }
+    assert_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => '/profile/testuser/tag/two'} }
+  end
+
 end

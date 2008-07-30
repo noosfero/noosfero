@@ -278,7 +278,7 @@ class Profile < ActiveRecord::Base
   end
 
   # FIXME this can be SLOW
-  def tags(public_only = false)
+  def tags
     totals = {}
     articles.each do |article|
       article.tags.each do |tag|

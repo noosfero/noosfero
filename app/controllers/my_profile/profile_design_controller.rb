@@ -16,6 +16,7 @@ class ProfileDesignController < BoxOrganizerController
     if profile.person?
       blocks << FriendsBlock
       blocks << FavoriteEnterprisesBlock
+      blocks << MyNetworkBlock
     end
 
     # blocks exclusive for enterprises

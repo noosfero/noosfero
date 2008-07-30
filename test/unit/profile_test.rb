@@ -317,6 +317,10 @@ class ProfileTest < Test::Unit::TestCase
     assert_equivalent [ third], profile.find_tagged_with('third-tag')
   end
 
+  should 'provide tag count' do
+    assert_equal 0, Profile.new.tags.count
+  end
+
   should 'have administator role' do
     Role.expects(:find_by_key).with('profile_admin').returns(Role.new)
     assert_kind_of Role, Profile::Roles.admin

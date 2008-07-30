@@ -38,6 +38,10 @@ class Zen3Terminology < Noosfero::Terminology::Custom
       'Favorite Enterprises' => N_('Favorite Organizations'),
       'Enterprises in "%s"' => N_('Organizations in "%s"'),
       'Register a new Enterprise' => N_('Register a new organization'),
+      'One friend' => N_('One contact'),
+      '%d friends' => N_('%d contacts'),
+      'One community' => N_('One group'),
+      '%d communities' => N_('%d groups'),
     })
   end
 
