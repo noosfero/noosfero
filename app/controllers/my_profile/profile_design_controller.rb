@@ -5,7 +5,7 @@ class ProfileDesignController < BoxOrganizerController
   protect 'edit_profile_design', :profile
   
   def available_blocks
-    blocks = [ ArticleBlock, TagsBlock, RecentDocumentsBlock, ProfileInfoBlock ]
+    blocks = [ ArticleBlock, TagsBlock, RecentDocumentsBlock, ProfileInfoBlock, LinkListBlock ]
 
     # blocks exclusive for organizations
     if profile.has_members?
