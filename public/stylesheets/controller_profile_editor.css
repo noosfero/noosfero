@@ -27,12 +27,12 @@
 
 /* file manager (big) style */
 
-div.file-manager {
+.file-manager {
   clear: both;
 }
 
-div.file-manager
-div.file-manager-button {
+.file-manager
+.file-manager-button {
   float: left;
   width: 140px;
   text-align: center;
@@ -40,13 +40,13 @@ div.file-manager-button {
   margin-top: 0.5em;
 }
 
-div.file-manager
-div.file-manager-button a img {
+.file-manager
+.file-manager-button a img {
   border: none;
 }
 
-div.file-manager
-div.file-manager-button a {
+.file-manager
+.file-manager-button a {
   border: 2px solid transparent;
   display: block;
   padding: 3px;
@@ -55,5 +55,9 @@ div.file-manager-button a {
   font-size: 90%;
   text-decoration: none;
   line-height: 100%;
+}
+
+.file-manager-button span {
+  display: block;
 }
 
