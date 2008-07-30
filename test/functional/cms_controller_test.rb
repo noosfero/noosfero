@@ -505,4 +505,28 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_equal [c1, c2], assigns(:categories)
   end
 
+  should 'record when coming from public view on edit' do
+    article = @profile.articles.create!(:name => 'myarticle')
+
+    @request.expects(:referer).returns('http://colivre.net/testinguser/myarticle')
+
+    get :edit, :profile => 'testinguser', :id => article.id
+    assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'back_to', :value => 'public_view' }
+    assert_tag :tag => 'a', :descendant => { :content => 'Cancel' }, :attributes => { :href => 'http://colivre.net/testinguser/myarticle' }
+  end
+
+  should 'detect when comming from home page' do
+    @request.expects(:referer).returns('http://colivre.net/testinguser')
+    get :edit, :profile => 'testinguser', :id => @profile.home_page.id
+    assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'back_to', :value => 'public_view' }
+    assert_tag :tag => 'a', :descendant => { :content => 'Cancel' }, :attributes => { :href => 'http://colivre.net/testinguser/testingusers-home-page' }
+  end
+
+  should 'go back to public view when saving coming from there' do
+    article = @profile.articles.create!(:name => 'myarticle')
+
+    post :edit, :profile => 'testinguser', :id => article.id, :back_to => 'public_view'
+    assert_redirected_to article.url
+  end
+
 end

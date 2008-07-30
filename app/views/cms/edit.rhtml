@@ -6,6 +6,8 @@
 
   <%= hidden_field_tag('parent_id', @parent_id) if @parent_id %>
 
+  <%= hidden_field_tag('back_to', @back_to) %>
+
   <%= render :partial => partial_for_class(@article.class), :locals => { :f => f } %>
 
   <% button_bar do %>
@@ -31,7 +33,9 @@
 
   <% button_bar do %>
     <%= submit_button :save, _('Save') %>
-    <% if @parent_id || @article.parent %>
+    <% if @back_url %>
+      <%= button :cancel, _('Cancel'), @back_url %>
+    <% elsif @parent_id || @article.parent %>
       <%= button :cancel, _('Cancel'), :action => 'view', :id => @parent_id || @article.parent %>
     <% else %>
       <%= button :cancel, _('Cancel'), :action => 'index' %>

@@ -41,6 +41,7 @@ class CmsController < MyProfileController
     @article = profile.articles.find(params[:id])
     @parent_id = params[:parent_id]
     @type = params[:type]
+    record_coming_from_public_view
     if request.post?
       @article.last_changed_by = user
       if @article.update_attributes(params[:article])
@@ -129,10 +130,20 @@ class CmsController < MyProfileController
   protected
 
   def redirect_back
-    if @article.parent
+    if params[:back_to] == 'public_view'
+      redirect_to @article.url
+    elsif @article.parent
       redirect_to :action => 'view', :id => @article.parent
     else
       redirect_to :action => 'index'
+    end
+  end
+
+  def record_coming_from_public_view
+    referer = request.referer
+    if (referer == url_for(@article.url)) || (@article == @profile.home_page && referer == url_for(@profile.url))
+      @back_to = 'public_view'
+      @back_url = @article.url
     end
   end
 
