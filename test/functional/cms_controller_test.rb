@@ -529,4 +529,17 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_redirected_to article.url
   end
 
+  should 'record as coming from public view when creating article' do
+    @request.expects(:referer).returns('http://colivre.net/testinguser/testingusers-home-page')
+    get :new, :profile => 'testinguser', :type => 'TextileArticle'
+    assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'back_to', :value => 'public_view' }
+    assert_tag :tag => 'a', :descendant => { :content => 'Cancel' }, :attributes => { :href => 'http://colivre.net/testinguser/testingusers-home-page' }
+  end
+
+  should 'go to public view after creating article coming from there' do
+    post :new, :profile => 'testinguser', :type => 'TextileArticle', :back_to => 'public_view', :article => { :name => 'new-article-from-public-view' }
+    assert_response :redirect
+    assert_redirected_to @profile.articles.find_by_name('new-article-from-public-view').url
+  end
+
 end

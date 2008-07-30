@@ -84,6 +84,8 @@ class CmsController < MyProfileController
       @parent_id = parent.id
     end
 
+    record_creating_from_public_view
+
     @article.profile = profile
     @article.last_changed_by = user
     if request.post?
@@ -144,6 +146,14 @@ class CmsController < MyProfileController
     if (referer == url_for(@article.url)) || (@article == @profile.home_page && referer == url_for(@profile.url))
       @back_to = 'public_view'
       @back_url = @article.url
+    end
+  end
+
+  def record_creating_from_public_view
+    referer = request.referer
+    if (referer =~ Regexp.new("^#{url_for(profile.url)}"))
+      @back_to = 'public_view'
+      @back_url = referer
     end
   end
 
