@@ -1,6 +1,6 @@
 <div id='terms-of-enterprise-use'><%= @terms_of_enterprise_use %></div>
 
 <% button_bar do %>
-  <%= button_to(_('I accept the terms'), {:action => 'activate_enterprise', :terms_accepted => true, :enterprise_code => params[:enterprise_code], :answer => params[:answer]} ) %>
-  <%= button_to(_('I do NOT accept the terms'), {:controller => 'home', :action => 'index'} ) %>
+  <%= link_to( _('I accept the terms'), { :action => 'activate_enterprise', :terms_accepted => true, :enterprise_code => params[:enterprise_code], :answer => params[:answer] } ) %>
+  <%= link_to( _('I do NOT accept the terms'), { :controller => 'home', :action => 'index' } ) %>
 <% end %>

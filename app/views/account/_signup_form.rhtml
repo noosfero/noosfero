@@ -36,6 +36,13 @@
   </p>
 <% end %>
 
+<% if params[:enterprise_code] %>
+  <%= hidden_field_tag :enterprise_code, params[:enterprise_code] %>
+  <%= hidden_field_tag :answer, params[:answer] %>
+  <%= hidden_field_tag :terms_accepted, params[:terms_accepted] %>
+  <%= hidden_field_tag :new_user, true %>
+<% end %>
+
 <% button_bar do %>
   <%= submit_button('save', _('Sign up'), :cancel => {:action => 'index'}, :class => 'icon-menu-login') %>
 <% end %>

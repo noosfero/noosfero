@@ -1,5 +1,5 @@
 <% labelled_form_for :user, @user,
-   :url => { :controller => 'account', :action => 'login' },
+  :url => params[:enterprise_code] ? {:controller => 'account', :action => 'activate_enterprise'} : { :controller => 'account', :action => 'login' },
    :html => { :help => _('If you are a registered user, enter your username and password to be authenticated.')+'<p/>'+_('To join on this environment, click on "<b>I want to be an user!</b>".')+'<p/>'+_('If you forgot your password, click on "<b>I forgot my password!</b>" link.') } do |f| %>
 
 <%= f.text_field :login,
@@ -10,6 +10,12 @@
 <%= f.password_field :password,
                      :id => ( lightbox? ? 'lightbox_' : '' ) + 'user_password',
                      :help => _('your password is personal, protect it.') %>
+
+<% if params[:enterprise_code] %>
+  <%= hidden_field_tag :enterprise_code, params[:enterprise_code] %>
+  <%= hidden_field_tag :answer, params[:answer] %>
+  <%= hidden_field_tag :terms_accepted, params[:terms_accepted] %>
+<% end %>
 
 <% button_bar do %>
   <%= submit_button( 'login', _('Log in') )%>
