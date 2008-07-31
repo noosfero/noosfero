@@ -195,7 +195,7 @@ class SearchController < ApplicationController
     [
       [ :people, _('People'), @finder.recent('people', limit) ],
       [ :enterprises, __('Enterprises'), @finder.recent('enterprises', limit) ],
-      [ :products, ('Products'), @finder.recent('products', limit) ],
+      [ :products, _('Products'), @finder.recent('products', limit) ],
       [ :events, _('Upcoming events'), @finder.upcoming_events({:per_page => limit}) ],
       [ :communities, __('Communities'), @finder.recent('communities', limit) ],
       [ :most_commented_articles, _('Most commented articles'), @finder.most_commented_articles(limit) ],
