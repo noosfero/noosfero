@@ -136,6 +136,23 @@ class Environment < ActiveRecord::Base
     ! self.settings['terms_of_use'].nil?
   end
 
+  # the environment's terms of enterprise use: every enterprise member must accept them before
+  # registering or activating enterprises.
+  def terms_of_enterprise_use
+    self.settings['terms_of_enterprise_use']
+  end
+
+  # sets the environment's terms of enterprise use.
+  def terms_of_enterprise_use=(value)
+    self.settings['terms_of_enterprise_use'] = value
+  end
+
+  # returns <tt>true</tt> if this Environment has terms of enterprise use to be
+  # accepted by users before registration or activation of enterprises.
+  def has_terms_of_enterprise_use?
+    ! self.settings['terms_of_enterprise_use'].blank?
+  end
+
   def message_for_disabled_enterprise
     self.settings['message_for_disabled_enterprise']
   end

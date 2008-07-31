@@ -1,0 +1,10 @@
+<% form_tag :action => 'accept_terms' do %>
+
+  <%= ApplicationHelper::NoosferoFormBuilder::output_field(@question == :foundation_year ? _('What year your enterprise was founded?') : _('What is the CNPJ of your enterprise?'), text_field_tag(:answer, nil,:help => help=_('We need to be sure that this is your enterprise'))) %>
+
+  <%= hidden_field_tag :enterprise_code, params[:enterprise_code] %>
+
+  <% button_bar do %>
+    <%= submit_button('answer', _('Answer'), :cancel => {:action => 'index'} ) %>
+  <% end %>
+<% end %>

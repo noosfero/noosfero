@@ -78,6 +78,22 @@ class EnvironmentTest < Test::Unit::TestCase
     assert v.has_terms_of_use?
   end
 
+  def test_terms_of_enterprise_use
+    v = Environment.new(:name => 'My test environment')
+    assert_nil v.terms_of_enterprise_use
+    v.terms_of_enterprise_use = 'To be owner of an enterprise in this environment, you must accept the following terms: ...'
+    assert v.save
+    id = v.id
+    assert_equal 'To be owner of an enterprise in this environment, you must accept the following terms: ...', Environment.find(id).terms_of_enterprise_use
+  end
+
+  def test_has_terms_of_enterprise_use
+    v = Environment.new
+    assert !v.has_terms_of_enterprise_use?
+    v.terms_of_enterprise_use = 'some terms of enterprise use'
+    assert v.has_terms_of_enterprise_use?
+  end
+
   def test_should_list_top_level_categories
     env = Environment.create!(:name => 'a test environment')
     cat1 = Category.create!(:name => 'first category', :environment_id => env.id)

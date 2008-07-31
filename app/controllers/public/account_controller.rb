@@ -128,6 +128,28 @@ class AccountController < PublicController
     end
   end
 
+  def activation_question
+    @enterprise = load_enterprise
+    unless @enterprise
+      render :action => 'invalid_enterprise_code'
+      return
+    end
+    if @enterprise.enabled
+      render :action => 'already_activated'
+      return
+    end
+
+    @question = @enterprise.question
+    if !@question || @enterprise.blocked?
+      render :action => 'blocked'
+      return
+    end
+  end
+
+  def accept_terms
+    @terms_of_enterprise_use = environment.terms_of_enterprise_use
+  end
+
   protected
 
   def activate_enterprise
