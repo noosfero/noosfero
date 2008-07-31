@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.10.3\n"
-"POT-Creation-Date: 2008-07-31 20:29-0300\n"
-"PO-Revision-Date: 2008-07-21 21:46-0300\n"
+"POT-Creation-Date: 2008-07-31 19:51-0300\n"
+"PO-Revision-Date: 2008-07-31 20:33-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -3650,9 +3650,8 @@ msgid "We need to be sure that this is your enterprise"
 msgstr "Nós precisamos ter certeza que este empreendimento é seu"
 
 #: app/views/account/activation_question.rhtml:8
-#, fuzzy
 msgid "Answer"
-msgstr "usuário"
+msgstr "Resposta"
 
 #: app/views/account/invalid_enterprise_code.rhtml:1
 msgid "Invalid enterprise code"
@@ -3735,26 +3734,23 @@ msgstr "Sair"
 
 #: app/views/account/activate_enterprise.rhtml:1
 msgid "What user should be the admin of the enterprise page"
-msgstr ""
+msgstr "Qual usuário deve ser o administrador da página do empreendimento"
 
 #: app/views/account/activate_enterprise.rhtml:6
 msgid "Already have user"
-msgstr ""
+msgstr "Já tenho usuário"
 
 #: app/views/account/activate_enterprise.rhtml:7
-#, fuzzy
 msgid "Create new user"
-msgstr "Criar nova comunidade"
+msgstr "Criar novo usuário"
 
 #: app/views/account/accept_terms.rhtml:4
-#, fuzzy
 msgid "I accept the terms"
 msgstr "Eu aceito os termos de uso"
 
 #: app/views/account/accept_terms.rhtml:5
-#, fuzzy
 msgid "I do NOT accept the terms"
-msgstr "Eu aceito os termos de uso"
+msgstr "Eu NÂO aceito os termos de uso"
 
 #: app/views/account/change_password.rhtml:5
 msgid "Current password"
