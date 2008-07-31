@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.10.3\n"
-"POT-Creation-Date: 2008-07-31 19:51-0300\n"
+"POT-Creation-Date: 2008-07-31 20:29-0300\n"
 "PO-Revision-Date: 2008-07-21 21:46-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1118,11 +1118,12 @@ msgid "Enable email"
 msgstr "Habilitar e-mail"
 
 #: app/models/user.rb:7
-msgid "User|Password"
+msgid "Password"
 msgstr "Senha"
 
 #: app/models/user.rb:8
-msgid "User|Password confirmation"
+#, fuzzy
+msgid "Password confirmation"
 msgstr "Confirmação de senha"
 
 #: app/models/user.rb:47
@@ -3977,6 +3978,9 @@ msgstr "Um projeto FBES"
 msgid "Developed by Colivre"
 msgstr "Desenvolvimento Colivre"
 
+#~ msgid "User|Password"
+#~ msgstr "Senha"
+
 #~ msgid "Register and activate enterprise"
 #~ msgstr "Registrar e ativar empreendimento"
 
@@ -4644,9 +4648,6 @@ msgstr "Desenvolvimento Colivre"
 
 #~ msgid "Person|Data"
 #~ msgstr "Dados"
-
-#~ msgid "Password"
-#~ msgstr "Senha"
 
 #~ msgid "Do you want to activate the automatic help mode?"
 #~ msgstr "Você gostaria de ativar o modo de ajuda automática?"

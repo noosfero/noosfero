@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.10.3\n"
-"POT-Creation-Date: 2008-07-31 19:51-0300\n"
+"POT-Creation-Date: 2008-07-31 20:29-0300\n"
 "PO-Revision-Date: 2008-06-13 16:15-0300\n"
 "Last-Translator: Raphael Rousseau <pootle.colivre.coop.br@r4f.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1202,11 +1202,12 @@ msgid "Enable email"
 msgstr "Adresse e-mail"
 
 #: app/models/user.rb:7
-msgid "User|Password"
+msgid "Password"
 msgstr "Mot de passe"
 
 #: app/models/user.rb:8
-msgid "User|Password confirmation"
+#, fuzzy
+msgid "Password confirmation"
 msgstr "Mot de passe (confirmation)"
 
 #: app/models/user.rb:47
@@ -4236,6 +4237,9 @@ msgstr "Un projet du FBES"
 msgid "Developed by Colivre"
 msgstr "Développé par Colivre"
 
+#~ msgid "User|Password"
+#~ msgstr "Mot de passe"
+
 #, fuzzy
 #~ msgid "Register and activate enterprise"
 #~ msgstr "Enregistrer une nouvelle entreprise"
@@ -4784,9 +4788,6 @@ msgstr "Développé par Colivre"
 
 #~ msgid "Tags"
 #~ msgstr "Tags"
-
-#~ msgid "Password"
-#~ msgstr "Mot de passe"
 
 #~ msgid ""
 #~ "To change your password, please fill the form on this screen using yout "

@@ -4,8 +4,8 @@ require 'digest/sha1'
 # Rails generator.
 class User < ActiveRecord::Base
 
-  N_('User|Password')
-  N_('User|Password confirmation')
+  N_('Password')
+  N_('Password confirmation')
 
   # FIXME ugly workaround
   def self.human_attribute_name(attrib)

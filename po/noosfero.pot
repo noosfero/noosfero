@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.10.3\n"
-"POT-Creation-Date: 2008-07-31 19:51-0300\n"
+"POT-Creation-Date: 2008-07-31 20:29-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1099,11 +1099,11 @@ msgid "Enable email"
 msgstr ""
 
 #: app/models/user.rb:7
-msgid "User|Password"
+msgid "Password"
 msgstr ""
 
 #: app/models/user.rb:8
-msgid "User|Password confirmation"
+msgid "Password confirmation"
 msgstr ""
 
 #: app/models/user.rb:47
