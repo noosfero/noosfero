@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.11.0\n"
-"POT-Creation-Date: 2008-07-21 21:21-0300\n"
+"Project-Id-Version: noosfero 0.10.3\n"
+"POT-Creation-Date: 2008-07-31 19:51-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -367,7 +367,8 @@ msgstr ""
 #: app/views/admin_panel/message_for_disabled_enterprise.rhtml:11
 #: app/views/cms/edit.rhtml:35 app/views/cms/edit.rhtml:37
 #: app/views/cms/select_article_type.rhtml:12 app/views/tasks/_task.rhtml:12
-#: app/views/account/login.rhtml:24 app/views/shared/_change_image.rhtml:2
+#: app/views/account/_login_form.rhtml:22
+#: app/views/shared/_change_image.rhtml:2
 #: app/views/shared/_select_categories.rhtml:22
 msgid "Cancel"
 msgstr ""
@@ -445,6 +446,7 @@ msgstr ""
 
 #: app/helpers/assets_helper.rb:9 app/models/products_block.rb:12
 #: app/controllers/public/search_controller.rb:137
+#: app/controllers/public/search_controller.rb:198
 #: app/views/search/_sellers_form.rhtml:8
 msgid "Products"
 msgstr ""
@@ -1550,7 +1552,7 @@ msgstr ""
 msgid "Disable search for events"
 msgstr ""
 
-#: app/models/environment.rb:197
+#: app/models/environment.rb:214
 msgid "Only one Virtual Community can be the default one"
 msgstr ""
 
@@ -1749,15 +1751,15 @@ msgstr ""
 msgid "Thanks for signing up!"
 msgstr ""
 
-#: app/controllers/public/account_controller.rb:71
+#: app/controllers/public/account_controller.rb:65
 msgid "You have been logged out."
 msgstr ""
 
-#: app/controllers/public/account_controller.rb:82
+#: app/controllers/public/account_controller.rb:76
 msgid "Your password has been changed successfully!"
 msgstr ""
 
-#: app/controllers/public/account_controller.rb:85
+#: app/controllers/public/account_controller.rb:79
 msgid "The supplied current password is incorrect."
 msgstr ""
 
@@ -3364,50 +3366,24 @@ msgid ""
 msgstr ""
 
 #: app/views/account/login.rhtml:3 app/views/account/login_block.rhtml:4
+#: app/views/account/activate_enterprise.rhtml:15
 #: app/views/shared/user_menu.rhtml:54
 msgid "Login"
 msgstr ""
 
-#: app/views/account/login.rhtml:11 app/views/account/login_block.rhtml:13
-msgid ""
-"If you are a registered user, enter your username and password to be "
-"authenticated."
-msgstr ""
-
-#: app/views/account/login.rhtml:11
-msgid "To join on this environment, click on \"<b>I want to be an user!</b>\"."
-msgstr ""
-
-#: app/views/account/login.rhtml:11 app/views/account/login_block.rhtml:13
-msgid ""
-"If you forgot your password, click on \"<b>I forgot my password!</b>\" link."
-msgstr ""
-
-#: app/views/account/login.rhtml:15 app/views/account/login_block.rhtml:17
-msgid "Here goes the nickname that you give on the registration."
-msgstr ""
-
-#: app/views/account/login.rhtml:20 app/views/account/login_block.rhtml:21
-msgid "your password is personal, protect it."
-msgstr ""
-
-#: app/views/account/login.rhtml:23 app/views/account/login_block.rhtml:24
-msgid "Log in"
-msgstr ""
-
-#: app/views/account/login.rhtml:29 app/views/account/login_block.rhtml:33
+#: app/views/account/login.rhtml:7 app/views/account/login_block.rhtml:33
 msgid "You can recover your password clicking on this link."
 msgstr ""
 
-#: app/views/account/login.rhtml:30 app/views/account/login_block.rhtml:34
+#: app/views/account/login.rhtml:8 app/views/account/login_block.rhtml:34
 msgid "I forgot my password!"
 msgstr ""
 
-#: app/views/account/login.rhtml:33 app/views/account/login_block.rhtml:27
+#: app/views/account/login.rhtml:11 app/views/account/login_block.rhtml:27
 msgid "Click here to join to this environment, if you is not already an user."
 msgstr ""
 
-#: app/views/account/login.rhtml:34
+#: app/views/account/login.rhtml:12
 msgid "I want to be an user!"
 msgstr ""
 
@@ -3428,7 +3404,35 @@ msgid "Send change password procedure by e-mail"
 msgstr ""
 
 #: app/views/account/login_block.rhtml:13
+#: app/views/account/_login_form.rhtml:3
+msgid ""
+"If you are a registered user, enter your username and password to be "
+"authenticated."
+msgstr ""
+
+#: app/views/account/login_block.rhtml:13
 msgid "To join on this environment, click on \"<b>New user</b>\"."
+msgstr ""
+
+#: app/views/account/login_block.rhtml:13
+#: app/views/account/_login_form.rhtml:3
+msgid ""
+"If you forgot your password, click on \"<b>I forgot my password!</b>\" link."
+msgstr ""
+
+#: app/views/account/login_block.rhtml:17
+#: app/views/account/_login_form.rhtml:7
+msgid "Here goes the nickname that you give on the registration."
+msgstr ""
+
+#: app/views/account/login_block.rhtml:21
+#: app/views/account/_login_form.rhtml:12
+msgid "your password is personal, protect it."
+msgstr ""
+
+#: app/views/account/login_block.rhtml:24
+#: app/views/account/_login_form.rhtml:21
+msgid "Log in"
 msgstr ""
 
 #: app/views/account/login_block.rhtml:25
@@ -3479,6 +3483,57 @@ msgstr ""
 msgid ""
 "It is always a good idea to make a logout when you finish using the "
 "environment."
+msgstr ""
+
+#: app/views/account/_signup_form.rhtml:1
+msgid "Register"
+msgstr ""
+
+#: app/views/account/_signup_form.rhtml:5
+msgid ""
+"Fill all this fields to join in this environment.<p/>If you forgot your "
+"password, do not create a new account, click on the \"<b>I forgot my "
+"password!</b>\" link. ;-)"
+msgstr ""
+
+#: app/views/account/_signup_form.rhtml:11
+msgid "\"Username\" is a simple nickname to recognize you on this environment."
+msgstr ""
+
+#: app/views/account/_signup_form.rhtml:16
+msgid "We'll send you an e-mail to validate your registration."
+msgstr ""
+
+#: app/views/account/_signup_form.rhtml:20
+msgid "Do not use a obviously password, but try some unforgettable word."
+msgstr ""
+
+#: app/views/account/_signup_form.rhtml:24
+msgid "We need to be sure that you wrote correctly your password."
+msgstr ""
+
+#: app/views/account/_signup_form.rhtml:35
+msgid "I accept the terms of use"
+msgstr ""
+
+#: app/views/account/_signup_form.rhtml:47
+msgid "Sign up"
+msgstr ""
+
+#: app/views/account/activation_question.rhtml:3
+msgid "What year your enterprise was founded?"
+msgstr ""
+
+#: app/views/account/activation_question.rhtml:3
+msgid "What is the CNPJ of your enterprise?"
+msgstr ""
+
+#: app/views/account/activation_question.rhtml:3
+msgid "We need to be sure that this is your enterprise"
+msgstr ""
+
+#: app/views/account/activation_question.rhtml:8
+msgid "Answer"
 msgstr ""
 
 #: app/views/account/invalid_enterprise_code.rhtml:1
@@ -3536,6 +3591,10 @@ msgstr ""
 msgid "You can <a href='%s'>login</a> now."
 msgstr ""
 
+#: app/views/account/_login_form.rhtml:3
+msgid "To join on this environment, click on \"<b>I want to be an user!</b>\"."
+msgstr ""
+
 #: app/views/account/user_info.rhtml:3
 msgid "Logged in as %s"
 msgstr ""
@@ -3548,68 +3607,24 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
-#: app/views/account/signup.rhtml:1
-msgid "Register"
-msgstr ""
-
-#: app/views/account/signup.rhtml:5
-msgid ""
-"Fill all this fields to join in this environment.<p/>If you forgot your "
-"password, do not create a new account, click on the \"<b>I forgot my "
-"password!</b>\" link. ;-)"
-msgstr ""
-
-#: app/views/account/signup.rhtml:11
-#: app/views/account/activate_enterprise.rhtml:11
-msgid "\"Username\" is a simple nickname to recognize you on this environment."
-msgstr ""
-
-#: app/views/account/signup.rhtml:16
-#: app/views/account/activate_enterprise.rhtml:16
-msgid "We'll send you an e-mail to validate your registration."
-msgstr ""
-
-#: app/views/account/signup.rhtml:20
-#: app/views/account/activate_enterprise.rhtml:20
-msgid "Do not use a obviously password, but try some unforgettable word."
-msgstr ""
-
-#: app/views/account/signup.rhtml:24
-#: app/views/account/activate_enterprise.rhtml:24
-msgid "We need to be sure that you wrote correctly your password."
-msgstr ""
-
-#: app/views/account/signup.rhtml:35
-#: app/views/account/activate_enterprise.rhtml:37
-msgid "I accept the terms of use"
-msgstr ""
-
-#: app/views/account/signup.rhtml:40
-#: app/views/account/activate_enterprise.rhtml:42
-msgid "Sign up"
-msgstr ""
-
 #: app/views/account/activate_enterprise.rhtml:1
-msgid "Register and activate enterprise"
+msgid "What user should be the admin of the enterprise page"
 msgstr ""
 
-#: app/views/account/activate_enterprise.rhtml:5
-msgid ""
-"Fill all this fields to activate your enterprise and join in this "
-"environment.<p/>If you forgot your password, do not create a new account, "
-"click on the \"<b>I forgot my password!</b>\" link. ;-)"
+#: app/views/account/activate_enterprise.rhtml:6
+msgid "Already have user"
 msgstr ""
 
-#: app/views/account/activate_enterprise.rhtml:27
-msgid "What year your enterprise was founded?"
+#: app/views/account/activate_enterprise.rhtml:7
+msgid "Create new user"
 msgstr ""
 
-#: app/views/account/activate_enterprise.rhtml:27
-msgid "What is the CNPJ of your enterprise?"
+#: app/views/account/accept_terms.rhtml:4
+msgid "I accept the terms"
 msgstr ""
 
-#: app/views/account/activate_enterprise.rhtml:27
-msgid "We need to be sure that this is your enterprise"
+#: app/views/account/accept_terms.rhtml:5
+msgid "I do NOT accept the terms"
 msgstr ""
 
 #: app/views/account/change_password.rhtml:5

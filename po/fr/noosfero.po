@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.11.0\n"
-"POT-Creation-Date: 2008-07-21 21:21-0300\n"
+"Project-Id-Version: noosfero 0.10.3\n"
+"POT-Creation-Date: 2008-07-31 19:51-0300\n"
 "PO-Revision-Date: 2008-06-13 16:15-0300\n"
 "Last-Translator: Raphael Rousseau <pootle.colivre.coop.br@r4f.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -390,7 +390,8 @@ msgstr "Les validateurs sont assignés par région par les administrateurs."
 #: app/views/admin_panel/message_for_disabled_enterprise.rhtml:11
 #: app/views/cms/edit.rhtml:35 app/views/cms/edit.rhtml:37
 #: app/views/cms/select_article_type.rhtml:12 app/views/tasks/_task.rhtml:12
-#: app/views/account/login.rhtml:24 app/views/shared/_change_image.rhtml:2
+#: app/views/account/_login_form.rhtml:22
+#: app/views/shared/_change_image.rhtml:2
 #: app/views/shared/_select_categories.rhtml:22
 msgid "Cancel"
 msgstr "Annuler"
@@ -472,6 +473,7 @@ msgstr "Personnes"
 
 #: app/helpers/assets_helper.rb:9 app/models/products_block.rb:12
 #: app/controllers/public/search_controller.rb:137
+#: app/controllers/public/search_controller.rb:198
 #: app/views/search/_sellers_form.rhtml:8
 msgid "Products"
 msgstr "Produits"
@@ -1704,7 +1706,7 @@ msgstr ""
 msgid "Disable search for events"
 msgstr "Rechercher :"
 
-#: app/models/environment.rb:197
+#: app/models/environment.rb:214
 msgid "Only one Virtual Community can be the default one"
 msgstr "Seule une CoVi peut être celle par défaut"
 
@@ -1916,15 +1918,15 @@ msgstr "Identifiant ou mot de passe incorrect"
 msgid "Thanks for signing up!"
 msgstr "Merci de vous être inscrit(e) !"
 
-#: app/controllers/public/account_controller.rb:71
+#: app/controllers/public/account_controller.rb:65
 msgid "You have been logged out."
 msgstr "Vous avez été déconnecté(e)."
 
-#: app/controllers/public/account_controller.rb:82
+#: app/controllers/public/account_controller.rb:76
 msgid "Your password has been changed successfully!"
 msgstr "Votre mot de passe a bien été modifié !"
 
-#: app/controllers/public/account_controller.rb:85
+#: app/controllers/public/account_controller.rb:79
 msgid "The supplied current password is incorrect."
 msgstr "Le mot de passe actuel fourni est incorrect."
 
@@ -3680,61 +3682,26 @@ msgstr ""
 "pour devenir membre de cette communauté."
 
 #: app/views/account/login.rhtml:3 app/views/account/login_block.rhtml:4
+#: app/views/account/activate_enterprise.rhtml:15
 #: app/views/shared/user_menu.rhtml:54
 msgid "Login"
 msgstr "Connexion"
 
-#: app/views/account/login.rhtml:11 app/views/account/login_block.rhtml:13
-msgid ""
-"If you are a registered user, enter your username and password to be "
-"authenticated."
-msgstr ""
-"Si vous êtes un utilisateur enregistré, entrez vos identifiant et mot de "
-"passe pour être authentifié(e)."
-
-# 1- Verify consistency between translations.
-# 2- In English "an user" -> "a user" Cf. http://forum.wordreference.com/showthread.php?t=480322
-#
-#: app/views/account/login.rhtml:11
-msgid "To join on this environment, click on \"<b>I want to be an user!</b>\"."
-msgstr ""
-"Pour rejoindre cette communauté, cliquez sur  \"<b>Je rejoins cette "
-"communauté !</b>\"."
-
-#: app/views/account/login.rhtml:11 app/views/account/login_block.rhtml:13
-msgid ""
-"If you forgot your password, click on \"<b>I forgot my password!</b>\" link."
-msgstr ""
-"Si vous avez oublié votre mot de passe, cliquez sur le lien «<b>J'ai oublié "
-"mon mot de passe !</b>»."
-
-#: app/views/account/login.rhtml:15 app/views/account/login_block.rhtml:17
-msgid "Here goes the nickname that you give on the registration."
-msgstr "Ici, le nom que vous avez donné à l'enregistrement."
-
-#: app/views/account/login.rhtml:20 app/views/account/login_block.rhtml:21
-msgid "your password is personal, protect it."
-msgstr "votre mot de passe est personnel, protégez-le."
-
-#: app/views/account/login.rhtml:23 app/views/account/login_block.rhtml:24
-msgid "Log in"
-msgstr "Se connecter"
-
-#: app/views/account/login.rhtml:29 app/views/account/login_block.rhtml:33
+#: app/views/account/login.rhtml:7 app/views/account/login_block.rhtml:33
 msgid "You can recover your password clicking on this link."
 msgstr "Vous pouvez retrouver votre mot de passe en cliquant sur ce lien."
 
-#: app/views/account/login.rhtml:30 app/views/account/login_block.rhtml:34
+#: app/views/account/login.rhtml:8 app/views/account/login_block.rhtml:34
 msgid "I forgot my password!"
 msgstr "J'ai oublié mon mot de passe !"
 
-#: app/views/account/login.rhtml:33 app/views/account/login_block.rhtml:27
+#: app/views/account/login.rhtml:11 app/views/account/login_block.rhtml:27
 msgid "Click here to join to this environment, if you is not already an user."
 msgstr ""
 "Cliquez ici pour rejoindre cette communauté, si vous n'en êtes pas déjà "
 "membre."
 
-#: app/views/account/login.rhtml:34
+#: app/views/account/login.rhtml:12
 msgid "I want to be an user!"
 msgstr "Je rejoins cette communauté !"
 
@@ -3760,9 +3727,41 @@ msgstr ""
 "Envoyer le procédure de changement de mot de passe par courrier électronique"
 
 #: app/views/account/login_block.rhtml:13
+#: app/views/account/_login_form.rhtml:3
+msgid ""
+"If you are a registered user, enter your username and password to be "
+"authenticated."
+msgstr ""
+"Si vous êtes un utilisateur enregistré, entrez vos identifiant et mot de "
+"passe pour être authentifié(e)."
+
+#: app/views/account/login_block.rhtml:13
 msgid "To join on this environment, click on \"<b>New user</b>\"."
 msgstr ""
 "Pour rejoindre cette communauté, cliquez sur «<b>Nouvel utilisateur</b>»."
+
+#: app/views/account/login_block.rhtml:13
+#: app/views/account/_login_form.rhtml:3
+msgid ""
+"If you forgot your password, click on \"<b>I forgot my password!</b>\" link."
+msgstr ""
+"Si vous avez oublié votre mot de passe, cliquez sur le lien «<b>J'ai oublié "
+"mon mot de passe !</b>»."
+
+#: app/views/account/login_block.rhtml:17
+#: app/views/account/_login_form.rhtml:7
+msgid "Here goes the nickname that you give on the registration."
+msgstr "Ici, le nom que vous avez donné à l'enregistrement."
+
+#: app/views/account/login_block.rhtml:21
+#: app/views/account/_login_form.rhtml:12
+msgid "your password is personal, protect it."
+msgstr "votre mot de passe est personnel, protégez-le."
+
+#: app/views/account/login_block.rhtml:24
+#: app/views/account/_login_form.rhtml:21
+msgid "Log in"
+msgstr "Se connecter"
 
 #: app/views/account/login_block.rhtml:25
 msgid "New user"
@@ -3816,6 +3815,72 @@ msgid ""
 msgstr ""
 "C'est toujours une bonne idée que de se déconnecter explicitement lorsque "
 "vous avez terminé d'utiliser l'environnement."
+
+#: app/views/account/_signup_form.rhtml:1
+msgid "Register"
+msgstr "S'enregistrer"
+
+#: app/views/account/_signup_form.rhtml:5
+msgid ""
+"Fill all this fields to join in this environment.<p/>If you forgot your "
+"password, do not create a new account, click on the \"<b>I forgot my "
+"password!</b>\" link. ;-)"
+msgstr ""
+"Remplissez tous ces champs pour rejoindre cette communauté.<p/>Si vous avez "
+"oublié votre mot de passe, ne créez pas un nouveau compte, cliquez sur le "
+"lien «<b>J'ai oublié mon mot de passe</b>»."
+
+#: app/views/account/_signup_form.rhtml:11
+msgid "\"Username\" is a simple nickname to recognize you on this environment."
+msgstr ""
+"«Identifiant» est un simple surnom pour vous reconnaître dans cette "
+"communauté."
+
+#: app/views/account/_signup_form.rhtml:16
+msgid "We'll send you an e-mail to validate your registration."
+msgstr ""
+"Nous vous enverrons un courrier électronique pour valider votre "
+"enregistrement."
+
+#: app/views/account/_signup_form.rhtml:20
+msgid "Do not use a obviously password, but try some unforgettable word."
+msgstr ""
+"Ne choisissez pas un mot de passe évident, mais essayez de trouver quelque "
+"chose que vous n'oublierez pas."
+
+#: app/views/account/_signup_form.rhtml:24
+msgid "We need to be sure that you wrote correctly your password."
+msgstr ""
+"Nous devons nous assurer que vous avez écrit correctement votre mot de passe."
+
+#: app/views/account/_signup_form.rhtml:35
+msgid "I accept the terms of use"
+msgstr "J'accepte les conditions d'utilisation"
+
+# Je ne suis pas sûr de la distinction "sign up" / "register"
+#: app/views/account/_signup_form.rhtml:47
+#, fuzzy
+msgid "Sign up"
+msgstr "S'enregistrer"
+
+#: app/views/account/activation_question.rhtml:3
+msgid "What year your enterprise was founded?"
+msgstr ""
+
+#: app/views/account/activation_question.rhtml:3
+msgid "What is the CNPJ of your enterprise?"
+msgstr ""
+
+#: app/views/account/activation_question.rhtml:3
+#, fuzzy
+msgid "We need to be sure that this is your enterprise"
+msgstr ""
+"Nous devons nous assurer que vous avez écrit correctement votre mot de passe."
+
+#: app/views/account/activation_question.rhtml:8
+#, fuzzy
+msgid "Answer"
+msgstr "utilisateur"
 
 #: app/views/account/invalid_enterprise_code.rhtml:1
 #, fuzzy
@@ -3881,6 +3946,15 @@ msgstr "%s, votre nouveau mot de passe a bien été installé."
 msgid "You can <a href='%s'>login</a> now."
 msgstr "Maintenant, vous pouvez vous <a href='%s'>commecter</a>."
 
+# 1- Verify consistency between translations.
+# 2- In English "an user" -> "a user" Cf. http://forum.wordreference.com/showthread.php?t=480322
+#
+#: app/views/account/_login_form.rhtml:3
+msgid "To join on this environment, click on \"<b>I want to be an user!</b>\"."
+msgstr ""
+"Pour rejoindre cette communauté, cliquez sur  \"<b>Je rejoins cette "
+"communauté !</b>\"."
+
 #: app/views/account/user_info.rhtml:3
 msgid "Logged in as %s"
 msgstr "Connecté en tant que %s"
@@ -3893,88 +3967,28 @@ msgstr "Utilisateur depuis %{month}/%{year}"
 msgid "Logout"
 msgstr "Déconnexion"
 
-#: app/views/account/signup.rhtml:1
-msgid "Register"
-msgstr "S'enregistrer"
-
-#: app/views/account/signup.rhtml:5
-msgid ""
-"Fill all this fields to join in this environment.<p/>If you forgot your "
-"password, do not create a new account, click on the \"<b>I forgot my "
-"password!</b>\" link. ;-)"
+#: app/views/account/activate_enterprise.rhtml:1
+msgid "What user should be the admin of the enterprise page"
 msgstr ""
-"Remplissez tous ces champs pour rejoindre cette communauté.<p/>Si vous avez "
-"oublié votre mot de passe, ne créez pas un nouveau compte, cliquez sur le "
-"lien «<b>J'ai oublié mon mot de passe</b>»."
 
-#: app/views/account/signup.rhtml:11
-#: app/views/account/activate_enterprise.rhtml:11
-msgid "\"Username\" is a simple nickname to recognize you on this environment."
+#: app/views/account/activate_enterprise.rhtml:6
+msgid "Already have user"
 msgstr ""
-"«Identifiant» est un simple surnom pour vous reconnaître dans cette "
-"communauté."
 
-#: app/views/account/signup.rhtml:16
-#: app/views/account/activate_enterprise.rhtml:16
-msgid "We'll send you an e-mail to validate your registration."
-msgstr ""
-"Nous vous enverrons un courrier électronique pour valider votre "
-"enregistrement."
+#: app/views/account/activate_enterprise.rhtml:7
+#, fuzzy
+msgid "Create new user"
+msgstr "Créer un nouveau groupe"
 
-#: app/views/account/signup.rhtml:20
-#: app/views/account/activate_enterprise.rhtml:20
-msgid "Do not use a obviously password, but try some unforgettable word."
-msgstr ""
-"Ne choisissez pas un mot de passe évident, mais essayez de trouver quelque "
-"chose que vous n'oublierez pas."
-
-#: app/views/account/signup.rhtml:24
-#: app/views/account/activate_enterprise.rhtml:24
-msgid "We need to be sure that you wrote correctly your password."
-msgstr ""
-"Nous devons nous assurer que vous avez écrit correctement votre mot de passe."
-
-#: app/views/account/signup.rhtml:35
-#: app/views/account/activate_enterprise.rhtml:37
-msgid "I accept the terms of use"
+#: app/views/account/accept_terms.rhtml:4
+#, fuzzy
+msgid "I accept the terms"
 msgstr "J'accepte les conditions d'utilisation"
 
-# Je ne suis pas sûr de la distinction "sign up" / "register"
-#: app/views/account/signup.rhtml:40
-#: app/views/account/activate_enterprise.rhtml:42
+#: app/views/account/accept_terms.rhtml:5
 #, fuzzy
-msgid "Sign up"
-msgstr "S'enregistrer"
-
-#: app/views/account/activate_enterprise.rhtml:1
-#, fuzzy
-msgid "Register and activate enterprise"
-msgstr "Enregistrer une nouvelle entreprise"
-
-#: app/views/account/activate_enterprise.rhtml:5
-#, fuzzy
-msgid ""
-"Fill all this fields to activate your enterprise and join in this "
-"environment.<p/>If you forgot your password, do not create a new account, "
-"click on the \"<b>I forgot my password!</b>\" link. ;-)"
-msgstr ""
-"Remplissez tous ces champs pour rejoindre cette communauté.<p/>Si vous avez "
-"oublié votre mot de passe, ne créez pas un nouveau compte, cliquez sur le "
-"lien «<b>J'ai oublié mon mot de passe</b>»."
-
-#: app/views/account/activate_enterprise.rhtml:27
-msgid "What year your enterprise was founded?"
-msgstr ""
-
-#: app/views/account/activate_enterprise.rhtml:27
-msgid "What is the CNPJ of your enterprise?"
-msgstr ""
-
-#: app/views/account/activate_enterprise.rhtml:27
-#, fuzzy
-msgid "We need to be sure that this is your enterprise"
-msgstr ""
-"Nous devons nous assurer que vous avez écrit correctement votre mot de passe."
+msgid "I do NOT accept the terms"
+msgstr "J'accepte les conditions d'utilisation"
 
 #: app/views/account/change_password.rhtml:5
 msgid "Current password"
@@ -4221,6 +4235,20 @@ msgstr "Un projet du FBES"
 #: public/designs/themes/ecosol/footer.rhtml:6
 msgid "Developed by Colivre"
 msgstr "Développé par Colivre"
+
+#, fuzzy
+#~ msgid "Register and activate enterprise"
+#~ msgstr "Enregistrer une nouvelle entreprise"
+
+#, fuzzy
+#~ msgid ""
+#~ "Fill all this fields to activate your enterprise and join in this "
+#~ "environment.<p/>If you forgot your password, do not create a new account, "
+#~ "click on the \"<b>I forgot my password!</b>\" link. ;-)"
+#~ msgstr ""
+#~ "Remplissez tous ces champs pour rejoindre cette communauté.<p/>Si vous "
+#~ "avez oublié votre mot de passe, ne créez pas un nouveau compte, cliquez "
+#~ "sur le lien «<b>J'ai oublié mon mot de passe</b>»."
 
 #~ msgid "Some feature"
 #~ msgstr "Quelques fonctionnalités"
