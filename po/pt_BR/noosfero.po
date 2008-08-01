@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.10.3\n"
 "POT-Creation-Date: 2008-08-01 19:26-0300\n"
-"PO-Revision-Date: 2008-07-31 20:34-0300\n"
+"PO-Revision-Date: 2008-08-01 19:24-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -3638,17 +3638,16 @@ msgstr "Registre-se."
 
 #: app/views/account/activation_question.rhtml:1
 #: app/views/account/accept_terms.rhtml:1
-#, fuzzy
 msgid "Enterprise activation"
-msgstr "Validações de empreendimento"
+msgstr "Ativação de empreendimento"
 
 #: app/views/account/activation_question.rhtml:1
 msgid "part 1 of 2"
-msgstr ""
+msgstr "parte 1 de 2"
 
 #: app/views/account/activation_question.rhtml:1
 msgid "part 1 of 3"
-msgstr ""
+msgstr "parte 1 de 3"
 
 #: app/views/account/activation_question.rhtml:5
 msgid "What year your enterprise was founded?"
@@ -3746,32 +3745,30 @@ msgid "Logout"
 msgstr "Sair"
 
 #: app/views/account/activate_enterprise.rhtml:1
-#, fuzzy
 msgid "Enterprise activation - part 3 of 3"
-msgstr "Validações de empreendimento"
+msgstr "Ativação de empreendimento - parte 3 de 3"
 
 #: app/views/account/activate_enterprise.rhtml:3
 msgid ""
 "Well, now for you manage your enterprise you have to associate an individual "
 "account to the enterprise."
-msgstr ""
+msgstr "Bem, agora, para você poder gerenciar o seu empreendimento, precisa associar uma conta INDIVIDUAL ao empreendimento"
 
 #: app/views/account/activate_enterprise.rhtml:8
 msgid "I am already a registered user"
-msgstr ""
+msgstr "Já sou um usuário registrado"
 
 #: app/views/account/activate_enterprise.rhtml:9
-#, fuzzy
 msgid "I want to register as an user now"
-msgstr "Quero ser um usuário!"
+msgstr "Quero registrar como um usuário agora!"
 
 #: app/views/account/accept_terms.rhtml:1
 msgid "part 2 of 2"
-msgstr ""
+msgstr "parte 2 de 2"
 
 #: app/views/account/accept_terms.rhtml:1
 msgid " part 2 of 3"
-msgstr ""
+msgstr "parte 2 de 3"
 
 #: app/views/account/accept_terms.rhtml:6
 msgid "I accept the terms"
