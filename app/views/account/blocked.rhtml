@@ -1,2 +1,6 @@
 <%# FIXME: use environment blocked text %>
-<%= _('Your enterprise has been blocked') %>
+<% if @environment.activation_blocked_text.nil? %>
+  <%= _('Your enterprise has been blocked') %>
+<% else %>
+  <%= @environment.activation_blocked_text %>
+<% end %>

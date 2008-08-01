@@ -153,6 +153,15 @@ class Environment < ActiveRecord::Base
     ! self.settings['terms_of_enterprise_use'].blank?
   end
 
+  def activation_blocked_text
+    self.settings['activation_bocked_text']
+  end
+  
+  def activation_blocked_text= value
+    self.settings['activation_bocked_text'] = value
+  end
+
+
   def message_for_disabled_enterprise
     self.settings['message_for_disabled_enterprise']
   end

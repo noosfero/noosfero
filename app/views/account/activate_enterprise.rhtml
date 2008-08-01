@@ -1,10 +1,12 @@
-<h1><%= _('What user should be the admin of the enterprise page') %></h1>
+<h2><%= _('Enterprise activation - part 3 of 3') %></h2>
+
+<p><%= _('Well, now for you manage your enterprise you have to associate an individual account to the enterprise.') %></p>
 
 <%= error_messages_for :user %>
 
 <div id="enterprise-activation-create-user-or-login-button">
-  <%= link_to_function _('Already have user'), "$('enterprise-activation-create-user-form').hide(); $('enterprise-activation-login-form').show()" %>
-  <%= link_to_function _('Create new user'), "$('enterprise-activation-login-form').hide(); $('enterprise-activation-create-user-form').show()" %>
+  <%= button_to_function 'login', _('I am already a registered user'), "$('enterprise-activation-create-user-form').hide(); $('enterprise-activation-login-form').show()" %> 
+  <%= button_to_function 'add', _('I want to register as an user now'),  "$('enterprise-activation-login-form').hide(); $('enterprise-activation-create-user-form').show()" %>
 </div>
 
 <div id="enterprise-activation-create-user-form" style="display: none">
