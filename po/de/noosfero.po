@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.10.3\n"
-"POT-Creation-Date: 2008-07-31 20:29-0300\n"
+"POT-Creation-Date: 2008-08-01 19:26-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,59 +31,59 @@ msgstr ""
 msgid "This is %s, version %s"
 msgstr ""
 
-#: app/helpers/application_helper.rb:270 app/models/product.rb:49
+#: app/helpers/application_helper.rb:264 app/models/product.rb:49
 #: app/views/search/_product.rhtml:19
 msgid "Uncategorized product"
 msgstr ""
 
-#: app/helpers/application_helper.rb:276
+#: app/helpers/application_helper.rb:270
 msgid "No product"
 msgstr ""
 
-#: app/helpers/application_helper.rb:362
+#: app/helpers/application_helper.rb:356
 msgid "non registered gender"
 msgstr ""
 
-#: app/helpers/application_helper.rb:362
+#: app/helpers/application_helper.rb:356
 #: app/views/profile_editor/_person.rhtml:6
 msgid "Male"
 msgstr ""
 
-#: app/helpers/application_helper.rb:362
+#: app/helpers/application_helper.rb:356
 #: app/views/profile_editor/_person.rhtml:6
 msgid "Female"
 msgstr ""
 
-#: app/helpers/application_helper.rb:390
+#: app/helpers/application_helper.rb:384
 msgid "Principal Product Categories"
 msgstr ""
 
-#: app/helpers/application_helper.rb:414
+#: app/helpers/application_helper.rb:408
 msgid "Click on this icon to go to the <b>%s</b>'s home page"
 msgstr ""
 
-#: app/helpers/application_helper.rb:442 app/views/categories/index.rhtml:1
+#: app/helpers/application_helper.rb:436 app/views/categories/index.rhtml:1
 #: app/views/content_viewer/view_page.rhtml:65
 msgid "Categories"
 msgstr ""
 
-#: app/helpers/application_helper.rb:465
+#: app/helpers/application_helper.rb:459
 msgid "open"
 msgstr ""
 
-#: app/helpers/application_helper.rb:501
+#: app/helpers/application_helper.rb:495
 msgid "Search..."
 msgstr ""
 
-#: app/helpers/application_helper.rb:503
+#: app/helpers/application_helper.rb:497
 msgid "This is a search box. Click, write your query, and press enter to find"
 msgstr ""
 
-#: app/helpers/application_helper.rb:504
+#: app/helpers/application_helper.rb:498
 msgid "Click, write and press enter to find"
 msgstr ""
 
-#: app/helpers/application_helper.rb:510
+#: app/helpers/application_helper.rb:504
 #: app/views/region_validators/region.rhtml:23 app/views/search/people.rhtml:7
 #: app/views/search/_sellers_form.rhtml:21
 #: app/views/search/_search_form.rhtml:16 app/views/search/communities.rhtml:7
@@ -92,23 +92,23 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: app/helpers/application_helper.rb:566
+#: app/helpers/application_helper.rb:560
 msgid "Are you sure you want to visit this web site?"
 msgstr ""
 
-#: app/helpers/application_helper.rb:675
+#: app/helpers/application_helper.rb:669
 msgid "Searched for '%s'"
 msgstr ""
 
-#: app/helpers/application_helper.rb:676
+#: app/helpers/application_helper.rb:670
 msgid "In category %s"
 msgstr ""
 
-#: app/helpers/application_helper.rb:677
+#: app/helpers/application_helper.rb:671
 msgid "within %d km from %s"
 msgstr ""
 
-#: app/helpers/application_helper.rb:678
+#: app/helpers/application_helper.rb:672
 msgid "%d results found"
 msgstr ""
 
@@ -1552,7 +1552,7 @@ msgstr ""
 msgid "Disable search for events"
 msgstr ""
 
-#: app/models/environment.rb:214
+#: app/models/environment.rb:223
 msgid "Only one Virtual Community can be the default one"
 msgstr ""
 
@@ -3366,7 +3366,7 @@ msgid ""
 msgstr ""
 
 #: app/views/account/login.rhtml:3 app/views/account/login_block.rhtml:4
-#: app/views/account/activate_enterprise.rhtml:15
+#: app/views/account/activate_enterprise.rhtml:17
 #: app/views/shared/user_menu.rhtml:54
 msgid "Login"
 msgstr ""
@@ -3520,19 +3520,32 @@ msgstr ""
 msgid "Sign up"
 msgstr ""
 
-#: app/views/account/activation_question.rhtml:3
+#: app/views/account/activation_question.rhtml:1
+#: app/views/account/accept_terms.rhtml:1
+msgid "Enterprise activation"
+msgstr ""
+
+#: app/views/account/activation_question.rhtml:1
+msgid "part 1 of 2"
+msgstr ""
+
+#: app/views/account/activation_question.rhtml:1
+msgid "part 1 of 3"
+msgstr ""
+
+#: app/views/account/activation_question.rhtml:5
 msgid "What year your enterprise was founded?"
 msgstr ""
 
-#: app/views/account/activation_question.rhtml:3
+#: app/views/account/activation_question.rhtml:5
 msgid "What is the CNPJ of your enterprise?"
 msgstr ""
 
-#: app/views/account/activation_question.rhtml:3
+#: app/views/account/activation_question.rhtml:5
 msgid "We need to be sure that this is your enterprise"
 msgstr ""
 
-#: app/views/account/activation_question.rhtml:8
+#: app/views/account/activation_question.rhtml:10
 msgid "Answer"
 msgstr ""
 
@@ -3608,22 +3621,36 @@ msgid "Logout"
 msgstr ""
 
 #: app/views/account/activate_enterprise.rhtml:1
-msgid "What user should be the admin of the enterprise page"
+msgid "Enterprise activation - part 3 of 3"
 msgstr ""
 
-#: app/views/account/activate_enterprise.rhtml:6
-msgid "Already have user"
+#: app/views/account/activate_enterprise.rhtml:3
+msgid ""
+"Well, now for you manage your enterprise you have to associate an individual "
+"account to the enterprise."
 msgstr ""
 
-#: app/views/account/activate_enterprise.rhtml:7
-msgid "Create new user"
+#: app/views/account/activate_enterprise.rhtml:8
+msgid "I am already a registered user"
 msgstr ""
 
-#: app/views/account/accept_terms.rhtml:4
+#: app/views/account/activate_enterprise.rhtml:9
+msgid "I want to register as an user now"
+msgstr ""
+
+#: app/views/account/accept_terms.rhtml:1
+msgid "part 2 of 2"
+msgstr ""
+
+#: app/views/account/accept_terms.rhtml:1
+msgid " part 2 of 3"
+msgstr ""
+
+#: app/views/account/accept_terms.rhtml:6
 msgid "I accept the terms"
 msgstr ""
 
-#: app/views/account/accept_terms.rhtml:5
+#: app/views/account/accept_terms.rhtml:7
 msgid "I do NOT accept the terms"
 msgstr ""
 
@@ -3639,7 +3666,7 @@ msgstr ""
 msgid "Confirm your new Password"
 msgstr ""
 
-#: app/views/account/blocked.rhtml:2
+#: app/views/account/blocked.rhtml:3
 msgid "Your enterprise has been blocked"
 msgstr ""
 
