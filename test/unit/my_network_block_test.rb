@@ -23,7 +23,7 @@ class MyNetworkBlockTest < ActiveSupport::TestCase
     mock_articles = mock
     owner.stubs(:articles).returns(mock_articles)
     owner.stubs(:tags).returns({}) # don't let tags call articles
-    mock_articles.stubs(:size).returns(5)
+    mock_articles.stubs(:count).returns(5)
 
     assert_tag_in_string block.content, :tag => 'li', :descendant => { :tag => 'a', :content => '5 articles published', :attributes => { :href => /\/profile\/testuser\/sitemap$/ } }
   end
@@ -31,7 +31,7 @@ class MyNetworkBlockTest < ActiveSupport::TestCase
   should 'count friends' do
     mock_friends = mock
     owner.stubs(:friends).returns(mock_friends)
-    mock_friends.stubs(:size).returns(8)
+    mock_friends.stubs(:count).returns(8)
 
     assert_tag_in_string block.content, :tag => 'li', :descendant => { :tag => 'a', :content => '8 friends', :attributes => { :href => /\profile\/testuser\/friends/ }}
   end
@@ -39,7 +39,7 @@ class MyNetworkBlockTest < ActiveSupport::TestCase
   should 'count communities' do
     mock_communities = mock
     owner.stubs(:communities).returns(mock_communities)
-    mock_communities.stubs(:size).returns(23)
+    mock_communities.stubs(:count).returns(23)
 
     assert_tag_in_string block.content, :tag => 'li', :descendant => { :tag => 'a', :content => '23 communities', :attributes => { :href => /\profile\/testuser\/communities/ }}
   end
@@ -47,7 +47,7 @@ class MyNetworkBlockTest < ActiveSupport::TestCase
   should 'count tags' do
     mock_tags = mock
     owner.stubs(:tags).returns(mock_tags)
-    mock_tags.stubs(:size).returns(436)
+    mock_tags.stubs(:count).returns(436)
 
     assert_tag_in_string block.content, :tag => 'li', :descendant => { :tag => 'a', :content => '436 tags', :attributes => { :href => /\profile\/testuser\/tags/ }}
   end
