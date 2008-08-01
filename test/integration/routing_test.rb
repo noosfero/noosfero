@@ -174,4 +174,12 @@ class RoutingTest < ActionController::IntegrationTest
     assert_routing('/work/free-software', :controller => 'content_viewer', :action =>  'view_page', :page => [ 'work', 'free-software'] )
   end
 
+  def test_must_not_route_as_profile_hosted_domain_for_domains_registered_for_environments
+    environment = Environment.default
+    domain = Domain.create!(:name => 'example.com', :owner => environment)
+    ActionController::TestRequest.any_instance.expects(:host).returns('www.example.com')
+
+    assert_routing('/', :controller => 'home', :action =>  'index')
+  end
+
 end

@@ -17,7 +17,8 @@ ActionController::Routing::Routes.draw do |map|
 
   # You can have the root of your site routed by hooking up ''
   hosted_domain_matcher = lambda do |env|
-    Domain.find_by_name(env[:host])
+    domain = Domain.find_by_name(env[:host])
+    domain && (domain.owner_type == 'Profile')
   end
   map.connect '*page', :controller => 'content_viewer', :action => 'view_page', :conditions => { :if => hosted_domain_matcher }
 
