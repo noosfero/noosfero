@@ -39,7 +39,7 @@ class MyNetworkBlockTest < ActiveSupport::TestCase
   should 'count communities' do
     mock_communities = mock
     owner.stubs(:communities).returns(mock_communities)
-    mock_communities.stubs(:count).returns(23)
+    mock_communities.stubs(:size).returns(23)
 
     assert_tag_in_string block.content, :tag => 'li', :descendant => { :tag => 'a', :content => '23 communities', :attributes => { :href => /\profile\/testuser\/communities/ }}
   end
