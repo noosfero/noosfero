@@ -47,7 +47,7 @@ class MyNetworkBlockTest < ActiveSupport::TestCase
   should 'count tags' do
     mock_tags = mock
     owner.stubs(:tags).returns(mock_tags)
-    mock_tags.stubs(:count).returns(436)
+    mock_tags.stubs(:size).returns(436)
 
     assert_tag_in_string block.content, :tag => 'li', :descendant => { :tag => 'a', :content => '436 tags', :attributes => { :href => /\profile\/testuser\/tags/ }}
   end
