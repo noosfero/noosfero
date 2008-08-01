@@ -11,8 +11,8 @@
   padding-right: 15px;
 }
 #article-actions.hidden {
-  opacity: 0.3;
-	filter: alpha(opacity=30);
+  opacity: 0.5;
+	filter: alpha(opacity=50);
 }
 
 #article-tags {
