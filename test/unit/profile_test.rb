@@ -318,7 +318,7 @@ class ProfileTest < Test::Unit::TestCase
   end
 
   should 'provide tag count' do
-    assert_equal 0, Profile.new.tags.count
+    assert_equal 0, Profile.new.tags.size
   end
 
   should 'have administator role' do
