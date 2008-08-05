@@ -1,8 +1,16 @@
-<h2><%= _('Enterprise activation') + ' - ' + (logged_in? ? _('part 2 of 2') : _(' part 2 of 3')) %></h2>
+<div class=activation-box>
+  <h2><%= _('Enterprise activation') + ' - ' + (logged_in? ? _('part 2 of 2') : _(' part 2 of 3')) %></h2>
 
-<div id='terms-of-enterprise-use'><%= @terms_of_enterprise_use %></div>
+  <div id='terms-of-enterprise-use'><%= @terms_of_enterprise_use %></div>
 
-<% button_bar do %>
-  <%= link_to( _('I accept the terms'), { :action => 'activate_enterprise', :terms_accepted => true, :enterprise_code => params[:enterprise_code], :answer => params[:answer] } ) %>
-  <%= link_to( _('I do NOT accept the terms'), { :controller => 'home', :action => 'index' } ) %>
-<% end %>
+  <% form_tag :action => 'activate_enterprise' do %>
+    <%= hidden_field_tag :enterprise_code, params[:enterprise_code] %>
+    <%= hidden_field_tag :answer, params[:answer] %>
+
+    <%= labelled_check_box _('I read the terms of use and accepted them'), :terms_accepted %>
+    <% button_bar do %>
+      <%= button 'cancel', _('Cancel'), :controller => 'home', :action => 'index' %>
+      <%= submit_button 'forward', _('Continue') %>
+    <% end %>
+  <% end %>
+</div>

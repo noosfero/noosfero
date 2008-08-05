@@ -40,7 +40,8 @@ module FormsHelper
       the_class << ' ' << html_options[:class]
     end
 
-    bt_submit = submit_tag(label, html_options.merge(:class => the_class))
+    # FIXME: should be in stylesheet
+    bt_submit = submit_tag(label, html_options.merge(:style => 'height:28px; cursor:pointer', :class => the_class))
 
     bt_submit + bt_cancel
   end
