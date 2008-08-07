@@ -2,8 +2,8 @@
   function check_valid_year(form) {
     var answer = parseInt(form.answer.value);
     var val = form.answer.value;
-    if (!answer || (val.length != 4)) {
-      alert(<%= _('An year have 4 digits').inspect %>);
+    if (!answer || (val.length != 4) || val > <%= Time.now.year %> || val < 1900) {
+      alert(<%= (_('The year must be between %d and %d') % [1900, Time.now.year]).inspect %>);
       return false;
     } else {
       return true;

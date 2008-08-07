@@ -154,11 +154,11 @@ class Environment < ActiveRecord::Base
   end
 
   def activation_blocked_text
-    self.settings['activation_bocked_text']
+    self.settings['activation_blocked_text']
   end
   
   def activation_blocked_text= value
-    self.settings['activation_bocked_text'] = value
+    self.settings['activation_blocked_text'] = value
   end
 
 

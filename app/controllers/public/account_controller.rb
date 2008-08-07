@@ -143,6 +143,18 @@ class AccountController < PublicController
   def accept_terms
     @enterprise = load_enterprise
     @question = @enterprise.question
+
+    if @enterprise.enabled
+      render :action => 'already_activated'
+      return
+    end
+
+    @question = @enterprise.question
+    if !@question || @enterprise.blocked?
+      render :action => 'blocked'
+      return
+    end
+
     check_answer
     @terms_of_enterprise_use = environment.terms_of_enterprise_use
   end
@@ -150,6 +162,18 @@ class AccountController < PublicController
   def activate_enterprise
     @enterprise = load_enterprise
     @question = @enterprise.question
+    
+    if @enterprise.enabled
+      render :action => 'already_activated'
+      return
+    end
+
+    @question = @enterprise.question
+    if !@question || @enterprise.blocked?
+      render :action => 'blocked'
+      return
+    end
+
     return unless check_answer
     return unless check_acceptance_of_terms
     load_user
