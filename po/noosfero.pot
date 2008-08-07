@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.10.3\n"
-"POT-Creation-Date: 2008-08-01 19:26-0300\n"
+"POT-Creation-Date: 2008-08-07 20:07-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -367,25 +367,27 @@ msgstr ""
 #: app/views/admin_panel/message_for_disabled_enterprise.rhtml:11
 #: app/views/cms/edit.rhtml:35 app/views/cms/edit.rhtml:37
 #: app/views/cms/select_article_type.rhtml:12 app/views/tasks/_task.rhtml:12
+#: app/views/account/activation_question.rhtml:34
 #: app/views/account/_login_form.rhtml:22
+#: app/views/account/accept_terms.rhtml:12
 #: app/views/shared/_change_image.rhtml:2
 #: app/views/shared/_select_categories.rhtml:22
 msgid "Cancel"
 msgstr ""
 
-#: app/helpers/forms_helper.rb:63
+#: app/helpers/forms_helper.rb:64
 msgid "Select the State"
 msgstr ""
 
-#: app/helpers/forms_helper.rb:64
+#: app/helpers/forms_helper.rb:65
 msgid "Select the City"
 msgstr ""
 
-#: app/helpers/forms_helper.rb:87
+#: app/helpers/forms_helper.rb:88
 msgid "State:"
 msgstr ""
 
-#: app/helpers/forms_helper.rb:90
+#: app/helpers/forms_helper.rb:91
 msgid "City:"
 msgstr ""
 
@@ -891,6 +893,14 @@ msgstr ""
 
 #: app/models/profile.rb:-
 msgid "Nickname"
+msgstr ""
+
+#: app/models/profile.rb:- app/models/environment.rb:-
+msgid "Custom header"
+msgstr ""
+
+#: app/models/profile.rb:- app/models/environment.rb:-
+msgid "Custom footer"
 msgstr ""
 
 #: app/models/profile.rb:28 app/views/profile_editor/edit.rhtml:1
@@ -3366,7 +3376,6 @@ msgid ""
 msgstr ""
 
 #: app/views/account/login.rhtml:3 app/views/account/login_block.rhtml:4
-#: app/views/account/activate_enterprise.rhtml:17
 #: app/views/shared/user_menu.rhtml:54
 msgid "Login"
 msgstr ""
@@ -3485,68 +3494,73 @@ msgid ""
 "environment."
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:1
-msgid "Register"
-msgstr ""
-
-#: app/views/account/_signup_form.rhtml:5
+#: app/views/account/_signup_form.rhtml:3
 msgid ""
 "Fill all this fields to join in this environment.<p/>If you forgot your "
 "password, do not create a new account, click on the \"<b>I forgot my "
 "password!</b>\" link. ;-)"
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:11
+#: app/views/account/_signup_form.rhtml:9
 msgid "\"Username\" is a simple nickname to recognize you on this environment."
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:16
+#: app/views/account/_signup_form.rhtml:14
 msgid "We'll send you an e-mail to validate your registration."
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:20
+#: app/views/account/_signup_form.rhtml:18
 msgid "Do not use a obviously password, but try some unforgettable word."
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:24
+#: app/views/account/_signup_form.rhtml:22
 msgid "We need to be sure that you wrote correctly your password."
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:35
+#: app/views/account/_signup_form.rhtml:33
 msgid "I accept the terms of use"
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:47
+#: app/views/account/_signup_form.rhtml:45
 msgid "Sign up"
 msgstr ""
 
-#: app/views/account/activation_question.rhtml:1
-#: app/views/account/accept_terms.rhtml:1
+#: app/views/account/activation_question.rhtml:6
+msgid "The year must be between %d and %d"
+msgstr ""
+
+#: app/views/account/activation_question.rhtml:17
+msgid "An CNPJ have 14 digits"
+msgstr ""
+
+#: app/views/account/activation_question.rhtml:26
+#: app/views/account/accept_terms.rhtml:2
 msgid "Enterprise activation"
 msgstr ""
 
-#: app/views/account/activation_question.rhtml:1
+#: app/views/account/activation_question.rhtml:26
 msgid "part 1 of 2"
 msgstr ""
 
-#: app/views/account/activation_question.rhtml:1
+#: app/views/account/activation_question.rhtml:26
 msgid "part 1 of 3"
 msgstr ""
 
-#: app/views/account/activation_question.rhtml:5
+#: app/views/account/activation_question.rhtml:29
 msgid "What year your enterprise was founded?"
 msgstr ""
 
-#: app/views/account/activation_question.rhtml:5
+#: app/views/account/activation_question.rhtml:29
 msgid "What is the CNPJ of your enterprise?"
 msgstr ""
 
-#: app/views/account/activation_question.rhtml:5
+#: app/views/account/activation_question.rhtml:29
 msgid "We need to be sure that this is your enterprise"
 msgstr ""
 
-#: app/views/account/activation_question.rhtml:10
-msgid "Answer"
+#: app/views/account/activation_question.rhtml:35
+#: app/views/account/accept_terms.rhtml:13
+msgid "Continue"
 msgstr ""
 
 #: app/views/account/invalid_enterprise_code.rhtml:1
@@ -3585,6 +3599,7 @@ msgid "Are you sure you want to get out?"
 msgstr ""
 
 #: app/views/account/logout_popup.rhtml:4
+#: app/views/account/activate_enterprise.rhtml:10
 msgid "Yes"
 msgstr ""
 
@@ -3620,38 +3635,38 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
-#: app/views/account/activate_enterprise.rhtml:1
+#: app/views/account/signup.rhtml:1
+msgid "Signup"
+msgstr ""
+
+#: app/views/account/activate_enterprise.rhtml:2
 msgid "Enterprise activation - part 3 of 3"
 msgstr ""
 
-#: app/views/account/activate_enterprise.rhtml:3
+#: app/views/account/activate_enterprise.rhtml:6
 msgid ""
 "Well, now for you manage your enterprise you have to associate an individual "
 "account to the enterprise."
 msgstr ""
 
-#: app/views/account/activate_enterprise.rhtml:8
-msgid "I am already a registered user"
+#: app/views/account/activate_enterprise.rhtml:7
+msgid "Do you have a user account?"
 msgstr ""
 
-#: app/views/account/activate_enterprise.rhtml:9
-msgid "I want to register as an user now"
+#: app/views/account/activate_enterprise.rhtml:11
+msgid "No"
 msgstr ""
 
-#: app/views/account/accept_terms.rhtml:1
+#: app/views/account/accept_terms.rhtml:2
 msgid "part 2 of 2"
 msgstr ""
 
-#: app/views/account/accept_terms.rhtml:1
+#: app/views/account/accept_terms.rhtml:2
 msgid " part 2 of 3"
 msgstr ""
 
-#: app/views/account/accept_terms.rhtml:6
-msgid "I accept the terms"
-msgstr ""
-
-#: app/views/account/accept_terms.rhtml:7
-msgid "I do NOT accept the terms"
+#: app/views/account/accept_terms.rhtml:10
+msgid "I read the terms of use and accepted them"
 msgstr ""
 
 #: app/views/account/change_password.rhtml:5
@@ -3666,7 +3681,25 @@ msgstr ""
 msgid "Confirm your new Password"
 msgstr ""
 
+#: app/views/account/blocked.rhtml:2
+msgid "This enterprise can't be activated by the system"
+msgstr ""
+
 #: app/views/account/blocked.rhtml:3
+msgid "Unfortunately this enterprise can't be activated via the system."
+msgstr ""
+
+#: app/views/account/blocked.rhtml:6
+msgid ""
+"There was a failed atempt of activation and the automated acivation was "
+"disabled for your security."
+msgstr ""
+
+#: app/views/account/blocked.rhtml:8
+msgid "We don't have enough information about your enterprise to identify you."
+msgstr ""
+
+#: app/views/account/blocked.rhtml:13
 msgid "Your enterprise has been blocked"
 msgstr ""
 

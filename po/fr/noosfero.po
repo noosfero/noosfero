@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.10.3\n"
-"POT-Creation-Date: 2008-08-01 19:26-0300\n"
+"POT-Creation-Date: 2008-08-07 20:07-0300\n"
 "PO-Revision-Date: 2008-06-13 16:15-0300\n"
 "Last-Translator: Raphael Rousseau <pootle.colivre.coop.br@r4f.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -390,28 +390,30 @@ msgstr "Les validateurs sont assignés par région par les administrateurs."
 #: app/views/admin_panel/message_for_disabled_enterprise.rhtml:11
 #: app/views/cms/edit.rhtml:35 app/views/cms/edit.rhtml:37
 #: app/views/cms/select_article_type.rhtml:12 app/views/tasks/_task.rhtml:12
+#: app/views/account/activation_question.rhtml:34
 #: app/views/account/_login_form.rhtml:22
+#: app/views/account/accept_terms.rhtml:12
 #: app/views/shared/_change_image.rhtml:2
 #: app/views/shared/_select_categories.rhtml:22
 msgid "Cancel"
 msgstr "Annuler"
 
-#: app/helpers/forms_helper.rb:63
+#: app/helpers/forms_helper.rb:64
 #, fuzzy
 msgid "Select the State"
 msgstr "Choisissez une sous-catégorie :"
 
-#: app/helpers/forms_helper.rb:64
+#: app/helpers/forms_helper.rb:65
 #, fuzzy
 msgid "Select the City"
 msgstr "Choisissez une sous-catégorie :"
 
-#: app/helpers/forms_helper.rb:87
+#: app/helpers/forms_helper.rb:88
 #, fuzzy
 msgid "State:"
 msgstr "Statut"
 
-#: app/helpers/forms_helper.rb:90
+#: app/helpers/forms_helper.rb:91
 #, fuzzy
 msgid "City:"
 msgstr "Groupe"
@@ -976,6 +978,14 @@ msgstr "Nom"
 #, fuzzy
 msgid "Nickname"
 msgstr "Nom"
+
+#: app/models/profile.rb:- app/models/environment.rb:-
+msgid "Custom header"
+msgstr ""
+
+#: app/models/profile.rb:- app/models/environment.rb:-
+msgid "Custom footer"
+msgstr ""
 
 #: app/models/profile.rb:28 app/views/profile_editor/edit.rhtml:1
 msgid "Edit profile"
@@ -3683,7 +3693,6 @@ msgstr ""
 "pour devenir membre de cette communauté."
 
 #: app/views/account/login.rhtml:3 app/views/account/login_block.rhtml:4
-#: app/views/account/activate_enterprise.rhtml:17
 #: app/views/shared/user_menu.rhtml:54
 msgid "Login"
 msgstr "Connexion"
@@ -3817,11 +3826,7 @@ msgstr ""
 "C'est toujours une bonne idée que de se déconnecter explicitement lorsque "
 "vous avez terminé d'utiliser l'environnement."
 
-#: app/views/account/_signup_form.rhtml:1
-msgid "Register"
-msgstr "S'enregistrer"
-
-#: app/views/account/_signup_form.rhtml:5
+#: app/views/account/_signup_form.rhtml:3
 msgid ""
 "Fill all this fields to join in this environment.<p/>If you forgot your "
 "password, do not create a new account, click on the \"<b>I forgot my "
@@ -3831,71 +3836,80 @@ msgstr ""
 "oublié votre mot de passe, ne créez pas un nouveau compte, cliquez sur le "
 "lien «<b>J'ai oublié mon mot de passe</b>»."
 
-#: app/views/account/_signup_form.rhtml:11
+#: app/views/account/_signup_form.rhtml:9
 msgid "\"Username\" is a simple nickname to recognize you on this environment."
 msgstr ""
 "«Identifiant» est un simple surnom pour vous reconnaître dans cette "
 "communauté."
 
-#: app/views/account/_signup_form.rhtml:16
+#: app/views/account/_signup_form.rhtml:14
 msgid "We'll send you an e-mail to validate your registration."
 msgstr ""
 "Nous vous enverrons un courrier électronique pour valider votre "
 "enregistrement."
 
-#: app/views/account/_signup_form.rhtml:20
+#: app/views/account/_signup_form.rhtml:18
 msgid "Do not use a obviously password, but try some unforgettable word."
 msgstr ""
 "Ne choisissez pas un mot de passe évident, mais essayez de trouver quelque "
 "chose que vous n'oublierez pas."
 
-#: app/views/account/_signup_form.rhtml:24
+#: app/views/account/_signup_form.rhtml:22
 msgid "We need to be sure that you wrote correctly your password."
 msgstr ""
 "Nous devons nous assurer que vous avez écrit correctement votre mot de passe."
 
-#: app/views/account/_signup_form.rhtml:35
+#: app/views/account/_signup_form.rhtml:33
 msgid "I accept the terms of use"
 msgstr "J'accepte les conditions d'utilisation"
 
 # Je ne suis pas sûr de la distinction "sign up" / "register"
-#: app/views/account/_signup_form.rhtml:47
+#: app/views/account/_signup_form.rhtml:45
 #, fuzzy
 msgid "Sign up"
 msgstr "S'enregistrer"
 
-#: app/views/account/activation_question.rhtml:1
-#: app/views/account/accept_terms.rhtml:1
+#: app/views/account/activation_question.rhtml:6
+msgid "The year must be between %d and %d"
+msgstr ""
+
+#: app/views/account/activation_question.rhtml:17
+msgid "An CNPJ have 14 digits"
+msgstr ""
+
+#: app/views/account/activation_question.rhtml:26
+#: app/views/account/accept_terms.rhtml:2
 #, fuzzy
 msgid "Enterprise activation"
 msgstr "Validation d'entreprises"
 
-#: app/views/account/activation_question.rhtml:1
+#: app/views/account/activation_question.rhtml:26
 msgid "part 1 of 2"
 msgstr ""
 
-#: app/views/account/activation_question.rhtml:1
+#: app/views/account/activation_question.rhtml:26
 msgid "part 1 of 3"
 msgstr ""
 
-#: app/views/account/activation_question.rhtml:5
+#: app/views/account/activation_question.rhtml:29
 msgid "What year your enterprise was founded?"
 msgstr ""
 
-#: app/views/account/activation_question.rhtml:5
+#: app/views/account/activation_question.rhtml:29
 msgid "What is the CNPJ of your enterprise?"
 msgstr ""
 
-#: app/views/account/activation_question.rhtml:5
+#: app/views/account/activation_question.rhtml:29
 #, fuzzy
 msgid "We need to be sure that this is your enterprise"
 msgstr ""
 "Nous devons nous assurer que vous avez écrit correctement votre mot de passe."
 
-#: app/views/account/activation_question.rhtml:10
+#: app/views/account/activation_question.rhtml:35
+#: app/views/account/accept_terms.rhtml:13
 #, fuzzy
-msgid "Answer"
-msgstr "utilisateur"
+msgid "Continue"
+msgstr "Groupes"
 
 #: app/views/account/invalid_enterprise_code.rhtml:1
 #, fuzzy
@@ -3942,6 +3956,7 @@ msgid "Are you sure you want to get out?"
 msgstr "Êtes-vous sûr(e) de vouloir sortir ?"
 
 #: app/views/account/logout_popup.rhtml:4
+#: app/views/account/activate_enterprise.rhtml:10
 msgid "Yes"
 msgstr "Oui"
 
@@ -3982,42 +3997,42 @@ msgstr "Utilisateur depuis %{month}/%{year}"
 msgid "Logout"
 msgstr "Déconnexion"
 
-#: app/views/account/activate_enterprise.rhtml:1
+# Je ne suis pas sûr de la distinction "sign up" / "register"
+#: app/views/account/signup.rhtml:1
+#, fuzzy
+msgid "Signup"
+msgstr "S'enregistrer"
+
+#: app/views/account/activate_enterprise.rhtml:2
 #, fuzzy
 msgid "Enterprise activation - part 3 of 3"
 msgstr "Validation d'entreprises"
 
-#: app/views/account/activate_enterprise.rhtml:3
+#: app/views/account/activate_enterprise.rhtml:6
 msgid ""
 "Well, now for you manage your enterprise you have to associate an individual "
 "account to the enterprise."
 msgstr ""
 
-#: app/views/account/activate_enterprise.rhtml:8
-msgid "I am already a registered user"
+#: app/views/account/activate_enterprise.rhtml:7
+msgid "Do you have a user account?"
 msgstr ""
 
-#: app/views/account/activate_enterprise.rhtml:9
-#, fuzzy
-msgid "I want to register as an user now"
-msgstr "Je rejoins cette communauté !"
+#: app/views/account/activate_enterprise.rhtml:11
+msgid "No"
+msgstr "Non"
 
-#: app/views/account/accept_terms.rhtml:1
+#: app/views/account/accept_terms.rhtml:2
 msgid "part 2 of 2"
 msgstr ""
 
-#: app/views/account/accept_terms.rhtml:1
+#: app/views/account/accept_terms.rhtml:2
 msgid " part 2 of 3"
 msgstr ""
 
-#: app/views/account/accept_terms.rhtml:6
+#: app/views/account/accept_terms.rhtml:10
 #, fuzzy
-msgid "I accept the terms"
-msgstr "J'accepte les conditions d'utilisation"
-
-#: app/views/account/accept_terms.rhtml:7
-#, fuzzy
-msgid "I do NOT accept the terms"
+msgid "I read the terms of use and accepted them"
 msgstr "J'accepte les conditions d'utilisation"
 
 #: app/views/account/change_password.rhtml:5
@@ -4032,7 +4047,27 @@ msgstr "Nouveau mot de passe"
 msgid "Confirm your new Password"
 msgstr "Confirmer votre nouveau mot de passe"
 
+#: app/views/account/blocked.rhtml:2
+#, fuzzy
+msgid "This enterprise can't be activated by the system"
+msgstr "Validations d'entreprises en attente"
+
 #: app/views/account/blocked.rhtml:3
+msgid "Unfortunately this enterprise can't be activated via the system."
+msgstr ""
+
+#: app/views/account/blocked.rhtml:6
+msgid ""
+"There was a failed atempt of activation and the automated acivation was "
+"disabled for your security."
+msgstr ""
+
+#: app/views/account/blocked.rhtml:8
+#, fuzzy
+msgid "We don't have enough information about your enterprise to identify you."
+msgstr "Modifier les informations concernant l'entreprise"
+
+#: app/views/account/blocked.rhtml:13
 msgid "Your enterprise has been blocked"
 msgstr ""
 
@@ -4265,6 +4300,25 @@ msgstr "Un projet du FBES"
 #: public/designs/themes/ecosol/footer.rhtml:6
 msgid "Developed by Colivre"
 msgstr "Développé par Colivre"
+
+#~ msgid "Register"
+#~ msgstr "S'enregistrer"
+
+#, fuzzy
+#~ msgid "Answer"
+#~ msgstr "utilisateur"
+
+#, fuzzy
+#~ msgid "I want to register as an user now"
+#~ msgstr "Je rejoins cette communauté !"
+
+#, fuzzy
+#~ msgid "I accept the terms"
+#~ msgstr "J'accepte les conditions d'utilisation"
+
+#, fuzzy
+#~ msgid "I do NOT accept the terms"
+#~ msgstr "J'accepte les conditions d'utilisation"
 
 #, fuzzy
 #~ msgid "Create new user"
@@ -4861,9 +4915,6 @@ msgstr "Développé par Colivre"
 
 #~ msgid "Do you want to activate the automatic help mode?"
 #~ msgstr "Voulez-vous activer le mode d'aide automatique ?"
-
-#~ msgid "No"
-#~ msgstr "Non"
 
 #~ msgid ""
 #~ "If needed, you can activate or deactivate the automatic help mode by "
