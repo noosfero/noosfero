@@ -20,9 +20,9 @@ class AccountController < PublicController
         cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
       end
       go_to_user_initial_page if redirect?
-      flash[:notice] = _("Logged in successfully")
+      flash[:notice] = _("Logged in successfully") if redirect?
     else
-      flash[:notice] = _('Incorrect username or password')
+      flash[:notice] = _('Incorrect username or password') if redirect?
       redirect_to :back if redirect?
     end
   end
@@ -182,7 +182,14 @@ class AccountController < PublicController
     if activation && user
       activation.requestor = user
       activation.finish
-      redirect_to :controller => 'profile_editor', :action => 'index', :profile => @enterprise.identifier
+      redirect_to :action => 'welcome', :enterprise => @enterprise.id
+    end
+  end
+
+  def welcome
+    @enterprise = Enterprise.find(params[:enterprise])
+    unless @enterprise.enabled? && logged_in?
+      redirect_to :action => 'index'
     end
   end
 
