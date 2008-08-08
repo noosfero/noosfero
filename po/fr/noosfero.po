@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.10.3\n"
-"POT-Creation-Date: 2008-08-07 20:07-0300\n"
+"POT-Creation-Date: 2008-08-08 11:09-0300\n"
 "PO-Revision-Date: 2008-06-13 16:15-0300\n"
 "Last-Translator: Raphael Rousseau <pootle.colivre.coop.br@r4f.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4046,6 +4046,26 @@ msgstr "Nouveau mot de passe"
 #: app/views/account/change_password.rhtml:11
 msgid "Confirm your new Password"
 msgstr "Confirmer votre nouveau mot de passe"
+
+#: app/views/account/welcome.rhtml:2
+msgid "Welcome to %s"
+msgstr ""
+
+#: app/views/account/welcome.rhtml:4
+msgid ""
+"%s was successfuly activated. Now you may go to your control panel or to the "
+"control panel of your enterprise"
+msgstr ""
+
+#: app/views/account/welcome.rhtml:7
+#, fuzzy
+msgid "Go to my control panel"
+msgstr "Retour au panneau de contrôle"
+
+#: app/views/account/welcome.rhtml:8
+#, fuzzy
+msgid "Go to my enterprise control panel"
+msgstr "Retourner au panneau de contrôle."
 
 #: app/views/account/blocked.rhtml:2
 #, fuzzy
