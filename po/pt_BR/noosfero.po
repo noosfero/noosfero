@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.10.3\n"
 "POT-Creation-Date: 2008-08-08 11:09-0300\n"
-"PO-Revision-Date: 2008-08-08 11:46-0300\n"
+"PO-Revision-Date: 2008-08-08 14:49-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -3677,7 +3677,7 @@ msgstr "Nós precisamos ter certeza que este empreendimento é seu"
 #: app/views/account/activation_question.rhtml:35
 #: app/views/account/accept_terms.rhtml:13
 msgid "Continue"
-msgstr "Cntinuar"
+msgstr "Continuar"
 
 #: app/views/account/invalid_enterprise_code.rhtml:1
 msgid "Invalid enterprise code"

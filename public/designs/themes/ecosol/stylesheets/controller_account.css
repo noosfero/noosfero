@@ -28,3 +28,12 @@
   padding: 10px 5px 10px 20px;
   background: #E86F67;
 }
+
+/* FIXME: remove the important without breaking ie */
+.button {
+  * height: auto !IMPORTANT;
+}
+
+.button-bar * {
+  position: relative;
+}
