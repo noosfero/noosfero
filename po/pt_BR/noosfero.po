@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.10.3\n"
 "POT-Creation-Date: 2008-08-08 11:09-0300\n"
-"PO-Revision-Date: 2008-08-01 19:24-0300\n"
+"PO-Revision-Date: 2008-08-08 11:46-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -911,11 +911,11 @@ msgstr "Apelido"
 
 #: app/models/profile.rb:- app/models/environment.rb:-
 msgid "Custom header"
-msgstr ""
+msgstr "Cabeçalho personalizado"
 
 #: app/models/profile.rb:- app/models/environment.rb:-
 msgid "Custom footer"
-msgstr ""
+msgstr "Rodapé personalizado"
 
 #: app/models/profile.rb:28 app/views/profile_editor/edit.rhtml:1
 msgid "Edit profile"
@@ -3643,11 +3643,11 @@ msgstr "Registre-se."
 
 #: app/views/account/activation_question.rhtml:6
 msgid "The year must be between %d and %d"
-msgstr ""
+msgstr "O ano precisa estar entre %d e %d"
 
 #: app/views/account/activation_question.rhtml:17
 msgid "An CNPJ have 14 digits"
-msgstr ""
+msgstr "Um CNPJ tem 14 dígitos"
 
 #: app/views/account/activation_question.rhtml:26
 #: app/views/account/accept_terms.rhtml:2
@@ -3676,9 +3676,8 @@ msgstr "Nós precisamos ter certeza que este empreendimento é seu"
 
 #: app/views/account/activation_question.rhtml:35
 #: app/views/account/accept_terms.rhtml:13
-#, fuzzy
 msgid "Continue"
-msgstr "Conteúdo"
+msgstr "Cntinuar"
 
 #: app/views/account/invalid_enterprise_code.rhtml:1
 msgid "Invalid enterprise code"
@@ -3761,7 +3760,6 @@ msgid "Logout"
 msgstr "Sair"
 
 #: app/views/account/signup.rhtml:1
-#, fuzzy
 msgid "Signup"
 msgstr "Registre-se."
 
@@ -3779,7 +3777,7 @@ msgstr ""
 
 #: app/views/account/activate_enterprise.rhtml:7
 msgid "Do you have a user account?"
-msgstr ""
+msgstr "Você já tem uma conta de usuário?"
 
 #: app/views/account/activate_enterprise.rhtml:11
 msgid "No"
@@ -3794,9 +3792,8 @@ msgid " part 2 of 3"
 msgstr "parte 2 de 3"
 
 #: app/views/account/accept_terms.rhtml:10
-#, fuzzy
 msgid "I read the terms of use and accepted them"
-msgstr "Eu aceito os termos de uso"
+msgstr "Eu li e aceito os termos de uso"
 
 #: app/views/account/change_password.rhtml:5
 msgid "Current password"
@@ -3811,45 +3808,40 @@ msgid "Confirm your new Password"
 msgstr "Confirme sua nova senha"
 
 #: app/views/account/welcome.rhtml:2
-#, fuzzy
 msgid "Welcome to %s"
-msgstr "de %s a %s"
+msgstr "Bem-vindo a %s"
 
 #: app/views/account/welcome.rhtml:4
 msgid ""
 "%s was successfuly activated. Now you may go to your control panel or to the "
 "control panel of your enterprise"
-msgstr ""
+msgstr "%s foi ativado com sucesso. Agora você pode ir para o seu painel de controle ou para o painel de controle do seu empreendimento."
 
 #: app/views/account/welcome.rhtml:7
-#, fuzzy
 msgid "Go to my control panel"
-msgstr "Voltar ao painel de controle"
+msgstr "Ir para o meu painel de controle"
 
 #: app/views/account/welcome.rhtml:8
-#, fuzzy
 msgid "Go to my enterprise control panel"
-msgstr "Voltar ao painel de controle"
+msgstr "Ir para o painel de controle do empreendimento"
 
 #: app/views/account/blocked.rhtml:2
-#, fuzzy
 msgid "This enterprise can't be activated by the system"
-msgstr "Este empreendimento já foi ativado"
+msgstr "Este empreendimento não pôde ser ativado pelo sistema"
 
 #: app/views/account/blocked.rhtml:3
 msgid "Unfortunately this enterprise can't be activated via the system."
-msgstr ""
+msgstr "Infelizmente este empreendimento não pode ser ativado pelo sistema."
 
 #: app/views/account/blocked.rhtml:6
 msgid ""
 "There was a failed atempt of activation and the automated acivation was "
 "disabled for your security."
-msgstr ""
+msgstr "Houve uma tentativa falha de ativação e a ativação automática foi desativada para a sua segurança"
 
 #: app/views/account/blocked.rhtml:8
-#, fuzzy
 msgid "We don't have enough information about your enterprise to identify you."
-msgstr "Altera a informação sobre o empreendimento"
+msgstr "Nós não temos informação o suficiente sobre o seu empreendimento para identificar você."
 
 #: app/views/account/blocked.rhtml:13
 msgid "Your enterprise has been blocked"
