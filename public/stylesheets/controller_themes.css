@@ -1,0 +1,115 @@
+/* common stuff */
+#css-files-list h2, #image-files-list h2 {
+  margin-top: 0px;
+}
+
+#css-files-list ul, #image-files-list ul, #css-code textarea {
+  height: 280px;
+}
+
+#css-files-list ul, #image-files-list ul {
+  overflow: auto;
+}
+
+/* header stuff */
+#theme-name input {
+  font-size: 18px;
+  border: 1px solid black;
+  background: white;
+  padding: 2px;
+  font-weight: bold;
+}
+
+
+/* files list */
+
+#css-files-list {
+  width: 200px;
+  float: left;
+  margin-left: 10px;
+}
+
+#css-files-list ul {
+  margin: 0px;
+  padding-left: 0px;
+
+  background: white;
+  border: 1px solid #bbb;
+}
+
+#css-files-list li {
+  list-style: none;
+  margin-bottom: 5px;
+  border-bottom: 1px solid #bbb;
+}
+
+#css-files-list li a {
+  display: block;
+  padding: 1px 5px;
+}
+
+#css-files-list a:hover {
+  color: red;
+}
+
+/* images list */
+
+#image-files-list {
+  width: 200px;
+  float: right;
+  margin-right: 10px;
+}
+
+#image-files-list ul {
+  background: white;
+  border: 1px solid #bbb;
+}
+
+#image-files-list ul, #image-files-list li {
+  padding: 0px;
+  margin: 0px;
+  list-style: none;
+}
+
+#image-files-list li {
+  border-bottom: 1px solid #bbb;
+  padding: 5px 0px;
+  text-align: center;
+}
+
+#image-files-list  img {
+  max-width: 98%;
+  max-height: 40px;
+}
+
+.msie6 #image-files-list img {
+  width: 50%;
+  height: 40px;
+}
+
+#image-files-list li span {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* textbox */
+
+#css-code {
+  margin-left: 220px;
+  margin-right: 220px;
+}
+
+.msie6 #css-code {
+  float: left;
+  margin-left: 20px;
+  margin-right: 240px;
+}
+
+#css-code textarea {
+  width: 100%;
+}
+
+.msie6 #css-code textarea {
+  width: 500px;
+}

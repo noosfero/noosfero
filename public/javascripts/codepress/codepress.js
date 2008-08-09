@@ -120,7 +120,7 @@ CodePress.run = function() {
 	s = document.getElementsByTagName('script');
 	for(var i=0,n=s.length;i<n;i++) {
 		if(s[i].src.match('codepress.js')) {
-			CodePress.path = s[i].src.replace('codepress.js','');
+			CodePress.path = s[i].src.replace(/codepress\.js.*$/,'');
 		}
 	}
 	t = document.getElementsByTagName('textarea');
