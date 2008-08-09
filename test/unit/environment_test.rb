@@ -355,4 +355,12 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal 'my footer', Environment.new(:custom_footer => "my footer").custom_footer
   end
 
+  should 'provide theme' do
+    assert_equal 'my-custom-theme', Environment.new(:theme => 'my-custom-theme').theme
+  end
+
+  should 'give default theme' do
+    assert_equal 'default', Environment.new.theme
+  end
+
 end

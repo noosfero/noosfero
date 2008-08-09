@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 48) do
+ActiveRecord::Schema.define(:version => 49) do
 
   create_table "article_versions", :force => true do |t|
     t.integer  "article_id"
@@ -145,6 +145,7 @@ ActiveRecord::Schema.define(:version => 48) do
     t.text    "design_data"
     t.text    "custom_header"
     t.text    "custom_footer"
+    t.string  "theme"
   end
 
   create_table "favorite_enteprises_people", :id => false, :force => true do |t|
@@ -217,6 +218,7 @@ ActiveRecord::Schema.define(:version => 48) do
     t.string   "nickname",          :limit => 16
     t.text     "custom_header"
     t.text     "custom_footer"
+    t.string   "theme"
   end
 
   add_index "profiles", ["environment_id"], :name => "index_profiles_on_environment_id"

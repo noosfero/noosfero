@@ -771,6 +771,20 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal 'environment footer', profile.custom_footer
   end
 
+  should 'store theme' do
+    p = Profile.new(:theme => 'my-shiny-theme')
+    assert_equal 'my-shiny-theme', p.theme
+  end
+
+  should 'delegate theme selection to environment by default' do
+    p = Profile.new
+    env = mock
+    p.stubs(:environment).returns(env)
+    env.expects(:theme).returns('environment-stored-theme')
+
+    assert_equal 'environment-stored-theme', p.theme
+  end
+
   private
 
   def assert_invalid_identifier(id)

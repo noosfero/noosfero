@@ -64,11 +64,8 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_same result, link_to_category(cat)
   end
 
-  should 'get current theme' do
-    assert_equal 'default', current_theme()
-  end
-
   should 'nil theme option when no exists theme' do
+    stubs(:current_theme).returns('something-very-unlikely')
     File.expects(:exists?).returns(false)
     assert_nil theme_option()
   end
@@ -84,6 +81,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
   end
 
   should 'nil javascript theme when no exists theme' do
+    stubs(:current_theme).returns('something-very-unlikely')
     File.expects(:exists?).returns(false)
     assert_nil theme_javascript
   end
@@ -137,6 +135,21 @@ class ApplicationHelperTest < Test::Unit::TestCase
     #result = select_categories(:article)
     #assert_no_match /parent category/, result
   end
+
+  should 'get theme from environment by default' do
+    @environment = mock
+    @environment.stubs(:theme).returns('my-environment-theme')
+    stubs(:profile).returns(nil)
+    assert_equal 'my-environment-theme', current_theme
+  end
+
+  should 'get theme from profile when profile is present' do
+    profile = mock
+    profile.stubs(:theme).returns('my-profile-theme')
+    stubs(:profile).returns(profile)
+    assert_equal 'my-profile-theme', current_theme
+  end
+
 
   protected
 

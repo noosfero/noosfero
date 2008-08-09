@@ -153,7 +153,7 @@ module ApplicationHelper
   # should be a current profile (i.e. while viewing some profile's pages, or the
   # profile info, etc), because if there is no profile an exception is thrown.
   def profile
-    @controller.send(:profile) || raise("There is no current profile")
+    @controller.send(:profile)
   end
 
   def category_color
@@ -328,9 +328,13 @@ module ApplicationHelper
     result << '/stylesheets/' << name << '.css'
   end
 
-  # FIXME do not hardcode 'default' like this
   def current_theme
-    'default'
+    p = profile
+    if p
+      p.theme
+    else
+      @environment.theme
+    end
   end
 
   # generates a image tag for the profile. 

@@ -241,4 +241,8 @@ class Environment < ActiveRecord::Base
 
   has_many :events, :through => :profiles, :source => :articles, :class_name => 'Event' 
 
+  def theme
+    self[:theme] || 'default'
+  end
+
 end

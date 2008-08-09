@@ -399,4 +399,8 @@ class Profile < ActiveRecord::Base
     self[:custom_footer] || environment.custom_footer
   end
 
+  def theme
+    self[:theme] || environment.theme
+  end
+
 end
