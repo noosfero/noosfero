@@ -1,0 +1,14 @@
+<h1><%= _('Editing Appearance') %></h1>
+
+<h2><%= _('Select theme') %></h2>
+
+<div>
+  <% for theme in @themes %>
+    <%= link_to image_tag('/images/icons-app/design-editor.png', :alt => (_('Select the "%s" theme.') % theme.name)) + content_tag('span', theme.name), :action => 'set', :id => theme.id %>
+  <% end %>
+</div>
+
+
+<% button_bar do %>
+  <%= button(:back, _('Back'), :controller => 'profile_editor', :action => 'index') %>
+<% end %>
