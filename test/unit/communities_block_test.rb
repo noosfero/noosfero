@@ -25,7 +25,7 @@ class CommunitiesBlockTest < Test::Unit::TestCase
     block.limit = 2
 
     owner = mock
-    block.expects(:owner).returns(owner)
+    block.expects(:owner).at_least_once.returns(owner)
 
     member1 = mock; member1.stubs(:id).returns(1); member1.stubs(:public_profile).returns(true)
     member2 = mock; member2.stubs(:id).returns(2); member2.stubs(:public_profile).returns(true)
@@ -81,7 +81,7 @@ class CommunitiesBlockTest < Test::Unit::TestCase
     private_community.add_member(user)
 
     block = CommunitiesBlock.new
-    block.expects(:owner).returns(user)
+    block.expects(:owner).at_least_once.returns(user)
 
     assert_equal [public_community], block.profiles
   end

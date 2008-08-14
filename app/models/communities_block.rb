@@ -36,7 +36,11 @@ class CommunitiesBlock < ProfileListBlock
     def ids
       # FIXME when owner is an environment (i.e. listing communities globally
       # this can become SLOW)
-      block.owner.communities.select(&:public_profile).map(&:id)
+      if block.owner.kind_of?(Environment)
+        Community.find(:all, :conditions => {:environment_id => block.owner.id, :public_profile => true}, :limit => block.limit, :order => 'random()').map(&:id)
+      else
+        block.owner.communities.select(&:public_profile).map(&:id)
+      end
     end
   end
 

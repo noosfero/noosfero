@@ -42,6 +42,19 @@ class ProfileListBlockTest < Test::Unit::TestCase
     assert_kind_of String, instance_eval(&block.content)
   end
 
+  should 'not list private profiles' do
+    env = Environment.create!(:name => 'test env')
+    p1 = Profile.create!(:name => 'test1', :identifier => 'test1', :environment => env)
+    p2 = Profile.create!(:name => 'test2', :identifier => 'test2', :environment => env, :public_profile => false) # private profile
+    block = ProfileListBlock.new
+    env.boxes.first.blocks << block
+    block.save!
+
+    ids = block.profile_finder.ids
+    assert_includes ids, p1.id
+    assert_not_includes ids, p2.id
+  end
+
   should 'use finders to find profiles to be listed' do
     block = ProfileListBlock.new
     finder = mock

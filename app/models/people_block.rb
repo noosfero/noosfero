@@ -18,7 +18,7 @@ class PeopleBlock < ProfileListBlock
 
   class Finder < ProfileListBlock::Finder
     def ids
-      Person.find(:all, :select => 'id', :conditions => { :environment_id => block.owner.id})
+      Person.find(:all, :select => 'id', :conditions => { :environment_id => block.owner.id, :public_profile => true}, :limit => block.limit, :order => 'random()')
     end
   end
 

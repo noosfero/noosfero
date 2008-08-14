@@ -42,7 +42,7 @@ class ProfileListBlock < Block
       rand(top)
     end
     def ids
-      Profile.connection.select_all('select id from profiles').map { |entry| entry['id'].to_i }
+      Profile.find(:all, :limit => block.limit, :order => 'random()', :conditions => {:environment_id => block.owner.id, :public_profile => true}).map(&:id)
     end
   end
 

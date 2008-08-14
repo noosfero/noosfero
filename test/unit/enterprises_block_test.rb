@@ -19,17 +19,16 @@ class EnterprisesBlockTest < Test::Unit::TestCase
     assert_kind_of EnterprisesBlock::Finder, EnterprisesBlock.new.profile_finder
   end
 
-  should 'list owner communities' do
-
+  should 'list owner enterprises' do
     block = EnterprisesBlock.new
     block.limit = 2
 
     owner = mock
-    block.expects(:owner).returns(owner)
+    block.expects(:owner).at_least_once.returns(owner)
 
-    member1 = mock; member1.stubs(:id).returns(1)
-    member2 = mock; member2.stubs(:id).returns(2)
-    member3 = mock; member3.stubs(:id).returns(3)
+    member1 = stub(:id => 1, :public_profile => true )
+    member2 = stub(:id => 2, :public_profile => true )
+    member3 = stub(:id => 3, :public_profile => true )
 
     owner.expects(:enterprises).returns([member1, member2, member3])
     
@@ -40,6 +39,33 @@ class EnterprisesBlockTest < Test::Unit::TestCase
     Profile.expects(:find).with(1).returns(member1)
 
     assert_equal [member3, member1], block.profiles
+  end
+
+  should 'not list private enterprises in environment' do
+    env = Environment.create!(:name => 'test env')
+    p1 = Enterprise.create!(:name => 'test1', :identifier => 'test1', :environment_id => env.id, :public_profile => true)
+    p2 = Enterprise.create!(:name => 'test2', :identifier => 'test2', :environment_id => env.id, :public_profile => false) #private profile
+    block = EnterprisesBlock.new
+    env.boxes.first.blocks << block
+    block.save!
+    ids = block.profile_finder.ids
+    assert_includes ids, p1.id
+    assert_not_includes ids, p2.id
+  end
+
+  should 'not list private enterprises in profile' do
+    person = create_user('test_user').person
+    role = Profile::Roles.member
+    e1 = Enterprise.create!(:name => 'test1', :identifier => 'test1', :public_profile => true)
+    e1.affiliate(person, role)
+    e2 = Enterprise.create!(:name => 'test2', :identifier => 'test2', :public_profile => false) #private profile
+    e2.affiliate(person, role)
+    block = EnterprisesBlock.new
+    person.boxes.first.blocks << block
+    block.save!
+    ids = block.profile_finder.ids
+    assert_includes ids, e1.id
+    assert_not_includes ids, e2.id
   end
 
   should 'link to all enterprises for profile' do

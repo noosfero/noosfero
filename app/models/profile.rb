@@ -57,7 +57,7 @@ class Profile < ActiveRecord::Base
 
   acts_as_having_settings :field => :data
 
-  settings_items :public_profile, :public_content, :type => :boolean, :default => true
+  settings_items :public_content, :type => :boolean, :default => true
 
   acts_as_mappable :default_units => :kms
 

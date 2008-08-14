@@ -480,6 +480,15 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal false, p.public_profile
   end
 
+  should 'be able to find the public profiles but not private ones' do
+    p1 = Profile.create!(:name => 'test1', :identifier => 'test1', :public_profile => true)
+    p2 = Profile.create!(:name => 'test2', :identifier => 'test2', :public_profile => false)
+
+    result = Profile.find(:all, :conditions => {:public_profile => true})
+    assert_includes result, p1
+    assert_not_includes result, p2
+  end
+
   should 'have public content by default' do
     assert_equal true, Profile.new.public_content
   end

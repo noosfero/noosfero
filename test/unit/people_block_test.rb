@@ -26,7 +26,7 @@ class PeopleBlockTest < ActiveSupport::TestCase
   should 'list people' do
     owner = mock
     owner.expects(:id).returns(99)
-    Person.expects(:find).with(:all, :select => 'id', :conditions => { :environment_id => 99}).returns([])
+    Person.expects(:find).with(:all, :select => 'id', :conditions => { :environment_id => 99, :public_profile => true}, :limit => 6, :order => 'random()').returns([])
     block = PeopleBlock.new
     block.expects(:owner).returns(owner).at_least_once
     block.content

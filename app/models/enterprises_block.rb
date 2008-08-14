@@ -37,7 +37,11 @@ class EnterprisesBlock < ProfileListBlock
     def ids
       # FIXME when owner is an environment (i.e. listing enterprises globally
       # this can become SLOW)
-      block.owner.enterprises.map(&:id)
+      if block.owner.kind_of?(Environment)
+        Enterprise.find(:all, :conditions => {:environment_id => block.owner.id, :public_profile => true}, :limit => block.limit, :order => 'random()').map(&:id)
+      else
+        block.owner.enterprises.select(&:public_profile).map(&:id)
+      end
     end
   end
 
