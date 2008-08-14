@@ -307,15 +307,16 @@ class SearchControllerTest < Test::Unit::TestCase
     get :index, :query => 'display'
 
     names = {
-        :articles => 'Articles',
-        :enterprises => 'Enterprises',
-        :communities => 'Communities',
-        :products => 'Products',
-        :events => 'Events',
+        :articles => ['Articles', article],
+        :enterprises => ['Enterprises', ent],
+        :communities => ['Communities', community],
+        :products => ['Products', product],
+        :events => ['Events', event],
     }
     names.each do |thing, description|
+      description, object = description
       assert_tag :tag => 'div', :attributes => { :class => /search-results-#{thing}/ }, :descendant => { :tag => 'h3', :content => Regexp.new(description) }
-      assert_tag :tag => 'a', :content => "display #{thing.to_s.singularize}"
+      assert_tag :tag => 'a', :content => object.respond_to?(:short_name) ? object.short_name : object.name
     end
 
     # display only first name on people listing

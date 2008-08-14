@@ -1,9 +1,3 @@
-<div class="login-box">
-
-<h2><%= _('Login') %></h2>
-
-<% @user = User.new unless @user %>
-
 <% labelled_form_for :user, @user,
    :url => { :controller => 'account', :action => 'login' },
    :html => { :help => _('If you are a registered user, enter your username and password to be authenticated.')+'<p/>'+_('To join on this environment, click on "<b>I want to be an user!</b>".')+'<p/>'+_('If you forgot your password, click on "<b>I forgot my password!</b>" link.') } do |f| %>
@@ -23,21 +17,3 @@
 <% end %>
 
 <% end %>
-
-<p class="forgot-passwd" help="<%= _('You can recover your password clicking on this link.') %>">
-<%= link_to _("I forgot my password!"), :controller => 'account', :action => 'forgot_password' %>
-</p>
-
-<p class="want-to-be-an-user" help="<%= _('Click here to join to this environment, if you is not already an user.') %>"><strong>
-<%= link_to _("I want to be an user!"), :controller => 'account', :action => 'signup' %>
-</strong></p>
-
-</div><!-- end class="login-box" -->
-
-<% if lightbox? %>
-  <script type='text/javascript'>
-    $("lightbox_user_login").focus();
-  </script>
-<% end %>
-
-<%# = generate_form :user, @user, {...} %>

@@ -277,10 +277,16 @@ class AccountControllerTest < Test::Unit::TestCase
     assert_redirected_to :controller => 'profile_editor'
   end
 
+################################
+#                              #
+#  Enterprise activation tests #
+#                              #
+################################
+
   should 'report invalid enterprise code on signup' do
     EnterpriseActivation.expects(:find_by_code).with('some_invalid_code').returns(nil).at_least_once
 
-    get :signup, :enterprise_code => 'some_invalid_code'
+    get :activation_question, :enterprise_code => 'some_invalid_code'
 
     assert_template 'invalid_enterprise_code'
   end
@@ -291,19 +297,19 @@ class AccountControllerTest < Test::Unit::TestCase
     task.expects(:enterprise).returns(ent).at_least_once
     EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
 
-    get :signup, :enterprise_code => '0123456789'
+    get :activation_question, :enterprise_code => '0123456789'
 
     assert_template 'already_activated'
   end
 
-  should 'load enterprise from code on signup' do
+  should 'load enterprise from code on for validation question' do
     ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent')
     
     task = mock
     task.expects(:enterprise).returns(ent).at_least_once
     EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
 
-    get :signup, :enterprise_code => '0123456789'
+    get :activation_question, :enterprise_code => '0123456789'
 
     assert_equal ent, assigns(:enterprise)
   end
@@ -315,7 +321,7 @@ class AccountControllerTest < Test::Unit::TestCase
     task.expects(:enterprise).returns(ent).at_least_once
     EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
 
-    get :signup, :enterprise_code => '0123456789'
+    get :activation_question, :enterprise_code => '0123456789'
 
     assert_template 'blocked'
   end
@@ -327,34 +333,32 @@ class AccountControllerTest < Test::Unit::TestCase
     task.expects(:enterprise).returns(ent).at_least_once
     EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
 
-    get :signup, :enterprise_code => '0123456789'
+    get :activation_question, :enterprise_code => '0123456789'
 
-    assert_template 'activate_enterprise'
+    assert_template 'activation_question'
   end
 
   should 'show form to those enterprises that have cnpj' do
     ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :cnpj => '0'*14, :enabled => false)
 
-
     task = mock
     task.expects(:enterprise).returns(ent).at_least_once
     EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
 
-    get :signup, :enterprise_code => '0123456789'
+    get :activation_question, :enterprise_code => '0123456789'
 
-    assert_template 'activate_enterprise'
+    assert_template 'activation_question'
   end
 
   should 'block those who are blocked' do
     ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :foundation_year => '1998', :enabled => false)
     ent.block
 
-
     task = mock
     task.expects(:enterprise).returns(ent).at_least_once
     EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
 
-    get :signup, :enterprise_code => '0123456789'
+    get :activation_question, :enterprise_code => '0123456789'
 
     assert_template 'blocked'
   end
@@ -366,7 +370,8 @@ class AccountControllerTest < Test::Unit::TestCase
     task.expects(:enterprise).returns(ent).at_least_once
     EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
 
-    create_user({}, :enterprise_code => '0123456789', :answer => '1997')
+    post :accept_terms, :enterprise_code => '0123456789', :answer => '1997'
+
     ent.reload
 
     assert_nil User.find_by_login('test_user')
@@ -374,17 +379,97 @@ class AccountControllerTest < Test::Unit::TestCase
     assert_template 'blocked'
   end
 
-  should 'activate enterprise for those who answer the question right and make them admin of the enterprise' do
+  should 'show terms of use for enterprise owners' do
+    env = Environment.default
+    env.terms_of_enterprise_use = 'Some terms'
+    env.save!
+
+    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :foundation_year => 1998, :enabled => false)
+    task = EnterpriseActivation.create!(:enterprise => ent)
+    EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
+
+    post :accept_terms, :enterprise_code => '0123456789', :answer => '1998'
+
+    assert_template 'accept_terms'
+    assert_tag :tag => 'div', :content => 'Some terms'
+  end
+
+  should 'not activate if user does not accept terms' do
+    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :foundation_year => 1998, :enabled => false)
+    p = User.create!(:login => 'test_user', :password => 'blih', :password_confirmation => 'blih', :email => 'test@noosfero.com').person
+    login_as(p.identifier)
+
+    task = EnterpriseActivation.create!(:enterprise => ent)
+    EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
+
+    post :activate_enterprise, :enterprise_code => '0123456789', :answer => '1998', :terms_accepted => false
+    ent.reload
+
+    assert !ent.enabled
+    assert_not_includes ent.members, p
+  end
+
+  should 'ask for login or singup if not logged in' do
+    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :foundation_year => 1998, :enabled => false)
+    task = EnterpriseActivation.create!(:enterprise => ent)
+    EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
+
+    post :activate_enterprise, :enterprise_code => '0123456789', :answer => '1998', :terms_accepted => true
+
+    assert_template 'activate_enterprise'
+  end
+
+  should 'activate enterprise and make logged user admin' do
+    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :foundation_year => 1998, :enabled => false)
+    p = User.create!(:login => 'test_user', :password => 'blih', :password_confirmation => 'blih', :email => 'test@noosfero.com').person
+    login_as(p.identifier)
+
+    task = EnterpriseActivation.create!(:enterprise => ent)
+    EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
+
+    post :activate_enterprise, :enterprise_code => '0123456789', :answer => '1998', :terms_accepted => true
+    ent.reload
+
+    assert ent.enabled
+    assert_includes ent.members, p
+  end
+
+  should 'not activate enterprise for inexistent user' do
+    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :foundation_year => 1998, :enabled => false)
+    task = EnterpriseActivation.create!(:enterprise => ent)
+    EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
+
+    post :activate_enterprise, :enterprise_code => '0123456789', :answer => '1998', :terms_accepted => true, :user => { :login => 'inexistent_user', :password => 'inexistent_password' }
+    ent.reload
+
+    assert !ent.enabled
+  end
+
+  should 'activate enterprise and make unlogged user admin' do
+    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :foundation_year => 1998, :enabled => false)
+    p = User.create!(:login => 'test_user', :password => 'blih', :password_confirmation => 'blih', :email => 'test@noosfero.com').person
+
+    task = EnterpriseActivation.create!(:enterprise => ent)
+    EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
+
+    post :activate_enterprise, :enterprise_code => '0123456789', :answer => '1998', :terms_accepted => true, :user => { :login => 'test_user', :password => 'blih' }
+    ent.reload
+
+    assert ent.enabled
+    assert_includes ent.members, p
+  end
+
+  should 'activate enterprise, create user and make admin' do
     ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :foundation_year => 1998, :enabled => false)
 
     task = EnterpriseActivation.create!(:enterprise => ent)
     EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
 
-    create_user({}, :enterprise_code => '0123456789', :answer => '1998')
+    post :activate_enterprise, :enterprise_code => '0123456789', :answer => '1998', :terms_accepted => true, :new_user => true, :user => { :login => 'test_user', :password => 'blih', :password_confirmation => 'blih', :email => 'test@noosfero.com' }
     ent.reload
 
     assert ent.enabled
-    assert_includes ent.members, assigns(:user).person
+    assert_includes ent.members.map(&:identifier), 'test_user'
   end
 
   should 'put hidden field with enterprise code for answering question' do
@@ -394,11 +479,12 @@ class AccountControllerTest < Test::Unit::TestCase
     task.expects(:enterprise).returns(ent).at_least_once
     EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
 
-    get :signup, :enterprise_code => '0123456789'
+    get :activation_question, :enterprise_code => '0123456789'
 
     assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'enterprise_code', :value => '0123456789'}
-
   end
+
+# end of enterprise activation tests
 
   should 'not be able to signup while inverse captcha field filled' do
     assert_no_difference User, :count do

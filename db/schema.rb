@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 49) do
+ActiveRecord::Schema.define(:version => 50) do
 
   create_table "article_versions", :force => true do |t|
     t.integer  "article_id"
@@ -219,6 +219,7 @@ ActiveRecord::Schema.define(:version => 49) do
     t.text     "custom_header"
     t.text     "custom_footer"
     t.string   "theme"
+    t.boolean  "public_profile",                  :default => true
   end
 
   add_index "profiles", ["environment_id"], :name => "index_profiles_on_environment_id"

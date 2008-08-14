@@ -13,17 +13,17 @@ class AccountController < PublicController
   def login
     @user = User.new
     return unless request.post?
-    self.current_user = User.authenticate(params[:user][:login], params[:user][:password])
+    self.current_user = User.authenticate(params[:user][:login], params[:user][:password]) if params[:user]
     if logged_in?
       if params[:remember_me] == "1"
         self.current_user.remember_me
         cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
       end
-      go_to_user_initial_page
+      go_to_user_initial_page if redirect?
       flash[:notice] = _("Logged in successfully")
     else
       flash[:notice] = _('Incorrect username or password')
-      redirect_to :back
+      redirect_to :back if redirect?
     end
   end
 
@@ -32,6 +32,7 @@ class AccountController < PublicController
   end
 
   def login_popup
+    @user = User.new
     render :action => 'login', :layout => false
   end
 
@@ -41,25 +42,18 @@ class AccountController < PublicController
       @user = User.new(params[:user])
       @user.terms_of_use = environment.terms_of_use
       @terms_of_use = environment.terms_of_use
-      if request.post? && params[self.icaptcha_field].blank? && answer_correct
+      if request.post? && params[self.icaptcha_field].blank?
         @user.save!
         @user.person.environment = environment
         @user.person.save!
         self.current_user = @user
         owner_role = Role.find_by_name('owner')
         @user.person.affiliate(@user.person, [owner_role]) if owner_role
-        post_activate_enterprise if params[:enterprise_code]
-        go_to_user_initial_page
+        go_to_user_initial_page if redirect?
         flash[:notice] = _("Thanks for signing up!")
-      else
-        activate_enterprise if params[:enterprise_code]
       end
     rescue ActiveRecord::RecordInvalid
-      if params[:enterprise_code]
-        render :action => 'activate_enterprise'
-      else
-        render :action => 'signup'
-      end
+      render :action => 'signup'
     end
   end
 
@@ -128,47 +122,87 @@ class AccountController < PublicController
     end
   end
 
-  protected
-
-  def activate_enterprise
-    enterprise = load_enterprise
-    @enterprise = enterprise
-
-    unless enterprise
+  def activation_question
+    @enterprise = load_enterprise
+    unless @enterprise
       render :action => 'invalid_enterprise_code'
       return
     end
-
-    if enterprise.enabled
+    if @enterprise.enabled
       render :action => 'already_activated'
       return
     end
-    
-    # Reaches here only if answer is not correct
-    if request.post? && !answer_correct
-      enterprise.block
-    end
 
-    @question = enterprise.question
-
-    if !@question || enterprise.blocked?
+    @question = @enterprise.question
+    if !@question || @enterprise.blocked?
       render :action => 'blocked'
       return
     end
-
-    render :action => 'activate_enterprise'
   end
 
-  def post_activate_enterprise
+  def accept_terms
+    @enterprise = load_enterprise
+    @question = @enterprise.question
+    check_answer
+    @terms_of_enterprise_use = environment.terms_of_enterprise_use
+  end
+
+  def activate_enterprise
+    @enterprise = load_enterprise
+    @question = @enterprise.question
+    return unless check_answer
+    return unless check_acceptance_of_terms
+    load_user
+    
     activation = load_enterprise_activation
-    if activation
+    if activation && user
       activation.requestor = user
       activation.finish
+      redirect_to :controller => 'profile_editor', :action => 'index', :profile => @enterprise.identifier
     end
   end
 
+  protected
+
+  def redirect?
+    !@cannot_redirect
+  end
+
+  def no_redirect
+    @cannot_redirect = true
+  end
+  
+  def load_user
+    unless logged_in?
+      no_redirect
+      if params[:new_user]
+        signup
+      else
+        login
+      end
+    end
+    true
+  end
+
+  def check_answer
+    unless answer_correct
+      @enterprise.block
+      render :action => 'blocked'
+      return
+    end
+    true
+  end
+
+  def check_acceptance_of_terms
+    unless params[:terms_accepted]
+      redirect_to :action => 'index'
+      return
+    end
+    true
+  end
+
   def load_enterprise_activation
-    EnterpriseActivation.find_by_code(params[:enterprise_code])
+    @enterprise_activation ||= EnterpriseActivation.find_by_code(params[:enterprise_code])
   end
 
   def load_enterprise
