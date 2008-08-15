@@ -137,8 +137,8 @@ class Article < ActiveRecord::Base
   end
 
   def display_to?(user)
-    if self.profile.public_content
-      true
+    if self.public_article
+      self.profile.display_info_to?(user)
     else
       if user.nil?
         false

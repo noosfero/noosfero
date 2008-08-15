@@ -22,11 +22,11 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     page.save!
     assert_local_files_reference :get, :view_page, :profile => profile.identifier, :page => [ 'test' ]
   end
-  
+
   def test_valid_xhtml
     assert_valid_xhtml
   end
-  
+
   def test_should_display_page
     page = profile.articles.build(:name => 'test')
     page.save!
@@ -69,7 +69,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     Profile.delete_all
     uses_host 'anhetegua'
     get :view_page, :profile => 'some_unexisting_profile', :page => []
-    assert_response :missing    
+    assert_response :missing
   end
 
   def test_should_be_able_to_post_comment_while_authenticated
@@ -97,7 +97,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
   should 'produce a download-like when article is not text/html' do
 
-    # for example, RSS feeds 
+    # for example, RSS feeds
     profile = create_user('someone').person
     page = profile.articles.build(:name => 'myarticle', :body => 'the body of the text')
     page.save!
@@ -126,38 +126,36 @@ class ContentViewerControllerTest < Test::Unit::TestCase
       post :view_page, :profile => profile.identifier, :page => [ 'test' ], :remove_comment => comment.id
       assert_response :redirect
     end
-    
   end
-  
+
   should "not be able to remove other people's comments if not moderator or admin" do
     create_user('normaluser')
     profile = create_user('testuser').person
     article = profile.articles.build(:name => 'test')
     article.save!
-    
+
     commenter = create_user('otheruser').person
     comment = article.comments.build(:author => commenter, :title => 'a comment', :body => 'lalala')
     comment.save!
 
     login_as 'normaluser' # normaluser cannot remove other people's comments
-    assert_no_difference Comment, :count do 
+    assert_no_difference Comment, :count do
       post :view_page, :profile => profile.identifier, :page => [ 'test' ], :remove_comment => comment.id
       assert_response :redirect
     end
-    
   end
 
   should 'be able to remove comments on their articles' do
     profile = create_user('testuser').person
     article = profile.articles.build(:name => 'test')
     article.save!
-    
+
     commenter = create_user('otheruser').person
     comment = article.comments.build(:author => commenter, :title => 'a comment', :body => 'lalala')
     comment.save!
 
     login_as 'testuser' # testuser must be able to remove comments in his articles
-    assert_difference Comment, :count, -1 do 
+    assert_difference Comment, :count, -1 do
       post :view_page, :profile => profile.identifier, :page => [ 'test' ], :remove_comment => comment.id
       assert_response :redirect
     end
@@ -181,7 +179,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     comment = article.comments.create!(:author => commenter, :title => 'a comment', :body => 'lalala')
     community.add_moderator(profile)
     login_as profile.identifier
-    assert_difference Comment, :count, -1 do 
+    assert_difference Comment, :count, -1 do
       post :view_page, :profile => community.identifier, :page => [ 'test' ], :remove_comment => comment.id
       assert_response :redirect
     end
@@ -209,7 +207,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     post :view_page, :profile => @profile.identifier, :page => [ 'myarticle' ], :comment => { :title => '', :body => '' }
     assert_tag :tag => 'div', :attributes => { :class => 'post_comment_box opened' }
   end
-  
+
   should 'filter html content from body' do
     login_as @profile.identifier
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
@@ -344,5 +342,35 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     get :view_page, :profile => 'testinguser', :page => [ 'myfolder' ]
     assert_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/new?parent_id=#{folder.id}" } }
   end
+
+  should 'not give access to private articles if logged off' do
+    profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
+    intranet = Folder.create!(:name => 'my_intranet', :profile => profile, :public_article => false)
+    get :view_page, :profile => 'test_profile', :page => [ 'my-intranet' ]
+
+    assert_template 'access_denied'
+  end
+
+  should 'not give access to private articles if logged in but not member' do
+    login_as('testinguser')
+    profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
+    intranet = Folder.create!(:name => 'my_intranet', :profile => profile, :public_article => false)
+    get :view_page, :profile => 'test_profile', :page => [ 'my-intranet' ]
+
+    assert_template 'access_denied'
+  end
+
+  should 'give access to private articles if logged in and member' do
+    person = create_user('test_user').person
+    profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
+    intranet = Folder.create!(:name => 'my_intranet', :profile => profile, :public_article => false)
+    profile.affiliate(person, Profile::Roles.member)
+    login_as('test_user')
+
+    get :view_page, :profile => 'test_profile', :page => [ 'my-intranet' ]
+
+    assert_template 'view_page'
+  end
+
 
 end

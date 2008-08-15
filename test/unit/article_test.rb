@@ -230,47 +230,6 @@ class ArticleTest < Test::Unit::TestCase
     assert_equal true, a.display_to?(person)
   end
 
-  should 'not display to other unauthenticated user if private' do
-    # a person with private contents ...
-    person = create_user('testuser').person
-    person.update_attributes!(:public_content => false)
-
-    # ... has an article ...
-    a1 = person.articles.create!(:name => 'test article')
-
-    # ... which anonymous users cannot view
-    assert_equal false, a1.display_to?(nil)
-  end
-
-  should 'not display to another user if private' do
-    # a person with private contents ...
-    person = create_user('testuser').person
-    person.update_attributes!(:public_content => false)
-
-    # ... has an article ...
-    a1 = person.articles.create!(:name => 'test article')
-
-    # ... which another user cannot see
-    another_user = create_user('another_user').person
-    assert_equal false, a1.display_to?(another_user)
-  end
-
-  should 'display for members of profile' do
-    # a community with private content ...
-    community = Community.create!(:name => 'test community')
-    community.update_attributes!(:public_content => false)
-
-    # ... has an article ...
-    a1 = community.articles.create!(:name => 'test article')
-
-    # ... and its members ...
-    member = create_user('testuser').person
-    community.add_member(member)
-
-    # ... can view that article
-    assert_equal true, a1.display_to?(member)
-  end
-
   should 'reindex when comments are changed' do
     a = Article.new
     a.expects(:ferret_update)
@@ -365,4 +324,44 @@ class ArticleTest < Test::Unit::TestCase
     assert !Article.new.accept_category?(ProductCategory.new)
   end
 
+  should 'accept public_article attribute' do
+    assert_respond_to Article.new, :public_article
+    assert_respond_to Article.new, :public_article=
+  end
+
+  should 'say that logged off user cannot see private article' do
+    profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
+    article = Article.create!(:name => 'test article', :profile => profile, :public_article => false)
+
+    assert !article.display_to?(nil)
+  end 
+  
+  should 'say that not member of profile cannot see private article' do
+    profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
+    article = Article.create!(:name => 'test article', :profile => profile, :public_article => false)
+    person = create_user('test_user').person
+
+    assert !article.display_to?(person)
+  end
+  
+  should 'say that member user can see private article' do
+    profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
+    article = Article.create!(:name => 'test article', :profile => profile, :public_article => false)
+    person = create_user('test_user').person
+    profile.affiliate(person, Profile::Roles.member)
+
+    assert article.display_to?(person)
+  end
+
+  should 'not show article to non member if article public but profile private' do
+    profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile', :public_profile => false)
+    article = Article.create!(:name => 'test article', :profile => profile, :public_article => true)
+    person1 = create_user('test_user1').person
+    profile.affiliate(person1, Profile::Roles.member)
+    person2 = create_user('test_user2').person
+
+    assert !article.display_to?(nil)
+    assert !article.display_to?(person2)
+    assert article.display_to?(person1)
+  end
 end
