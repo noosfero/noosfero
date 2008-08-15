@@ -304,16 +304,24 @@ class Profile < ActiveRecord::Base
     false
   end
 
-  after_create :insert_default_homepage_and_feed
-  def insert_default_homepage_and_feed
+  after_create :insert_default_article_set
+  def insert_default_article_set
+    # a default homepage
     hp = default_homepage(:name => _("%s's home page") % self.name, :body => _("<p>This is a default homepage created for %s. It can be changed though the control panel.</p>") % self.name, :advertise => false)
     hp.profile = self
     hp.save!
     self.home_page = hp
     self.save!
 
+    # a default rss feed
     feed = RssFeed.new(:name => 'feed')
     self.articles << feed
+
+    # a default private folder if public
+    if self.public?
+      folder = Folder.new(:name => _("Intranet"), :public_article => false)
+      self.articles << folder
+    end
   end
 
   # Adds a person as member of this Profile.
@@ -403,4 +411,7 @@ class Profile < ActiveRecord::Base
     self[:theme] || environment.theme
   end
 
+  def public?
+    public_profile
+  end
 end

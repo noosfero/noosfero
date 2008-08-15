@@ -168,4 +168,16 @@ class ProductTest < Test::Unit::TestCase
     assert !ProductCategorization.find(:first, :conditions => {:product_id => p, :category_id => cat}) 
   end
 
+  should 'respond to public? as its enterprise public?' do
+    e1 = Enterprise.create!(:name => 'test ent 1', :identifier => 'test_ent1')
+    p1 = Product.create!(:name => 'test product 1', :enterprise => e1)
+
+    assert p1.public?
+
+    e1.public_profile = false
+    e1.save!
+
+    assert !p1.public?
+  end
+
 end

@@ -42,6 +42,13 @@ class Article < ActiveRecord::Base
     pending_categorizations.clear
   end
 
+  before_save do |article|
+    if article.parent
+      article.public_article = article.parent.public_article
+    end
+    true
+  end
+
   acts_as_taggable  
   N_('Tag list')
 
@@ -154,6 +161,10 @@ class Article < ActiveRecord::Base
 
   def accept_category?(cat)
     !cat.is_a?(ProductCategory)
+  end
+
+  def public?
+    profile.public? && public_article
   end
 
   private

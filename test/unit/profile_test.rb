@@ -794,6 +794,22 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal 'environment-stored-theme', p.theme
   end
 
+  should 'respond to public? as public_profile' do
+    p1 = Profile.create!(:name => 'test profile 1', :identifier => 'test_profile1')
+    p2 = Profile.create!(:name => 'test profile 2', :identifier => 'test_profile2', :public_profile => false)
+
+    assert p1.public?
+    assert !p2.public?
+  end
+
+  should 'create a initial private folder when a public profile is created' do
+    p1 = Profile.create!(:name => 'test profile 1', :identifier => 'test_profile1')
+    p2 = Profile.create!(:name => 'test profile 2', :identifier => 'test_profile2', :public_profile => false)
+    
+    assert p1.articles.find(:first, :conditions => {:public_article => false})
+    assert !p2.articles.find(:first, :conditions => {:public_article => false})
+  end
+
   private
 
   def assert_invalid_identifier(id)

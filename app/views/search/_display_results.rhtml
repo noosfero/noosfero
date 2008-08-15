@@ -38,7 +38,7 @@
           <ul>
           <% hit_pos = 0 %>
           <% results.each do |hit| %>
-            <% next if hit.respond_to?(:public_profile) && !hit.public_profile  %>
+            <% next if hit.respond_to?(:public?) && !hit.public?  %>
             <%= render :partial => partial_for_class(hit.class),
 
                        :object => hit,

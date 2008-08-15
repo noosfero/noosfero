@@ -347,6 +347,7 @@ class CmsControllerTest < Test::Unit::TestCase
   end
 
   should 'list folders at top level' do
+    Folder.destroy_all
     f1 = Folder.new(:name => 'f1'); profile.articles << f1;  f1.save!
     f2 = Folder.new(:name => 'f2'); profile.articles << f2;  f2.save!
 
@@ -540,6 +541,17 @@ class CmsControllerTest < Test::Unit::TestCase
     post :new, :profile => 'testinguser', :type => 'TextileArticle', :back_to => 'public_view', :article => { :name => 'new-article-from-public-view' }
     assert_response :redirect
     assert_redirected_to @profile.articles.find_by_name('new-article-from-public-view').url
+  end
+
+  should 'create a private article child of private folder' do
+    folder = Folder.new(:name => 'my intranet', :public_article => false); profile.articles << folder; folder.save!
+    
+    post :new, :profile => profile.identifier, :type => 'TextileArticle', :parent_id => folder.id, :article => { :name => 'new-private-article'}
+    folder.reload
+
+    assert !assigns(:article).public?
+    assert_equal 'new-private-article', folder.children[0].name
+    assert !folder.children[0].public?
   end
 
 end

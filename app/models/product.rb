@@ -63,4 +63,8 @@ class Product < ActiveRecord::Base
     enterprise.generate_url(:controller => 'catalog', :action => 'show', :id => id)
   end
 
+  def public?
+    enterprise.public_profile
+  end
+
 end

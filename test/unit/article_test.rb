@@ -364,4 +364,45 @@ class ArticleTest < Test::Unit::TestCase
     assert !article.display_to?(person2)
     assert article.display_to?(person1)
   end
+
+  should 'make new article private if created inside a private folder' do
+    profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
+    folder = Folder.create!(:name => 'my_intranet', :profile => profile, :public_article => false)
+    article = Article.create!(:name => 'my private article', :profile => profile, :parent => folder)
+
+    assert !article.public_article
+  end
+
+  should 'respond to public? like public_article if profile is public' do
+    p = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
+    a1 = Article.create!(:name => 'test public article', :profile => p)
+    a2 = Article.create!(:name => 'test private article', :profile => p, :public_article => false)
+
+    assert a1.public?
+    assert !a2.public?
+  end
+
+  should 'respond to public? as false if profile is private' do
+    p = Profile.create!(:name => 'test profile', :identifier => 'test_profile', :public_profile => false)
+    a1 = Article.create!(:name => 'test public article', :profile => p)
+    a2 = Article.create!(:name => 'test private article', :profile => p, :public_article => false)
+
+    assert !a1.public?
+    assert !a2.public?
+  end
+
+  should 'save as private' do
+    profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
+    folder = Folder.create!(:name => 'my_intranet', :profile => profile, :public_article => false)
+    article = TextileArticle.new(:name => 'my private article')
+    article.profile = profile
+    article.parent = folder
+    article.save!
+    article.reload
+
+    assert !article.public_article
+
+
+  end
+
 end
