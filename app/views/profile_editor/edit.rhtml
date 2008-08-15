@@ -24,17 +24,40 @@
       <%= _('Private') %>
     </div>
   </p>
-  <p>
-    <%= _("This profile's content is:") %>
-    <div>
-      <%= radio_button 'profile_data', 'public_content', 'true' %>
-      <%= _('Public') %>
-    </div>
-    <div>
-      <%= radio_button 'profile_data', 'public_content', 'false' %>
-      <%= _('Private') %>
-    </div>
-  </p>
+
+  <% if profile.kind_of?(Person) %>
+  <table>
+    <tr><th></th><th><%= _('Public') %></th><th><%= _('Private')  %></th></tr>
+    <tr>
+      <td> <%= _('Activate Intranet access (restricted area only for me)') %> </td><td><%= _('Yes') %></td><td><%= _('Yes') %></td>
+    </tr>
+    <tr>
+      <td> <%= _('Show my website to all internet users') %> </td><td><%= _('Yes') %></td><td><%= _('No') %></td>
+    </tr>
+    <tr>
+      <td> <%= _('Show my website to my contacts (persons)') %> </td><td><%= _('Yes') %></td><td><%= _('Yes') %></td>
+    </tr>
+    <tr>
+      <td> <%= _('Include my contact in directory of people') %> </td><td><%= _('Yes') %></td><td><%= _('No') %></td>
+    </tr>
+  </table>
+  <% else %>
+  <table>
+    <tr><th></th><th><%= _('Public') %></th><th><%= _('Private')  %></th></tr>
+    <tr>
+      <td> <%= _('Activate Intranet access (restricted area only for members)') %> </td><td><%= _('Yes') %></td><td><%= _('Yes') %></td>
+    </tr>
+    <tr>
+      <td> <%= _('Show website of this group to all internet users') %> </td><td><%= _('Yes') %></td><td><%= _('No') %></td>
+    </tr>
+    <tr>
+      <td> <%= _('Show my website to members') %> </td><td><%= _('Yes') %></td><td><%= _('Yes') %></td>
+    </tr>
+    <tr>
+      <td> <%= _('Include this group directory of groups') %> </td><td><%= _('Yes') %></td><td><%= _('No') %></td>
+    </tr>
+  </table>
+  <% end %>
 
   <%= select_categories(:profile_data, _('Select the categories of your interest'), 1) %>
 

@@ -817,5 +817,4 @@ class ProfileTest < Test::Unit::TestCase
     assert !profile.valid?
     assert profile.errors.invalid?(:identifier)
   end
-
 end

@@ -401,8 +401,17 @@ class ArticleTest < Test::Unit::TestCase
     article.reload
 
     assert !article.public_article
+  end
 
+  should 'allow friends of private person see the article' do
+    person = create_user('test_user').person
+    article = Article.create!(:name => 'test article', :profile => person, :public_article => false)
+    friend = create_user('test_friend').person
+    person.add_friend(friend)
+    person.save!
+    friend.save!
 
+    assert article.display_to?(friend)
   end
 
 end

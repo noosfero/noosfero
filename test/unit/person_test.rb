@@ -268,5 +268,15 @@ class PersonTest < Test::Unit::TestCase
 
     assert_equal ['testuser@somedomain.com'], person.email_addresses
   end
+
+  should 'show profile info to friend' do
+    person = create_user('test_user').person
+    person.public_profile = false
+    person.save!
+    friend = create_user('test_friend').person
+    person.add_friend(friend)
+
+    assert person.display_info_to?(friend)
+  end
   
 end

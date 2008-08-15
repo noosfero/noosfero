@@ -93,4 +93,12 @@ class Person < Profile
     ['%s@%s' % [self.identifier, self.environment.default_hostname ] ]
   end
 
+  def display_info_to?(user)
+    if friends.include?(user)
+      true
+    else
+      super
+    end
+  end
+
 end

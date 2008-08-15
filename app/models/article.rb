@@ -150,7 +150,7 @@ class Article < ActiveRecord::Base
       if user.nil?
         false
       else
-        (user == self.profile) || user.memberships.include?(self.profile)
+        (user == self.profile) || user.memberships.include?(self.profile) || (profile.kind_of?(Person) && profile.friends.include?(user))
       end
     end
   end
