@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(:version => 50) do
     t.date     "start_date"
     t.date     "end_date"
     t.integer  "children_count",     :default => 0
+    t.boolean  "public_article",     :default => true
   end
 
   create_table "articles", :force => true do |t|
@@ -63,6 +64,7 @@ ActiveRecord::Schema.define(:version => 50) do
     t.date     "start_date"
     t.date     "end_date"
     t.integer  "children_count",     :default => 0
+    t.boolean  "public_article",     :default => true
   end
 
   create_table "articles_categories", :id => false, :force => true do |t|
@@ -220,7 +222,6 @@ ActiveRecord::Schema.define(:version => 50) do
     t.text     "custom_footer"
     t.string   "theme"
     t.boolean  "public_profile",                  :default => true
-    t.boolean  "public_article",                  :default => true
   end
 
   add_index "profiles", ["environment_id"], :name => "index_profiles_on_environment_id"
