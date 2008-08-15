@@ -77,7 +77,7 @@ class Article < ActiveRecord::Base
   #
   # Only includes articles where advertise == true
   def self.recent(limit)
-    options = { :limit => limit, :conditions => { :advertise => true }, :order => 'created_at desc, articles.id desc' }
+    options = { :limit => limit, :conditions => { :advertise => true, :public_article => true }, :order => 'created_at desc, articles.id desc' }
     self.find(:all, options)
   end
 

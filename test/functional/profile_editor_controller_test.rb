@@ -213,21 +213,6 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     assert_equal false, Profile['ze'].public_profile
   end
 
-  should 'display public_content field for editing' do
-    profile = Profile['ze']
-    get :edit, :profile => 'ze'
-    assert_tag :tag => 'input', :attributes => { :type => 'radio', :checked => 'checked', :name => 'profile_data[public_content]', :value => 'true' }
-    assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[public_content]', :value => 'false' }
-  end
-
-  should 'display properly that the content is non-public' do
-    profile = Profile['ze']
-    profile.update_attributes(:public_content => false)
-    get :edit, :profile => 'ze'
-    assert_tag :tag => 'input', :attributes => { :type => 'radio', :checked => 'checked', :name => 'profile_data[public_content]', :value => 'false' }
-    assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[public_content]', :value => 'true' }
-  end
-
   should 'show error messages for invalid foundation_year' do
     org = Organization.create!(:name => 'test org', :identifier => 'testorg')
     post :edit, :profile => 'testorg', :profile_data => { :foundation_year => 'aaa' }
