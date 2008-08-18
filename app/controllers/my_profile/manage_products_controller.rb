@@ -2,7 +2,17 @@ class ManageProductsController < ApplicationController
   needs_profile
 
   protect 'manage_products', :profile
+  before_filter :check_environment_feature
 
+  protected  
+  def check_environment_feature
+    if profile.environment.enabled?('disable_products_for_enterprises')
+      render_not_found
+      return
+    end
+  end
+
+  public
   def index
     @products = @profile.products
     @consumptions = @profile.consumptions

@@ -448,4 +448,18 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'a', :attributes => { :href => '/myprofile/ze/profile_editor/header_footer' }
   end
 
+  should 'not list the manage products button if the environment disabled it' do
+    env = Environment.default
+    env.enable('disable_products_for_enterprises')
+    env.save!
+    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :environment => env)
+
+    u = create_user_with_permission('test_user', 'edit_profile', ent)
+    login_as('test_user')
+
+    get :index, :profile => 'test_ent'
+
+    assert_no_tag :tag => 'span', :content => 'Manage Products and Services'
+  end
+
 end

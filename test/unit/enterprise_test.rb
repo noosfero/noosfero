@@ -197,4 +197,12 @@ class EnterpriseTest < Test::Unit::TestCase
     assert_kind_of EnterpriseHomepage, enterprise.home_page
   end
 
+  should 'not create a products block for enterprise if environment do not let' do
+    env = Environment.default
+    env.enable('disable_products_for_enterprises')
+    env.save!
+    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent')
+    assert_not_includes ent.blocks.map(&:class), ProductsBlock
+  end
+
 end

@@ -233,6 +233,17 @@ class ProfileControllerTest < Test::Unit::TestCase
     get :index, :profile => 'my-test-enterprise'
     assert_tag :tag => 'a', :attributes => { :href => '/catalog/my-test-enterprise'}, :content => /Products\/Services/
   end
+  
+  should 'not display "Products" link for enterprise if environment do not let' do
+    env = Environment.default
+    env.enable('disable_products_for_enterprises')
+    env.save!
+    ent = Enterprise.create!(:name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false, :environment => env)
+
+    get :index, :profile => 'my-test-enterprise'
+    assert_no_tag :tag => 'a', :attributes => { :href => '/catalog/my-test-enterprise'}, :content => /Products\/Services/
+  end
+
 
   should 'not display "Products" link for people' do
     get :index, :profile => 'ze'

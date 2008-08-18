@@ -253,5 +253,16 @@ class ManageProductsControllerTest < Test::Unit::TestCase
     get :edit_consumption, :profile => @enterprise.identifier, :id => product
     assert_no_tag :tag => 'select', :attributes => { :name => 'consumption[product_category_id]' }
   end
+
+  should 'not let users in if environment do not let' do
+    env = Environment.default
+    env.enable('disable_products_for_enterprises')
+    env.save!
+    @enterprise.environment = env
+    @enterprise.save!
+    get :index, :profile => @enterprise.identifier
+
+    assert_template 'not_found.rhtml'
+  end
   
 end

@@ -65,4 +65,14 @@ class CatalogControllerTest < Test::Unit::TestCase
     
   end
 
+  should 'not give access if environment do not let' do
+    env = Environment.default
+    env.enable('disable_products_for_enterprises')
+    env.save!
+    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent', :environment => env)
+    get :index, :profile => ent.identifier
+
+    assert_redirected_to :controller => 'profile', :action => 'index', :profile => ent.identifier
+  end
+
 end

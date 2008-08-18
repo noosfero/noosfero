@@ -25,7 +25,7 @@
   <% if profile.kind_of? Organization %>
     <li><%= link_to _('Members'), :action => 'members' %></li>
   <% end %>
-  <% if profile.kind_of? Enterprise %>
+  <% if profile.kind_of?(Enterprise) && !profile.environment.enabled?('disable_products_for_enterprises') %>
     <li><%= link_to _('Products/Services'), :controller => 'catalog', :action => 'index' %></li>
   <% end %>
 

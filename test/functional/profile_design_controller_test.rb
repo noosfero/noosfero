@@ -240,6 +240,19 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
     get :index, :profile => 'designtestuser'
     assert_tag :tag => 'a', :content => 'Back to control panel'
   end
- 
+
+  should 'not allow products block if environment do not let' do
+    env = Environment.default
+    env.enable('disable_products_for_enterprises')
+    env.save!
+    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent', :environment => env)
+    person = create_user_with_permission('test_user', 'edit_profile_design', ent)
+    login_as(person.user.login)
+
+    get :add_block, :profile => 'test_ent'
+
+    assert_no_tag :tag => 'input', :attributes => {:type => 'radio', :value => 'ProductsBlock'}
+  end
+
 end
 

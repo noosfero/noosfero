@@ -59,11 +59,15 @@ class Enterprise < Organization
 
 
   def default_set_of_blocks
-    [
+    blocks = [
       [MainBlock],
       [ProfileInfoBlock, MembersBlock],
-      [ProductsBlock, RecentDocumentsBlock]
+      [RecentDocumentsBlock]
     ]
+    if !environment.enabled?('disable_products_for_enterprises')
+      blocks[2].unshift ProductsBlock
+    end
+    blocks
   end
 
   protected

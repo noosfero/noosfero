@@ -28,6 +28,7 @@ class Environment < ActiveRecord::Base
       'disable_asset_communities' => __('Disable search for communities'),
       'disable_asset_products' => _('Disable search for products'),
       'disable_asset_events' => _('Disable search for events'),
+      'disable_products_for_enterprises' => _('Disable products for enterprises'),
     }
   end
   
