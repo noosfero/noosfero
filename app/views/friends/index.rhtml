@@ -1,6 +1,6 @@
 <div id="manage_friends">
 
-<h1><%= _("%s's friends") % profile.name %></h1>
+<h1><%= __("%s's friends") % profile.name %></h1>
 
 <ul class='profile-list'>
   <% @friends.each do |friend| %>
@@ -14,7 +14,7 @@
           { :action => 'remove', :id => friend.id },
             :class => 'button icon-delete',
             :title => _('remove'),
-            :help => _('Clicking on this button will remove your friend relation with %s.') % friend.name %>
+            :help => __('Clicking on this button will remove your friend relation with %s.') % friend.name %>
     </div><!-- end class="controll" -->
 
     </li>
@@ -24,7 +24,7 @@
 <% if @friends.empty? %>
 <p>
 <em>
-  <%= _('You have no friends yet. Go make some.') %>
+  <%= __('You have no friends yet. Go make some.') %>
 </em>
 </p>
 <% end %>
