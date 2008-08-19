@@ -254,5 +254,14 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'input', :attributes => {:type => 'radio', :value => 'ProductsBlock'}
   end
 
+  should 'create back link to profile control panel' do
+    p = Profile.create!(:name => 'test_profile', :identifier => 'test_profile')
+   
+    login_as(create_user_with_permission('test_user','edit_profile_design',p).identifier )
+    get :index, :profile => p.identifier
+    
+    assert_tag :tag => 'a', :attributes => {:href => '/myprofile/test_profile'}
+  end
+
 end
 

@@ -46,5 +46,12 @@ class EnvironmentDesignControllerTest < Test::Unit::TestCase
     l.reload
     assert_equal [{'name' => 'link 1', 'address' => '/address_1'}], l.links
   end
+
+  should 'create back link to environment control panel' do
+    login_as(create_admin_user(Environment.default))
+    get :index
+
+    assert_tag :tag => 'a', :attributes => {:href => '/admin'}, :child => {:tag => 'span', :content => "Back to control panel"}
+  end
   
 end
