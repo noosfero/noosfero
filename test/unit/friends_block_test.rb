@@ -38,6 +38,7 @@ class FriendsBlockTest < ActiveSupport::TestCase
     block.expects(:owner).returns(user)
 
     def self._(s); s; end
+    def self.gettext(s); s; end
     expects(:link_to).with('All friends', :profile => 'theuser', :controller => 'profile', :action => 'friends')
 
     instance_eval(&block.footer)
