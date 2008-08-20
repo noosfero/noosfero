@@ -22,4 +22,13 @@ class TasksController < MyProfileController
     redirect_to :action => 'index'
   end
 
+  def new
+    @ticket = Ticket.new(params[:ticket])
+    @ticket.requestor = profile
+    if request.post?
+      @ticket.save!
+      redirect_to :action => 'index'
+    end
+  end
+
 end

@@ -103,4 +103,22 @@ class TasksControllerTest < Test::Unit::TestCase
     end
   end
 
+  should 'display a create ticket form' do
+    get :new, :profile => profile.identifier
+
+    assert_template 'new'
+  end
+
+  should 'create a ticket' do
+    assert_difference Ticket, :count do
+      post :new, :profile => profile.identifier, :ticket => {:title => 'test ticket'}
+    end
+  end
+
+  should 'create a ticket with profile requestor' do
+    post :new, :profile => profile.identifier, :ticket => {:title => 'new task'} 
+    
+    assert_equal profile, assigns(:ticket).requestor
+  end
+
 end
