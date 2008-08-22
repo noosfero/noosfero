@@ -84,12 +84,43 @@ ul li {
   text-align: left;
   background: url(../images/logo-ynternet-footer.gif) no-repeat 0% 50%;
   padding: 6px 0px 10px 45px;
+  margin-top: 10px;
 }
 #footer-dir {
+  width: 110px;
   float: right;
-  text-align: right;
-  background: url(../images/logo-loterie-footer.gif) no-repeat 100% 50%;
-  padding: 6px 45px 10px 0px;
+  text-align: center;
+  margin: 0px 15px 0px 0px;
+}
+#footer #footer-dir a {
+  border-bottom: none;
+  text-decoration: none;
+}
+
+#footer-w3c {
+  display: block;
+  width: 88px;
+  height: 15px;
+  margin: 0px auto 10px auto;
+  background: url(../images/bt_w3c.gif) no-repeat 50% 50%;
+}
+#footer-zen3-aff {
+  display: block;
+  width: 88px;
+  height: 30px;
+  margin: 3px auto;
+  background: url(../images/zen3-affiliated.png) no-repeat 50% 50%;
+}
+#footer-w3c span,
+#footer-zen3-aff span {
+  display: none;
+}
+
+#footer-cred {
+  position: relative;
+  font-weight: bold;
+  padding-bottom: 1px;
+  border-bottom: 2px dotted #FFF;
 }
 
 #footer-esq:hover,

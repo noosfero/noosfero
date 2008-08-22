@@ -1,0 +1,26 @@
+.recent-documents-block li {
+  font-weight: bold;
+  Xposition: relative;
+  margin-left: -3px;
+  Xborder: 3px dotted #FFF;
+}
+
+.recent-documents-block li a {
+  position: relative;
+  display: block;
+  border: 3px dotted #FFF;
+  padding: 0px 0px 0px 4px;
+  Xpadding: 0px 3px;
+  left: -6px;
+  top: 0px;
+}
+.msie .recent-documents-block li a {
+  top: -3px;
+}
+.msie6 .recent-documents-block li a {
+  width: 99%;
+}
+.recent-documents-block li a:hover {
+  border: 3px dotted #FD8;
+}
+

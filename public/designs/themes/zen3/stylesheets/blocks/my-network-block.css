@@ -1,0 +1,24 @@
+#content .my-network-block {
+  border: 1px solid #B40;
+  background: url(../../images/bg-top.png) repeat-x;
+  margin: 0px 20px 0px 10px;
+  padding: 0px;
+}
+
+#content .my-network-block h3 {
+  padding: 5px 0px 0px 10px;
+}
+
+.my-network-block ul {
+  Xborder: 1px solid green;
+  margin: 0px;
+  padding: 0px 0px 10px 40px;
+}
+
+.my-network-block a {
+  color: #B40;
+}
+.my-network-block a:hover {
+  color: #600;
+}
+
