@@ -121,4 +121,10 @@ class TasksControllerTest < Test::Unit::TestCase
     assert_equal profile, assigns(:ticket).requestor
   end
 
+  should 'list tasks that this profile created' do
+    task = Ticket.create!(:title => 'test', :requestor => profile)
+    get :list_requested, :profile => profile.identifier
+
+    assert_includes assigns(:tasks), task
+  end
 end

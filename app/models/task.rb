@@ -12,6 +12,7 @@
 class Task < ActiveRecord::Base
 
   module Status
+    include GetText
     # the status of tasks just created
     ACTIVE = 1
 
@@ -20,6 +21,10 @@ class Task < ActiveRecord::Base
 
     # the status os a task that was successfully finished
     FINISHED = 3
+
+    def self.names
+      [nil, N_('Active'), N_('Cancelled'), N_('Finished')]
+    end
   end
 
   belongs_to :requestor, :class_name => 'Person', :foreign_key => :requestor_id

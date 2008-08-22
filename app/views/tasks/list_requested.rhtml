@@ -1,0 +1,18 @@
+<%= _('Tasks that I requested') %>
+
+<ul>
+  <% @tasks.each do |task| %>
+    <li>
+      <strong><%= task.respond_to?(:title) ? link_to( task.title, :action => 'ticket_details', :id => task.id) : task.description %></strong><br/>
+      <small>
+        <%= _('Created:') + ' ' + show_date(task.created_at) %>
+        &nbsp; &#151; &nbsp;
+        <%= _('Status:') + ' ' + task.status.to_s %>
+      </small>
+    </li>
+  <% end %>
+</ul>
+
+<% button_bar do %>
+  <%= button :back, _('Back'), :action => 'index' %>
+<% end %>

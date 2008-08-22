@@ -8,4 +8,5 @@ class TicketTest < ActiveSupport::TestCase
 
     assert_equal({:test => 'test'}, t.data)
   end
+
 end

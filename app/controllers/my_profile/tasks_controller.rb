@@ -26,9 +26,18 @@ class TasksController < MyProfileController
     @ticket = Ticket.new(params[:ticket])
     @ticket.requestor = profile
     if request.post?
-      @ticket.save!
-      redirect_to :action => 'index'
+      if @ticket.save
+        redirect_to :action => 'index'
+      end
     end
+  end
+
+  def list_requested
+    @tasks = Task.find_all_by_requestor_id(profile.id)
+  end
+
+  def ticket_details
+    @ticket = Ticket.find(:first, :conditions => ['(requestor_id = ? or target_id = ?) and id = ?', profile.id, profile.id, params[:id]])
   end
 
 end

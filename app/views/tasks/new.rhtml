@@ -1,9 +1,9 @@
 <% labelled_form_for :ticket, @ticket do |f| %>
   <%= f.text_field :title %>
   <%= display_form_field( _('Owner: '), f.select(:target_id, profile.friends.map{|p|[p.name, p.id]})) %>
-  <%= f.text_area  :description %>
+  <%= f.text_area :description %>
 
   <% button_bar do %>
-    <%= submit_button('save', _('Create')) %>
+    <%= submit_button('save', _('Create'), :cancel => {:action => 'index'}) %>
   <% end %>
 <% end %>

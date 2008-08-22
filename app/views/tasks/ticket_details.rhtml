@@ -1,0 +1,19 @@
+<h2><%= _('Ticket: %s') % @ticket.title %></h2>
+<p><small>
+  <%= _('Created at %s by %s') % [@ticket.created_at.to_date, link_to(@ticket.requestor.name, @ticket.requestor.url)] %><br/>
+  <%= _('Owner: %s') %  link_to(@ticket.target.name, @ticket.target.url) %>
+</small></p>
+
+<p><%= _('Status: %s') % gettext(Task::Status.names[@ticket.status]) %></p>
+
+<div>
+  <p><%= _('Description: %s') % @ticket.description %></p>
+</div>
+
+<% if @ticket.closing_statment %>
+  <p><%= _('Closing statement: %s') % @ticket.closing_statment %></p>
+<% end %>
+
+<% button_bar do %>
+  <%= button :back, _('Back'), :action => 'index' %>
+<% end %>
