@@ -1,4 +1,21 @@
 #content .link-list-block li {
-  border: 1px solid #CE5C00;
-  background: #FCAF3E;
+  border: 1px solid #A20;
+  background: #FCAF3E url("../../images/menu-bg.png");
+  white-space: nowrap;
+  overflow: hidden;
+  width: 95%; /* workarround bug for MSIE */
 }
+#content .link-list-block li:hover {
+  background-position: 0% 95%;
+}
+
+#content .link-list-block li a {
+  color: #600;
+}
+#content .link-list-block li a:visited {
+  color: #900;
+}
+#content .link-list-block li:hover a {
+  color: #FC6;
+}
+

@@ -18,7 +18,6 @@
 
 #content .link-list-block {
   padding: 10px 20px 10px 10px;
-  
 }
 
 .link-list-block ul {
@@ -35,4 +34,5 @@
 
 .link-list-block a {
   text-decoration: none;
+  display: block;
 }

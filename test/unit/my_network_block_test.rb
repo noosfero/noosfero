@@ -25,7 +25,12 @@ class MyNetworkBlockTest < ActiveSupport::TestCase
     owner.stubs(:tags).returns({}) # don't let tags call articles
     mock_articles.stubs(:count).returns(5)
 
-    assert_tag_in_string block.content, :tag => 'li', :descendant => { :tag => 'a', :content => '5 articles published', :attributes => { :href => /\/profile\/testuser\/sitemap$/ } }
+    assert_tag_in_string block.content, :tag => 'li', :descendant => {
+      :tag => 'a',
+      :descendant => { :tag => 'b', :content => '5' },
+      :content => ' articles published',
+      :attributes => { :href => /\/profile\/testuser\/sitemap$/ }
+    }
   end
 
   should 'count friends' do
@@ -33,7 +38,12 @@ class MyNetworkBlockTest < ActiveSupport::TestCase
     owner.stubs(:friends).returns(mock_friends)
     mock_friends.stubs(:count).returns(8)
 
-    assert_tag_in_string block.content, :tag => 'li', :descendant => { :tag => 'a', :content => '8 friends', :attributes => { :href => /\profile\/testuser\/friends/ }}
+    assert_tag_in_string block.content, :tag => 'li', :descendant => {
+      :tag => 'a',
+      :descendant => { :tag => 'b', :content => '8' },
+      :content => ' friends',
+      :attributes => { :href => /\profile\/testuser\/friends/ }
+    }
   end
 
   should 'count communities' do
@@ -41,7 +51,12 @@ class MyNetworkBlockTest < ActiveSupport::TestCase
     owner.stubs(:communities).returns(mock_communities)
     mock_communities.stubs(:size).returns(23)
 
-    assert_tag_in_string block.content, :tag => 'li', :descendant => { :tag => 'a', :content => '23 communities', :attributes => { :href => /\profile\/testuser\/communities/ }}
+    assert_tag_in_string block.content, :tag => 'li', :descendant => {
+      :tag => 'a',
+      :descendant => { :tag => 'b', :content => '23' },
+      :content => ' communities',
+      :attributes => { :href => /\profile\/testuser\/communities/ }
+    }
   end
 
   should 'count tags' do
@@ -49,7 +64,12 @@ class MyNetworkBlockTest < ActiveSupport::TestCase
     owner.stubs(:tags).returns(mock_tags)
     mock_tags.stubs(:size).returns(436)
 
-    assert_tag_in_string block.content, :tag => 'li', :descendant => { :tag => 'a', :content => '436 tags', :attributes => { :href => /\profile\/testuser\/tags/ }}
+    assert_tag_in_string block.content, :tag => 'li', :descendant => {
+      :tag => 'a',
+      :descendant => { :tag => 'b', :content => '436' },
+      :content => ' tags',
+      :attributes => { :href => /\profile\/testuser\/tags/ }
+    }
   end
 
   should 'display its title' do
