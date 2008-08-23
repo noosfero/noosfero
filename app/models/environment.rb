@@ -31,7 +31,7 @@ class Environment < ActiveRecord::Base
       'disable_products_for_enterprises' => _('Disable products for enterprises'),
     }
   end
-  
+
   # #################################################
   # Relationships and applied behaviour
   # #################################################
@@ -90,7 +90,7 @@ class Environment < ActiveRecord::Base
   def settings
     self[:settings] ||= {}
   end
-  
+
   # Enables a feature identified by its name
   def enable(feature)
     self.settings["#{feature}_enabled"] = true
@@ -193,7 +193,7 @@ class Environment < ActiveRecord::Base
 
     self.settings['organization_approval_method'] = actual_value
   end
- 
+
   # the description of the environment. Normally used in the homepage.
   def description
     self.settings[:description]
@@ -261,6 +261,34 @@ class Environment < ActiveRecord::Base
 
   def theme
     self[:theme] || 'default'
+  end
+
+  def enterprise_template
+    Enterprise.find settings[:enterprise_template_id]
+  end
+
+  def community_template
+    Community.find settings[:community_template_id]
+  end
+
+  def person_template
+    Person.find settings[:person_template_id]
+  end
+
+  after_create do |env|
+    pre = env.name.to_slug + '_'
+    ent_id = Enterprise.create!(:name => 'Enterprise template', :identifier => pre + 'enterprise_template', :environment => env, :public_profile => false).id
+    com_id = Community.create!(:name => 'Community template', :identifier => pre + 'community_template', :environment => env, :public_profile => false).id
+    pass = Digest::MD5.hexdigest rand.to_s
+    user = User.create!(:login => 'person_template', :email => 'template@template.noo', :password => pass, :password_confirmation => pass).person
+    user.environment = env
+    user.public_profile = false
+    user.save!
+    usr_id = user.id
+    env.settings[:enterprise_template_id] = ent_id
+    env.settings[:community_template_id] = com_id
+    env.settings[:person_template_id] = usr_id
+    env.save!
   end
 
 end

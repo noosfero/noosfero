@@ -379,4 +379,22 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal 'default', Environment.new.theme
   end
 
+  should 'create templates' do
+    e = Environment.create!(:name => 'test_env')
+    e.reload
+
+    assert_kind_of Enterprise, e.enterprise_template
+    assert_kind_of Community, e.community_template
+    assert_kind_of Person, e.person_template
+  end
+
+  should 'have private templates' do
+    e = Environment.create!(:name => 'test_env')
+    e.reload
+
+    assert !e.enterprise_template.public?
+    assert !e.community_template.public?
+    assert !e.person_template.public?
+  end
+
 end

@@ -20,6 +20,9 @@ class AdminPanelController < AdminController
     end
   end
 
+  def edit_templates
+  end
+
   protected
 
   def load_default_enviroment
