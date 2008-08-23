@@ -41,11 +41,10 @@ class AccountController < PublicController
     begin
       @user = User.new(params[:user])
       @user.terms_of_use = environment.terms_of_use
+      @user.environment = environment
       @terms_of_use = environment.terms_of_use
       if request.post? && params[self.icaptcha_field].blank?
         @user.save!
-        @user.person.environment = environment
-        @user.person.save!
         self.current_user = @user
         owner_role = Role.find_by_name('owner')
         @user.person.affiliate(@user.person, [owner_role]) if owner_role

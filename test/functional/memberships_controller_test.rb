@@ -215,4 +215,22 @@ class MembershipsControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/testuser/memberships/destroy_community/#{community.id}" }
   end
 
+  should 'use the current environment for the template of user' do
+    template = Community.create!(:identifier => 'test_template', :name => 'test@bli.com')
+    template.boxes.destroy_all
+    template.boxes << Box.new
+    template.boxes[0].blocks << Block.new
+    template.save!
+    env = Environment.create!(:name => 'test_env')
+    env.settings[:community_template_id] = template.id
+    env.save!
+
+    @controller.stubs(:environment).returns(env)
+
+    post :new_community, :profile => profile.identifier, :community => { :name => 'test community', :description => 'a test community'}
+
+    assert_equal 1, assigns(:community).boxes.size
+    assert_equal 1, assigns(:community).boxes[0].blocks.size
+  end
+
 end

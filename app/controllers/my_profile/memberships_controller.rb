@@ -26,6 +26,7 @@ class MembershipsController < MyProfileController
   def new_community
     @community = Community.new(params[:community])
     if request.post?
+      @community.environment = environment
       if @community.save
         @community.add_admin(profile)
         redirect_to :action => 'index'

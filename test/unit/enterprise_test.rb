@@ -205,4 +205,23 @@ class EnterpriseTest < Test::Unit::TestCase
     assert_not_includes ent.blocks.map(&:class), ProductsBlock
   end
 
+  should 'copy set of boxes from enterprise template' do
+    template = Enterprise.create!(:name => 'test template', :identifier => 'test_template')
+    template.boxes.destroy_all
+    template.boxes << Box.new
+    template.boxes[0].blocks << Block.new
+    template.save!
+
+    env = Environment.create!(:name => 'test_env')
+    env.settings[:enterprise_template_id] = template.id
+    env.save!
+
+    assert_equal template, env.enterprise_template
+
+    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent', :environment => env)
+
+    assert_equal 1, ent.boxes.size
+    assert_equal 1, ent.boxes[0].blocks.size
+  end
+
 end

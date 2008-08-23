@@ -264,15 +264,15 @@ class Environment < ActiveRecord::Base
   end
 
   def enterprise_template
-    Enterprise.find settings[:enterprise_template_id]
+    Enterprise.find_by_id settings[:enterprise_template_id]
   end
 
   def community_template
-    Community.find settings[:community_template_id]
+    Community.find_by_id settings[:community_template_id]
   end
 
   def person_template
-    Person.find settings[:person_template_id]
+    Person.find_by_id settings[:person_template_id]
   end
 
   after_create do |env|
@@ -280,8 +280,7 @@ class Environment < ActiveRecord::Base
     ent_id = Enterprise.create!(:name => 'Enterprise template', :identifier => pre + 'enterprise_template', :environment => env, :public_profile => false).id
     com_id = Community.create!(:name => 'Community template', :identifier => pre + 'community_template', :environment => env, :public_profile => false).id
     pass = Digest::MD5.hexdigest rand.to_s
-    user = User.create!(:login => 'person_template', :email => 'template@template.noo', :password => pass, :password_confirmation => pass).person
-    user.environment = env
+    user = User.create!(:login => (pre + 'person_template'), :email => (pre + 'template@template.noo'), :password => pass, :password_confirmation => pass, :environment => env).person
     user.public_profile = false
     user.save!
     usr_id = user.id

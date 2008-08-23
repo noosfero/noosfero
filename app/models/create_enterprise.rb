@@ -116,6 +116,8 @@ class CreateEnterprise < Task
       profile_fields.include?(key.to_s)
     end
 
+    enterprise.environment = environment
+
     enterprise.user = self.requestor.user
 
     enterprise.update_attributes(organization_data)

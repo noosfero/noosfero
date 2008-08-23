@@ -497,6 +497,24 @@ class AccountControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'input', :attributes => { :type => 'text', :name => @controller.icaptcha_field }
   end
 
+  should 'use the current environment for the template of user' do
+    template = User.create!(:login => 'test_template', :email => 'test@bli.com', :password => 'pass', :password_confirmation => 'pass').person
+    template.boxes.destroy_all
+    template.boxes << Box.new
+    template.boxes[0].blocks << Block.new
+    template.save!
+    env = Environment.create!(:name => 'test_env')
+    env.settings[:person_template_id] = template.id
+    env.save!
+
+    @controller.stubs(:environment).returns(env)
+
+    create_user
+
+    assert_equal 1, assigns(:user).person.boxes.size
+    assert_equal 1, assigns(:user).person.boxes[0].blocks.size
+  end
+
   protected
     def create_user(options = {}, extra_options ={})
       post :signup, { :user => { :login => 'quire',

@@ -126,6 +126,40 @@ class CreateEnterpriseTest < Test::Unit::TestCase
     assert_equal task.name, enterprise.name
   end
 
+  should 'actually create an enterprise when finishing the task and associate the task requestor as its owner through the "user" association even when environment is not default' do
+
+    environment = Environment.create!(:name => "My environment", :contact_email => 'test@localhost.localdomain')
+    region = Region.create!(:name => 'My region', :environment_id => environment.id)
+    validator = Organization.create!(:name => "My organization", :identifier => 'myorg', :environment_id => environment.id)
+    region.validators << validator
+    person = User.create!(:login => 'testuser', :password => 'test', :password_confirmation => 'test', :email => 'testuser@localhost.localdomain').person
+
+    task = CreateEnterprise.create!({
+      :name => 'My new enterprise',
+      :identifier => 'mynewenterprise',
+      :address => 'satan street, 666',
+      :contact_phone => '1298372198',
+      :contact_person => 'random joe',
+      :legal_form => 'cooperative',
+      :economic_activity => 'free software',
+      :region_id => region.id,
+      :requestor_id => person.id,
+      :target_id => validator.id,
+    })
+
+    enterprise = Enterprise.new
+    Enterprise.expects(:new).returns(enterprise)
+
+    task.finish
+
+    assert !enterprise.new_record?
+    assert_equal person.user, enterprise.user
+    assert_equal environment, enterprise.environment
+
+    # the data is not erased
+    assert_equal task.name, enterprise.name
+  end
+
   should 'override message methods from Task' do
     generic = Task.new
     specific = CreateEnterprise.new
@@ -190,5 +224,4 @@ class CreateEnterpriseTest < Test::Unit::TestCase
     t = CreateEnterprise.new
     assert_equal :validate_enterprise, t.permission
   end
-
 end

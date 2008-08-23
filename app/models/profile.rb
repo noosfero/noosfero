@@ -178,19 +178,38 @@ class Profile < ActiveRecord::Base
   # overriden for each subclass to create a custom set of boxes for its
   # instances.    
   def create_default_set_of_boxes
-    3.times do
-      self.boxes << Box.new
-    end
+    if template
+      copy_blocks_from template
+    else
+      3.times do
+        self.boxes << Box.new
+      end
 
-    if self.respond_to?(:default_set_of_blocks)
-      default_set_of_blocks.each_with_index do |blocks,i|
-        blocks.each do |block|
-          self.boxes[i].blocks << block.new
+      if self.respond_to?(:default_set_of_blocks)
+        default_set_of_blocks.each_with_index do |blocks,i|
+          blocks.each do |block|
+            self.boxes[i].blocks << block.new
+          end
         end
       end
     end
 
     true
+  end
+
+  def copy_blocks_from(profile)
+    self.boxes.destroy_all
+    profile.boxes.each do |box|
+      self.boxes << Box.new(:position => box.position)
+      box.blocks.each do |block|
+        self.boxes[-1].blocks << block.class.new(:title => block.title, :settings => block.settings, :position => block.position)
+      end
+    end
+  end
+
+  # this method should be override to provide the correct template
+  def template
+    nil
   end
 
   xss_terminate :only => [ :name, :nickname, :address, :contact_phone ]

@@ -70,6 +70,10 @@ class Enterprise < Organization
     blocks
   end
 
+  def template
+    environment.enterprise_template
+  end
+
   protected
 
   def default_homepage(attrs)

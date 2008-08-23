@@ -101,4 +101,8 @@ class Person < Profile
     end
   end
 
+  def template
+    environment.person_template
+  end
+
 end

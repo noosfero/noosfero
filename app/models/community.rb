@@ -10,4 +10,8 @@ class Community < Organization
     self.identifier = value.to_slug
   end
 
+  def template
+    environment.community_template
+  end
+
 end

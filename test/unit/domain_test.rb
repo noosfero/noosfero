@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class DomainTest < Test::Unit::TestCase
-  fixtures :domains, :environments, :profiles
+  fixtures :domains, :environments, :profiles, :users
 
   # Replace this with your real tests.
   def test_domain_name_format
