@@ -805,11 +805,43 @@ class ProfileTest < Test::Unit::TestCase
   should 'create a initial private folder when a public profile is created' do
     p1 = Profile.create!(:name => 'test profile 1', :identifier => 'test_profile1')
     p2 = Profile.create!(:name => 'test profile 2', :identifier => 'test_profile2', :public_profile => false)
-    
+
     assert p1.articles.find(:first, :conditions => {:public_article => false})
     assert !p2.articles.find(:first, :conditions => {:public_article => false})
   end
 
+  should 'copy set of articles from a template' do
+    template = create_user('test_template').person
+    template.articles.destroy_all
+    a1 = template.articles.create(:name => 'some xyz article')
+    a2 = template.articles.create(:name => 'some child article', :parent => a1)
+
+    Profile.any_instance.stubs(:template).returns(template)
+
+    p = Profile.create!(:name => 'test_profile', :identifier => 'test_profile')
+
+    assert_equal 1, p.top_level_articles.size
+    top_art = p.top_level_articles[0]
+    assert_equal 'some xyz article', top_art.name
+    assert_equal 1, top_art.children.size
+    child_art = top_art.children[0]
+    assert_equal 'some child article', child_art.name
+  end
+  
+  should 'copy set of boxes from profile template' do
+    template = Profile.create!(:name => 'test template', :identifier => 'test_template')
+    template.boxes.destroy_all
+    template.boxes << Box.new
+    template.boxes[0].blocks << Block.new
+    template.save!
+
+    Profile.any_instance.stubs(:template).returns(template)
+
+    p = Profile.create!(:name => 'test prof', :identifier => 'test_prof')
+
+    assert_equal 1, p.boxes.size
+    assert_equal 1, p.boxes[0].blocks.size
+  end
   private
 
   def assert_invalid_identifier(id)

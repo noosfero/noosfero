@@ -414,4 +414,23 @@ class ArticleTest < Test::Unit::TestCase
     assert article.display_to?(friend)
   end
 
+  should 'make a copy of the article as child of it' do
+    person = create_user('test_user').person
+    a = person.articles.create!(:name => 'test article', :body => 'some text')
+    b = a.copy(:parent => a, :profile => a.profile)
+    
+    assert_includes a.children, b
+    assert_equal 'some text', b.body
+  end
+
+  should 'make a copy of the article to other profile' do
+    p1 = create_user('test_user1').person
+    p2 = create_user('test_user2').person
+    a = p1.articles.create!(:name => 'test article', :body => 'some text')
+    b = a.copy(:parent => a, :profile => p2)
+
+    assert_includes p2.articles, b
+    assert_equal 'some text', b.body
+  end
+
 end

@@ -279,23 +279,10 @@ class PersonTest < Test::Unit::TestCase
     assert person.display_info_to?(friend)
   end
 
-  should 'copy set of boxes from person template' do
-    template = create_user('test_template').person
-    template.boxes.destroy_all
-    template.boxes << Box.new
-    template.boxes[0].blocks << Block.new
-    template.save!
-
-    env = Environment.create!(:name => 'test_env')
-    env.settings[:person_template_id] = template.id
-    env.save!
-
-    assert_equal template, env.person_template
-    
-    person = create_user('test_user', :environment => env).person
-
-    assert_equal 1, person.boxes.size
-    assert_equal 1, person.boxes[0].blocks.size
+  should 'have a person template' do
+    env = Environment.create!(:name => 'test env')
+    p = create_user('test_user', :environment => env).person
+    assert_kind_of Person, p.template
   end
-  
+
 end

@@ -82,24 +82,11 @@ class CommunityTest < Test::Unit::TestCase
       assert !RoleAssignment.exists?(i.id)
     end
   end
-  
-  should 'copy set of boxes from community template' do
-    template = Community.create!(:name => 'test template', :identifier => 'test_template')
-    template.boxes.destroy_all
-    template.boxes << Box.new
-    template.boxes[0].blocks << Block.new
-    template.save!
 
-    env = Environment.create!(:name => 'test_env')
-    env.settings[:community_template_id] = template.id
-    env.save!
-
-    assert_equal template, env.community_template
-
-    com = Community.create!(:name => 'test ent', :identifier => 'test_ent', :environment => env)
-
-    assert_equal 1, com.boxes.size
-    assert_equal 1, com.boxes[0].blocks.size
+  should 'have a community template' do
+    env = Environment.create!(:name => 'test env')
+    p = Community.create!(:name => 'test_com', :identifier => 'test_com', :environment => env)
+    assert_kind_of Community, p.template
   end
 
 end

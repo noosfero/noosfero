@@ -207,7 +207,7 @@ class Profile < ActiveRecord::Base
     end
   end
 
-  # this method should be override to provide the correct template
+  # this method should be overwritten to provide the correct template
   def template
     nil
   end
@@ -325,21 +325,38 @@ class Profile < ActiveRecord::Base
 
   after_create :insert_default_article_set
   def insert_default_article_set
-    # a default homepage
-    hp = default_homepage(:name => _("%s's home page") % self.name, :body => _("<p>This is a default homepage created for %s. It can be changed though the control panel.</p>") % self.name, :advertise => false)
-    hp.profile = self
-    hp.save!
-    self.home_page = hp
-    self.save!
+    if template 
+      copy_articles_from template
+    else
+      # a default homepage
+      hp = default_homepage(:name => _("My home page"), :body => _("<p>This is a default homepage created for me. It can be changed though the control panel.</p>"), :advertise => false)
+      hp.profile = self
+      hp.save!
+      self.home_page = hp
+      self.save!
 
-    # a default rss feed
-    feed = RssFeed.new(:name => 'feed')
-    self.articles << feed
+      # a default rss feed
+      feed = RssFeed.new(:name => 'feed')
+      self.articles << feed
 
-    # a default private folder if public
-    if self.public?
-      folder = Folder.new(:name => _("Intranet"), :public_article => false)
-      self.articles << folder
+      # a default private folder if public
+      if self.public?
+       folder = Folder.new(:name => _("Intranet"), :public_article => false)
+       self.articles << folder
+      end
+    end
+  end
+
+  def copy_articles_from other
+    other.top_level_articles.each do |a|
+      copy_article_tree a
+    end
+  end
+
+  def copy_article_tree(article, parent=nil)
+    article_copy = article.copy(:profile => self, :parent => parent)
+    article.children.each do |a|
+      copy_article_tree a, article_copy
     end
   end
 

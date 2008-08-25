@@ -167,6 +167,16 @@ class Article < ActiveRecord::Base
     profile.public? && public_article
   end
 
+  def copy(options)
+    attrs = attributes.reject! { |key, value| article_attr_blacklist.include?(key) }
+    attrs.merge!(options)
+    Article.create(attrs)
+  end
+
+  def article_attr_blacklist
+    ['id', 'profile_id', 'parent_id', 'slug', 'path', 'updated_at', 'created_at', 'last_changed_by_id', 'version', 'lock_version', 'type', 'children_count', 'comments_count']
+  end
+
   private
 
   def sanitize_tag_list
