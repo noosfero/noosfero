@@ -810,6 +810,17 @@ class ProfileTest < Test::Unit::TestCase
     assert !p2.articles.find(:first, :conditions => {:public_article => false})
   end
 
+  should 'remove member with many roles' do
+    person = create_user('test_user').person
+    community = Community.create!(:name => 'Boca do Siri', :identifier => 'boca_do_siri')
+    community.affiliate(person, Profile::Roles.all_roles)
+
+    community.remove_member(person)
+
+    person.reload
+    assert_not_includes person.memberships, community
+  end
+
   should 'copy set of articles from a template' do
     template = create_user('test_template').person
     template.articles.destroy_all
@@ -842,6 +853,7 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal 1, p.boxes.size
     assert_equal 1, p.boxes[0].blocks.size
   end
+
   private
 
   def assert_invalid_identifier(id)

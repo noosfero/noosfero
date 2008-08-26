@@ -233,4 +233,13 @@ class MembershipsControllerTest < Test::Unit::TestCase
     assert_equal 1, assigns(:community).boxes[0].blocks.size
   end
 
+  should 'leave community' do
+    community = Community.create!(:name =>'Boca do Siri', :identifier => 'boca_do_siri')
+    community.affiliate(profile, Profile::Roles.all_roles)
+    post :leave, :profile => profile.identifier, :id => community.id, :confirmation => true
+
+    profile.reload
+    assert_not_includes profile.memberships, community
+  end
+
 end
