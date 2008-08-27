@@ -55,7 +55,7 @@ Rails::Initializer.run do |config|
   }
 
   # Adds custom attributes to the Set of allowed html attributes for the #sanitize helper
-  config.action_view.sanitized_allowed_attributes = 'align'
+  config.action_view.sanitized_allowed_attributes = 'align', 'border', 'alt', 'vspace', 'hspace', 'width', 'heigth', 'align'
   
   # See Rails::Configuration for more options
 
