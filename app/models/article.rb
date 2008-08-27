@@ -170,7 +170,7 @@ class Article < ActiveRecord::Base
   def copy(options)
     attrs = attributes.reject! { |key, value| article_attr_blacklist.include?(key) }
     attrs.merge!(options)
-    Article.create(attrs)
+    self.class.create(attrs)
   end
 
   def article_attr_blacklist

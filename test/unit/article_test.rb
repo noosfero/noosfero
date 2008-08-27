@@ -433,4 +433,12 @@ class ArticleTest < Test::Unit::TestCase
     assert_equal 'some text', b.body
   end
 
+  should 'mantain the type in a copy' do
+    p = create_user('test_user').person
+    a = Folder.create!(:name => 'test folder', :profile => p)
+    b = a.copy(:parent => a, :profile => p)
+
+    assert_kind_of Folder, b
+  end
+
 end
