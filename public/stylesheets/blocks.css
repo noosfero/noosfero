@@ -47,12 +47,21 @@
 }
 
 #box-organizer div.box-1 .block {
+  outline: 2px dashed green;
+}
+.msie #box-organizer div.box-1 .block {
   border: 2px dashed green;
 }
 #box-organizer div.box-2 .block {
+  outline: 2px dashed red;
+}
+.msie #box-organizer div.box-1 .block {
   border: 2px dashed red;
 }
 #box-organizer div.box-3 .block {
+  outline: 2px dashed blue;
+}
+.msie #box-organizer div.box-1 .block {
   border: 2px dashed blue;
 }
 

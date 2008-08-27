@@ -7,12 +7,11 @@
   position: relative;
   float: right;
   display: table;
-  margin-right: 40px;
   width: 106px;
   height: 106px;
 }
 .msie6 .profile-info-picture {
-  margin-right: 20px;
+  /* margin-right: 20px; */
 }
 
 .profile-info-picture-inner1 {

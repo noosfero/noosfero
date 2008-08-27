@@ -129,6 +129,10 @@ div#notice {
 
 /* * * Generic Content Formating * * */
 
+.main-block {
+  text-align: justify;
+}
+
 #content h1 {
   text-align: center;
 }
