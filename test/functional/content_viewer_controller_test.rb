@@ -114,6 +114,30 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_equal feed.data, @response.body
   end
 
+  should 'display remove comment button' do
+    profile = create_user('testuser').person
+    article = profile.articles.build(:name => 'test')
+    article.save!
+    comment = article.comments.build(:author => profile, :title => 'a comment', :body => 'lalala')
+    comment.save!
+
+    login_as 'testuser'
+    get :view_page, :profile => 'testuser', :page => [ 'test' ]
+    assert_tag :tag => 'a', :attributes => { :href => '/testuser/test?remove_comment=' + comment.id.to_s }
+  end
+
+  should 'not add unneeded params for remove comment button' do
+    profile = create_user('testuser').person
+    article = profile.articles.build(:name => 'test')
+    article.save!
+    comment = article.comments.build(:author => profile, :title => 'a comment', :body => 'lalala')
+    comment.save!
+
+    login_as 'testuser'
+    get :view_page, :profile => 'testuser', :page => [ 'test' ], :random_param => 'bli' # <<<<<<<<<<<<<<<
+    assert_tag :tag => 'a', :attributes => { :href => '/testuser/test?remove_comment=' + comment.id.to_s }
+  end
+
   should 'be able to remove comment' do
     profile = create_user('testuser').person
     article = profile.articles.build(:name => 'test')
@@ -124,7 +148,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     login_as 'testuser'
     assert_difference Comment, :count, -1 do
       post :view_page, :profile => profile.identifier, :page => [ 'test' ], :remove_comment => comment.id
-      assert_response :redirect
+      assert_redirected_to :profile => 'testuser', :action => 'view_page', :page => [ 'test' ]
     end
   end
 
