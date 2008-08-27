@@ -11,4 +11,11 @@
 
 <%= pagination_links @results.values.first %>
 
+
+<% if logged_in? %>
+  <% button_bar do %>
+    <%= button(:add, _('New community'), :controller => 'memberships', :action => 'new_community', :profile => current_user.person.identifier) %>
+  <% end %>
+<% end %>
+
 <br style="clear:both" />
