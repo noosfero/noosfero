@@ -520,7 +520,7 @@ class CmsControllerTest < Test::Unit::TestCase
     @request.expects(:referer).returns('http://colivre.net/testinguser')
     get :edit, :profile => 'testinguser', :id => @profile.home_page.id
     assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'back_to', :value => 'public_view' }
-    assert_tag :tag => 'a', :descendant => { :content => 'Cancel' }, :attributes => { :href => 'http://colivre.net/testinguser/testingusers-home-page' }
+    assert_tag :tag => 'a', :descendant => { :content => 'Cancel' }, :attributes => { :href => 'http://colivre.net/testinguser/' + @profile.home_page.slug }
   end
 
   should 'go back to public view when saving coming from there' do
