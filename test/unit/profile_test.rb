@@ -854,6 +854,33 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal 1, p.boxes[0].blocks.size
   end
 
+  TMP_THEMES_DIR = RAILS_ROOT + '/test/tmp/profile_themes'
+  should 'have themes' do
+    Theme.stubs(:user_themes_dir).returns(TMP_THEMES_DIR)
+
+    begin
+      p1 = Profile.create!(:name => 'test profile 1', :identifier => 'test_profile1')
+      t = Theme.new('test_theme'); t.owner = p1; t.save
+
+      assert_equal  [t], p1.themes
+    ensure
+      FileUtils.rm_rf(TMP_THEMES_DIR)
+    end
+  end
+
+  should 'find theme by id' do
+    Theme.stubs(:user_themes_dir).returns(TMP_THEMES_DIR)
+
+    begin
+      p1 = Profile.create!(:name => 'test profile 1', :identifier => 'test_profile1')
+      t = Theme.new('test_theme'); t.owner = p1; t.save
+
+      assert_equal  t, p1.find_theme('test_theme')
+    ensure
+      FileUtils.rm_rf(TMP_THEMES_DIR)
+    end
+  end
+
   private
 
   def assert_invalid_identifier(id)

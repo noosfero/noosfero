@@ -4,6 +4,10 @@ class ApplicationHelperTest < Test::Unit::TestCase
 
   include ApplicationHelper
 
+  def setup
+    self.stubs(:session).returns({})
+  end
+
   should 'calculate correctly partial for object' do
     self.stubs(:params).returns({:controller => 'test'})
 
@@ -150,6 +154,52 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_equal 'my-profile-theme', current_theme
   end
 
+  should 'override theme with testing theme from session' do
+    stubs(:session).returns(:theme => 'theme-under-test')
+    assert_equal 'theme-under-test', current_theme
+  end
+
+  should 'point to system theme path by default' do
+    expects(:current_theme).returns('my-system-theme')
+    assert_equal '/designs/themes/my-system-theme', theme_path
+  end
+
+  should 'point to user theme path when testing theme' do
+    stubs(:session).returns({:theme => 'theme-under-test'})
+    assert_equal '/user_themes/theme-under-test', theme_path
+  end
+
+  should 'render theme footer' do
+    stubs(:theme_path).returns('/user_themes/mytheme')
+    footer = '../../public/user_themes/mytheme/footer.rhtml'
+
+    File.expects(:exists?).with(RAILS_ROOT + '/app/views/../../public/user_themes/mytheme/footer.rhtml').returns(true)
+    expects(:render).with(:file => footer).returns("BLI")
+
+    assert_equal "BLI", theme_footer
+  end
+
+  should 'ignore unexisting theme footer' do
+    stubs(:theme_path).returns('/user_themes/mytheme')
+    footer = '../../public/user_themes/mytheme/footer.rhtml'
+
+    File.expects(:exists?).with(RAILS_ROOT + '/app/views/../../public/user_themes/mytheme/footer.rhtml').returns(false)
+    expects(:render).with(:file => footer).never
+
+    assert_nil theme_footer
+  end
+
+  should 'expose theme owner' do
+    theme = mock
+    profile = mock
+    Theme.expects(:find).with('theme-under-test').returns(theme)
+    theme.expects(:owner).returns(profile)
+    profile.expects(:identifier).returns('sampleuser')
+
+    stubs(:current_theme).returns('theme-under-test')
+
+    assert_equal 'sampleuser', theme_owner
+  end
 
   protected
 

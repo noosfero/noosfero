@@ -220,22 +220,10 @@ module ApplicationHelper
     link_to(content_tag('span', label), url, html_options.merge(:class => the_class ))
   end
 
-  def button_to_function(type, label, js_code, html_options = {})
-    html_options[:class] = "button with-text" unless html_options[:class]
-    html_options[:class] << " icon-#{type}"
-    link_to_function(label, js_code, html_options)
-  end
-
   def button_to_function(type, label, js_code, html_options = {}, &block)
     html_options[:class] = "button with-text" unless html_options[:class]
     html_options[:class] << " icon-#{type}"
     link_to_function(label, js_code, html_options, &block)
-  end
-
-  def button_to_function_without_text(type, label, js_code, html_options = {})
-    html_options[:class] = "" unless html_options[:class]
-    html_options[:class] << " button icon-#{type}"
-    link_to_function(content_tag('span', label), js_code, html_options)
   end
 
   def button_to_function_without_text(type, label, js_code, html_options = {}, &block)
@@ -323,18 +311,42 @@ module ApplicationHelper
   def filename_for_stylesheet(name, in_theme)
     result = ''
     if in_theme
-      result << '/designs/themes/' + current_theme
+      result << theme_path
     end
     result << '/stylesheets/' << name << '.css'
   end
 
+  def theme_path
+    if session[:theme]
+      '/user_themes/' + current_theme
+    else
+      '/designs/themes/' + current_theme
+    end
+  end
+
   def current_theme
+    return session[:theme] if (session[:theme])
     p = profile
     if p
       p.theme
     else
       @environment.theme
     end
+  end
+
+  def theme_footer
+    footer = ('../../public' + theme_path + '/footer.rhtml')
+    if File.exists?(RAILS_ROOT + '/app/views/' + footer)
+      render :file => footer
+    end
+  end
+
+  def is_testing_theme
+    !@controller.session[:theme].nil?
+  end
+
+  def theme_owner
+    Theme.find(current_theme).owner.identifier
   end
 
   # generates a image tag for the profile. 
@@ -492,8 +504,7 @@ module ApplicationHelper
 
   def theme_option(opt = nil)
     conf = RAILS_ROOT.to_s() +
-           '/public/designs/themes/' +
-           current_theme.to_s() +
+           '/public' + theme_path +
            '/theme.yml'
     if File.exists?(conf)
       opt ? YAML.load_file(conf)[opt.to_s()] : YAML.load_file(conf)
@@ -529,7 +540,7 @@ module ApplicationHelper
     return if option.nil?
     html = []
     option.each do |file|
-      file = '/designs/themes/'+ current_theme.to_s() +
+      file = theme_path +
              '/javascript/'+ file +'.js'
       if File.exists? RAILS_ROOT.to_s() +'/public'+ file
         html << javascript_src_tag( file, {} )

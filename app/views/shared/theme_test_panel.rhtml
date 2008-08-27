@@ -1,0 +1,13 @@
+<div id='theme-test-panel'>
+  <h4>
+    <%= _('Testing theme "%s"') % current_theme %>
+  </h4>
+
+  <p><small><em><%= _('You can move this window away to have a better visualization of specific parts of screen.') %></em></small></p>
+
+  <% button_bar do %>
+    <%= button(:ok, _('Finished testing'), :controller => 'themes', :profile => theme_owner, :action => 'stop_test', :id => current_theme) %>
+    <%= button(:edit, _('Edit theme'), :controller => 'themes', :profile => theme_owner, :action => 'edit', :id => current_theme) %>
+  <% end %>
+</div>
+<%= draggable_element('theme-test-panel') %>

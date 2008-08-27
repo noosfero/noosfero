@@ -35,6 +35,7 @@ class Profile < ActiveRecord::Base
     'validate_enterprise' => N_('Validate enterprise'),
     'perform_task'        => N_('Perform task'),
     'moderate_comments'   => N_('Moderate comments'),
+    'edit_appearance'     => N_('Edit appearance'),
   }
 
   acts_as_accessible
@@ -450,4 +451,13 @@ class Profile < ActiveRecord::Base
   def public?
     public_profile
   end
+
+  def themes
+    Theme.find_by_owner(self)
+  end
+
+  def find_theme(the_id)
+    themes.find { |item| item.id == the_id }
+  end
+
 end

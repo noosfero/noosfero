@@ -2,13 +2,53 @@
 
 <h2><%= _('Select theme') %></h2>
 
-<div>
-  <% for theme in @themes %>
-    <%= link_to image_tag('/images/icons-app/design-editor.png', :alt => (_('Select the "%s" theme.') % theme.name)) + content_tag('span', theme.name), :action => 'set', :id => theme.id %>
+<table style='margin: auto'>
+  <% for themes in @themes.in_groups_of(3)  %>
+    <tr>
+      <% for theme in themes %>
+        <td>
+          <%# FIXME add proper thumbnails %>
+          <%= image_tag('/images/icons-app/design-editor.png', :alt => (_('The "%s" theme.') % theme.name)) if theme %>
+        </td>
+        <td>
+          <strong><%= theme.name if theme%></strong><br/>
+          <%= link_to(_('Use this theme'), :action => 'set', :id => theme.id) if theme %>
+        </td>
+        <td>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+        </td>
+      <% end %>
+    </tr>
+    <tr><td colspan='3'>&nbsp;</td></tr>
   <% end %>
-</div>
+</table>
 
+<h2><%= _('My themes') %></h2>
+
+<table style='margin: auto'>
+  <% for themes in profile.themes.in_groups_of(3)  %>
+    <tr>
+      <% for theme in themes %>
+        <td>
+          <%# FIXME add proper thumbnails %>
+          <%= image_tag('/images/icons-app/design-editor.png', :alt => (_('The "%s" theme.') % theme.name)) if theme %>
+        </td>
+        <td>
+          <strong><%= theme.name if theme%></strong><br/>
+          <%= link_to(_('Edit this theme'), :action => 'edit', :id => theme.id) if theme %>
+          <br/>
+          <%= link_to(_('Test this theme'), :action => 'start_test', :id => theme.id) if theme %>
+        </td>
+        <td>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+        </td>
+      <% end %>
+    </tr>
+    <tr><td colspan='3'>&nbsp;</td></tr>
+  <% end %>
+</table>
 
 <% button_bar do %>
+  <%= lightbox_button(:add, _('New theme ...'), :action => 'new') %>
   <%= button(:back, _('Back'), :controller => 'profile_editor', :action => 'index') %>
 <% end %>

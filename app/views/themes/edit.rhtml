@@ -1,63 +1,41 @@
 <form>
   <%# FIXME %>
   <h1 id='theme-name'>
-    <%= _('Editing theme %s') % text_field_tag('theme_name', 'my theme') %>
-    <%= icon_button(:save, _('Save'), '#') %>
+    <%= _('Editing theme "%s"') % @theme.name %>
+    <%= button(:search, _('Preview this theme'), :action => 'index') %>
+    <%= button(:back, _('Back'), :action => 'index') %>
   </h1>
 </form>
+
 
 <div id='css-files-list'>
   <h2><%= _('CSS files') %></h2>
   <ul>
-    <li><a href="">common.css</a></li>
-    <li><a href="">header.css</a></li>
-    <li><a href="">footer.css</a></li>
-    <li><a href="">sideboxes.css</a></li>
-    <li><a href="">otherstuff1.css</a></li>
-    <li><a href="">otherstuff1.css</a></li>
-    <li><a href="">otherstuff1.css</a></li>
-    <li><a href="">otherstuff2css</a></li>
-    <li><a href="">otherstuff3.css</a></li>
-    <li><a href="">otherstuff4.css</a></li>
-    <li><a href="">otherstuff2css</a></li>
-    <li><a href="">otherstuff3.css</a></li>
-    <li><a href="">otherstuff4.css</a></li>
-    <li><a href="">otherstuff2css</a></li>
-    <li><a href="">otherstuff3.css</a></li>
-    <li><a href="">otherstuff4.css</a></li>
+    <% for css in @css_files %>
+      <li><%= link_to_remote(css, :url => { :action => 'css_editor', :id => @theme.id, :css => css }, :update => { :success => 'css-code' }) %></li>
+    <% end %>
   </ul>
   <% button_bar do %>
-    <%= button(:add, _('New CSS'), '') %>
+    <%= lightbox_button(:add, _('New CSS'), :action => 'add_css', :id => @theme.id) %>
   <% end %>
 </div>
 
 <div id='image-files-list'>
   <h2><%= _('Images') %></h2>
   <ul>
-    <li><img src='/images/icons-app/gtk-cancel.png' /><span>Image 1</span></li>
-    <li><img src='/images/icons-app/cms.png' /><span>Image_2_a_very_large_filename</span></li>
-    <li><img src='http://www.ynternet.org/banner/' /><span>a wide image</span></li>
-    <li><img src='/images/icons-app/enable.png' /><span>Image 3</span></li>
-    <li><img src='/images/icons-app/gnome-globe.png' /><span>Image 4</span></li>
-    <li><img src='/images/icons-app/gtk-yes.png' /><span>Image 5</span></li>
-    <li><img src='/images/icons-app/mail.png' /><span>Image 6</span></li>
+    <% for image in @image_files %>
+      <li><%= image_tag("/user_themes/#{@theme.id}/images/#{image}") %></li>
+    <% end %> 
   </ul>
   <% button_bar do %>
-    <%= button(:add, _('Upload image'), '') %>
+    <%= lightbox_button(:add, _('Add image'), :action => 'add_image', :id =>  @theme.id) %>
   <% end %>
 </div>
 
-<form id='css-code'>
-  <%# FIXME %>
-  <h2><%= _('CSS code: "%s"') % 'common.css' %></h2>
-  <textarea name='csscode' id="csscode" class='codepress css'>
-    body {
-      background: yellow;
-    }
-  </textarea>
-  <% button_bar do %>
-    <%= button(:save, _('Save'), '') %>
-  <% end %>
-</form>
+<div id='css-code'>
+  <center style='padding-top: 5em;'>
+    <em><%= _('Select a CSS file to edit') %></em>
+  </center>
+</div>
 
-<%= render :file => 'shared/codepress' %>
+<%# javascript_include_tag 'codepress/codepress' %>

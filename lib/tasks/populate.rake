@@ -36,6 +36,7 @@ def create_roles
     'post_content',
     'edit_profile_design',
     'manage_products',
+    'edit_appearance',
   ])
   Role.create!(:key => 'profile_admin', :name => N_('Profile Administrator'), :permissions => [
     'edit_profile',
@@ -44,6 +45,7 @@ def create_roles
     'post_content',
     'edit_profile_design',
     'manage_products',
+    'edit_appearance',
   ])
   # members for enterprises, communities etc
   Role.create!(:key => "profile_member", :name => N_('Member'), :permissions => [

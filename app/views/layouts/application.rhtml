@@ -154,7 +154,7 @@
     </div><!-- id="wrap" -->
 
     <div id="footer">
-      <%= render :file => ('../../public/designs/themes/' + current_theme + '/footer.rhtml' ) %>
+      <%= theme_footer %>
     </div><!-- id="footer" -->
 
     <div id="helpBox" style="display:none">
@@ -176,6 +176,10 @@
       <b id="bbp-getff"><a href="http://getfirefox.com" class="icon-firefox" target="getff"><%= _('Get Firefox Now!') %></a></b>
     </div>
     <%= javascript_include_tag 'better-browser-promotion' %>
+
+    <% if is_testing_theme %>
+      <%= render :file => 'shared/theme_test_panel' %>
+    <% end %>
 
   </body>
 </html>

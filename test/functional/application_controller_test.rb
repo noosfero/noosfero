@@ -193,4 +193,25 @@ class ApplicationControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'base', :attributes => { :href => 'http://www.lala.net' }
   end
 
+  should 'display theme test panel when testing theme' do
+    @request.session[:theme] = 'my-test-theme'
+    theme = mock
+    profile = mock
+    theme.expects(:owner).returns(profile).at_least_once
+    profile.expects(:identifier).returns('testinguser').at_least_once
+    Theme.expects(:find).with('my-test-theme').returns(theme).at_least_once
+    get :index
+
+    assert_tag :tag => 'div', :attributes => { :id => 'theme-test-panel' }, :descendant => {
+      :tag => 'a', :attributes => { :href => '/myprofile/testinguser/themes/edit/my-test-theme'}
+    }
+      #{ :tag => 'a', :attributes => { :href => '/myprofile/testinguser/themes/stop_test/my-test-theme'} }
+  end
+
+  should 'not display theme test panel in general' do
+    @controller.stubs(:session).returns({})
+    get :index
+    assert_no_tag :tag => 'div', :attributes => { :id => 'theme-test-panel' }
+  end
+
 end
