@@ -9,9 +9,9 @@ class EnvironmentStatisticsBlock < Block
   end
 
   def content
-    users = owner.people.find_all_by_public_profile(true).count
-    enterprises = owner.enterprises.find_all_by_public_profile(true).count
-    communities = owner.communities.find_all_by_public_profile(true).count
+    users = owner.people.count(:conditions => { :public_profile => true })
+    enterprises = owner.enterprises.count(:conditions => { :public_profile => true })
+    communities = owner.communities.count(:conditions => { :public_profile => true })
 
     info = [
       n_('One user', '%{num} users', users) % { :num => users },
