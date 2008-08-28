@@ -9,6 +9,9 @@ require 'noosfero/test'
 
 FileUtils.rm_rf(File.join(RAILS_ROOT, 'index', 'test'))
 
+Image.attachment_options[:path_prefix] = 'test/tmp/public/images'
+Thumbnail.attachment_options[:path_prefix] = 'test/tmp/public/thumbnails'
+
 class Test::Unit::TestCase
   # Transactional fixtures accelerate your tests by wrapping each test method
   # in a transaction that's rolled back on completion.  This ensures that the
