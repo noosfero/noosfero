@@ -4,6 +4,8 @@ class AddPublicColumnToArticlesAndProfiles < ActiveRecord::Migration
     execute("update profiles set public_profile = (1>0) where data not like '%public_profile: false%'")
 
     add_column :articles, :public_article, :boolean, :default => true
+    execute('update articles set public_article = (1>0)')
+
     add_column :article_versions, :public_article, :boolean, :default => true
   end
 
