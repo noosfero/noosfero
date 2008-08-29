@@ -26,6 +26,7 @@ class UnifreireTerminology < Noosfero::Terminology::Custom
       'Favorite Enterprises' => N_('Favorite Institutions'),
       'Enterprises in "%s"' => N_('Institutions in "%s"'),
       'Register a new Enterprise' => N_('Register a new Institution'),
+      'Events' => N_('Schedule'),
     })
   end
 
