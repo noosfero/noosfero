@@ -23,7 +23,9 @@ class TasksController < MyProfileController
   end
 
   def new
+    target = profile.friends.find_by_id(params[:target_id])
     @ticket = Ticket.new(params[:ticket])
+    @ticket.target = target
     @ticket.requestor = profile
     if request.post?
       if @ticket.save

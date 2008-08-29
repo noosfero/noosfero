@@ -1,5 +1,9 @@
 <ul>
-  <%if logged_in? && (user != profile) && (! user.friends.include?(profile)) && !user.already_request_friendship?(profile) %>
-    <li><%= link_to content_tag('span', __('Add friend')), { :profile => user.identifier, :controller => 'friends', :action => 'add', :id => profile.id }, :class => 'button with-text icon-add' %></li>
+  <%if logged_in? && (user != profile) %>
+    <%if user.friends.include?(profile) %>
+      <li> <%= link_to content_tag('span', _('Send request')), {:profile => user.identifier, :controller => 'tasks', :action => 'new', :target_id => profile.id}, :class => 'button with-text icon-menu-mail' %> </li>
+    <% elsif !user.already_request_friendship?(profile) %>
+      <li><%= link_to content_tag('span', __('Add friend')), { :profile => user.identifier, :controller => 'friends', :action => 'add', :id => profile.id }, :class => 'button with-text icon-add' %></li>
+    <% end %>
   <% end %>
 </ul>

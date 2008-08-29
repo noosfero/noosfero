@@ -1,9 +1,12 @@
+<h1><%= @ticket.target ? _('New request for %s') % @ticket.target.name : _('New request') %></h1>
+
+<%# FIXME: put style in css %>
 <% labelled_form_for :ticket, @ticket do |f| %>
-  <%= f.text_field :title %>
-  <%= display_form_field( _('Owner: '), f.select(:target_id, profile.friends.map{|p|[p.name, p.id]})) %>
-  <%= f.text_area :description %>
+  <%= display_form_field( _('To: '), f.select(:target_id, profile.friends.map{|p|[p.name, p.id]})) unless @ticket.target %>
+  <%= f.text_field :title, :style => 'width:80%;' %>
+  <%= f.text_area :description, :style => 'height:200px; width:80%;' %>
 
   <% button_bar do %>
-    <%= submit_button('save', _('Create'), :cancel => {:action => 'index'}) %>
+    <%= submit_button(:ok, _('Send'), :cancel => {:action => 'index'}) %>
   <% end %>
 <% end %>
