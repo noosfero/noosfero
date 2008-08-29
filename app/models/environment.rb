@@ -204,6 +204,22 @@ class Environment < ActiveRecord::Base
     self.settings[:description] = value
   end
 
+  def terminology
+    if self.settings[:terminology]
+      self.settings[:terminology].constantize.instance
+    else
+      Noosfero.terminology
+    end
+  end
+
+  def terminology=(value)
+    if value
+      self.settings[:terminology] = value.class.name
+    else
+      self.settings[:terminology] = nil
+    end
+  end
+
   # #################################################
   # Validations
   # #################################################

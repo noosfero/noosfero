@@ -10,7 +10,7 @@ class Zen3Terminology < Noosfero::Terminology::Custom
       'Homepage' => N_('ePortfolio'),
       'Communities' => N_('Groups'),
       'A block that displays your communities' => N_('A block that displays your groups'),
-      'A block that displays your friends' => N_('A block that displays your contacts')
+      'A block that displays your friends' => N_('A block that displays your contacts'),
       'The communities in which the user is a member' => N_('The groups in which the user is a member'),
       'All communities' => N_('All groups'),
       'Community' => N_('Group'),

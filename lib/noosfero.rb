@@ -34,7 +34,7 @@ module Noosfero
     self.terminology.get(t)
   end
   def self.terminology
-    @terminology ||= Noosfero::Terminology::Default.new
+    @terminology ||= Noosfero::Terminology::Default.instance
   end
   def self.terminology=(term)
     @terminology = term

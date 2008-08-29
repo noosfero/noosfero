@@ -214,4 +214,14 @@ class ApplicationControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'div', :attributes => { :id => 'theme-test-panel' }
   end
 
+  should 'load terminology from environment' do
+    term = Zen3Terminology.instance
+    env = Environment.default
+    Environment.stubs(:default).returns(env)
+    env.stubs(:terminology).returns(term)
+
+    Noosfero.expects(:terminology=).with(term)
+    get :index
+  end
+
 end

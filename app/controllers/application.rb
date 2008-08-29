@@ -39,6 +39,8 @@ class ApplicationController < ActionController::Base
   before_filter :detect_stuff_by_domain
   attr_reader :environment
 
+  before_filter :load_terminology
+
   # declares that the given <tt>actions</tt> cannot be accessed by other HTTP
   # method besides POST.
   def self.post_only(actions, redirect = { :action => 'index'})
@@ -62,6 +64,10 @@ class ApplicationController < ActionController::Base
       @environment = @domain.environment
       @profile = @domain.profile
     end
+  end
+
+  def load_terminology
+    Noosfero.terminology = environment.terminology
   end
 
   def render_not_found(path = nil)
