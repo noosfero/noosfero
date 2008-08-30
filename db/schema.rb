@@ -9,14 +9,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 52) do
+ActiveRecord::Schema.define(:version => 53) do
 
   create_table "article_versions", :force => true do |t|
     t.integer  "article_id"
     t.integer  "version"
     t.string   "name"
     t.string   "slug"
-    t.text     "path"
+    t.text     "path",               :default => ""
     t.integer  "parent_id"
     t.text     "body"
     t.text     "abstract"
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(:version => 52) do
   create_table "articles", :force => true do |t|
     t.string   "name"
     t.string   "slug"
-    t.text     "path"
+    t.text     "path",               :default => ""
     t.integer  "parent_id"
     t.text     "body"
     t.text     "abstract"
@@ -99,7 +99,7 @@ ActiveRecord::Schema.define(:version => 52) do
   create_table "categories", :force => true do |t|
     t.string  "name"
     t.string  "slug"
-    t.text    "path"
+    t.text    "path",            :default => ""
     t.integer "display_color"
     t.integer "environment_id"
     t.integer "parent_id"
@@ -191,7 +191,7 @@ ActiveRecord::Schema.define(:version => 52) do
     t.integer  "enterprise_id"
     t.integer  "product_category_id"
     t.string   "name"
-    t.integer  "price",               :limit => 10, :precision => 10, :scale => 0
+    t.decimal  "price"
     t.text     "description"
     t.string   "image"
     t.datetime "created_at"
