@@ -9,14 +9,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 51) do
+ActiveRecord::Schema.define(:version => 52) do
 
   create_table "article_versions", :force => true do |t|
     t.integer  "article_id"
     t.integer  "version"
     t.string   "name"
     t.string   "slug"
-    t.text     "path",               :default => ""
+    t.text     "path"
     t.integer  "parent_id"
     t.text     "body"
     t.text     "abstract"
@@ -37,12 +37,13 @@ ActiveRecord::Schema.define(:version => 51) do
     t.date     "end_date"
     t.integer  "children_count",     :default => 0
     t.boolean  "public_article",     :default => true
+    t.boolean  "accept_comments",    :default => true
   end
 
   create_table "articles", :force => true do |t|
     t.string   "name"
     t.string   "slug"
-    t.text     "path",               :default => ""
+    t.text     "path"
     t.integer  "parent_id"
     t.text     "body"
     t.text     "abstract"
@@ -65,6 +66,7 @@ ActiveRecord::Schema.define(:version => 51) do
     t.date     "end_date"
     t.integer  "children_count",     :default => 0
     t.boolean  "public_article",     :default => true
+    t.boolean  "accept_comments",    :default => true
   end
 
   create_table "articles_categories", :id => false, :force => true do |t|
@@ -97,7 +99,7 @@ ActiveRecord::Schema.define(:version => 51) do
   create_table "categories", :force => true do |t|
     t.string  "name"
     t.string  "slug"
-    t.text    "path",            :default => ""
+    t.text    "path"
     t.integer "display_color"
     t.integer "environment_id"
     t.integer "parent_id"
@@ -189,7 +191,7 @@ ActiveRecord::Schema.define(:version => 51) do
     t.integer  "enterprise_id"
     t.integer  "product_category_id"
     t.string   "name"
-    t.decimal  "price"
+    t.integer  "price",               :limit => 10, :precision => 10, :scale => 0
     t.text     "description"
     t.string   "image"
     t.datetime "created_at"
