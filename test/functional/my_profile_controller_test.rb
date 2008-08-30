@@ -45,4 +45,15 @@ class MyProfileControllerTest < Test::Unit::TestCase
     get :index, :profile => 'hacking_institute'
     assert_response 403 # forbidden
   end
+
+  def test_accept_comments
+      article=profile.articles.create!(:name=>'my article',:body =>'my text',:accept_comments=>true)
+      assert article.comments.create(:author=>profile,:title=>'A new comment', :body =>'Go go go!')
+  end
+
+  def test_not_accept_comments
+      article=profile.articles.create!(:name=>'my article',:body =>'my text',:accept_comments=>true)
+      assert article.comments.create(:author=>profile,:title=>'A new comment', :body =>'Go go go!')
+  end
+
 end

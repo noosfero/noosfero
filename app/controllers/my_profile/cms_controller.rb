@@ -56,6 +56,7 @@ class CmsController < MyProfileController
 
     # user must choose an article type first
     @type = params[:type]
+    
     if @type.blank?
       @article_types = []
       available_article_types.each do |type|

@@ -46,7 +46,7 @@ class ContentViewerController < PublicController
       return
     end
 
-    if request.post? && params[:comment] && params[self.icaptcha_field].blank?
+    if request.post? && params[:comment] && params[self.icaptcha_field].blank? && @page.accept_comments?
       add_comment
     end
 

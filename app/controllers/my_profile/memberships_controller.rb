@@ -17,6 +17,7 @@ class MembershipsController < MyProfileController
 
   def leave
     @to_leave = Profile.find(params[:id])
+
     if request.post? && params[:confirmation]
       @to_leave.remove_member(profile)
       redirect_to :action => 'index'

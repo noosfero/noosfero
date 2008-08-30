@@ -89,7 +89,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     page = profile.articles.build(:name => 'myarticle', :body => 'the body of the text')
     page.save!
     profile.home_page = page; profile.save!
-
+    
     assert_difference Comment, :count do
       post :view_page, :profile => 'popstar', :page => [ 'myarticle' ], :comment => { :title => 'crap!', :body => 'I think that this article is crap', :name => 'Anonymous coward', :email => 'coward@anonymous.com' }
     end
@@ -396,5 +396,12 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_template 'view_page'
   end
 
+  should 'not be able to post comment if article do not accept it' do
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text', :accept_comments => false)
+
+    assert_no_difference Comment, :count do
+      post :view_page, :profile => profile.identifier, :page => [ 'myarticle' ], :comment => { :title => 'crap!', :body => 'I think that this article is crap', :name => 'Anonymous coward', :email => 'coward@anonymous.com' }
+    end
+  end
 
 end
