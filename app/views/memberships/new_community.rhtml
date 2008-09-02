@@ -1,11 +1,30 @@
+<h1><%= __('Creating new community') %></h1>
+
 <%= error_messages_for :community %>
 
+<div style='margin-left: 20%; margin-right: 20%'>
 
 <% labelled_form_for :community, @community do |f| %>
 
-  <%= f.text_field :name %>
+  <%= f.text_field :name, :style => 'width: 100%' %>
 
-  <%= f.text_area :description %>
+  <%= f.text_area :description, :style => 'width: 100%; height: 150px;' %>
+
+  <div style='margin-bottom: 1em; margin-top: 1em;'>
+  <%= _('New members must be approved:')%>
+  </div>
+  <div style='margin-bottom: 0.5em'>
+    <%= radio_button 'community', 'closed', 'true', :style => 'float: left' %>
+    <div style='margin-left: 30px'>
+      <%= _('<strong>Before</strong> joining this group (a moderator has to accept the member in pending request before member can access the intranet and/or the website).') %>
+    </div>
+  </div>
+  <div>
+    <%= radio_button 'community', 'closed', 'false', :style => 'float: left' %>
+    <div style='margin-left: 30px'>
+      <%= _('<strong>After</strong> joining this group (a moderator can always desactivate access for users later).') %>
+    </div>
+  </div>
 
   <% button_bar do %>
     <%= submit_button(:save, _('Create')) %>
@@ -13,3 +32,5 @@
   <% end %>
 
 <% end %>
+
+</div>
