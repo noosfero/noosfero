@@ -13,7 +13,18 @@
   <%= f.text_area(:management_information, :rows => 5) %>
   <%= f.text_area(:description, :rows => 5) if @profile.kind_of?(Community) %>
   <h1><%= _('Moderation options') %></h1>
-  <p>
-    <%= check_box 'profile_data', 'closed' %>
-    <%= _("New members must be approved by an administrator before joining this group?") %>
-  </p>
+  <div style='margin-bottom: 1em'>
+  <%= _('New members must be approved:')%>
+  </div>
+  <div style='margin-bottom: 0.5em'>
+    <%= radio_button 'profile_data', 'closed', 'true', :style => 'float: left' %>
+    <div style='margin-left: 30px'>
+      <%= _('<strong>Before</strong> joining this group (a moderator has to accept the member in pending request before member can access the intranet and/or the website).') %>
+    </div>
+  </div>
+  <div>
+    <%= radio_button 'profile_data', 'closed', 'false', :style => 'float: left' %>
+    <div style='margin-left: 30px'>
+      <%= _('<strong>After</strong> joining this group (a moderator can always desactivate access for users later).') %>
+    </div>
+  </div>

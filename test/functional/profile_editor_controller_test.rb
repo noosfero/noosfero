@@ -271,10 +271,42 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     assert_not_nil assigns(:profile).image
   end
 
-  should 'show field to set closed organization' do
-    org = Organization.create!(:name => 'test org', :identifier => 'testorg', :contact_person => 'my contact')
+  should 'display closed attribute for organizations when it is set' do
+    org = Organization.create!(:name => 'test org', :identifier => 'testorg', :contact_person => 'my contact', :closed => true)
     get :edit, :profile => 'testorg'
-    assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'profile_data[closed]' }
+
+    assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[closed]', :value => 'true', :checked => 'checked' }
+    assert_no_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[closed]', :value => 'false', :checked =>  'checked' }
+  end
+
+  should 'display closed attribute for organizations when it is set to false' do
+    org = Organization.create!(:name => 'test org', :identifier => 'testorg', :contact_person => 'my contact', :closed => false)
+    get :edit, :profile => 'testorg'
+    assert_no_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[closed]', :value => 'true', :checked => 'checked' }
+    assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[closed]', :value => 'false', :checked => 'checked' }
+  end
+
+  should 'display closed attribute for organizations when it is set to nothing at all' do
+    org = Organization.create!(:name => 'test org', :identifier => 'testorg', :contact_person => 'my contact', :closed => nil)
+    get :edit, :profile => 'testorg'
+    assert_no_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[closed]', :value => 'true', :checked => 'checked' }
+    assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[closed]', :value => 'false', :checked => 'checked' }
+  end
+
+  should 'set closed attribute correctly' do
+    org = Organization.create!(:name => 'test org', :identifier => 'testorg', :contact_person => 'my contact', :closed => false)
+
+    post :edit, :profile => 'testorg', :profile_data => { :closed => 'true' }
+    org.reload
+    assert org.closed
+  end
+
+  should 'unset closed attribute correctly' do
+    org = Organization.create!(:name => 'test org', :identifier => 'testorg', :contact_person => 'my contact', :closed => true)
+
+    post :edit, :profile => 'testorg', :profile_data => { :closed => 'false' }
+    org.reload
+    assert !org.closed
   end
 
   should 'display manage members options if has permission' do

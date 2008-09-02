@@ -5,6 +5,7 @@ class ActsAsHavingSettingsTest < Test::Unit::TestCase
   # using Block class as a sample user of the module 
   class TestClass < Block
     settings_items :flag, :type => :boolean
+    settings_items :flag_disabled_by_default, :type => :boolean, :default => false
   end
 
   should 'store settings in a hash' do
@@ -55,6 +56,10 @@ class ActsAsHavingSettingsTest < Test::Unit::TestCase
     obj = TestClass.new
     obj.flag = false
     assert_equal false, obj.flag
+  end
+
+  should 'return false by default when the default is false' do
+    assert_equal false, TestClass.new.flag_disabled_by_default
   end
 
   should 'be able to specify type of atrributes (boolean)' do

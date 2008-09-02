@@ -21,7 +21,7 @@ module ActsAsHavingSettings
     def settings_items(*names)
 
       options = names.last.is_a?(Hash) ? names.pop : {}
-      default = options[:default] ? options[:default].inspect : "val"
+      default = (!options[:default].nil?) ? options[:default].inspect : "val"
       data_type = options[:type] || :string
 
       names.each do |setting|
