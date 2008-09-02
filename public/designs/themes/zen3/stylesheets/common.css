@@ -82,10 +82,11 @@ ul li {
 #footer-esq {
   float: left;
   text-align: left;
-  background: url(../images/logo-ynternet-footer.gif) no-repeat 0% 50%;
-  padding: 6px 0px 10px 45px;
-  margin-top: 10px;
+  background: url(../images/logo-ynternet-footer.png) no-repeat 0% 50%;
+  padding: 6px 0px 5px 30px;
+  margin-top: 5px;
 }
+
 #footer-dir {
   width: 110px;
   float: right;
@@ -101,9 +102,16 @@ ul li {
   display: block;
   width: 88px;
   height: 15px;
-  margin: 0px auto 10px auto;
+  margin: 15px auto 10px auto;
   background: url(../images/bt_w3c.gif) no-repeat 50% 50%;
+  opacity: 0.6;
+	filter: alpha(opacity=60);
 }
+#footer-w3c:hover {
+  opacity: 1;
+	filter: alpha(opacity=100);
+}
+
 #footer-zen3-aff {
   display: block;
   width: 88px;
