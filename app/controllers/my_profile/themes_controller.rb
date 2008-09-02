@@ -10,7 +10,10 @@ class ThemesController < MyProfileController
 
   def index
     @themes = Theme.system_themes
-    @selected_theme = profile.theme
+    @current_theme = profile.theme
+
+    @layout_templates = LayoutTemplate.all
+    @current_template = profile.layout_template
   end
 
   def new
@@ -72,6 +75,12 @@ class ThemesController < MyProfileController
 
   def stop_test
     session[:theme] = nil
+    redirect_to :action => 'index'
+  end
+
+  def set_layout_template
+    profile.layout_template = params[:id]
+    profile.save!
     redirect_to :action => 'index'
   end
 

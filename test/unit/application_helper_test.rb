@@ -201,6 +201,26 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_equal 'sampleuser', theme_owner
   end
 
+  should 'use default template when no profile' do
+    stubs(:profile).returns(nil)
+
+    foo = mock
+    expects(:stylesheet_link_tag).with('/designs/templates/default/stylesheets/style.css').returns(foo)
+
+    assert_same foo, template_stylesheet_tag
+  end
+
+  should 'use template from profile' do
+    profile = mock
+    profile.expects(:layout_template).returns('mytemplate')
+    stubs(:profile).returns(profile)
+
+    foo = mock
+    expects(:stylesheet_link_tag).with('/designs/templates/mytemplate/stylesheets/style.css').returns(foo)
+
+    assert_same foo, template_stylesheet_tag
+  end
+
   protected
 
   def content_tag(tag, content, options = {})

@@ -1,18 +1,60 @@
 <h1><%= _('Editing Appearance') %></h1>
 
-<h2><%= _('Select theme') %></h2>
+<table style='margin:auto'>
 
-<table style='margin: auto'>
+  <tr>
+    <td colspan='6'>
+      <h2><%= _('Select template') %></h2>
+    </td>
+  </tr>
+  <% for templates in @layout_templates.in_groups_of(3) %>
+    <tr>
+      <% for template in templates %>
+        <%
+          selected = (!template.nil? && (@current_template == template.id))
+        %>
+        <td>
+          <% if template %>
+            <%= image_tag("/designs/templates/#{template.id}/thumbnail.png", :alt => _('The "%s" template')) %>
+          <% end %>
+        </td>
+        <td <%= 'class="selected template"' if selected %>>
+          <% if template %>
+            <strong><%= template.id %> <%= _('(current)') if selected %></strong>
+            <br/>
+            <%= link_to(_('Use this template'), :action => 'set_layout_template', :id => template.id) unless selected %>
+          <% end %>
+        </td>
+        <td>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+        </td>
+      <% end %> 
+    </tr>
+  <% end %>
+
+
+  <tr>
+    <td colspan='6'>
+      <h2><%= _('Select theme') %></h2>
+    </td>
+  </tr>
   <% for themes in @themes.in_groups_of(3)  %>
     <tr>
       <% for theme in themes %>
+        <% 
+          selected = (!theme.nil? && (theme.id == @current_theme))
+        %>
         <td>
           <%# FIXME add proper thumbnails %>
-          <%= image_tag('/images/icons-app/design-editor.png', :alt => (_('The "%s" theme.') % theme.name)) if theme %>
+          <% if theme %>
+            <%= image_tag('/images/icons-app/design-editor.png', :alt => (_('The "%s" theme.') % theme.name)) %>
+          <% end %>
         </td>
-        <td>
-          <strong><%= theme.name if theme%></strong><br/>
-          <%= link_to(_('Use this theme'), :action => 'set', :id => theme.id) if theme %>
+        <td <%= 'class="selected theme"' if selected %>>
+          <% if theme %>
+            <strong><%= theme.name %> <%= _('(current)') if selected %></strong><br/>
+            <%= link_to(_('Use this theme'), :action => 'set', :id => theme.id) unless selected %>
+          <% end %>
         </td>
         <td>
           &nbsp;&nbsp;&nbsp;&nbsp;
@@ -21,11 +63,13 @@
     </tr>
     <tr><td colspan='3'>&nbsp;</td></tr>
   <% end %>
-</table>
 
-<h2><%= _('My themes') %></h2>
 
-<table style='margin: auto'>
+  <tr>
+    <td colspan='6'>
+      <h2><%= _('My themes') %></h2>
+    </td>
+  </tr>
   <% for themes in profile.themes.in_groups_of(3)  %>
     <tr>
       <% for theme in themes %>

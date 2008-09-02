@@ -699,4 +699,12 @@ module ApplicationHelper
     title
   end
 
+  def template_stylesheet_tag
+    if profile.nil?
+      stylesheet_link_tag '/designs/templates/default/stylesheets/style.css'
+    else
+      stylesheet_link_tag "/designs/templates/#{profile.layout_template}/stylesheets/style.css"
+    end
+  end
+
 end

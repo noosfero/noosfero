@@ -881,6 +881,23 @@ class ProfileTest < Test::Unit::TestCase
     end
   end
 
+  should 'have a layout template' do
+    p = Profile.create!(:identifier => 'mytestprofile', :name => 'My test profile', :environment => Environment.default)
+    assert_equal 'default', p.layout_template
+  end
+
+  should 'get boxes limit from template' do
+    p = Profile.create!(:identifier => 'mytestprofile', :name => 'My test profile', :environment => Environment.default)
+
+    layout = mock
+    layout.expects(:number_of_boxes).returns(6)
+
+    p.expects(:layout_template).returns('mylayout')
+    LayoutTemplate.expects(:find).with('mylayout').returns(layout)
+
+    assert_equal 6, p.boxes_limit
+  end
+
   private
 
   def assert_invalid_identifier(id)

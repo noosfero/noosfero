@@ -460,4 +460,10 @@ class Profile < ActiveRecord::Base
     themes.find { |item| item.id == the_id }
   end
 
+  settings_items :layout_template, :type => String, :default => 'default'
+
+  def boxes_limit
+    LayoutTemplate.find(layout_template).number_of_boxes
+  end
+
 end

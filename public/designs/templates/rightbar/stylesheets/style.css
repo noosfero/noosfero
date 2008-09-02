@@ -4,15 +4,15 @@
 }
 
 .box-1 {
-  margin: 0px 30px 0px 260px;
+  margin: 0px 260px 0px 30px;
 }
 .box-1 .blocks {
   width: 100%;
-  float: left;
+  float: right;
 }
 
 .box-2 {
-  float: left;
+  float: right;
   width: 230px;
 }
 

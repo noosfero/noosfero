@@ -32,6 +32,15 @@ class ThemesControllerTest < Test::Unit::TestCase
     end
   end
 
+  should 'highlight current theme' do
+    profile.update_attributes(:theme => 'first')
+    Theme.expects(:system_themes).returns([Theme.new('first'), Theme.new('second')])
+    get :index, :profile => 'testinguser'
+
+    assert_tag :attributes => { :class => 'selected theme' }, :descendant =>  { :content => /(current)/ }
+    assert_no_tag :attributes => { :class => 'selected theme' }, :descendant =>  { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/themes/set/first" } }
+  end
+
   should 'display list of my themes for edition' do
     Theme.create('first', :owner => profile)
     Theme.create('second', :owner => profile)
@@ -188,6 +197,44 @@ class ThemesControllerTest < Test::Unit::TestCase
     post :stop_test, :profile => 'testinguser', :id => 'theme-under-test'
 
     assert_nil session[:theme]
+    assert_redirected_to :action => 'index'
+  end
+
+  should 'list templates' do
+    all = LayoutTemplate.all
+
+    LayoutTemplate.expects(:all).returns(all)
+    get :index, :profile => 'testinguser'
+    assert_same all, assigns(:layout_templates)
+  end
+
+  should 'display links to set template' do
+    profile.update_attributes!(:layout_template => 'rightbar')
+    t1 = LayoutTemplate.find('default')
+    t2 = LayoutTemplate.find('leftbar')
+    LayoutTemplate.expects(:all).returns([t1, t2])
+
+    get :index, :profile => 'testinguser'
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/themes/set_layout_template/default"}
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/themes/set_layout_template/leftbar"}
+  end
+
+  should 'highlight current template' do
+    profile.update_attributes!(:layout_template => 'default')
+
+    t1 = LayoutTemplate.find('default')
+    t2 = LayoutTemplate.find('leftbar')
+    LayoutTemplate.expects(:all).returns([t1, t2])
+
+    get :index, :profile => 'testinguser'
+    assert_tag :tag => 'td', :attributes => { :class => 'selected template' }, :descendant => { :content => /(current)/ }
+    assert_no_tag :tag => 'td', :attributes => { :class => 'selected template' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/themes/set_layout_template/default"} }
+  end
+
+  should 'set template' do
+    post :set_layout_template, :profile => 'testinguser', :id => 'leftbar'
+    profile.reload
+    assert_equal 'leftbar', profile.layout_template
     assert_redirected_to :action => 'index'
   end
 

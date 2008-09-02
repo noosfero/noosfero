@@ -45,8 +45,9 @@
       stylesheet_import( "controller_"+ @controller.controller_name(), :themed_source => true )
     %>
 
+    <%= template_stylesheet_tag %>
+
     <%# FIXME %>
-    <%= stylesheet_link_tag '/designs/templates/default/stylesheets/style.css' %>
     <%= stylesheet_link_tag '/designs/icons/default/style.css' %>
 
     <base href="<%= environment.top_url %>"/>

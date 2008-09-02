@@ -113,3 +113,8 @@
 .msie6 #css-code textarea {
   width: 500px;
 }
+
+td.selected {
+  background: #ff9;
+  font-style: italic;
+}
