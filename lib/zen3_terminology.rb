@@ -56,8 +56,8 @@ class Zen3Terminology < Noosfero::Terminology::Custom
       'You have no friends yet. Go make some.' => N_('You have no contacts yet. Go make some.'),
       '%s\'s friends' => N_('%s\'s contacts'),
       '%s\' friends' => N_('%s\' contacts'),
-      'Here are all <b>%s</b>\'s friends.' => N_('Here are all <b>%s</b>\'s friends.'),
-
+      'Here are all <b>%s</b>\'s friends.' => N_('Here are all <b>%s</b>\'s contacts.'),
+      'Creating new community' => N_('Creating new group'),
     })
   end
 
