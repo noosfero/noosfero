@@ -838,6 +838,8 @@ class ProfileTest < Test::Unit::TestCase
     child_art = top_art.children[0]
     assert_equal 'some child article', child_art.name
   end
+
+  should 'copy homepage from template'
   
   should 'copy set of boxes from profile template' do
     template = Profile.create!(:name => 'test template', :identifier => 'test_template')
