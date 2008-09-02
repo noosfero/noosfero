@@ -70,9 +70,9 @@
 	filter: alpha(opacity=50);
 }
 
-.common-profile-list-block .sex-male,
-.common-profile-list-block .sex-female,
-.common-profile-list-block .sex-undef {
+#content .common-profile-list-block .sex-male,
+#content .common-profile-list-block .sex-female,
+#content .common-profile-list-block .sex-undef {
   position: absolute;
   top: 4px;
   right: 15px;
