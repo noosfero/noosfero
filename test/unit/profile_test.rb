@@ -839,7 +839,20 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal 'some child article', child_art.name
   end
 
-  should 'copy homepage from template'
+  should 'copy homepage from template' do
+    template = create_user('test_template').person
+    template.articles.destroy_all
+    a1 = template.articles.create(:name => 'some xyz article')
+    template.home_page = a1
+    template.save!
+
+    Profile.any_instance.stubs(:template).returns(template)
+
+    p = Profile.create!(:name => 'test_profile', :identifier => 'test_profile')
+
+    assert_not_nil p.home_page
+    assert_equal 'some xyz article', p.home_page.name
+  end
   
   should 'copy set of boxes from profile template' do
     template = Profile.create!(:name => 'test template', :identifier => 'test_template')

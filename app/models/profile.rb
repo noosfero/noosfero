@@ -356,6 +356,9 @@ class Profile < ActiveRecord::Base
 
   def copy_article_tree(article, parent=nil)
     article_copy = article.copy(:profile => self, :parent => parent)
+    if article.profile.home_page == article
+      self.home_page = article_copy
+    end
     article.children.each do |a|
       copy_article_tree a, article_copy
     end
