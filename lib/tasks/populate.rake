@@ -6,6 +6,7 @@ include GetText
 namespace :db do
   desc "Populate database with basic required data to run application"
   task :populate do
+    Environment.create!(:name => 'Noosfero', :is_default => true) unless (Environment.default)
     create_roles
     new_permissions
   end
