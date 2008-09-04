@@ -131,7 +131,9 @@ class CmsController < MyProfileController
   end
 
   def publish
+
     @article = profile.articles.find(params[:id])
+    record_coming_from_public_view
     @groups = profile.memberships - [profile]
     @marked_groups = []
     groups_ids = profile.memberships.map{|m|m.id.to_s}
@@ -145,6 +147,7 @@ class CmsController < MyProfileController
         task = ApproveArticle.create!(:article => @article, :name => item[:name], :target => item[:group], :requestor => profile)
         task.finish unless item[:group].moderated_articles?
       end
+      redirect_back
     end
   end
 

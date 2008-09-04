@@ -19,9 +19,9 @@
         :onclick => "Element.hide('group-for-friend-#{task.id}')") %>
     <label for="<%= "decision-cancel-#{task.id}" %>"><b><%= _('Ignore') %></b></label>
 
-    <%= labelled_form_field _('Name for publishing'), f.text_field(:name) %>
+    <%= labelled_form_field _('Name for publishing'), f.text_field(:name, :style => 'width:80%;') %>
 
-    <%= labelled_form_field(_('Closing statment'), f.text_area(:closing_statment) ) %>
+    <%= labelled_form_field _('Comment for author'), f.text_area(:closing_statment, :style => 'height:200px; width:80%;') %>
 
   </div>
 
