@@ -35,6 +35,9 @@
       <%= link_to content_tag( 'span', _('Edit') ),
           { :controller => 'cms', :action => 'edit', :id => @page },
           :class => 'button with-text icon-edit' %>
+      <%= link_to content_tag( 'span', _('Publish') ),
+          { :controller => 'cms', :action => 'publish', :id => @page },
+          :class => 'button with-text icon-edit' %>
       <%= lightbox_button(:new, _('New publication'), :controller => 'cms', :action => 'new', :parent_id => (@page.folder? ? @page : nil)) %>
     </div>
   <% end %>

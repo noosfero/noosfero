@@ -554,4 +554,26 @@ class CmsControllerTest < Test::Unit::TestCase
     assert !folder.children[0].public?
   end
 
+  should 'load communities for that the user belongs' do
+    c = Community.create!(:name => 'test comm', :identifier => 'test_comm')
+    c.affiliate(profile, Profile::Roles.all_roles)
+    a = profile.articles.create!(:name => 'something intresting', :body => 'ruby on rails')
+    
+    get :publish, :profile => profile.identifier, :id => a.id
+
+    assert_equal [c], assigns(:groups)
+    assert_template 'publish'
+  end
+
+  should 'publish the article in the selected community' do
+    c = Community.create!(:name => 'test comm', :identifier => 'test_comm')
+    c.affiliate(profile, Profile::Roles.all_roles)
+    a = profile.articles.create!(:name => 'something intresting', :body => 'ruby on rails')
+    
+    assert_difference PublishedArticle, :count do
+      post :publish, :profile => profile.identifier, :id => a.id, :marked_groups => [{:name => 'bli', :group_id => c.id.to_s}]
+      assert_equal [{'group' => c, 'name' => 'bli'}], assigns(:marked_groups)
+    end
+  end
+
 end

@@ -130,6 +130,23 @@ class CmsController < MyProfileController
     render :partial => 'shared/select_categories', :locals => {:object_name => 'article', :multiple => true}, :layout => false
   end
 
+  def publish
+    @article = profile.articles.find(params[:id])
+    @groups = profile.memberships - [profile]
+    @marked_groups = []
+    groups_ids = profile.memberships.map{|m|m.id.to_s}
+    @marked_groups = params[:marked_groups].map do |item|
+      if groups_ids.include?(item[:group_id])
+        item.merge :group => Profile.find(item.delete(:group_id))
+      end
+    end.compact unless params[:marked_groups].nil?
+    if request.post?
+      @marked_groups.each do |item|
+        PublishedArticle.create!(:reference_article => @article, :profile => item[:group], :name => item[:name])
+      end
+    end
+  end
+
   protected
 
   def redirect_back

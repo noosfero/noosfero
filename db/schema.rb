@@ -9,14 +9,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 53) do
+ActiveRecord::Schema.define(:version => 54) do
 
   create_table "article_versions", :force => true do |t|
     t.integer  "article_id"
     t.integer  "version"
     t.string   "name"
     t.string   "slug"
-    t.text     "path",               :default => ""
+    t.text     "path",                 :default => ""
     t.integer  "parent_id"
     t.text     "body"
     t.text     "abstract"
@@ -31,19 +31,20 @@ ActiveRecord::Schema.define(:version => 53) do
     t.integer  "width"
     t.string   "versioned_type"
     t.integer  "comments_count"
-    t.boolean  "advertise",          :default => true
-    t.boolean  "published",          :default => true
+    t.boolean  "advertise",            :default => true
+    t.boolean  "published",            :default => true
     t.date     "start_date"
     t.date     "end_date"
-    t.integer  "children_count",     :default => 0
-    t.boolean  "public_article",     :default => true
-    t.boolean  "accept_comments",    :default => true
+    t.integer  "children_count",       :default => 0
+    t.boolean  "public_article",       :default => true
+    t.boolean  "accept_comments",      :default => true
+    t.integer  "reference_article_id"
   end
 
   create_table "articles", :force => true do |t|
     t.string   "name"
     t.string   "slug"
-    t.text     "path",               :default => ""
+    t.text     "path",                 :default => ""
     t.integer  "parent_id"
     t.text     "body"
     t.text     "abstract"
@@ -59,14 +60,15 @@ ActiveRecord::Schema.define(:version => 53) do
     t.string   "filename"
     t.integer  "height"
     t.integer  "width"
-    t.integer  "comments_count",     :default => 0
-    t.boolean  "advertise",          :default => true
-    t.boolean  "published",          :default => true
+    t.integer  "comments_count",       :default => 0
+    t.boolean  "advertise",            :default => true
+    t.boolean  "published",            :default => true
     t.date     "start_date"
     t.date     "end_date"
-    t.integer  "children_count",     :default => 0
-    t.boolean  "public_article",     :default => true
-    t.boolean  "accept_comments",    :default => true
+    t.integer  "children_count",       :default => 0
+    t.boolean  "public_article",       :default => true
+    t.boolean  "accept_comments",      :default => true
+    t.integer  "reference_article_id"
   end
 
   create_table "articles_categories", :id => false, :force => true do |t|

@@ -404,4 +404,13 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     end
   end
 
+  should 'show link to publication on view' do
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
+    login_as(profile.identifier)
+
+    get :view_page, :profile => profile.identifier, :page => ['myarticle']
+
+    assert_tag :tag => 'a', :attributes => {:href => ('/myprofile/' + profile.identifier + '/cms/publish/' + page.id.to_s)}
+  end
+
 end
