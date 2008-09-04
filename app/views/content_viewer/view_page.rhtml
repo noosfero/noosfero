@@ -38,7 +38,7 @@
       <% if profile.kind_of?(Person) %>
         <%= link_to content_tag( 'span', _('Spread this') ),
             { :controller => 'cms', :action => 'publish', :id => @page },
-            :class => 'button with-text icon-edit' %>
+            :class => 'button with-text icon-spread' %>
       <% end %>
       <%= lightbox_button(:new, _('New publication'), :controller => 'cms', :action => 'new', :parent_id => (@page.folder? ? @page : nil)) %>
     </div>
