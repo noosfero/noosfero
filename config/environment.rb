@@ -83,7 +83,7 @@ end
 require 'gettext/rails'
 Noosfero.locales = {
   'en' => 'English',
-  'pt_BR' => 'Português Brasileiro',
+  'pt_BR' => 'Português',
   'fr' => 'Français',
 }
 # if you want to override this, do it in config/local.rb !
