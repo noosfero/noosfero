@@ -1,0 +1,59 @@
+.profile-list {
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+}
+
+.profile-list li {
+  float: left;
+  width: 100px;
+  height: 100px;
+  margin: 5px;
+  padding: 5px;
+  border: 2px solid #B8CFE7;
+  list-style: none;
+  overflow: hidden;
+  position: relative;
+}
+.profile-list li:hover {
+  border: 2px solid #2A5896;
+  background: #729FCF;
+}
+
+.profile-list img {
+  border: none;
+}
+
+.profile-list a.profile-link {
+  text-decoration: none;
+  text-align: center;
+  display: block;
+}
+.profile-list a.profile-link:hover {
+  color: #FFF;
+}
+
+.profile-list .profile_link span {
+  width: 200px;
+  display: block;
+  overflow: hidden;
+}
+
+.profile-list {
+  position: relative;
+}
+.profile-list .controll {
+  position: absolute;
+  top: 5px;
+  right: 0px;
+}
+.msie6 .profile-list .controll a {
+  display: block;
+  width: 0px;
+}
+
+.button-bar {
+  clear: both;
+  padding-top: 20px;
+}
+

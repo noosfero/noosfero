@@ -2,10 +2,12 @@
 
 <h1><%= _("%s's favorite enteprises") % profile.name %></h1>
 
-<ul class='profile-list'>
+<ul class="profile-list">
 <% @favorite_enterprises.each do |enterprise| %>
   <li>
-    <%= profile_image_link enterprise %>
+    <%= link_to_profile profile_image(enterprise) + '<br/>' + enterprise.name,
+                        enterprise.identifier, :class => 'profile-link' %>
+    <%# profile_image_link enterprise, :portrait, 'div' %>
     <div class="controll">
       <%= link_to content_tag('span',_('remove')),
           { :action => 'remove', :id => enterprise.id },
