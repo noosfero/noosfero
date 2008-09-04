@@ -1,6 +1,10 @@
 class ApproveArticle < Task
   serialize :data, Hash
 
+  def description
+    _('%s wants to publish %s') % [requestor.name, article.name]
+  end
+  
   def data
     self[:data] ||= {} 
   end
@@ -19,6 +23,14 @@ class ApproveArticle < Task
 
   def name= value
     data[:name] = value
+  end
+
+  def closing_statment
+    data[:closing_statment]
+  end
+  
+  def closing_statment= value
+    data[:closing_statment] = value
   end
 
   def perform
