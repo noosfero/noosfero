@@ -1,0 +1,14 @@
+<h1><%= _('Select the groups where you want to publish your article') %></h1>
+
+<% form_tag do%>
+  <% @groups.each do |group| %>
+    <%= labelled_check_box group.name, 'marked_groups[][group_id]', group.id, @marked_groups.include?(group) %><br />
+    <%= labelled_text_field _('Title') + ': ', 'marked_groups[][name]', @article.name %>
+    <hr />
+  <% end %>
+
+  <% button_bar do %>
+    <%= submit_button 'menu-community', _('Publish') %>
+  <% end %>
+<% end %>
+

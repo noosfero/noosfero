@@ -6,6 +6,11 @@ class Organization < Profile
     closed
   end
 
+  settings_items :moderated_articles, :type => :boolean, :default => false
+  def moderated_articles?
+    moderated_articles
+  end
+
   has_one :validation_info
 
   has_many :validations, :class_name => 'CreateEnterprise', :foreign_key => :target_id

@@ -142,7 +142,8 @@ class CmsController < MyProfileController
     end.compact unless params[:marked_groups].nil?
     if request.post?
       @marked_groups.each do |item|
-        PublishedArticle.create!(:reference_article => @article, :profile => item[:group], :name => item[:name])
+        task = ApproveArticle.create!(:article => @article, :name => item[:name], :target => item[:group], :requestor => profile)
+        task.finish unless item[:group].moderated_articles?
       end
     end
   end

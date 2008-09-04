@@ -28,3 +28,20 @@
       <%= _('<strong>After</strong> joining this group (a moderator can always desactivate access for users later).') %>
     </div>
   </div>
+  
+  <br>
+  <div style='margin-bottom: 1em'>
+  <%= _('New articles must be approved:')%>
+  </div>
+  <div style='margin-bottom: 0.5em'>
+    <%= radio_button 'profile_data', 'moderated_articles', 'true', :style => 'float: left' %>
+    <div style='margin-left: 30px'>
+      <%= _('<strong>Before</strong> being published in this group (a moderator has to accept the article in pending request before the article be listed as a article of this group.') %>
+    </div>
+  </div>
+  <div>
+    <%= radio_button 'profile_data', 'moderated_articles', 'false', :style => 'float: left' %>
+    <div style='margin-left: 30px'>
+      <%= _('<strong>After</strong> being published in this group (a moderator can always remove publicated articles later).') %>
+    </div>
+  </div>
