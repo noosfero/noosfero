@@ -2,6 +2,10 @@ require "#{File.dirname(__FILE__)}/../test_helper"
 
 class ForgotPasswordTest < ActionController::IntegrationTest
 
+  def setup
+    ActionController::Integration::Session.any_instance.stubs(:https?).returns(true)
+  end
+
   def test_forgot_password
 
     User.destroy_all

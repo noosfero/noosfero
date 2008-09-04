@@ -11,6 +11,7 @@ class CmsControllerTest < Test::Unit::TestCase
   def setup
     @controller = CmsController.new
     @request    = ActionController::TestRequest.new
+    @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
 
     @profile = create_user_with_permission('testinguser', 'post_content')
@@ -513,14 +514,14 @@ class CmsControllerTest < Test::Unit::TestCase
 
     get :edit, :profile => 'testinguser', :id => article.id
     assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'back_to', :value => 'public_view' }
-    assert_tag :tag => 'a', :descendant => { :content => 'Cancel' }, :attributes => { :href => 'http://colivre.net/testinguser/myarticle' }
+    assert_tag :tag => 'a', :descendant => { :content => 'Cancel' }, :attributes => { :href => /^https?:\/\/colivre.net\/testinguser\/myarticle/ }
   end
 
   should 'detect when comming from home page' do
     @request.expects(:referer).returns('http://colivre.net/testinguser')
     get :edit, :profile => 'testinguser', :id => @profile.home_page.id
     assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'back_to', :value => 'public_view' }
-    assert_tag :tag => 'a', :descendant => { :content => 'Cancel' }, :attributes => { :href => 'http://colivre.net/testinguser/' + @profile.home_page.slug }
+    assert_tag :tag => 'a', :descendant => { :content => 'Cancel' }, :attributes => { :href => /^https?:\/\/colivre.net\/testinguser\/#{@profile.home_page.slug}$/ }
   end
 
   should 'go back to public view when saving coming from there' do

@@ -30,6 +30,22 @@ class ApplicationController < ActionController::Base
   include AuthenticatedSystem
   include PermissionCheck
 
+  def self.require_ssl(*options)
+    before_filter :check_ssl, *options
+  end
+  def check_ssl
+    return true if (request.ssl? || ENV['RAILS_ENV'] == 'development')
+    redirect_to :protocol => 'https://'
+  end
+
+  def self.refuse_ssl(*options)
+    before_filter :avoid_ssl, *options
+  end
+  def avoid_ssl
+    return true if (!request.ssl? || ENV['RAILS_ENV'] == 'development')
+    redirect_to :protocol => 'http://'
+  end
+
   before_init_gettext :maybe_save_locale
   after_init_gettext :check_locale
   init_gettext 'noosfero'

@@ -8,6 +8,7 @@ class EnterpriseEditorControllerTest < Test::Unit::TestCase
   def setup
     @controller = EnterpriseEditorController.new
     @request    = ActionController::TestRequest.new
+    @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
   end
 

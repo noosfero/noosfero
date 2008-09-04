@@ -15,6 +15,8 @@ class AccountControllerTest < Test::Unit::TestCase
     @controller = AccountController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
+
+    @request.stubs(:ssl?).returns(true)
   end
 
   def test_local_files_reference
@@ -513,6 +515,29 @@ class AccountControllerTest < Test::Unit::TestCase
 
     assert_equal 1, assigns(:user).person.boxes.size
     assert_equal 1, assigns(:user).person.boxes[0].blocks.size
+  end
+
+  should 'force ssl' do
+    @request.expects(:ssl?).returns(false).at_least_once
+    get :index
+    assert_redirected_to :protocol => 'https://'
+  end
+
+  should 'alllow login_popup without SSL' do
+    @request.expects(:ssl?).returns(false).at_least_once
+    get :login_popup
+    assert_response :success
+  end
+
+  should 'point to SSL URL in login popup' do
+    get :login_popup
+    assert_tag :tag => 'form', :attributes => { :action => /^https:\/\// }
+  end
+
+  should 'not point to SSL URL in login popup when in development mode' do
+    ENV.expects(:[]).with('RAILS_ENV').returns('development').at_least_once
+    get :login_popup
+    assert_no_tag :tag => 'form', :attributes => { :action => /^https:\/\// }
   end
 
   protected

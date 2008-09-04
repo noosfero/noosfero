@@ -11,7 +11,7 @@
     
     <% labelled_form_for :user, @user,
        :html => { :help => _('If you are a registered user, enter your username and password to be authenticated.')+'<p/>'+_('To join on this environment, click on "<b>New user</b>".')+'<p/>'+_('If you forgot your password, click on "<b>I forgot my password!</b>" link.') },
-       :url => { :controller => 'account', :action => 'login' } do |f| %>
+       :url => login_url do |f| %>
 
 <%= f.text_field :login,
                  :help => _('Here goes the nickname that you give on the registration.'),

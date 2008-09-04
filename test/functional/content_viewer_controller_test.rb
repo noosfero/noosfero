@@ -370,6 +370,8 @@ class ContentViewerControllerTest < Test::Unit::TestCase
   should 'not give access to private articles if logged off' do
     profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
     intranet = Folder.create!(:name => 'my_intranet', :profile => profile, :public_article => false)
+
+    @request.stubs(:ssl?).returns(true)
     get :view_page, :profile => 'test_profile', :page => [ 'my-intranet' ]
 
     assert_template 'access_denied'
@@ -379,6 +381,8 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     login_as('testinguser')
     profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
     intranet = Folder.create!(:name => 'my_intranet', :profile => profile, :public_article => false)
+
+    @request.stubs(:ssl?).returns(true)
     get :view_page, :profile => 'test_profile', :page => [ 'my-intranet' ]
 
     assert_template 'access_denied'
@@ -391,6 +395,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     profile.affiliate(person, Profile::Roles.member)
     login_as('test_user')
 
+    @request.stubs(:ssl?).returns(true)
     get :view_page, :profile => 'test_profile', :page => [ 'my-intranet' ]
 
     assert_template 'view_page'
@@ -411,6 +416,20 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     get :view_page, :profile => profile.identifier, :page => ['myarticle']
 
     assert_tag :tag => 'a', :attributes => {:href => ('/myprofile/' + profile.identifier + '/cms/publish/' + page.id.to_s)}
+  end
+
+  should 'require SSL for viewing non-public articles' do
+    page = profile.articles.create!(:name => 'myarticle', :body => 'top secret', :public_article => false)
+    get :view_page, :profile => 'testinguser', :page => [ 'myarticle' ]
+    assert_redirected_to :protocol => 'https://'
+  end
+
+  should 'not redirect to SSL if already on SSL' do
+    @request.expects(:ssl?).returns(true).at_least_once
+    page = profile.articles.create!(:name => 'myarticle', :body => 'top secret', :public_article => false)
+    login_as('testinguser')
+    get :view_page, :profile => 'testinguser', :page => [ 'myarticle' ]
+    assert_response :success
   end
   
   should 'not show link to publication on view if not on person profile' do

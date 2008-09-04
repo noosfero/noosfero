@@ -17,6 +17,7 @@ class MyProfileControllerTest < Test::Unit::TestCase
   def setup
     @controller = MyProfileController.new
     @request    = ActionController::TestRequest.new
+    @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
   end
 
@@ -44,6 +45,15 @@ class MyProfileControllerTest < Test::Unit::TestCase
 
     get :index, :profile => 'hacking_institute'
     assert_response 403 # forbidden
+  end
+
+  should 'require ssl' do
+    @controller = OnlyForPersonTestController.new
+    org = Organization.create!(:identifier => 'hacking_institute', :name => 'Hacking Institute')
+
+    @request.expects(:ssl?).returns(false).at_least_once
+    get :index, :profile => 'hacking_institute'
+    assert_redirected_to :protocol => 'https://'
   end
 
 end

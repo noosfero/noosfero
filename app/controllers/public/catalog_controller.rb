@@ -1,4 +1,4 @@
-class CatalogController < ApplicationController
+class CatalogController < PublicController
   needs_profile
   before_filter :check_enterprise_and_environment
 

@@ -224,4 +224,52 @@ class ApplicationControllerTest < Test::Unit::TestCase
     get :index
   end
 
+  should 'require ssl when told to' do
+    @request.expects(:ssl?).returns(false).at_least_once
+    get :sslonly
+    assert_redirected_to :protocol => 'https://'
+  end
+
+  should 'not force ssl in development mode' do
+    ENV.expects(:[]).with('RAILS_ENV').returns('development')
+    @request.expects(:ssl?).returns(false).at_least_once
+    get :sslonly
+    assert_response :success
+  end
+
+  should 'not force ssl when not told to' do
+    @request.expects(:ssl?).returns(false).at_least_once
+    get :doesnt_need_ssl
+    assert_response :success
+  end
+
+  should 'not force ssl when already in ssl' do
+    @request.expects(:ssl?).returns(true).at_least_once
+    get :sslonly
+    assert_response :success
+  end
+
+  should 'refuse ssl when told to' do
+    @request.expects(:ssl?).returns(true).at_least_once
+    get :nossl
+    assert_redirected_to :protocol => "http://"
+  end
+
+  should 'not refuse ssl when not told to' do
+    @request.expects(:ssl?).returns(true).at_least_once
+    get :doesnt_refuse_ssl
+    assert_response :success
+  end
+  should 'not refuse ssl while in development mode' do
+    ENV.expects(:[]).with('RAILS_ENV').returns('development')
+    @request.expects(:ssl?).returns(true).at_least_once
+    get :nossl
+    assert_response :success
+  end
+  should 'not refuse ssl when not in ssl' do
+    @request.expects(:ssl?).returns(false).at_least_once
+    get :nossl
+    assert_response :success
+  end
+
 end

@@ -12,6 +12,7 @@ class MembershipsControllerTest < Test::Unit::TestCase
   def setup
     @controller = MembershipsController.new
     @request    = ActionController::TestRequest.new
+    @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
 
     @profile = create_user('testuser').person

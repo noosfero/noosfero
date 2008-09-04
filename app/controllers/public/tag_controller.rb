@@ -1,3 +1,3 @@
-class TagController < ApplicationController
+class TagController < PublicController
 
 end

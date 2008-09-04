@@ -8,6 +8,7 @@ class ThemesControllerTest < Test::Unit::TestCase
   def setup
     @controller = ThemesController.new
     @request    = ActionController::TestRequest.new
+    @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
 
     Theme.stubs(:user_themes_dir).returns(TMP_THEMES_DIR)

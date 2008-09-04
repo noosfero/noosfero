@@ -2,6 +2,8 @@ class MyProfileController < ApplicationController
 
   needs_profile
 
+  require_ssl
+
   # declares that the controller needs an specific type of profile. Example:
   #
   #  class PersonDetailControlles < ProfileAdminController

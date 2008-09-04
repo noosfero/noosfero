@@ -9,6 +9,7 @@ class ManageProductsControllerTest < Test::Unit::TestCase
   def setup
     @controller = ManageProductsController.new
     @request    = ActionController::TestRequest.new
+    @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
     @enterprise = Enterprise.create(:name => 'teste', :identifier => 'test_ent')
     @user = create_user_with_permission('test_user', 'manage_products', @enterprise)

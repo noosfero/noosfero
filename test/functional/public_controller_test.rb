@@ -6,15 +6,23 @@ class PublicController; def rescue_action(e) raise e end; end
 
 class PublicControllerTest < Test::Unit::TestCase
 
+  class TestingPublicStuffController < PublicController
+    def index
+      render :text => 'test', :layout => false
+    end
+  end
+
   def setup
-    @controller = PublicController.new
+    @controller = TestingPublicStuffController.new
     @request    = ActionController::TestRequest.new
+    @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
   end
 
   # Replace this with your real tests.
-  def test_truth
-    assert true
+  should 'refuse SSL' do
+    get :index
+    assert_redirected_to :protocol => 'http://'
   end
 
 end

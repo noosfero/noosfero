@@ -239,6 +239,8 @@ class ActionController::IntegrationTest
 
 
   def login(username, password)
+    ActionController::Integration::Session.any_instance.stubs(:https?).returns(true)
+
     post '/account/login', :user => { :login => username, :password => password }
     assert_response :redirect
     follow_redirect!

@@ -1,4 +1,4 @@
-class ContentViewerController < PublicController
+class ContentViewerController < ApplicationController
 
   needs_profile
 
@@ -26,6 +26,11 @@ class ContentViewerController < PublicController
         render_not_found(@path)
         return
       end
+    end
+
+    if !@page.public? && !request.ssl?
+      redirect_to :protocol => 'https://'
+      return
     end
 
     if !@page.display_to?(user)

@@ -1,7 +1,11 @@
 require "#{File.dirname(__FILE__)}/../test_helper"
 
-class AccountTest < ActionController::IntegrationTest
+class SignupTest < ActionController::IntegrationTest
   all_fixtures
+
+  def setup
+    ActionController::Integration::Session.any_instance.stubs(:https?).returns(true)
+  end
 
   def test_should_require_acceptance_of_terms_for_signup
     Environment.default.update_attributes(:terms_of_use => 'You agree to not be annoying.')

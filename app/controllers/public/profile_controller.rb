@@ -1,4 +1,4 @@
-class ProfileController < ApplicationController
+class ProfileController < PublicController
 
   needs_profile
   before_filter :check_access_to_profile

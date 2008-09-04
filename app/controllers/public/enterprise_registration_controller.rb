@@ -1,5 +1,7 @@
 class EnterpriseRegistrationController < ApplicationController
 
+  require_ssl
+
   before_filter :login_required
 
   # Just go to the first step.

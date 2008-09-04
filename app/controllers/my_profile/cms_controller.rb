@@ -165,7 +165,7 @@ class CmsController < MyProfileController
 
   def record_coming_from_public_view
     referer = request.referer
-    if (referer == url_for(@article.url)) || (@article == @profile.home_page && referer == url_for(@profile.url))
+    if (maybe_ssl(url_for(@article.url)).include?(referer)) || (@article == @profile.home_page && maybe_ssl(url_for(@profile.url)).include?(referer))
       @back_to = 'public_view'
       @back_url = @article.url
     end
@@ -173,10 +173,14 @@ class CmsController < MyProfileController
 
   def record_creating_from_public_view
     referer = request.referer
-    if (referer =~ Regexp.new("^#{url_for(profile.url)}"))
+    if (referer =~ Regexp.new("^#{(url_for(profile.url).sub('https:', 'https?:'))}"))
       @back_to = 'public_view'
       @back_url = referer
     end
+  end
+
+  def maybe_ssl(url)
+    [url, url.sub('https:', 'http:')]
   end
 
 end

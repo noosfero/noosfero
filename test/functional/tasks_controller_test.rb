@@ -10,6 +10,7 @@ class TasksControllerTest < Test::Unit::TestCase
   def setup
     @controller = TasksController.new
     @request    = ActionController::TestRequest.new
+    @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
 
     self.profile = create_user('testuser').person

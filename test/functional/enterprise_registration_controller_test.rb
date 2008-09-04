@@ -11,6 +11,7 @@ all_fixtures
   def setup
     @controller = EnterpriseRegistrationController.new
     @request    = ActionController::TestRequest.new
+    @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
     login_as 'ze'
   end
