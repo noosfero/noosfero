@@ -128,4 +128,13 @@ class TasksControllerTest < Test::Unit::TestCase
 
     assert_includes assigns(:tasks), task
   end
+
+  should 'set target of ticket when creating it' do
+     f = create_user('friend').person
+     profile.add_friend f
+
+     post :new, :profile => profile.identifier, :ticket => {:title => 'test ticket', :target_id => f.id}
+
+     assert_equal f, assigns(:ticket).target
+  end
 end
