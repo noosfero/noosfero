@@ -3,6 +3,16 @@ class CmsController < MyProfileController
   protect 'post_content', :profile, :except => [:set_home_page]
   protect 'edit_profile', :profile, :only => [:set_home_page]
 
+  alias :check_ssl_orig :check_ssl
+  # Redefines the SSL checking to avoid requiring SSL when creating the "New
+  # publication" button on article's public view.
+  def check_ssl
+    if ((params[:action] == 'new') && (!request.xhr?)) || (params[:action] != 'new')
+      #raise 'bli'
+      check_ssl_orig
+    end
+  end
+
   def boxes_holder
     profile
   end

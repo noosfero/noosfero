@@ -592,4 +592,22 @@ class CmsControllerTest < Test::Unit::TestCase
     end
   end
 
+  should 'require ssl in general' do
+    @request.expects(:ssl?).returns(false).at_least_once
+    get :index, :profile => 'testinguser'
+    assert_redirected_to :protocol => 'https://'
+  end
+
+  should 'accept ajax connections to new action without ssl' do
+    @request.expects(:ssl?).returns(false).at_least_once
+    xml_http_request :get, :new, :profile => 'testinguser'
+    assert_response :success
+  end
+
+  should 'not accept non-ajax connections to new action without ssl' do
+    @request.expects(:ssl?).returns(false).at_least_once
+    get :new, :profile => 'testinguser'
+    assert_redirected_to :protocol => 'https://'
+  end
+
 end
