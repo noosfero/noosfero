@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.11.0~zen3.pre1\n"
 "POT-Creation-Date: 2008-09-05 09:01-0300\n"
-"PO-Revision-Date: 2008-07-30 11:20-0300\n"
+"PO-Revision-Date: 2008-09-05 09:32-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -186,9 +186,8 @@ msgid "Title"
 msgstr "Título"
 
 #: app/helpers/folder_helper.rb:6
-#, fuzzy
 msgid "Last update"
-msgstr "Última atualização: %s."
+msgstr "Última atualização"
 
 #: app/helpers/assets_helper.rb:7
 #: app/controllers/public/search_controller.rb:133
@@ -324,9 +323,8 @@ msgid "Remove block"
 msgstr "Remover bloco"
 
 #: app/helpers/boxes_helper.rb:167
-#, fuzzy
 msgid "Help on this block"
-msgstr "Bloco de documentos recentes"
+msgstr "Ajuda sobre este bloco"
 
 #: app/helpers/boxes_helper.rb:167 app/helpers/application_helper.rb:63
 #: app/views/layouts/application.rhtml:122 app/views/features/index.rhtml:7
@@ -697,13 +695,12 @@ msgid "tags"
 msgstr "tags"
 
 #: app/models/tags_block.rb:16
-#, fuzzy
 msgid ""
 "Tags are created when you add some of them one to your contents. <p/>\n"
 "       Try to add some tags to some articles and you'l see your tag cloud "
 "growing."
 msgstr ""
-"A tag é criada quando você a adiciona ao seu artigo.<p/>Trente adicionar "
+"Tags são criadas quando você a adiciona algumas delas aos seus conteúdos.<p/>Tente adicionar "
 "algumas tags para alguns artigos e veja sua nuvem de tags crescer."
 
 #: app/models/members_block.rb:4
@@ -873,9 +870,8 @@ msgid "Theme"
 msgstr ""
 
 #: app/models/user.rb:-
-#, fuzzy
 msgid "Public profile"
-msgstr "Visualização pública"
+msgstr "Perfil público"
 
 #: app/models/user.rb:-
 msgid "article"
@@ -964,19 +960,16 @@ msgid "Children count"
 msgstr "Quantidade de filhos"
 
 #: app/models/user.rb:-
-#, fuzzy
 msgid "Public article"
-msgstr "Visualização pública"
+msgstr "Artigo público"
 
 #: app/models/user.rb:-
-#, fuzzy
 msgid "Accept comments"
-msgstr "Comentários recentes"
+msgstr "Aceitar comentários"
 
 #: app/models/user.rb:-
-#, fuzzy
 msgid "Reference article"
-msgstr "Artigos recentes"
+msgstr "Artigo referenciado"
 
 #: app/models/user.rb:7
 msgid "User|Password"
@@ -1022,9 +1015,8 @@ msgstr[0] "Uma comunidade"
 msgstr[1] "%{num} comunidades"
 
 #: app/models/approve_article.rb:5
-#, fuzzy
 msgid "%s wants to publish %s"
-msgstr "Conteúdo do(a) %s publicado no %s"
+msgstr "%s quer publicar %s"
 
 #: app/models/comment.rb:-
 msgid "comment"
@@ -1073,9 +1065,8 @@ msgid "Recent content"
 msgstr "Conteúdo recente"
 
 #: app/models/recent_documents_block.rb:12
-#, fuzzy
 msgid "This block lists your recent content."
-msgstr "Lista de conteúdos recentes"
+msgstr "Este block listas seu conteúdo recent."
 
 #: app/models/recent_documents_block.rb:31
 msgid "All content"
@@ -1126,9 +1117,8 @@ msgid "Code"
 msgstr "Código"
 
 #: app/models/task.rb:26
-#, fuzzy
 msgid "Cancelled"
-msgstr "Cancelar"
+msgstr "Cancelado"
 
 #: app/models/task.rb:26
 msgid "Finished"
@@ -1172,9 +1162,8 @@ msgid "Favorite Enterprises"
 msgstr "Empreendimentos Favoritos"
 
 #: app/models/favorite_enterprises_block.rb:8
-#, fuzzy
 msgid "This block lists the favorite enterprises of the user."
-msgstr "Empreendimentos favoritos deste usuário."
+msgstr "Este block lista os empreendimentos favoritos to usuário."
 
 #: app/models/favorite_enterprises_block.rb:12
 msgid "A block that displays your favorite enterprises"
@@ -1261,9 +1250,8 @@ msgid "Friends"
 msgstr "Amigos"
 
 #: app/models/friends_block.rb:12
-#, fuzzy
 msgid "This block displays your friends."
-msgstr "Um bloco que apresenta seus amigos"
+msgstr "Este bloco exibe seus amigos."
 
 #: app/models/friends_block.rb:18
 msgid "All friends"
@@ -1290,9 +1278,8 @@ msgid "%s wants to be a member"
 msgstr "%s quer ser um integrante"
 
 #: app/models/published_article.rb:5
-#, fuzzy
 msgid "Reference to other article"
-msgstr "Artigos recentes"
+msgstr "Referência a outro artigo"
 
 #: app/models/published_article.rb:9
 msgid "A reference to another article published in another profile"
@@ -1568,9 +1555,8 @@ msgid "A folder, inside which you can put other articles."
 msgstr "Uma pasta, dentro dela você pode colocar outros artigos."
 
 #: app/models/folder.rb:23
-#, fuzzy
 msgid "(empty folder)"
-msgstr "Nova pasta "
+msgstr "(pasta vazia)"
 
 #: app/models/thumbnail.rb:-
 msgid "thumbnail"
@@ -1581,9 +1567,8 @@ msgid "A block that displays your communities"
 msgstr "Um bloco que apresenta suas comunidades"
 
 #: app/models/communities_block.rb:12
-#, fuzzy
 msgid "This block displays the communities in which the user is a member."
-msgstr "As comunidades das quais esse(a) usuário(a) é membro."
+msgstr "Este bloco exibe as comunidades das quais o usuário é membro."
 
 #: app/models/communities_block.rb:20 app/models/communities_block.rb:24
 msgid "All communities"
@@ -1636,9 +1621,8 @@ msgid "Search for sellers"
 msgstr "Buscar por vendedores:"
 
 #: app/models/sellers_search_block.rb:16
-#, fuzzy
 msgid "This block presents a search engine for products."
-msgstr "Desabilitar busca por produtos"
+msgstr "Este block apresenta um mecanismo de busca por produtos."
 
 #: app/models/profile_categorization.rb:-
 msgid "categories profile"
@@ -1683,9 +1667,8 @@ msgid "Validated"
 msgstr "Validado"
 
 #: app/models/my_network_block.rb:6
-#, fuzzy
 msgid "A block that displays a summary of your network"
-msgstr "Um bloco que apresenta seus empreendimentos"
+msgstr "Um bloco que apresenta um resumo da sua rede"
 
 #: app/models/my_network_block.rb:10
 msgid "My network"
@@ -1696,30 +1679,26 @@ msgid "This block displays some info about your networking."
 msgstr ""
 
 #: app/models/my_network_block.rb:21
-#, fuzzy
 msgid "One article published"
 msgid_plural "%s articles published"
-msgstr[0] "Publicado"
-msgstr[1] "Publicado"
+msgstr[0] "Um artigo publicado"
+msgstr[1] "%s artigos publicados"
 
 #: app/models/my_network_block.rb:23
-#, fuzzy
 msgid "One friend"
 msgid_plural "%s friends"
-msgstr[0] "Novo amigo"
-msgstr[1] "Novo amigo"
+msgstr[0] "Um amigo"
+msgstr[1] "%s amigos"
 
 #: app/models/my_network_block.rb:27
-#, fuzzy
 msgid "One tag"
 msgid_plural "%s tags"
-msgstr[0] "Novo marcador"
-msgstr[1] "Novo marcador"
+msgstr[0] "Uma tag"
+msgstr[1] "%s tags"
 
 #: app/models/enterprises_block.rb:8
-#, fuzzy
 msgid "This block displays the enterprises where this user works."
-msgstr "Os empreendimentos onde esse usuário trabalha."
+msgstr "Este block apresenta os empreendimentos onde este usuário trabalha."
 
 #: app/models/enterprises_block.rb:12
 msgid "A block that displays your enterprises"
@@ -1786,32 +1765,28 @@ msgid "Moderate comments"
 msgstr "Moderar comentários"
 
 #: app/models/profile.rb:38
-#, fuzzy
 msgid "Edit appearance"
-msgstr "Editar Categorias"
+msgstr "Editar aparência"
 
 #: app/models/profile.rb:155
 msgid "An existing profile cannot be renamed."
 msgstr "Um perfil existente não pode ser renomeado"
 
 #: app/models/profile.rb:333
-#, fuzzy
 msgid "My home page"
-msgstr "Minha página inicial."
+msgstr "Minha página inicial"
 
 #: app/models/profile.rb:333
-#, fuzzy
 msgid ""
 "<p>This is a default homepage created for me. It can be changed though the "
 "control panel.</p>"
 msgstr ""
-"<p>Esta é a pagina inicial padrão criada para %s. Esta página pode ser "
+"<p>Esta é a pagina inicial padrão criada para mim. Esta página pode ser "
 "modificada pelo painel de controle.</p>"
 
 #: app/models/profile.rb:345
-#, fuzzy
 msgid "Intranet"
-msgstr "Meus Interesses"
+msgstr "Intranet"
 
 #: app/models/profile.rb:376
 msgid "%s can't has members"
@@ -1906,9 +1881,8 @@ msgid "Disable search for events"
 msgstr "Desabilitar buscar por eventos"
 
 #: app/models/environment.rb:31
-#, fuzzy
 msgid "Disable products for enterprises"
-msgstr "Desabilitar busca por empreendimentos"
+msgstr "Desabilitar produtos para empreendimentos"
 
 #: app/models/environment.rb:231
 msgid "Only one Virtual Community can be the default one"
@@ -2012,23 +1986,20 @@ msgstr ""
 
 #: app/views/admin_panel/edit_templates.rhtml:1
 #: app/views/admin_panel/index.rhtml:13
-#, fuzzy
 msgid "Edit Templates"
-msgstr "Editar empreendimento"
+msgstr "Editar Modelos"
 
 #: app/views/admin_panel/edit_templates.rhtml:4
-#, fuzzy
 msgid "Edit Person Template"
-msgstr "Editar dados pessoais"
+msgstr "Editar Modelo de Pessoa"
 
 #: app/views/admin_panel/edit_templates.rhtml:5
 msgid "Edit Community Template"
 msgstr ""
 
 #: app/views/admin_panel/edit_templates.rhtml:6
-#, fuzzy
 msgid "Edit Enterprise Template"
-msgstr "Editar empreendimento"
+msgstr "Editar Modelo de Empreeendimento"
 
 #: app/views/admin_panel/message_for_disabled_enterprise.rhtml:1
 #: app/views/admin_panel/site_info.rhtml:1
@@ -2228,9 +2199,8 @@ msgid "Back"
 msgstr "Voltar"
 
 #: app/views/shared/theme_test_panel.rhtml:3
-#, fuzzy
 msgid "Testing theme \"%s\""
-msgstr "Listando Integrantes"
+msgstr "Testando tema \"%s\""
 
 #: app/views/shared/theme_test_panel.rhtml:6
 msgid ""
@@ -2239,14 +2209,12 @@ msgid ""
 msgstr ""
 
 #: app/views/shared/theme_test_panel.rhtml:9
-#, fuzzy
 msgid "Finished testing"
-msgstr "ordenação terminada"
+msgstr "Teste finalizado"
 
 #: app/views/shared/theme_test_panel.rhtml:10
-#, fuzzy
 msgid "Edit theme"
-msgstr "Editar empreendimento"
+msgstr "Editar tema"
 
 #: app/views/shared/_select_categories.rhtml:3
 #: app/views/manage_products/_subcategories.rhtml:3
@@ -2618,19 +2586,16 @@ msgid "We need to be sure that this is your enterprise"
 msgstr "Nós precisamos ter certeza que este empreendimento é seu"
 
 #: app/views/account/activation_question.rhtml:8
-#, fuzzy
 msgid "Answer"
-msgstr "usuário"
+msgstr "Resposta"
 
 #: app/views/account/accept_terms.rhtml:4
-#, fuzzy
 msgid "I accept the terms"
-msgstr "Eu aceito os termos de uso"
+msgstr "Eu aceito os termos"
 
 #: app/views/account/accept_terms.rhtml:5
-#, fuzzy
 msgid "I do NOT accept the terms"
-msgstr "Eu aceito os termos de uso"
+msgstr "Eu NÃO aceito os termos"
 
 #: app/views/account/index_anonymous.rhtml:1
 msgid "Identify yourself"
@@ -2672,9 +2637,8 @@ msgid "Already have user"
 msgstr ""
 
 #: app/views/account/activate_enterprise.rhtml:7
-#, fuzzy
 msgid "Create new user"
-msgstr "Criar nova comunidade"
+msgstr "Criar novo usuário"
 
 #: app/views/account/already_activated.rhtml:1
 msgid "This enterprise is already active"
@@ -2790,9 +2754,8 @@ msgid "Options"
 msgstr "Opções"
 
 #: app/views/cms/edit.rhtml:32
-#, fuzzy
 msgid "Accept Comments"
-msgstr "Comentários recentes"
+msgstr "Aceitar Comentários"
 
 #: app/views/cms/_uploaded_file.rhtml:1
 msgid "Select the file you want to upload (max size %s)."
@@ -2808,14 +2771,12 @@ msgid "Description:"
 msgstr "Descrição:"
 
 #: app/views/cms/publish.rhtml:1
-#, fuzzy
 msgid "Select the groups where you want to publish your article"
-msgstr "Selecione o tipo de bloco que você quer adicionar à sua página."
+msgstr "Selecione os grupos onde você quer publicar seu artigo"
 
 #: app/views/cms/publish.rhtml:12
-#, fuzzy
 msgid "Publish"
-msgstr "Publicado"
+msgstr "Publicar"
 
 #: app/views/cms/view.rhtml:3
 msgid "Content management"
@@ -2933,7 +2894,6 @@ msgid "No City"
 msgstr "Sem Cidade"
 
 #: app/views/search/communities.rhtml:17
-#, fuzzy
 msgid "New community"
 msgstr "Uma comunidade"
 
@@ -3050,9 +3010,8 @@ msgstr "Entrar nessa comunidade"
 
 #: app/views/blocks/profile_info_actions/person.rhtml:4
 #: app/views/tasks/index.rhtml:18
-#, fuzzy
 msgid "Send request"
-msgstr "Processar solicitações"
+msgstr "Enviar solicitação"
 
 #: app/views/blocks/profile_info_actions/person.rhtml:6
 msgid "Add friend"
@@ -3318,9 +3277,8 @@ msgid "Yes, I want to join."
 msgstr "Sim, quero entrar."
 
 #: app/views/memberships/new_community.rhtml:1
-#, fuzzy
 msgid "Creating new community"
-msgstr "Criar nova comunidade"
+msgstr "Criando nova comunidade"
 
 #: app/views/memberships/new_community.rhtml:14
 #: app/views/profile_editor/_organization.rhtml:17
@@ -3511,9 +3469,8 @@ msgid "Pending tasks"
 msgstr "Tarefas pendentes"
 
 #: app/views/profile_editor/index.rhtml:17
-#, fuzzy
 msgid "Edit sideboxes"
-msgstr "Editar informações do site"
+msgstr "Editar blocos laterais"
 
 #: app/views/profile_editor/index.rhtml:19
 msgid "Edit Appearance"
@@ -3629,18 +3586,16 @@ msgid "Back to control panel"
 msgstr "Voltar ao painel de controle"
 
 #: app/views/profile_editor/header_footer.rhtml:3
-#, fuzzy
 msgid "Editing header and footer"
-msgstr "Editando a informação de validação"
+msgstr "Editando cabeçalho e rodapé"
 
 #: app/views/profile_editor/header_footer.rhtml:7
 msgid "Content for header "
-msgstr ""
+msgstr "Conteúdo do cabeçalho "
 
 #: app/views/profile_editor/header_footer.rhtml:9
-#, fuzzy
 msgid "Content for footer"
-msgstr "Tipo de conteúdo"
+msgstr "Conteúdo do rodapé"
 
 #: app/views/profile_editor/disable.rhtml:1
 msgid "Disabling '%s' enterprise"
@@ -3692,9 +3647,8 @@ msgid "Yes, I want to enable."
 msgstr "Sim, quero habilitar."
 
 #: app/views/content_viewer/view_page.rhtml:43
-#, fuzzy
 msgid "New publication"
-msgstr "Novo produto"
+msgstr "Nova publicação"
 
 #: app/views/content_viewer/view_page.rhtml:49
 msgid "This article's tags:"
@@ -4007,9 +3961,8 @@ msgid "%s:Products/Services"
 msgstr "%s:Produtos/Serviços"
 
 #: app/views/box_organizer/index.rhtml:1
-#, fuzzy
 msgid "Editing sideboxes"
-msgstr "Editando %s"
+msgstr "Editando blocos laterias"
 
 #: app/views/box_organizer/index.rhtml:4
 msgid "Add a block"
@@ -4074,103 +4027,88 @@ msgid "Organization Approval Method"
 msgstr "Métode de Aprovação da Organização"
 
 #: app/views/themes/new.rhtml:1
-#, fuzzy
 msgid "Create new theme"
-msgstr "Mudar tema do ícone"
+msgstr "Criar novo tema"
 
 #: app/views/themes/new.rhtml:5
 msgid "Name of the new theme:"
-msgstr ""
+msgstr "Nome do novo tema:"
 
 #: app/views/themes/add_image.rhtml:2
-#, fuzzy
 msgid "Choose the image file"
-msgstr "Escolha o tipo de artigo:"
+msgstr "Escolha o arquivo da imagem"
 
 #: app/views/themes/add_image.rhtml:4 app/views/themes/edit.rhtml:31
-#, fuzzy
 msgid "Add image"
-msgstr "imagem"
+msgstr "Adicionar imagem"
 
 #: app/views/themes/index.rhtml:1
-#, fuzzy
 msgid "Editing Appearance"
-msgstr "Editando tag"
+msgstr "Editando Aparência"
 
 #: app/views/themes/index.rhtml:7
-#, fuzzy
 msgid "Select template"
-msgstr "Selecione o Estado"
+msgstr "Selecione um modelo"
 
 #: app/views/themes/index.rhtml:18
 msgid "The \"%s\" template"
-msgstr ""
+msgstr "O modelo \"%s\""
 
 #: app/views/themes/index.rhtml:23 app/views/themes/index.rhtml:55
 msgid "(current)"
-msgstr ""
+msgstr "(atual)"
 
 #: app/views/themes/index.rhtml:25
-#, fuzzy
 msgid "Use this template"
-msgstr "Usar como página incial"
+msgstr "Usar este modelo"
 
 #: app/views/themes/index.rhtml:38
-#, fuzzy
 msgid "Select theme"
-msgstr "Selecione o Estado"
+msgstr "Selecione um tema"
 
 #: app/views/themes/index.rhtml:50 app/views/themes/index.rhtml:78
 msgid "The \"%s\" theme."
-msgstr ""
+msgstr "O tema \"%s\"."
 
 #: app/views/themes/index.rhtml:56
-#, fuzzy
 msgid "Use this theme"
-msgstr "Usar como página incial"
+msgstr "Usar este tema"
 
 #: app/views/themes/index.rhtml:70
-#, fuzzy
 msgid "My themes"
-msgstr "Meus Interesses"
+msgstr "Meus temas"
 
 #: app/views/themes/index.rhtml:82
-#, fuzzy
 msgid "Edit this theme"
-msgstr "Editar empreendimento"
+msgstr "Editar este tema"
 
 #: app/views/themes/index.rhtml:84
 msgid "Test this theme"
-msgstr ""
+msgstr "Testar este tema"
 
 #: app/views/themes/index.rhtml:96
-#, fuzzy
 msgid "New theme ..."
-msgstr "Novo membro"
+msgstr "Novo tema ..."
 
 #: app/views/themes/edit.rhtml:4
-#, fuzzy
 msgid "Editing theme \"%s\""
-msgstr "Editando %s"
+msgstr "Editando tema \"%s\""
 
 #: app/views/themes/edit.rhtml:5
-#, fuzzy
 msgid "Preview this theme"
-msgstr "Sair deste empreendimento"
+msgstr "Pré-visualizar este tema"
 
 #: app/views/themes/edit.rhtml:12
 msgid "CSS files"
-msgstr ""
+msgstr "Arquivos CSS"
 
 #: app/views/themes/edit.rhtml:19
-#, fuzzy
 msgid "New CSS"
-msgstr "Novo %s"
+msgstr "Novo CSS"
 
 #: app/views/themes/edit.rhtml:24
-#, fuzzy
 msgid "Images"
-msgstr "Imagem"
+msgstr "Imagens"
 
 #: app/views/themes/edit.rhtml:37
 msgid "Select a CSS file to edit"
@@ -4181,7 +4119,6 @@ msgid "Add a CSS file"
 msgstr ""
 
 #: app/views/themes/add_css.rhtml:4
-#, fuzzy
 msgid "File name"
 msgstr "Nome do arquivo"
 
@@ -4278,9 +4215,8 @@ msgid "Aditional specifications:"
 msgstr "Especificações adicionais:"
 
 #: app/views/tasks/_approve_article.rhtml:3
-#, fuzzy
 msgid "%s wants to publish content: %s."
-msgstr "Conteúdo do(a) %s publicado no %s"
+msgstr "%s quer publicar conteúdo: %s."
 
 #: app/views/tasks/_approve_article.rhtml:13
 #: app/views/tasks/_add_member.rhtml:15 app/views/tasks/_add_friend.rhtml:15
@@ -4297,9 +4233,8 @@ msgid "Name for publishing"
 msgstr ""
 
 #: app/views/tasks/_approve_article.rhtml:24
-#, fuzzy
 msgid "Comment for author"
-msgstr "Número de comentários"
+msgstr "Comentário para o autor"
 
 #: app/views/tasks/_approve_article.rhtml:29
 #: app/views/tasks/_add_member.rhtml:36 app/views/tasks/_add_friend.rhtml:39
@@ -4307,41 +4242,36 @@ msgid "Ok!"
 msgstr "Ok!"
 
 #: app/views/tasks/new.rhtml:1
-#, fuzzy
 msgid "New request for %s"
-msgstr "Resultados da busca por \"%s\""
+msgstr "Nova solicitação para %s"
 
 #: app/views/tasks/new.rhtml:1
-#, fuzzy
 msgid "New request"
-msgstr "Processar solicitações"
+msgstr "Nova solicitação"
 
 #: app/views/tasks/new.rhtml:5
 msgid "To: "
 msgstr ""
 
 #: app/views/tasks/new.rhtml:10
-#, fuzzy
 msgid "Send"
-msgstr "Domingo"
+msgstr "Enviar"
 
 #: app/views/tasks/_task.rhtml:2
 msgid "Processing task: %s"
 msgstr "Processando tarefa: %s"
 
 #: app/views/tasks/list_requested.rhtml:1
-#, fuzzy
 msgid "Tasks that I requested"
-msgstr "Pedido de alteração de senha"
+msgstr "Tarefas que eu solicitei"
 
 #: app/views/tasks/list_requested.rhtml:8 app/views/tasks/processed.rhtml:12
 msgid "Created:"
 msgstr "Criado:"
 
 #: app/views/tasks/list_requested.rhtml:10
-#, fuzzy
 msgid "Status:"
-msgstr "Estado"
+msgstr "Estado:"
 
 #: app/views/tasks/index.rhtml:1
 msgid "%s's pending tasks"
@@ -4356,9 +4286,8 @@ msgid "View processed tasks"
 msgstr "Ver tarefas processadas"
 
 #: app/views/tasks/index.rhtml:17
-#, fuzzy
 msgid "View my requests"
-msgstr "Processar solicitações"
+msgstr "Ver minhas solicitações"
 
 #: app/views/tasks/_add_member.rhtml:1
 msgid "New member"
@@ -4369,39 +4298,32 @@ msgid "%s wants to be a member of %s."
 msgstr "%s quer ser um integrante de %s."
 
 #: app/views/tasks/_ticket.rhtml:1
-#, fuzzy
 msgid "Processing ticket: %s"
-msgstr "Processando tarefa: %s"
+msgstr "Processando tíquete: %s"
 
 #: app/views/tasks/_ticket.rhtml:7
-#, fuzzy
 msgid "Closing statment"
-msgstr "Conteúdo"
+msgstr "Comentário final"
 
 #: app/views/tasks/ticket_details.rhtml:1
-#, fuzzy
 msgid "Ticket: %s"
-msgstr "Preço: %s"
+msgstr "Tíquete: %s"
 
 #: app/views/tasks/ticket_details.rhtml:3
-#, fuzzy
 msgid "Created at %s by %s"
-msgstr "Criado em: %s"
+msgstr "Criado em  %s por %s"
 
 #: app/views/tasks/ticket_details.rhtml:4
-#, fuzzy
 msgid "Owner: %s"
-msgstr "Dono"
+msgstr "Dono: %s"
 
 #: app/views/tasks/ticket_details.rhtml:7
-#, fuzzy
 msgid "Status: %s"
-msgstr "Estado"
+msgstr "Estado: %s"
 
 #: app/views/tasks/ticket_details.rhtml:14
-#, fuzzy
 msgid "Closing statement: %s"
-msgstr "Pessoa de contato: %s"
+msgstr "Comentário final: %s"
 
 #: app/views/tasks/processed.rhtml:1
 msgid "%s's processed tasks"
@@ -4438,107 +4360,87 @@ msgid "Classify your new friend:"
 msgstr "Classifique seu(sua) novo(a) amigo(a):"
 
 #: lib/unifreire_terminology.rb:9
-#, fuzzy
 msgid "Institutions"
-msgstr "Limitações"
+msgstr "Instituições"
 
 #: lib/unifreire_terminology.rb:10
-#, fuzzy
 msgid "The institution where this user belongs."
-msgstr "As organizações onde esse usuário trabalha."
+msgstr "As instituições as quais este usuário pertence."
 
 #: lib/unifreire_terminology.rb:11
-#, fuzzy
 msgid "A block that displays your institutions."
-msgstr "Um bloco que apresenta suas organizações."
+msgstr "Um bloco que apresenta suas instituições."
 
 #: lib/unifreire_terminology.rb:12
-#, fuzzy
 msgid "All institutions"
-msgstr "Todas as organizações"
+msgstr "Todas as instituições"
 
 #: lib/unifreire_terminology.rb:13
-#, fuzzy
 msgid "Disable search for institutions"
-msgstr "Desabilitar busca por organizações"
+msgstr "Desabilitar busca por instituições"
 
 #: lib/unifreire_terminology.rb:14
-#, fuzzy
 msgid "One institution"
-msgstr "Uma revisão"
+msgstr "Uma instituição"
 
 #: lib/unifreire_terminology.rb:15
-#, fuzzy
 msgid "%{num} institutions"
-msgstr "%{num} organizações"
+msgstr "%{num} instituições"
 
 #: lib/unifreire_terminology.rb:16 lib/unifreire_terminology.rb:26
-#, fuzzy
 msgid "Favorite Institutions"
-msgstr "Organizações Favoritas"
+msgstr "Instituições Favoritas"
 
 #: lib/unifreire_terminology.rb:17
-#, fuzzy
 msgid "This user's favorite institutions"
-msgstr "Organizações favoritas deste usuário"
+msgstr "Instituições favoritas deste usuário"
 
 #: lib/unifreire_terminology.rb:18
-#, fuzzy
 msgid "A block that displays your favorite institutions"
-msgstr "Um bloco que apresenta suas organizações favoritas"
+msgstr "Um bloco que apresenta suas instituições favoritas"
 
 #: lib/unifreire_terminology.rb:19
-#, fuzzy
 msgid "All favorite institutions"
-msgstr "Todas organizações favoritas"
+msgstr "Todas instituições favoritas"
 
 #: lib/unifreire_terminology.rb:20
-#, fuzzy
 msgid "A search for institutions by products selled and local"
-msgstr "Uma busca de organizações por produtos vendidos e localização"
+msgstr "Uma busca de instituições por produtos vendidos e localização"
 
 #: lib/unifreire_terminology.rb:21
-#, fuzzy
 msgid "Edit message for disabled institutions"
-msgstr "Editar mensagem para organizações desabilitadas"
+msgstr "Editar mensagem para instituições desabilitadas"
 
 #: lib/unifreire_terminology.rb:22
-#, fuzzy
 msgid "Add favorite institution"
-msgstr "Adicionar organização favorita"
+msgstr "Adicionar instituição favorita"
 
 #: lib/unifreire_terminology.rb:23
-#, fuzzy
 msgid ""
 "Validation info is the information the institutions will see about how your "
 "organization processes the institutions validations it receives: validation "
 "methodology, restrictions to the types of institutions the organization "
 "validates etc."
 msgstr ""
-"Informações de validação são as informações que as organizações verão sobre "
-"como sua organização processa as validações de organizações que ela recebe: "
-"metodologia de validação, restrição de tipos de organizações que a "
-"organização valida etc."
+"Informações de validação são as informações que as instituição verão sobre "
+"como sua organização processa as validações de instituições que ela recebe: "
+"metodologia, restrição de tipos de instituição valida etc."
 
 #: lib/unifreire_terminology.rb:24
-#, fuzzy
 msgid "Here are all <b>%s</b>'s institutions."
-msgstr "Aqui estão todas a comunidades de <b>%s</b>"
+msgstr "Aqui estão todas a instituições de <b>%s</b>"
 
 #: lib/unifreire_terminology.rb:25
-#, fuzzy
 msgid "Here are all <b>%s</b>'s favorite institutions."
-msgstr "Aqui estão todas as organizações fovoritas de <b>%s</b>."
+msgstr "Aqui estão todas as instituições fovoritas de <b>%s</b>."
 
 #: lib/unifreire_terminology.rb:27
-#, fuzzy
 msgid "Institutions in \"%s\""
-msgstr "Organizações em \"%s\""
+msgstr "Instituições em \"%s\""
 
 #: lib/unifreire_terminology.rb:28
-#, fuzzy
 msgid "Register a new Institution"
-msgstr "Registrar novo Empreendimento"
+msgstr "Registrar nova Instituições"
 
 #: lib/unifreire_terminology.rb:29
 msgid "Schedule"
@@ -4561,9 +4463,8 @@ msgid "A block that displays your groups"
 msgstr "Um bloco que apresenta seus grupos"
 
 #: lib/zen3_terminology.rb:13
-#, fuzzy
 msgid "A block that displays your contacts"
-msgstr "Um bloco que apresenta suas comunidades"
+msgstr "Um bloco que apresenta seus contatos"
 
 #: lib/zen3_terminology.rb:14
 msgid "The groups in which the user is a member"
@@ -4666,29 +4567,24 @@ msgid "Organizations in \"%s\""
 msgstr "Organizações em \"%s\""
 
 #: lib/zen3_terminology.rb:39
-#, fuzzy
 msgid "Register a new organization"
-msgstr "Uma organização"
+msgstr "Registrar nova organização"
 
 #: lib/zen3_terminology.rb:40
-#, fuzzy
 msgid "One contact"
-msgstr "Um comentário"
+msgstr "Um contato"
 
 #: lib/zen3_terminology.rb:41
-#, fuzzy
 msgid "%s contacts"
-msgstr "Conteúdo da postagem"
+msgstr "%s contatos"
 
 #: lib/zen3_terminology.rb:42
-#, fuzzy
 msgid "%s groups"
-msgstr "Todos os grupos"
+msgstr "%s grupos"
 
 #: lib/zen3_terminology.rb:43
-#, fuzzy
 msgid "Are you sure you want to remove %s from your contacts list?"
-msgstr "Tem certeza que quer remover %s da sua lista de amigos?"
+msgstr "Tem certeza que quer remover %s da sua lista de contatos?"
 
 #: lib/zen3_terminology.rb:44
 #, fuzzy
@@ -4700,59 +4596,48 @@ msgstr ""
 "queira remover você da sua lista de amigos."
 
 #: lib/zen3_terminology.rb:45
-#, fuzzy
 msgid "Yes, I want to remove %s from my contact list"
-msgstr "Sim, quero remover %s da minha lista de amigos"
+msgstr "Sim, quero remover %s da minha lista de contatos"
 
 #: lib/zen3_terminology.rb:46
-#, fuzzy
 msgid "Adding %s as a contact"
-msgstr "Adicionando %s como amigo(a)"
+msgstr "Adicionando %s como contato"
 
 #: lib/zen3_terminology.rb:47
-#, fuzzy
 msgid "Are you sure you want to add %s as your contact?"
-msgstr "Tem certeza que quer adicionar %s como seu(sua) amigo(a)?"
+msgstr "Tem certeza que quer adicionar %s como seu contato?"
 
 #: lib/zen3_terminology.rb:48
-#, fuzzy
 msgid "Note that %s will need to accept being added as your contact."
-msgstr "Note que %s precisará aceitar ser adicionado como seu amigo."
+msgstr "Note que %s precisará aceitar ser adicionado como seu contato."
 
 #: lib/zen3_terminology.rb:49
-#, fuzzy
 msgid "Classify your new contact %s: "
-msgstr "Classifique seu(sua) novo(a) amigo(a) %s:"
+msgstr "Classifique seu novo contato %s:"
 
 #: lib/zen3_terminology.rb:50
-#, fuzzy
 msgid "Yes, I want to add %s as my contact"
-msgstr "Sim, quero adicionar %s como amigo(a)"
+msgstr "Sim, quero adicionar %s como meu contato"
 
 #: lib/zen3_terminology.rb:51
-#, fuzzy
 msgid "Manage contacts"
-msgstr "Gerenciar conteúdo."
+msgstr "Gerenciar contatos"
 
 #: lib/zen3_terminology.rb:52
-#, fuzzy
 msgid "Add contact"
-msgstr "Todo o conteúdo"
+msgstr "Adicionar contato"
 
 #: lib/zen3_terminology.rb:54
-#, fuzzy
 msgid "Clicking on this button will remove your contact relation with %s."
-msgstr "Clicando neste botão removerá sua relação de amizade com %s."
+msgstr "Clicar neste botão removerá sua relação de contato com %s."
 
 #: lib/zen3_terminology.rb:55
-#, fuzzy
 msgid "You have no contacts yet. Go make some."
-msgstr "Você não tem amigos ainda. Vá fazer alguns."
+msgstr "Você não tem contatos ainda. Vá fazer alguns."
 
 #: lib/zen3_terminology.rb:56
-#, fuzzy
 msgid "%s's contacts"
-msgstr "Tags de %s"
+msgstr "Contatos de %s"
 
 #: lib/zen3_terminology.rb:57
 #, fuzzy
@@ -4760,19 +4645,16 @@ msgid "%s' contacts"
 msgstr "Tags de %s"
 
 #: lib/zen3_terminology.rb:58
-#, fuzzy
 msgid "Here are all <b>%s</b>'s contacts."
-msgstr "Aqui estão todas a comunidades de <b>%s</b>"
+msgstr "Aqui estão todas os contatos de <b>%s</b>"
 
 #: lib/zen3_terminology.rb:59
-#, fuzzy
 msgid "Contacts"
-msgstr "Pessoa de contato"
+msgstr "Contatos"
 
 #: lib/zen3_terminology.rb:60
-#, fuzzy
 msgid "Creating new group"
-msgstr "Criar produto"
+msgstr "Criar novo grupo"
 
 #: public/designs/themes/ecosol/footer.rhtml:2
 msgid "A FBES project"
