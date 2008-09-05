@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.11.0~zen3.pre1\n"
-"POT-Creation-Date: 2008-09-05 09:01-0300\n"
-"PO-Revision-Date: 2008-09-05 09:32-0300\n"
+"POT-Creation-Date: 2008-09-05 09:33-0300\n"
+"PO-Revision-Date: 2008-09-05 09:47-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -291,7 +291,7 @@ msgstr "Gerenciar conteúdo"
 
 #: app/helpers/boxes_helper.rb:137
 msgid "Can't move up anymore."
-msgstr ""
+msgstr "Impossível move mais acima."
 
 #: app/helpers/boxes_helper.rb:139
 msgid "Move block up"
@@ -299,7 +299,7 @@ msgstr "Mover para cima"
 
 #: app/helpers/boxes_helper.rb:143
 msgid "Can't move down anymore."
-msgstr ""
+msgstr "Impossível mover mais abaixo."
 
 #: app/helpers/boxes_helper.rb:145
 msgid "Move block down"
@@ -307,7 +307,7 @@ msgstr "Mover para baixo"
 
 #: app/helpers/boxes_helper.rb:152 app/helpers/boxes_helper.rb:154
 msgid "Move to the opposite side"
-msgstr ""
+msgstr "Mover para o lado oposto"
 
 #: app/helpers/boxes_helper.rb:159 app/views/profile_members/index.rhtml:14
 #: app/views/role/index.rhtml:6 app/views/cms/view.rhtml:66
@@ -515,7 +515,7 @@ msgstr "Cidade:"
 
 #: app/helpers/lightbox_helper.rb:31
 msgid "Please, try again when the page loading completes."
-msgstr ""
+msgstr "Por favor, tente de novo quando a página terminar da carregar."
 
 #: app/controllers/box_organizer_controller.rb:95
 msgid "Failed to remove block"
@@ -700,8 +700,9 @@ msgid ""
 "       Try to add some tags to some articles and you'l see your tag cloud "
 "growing."
 msgstr ""
-"Tags são criadas quando você a adiciona algumas delas aos seus conteúdos.<p/>Tente adicionar "
-"algumas tags para alguns artigos e veja sua nuvem de tags crescer."
+"Tags são criadas quando você a adiciona algumas delas aos seus conteúdos.<p/"
+">Tente adicionar algumas tags para alguns artigos e veja sua nuvem de tags "
+"crescer."
 
 #: app/models/members_block.rb:4
 msgid "A block that displays members."
@@ -713,7 +714,7 @@ msgstr "Integrantes"
 
 #: app/models/members_block.rb:12
 msgid "This block presents the members of a collective."
-msgstr ""
+msgstr "Este bloco apresenta os membros de um coletivo."
 
 #: app/models/members_block.rb:18
 msgid "View all"
@@ -859,15 +860,15 @@ msgstr "Apelido"
 
 #: app/models/user.rb:- app/models/environment.rb:-
 msgid "Custom header"
-msgstr ""
+msgstr "Cabeçalho personalizado"
 
 #: app/models/user.rb:- app/models/environment.rb:-
 msgid "Custom footer"
-msgstr ""
+msgstr "Rodapé personalizado"
 
 #: app/models/user.rb:- app/models/environment.rb:-
 msgid "Theme"
-msgstr ""
+msgstr "Tema"
 
 #: app/models/user.rb:-
 msgid "Public profile"
@@ -993,7 +994,7 @@ msgstr "Estatisticas para %s"
 
 #: app/models/environment_statistics_block.rb:12
 msgid "This block presents some statistics about your environment."
-msgstr ""
+msgstr "Este bloco apresenta suas estatísticas sobre seu ambiente."
 
 #: app/models/environment_statistics_block.rb:21
 msgid "One user"
@@ -1179,7 +1180,7 @@ msgstr "Bloco para o conteúdo principal (exemplo: seus artigos, fotos, etc)"
 
 #: app/models/main_block.rb:8
 msgid "This block presents the main content of your pages."
-msgstr ""
+msgstr "Este bloco apresenta o conteúdo principal das suas páginas."
 
 #: app/models/tiny_mce_article.rb:4
 msgid "Text article with visual editor."
@@ -1235,7 +1236,7 @@ msgstr "Um bloco que apresenta produtos"
 
 #: app/models/products_block.rb:16
 msgid "This block presents a list of your products."
-msgstr ""
+msgstr "Este bloco apresenta a lista de seus produtos."
 
 #: app/models/products_block.rb:28
 msgid "View all products"
@@ -1283,7 +1284,7 @@ msgstr "Referência a outro artigo"
 
 #: app/models/published_article.rb:9
 msgid "A reference to another article published in another profile"
-msgstr ""
+msgstr "Uma referência a outro artigo publico em outro perfil"
 
 #: app/models/image.rb:-
 msgid "image"
@@ -1583,6 +1584,8 @@ msgid ""
 "This block can be used to create a menu of links. You can add, remove and "
 "update the links as you wish."
 msgstr ""
+"Este bloco pode ser usado para criar um menu de links. Você pode incluir, "
+"remove e atualizar links como quiser."
 
 #: app/models/article.rb:9
 msgid ""
@@ -1672,11 +1675,11 @@ msgstr "Um bloco que apresenta um resumo da sua rede"
 
 #: app/models/my_network_block.rb:10
 msgid "My network"
-msgstr ""
+msgstr "Minha rede"
 
 #: app/models/my_network_block.rb:14
 msgid "This block displays some info about your networking."
-msgstr ""
+msgstr "Este bloco apresenta algumas informações sobre a sua rede."
 
 #: app/models/my_network_block.rb:21
 msgid "One article published"
@@ -1718,7 +1721,7 @@ msgstr "Um bloco que apresenta pessoas aleatórios"
 
 #: app/models/people_block.rb:16
 msgid "This block presents a list of people."
-msgstr ""
+msgstr "Este bloco apresenta uma lista de pessoas."
 
 #: app/models/people_block.rb:31
 msgid "All people"
@@ -1955,6 +1958,8 @@ msgid ""
 "This block displays one of your articles. You can edit the block to select "
 "which one of your articles is going to be displayed in the block."
 msgstr ""
+"Este bloco apresenta um dos seus artigos. Você pode editar o bloco para "
+"escolher qual dos esus artigos será apresentado neste bloco."
 
 #: app/models/article_block.rb:12
 msgid "Article not selected yet."
@@ -1982,7 +1987,7 @@ msgstr "Uma caixa de login para seus usuários."
 
 #: app/models/login_block.rb:8
 msgid "This block presents a login/logout block."
-msgstr ""
+msgstr "Este bloco apresenta um bloco de login/logout."
 
 #: app/views/admin_panel/edit_templates.rhtml:1
 #: app/views/admin_panel/index.rhtml:13
@@ -1995,7 +2000,7 @@ msgstr "Editar Modelo de Pessoa"
 
 #: app/views/admin_panel/edit_templates.rhtml:5
 msgid "Edit Community Template"
-msgstr ""
+msgstr "Editar Modelo de Comunidade"
 
 #: app/views/admin_panel/edit_templates.rhtml:6
 msgid "Edit Enterprise Template"
@@ -2055,7 +2060,7 @@ msgstr "Gerencias papéis de usuários"
 msgid "Manage Validators by region"
 msgstr "Gerenciar Validadores por região"
 
-#: app/views/friends/index.rhtml:3
+#: app/views/friends/index.rhtml:3 app/views/profile/friends.rhtml:4
 msgid "%s's friends"
 msgstr "Amigos de %s"
 
@@ -2207,6 +2212,8 @@ msgid ""
 "You can move this window away to have a better visualization of specific "
 "parts of screen."
 msgstr ""
+"Você pode mover esta janela para visualizar melhor partes específicas da "
+"tela."
 
 #: app/views/shared/theme_test_panel.rhtml:9
 msgid "Finished testing"
@@ -2630,11 +2637,11 @@ msgstr "Quero ser um usuário!"
 
 #: app/views/account/activate_enterprise.rhtml:1
 msgid "What user should be the admin of the enterprise page"
-msgstr ""
+msgstr "Qual usuário deve ser o administrados da página do empreendimento"
 
 #: app/views/account/activate_enterprise.rhtml:6
 msgid "Already have user"
-msgstr ""
+msgstr "Já tenho usuário"
 
 #: app/views/account/activate_enterprise.rhtml:7
 msgid "Create new user"
@@ -2816,7 +2823,7 @@ msgstr ""
 
 #: app/views/cms/view.rhtml:68 app/views/content_viewer/view_page.rhtml:39
 msgid "Spread this"
-msgstr ""
+msgstr "Divulgar"
 
 #: app/views/cms/view.rhtml:70
 msgid "Are you sure that you want to remove this item?"
@@ -3283,7 +3290,7 @@ msgstr "Criando nova comunidade"
 #: app/views/memberships/new_community.rhtml:14
 #: app/views/profile_editor/_organization.rhtml:17
 msgid "New members must be approved:"
-msgstr ""
+msgstr "Novos membros devem ser aprovados:"
 
 #: app/views/memberships/new_community.rhtml:19
 #: app/views/profile_editor/_organization.rhtml:22
@@ -3292,13 +3299,16 @@ msgid ""
 "member in pending request before member can access the intranet and/or the "
 "website)."
 msgstr ""
+"<strong>Antes</strong de entrar no grupo (um moderador precisa aceitar uma "
+"solicitação pendente antes de acessar a intranet e/ou o website."
 
 #: app/views/memberships/new_community.rhtml:25
 #: app/views/profile_editor/_organization.rhtml:28
 msgid ""
 "<strong>After</strong> joining this group (a moderator can always "
 "desactivate access for users later)."
-msgstr ""
+msgstr "<strong>Depois</strong> de entrar no grupo (um moderador sempre "
+"pode desativar acesso dos usuários depois)."
 
 #: app/views/memberships/new_community.rhtml:30 app/views/themes/new.rhtml:8
 msgid "Create"
@@ -3399,10 +3409,6 @@ msgstr "Integrantes de %s"
 msgid "Here are all <b>%s</b>'s friends."
 msgstr "Aqui estão todos os amigos de <b>%s</b>."
 
-#: app/views/profile/friends.rhtml:4
-msgid "%s' friends"
-msgstr "Amigos de %s"
-
 #: app/views/profile/tag.rhtml:1
 msgid "Content tagged with \"%s\""
 msgstr "Conteúdo marcado com \"%s\""
@@ -3474,11 +3480,11 @@ msgstr "Editar blocos laterais"
 
 #: app/views/profile_editor/index.rhtml:19
 msgid "Edit Appearance"
-msgstr ""
+msgstr "Editar Aparência"
 
 #: app/views/profile_editor/index.rhtml:21
 msgid "Edit Header and Footer"
-msgstr ""
+msgstr "Editar Cabeçalho e Rodapé"
 
 #: app/views/profile_editor/index.rhtml:23
 msgid "Manage Content"
@@ -3539,11 +3545,11 @@ msgstr "Privado"
 
 #: app/views/profile_editor/edit.rhtml:32
 msgid "Activate Intranet access (restricted area only for me)"
-msgstr ""
+msgstr "Ativar acesso a Intranet (área restrita somente para mim)"
 
 #: app/views/profile_editor/edit.rhtml:35
 msgid "Show my website to all internet users"
-msgstr ""
+msgstr "Exibir meu website para todos os usuários da internet"
 
 #: app/views/profile_editor/edit.rhtml:35
 #: app/views/profile_editor/edit.rhtml:41
@@ -3554,27 +3560,27 @@ msgstr "Não"
 
 #: app/views/profile_editor/edit.rhtml:38
 msgid "Show my website to my contacts (persons)"
-msgstr ""
+msgstr "Exibir meu website para meus contatos (pessoas)"
 
 #: app/views/profile_editor/edit.rhtml:41
 msgid "Include my contact in directory of people"
-msgstr ""
+msgstr "Incluir meus contato no diretório de pessoas"
 
 #: app/views/profile_editor/edit.rhtml:48
 msgid "Activate Intranet access (restricted area only for members)"
-msgstr ""
+msgstr "Ativar acesso a Intranet (área restrita apenas para membros)"
 
 #: app/views/profile_editor/edit.rhtml:51
 msgid "Show website of this group to all internet users"
-msgstr ""
+msgstr "Exibir website deste grupo para todos os usuários da internet"
 
 #: app/views/profile_editor/edit.rhtml:54
 msgid "Show my website to members"
-msgstr ""
+msgstr "Exibir meu website para membros"
 
 #: app/views/profile_editor/edit.rhtml:57
 msgid "Include this group directory of groups"
-msgstr ""
+msgstr "Incluir este group no diretório de groups"
 
 #: app/views/profile_editor/edit.rhtml:62
 msgid "Select the categories of your interest"
@@ -3619,7 +3625,7 @@ msgstr "Opções de moderação"
 
 #: app/views/profile_editor/_organization.rhtml:34
 msgid "New articles must be approved:"
-msgstr ""
+msgstr "Novos artigos devem ser aprovados:"
 
 #: app/views/profile_editor/_organization.rhtml:39
 msgid ""
@@ -3627,12 +3633,17 @@ msgid ""
 "accept the article in pending request before the article be listed as a "
 "article of this group."
 msgstr ""
+"<strong>Antes</strong> de serem publicados neste groups (um moderador precisa "
+"aceitar o artigo numa solicitação pendente antes do artigo ser listado como um "
+"artigo deste grupo."
 
 #: app/views/profile_editor/_organization.rhtml:45
 msgid ""
 "<strong>After</strong> being published in this group (a moderator can always "
 "remove publicated articles later)."
 msgstr ""
+"<strong>Depois</strong> de ser publicado neste grupo (um moderator pode sempre "
+"remover artigos publicados depois)."
 
 #: app/views/profile_editor/enable.rhtml:1
 msgid "Enabling '%s' enterprise"
@@ -3670,7 +3681,7 @@ msgstr[1] "%{comments} comentários"
 
 #: app/views/content_viewer/view_page.rhtml:81
 msgid "This article does not accept comments"
-msgstr ""
+msgstr "Este artigo não aceita comentários"
 
 #: app/views/content_viewer/no_home_page.rhtml:1
 msgid "Missing home page"
@@ -4112,11 +4123,11 @@ msgstr "Imagens"
 
 #: app/views/themes/edit.rhtml:37
 msgid "Select a CSS file to edit"
-msgstr ""
+msgstr "Selecione arquivo CSS para editar"
 
 #: app/views/themes/add_css.rhtml:1
 msgid "Add a CSS file"
-msgstr ""
+msgstr "Adicionar arquivo CSS"
 
 #: app/views/themes/add_css.rhtml:4
 msgid "File name"
@@ -4124,7 +4135,7 @@ msgstr "Nome do arquivo"
 
 #: app/views/themes/css_editor.rhtml:1
 msgid "CSS code: \"%s\""
-msgstr ""
+msgstr "Código CSS: \"%s\""
 
 #: app/views/categories/new.rhtml:1 app/views/categories/index.rhtml:8
 msgid "New category"
@@ -4230,7 +4241,7 @@ msgstr "Ignorar"
 
 #: app/views/tasks/_approve_article.rhtml:22
 msgid "Name for publishing"
-msgstr ""
+msgstr "Nome para publicação"
 
 #: app/views/tasks/_approve_article.rhtml:24
 msgid "Comment for author"
@@ -4251,7 +4262,7 @@ msgstr "Nova solicitação"
 
 #: app/views/tasks/new.rhtml:5
 msgid "To: "
-msgstr ""
+msgstr "Para: "
 
 #: app/views/tasks/new.rhtml:10
 msgid "Send"
@@ -4444,7 +4455,7 @@ msgstr "Registrar nova Instituições"
 
 #: lib/unifreire_terminology.rb:29
 msgid "Schedule"
-msgstr ""
+msgstr "Agenda"
 
 #: lib/zen3_terminology.rb:9
 msgid "My ePortfolio"
@@ -4587,13 +4598,12 @@ msgid "Are you sure you want to remove %s from your contacts list?"
 msgstr "Tem certeza que quer remover %s da sua lista de contatos?"
 
 #: lib/zen3_terminology.rb:44
-#, fuzzy
 msgid ""
-"Note that %s will still have you as a friend, unless he/she also wants to "
+"Note that %s will still have you as a contact, unless he/she also wants to "
 "remove you from his/her contact list."
 msgstr ""
-"Note que %s ainda vai te ter como amigo(a), a não ser que ele(a) também "
-"queira remover você da sua lista de amigos."
+"Note que %s ainda vai te ter como contato, a não ser que ele(a) também "
+"queira remover você da sua lista de contatos."
 
 #: lib/zen3_terminology.rb:45
 msgid "Yes, I want to remove %s from my contact list"
@@ -4640,19 +4650,14 @@ msgid "%s's contacts"
 msgstr "Contatos de %s"
 
 #: lib/zen3_terminology.rb:57
-#, fuzzy
-msgid "%s' contacts"
-msgstr "Tags de %s"
-
-#: lib/zen3_terminology.rb:58
 msgid "Here are all <b>%s</b>'s contacts."
 msgstr "Aqui estão todas os contatos de <b>%s</b>"
 
-#: lib/zen3_terminology.rb:59
+#: lib/zen3_terminology.rb:58
 msgid "Contacts"
 msgstr "Contatos"
 
-#: lib/zen3_terminology.rb:60
+#: lib/zen3_terminology.rb:59
 msgid "Creating new group"
 msgstr "Criar novo grupo"
 
@@ -4667,6 +4672,13 @@ msgstr "Desenvolvimento Colivre"
 #: public/designs/themes/zen3/footer.rhtml:2
 msgid "A Ynternet.org project"
 msgstr "Um projeto da Ynternet.org"
+
+#~ msgid "%s' friends"
+#~ msgstr "Amigos de %s"
+
+#, fuzzy
+#~ msgid "%s' contacts"
+#~ msgstr "Tags de %s"
 
 #~ msgid "%s's home page"
 #~ msgstr "Página inicial de %s"

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.11.0~zen3.pre1\n"
-"POT-Creation-Date: 2008-09-05 09:01-0300\n"
+"POT-Creation-Date: 2008-09-05 09:33-0300\n"
 "PO-Revision-Date: 2008-06-13 16:15-0300\n"
 "Last-Translator: Raphael Rousseau <pootle.colivre.coop.br@r4f.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2212,7 +2212,7 @@ msgstr "Gérer les rôles des utilisateurs"
 msgid "Manage Validators by region"
 msgstr "Gérer les validateurs par région"
 
-#: app/views/friends/index.rhtml:3
+#: app/views/friends/index.rhtml:3 app/views/profile/friends.rhtml:4
 msgid "%s's friends"
 msgstr "Les ami(e)s de %s"
 
@@ -3647,10 +3647,6 @@ msgstr "Les membres de %s"
 msgid "Here are all <b>%s</b>'s friends."
 msgstr "Voici tous les amis de <b>%s</b>."
 
-#: app/views/profile/friends.rhtml:4
-msgid "%s' friends"
-msgstr "Les amis de %s"
-
 #: app/views/profile/tag.rhtml:1
 msgid "Content tagged with \"%s\""
 msgstr "Contenu associé aux tags «%s»"
@@ -4945,7 +4941,7 @@ msgstr "Êtes-vous sûr(e) de vouloir enlever %s de la liste de vos amis ?"
 #: lib/zen3_terminology.rb:44
 #, fuzzy
 msgid ""
-"Note that %s will still have you as a friend, unless he/she also wants to "
+"Note that %s will still have you as a contact, unless he/she also wants to "
 "remove you from his/her contact list."
 msgstr ""
 "Notez que %s vous gardera comme ami(e), à moins qu'il/elle ne veuille "
@@ -5008,20 +5004,15 @@ msgstr "Les tags de %s"
 
 #: lib/zen3_terminology.rb:57
 #, fuzzy
-msgid "%s' contacts"
-msgstr "Les tags de %s"
-
-#: lib/zen3_terminology.rb:58
-#, fuzzy
 msgid "Here are all <b>%s</b>'s contacts."
 msgstr "Voici toutes les groupes de <b>%s</b>."
 
-#: lib/zen3_terminology.rb:59
+#: lib/zen3_terminology.rb:58
 #, fuzzy
 msgid "Contacts"
 msgstr "Personne de contact : "
 
-#: lib/zen3_terminology.rb:60
+#: lib/zen3_terminology.rb:59
 #, fuzzy
 msgid "Creating new group"
 msgstr "Créer un produit"
@@ -5037,6 +5028,13 @@ msgstr "Développé par Colivre"
 #: public/designs/themes/zen3/footer.rhtml:2
 msgid "A Ynternet.org project"
 msgstr ""
+
+#~ msgid "%s' friends"
+#~ msgstr "Les amis de %s"
+
+#, fuzzy
+#~ msgid "%s' contacts"
+#~ msgstr "Les tags de %s"
 
 #~ msgid "%s's home page"
 #~ msgstr "Page d'accueil de %s"

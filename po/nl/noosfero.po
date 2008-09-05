@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.11.0~zen3.pre1\n"
-"POT-Creation-Date: 2008-09-05 09:01-0300\n"
+"POT-Creation-Date: 2008-09-05 09:33-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2014,7 +2014,7 @@ msgstr ""
 msgid "Manage Validators by region"
 msgstr ""
 
-#: app/views/friends/index.rhtml:3
+#: app/views/friends/index.rhtml:3 app/views/profile/friends.rhtml:4
 msgid "%s's friends"
 msgstr ""
 
@@ -3307,10 +3307,6 @@ msgstr ""
 msgid "Here are all <b>%s</b>'s friends."
 msgstr ""
 
-#: app/views/profile/friends.rhtml:4
-msgid "%s' friends"
-msgstr ""
-
 #: app/views/profile/tag.rhtml:1
 msgid "Content tagged with \"%s\""
 msgstr ""
@@ -4448,7 +4444,7 @@ msgstr ""
 
 #: lib/zen3_terminology.rb:44
 msgid ""
-"Note that %s will still have you as a friend, unless he/she also wants to "
+"Note that %s will still have you as a contact, unless he/she also wants to "
 "remove you from his/her contact list."
 msgstr ""
 
@@ -4497,18 +4493,14 @@ msgid "%s's contacts"
 msgstr ""
 
 #: lib/zen3_terminology.rb:57
-msgid "%s' contacts"
-msgstr ""
-
-#: lib/zen3_terminology.rb:58
 msgid "Here are all <b>%s</b>'s contacts."
 msgstr ""
 
-#: lib/zen3_terminology.rb:59
+#: lib/zen3_terminology.rb:58
 msgid "Contacts"
 msgstr ""
 
-#: lib/zen3_terminology.rb:60
+#: lib/zen3_terminology.rb:59
 msgid "Creating new group"
 msgstr ""
 
