@@ -10,6 +10,7 @@ class FeaturesControllerTest < Test::Unit::TestCase
   def setup
     @controller = FeaturesController.new
     @request    = ActionController::TestRequest.new
+    @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
     login_as(create_admin_user(Environment.find(2)))
   end

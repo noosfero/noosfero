@@ -5,15 +5,28 @@ require 'admin_controller'
 class AdminController; def rescue_action(e) raise e end; end
 
 class AdminControllerTest < Test::Unit::TestCase
+
+  class AdminTestController < AdminController
+    def index
+      render :text => 'ok', :layout => false
+    end
+  end
+
   def setup
-    @controller = AdminController.new
+    @controller = AdminTestController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
   end
 
-  # Replace this with your real tests.
-  def test_truth
-    assert true
+  should 'require ssl' do
+    get :index
+    assert_redirected_to :protocol => 'https://'
+  end
+
+  should 'detect ssl' do
+    @request.expects(:ssl?).returns(true).at_least_once
+    get :index
+    assert_response :success
   end
 
 end

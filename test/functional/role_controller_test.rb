@@ -10,6 +10,7 @@ class RoleControllerTest < Test::Unit::TestCase
   def setup
     @controller = RoleController.new
     @request    = ActionController::TestRequest.new
+    @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
     @role = Role.find(:first)
     login_as(:ze)

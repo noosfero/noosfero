@@ -1,4 +1,4 @@
-class RegionValidatorsController < ApplicationController
+class RegionValidatorsController < AdminController
 
   before_filter :load_region_and_search, :except => 'index'
 

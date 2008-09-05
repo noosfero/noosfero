@@ -1,4 +1,4 @@
-class EnvironmentRoleManagerController < ApplicationController
+class EnvironmentRoleManagerController < AdminController
   protect 'manage_environment_roles', :environment
   
   def index

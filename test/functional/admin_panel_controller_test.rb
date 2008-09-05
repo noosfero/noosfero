@@ -10,6 +10,7 @@ class AdminPanelControllerTest < Test::Unit::TestCase
   def setup
     @controller = AdminPanelController.new
     @request    = ActionController::TestRequest.new
+    @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
     login_as(create_admin_user(Environment.default))
   end
