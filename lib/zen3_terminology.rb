@@ -38,8 +38,8 @@ class Zen3Terminology < Noosfero::Terminology::Custom
       'Enterprises in "%s"' => N_('Organizations in "%s"'),
       'Register a new Enterprise' => N_('Register a new organization'),
       'One friend' => N_('One contact'),
-      '%d friends' => N_('%d contacts'),
-      '%d communities' => N_('%d groups'),
+      '%s friends' => N_('%s contacts'),
+      '%s communities' => N_('%s groups'),
       'Are you sure you want to remove %s from your friends list?' => N_('Are you sure you want to remove %s from your contacts list?'),
       'Note that %s will still have you as a friend, unless he/she also wants to remove you from his/her friend list.' => N_('Note that %s will still have you as a friend, unless he/she also wants to remove you from his/her contact list.'),
       'Yes, I want to remove %s from my friend list' => N_('Yes, I want to remove %s from my contact list'),
@@ -56,6 +56,7 @@ class Zen3Terminology < Noosfero::Terminology::Custom
       '%s\'s friends' => N_('%s\'s contacts'),
       '%s\' friends' => N_('%s\' contacts'),
       'Here are all <b>%s</b>\'s friends.' => N_('Here are all <b>%s</b>\'s contacts.'),
+      'Friends' => N_('Contacts'),
       'Creating new community' => N_('Creating new group'),
     })
   end
