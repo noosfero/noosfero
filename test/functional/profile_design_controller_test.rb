@@ -78,8 +78,6 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
   def test_should_move_block_to_the_end_of_another_block
     get :move_block, :profile => 'designtestuser', :id => "block-#{@b1.id}", :target => "end-of-box-#{@box2.id}"
 
-    assert_response :success
-
     @b1.reload
     @box2.reload
 
@@ -92,8 +90,6 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
     # block 4 is in box 2
     get :move_block, :profile => 'designtestuser', :id => "block-#{@b1.id}", :target => "before-block-#{@b4.id}"
 
-    assert_response :success
-
     @b1.reload
     @b4.reload
 
@@ -105,7 +101,6 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
   def test_block_can_be_moved_up
     get :move_block, :profile => 'designtestuser', :id => "block-#{@b4.id}", :target => "before-block-#{@b3.id}"
 
-    assert_response :success
     @b4.reload
     @b3.reload
 
@@ -123,6 +118,16 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
     end
 
     assert_equal [1,2,3],  [@b4, @b3, @b5].map {|item| item.position}
+  end
+
+  def test_move_block_should_redirect_when_not_called_via_ajax
+    get :move_block, :profile => 'designtestuser', :id => "block-#{@b3.id}", :target => "before-block-#{@b5.id}"
+    assert_redirected_to :action => 'index'
+  end
+
+  def test_move_block_should_render_when_called_via_ajax
+    xml_http_request :get, :move_block, :profile => 'designtestuser', :id => "block-#{@b3.id}", :target => "before-block-#{@b5.id}"
+    assert_template 'move_block'
   end
 
   def test_should_be_able_to_move_block_directly_down

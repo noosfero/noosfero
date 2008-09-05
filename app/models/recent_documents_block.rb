@@ -8,6 +8,10 @@ class RecentDocumentsBlock < Block
     _('Recent content')
   end
 
+  def help
+    _('This block lists your recent content.')
+  end
+
   settings_items :limit
 
   include ActionController::UrlWriter

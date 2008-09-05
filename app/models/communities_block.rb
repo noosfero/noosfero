@@ -9,7 +9,7 @@ class CommunitiesBlock < ProfileListBlock
   end
 
   def help
-    __('The communities in which the user is a member')
+    __('This block displays the communities in which the user is a member.')
   end
 
   def footer

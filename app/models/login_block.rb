@@ -4,6 +4,10 @@ class LoginBlock < Block
     _('A login box for your users.')
   end
 
+  def help
+    _('This block presents a login/logout block.')
+  end
+
   def content
     lambda do
       if logged_in?

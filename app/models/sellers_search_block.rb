@@ -12,6 +12,10 @@ class SellersSearchBlock < Block
     _('Search for sellers')
   end
 
+  def help
+    _('This block presents a search engine for products.')
+  end
+
   def content
     title = self.title
     lambda do

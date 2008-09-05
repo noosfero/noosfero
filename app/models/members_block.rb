@@ -8,6 +8,10 @@ class MembersBlock < ProfileListBlock
     _('Members')
   end
 
+  def help
+    _('This block presents the members of a collective.')
+  end
+
   def footer
     profile = self.owner
     lambda do

@@ -10,6 +10,10 @@ class MyNetworkBlock < Block
     _('My network')
   end
 
+  def help
+    _('This block displays some info about your networking.')
+  end
+
   def content
     block_title(title) +
     content_tag(

@@ -12,6 +12,10 @@ class PeopleBlock < ProfileListBlock
     _('A block displays random people')
   end
 
+  def help
+    _('This block presents a list of people.')
+  end
+
   def profile_finder
     @profile_finder ||= PeopleBlock::Finder.new(self)
   end

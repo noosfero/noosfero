@@ -8,6 +8,10 @@ class EnvironmentStatisticsBlock < Block
     _('Statistics for %s') % owner.name
   end
 
+  def help
+    _('This block presents some statistics about your environment.')
+  end
+
   def content
     users = owner.people.count(:conditions => { :public_profile => true })
     enterprises = owner.enterprises.count(:conditions => { :public_profile => true })

@@ -5,7 +5,7 @@ class FavoriteEnterprisesBlock < ProfileListBlock
   end
 
   def help
-    __('This user\'s favorite enterprises.')
+    __('This block lists the favorite enterprises of the user.')
   end
 
   def self.description

@@ -38,18 +38,22 @@ class BoxOrganizerController < ApplicationController
     @block.save!
 
     @target_box.reload
+
+    unless request.xhr?
+      redirect_to :action => 'index'
+    end
   end
 
   def move_block_down
     @block = boxes_holder.blocks.find(params[:id])
     @block.move_lower
-    redirect_to :back
+    redirect_to :action => 'index'
   end
 
   def move_block_up
     @block = boxes_holder.blocks.find(params[:id])
     @block.move_higher
-    redirect_to :back
+    redirect_to :action => 'index'
   end
 
   def add_block

@@ -13,8 +13,8 @@ class TagsBlock < Block
   end
 
   def help
-    _('The tag is created when you add some one to your article. <p/>
-       Try to add some tags to some articles and see your tag cloud to grow.')
+    _("Tags are created when you add some of them one to your contents. <p/>
+       Try to add some tags to some articles and you'l see your tag cloud growing.")
   end
 
   def content
