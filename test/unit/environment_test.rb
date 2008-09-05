@@ -187,6 +187,12 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal 'http://www.lalala.net:9999', env.top_url
   end
 
+  should 'use https when asked for a ssl url' do
+    env = Environment.new
+    env.expects(:default_hostname).returns('www.lalala.net')
+    assert_equal 'https://www.lalala.net', env.top_url(true)
+  end
+
   should 'provide an approval_method setting' do
     env = Environment.new
 

@@ -713,4 +713,8 @@ module ApplicationHelper
     url_for(options)
   end
 
+  def base_url
+    environment.top_url(request.ssl?)
+  end
+
 end

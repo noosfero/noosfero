@@ -256,8 +256,9 @@ class Environment < ActiveRecord::Base
     end
   end
 
-  def top_url
-    result = "http://#{default_hostname}"
+  def top_url(ssl = false)
+    protocol = (ssl ? 'https' : 'http')
+    result = "#{protocol}://#{default_hostname}"
     if Noosfero.url_options.has_key?(:port)
       result << ':' << Noosfero.url_options[:port].to_s
     end
