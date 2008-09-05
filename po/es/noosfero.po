@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.11.0~zen3.pre1\n"
-"POT-Creation-Date: 2008-09-05 09:33-0300\n"
+"POT-Creation-Date: 2008-09-05 18:49-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3369,7 +3369,7 @@ msgid "Mail settings"
 msgstr ""
 
 #: app/views/profile_editor/index.rhtml:15
-msgid "Pending tasks"
+msgid "Tasks"
 msgstr ""
 
 #: app/views/profile_editor/index.rhtml:17

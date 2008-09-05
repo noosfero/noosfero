@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.11.0~zen3.pre1\n"
-"POT-Creation-Date: 2008-09-05 09:33-0300\n"
+"POT-Creation-Date: 2008-09-05 18:49-0300\n"
 "PO-Revision-Date: 2008-06-13 16:15-0300\n"
 "Last-Translator: Raphael Rousseau <pootle.colivre.coop.br@r4f.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3709,8 +3709,9 @@ msgid "Mail settings"
 msgstr ""
 
 #: app/views/profile_editor/index.rhtml:15
-msgid "Pending tasks"
-msgstr "Tâches en attente"
+#, fuzzy
+msgid "Tasks"
+msgstr "tâche"
 
 #: app/views/profile_editor/index.rhtml:17
 #, fuzzy
@@ -5028,6 +5029,9 @@ msgstr "Développé par Colivre"
 #: public/designs/themes/zen3/footer.rhtml:2
 msgid "A Ynternet.org project"
 msgstr ""
+
+#~ msgid "Pending tasks"
+#~ msgstr "Tâches en attente"
 
 #~ msgid "%s' friends"
 #~ msgstr "Les amis de %s"

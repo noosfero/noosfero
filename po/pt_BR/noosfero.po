@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.11.0~zen3.pre1\n"
-"POT-Creation-Date: 2008-09-05 09:33-0300\n"
-"PO-Revision-Date: 2008-09-05 09:47-0300\n"
+"POT-Creation-Date: 2008-09-05 18:49-0300\n"
+"PO-Revision-Date: 2008-09-05 18:51-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -3307,8 +3307,9 @@ msgstr ""
 msgid ""
 "<strong>After</strong> joining this group (a moderator can always "
 "desactivate access for users later)."
-msgstr "<strong>Depois</strong> de entrar no grupo (um moderador sempre "
-"pode desativar acesso dos usuários depois)."
+msgstr ""
+"<strong>Depois</strong> de entrar no grupo (um moderador sempre pode "
+"desativar acesso dos usuários depois)."
 
 #: app/views/memberships/new_community.rhtml:30 app/views/themes/new.rhtml:8
 msgid "Create"
@@ -3471,8 +3472,8 @@ msgid "Mail settings"
 msgstr "Configurações de e-mail"
 
 #: app/views/profile_editor/index.rhtml:15
-msgid "Pending tasks"
-msgstr "Tarefas pendentes"
+msgid "Tasks"
+msgstr "Tarefas"
 
 #: app/views/profile_editor/index.rhtml:17
 msgid "Edit sideboxes"
@@ -3633,17 +3634,17 @@ msgid ""
 "accept the article in pending request before the article be listed as a "
 "article of this group."
 msgstr ""
-"<strong>Antes</strong> de serem publicados neste groups (um moderador precisa "
-"aceitar o artigo numa solicitação pendente antes do artigo ser listado como um "
-"artigo deste grupo."
+"<strong>Antes</strong> de serem publicados neste groups (um moderador "
+"precisa aceitar o artigo numa solicitação pendente antes do artigo ser "
+"listado como um artigo deste grupo."
 
 #: app/views/profile_editor/_organization.rhtml:45
 msgid ""
 "<strong>After</strong> being published in this group (a moderator can always "
 "remove publicated articles later)."
 msgstr ""
-"<strong>Depois</strong> de ser publicado neste grupo (um moderator pode sempre "
-"remover artigos publicados depois)."
+"<strong>Depois</strong> de ser publicado neste grupo (um moderator pode "
+"sempre remover artigos publicados depois)."
 
 #: app/views/profile_editor/enable.rhtml:1
 msgid "Enabling '%s' enterprise"
@@ -4673,6 +4674,9 @@ msgstr "Desenvolvimento Colivre"
 msgid "A Ynternet.org project"
 msgstr "Um projeto da Ynternet.org"
 
+#~ msgid "Pending tasks"
+#~ msgstr "Tarefas pendentes"
+
 #~ msgid "%s' friends"
 #~ msgstr "Amigos de %s"
 
@@ -5373,9 +5377,6 @@ msgstr "Um projeto da Ynternet.org"
 
 #~ msgid "Entreprises"
 #~ msgstr "Empreendimentos"
-
-#~ msgid "Task"
-#~ msgstr "Tarefa"
 
 #, fuzzy
 #~ msgid "Classify your new friend %s. "
