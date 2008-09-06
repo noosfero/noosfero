@@ -29,7 +29,7 @@ class ContentViewerController < ApplicationController
     end
 
     if !@page.public? && !request.ssl?
-      redirect_to :protocol => 'https://'
+      redirect_to_ssl
       return
     end
 

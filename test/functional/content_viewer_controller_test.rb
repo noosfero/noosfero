@@ -421,7 +421,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
   should 'require SSL for viewing non-public articles' do
     page = profile.articles.create!(:name => 'myarticle', :body => 'top secret', :public_article => false)
     get :view_page, :profile => 'testinguser', :page => [ 'myarticle' ]
-    assert_redirected_to :protocol => 'https://'
+    assert_redirected_to :protocol => 'https://', :profile => 'testinguser', :page => [ 'myarticle' ]
   end
 
   should 'not redirect to SSL if already on SSL' do

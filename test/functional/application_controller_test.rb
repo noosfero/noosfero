@@ -291,4 +291,10 @@ class ApplicationControllerTest < Test::Unit::TestCase
     assert_redirected_to :protocol => 'http://', :x => '1', :y => '2'
   end
 
+  should 'add https protocols on redirect_to_ssl' do
+    @controller.expects(:params).returns(:x => '1', :y => '1')
+    @controller.expects(:redirect_to).with(:x => '1', :y => '1', :protocol => 'https://')
+    @controller.redirect_to_ssl
+  end
+
 end

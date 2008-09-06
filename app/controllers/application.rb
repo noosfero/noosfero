@@ -35,6 +35,9 @@ class ApplicationController < ActionController::Base
   end
   def check_ssl
     return true if (request.ssl? || ENV['RAILS_ENV'] == 'development')
+    redirect_to_ssl
+  end
+  def redirect_to_ssl
     redirect_to(params.merge(:protocol => 'https://'))
   end
 
