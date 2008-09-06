@@ -8,7 +8,6 @@ class CmsController < MyProfileController
   # publication" button on article's public view.
   def check_ssl
     if ((params[:action] == 'new') && (!request.xhr?)) || (params[:action] != 'new')
-      #raise 'bli'
       check_ssl_orig
     end
   end

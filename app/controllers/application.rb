@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
   end
   def check_ssl
     return true if (request.ssl? || ENV['RAILS_ENV'] == 'development')
-    redirect_to :protocol => 'https://'
+    redirect_to(params.merge(:protocol => 'https://'))
   end
 
   def self.refuse_ssl(*options)
@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
   end
   def avoid_ssl
     return true if (!request.ssl? || ENV['RAILS_ENV'] == 'development')
-    redirect_to :protocol => 'http://'
+    redirect_to(params.merge(:protocol => 'http://'))
   end
 
   before_init_gettext :maybe_save_locale

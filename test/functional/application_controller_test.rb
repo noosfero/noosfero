@@ -249,6 +249,12 @@ class ApplicationControllerTest < Test::Unit::TestCase
     assert_response :success
   end
 
+  should 'keep arguments when redirecting to ssl' do
+    @request.expects(:ssl?).returns(false).at_least_once
+    get :sslonly, :x => '1', :y => '2'
+    assert_redirected_to :protocol => 'https://', :x => '1', :y => '2'
+  end
+
   should 'refuse ssl when told to' do
     @request.expects(:ssl?).returns(true).at_least_once
     get :nossl
@@ -270,6 +276,12 @@ class ApplicationControllerTest < Test::Unit::TestCase
     @request.expects(:ssl?).returns(false).at_least_once
     get :nossl
     assert_response :success
+  end
+
+  should 'keep arguments when redirecting to non-ssl' do
+    @request.expects(:ssl?).returns(true).at_least_once
+    get :nossl, :x => '1', :y => '2'
+    assert_redirected_to :protocol => 'http://', :x => '1', :y => '2'
   end
 
 end

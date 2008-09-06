@@ -604,6 +604,12 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_response :success
   end
 
+  should 'not loose type argument in new action when redirecting to ssl' do
+    @request.expects(:ssl?).returns(false).at_least_once
+    get :new, :profile => 'testinguser', :type => 'Folder'
+    assert_redirected_to :protocol => 'https://', :action => 'new', :type => 'Folder'
+  end
+
   should 'not accept non-ajax connections to new action without ssl' do
     @request.expects(:ssl?).returns(false).at_least_once
     get :new, :profile => 'testinguser'
