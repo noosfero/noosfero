@@ -193,6 +193,13 @@ class ApplicationControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'base', :attributes => { :href => 'http://www.lala.net' }
   end
 
+  should 'request environment top_url with ssl when under ssl for base' do
+    Environment.any_instance.expects(:top_url).with(true).returns('https://www.lala.net/')
+    @request.expects(:ssl?).returns(true).at_least_once
+    get :index
+    assert_tag :tag => 'base', :attributes => { :href => 'https://www.lala.net/' }
+  end
+
   should 'display theme test panel when testing theme' do
     @request.session[:theme] = 'my-test-theme'
     theme = mock
