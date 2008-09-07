@@ -1,6 +1,6 @@
 <% labelled_form_for :user, @user,
    :url => login_url,
-   :html => { :help => _('If you are a registered user, enter your username and password to be authenticated.')+'<p/>'+_('To join on this environment, click on "<b>I want to be an user!</b>".')+'<p/>'+_('If you forgot your password, click on "<b>I forgot my password!</b>" link.') } do |f| %>
+   :html => { :help => _('If you are a registered user, enter your username and password to be authenticated.')+'<p/>'+_('To join on this environment, click on "<b>I want to participate!</b>".')+'<p/>'+_('If you forgot your password, click on "<b>I forgot my password!</b>" link.') } do |f| %>
 
 <%= f.text_field :login,
                  :id => ( lightbox? ? 'lightbox_' : '' ) + 'user_login',
