@@ -21,7 +21,9 @@
 <% if @friends.empty? %>
 <p>
 <em>
-  <%= __('You have no friends yet. Go make some.') %>
+  <%# __('You have no friends yet. Go make some.') %>
+  <%= _('You have no contacts yet.') %>
+  <%= link_to _('Want you see other persons on this environment?'), :controller => 'search', :action => 'assets', :asset => 'people' %>
 </em>
 </p>
 <% end %>
