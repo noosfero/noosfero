@@ -1,6 +1,6 @@
-<h1><%= _('Destroy %s') % @community.short_name %></h1>
+<h1><%= _('To remove %s') % @community.short_name %></h1>
 
-<p><strong><%= _('Are you sure you want to destroy %s?') % @community.short_name %></strong></p>
+<p><strong><%= _('Are you sure you want to <u>destroy</u> "%s"?') % content_tag( 'i', @community.name ) %></strong></p>
 
 <% form_tag do %>
   <%= hidden_field_tag(:confirmation, 1) %>

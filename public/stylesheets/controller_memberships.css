@@ -35,3 +35,8 @@
 #memberships-index li .vcard a.profile_link.url:hover {
   border: 2px solid  #2A5896;
 }
+
+.action_memberships_destroy_community .main-block u {
+  text-decoration: none;
+  border-bottom: 1px dotted red;
+}

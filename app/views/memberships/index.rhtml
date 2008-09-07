@@ -17,7 +17,7 @@
       <%= _('Created at: %s') % show_date(membership.created_at) %> <br/>
       <%= [ link_to(_('Manage'), membership.admin_url),
             link_to(_('Leave'), { :profile => profile.identifier, :controller => 'memberships', :action => 'leave', :id => membership }),
-            (membership.community? && user.has_permission?(:destroy_profile, membership) ? link_to(_('Destroy'), { :action => 'destroy_community', :id => membership }) : nil)
+            (membership.community? && user.has_permission?(:destroy_profile, membership) ? link_to(_('Remove'), { :action => 'destroy_community', :id => membership }) : nil)
           ].compact.join(', ')
       %>
     </span>
