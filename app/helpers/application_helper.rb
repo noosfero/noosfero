@@ -431,6 +431,7 @@ module ApplicationHelper
             content_tag( 'span', name, :class => ( profile.class == Person ? 'fn' : 'org' ) ) +
             city + profile_sex_icon( profile ) + profile_cat_icons( profile ),
             profile.url,
+            :onclick => 'document.location.href = this.href', # work-arround for ie.
             :class => 'profile_link url',
             :help => _('Click on this icon to go to the <b>%s</b>\'s home page') % profile.name ),
         :class => 'vcard'
