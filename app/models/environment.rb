@@ -220,6 +220,19 @@ class Environment < ActiveRecord::Base
     end
   end
 
+  # Whether this environment should force having 'www.' in its domain name or
+  # not. Defauls to false.
+  #
+  # See also #default_hostname
+  def force_www
+    settings[:force_www] || false
+  end
+
+  # Sets the value of #force_www. <tt>value</tt> must be a boolean.
+  def force_www=(value)
+    settings[:force_www] = value
+  end
+
   # #################################################
   # Validations
   # #################################################
@@ -248,11 +261,16 @@ class Environment < ActiveRecord::Base
     Category.top_level_for(self)
   end
 
+  # Returns the hostname of the first domain associated to this environment.
+  #
+  # If #force_www is true, adds 'www.' at the beginning of the hostname. If the
+  # environment has not associated domains, returns 'localhost'.
   def default_hostname
     if self.domains(true).empty?
       'localhost'
     else
-      self.domains.find(:first, :order => 'id').name
+      domain = self.domains.find(:first, :order => 'id').name
+      force_www ? ('www.' + domain) : domain
     end
   end
 

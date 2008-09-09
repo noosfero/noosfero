@@ -172,6 +172,12 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal 'localhost', env.default_hostname
   end
 
+  should 'add www when told to force www' do
+    env = Environment.create!(:name => 'test environment', :force_www => true)
+    env.domains << Domain.create(:name => 'example.com')
+    assert_equal 'www.example.com', env.default_hostname
+  end
+
   should 'provide default top URL' do
     env = Environment.new
     env.expects(:default_hostname).returns('www.lalala.net')
