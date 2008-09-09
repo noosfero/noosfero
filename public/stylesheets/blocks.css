@@ -7,6 +7,10 @@
   border: none;
 }
 
+.main-block, .recent-documents-block, .article-block {
+  overflow: hidden;
+}
+
 /***********************************************************
  * the handles to where you can drag the blocks
  ***********************************************************/
