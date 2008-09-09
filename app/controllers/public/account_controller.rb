@@ -2,7 +2,7 @@ class AccountController < ApplicationController
 
   inverse_captcha :field => 'e_mail'
 
-  require_ssl :except => [ :login_popup ]
+  require_ssl :except => [ :login_popup, :logout_popup ]
 
   # say something nice, you goof!  something sweet.
   def index

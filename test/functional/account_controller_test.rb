@@ -529,6 +529,12 @@ class AccountControllerTest < Test::Unit::TestCase
     assert_response :success
   end
 
+  should 'allow logout_popup without SSL' do
+    @request.expects(:ssl?).returns(false).at_least_once
+    get :logout_popup
+    assert_response :success
+  end
+
   should 'point to SSL URL in login popup' do
     get :login_popup
     assert_tag :tag => 'form', :attributes => { :action => /^https:\/\// }
