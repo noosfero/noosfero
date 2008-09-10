@@ -114,6 +114,9 @@ module BoxesHelper
   #
   # +box+ is always needed
   def block_target(box, block = nil)
+    # FIXME hardcoded
+    return '' if box.position == 1
+
     id =
       if block.nil?
         "end-of-box-#{box.id}"
