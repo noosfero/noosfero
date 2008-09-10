@@ -129,6 +129,9 @@ module BoxesHelper
 
   # makes the given block draggable so it can be moved away.
   def block_handle(block)
+    # FIXME hardcoded
+    return '' if block.box.position == 1
+
     draggable_element("block-#{block.id}", :revert => true)
   end
 
