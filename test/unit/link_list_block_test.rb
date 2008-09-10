@@ -33,4 +33,11 @@ class LinkListBlockTest < ActiveSupport::TestCase
     assert_equal [{:name => 'categ', :address => '/address'}], l.links
   end
 
+  should 'replace {profile} with profile identifier' do
+    profile = Profile.new(:identifier => 'test_profile')
+    l = LinkListBlock.new(:links => [{:name => 'categ', :address => '/{profile}/address'}])
+    l.stubs(:owner).returns(profile)
+    assert_tag_in_string l.content, :tag => 'a', :attributes => {:href => '/test_profile/address'}
+  end
+
 end

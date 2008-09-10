@@ -17,8 +17,16 @@ class LinkListBlock < Block
   def content
     block_title(title) +
     content_tag('ul',
-      links.select{|i| !i[:name].blank? and !i[:address].blank?}.map{|i| content_tag('li', link_to(i[:name], i[:address]))}
+      links.select{|i| !i[:name].blank? and !i[:address].blank?}.map{|i| content_tag('li', link_to(i[:name], expand_address(i[:address])))}
     )
+  end
+
+  def expand_address(address)
+    if owner.respond_to?(:identifier)
+      address.gsub('{profile}', owner.identifier)
+    else
+      address
+    end
   end
 
   def editable?
