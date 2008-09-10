@@ -62,9 +62,10 @@
   </div>
 <% end %>
 
-<%= @page.to_html %>
-
-<br style="clear:both" />
+<div class="article-body">
+  <%= @page.to_html %>
+  <br style="clear:both" />
+</div> <!-- end class="article-body" -->
 
 <% if ! @page.categories.empty? %>
 <div id="article-cat">

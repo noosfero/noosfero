@@ -2,6 +2,6 @@
    Use article.css for article related css
 */
 
-.main-block {
+.main-block .article-body, .main-block h1 {
   overflow: hidden;
 }
