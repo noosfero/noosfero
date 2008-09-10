@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.11.0~zen3.pre1\n"
-"POT-Creation-Date: 2008-09-05 18:49-0300\n"
+"Project-Id-Version: noosfero 0.11.0\n"
+"POT-Creation-Date: 2008-09-10 12:05-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -403,33 +403,33 @@ msgstr ""
 msgid "Principal Product Categories"
 msgstr ""
 
-#: app/helpers/application_helper.rb:435
+#: app/helpers/application_helper.rb:436
 msgid "Click on this icon to go to the <b>%s</b>'s home page"
 msgstr ""
 
-#: app/helpers/application_helper.rb:463
-#: app/views/content_viewer/view_page.rhtml:71
+#: app/helpers/application_helper.rb:464
+#: app/views/content_viewer/view_page.rhtml:72
 #: app/views/categories/index.rhtml:1
 msgid "Categories"
 msgstr ""
 
-#: app/helpers/application_helper.rb:486
+#: app/helpers/application_helper.rb:487
 msgid "open"
 msgstr ""
 
-#: app/helpers/application_helper.rb:521
+#: app/helpers/application_helper.rb:522
 msgid "Search..."
 msgstr ""
 
-#: app/helpers/application_helper.rb:523
+#: app/helpers/application_helper.rb:524
 msgid "This is a search box. Click, write your query, and press enter to find"
 msgstr ""
 
-#: app/helpers/application_helper.rb:524
+#: app/helpers/application_helper.rb:525
 msgid "Click, write and press enter to find"
 msgstr ""
 
-#: app/helpers/application_helper.rb:530
+#: app/helpers/application_helper.rb:531
 #: app/views/search/_sellers_form.rhtml:21
 #: app/views/search/_search_form.rhtml:15 app/views/search/communities.rhtml:7
 #: app/views/search/articles.rhtml:7 app/views/search/people.rhtml:7
@@ -438,23 +438,23 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: app/helpers/application_helper.rb:586
+#: app/helpers/application_helper.rb:587
 msgid "Are you sure you want to visit this web site?"
 msgstr ""
 
-#: app/helpers/application_helper.rb:695
+#: app/helpers/application_helper.rb:696
 msgid "Searched for '%s'"
 msgstr ""
 
-#: app/helpers/application_helper.rb:696
+#: app/helpers/application_helper.rb:697
 msgid "In category %s"
 msgstr ""
 
-#: app/helpers/application_helper.rb:697
+#: app/helpers/application_helper.rb:698
 msgid "within %d km from %s"
 msgstr ""
 
-#: app/helpers/application_helper.rb:698
+#: app/helpers/application_helper.rb:699
 msgid "%d results found"
 msgstr ""
 
@@ -548,7 +548,7 @@ msgstr ""
 msgid "This action is not available for \"%s\"."
 msgstr ""
 
-#: app/controllers/my_profile/cms_controller.rb:107
+#: app/controllers/my_profile/cms_controller.rb:116
 msgid "Article \"%s\" configured as home page."
 msgstr ""
 
@@ -1847,7 +1847,7 @@ msgstr ""
 msgid "Disable products for enterprises"
 msgstr ""
 
-#: app/models/environment.rb:231
+#: app/models/environment.rb:244
 msgid "Only one Virtual Community can be the default one"
 msgstr ""
 
@@ -2030,10 +2030,14 @@ msgid "Clicking on this button will remove your friend relation with %s."
 msgstr ""
 
 #: app/views/friends/index.rhtml:24
-msgid "You have no friends yet. Go make some."
+msgid "You have no friends yet."
 msgstr ""
 
-#: app/views/friends/index.rhtml:30 app/views/memberships/index.rhtml:31
+#: app/views/friends/index.rhtml:25
+msgid "Want you see other persons on this environment?"
+msgstr ""
+
+#: app/views/friends/index.rhtml:31 app/views/memberships/index.rhtml:31
 #: app/views/favorite_enterprises/index.rhtml:31
 #: app/views/profile/favorite_enterprises.rhtml:13
 #: app/views/profile/communities.rhtml:13 app/views/profile/members.rhtml:13
@@ -2135,6 +2139,7 @@ msgstr ""
 
 #: app/views/profile_members/index.rhtml:15
 #: app/views/shared/_select_categories.rhtml:20
+#: app/views/memberships/index.rhtml:20
 #: app/views/content_viewer/_comment.rhtml:5
 #: app/views/categories/_category.rhtml:9
 #: app/views/manage_products/index.rhtml:41
@@ -2207,7 +2212,7 @@ msgstr ""
 msgid "Webmail"
 msgstr ""
 
-#: app/views/shared/user_menu.rhtml:30 app/views/blocks/profile_info.rhtml:24
+#: app/views/shared/user_menu.rhtml:30 app/views/blocks/profile_info.rhtml:23
 msgid "Control panel"
 msgstr ""
 
@@ -2282,8 +2287,7 @@ msgstr ""
 msgid "New role"
 msgstr ""
 
-#: app/views/role/index.rhtml:7 app/views/memberships/index.rhtml:20
-#: app/views/manage_products/index.rhtml:15
+#: app/views/role/index.rhtml:7 app/views/manage_products/index.rhtml:15
 msgid "Destroy"
 msgstr ""
 
@@ -2383,7 +2387,7 @@ msgstr ""
 msgid "User since %{year}/%{month}"
 msgstr ""
 
-#: app/views/account/user_info.rhtml:7 app/views/blocks/profile_info.rhtml:20
+#: app/views/account/user_info.rhtml:7 app/views/blocks/profile_info.rhtml:19
 msgid "Homepage"
 msgstr ""
 
@@ -2475,7 +2479,8 @@ msgid "Sign up"
 msgstr ""
 
 #: app/views/account/_login_form.rhtml:3 app/views/account/login.rhtml:9
-msgid "To join on this environment, click on \"<b>I want to be an user!</b>\"."
+msgid ""
+"To join on this environment, click on \"<b>I want to participate!</b>\"."
 msgstr ""
 
 #: app/views/account/change_password.rhtml:1
@@ -2556,7 +2561,7 @@ msgid ""
 msgstr ""
 
 #: app/views/account/login.rhtml:32
-msgid "I want to be an user!"
+msgid "I want to participate!"
 msgstr ""
 
 #: app/views/account/activate_enterprise.rhtml:1
@@ -2906,16 +2911,16 @@ msgstr ""
 msgid "There is no categories."
 msgstr ""
 
-#: app/views/blocks/profile_info.rhtml:19
-msgid "Since %{year}/%{month}"
-msgstr ""
-
-#: app/views/blocks/profile_info.rhtml:21
+#: app/views/blocks/profile_info.rhtml:20
 msgid "View profile"
 msgstr ""
 
-#: app/views/blocks/profile_info.rhtml:22 app/views/profile/index.rhtml:29
+#: app/views/blocks/profile_info.rhtml:21 app/views/profile/index.rhtml:29
 msgid "Products/Services"
+msgstr ""
+
+#: app/views/blocks/profile_info.rhtml:25
+msgid "Since %{year}/%{month}"
 msgstr ""
 
 #: app/views/blocks/profile_info_actions/community.rhtml:4
@@ -3162,11 +3167,11 @@ msgid "No, I don't want."
 msgstr ""
 
 #: app/views/memberships/destroy_community.rhtml:1
-msgid "Destroy %s"
+msgid "To remove %s"
 msgstr ""
 
 #: app/views/memberships/destroy_community.rhtml:3
-msgid "Are you sure you want to destroy %s?"
+msgid "Are you sure you want to <u>destroy</u> \"%s\"?"
 msgstr ""
 
 #: app/views/memberships/destroy_community.rhtml:7
@@ -3562,17 +3567,17 @@ msgstr ""
 msgid "Up"
 msgstr ""
 
-#: app/views/content_viewer/view_page.rhtml:77
+#: app/views/content_viewer/view_page.rhtml:78
 msgid "No comments yet"
 msgstr ""
 
-#: app/views/content_viewer/view_page.rhtml:77
+#: app/views/content_viewer/view_page.rhtml:78
 msgid "One comment"
 msgid_plural "%{comments} comments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: app/views/content_viewer/view_page.rhtml:81
+#: app/views/content_viewer/view_page.rhtml:82
 msgid "This article does not accept comments"
 msgstr ""
 
@@ -4485,7 +4490,7 @@ msgid "Clicking on this button will remove your contact relation with %s."
 msgstr ""
 
 #: lib/zen3_terminology.rb:55
-msgid "You have no contacts yet. Go make some."
+msgid "You have no contacts yet."
 msgstr ""
 
 #: lib/zen3_terminology.rb:56
