@@ -52,7 +52,7 @@ class Zen3Terminology < Noosfero::Terminology::Custom
       'Add friend' => N_('Add contact'),
       'Removing friend: %s' => N_('Removing friend: %s'),
       'Clicking on this button will remove your friend relation with %s.' => N_('Clicking on this button will remove your contact relation with %s.'),
-      'You have no friends yet. Go make some.' => N_('You have no contacts yet. Go make some.'),
+      'You have no friends yet.' => N_('You have no contacts yet.'),
       '%s\'s friends' => N_('%s\'s contacts'),
       'Here are all <b>%s</b>\'s friends.' => N_('Here are all <b>%s</b>\'s contacts.'),
       'Friends' => N_('Contacts'),
