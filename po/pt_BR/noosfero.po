@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.11.0\n"
 "POT-Creation-Date: 2008-09-10 12:05-0300\n"
-"PO-Revision-Date: 2008-09-09 17:19-0300\n"
+"PO-Revision-Date: 2008-09-10 12:41-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2076,14 +2076,12 @@ msgid "Clicking on this button will remove your friend relation with %s."
 msgstr "Clicando neste botão removerá sua relação de amizade com %s."
 
 #: app/views/friends/index.rhtml:24
-#, fuzzy
 msgid "You have no friends yet."
-msgstr "Você não tem amigos ainda. Vá fazer alguns."
+msgstr "Você não tem amigos ainda."
 
 #: app/views/friends/index.rhtml:25
-#, fuzzy
 msgid "Want you see other persons on this environment?"
-msgstr "Você pode continuar navegando neste ambiente."
+msgstr "Você quer ver outras pessoas neste ambiente?"
 
 #: app/views/friends/index.rhtml:31 app/views/memberships/index.rhtml:31
 #: app/views/favorite_enterprises/index.rhtml:31
@@ -2552,11 +2550,10 @@ msgid "Sign up"
 msgstr "Registre-se"
 
 #: app/views/account/_login_form.rhtml:3 app/views/account/login.rhtml:9
-#, fuzzy
 msgid ""
 "To join on this environment, click on \"<b>I want to participate!</b>\"."
 msgstr ""
-"Para entrar neste ambiente, clique em \"<b>Quero ser um usuário!</b>\"."
+"Para entrar neste ambiente, clique em \"<b>Quero participar!</b>\"."
 
 #: app/views/account/change_password.rhtml:1
 #: app/views/account/change_password.rhtml:14
@@ -2640,9 +2637,8 @@ msgstr ""
 "membro desse comunidade virtual."
 
 #: app/views/account/login.rhtml:32
-#, fuzzy
 msgid "I want to participate!"
-msgstr "Quero ser um usuário!"
+msgstr "Quero participar!"
 
 #: app/views/account/activate_enterprise.rhtml:1
 msgid "What user should be the admin of the enterprise page"
@@ -3269,14 +3265,12 @@ msgid "No, I don't want."
 msgstr "Não, não quero."
 
 #: app/views/memberships/destroy_community.rhtml:1
-#, fuzzy
 msgid "To remove %s"
-msgstr "remover"
+msgstr "Remover %s"
 
 #: app/views/memberships/destroy_community.rhtml:3
-#, fuzzy
 msgid "Are you sure you want to <u>destroy</u> \"%s\"?"
-msgstr "Tem certeza que quer remover %s?"
+msgstr "Tem certeza que quer <u>destruir</u> \"%s\"?"
 
 #: app/views/memberships/destroy_community.rhtml:7
 msgid "Yes, I want to destroy."
@@ -4654,9 +4648,8 @@ msgid "Clicking on this button will remove your contact relation with %s."
 msgstr "Clicar neste botão removerá sua relação de contato com %s."
 
 #: lib/zen3_terminology.rb:55
-#, fuzzy
 msgid "You have no contacts yet."
-msgstr "Você não tem contatos ainda. Vá fazer alguns."
+msgstr "Você não tem contatos ainda."
 
 #: lib/zen3_terminology.rb:56
 msgid "%s's contacts"
