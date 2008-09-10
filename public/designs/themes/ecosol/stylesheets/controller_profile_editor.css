@@ -28,6 +28,12 @@
   background-color: #CFDFF7;
   -moz-border-radius: 15px;
 }
+.msie6 #profile-editor-index .file-manager a {
+  border: 2px solid #B8CFE7;
+}
+.msie6 #profile-editor-index .file-manager a:hover {
+  border: 2px solid #2A5896;
+}
 
 #profile-editor-index .control-panel {
 }
