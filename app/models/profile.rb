@@ -334,7 +334,6 @@ class Profile < ActiveRecord::Base
       hp.profile = self
       hp.save!
       self.home_page = hp
-      self.save!
 
       # a default rss feed
       feed = RssFeed.new(:name => 'feed')
@@ -346,6 +345,7 @@ class Profile < ActiveRecord::Base
        self.articles << folder
       end
     end
+    self.save!
   end
 
   def copy_articles_from other

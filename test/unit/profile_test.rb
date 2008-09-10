@@ -849,6 +849,7 @@ class ProfileTest < Test::Unit::TestCase
     Profile.any_instance.stubs(:template).returns(template)
 
     p = Profile.create!(:name => 'test_profile', :identifier => 'test_profile')
+    p.reload
 
     assert_not_nil p.home_page
     assert_equal 'some xyz article', p.home_page.name
