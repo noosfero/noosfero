@@ -12,7 +12,7 @@
 
 // This must be a path to a blank image, relative to the HTML document(s).
 // In production use I suggest '/images/blank.gif' or similar. That's all!
-if (typeof blankImg == 'undefined') var blankImg = 'blank.gif';
+if (typeof blankImg == 'undefined') var blankImg = '/stylesheets/iepngfix/blank.gif';
 
 
 
