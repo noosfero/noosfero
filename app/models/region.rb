@@ -1,6 +1,8 @@
 # Region is a special type of category that is related to geographical issues. 
 class Region < Category
-  has_and_belongs_to_many :validators, :class_name => Organization.name, :join_table => :region_validators
+  has_and_belongs_to_many :validators, :class_name => 'Organization', :join_table => :region_validators
+
+  require_dependency 'enterprise' # enterprises can also be validators
 
   # searches for organizations that could become validators for this region.
   # <tt>search</tt> is passed as is to ferret's find_by_contents on Organizatio
