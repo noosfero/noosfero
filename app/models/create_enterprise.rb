@@ -152,8 +152,8 @@ class CreateEnterprise < Task
     msg << (_("Name: %s") % self.name) << "\n"
     msg << (_("Acronym: %s") % self.acronym) << "\n"
     msg << (_("Address: %s") % self.address) << "\n"
-    msg << (_("Legal form: %s") % self.foundation_year) << "\n"
-    msg << (_("Foundation Year: %d") % self.foundation_year) << "\n"
+    msg << (_("Legal form: %s") % self.legal_form) << "\n"
+    msg << (_("Foundation Year: %d") % self.foundation_year) << "\n" unless self.foundation_year.empty?
     msg << (_("Economic activity: %s") % self.economic_activity) << "\n"
 
     msg << _("Information about enterprise's management:\n") << self.management_information.to_s << "\n"
