@@ -38,6 +38,7 @@ class ApplicationController < ActionController::Base
     redirect_to_ssl
   end
   def redirect_to_ssl
+    return true if environment.disable_ssl
     redirect_to(params.merge(:protocol => 'https://'))
   end
 

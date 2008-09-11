@@ -409,4 +409,14 @@ class EnvironmentTest < Test::Unit::TestCase
     assert !e.person_template.public?
   end
 
+  should 'not disable ssl by default' do
+    e = Environment.new
+    assert !e.disable_ssl
+  end
+
+  should 'be able to disable ssl' do
+    e = Environment.new(:disable_ssl => true)
+    assert_equal true, e.disable_ssl
+  end
+
 end

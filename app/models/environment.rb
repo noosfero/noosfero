@@ -283,6 +283,14 @@ class Environment < ActiveRecord::Base
     result
   end
 
+  def disable_ssl
+    settings[:disable_ssl]
+  end
+
+  def disable_ssl=(value)
+    settings[:disable_ssl] = value
+  end
+
   def to_s
     self.name || '?'
   end

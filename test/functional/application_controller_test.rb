@@ -292,9 +292,17 @@ class ApplicationControllerTest < Test::Unit::TestCase
   end
 
   should 'add https protocols on redirect_to_ssl' do
-    @controller.expects(:params).returns(:x => '1', :y => '1')
-    @controller.expects(:redirect_to).with(:x => '1', :y => '1', :protocol => 'https://')
-    @controller.redirect_to_ssl
+    get :sslonly, :x => '1', :y => '1'
+    assert_redirected_to :x => '1', :y => '1', :protocol => 'https://'
+  end
+
+  should 'not force ssl when ssl is disabled' do
+    env = Environment.default
+    env.expects(:disable_ssl).returns(true)
+    @controller.stubs(:environment).returns(env)
+    @request.expects(:ssl?).returns(false).at_least_once
+    get :sslonly
+    assert_response :success
   end
 
 end
