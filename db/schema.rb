@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 54) do
+ActiveRecord::Schema.define(:version => 55) do
 
   create_table "article_versions", :force => true do |t|
     t.integer  "article_id"
@@ -246,9 +246,9 @@ ActiveRecord::Schema.define(:version => 54) do
 
   create_table "roles", :force => true do |t|
     t.string  "name"
-    t.string  "permissions"
+    t.text    "permissions", :limit => 255
     t.string  "key"
-    t.boolean "system",      :default => false
+    t.boolean "system",                     :default => false
   end
 
   create_table "taggings", :force => true do |t|
