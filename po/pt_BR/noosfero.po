@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.11.4\n"
-"POT-Creation-Date: 2008-09-12 19:33-0300\n"
-"PO-Revision-Date: 2008-09-12 19:35-0300\n"
+"POT-Creation-Date: 2008-09-12 19:55-0300\n"
+"PO-Revision-Date: 2008-09-12 19:56-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -441,8 +441,7 @@ msgstr "Clique, escreva e pressione enter para pesquisar"
 #: app/views/search/_sellers_form.rhtml:21
 #: app/views/search/_search_form.rhtml:15 app/views/search/communities.rhtml:7
 #: app/views/search/articles.rhtml:7 app/views/search/people.rhtml:7
-#: app/views/home/index.rhtml:6 app/views/home/index.rhtml:12
-#: app/views/region_validators/region.rhtml:23
+#: app/views/home/index.rhtml:10 app/views/region_validators/region.rhtml:23
 msgid "Search"
 msgstr "Busca"
 
@@ -2847,9 +2846,9 @@ msgstr "Buscar dentro de:"
 msgid "Search for:"
 msgstr "Buscar por:"
 
-#: app/views/search/_search_form.rhtml:50
-msgid "Advanced search"
-msgstr "Busca avançada"
+#: app/views/search/_search_form.rhtml:50 app/views/home/index.rhtml:14
+msgid "More options"
+msgstr "Mais opções"
 
 #: app/views/search/category_index.rhtml:9
 msgid "Sub-categories"
@@ -3006,10 +3005,6 @@ msgstr "Sair deste empreendimento"
 #: app/views/blocks/profile_info_actions/enterprise.rhtml:9
 msgid "Join this enterprise"
 msgstr "Entrar neste empreendimento"
-
-#: app/views/home/index.rhtml:16
-msgid "More search options"
-msgstr "Mais opções de busca"
 
 #: app/views/enterprise_registration/select_validator.rhtml:1
 msgid "Enterprise Registration: Select a validator organization"
@@ -4644,6 +4639,9 @@ msgstr "Desenvolvimento Colivre"
 #: public/designs/themes/zen3/footer.rhtml:2
 msgid "A Ynternet.org project"
 msgstr "Um projeto da Ynternet.org"
+
+#~ msgid "Advanced search"
+#~ msgstr "Busca avançada"
 
 #~ msgid "User|Password"
 #~ msgstr "Senha"
