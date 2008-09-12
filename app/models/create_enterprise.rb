@@ -1,15 +1,15 @@
 class CreateEnterprise < Task
 
-  N_('CreateEnterprise|Identifier')
-  N_('CreateEnterprise|Name')
-  N_('CreateEnterprise|Address')
-  N_('CreateEnterprise|Contact phone')
-  N_('CreateEnterprise|Contact person')
-  N_('CreateEnterprise|Acronym')
-  N_('CreateEnterprise|Foundation year')
-  N_('CreateEnterprise|Legal form')
-  N_('CreateEnterprise|Economic activity')
-  N_('CreateEnterprise|Management information')
+  N_('Identifier')
+  N_('Name')
+  N_('Address')
+  N_('Contact phone')
+  N_('Contact person')
+  N_('Acronym')
+  N_('Foundation year')
+  N_('Legal form')
+  N_('Economic activity')
+  N_('Management information')
 
   DATA_FIELDS = %w[ name identifier address contact_phone contact_person acronym foundation_year legal_form economic_activity management_information region_id reject_explanation ]
 

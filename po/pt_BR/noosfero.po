@@ -11,9 +11,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.11.0\n"
-"POT-Creation-Date: 2008-09-10 12:05-0300\n"
-"PO-Revision-Date: 2008-09-11 18:09-0300\n"
+"Project-Id-Version: noosfero 0.11.4\n"
+"POT-Creation-Date: 2008-09-12 19:33-0300\n"
+"PO-Revision-Date: 2008-09-12 19:35-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -289,27 +289,27 @@ msgstr "Distância:"
 msgid "Main content"
 msgstr "Gerenciar conteúdo"
 
-#: app/helpers/boxes_helper.rb:137
+#: app/helpers/boxes_helper.rb:143
 msgid "Can't move up anymore."
 msgstr "Impossível move mais acima."
 
-#: app/helpers/boxes_helper.rb:139
+#: app/helpers/boxes_helper.rb:145
 msgid "Move block up"
 msgstr "Mover para cima"
 
-#: app/helpers/boxes_helper.rb:143
+#: app/helpers/boxes_helper.rb:149
 msgid "Can't move down anymore."
 msgstr "Impossível mover mais abaixo."
 
-#: app/helpers/boxes_helper.rb:145
+#: app/helpers/boxes_helper.rb:151
 msgid "Move block down"
 msgstr "Mover para baixo"
 
-#: app/helpers/boxes_helper.rb:152 app/helpers/boxes_helper.rb:154
+#: app/helpers/boxes_helper.rb:158 app/helpers/boxes_helper.rb:160
 msgid "Move to the opposite side"
 msgstr "Mover para o lado oposto"
 
-#: app/helpers/boxes_helper.rb:159 app/views/profile_members/index.rhtml:14
+#: app/helpers/boxes_helper.rb:165 app/views/profile_members/index.rhtml:14
 #: app/views/role/index.rhtml:6 app/views/cms/view.rhtml:66
 #: app/views/content_viewer/view_page.rhtml:35
 #: app/views/categories/_category.rhtml:8
@@ -318,22 +318,22 @@ msgstr "Mover para o lado oposto"
 msgid "Edit"
 msgstr "Editar"
 
-#: app/helpers/boxes_helper.rb:163
+#: app/helpers/boxes_helper.rb:169
 msgid "Remove block"
 msgstr "Remover bloco"
 
-#: app/helpers/boxes_helper.rb:167
+#: app/helpers/boxes_helper.rb:173
 msgid "Help on this block"
 msgstr "Ajuda sobre este bloco"
 
-#: app/helpers/boxes_helper.rb:167 app/helpers/application_helper.rb:63
-#: app/views/layouts/application.rhtml:122 app/views/features/index.rhtml:7
+#: app/helpers/boxes_helper.rb:173 app/helpers/application_helper.rb:63
+#: app/views/layouts/application.rhtml:123 app/views/features/index.rhtml:7
 msgid "Help"
 msgstr "Ajuda"
 
-#: app/helpers/boxes_helper.rb:167 app/helpers/application_helper.rb:83
+#: app/helpers/boxes_helper.rb:173 app/helpers/application_helper.rb:83
 #: app/views/shared/user_menu.rhtml:63 app/views/search/_search_form.rhtml:57
-#: app/views/box_organizer/add_block.rhtml:18
+#: app/views/box_organizer/add_block.rhtml:19
 msgid "Close"
 msgstr "Fechar"
 
@@ -792,9 +792,9 @@ msgid "profile"
 msgstr "perfil"
 
 #: app/models/user.rb:- app/models/comment.rb:- app/models/domain.rb:-
-#: app/models/product.rb:- app/models/category.rb:-
-#: app/models/environment.rb:- app/views/cms/view.rhtml:24
-#: app/views/enterprise_editor/_form.rhtml:1
+#: app/models/product.rb:- app/models/create_enterprise.rb:4
+#: app/models/category.rb:- app/models/environment.rb:-
+#: app/views/cms/view.rhtml:24 app/views/enterprise_editor/_form.rhtml:1
 #: app/views/content_viewer/_comment_form.rhtml:24
 #: app/views/enterprise_validation/_details.rhtml:3
 #: app/views/box_organizer/_link_list_block.rhtml:5
@@ -806,7 +806,8 @@ msgstr "Nome"
 msgid "Type"
 msgstr "Tipo"
 
-#: app/models/user.rb:- app/views/enterprise_validation/_details.rhtml:23
+#: app/models/user.rb:- app/models/create_enterprise.rb:3
+#: app/views/enterprise_validation/_details.rhtml:23
 msgid "Identifier"
 msgstr "Identificador"
 
@@ -814,7 +815,8 @@ msgstr "Identificador"
 msgid "Active"
 msgstr "Ativar"
 
-#: app/models/user.rb:- app/views/enterprise_editor/_form.rhtml:4
+#: app/models/user.rb:- app/models/create_enterprise.rb:5
+#: app/views/enterprise_editor/_form.rhtml:4
 #: app/views/enterprise_validation/index.rhtml:14
 #: app/views/enterprise_validation/_details.rhtml:7
 #: app/views/enterprise_validation/list_processed.rhtml:9
@@ -822,7 +824,7 @@ msgstr "Ativar"
 msgid "Address"
 msgstr "Endereço"
 
-#: app/models/user.rb:-
+#: app/models/user.rb:- app/models/create_enterprise.rb:6
 msgid "Contact phone"
 msgstr "Telefone de contato"
 
@@ -973,11 +975,11 @@ msgid "Reference article"
 msgstr "Artigo referenciado"
 
 #: app/models/user.rb:7
-msgid "User|Password"
+msgid "Password"
 msgstr "Senha"
 
 #: app/models/user.rb:8
-msgid "User|Password confirmation"
+msgid "Password confirmation"
 msgstr "Confirmação de senha"
 
 #: app/models/user.rb:47
@@ -1371,45 +1373,32 @@ msgstr "artigos categoria"
 msgid "articlecategorization"
 msgstr "categorizaçãoartigo"
 
-#: app/models/create_enterprise.rb:3 app/models/create_enterprise.rb:164
-msgid "CreateEnterprise|Identifier"
-msgstr "Identificador"
-
-#: app/models/create_enterprise.rb:4
-msgid "CreateEnterprise|Name"
-msgstr "Nome"
-
-#: app/models/create_enterprise.rb:5
-msgid "CreateEnterprise|Address"
-msgstr "Endereço"
-
-#: app/models/create_enterprise.rb:6
-msgid "CreateEnterprise|Contact phone"
-msgstr "Telefone de contato"
-
-#: app/models/create_enterprise.rb:7
-msgid "CreateEnterprise|Contact person"
+#: app/models/create_enterprise.rb:7 app/models/organization.rb:46
+msgid "Contact person"
 msgstr "Pessoa de contato"
 
-#: app/models/create_enterprise.rb:8
-msgid "CreateEnterprise|Acronym"
+#: app/models/create_enterprise.rb:8 app/models/organization.rb:46
+#: app/views/enterprise_editor/_form.rhtml:13
+#: app/views/enterprise_validation/_details.rhtml:19
+msgid "Acronym"
 msgstr "Sigla"
 
-#: app/models/create_enterprise.rb:9
-msgid "CreateEnterprise|Foundation year"
+#: app/models/create_enterprise.rb:9 app/models/organization.rb:46
+msgid "Foundation year"
 msgstr "Ano de fundação"
 
-#: app/models/create_enterprise.rb:10
-msgid "CreateEnterprise|Legal form"
-msgstr "Estatuto Jurídico"
+#: app/models/create_enterprise.rb:10 app/models/organization.rb:46
+msgid "Legal form"
+msgstr "Formulário Legal"
 
-#: app/models/create_enterprise.rb:11
-msgid "CreateEnterprise|Economic activity"
+#: app/models/create_enterprise.rb:11 app/models/organization.rb:46
+msgid "Economic activity"
 msgstr "Atividade econômica"
 
-#: app/models/create_enterprise.rb:12
-msgid "CreateEnterprise|Management information"
-msgstr "Informação de gerenciamento"
+#: app/models/create_enterprise.rb:12 app/models/organization.rb:46
+#: app/views/enterprise_registration/basic_information.rhtml:27
+msgid "Management information"
+msgstr "Gerenciamento de informação"
 
 #: app/models/create_enterprise.rb:128
 msgid "Enterprise registration: \"%s\""
@@ -1502,6 +1491,10 @@ msgstr "Telefone de contato: %s"
 #: app/models/create_enterprise.rb:162
 msgid "Contact person: %s"
 msgstr "Pessoa de contato: %s"
+
+#: app/models/create_enterprise.rb:164
+msgid "CreateEnterprise|Identifier"
+msgstr "Identificador"
 
 #: app/models/event.rb:15
 msgid "%{fn} cannot come before end date."
@@ -1635,35 +1628,9 @@ msgstr "categories perfil"
 msgid "profilecategorization"
 msgstr "categorizaçãoperfil"
 
-#: app/models/organization.rb:46
-msgid "Contact person"
-msgstr "Pessoa de contato"
-
 #: app/models/organization.rb:46 app/models/environment.rb:-
 msgid "Contact email"
 msgstr "Email de contato"
-
-#: app/models/organization.rb:46 app/views/enterprise_editor/_form.rhtml:13
-#: app/views/enterprise_validation/_details.rhtml:19
-msgid "Acronym"
-msgstr "Sigla"
-
-#: app/models/organization.rb:46
-msgid "Foundation year"
-msgstr "Ano de fundação"
-
-#: app/models/organization.rb:46
-msgid "Legal form"
-msgstr "Formulário Legal"
-
-#: app/models/organization.rb:46
-msgid "Economic activity"
-msgstr "Atividade econômica"
-
-#: app/models/organization.rb:46
-#: app/views/enterprise_registration/basic_information.rhtml:27
-msgid "Management information"
-msgstr "Gerenciamento de informação"
 
 #: app/models/organization.rb:46
 msgid "Validated"
@@ -1787,7 +1754,7 @@ msgstr ""
 "<p>Esta é a pagina inicial padrão criada para mim. Esta página pode ser "
 "modificada pelo painel de controle.</p>"
 
-#: app/models/profile.rb:345
+#: app/models/profile.rb:344
 msgid "Intranet"
 msgstr "Intranet"
 
@@ -2552,8 +2519,7 @@ msgstr "Registre-se"
 #: app/views/account/_login_form.rhtml:3 app/views/account/login.rhtml:9
 msgid ""
 "To join on this environment, click on \"<b>I want to participate!</b>\"."
-msgstr ""
-"Para entrar neste ambiente, clique em \"<b>Quero participar!</b>\"."
+msgstr "Para entrar neste ambiente, clique em \"<b>Quero participar!</b>\"."
 
 #: app/views/account/change_password.rhtml:1
 #: app/views/account/change_password.rhtml:14
@@ -3756,7 +3722,7 @@ msgstr ""
 "Marcar esta opção te dá uma conta de e-mail com o endereço acima. Você "
 "poderá acessar um webmail a partir do seu menu de usuário."
 
-#: app/views/layouts/application.rhtml:58
+#: app/views/layouts/application.rhtml:59
 msgid ""
 "Pass the mouse over page elements to get help on them. Click the question "
 "mark icon on the top-right corner to deactivate this help window."
@@ -3765,11 +3731,11 @@ msgstr ""
 "Clique no ícone de ajuda no canto superior direito para desativar essa "
 "janela de ajuda."
 
-#: app/views/layouts/application.rhtml:81
+#: app/views/layouts/application.rhtml:82
 msgid "Go to content"
 msgstr "Ir para o conteúdo"
 
-#: app/views/layouts/application.rhtml:93
+#: app/views/layouts/application.rhtml:94
 msgid ""
 "This is %s's shortcuts bar. Using it you have access to the main features of "
 "the environment and you find the information of your interest more quickly."
@@ -3778,7 +3744,7 @@ msgstr ""
 "principais funcionalidades do ambiente e encontra mais rapidamente as "
 "informações do seu interesse."
 
-#: app/views/layouts/application.rhtml:95
+#: app/views/layouts/application.rhtml:96
 msgid ""
 "This bar helps you find information following two paths or "
 "<strong>dimensions</strong>. First dimension is composed of <em>categories</"
@@ -3792,15 +3758,15 @@ msgstr ""
 "dimensão contém os <em>tipos de conteúdo</em> que você encontra na aba "
 "animada da direita."
 
-#: app/views/layouts/application.rhtml:121
+#: app/views/layouts/application.rhtml:122
 msgid "Turn help on/off"
 msgstr "Ligar e desligar a Ajuda"
 
-#: app/views/layouts/application.rhtml:169
+#: app/views/layouts/application.rhtml:170
 msgid "Your web browser is obsolete!"
 msgstr "Seu navegador web esta obsoleto!"
 
-#: app/views/layouts/application.rhtml:170
+#: app/views/layouts/application.rhtml:171
 msgid ""
 "This website will not look as good as it could.\n"
 "         Don't you want to use Firefox? That is a great web browser, free,\n"
@@ -3810,7 +3776,7 @@ msgstr ""
 "Firefox? É um ótimo navegador, livre e feito por pessoas de todos os cantos "
 "do mundo."
 
-#: app/views/layouts/application.rhtml:174
+#: app/views/layouts/application.rhtml:175
 msgid "Get Firefox Now!"
 msgstr "Baixe o Firefox Já!"
 
@@ -3927,7 +3893,7 @@ msgid "Validators by Region"
 msgstr "Validadores por região"
 
 #: app/views/region_validators/_search.rhtml:9
-#: app/views/box_organizer/add_block.rhtml:17 app/views/themes/add_css.rhtml:7
+#: app/views/box_organizer/add_block.rhtml:18 app/views/themes/add_css.rhtml:7
 msgid "Add"
 msgstr "Adicionar"
 
@@ -4009,11 +3975,11 @@ msgstr "Escolha os produtos que serão exibidos."
 msgid "In what area do you want to put your new block?"
 msgstr "Em que área você quer colocar seu novo bloco?"
 
-#: app/views/box_organizer/add_block.rhtml:5
+#: app/views/box_organizer/add_block.rhtml:6
 msgid "Area %d"
 msgstr "Área %d"
 
-#: app/views/box_organizer/add_block.rhtml:7
+#: app/views/box_organizer/add_block.rhtml:8
 msgid "Select the type of block you want to add to your page."
 msgstr "Selecione o tipo de bloco que você quer adicionar à sua página."
 
@@ -4678,6 +4644,36 @@ msgstr "Desenvolvimento Colivre"
 #: public/designs/themes/zen3/footer.rhtml:2
 msgid "A Ynternet.org project"
 msgstr "Um projeto da Ynternet.org"
+
+#~ msgid "User|Password"
+#~ msgstr "Senha"
+
+#~ msgid "CreateEnterprise|Name"
+#~ msgstr "Nome"
+
+#~ msgid "CreateEnterprise|Address"
+#~ msgstr "Endereço"
+
+#~ msgid "CreateEnterprise|Contact phone"
+#~ msgstr "Telefone de contato"
+
+#~ msgid "CreateEnterprise|Contact person"
+#~ msgstr "Pessoa de contato"
+
+#~ msgid "CreateEnterprise|Acronym"
+#~ msgstr "Sigla"
+
+#~ msgid "CreateEnterprise|Foundation year"
+#~ msgstr "Ano de fundação"
+
+#~ msgid "CreateEnterprise|Legal form"
+#~ msgstr "Estatuto Jurídico"
+
+#~ msgid "CreateEnterprise|Economic activity"
+#~ msgstr "Atividade econômica"
+
+#~ msgid "CreateEnterprise|Management information"
+#~ msgstr "Informação de gerenciamento"
 
 #~ msgid "Destroy %s"
 #~ msgstr "Remover %s"
@@ -5360,9 +5356,6 @@ msgstr "Um projeto da Ynternet.org"
 
 #~ msgid "Person|Data"
 #~ msgstr "Dados"
-
-#~ msgid "Password"
-#~ msgstr "Senha"
 
 #~ msgid "Do you want to activate the automatic help mode?"
 #~ msgstr "Você gostaria de ativar o modo de ajuda automática?"

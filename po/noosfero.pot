@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.11.0\n"
-"POT-Creation-Date: 2008-09-10 12:05-0300\n"
+"Project-Id-Version: noosfero 0.11.4\n"
+"POT-Creation-Date: 2008-09-12 19:33-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -283,27 +283,27 @@ msgstr ""
 msgid "Main content"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:137
+#: app/helpers/boxes_helper.rb:143
 msgid "Can't move up anymore."
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:139
+#: app/helpers/boxes_helper.rb:145
 msgid "Move block up"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:143
+#: app/helpers/boxes_helper.rb:149
 msgid "Can't move down anymore."
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:145
+#: app/helpers/boxes_helper.rb:151
 msgid "Move block down"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:152 app/helpers/boxes_helper.rb:154
+#: app/helpers/boxes_helper.rb:158 app/helpers/boxes_helper.rb:160
 msgid "Move to the opposite side"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:159 app/views/profile_members/index.rhtml:14
+#: app/helpers/boxes_helper.rb:165 app/views/profile_members/index.rhtml:14
 #: app/views/role/index.rhtml:6 app/views/cms/view.rhtml:66
 #: app/views/content_viewer/view_page.rhtml:35
 #: app/views/categories/_category.rhtml:8
@@ -312,22 +312,22 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:163
+#: app/helpers/boxes_helper.rb:169
 msgid "Remove block"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:167
+#: app/helpers/boxes_helper.rb:173
 msgid "Help on this block"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:167 app/helpers/application_helper.rb:63
-#: app/views/layouts/application.rhtml:122 app/views/features/index.rhtml:7
+#: app/helpers/boxes_helper.rb:173 app/helpers/application_helper.rb:63
+#: app/views/layouts/application.rhtml:123 app/views/features/index.rhtml:7
 msgid "Help"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:167 app/helpers/application_helper.rb:83
+#: app/helpers/boxes_helper.rb:173 app/helpers/application_helper.rb:83
 #: app/views/shared/user_menu.rhtml:63 app/views/search/_search_form.rhtml:57
-#: app/views/box_organizer/add_block.rhtml:18
+#: app/views/box_organizer/add_block.rhtml:19
 msgid "Close"
 msgstr ""
 
@@ -779,9 +779,9 @@ msgid "profile"
 msgstr ""
 
 #: app/models/user.rb:- app/models/comment.rb:- app/models/domain.rb:-
-#: app/models/product.rb:- app/models/category.rb:-
-#: app/models/environment.rb:- app/views/cms/view.rhtml:24
-#: app/views/enterprise_editor/_form.rhtml:1
+#: app/models/product.rb:- app/models/create_enterprise.rb:4
+#: app/models/category.rb:- app/models/environment.rb:-
+#: app/views/cms/view.rhtml:24 app/views/enterprise_editor/_form.rhtml:1
 #: app/views/content_viewer/_comment_form.rhtml:24
 #: app/views/enterprise_validation/_details.rhtml:3
 #: app/views/box_organizer/_link_list_block.rhtml:5
@@ -793,7 +793,8 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
-#: app/models/user.rb:- app/views/enterprise_validation/_details.rhtml:23
+#: app/models/user.rb:- app/models/create_enterprise.rb:3
+#: app/views/enterprise_validation/_details.rhtml:23
 msgid "Identifier"
 msgstr ""
 
@@ -801,7 +802,8 @@ msgstr ""
 msgid "Active"
 msgstr ""
 
-#: app/models/user.rb:- app/views/enterprise_editor/_form.rhtml:4
+#: app/models/user.rb:- app/models/create_enterprise.rb:5
+#: app/views/enterprise_editor/_form.rhtml:4
 #: app/views/enterprise_validation/index.rhtml:14
 #: app/views/enterprise_validation/_details.rhtml:7
 #: app/views/enterprise_validation/list_processed.rhtml:9
@@ -809,7 +811,7 @@ msgstr ""
 msgid "Address"
 msgstr ""
 
-#: app/models/user.rb:-
+#: app/models/user.rb:- app/models/create_enterprise.rb:6
 msgid "Contact phone"
 msgstr ""
 
@@ -960,11 +962,11 @@ msgid "Reference article"
 msgstr ""
 
 #: app/models/user.rb:7
-msgid "User|Password"
+msgid "Password"
 msgstr ""
 
 #: app/models/user.rb:8
-msgid "User|Password confirmation"
+msgid "Password confirmation"
 msgstr ""
 
 #: app/models/user.rb:47
@@ -1353,44 +1355,31 @@ msgstr ""
 msgid "articlecategorization"
 msgstr ""
 
-#: app/models/create_enterprise.rb:3 app/models/create_enterprise.rb:164
-msgid "CreateEnterprise|Identifier"
+#: app/models/create_enterprise.rb:7 app/models/organization.rb:46
+msgid "Contact person"
 msgstr ""
 
-#: app/models/create_enterprise.rb:4
-msgid "CreateEnterprise|Name"
+#: app/models/create_enterprise.rb:8 app/models/organization.rb:46
+#: app/views/enterprise_editor/_form.rhtml:13
+#: app/views/enterprise_validation/_details.rhtml:19
+msgid "Acronym"
 msgstr ""
 
-#: app/models/create_enterprise.rb:5
-msgid "CreateEnterprise|Address"
+#: app/models/create_enterprise.rb:9 app/models/organization.rb:46
+msgid "Foundation year"
 msgstr ""
 
-#: app/models/create_enterprise.rb:6
-msgid "CreateEnterprise|Contact phone"
+#: app/models/create_enterprise.rb:10 app/models/organization.rb:46
+msgid "Legal form"
 msgstr ""
 
-#: app/models/create_enterprise.rb:7
-msgid "CreateEnterprise|Contact person"
+#: app/models/create_enterprise.rb:11 app/models/organization.rb:46
+msgid "Economic activity"
 msgstr ""
 
-#: app/models/create_enterprise.rb:8
-msgid "CreateEnterprise|Acronym"
-msgstr ""
-
-#: app/models/create_enterprise.rb:9
-msgid "CreateEnterprise|Foundation year"
-msgstr ""
-
-#: app/models/create_enterprise.rb:10
-msgid "CreateEnterprise|Legal form"
-msgstr ""
-
-#: app/models/create_enterprise.rb:11
-msgid "CreateEnterprise|Economic activity"
-msgstr ""
-
-#: app/models/create_enterprise.rb:12
-msgid "CreateEnterprise|Management information"
+#: app/models/create_enterprise.rb:12 app/models/organization.rb:46
+#: app/views/enterprise_registration/basic_information.rhtml:27
+msgid "Management information"
 msgstr ""
 
 #: app/models/create_enterprise.rb:128
@@ -1467,6 +1456,10 @@ msgstr ""
 
 #: app/models/create_enterprise.rb:162
 msgid "Contact person: %s"
+msgstr ""
+
+#: app/models/create_enterprise.rb:164
+msgid "CreateEnterprise|Identifier"
 msgstr ""
 
 #: app/models/event.rb:15
@@ -1597,34 +1590,8 @@ msgstr ""
 msgid "profilecategorization"
 msgstr ""
 
-#: app/models/organization.rb:46
-msgid "Contact person"
-msgstr ""
-
 #: app/models/organization.rb:46 app/models/environment.rb:-
 msgid "Contact email"
-msgstr ""
-
-#: app/models/organization.rb:46 app/views/enterprise_editor/_form.rhtml:13
-#: app/views/enterprise_validation/_details.rhtml:19
-msgid "Acronym"
-msgstr ""
-
-#: app/models/organization.rb:46
-msgid "Foundation year"
-msgstr ""
-
-#: app/models/organization.rb:46
-msgid "Legal form"
-msgstr ""
-
-#: app/models/organization.rb:46
-msgid "Economic activity"
-msgstr ""
-
-#: app/models/organization.rb:46
-#: app/views/enterprise_registration/basic_information.rhtml:27
-msgid "Management information"
 msgstr ""
 
 #: app/models/organization.rb:46
@@ -1747,7 +1714,7 @@ msgid ""
 "control panel.</p>"
 msgstr ""
 
-#: app/models/profile.rb:345
+#: app/models/profile.rb:344
 msgid "Intranet"
 msgstr ""
 
@@ -3644,23 +3611,23 @@ msgid ""
 "You'll be able to access a webmail from your user menu."
 msgstr ""
 
-#: app/views/layouts/application.rhtml:58
+#: app/views/layouts/application.rhtml:59
 msgid ""
 "Pass the mouse over page elements to get help on them. Click the question "
 "mark icon on the top-right corner to deactivate this help window."
 msgstr ""
 
-#: app/views/layouts/application.rhtml:81
+#: app/views/layouts/application.rhtml:82
 msgid "Go to content"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:93
+#: app/views/layouts/application.rhtml:94
 msgid ""
 "This is %s's shortcuts bar. Using it you have access to the main features of "
 "the environment and you find the information of your interest more quickly."
 msgstr ""
 
-#: app/views/layouts/application.rhtml:95
+#: app/views/layouts/application.rhtml:96
 msgid ""
 "This bar helps you find information following two paths or "
 "<strong>dimensions</strong>. First dimension is composed of <em>categories</"
@@ -3669,22 +3636,22 @@ msgid ""
 "right."
 msgstr ""
 
-#: app/views/layouts/application.rhtml:121
+#: app/views/layouts/application.rhtml:122
 msgid "Turn help on/off"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:169
+#: app/views/layouts/application.rhtml:170
 msgid "Your web browser is obsolete!"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:170
+#: app/views/layouts/application.rhtml:171
 msgid ""
 "This website will not look as good as it could.\n"
 "         Don't you want to use Firefox? That is a great web browser, free,\n"
 "         and made by people of all the world parts."
 msgstr ""
 
-#: app/views/layouts/application.rhtml:174
+#: app/views/layouts/application.rhtml:175
 msgid "Get Firefox Now!"
 msgstr ""
 
@@ -3790,7 +3757,7 @@ msgid "Validators by Region"
 msgstr ""
 
 #: app/views/region_validators/_search.rhtml:9
-#: app/views/box_organizer/add_block.rhtml:17 app/views/themes/add_css.rhtml:7
+#: app/views/box_organizer/add_block.rhtml:18 app/views/themes/add_css.rhtml:7
 msgid "Add"
 msgstr ""
 
@@ -3870,11 +3837,11 @@ msgstr ""
 msgid "In what area do you want to put your new block?"
 msgstr ""
 
-#: app/views/box_organizer/add_block.rhtml:5
+#: app/views/box_organizer/add_block.rhtml:6
 msgid "Area %d"
 msgstr ""
 
-#: app/views/box_organizer/add_block.rhtml:7
+#: app/views/box_organizer/add_block.rhtml:8
 msgid "Select the type of block you want to add to your page."
 msgstr ""
 
