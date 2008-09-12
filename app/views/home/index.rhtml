@@ -3,8 +3,6 @@
 <%= @environment.description %>
 
 <div id='home-search' style='text-align: center'>
-  <h2><%= _('Search') %></h2>
-
   <% form_tag :controller => 'search', :action => 'index' do %>
 
     <div id='search-field' style='text-align: center;'>
@@ -13,7 +11,7 @@
     </div>
 
     <div>
-      <%= lightbox_link_to _('More search options'), :controller => 'search', :action => 'popup' %>
+      <%= lightbox_link_to _('More options'), :controller => 'search', :action => 'popup' %>
     </div>
   <% end %>
 </div>
