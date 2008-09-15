@@ -306,6 +306,14 @@ class Environment < ActiveRecord::Base
     self[:theme] || 'default'
   end
 
+  def layout_template
+    settings[:layout_template] || 'default'
+  end
+
+  def layout_template=(value)
+    settings[:layout_template] = value
+  end
+
   def enterprise_template
     Enterprise.find_by_id settings[:enterprise_template_id]
   end

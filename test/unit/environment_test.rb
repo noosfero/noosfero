@@ -419,4 +419,13 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal true, e.disable_ssl
   end
 
+  should 'have a layout template' do
+    e = Environment.new(:layout_template => 'mytemplate')
+    assert_equal 'mytemplate', e.layout_template
+  end
+
+  should 'have a default layout template' do
+    assert_equal 'default', Environment.new.layout_template
+  end
+
 end

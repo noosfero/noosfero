@@ -151,13 +151,14 @@ module BoxesHelper
       buttons << icon_button(:down, _('Move block down'), { :action => 'move_block_down' ,:id => block.id }, { :method => 'post'})
     end
 
+    holder = block.owner
     # move to opposite side
     # FIXME too much hardcoded stuff
-    if profile.layout_template == 'default'
+    if holder.layout_template == 'default'
       if block.box.position == 2 # area 2, left side => move to right side
-        buttons << icon_button('right', _('Move to the opposite side'), { :action => 'move_block', :target => 'end-of-box-' + profile.boxes[2].id.to_s, :id => block.id }, :method => 'post' )
+        buttons << icon_button('right', _('Move to the opposite side'), { :action => 'move_block', :target => 'end-of-box-' + holder.boxes[2].id.to_s, :id => block.id }, :method => 'post' )
       elsif block.box.position == 3 # area 3, right side => move to left side
-        buttons << icon_button('left', _('Move to the opposite side'), { :action => 'move_block', :target => 'end-of-box-' + profile.boxes[1].id.to_s, :id => block.id }, :method => 'post' )
+        buttons << icon_button('left', _('Move to the opposite side'), { :action => 'move_block', :target => 'end-of-box-' + holder.boxes[1].id.to_s, :id => block.id }, :method => 'post' )
       end
     end
 

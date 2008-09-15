@@ -48,6 +48,9 @@ class EnvironmentDesignControllerTest < Test::Unit::TestCase
   end
 
   should 'create back link to environment control panel' do
+    Environment.default.boxes.create!.blocks << CommunitiesBlock.new
+    Environment.default.boxes.create!.blocks << EnterprisesBlock.new
+    Environment.default.boxes.create!.blocks << LoginBlock.new
     login_as(create_admin_user(Environment.default))
     get :index
 
