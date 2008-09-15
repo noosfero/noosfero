@@ -221,6 +221,16 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_same foo, template_stylesheet_tag
   end
 
+  should 'not force ssl when environment has ssl disabled' do
+    environment = mock
+    environment.expects(:disable_ssl).returns(true).at_least_once
+    stubs(:environment).returns(environment)
+
+    expects(:url_for).with(has_entries(:protocol => 'https://')).never
+    expects(:url_for).with(has_key(:controller)).returns("LALALA")
+    assert_equal "LALALA", login_url
+  end
+
   protected
 
   def content_tag(tag, content, options = {})

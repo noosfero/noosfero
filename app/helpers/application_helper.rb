@@ -710,7 +710,7 @@ module ApplicationHelper
 
   def login_url
     options = { :controller => 'account', :action => 'login' }
-    options.merge!(:protocol => 'https://', :host => request.host) unless ENV['RAILS_ENV'] == 'development'
+    options.merge!(:protocol => 'https://', :host => request.host) unless ENV['RAILS_ENV'] == 'development' || environment.disable_ssl
     url_for(options)
   end
 
