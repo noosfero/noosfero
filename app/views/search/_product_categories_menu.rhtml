@@ -16,7 +16,7 @@
       <% end %>
     <% end %>
     <% product_categories_menu.each do |cat, hits, childs| %>
-      <li class="cat-parent" onmouseover="prodCatMenuOver(this)" onmouseout="prodCatMenuOut(this)">
+      <li class="cat-parent" >
         <%= link_to(
               cat.name + " " + content_tag('small', "(#{hits})"),
               params.merge({:product_category => cat.id})
@@ -37,77 +37,6 @@
     <% end %>
   </ul>
 </div>
-
-<script type="text/javascript">
-
-function prodCatMenuOver( li ) {
-  clearTimeout( li.timeout );
-  //if ( ! ( li.opened || li.opening ) ) {
-  if (
-       ( ! li.opened ) && ( ! li.opening ) &&
-       ( ( ! li.e ) || li.e.state == "finished" )
-     ) {
-    li.opening = true;
-    li.className = "cat-parent sub-opening";
-    li.subMenu.className = "opening";
-    li.e = Effect.BlindDown(li.subMenu, { duration: 0.33 });
-    li.e._finish = li.e.finish;
-    li.e.finish = function(){
-        this._finish();
-        this.element.li.closed = false;
-        this.element.li.opened = true;
-        this.element.li.opening = false;
-        this.element.className = "opened";
-        this.element.li.className = "cat-parent sub-opened";
-      }
-    li.closed = false;
-  }
-}
-
-function prodCatMenuOut( li ) {
-  //if ( li.e.state == "finished" ) {
-  if (
-       ( ! li.closed ) && ( ! li.closeing ) &&
-       ( li.e.state == "finished" )
-     ) {
-    li.timeout = setTimeout( function () {
-        this.closeing = true;
-        this.className = "cat-parent sub-closeing";
-        this.subMenu.className = "closeing";
-        this.e = Effect.BlindUp(this.subMenu, { duration: 0.5 });
-        this.e._finish = this.e.finish;
-        this.e.finish = function(){
-            this._finish();
-            this.element.li.opened = false;
-            this.element.li.closed = true;
-            this.element.li.closeing = false;
-            this.element.className = "closed";
-            this.element.li.className = "cat-parent sub-closed";
-          }
-      }.bind(li), 200 );
-  } else {
-    li.timeout = setTimeout( li.onmouseout.bind(li), 200 );
-  }
-}
-
-if ( document.all ) {
-
-  function prodCatMenuOver( li ) { li.className = "cat-parent sub-opened" }
-  function prodCatMenuOut( li )  { li.className = "cat-parent sub-closed" }
-
-} else {
-
-  $$("#product-categories-menu ul div").each( function(subMenu){
-    var li = subMenu.parentNode;
-    subMenu.li = li;
-    li.subMenu = subMenu;
-    li.subMenu.style.display = "none";
-    li.closed = true;
-  })
-
-}
-
-</script>
 
 <% end %>
 
