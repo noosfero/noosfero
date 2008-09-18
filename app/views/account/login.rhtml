@@ -2,26 +2,25 @@
 
 <h2><%= _('Login') %></h2>
 
-<% @user = User.new unless @user %>
+<% @user ||= User.new %>
 
 <% labelled_form_for :user, @user,
    :url => login_url,
-   :html => { :help => _('If you are a registered user, enter your username and password to be authenticated.')+'<p/>'+_('To join on this environment, click on "<b>I want to participate!</b>".')+'<p/>'+_('If you forgot your password, click on "<b>I forgot my password!</b>" link.') } do |f| %>
+   :html => { :help => _('If you are a registered user, enter your username and password to be authenticated.')+'<p/>'+_('To join on this environment, click on "<b>I want to be an user!</b>".')+'<p/>'+_('If you forgot your password, click on "<b>I forgot my password!</b>" link.') } do |f| %>
 
-<%= f.text_field :login,
-                 :id => ( lightbox? ? 'lightbox_' : '' ) + 'user_login',
-                 :help => _('Here goes the nickname that you give on the registration.'),
-                 :onchange => 'this.value = convToValidLogin( this.value )' %>
+  <%= f.text_field :login,
+                   :id => ( lightbox? ? 'lightbox_' : '' ) + 'user_login',
+                   :help => _('Here goes the nickname that you give on the registration.'),
+                   :onchange => 'this.value = convToValidLogin( this.value )' %>
 
-<%= f.password_field :password,
-                     :id => ( lightbox? ? 'lightbox_' : '' ) + 'user_password',
-                     :help => _('your password is personal, protect it.') %>
+  <%= f.password_field :password,
+                       :id => ( lightbox? ? 'lightbox_' : '' ) + 'user_password',
+                       :help => _('your password is personal, protect it.') %>
 
-<% button_bar do %>
-  <%= submit_button( 'login', _('Log in') )%>
-  <%= lightbox_close_button(_('Cancel')) if lightbox? %>
-<% end %>
-
+  <% button_bar do %>
+    <%= submit_button( 'login', _('Log in') )%>
+    <%= lightbox_close_button(_('Cancel')) if lightbox? %>
+  <% end %>
 <% end %>
 
 <p class="forgot-passwd" help="<%= _('You can recover your password clicking on this link.') %>">

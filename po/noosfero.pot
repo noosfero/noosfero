@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.11.4\n"
-"POT-Creation-Date: 2008-09-12 19:55-0300\n"
+"POT-Creation-Date: 2008-09-18 12:03-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -299,11 +299,11 @@ msgstr ""
 msgid "Move block down"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:158 app/helpers/boxes_helper.rb:160
+#: app/helpers/boxes_helper.rb:159 app/helpers/boxes_helper.rb:161
 msgid "Move to the opposite side"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:165 app/views/profile_members/index.rhtml:14
+#: app/helpers/boxes_helper.rb:166 app/views/profile_members/index.rhtml:14
 #: app/views/role/index.rhtml:6 app/views/cms/view.rhtml:66
 #: app/views/content_viewer/view_page.rhtml:35
 #: app/views/categories/_category.rhtml:8
@@ -312,20 +312,20 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:169
+#: app/helpers/boxes_helper.rb:170
 msgid "Remove block"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:173
+#: app/helpers/boxes_helper.rb:174
 msgid "Help on this block"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:173 app/helpers/application_helper.rb:63
+#: app/helpers/boxes_helper.rb:174 app/helpers/application_helper.rb:63
 #: app/views/layouts/application.rhtml:123 app/views/features/index.rhtml:7
 msgid "Help"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:173 app/helpers/application_helper.rb:83
+#: app/helpers/boxes_helper.rb:174 app/helpers/application_helper.rb:83
 #: app/views/shared/user_menu.rhtml:63 app/views/search/_search_form.rhtml:57
 #: app/views/box_organizer/add_block.rhtml:19
 msgid "Close"
@@ -476,7 +476,9 @@ msgstr ""
 #: app/views/admin_panel/site_info.rhtml:11
 #: app/views/shared/_select_categories.rhtml:22
 #: app/views/shared/_change_image.rhtml:2
-#: app/views/account/_login_form.rhtml:16 app/views/account/login.rhtml:22
+#: app/views/account/_login_form.rhtml:22
+#: app/views/account/activation_question.rhtml:34
+#: app/views/account/accept_terms.rhtml:12 app/views/account/login.rhtml:22
 #: app/views/cms/edit.rhtml:39 app/views/cms/edit.rhtml:41
 #: app/views/cms/edit.rhtml:43 app/views/cms/select_article_type.rhtml:12
 #: app/views/memberships/new_community.rhtml:31
@@ -486,19 +488,19 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: app/helpers/forms_helper.rb:63
+#: app/helpers/forms_helper.rb:64
 msgid "Select the State"
 msgstr ""
 
-#: app/helpers/forms_helper.rb:64
+#: app/helpers/forms_helper.rb:65
 msgid "Select the City"
 msgstr ""
 
-#: app/helpers/forms_helper.rb:87
+#: app/helpers/forms_helper.rb:88
 msgid "State:"
 msgstr ""
 
-#: app/helpers/forms_helper.rb:90
+#: app/helpers/forms_helper.rb:91
 msgid "City:"
 msgstr ""
 
@@ -774,7 +776,7 @@ msgid "Enable email"
 msgstr ""
 
 #: app/models/user.rb:-
-msgid "profile"
+msgid "article"
 msgstr ""
 
 #: app/models/user.rb:- app/models/comment.rb:- app/models/domain.rb:-
@@ -787,9 +789,107 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
+#: app/models/user.rb:- app/models/category.rb:-
+msgid "Slug"
+msgstr ""
+
+#: app/models/user.rb:- app/models/category.rb:-
+msgid "Path"
+msgstr ""
+
+#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
+#: app/models/category.rb:-
+msgid "Parent"
+msgstr ""
+
+#: app/models/user.rb:- app/models/comment.rb:-
+msgid "Body"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Abstract"
+msgstr ""
+
+#: app/models/user.rb:- app/models/consumption.rb:-
+#: app/models/profile_categorization.rb:-
+msgid "Profile"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Last changed by"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Version"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Lock version"
+msgstr ""
+
 #: app/models/user.rb:- app/models/task.rb:- app/models/block.rb:-
 #: app/models/category.rb:- app/views/cms/view.rhtml:25
 msgid "Type"
+msgstr ""
+
+#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
+msgid "Size"
+msgstr ""
+
+#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
+msgid "Content type"
+msgstr ""
+
+#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
+msgid "Filename"
+msgstr ""
+
+#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
+msgid "Height"
+msgstr ""
+
+#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
+msgid "Width"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Comments count"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Advertise"
+msgstr ""
+
+#: app/models/user.rb:- app/views/cms/edit.rhtml:30
+msgid "Published"
+msgstr ""
+
+#: app/models/user.rb:- app/views/cms/_event.rhtml:6
+msgid "Start date"
+msgstr ""
+
+#: app/models/user.rb:- app/models/task.rb:- app/views/cms/_event.rhtml:8
+msgid "End date"
+msgstr ""
+
+#: app/models/user.rb:- app/models/category.rb:-
+msgid "Children count"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Public article"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Accept comments"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Reference article"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "profile"
 msgstr ""
 
 #: app/models/user.rb:- app/models/create_enterprise.rb:3
@@ -860,104 +960,6 @@ msgstr ""
 
 #: app/models/user.rb:-
 msgid "Public profile"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "article"
-msgstr ""
-
-#: app/models/user.rb:- app/models/category.rb:-
-msgid "Slug"
-msgstr ""
-
-#: app/models/user.rb:- app/models/category.rb:-
-msgid "Path"
-msgstr ""
-
-#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
-#: app/models/category.rb:-
-msgid "Parent"
-msgstr ""
-
-#: app/models/user.rb:- app/models/comment.rb:-
-msgid "Body"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Abstract"
-msgstr ""
-
-#: app/models/user.rb:- app/models/consumption.rb:-
-#: app/models/profile_categorization.rb:-
-msgid "Profile"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Last changed by"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Version"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Lock version"
-msgstr ""
-
-#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
-msgid "Size"
-msgstr ""
-
-#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
-msgid "Content type"
-msgstr ""
-
-#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
-msgid "Filename"
-msgstr ""
-
-#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
-msgid "Height"
-msgstr ""
-
-#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
-msgid "Width"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Comments count"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Advertise"
-msgstr ""
-
-#: app/models/user.rb:- app/views/cms/edit.rhtml:30
-msgid "Published"
-msgstr ""
-
-#: app/models/user.rb:- app/views/cms/_event.rhtml:6
-msgid "Start date"
-msgstr ""
-
-#: app/models/user.rb:- app/models/task.rb:- app/views/cms/_event.rhtml:8
-msgid "End date"
-msgstr ""
-
-#: app/models/user.rb:- app/models/category.rb:-
-msgid "Children count"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Public article"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Accept comments"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Reference article"
 msgstr ""
 
 #: app/models/user.rb:7
@@ -1813,7 +1815,7 @@ msgstr ""
 msgid "Disable products for enterprises"
 msgstr ""
 
-#: app/models/environment.rb:244
+#: app/models/environment.rb:252
 msgid "Only one Virtual Community can be the default one"
 msgstr ""
 
@@ -2258,6 +2260,24 @@ msgid "Destroy"
 msgstr ""
 
 #: app/views/account/blocked.rhtml:2
+msgid "This enterprise can't be activated by the system"
+msgstr ""
+
+#: app/views/account/blocked.rhtml:3
+msgid "Unfortunately this enterprise can't be activated via the system."
+msgstr ""
+
+#: app/views/account/blocked.rhtml:6
+msgid ""
+"There was a failed atempt of activation and the automated acivation was "
+"disabled for your security."
+msgstr ""
+
+#: app/views/account/blocked.rhtml:8
+msgid "We don't have enough information about your enterprise to identify you."
+msgstr ""
+
+#: app/views/account/blocked.rhtml:13
 msgid "Your enterprise has been blocked"
 msgstr ""
 
@@ -2282,6 +2302,7 @@ msgid "Are you sure you want to get out?"
 msgstr ""
 
 #: app/views/account/logout_popup.rhtml:4
+#: app/views/account/activate_enterprise.rhtml:10
 #: app/views/profile_editor/edit.rhtml:32
 #: app/views/profile_editor/edit.rhtml:35
 #: app/views/profile_editor/edit.rhtml:38
@@ -2325,7 +2346,7 @@ msgid "your password is personal, protect it."
 msgstr ""
 
 #: app/views/account/login_block.rhtml:24
-#: app/views/account/_login_form.rhtml:15 app/views/account/login.rhtml:21
+#: app/views/account/_login_form.rhtml:21 app/views/account/login.rhtml:21
 msgid "Log in"
 msgstr ""
 
@@ -2333,15 +2354,15 @@ msgstr ""
 msgid "New user"
 msgstr ""
 
-#: app/views/account/login_block.rhtml:27 app/views/account/login.rhtml:31
+#: app/views/account/login_block.rhtml:27 app/views/account/login.rhtml:30
 msgid "Click here to join to this environment, if you is not already an user."
 msgstr ""
 
-#: app/views/account/login_block.rhtml:33 app/views/account/login.rhtml:27
+#: app/views/account/login_block.rhtml:33 app/views/account/login.rhtml:26
 msgid "You can recover your password clicking on this link."
 msgstr ""
 
-#: app/views/account/login_block.rhtml:34 app/views/account/login.rhtml:28
+#: app/views/account/login_block.rhtml:34 app/views/account/login.rhtml:27
 msgid "I forgot my password!"
 msgstr ""
 
@@ -2409,44 +2430,43 @@ msgid ""
 "changing your password. You should receive it in a few minutes."
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:1
-msgid "Register"
+#: app/views/account/signup.rhtml:1
+msgid "Signup"
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:5
+#: app/views/account/_signup_form.rhtml:3
 msgid ""
 "Fill all this fields to join in this environment.<p/>If you forgot your "
 "password, do not create a new account, click on the \"<b>I forgot my "
 "password!</b>\" link. ;-)"
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:11
+#: app/views/account/_signup_form.rhtml:9
 msgid "\"Username\" is a simple nickname to recognize you on this environment."
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:16
+#: app/views/account/_signup_form.rhtml:14
 msgid "We'll send you an e-mail to validate your registration."
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:20
+#: app/views/account/_signup_form.rhtml:18
 msgid "Do not use a obviously password, but try some unforgettable word."
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:24
+#: app/views/account/_signup_form.rhtml:22
 msgid "We need to be sure that you wrote correctly your password."
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:35
+#: app/views/account/_signup_form.rhtml:33
 msgid "I accept the terms of use"
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:40
+#: app/views/account/_signup_form.rhtml:45
 msgid "Sign up"
 msgstr ""
 
 #: app/views/account/_login_form.rhtml:3 app/views/account/login.rhtml:9
-msgid ""
-"To join on this environment, click on \"<b>I want to participate!</b>\"."
+msgid "To join on this environment, click on \"<b>I want to be an user!</b>\"."
 msgstr ""
 
 #: app/views/account/change_password.rhtml:1
@@ -2479,28 +2499,54 @@ msgstr ""
 msgid "You can <a href='%s'>login</a> now."
 msgstr ""
 
-#: app/views/account/activation_question.rhtml:3
+#: app/views/account/activation_question.rhtml:6
+msgid "The year must be between %d and %d"
+msgstr ""
+
+#: app/views/account/activation_question.rhtml:17
+msgid "An CNPJ have 14 digits"
+msgstr ""
+
+#: app/views/account/activation_question.rhtml:26
+#: app/views/account/accept_terms.rhtml:2
+msgid "Enterprise activation"
+msgstr ""
+
+#: app/views/account/activation_question.rhtml:26
+msgid "part 1 of 2"
+msgstr ""
+
+#: app/views/account/activation_question.rhtml:26
+msgid "part 1 of 3"
+msgstr ""
+
+#: app/views/account/activation_question.rhtml:29
 msgid "What year your enterprise was founded?"
 msgstr ""
 
-#: app/views/account/activation_question.rhtml:3
+#: app/views/account/activation_question.rhtml:29
 msgid "What is the CNPJ of your enterprise?"
 msgstr ""
 
-#: app/views/account/activation_question.rhtml:3
+#: app/views/account/activation_question.rhtml:29
 msgid "We need to be sure that this is your enterprise"
 msgstr ""
 
-#: app/views/account/activation_question.rhtml:8
-msgid "Answer"
+#: app/views/account/activation_question.rhtml:35
+#: app/views/account/accept_terms.rhtml:13
+msgid "Continue"
 msgstr ""
 
-#: app/views/account/accept_terms.rhtml:4
-msgid "I accept the terms"
+#: app/views/account/accept_terms.rhtml:2
+msgid "part 2 of 2"
 msgstr ""
 
-#: app/views/account/accept_terms.rhtml:5
-msgid "I do NOT accept the terms"
+#: app/views/account/accept_terms.rhtml:2
+msgid " part 2 of 3"
+msgstr ""
+
+#: app/views/account/accept_terms.rhtml:10
+msgid "I read the terms of use and accepted them"
 msgstr ""
 
 #: app/views/account/index_anonymous.rhtml:1
@@ -2526,20 +2572,48 @@ msgid ""
 "this environment."
 msgstr ""
 
-#: app/views/account/login.rhtml:32
+#: app/views/account/login.rhtml:31
 msgid "I want to participate!"
 msgstr ""
 
-#: app/views/account/activate_enterprise.rhtml:1
-msgid "What user should be the admin of the enterprise page"
+#: app/views/account/activate_enterprise.rhtml:2
+msgid "Enterprise activation - part 3 of 3"
 msgstr ""
 
 #: app/views/account/activate_enterprise.rhtml:6
-msgid "Already have user"
+msgid ""
+"Well, now for you manage your enterprise you have to associate an individual "
+"account to the enterprise."
 msgstr ""
 
 #: app/views/account/activate_enterprise.rhtml:7
-msgid "Create new user"
+msgid "Do you have a user account?"
+msgstr ""
+
+#: app/views/account/activate_enterprise.rhtml:11
+#: app/views/profile_editor/edit.rhtml:35
+#: app/views/profile_editor/edit.rhtml:41
+#: app/views/profile_editor/edit.rhtml:51
+#: app/views/profile_editor/edit.rhtml:57
+msgid "No"
+msgstr ""
+
+#: app/views/account/welcome.rhtml:2
+msgid "Welcome to %s"
+msgstr ""
+
+#: app/views/account/welcome.rhtml:4
+msgid ""
+"%s was successfuly activated. Now you may go to your control panel or to the "
+"control panel of your enterprise"
+msgstr ""
+
+#: app/views/account/welcome.rhtml:7
+msgid "Go to my control panel"
+msgstr ""
+
+#: app/views/account/welcome.rhtml:8
+msgid "Go to my enterprise control panel"
 msgstr ""
 
 #: app/views/account/already_activated.rhtml:1
@@ -3414,13 +3488,6 @@ msgstr ""
 
 #: app/views/profile_editor/edit.rhtml:35
 msgid "Show my website to all internet users"
-msgstr ""
-
-#: app/views/profile_editor/edit.rhtml:35
-#: app/views/profile_editor/edit.rhtml:41
-#: app/views/profile_editor/edit.rhtml:51
-#: app/views/profile_editor/edit.rhtml:57
-msgid "No"
 msgstr ""
 
 #: app/views/profile_editor/edit.rhtml:38

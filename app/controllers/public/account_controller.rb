@@ -22,9 +22,9 @@ class AccountController < ApplicationController
         cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
       end
       go_to_user_initial_page if redirect?
-      flash[:notice] = _("Logged in successfully")
+      flash[:notice] = _("Logged in successfully") if redirect?
     else
-      flash[:notice] = _('Incorrect username or password')
+      flash[:notice] = _('Incorrect username or password') if redirect?
       redirect_to :back if redirect?
     end
   end
@@ -144,6 +144,27 @@ class AccountController < ApplicationController
   def accept_terms
     @enterprise = load_enterprise
     @question = @enterprise.question
+
+    if @enterprise.enabled
+      render :action => 'already_activated'
+      return
+    end
+
+    @question = @enterprise.question
+    if !@question || @enterprise.blocked?
+      render :action => 'blocked'
+      return
+    end
+  end
+
+  def accept_terms
+    @enterprise = load_enterprise
+    @question = @enterprise.question
+    if !@question || @enterprise.blocked?
+      render :action => 'blocked'
+      return
+    end
+
     check_answer
     @terms_of_enterprise_use = environment.terms_of_enterprise_use
   end
@@ -159,7 +180,14 @@ class AccountController < ApplicationController
     if activation && user
       activation.requestor = user
       activation.finish
-      redirect_to :controller => 'profile_editor', :action => 'index', :profile => @enterprise.identifier
+      redirect_to :action => 'welcome', :enterprise => @enterprise.id
+    end
+  end
+
+  def welcome
+    @enterprise = Enterprise.find(params[:enterprise])
+    unless @enterprise.enabled? && logged_in?
+      redirect_to :action => 'index'
     end
   end
 

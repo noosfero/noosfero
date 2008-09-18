@@ -1,5 +1,3 @@
-<h1><%= _('Register') %></h1>
-
 <%= error_messages_for :user %>
 <% labelled_form_for :user, @user,
    :html => { :help=>_('Fill all this fields to join in this environment.' +
@@ -34,6 +32,13 @@
     <%= check_box 'user', 'terms_accepted' %> 
     <%= _('I accept the terms of use') %>
   </p>
+<% end %>
+
+<% if params[:enterprise_code] %>
+  <%= hidden_field_tag :enterprise_code, params[:enterprise_code] %>
+  <%= hidden_field_tag :answer, params[:answer] %>
+  <%= hidden_field_tag :terms_accepted, params[:terms_accepted] %>
+  <%= hidden_field_tag :new_user, true %>
 <% end %>
 
 <% button_bar do %>

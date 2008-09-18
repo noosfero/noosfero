@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.11.4\n"
-"POT-Creation-Date: 2008-09-12 19:55-0300\n"
+"POT-Creation-Date: 2008-09-18 12:03-0300\n"
 "PO-Revision-Date: 2008-06-13 16:15-0300\n"
 "Last-Translator: Raphael Rousseau <pootle.colivre.coop.br@r4f.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -314,11 +314,11 @@ msgstr ""
 msgid "Move block down"
 msgstr "Vers le bas"
 
-#: app/helpers/boxes_helper.rb:158 app/helpers/boxes_helper.rb:160
+#: app/helpers/boxes_helper.rb:159 app/helpers/boxes_helper.rb:161
 msgid "Move to the opposite side"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:165 app/views/profile_members/index.rhtml:14
+#: app/helpers/boxes_helper.rb:166 app/views/profile_members/index.rhtml:14
 #: app/views/role/index.rhtml:6 app/views/cms/view.rhtml:66
 #: app/views/content_viewer/view_page.rhtml:35
 #: app/views/categories/_category.rhtml:8
@@ -327,20 +327,20 @@ msgstr ""
 msgid "Edit"
 msgstr "Éditer"
 
-#: app/helpers/boxes_helper.rb:169
+#: app/helpers/boxes_helper.rb:170
 msgid "Remove block"
 msgstr "Effacer le bloc"
 
-#: app/helpers/boxes_helper.rb:173
+#: app/helpers/boxes_helper.rb:174
 msgid "Help on this block"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:173 app/helpers/application_helper.rb:63
+#: app/helpers/boxes_helper.rb:174 app/helpers/application_helper.rb:63
 #: app/views/layouts/application.rhtml:123 app/views/features/index.rhtml:7
 msgid "Help"
 msgstr "Aide"
 
-#: app/helpers/boxes_helper.rb:173 app/helpers/application_helper.rb:83
+#: app/helpers/boxes_helper.rb:174 app/helpers/application_helper.rb:83
 #: app/views/shared/user_menu.rhtml:63 app/views/search/_search_form.rhtml:57
 #: app/views/box_organizer/add_block.rhtml:19
 msgid "Close"
@@ -500,7 +500,9 @@ msgstr ""
 #: app/views/admin_panel/site_info.rhtml:11
 #: app/views/shared/_select_categories.rhtml:22
 #: app/views/shared/_change_image.rhtml:2
-#: app/views/account/_login_form.rhtml:16 app/views/account/login.rhtml:22
+#: app/views/account/_login_form.rhtml:22
+#: app/views/account/activation_question.rhtml:34
+#: app/views/account/accept_terms.rhtml:12 app/views/account/login.rhtml:22
 #: app/views/cms/edit.rhtml:39 app/views/cms/edit.rhtml:41
 #: app/views/cms/edit.rhtml:43 app/views/cms/select_article_type.rhtml:12
 #: app/views/memberships/new_community.rhtml:31
@@ -510,22 +512,22 @@ msgstr ""
 msgid "Cancel"
 msgstr "Annuler"
 
-#: app/helpers/forms_helper.rb:63
+#: app/helpers/forms_helper.rb:64
 #, fuzzy
 msgid "Select the State"
 msgstr "Choisissez une sous-catégorie :"
 
-#: app/helpers/forms_helper.rb:64
+#: app/helpers/forms_helper.rb:65
 #, fuzzy
 msgid "Select the City"
 msgstr "Choisissez une sous-catégorie :"
 
-#: app/helpers/forms_helper.rb:87
+#: app/helpers/forms_helper.rb:88
 #, fuzzy
 msgid "State:"
 msgstr "Statut"
 
-#: app/helpers/forms_helper.rb:90
+#: app/helpers/forms_helper.rb:91
 #, fuzzy
 msgid "City:"
 msgstr "Groupe"
@@ -828,8 +830,8 @@ msgid "Enable email"
 msgstr "Adresse e-mail"
 
 #: app/models/user.rb:-
-msgid "profile"
-msgstr "profil"
+msgid "article"
+msgstr "article"
 
 #: app/models/user.rb:- app/models/comment.rb:- app/models/domain.rb:-
 #: app/models/product.rb:- app/models/create_enterprise.rb:4
@@ -841,10 +843,126 @@ msgstr "profil"
 msgid "Name"
 msgstr "Nom"
 
+#: app/models/user.rb:- app/models/category.rb:-
+msgid "Slug"
+msgstr ""
+
+#: app/models/user.rb:- app/models/category.rb:-
+#, fuzzy
+msgid "Path"
+msgstr "Parent"
+
+#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
+#: app/models/category.rb:-
+#, fuzzy
+msgid "Parent"
+msgstr "Parent"
+
+#: app/models/user.rb:- app/models/comment.rb:-
+msgid "Body"
+msgstr ""
+
+#: app/models/user.rb:-
+#, fuzzy
+msgid "Abstract"
+msgstr "Résumé"
+
+#: app/models/user.rb:- app/models/consumption.rb:-
+#: app/models/profile_categorization.rb:-
+#, fuzzy
+msgid "Profile"
+msgstr "profil"
+
+#: app/models/user.rb:-
+#, fuzzy
+msgid "Last changed by"
+msgstr "Modifie en dernier par"
+
+#: app/models/user.rb:-
+#, fuzzy
+msgid "Version"
+msgstr "personne"
+
+#: app/models/user.rb:-
+#, fuzzy
+msgid "Lock version"
+msgstr "Verrouiller la version"
+
 #: app/models/user.rb:- app/models/task.rb:- app/models/block.rb:-
 #: app/models/category.rb:- app/views/cms/view.rhtml:25
 msgid "Type"
 msgstr "Type"
+
+#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
+msgid "Size"
+msgstr ""
+
+#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
+#, fuzzy
+msgid "Content type"
+msgstr "Type de contenu"
+
+#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
+#, fuzzy
+msgid "Filename"
+msgstr "Nom de fichier"
+
+#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
+#, fuzzy
+msgid "Height"
+msgstr "Hauteur"
+
+#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
+#, fuzzy
+msgid "Width"
+msgstr "Largeur"
+
+#: app/models/user.rb:-
+#, fuzzy
+msgid "Comments count"
+msgstr "Nombre de commentaires"
+
+#: app/models/user.rb:-
+#, fuzzy
+msgid "Advertise"
+msgstr "Mettre en valeur "
+
+#: app/models/user.rb:- app/views/cms/edit.rhtml:30
+msgid "Published"
+msgstr ""
+
+#: app/models/user.rb:- app/views/cms/_event.rhtml:6
+msgid "Start date"
+msgstr ""
+
+#: app/models/user.rb:- app/models/task.rb:- app/views/cms/_event.rhtml:8
+#, fuzzy
+msgid "End date"
+msgstr "Date de fin"
+
+#: app/models/user.rb:- app/models/category.rb:-
+#, fuzzy
+msgid "Children count"
+msgstr "Nombre de commentaires"
+
+#: app/models/user.rb:-
+#, fuzzy
+msgid "Public article"
+msgstr "Tous les articles"
+
+#: app/models/user.rb:-
+#, fuzzy
+msgid "Accept comments"
+msgstr "Commentaires récents"
+
+#: app/models/user.rb:-
+#, fuzzy
+msgid "Reference article"
+msgstr "Articles récents"
+
+#: app/models/user.rb:-
+msgid "profile"
+msgstr "profil"
 
 #: app/models/user.rb:- app/models/create_enterprise.rb:3
 #: app/views/enterprise_validation/_details.rhtml:23
@@ -924,122 +1042,6 @@ msgstr ""
 #, fuzzy
 msgid "Public profile"
 msgstr "Éditer le profil"
-
-#: app/models/user.rb:-
-msgid "article"
-msgstr "article"
-
-#: app/models/user.rb:- app/models/category.rb:-
-msgid "Slug"
-msgstr ""
-
-#: app/models/user.rb:- app/models/category.rb:-
-#, fuzzy
-msgid "Path"
-msgstr "Parent"
-
-#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
-#: app/models/category.rb:-
-#, fuzzy
-msgid "Parent"
-msgstr "Parent"
-
-#: app/models/user.rb:- app/models/comment.rb:-
-msgid "Body"
-msgstr ""
-
-#: app/models/user.rb:-
-#, fuzzy
-msgid "Abstract"
-msgstr "Résumé"
-
-#: app/models/user.rb:- app/models/consumption.rb:-
-#: app/models/profile_categorization.rb:-
-#, fuzzy
-msgid "Profile"
-msgstr "profil"
-
-#: app/models/user.rb:-
-#, fuzzy
-msgid "Last changed by"
-msgstr "Modifie en dernier par"
-
-#: app/models/user.rb:-
-#, fuzzy
-msgid "Version"
-msgstr "personne"
-
-#: app/models/user.rb:-
-#, fuzzy
-msgid "Lock version"
-msgstr "Verrouiller la version"
-
-#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
-msgid "Size"
-msgstr ""
-
-#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
-#, fuzzy
-msgid "Content type"
-msgstr "Type de contenu"
-
-#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
-#, fuzzy
-msgid "Filename"
-msgstr "Nom de fichier"
-
-#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
-#, fuzzy
-msgid "Height"
-msgstr "Hauteur"
-
-#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
-#, fuzzy
-msgid "Width"
-msgstr "Largeur"
-
-#: app/models/user.rb:-
-#, fuzzy
-msgid "Comments count"
-msgstr "Nombre de commentaires"
-
-#: app/models/user.rb:-
-#, fuzzy
-msgid "Advertise"
-msgstr "Mettre en valeur "
-
-#: app/models/user.rb:- app/views/cms/edit.rhtml:30
-msgid "Published"
-msgstr ""
-
-#: app/models/user.rb:- app/views/cms/_event.rhtml:6
-msgid "Start date"
-msgstr ""
-
-#: app/models/user.rb:- app/models/task.rb:- app/views/cms/_event.rhtml:8
-#, fuzzy
-msgid "End date"
-msgstr "Date de fin"
-
-#: app/models/user.rb:- app/models/category.rb:-
-#, fuzzy
-msgid "Children count"
-msgstr "Nombre de commentaires"
-
-#: app/models/user.rb:-
-#, fuzzy
-msgid "Public article"
-msgstr "Tous les articles"
-
-#: app/models/user.rb:-
-#, fuzzy
-msgid "Accept comments"
-msgstr "Commentaires récents"
-
-#: app/models/user.rb:-
-#, fuzzy
-msgid "Reference article"
-msgstr "Articles récents"
 
 #: app/models/user.rb:7
 msgid "Password"
@@ -2001,7 +2003,7 @@ msgstr "Rechercher :"
 msgid "Disable products for enterprises"
 msgstr "Détruire l'entreprise"
 
-#: app/models/environment.rb:244
+#: app/models/environment.rb:252
 msgid "Only one Virtual Community can be the default one"
 msgstr "Seule une CoVi peut être celle par défaut"
 
@@ -2474,6 +2476,26 @@ msgid "Destroy"
 msgstr "Détruire"
 
 #: app/views/account/blocked.rhtml:2
+#, fuzzy
+msgid "This enterprise can't be activated by the system"
+msgstr "Validations d'entreprises en attente"
+
+#: app/views/account/blocked.rhtml:3
+msgid "Unfortunately this enterprise can't be activated via the system."
+msgstr ""
+
+#: app/views/account/blocked.rhtml:6
+msgid ""
+"There was a failed atempt of activation and the automated acivation was "
+"disabled for your security."
+msgstr ""
+
+#: app/views/account/blocked.rhtml:8
+#, fuzzy
+msgid "We don't have enough information about your enterprise to identify you."
+msgstr "Modifier les informations concernant l'entreprise"
+
+#: app/views/account/blocked.rhtml:13
 msgid "Your enterprise has been blocked"
 msgstr ""
 
@@ -2503,6 +2525,7 @@ msgid "Are you sure you want to get out?"
 msgstr "Êtes-vous sûr(e) de vouloir sortir ?"
 
 #: app/views/account/logout_popup.rhtml:4
+#: app/views/account/activate_enterprise.rhtml:10
 #: app/views/profile_editor/edit.rhtml:32
 #: app/views/profile_editor/edit.rhtml:35
 #: app/views/profile_editor/edit.rhtml:38
@@ -2551,7 +2574,7 @@ msgid "your password is personal, protect it."
 msgstr "votre mot de passe est personnel, protégez-le."
 
 #: app/views/account/login_block.rhtml:24
-#: app/views/account/_login_form.rhtml:15 app/views/account/login.rhtml:21
+#: app/views/account/_login_form.rhtml:21 app/views/account/login.rhtml:21
 msgid "Log in"
 msgstr "Se connecter"
 
@@ -2559,17 +2582,17 @@ msgstr "Se connecter"
 msgid "New user"
 msgstr "Nouvel utilisateur"
 
-#: app/views/account/login_block.rhtml:27 app/views/account/login.rhtml:31
+#: app/views/account/login_block.rhtml:27 app/views/account/login.rhtml:30
 msgid "Click here to join to this environment, if you is not already an user."
 msgstr ""
 "Cliquez ici pour rejoindre cette communauté, si vous n'en êtes pas déjà "
 "membre."
 
-#: app/views/account/login_block.rhtml:33 app/views/account/login.rhtml:27
+#: app/views/account/login_block.rhtml:33 app/views/account/login.rhtml:26
 msgid "You can recover your password clicking on this link."
 msgstr "Vous pouvez retrouver votre mot de passe en cliquant sur ce lien."
 
-#: app/views/account/login_block.rhtml:34 app/views/account/login.rhtml:28
+#: app/views/account/login_block.rhtml:34 app/views/account/login.rhtml:27
 msgid "I forgot my password!"
 msgstr "J'ai oublié mon mot de passe !"
 
@@ -2643,11 +2666,13 @@ msgstr ""
 "les instructions sur comment modifier votre mot de passe. Vous devriez le "
 "recevoir dans quelques instants."
 
-#: app/views/account/_signup_form.rhtml:1
-msgid "Register"
+# Je ne suis pas sûr de la distinction "sign up" / "register"
+#: app/views/account/signup.rhtml:1
+#, fuzzy
+msgid "Signup"
 msgstr "S'enregistrer"
 
-#: app/views/account/_signup_form.rhtml:5
+#: app/views/account/_signup_form.rhtml:3
 msgid ""
 "Fill all this fields to join in this environment.<p/>If you forgot your "
 "password, do not create a new account, click on the \"<b>I forgot my "
@@ -2657,35 +2682,35 @@ msgstr ""
 "oublié votre mot de passe, ne créez pas un nouveau compte, cliquez sur le "
 "lien «<b>J'ai oublié mon mot de passe</b>»."
 
-#: app/views/account/_signup_form.rhtml:11
+#: app/views/account/_signup_form.rhtml:9
 msgid "\"Username\" is a simple nickname to recognize you on this environment."
 msgstr ""
 "«Identifiant» est un simple surnom pour vous reconnaître dans cette "
 "communauté."
 
-#: app/views/account/_signup_form.rhtml:16
+#: app/views/account/_signup_form.rhtml:14
 msgid "We'll send you an e-mail to validate your registration."
 msgstr ""
 "Nous vous enverrons un courrier électronique pour valider votre "
 "enregistrement."
 
-#: app/views/account/_signup_form.rhtml:20
+#: app/views/account/_signup_form.rhtml:18
 msgid "Do not use a obviously password, but try some unforgettable word."
 msgstr ""
 "Ne choisissez pas un mot de passe évident, mais essayez de trouver quelque "
 "chose que vous n'oublierez pas."
 
-#: app/views/account/_signup_form.rhtml:24
+#: app/views/account/_signup_form.rhtml:22
 msgid "We need to be sure that you wrote correctly your password."
 msgstr ""
 "Nous devons nous assurer que vous avez écrit correctement votre mot de passe."
 
-#: app/views/account/_signup_form.rhtml:35
+#: app/views/account/_signup_form.rhtml:33
 msgid "I accept the terms of use"
 msgstr "J'accepte les conditions d'utilisation"
 
 # Je ne suis pas sûr de la distinction "sign up" / "register"
-#: app/views/account/_signup_form.rhtml:40
+#: app/views/account/_signup_form.rhtml:45
 #, fuzzy
 msgid "Sign up"
 msgstr "S'enregistrer"
@@ -2695,8 +2720,7 @@ msgstr "S'enregistrer"
 #
 #: app/views/account/_login_form.rhtml:3 app/views/account/login.rhtml:9
 #, fuzzy
-msgid ""
-"To join on this environment, click on \"<b>I want to participate!</b>\"."
+msgid "To join on this environment, click on \"<b>I want to be an user!</b>\"."
 msgstr ""
 "Pour rejoindre cette communauté, cliquez sur  \"<b>Je rejoins cette "
 "communauté !</b>\"."
@@ -2731,33 +2755,59 @@ msgstr "%s, votre nouveau mot de passe a bien été installé."
 msgid "You can <a href='%s'>login</a> now."
 msgstr "Maintenant, vous pouvez vous <a href='%s'>commecter</a>."
 
-#: app/views/account/activation_question.rhtml:3
+#: app/views/account/activation_question.rhtml:6
+msgid "The year must be between %d and %d"
+msgstr ""
+
+#: app/views/account/activation_question.rhtml:17
+msgid "An CNPJ have 14 digits"
+msgstr ""
+
+#: app/views/account/activation_question.rhtml:26
+#: app/views/account/accept_terms.rhtml:2
+#, fuzzy
+msgid "Enterprise activation"
+msgstr "Validation d'entreprises"
+
+#: app/views/account/activation_question.rhtml:26
+msgid "part 1 of 2"
+msgstr ""
+
+#: app/views/account/activation_question.rhtml:26
+msgid "part 1 of 3"
+msgstr ""
+
+#: app/views/account/activation_question.rhtml:29
 msgid "What year your enterprise was founded?"
 msgstr ""
 
-#: app/views/account/activation_question.rhtml:3
+#: app/views/account/activation_question.rhtml:29
 msgid "What is the CNPJ of your enterprise?"
 msgstr ""
 
-#: app/views/account/activation_question.rhtml:3
+#: app/views/account/activation_question.rhtml:29
 #, fuzzy
 msgid "We need to be sure that this is your enterprise"
 msgstr ""
 "Nous devons nous assurer que vous avez écrit correctement votre mot de passe."
 
-#: app/views/account/activation_question.rhtml:8
+#: app/views/account/activation_question.rhtml:35
+#: app/views/account/accept_terms.rhtml:13
 #, fuzzy
-msgid "Answer"
-msgstr "utilisateur"
+msgid "Continue"
+msgstr "Groupes"
 
-#: app/views/account/accept_terms.rhtml:4
-#, fuzzy
-msgid "I accept the terms"
-msgstr "J'accepte les conditions d'utilisation"
+#: app/views/account/accept_terms.rhtml:2
+msgid "part 2 of 2"
+msgstr ""
 
-#: app/views/account/accept_terms.rhtml:5
+#: app/views/account/accept_terms.rhtml:2
+msgid " part 2 of 3"
+msgstr ""
+
+#: app/views/account/accept_terms.rhtml:10
 #, fuzzy
-msgid "I do NOT accept the terms"
+msgid "I read the terms of use and accepted them"
 msgstr "J'accepte les conditions d'utilisation"
 
 #: app/views/account/index_anonymous.rhtml:1
@@ -2787,23 +2837,53 @@ msgstr ""
 "Si vous ne n'avez pas déjà fait, vous pouvez vous enregistrer dès à présent "
 "pour devenir membre de cette communauté."
 
-#: app/views/account/login.rhtml:32
+#: app/views/account/login.rhtml:31
 #, fuzzy
 msgid "I want to participate!"
 msgstr "Je rejoins cette communauté !"
 
-#: app/views/account/activate_enterprise.rhtml:1
-msgid "What user should be the admin of the enterprise page"
-msgstr ""
+#: app/views/account/activate_enterprise.rhtml:2
+#, fuzzy
+msgid "Enterprise activation - part 3 of 3"
+msgstr "Validation d'entreprises"
 
 #: app/views/account/activate_enterprise.rhtml:6
-msgid "Already have user"
+msgid ""
+"Well, now for you manage your enterprise you have to associate an individual "
+"account to the enterprise."
 msgstr ""
 
 #: app/views/account/activate_enterprise.rhtml:7
+msgid "Do you have a user account?"
+msgstr ""
+
+#: app/views/account/activate_enterprise.rhtml:11
+#: app/views/profile_editor/edit.rhtml:35
+#: app/views/profile_editor/edit.rhtml:41
+#: app/views/profile_editor/edit.rhtml:51
+#: app/views/profile_editor/edit.rhtml:57
+msgid "No"
+msgstr "Non"
+
+#: app/views/account/welcome.rhtml:2
+msgid "Welcome to %s"
+msgstr ""
+
+#: app/views/account/welcome.rhtml:4
+msgid ""
+"%s was successfuly activated. Now you may go to your control panel or to the "
+"control panel of your enterprise"
+msgstr ""
+
+#: app/views/account/welcome.rhtml:7
 #, fuzzy
-msgid "Create new user"
-msgstr "Créer un nouveau groupe"
+msgid "Go to my control panel"
+msgstr "Retour au panneau de contrôle"
+
+#: app/views/account/welcome.rhtml:8
+#, fuzzy
+msgid "Go to my enterprise control panel"
+msgstr "Retourner au panneau de contrôle."
 
 #: app/views/account/already_activated.rhtml:1
 #, fuzzy
@@ -3770,13 +3850,6 @@ msgstr ""
 #: app/views/profile_editor/edit.rhtml:35
 msgid "Show my website to all internet users"
 msgstr ""
-
-#: app/views/profile_editor/edit.rhtml:35
-#: app/views/profile_editor/edit.rhtml:41
-#: app/views/profile_editor/edit.rhtml:51
-#: app/views/profile_editor/edit.rhtml:57
-msgid "No"
-msgstr "Non"
 
 #: app/views/profile_editor/edit.rhtml:38
 msgid "Show my website to my contacts (persons)"
@@ -5002,6 +5075,25 @@ msgstr "Développé par Colivre"
 #: public/designs/themes/zen3/footer.rhtml:2
 msgid "A Ynternet.org project"
 msgstr ""
+
+#~ msgid "Register"
+#~ msgstr "S'enregistrer"
+
+#, fuzzy
+#~ msgid "Answer"
+#~ msgstr "utilisateur"
+
+#, fuzzy
+#~ msgid "I accept the terms"
+#~ msgstr "J'accepte les conditions d'utilisation"
+
+#, fuzzy
+#~ msgid "I do NOT accept the terms"
+#~ msgstr "J'accepte les conditions d'utilisation"
+
+#, fuzzy
+#~ msgid "Create new user"
+#~ msgstr "Créer un nouveau groupe"
 
 #~ msgid "User|Password"
 #~ msgstr "Mot de passe"
