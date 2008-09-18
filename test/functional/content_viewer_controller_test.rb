@@ -273,6 +273,14 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'div', :attributes => { :id => 'article-tags' }, :descendant => { :content => /This article's tags:/ }
   end
 
+  should "not display current article's tags" do
+    page = profile.articles.create!(:name => 'myarticle', :body => 'test article')
+
+    get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ]
+    assert_no_tag :tag => 'div', :attributes => { :id => 'article-tags' }
+    assert_no_tag :tag => 'div', :attributes => { :id => 'article-tags' }, :descendant => { :content => /This article's tags:/ }
+  end
+
   should 'not display forbidden articles' do
     profile.articles.create!(:name => 'test')
     profile.update_attributes!(:public_content => false)
