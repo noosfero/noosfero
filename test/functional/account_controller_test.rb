@@ -486,6 +486,20 @@ class AccountControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'enterprise_code', :value => '0123456789'}
   end
 
+  should 'block who is blocked but directly arrive in the second step' do
+    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :foundation_year => 1998, :enabled => false)
+    ent.block
+    ent.save
+
+    task = mock
+    task.expects(:enterprise).returns(ent).at_least_once
+    EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
+
+    get :accept_terms, :enterprise_code => '0123456789', :answer => 1998
+
+    assert_template 'blocked'
+  end
+
 # end of enterprise activation tests
 
   should 'not be able to signup while inverse captcha field filled' do

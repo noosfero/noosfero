@@ -1,16 +1,21 @@
-<h1><%= _('What user should be the admin of the enterprise page') %></h1>
+<div class='activation-box'>
+<h2><%= _('Enterprise activation - part 3 of 3') %></h2>
 
 <%= error_messages_for :user %>
 
+<p><%= _('Well, now for you manage your enterprise you have to associate an individual account to the enterprise.') %></p>
+<p><%= _('Do you have a user account?') %></p>
+
 <div id="enterprise-activation-create-user-or-login-button">
-  <%= link_to_function _('Already have user') %>
-  <%= link_to_function _('Create new user') %>
+  <%= button_to_function 'login', _('Yes'), "$('enterprise-activation-create-user-form').hide(); $('enterprise-activation-login-form').show()" %> 
+  <%= button_to_function 'add', _('No'),  "$('enterprise-activation-login-form').hide(); $('enterprise-activation-create-user-form').show()" %>
 </div>
 
-<div id="enterprise-activation-create-user-form">
+<div id="enterprise-activation-create-user-form" style="display: none">
   <%= render :partial => 'signup_form' %>
 </div>
 
-<div id="enterprise-activation-login-form">
+<div id="enterprise-activation-login-form" style="display: none">
   <%= render :partial => 'login_form' %>
+</div>
 </div>

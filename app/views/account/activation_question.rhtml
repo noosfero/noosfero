@@ -1,10 +1,38 @@
-<% form_tag :action => 'accept_terms' do %>
+<script language="JavaScript1.2">
+  function check_valid_year(form) {
+    var answer = parseInt(form.answer.value);
+    var val = form.answer.value;
+    if (!answer || (val.length != 4) || val > <%= Time.now.year %> || val < 1900) {
+      alert(<%= (_('The year must be between %d and %d') % [1900, Time.now.year]).inspect %>);
+      return false;
+    } else {
+      return true;
+    }
+  }
 
-  <%= ApplicationHelper::NoosferoFormBuilder::output_field(@question == :foundation_year ? _('What year your enterprise was founded?') : _('What is the CNPJ of your enterprise?'), text_field_tag(:answer, nil,:help => help=_('We need to be sure that this is your enterprise'))) %>
+  function check_valid_cnpj(form) {
+    var answer = parseInt(form.answer.value);
+    var val = form.answer.value;
+    if (!answer || (val.length != 14)) {
+      alert(<%= _('An CNPJ have 14 digits').inspect %>);
+      return false;
+    } else {
+      return true;
+    }
+  }
+</script>
 
-  <%= hidden_field_tag :enterprise_code, params[:enterprise_code] %>
+<div class='activation-box'>
+  <h2><%= _('Enterprise activation') + ' - ' + (logged_in? ? _('part 1 of 2') : _('part 1 of 3')) %></h2>
+  <% form_tag( {:action => 'accept_terms'}, {:method => 'get', :onsubmit => (@question == :foundation_year ? 'return check_valid_year(this)' : 'return check_valid_cnpj(this)')}) do %> 
 
-  <% button_bar do %>
-    <%= submit_button('answer', _('Answer'), :cancel => {:action => 'index'} ) %>
+    <%= ApplicationHelper::NoosferoFormBuilder::output_field(@question == :foundation_year ? _('What year your enterprise was founded?') : _('What is the CNPJ of your enterprise?'), text_field_tag(:answer, nil, :id => 'enterprise-activation-answer', :help => help=_('We need to be sure that this is your enterprise'))) %>
+
+    <%= hidden_field_tag :enterprise_code, params[:enterprise_code] %>
+
+    <% button_bar do %>
+      <%= button 'cancel', _('Cancel'), :action => 'index' %>
+      <%= submit_button 'forward', _('Continue') %>
+    <% end %>
   <% end %>
-<% end %>
+</div>

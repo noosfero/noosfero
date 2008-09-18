@@ -182,4 +182,8 @@ class RoutingTest < ActionController::IntegrationTest
     assert_routing('/', :controller => 'home', :action =>  'index')
   end
 
+  def test_myprofile_with_dot
+    assert_routing('/myprofile/profile.withdot', :controller => 'profile_editor', :action => 'index', :profile => 'profile.withdot')
+  end
+
 end

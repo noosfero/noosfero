@@ -19,8 +19,8 @@ class EnvironmentStatisticsBlock < Block
 
     info = [
       n_('One user', '%{num} users', users) % { :num => users },
-      n__('One enterprise', '%{num} enterprises', enterprises) % { :num => enterprises },
-      n__('One community', '%{num} communities', communities) % { :num => communities },
+      n_('One enterprise', '%{num} enterprises', enterprises) % { :num => enterprises },
+      n_('One community', '%{num} communities', communities) % { :num => communities },
     ]
 
     block_title(title) + content_tag('ul', info.map {|item| content_tag('li', item) }.join("\n"))
