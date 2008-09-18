@@ -1,2 +1,0 @@
-
-assetsMenu.autoOpen = false
