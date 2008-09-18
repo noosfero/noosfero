@@ -228,6 +228,7 @@ table {
 }
 th, td {
   font-size: 14px;
+  padding: 2px 10px;
 }
 th {
   font-weight: bold;

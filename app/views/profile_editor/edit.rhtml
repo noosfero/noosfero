@@ -1,33 +1,36 @@
-<h1><%= _('Edit profile') %></h1>
+<h1><%= _('Profile settings') %></h1>
 
 <%= error_messages_for :profile %>
 
 <% labelled_form_for :profile_data, @profile, :html => { :multipart => true } do |f| %>
+
   <%= render :partial => partial_for_class(@profile.class), :locals => { :f => f } %>
 
   <div id="profile_change_picture">
-    <h1><%= _('Change picture') %></h1>
+    <h2><%= _('Change picture') %></h2>
     <% f.fields_for :image_builder, @profile.image do |i| %>
       <%= file_field_or_thumbnail(_('Image:'), @profile.image, i) %>
     <% end %>
   </div>
 
-  <h1><%= _('Privacy options') %></h1>
+  <h2><%= _('Privacy options') %></h2>
   <p>
     <%= _('This profile is:') %>
-    <div>
-      <%= radio_button 'profile_data', 'public_profile', 'true' %>
-      <%= _('Public') %>
-    </div>
-    <div>
-      <%= radio_button 'profile_data', 'public_profile', 'false' %>
-      <%= _('Private') %>
-    </div>
   </p>
 
   <% if profile.kind_of?(Person) %>
   <table>
-    <tr><th></th><th><%= _('Public') %></th><th><%= _('Private')  %></th></tr>
+    <tr>
+      <th></th>
+      <th>
+        <%= radio_button 'profile_data', 'public_profile', 'true' %>
+        <label for="profile_data_public_profile_true"><u><%= _('Public') %></u></a>
+      </th>
+      <th style='padding: 2px 10px 2px 2px;'>
+        <%= radio_button 'profile_data', 'public_profile', 'false' %>
+        <label for="profile_data_public_profile_false"><u><%= _('Private') %></u></a>
+      </th>
+    </tr>
     <tr>
       <td> <%= _('Activate Intranet access (restricted area only for me)') %> </td><td><%= _('Yes') %></td><td><%= _('Yes') %></td>
     </tr>
@@ -59,7 +62,7 @@
   </table>
   <% end %>
 
-  <%= select_categories(:profile_data, _('Select the categories of your interest'), 1) %>
+  <%= select_categories(:profile_data, _('Select the categories of your interest'), 2) %>
 
   <% button_bar do %>
     <%= submit_button('save', _('Save'), :cancel => {:action => 'index'}) %>

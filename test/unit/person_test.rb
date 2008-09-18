@@ -68,7 +68,7 @@ class PersonTest < Test::Unit::TestCase
 
   should "have person info fields" do
     p = Person.new
-    [ :name, :photo, :contact_information, :birth_date, :sex, :address, :city, :state, :country ].each do |i|
+    [ :name, :photo, :contact_information, :birth_date, :sex, :address, :city, :state, :country, :zip_code ].each do |i|
       assert_respond_to p, i
     end
   end

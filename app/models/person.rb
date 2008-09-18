@@ -27,7 +27,7 @@ class Person < Profile
   end
 
   N_('Contact information'); N_('Birth date'); N_('City'); N_('State'); N_('Country'); N_('Sex');
-  settings_items :photo, :contact_information, :birth_date, :sex, :city, :state, :country
+  settings_items :photo, :contact_information, :birth_date, :sex, :city, :state, :country, :zip_code
 
   def self.conditions_for_profiles(conditions, person)
     new_conditions = sanitize_sql(['role_assignments.accessor_id = ?', person])

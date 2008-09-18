@@ -8,7 +8,7 @@
 
 <% file_manager do %>
 
-  <%= file_manager_button(_('Edit Profile'), 'icons-app/edit-profile.png', :controller => 'profile_editor', :action => 'edit') %>
+  <%= file_manager_button(_('Profile settings'), 'icons-app/edit-profile.png', :controller => 'profile_editor', :action => 'edit') %>
 
   <%= file_manager_button(_('Mail settings'), 'icons-app/mail.png', :controller => 'mailconf') if profile.person? && MailConf.enabled? %>
 
