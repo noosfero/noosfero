@@ -143,19 +143,33 @@ class ProfileControllerTest < Test::Unit::TestCase
   should 'show a link to own control panel' do
     login_as(@profile.identifier)
     get :index, :profile => @profile.identifier
-    assert_tag :tag => 'ul', :attributes => { :class => 'profile-info-data' }, :descendant => { :tag => 'a', :content => 'Control panel' }
+    assert_tag :tag => 'a', :content => 'Control panel'
+  end
+
+  should 'show a link to own control panel in my-network-block if is a group' do
+    login_as(@profile.identifier)
+    community = Community.create!(:name => 'my test community')
+    community.blocks.each{|i| i.destroy}
+    community.boxes[0].blocks << MyNetworkBlock.new
+    community.add_admin(@profile)
+    get :index, :profile => community.identifier
+    assert_tag :tag => 'a', :content => 'Control panel'
   end
 
   should 'not show a link to others control panel' do
     login_as(@profile.identifier)
     other = create_user('person_1').person
+    other.blocks.each{|i| i.destroy}
+    other.boxes[0].blocks << ProfileInfoBlock.new
     get :index, :profile => other.identifier
     assert_no_tag :tag => 'ul', :attributes => { :class => 'profile-info-data' }, :descendant => { :tag => 'a', :content => 'Control panel' }
   end
 
-  should 'show a link to control panel if user has profile_editor permission' do
+  should 'show a link to control panel if user has profile_editor permission and is a group' do
     login_as(@profile.identifier)
-    get :index, :profile => @profile.identifier
+    community = Community.create!(:name => 'my test community')
+    community.add_admin(@profile)
+    get :index, :profile => community.identifier
     assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{@profile.identifier}" }, :content => 'Control panel'
   end
 
@@ -251,8 +265,9 @@ class ProfileControllerTest < Test::Unit::TestCase
   end
 
   should 'display "Site map" link for profiles' do
-    get :index, :profile => 'ze'
-    assert_tag :tag => 'a', :content => "Site map", :attributes => { :href => '/profile/ze/sitemap' }
+    profile = create_user('testmapuser').person
+    get :index, :profile => profile.identifier
+    assert_tag :tag => 'a', :content => "Site map", :attributes => { :href => '/profile/testmapuser/sitemap' }
   end
 
   should 'list top level articles in sitemap' do

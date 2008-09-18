@@ -22,3 +22,16 @@
   color: #600;
 }
 
+
+.my-network-block .my-network-actions ul {
+  text-align: center;
+}
+
+.my-network-actions ul {
+  padding: 0;
+  padding-bottom: 10px;
+}
+
+.my-network-actions li {
+  list-style: none;
+}

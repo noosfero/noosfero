@@ -5,7 +5,7 @@ class ProfileDesignController < BoxOrganizerController
   protect 'edit_profile_design', :profile
   
   def available_blocks
-    blocks = [ ArticleBlock, TagsBlock, RecentDocumentsBlock, ProfileInfoBlock, LinkListBlock ]
+    blocks = [ ArticleBlock, TagsBlock, RecentDocumentsBlock, ProfileInfoBlock, LinkListBlock, MyNetworkBlock ]
 
     # blocks exclusive for organizations
     if profile.has_members?
@@ -16,7 +16,6 @@ class ProfileDesignController < BoxOrganizerController
     if profile.person?
       blocks << FriendsBlock
       blocks << FavoriteEnterprisesBlock
-      blocks << MyNetworkBlock
     end
 
     # product block exclusive for enterprises in environments that permits it

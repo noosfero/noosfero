@@ -19,62 +19,12 @@ class MyNetworkBlockTest < ActiveSupport::TestCase
     assert_not_equal Block.new.default_title, MyNetworkBlock.new.default_title
   end
 
-  should 'count articles' do
-    mock_articles = mock
-    owner.stubs(:articles).returns(mock_articles)
-    owner.stubs(:tags).returns({}) # don't let tags call articles
-    mock_articles.stubs(:count).returns(5)
-
-    assert_tag_in_string block.content, :tag => 'li', :descendant => {
-      :tag => 'a',
-      :descendant => { :tag => 'b', :content => '5' },
-      :content => ' articles published',
-      :attributes => { :href => /\/profile\/testuser\/sitemap$/ }
-    }
-  end
-
-  should 'count friends' do
-    mock_friends = mock
-    owner.stubs(:friends).returns(mock_friends)
-    mock_friends.stubs(:count).returns(8)
-
-    assert_tag_in_string block.content, :tag => 'li', :descendant => {
-      :tag => 'a',
-      :descendant => { :tag => 'b', :content => '8' },
-      :content => ' friends',
-      :attributes => { :href => /\profile\/testuser\/friends/ }
-    }
-  end
-
-  should 'count communities' do
-    mock_communities = mock
-    owner.stubs(:communities).returns(mock_communities)
-    mock_communities.stubs(:size).returns(23)
-
-    assert_tag_in_string block.content, :tag => 'li', :descendant => {
-      :tag => 'a',
-      :descendant => { :tag => 'b', :content => '23' },
-      :content => ' communities',
-      :attributes => { :href => /\profile\/testuser\/communities/ }
-    }
-  end
-
-  should 'count tags' do
-    mock_tags = mock
-    owner.stubs(:tags).returns(mock_tags)
-    mock_tags.stubs(:size).returns(436)
-
-    assert_tag_in_string block.content, :tag => 'li', :descendant => {
-      :tag => 'a',
-      :descendant => { :tag => 'b', :content => '436' },
-      :content => ' tags',
-      :attributes => { :href => /\profile\/testuser\/tags/ }
-    }
-  end
-
-  should 'display its title' do
-    block.stubs(:title).returns('My Network')
-    assert_tag_in_string block.content, :content => 'My Network'
+  should 'display my-profile' do
+    self.expects(:render).with(:file => 'blocks/my_network', :locals => {
+        :title => 'My network',
+        :owner => owner
+    })
+    instance_eval(& block.content)
   end
 
 end

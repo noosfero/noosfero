@@ -1,0 +1,8 @@
+<ul>
+  <li><%= link_to(n_( 'One article published', '%s articles published', owner.articles.count) %
+  content_tag('b', owner.articles.count), owner.public_profile_url.merge(:action => 'sitemap') ) %></li>
+  <li><%= link_to(n_( 'One member', '%s members', owner.members.count) %
+  content_tag('b', owner.members.count), owner.public_profile_url.merge(:action => 'members') ) %></li>
+  <li><%= link_to(n_('One tag', '%s tags', owner.tags.size) %
+  content_tag('b', owner.tags.size), owner.public_profile_url.merge(:action => 'tags')) %></li>
+</ul>
