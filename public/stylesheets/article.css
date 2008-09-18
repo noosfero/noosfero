@@ -29,6 +29,24 @@
 
 /* * *  Comments  * * */
 
+.comments {  }
+
+#content .no-comments-yet {
+  text-align: center;
+  font-size: 80%;
+  opacity: 0.5;
+	filter: alpha(opacity=50);
+}
+
+.do-not-comment {
+  display: block;
+  text-align: right;
+  padding-top: 15px;
+  font-size: 80%;
+  opacity: 0.5;
+	filter: alpha(opacity=50);
+}
+
 .article-comment {
   position: relative;
   border: 1px solid #B8CFE7;
