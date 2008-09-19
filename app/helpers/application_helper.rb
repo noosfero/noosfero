@@ -460,6 +460,7 @@ module ApplicationHelper
 
   attr_reader :environment
   def select_categories(object_name, title=nil, title_size=4)
+    return nil if environment.enabled?(:disable_categories)
     if title.nil?
       title = _('Categories')
     end

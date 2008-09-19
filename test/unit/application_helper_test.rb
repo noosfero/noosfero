@@ -231,6 +231,15 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_equal "LALALA", login_url
   end
 
+  should 'return nil if disable_categories is enabled' do
+    env = Environment.create!(:name => 'env test')
+    stubs(:environment).returns(env)
+    assert_not_nil env
+    env.enable(:disable_categories)
+    assert env.enabled?(:disable_categories)
+    assert_nil select_categories(mock)
+  end
+
   protected
 
   def content_tag(tag, content, options = {})

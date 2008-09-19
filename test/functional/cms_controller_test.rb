@@ -616,4 +616,18 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_redirected_to :protocol => 'https://'
   end
 
+  should 'display categories if environment disable_categories disabled' do
+    Environment.any_instance.stubs(:enabled?).with(anything).returns(false)
+    a = profile.articles.create!(:name => 'test')
+    get :edit, :profile => profile.identifier, :id => a.id
+    assert_tag :tag => 'div', :descendant => { :tag => 'h4', :content => 'Categorize your article' }
+  end
+
+  should 'not display categories if environment disable_categories enabled' do
+    Environment.any_instance.stubs(:enabled?).with(anything).returns(true)
+    a = profile.articles.create!(:name => 'test')
+    get :edit, :profile => profile.identifier, :id => a.id
+    assert_no_tag :tag => 'div', :descendant => { :tag => 'h4', :content => 'Categorize your article' }
+  end
+
 end
