@@ -74,25 +74,10 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_nil theme_option()
   end
 
-  should 'not nil to ecosol theme option' do
-    expects(:current_theme).returns('ecosol')
-    assert_not_nil theme_option()
-  end
-
-  should 'not nil to zen3 theme option' do
-    expects(:current_theme).returns('zen3')
-    assert_not_nil theme_option()
-  end
-
   should 'nil javascript theme when no exists theme' do
     stubs(:current_theme).returns('something-very-unlikely')
     File.expects(:exists?).returns(false)
     assert_nil theme_javascript
-  end
-
-  should 'not nil javascript theme to ecosol theme' do
-    expects(:current_theme).returns('ecosol')
-    assert_not_nil theme_javascript
   end
 
   should 'role color for admin role' do
