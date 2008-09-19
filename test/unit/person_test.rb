@@ -113,6 +113,17 @@ class PersonTest < Test::Unit::TestCase
     assert_nil p.email
   end
 
+  should 'set email through person instance' do
+    u = create_user('testuser')
+    p = u.person
+
+    p.email = 'damnit@example.com'
+    p.save!
+
+    u.reload
+    assert_equal 'damnit@example.com', u.email
+  end
+
   should 'be an admin if have permission of environment administration' do
     role = Role.create!(:name => 'just_another_admin_role')
     env = Environment.create!(:name => 'blah')

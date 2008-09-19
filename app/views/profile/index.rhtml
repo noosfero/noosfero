@@ -8,16 +8,22 @@
 
 <ul>
   <li>
-  <strong><%= _('Name:') %></strong>
-  <%= profile.name %>
+    <strong><%= _('Name:') %></strong>
+    <%= profile.name %>
   </li>
   <li>
-  <strong><%= _('Homepage: ') %></strong>
-  <%= link_to url_for(profile.url), profile.url %>
+    <strong><%= _('Homepage:') %></strong>
+    <%= link_to url_for(profile.url), profile.url %>
   </li>
 
   <%# FIXME %>
   <% if profile.kind_of? Person %>
+    <% if profile.friends.include?(user) %>
+    <li>
+      <strong><%= _('e-Mail:') %></strong>
+      <%= content_tag 'a', profile.email, :href => 'mailto:'+profile.email %>
+    </li>
+    <% end %>
     <li><%= link_to _('Friends'), :action => 'friends' %></li>
     <li><%= link_to __('Communities'), :action => 'communities' %></li>
     <li><%= link_to __('Enterprises'), :action => 'enterprises' %></li>

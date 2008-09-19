@@ -62,6 +62,14 @@ class Person < Profile
     self.user.nil? ? nil : self.user.email
   end
 
+  def email= (email)
+    self.user.email = email if ! self.user.nil?
+  end
+
+  after_update do |person|
+    person.user.save!
+  end
+
   def is_admin?
     role_assignments.map{|ra|ra.role.permissions}.any? do |ps|
       ps.any? do |p|

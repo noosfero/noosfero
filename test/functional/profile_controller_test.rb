@@ -283,4 +283,23 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => '/profile/testuser/tag/two'} }
   end
 
+  should 'show e-mail for friends on profile page' do
+    p1 = create_user('tusr1').person
+    p2 = create_user('tusr2', :email => 't2@t2.com').person
+    p2.add_friend p1
+    login_as 'tusr1'
+
+    get :index, :profile => 'tusr2'
+    assert_tag :content => /t2@t2.com/
+  end
+
+  should 'not show e-mail for non friends on profile page' do
+    p1 = create_user('tusr1').person
+    p2 = create_user('tusr2', :email => 't2@t2.com').person
+    login_as 'tusr1'
+
+    get :index, :profile => 'tusr2'
+    assert_no_tag :content => /t2@t2.com/
+  end
+
 end

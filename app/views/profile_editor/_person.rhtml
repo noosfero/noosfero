@@ -8,6 +8,7 @@
 
 
   <%= f.text_field(:name) %>
+  <%= labelled_form_field(_('e-Mail'), text_field(:profile_data, :email)) %>
   <%= f.text_field(:contact_information) %>
   <%= f.text_field(:contact_phone) %>
   <%# use :size => 3 if you want 3 radios by line %>
