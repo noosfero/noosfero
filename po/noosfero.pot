@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.11.4\n"
-"POT-Creation-Date: 2008-09-18 12:03-0300\n"
+"POT-Creation-Date: 2008-09-19 17:24-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -390,12 +390,12 @@ msgid "non registered gender"
 msgstr ""
 
 #: app/helpers/application_helper.rb:383
-#: app/views/profile_editor/_person.rhtml:6
+#: app/views/profile_editor/_person.rhtml:14
 msgid "Male"
 msgstr ""
 
 #: app/helpers/application_helper.rb:383
-#: app/views/profile_editor/_person.rhtml:6
+#: app/views/profile_editor/_person.rhtml:14
 msgid "Female"
 msgstr ""
 
@@ -408,7 +408,7 @@ msgid "Click on this icon to go to the <b>%s</b>'s home page"
 msgstr ""
 
 #: app/helpers/application_helper.rb:464
-#: app/views/content_viewer/view_page.rhtml:72
+#: app/views/content_viewer/view_page.rhtml:74
 #: app/views/categories/index.rhtml:1
 msgid "Categories"
 msgstr ""
@@ -477,8 +477,8 @@ msgstr ""
 #: app/views/shared/_select_categories.rhtml:22
 #: app/views/shared/_change_image.rhtml:2
 #: app/views/account/_login_form.rhtml:22
-#: app/views/account/activation_question.rhtml:34
-#: app/views/account/accept_terms.rhtml:12 app/views/account/login.rhtml:22
+#: app/views/account/activation_question.rhtml:38
+#: app/views/account/accept_terms.rhtml:24 app/views/account/login.rhtml:22
 #: app/views/cms/edit.rhtml:39 app/views/cms/edit.rhtml:41
 #: app/views/cms/edit.rhtml:43 app/views/cms/select_article_type.rhtml:12
 #: app/views/memberships/new_community.rhtml:31
@@ -999,7 +999,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: app/models/environment_statistics_block.rb:23
-#: app/models/my_network_block.rb:25
+#: app/views/blocks/my_network/person.rhtml:6
 msgid "One community"
 msgid_plural "%{num} communities"
 msgstr[0] ""
@@ -1611,24 +1611,6 @@ msgstr ""
 msgid "This block displays some info about your networking."
 msgstr ""
 
-#: app/models/my_network_block.rb:21
-msgid "One article published"
-msgid_plural "%s articles published"
-msgstr[0] ""
-msgstr[1] ""
-
-#: app/models/my_network_block.rb:23
-msgid "One friend"
-msgid_plural "%s friends"
-msgstr[0] ""
-msgstr[1] ""
-
-#: app/models/my_network_block.rb:27
-msgid "One tag"
-msgid_plural "%s tags"
-msgstr[0] ""
-msgstr[1] ""
-
 #: app/models/enterprises_block.rb:8
 msgid "This block displays the enterprises where this user works."
 msgstr ""
@@ -1657,7 +1639,7 @@ msgstr ""
 msgid "All people"
 msgstr ""
 
-#: app/models/profile.rb:28 app/views/profile_editor/edit.rhtml:1
+#: app/models/profile.rb:28
 msgid "Edit profile"
 msgstr ""
 
@@ -1937,7 +1919,7 @@ msgstr ""
 #: app/views/admin_panel/message_for_disabled_enterprise.rhtml:10
 #: app/views/admin_panel/site_info.rhtml:10
 #: app/views/shared/_select_categories.rhtml:17 app/views/cms/edit.rhtml:14
-#: app/views/cms/edit.rhtml:37 app/views/profile_editor/edit.rhtml:65
+#: app/views/cms/edit.rhtml:37 app/views/profile_editor/edit.rhtml:68
 #: app/views/profile_editor/header_footer.rhtml:12
 #: app/views/mailconf/index.rhtml:14
 #: app/views/enterprise_validation/edit_validation_info.rhtml:9
@@ -2180,7 +2162,8 @@ msgstr ""
 msgid "Webmail"
 msgstr ""
 
-#: app/views/shared/user_menu.rhtml:30 app/views/blocks/profile_info.rhtml:23
+#: app/views/shared/user_menu.rhtml:30 app/views/blocks/my_network.rhtml:9
+#: app/views/blocks/profile_info.rhtml:22
 msgid "Control panel"
 msgstr ""
 
@@ -2303,14 +2286,14 @@ msgstr ""
 
 #: app/views/account/logout_popup.rhtml:4
 #: app/views/account/activate_enterprise.rhtml:10
-#: app/views/profile_editor/edit.rhtml:32
 #: app/views/profile_editor/edit.rhtml:35
 #: app/views/profile_editor/edit.rhtml:38
 #: app/views/profile_editor/edit.rhtml:41
-#: app/views/profile_editor/edit.rhtml:48
+#: app/views/profile_editor/edit.rhtml:44
 #: app/views/profile_editor/edit.rhtml:51
 #: app/views/profile_editor/edit.rhtml:54
 #: app/views/profile_editor/edit.rhtml:57
+#: app/views/profile_editor/edit.rhtml:60
 msgid "Yes"
 msgstr ""
 
@@ -2374,7 +2357,8 @@ msgstr ""
 msgid "User since %{year}/%{month}"
 msgstr ""
 
-#: app/views/account/user_info.rhtml:7 app/views/blocks/profile_info.rhtml:19
+#: app/views/account/user_info.rhtml:7 app/views/blocks/my_network.rhtml:6
+#: app/views/blocks/profile_info.rhtml:18
 msgid "Homepage"
 msgstr ""
 
@@ -2508,7 +2492,7 @@ msgid "An CNPJ have 14 digits"
 msgstr ""
 
 #: app/views/account/activation_question.rhtml:26
-#: app/views/account/accept_terms.rhtml:2
+#: app/views/account/accept_terms.rhtml:14
 msgid "Enterprise activation"
 msgstr ""
 
@@ -2521,31 +2505,44 @@ msgid "part 1 of 3"
 msgstr ""
 
 #: app/views/account/activation_question.rhtml:29
+msgid "Pay atention! You have only one chance!"
+msgstr ""
+
+#: app/views/account/activation_question.rhtml:31
+msgid ""
+"This is a question to know if you is really part of this enterprise. Pay "
+"atention because you has only one chance to answer rigth and activate your "
+"enterprise. If you answer wrong you will not be able to activate the "
+"enterprise automaticaly and must get in touch with the admins of %s by email "
+"or phone."
+msgstr ""
+
+#: app/views/account/activation_question.rhtml:33
 msgid "What year your enterprise was founded?"
 msgstr ""
 
-#: app/views/account/activation_question.rhtml:29
+#: app/views/account/activation_question.rhtml:33
 msgid "What is the CNPJ of your enterprise?"
 msgstr ""
 
-#: app/views/account/activation_question.rhtml:29
+#: app/views/account/activation_question.rhtml:33
 msgid "We need to be sure that this is your enterprise"
 msgstr ""
 
-#: app/views/account/activation_question.rhtml:35
-#: app/views/account/accept_terms.rhtml:13
+#: app/views/account/activation_question.rhtml:39
+#: app/views/account/accept_terms.rhtml:25
 msgid "Continue"
 msgstr ""
 
-#: app/views/account/accept_terms.rhtml:2
+#: app/views/account/accept_terms.rhtml:14
 msgid "part 2 of 2"
 msgstr ""
 
-#: app/views/account/accept_terms.rhtml:2
+#: app/views/account/accept_terms.rhtml:14
 msgid " part 2 of 3"
 msgstr ""
 
-#: app/views/account/accept_terms.rhtml:10
+#: app/views/account/accept_terms.rhtml:22
 msgid "I read the terms of use and accepted them"
 msgstr ""
 
@@ -2582,20 +2579,35 @@ msgstr ""
 
 #: app/views/account/activate_enterprise.rhtml:6
 msgid ""
-"Well, now for you manage your enterprise you have to associate an individual "
+"Now for you manage your enterprise you have to associate an individual "
 "account to the enterprise."
 msgstr ""
 
 #: app/views/account/activate_enterprise.rhtml:7
-msgid "Do you have a user account?"
+msgid "Do you have a personal user account in the system?"
 msgstr ""
 
 #: app/views/account/activate_enterprise.rhtml:11
-#: app/views/profile_editor/edit.rhtml:35
-#: app/views/profile_editor/edit.rhtml:41
-#: app/views/profile_editor/edit.rhtml:51
-#: app/views/profile_editor/edit.rhtml:57
+#: app/views/profile_editor/edit.rhtml:38
+#: app/views/profile_editor/edit.rhtml:44
+#: app/views/profile_editor/edit.rhtml:54
+#: app/views/profile_editor/edit.rhtml:60
 msgid "No"
+msgstr ""
+
+#: app/views/account/activate_enterprise.rhtml:15
+msgid "Personal signup form"
+msgstr ""
+
+#: app/views/account/activate_enterprise.rhtml:17
+msgid ""
+"<b>Warning</b>: this form is for your personal information, not of your "
+"enterprise. So you will have a personal account that can manage your "
+"enterprise."
+msgstr ""
+
+#: app/views/account/activate_enterprise.rhtml:22
+msgid "Enter you user name and password"
 msgstr ""
 
 #: app/views/account/welcome.rhtml:2
@@ -2951,15 +2963,41 @@ msgstr ""
 msgid "There is no categories."
 msgstr ""
 
-#: app/views/blocks/profile_info.rhtml:20
+#: app/views/blocks/my_network/community.rhtml:2
+#: app/views/blocks/my_network/person.rhtml:2
+msgid "One article published"
+msgid_plural "%s articles published"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/views/blocks/my_network/community.rhtml:4
+msgid "One member"
+msgid_plural "%s members"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/views/blocks/my_network/community.rhtml:6
+#: app/views/blocks/my_network/person.rhtml:8
+msgid "One tag"
+msgid_plural "%s tags"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/views/blocks/my_network/person.rhtml:4
+msgid "One friend"
+msgid_plural "%s friends"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/views/blocks/my_network.rhtml:7 app/views/blocks/profile_info.rhtml:19
 msgid "View profile"
 msgstr ""
 
-#: app/views/blocks/profile_info.rhtml:21 app/views/profile/index.rhtml:29
+#: app/views/blocks/profile_info.rhtml:20 app/views/profile/index.rhtml:29
 msgid "Products/Services"
 msgstr ""
 
-#: app/views/blocks/profile_info.rhtml:25
+#: app/views/blocks/profile_info.rhtml:24
 msgid "Since %{year}/%{month}"
 msgstr ""
 
@@ -3231,12 +3269,12 @@ msgid "Creating new community"
 msgstr ""
 
 #: app/views/memberships/new_community.rhtml:14
-#: app/views/profile_editor/_organization.rhtml:17
+#: app/views/profile_editor/_organization.rhtml:21
 msgid "New members must be approved:"
 msgstr ""
 
 #: app/views/memberships/new_community.rhtml:19
-#: app/views/profile_editor/_organization.rhtml:22
+#: app/views/profile_editor/_organization.rhtml:26
 msgid ""
 "<strong>Before</strong> joining this group (a moderator has to accept the "
 "member in pending request before member can access the intranet and/or the "
@@ -3244,7 +3282,7 @@ msgid ""
 msgstr ""
 
 #: app/views/memberships/new_community.rhtml:25
-#: app/views/profile_editor/_organization.rhtml:28
+#: app/views/profile_editor/_organization.rhtml:32
 msgid ""
 "<strong>After</strong> joining this group (a moderator can always "
 "desactivate access for users later)."
@@ -3402,7 +3440,8 @@ msgid "My profile"
 msgstr ""
 
 #: app/views/profile_editor/index.rhtml:11
-msgid "Edit Profile"
+#: app/views/profile_editor/edit.rhtml:1
+msgid "Profile settings"
 msgstr ""
 
 #: app/views/profile_editor/index.rhtml:13
@@ -3453,72 +3492,70 @@ msgstr ""
 msgid "Enable Enterprise"
 msgstr ""
 
-#: app/views/profile_editor/edit.rhtml:9
+#: app/views/profile_editor/edit.rhtml:10
 msgid "Change picture"
 msgstr ""
 
-#: app/views/profile_editor/edit.rhtml:11 app/views/categories/_form.rhtml:18
+#: app/views/profile_editor/edit.rhtml:12 app/views/categories/_form.rhtml:18
 #: app/views/manage_products/_form.rhtml:8
 msgid "Image:"
 msgstr ""
 
-#: app/views/profile_editor/edit.rhtml:15
+#: app/views/profile_editor/edit.rhtml:16
 msgid "Privacy options"
 msgstr ""
 
-#: app/views/profile_editor/edit.rhtml:17
+#: app/views/profile_editor/edit.rhtml:18
 msgid "This profile is:"
 msgstr ""
 
-#: app/views/profile_editor/edit.rhtml:20
-#: app/views/profile_editor/edit.rhtml:30
-#: app/views/profile_editor/edit.rhtml:46
+#: app/views/profile_editor/edit.rhtml:27
+#: app/views/profile_editor/edit.rhtml:49
 msgid "Public"
 msgstr ""
 
-#: app/views/profile_editor/edit.rhtml:24
-#: app/views/profile_editor/edit.rhtml:30
-#: app/views/profile_editor/edit.rhtml:46
+#: app/views/profile_editor/edit.rhtml:31
+#: app/views/profile_editor/edit.rhtml:49
 msgid "Private"
 msgstr ""
 
-#: app/views/profile_editor/edit.rhtml:32
+#: app/views/profile_editor/edit.rhtml:35
 msgid "Activate Intranet access (restricted area only for me)"
 msgstr ""
 
-#: app/views/profile_editor/edit.rhtml:35
+#: app/views/profile_editor/edit.rhtml:38
 msgid "Show my website to all internet users"
 msgstr ""
 
-#: app/views/profile_editor/edit.rhtml:38
+#: app/views/profile_editor/edit.rhtml:41
 msgid "Show my website to my contacts (persons)"
 msgstr ""
 
-#: app/views/profile_editor/edit.rhtml:41
+#: app/views/profile_editor/edit.rhtml:44
 msgid "Include my contact in directory of people"
 msgstr ""
 
-#: app/views/profile_editor/edit.rhtml:48
+#: app/views/profile_editor/edit.rhtml:51
 msgid "Activate Intranet access (restricted area only for members)"
 msgstr ""
 
-#: app/views/profile_editor/edit.rhtml:51
+#: app/views/profile_editor/edit.rhtml:54
 msgid "Show website of this group to all internet users"
 msgstr ""
 
-#: app/views/profile_editor/edit.rhtml:54
+#: app/views/profile_editor/edit.rhtml:57
 msgid "Show my website to members"
 msgstr ""
 
-#: app/views/profile_editor/edit.rhtml:57
+#: app/views/profile_editor/edit.rhtml:60
 msgid "Include this group directory of groups"
 msgstr ""
 
-#: app/views/profile_editor/edit.rhtml:62
+#: app/views/profile_editor/edit.rhtml:65
 msgid "Select the categories of your interest"
 msgstr ""
 
-#: app/views/profile_editor/edit.rhtml:66 app/views/mailconf/index.rhtml:15
+#: app/views/profile_editor/edit.rhtml:69 app/views/mailconf/index.rhtml:15
 #: app/views/box_organizer/index.rhtml:5 app/views/tasks/index.rhtml:19
 msgid "Back to control panel"
 msgstr ""
@@ -3547,29 +3584,55 @@ msgstr ""
 msgid "Yes, I want to disable."
 msgstr ""
 
-#: app/views/profile_editor/_organization.rhtml:2
+#: app/views/profile_editor/_organization.rhtml:1
+msgid "General information"
+msgstr ""
+
+#: app/views/profile_editor/_organization.rhtml:4
 msgid "Display name"
 msgstr ""
 
-#: app/views/profile_editor/_organization.rhtml:15
+#: app/views/profile_editor/_organization.rhtml:7
+msgid "A short name by which the organization is know."
+msgstr ""
+
+#: app/views/profile_editor/_organization.rhtml:19
 msgid "Moderation options"
 msgstr ""
 
-#: app/views/profile_editor/_organization.rhtml:34
+#: app/views/profile_editor/_organization.rhtml:38
 msgid "New articles must be approved:"
 msgstr ""
 
-#: app/views/profile_editor/_organization.rhtml:39
+#: app/views/profile_editor/_organization.rhtml:43
 msgid ""
 "<strong>Before</strong> being published in this group (a moderator has to "
 "accept the article in pending request before the article be listed as a "
 "article of this group."
 msgstr ""
 
-#: app/views/profile_editor/_organization.rhtml:45
+#: app/views/profile_editor/_organization.rhtml:49
 msgid ""
 "<strong>After</strong> being published in this group (a moderator can always "
 "remove publicated articles later)."
+msgstr ""
+
+#: app/views/profile_editor/_person.rhtml:1
+msgid "Personal information"
+msgstr ""
+
+#: app/views/profile_editor/_person.rhtml:6
+msgid ""
+"A short name by which you like to be known. Will be used in friends "
+"listings, community member listings etc."
+msgstr ""
+
+#: app/views/profile_editor/_person.rhtml:16
+msgid "Address (street and number)"
+msgstr ""
+
+#: app/views/profile_editor/_person.rhtml:17
+msgid "ZIP code"
 msgstr ""
 
 #: app/views/profile_editor/enable.rhtml:1
@@ -3588,27 +3651,27 @@ msgstr ""
 msgid "New publication"
 msgstr ""
 
-#: app/views/content_viewer/view_page.rhtml:49
+#: app/views/content_viewer/view_page.rhtml:50
 msgid "This article's tags:"
 msgstr ""
 
-#: app/views/content_viewer/view_page.rhtml:55
+#: app/views/content_viewer/view_page.rhtml:57
 msgid "Up"
 msgstr ""
-
-#: app/views/content_viewer/view_page.rhtml:78
-msgid "No comments yet"
-msgstr ""
-
-#: app/views/content_viewer/view_page.rhtml:78
-msgid "One comment"
-msgid_plural "%{comments} comments"
-msgstr[0] ""
-msgstr[1] ""
 
 #: app/views/content_viewer/view_page.rhtml:82
 msgid "This article does not accept comments"
 msgstr ""
+
+#: app/views/content_viewer/view_page.rhtml:85
+msgid "No comments yet"
+msgstr ""
+
+#: app/views/content_viewer/view_page.rhtml:86
+msgid "One comment"
+msgid_plural "%{comments} comments"
+msgstr[0] ""
+msgstr[1] ""
 
 #: app/views/content_viewer/no_home_page.rhtml:1
 msgid "Missing home page"
@@ -4536,16 +4599,4 @@ msgstr ""
 
 #: lib/zen3_terminology.rb:59
 msgid "Creating new group"
-msgstr ""
-
-#: public/designs/themes/ecosol/footer.rhtml:2
-msgid "A FBES project"
-msgstr ""
-
-#: public/designs/themes/ecosol/footer.rhtml:6
-msgid "Developed by Colivre"
-msgstr ""
-
-#: public/designs/themes/zen3/footer.rhtml:2
-msgid "A Ynternet.org project"
 msgstr ""
