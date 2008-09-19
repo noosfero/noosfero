@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.11.4\n"
-"POT-Creation-Date: 2008-09-19 17:24-0300\n"
+"Project-Id-Version: noosfero 0.11.5\n"
+"POT-Creation-Date: 2008-09-19 20:39-0300\n"
 "PO-Revision-Date: 2008-06-13 16:15-0300\n"
 "Last-Translator: Raphael Rousseau <pootle.colivre.coop.br@r4f.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -220,7 +220,7 @@ msgstr "Produits"
 #: app/controllers/public/search_controller.rb:134
 #: app/controllers/public/search_controller.rb:197
 #: app/models/enterprises_block.rb:4 app/views/search/_sellers_form.rhtml:7
-#: app/views/search/enterprises.rhtml:5 app/views/profile/index.rhtml:23
+#: app/views/search/enterprises.rhtml:5 app/views/profile/index.rhtml:29
 msgid "Enterprises"
 msgstr "Entreprises"
 
@@ -228,7 +228,7 @@ msgstr "Entreprises"
 #: app/controllers/public/search_controller.rb:136
 #: app/controllers/public/search_controller.rb:200
 #: app/models/communities_block.rb:8 app/views/search/communities.rhtml:1
-#: app/views/profile/index.rhtml:22
+#: app/views/profile/index.rhtml:28
 msgid "Communities"
 msgstr "Groupes"
 
@@ -255,6 +255,7 @@ msgid "Contact person:"
 msgstr "Personne de contact : "
 
 #: app/helpers/enterprise_homepage_helper.rb:7
+#: app/views/profile/index.rhtml:23
 #, fuzzy
 msgid "e-Mail:"
 msgstr "Courrier électronique"
@@ -336,7 +337,7 @@ msgid "Help on this block"
 msgstr ""
 
 #: app/helpers/boxes_helper.rb:174 app/helpers/application_helper.rb:63
-#: app/views/layouts/application.rhtml:123 app/views/features/index.rhtml:7
+#: app/views/layouts/application.rhtml:125 app/views/features/index.rhtml:7
 msgid "Help"
 msgstr "Aide"
 
@@ -406,12 +407,12 @@ msgid "non registered gender"
 msgstr "Personnes enregistrées récemment"
 
 #: app/helpers/application_helper.rb:383
-#: app/views/profile_editor/_person.rhtml:14
+#: app/views/profile_editor/_person.rhtml:15
 msgid "Male"
 msgstr "Homme"
 
 #: app/helpers/application_helper.rb:383
-#: app/views/profile_editor/_person.rhtml:14
+#: app/views/profile_editor/_person.rhtml:15
 msgid "Female"
 msgstr "Femme"
 
@@ -425,30 +426,30 @@ msgid "Click on this icon to go to the <b>%s</b>'s home page"
 msgstr ""
 "Cliquez sur cet icône pour vous rendre sur la page d'accueil de <b>%s</b>"
 
-#: app/helpers/application_helper.rb:464
+#: app/helpers/application_helper.rb:465
 #: app/views/content_viewer/view_page.rhtml:74
 #: app/views/categories/index.rhtml:1
 msgid "Categories"
 msgstr "Catégories"
 
-#: app/helpers/application_helper.rb:487
+#: app/helpers/application_helper.rb:488
 msgid "open"
 msgstr "ouvrir"
 
-#: app/helpers/application_helper.rb:522
+#: app/helpers/application_helper.rb:523
 #, fuzzy
 msgid "Search..."
 msgstr "Chercher"
 
-#: app/helpers/application_helper.rb:524
+#: app/helpers/application_helper.rb:525
 msgid "This is a search box. Click, write your query, and press enter to find"
 msgstr ""
 
-#: app/helpers/application_helper.rb:525
+#: app/helpers/application_helper.rb:526
 msgid "Click, write and press enter to find"
 msgstr ""
 
-#: app/helpers/application_helper.rb:531
+#: app/helpers/application_helper.rb:532
 #: app/views/search/_sellers_form.rhtml:21
 #: app/views/search/_search_form.rhtml:15 app/views/search/communities.rhtml:7
 #: app/views/search/articles.rhtml:7 app/views/search/people.rhtml:7
@@ -456,25 +457,25 @@ msgstr ""
 msgid "Search"
 msgstr "Chercher"
 
-#: app/helpers/application_helper.rb:587
+#: app/helpers/application_helper.rb:588
 msgid "Are you sure you want to visit this web site?"
 msgstr "Êtes-vous sûr(e) de vouloir visiter ce site web ?"
 
-#: app/helpers/application_helper.rb:696
+#: app/helpers/application_helper.rb:697
 #, fuzzy
 msgid "Searched for '%s'"
 msgstr "Rechercher :"
 
-#: app/helpers/application_helper.rb:697
+#: app/helpers/application_helper.rb:698
 #, fuzzy
 msgid "In category %s"
 msgstr "Catégorie : %s"
 
-#: app/helpers/application_helper.rb:698
+#: app/helpers/application_helper.rb:699
 msgid "within %d km from %s"
 msgstr ""
 
-#: app/helpers/application_helper.rb:699
+#: app/helpers/application_helper.rb:700
 msgid "%d results found"
 msgstr ""
 
@@ -738,7 +739,7 @@ msgstr ""
 msgid "A block that displays members."
 msgstr "Un bloc qui affiche des membres."
 
-#: app/models/members_block.rb:8 app/views/profile/index.rhtml:26
+#: app/models/members_block.rb:8 app/views/profile/index.rhtml:32
 msgid "Members"
 msgstr "Membres"
 
@@ -768,6 +769,7 @@ msgid "Username"
 msgstr "Identifiant"
 
 #: app/models/user.rb:- app/models/user.rb:14 app/models/change_password.rb:22
+#: app/views/profile_editor/_person.rhtml:11
 msgid "e-Mail"
 msgstr "Courrier électronique"
 
@@ -1349,7 +1351,7 @@ msgstr "Nouveau produit"
 msgid "A block that displays your friends"
 msgstr "Un bloc qui affiche vos amis"
 
-#: app/models/friends_block.rb:8 app/views/profile/index.rhtml:21
+#: app/models/friends_block.rb:8 app/views/profile/index.rhtml:27
 msgid "Friends"
 msgstr "Amis"
 
@@ -1982,7 +1984,12 @@ msgstr "Rechercher :"
 msgid "Disable products for enterprises"
 msgstr "Détruire l'entreprise"
 
-#: app/models/environment.rb:252
+#: app/models/environment.rb:32
+#, fuzzy
+msgid "Disable categories"
+msgstr "Détruire l'entreprise"
+
+#: app/models/environment.rb:253
 msgid "Only one Virtual Community can be the default one"
 msgstr "Seule une CoVi peut être celle par défaut"
 
@@ -3299,7 +3306,7 @@ msgstr[1] "Nouvel(le) ami(e)"
 msgid "View profile"
 msgstr "Voir le profil"
 
-#: app/views/blocks/profile_info.rhtml:20 app/views/profile/index.rhtml:29
+#: app/views/blocks/profile_info.rhtml:20 app/views/profile/index.rhtml:35
 #, fuzzy
 msgid "Products/Services"
 msgstr "Prix"
@@ -3717,15 +3724,16 @@ msgid "Name:"
 msgstr "Nom :"
 
 #: app/views/profile/index.rhtml:15
-msgid "Homepage: "
+#, fuzzy
+msgid "Homepage:"
 msgstr "Page personnelle : "
 
-#: app/views/profile/index.rhtml:33
+#: app/views/profile/index.rhtml:39
 #, fuzzy
 msgid "Site map"
 msgstr "Sous-éléments"
 
-#: app/views/profile/index.rhtml:37
+#: app/views/profile/index.rhtml:43
 msgid "Tags:"
 msgstr "Tags :"
 
@@ -4001,11 +4009,11 @@ msgid ""
 "listings, community member listings etc."
 msgstr ""
 
-#: app/views/profile_editor/_person.rhtml:16
+#: app/views/profile_editor/_person.rhtml:17
 msgid "Address (street and number)"
 msgstr ""
 
-#: app/views/profile_editor/_person.rhtml:17
+#: app/views/profile_editor/_person.rhtml:18
 msgid "ZIP code"
 msgstr ""
 
@@ -4154,15 +4162,15 @@ msgstr ""
 "de page. La seconde dimension est celle des <em>types contenus</em>, et vous "
 "les trouverez dans la barre animée de votre droite."
 
-#: app/views/layouts/application.rhtml:122
+#: app/views/layouts/application.rhtml:124
 msgid "Turn help on/off"
 msgstr "Activer/désactiver l'aide"
 
-#: app/views/layouts/application.rhtml:170
+#: app/views/layouts/application.rhtml:172
 msgid "Your web browser is obsolete!"
 msgstr "Vote navigateur web est obsolète !"
 
-#: app/views/layouts/application.rhtml:171
+#: app/views/layouts/application.rhtml:173
 msgid ""
 "This website will not look as good as it could.\n"
 "         Don't you want to use Firefox? That is a great web browser, free,\n"
@@ -4173,7 +4181,7 @@ msgstr ""
 "web, libre et gratuit\n"
 "         et élaboré par des gens de partout dans le monde."
 
-#: app/views/layouts/application.rhtml:175
+#: app/views/layouts/application.rhtml:177
 msgid "Get Firefox Now!"
 msgstr "Obtenir Firefox maintenant !"
 
