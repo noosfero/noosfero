@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.11.4\n"
 "POT-Creation-Date: 2008-09-19 17:24-0300\n"
-"PO-Revision-Date: 2008-09-18 12:29-0300\n"
+"PO-Revision-Date: 2008-09-19 17:52-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2582,7 +2582,7 @@ msgstr "parte 1 de 3"
 
 #: app/views/account/activation_question.rhtml:29
 msgid "Pay atention! You have only one chance!"
-msgstr ""
+msgstr "Preste atenção! Você tem apenas uma chance!"
 
 #: app/views/account/activation_question.rhtml:31
 msgid ""
@@ -2591,7 +2591,7 @@ msgid ""
 "enterprise. If you answer wrong you will not be able to activate the "
 "enterprise automaticaly and must get in touch with the admins of %s by email "
 "or phone."
-msgstr ""
+msgstr "Esta é uma pergunta para saber se você é realmente parte deste empreendimento. Preste atenção porque você tem apenas uma chance de responder corretamente e ativar seu empreendimento. Se você responder errado não será mais possível ativar seu empreendimento automaticamente e você terá que entrar em contato com os administradores do %s por email ou telefone."
 
 #: app/views/account/activation_question.rhtml:33
 msgid "What year your enterprise was founded?"
@@ -2658,7 +2658,6 @@ msgid "Enterprise activation - part 3 of 3"
 msgstr "Ativação de empreendimento - parte 3 de 3"
 
 #: app/views/account/activate_enterprise.rhtml:6
-#, fuzzy
 msgid ""
 "Now for you manage your enterprise you have to associate an individual "
 "account to the enterprise."
@@ -2667,9 +2666,8 @@ msgstr ""
 "usuário individual ao empreendimento"
 
 #: app/views/account/activate_enterprise.rhtml:7
-#, fuzzy
 msgid "Do you have a personal user account in the system?"
-msgstr "Você já tem uma conta de usuário no sistema?"
+msgstr "Você já tem uma conta pessoal de usuário no sistema?"
 
 #: app/views/account/activate_enterprise.rhtml:11
 #: app/views/profile_editor/edit.rhtml:38
@@ -2680,21 +2678,19 @@ msgid "No"
 msgstr "Não"
 
 #: app/views/account/activate_enterprise.rhtml:15
-#, fuzzy
 msgid "Personal signup form"
-msgstr "informação pesoal"
+msgstr "Formulário de cadastro pessoal"
 
 #: app/views/account/activate_enterprise.rhtml:17
 msgid ""
 "<b>Warning</b>: this form is for your personal information, not of your "
 "enterprise. So you will have a personal account that can manage your "
 "enterprise."
-msgstr ""
+msgstr "<b>Atenção</b>: este formulário é para você cadastrar a sua conta pessoal, e não do empreendimento. Assim, você terá uma conta pessoal a partir da qual pode gerenciar o seu empreendimento"
 
 #: app/views/account/activate_enterprise.rhtml:22
-#, fuzzy
 msgid "Enter you user name and password"
-msgstr "Entre com a nova senha"
+msgstr "Entre com seu nome de usuário e senha"
 
 #: app/views/account/welcome.rhtml:2
 msgid "Welcome to %s"
@@ -3712,7 +3708,7 @@ msgstr "Nome de apresentação"
 
 #: app/views/profile_editor/_organization.rhtml:7
 msgid "A short name by which the organization is know."
-msgstr ""
+msgstr "Um nome curto pelo qual a organização é conhecida"
 
 #: app/views/profile_editor/_organization.rhtml:19
 msgid "Moderation options"
@@ -3749,15 +3745,15 @@ msgstr "Informação de contato"
 msgid ""
 "A short name by which you like to be known. Will be used in friends "
 "listings, community member listings etc."
-msgstr ""
+msgstr "Um nome curto pelo qual você quer ser conhecido. Será usado em listagem de amigos, listagem de membros de comunidades etc."
 
 #: app/views/profile_editor/_person.rhtml:16
 msgid "Address (street and number)"
-msgstr ""
+msgstr "Endereço (rua e número)"
 
 #: app/views/profile_editor/_person.rhtml:17
 msgid "ZIP code"
-msgstr ""
+msgstr "CEP"
 
 #: app/views/profile_editor/enable.rhtml:1
 msgid "Enabling '%s' enterprise"
