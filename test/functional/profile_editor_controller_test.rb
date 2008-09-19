@@ -507,11 +507,12 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     person = User.create(:login => 'test_profile', :email => 'test@noosfero.org', :password => 'test', :password_confirmation => 'test').person
     get :edit, :profile => person.identifier
     assert_no_tag :tag => 'div', :descendant => { :tag => 'h2', :content => 'Select the categories of your interest' }
+  end
 
   should 'show a e-mail field in profile editor' do
     create_user('test_user', :email=>'teste_user@teste.com')
     login_as('test_user')
-    get :profile_editor, :action => 'edit', :profile => 'test_user'
+    get :edit, :profile => 'test_user'
 
     assert_tag :tag => 'input',
                :attributes => { :name=>'profile_data[email]', :value=>'teste_user@teste.com' }
