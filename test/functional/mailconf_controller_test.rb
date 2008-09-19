@@ -74,6 +74,24 @@ class MailconfControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'input', :attributes => { :name => 'user[enable_email]', :type => 'hidden', :value => '0' }
   end
 
+  should 'not display www in email address when force_www=true' do
+    login_as('ze')
+    env = Environment.default
+    env.force_www = true
+    env.save!
+    get :index, :profile => 'ze'
+    assert_tag :tag => 'label', :attributes => { :for => 'user_enable_email' }, :content => /ze@colivre.net/
+  end
+
+  should 'not display www in email address when force_www=false' do
+    login_as('ze')
+    env = Environment.default
+    env.force_www = false
+    env.save!
+    get :index, :profile => 'ze'
+    assert_tag :tag => 'label', :attributes => { :for => 'user_enable_email' }, :content => /ze@colivre.net/
+  end
+
   should 'save mail enable/disable as true' do
     login_as('ze')
     post :save, :profile => 'ze', :user => { :enable_email => '1' }

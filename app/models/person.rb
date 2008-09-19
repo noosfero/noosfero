@@ -98,7 +98,7 @@ class Person < Profile
 
   def email_addresses
     # TODO for now, only one e-mail address
-    ['%s@%s' % [self.identifier, self.environment.default_hostname ] ]
+    ['%s@%s' % [self.identifier, self.environment.default_hostname(true) ] ]
   end
 
   def display_info_to?(user)

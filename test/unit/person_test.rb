@@ -280,6 +280,16 @@ class PersonTest < Test::Unit::TestCase
     assert_equal ['testuser@somedomain.com'], person.email_addresses
   end
 
+  should 'not show www in e-mail addresses when force_www=true' do
+    env = Environment.create!(:name => 'sample env', :domains => [Domain.new(:name => 'somedomain.com')])
+    env.force_www = true
+    env.save
+    person = Person.new(:identifier => 'testuser')
+    person.expects(:environment).returns(env)
+
+    assert_equal ['testuser@somedomain.com'], person.email_addresses
+  end
+
   should 'show profile info to friend' do
     person = create_user('test_user').person
     person.public_profile = false

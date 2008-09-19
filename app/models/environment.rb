@@ -274,12 +274,12 @@ class Environment < ActiveRecord::Base
   #
   # If #force_www is true, adds 'www.' at the beginning of the hostname. If the
   # environment has not associated domains, returns 'localhost'.
-  def default_hostname
+  def default_hostname(email_hostname = false)
     if self.domains(true).empty?
       'localhost'
     else
       domain = self.domains.find(:first, :order => 'id').name
-      force_www ? ('www.' + domain) : domain
+      email_hostname ? domain : (force_www ? ('www.' + domain) : domain)
     end
   end
 
