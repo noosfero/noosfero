@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.11.4\n"
 "POT-Creation-Date: 2008-09-19 17:24-0300\n"
-"PO-Revision-Date: 2008-09-19 17:52-0300\n"
+"PO-Revision-Date: 2008-09-19 18:03-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -3068,11 +3068,10 @@ msgstr[0] "Um artigo publicado"
 msgstr[1] "%s artigos publicados"
 
 #: app/views/blocks/my_network/community.rhtml:4
-#, fuzzy
 msgid "One member"
 msgid_plural "%s members"
-msgstr[0] "Novo membro"
-msgstr[1] "Novo membro"
+msgstr[0] "Um membro"
+msgstr[1] "%s membros"
 
 #: app/views/blocks/my_network/community.rhtml:6
 #: app/views/blocks/my_network/person.rhtml:8
@@ -3553,9 +3552,8 @@ msgstr "Meu perfil"
 
 #: app/views/profile_editor/index.rhtml:11
 #: app/views/profile_editor/edit.rhtml:1
-#, fuzzy
 msgid "Profile settings"
-msgstr "Configurações de e-mail"
+msgstr "Configurações do perfil"
 
 #: app/views/profile_editor/index.rhtml:13
 msgid "Mail settings"
@@ -3698,9 +3696,8 @@ msgid "Yes, I want to disable."
 msgstr "Sim, quero desabilitar."
 
 #: app/views/profile_editor/_organization.rhtml:1
-#, fuzzy
 msgid "General information"
-msgstr "Informação de contato"
+msgstr "Informações gerais"
 
 #: app/views/profile_editor/_organization.rhtml:4
 msgid "Display name"
@@ -3737,9 +3734,8 @@ msgstr ""
 "sempre remover artigos publicados depois)."
 
 #: app/views/profile_editor/_person.rhtml:1
-#, fuzzy
 msgid "Personal information"
-msgstr "Informação de contato"
+msgstr "Informações pessoais"
 
 #: app/views/profile_editor/_person.rhtml:6
 msgid ""
