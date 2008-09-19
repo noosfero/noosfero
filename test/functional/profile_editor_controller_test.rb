@@ -236,7 +236,7 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
   should 'show edit profile button' do
     person = create_user('testuser').person
     get :index, :profile => 'testuser'
-    assert_tag :tag => 'a', :content => 'Edit Profile'
+    assert_tag :tag => 'div', :attributes => { :class => 'file-manager-button' }, :child => { :tag => 'a', :attributes => { :href => '/myprofile/testuser/profile_editor/edit' } }
   end
 
   should 'show image field on edit profile' do
@@ -493,6 +493,20 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     get :index, :profile => 'test_ent'
 
     assert_no_tag :tag => 'span', :content => 'Manage Products and Services'
+  end
+
+  should 'display categories if environment disable_categories disabled' do
+    Environment.any_instance.stubs(:enabled?).with(anything).returns(false)
+    person = User.create(:login => 'test_profile', :email => 'test@noosfero.org', :password => 'test', :password_confirmation => 'test').person
+    get :edit, :profile => person.identifier
+    assert_tag :tag => 'div', :descendant => { :tag => 'h2', :content => 'Select the categories of your interest' }
+  end
+
+  should 'not display categories if environment disable_categories enabled' do
+    Environment.any_instance.stubs(:enabled?).with(anything).returns(true)
+    person = User.create(:login => 'test_profile', :email => 'test@noosfero.org', :password => 'test', :password_confirmation => 'test').person
+    get :edit, :profile => person.identifier
+    assert_no_tag :tag => 'div', :descendant => { :tag => 'h2', :content => 'Select the categories of your interest' }
   end
 
 end

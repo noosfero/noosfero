@@ -305,4 +305,12 @@ class ApplicationControllerTest < Test::Unit::TestCase
     assert_response :success
   end
 
+  should 'not display categories menu if categories feature disabled' do
+    Environment.any_instance.stubs(:enabled?).with(anything).returns(true)
+    c1 = Environment.default.categories.create!(:name => 'Category 1', :display_color => 1, :parent => nil, :display_in_menu => true )
+    c2 = Environment.default.categories.create!(:name => 'Category 2', :display_color => nil, :parent => c1, :display_in_menu => true )
+    get :index
+    assert_no_tag :tag => 'a', :content => /Category 2/
+  end
+
 end
