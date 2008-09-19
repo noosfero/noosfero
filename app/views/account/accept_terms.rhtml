@@ -1,3 +1,15 @@
+<script type="text/javascript">
+  function toggle_submit_button(id, enabled) {
+    button = $(id)
+    if (enabled){
+      button.className = button.className.replace(/disabled/, '')
+      button.enable()
+    } else  {
+      button.className += ' disabled'
+      button.disable()
+    }
+  }
+</script>
 <div class=activation-box>
   <h2><%= _('Enterprise activation') + ' - ' + (logged_in? ? _('part 2 of 2') : _(' part 2 of 3')) %></h2>
 
@@ -7,10 +19,10 @@
     <%= hidden_field_tag :enterprise_code, params[:enterprise_code] %>
     <%= hidden_field_tag :answer, params[:answer] %>
 
-    <%= labelled_check_box _('I read the terms of use and accepted them'), :terms_accepted %>
+    <%= labelled_check_box _('I read the terms of use and accepted them'), :terms_accepted, '1', false, :onclick => 'toggle_submit_button("submit-accept-terms", this.checked)' %>
     <% button_bar do %>
       <%= button 'cancel', _('Cancel'), :controller => 'home', :action => 'index' %>
-      <%= submit_button 'forward', _('Continue') %>
+      <%= submit_button 'forward', _('Continue'), {:disabled => true, :class => 'disabled', :id => 'submit-accept-terms'} %>
     <% end %>
   <% end %>
 </div>
