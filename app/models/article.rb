@@ -77,7 +77,23 @@ class Article < ActiveRecord::Base
   #
   # Only includes articles where advertise == true
   def self.recent(limit)
-    options = { :limit => limit, :conditions => { :advertise => true, :public_article => true }, :order => 'created_at desc, articles.id desc' }
+    # FIXME this method is a horrible hack
+    options = { :limit => limit,
+                :conditions => {
+                  :advertise => true,
+                  :public_article => true,
+                  :published => true,
+                  'profiles.public_profile' => true
+                },
+                :include => 'profile',
+                :order => 'articles.created_at desc, articles.id desc'
+              }
+    if ( scoped_methods && scoped_methods.last &&
+         scoped_methods.last[:find] &&
+         scoped_methods.last[:find][:joins] &&
+         scoped_methods.last[:find][:joins].index('profiles') )
+      options.delete(:include)
+    end
     self.find(:all, options)
   end
 

@@ -137,6 +137,38 @@ class ArticleTest < Test::Unit::TestCase
     assert_equal [other_first, fifth, fourth, third, second, first], Article.recent(6)
   end
 
+  should 'not show private documents as recent' do
+    p = create_user('usr1').person
+    Article.destroy_all
+
+    first  = p.articles.build(:name => 'first',  :public_article => true);  first.save!
+    second = p.articles.build(:name => 'second', :public_article => false); second.save!
+
+    assert_equal [ first ], Article.recent(nil)
+  end
+
+  should 'not show unpublished documents as recent' do
+    p = create_user('usr1').person
+    Article.destroy_all
+
+    first  = p.articles.build(:name => 'first',  :published => true);  first.save!
+    second = p.articles.build(:name => 'second', :published => false); second.save!
+
+    assert_equal [ first ], Article.recent(nil)
+  end
+
+  should 'not show documents from a private profile as recent' do
+    p = create_user('usr1').person
+    p.public_profile = false
+    p.save!
+    Article.destroy_all
+
+    first  = p.articles.build(:name => 'first',  :published => true);  first.save!
+    second = p.articles.build(:name => 'second', :published => false); second.save!
+
+    assert_equal [ ], Article.recent(nil)
+  end
+
   should 'require that subclasses define description' do
     assert_raise NotImplementedError do
       Article.description
