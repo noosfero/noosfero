@@ -2,6 +2,12 @@
 
 <h1><%= _('Manage my groups') %></h1>
 
+<% button_bar do %>
+  <%= button(:add, _('Create a new community'), :controller => 'memberships', :action => 'new_community') %>
+  <%= button(:add, __('Register a new Enterprise'), :controller => 'enterprise_registration') if environment.regions.any?{|i| i.has_validator?} %>
+  <%= button :back, _('Go back'), :controller => 'profile_editor' %>
+<% end %>
+
 <ul>
 <% for membership in @memberships %>
   <li>
@@ -24,11 +30,5 @@
   </li>
 <% end %>
 </ul>
-
-<% button_bar do %>
-  <%= button(:add, _('Create a new community'), :controller => 'memberships', :action => 'new_community') %>
-  <%= button(:add, __('Register a new Enterprise'), :controller => 'enterprise_registration') if environment.regions.any?{|i| i.has_validator?} %>
-  <%= button :back, _('Go back'), :controller => 'profile_editor' %>
-<% end %>
 
 </div>

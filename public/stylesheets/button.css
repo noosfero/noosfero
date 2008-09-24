@@ -69,6 +69,7 @@ input.button.with-text:hover {
 
 .button-bar {
   margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 .button-bar .button {
