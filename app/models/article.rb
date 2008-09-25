@@ -86,7 +86,7 @@ class Article < ActiveRecord::Base
                   'profiles.public_profile' => true
                 },
                 :include => 'profile',
-                :order => 'articles.created_at desc, articles.id desc'
+                :order => 'articles.updated_at desc, articles.id desc'
               }
     if ( scoped_methods && scoped_methods.last &&
          scoped_methods.last[:find] &&
