@@ -929,6 +929,15 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal 6, p.boxes_limit
   end
 
+  should 'destroy tasks requested to it when destroyed' do
+    p = Profile.create!(:name => 'test_profile', :identifier => 'test_profile')
+
+    assert_no_difference Task, :count do
+      Task.create(:target => p)
+      p.destroy
+    end
+  end
+
   private
 
   def assert_invalid_identifier(id)

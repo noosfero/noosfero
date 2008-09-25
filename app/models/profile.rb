@@ -98,7 +98,7 @@ class Profile < ActiveRecord::Base
   has_many :consumptions
   has_many :consumed_product_categories, :through => :consumptions, :source => :product_category
 
-  has_many :tasks, :foreign_key => :target_id
+  has_many :tasks, :foreign_key => :target_id, :dependent => :destroy
 
   has_many :profile_categorizations, :conditions => [ 'categories_profiles.virtual = ?', false ]
   has_many :categories, :through => :profile_categorizations

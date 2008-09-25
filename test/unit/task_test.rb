@@ -182,6 +182,14 @@ class TaskTest < Test::Unit::TestCase
     t = Task.new
     assert_equal :perform_task, t.permission
   end
+
+  should 'be destroyed when requestor destroyed' do
+    user = create_user('test_user').person
+    assert_no_difference Task, :count do
+      Task.create(:requestor => user)
+      user.destroy
+    end
+  end
   
   protected
 
