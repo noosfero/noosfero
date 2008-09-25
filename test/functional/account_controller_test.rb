@@ -500,6 +500,19 @@ class AccountControllerTest < Test::Unit::TestCase
     assert_template 'blocked'
   end
 
+  should 'load terms of use for users when creating new users as activate enterprise' do
+    env = Environment.default
+    env.terms_of_use = 'some terms' 
+    env.save!
+    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :foundation_year => 1998, :enabled => false)
+    task = EnterpriseActivation.create!(:enterprise => ent)
+    EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
+
+    post :activate_enterprise, :enterprise_code => '0123456789', :answer => '1998', :terms_accepted => true
+
+    assert_equal 'some terms', assigns(:terms_of_use)
+  end
+
 # end of enterprise activation tests
 
   should 'not be able to signup while inverse captcha field filled' do

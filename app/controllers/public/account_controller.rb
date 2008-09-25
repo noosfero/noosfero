@@ -170,6 +170,7 @@ class AccountController < ApplicationController
   end
 
   def activate_enterprise
+    @terms_of_use = environment.terms_of_use
     @enterprise = load_enterprise
     @question = @enterprise.question
     return unless check_answer
