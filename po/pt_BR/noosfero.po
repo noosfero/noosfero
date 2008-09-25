@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.11.5\n"
 "POT-Creation-Date: 2008-09-19 20:39-0300\n"
-"PO-Revision-Date: 2008-09-19 20:41-0300\n"
+"PO-Revision-Date: 2008-09-25 16:04-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -3658,7 +3658,7 @@ msgstr "Exibir meu website para meus contatos (pessoas)"
 
 #: app/views/profile_editor/edit.rhtml:44
 msgid "Include my contact in directory of people"
-msgstr "Incluir meus contato no diretório de pessoas"
+msgstr "Incluir meu contato no diretório de pessoas"
 
 #: app/views/profile_editor/edit.rhtml:51
 msgid "Activate Intranet access (restricted area only for members)"
