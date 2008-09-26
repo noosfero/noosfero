@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 
   N_('Password')
   N_('Password confirmation')
+  N_('Terms accepted')
 
   # FIXME ugly workaround
   def self.human_attribute_name(attrib)
