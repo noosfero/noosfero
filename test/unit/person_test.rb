@@ -306,4 +306,13 @@ class PersonTest < Test::Unit::TestCase
     assert_kind_of Person, p.template
   end
 
+  should 'destroy all task that it requested when destroyed' do
+    p = create_user('test_profile').person
+
+    assert_no_difference Task, :count do
+      Task.create(:requestor => p)
+      p.destroy
+    end
+  end
+
 end
