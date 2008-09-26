@@ -854,6 +854,21 @@ class ProfileTest < Test::Unit::TestCase
     assert_not_nil p.home_page
     assert_equal 'some xyz article', p.home_page.name
   end
+
+  should 'not advertise the articles copied from templates' do
+    template = create_user('test_template').person
+    template.articles.destroy_all
+    a = template.articles.create(:name => 'some xyz article')
+
+    Profile.any_instance.stubs(:template).returns(template)
+
+    p = Profile.create!(:name => 'test_profile', :identifier => 'test_profile')
+    p.reload
+
+    a_copy = p.articles[0]
+
+    assert !a_copy.advertise
+  end
   
   should 'copy set of boxes from profile template' do
     template = Profile.create!(:name => 'test template', :identifier => 'test_template')
