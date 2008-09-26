@@ -157,6 +157,11 @@ div#notice {
   margin: 0px 0px 10px 0px;
 }
 
+.atention {
+  border: 6px double #000;
+  background: #FE5;
+  padding: 8px 13px;
+}
 
 #better-browser-promotion {
   position: absolute;
