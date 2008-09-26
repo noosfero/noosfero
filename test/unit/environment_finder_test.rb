@@ -311,4 +311,16 @@ class EnvironmentFinderTest < ActiveSupport::TestCase
     assert_equal 2, counts[pc2.id]
     assert_nil counts[pc3.id]
   end
+
+  should 'should retrieve more than 10 entries' do
+    Enterprise.destroy_all
+    finder = EnvironmentFinder.new(Environment.default)
+
+    ('1'..'20').each do |n|
+      Enterprise.create!(:name => 'test ' + n, :identifier => 'test_' + n)
+    end
+
+    assert_equal 20, finder.find(:enterprises, 'test').total_entries
+  end
+
 end

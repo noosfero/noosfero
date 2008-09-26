@@ -9,6 +9,8 @@ class << ActiveRecord::Base
       if ferret_options[:per_page]
         db_options[:per_page] = ferret_options.delete(:per_page)
       end
+
+      ferret_options[:limit] = :all
       
       ids = find_ids_with_ferret(query, ferret_options)[1].map{|r|r[:id].to_i}
       if ids.empty?

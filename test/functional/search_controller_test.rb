@@ -946,6 +946,17 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'h1', :content => 'Communities'
   end
 
+  should 'indicate more than page for total_entries' do
+    Enterprise.destroy_all
+    ('1'..'20').each do |n|
+      Enterprise.create!(:name => 'test ' + n, :identifier => 'test_' + n)
+    end
+
+    get :index, :query => 'test'
+
+    assert_equal 20, assigns(:results)[:enterprises].total_entries
+  end
+
   ##################################################################
   ##################################################################
 

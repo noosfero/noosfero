@@ -434,4 +434,14 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal 'default', Environment.new.layout_template
   end
 
+  should 'return more than 10 enterprises by contents' do
+    env = Environment.default
+    Enterprise.destroy_all
+    ('1'..'20').each do |n|
+      Enterprise.create!(:name => 'test ' + n, :identifier => 'test_' + n)
+    end
+
+    assert_equal 20, env.enterprises.find_by_contents('test').total_entries
+  end
+
 end
