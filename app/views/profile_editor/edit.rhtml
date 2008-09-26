@@ -46,7 +46,17 @@
   </table>
   <% else %>
   <table>
-    <tr><th></th><th><%= _('Public') %></th><th><%= _('Private')  %></th></tr>
+    <tr>
+      <th></th>
+      <th>
+        <%= radio_button 'profile_data', 'public_profile', 'true' %>
+        <label for="profile_data_public_profile_true"><u><%= _('Public') %></u></label>
+      </th>
+      <th style='padding: 2px 10px 2px 2px;'>
+        <%= radio_button 'profile_data', 'public_profile', 'false' %>
+        <label for="profile_data_public_profile_false"><u><%= _('Private') %></u></label>
+      </th>
+    </tr>
     <tr>
       <td> <%= _('Activate Intranet access (restricted area only for members)') %> </td><td><%= _('Yes') %></td><td><%= _('Yes') %></td>
     </tr>
