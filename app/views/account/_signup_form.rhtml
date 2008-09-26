@@ -1,8 +1,6 @@
 <%= error_messages_for :user %>
 <% labelled_form_for :user, @user,
-   :html => { :help=>_('Fill all this fields to join in this environment.' +
-                       '<p/>If you forgot your password, do not create a new account,' +
-                       ' click on the "<b>I forgot my password!</b>" link. ;-)')
+   :html => { :help=>_('Fill all this fields to join in this environment. <p/> If you forgot your password, do not create a new account, click on the "<b>I forgot my password!</b>" link. ;-)')
             } do |f| -%>
 
 <%= f.text_field :login,
@@ -44,11 +42,11 @@
 <% if ! defined? hidden_atention || ! hidden_atention %>
 <p/>
 <div class="atention">
-<%= _('Here you should create a login for an <b>individual person</b>.
-<br/>
+<%= _('Here you can create an account for <b>you as a person</b>.
+<p/>
 Do <b>not</b> enter a login for a group nor for an entreprise.
-With your user login, you can create <b>many</b> group or entreprise
-accounts. You can do it from your personal control panel.') %>
+With your user account, you can create <em>several</em> group or enterprise
+accounts through your person control panel.') %>
 </div>
 <% end %>
 
