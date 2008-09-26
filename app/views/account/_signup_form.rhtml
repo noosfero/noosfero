@@ -41,6 +41,17 @@
   <%= hidden_field_tag :new_user, true %>
 <% end %>
 
+<% if ! defined? hidden_atention || ! hidden_atention %>
+<p/>
+<div class="atention">
+<%= _('Here you should create a login for an <b>individual person</b>.
+<br/>
+Do <b>not</b> enter a login for a group nor for an entreprise.
+With your user login, you can create <b>many</b> group or entreprise
+accounts. You can do it from your personal control panel.') %>
+</div>
+<% end %>
+
 <% button_bar do %>
   <%= submit_button('save', _('Sign up'), :cancel => {:action => 'index'}, :class => 'icon-menu-login') %>
 <% end %>
