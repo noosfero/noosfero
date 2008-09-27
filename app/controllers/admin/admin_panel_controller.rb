@@ -4,10 +4,6 @@ class AdminPanelController < AdminController
   
   protect 'view_environment_admin_panel', :environment
 
-  #FIXME This is not necessary because the application controller define the envrioment 
-  # as the default holder
-  before_filter :load_default_enviroment
-
   def boxes_holder
     environment
   end
@@ -23,9 +19,4 @@ class AdminPanelController < AdminController
   def edit_templates
   end
 
-  protected
-
-  def load_default_enviroment
-    @environment = Environment.default
-  end
 end

@@ -12,6 +12,53 @@ class ApplicationControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
   end
 
+  def test_detection_of_environment_by_host
+    uses_host 'www.colivre.net'
+    get :index
+
+    assert_kind_of Environment, assigns(:environment)
+
+    assert_kind_of Domain, assigns(:domain)
+    assert_equal 'colivre.net', assigns(:domain).name
+
+    assert_nil assigns(:profile)
+  end
+
+  def test_detect_profile_by_host
+    uses_host 'www.jrh.net'
+    get :index
+
+    assert_kind_of Environment, assigns(:environment)
+
+    assert_kind_of Domain, assigns(:domain)
+    assert_equal 'jrh.net', assigns(:domain).name
+
+    assert_kind_of Profile, assigns(:profile)
+  end
+
+  def test_unknown_domain_falls_back_to_default_environment
+    uses_host 'veryunprobabledomain.com'
+
+    get :index
+    assert_kind_of Environment, assigns(:environment)
+    assert assigns(:environment).is_default?
+  end
+
+  should 'detect the current environment' do
+    default = Environment.default
+    Environment.stubs(:default).returns(default)
+    default.stubs(:top_url).returns('http://default.com/')
+
+    current = Environment.create!(:name => 'test environment')
+    current.domains.create!(:name => 'example.com')
+
+    @request.expects(:host).returns('example.com').at_least_once
+    get :index
+
+    assert_equal current, assigns(:environment)
+  end
+
+
   def test_local_files_reference
     assert_local_files_reference
   end
@@ -198,6 +245,19 @@ class ApplicationControllerTest < Test::Unit::TestCase
     @request.expects(:ssl?).returns(true).at_least_once
     get :index
     assert_tag :tag => 'base', :attributes => { :href => 'https://www.lala.net/' }
+  end
+
+  should 'use correct environment for base tag' do
+    default = Environment.default
+    Environment.stubs(:default).returns(default)
+    default.stubs(:top_url).returns('http://default.com/')
+
+    current = Environment.create!(:name => 'test environment')
+    current.domains.create!(:name => 'example.com')
+    
+    @request.expects(:host).returns('example.com').at_least_once
+    get :index
+    assert_tag :tag => 'base', :attributes => { :href => 'http://example.com' }
   end
 
   should 'display theme test panel when testing theme' do

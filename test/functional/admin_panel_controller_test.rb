@@ -22,6 +22,20 @@ class AdminPanelControllerTest < Test::Unit::TestCase
   def test_valid_xhtml
     assert_valid_xhtml
   end
+
+  should 'manage the correct environment' do
+    Environment.destroy_all
+
+    default = Environment.create!(:name => 'default env', :is_default => true)
+    Environment.stubs(:default).returns(default)
+
+    current = Environment.create!(:name => 'test environment', :is_default => false)
+    current.domains.create!(:name => 'example.com')
+    
+    @request.expects(:host).returns('example.com').at_least_once
+    get :index
+    assert_equal current, assigns(:environment)
+  end
   
   should 'link to site_info editing page' do
     get :index

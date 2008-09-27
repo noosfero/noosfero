@@ -8,7 +8,7 @@ class AdminControllerTest < Test::Unit::TestCase
 
   class AdminTestController < AdminController
     def index
-      render :text => 'ok', :layout => false
+      render :text => 'ok', :layout => 'application'
     end
   end
 
