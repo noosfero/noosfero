@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.11.5\n"
-"POT-Creation-Date: 2008-09-26 17:18-0300\n"
-"PO-Revision-Date: 2008-09-26 17:21-0300\n"
+"POT-Creation-Date: 2008-10-02 15:15-0300\n"
+"PO-Revision-Date: 2008-10-02 15:17-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2501,9 +2501,9 @@ msgid ""
 "password, do not create a new account, click on the \"<b>I forgot my "
 "password!</b>\" link. ;-)"
 msgstr ""
-"Preencha todos os campos para entrar neste ambiente.<p/> Se você esqueceu sua "
-"senha, não crie uma nova conta, clique no link \"<b>Eu esqueci minha senha!</"
-"b>\". ;-)"
+"Preencha todos os campos para entrar neste ambiente.<p/> Se você esqueceu "
+"sua senha, não crie uma nova conta, clique no link \"<b>Eu esqueci minha "
+"senha!</b>\". ;-)"
 
 #: app/views/account/_signup_form.rhtml:7
 msgid "\"Username\" is a simple nickname to recognize you on this environment."
@@ -3126,8 +3126,19 @@ msgid "Since %{year}/%{month}"
 msgstr "Desde %{month}/%{year}"
 
 #: app/views/blocks/profile_info_actions/community.rhtml:4
+#: app/views/blocks/profile_info_actions/enterprise.rhtml:7
+#: app/views/memberships/index.rhtml:25
+msgid "Leave"
+msgstr "Sair"
+
+#: app/views/blocks/profile_info_actions/community.rhtml:4
 msgid "Leave this community"
 msgstr "Sair desta comunidade"
+
+#: app/views/blocks/profile_info_actions/community.rhtml:6
+#: app/views/blocks/profile_info_actions/enterprise.rhtml:9
+msgid "Join"
+msgstr "Entrar"
 
 #: app/views/blocks/profile_info_actions/community.rhtml:6
 msgid "Join this community"
@@ -3143,8 +3154,12 @@ msgid "Add friend"
 msgstr "Adicionar amigo"
 
 #: app/views/blocks/profile_info_actions/enterprise.rhtml:4
-msgid "Add favorite enterprise"
-msgstr "Adicionar empreendimento favorito"
+msgid "Add as favorite"
+msgstr "Adicionar favorito"
+
+#: app/views/blocks/profile_info_actions/enterprise.rhtml:4
+msgid "Add enterprise as favorite"
+msgstr "Editar empreendimento como favorito"
 
 #: app/views/blocks/profile_info_actions/enterprise.rhtml:7
 msgid "Leave this enterprise"
@@ -3348,10 +3363,6 @@ msgstr "Criado em: %s"
 #: app/views/memberships/index.rhtml:24
 msgid "Manage"
 msgstr "Gerenciar"
-
-#: app/views/memberships/index.rhtml:25
-msgid "Leave"
-msgstr "Sair"
 
 #: app/views/memberships/leave.rhtml:1
 msgid "Leaving %s"
@@ -4685,8 +4696,8 @@ msgid "Edit message for disabled organizations"
 msgstr "Editar mensagem para organizações desabilitadas"
 
 #: lib/zen3_terminology.rb:33
-msgid "Add favorite organization"
-msgstr "Adicionar organização favorita"
+msgid "Add organization as favorite"
+msgstr "Adicionar organização como favorita"
 
 #: lib/zen3_terminology.rb:34
 msgid ""
@@ -4795,6 +4806,12 @@ msgstr "Contatos"
 #: lib/zen3_terminology.rb:59
 msgid "Creating new group"
 msgstr "Criar novo grupo"
+
+#~ msgid "Add favorite enterprise"
+#~ msgstr "Adicionar empreendimento favorito"
+
+#~ msgid "Add favorite organization"
+#~ msgstr "Adicionar organização favorita"
 
 #~ msgid "Edit Profile"
 #~ msgstr "Editar Perfil"
@@ -5403,9 +5420,6 @@ msgstr "Criar novo grupo"
 #~ msgid "Consumed Products"
 #~ msgstr "Produtos Consumidos"
 
-#~ msgid "Edit organization info"
-#~ msgstr "Editar informações da organização"
-
 #~ msgid "Upload"
 #~ msgstr "Upload"
 
@@ -5904,9 +5918,6 @@ msgstr "Criar novo grupo"
 
 #~ msgid "Main content block"
 #~ msgstr "Bloco de conteúdo principal"
-
-#~ msgid "Edit enterprise info"
-#~ msgstr "Editar informação de empreendimento"
 
 #~ msgid "Profile|Flexible template template"
 #~ msgstr "Modelo fexível modelo"

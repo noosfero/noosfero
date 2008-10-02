@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.11.5\n"
-"POT-Creation-Date: 2008-09-26 17:18-0300\n"
+"POT-Creation-Date: 2008-10-02 15:15-0300\n"
 "PO-Revision-Date: 2008-06-13 16:15-0300\n"
 "Last-Translator: Raphael Rousseau <pootle.colivre.coop.br@r4f.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3326,9 +3326,22 @@ msgid "Since %{year}/%{month}"
 msgstr "Depuis %{month}/%{year}"
 
 #: app/views/blocks/profile_info_actions/community.rhtml:4
+#: app/views/blocks/profile_info_actions/enterprise.rhtml:7
+#: app/views/memberships/index.rhtml:25
+#, fuzzy
+msgid "Leave"
+msgstr "Enregistrer"
+
+#: app/views/blocks/profile_info_actions/community.rhtml:4
 #, fuzzy
 msgid "Leave this community"
 msgstr "Rejoindre ce groupe"
+
+#: app/views/blocks/profile_info_actions/community.rhtml:6
+#: app/views/blocks/profile_info_actions/enterprise.rhtml:9
+#, fuzzy
+msgid "Join"
+msgstr "Connexion"
 
 #: app/views/blocks/profile_info_actions/community.rhtml:6
 msgid "Join this community"
@@ -3346,8 +3359,13 @@ msgstr "Ajouter un ami"
 
 #: app/views/blocks/profile_info_actions/enterprise.rhtml:4
 #, fuzzy
-msgid "Add favorite enterprise"
-msgstr "Éditer l'entreprise"
+msgid "Add as favorite"
+msgstr "Ajouter un ami"
+
+#: app/views/blocks/profile_info_actions/enterprise.rhtml:4
+#, fuzzy
+msgid "Add enterprise as favorite"
+msgstr "Toutes les entreprises"
 
 #: app/views/blocks/profile_info_actions/enterprise.rhtml:7
 #, fuzzy
@@ -3567,11 +3585,6 @@ msgstr "Créé le :"
 #: app/views/memberships/index.rhtml:24
 msgid "Manage"
 msgstr "Gérer"
-
-#: app/views/memberships/index.rhtml:25
-#, fuzzy
-msgid "Leave"
-msgstr "Enregistrer"
 
 #: app/views/memberships/leave.rhtml:1
 #, fuzzy
@@ -5016,8 +5029,8 @@ msgstr "Ajouter %s comme ami"
 
 #: lib/zen3_terminology.rb:33
 #, fuzzy
-msgid "Add favorite organization"
-msgstr "info organisation"
+msgid "Add organization as favorite"
+msgstr "Éditer les informations de l'organisation"
 
 #: lib/zen3_terminology.rb:34
 #, fuzzy
@@ -5150,6 +5163,14 @@ msgstr "Personne de contact : "
 #, fuzzy
 msgid "Creating new group"
 msgstr "Créer un produit"
+
+#, fuzzy
+#~ msgid "Add favorite enterprise"
+#~ msgstr "Éditer l'entreprise"
+
+#, fuzzy
+#~ msgid "Add favorite organization"
+#~ msgstr "info organisation"
 
 #~ msgid "Edit Profile"
 #~ msgstr "Éditer le profil"
@@ -5876,9 +5897,6 @@ msgstr "Créer un produit"
 
 #~ msgid "control panel"
 #~ msgstr "panneau de contrôle"
-
-#~ msgid "Edit organization info"
-#~ msgstr "Éditer les informations de l'organisation"
 
 #~ msgid "Only in %s"
 #~ msgstr "Uniquement dans %s"

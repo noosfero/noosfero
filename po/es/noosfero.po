@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.11.5\n"
-"POT-Creation-Date: 2008-09-26 17:18-0300\n"
+"POT-Creation-Date: 2008-10-02 15:15-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3017,7 +3017,18 @@ msgid "Since %{year}/%{month}"
 msgstr ""
 
 #: app/views/blocks/profile_info_actions/community.rhtml:4
+#: app/views/blocks/profile_info_actions/enterprise.rhtml:7
+#: app/views/memberships/index.rhtml:25
+msgid "Leave"
+msgstr ""
+
+#: app/views/blocks/profile_info_actions/community.rhtml:4
 msgid "Leave this community"
+msgstr ""
+
+#: app/views/blocks/profile_info_actions/community.rhtml:6
+#: app/views/blocks/profile_info_actions/enterprise.rhtml:9
+msgid "Join"
 msgstr ""
 
 #: app/views/blocks/profile_info_actions/community.rhtml:6
@@ -3034,7 +3045,11 @@ msgid "Add friend"
 msgstr ""
 
 #: app/views/blocks/profile_info_actions/enterprise.rhtml:4
-msgid "Add favorite enterprise"
+msgid "Add as favorite"
+msgstr ""
+
+#: app/views/blocks/profile_info_actions/enterprise.rhtml:4
+msgid "Add enterprise as favorite"
 msgstr ""
 
 #: app/views/blocks/profile_info_actions/enterprise.rhtml:7
@@ -3229,10 +3244,6 @@ msgstr ""
 
 #: app/views/memberships/index.rhtml:24
 msgid "Manage"
-msgstr ""
-
-#: app/views/memberships/index.rhtml:25
-msgid "Leave"
 msgstr ""
 
 #: app/views/memberships/leave.rhtml:1
@@ -4511,7 +4522,7 @@ msgid "Edit message for disabled organizations"
 msgstr ""
 
 #: lib/zen3_terminology.rb:33
-msgid "Add favorite organization"
+msgid "Add organization as favorite"
 msgstr ""
 
 #: lib/zen3_terminology.rb:34
