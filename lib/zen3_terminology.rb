@@ -30,7 +30,7 @@ class Zen3Terminology < Noosfero::Terminology::Custom
       'All favorite enterprises' => N_('All favorite organizations'),
       'A search for enterprises by products selled and local' => N_('A search for organizations by products selled and local'),
       'Edit message for disabled enterprises' => N_('Edit message for disabled organizations'),
-      'Add favorite enterprise' => N_('Add favorite organization'),
+      'Add enterprise as favorite' => N_('Add organization as favorite'),
       'Validation info is the information the enterprises will see about how your organization processes the enterprises validations it receives: validation methodology, restrictions to the types of enterprises the organization validates etc.' => N_('Validation info is the information the organizations will see about how your organization processes the organizations validations it receives: validation methodology, restrictions to the types of organizations the organization validates etc.'),
       'Here are all <b>%s</b>\'s enterprises.' => N_('Here all all <b>%s</b>\'s organizations.'),
       'Here are all <b>%s</b>\'s favorite enterprises.' => N_('Here are all <b>%s</b>\'s favorite organizations.'),

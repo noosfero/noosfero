@@ -1,12 +1,12 @@
 <ul>
   <%if logged_in? %>
     <%if !user.favorite_enterprises.include?(profile) %>
-      <li><%= link_to content_tag('span', __('Add favorite enterprise')), { :profile => user.identifier, :controller => 'favorite_enterprises', :action => 'add', :id => profile.id }, :class => 'button with-text icon-add' %></li>
+      <li><%= link_to content_tag('span', _('Add as favorite')), { :profile => user.identifier, :controller => 'favorite_enterprises', :action => 'add', :id => profile.id }, :class => 'button with-text icon-add', :title => __('Add enterprise as favorite') %></li>
     <% end %>
     <% if profile.members.include?(user) %>
-      <li><%= link_to content_tag('span', __('Leave this enterprise')), { :profile => user.identifier, :controller => 'memberships', :action => 'leave', :id => profile.id }, :class => 'button with-text icon-delete' %></li>
+      <li><%= link_to content_tag('span', _('Leave')), { :profile => user.identifier, :controller => 'memberships', :action => 'leave', :id => profile.id }, :class => 'button with-text icon-delete', :title => __('Leave this enterprise') %></li>
     <% else %>
-      <li><%= link_to content_tag('span', __('Join this enterprise')), { :profile => user.identifier, :controller => 'memberships', :action => 'join', :id => profile.id }, :class => 'button with-text icon-add' %></li>
+      <li><%= link_to content_tag('span', _('Join')), { :profile => user.identifier, :controller => 'memberships', :action => 'join', :id => profile.id }, :class => 'button with-text icon-add', :title => __('Join this enterprise') %></li>
     <% end %>
   <% end %>
 </ul>
