@@ -67,7 +67,7 @@ class ProfileControllerTest < Test::Unit::TestCase
     login_as(@profile.identifier)
     community = Community.create!(:name => 'my test community')
     get :index, :profile => community.identifier
-    assert_tag :tag => 'a', :content => 'Join this community'
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{@profile.identifier}/memberships/join/#{community.id}" }
   end
 
   should 'not show Join This Community button for member users' do
@@ -75,13 +75,15 @@ class ProfileControllerTest < Test::Unit::TestCase
     community = Community.create!(:name => 'my test community')
     community.add_member(@profile)
     get :index, :profile => community.identifier
-    assert_no_tag :tag => 'a', :content => 'Join this community'
+    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{@profile.identifier}/memberships/join/#{community.id}" }
+
   end
 
   should 'not show Join This Community button for non-registered users' do
     community = Community.create!(:name => 'my test community')
     get :index, :profile => community.identifier
-    assert_no_tag :tag => 'a', :content => 'Join this community'
+    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{@profile.identifier}/memberships/leave/#{community.id}" }
+
   end
 
   should 'not show enterprises link to enterprise' do
@@ -190,7 +192,7 @@ class ProfileControllerTest < Test::Unit::TestCase
     login_as(@profile.identifier)
     community = Community.create!(:name => 'my test community')
     get :index, :profile => community.identifier
-    assert_no_tag :tag => 'a', :content => 'Leave this community'
+    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{@profile.identifier}/memberships/leave/#{community.id}" }
   end
 
   should 'show Leave This Community button for member users' do
@@ -198,13 +200,13 @@ class ProfileControllerTest < Test::Unit::TestCase
     community = Community.create!(:name => 'my test community')
     community.add_member(@profile)
     get :index, :profile => community.identifier
-    assert_tag :tag => 'a', :content => 'Leave this community'
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{@profile.identifier}/memberships/leave/#{community.id}" }
   end
 
   should 'not show Leave This Community button for non-registered users' do
     community = Community.create!(:name => 'my test community')
     get :index, :profile => community.identifier
-    assert_no_tag :tag => 'a', :content => 'Leave this community'
+    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{@profile.identifier}/memberships/leave/#{community.id}" }
   end
 
   should 'check access before displaying profile' do
