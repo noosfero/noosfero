@@ -164,7 +164,7 @@
   position: absolute;
   top: 3px;
   right: 170px;
-  width: 150px;
+  width: 200px;
   z-index: 100;
 }
 
@@ -243,17 +243,19 @@
 #user_menu_head {
   overflow: visible;
   cursor: default;
+  width: 100%;
+  overflow: hidden;
 }
 #user_menu_head span {
   position: relative;
   top: 1px;
   left: 1px;
+  font-weight: normal;
 }
 
 #user_menu_head,
 #user_box a#link_login {
   margin-left: 4px;
-  display: inline;
 }
 #user_menu a#link_login:hover {
   background: none;
@@ -277,8 +279,8 @@
 }
 
 #user_menu ul {
-  width: 150px;
-  max-width: 140px;
+  width: 200px;
+  max-width: 190px;
   height: 0px;
   position: relative; /* work arround IE Bug */
   overflow: hidden;
