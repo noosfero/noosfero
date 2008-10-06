@@ -69,4 +69,8 @@ class FriendsControllerTest < Test::Unit::TestCase
     end
   end
 
+  should 'display find people button' do
+    get :index, :profile => 'testuser'
+    assert_tag :tag => 'a', :content => 'Find people', :attributes => { :href => '/assets/people' }
+  end
 end

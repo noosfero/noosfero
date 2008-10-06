@@ -22,13 +22,14 @@
 <p>
 <em>
   <%= __('You have no friends yet.') %>
-  <%= link_to _('Want you see other persons on this environment?'), :controller => 'search', :action => 'assets', :asset => 'people' %>
+  <%= link_to _('Do you want to see other people in this environment?'), :controller => 'search', :action => 'assets', :asset => 'people' %>
 </em>
 </p>
 <% end %>
 
 <% button_bar do %>
   <%= button(:back, _('Go back'), :controller => 'profile_editor') %>
+  <%= button(:search, _('Find people'), :controller => 'search', :action => 'assets', :asset => 'people') %>
 <% end %>
 
 </div><!-- end id="manage_friends" -->
