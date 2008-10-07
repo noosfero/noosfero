@@ -3,10 +3,14 @@ class Person < Profile
 
   acts_as_accessor
 
-  has_many :friendships
+  has_many :friendships, :dependent => :destroy
   has_many :friends, :class_name => 'Person', :through => :friendships
 
   has_many :requested_tasks, :class_name => 'Task', :foreign_key => :requestor_id, :dependent => :destroy
+
+  after_destroy do |person|
+    Friendship.find(:all, :conditions => { :friend_id => person.id}).each { |friendship| friendship.destroy }
+  end
 
   def suggested_friend_groups
     (friend_groups + [ _('friends'), _('work'), _('school'), _('family') ]).map {|i| i if !i.empty?}.compact.uniq
