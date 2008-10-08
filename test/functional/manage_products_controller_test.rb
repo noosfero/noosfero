@@ -120,7 +120,7 @@ class ManageProductsControllerTest < Test::Unit::TestCase
     category3 = ProductCategory.create!(:name => 'Category 3', :environment => environment, :parent => category2)
     get :new, :profile => @enterprise.identifier
     assert_tag :tag => 'p', :content => /Select a category:/
-    assert_tag :tag => 'a', :content => /#{category2.name}/
+    assert_tag :tag => 'a', :content => /#{category1.name}/
   end
 
   should 'show current category' do
@@ -264,6 +264,15 @@ class ManageProductsControllerTest < Test::Unit::TestCase
     get :index, :profile => @enterprise.identifier
 
     assert_template 'not_found.rhtml'
+  end
+
+  should 'show top level product categories for the user to choose' do
+    pc1 = ProductCategory.create!(:name => 'test_category1', :environment => Environment.default)
+    pc2 = ProductCategory.create!(:name => 'test_category2', :environment => Environment.default)
+
+    get :new, :profile => @enterprise.identifier
+
+    assert_equivalent [pc1, pc2], assigns(:categories)
   end
   
 end

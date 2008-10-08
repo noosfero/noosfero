@@ -1,24 +1,21 @@
-<% if !@current_category.nil? and !@current_category.top_level? %>
+<% if !@current_category.nil? %>
 
   <p><%= _('Current category:') %></p>
   <%= hidden_field_tag 'product[product_category_id]', @current_category.id %>
-  <%
-    categories = [@current_category]
-    categories.push(@current_category) while @current_category = @current_category.parent
-    categories.last.name = _('Back')
+  <%= link_to_remote( _('Back'),
+      :update => "subcategories",
+      :url => { :action => 'update_subcategories', :id => nil, :loaded => visual_effect(:highlight, "subcategories") },
+      :class => 'select-current-category-link') + ' &rarr; '
   %>
-  <% if categories.size > 1 %>
-    <%= categories.compact.reverse.map{|i|
-      link_to_remote(i.name, 
-        :update => "subcategories",
-        :url => { :action => 'update_subcategories', :id => i, :loaded => visual_effect(:highlight, "subcategories") },
-        :class => 'select-current-category-link')}.join(' &rarr; ')
-    %>
-  <% end %>
-
+  <%= ([@current_category] + @current_category.ancestors).reverse.map{|i|
+    link_to_remote(i.name,
+      :update => "subcategories",
+      :url => { :action => 'update_subcategories', :id => i, :loaded => visual_effect(:highlight, "subcategories") },
+      :class => 'select-current-category-link')}.join(' &rarr; ')
+  %>
 <% end %>
 
-<% if @current_category %>
+<% if @current_category.nil? %>
   <p><%= _('Select a category:') %></p>
 <% elsif !@categories.empty?  %>
   <p><%= _('Select a subcategory:') %></p>
