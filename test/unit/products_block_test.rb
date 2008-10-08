@@ -107,4 +107,20 @@ class ProductsBlockTest < ActiveSupport::TestCase
     assert_equal [1, 2], block.product_ids
   end
 
+  should 'not repeat products' do
+    enterprise = Enterprise.create!(:name => 'test_enterprise', :identifier => 'test_enterprise')
+    p1 = enterprise.products.create!(:name => 'product one')
+    p2 = enterprise.products.create!(:name => 'product two')
+    p3 = enterprise.products.create!(:name => 'product three')
+    p4 = enterprise.products.create!(:name => 'product four')
+
+    block = ProductsBlock.new
+    enterprise.boxes.first.blocks << block
+    block.save!
+
+    4.times do # to keep a minimal chance of false positive, its random after all
+      assert_equivalent [p1, p2, p3, p4], block.products
+    end
+  end
+
 end

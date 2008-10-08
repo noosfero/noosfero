@@ -41,7 +41,9 @@ class ProductsBlock < Block
       products_list = owner.products(reload)
       result = []
       [4, products_list.size].min.times do
-        result << products_list.rand
+        p = products_list.rand
+        result << p
+        products_list -= [p]
       end
       result
     else
