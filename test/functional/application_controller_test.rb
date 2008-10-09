@@ -356,6 +356,21 @@ class ApplicationControllerTest < Test::Unit::TestCase
     assert_redirected_to :x => '1', :y => '1', :protocol => 'https://'
   end
 
+  should 'return true in redirect_to_ssl' do
+    env = mock
+    env.expects(:disable_ssl).returns(false)
+    @controller.expects(:environment).returns(env)
+    @controller.expects(:params).returns({})
+    @controller.expects(:redirect_to).with({:protocol => 'https://'})
+    assert_equal true, @controller.redirect_to_ssl
+  end
+  should 'return false in redirect_to_ssl when ssl is disabled' do
+    env = mock
+    env.expects(:disable_ssl).returns(true)
+    @controller.expects(:environment).returns(env)
+    assert_equal false, @controller.redirect_to_ssl
+  end
+
   should 'not force ssl when ssl is disabled' do
     env = Environment.default
     env.expects(:disable_ssl).returns(true)

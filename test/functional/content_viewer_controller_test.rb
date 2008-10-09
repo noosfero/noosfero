@@ -451,4 +451,14 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'a', :attributes => {:href => ('/myprofile/' + prof.identifier + '/cms/publish/' + page.id.to_s)}
   end
 
+  should 'deny access before trying SSL when SSL is disabled' do
+    @controller.expects(:redirect_to_ssl).returns(false)
+    profile = create_user('testuser').person
+    profile.public_profile = false
+    profile.save!
+
+    get :view_page, :profile => 'testuser', :page => profile.home_page.explode_path
+    assert_response 403
+  end
+
 end

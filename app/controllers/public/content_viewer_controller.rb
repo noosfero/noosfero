@@ -29,8 +29,7 @@ class ContentViewerController < ApplicationController
     end
 
     if !@page.public? && !request.ssl?
-      redirect_to_ssl
-      return
+      return if redirect_to_ssl
     end
 
     if !@page.display_to?(user)
