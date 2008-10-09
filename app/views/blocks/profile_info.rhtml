@@ -21,7 +21,9 @@
   <% if !user.nil? and user.has_permission?('edit_profile', profile) %>
     <li><%= link_to _('Control panel'), :controller => 'profile_editor' %></li>
   <% end %>
-  <li><%= _('Since %{year}/%{month}') % { :year => block.owner.created_at.year, :month => block.owner.created_at.month } %></li>
+  <% if profile.person? %>
+    <li><%= _('Since %{year}/%{month}') % { :year => block.owner.created_at.year, :month => block.owner.created_at.month } %></li>
+  <% end %>
 </ul>
 
 <% if profile.respond_to? :city %>
