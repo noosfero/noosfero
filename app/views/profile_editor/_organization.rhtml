@@ -9,6 +9,7 @@
 
   </div>
   <%= f.text_field(:acronym) %>
+  <%= f.text_field(:address, 'size' => 50) if @profile.kind_of?(Enterprise) %>
   <%= f.text_field(:foundation_year) %>
   <%= f.text_field(:contact_person) %>
   <%= f.text_field(:contact_email) %>
