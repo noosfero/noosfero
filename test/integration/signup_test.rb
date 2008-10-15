@@ -21,7 +21,7 @@ class SignupTest < ActionController::IntegrationTest
     assert_template 'signup'
     assert_equal count, User.count
 
-    post '/account/signup', :user => { :login => 'shouldaccepterms', :password => 'test', :password_confirmation => 'test', :email => 'shouldaccepterms@example.com', :terms_accepted => '1' }
+    post '/account/signup', :user => { :login => 'shouldaccepterms', :password => 'test', :password_confirmation => 'test', :email => 'shouldaccepterms@example.com', :terms_accepted => '1' }, :profile_data => person_data
     assert_response :redirect
 
     follow_redirect!

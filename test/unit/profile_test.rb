@@ -60,7 +60,16 @@ class ProfileTest < Test::Unit::TestCase
   end
 
   should 'set default environment for users created' do
-    assert_equal Environment.default, create_user('mytestuser').person.environment
+    user = create_user 'mytestuser'
+    assert_equal 'mytestuser', user.login
+    assert !user.new_record?
+
+    p = user.person
+
+    assert !p.new_record?
+    assert_equal 'mytestuser', p.identifier
+    e = p.environment
+    assert_equal Environment.default, e
   end
 
   def test_cannot_rename
@@ -86,7 +95,7 @@ class ProfileTest < Test::Unit::TestCase
 
   def test_can_have_affiliated_people
     pr = Profile.create(:name => 'composite_profile', :identifier => 'composite')
-    pe = User.create(:login => 'aff', :email => 'aff@pr.coop', :password => 'blih', :password_confirmation => 'blih').person
+    pe = create_user('aff', :email => 'aff@pr.coop', :password => 'blih', :password_confirmation => 'blih').person
 
     member_role = Role.new(:name => 'new_member_role')
     assert member_role.save
@@ -817,7 +826,6 @@ class ProfileTest < Test::Unit::TestCase
 
     community.remove_member(person)
 
-    person.reload
     assert_not_includes person.memberships, community
   end
 

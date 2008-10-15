@@ -12,7 +12,7 @@ class ForgotPasswordTest < ActionController::IntegrationTest
     Profile.destroy_all
     ChangePassword.destroy_all
 
-    User.create!(:login => 'forgotten', :password => 'test', :password_confirmation => 'test', :email => 'forgotten@localhost.localdomain')
+    create_user('forgotten', :password => 'test', :password_confirmation => 'test', :email => 'forgotten@localhost.localdomain')
 
     get '/account/forgot_password'
 

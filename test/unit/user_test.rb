@@ -8,35 +8,35 @@ class UserTest < Test::Unit::TestCase
 
   def test_should_create_user
     assert_difference User, :count do
-      user = create_user
+      user = new_user
       assert !user.new_record?, "#{user.errors.full_messages.to_sentence}"
     end
   end
 
   def test_should_require_login
     assert_no_difference User, :count do
-      u = create_user(:login => nil)
+      u = new_user(:login => nil)
       assert u.errors.on(:login)
     end
   end
 
   def test_should_require_password
     assert_no_difference User, :count do
-      u = create_user(:password => nil)
+      u = new_user(:password => nil)
       assert u.errors.on(:password)
     end
   end
 
   def test_should_require_password_confirmation
     assert_no_difference User, :count do
-      u = create_user(:password_confirmation => nil)
+      u = new_user(:password_confirmation => nil)
       assert u.errors.on(:password_confirmation)
     end
   end
 
   def test_should_require_email
     assert_no_difference User, :count do
-      u = create_user(:email => nil)
+      u = new_user(:email => nil)
       assert u.errors.on(:email)
     end
   end
@@ -72,7 +72,7 @@ class UserTest < Test::Unit::TestCase
     users_count = User.count
     person_count = Person.count
 
-    user = User.create!(:login => 'new_user', :email => 'new_user@example.com', :password => 'test', :password_confirmation => 'test')
+    user = create_user('new_user', :email => 'new_user@example.com', :password => 'test', :password_confirmation => 'test')
 
     assert Person.exists?(['user_id = ?', user.id])
 
@@ -107,7 +107,7 @@ class UserTest < Test::Unit::TestCase
   end
 
   def test_should_change_password
-    user = User.create!(:login => 'changetest', :password => 'test', :password_confirmation => 'test', :email => 'changetest@example.com')
+    user = create_user('changetest', :password => 'test', :password_confirmation => 'test', :email => 'changetest@example.com')
     assert_nothing_raised do
       user.change_password!('test', 'newpass', 'newpass')
     end
@@ -116,7 +116,7 @@ class UserTest < Test::Unit::TestCase
   end
 
   def test_should_give_correct_current_password_for_changing_password
-    user = User.create!(:login => 'changetest', :password => 'test', :password_confirmation => 'test', :email => 'changetest@example.com')
+    user = create_user('changetest', :password => 'test', :password_confirmation => 'test', :email => 'changetest@example.com')
     assert_raise User::IncorrectPassword do
       user.change_password!('wrong', 'newpass', 'newpass')
     end
@@ -125,7 +125,7 @@ class UserTest < Test::Unit::TestCase
   end
 
   should 'require matching confirmation when changing password by force' do
-    user = User.create!(:login => 'changetest', :password => 'test', :password_confirmation => 'test', :email => 'changetest@example.com')
+    user = create_user('changetest', :password => 'test', :password_confirmation => 'test', :email => 'changetest@example.com')
     assert_raise ActiveRecord::RecordInvalid do
       user.force_change_password!('newpass', 'newpasswrong')
     end
@@ -134,7 +134,7 @@ class UserTest < Test::Unit::TestCase
   end
 
   should 'be able to force password change' do
-    user = User.create!(:login => 'changetest', :password => 'test', :password_confirmation => 'test', :email => 'changetest@example.com')
+    user = create_user('changetest', :password => 'test', :password_confirmation => 'test', :email => 'changetest@example.com')
     assert_nothing_raised  do
       user.force_change_password!('newpass', 'newpass')
     end
@@ -144,19 +144,19 @@ class UserTest < Test::Unit::TestCase
   def test_should_create_person_when_creating_user
     count = Person.count
     assert !Person.find_by_identifier('lalala')
-    create_user(:login => 'lalala', :email => 'lalala@example.com')
+    new_user(:login => 'lalala', :email => 'lalala@example.com')
     assert Person.find_by_identifier('lalala')
   end
 
   should 'set the same environment for user and person objects' do
     env = Environment.create!(:name => 'my test environment')
-    user = create_user(:environment_id => env.id)
+    user = new_user(:environment_id => env.id)
     assert_equal env, user.environment
     assert_equal env, user.person.environment
   end
 
   def test_should_destroy_person_when_destroying_user
-    user = create_user(:login => 'lalala', :email => 'lalala@example.com')
+    user = new_user(:login => 'lalala', :email => 'lalala@example.com')
     assert Person.find_by_identifier('lalala')
     user.destroy
     assert !Person.find_by_identifier('lalala')
@@ -164,6 +164,7 @@ class UserTest < Test::Unit::TestCase
 
   def test_should_encrypt_password_with_salted_sha1
     user = User.new(:login => 'lalala', :email => 'lalala@example.com', :password => 'test', :password_confirmation => 'test')
+    user.build_person(person_data)
     user.expects(:salt).returns('testsalt')
     user.save!
 
@@ -177,12 +178,12 @@ class UserTest < Test::Unit::TestCase
   def test_should_support_md5_passwords
     # ATTENTION this test explicitly exposes the crypted form of 'test'. This
     # makes 'test' a terrible password. :)
-    user = create_user(:login => 'lalala', :email => 'lalala@example.com', :password => 'test', :password_confirmation => 'test', :password_type => 'md5')
+    user = new_user(:login => 'lalala', :email => 'lalala@example.com', :password => 'test', :password_confirmation => 'test', :password_type => 'md5')
     assert_equal '098f6bcd4621d373cade4e832627b4f6', user.crypted_password
   end
 
   def test_should_support_clear_passwords
-    assert_equal 'test', create_user(:password => 'test', :password_confirmation => 'test', :password_type => 'clear').crypted_password
+    assert_equal 'test', new_user(:password => 'test', :password_confirmation => 'test', :password_type => 'clear').crypted_password
   end
 
   def test_should_only_allow_know_encryption_methods
@@ -214,14 +215,14 @@ class UserTest < Test::Unit::TestCase
 
   def test_new_instances_should_use_system_encryption_method
     User.expects(:system_encryption_method).returns(:clear)
-    assert_equal 'clear', create_user.password_type
+    assert_equal 'clear', new_user.password_type
   end
 
   def test_should_reencrypt_password_when_using_different_encryption_method_from_the_system_default
     User.stubs(:system_encryption_method).returns(:salted_sha1)
 
     # a user was created ...
-    user = create_user(:login => 'lalala', :email => 'lalala@example.com', :password => 'test', :password_confirmation => 'test', :password_type => 'salted_sha1')
+    user = new_user(:login => 'lalala', :email => 'lalala@example.com', :password => 'test', :password_confirmation => 'test', :password_type => 'salted_sha1')
 
     # then the sysadmin decided to change the encryption method
     User.expects(:system_encryption_method).returns(:md5).at_least_once
@@ -238,7 +239,7 @@ class UserTest < Test::Unit::TestCase
   def test_should_not_update_encryption_if_password_incorrect
     # a user was created
     User.stubs(:system_encryption_method).returns(:salted_sha1)
-    user = create_user(:login => 'lalala', :email => 'lalala@example.com', :password => 'test', :password_confirmation => 'test', :password_type => 'salted_sha1')
+    user = new_user(:login => 'lalala', :email => 'lalala@example.com', :password => 'test', :password_confirmation => 'test', :password_type => 'salted_sha1')
     crypted_password = user.crypted_password
 
     # then the sysadmin deciced to change the encryption method
@@ -262,7 +263,10 @@ class UserTest < Test::Unit::TestCase
   end
 
   protected
-    def create_user(options = {})
-      User.create({ :login => 'quire', :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire' }.merge(options))
+    def new_user(options = {})
+      user = User.new({ :login => 'quire', :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire' }.merge(options))
+      user.build_person(person_data)
+      user.save
+      user
     end
 end

@@ -20,7 +20,7 @@ class ChangePasswordTest < Test::Unit::TestCase
 
   should 'require a valid username' do
     User.destroy_all
-    User.create!(:login => 'testuser', :password => 'test', :password_confirmation => 'test', :email => 'test@example.com')
+    create_user('testuser', :password => 'test', :password_confirmation => 'test', :email => 'test@example.com')
 
     data = ChangePassword.new
     data.login = 'testuser'
@@ -30,7 +30,7 @@ class ChangePasswordTest < Test::Unit::TestCase
 
   should 'refuse incorrect e-mail address' do
     User.destroy_all
-    User.create!(:login => 'testuser', :password => 'test', :password_confirmation => 'test', :email => 'test@example.com')
+    create_user('testuser', :password => 'test', :password_confirmation => 'test', :email => 'test@example.com')
 
     data = ChangePassword.new
     data.login = 'testuser'
@@ -43,7 +43,7 @@ class ChangePasswordTest < Test::Unit::TestCase
 
   should 'require the correct e-mail address' do
     User.destroy_all
-    User.create!(:login => 'testuser', :password => 'test', :password_confirmation => 'test', :email => 'test@example.com')
+    create_user('testuser', :password => 'test', :password_confirmation => 'test', :email => 'test@example.com')
 
     data = ChangePassword.new
     data.login = 'testuser'
@@ -55,7 +55,7 @@ class ChangePasswordTest < Test::Unit::TestCase
   end
 
   should 'require correct passsword confirmation' do
-    User.create!(:login => 'testuser', :password => 'test', :password_confirmation => 'test', :email => 'test@example.com')
+    create_user('testuser', :password => 'test', :password_confirmation => 'test', :email => 'test@example.com')
 
     change = ChangePassword.new
     change.login = 'testuser'
@@ -75,7 +75,7 @@ class ChangePasswordTest < Test::Unit::TestCase
 
   should 'actually change password' do
     User.destroy_all
-    person = User.create!(:login => 'testuser', :password => 'test', :password_confirmation => 'test', :email => 'test@example.com').person
+    person = create_user('testuser', :password => 'test', :password_confirmation => 'test', :email => 'test@example.com').person
 
     change = ChangePassword.new
     change.login = 'testuser'
@@ -93,7 +93,7 @@ class ChangePasswordTest < Test::Unit::TestCase
 
   should 'not require password and password confirmation when cancelling' do
     User.destroy_all
-    person = User.create!(:login => 'testuser', :password => 'test', :password_confirmation => 'test', :email => 'test@example.com').person
+    person = create_user('testuser', :password => 'test', :password_confirmation => 'test', :email => 'test@example.com').person
 
     change = ChangePassword.new
     change.login = 'testuser'

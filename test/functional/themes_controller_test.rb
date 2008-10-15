@@ -55,7 +55,7 @@ class ThemesControllerTest < Test::Unit::TestCase
 
   should 'save selection of theme' do
     get :set, :profile => 'testinguser', :id => 'onetheme'
-    profile.reload
+    profile = Profile.find(@profile.id)
     assert_equal 'onetheme', profile.theme
   end
 
@@ -234,7 +234,7 @@ class ThemesControllerTest < Test::Unit::TestCase
 
   should 'set template' do
     post :set_layout_template, :profile => 'testinguser', :id => 'leftbar'
-    profile.reload
+    profile = Profile.find(@profile.id)
     assert_equal 'leftbar', profile.layout_template
     assert_redirected_to :action => 'index'
   end

@@ -1,4 +1,5 @@
 @import url(controller_cms.css);
+@import url(person_data.css);
 
 .profile_info {
   width: 100%;
@@ -23,7 +24,6 @@
   border: none !important;
   background-color: transparent !important;
 }
-
 
 /* file manager (big) style */
 
@@ -60,4 +60,3 @@
 .file-manager-button span {
   display: block;
 }
-

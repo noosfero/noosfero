@@ -12,13 +12,14 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     @request    = ActionController::TestRequest.new
     @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
-    login_as('ze')
-    @profile = Person['ze']
+    @profile = create_user('default_user').person
+    Environment.default.affiliate(@profile, [Environment::Roles.admin] + Profile::Roles.all_roles)
+    login_as('default_user')
   end
   attr_reader :profile
 
   def test_local_files_reference
-    assert_local_files_reference :get, :index, :profile => 'ze'
+    assert_local_files_reference :get, :index, :profile => profile.identifier
   end
   
   def test_valid_xhtml
@@ -26,7 +27,7 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
   end
   
   def test_index
-    person = User.create(:login => 'test_profile', :email => 'test@noosfero.org', :password => 'test', :password_confirmation => 'test').person
+    person = create_user('test_profile').person
     person.name = 'a test profile'
     person.address = 'my address'
     person.contact_information = 'my contact information'
@@ -53,8 +54,7 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
   end
 
   def test_edit_person_info
-    person = User.create(:login => 'test_profile', :email => 'test@noosfero.org', :password => 'test', :password_confirmation => 'test').person
-    assert person.valid?
+    person = create_user('test_profile', :email => 'test@noosfero.org', :password => 'test', :password_confirmation => 'test').person
     get :edit, :profile => person.identifier
     assert_response :success
     assert_template 'edit'
@@ -64,7 +64,7 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     person = create_user('test_profile').person
     post :edit, :profile => 'test_profile', :profile_data => { 'name' => 'new person', 'contact_information' => 'new contact information', 'address' => 'new address', 'sex' => 'female' }
     assert_redirected_to :action => 'index'
-    person.reload
+    person = Person.find(person.id)
     assert_equal 'new person', person.name
     assert_equal 'new contact information', person.contact_information
     assert_equal 'new address', person.address
@@ -190,28 +190,27 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
   end
 
   should 'display profile publication option in edit profile screen' do
-    profile = Profile['ze']
-    get :edit, :profile => 'ze'
+    get :edit, :profile => profile.identifier
     assert_tag :tag => 'input', :attributes => { :type => 'radio', :checked => 'checked', :name => 'profile_data[public_profile]', :value => 'true' }
     assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[public_profile]', :value => 'false' }
   end
 
   should 'display properly that the profile is non-public' do
-    profile = Profile['ze']
     profile.update_attributes!(:public_profile => false)
-    get :edit, :profile => 'ze'
+    get :edit, :profile => profile.identifier
     assert_tag :tag => 'input', :attributes => { :type => 'radio', :checked => 'checked', :name => 'profile_data[public_profile]', :value => 'false' }
     assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[public_profile]', :value => 'true' }
   end
 
   should 'save profile publication option set to true' do
-    post :edit, :profile => 'ze', :profile_data => { :public_profile => 'true' }
-    assert_equal true, Profile['ze'].public_profile
+    post :edit, :profile => profile.identifier, :profile_data => { :public_profile => 'true' }
+    assert_equal true, profile.public_profile
   end
 
   should 'save profile publication option set to false' do
-    post :edit, :profile => 'ze', :profile_data => { :public_profile => 'false' }
-    assert_equal false, Profile['ze'].public_profile
+    post :edit, :profile => profile.identifier, :profile_data => { :public_profile => 'false' }
+    profile = Person.find(@profile.id)
+    assert_equal false, profile.public_profile
   end
 
   should 'show error messages for invalid foundation_year' do
@@ -368,8 +367,8 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
 
   should 'link to mailconf' do
     MailConf.expects(:enabled?).returns(true).at_least_once
-    get :index, :profile => 'ze'
-    assert_tag :tag => 'a', :attributes => { :href => '/myprofile/ze/mailconf' }
+    get :index, :profile => profile.identifier
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/mailconf" }
   end
 
   should 'not link to mailconf for organizations' do
@@ -381,8 +380,8 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
 
   should 'not link to mailconf if mail not enabled' do
     MailConf.expects(:enabled?).returns(false).at_least_once
-    get :index, :profile => 'ze'
-    assert_no_tag :tag => 'a', :attributes => { :href => '/myprofile/ze/mailconf' }
+    get :index, :profile => profile.identifier
+    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/mailconf" }
   end
 
   should 'link to enable enterprise' do
@@ -465,7 +464,7 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
   should 'save footer and header' do
     person = create_user('designtestuser').person
     post :header_footer, :profile => 'designtestuser', :custom_header => 'new header', :custom_footer => 'new footer'
-    person.reload
+    person = Person.find(person.id)
     assert_equal 'new header', person.custom_header
     assert_equal 'new footer', person.custom_footer
   end
@@ -477,8 +476,8 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
   end
 
   should 'point to header/footer editing in control panel' do
-    get :index, :profile => 'ze'
-    assert_tag :tag => 'a', :attributes => { :href => '/myprofile/ze/profile_editor/header_footer' }
+    get :index, :profile => profile.identifier
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/profile_editor/header_footer" }
   end
 
   should 'not list the manage products button if the environment disabled it' do
@@ -497,14 +496,14 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
 
   should 'display categories if environment disable_categories disabled' do
     Environment.any_instance.stubs(:enabled?).with(anything).returns(false)
-    person = User.create(:login => 'test_profile', :email => 'test@noosfero.org', :password => 'test', :password_confirmation => 'test').person
+    person = create_user('test_profile', :email => 'test@noosfero.org', :password => 'test', :password_confirmation => 'test').person
     get :edit, :profile => person.identifier
     assert_tag :tag => 'div', :descendant => { :tag => 'h2', :content => 'Select the categories of your interest' }
   end
 
   should 'not display categories if environment disable_categories enabled' do
     Environment.any_instance.stubs(:enabled?).with(anything).returns(true)
-    person = User.create(:login => 'test_profile', :email => 'test@noosfero.org', :password => 'test', :password_confirmation => 'test').person
+    person = create_user('test_profile', :email => 'test@noosfero.org', :password => 'test', :password_confirmation => 'test').person
     get :edit, :profile => person.identifier
     assert_no_tag :tag => 'div', :descendant => { :tag => 'h2', :content => 'Select the categories of your interest' }
   end

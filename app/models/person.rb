@@ -32,7 +32,7 @@ class Person < Profile
     friends.delete(friend)
   end
 
-  N_('Contact information'); N_('Birth date'); N_('City'); N_('State'); N_('Country'); N_('Sex');
+  N_('Contact information'); N_('Birth date'); N_('City'); N_('State'); N_('Country'); N_('Sex'); N_('Zip Code')
   settings_items :photo, :contact_information, :birth_date, :sex, :city, :state, :country, :zip_code
 
   def self.conditions_for_profiles(conditions, person)

@@ -107,7 +107,7 @@ class CmsControllerTest < Test::Unit::TestCase
 
     assert_redirected_to :action => 'view', :id => a.id
 
-    profile.reload
+    profile = Profile.find(@profile.id)
     assert_equal a, profile.home_page
   end
 

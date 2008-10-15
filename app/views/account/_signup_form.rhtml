@@ -1,6 +1,6 @@
 <%= error_messages_for :user %>
 <% labelled_form_for :user, @user,
-   :html => { :help=>_('Fill all this fields to join in this environment. <p/> If you forgot your password, do not create a new account, click on the "<b>I forgot my password!</b>" link. ;-)')
+   :html => { :help=>_('Fill all this fields to join in this environment. <p/> If you forgot your password, do not create a new account, click on the "<b>I forgot my password!</b>" link. ;-)'), :id => 'profile-data'
             } do |f| -%>
 
 <%= f.text_field :login,

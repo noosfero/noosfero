@@ -74,7 +74,7 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
     post 'update_roles', :profile => 'test_enterprise', :roles => [role2.id], :person => member
 
     assert_response :redirect
-    member.reload
+    member = Person.find(member.id)
     roles = member.find_roles(ent).map(&:role)
     assert_includes  roles, role2
     assert_not_includes roles, role1

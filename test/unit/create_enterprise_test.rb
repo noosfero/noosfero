@@ -28,7 +28,7 @@ class CreateEnterpriseTest < Test::Unit::TestCase
     task.valid?
 
     assert task.errors.invalid?(:requestor_id)
-    task.requestor = User.create!(:login => 'testuser', :password => 'test', :password_confirmation => 'test', :email => 'testuser@localhost.localdomain').person
+    task.requestor = create_user('testuser', :password => 'test', :password_confirmation => 'test', :email => 'testuser@localhost.localdomain').person
     task.valid?
     assert !task.errors.invalid?(:requestor_id)
   end
@@ -98,7 +98,7 @@ class CreateEnterpriseTest < Test::Unit::TestCase
     region = Region.create!(:name => 'My region', :environment_id => environment.id)
     validator = Organization.create!(:name => "My organization", :identifier => 'myorg', :environment_id => environment.id)
     region.validators << validator
-    person = User.create!(:login => 'testuser', :password => 'test', :password_confirmation => 'test', :email => 'testuser@localhost.localdomain').person
+    person = create_user('testuser', :password => 'test', :password_confirmation => 'test', :email => 'testuser@localhost.localdomain').person
 
     task = CreateEnterprise.create!({
       :name => 'My new enterprise',
@@ -132,7 +132,7 @@ class CreateEnterpriseTest < Test::Unit::TestCase
     region = Region.create!(:name => 'My region', :environment_id => environment.id)
     validator = Organization.create!(:name => "My organization", :identifier => 'myorg', :environment_id => environment.id)
     region.validators << validator
-    person = User.create!(:login => 'testuser', :password => 'test', :password_confirmation => 'test', :email => 'testuser@localhost.localdomain').person
+    person = create_user('testuser', :password => 'test', :password_confirmation => 'test', :email => 'testuser@localhost.localdomain').person
 
     task = CreateEnterprise.create!({
       :name => 'My new enterprise',
@@ -174,7 +174,7 @@ class CreateEnterpriseTest < Test::Unit::TestCase
     region = Region.create!(:name => 'My region', :environment_id => environment.id)
     validator = Organization.create!(:name => "My organization", :identifier => 'myorg', :environment_id => environment.id)
     region.validators << validator
-    person = User.create!(:login => 'testuser', :password => 'test', :password_confirmation => 'test', :email => 'testuser@localhost.localdomain').person
+    person = create_user('testuser', :password => 'test', :password_confirmation => 'test', :email => 'testuser@localhost.localdomain').person
     task = CreateEnterprise.new({
       :name => 'My new enterprise',
       :identifier => 'mynewenterprise',

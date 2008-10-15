@@ -194,7 +194,10 @@ class TaskTest < Test::Unit::TestCase
   protected
 
   def sample_user
-    User.create(:login => 'testfindinactivetask', :password => 'test', :password_confirmation => 'test', :email => 'testfindinactivetask@localhost.localdomain').person
+    user = User.new(:login => 'testfindinactivetask', :password => 'test', :password_confirmation => 'test', :email => 'testfindinactivetask@localhost.localdomain')
+    user.build_person(person_data)
+    user.save
+    user.person
   end
 
 end

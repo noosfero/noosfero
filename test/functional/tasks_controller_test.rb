@@ -67,7 +67,7 @@ class TasksControllerTest < Test::Unit::TestCase
     t = AddMember.create!(:person => profile, :community => profile)
     count = profile.members.size
     post :close, :decision => 'finish', :id => t.id
-    profile.reload
+    profile = Profile.find(@profile.id)
     assert_equal count + 1, profile.members.size
   end
 

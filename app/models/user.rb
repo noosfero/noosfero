@@ -24,7 +24,9 @@ class User < ActiveRecord::Base
   end
 
   after_create do |user|
-    Person.create!(:identifier => user.login, :name => user.login, :user_id => user.id, :environment_id => user.environment_id)
+    user.person ||= Person.new
+    user.person.name ||= user.login
+    user.person.update_attributes(:identifier => user.login, :user_id => user.id, :environment_id => user.environment_id)
   end
   
   has_one :person, :dependent => :destroy

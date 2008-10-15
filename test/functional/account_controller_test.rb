@@ -34,7 +34,7 @@ class AccountControllerTest < Test::Unit::TestCase
   end
 
   should 'redirect to user control panel on login' do
-    u = create_user
+    u = new_user
     post :login, :user => {:login => 'quire', :password => 'quire'}
 
     assert_redirected_to :controller => 'profile_editor', :action => 'index', :profile => 'quire'
@@ -49,14 +49,14 @@ class AccountControllerTest < Test::Unit::TestCase
 
   def test_should_allow_signup
     assert_difference User, :count do
-      create_user
+      new_user
       assert_response :redirect
     end
   end
 
   def test_should_require_login_on_signup
     assert_no_difference User, :count do
-      create_user(:login => nil)
+      new_user(:login => nil)
       assert assigns(:user).errors.on(:login)
       assert_response :success
     end
@@ -64,7 +64,7 @@ class AccountControllerTest < Test::Unit::TestCase
 
   def test_should_require_password_on_signup
     assert_no_difference User, :count do
-      create_user(:password => nil)
+      new_user(:password => nil)
       assert assigns(:user).errors.on(:password)
       assert_response :success
     end
@@ -72,7 +72,7 @@ class AccountControllerTest < Test::Unit::TestCase
 
   def test_should_require_password_confirmation_on_signup
     assert_no_difference User, :count do
-      create_user(:password_confirmation => nil)
+      new_user(:password_confirmation => nil)
       assert assigns(:user).errors.on(:password_confirmation)
       assert_response :success
     end
@@ -80,7 +80,7 @@ class AccountControllerTest < Test::Unit::TestCase
 
   def test_should_require_email_on_signup
     assert_no_difference User, :count do
-      create_user(:email => nil)
+      new_user(:email => nil)
       assert assigns(:user).errors.on(:email)
       assert_response :success
     end
@@ -89,7 +89,7 @@ class AccountControllerTest < Test::Unit::TestCase
   def test_shoud_not_save_without_acceptance_of_terms_of_use_on_signup
     assert_no_difference User, :count do
       Environment.default.update_attributes(:terms_of_use => 'some terms ...')
-      create_user
+      new_user
       assert_response :success
     end
   end
@@ -97,7 +97,7 @@ class AccountControllerTest < Test::Unit::TestCase
   def test_shoud_save_with_acceptance_of_terms_of_use_on_signup
     assert_difference User, :count do
       Environment.default.update_attributes(:terms_of_use => 'some terms ...')      
-      create_user(:terms_accepted => '1')
+      new_user(:terms_accepted => '1')
       assert_response :redirect
     end
   end
@@ -243,7 +243,7 @@ class AccountControllerTest < Test::Unit::TestCase
   end
 
   should 'require password confirmation correctly to enter new pasword' do
-    user = User.create!(:login => 'testuser', :email => 'testuser@example.com', :password => 'test', :password_confirmation => 'test')
+    user = create_user('testuser', :email => 'testuser@example.com', :password => 'test', :password_confirmation => 'test')
     change = ChangePassword.create!(:login => 'testuser', :email => 'testuser@example.com')
 
     post :new_password, :code => change.code, :change_password => { :password => 'onepass', :password_confirmation => 'another_pass' }
@@ -267,9 +267,9 @@ class AccountControllerTest < Test::Unit::TestCase
 
   should 'restrict multiple users with the same e-mail' do
     assert_difference User, :count do
-      create_user(:login => 'user1', :email => 'user@example.com')
+      new_user(:login => 'user1', :email => 'user@example.com')
       assert assigns(:user).valid?
-      create_user(:login => 'user2', :email => 'user@example.com')
+      new_user(:login => 'user2', :email => 'user@example.com')
       assert assigns(:user).errors.on(:email)
     end
   end
@@ -398,7 +398,7 @@ class AccountControllerTest < Test::Unit::TestCase
 
   should 'not activate if user does not accept terms' do
     ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :foundation_year => 1998, :enabled => false)
-    p = User.create!(:login => 'test_user', :password => 'blih', :password_confirmation => 'blih', :email => 'test@noosfero.com').person
+    p = create_user('test_user', :password => 'blih', :password_confirmation => 'blih', :email => 'test@noosfero.com').person
     login_as(p.identifier)
 
     task = EnterpriseActivation.create!(:enterprise => ent)
@@ -423,7 +423,7 @@ class AccountControllerTest < Test::Unit::TestCase
 
   should 'activate enterprise and make logged user admin' do
     ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :foundation_year => 1998, :enabled => false)
-    p = User.create!(:login => 'test_user', :password => 'blih', :password_confirmation => 'blih', :email => 'test@noosfero.com').person
+    p = create_user('test_user', :password => 'blih', :password_confirmation => 'blih', :email => 'test@noosfero.com').person
     login_as(p.identifier)
 
     task = EnterpriseActivation.create!(:enterprise => ent)
@@ -449,7 +449,7 @@ class AccountControllerTest < Test::Unit::TestCase
 
   should 'activate enterprise and make unlogged user admin' do
     ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :foundation_year => 1998, :enabled => false)
-    p = User.create!(:login => 'test_user', :password => 'blih', :password_confirmation => 'blih', :email => 'test@noosfero.com').person
+    p = create_user('test_user', :password => 'blih', :password_confirmation => 'blih', :email => 'test@noosfero.com').person
 
     task = EnterpriseActivation.create!(:enterprise => ent)
     EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
@@ -467,7 +467,7 @@ class AccountControllerTest < Test::Unit::TestCase
     task = EnterpriseActivation.create!(:enterprise => ent)
     EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
 
-    post :activate_enterprise, :enterprise_code => '0123456789', :answer => '1998', :terms_accepted => true, :new_user => true, :user => { :login => 'test_user', :password => 'blih', :password_confirmation => 'blih', :email => 'test@noosfero.com' }
+    post :activate_enterprise, :enterprise_code => '0123456789', :answer => '1998', :terms_accepted => true, :new_user => true, :user => { :login => 'test_user', :password => 'blih', :password_confirmation => 'blih', :email => 'test@noosfero.com' }, :profile_data => person_data
     ent.reload
 
     assert ent.enabled
@@ -517,7 +517,7 @@ class AccountControllerTest < Test::Unit::TestCase
 
   should 'not be able to signup while inverse captcha field filled' do
     assert_no_difference User, :count do
-      create_user({}, @controller.icaptcha_field => 'bli@bla.email.foo')
+      new_user({}, @controller.icaptcha_field => 'bli@bla.email.foo')
     end
   end
 
@@ -527,7 +527,7 @@ class AccountControllerTest < Test::Unit::TestCase
   end
 
   should 'use the current environment for the template of user' do
-    template = User.create!(:login => 'test_template', :email => 'test@bli.com', :password => 'pass', :password_confirmation => 'pass').person
+    template = create_user('test_template', :email => 'test@bli.com', :password => 'pass', :password_confirmation => 'pass').person
     template.boxes.destroy_all
     template.boxes << Box.new
     template.boxes[0].blocks << Block.new
@@ -538,7 +538,7 @@ class AccountControllerTest < Test::Unit::TestCase
 
     @controller.stubs(:environment).returns(env)
 
-    create_user
+    new_user
 
     assert_equal 1, assigns(:user).person.boxes.size
     assert_equal 1, assigns(:user).person.boxes[0].blocks.size
@@ -574,13 +574,19 @@ class AccountControllerTest < Test::Unit::TestCase
   end
 
   protected
-    def create_user(options = {}, extra_options ={})
-      post :signup, { :user => { :login => 'quire',
+    def new_user(options = {}, extra_options ={})
+      data = {:profile_data => person_data}
+      if extra_options[:profile_data]
+         data[:profile_data].merge! extra_options.delete(:profile_data)
+      end
+      data.merge! extra_options
+
+       post :signup, { :user => { :login => 'quire',
                                  :email => 'quire@example.com',
                                  :password => 'quire',
                                  :password_confirmation => 'quire'
                               }.merge(options)
-                    }.merge(extra_options)
+                    }.merge(data)
     end
 
     def auth_token(token)

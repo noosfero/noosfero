@@ -49,7 +49,7 @@ class MembershipsControllerTest < Test::Unit::TestCase
     assert_response :redirect
     assert_redirected_to community.url
 
-    profile.reload
+    profile = Profile.find(@profile.id)
     assert profile.memberships.include?(community), 'profile should be actually added to the community'
   end
 
@@ -139,7 +139,7 @@ class MembershipsControllerTest < Test::Unit::TestCase
     assert_response :redirect
     assert_redirected_to :action => 'index'
 
-    profile.reload
+    profile = Profile.find(@profile.id)
     assert_not_includes profile.memberships, community
   end
 
@@ -239,7 +239,7 @@ class MembershipsControllerTest < Test::Unit::TestCase
     community.affiliate(profile, Profile::Roles.all_roles)
     post :leave, :profile => profile.identifier, :id => community.id, :confirmation => true
 
-    profile.reload
+    profile = Profile.find(@profile.id)
     assert_not_includes profile.memberships, community
   end
 

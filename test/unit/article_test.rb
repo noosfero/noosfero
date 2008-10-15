@@ -477,6 +477,7 @@ class ArticleTest < Test::Unit::TestCase
     a = p1.articles.create!(:name => 'test article', :body => 'some text')
     b = a.copy(:parent => a, :profile => p2)
 
+    p2 = Person.find(p2.id)
     assert_includes p2.articles, b
     assert_equal 'some text', b.body
   end
