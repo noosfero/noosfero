@@ -490,4 +490,58 @@ class ArticleTest < Test::Unit::TestCase
     assert_kind_of Folder, b
   end
 
+  should 'load article under an old path' do
+    p = create_user('test_user').person
+    a = p.articles.create(:name => 'old-name')
+    old_path = a.explode_path
+    a.name = 'new-name'
+    a.save!
+
+    page = Article.find_by_old_path(old_path)
+
+    assert_equal a.path, page.path
+  end
+
+  should 'load new article name equal of another article old name' do
+    p = create_user('test_user').person
+    a1 = p.articles.create!(:name => 'old-name')
+    old_path = a1.explode_path
+    a1.name = 'new-name'
+    a1.save!
+    a2 = p.articles.create!(:name => 'old-name')
+
+    page = Article.find_by_old_path(old_path)
+
+    assert_equal a2.path, page.path
+  end
+
+  should 'article with most recent version with the name must be loaded if no aritcle with the name' do
+    p = create_user('test_user').person
+    a1 = p.articles.create!(:name => 'old-name')
+    old_path = a1.explode_path
+    a1.name = 'new-name'
+    a1.save!
+    a2 = p.articles.create!(:name => 'old-name')
+    a2.name = 'other-new-name'
+    a2.save!
+
+    page = Article.find_by_old_path(old_path)
+
+    assert_equal a2.path, page.path
+  end
+
+  should 'not return an article of a different user' do
+    p1 = create_user('test_user').person
+    a = p1.articles.create!(:name => 'old-name')
+    old_path = a.explode_path
+    a.name = 'new-name'
+    a.save!
+
+    p2 = create_user('another_user').person
+
+    page = p2.articles.find_by_old_path(old_path)
+
+    assert_nil page
+  end
+
 end

@@ -461,4 +461,60 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_response 403
   end
 
+  should 'redirect to new article path under an old path' do
+    p = create_user('test_user').person
+    a = p.articles.create(:name => 'old-name')
+    old_path = a.explode_path
+    a.name = 'new-name'
+    a.save!
+
+    get :view_page, :profile => p.identifier, :page => old_path
+
+    assert_response :redirect
+    assert_redirected_to :profile => p.identifier, :page => a.explode_path
+  end
+
+  should 'load new article name equal of another article old name' do
+    p = create_user('test_user').person
+    a1 = p.articles.create!(:name => 'old-name')
+    old_path = a1.explode_path
+    a1.name = 'new-name'
+    a1.save!
+    a2 = p.articles.create!(:name => 'old-name')
+
+    get :view_page, :profile => p.identifier, :page => old_path
+
+    assert_equal a2, assigns(:page)
+  end
+
+  should 'redirect to article with most recent version with the name if there is no article with the name' do
+    p = create_user('test_user').person
+    a1 = p.articles.create!(:name => 'old-name')
+    old_path = a1.explode_path
+    a1.name = 'new-name'
+    a1.save!
+    a2 = p.articles.create!(:name => 'old-name')
+    a2.name = 'other-new-name'
+    a2.save!
+
+    get :view_page, :profile => p.identifier, :page => old_path
+
+    assert_response :redirect
+    assert_redirected_to :profile => p.identifier, :page => a2.explode_path
+  end
+
+  should 'not return an article of a different user' do
+    p1 = create_user('test_user').person
+    a = p1.articles.create!(:name => 'old-name')
+    old_path = a.explode_path
+    a.name = 'new-name'
+    a.save!
+
+    p2 = create_user('another_user').person
+
+    get :view_page, :profile => p2.identifier, :page => old_path
+
+    assert_response :missing
+  end
+
 end

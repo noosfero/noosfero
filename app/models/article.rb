@@ -193,6 +193,10 @@ class Article < ActiveRecord::Base
     ['id', 'profile_id', 'parent_id', 'slug', 'path', 'updated_at', 'created_at', 'last_changed_by_id', 'version', 'lock_version', 'type', 'children_count', 'comments_count']
   end
 
+  def self.find_by_old_path(old_path)
+    find(:first, :include => :versions, :conditions => ['article_versions.path = ?', old_path], :order => 'article_versions.id desc')
+  end
+
   private
 
   def sanitize_tag_list

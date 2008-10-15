@@ -15,6 +15,14 @@ class ContentViewerController < ApplicationController
       end
     else
       @page = profile.articles.find_by_path(path)
+      unless @page
+        page_from_old_path = profile.articles.find_by_old_path(path)
+        if page_from_old_path
+          flash[:notice] = _("Redirected from \"%s\". please update your links and bookmarks.") % request.url
+          redirect_to :profile => profile.identifier, :page => page_from_old_path.explode_path
+          return
+        end
+      end
 
       # do not show unpublished articles
       if @page && !@page.published
