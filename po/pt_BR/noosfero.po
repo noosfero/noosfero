@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.11.5\n"
 "POT-Creation-Date: 2008-10-17 14:56-0300\n"
-"PO-Revision-Date: 2008-10-02 15:17-0300\n"
+"PO-Revision-Date: 2008-10-17 15:13-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -678,7 +678,7 @@ msgstr "A senha informada está incorreta"
 
 #: app/controllers/public/content_viewer_controller.rb:21
 msgid "Redirected from \"%s\". please update your links and bookmarks."
-msgstr ""
+msgstr "Redirecionado de \"%s\". por favor atualize seus links e favoritos."
 
 #: app/controllers/public/content_viewer_controller.rb:89
 msgid "Comment succesfully deleted"
@@ -1239,9 +1239,8 @@ msgid "Sex"
 msgstr "Sexo"
 
 #: app/models/person.rb:35
-#, fuzzy
 msgid "Zip Code"
-msgstr "Código"
+msgstr "CEP"
 
 #: app/models/products_block.rb:8
 msgid "A block that displays products"
@@ -2044,7 +2043,6 @@ msgid "You have no friends yet."
 msgstr "Você não tem amigos ainda."
 
 #: app/views/friends/index.rhtml:25
-#, fuzzy
 msgid "Do you want to see other people in this environment?"
 msgstr "Você quer ver outras pessoas neste ambiente?"
 
@@ -2057,9 +2055,8 @@ msgid "Go back"
 msgstr "Voltar"
 
 #: app/views/friends/index.rhtml:32
-#, fuzzy
 msgid "Find people"
-msgstr "Todas as pessoas"
+msgstr "Buscar pessoas"
 
 #: app/views/friends/add.rhtml:1
 msgid "Adding %s as a friend"
@@ -3599,9 +3596,8 @@ msgid "Process requests"
 msgstr "Processar solicitações"
 
 #: app/views/profile_editor/index.rhtml:3
-#, fuzzy
 msgid "%s's profile: control panel"
-msgstr "Voltar ao painel de controle"
+msgstr "profile de %s: painel de controle"
 
 #: app/views/profile_editor/index.rhtml:11
 msgid "Profile settings"
@@ -3656,9 +3652,8 @@ msgid "Enable Enterprise"
 msgstr "Habilitar Empreendimento"
 
 #: app/views/profile_editor/edit.rhtml:1
-#, fuzzy
 msgid "Profile settings for %s"
-msgstr "Configurações do perfil"
+msgstr "Configurações do perfil para %s"
 
 #: app/views/profile_editor/edit.rhtml:10
 msgid "Change picture"
