@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.11.5\n"
-"POT-Creation-Date: 2008-10-02 15:15-0300\n"
+"POT-Creation-Date: 2008-10-17 14:56-0300\n"
 "PO-Revision-Date: 2008-10-02 15:17-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -397,12 +397,12 @@ msgid "non registered gender"
 msgstr "gênero não registrado"
 
 #: app/helpers/application_helper.rb:383
-#: app/views/profile_editor/_person.rhtml:15
+#: app/views/profile_editor/_person_form.rhtml:10
 msgid "Male"
 msgstr "Masculino"
 
 #: app/helpers/application_helper.rb:383
-#: app/views/profile_editor/_person.rhtml:15
+#: app/views/profile_editor/_person_form.rhtml:10
 msgid "Female"
 msgstr "Feminino"
 
@@ -564,27 +564,27 @@ msgstr "Esta ação não está disponível para \"%s\"."
 msgid "Article \"%s\" configured as home page."
 msgstr "Artigo \"%s\" configurado como página inicial."
 
-#: app/controllers/my_profile/manage_products_controller.rb:33
+#: app/controllers/my_profile/manage_products_controller.rb:32
 msgid "Product succesfully created"
 msgstr "Produto criado com sucesso"
 
-#: app/controllers/my_profile/manage_products_controller.rb:36
+#: app/controllers/my_profile/manage_products_controller.rb:35
 msgid "Could not create the product"
 msgstr "Não foi possível criar o produto"
 
-#: app/controllers/my_profile/manage_products_controller.rb:48
+#: app/controllers/my_profile/manage_products_controller.rb:47
 msgid "Product succesfully updated"
 msgstr "Produto atualizado com sucesso"
 
-#: app/controllers/my_profile/manage_products_controller.rb:51
+#: app/controllers/my_profile/manage_products_controller.rb:50
 msgid "Could not update the product"
 msgstr "Não foi possível atualizar o produto"
 
-#: app/controllers/my_profile/manage_products_controller.rb:59
+#: app/controllers/my_profile/manage_products_controller.rb:58
 msgid "Product succesfully removed"
 msgstr "Produto removido com sucesso"
 
-#: app/controllers/my_profile/manage_products_controller.rb:62
+#: app/controllers/my_profile/manage_products_controller.rb:61
 msgid "Could not remove the product"
 msgstr "Não foi possível remover o produto"
 
@@ -676,7 +676,11 @@ msgstr "Sua senha foi alterada com sucesso!"
 msgid "The supplied current password is incorrect."
 msgstr "A senha informada está incorreta"
 
-#: app/controllers/public/content_viewer_controller.rb:82
+#: app/controllers/public/content_viewer_controller.rb:21
+msgid "Redirected from \"%s\". please update your links and bookmarks."
+msgstr ""
+
+#: app/controllers/public/content_viewer_controller.rb:89
 msgid "Comment succesfully deleted"
 msgstr "Comentário removido com sucesso"
 
@@ -739,7 +743,6 @@ msgid "Username"
 msgstr "Nome de usuário"
 
 #: app/models/user.rb:- app/models/user.rb:15 app/models/change_password.rb:22
-#: app/views/profile_editor/_person.rhtml:11
 msgid "e-Mail"
 msgstr "e-Mail"
 
@@ -985,7 +988,7 @@ msgstr "Senha"
 msgid "Password confirmation"
 msgstr "Confirmação de senha"
 
-#: app/models/user.rb:48
+#: app/models/user.rb:50
 msgid "%{fn} must be checked in order to signup."
 msgstr "%{fn} deve ser verificado para efetivar inscrição"
 
@@ -1195,45 +1198,50 @@ msgstr "Artigo de texto com editor visual."
 msgid "Not accessible for visually impaired users."
 msgstr "Não acessível para usuários com deficiência visual."
 
-#: app/models/person.rb:12
+#: app/models/person.rb:16
 msgid "friends"
 msgstr "amigos"
 
-#: app/models/person.rb:12
+#: app/models/person.rb:16
 msgid "work"
 msgstr "trabalho"
 
-#: app/models/person.rb:12
+#: app/models/person.rb:16
 msgid "school"
 msgstr "escola"
 
-#: app/models/person.rb:12
+#: app/models/person.rb:16
 msgid "family"
 msgstr "família"
 
-#: app/models/person.rb:31
+#: app/models/person.rb:35
 msgid "Contact information"
 msgstr "Informação de contato"
 
-#: app/models/person.rb:31
+#: app/models/person.rb:35
 msgid "Birth date"
 msgstr "Data de nascimento"
 
-#: app/models/person.rb:31
+#: app/models/person.rb:35
 msgid "City"
 msgstr "Cidade"
 
-#: app/models/person.rb:31
+#: app/models/person.rb:35
 msgid "State"
 msgstr "Estado"
 
-#: app/models/person.rb:31
+#: app/models/person.rb:35
 msgid "Country"
 msgstr "País"
 
-#: app/models/person.rb:31
+#: app/models/person.rb:35
 msgid "Sex"
 msgstr "Sexo"
+
+#: app/models/person.rb:35
+#, fuzzy
+msgid "Zip Code"
+msgstr "Código"
 
 #: app/models/products_block.rb:8
 msgid "A block that displays products"
@@ -2036,7 +2044,8 @@ msgid "You have no friends yet."
 msgstr "Você não tem amigos ainda."
 
 #: app/views/friends/index.rhtml:25
-msgid "Want you see other persons on this environment?"
+#, fuzzy
+msgid "Do you want to see other people in this environment?"
 msgstr "Você quer ver outras pessoas neste ambiente?"
 
 #: app/views/friends/index.rhtml:31 app/views/memberships/index.rhtml:8
@@ -2046,6 +2055,11 @@ msgstr "Você quer ver outras pessoas neste ambiente?"
 #: app/views/profile/friends.rhtml:13 app/views/profile/enterprises.rhtml:13
 msgid "Go back"
 msgstr "Voltar"
+
+#: app/views/friends/index.rhtml:32
+#, fuzzy
+msgid "Find people"
+msgstr "Todas as pessoas"
 
 #: app/views/friends/add.rhtml:1
 msgid "Adding %s as a friend"
@@ -2157,7 +2171,7 @@ msgstr "Remover"
 #: app/views/enterprise_validation/list_processed.rhtml:3
 #: app/views/enterprise_validation/view_processed.rhtml:3
 #: app/views/themes/index.rhtml:97 app/views/themes/edit.rhtml:6
-#: app/views/manage_products/_subcategories.rhtml:8
+#: app/views/manage_products/_subcategories.rhtml:5
 #: app/views/manage_products/index.rhtml:50
 #: app/views/tasks/list_requested.rhtml:17
 #: app/views/tasks/ticket_details.rhtml:18 app/views/tasks/processed.rhtml:23
@@ -2190,7 +2204,7 @@ msgid "Current category:"
 msgstr "Categoria atual:"
 
 #: app/views/shared/_select_categories.rhtml:30
-#: app/views/manage_products/_subcategories.rhtml:22
+#: app/views/manage_products/_subcategories.rhtml:19
 msgid "Select a category:"
 msgstr "Selecione uma categoria:"
 
@@ -3121,7 +3135,7 @@ msgstr "Ver perfil"
 msgid "Products/Services"
 msgstr "Produtos/Serviços"
 
-#: app/views/blocks/profile_info.rhtml:24
+#: app/views/blocks/profile_info.rhtml:25
 msgid "Since %{year}/%{month}"
 msgstr "Desde %{month}/%{year}"
 
@@ -3413,12 +3427,12 @@ msgid "Creating new community"
 msgstr "Criando nova comunidade"
 
 #: app/views/memberships/new_community.rhtml:14
-#: app/views/profile_editor/_organization.rhtml:21
+#: app/views/profile_editor/_organization.rhtml:22
 msgid "New members must be approved:"
 msgstr "Novos membros devem ser aprovados:"
 
 #: app/views/memberships/new_community.rhtml:19
-#: app/views/profile_editor/_organization.rhtml:26
+#: app/views/profile_editor/_organization.rhtml:27
 msgid ""
 "<strong>Before</strong> joining this group (a moderator has to accept the "
 "member in pending request before member can access the intranet and/or the "
@@ -3428,7 +3442,7 @@ msgstr ""
 "solicitação pendente antes de acessar a intranet e/ou o website."
 
 #: app/views/memberships/new_community.rhtml:25
-#: app/views/profile_editor/_organization.rhtml:32
+#: app/views/profile_editor/_organization.rhtml:33
 msgid ""
 "<strong>After</strong> joining this group (a moderator can always "
 "desactivate access for users later)."
@@ -3585,11 +3599,11 @@ msgid "Process requests"
 msgstr "Processar solicitações"
 
 #: app/views/profile_editor/index.rhtml:3
-msgid "My profile"
-msgstr "Meu perfil"
+#, fuzzy
+msgid "%s's profile: control panel"
+msgstr "Voltar ao painel de controle"
 
 #: app/views/profile_editor/index.rhtml:11
-#: app/views/profile_editor/edit.rhtml:1
 msgid "Profile settings"
 msgstr "Configurações do perfil"
 
@@ -3640,6 +3654,11 @@ msgstr "Desabilitar Empreendimento"
 #: app/views/profile_editor/index.rhtml:41
 msgid "Enable Enterprise"
 msgstr "Habilitar Empreendimento"
+
+#: app/views/profile_editor/edit.rhtml:1
+#, fuzzy
+msgid "Profile settings for %s"
+msgstr "Configurações do perfil"
 
 #: app/views/profile_editor/edit.rhtml:10
 msgid "Change picture"
@@ -3745,15 +3764,15 @@ msgstr "Nome de apresentação"
 msgid "A short name by which the organization is know."
 msgstr "Um nome curto pelo qual a organização é conhecida"
 
-#: app/views/profile_editor/_organization.rhtml:19
+#: app/views/profile_editor/_organization.rhtml:20
 msgid "Moderation options"
 msgstr "Opções de moderação"
 
-#: app/views/profile_editor/_organization.rhtml:38
+#: app/views/profile_editor/_organization.rhtml:39
 msgid "New articles posted by members of this group must be approved:"
 msgstr "Novos artigos postados por membros deste grupo devem ser aprovados:"
 
-#: app/views/profile_editor/_organization.rhtml:44
+#: app/views/profile_editor/_organization.rhtml:45
 msgid ""
 "<strong>Before</strong> being published in this group (a moderator has to "
 "accept the article in pending request before the article be listed as a "
@@ -3763,7 +3782,7 @@ msgstr ""
 "precisa aceitar o artigo numa solicitação pendente antes do artigo ser "
 "listado como um artigo deste grupo."
 
-#: app/views/profile_editor/_organization.rhtml:50
+#: app/views/profile_editor/_organization.rhtml:51
 msgid ""
 "<strong>After</strong> being published in this group (a moderator can always "
 "remove publicated articles later)."
@@ -3775,7 +3794,7 @@ msgstr ""
 msgid "Personal information"
 msgstr "Informações pessoais"
 
-#: app/views/profile_editor/_person.rhtml:6
+#: app/views/profile_editor/_person_form.rhtml:3
 msgid ""
 "A short name by which you like to be known. Will be used in friends "
 "listings, community member listings etc."
@@ -3783,11 +3802,11 @@ msgstr ""
 "Um nome curto pelo qual você quer ser conhecido. Será usado em listagem de "
 "amigos, listagem de membros de comunidades etc."
 
-#: app/views/profile_editor/_person.rhtml:17
+#: app/views/profile_editor/_person_form.rhtml:12
 msgid "Address (street and number)"
 msgstr "Endereço (rua e número)"
 
-#: app/views/profile_editor/_person.rhtml:18
+#: app/views/profile_editor/_person_form.rhtml:13
 msgid "ZIP code"
 msgstr "CEP"
 
@@ -4317,7 +4336,7 @@ msgstr "Criar produto"
 msgid "New product"
 msgstr "Novo produto"
 
-#: app/views/manage_products/_subcategories.rhtml:24
+#: app/views/manage_products/_subcategories.rhtml:21
 msgid "Select a subcategory:"
 msgstr "Selecione uma subcategoria"
 
@@ -4806,6 +4825,9 @@ msgstr "Contatos"
 #: lib/zen3_terminology.rb:59
 msgid "Creating new group"
 msgstr "Criar novo grupo"
+
+#~ msgid "My profile"
+#~ msgstr "Meu perfil"
 
 #~ msgid "Add favorite enterprise"
 #~ msgstr "Adicionar empreendimento favorito"
