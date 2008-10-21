@@ -946,6 +946,27 @@ class ProfileTest < Test::Unit::TestCase
     end
   end
 
+  should 'not be possible to have different profiles with the same identifier in the same environment' do
+    env = Environment.create!(:name => 'My test environment')
+
+    p1 = Profile.create!(:identifier => 'mytestprofile', :name => 'My test profile', :environment => env)
+
+    p2 = Profile.new(:identifier => 'mytestprofile', :name => 'My test profile', :environment => env)
+    assert !p2.valid?
+
+    assert p2.errors.on(:identifier)
+    assert_equal p1.environment, p2.environment
+  end
+
+  should 'be possible to have different profiles with the same identifier in different environments' do
+    p1 = Profile.create!(:identifier => 'mytestprofile', :name => 'My test profile')
+
+    env = Environment.create!(:name => 'My test environment')
+    p2 = Profile.create!(:identifier => 'mytestprofile', :name => 'My test profile', :environment => env)
+
+    assert_not_equal p1.environment, p2.environment
+  end
+
   private
 
   def assert_invalid_identifier(id)

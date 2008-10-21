@@ -160,7 +160,7 @@ class Profile < ActiveRecord::Base
   validates_presence_of :identifier, :name
   validates_format_of :identifier, :with => IDENTIFIER_FORMAT
   validates_exclusion_of :identifier, :in => RESERVED_IDENTIFIERS
-  validates_uniqueness_of :identifier
+  validates_uniqueness_of :identifier, :scope => :environment_id
 
   validates_length_of :nickname, :maximum => 16, :allow_nil => true
 

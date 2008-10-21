@@ -21,7 +21,7 @@ module NeedsProfile
   end
 
   def load_profile
-    @profile ||= Profile.find_by_identifier(params[:profile])
+    @profile ||= environment.profiles.find_by_identifier(params[:profile])
     render_not_found unless @profile
   end
 

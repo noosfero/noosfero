@@ -222,10 +222,13 @@ class MembershipsControllerTest < Test::Unit::TestCase
     template.boxes << Box.new
     template.boxes[0].blocks << Block.new
     template.save!
+
     env = Environment.create!(:name => 'test_env')
     env.settings[:community_template_id] = template.id
     env.save!
 
+    profile.environment = env
+    profile.save!
     @controller.stubs(:environment).returns(env)
 
     post :new_community, :profile => profile.identifier, :community => { :name => 'test community', :description => 'a test community'}

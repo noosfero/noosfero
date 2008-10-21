@@ -31,7 +31,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     page = profile.articles.build(:name => 'test')
     page.save!
 
-    uses_host 'anhetegua.net'
+    uses_host 'colivre.net'
     get :view_page, :profile => profile.identifier, :page => [ 'test' ]
     assert_response :success
     assert_equal page, assigns(:page)
@@ -514,6 +514,17 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
     get :view_page, :profile => p2.identifier, :page => old_path
 
+    assert_response :missing
+  end
+
+  should 'not show a profile in an environment that is not its home environment' do
+    p = Profile.create!(:identifier => 'mytestprofile', :name => 'My test profile', :environment => Environment.default)
+
+    current = Environment.create!(:name => 'test environment')
+    current.domains.create!(:name => 'example.com')
+    uses_host 'www.example.com'
+
+    get :view_page, :profile => 'mytestprofile', :page => []
     assert_response :missing
   end
 
