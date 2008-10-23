@@ -149,5 +149,26 @@ class ThemeTest < ActiveSupport::TestCase
     assert_equivalent [ 'one.png', 'two.png' ], theme.image_files
   end
 
+  should 'be able to find public themes' do
+    profile = create_user('testinguser').person
+    t1 = Theme.create('mytheme', :owner => profile, :public => false)
+    t2 = Theme.create('mytheme2', :owner => profile, :public => true)
+
+    assert_equal [t2], Theme.public_themes
+  end
+
+  should 'set theme to public' do
+    t = Theme.new('mytheme')
+    t.public = true
+    t.save
+
+    t = Theme.find('mytheme')
+    assert t.public
+  end
+
+  should 'not be public by default' do
+    assert ! Theme.new('test').public
+  end
+
 end
 

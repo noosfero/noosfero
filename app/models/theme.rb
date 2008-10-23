@@ -37,6 +37,15 @@ class Theme
       end
     end
 
+    def public_themes
+      Dir.glob(File.join(user_themes_dir, '*', 'theme.yml')).select do |desc|
+        config = YAML.load_file(desc)
+        config['public']
+      end.map do |desc|
+        Theme.find(File.basename(File.dirname(desc)))
+      end
+    end
+
   end
 
   class DuplicatedIdentifier < Exception; end
@@ -58,6 +67,14 @@ class Theme
 
   def name=(value)
     config['name'] = value
+  end
+
+  def public
+    config['public'] || false
+  end
+
+  def public=(value)
+    config['public'] = value
   end
 
   def ==(other)

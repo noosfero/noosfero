@@ -9,7 +9,7 @@ class ThemesController < MyProfileController
   end
 
   def index
-    @themes = Theme.system_themes
+    @themes = Theme.system_themes + Theme.public_themes
     @current_theme = profile.theme
 
     @layout_templates = LayoutTemplate.all
@@ -19,7 +19,7 @@ class ThemesController < MyProfileController
   def new
     if !request.xhr?
       id = params[:name].to_slug
-      t = Theme.new(id, :name => params[:name], :owner => profile)
+      t = Theme.new(id, :name => params[:name], :owner => profile, :public => false)
       t.save
       redirect_to :action => 'index'
     else

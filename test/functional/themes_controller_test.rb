@@ -33,6 +33,15 @@ class ThemesControllerTest < Test::Unit::TestCase
     end
   end
 
+  should 'not display themes for selection if it is not public' do
+    Theme.create('first', :owner => profile, :public => true)
+    Theme.create('second', :owner => profile, :public => false)
+    get :index, :profile => 'testinguser'
+
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/themes/set/first" }
+    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/themes/set/second" }
+  end
+
   should 'highlight current theme' do
     profile.update_attributes(:theme => 'first')
     Theme.expects(:system_themes).returns([Theme.new('first'), Theme.new('second')])
