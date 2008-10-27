@@ -1239,7 +1239,7 @@ msgid "Sex"
 msgstr "Sexo"
 
 #: app/models/person.rb:35
-msgid "Zip Code"
+msgid "Zip code"
 msgstr "CEP"
 
 #: app/models/products_block.rb:8

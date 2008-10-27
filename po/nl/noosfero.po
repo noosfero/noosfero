@@ -1223,7 +1223,7 @@ msgid "Sex"
 msgstr ""
 
 #: app/models/person.rb:35
-msgid "Zip Code"
+msgid "Zip code"
 msgstr ""
 
 #: app/models/products_block.rb:8
