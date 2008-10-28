@@ -1,0 +1,118 @@
+= Noosfero: a free web-based social platform
+
+== Setting up a Noosfero development/test environment
+
+Noosfero is written in Ruby with the "Rails framework":http://www.rubyonrails.org,
+so the process of setting it up is pretty similar to other Rails applications.
+
+=== Requirements
+
+You need to have a Subversion client (svn) installed, as well as:
+
+* Ruby: http://www.ruby-lang.org/
+* Rake: http://rake.rubyforge.org/
+* Ruby-GetText: http://www.yotabanana.com/hiki/ruby-gettext.html?ruby-gettext (at least version 1.9.0)
+* Mocha: http://mocha.rubyforge.org/
+* Ruby-sqlite3: http://rubyforge.org/projects/sqlite-ruby
+* rcov: http://eigenclass.org/hiki/rcov
+* Ferret: http://ferret.davebalmain.com/trac
+* RMagick: http://rmagick.rubyforge.org/
+* RedCloth: http://whytheluckystiff.net/ruby/redcloth/
+* Ruby Locale: http://rubyforge.org/projects/locale/
+* will_paginate: http://github.com/mislav/will_paginate/wikis
+
+There are Debian packages available for all of them but ferret. Try:
+
+ # aptitude install subversion ruby rake libgettext-ruby libmocha-ruby libsqlite3-ruby rcov librmagick-ruby libredcloth-ruby liblocale-ruby libwill-paginate-ruby
+
+Ferret shall enter Debian soon (as <tt>libferret-ruby</tt>). until there you have two options:
+
+1. build the source package from svn://svn.debian.org/svn/pkg-ruby-extras/packages-wip/libferret-ruby
+1. install ferret via rubygems: issue <tt>gem install ferret</tt> as root (you'll need to install the <tt>rubygems</tt> package for it)
+
+If you have problems with the setup, use the development mailing list. In
+special its possible that the requirements list above is not complete.
+
+=== Boostraping the test environment
+
+You can copy and paste the commands below into a terminal (please review the
+commands and make sure you understand what you are doing):
+
+ # checkout the code from repository
+ svn checkout https://svn.colivre.coop.br/svn/noosfero/trunk/ noosfero
+ # enter the directory
+ cd noosfero
+ # copy a sample config file
+ cp config/database.yml.sqlite3 config/database.yml
+ # create the database:
+ rake db:migrate      
+ # compile translations:
+ rake makemo
+ # create some test data:
+ ./script/populate
+ # install the test dependences:
+ aptitude install libtidy-ruby libhpricot-ruby
+ # run the automated test suite to make sure your environment is sane:
+ rake test
+
+You should now be ready to go. Issue the following command to start the Rails
+development server:
+
+ ./script/server
+
+The server will be available at http://localhost:3000/ . If you want to use
+another port than 3000, you can use the -p option of ./script/server:
+
+ ./script/server -p 9999
+
+The above command makes the server available at http://localhost:9999/
+
+The populate script creates some test users, one of them has login 'ze' and
+password 'test'. You can use it or you can register a new user.
+
+== Reporting bugs
+
+Use Noosfero Tracker application at http://www.colivre.coop.br/Noosfero.
+
+== Helping with development
+
+* It's recommended that you subscribe to the development mailing
+  list: http://ynternet.net/mailman/listinfo/noosfero
+* If you have a patch, create an appropriate action item
+  (bugs/requirement/enhancement) in the Tracker web (see "Reporting bugs"
+  above) of type.
+
+== Releasing noosfero
+
+To prepare a release of noosfero, you must follow the steps below:
+
+* finish all requirements and bugs assigned to the to-be-released version
+* make sure all tests pass
+* write release notes at the version's wiki topic.
+* generate package with <tt>rake package</tt>. Your tarball will be under the pkg/
+  directory, named as noosfero-${VERSION}.tar.gz
+* test that the package contains everything that is needed: explode the tarball
+  in a temporary directory, copy config/database.yml.sqlite3 to
+  config/database.yml, and make <tt>rake db:migrate</tt> and <tt>rake test</tt>. If
+  everything is ok, you are done. If not, maybe some files are not going into
+  the tarball. See lib/tasks/package.rake, probably you'll need to change it.
+* Go to the version's wiki topic and edit it to reflect the new reality.
+* Attach the generated package to that topic. Before attaching calculate the md5 of the package (with mu5sum and paste the MD5 hash as comment in the attachment form)
+* Download the attached and verify the MD5 hash
+* create a svn tag for the released version with <tt>rake tag</tt>. See
+  lib/tasks/svn.rake in case of any questions.
+* IMMEDIATELY change the version in lib/noosfero.rb to the next version. (e.g.
+  0.2.0 -> 0.3.0)
+* update an eventual demonstration version that you run.
+* write an announcement e-mail to the relevant maimling lists pointing to the release notes, and maybe to the demonstration version.
+
+If you had any problem during these steps, you can do <tt>rake clobber_package</tt> to
+completely delete the generated packages and start the process again.
+
+== Working with translations
+
+* Update translation files: <tt>rake updatepo</tt>. Then <tt>svn commit</tt> them.
+* Send the PO files to the translators.
+* Get the PO files back from translators, put in po/ under the correct language
+  name (e.,g. po/pt_BR/) and <tt>svn commit</tt>.
+* test translations: <tt>rake makemo</tt> and browse the application on the web.
