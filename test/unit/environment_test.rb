@@ -397,6 +397,31 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal 'default', Environment.new.theme
   end
 
+  should 'have a list of themes' do
+    env = Environment.default
+    t1 = mock
+    t2 = mock
+
+    t1.stubs(:id).returns('theme_1')
+    t2.stubs(:id).returns('theme_2')
+
+    Theme.expects(:system_themes).returns([t1, t2])
+    env.themes = [t1, t2]
+    env.save!
+    assert_equal  [t1, t2], Environment.default.themes
+  end
+
+  should 'set themes to environment' do
+    env = Environment.default
+    t1 = mock
+
+    t1.stubs(:id).returns('theme_1')
+
+    env.themes = [t1]
+    env.save
+    assert_equal  [t1.id], Environment.default.settings[:themes]
+  end
+
   should 'create templates' do
     e = Environment.create!(:name => 'test_env')
     e.reload

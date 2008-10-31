@@ -24,40 +24,46 @@ class ThemesControllerTest < Test::Unit::TestCase
 
   TMP_THEMES_DIR = RAILS_ROOT + '/test/tmp/themes_controller'
 
-  should 'display list of themes for selection' do
-    Theme.expects(:system_themes).returns([Theme.new('first'), Theme.new('second')])
+  should 'display themes that can be applied' do
+    env = Environment.default
+    Theme.stubs(:approved_themes).with(@profile).returns([Theme.new('t1', :name => 't1')])
+    t2 = Theme.create('t2')
+    t3 = Theme.create('t3')
+    env.themes = [t2]
+    env.save
+
+    Theme.stubs(:system_themes).returns([t2, t3])
     get :index, :profile => 'testinguser'
 
-    %w[ first second ].each do |item|
+    %w[ t1 t2 ].each do |item|
       assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/themes/set/#{item}" }
     end
-  end
 
-  should 'not display themes for selection if it is not public' do
-    Theme.create('first', :owner => profile, :public => true)
-    Theme.create('second', :owner => profile, :public => false)
-    get :index, :profile => 'testinguser'
-
-    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/themes/set/first" }
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/themes/set/second" }
+    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/themes/set/t3" }
   end
 
   should 'highlight current theme' do
-    profile.update_attributes(:theme => 'first')
-    Theme.expects(:system_themes).returns([Theme.new('first'), Theme.new('second')])
+    env = Environment.default
+    t1 = Theme.create('one', :name => 'one')
+    t2 = Theme.create('two', :name => 'two')
+    env.themes = [t1, t2]
+    env.save
+
+    Theme.stubs(:system_themes).returns([t1, t2])
+    profile.update_attributes(:theme => 'one')
     get :index, :profile => 'testinguser'
 
     assert_tag :attributes => { :class => 'selected theme' }, :descendant =>  { :content => /(current)/ }
-    assert_no_tag :attributes => { :class => 'selected theme' }, :descendant =>  { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/themes/set/first" } }
+    assert_no_tag :attributes => { :class => 'selected theme' }, :descendant =>  { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/themes/set/one" } }
   end
 
   should 'display list of my themes for edition' do
-    Theme.create('first', :owner => profile)
-    Theme.create('second', :owner => profile)
+    Theme.create('three', :owner => profile)
+    Theme.create('four', :owner => profile)
 
     get :index, :profile => 'testinguser'
 
-    %w[ first second ].each do |item|
+    %w[ three four ].each do |item|
       assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/themes/edit/#{item}" }
     end
   end

@@ -27,6 +27,12 @@ class ThemeTest < ActiveSupport::TestCase
     assert_equal 'the-id', Theme.new('the-id').name
   end
 
+  should 'save id on theme.yml' do
+    Theme.create('other_theme')
+    t = Theme.find('other_theme')
+    assert t.config['id']
+  end
+
   should 'create theme' do
     t = Theme.create('mytheme')
     assert_equal t, Theme.find('mytheme')
@@ -149,12 +155,19 @@ class ThemeTest < ActiveSupport::TestCase
     assert_equivalent [ 'one.png', 'two.png' ], theme.image_files
   end
 
-  should 'be able to find public themes' do
-    profile = create_user('testinguser').person
-    t1 = Theme.create('mytheme', :owner => profile, :public => false)
-    t2 = Theme.create('mytheme2', :owner => profile, :public => true)
+  should 'be able to find approved themes' do
+    Theme.stubs(:system_themes_dir).returns(TMP_THEMES_DIR)
 
-    assert_equal [t2], Theme.public_themes
+    profile = create_user('testinguser').person
+    profile2 = create_user('testinguser2').person
+    t1 = Theme.new('mytheme1', :name => 'mytheme1', :owner => profile, :public => false); t1.save
+    t2 = Theme.new('mytheme2', :name => 'mytheme2', :owner => profile2, :public => true); t2.save
+    t3 = Theme.new('mytheme3', :name => 'mytheme3', :public => false); t3.save
+
+    [Theme.find(t2.id), Theme.find(t1.id)].each do |theme|
+      assert Theme.approved_themes(profile).include?(theme)
+    end
+    assert ! Theme.approved_themes(profile).include?(Theme.find(t3.id))
   end
 
   should 'set theme to public' do

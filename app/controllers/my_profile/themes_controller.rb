@@ -9,7 +9,7 @@ class ThemesController < MyProfileController
   end
 
   def index
-    @themes = Theme.system_themes + Theme.public_themes
+    @themes = profile.environment.themes + Theme.approved_themes(profile)
     @current_theme = profile.theme
 
     @layout_templates = LayoutTemplate.all

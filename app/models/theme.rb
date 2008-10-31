@@ -2,7 +2,7 @@ class Theme
 
   class << self
     def system_themes
-      Dir.glob(RAILS_ROOT + '/public/designs/themes/*').map do |item|
+      Dir.glob(File.join(system_themes_dir, '*')).map do |item|
         File.basename(item)
       end.map do |item|
         new(item)
@@ -11,6 +11,10 @@ class Theme
 
     def user_themes_dir
       File.join(RAILS_ROOT, 'public', 'user_themes')
+    end
+
+    def system_themes_dir
+      File.join(RAILS_ROOT, 'public', 'designs', 'themes')
     end
 
     def create(id, attributes = {})
@@ -37,12 +41,12 @@ class Theme
       end
     end
 
-    def public_themes
-      Dir.glob(File.join(user_themes_dir, '*', 'theme.yml')).select do |desc|
-        config = YAML.load_file(desc)
-        config['public']
+    def approved_themes(owner)
+      Dir.glob(File.join(system_themes_dir, '*')).select do |item|
+        config = YAML.load_file(File.join(item, 'theme.yml'))
+        (config['owner_type'] == owner.class.base_class.name) && (config['owner_id'] == owner.id) || config['public']
       end.map do |desc|
-        Theme.find(File.basename(File.dirname(desc)))
+        new(File.basename(desc))
       end
     end
 
@@ -59,6 +63,7 @@ class Theme
     attributes.each do |k,v|
       self.send("#{k}=", v)
     end
+    config['id'] = id
   end
 
   def name

@@ -315,6 +315,18 @@ class Environment < ActiveRecord::Base
     self[:theme] || 'default'
   end
 
+  def themes
+    if settings[:themes]
+      Theme.system_themes.select { |theme| settings[:themes].include?(theme.id) }
+    else
+      []
+    end
+  end
+
+  def themes=(values)
+    settings[:themes] = values.map(&:id)
+  end
+
   def layout_template
     settings[:layout_template] || 'default'
   end
