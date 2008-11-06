@@ -144,7 +144,9 @@
             <% if uses_design_blocks?  %>
               <%= display_boxes(@controller.boxes_holder, yield) %>
             <% else %>
-              <%= yield %>
+              <div class='no-boxes'>
+                <%= yield %>
+              </div>
             <% end %>
           <% end %>
 
