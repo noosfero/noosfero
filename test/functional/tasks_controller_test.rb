@@ -110,6 +110,20 @@ class TasksControllerTest < Test::Unit::TestCase
     assert_template 'new'
   end
 
+  should 'add a hidden field with target_id when informed in the URL' do
+    friend = create_user('myfriend').person
+    profile.add_friend(friend)
+
+    get :new, :profile => profile.identifier, :target_id => friend.id.to_s
+
+    assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'ticket[target_id]', :value => friend.id }
+  end
+
+  should 'select friend from list when not already informed' do
+    get :new, :profile => profile.identifier
+    assert_tag :tag => 'select', :attributes => { :name =>  'ticket[target_id]' }
+  end
+
   should 'create a ticket' do
     assert_difference Ticket, :count do
       post :new, :profile => profile.identifier, :ticket => {:title => 'test ticket'}

@@ -2,7 +2,11 @@
 
 <%# FIXME: put style in css %>
 <% labelled_form_for :ticket, @ticket do |f| %>
-  <%= display_form_field( _('To: '), f.select(:target_id, profile.friends.map{|p|[p.name, p.id]})) unless @ticket.target %>
+  <% if @ticket.target %>
+    <%= f.hidden_field :target_id  %>
+  <% else %>
+    <%= display_form_field( _('To: '), f.select(:target_id, profile.friends.map{|p|[p.name, p.id]})) %>
+  <% end %>
   <%= f.text_field :title, :style => 'width:80%;' %>
   <%= f.text_area :description, :style => 'height:200px; width:80%;' %>
 
