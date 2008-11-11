@@ -8,8 +8,6 @@ module EnterpriseHomepageHelper
       [ _('Phone(s):'),          :contact_phone     ],
       [ _('Location:'),          :location          ],
       [ _('Address:'),           :address           ],
-      [ _('Legal form:'),        :legal_form        ],
-      [ _('Foundation year:'),   :foundation_year   ],
       [ _('Economic activity:'), :economic_activity ]
     ].each { | name, att |
       if profile.send( att ) and not profile.send( att ).blank?

@@ -13,9 +13,7 @@
   <%= f.text_field(:foundation_year) %>
   <%= f.text_field(:contact_person) %>
   <%= f.text_field(:contact_email) %>
-  <%= f.text_field(:legal_form) %>
   <%= f.text_field(:economic_activity) %>
-  <%= f.text_area(:management_information, :rows => 5) %>
   <%= f.text_area(:description, :rows => 5) if @profile.kind_of?(Community) %>
   <h1><%= _('Moderation options') %></h1>
   <div style='margin-bottom: 1em'>

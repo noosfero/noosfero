@@ -5,7 +5,7 @@ class CreateEnterpriseTest < Test::Unit::TestCase
   should 'provide needed data' do
     task = CreateEnterprise.new
 
-    %w[ name identifier address contact_phone contact_person acronym foundation_year legal_form economic_activity management_information ].each do |field|
+    %w[ name identifier address contact_phone contact_person acronym foundation_year economic_activity ].each do |field|
       assert task.respond_to?(field)
       assert task.respond_to?("#{field}=")
     end
