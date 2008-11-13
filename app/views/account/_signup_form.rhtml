@@ -4,7 +4,6 @@
             } do |f| -%>
 
 <%= f.text_field :login,
-    :help => help=_('"Username" is a simple nickname to recognize you on this environment.'),
     :onchange => 'this.value = convToValidLogin( this.value )' %>
 <small><%= help %></small>
 
@@ -13,11 +12,11 @@
 <small><%= help %></small>
 
 <%= f.password_field :password,
-    :help => help=_('Do not use a obviously password, but try some unforgettable word.') %>
+    :help => help=_('Choose a password that you can remember easily.') %>
 <small><%= help %></small>
 
 <%= f.password_field :password_confirmation,
-    :help => help=_('We need to be sure that you wrote correctly your password.') %>
+    :help => help=_('To confirm, repeat your password.') %>
 <small><%= help %></small>
 
 <%= icaptcha_field() %>
@@ -42,11 +41,10 @@
 <% if ! defined? hidden_atention || ! hidden_atention %>
 <p/>
 <div class="atention">
-<%= _('Here you can create an account for <b>you as a person</b>.
-<p/>
-Do <b>not</b> enter a login for a group nor for an entreprise.
-With your user account, you can create <em>several</em> group or enterprise
-accounts through your person control panel.') %>
+<%= _('Dear user, welcome to the %s network. To start your participation
+in this space, fill in the fields below. After this operation, your login and
+password will be registered, allowing you to create communities and enterprises
+in this environment.') %>
 </div>
 <% end %>
 
