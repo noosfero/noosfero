@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.11.5\n"
-"POT-Creation-Date: 2008-10-17 14:56-0300\n"
+"Project-Id-Version: noosfero 0.12.0\n"
+"POT-Creation-Date: 2008-11-13 18:03-0300\n"
 "PO-Revision-Date: 2008-06-13 16:15-0300\n"
 "Last-Translator: Raphael Rousseau <pootle.colivre.coop.br@r4f.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -275,21 +275,11 @@ msgid "Address:"
 msgstr "Adresse :"
 
 #: app/helpers/enterprise_homepage_helper.rb:11
-#, fuzzy
-msgid "Legal form:"
-msgstr "Forme juridique"
-
-#: app/helpers/enterprise_homepage_helper.rb:12
-#: app/views/enterprise_editor/index.rhtml:10
-msgid "Foundation year:"
-msgstr "Année de création :"
-
-#: app/helpers/enterprise_homepage_helper.rb:13
-#: app/views/enterprise_editor/index.rhtml:12
+#: app/views/enterprise_editor/index.rhtml:11
 msgid "Economic activity:"
 msgstr "Activité économique :"
 
-#: app/helpers/enterprise_homepage_helper.rb:21
+#: app/helpers/enterprise_homepage_helper.rb:19
 #: app/views/search/_sellers_form.rhtml:17
 #: app/views/search/_search_form.rhtml:30
 msgid "Distance:"
@@ -2318,7 +2308,7 @@ msgid "Remove"
 msgstr "Ôter/effacer"
 
 #: app/views/profile_members/index.rhtml:21 app/views/role/show.rhtml:10
-#: app/views/role/index.rhtml:12 app/views/enterprise_editor/index.rhtml:22
+#: app/views/role/index.rhtml:12 app/views/enterprise_editor/index.rhtml:20
 #: app/views/environment_role_manager/index.rhtml:13
 #: app/views/enterprise_validation/details.rhtml:3
 #: app/views/enterprise_validation/list_processed.rhtml:3
@@ -2684,44 +2674,37 @@ msgstr ""
 "oublié votre mot de passe, ne créez pas un nouveau compte, cliquez sur le "
 "lien «<b>J'ai oublié mon mot de passe</b>»."
 
-#: app/views/account/_signup_form.rhtml:7
-msgid "\"Username\" is a simple nickname to recognize you on this environment."
-msgstr ""
-"«Identifiant» est un simple surnom pour vous reconnaître dans cette "
-"communauté."
-
-#: app/views/account/_signup_form.rhtml:12
+#: app/views/account/_signup_form.rhtml:11
 msgid "We'll send you an e-mail to validate your registration."
 msgstr ""
 "Nous vous enverrons un courrier électronique pour valider votre "
 "enregistrement."
 
-#: app/views/account/_signup_form.rhtml:16
-msgid "Do not use a obviously password, but try some unforgettable word."
+#: app/views/account/_signup_form.rhtml:15
+msgid "Choose a password that you can remember easily."
 msgstr ""
-"Ne choisissez pas un mot de passe évident, mais essayez de trouver quelque "
-"chose que vous n'oublierez pas."
 
-#: app/views/account/_signup_form.rhtml:20
-msgid "We need to be sure that you wrote correctly your password."
-msgstr ""
-"Nous devons nous assurer que vous avez écrit correctement votre mot de passe."
+#: app/views/account/_signup_form.rhtml:19
+#, fuzzy
+msgid "To confirm, repeat your password."
+msgstr "Confirmer votre nouveau mot de passe"
 
-#: app/views/account/_signup_form.rhtml:31
+#: app/views/account/_signup_form.rhtml:30
 msgid "I accept the terms of use"
 msgstr "J'accepte les conditions d'utilisation"
 
-#: app/views/account/_signup_form.rhtml:45
+#: app/views/account/_signup_form.rhtml:44
 msgid ""
-"Here you can create an account for <b>you as a person</b>.\n"
-"<p/>\n"
-"Do <b>not</b> enter a login for a group nor for an entreprise.\n"
-"With your user account, you can create <em>several</em> group or enterprise\n"
-"accounts through your person control panel."
+"Dear user, welcome to the %s network. To start your participation\n"
+"in this space, fill in the fields below. After this operation, your login "
+"and\n"
+"password will be registered, allowing you to create communities and "
+"enterprises\n"
+"in this environment."
 msgstr ""
 
 # Je ne suis pas sûr de la distinction "sign up" / "register"
-#: app/views/account/_signup_form.rhtml:54
+#: app/views/account/_signup_form.rhtml:52
 #, fuzzy
 msgid "Sign up"
 msgstr "S'enregistrer"
@@ -3303,14 +3286,14 @@ msgid_plural "%s articles published"
 msgstr[0] "Chemin"
 msgstr[1] "Chemin"
 
-#: app/views/blocks/my_network/community.rhtml:4
+#: app/views/blocks/my_network/community.rhtml:5
 #, fuzzy
 msgid "One member"
 msgid_plural "%s members"
 msgstr[0] "Ôter le membre"
 msgstr[1] "Ôter le membre"
 
-#: app/views/blocks/my_network/community.rhtml:6
+#: app/views/blocks/my_network/community.rhtml:7
 #: app/views/blocks/my_network/person.rhtml:8
 #, fuzzy
 msgid "One tag"
@@ -3482,22 +3465,12 @@ msgid "Foundation Year"
 msgstr "Année de création"
 
 #: app/views/enterprise_editor/_form.rhtml:19
-#: app/views/enterprise_validation/_details.rhtml:31
-msgid "Legal Form"
-msgstr "Forme juridique"
-
-#: app/views/enterprise_editor/_form.rhtml:22
 #: app/views/enterprise_validation/_details.rhtml:35
 msgid "Economic Activity"
 msgstr "Activité économique"
 
-#: app/views/enterprise_editor/_form.rhtml:25
-#: app/views/enterprise_validation/_details.rhtml:39
-msgid "Management Information"
-msgstr "Information sur les dirigeants"
-
 # First & only occurrence of the term Entity
-#: app/views/enterprise_editor/_form.rhtml:28
+#: app/views/enterprise_editor/_form.rhtml:22
 #, fuzzy
 msgid "Validation Entity"
 msgstr "Entité de validation"
@@ -3514,35 +3487,31 @@ msgstr "Téléphone de contact :"
 msgid "Acronym:"
 msgstr "Sigle :"
 
-#: app/views/enterprise_editor/index.rhtml:11
-msgid "Legal Form:"
-msgstr "Forme juridique :"
+#: app/views/enterprise_editor/index.rhtml:10
+msgid "Foundation year:"
+msgstr "Année de création :"
 
 #: app/views/enterprise_editor/index.rhtml:13
-msgid "Management infomation:"
-msgstr "Information sur les dirigeants :"
-
-#: app/views/enterprise_editor/index.rhtml:15
 msgid "Edit enterprise"
 msgstr "Éditer l'entreprise"
 
-#: app/views/enterprise_editor/index.rhtml:16
+#: app/views/enterprise_editor/index.rhtml:14
 msgid "Change the information about the enterprise"
 msgstr "Modifier les informations concernant l'entreprise"
 
-#: app/views/enterprise_editor/index.rhtml:17
+#: app/views/enterprise_editor/index.rhtml:15
 msgid "Delete enterprise"
 msgstr "Détruire l'entreprise"
 
-#: app/views/enterprise_editor/index.rhtml:18
+#: app/views/enterprise_editor/index.rhtml:16
 msgid "Remove the enterprise from the system"
 msgstr "Ôter l'entreprise du système"
 
-#: app/views/enterprise_editor/index.rhtml:19
+#: app/views/enterprise_editor/index.rhtml:17
 msgid "Activate"
 msgstr "Activer"
 
-#: app/views/enterprise_editor/index.rhtml:20
+#: app/views/enterprise_editor/index.rhtml:18
 msgid "Activate an approved enterprise"
 msgstr "Activer une entreprise approuvée"
 
@@ -3655,12 +3624,12 @@ msgid "Creating new community"
 msgstr "Créer un nouveau groupe"
 
 #: app/views/memberships/new_community.rhtml:14
-#: app/views/profile_editor/_organization.rhtml:22
+#: app/views/profile_editor/_organization.rhtml:20
 msgid "New members must be approved:"
 msgstr ""
 
 #: app/views/memberships/new_community.rhtml:19
-#: app/views/profile_editor/_organization.rhtml:27
+#: app/views/profile_editor/_organization.rhtml:25
 msgid ""
 "<strong>Before</strong> joining this group (a moderator has to accept the "
 "member in pending request before member can access the intranet and/or the "
@@ -3668,7 +3637,7 @@ msgid ""
 msgstr ""
 
 #: app/views/memberships/new_community.rhtml:25
-#: app/views/profile_editor/_organization.rhtml:33
+#: app/views/profile_editor/_organization.rhtml:31
 msgid ""
 "<strong>After</strong> joining this group (a moderator can always "
 "desactivate access for users later)."
@@ -4017,23 +3986,23 @@ msgstr "Couleur d'affichage"
 msgid "A short name by which the organization is know."
 msgstr ""
 
-#: app/views/profile_editor/_organization.rhtml:20
+#: app/views/profile_editor/_organization.rhtml:18
 #, fuzzy
 msgid "Moderation options"
 msgstr "Recherche détaillée"
 
-#: app/views/profile_editor/_organization.rhtml:39
+#: app/views/profile_editor/_organization.rhtml:37
 msgid "New articles posted by members of this group must be approved:"
 msgstr ""
 
-#: app/views/profile_editor/_organization.rhtml:45
+#: app/views/profile_editor/_organization.rhtml:43
 msgid ""
 "<strong>Before</strong> being published in this group (a moderator has to "
 "accept the article in pending request before the article be listed as a "
 "article of this group."
 msgstr ""
 
-#: app/views/profile_editor/_organization.rhtml:51
+#: app/views/profile_editor/_organization.rhtml:49
 msgid ""
 "<strong>After</strong> being published in this group (a moderator can always "
 "remove publicated articles later)."
@@ -4207,11 +4176,11 @@ msgstr ""
 msgid "Turn help on/off"
 msgstr "Activer/désactiver l'aide"
 
-#: app/views/layouts/application.rhtml:172
+#: app/views/layouts/application.rhtml:174
 msgid "Your web browser is obsolete!"
 msgstr "Vote navigateur web est obsolète !"
 
-#: app/views/layouts/application.rhtml:173
+#: app/views/layouts/application.rhtml:175
 msgid ""
 "This website will not look as good as it could.\n"
 "         Don't you want to use Firefox? That is a great web browser, free,\n"
@@ -4222,7 +4191,7 @@ msgstr ""
 "web, libre et gratuit\n"
 "         et élaboré par des gens de partout dans le monde."
 
-#: app/views/layouts/application.rhtml:177
+#: app/views/layouts/application.rhtml:179
 msgid "Get Firefox Now!"
 msgstr "Obtenir Firefox maintenant !"
 
@@ -4324,6 +4293,14 @@ msgstr ""
 #: app/views/enterprise_validation/edit_validation_info.rhtml:1
 msgid "Editing the validation info"
 msgstr "Édition des informations de validation"
+
+#: app/views/enterprise_validation/_details.rhtml:31
+msgid "Legal Form"
+msgstr "Forme juridique"
+
+#: app/views/enterprise_validation/_details.rhtml:39
+msgid "Management Information"
+msgstr "Information sur les dirigeants"
 
 #: app/views/enterprise_validation/list_processed.rhtml:23
 msgid "See details"
@@ -4707,11 +4684,11 @@ msgstr "Résultats de recherche pour «%s»"
 msgid "New request"
 msgstr "Gérer les requêtes"
 
-#: app/views/tasks/new.rhtml:5
+#: app/views/tasks/new.rhtml:8
 msgid "To: "
 msgstr ""
 
-#: app/views/tasks/new.rhtml:10
+#: app/views/tasks/new.rhtml:14
 #, fuzzy
 msgid "Send"
 msgstr "Amis"
@@ -5181,6 +5158,36 @@ msgstr "Personne de contact : "
 #, fuzzy
 msgid "Creating new group"
 msgstr "Créer un produit"
+
+#: public/designs/themes/green/footer.rhtml:2
+msgid "A Ynternet.org project"
+msgstr ""
+
+#, fuzzy
+#~ msgid "Legal form:"
+#~ msgstr "Forme juridique"
+
+#~ msgid ""
+#~ "\"Username\" is a simple nickname to recognize you on this environment."
+#~ msgstr ""
+#~ "«Identifiant» est un simple surnom pour vous reconnaître dans cette "
+#~ "communauté."
+
+#~ msgid "Do not use a obviously password, but try some unforgettable word."
+#~ msgstr ""
+#~ "Ne choisissez pas un mot de passe évident, mais essayez de trouver "
+#~ "quelque chose que vous n'oublierez pas."
+
+#~ msgid "We need to be sure that you wrote correctly your password."
+#~ msgstr ""
+#~ "Nous devons nous assurer que vous avez écrit correctement votre mot de "
+#~ "passe."
+
+#~ msgid "Legal Form:"
+#~ msgstr "Forme juridique :"
+
+#~ msgid "Management infomation:"
+#~ msgstr "Information sur les dirigeants :"
 
 #~ msgid "My profile"
 #~ msgstr "Mon profil"

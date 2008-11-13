@@ -11,9 +11,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.11.5\n"
-"POT-Creation-Date: 2008-10-17 14:56-0300\n"
-"PO-Revision-Date: 2008-10-21 15:39-0300\n"
+"Project-Id-Version: noosfero 0.12.0\n"
+"POT-Creation-Date: 2008-11-13 18:03-0300\n"
+"PO-Revision-Date: 2008-11-13 18:07-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -267,20 +267,11 @@ msgid "Address:"
 msgstr "Endereço:"
 
 #: app/helpers/enterprise_homepage_helper.rb:11
-msgid "Legal form:"
-msgstr "Natureza legal:"
-
-#: app/helpers/enterprise_homepage_helper.rb:12
-#: app/views/enterprise_editor/index.rhtml:10
-msgid "Foundation year:"
-msgstr "Ano de fundação:"
-
-#: app/helpers/enterprise_homepage_helper.rb:13
-#: app/views/enterprise_editor/index.rhtml:12
+#: app/views/enterprise_editor/index.rhtml:11
 msgid "Economic activity:"
 msgstr "Atividade econômica:"
 
-#: app/helpers/enterprise_homepage_helper.rb:21
+#: app/helpers/enterprise_homepage_helper.rb:19
 #: app/views/search/_sellers_form.rhtml:17
 #: app/views/search/_search_form.rhtml:30
 msgid "Distance:"
@@ -2162,7 +2153,7 @@ msgid "Remove"
 msgstr "Remover"
 
 #: app/views/profile_members/index.rhtml:21 app/views/role/show.rhtml:10
-#: app/views/role/index.rhtml:12 app/views/enterprise_editor/index.rhtml:22
+#: app/views/role/index.rhtml:12 app/views/enterprise_editor/index.rhtml:20
 #: app/views/environment_role_manager/index.rhtml:13
 #: app/views/enterprise_validation/details.rhtml:3
 #: app/views/enterprise_validation/list_processed.rhtml:3
@@ -2516,41 +2507,38 @@ msgstr ""
 "sua senha, não crie uma nova conta, clique no link \"<b>Eu esqueci minha "
 "senha!</b>\". ;-)"
 
-#: app/views/account/_signup_form.rhtml:7
-msgid "\"Username\" is a simple nickname to recognize you on this environment."
-msgstr ""
-"\"Nome de usuário\" é um simples apelido para reconhece-lo neste ambiente."
-
-#: app/views/account/_signup_form.rhtml:12
+#: app/views/account/_signup_form.rhtml:11
 msgid "We'll send you an e-mail to validate your registration."
 msgstr "Nós iremos lhe enviar um e-mail para validar seu registro."
 
-#: app/views/account/_signup_form.rhtml:16
-msgid "Do not use a obviously password, but try some unforgettable word."
-msgstr "Não use uma senha óbvia, mas tente algo de ser lembrado facilmente."
+#: app/views/account/_signup_form.rhtml:15
+msgid "Choose a password that you can remember easily."
+msgstr "Escolha uma senha fácil de ser lembrada por você."
 
-#: app/views/account/_signup_form.rhtml:20
-msgid "We need to be sure that you wrote correctly your password."
-msgstr "Nós precisamos ter certeza que você escreveu sua senha corretamente."
+#: app/views/account/_signup_form.rhtml:19
+msgid "To confirm, repeat your password."
+msgstr "Para confirmar, repita sua senha."
 
-#: app/views/account/_signup_form.rhtml:31
+#: app/views/account/_signup_form.rhtml:30
 msgid "I accept the terms of use"
 msgstr "Eu aceito os termos de uso"
 
-#: app/views/account/_signup_form.rhtml:45
+#: app/views/account/_signup_form.rhtml:44
 msgid ""
-"Here you can create an account for <b>you as a person</b>.\n"
-"<p/>\n"
-"Do <b>not</b> enter a login for a group nor for an entreprise.\n"
-"With your user account, you can create <em>several</em> group or enterprise\n"
-"accounts through your person control panel."
+"Dear user, welcome to the %s network. To start your participation\n"
+"in this space, fill in the fields below. After this operation, your login "
+"and\n"
+"password will be registered, allowing you to create communities and "
+"enterprises\n"
+"in this environment."
 msgstr ""
-"Aqui você pode criar uma conta para <b>você como pessoa</b>.\n"
-"<b>Não</b> coloque um login para um grupo ou empreendimento.\n"
-"Com sua conta de usuário, você pode criar <em>vários</em> grupos ou\n"
-"empreendimentos através do seu painel de controle."
+"Caro usuário, bem-vindo à rede %s. Para iniciar sua participação\n"
+"neste espaço, preencha os campos abaixo. Depois desta operação, seu login "
+"e senha serão registrados, permitindo que você crie comunidades e "
+"empreendimentos neste ambiente."
 
-#: app/views/account/_signup_form.rhtml:54
+
+#: app/views/account/_signup_form.rhtml:52
 msgid "Sign up"
 msgstr "Registre-se"
 
@@ -3105,13 +3093,13 @@ msgid_plural "%s articles published"
 msgstr[0] "Um artigo publicado"
 msgstr[1] "%s artigos publicados"
 
-#: app/views/blocks/my_network/community.rhtml:4
+#: app/views/blocks/my_network/community.rhtml:5
 msgid "One member"
 msgid_plural "%s members"
 msgstr[0] "Um membro"
 msgstr[1] "%s membros"
 
-#: app/views/blocks/my_network/community.rhtml:6
+#: app/views/blocks/my_network/community.rhtml:7
 #: app/views/blocks/my_network/person.rhtml:8
 msgid "One tag"
 msgid_plural "%s tags"
@@ -3268,21 +3256,11 @@ msgid "Foundation Year"
 msgstr "Ano de Fundação"
 
 #: app/views/enterprise_editor/_form.rhtml:19
-#: app/views/enterprise_validation/_details.rhtml:31
-msgid "Legal Form"
-msgstr "Formulário Legal"
-
-#: app/views/enterprise_editor/_form.rhtml:22
 #: app/views/enterprise_validation/_details.rhtml:35
 msgid "Economic Activity"
 msgstr "Atividade Econômica"
 
-#: app/views/enterprise_editor/_form.rhtml:25
-#: app/views/enterprise_validation/_details.rhtml:39
-msgid "Management Information"
-msgstr "Informação de Gerenciamento"
-
-#: app/views/enterprise_editor/_form.rhtml:28
+#: app/views/enterprise_editor/_form.rhtml:22
 msgid "Validation Entity"
 msgstr "Entidade de Validação"
 
@@ -3298,35 +3276,31 @@ msgstr "Telefone de contato:"
 msgid "Acronym:"
 msgstr "Sigla:"
 
-#: app/views/enterprise_editor/index.rhtml:11
-msgid "Legal Form:"
-msgstr "Estaturo jurídico:"
+#: app/views/enterprise_editor/index.rhtml:10
+msgid "Foundation year:"
+msgstr "Ano de fundação:"
 
 #: app/views/enterprise_editor/index.rhtml:13
-msgid "Management infomation:"
-msgstr "Informação de gerenciamento:"
-
-#: app/views/enterprise_editor/index.rhtml:15
 msgid "Edit enterprise"
 msgstr "Editar empreendimento"
 
-#: app/views/enterprise_editor/index.rhtml:16
+#: app/views/enterprise_editor/index.rhtml:14
 msgid "Change the information about the enterprise"
 msgstr "Altera a informação sobre o empreendimento"
 
-#: app/views/enterprise_editor/index.rhtml:17
+#: app/views/enterprise_editor/index.rhtml:15
 msgid "Delete enterprise"
 msgstr "Excluir empreendimento"
 
-#: app/views/enterprise_editor/index.rhtml:18
+#: app/views/enterprise_editor/index.rhtml:16
 msgid "Remove the enterprise from the system"
 msgstr "Excluir o empreendimnto do sistema"
 
-#: app/views/enterprise_editor/index.rhtml:19
+#: app/views/enterprise_editor/index.rhtml:17
 msgid "Activate"
 msgstr "Ativar"
 
-#: app/views/enterprise_editor/index.rhtml:20
+#: app/views/enterprise_editor/index.rhtml:18
 msgid "Activate an approved enterprise"
 msgstr "Ativa um empreendimento aprovado"
 
@@ -3424,12 +3398,12 @@ msgid "Creating new community"
 msgstr "Criando nova comunidade"
 
 #: app/views/memberships/new_community.rhtml:14
-#: app/views/profile_editor/_organization.rhtml:22
+#: app/views/profile_editor/_organization.rhtml:20
 msgid "New members must be approved:"
 msgstr "Novos membros devem ser aprovados:"
 
 #: app/views/memberships/new_community.rhtml:19
-#: app/views/profile_editor/_organization.rhtml:27
+#: app/views/profile_editor/_organization.rhtml:25
 msgid ""
 "<strong>Before</strong> joining this group (a moderator has to accept the "
 "member in pending request before member can access the intranet and/or the "
@@ -3439,7 +3413,7 @@ msgstr ""
 "solicitação pendente antes de acessar a intranet e/ou o website."
 
 #: app/views/memberships/new_community.rhtml:25
-#: app/views/profile_editor/_organization.rhtml:33
+#: app/views/profile_editor/_organization.rhtml:31
 msgid ""
 "<strong>After</strong> joining this group (a moderator can always "
 "desactivate access for users later)."
@@ -3759,15 +3733,15 @@ msgstr "Nome de apresentação"
 msgid "A short name by which the organization is know."
 msgstr "Um nome curto pelo qual a organização é conhecida"
 
-#: app/views/profile_editor/_organization.rhtml:20
+#: app/views/profile_editor/_organization.rhtml:18
 msgid "Moderation options"
 msgstr "Opções de moderação"
 
-#: app/views/profile_editor/_organization.rhtml:39
+#: app/views/profile_editor/_organization.rhtml:37
 msgid "New articles posted by members of this group must be approved:"
 msgstr "Novos artigos postados por membros deste grupo devem ser aprovados:"
 
-#: app/views/profile_editor/_organization.rhtml:45
+#: app/views/profile_editor/_organization.rhtml:43
 msgid ""
 "<strong>Before</strong> being published in this group (a moderator has to "
 "accept the article in pending request before the article be listed as a "
@@ -3777,7 +3751,7 @@ msgstr ""
 "precisa aceitar o artigo numa solicitação pendente antes do artigo ser "
 "listado como um artigo deste grupo."
 
-#: app/views/profile_editor/_organization.rhtml:51
+#: app/views/profile_editor/_organization.rhtml:49
 msgid ""
 "<strong>After</strong> being published in this group (a moderator can always "
 "remove publicated articles later)."
@@ -3950,11 +3924,11 @@ msgstr ""
 msgid "Turn help on/off"
 msgstr "Ligar e desligar a Ajuda"
 
-#: app/views/layouts/application.rhtml:172
+#: app/views/layouts/application.rhtml:174
 msgid "Your web browser is obsolete!"
 msgstr "Seu navegador web esta obsoleto!"
 
-#: app/views/layouts/application.rhtml:173
+#: app/views/layouts/application.rhtml:175
 msgid ""
 "This website will not look as good as it could.\n"
 "         Don't you want to use Firefox? That is a great web browser, free,\n"
@@ -3964,7 +3938,7 @@ msgstr ""
 "Firefox? É um ótimo navegador, livre e feito por pessoas de todos os cantos "
 "do mundo."
 
-#: app/views/layouts/application.rhtml:177
+#: app/views/layouts/application.rhtml:179
 msgid "Get Firefox Now!"
 msgstr "Baixe o Firefox Já!"
 
@@ -4067,6 +4041,14 @@ msgstr ""
 #: app/views/enterprise_validation/edit_validation_info.rhtml:1
 msgid "Editing the validation info"
 msgstr "Editando a informação de validação"
+
+#: app/views/enterprise_validation/_details.rhtml:31
+msgid "Legal Form"
+msgstr "Formulário Legal"
+
+#: app/views/enterprise_validation/_details.rhtml:39
+msgid "Management Information"
+msgstr "Informação de Gerenciamento"
 
 #: app/views/enterprise_validation/list_processed.rhtml:23
 msgid "See details"
@@ -4420,11 +4402,11 @@ msgstr "Nova solicitação para %s"
 msgid "New request"
 msgstr "Nova solicitação"
 
-#: app/views/tasks/new.rhtml:5
+#: app/views/tasks/new.rhtml:8
 msgid "To: "
 msgstr "Para: "
 
-#: app/views/tasks/new.rhtml:10
+#: app/views/tasks/new.rhtml:14
 msgid "Send"
 msgstr "Enviar"
 
@@ -4821,6 +4803,44 @@ msgstr "Contatos"
 msgid "Creating new group"
 msgstr "Criar novo grupo"
 
+#: public/designs/themes/green/footer.rhtml:2
+msgid "A Ynternet.org project"
+msgstr "Um projeto da Ynternet.org"
+
+#~ msgid "Legal form:"
+#~ msgstr "Natureza legal:"
+
+#~ msgid ""
+#~ "\"Username\" is a simple nickname to recognize you on this environment."
+#~ msgstr ""
+#~ "\"Nome de usuário\" é um simples apelido para reconhece-lo neste ambiente."
+
+#~ msgid "Do not use a obviously password, but try some unforgettable word."
+#~ msgstr "Não use uma senha óbvia, mas tente algo de ser lembrado facilmente."
+
+#~ msgid "We need to be sure that you wrote correctly your password."
+#~ msgstr ""
+#~ "Nós precisamos ter certeza que você escreveu sua senha corretamente."
+
+#~ msgid ""
+#~ "Here you can create an account for <b>you as a person</b>.\n"
+#~ "<p/>\n"
+#~ "Do <b>not</b> enter a login for a group nor for an entreprise.\n"
+#~ "With your user account, you can create <em>several</em> group or "
+#~ "enterprise\n"
+#~ "accounts through your person control panel."
+#~ msgstr ""
+#~ "Aqui você pode criar uma conta para <b>você como pessoa</b>.\n"
+#~ "<b>Não</b> coloque um login para um grupo ou empreendimento.\n"
+#~ "Com sua conta de usuário, você pode criar <em>vários</em> grupos ou\n"
+#~ "empreendimentos através do seu painel de controle."
+
+#~ msgid "Legal Form:"
+#~ msgstr "Estaturo jurídico:"
+
+#~ msgid "Management infomation:"
+#~ msgstr "Informação de gerenciamento:"
+
 #~ msgid "My profile"
 #~ msgstr "Meu perfil"
 
@@ -4838,9 +4858,6 @@ msgstr "Criar novo grupo"
 
 #~ msgid "Developed by Colivre"
 #~ msgstr "Desenvolvimento Colivre"
-
-#~ msgid "A Ynternet.org project"
-#~ msgstr "Um projeto da Ynternet.org"
 
 #~ msgid "Register"
 #~ msgstr "Registrar"

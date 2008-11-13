@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.11.5\n"
-"POT-Creation-Date: 2008-10-17 14:56-0300\n"
+"Project-Id-Version: noosfero 0.12.0\n"
+"POT-Creation-Date: 2008-11-13 18:03-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -261,20 +261,11 @@ msgid "Address:"
 msgstr ""
 
 #: app/helpers/enterprise_homepage_helper.rb:11
-msgid "Legal form:"
-msgstr ""
-
-#: app/helpers/enterprise_homepage_helper.rb:12
-#: app/views/enterprise_editor/index.rhtml:10
-msgid "Foundation year:"
-msgstr ""
-
-#: app/helpers/enterprise_homepage_helper.rb:13
-#: app/views/enterprise_editor/index.rhtml:12
+#: app/views/enterprise_editor/index.rhtml:11
 msgid "Economic activity:"
 msgstr ""
 
-#: app/helpers/enterprise_homepage_helper.rb:21
+#: app/helpers/enterprise_homepage_helper.rb:19
 #: app/views/search/_sellers_form.rhtml:17
 #: app/views/search/_search_form.rhtml:30
 msgid "Distance:"
@@ -2114,7 +2105,7 @@ msgid "Remove"
 msgstr ""
 
 #: app/views/profile_members/index.rhtml:21 app/views/role/show.rhtml:10
-#: app/views/role/index.rhtml:12 app/views/enterprise_editor/index.rhtml:22
+#: app/views/role/index.rhtml:12 app/views/enterprise_editor/index.rhtml:20
 #: app/views/environment_role_manager/index.rhtml:13
 #: app/views/enterprise_validation/details.rhtml:3
 #: app/views/enterprise_validation/list_processed.rhtml:3
@@ -2442,36 +2433,33 @@ msgid ""
 "password!</b>\" link. ;-)"
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:7
-msgid "\"Username\" is a simple nickname to recognize you on this environment."
-msgstr ""
-
-#: app/views/account/_signup_form.rhtml:12
+#: app/views/account/_signup_form.rhtml:11
 msgid "We'll send you an e-mail to validate your registration."
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:16
-msgid "Do not use a obviously password, but try some unforgettable word."
+#: app/views/account/_signup_form.rhtml:15
+msgid "Choose a password that you can remember easily."
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:20
-msgid "We need to be sure that you wrote correctly your password."
+#: app/views/account/_signup_form.rhtml:19
+msgid "To confirm, repeat your password."
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:31
+#: app/views/account/_signup_form.rhtml:30
 msgid "I accept the terms of use"
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:45
+#: app/views/account/_signup_form.rhtml:44
 msgid ""
-"Here you can create an account for <b>you as a person</b>.\n"
-"<p/>\n"
-"Do <b>not</b> enter a login for a group nor for an entreprise.\n"
-"With your user account, you can create <em>several</em> group or enterprise\n"
-"accounts through your person control panel."
+"Dear user, welcome to the %s network. To start your participation\n"
+"in this space, fill in the fields below. After this operation, your login "
+"and\n"
+"password will be registered, allowing you to create communities and "
+"enterprises\n"
+"in this environment."
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:54
+#: app/views/account/_signup_form.rhtml:52
 msgid "Sign up"
 msgstr ""
 
@@ -2996,13 +2984,13 @@ msgid_plural "%s articles published"
 msgstr[0] ""
 msgstr[1] ""
 
-#: app/views/blocks/my_network/community.rhtml:4
+#: app/views/blocks/my_network/community.rhtml:5
 msgid "One member"
 msgid_plural "%s members"
 msgstr[0] ""
 msgstr[1] ""
 
-#: app/views/blocks/my_network/community.rhtml:6
+#: app/views/blocks/my_network/community.rhtml:7
 #: app/views/blocks/my_network/person.rhtml:8
 msgid "One tag"
 msgid_plural "%s tags"
@@ -3150,21 +3138,11 @@ msgid "Foundation Year"
 msgstr ""
 
 #: app/views/enterprise_editor/_form.rhtml:19
-#: app/views/enterprise_validation/_details.rhtml:31
-msgid "Legal Form"
-msgstr ""
-
-#: app/views/enterprise_editor/_form.rhtml:22
 #: app/views/enterprise_validation/_details.rhtml:35
 msgid "Economic Activity"
 msgstr ""
 
-#: app/views/enterprise_editor/_form.rhtml:25
-#: app/views/enterprise_validation/_details.rhtml:39
-msgid "Management Information"
-msgstr ""
-
-#: app/views/enterprise_editor/_form.rhtml:28
+#: app/views/enterprise_editor/_form.rhtml:22
 msgid "Validation Entity"
 msgstr ""
 
@@ -3180,35 +3158,31 @@ msgstr ""
 msgid "Acronym:"
 msgstr ""
 
-#: app/views/enterprise_editor/index.rhtml:11
-msgid "Legal Form:"
+#: app/views/enterprise_editor/index.rhtml:10
+msgid "Foundation year:"
 msgstr ""
 
 #: app/views/enterprise_editor/index.rhtml:13
-msgid "Management infomation:"
-msgstr ""
-
-#: app/views/enterprise_editor/index.rhtml:15
 msgid "Edit enterprise"
 msgstr ""
 
-#: app/views/enterprise_editor/index.rhtml:16
+#: app/views/enterprise_editor/index.rhtml:14
 msgid "Change the information about the enterprise"
 msgstr ""
 
-#: app/views/enterprise_editor/index.rhtml:17
+#: app/views/enterprise_editor/index.rhtml:15
 msgid "Delete enterprise"
 msgstr ""
 
-#: app/views/enterprise_editor/index.rhtml:18
+#: app/views/enterprise_editor/index.rhtml:16
 msgid "Remove the enterprise from the system"
 msgstr ""
 
-#: app/views/enterprise_editor/index.rhtml:19
+#: app/views/enterprise_editor/index.rhtml:17
 msgid "Activate"
 msgstr ""
 
-#: app/views/enterprise_editor/index.rhtml:20
+#: app/views/enterprise_editor/index.rhtml:18
 msgid "Activate an approved enterprise"
 msgstr ""
 
@@ -3306,12 +3280,12 @@ msgid "Creating new community"
 msgstr ""
 
 #: app/views/memberships/new_community.rhtml:14
-#: app/views/profile_editor/_organization.rhtml:22
+#: app/views/profile_editor/_organization.rhtml:20
 msgid "New members must be approved:"
 msgstr ""
 
 #: app/views/memberships/new_community.rhtml:19
-#: app/views/profile_editor/_organization.rhtml:27
+#: app/views/profile_editor/_organization.rhtml:25
 msgid ""
 "<strong>Before</strong> joining this group (a moderator has to accept the "
 "member in pending request before member can access the intranet and/or the "
@@ -3319,7 +3293,7 @@ msgid ""
 msgstr ""
 
 #: app/views/memberships/new_community.rhtml:25
-#: app/views/profile_editor/_organization.rhtml:33
+#: app/views/profile_editor/_organization.rhtml:31
 msgid ""
 "<strong>After</strong> joining this group (a moderator can always "
 "desactivate access for users later)."
@@ -3636,22 +3610,22 @@ msgstr ""
 msgid "A short name by which the organization is know."
 msgstr ""
 
-#: app/views/profile_editor/_organization.rhtml:20
+#: app/views/profile_editor/_organization.rhtml:18
 msgid "Moderation options"
 msgstr ""
 
-#: app/views/profile_editor/_organization.rhtml:39
+#: app/views/profile_editor/_organization.rhtml:37
 msgid "New articles posted by members of this group must be approved:"
 msgstr ""
 
-#: app/views/profile_editor/_organization.rhtml:45
+#: app/views/profile_editor/_organization.rhtml:43
 msgid ""
 "<strong>Before</strong> being published in this group (a moderator has to "
 "accept the article in pending request before the article be listed as a "
 "article of this group."
 msgstr ""
 
-#: app/views/profile_editor/_organization.rhtml:51
+#: app/views/profile_editor/_organization.rhtml:49
 msgid ""
 "<strong>After</strong> being published in this group (a moderator can always "
 "remove publicated articles later)."
@@ -3805,18 +3779,18 @@ msgstr ""
 msgid "Turn help on/off"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:172
+#: app/views/layouts/application.rhtml:174
 msgid "Your web browser is obsolete!"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:173
+#: app/views/layouts/application.rhtml:175
 msgid ""
 "This website will not look as good as it could.\n"
 "         Don't you want to use Firefox? That is a great web browser, free,\n"
 "         and made by people of all the world parts."
 msgstr ""
 
-#: app/views/layouts/application.rhtml:177
+#: app/views/layouts/application.rhtml:179
 msgid "Get Firefox Now!"
 msgstr ""
 
@@ -3907,6 +3881,14 @@ msgstr ""
 
 #: app/views/enterprise_validation/edit_validation_info.rhtml:1
 msgid "Editing the validation info"
+msgstr ""
+
+#: app/views/enterprise_validation/_details.rhtml:31
+msgid "Legal Form"
+msgstr ""
+
+#: app/views/enterprise_validation/_details.rhtml:39
+msgid "Management Information"
 msgstr ""
 
 #: app/views/enterprise_validation/list_processed.rhtml:23
@@ -4252,11 +4234,11 @@ msgstr ""
 msgid "New request"
 msgstr ""
 
-#: app/views/tasks/new.rhtml:5
+#: app/views/tasks/new.rhtml:8
 msgid "To: "
 msgstr ""
 
-#: app/views/tasks/new.rhtml:10
+#: app/views/tasks/new.rhtml:14
 msgid "Send"
 msgstr ""
 
@@ -4639,4 +4621,8 @@ msgstr ""
 
 #: lib/zen3_terminology.rb:59
 msgid "Creating new group"
+msgstr ""
+
+#: public/designs/themes/green/footer.rhtml:2
+msgid "A Ynternet.org project"
 msgstr ""
