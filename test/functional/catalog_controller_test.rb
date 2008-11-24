@@ -75,4 +75,34 @@ class CatalogControllerTest < Test::Unit::TestCase
     assert_redirected_to :controller => 'profile', :action => 'index', :profile => ent.identifier
   end
 
+  should 'not show product price when listing products if not informed' do
+    ent = Enterprise.create!(:identifier => 'test_enterprise1', :name => 'Test enteprise1')
+    prod = ent.products.create!(:name => 'Product test')
+    get :index, :profile => ent.identifier
+    assert_no_tag :tag => 'li', :attributes => { :class => 'product_price' }, :content => /Price:/
+  end
+
+  should 'show product price when listing products if informed' do
+    ent = Enterprise.create!(:identifier => 'test_enterprise1', :name => 'Test enteprise1')
+    prod = ent.products.create!(:name => 'Product test', :price => 50.00)
+    get :index, :profile => ent.identifier
+    assert_tag :tag => 'li', :attributes => { :class => 'product_price' }, :content => /Price:/
+  end
+
+  should 'not show product price when showing product if not informed' do
+    ent = Enterprise.create!(:identifier => 'test_enterprise1', :name => 'Test enteprise1')
+    prod = ent.products.create!(:name => 'Product test')
+    get :show, :id => prod.id, :profile => ent.identifier
+
+    assert_no_tag :tag => 'p', :attributes => { :class => 'product_price' }, :content => /Price:/
+  end
+
+  should 'show product price when showing product if informed' do
+    ent = Enterprise.create!(:identifier => 'test_enterprise1', :name => 'Test enteprise1')
+    prod = ent.products.create!(:name => 'Product test', :price => 50.00)
+    get :show, :id => prod.id, :profile => ent.identifier
+
+    assert_tag :tag => 'p', :attributes => { :class => 'product_price' }, :content => /Price:/
+  end
+
 end

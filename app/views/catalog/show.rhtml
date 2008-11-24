@@ -8,9 +8,11 @@
 <%= txt2html @product.description  if @product.description %>
 </div>
 
-<p class="product_price">
-<%= _('Price: %s') % ( @product.price ? "<strong>%.2f</strong>" % @product.price : content_tag('em', _('not informed')) ) %>
-</p>
+<% if @product.price %>
+  <p class="product_price">
+  <%= _('Price: %s') % ( "<strong>%.2f</strong>" % @product.price) %>
+  </p>
+<% end %>
 
 <p class="product_category">
 <%= _('Category: %s ') % link_to_category(@product.product_category) %>
