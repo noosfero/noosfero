@@ -119,4 +119,22 @@ class Person < Profile
     environment.person_template
   end
 
+  def self.with_pending_tasks
+    Person.find(:all).select{ |person| !person.tasks.pending.empty? or person.has_organization_pending_tasks? }
+  end
+
+  def has_organization_pending_tasks?
+    self.memberships.any?{ |group| group.tasks.pending.any?{ |task| self.has_permission?(task.permission, group) } }
+  end
+
+  def organizations_with_pending_tasks
+    self.memberships.select do |organization|
+      organization.tasks.pending.any?{|task| self.has_permission?(task.permission, organization)}
+    end
+  end
+
+  def pending_tasks_for_organization(organization)
+    organization.tasks.pending.select{|task| self.has_permission?(task.permission, organization)}
+  end
+
 end

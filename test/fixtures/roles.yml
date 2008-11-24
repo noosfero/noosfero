@@ -28,6 +28,7 @@ four:
    - manage_environment_roles
    - manage_environment_validators
    - moderate_comments
+   - perform_task
 profile_admin:
   id: 5
   key: 'profile_admin'
@@ -37,6 +38,7 @@ profile_admin:
    - edit_profile_design
    - moderate_comments
    - destroy_profile
+   - perform_task
 profile_member:
   id: 6
   key: 'profile_member'

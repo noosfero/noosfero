@@ -326,4 +326,54 @@ class PersonTest < Test::Unit::TestCase
     end
   end
 
+  should 'person has pending tasks' do
+    p1 = create_user('user_with_tasks').person
+    p1.tasks << Task.new
+    p2 = create_user('user_without_tasks').person
+    assert_includes Person.with_pending_tasks, p1
+    assert_not_includes Person.with_pending_tasks, p2
+  end
+
+  should 'person has group with pending tasks' do
+    p1 = create_user('user_with_tasks').person
+    c1 = Community.create!(:name => 'my test community')
+    c1.tasks << Task.new
+    assert !c1.tasks.pending.empty?
+    c1.add_admin(p1)
+
+    c2 = Community.create!(:name => 'my other test community')
+    p2 = create_user('user_without_tasks').person
+    c2.add_admin(p2)
+
+    assert_includes Person.with_pending_tasks, p1
+    assert_not_includes Person.with_pending_tasks, p2
+  end
+
+  should 'not allow simple member to view group pending tasks' do
+    c = Community.create!(:name => 'my test community')
+    c.tasks << Task.new
+    p = create_user('user_without_tasks').person
+    c.add_member(p)
+
+    assert_not_includes Person.with_pending_tasks, p
+  end
+
+  should 'person has organization pending tasks' do
+    c = Community.create!(:name => 'my test community')
+    c.tasks << Task.new
+    p = create_user('user_with_tasks').person
+    c.add_admin(p)
+
+    assert p.has_organization_pending_tasks?
+  end
+
+  should 'select organization pending tasks' do
+    c = Community.create!(:name => 'my test community')
+    c.tasks << Task.new
+    p = create_user('user_with_tasks').person
+    c.add_admin(p)
+
+    assert_equal p.pending_tasks_for_organization(c), c.tasks
+  end
+
 end
