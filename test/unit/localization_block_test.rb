@@ -15,18 +15,18 @@ class LocalizationBlockTest < Test::Unit::TestCase
   end
 
   should 'display no localization map without lat' do
-    assert_tag_in_string block.content, :tag => 'i'
+    assert_tag_in_string block.content.call, :tag => 'i'
   end
 
   should 'display localization map' do
     profile.lat = 0
     profile.lng = 0
     profile.save!
-    assert_tag_in_string block.content, :tag => 'img'
+    assert_tag_in_string block.content.call, :tag => 'img'
   end
 
-  should 'not be editable' do
-    assert !LocalizationBlock.new.editable?
+  should 'be editable' do
+    assert LocalizationBlock.new.editable?
   end
   
 end
