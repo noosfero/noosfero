@@ -1,0 +1,27 @@
+#!/bin/bash
+
+if ! cd public/images/0000; then
+  echo "
+  Rode esse script na raiz do Noosfero para ele redimensionar as
+  imagens dos usuarios.
+  "
+  exit 1
+fi
+
+echo "
+  Ok! We are on $(pwd)
+"
+
+big='150x150'
+
+# Padrao: <nome>_<tamanho>.<ext>
+
+find . -type f |
+grep --invert-match -E '_(thumb|portrait|minor|icon)\.' |
+while read img; do
+  echo "Criando tamanho big ($big) para $img"
+  name=$( echo "$img" | sed 's/^\(.*\)\.[^\.]\+$/\1/' )
+  ext=$( echo "$img" | sed 's/^.*\.\([^\.]\+\)$/\1/' )
+  convert "$img" -resize $big "${name}_big.$ext"
+done
+

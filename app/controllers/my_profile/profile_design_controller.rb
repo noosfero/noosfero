@@ -20,6 +20,7 @@ class ProfileDesignController < BoxOrganizerController
 
     # blocks exclusive for enterprises
     if profile.enterprise?
+      blocks << ProfileImageBlock
       blocks << LocalizationBlock
     end
 
