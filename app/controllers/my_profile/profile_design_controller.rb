@@ -18,6 +18,11 @@ class ProfileDesignController < BoxOrganizerController
       blocks << FavoriteEnterprisesBlock
     end
 
+    # profile image block exclusive for enterprise
+    if profile.enterprise?
+      blocks << ProfileImageBlock
+    end
+
     # product block exclusive for enterprises in environments that permits it
     if profile.enterprise? && !profile.environment.enabled?('disable_products_for_enterprises')
       blocks << ProductsBlock

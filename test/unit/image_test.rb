@@ -3,8 +3,10 @@ require File.dirname(__FILE__) + '/../test_helper'
 class ImageTest < Test::Unit::TestCase
   fixtures :images
 
-  # Replace this with your real tests.
-  def test_truth
-    assert true
+  should 'have thumbnails options' do
+    [:big, :thumb, :portrait, :minor, :icon].each do |option|
+      assert Image.attachment_options[:thumbnails].include?(option), "should have #{option}"
+    end
   end
+
 end
