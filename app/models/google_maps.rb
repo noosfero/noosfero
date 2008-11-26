@@ -28,7 +28,7 @@ class GoogleMaps
     end
 
     def key
-      config['key']
+      config['key'] || ''
     end
 
     def initial_zoom

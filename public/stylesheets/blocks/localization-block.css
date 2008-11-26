@@ -1,0 +1,14 @@
+.localization-block {
+  text-align: center;
+}
+
+.the-localization-map {
+  margin: auto;
+  width: 211px;
+  max-width: 205px;
+  padding: 3px;
+  background: #FFF;
+  border: 1px solid #888;
+  cursor: pointer;
+}
+
