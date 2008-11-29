@@ -165,3 +165,39 @@
   border: none;
 }
 
+/* * *  Blog  * * */
+
+.blog-post a {
+  text-decoration: none;
+}
+
+#content .title {
+  margin-bottom: 2px;
+}
+
+.blog-post .metadata {
+  display: block;
+  text-align: center;
+  font-size: small;
+}
+
+#content .created-at {
+  color: gray;
+  font-size: small;
+  display: block;
+  text-align: right;
+}
+
+#content .blog-post .created-at {
+  text-align: left;
+}
+
+#content .pagination .prev_page {
+  position: absolute;
+  right: 0;
+}
+
+#content .pagination .next_page {
+  position: absolute;
+  left: 0;
+}

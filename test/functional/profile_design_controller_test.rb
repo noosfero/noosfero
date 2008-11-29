@@ -269,5 +269,15 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'a', :attributes => {:href => '/myprofile/test_profile'}
   end
 
-end
+  should 'offer to create blog archives block only if has blog' do
+    Blog.create!(:name => 'Blog test', :profile => holder)
+    get :add_block, :profile => 'designtestuser'
+    assert_tag :tag => 'input', :attributes => { :id => 'type_blogarchivesblock', :value => 'BlogArchivesBlock' }
+  end
 
+  should 'not offer to create blog archives block if user dont have blog' do
+    get :add_block, :profile => 'designtestuser'
+    assert_no_tag :tag => 'input', :attributes => { :id => 'type_blogarchivesblock', :value => 'BlogArchivesBlock' }
+  end
+
+end

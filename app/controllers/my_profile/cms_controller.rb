@@ -20,22 +20,34 @@ class CmsController < MyProfileController
 
   def available_article_types
     articles = [
-      Folder,
       TinyMceArticle,
       TextileArticle,
-      RssFeed,
       UploadedFile,
       Event
     ]
+    parent_id = params ? params[:parent_id] : nil
+    if !parent_id or !Article.find(parent_id).blog?
+      articles += [
+        Folder,
+        RssFeed
+      ]
+    end
     if profile.enterprise?
       articles << EnterpriseHomepage
     end
     articles
   end
 
+  def special_article_types
+    [Blog]
+  end
+
   def view
     @article = profile.articles.find(params[:id])
     @subitems = @article.children.reject {|item| item.folder? }
+    if @article.blog?
+      @subitems.reject! {|item| item.class == RssFeed }
+    end
     @folders = @article.children.select {|item| item.folder? }
   end
 
@@ -80,7 +92,7 @@ class CmsController < MyProfileController
       return
     end
 
-    raise "Invalid article type #{@type}" unless available_article_types.map {|item| item.name}.include?(@type)
+    raise "Invalid article type #{@type}" unless valid_article_type?(@type)
     klass = @type.constantize
     @article = klass.new(params[:article])
 
@@ -190,6 +202,10 @@ class CmsController < MyProfileController
 
   def maybe_ssl(url)
     [url, url.sub('https:', 'http:')]
+  end
+
+  def valid_article_type?(type)
+    (available_article_types + special_article_types).map {|item| item.name}.include?(type)
   end
 
 end

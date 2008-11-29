@@ -630,4 +630,99 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'div', :descendant => { :tag => 'h4', :content => 'Categorize your article' }
   end
 
+  should 'offer to create a blog' do
+    get :index, :profile => profile.identifier
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?type=Blog"}
+  end
+
+  should 'not display input name on create blog' do
+    get :new, :profile => profile.identifier, :type => 'Blog'
+    assert_no_tag :tag => 'input', :attributes => { :name => 'article[name]', :type => 'text' }
+  end
+
+  should 'display posts per page input with default value on edit blog' do
+    get :new, :profile => profile.identifier, :type => 'Blog'
+    assert_tag :tag => 'input', :attributes => { :name => 'article[posts_per_page]', :type => 'text', :value => '20' }
+  end
+
+  should 'not offer to create special article types' do
+    get :new, :profile => profile.identifier
+    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?type=Blog"}
+  end
+
+  should 'not offer to create a blog if user already have' do
+    profile.articles << Blog.new(:name => 'blog test')
+
+    profile.articles.reload
+    assert profile.has_blog?
+
+    get :index, :profile => profile.identifier
+    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?type=Blog"}
+  end
+
+  should 'offer to edit a blog' do
+    profile.articles << Blog.new(:name => 'blog test')
+
+    profile.articles.reload
+    assert profile.has_blog?
+
+    b = profile.blog
+    get :index, :profile => profile.identifier
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/edit/#{b.id}"}
+  end
+
+  should 'not offer to add folder to blog' do
+    profile.articles << Blog.new(:name => 'blog test')
+
+    profile.articles.reload
+    assert profile.has_blog?
+
+    get :view, :profile => profile.identifier, :id => profile.blog.id
+    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?parent_id=#{profile.blog.id}&amp;type=Folder"}
+  end
+
+  should 'not show feed subitem for blog' do
+    profile.articles << Blog.new(:name => 'Blog for test')
+
+    profile.articles.reload
+    assert profile.has_blog?
+
+    get :view, :profile => profile.identifier, :id => profile.blog.id
+
+    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/edit/#{profile.blog.feed.id}" }
+  end
+
+  should 'update feed options by edit blog form' do
+    profile.articles << Blog.new(:name => 'Blog for test')
+    post :edit, :profile => profile.identifier, :id => profile.blog.id, :article => { :feed => { :limit => 7 } }
+    assert_equal 7, profile.blog.feed.limit
+  end
+
+  should 'not offer folder to blog articles' do
+    @controller.stubs(:profile).returns(Enterprise.new)
+    blog = Blog.create!(:name => 'Blog for test', :profile => profile)
+    @controller.stubs(:params).returns({ :parent_id => blog.id })
+
+    assert_not_includes @controller.available_article_types, Folder
+  end
+
+  should 'not offer rssfeed to blog articles' do
+    @controller.stubs(:profile).returns(Enterprise.new)
+    blog = Blog.create!(:name => 'Blog for test', :profile => profile)
+    @controller.stubs(:params).returns({ :parent_id => blog.id })
+
+    assert_not_includes @controller.available_article_types, RssFeed
+  end
+
+  should 'update blog posts_per_page setting' do
+    profile.articles << Blog.new(:name => 'Blog for test')
+    post :edit, :profile => profile.identifier, :id => profile.blog.id, :article => { :posts_per_page => 5 }
+    assert_equal 5, profile.blog.posts_per_page
+  end
+
+  should 'display input title on create blog' do
+    get :new, :profile => profile.identifier, :type => 'Blog'
+    assert_tag :tag => 'input', :attributes => { :name => 'article[title]', :type => 'text' }
+  end
+
 end

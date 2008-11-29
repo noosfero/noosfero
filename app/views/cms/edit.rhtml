@@ -24,13 +24,7 @@
   <%= content_tag( 'small', _('Separate tags with commas') ) %>
 
   <div id='edit-article-options'>
-    <h4><%= _('Options') %></h4>
-    <div>
-      <%= check_box :article, :published %>
-      <label for='article_published'><%= _('Published')%></label>
-      <%= check_box :article, :accept_comments %>
-      <label for='article_accept_comments'><%= _('Accept Comments')%></label>
-    </div>
+    <%= options_for_article(@article) %>
   </div>
 
   <% button_bar do %>

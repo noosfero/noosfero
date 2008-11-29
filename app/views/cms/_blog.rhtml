@@ -1,0 +1,21 @@
+<h3><%= _('My Blog') %></h3>
+
+<%= render :file => 'shared/tiny_mce' %>
+
+<%= f.text_field('title', :size => '64') %>
+
+<%= labelled_form_field(_('Description:'), text_area(:article, :body, :cols => 64)) %>
+
+<h4><%= _('Settings') %></h4>
+
+<%= f.text_field('posts_per_page') %>
+
+<h5><%= _('Feed options') %></h5>
+
+<% fields_for 'article[feed]', @article.feed do |feed| %>
+
+<%= labelled_form_field(_('Limit of articles'), feed.text_field(:limit)) %>
+
+<%= labelled_form_field(_('Use as item description:'), feed.select(:feed_item_description, [ [ _('Article abstract'), 'abstract'], [ _('Article body'), 'body']])) %>
+
+<% end %>

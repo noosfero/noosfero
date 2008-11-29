@@ -11,4 +11,16 @@ module CmsHelper
 
   attr_reader :environment
 
+  def options_for_article(article)
+    article_helper = ActionView::Base.new
+    article_helper.extend ArticleHelper
+    begin
+      class_name = article.class.name + 'Helper'
+      klass = class_name.constantize
+      article_helper.extend klass
+    rescue
+    end
+    article_helper.custom_options_for_article(article)
+  end
+
 end

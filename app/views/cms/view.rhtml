@@ -13,7 +13,15 @@
 
 <% button_bar(:style => 'margin-bottom: 1em;') do %>
   <% parent_id = ((@article && @article.allow_children?) ? @article : nil) %>
-  <%= button :add, _('New folder'), :action => 'new', :type => 'Folder', :parent_id => parent_id %>
+  <% if profile.has_blog? %>
+    <%= button :edit, _('Edit blog'), :action => 'edit', :id => profile.blog.id %>
+  <% else %>
+    <%= button :add, _('Create blog'), :action => 'new', :type => 'Blog', :parent_id => parent_id %>
+  <% end %>
+
+  <% if !@article or !@article.blog? %>
+    <%= button :add, _('New folder'), :action => 'new', :type => 'Folder', :parent_id => parent_id %>
+  <% end %>
   <%= lightbox_button('new', _('New article'), :action => 'new', :parent_id => parent_id) %>
 <% end %>
 

@@ -967,6 +967,28 @@ class ProfileTest < Test::Unit::TestCase
     assert_not_equal p1.environment, p2.environment
   end
 
+  should 'has blog' do
+    p = create_user('testuser').person
+    b = Blog.create!(:profile => p, :name => 'blog_feed_test')
+    assert p.has_blog?
+  end
+
+  should 'not has blog' do
+    p = create_user('testuser').person
+    assert !p.has_blog?
+  end
+
+  should 'get blog when has blog' do
+    p = create_user('testuser').person
+    b = Blog.create!(:profile => p, :name => 'blog_feed_test')
+    assert_equal b, p.blog
+  end
+
+  should 'get nil when no blog' do
+    p = create_user('testuser').person
+    assert_nil p.blog
+  end
+
   private
 
   def assert_invalid_identifier(id)

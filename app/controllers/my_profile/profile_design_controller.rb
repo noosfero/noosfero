@@ -29,6 +29,11 @@ class ProfileDesignController < BoxOrganizerController
       blocks << ProductsBlock
     end
 
+    # block exclusive to profile has blog
+    if profile.has_blog?
+      blocks << BlogArchivesBlock
+    end
+
     blocks
   end
 

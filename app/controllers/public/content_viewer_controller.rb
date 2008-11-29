@@ -14,6 +14,10 @@ class ContentViewerController < ApplicationController
         return
       end
     else
+      path.gsub!(/\/(\d{4})\/(\d{2})\Z/, '')
+      year = $1
+      month = $2
+
       @page = profile.articles.find_by_path(path)
       unless @page
         page_from_old_path = profile.articles.find_by_old_path(path)
@@ -66,6 +70,10 @@ class ContentViewerController < ApplicationController
       remove_comment
     end
     
+    if @page.blog?
+      @page.filter = {:year => year, :month => month}
+    end
+
     @comments = @page.comments(true)
   end
 

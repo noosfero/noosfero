@@ -147,6 +147,10 @@ class Article < ActiveRecord::Base
     name
   end
 
+  def belongs_to_blog?
+    self.parent and self.parent.blog?
+  end
+
   def url
     self.profile.url.merge(:page => path.split('/'))
   end
@@ -156,6 +160,10 @@ class Article < ActiveRecord::Base
   end
 
   def folder?
+    false
+  end
+
+  def blog?
     false
   end
 

@@ -1,5 +1,7 @@
 class Folder < Article
 
+  acts_as_having_settings :field => :setting
+
   def self.short_description
     _('Folder')
   end

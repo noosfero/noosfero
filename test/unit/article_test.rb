@@ -263,6 +263,10 @@ class ArticleTest < Test::Unit::TestCase
     assert !Article.new.folder?, 'should identify itself as non-folder'
   end
 
+  should 'identify itself as a non-blog' do
+    assert !Article.new.blog?, 'should identify itself as non-blog'
+  end
+
   should 'always display if public content' do
     person = create_user('testuser').person
     assert_equal true, person.home_page.display_to?(nil)
@@ -542,6 +546,20 @@ class ArticleTest < Test::Unit::TestCase
     page = p2.articles.find_by_old_path(old_path)
 
     assert_nil page
+  end
+
+  should 'identify if belongs to blog' do
+    p = create_user('user_blog_test').person
+    blog = Blog.create!(:name => 'Blog test', :profile => p)
+    post = TextileArticle.create!(:name => 'First post', :profile => p, :parent => blog)
+    assert post.belongs_to_blog?
+  end
+
+  should 'not belongs to blog' do
+    p = create_user('user_blog_test').person
+    folder = Folder.create!(:name => 'Not Blog', :profile => p)
+    a = TextileArticle.create!(:name => 'Not blog post', :profile => p, :parent => folder)
+    assert !a.belongs_to_blog?
   end
 
 end

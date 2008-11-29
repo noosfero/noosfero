@@ -469,4 +469,14 @@ class Profile < ActiveRecord::Base
     LayoutTemplate.find(layout_template).number_of_boxes
   end
 
+  def blog
+    if self.has_blog?
+      self.articles.find(:first, :conditions => {:type => 'Blog'})
+    end
+  end
+
+  def has_blog?
+    !self.articles.count(:conditions => {:type => 'Blog'}).zero?
+  end
+
 end

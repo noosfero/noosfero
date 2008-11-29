@@ -528,4 +528,22 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_response :missing
   end
 
+  should 'display pagination links of blog' do
+    blog = Blog.create!(:name => 'A blog test', :profile => profile, :posts_per_page => 5)
+    for n in 1..10
+      blog.children << TextileArticle.create!(:name => "Post #{n}", :profile => profile, :parent => blog)
+    end
+    assert_equal 10, blog.posts.size
+
+    get :view_page, :profile => profile.identifier, :page => [blog.path]
+    assert_tag :tag => 'a', :attributes => { :href => "/#{profile.identifier}/#{blog.path}?npage=2", :rel => 'next' }
+  end
+
+  should 'extract year and month from path' do
+    blog = Blog.create!(:name => 'A blog test', :profile => profile)
+    year, month = blog.created_at.year, blog.created_at.month
+    get :view_page, :profile => profile.identifier, :page => [blog.path, year, month]
+    assert_equal({ :year => year.to_s, :month => month.to_s }, assigns(:page).filter)
+  end
+
 end
