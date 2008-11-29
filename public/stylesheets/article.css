@@ -192,12 +192,12 @@
   text-align: left;
 }
 
-#content .pagination .prev_page {
+#content #article .pagination .prev_page {
   position: absolute;
   right: 0;
 }
 
-#content .pagination .next_page {
+#content #article .pagination .next_page {
   position: absolute;
   left: 0;
 }
