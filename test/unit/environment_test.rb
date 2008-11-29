@@ -440,6 +440,58 @@ class EnvironmentTest < Test::Unit::TestCase
     assert !e.person_template.public?
   end
 
+  should 'set a template in community_template' do
+    e = Environment.create!(:name => 'test_env')
+    template = Community.create!(:name => 'Community template 2', :identifier => e.name.to_slug + 'community_template_2', :environment => e, :public_profile => false)
+    e.community_template = template
+
+    assert_equal template, e.community_template 
+  end
+
+  should 'set a template in person_template' do
+    e = Environment.create!(:name => 'test_env')
+    template = create_user('person_template_2').person
+    e.person_template = template
+
+    assert_equal template, e.person_template 
+  end
+
+ should 'set a template in enterprise_template' do
+    e = Environment.create!(:name => 'test_env')
+    template = Enterprise.create!(:name => 'Enterprise template 2', :identifier => e.name.to_slug + 'enterprise_template', :environment => e, :public_profile => false)
+    e.enterprise_template = template
+
+    assert_equal template, e.enterprise_template 
+  end
+
+  should 'add templates when it is empty' do
+    e = Environment.create!(:name => 'test_env')
+    ent_template_a = Enterprise.create!(:name => 'Enterprise template A', :identifier => e.name.to_slug + 'enterprise_template_a', :environment => e, :public_profile => false)
+    ent_template_b = Enterprise.create!(:name => 'Enterprise template B', :identifier => e.name.to_slug + 'enterprise_template_b', :environment => e, :public_profile => false)
+ 
+    e.add_templates = [ent_template_a, ent_template_b]
+    assert_equal [ent_template_a, ent_template_b], e.templates
+  end
+
+  should 'add templates when it is not empty' do
+    e = Environment.create!(:name => 'test_env')
+
+    ent_template_example = Enterprise.create!(:name => 'Enterprise template example', :identifier => e.name.to_slug + 'enterprise_template_example', :environment => e, :public_profile => false)
+ 
+    e.settings[:templates_ids] = [ent_template_example.id]
+    e.save
+
+    ent_template_a = Enterprise.create!(:name => 'Enterprise template A', :identifier => e.name.to_slug + 'enterprise_template_a', :environment => e, :public_profile => false)
+ 
+    e.add_templates = [ent_template_a]
+
+    assert_equal [ent_template_example, ent_template_a], e.templates
+  end
+
+  should 'have an empty array of templates by default' do
+    assert_equal [], Environment.new.templates
+  end
+
   should 'not disable ssl by default' do
     e = Environment.new
     assert !e.disable_ssl

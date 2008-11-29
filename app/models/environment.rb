@@ -335,16 +335,55 @@ class Environment < ActiveRecord::Base
     settings[:layout_template] = value
   end
 
-  def enterprise_template
-    Enterprise.find_by_id settings[:enterprise_template_id]
-  end
-
   def community_template
     Community.find_by_id settings[:community_template_id]
   end
 
+  def community_template=(value)
+    settings[:community_template_id] = value.id
+  end
+ 
   def person_template
     Person.find_by_id settings[:person_template_id]
+  end
+
+  def person_template=(value)
+    settings[:person_template_id] = value.id
+  end
+
+  def enterprise_template
+    Enterprise.find_by_id settings[:enterprise_template_id]
+  end
+
+  def enterprise_template=(value)
+    settings[:enterprise_template_id] = value.id
+  end
+
+  def inactive_enterprise_template
+    Enterprise.find_by_id settings[:inactive_enterprise_template_id]
+  end
+
+  def inactive_enterprise_template=(value)
+    settings[:inactive_enterprise_template_id] = value.id
+  end
+
+  def templates(profile = 'profile')
+    klass = profile.classify.constantize
+    templates = []
+    if settings[:templates_ids]
+      settings[:templates_ids].each do |template_id|
+        templates << klass.find_by_id(template_id)
+      end
+    end
+    templates.compact
+  end
+
+  def add_templates=(values)
+    if settings[:templates_ids]
+      settings[:templates_ids].concat(values.map(&:id))
+    else
+      settings[:templates_ids] = values.map(&:id)
+    end
   end
 
   after_create :create_templates

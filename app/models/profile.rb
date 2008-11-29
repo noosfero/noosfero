@@ -213,6 +213,12 @@ class Profile < ActiveRecord::Base
     nil
   end
 
+  def apply_template(template)
+    copy_blocks_from(template)
+    copy_articles_from(template)
+    self.update_attributes!(:custom_footer => template[:custom_footer], :custom_header => template[:custom_header])
+  end
+
   xss_terminate :only => [ :name, :nickname, :address, :contact_phone ]
 
   # returns the contact email for this profile. By default returns the the
@@ -355,6 +361,16 @@ class Profile < ActiveRecord::Base
   end
 
   def copy_article_tree(article, parent=nil)
+    original_article = self.articles.find_by_name(article.name)
+    if original_article
+      num = 2
+      new_name = original_article.name + ' ' + num.to_s
+      while self.articles.find_by_name(new_name)
+        num = num + 1
+        new_name = original_article.name + ' ' + num.to_s
+      end
+      original_article.update_attributes!(:name => new_name)
+    end
     article_copy = article.copy(:profile => self, :parent => parent, :advertise => false)
     if article.profile.home_page == article
       self.home_page = article_copy
@@ -440,11 +456,26 @@ class Profile < ActiveRecord::Base
   end
 
   def custom_header
-    self[:custom_header] || environment.custom_header
+    header = self[:custom_header] || environment.custom_header
+    if header
+      if self.respond_to?(:name) && header.include?('{name}')
+        header.gsub('{name}', self.name)
+      else
+        header
+      end
+    end
   end
 
   def custom_footer
-    self[:custom_footer] || environment.custom_footer
+    footer = self[:custom_footer] || environment.custom_footer
+    if footer
+      %w[contact_person contact_email contact_phone location address economic_activity].each do |att|
+        if self.respond_to?(att) && footer.include?("{#{att}}")
+          footer.gsub!("{#{att}}", self.send(att).to_s)
+        end
+      end
+    end
+    footer
   end
 
   def theme
