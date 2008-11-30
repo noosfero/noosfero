@@ -57,7 +57,6 @@ class Enterprise < Organization
     end
   end
 
-
   def default_set_of_blocks
     blocks = [
       [MainBlock],
@@ -73,6 +72,8 @@ class Enterprise < Organization
   def template
     environment.enterprise_template
   end
+
+  settings_items :enable_contact_us, :type => :boolean, :default => true
 
   protected
 

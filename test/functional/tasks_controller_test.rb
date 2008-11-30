@@ -151,4 +151,16 @@ class TasksControllerTest < Test::Unit::TestCase
 
      assert_equal f, assigns(:ticket).target
   end
+
+  should 'list enterprise contacts' do
+    ent = Enterprise.create!(:identifier => 'contact_test_enterprise', :name => 'Test contact enteprise')
+    task = Contact.create!(:subject => 'test', :target_id => profile.id, :email => 'visitor@invalid.com', :message => 'Hi, all')
+
+    login_as(profile.identifier)
+    get :index, :profile => ent.identifier
+
+    assert_includes assigns(:tasks), task
+    assert_tag :tag => 'li', :attributes => { :class => 'task-Contact' }, :content => 'Someone sent a new message'
+  end
+
 end

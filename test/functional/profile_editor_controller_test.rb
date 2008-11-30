@@ -517,4 +517,10 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
                :attributes => { :name=>'profile_data[email]', :value=>'teste_user@teste.com' }
   end
 
+  should 'display enable contact us for enterprise' do
+    org = Enterprise.create!(:name => 'test org', :identifier => 'testorg')
+    get :edit, :profile => 'testorg'
+    assert_tag :tag => 'input', :attributes => {:name => 'profile_data[enable_contact_us]', :type => 'checkbox'}
+  end
+
 end

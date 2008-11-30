@@ -186,4 +186,8 @@ class RoutingTest < ActionController::IntegrationTest
     assert_routing('/myprofile/profile.withdot', :controller => 'profile_editor', :action => 'index', :profile => 'profile.withdot')
   end
 
+  def test_contact_routing
+    assert_routing('/contact/wintermute/new', :controller => 'contact', :action => 'new', :profile => 'wintermute')
+  end
+
 end

@@ -249,7 +249,7 @@ class ProfileControllerTest < Test::Unit::TestCase
     get :index, :profile => 'my-test-enterprise'
     assert_tag :tag => 'a', :attributes => { :href => '/catalog/my-test-enterprise'}, :content => /Products\/Services/
   end
-  
+
   should 'not display "Products" link for enterprise if environment do not let' do
     env = Environment.default
     env.enable('disable_products_for_enterprises')
@@ -304,4 +304,21 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_no_tag :content => /t2@t2.com/
   end
 
+  should 'display contact us for enterprises' do
+    ent = Enterprise.create!(:name => 'my test enterprise', :identifier => 'my-test-enterprise')
+    get :index, :profile => 'my-test-enterprise'
+    assert_tag :tag => 'a', :attributes => { :href => "/contact/my-test-enterprise/new" }, :content => 'Contact us'
+  end
+
+  should 'not display contact us for non-enterprises' do
+    get :index, :profile => @profile.identifier
+    assert_no_tag :tag => 'a', :attributes => { :href => "/contact/#{@profile.identifier}/new" }, :content => 'Contact us'
+  end
+
+  should 'display contact us only if enabled' do
+    ent = Enterprise.create!(:name => 'my test enterprise', :identifier => 'my-test-enterprise', :enable_contact_us => false)
+    get :index, :profile => 'my-test-enterprise'
+    assert_no_tag :tag => 'a', :attributes => { :href => "/contact/my-test-enterprise/new" }, :content => 'Contact us'
+  end
+  
 end

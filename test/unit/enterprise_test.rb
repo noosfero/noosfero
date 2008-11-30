@@ -211,5 +211,9 @@ class EnterpriseTest < Test::Unit::TestCase
     assert_kind_of Enterprise, p.template
   end
 
+  should 'contact us enabled by default' do
+    e = Enterprise.create!(:name => 'test_com', :identifier => 'test_com', :environment => Environment.default)
+    assert e.enable_contact_us
+  end
 
 end

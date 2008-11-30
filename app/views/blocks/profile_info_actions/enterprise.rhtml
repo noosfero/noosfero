@@ -9,4 +9,7 @@
       <li><%= link_to content_tag('span', _('Join')), { :profile => user.identifier, :controller => 'memberships', :action => 'join', :id => profile.id }, :class => 'button with-text icon-add', :title => __('Join this enterprise') %></li>
     <% end %>
   <% end %>
+  <% if profile.enable_contact_us %>
+    <li> <%= link_to content_tag('span', _('Contact us')), {:profile => profile.identifier, :controller => 'contact', :action => 'new'}, :class => 'button with-text icon-menu-mail' %> </li>
+  <% end %>
 </ul>
