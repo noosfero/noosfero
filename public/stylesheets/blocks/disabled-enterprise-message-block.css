@@ -1,0 +1,15 @@
+
+.disabled-enterprise-message-block {
+  text-align: center;
+}
+
+.enterprise-disabled {
+  border: 1px solid #944;
+  text-align: left;
+  margin: auto;
+  padding: 5px;
+  padding-left: 10px;
+  min-height: 40px;
+  font-size: 80%;
+  background: url("../images/icons-app/alert.png") no-repeat 5px #ffffa9;
+}
