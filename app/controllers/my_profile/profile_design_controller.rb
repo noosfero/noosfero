@@ -22,6 +22,7 @@ class ProfileDesignController < BoxOrganizerController
     if profile.enterprise?
       blocks << ProfileImageBlock
       blocks << LocalizationBlock
+      blocks << DisabledEnterpriseMessageBlock
     end
 
     # product block exclusive for enterprises in environments that permits it
