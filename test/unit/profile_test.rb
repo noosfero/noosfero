@@ -767,8 +767,16 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal 'my custom header',  Profile.new(:custom_header => 'my custom header').custom_header
   end
 
+  should 'provide custom header with variables' do
+    assert_equal 'Custom header of Test',  Profile.new(:custom_header => 'Custom header of {name}', :name => 'Test').custom_header
+  end
+
   should 'provide custom footer' do
     assert_equal 'my custom footer',  Profile.new(:custom_footer => 'my custom footer').custom_footer
+  end
+
+  should 'provide custom footer with variables' do
+    assert_equal 'Address: Address for test',  Profile.new(:custom_footer => 'Address: {address}', :address => 'Address for test').custom_footer
   end
 
   should 'provide environment header if profile header is blank' do
@@ -891,6 +899,53 @@ class ProfileTest < Test::Unit::TestCase
 
     assert_equal 1, p.boxes.size
     assert_equal 1, p.boxes[0].blocks.size
+  end
+
+  should 'apply template' do
+    template = Profile.create!(:name => 'test template', :identifier => 'test_template')
+    template.boxes.destroy_all
+    template.boxes << Box.new
+    template.boxes[0].blocks << Block.new
+    template.save!
+
+    p = Profile.create!(:name => 'test prof', :identifier => 'test_prof')
+
+    p.apply_template(template)
+
+    assert_equal 1, p.boxes.size
+    assert_equal 1, p.boxes[0].blocks.size
+  end
+
+  should 'copy articles when applying template' do
+    template = Profile.create!(:name => 'test template', :identifier => 'test_template')
+    template.boxes.destroy_all
+    template.boxes << Box.new
+    template.boxes[0].blocks << Block.new
+    template.articles.create(:name => 'template article')
+    template.save!
+
+    p = Profile.create!(:name => 'test prof', :identifier => 'test_prof')
+
+    p.apply_template(template)
+
+    assert_not_nil p.articles.find_by_name('template article')
+  end
+
+  should 'rename existing articles when applying template' do
+    template = Profile.create!(:name => 'test template', :identifier => 'test_template')
+    template.boxes.destroy_all
+    template.boxes << Box.new
+    template.boxes[0].blocks << Block.new
+    template.articles.create(:name => 'some article')
+    template.save!
+
+    p = Profile.create!(:name => 'test prof', :identifier => 'test_prof')
+    p.articles.create(:name => 'some article')
+
+    p.apply_template(template)
+
+    assert_not_nil p.articles.find_by_name('some article 2')
+    assert_not_nil p.articles.find_by_name('some article')
   end
 
   TMP_THEMES_DIR = RAILS_ROOT + '/test/tmp/profile_themes'
