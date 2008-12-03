@@ -471,11 +471,11 @@ class Profile < ActiveRecord::Base
     if footer
       %w[contact_person contact_email contact_phone location address economic_activity].each do |att|
         if self.respond_to?(att) && footer.include?("{#{att}}")
-          footer.gsub!("{#{att}}", self.send(att).to_s)
+          footer = footer.gsub("{#{att}}", self.send(att).to_s)
         end
       end
+      footer
     end
-    footer
   end
 
   def theme

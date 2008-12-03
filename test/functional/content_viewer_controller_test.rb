@@ -325,6 +325,16 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'div', :attributes => { :id => 'profile-disabled' }, :content => Environment.default.message_for_disabled_enterprise
   end
 
+  should 'not show message for disabled enterprise if there is a block for it' do
+    login_as(@profile.identifier)
+    ent = Enterprise.create!(:name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false)
+    ent.boxes << Box.new
+    ent.boxes[0].blocks << DisabledEnterpriseMessageBlock.new
+    ent.save
+    get :view_page, :profile => ent.identifier, :page => []
+    assert_no_tag :tag => 'div', :attributes => {:id => 'article'}, :descendant => { :tag => 'div', :attributes => { :id => 'profile-disabled' }}
+  end
+
   should 'load the correct profile when using hosted domain' do
     profile = create_user('mytestuser').person
     profile.domains << Domain.create!(:name => 'micojones.net')

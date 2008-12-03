@@ -1,4 +1,4 @@
-<% if profile.enterprise? and !profile.enabled? %>
+<% if profile.enterprise? and !profile.enabled? and !profile.blocks.select {|b| b.class == DisabledEnterpriseMessageBlock}.any? %>
   <div id='profile-disabled'>
     <%= environment.message_for_disabled_enterprise %>
   </div>

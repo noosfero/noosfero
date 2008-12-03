@@ -37,6 +37,9 @@ class Enterprise < Organization
     return if enabled
     affiliate(owner, Profile::Roles.all_roles)
     update_attribute(:enabled,true)
+    if environment.replace_enterprise_template_when_enable
+      apply_template(template)
+    end
     save
   end
 

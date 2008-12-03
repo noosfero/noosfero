@@ -155,7 +155,47 @@ class EnterpriseTest < Test::Unit::TestCase
     assert_includes ent.members, p
   end
 
-  should 'create EnterpriseActivation task when creating with enabled = false' do
+  should 'replace template if environment allows' do
+    template = Enterprise.create!(:name => 'template enteprise', :identifier => 'template_enterprise', :enabled => false)
+    template.boxes.destroy_all
+    template.boxes << Box.new
+    template.boxes[0].blocks << Block.new
+    template.save!
+
+    e = Environment.default
+    e.replace_enterprise_template_when_enable = true
+    e.enterprise_template = template
+    e.save!
+
+    ent = Enterprise.create!(:name => 'test enteprise', :identifier => 'test_ent', :enabled => false)
+
+    p = create_user('test_user').person
+    ent.enable(p)
+    ent.reload
+    assert_equal 1, ent.boxes.size
+    assert_equal 1, ent.boxes[0].blocks.size
+  end
+
+   should 'not replace template if environment doesnt allow' do
+    template = Enterprise.create!(:name => 'template enteprise', :identifier => 'template_enterprise', :enabled => false)
+    template.boxes.destroy_all
+    template.boxes << Box.new
+    template.boxes[0].blocks << Block.new
+    template.save!
+
+    e = Environment.default
+    e.enterprise_template = template
+    e.save!
+
+    ent = Enterprise.create!(:name => 'test enteprise', :identifier => 'test_ent', :enabled => false)
+
+    p = create_user('test_user').person
+    ent.enable(p)
+    ent.reload
+    assert_equal 1, ent.boxes.size
+    assert_equal 1, ent.boxes[0].blocks.size
+  end
+ should 'create EnterpriseActivation task when creating with enabled = false' do
     EnterpriseActivation.delete_all
     ent = Enterprise.create!(:name => 'test enteprise', :identifier => 'test_ent', :enabled => false)
     assert_equal [ent], EnterpriseActivation.find(:all).map(&:enterprise)

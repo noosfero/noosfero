@@ -918,9 +918,6 @@ class ProfileTest < Test::Unit::TestCase
 
   should 'copy articles when applying template' do
     template = Profile.create!(:name => 'test template', :identifier => 'test_template')
-    template.boxes.destroy_all
-    template.boxes << Box.new
-    template.boxes[0].blocks << Block.new
     template.articles.create(:name => 'template article')
     template.save!
 
@@ -946,6 +943,31 @@ class ProfileTest < Test::Unit::TestCase
 
     assert_not_nil p.articles.find_by_name('some article 2')
     assert_not_nil p.articles.find_by_name('some article')
+  end
+
+  should 'copy header when applying template' do
+    template = Profile.create!(:name => 'test template', :identifier => 'test_template')
+    template[:custom_header] = '{name}' 
+    template.save!
+
+    p = Profile.create!(:name => 'test prof', :identifier => 'test_prof')
+
+    p.apply_template(template)
+
+    assert_equal '{name}', p[:custom_header]
+    assert_equal 'test prof', p.custom_header
+  end
+
+  should 'copy footer when applying template' do
+    template = Profile.create!(:name => 'test template', :identifier => 'test_template', :address => 'Template address')
+    template[:custom_footer] = '{address}' 
+    template.save!
+
+    p = Profile.create!(:name => 'test prof', :identifier => 'test_prof', :address => 'Profile address')
+    p.apply_template(template)
+
+    assert_equal '{address}', p[:custom_footer]
+    assert_equal 'Profile address', p.custom_footer
   end
 
   TMP_THEMES_DIR = RAILS_ROOT + '/test/tmp/profile_themes'

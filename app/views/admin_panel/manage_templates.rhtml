@@ -1,7 +1,6 @@
 <h1><%= _('Set Templates') %></h1>
 
 <% labelled_form_for(:environment, @environment, :url => {:action => 'set_template'}) do |f| %>
-<%= current_user.name %>
   <p>
     <label for='environment_person_template'><%= _('Person Template') %></label><br/>
     <%= f.select :person_template, @person_templates.map {|item| [ item.identifier, item.id]}, :selected => (environment.person_template.nil? ? nil : environment.person_template.id) %>
@@ -15,11 +14,6 @@
   <p>
     <label for='environment_enterprise_template'><%= _('Enterprise Template') %></label><br/>
     <%= f.select :enterprise_template, @enterprise_templates.map {|item| [ item.identifier, item.id]}, :selected => (environment.enterprise_template.nil? ? nil : environment.enterprise_template.id) %>
-  </p>
-
-  <p>
-    <label for='environment_inactive_enterprise_template'><%= _('Inactive Enterprise Template') %></label><br/>
-    <%= f.select :inactive_enterprise_template, @enterprise_templates.map {|item| [ item.identifier, item.id]}, :selected => (environment.inactive_enterprise_template.nil? ? nil : environment.inactive_enterprise_template.id) %>
   </p>
 
   <% button_bar do %>
