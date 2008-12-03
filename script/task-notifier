@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 require File.dirname(__FILE__) + '/../config/environment'
 
+# when in production set RAILS_ENV to 'production'
+
 Person.with_pending_tasks.each do |p|
   PendingTaskNotifier.deliver_notification(p)
   RAILS_DEFAULT_LOGGER.info('deliver notification for ' + p.identifier)
