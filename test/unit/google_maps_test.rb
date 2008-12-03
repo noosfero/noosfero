@@ -36,12 +36,12 @@ class GoogleMapsTest < Test::Unit::TestCase
   should 'not crash if config not informed' do
     File.expects(:exists?).with(CONFIG_FILE).returns(true)
     YAML.expects(:load_file).with(CONFIG_FILE).returns({})
-    assert_nil GoogleMaps.key
+    assert_equal '', GoogleMaps.key
   end
 
   should 'not crash if config file not found' do
     GoogleMaps.expects(:config_file).returns('/not/present.yml')
-    assert_nil GoogleMaps.key
+    assert_equal '', GoogleMaps.key
   end
 
   should 'point correctly to google maps' do
