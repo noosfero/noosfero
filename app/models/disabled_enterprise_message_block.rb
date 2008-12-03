@@ -9,7 +9,7 @@ class DisabledEnterpriseMessageBlock < Block
   end
 
   def default_title
-    _('Localization Map')
+    _('Message')
   end
 
   def content

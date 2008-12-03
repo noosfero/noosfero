@@ -386,6 +386,14 @@ class Environment < ActiveRecord::Base
     end
   end
 
+  def replace_enterprise_template_when_enable
+    settings[:replace_enterprise_template_when_enable] || false
+  end
+
+  def replace_enterprise_template_when_enable=(value)
+    settings[:replace_enterprise_template_when_enable] = value
+  end
+
   after_create :create_templates
 
   def create_templates

@@ -521,4 +521,15 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal 20, env.enterprises.find_by_contents('test').total_entries
   end
 
+  should 'set replace_enterprise_template_when_enable on environment' do
+    e = Environment.new(:name => 'Enterprise test')
+    e.replace_enterprise_template_when_enable = true
+    e.save
+    assert_equal true, e.replace_enterprise_template_when_enable
+  end
+
+  should 'not replace enterprise template when enable by default' do
+    assert_equal false, Environment.new.replace_enterprise_template_when_enable
+  end
+
 end

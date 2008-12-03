@@ -243,6 +243,16 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'div', :attributes => { :id => 'profile-disabled' }, :content => Environment.default.message_for_disabled_enterprise
   end
 
+  should 'not show message for disabled enterprise if there is a block for it' do
+    login_as(@profile.identifier)
+    ent = Enterprise.create!(:name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false)
+    ent.boxes << Box.new
+    ent.boxes[0].blocks << DisabledEnterpriseMessageBlock.new
+    ent.save
+    get :index, :profile => ent.identifier
+    assert_no_tag :tag => 'div', :attributes => {:class => 'blocks'}, :descendant => { :tag => 'div', :attributes => { :id => 'profile-disabled' }}
+  end
+
   should 'display "Products" link for enterprise' do
     ent = Enterprise.create!(:name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false)
 
