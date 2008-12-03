@@ -13,8 +13,9 @@ class Blog < Folder
   settings_items :posts_per_page, :type => :integer, :default => 20
   settings_items :title, :type => :string, :default => _('My blog')
 
-  before_save do |blog|
-    blog.name = 'blog'
+  def initialize(*args)
+    super(*args)
+    self.name = 'blog'
   end
 
   def self.short_description
