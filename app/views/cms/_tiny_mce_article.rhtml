@@ -1,7 +1,7 @@
 
 <%= render :file => 'shared/tiny_mce' %>
 
-<%= f.text_field('name', :size => '64') %>
+<%= required f.text_field('name', :size => '64') %>
 
 <%= f.text_area('body', :cols => 40, :style => 'width:99%') %>
 

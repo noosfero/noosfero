@@ -21,8 +21,8 @@
 
   <% unless logged_in? %>
 
-    <%= labelled_form_field(_('Name'), text_field(:comment, :name)) %>
-    <%= labelled_form_field(_('e-mail'), text_field(:comment, :email)) %>
+    <%= required labelled_form_field(_('Name'), text_field(:comment, :name)) %>
+    <%= required labelled_form_field(_('e-mail'), text_field(:comment, :email)) %>
     <%= icaptcha_field() %>
 
     <p>
@@ -31,8 +31,8 @@
 
   <% end %>
 
-  <%= labelled_form_field(_('Title'), text_field(:comment, :title)) %>
-  <%= labelled_form_field(_('Enter your comment'), text_area(:comment, :body, :rows => 5)) %>
+  <%= required labelled_form_field(_('Title'), text_field(:comment, :title)) %>
+  <%= required labelled_form_field(_('Enter your comment'), text_area(:comment, :body, :rows => 5)) %>
   <% button_bar do %>
     <%= submit_button('add', _('Post comment')) %>
   <% end %>

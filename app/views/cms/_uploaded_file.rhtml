@@ -1,3 +1,3 @@
-<%= labelled_form_field(_("Select the file you want to upload (max size %s).") % UploadedFile.max_size.to_humanreadable, file_field(:article, :uploaded_data)) %>
+<%= required labelled_form_field(_("Select the file you want to upload (max size %s).") % UploadedFile.max_size.to_humanreadable, file_field(:article, :uploaded_data)) %>
 
 <%= labelled_form_field(_('Describe this file:'), text_area(:article, :abstract)) %>

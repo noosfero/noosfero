@@ -12,7 +12,7 @@
 
   <%= select_color_for_category %>
 
-  <%= f.text_field 'name' %>
+  <%= required f.text_field('name') %>
 
   <% f.fields_for :image_builder, @category.image do |i| %>
     <%= file_field_or_thumbnail(_('Image:'), @category.image, i) %>

@@ -1,6 +1,6 @@
-<%= f.text_field :name %>
+<%= required f.text_field(:name) %>
 
-<%= labelled_form_field(_('Limit of articles'), text_field(:article, :limit)) %>
+<%= required labelled_form_field(_('Limit of articles'), text_field(:article, :limit)) %>
 
 <%= labelled_form_field(_('Use as item description:'), select(:article, :feed_item_description, [ [ _('Article abstract'), 'abstract'], [ _('Article body'), 'body']])) %>
 

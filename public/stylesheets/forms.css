@@ -71,3 +71,12 @@
   margin-left: 10px;
 }
 
+/*** REQUIRED FIELDS ***/
+
+#content form .required-field label {
+  font-weight: bold;
+}
+
+#content form .required-field label:after {
+  content: ' (*)';
+}

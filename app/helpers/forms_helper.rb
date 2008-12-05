@@ -96,6 +96,10 @@ module FormsHelper
     observe_field( state_id, :update => city_id, :function => "new Ajax.Updater(#{city_id.inspect}, #{url_for(:controller => 'search', :action => 'cities').inspect}, {asynchronous:true, evalScripts:true, parameters:'state_id=' + value}); $(#{city_id.inspect}).innerHTML = '<option>#{_('Loading...')}</option>'", :with => 'state_id')
   end
 
+  def required(content)
+    content_tag('span', content, :class => 'required-field')
+  end
+
 protected
   def self.next_id_number
     if defined? @@id_num

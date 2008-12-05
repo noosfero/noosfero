@@ -3,20 +3,20 @@
    :html => { :help=>_('Fill all this fields to join in this environment. <p/> If you forgot your password, do not create a new account, click on the "<b>I forgot my password!</b>" link. ;-)'), :id => 'profile-data'
             } do |f| -%>
 
-<%= f.text_field :login,
-    :onchange => 'this.value = convToValidLogin( this.value )' %>
+<%= required f.text_field(:login,
+    :onchange => 'this.value = convToValidLogin( this.value )') %>
 <small><%= help %></small>
 
-<%= f.text_field :email,
-    :help => help=_('We\'ll send you an e-mail to validate your registration.') %>
+<%= required f.text_field(:email,
+    :help => help=_('We\'ll send you an e-mail to validate your registration.')) %>
 <small><%= help %></small>
 
-<%= f.password_field :password,
-    :help => help=_('Choose a password that you can remember easily.') %>
+<%= required f.password_field(:password,
+    :help => help=_('Choose a password that you can remember easily.')) %>
 <small><%= help %></small>
 
-<%= f.password_field :password_confirmation,
-    :help => help=_('To confirm, repeat your password.') %>
+<%= required f.password_field(:password_confirmation,
+    :help => help=_('To confirm, repeat your password.')) %>
 <small><%= help %></small>
 
 <%= icaptcha_field() %>

@@ -6,11 +6,11 @@
 
   <%= hidden_field_tag 'contact[target_id]', profile.id %>
   <%= hidden_field_tag 'contact[requestor_id]', (logged_in? ? current_user.person.id : nil) %>
-  <%= f.text_field :subject %>
-  <%= f.text_field :email %>
+  <%= required f.text_field(:subject) %>
+  <%= required f.text_field(:email) %>
   <%= f.text_field :city_and_state %>
   <%= f.text_field :phone %>
-  <%= f.text_area :message, :rows => 5 %>
+  <%= required f.text_area(:message, :rows => 5) %>
 
   <%= submit_button(:send, _('Send')) %>
 

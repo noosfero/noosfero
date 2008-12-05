@@ -1,7 +1,7 @@
 <%# TODO add Textile help here %>
 <%= render :file => 'shared/tiny_mce' %>
 
-<%= f.text_field('name', :size => '64') %>
+<%= required f.text_field('name', :size => '64') %>
 
 <%= labelled_form_field(_('Start date'), pick_date(:article, :start_date)) %>
 

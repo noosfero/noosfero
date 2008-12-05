@@ -2,7 +2,7 @@
 
 <% labelled_form_for :role, role, :url => (mode == :edit) ? {:action => 'update', :id => role} : {:action => 'create'} do |f| %>
 
-  <%= f.text_field :name %>
+  <%= required f.text_field(:name) %>
 
   <%= _('Permissions:') %> <br>
   <% permissions.keys.each do |p| %>
