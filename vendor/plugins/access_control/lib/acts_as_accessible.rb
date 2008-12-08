@@ -27,6 +27,9 @@ class ActiveRecord::Base
     def members
       role_assignments.map(&:accessor).uniq
     end
+    def members_by_role(role)
+      role_assignments.select{|i| i.role.key == role.key}.map(&:accessor).uniq
+    end
 
     def roles
       Role.find(:all).select do |r| 

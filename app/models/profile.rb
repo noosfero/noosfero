@@ -514,4 +514,8 @@ class Profile < ActiveRecord::Base
     !self.articles.count(:conditions => {:type => 'Blog'}).zero?
   end
 
+  def admins
+    self.members_by_role(Profile::Roles.admin)
+  end
+
 end

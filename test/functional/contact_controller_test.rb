@@ -43,33 +43,30 @@ class ContactControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'textarea', :attributes => { :name => 'contact[message]' }
   end
 
-  should 'add hidden field with target_id' do
-    get :new, :profile => enterprise.identifier
-    assert_tag :tag => 'input', :attributes => { :name => 'contact[target_id]', :value => enterprise.id, :type => 'hidden' }
-  end
-
-  should 'add requestor id if logged in' do
-    login_as(profile.identifier)
-    @controller.stubs(:current_user).returns(profile.user)
-    get :new, :profile => enterprise.identifier
-    assert_tag :tag => 'input', :attributes => { :name => 'contact[requestor_id]', :value => profile.id }
-  end
-
-  should 'nil requestor id if not logged in' do
-    get :new, :profile => enterprise.identifier
-    assert_tag :tag => 'input', :attributes => { :name => 'contact[requestor_id]', :value => nil }
-  end
-
-  should 'redirect to profile page after contact' do
-    post :new, :profile => enterprise.identifier, :contact => {:subject => 'Hi', :email => 'visitor@mail.invalid', :message => 'Hi, all', :target_id => enterprise.id}
+  should 'redirect back to contact page after send contact' do
+    post :new, :profile => enterprise.identifier, :contact => {:name => 'john', :subject => 'Hi', :email => 'visitor@mail.invalid', :message => 'Hi, all'}
     assert_response :redirect
-    assert_redirected_to :controller => 'profile', :profile => enterprise.identifier
+    assert_redirected_to :action => 'new'
   end
 
-  should 'be able to send contact' do
-    assert_difference Contact, :count do
-      post :new, :profile => enterprise.identifier, :contact => {:subject => 'Hi', :email => 'visitor@mail.invalid', :message => 'Hi, all', :target_id => enterprise.id}
-    end
+  should 'fill email if user logged in' do
+    login_as(profile.identifier)
+    get :new, :profile => enterprise.identifier
+    assert_tag :tag => 'input', :attributes => {:name => 'contact[email]', :value => profile.email}
+  end
+
+  should 'fill name if user logged in' do
+    login_as(profile.identifier)
+    get :new, :profile => enterprise.identifier
+    assert_tag :tag => 'input', :attributes => {:name => 'contact[name]', :value => profile.name}
+  end
+
+  should 'define city and state' do
+    City.stubs(:find).returns(City.new(:name => 'Camaçari'))
+    State.stubs(:find).returns(State.new(:name => 'Bahia'))
+    post :new, :profile => enterprise.identifier, :contact => {:name => 'john', :subject => 'Hi', :email => 'visitor@mail.invalid', :message => 'Hi, all', :state => 1, :city => 1}
+    assert_equal 'Camaçari', assigns(:contact).city
+    assert_equal 'Bahia', assigns(:contact).state
   end
 
 end

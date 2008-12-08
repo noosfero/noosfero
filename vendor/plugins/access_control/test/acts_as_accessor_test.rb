@@ -55,4 +55,13 @@ class ActAsAccessorTest < Test::Unit::TestCase
     assert !a.role_assignments.map{|ra|[ra.role, ra.accessor, ra.resource]}.include?([role, a, res]) 
     assert !a.remove_role(role, res)
   end
+
+  def test_get_members_by_role
+    res = AccessControlTestResource.create!(:name => 'bla')
+    a = AccessControlTestAccessor.create!(:name => 'ze')
+    role = Role.create!(:name => 'another_content_author', :permissions => ['bli'])
+    assert a.add_role(role, res)
+    assert_equal [a], a.members_by_role(role)
+  end
+
 end

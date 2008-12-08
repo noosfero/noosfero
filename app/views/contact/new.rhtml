@@ -4,13 +4,11 @@
 
 <% labelled_form_for :contact, @contact do |f| %>
 
-  <%= hidden_field_tag 'contact[target_id]', profile.id %>
-  <%= hidden_field_tag 'contact[requestor_id]', (logged_in? ? current_user.person.id : nil) %>
-  <%= required f.text_field(:subject) %>
-  <%= required f.text_field(:email) %>
-  <%= f.text_field :city_and_state %>
-  <%= f.text_field :phone %>
-  <%= required f.text_area(:message, :rows => 5) %>
+  <%= f.text_field :name %>
+  <%= f.text_field :email %>
+  <%= labelled_form_field _('City and state'), select_city(true) %>
+  <%= f.text_field :subject %>
+  <%= f.text_area :message, :rows => 10, :cols => 60 %>
 
   <%= submit_button(:send, _('Send')) %>
 

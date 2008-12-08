@@ -1,13 +1,37 @@
-class Contact < Task
+class Contact < ActiveRecord::Base #WithoutTable
+  tableless :columns => [
+    [:name, :string],
+    [:subject, :string],
+    [:message, :string],
+    [:email, :string],
+    [:state, :string],
+    [:city, :string]
+  ]
+  attr_accessor :dest
 
-  validates_presence_of :target_id, :subject, :email, :message
-  validates_format_of :email, :with => Noosfero::Constants::EMAIL_FORMAT
+  N_('Subject'); N_('Message'); N_('City and state'); N_('e-Mail'); N_('Name')
 
-  acts_as_having_settings :field => :data
-  settings_items :subject, :message, :city_and_state, :email, :phone
+  validates_presence_of :subject, :email, :message, :name
+  validates_format_of :email, :with => Noosfero::Constants::EMAIL_FORMAT, :if => (lambda {|o| !o.email.blank?})
 
-  def description
-    _('%s sent a new message') % (requestor ? requestor.name : _('Someone'))
+  def deliver
+    Contact::Sender.deliver_mail(self)
+  end
+
+  class Sender < ActionMailer::Base
+    def mail(contact)
+      emails = [contact.dest.contact_email] + contact.dest.admins.map{|i| i.email}
+      recipients emails
+      from "#{contact.name} <#{contact.email}>"
+      subject contact.subject
+      body :name => contact.name,
+        :email => contact.email,
+        :city => contact.city,
+        :state => contact.state,
+        :message => contact.message,
+        :environment => contact.dest.environment.name,
+        :url => url_for(:host => contact.dest.environment.default_hostname, :controller => 'home')
+    end
   end
 
 end

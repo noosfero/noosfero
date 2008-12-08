@@ -1112,6 +1112,14 @@ class ProfileTest < Test::Unit::TestCase
     assert_nil p.blog
   end
 
+  should 'list admins' do
+    c = Profile.create!(:name => 'my test profile', :identifier => 'mytestprofile')
+    p = create_user('mytestuser').person
+    c.add_admin(p)
+
+    assert_equal [p], c.admins
+  end
+
   private
 
   def assert_invalid_identifier(id)

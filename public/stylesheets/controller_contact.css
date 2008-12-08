@@ -1,0 +1,6 @@
+/*** SELECT CITY ***/
+
+#content .select_state_for_origin,
+#content .select_city_for_origin {
+  display: inline;
+}
