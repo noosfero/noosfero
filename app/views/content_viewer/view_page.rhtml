@@ -40,7 +40,7 @@
             { :controller => 'cms', :action => 'publish', :id => @page },
             :class => 'button with-text icon-spread' %>
       <% end %>
-      <%= lightbox_button(:new, _('New publication'), :controller => 'cms', :action => 'new', :parent_id => (@page.folder? ? @page : nil)) %>
+      <%= lightbox_button(:new, _('New publication'), :controller => 'cms', :action => 'new', :parent_id => (@page.folder? ? @page : (@page.parent.nil? ? nil : @page.parent))) %>
     </div>
   <% end %>
 </div>

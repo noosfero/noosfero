@@ -556,4 +556,12 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_equal({ :year => year.to_s, :month => month.to_s }, assigns(:page).filter)
   end
 
+  should 'give link to create new article inside folder when view child of folder' do
+    login_as('testinguser')
+    folder = Folder.create!(:name => 'myfolder', :profile => @profile)
+    folder.children << TextileArticle.new(:name => 'children-article', :profile => @profile)
+    get :view_page, :profile => 'testinguser', :page => [ 'myfolder', 'children-article' ]
+    assert_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/new?parent_id=#{folder.id}" } }
+  end
+
 end
