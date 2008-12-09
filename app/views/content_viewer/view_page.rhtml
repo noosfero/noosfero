@@ -78,9 +78,7 @@
 
 
 <div class="comments">
-  <% if !@page.accept_comments? %>
-    <i class="do-not-comment"><%= _('This article does not accept comments')%></i>
-  <% else %>
+  <% if @page.accept_comments? %>
   <h3 <%= 'class="no-comments-yet"' if @comments.size == 0 %>>
     <%= number_of_comments(@page) %>
   </h3>

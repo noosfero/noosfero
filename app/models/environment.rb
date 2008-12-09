@@ -31,6 +31,7 @@ class Environment < ActiveRecord::Base
       'disable_products_for_enterprises' => _('Disable products for enterprises'),
       'disable_categories' => _('Disable categories'),
       'disable_cms' => _('Disable CMS'),
+      'disable_header_and_footer' => _('Disable header/footer editing by users'),
     }
   end
 

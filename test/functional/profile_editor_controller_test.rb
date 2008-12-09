@@ -480,6 +480,33 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/profile_editor/header_footer" }
   end
 
+  should 'not display header/footer button to enterprises if the environment disabled it' do
+    env = Environment.default
+    env.enable('disable_header_and_footer')
+    env.save!
+
+    enterprise = Enterprise.create!(:name => 'Enterprise for test', :identifier => 'enterprise_for_test')
+
+    u = create_user_with_permission('test_user', 'edit_profile', enterprise)
+    login_as('test_user')
+
+    get :index, :profile => enterprise.identifier
+    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/enterprise_for_test/profile_editor/header_footer" }
+  end
+
+  should 'display header/footer button to enterprises if the environment disabled it but user is admin' do
+    env = Environment.default
+    env.enable('disable_header_and_footer')
+    env.save!
+
+    enterprise = Enterprise.create!(:name => 'Enterprise for test', :identifier => 'enterprise_for_test')
+
+    Person.any_instance.expects(:is_admin?).returns(true).at_least_once
+
+    get :index, :profile => enterprise.identifier
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/enterprise_for_test/profile_editor/header_footer" }
+  end
+
   should 'not list the manage products button if the environment disabled it' do
     env = Environment.default
     env.enable('disable_products_for_enterprises')

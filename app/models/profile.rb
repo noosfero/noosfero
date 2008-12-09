@@ -216,7 +216,7 @@ class Profile < ActiveRecord::Base
   def apply_template(template)
     copy_blocks_from(template)
     copy_articles_from(template)
-    self.update_attributes!(:custom_footer => template[:custom_footer], :custom_header => template[:custom_header])
+    self.update_attributes!(:layout_template => template.layout_template, :custom_footer => template[:custom_footer], :custom_header => template[:custom_header])
   end
 
   xss_terminate :only => [ :name, :nickname, :address, :contact_phone ]
@@ -470,8 +470,12 @@ class Profile < ActiveRecord::Base
     footer = self[:custom_footer] || environment.custom_footer
     if footer
       %w[contact_person contact_email contact_phone location address economic_activity].each do |att|
-        if self.respond_to?(att) && footer.include?("{#{att}}")
-          footer = footer.gsub("{#{att}}", self.send(att).to_s)
+        if self.respond_to?(att) && footer.match(/\{[^{]*#{att}\}/)
+          if !self.send(att).nil?
+            footer = footer.gsub(/\{([^{]*)#{att}\}/, '\1' + self.send(att))
+          else
+            footer = footer.gsub(/\{[^}]*#{att}\}/, '')
+          end
         end
       end
       footer

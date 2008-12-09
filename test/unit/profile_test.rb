@@ -775,8 +775,28 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal 'my custom footer',  Profile.new(:custom_footer => 'my custom footer').custom_footer
   end
 
-  should 'provide custom footer with variables' do
-    assert_equal 'Address: Address for test',  Profile.new(:custom_footer => 'Address: {address}', :address => 'Address for test').custom_footer
+  should 'not replace variables on custom_footer if hasnt pattern' do
+    assert_equal 'address}',  Profile.new(:custom_footer => 'address}', :address => 'Address for test').custom_footer
+  end
+
+  should 'replace variables on custom_footer' do
+    assert_equal 'Address for test',  Profile.new(:custom_footer => '{address}', :address => 'Address for test').custom_footer
+  end
+
+  should 'replace variables on custom_footer with title' do
+    assert_equal 'Address: Address for test',  Profile.new(:custom_footer => '{Address: address}', :address => 'Address for test').custom_footer
+  end
+
+  should 'replace variables on custom_footer when it is nil' do
+    assert_equal '',  Profile.new(:custom_footer => '{address}').custom_footer
+  end
+
+  should 'replace variables in custom_footer when more than one' do
+    assert_equal 'Phone: 9999999',  Profile.new(:custom_footer => '{Address: address}{Phone: contact_phone}', :contact_phone => '9999999').custom_footer
+  end
+
+  should 'replace variables on custom_footer with title when it is nil' do
+    assert_equal '',  Profile.new(:custom_footer => '{Address: address}').custom_footer
   end
 
   should 'provide environment header if profile header is blank' do
@@ -901,7 +921,19 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal 1, p.boxes[0].blocks.size
   end
 
-  should 'apply template' do
+  should 'copy layout template when applying template' do
+    template = Profile.create!(:name => 'test template', :identifier => 'test_template')
+    template.layout_template = 'leftbar'
+    template.save!
+
+    p = Profile.create!(:name => 'test prof', :identifier => 'test_prof')
+
+    p.apply_template(template)
+
+    assert_equal 'leftbar', p.layout_template
+  end
+
+  should 'copy blocks when applying template' do
     template = Profile.create!(:name => 'test template', :identifier => 'test_template')
     template.boxes.destroy_all
     template.boxes << Box.new
@@ -968,6 +1000,20 @@ class ProfileTest < Test::Unit::TestCase
 
     assert_equal '{address}', p[:custom_footer]
     assert_equal 'Profile address', p.custom_footer
+  end
+
+  should 'copy homepage when applying template' do
+    template = Profile.create!(:name => 'test template', :identifier => 'test_template', :address => 'Template address')
+    template.articles.destroy_all
+    a1 = template.articles.create(:name => 'some xyz article')
+    template.home_page = a1
+    template.save!
+
+    p = Profile.create!(:name => 'test_profile', :identifier => 'test_profile')
+    p.apply_template(template)
+
+    assert_not_nil p.home_page
+    assert_equal 'some xyz article', Profile['test_profile'].home_page.name
   end
 
   TMP_THEMES_DIR = RAILS_ROOT + '/test/tmp/profile_themes'
