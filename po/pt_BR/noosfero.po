@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.13.0\n"
 "POT-Creation-Date: 2008-12-01 15:56-0300\n"
-"PO-Revision-Date: 2008-12-01 16:01-0300\n"
+"PO-Revision-Date: 2008-12-09 15:03-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2825,7 +2825,7 @@ msgstr "CEP"
 
 #: app/views/profile_editor/index.rhtml:3
 msgid "%s's profile: control panel"
-msgstr "profile de %s: painel de controle"
+msgstr "perfil de %s: painel de controle"
 
 #: app/views/profile_editor/index.rhtml:11
 msgid "Profile settings"
