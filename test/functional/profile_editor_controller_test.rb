@@ -523,4 +523,18 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'input', :attributes => {:name => 'profile_data[enable_contact_us]', :type => 'checkbox'}
   end
 
+  should 'display link to CMS' do
+    get :index, :profile => 'default_user'
+    assert_tag :tag => 'a', :attributes => { :href => '/myprofile/default_user/cms' }
+  end
+
+  should 'not display link to CMS if disabled' do
+    env = Environment.default
+    env.enable('disable_cms')
+    env.save!
+    get :index, :profile => 'default_user'
+
+    assert_no_tag :tag => 'a', :attributes => { :href => '/myprofile/default_user/cms' }
+  end
+
 end

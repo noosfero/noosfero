@@ -30,6 +30,7 @@ class Environment < ActiveRecord::Base
       'disable_asset_events' => _('Disable search for events'),
       'disable_products_for_enterprises' => _('Disable products for enterprises'),
       'disable_categories' => _('Disable categories'),
+      'disable_cms' => _('Disable CMS'),
     }
   end
 
