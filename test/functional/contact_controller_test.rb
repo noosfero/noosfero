@@ -69,4 +69,9 @@ class ContactControllerTest < Test::Unit::TestCase
     assert_equal 'Bahia', assigns(:contact).state
   end
 
+  should 'display checkbox for receive copy of email' do
+    get :new, :profile => enterprise.identifier
+    assert_tag :tag => 'input', :attributes => {:name => 'contact[receive_a_copy]'}
+  end
+
 end

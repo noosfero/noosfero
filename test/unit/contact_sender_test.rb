@@ -41,6 +41,20 @@ class ContactSenderTest < Test::Unit::TestCase
     assert_includes response.to, admin.email
   end
 
+  should 'deliver a copy of email if requester wants' do
+    ent = Enterprise.new(:name => 'my enterprise', :identifier => 'myent', :environment => Environment.default)
+    c = Contact.new(:dest => ent, :email => 'requester@invalid.com', :receive_a_copy => true)
+    response = Contact::Sender.deliver_mail(c)
+    assert_includes response.cc, c.email
+  end
+
+  should 'not deliver a copy of email if requester dont wants' do
+    ent = Enterprise.new(:name => 'my enterprise', :identifier => 'myent', :environment => Environment.default)
+    c = Contact.new(:dest => ent, :email => 'requester@invalid.com', :receive_a_copy => false)
+    response = Contact::Sender.deliver_mail(c)
+    assert_nil response.cc
+  end
+
   private
 
     def read_fixture(action)

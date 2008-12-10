@@ -5,7 +5,8 @@ class Contact < ActiveRecord::Base #WithoutTable
     [:message, :string],
     [:email, :string],
     [:state, :string],
-    [:city, :string]
+    [:city, :string],
+    [:receive_a_copy, :boolean]
   ]
   attr_accessor :dest
 
@@ -23,6 +24,9 @@ class Contact < ActiveRecord::Base #WithoutTable
       emails = [contact.dest.contact_email] + contact.dest.admins.map{|i| i.email}
       recipients emails
       from "#{contact.name} <#{contact.email}>"
+      if contact.receive_a_copy
+        cc "#{contact.name} <#{contact.email}>"
+      end
       subject contact.subject
       body :name => contact.name,
         :email => contact.email,

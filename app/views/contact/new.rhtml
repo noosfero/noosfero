@@ -9,6 +9,7 @@
   <%= labelled_form_field _('City and state'), select_city(true) %>
   <%= f.text_field :subject %>
   <%= f.text_area :message, :rows => 10, :cols => 60 %>
+  <%= labelled_form_field check_box(:contact, :receive_a_copy) + _('Want to receive a copy of your message in your mailbox?'), '' %>
 
   <%= submit_button(:send, _('Send')) %>
 
