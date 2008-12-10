@@ -564,4 +564,59 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/new?parent_id=#{folder.id}" } }
   end
 
+  should "display 'New article' when create children of folder" do
+    login_as(profile.identifier)
+    a = Folder.new(:name => 'article folder'); profile.articles << a;  a.save!
+    Article.stubs(:short_description).returns('bli')
+    get :view_page, :profile => profile.identifier, :page => [a.path]
+    assert_tag :tag => 'a', :content => 'New article'
+  end
+
+  should "display 'New post' when create children of blog" do
+    login_as(profile.identifier)
+    a = Blog.create!(:name => 'article folder', :profile => profile)
+    Article.stubs(:short_description).returns('bli')
+    get :view_page, :profile => profile.identifier, :page => [a.path]
+    assert_tag :tag => 'a', :content => 'New post'
+  end
+
+  should "display same label for new article button of parent" do
+    login_as(profile.identifier)
+    a = Blog.create!(:name => 'article folder', :profile => profile)
+    Article.stubs(:short_description).returns('bli')
+    t = TextileArticle.create!(:name => 'first post', :parent => a, :profile => profile)
+    get :view_page, :profile => profile.identifier, :page => [t.path]
+    assert_tag :tag => 'a', :content => 'New post'
+  end
+
+  should 'display button to remove article' do
+    login_as(profile.identifier)
+    t = TextileArticle.create!(:name => 'article to destroy', :profile => profile)
+    get :view_page, :profile => profile.identifier, :page => [t.path]
+    assert_tag :tag => 'a', :content => 'Delete', :attributes => {:href => "/myprofile/#{profile.identifier}/cms/destroy/#{t.id}"}
+  end
+
+  should 'add meta tag to rss feed on view blog' do
+    login_as(profile.identifier)
+    a = Blog.create!(:name => 'article folder', :profile => profile)
+    get :view_page, :profile => profile.identifier, :page => [a.path]
+    assert_tag :tag => 'link', :attributes => { :rel => 'alternate', :type => 'application/rss+xml', :title => 'feed', :href => /\/#{profile.identifier}\/blog\/feed/}
+  end
+
+  should 'add meta tag to rss feed on view post blog' do
+    login_as(profile.identifier)
+    a = Blog.create!(:name => 'article folder', :profile => profile)
+    t = TextileArticle.create!(:name => 'first post', :parent => a, :profile => profile)
+    get :view_page, :profile => profile.identifier, :page => [t.path]
+    assert_tag :tag => 'link', :attributes => { :rel => 'alternate', :type => 'application/rss+xml', :title => 'feed', :href => /\/#{profile.identifier}\/blog\/feed/}
+  end
+
+  should 'link to post with comment form opened' do
+    login_as(profile.identifier)
+    a = Blog.create!(:name => 'article folder', :profile => profile)
+    t = TextileArticle.create!(:name => 'first post', :parent => a, :profile => profile)
+    get :view_page, :profile => profile.identifier, :page => [a.path]
+    assert_tag :tag => 'div', :attributes => { :id => "post-#{t.id}" }, :descendant => { :tag => 'a', :content => 'No comments yet', :attributes => { :href => /#{profile.identifier}\/blog\/first-post\?form=opened#comment_form/ } }
+  end
+
 end

@@ -4,6 +4,7 @@ class CmsHelperTest < Test::Unit::TestCase
 
   include CmsHelper
   include BlogHelper
+  include ApplicationHelper
 
   should 'show default options for article' do
     result = options_for_article(RssFeed.new)

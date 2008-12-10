@@ -6,4 +6,12 @@ module BlogHelper
     hidden_field_tag('article[accept_comments]', 0)
   end
 
+  def cms_label_for_new_children
+    _('New post')
+  end
+
+  def cms_label_for_edit
+    _('Edit blog')
+  end
+
 end

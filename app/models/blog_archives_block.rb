@@ -3,6 +3,7 @@ class BlogArchivesBlock < Block
   include ActionView::Helpers::TagHelper
   include ActionView::Helpers::UrlHelper
   include ActionController::UrlWriter
+  include ActionView::Helpers::AssetTagHelper
 
   def self.description
     _('List posts of your blog')
@@ -25,7 +26,8 @@ class BlogArchivesBlock < Block
       results << "</ul>"
     end
     block_title(title) +
-    content_tag('ul', results, :class => 'blog-archives')
+    content_tag('ul', results, :class => 'blog-archives') +
+    content_tag('div', link_to(_('Subscribe RSS Feed'), owner.blog.feed.url), :class => 'subscribe-feed')
   end
 
 end

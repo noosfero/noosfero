@@ -11,4 +11,12 @@ module ArticleHelper
     )
   end
 
+  def cms_label_for_new_children
+    _('New article')
+  end
+
+  def cms_label_for_edit
+    _('Edit')
+  end
+
 end

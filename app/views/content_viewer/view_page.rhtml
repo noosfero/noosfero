@@ -32,15 +32,18 @@
   </script>
   <% if logged_in?  && current_user.person.has_permission?('post_content', profile) %>
     <div id="article-actions" class="hidden">
-      <%= link_to content_tag( 'span', _('Edit') ),
+      <%= link_to content_tag( 'span', label_for_edit_article(@page) ),
           { :controller => 'cms', :action => 'edit', :id => @page },
           :class => 'button with-text icon-edit' %>
+      <%= link_to content_tag( 'span', _('Delete') ),
+          { :controller => 'cms', :action => 'destroy', :id => @page },
+          :class => 'button with-text icon-delete' %>
       <% if profile.kind_of?(Person) %>
         <%= link_to content_tag( 'span', _('Spread this') ),
             { :controller => 'cms', :action => 'publish', :id => @page },
             :class => 'button with-text icon-spread' %>
       <% end %>
-      <%= lightbox_button(:new, _('New publication'), :controller => 'cms', :action => 'new', :parent_id => (@page.folder? ? @page : (@page.parent.nil? ? nil : @page.parent))) %>
+      <%= lightbox_button(:new, label_for_new_article(@page), :controller => 'cms', :action => 'new', :parent_id => (@page.folder? ? @page : (@page.parent.nil? ? nil : @page.parent))) %>
     </div>
   <% end %>
 </div>

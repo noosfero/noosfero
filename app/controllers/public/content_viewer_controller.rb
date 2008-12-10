@@ -62,6 +62,8 @@ class ContentViewerController < ApplicationController
       return
     end
 
+    @form_div = params[:form]
+
     if request.post? && params[:comment] && params[self.icaptcha_field].blank? && @page.accept_comments?
       add_comment
     end

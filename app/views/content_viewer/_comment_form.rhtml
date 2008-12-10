@@ -15,7 +15,7 @@
            f.commit.focus(); f['comment[<%= focus_on %>]'].focus();
            this.onclick=null">
 
-<h4><%= _('Post a comment') %></h4>
+<h4><%= content_tag('a', '', :name => 'comment_form') + _('Post a comment') %></h4>
 
 <% form_tag( @page.url, { :id => comment_form_id } ) do %>
 

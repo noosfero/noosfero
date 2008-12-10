@@ -719,4 +719,33 @@ module ApplicationHelper
     environment.top_url(request.ssl?)
   end
 
+  def helper_for_article(article)
+    article_helper = ActionView::Base.new
+    article_helper.extend ArticleHelper
+    begin
+      class_name = article.class.name + 'Helper'
+      klass = class_name.constantize
+      article_helper.extend klass
+    rescue
+    end
+    article_helper
+  end
+
+  def label_for_new_article(article)
+    article_helper = helper_for_article(!article.nil? && !article.parent.nil? ? article.parent : article)
+    article_helper.cms_label_for_new_children
+  end
+
+  def label_for_edit_article(article)
+    article_helper = helper_for_article(article)
+    article_helper.cms_label_for_edit
+  end
+
+  def meta_tags_for_article(article)
+    if article and (article.blog? or (article.parent and article.parent.blog?))
+      blog = article.blog? ? article : article.parent
+      "<link rel='alternate' type='application/rss+xml' title='#{blog.feed.title}' href='#{url_for blog.feed.url}' />"
+    end
+  end
+
 end

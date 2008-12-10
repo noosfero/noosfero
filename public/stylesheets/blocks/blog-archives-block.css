@@ -15,3 +15,8 @@
 .blog-archives-block a {
   text-decoration: none;
 }
+
+.blog-archives-block .subscribe-feed {
+  padding: 5px 0px 10px 10px;
+  font-size: small;
+}

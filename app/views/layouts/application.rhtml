@@ -11,7 +11,7 @@
     <meta name="description" content="FIXME: Descriptions of Noosfero" />
     <meta name="keywords" content="Noosfero, Community, Open Source" />
     <link rel="shortcut icon" href="<%= '/designs/themes/' + current_theme + '/images/favicon.ico' %>" type="image/x-icon" />
-
+    <%= meta_tags_for_article(@page) if @controller.controller_name == 'content_viewer' %>
     <%= javascript_include_tag 'default-config' %>
     <%= javascript_include_tag :defaults %>
     <%# javascript_include_tag 'animator' %>

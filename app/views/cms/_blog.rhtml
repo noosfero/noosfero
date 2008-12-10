@@ -4,18 +4,14 @@
 
 <%= f.text_field('title', :size => '64') %>
 
-<%= labelled_form_field(_('Description:'), text_area(:article, :body, :cols => 64)) %>
+<%= labelled_form_field(_('Description:'), text_area(:article, :body, :cols => 64, :rows => 10)) %>
 
-<h4><%= _('Settings') %></h4>
-
-<%= f.text_field('posts_per_page') %>
-
-<h5><%= _('Feed options') %></h5>
+<%= labelled_form_field(_('Posts per page:'), f.select(:posts_per_page, [5, 10, 20, 50, 100])) %>
 
 <% fields_for 'article[feed]', @article.feed do |feed| %>
 
-<%= labelled_form_field(_('Limit of articles'), feed.text_field(:limit)) %>
+<%= labelled_form_field(_('Limit of posts in RSS Feed'), feed.select(:limit, ['5', '10', '20', '50'])) %>
 
-<%= labelled_form_field(_('Use as item description:'), feed.select(:feed_item_description, [ [ _('Article abstract'), 'abstract'], [ _('Article body'), 'body']])) %>
+<%= labelled_form_field(_('Use as description in RSS Feed:'), feed.select(:feed_item_description, [ [ _('Article abstract'), 'abstract'], [ _('Article body'), 'body']])) %>
 
 <% end %>

@@ -642,7 +642,7 @@ class CmsControllerTest < Test::Unit::TestCase
 
   should 'display posts per page input with default value on edit blog' do
     get :new, :profile => profile.identifier, :type => 'Blog'
-    assert_tag :tag => 'input', :attributes => { :name => 'article[posts_per_page]', :type => 'text', :value => '20' }
+    assert_tag :tag => 'select', :attributes => { :name => 'article[posts_per_page]' }, :child => { :tag => 'option', :attributes => {:value => '20', :selected => 'selected'} }
   end
 
   should 'not offer to create special article types' do
@@ -723,6 +723,27 @@ class CmsControllerTest < Test::Unit::TestCase
   should 'display input title on create blog' do
     get :new, :profile => profile.identifier, :type => 'Blog'
     assert_tag :tag => 'input', :attributes => { :name => 'article[title]', :type => 'text' }
+  end
+
+  should "display 'New article' when create children of folder" do
+    a = Folder.new(:name => 'article folder'); profile.articles << a;  a.save!
+    Article.stubs(:short_description).returns('bli')
+    get :view, :profile => profile.identifier, :id => a
+    assert_tag :tag => 'a', :content => 'New article'
+  end
+
+  should "display 'New post' when create children of blog" do
+    a = Blog.create!(:name => 'blog_for_test', :profile => profile)
+    Article.stubs(:short_description).returns('bli')
+    get :view, :profile => profile.identifier, :id => a
+    assert_tag :tag => 'a', :content => 'New post'
+  end
+
+  should 'offer confirmation to remove article' do
+    a = profile.articles.create!(:name => 'my-article')
+    get :destroy, :profile => profile.identifier, :id => a.id
+    assert_response :success
+    assert_tag :tag => 'input', :attributes => {:type => 'submit', :value => 'Yes, I want.' }
   end
 
 end

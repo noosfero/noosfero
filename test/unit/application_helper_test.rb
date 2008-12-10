@@ -225,8 +225,17 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_nil select_categories(mock)
   end
 
+  should 'create rss feed link to blog' do
+    p = create_user('testuser').person
+    b = Blog.create!(:profile => p, :name => 'blog_feed_test')
+    assert_tag_in_string meta_tags_for_article(b), :tag => 'link', :attributes => {:type => 'application/rss+xml', :title => 'feed'}
+  end
+
   protected
 
+  def url_for(args = {})
+    args
+  end
   def content_tag(tag, content, options = {})
     content.strip
   end
