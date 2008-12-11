@@ -19,6 +19,8 @@
 
 <% form_tag( @page.url, { :id => comment_form_id } ) do %>
 
+  <%= required_fields_message %>
+
   <% unless logged_in? %>
 
     <%= required labelled_form_field(_('Name'), text_field(:comment, :name)) %>

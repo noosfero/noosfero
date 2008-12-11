@@ -1,6 +1,9 @@
 <%= error_messages_for 'category' %>
 
 <% labelled_form_for 'category', @category, :html => { :multipart => true} do |f| %>
+
+  <%= required_fields_message %>
+
   <% if @category.new_record? %>
     <% if @category.parent %>
       <%= hidden_field_tag('parent_id', @category.parent.id) %>

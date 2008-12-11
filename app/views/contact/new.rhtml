@@ -2,7 +2,10 @@
 
 <%= error_messages_for 'contact' %>
 
+
 <% labelled_form_for :contact, @contact do |f| %>
+
+  <%= required_fields_message %>
 
   <%= f.text_field :name %>
   <%= f.text_field :email %>

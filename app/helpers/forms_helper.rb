@@ -100,6 +100,13 @@ module FormsHelper
     content_tag('span', content, :class => 'required-field')
   end
 
+  def required_fields_message
+    content_tag('p', content_tag('span',
+      _("The <label class='pseudoformlabel'>highlighted</label> fields are mandatory."),
+      :class => 'required-field'
+    ))
+  end
+
 protected
   def self.next_id_number
     if defined? @@id_num

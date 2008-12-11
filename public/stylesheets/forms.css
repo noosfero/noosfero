@@ -3,9 +3,12 @@
   padding: 3px 0px;
 }
 
+.pseudoformlabel,
+.formlabel {
+  color: #444;
+}
 .formlabel {
   /* font-size: 11px; */
-  color: #444;
   display: block;
   padding: 2px 5px;
 }
