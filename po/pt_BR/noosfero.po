@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.13.0\n"
-"POT-Creation-Date: 2008-12-11 16:11-0300\n"
+"POT-Creation-Date: 2008-12-11 16:15-0300\n"
 "PO-Revision-Date: 2008-12-11 16:11-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
