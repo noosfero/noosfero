@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 56) do
+ActiveRecord::Schema.define(:version => 57) do
 
   create_table "article_versions", :force => true do |t|
     t.integer  "article_id"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(:version => 56) do
     t.boolean  "accept_comments",      :default => true
     t.integer  "reference_article_id"
     t.text     "setting"
+    t.boolean  "notify_comments",      :default => false
   end
 
   create_table "articles", :force => true do |t|
@@ -71,6 +72,7 @@ ActiveRecord::Schema.define(:version => 56) do
     t.boolean  "accept_comments",      :default => true
     t.integer  "reference_article_id"
     t.text     "setting"
+    t.boolean  "notify_comments",      :default => false
   end
 
   create_table "articles_categories", :id => false, :force => true do |t|
@@ -79,8 +81,8 @@ ActiveRecord::Schema.define(:version => 56) do
     t.boolean "virtual",     :default => false
   end
 
-  add_index "articles_categories", ["article_id"], :name => "index_articles_categories_on_article_id"
   add_index "articles_categories", ["category_id"], :name => "index_articles_categories_on_category_id"
+  add_index "articles_categories", ["article_id"], :name => "index_articles_categories_on_article_id"
 
   create_table "blocks", :force => true do |t|
     t.string  "title"
@@ -120,8 +122,8 @@ ActiveRecord::Schema.define(:version => 56) do
     t.boolean "virtual",     :default => false
   end
 
-  add_index "categories_profiles", ["profile_id"], :name => "index_categories_profiles_on_profile_id"
   add_index "categories_profiles", ["category_id"], :name => "index_categories_profiles_on_category_id"
+  add_index "categories_profiles", ["profile_id"], :name => "index_categories_profiles_on_profile_id"
 
   create_table "comments", :force => true do |t|
     t.string   "title"
@@ -188,8 +190,8 @@ ActiveRecord::Schema.define(:version => 56) do
     t.datetime "updated_at"
   end
 
-  add_index "product_categorizations", ["product_id"], :name => "index_product_categorizations_on_product_id"
   add_index "product_categorizations", ["category_id"], :name => "index_product_categorizations_on_category_id"
+  add_index "product_categorizations", ["product_id"], :name => "index_product_categorizations_on_product_id"
 
   create_table "products", :force => true do |t|
     t.integer  "enterprise_id"
@@ -260,8 +262,8 @@ ActiveRecord::Schema.define(:version => 56) do
     t.datetime "created_at"
   end
 
-  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
   add_index "taggings", ["taggable_id", "taggable_type"], :name => "index_taggings_on_taggable_id_and_taggable_type"
+  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
 
   create_table "tags", :force => true do |t|
     t.string  "name"

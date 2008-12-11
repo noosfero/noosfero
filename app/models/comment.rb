@@ -45,4 +45,26 @@ class Comment < ActiveRecord::Base
     article.comments_updated
   end
 
+  after_create do |comment|
+    if comment.article.notify_comments?
+      Comment::Notifier.deliver_mail(comment)
+    end
+  end
+
+  class Notifier < ActionMailer::Base
+    def mail(comment)
+      profile = comment.article.profile
+      recipients profile.email
+      from "#{profile.environment.name} <#{profile.environment.contact_email}>"
+      subject _("%s - New comment in '%s'") % [profile.environment.name, comment.article.title]
+      body :name => (comment.author.nil? ? comment.name : comment.author.name),
+        :email => (comment.author.nil? ? comment.email : comment.author.email),
+        :title => comment.title,
+        :body => comment.body,
+        :article_url => comment.article.url,
+        :environment => profile.environment.name,
+        :url => url_for(:host => profile.environment.default_hostname, :controller => 'home')
+    end
+  end
+
 end

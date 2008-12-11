@@ -746,4 +746,10 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'input', :attributes => {:type => 'submit', :value => 'Yes, I want.' }
   end
 
+  should 'display notify comments option' do
+    a = profile.articles.create!(:name => 'test')
+    get :edit, :profile => profile.identifier, :id => a.id
+    assert :tag => 'input', :attributes => {:name => 'article[notify_comments]', :value => 1}
+  end
+
 end

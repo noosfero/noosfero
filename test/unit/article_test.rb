@@ -562,4 +562,9 @@ class ArticleTest < Test::Unit::TestCase
     assert !a.belongs_to_blog?
   end
 
+  should 'has comments notifier false by default' do
+    a = Article.new
+    assert !a.notify_comments?
+  end
+
 end
