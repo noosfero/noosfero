@@ -16,6 +16,7 @@ class Contact < ActiveRecord::Base #WithoutTable
   validates_format_of :email, :with => Noosfero::Constants::EMAIL_FORMAT, :if => (lambda {|o| !o.email.blank?})
 
   def deliver
+    return false unless self.valid?
     Contact::Sender.deliver_mail(self)
   end
 

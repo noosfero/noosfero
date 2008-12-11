@@ -74,4 +74,10 @@ class ContactControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'input', :attributes => {:name => 'contact[receive_a_copy]'}
   end
 
+  should 'not deliver contact if mandatory field is blank' do
+    post :new, :profile => enterprise.identifier, :contact => {:subject => 'Hi', :message => 'Hi, all'}
+    assert_response :success
+    assert_template 'new'
+  end
+
 end

@@ -37,4 +37,11 @@ class ContactTest < ActiveSupport::TestCase
     assert c.deliver
   end
 
+  should 'not deliver message if contact is invalid' do
+    ent = Enterprise.create!(:name => 'my enterprise', :identifier => 'myent', :environment => Environment.default)
+    c = Contact.new(:name => 'john', :subject => 'hi', :message => 'hi, all', :dest => ent)
+    assert !c.valid?
+    assert !c.deliver
+  end
+
 end
