@@ -376,4 +376,15 @@ class PersonTest < Test::Unit::TestCase
     assert_equal p.pending_tasks_for_organization(c), c.tasks
   end
 
+  should 'has default locale as last lang' do
+    p = create_user('user_lang_test').person
+    assert_equal Noosfero.default_locale, p.last_lang
+  end
+
+  should 'be able to change last lang' do
+    p = create_user('user_lang_test').person
+    assert p.update_attribute(:last_lang, 'pt_BR')
+    assert_equal 'pt_BR', Person['user_lang_test'].last_lang
+  end
+
 end

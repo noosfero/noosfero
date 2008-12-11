@@ -279,6 +279,27 @@ class AccountControllerTest < Test::Unit::TestCase
     assert_redirected_to :controller => 'profile_editor'
   end
 
+  should 'save last lang after logout' do
+    user = create_user('save_lang').person
+    assert user.update_attribute(:last_lang, 'unknow')
+    assert_equal 'unknow', user.last_lang
+    login_as user.identifier
+    get :logout
+    user.reload
+    assert_not_equal 'unknow', user.last_lang
+    assert_equal @response.cookies[:lang], user.last_lang
+  end
+
+  should 'save last lang after login' do
+    user = create_user('save_lang').person
+    assert user.update_attribute(:last_lang, 'unknow')
+    assert_equal 'unknow', user.last_lang
+
+    post :login, :user => {:login => 'save_lang', :password => 'save_lang'}
+
+    assert_not_equal 'unknow', Person['save_lang'].last_lang
+  end
+
 ################################
 #                              #
 #  Enterprise activation tests #

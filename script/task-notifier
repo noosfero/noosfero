@@ -1,9 +1,12 @@
 #!/usr/bin/env ruby
 require File.dirname(__FILE__) + '/../config/environment'
+include GetText
+ActionController::Base.init_gettext 'noosfero'
 
 # when in production set RAILS_ENV to 'production'
 
 Person.with_pending_tasks.each do |p|
+  set_locale_all p.last_lang
   PendingTaskNotifier.deliver_notification(p)
   RAILS_DEFAULT_LOGGER.info('deliver notification for ' + p.identifier)
 end
