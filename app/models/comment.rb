@@ -27,6 +27,10 @@ class Comment < ActiveRecord::Base
     end
   end
 
+  def author_email
+    author ? author.email : email
+  end
+
   def url
     article.url.merge(:anchor => anchor)
   end
@@ -57,8 +61,9 @@ class Comment < ActiveRecord::Base
       recipients profile.email
       from "#{profile.environment.name} <#{profile.environment.contact_email}>"
       subject _("%s - New comment in '%s'") % [profile.environment.name, comment.article.title]
-      body :name => (comment.author.nil? ? comment.name : comment.author.name),
-        :email => (comment.author.nil? ? comment.email : comment.author.email),
+      headers['Reply-To'] = comment.author_email
+      body :name => comment.author_name,
+        :email => comment.author_email,
         :title => comment.title,
         :body => comment.body,
         :article_url => comment.url,

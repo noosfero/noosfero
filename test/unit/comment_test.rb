@@ -78,6 +78,15 @@ class CommentTest < Test::Unit::TestCase
     assert_equal 'anonymous coward', Comment.new(:name => 'anonymous coward').author_name
   end
 
+  should "provide author e-mail for athenticated authors" do
+    owner = create_user('testuser').person
+    assert_equal owner.email, Comment.new(:author => owner).author_email
+  end
+
+  should "provide author e-mail for unauthenticated author" do
+    assert_equal 'my@email.com', Comment.new(:email => 'my@email.com').author_email
+  end
+
   should 'provide url to comment' do
     art = Article.new
     art.expects(:url).returns({ :controller => 'lala', :action => 'something' })
