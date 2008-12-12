@@ -4,13 +4,23 @@ module ArticleHelper
     @article = article
     content_tag('h4', _('Options')) +
     content_tag('div',
-      check_box(:article, :published) +
-      content_tag('label', _('Published'), :for => 'article_published') +
-      check_box(:article, :accept_comments) +
-      content_tag('label', _('Accept Comments'), :for => 'article_accept_comments') +
-      check_box(:article, :notify_comments) +
-      content_tag('label', _('Notify Comments'), :for => 'article_notify_comments')
-    ) + observe_field(:article_accept_comments, :function => "$('article_notify_comments').disabled = ! $('article_accept_comments').checked")
+      content_tag(
+        'div',
+        check_box(:article, :published) +
+        content_tag('label', _('This article must be published (visible to other people)'), :for => 'article_published')
+      ) +
+      content_tag(
+        'div',
+        check_box(:article, :accept_comments) +
+        content_tag('label', _('I want to receive comments about this article'), :for => 'article_accept_comments')
+      ) +
+      content_tag(
+        'div',
+        check_box(:article, :notify_comments) +
+        content_tag('label', _('I want to receive a notification of each comment written by e-mail'), :for => 'article_notify_comments') +
+        observe_field(:article_accept_comments, :function => "$('article_notify_comments').disabled = ! $('article_accept_comments').checked")
+      )
+    )
   end
 
   def cms_label_for_new_children

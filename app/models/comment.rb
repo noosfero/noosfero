@@ -61,9 +61,9 @@ class Comment < ActiveRecord::Base
         :email => (comment.author.nil? ? comment.email : comment.author.email),
         :title => comment.title,
         :body => comment.body,
-        :article_url => comment.article.url,
+        :article_url => comment.url,
         :environment => profile.environment.name,
-        :url => url_for(:host => profile.environment.default_hostname, :controller => 'home')
+        :url => profile.environment.top_url
     end
   end
 

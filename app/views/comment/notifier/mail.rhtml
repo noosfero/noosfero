@@ -1,14 +1,14 @@
 <%= _('Name: %s') % @name %>
 <%= _('e-Mail: %s') % @email %>
-<%= _('Title') % @title %>
+<%= _('Title: %s') % @title %>
 <%= _('Comment:') %>
 --
 
 <%= @body %>
 
 --
-<%= @article_url %>
+<%= url_for @article_url %>
 
 --
 <%= _('%s environment system') % @environment %>
-<%= @url %>
+<%= url_for @url %>
