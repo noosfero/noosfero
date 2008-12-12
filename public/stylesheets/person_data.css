@@ -1,0 +1,10 @@
+#profile-data .type-text input,
+#profile-data .type-password input,
+#profile-data .type-select select {
+  width: 220px
+}
+
+#profile-data .type-select select.select-schooling {
+  width: 108px;
+}
+

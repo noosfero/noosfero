@@ -41,6 +41,70 @@ class Person < Profile
     friends.delete(friend)
   end
 
+  FIELDS = %w[
+  nickname
+  sex
+  address
+  zip_code
+  city
+  state
+  country
+  nationality
+  birth_date
+  cell_phone
+  comercial_phone
+  schooling
+  professional_activity
+  organization
+  organization_website
+  area_of_study
+  custom_area_of_study
+  formation
+  custom_formation
+  contact_phone
+  contact_information
+  ]
+
+  def self.fields
+    FIELDS
+  end
+
+  def validate
+    self.required_fields.each do |field|
+      if self.send(field).blank?
+        unless (field == 'custom_area_of_study' && self.area_of_study != 'Others') || (field == 'custom_formation' && self.formation != 'Others')
+          self.errors.add(field, _('%{fn} is mandatory'))
+        end
+      end
+    end
+  end
+
+  before_save do |person|
+    person.custom_formation = nil if (! person.formation.nil? && person.formation != 'Others')
+    person.custom_area_of_study = nil if (! person.area_of_study.nil? && person.area_of_study != 'Others')
+  end
+
+  def active_fields
+    environment ? environment.active_person_fields : []
+  end
+
+  def required_fields
+    environment ? environment.required_person_fields : []
+  end
+
+  def signup_fields
+    environment ? environment.signup_person_fields : []
+  end
+
+  N_('Cell phone'); N_('Comercial phone'); N_('Nationality'); N_('Schooling'); N_('Area of study'); N_('Professional activity'); N_('Organization'); N_('Organization website');
+  settings_items :cell_phone, :comercial_phone, :nationality, :schooling, :area_of_study, :professional_activity, :organization, :organization_website
+
+  N_('Schooling status')
+  settings_items :schooling_status
+
+  N_('Formation'); N_('Custom formation'); N_('Custom area of study');
+  settings_items :formation, :custom_formation, :custom_area_of_study
+
   N_('Contact information'); N_('Birth date'); N_('City'); N_('State'); N_('Country'); N_('Sex'); N_('Zip code')
   settings_items :photo, :contact_information, :birth_date, :sex, :city, :state, :country, :zip_code
 

@@ -594,6 +594,12 @@ class AccountControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'form', :attributes => { :action => /^https:\/\// }
   end
 
+  should 'render person partial' do
+    Environment.any_instance.expects(:signup_person_fields).returns(['contact_phone']).at_least_once
+    get :signup
+    assert_tag :tag => 'input', :attributes => { :name => "profile_data[contact_phone]" }
+  end
+
   protected
     def new_user(options = {}, extra_options ={})
       data = {:profile_data => person_data}

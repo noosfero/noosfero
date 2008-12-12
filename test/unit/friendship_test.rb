@@ -3,8 +3,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 class FriendshipTest < Test::Unit::TestCase
 
   should 'connect a person to another' do
-    p1 = Person.new
-    p2 = Person.new
+    p1 = Person.new(:environment => Environment.default)
+    p2 = Person.new(:environment => Environment.default)
 
     f = Friendship.new
     assert_raise ActiveRecord::AssociationTypeMismatch do

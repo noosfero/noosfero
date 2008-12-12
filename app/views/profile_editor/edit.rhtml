@@ -2,7 +2,7 @@
 
 <%= error_messages_for :profile %>
 
-<% labelled_form_for :profile_data, @profile, :html => { :multipart => true } do |f| %>
+<% labelled_form_for :profile_data, @profile, :html => { :id => 'profile-data', :multipart => true } do |f| %>
 
   <%= render :partial => partial_for_class(@profile.class), :locals => { :f => f } %>
 
@@ -18,7 +18,7 @@
     <%= _('This profile is:') %>
   </p>
 
-  <% if profile.kind_of?(Person) %>
+  <% if profile.person? %>
   <table>
     <tr>
       <th></th>

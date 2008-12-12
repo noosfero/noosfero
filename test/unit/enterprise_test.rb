@@ -174,7 +174,7 @@ class EnterpriseTest < Test::Unit::TestCase
     ent.reload
     assert_equal 1, ent.boxes.size
     assert_equal 1, ent.boxes[0].blocks.size
-  end
+   end
 
    should 'not replace template if environment doesnt allow' do
     template = Enterprise.create!(:name => 'template enteprise', :identifier => 'template_enterprise', :enabled => false)
@@ -195,7 +195,8 @@ class EnterpriseTest < Test::Unit::TestCase
     assert_equal 1, ent.boxes.size
     assert_equal 1, ent.boxes[0].blocks.size
   end
- should 'create EnterpriseActivation task when creating with enabled = false' do
+
+  should 'create EnterpriseActivation task when creating with enabled = false' do
     EnterpriseActivation.delete_all
     ent = Enterprise.create!(:name => 'test enteprise', :identifier => 'test_ent', :enabled => false)
     assert_equal [ent], EnterpriseActivation.find(:all).map(&:enterprise)
@@ -254,6 +255,34 @@ class EnterpriseTest < Test::Unit::TestCase
   should 'contact us enabled by default' do
     e = Enterprise.create!(:name => 'test_com', :identifier => 'test_com', :environment => Environment.default)
     assert e.enable_contact_us
+  end
+
+  should 'return active_enterprise_fields' do
+    e = Environment.default
+    e.expects(:active_enterprise_fields).returns(['contact_phone', 'contact_email']).at_least_once
+    ent = Enterprise.new(:environment => e)
+
+    assert_equal e.active_enterprise_fields, ent.active_fields
+  end
+
+  should 'return required_enterprise_fields' do
+    e = Environment.default
+    e.expects(:required_enterprise_fields).returns(['contact_phone', 'contact_email']).at_least_once
+    enterprise = Enterprise.new(:environment => e)
+
+    assert_equal e.required_enterprise_fields, enterprise.required_fields
+  end
+
+  should 'require fields if enterprise needs' do
+    e = Environment.default
+    e.expects(:required_enterprise_fields).returns(['contact_phone']).at_least_once
+    enterprise = Enterprise.new(:environment => e)
+    assert ! enterprise.valid?
+    assert enterprise.errors.invalid?(:contact_phone)
+
+    enterprise.contact_phone = '99999'
+    enterprise.valid?
+    assert ! enterprise.errors.invalid?(:contact_phone)
   end
 
 end

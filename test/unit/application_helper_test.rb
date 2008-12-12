@@ -231,6 +231,38 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_tag_in_string meta_tags_for_article(b), :tag => 'link', :attributes => {:type => 'application/rss+xml', :title => 'feed'}
   end
 
+  should 'provide sex icon for males' do
+    stubs(:environment).returns(Environment.default)
+    expects(:content_tag).with(anything, 'male').returns('MALE!!')
+    expects(:content_tag).with(anything, 'MALE!!', is_a(Hash)).returns("FINAL")
+    assert_equal "FINAL", profile_sex_icon(Person.new(:sex => 'male'))
+  end
+
+  should 'provide sex icon for females' do
+    stubs(:environment).returns(Environment.default)
+    expects(:content_tag).with(anything, 'female').returns('FEMALE!!')
+    expects(:content_tag).with(anything, 'FEMALE!!', is_a(Hash)).returns("FINAL")
+    assert_equal "FINAL", profile_sex_icon(Person.new(:sex => 'female'))
+  end
+
+  should 'provide undef sex icon' do
+    stubs(:environment).returns(Environment.default)
+    expects(:content_tag).with(anything, 'undef').returns('UNDEF!!')
+    expects(:content_tag).with(anything, 'UNDEF!!', is_a(Hash)).returns("FINAL")
+    assert_equal "FINAL", profile_sex_icon(Person.new(:sex => nil))
+  end
+
+  should 'not draw sex icon for non-person profiles' do
+    assert_equal '', profile_sex_icon(Community.new)
+  end
+
+  should 'not draw sex icon when disabled in the environment' do
+    env = Environment.create!(:name => 'env test')
+    env.expects(:enabled?).with('disable_gender_icon').returns(true)
+    stubs(:environment).returns(env)
+    assert_equal '', profile_sex_icon(Person.new(:sex => 'male'))
+  end
+
   protected
 
   def url_for(args = {})

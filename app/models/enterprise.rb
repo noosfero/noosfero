@@ -8,6 +8,40 @@ class Enterprise < Organization
 
   extra_data_for_index :product_categories
 
+  N_('Organization website'); N_('Historic and current context'); N_('Activities short description'); N_('City'); N_('State'); N_('Country'); N_('ZIP code')
+
+  settings_items :organization_website, :historic_and_current_context, :activities_short_description, :zip_code, :city, :state, :country
+
+  FIELDS = %w[
+    zip_code
+    city
+    state
+    country
+    organization_website
+    historic_and_current_context
+    activities_short_description
+  ]
+
+  def self.fields
+    super + FIELDS
+  end
+
+  def validate
+    self.required_fields.each do |field|
+      if self.send(field).blank?
+          self.errors.add(field, _('%{fn} is mandatory'))
+      end
+    end
+  end
+
+  def active_fields
+    environment ? environment.active_enterprise_fields : []
+  end
+
+  def required_fields
+    environment ? environment.required_enterprise_fields : []
+  end
+
   def product_categories
     products.map{|p| p.category_full_name}.compact
   end

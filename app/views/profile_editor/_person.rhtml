@@ -1,5 +1,8 @@
 <h2><%= _('Personal information') %></h2>
 
-  <%= f.text_field(:email)%>
+  <%= required_fields_message %>
+
+  <%= required f.text_field(:email)%>
+  <%= labelled_form_field _('Full name'), text_field(:profile_data, :name) %>
 
   <%= render :partial => 'person_form', :locals => {:f => f} %>

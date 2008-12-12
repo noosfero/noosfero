@@ -137,4 +137,41 @@ class CategoriesControllerTest < Test::Unit::TestCase
     post :new, :category => { :display_in_menu => '1' }
   end
 
+  should 'not display color selection if environment.categories_menu is false' do
+    env.enable('disable_categories_menu')
+    env.save!
+    get :new
+
+    assert_no_tag :tag => 'select', :attributes => { :name => "category[display_color]" }
+  end
+
+  should 'display color selection if environment.categories_menu is true' do
+    env.disable('disable_categories_menu')
+    env.save!
+    get :new
+
+    assert_tag :tag => 'select', :attributes => { :name => "category[display_color]" }
+  end
+
+  should 'not display category_type if only one category is available' do
+    env.category_types = ['Category']
+    get :new
+
+    assert_no_tag :tag => 'select', :attributes => { :name => "type" }
+  end
+
+  should 'have hidden_tag type if only one category is available' do
+    env.category_types = ['Category']
+    env.save!
+    get :new
+
+    assert_tag :tag => 'input', :attributes => { :name => 'type', :value => "Category", :type => 'hidden' }
+  end
+
+ should 'display category_type if more than one category is available' do
+    env.category_types = 'Category', 'ProductCategory'
+    get :new
+
+    assert_tag :tag => 'select', :attributes => { :name => "type" }
+  end
 end

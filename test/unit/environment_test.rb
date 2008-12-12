@@ -532,4 +532,153 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal false, Environment.new.replace_enterprise_template_when_enable
   end
 
+  should 'set custom_person_fields' do
+    env = Environment.new
+    env.custom_person_fields = {'cell_phone' => {'required' => 'true', 'active' => 'true'},'comercial_phone'=>  {'required' => 'true', 'active' => 'true'}}
+
+    assert_equal({'cell_phone' => {'required' => 'true', 'active' => 'true'},'comercial_phone'=>  {'required' => 'true', 'active' => 'true'}}, env.custom_person_fields)
+  end
+
+  should 'have no custom_person_fields by default' do
+    assert_equal({}, Environment.new.custom_person_fields)
+  end
+
+  should 'not set in custom_person_fields if not in person.fields' do
+    env = Environment.default
+    Person.stubs(:fields).returns(['cell_phone', 'comercial_phone'])
+
+    env.custom_person_fields = { 'birth_date' => {'required' => 'true', 'active' => 'true'}, 'cell_phone' => {'required' => 'true', 'active' => 'true'}}
+    assert_equal({'cell_phone' => {'required' => 'true', 'active' => 'true'}}, env.custom_person_fields)
+    assert ! env.custom_person_fields.keys.include?('birth_date')
+  end
+
+  should 'add schooling_status if custom_person_fields has schooling' do
+    env = Environment.default
+    Person.stubs(:fields).returns(['cell_phone', 'schooling'])
+
+    env.custom_person_fields = { 'schooling' => {'required' => 'true', 'active' => 'true'}}
+    assert_equal({'schooling' => {'required' => 'true', 'active' => 'true'}, 'schooling_status' => {'required' => 'true', 'active' => 'true'}}, env.custom_person_fields)
+    assert ! env.custom_person_fields.keys.include?('birth_date')
+  end
+
+  should 'return person_fields status' do
+    env = Environment.default
+
+    env.expects(:custom_person_fields).returns({ 'birth_date' => {'required' => 'true', 'active' => 'false'}}).at_least_once
+
+    assert_equal true, env.custom_person_field('birth_date', 'required')
+    assert_equal false, env.custom_person_field('birth_date', 'active')
+  end
+
+  should 'select active fields from person' do
+    env = Environment.default
+    env.expects(:custom_person_fields).returns({ 'birth_date' => {'required' => 'true', 'active' => 'true'}, 'cell_phone' => {'required' => 'true', 'active' => 'false'}}).at_least_once
+
+    assert_equal ['birth_date'], env.active_person_fields
+  end
+
+  should 'select required fields from person' do
+    env = Environment.default
+    env.expects(:custom_person_fields).returns({ 'birth_date' => {'required' => 'true', 'active' => 'true'}, 'cell_phone' => {'required' => 'false', 'active' => 'true'}}).at_least_once
+
+    assert_equal ['birth_date'], env.required_person_fields
+  end
+
+  should 'set custom_enterprises_fields' do
+    env = Environment.new
+    env.custom_enterprise_fields = {'contact_person' => {'required' => 'true', 'active' => 'true'},'contact_email'=>  {'required' => 'true', 'active' => 'true'}}
+
+    assert_equal({'contact_person' => {'required' => 'true', 'active' => 'true'},'contact_email'=>  {'required' => 'true', 'active' => 'true'}}, env.custom_enterprise_fields)
+  end
+
+  should 'have no custom_enterprise_fields by default' do
+    assert_equal({}, Environment.new.custom_enterprise_fields)
+  end
+
+  should 'not set in custom_enterprise_fields if not in enterprise.fields' do
+    env = Environment.default
+    Enterprise.stubs(:fields).returns(['contact_person', 'comercial_phone'])
+
+    env.custom_enterprise_fields = { 'contact_email' => {'required' => 'true', 'active' => 'true'}, 'contact_person' => {'required' => 'true', 'active' => 'true'}}
+    assert_equal({'contact_person' => {'required' => 'true', 'active' => 'true'}}, env.custom_enterprise_fields)
+    assert ! env.custom_enterprise_fields.keys.include?('contact_email')
+  end
+
+  should 'return enteprise_fields status' do
+    env = Environment.default
+
+    env.expects(:custom_enterprise_fields).returns({ 'contact_email' => {'required' => 'true', 'active' => 'false'}}).at_least_once
+
+    assert_equal true, env.custom_enterprise_field('contact_email', 'required')
+    assert_equal false, env.custom_enterprise_field('contact_email', 'active')
+  end
+
+  should 'select active fields from enterprise' do
+    env = Environment.default
+    env.expects(:custom_enterprise_fields).returns({ 'contact_email' => {'required' => 'true', 'active' => 'true'}, 'contact_person' => {'required' => 'true', 'active' => 'false'}}).at_least_once
+
+    assert_equal ['contact_email'], env.active_enterprise_fields
+  end
+
+  should 'select required fields from enterprise' do
+    env = Environment.default
+    env.expects(:custom_enterprise_fields).returns({ 'contact_email' => {'required' => 'true', 'active' => 'true'}, 'contact_person' => {'required' => 'false', 'active' => 'true'}}).at_least_once
+
+    assert_equal ['contact_email'], env.required_enterprise_fields
+  end
+
+  should 'set custom_communitys_fields' do
+    env = Environment.new
+    env.custom_community_fields = {'contact_person' => {'required' => 'true', 'active' => 'true'},'contact_email'=>  {'required' => 'true', 'active' => 'true'}}
+
+    assert_equal({'contact_person' => {'required' => 'true', 'active' => 'true'},'contact_email'=>  {'required' => 'true', 'active' => 'true'}}, env.custom_community_fields)
+  end
+
+  should 'have no custom_community_fields by default' do
+    assert_equal({}, Environment.new.custom_community_fields)
+  end
+
+  should 'not set in custom_community_fields if not in community.fields' do
+    env = Environment.default
+    Community.stubs(:fields).returns(['contact_person', 'comercial_phone'])
+
+    env.custom_community_fields = { 'contact_email' => {'required' => 'true', 'active' => 'true'}, 'contact_person' => {'required' => 'true', 'active' => 'true'}}
+    assert_equal({'contact_person' => {'required' => 'true', 'active' => 'true'}}, env.custom_community_fields)
+    assert ! env.custom_community_fields.keys.include?('contact_email')
+  end
+
+  should 'return community_fields status' do
+    env = Environment.default
+
+    env.expects(:custom_community_fields).returns({ 'contact_email' => {'required' => 'true', 'active' => 'false'}}).at_least_once
+
+    assert_equal true, env.custom_community_field('contact_email', 'required')
+    assert_equal false, env.custom_community_field('contact_email', 'active')
+  end
+
+  should 'select active fields from community' do
+    env = Environment.default
+    env.expects(:custom_community_fields).returns({ 'contact_email' => {'required' => 'true', 'active' => 'true'}, 'contact_person' => {'required' => 'true', 'active' => 'false'}}).at_least_once
+
+    assert_equal ['contact_email'], env.active_community_fields
+  end
+
+  should 'select required fields from community' do
+    env = Environment.default
+    env.expects(:custom_community_fields).returns({ 'contact_email' => {'required' => 'true', 'active' => 'true'}, 'contact_person' => {'required' => 'false', 'active' => 'true'}}).at_least_once
+
+    assert_equal ['contact_email'], env.required_community_fields
+  end
+
+  should 'set category_types' do
+    env = Environment.new
+    env.category_types = ['Category', 'ProductCategory']
+
+    assert_equal ['Category', 'ProductCategory'], env.category_types
+  end
+
+  should 'have type /Category/ on category_types by default' do
+    assert_equal ['Category'], Environment.new.category_types
+  end
+
 end

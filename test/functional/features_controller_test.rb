@@ -76,8 +76,78 @@ class FeaturesControllerTest < Test::Unit::TestCase
     post :index
 
     assert_tag :tag => 'select', :attributes => { :name => 'environment[organization_approval_method]' }, :descendant => { :tag => 'option', :attributes => { :value => 'region', :selected => true } }
+  end
 
+  should 'list possible person fields' do
+    uses_host 'anhetegua.net'
+    Person.expects(:fields).returns(['cell_phone', 'comercial_phone']).at_least_once
+    get :manage_fields
+    assert_template 'manage_fields'
+    Person.fields.each do |field|
+      assert_tag(:tag => 'input', :attributes => { :type => 'checkbox', :name => "person_fields[#{field}][active]"})
+      assert_tag(:tag => 'input', :attributes => { :type => 'checkbox', :name => "person_fields[#{field}][required]"})
+      assert_tag(:tag => 'input', :attributes => { :type => 'checkbox', :name => "person_fields[#{field}][signup]"})
+    end
+  end
 
+  should 'update custom_person_fields' do
+    uses_host 'anhetegua.net'
+    e = Environment.find(2)
+    Person.expects(:fields).returns(['cell_phone', 'comercial_phone']).at_least_once
+
+    post :manage_person_fields, :person_fields => { :cell_phone => {:active => true, :required => true }}
+    assert_redirected_to :action => 'manage_fields'
+    e.reload
+    assert_equal true, e.custom_person_fields['cell_phone']['active']
+    assert_equal true, e.custom_person_fields['cell_phone']['required']
+  end
+
+  should 'disable check_box for required if active is not checked' 
+
+  should 'list possible enterprise fields' do
+    uses_host 'anhetegua.net'
+    Enterprise.expects(:fields).returns(['contact_person', 'contact_email']).at_least_once
+    get :manage_fields
+    assert_template 'manage_fields'
+    Enterprise.fields.each do |field|
+      assert_tag(:tag => 'input', :attributes => { :type => 'checkbox', :name => "enterprise_fields[#{field}][active]"})
+      assert_tag(:tag => 'input', :attributes => { :type => 'checkbox', :name => "enterprise_fields[#{field}][required]"})
+    end
+  end
+
+  should 'update custom_enterprise_fields' do
+    uses_host 'anhetegua.net'
+    e = Environment.find(2)
+    Enterprise.expects(:fields).returns(['contact_person', 'contact_email']).at_least_once
+
+    post :manage_enterprise_fields, :enterprise_fields => { :contact_person => {:active => true, :required => true }}
+    assert_redirected_to :action => 'manage_fields'
+    e.reload
+    assert_equal true, e.custom_enterprise_fields['contact_person']['active']
+    assert_equal true, e.custom_enterprise_fields['contact_person']['required']
+  end
+
+  should 'list possible community fields' do
+    uses_host 'anhetegua.net'
+    Community.expects(:fields).returns(['contact_person', 'contact_email']).at_least_once
+    get :manage_fields
+    assert_template 'manage_fields'
+    Community.fields.each do |field|
+      assert_tag(:tag => 'input', :attributes => { :type => 'checkbox', :name => "community_fields[#{field}][active]"})
+      assert_tag(:tag => 'input', :attributes => { :type => 'checkbox', :name => "community_fields[#{field}][required]"})
+    end
+  end
+
+  should 'update custom_community_fields' do
+    uses_host 'anhetegua.net'
+    e = Environment.find(2)
+    Community.expects(:fields).returns(['contact_person', 'contact_email']).at_least_once
+
+    post :manage_community_fields, :community_fields => { :contact_person => {:active => true, :required => true }}
+    assert_redirected_to :action => 'manage_fields'
+    e.reload
+    assert_equal true, e.custom_community_fields['contact_person']['active']
+    assert_equal true, e.custom_community_fields['contact_person']['required']
   end
 
 end

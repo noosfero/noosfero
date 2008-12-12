@@ -19,7 +19,9 @@ module ApplicationHelper
   include DatesHelper
 
   include FolderHelper
-  
+
+  include ProfileEditorHelper
+
   # Displays context help. You can pass the content of the help message as the
   # first parameter or using template code inside a block passed to this
   # method. *Note*: the block is ignored if <tt>content</tt> is not
@@ -289,7 +291,6 @@ module ApplicationHelper
     @controller.send(:user)
   end
 
-
   def stylesheet_import(*sources)
     options = sources.last.is_a?(Hash) ? sources.pop : { }
     themed_source = options.delete(:themed_source) 
@@ -378,16 +379,14 @@ module ApplicationHelper
   end
 
   def profile_sex_icon( profile )
-    if profile.class == Person
-      sex = ( profile.sex ? profile.sex.to_s() : 'undef' )
-      title = ( sex == 'undef' ? _('non registered gender') : ( sex == 'male' ? _('Male') : _('Female') ) )
-      sex = content_tag 'span',
-                        content_tag( 'span', sex ),
-                        :class => 'sex-'+sex,
-                        :title => title
-    else
-      sex = ''
-    end
+    return '' unless profile.is_a?(Person)
+    return '' unless !environment.enabled?('disable_gender_icon')
+    sex = ( profile.sex ? profile.sex.to_s() : 'undef' )
+    title = ( sex == 'undef' ? _('non registered gender') : ( sex == 'male' ? _('Male') : _('Female') ) )
+    sex = content_tag 'span',
+                      content_tag( 'span', sex ),
+                      :class => 'sex-'+sex,
+                      :title => title
     sex
   end
 
@@ -690,6 +689,23 @@ module ApplicationHelper
   def labelled_form_for(name, object = nil, options = {}, &proc)
     object ||= instance_variable_get("@#{name}")
     form_for(name, object, { :builder => NoosferoFormBuilder }.merge(options), &proc)
+  end
+
+  def custom_field(profile, name, field_html, options = {})
+    result = ""
+    if (controller.action_name == 'signup')
+      if profile.signup_fields.include?(name)
+        result = field_html
+      end
+    else
+      if profile.active_fields.include?(name)
+        result = field_html
+      end
+    end
+    if profile.required_fields.include?(name)
+      result = required(result)
+    end
+    result
   end
 
   def search_page_title(title, options={})

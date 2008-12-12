@@ -105,66 +105,68 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
   end
 
   should 'filter html from contact_person to organization' do
-    org = Organization.create!(:name => 'test org', :identifier => 'testorg')
+    org = Organization.create!(:name => 'test org', :identifier => 'testorg', :environment => Environment.default)
     contact = "name <strong id='name_html_test'>with</strong> html"
     post :edit, :profile => org.identifier, :profile_data => { :contact_person => contact }
     assert_sanitized assigns(:profile).contact_person
   end
 
   should 'filter html from acronym organization' do
-    org = Organization.create!(:name => 'test org', :identifier => 'testorg')
+    org = Organization.create!(:name => 'test org', :identifier => 'testorg', :environment => Environment.default)
     value = "name <strong id='name_html_test'>with</strong> html"
     post :edit, :profile => org.identifier, :profile_data => { :acronym => value }
     assert_sanitized assigns(:profile).acronym
   end
 
   should 'filter html from legal_form organization' do
-    org = Organization.create!(:name => 'test org', :identifier => 'testorg')
+    org = Organization.create!(:name => 'test org', :identifier => 'testorg', :environment => Environment.default)
     value = "name <strong id='name_html_test'>with</strong> html"
     post :edit, :profile => org.identifier, :profile_data => { :legal_form => value }
     assert_sanitized assigns(:profile).legal_form
   end
 
   should 'filter html from economic_activity organization' do
-    org = Organization.create!(:name => 'test org', :identifier => 'testorg')
+    org = Organization.create!(:name => 'test org', :identifier => 'testorg', :environment => Environment.default)
     value = "name <strong id='name_html_test'>with</strong> html"
     post :edit, :profile => org.identifier, :profile_data => { :economic_activity => value }
     assert_sanitized assigns(:profile).economic_activity
   end
 
   should 'filter html from management_information organization' do
-    org = Organization.create!(:name => 'test org', :identifier => 'testorg')
+    org = Organization.create!(:name => 'test org', :identifier => 'testorg', :environment => Environment.default)
     value = "name <strong id='name_html_test'>with</strong> html"
     post :edit, :profile => org.identifier, :profile_data => { :management_information => value }
     assert_sanitized assigns(:profile).management_information
   end
 
   should 'saving profile organization_info' do
-    org = Organization.create!(:name => 'test org', :identifier => 'testorg')
+    org = Organization.create!(:name => 'test org', :identifier => 'testorg', :environment => Environment.default)
     post :edit, :profile => 'testorg', :profile_data => { :contact_person => 'contact person' }
     assert_equal 'contact person', Organization.find(org.id).contact_person
   end
 
-  should 'show contact_person field on edit organization' do
-    org = Organization.create!(:name => 'test org', :identifier => 'testorg')
+  should 'show contact_phone field on edit enterprise' do
+    org = Enterprise.create!(:name => 'test org', :identifier => 'testorg', :environment => Environment.default)
+    Enterprise.any_instance.expects(:active_fields).returns(['contact_phone']).at_least_once
     get :edit, :profile => org.identifier
-    assert_tag :tag => 'input', :attributes => { :name => 'profile_data[contact_person]' }
+    assert_tag :tag => 'input', :attributes => { :name => 'profile_data[contact_phone]' }
   end
 
   should 'save community description' do
-    org = Community.create!(:name => 'test org', :identifier => 'testorg')
+    org = Community.create!(:name => 'test org', :identifier => 'testorg', :environment => Environment.default)
     post :edit, :profile => 'testorg', :profile_data => { :description => 'my description' }
     assert_equal 'my description', Organization.find(org.id).description
   end
 
   should 'show community description' do
-    org = Community.create!(:name => 'test org', :identifier => 'testorg')
+    org = Community.create!(:name => 'test org', :identifier => 'testorg', :environment => Environment.default)
+    Community.any_instance.expects(:active_fields).returns(['description']).at_least_once
     get :edit, :profile => 'testorg'
     assert_tag :tag => 'textarea', :attributes => { :name => 'profile_data[description]' }
   end
 
-  should 'not show organization description' do
-    org = Organization.create!(:name => 'test org', :identifier => 'testorg')
+  should 'not show enterprise description' do
+    org = Enterprise.create!(:name => 'test org', :identifier => 'testorg', :environment => Environment.default)
     get :edit, :profile => 'testorg'
     assert_no_tag :tag => 'textarea', :attributes => { :name => 'profile_data[description]' }
   end
@@ -176,13 +178,23 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
   end
 
   should 'save enterprise contact_person' do
-    org = Enterprise.create!(:name => 'test org', :identifier => 'testorg')
+    org = Enterprise.create!(:name => 'test org', :identifier => 'testorg', :environment => Environment.default)
     post :edit, :profile => 'testorg', :profile_data => { :contact_person => 'my contact' }
     assert_equal 'my contact', Enterprise.find(org.id).contact_person
   end
 
-  should 'show field values on edit organization info' do
-    org = Organization.create!(:name => 'test org', :identifier => 'testorg')
+  should 'show field values on edit community info' do
+    Community.any_instance.expects(:active_fields).returns(['contact_person']).at_least_once
+    org = Community.create!(:name => 'test org', :identifier => 'testorg', :environment => Environment.default)
+    org.contact_person = 'my contact'
+    org.save!
+    get :edit, :profile => 'testorg'
+    assert_tag :tag => 'input', :attributes => { :name => 'profile_data[contact_person]', :value => 'my contact' }
+  end
+
+  should 'show field values on edit enterprise info' do
+    Enterprise.any_instance.expects(:active_fields).returns(['contact_person']).at_least_once
+    org = Enterprise.create!(:name => 'test org', :identifier => 'testorg', :environment => Environment.default)
     org.contact_person = 'my contact'
     org.save!
     get :edit, :profile => 'testorg'
@@ -214,20 +226,27 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
   end
 
   should 'show error messages for invalid foundation_year' do
-    org = Organization.create!(:name => 'test org', :identifier => 'testorg')
+    org = Community.create!(:name => 'test org', :identifier => 'testorg', :environment => Environment.default)
     post :edit, :profile => 'testorg', :profile_data => { :foundation_year => 'aaa' }
     assert_tag :tag => 'div', :attributes => { :id => 'errorExplanation' }
   end
 
   should 'edit enterprise' do
-    ent = Enterprise.create!(:name => 'test org', :identifier => 'testent')
+    ent = Enterprise.create!(:name => 'test org', :identifier => 'testent', :environment => Environment.default)
     get :edit, :profile => 'testent'
     assert_response :success
   end
 
-  should 'back when update organization info fail' do
-    org = Organization.create!(:name => 'test org', :identifier => 'testorg', :contact_person => 'my contact')
-    Organization.any_instance.stubs(:update_attributes).returns(false)
+  should 'back when update community info fail' do
+    org = Community.create!(:name => 'test org', :identifier => 'testorg', :contact_person => 'my contact', :environment => Environment.default)
+    Community.any_instance.stubs(:update_attributes).returns(false)
+    post :edit, :profile => 'testorg'
+    assert_template 'edit'
+  end
+
+  should 'back when update enterprise info fail' do
+    org = Enterprise.create!(:name => 'test org', :identifier => 'testorg', :contact_person => 'my contact', :environment => Environment.default)
+    Enterprise.any_instance.stubs(:update_attributes).returns(false)
     post :edit, :profile => 'testorg'
     assert_template 'edit'
   end
@@ -259,9 +278,22 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
   end
 
   should 'render person partial' do
-    person = create_user('test_profile').person
+    person = create_user('test_profile', :environment => Environment.default).person
+    Person.any_instance.expects(:active_fields).returns(['contact_phone', 'birth_date', 'address']).at_least_once
     get :edit, :profile => person.identifier
-    assert_tag :tag => 'input', :attributes => { :name => 'profile_data[contact_phone]' }
+    person.active_fields.each do |field|
+      assert_tag :tag => 'input', :attributes => { :name => "profile_data[#{field}]" }
+    end
+  end
+
+  should 'display only active person fields' do
+    Person.any_instance.expects(:active_fields).returns(['cell_phone']).at_least_once
+    person = create_user('test_profile').person
+
+    get :edit, :profile => person.identifier
+
+    assert_tag :tag => 'input', :attributes => { :name => "profile_data[cell_phone]" }
+    assert_no_tag :tag => 'input', :attributes => { :name => "profile_data[comercial_phone]" }
   end
 
   should 'be able to upload an image' do
@@ -271,8 +303,16 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     assert_not_nil assigns(:profile).image
   end
 
+  should 'display closed attribute for enterprise when it is set' do
+    org = Enterprise.create!(:name => 'test org', :identifier => 'testorg', :contact_person => 'my contact', :closed => true, :environment => Environment.default)
+    get :edit, :profile => 'testorg'
+
+    assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[closed]', :value => 'true', :checked => 'checked' }
+    assert_no_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[closed]', :value => 'false', :checked =>  'checked' }
+  end
+
   should 'display closed attribute for organizations when it is set' do
-    org = Organization.create!(:name => 'test org', :identifier => 'testorg', :contact_person => 'my contact', :closed => true)
+    org = Organization.create!(:name => 'test org', :identifier => 'testorg', :contact_person => 'my contact', :closed => true, :environment => Environment.default)
     get :edit, :profile => 'testorg'
 
     assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[closed]', :value => 'true', :checked => 'checked' }
@@ -311,7 +351,7 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
 
   should 'display manage members options if has permission' do
     profile = Profile['ze']
-    community = Community.create!(:name => 'test org', :identifier => 'testorg', :contact_person => 'my contact')
+    community = Community.create!(:name => 'test org', :identifier => 'testorg', :contact_person => 'my contact', :environment => Environment.default)
     @controller.stubs(:user).returns(profile)
     @controller.stubs(:profile).returns(community)
     profile.stubs(:has_permission?).returns(true)
@@ -321,12 +361,30 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
 
   should 'not display manage members options if has no permission' do
     profile = Profile['ze']
-    community = Community.create!(:name => 'test org', :identifier => 'testorg', :contact_person => 'my contact')
+    community = Community.create!(:name => 'test org', :identifier => 'testorg', :contact_person => 'my contact', :environment => Environment.default)
     @controller.stubs(:user).returns(profile)
     @controller.stubs(:profile).returns(community)
     profile.stubs(:has_permission?).returns(false)
     get :index, :profile => 'testorg'
     assert_no_tag :tag => 'a', :content => 'Manage Members'
+  end
+
+  should 'render enterprise partial' do
+    ent = Enterprise.create(:name => 'test_profile', :identifier => 'testorg', :environment => Environment.default)
+    Enterprise.any_instance.expects(:active_fields).returns(['contact_phone', 'contact_person', 'contact_email']).at_least_once
+    get :edit, :profile => ent.identifier
+    ent.active_fields.each do |field|
+      assert_tag :tag => 'input', :attributes => { :name => "profile_data[#{field}]" }
+    end
+  end
+
+  should 'render community partial' do
+    community = Community.create(:name => 'test_profile', :identifier => 'testorg', :environment => Environment.default)
+    Community.any_instance.expects(:active_fields).returns(['contact_person', 'language']).at_least_once
+    get :edit, :profile => community.identifier
+    community.active_fields.each do |field|
+      assert_tag :tag => 'input', :attributes => { :name => "profile_data[#{field}]" }
+    end
   end
 
   should 'show task if user has permission' do
@@ -385,13 +443,13 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
   end
 
   should 'link to enable enterprise' do
-    ent = Enterprise.create!(:name => 'test org', :identifier => 'testent', :enabled => false)
+    ent = Enterprise.create!(:name => 'test org', :identifier => 'testent', :enabled => false, :environment => Environment.default)
     get :index, :profile => 'testent'
     assert_tag :tag => 'a', :attributes => { :href => '/myprofile/testent/profile_editor/enable' }
   end
   
   should 'link to disable enterprise' do
-    ent = Enterprise.create!(:name => 'test org', :identifier => 'testent', :enabled => true)
+    ent = Enterprise.create!(:name => 'test org', :identifier => 'testent', :enabled => true, :environment => Environment.default)
     get :index, :profile => 'testent'
     assert_tag :tag => 'a', :attributes => { :href => '/myprofile/testent/profile_editor/disable' }
   end
@@ -403,31 +461,31 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
   end
 
   should 'request enable enterprise confirmation' do
-    ent = Enterprise.create!(:name => 'test org', :identifier => 'testent', :enabled => false)
+    ent = Enterprise.create!(:name => 'test org', :identifier => 'testent', :enabled => false, :environment => Environment.default)
     get :enable, :profile => 'testent'
     assert_tag :tag => 'form', :attributes => { :action => '/myprofile/testent/profile_editor/enable', :method => 'post' }
   end
 
   should 'enable enterprise after confirmation' do
-    ent = Enterprise.create!(:name => 'test org', :identifier => 'testent', :enabled => false)
+    ent = Enterprise.create!(:name => 'test org', :identifier => 'testent', :enabled => false, :environment => Environment.default)
     post :enable, :profile => 'testent', :confirmation => 1
     assert assigns(:to_enable).enabled?
   end
 
   should 'not enable enterprise without confirmation' do
-    ent = Enterprise.create!(:name => 'test org', :identifier => 'testent', :enabled => false)
+    ent = Enterprise.create!(:name => 'test org', :identifier => 'testent', :enabled => false, :environment => Environment.default)
     post :enable, :profile => 'testent'
     assert !assigns(:to_enable).enabled?
   end
 
   should 'disable enterprise after confirmation' do
-    ent = Enterprise.create!(:name => 'test org', :identifier => 'testent', :enabled => true)
+    ent = Enterprise.create!(:name => 'test org', :identifier => 'testent', :enabled => true, :environment => Environment.default)
     post :disable, :profile => 'testent', :confirmation => 1
     assert !assigns(:to_disable).enabled?
   end
 
   should 'not disable enterprise without confirmation' do
-    ent = Enterprise.create!(:name => 'test org', :identifier => 'testent', :enabled => true)
+    ent = Enterprise.create!(:name => 'test org', :identifier => 'testent', :enabled => true, :environment => Environment.default)
     post :disable, :profile => 'testent'
     assert assigns(:to_disable).enabled?
   end

@@ -9,11 +9,15 @@
       <%= hidden_field_tag('parent_id', @category.parent.id) %>
       <%= hidden_field_tag('type', @category.parent.class.name) %>
     <% else %>
-      <%= select_category_type :type %>
+      <% if environment.category_types.length > 1 %>
+        <%= select_category_type :type %>
+      <% else %>
+        <%= hidden_field_tag('type', environment.category_types.to_s) %>
+      <% end%>
     <% end %>
   <% end %>
 
-  <%= select_color_for_category %>
+  <%= select_color_for_category if !environment.enabled?('disable_categories_menu') %>
 
   <%= required f.text_field('name') %>
 

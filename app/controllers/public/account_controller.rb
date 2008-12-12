@@ -14,6 +14,7 @@ class AccountController < ApplicationController
   # action to perform login to the application
   def login
     @user = User.new
+    @person = @user.build_person
     return unless request.post?
     self.current_user = User.authenticate(params[:user][:login], params[:user][:password]) if params[:user]
     if logged_in?
@@ -46,8 +47,10 @@ class AccountController < ApplicationController
       @user.terms_of_use = environment.terms_of_use
       @user.environment = environment
       @terms_of_use = environment.terms_of_use
+      @person = @user.build_person(params[:profile_data])
+      @person.environment = @user.environment
       if request.post? && params[self.icaptcha_field].blank?
-        @user.save!
+        @user.signup!
         self.current_user = @user
         owner_role = Role.find_by_name('owner')
         @user.person.affiliate(@user.person, [owner_role]) if owner_role
@@ -55,6 +58,7 @@ class AccountController < ApplicationController
         flash[:notice] = _("Thanks for signing up!")
       end
     rescue ActiveRecord::RecordInvalid
+      @person.valid?
       render :action => 'signup'
     end
   end

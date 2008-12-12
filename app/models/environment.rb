@@ -32,6 +32,8 @@ class Environment < ActiveRecord::Base
       'disable_categories' => _('Disable categories'),
       'disable_cms' => _('Disable CMS'),
       'disable_header_and_footer' => _('Disable header/footer editing by users'),
+      'disable_gender_icon' => _('Disable gender icon'),
+      'disable_categories_menu' => _('Disable the categories menu'),
     }
   end
 
@@ -229,6 +231,109 @@ class Environment < ActiveRecord::Base
     else
       self.settings[:terminology] = nil
     end
+  end
+
+  def custom_person_fields
+    self.settings[:custom_person_fields].nil? ? {} : self.settings[:custom_person_fields]
+  end
+
+  def custom_person_fields=(values)
+    if  values['schooling'] && values['schooling']['active'] == 'true'
+      schooling_status = values['schooling']
+    end
+    self.settings[:custom_person_fields] = values.delete_if { |key, value| ! Person.fields.include?(key)}
+    if schooling_status
+      self.settings[:custom_person_fields]['schooling_status'] = schooling_status
+    end
+  end
+
+  def custom_person_field(field, status)
+    if (custom_person_fields[field] && custom_person_fields[field][status] == 'true') 
+      return true
+    end
+    false
+  end
+
+  def active_person_fields
+    (custom_person_fields.delete_if { |key, value| !custom_person_field(key, 'active')}).keys || []
+  end
+
+  def required_person_fields
+    required_fields = []
+    active_person_fields.each do |field|
+      required_fields << field if custom_person_fields[field]['required'] == 'true'
+    end
+    required_fields
+  end
+
+  def signup_person_fields
+    signup_fields = []
+    active_person_fields.each do |field|
+      signup_fields << field if custom_person_fields[field]['signup'] == 'true'
+    end
+    signup_fields
+  end
+
+  def custom_enterprise_fields
+    self.settings[:custom_enterprise_fields].nil? ? {} : self.settings[:custom_enterprise_fields]
+  end
+
+  def custom_enterprise_fields=(values)
+    self.settings[:custom_enterprise_fields] = values.delete_if { |key, value| ! Enterprise.fields.include?(key)}
+  end
+
+  def custom_enterprise_field(field, status)
+    if (custom_enterprise_fields[field] && custom_enterprise_fields[field][status] == 'true') 
+      return true
+    end
+    false
+  end
+
+  def active_enterprise_fields
+     (custom_enterprise_fields.delete_if { |key, value| !custom_enterprise_field(key, 'active')}).keys || []
+  end
+
+  def required_enterprise_fields
+    required_fields = []
+    active_enterprise_fields.each do |field|
+      required_fields << field if custom_enterprise_fields[field]['required'] == 'true'
+    end
+    required_fields
+  end
+
+  def custom_community_fields
+    self.settings[:custom_community_fields].nil? ? {} : self.settings[:custom_community_fields]
+  end
+
+  def custom_community_fields=(values)
+    self.settings[:custom_community_fields] = values.delete_if { |key, value| ! Community.fields.include?(key)}
+  end
+
+  def custom_community_field(field, status)
+    if (custom_community_fields[field] && custom_community_fields[field][status] == 'true') 
+      return true
+    end
+    false
+  end
+
+  def active_community_fields
+    (custom_community_fields.delete_if { |key, value| !custom_community_field(key, 'active')}).keys
+  end
+
+  def required_community_fields
+    required_fields = []
+    active_community_fields.each do |field|
+      required_fields << field if custom_community_fields[field]['required'] == 'true'
+    end
+    required_fields
+  end
+
+  def category_types
+    self.settings[:category_types].nil? ? ['Category'] : self.settings[:category_types]
+  end
+
+  def category_types=(values)
+    self.settings[:category_types] = values
   end
 
   # Whether this environment should force having 'www.' in its domain name or

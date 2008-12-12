@@ -4,7 +4,7 @@ class PersonTest < Test::Unit::TestCase
   fixtures :profiles, :users, :environments
 
   def test_person_must_come_form_the_cration_of_an_user
-    p = Person.new(:name => 'John', :identifier => 'john')
+    p = Person.new(:environment => Environment.default, :name => 'John', :identifier => 'john')
     assert !p.valid?
     p.user =  create_user('john', :email => 'john@doe.org', :password => 'dhoe', :password_confirmation => 'dhoe')
     assert !p.valid?
@@ -59,21 +59,21 @@ class PersonTest < Test::Unit::TestCase
     p1 = u.person
     assert_equal u, p1.user
     
-    p2 = Person.new
+    p2 = Person.new(:environment => Environment.default)
     p2.user = u
     assert !p2.valid?
     assert p2.errors.invalid?(:user_id)
   end
 
   should "have person info fields" do
-    p = Person.new
+    p = Person.new(:environment => Environment.default)
     [ :name, :photo, :contact_information, :birth_date, :sex, :address, :city, :state, :country, :zip_code ].each do |i|
       assert_respond_to p, i
     end
   end
 
   should 'not have person_info class' do
-    p = Person.new
+    p = Person.new(:environment => Environment.default)
     assert_raise NoMethodError do
       p.person_info
     end
@@ -108,7 +108,7 @@ class PersonTest < Test::Unit::TestCase
   end
 
   should 'get no email address when there is no associated user' do
-    p = Person.new
+    p = Person.new(:environment => Environment.default)
     assert_nil p.email
   end
 
@@ -173,12 +173,12 @@ class PersonTest < Test::Unit::TestCase
   end
 
   should 'suggest default friend groups list' do
-    p = Person.new
+    p = Person.new(:environment => Environment.default)
     assert_equivalent [ 'friends', 'work', 'school', 'family' ], p.suggested_friend_groups
   end
 
   should 'suggest current groups as well' do
-    p = Person.new
+    p = Person.new(:environment => Environment.default)
     p.expects(:friend_groups).returns(['group1', 'group2'])
     assert_equivalent [ 'friends', 'work', 'school', 'family', 'group1', 'group2' ], p.suggested_friend_groups
   end
@@ -264,14 +264,14 @@ class PersonTest < Test::Unit::TestCase
   end
 
   should 'provide desired info fields' do 
-    p = Person.new
+    p = Person.new(:environment => Environment.default)
     assert p.respond_to?(:photo)
     assert p.respond_to?(:address)
     assert p.respond_to?(:contact_information)
   end
 
   should 'required name' do
-    person = Person.new
+    person = Person.new(:environment => Environment.default)
     assert !person.valid?
     assert person.errors.invalid?(:name)
   end
@@ -285,7 +285,7 @@ class PersonTest < Test::Unit::TestCase
 
   should 'have e-mail addresses' do
     env = Environment.create!(:name => 'sample env', :domains => [Domain.new(:name => 'somedomain.com')])
-    person = Person.new(:identifier => 'testuser')
+    person = Person.new(:environment => env, :identifier => 'testuser')
     person.expects(:environment).returns(env)
 
     assert_equal ['testuser@somedomain.com'], person.email_addresses
@@ -295,7 +295,7 @@ class PersonTest < Test::Unit::TestCase
     env = Environment.create!(:name => 'sample env', :domains => [Domain.new(:name => 'somedomain.com')])
     env.force_www = true
     env.save
-    person = Person.new(:identifier => 'testuser')
+    person = Person.new(:environment => env, :identifier => 'testuser')
     person.expects(:environment).returns(env)
 
     assert_equal ['testuser@somedomain.com'], person.email_addresses
@@ -385,6 +385,78 @@ class PersonTest < Test::Unit::TestCase
     p = create_user('user_lang_test').person
     assert p.update_attribute(:last_lang, 'pt_BR')
     assert_equal 'pt_BR', Person['user_lang_test'].last_lang
+  end
+
+  should 'return active_person_fields' do
+    e = Environment.default
+    e.expects(:active_person_fields).returns(['cell_phone', 'comercial_phone']).at_least_once
+    person = Person.new(:environment => e)
+
+    assert_equal e.active_person_fields, person.active_fields
+  end
+
+  should 'return required_person_fields' do
+    e = Environment.default
+    e.expects(:required_person_fields).returns(['cell_phone', 'comercial_phone']).at_least_once
+    person = Person.new(:environment => e)
+
+    assert_equal e.required_person_fields, person.required_fields
+  end
+
+  should 'require fields if person needs' do
+    e = Environment.default
+    e.expects(:required_person_fields).returns(['cell_phone']).at_least_once
+    person = Person.new(:environment => e)
+    assert ! person.valid?
+    assert person.errors.invalid?(:cell_phone)
+
+    person.cell_phone = '99999'
+    person.valid?
+    assert ! person.errors.invalid?(:cell_phone)
+  end
+
+  should 'require custom_area_of_study if area_of_study is others' do
+    e = Environment.default
+    e.expects(:required_person_fields).returns(['area_of_study', 'custom_area_of_study']).at_least_once
+  
+    person = Person.new(:environment => e, :area_of_study => 'Others')
+    assert !person.valid?
+    assert person.errors.invalid?(:custom_area_of_study)
+
+    person.custom_area_of_study = 'Customized area of study'
+    person.valid?
+    assert ! person.errors.invalid?(:custom_area_of_study)
+  end
+
+  should 'not require custom_area_of_study if area_of_study is not others' do
+    e = Environment.default
+    e.expects(:required_person_fields).returns(['area_of_study']).at_least_once
+
+    person = Person.new(:environment => e, :area_of_study => 'Agrometeorology')
+    person.valid?
+    assert ! person.errors.invalid?(:custom_area_of_study)
+  end
+
+  should 'require custom_formation if formation is others' do
+    e = Environment.default
+    e.expects(:required_person_fields).returns(['formation', 'custom_formation']).at_least_once
+
+    person = Person.new(:environment => e, :formation => 'Others')
+    assert !person.valid?
+    assert person.errors.invalid?(:custom_formation)
+
+    person.custom_formation = 'Customized formation'
+    person.valid?
+    assert ! person.errors.invalid?(:custom_formation)
+  end
+
+  should 'not require custom_formation if formation is not others' do
+    e = Environment.default
+    e.expects(:required_person_fields).returns(['formation']).at_least_once
+ 
+    person = Person.new(:environment => e, :formation => 'Agrometeorology')
+    assert !person.valid?
+    assert ! person.errors.invalid?(:custom_formation)
   end
 
 end

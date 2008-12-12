@@ -1,16 +1,64 @@
-<%= f.text_field(:nickname, :maxlength => 16, :size => 30) %>
-<div>
-  <small><em><%= _('A short name by which you like to be known. Will be used in friends listings, community member listings etc.') %></em></small>
-</div>
+<% @person ||= @profile %>
 
-<%= f.text_field(:name) %>
-<%= f.text_field(:contact_information) %>
-<%= f.text_field(:contact_phone) %>
-<%# use :size => 3 if you want 3 radios by line %>
-<%= f.radio_group :profile_data, :sex, [ ['male',_('Male')], ['female',_('Female')] ] %>
-<%= f.text_field(:birth_date) %>
-<%= labelled_form_field(_('Address (street and number)'), text_field(:profile_data, :address)) %>
-<%= labelled_form_field(_('ZIP code'), text_field(:profile_data, :zip_code)) %>
-<%= f.text_field(:city) %>
-<%= f.text_field(:state) %>
-<%= f.text_field(:country) %>
+<%= custom_field(@person, 'nickname', f.text_field(:nickname, :maxlength => 16, :size => 30)) %>
+
+<% nickname_tip = "<div><small><em>" + _('A short name by which you like to be known. Will be used in friends listings, community member listings etc.') + "</em></small></div>" %>
+<% if controller.action_name == 'signup' %>
+  <% if @person.signup_fields.include?('nickname') %>
+    <%= nickname_tip %>
+  <% end%>
+<% elsif @person.active_fields.include?('nickname') %>
+  <%= nickname_tip %>
+<% end %>
+
+<%= custom_field(@person, 'contact_information', f.text_field(:contact_information)) %>
+<%= custom_field(@person, 'contact_phone', labelled_form_field(_('Home phone'), text_field(:profile_data, :contact_phone))) %>
+<%= custom_field(@person, 'cell_phone', f.text_field(:cell_phone)) %>
+<%= custom_field(@person, 'comercial_phone', f.text_field(:comercial_phone)) %>
+<%= custom_field(@person, 'sex', f.radio_group(:profile_data, :sex, [ ['male',_('Male')], ['female',_('Female')] ])) %>
+<%= custom_field(@person, 'birth_date', f.text_field(:birth_date)) %>
+<%= custom_field(@person, 'address', labelled_form_field(_('Address (street and number)'), text_field(:profile_data, :address))) %>
+<%= custom_field(@person, 'zip_code', labelled_form_field(_('ZIP code'), text_field(:profile_data, :zip_code))) %>
+<%= custom_field(@person, 'city', f.text_field(:city)) %>
+<%= custom_field(@person, 'state', f.text_field(:state)) %>
+<%= custom_field(@person, 'country', select_country(_('Country'), 'profile_data', 'country', {:class => 'type-select'})) %>
+<%= custom_field(@person, 'nationality', f.text_field(:nationality)) %>
+
+<% if @person.active_fields.include?('schooling') %>
+  <% schooling_label = "<label class='formlabel' for='profile_data_schooling'>#{_('Schooling')}</label>" %>
+  <div class="formfieldline"><%= @person.required_fields.include?('schooling') ? required(schooling_label) : schooling_label %>
+      <div class="formfield type-select">
+        <%= custom_field(@person, 'schooling', select_schooling('profile_data', 'schooling', {:class => 'select-schooling'})) %>
+        <%= custom_field(@person, 'schooling_status', select_schooling_status('profile_data', 'schooling_status', {:class => 'select-schooling'})) %>
+      </div>
+  </div>
+<% end %>
+
+<script type='text/javascript'>
+  function toggle_text_field(id, span_id) {
+    if ($(id).value == "Others") {
+      $(span_id).show(); return false;
+    } else {
+      $(span_id).hide(); return false;
+    }
+  }
+</script>
+
+<%= custom_field(@person, 'formation', select_area(_('Formation'), 'profile_data', 'formation', {:class => 'type-select-full-line'})) %>
+
+<span id='profile_data_custom_formation_span' <%= "style='display:none'" if ! ['Others', nil].include?(@person.formation) %> >
+  <%= custom_field(@person, 'custom_formation', f.text_field(:custom_formation)) %>
+</span>
+<%= observe_field 'profile_data_formation', :function =>'toggle_text_field("profile_data_formation", "profile_data_custom_formation_span")' %>
+
+<%= custom_field(@person, 'area_of_study', select_area(_('Area of study'), 'profile_data', 'area_of_study', {:class => 'type-select-full-line'})) %>
+
+<span id='profile_data_custom_area_of_study_span' <%= "style='display:none'" if ! ['Others', nil].include?(@person.area_of_study) %> >
+  <%= custom_field(@person, 'custom_area_of_study', f.text_field(:custom_area_of_study)) %>
+</span>
+<%= observe_field 'profile_data_area_of_study', :function =>'toggle_text_field("profile_data_area_of_study", "profile_data_custom_area_of_study_span")' %>
+
+<%= custom_field(@person, 'professional_activity', f.text_field(:professional_activity)) %>
+<%= custom_field(@person, 'organization', f.text_field(:organization)) %>
+<%= custom_field(@person, 'organization_website', f.text_field(:organization_website)) %>
+

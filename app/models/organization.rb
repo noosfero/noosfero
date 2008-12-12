@@ -43,6 +43,29 @@ class Organization < Profile
     !self.validation_info.nil?
   end
 
+  FIELDS = %w[
+    nickname
+    contact_person
+    contact_phone
+    contact_email
+    legal_form
+    economic_activity
+    management_information
+    address
+  ]
+
+  def self.fields
+    FIELDS
+  end
+
+  def required_fields
+    []
+  end
+
+  def active_fields
+    []
+  end
+
   N_('Contact person'); N_('Contact email'); N_('Acronym'); N_('Foundation year'); N_('Legal form'); N_('Economic activity'); N_('Management information'); N_('Validated')
   settings_items :contact_person, :contact_email, :acronym, :foundation_year, :legal_form, :economic_activity, :management_information, :validated, :cnpj
 

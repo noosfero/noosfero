@@ -1,0 +1,46 @@
+<h2><%= _('Manage community fields') %></h2>
+
+<% labelled_form_for(:environment, @environment, :url => {:action => 'manage_community_fields'}) do |f| %>
+
+<table id='community_fields_conf'>
+  <tr>
+    <th><%= _('Field') %></th>
+    <th><%= _('Active') %></th>
+    <th><%= _('Required') %></th>
+  </tr>
+  <% @community_fields.each do |field| %>
+  <tr>
+    <td><label for="community_fields[<%= field %>][active]"><%= _(field.humanize) %></label></td>
+    <td>
+      <%= check_box_tag "community_fields[#{field}][active]", true, environment.custom_community_field(field, 'active'), :onclick => "$('community_fields[#{field}][required]').disabled=!this.checked" %>
+      <%= hidden_field_tag  "community_fields[#{field}][active]", false %>
+    </td>
+    <td>
+      <%= check_box_tag "community_fields[#{field}][required]", true, environment.custom_community_field(field, 'required') %>
+      <%= hidden_field_tag  "community_fields[#{field}][required]", false %>
+    </td>
+  </tr>
+  <% end %>
+</table>
+
+<script type='text/javascript'>
+  var trs = $$('#community_fields_conf tr');
+  var tr, td2;
+  for ( var i=0; tr=trs[i]; i++ ) {
+    if ( td2 = tr.getElementsByTagName('td')[1] ) {
+      td2.getElementsByTagName('input')[0].onclick();
+    }
+  }
+</script>
+
+<div>
+  <% button_bar do %>
+    <%= submit_button('save', _('Save changes')) %>
+  <% end %>
+</div>
+
+<% end %>
+
+
+
+

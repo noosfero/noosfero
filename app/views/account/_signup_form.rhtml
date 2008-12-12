@@ -1,4 +1,14 @@
-<%= error_messages_for :user %>
+<%= error_messages_for :user, :person %>
+
+<% if ! defined? hidden_atention || ! hidden_atention %>
+<p/>
+<div class="atention">
+<%= _('Dear user, welcome to the %s network. To start your participation
+in this space, fill in the fields below. After this operation, your login and
+password will be registered, allowing you to create communities and enterprises
+in this environment.') % environment.name %>
+</div>
+<% end %>
 
 <% labelled_form_for :user, @user,
    :html => { :help=>_('Fill all this fields to join in this environment. <p/> If you forgot your password, do not create a new account, click on the "<b>I forgot my password!</b>" link. ;-)'), :id => 'profile-data'
@@ -22,6 +32,10 @@
     :help => help=_('To confirm, repeat your password.')) %>
 <small><%= help %></small>
 
+<% labelled_fields_for :profile_data, @person do |f| %>
+  <%= render :partial => 'profile_editor/person_form', :locals => {:f => f} %>
+<% end %>
+
 <%= icaptcha_field() %>
 
 <% if @terms_of_use %>
@@ -39,16 +53,6 @@
   <%= hidden_field_tag :answer, params[:answer] %>
   <%= hidden_field_tag :terms_accepted, params[:terms_accepted] %>
   <%= hidden_field_tag :new_user, true %>
-<% end %>
-
-<% if ! defined? hidden_atention || ! hidden_atention %>
-<p/>
-<div class="atention">
-<%= _('Dear user, welcome to the %s network. To start your participation
-in this space, fill in the fields below. After this operation, your login and
-password will be registered, allowing you to create communities and enterprises
-in this environment.') % environment.name %>
-</div>
 <% end %>
 
 <% button_bar do %>

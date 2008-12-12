@@ -28,6 +28,13 @@ class User < ActiveRecord::Base
     user.person.name ||= user.login
     user.person.update_attributes(:identifier => user.login, :user_id => user.id, :environment_id => user.environment_id)
   end
+
+  def signup!
+    User.transaction do
+      self.save!
+      self.person.save!
+    end
+  end
   
   has_one :person, :dependent => :destroy
   belongs_to :environment
