@@ -37,3 +37,9 @@ div.event-info div.event-description {
   padding: 5px;
   background: white;
 }
+
+div#article-parent {
+  margin-bottom: 5px;
+  text-align: right;
+  font-style: italic;
+}
