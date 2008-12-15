@@ -51,12 +51,6 @@ class BlogTest < ActiveSupport::TestCase
     assert_equal 7, p.blog.feed.limit
   end
 
-  should 'includes only articles child of the same article on feed' do
-    p = create_user('testuser').person
-    b = Blog.create!(:profile => p, :name => 'blog_feed_test')
-    assert_equal 'parent_and_children', b.feed.include
-  end
-
   should 'save feed options after create blog' do
     p = create_user('testuser').person
     b = Blog.create!(:profile => p, :name => 'blog_feed_test', :feed => { :limit => 7 })
