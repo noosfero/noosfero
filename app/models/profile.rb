@@ -469,9 +469,9 @@ class Profile < ActiveRecord::Base
   def custom_footer
     footer = self[:custom_footer] || environment.custom_footer
     if footer
-      %w[contact_person contact_email contact_phone location address economic_activity].each do |att|
+      %w[contact_person contact_email contact_phone location address economic_activity city state country zip_code].each do |att|
         if self.respond_to?(att) && footer.match(/\{[^{]*#{att}\}/)
-          if !self.send(att).nil?
+          if !self.send(att).nil? && !self.send(att).blank?
             footer = footer.gsub(/\{([^{]*)#{att}\}/, '\1' + self.send(att))
           else
             footer = footer.gsub(/\{[^}]*#{att}\}/, '')

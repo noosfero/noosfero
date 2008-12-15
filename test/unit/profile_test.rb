@@ -791,6 +791,10 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal '',  Profile.new(:custom_footer => '{address}').custom_footer
   end
 
+  should 'replace variables on custom_footer when it is blank' do
+    assert_equal '',  Enterprise.new(:custom_footer => '{ZIP Code: zip_code}', :zip_code => '').custom_footer
+  end
+
   should 'replace variables in custom_footer when more than one' do
     assert_equal 'Phone: 9999999',  Profile.new(:custom_footer => '{Address: address}{Phone: contact_phone}', :contact_phone => '9999999').custom_footer
   end
