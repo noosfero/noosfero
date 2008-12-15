@@ -273,7 +273,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
 
     profile = Person.new
     profile.expects(:signup_fields).returns(['field'])
-    assert_equal 'SIGNUP_FIELD', custom_field(profile, 'field', 'SIGNUP_FIELD')
+    assert_equal 'SIGNUP_FIELD', optional_field(profile, 'field', 'SIGNUP_FIELD')
   end
 
   should 'not display field on signup' do
@@ -286,7 +286,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
 
     profile = Person.new
     profile.expects(:signup_fields).returns([])
-    assert_equal '', custom_field(profile, 'field', 'SIGNUP_FIELD')
+    assert_equal '', optional_field(profile, 'field', 'SIGNUP_FIELD')
   end
 
   should 'display active fields' do
@@ -299,7 +299,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
 
     profile = Person.new
     profile.expects(:active_fields).returns(['field'])
-    assert_equal 'SIGNUP_FIELD', custom_field(profile, 'field', 'SIGNUP_FIELD')
+    assert_equal 'SIGNUP_FIELD', optional_field(profile, 'field', 'SIGNUP_FIELD')
   end
 
   should 'not display active fields' do
@@ -312,7 +312,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
 
     profile = Person.new
     profile.expects(:active_fields).returns([])
-    assert_equal '', custom_field(profile, 'field', 'SIGNUP_FIELD')
+    assert_equal '', optional_field(profile, 'field', 'SIGNUP_FIELD')
   end
 
   should 'display required fields' do
@@ -327,7 +327,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
     profile = Person.new
     profile.expects(:active_fields).returns(['field'])
     profile.expects(:required_fields).returns(['field'])
-    assert_equal '<span>SIGNUP_FIELD</span>', custom_field(profile, 'field', 'SIGNUP_FIELD')
+    assert_equal '<span>SIGNUP_FIELD</span>', optional_field(profile, 'field', 'SIGNUP_FIELD')
   end
 
   protected
