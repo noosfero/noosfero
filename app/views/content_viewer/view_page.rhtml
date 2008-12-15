@@ -39,7 +39,7 @@
         <%= link_to content_tag( 'span', _('Delete') ),
             { :controller => 'cms', :action => 'destroy', :id => @page },
             :class => 'button with-text icon-delete' %>
-        <% if profile.kind_of?(Person) %>
+        <% if profile.kind_of?(Person) && !environment.enabled?('disable_cms') %>
           <%= link_to content_tag( 'span', _('Spread this') ),
               { :controller => 'cms', :action => 'publish', :id => @page },
               :class => 'button with-text icon-spread' %>
