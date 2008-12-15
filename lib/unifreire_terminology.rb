@@ -7,6 +7,7 @@ class UnifreireTerminology < Noosfero::Terminology::Custom
     # NOTE: the hash values must be marked for translation!! 
     super({
       'Enterprises' => N_('Institutions'),
+      'enterprises' => N_('institutions'),
       'The enterprises where this user works.' => N_('The institution where this user belongs.'),
       'A block that displays your enterprises' => N_('A block that displays your institutions.'),
       'All enterprises' => N_('All institutions'),
