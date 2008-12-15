@@ -1,11 +1,11 @@
-<%= custom_field(@profile, 'contact_phone', f.text_field(:contact_phone)) %>
-<%= custom_field(@profile, 'address', labelled_form_field(_('Address (street and number)'), text_field(:profile_data, :address))) %>
+<%= optional_field(@profile, 'contact_phone', f.text_field(:contact_phone)) %>
+<%= optional_field(@profile, 'address', labelled_form_field(_('Address (street and number)'), text_field(:profile_data, :address))) %>
 
-<%= custom_field(@profile, 'zip_code', labelled_form_field(_('ZIP code'), text_field(:profile_data, :zip_code))) %>
-<%= custom_field(@profile, 'city', f.text_field(:city)) %>
-<%= custom_field(@profile, 'state', f.text_field(:state)) %>
-<%= custom_field(@profile, 'country', select_country(_('Country'), 'profile_data', 'country', {:class => 'type-select'})) %>
-<%= custom_field(@profile, 'organization_website', f.text_field(:organization_website)) %>
-<%= custom_field(@profile, 'historic_and_current_context', f.text_area(:historic_and_current_context, :rows => 5)) %>
-<%= custom_field(@profile, 'activities_short_description', f.text_area(:activities_short_description, :rows => 5)) %>
-<%= custom_field(@profile, 'management_information', f.text_area(:management_information, :rows => 5)) %>
+<%= optional_field(@profile, 'zip_code', labelled_form_field(_('ZIP code'), text_field(:profile_data, :zip_code))) %>
+<%= optional_field(@profile, 'city', f.text_field(:city)) %>
+<%= optional_field(@profile, 'state', f.text_field(:state)) %>
+<%= optional_field(@profile, 'country', select_country(_('Country'), 'profile_data', 'country', {:class => 'type-select'})) %>
+<%= optional_field(@profile, 'organization_website', f.text_field(:organization_website)) %>
+<%= optional_field(@profile, 'historic_and_current_context', f.text_area(:historic_and_current_context, :rows => 5)) %>
+<%= optional_field(@profile, 'activities_short_description', f.text_area(:activities_short_description, :rows => 5)) %>
+<%= optional_field(@profile, 'management_information', f.text_area(:management_information, :rows => 5)) %>

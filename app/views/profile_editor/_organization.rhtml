@@ -12,10 +12,10 @@
   </div>
   <%= f.text_field(:acronym) %>
   <%= f.text_field(:foundation_year) %>
-  <%= custom_field(@profile, 'contact_person', f.text_field(:contact_person)) %>
-  <%= custom_field(@profile, 'contact_email', f.text_field(:contact_email)) %>
-  <%= custom_field(@profile, 'economic_activity', f.text_field(:economic_activity)) %>
-  <%= custom_field(@profile, 'description', f.text_area(:description, :rows => 5)) if @profile.community? %>
+  <%= optional_field(@profile, 'contact_person', f.text_field(:contact_person)) %>
+  <%= optional_field(@profile, 'contact_email', f.text_field(:contact_email)) %>
+  <%= optional_field(@profile, 'economic_activity', f.text_field(:economic_activity)) %>
+  <%= optional_field(@profile, 'description', f.text_area(:description, :rows => 5)) if @profile.community? %>
   <%= f.check_box(:enable_contact_us) if @profile.enterprise? %>
   
   <%= render :partial => 'community_fields', :locals => { :f => f } if @profile.community? %>

@@ -691,7 +691,7 @@ module ApplicationHelper
     form_for(name, object, { :builder => NoosferoFormBuilder }.merge(options), &proc)
   end
 
-  def custom_field(profile, name, field_html = nil, options = {}, &block)
+  def optional_field(profile, name, field_html = nil, options = {}, &block)
     result = ""
     if block
       field_html ||= ''
