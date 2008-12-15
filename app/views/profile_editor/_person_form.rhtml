@@ -1,5 +1,7 @@
 <% @person ||= @profile %>
 
+<%= required labelled_form_field(_('Full name'), text_field(:profile_data, :name)) %>
+
 <% custom_field(@person, 'nickname') do %>
   <%= f.text_field(:nickname, :maxlength => 16, :size => 30) %>
   <div>
