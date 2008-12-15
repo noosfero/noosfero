@@ -59,14 +59,20 @@ class RssFeed < Article
   end
 
   include ActionController::UrlWriter
-  def data
+  def fetch_articles
+    if parent && parent.blog?
+      return parent.posts.find(:all, :limit => self.limit, :order => 'id desc')
+    end
+
     articles =
       if (self.include == 'parent_and_children') && self.parent
         self.parent.map_traversal
       else
         profile.recent_documents(self.limit || 10)
       end
-
+  end
+  def data
+    articles = fetch_articles
 
     result = ""
     xml = Builder::XmlMarkup.new(:target => result)

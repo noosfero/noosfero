@@ -107,6 +107,20 @@ class RssFeedTest < Test::Unit::TestCase
     assert_no_match /<item><title>article 2<\/title>/, rss
   end
 
+  should 'list blog posts with more recent first and respecting limit' do
+    profile = create_user('testuser').person
+    blog = Blog.create(:name => 'blog', :profile => profile)
+    posts = []
+    6.times do |i|
+      posts << TextArticle.create!(:name => "post #{i}", :profile => profile, :parent => blog)
+    end
+    feed = blog.feed
+    feed.limit = 5
+    feed.save!
+
+    assert_equal [posts[5], posts[4], posts[3],  posts[2], posts[1]], feed.fetch_articles
+  end
+
   should 'provide link to profile' do
     profile = create_user('testuser').person
     feed = RssFeed.new(:name => 'testfeed')

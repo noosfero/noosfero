@@ -32,6 +32,12 @@ class BlogTest < ActiveSupport::TestCase
     assert_kind_of RssFeed, b.feed
   end
 
+  should 'include articles body in feed by default' do
+    p = create_user('testuser').person
+    b = Blog.create!(:profile => p, :name => 'blog_feed_test')
+    assert_equal 'body', b.feed.feed_item_description
+  end
+
   should 'get first blog from profile' do
     p = create_user('testuser').person
     b = Blog.create!(:profile => p, :name => 'blog_feed_test')

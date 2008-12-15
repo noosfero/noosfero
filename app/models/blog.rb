@@ -6,7 +6,7 @@ class Blog < Folder
   attr_accessor :filter
 
   after_create do |blog|
-    blog.children << RssFeed.new(:name => 'feed', :profile => blog.profile, :include => 'parent_and_children')
+    blog.children << RssFeed.new(:name => 'feed', :profile => blog.profile, :feed_item_description => 'body')
     blog.feed = blog.feed_attrs
   end
 

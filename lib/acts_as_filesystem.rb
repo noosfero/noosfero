@@ -166,7 +166,7 @@ module ActsAsFileSystem
         result += current_level
         ids = current_level.select {|item| item.children_count > 0}.map(&:id)
         break if ids.empty?
-        current_level = self.class.find(:all, :conditions => { :parent_id => ids})
+        current_level = self.class.base_class.find(:all, :conditions => { :parent_id => ids})
       end
       block ||= (lambda { |x| x })
       result.map(&block)
