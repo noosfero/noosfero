@@ -64,7 +64,7 @@ class ContactControllerTest < Test::Unit::TestCase
   should 'define city and state' do
     City.stubs(:find).returns(City.new(:name => 'Camaçari'))
     State.stubs(:find).returns(State.new(:name => 'Bahia'))
-    post :new, :profile => enterprise.identifier, :contact => {:name => 'john', :subject => 'Hi', :email => 'visitor@mail.invalid', :message => 'Hi, all', :state => 1, :city => 1}
+    post :new, :profile => enterprise.identifier, :contact => {:name => 'john', :subject => 'Hi', :email => 'visitor@mail.invalid', :message => 'Hi, all'}, :state => '1', :city => '1'
     assert_equal 'Camaçari', assigns(:contact).city
     assert_equal 'Bahia', assigns(:contact).state
   end
@@ -80,4 +80,12 @@ class ContactControllerTest < Test::Unit::TestCase
     assert_template 'new'
   end
 
+  should 'not throws exception when city and state is blank' do
+    State.expects(:exists?).with('').never
+    City.expects(:exists?).with('').never
+    assert_nothing_raised do
+      post :new, :profile => enterprise.identifier, :contact => {:name => 'john', :subject => 'Hi', :email => 'visitor@mail.invalid', :message => 'Hi, all', :state => '', :city => ''}
+    end
+  end
+  
 end

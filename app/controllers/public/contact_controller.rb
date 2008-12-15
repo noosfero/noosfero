@@ -7,8 +7,8 @@ class ContactController < PublicController
     if request.post?
       @contact = Contact.new(params[:contact])
       @contact.dest = profile
-      @contact.city = City.exists?(params[:city]) ? City.find(params[:city]).name : _('Missing')
-      @contact.state = State.exists?(params[:state]) ? State.find(params[:state]).name : _('Missing')
+      @contact.city = (!params[:city].blank? && City.exists?(params[:city])) ? City.find(params[:city]).name : _('Missing')
+      @contact.state = (!params[:state].blank? && State.exists?(params[:state])) ? State.find(params[:state]).name : _('Missing')
       if @contact.deliver
         flash[:notice] = _('Contact successfully sent')
         redirect_to :action => 'new'
