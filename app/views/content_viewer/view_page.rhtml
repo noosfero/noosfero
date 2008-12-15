@@ -35,7 +35,7 @@
       <%= link_to content_tag( 'span', label_for_edit_article(@page) ),
           { :controller => 'cms', :action => 'edit', :id => @page },
           :class => 'button with-text icon-edit' %>
-      <% if !profile.kind_of?(Enterprise) %>
+      <% if !(profile.kind_of?(Enterprise) && environment.enabled?('disable_cms')) %>
         <%= link_to content_tag( 'span', _('Delete') ),
             { :controller => 'cms', :action => 'destroy', :id => @page },
             :class => 'button with-text icon-delete' %>
