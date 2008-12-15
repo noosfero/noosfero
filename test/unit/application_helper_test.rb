@@ -263,6 +263,73 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_equal '', profile_sex_icon(Person.new(:sex => 'male'))
   end
 
+  should 'display field on signup' do
+    env = Environment.create!(:name => 'env test')
+    stubs(:environment).returns(env)
+
+    controller = mock
+    stubs(:controller).returns(controller)
+    controller.expects(:action_name).returns('signup')
+
+    profile = Person.new
+    profile.expects(:signup_fields).returns(['field'])
+    assert_equal 'SIGNUP_FIELD', custom_field(profile, 'field', 'SIGNUP_FIELD')
+  end
+
+  should 'not display field on signup' do
+    env = Environment.create!(:name => 'env test')
+    stubs(:environment).returns(env)
+
+    controller = mock
+    stubs(:controller).returns(controller)
+    controller.expects(:action_name).returns('signup')
+
+    profile = Person.new
+    profile.expects(:signup_fields).returns([])
+    assert_equal '', custom_field(profile, 'field', 'SIGNUP_FIELD')
+  end
+
+  should 'display active fields' do
+    env = Environment.create!(:name => 'env test')
+    stubs(:environment).returns(env)
+
+    controller = mock
+    stubs(:controller).returns(controller)
+    controller.expects(:action_name).returns('edit')
+
+    profile = Person.new
+    profile.expects(:active_fields).returns(['field'])
+    assert_equal 'SIGNUP_FIELD', custom_field(profile, 'field', 'SIGNUP_FIELD')
+  end
+
+  should 'not display active fields' do
+    env = Environment.create!(:name => 'env test')
+    stubs(:environment).returns(env)
+
+    controller = mock
+    stubs(:controller).returns(controller)
+    controller.expects(:action_name).returns('edit')
+
+    profile = Person.new
+    profile.expects(:active_fields).returns([])
+    assert_equal '', custom_field(profile, 'field', 'SIGNUP_FIELD')
+  end
+
+  should 'display required fields' do
+    env = Environment.create!(:name => 'env test')
+    stubs(:environment).returns(env)
+
+    controller = mock
+    stubs(:controller).returns(controller)
+    controller.expects(:action_name).returns('edit')
+
+    stubs(:required).with('SIGNUP_FIELD').returns('<span>SIGNUP_FIELD</span>')
+    profile = Person.new
+    profile.expects(:active_fields).returns(['field'])
+    profile.expects(:required_fields).returns(['field'])
+    assert_equal '<span>SIGNUP_FIELD</span>', custom_field(profile, 'field', 'SIGNUP_FIELD')
+  end
+
   protected
 
   def url_for(args = {})

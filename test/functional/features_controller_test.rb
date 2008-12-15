@@ -102,8 +102,6 @@ class FeaturesControllerTest < Test::Unit::TestCase
     assert_equal true, e.custom_person_fields['cell_phone']['required']
   end
 
-  should 'disable check_box for required if active is not checked' 
-
   should 'list possible enterprise fields' do
     uses_host 'anhetegua.net'
     Enterprise.expects(:fields).returns(['contact_person', 'contact_email']).at_least_once
