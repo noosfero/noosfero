@@ -29,4 +29,8 @@ class LocalizationBlockTest < Test::Unit::TestCase
     assert LocalizationBlock.new.editable?
   end
   
+  should 'default title be blank by default' do
+    assert_equal '', LocalizationBlock.new.title
+  end
+
 end

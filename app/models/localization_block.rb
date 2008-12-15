@@ -8,10 +8,6 @@ class LocalizationBlock < Block
     _('Shows where the profile is on the material world.')
   end
 
-  def default_title
-    _('Localization Map')
-  end
-
   def content
     profile = self.owner
     title = self.title
