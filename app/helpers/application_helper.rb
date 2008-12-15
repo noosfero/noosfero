@@ -691,8 +691,12 @@ module ApplicationHelper
     form_for(name, object, { :builder => NoosferoFormBuilder }.merge(options), &proc)
   end
 
-  def custom_field(profile, name, field_html, options = {})
+  def custom_field(profile, name, field_html = nil, options = {}, &block)
     result = ""
+    if block
+      field_html ||= ''
+      field_html += capture(&block)
+    end
     if (controller.action_name == 'signup')
       if profile.signup_fields.include?(name)
         result = field_html
@@ -705,6 +709,11 @@ module ApplicationHelper
     if profile.required_fields.include?(name)
       result = required(result)
     end
+
+    if block
+      concat(result, block.binding)
+    end
+
     result
   end
 

@@ -1,14 +1,10 @@
 <% @person ||= @profile %>
 
-<%= custom_field(@person, 'nickname', f.text_field(:nickname, :maxlength => 16, :size => 30)) %>
-
-<% nickname_tip = "<div><small><em>" + _('A short name by which you like to be known. Will be used in friends listings, community member listings etc.') + "</em></small></div>" %>
-<% if controller.action_name == 'signup' %>
-  <% if @person.signup_fields.include?('nickname') %>
-    <%= nickname_tip %>
-  <% end%>
-<% elsif @person.active_fields.include?('nickname') %>
-  <%= nickname_tip %>
+<% custom_field(@person, 'nickname') do %>
+  <%= f.text_field(:nickname, :maxlength => 16, :size => 30) %>
+  <div>
+    <small><%= _('A short name by which you like to be known. Will be used in friends listings, community member listings etc.') %></small>
+  </div>
 <% end %>
 
 <%= custom_field(@person, 'contact_information', f.text_field(:contact_information)) %>
@@ -24,13 +20,13 @@
 <%= custom_field(@person, 'country', select_country(_('Country'), 'profile_data', 'country', {:class => 'type-select'})) %>
 <%= custom_field(@person, 'nationality', f.text_field(:nationality)) %>
 
-<% if @person.active_fields.include?('schooling') %>
-  <% schooling_label = "<label class='formlabel' for='profile_data_schooling'>#{_('Schooling')}</label>" %>
-  <div class="formfieldline"><%= @person.required_fields.include?('schooling') ? required(schooling_label) : schooling_label %>
-      <div class="formfield type-select">
-        <%= custom_field(@person, 'schooling', select_schooling('profile_data', 'schooling', {:class => 'select-schooling'})) %>
-        <%= custom_field(@person, 'schooling_status', select_schooling_status('profile_data', 'schooling_status', {:class => 'select-schooling'})) %>
-      </div>
+<% custom_field(@person, 'schooling') do %>
+  <div class="formfieldline">
+    <label class='formlabel' for='profile_data_schooling'><%= _('Schooling') %></label>
+    <div class="formfield type-select">
+      <%= select_schooling('profile_data', 'schooling', {:class => 'select-schooling'}) %>
+      <%= select_schooling_status('profile_data', 'schooling_status', {:class => 'select-schooling'}) %>
+    </div>
   </div>
 <% end %>
 
