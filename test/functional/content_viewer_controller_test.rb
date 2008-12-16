@@ -596,6 +596,13 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'a', :content => 'Delete', :attributes => {:href => "/myprofile/#{profile.identifier}/cms/destroy/#{t.id}"}
   end
 
+  should 'not display delete button for homepage' do
+    login_as(profile.identifier)
+    page = profile.home_page
+    get :view_page, :profile => profile.identifier, :page => page.explode_path
+    assert_no_tag :tag => 'a', :content => 'Delete', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/destroy/#{page.id}" }
+  end
+
   should 'add meta tag to rss feed on view blog' do
     login_as(profile.identifier)
     a = Blog.create!(:name => 'article folder', :profile => profile)

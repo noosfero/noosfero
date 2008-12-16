@@ -36,9 +36,11 @@
           { :controller => 'cms', :action => 'edit', :id => @page },
           :class => 'button with-text icon-edit' %>
       <% if !(profile.kind_of?(Enterprise) && environment.enabled?('disable_cms')) %>
-        <%= link_to content_tag( 'span', _('Delete') ),
+        <% if @page != profile.home_page %>
+          <%= link_to content_tag( 'span', _('Delete') ),
             { :controller => 'cms', :action => 'destroy', :id => @page },
             :class => 'button with-text icon-delete' %>
+        <% end %>
         <% if profile.kind_of?(Person) && !environment.enabled?('disable_cms') %>
           <%= link_to content_tag( 'span', _('Spread this') ),
               { :controller => 'cms', :action => 'publish', :id => @page },
