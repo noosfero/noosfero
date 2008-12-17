@@ -28,6 +28,7 @@ class UnifreireTerminology < Noosfero::Terminology::Custom
       'Enterprises in "%s"' => N_('Institutions in "%s"'),
       'Register a new Enterprise' => N_('Register a new Institution'),
       'Events' => N_('Schedule'),
+      'Manage enterprise fields' => N_('Manage institutions fields'),
     })
   end
 

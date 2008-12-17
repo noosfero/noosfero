@@ -44,6 +44,11 @@ class Profile < ActiveRecord::Base
 
   acts_as_searchable :additional_fields => [ :extra_data_for_index ]
 
+  # FIXME ugly workaround
+  def self.human_attribute_name(attrib)
+      _(self.superclass.human_attribute_name(attrib))
+  end
+
   class_inheritable_accessor :extra_index_methods
   self.extra_index_methods = []
 
@@ -158,7 +163,7 @@ class Profile < ActiveRecord::Base
   end
 
   validates_presence_of :identifier, :name
-  validates_format_of :identifier, :with => IDENTIFIER_FORMAT
+  validates_format_of :identifier, :with => IDENTIFIER_FORMAT, :if => lambda { |profile| !profile.identifier.blank? }
   validates_exclusion_of :identifier, :in => RESERVED_IDENTIFIERS
   validates_uniqueness_of :identifier, :scope => :environment_id
 

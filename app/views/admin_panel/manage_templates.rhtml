@@ -22,12 +22,3 @@
   <% end %>
 
 <% end %>
-
-<h1><%= _('Edit Templates') %></h1>
-
-<ul>
-<% @templates.each do |template| %>
-  <li><%= link_to template.identifier, :controller => 'profile_editor', :profile => template.identifier %></li>
-<% end %>
-</ul>
-

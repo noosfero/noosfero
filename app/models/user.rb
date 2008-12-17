@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
     case attrib.to_sym
       when :login:  return _('Username')
       when :email:  return _('e-Mail')
-      else self.superclass.human_attribute_name(attrib)
+      else _(self.superclass.human_attribute_name(attrib))
     end
   end
 
@@ -43,16 +43,16 @@ class User < ActiveRecord::Base
   attr_accessor :password
 
   validates_presence_of     :login, :email
-  validates_format_of       :login, :with => Profile::IDENTIFIER_FORMAT
+  validates_format_of       :login, :with => Profile::IDENTIFIER_FORMAT, :if => (lambda {|user| !user.login.blank?})
   validates_presence_of     :password,                   :if => :password_required?
-  validates_presence_of     :password_confirmation,      :if => :password_required?
-  validates_length_of       :password, :within => 4..40, :if => :password_required?
+  validates_presence_of     :password_confirmation,      :if => :password_required?, :if => (lambda {|user| !user.password.blank?})
+  validates_length_of       :password, :within => 4..40, :if => :password_required?, :if => (lambda {|user| !user.password.blank?})
   validates_confirmation_of :password,                   :if => :password_required?
-  validates_length_of       :login,    :within => 2..40
-  validates_length_of       :email,    :within => 3..100
+  validates_length_of       :login,    :within => 2..40, :if => (lambda {|user| !user.login.blank?})
+  validates_length_of       :email,    :within => 3..100, :if => (lambda {|user| !user.email.blank?})
   validates_uniqueness_of   :login, :email, :case_sensitive => false
   before_save :encrypt_password
-  validates_format_of :email, :with => Noosfero::Constants::EMAIL_FORMAT
+  validates_format_of :email, :with => Noosfero::Constants::EMAIL_FORMAT, :if => (lambda {|user| !user.email.blank?})
 
   validates_inclusion_of :terms_accepted, :in => [ '1' ], :if => lambda { |u| ! u.terms_of_use.blank? }, :message => N_('%{fn} must be checked in order to signup.')
 
