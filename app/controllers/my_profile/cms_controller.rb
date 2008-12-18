@@ -22,7 +22,6 @@ class CmsController < MyProfileController
     articles = [
       TinyMceArticle,
       TextileArticle,
-      UploadedFile,
       Event
     ]
     parent_id = params ? params[:parent_id] : nil
@@ -39,7 +38,7 @@ class CmsController < MyProfileController
   end
 
   def special_article_types
-    [Blog]
+    [Blog, UploadedFile]
   end
 
   def view
@@ -195,7 +194,7 @@ class CmsController < MyProfileController
 
   def record_creating_from_public_view
     referer = request.referer
-    if (referer =~ Regexp.new("^#{(url_for(profile.url).sub('https:', 'https?:'))}"))
+    if (referer =~ Regexp.new("^#{(url_for(profile.url).sub('https:', 'https?:'))}")) || params[:back_to] == 'public_view'
       @back_to = 'public_view'
       @back_url = referer
     end

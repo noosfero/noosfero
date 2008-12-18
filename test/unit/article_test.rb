@@ -19,17 +19,29 @@ class ArticleTest < Test::Unit::TestCase
     assert !a.errors.invalid?(:profile_id)
   end
 
-  should 'require values for name, slug and path' do
+  should 'require value for name' do
     a = Article.new
     a.valid?
     assert a.errors.invalid?(:name)
-    assert a.errors.invalid?(:slug)
-    assert a.errors.invalid?(:path)
 
     a.name = 'my article'
     a.valid?
     assert !a.errors.invalid?(:name)
-    assert !a.errors.invalid?(:name)
+  end
+
+  should 'require value for slug and path if name is filled' do
+    a = Article.new(:name => 'test article')
+    a.slug = nil
+    a.path = nil
+    a.valid?
+    assert a.errors.invalid?(:slug)
+    assert a.errors.invalid?(:path)
+  end
+
+  should 'not require value for slug and path if name is blank' do
+    a = Article.new
+    a.valid?
+    assert !a.errors.invalid?(:slug)
     assert !a.errors.invalid?(:path)
   end
 

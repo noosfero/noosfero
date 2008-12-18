@@ -1,6 +1,9 @@
 <div id="profile-editor-index">
 
-<h1 class="block-title"><%= _("%s's profile: control panel") % profile.name %></h1>
+  <h1 class="block-title">
+    <div class='control-panel-title'><%= profile.name %></div>
+    <div class='control-panel-subtitle'><%= _('Control Panel') %></div>
+  </h1>
   
 <%= render :partial => 'pending_tasks' %>
 
@@ -8,7 +11,7 @@
 
 <% file_manager do %>
 
-  <%= file_manager_button(_('Profile settings'), 'icons-app/edit-profile.png', :controller => 'profile_editor', :action => 'edit') %>
+  <%= file_manager_button(_('Info and settings'), 'icons-app/edit-profile.png', :controller => 'profile_editor', :action => 'edit') %>
 
   <%= file_manager_button(_('Mail settings'), 'icons-app/mail.png', :controller => 'mailconf') if profile.person? && MailConf.enabled? %>
 

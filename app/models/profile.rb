@@ -454,7 +454,7 @@ class Profile < ActiveRecord::Base
   include ActionView::Helpers::TextHelper
   def short_name
     if self[:nickname].blank?
-      truncate self.identifier, 15, '...'
+      truncate self.name, 15, '...'
     else
       self[:nickname]
     end

@@ -2,7 +2,7 @@
 
 <%= render :file => 'shared/tiny_mce' %>
 
-<%= required f.text_field('name', :size => '64') %>
+<%= required labelled_form_field(_('Title'), text_field(:article, 'name', :size => '64')) %>
 
-<%= f.text_area('body', :cols => 40, :style => 'width:99%') %>
+<%= labelled_form_field(_('Text'), text_area(:article, 'body', :cols => 40, :style => 'width:99%')) %>
 

@@ -4,9 +4,10 @@ class Article < ActiveRecord::Base
   before_save :sanitize_tag_list
 
   belongs_to :profile
-  validates_presence_of :profile_id, :name, :slug, :path
+  validates_presence_of :profile_id, :name
+  validates_presence_of :slug, :path, :if => lambda { |article| !article.name.blank? }
 
-  validates_uniqueness_of :slug, :scope => ['profile_id', 'parent_id'], :message => _('%{fn} (the code generated from the article name) is already being used by another article.')
+  validates_uniqueness_of :slug, :scope => ['profile_id', 'parent_id'], :message => _('%{fn} (the code generated from the article name) is already being used by another article.'), :if => lambda { |article| !article.slug.blank? }
 
   belongs_to :last_changed_by, :class_name => 'Person', :foreign_key => 'last_changed_by_id'
 
@@ -14,6 +15,15 @@ class Article < ActiveRecord::Base
 
   has_many :article_categorizations, :conditions => [ 'articles_categories.virtual = ?', false ]
   has_many :categories, :through => :article_categorizations
+
+  def self.human_attribute_name(attrib)
+    case attrib.to_sym
+    when :name
+      _('Title')
+    else
+      _(self.superclass.human_attribute_name(attrib))
+    end
+  end
 
   def pending_categorizations
     @pending_categorizations ||= []

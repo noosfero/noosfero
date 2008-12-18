@@ -10,4 +10,10 @@
   </div>
 </div>
 
+<% if !user.nil? and user.has_permission?('edit_profile', profile) %>
+  <div style='text-align: center; font-size: 75%; clear: both'>
+    <%= link_to _('Control panel'), :controller => 'profile_editor' %>
+  </div>
+<% end %>
+
 </div><!-- end class="vcard" -->

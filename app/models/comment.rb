@@ -31,6 +31,10 @@ class Comment < ActiveRecord::Base
     author ? author.email : email
   end
 
+  def author_link
+    author ? author.url : email
+  end
+
   def url
     article.url.merge(:anchor => anchor)
   end
@@ -58,15 +62,18 @@ class Comment < ActiveRecord::Base
   class Notifier < ActionMailer::Base
     def mail(comment)
       profile = comment.article.profile
-      recipients profile.email
+      # FIXME hardcoded
+      email = profile.person? ? profile.email : profile.contact_email
+      return unless email
+      recipients email
+
       from "#{profile.environment.name} <#{profile.environment.contact_email}>"
-      subject _("%s - New comment in '%s'") % [profile.environment.name, comment.article.title]
-      headers['Reply-To'] = comment.author_email
-      body :name => comment.author_name,
-        :email => comment.author_email,
-        :title => comment.title,
-        :body => comment.body,
-        :article_url => comment.url,
+      subject _("[%s] you got a new comment!") % [profile.environment.name, comment.article.title]
+      body :recipient => profile.nickname || profile.name,
+        :sender => comment.author_name,
+        :sender_link => comment.author_link,
+        :article_title => comment.article.name,
+        :comment_url => comment.url,
         :environment => profile.environment.name,
         :url => profile.environment.top_url
     end

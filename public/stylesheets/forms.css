@@ -76,10 +76,11 @@
 
 /*** REQUIRED FIELDS ***/
 
-#content form .required-field label.formlabel {
+.required-field label {
   font-weight: bold;
+  color: #c00;
 }
 
-#content form .required-field label.formlabel:after {
+.required-field label:after {
   content: ' (*)';
 }

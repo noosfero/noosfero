@@ -544,6 +544,12 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_redirected_to @profile.articles.find_by_name('new-article-from-public-view').url
   end
 
+  should 'keep the back_to hint in unsuccessfull saves' do
+    post :new, :profile => 'testinguser', :type => 'TextileArticle', :back_to => 'public_view', :article => { }
+    assert_response :success
+    assert_tag :tag => "input", :attributes => { :type => 'hidden', :name => 'back_to', :value => 'public_view' }
+  end
+
   should 'create a private article child of private folder' do
     folder = Folder.new(:name => 'my intranet', :public_article => false); profile.articles << folder; folder.save!
     

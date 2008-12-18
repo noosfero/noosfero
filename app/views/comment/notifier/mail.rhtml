@@ -1,13 +1,9 @@
-<%= _('Name: %s') % @name %>
-<%= _('e-Mail: %s') % @email %>
-<%= _('Title: %s') % @title %>
-<%= _('Comment:') %>
---
+<%= _('Hi, %{recipient}!') % { :recipient => @recipient } %>
 
-<%= @body %>
+<%= word_wrap(_('%{sender} (%{sender_link}) created a new comment on your article "%{article_title}".') % { :sender => @sender, :sender_link => url_for(@sender_link), :article_title => @article_title }) %>
 
---
-<%= url_for @article_url %>
+<%= _('Access the address below to view this comment:') %>
+<%= url_for @comment_url %>
 
 --
 <%= _('%s environment system') % @environment %>

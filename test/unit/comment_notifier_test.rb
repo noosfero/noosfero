@@ -37,14 +37,6 @@ class CommentNotifierTest < Test::Unit::TestCase
     assert_match /user_comment_test/, sent.body
   end
 
-  should "add a Reply-To header set to the commenter e-mail" do
-    p = create_user('user_comment_test', :email => 'my@email.com').person
-    a = Article.create!(:name => 'Article test', :profile => p, :notify_comments => true)
-    a.comments << Comment.new(:author => p, :title => 'test comment', :body => 'you suck!')
-    sent = ActionMailer::Base.deliveries.first
-    assert_equal ['my@email.com'], sent.reply_to
-  end
-
   should 'display unauthenticated author name and email in delivered mail' do
     p = create_user('user_comment_test').person
     a = Article.create!(:name => 'Article test', :profile => p, :notify_comments => true)

@@ -39,9 +39,9 @@ in this environment.') % [environment.name, __('communities'), __('enterprises')
 <%= icaptcha_field() %>
 
 <% if @terms_of_use %>
-  <p>
+  <div style='height: 200px; overflow: auto;'>
     <%= @terms_of_use %>
-  </p>
+  </div>
   <p>
     <%= check_box 'user', 'terms_accepted' %> 
     <%= _('I accept the terms of use') %>

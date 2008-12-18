@@ -60,3 +60,10 @@
 .file-manager-button span {
   display: block;
 }
+
+.control-panel-title {
+}
+.control-panel-subtitle {
+  font-size: 80%;
+  font-style: italic;
+}

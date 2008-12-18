@@ -14,7 +14,7 @@
 
 <% button_bar do %>
   <%= button(:edit, _('View processed tasks'), :action => 'processed') %>
-  <%= button(:edit, _('View my requests'), :action => 'list_requested') %>
-  <%= button('menu-mail',  _('Send request'), :action => 'new') %>
+  <%# FiXME button(:edit, _('View my requests'), :action => 'list_requested') %>
+  <%# FIXME button('menu-mail',  _('Send request'), :action => 'new') %>
   <%= button(:back, _('Back to control panel'), :controller => 'profile_editor') %>
 <% end %>
