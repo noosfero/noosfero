@@ -30,11 +30,13 @@
       if ( act ) act.className = ( show ? "show" : "hidden" );
     }
   </script>
-  <% if logged_in?  && current_user.person.has_permission?('post_content', profile) %>
+  <% if logged_in? && current_user.person.has_permission?('post_content', profile) %>
     <div id="article-actions" class="hidden">
+      <% unless @page.blog? %>
       <%= link_to content_tag( 'span', label_for_edit_article(@page) ),
           { :controller => 'cms', :action => 'edit', :id => @page },
           :class => 'button with-text icon-edit' %>
+      <% end %>
       <% if !(profile.kind_of?(Enterprise) && environment.enabled?('disable_cms')) %>
         <% if @page != profile.home_page %>
           <%= link_to content_tag( 'span', _('Delete') ),

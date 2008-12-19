@@ -15,3 +15,5 @@
 <%= labelled_form_field(_('Use as description in RSS Feed:'), feed.select(:feed_item_description, [ [ _('Article abstract'), 'abstract'], [ _('Article body'), 'body']])) %>
 
 <% end %>
+
+<%= javascript_tag "$('back_to').value = 'control_panel'" %>

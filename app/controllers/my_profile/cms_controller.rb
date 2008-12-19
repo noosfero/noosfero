@@ -61,6 +61,9 @@ class CmsController < MyProfileController
     @article = profile.articles.find(params[:id])
     @parent_id = params[:parent_id]
     @type = params[:type]
+    if !@article.nil? && @article.blog? || !@type.nil? && @type == 'Blog'
+      @back_url = url_for(:controller => 'profile_editor', :profile => profile.identifier)
+    end
     record_coming_from_public_view
     if request.post?
       @article.last_changed_by = user
@@ -89,6 +92,10 @@ class CmsController < MyProfileController
       @parent_id = params[:parent_id]
       render :action => 'select_article_type', :layout => false
       return
+    else
+      if @type == 'Blog'
+        @back_url = url_for(:controller => 'profile_editor', :profile => profile.identifier)
+      end
     end
 
     raise "Invalid article type #{@type}" unless valid_article_type?(@type)
@@ -175,7 +182,9 @@ class CmsController < MyProfileController
   protected
 
   def redirect_back
-    if params[:back_to] == 'public_view'
+    if params[:back_to] == 'control_panel'
+      redirect_to :controller => 'profile_editor', :profile => @profile.identifier
+    elsif params[:back_to] == 'public_view'
       redirect_to @article.url
     elsif @article.parent
       redirect_to :action => 'view', :id => @article.parent

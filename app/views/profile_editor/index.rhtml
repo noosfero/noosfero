@@ -25,6 +25,12 @@
 
   <%= file_manager_button(_('Manage Content'), 'icons-app/cms.png', :controller => 'cms') unless environment.enabled?('disable_cms') || profile.community? %>
 
+  <% if profile.has_blog? %>
+    <%= file_manager_button(_('Config my blog'), 'icons-app/blog.png', :controller => 'cms', :action => 'edit', :id => profile.blog) %>
+  <% else %>
+    <%= file_manager_button(_('Create my blog'), 'icons-app/blog-disabled.png', :controller => 'cms', :action => 'new', :type => 'Blog') %>
+  <% end %>
+
   <%= file_manager_button(_('Change Password'), 'icons-app/change-password.png', :controller => 'account', :action => 'change_password') if profile.person? %>
 
   <%= file_manager_button(__('Manage friends'), 'icons-app/friends.png', :controller => 'friends', :action => 'index') if profile.person? %>

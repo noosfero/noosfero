@@ -758,4 +758,28 @@ class CmsControllerTest < Test::Unit::TestCase
     assert :tag => 'input', :attributes => {:name => 'article[notify_comments]', :value => 1}
   end
 
+  should 'back to control panel after create blog' do
+    assert_difference Blog, :count do
+      post :new, :type => Blog.name, :profile => profile.identifier, :article => { :name => 'my-blog' }, :back_to => 'control_panel'
+      assert_redirected_to :controller => 'profile_editor', :profile => profile.identifier
+    end
+  end
+
+  should 'back to control panel after config blog' do
+    profile.articles << Blog.new(:name => 'my-blog', :profile => profile)
+    post :edit, :profile => profile.identifier, :id => profile.blog.id, :back_to => 'control_panel'
+    assert_redirected_to :controller => 'profile_editor', :profile => profile.identifier
+  end
+
+  should 'back to control panel if cancel create blog' do
+    get :new, :profile => profile.identifier, :type => Blog.name
+    assert_tag :tag => 'a', :content => 'Cancel', :attributes => { :href => /\/myprofile\/#{profile.identifier}/ }
+  end
+
+  should 'back to control panel if cancel config blog' do
+    profile.articles << Blog.new(:name => 'my-blog', :profile => profile)
+    get :edit, :profile => profile.identifier, :id => profile.blog.id
+    assert_tag :tag => 'a', :content => 'Cancel', :attributes => { :href => /\/myprofile\/#{profile.identifier}/ }
+  end
+
 end

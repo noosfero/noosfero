@@ -622,4 +622,15 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'a', :attributes => { :href => '/myprofile/default_user/cms' }
   end
 
+  should 'offer to create blog in control panel' do
+    get :index, :profile => 'default_user'
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/default_user/cms/new?type=Blog" }
+  end
+
+  should 'offer to config blog in control panel' do
+    profile.articles << Blog.new(:name => 'My blog', :profile => profile)
+    get :index, :profile => 'default_user'
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/default_user/cms/edit/#{profile.blog.id}" }
+  end
+
 end
