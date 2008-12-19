@@ -9,7 +9,7 @@ class BoxesHelperTest < Test::Unit::TestCase
     holder = mock
     holder.stubs(:boxes).returns([])
     holder.stubs(:boxes_limit).returns(0)
-    holder.stubs(:custom_header).returns('my custom header')
+    holder.stubs(:custom_header_expanded).returns('my custom header')
 
     assert_tag_in_string display_boxes(holder, 'main content'), :tag => "div", :attributes => { :id => 'profile-header' }, :content => 'my custom header'
   end
@@ -18,7 +18,7 @@ class BoxesHelperTest < Test::Unit::TestCase
     holder = mock
     holder.stubs(:boxes).returns([])
     holder.stubs(:boxes_limit).returns(0)
-    holder.stubs(:custom_footer).returns('my custom footer')
+    holder.stubs(:custom_footer_expanded).returns('my custom footer')
 
     assert_tag_in_string display_boxes(holder, 'main content'), :tag => "div", :attributes => { :id => 'profile-footer' }, :content => 'my custom footer'
   end

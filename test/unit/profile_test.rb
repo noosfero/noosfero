@@ -768,7 +768,8 @@ class ProfileTest < Test::Unit::TestCase
   end
 
   should 'provide custom header with variables' do
-    assert_equal 'Custom header of Test',  Profile.new(:custom_header => 'Custom header of {name}', :name => 'Test').custom_header
+    assert_equal 'Custom header of {name}',  Profile.new(:custom_header => 'Custom header of {name}', :name => 'Test').custom_header
+    assert_equal 'Custom header of Test',  Profile.new(:custom_header => 'Custom header of {name}', :name => 'Test').custom_header_expanded
   end
 
   should 'provide custom footer' do
@@ -780,27 +781,33 @@ class ProfileTest < Test::Unit::TestCase
   end
 
   should 'replace variables on custom_footer' do
-    assert_equal 'Address for test',  Profile.new(:custom_footer => '{address}', :address => 'Address for test').custom_footer
+    assert_equal '{address}',  Profile.new(:custom_footer => '{address}', :address => 'Address for test').custom_footer
+    assert_equal 'Address for test',  Profile.new(:custom_footer => '{address}', :address => 'Address for test').custom_footer_expanded
   end
 
   should 'replace variables on custom_footer with title' do
-    assert_equal 'Address: Address for test',  Profile.new(:custom_footer => '{Address: address}', :address => 'Address for test').custom_footer
+    assert_equal '{Address: address}',  Profile.new(:custom_footer => '{Address: address}', :address => 'Address for test').custom_footer
+    assert_equal 'Address: Address for test',  Profile.new(:custom_footer => '{Address: address}', :address => 'Address for test').custom_footer_expanded
   end
 
   should 'replace variables on custom_footer when it is nil' do
-    assert_equal '',  Profile.new(:custom_footer => '{address}').custom_footer
+    assert_equal '{address}',  Profile.new(:custom_footer => '{address}').custom_footer
+    assert_equal '',  Profile.new(:custom_footer => '{address}').custom_footer_expanded
   end
 
   should 'replace variables on custom_footer when it is blank' do
-    assert_equal '',  Enterprise.new(:custom_footer => '{ZIP Code: zip_code}', :zip_code => '').custom_footer
+    assert_equal '{ZIP Code: zip_code}',  Enterprise.new(:custom_footer => '{ZIP Code: zip_code}', :zip_code => '').custom_footer
+    assert_equal '',  Enterprise.new(:custom_footer => '{ZIP Code: zip_code}', :zip_code => '').custom_footer_expanded
   end
 
   should 'replace variables in custom_footer when more than one' do
-    assert_equal 'Phone: 9999999',  Profile.new(:custom_footer => '{Address: address}{Phone: contact_phone}', :contact_phone => '9999999').custom_footer
+    assert_equal '{Address: address}{Phone: contact_phone}',  Profile.new(:custom_footer => '{Address: address}{Phone: contact_phone}', :contact_phone => '9999999').custom_footer
+    assert_equal 'Phone: 9999999',  Profile.new(:custom_footer => '{Address: address}{Phone: contact_phone}', :contact_phone => '9999999').custom_footer_expanded
   end
 
   should 'replace variables on custom_footer with title when it is nil' do
-    assert_equal '',  Profile.new(:custom_footer => '{Address: address}').custom_footer
+    assert_equal '{Address: address}',  Profile.new(:custom_footer => '{Address: address}').custom_footer
+    assert_equal '',  Profile.new(:custom_footer => '{Address: address}').custom_footer_expanded
   end
 
   should 'provide environment header if profile header is blank' do
@@ -991,7 +998,8 @@ class ProfileTest < Test::Unit::TestCase
     p.apply_template(template)
 
     assert_equal '{name}', p[:custom_header]
-    assert_equal 'test prof', p.custom_header
+    assert_equal '{name}', p.custom_header
+    assert_equal 'test prof', p.custom_header_expanded
   end
 
   should 'copy footer when applying template' do
@@ -1003,7 +1011,8 @@ class ProfileTest < Test::Unit::TestCase
     p.apply_template(template)
 
     assert_equal '{address}', p[:custom_footer]
-    assert_equal 'Profile address', p.custom_footer
+    assert_equal '{address}', p.custom_footer
+    assert_equal 'Profile address', p.custom_footer_expanded
   end
 
   should 'copy homepage when applying template' do

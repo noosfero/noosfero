@@ -23,9 +23,9 @@ module BoxesHelper
     content = boxes.reverse.map { |item| display_box(item, main_content) }.join("\n")
     content = main_content if (content.blank?)
 
-    maybe_display_custom_element(holder, :custom_header, :id => 'profile-header') +
+    maybe_display_custom_element(holder, :custom_header_expanded, :id => 'profile-header') +
     content_tag('div', content, :class => 'boxes', :id => 'boxes' ) +
-    maybe_display_custom_element(holder, :custom_footer, :id => 'profile-footer')
+    maybe_display_custom_element(holder, :custom_footer_expanded, :id => 'profile-footer')
   end
 
   def maybe_display_custom_element(holder, element, options = {})
