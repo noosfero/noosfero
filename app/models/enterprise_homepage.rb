@@ -14,8 +14,12 @@ class EnterpriseHomepage < Article
   include ActionController::UrlWriter
   include ActionView::Helpers::AssetTagHelper
   include EnterpriseHomepageHelper
+  include CatalogHelper
+
   def to_html
-    display_profile_info(self.profile) + content_tag('div', self.body || '')
+    products = self.profile.products
+    display_profile_info(self.profile) + content_tag('div', self.body || '') +
+    (self.profile.environment.enabled?('disable_products_for_enterprises') ? '' : display_products_list(self.profile, products))
   end
 
 end

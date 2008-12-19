@@ -22,5 +22,4 @@ module EnterpriseHomepageHelper
     end
     content_tag('div', content_tag('ul', data), :class => 'enterprise-info')
   end
-
 end

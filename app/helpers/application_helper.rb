@@ -22,6 +22,8 @@ module ApplicationHelper
 
   include ProfileEditorHelper
 
+  include DisplayHelper
+
   # Displays context help. You can pass the content of the help message as the
   # first parameter or using template code inside a block passed to this
   # method. *Note*: the block is ignored if <tt>content</tt> is not
@@ -259,19 +261,6 @@ module ApplicationHelper
 
   def button_bar(options = {}, &block)
     concat(content_tag('div', capture(&block) + tag('br', :style => 'clear: left;'), { :class => 'button-bar' }.merge(options)), block.binding)
-  end
-
-  def link_to_category(category, full = true)
-    return _('Uncategorized product') unless category
-    name = full ? category.full_name(' &rarr; ') : category.name
-    link_to name, :controller => 'search', :action => 'category_index', :category_path => category.path.split('/')
-  end
-
-  def link_to_product(product, opts={})
-    return _('No product') unless product
-    link_to content_tag( 'span', product.name ),
-            { :controller => 'catalog', :action => 'show', :id => product, :profile => product.enterprise.identifier },
-            opts
   end
 
   def partial_for_class(klass)
@@ -576,17 +565,6 @@ module ApplicationHelper
       else
         'black'
     end
-  end
-
-  def txt2html(txt)
-    txt.
-      gsub( /\n\s*\n/, ' <p/> ' ).
-      gsub( /\n/, ' <br/> ' ).
-      gsub( /(^|\s)(www\.[^\s])/, '\1http://\2' ).
-      gsub( /(https?:\/\/([^\s]+))/,
-            '<a href="\1" target="_blank" rel="nofolow" onclick="return confirm(\'' +
-            escape_javascript( _('Are you sure you want to visit this web site?') ) +
-            '\n\n\'+this.href)">\2</a>' )
   end
 
   # Should be on the forms_helper file but when its there the translation of labels doesn't work

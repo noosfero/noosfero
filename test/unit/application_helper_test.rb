@@ -62,9 +62,11 @@ class ApplicationHelperTest < Test::Unit::TestCase
     cat = mock
     cat.expects(:path).returns('my-category/my-subcatagory')
     cat.expects(:full_name).returns('category name')
+    cat.expects(:environment).returns(Environment.default)
+    Environment.any_instance.expects(:default_hostname).returns('example.com')
 
     result = "/cat/my-category/my-subcatagory"
-    expects(:link_to).with('category name', :controller => 'search', :action => 'category_index', :category_path => ['my-category', 'my-subcatagory']).returns(result)
+    expects(:link_to).with('category name', :controller => 'search', :action => 'category_index', :category_path => ['my-category', 'my-subcatagory'], :host => 'example.com').returns(result)
     assert_same result, link_to_category(cat)
   end
 

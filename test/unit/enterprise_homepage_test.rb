@@ -24,4 +24,33 @@ class EnterpriseHomepageTest < Test::Unit::TestCase
     assert_match /5555 5555/, result
   end
 
+  should 'display products list' do
+    ent = Enterprise.create!(:identifier => 'test_enterprise', :name => 'Test enteprise')
+    prod = ent.products.create!(:name => 'Product test')
+    a = EnterpriseHomepage.new(:name => 'article homepage')
+    ent.articles << a
+    result = a.to_html
+    assert_match /Product test/, result
+  end
+
+  should 'not display products list if environment do not let' do
+    e = Environment.default
+    e.enable('disable_products_for_enterprises')
+    e.save!
+    ent = Enterprise.create!(:identifier => 'test_enterprise', :name => 'Test enteprise', :environment => e)
+    prod = ent.products.create!(:name => 'Product test')
+    a = EnterpriseHomepage.new(:name => 'article homepage')
+    ent.articles << a
+    result = a.to_html
+    assert_no_match /Product test/, result
+  end
+
+  should 'display link to product' do
+    ent = Enterprise.create!(:identifier => 'test_enterprise', :name => 'Test enteprise')
+    prod = ent.products.create!(:name => 'Product test')
+    a = EnterpriseHomepage.new(:name => 'article homepage')
+    ent.articles << a
+    result = a.to_html
+    assert_match /catalog\/test_enterprise\/#{prod.id}/, result
+  end
 end
