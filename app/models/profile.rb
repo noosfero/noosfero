@@ -465,7 +465,7 @@ class Profile < ActiveRecord::Base
   end
 
   def custom_header_expanded
-    header = self[:custom_header] || environment.custom_header
+    header = custom_header
     if header
       if self.respond_to?(:name) && header.include?('{name}')
         header.gsub('{name}', self.name)
@@ -480,7 +480,7 @@ class Profile < ActiveRecord::Base
   end
 
   def custom_footer_expanded
-    footer = self[:custom_footer] || environment.custom_footer
+    footer = custom_footer
     if footer
       %w[contact_person contact_email contact_phone location address economic_activity city state country zip_code].each do |att|
         if self.respond_to?(att) && footer.match(/\{[^{]*#{att}\}/)
