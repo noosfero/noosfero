@@ -8,6 +8,10 @@ class EnterpriseHomepage < Article
     _('Display the summary of profile.')
   end
 
+  def name
+    profile.nil? ? _('Homepage') : profile.name
+  end
+
   # FIXME isn't this too much including just to be able to generate some HTML?
   include ActionView::Helpers::TagHelper
   include ActionView::Helpers::UrlHelper
