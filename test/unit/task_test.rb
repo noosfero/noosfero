@@ -127,7 +127,7 @@ class TaskTest < Test::Unit::TestCase
     assert_nil Task.find_by_code(task.code)
   end
 
-  should 'be able to find active tasks ' do
+  should 'be able to find active tasks' do
     task = Task.new
     task.requestor = sample_user
     task.save!
@@ -144,11 +144,11 @@ class TaskTest < Test::Unit::TestCase
     assert_equal 7, Task.create(:code_length => 7).code.size
   end
 
-  should 'not send notification to target when target_notification_message is nil (as in Task base class)' do
+  should 'throws exception when try to send target_notification_message in Task base class' do
     task = Task.new
-    TaskMailer.expects(:deliver_target_notification).never
-    task.save!
-    assert_nil task.target_notification_message
+    assert_raise NotImplementedError do
+      task.target_notification_message
+    end
   end
 
   should 'send notification to target just after task creation' do
@@ -191,6 +191,22 @@ class TaskTest < Test::Unit::TestCase
     end
   end
   
+  should 'not deliver notification message to target' do
+    task = Task.new
+    assert_raise NotImplementedError do
+      task.target_notification_message
+    end
+  end
+
+  should 'not send message when created, finished or cancelled' do
+    task = Task.new
+    %w[ created finished cancelled ].each do |action|
+      assert_raise NotImplementedError do
+        task.send("task_#{action}_message")
+      end
+    end
+  end
+
   protected
 
   def sample_user

@@ -17,18 +17,17 @@ class AddFriend < Task
     target.add_friend(requestor, group_for_friend)
   end
 
-  # Returns <tt>false</tt>. Adding friends by itself does not trigger e-mail
-  # sending.
-  def sends_email?
-    false
-  end
-
   def description
     _('%s wants to be your friend') % requestor.name
   end
 
   def permission
     :manage_friends
+  end
+
+  def target_notification_message
+    description + "\n\n" +
+    _('You need login to accept this.')
   end
 
 end

@@ -15,7 +15,7 @@ class TaskMailer < ActionMailer::Base
     recipients task.target.contact_email
 
     from self.class.generate_from(task)
-    subject task.description
+    subject _('%s - %s') % [task.requestor.environment.name, task.description]
     body :requestor => task.requestor.name,
       :target => task.target.name,
       :message => msg,

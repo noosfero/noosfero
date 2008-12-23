@@ -1,6 +1,8 @@
 class ApproveArticle < Task
   serialize :data, Hash
 
+  validates_presence_of :requestor_id, :target_id
+
   def description
     _('%s wants to publish %s') % [requestor.name, article.name]
   end
@@ -37,7 +39,9 @@ class ApproveArticle < Task
     PublishedArticle.create(:name => name, :profile => target, :reference_article => article)
   end
 
-  def sends_email?
-    true
+  def target_notification_message
+    description + "\n\n" +
+    _('You need login to accept this.')
   end
+
 end

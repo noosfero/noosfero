@@ -57,25 +57,18 @@ class AddFriendTest < ActiveSupport::TestCase
     ok('must validate when target is given') { task.errors.invalid?(:target_id)}
   end
 
-  should 'not send e-mails' do
-
+  should 'send e-mails' do
     p1 = create_user('testuser1').person
     p2 = create_user('testuser2').person
 
-    TaskMailer.expects(:deliver_task_finished).never
-    TaskMailer.expects(:deliver_task_created).never
+    TaskMailer.expects(:deliver_target_notification).at_least_once
 
     task = AddFriend.create!(:person => p1, :friend => p2)
-    task.finish
-
   end
 
   should 'provide proper description' do
     p1 = create_user('testuser1').person
     p2 = create_user('testuser2').person
-
-    TaskMailer.expects(:deliver_task_finished).never
-    TaskMailer.expects(:deliver_task_created).never
 
     task = AddFriend.create!(:person => p1, :friend => p2)
 
@@ -93,6 +86,15 @@ class AddFriendTest < ActiveSupport::TestCase
     AddFriend.create!(:person => p1, :friend => p2)
     assert_raise ActiveRecord::RecordInvalid do
       AddFriend.create!(:person => p1, :friend => p2)
+    end
+  end
+
+  should 'override target notification message method from Task' do
+    p1 = create_user('testuser1').person
+    p2 = create_user('testuser2').person
+    task = AddFriend.new(:person => p1, :friend => p2)
+    assert_nothing_raised NotImplementedError do
+      task.target_notification_message
     end
   end
 

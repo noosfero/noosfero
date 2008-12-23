@@ -19,17 +19,17 @@ class AddMember < Task
     target.affiliate(requestor, self.roles.map{|i| Role.find(i)})
   end
 
-  # FIXME should send email to community admin?
-  def sends_email?
-    false
-  end
-
   def description
     _('%s wants to be a member') % requestor.name
   end
 
   def permission
     :manage_memberships
+  end
+
+  def target_notification_message
+    description + "\n\n" +
+    _('You need login to accept this.')
   end
 
 end

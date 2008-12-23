@@ -161,10 +161,11 @@ class CreateEnterpriseTest < Test::Unit::TestCase
   end
 
   should 'override message methods from Task' do
-    generic = Task.new
     specific = CreateEnterprise.new
     %w[ task_created_message task_finished_message task_cancelled_message ].each do |method|
-      assert_not_equal generic.send(method), specific.send(method)
+      assert_nothing_raised NotImplementedError do
+        specific.send(method)
+      end
     end
   end
 

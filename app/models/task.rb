@@ -51,11 +51,17 @@ class Task < ActiveRecord::Base
   end
 
   after_create do |task|
-    task.send(:send_notification, :created)
+    begin
+      task.send(:send_notification, :created)
+    rescue NotImplementedError => ex
+      RAILS_DEFAULT_LOGGER.info ex.to_s
+    end
     
-    target_msg = task.target_notification_message
-    unless target_msg.nil?
+    begin
+      target_msg = task.target_notification_message
       TaskMailer.deliver_target_notification(task, target_msg)
+    rescue NotImplementedError => ex
+      RAILS_DEFAULT_LOGGER.info ex.to_s
     end
   end
 
@@ -68,7 +74,11 @@ class Task < ActiveRecord::Base
       self.end_date = Time.now
       self.save!
       self.perform
-      send_notification(:finished)
+      begin
+        send_notification(:finished)
+      rescue NotImplementedError => ex
+        RAILS_DEFAULT_LOGGER.info ex.to_s
+      end
     end
   end
 
@@ -79,7 +89,11 @@ class Task < ActiveRecord::Base
       self.status = Task::Status::CANCELLED
       self.end_date = Time.now
       self.save!
-      send_notification(:cancelled)
+      begin
+        send_notification(:cancelled)
+      rescue NotImplementedError => ex
+        RAILS_DEFAULT_LOGGER.info ex.to_s
+      end
     end
   end
 
@@ -95,20 +109,19 @@ class Task < ActiveRecord::Base
   # The message that will be sent to the requestor of the task when the task is
   # created.
   def task_created_message
-    # FIXME: use a date properly recorded.
-    _("The task was created at %s") % Time.now
+    raise NotImplementedError, "#{self} does not implement #task_created_message"
   end
 
   # The message that will be sent to the requestor of the task when its
   # finished.
   def task_finished_message
-    _("The task was finished at %s") % (self.end_date.to_s)
+    raise NotImplementedError, "#{self} does not implement #task_finished_message"
   end
 
   # The message that will be sent to the requestor of the task when its
   # cancelled.
   def task_cancelled_message
-    _("The task was cancelled at %s") % (self.end_date.to_s)
+    raise NotImplementedError, "#{self} does not implement #task_cancelled_message"
   end
 
   # The message that will be sent to the *target* of the task when it is
@@ -119,7 +132,7 @@ class Task < ActiveRecord::Base
   # not to be sent. If you want to send a notification to the target upon task
   # creation, override this method and return a String.
   def target_notification_message
-    nil
+    raise NotImplementedError, "#{self} does not implement #target_notification_message"
   end
 
   # What permission is required to perform task?

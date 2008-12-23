@@ -9,6 +9,7 @@ class AddMemberTest < ActiveSupport::TestCase
   should 'actually add memberships when confirmed' do
     p = create_user('testuser1').person
     c = Community.create!(:name => 'closed community', :closed => true)
+    TaskMailer.stubs(:deliver_target_notification)
     task = AddMember.create!(:person => p, :community => c)
     assert_difference c, :members, [p] do
       task.finish
@@ -38,23 +39,20 @@ class AddMemberTest < ActiveSupport::TestCase
     ok('must validate when target is given') { task.errors.invalid?(:target_id)}
   end
 
-  should 'not send e-mails' do
+  should 'send e-mails' do
     p = create_user('testuser1').person
     c = Community.create!(:name => 'closed community', :closed => true)
 
-    TaskMailer.expects(:deliver_task_finished).never
-    TaskMailer.expects(:deliver_task_created).never
+    TaskMailer.expects(:deliver_target_notification).at_least_once
 
     task = AddMember.create!(:person => p, :community => c)
-    task.finish
   end
 
   should 'provide proper description' do
     p = create_user('testuser1').person
     c = Community.create!(:name => 'closed community', :closed => true)
 
-    TaskMailer.expects(:deliver_task_finished).never
-    TaskMailer.expects(:deliver_task_created).never
+    TaskMailer.stubs(:deliver_target_notification)
 
     task = AddMember.create!(:person => p, :community => c)
 
@@ -74,6 +72,7 @@ class AddMemberTest < ActiveSupport::TestCase
   should 'have roles' do
     p = create_user('testuser1').person
     c = Community.create!(:name => 'community_test')
+    TaskMailer.stubs(:deliver_target_notification)
     task = AddMember.create!(:roles => [1,2,3], :person => p, :community => c)
     assert_equal [1,2,3], task.roles
   end
@@ -83,12 +82,22 @@ class AddMemberTest < ActiveSupport::TestCase
     c = Community.create!(:name => 'community_test')
 
     roles = [Profile::Roles.member, Profile::Roles.admin]
+    TaskMailer.stubs(:deliver_target_notification)
     task = AddMember.create!(:roles => roles.map(&:id), :person => p, :community => c)
     task.finish
 
     current_roles = p.find_roles(c).map(&:role)
     assert_includes current_roles, roles[0]
     assert_includes current_roles, roles[1]
+  end
+
+  should 'override target notification message method from Task' do
+    p1 = create_user('testuser1').person
+    p2 = create_user('testuser2').person
+    task = AddFriend.new(:person => p1, :friend => p2)
+    assert_nothing_raised NotImplementedError do
+      task.target_notification_message
+    end
   end
 
 end

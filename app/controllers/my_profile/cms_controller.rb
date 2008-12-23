@@ -159,7 +159,6 @@ class CmsController < MyProfileController
   end
 
   def publish
-
     @article = profile.articles.find(params[:id])
     record_coming_from_public_view
     @groups = profile.memberships - [profile]
