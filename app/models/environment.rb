@@ -238,7 +238,7 @@ class Environment < ActiveRecord::Base
   end
 
   def custom_person_fields=(values)
-    if  values['schooling'] && values['schooling']['active'] == 'true'
+    if values['schooling'] && values['schooling']['active'] == 'true'
       schooling_status = values['schooling']
     end
     self.settings[:custom_person_fields] = values.delete_if { |key, value| ! Person.fields.include?(key)}

@@ -1,0 +1,29 @@
+#!/usr/bin/env ruby
+require File.dirname(__FILE__) + '/../config/environment'
+include GetText
+ActionController::Base.init_gettext 'noosfero'
+set_locale_all 'pt_BR'
+
+env = Environment.default
+
+case $ARGV[0]
+when 'inactive-enterprise'
+  inactive_enterprises = Enterprise.find(:all, :conditions => {:enabled => false}) - [env.inactive_enterprise_template, env.enterprise_template]
+  apply_in = inactive_enterprises[$ARGV[1].to_i..$ARGV[2].to_i]
+  apply_in.each_with_index { |obj,i| obj.apply_template(env.inactive_enterprise_template); puts i.to_s + ' - ' + obj.identifier} unless apply_in.nil?
+when 'active-enterprise'
+  active_enterprises = Enterprise.find(:all, :conditions => {:enabled => true}) - [env.enterprise_template, env.enterprise_template]
+  active_enterprises.each { |enterprise| enterprise.apply_template(env.enterprise_template) }
+when 'community'
+  communities = Community.find(:all) - [Community['espaco'], Community['anarquismo']]
+  communities.each { |community|
+    community.apply_template(env.community_template)
+    blog = community.blog
+    community.articles.select{|i| !i.blog? or i != blog.feed}.each{ |article|
+      article.parent = blog
+      article.save!
+    }
+  }
+end
+
+

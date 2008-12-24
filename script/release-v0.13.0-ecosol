@@ -1,0 +1,131 @@
+#!/bin/sh
+
+export RAILS_ENV=production
+
+echo 'Creating Big images...'
+script/generate-profile-big-images
+
+echo 'Configurating templates...'
+script/runner 'env = Environment.default;
+  e = Enterprise.create!(:name => "Inactive enterprise template", :identifier => env.name.to_slug + "_inactive_enterprise_template", :environment => env, :public_profile => false);
+  env.inactive_enterprise_template = e;
+  env.add_templates = [env.community_template, env.person_template, env.enterprise_template, env.inactive_enterprise_template];
+  env.save!'
+
+echo 'Configurating template for active enterprises..'
+script/runner 'env = Environment.default
+  template = env.enterprise_template
+  template.custom_footer = "<div align=center>{address} {- zip_code}<br/>{city} {- state} {- country}<br/>{Tel: contact_phone} {e-Mail: contact_email}<br/></div>"
+  template.custom_header = "<div align=center><h1>{name}</h1><br/></div>"
+  template.articles.destroy_all
+  homepage = TinyMceArticle.create!(:name => "Início", :body => "Esta é a página inicial do seu empreendimento", :profile => template, :accept_comments => false)
+  template.home_page = homepage
+  TinyMceArticle.create!(:name => "Quem somos", :body => "Aqui você pode falar sobre o seu empreendimento.", :profile => template, :accept_comments => false)
+  TinyMceArticle.create!(:name => "Pontos de venda", :body => "Aqui você pode falar sobre os seus pontos de venda.", :profile => template, :accept_comments => false)
+  template.layout_template = "leftbar"
+  main = template.boxes[0]
+  left = template.boxes[1]
+  main.blocks.destroy_all
+  left.blocks.destroy_all
+  left.blocks << ProfileImageBlock.new
+  left.blocks << LinkListBlock.new(:links => [
+    {:name => "Início", :address => "/{profile}"},
+    {:name => "Quem somos", :address => "/{profile}/quem-somos"},
+    {:name => "Nossos produtos", :address => "/catalog/{profile}"},
+    {:name => "Pontos de venda", :address => "/{profile}/pontos-de-venda"},
+    {:name => "Fale conosco", :address => "/contact/{profile}/new"}
+  ])
+  left.blocks << LocalizationBlock.new
+  main.blocks << MainBlock.new
+  template.save!'
+
+echo 'Configurating template for inactive enterprises..'
+script/runner 'env = Environment.default
+  template = env.inactive_enterprise_template
+  template.articles.destroy_all
+  homepage = EnterpriseHomepage.create!(:name => "Início", :profile => template, :accept_comments => false)
+  template.home_page = homepage
+  template.layout_template = "leftbar"
+  main = template.boxes[0]
+  left = template.boxes[1]
+  main.blocks.destroy_all
+  left.blocks.destroy_all
+  left.blocks << [ProfileImageBlock.new, DisabledEnterpriseMessageBlock.new]
+  main.blocks << MainBlock.new
+  template.save!'
+
+echo 'Applying template for inactive enterprises (require bc calculator)...'
+start=0;
+for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21; do
+   end=`echo "$i * 1000" | bc`;
+   script/apply-template 'inactive-enterprise' $start $end;
+   start=$end;
+done
+
+echo 'Applying template for active enterprises...'
+script/apply-template 'active-enterprise'
+
+echo 'Enabling replace enterprise template when enable...'
+script/runner 'env = Environment.default;
+  env.replace_enterprise_template_when_enable = true;
+  env.save!;'
+
+echo 'ATENCAO: Copie o tema (via scp) empreendimento-solidario para public/designs/themes/'
+echo '         Nao esqueca de copiar o footer.rhtml do tema default'
+echo '         (e pressione ENTER para continuar)'
+read
+
+echo 'Applying empreendimento-solidario theme...'
+script/runner 'c = Enterprise.connection;
+   c.execute("UPDATE profiles SET theme = \"empreendimento-solidario\" WHERE type = \"Enterprise\"")'
+
+echo 'Configurating template for person...'
+script/runner 'env = Environment.default
+  template = env.person_template
+  main = template.boxes[0]
+  left = template.boxes[1]
+  right = template.boxes[2]
+  main.blocks.destroy_all unless main.nil?
+  left.blocks.destroy_all unless left.nil?
+  right.blocks.destroy_all unless right.nil?
+  left.blocks << [ProfileInfoBlock.new, RecentDocumentsBlock.new, BlogArchivesBlock.new]
+  right.blocks << [FriendsBlock.new, EnterprisesBlock.new, CommunitiesBlock.new]
+  main.blocks << MainBlock.new
+  template.articles.destroy_all
+  template.articles << Blog.new(:name => "Meu blog", :profile => template)
+  template.home_page = template.blog
+  template.save!'
+
+echo 'Configurating template for community...'
+script/runner 'env = Environment.default
+  template = env.community_template
+  main = template.boxes[0]
+  left = template.boxes[1]
+  right = template.boxes[2]
+  main.blocks.destroy_all unless main.nil?
+  left.blocks.destroy_all unless left.nil?
+  right.blocks.destroy_all unless right.nil?
+  left.blocks << [ProfileInfoBlock.new, RecentDocumentsBlock.new, BlogArchivesBlock.new]
+  right.blocks << MembersBlock.new
+  main.blocks << MainBlock.new
+  template.articles.destroy_all
+  template.articles << Blog.new(:name => "Meu blog", :profile => template)
+  template.home_page = template.blog
+  template.save!'
+
+echo 'Applying template for communities...'
+script/apply-template 'community'
+
+echo 'Schedule task-nitifier script...'
+echo 'ATENCAO: Agende o script task-notifier no crontab para executar mensalmente'
+echo '         Não esqueça de setar no environment.rb o ambiente para production'
+echo '         (pressione ENTER para continuar)'
+read
+
+echo 'Disabling CMS...'
+script/runner 'env = Environment.default
+  env.enable("disable_cms")
+  env.save!'
+
+echo 'Publishing theme empreendimento-solidario...'
+echo 'NOT IMPLEMENTED YET'
