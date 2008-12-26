@@ -141,6 +141,11 @@ class Person < Profile
     self.user.nil? ? nil : self.user.email
   end
 
+  # Returns the user e-mail.
+  def contact_email
+    email
+  end
+
   def email= (email)
     self.user.email = email if ! self.user.nil?
   end

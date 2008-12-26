@@ -4,7 +4,7 @@ class ApproveArticle < Task
   validates_presence_of :requestor_id, :target_id
 
   def description
-    _('%s wants to publish %s') % [requestor.name, article.name]
+    _('%{author} wants to publish "%{article}" on %{community}') % { :author => requestor.name, :article => article.title, :community => target.name }
   end
   
   def data
@@ -41,7 +41,7 @@ class ApproveArticle < Task
 
   def target_notification_message
     description + "\n\n" +
-    _('You need login to accept this.')
+    _('You need to login on %{system} in order to approve or reject this article. You can use the address below to do that.') % { :system => target.environment.name }
   end
 
 end

@@ -112,6 +112,12 @@ class PersonTest < Test::Unit::TestCase
     assert_nil p.email
   end
 
+  should 'use email addreess as contact email' do
+    p = Person.new
+    p.stubs(:email).returns('my@email.com')
+    assert_equal 'my@email.com', p.contact_email
+  end
+
   should 'set email through person instance' do
     u = create_user('testuser')
     p = u.person

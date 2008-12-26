@@ -1133,6 +1133,12 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal [p], c.admins
   end
 
+  should 'not implement contact_email' do
+    assert_raise NotImplementedError do
+      Profile.new.contact_email
+    end
+  end
+
   private
 
   def assert_invalid_identifier(id)

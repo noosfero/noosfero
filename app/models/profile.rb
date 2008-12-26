@@ -226,12 +226,11 @@ class Profile < ActiveRecord::Base
 
   xss_terminate :only => [ :name, :nickname, :address, :contact_phone ]
 
-  # returns the contact email for this profile. By default returns the the
-  # e-mail of the owner user.
+  # returns the contact email for this profile.
   #
   # Subclasses may -- and should -- override this method.
   def contact_email
-    self.user ? self.user.email : nil
+    raise NotImplementedError
   end
 
   # gets recent documents in this profile, ordered from the most recent to the
