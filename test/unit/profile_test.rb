@@ -1139,6 +1139,12 @@ class ProfileTest < Test::Unit::TestCase
     end
   end
 
+  should 'delegate to contact_email to retrieve notification e-mails' do
+    p = Profile.new
+    p.stubs(:contact_email).returns('my@email.com')
+    assert_equal ['my@email.com'], p.notification_emails
+  end
+
   private
 
   def assert_invalid_identifier(id)

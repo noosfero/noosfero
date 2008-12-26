@@ -23,7 +23,7 @@ class TaskMailerTest < Test::Unit::TestCase
     task.expects(:description).returns('the task')
 
     requestor = mock()
-    requestor.expects(:email).returns('requestor@example.com')
+    requestor.expects(:notification_emails).returns(['requestor@example.com'])
     requestor.expects(:name).returns('my name')
 
     environment = mock()
@@ -35,6 +35,7 @@ class TaskMailerTest < Test::Unit::TestCase
     requestor.expects(:environment).returns(environment).at_least_once
 
     TaskMailer.deliver_task_finished(task)
+    assert !ActionMailer::Base.deliveries.empty?
   end
 
   should 'be able to send a "task cancelled" message' do
@@ -44,7 +45,7 @@ class TaskMailerTest < Test::Unit::TestCase
     task.expects(:description).returns('the task')
 
     requestor = mock()
-    requestor.expects(:email).returns('requestor@example.com')
+    requestor.expects(:notification_emails).returns(['requestor@example.com'])
     requestor.expects(:name).returns('my name')
 
     environment = mock()
@@ -56,6 +57,7 @@ class TaskMailerTest < Test::Unit::TestCase
     requestor.expects(:environment).returns(environment).at_least_once
 
     TaskMailer.deliver_task_cancelled(task)
+    assert !ActionMailer::Base.deliveries.empty?
   end
 
   should 'be able to send a "task created" message' do
@@ -66,7 +68,7 @@ class TaskMailerTest < Test::Unit::TestCase
     task.expects(:description).returns('the task')
 
     requestor = mock()
-    requestor.expects(:email).returns('requestor@example.com')
+    requestor.expects(:notification_emails).returns(['requestor@example.com'])
     requestor.expects(:name).returns('my name')
 
     environment = mock()
@@ -78,6 +80,7 @@ class TaskMailerTest < Test::Unit::TestCase
     requestor.expects(:environment).returns(environment).at_least_once
 
     TaskMailer.deliver_task_created(task)
+    assert !ActionMailer::Base.deliveries.empty?
   end
 
   should 'be able to send a "target notification" message' do
@@ -88,7 +91,7 @@ class TaskMailerTest < Test::Unit::TestCase
     requestor.expects(:name).returns('my name')
 
     target = mock()
-    target.expects(:contact_email).returns('target@example.com')
+    target.expects(:notification_emails).returns(['target@example.com'])
     target.expects(:name).returns('Target')
 
     environment = mock()
@@ -101,6 +104,7 @@ class TaskMailerTest < Test::Unit::TestCase
     requestor.expects(:environment).returns(environment).at_least_once
 
     TaskMailer.deliver_target_notification(task, 'the message')
+    assert !ActionMailer::Base.deliveries.empty?
   end
 
   should 'use environment name and contact email' do

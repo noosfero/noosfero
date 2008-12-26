@@ -22,7 +22,7 @@ class Contact < ActiveRecord::Base #WithoutTable
 
   class Sender < ActionMailer::Base
     def mail(contact)
-      emails = [contact.dest.contact_email] + contact.dest.admins.map{|i| i.email}
+      emails = contact.dest.notification_emails
       recipients emails
       from "#{contact.name} <#{contact.email}>"
       if contact.receive_a_copy

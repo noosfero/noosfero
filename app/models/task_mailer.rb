@@ -12,7 +12,7 @@ class TaskMailer < ActionMailer::Base
   def target_notification(task, message)
     msg = extract_message(message)
 
-    recipients task.target.contact_email
+    recipients task.target.notification_emails
 
     from self.class.generate_from(task)
     subject '[%s] %s' % [task.requestor.environment.name, task.description]
@@ -37,7 +37,7 @@ class TaskMailer < ActionMailer::Base
 
     text = extract_message(message)
 
-    recipients task.requestor.email
+    recipients task.requestor.notification_emails
     from self.class.generate_from(task)
     subject '[%s] %s' % [task.requestor.environment.name, task.description]
     body :requestor => task.requestor.name,

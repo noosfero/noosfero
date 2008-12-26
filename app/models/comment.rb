@@ -62,8 +62,7 @@ class Comment < ActiveRecord::Base
   class Notifier < ActionMailer::Base
     def mail(comment)
       profile = comment.article.profile
-      # FIXME hardcoded
-      email = profile.person? ? profile.email : profile.contact_email
+      email = profile.notification_emails
       return unless email
       recipients email
 

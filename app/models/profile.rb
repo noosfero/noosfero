@@ -233,6 +233,12 @@ class Profile < ActiveRecord::Base
     raise NotImplementedError
   end
 
+  # This method must return a list of e-mail adresses to which notification messages must be sent.
+  # The implementation in this class just delegates to +contact_email+. Subclasse may override this method.
+  def notification_emails
+    [contact_email]
+  end
+
   # gets recent documents in this profile, ordered from the most recent to the
   # oldest.
   #

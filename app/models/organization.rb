@@ -90,4 +90,8 @@ class Organization < Profile
     ]
   end
 
+  def notification_emails
+    [contact_email].compact + admins.map(&:email)
+  end
+
 end
