@@ -3,7 +3,7 @@ class PendingTaskNotifier < ActionMailer::Base
   def notification(person)
     recipients person.email
     from "#{person.environment.name} <#{person.environment.contact_email}>"
-    subject _("%s - Pending tasks") % person.environment.name
+    subject _("[%s] Pending tasks") % person.environment.name
     body :person => person,
       :tasks => person.tasks.pending,
       :organizations_with_pending_tasks => person.organizations_with_pending_tasks,
