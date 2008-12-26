@@ -10,7 +10,7 @@ class AddMemberTest < ActiveSupport::TestCase
     p = create_user('testuser1').person
     c = Community.create!(:name => 'closed community', :closed => true)
     TaskMailer.stubs(:deliver_target_notification)
-    task = AddMember.create!(:person => p, :community => c)
+    task = AddMember.create!(:person => p, :organization => c)
     assert_difference c, :members, [p] do
       task.finish
       c.reload
@@ -45,7 +45,7 @@ class AddMemberTest < ActiveSupport::TestCase
 
     TaskMailer.expects(:deliver_target_notification).at_least_once
 
-    task = AddMember.create!(:person => p, :community => c)
+    task = AddMember.create!(:person => p, :organization => c)
   end
 
   should 'provide proper description' do
@@ -54,14 +54,9 @@ class AddMemberTest < ActiveSupport::TestCase
 
     TaskMailer.stubs(:deliver_target_notification)
 
-    task = AddMember.create!(:person => p, :community => c)
+    task = AddMember.create!(:person => p, :organization => c)
 
-    assert_equal 'testuser1 wants to be a member', task.description
-  end
-
-  should 'has community alias to target' do
-    t = AddMember.new
-    assert_same t.target, t.community
+    assert_equal 'testuser1 wants to be a member of "closed community".', task.description
   end
 
   should 'has permission to manage members' do
@@ -73,7 +68,7 @@ class AddMemberTest < ActiveSupport::TestCase
     p = create_user('testuser1').person
     c = Community.create!(:name => 'community_test')
     TaskMailer.stubs(:deliver_target_notification)
-    task = AddMember.create!(:roles => [1,2,3], :person => p, :community => c)
+    task = AddMember.create!(:roles => [1,2,3], :person => p, :organization => c)
     assert_equal [1,2,3], task.roles
   end
 
@@ -83,7 +78,7 @@ class AddMemberTest < ActiveSupport::TestCase
 
     roles = [Profile::Roles.member, Profile::Roles.admin]
     TaskMailer.stubs(:deliver_target_notification)
-    task = AddMember.create!(:roles => roles.map(&:id), :person => p, :community => c)
+    task = AddMember.create!(:roles => roles.map(&:id), :person => p, :organization => c)
     task.finish
 
     current_roles = p.find_roles(c).map(&:role)

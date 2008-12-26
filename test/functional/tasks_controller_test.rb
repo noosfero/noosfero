@@ -64,7 +64,7 @@ class TasksControllerTest < Test::Unit::TestCase
   end
 
   should 'affiliate roles to user after finish add member task' do
-    t = AddMember.create!(:person => profile, :community => profile)
+    t = AddMember.create!(:person => profile, :organization => profile)
     count = profile.members.size
     post :close, :decision => 'finish', :id => t.id
     profile = Profile.find(@profile.id)
@@ -72,7 +72,7 @@ class TasksControllerTest < Test::Unit::TestCase
   end
 
   should 'display custom form to add members task' do
-    t = AddMember.create!(:person => profile, :community => profile)
+    t = AddMember.create!(:person => profile, :organization => profile)
     get :index, :profile => profile.identifier
     assert_tag :tag => 'form', :attributes => { :action => "/myprofile/#{profile.identifier}/tasks/close/#{t.id}" }
   end
@@ -80,7 +80,7 @@ class TasksControllerTest < Test::Unit::TestCase
   should 'display member role checked if target has members' do
     profile.affiliate(profile, Profile::Roles.admin)
     assert_equal 1, profile.members.size
-    t = AddMember.create!(:person => profile, :community => profile)
+    t = AddMember.create!(:person => profile, :organization => profile)
     get :index, :profile => profile.identifier
     assert_tag :tag => 'input', :attributes => { :name => 'task[roles][]', :checked => 'checked', :value => Profile::Roles.member.id }
   end
@@ -88,7 +88,7 @@ class TasksControllerTest < Test::Unit::TestCase
   should 'display roles besides role member unchecked if target has members' do
     profile.affiliate(profile, Profile::Roles.admin)
     assert_equal 1, profile.members.size
-    t = AddMember.create!(:person => profile, :community => profile)
+    t = AddMember.create!(:person => profile, :organization => profile)
     get :index, :profile => profile.identifier
     Role.find(:all).select{ |r| r.has_kind?('Profile') and r.id != Profile::Roles.member.id }.each do |i|
       assert_no_tag :tag => 'input', :attributes => { :name => 'task[roles][]', :checked => 'checked', :value => i.id }
@@ -97,7 +97,7 @@ class TasksControllerTest < Test::Unit::TestCase
 
   should 'display all roles checked if target has no members' do
     assert_equal 0, profile.members.size
-    t = AddMember.create!(:person => profile, :community => profile)
+    t = AddMember.create!(:person => profile, :organization => profile)
     get :index, :profile => profile.identifier
     Role.find(:all).select{ |r| r.has_kind?('Profile') }.each do |i|
       assert_tag :tag => 'input', :attributes => { :name => 'task[roles][]', :checked => 'checked', :value => i.id }

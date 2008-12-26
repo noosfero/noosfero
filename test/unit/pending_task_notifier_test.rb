@@ -17,7 +17,7 @@ class PendingTaskNotifierTest < Test::Unit::TestCase
     env = Environment.default
     p = create_user('maelcum').person
     response = PendingTaskNotifier.deliver_notification(p)
-    assert_equal "#{env.name} - Pending tasks", response.subject
+    assert_equal "[#{env.name}] Pending tasks", response.subject
     assert_equal p.email, response.to[0]
   end
 
