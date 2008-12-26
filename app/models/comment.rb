@@ -68,7 +68,7 @@ class Comment < ActiveRecord::Base
       recipients email
 
       from "#{profile.environment.name} <#{profile.environment.contact_email}>"
-      subject _("[%s] you got a new comment!") % [profile.environment.name, comment.article.title]
+      subject _("[%s] you got a new comment!") % [profile.environment.name]
       body :recipient => profile.nickname || profile.name,
         :sender => comment.author_name,
         :sender_link => comment.author_link,
