@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.13.0\n"
 "POT-Creation-Date: 2008-12-15 15:00-0300\n"
-"PO-Revision-Date: 2008-12-15 15:09-0300\n"
+"PO-Revision-Date: 2008-12-26 15:26-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1076,7 +1076,7 @@ msgstr "Configurações de e-mail salvas com sucesso."
 
 #: app/controllers/my_profile/memberships_controller.rb:13
 msgid "%s administrator still needs to accept you as member."
-msgstr "%s administrador ainda precisa aceitar você como integrante."
+msgstr "O administrador de %s ainda precisa aceitar você como integrante."
 
 #: app/controllers/my_profile/memberships_controller.rb:42
 msgid "%s was destroyed!"
