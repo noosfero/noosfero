@@ -18,7 +18,7 @@ class AddFriend < Task
   end
 
   def description
-    _('%s wants to be your friend') % requestor.name
+    _('%s wants to be your friend.') % requestor.name
   end
 
   def permission
@@ -27,7 +27,7 @@ class AddFriend < Task
 
   def target_notification_message
     description + "\n\n" +
-    _('You need login to accept this.')
+    _('You need to login to %{system} in order to accept %{requestor} as your friend. You can use the address below to do that.') % { :system => target.environment.name, :requestor => requestor.name }
   end
 
 end
