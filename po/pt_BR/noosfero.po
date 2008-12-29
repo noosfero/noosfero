@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.13.0\n"
 "POT-Creation-Date: 2008-12-29 10:25-0300\n"
-"PO-Revision-Date: 2008-12-29 10:32-0300\n"
+"PO-Revision-Date: 2008-12-29 15:37-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -4847,7 +4847,7 @@ msgstr "Lista de produtos/serviços de %s"
 
 #: app/views/box_organizer/index.rhtml:1
 msgid "Editing sideboxes"
-msgstr "Editando blocos laterias"
+msgstr "Editando blocos laterais"
 
 #: app/views/box_organizer/index.rhtml:4
 msgid "Add a block"
