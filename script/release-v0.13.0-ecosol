@@ -75,8 +75,9 @@ echo '         (e pressione ENTER para continuar)'
 read INPUT
 
 echo 'Applying empreendimento-solidario theme...'
-script/runner 'c = Enterprise.connection;
-   c.execute("UPDATE profiles SET theme = \"empreendimento-solidario\" WHERE type = \"Enterprise\"")'
+script/runner "c = Enterprise.connection;
+   c.execute(\"UPDATE profiles SET theme = 'empreendimento-solidario' WHERE type = 'Enterprise'\")
+"
 
 echo 'Configurating template for person...'
 script/runner 'env = Environment.default
