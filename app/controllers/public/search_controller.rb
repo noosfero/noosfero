@@ -116,7 +116,7 @@ class SearchController < PublicController
   def limit
     searching = @searching.values.select{|v|v}
     if params[:display] == 'map'
-      1200
+      2000
     else
       (searching.size == 1) ? 20 : 6
     end
