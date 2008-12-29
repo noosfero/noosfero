@@ -92,7 +92,7 @@ script/runner 'env = Environment.default
   right.blocks << [FriendsBlock.new, EnterprisesBlock.new, CommunitiesBlock.new]
   main.blocks << MainBlock.new
   template.articles.destroy_all
-  template.articles << Blog.new(:name => "Meu blog", :profile => template)
+  template.articles << Blog.new(:name => "Blog", :profile => template)
   template.home_page = template.blog
   template.save!'
 
@@ -112,7 +112,7 @@ script/runner 'env = Environment.default
   right.blocks << MembersBlock.new
   main.blocks << MainBlock.new
   template.articles.destroy_all
-  template.articles << Blog.new(:name => "Meu blog", :profile => template)
+  template.articles << Blog.new(:name => "Blog", :profile => template)
   template.home_page = template.blog
   template.save!'
 

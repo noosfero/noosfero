@@ -69,7 +69,7 @@ when 'person'
     if person != template
       report_doing offset, person.identifier
       person.apply_template(template)
-      move_articles_to_blog(person)
+      # move_articles_to_blog(person) # does not make sense in most cases
       report_done
     end
     offset = offset + 1
