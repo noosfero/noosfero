@@ -1,12 +1,14 @@
 #!/bin/sh
 
 rm -f db/*.db
-find public/images/ -name \*big\* -delete
+find public/images/[0-9]* -name \*big\* -delete
 rake db:schema:load
 rake db:populate
 ruby script/anhetegua
 
 ./script/runner '
+  Enterprise["colivre"].home_page.update_attributes!(:body => "Content created by Colivre must not be lost")
+
   Enterprise.create!(:name => "Desabilitada", :identifier => "desabilitada", :enabled => false, :environment => Environment.default)
 '
 

@@ -6,6 +6,16 @@ set_locale_all 'pt_BR'
 
 env = Environment.default
 
+def move_articles_to_blog(profile)
+  profile.articles.each { |article|
+    puts 'including ' + article.path + ' in the blog'
+    if !article.blog? && !article.is_a?(RssFeed)
+      article.parent_id = profile.blog.id
+      article.save!
+    end
+  }
+end
+
 case $ARGV[0]
 when 'inactive-enterprise'
   offset = 0
@@ -25,28 +35,31 @@ when 'inactive-enterprise'
   end
 when 'active-enterprise'
   active_enterprises = Enterprise.find(:all, :conditions => {:enabled => true}) - [env.enterprise_template, env.enterprise_template]
-  active_enterprises.each { |enterprise| enterprise.apply_template(env.enterprise_template) }
+  active_enterprises.each do |enterprise|
+    old_home = enterprise.home_page
+    enterprise.apply_template(env.enterprise_template)
+    enterprise.home_page.update_attributes!(:body => old_home.body)
+    enterprise.save!
+  end
 when 'community'
-  communities = Community.find(:all) - [Community['espaco'], Community['anarquismo']]
-  communities.each { |community|
-    puts 'c: ' + community.identifier
-    community.apply_template(env.community_template)
-    community.reload
-    puts 'template applied'
-    community.articles.each { |article|
-      puts 'including ' + article.path + ' in the blog'
-      if !article.blog? && !article.is_a?(RssFeed)
-        article.parent_id = community.blog.id
-        article.save!
-      end
-    }
-  }
-when 'person'
+  excluded = ['espaco', 'anarquismo']
+  template = env.community_template
   offset = 0
+  while community = Community.find(:first, :order => :id, :offset => offset)
+    if community != template && !excluded.include?(community.identifier)
+      community.apply_template(template)
+      move_articles_to_blog(community)
+      puts "#{offset} - #{community.identifier}"
+    end
+    offset = offset + 1
+  end
+when 'person'
   template = env.person_template
+  offset = 0
   while person = Person.find(:first, :order => :id, :offset => offset)
     if person != template
       person.apply_template(template)
+      move_articles_to_blog(person)
       puts "#{offset} - #{person.identifier}"
     end
     offset = offset + 1
