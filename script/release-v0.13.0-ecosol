@@ -96,6 +96,9 @@ script/runner 'env = Environment.default
   template.home_page = template.blog
   template.save!'
 
+echo 'Applying template for person...'
+script/apply-template 'person'
+
 echo 'Configurating template for community...'
 script/runner 'env = Environment.default
   template = env.community_template

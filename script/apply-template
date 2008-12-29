@@ -12,7 +12,7 @@ when 'inactive-enterprise'
   excluded = [env.inactive_enterprise_template, env.enterprise_template]
   template = excluded.first
 
-  while enterprise = Enterprise.find(:first, :conditions => {:enabled => false}, :offset => offset)
+  while enterprise = Enterprise.find(:first, :conditions => {:enabled => false}, :order => :id, :offset => offset)
     # do nothing with templates
     next if excluded.include?(enterprise)
 
@@ -41,6 +41,14 @@ when 'community'
       end
     }
   }
+when 'person'
+  offset = 0
+  template = env.person_template
+  while person = Person.find(:first, :order => :id, :offset => offset)
+    if person != template
+      person.apply_template(template)
+      puts "#{offset} - #{person.identifier}"
+    end
+    offset = offset + 1
+  end
 end
-
-
