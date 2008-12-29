@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.13.0\n"
 "POT-Creation-Date: 2008-12-15 15:00-0300\n"
-"PO-Revision-Date: 2008-12-26 16:16-0300\n"
+"PO-Revision-Date: 2008-12-29 10:22-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2855,7 +2855,7 @@ msgstr "Voltar"
 
 #: app/views/contact/new.rhtml:1
 msgid "Contact %s"
-msgstr "Contato %s"
+msgstr "Contactar %s"
 
 #: app/views/contact/new.rhtml:15
 msgid "I want to receive a copy of the message in my e-mail."
