@@ -8,12 +8,20 @@ env = Environment.default
 
 def move_articles_to_blog(profile)
   profile.articles.each { |article|
-    puts 'including ' + article.path + ' in the blog'
-    if !article.blog? && !article.is_a?(RssFeed)
-      article.parent_id = profile.blog.id
+    if !article.blog? && !article.is_a?(RssFeed) && article.public_article
+      puts 'including ' + article.path + ' in the blog'
+      article.parent = profile.blog
       article.save!
     end
   }
+end
+
+def report_doing(n, text)
+  puts "#{n} - #{text} ..."
+end
+
+def report_done
+  puts "[done]"
 end
 
 case $ARGV[0]
@@ -47,9 +55,10 @@ when 'community'
   offset = 0
   while community = Community.find(:first, :order => :id, :offset => offset)
     if community != template && !excluded.include?(community.identifier)
+      report_doing offset, profile.name
       community.apply_template(template)
       move_articles_to_blog(community)
-      puts "#{offset} - #{community.identifier}"
+      report_done
     end
     offset = offset + 1
   end
@@ -58,9 +67,10 @@ when 'person'
   offset = 0
   while person = Person.find(:first, :order => :id, :offset => offset)
     if person != template
+      report_doing offset, person.identifier
       person.apply_template(template)
       move_articles_to_blog(person)
-      puts "#{offset} - #{person.identifier}"
+      report_done
     end
     offset = offset + 1
   end
