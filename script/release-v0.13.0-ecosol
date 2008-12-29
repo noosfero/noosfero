@@ -1,6 +1,10 @@
 #!/bin/sh
 
-export RAILS_ENV=production
+if [ -x $RAILS_ENV ]; then
+  export RAILS_ENV=production
+fi
+
+echo "Rails environment: $RAILS_ENV"
 
 echo 'Creating Big images...'
 script/generate-profile-big-images
@@ -73,7 +77,7 @@ script/runner 'env = Environment.default;
 echo 'ATENCAO: Copie o tema (via scp) empreendimento-solidario para public/designs/themes/'
 echo '         Nao esqueca de copiar o footer.rhtml do tema default'
 echo '         (e pressione ENTER para continuar)'
-read
+read INPUT
 
 echo 'Applying empreendimento-solidario theme...'
 script/runner 'c = Enterprise.connection;
@@ -120,7 +124,7 @@ echo 'Schedule task-nitifier script...'
 echo 'ATENCAO: Agende o script task-notifier no crontab para executar mensalmente'
 echo '         Não esqueça de setar no environment.rb o ambiente para production'
 echo '         (pressione ENTER para continuar)'
-read
+read INPUT
 
 echo 'Disabling CMS...'
 script/runner 'env = Environment.default

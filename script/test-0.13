@@ -1,0 +1,13 @@
+#!/bin/sh
+
+rm -f db/*.db
+find public/images/ -name \*big\* -delete
+rake db:schema:load
+rake db:populate
+ruby script/anhetegua
+
+./script/runner '
+  Enterprise.create!(:name => "Desabilitada", :identifier => "desabilitada", :enabled => false, :environment => Environment.default)
+'
+
+RAILS_ENV=development script/release-v0.13.0-ecosol

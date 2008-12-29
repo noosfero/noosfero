@@ -17,11 +17,16 @@ when 'active-enterprise'
 when 'community'
   communities = Community.find(:all) - [Community['espaco'], Community['anarquismo']]
   communities.each { |community|
+    puts 'c: ' + community.identifier
     community.apply_template(env.community_template)
-    blog = community.blog
-    community.articles.select{|i| !i.blog? or i != blog.feed}.each{ |article|
-      article.parent = blog
-      article.save!
+    community.reload
+    puts 'template applied'
+    community.articles.each { |article|
+      puts 'including ' + article.path + ' in the blog'
+      if !article.blog? && !article.is_a?(RssFeed)
+        article.parent_id = community.blog.id
+        article.save!
+      end
     }
   }
 end
