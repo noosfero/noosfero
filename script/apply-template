@@ -8,9 +8,21 @@ env = Environment.default
 
 case $ARGV[0]
 when 'inactive-enterprise'
-  inactive_enterprises = Enterprise.find(:all, :conditions => {:enabled => false}) - [env.inactive_enterprise_template, env.enterprise_template]
-  apply_in = inactive_enterprises[$ARGV[1].to_i..$ARGV[2].to_i]
-  apply_in.each_with_index { |obj,i| obj.apply_template(env.inactive_enterprise_template); puts i.to_s + ' - ' + obj.identifier} unless apply_in.nil?
+  offset = 0
+  excluded = [env.inactive_enterprise_template, env.enterprise_template]
+  template = excluded.first
+
+  while enterprise = Enterprise.find(:first, :conditions => {:enabled => false}, :offset => offset)
+    # do nothing with templates
+    next if excluded.include?(enterprise)
+
+    # do the thing
+    enterprise.apply_template(template)
+    puts "#{offset} - #{enterprise.identifier}"
+
+    # bring it on ...
+    offset = offset + 1
+  end
 when 'active-enterprise'
   active_enterprises = Enterprise.find(:all, :conditions => {:enabled => true}) - [env.enterprise_template, env.enterprise_template]
   active_enterprises.each { |enterprise| enterprise.apply_template(env.enterprise_template) }
