@@ -55,7 +55,7 @@ when 'community'
   offset = 0
   while community = Community.find(:first, :order => :id, :offset => offset)
     if community != template && !excluded.include?(community.identifier)
-      report_doing offset, profile.name
+      report_doing offset, community.name
       community.apply_template(template)
       move_articles_to_blog(community)
       report_done
