@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.13.0\n"
-"POT-Creation-Date: 2008-12-29 10:25-0300\n"
+"POT-Creation-Date: 2008-12-30 16:11-0300\n"
 "PO-Revision-Date: 2008-06-13 16:15-0300\n"
 "Last-Translator: Raphael Rousseau <pootle.colivre.coop.br@r4f.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1055,7 +1055,7 @@ msgstr "Fonctionnalités mises à jour avec succès."
 msgid "Could not update template"
 msgstr "Impossible de mettre à jour l'entreprise"
 
-#: app/controllers/my_profile_controller.rb:19
+#: app/controllers/my_profile_controller.rb:21
 msgid "This action is not available for \"%s\"."
 msgstr "Cette action n'est pas disponible pour «%s»."
 
@@ -1618,8 +1618,7 @@ msgstr ""
 
 #: app/models/approve_article.rb:44
 msgid ""
-"You need to login on %{system} in order to approve or reject this article. "
-"You can use the address below to do that."
+"You need to login on %{system} in order to approve or reject this article."
 msgstr ""
 
 #: app/models/comment.rb:-
@@ -2318,7 +2317,7 @@ msgstr "%s veut être votre ami"
 #: app/models/add_friend.rb:30
 msgid ""
 "You need to login to %{system} in order to accept %{requestor} as your "
-"friend. You can use the address below to do that."
+"friend."
 msgstr ""
 
 #: app/models/folder.rb:6
@@ -3944,6 +3943,13 @@ msgstr "Cher/chère %s,"
 #: app/views/task_mailer/target_notification.rhtml:1
 msgid "Hello %s,"
 msgstr ""
+
+#: app/views/task_mailer/target_notification.rhtml:5
+#, fuzzy
+msgid ""
+"Access the address below to see this and other pending actions that need "
+"your attention:"
+msgstr "Vous pouvez continuer à naviguer sur cette communauté."
 
 #: app/views/search/products.rhtml:1
 #, fuzzy
