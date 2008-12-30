@@ -4,6 +4,8 @@ class MyProfileController < ApplicationController
 
   require_ssl
 
+  before_filter :login_required
+
   # declares that the controller needs an specific type of profile. Example:
   #
   #  class PersonDetailControlles < ProfileAdminController
