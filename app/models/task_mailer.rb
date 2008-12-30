@@ -20,7 +20,8 @@ class TaskMailer < ActionMailer::Base
       :target => task.target.name,
       :message => msg,
       :environment => task.requestor.environment.name,
-      :url => url_for(:host => task.requestor.environment.default_hostname, :controller => 'home')
+      :url => url_for(:host => task.requestor.environment.default_hostname, :controller => 'home'),
+      :tasks_url => url_for(task.target.url.merge(:controller => 'tasks', :action => 'index'))
   end
 
   protected

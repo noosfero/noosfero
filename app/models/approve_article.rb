@@ -41,7 +41,7 @@ class ApproveArticle < Task
 
   def target_notification_message
     description + "\n\n" +
-    _('You need to login on %{system} in order to approve or reject this article. You can use the address below to do that.') % { :system => target.environment.name }
+    _('You need to login on %{system} in order to approve or reject this article.') % { :system => target.environment.name }
   end
 
 end
