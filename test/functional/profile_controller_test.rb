@@ -223,8 +223,18 @@ class ProfileControllerTest < Test::Unit::TestCase
   end
 
   should 'not display add friend button if user already request friendship' do
+    login_as(@profile.identifier)
     friend = create_user('friendtestuser').person
     AddFriend.create!(:person => @profile, :friend => friend)
+    get :index, :profile => friend.identifier
+    assert_no_tag :tag => 'a', :content => 'Add friend'
+  end
+
+  should 'not display add friend button if user already friend' do
+    login_as(@profile.identifier)
+    friend = create_user('friendtestuser').person
+    @profile.add_friend(friend)
+    assert @profile.is_a_friend?(friend)
     get :index, :profile => friend.identifier
     assert_no_tag :tag => 'a', :content => 'Add friend'
   end

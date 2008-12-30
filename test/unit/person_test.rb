@@ -465,4 +465,17 @@ class PersonTest < Test::Unit::TestCase
     assert ! person.errors.invalid?(:custom_formation)
   end
 
+  should 'identify when person is a friend' do
+    p1 = create_user('testuser1').person
+    p2 = create_user('testuser2').person
+    p1.add_friend(p2)
+    assert p1.is_a_friend?(p2)
+  end
+
+  should 'identify when person isnt a friend' do
+    p1 = create_user('testuser1').person
+    p2 = create_user('testuser2').person
+    assert !p1.is_a_friend?(p2)
+  end
+
 end

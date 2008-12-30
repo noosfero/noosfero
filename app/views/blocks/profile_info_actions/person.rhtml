@@ -1,6 +1,6 @@
 <ul>
   <%if logged_in? && (user != profile) %>
-    <% if !user.already_request_friendship?(profile) %>
+    <% if !user.already_request_friendship?(profile) and !user.is_a_friend?(profile) %>
       <li><%= link_to content_tag('span', __('Add friend')), { :profile => user.identifier, :controller => 'friends', :action => 'add', :id => profile.id }, :class => 'button with-text icon-add' %></li>
     <% end %>
   <% end %>

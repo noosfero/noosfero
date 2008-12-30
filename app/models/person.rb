@@ -215,4 +215,8 @@ class Person < Profile
     organization.tasks.pending.select{|task| self.has_permission?(task.permission, organization)}
   end
 
+  def is_a_friend?(person)
+    self.friends.include?(person)
+  end
+
 end
