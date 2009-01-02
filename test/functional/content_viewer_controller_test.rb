@@ -551,7 +551,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
   should 'extract year and month from path' do
     blog = Blog.create!(:name => 'A blog test', :profile => profile)
-    year, month = blog.created_at.year, blog.created_at.month
+    year, month = blog.created_at.year.to_s, '%02d' % blog.created_at.month
     get :view_page, :profile => profile.identifier, :page => [blog.path, year, month]
     assert_equal({ :year => year.to_s, :month => month.to_s }, assigns(:page).filter)
   end
