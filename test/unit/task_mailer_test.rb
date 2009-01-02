@@ -93,6 +93,7 @@ class TaskMailerTest < Test::Unit::TestCase
     target = mock()
     target.expects(:notification_emails).returns(['target@example.com'])
     target.expects(:name).returns('Target')
+    target.expects(:url).returns({:host => 'my.domain.com', :profile => 'testprofile'})
 
     environment = mock()
     environment.expects(:contact_email).returns('sender@example.com')
