@@ -128,16 +128,6 @@ class ApplicationController < ActionController::Base
       end
       RAILS_DEFAULT_LOGGER.info('Locale reverted from %s to %s' % [old_locale, locale])
     end
-
-    # now set the system locale
-    system_locale = '%s.utf8' % locale
-    begin
-      Locale.setlocale(Locale::LC_TIME, system_locale)
-    rescue Exception => e
-      # fallback to C
-      RAILS_DEFAULT_LOGGER.info("Locale #{system_locale} not available, falling back to the portable \"C\" locale (consider installing the #{system_locale} locale in your system)")
-      Locale.setlocale(Locale::LC_TIME, 'C')
-    end
   end
 
   def load_category

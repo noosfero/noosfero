@@ -88,7 +88,6 @@ Noosfero.locales = {
 }
 # if you want to override this, do it in config/local.rb !
 Noosfero.default_locale = 'en'
-require 'locale.so'
 
 Tag.hierarchical = true
 
