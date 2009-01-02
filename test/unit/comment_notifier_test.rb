@@ -16,7 +16,7 @@ class CommentNotifierTest < Test::Unit::TestCase
   should 'deliver mail after make aarticle commment' do
     p = create_user('user_comment_test').person
     a = Article.create!(:name => 'Article test', :profile => p, :notify_comments => true)
-    assert_difference ActionMailer::Base.deliveries, :count do
+    assert_difference ActionMailer::Base.deliveries, :size do
       a.comments << Comment.new(:author => p, :title => 'test comment', :body => 'you suck!')
     end
   end
@@ -49,7 +49,7 @@ class CommentNotifierTest < Test::Unit::TestCase
   should 'not deliver mail if notify comments is false' do
     p = create_user('user_comment_test').person
     a = Article.create!(:name => 'Article test', :profile => p, :notify_comments => false)
-    assert_no_difference ActionMailer::Base.deliveries, :count do
+    assert_no_difference ActionMailer::Base.deliveries, :size do
       a.comments << Comment.new(:author => p, :title => 'test comment', :body => 'you suck!')
     end
   end
