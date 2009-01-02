@@ -34,6 +34,7 @@ class MyProfileControllerTest < Test::Unit::TestCase
   def test_should_allow_person
     @controller = OnlyForPersonTestController.new
     person = create_user('random_joe')
+    login_as('random_joe')
 
     get :index, :profile => 'random_joe'
     assert_response :success
@@ -42,6 +43,8 @@ class MyProfileControllerTest < Test::Unit::TestCase
   def test_should_not_allow_bare_profile
     @controller = OnlyForPersonTestController.new
     org = Organization.create!(:identifier => 'hacking_institute', :name => 'Hacking Institute')
+    create_user('random_joe')
+    login_as('random_joe')
 
     get :index, :profile => 'hacking_institute'
     assert_response 403 # forbidden

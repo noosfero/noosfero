@@ -24,6 +24,7 @@ class MailconfControllerTest < Test::Unit::TestCase
 
   should 'not be used by organizations' do
     org = Organization.create!(:name => 'testorg', :identifier => 'testorg')
+    login_as('ze')
     get :index, :profile => 'testorg'
     assert_response 403
   end
