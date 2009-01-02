@@ -250,7 +250,7 @@ ActiveRecord::Schema.define(:version => 57) do
 
   create_table "roles", :force => true do |t|
     t.string  "name"
-    t.text    "permissions", :limit => 255
+    t.text    "permissions"
     t.string  "key"
     t.boolean "system",                     :default => false
   end
