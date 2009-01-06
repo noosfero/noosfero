@@ -214,6 +214,22 @@ class EnterpriseTest < Test::Unit::TestCase
     end
   end
 
+  should 'be able to enable even if there are mandatory fields blank' do
+    # enterprise is created, waiting for being enabled
+    environment = Environment.create!(:name => 'my test environment')
+    enterprise = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :enabled => false, :environment => environment)
+
+    # administrator decides now that the 'city' field is mandatory
+    environment.custom_enterprise_fields = { 'city' => { 'active' => 'true', 'required' => 'true' } }
+    environment.save!
+    assert_equal ['city'], environment.required_enterprise_fields
+
+    # then we try to enable the enterprise with a required field is blank
+    enterprise = Enterprise.find(enterprise.id)
+    person = profiles(:ze)
+    assert enterprise.enable(person)
+  end
+
   should 'list product categories full name' do
     full_name = mock
     ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent')

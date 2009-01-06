@@ -221,7 +221,14 @@ class Profile < ActiveRecord::Base
   def apply_template(template)
     copy_blocks_from(template)
     copy_articles_from(template)
-    self.update_attributes!(:layout_template => template.layout_template, :custom_footer => template[:custom_footer], :custom_header => template[:custom_header])
+
+    # copy interesting attributes
+    self.layout_template = template.layout_template
+    self.custom_footer = template[:custom_footer]
+    self.custom_header = template[:custom_header]
+
+    # flush
+    self.save_without_validation!
   end
 
   xss_terminate :only => [ :name, :nickname, :address, :contact_phone ]

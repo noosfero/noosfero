@@ -1036,6 +1036,23 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal 'Profile address', p.custom_footer_expanded
   end
 
+  should 'ignore failing validation when applying template' do
+    template = Profile.create!(:name => 'test template', :identifier => 'test_template', :address => 'Template address', :layout_template => 'leftbar', :custom_footer => 'my custom footer', :custom_header => 'my custom header')
+    template.save!
+
+    p = Profile.create!(:name => 'test prof', :identifier => 'test_prof', :address => 'Profile address')
+    def p.validate
+      self.errors.add('identifier', 'is invalid')
+    end
+
+    p.apply_template(template)
+
+    p.reload
+    assert_equal 'leftbar', p.layout_template
+    assert_equal 'my custom footer', p.custom_footer
+    assert_equal 'my custom header', p.custom_header
+  end
+
   should 'copy homepage when applying template' do
     template = Profile.create!(:name => 'test template', :identifier => 'test_template', :address => 'Template address')
     template.articles.destroy_all
