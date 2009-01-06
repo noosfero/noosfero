@@ -6,6 +6,7 @@ class ActsAsHavingSettingsTest < Test::Unit::TestCase
   class TestClass < Block
     settings_items :flag, :type => :boolean
     settings_items :flag_disabled_by_default, :type => :boolean, :default => false
+    settings_items :name, :type => :string, :default => N_('ENGLISH TEXT')
   end
 
   should 'store settings in a hash' do
@@ -60,6 +61,11 @@ class ActsAsHavingSettingsTest < Test::Unit::TestCase
 
   should 'return false by default when the default is false' do
     assert_equal false, TestClass.new.flag_disabled_by_default
+  end
+
+  should 'translate default values' do
+    TestClass.any_instance.expects(:gettext).with('ENGLISH TEXT').returns("TRANSLATED")
+    assert_equal 'TRANSLATED', TestClass.new.name
   end
 
   should 'be able to specify type of atrributes (boolean)' do

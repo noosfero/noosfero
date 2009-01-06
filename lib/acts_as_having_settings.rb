@@ -28,7 +28,7 @@ module ActsAsHavingSettings
         class_eval <<-CODE
           def #{setting}
             val = send(self.class.settings_field)[:#{setting}]
-            val.nil? ? #{default} : val
+            val.nil? ? (#{default}.is_a?(String) ? gettext(#{default}) : #{default}) : val
           end
           def #{setting}=(value)
             send(self.class.settings_field)[:#{setting}] = self.class.acts_as_having_settings_type_cast(value, #{data_type.inspect})
