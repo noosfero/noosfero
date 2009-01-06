@@ -16,3 +16,6 @@ class Region < Category
   end
   
 end
+
+require_dependency 'city'
+require_dependency 'state'
