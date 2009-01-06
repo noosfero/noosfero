@@ -21,7 +21,7 @@ script/runner 'env = Environment.default;
 echo 'Configurating template for active enterprises..'
 script/runner 'env = Environment.default
   template = env.enterprise_template
-  template.custom_footer = "<div align=center>{address} {- zip_code}<br/>{city} {- state} {- country}<br/>{Tel: contact_phone} {e-Mail: contact_email}<br/></div>"
+  template.custom_footer = "<div align=center>{address} {- zip_code}<br/>{city} {- state} {- country}<br/>{<strong>Tel:</strong> contact_phone} {<strong>e-Mail:</strong> contact_email}<br/></div>"
   template.custom_header = "<div align=center><h1>{name}</h1><br/></div>"
   template.articles.destroy_all
   homepage = TinyMceArticle.create!(:name => "Início", :body => "Esta é a página inicial do seu empreendimento", :profile => template, :accept_comments => false)
