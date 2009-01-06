@@ -702,8 +702,9 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal 'Some ackwrad region name', p.location
   end
 
-  should 'query region hierarchy for location' do
-    state = Region.new(:name => "Bahia")
+  should 'query region hierarchy for location up to 2 levels' do
+    country = Region.new(:name => "Brazil")
+    state = Region.new(:name => "Bahia", :parent => country)
     city = Region.new(:name => "Salvador", :parent => state)
     p = Profile.new(:region => city)
     assert_equal 'Salvador - Bahia', p.location
