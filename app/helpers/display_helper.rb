@@ -2,7 +2,7 @@ module DisplayHelper
 
   def link_to_product(product, opts={})
     return _('No product') unless product
-    link_to content_tag( 'span', product.name ),
+    link_to_if product.enterprise.enabled?, content_tag( 'span', product.name ),
             product.enterprise.generate_url(:controller => 'catalog', :action => 'show', :id => product),
             opts
   end

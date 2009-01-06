@@ -11,7 +11,7 @@ include DisplayHelper
         content_tag('h3', link_to_product(product)) +
         content_tag('ul',
           (product.price ? content_tag('li', _('Price: %s') % ( "%.2f" % product.price), :class => 'product_price') : '') +
-          content_tag('li', link_to_category(product.product_category), :class => 'product_category')
+          content_tag('li', profile.enabled? ? link_to_category(product.product_category) : product.product_category, :class => 'product_category')
         ) +
         (product.description ? content_tag('div', txt2html(product.description), :class => 'description') : tag('br', :style => 'clear:both')),
         :class => 'product')
