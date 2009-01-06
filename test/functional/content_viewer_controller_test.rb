@@ -311,6 +311,24 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_response 404
   end
 
+  should 'show unpublished articles to the user himself' do
+    profile.articles.create!(:name => 'test', :published => false)
+
+    login_as(profile.identifier)
+    get :view_page, :profile => profile.identifier, :page => [ 'test' ]
+    assert_response :success
+  end
+
+  should 'show unpublished articles to members' do
+    community = Community.create!(:name => 'testcomm')
+    community.articles.create!(:name => 'test', :published => false)
+    community.add_member(profile)
+
+    login_as(profile.identifier)
+    get :view_page, :profile => community.identifier, :page => [ 'test' ]
+    assert_response :success
+  end
+
   should 'show message for disabled enterprises' do
     login_as(@profile.identifier)
     ent = Enterprise.create!(:name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false)
