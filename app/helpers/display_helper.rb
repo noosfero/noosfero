@@ -4,7 +4,7 @@ module DisplayHelper
     return _('No product') unless product
     target = product.enterprise.enabled? ? product.enterprise.generate_url(:controller => 'catalog', :action => 'show', :id => product) : '#'
     link_to content_tag( 'span', product.name ),
-            target
+            target,
             opts
   end
 
