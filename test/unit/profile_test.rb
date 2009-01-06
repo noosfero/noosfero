@@ -697,16 +697,37 @@ class ProfileTest < Test::Unit::TestCase
   end
 
   should 'query region for location' do
-    p = Profile.new
-    region = mock; region.expects(:name).returns('Some ackwrad region name')
-    p.expects(:region).returns(region)
+    region = Region.new(:name => 'Some ackwrad region name')
+    p = Profile.new(:region => region)
     assert_equal 'Some ackwrad region name', p.location
   end
 
-  should 'fallback graciously when no region' do
+  should 'query region hierarchy for location' do
+    state = Region.new(:name => "Bahia")
+    city = Region.new(:name => "Salvador", :parent => state)
+    p = Profile.new(:region => city)
+    assert_equal 'Salvador - Bahia', p.location
+  end
+
+  should 'use city/state/country fields for location when no region object is set' do
+    p = Profile.new
+    p.expects(:region).returns(nil)
+    p.expects(:city).returns("Salvador")
+    p.expects(:state).returns("Bahia")
+    p.expects(:country).returns("Brasil")
+    assert_equal 'Salvador - Bahia - Brasil', p.location
+  end
+
+  should 'give empty location if nothing is available' do
     p = Profile.new
     p.expects(:region).returns(nil)
     assert_equal '', p.location
+  end
+
+  should 'support (or at least not crash) location for existing profile types' do
+    assert_nothing_raised do
+      [Profile,Enterprise,Person,Community,Organization].each { |p| p.new.location }
+    end
   end
 
   should 'default home page is a TinyMceArticle' do

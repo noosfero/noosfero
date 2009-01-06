@@ -113,9 +113,9 @@ class Profile < ActiveRecord::Base
   def location
     myregion = self.region
     if myregion
-      myregion.name
+      myregion.hierarchy.reverse.map(&:name).join(' - ')
     else
-      ''
+      [ :city, :state, :country ].map {|item| self.respond_to?(item) ? self.send(item) : nil }.compact.join(' - ')
     end
   end
 
