@@ -11,7 +11,7 @@ class Blog < Folder
   end
 
   settings_items :posts_per_page, :type => :integer, :default => 20
-  settings_items :title, :type => :string, :default => _('My blog')
+  settings_items :title, :type => :string, :default => N_('Blog')
 
   def initialize(*args)
     super(*args)
