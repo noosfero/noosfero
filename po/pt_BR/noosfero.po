@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.13.0\n"
-"POT-Creation-Date: 2008-12-30 16:11-0300\n"
-"PO-Revision-Date: 2008-12-30 16:20-0300\n"
+"POT-Creation-Date: 2009-01-06 16:46-0300\n"
+"PO-Revision-Date: 2009-01-06 16:48-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1078,14 +1078,6 @@ msgstr "O administrador de %s ainda precisa aceitar você como integrante."
 msgid "%s was destroyed!"
 msgstr "%s foi removido!"
 
-#: app/controllers/my_profile/enterprise_editor_controller.rb:22
-msgid "Could not update the enterprise"
-msgstr "Não pôde modificar o empreendimento"
-
-#: app/controllers/my_profile/enterprise_editor_controller.rb:32
-msgid "Enterprise sucessfully erased from the system"
-msgstr "Empreendimento ativado com sucesso"
-
 #: app/controllers/my_profile/friends_controller.rb:15
 msgid "%s still needs to accept being your friend."
 msgstr "%s ainda precisa aceitar ser seu(sua) amigo(a)."
@@ -1259,117 +1251,6 @@ msgid "Enable email"
 msgstr "Habilitar e-mail"
 
 #: app/models/user.rb:-
-msgid "article"
-msgstr "artigo"
-
-#: app/models/user.rb:- app/models/category.rb:-
-msgid "Slug"
-msgstr "Atalho"
-
-#: app/models/user.rb:- app/models/category.rb:-
-msgid "Path"
-msgstr "Caminho"
-
-#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
-#: app/models/category.rb:-
-msgid "Parent"
-msgstr "Pai"
-
-#: app/models/user.rb:- app/models/comment.rb:-
-msgid "Body"
-msgstr "Corpo"
-
-#: app/models/user.rb:-
-msgid "Abstract"
-msgstr "Resumo"
-
-#: app/models/user.rb:- app/models/consumption.rb:-
-#: app/models/profile_categorization.rb:-
-msgid "Profile"
-msgstr "Perfil"
-
-#: app/models/user.rb:-
-msgid "Last changed by"
-msgstr "Última atualização de"
-
-#: app/models/user.rb:-
-msgid "Version"
-msgstr "Versão"
-
-#: app/models/user.rb:-
-msgid "Lock version"
-msgstr "Trancar a versão"
-
-#: app/models/user.rb:- app/models/task.rb:- app/models/block.rb:-
-#: app/models/category.rb:- app/views/cms/view.rhtml:33
-msgid "Type"
-msgstr "Tipo"
-
-#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
-msgid "Size"
-msgstr "Tamanho"
-
-#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
-msgid "Content type"
-msgstr "Tipo de conteúdo"
-
-#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
-msgid "Filename"
-msgstr "Nome do arquivo"
-
-#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
-msgid "Height"
-msgstr "Altura"
-
-#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
-msgid "Width"
-msgstr "Largura"
-
-#: app/models/user.rb:-
-msgid "Comments count"
-msgstr "Número de comentários"
-
-#: app/models/user.rb:-
-msgid "Advertise"
-msgstr "Publicar"
-
-#: app/models/user.rb:-
-msgid "Published"
-msgstr "Publicado"
-
-#: app/models/user.rb:- app/views/cms/_event.rhtml:8
-msgid "Start date"
-msgstr "Data de início"
-
-#: app/models/user.rb:- app/models/task.rb:- app/views/cms/_event.rhtml:10
-msgid "End date"
-msgstr "Data de término"
-
-#: app/models/user.rb:- app/models/category.rb:-
-msgid "Children count"
-msgstr "Quantidade de filhos"
-
-#: app/models/user.rb:-
-msgid "Public article"
-msgstr "Artigo público"
-
-#: app/models/user.rb:-
-msgid "Accept comments"
-msgstr "Aceitar comentários"
-
-#: app/models/user.rb:-
-msgid "Reference article"
-msgstr "Artigo referenciado"
-
-#: app/models/user.rb:-
-msgid "Setting"
-msgstr "Configurações"
-
-#: app/models/user.rb:-
-msgid "Notify comments"
-msgstr "Notificar comentários"
-
-#: app/models/user.rb:-
 msgid "profile"
 msgstr "perfil"
 
@@ -1383,6 +1264,11 @@ msgstr "perfil"
 #: app/views/box_organizer/_link_list_block.rhtml:5
 msgid "Name"
 msgstr "Nome"
+
+#: app/models/user.rb:- app/models/task.rb:- app/models/block.rb:-
+#: app/models/category.rb:- app/views/cms/view.rhtml:33
+msgid "Type"
+msgstr "Tipo"
 
 #: app/models/user.rb:- app/models/create_enterprise.rb:3
 #: app/views/enterprise_validation/_details.rhtml:23
@@ -1456,6 +1342,112 @@ msgstr "Tema"
 #: app/models/user.rb:-
 msgid "Public profile"
 msgstr "Perfil público"
+
+#: app/models/user.rb:-
+msgid "article"
+msgstr "artigo"
+
+#: app/models/user.rb:- app/models/category.rb:-
+msgid "Slug"
+msgstr "Atalho"
+
+#: app/models/user.rb:- app/models/category.rb:-
+msgid "Path"
+msgstr "Caminho"
+
+#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
+#: app/models/category.rb:-
+msgid "Parent"
+msgstr "Pai"
+
+#: app/models/user.rb:- app/models/comment.rb:-
+msgid "Body"
+msgstr "Corpo"
+
+#: app/models/user.rb:-
+msgid "Abstract"
+msgstr "Resumo"
+
+#: app/models/user.rb:- app/models/consumption.rb:-
+#: app/models/profile_categorization.rb:-
+msgid "Profile"
+msgstr "Perfil"
+
+#: app/models/user.rb:-
+msgid "Last changed by"
+msgstr "Última atualização de"
+
+#: app/models/user.rb:-
+msgid "Version"
+msgstr "Versão"
+
+#: app/models/user.rb:-
+msgid "Lock version"
+msgstr "Trancar a versão"
+
+#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
+msgid "Size"
+msgstr "Tamanho"
+
+#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
+msgid "Content type"
+msgstr "Tipo de conteúdo"
+
+#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
+msgid "Filename"
+msgstr "Nome do arquivo"
+
+#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
+msgid "Height"
+msgstr "Altura"
+
+#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
+msgid "Width"
+msgstr "Largura"
+
+#: app/models/user.rb:-
+msgid "Comments count"
+msgstr "Número de comentários"
+
+#: app/models/user.rb:-
+msgid "Advertise"
+msgstr "Publicar"
+
+#: app/models/user.rb:-
+msgid "Published"
+msgstr "Publicado"
+
+#: app/models/user.rb:- app/views/cms/_event.rhtml:8
+msgid "Start date"
+msgstr "Data de início"
+
+#: app/models/user.rb:- app/models/task.rb:- app/views/cms/_event.rhtml:10
+msgid "End date"
+msgstr "Data de término"
+
+#: app/models/user.rb:- app/models/category.rb:-
+msgid "Children count"
+msgstr "Quantidade de filhos"
+
+#: app/models/user.rb:-
+msgid "Public article"
+msgstr "Artigo público"
+
+#: app/models/user.rb:-
+msgid "Accept comments"
+msgstr "Aceitar comentários"
+
+#: app/models/user.rb:-
+msgid "Reference article"
+msgstr "Artigo referenciado"
+
+#: app/models/user.rb:-
+msgid "Setting"
+msgstr "Configurações"
+
+#: app/models/user.rb:-
+msgid "Notify comments"
+msgstr "Notificar comentários"
 
 #: app/models/user.rb:7
 msgid "Password"
@@ -1641,7 +1633,7 @@ msgid "Position"
 msgstr "Posição"
 
 #: app/models/favorite_enterprises_block.rb:4
-#: app/views/profile_editor/index.rhtml:44
+#: app/views/profile_editor/index.rhtml:46
 msgid "Favorite Enterprises"
 msgstr "Empreendimentos Favoritos"
 
@@ -2107,11 +2099,7 @@ msgstr "Quando:"
 msgid "URL:"
 msgstr "URL:"
 
-#: app/models/blog.rb:14
-msgid "My blog"
-msgstr "Meu blog"
-
-#: app/models/blog.rb:22
+#: app/models/blog.rb:14 app/models/blog.rb:22
 msgid "Blog"
 msgstr "Blog"
 
@@ -2323,7 +2311,7 @@ msgstr "Editar design de perfil"
 msgid "Manage products"
 msgstr "Gerenciar produtos"
 
-#: app/models/profile.rb:34 app/views/profile_editor/index.rhtml:36
+#: app/models/profile.rb:34 app/views/profile_editor/index.rhtml:38
 msgid "Manage friends"
 msgstr "Gerenciar amigos"
 
@@ -2347,11 +2335,11 @@ msgstr "Editar aparência"
 msgid "An existing profile cannot be renamed."
 msgstr "Um perfil existente não pode ser renomeado"
 
-#: app/models/profile.rb:349
+#: app/models/profile.rb:356
 msgid "My home page"
 msgstr "Minha página inicial"
 
-#: app/models/profile.rb:349
+#: app/models/profile.rb:356
 msgid ""
 "<p>This is a default homepage created for me. It can be changed though the "
 "control panel.</p>"
@@ -2359,15 +2347,15 @@ msgstr ""
 "<p>Esta é a pagina inicial padrão criada para mim. Esta página pode ser "
 "modificada pelo painel de controle.</p>"
 
-#: app/models/profile.rb:360
+#: app/models/profile.rb:367
 msgid "Intranet"
 msgstr "Intranet"
 
-#: app/models/profile.rb:402
+#: app/models/profile.rb:409
 msgid "%s can't has members"
 msgstr "%s não pode ter integrantes"
 
-#: app/models/profile.rb:419
+#: app/models/profile.rb:426
 msgid "%s can't has moderators"
 msgstr "%s não pode ter moderadores"
 
@@ -3605,7 +3593,7 @@ msgstr "Publicar"
 msgid "Content management"
 msgstr "Gerenciamento de conteúdo"
 
-#: app/views/cms/view.rhtml:19
+#: app/views/cms/view.rhtml:19 app/views/profile_editor/index.rhtml:32
 msgid "Create blog"
 msgstr "Criar blog"
 
@@ -3696,8 +3684,9 @@ msgstr "Olá %s,"
 msgid ""
 "Access the address below to see this and other pending actions that need "
 "your attention:"
-msgstr "Acesse o endereço abaixo para ver esta e outras ações pendentes "
-"que necessitam da sua atenção:"
+msgstr ""
+"Acesse o endereço abaixo para ver esta e outras ações pendentes que "
+"necessitam da sua atenção:"
 
 #: app/views/search/products.rhtml:1
 msgid "Products and Services"
@@ -4054,7 +4043,7 @@ msgstr "Editar informações do empreendimento"
 msgid "Update"
 msgstr "Atualizar"
 
-#: app/views/memberships/index.rhtml:3 app/views/profile_editor/index.rhtml:54
+#: app/views/memberships/index.rhtml:3 app/views/profile_editor/index.rhtml:56
 msgid "Manage my groups"
 msgstr "Gerenciar meus grupos"
 
@@ -4335,35 +4324,31 @@ msgstr "Editar Cabeçalho e Rodapé"
 msgid "Manage Content"
 msgstr "Gerenciar conteúdo"
 
-#: app/views/profile_editor/index.rhtml:29
-msgid "Config my blog"
-msgstr "Configurar meu blog"
+#: app/views/profile_editor/index.rhtml:30
+msgid "Configure blog"
+msgstr "Configurar blog"
 
-#: app/views/profile_editor/index.rhtml:31
-msgid "Create my blog"
-msgstr "Criar meu blog"
-
-#: app/views/profile_editor/index.rhtml:34
+#: app/views/profile_editor/index.rhtml:36
 msgid "Change Password"
 msgstr "Alterar Senha"
 
-#: app/views/profile_editor/index.rhtml:38
+#: app/views/profile_editor/index.rhtml:40
 msgid "Manage Members"
 msgstr "Gerenciar Integrantes"
 
-#: app/views/profile_editor/index.rhtml:40
+#: app/views/profile_editor/index.rhtml:42
 msgid "Manage Products and Services"
 msgstr "Gerenciar Produtos e Serviços"
 
-#: app/views/profile_editor/index.rhtml:42
+#: app/views/profile_editor/index.rhtml:44
 msgid "Enterprise Validation"
 msgstr "Validações de empreendimento"
 
-#: app/views/profile_editor/index.rhtml:48
+#: app/views/profile_editor/index.rhtml:50
 msgid "Disable Enterprise"
 msgstr "Desabilitar Empreendimento"
 
-#: app/views/profile_editor/index.rhtml:50
+#: app/views/profile_editor/index.rhtml:52
 msgid "Enable Enterprise"
 msgstr "Habilitar Empreendimento"
 
@@ -5592,6 +5577,18 @@ msgstr "Contatos"
 #: lib/zen3_terminology.rb:61
 msgid "Creating new group"
 msgstr "Criar novo grupo"
+
+#~ msgid "Could not update the enterprise"
+#~ msgstr "Não pôde modificar o empreendimento"
+
+#~ msgid "Enterprise sucessfully erased from the system"
+#~ msgstr "Empreendimento ativado com sucesso"
+
+#~ msgid "My blog"
+#~ msgstr "Meu blog"
+
+#~ msgid "Create my blog"
+#~ msgstr "Criar meu blog"
 
 #~ msgid "%s wants to publish %s"
 #~ msgstr "%s quer publicar %s"

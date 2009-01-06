@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.13.0\n"
-"POT-Creation-Date: 2008-12-30 16:11-0300\n"
+"POT-Creation-Date: 2009-01-06 16:46-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1067,14 +1067,6 @@ msgstr ""
 msgid "%s was destroyed!"
 msgstr ""
 
-#: app/controllers/my_profile/enterprise_editor_controller.rb:22
-msgid "Could not update the enterprise"
-msgstr ""
-
-#: app/controllers/my_profile/enterprise_editor_controller.rb:32
-msgid "Enterprise sucessfully erased from the system"
-msgstr ""
-
 #: app/controllers/my_profile/friends_controller.rb:15
 msgid "%s still needs to accept being your friend."
 msgstr ""
@@ -1245,117 +1237,6 @@ msgid "Enable email"
 msgstr ""
 
 #: app/models/user.rb:-
-msgid "article"
-msgstr ""
-
-#: app/models/user.rb:- app/models/category.rb:-
-msgid "Slug"
-msgstr ""
-
-#: app/models/user.rb:- app/models/category.rb:-
-msgid "Path"
-msgstr ""
-
-#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
-#: app/models/category.rb:-
-msgid "Parent"
-msgstr ""
-
-#: app/models/user.rb:- app/models/comment.rb:-
-msgid "Body"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Abstract"
-msgstr ""
-
-#: app/models/user.rb:- app/models/consumption.rb:-
-#: app/models/profile_categorization.rb:-
-msgid "Profile"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Last changed by"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Version"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Lock version"
-msgstr ""
-
-#: app/models/user.rb:- app/models/task.rb:- app/models/block.rb:-
-#: app/models/category.rb:- app/views/cms/view.rhtml:33
-msgid "Type"
-msgstr ""
-
-#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
-msgid "Size"
-msgstr ""
-
-#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
-msgid "Content type"
-msgstr ""
-
-#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
-msgid "Filename"
-msgstr ""
-
-#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
-msgid "Height"
-msgstr ""
-
-#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
-msgid "Width"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Comments count"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Advertise"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Published"
-msgstr ""
-
-#: app/models/user.rb:- app/views/cms/_event.rhtml:8
-msgid "Start date"
-msgstr ""
-
-#: app/models/user.rb:- app/models/task.rb:- app/views/cms/_event.rhtml:10
-msgid "End date"
-msgstr ""
-
-#: app/models/user.rb:- app/models/category.rb:-
-msgid "Children count"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Public article"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Accept comments"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Reference article"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Setting"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Notify comments"
-msgstr ""
-
-#: app/models/user.rb:-
 msgid "profile"
 msgstr ""
 
@@ -1368,6 +1249,11 @@ msgstr ""
 #: app/views/enterprise_validation/_details.rhtml:3
 #: app/views/box_organizer/_link_list_block.rhtml:5
 msgid "Name"
+msgstr ""
+
+#: app/models/user.rb:- app/models/task.rb:- app/models/block.rb:-
+#: app/models/category.rb:- app/views/cms/view.rhtml:33
+msgid "Type"
 msgstr ""
 
 #: app/models/user.rb:- app/models/create_enterprise.rb:3
@@ -1441,6 +1327,112 @@ msgstr ""
 
 #: app/models/user.rb:-
 msgid "Public profile"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "article"
+msgstr ""
+
+#: app/models/user.rb:- app/models/category.rb:-
+msgid "Slug"
+msgstr ""
+
+#: app/models/user.rb:- app/models/category.rb:-
+msgid "Path"
+msgstr ""
+
+#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
+#: app/models/category.rb:-
+msgid "Parent"
+msgstr ""
+
+#: app/models/user.rb:- app/models/comment.rb:-
+msgid "Body"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Abstract"
+msgstr ""
+
+#: app/models/user.rb:- app/models/consumption.rb:-
+#: app/models/profile_categorization.rb:-
+msgid "Profile"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Last changed by"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Version"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Lock version"
+msgstr ""
+
+#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
+msgid "Size"
+msgstr ""
+
+#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
+msgid "Content type"
+msgstr ""
+
+#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
+msgid "Filename"
+msgstr ""
+
+#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
+msgid "Height"
+msgstr ""
+
+#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
+msgid "Width"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Comments count"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Advertise"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Published"
+msgstr ""
+
+#: app/models/user.rb:- app/views/cms/_event.rhtml:8
+msgid "Start date"
+msgstr ""
+
+#: app/models/user.rb:- app/models/task.rb:- app/views/cms/_event.rhtml:10
+msgid "End date"
+msgstr ""
+
+#: app/models/user.rb:- app/models/category.rb:-
+msgid "Children count"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Public article"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Accept comments"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Reference article"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Setting"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Notify comments"
 msgstr ""
 
 #: app/models/user.rb:7
@@ -1623,7 +1615,7 @@ msgid "Position"
 msgstr ""
 
 #: app/models/favorite_enterprises_block.rb:4
-#: app/views/profile_editor/index.rhtml:44
+#: app/views/profile_editor/index.rhtml:46
 msgid "Favorite Enterprises"
 msgstr ""
 
@@ -2069,11 +2061,7 @@ msgstr ""
 msgid "URL:"
 msgstr ""
 
-#: app/models/blog.rb:14
-msgid "My blog"
-msgstr ""
-
-#: app/models/blog.rb:22
+#: app/models/blog.rb:14 app/models/blog.rb:22
 msgid "Blog"
 msgstr ""
 
@@ -2279,7 +2267,7 @@ msgstr ""
 msgid "Manage products"
 msgstr ""
 
-#: app/models/profile.rb:34 app/views/profile_editor/index.rhtml:36
+#: app/models/profile.rb:34 app/views/profile_editor/index.rhtml:38
 msgid "Manage friends"
 msgstr ""
 
@@ -2303,25 +2291,25 @@ msgstr ""
 msgid "An existing profile cannot be renamed."
 msgstr ""
 
-#: app/models/profile.rb:349
+#: app/models/profile.rb:356
 msgid "My home page"
 msgstr ""
 
-#: app/models/profile.rb:349
+#: app/models/profile.rb:356
 msgid ""
 "<p>This is a default homepage created for me. It can be changed though the "
 "control panel.</p>"
 msgstr ""
 
-#: app/models/profile.rb:360
+#: app/models/profile.rb:367
 msgid "Intranet"
 msgstr ""
 
-#: app/models/profile.rb:402
+#: app/models/profile.rb:409
 msgid "%s can't has members"
 msgstr ""
 
-#: app/models/profile.rb:419
+#: app/models/profile.rb:426
 msgid "%s can't has moderators"
 msgstr ""
 
@@ -3496,7 +3484,7 @@ msgstr ""
 msgid "Content management"
 msgstr ""
 
-#: app/views/cms/view.rhtml:19
+#: app/views/cms/view.rhtml:19 app/views/profile_editor/index.rhtml:32
 msgid "Create blog"
 msgstr ""
 
@@ -3931,7 +3919,7 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: app/views/memberships/index.rhtml:3 app/views/profile_editor/index.rhtml:54
+#: app/views/memberships/index.rhtml:3 app/views/profile_editor/index.rhtml:56
 msgid "Manage my groups"
 msgstr ""
 
@@ -4207,35 +4195,31 @@ msgstr ""
 msgid "Manage Content"
 msgstr ""
 
-#: app/views/profile_editor/index.rhtml:29
-msgid "Config my blog"
+#: app/views/profile_editor/index.rhtml:30
+msgid "Configure blog"
 msgstr ""
 
-#: app/views/profile_editor/index.rhtml:31
-msgid "Create my blog"
-msgstr ""
-
-#: app/views/profile_editor/index.rhtml:34
+#: app/views/profile_editor/index.rhtml:36
 msgid "Change Password"
 msgstr ""
 
-#: app/views/profile_editor/index.rhtml:38
+#: app/views/profile_editor/index.rhtml:40
 msgid "Manage Members"
 msgstr ""
 
-#: app/views/profile_editor/index.rhtml:40
+#: app/views/profile_editor/index.rhtml:42
 msgid "Manage Products and Services"
 msgstr ""
 
-#: app/views/profile_editor/index.rhtml:42
+#: app/views/profile_editor/index.rhtml:44
 msgid "Enterprise Validation"
 msgstr ""
 
-#: app/views/profile_editor/index.rhtml:48
+#: app/views/profile_editor/index.rhtml:50
 msgid "Disable Enterprise"
 msgstr ""
 
-#: app/views/profile_editor/index.rhtml:50
+#: app/views/profile_editor/index.rhtml:52
 msgid "Enable Enterprise"
 msgstr ""
 

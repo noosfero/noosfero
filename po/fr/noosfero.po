@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.13.0\n"
-"POT-Creation-Date: 2008-12-30 16:11-0300\n"
+"POT-Creation-Date: 2009-01-06 16:46-0300\n"
 "PO-Revision-Date: 2008-06-13 16:15-0300\n"
 "Last-Translator: Raphael Rousseau <pootle.colivre.coop.br@r4f.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1140,14 +1140,6 @@ msgstr "Il faut encore que %s accepte d'être votre ami."
 msgid "%s was destroyed!"
 msgstr ""
 
-#: app/controllers/my_profile/enterprise_editor_controller.rb:22
-msgid "Could not update the enterprise"
-msgstr "Impossible de mettre à jour l'entreprise"
-
-#: app/controllers/my_profile/enterprise_editor_controller.rb:32
-msgid "Enterprise sucessfully erased from the system"
-msgstr "L'entreprise a bien été effacée du système"
-
 #: app/controllers/my_profile/friends_controller.rb:15
 msgid "%s still needs to accept being your friend."
 msgstr "Il faut encore que %s accepte d'être votre ami."
@@ -1337,137 +1329,6 @@ msgid "Enable email"
 msgstr "Adresse e-mail"
 
 #: app/models/user.rb:-
-msgid "article"
-msgstr "article"
-
-#: app/models/user.rb:- app/models/category.rb:-
-msgid "Slug"
-msgstr ""
-
-#: app/models/user.rb:- app/models/category.rb:-
-#, fuzzy
-msgid "Path"
-msgstr "Parent"
-
-#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
-#: app/models/category.rb:-
-#, fuzzy
-msgid "Parent"
-msgstr "Parent"
-
-#: app/models/user.rb:- app/models/comment.rb:-
-msgid "Body"
-msgstr ""
-
-#: app/models/user.rb:-
-#, fuzzy
-msgid "Abstract"
-msgstr "Résumé"
-
-#: app/models/user.rb:- app/models/consumption.rb:-
-#: app/models/profile_categorization.rb:-
-#, fuzzy
-msgid "Profile"
-msgstr "profil"
-
-#: app/models/user.rb:-
-#, fuzzy
-msgid "Last changed by"
-msgstr "Modifie en dernier par"
-
-#: app/models/user.rb:-
-#, fuzzy
-msgid "Version"
-msgstr "personne"
-
-#: app/models/user.rb:-
-#, fuzzy
-msgid "Lock version"
-msgstr "Verrouiller la version"
-
-#: app/models/user.rb:- app/models/task.rb:- app/models/block.rb:-
-#: app/models/category.rb:- app/views/cms/view.rhtml:33
-msgid "Type"
-msgstr "Type"
-
-#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
-msgid "Size"
-msgstr ""
-
-#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
-#, fuzzy
-msgid "Content type"
-msgstr "Type de contenu"
-
-#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
-#, fuzzy
-msgid "Filename"
-msgstr "Nom de fichier"
-
-#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
-#, fuzzy
-msgid "Height"
-msgstr "Hauteur"
-
-#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
-#, fuzzy
-msgid "Width"
-msgstr "Largeur"
-
-#: app/models/user.rb:-
-#, fuzzy
-msgid "Comments count"
-msgstr "Nombre de commentaires"
-
-#: app/models/user.rb:-
-#, fuzzy
-msgid "Advertise"
-msgstr "Mettre en valeur "
-
-#: app/models/user.rb:-
-msgid "Published"
-msgstr ""
-
-#: app/models/user.rb:- app/views/cms/_event.rhtml:8
-msgid "Start date"
-msgstr ""
-
-#: app/models/user.rb:- app/models/task.rb:- app/views/cms/_event.rhtml:10
-#, fuzzy
-msgid "End date"
-msgstr "Date de fin"
-
-#: app/models/user.rb:- app/models/category.rb:-
-#, fuzzy
-msgid "Children count"
-msgstr "Nombre de commentaires"
-
-#: app/models/user.rb:-
-#, fuzzy
-msgid "Public article"
-msgstr "Tous les articles"
-
-#: app/models/user.rb:-
-#, fuzzy
-msgid "Accept comments"
-msgstr "Commentaires récents"
-
-#: app/models/user.rb:-
-#, fuzzy
-msgid "Reference article"
-msgstr "Articles récents"
-
-#: app/models/user.rb:-
-#, fuzzy
-msgid "Setting"
-msgstr "Paramètres"
-
-#: app/models/user.rb:-
-#, fuzzy
-msgid "Notify comments"
-msgstr "Poster votre commentaire"
-
-#: app/models/user.rb:-
 msgid "profile"
 msgstr "profil"
 
@@ -1481,6 +1342,11 @@ msgstr "profil"
 #: app/views/box_organizer/_link_list_block.rhtml:5
 msgid "Name"
 msgstr "Nom"
+
+#: app/models/user.rb:- app/models/task.rb:- app/models/block.rb:-
+#: app/models/category.rb:- app/views/cms/view.rhtml:33
+msgid "Type"
+msgstr "Type"
 
 #: app/models/user.rb:- app/models/create_enterprise.rb:3
 #: app/views/enterprise_validation/_details.rhtml:23
@@ -1563,6 +1429,132 @@ msgstr ""
 #, fuzzy
 msgid "Public profile"
 msgstr "Éditer le profil"
+
+#: app/models/user.rb:-
+msgid "article"
+msgstr "article"
+
+#: app/models/user.rb:- app/models/category.rb:-
+msgid "Slug"
+msgstr ""
+
+#: app/models/user.rb:- app/models/category.rb:-
+#, fuzzy
+msgid "Path"
+msgstr "Parent"
+
+#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
+#: app/models/category.rb:-
+#, fuzzy
+msgid "Parent"
+msgstr "Parent"
+
+#: app/models/user.rb:- app/models/comment.rb:-
+msgid "Body"
+msgstr ""
+
+#: app/models/user.rb:-
+#, fuzzy
+msgid "Abstract"
+msgstr "Résumé"
+
+#: app/models/user.rb:- app/models/consumption.rb:-
+#: app/models/profile_categorization.rb:-
+#, fuzzy
+msgid "Profile"
+msgstr "profil"
+
+#: app/models/user.rb:-
+#, fuzzy
+msgid "Last changed by"
+msgstr "Modifie en dernier par"
+
+#: app/models/user.rb:-
+#, fuzzy
+msgid "Version"
+msgstr "personne"
+
+#: app/models/user.rb:-
+#, fuzzy
+msgid "Lock version"
+msgstr "Verrouiller la version"
+
+#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
+msgid "Size"
+msgstr ""
+
+#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
+#, fuzzy
+msgid "Content type"
+msgstr "Type de contenu"
+
+#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
+#, fuzzy
+msgid "Filename"
+msgstr "Nom de fichier"
+
+#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
+#, fuzzy
+msgid "Height"
+msgstr "Hauteur"
+
+#: app/models/user.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
+#, fuzzy
+msgid "Width"
+msgstr "Largeur"
+
+#: app/models/user.rb:-
+#, fuzzy
+msgid "Comments count"
+msgstr "Nombre de commentaires"
+
+#: app/models/user.rb:-
+#, fuzzy
+msgid "Advertise"
+msgstr "Mettre en valeur "
+
+#: app/models/user.rb:-
+msgid "Published"
+msgstr ""
+
+#: app/models/user.rb:- app/views/cms/_event.rhtml:8
+msgid "Start date"
+msgstr ""
+
+#: app/models/user.rb:- app/models/task.rb:- app/views/cms/_event.rhtml:10
+#, fuzzy
+msgid "End date"
+msgstr "Date de fin"
+
+#: app/models/user.rb:- app/models/category.rb:-
+#, fuzzy
+msgid "Children count"
+msgstr "Nombre de commentaires"
+
+#: app/models/user.rb:-
+#, fuzzy
+msgid "Public article"
+msgstr "Tous les articles"
+
+#: app/models/user.rb:-
+#, fuzzy
+msgid "Accept comments"
+msgstr "Commentaires récents"
+
+#: app/models/user.rb:-
+#, fuzzy
+msgid "Reference article"
+msgstr "Articles récents"
+
+#: app/models/user.rb:-
+#, fuzzy
+msgid "Setting"
+msgstr "Paramètres"
+
+#: app/models/user.rb:-
+#, fuzzy
+msgid "Notify comments"
+msgstr "Poster votre commentaire"
 
 #: app/models/user.rb:7
 msgid "Password"
@@ -1766,7 +1758,7 @@ msgid "Position"
 msgstr "Position"
 
 #: app/models/favorite_enterprises_block.rb:4
-#: app/views/profile_editor/index.rhtml:44
+#: app/views/profile_editor/index.rhtml:46
 #, fuzzy
 msgid "Favorite Enterprises"
 msgstr "Valider l'entreprise"
@@ -2279,11 +2271,7 @@ msgstr ""
 msgid "URL:"
 msgstr ""
 
-#: app/models/blog.rb:14
-msgid "My blog"
-msgstr ""
-
-#: app/models/blog.rb:22
+#: app/models/blog.rb:14 app/models/blog.rb:22
 msgid "Blog"
 msgstr ""
 
@@ -2503,7 +2491,7 @@ msgstr "Éditer l'identité visuelle du profil"
 msgid "Manage products"
 msgstr "Gérer les produits"
 
-#: app/models/profile.rb:34 app/views/profile_editor/index.rhtml:36
+#: app/models/profile.rb:34 app/views/profile_editor/index.rhtml:38
 msgid "Manage friends"
 msgstr "Gérer les amis"
 
@@ -2530,12 +2518,12 @@ msgstr "Éditer les catégories"
 msgid "An existing profile cannot be renamed."
 msgstr "Un profil existant ne peut pas être renommé."
 
-#: app/models/profile.rb:349
+#: app/models/profile.rb:356
 #, fuzzy
 msgid "My home page"
 msgstr "Ma page personnelle."
 
-#: app/models/profile.rb:349
+#: app/models/profile.rb:356
 #, fuzzy
 msgid ""
 "<p>This is a default homepage created for me. It can be changed though the "
@@ -2544,17 +2532,17 @@ msgstr ""
 "<p>C'est la page d'accueil par défaut créée pour %s. Elle peut être modifiée "
 "dans le panneau de contrôle.</p>"
 
-#: app/models/profile.rb:360
+#: app/models/profile.rb:367
 #, fuzzy
 msgid "Intranet"
 msgstr "Mes centres d'intérêt"
 
-#: app/models/profile.rb:402
+#: app/models/profile.rb:409
 #, fuzzy
 msgid "%s can't has members"
 msgstr "Les membres de %s"
 
-#: app/models/profile.rb:419
+#: app/models/profile.rb:426
 msgid "%s can't has moderators"
 msgstr ""
 
@@ -3852,7 +3840,7 @@ msgstr ""
 msgid "Content management"
 msgstr "Gestion du contenu"
 
-#: app/views/cms/view.rhtml:19
+#: app/views/cms/view.rhtml:19 app/views/profile_editor/index.rhtml:32
 #, fuzzy
 msgid "Create blog"
 msgstr "Créer un rôle"
@@ -4336,7 +4324,7 @@ msgstr "Éditer les informations sur l'entreprise"
 msgid "Update"
 msgstr "Mise à jour"
 
-#: app/views/memberships/index.rhtml:3 app/views/profile_editor/index.rhtml:54
+#: app/views/memberships/index.rhtml:3 app/views/profile_editor/index.rhtml:56
 #, fuzzy
 msgid "Manage my groups"
 msgstr "Mes groupes"
@@ -4642,38 +4630,34 @@ msgstr ""
 msgid "Manage Content"
 msgstr "Gérer le contenu"
 
-#: app/views/profile_editor/index.rhtml:29
-msgid "Config my blog"
-msgstr ""
-
-#: app/views/profile_editor/index.rhtml:31
+#: app/views/profile_editor/index.rhtml:30
 #, fuzzy
-msgid "Create my blog"
+msgid "Configure blog"
 msgstr "Créer un rôle"
 
-#: app/views/profile_editor/index.rhtml:34
+#: app/views/profile_editor/index.rhtml:36
 msgid "Change Password"
 msgstr "Modifier le mot de passe"
 
-#: app/views/profile_editor/index.rhtml:38
+#: app/views/profile_editor/index.rhtml:40
 msgid "Manage Members"
 msgstr "Gérer les membres"
 
-#: app/views/profile_editor/index.rhtml:40
+#: app/views/profile_editor/index.rhtml:42
 #, fuzzy
 msgid "Manage Products and Services"
 msgstr "Gérer les produits"
 
-#: app/views/profile_editor/index.rhtml:42
+#: app/views/profile_editor/index.rhtml:44
 msgid "Enterprise Validation"
 msgstr "Validation d'entreprises"
 
-#: app/views/profile_editor/index.rhtml:48
+#: app/views/profile_editor/index.rhtml:50
 #, fuzzy
 msgid "Disable Enterprise"
 msgstr "Détruire l'entreprise"
 
-#: app/views/profile_editor/index.rhtml:50
+#: app/views/profile_editor/index.rhtml:52
 #, fuzzy
 msgid "Enable Enterprise"
 msgstr "Entreprises"
@@ -6027,6 +6011,16 @@ msgstr "Personne de contact : "
 #, fuzzy
 msgid "Creating new group"
 msgstr "Créer un produit"
+
+#~ msgid "Could not update the enterprise"
+#~ msgstr "Impossible de mettre à jour l'entreprise"
+
+#~ msgid "Enterprise sucessfully erased from the system"
+#~ msgstr "L'entreprise a bien été effacée du système"
+
+#, fuzzy
+#~ msgid "Create my blog"
+#~ msgstr "Créer un rôle"
 
 #, fuzzy
 #~ msgid "%s wants to publish %s"
