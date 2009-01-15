@@ -2,7 +2,7 @@
 
 set -e
 
-if [ -x $RAILS_ENV ]; then
+if [ -z $RAILS_ENV ]; then
   export RAILS_ENV=production
 fi
 
