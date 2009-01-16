@@ -7,6 +7,10 @@ module LanguageHelper
     language.downcase
   end
 
+  def html_language
+    language.downcase.gsub('_', '-')
+  end
+
   alias :calendar_date_select_language :tinymce_language
 
   def language_chooser(options = {})

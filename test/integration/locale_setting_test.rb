@@ -64,6 +64,14 @@ class LocaleSettingTest < ActionController::IntegrationTest
 
   end
 
+  should 'put current language in HTML headers' do
+    get '/', :lang => 'pt_BR'
+    assert_tag :tag => 'html', :attributes => { 'xml:lang' => 'pt-br', 'lang' => 'pt-br' }
+
+    get '/', :lang => 'en'
+    assert_tag :tag => 'html', :attributes => { 'xml:lang' => 'en', 'lang' => 'en' }
+  end
+
   protected 
 
   def assert_locale(locale)

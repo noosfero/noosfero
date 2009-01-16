@@ -18,6 +18,11 @@ class LanguageHelperTest < Test::Unit::TestCase
     assert_equal 'pt_br', tinymce_language
   end
 
+  should 'downcase and use dash for HTML language' do
+    self.expects(:language).returns('pt_BR')
+    assert_equal 'pt-br', html_language
+  end
+
   should 'generate language chooser correcly' do
     Noosfero.expects(:locales).returns({ 'en' => 'English', 'pt_BR' => 'Português Brasileiro', 'fr' => 'Français', 'it' => 'Italiano' }).at_least_once
 
