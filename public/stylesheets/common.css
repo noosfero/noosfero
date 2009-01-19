@@ -418,3 +418,16 @@ div.pending-tasks {
 #theme-test-panel .button-bar {
   margin: 1em;
 }
+
+#content #not-found {
+  padding: 20px;
+  margin: 20px;
+  border: 1px solid #DDD;
+  -moz-border-radius: 6px;
+}
+
+#content #not-found h1 {
+  text-align: left;
+  background: url(../images/icons-app/alert-icon.png) no-repeat;
+  padding-left: 30px;
+}

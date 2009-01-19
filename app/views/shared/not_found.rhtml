@@ -1,2 +1,8 @@
-<h1><%= _('There is no such page: %s') % (content_tag('tt', @path)) %></h1>
-
+<div id='not-found'>
+  <h1><%= _('There is no such page: %s') % (content_tag('tt', @path)) %></h1>
+  <p><%= _('You may have clicked an expired link or mistyped the address.') %></p>
+  <ul>
+    <li><%= link_to _(' Return home page'), :controller => 'home' %></li>
+    <li><%= link_to _('Go back'), :back %></li>
+  <ul>
+</div>
