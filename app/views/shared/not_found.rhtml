@@ -1,8 +1,11 @@
 <div id='not-found'>
   <h1><%= _('There is no such page: %s') % (content_tag('tt', @path)) %></h1>
-  <p><%= _('You may have clicked an expired link or mistyped the address.') %></p>
+  <p>
+  <%= _('You may have clicked an expired link or mistyped the address.') %>
+  <%= _('If you clicked a link that was in another site, or was given to you by someone else, it would be nice if you tell them that their link is not valid anymore.') %>
+  </p>
   <ul>
-    <li><%= link_to _(' Return home page'), :controller => 'home' %></li>
+    <li><%= link_to _('Go to the site home page'), :controller => 'home' %></li>
     <li><%= link_to _('Go back'), :back %></li>
   <ul>
 </div>
