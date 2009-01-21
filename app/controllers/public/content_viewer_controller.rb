@@ -44,6 +44,10 @@ class ContentViewerController < ApplicationController
       return if redirect_to_ssl
     end
 
+    if @page.public?
+      return unless avoid_ssl
+    end
+
     if !@page.display_to?(user)
       # FIXME find a nice "access denied" layout
       render :action => 'access_denied', :status => 403, :layout => false

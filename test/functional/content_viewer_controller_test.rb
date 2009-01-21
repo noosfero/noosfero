@@ -460,6 +460,13 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_redirected_to :protocol => 'https://', :profile => 'testinguser', :page => [ 'myarticle' ]
   end
 
+  should 'avoid SSL for viewing public articles' do
+    @request.expects(:ssl?).returns(true).at_least_once
+    page = profile.articles.create!(:name => 'myarticle', :body => 'top secret', :public_article => true)
+    get :view_page, :profile => 'testinguser', :page => [ 'myarticle' ]
+    assert_redirected_to :protocol => 'http://', :profile => 'testinguser', :page => [ 'myarticle' ]
+  end
+
   should 'not redirect to SSL if already on SSL' do
     @request.expects(:ssl?).returns(true).at_least_once
     page = profile.articles.create!(:name => 'myarticle', :body => 'top secret', :public_article => false)
