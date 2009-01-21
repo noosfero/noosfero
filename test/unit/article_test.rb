@@ -197,6 +197,16 @@ class ArticleTest < Test::Unit::TestCase
     assert_equal [ first, second ], Article.recent(2)
   end
 
+  should 'not show UploadedFile as recent' do
+    p = create_user('usr1').person
+    Article.destroy_all
+
+    first = UploadedFile.new(:profile => p, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'));  first.save!
+    second = p.articles.build(:name => 'second'); second.save!
+
+    assert_equal [ second ], Article.recent(nil)
+  end
+
   should 'require that subclasses define description' do
     assert_raise NotImplementedError do
       Article.description

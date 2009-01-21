@@ -89,12 +89,13 @@ class Article < ActiveRecord::Base
   def self.recent(limit)
     # FIXME this method is a horrible hack
     options = { :limit => limit,
-                :conditions => {
-                  :advertise => true,
-                  :public_article => true,
-                  :published => true,
-                  'profiles.public_profile' => true
-                },
+                :conditions => [
+                  "advertise = ? AND
+                  public_article = ? AND
+                  published = ? AND
+                  profiles.public_profile = ? AND
+                  (articles.type != ? OR articles.type is NULL)", true, true, true, true, 'UploadedFile'
+                ],
                 :include => 'profile',
                 :order => 'articles.updated_at desc, articles.id desc'
               }
