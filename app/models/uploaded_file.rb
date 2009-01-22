@@ -49,4 +49,8 @@ class UploadedFile < Article
     false
   end
 
+  def can_display_hits?
+    false
+  end
+
 end

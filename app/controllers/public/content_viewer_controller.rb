@@ -49,6 +49,9 @@ class ContentViewerController < ApplicationController
       render :action => 'access_denied', :status => 403, :layout => false
     end
 
+    # At this point the page will be showed
+    @page.hit
+
     if @page.mime_type != 'text/html'
       headers['Content-Type'] = @page.mime_type
       data = @page.data

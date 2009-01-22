@@ -589,4 +589,30 @@ class ArticleTest < Test::Unit::TestCase
     assert !a.notify_comments?
   end
 
+  should 'hold hits count' do
+    a = Article.create!(:name => 'Test article', :profile => profile)
+    a.hits = 10
+    a.save!
+    a.reload
+    assert_equal 10, a.hits
+  end
+
+  should 'increment hit counter when hitted' do
+    a = Article.create!(:name => 'Test article', :profile => profile, :hits => 10)
+    a.hit
+    a.reload
+    assert_equal 11, a.hits
+  end
+
+  should 'have display_hits setting with default true' do
+    a = Article.create!(:name => 'Test article', :profile => profile)
+    assert_respond_to a, :display_hits
+    assert_equal true, a.display_hits
+  end
+
+  should 'can display hits' do
+    a = Article.create!(:name => 'Test article', :profile => profile)
+    assert_respond_to a, :can_display_hits?
+    assert_equal true, a.can_display_hits?
+  end
 end

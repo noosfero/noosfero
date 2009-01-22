@@ -46,4 +46,9 @@ class FolderTest < ActiveSupport::TestCase
     assert Folder.new.folder?, 'folder must identity itself as folder'
   end
 
+  should 'can display hits' do
+    a = Folder.create!(:name => 'Test article', :profile => profile)
+    assert_equal false, a.can_display_hits?
+  end
+
 end

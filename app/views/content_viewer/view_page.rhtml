@@ -61,6 +61,12 @@
   </div>
 <% end %>
 
+<% if @page.display_hits? %>
+  <div id="article-hits">
+    <%= n_('Viewed one time', 'Viewed %{num} times', @page.hits) % { :num => @page.hits } %>
+  </div>
+<% end %>
+
 <% if @page.parent && !@page.parent.path.blank? %>
 <div id="article-parent">
   <%= link_to_document(@page.parent, _('Up')) %>

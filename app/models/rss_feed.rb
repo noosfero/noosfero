@@ -119,4 +119,8 @@ class RssFeed < Article
     'rss-feed'
   end
 
+  def can_display_hits?
+    false
+  end
+
 end

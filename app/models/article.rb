@@ -16,6 +16,10 @@ class Article < ActiveRecord::Base
   has_many :article_categorizations, :conditions => [ 'articles_categories.virtual = ?', false ]
   has_many :categories, :through => :article_categorizations
 
+  acts_as_having_settings :field => :setting
+
+  settings_items :display_hits, :type => :boolean, :default => true
+
   def self.human_attribute_name(attrib)
     case attrib.to_sym
     when :name
@@ -209,11 +213,24 @@ class Article < ActiveRecord::Base
   end
 
   def article_attr_blacklist
-    ['id', 'profile_id', 'parent_id', 'slug', 'path', 'updated_at', 'created_at', 'last_changed_by_id', 'version', 'lock_version', 'type', 'children_count', 'comments_count']
+    ['id', 'profile_id', 'parent_id', 'slug', 'path', 'updated_at', 'created_at', 'last_changed_by_id', 'version', 'lock_version', 'type', 'children_count', 'comments_count', 'hits']
   end
 
   def self.find_by_old_path(old_path)
     find(:first, :include => :versions, :conditions => ['article_versions.path = ?', old_path], :order => 'article_versions.id desc')
+  end
+
+  def hit
+    self.hits += 1
+    save!
+  end
+
+  def can_display_hits?
+    true
+  end
+
+  def display_hits?
+    can_display_hits? && display_hits
   end
 
   private

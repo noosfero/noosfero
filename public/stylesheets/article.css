@@ -23,6 +23,11 @@
   text-decoration: none;
 }
 
+#article-hits {
+  font-size: 10px;
+  text-align: right;
+}
+
 #article-cat {
   font-size: 10px;
 }

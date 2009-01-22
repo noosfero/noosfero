@@ -220,4 +220,10 @@ class RssFeedTest < Test::Unit::TestCase
     assert !feed.advertise?
   end
 
+  should 'can display hits' do
+    p = create_user('testuser').person
+    a = RssFeed.create!(:name => 'Test article', :profile => p)
+    assert_equal false, a.can_display_hits?
+  end
+
 end

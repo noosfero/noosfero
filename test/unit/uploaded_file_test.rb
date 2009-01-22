@@ -68,4 +68,9 @@ class UploadedFileTest < Test::Unit::TestCase
     assert_includes file.attachment_validation_options, :size
   end
 
+  should 'can display hits' do
+    file = UploadedFile.new(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    assert_equal false, file.can_display_hits?
+  end
+
 end

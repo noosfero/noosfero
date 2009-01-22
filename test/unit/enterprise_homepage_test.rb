@@ -53,4 +53,10 @@ class EnterpriseHomepageTest < Test::Unit::TestCase
     result = a.to_html
     assert_match /catalog\/test_enterprise\/#{prod.id}/, result
   end
+
+  should 'can display hits' do
+    a = EnterpriseHomepage.new(:name => 'Test article')
+    assert_equal false, a.can_display_hits?
+  end
+
 end

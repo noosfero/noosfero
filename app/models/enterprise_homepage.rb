@@ -26,4 +26,8 @@ class EnterpriseHomepage < Article
     (self.profile.environment.enabled?('disable_products_for_enterprises') ? '' : display_products_list(self.profile, products))
   end
 
+  def can_display_hits?
+    false
+  end
+
 end

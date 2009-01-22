@@ -644,4 +644,11 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'div', :attributes => { :id => "post-#{t.id}" }, :descendant => { :tag => 'a', :content => 'No comments yet', :attributes => { :href => /#{profile.identifier}\/blog\/first-post\?form=opened#comment_form/ } }
   end
 
+  should 'hit the article when viewed' do
+    a = profile.articles.create!(:name => 'test article')
+    get :view_page, :profile => profile.identifier, :page => [a.path]
+    a.reload
+    assert_equal 1, a.hits
+  end
+
 end

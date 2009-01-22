@@ -29,4 +29,8 @@ class Folder < Article
     true
   end
 
+  def can_display_hits?
+    false
+  end
+
 end
