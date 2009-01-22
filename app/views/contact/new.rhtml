@@ -9,7 +9,9 @@
 
   <%= required f.text_field(:name) %>
   <%= required f.text_field(:email) %>
-  <%= labelled_form_field _('City and state'), select_city(true) %>
+  <% unless environment.enabled?('disable_select_city_for_contact') %>
+    <%= labelled_form_field _('City and state'), select_city(true) %>
+  <% end %>
   <%= required f.text_field(:subject) %>
   <%= required f.text_area(:message, :rows => 10, :cols => 60) %>
   <%= labelled_form_field check_box(:contact, :receive_a_copy) + _('I want to receive a copy of the message in my e-mail.'), '' %>

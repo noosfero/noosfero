@@ -301,4 +301,11 @@ class EnterpriseTest < Test::Unit::TestCase
     assert ! enterprise.errors.invalid?(:contact_phone)
   end
 
+  should 'enable contact' do
+    enterprise = Enterprise.new(:enable_contact_us => false)
+    assert !enterprise.enable_contact?
+    enterprise.enable_contact_us = true
+    assert enterprise.enable_contact?
+  end
+
 end

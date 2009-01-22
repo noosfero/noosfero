@@ -87,5 +87,15 @@ class ContactControllerTest < Test::Unit::TestCase
       post :new, :profile => enterprise.identifier, :contact => {:name => 'john', :subject => 'Hi', :email => 'visitor@mail.invalid', :message => 'Hi, all', :state => '', :city => ''}
     end
   end
+
+  should 'not display select/city select when disable it in environment' do
+    get :new, :profile => profile.identifier
+    assert_tag :tag => 'select', :attributes => {:name => 'state'}
+    env = Environment.default
+    env.enable('disable_select_city_for_contact')
+    env.save!
+    get :new, :profile => profile.identifier
+    assert_no_tag :tag => 'select', :attributes => {:name => 'state'}
+  end
   
 end

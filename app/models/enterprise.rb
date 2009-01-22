@@ -112,6 +112,10 @@ class Enterprise < Organization
 
   settings_items :enable_contact_us, :type => :boolean, :default => true
 
+  def enable_contact?
+    enable_contact_us
+  end
+
   protected
 
   def default_homepage(attrs)

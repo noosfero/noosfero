@@ -55,6 +55,13 @@ class ContactSenderTest < Test::Unit::TestCase
     assert_nil response.cc
   end
 
+  should 'only deliver mail to email of person' do
+    person = create_user('contacted_user').person
+    c = Contact.new(:dest => person)
+    response = Contact::Sender.deliver_mail(c)
+    assert_equal [person.email], response.to
+  end
+
   private
 
     def read_fixture(action)

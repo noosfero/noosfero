@@ -1184,6 +1184,20 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal ['my@email.com'], p.notification_emails
   end
 
+  should 'enable contact for person only if its features enabled in environment' do
+    env = Environment.default
+    env.disable('disable_contact_person')
+    person = Person.new(:name => 'Contacted', :environment => env)
+    assert person.enable_contact?
+  end
+
+  should 'enable contact for community only if its features enabled in environment' do
+    env = Environment.default
+    env.disable('disable_contact_person')
+    community = Community.new(:name => 'Contacted', :environment => env)
+    assert community.enable_contact?
+  end
+
   private
 
   def assert_invalid_identifier(id)

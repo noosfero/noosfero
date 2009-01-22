@@ -1,9 +1,21 @@
 <ul>
   <% if logged_in? %>
+
     <% if profile.members.include?(user) %>
-      <li><%= link_to content_tag('span', _('Leave')), { :profile => user.identifier, :controller => 'memberships', :action => 'leave', :id => profile.id }, :class => 'button with-text icon-delete', :title => _('Leave this community') %></li>
+      <li>
+        <%= link_to content_tag('span', _('Leave')), { :profile => user.identifier, :controller => 'memberships', :action => 'leave', :id => profile.id }, :class => 'button with-text icon-delete', :title => _('Leave this community') %>
+      </li>
     <% else %>
-      <li><%= link_to content_tag('span', _('Join')), { :profile => user.identifier, :controller => 'memberships', :action => 'join', :id => profile.id }, :class => 'button with-text icon-add', :title => _('Join this community') %></li>
+      <li>
+        <%= link_to content_tag('span', _('Join')), { :profile => user.identifier, :controller => 'memberships', :action => 'join', :id => profile.id }, :class => 'button with-text icon-add', :title => _('Join this community') %>
+      </li>
     <% end %>
+
+    <% if profile.enable_contact? %>
+      <li>
+        <%= link_to content_tag('span', _('Contact us')), {:profile => profile.identifier, :controller => 'contact', :action => 'new'}, :class => 'button with-text icon-menu-mail' %>
+      </li>
+    <% end %>
+
   <% end %>
 </ul>

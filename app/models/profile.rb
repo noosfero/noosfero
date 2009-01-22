@@ -543,4 +543,8 @@ class Profile < ActiveRecord::Base
     self.members_by_role(Profile::Roles.admin)
   end
 
+  def enable_contact?
+    !environment.enabled?('disable_contact_' + self.class.name.downcase)
+  end
+
 end

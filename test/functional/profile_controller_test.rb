@@ -341,4 +341,67 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'a', :attributes => { :href => "/contact/my-test-enterprise/new" }, :content => 'Contact us'
   end
   
+  should 'display contact button only if friends' do
+    friend = create_user('friend_user').person
+    @profile.add_friend(friend)
+    env = Environment.default
+    env.disable('disable_contact_person')
+    env.save!
+    login_as(@profile.identifier)
+    get :index, :profile => friend.identifier
+    assert_tag :tag => 'a', :attributes => { :href => "/contact/#{friend.identifier}/new" }
+  end
+
+  should 'not display contact button if no friends' do
+    nofriend = create_user('no_friend').person
+    login_as(@profile.identifier)
+    get :index, :profile => nofriend.identifier
+    assert_no_tag :tag => 'a', :attributes => { :href => "/contact/#{nofriend.identifier}/new" }
+  end
+
+  should 'display contact button only if friends and its enable in environment' do
+    friend = create_user('friend_user').person
+    env = Environment.default
+    env.disable('disable_contact_person')
+    env.save!
+    @profile.add_friend(friend)
+    login_as(@profile.identifier)
+    get :index, :profile => friend.identifier
+    assert_tag :tag => 'a', :attributes => { :href => "/contact/#{friend.identifier}/new" }
+  end
+
+  should 'not display contact button if friends and its disable in environment' do
+    friend = create_user('friend_user').person
+    env = Environment.default
+    env.enable('disable_contact_person')
+    env.save!
+    @profile.add_friend(friend)
+    login_as(@profile.identifier)
+    get :index, :profile => friend.identifier
+    assert_no_tag :tag => 'a', :attributes => { :href => "/contact/#{friend.identifier}/new" }
+  end
+
+  should 'display contact button for community if its enable in environment' do
+    friend = create_user('friend_user').person
+    env = Environment.default
+    community = Community.create!(:name => 'my test community', :environment => env)
+    env.disable('disable_contact_community')
+    env.save!
+    community.add_member(@profile)
+    login_as(@profile.identifier)
+    get :index, :profile => community.identifier
+    assert_tag :tag => 'a', :attributes => { :href => "/contact/#{community.identifier}/new" }
+  end
+
+  should 'not display contact button for community if its disable in environment' do
+    env = Environment.default
+    community = Community.create!(:name => 'my test community', :environment => env)
+    env.enable('disable_contact_community')
+    env.save!
+    community.add_member(@profile)
+    login_as(@profile.identifier)
+    get :index, :profile => community.identifier
+    assert_no_tag :tag => 'a', :attributes => { :href => "/contact/#{community.identifier}/new" }
+  end
+
 end

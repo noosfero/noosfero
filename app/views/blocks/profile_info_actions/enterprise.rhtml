@@ -4,7 +4,7 @@
       <li><%= link_to content_tag('span', _('Add as favorite')), { :profile => user.identifier, :controller => 'favorite_enterprises', :action => 'add', :id => profile.id }, :class => 'button with-text icon-add', :title => __('Add enterprise as favorite') %></li>
     <% end %>
   <% end %>
-  <% if profile.enable_contact_us %>
+  <% if profile.enable_contact? %>
     <li> <%= link_to content_tag('span', _('Contact us')), {:profile => profile.identifier, :controller => 'contact', :action => 'new'}, :class => 'button with-text icon-menu-mail' %> </li>
   <% end %>
 </ul>

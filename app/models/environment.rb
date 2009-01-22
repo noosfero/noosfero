@@ -34,6 +34,9 @@ class Environment < ActiveRecord::Base
       'disable_header_and_footer' => _('Disable header/footer editing by users'),
       'disable_gender_icon' => _('Disable gender icon'),
       'disable_categories_menu' => _('Disable the categories menu'),
+      'disable_select_city_for_contact' => _('Disable state/city select for contact form'),
+      'disable_contact_person' => _('Disable contact for people'),
+      'disable_contact_community' => _('Disable contact for groups/communities'),
     }
   end
 
