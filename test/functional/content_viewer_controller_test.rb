@@ -410,7 +410,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     @request.stubs(:ssl?).returns(true)
     get :view_page, :profile => 'test_profile', :page => [ 'my-intranet' ]
 
-    assert_template 'access_denied'
+    assert_template 'access_denied.rhtml'
   end
 
   should 'not give access to private articles if logged in but not member' do
@@ -421,7 +421,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     @request.stubs(:ssl?).returns(true)
     get :view_page, :profile => 'test_profile', :page => [ 'my-intranet' ]
 
-    assert_template 'access_denied'
+    assert_template 'access_denied.rhtml'
   end
 
   should 'give access to private articles if logged in and member' do

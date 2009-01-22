@@ -21,16 +21,18 @@ module PermissionCheck
           accessor = accessor_method.kind_of?(Symbol) ? c.send(accessor_method) : accessor_method
           unless accessor && accessor.has_permission?(permission.to_s, target)
 #            c.instance_variable_set('@b', [accessor, permission, target])
-            c.send(:render, :file => access_denied_template_path, :status => 403) && false
+            c.send(:render, :template => access_denied_template_path, :status => 403) && false
           end
       end
     end
 
     def access_denied_template_path
-      if File.exists?(File.join(RAILS_ROOT, 'app', 'views','access_control' ,'access_denied.rhtml'))
-        file_path = File.join(RAILS_ROOT, 'app', 'views','access_control' ,'access_denied.rhtml')
+      if File.exists?(File.join(RAILS_ROOT, 'app', 'views', 'access_control', 'access_denied.rhtml'))
+        File.join(RAILS_ROOT, 'app', 'views', 'access_control', 'access_denied.rhtml')
+      elsif File.exists?(File.join(RAILS_ROOT, 'app','views', 'shared', 'access_denied.rhtml'))
+        File.join('shared', 'access_denied.rhtml')
       else
-        file_path = File.join(File.dirname(__FILE__),'..', 'views','access_denied.rhtml')
+        File.join(File.dirname(__FILE__), '..', 'views', 'access_denied.rhtml')
       end
     end
   end

@@ -36,6 +36,12 @@ class PermissionCheckTest < Test::Unit::TestCase
     get :other_stuff, :user => user.id, :resource => resource.id
     assert_response :success
     assert_template nil
-  
   end
+
+  def test_try_render_shared_access_denied_view
+    File.expects(:exists?).with(File.join(RAILS_ROOT, 'app', 'views', 'access_control', 'access_denied.rhtml'))
+    File.expects(:exists?).with(File.join(RAILS_ROOT, 'app', 'views', 'shared', 'access_denied.rhtml'))
+    AccessControlTestController.access_denied_template_path
+  end
+
 end

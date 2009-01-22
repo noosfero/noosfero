@@ -49,8 +49,7 @@ class ContentViewerController < ApplicationController
     end
 
     if !@page.display_to?(user)
-      # FIXME find a nice "access denied" layout
-      render :action => 'access_denied', :status => 403, :layout => false
+      render_access_denied(_('You are not allowed to view this content. You can contact the owner of this profile to request access then.'))
     end
 
     # At this point the page will be showed

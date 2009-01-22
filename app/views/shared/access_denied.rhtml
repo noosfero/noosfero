@@ -1,7 +1,16 @@
-<h2> <%= _('Access denied') %> </h2>
+<div id='access-denied'>
 
-<% unless @message.nil? %>
-  <p>
-  <%= @message %>
-  </p>
-<% end %>
+  <h1> <%= _('Access denied') %> </h1>
+
+  <% unless @message.nil? %>
+    <p><%= @message %></p>
+  <% else %>
+    <p><%= _('You are not allowed to view this page.') %></p>
+  <% end %>
+
+  <ul>
+    <li><%= link_to _('Go to the site home page'), :controller => 'home' %></li>
+    <li><%= link_to _('Go back'), :back %></li>
+  </ul>
+
+</div>

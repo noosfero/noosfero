@@ -96,6 +96,11 @@ class ApplicationController < ActionController::Base
     render :template => 'shared/not_found.rhtml', :status => 404
   end
 
+  def render_access_denied(message = nil)
+    @message = message
+    render :template => 'shared/access_denied.rhtml', :status => 403
+  end
+
   def user
     current_user.person if logged_in?
   end
