@@ -388,4 +388,24 @@ class ApplicationControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'a', :content => /Category 2/
   end
 
+  should 'show name of article as title of page' do
+    p = create_user('test_user').person
+    a = p.articles.create!(:name => 'test article')
+
+    @controller.instance_variable_set('@profile', p)
+    @controller.instance_variable_set('@page', a)
+
+    get :index
+    assert_tag 'title', :content => 'test article - ' + p.name + ' - ' + p.environment.name
+  end
+
+  should 'diplay name of profile in the title' do
+    p = create_user('test_user').person
+    p.name = 'Some Test User'
+    p.save!
+    @controller.instance_variable_set('@profile', p)
+
+    get :index, :profile => p.identifier
+    assert_tag 'title', :content => p.name + ' - ' + p.environment.name
+  end
 end
