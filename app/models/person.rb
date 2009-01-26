@@ -154,8 +154,8 @@ class Person < Profile
     person.user.save!
   end
 
-  def is_admin?
-    role_assignments.map{|ra|ra.role.permissions}.any? do |ps|
+  def is_admin?(environment)
+    role_assignments.select { |ra| ra.resource == environment }.map{|ra|ra.role.permissions}.any? do |ps|
       ps.any? do |p|
         ActiveRecord::Base::PERMISSIONS['Environment'].keys.include?(p)
       end

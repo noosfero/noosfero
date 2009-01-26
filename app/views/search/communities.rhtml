@@ -14,7 +14,8 @@
 
 <% if logged_in? %>
   <% button_bar do %>
-    <%= button(:add, _('New community'), :controller => 'memberships', :action => 'new_community', :profile => current_user.person.identifier) %>
+    <%# FIXME shouldn't the user create the community in the current environment instead of going to its home environment? %>
+    <%= button(:add, _('New community'), user.url.merge(:controller => 'memberships', :action => 'new_community')) %>
   <% end %>
 <% end %>
 

@@ -15,9 +15,9 @@
     <div id="user_menu_ul">
       <ul>
 
-        <li><a href="<%= homepage_path(:profile => current_user.login) %>"
-               help="<%= _('Go to your home page.') %>"
-               ><span class="icon-menu-home"></span><%= __('My Home Page') %></a></li>
+        <li>
+          <%= link_to( '<span class="icon-menu-home"></span>' + __('My Home Page'), user.url, :help => _('Go to your home page.'))%>
+        </li>
 
         <!-- li><a href="#"><span class="icon-menu-blog"></span> Meu Blog</a></li -->
 
@@ -32,16 +32,16 @@
                                      :help => _('Control panel: change your picture, edit your personal information, create content or change the way your home page looks.')
                                  ) %></li>
 
-        <%=
-          '<li>'+ link_to( '<span class="icon-menu-"></span>'+ _('Admin'),
-                           { :controller => 'admin_panel' }, :id => 'link_admin_panel',
-                           :help => _('Access the site administration panel.')
-                         ) +
-          '</li>' if user.is_admin?
-        %>
+        <% if user.is_admin?(environment) %>
+          <li><%= link_to( '<span class="icon-menu-"></span>'+ _('Admin'),
+                             {:controller => 'admin_panel' },
+                             :id => 'link_admin_panel',
+                             :help => _('Access the site administration panel.')
+                             )%></li>
+        <% end %>
 
         <li><%= link_to( '<span class="icon-menu-logout"></span>'+ _('Logout'),
-                                  { :controller => 'account', :action => 'logout'},
+                                  {:controller => 'account', :action => 'logout'},
                                   :id => 'link_logout',
                                   :help => _('This link takes you out of the system. You should logout if other people are willing to use the same computer after you.')
                                 ) %></li>

@@ -12,7 +12,8 @@ class LoginToTheApplicationTest < ActionController::IntegrationTest
     get '/account/login_popup'
     assert_response :success
 
-    login('ze', 'test')
+    create_user('test_user').person
+    login('test_user', 'test_user')
     assert_cannot_login
     assert_can_logout
 

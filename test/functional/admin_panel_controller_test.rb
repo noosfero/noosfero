@@ -24,11 +24,6 @@ class AdminPanelControllerTest < Test::Unit::TestCase
   end
 
   should 'manage the correct environment' do
-    Environment.destroy_all
-
-    default = Environment.create!(:name => 'default env', :is_default => true)
-    Environment.stubs(:default).returns(default)
-
     current = Environment.create!(:name => 'test environment', :is_default => false)
     current.domains.create!(:name => 'example.com')
     

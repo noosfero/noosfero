@@ -408,4 +408,20 @@ class ApplicationControllerTest < Test::Unit::TestCase
     get :index, :profile => p.identifier
     assert_tag 'title', :content => p.name + ' - ' + p.environment.name
   end
+
+  should 'display menu links for my environment when logged in other environment' do
+    e = Environment.create!(:name => 'other_environment')
+    e.domains << Domain.new(:name => 'other.environment')
+    e.save!
+
+    login_as(create_admin_user(e))
+    uses_host 'other.environment'
+    get :index
+    assert_tag :tag => 'div', :attributes => {:id => 'user_menu_ul'}
+    assert_tag :tag => 'div', :attributes => {:id => 'user_menu_ul'}, 
+                :descendant => {:tag => 'a', :attributes => { :href => 'http://other.environment/adminuser' }},
+                :descendant => {:tag => 'a', :attributes => { :href => 'http://other.environment/myprofile/adminuser' }},
+                :descendant => {:tag => 'a', :attributes => { :href => '/admin' }}
+  end
+
 end

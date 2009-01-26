@@ -261,7 +261,11 @@ class AccountController < ApplicationController
   end
 
   def go_to_user_initial_page
-    redirect_back_or_default(:controller => "profile_editor", :profile => current_user.login, :action => 'index')
+    if environment == current_user.environment
+      redirect_back_or_default(user.admin_url)
+    else
+      redirect_back_or_default(:controller => 'home')
+    end
   end
 
 end

@@ -121,13 +121,22 @@ module ApplicationHelper
   end
 
   def link_to_homepage(text, profile = nil, options = {})
-    profile ||= current_user.login
-    link_to text, homepage_path(:profile => profile) , options
+    p = if profile
+          Profile[profile]
+        else
+          user
+        end
+
+    link_to text, p.url, options
   end
 
   def link_to_myprofile(text, url = {}, profile = nil, options = {})
-    profile ||= current_user.login
-    link_to text, { :profile => profile, :controller => 'profile_editor' }.merge(url), options
+    p = if profile
+          Profile[profile]
+        else
+          user
+        end
+    link_to text, p.admin_url.merge(url), options
   end
 
   def link_to_document(doc, text = nil)

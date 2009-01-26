@@ -21,7 +21,7 @@
 
   <%= file_manager_button(_('Edit Appearance'), 'icons-app/design-editor.png', :controller => 'themes', :action => 'index') %>
   
-  <%= file_manager_button(_('Edit Header and Footer'), 'icons-app/header-and-footer.png', :controller => 'profile_editor', :action => 'header_footer') unless profile.enterprise? && environment.enabled?('disable_header_and_footer') && !user.is_admin? %>
+  <%= file_manager_button(_('Edit Header and Footer'), 'icons-app/header-and-footer.png', :controller => 'profile_editor', :action => 'header_footer') unless profile.enterprise? && environment.enabled?('disable_header_and_footer') && !user.is_admin?(environment) %>
 
   <%= file_manager_button(_('Manage Content'), 'icons-app/cms.png', :controller => 'cms') unless environment.enabled?('disable_cms') || profile.community? %>
 

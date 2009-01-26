@@ -40,6 +40,16 @@ class AccountControllerTest < Test::Unit::TestCase
     assert_redirected_to :controller => 'profile_editor', :action => 'index', :profile => 'quire'
   end
 
+  should 'redirect to home when login on other environment' do
+    e = Environment.create!(:name => 'other_environment')
+    e.domains << Domain.new(:name => 'other.environment')
+    e.save!
+    u = create_user('test_user', :environment => e).person
+    post :login, :user => {:login => 'test_user', :password => 'test_user'}
+
+    assert_redirected_to :controller => 'home'
+  end
+
   def test_should_fail_login_and_not_redirect
     @request.env["HTTP_REFERER"] = 'bli'
     post :login, :user => {:login => 'johndoe', :password => 'bad password'}
@@ -275,7 +285,8 @@ class AccountControllerTest < Test::Unit::TestCase
   end
 
   should 'correct redirect after login' do
-    post :login, :user => {:login => 'johndoe', :password => 'test'}
+    user = create_user('correct_redirect').person
+    post :login, :user => {:login => 'correct_redirect', :password => 'correct_redirect'}
     assert_redirected_to :controller => 'profile_editor'
   end
 

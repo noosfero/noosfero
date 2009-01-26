@@ -134,10 +134,27 @@ class PersonTest < Test::Unit::TestCase
     env = Environment.create!(:name => 'blah')
     person = create_user('just_another_person').person
     env.affiliate(person, role)
-    assert ! person.is_admin?
+    assert ! person.is_admin?(env)
     role.update_attributes(:permissions => ['view_environment_admin_panel'])
     person = Person.find(person.id)
-    assert person.is_admin?
+    assert person.is_admin?(env)
+  end
+
+  should 'separate admins of different environments' do
+    env1 = Environment.create!(:name => 'blah1')
+    env2 = Environment.create!(:name => 'blah2')
+
+    # role is an admin role
+    role = Role.create!(:name => 'just_another_admin_role')
+    role.update_attributes(:permissions => ['view_environment_admin_panel'])
+
+    # user is admin of env1, but not of env2
+    person = create_user('just_another_person').person
+    env1.affiliate(person, role)
+
+    person = Person.find(person.id)
+    assert person.is_admin?(env1)
+    assert !person.is_admin?(env2)
   end
 
   should 'get a default home page and a RSS feed' do
