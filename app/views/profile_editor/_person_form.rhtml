@@ -14,7 +14,7 @@
 <%= optional_field(@person, 'cell_phone', f.text_field(:cell_phone)) %>
 <%= optional_field(@person, 'comercial_phone', f.text_field(:comercial_phone)) %>
 <%= optional_field(@person, 'sex', f.radio_group(:profile_data, :sex, [ ['male',_('Male')], ['female',_('Female')] ])) %>
-<%= optional_field(@person, 'birth_date', f.text_field(:birth_date)) %>
+<%= optional_field(@person, 'birth_date', labelled_form_field(_('Birth date'), '<div class="select-birth-date">' + pick_date(:profile_data, :birth_date, {:start_year => (Date.today.year - 100), :end_year => (Date.today.year - 10)}) + '</div>')) %>
 <%= optional_field(@person, 'address', labelled_form_field(_('Address (street and number)'), text_field(:profile_data, :address))) %>
 <%= optional_field(@person, 'zip_code', labelled_form_field(_('ZIP code'), text_field(:profile_data, :zip_code))) %>
 <%= optional_field(@person, 'city', f.text_field(:city)) %>

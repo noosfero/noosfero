@@ -105,8 +105,8 @@ class Person < Profile
   N_('Formation'); N_('Custom formation'); N_('Custom area of study');
   settings_items :formation, :custom_formation, :custom_area_of_study
 
-  N_('Contact information'); N_('Birth date'); N_('City'); N_('State'); N_('Country'); N_('Sex'); N_('Zip code')
-  settings_items :photo, :contact_information, :birth_date, :sex, :city, :state, :country, :zip_code
+  N_('Contact information'); N_('City'); N_('State'); N_('Country'); N_('Sex'); N_('Zip code')
+  settings_items :photo, :contact_information, :sex, :city, :state, :country, :zip_code
 
   def self.conditions_for_profiles(conditions, person)
     new_conditions = sanitize_sql(['role_assignments.accessor_id = ?', person])

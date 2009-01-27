@@ -86,8 +86,8 @@ module DatesHelper
     link_to show_month(next_month_date.year, next_month_date.month) + ' &rarr;', :year => next_month_date.year, :month => next_month_date.month
   end
 
-  def pick_date(object, method)
-    date_select(object, method, :use_month_names => MONTHS.map {|item| gettext(item)})
+  def pick_date(object, method, options = {}, html_options = {})
+    date_select(object, method, html_options.merge(options.merge(:use_month_names => MONTHS.map {|item| gettext(item)})))
   end
 
 end

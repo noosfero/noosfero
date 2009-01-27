@@ -279,7 +279,7 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
 
   should 'render person partial' do
     person = create_user('test_profile', :environment => Environment.default).person
-    Person.any_instance.expects(:active_fields).returns(['contact_phone', 'birth_date', 'address']).at_least_once
+    Person.any_instance.expects(:active_fields).returns(['contact_phone', 'address']).at_least_once
     get :edit, :profile => person.identifier
     person.active_fields.each do |field|
       assert_tag :tag => 'input', :attributes => { :name => "profile_data[#{field}]" }
