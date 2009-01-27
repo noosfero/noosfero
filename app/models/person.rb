@@ -141,6 +141,12 @@ class Person < Profile
     self.user.nil? ? nil : self.user.email
   end
 
+  validates_each :email, :on => :update do |record,attr,value|
+    if User.find(:first, :conditions => ['email = ? and id != ?', value, record.user.id])
+      record.errors.add(attr, _('%{fn} is already used by other user'))
+    end
+  end
+
   # Returns the user e-mail.
   def contact_email
     email

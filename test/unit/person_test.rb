@@ -129,6 +129,14 @@ class PersonTest < Test::Unit::TestCase
     assert_equal 'damnit@example.com', u.email
   end
 
+  should 'not be able to change e-mail to an e-mail of other user' do
+    first = create_user('firstuser', :email => 'user@domain.com')
+    second = create_user('seconduser', :email => 'other@domain.com')
+    second.email = 'user@domain.com'
+    second.valid?
+    assert second.errors.invalid?(:email)
+  end
+
   should 'be an admin if have permission of environment administration' do
     role = Role.create!(:name => 'just_another_admin_role')
     env = Environment.create!(:name => 'blah')
