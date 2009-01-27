@@ -66,7 +66,7 @@ class ProfileControllerTest < Test::Unit::TestCase
   should 'render join template without layout when called with AJAX' do
     community = Community.create!(:name => 'my test community')
     login_as(@profile.identifier)
-    @request.expects(:xhr?).returns(true)
+    @request.expects(:xhr?).returns(true).at_least_once
 
     get :join, :profile => community.identifier
     assert_response :success
@@ -77,7 +77,7 @@ class ProfileControllerTest < Test::Unit::TestCase
   should 'render join template with layout in general' do
     community = Community.create!(:name => 'my test community')
     login_as(@profile.identifier)
-    @request.expects(:xhr?).returns(false)
+    @request.expects(:xhr?).returns(false).at_least_once
 
     get :join, :profile => community.identifier
     assert_response :success
