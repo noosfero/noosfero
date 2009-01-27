@@ -29,6 +29,26 @@ class User < ActiveRecord::Base
     user.person.update_attributes(:identifier => user.login, :user_id => user.id, :environment_id => user.environment_id)
   end
 
+  before_update do |user|
+    if !User.find(user.id).enable_email and user.enable_email and !user.environment.nil?
+      User::Mailer.deliver_activation_email_notify(user)
+    end
+  end
+
+  class Mailer < ActionMailer::Base
+    def activation_email_notify(user)
+      user_email = "#{user.login}@#{user.environment.default_hostname(true)}"
+      recipients user_email
+      from "#{user.environment.name} <#{user.environment.contact_email}>"
+      subject _("[%{environment}] Welcome to %{environment} mail!") % { :environment => user.environment.name }
+      body :name => user.name,
+        :email => user_email,
+        :webmail => MailConf.webmail_url,
+        :environment => user.environment.name,
+        :url => url_for(:host => user.environment.default_hostname, :controller => 'home')
+    end
+  end
+
   def signup!
     User.transaction do
       self.save!
