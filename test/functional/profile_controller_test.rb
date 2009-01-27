@@ -63,6 +63,15 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_kind_of Array, assigns(:favorite_enterprises)
   end
 
+  should 'render join template without layout when not' do
+    community = Community.create!(:name => 'my test community')
+    login_as(@profile.identifier)
+    get :join, :profile => community.identifier
+    assert_response :success
+    assert_template 'join'
+    assert_no_tag :tag => 'html'
+  end
+
   should 'show Join This Community button for non-member users' do
     login_as(@profile.identifier)
     community = Community.create!(:name => 'my test community')

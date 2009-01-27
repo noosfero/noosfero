@@ -7,7 +7,7 @@
       </li>
     <% else %>
       <li>
-        <%= link_to content_tag('span', _('Join')), { :profile => profile.identifier, :controller => 'profile', :action => 'join' }, :class => 'button with-text icon-add', :title => _('Join this community') %>
+        <%= lightbox_link_to content_tag('span', _('Join')), { :profile => profile.identifier, :controller => 'profile', :action => 'join' }, :class => 'button with-text icon-add', :title => _('Join this community') %>
       </li>
     <% end %>
 

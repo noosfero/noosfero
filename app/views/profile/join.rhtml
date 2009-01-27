@@ -7,5 +7,5 @@
 <% form_tag do %>
   <%= hidden_field_tag(:confirmation, 1) %>
   <%= submit_button(:ok, _("Yes, I want to join.") % profile.name) %>
-  <%= button(:cancel, _("No, I don't want."), :action => 'index') %>
+  <%= lightbox_close_button(_("No, I don't want."), :action => 'index') %>
 <% end %>
