@@ -59,7 +59,7 @@
     " controller_"+ @controller.controller_name() +
     " action_"+ @controller.controller_name() +"_"+ @controller.action_name()
     %>' onload='noosfero_init();'
-    help=<%= _('Pass the mouse over page elements to get help on them. Click the question mark icon on the top-right corner to deactivate this help window.').inspect %> >
+    help=<%= _('Pass the mouse over page elements to get help on them. Click the question mark icon on the top-right corner to deactivate this help window.').inspect %> onresize="registerDocumentSize()">
     <script type="text/javascript">
       /* Adds a class to "msie" to the body element if a Microsoft browser is
        * detected. This is needed to workaround several of their limitations.
@@ -68,6 +68,17 @@
         document.body.className += " msie msie" +
           navigator.appVersion.replace(/^.*MSIE\s+([0-9]+).*$/, "$1");
       }
+      function registerDocumentSize() {
+        document.body.className = document.body.className.replace(/(^| )docSize.+( |$)/g, " ");
+        for ( var x=100; x<=1500; x+=100 ) {
+          if ( document.body.clientWidth > x ) {
+            document.body.className += " docSize-GT-" + x;
+          } else {
+            document.body.className += " docSize-LT-" + x;
+          }
+        }
+      }
+      registerDocumentSize();
     </script>
 
     <% unless flash[:notice].nil? %>

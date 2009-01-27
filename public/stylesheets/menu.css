@@ -167,6 +167,10 @@
   width: 200px;
   z-index: 100;
 }
+.docSize-LT-900 #user_box {
+  right: 165px;
+  width: 160px;
+}
 
 #user_menu_head,
 #user_box a,
