@@ -105,7 +105,7 @@ class DatesHelperTest < Test::Unit::TestCase
     expects(:gettext).with('November').returns('November')
     expects(:gettext).with('December').returns('December')
 
-    expects(:date_select).with(:object, :method, {:use_month_names => ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']}).returns("KKKKKKKK")
+    expects(:date_select).with(:object, :method, { :include_blank => true, :use_month_names => ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']}).returns("KKKKKKKK")
 
     assert_equal 'KKKKKKKK', pick_date(:object, :method)
   end
