@@ -87,7 +87,7 @@ module DatesHelper
   end
 
   def pick_date(object, method, options = {}, html_options = {})
-    date_select(object, method, html_options.merge(options.merge(:use_month_names => MONTHS.map {|item| gettext(item)})))
+    date_select(object, method, html_options.merge(options.merge(:include_blank => true, :use_month_names => MONTHS.map {|item| gettext(item)})))
   end
 
 end
