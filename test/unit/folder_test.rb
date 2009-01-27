@@ -47,7 +47,7 @@ class FolderTest < ActiveSupport::TestCase
   end
 
   should 'can display hits' do
-    profile = create_user('test_user').person
+    profile = create_user('testuser').person
     a = Folder.create!(:name => 'Test article', :profile => profile)
     assert_equal false, a.can_display_hits?
   end

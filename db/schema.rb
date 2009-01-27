@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 59) do
+ActiveRecord::Schema.define(:version => 60) do
 
   create_table "article_versions", :force => true do |t|
     t.integer  "article_id"
@@ -236,6 +236,11 @@ ActiveRecord::Schema.define(:version => 59) do
   end
 
   add_index "profiles", ["environment_id"], :name => "index_profiles_on_environment_id"
+
+  create_table "refused_join_community", :id => false, :force => true do |t|
+    t.integer "person_id"
+    t.integer "community_id"
+  end
 
   create_table "region_validators", :id => false, :force => true do |t|
     t.integer "region_id"

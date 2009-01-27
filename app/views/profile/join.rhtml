@@ -1,0 +1,11 @@
+<h1><%= _('Joining %s') % profile.name %></h1>
+
+<p>
+<%= _('Are you sure you want to join %s?') % profile.name %>
+</p>
+
+<% form_tag do %>
+  <%= hidden_field_tag(:confirmation, 1) %>
+  <%= submit_button(:ok, _("Yes, I want to join.") % profile.name) %>
+  <%= button(:cancel, _("No, I don't want."), :action => 'index') %>
+<% end %>

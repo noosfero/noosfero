@@ -332,6 +332,90 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_equal '<span>SIGNUP_FIELD</span>', optional_field(profile, 'field', 'SIGNUP_FIELD')
   end
 
+  should 'not ask_to_join unless profile defined' do
+    e = Environment.default
+    e.stubs(:enabled?).with(:disable_join_community_popup).returns(false)
+    stubs(:environment).returns(e)
+
+    stubs(:profile).returns(nil)
+    assert ! ask_to_join?
+  end
+
+  should 'not ask_to_join unless profile is community' do
+    e = Environment.default
+    e.stubs(:enabled?).with(:disable_join_community_popup).returns(false)
+    stubs(:environment).returns(e)
+
+    p = create_user('test_user').person
+    stubs(:profile).returns(p)
+    assert ! ask_to_join?
+  end
+
+  should 'ask_to_join if its not logged and in a community' do
+    e = Environment.default
+    e.stubs(:enabled?).with(:disable_join_community_popup).returns(false)
+    stubs(:environment).returns(e)
+
+    c = Community.create(:name => 'test_comm', :identifier => 'test_comm')
+    stubs(:profile).returns(c)
+    stubs(:logged_in?).returns(false)
+    assert ask_to_join?
+  end
+
+  should 'ask_to_join if user say so' do
+    e = Environment.default
+    e.stubs(:enabled?).with(:disable_join_community_popup).returns(false)
+    stubs(:environment).returns(e)
+
+    c = Community.create(:name => 'test_comm', :identifier => 'test_comm')
+    stubs(:profile).returns(c)
+    stubs(:logged_in?).returns(true)
+    p = create_user('test_user').person
+    p.stubs(:ask_to_join?).with(c).returns(true)
+    stubs(:user).returns(p)
+
+    assert ask_to_join?
+  end
+
+  should 'not ask_to_join if user say no' do
+    e = Environment.default
+    e.stubs(:enabled?).with(:disable_join_community_popup).returns(false)
+    stubs(:environment).returns(e)
+    c = Community.create(:name => 'test_comm', :identifier => 'test_comm')
+    stubs(:profile).returns(c)
+    stubs(:logged_in?).returns(true)
+    p = create_user('test_user').person
+    p.stubs(:ask_to_join?).with(c).returns(false)
+    stubs(:user).returns(p)
+
+    assert !ask_to_join?
+  end
+
+  should 'not ask_to_join if environment say no even if its not logged and in a community' do
+    e = Environment.default
+    e.stubs(:enabled?).with(:disable_join_community_popup).returns(true)
+    stubs(:environment).returns(e)
+    c = Community.create(:name => 'test_comm', :identifier => 'test_comm')
+    stubs(:profile).returns(c)
+    stubs(:logged_in?).returns(false)
+    assert !ask_to_join?
+  end
+
+  should 'not ask_to_join if environment say no even if user say so' do
+    e = Environment.default
+    e.stubs(:enabled?).with(:disable_join_community_popup).returns(true)
+    stubs(:environment).returns(e)
+    c = Community.create(:name => 'test_comm', :identifier => 'test_comm')
+    stubs(:profile).returns(c)
+    stubs(:logged_in?).returns(true)
+    p = create_user('test_user').person
+    p.stubs(:ask_to_join?).with(c).returns(true)
+    stubs(:user).returns(p)
+
+    assert !ask_to_join?
+  end
+
+
   protected
 
   def url_for(args = {})

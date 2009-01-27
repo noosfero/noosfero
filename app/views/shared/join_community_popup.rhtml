@@ -1,0 +1,10 @@
+<div id='join-community-popup'>
+  <h3> <%= __('Do you want to join this community?') %> </h3>
+
+  <% button_bar do %>
+    <%= button(:ok, _('Yes'), :controller => 'profile', :action => 'join', :profile => profile.identifier) %>
+    <%= button_to_function(:cancel, _('Not now'), "$('join-community-popup').hide()") %>
+    <%= button(:cancel, _('No and don\'t ask again'), :controller => 'profile', :action => 'refuse_join', :profile => profile.identifier) %>
+  <% end %>
+</div>
+<%= draggable_element('join-community-popup') %>

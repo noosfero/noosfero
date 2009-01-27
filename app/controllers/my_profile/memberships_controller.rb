@@ -6,15 +6,6 @@ class MembershipsController < MyProfileController
     @memberships = profile.memberships
   end
 
-  def join
-    @to_join = Profile.find(params[:id])
-    if request.post? && params[:confirmation]
-      @to_join.add_member(profile)
-      flash[:notice] = _('%s administrator still needs to accept you as member.') % @to_join.name if @to_join.closed?
-      redirect_to @to_join.url
-    end
-  end
-
   def leave
     @to_leave = Profile.find(params[:id])
 

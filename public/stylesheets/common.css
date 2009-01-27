@@ -419,6 +419,26 @@ div.pending-tasks {
   margin: 1em;
 }
 
+/* join community popup */
+#join-community-popup {
+  z-index: 1000;
+  position: absolute;
+  width: 350px;
+  height: 180;
+  right: 50px;
+  top: 50px;
+  background: white;
+  border: 2px solid black;
+}
+
+#join-community-popup {
+  text-align: center;
+  cursor: move;
+}
+#join-community-popup .button-bar {
+  margin: 1em;
+}
+
 #content #not-found,
 #content #access-denied {
   padding: 20px;

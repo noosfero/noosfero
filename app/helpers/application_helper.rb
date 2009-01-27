@@ -761,4 +761,11 @@ module ApplicationHelper
     end
   end
 
+  def ask_to_join?
+    return if environment.enabled?(:disable_join_community_popup)
+    return unless profile && profile.kind_of?(Community)
+    return true unless logged_in?
+    user.ask_to_join?(profile)
+  end
+
 end

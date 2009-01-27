@@ -67,7 +67,7 @@ class ProfileControllerTest < Test::Unit::TestCase
     login_as(@profile.identifier)
     community = Community.create!(:name => 'my test community')
     get :index, :profile => community.identifier
-    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{@profile.identifier}/memberships/join/#{community.id}" }
+    assert_tag :tag => 'a', :attributes => { :href => "/profile/#{community.identifier}/join" }
   end
 
   should 'not show Join This Community button for member users' do
@@ -402,6 +402,59 @@ class ProfileControllerTest < Test::Unit::TestCase
     login_as(@profile.identifier)
     get :index, :profile => community.identifier
     assert_no_tag :tag => 'a', :attributes => { :href => "/contact/#{community.identifier}/new" }
+  end
+
+  should 'present confirmation before joining a profile' do
+    community = Community.create!(:name => 'my test community')
+    login_as @profile.identifier
+    get :join, :profile => community.identifier
+
+    assert_response :success
+    assert_template 'join'
+  end
+
+  should 'actually join profile' do
+    community = Community.create!(:name => 'my test community')
+    login_as @profile.identifier
+    post :join, :profile => community.identifier, :confirmation => '1'
+
+    assert_response :redirect
+    assert_redirected_to community.url
+
+    profile = Profile.find(@profile.id)
+    assert profile.memberships.include?(community), 'profile should be actually added to the community'
+  end
+
+  should 'create task when join to closed organization' do
+    community = Community.create!(:name => 'my test community', :closed => true)
+    login_as @profile.identifier
+    assert_difference AddMember, :count do
+      post :join, :profile => community.identifier, :confirmation => '1'
+    end
+  end
+
+  should 'require login to join community' do
+    community = Community.create!(:name => 'my test community', :closed => true)
+    get :join, :profile => community.identifier
+
+    assert_redirected_to :controller => 'account', :action => 'login'
+  end
+
+  should 'require login to refuse join community' do
+    community = Community.create!(:name => 'my test community', :closed => true)
+    get :refuse_join, :profile => community.identifier
+
+    assert_redirected_to :controller => 'account', :action => 'login'
+  end
+
+  should 'register join refusal' do
+    community = Community.create!(:name => 'my test community', :closed => true)
+    login_as @profile.identifier
+
+    get :refuse_join, :profile => community.identifier
+
+    p = Person.find(@profile.id)
+    assert_includes p.refused_communities, community
   end
 
 end

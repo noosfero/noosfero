@@ -495,4 +495,21 @@ class PersonTest < Test::Unit::TestCase
     assert !p1.is_a_friend?(p2)
   end
 
+  should 'refuse join community' do
+    p = create_user('test_user').person
+    c = Community.create!(:name => 'Test community', :identifier => 'test_community')
+
+    assert p.ask_to_join?(c)
+    p.refuse_join(c)
+    assert !p.ask_to_join?(c)
+  end
+
+  should 'not ask to join for a member' do
+    p = create_user('test_user').person
+    c = Community.create!(:name => 'Test community', :identifier => 'test_community')
+    c.add_member(p)
+
+    assert !p.ask_to_join?(c)
+  end
+
 end

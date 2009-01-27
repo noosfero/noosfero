@@ -27,30 +27,11 @@ class MembershipsControllerTest < Test::Unit::TestCase
   def test_valid_xhtml
     assert_valid_xhtml
   end
-  
+
   should 'list current memberships' do
     get :index, :profile => profile.identifier
 
     assert_kind_of Array, assigns(:memberships)
-  end
-
-  should 'present confirmation before joining a profile' do
-    community = Community.create!(:name => 'my test community')
-    get :join, :profile => profile.identifier, :id => community.id
-
-    assert_response :success
-    assert_template 'join'
-  end
-
-  should 'actually join profile' do
-    community = Community.create!(:name => 'my test community')
-    post :join, :profile => profile.identifier, :id => community.id, :confirmation => '1'
-
-    assert_response :redirect
-    assert_redirected_to community.url
-
-    profile = Profile.find(@profile.id)
-    assert profile.memberships.include?(community), 'profile should be actually added to the community'
   end
 
   should 'present new community form' do
@@ -141,13 +122,6 @@ class MembershipsControllerTest < Test::Unit::TestCase
 
     profile = Profile.find(@profile.id)
     assert_not_includes profile.memberships, community
-  end
-
-  should 'create task when join to closed organization' do
-    community = Community.create!(:name => 'my test community', :closed => true)
-    assert_difference AddMember, :count do
-      post :join, :profile => profile.identifier, :id => community.id, :confirmation => '1'
-    end
   end
 
   should 'current user is added as admin after create new community' do
