@@ -2,7 +2,11 @@
   <h3> <%= __('Do you want to join this community?') %> </h3>
 
   <% button_bar do %>
-    <%= lightbox_button(:ok, _('Yes'), :controller => 'profile', :action => 'join', :profile => profile.identifier) %>
+    <% if logged_in? %>
+      <%= lightbox_button(:ok, _('Yes'), :controller => 'profile', :action => 'join', :profile => profile.identifier) %>
+    <% else %>
+      <%= button(:ok, _('Yes'), :controller => 'profile', :action => 'join', :profile => profile.identifier) %>
+    <% end %>
     <%= button_to_function(:cancel, _('Not now'), "$('join-community-popup').hide()") %>
     <%= button(:cancel, _('No and don\'t ask again'), :controller => 'profile', :action => 'refuse_join', :profile => profile.identifier) %>
   <% end %>

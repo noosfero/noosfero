@@ -63,13 +63,26 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_kind_of Array, assigns(:favorite_enterprises)
   end
 
-  should 'render join template without layout when not' do
+  should 'render join template without layout when called with AJAX' do
     community = Community.create!(:name => 'my test community')
     login_as(@profile.identifier)
+    @request.expects(:xhr?).returns(true)
+
     get :join, :profile => community.identifier
     assert_response :success
     assert_template 'join'
     assert_no_tag :tag => 'html'
+  end
+
+  should 'render join template with layout in general' do
+    community = Community.create!(:name => 'my test community')
+    login_as(@profile.identifier)
+    @request.expects(:xhr?).returns(false)
+
+    get :join, :profile => community.identifier
+    assert_response :success
+    assert_template 'join'
+    assert_tag :tag => 'html'
   end
 
   should 'show Join This Community button for non-member users' do

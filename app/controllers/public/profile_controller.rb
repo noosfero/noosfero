@@ -49,7 +49,9 @@ class ProfileController < PublicController
       flash[:notice] = _('%s administrator still needs to accept you as member.') % profile.name if profile.closed?
       redirect_to profile.url
     else
-      render :layout => false
+      if request.xhr?
+        render :layout => false
+      end
     end
   end
 
