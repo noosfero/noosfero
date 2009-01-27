@@ -18,8 +18,8 @@ class AddBirthDateToPerson < ActiveRecord::Migration
         date_string = date_string[0..-3] + (year > (Date.today.year - 2000) ? year + 1900 : year + 2000).to_s
       end
 
-      date_string.gsub!('/', '.')
-      Date.parse(date_string)
+      date_string =~ (/(\d+)[^\d]+(\d+)[^\d]+(\d+)/)
+      Date.new($3.to_i, $2.to_i, $1.to_i)
     end
   end
 
