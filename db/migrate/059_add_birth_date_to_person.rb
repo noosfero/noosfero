@@ -18,8 +18,14 @@ class AddBirthDateToPerson < ActiveRecord::Migration
         date_string = date_string[0..-3] + (year > (Date.today.year - 2000) ? year + 1900 : year + 2000).to_s
       end
 
-      date_string =~ (/(\d+)[^\d]+(\d+)[^\d]+(\d+)/)
-      Date.new($3.to_i, $2.to_i, $1.to_i)
+      if ! ((date_string =~ /(\d+)[^\d]+(\d+)[^\d]+(\d+)/) || (date_string =~ /^(\d\d)(\d\d)(\d\d\d\d)$/))
+        return nil
+      end
+      begin
+        Date.new($3.to_i, $2.to_i, $1.to_i)
+      rescue Exception => e
+        nil
+      end
     end
   end
 
@@ -104,6 +110,15 @@ if $PROGRAM_NAME == __FILE__
     should 'return nil when not string nor date' do
       date = AddBirthDateToPerson::ConvertDates.convert(1001)
       assert_nil date
+    end
+
+    should 'convert date without separators' do
+      date = AddBirthDateToPerson::ConvertDates.convert('27071977')
+      assert_equal [ 1977, 07, 27] , [date.year, date.month, date.day]
+    end
+
+    should 'not try to create invalid date' do
+      assert_nil AddBirthDateToPerson::ConvertDates.convert('70/05/1987')
     end
 
   end
