@@ -4,6 +4,7 @@ class BlogArchivesBlock < Block
   include ActionView::Helpers::UrlHelper
   include ActionController::UrlWriter
   include ActionView::Helpers::AssetTagHelper
+  include DatesHelper
 
   def self.description
     _('List posts of your blog')
@@ -20,7 +21,7 @@ class BlogArchivesBlock < Block
     posts.group_by{|i| i.created_at.year}.each do |year, results_by_year|
       results << content_tag('li', content_tag('strong', "#{year} (#{results_by_year.size})"))
       results << "<ul class='#{year}-archive'>"
-      results_by_year.group_by{|i| [i.created_at.strftime("%m"), i.created_at.strftime("%B")]}.sort.each do |month, results_by_month|
+      results_by_year.group_by{|i| [ ('%02d' % i.created_at.month()), gettext(MONTHS[i.created_at.month() - 1])]}.sort.each do |month, results_by_month|
         results << content_tag('li', link_to("#{month[1]} (#{results_by_month.size})", owner.generate_url(:controller => 'content_viewer', :action => 'view_page', :page => [owner.blog.path, year, month[0]])))
       end
       results << "</ul>"
