@@ -18,6 +18,17 @@ extra_controller_dirs = %w[
   app/controllers/public
 ].map {|item| File.join(RAILS_ROOT, item) }
 
+def noosfero_session_secret
+  file = File.join(File.dirname(__FILE__), 'session.secret')
+  if !File.exists?(file)
+    secret = (1..128).map { %w[0 1 2 3 4 5 6 7 8 9 a b c d e f][rand(16)] }.join('')
+    File.open(file, 'w') do |f|
+      f.puts secret
+    end
+  end
+  File.read(file).strip
+end
+
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence those specified here
   
@@ -51,7 +62,7 @@ Rails::Initializer.run do |config|
   # no regular words or you'll be exposed to dictionary attacks.
   config.action_controller.session = {
     :session_key => '_noosfero_session',
-    :secret      => '7372009258e02886ca36278257637a008959504400f6286cd09133f6e9131d23460dd77e289bf99b480a3b4d017be0578b59335ce6a1c74e3644e37514926009'
+    :secret      => noosfero_session_secret(),
   }
 
   # Adds custom attributes to the Set of allowed html attributes for the #sanitize helper
