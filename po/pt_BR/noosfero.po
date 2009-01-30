@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.13.0\n"
 "POT-Creation-Date: 2009-01-30 15:19-0300\n"
-"PO-Revision-Date: 2009-01-06 16:48-0300\n"
+"PO-Revision-Date: 2009-01-30 13:24-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -395,7 +395,7 @@ msgstr "Quero receber uma notificação por e-mail sobre cada comentário"
 
 #: app/helpers/article_helper.rb:26
 msgid "I want this article to display the number of hits it received"
-msgstr ""
+msgstr "Eu quero que este artigo mostre o número de acessos que recebeu"
 
 #: app/helpers/article_helper.rb:32 app/views/tasks/_approve_article.rhtml:1
 msgid "New article"
@@ -1120,9 +1120,8 @@ msgid "Created at"
 msgstr "Criado em"
 
 #: app/models/task.rb:-
-#, fuzzy
 msgid "Target type"
-msgstr "Alvo"
+msgstr "Tipo do alvo"
 
 #: app/models/task.rb:26 app/models/profile.rb:-
 #: app/views/features/_manage_enterprise_fields.rhtml:8
@@ -1304,9 +1303,8 @@ msgid "Setting"
 msgstr "Configurações"
 
 #: app/models/article.rb:-
-#, fuzzy
 msgid "Hits"
-msgstr "Altura"
+msgstr "Visualizações"
 
 #: app/models/article.rb:10
 msgid ""
@@ -1778,7 +1776,7 @@ msgstr "Confirmação de senha"
 
 #: app/models/user.rb:43
 msgid "[%{environment}] Welcome to %{environment} mail!"
-msgstr ""
+msgstr "[%{environment}] Bem-vindo ao correio %{environment}!"
 
 #: app/models/user.rb:77
 msgid "%{fn} must be checked in order to signup."
@@ -2012,9 +2010,8 @@ msgid "Zip code"
 msgstr "CEP"
 
 #: app/models/person.rb:146
-#, fuzzy
 msgid "%{fn} is already used by other user"
-msgstr "%{fn} já está sendo usado por outra categoria."
+msgstr "%{fn} já está sendo usado por outro usuário."
 
 #: app/models/validation_info.rb:-
 msgid "validation info"
@@ -2346,21 +2343,19 @@ msgstr "Desabilitar menu de categorias"
 
 #: app/models/environment.rb:37
 msgid "Disable state/city select for contact form"
-msgstr ""
+msgstr "Desabilitar seleção de estado/cidade no formulário de contato"
 
 #: app/models/environment.rb:38
-#, fuzzy
 msgid "Disable contact for people"
-msgstr "Desabilitar busca por pessoas"
+msgstr "Desabilitar contato para pessoas"
 
 #: app/models/environment.rb:39
-#, fuzzy
 msgid "Disable contact for groups/communities"
-msgstr "Desabilitar busca por comunidades"
+msgstr "Desabilitar contato para comunidades"
 
 #: app/models/environment.rb:40
 msgid "Disable the popup that ask to join a group/community"
-msgstr ""
+msgstr "Desabilitar o popup que pede para entrar em um grupo/comunidade"
 
 #: app/models/environment.rb:364
 msgid "Only one Virtual Community can be the default one"
@@ -2628,7 +2623,7 @@ msgstr "Redirecionado de \"%s\". por favor atualize seus links e favoritos."
 msgid ""
 "You are not allowed to view this content. You can contact the owner of this "
 "profile to request access then."
-msgstr ""
+msgstr "Você não tem permissão de visualizar este conteúdo. Você pode contactar o dono deste perfil e pedir acesso."
 
 #: app/controllers/public/content_viewer_controller.rb:105
 msgid "Comment succesfully deleted"
@@ -3671,15 +3666,11 @@ msgstr[1] "%{num} validadores."
 
 #: app/views/user/mailer/activation_email_notify.rhtml:3
 msgid "Your email %s was just activated."
-msgstr ""
+msgstr "Seu email %s foi ativado agora."
 
 #: app/views/user/mailer/activation_email_notify.rhtml:5
-#, fuzzy
 msgid "You can access your e-mail from anywhere, using the following address:"
-msgstr ""
-"Para alterar sua senha, por favor visite o seguinte endereço:\n"
-"\n"
-"%s"
+msgstr "Você pode acessar seu e-mail de qualquer lugar usando o seguinte endereço:"
 
 #: app/views/profile/friends.rhtml:2
 msgid "Here are all <b>%s</b>'s friends."
@@ -3982,9 +3973,8 @@ msgid "Add friend"
 msgstr "Adicionar amigo"
 
 #: app/views/blocks/profile_info_actions/person.rhtml:9
-#, fuzzy
 msgid "Contact"
-msgstr "Contatos"
+msgstr "Contato"
 
 #: app/views/blocks/profile_info_actions/community.rhtml:6
 msgid "Leave this community"
@@ -5313,39 +5303,34 @@ msgid "Edit theme"
 msgstr "Editar tema"
 
 #: app/views/shared/join_community_popup.rhtml:2
-#, fuzzy
 msgid "Do you want to join this community?"
-msgstr "Tem certeza que quer excluir este comentário?"
+msgstr "Tem certeza que quer entrar nesta communidade?"
 
 #: app/views/shared/join_community_popup.rhtml:10
-#, fuzzy
 msgid "Not now"
-msgstr "Não informado"
+msgstr "Não agora"
 
 #: app/views/shared/join_community_popup.rhtml:11
-#, fuzzy
 msgid "No and don't ask again"
-msgstr "Não, não quero."
+msgstr "Não e não pergunte denovo."
 
 #: app/views/shared/access_denied.rhtml:3
 msgid "Access denied"
 msgstr "Acesso negado"
 
 #: app/views/shared/access_denied.rhtml:8
-#, fuzzy
 msgid "You are not allowed to view this page."
-msgstr "Você não está autorizado a visualizar este conteúdo."
+msgstr "Você não está autorizado a visualizar esta página."
 
 #: app/views/shared/access_denied.rhtml:9
 msgid ""
 "If you are supposed to have access to this area, you'll probably want to "
 "talk to the people responsible and ask them to give you access."
-msgstr ""
+msgstr "Se você deveria ter acesso a esta área, você provavelmente deve entrar em contato com as pessoas responsáveis e pedir acesso."
 
 #: app/views/shared/access_denied.rhtml:13 app/views/shared/not_found.rhtml:8
-#, fuzzy
 msgid "Go to the site home page"
-msgstr "Vá à sua página inicial."
+msgstr "Vá para a página inicial do site."
 
 #: app/views/shared/_select_categories.rhtml:34
 msgid "Categories:"
@@ -5357,14 +5342,14 @@ msgstr "Não há página: %s"
 
 #: app/views/shared/not_found.rhtml:4
 msgid "You may have clicked an expired link or mistyped the address."
-msgstr ""
+msgstr "Você pode ter clicado em um link expirado ou em um endereço digitado errado."
 
 #: app/views/shared/not_found.rhtml:5
 msgid ""
 "If you clicked a link that was in another site, or was given to you by "
 "someone else, it would be nice if you tell them that their link is not valid "
 "anymore."
-msgstr ""
+msgstr "Se você clicou em um link que estava em outro site ou que passado a você por outra pessoa seria legal que você notificasse que o link não é mais válido."
 
 #: app/views/pending_task_notifier/notification.rhtml:1
 msgid "Dear %s"
@@ -5479,9 +5464,8 @@ msgid "Manage institutions fields"
 msgstr "Gerenciar campos de instituições"
 
 #: lib/unifreire_terminology.rb:32
-#, fuzzy
 msgid "%s's institutions"
-msgstr "instituições"
+msgstr "Instituições de %s"
 
 #: lib/zen3_terminology.rb:9
 msgid "My ePortfolio"
