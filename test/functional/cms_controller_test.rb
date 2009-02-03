@@ -636,11 +636,6 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'div', :descendant => { :tag => 'h4', :content => 'Categorize your article' }
   end
 
-  should 'offer to create a blog' do
-    get :index, :profile => profile.identifier
-    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?type=Blog"}
-  end
-
   should 'not display input name on create blog' do
     get :new, :profile => profile.identifier, :type => 'Blog'
     assert_no_tag :tag => 'input', :attributes => { :name => 'article[name]', :type => 'text' }
@@ -653,16 +648,6 @@ class CmsControllerTest < Test::Unit::TestCase
 
   should 'not offer to create special article types' do
     get :new, :profile => profile.identifier
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?type=Blog"}
-  end
-
-  should 'not offer to create a blog if user already have' do
-    profile.articles << Blog.new(:name => 'blog test')
-
-    profile.articles.reload
-    assert profile.has_blog?
-
-    get :index, :profile => profile.identifier
     assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?type=Blog"}
   end
 
