@@ -18,6 +18,7 @@
     <%= button :add, _('New folder'), :action => 'new', :type => 'Folder', :parent_id => parent_id %>
   <% end %>
   <%= lightbox_button('new', label_for_new_article(@article), :action => 'new', :parent_id => parent_id) %>
+  <%= button('save', _('Upload file'), :action => 'new', :parent_id => parent_id, :type => 'UploadedFile') %>
 <% end %>
 
 <table class='cms-articles'>
