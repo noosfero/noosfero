@@ -22,7 +22,7 @@ class Person < Profile
   end
 
   def suggested_friend_groups
-    (friend_groups + [ _('friends'), _('work'), _('school'), _('family') ]).map {|i| i if !i.empty?}.compact.uniq
+    (friend_groups.compact + [ _('friends'), _('work'), _('school'), _('family') ]).map {|i| i if !i.empty?}.compact.uniq
   end
 
   def friend_groups

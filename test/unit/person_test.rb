@@ -214,6 +214,12 @@ class PersonTest < Test::Unit::TestCase
     assert_equivalent [ 'friends', 'work', 'school', 'family', 'group1', 'group2' ], p.suggested_friend_groups
   end
 
+  should 'accept nil friend groups when suggesting friend groups' do
+    p = Person.new(:environment => Environment.default)
+    p.expects(:friend_groups).returns([nil])
+    assert_equivalent [ 'friends', 'work', 'school', 'family' ], p.suggested_friend_groups
+  end
+
   should 'list friend groups' do
     p1 = create_user('testuser1').person
     p2 = create_user('testuser2').person
