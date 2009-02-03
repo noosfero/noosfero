@@ -1198,6 +1198,56 @@ class ProfileTest < Test::Unit::TestCase
     assert community.enable_contact?
   end
 
+  should 'include pending tasks from environment if is admin' do
+    env = Environment.default
+    person = create_user('molly').person
+    task = Task.create!(:requestor => person, :target => env)
+
+    Person.any_instance.stubs(:is_admin?).returns(true)
+    assert_equal [task], person.all_pending_tasks
+  end
+
+  should 'find task from environment if is admin' do
+    env = Environment.default
+    person = create_user('molly').person
+    task = Task.create!(:requestor => person, :target => env)
+
+    Person.any_instance.stubs(:is_admin?).returns(true)
+    assert_equal task, person.find_in_all_tasks(task.id)
+  end
+
+  should 'find task from all environment if is admin' do
+    env = Environment.default
+    another = Environment.create!(:name => 'another_env')
+    person = Person['ze']
+    task1 = Task.create!(:requestor => person, :target => env)
+    task2 = Task.create!(:requestor => person, :target => another)
+
+    another.affiliate(person, Environment::Roles.admin)
+    env.affiliate(person, Environment::Roles.admin)
+
+    Person.any_instance.stubs(:is_admin?).returns(true)
+
+    assert_equal [task1, task2], person.all_pending_tasks
+  end
+
+  should 'find task by id on all environments' do
+    env = Environment.create!(:name => 'other_env')
+    another = Environment.create!(:name => 'another_env')
+    person = Person['ze']
+
+    task1 = Task.create!(:requestor => person, :target => env)
+    task2 = Task.create!(:requestor => person, :target => another)
+
+    person.stubs(:is_admin?).with(env).returns(true)
+    Environment.find(:all).select{|i| i.name != 'other_env'}.each do |env|
+      person.stubs(:is_admin?).with(env).returns(false)
+    end
+
+    assert_not_nil person.find_in_all_tasks(task1.id)
+    assert_nil person.find_in_all_tasks(task2.id)
+  end
+
   private
 
   def assert_invalid_identifier(id)

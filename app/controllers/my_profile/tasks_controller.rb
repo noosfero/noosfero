@@ -3,11 +3,11 @@ class TasksController < MyProfileController
   protect 'perform_task', :profile
   
   def index
-    @tasks = profile.tasks.pending
+    @tasks = profile.all_pending_tasks
   end
 
   def processed
-    @tasks = profile.tasks.finished
+    @tasks = profile.all_finished_tasks
   end
 
   VALID_DECISIONS = [ 'finish', 'cancel' ]
@@ -15,7 +15,7 @@ class TasksController < MyProfileController
   def close
     decision = params[:decision]
     if request.post? && VALID_DECISIONS.include?(decision) && params[:id]
-      task = profile.tasks.find(params[:id])
+      task = profile.find_in_all_tasks(params[:id])
       task.update_attributes!(params[:task])
       task.send(decision)
     end

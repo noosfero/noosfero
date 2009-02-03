@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 60) do
+ActiveRecord::Schema.define(:version => 61) do
 
   create_table "article_versions", :force => true do |t|
     t.integer  "article_id"
@@ -288,6 +288,7 @@ ActiveRecord::Schema.define(:version => 60) do
     t.string   "code",         :limit => 40
     t.string   "type"
     t.datetime "created_at"
+    t.string   "target_type"
   end
 
   create_table "thumbnails", :force => true do |t|

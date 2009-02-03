@@ -55,3 +55,10 @@ profile_moderator:
   system: true
   permissions:
    - moderate_comments
+environment_administrator:
+  id: 8
+  key: 'environment_administrator'
+  name: 'Environment administrator'
+  system: true
+  permissions:
+   - perform_task

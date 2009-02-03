@@ -10,6 +10,9 @@ class EnterpriseRegistrationController < ApplicationController
   # to the first step explicitly?
   def index
     @create_enterprise = CreateEnterprise.new(params[:create_enterprise])
+    if params[:create_enterprise] && params[:create_enterprise][:target_id]
+      @create_enterprise.target = Profile.find(params[:create_enterprise][:target_id])
+    end
     @create_enterprise.requestor = current_user.person
     the_action =
       if request.post?

@@ -46,8 +46,7 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     pending = []
     pending.expects(:select).returns(pending)
     pending.expects(:empty?).returns(false) # force the display of the pending tasks list
-    tasks.expects(:pending).returns(pending)
-    ze.expects(:tasks).returns(tasks)
+    ze.expects(:all_pending_tasks).returns(pending)
     get :index, :profile => ze.identifier
     assert_same pending, assigns(:pending_tasks)
     assert_tag :tag => 'div', :attributes => { :class => 'pending-tasks' }, :descendant => { :tag => 'a', :attributes =>  { :href => '/myprofile/ze/tasks' } }

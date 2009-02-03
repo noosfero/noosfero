@@ -147,7 +147,8 @@ class TasksControllerTest < Test::Unit::TestCase
      f = create_user('friend').person
      profile.add_friend f
 
-     post :new, :profile => profile.identifier, :ticket => {:title => 'test ticket', :target_id => f.id}
+     post :new, :profile => profile.identifier, :ticket => {:title => 'test ticket', :target_id => f.id, :target_type => 'Profile'}
+     assert_response :redirect
 
      assert_equal f, assigns(:ticket).target
   end

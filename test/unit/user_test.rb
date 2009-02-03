@@ -262,6 +262,27 @@ class UserTest < Test::Unit::TestCase
     assert_equal false, User.new.enable_email
   end
 
+  should 'enable email' do
+    user = create_user('cooler')
+    assert !user.enable_email
+    assert user.enable_email!
+    assert user.enable_email
+  end
+
+  should 'has email activation pending' do
+    user = create_user('cooler')
+    user.update_attribute(:environment_id, Environment.default.id)
+    EmailActivation.create!(:requestor => user.person, :target => Environment.default)
+    assert user.email_activation_pending?
+  end
+
+  should 'not has email activation pending if not have environment' do
+    user = create_user('cooler')
+    user.expects(:environment).returns(nil)
+    EmailActivation.create!(:requestor => user.person, :target => Environment.default)
+    assert !user.email_activation_pending?
+  end
+
   protected
     def new_user(options = {})
       user = User.new({ :login => 'quire', :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire' }.merge(options))

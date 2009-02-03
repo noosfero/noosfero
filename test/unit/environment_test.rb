@@ -681,4 +681,11 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal ['Category'], Environment.new.category_types
   end
 
+  should 'has tasks' do
+    e = Environment.default
+    assert_nothing_raised do
+      e.tasks
+    end
+  end
+
 end

@@ -1,17 +1,37 @@
 <h1><%= _('e-Mail configuration') %></h1>
 
-<% form_tag(:action => 'save') do %>
+<%= error_messages_for :task %>
 
-  <div>
-    <%= check_box :user, :enable_email  %>
-    <label for='user_enable_email'><%= _('Enable e-mail %s') % profile.email_addresses.join(', ') %></label>
-    <blockquote>
-      <%= _("Marking this option gives you an e-mail account with the address above. You'll be able to access a webmail from your user menu.") %>
-    </blockquote>
-  </div>
+<% if profile.user.email_activation_pending? %>
+
+  <p><%= _('You already request activation of your mailbox. Please wait until an administrator approves your request.') %></p>
 
   <% button_bar do %>
-    <%= submit_button :save, _('Save') %>
     <%= button :back, _('Back to control panel'), :controller => 'profile_editor' %>
   <% end %>
+
+<% else %>
+
+
+  <% if profile.user.enable_email %>
+
+    <p><%= _("Disable e-Mail account below:") %></p>
+    <ul><%= profile.email_addresses.map{|i| content_tag('li', i)}.join("\n") %></ul>
+    <% button_bar do %>
+      <%= button(:cancel, _('Disable e-Mail'), { :action => 'disable' }, :method => 'post') %>
+      <%= button :back, _('Back to control panel'), :controller => 'profile_editor' %>
+    <% end %>
+
+  <% else %>
+
+    <p><%= _("Enable e-Mail account below:") %></p>
+    <ul><%= profile.email_addresses.map{|i| content_tag('li', i)}.join("\n") %></ul>
+    <blockquote><%= _("You'll be able to access a webmail from your user menu.") %></blockquote>
+    <% button_bar do %>
+      <%= button(:ok, _('Enable e-Mail'), { :action => 'enable' }, :method => 'post') %>
+      <%= button :back, _('Back to control panel'), :controller => 'profile_editor' %>
+    <% end %>
+
+  <% end %>
+
 <% end %>

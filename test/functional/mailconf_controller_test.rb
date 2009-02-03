@@ -51,28 +51,18 @@ class MailconfControllerTest < Test::Unit::TestCase
     login_as('ze')
     get :index, :profile => 'ze'
     assert_tag(
-      :tag => 'form',
-      :attributes => { :action => '/myprofile/ze/mailconf/save'},
-      :descendant => {
-        :tag => 'input',
-        :attributes => { :name => 'user[enable_email]', :type => 'checkbox' }
-      }
+      :tag => 'a',
+      :content => 'Enable e-Mail',
+      :attributes => {:href => '/myprofile/ze/mailconf/enable'}
     )
-  end
-
-  should 'display correctly the state true of e-mail enable/disable' do
-    login_as('ze')
-    users(:ze).update_attributes!(:enable_email => true)
-    get :index, :profile => 'ze'
-    assert_tag :tag => 'input', :attributes => { :name => 'user[enable_email]', :type => 'checkbox', :value => '1', :checked => 'checked' }
   end
 
   should 'display correctly the state false of e-mail enable/disable' do
     login_as('ze')
     users(:ze).update_attributes!(:enable_email => false)
     get :index, :profile => 'ze'
-    assert_no_tag :tag => 'input', :attributes => { :name => 'user[enable_email]', :type => 'checkbox', :value => '1', :checked => 'checked' }
-    assert_tag :tag => 'input', :attributes => { :name => 'user[enable_email]', :type => 'hidden', :value => '0' }
+    assert_tag :tag => 'a', :content => 'Enable e-Mail'
+    assert_no_tag :tag => 'a', :content => 'Disable e-Mail', :attributes => { :href => '/myprofile/ze/mailconf/disable' }
   end
 
   should 'not display www in email address when force_www=true' do
@@ -81,7 +71,7 @@ class MailconfControllerTest < Test::Unit::TestCase
     env.force_www = true
     env.save!
     get :index, :profile => 'ze'
-    assert_tag :tag => 'label', :attributes => { :for => 'user_enable_email' }, :content => /ze@colivre.net/
+    assert_tag :tag => 'li', :content => /ze@colivre.net/
   end
 
   should 'not display www in email address when force_www=false' do
@@ -90,30 +80,38 @@ class MailconfControllerTest < Test::Unit::TestCase
     env.force_www = false
     env.save!
     get :index, :profile => 'ze'
-    assert_tag :tag => 'label', :attributes => { :for => 'user_enable_email' }, :content => /ze@colivre.net/
+    assert_tag :tag => 'li', :content => /ze@colivre.net/
   end
 
-  should 'save mail enable/disable as true' do
+  should 'create task to environment admin when enable email' do
     login_as('ze')
-    post :save, :profile => 'ze', :user => { :enable_email => '1' }
-    assert Profile['ze'].user.enable_email
+    assert_difference EmailActivation, :count do
+      post :enable, :profile => 'ze'
+    end
   end
 
   should 'save mail enable/disable as false' do
     login_as('ze')
-    post :save, :profile => 'ze', :user => { :enable_email => '0' }
+    assert users(:ze).enable_email!
+    post :disable, :profile => 'ze'
     assert !Profile['ze'].user.enable_email
   end
 
   should 'go back on save' do
     login_as('ze')
-    post :save, :profile => 'ze'
-    assert_redirected_to :action => 'index'
+    post :enable, :profile => 'ze'
+    assert_redirected_to :controller => 'profile_editor'
+  end
+
+  should 'go to profile editor after enable email' do
+    login_as('ze')
+    post :enable, :profile => 'ze'
+    assert_redirected_to :controller => 'profile_editor', :action => 'edit'
   end
 
   should 'display notice after saving' do
     login_as('ze')
-    post :save, :profile => 'ze'
+    post :enable, :profile => 'ze'
     assert_kind_of String, flash[:notice]
   end
 
@@ -121,6 +119,14 @@ class MailconfControllerTest < Test::Unit::TestCase
     login_as('ze')
     get :index, :profile => 'ze'
     assert_tag :tag => 'div', :attributes => { :id => 'content'}, :descendant => { :tag => 'a', :attributes => { :href => '/myprofile/ze' } }
+  end
+
+  should 'not display input for enable/disable e-mail when has pending_enable_email' do
+    login_as('ze')
+    users(:ze).update_attribute(:environment_id, Environment.default.id)
+    EmailActivation.create!(:requestor => users(:ze).person, :target => Environment.default)
+    get :index, :profile => 'ze'
+    assert_no_tag :tag => 'input', :attributes => {:name => 'user[enable_email]', :type => 'checkbox'}
   end
 
 end

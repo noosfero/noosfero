@@ -12,8 +12,13 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.13.0\n"
+<<<<<<< HEAD:po/pt_BR/noosfero.po
 "POT-Creation-Date: 2009-01-30 15:19-0300\n"
-"PO-Revision-Date: 2009-02-02 19:06-0300\n"
+"PO-Revision-Date: 2009-02-03 18:38-0300\n"
+=======
+"POT-Creation-Date: 2009-01-06 16:46-0300\n"
+"PO-Revision-Date: 2009-01-28 18:24-0300\n"
+>>>>>>> ActionItem897-novo:po/pt_BR/noosfero.po
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -4541,6 +4546,10 @@ msgstr "%s quer publicar conteúdo: %s."
 #: app/views/tasks/_approve_article.rhtml:22
 msgid "Name for publishing"
 msgstr "Nome para publicação"
+
+#: app/views/mailconf/index.rhtml:1
+msgid "e-Mail configuration"
+msgstr "Configuração de e-Mail"
 
 #: app/views/tasks/_approve_article.rhtml:24
 msgid "Comment for author"

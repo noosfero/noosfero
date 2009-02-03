@@ -20,10 +20,10 @@ class TaskTest < Test::Unit::TestCase
     end
   end
 
-  def test_relationship_with_target
+  should 'target be able to polymorphic relationship' do
     t = Task.create
-    assert_raise ActiveRecord::AssociationTypeMismatch do
-      t.target = 1
+    assert_nothing_raised do
+      t.target = Environment.new
     end
     assert_nothing_raised do
       t.target = Profile.new

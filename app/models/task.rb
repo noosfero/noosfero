@@ -28,7 +28,7 @@ class Task < ActiveRecord::Base
   end
 
   belongs_to :requestor, :class_name => 'Person', :foreign_key => :requestor_id
-  belongs_to :target, :class_name => 'Profile', :foreign_key => :target_id
+  belongs_to :target, :foreign_key => :target_id, :polymorphic => true
 
   validates_uniqueness_of :code, :on => :create
   validates_presence_of :code

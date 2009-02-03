@@ -109,8 +109,8 @@ class CreateEnterpriseTest < Test::Unit::TestCase
       :legal_form => 'cooperative',
       :economic_activity => 'free software',
       :region_id => region.id,
-      :requestor_id => person.id,
-      :target_id => validator.id,
+      :requestor => person,
+      :target => validator,
     })
 
     enterprise = Enterprise.new
@@ -143,8 +143,8 @@ class CreateEnterpriseTest < Test::Unit::TestCase
       :legal_form => 'cooperative',
       :economic_activity => 'free software',
       :region_id => region.id,
-      :requestor_id => person.id,
-      :target_id => validator.id,
+      :requestor => person,
+      :target => validator,
     })
 
     enterprise = Enterprise.new

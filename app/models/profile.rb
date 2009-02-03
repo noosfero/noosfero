@@ -103,7 +103,32 @@ class Profile < ActiveRecord::Base
   has_many :consumptions
   has_many :consumed_product_categories, :through => :consumptions, :source => :product_category
 
-  has_many :tasks, :foreign_key => :target_id, :dependent => :destroy
+  has_many :tasks, :dependent => :destroy, :as => 'target'
+
+  %w[ pending finished ].each do |status|
+    class_eval <<-CODE
+      def all_#{status}_tasks
+        env_tasks = []
+        if self.person?
+          env_tasks = Environment.find(:all).select{ |env| self.is_admin?(env) }.map{ |env| env.tasks.#{status} }.flatten
+        end
+        tasks.#{status} + env_tasks
+      end
+    CODE
+  end
+
+  def find_in_all_tasks(task_id)
+    if tasks.exists?(task_id)
+      return tasks.find(task_id)
+    else
+      if self.person?
+        environments_admin = Environment.find(:all).select{ |env| self.is_admin?(env) }
+        task = environments_admin.select{ |env| env.tasks.exists?(task_id) }.map{ |i| i.tasks.find(task_id) }
+        return task.first unless task.empty?
+      end
+    end
+    return nil
+  end
 
   has_many :profile_categorizations, :conditions => [ 'categories_profiles.virtual = ?', false ]
   has_many :categories, :through => :profile_categorizations

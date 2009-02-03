@@ -7,6 +7,7 @@
   <% else %>
     <%= display_form_field( _('To: '), f.select(:target_id, profile.friends.map{|p|[p.name, p.id]})) %>
   <% end %>
+  <%= hidden_field_tag 'ticket[target_type]', 'Profile' %>
   <%= f.text_field :title, :style => 'width:80%;' %>
   <%= f.text_area :description, :style => 'height:200px; width:80%;' %>
 

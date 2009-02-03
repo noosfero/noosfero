@@ -39,6 +39,7 @@ class EnterpriseRegistrationTest < ActionController::IntegrationTest
       post '/enterprise_registration', :create_enterprise => data.merge(:target_id => org.id)
     end
     
+    assert_template 'confirmation'
     assert_tag :tag => 'a', :attributes => { :href => '/' }
 
     code = CreateEnterprise.find(:first, :order => 'id desc').code

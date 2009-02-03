@@ -185,6 +185,22 @@ class User < ActiveRecord::Base
     person.name
   end
 
+  def enable_email!
+    self.update_attribute(:enable_email, true)
+  end
+
+  def disable_email!
+    self.update_attribute(:enable_email, false)
+  end
+
+  def email_activation_pending?
+    if self.environment.nil?
+      return false
+    else
+      return EmailActivation.exists?(:requestor_id => self.person.id, :target_id => self.environment.id, :status => Task::Status::ACTIVE)
+    end
+  end
+
   protected
     # before filter 
     def encrypt_password
