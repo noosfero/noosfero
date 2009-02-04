@@ -105,4 +105,12 @@ class CatalogControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'p', :attributes => { :class => 'product_price' }, :content => /Price:/
   end
 
+  should 'not crash on index when product has no product_category and enterprise not enabled' do
+    ent = Enterprise.create!(:identifier => 'test_enterprise1', :name => 'Test enteprise1', :enabled => false)
+    prod = ent.products.create!(:name => 'Product test', :price => 50.00, :product_category => nil)
+    assert_nothing_raised do
+      get :index, :profile => ent.identifier
+    end
+  end
+
 end
