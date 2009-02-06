@@ -12,13 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.13.0\n"
-<<<<<<< HEAD:po/pt_BR/noosfero.po
 "POT-Creation-Date: 2009-01-30 15:19-0300\n"
-"PO-Revision-Date: 2009-02-03 18:38-0300\n"
-=======
-"POT-Creation-Date: 2009-01-06 16:46-0300\n"
-"PO-Revision-Date: 2009-01-28 18:24-0300\n"
->>>>>>> ActionItem897-novo:po/pt_BR/noosfero.po
+"PO-Revision-Date: 2009-02-06 09:57-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
