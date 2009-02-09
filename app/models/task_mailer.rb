@@ -24,6 +24,19 @@ class TaskMailer < ActionMailer::Base
       :tasks_url => url_for(task.target.url.merge(:controller => 'tasks', :action => 'index'))
   end
 
+  def invitation_notification(task)
+    msg = task.message
+    msg = msg.gsub(/<user>/, task.requestor.name)
+    msg = msg.gsub(/<friend>/, task.friend_name)
+    msg = msg.gsub(/<url>/, url_for(:host => task.requestor.environment.default_hostname, :controller => 'account', :action => 'signup', :invitation_code => task.code))
+
+    recipients task.friend_email
+
+    from self.class.generate_from(task)
+    subject '[%s] %s' % [ task.requestor.environment.name, task.description ]
+    body :message => msg
+  end
+
   protected
 
   def extract_message(message)

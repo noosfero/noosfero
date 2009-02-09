@@ -584,6 +584,19 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal ['birth_date'], env.required_person_fields
   end
 
+  should 'provide a default invitation message' do
+    env = Environment.create!(:name => 'test environment')
+    message = [
+      'Hello <friend>,',
+      "<user> is inviting you to participate on #{env.name}.",
+      'To accept the invitation, please follow this link:' + "\n" + '<url>',
+      "--\n#{env.name}",
+      ''
+    ].join("\n\n")
+
+    assert_equal message, env.message_for_friend_invitation
+  end
+
   should 'set custom_enterprises_fields' do
     env = Environment.new
     env.custom_enterprise_fields = {'contact_person' => {'required' => 'true', 'active' => 'true'},'contact_email'=>  {'required' => 'true', 'active' => 'true'}}

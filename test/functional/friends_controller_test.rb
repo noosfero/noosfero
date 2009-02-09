@@ -73,4 +73,32 @@ class FriendsControllerTest < Test::Unit::TestCase
     get :index, :profile => 'testuser'
     assert_tag :tag => 'a', :content => 'Find people', :attributes => { :href => '/assets/people' }
   end
+
+  should 'display invitation page' do
+    get :invite
+    assert_response :success
+    assert_template 'invite'
+  end
+
+  should 'actualy add invite' do
+    assert_difference InviteFriend, :count, 1 do
+      post :invite, :manual_import_addresses => "Test Name <test@test.com>", :import_from => "manual", :message => "click: <url>", :confirmation => 1
+      assert_redirected_to :action => 'index'
+    end
+
+    assert_difference InviteFriend, :count, 1 do
+      post :invite, :manual_import_addresses => "test@test.com", :import_from => "manual", :message => "click: <url>", :confirmation => 1
+      assert_redirected_to :action => 'index'
+    end
+
+    assert_difference InviteFriend, :count, 1 do
+      post :invite, :manual_import_addresses => "test@test.cz.com", :import_from => "manual", :message => "click: <url>", :confirmation => 1
+      assert_redirected_to :action => 'index'
+    end
+
+    assert_difference InviteFriend, :count, 1 do
+      post :invite, :manual_import_addresses => "#{friend.name} <#{friend.email}>", :import_from => "manual", :message => "click: <url>", :confirmation => 1
+      assert_redirected_to :action => 'index'
+    end
+  end
 end

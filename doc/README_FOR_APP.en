@@ -20,6 +20,7 @@ You need to have a Subversion client (svn) installed, as well as:
 * RedCloth: http://whytheluckystiff.net/ruby/redcloth/
 * Ruby Locale: http://rubyforge.org/projects/locale/
 * will_paginate: http://github.com/mislav/will_paginate/wikis
+* contacts: http://github.com/cardmagic/contacts/tree/master
 
 There are Debian packages available for all of them but ferret. Try:
 

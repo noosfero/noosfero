@@ -1,0 +1,83 @@
+<h1><%= __('Invite your friends') %></h1>
+
+
+<% unless @friends %>
+
+  <h2><%= __('Step 1 of 1: Accessing your contact list') %></h2>
+
+  <p>
+  <%= __('Choose your webmail provider and enter your login and password so we can fetch your contact list. If you only want to invite specific people by listing their e-mail addresses, select the "Enter e-mail addresses manually" option.') %>
+  </p>
+
+  <% form_tag do %>
+    <%= hidden_field_tag(:import, 1) %>
+
+    <%= labelled_form_field(_('Select your e-mail provider:'), [
+          radio_button_tag(:import_from, "gmail", @import_from == "gmail", :onclick => 'show_invite_friend_login_password()') + content_tag('label', 'Gmail', :for => 'import_from_gmail'),
+          radio_button_tag(:import_from, "yahoo", @import_from == "yahoo", :onclick => 'show_invite_friend_login_password()') + content_tag('label', 'Yahoo', :for => "import_from_yahoo"),
+          radio_button_tag(:import_from, "hotmail", @import_from == "hotmail", :onclick => 'show_invite_friend_login_password()') + content_tag('label', 'Hotmail', :for => "import_from_hotmail"),
+          radio_button_tag(:import_from, "manual", @import_from == "manual", :onclick => 'hide_invite_friend_login_password()') + content_tag('label', __('Enter e-mail addresses manually'), :for => "import_from_manual")
+        ].join("\n<br/>\n")) %>
+
+    <script type="text/javascript">
+      function hide_invite_friend_login_password() {
+        $('invite-friends-login-password').hide();
+      }
+      function show_invite_friend_login_password() {
+        $('invite-friends-login-password').show();
+        $('login').focus();
+      }
+    </script>
+    <div id='invite-friends-login-password' <%= "style='display: none;'" if (@import_from == 'manual') %>>
+    <%= labelled_form_field(__("Login:"), text_field_tag(:login, @login)) %>
+    <%= labelled_form_field(__("Password:"), password_field_tag(:password)) %>
+    </div>
+
+    <% button_bar do %>
+      <%= submit_button(:forward, __("Next")) %>
+    <% end %>
+    <p><%= __("We won't store your password or contact anyone without your permission.")%></p>
+
+  <% end %>
+
+<% else %>
+
+  <h2><%= __('Step 2 of 2: Selecting Friends') %></h2>
+  <p>
+  <%= __('Indicate which friends you want to invite.') %>
+  </p>
+
+  <% form_tag do %>
+    <%= hidden_field_tag(:confirmation, 1) %>
+    <%= hidden_field_tag(:import_from, @import_from) %>
+
+    <div>
+      <%= __("Enter one e-mail address per line, following the example below.")%>
+      <%= labelled_form_field(__('E-mail addresses'), text_area_tag(:manual_import_addresses, (@manual_import_addresses || __("Firstname Lastname <friend@email.com>")), :cols => 72, :rows => 5)) %>
+    </div>
+    <% if @import_from != 'manual' %>
+      <div>
+        <%= link_to_function __('Check all'), "$$('input.friend_to_invite').each(function(checkbox) { checkbox.checked = true; });" %>
+        <%= link_to_function __('Uncheck all'), "$$('input.friend_to_invite').each(function(checkbox) { checkbox.checked = false; });" %>
+        <% friend_pos = 0 %>
+        <% @friends.each do |friend| %>
+          <% friend_pos += 1 %>
+          <p>
+            <%= hidden_field_tag("webmail_friends[]", friend.to_yaml)  %>
+            <%= check_box_tag("webmail_import_addresses[]", friend[2], (!@webmail_import_addresses || @webmail_import_addresses.include?(friend[2])), :id => "friends_to_invite_#{friend_pos}", :class => "friend_to_invite" ) %><label for="<%= "friends_to_invite_#{friend_pos}" %>"><%= "#{friend[0]} (#{friend[1]})" %></label>
+          </p>
+        <% end %>
+      </div>
+    <% end -%>
+
+    <div>
+      <%= h __("Now enter an invitation message. You must keep the <url> code in your invitation message. When your friends receive the invitation e-mail, <url> will be replaced by a link that they need to click to activate their account. <user> and <friend> codes will be replaced by your name and friend name, but they are optional.") %>
+      <%= labelled_form_field(__('Invitation message'), text_area_tag(:message, @message, :cols => 72, :rows => 8)) %>
+    </div>
+
+    <% button_bar do %>
+      <%= submit_button(:ok, __("Invite my friends!")) %>
+    <% end %>
+  <% end %>
+
+<% end %>

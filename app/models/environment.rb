@@ -280,6 +280,21 @@ class Environment < ActiveRecord::Base
     signup_fields
   end
 
+  # Default message send to friend when user use invite a friend feature
+  def message_for_friend_invitation
+    self.settings['message_for_friend_invitation'] || [
+      _('Hello <friend>,'),
+      _('<user> is inviting you to participate on %{environment}.') % { :environment => self.name },
+      _('To accept the invitation, please follow this link:') + "\n" + '<url>',
+      "--\n#{self.name}",
+      ''
+    ].join("\n\n")
+  end
+
+  def message_for_friend_invitation=(value)
+    self.settings['message_for_friend_invitation'] = value
+  end
+
   def custom_enterprise_fields
     self.settings[:custom_enterprise_fields].nil? ? {} : self.settings[:custom_enterprise_fields]
   end

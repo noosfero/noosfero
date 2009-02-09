@@ -14,6 +14,8 @@ in this environment.') % [environment.name, __('communities'), __('enterprises')
    :html => { :help=>_('Fill all this fields to join in this environment. <p/> If you forgot your password, do not create a new account, click on the "<b>I forgot my password!</b>" link. ;-)'), :id => 'profile-data'
             } do |f| -%>
 
+<%= hidden_field_tag :invitation_code, @invitation_code %>
+
 <%= required_fields_message %>
 
 <%= required f.text_field(:login,

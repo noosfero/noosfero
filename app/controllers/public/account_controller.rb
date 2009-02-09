@@ -42,6 +42,7 @@ class AccountController < ApplicationController
 
   # action to register an user to the application
   def signup
+    @invitation_code = params[:invitation_code]
     begin
       @user = User.new(params[:user])
       @user.terms_of_use = environment.terms_of_use
@@ -54,6 +55,11 @@ class AccountController < ApplicationController
         self.current_user = @user
         owner_role = Role.find_by_name('owner')
         @user.person.affiliate(@user.person, [owner_role]) if owner_role
+        invitation = Task.find_by_code(@invitation_code)
+        if invitation
+          invitation.update_attributes!({:friend => @user.person})
+          invitation.finish
+        end
         go_to_user_initial_page if redirect?
         flash[:notice] = _("Thanks for signing up!")
       end

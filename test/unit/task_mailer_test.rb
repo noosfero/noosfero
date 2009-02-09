@@ -105,6 +105,35 @@ class TaskMailerTest < Test::Unit::TestCase
     assert !ActionMailer::Base.deliveries.empty?
   end
 
+  should 'be able to send a "invitatiom notification" message' do
+
+    task = InviteFriend.new
+    task.expects(:description).returns('the task')
+    task.expects(:code).returns('123456')
+
+    task.expects(:message).returns('Hello <friend>, <user> invite you, please follow this link: <url>')
+    task.expects(:friend_email).returns('friend@exemple.com')
+    task.expects(:friend_name).returns('friend name')
+
+    requestor = mock()
+    requestor.expects(:name).returns('my name')
+
+    environment = mock()
+    environment.expects(:contact_email).returns('sender@example.com')
+    environment.expects(:default_hostname).returns('example.com')
+    environment.expects(:name).returns('example').at_least_once
+
+    task.expects(:requestor).returns(requestor).at_least_once
+    requestor.expects(:environment).returns(environment).at_least_once
+
+    mail = TaskMailer.create_invitation_notification(task)
+
+    assert_equal "Hello friend name, my name invite you, please follow this link: http://example.com/account/signup?invitation_code=123456", mail.body
+    
+    TaskMailer.deliver(mail)
+    assert !ActionMailer::Base.deliveries.empty?
+  end
+
   should 'use environment name and contact email' do
     task = mock
     requestor = mock

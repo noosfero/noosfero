@@ -31,6 +31,18 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_kind_of Array, assigns(:friends)
   end
 
+  should 'point to manage friends in user is seeing his own friends' do
+    login_as('testuser')
+    get :friends
+    assert_tag :tag => 'a', :attributes => { :href => '/myprofile/testuser/friends' }
+  end
+
+  should 'not point to manage friends of other users' do
+    login_as('ze')
+    get :friends
+    assert_no_tag :tag => 'a', :attributes => { :href => '/myprofile/testuser/friends' }
+  end
+
   should 'list communities' do
     get :communities
 
