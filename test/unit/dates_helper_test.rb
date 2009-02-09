@@ -105,24 +105,22 @@ class DatesHelperTest < Test::Unit::TestCase
     expects(:gettext).with('November').returns('November')
     expects(:gettext).with('December').returns('December')
 
+    expects(:language).returns('en')
+
     expects(:date_select).with(:object, :method, { :include_blank => true, :order => [:month, :day, :year], :use_month_names => ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']}).returns("KKKKKKKK")
 
     assert_equal 'KKKKKKKK', pick_date(:object, :method)
   end
 
   should 'order date in english like month day year' do
-    locale = mock
-    locale.expects(:to_s).returns('en')
-    GetText.stubs(:locale).returns(locale)
+    expects(:language).returns("en")
     expects(:date_select).with(:object, :method, { :include_blank => true, :order => [:month, :day, :year], :use_month_names => ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']}).returns("KKKKKKKK")
 
     assert_equal 'KKKKKKKK', pick_date(:object, :method)
   end
 
   should 'order date in other languages like day month year' do
-    locale = mock
-    locale.expects(:to_s).returns('pt_BR')
-    GetText.stubs(:locale).returns(locale)
+    expects(:language).returns('pt_BR')
     expects(:date_select).with(:object, :method, { :include_blank => true, :order => [:day, :month, :year], :use_month_names => ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']}).returns("KKKKKKKK")
 
     assert_equal 'KKKKKKKK', pick_date(:object, :method)

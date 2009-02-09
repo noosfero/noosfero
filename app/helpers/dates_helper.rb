@@ -87,12 +87,12 @@ module DatesHelper
   end
 
   def pick_date(object, method, options = {}, html_options = {})
-      if GetText.locale.to_s == 'en'
-        order = [:month, :day, :year]
-      else
-        order = [:day, :month, :year]
-      end
-      date_select(object, method, html_options.merge(options.merge(:include_blank => true, :order => order, :use_month_names => MONTHS.map {|item| gettext(item)})))
+    if language == 'en'
+      order = [:month, :day, :year]
+    else
+      order = [:day, :month, :year]
+    end
+    date_select(object, method, html_options.merge(options.merge(:include_blank => true, :order => order, :use_month_names => MONTHS.map {|item| gettext(item)})))
   end
 
 end
