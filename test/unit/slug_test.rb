@@ -23,4 +23,8 @@ class SlugTest < Test::Unit::TestCase
     assert_equal 'a.b', 'a.b'.to_slug
   end
 
+  should 'turn quote and apostrophe into dashes' do
+    assert_equal 'a-b-c-d', 'a"b\'c`d'.to_slug
+  end
+
 end

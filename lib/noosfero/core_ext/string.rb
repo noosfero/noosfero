@@ -37,7 +37,7 @@ class String
   end
 
   def to_slug
-    transliterate.downcase.gsub(/^\d+/,'').gsub( /[^a-z0-9~\s:;+=_.-]/, '').gsub(/[\s:;+=_-]+/, '-').gsub(/-$/, '').gsub(/^-/, '').to_s
+    transliterate.downcase.gsub(/^\d+/,'').gsub( /[^a-z0-9~\s:;+=_."'`-]/, '').gsub(/[\s:;+=_"'`-]+/, '-').gsub(/-$/, '').gsub(/^-/, '').to_s
   end
 
 end
