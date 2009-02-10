@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.13.0\n"
 "POT-Creation-Date: 2009-02-10 11:30-0300\n"
-"PO-Revision-Date: 2009-02-10 11:37-0300\n"
+"PO-Revision-Date: 2009-02-10 11:51-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -4245,7 +4245,7 @@ msgid ""
 "website)."
 msgstr ""
 "<strong>Antes</strong> de entrar no grupo (um moderador precisa aceitar uma "
-"solicitação pendente antes de acessar a intranet e/ou o website."
+"solicitação pendente antes do membro poder acessar a intranet e/ou o website."
 
 #: app/views/memberships/new_community.rhtml:27
 #: app/views/profile_editor/_organization.rhtml:37
