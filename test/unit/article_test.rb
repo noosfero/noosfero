@@ -584,9 +584,9 @@ class ArticleTest < Test::Unit::TestCase
     assert !a.belongs_to_blog?
   end
 
-  should 'has comments notifier false by default' do
+  should 'has comments notifier true by default' do
     a = Article.new
-    assert !a.notify_comments?
+    assert a.notify_comments?
   end
 
   should 'hold hits count' do
@@ -615,4 +615,5 @@ class ArticleTest < Test::Unit::TestCase
     assert_respond_to a, :can_display_hits?
     assert_equal true, a.can_display_hits?
   end
+
 end
