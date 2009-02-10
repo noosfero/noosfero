@@ -3,7 +3,7 @@
 
   <% button_bar do %>
     <% if logged_in? %>
-      <%= lightbox_button(:ok, _('Yes'), :controller => 'profile', :action => 'join', :profile => profile.identifier) %>
+      <%= button(:ok, _('Yes'), { :controller => 'profile', :action => 'join', :profile => profile.identifier, :confirmation => '1'}, :method => :post) %>
     <% else %>
       <%= button(:ok, _('Yes'), :controller => 'profile', :action => 'join', :profile => profile.identifier) %>
     <% end %>
