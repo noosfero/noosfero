@@ -3,14 +3,17 @@ require(File.join(File.dirname(__FILE__), 'config', 'boot'))
 require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'
-
-require 'tasks/rails'
-
 require 'rake/packagetask'
 require 'noosfero'
 
 Rake::PackageTask.new(Noosfero::PROJECT, Noosfero::VERSION) do |p|
   p.need_tar_gz = true
+
+  # cleaning temporary files
+  FileUtils.rm_rf('tmp')
+  FileUtils.mkdir_p('tmp/cache')
+  FileUtils.mkdir_p('tmp/sessions')
+  FileUtils.mkdir_p('tmp/sockets')
 
   # application files
   p.package_files.include('app/**/*.{rb,rhtml,rjs,rxml}')
@@ -58,3 +61,8 @@ Rake::PackageTask.new(Noosfero::PROJECT, Noosfero::VERSION) do |p|
   p.package_files.exclude('public/images/[0-9][0-9][0-9][0-9]/**/*')
 
 end
+
+task :default => :package
+task :clean => :clobber_package
+
+# vim: ft=ruby
