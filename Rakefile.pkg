@@ -27,6 +27,7 @@ Rake::PackageTask.new(Noosfero::PROJECT, Noosfero::VERSION) do |p|
   p.package_files.include('po/*/noosfero.po')
   p.package_files.include('po/noosfero.pot')
   p.package_files.include('public/designs/**/*')
+  p.package_files.include('public/designs/themes/default/**/*')
   p.package_files.include('public/dispatch.*')
   p.package_files.include('public/favicon.ico')
   p.package_files.include('public/*.html')
