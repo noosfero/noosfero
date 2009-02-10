@@ -221,8 +221,7 @@ class Article < ActiveRecord::Base
   end
 
   def hit
-    self.hits += 1
-    save!
+    self.increment!(:hits)
   end
 
   def can_display_hits?
