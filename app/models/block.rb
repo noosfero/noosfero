@@ -11,6 +11,11 @@ class Block < ActiveRecord::Base
   belongs_to :box
 
   acts_as_having_settings
+  settings_items :visible, :type => :boolean, :default => true
+
+  def visible?
+    visible
+  end
 
   # returns the description of the block, used when the user sees a list of
   # blocks to choose one to include in the design.
@@ -61,6 +66,12 @@ class Block < ActiveRecord::Base
 
   def css_class_name
     self.class.name.underscore.gsub('_', '-')
+  end
+
+  def css_classes
+    classes = css_class_name
+    classes += ' invisible-block' unless visible?
+    classes
   end
 
   def default_title

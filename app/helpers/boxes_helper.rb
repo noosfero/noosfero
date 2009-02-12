@@ -47,7 +47,11 @@ module BoxesHelper
   end
 
   def display_box_content(box, main_content)
-    box.blocks.map { |item| display_block(item, main_content) }.join("\n") + box_decorator.block_target(box)
+    box_decorator.select_blocks(box.blocks).map { |item| display_block(item, main_content) }.join("\n") + box_decorator.block_target(box)
+  end
+
+  def select_blocks(arr)
+    arr
   end
 
   def display_block(block, main_content = nil)
@@ -59,7 +63,7 @@ module BoxesHelper
     end
 
     options = {
-      :class => classes = ['block', block.css_class_name ].uniq.join(' '),
+      :class => classes = ['block', block.css_classes ].uniq.join(' '),
       :id => "block-#{block.id}"
     }
     if ( block.respond_to? 'help' )
@@ -102,6 +106,9 @@ module BoxesHelper
     end
     def self.block_edit_buttons(block)
       ''
+    end
+    def self.select_blocks(arr)
+      arr.select(&:visible?)
     end
   end
 
@@ -167,6 +174,7 @@ module BoxesHelper
     end
 
     if !block.main?
+      buttons << icon_button(:eyes, _('Toggle block visibility'), {:action => 'toggle_visibility', :id => block.id})
       buttons << icon_button(:delete, _('Remove block'), { :action => 'remove', :id => block.id }, { :method => 'post'})
     end
 

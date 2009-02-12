@@ -46,6 +46,12 @@ class BlockTest < Test::Unit::TestCase
     assert_equal 'my title', b.title
   end
 
-
+  should 'have a visible setting' do
+    b = Block.new
+    assert b.visible?
+    b.visible = false
+    b.save
+    assert !b.visible?
+  end
 
 end

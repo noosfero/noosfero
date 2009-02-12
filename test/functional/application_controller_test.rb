@@ -424,4 +424,17 @@ class ApplicationControllerTest < Test::Unit::TestCase
                 :descendant => {:tag => 'a', :attributes => { :href => '/admin' }}
   end
 
+  should 'not display invisible blocks' do
+    @controller.expects(:uses_design_blocks?).returns(true)
+    p = create_user('test_user').person
+    @controller.expects(:profile).at_least_once.returns(p)
+    b = p.blocks[1]
+    b.expects(:visible).returns(false)
+    b.save!
+
+    get :index, :profile => p.identifier
+
+    assert_no_tag :tag => 'div', :attributes => {:id => 'block-' + b.id.to_s}
+  end
+
 end

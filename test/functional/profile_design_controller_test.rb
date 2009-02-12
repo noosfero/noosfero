@@ -280,4 +280,13 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'input', :attributes => { :id => 'type_blogarchivesblock', :value => 'BlogArchivesBlock' }
   end
 
+  should 'toggle block visibility' do
+    state = @b1.visible?
+    get :toggle_visibility, :id => @b1.id, :profile => holder.identifier
+    block = Block.find(@b1.id)
+
+    assert_equal block, assigns(:block)
+    assert_equal !state, block.visible?
+  end
+
 end

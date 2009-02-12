@@ -96,6 +96,13 @@ class BoxOrganizerController < ApplicationController
     end
   end
 
+  def toggle_visibility
+    @block = boxes_holder.blocks.find(params[:id])
+    @block.visible = !@block.visible?
+    @block.save
+    redirect_to :action => 'index'
+  end
+
   protected :boxes_editor?
 
 end
