@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.13.0\n"
 "POT-Creation-Date: 2009-02-10 11:30-0300\n"
-"PO-Revision-Date: 2009-02-10 11:51-0300\n"
+"PO-Revision-Date: 2009-02-12 19:12-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -3103,7 +3103,7 @@ msgstr ""
 
 #: app/views/shared/join_community_popup.rhtml:2
 msgid "Do you want to join this community?"
-msgstr "Tem certeza que quer entrar nesta communidade?"
+msgstr "Você quer entrar nesta communidade?"
 
 #: app/views/shared/join_community_popup.rhtml:6
 #: app/views/shared/join_community_popup.rhtml:8
