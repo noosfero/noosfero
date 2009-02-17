@@ -8,7 +8,7 @@
 }
 
 .invisible-block {
-  background: url(../images/hachure.png);
+  background: url(/images/hachure.png);
 }
 
 /* ie6 hack */
