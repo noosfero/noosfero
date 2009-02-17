@@ -80,24 +80,37 @@ class FriendsControllerTest < Test::Unit::TestCase
     assert_template 'invite'
   end
 
-  should 'actualy add invite' do
+  should 'actualy invite manually added addresses with name and e-mail' do
     assert_difference InviteFriend, :count, 1 do
       post :invite, :manual_import_addresses => "Test Name <test@test.com>", :import_from => "manual", :message => "click: <url>", :confirmation => 1
       assert_redirected_to :action => 'index'
     end
+  end
 
+  should 'actually invite manually added address with only e-mail' do
     assert_difference InviteFriend, :count, 1 do
       post :invite, :manual_import_addresses => "test@test.com", :import_from => "manual", :message => "click: <url>", :confirmation => 1
       assert_redirected_to :action => 'index'
     end
+  end
 
+  should 'actually invite manually added addresses with e-mail and other format' do
     assert_difference InviteFriend, :count, 1 do
       post :invite, :manual_import_addresses => "test@test.cz.com", :import_from => "manual", :message => "click: <url>", :confirmation => 1
       assert_redirected_to :action => 'index'
     end
+  end
 
+  should 'actually invite manually added address with friend object' do
     assert_difference InviteFriend, :count, 1 do
       post :invite, :manual_import_addresses => "#{friend.name} <#{friend.email}>", :import_from => "manual", :message => "click: <url>", :confirmation => 1
+      assert_redirected_to :action => 'index'
+    end
+  end
+
+  should 'actually invite more than one manually added addres' do
+    assert_difference InviteFriend, :count, 2 do
+      post :invite, :manual_import_addresses => "Some Friend <somefriend@email.com>\r\notherperson@bleble.net\r\n", :import_from => "manual", :message => "click: <url>", :confirmation => 1
       assert_redirected_to :action => 'index'
     end
   end
