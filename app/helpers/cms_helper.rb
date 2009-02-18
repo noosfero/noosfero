@@ -9,6 +9,12 @@ module CmsHelper
     mime_type.gsub('/', '_').gsub('-', '')
   end
 
+  def add_upload_file_field(name)
+    button_to_function :add, name, nil do |page|
+      page.insert_html :bottom, :uploaded_files, :partial => 'upload_file', :object => UploadedFile.new
+    end
+  end
+
   attr_reader :environment
 
   def options_for_article(article)

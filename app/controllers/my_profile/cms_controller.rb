@@ -101,12 +101,8 @@ class CmsController < MyProfileController
     klass = @type.constantize
     @article = klass.new(params[:article])
 
-
-    if params[:parent_id]
-      parent = profile.articles.find(params[:parent_id])
-      if ! parent.allow_children?
-        raise ArgumentError.new("cannot create child of article which does not accept children")
-      end
+    parent = check_parent(params[:parent_id])
+    if parent
       @article.parent = parent
       @parent_id = parent.id
     end
@@ -132,6 +128,26 @@ class CmsController < MyProfileController
     profile.save!
     flash[:notice] = _('Article "%s" configured as home page.') % @article.name
     redirect_to :action => 'view', :id => @article.id
+  end
+
+  def upload_files
+    @uploaded_files = []
+    @parent = check_parent(params[:parent_id])
+    if request.post? && params[:uploaded_files]
+      params[:uploaded_files].each do |file|
+        @uploaded_files << UploadedFile.create(:uploaded_data => file, :profile => profile, :parent => @parent) unless file == ''
+      end
+      @errors = @uploaded_files.select { |f| f.errors.any? }
+      if @errors.any?
+        render :action => 'upload_files', :parent_id => @parent_id
+      else
+        redirect_to( if @parent
+          {:action => 'view', :id => @parent.id}
+        else
+          {:action => 'index'}
+        end)
+      end
+    end
   end
 
   def destroy
@@ -213,6 +229,18 @@ class CmsController < MyProfileController
 
   def valid_article_type?(type)
     (available_article_types + special_article_types).map {|item| item.name}.include?(type)
+  end
+
+  def check_parent(id)
+    if id
+      parent = profile.articles.find(id)
+      if ! parent.allow_children?
+        raise ArgumentError.new("cannot create child of article which does not accept children")
+      end
+      parent
+    else
+      nil
+    end
   end
 
 end

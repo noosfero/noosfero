@@ -209,6 +209,62 @@ class CmsControllerTest < Test::Unit::TestCase
     end
   end
 
+   should 'be able to upload more than one file at once' do
+    assert_difference UploadedFile, :count, 2 do
+      post :upload_files, :profile => profile.identifier, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain'), fixture_file_upload('/files/rails.png', 'text/plain')]
+    end
+    assert_not_nil profile.articles.find_by_path('test.txt')
+    assert_not_nil profile.articles.find_by_path('rails.png')
+  end
+
+  should 'upload to rigth folder' do
+    f = Folder.new(:name => 'f'); profile.articles << f; f.save!
+    post :upload_files, :profile => profile.identifier, :parent_id => f.id, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain')]
+    f.reload
+
+    assert_not_nil f.children[0]
+    assert_equal 'test.txt', f.children[0].name
+  end
+
+  should 'not crash on empty file' do
+    assert_nothing_raised do
+      post :upload_files, :profile => profile.identifier, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain'), '' ]
+    end
+    assert_not_nil profile.articles.find_by_path('test.txt')
+  end
+
+  should 'redirect to cms after uploading files' do
+    post :upload_files, :profile => profile.identifier, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain')]
+    assert_redirected_to :action => 'index'
+  end
+
+  should 'redirect to folder after uploading files' do
+    f = Folder.new(:name => 'f'); profile.articles << f; f.save!
+    post :upload_files, :profile => profile.identifier, :parent_id => f.id, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain')]
+    assert_redirected_to :action => 'view', :id => f.id
+  end
+
+  should 'display error message when file has more than max size' do
+    UploadedFile.any_instance.stubs(:size).returns(UploadedFile.attachment_options[:max_size] + 1024)
+    post :upload_files, :profile => profile.identifier, :uploaded_files => [fixture_file_upload('/files/rails.png', 'image/png')]
+    assert assigns(:uploaded_files).first.size > UploadedFile.attachment_options[:max_size]
+    assert_tag :tag => 'div', :attributes => { :class => 'errorExplanation', :id => 'errorExplanation' }
+  end
+
+  should 'not display error message when file has less than max size' do
+    UploadedFile.any_instance.stubs(:size).returns(UploadedFile.attachment_options[:max_size] - 1024)
+    post :upload_files, :profile => profile.identifier, :uploaded_files => [fixture_file_upload('/files/rails.png', 'image/png')]
+    assert_no_tag :tag => 'div', :attributes => { :class => 'errorExplanation', :id => 'errorExplanation' }
+  end
+
+  should 'not redirect when some file has errors' do
+    UploadedFile.any_instance.stubs(:size).returns(UploadedFile.attachment_options[:max_size] + 1024)
+    post :upload_files, :profile => profile.identifier, :uploaded_files => [fixture_file_upload('/files/rails.png', 'image/png')]
+    assert_response :success
+    assert_template 'upload_files'
+  end
+
+
   should 'offer to create children' do
     Article.any_instance.stubs(:allow_children?).returns(true)
 
@@ -250,8 +306,8 @@ class CmsControllerTest < Test::Unit::TestCase
   end
 
   should 'display max size of uploaded file' do
-    get :new, :type => UploadedFile.name, :profile => profile.identifier
-    assert_tag :tag => 'label', :attributes => { :for => 'article_uploaded_data' }, :content => /max size #{UploadedFile.max_size.to_humanreadable}/
+    get :upload_files, :profile => profile.identifier
+    assert_tag :tag => 'h3', :content => /max size #{UploadedFile.max_size.to_humanreadable}/
   end
 
   should 'display link for selecting categories' do
@@ -766,5 +822,4 @@ class CmsControllerTest < Test::Unit::TestCase
     get :edit, :profile => profile.identifier, :id => profile.blog.id
     assert_tag :tag => 'a', :content => 'Cancel', :attributes => { :href => /\/myprofile\/#{profile.identifier}/ }
   end
-
 end

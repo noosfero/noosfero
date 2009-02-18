@@ -1,0 +1,34 @@
+<% if @errors %>
+  <div class="errorExplanation" id="errorExplanation">
+    <h2><%= n_('This file couldn\'t be saved', 'These %{num} files couldn\'t be saved', @errors.size) % { :num => @errors.size } %></h2>
+    <p><%= _('There were problems with the following files:') %> </p>
+    <ul>
+      <% for file in @uploaded_files %>
+        <% for msg in file.errors.full_messages %>
+          <li><strong><%= file.name %></strong> : <%= msg %></li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+
+<% end %>
+
+<h2><%= _('Publish media') %></h2>
+
+<h3><%= _("Select the files you want to upload (max size %s):") % UploadedFile.max_size.to_humanreadable %></h3>
+<h4><%= _('Photos/Videos/Audio/Documents') %></h4>
+
+<% form_for('uploaded_file', :url => { :action => 'upload_files' }, :html => {:multipart => true}) do |f| %>
+
+  <div id='uploaded_files'>
+    <%= render :partial => 'upload_file' %>
+  </div>
+
+  <%= hidden_field_tag('parent_id', @parent.id) if @parent %>
+
+  <% button_bar do %>
+    <%= add_upload_file_field _('More files') %>
+    <%= submit_button :save, _('Upload'), :cancel => {:action => (@parent ? 'view' : 'index'), :id => @parent } %>
+  <% end %>
+
+<% end %>

@@ -73,4 +73,16 @@ class UploadedFileTest < Test::Unit::TestCase
     assert_equal false, file.can_display_hits?
   end
 
+  should 'not upload files bigger than max_size' do
+    f = UploadedFile.new(:profile => @profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    f.expects(:size).returns(UploadedFile.attachment_options[:max_size] + 1024)
+    assert !f.valid?
+  end
+
+  should 'upload files smaller than max_size' do
+    f = UploadedFile.new(:profile => @profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    f.expects(:size).returns(UploadedFile.attachment_options[:max_size] - 1024)
+    assert f.valid?
+  end
+
 end
