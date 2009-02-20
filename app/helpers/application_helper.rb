@@ -686,7 +686,7 @@ module ApplicationHelper
       field_html += capture(&block)
     end
     if (controller.action_name == 'signup')
-      if profile.signup_fields.include?(name)
+      if profile.signup_fields.include?(name) || profile.required_fields.include?(name)
         result = field_html
       end
     else

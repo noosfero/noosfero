@@ -332,6 +332,21 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_equal '<span>SIGNUP_FIELD</span>', optional_field(profile, 'field', 'SIGNUP_FIELD')
   end
 
+  should 'display required fields on signup even if admin did not marked field to show up in signup' do
+    env = Environment.create!(:name => 'env test')
+    stubs(:environment).returns(env)
+
+    controller = mock
+    stubs(:controller).returns(controller)
+    controller.expects(:action_name).returns('signup')
+
+    stubs(:required).with('SIGNUP_FIELD').returns('<span>SIGNUP_FIELD</span>')
+    profile = Person.new
+    profile.stubs(:required_fields).returns(['field'])
+    profile.stubs(:signup_fields).returns([])
+    assert_equal '<span>SIGNUP_FIELD</span>', optional_field(profile, 'field', 'SIGNUP_FIELD')
+  end
+
   should 'not ask_to_join unless profile defined' do
     e = Environment.default
     e.stubs(:enabled?).with(:disable_join_community_popup).returns(false)
