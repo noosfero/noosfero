@@ -26,7 +26,7 @@ class StringCoreExtTest < Test::Unit::TestCase
 
   # tests for String#transliterate
   should 'transliterate' do
-    assert_equal 'eeeeEEOOoocaaaiIIiuuyYnN', 'éèëêÊËÖÔöôçäàâîÏÎïûüÿŸñÑ'.transliterate
+    assert_equal 'aaaaaaAAAAAeeeeEEOOoocaaaiIIiuuyYnNcC', 'ªáàäâåÁÀÄÂÅéèëêÊËÖÔöôçäàâîÏÎïûüÿŸñÑçÇ'.transliterate
   end
 
 end
