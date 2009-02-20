@@ -1,5 +1,7 @@
 class CountriesHelper
 
+  include Singleton
+
   include GetText
   bindtextdomain 'iso_3166'
 
@@ -253,12 +255,21 @@ class CountriesHelper
     ["Zimbabwe", "ZW"]
   ]
 
+  COUNTRIES_HASH = COUNTRIES.inject({}) do |hash,entry|
+    hash[entry[1]] = entry[0]
+    hash
+  end
+
   def self.countries
     COUNTRIES
   end
 
   def countries
     self.class.countries.map {|item| [gettext(item[0]), item[1] ]}.sort_by { |entry| entry.first.transliterate }
+  end
+
+  def lookup(code)
+    gettext(COUNTRIES_HASH[code])
   end
 
 end

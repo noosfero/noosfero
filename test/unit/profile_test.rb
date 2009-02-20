@@ -715,8 +715,17 @@ class ProfileTest < Test::Unit::TestCase
     p.expects(:region).returns(nil)
     p.expects(:city).returns("Salvador")
     p.expects(:state).returns("Bahia")
-    p.expects(:country).returns("Brasil")
+    p.expects(:country_name).returns("Brasil")
     assert_equal 'Salvador - Bahia - Brasil', p.location
+  end
+
+  should 'lookup country name' do
+    p = Profile.new
+    # two sample countries; trust the rest works
+    p.stubs(:country).returns('BR')
+    assert_equal 'Brazil', p.country_name
+    p.stubs(:country).returns('AR')
+    assert_equal 'Argentina', p.country_name
   end
 
   should 'give empty location if nothing is available' do

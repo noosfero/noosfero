@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class CountriesHelperTest < Test::Unit::TestCase
 
   def setup
-    @helper = CountriesHelper.new
+    @helper = CountriesHelper.instance
   end
   attr_reader :helper
 
@@ -31,6 +31,16 @@ class CountriesHelperTest < Test::Unit::TestCase
   should 'sort respecting utf-8 ordering (or something like that)' do
     CountriesHelper.stubs(:countries).returns([["Brazil", "BR"], ["Åland Islands", "AX"]])
     assert_equal [["Åland Islands", "AX"], ["Brazil", "BR"]], helper.countries
+  end
+
+  should 'lookup country names by code' do
+    assert_equal 'France', helper.lookup('FR')
+    assert_equal 'Germany', helper.lookup('DE')
+  end
+
+  should 'translate lookups' do
+    helper.expects(:gettext).with('Germany').returns('Alemanha')
+    assert_equal 'Alemanha', helper.lookup('DE')
   end
 
 end

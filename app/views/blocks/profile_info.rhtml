@@ -31,7 +31,7 @@
 <%=
   [ [ profile.city, 'locality' ],
     [ profile.state, 'region' ],
-    [ profile.country, 'country-name' ]
+    [ profile.country_name, 'country-name' ]
   ].map{ |s,c| s =~ /^\s*$/ ? nil : content_tag( 'span', s, :class => c ) }.compact.join ' - '
 %>
 </div>

@@ -140,8 +140,12 @@ class Profile < ActiveRecord::Base
     if myregion
       myregion.hierarchy.reverse.first(2).map(&:name).join(' - ')
     else
-      [ :city, :state, :country ].map {|item| self.respond_to?(item) ? self.send(item) : nil }.compact.join(' - ')
+      [ :city, :state, :country_name ].map {|item| self.respond_to?(item) ? self.send(item) : nil }.compact.join(' - ')
     end
+  end
+
+  def country_name
+    CountriesHelper.instance.lookup(country) if respond_to?(:country)
   end
 
   def pending_categorizations
