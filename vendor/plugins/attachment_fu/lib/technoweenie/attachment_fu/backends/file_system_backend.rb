@@ -28,7 +28,7 @@ module Technoweenie # :nodoc:
       
         # The attachment ID used in the full path of a file
         def attachment_path_id
-          ((respond_to?(:parent_id) && parent_id) || id).to_i
+          (is_thumbnail? && respond_to?(:parent_id)) ? parent_id : id
         end
       
         # overrwrite this to do your own app-specific partitioning. 

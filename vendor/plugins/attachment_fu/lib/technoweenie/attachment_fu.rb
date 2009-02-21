@@ -220,7 +220,11 @@ module Technoweenie # :nodoc:
 
       # Returns true/false if an attachment is thumbnailable.  A thumbnailable attachment has an image content type and the parent_id attribute.
       def thumbnailable?
-        image? && respond_to?(:parent_id) && parent_id.nil?
+        image? && !is_thumbnail?
+      end
+
+      def is_thumbnail?
+        (thumbnail_class == self.class) && !(respond_to?(:parent_id) && parent_id.nil?)
       end
 
       # Returns the class used to create new thumbnails for this attachment.
@@ -389,7 +393,7 @@ module Technoweenie # :nodoc:
 
         # Initializes a new thumbnail with the given suffix.
         def find_or_initialize_thumbnail(file_name_suffix)
-          respond_to?(:parent_id) ?
+          thumbnail_class.columns.map(&:name).include?('parent_id') ?
             thumbnail_class.find_or_initialize_by_thumbnail_and_parent_id(file_name_suffix.to_s, id) :
             thumbnail_class.find_or_initialize_by_thumbnail(file_name_suffix.to_s)
         end
@@ -402,7 +406,7 @@ module Technoweenie # :nodoc:
         # Cleans up after processing.  Thumbnails are created, the attachment is stored to the backend, and the temp_paths are cleared.
         def after_process_attachment
           if @saved_attachment
-            if respond_to?(:process_attachment_with_processing) && thumbnailable? && !attachment_options[:thumbnails].blank? && parent_id.nil?
+            if respond_to?(:process_attachment_with_processing) && thumbnailable? && !attachment_options[:thumbnails].blank?
               temp_file = temp_path || create_temp_file
               attachment_options[:thumbnails].each { |suffix, size| create_or_update_thumbnail(temp_file, suffix, *size) }
             end

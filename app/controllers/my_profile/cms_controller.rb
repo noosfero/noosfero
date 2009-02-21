@@ -132,7 +132,8 @@ class CmsController < MyProfileController
 
   def upload_files
     @uploaded_files = []
-    @parent = check_parent(params[:parent_id])
+    @article = @parent = check_parent(params[:parent_id])
+    record_coming_from_public_view if @article
     if request.post? && params[:uploaded_files]
       params[:uploaded_files].each do |file|
         @uploaded_files << UploadedFile.create(:uploaded_data => file, :profile => profile, :parent => @parent) unless file == ''
@@ -141,11 +142,15 @@ class CmsController < MyProfileController
       if @errors.any?
         render :action => 'upload_files', :parent_id => @parent_id
       else
-        redirect_to( if @parent
-          {:action => 'view', :id => @parent.id}
+        if params[:back_to]
+          redirect_back
         else
-          {:action => 'index'}
-        end)
+          redirect_to( if @parent
+            {:action => 'view', :id => @parent.id}
+          else
+            {:action => 'index'}
+          end)
+        end
       end
     end
   end
@@ -209,7 +214,7 @@ class CmsController < MyProfileController
 
   def record_coming_from_public_view
     referer = request.referer
-    if (maybe_ssl(url_for(@article.url)).include?(referer)) || (@article == @profile.home_page && maybe_ssl(url_for(@profile.url)).include?(referer))
+    if (maybe_ssl(url_for(@article.url)).include?(referer)) || (@article == profile.home_page && maybe_ssl(url_for(profile.url)).include?(referer))
       @back_to = 'public_view'
       @back_url = @article.url
     end

@@ -1,0 +1,6 @@
+<% if uploaded_file.image? %>
+  <div> <%= link_to_document(uploaded_file, image_tag(uploaded_file.public_filename(:thumb))) %> </div>
+<% else %>
+  <%= render :partial => 'article', :object => uploaded_file %>
+<% end %>
+

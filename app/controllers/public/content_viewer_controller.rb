@@ -55,7 +55,7 @@ class ContentViewerController < ApplicationController
     # At this point the page will be showed
     @page.hit
 
-    if @page.mime_type != 'text/html'
+    unless @page.mime_type == 'text/html' || (@page.image? && params[:view])
       headers['Content-Type'] = @page.mime_type
       data = @page.data
 
@@ -80,6 +80,10 @@ class ContentViewerController < ApplicationController
     
     if @page.blog?
       @page.filter = {:year => year, :month => month}
+    end
+
+    if @page.folder? && @page.view_as == 'image_gallery'
+      @images = @page.images.paginate(:per_page => 12, :page => params[:npage])
     end
 
     @comments = @page.comments(true)

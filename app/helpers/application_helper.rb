@@ -139,10 +139,10 @@ module ApplicationHelper
     link_to text, p.admin_url.merge(url), options
   end
 
-  def link_to_document(doc, text = nil)
+  def link_to_document(doc, text = nil, html_options = {}, url_options = {})
     text ||= doc.title
     path = doc.path.split(/\//)
-    link_to text, homepage_path(:profile => doc.profile.identifier , :page => path)
+    link_to text, homepage_path({:profile => doc.profile.identifier , :page => path, :view => true}.merge(url_options)), html_options
   end
 
   def link_if_permitted(link, permission = nil, target = nil)

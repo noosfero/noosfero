@@ -48,7 +48,11 @@
               { :controller => 'cms', :action => 'publish', :id => @page },
               :class => 'button with-text icon-spread' %>
         <% end %>
-        <%= lightbox_button(:new, label_for_new_article(@page), :controller => 'cms', :action => 'new', :parent_id => (@page.folder? ? @page : (@page.parent.nil? ? nil : @page.parent))) %>
+        <% if @page.display_as_gallery? %>
+          <%= button('upload-file', _('Upload files'), :controller => 'cms', :action => 'upload_files', :parent_id => (@page.folder? ? @page : @page.parent)) %>
+        <% else %>
+          <%= lightbox_button(:new, label_for_new_article(@page), :controller => 'cms', :action => 'new', :parent_id => (@page.folder? ? @page : (@page.parent.nil? ? nil : @page.parent))) %>
+        <% end %>
       <% end %>
     </div>
   <% end %>
@@ -79,7 +83,7 @@
   </div>
 <% end %>
 
-<div class="article-body">
+<div class="<%="article-body article-body-" + @page.css_class_name %>">
   <%= article_to_html(@page) %>
   <br style="clear:both" />
 </div> <!-- end class="article-body" -->

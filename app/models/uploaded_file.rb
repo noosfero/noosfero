@@ -10,7 +10,7 @@ class UploadedFile < Article
   #  :min_size => 2.megabytes
   #  :max_size => 5.megabytes
   has_attachment :storage => :file_system,
-    :thumbnails => { :icon => [24,24] },
+    :thumbnails => { :icon => [24,24], :thumb => '130x130>' },
     :thumbnail_class => Thumbnail,
     :max_size => 5.megabytes,
     :resize_to => '640x480>'
@@ -47,6 +47,13 @@ class UploadedFile < Article
     File.read(self.full_filename)
   end
 
+  # FIXME isn't this too much including just to be able to generate some HTML?
+  include ActionView::Helpers::TagHelper
+
+  def to_html
+    tag('img', :src => public_filename, :class => css_class_name, :style => 'max-width: 100%') if image?
+  end
+
   def allow_children?
     false
   end
@@ -55,4 +62,7 @@ class UploadedFile < Article
     false
   end
 
+  def display_as_gallery?
+    self.parent && self.parent.folder? && self.parent.display_as_gallery?
+  end
 end

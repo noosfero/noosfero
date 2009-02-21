@@ -29,6 +29,10 @@ class Article < ActiveRecord::Base
     end
   end
 
+  def css_class_name
+    self.class.name.underscore.dasherize
+  end
+
   def pending_categorizations
     @pending_categorizations ||= []
   end
@@ -230,6 +234,14 @@ class Article < ActiveRecord::Base
 
   def display_hits?
     can_display_hits? && display_hits
+  end
+
+  def image?
+    false
+  end
+
+  def display_as_gallery?
+    false
   end
 
   private

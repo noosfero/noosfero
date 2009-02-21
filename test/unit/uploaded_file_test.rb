@@ -85,4 +85,21 @@ class UploadedFileTest < Test::Unit::TestCase
     assert f.valid?
   end
 
+  should 'create icon when created in folder' do
+    p = create_user('test_user').person
+    f = Folder.create!(:name => 'test_folder', :profile => p)
+    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent_id => f.id, :profile => p)
+
+    assert File.exists?(file.public_filename(:icon))
+    file.destroy
+  end
+
+  should 'create icon when not created in folder' do
+    p = create_user('test_user').person
+    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => p)
+
+    assert File.exists?(file.public_filename(:icon))
+    file.destroy
+  end
+
 end

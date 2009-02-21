@@ -658,4 +658,45 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_equal 1, a.hits
   end
 
+  should 'render html for image when view' do
+    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile)
+    get :view_page, :profile => profile.identifier, :page => file.explode_path, :view => true
+
+    assert_response :success
+    assert_template 'view_page'
+  end
+
+  should 'download data for image when not view' do
+    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile)
+    get :view_page, :profile => profile.identifier, :page => file.explode_path
+
+    assert_response :success
+    assert_template nil
+  end
+
+  should "display 'Upload files' when create children of image gallery" do
+    login_as(profile.identifier)
+    f = Folder.create!(:name => 'gallery', :profile => profile, :view_as => 'image_gallery')
+    get :view_page, :profile => profile.identifier, :page => f.explode_path
+    assert_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{f.id}/}
+  end
+
+  should "display 'New article' when showing folder child of image gallery" do
+    login_as(profile.identifier)
+    folder1 = Folder.create!(:name => 'gallery1', :profile => profile, :view_as => 'image_gallery')
+    folder1.children << folder2 = Folder.new(:name => 'gallery2', :profile => profile)
+
+    get :view_page, :profile => profile.identifier, :page => folder2.explode_path
+    assert_no_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{folder2.id}/}
+    assert_tag :tag => 'a', :content => 'New article', :attributes => {:href =>/parent_id=#{folder2.id}/}
+  end
+
+  should "display 'Upload files' to image gallery when showing its children" do
+    login_as(profile.identifier)
+    folder = Folder.create!(:name => 'gallery', :profile => profile, :view_as => 'image_gallery')
+    file = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    get :view_page, :profile => profile.identifier, :page => file.explode_path, :view => true
+
+    assert_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{folder.id}/}
+  end
 end

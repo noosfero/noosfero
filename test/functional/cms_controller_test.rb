@@ -190,6 +190,7 @@ class CmsControllerTest < Test::Unit::TestCase
       post :new, :type => UploadedFile.name, :profile => profile.identifier, :article => { :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain')}
     end
     assert_not_nil profile.articles.find_by_path('test.txt')
+    assigns(:article).destroy
   end
 
   should 'be able to update an uploaded file' do
@@ -815,5 +816,54 @@ class CmsControllerTest < Test::Unit::TestCase
     profile.articles << Blog.new(:name => 'my-blog', :profile => profile)
     get :edit, :profile => profile.identifier, :id => profile.blog.id
     assert_tag :tag => 'a', :content => 'Cancel', :attributes => { :href => /\/myprofile\/#{profile.identifier}/ }
+  end
+
+  should 'create icon upload file in folder' do
+    f = Folder.create!(:name => 'test_folder', :profile => profile, :view_as => 'image_gallery')
+    post :new, :profile => profile.identifier,
+               :type => UploadedFile.name,
+               :parent_id => f.id,
+               :article => {:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')}
+
+    assert File.exists?(assigns(:article).icon_name)
+    assigns(:article).destroy
+  end
+
+  should 'create icon upload file' do
+    post :new, :profile => profile.identifier,
+               :type => UploadedFile.name,
+               :article => {:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')}
+
+    assert File.exists?(assigns(:article).icon_name)
+    assigns(:article).destroy
+  end
+
+  should 'record when coming from public view on upload files' do
+    folder = Folder.create!(:name => 'testfolder', :profile => profile)
+
+    @request.expects(:referer).returns("http://colivre.net/#{profile.identifier}/#{folder.slug}")
+
+    get :upload_files, :profile => profile.identifier, :parent_id => folder.id
+    assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'back_to', :value => 'public_view' }
+    assert_tag :tag => 'a', :descendant => { :content => 'Cancel' }, :attributes => { :href => /^https?:\/\/colivre.net\/#{profile.identifier}\/#{folder.slug}/ }
+  end
+
+  should 'detect when comming from home page to upload files' do
+    folder = Folder.create!(:name => 'testfolder', :profile => profile)
+    profile.expects(:home_page).returns(folder).at_least_once
+
+    @request.expects(:referer).returns("http://colivre.net/#{profile.identifier}").at_least_once
+    @controller.stubs(:profile).returns(profile)
+    get :upload_files, :profile => profile.identifier, :parent_id => folder.id
+    assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'back_to', :value => 'public_view' }
+    assert_tag :tag => 'a', :descendant => { :content => 'Cancel' }, :attributes => { :href => /^https?:\/\/colivre.net\/#{profile.identifier}\/#{profile.home_page.slug}$/ }
+  end
+
+  should 'go back to public view when upload files coming from there' do
+    folder = Folder.create!(:name => 'test_folder', :profile => profile)
+
+    post :upload_files, :profile => profile.identifier, :parent_id => folder.id, :back_to => 'public_view', :uploaded_files => [fixture_file_upload('files/rails.png', 'image/png')]
+    assert_template nil
+    assert_redirected_to folder.url
   end
 end

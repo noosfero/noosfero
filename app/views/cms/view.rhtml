@@ -7,7 +7,7 @@
   <h1 id='article-full-path'>
     <%= icon('cms') %>
     <%= link_to profile.identifier, :action => 'index' %>
-    <%= @article.hierarchy.map {|item| " / " + ((item == @article) ? item.name : link_to(item.name, :id => item.id)) } %>
+    <%= @article.hierarchy.map {|item| " / " + ((item == @article) ? item.name : link_to_document(item)) } %>
   </h1>
 <% end %>
 
@@ -42,7 +42,7 @@
       </td>
       <td>
         <%= link_to _('Properties'), :action => 'edit', :id => folder.id %>
-        <%= link_to _('Public view'), folder.url %>
+        <%= link_to_document(folder, _('Public view')) %>
         <%= link_to _('Use as homepage'), { :action => 'set_home_page', :id => folder.id }, :method => :post %>
         <%= link_to _('Delete'), { :action => 'destroy', :id => folder.id }, :method => :post, :confirm => _('Are you sure that you want to remove this folder? Note that all the items inside it will also be removed!') %>
       </td>
@@ -68,7 +68,7 @@
       </td>
       <td>
         <%= link_to _('Edit'), :action => 'edit', :id => item.id %>
-        <%= link_to _('Public view'), item.url %>
+        <%= link_to_document(item, _('Public view')) %>
         <%= link_to _('Spread this'), :action => 'publish', :id => item.id %>
         <%= link_to _('Use as homepage'), { :action => 'set_home_page', :id => item.id }, :method => :post %>
         <%= link_to _('Delete'), { :action => 'destroy', :id => item.id }, :method => :post, :confirm => _('Are you sure that you want to remove this item?') %>

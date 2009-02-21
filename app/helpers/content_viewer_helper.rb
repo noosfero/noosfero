@@ -12,7 +12,9 @@ module ContentViewerHelper
   end
 
   def article_title(article, args = {})
-    title = content_tag('h1', article.title, :class => 'title')
+    title = article.abstract if article.kind_of?(UploadedFile) && article.image?
+    title = article.title if title.blank?
+    title = content_tag('h1', title, :class => 'title')
     if article.belongs_to_blog?
       unless args[:no_link]
         title = content_tag('h3', link_to(article.name, article.url), :class => 'title')
@@ -39,6 +41,9 @@ module ContentViewerHelper
   end
 
   def article_to_html(article)
+    content = article.to_html
+    return self.instance_eval(&content) if content.kind_of?(Proc)
+    
     if article.blog?
       children = if article.filter and article.filter[:year] and article.filter[:month]
         filter_date = DateTime.parse("#{article.filter[:year]}-#{article.filter[:month]}-01")
@@ -46,9 +51,9 @@ module ContentViewerHelper
       else
         article.posts.paginate :page => params[:npage], :per_page => article.posts_per_page
       end
-      article.to_html + (children.compact.empty? ? content_tag('em', _('(no posts)')) : list_posts(children))
+      content + (children.compact.empty? ? content_tag('em', _('(no posts)')) : list_posts(children))
     else
-      article.to_html
+      content
     end
   end
 
