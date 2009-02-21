@@ -154,14 +154,6 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'div', :content => 'Recent content', :attributes => { :class => 'block recent-documents-block' }, :child => { :tag => 'ul', :content => /#{person.home_page.name}/ }
   end
 
-  should 'show feed on recent content after update' do
-    person = create_user('person_1').person
-    person.articles.find_by_path('feed').name = 'Changed name'
-    assert person.articles.find_by_path('feed').save!
-    get :index, :profile => person.identifier
-    assert_tag :tag => 'div', :content => 'Recent content', :attributes => { :class => 'block recent-documents-block' }, :child => { :tag => 'ul', :content => /#{person.articles.find_by_path('feed').name}/ }
-  end
-
   should 'display tag for profile' do
     @profile.articles.create!(:name => 'testarticle', :tag_list => 'tag1')
 

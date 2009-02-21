@@ -207,6 +207,16 @@ class ArticleTest < Test::Unit::TestCase
     assert_equal [ second ], Article.recent(nil)
   end
 
+  should 'not show RssFeed as recent' do
+    p = create_user('usr1').person
+    Article.destroy_all
+    first = RssFeed.create!(:profile => p, :name => 'my feed', :advertise => true)
+    first.limit = 10; first.save!
+    second = p.articles.build(:name => 'second'); second.save!
+
+    assert_equal [ second ], Article.recent(nil)
+  end
+
   should 'require that subclasses define description' do
     assert_raise NotImplementedError do
       Article.description

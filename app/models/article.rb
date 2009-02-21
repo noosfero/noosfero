@@ -98,7 +98,7 @@ class Article < ActiveRecord::Base
                   public_article = ? AND
                   published = ? AND
                   profiles.public_profile = ? AND
-                  (articles.type != ? OR articles.type is NULL)", true, true, true, true, 'UploadedFile'
+                  ((articles.type != ? and articles.type != ?) OR articles.type is NULL)", true, true, true, true, 'UploadedFile', 'RssFeed'
                 ],
                 :include => 'profile',
                 :order => 'articles.updated_at desc, articles.id desc'
