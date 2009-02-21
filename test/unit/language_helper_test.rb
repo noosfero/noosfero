@@ -13,9 +13,9 @@ class LanguageHelperTest < Test::Unit::TestCase
     assert_equal 'pt_BR', self.language
   end
 
-  should 'downcase language for tinymce' do
+  should 'remove country code for TinyMCE' do
     self.expects(:language).returns('pt_BR')
-    assert_equal 'pt_br', tinymce_language
+    assert_equal 'pt', tinymce_language
   end
 
   should 'downcase and use dash for HTML language' do

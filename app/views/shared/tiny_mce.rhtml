@@ -1,15 +1,38 @@
-<%= javascript_include_tag 'tiny_mce/tiny_mce.js' %>
+<%= javascript_include_tag 'tinymce/jscripts/tiny_mce/tiny_mce.js' %>
 <script type="text/javascript">
 tinyMCE.init({
         mode : "textareas",
         theme : "advanced",
-        plugins: "paste,searchreplace,print",
+        plugins: "paste,searchreplace,print,media",
         theme_advanced_toolbar_location : "top",
         theme_advanced_layout_manager: 'SimpleLayout',
-        theme_advanced_buttons1 : "print,separator,copy,paste,pastetext,pasteword,separator,undo,redo,separator,search,replace,separator,formatselect,separator,help",
+        theme_advanced_buttons1 : "print,separator,copy,paste,separator,undo,redo,separator,search,replace,separator,formatselect,separator,help",
         theme_advanced_buttons2 : "bold,italic,underline,strikethrough,separator,bullist,numlist,separator,justifyleft,justifycenter,justifyright,justifyfull,separator,link,unlink,image,table,separator,cleanup,code",
         theme_advanced_buttons3 : "",
+        paste_auto_cleanup_on_paste : true,
+        paste_insert_word_content_callback : "convertWord",
+        paste_use_dialog: false,
         apply_source_formatting : true,
         language: <%= tinymce_language.inspect %>
-});
+        });
+
+function convertWord(type, content) {
+  switch (type) {
+    // Gets executed before the built in logic performes it's cleanups
+    case "before":
+      //content = content.toLowerCase(); // Some dummy logic
+      break;
+
+    // Gets executed after the built in logic performes it's cleanups
+    case "after":
+      content = content.replace(/<!--\s*-->/, '');
+      break;
+  }
+
+  return content;
+}
 </script>
+
+
+
+
