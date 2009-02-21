@@ -76,6 +76,7 @@ lightbox.prototype = {
 			this.setScroll(0,0);
 			this.hideSelects('hidden');
 		}
+		this.hideObjectsAndEmbeds('hidden');
 		this.displayLightbox("block");
 	},
 	
@@ -84,7 +85,7 @@ lightbox.prototype = {
 		bod = document.getElementsByTagName('body')[0];
 		bod.style.height = height;
 		bod.style.overflow = overflow;
-  
+
 		htm = document.getElementsByTagName('html')[0];
 		htm.style.height = height;
 		htm.style.overflow = overflow; 
@@ -97,7 +98,20 @@ lightbox.prototype = {
 			selects[i].style.visibility = visibility;
 		}
 	},
-	
+
+	// In FF, objects and embeds elements hover on top of the lightbox
+	hideObjectsAndEmbeds: function(visibility){
+		var f = function(collection) {
+		  for(i = 0; i < collection.length; i++) {
+			if (collection[i].style) {
+				collection[i].style.visibility = visibility;
+			}
+		  }
+		};
+		f(document.getElementsByTagName('object'));
+		f(document.getElementsByTagName('embed'));
+	},
+
 	// Taken from lightbox implementation found at http://www.huddletogether.com/projects/lightbox/
 	getScroll: function(){
 		if (self.pageYOffset) {
@@ -122,8 +136,8 @@ lightbox.prototype = {
 	// Begin Ajax request based off of the href of the clicked linked
 	loadInfo: function() {
 		var myAjax = new Ajax.Request(
-        this.content,
-        {method: 'post', parameters: "", onComplete: this.processInfo.bindAsEventListener(this)}
+	this.content,
+	{method: 'post', parameters: "", onComplete: this.processInfo.bindAsEventListener(this)}
 		);
 		
 	},
@@ -168,7 +182,7 @@ lightbox.prototype = {
 			this.prepareIE("auto", "auto");
 			this.hideSelects("visible");
 		}
-		
+		this.hideObjectsAndEmbeds("visible");
 		this.displayLightbox("none");
 	}
 }
