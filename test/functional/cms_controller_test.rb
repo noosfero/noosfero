@@ -530,12 +530,6 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_no_match /align="right"/, saved.body
   end
 
-  should 'has tiny mce language pack for avaliable locales' do
-    Noosfero.locales.each do |code,name|
-      assert File.exists?( RAILS_ROOT.to_s() +'/public/javascripts/tiny_mce/langs/' + code.downcase + '.js' ), "Not found TinyMce language pack for #{name}"
-    end
-  end
-
   should 'be able to create a new event document' do
     get :new, :type => 'Event', :profile => profile.identifier
     assert_response :success
