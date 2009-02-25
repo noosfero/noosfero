@@ -225,7 +225,8 @@ class Article < ActiveRecord::Base
   end
 
   def hit
-    self.increment!(:hits)
+    self.class.connection.execute('update articles set hits = hits + 1 where id = %d' % self.id.to_i)
+    self.hits += 1
   end
 
   def can_display_hits?

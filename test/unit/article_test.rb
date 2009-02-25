@@ -610,6 +610,7 @@ class ArticleTest < Test::Unit::TestCase
   should 'increment hit counter when hitted' do
     a = Article.create!(:name => 'Test article', :profile => profile, :hits => 10)
     a.hit
+    assert_equal 11, a.hits
     a.reload
     assert_equal 11, a.hits
   end
