@@ -250,7 +250,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
   should "point to article's url in comment form" do
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
-    Article.any_instance.stubs(:url).returns('http://www.mysite.com/person/article')
+    Article.any_instance.stubs(:url).returns({:host => 'www.mysite.com', :controller => 'content_viewer', :action => 'view_page', :profile => 'person', :page => ['article']})
 
     get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ]
 
@@ -699,4 +699,22 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
     assert_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{folder.id}/}
   end
+
+  should 'have a link to properly post a comment' do
+    login_as(profile.identifier)
+    file = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    get :view_page, :profile => profile.identifier, :page => file.explode_path, :view => true
+
+    assert_tag :tag => 'input', :attributes => {:type => 'submit', :value => 'Post comment'}, :ancestor => {:tag => 'form', :attributes => {:action => /#{file.slug}.*view=true/}}
+  end
+
+  should 'post comment in a image' do
+    login_as(profile.identifier)
+    image = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    comment_count = image.comments.count
+    post :view_page, :profile => profile.identifier, :page => image.explode_path, :view => true
+    assert_equal comment_count, image.reload.comments.count
+    assert_template 'view_page'
+  end
+
 end
