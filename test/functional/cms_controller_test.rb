@@ -866,4 +866,34 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_template nil
     assert_redirected_to folder.url
   end
+
+  should 'record when coming from public view on edit files with view true' do
+    file = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+
+    @request.expects(:referer).returns("http://colivre.net/#{profile.identifier}/#{file.slug}?view=true").at_least_once
+
+    get :edit, :profile => profile.identifier, :id => file.id
+    assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'back_to', :value => 'public_view' }
+    assert_tag :tag => 'a', :descendant => { :content => 'Cancel' }, :attributes => { :href => /^https?:\/\/colivre.net\/#{profile.identifier}\/#{file.slug}?.*view=true/ }
+  end
+
+  should 'detect when comming from home page to edit files with view true' do
+    file = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    profile.expects(:home_page).returns(file).at_least_once
+
+    @request.expects(:referer).returns("http://colivre.net/#{profile.identifier}?view=true").at_least_once
+    @controller.stubs(:profile).returns(profile)
+    get :edit, :profile => profile.identifier, :id => file.id
+    assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'back_to', :value => 'public_view' }
+    assert_tag :tag => 'a', :descendant => { :content => 'Cancel' }, :attributes => { :href => /^https?:\/\/colivre.net\/#{profile.identifier}\/#{profile.home_page.slug}?.*view=true$/ }
+  end
+
+  should 'go back to public view when edit files coming from there with view true' do
+    file = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    @request.expects(:referer).returns("http://colivre.net/#{profile.identifier}/#{file.slug}?view=true").at_least_once
+
+    post :edit, :profile => profile.identifier, :id => file.id, :back_to => 'public_view', :article => {:abstract => 'some description'}
+    assert_template nil
+    assert_redirected_to file.url.merge(:view => true)
+  end
 end
