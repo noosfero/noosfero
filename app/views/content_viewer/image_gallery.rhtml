@@ -1,26 +1,5 @@
 <div class="image-gallery">
-  <% if params[:slideshow] %>
-  <p><%= button('', _('View as gallery'), @page.url)%></p>
-
-    <div id='slideshow' >
-      <% @images.each do |img| %>
-        <%= image_tag(url_for(img.url), :alt => (img.abstract.blank? ? img.name : img.abstract)) if img.image? %>
-      <% end %>
-    </div>
-
-    <link href="/javascripts/jquery.aslideshow/simple/styles.css" media="screen" rel="stylesheet" type="text/css" />  
-    <script type="text/javascript" src="/javascripts/jquery.aslideshow.js"></script>
-
-    <script type="text/javascript">
-    //<![CDATA[
-    jQuery(document).ready(function(){
-        jQuery('#slideshow').slideshow({ width: 640, height: 480, playframe: false, play: true, controls : { hide: false }, imgresize:false, effect:false });
-    });
-    //]]>
-    </script>
-
-  <% else %>
-  <p><%= button('', _('View as slideshow'), @page.url.merge(:slideshow => true))%></p>
+  <p><%= button(:slideshow, _('View as slideshow'), @page.url.merge(:slideshow => true))%></p>
     <ul>
       <% @images.each do |a| %>
         <li class="image-gallery-item">
@@ -29,7 +8,6 @@
         </li>
       <% end %>
     </ul>
-  <% end %>
   <br style="clear:both" />
   <%= will_paginate @images, :param_name => 'npage' %>
 </div>

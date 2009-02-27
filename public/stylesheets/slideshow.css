@@ -1,0 +1,54 @@
+body {
+  background-color:#000;
+  color:white;
+  padding-top:20px;
+  text-align: center;
+}
+
+/* These hieghts and widths should be edited to your images */
+ul#slideshow {
+	padding-left: 0;
+	margin: 0 auto;
+}
+
+a, a:link, a:visited {
+  color: #FFF;
+  text-decoration: bold;
+}
+
+.back-button {
+  position: absolute;
+  right: 10px;
+  margin: 0px;
+  top: 3px
+}
+
+.pika_main {
+	width: 680px;
+  height: 510px;
+	padding-right: 20px;
+	margin: 0 auto;
+  overflow: hidden;
+}
+
+#slideshow li {
+	margin: 5px;
+	float: left;
+	border: 2px solid #222;
+}
+
+/* thats all you NEED to edit. But continue if you'd like. */
+ul#slideshow li img{position:relative;cursor:pointer;}
+.pika_main img{border:5px solid #222;}
+.pika_main{position: relative;margin:0 auto;}
+.pikachoose li{float:left;position:relative;overflow:hidden;list-style:none;}
+.pika_play{position:absolute;top:10px;right:20px;z-index:1;}
+.pika_play a{position:relative;margin-left:auto;cursor:pointer;}
+.pika_play img{border:none !important;}
+.pika_caption{width:100%;height:30px;text-align:center;}
+.pika_navigation a{font-size: 12px;color:white;text-decoration: none;}
+.pika_navigation a:hover{text-decoration: underline;}
+.pika_navigation{padding-top:10px;clear:both;text-align:center;}
+
+/* SliderJS */
+.sliderjs{margin:0 auto;}

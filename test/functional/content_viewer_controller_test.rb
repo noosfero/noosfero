@@ -717,4 +717,11 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_template 'view_page'
   end
 
+  should 'render slideshow template' do
+    f = Folder.create!(:name => 'gallery', :profile => profile)
+    get :view_page, :profile => profile.identifier, :page => f.explode_path, :slideshow => true
+
+    assert_template 'slideshow'
+  end
+
 end

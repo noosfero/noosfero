@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title><%=
+       (@page ? @page.name + ' - ' : '') +
+       (@profile ? @profile.name + ' - ' : '') +
+       @environment.name +
+       (@category ? "&rarr; #{@category.full_name}" : '')
+    %></title>
+
+    <%= stylesheet_import "slideshow" %>
+    <%= javascript_include_tag 'jquery-latest', 'sliderjs', 'pikachoose' %>
+    <script language="javascript">
+      <!--
+      $(document).ready(function (){
+        $("#slideshow").PikaChoose();
+        $("#slideshow").SliderJS({
+          window_width: 320,
+          window_height: 55,
+          list_width: 832,
+          pikachoose: true,
+          auto_play: false
+        });
+      });
+      -->
+    </script>
+  </head>
+  <body>
+    <%= yield %>
+  </body>
+</html>

@@ -87,6 +87,9 @@ class ContentViewerController < ApplicationController
     end
 
     @comments = @page.comments(true)
+    if params[:slideshow]
+      render :action => 'slideshow', :layout => 'slideshow'
+    end
   end
 
   protected
