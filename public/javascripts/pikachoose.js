@@ -29,7 +29,8 @@ jQuery.iPikaChoose = {
 			show_prev_next: true,
 			slide_speed: 5000,
 			thumb_width: 50,
-			thumb_height: 42
+			thumb_height: 42,
+			buttons : { play: "Play", stop: "Stop", previous: "Previous", next: "Next" }
 		};
 
 		return $(this).each(
@@ -53,7 +54,7 @@ jQuery.iPikaChoose = {
 				if(options.slide_enabled){
 					$main_div.append("<div class='pika_play'></div>");
 					var $play_div = $(this).prev(".pika_main").children(".pika_play");
-					$play_div.html("<a class='pika_play_button'>Play</a><a class='pika_stop_button'>Stop</a>");
+					$play_div.html("<a class='pika_play_button'>" + options.buttons.play + "</a><a class='pika_stop_button'>" + options.buttons.stop + "</a>");
 					$play_div.fadeOut(1);
 					var $play_anchor = $play_div.children('a:first');
 					var $stop_anchor = $play_div.children('a:last');
@@ -76,7 +77,7 @@ jQuery.iPikaChoose = {
 				$(this).after("<div class='pika_navigation'></div>");
 				var $navigation_div = $(this).next(".pika_navigation");
 				//fill in sub elements
-				$navigation_div.prepend("<a>Previous</a> :: <a>Next</a>");
+				$navigation_div.prepend("<a>" + options.buttons.previous + "</a> :: <a>" + options.buttons.next + "</a>");
 				var $previous_image_anchor = $navigation_div.children('a:first');
 				var $next_image_anchor = $navigation_div.children('a:last');
 				
