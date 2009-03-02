@@ -298,7 +298,7 @@ class ApplicationControllerTest < Test::Unit::TestCase
   end
 
   should 'not force ssl in development mode' do
-    ENV.expects(:[]).with('RAILS_ENV').returns('development')
+    ENV.expects(:[]).with('RAILS_ENV').returns('development').at_least_once
     @request.expects(:ssl?).returns(false).at_least_once
     get :sslonly
     assert_response :success
@@ -334,7 +334,7 @@ class ApplicationControllerTest < Test::Unit::TestCase
     assert_response :success
   end
   should 'not refuse ssl while in development mode' do
-    ENV.expects(:[]).with('RAILS_ENV').returns('development')
+    ENV.expects(:[]).with('RAILS_ENV').returns('development').at_least_once
     @request.expects(:ssl?).returns(true).at_least_once
     get :nossl
     assert_response :success
