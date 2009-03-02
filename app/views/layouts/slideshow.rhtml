@@ -2,6 +2,7 @@
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
   <head>
+    <link rel="shortcut icon" href="<%= '/designs/themes/' + current_theme + '/images/favicon.ico' %>" type="image/x-icon" />
     <title><%=
        (@page ? @page.name + ' - ' : '') +
        (@profile ? @profile.name + ' - ' : '') +
@@ -14,13 +15,15 @@
     <script language="javascript">
       <!--
       $(document).ready(function (){
-        $("#slideshow").PikaChoose();
+        $("#slideshow").PikaChoose({
+          buttons: { play: <%= _("Play").to_json %>, stop: <%= _("Stop").to_json %>, previous: <%= _("Previous").to_json %>, next: <%= _("Next").to_json %> }
+        });
         $("#slideshow").SliderJS({
           window_width: 320,
           window_height: 55,
           list_width: 832,
           pikachoose: true,
-          auto_play: false
+          auto_play: false,
         });
       });
       -->
