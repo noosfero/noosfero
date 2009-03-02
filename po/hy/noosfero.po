@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.13.0\n"
-"POT-Creation-Date: 2009-02-10 11:30-0300\n"
+"Project-Id-Version: noosfero 0.14.0\n"
+"POT-Creation-Date: 2009-03-02 16:43-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -424,50 +424,50 @@ msgstr ""
 msgid "Others"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:331
+#: app/helpers/profile_editor_helper.rb:85
 msgid "Post-Doctoral"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:332
+#: app/helpers/profile_editor_helper.rb:86
 msgid "Ph.D."
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:333
+#: app/helpers/profile_editor_helper.rb:87
 msgid "Masters"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:334
+#: app/helpers/profile_editor_helper.rb:88
 msgid "Undergraduate"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:335
+#: app/helpers/profile_editor_helper.rb:89
 msgid "Graduate"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:336
+#: app/helpers/profile_editor_helper.rb:90
 msgid "High School"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:337
+#: app/helpers/profile_editor_helper.rb:91
 msgid "Elementary School"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:341
+#: app/helpers/profile_editor_helper.rb:95
 msgid "Concluded"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:342
+#: app/helpers/profile_editor_helper.rb:96
 msgid "Incomplete"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:343
+#: app/helpers/profile_editor_helper.rb:97
 msgid "Ongoing"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:347
-#: app/helpers/profile_editor_helper.rb:351
-#: app/helpers/profile_editor_helper.rb:355
-#: app/helpers/profile_editor_helper.rb:359
+#: app/helpers/profile_editor_helper.rb:101
+#: app/helpers/profile_editor_helper.rb:109
+#: app/helpers/profile_editor_helper.rb:113
+#: app/helpers/profile_editor_helper.rb:117
 msgid "[Select ...]"
 msgstr ""
 
@@ -515,12 +515,13 @@ msgstr ""
 msgid "Category: "
 msgstr ""
 
-#: app/helpers/search_helper.rb:99
+#: app/helpers/search_helper.rb:99 app/views/layouts/slideshow.rhtml:19
 msgid "Previous"
 msgstr ""
 
-#: app/helpers/search_helper.rb:99
+#: app/helpers/search_helper.rb:99 app/views/friends/invite.rhtml:37
 #: app/views/enterprise_registration/basic_information.rhtml:32
+#: app/views/layouts/slideshow.rhtml:19
 msgid "Next"
 msgstr ""
 
@@ -536,6 +537,27 @@ msgstr ""
 
 #: app/helpers/folder_helper.rb:6
 msgid "Last update"
+msgstr ""
+
+#: app/helpers/folder_helper.rb:40 app/helpers/article_helper.rb:5
+msgid "Options"
+msgstr ""
+
+#: app/helpers/folder_helper.rb:45 app/helpers/article_helper.rb:10
+msgid "This article must be published (visible to other people)"
+msgstr ""
+
+#: app/helpers/folder_helper.rb:50 app/helpers/article_helper.rb:26
+msgid "I want this article to display the number of hits it received"
+msgstr ""
+
+#: app/helpers/folder_helper.rb:57 app/helpers/article_helper.rb:32
+#: app/views/tasks/_approve_article.rhtml:1
+msgid "New article"
+msgstr ""
+
+#: app/helpers/folder_helper.rb:61
+msgid "Edit folder"
 msgstr ""
 
 #: app/helpers/display_helper.rb:4
@@ -603,19 +625,19 @@ msgid_plural "%{comments} comments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: app/helpers/content_viewer_helper.rb:20
+#: app/helpers/content_viewer_helper.rb:22
 msgid "%s, by %s"
 msgstr ""
 
-#: app/helpers/content_viewer_helper.rb:29
+#: app/helpers/content_viewer_helper.rb:31
 msgid "Newer posts &raquo;"
 msgstr ""
 
-#: app/helpers/content_viewer_helper.rb:30
+#: app/helpers/content_viewer_helper.rb:32
 msgid "&laquo; Older posts"
 msgstr ""
 
-#: app/helpers/content_viewer_helper.rb:49
+#: app/helpers/content_viewer_helper.rb:54
 msgid "(no posts)"
 msgstr ""
 
@@ -669,27 +691,27 @@ msgstr ""
 msgid "Main content"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:143
+#: app/helpers/boxes_helper.rb:150
 msgid "Can't move up anymore."
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:145
+#: app/helpers/boxes_helper.rb:152
 msgid "Move block up"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:149
+#: app/helpers/boxes_helper.rb:156
 msgid "Can't move down anymore."
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:151
+#: app/helpers/boxes_helper.rb:158
 msgid "Move block down"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:159 app/helpers/boxes_helper.rb:161
+#: app/helpers/boxes_helper.rb:166 app/helpers/boxes_helper.rb:168
 msgid "Move to the opposite side"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:166 app/helpers/article_helper.rb:36
+#: app/helpers/boxes_helper.rb:173 app/helpers/article_helper.rb:36
 #: app/views/profile_members/index.rhtml:14 app/views/role/index.rhtml:6
 #: app/views/cms/view.rhtml:70 app/views/categories/_category.rhtml:8
 #: app/views/manage_products/index.rhtml:14
@@ -697,20 +719,24 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:170
+#: app/helpers/boxes_helper.rb:177
+msgid "Toggle block visibility"
+msgstr ""
+
+#: app/helpers/boxes_helper.rb:178
 msgid "Remove block"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:174
+#: app/helpers/boxes_helper.rb:182
 msgid "Help on this block"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:174 app/helpers/application_helper.rb:67
+#: app/helpers/boxes_helper.rb:182 app/helpers/application_helper.rb:67
 #: app/views/layouts/application.rhtml:136 app/views/features/index.rhtml:7
 msgid "Help"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:174 app/helpers/application_helper.rb:87
+#: app/helpers/boxes_helper.rb:182 app/helpers/application_helper.rb:87
 #: app/views/shared/user_menu.rhtml:63 app/views/search/_search_form.rhtml:57
 #: app/views/box_organizer/add_block.rhtml:19
 msgid "Close"
@@ -784,7 +810,7 @@ msgid "Click on this icon to go to the <b>%s</b>'s home page"
 msgstr ""
 
 #: app/helpers/application_helper.rb:463
-#: app/views/content_viewer/view_page.rhtml:89
+#: app/views/content_viewer/view_page.rhtml:93
 #: app/views/categories/index.rhtml:1
 msgid "Categories"
 msgstr ""
@@ -837,28 +863,12 @@ msgstr ""
 msgid "Edit blog"
 msgstr ""
 
-#: app/helpers/article_helper.rb:5
-msgid "Options"
-msgstr ""
-
-#: app/helpers/article_helper.rb:10
-msgid "This article must be published (visible to other people)"
-msgstr ""
-
 #: app/helpers/article_helper.rb:15
 msgid "I want to receive comments about this article"
 msgstr ""
 
 #: app/helpers/article_helper.rb:20
 msgid "I want to receive a notification of each comment written by e-mail"
-msgstr ""
-
-#: app/helpers/article_helper.rb:26
-msgid "I want this article to display the number of hits it received"
-msgstr ""
-
-#: app/helpers/article_helper.rb:32 app/views/tasks/_approve_article.rhtml:1
-msgid "New article"
 msgstr ""
 
 #: app/helpers/features_helper.rb:4
@@ -1001,7 +1011,7 @@ msgstr ""
 msgid "This action is not available for \"%s\"."
 msgstr ""
 
-#: app/controllers/my_profile/cms_controller.rb:133
+#: app/controllers/my_profile/cms_controller.rb:129
 msgid "Article \"%s\" configured as home page."
 msgstr ""
 
@@ -1083,8 +1093,31 @@ msgstr ""
 msgid "%s was destroyed!"
 msgstr ""
 
-#: app/controllers/my_profile/friends_controller.rb:15
+#: app/controllers/my_profile/friends_controller.rb:17
 msgid "%s still needs to accept being your friend."
+msgstr ""
+
+#: app/controllers/my_profile/friends_controller.rb:48
+msgid ""
+"There was an error while looking for your contact list. Did you enter "
+"correct login and password?"
+msgstr ""
+
+#: app/controllers/my_profile/friends_controller.rb:57
+msgid "&lt;url&gt; is needed in invitation message."
+msgstr ""
+
+#: app/controllers/my_profile/friends_controller.rb:60
+#: app/views/friends/invite.rhtml:56
+msgid "Firstname Lastname <friend@email.com>"
+msgstr ""
+
+#: app/controllers/my_profile/friends_controller.rb:81
+msgid "Your invitations have been sent."
+msgstr ""
+
+#: app/controllers/my_profile/friends_controller.rb:84
+msgid "Please enter a valid email address."
 msgstr ""
 
 #: app/controllers/public/search_controller.rb:199
@@ -1120,19 +1153,19 @@ msgstr ""
 msgid "Incorrect username or password"
 msgstr ""
 
-#: app/controllers/public/account_controller.rb:58
+#: app/controllers/public/account_controller.rb:64
 msgid "Thanks for signing up!"
 msgstr ""
 
-#: app/controllers/public/account_controller.rb:72
+#: app/controllers/public/account_controller.rb:78
 msgid "You have been logged out."
 msgstr ""
 
-#: app/controllers/public/account_controller.rb:83
+#: app/controllers/public/account_controller.rb:89
 msgid "Your password has been changed successfully!"
 msgstr ""
 
-#: app/controllers/public/account_controller.rb:86
+#: app/controllers/public/account_controller.rb:92
 msgid "The supplied current password is incorrect."
 msgstr ""
 
@@ -1146,7 +1179,7 @@ msgid ""
 "profile to request access then."
 msgstr ""
 
-#: app/controllers/public/content_viewer_controller.rb:105
+#: app/controllers/public/content_viewer_controller.rb:112
 msgid "Comment succesfully deleted"
 msgstr ""
 
@@ -1203,66 +1236,6 @@ msgid "Homepage"
 msgstr ""
 
 #: app/models/user.rb:-
-msgid "user"
-msgstr ""
-
-#: app/models/user.rb:- app/models/user.rb:14 app/models/change_password.rb:21
-msgid "Username"
-msgstr ""
-
-#: app/models/user.rb:- app/models/user.rb:15 app/models/contact.rb:13
-#: app/models/change_password.rb:22
-msgid "e-Mail"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Crypted password"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Salt"
-msgstr ""
-
-#: app/models/user.rb:- app/models/comment.rb:- app/models/task.rb:-
-#: app/models/friendship.rb:- app/models/product.rb:-
-#: app/models/product_categorization.rb:-
-msgid "Created at"
-msgstr ""
-
-#: app/models/user.rb:- app/models/product.rb:-
-#: app/models/product_categorization.rb:-
-msgid "Updated at"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Remember token"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Remember token expires at"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Terms of use"
-msgstr ""
-
-#: app/models/user.rb:- app/models/user.rb:9
-msgid "Terms accepted"
-msgstr ""
-
-#: app/models/user.rb:- app/models/category.rb:-
-msgid "Environment"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Password type"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Enable email"
-msgstr ""
-
-#: app/models/user.rb:-
 msgid "profile"
 msgstr ""
 
@@ -1285,6 +1258,10 @@ msgstr ""
 #: app/models/user.rb:- app/models/create_enterprise.rb:3
 #: app/views/enterprise_validation/_details.rhtml:23
 msgid "Identifier"
+msgstr ""
+
+#: app/models/user.rb:- app/models/category.rb:-
+msgid "Environment"
 msgstr ""
 
 #: app/models/user.rb:- app/models/task.rb:26
@@ -1317,6 +1294,12 @@ msgstr ""
 
 #: app/models/user.rb:- app/models/task.rb:-
 msgid "Data"
+msgstr ""
+
+#: app/models/user.rb:- app/models/comment.rb:- app/models/task.rb:-
+#: app/models/friendship.rb:- app/models/product.rb:-
+#: app/models/product_categorization.rb:-
+msgid "Created at"
 msgstr ""
 
 #: app/models/user.rb:- app/models/product.rb:- app/models/category.rb:-
@@ -1387,6 +1370,11 @@ msgstr ""
 #: app/models/user.rb:- app/models/consumption.rb:-
 #: app/models/profile_categorization.rb:-
 msgid "Profile"
+msgstr ""
+
+#: app/models/user.rb:- app/models/product.rb:-
+#: app/models/product_categorization.rb:-
+msgid "Updated at"
 msgstr ""
 
 #: app/models/user.rb:-
@@ -1467,6 +1455,51 @@ msgstr ""
 
 #: app/models/user.rb:-
 msgid "Hits"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "user"
+msgstr ""
+
+#: app/models/user.rb:- app/models/user.rb:14 app/models/change_password.rb:21
+msgid "Username"
+msgstr ""
+
+#: app/models/user.rb:- app/models/user.rb:15 app/models/contact.rb:13
+#: app/models/change_password.rb:22
+msgid "e-Mail"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Crypted password"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Salt"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Remember token"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Remember token expires at"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Terms of use"
+msgstr ""
+
+#: app/models/user.rb:- app/models/user.rb:9
+msgid "Terms accepted"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Password type"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Enable email"
 msgstr ""
 
 #: app/models/user.rb:7
@@ -2146,15 +2179,19 @@ msgid ""
 "friend."
 msgstr ""
 
-#: app/models/folder.rb:6
+#: app/models/folder.rb:8 app/models/folder.rb:18
 msgid "Folder"
 msgstr ""
 
-#: app/models/folder.rb:10
+#: app/models/folder.rb:8 app/models/image_gallery.rb:4
+msgid "Image gallery"
+msgstr ""
+
+#: app/models/folder.rb:22
 msgid "A folder, inside which you can put other articles."
 msgstr ""
 
-#: app/models/folder.rb:25
+#: app/models/folder.rb:42
 msgid "(empty folder)"
 msgstr ""
 
@@ -2190,16 +2227,12 @@ msgid ""
 "another article."
 msgstr ""
 
-#: app/models/article.rb:67
+#: app/models/article.rb:71
 msgid "Tag list"
 msgstr ""
 
-#: app/models/article.rb:150
+#: app/models/article.rb:154
 msgid "HTML Text document"
-msgstr ""
-
-#: app/models/image_gallery.rb:4
-msgid "Image gallery"
 msgstr ""
 
 #: app/models/image_gallery.rb:8
@@ -2338,29 +2371,29 @@ msgstr ""
 msgid "Edit appearance"
 msgstr ""
 
-#: app/models/profile.rb:185
+#: app/models/profile.rb:189
 msgid "An existing profile cannot be renamed."
 msgstr ""
 
-#: app/models/profile.rb:381
+#: app/models/profile.rb:385
 msgid "My home page"
 msgstr ""
 
-#: app/models/profile.rb:381
+#: app/models/profile.rb:385
 msgid ""
 "<p>This is a default homepage created for me. It can be changed though the "
 "control panel.</p>"
 msgstr ""
 
-#: app/models/profile.rb:392
+#: app/models/profile.rb:396
 msgid "Intranet"
 msgstr ""
 
-#: app/models/profile.rb:434
+#: app/models/profile.rb:438
 msgid "%s can't has members"
 msgstr ""
 
-#: app/models/profile.rb:451
+#: app/models/profile.rb:455
 msgid "%s can't has moderators"
 msgstr ""
 
@@ -2502,7 +2535,19 @@ msgstr ""
 msgid "Disable the popup that ask to join a group/community"
 msgstr ""
 
-#: app/models/environment.rb:366
+#: app/models/environment.rb:286
+msgid "Hello <friend>,"
+msgstr ""
+
+#: app/models/environment.rb:287
+msgid "<user> is inviting you to participate on %{environment}."
+msgstr ""
+
+#: app/models/environment.rb:288
+msgid "To accept the invitation, please follow this link:"
+msgstr ""
+
+#: app/models/environment.rb:381
 msgid "Only one Virtual Community can be the default one"
 msgstr ""
 
@@ -2561,15 +2606,15 @@ msgstr ""
 msgid "Password change request"
 msgstr ""
 
-#: app/models/uploaded_file.rb:20
+#: app/models/uploaded_file.rb:22
 msgid "The file you uploaded was larger than the maximum size of %s"
 msgstr ""
 
-#: app/models/uploaded_file.rb:31
+#: app/models/uploaded_file.rb:33
 msgid "Uploaded file"
 msgstr ""
 
-#: app/models/uploaded_file.rb:35
+#: app/models/uploaded_file.rb:37
 msgid "Upload any kind of file you want."
 msgstr ""
 
@@ -2601,6 +2646,10 @@ msgstr ""
 
 #: app/models/rss_feed.rb:115
 msgid "Provides a news feed of your more recent articles."
+msgstr ""
+
+#: app/models/invite_friend.rb:37
+msgid "%s wants to be your friend"
 msgstr ""
 
 #: app/models/login_block.rb:4
@@ -2737,12 +2786,16 @@ msgstr ""
 #: app/views/favorite_enterprises/index.rhtml:31
 #: app/views/profile/favorite_enterprises.rhtml:13
 #: app/views/profile/communities.rhtml:13 app/views/profile/members.rhtml:13
-#: app/views/profile/friends.rhtml:13 app/views/profile/enterprises.rhtml:13
+#: app/views/profile/friends.rhtml:16 app/views/profile/enterprises.rhtml:13
 msgid "Go back"
 msgstr ""
 
 #: app/views/friends/index.rhtml:39
 msgid "Find people"
+msgstr ""
+
+#: app/views/friends/index.rhtml:40
+msgid "Invite friends from my e-mail contacts"
 msgstr ""
 
 #: app/views/friends/add.rhtml:1
@@ -2792,6 +2845,83 @@ msgstr ""
 
 #: app/views/friends/remove.rhtml:20
 msgid "Yes, I want to remove %s from my friend list"
+msgstr ""
+
+#: app/views/friends/invite.rhtml:1
+msgid "Invite your friends"
+msgstr ""
+
+#: app/views/friends/invite.rhtml:6
+msgid "Step 1 of 1: Accessing your contact list"
+msgstr ""
+
+#: app/views/friends/invite.rhtml:9
+msgid ""
+"Choose your webmail provider and enter your login and password so we can "
+"fetch your contact list. If you only want to invite specific people by "
+"listing their e-mail addresses, select the \"Enter e-mail addresses manually"
+"\" option."
+msgstr ""
+
+#: app/views/friends/invite.rhtml:15
+msgid "Select your e-mail provider:"
+msgstr ""
+
+#: app/views/friends/invite.rhtml:19
+msgid "Enter e-mail addresses manually"
+msgstr ""
+
+#: app/views/friends/invite.rhtml:32
+msgid "Login:"
+msgstr ""
+
+#: app/views/friends/invite.rhtml:33
+msgid "Password:"
+msgstr ""
+
+#: app/views/friends/invite.rhtml:39
+msgid "We won't store your password or contact anyone without your permission."
+msgstr ""
+
+#: app/views/friends/invite.rhtml:45
+msgid "Step 2 of 2: Selecting Friends"
+msgstr ""
+
+#: app/views/friends/invite.rhtml:47
+msgid "Indicate which friends you want to invite."
+msgstr ""
+
+#: app/views/friends/invite.rhtml:55
+msgid "Enter one e-mail address per line, following the example below."
+msgstr ""
+
+#: app/views/friends/invite.rhtml:56
+msgid "E-mail addresses"
+msgstr ""
+
+#: app/views/friends/invite.rhtml:60
+msgid "Check all"
+msgstr ""
+
+#: app/views/friends/invite.rhtml:61
+msgid "Uncheck all"
+msgstr ""
+
+#: app/views/friends/invite.rhtml:74
+msgid ""
+"Now enter an invitation message. You must keep the <url> code in your "
+"invitation message. When your friends receive the invitation e-mail, <url> "
+"will be replaced by a link that they need to click to activate their "
+"account. <user> and <friend> codes will be replaced by your name and friend "
+"name, but they are optional."
+msgstr ""
+
+#: app/views/friends/invite.rhtml:75
+msgid "Invitation message"
+msgstr ""
+
+#: app/views/friends/invite.rhtml:79
+msgid "Invite my friends!"
 msgstr ""
 
 #: app/views/profile_members/change_role.rhtml:1
@@ -3263,23 +3393,23 @@ msgid ""
 "password!</b>\" link. ;-)"
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:24
+#: app/views/account/_signup_form.rhtml:26
 msgid "This e-mail address will be used to contact you."
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:28
+#: app/views/account/_signup_form.rhtml:30
 msgid "Choose a password that you can remember easily."
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:32
+#: app/views/account/_signup_form.rhtml:34
 msgid "To confirm, repeat your password."
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:47
+#: app/views/account/_signup_form.rhtml:49
 msgid "I accept the terms of use"
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:59
+#: app/views/account/_signup_form.rhtml:61
 msgid "Sign up"
 msgstr ""
 
@@ -3568,15 +3698,15 @@ msgstr ""
 msgid "Separate tags with commas"
 msgstr ""
 
-#: app/views/cms/_uploaded_file.rhtml:3
-msgid "Select the file you want to upload (max size %s)."
-msgstr ""
-
-#: app/views/cms/_uploaded_file.rhtml:5
+#: app/views/cms/_uploaded_file.rhtml:1
 msgid "Describe this file:"
 msgstr ""
 
-#: app/views/cms/_folder.rhtml:8 app/views/cms/_blog.rhtml:7
+#: app/views/cms/_folder.rhtml:4
+msgid "Folder type"
+msgstr ""
+
+#: app/views/cms/_folder.rhtml:6 app/views/cms/_blog.rhtml:7
 #: app/views/manage_products/_form.rhtml:8
 #: app/views/manage_products/show.rhtml:5
 msgid "Description:"
@@ -3598,8 +3728,8 @@ msgstr ""
 msgid "New folder"
 msgstr ""
 
-#: app/views/cms/view.rhtml:21
-msgid "Upload file"
+#: app/views/cms/view.rhtml:21 app/views/content_viewer/view_page.rhtml:52
+msgid "Upload files"
 msgstr ""
 
 #: app/views/cms/view.rhtml:44
@@ -3635,6 +3765,36 @@ msgstr ""
 
 #: app/views/cms/select_article_type.rhtml:1
 msgid "Choose the type of article:"
+msgstr ""
+
+#: app/views/cms/upload_files.rhtml:3
+msgid "This file couldn't be saved"
+msgid_plural "These %{num} files couldn't be saved"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/views/cms/upload_files.rhtml:4
+msgid "There were problems with the following files:"
+msgstr ""
+
+#: app/views/cms/upload_files.rhtml:16
+msgid "Publish media"
+msgstr ""
+
+#: app/views/cms/upload_files.rhtml:18
+msgid "Select the files you want to upload (max size %s):"
+msgstr ""
+
+#: app/views/cms/upload_files.rhtml:19
+msgid "Photos/Videos/Audio/Documents"
+msgstr ""
+
+#: app/views/cms/upload_files.rhtml:32
+msgid "More files"
+msgstr ""
+
+#: app/views/cms/upload_files.rhtml:34 app/views/cms/upload_files.rhtml:36
+msgid "Upload"
 msgstr ""
 
 #: app/views/cms/destroy.rhtml:1
@@ -4181,7 +4341,7 @@ msgstr ""
 
 #: app/views/profile/favorite_enterprises.rhtml:14
 #: app/views/profile/communities.rhtml:14 app/views/profile/members.rhtml:14
-#: app/views/profile/friends.rhtml:14 app/views/profile/enterprises.rhtml:14
+#: app/views/profile/friends.rhtml:17 app/views/profile/enterprises.rhtml:14
 msgid "Back to the page where you come from."
 msgstr ""
 
@@ -4223,6 +4383,10 @@ msgstr ""
 
 #: app/views/profile/friends.rhtml:2
 msgid "Here are all <b>%s</b>'s friends."
+msgstr ""
+
+#: app/views/profile/friends.rhtml:14
+msgid "Manage my friends"
 msgstr ""
 
 #: app/views/profile/join.rhtml:1
@@ -4515,17 +4679,17 @@ msgstr ""
 msgid "Yes, I want to enable."
 msgstr ""
 
-#: app/views/content_viewer/view_page.rhtml:59
+#: app/views/content_viewer/view_page.rhtml:63
 msgid "This article's tags:"
 msgstr ""
 
-#: app/views/content_viewer/view_page.rhtml:66
+#: app/views/content_viewer/view_page.rhtml:70
 msgid "Viewed one time"
 msgid_plural "Viewed %{num} times"
 msgstr[0] ""
 msgstr[1] ""
 
-#: app/views/content_viewer/view_page.rhtml:72
+#: app/views/content_viewer/view_page.rhtml:76
 msgid "Up"
 msgstr ""
 
@@ -4539,6 +4703,10 @@ msgstr ""
 
 #: app/views/content_viewer/no_home_page.rhtml:9
 msgid "Click here to set your homepage now!"
+msgstr ""
+
+#: app/views/content_viewer/image_gallery.rhtml:7
+msgid "View slideshow"
 msgstr ""
 
 #: app/views/content_viewer/_comment.rhtml:5
@@ -4572,6 +4740,10 @@ msgstr ""
 
 #: app/views/content_viewer/_comment_form.rhtml:39
 msgid "Post comment"
+msgstr ""
+
+#: app/views/content_viewer/slideshow.rhtml:1
+msgid "Back to gallery"
 msgstr ""
 
 #: app/views/mailconf/index.rhtml:1
@@ -4646,6 +4818,14 @@ msgstr ""
 
 #: app/views/layouts/application.rhtml:190
 msgid "Get Firefox Now!"
+msgstr ""
+
+#: app/views/layouts/slideshow.rhtml:19
+msgid "Play"
+msgstr ""
+
+#: app/views/layouts/slideshow.rhtml:19
+msgid "Stop"
 msgstr ""
 
 #: app/views/enterprise_validation/index.rhtml:1
