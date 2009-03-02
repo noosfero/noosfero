@@ -2,6 +2,15 @@
 # available in all controllers.
 class ApplicationController < ActionController::Base
 
+  def log_processing
+    super
+    return unless ENV['RAILS_ENV'] == 'production'
+    if logger && logger.info?
+      logger.info("  HTTP Referer: #{request.referer}")
+      logger.info("  User Agent: #{request.user_agent}")
+    end
+  end
+
   helper :document
   helper :language
 
