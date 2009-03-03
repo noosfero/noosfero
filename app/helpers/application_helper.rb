@@ -300,7 +300,7 @@ module ApplicationHelper
         if File.exists?(File.join(RAILS_ROOT, 'public', filename))
           "@import url(#{filename});\n"
         else
-          ""
+          "/* Not included: url(#{filename}) */\n"
         end
       end.join(),
       { "type" => "text/css" }.merge(options)
