@@ -34,7 +34,7 @@ class InviteFriend < Task
   end
 
   def description
-    _('%s wants to be your friend') % [requestor.name]
+    _('%s wants to be your friend.') % [requestor.name]
   end
 
   def permission

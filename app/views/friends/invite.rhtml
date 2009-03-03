@@ -29,8 +29,8 @@
       }
     </script>
     <div id='invite-friends-login-password' <%= "style='display: none;'" if (@import_from == 'manual') %>>
-    <%= labelled_form_field(__("Login:"), text_field_tag(:login, @login)) %>
-    <%= labelled_form_field(__("Password:"), password_field_tag(:password)) %>
+    <%= labelled_form_field(__("Login") + ":", text_field_tag(:login, @login)) %>
+    <%= labelled_form_field(__("Password") + ":", password_field_tag(:password)) %>
     </div>
 
     <% button_bar do %>

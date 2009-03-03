@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.14.0\n"
-"POT-Creation-Date: 2009-03-02 16:43-0300\n"
-"PO-Revision-Date: 2009-02-12 19:12-0300\n"
+"POT-Creation-Date: 2009-03-03 16:06-0300\n"
+"PO-Revision-Date: 2009-03-03 16:06-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -563,9 +563,8 @@ msgid "New article"
 msgstr "Novo artigo"
 
 #: app/helpers/folder_helper.rb:61
-#, fuzzy
 msgid "Edit folder"
-msgstr "Editar perfil"
+msgstr "Editar pasta"
 
 #: app/helpers/display_helper.rb:4
 msgid "No product"
@@ -728,7 +727,7 @@ msgstr "Editar"
 
 #: app/helpers/boxes_helper.rb:177
 msgid "Toggle block visibility"
-msgstr ""
+msgstr "Trocar visibilidade do bloco"
 
 #: app/helpers/boxes_helper.rb:178
 msgid "Remove block"
@@ -1116,23 +1115,25 @@ msgid ""
 "There was an error while looking for your contact list. Did you enter "
 "correct login and password?"
 msgstr ""
+"Houve um erro ao pesquisar sua lista de contatos. Você digitou usuário e "
+"senha corretamente?"
 
 #: app/controllers/my_profile/friends_controller.rb:57
 msgid "&lt;url&gt; is needed in invitation message."
-msgstr ""
+msgstr "&lt;url&gt; é necessária na mensagem de convite."
 
 #: app/controllers/my_profile/friends_controller.rb:60
 #: app/views/friends/invite.rhtml:56
 msgid "Firstname Lastname <friend@email.com>"
-msgstr ""
+msgstr "Nome Sobrenome <amigo@email.com>"
 
 #: app/controllers/my_profile/friends_controller.rb:81
 msgid "Your invitations have been sent."
-msgstr ""
+msgstr "Seus convites foram enviados."
 
 #: app/controllers/my_profile/friends_controller.rb:84
 msgid "Please enter a valid email address."
-msgstr ""
+msgstr "Por favor entre um endereço de e-mail válido."
 
 #: app/controllers/public/search_controller.rb:199
 msgid "Upcoming events"
@@ -1521,7 +1522,7 @@ msgstr "Tipo de senha"
 msgid "Enable email"
 msgstr "Habilitar e-mail"
 
-#: app/models/user.rb:7
+#: app/models/user.rb:7 app/views/friends/invite.rhtml:33
 msgid "Password"
 msgstr "Senha"
 
@@ -2212,7 +2213,7 @@ msgstr "Método de Validação"
 msgid "Restrictions"
 msgstr "Limitações"
 
-#: app/models/add_friend.rb:21
+#: app/models/add_friend.rb:21 app/models/invite_friend.rb:37
 msgid "%s wants to be your friend."
 msgstr "%s quer ser seu(sua) amigo(a)."
 
@@ -2587,17 +2588,16 @@ msgid "Disable the popup that ask to join a group/community"
 msgstr "Desabilitar o popup que pede para entrar em um grupo/comunidade"
 
 #: app/models/environment.rb:286
-#, fuzzy
 msgid "Hello <friend>,"
-msgstr "Todos os amigos"
+msgstr "Olá <friend>,"
 
 #: app/models/environment.rb:287
 msgid "<user> is inviting you to participate on %{environment}."
-msgstr ""
+msgstr "<user> está de convidando a participar no %{environment}"
 
 #: app/models/environment.rb:288
 msgid "To accept the invitation, please follow this link:"
-msgstr ""
+msgstr "Para aceitar o convite, por favor siga este link:"
 
 #: app/models/environment.rb:381
 msgid "Only one Virtual Community can be the default one"
@@ -2704,11 +2704,6 @@ msgstr "Feed RSS"
 #: app/models/rss_feed.rb:115
 msgid "Provides a news feed of your more recent articles."
 msgstr "Fornece um feed RSS dos seus artigos mais recentes."
-
-#: app/models/invite_friend.rb:37
-#, fuzzy
-msgid "%s wants to be your friend"
-msgstr "%s quer ser seu(sua) amigo(a)."
 
 #: app/models/login_block.rb:4
 msgid "A login box for your users."
@@ -2855,7 +2850,7 @@ msgstr "Buscar pessoas"
 
 #: app/views/friends/index.rhtml:40
 msgid "Invite friends from my e-mail contacts"
-msgstr ""
+msgstr "Convidar amigos dos meus contatos de e-mail"
 
 #: app/views/friends/add.rhtml:1
 msgid "Adding %s as a friend"
@@ -2909,13 +2904,12 @@ msgid "Yes, I want to remove %s from my friend list"
 msgstr "Sim, quero remover %s da minha lista de amigos"
 
 #: app/views/friends/invite.rhtml:1
-#, fuzzy
 msgid "Invite your friends"
-msgstr "%s quer ser seu(sua) amigo(a)."
+msgstr "Convide seus amigos"
 
 #: app/views/friends/invite.rhtml:6
 msgid "Step 1 of 1: Accessing your contact list"
-msgstr ""
+msgstr "Passo 1 de 1: Acessando sua lista de contatos"
 
 #: app/views/friends/invite.rhtml:9
 msgid ""
@@ -2924,52 +2918,52 @@ msgid ""
 "listing their e-mail addresses, select the \"Enter e-mail addresses manually"
 "\" option."
 msgstr ""
+"Escolha seu provedor de webmail e entre seu login e senha para que possamos "
+"obter sua lista de contatos. Se você quiser convidar pessoas específicas "
+"informando seus endereços de e-mail, selecione a opção \"Digitar endereços "
+"de e-mail manualmente\"."
 
 #: app/views/friends/invite.rhtml:15
 msgid "Select your e-mail provider:"
-msgstr ""
+msgstr "Selecione seu provedor de e-mail:"
 
 #: app/views/friends/invite.rhtml:19
 msgid "Enter e-mail addresses manually"
-msgstr ""
+msgstr "Digitar endereços de e-mail manualmente"
 
-#: app/views/friends/invite.rhtml:32
-#, fuzzy
-msgid "Login:"
+#: app/views/friends/invite.rhtml:32 app/views/shared/user_menu.rhtml:60
+#: app/views/account/login_block.rhtml:4 app/views/account/login.rhtml:3
+msgid "Login"
 msgstr "Entrar"
-
-#: app/views/friends/invite.rhtml:33
-#, fuzzy
-msgid "Password:"
-msgstr "Senha"
 
 #: app/views/friends/invite.rhtml:39
 msgid "We won't store your password or contact anyone without your permission."
 msgstr ""
+"Nós não armazenamos sua senha nem contactamos ninguém sem sua permissão."
 
 #: app/views/friends/invite.rhtml:45
 msgid "Step 2 of 2: Selecting Friends"
-msgstr ""
+msgstr "Passo 2 de 2: Selecionando Amigos"
 
 #: app/views/friends/invite.rhtml:47
 msgid "Indicate which friends you want to invite."
-msgstr ""
+msgstr "Indique quais amigos você quer convidar."
 
 #: app/views/friends/invite.rhtml:55
 msgid "Enter one e-mail address per line, following the example below."
-msgstr ""
+msgstr "Entre um endereço de e-mail por linha, seguindo o exemplo abaixo."
 
 #: app/views/friends/invite.rhtml:56
 msgid "E-mail addresses"
-msgstr ""
+msgstr "Endereços de e-mail"
 
 #: app/views/friends/invite.rhtml:60
 msgid "Check all"
-msgstr ""
+msgstr "Marcar todos"
 
 #: app/views/friends/invite.rhtml:61
 msgid "Uncheck all"
-msgstr ""
+msgstr "Desmarcar todos"
 
 #: app/views/friends/invite.rhtml:74
 msgid ""
@@ -2979,16 +2973,19 @@ msgid ""
 "account. <user> and <friend> codes will be replaced by your name and friend "
 "name, but they are optional."
 msgstr ""
+"Agora inclua uma mensagem de convite. Você deve deixar o código <url> na sua "
+"mensagem de convite. Quando seus amigos receberem o e-mail, <url> será "
+"substituído por um link que eles deverão clicar para ativar sua conta. "
+"<user> e <friend> serão substituídos por seu nome e do amigo, mas são "
+"opcionais."
 
 #: app/views/friends/invite.rhtml:75
-#, fuzzy
 msgid "Invitation message"
-msgstr "%s enviou uma mensagem"
+msgstr "Mensagem de convite"
 
 #: app/views/friends/invite.rhtml:79
-#, fuzzy
 msgid "Invite my friends!"
-msgstr "Um amigo"
+msgstr "Convidar meus amigos!"
 
 #: app/views/profile_members/change_role.rhtml:1
 #: app/views/environment_role_manager/change_role.rhtml:1
@@ -3183,11 +3180,6 @@ msgstr ""
 "Este link te leva pra fora do sistema. Você deve sair se outras pessoas vão "
 "usar o mesmo computador depois de você."
 
-#: app/views/shared/user_menu.rhtml:60 app/views/account/login_block.rhtml:4
-#: app/views/account/login.rhtml:3
-msgid "Login"
-msgstr "Entrar"
-
 #: app/views/shared/user_menu.rhtml:60
 #: app/views/account/index_anonymous.rhtml:5
 msgid ""
@@ -3203,7 +3195,7 @@ msgstr "Mudar imagem"
 
 #: app/views/shared/not_found.rhtml:2
 msgid "There is no such page: %s"
-msgstr "Não há página: %s"
+msgstr "Esta página não existe: %s"
 
 #: app/views/shared/not_found.rhtml:4
 msgid "You may have clicked an expired link or mistyped the address."
@@ -3829,9 +3821,8 @@ msgid "Describe this file:"
 msgstr "Descreva o arquivo:"
 
 #: app/views/cms/_folder.rhtml:4
-#, fuzzy
 msgid "Folder type"
-msgstr "Pasta"
+msgstr "Tipo de Pasta"
 
 #: app/views/cms/_folder.rhtml:6 app/views/cms/_blog.rhtml:7
 #: app/views/manage_products/_form.rhtml:8
@@ -3856,9 +3847,8 @@ msgid "New folder"
 msgstr "Nova pasta "
 
 #: app/views/cms/view.rhtml:21 app/views/content_viewer/view_page.rhtml:52
-#, fuzzy
 msgid "Upload files"
-msgstr "Enviar arquivo"
+msgstr "Enviar arquivos"
 
 #: app/views/cms/view.rhtml:44
 msgid "Properties"
@@ -3898,34 +3888,30 @@ msgid "Choose the type of article:"
 msgstr "Escolha o tipo de artigo:"
 
 #: app/views/cms/upload_files.rhtml:3
-#, fuzzy
 msgid "This file couldn't be saved"
 msgid_plural "These %{num} files couldn't be saved"
-msgstr[0] "O conteúdo deste perfil é:"
-msgstr[1] "O conteúdo deste perfil é:"
+msgstr[0] "Este arquivo não pode ser salvo"
+msgstr[1] "Estes %{num} arquivos não puderam ser salvos"
 
 #: app/views/cms/upload_files.rhtml:4
 msgid "There were problems with the following files:"
-msgstr ""
+msgstr "Houve problemas com os seguintes arquivos:"
 
 #: app/views/cms/upload_files.rhtml:16
-#, fuzzy
 msgid "Publish media"
-msgstr "Publicado"
+msgstr "Publicar mídia"
 
 #: app/views/cms/upload_files.rhtml:18
-#, fuzzy
 msgid "Select the files you want to upload (max size %s):"
-msgstr "Selecione o arquivo que você quer enviar (tamanho máximo %s)."
+msgstr "Selecione o arquivo que você quer enviar (tamanho máximo %s):"
 
 #: app/views/cms/upload_files.rhtml:19
 msgid "Photos/Videos/Audio/Documents"
-msgstr ""
+msgstr "Fotos/Vídeos/Áudio/Documentos"
 
 #: app/views/cms/upload_files.rhtml:32
-#, fuzzy
 msgid "More files"
-msgstr "Mais opções"
+msgstr "Mais arquivos"
 
 #: app/views/cms/upload_files.rhtml:34 app/views/cms/upload_files.rhtml:36
 msgid "Upload"
@@ -4539,9 +4525,8 @@ msgid "Here are all <b>%s</b>'s friends."
 msgstr "Aqui estão todos os amigos de <b>%s</b>."
 
 #: app/views/profile/friends.rhtml:14
-#, fuzzy
 msgid "Manage my friends"
-msgstr "Gerenciar amigos"
+msgstr "Gerenciar meus amigos"
 
 #: app/views/profile/join.rhtml:1
 msgid "Joining %s"
@@ -4868,7 +4853,7 @@ msgstr "Clique aqui para definir sua página inicial agora!"
 
 #: app/views/content_viewer/image_gallery.rhtml:7
 msgid "View slideshow"
-msgstr ""
+msgstr "Ver apresentação"
 
 #: app/views/content_viewer/_comment.rhtml:5
 msgid "Are you sure you want to remove this comment?"
@@ -4906,9 +4891,8 @@ msgid "Post comment"
 msgstr "Enviar comentário"
 
 #: app/views/content_viewer/slideshow.rhtml:1
-#, fuzzy
 msgid "Back to gallery"
-msgstr "Galeria de Imagens"
+msgstr "Voltar à galeria"
 
 #: app/views/mailconf/index.rhtml:1
 msgid "e-Mail configuration"
@@ -5002,11 +4986,11 @@ msgstr "Baixe o Firefox Já!"
 
 #: app/views/layouts/slideshow.rhtml:19
 msgid "Play"
-msgstr ""
+msgstr "Tocar"
 
 #: app/views/layouts/slideshow.rhtml:19
 msgid "Stop"
-msgstr ""
+msgstr "Parar"
 
 #: app/views/enterprise_validation/index.rhtml:1
 msgid "Enterprise validations"
@@ -5929,6 +5913,17 @@ msgstr "Contatos"
 #: lib/zen3_terminology.rb:61
 msgid "Creating new group"
 msgstr "Criar novo grupo"
+
+#, fuzzy
+#~ msgid "Password):"
+#~ msgstr "Senha"
+
+#, fuzzy
+#~ msgid "%s wants to be your friend"
+#~ msgstr "%s quer ser seu(sua) amigo(a)."
+
+#~ msgid "Login:"
+#~ msgstr "Login:"
 
 #~ msgid "Enable e-mail %s"
 #~ msgstr "Habilitar e-mail %s"

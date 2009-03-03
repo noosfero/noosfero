@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.14.0\n"
-"POT-Creation-Date: 2009-03-02 16:43-0300\n"
+"POT-Creation-Date: 2009-03-03 16:06-0300\n"
 "PO-Revision-Date: 2008-06-13 16:15-0300\n"
 "Last-Translator: Raphael Rousseau <pootle.colivre.coop.br@r4f.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1628,7 +1628,7 @@ msgstr "Mot de passe"
 msgid "Enable email"
 msgstr "Adresse e-mail"
 
-#: app/models/user.rb:7
+#: app/models/user.rb:7 app/views/friends/invite.rhtml:33
 msgid "Password"
 msgstr "Mot de passe"
 
@@ -2387,7 +2387,7 @@ msgstr "Méthodologie de validation :"
 msgid "Restrictions"
 msgstr "Restrictions (si fournies) :"
 
-#: app/models/add_friend.rb:21
+#: app/models/add_friend.rb:21 app/models/invite_friend.rb:37
 #, fuzzy
 msgid "%s wants to be your friend."
 msgstr "%s veut être votre ami"
@@ -2909,11 +2909,6 @@ msgstr "Flux RSS"
 msgid "Provides a news feed of your more recent articles."
 msgstr "Fournit un flux de nouvelles de vos articles les plus récents."
 
-#: app/models/invite_friend.rb:37
-#, fuzzy
-msgid "%s wants to be your friend"
-msgstr "%s veut être votre ami"
-
 #: app/models/login_block.rb:4
 msgid "A login box for your users."
 msgstr "Une boîte de connexion pour vos utilisateurs."
@@ -3154,15 +3149,10 @@ msgstr ""
 msgid "Enter e-mail addresses manually"
 msgstr ""
 
-#: app/views/friends/invite.rhtml:32
-#, fuzzy
-msgid "Login:"
+#: app/views/friends/invite.rhtml:32 app/views/shared/user_menu.rhtml:60
+#: app/views/account/login_block.rhtml:4 app/views/account/login.rhtml:3
+msgid "Login"
 msgstr "Connexion"
-
-#: app/views/friends/invite.rhtml:33
-#, fuzzy
-msgid "Password:"
-msgstr "Mot de passe"
 
 #: app/views/friends/invite.rhtml:39
 msgid "We won't store your password or contact anyone without your permission."
@@ -3411,11 +3401,6 @@ msgstr ""
 "Ce lien vous fait sortir du système. Vous devriez vous déconnecter "
 "explicitement si d'autres personnes désirent utiliser le même ordinateur "
 "après vous."
-
-#: app/views/shared/user_menu.rhtml:60 app/views/account/login_block.rhtml:4
-#: app/views/account/login.rhtml:3
-msgid "Login"
-msgstr "Connexion"
 
 #: app/views/shared/user_menu.rhtml:60
 #: app/views/account/index_anonymous.rhtml:5
@@ -6371,6 +6356,18 @@ msgstr "Personne de contact : "
 #, fuzzy
 msgid "Creating new group"
 msgstr "Créer un produit"
+
+#, fuzzy
+#~ msgid "Password):"
+#~ msgstr "Mot de passe"
+
+#, fuzzy
+#~ msgid "%s wants to be your friend"
+#~ msgstr "%s veut être votre ami"
+
+#, fuzzy
+#~ msgid "Login:"
+#~ msgstr "Connexion"
 
 #~ msgid "Page not found"
 #~ msgstr "Page non trouvée"

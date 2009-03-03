@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.14.0\n"
-"POT-Creation-Date: 2009-03-02 16:43-0300\n"
+"POT-Creation-Date: 2009-03-03 16:06-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1502,7 +1502,7 @@ msgstr ""
 msgid "Enable email"
 msgstr ""
 
-#: app/models/user.rb:7
+#: app/models/user.rb:7 app/views/friends/invite.rhtml:33
 msgid "Password"
 msgstr ""
 
@@ -2169,7 +2169,7 @@ msgstr ""
 msgid "Restrictions"
 msgstr ""
 
-#: app/models/add_friend.rb:21
+#: app/models/add_friend.rb:21 app/models/invite_friend.rb:37
 msgid "%s wants to be your friend."
 msgstr ""
 
@@ -2648,10 +2648,6 @@ msgstr ""
 msgid "Provides a news feed of your more recent articles."
 msgstr ""
 
-#: app/models/invite_friend.rb:37
-msgid "%s wants to be your friend"
-msgstr ""
-
 #: app/models/login_block.rb:4
 msgid "A login box for your users."
 msgstr ""
@@ -2871,12 +2867,9 @@ msgstr ""
 msgid "Enter e-mail addresses manually"
 msgstr ""
 
-#: app/views/friends/invite.rhtml:32
-msgid "Login:"
-msgstr ""
-
-#: app/views/friends/invite.rhtml:33
-msgid "Password:"
+#: app/views/friends/invite.rhtml:32 app/views/shared/user_menu.rhtml:60
+#: app/views/account/login_block.rhtml:4 app/views/account/login.rhtml:3
+msgid "Login"
 msgstr ""
 
 #: app/views/friends/invite.rhtml:39
@@ -3109,11 +3102,6 @@ msgstr ""
 msgid ""
 "This link takes you out of the system. You should logout if other people are "
 "willing to use the same computer after you."
-msgstr ""
-
-#: app/views/shared/user_menu.rhtml:60 app/views/account/login_block.rhtml:4
-#: app/views/account/login.rhtml:3
-msgid "Login"
 msgstr ""
 
 #: app/views/shared/user_menu.rhtml:60
