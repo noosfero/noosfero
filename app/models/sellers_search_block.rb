@@ -19,8 +19,6 @@ class SellersSearchBlock < Block
   def content
     title = self.title
     lambda do
-      @categories = ProductCategory.find(:all)
-      @regions = Region.find(:all).select{|r|r.lat && r.lng}
       render :file => 'search/_sellers_form', :locals => { :title => title }
     end
   end
