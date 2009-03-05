@@ -445,6 +445,8 @@ div.pending-tasks {
   margin: 20px;
   border: 1px solid #DDD;
   -moz-border-radius: 6px;
+  margin-left: 20%;
+  margin-right: 20%;
 }
 
 #content #not-found h1,
@@ -452,4 +454,9 @@ div.pending-tasks {
   text-align: left;
   background: url(../images/icons-app/alert-icon.png) no-repeat;
   padding-left: 30px;
+}
+
+#content #not-found p,
+#content #access-denied p {
+  text-align: justify;
 }
