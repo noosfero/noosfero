@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.14.0\n"
 "POT-Creation-Date: 2009-03-03 16:06-0300\n"
-"PO-Revision-Date: 2009-03-05 11:17-0300\n"
+"PO-Revision-Date: 2009-03-05 14:59-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -4986,7 +4986,7 @@ msgstr "Baixe o Firefox Já!"
 
 #: app/views/layouts/slideshow.rhtml:19
 msgid "Play"
-msgstr "Tocar"
+msgstr "Iniciar"
 
 #: app/views/layouts/slideshow.rhtml:19
 msgid "Stop"
