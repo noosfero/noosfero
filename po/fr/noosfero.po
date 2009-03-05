@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.14.0\n"
-"POT-Creation-Date: 2009-03-03 16:06-0300\n"
+"Project-Id-Version: noosfero 0.15.0\n"
+"POT-Creation-Date: 2009-03-05 18:28-0300\n"
 "PO-Revision-Date: 2008-06-13 16:15-0300\n"
 "Last-Translator: Raphael Rousseau <pootle.colivre.coop.br@r4f.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6356,6 +6356,11 @@ msgstr "Personne de contact : "
 #, fuzzy
 msgid "Creating new group"
 msgstr "Créer un produit"
+
+#: lib/zen3_terminology.rb:62
+#, fuzzy
+msgid "Do you want to join this group?"
+msgstr "Êtes-vous sûr(e) que vous voulez retirer ce commentaire ?"
 
 #, fuzzy
 #~ msgid "Password):"

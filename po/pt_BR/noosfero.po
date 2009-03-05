@@ -11,9 +11,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.14.0\n"
-"POT-Creation-Date: 2009-03-03 16:06-0300\n"
-"PO-Revision-Date: 2009-03-05 14:59-0300\n"
+"Project-Id-Version: noosfero 0.15.0\n"
+"POT-Creation-Date: 2009-03-05 18:28-0300\n"
+"PO-Revision-Date: 2009-03-05 19:00-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -3208,8 +3208,9 @@ msgid ""
 "someone else, it would be nice if you tell them that their link is not valid "
 "anymore."
 msgstr ""
-"Se você clicou em um link que estava em outro site ou que foi passado a você por "
-"outra pessoa, seria legal que você avisasse que este link não é mais válido."
+"Se você clicou em um link que estava em outro site ou que foi passado a você "
+"por outra pessoa, seria legal que você avisasse que este link não é mais "
+"válido."
 
 #: app/views/shared/not_found.rhtml:8 app/views/shared/access_denied.rhtml:13
 msgid "Go to the site home page"
@@ -5913,6 +5914,10 @@ msgstr "Contatos"
 #: lib/zen3_terminology.rb:61
 msgid "Creating new group"
 msgstr "Criar novo grupo"
+
+#: lib/zen3_terminology.rb:62
+msgid "Do you want to join this group?"
+msgstr "Você quer entrar neste grupo?"
 
 #, fuzzy
 #~ msgid "Password):"

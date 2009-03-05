@@ -59,6 +59,7 @@ class Zen3Terminology < Noosfero::Terminology::Custom
       'Here are all <b>%s</b>\'s friends.' => N_('Here are all <b>%s</b>\'s contacts.'),
       'Friends' => N_('Contacts'),
       'Creating new community' => N_('Creating new group'),
+      'Do you want to join this community?' => N_('Do you want to join this group?'),
     })
   end
 
