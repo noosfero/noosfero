@@ -126,7 +126,7 @@ class InviteFriendTest < ActiveSupport::TestCase
 
     task = InviteFriend.create!(:person => p1, :friend => p2)
 
-    assert_equal 'testuser1 wants to be your friend', task.description
+    assert_equal 'testuser1 wants to be your friend.', task.description
   end
 
   should 'has permission to manage friends' do
