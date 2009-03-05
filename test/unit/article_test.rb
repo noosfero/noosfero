@@ -627,4 +627,16 @@ class ArticleTest < Test::Unit::TestCase
     assert_equal true, a.can_display_hits?
   end
 
+  should 'return a view url when image' do
+    image = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+
+    assert_equal image.url.merge(:view => true), image.view_url
+  end
+
+  should 'not return a view url when common article' do
+    a = Article.create!(:name => 'Test article', :profile => profile)
+
+    assert_equal a.url, a.view_url
+  end
+
 end

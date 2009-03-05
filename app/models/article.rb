@@ -174,6 +174,10 @@ class Article < ActiveRecord::Base
     self.profile.url.merge(:page => path.split('/'))
   end
 
+  def view_url
+    image? ? url.merge(:view => true) : url
+  end
+
   def allow_children?
     true
   end

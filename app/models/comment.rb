@@ -36,7 +36,7 @@ class Comment < ActiveRecord::Base
   end
 
   def url
-    article.url.merge(:anchor => anchor)
+    article.view_url.merge(:anchor => anchor)
   end
 
   def anchor

@@ -167,4 +167,12 @@ class CommentTest < Test::Unit::TestCase
     c1.destroy
   end
 
+  should 'generate links to comments on images with view set to true' do
+    owner = create_user('testuser').person
+    image = UploadedFile.create!(:profile => owner, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    comment = image.comments.create!(:article => image, :author => owner, :title => 'a random comment', :body => 'just another comment')
+
+    assert comment.url[:view]
+  end
+
 end

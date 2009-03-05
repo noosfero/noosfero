@@ -17,7 +17,7 @@
 
 <h4><%= content_tag('a', '', :name => 'comment_form') + _('Post a comment') %></h4>
 
-<% form_tag( @page.url.merge(:view => params[:view]), { :id => comment_form_id } ) do %>
+<% form_tag( @page.view_url, { :id => comment_form_id } ) do %>
 
   <%= required_fields_message %>
 

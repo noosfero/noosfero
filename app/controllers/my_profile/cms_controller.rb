@@ -204,7 +204,7 @@ class CmsController < MyProfileController
     if params[:back_to] == 'control_panel'
       redirect_to :controller => 'profile_editor', :profile => @profile.identifier
     elsif params[:back_to] == 'public_view'
-      redirect_to @article.url.merge(:view => @article.image?)
+      redirect_to @article.view_url
     elsif @article.parent
       redirect_to :action => 'view', :id => @article.parent
     else
@@ -217,7 +217,7 @@ class CmsController < MyProfileController
     referer.gsub!(/\?.*/, '') unless referer.nil?
     if (maybe_ssl(url_for(@article.url)).include?(referer)) || (@article == profile.home_page && maybe_ssl(url_for(profile.url)).include?(referer))
       @back_to = 'public_view'
-      @back_url = @article.url.merge(:view => @article.image?)
+      @back_url = @article.view_url
     end
   end
 
