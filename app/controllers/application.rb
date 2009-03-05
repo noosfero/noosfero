@@ -107,6 +107,7 @@ class ApplicationController < ActionController::Base
   end
 
   def render_access_denied(message = nil)
+    @no_design_blocks = true
     @message = message
     render :template => 'shared/access_denied.rhtml', :status => 403
   end
