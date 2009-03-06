@@ -217,6 +217,15 @@ class ArticleTest < Test::Unit::TestCase
     assert_equal [ second ], Article.recent(nil)
   end
 
+  should 'not show blog as recent' do
+    p = create_user('usr1').person
+    Article.destroy_all
+    first = Blog.create!(:profile => p, :name => 'my blog', :advertise => true)
+    second = p.articles.build(:name => 'second'); second.save!
+
+    assert_equal [ second ], Article.recent(nil)
+  end
+
   should 'require that subclasses define description' do
     assert_raise NotImplementedError do
       Article.description
