@@ -470,7 +470,7 @@ class Profile < ActiveRecord::Base
         false
       else
         # other possibilities would come here
-        (user == self) || (user.memberships.include?(self))
+        (user == self) || (user.is_admin?(self.environment)) || (user.memberships.include?(self))
       end
     end
   end

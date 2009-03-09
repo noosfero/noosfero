@@ -525,6 +525,13 @@ class ProfileTest < Test::Unit::TestCase
     assert c.display_info_to?(p)
   end
 
+  should 'display profile for administrators' do
+    p = create_user('testuser').person
+    p.update_attribute('public_profile', false)
+    admin = Person[create_admin_user(p.environment)]
+    assert p.display_info_to?(admin)
+  end
+
   should 'be able to add extra data for index' do
     klass = Class.new(Profile)
     klass.any_instance.expects(:random_method)
