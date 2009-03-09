@@ -507,6 +507,17 @@ class ArticleTest < Test::Unit::TestCase
     assert article.display_to?(friend)
   end
 
+
+  should 'display articles to people who can edit them' do
+    person = create_user('test_user').person
+    article = Article.create!(:name => 'test article', :profile => person, :public_article => false)
+
+    admin_user = create_user('admin_user').person
+    admin_user.stubs(:has_permission?).with('post_content', article.profile).returns('true')
+
+    assert article.display_to?(admin_user)
+  end
+
   should 'make a copy of the article as child of it' do
     person = create_user('test_user').person
     a = person.articles.create!(:name => 'test article', :body => 'some text')

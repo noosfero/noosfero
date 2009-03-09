@@ -197,7 +197,7 @@ class Article < ActiveRecord::Base
       if user.nil?
         false
       else
-        (user == self.profile) || user.memberships.include?(self.profile) || (profile.kind_of?(Person) && profile.friends.include?(user))
+        (user == self.profile) || user.memberships.include?(self.profile) || (profile.kind_of?(Person) && profile.friends.include?(user)) || user.has_permission?('post_content', self.profile)
       end
     end
   end
