@@ -105,7 +105,7 @@ class OrganizationTest < Test::Unit::TestCase
     assert_equal ['org@email.com', 'admin1@email.com', 'admin2@email.com'], o.notification_emails
   end
 
-  should 'list only admins if contact_email is blank' do
+  should 'list only admins if contact_email is nil' do
     o = Organization.new(:contact_email => nil)
     admin1 = mock; admin1.stubs(:email).returns('admin1@email.com')
     admin2 = mock; admin2.stubs(:email).returns('admin2@email.com')
@@ -113,6 +113,16 @@ class OrganizationTest < Test::Unit::TestCase
 
     assert_equal ['admin1@email.com', 'admin2@email.com'], o.notification_emails
   end
+
+  should 'list only admins if contact_email is a blank string' do
+    o = Organization.new(:contact_email => '')
+    admin1 = mock; admin1.stubs(:email).returns('admin1@email.com')
+    admin2 = mock; admin2.stubs(:email).returns('admin2@email.com')
+    o.stubs(:admins).returns([admin1, admin2])
+
+    assert_equal ['admin1@email.com', 'admin2@email.com'], o.notification_emails
+  end
+
 
   should 'list pending enterprise validations' do
     org = Organization.new
