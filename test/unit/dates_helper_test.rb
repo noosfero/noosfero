@@ -126,4 +126,19 @@ class DatesHelperTest < Test::Unit::TestCase
     assert_equal 'KKKKKKKK', pick_date(:object, :method)
   end
 
+  should 'format time' do
+    assert_equal '22 November 2008, 15:34', show_time(Time.mktime(2008, 11, 22, 15, 34, 0, 0))
+  end
+
+  should 'translate time' do
+    time = mock
+    expects(:_).with('%d %B %Y, %H:%M').returns('the time')
+    time.expects(:strftime).with('the time').returns('translated time')
+    assert_equal 'translated time', show_time(time)
+  end
+
+  should 'handle nil time' do
+    assert_equal '', show_time(nil)
+  end
+
 end

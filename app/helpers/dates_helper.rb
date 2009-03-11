@@ -33,7 +33,7 @@ module DatesHelper
   # formats a datetime for displaying. 
   def show_time(time)
     if time
-      time.strftime(_('%d %B %Y, %H:%m'))
+      time.strftime(_('%d %B %Y, %H:%M'))
     else
       ''
     end
