@@ -64,8 +64,8 @@
   background: #B8CFE7;
 }
 
-#content #article-comment h4 {
-  font-size: 14px;
+#article .article-comment h4 {
+  font-size: 13px;
   margin: 0px;
 }
 
@@ -76,8 +76,8 @@
   height: 50px;
   background-repeat: no-repeat;
   background-position: 50% 50%;
-  margin-right: 10px;
-  float: left;
+  margin: 0px 10px 0px 10px;
+  float: right;
 }
 .comment-picture span {
   display: none;
@@ -92,6 +92,7 @@
 }
 
 .comment-text {
+  font-size: 12px;
   clear: left;
 }
 
