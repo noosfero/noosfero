@@ -1,10 +1,5 @@
 <%= content_tag('a', '', :name => comment.anchor) %>
 <div class="article-comment<%= ' comment-from-owner' if ( comment.author && (@page.profile.name == comment.author.name) ) %> comment-logged-<%= comment.author ? 'in' : 'out' %>">
-  <% if logged_in? && (user == @page.profile || user == comment.author || user.has_permission?(:moderate_comments, @page.profile)) %>
-    <% button_bar(:style => 'float: right; margin-top: 0;') do %>
-      <%= icon_button(:delete, _('Remove'), { :profile => params[:profile], :remove_comment => comment.id }, :method => :post, :confirm => _('Are you sure you want to remove this comment?')) %>
-    <% end %>
-  <% end %>
   
   <% if comment.author %>
     <%= link_to content_tag( 'span', comment.author.name() ), comment.author.url,
@@ -19,12 +14,18 @@
     %>
   <% end %>
 
+  <% if logged_in? && (user == @page.profile || user == comment.author || user.has_permission?(:moderate_comments, @page.profile)) %>
+    <% button_bar(:style => 'float: right; margin-top: 0;') do %>
+      <%= icon_button(:delete, _('Remove'), { :profile => params[:profile], :remove_comment => comment.id }, :method => :post, :confirm => _('Are you sure you want to remove this comment?')) %>
+    <% end %>
+  <% end %>
+
   <h4><%= comment.title %></h4>
   <div class="comment-info">
     <%= _('By %{author} on %{date}') % {
         :author => comment.author ? link_to(comment.author.name, comment.author.url) : content_tag('u', comment.name),
         :date => show_time(comment.created_at) } %>
-    <%= '<br/>' + _('(unauthenticated user)') if ! comment.author %>
+    <%= _('(unauthenticated user)') if ! comment.author %>
   </div>
   <div class="comment-text">
     <p/>
