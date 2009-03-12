@@ -62,6 +62,13 @@ class ProfileController < PublicController
     redirect_to profile.url
   end
 
+  def refuse_for_now
+    session[:no_asking] ||= []
+    session[:no_asking].shift if session[:no_asking].size >= 10
+    session[:no_asking] << profile.id
+    render :text => '', :layout => false
+  end
+
   protected
 
   def check_access_to_profile

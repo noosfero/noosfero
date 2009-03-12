@@ -229,6 +229,7 @@ class Person < Profile
 
   def ask_to_join?(community)
     return false if memberships.include?(community)
+    return false if AddMember.find(:first, :conditions => {:requestor_id => self.id, :target_id => community.id})
     !refused_communities.include?(community)
   end
 

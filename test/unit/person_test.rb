@@ -526,4 +526,12 @@ class PersonTest < Test::Unit::TestCase
     assert !p.ask_to_join?(c)
   end
 
+  should 'not ask to join if already asked' do
+    p = create_user('test_user').person
+    c = Community.create!(:name => 'Test community', :identifier => 'test_community')
+    AddMember.create!(:person => p, :organization => c)
+
+    assert !p.ask_to_join?(c)
+  end
+
 end

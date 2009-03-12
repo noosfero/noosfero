@@ -245,6 +245,12 @@ module ApplicationHelper
     link_to_function(content_tag('span', label), js_code, html_options, &block)
   end
 
+  def button_to_remote(type, label, options, html_options = {})
+    html_options[:class] = "button with-text" unless html_options[:class]
+    html_options[:class] << " icon-#{type}"
+    link_to_remote(label, options, html_options)
+  end
+
   def button_to_remote_without_text(type, label, options, html_options = {})
     html_options[:class] = "" unless html_options[:class]
     html_options[:class] << " button icon-#{type}"
@@ -771,7 +777,10 @@ module ApplicationHelper
   def ask_to_join?
     return if environment.enabled?(:disable_join_community_popup)
     return unless profile && profile.kind_of?(Community)
-    return true unless logged_in?
+    unless logged_in?
+      return !session[:no_asking].include?(profile.id) if session[:no_asking]
+      return true
+    end
     user.ask_to_join?(profile)
   end
 

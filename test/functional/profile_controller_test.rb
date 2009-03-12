@@ -483,4 +483,20 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_includes p.refused_communities, community
   end
 
+  should 'register in session join refusal' do
+    community = Community.create!(:name => 'my test community')
+    get :refuse_for_now, :profile => community.identifier
+
+    assert_not_nil session[:no_asking]
+    assert_includes session[:no_asking], community.id
+  end
+
+  should 'record only 10 communities in session' do
+    @request.session[:no_asking] = (1..10).to_a
+    community = Community.create!(:name => 'my test community')
+    get :refuse_for_now, :profile => community.identifier
+
+    assert_equal ((2..10).to_a + [community.id]), @request.session[:no_asking]
+  end
+
 end

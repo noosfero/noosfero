@@ -7,8 +7,8 @@
     <% else %>
       <%= button(:ok, _('Yes'), :controller => 'profile', :action => 'join', :profile => profile.identifier) %>
     <% end %>
-    <%= button_to_function(:cancel, _('Not now'), "$('join-community-popup').hide()") %>
-    <%= button(:cancel, _('No and don\'t ask again'), :controller => 'profile', :action => 'refuse_join', :profile => profile.identifier) %>
+    <%= button_to_remote(:cancel, _('Not now'), :url => {:controller => 'profile', :action => 'refuse_for_now', :profile => profile.identifier}, :loaded => '$("join-community-popup").hide()') %>
+    <%= button(:cancel, _('No and don\'t ask again'), :controller => 'profile', :action => 'refuse_join', :profile => profile.identifier) if logged_in? %>
   <% end %>
 </div>
 <%= draggable_element('join-community-popup') %>
