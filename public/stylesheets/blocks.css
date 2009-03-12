@@ -9,12 +9,15 @@
 
 .invisible-block {
   background: url(/images/hachure.png);
+  opacity: 0.25;
+  filter: alpha(opacity=25);
 }
 
 /* ie6 hack */
 .invisible-block a.icon-button {
   position: relative;
 }
+
 
 /***********************************************************
  * the handles to where you can drag the blocks
