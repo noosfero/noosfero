@@ -957,6 +957,21 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_equal 20, assigns(:results)[:enterprises].total_entries
   end
 
+  should 'add link to list in all categories when in a category' do
+    ['people', 'enterprises', 'products', 'communities', 'articles'].each do |asset|
+      get :index, :asset => asset, :category_path => [ 'my-category' ]
+      assert_tag :tag => 'div', :content => 'In all categories'
+    end
+  end
+
+  should 'not add link to list in all categories when not in a category' do
+    ['people', 'enterprises', 'products', 'communities', 'articles'].each do |asset|
+      get :index, :asset => asset
+      assert_no_tag :tag => 'div', :content => 'In all categories'
+    end
+  end
+
+
   ##################################################################
   ##################################################################
 

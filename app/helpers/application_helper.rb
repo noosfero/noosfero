@@ -714,6 +714,13 @@ module ApplicationHelper
     title
   end
 
+  def search_page_link_to_all(options={})
+    if options[:category]
+      title = "<div align='center'>" + _('In all categories') + "</div>"
+      link_to title, :action => 'assets', :asset => options[:asset], :category_path => []
+    end
+  end
+
   def template_stylesheet_tag
     if profile.nil?
       stylesheet_link_tag '/designs/templates/default/stylesheets/style.css'

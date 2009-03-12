@@ -4,6 +4,9 @@
                                       :region => @region ? @region.name : nil, 
                                       :distance => @radius } ) %>
 
+<%= search_page_link_to_all( { :asset => params[:asset],
+                               :category => @category }) %>
+
 <%= render :partial => 'search_form', :locals => { :form_title => @query.blank? ? _('Search') : _("Refine your search"), :simple_search => true } %>
 
 <%# FIXME ARMENGUE %>
