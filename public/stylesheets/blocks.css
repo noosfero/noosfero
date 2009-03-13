@@ -10,7 +10,11 @@
 .invisible-block {
   background: url(/images/hachure.png);
   opacity: 0.25;
+}
+
+.msie .invisible-block {
   filter: alpha(opacity=25);
+  zoom: 1;
 }
 
 /* ie6 hack */
