@@ -1,6 +1,13 @@
 class PublishedArticle < Article
   belongs_to :reference_article, :class_name => "Article"
 
+  before_create do |article|
+    parent = article.reference_article.parent
+    if parent && parent.blog? && article.profile.has_blog?
+      article.parent = article.profile.blog
+    end
+  end
+
   def self.short_description
     _('Reference to other article')
   end

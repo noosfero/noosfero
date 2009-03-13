@@ -90,7 +90,7 @@ class BlogTest < ActiveSupport::TestCase
 
   should 'list posts ordered by created at' do
     p = create_user('testusermerda').person
-    blog = Blog.create!(:profile => p, :name => 'Blog test', :profile => p)
+    blog = Blog.create!(:profile => p, :name => 'Blog test')
     newer = TextileArticle.create!(:name => 'Post 2', :parent => blog, :profile => p)
     older = TextileArticle.create!(:name => 'Post 1', :parent => blog, :profile => p, :created_at => Time.now - 1.month)
     assert_equal [newer, older], blog.posts
@@ -98,7 +98,7 @@ class BlogTest < ActiveSupport::TestCase
 
   should 'has filter' do
     p = create_user('testusermerda').person
-    blog = Blog.create!(:profile => p, :name => 'Blog test', :profile => p)
+    blog = Blog.create!(:profile => p, :name => 'Blog test')
     blog.filter = {:param => 'value'}
     assert_equal 'value', blog.filter[:param]
   end
