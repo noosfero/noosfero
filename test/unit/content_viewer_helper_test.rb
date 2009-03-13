@@ -56,7 +56,7 @@ class ContentViewerHelperTest < Test::Unit::TestCase
   should 'not list feed article' do
     profile.articles << Blog.new(:name => 'Blog test')
     assert_includes profile.blog.children.map{|i| i.class}, RssFeed
-    result = list_posts(profile.blog.posts)
+    result = list_posts(nil, profile.blog.posts)
     assert_no_match /feed/, result
   end
 
@@ -75,10 +75,11 @@ class ContentViewerHelperTest < Test::Unit::TestCase
 
     self.stubs(:params).returns({:npage => nil})
 
+    expects(:render).with(:file => 'content_viewer/blog_page', :locals => {:article => blog, :children => [nov]}).returns("BLI")
+
     result = article_to_html(blog)
 
-    assert_match /November post/, result
-    assert_no_match /September post/, result
+    assert_equal 'BLI', result
   end
 
 end

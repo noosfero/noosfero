@@ -50,7 +50,7 @@ class RssFeed < Article
   validates_inclusion_of :feed_item_description, :in => [ 'body', 'abstract' ], :if => :feed_item_description
 
   # TODO
-  def to_html
+  def to_html(options = {})
   end
 
   # RSS feeds have type =text/xml=.
@@ -61,7 +61,7 @@ class RssFeed < Article
   include ActionController::UrlWriter
   def fetch_articles
     if parent && parent.blog?
-      return parent.posts.find(:all, :limit => self.limit, :order => 'id desc')
+      return parent.posts.find(:all, :conditions => ['published = ?', true], :limit => self.limit, :order => 'id desc')
     end
 
     articles =

@@ -50,7 +50,7 @@ class UploadedFile < Article
   # FIXME isn't this too much including just to be able to generate some HTML?
   include ActionView::Helpers::TagHelper
 
-  def to_html
+  def to_html(options = {})
     tag('img', :src => public_filename, :class => css_class_name, :style => 'max-width: 100%') if image?
   end
 

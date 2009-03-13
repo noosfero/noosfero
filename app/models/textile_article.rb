@@ -8,7 +8,7 @@ class TextileArticle < TextArticle
     _('Accessible alternative for visually impaired users.')
   end
 
-  def to_html
+  def to_html(options ={})
     RedCloth.new(self.body|| '').to_html
   end
 

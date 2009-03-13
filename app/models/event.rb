@@ -58,7 +58,7 @@ class Event < Article
   include ActionController::UrlWriter
   include DatesHelper
 
-  def to_html
+  def to_html(options = {})
 
     result = ''
     html = Builder::XmlMarkup.new(:target => result)

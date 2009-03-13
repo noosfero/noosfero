@@ -127,7 +127,7 @@ class Article < ActiveRecord::Base
   # The implementation in this class just provides the +body+ attribute as the
   # HTML.  Other article types can override this method to provide customized
   # views of themselves.
-  def to_html
+  def to_html(options = {})
     body
   end
 

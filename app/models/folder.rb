@@ -34,7 +34,7 @@ class Folder < Article
   include FolderHelper
   include DatesHelper
 
-  def to_html
+  def to_html(options = {})
     send(view_as)
   end
 

@@ -202,10 +202,38 @@
 
 #content #article .pagination .prev_page {
   position: absolute;
-  right: 0;
+  left: 0;
 }
 
 #content #article .pagination .next_page {
   position: absolute;
-  left: 0;
+  right: 0;
+}
+.msie6 #content #article .pagination .prev_page,
+.msie6 #content #article .pagination .next_page {
+  position: relative;
+  display: inline;
+}
+
+/* NOT PUBLISHED BLOG POSTS */
+
+.blog-post-not-published {
+  background: url(/images/hachure.png);
+  opacity: 0.25;
+  filter: alpha(opacity=25);
+  zoom: 1;
+}
+
+.blog-post-not-published a {
+  text-decoration: none;
+}
+
+#content .blog-post-not-published .created-at {
+  text-align: left;
+}
+
+.blog-post-not-published .metadata {
+  display: block;
+  text-align: center;
+  font-size: small;
 }

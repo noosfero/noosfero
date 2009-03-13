@@ -28,8 +28,8 @@ class Blog < Folder
 
   # FIXME isn't this too much including just to be able to generate some HTML?
   include ActionView::Helpers::TagHelper
-  def to_html
-    content_tag('div', body) + tag('hr')
+  def to_html(options = {})
+    posts_list(options[:page])
   end
 
   def folder?
@@ -52,4 +52,16 @@ class Blog < Folder
     end
   end
 
+  def posts_list(npage)
+    article = self
+    children = if filter and filter[:year] and filter[:month]
+                filter_date = DateTime.parse("#{filter[:year]}-#{filter[:month]}-01")
+                posts.paginate :page => npage, :per_page => posts_per_page, :conditions => [ 'created_at between ? and ?', filter_date, filter_date + 1.month - 1.day ]
+              else
+                posts.paginate :page => npage, :per_page => posts_per_page
+              end
+    lambda do
+      render :file => 'content_viewer/blog_page', :locals => {:article => article, :children => children}
+    end
+  end
 end

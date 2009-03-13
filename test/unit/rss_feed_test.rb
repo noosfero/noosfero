@@ -121,6 +121,20 @@ class RssFeedTest < Test::Unit::TestCase
     assert_equal [posts[5], posts[4], posts[3],  posts[2], posts[1]], feed.fetch_articles
   end
 
+  should 'list only published posts from blog' do
+    profile = create_user('testuser').person
+    blog = Blog.create(:name => 'blog', :profile => profile)
+    posts = []
+    5.times do |i|
+      posts << TextArticle.create!(:name => "post #{i}", :profile => profile, :parent => blog)
+    end
+    posts[0].published = false
+    posts[0].save!
+
+    assert_equal [posts[4], posts[3], posts[2], posts[1]], blog.feed.fetch_articles
+  end
+
+
   should 'provide link to profile' do
     profile = create_user('testuser').person
     feed = RssFeed.new(:name => 'testfeed')
