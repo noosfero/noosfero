@@ -433,6 +433,19 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert !ask_to_join?
   end
 
+  should 'not ask_to_join if its recorded in the session even for authenticated users' do
+    e = Environment.default
+    e.stubs(:enabled?).with(:disable_join_community_popup).returns(false)
+    stubs(:environment).returns(e)
+
+    c = Community.create(:name => 'test_comm', :identifier => 'test_comm')
+    stubs(:profile).returns(c)
+    stubs(:logged_in?).returns(true)
+    stubs(:session).returns({:no_asking => [c.id]})
+
+    assert !ask_to_join?
+  end
+
   protected
 
   def url_for(args = {})

@@ -777,11 +777,14 @@ module ApplicationHelper
   def ask_to_join?
     return if environment.enabled?(:disable_join_community_popup)
     return unless profile && profile.kind_of?(Community)
-    unless logged_in?
-      return !session[:no_asking].include?(profile.id) if session[:no_asking]
-      return true
+    if (session[:no_asking] && session[:no_asking].include?(profile.id))
+      return false
     end
-    user.ask_to_join?(profile)
+    if logged_in?
+      user.ask_to_join?(profile)
+    else
+      true
+    end
   end
 
 end
