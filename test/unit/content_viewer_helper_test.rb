@@ -15,13 +15,13 @@ class ContentViewerHelperTest < Test::Unit::TestCase
     blog = Blog.create!(:name => 'Blog test', :profile => profile)
     post = TextileArticle.create!(:name => 'post test', :profile => profile, :parent => blog)
     result = article_title(post)
-    assert_match /#{show_date(post.created_at)}, by #{profile.identifier}/, result
+    assert_match /#{show_date(post.created_at)}, by .*#{profile.identifier}/, result
   end
 
   should 'not display created-at for non-blog posts' do
     article = TextileArticle.create!(:name => 'article for test', :profile => profile)
     result = article_title(article)
-    assert_no_match /#{show_date(article.created_at)}, by #{profile.identifier}/, result
+    assert_no_match /#{show_date(article.created_at)}, by .*#{profile.identifier}/, result
   end
 
   should 'create link on title of blog posts' do

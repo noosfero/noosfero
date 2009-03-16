@@ -659,4 +659,12 @@ class ArticleTest < Test::Unit::TestCase
     assert_equal a.url, a.view_url
   end
 
+  should 'know its author' do
+    assert_equal profile, Article.new(:last_changed_by => profile).author
+  end
+
+  should 'use owning profile as author when we dont know who did the last change' do
+    assert_equal profile, Article.new(:last_changed_by => nil, :profile => profile).author
+  end
+
 end

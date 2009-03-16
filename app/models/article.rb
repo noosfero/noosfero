@@ -249,6 +249,11 @@ class Article < ActiveRecord::Base
     false
   end
 
+  def author
+    last_changed_by ||
+      profile
+  end
+
   private
 
   def sanitize_tag_list

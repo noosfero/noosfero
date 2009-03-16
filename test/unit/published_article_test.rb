@@ -73,5 +73,15 @@ class PublishedArticleTest < ActiveSupport::TestCase
     assert_nil p.parent
   end
 
+  should "use author of original article as its author" do
+    original = Article.new(:last_changed_by => @profile)
+    community = Community.new
+    published = PublishedArticle.new(:reference_article => original, :profile => community)
+    assert_equal @profile, published.author
+  end
+
+  should 'use owning profile as author when there is no referenced article yet' do
+    assert_equal @profile, PublishedArticle.new(:profile => @profile).author
+  end
 
 end

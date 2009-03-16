@@ -24,4 +24,13 @@ class PublishedArticle < Article
   def update_name
     self.name ||= self.reference_article.name
   end
+
+  def author
+    if reference_article
+      reference_article.author
+    else
+      profile
+    end
+  end
+
 end
