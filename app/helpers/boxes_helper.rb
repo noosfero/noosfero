@@ -69,6 +69,9 @@ module BoxesHelper
     if ( block.respond_to? 'help' )
       options[:help] = block.help
     end
+    unless block.visible?
+      options[:title] = _("This block is invisible. Your visitors will not see it.")
+    end
 
     box_decorator.block_target(block.box, block) +
     content_tag('div', result + footer_content + box_decorator.block_edit_buttons(block),
