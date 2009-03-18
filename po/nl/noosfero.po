@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.15.0\n"
-"POT-Creation-Date: 2009-03-05 18:28-0300\n"
+"POT-Creation-Date: 2009-03-18 11:43-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -519,7 +519,7 @@ msgstr ""
 msgid "Previous"
 msgstr ""
 
-#: app/helpers/search_helper.rb:99 app/views/friends/invite.rhtml:37
+#: app/helpers/search_helper.rb:99 app/views/friends/invite.rhtml:33
 #: app/views/enterprise_registration/basic_information.rhtml:32
 #: app/views/layouts/slideshow.rhtml:19
 msgid "Next"
@@ -1108,7 +1108,6 @@ msgid "&lt;url&gt; is needed in invitation message."
 msgstr ""
 
 #: app/controllers/my_profile/friends_controller.rb:60
-#: app/views/friends/invite.rhtml:56
 msgid "Firstname Lastname <friend@email.com>"
 msgstr ""
 
@@ -1343,6 +1342,56 @@ msgid "Birth date"
 msgstr ""
 
 #: app/models/user.rb:-
+msgid "user"
+msgstr ""
+
+#: app/models/user.rb:- app/models/user.rb:14 app/models/change_password.rb:21
+msgid "Username"
+msgstr ""
+
+#: app/models/user.rb:- app/models/user.rb:15 app/models/contact.rb:13
+#: app/models/change_password.rb:22
+msgid "e-Mail"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Crypted password"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Salt"
+msgstr ""
+
+#: app/models/user.rb:- app/models/product.rb:-
+#: app/models/product_categorization.rb:-
+msgid "Updated at"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Remember token"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Remember token expires at"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Terms of use"
+msgstr ""
+
+#: app/models/user.rb:- app/models/user.rb:9
+msgid "Terms accepted"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Password type"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Enable email"
+msgstr ""
+
+#: app/models/user.rb:-
 msgid "article"
 msgstr ""
 
@@ -1370,11 +1419,6 @@ msgstr ""
 #: app/models/user.rb:- app/models/consumption.rb:-
 #: app/models/profile_categorization.rb:-
 msgid "Profile"
-msgstr ""
-
-#: app/models/user.rb:- app/models/product.rb:-
-#: app/models/product_categorization.rb:-
-msgid "Updated at"
 msgstr ""
 
 #: app/models/user.rb:-
@@ -1457,52 +1501,7 @@ msgstr ""
 msgid "Hits"
 msgstr ""
 
-#: app/models/user.rb:-
-msgid "user"
-msgstr ""
-
-#: app/models/user.rb:- app/models/user.rb:14 app/models/change_password.rb:21
-msgid "Username"
-msgstr ""
-
-#: app/models/user.rb:- app/models/user.rb:15 app/models/contact.rb:13
-#: app/models/change_password.rb:22
-msgid "e-Mail"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Crypted password"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Salt"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Remember token"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Remember token expires at"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Terms of use"
-msgstr ""
-
-#: app/models/user.rb:- app/models/user.rb:9
-msgid "Terms accepted"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Password type"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Enable email"
-msgstr ""
-
-#: app/models/user.rb:7 app/views/friends/invite.rhtml:33
+#: app/models/user.rb:7 app/views/friends/invite.rhtml:29
 msgid "Password"
 msgstr ""
 
@@ -2791,7 +2790,7 @@ msgid "Find people"
 msgstr ""
 
 #: app/views/friends/index.rhtml:40
-msgid "Invite friends from my e-mail contacts"
+msgid "Invite people from my e-mail contacts"
 msgstr ""
 
 #: app/views/friends/add.rhtml:1
@@ -2848,59 +2847,43 @@ msgid "Invite your friends"
 msgstr ""
 
 #: app/views/friends/invite.rhtml:6
-msgid "Step 1 of 1: Accessing your contact list"
+msgid "Step 1 of 1: Select address book"
 msgstr ""
 
-#: app/views/friends/invite.rhtml:9
-msgid ""
-"Choose your webmail provider and enter your login and password so we can "
-"fetch your contact list. If you only want to invite specific people by "
-"listing their e-mail addresses, select the \"Enter e-mail addresses manually"
-"\" option."
+#: app/views/friends/invite.rhtml:12
+msgid "Manually (empty field)"
 msgstr ""
 
-#: app/views/friends/invite.rhtml:15
-msgid "Select your e-mail provider:"
-msgstr ""
-
-#: app/views/friends/invite.rhtml:19
-msgid "Enter e-mail addresses manually"
-msgstr ""
-
-#: app/views/friends/invite.rhtml:32 app/views/shared/user_menu.rhtml:60
+#: app/views/friends/invite.rhtml:28 app/views/shared/user_menu.rhtml:60
 #: app/views/account/login_block.rhtml:4 app/views/account/login.rhtml:3
 msgid "Login"
 msgstr ""
 
-#: app/views/friends/invite.rhtml:39
+#: app/views/friends/invite.rhtml:35
 msgid "We won't store your password or contact anyone without your permission."
 msgstr ""
 
-#: app/views/friends/invite.rhtml:45
+#: app/views/friends/invite.rhtml:41
 msgid "Step 2 of 2: Selecting Friends"
 msgstr ""
 
-#: app/views/friends/invite.rhtml:47
+#: app/views/friends/invite.rhtml:43
 msgid "Indicate which friends you want to invite."
 msgstr ""
 
+#: app/views/friends/invite.rhtml:51
+msgid "Enter one e-mail address per line:"
+msgstr ""
+
 #: app/views/friends/invite.rhtml:55
-msgid "Enter one e-mail address per line, following the example below."
-msgstr ""
-
-#: app/views/friends/invite.rhtml:56
-msgid "E-mail addresses"
-msgstr ""
-
-#: app/views/friends/invite.rhtml:60
 msgid "Check all"
 msgstr ""
 
-#: app/views/friends/invite.rhtml:61
+#: app/views/friends/invite.rhtml:56
 msgid "Uncheck all"
 msgstr ""
 
-#: app/views/friends/invite.rhtml:74
+#: app/views/friends/invite.rhtml:70
 msgid ""
 "Now enter an invitation message. You must keep the <url> code in your "
 "invitation message. When your friends receive the invitation e-mail, <url> "
@@ -2909,11 +2892,11 @@ msgid ""
 "name, but they are optional."
 msgstr ""
 
-#: app/views/friends/invite.rhtml:75
-msgid "Invitation message"
+#: app/views/friends/invite.rhtml:71
+msgid "Invitation message:"
 msgstr ""
 
-#: app/views/friends/invite.rhtml:79
+#: app/views/friends/invite.rhtml:75
 msgid "Invite my friends!"
 msgstr ""
 
