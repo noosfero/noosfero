@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.15.0\n"
-"POT-Creation-Date: 2009-03-05 18:28-0300\n"
-"PO-Revision-Date: 2009-03-05 19:00-0300\n"
+"POT-Creation-Date: 2009-03-18 11:43-0300\n"
+"PO-Revision-Date: 2009-03-18 11:55-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -525,7 +525,7 @@ msgstr "Categoria: "
 msgid "Previous"
 msgstr "Anterior"
 
-#: app/helpers/search_helper.rb:99 app/views/friends/invite.rhtml:37
+#: app/helpers/search_helper.rb:99 app/views/friends/invite.rhtml:33
 #: app/views/enterprise_registration/basic_information.rhtml:32
 #: app/views/layouts/slideshow.rhtml:19
 msgid "Next"
@@ -1123,7 +1123,6 @@ msgid "&lt;url&gt; is needed in invitation message."
 msgstr "&lt;url&gt; é necessária na mensagem de convite."
 
 #: app/controllers/my_profile/friends_controller.rb:60
-#: app/views/friends/invite.rhtml:56
 msgid "Firstname Lastname <friend@email.com>"
 msgstr "Nome Sobrenome <amigo@email.com>"
 
@@ -1363,6 +1362,56 @@ msgid "Birth date"
 msgstr "Data de nascimento"
 
 #: app/models/user.rb:-
+msgid "user"
+msgstr "usuário"
+
+#: app/models/user.rb:- app/models/user.rb:14 app/models/change_password.rb:21
+msgid "Username"
+msgstr "Nome de usuário"
+
+#: app/models/user.rb:- app/models/user.rb:15 app/models/contact.rb:13
+#: app/models/change_password.rb:22
+msgid "e-Mail"
+msgstr "e-Mail"
+
+#: app/models/user.rb:-
+msgid "Crypted password"
+msgstr "Senha criptografada"
+
+#: app/models/user.rb:-
+msgid "Salt"
+msgstr "Sal"
+
+#: app/models/user.rb:- app/models/product.rb:-
+#: app/models/product_categorization.rb:-
+msgid "Updated at"
+msgstr "Atualizado em"
+
+#: app/models/user.rb:-
+msgid "Remember token"
+msgstr "Lembrar token"
+
+#: app/models/user.rb:-
+msgid "Remember token expires at"
+msgstr "Lembre do token que expira em"
+
+#: app/models/user.rb:-
+msgid "Terms of use"
+msgstr "Termos de Uso"
+
+#: app/models/user.rb:- app/models/user.rb:9
+msgid "Terms accepted"
+msgstr "Termos aceitos"
+
+#: app/models/user.rb:-
+msgid "Password type"
+msgstr "Tipo de senha"
+
+#: app/models/user.rb:-
+msgid "Enable email"
+msgstr "Habilitar e-mail"
+
+#: app/models/user.rb:-
 msgid "article"
 msgstr "artigo"
 
@@ -1391,11 +1440,6 @@ msgstr "Resumo"
 #: app/models/profile_categorization.rb:-
 msgid "Profile"
 msgstr "Perfil"
-
-#: app/models/user.rb:- app/models/product.rb:-
-#: app/models/product_categorization.rb:-
-msgid "Updated at"
-msgstr "Atualizado em"
 
 #: app/models/user.rb:-
 msgid "Last changed by"
@@ -1477,52 +1521,7 @@ msgstr "Notificar comentários"
 msgid "Hits"
 msgstr "Visualizações"
 
-#: app/models/user.rb:-
-msgid "user"
-msgstr "usuário"
-
-#: app/models/user.rb:- app/models/user.rb:14 app/models/change_password.rb:21
-msgid "Username"
-msgstr "Nome de usuário"
-
-#: app/models/user.rb:- app/models/user.rb:15 app/models/contact.rb:13
-#: app/models/change_password.rb:22
-msgid "e-Mail"
-msgstr "e-Mail"
-
-#: app/models/user.rb:-
-msgid "Crypted password"
-msgstr "Senha criptografada"
-
-#: app/models/user.rb:-
-msgid "Salt"
-msgstr "Sal"
-
-#: app/models/user.rb:-
-msgid "Remember token"
-msgstr "Lembrar token"
-
-#: app/models/user.rb:-
-msgid "Remember token expires at"
-msgstr "Lembre do token que expira em"
-
-#: app/models/user.rb:-
-msgid "Terms of use"
-msgstr "Termos de Uso"
-
-#: app/models/user.rb:- app/models/user.rb:9
-msgid "Terms accepted"
-msgstr "Termos aceitos"
-
-#: app/models/user.rb:-
-msgid "Password type"
-msgstr "Tipo de senha"
-
-#: app/models/user.rb:-
-msgid "Enable email"
-msgstr "Habilitar e-mail"
-
-#: app/models/user.rb:7 app/views/friends/invite.rhtml:33
+#: app/models/user.rb:7 app/views/friends/invite.rhtml:29
 msgid "Password"
 msgstr "Senha"
 
@@ -2849,8 +2848,8 @@ msgid "Find people"
 msgstr "Buscar pessoas"
 
 #: app/views/friends/index.rhtml:40
-msgid "Invite friends from my e-mail contacts"
-msgstr "Convidar amigos dos meus contatos de e-mail"
+msgid "Invite people from my e-mail contacts"
+msgstr "Convidar pessoas dos meus contatos de e-mail"
 
 #: app/views/friends/add.rhtml:1
 msgid "Adding %s as a friend"
@@ -2908,64 +2907,44 @@ msgid "Invite your friends"
 msgstr "Convide seus amigos"
 
 #: app/views/friends/invite.rhtml:6
-msgid "Step 1 of 1: Accessing your contact list"
-msgstr "Passo 1 de 1: Acessando sua lista de contatos"
+msgid "Step 1 of 1: Select address book"
+msgstr "Passo 2 de 2: Selecionar lista de endereços"
 
-#: app/views/friends/invite.rhtml:9
-msgid ""
-"Choose your webmail provider and enter your login and password so we can "
-"fetch your contact list. If you only want to invite specific people by "
-"listing their e-mail addresses, select the \"Enter e-mail addresses manually"
-"\" option."
-msgstr ""
-"Escolha seu provedor de webmail e entre seu login e senha para que possamos "
-"obter sua lista de contatos. Se você quiser convidar pessoas específicas "
-"informando seus endereços de e-mail, selecione a opção \"Digitar endereços "
-"de e-mail manualmente\"."
+#: app/views/friends/invite.rhtml:12
+msgid "Manually (empty field)"
+msgstr "Manualmente (campo em branco)"
 
-#: app/views/friends/invite.rhtml:15
-msgid "Select your e-mail provider:"
-msgstr "Selecione seu provedor de e-mail:"
-
-#: app/views/friends/invite.rhtml:19
-msgid "Enter e-mail addresses manually"
-msgstr "Digitar endereços de e-mail manualmente"
-
-#: app/views/friends/invite.rhtml:32 app/views/shared/user_menu.rhtml:60
+#: app/views/friends/invite.rhtml:28 app/views/shared/user_menu.rhtml:60
 #: app/views/account/login_block.rhtml:4 app/views/account/login.rhtml:3
 msgid "Login"
 msgstr "Entrar"
 
-#: app/views/friends/invite.rhtml:39
+#: app/views/friends/invite.rhtml:35
 msgid "We won't store your password or contact anyone without your permission."
 msgstr ""
 "Nós não armazenamos sua senha nem contactamos ninguém sem sua permissão."
 
-#: app/views/friends/invite.rhtml:45
+#: app/views/friends/invite.rhtml:41
 msgid "Step 2 of 2: Selecting Friends"
 msgstr "Passo 2 de 2: Selecionando Amigos"
 
-#: app/views/friends/invite.rhtml:47
+#: app/views/friends/invite.rhtml:43
 msgid "Indicate which friends you want to invite."
 msgstr "Indique quais amigos você quer convidar."
 
+#: app/views/friends/invite.rhtml:51
+msgid "Enter one e-mail address per line:"
+msgstr "Digite um endereço de e-mail por linha:"
+
 #: app/views/friends/invite.rhtml:55
-msgid "Enter one e-mail address per line, following the example below."
-msgstr "Entre um endereço de e-mail por linha, seguindo o exemplo abaixo."
-
-#: app/views/friends/invite.rhtml:56
-msgid "E-mail addresses"
-msgstr "Endereços de e-mail"
-
-#: app/views/friends/invite.rhtml:60
 msgid "Check all"
 msgstr "Marcar todos"
 
-#: app/views/friends/invite.rhtml:61
+#: app/views/friends/invite.rhtml:56
 msgid "Uncheck all"
 msgstr "Desmarcar todos"
 
-#: app/views/friends/invite.rhtml:74
+#: app/views/friends/invite.rhtml:70
 msgid ""
 "Now enter an invitation message. You must keep the <url> code in your "
 "invitation message. When your friends receive the invitation e-mail, <url> "
@@ -2979,11 +2958,11 @@ msgstr ""
 "<user> e <friend> serão substituídos por seu nome e do amigo, mas são "
 "opcionais."
 
-#: app/views/friends/invite.rhtml:75
-msgid "Invitation message"
-msgstr "Mensagem de convite"
+#: app/views/friends/invite.rhtml:71
+msgid "Invitation message:"
+msgstr "Mensagem de convite:"
 
-#: app/views/friends/invite.rhtml:79
+#: app/views/friends/invite.rhtml:75
 msgid "Invite my friends!"
 msgstr "Convidar meus amigos!"
 
@@ -5918,6 +5897,29 @@ msgstr "Criar novo grupo"
 #: lib/zen3_terminology.rb:62
 msgid "Do you want to join this group?"
 msgstr "Você quer entrar neste grupo?"
+
+#~ msgid "Step 1 of 1: Accessing your contact list"
+#~ msgstr "Passo 1 de 1: Acessando sua lista de contatos"
+
+#~ msgid ""
+#~ "Choose your webmail provider and enter your login and password so we can "
+#~ "fetch your contact list. If you only want to invite specific people by "
+#~ "listing their e-mail addresses, select the \"Enter e-mail addresses "
+#~ "manually\" option."
+#~ msgstr ""
+#~ "Escolha seu provedor de webmail e entre seu login e senha para que "
+#~ "possamos obter sua lista de contatos. Se você quiser convidar pessoas "
+#~ "específicas informando seus endereços de e-mail, selecione a opção "
+#~ "\"Digitar endereços de e-mail manualmente\"."
+
+#~ msgid "Select your e-mail provider:"
+#~ msgstr "Selecione seu provedor de e-mail:"
+
+#~ msgid "Enter one e-mail address per line, following the example below."
+#~ msgstr "Entre um endereço de e-mail por linha, seguindo o exemplo abaixo."
+
+#~ msgid "E-mail addresses"
+#~ msgstr "Endereços de e-mail"
 
 #, fuzzy
 #~ msgid "Password):"
