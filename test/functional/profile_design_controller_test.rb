@@ -289,4 +289,28 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
     assert_equal !state, block.visible?
   end
 
+  should 'offer to create feed reader block' do
+    get :add_block, :profile => 'designtestuser'
+    assert_tag :tag => 'input', :attributes => { :id => 'type_feedreaderblock', :value => 'FeedReaderBlock' }
+  end
+
+  should 'be able to edit FeedReaderBlock' do
+    @box1.blocks << FeedReaderBlock.new(:address => 'feed address')
+
+    get :edit, :profile => 'designtestuser', :id => @box1.blocks[-1].id
+
+    assert_response :success
+    assert_tag :tag => 'input', :attributes => { :name => "block[address]", :value => 'feed address' }
+    assert_tag :tag => 'select', :attributes => { :name => "block[limit]" }
+  end
+
+  should 'be able to save FeedReaderBlock configurations' do
+    @box1.blocks << FeedReaderBlock.new(:address => 'feed address')
+
+    post :save, :profile => 'designtestuser', :id => @box1.blocks[-1].id, :block => {:address => 'new feed address', :limit => '20'}
+
+    assert_equal 'new feed address', @box1.blocks[-1].address
+    assert_equal 20, @box1.blocks[-1].limit
+  end
+
 end

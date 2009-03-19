@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Feed for unit tests</title>
+    <link>http://localhost/feed-test</link>
+    <description>Feed content</description>
+    <language>pt_BR</language>
+    <item>
+      <title>Last POST</title>
+      <description>
+        Cursus justo nec urna. Suspendisse potenti. In hac
+        habitasse platea dictumst. Cras quis lacus. Vestibulum rhoncus
+        congue lacus.
+      </description>
+      <pubDate>Wed, 11 Mar 2009 19:15:57 -0300</pubDate>
+      <link>http://localhost/last-post</link>
+      <guid>http://localhost/last-post</guid>
+    </item>
+    <item>
+      <title>Second POST</title>
+      <description>
+        Suspendisse tincidunt mi vel metus. Vivamus non urna in nisi gravida congue.
+        Aenean semper orci a eros. Praesent dictum. Maecenas pharetra odio ut dui.
+        Pellentesque ut orci. Sed lobortis, velit at laoreet suscipit, quam est
+        sagittis nibh.
+      </description>
+      <pubDate>Wed, 18 Feb 2009 11:01:53 -0300</pubDate>
+      <link>http://localhost/second-post</link>
+      <guid>http://localhost/second-post</guid>
+    </item>
+    <item>
+      <title>First POST</title>
+      <description>
+        Lacus at sapien suscipit tempus. Proin pulvinar velit
+        sed nulla. Curabitur aliquet leo ac massa. Praesent posuere lectus
+        vitae odio. Donec imperdiet urna vel ante. In semper accumsan diam.
+        Vestibulum porta justo. Suspendisse egestas commodo eros.
+      </description>
+      <pubDate>Sun, 18 Jan 2009 11:34:30 -0300</pubDate>
+      <link>http://localhost/first-post</link>
+      <guid>http://localhost/first-post</guid>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+require File.dirname(__FILE__) + '/../config/environment'
+
+FeedReaderBlock.find(:all).each do |feed_block|
+  unless feed_block.address.nil?
+    begin
+      feed_block.clean
+      handler = FeedHandler.new
+      handler.process(feed_block)
+      feed_block.save!
+      RAILS_DEFAULT_LOGGER.info("%s ID %d fetched at %s" % [feed_block.class.name, feed_block.id, feed_block.fetched_at])
+    rescue FeedHandler::ParseError => ex
+      RAILS_DEFAULT_LOGGER.warn("Error parsing content from %s ID %d\n%s" % [feed_block.class.name, feed_block.id, ex.to_s])
+    rescue FeedHandler::FetchError => ex
+      RAILS_DEFAULT_LOGGER.warn("Error fetching content from %s ID %d\n%s" % [feed_block.class.name, feed_block.id, ex.to_s])
+    rescue Exception => ex
+      RAILS_DEFAULT_LOGGER.warn("Unknown error from %s ID %d\n%s" % [feed_block.class.name, feed_block.id, ex.to_s])
+    end
+  end
+end
