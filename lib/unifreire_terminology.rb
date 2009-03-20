@@ -30,6 +30,9 @@ class UnifreireTerminology < Noosfero::Terminology::Custom
       'Events' => N_('Schedule'),
       'Manage enterprise fields' => N_('Manage institutions fields'),
       "%s's enterprises" => N_("%s's institutions"),
+      'Activate your enterprise' => N_('Activate your institution'),
+      'Enterprise activation code' => N_('Institution activation code'),
+      'Disable activation of enterprises' => N_('Disable activation of institutions'),
     })
   end
 

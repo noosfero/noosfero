@@ -174,4 +174,15 @@ class CategoriesControllerTest < Test::Unit::TestCase
 
     assert_tag :tag => 'select', :attributes => { :name => "type" }
   end
+
+  should 'not list regions and product categories' do
+    Environment.default.categories.destroy_all
+    c = Category.create!(:name => 'Regular category', :environment => Environment.default)
+    ProductCategory.create!(:name => 'Product category', :environment => Environment.default)
+    Region.create!(:name => 'Some region', :environment => Environment.default)
+
+    get :index
+    assert_equal [c], assigns(:categories)
+  end
+
 end

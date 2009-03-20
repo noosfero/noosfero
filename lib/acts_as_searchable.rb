@@ -12,7 +12,9 @@ class << ActiveRecord::Base
 
       ferret_options[:limit] = :all
       
-      ids = find_ids_with_ferret(query, ferret_options)[1].map{|r|r[:id].to_i}
+      # FIXME this is a HORRIBLE HACK
+      ids = find_ids_with_ferret(query, ferret_options)[1][0..8000].map{|r|r[:id].to_i}
+
       if ids.empty?
         ids << -1
       end

@@ -40,6 +40,9 @@ class Environment < ActiveRecord::Base
       'disable_contact_person' => _('Disable contact for people'),
       'disable_contact_community' => _('Disable contact for groups/communities'),
       'disable_join_community_popup' => _('Disable the popup that ask to join a group/community'),
+
+      'enterprise_activation' => _('Enable activation of enterprises'),
+      'warn_obsolete_browser' => _('Enable warning of obsolete browser'),
     }
   end
 

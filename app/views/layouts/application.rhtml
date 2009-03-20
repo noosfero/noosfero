@@ -183,15 +183,19 @@
     <%= javascript_include_tag 'show-mouse-help' %>
     <%= javascript_include_tag 'noosfero-show-help' %>
 
-    <div id="better-browser-promotion" style="display:none">
-      <h3><%=
-      _('Your web browser is obsolete!') +'</h3><p/>'+
-      _('This website will not look as good as it could.
-         Don\'t you want to use Firefox? That is a great web browser, free,
-         and made by people of all the world parts.')
-      %><p/>
-      <b id="bbp-getff"><a href="http://getfirefox.com" class="icon-firefox" target="getff"><%= _('Get Firefox Now!') %></a></b>
-    </div>
+    <% if environment.enabled?('warn_obsolete_browser') %>
+
+      <div id="better-browser-promotion" style="display:none">
+        <h3><%=
+        _('Your web browser is obsolete!') +'</h3><p/>'+
+        _('This website will not look as good as it could.
+           Don\'t you want to use Firefox? That is a great web browser, free,
+           and made by people of all the world parts.')
+        %><p/>
+        <b id="bbp-getff"><a href="http://getfirefox.com" class="icon-firefox" target="getff"><%= _('Get Firefox Now!') %></a></b>
+      </div>
+
+    <% end %>
     <%= javascript_include_tag 'better-browser-promotion' %>
 
     <% if is_testing_theme %>

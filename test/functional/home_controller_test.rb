@@ -21,5 +21,23 @@ all_fixtures
   def test_valid_xhtml
     assert_valid_xhtml
   end
-  
+
+  should 'not display form for enterprise activation if disabled in environment' do
+    env = Environment.default
+    env.disable('enterprise_activation')
+    env.save!
+
+    get :index
+    assert_no_tag :tag => 'div', :attributes => { :id => 'activation_enterprise' }, :descendant => {:tag => 'form', :attributes => {:action => '/account/activation_question'}}
+  end
+
+  should 'display form for enterprise activation if enabled on environment' do
+    env = Environment.default
+    env.enable('enterprise_activation')
+    env.save!
+
+    get :index
+    assert_tag :tag => 'div', :attributes => { :id => 'activation_enterprise' }, :descendant => {:tag => 'form', :attributes => {:action => '/account/activation_question'}}
+  end
+
 end

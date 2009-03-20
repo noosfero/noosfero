@@ -5,7 +5,9 @@ class CategoriesController < AdminController
   helper :categories
 
   def index
-    @categories = environment.top_level_categories
+    # WORKAROUND: restricting the category trees to display. Region and
+    # ProductCategory have VERY LARGE trees.
+    @categories = environment.categories.find(:all, :conditions => "parent_id is null AND type is null")
   end
 
   ALLOWED_TYPES = CategoriesHelper::TYPES.map {|item| item[1] }

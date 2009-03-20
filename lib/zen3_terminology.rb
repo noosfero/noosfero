@@ -60,6 +60,9 @@ class Zen3Terminology < Noosfero::Terminology::Custom
       'Friends' => N_('Contacts'),
       'Creating new community' => N_('Creating new group'),
       'Do you want to join this community?' => N_('Do you want to join this group?'),
+      'Activate your enterprise' => N_('Activate your organization'),
+      'Enterprise activation code' => N_('Organization activation code'),
+      'Disable activation of enterprises' => N_('Disable activation of organizations'),
     })
   end
 
