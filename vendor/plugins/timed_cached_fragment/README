@@ -1,0 +1,29 @@
+TimedCacheFragment
+==================
+
+In Rails, caching is one of those things that is made pretty easy, but can also be difficult when you want to do complex tasks with the caching -- such as expiring it. There are two ways with expire_fragment within the logic of your controllers or using an Observers.
+
+This plugin allows caching to be expired on predefined time limit. The idea is that the caching takes cared of the expiration instead of writing conditions in the controller. I understand that it goes against the idea of why the caching mechanism does not have them now.
+
+To the plugin. Its an extension of cache method that has logic for the time limit. The method to use within views is called cache_timeout. The first argument of the method is the regular Hash/String of the cache key and the second argument is the timeout value (being a Time class value).
+
+Example usage:
+
+# This is last 5 minutes of posts from our forums:  
+ <%cache_timeout('forum_listing',5.minutes.from_now) do %>  
+ <ul>  
+    <% for post in @posts %>  
+    <li><b><%=post.title%></b> - by <%=post.author.username%> at <%=post.created_at></p></li>  
+    <%end%>  
+ </ul>  
+ <%end%>
+
+To enforce the timeout cache value within the controller don't use the read_fragment method -- unless really needed. The method that is provided to check that the timeout value has is expired is is_cache_expired?. The method takes the argument of the cache key.
+
+Example Usage within controller:
+
+def list
+	if is_cache_expired?('forum_listing')
+		@posts = Post.find(:all)
+	end
+end
