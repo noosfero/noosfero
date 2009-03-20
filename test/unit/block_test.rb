@@ -54,4 +54,17 @@ class BlockTest < Test::Unit::TestCase
     assert !b.visible?
   end
 
+  should 'be cacheable' do
+    b = Block.new
+    assert b.cacheable?
+  end
+
+  should 'provide chache keys' do
+     p = create_user('test_user').person
+     box = p.boxes[0]
+     b = Block.create!(:box => box)
+
+     assert_equal( "block-id-#{b.id}", b.cache_keys)
+  end
+
 end

@@ -326,7 +326,7 @@ class Profile < ActiveRecord::Base
   end
 
   def url
-    if self.domains.empty?
+    @url ||= if self.domains.empty?
       generate_url(:controller => 'content_viewer', :action => 'view_page', :page => [])
     else
       Noosfero.url_options.merge({ :host => self.domains.first.name, :controller => 'content_viewer', :action => 'view_page', :page => []})

@@ -24,4 +24,8 @@ class MyNetworkBlock < Block
     end
   end
 
+  def cacheable?
+    false
+  end
+
 end

@@ -23,6 +23,7 @@ class FriendsController < MyProfileController
   def remove
     @friend = profile.friends.find(params[:id])
     if request.post? && params[:confirmation]
+      expire_fragment(:action => 'friends', :controller => 'profile', :profile => profile.identifier)
       profile.remove_friend(@friend)
       redirect_to :action => 'index'
     end

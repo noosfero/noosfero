@@ -171,11 +171,11 @@ class Article < ActiveRecord::Base
   end
 
   def url
-    self.profile.url.merge(:page => path.split('/'))
+    @url ||= self.profile.url.merge(:page => path.split('/'))
   end
 
   def view_url
-    image? ? url.merge(:view => true) : url
+    @view_url ||= image? ? url.merge(:view => true) : url
   end
 
   def allow_children?
@@ -252,6 +252,10 @@ class Article < ActiveRecord::Base
   def author
     last_changed_by ||
       profile
+  end
+
+  def cache_key
+    "article-id-#{id}"
   end
 
   private

@@ -18,4 +18,8 @@ class LoginBlock < Block
     end
   end
 
+  def cacheable?
+    false
+  end
+
 end

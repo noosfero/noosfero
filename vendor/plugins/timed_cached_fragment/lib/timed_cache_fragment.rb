@@ -17,12 +17,12 @@ module ActionController
       #handles the expiration of timeout fragment
       def expire_timeout_fragment(key)
         @@cache_timeout_values[key] = nil
-        expire_fragment(key)
+        expire_fragment(/#{key}/)
       end
       #checks to see if a cache has fully expired
       def is_cache_expired?(name, is_key = false)
-        key = is_key ? fragment_cache_key(name) : name
-        return (!@@cache_timeout_values.has_key?(key)) || (@@cache_timeout_values[key] < Time.now)
+        key = is_key ? name : fragment_cache_key(name)
+        return (!@@cache_timeout_values[key]) || (@@cache_timeout_values[key] < Time.now)
       end
     end
   end

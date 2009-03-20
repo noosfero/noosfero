@@ -83,10 +83,12 @@
   </div>
 <% end %>
 
-<div class="<%="article-body article-body-" + @page.css_class_name %>">
-  <%= article_to_html(@page) %>
-  <br style="clear:both" />
-</div> <!-- end class="article-body" -->
+<% cache(@page.cache_key) do %>
+  <div class="<%="article-body article-body-" + @page.css_class_name %>">
+    <%= article_to_html(@page) %>
+    <br style="clear:both" />
+  </div> <!-- end class="article-body" -->
+<% end %>
 
 <% if ! @page.categories.empty? %>
 <div id="article-cat">

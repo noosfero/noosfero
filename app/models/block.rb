@@ -86,4 +86,16 @@ class Block < ActiveRecord::Base
     end
   end
 
+  def cacheable?
+    true
+  end
+
+  def cache_keys
+    "block-id-#{id}"
+  end
+
+  def timeout
+    4.hours
+  end
+
 end

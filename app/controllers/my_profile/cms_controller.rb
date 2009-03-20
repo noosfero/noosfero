@@ -67,6 +67,7 @@ class CmsController < MyProfileController
     if request.post?
       @article.last_changed_by = user
       if @article.update_attributes(params[:article])
+        expire_caches(@article)
         redirect_back
         return
       end
@@ -113,6 +114,7 @@ class CmsController < MyProfileController
     @article.last_changed_by = user
     if request.post?
       if @article.save
+        expire_caches(@article)
         redirect_back
         return
       end
@@ -158,6 +160,7 @@ class CmsController < MyProfileController
   def destroy
     @article = profile.articles.find(params[:id])
     if request.post?
+      expire_caches(@article)
       @article.destroy
       redirect_to :action => (@article.parent ? 'view' : 'index'), :id => @article.parent
     end
@@ -247,6 +250,12 @@ class CmsController < MyProfileController
     else
       nil
     end
+  end
+
+  def expire_caches(article)
+    article.hierarchy.each {|a| expire_fragment(/#{a.cache_key}/) }
+    blocks = article.profile.blocks.select{|b|[RecentDocumentsBlock, BlogArchivesBlock].any?{|c| b.kind_of?(c)}}
+    blocks.map(&:cache_keys).each{|ck|expire_timeout_fragment(ck)}
   end
 
 end

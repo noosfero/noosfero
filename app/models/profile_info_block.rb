@@ -19,4 +19,8 @@ class ProfileInfoBlock < Block
     false
   end
 
+  def cacheable?
+    false
+  end
+
 end

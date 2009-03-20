@@ -19,4 +19,8 @@ class ProfileImageBlock < Block
     false
   end
 
+  def cacheable?
+    false
+  end
+
 end

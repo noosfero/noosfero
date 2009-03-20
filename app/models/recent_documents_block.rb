@@ -32,4 +32,8 @@ class RecentDocumentsBlock < Block
     end
   end
 
+  def timeout
+    2.months
+  end
+
 end

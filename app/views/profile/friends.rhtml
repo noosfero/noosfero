@@ -3,11 +3,13 @@
 
 <h1><%= __("%s's friends") % profile.name %></h1>
 
+<% cache do%>
 <ul class='profile-list'>
   <% @friends.each do |friend| %>
     <li><%= profile_image_link(friend) %></li>
   <% end%>
 </ul>
+<% end %>
 
 <% button_bar do %>
   <% if user == profile %>

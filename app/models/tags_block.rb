@@ -29,4 +29,8 @@ class TagsBlock < Block
     "\n</div><!-- end class='tag_cloud' -->\n";
   end
 
+  def timeout
+    15.minutes
+  end
+
 end

@@ -55,6 +55,14 @@ module BoxesHelper
   end
 
   def display_block(block, main_content = nil)
+    render :file => 'shared/block', :locals => {:block => block, :main_content => main_content, :use_cache => use_cache? }
+  end
+
+  def use_cache?
+    box_decorator == DontMoveBlocks
+  end
+
+  def display_block_content(block, main_content = nil)
     content = block.main? ? main_content : block.content
     result = extract_block_content(content)
     footer_content = extract_block_content(block.footer)
@@ -189,12 +197,13 @@ module BoxesHelper
   end
 
   def current_blocks
-    @controller.boxes_holder.boxes.map(&:blocks).flatten
+    @controller.boxes_holder.boxes.map(&:blocks).inject([]){|ac, a| ac + a}
   end
 
   def import_blocks_stylesheets
-    stylesheet_import( current_blocks.map{|b|'blocks/' + b.css_class_name}.uniq ) + "\n" +
-    stylesheet_import( current_blocks.map{|b|'blocks/' + b.css_class_name}.uniq, :themed_source => true )
+    blocks_css_files = current_blocks.map{|b|'blocks/' + b.css_class_name}.uniq
+    stylesheet_import(blocks_css_files) + "\n" +
+    stylesheet_import(blocks_css_files, :themed_source => true )
   end
 
 end
