@@ -52,20 +52,18 @@ class FeedReaderBlockTest < ActiveSupport::TestCase
   end
 
   should 'notice when content not fetched yet' do
-    assert_tag_in_string feed.content, :tag => 'p', :content => 'Feed content was not loaded yet'
+    assert_equal'Feed content was not loaded yet', feed.footer
   end
 
   should 'display last fetched date' do
     feed.feed_items = ['one', 'two']
-    assert_tag_in_string feed.content, :tag => 'div',
-      :content => "Updated: #{show_date(@fetched_at)}",
-      :attributes => {:class => 'feed-reader-block-fetched-at'}
+    assert_equal "Updated: #{show_date(@fetched_at)}", feed.footer
   end
 
   should 'clear feed title and items' do
     feed.feed_items = %w[ last-post second-post first-post ]
     feed.feed_title = 'Feed Test'
-    feed.clean
+    feed.clear
     assert_nil feed.feed_title
     assert_equal [], feed.feed_items
   end

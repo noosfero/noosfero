@@ -23,12 +23,16 @@ class FeedHandler
   end
 
   def process(container)
-    content = fetch(container.address)
-    container.fetched_at = Time.now
-    parse = parse(content)
-    container.feed_title = parse.title
-    parse.items[0..container.limit-1].each do |item|
-      container.add_item(item.title, item.link, item.date, item.content)
+    container.class.transaction do
+      container.clear
+      content = fetch(container.address)
+      container.fetched_at = Time.now
+      parse = parse(content)
+      container.feed_title = parse.title
+      parse.items[0..container.limit-1].each do |item|
+        container.add_item(item.title, item.link, item.date, item.content)
+      end
+      container.save!
     end
   end
 

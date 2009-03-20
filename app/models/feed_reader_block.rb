@@ -27,13 +27,16 @@ class FeedReaderBlock < Block
   end
 
   def formatted_feed_content
+    return "<ul>\n" +
+      self.feed_items.map{ |item| "<li><a href='#{item[:link]}'>#{item[:title]}</a></li>" }.join("\n") +
+      "</ul>"
+  end
+
+  def footer
     if self.fetched_at.nil? or self.feed_items.empty?
-      return ("<p class='feed-reader-block-error'>%s</p>" % _('Feed content was not loaded yet'))
+      _('Feed content was not loaded yet')
     else
-      return "<ul class='feed-reader-block-list'>" +
-        self.feed_items.map{ |item| "<li><a href='#{item[:link]}' class='feed-reader-block-item'>#{item[:title]}</a></li>" }.join("\n") +
-        "</ul>" +
-        "<div class='feed-reader-block-fetched-at'>#{_("Updated: %s") % show_date(self.fetched_at)}</div>"
+      _("Updated: %s") % show_date(self.fetched_at)
     end
   end
 
@@ -41,7 +44,7 @@ class FeedReaderBlock < Block
     self.feed_items << {:title => title, :link => link}
   end
 
-  def clean
+  def clear
     self.feed_items = []
     self.feed_title = nil
   end
