@@ -134,18 +134,6 @@ class MembershipsControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testuser/memberships/new_community" }
   end
 
-  should 'not display link to register new enterprise if there is no validators' do
-    get :index, :profile => 'testuser'
-    assert_no_tag :tag => 'a', :content => 'Register a new Enterprise'
-  end
-
-  should 'display link to register new enterprise' do
-    reg = Environment.default.regions.create!(:name => 'Region test')
-    reg.validators.create!(:name => 'Validator test', :identifier => 'validator-test')
-    get :index, :profile => 'testuser'
-    assert_tag :tag => 'a', :content => 'Register a new Enterprise'
-  end
-
   should 'render destroy_community template' do
     community = Community.create!(:name => 'A community to destroy')
     get :destroy_community, :profile => 'testuser', :id => community.id
