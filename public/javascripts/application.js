@@ -30,6 +30,7 @@ function focus_first_field() {
 /* * * Convert a string to a valid login name * * */
 function convToValidLogin( str ) {
   return str.toLowerCase()
+            .replace( /@.*$/,     ""  )
             .replace( /á|à|ã|â/g, "a" )
             .replace( /é|ê/g,     "e" )
             .replace( /í/g,       "i" )
