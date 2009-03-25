@@ -227,6 +227,19 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_equal 'test.txt', f.children[0].name
   end
 
+  should 'display destination folder of files when uploading file in root folder' do
+    get :upload_files, :profile => profile.identifier
+
+    assert_tag :tag => 'h5', :descendant => { :tag => 'code', :content => /\/#{profile.identifier}/ }
+  end
+
+  should 'display destination folder of files when uploading file' do
+    f = Folder.new(:name => 'f'); profile.articles << f; f.save!
+    get :upload_files, :profile => profile.identifier, :parent_id => f.id
+
+    assert_tag :tag => 'h5', :descendant => { :tag => 'code', :content => /\/#{profile.identifier}\/#{f.full_name}/}
+  end
+
   should 'not crash on empty file' do
     assert_nothing_raised do
       post :upload_files, :profile => profile.identifier, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain'), '' ]

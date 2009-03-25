@@ -10,13 +10,14 @@
       <% end %>
     </ul>
   </div>
-
 <% end %>
 
 <h2><%= _('Publish media') %></h2>
 
 <h3><%= _("Select the files you want to upload (max size %s):") % UploadedFile.max_size.to_humanreadable %></h3>
 <h4><%= _('Documents, Images, Videos, Audio') %></h4>
+
+<h5><%= _('Uploading files to %s') % content_tag('code', @target) %></h5>
 
 <% form_for('uploaded_file', :url => { :action => 'upload_files' }, :html => {:multipart => true}) do |f| %>
 
