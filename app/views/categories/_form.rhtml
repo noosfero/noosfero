@@ -21,6 +21,8 @@
 
   <%= required f.text_field('name') %>
 
+  <%= labelled_check_box(_('Display in the menu'), 'category[display_in_menu]', '1', @category.display_in_menu) %>
+
   <% f.fields_for :image_builder, @category.image do |i| %>
     <%= file_field_or_thumbnail(_('Image:'), @category.image, i) %>
   <% end %>
