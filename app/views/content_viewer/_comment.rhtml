@@ -1,6 +1,12 @@
 <%= content_tag('a', '', :name => comment.anchor) %>
 <div class="article-comment<%= ' comment-from-owner' if ( comment.author && (@page.profile.name == comment.author.name) ) %> comment-logged-<%= comment.author ? 'in' : 'out' %>">
-  
+
+  <% if logged_in? && (user == @page.profile || user == comment.author || user.has_permission?(:moderate_comments, @page.profile)) %>
+    <% button_bar(:style => 'float: right; margin-top: 0px;') do %>
+      <%= icon_button(:delete, _('Remove this comment'), { :profile => params[:profile], :remove_comment => comment.id }, :method => :post, :confirm => _('Are you sure you want to remove this comment?')) %>
+    <% end %>
+  <% end %>
+
   <% if comment.author %>
     <%= link_to content_tag( 'span', comment.author.name() ), comment.author.url,
         :class => 'comment-picture',
@@ -12,12 +18,6 @@
         :class => 'comment-picture',
         :style => 'background-image:url(%s)' % str_gravatar_url_for( comment.email, :size => 50 )
     %>
-  <% end %>
-
-  <% if logged_in? && (user == @page.profile || user == comment.author || user.has_permission?(:moderate_comments, @page.profile)) %>
-    <% button_bar(:style => 'float: right; margin-top: 0;') do %>
-      <%= icon_button(:delete, _('Remove'), { :profile => params[:profile], :remove_comment => comment.id }, :method => :post, :confirm => _('Are you sure you want to remove this comment?')) %>
-    <% end %>
   <% end %>
 
   <h4><%= comment.title %></h4>
