@@ -6,6 +6,12 @@ ACTION=$1
 shift
 
 do_start() {
+  if ! rake db:abort_if_pending_migrations; then
+    echo "========================================"
+    echo "There are pending migrations, please upgrade the database before starting the production server"
+    exit 1
+  fi
+
   ./script/ferret_server -e $RAILS_ENV start
   sleep 1
   mongrel_rails cluster::start
