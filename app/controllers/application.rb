@@ -62,6 +62,9 @@ class ApplicationController < ActionController::Base
 
   before_init_gettext :maybe_save_locale
   after_init_gettext :check_locale
+  if Noosfero.available_locales.size == 1
+    GetText.locale = Noosfero.available_locales.first
+  end
   init_gettext 'noosfero'
 
   include NeedsProfile
@@ -117,16 +120,19 @@ class ApplicationController < ActionController::Base
   end
 
   def maybe_save_locale
-    # save locale if forced
-    if params[:lang]
-      cookies[:lang] = params[:lang]
+    if Noosfero.available_locales.size > 1
+      # save locale if forced
+      if params[:lang]
+        cookies[:lang] = params[:lang]
+      end
+      # force GetText to load a matching locale
+      GetText.locale = nil
     end
-    # force GetText to load a matching locale
-    GetText.locale = nil
   end
 
   def check_locale
     available_locales = Noosfero.available_locales
+    return if available_locales.size == 1
 
     # do not accept unsupported locales
     if !available_locales.include?(locale.to_s)
