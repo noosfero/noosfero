@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
     if logger && logger.info?
       logger.info("  HTTP Referer: #{request.referer}")
       logger.info("  User Agent: #{request.user_agent}")
+      logger.info("  Accept-Language: #{request.headers['HTTP_ACCEPT_LANGUAGE']}")
     end
   end
 
