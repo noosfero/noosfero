@@ -25,17 +25,18 @@ class Profile < ActiveRecord::Base
   end
 
   PERMISSIONS['Profile'] = {
-    'edit_profile'        => N_('Edit profile'),
-    'destroy_profile'     => N_('Destroy profile'),
-    'manage_memberships'  => N_('Manage memberships'),
-    'post_content'        => N_('Post content'),
-    'edit_profile_design' => N_('Edit profile design'),
-    'manage_products'     => N_('Manage products'),
-    'manage_friends'      => N_('Manage friends'),
-    'validate_enterprise' => N_('Validate enterprise'),
-    'perform_task'        => N_('Perform task'),
-    'moderate_comments'   => N_('Moderate comments'),
-    'edit_appearance'     => N_('Edit appearance'),
+    'edit_profile'         => N_('Edit profile'),
+    'destroy_profile'      => N_('Destroy profile'),
+    'manage_memberships'   => N_('Manage memberships'),
+    'post_content'         => N_('Post content'),
+    'edit_profile_design'  => N_('Edit profile design'),
+    'manage_products'      => N_('Manage products'),
+    'manage_friends'       => N_('Manage friends'),
+    'validate_enterprise'  => N_('Validate enterprise'),
+    'perform_task'         => N_('Perform task'),
+    'moderate_comments'    => N_('Moderate comments'),
+    'edit_appearance'      => N_('Edit appearance'),
+    'view_private_content' => N_('View private content'),
   }
 
   acts_as_accessible

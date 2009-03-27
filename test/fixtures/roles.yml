@@ -39,6 +39,8 @@ profile_admin:
    - moderate_comments
    - destroy_profile
    - perform_task
+   - post_content
+   - view_private_content
 profile_member:
   id: 6
   key: 'profile_member'
@@ -55,6 +57,7 @@ profile_moderator:
   system: true
   permissions:
    - moderate_comments
+   - view_private_content
 environment_administrator:
   id: 8
   key: 'environment_administrator'

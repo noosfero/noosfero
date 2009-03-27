@@ -437,11 +437,29 @@ class ArticleTest < Test::Unit::TestCase
     assert !article.display_to?(person)
   end
   
-  should 'say that member user can see private article' do
+  should 'say that member user can not see private article' do
     profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
     article = Article.create!(:name => 'test article', :profile => profile, :public_article => false)
     person = create_user('test_user').person
     profile.affiliate(person, Profile::Roles.member)
+
+    assert !article.display_to?(person)
+  end
+
+  should 'say that profile admin can see private article' do
+    profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
+    article = Article.create!(:name => 'test article', :profile => profile, :public_article => false)
+    person = create_user('test_user').person
+    profile.affiliate(person, Profile::Roles.admin)
+
+    assert article.display_to?(person)
+  end
+
+  should 'say that profile moderator can see private article' do
+    profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
+    article = Article.create!(:name => 'test article', :profile => profile, :public_article => false)
+    person = create_user('test_user').person
+    profile.affiliate(person, Profile::Roles.moderator)
 
     assert article.display_to?(person)
   end
@@ -496,7 +514,7 @@ class ArticleTest < Test::Unit::TestCase
     assert !article.public_article
   end
 
-  should 'allow friends of private person see the article' do
+  should 'not allow friends of private person see the article' do
     person = create_user('test_user').person
     article = Article.create!(:name => 'test article', :profile => person, :public_article => false)
     friend = create_user('test_friend').person
@@ -504,16 +522,15 @@ class ArticleTest < Test::Unit::TestCase
     person.save!
     friend.save!
 
-    assert article.display_to?(friend)
+    assert !article.display_to?(friend)
   end
 
-
-  should 'display articles to people who can edit them' do
+  should 'display private articles to people who can view private content' do
     person = create_user('test_user').person
     article = Article.create!(:name => 'test article', :profile => person, :public_article => false)
 
     admin_user = create_user('admin_user').person
-    admin_user.stubs(:has_permission?).with('post_content', article.profile).returns('true')
+    admin_user.stubs(:has_permission?).with('view_private_content', article.profile).returns('true')
 
     assert article.display_to?(admin_user)
   end

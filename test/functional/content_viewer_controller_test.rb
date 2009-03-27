@@ -329,6 +329,43 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_response :success
   end
 
+  should 'not show private content to members' do
+    community = Community.create!(:name => 'testcomm')
+    Folder.create!(:name => 'test', :profile => community, :public_article => false)
+    community.add_member(profile)
+
+    login_as(profile.identifier)
+
+    @request.stubs(:ssl?).returns(true)
+    get :view_page, :profile => community.identifier, :page => [ 'test' ]
+
+    assert_template 'access_denied.rhtml'
+  end
+
+  should 'show private content to profile moderators' do
+    community = Community.create!(:name => 'testcomm')
+    community.articles.create!(:name => 'test', :public_article => false)
+    community.add_moderator(profile)
+
+    login_as(profile.identifier)
+
+    @request.stubs(:ssl?).returns(true)
+    get :view_page, :profile => community.identifier, :page => [ 'test' ]
+    assert_response :success
+  end
+
+  should 'show private content to profile admins' do
+    community = Community.create!(:name => 'testcomm')
+    community.articles.create!(:name => 'test', :public_article => false)
+    community.add_admin(profile)
+
+    login_as(profile.identifier)
+
+    @request.stubs(:ssl?).returns(true)
+    get :view_page, :profile => community.identifier, :page => [ 'test' ]
+    assert_response :success
+  end
+
   should 'show message for disabled enterprises' do
     login_as(@profile.identifier)
     ent = Enterprise.create!(:name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false)
@@ -424,11 +461,37 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_template 'access_denied.rhtml'
   end
 
-  should 'give access to private articles if logged in and member' do
+  should 'not give access to private articles if logged in and only member' do
     person = create_user('test_user').person
     profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
     intranet = Folder.create!(:name => 'my_intranet', :profile => profile, :public_article => false)
     profile.affiliate(person, Profile::Roles.member)
+    login_as('test_user')
+
+    @request.stubs(:ssl?).returns(true)
+    get :view_page, :profile => 'test_profile', :page => [ 'my-intranet' ]
+
+    assert_template 'access_denied.rhtml'
+  end
+
+  should 'give access to private articles if logged in and moderator' do
+    person = create_user('test_user').person
+    profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
+    intranet = Folder.create!(:name => 'my_intranet', :profile => profile, :public_article => false)
+    profile.affiliate(person, Profile::Roles.moderator)
+    login_as('test_user')
+
+    @request.stubs(:ssl?).returns(true)
+    get :view_page, :profile => 'test_profile', :page => [ 'my-intranet' ]
+
+    assert_template 'view_page'
+  end
+
+  should 'give access to private articles if logged in and admin' do
+    person = create_user('test_user').person
+    profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
+    intranet = Folder.create!(:name => 'my_intranet', :profile => profile, :public_article => false)
+    profile.affiliate(person, Profile::Roles.admin)
     login_as('test_user')
 
     @request.stubs(:ssl?).returns(true)
