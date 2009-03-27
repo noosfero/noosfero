@@ -1,5 +1,5 @@
+<%= content_tag('em', _('(external feed was not loaded yet)'), :id => 'external-feed-info', :class => 'metadata') if article.blog? && article.external_feed && article.external_feed.fetched_at.nil? %>
+
 <div><%= article.body %></div>
 <hr/>
 <%= (children.compact.empty? ? content_tag('em', _('(no posts)')) : list_posts(user, children)) %>
-
-

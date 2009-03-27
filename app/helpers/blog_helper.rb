@@ -35,4 +35,5 @@ module BlogHelper
     article_title(article) + content_tag('p', article.to_html) +
     content_tag('p', link_to( number_of_comments(article), article.url.merge(:form => 'opened', :anchor => 'comment_form') ), :class => 'metadata')
   end
+
 end

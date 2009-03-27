@@ -716,7 +716,7 @@ class CmsControllerTest < Test::Unit::TestCase
   end
 
   should 'offer to edit a blog' do
-    profile.articles << Blog.new(:name => 'blog test')
+    profile.articles << Blog.new(:name => 'blog test', :profile => profile)
 
     profile.articles.reload
     assert profile.has_blog?
@@ -727,7 +727,7 @@ class CmsControllerTest < Test::Unit::TestCase
   end
 
   should 'not offer to add folder to blog' do
-    profile.articles << Blog.new(:name => 'blog test')
+    profile.articles << Blog.new(:name => 'blog test', :profile => profile)
 
     profile.articles.reload
     assert profile.has_blog?
@@ -737,7 +737,7 @@ class CmsControllerTest < Test::Unit::TestCase
   end
 
   should 'not show feed subitem for blog' do
-    profile.articles << Blog.new(:name => 'Blog for test')
+    profile.articles << Blog.new(:name => 'Blog for test', :profile => profile)
 
     profile.articles.reload
     assert profile.has_blog?
@@ -748,7 +748,7 @@ class CmsControllerTest < Test::Unit::TestCase
   end
 
   should 'update feed options by edit blog form' do
-    profile.articles << Blog.new(:name => 'Blog for test')
+    profile.articles << Blog.new(:name => 'Blog for test', :profile => profile)
     post :edit, :profile => profile.identifier, :id => profile.blog.id, :article => { :feed => { :limit => 7 } }
     assert_equal 7, profile.blog.feed.limit
   end
@@ -770,8 +770,9 @@ class CmsControllerTest < Test::Unit::TestCase
   end
 
   should 'update blog posts_per_page setting' do
-    profile.articles << Blog.new(:name => 'Blog for test')
+    profile.articles << Blog.new(:name => 'Blog for test', :profile => profile)
     post :edit, :profile => profile.identifier, :id => profile.blog.id, :article => { :posts_per_page => 5 }
+    profile.blog.reload
     assert_equal 5, profile.blog.posts_per_page
   end
 
@@ -909,4 +910,36 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_template nil
     assert_redirected_to file.url.merge(:view => true)
   end
+
+  should 'display external feed options when edit blog' do
+    get :new, :profile => profile.identifier, :type => 'Blog'
+    assert_tag :tag => 'input', :attributes => { :name => 'article[external_feed_builder][enabled]' }
+    assert_tag :tag => 'input', :attributes => { :name => 'article[external_feed_builder][address]' }
+  end
+
+  should "display 'Fetch posts from an external feed' checked if blog has enabled external feed" do
+    profile.articles << Blog.new(:title => 'test blog', :profile => profile)
+    profile.blog.create_external_feed(:address => 'address', :enabled => true)
+    get :edit, :profile => profile.identifier, :id => profile.blog.id
+    assert_tag :tag => 'input', :attributes => { :name => 'article[external_feed_builder][enabled]', :checked => 'checked' }
+  end
+
+  should "display 'Fetch posts from an external feed' unchecked if blog has disabled external feed" do
+    profile.articles << Blog.new(:title => 'test blog', :profile => profile)
+    profile.blog.create_external_feed(:address => 'address', :enabled => false)
+    get :edit, :profile => profile.identifier, :id => profile.blog.id
+    assert_tag :tag => 'input', :attributes => { :name => 'article[external_feed_builder][enabled]', :checked => nil }
+  end
+
+  should "hide external feed options when 'Fetch posts from an external feed' unchecked" do
+    get :new, :profile => profile.identifier, :type => 'Blog'
+    assert_tag :tag => 'input', :attributes => { :name => 'article[external_feed_builder][enabled]', :checked => nil }
+    assert_tag :tag => 'div', :attributes => { :id => 'external-feed-options', :style => 'display: none' }
+  end
+
+  should 'only_once option marked by default' do
+    get :new, :profile => profile.identifier, :type => 'Blog'
+    assert_tag :tag => 'input', :attributes => { :name => 'article[external_feed_builder][only_once]', :checked => 'checked', :value => 'true' }
+  end
+
 end

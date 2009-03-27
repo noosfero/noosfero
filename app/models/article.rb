@@ -20,6 +20,10 @@ class Article < ActiveRecord::Base
 
   settings_items :display_hits, :type => :boolean, :default => true
 
+  before_create do |article|
+    article.published_at = article.created_at if article.published_at.nil?
+  end
+
   def self.human_attribute_name(attrib)
     case attrib.to_sym
     when :name

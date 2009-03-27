@@ -274,7 +274,7 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
   end
 
   should 'offer to create blog archives block only if has blog' do
-    Blog.create!(:name => 'Blog test', :profile => holder)
+    holder.articles << Blog.new(:name => 'Blog test', :profile => holder)
     get :add_block, :profile => 'designtestuser'
     assert_tag :tag => 'input', :attributes => { :id => 'type_blogarchivesblock', :value => 'BlogArchivesBlock' }
   end

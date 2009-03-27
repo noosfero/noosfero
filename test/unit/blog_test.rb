@@ -38,24 +38,16 @@ class BlogTest < ActiveSupport::TestCase
     assert_equal 'body', b.feed.feed_item_description
   end
 
-  should 'get first blog from profile' do
-    p = create_user('testuser').person
-    b = Blog.create!(:profile => p, :name => 'blog_feed_test')
-    assert_equal p.blog, b
-  end
-
   should 'save feed options' do
     p = create_user('testuser').person
-    b = Blog.create!(:profile => p, :name => 'blog_feed_test')
+    p.articles << Blog.new(:profile => p, :name => 'blog_feed_test')
     p.blog.feed = { :limit => 7 }
     assert_equal 7, p.blog.feed.limit
   end
 
   should 'save feed options after create blog' do
     p = create_user('testuser').person
-    b = Blog.create!(:profile => p, :name => 'blog_feed_test', :feed => { :limit => 7 })
-
-    p.blog.feed.reload
+    p.articles << Blog.new(:profile => p, :name => 'blog_feed_test', :feed => { :limit => 7 })
     assert_equal 7, p.blog.feed.limit
   end
 
@@ -65,16 +57,16 @@ class BlogTest < ActiveSupport::TestCase
   end
 
   should 'update posts per page setting' do
-    p = create_user('testusermerda').person
-    blog = Blog.create!(:profile => p, :name => 'Blog test')
-    blog.reload
-    blog.posts_per_page = 5
+    p = create_user('testuser').person
+    p.articles << Blog.new(:profile => p, :name => 'Blog test')
+    blog = p.blog
+    blog.posts_per_page = 7
     assert blog.save!
-    assert_equal 5, blog.posts_per_page
+    assert_equal 7, p.blog.posts_per_page
   end
 
   should 'has posts' do
-    p = create_user('testusermerda').person
+    p = create_user('testuser').person
     blog = Blog.create!(:profile => p, :name => 'Blog test')
     post = TextileArticle.create!(:name => 'First post', :profile => p, :parent => blog)
     blog.children << post
@@ -82,25 +74,56 @@ class BlogTest < ActiveSupport::TestCase
   end
 
   should 'not includes rss feed in posts' do
-    p = create_user('testusermerda').person
+    p = create_user('testuser').person
     blog = Blog.create!(:profile => p, :name => 'Blog test')
     assert_includes blog.children, blog.feed
     assert_not_includes blog.posts, blog.feed
   end
 
-  should 'list posts ordered by created at' do
-    p = create_user('testusermerda').person
+  should 'list posts ordered by published at' do
+    p = create_user('testuser').person
     blog = Blog.create!(:profile => p, :name => 'Blog test')
     newer = TextileArticle.create!(:name => 'Post 2', :parent => blog, :profile => p)
-    older = TextileArticle.create!(:name => 'Post 1', :parent => blog, :profile => p, :created_at => Time.now - 1.month)
+    older = TextileArticle.create!(:name => 'Post 1', :parent => blog, :profile => p, :published_at => Time.now - 1.month)
     assert_equal [newer, older], blog.posts
   end
 
   should 'has filter' do
-    p = create_user('testusermerda').person
+    p = create_user('testuser').person
     blog = Blog.create!(:profile => p, :name => 'Blog test')
     blog.filter = {:param => 'value'}
     assert_equal 'value', blog.filter[:param]
+  end
+
+  should 'has one external feed' do
+    p = create_user('testuser').person
+    blog = Blog.create!(:profile => p, :name => 'Blog test')
+    efeed = blog.create_external_feed(:address => 'http://invalid.url')
+    assert_equal efeed, blog.external_feed
+  end
+
+  should 'build external feed after save' do
+    p = create_user('testuser').person
+    blog = Blog.new(:profile => p, :name => 'Blog test')
+    blog.external_feed_builder = { :address => 'feed address' }
+    blog.save!
+    assert blog.external_feed.valid?
+  end
+
+  should 'update external feed' do
+    p = create_user('testuser').person
+    blog = Blog.new(:profile => p, :name => 'Blog test')
+    blog.create_external_feed(:address => 'feed address')
+    blog.external_feed_builder = { :address => 'address edited' }
+    blog.save!
+    assert_equal 'address edited', blog.external_feed.address
+  end
+
+  should 'invalid blog if has invalid external_feed' do
+    p = create_user('testuser').person
+    blog = Blog.new(:profile => p, :name => 'Blog test', :external_feed_builder => {:enabled => true})
+    blog.save
+    assert ! blog.valid?
   end
 
 end

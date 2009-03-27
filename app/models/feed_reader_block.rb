@@ -48,6 +48,9 @@ class FeedReaderBlock < Block
     self.feed_items = []
     self.feed_title = nil
   end
+  def finish_fetch
+    self.save!
+  end
 
   def content
     block_title(title) + formatted_feed_content

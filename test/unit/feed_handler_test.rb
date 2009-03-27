@@ -68,8 +68,8 @@ class FeedHandlerTest < Test::Unit::TestCase
     handler.process(container)
   end
 
-  should 'save after processing' do
-    container.expects(:save!)
+  should 'finish_fetch after processing' do
+    container.expects(:finish_fetch)
     handler.process(container)
   end
 

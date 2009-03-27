@@ -20,7 +20,7 @@ module ContentViewerHelper
       unless args[:no_link]
         title = content_tag('h3', link_to(article.name, article.url), :class => 'title')
       end
-      title << content_tag('span', _("%s, by %s") % [show_date(article.created_at), link_to(article.author.name, article.author.url)], :class => 'created-at')
+      title << content_tag('span', _("%s, by %s") % [show_date(article.published_at), link_to(article.author.name, article.author.url)], :class => 'created-at')
     end
     title
   end

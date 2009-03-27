@@ -97,6 +97,11 @@
 </div>
 <% end %>
 
+<% if ! @page.source.nil? and ! @page.source.empty?%>
+<div id="article-source">
+  <%= _('Source: %s') % link_to(@page.source, @page.source) %>
+</div>
+<% end %>
 
 <div class="comments">
   <% if @page.accept_comments? %>

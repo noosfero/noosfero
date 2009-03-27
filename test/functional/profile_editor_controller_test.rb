@@ -628,7 +628,7 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
 
   should 'offer to config blog in control panel' do
     profile.articles << Blog.new(:name => 'My blog', :profile => profile)
-    get :index, :profile => 'default_user'
+    get :index, :profile => profile.identifier
     assert_tag :tag => 'a', :attributes => { :href => "/myprofile/default_user/cms/edit/#{profile.blog.id}" }
   end
 

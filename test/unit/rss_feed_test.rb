@@ -109,7 +109,7 @@ class RssFeedTest < Test::Unit::TestCase
 
   should 'list blog posts with more recent first and respecting limit' do
     profile = create_user('testuser').person
-    blog = Blog.create(:name => 'blog', :profile => profile)
+    blog = Blog.create!(:name => 'blog-test', :profile => profile)
     posts = []
     6.times do |i|
       posts << TextArticle.create!(:name => "post #{i}", :profile => profile, :parent => blog)
@@ -123,7 +123,7 @@ class RssFeedTest < Test::Unit::TestCase
 
   should 'list only published posts from blog' do
     profile = create_user('testuser').person
-    blog = Blog.create(:name => 'blog', :profile => profile)
+    blog = Blog.create!(:name => 'blog-test', :profile => profile)
     posts = []
     5.times do |i|
       posts << TextArticle.create!(:name => "post #{i}", :profile => profile, :parent => blog)

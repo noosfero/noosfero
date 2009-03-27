@@ -56,10 +56,10 @@ class PublishedArticleTest < ActiveSupport::TestCase
     @article.expects(:parent).returns(parent)
     parent.expects(:blog?).returns(true)
     prof = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
-    blog = Blog.create!(:profile => prof, :name => 'Blog test')
+    prof.articles << Blog.new(:profile => prof, :name => 'Blog test')
     p = PublishedArticle.create!(:reference_article => @article, :profile => prof)
 
-    assert_equal p.parent, blog
+    assert_equal p.parent, prof.blog
   end
 
   should 'not be created in community blog if did not come from a blog' do

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 62) do
+ActiveRecord::Schema.define(:version => 64) do
 
   create_table "article_versions", :force => true do |t|
     t.integer  "article_id"
@@ -42,6 +42,8 @@ ActiveRecord::Schema.define(:version => 62) do
     t.text     "setting"
     t.boolean  "notify_comments",      :default => false
     t.integer  "hits",                 :default => 0
+    t.date     "published_at"
+    t.string   "source"
   end
 
   create_table "articles", :force => true do |t|
@@ -75,6 +77,8 @@ ActiveRecord::Schema.define(:version => 62) do
     t.text     "setting"
     t.boolean  "notify_comments",      :default => true
     t.integer  "hits",                 :default => 0
+    t.date     "published_at"
+    t.string   "source"
   end
 
   create_table "articles_categories", :id => false, :force => true do |t|
@@ -158,6 +162,17 @@ ActiveRecord::Schema.define(:version => 62) do
     t.text    "custom_header"
     t.text    "custom_footer"
     t.string  "theme"
+  end
+
+  create_table "external_feeds", :force => true do |t|
+    t.string   "feed_title"
+    t.date     "fetched_at"
+    t.string   "address"
+    t.integer  "blog_id",                      :null => false
+    t.boolean  "enabled",    :default => true, :null => false
+    t.boolean  "only_once",  :default => true, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "favorite_enteprises_people", :id => false, :force => true do |t|

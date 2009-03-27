@@ -122,3 +122,26 @@ div.file-manager-button a:hover {
 .file-manager-small .file-manager-controls * {
   text-align: right;
 }
+
+/************* external blog options *****************/
+
+#fetch-external-feed {
+  border: 1px solid #EEE;
+  padding: 5px;
+  margin: 5px 0;
+  width: 460px
+}
+#fetch-external-feed label,
+#fetch-external-feed .formfield,
+#fetch-external-feed #external-feed-options #external-feed-options-only-once label,
+#fetch-external-feed #external-feed-options #external-feed-options-only-once .formfieldline,
+#fetch-external-feed #external-feed-options #external-feed-options-only-once .formfield {
+  display: inline;
+}
+#fetch-external-feed .type-text input {
+  width: 400px;
+}
+#fetch-external-feed #external-feed-options label,
+#fetch-external-feed #external-feed-options .formfield {
+  display: block;
+}

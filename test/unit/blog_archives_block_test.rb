@@ -4,7 +4,7 @@ class BlogArchivesBlockTest < ActiveSupport::TestCase
 
   def setup
     @profile = create_user('flatline').person
-    @profile.articles << Blog.new(:name => 'blog', :profile => @profile)
+    @profile.articles << Blog.new(:name => 'blog-test', :profile => @profile)
   end
   attr_reader :profile
 
@@ -22,7 +22,7 @@ class BlogArchivesBlockTest < ActiveSupport::TestCase
     blog = profile.blog
     for i in 1..10 do
       post = TextileArticle.create!(:name => "post #{i} test", :profile => profile, :parent => blog)
-      post.update_attribute(:created_at, date)
+      post.update_attribute(:published_at, date)
     end
     block = BlogArchivesBlock.new
     block.stubs(:owner).returns(profile)
@@ -34,19 +34,18 @@ class BlogArchivesBlockTest < ActiveSupport::TestCase
     blog = profile.blog
     for i in 1..10 do
       post = TextileArticle.create!(:name => "post #{i} test", :profile => profile, :parent => blog)
-      post.update_attribute(:created_at, date)
+      post.update_attribute(:published_at, date)
     end
     block = BlogArchivesBlock.new
     block.stubs(:owner).returns(profile)
     assert_tag_in_string block.content, :tag => 'a', :content => 'January (10)', :attributes => {:href => /2008\/01/}
   end
 
-
   should 'order list of amount posts' do
     blog = profile.blog
     for i in 1..10 do
       post = TextileArticle.create!(:name => "post #{i} test", :profile => profile, :parent => blog)
-      post.update_attribute(:created_at, DateTime.parse("2008-#{i}-01"))
+      post.update_attribute(:published_at, DateTime.parse("2008-#{i}-01"))
     end
     block = BlogArchivesBlock.new
     block.stubs(:owner).returns(profile)

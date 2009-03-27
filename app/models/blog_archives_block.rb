@@ -18,10 +18,10 @@ class BlogArchivesBlock < Block
     return nil unless owner.has_blog?
     results = ''
     posts = owner.blog.posts
-    posts.group_by{|i| i.created_at.year}.each do |year, results_by_year|
+    posts.group_by{|i| i.published_at.year}.each do |year, results_by_year|
       results << content_tag('li', content_tag('strong', "#{year} (#{results_by_year.size})"))
       results << "<ul class='#{year}-archive'>"
-      results_by_year.group_by{|i| [ ('%02d' % i.created_at.month()), gettext(MONTHS[i.created_at.month() - 1])]}.sort.each do |month, results_by_month|
+      results_by_year.group_by{|i| [ ('%02d' % i.published_at.month()), gettext(MONTHS[i.published_at.month() - 1])]}.sort.each do |month, results_by_month|
         results << content_tag('li', link_to("#{month[1]} (#{results_by_month.size})", owner.generate_url(:controller => 'content_viewer', :action => 'view_page', :page => [owner.blog.path, year, month[0]])))
       end
       results << "</ul>"

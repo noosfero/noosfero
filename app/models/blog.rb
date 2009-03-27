@@ -1,6 +1,6 @@
 class Blog < Folder
 
-  has_many :posts, :class_name => 'Article', :foreign_key => 'parent_id', :source => :children, :conditions => [ 'type != ?', 'RssFeed' ], :order => 'created_at DESC'
+  has_many :posts, :class_name => 'Article', :foreign_key => 'parent_id', :source => :children, :conditions => [ 'type != ?', 'RssFeed' ], :order => 'published_at DESC'
 
   attr_accessor :feed_attrs
   attr_accessor :filter
@@ -56,7 +56,7 @@ class Blog < Folder
     article = self
     children = if filter and filter[:year] and filter[:month]
                 filter_date = DateTime.parse("#{filter[:year]}-#{filter[:month]}-01")
-                posts.paginate :page => npage, :per_page => posts_per_page, :conditions => [ 'created_at between ? and ?', filter_date, filter_date + 1.month - 1.day ]
+                posts.paginate :page => npage, :per_page => posts_per_page, :conditions => [ 'published_at between ? and ?', filter_date, filter_date + 1.month - 1.day ]
               else
                 posts.paginate :page => npage, :per_page => posts_per_page
               end
@@ -64,4 +64,33 @@ class Blog < Folder
       render :file => 'content_viewer/blog_page', :locals => {:article => article, :children => children}
     end
   end
+
+  has_one :external_feed, :foreign_key => 'blog_id'
+
+  attr_accessor :external_feed_data
+  def external_feed_builder=(efeed)
+    self.external_feed_data = efeed
+  end
+
+  def validate
+    unless self.external_feed_data.nil?
+      if self.external_feed(true) && self.external_feed.id == self.external_feed_data[:id].to_i
+        self.external_feed.attributes = self.external_feed_data
+      else
+        self.build_external_feed(self.external_feed_data)
+      end
+      self.external_feed.valid?
+      self.external_feed.errors.delete(:blog_id) # dont validate here relation: external_feed <-> blog
+      self.external_feed.errors.each do |attr,msg|
+        self.errors.add(attr, msg)
+      end
+    end
+  end
+
+  after_save do |blog|
+    if blog.external_feed
+      blog.external_feed.save
+    end
+  end
+
 end

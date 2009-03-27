@@ -1160,19 +1160,13 @@ class ProfileTest < Test::Unit::TestCase
 
   should 'has blog' do
     p = create_user('testuser').person
-    b = Blog.create!(:profile => p, :name => 'blog_feed_test')
+    p.articles << Blog.new(:profile => p, :name => 'blog_feed_test')
     assert p.has_blog?
   end
 
   should 'not has blog' do
     p = create_user('testuser').person
     assert !p.has_blog?
-  end
-
-  should 'get blog when has blog' do
-    p = create_user('testuser').person
-    b = Blog.create!(:profile => p, :name => 'blog_feed_test')
-    assert_equal b, p.blog
   end
 
   should 'get nil when no blog' do

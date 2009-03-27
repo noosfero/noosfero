@@ -11,17 +11,17 @@ class ContentViewerHelperTest < Test::Unit::TestCase
   end
   attr :profile
 
-  should 'display created-at for blog posts' do
+  should 'display published-at for blog posts' do
     blog = Blog.create!(:name => 'Blog test', :profile => profile)
     post = TextileArticle.create!(:name => 'post test', :profile => profile, :parent => blog)
     result = article_title(post)
-    assert_match /#{show_date(post.created_at)}, by .*#{profile.identifier}/, result
+    assert_match /#{show_date(post.published_at)}, by .*#{profile.identifier}/, result
   end
 
-  should 'not display created-at for non-blog posts' do
+  should 'not display published-at for non-blog posts' do
     article = TextileArticle.create!(:name => 'article for test', :profile => profile)
     result = article_title(article)
-    assert_no_match /#{show_date(article.created_at)}, by .*#{profile.identifier}/, result
+    assert_no_match /#{show_date(article.published_at)}, by .*#{profile.identifier}/, result
   end
 
   should 'create link on title of blog posts' do
@@ -54,7 +54,7 @@ class ContentViewerHelperTest < Test::Unit::TestCase
   end
 
   should 'not list feed article' do
-    profile.articles << Blog.new(:name => 'Blog test')
+    profile.articles << Blog.new(:name => 'Blog test', :profile => profile)
     assert_includes profile.blog.children.map{|i| i.class}, RssFeed
     result = list_posts(nil, profile.blog.posts)
     assert_no_match /feed/, result
@@ -64,10 +64,10 @@ class ContentViewerHelperTest < Test::Unit::TestCase
     blog = Blog.create!(:name => 'Blog test', :profile => profile)
 
     nov = TextileArticle.create!(:name => 'November post', :parent => blog, :profile => profile)
-    nov.update_attributes!(:created_at => DateTime.parse('2008-11-15'))
+    nov.update_attributes!(:published_at => DateTime.parse('2008-11-15'))
 
     sep = TextileArticle.create!(:name => 'September post', :parent => blog, :profile => profile)
-    sep.update_attribute(:created_at, DateTime.parse('2008-09-10'))
+    sep.update_attribute(:published_at, DateTime.parse('2008-09-10'))
 
     blog.reload
     blog.filter = {:year => 2008, :month => 11}

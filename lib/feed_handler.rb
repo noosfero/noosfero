@@ -32,7 +32,7 @@ class FeedHandler
       parse.items[0..container.limit-1].each do |item|
         container.add_item(item.title, item.link, item.date, item.content)
       end
-      container.save!
+      container.finish_fetch
     end
   end
 

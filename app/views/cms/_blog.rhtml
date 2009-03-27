@@ -1,3 +1,5 @@
+<%= error_messages_for 'blog' %>
+
 <h3><%= _('My Blog') %></h3>
 
 <%= render :file => 'shared/tiny_mce' %>
@@ -8,12 +10,26 @@
 
 <%= labelled_form_field(_('Posts per page:'), f.select(:posts_per_page, [5, 10, 20, 50, 100])) %>
 
-<% fields_for 'article[feed]', @article.feed do |feed| %>
+<% f.fields_for 'feed', @article.feed do |feed| %>
+  <%= labelled_form_field(_('Limit of posts in RSS Feed'), feed.select(:limit, ['5', '10', '20', '50'])) %>
+  <%= labelled_form_field(_('Use as description in RSS Feed:'), feed.select(:feed_item_description, [ [ _('Article abstract'), 'abstract'], [ _('Article body'), 'body']])) %>
+<% end %>
 
-<%= labelled_form_field(_('Limit of posts in RSS Feed'), feed.select(:limit, ['5', '10', '20', '50'])) %>
-
-<%= labelled_form_field(_('Use as description in RSS Feed:'), feed.select(:feed_item_description, [ [ _('Article abstract'), 'abstract'], [ _('Article body'), 'body']])) %>
-
+<% f.fields_for 'external_feed_builder', @article.external_feed do |efeed| %>
+  <div id='fetch-external-feed'>
+    <% enabled = @article.external_feed && @article.external_feed.enabled %>
+    <% only_once = @article.external_feed ? @article.external_feed.only_once : true %>
+    <%= labelled_check_box(_('Fetch posts from an external feed'), 'article[external_feed_builder][enabled]', 'true', enabled, {:onchange => "$('external-feed-options').toggle()"}) %>
+    <%= hidden_field_tag 'article[external_feed_builder][enabled]', 'false' %>
+    <div id='external-feed-options' style="display: <%= enabled ? 'block' : 'none' %>">
+      <%= efeed.hidden_field(:id) %>
+      <%= labelled_form_field( _('Feed address'), efeed.text_field(:address) ) %>
+      <div id='external-feed-options-only-once'>
+        <%= labelled_radio_button( _('Fetch posts only once'), 'article[external_feed_builder][only_once]', 'true', only_once) %>
+        <%= labelled_radio_button( _('Fetch posts always'), 'article[external_feed_builder][only_once]', 'false', !only_once) %>
+      </div>
+    </div>
+  </div>
 <% end %>
 
 <%= javascript_tag "$('back_to').value = 'control_panel'" %>

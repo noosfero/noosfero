@@ -14,8 +14,9 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
 
     @profile = create_user('testinguser').person
+    @environment = @profile.environment
   end
-  attr_reader :profile
+  attr_reader :profile, :environment
 
   def test_local_files_reference
     page = profile.articles.build(:name => 'test')
@@ -638,9 +639,9 @@ class ContentViewerControllerTest < Test::Unit::TestCase
   end
 
   should 'extract year and month from path' do
-    blog = Blog.create!(:name => 'A blog test', :profile => profile)
-    year, month = blog.created_at.year.to_s, '%02d' % blog.created_at.month
-    get :view_page, :profile => profile.identifier, :page => [blog.path, year, month]
+    profile.articles << Blog.new(:name => 'A blog test', :profile => profile)
+    year, month = profile.blog.created_at.year.to_s, '%02d' % profile.blog.created_at.month
+    get :view_page, :profile => profile.identifier, :page => [profile.blog.path, year, month]
     assert_equal({ :year => year.to_s, :month => month.to_s }, assigns(:page).filter)
   end
 
@@ -693,17 +694,17 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
   should 'add meta tag to rss feed on view blog' do
     login_as(profile.identifier)
-    a = Blog.create!(:name => 'article folder', :profile => profile)
-    get :view_page, :profile => profile.identifier, :page => [a.path]
-    assert_tag :tag => 'link', :attributes => { :rel => 'alternate', :type => 'application/rss+xml', :title => 'feed', :href => /\/#{profile.identifier}\/blog\/feed/}
+    profile.articles << Blog.new(:title => 'article blog', :profile => profile)
+    get :view_page, :profile => profile.identifier, :page => ['blog']
+    assert_tag :tag => 'link', :attributes => { :rel => 'alternate', :type => 'application/rss+xml', :title => 'feed', :href => "http://#{environment.default_hostname}/testinguser/blog/feed" }
   end
 
   should 'add meta tag to rss feed on view post blog' do
     login_as(profile.identifier)
-    a = Blog.create!(:name => 'article folder', :profile => profile)
-    t = TextileArticle.create!(:name => 'first post', :parent => a, :profile => profile)
-    get :view_page, :profile => profile.identifier, :page => [t.path]
-    assert_tag :tag => 'link', :attributes => { :rel => 'alternate', :type => 'application/rss+xml', :title => 'feed', :href => /\/#{profile.identifier}\/blog\/feed/}
+    profile.articles << Blog.new(:name => 'article folder', :profile => profile)
+    profile.blog.posts << TextileArticle.new(:name => 'first post', :parent => profile.blog, :profile => profile)
+    get :view_page, :profile => profile.identifier, :page => ['blog', 'first-post']
+    assert_tag :tag => 'link', :attributes => { :rel => 'alternate', :type => 'application/rss+xml', :title => 'feed', :href => "http://#{environment.default_hostname}/testinguser/blog/feed" }
   end
 
   should 'link to post with comment form opened' do
@@ -785,6 +786,18 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     get :view_page, :profile => profile.identifier, :page => f.explode_path, :slideshow => true
 
     assert_template 'slideshow'
+  end
+
+  should 'display source from article' do
+    profile.articles << TextileArticle.new(:name => "Article one", :profile => profile, :source => 'http://www.original-source.invalid')
+    get :view_page, :profile => profile.identifier, :page => ['article-one']
+    assert_tag :tag => 'div', :attributes => { :id => 'article-source' }, :content => /http:\/\/www.original-source.invalid/
+  end
+
+  should 'not display source if article has no source' do
+    profile.articles << TextileArticle.new(:name => "Article one", :profile => profile)
+    get :view_page, :profile => profile.identifier, :page => ['article-one']
+    assert_no_tag :tag => 'div', :attributes => { :id => 'article-source' }
   end
 
 end

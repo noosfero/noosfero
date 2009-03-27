@@ -684,4 +684,13 @@ class ArticleTest < Test::Unit::TestCase
     assert_equal profile, Article.new(:last_changed_by => nil, :profile => profile).author
   end
 
+  should 'have published_at' do
+    assert_respond_to Article.new, :published_at
+  end
+
+  should 'published_at is same as created_at if not set' do
+    a = Article.create!(:name => 'Published at', :profile => profile)
+    assert_equal a.created_at, a.published_at
+  end
+
 end

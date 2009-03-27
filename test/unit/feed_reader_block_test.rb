@@ -68,4 +68,9 @@ class FeedReaderBlockTest < ActiveSupport::TestCase
     assert_equal [], feed.feed_items
   end
 
+  should 'save! when commit' do
+    feed.expects(:save!)
+    feed.finish_fetch
+  end
+
 end
