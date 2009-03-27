@@ -1,4 +1,4 @@
-class FixSomeRolesPermission < ActiveRecord::Migration
+class AddViewPrivateContentPermission < ActiveRecord::Migration
   def self.up
     admin = Profile::Roles.admin
     admin.permissions += ['view_private_content']
