@@ -239,7 +239,7 @@ class ProfileTest < Test::Unit::TestCase
     profile.boxes.first.blocks << MainBlock.new
 
     profile_boxes = profile.boxes.size
-    profile_blocks = profile.blocks.size
+    profile_blocks = profile.blocks(true).size
 
     assert profile_boxes > 0, 'profile should have some boxes'
     assert profile_blocks > 0, 'profile should have some blocks'

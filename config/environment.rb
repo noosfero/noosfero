@@ -10,6 +10,16 @@ RAILS_GEM_VERSION = '2.0.2' unless defined? RAILS_GEM_VERSION
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 
+# locally-developed modules
+require 'gettext/rails'
+require 'acts_as_filesystem'
+require 'acts_as_having_settings'
+require 'acts_as_searchable'
+require 'acts_as_having_boxes'
+require 'acts_as_having_image'
+require 'will_paginate'
+require 'route_if'
+
 # extra directories for controllers organization 
 extra_controller_dirs = %w[
   app/controllers/my_profile
@@ -37,6 +47,7 @@ Rails::Initializer.run do |config|
 
   # Add additional load paths for your own custom dirs
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
+  config.load_paths += %W( #{RAILS_ROOT}/app/sweepers )
 
   # Force all environments to use the same logger level 
   # (by default production uses :info, the others :debug)
@@ -53,6 +64,7 @@ Rails::Initializer.run do |config|
 
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector
+  config.active_record.observers = :article_sweeper
   # Make Active Record use UTC-base instead of local time
   # config.active_record.default_timezone = :utc
 
@@ -94,7 +106,7 @@ end
 # Include your application configuration below
 
 
-require 'gettext/rails'
+
 Noosfero.locales = {
   'en' => 'English',
   'pt_BR' => 'Português',
@@ -107,17 +119,7 @@ Tag.hierarchical = true
 
 # several local libraries
 require 'noosfero'
-
-# locally-developed modules
-require 'acts_as_filesystem'
-require 'acts_as_searchable'
-require 'acts_as_having_boxes'
-require 'acts_as_having_settings'
-require 'acts_as_having_image'
 require 'sqlite_extension'
-require 'will_paginate'
-
-require 'route_if'
 
 # load a local configuration if present, but not under test environment.
 if ENV['RAILS_ENV'] != 'test'

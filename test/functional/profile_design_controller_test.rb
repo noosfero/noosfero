@@ -60,6 +60,8 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
 
     @request.env['HTTP_REFERER'] = '/editor'
 
+    holder.blocks(true)
+
     @controller.stubs(:boxes_holder).returns(holder)
     login_as 'designtestuser'
   end
@@ -211,6 +213,7 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
     enterprise.boxes.first.blocks << block
     enterprise.add_admin(holder)
 
+    enterprise.blocks(true)
     @controller.stubs(:boxes_holder).returns(enterprise)
     login_as('designtestuser')
 
@@ -230,6 +233,7 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
     enterprise.boxes.first.blocks << block
     enterprise.add_admin(holder)
 
+    enterprise.blocks(true)
     @controller.stubs(:boxes_holder).returns(enterprise)
     login_as('designtestuser')
 
@@ -296,6 +300,7 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
 
   should 'be able to edit FeedReaderBlock' do
     @box1.blocks << FeedReaderBlock.new(:address => 'feed address')
+    holder.blocks(true)
 
     get :edit, :profile => 'designtestuser', :id => @box1.blocks[-1].id
 
@@ -306,6 +311,7 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
 
   should 'be able to save FeedReaderBlock configurations' do
     @box1.blocks << FeedReaderBlock.new(:address => 'feed address')
+    holder.blocks(true)
 
     post :save, :profile => 'designtestuser', :id => @box1.blocks[-1].id, :block => {:address => 'new feed address', :limit => '20'}
 
