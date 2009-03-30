@@ -68,8 +68,8 @@ class LanguageHelperTest < Test::Unit::TestCase
     "<#{tag}>#{text}</#{tag}>"
   end
 
-  def link_to(text, opts)
-    "<a href='?lang=#{opts[:lang]}'>#{text}</a>"
+  def link_to(text, url, options = {})
+    "<a href='?lang=#{url[:lang]}'>#{text}</a>"
   end
 
   def params
