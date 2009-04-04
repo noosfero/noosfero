@@ -5,6 +5,8 @@ body {
   font-size: 14px;
 }
 
+code, pre { color: #666; }
+
 #beta-tag {
   position: absolute;
   top: 40px;
