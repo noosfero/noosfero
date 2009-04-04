@@ -181,17 +181,19 @@ class ArticleTest < Test::Unit::TestCase
     assert_equal [ ], Article.recent(nil)
   end
 
-  should 'order recent articles by updated_at' do
+  should 'order recent articles by published_at' do
     p = create_user('usr1').person
     Article.destroy_all
 
-    first  = p.articles.build(:name => 'first',  :public_article => true);  first.save!
-    second = p.articles.build(:name => 'second', :public_article => true, :updated_at => first.updated_at + 1.second); second.save!
+    now = Time.now
+
+    first  = p.articles.build(:name => 'first',  :public_article => true, :created_at => now, :published_at => now);  first.save!
+    second = p.articles.build(:name => 'second', :public_article => true, :updated_at => now, :published_at => now + 1.second); second.save!
 
     assert_equal [ second, first ], Article.recent(2)
 
     Article.record_timestamps = false
-    first.update_attributes!(:updated_at => second.updated_at + 1.second)
+    first.update_attributes!(:published_at => second.published_at + 1.second)
     Article.record_timestamps = true
 
     assert_equal [ first, second ], Article.recent(2)

@@ -26,7 +26,7 @@
       <%= labelled_form_field( _('Feed address'), efeed.text_field(:address) ) %>
       <div id='external-feed-options-only-once'>
         <%= labelled_radio_button( _('Fetch posts only once'), 'article[external_feed_builder][only_once]', 'true', only_once) %>
-        <%= labelled_radio_button( _('Fetch posts always'), 'article[external_feed_builder][only_once]', 'false', !only_once) %>
+        <%= labelled_radio_button( _('Fetch posts periodically'), 'article[external_feed_builder][only_once]', 'false', !only_once) %>
       </div>
     </div>
   </div>

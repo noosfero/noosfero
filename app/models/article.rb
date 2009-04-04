@@ -109,7 +109,7 @@ class Article < ActiveRecord::Base
                   ((articles.type != ? and articles.type != ? and articles.type != ?) OR articles.type is NULL)", true, true, true, true, 'UploadedFile', 'RssFeed', 'Blog'
                 ],
                 :include => 'profile',
-                :order => 'articles.updated_at desc, articles.id desc'
+                :order => 'articles.published_at desc, articles.id desc'
               }
     if ( scoped_methods && scoped_methods.last &&
          scoped_methods.last[:find] &&

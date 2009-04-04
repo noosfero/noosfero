@@ -56,6 +56,16 @@ class BlogArchivesBlockTest < ActiveSupport::TestCase
             :sibling => {:tag => 'li', :content => 'May (1)'}}}}
   end
 
+  should 'order years' do
+    blog = profile.blog
+    for year in 2005..2009
+      post = TextileArticle.create!(:name => "post #{year}", :profile => profile, :parent => blog, :published_at => Date.new(year, 1, 1))
+    end
+    block = BlogArchivesBlock.new
+    block.stubs(:owner).returns(profile)
+    assert_match(/2009.*2008.*2007.*2006.*2005/m, block.content)
+  end
+
   should 'not display any content if has no blog' do
     profile.stubs(:has_blog?).returns(false)
     assert !profile.has_blog?
