@@ -8,6 +8,10 @@ class User < ActiveRecord::Base
   N_('Password confirmation')
   N_('Terms accepted')
 
+  def self.[](login)
+    self.find_by_login(login)
+  end
+
   # FIXME ugly workaround
   def self.human_attribute_name(attrib)
     case attrib.to_sym

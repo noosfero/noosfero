@@ -283,6 +283,10 @@ class UserTest < Test::Unit::TestCase
     assert !user.email_activation_pending?
   end
 
+  should 'be able to use [] operator to find users by login' do
+    assert_equal users(:ze), User['ze']
+  end
+
   protected
     def new_user(options = {})
       user = User.new({ :login => 'quire', :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire' }.merge(options))
