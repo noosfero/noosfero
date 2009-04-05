@@ -12,7 +12,7 @@ module FolderHelper
     result = content_tag(
       'tr',
       content_tag('td', link_to(('&nbsp;' * (level * 4) ) + image_tag(icon_for_article(article)) + article.name, article.url.merge(:view => true)))+
-      content_tag('td', show_date(article.updated_at), :class => 'last-update'),
+      content_tag('td', show_date(article.published_at), :class => 'last-update'),
       :class => 'sitemap-item'
     )
     if recursive
