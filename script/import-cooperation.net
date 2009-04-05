@@ -1,0 +1,84 @@
+#!/usr/bin/ruby
+require File.dirname(__FILE__) + '/../config/environment'
+
+IMPORT_DIR = '/home/terceiro/src/cooperation-migration/data/export'
+
+if ARGV.size == 0
+  puts "usage: %s <username> [ <username> [ <username> ... ] ]" % $PROGRAM_NAME
+  exit(1)
+end
+
+def password(username)
+  # FIXME
+  '123456'
+end
+
+def domainname(envname)
+  # FIXME remove the suffix
+  envname + '.local'
+end
+
+TinyMceArticle # forces loading the Noosfero class before adding stuff to it
+class TinyMceArticle
+  attr_accessor :is_homepage
+end
+
+
+def import_environment(name)
+  environment = Environment.find_by_name(name)
+  if environment
+    puts "I: environment <#{name}> already exists, loading it."
+  else
+    environment = Environment.create!(:name => name)
+    Domain.create!(:name => domainname(name), :owner => environment)
+    puts "I: environment <#{name}> created."
+  end
+  environment
+end
+
+for username in ARGV
+  begin
+    User.transaction do
+      # guess environment
+      envname = username.gsub(/^.*@/, '')
+      environment = import_environment(envname)
+
+      # create user
+      login = username.gsub(/@.*$/, '')
+      user = User.create!(:login => login, :email => username, :environment => environment, :password => password(username), :password_confirmation => password(username))
+      puts "I: user account for #{username} created"
+
+      # import person data
+      person = user.person
+      person.from_xml(File.read(File.join(IMPORT_DIR, username + '.xml')))
+      puts "I: #{username} data imported"
+
+      # import articles
+      Dir.glob(File.join(IMPORT_DIR, username, 'articles', '*.xml')) do |xml|
+        puts "I: Trying to import #{username}'s article in #{xml} ..."
+        article = TinyMceArticle.new
+        article.from_xml(File.read(xml))
+        article.profile = person
+        if article.valid?
+          article.save!
+          puts "I: #{username}'s article #{article.name.inspect} imported"
+        else
+          $stderr.puts "W: #{username}'s article #{article.name.inspect} cannot be saved. Errors: #{article.errors.full_messages.join(', ')}"
+        end
+
+        if article.is_homepage
+          person.home_page = article
+          person.save!
+          puts "I: Article #{article.name.inspect} is #{username}'s homepage!"
+        end
+
+      end
+    end
+  rescue Exception => e
+    $stderr.puts "=================================="
+    $stderr.puts "E: importing <#{username}> failed."
+    $stderr.puts e
+    $stderr.puts "=================================="
+    $stderr.puts "E: Note that ALL operations above were CANCELLED due to these errors."
+  end
+end
