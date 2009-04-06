@@ -79,6 +79,6 @@ for username in ARGV
     $stderr.puts "E: importing <#{username}> failed."
     $stderr.puts e
     $stderr.puts "=================================="
-    $stderr.puts "E: Note that ALL operations above were CANCELLED due to these errors."
+    $stderr.puts "E: Note that ALL operations above relative to <#{username}> were CANCELLED due to these errors."
   end
 end
