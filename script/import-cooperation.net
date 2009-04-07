@@ -22,7 +22,19 @@ TinyMceArticle # forces loading the Noosfero class before adding stuff to it
 class TinyMceArticle
   attr_accessor :is_homepage
 end
+UploadedFile # force loading Noosfero class before addinf stuff to it
+class UploadedFile
+  attr_accessor :is_homepage, :filesystem_location
+end
 
+class FileData < StringIO
+  attr_reader :original_filename, :content_type
+  def initialize(actual_filename, name, content_type)
+    @original_filename = name
+    @content_type = content_type
+    super(File.read(actual_filename))
+  end
+end
 
 def import_environment(name)
   environment = Environment.find_by_name(name)
@@ -64,6 +76,7 @@ for username in ARGV
           puts "I: #{username}'s article #{article.name.inspect} imported"
         else
           $stderr.puts "W: #{username}'s article #{article.name.inspect} cannot be saved. Errors: #{article.errors.full_messages.join(', ')}"
+          next
         end
 
         if article.is_homepage
@@ -72,12 +85,36 @@ for username in ARGV
           puts "I: Article #{article.name.inspect} is #{username}'s homepage!"
         end
 
+        # import attachments
+        attachments_dir = xml.gsub(/\.xml$/, '')
+        Dir.glob(File.join(attachments_dir, 'attachments', '*.xml')).each do |attachment_xml|
+          file = UploadedFile.new
+          file.from_xml(File.read(attachment_xml))
+          puts "I: about to read data from #{file.filesystem_location} (xml: #{attachment_xml})"
+          file.uploaded_data = FileData.new(file.filesystem_location, file.filename, file.content_type)
+          file.parent = article
+          file.profile = person
+          file.save!
+          puts "I: attachment added to article #{article.id}"
+
+          file.reload
+          if file.image?
+            file.parent.body = "<img align='left' style='margin-right: 5px; margin-bottom: 5px;' src='/#{login}/#{file.path}'/> " + file.parent.body
+          else
+            if file.parent.body
+              file.parent.body += "<hr/><div><a href='/#{login}/#{file.path}'>#{file.abstract}</a></div>"
+            end
+          end
+          file.parent.save
+
+        end
       end
     end
   rescue Exception => e
     $stderr.puts "=================================="
     $stderr.puts "E: importing <#{username}> failed."
     $stderr.puts e
+    $stderr.puts e.backtrace
     $stderr.puts "=================================="
     $stderr.puts "E: Note that ALL operations above relative to <#{username}> were CANCELLED due to these errors."
   end
