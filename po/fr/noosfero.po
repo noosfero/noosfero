@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-06 23:10-0300\n"
+"POT-Creation-Date: 2009-04-07 23:53-0300\n"
 "PO-Revision-Date: 2008-06-13 16:15-0300\n"
 "Last-Translator: Raphael Rousseau <pootle.colivre.coop.br@r4f.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2705,8 +2705,8 @@ msgstr ""
 
 #: app/models/feed_reader_block.rb:22
 msgid ""
-"This block can be used to create a list of latest N posts from a given RSS "
-"feed. You should only enter the RSS feed address."
+"This block can be used to list the latest new from any site you want. You "
+"just need to inform the address of a RSS feed."
 msgstr ""
 
 #: app/models/feed_reader_block.rb:26
@@ -4296,9 +4296,8 @@ msgstr "Activer une entreprise approuvée"
 msgid "Enterprise activation code"
 msgstr "Validation d'entreprises"
 
-#: app/views/home/index.rhtml:9
-#, fuzzy
-msgid "Ativar"
+#: app/views/home/index.rhtml:9 app/views/enterprise_editor/index.rhtml:17
+msgid "Activate"
 msgstr "Activer"
 
 #: app/views/enterprise_registration/select_validator.rhtml:1
@@ -4434,10 +4433,6 @@ msgstr "Détruire l'entreprise"
 #: app/views/enterprise_editor/index.rhtml:16
 msgid "Remove the enterprise from the system"
 msgstr "Ôter l'entreprise du système"
-
-#: app/views/enterprise_editor/index.rhtml:17
-msgid "Activate"
-msgstr "Activer"
 
 #: app/views/enterprise_editor/index.rhtml:18
 msgid "Activate an approved enterprise"
@@ -5133,17 +5128,16 @@ msgstr "Vote navigateur web est obsolète !"
 #: app/views/layouts/application.rhtml:188
 #, fuzzy
 msgid ""
-"This website will not look as good as it could.\n"
-"           Don't you want to use Firefox? That is a great web browser, "
-"free,\n"
-"           and made by people of all the world parts."
+"This website will not look as good as it could. Don't you want to use "
+"Firefox? That is a great web browser, free, and made by people from all over "
+"the world."
 msgstr ""
 "Ce site web ne sera pas aussi beau qu'il pourrait.\n"
 "         Ne voulez-vous pas utiliser Firefox ? C'est un super navigateur "
 "web, libre et gratuit\n"
 "         et élaboré par des gens de partout dans le monde."
 
-#: app/views/layouts/application.rhtml:192
+#: app/views/layouts/application.rhtml:190
 msgid "Get Firefox Now!"
 msgstr "Obtenir Firefox maintenant !"
 
@@ -6143,6 +6137,10 @@ msgstr "Déactiver la recherche d'organisations"
 #: public/designs/themes/zen3/footer.rhtml:2
 msgid "A Ynternet.org project"
 msgstr "Un projet d'Ynternet.org"
+
+#, fuzzy
+#~ msgid "Ativar"
+#~ msgstr "Activer"
 
 #~ msgid "Could not update the enterprise"
 #~ msgstr "Impossible de mettre à jour l'entreprise"

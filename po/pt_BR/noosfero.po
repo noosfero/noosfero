@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.15.0\n"
-"POT-Creation-Date: 2009-04-06 23:10-0300\n"
-"PO-Revision-Date: 2009-03-18 11:55-0300\n"
+"POT-Creation-Date: 2009-04-07 23:53-0300\n"
+"PO-Revision-Date: 2009-04-07 23:56-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -79,9 +79,8 @@ msgid "%{month} %{day}, %{year}"
 msgstr "%{day} de %{month} de %{year}"
 
 #: app/helpers/dates_helper.rb:36
-#, fuzzy
 msgid "%d %B %Y, %H:%M"
-msgstr "%d de %B de %Y, %H:%m"
+msgstr "%d de %B de %Y, %H:%M"
 
 #: app/helpers/dates_helper.rb:46
 msgid "from %s to %s"
@@ -688,7 +687,7 @@ msgstr "Gerenciar conteúdo"
 
 #: app/helpers/boxes_helper.rb:81
 msgid "This block is invisible. Your visitors will not see it."
-msgstr ""
+msgstr "Este bloco é invisível. Seus visitantes não vão vê-lo."
 
 #: app/helpers/boxes_helper.rb:161
 msgid "Can't move up anymore."
@@ -858,9 +857,8 @@ msgid "%d results found"
 msgstr "%d resultados encontrados"
 
 #: app/helpers/application_helper.rb:725
-#, fuzzy
 msgid "In all categories"
-msgstr "Desabilitar categorias"
+msgstr "Em todas as categorias"
 
 #: app/helpers/blog_helper.rb:10
 msgid "New post"
@@ -871,14 +869,12 @@ msgid "Edit blog"
 msgstr "Editar blog"
 
 #: app/helpers/blog_helper.rb:20
-#, fuzzy
 msgid "&laquo; Newer posts"
-msgstr "&laquo; Posts antigos"
+msgstr "&laquo; Posts mais novos"
 
 #: app/helpers/blog_helper.rb:21
-#, fuzzy
 msgid "Older posts &raquo;"
-msgstr "Posts recentes &raquo;"
+msgstr "Posts mais antigos &raquo;"
 
 #: app/helpers/article_helper.rb:15
 msgid "I want to receive comments about this article"
@@ -2259,22 +2255,19 @@ msgstr "Validado"
 
 #: app/models/external_feed.rb:-
 msgid "external feed"
-msgstr ""
+msgstr "feed externo"
 
 #: app/models/external_feed.rb:-
-#, fuzzy
 msgid "Feed title"
-msgstr "Opções do feed"
+msgstr "Título do feed"
 
 #: app/models/external_feed.rb:-
-#, fuzzy
 msgid "Fetched at"
-msgstr "Criado em"
+msgstr "Obtido em"
 
 #: app/models/external_feed.rb:-
-#, fuzzy
 msgid "Only once"
-msgstr "Apenas em %s"
+msgstr "Uma vez só"
 
 #: app/models/localization_block.rb:4
 msgid "Localization map block"
@@ -2373,9 +2366,8 @@ msgid "Edit appearance"
 msgstr "Editar aparência"
 
 #: app/models/profile.rb:39
-#, fuzzy
 msgid "View private content"
-msgstr "Ir para o conteúdo"
+msgstr "Ver conteúdo privado"
 
 #: app/models/profile.rb:190
 msgid "An existing profile cannot be renamed."
@@ -2556,13 +2548,12 @@ msgid "Disable the popup that ask to join a group/community"
 msgstr "Desabilitar o popup que pede para entrar em um grupo/comunidade"
 
 #: app/models/environment.rb:44
-#, fuzzy
 msgid "Enable activation of enterprises"
-msgstr "Falhou em ativar o empreendimento"
+msgstr "Habilitar ativação de empreendimentos"
 
 #: app/models/environment.rb:45
 msgid "Enable warning of obsolete browser"
-msgstr ""
+msgstr "Habilitar aviso sobre navegador obsoleto"
 
 #: app/models/environment.rb:289
 msgid "Hello <friend>,"
@@ -2640,26 +2631,27 @@ msgstr "Pedido de alteração de senha"
 
 #: app/models/feed_reader_block.rb:18
 msgid "List the latest N posts from a given RSS feed."
-msgstr ""
+msgstr "Lista os últimos N posts de um dado feed RSS."
 
 #: app/models/feed_reader_block.rb:22
 msgid ""
-"This block can be used to create a list of latest N posts from a given RSS "
-"feed. You should only enter the RSS feed address."
+"This block can be used to list the latest new from any site you want. You "
+"just need to inform the address of a RSS feed."
 msgstr ""
+"Este bloco pode ser usado para listar as últimas notícias de qualquer site "
+"que você queira. Você só precisa informar o endereço de um feed RSS."
 
 #: app/models/feed_reader_block.rb:26
 msgid "Feed Reader"
-msgstr ""
+msgstr "Leitor de feed"
 
 #: app/models/feed_reader_block.rb:37
 msgid "Feed content was not loaded yet"
-msgstr ""
+msgstr "O conteúdo do feed não foi carregado ainda"
 
 #: app/models/feed_reader_block.rb:39
-#, fuzzy
 msgid "Updated: %s"
-msgstr "Atualizado em"
+msgstr "Atualizado: %s"
 
 #: app/models/uploaded_file.rb:22
 msgid "The file you uploaded was larger than the maximum size of %s"
@@ -3890,12 +3882,11 @@ msgstr "Selecione o arquivo que você quer enviar (tamanho máximo %s):"
 
 #: app/views/cms/upload_files.rhtml:18
 msgid "Documents, Images, Videos, Audio"
-msgstr ""
+msgstr "Documentos, Imagens, Vídeos, Áudio"
 
 #: app/views/cms/upload_files.rhtml:20
-#, fuzzy
 msgid "Uploading files to %s"
-msgstr "Enviar arquivos"
+msgstr "Enviando arquivos para %s"
 
 #: app/views/cms/upload_files.rhtml:35
 msgid "More files"
@@ -3938,20 +3929,19 @@ msgstr "Usar como descrição no feed RSS:"
 
 #: app/views/cms/_blog.rhtml:22
 msgid "Fetch posts from an external feed"
-msgstr ""
+msgstr "Obter posts de um feed externo"
 
 #: app/views/cms/_blog.rhtml:26
-#, fuzzy
 msgid "Feed address"
-msgstr "Endereço"
+msgstr "Endereço do feed"
 
 #: app/views/cms/_blog.rhtml:28
 msgid "Fetch posts only once"
-msgstr ""
+msgstr "Obter posts apenas uma vez"
 
 #: app/views/cms/_blog.rhtml:29
 msgid "Fetch posts periodically"
-msgstr ""
+msgstr "Obter posts periodicamente"
 
 #: app/views/task_mailer/task_cancelled.text.plain.rhtml:1
 #: app/views/task_mailer/task_finished.text.plain.rhtml:1
@@ -4189,18 +4179,15 @@ msgid "Add enterprise as favorite"
 msgstr "Editar empreendimento como favorito"
 
 #: app/views/home/index.rhtml:7
-#, fuzzy
 msgid "Activate your enterprise"
-msgstr "Ativa um empreendimento aprovado"
+msgstr "Ativar seu empreendimento"
 
 #: app/views/home/index.rhtml:8
-#, fuzzy
 msgid "Enterprise activation code"
-msgstr "Ativação de empreendimento"
+msgstr "Código de Ativação do empreendimento"
 
-#: app/views/home/index.rhtml:9
-#, fuzzy
-msgid "Ativar"
+#: app/views/home/index.rhtml:9 app/views/enterprise_editor/index.rhtml:17
+msgid "Activate"
 msgstr "Ativar"
 
 #: app/views/enterprise_registration/select_validator.rhtml:1
@@ -4330,10 +4317,6 @@ msgstr "Excluir empreendimento"
 #: app/views/enterprise_editor/index.rhtml:16
 msgid "Remove the enterprise from the system"
 msgstr "Excluir o empreendimnto do sistema"
-
-#: app/views/enterprise_editor/index.rhtml:17
-msgid "Activate"
-msgstr "Ativar"
 
 #: app/views/enterprise_editor/index.rhtml:18
 msgid "Activate an approved enterprise"
@@ -4860,13 +4843,12 @@ msgid "Up"
 msgstr "Acima"
 
 #: app/views/content_viewer/view_page.rhtml:102
-#, fuzzy
 msgid "Source: %s"
-msgstr "Preço: %s"
+msgstr "Fonte: %s"
 
 #: app/views/content_viewer/blog_page.rhtml:1
 msgid "(external feed was not loaded yet)"
-msgstr ""
+msgstr "(feed externo não foi carregado ainda)"
 
 #: app/views/content_viewer/blog_page.rhtml:5
 msgid "(no posts)"
@@ -4889,9 +4871,8 @@ msgid "View slideshow"
 msgstr "Ver apresentação"
 
 #: app/views/content_viewer/_comment.rhtml:6
-#, fuzzy
 msgid "Remove this comment"
-msgstr "Sair desta comunidade"
+msgstr "Remover este comentário"
 
 #: app/views/content_viewer/_comment.rhtml:6
 msgid "Are you sure you want to remove this comment?"
@@ -5009,18 +4990,16 @@ msgid "Your web browser is obsolete!"
 msgstr "Seu navegador web esta obsoleto!"
 
 #: app/views/layouts/application.rhtml:188
-#, fuzzy
 msgid ""
-"This website will not look as good as it could.\n"
-"           Don't you want to use Firefox? That is a great web browser, "
-"free,\n"
-"           and made by people of all the world parts."
+"This website will not look as good as it could. Don't you want to use "
+"Firefox? That is a great web browser, free, and made by people from all over "
+"the world."
 msgstr ""
-"Este site não será apresentado como deveria.Você não gostaria de usar o "
-"Firefox? É um ótimo navegador, livre e feito por pessoas de todos os cantos "
+"Este site não será apresentado tão com quanto poderia. Você não gostaria de usar o "
+"Firefox? É um ótimo navegador, livre e feito por pessoas de todos as partes "
 "do mundo."
 
-#: app/views/layouts/application.rhtml:192
+#: app/views/layouts/application.rhtml:190
 msgid "Get Firefox Now!"
 msgstr "Baixe o Firefox Já!"
 
@@ -5208,9 +5187,8 @@ msgid "Custom title for this block: "
 msgstr "Título personalizado para este bloco: "
 
 #: app/views/box_organizer/_feed_reader_block.rhtml:3
-#, fuzzy
 msgid "Limit of posts to display"
-msgstr "Limite de posts no feed RSS"
+msgstr "Limite de posts para exibir"
 
 #: app/views/box_organizer/_link_list_block.rhtml:2
 msgid "Links"
@@ -5391,7 +5369,6 @@ msgid "CSS code: \"%s\""
 msgstr "Código CSS: \"%s\""
 
 #: app/views/categories/_form.rhtml:24
-#, fuzzy
 msgid "Display in the menu"
 msgstr "Mostrar no menu"
 
@@ -5753,19 +5730,16 @@ msgid "%s's institutions"
 msgstr "Instituições de %s"
 
 #: lib/unifreire_terminology.rb:33
-#, fuzzy
 msgid "Activate your institution"
-msgstr "Um bloco que apresenta suas instituições."
+msgstr "Ative sua instituição"
 
 #: lib/unifreire_terminology.rb:34
-#, fuzzy
 msgid "Institution activation code"
-msgstr "Instituições em \"%s\""
+msgstr "Código de Ativação da Instituição"
 
 #: lib/unifreire_terminology.rb:35
-#, fuzzy
 msgid "Disable activation of institutions"
-msgstr "Desabilitar busca por instituições"
+msgstr "Desabilitar ativação de instituições"
 
 #: lib/zen3_terminology.rb:9
 msgid "My ePortfolio"
@@ -5984,19 +5958,16 @@ msgid "Do you want to join this group?"
 msgstr "Você quer entrar neste grupo?"
 
 #: lib/zen3_terminology.rb:63
-#, fuzzy
 msgid "Activate your organization"
-msgstr "Um bloco que apresenta suas organizações."
+msgstr "Ativar sua organização"
 
 #: lib/zen3_terminology.rb:64
-#, fuzzy
 msgid "Organization activation code"
-msgstr "Website da organização"
+msgstr "Código de Ativação da Organização"
 
 #: lib/zen3_terminology.rb:65
-#, fuzzy
 msgid "Disable activation of organizations"
-msgstr "Desabilitar busca por organizações"
+msgstr "Desabilitar ativação de organizações"
 
 #: public/designs/themes/zen3/footer.rhtml:2
 msgid "A Ynternet.org project"

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.15.0\n"
-"POT-Creation-Date: 2009-04-06 23:10-0300\n"
+"POT-Creation-Date: 2009-04-07 23:53-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2580,8 +2580,8 @@ msgstr ""
 
 #: app/models/feed_reader_block.rb:22
 msgid ""
-"This block can be used to create a list of latest N posts from a given RSS "
-"feed. You should only enter the RSS feed address."
+"This block can be used to list the latest new from any site you want. You "
+"just need to inform the address of a RSS feed."
 msgstr ""
 
 #: app/models/feed_reader_block.rb:26
@@ -4051,8 +4051,8 @@ msgstr ""
 msgid "Enterprise activation code"
 msgstr ""
 
-#: app/views/home/index.rhtml:9
-msgid "Ativar"
+#: app/views/home/index.rhtml:9 app/views/enterprise_editor/index.rhtml:17
+msgid "Activate"
 msgstr ""
 
 #: app/views/enterprise_registration/select_validator.rhtml:1
@@ -4172,10 +4172,6 @@ msgstr ""
 
 #: app/views/enterprise_editor/index.rhtml:16
 msgid "Remove the enterprise from the system"
-msgstr ""
-
-#: app/views/enterprise_editor/index.rhtml:17
-msgid "Activate"
 msgstr ""
 
 #: app/views/enterprise_editor/index.rhtml:18
@@ -4823,13 +4819,12 @@ msgstr ""
 
 #: app/views/layouts/application.rhtml:188
 msgid ""
-"This website will not look as good as it could.\n"
-"           Don't you want to use Firefox? That is a great web browser, "
-"free,\n"
-"           and made by people of all the world parts."
+"This website will not look as good as it could. Don't you want to use "
+"Firefox? That is a great web browser, free, and made by people from all over "
+"the world."
 msgstr ""
 
-#: app/views/layouts/application.rhtml:192
+#: app/views/layouts/application.rhtml:190
 msgid "Get Firefox Now!"
 msgstr ""
 
