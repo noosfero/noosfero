@@ -6,7 +6,7 @@
     <% form_tag({:controller => 'account', :action => 'activation_question'}, {:method => 'get'}) do %>
       <p><strong><%= __('Activate your enterprise') %></strong></p>
       <%= labelled_form_field(__('Enterprise activation code') + ':', text_field_tag('enterprise_code')) %>
-      <%= submit_button(:ok, _('Ativar')) %>
+      <%= submit_button(:ok, _('Activate')) %>
     <% end %>
   </div>
 

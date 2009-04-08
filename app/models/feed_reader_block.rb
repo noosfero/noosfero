@@ -19,7 +19,7 @@ class FeedReaderBlock < Block
   end
 
   def help
-    _('This block can be used to create a list of latest N posts from a given RSS feed. You should only enter the RSS feed address.')
+    _('This block can be used to list the latest new from any site you want. You just need to inform the address of a RSS feed.')
   end
 
   def default_title
