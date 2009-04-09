@@ -11,9 +11,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.15.0\n"
-"POT-Creation-Date: 2009-04-07 23:53-0300\n"
-"PO-Revision-Date: 2009-04-07 23:56-0300\n"
+"Project-Id-Version: noosfero 0.16.0\n"
+"POT-Creation-Date: 2009-04-09 18:20-0300\n"
+"PO-Revision-Date: 2009-04-09 18:22-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1446,7 +1446,6 @@ msgid "This block presents some statistics about your environment."
 msgstr "Este bloco apresenta suas estatísticas sobre seu ambiente."
 
 #: app/models/environment_statistics_block.rb:21
-#: public/designs/themes/zen3/footer.rhtml:14
 msgid "One user"
 msgid_plural "%{num} users"
 msgstr[0] "Um usuário"
@@ -3943,6 +3942,14 @@ msgstr "Obter posts apenas uma vez"
 msgid "Fetch posts periodically"
 msgstr "Obter posts periodicamente"
 
+#: app/views/cms/_blog.rhtml:31
+msgid ""
+"Feeds are updated in batches periodically. Please note that your posts will "
+"not be fetched immediately."
+msgstr ""
+"Os feeds são atualizados em lote periodicamente. Por favor, note que seus "
+"não serão obtidos imediatamente."
+
 #: app/views/task_mailer/task_cancelled.text.plain.rhtml:1
 #: app/views/task_mailer/task_finished.text.plain.rhtml:1
 #: app/views/task_mailer/task_created.text.plain.rhtml:1
@@ -4995,9 +5002,9 @@ msgid ""
 "Firefox? That is a great web browser, free, and made by people from all over "
 "the world."
 msgstr ""
-"Este site não será apresentado tão com quanto poderia. Você não gostaria de usar o "
-"Firefox? É um ótimo navegador, livre e feito por pessoas de todos as partes "
-"do mundo."
+"Este site não será apresentado tão com quanto poderia. Você não gostaria de "
+"usar o Firefox? É um ótimo navegador, livre e feito por pessoas de todos as "
+"partes do mundo."
 
 #: app/views/layouts/application.rhtml:190
 msgid "Get Firefox Now!"
@@ -5969,9 +5976,8 @@ msgstr "Código de Ativação da Organização"
 msgid "Disable activation of organizations"
 msgstr "Desabilitar ativação de organizações"
 
-#: public/designs/themes/zen3/footer.rhtml:2
-msgid "A Ynternet.org project"
-msgstr "Um projeto da Ynternet.org"
+#~ msgid "A Ynternet.org project"
+#~ msgstr "Um projeto da Ynternet.org"
 
 #~ msgid "article"
 #~ msgstr "artigo"
