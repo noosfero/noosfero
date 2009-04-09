@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.15.0\n"
-"POT-Creation-Date: 2009-04-07 23:53-0300\n"
+"Project-Id-Version: noosfero 0.16.0\n"
+"POT-Creation-Date: 2009-04-09 18:20-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1434,7 +1434,6 @@ msgid "This block presents some statistics about your environment."
 msgstr ""
 
 #: app/models/environment_statistics_block.rb:21
-#: public/designs/themes/zen3/footer.rhtml:14
 msgid "One user"
 msgid_plural "%{num} users"
 msgstr[0] "Մեկ օգտվող"
@@ -3886,6 +3885,12 @@ msgstr ""
 msgid "Fetch posts periodically"
 msgstr ""
 
+#: app/views/cms/_blog.rhtml:31
+msgid ""
+"Feeds are updated in batches periodically. Please note that your posts will "
+"not be fetched immediately."
+msgstr ""
+
 #: app/views/task_mailer/task_cancelled.text.plain.rhtml:1
 #: app/views/task_mailer/task_finished.text.plain.rhtml:1
 #: app/views/task_mailer/task_created.text.plain.rhtml:1
@@ -5883,9 +5888,8 @@ msgstr "Կազնակերպությունները «%s»:"
 msgid "Disable activation of organizations"
 msgstr "Դիզակտիվացնել կազմակերպությունների որոնումը"
 
-#: public/designs/themes/zen3/footer.rhtml:2
-msgid "A Ynternet.org project"
-msgstr "Ynternet.org - ի ծրագրերից մեկը"
+#~ msgid "A Ynternet.org project"
+#~ msgstr "Ynternet.org - ի ծրագրերից մեկը"
 
 #, fuzzy
 #~ msgid "Ativar"

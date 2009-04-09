@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.15.0\n"
+"Project-Id-Version: noosfero 0.16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-07 23:53-0300\n"
+"POT-Creation-Date: 2009-04-09 18:20-0300\n"
 "PO-Revision-Date: 2008-06-13 16:15-0300\n"
 "Last-Translator: Raphael Rousseau <pootle.colivre.coop.br@r4f.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1477,7 +1477,6 @@ msgstr "Ce bloc présente quelques statistiques sur votre environnement."
 #
 # -- it is correct! :) -- terceiro
 #: app/models/environment_statistics_block.rb:21
-#: public/designs/themes/zen3/footer.rhtml:14
 #, fuzzy
 msgid "One user"
 msgid_plural "%{num} users"
@@ -4044,6 +4043,12 @@ msgstr ""
 msgid "Fetch posts periodically"
 msgstr ""
 
+#: app/views/cms/_blog.rhtml:31
+msgid ""
+"Feeds are updated in batches periodically. Please note that your posts will "
+"not be fetched immediately."
+msgstr ""
+
 #: app/views/task_mailer/task_cancelled.text.plain.rhtml:1
 #: app/views/task_mailer/task_finished.text.plain.rhtml:1
 #: app/views/task_mailer/task_created.text.plain.rhtml:1
@@ -6134,9 +6139,8 @@ msgstr "info organisation"
 msgid "Disable activation of organizations"
 msgstr "Déactiver la recherche d'organisations"
 
-#: public/designs/themes/zen3/footer.rhtml:2
-msgid "A Ynternet.org project"
-msgstr "Un projet d'Ynternet.org"
+#~ msgid "A Ynternet.org project"
+#~ msgstr "Un projet d'Ynternet.org"
 
 #, fuzzy
 #~ msgid "Ativar"

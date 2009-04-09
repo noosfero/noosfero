@@ -27,6 +27,9 @@
       <div id='external-feed-options-only-once'>
         <%= labelled_radio_button( _('Fetch posts only once'), 'article[external_feed_builder][only_once]', 'true', only_once) %>
         <%= labelled_radio_button( _('Fetch posts periodically'), 'article[external_feed_builder][only_once]', 'false', !only_once) %>
+        <p>
+          <em><%= _('Feeds are updated in batches periodically. Please note that your posts will not be fetched immediately.') %></em>
+        </p>
       </div>
     </div>
   </div>
