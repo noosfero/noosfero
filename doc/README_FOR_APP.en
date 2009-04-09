@@ -22,10 +22,11 @@ You need to have a Subversion client (svn) installed, as well as:
 * will_paginate: http://github.com/mislav/will_paginate/wikis
 * contacts: http://github.com/cardmagic/contacts/tree/master
 * iso-codes: http://pkg-isocodes.alioth.debian.org/
+* feedparser: http://packages.debian.org/sid/libfeedparser-ruby
 
 There are Debian packages available for all of them but ferret. Try:
 
- # aptitude install subversion ruby rake libgettext-ruby libmocha-ruby libsqlite3-ruby rcov librmagick-ruby libredcloth-ruby liblocale-ruby libwill-paginate-ruby iso-codes
+ # aptitude install subversion ruby rake libgettext-ruby libmocha-ruby libsqlite3-ruby rcov librmagick-ruby libredcloth-ruby liblocale-ruby libwill-paginate-ruby iso-codes libfeedparser-ruby
 
 Ferret shall enter Debian soon (as <tt>libferret-ruby</tt>). until there you have two options:
 
