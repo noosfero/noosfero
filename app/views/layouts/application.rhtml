@@ -46,9 +46,7 @@
     %>
 
     <%= template_stylesheet_tag %>
-
-    <%# FIXME %>
-    <%= stylesheet_link_tag '/designs/icons/default/style.css' %>
+    <%= icon_theme_stylesheet_tag %>
 
     <%= stylesheet_link_tag 'iepngfix/iepngfix.css' %>
     <base href="<%= base_url %>"/>
@@ -134,7 +132,7 @@
           <%= render :file => 'shared/user_menu' %>
         </div><!-- id='user_box' -->
 
-        <a href="#" id="btShowHelp" class="icon-help32on help-on"
+        <a href="#" id="btShowHelp" class="icon-help32on help-on icon-help-on"
            title="<%= _('Turn help on/off') %>"
            onclick="mouseHelpOnOff(); return false"><span><%= _('Help') %></span></a>
 

@@ -787,4 +787,14 @@ module ApplicationHelper
     end
   end
 
+  def icon_theme_stylesheet_tag
+    theme_path = "/designs/icons/#{environment.icon_theme}/style.css"
+    if File.exists?(File.join(RAILS_ROOT, 'public', theme_path))
+      stylesheet_link_tag theme_path
+    else
+      "<!-- Not included: #{stylesheet_link_tag theme_path} -->\n" +
+      stylesheet_link_tag("/designs/icons/default/style.css")
+    end
+  end
+
 end

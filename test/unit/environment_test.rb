@@ -701,4 +701,19 @@ class EnvironmentTest < Test::Unit::TestCase
     end
   end
 
+  should 'provide icon theme' do
+    assert_equal 'my-icons-theme', Environment.new(:icon_theme => 'my-icons-theme').icon_theme
+  end
+
+  should 'give default icon theme' do
+    assert_equal 'default', Environment.new.icon_theme
+  end
+
+  should 'modify icon theme' do
+    e = Environment.new
+    assert_equal 'default', e.icon_theme
+    e.icon_theme = 'non-default'
+    assert_not_equal 'default', e.icon_theme
+  end
+
 end

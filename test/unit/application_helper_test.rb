@@ -446,6 +446,13 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert !ask_to_join?
   end
 
+  should 'give default icon theme when no exists stylesheet file' do
+    e = Environment.default
+    e.icon_theme = 'something-very-unlikely'
+    stubs(:environment).returns(e)
+    assert_equal "<!-- Not included: /designs/icons/something-very-unlikely/style.css -->\n/designs/icons/default/style.css", icon_theme_stylesheet_tag
+  end
+
   protected
 
   def url_for(args = {})
@@ -462,6 +469,9 @@ class ApplicationHelperTest < Test::Unit::TestCase
   end
   def check_box_tag(name, value = 1, checked = false, options = {})
     name
+  end
+  def stylesheet_link_tag(arg)
+    arg
   end
 
 end

@@ -458,6 +458,13 @@ class Environment < ActiveRecord::Base
     settings[:themes] = values.map(&:id)
   end
 
+  def icon_theme
+    settings[:icon_theme] || 'default'
+  end
+  def icon_theme=(theme)
+    settings[:icon_theme] = theme
+  end
+
   def layout_template
     settings[:layout_template] || 'default'
   end

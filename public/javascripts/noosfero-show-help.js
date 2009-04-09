@@ -2,10 +2,10 @@
 function mouseHelpOnOff() {
   if ( pageHelp.info.updateBox ) {
     showMouseHelpOff()
-    $("btShowHelp").className = "icon-help32on help-on";
+    $("btShowHelp").className = "icon-help32on help-on icon-help-on";
   } else {
     showMouseHelpOn()
-    $("btShowHelp").className = "icon-help32off help-off";
+    $("btShowHelp").className = "icon-help32off help-off icon-help-off";
   }
   var date = new Date();
   // open/close help on help button is remembed by one year:
