@@ -64,6 +64,7 @@ class Zen3Terminology < Noosfero::Terminology::Custom
       'Enterprise activation code' => N_('Organization activation code'),
       'Disable activation of enterprises' => N_('Disable activation of organizations'),
       'Manage community fields' => N_('Manage group fields'),
+      'Create a new community' => N_('Create a new group'),
     })
   end
 
