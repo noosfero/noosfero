@@ -41,9 +41,14 @@
 
   <%= file_manager_button(_('Manage Products and Services'), 'icons-app/products.png', :controller => 'manage_products') if profile.enterprise? && !environment.enabled?('disable_products_for_enterprises') %>
 
-  <%= file_manager_button(__('Enterprise Validation'), 'icons-app/validation.png', :controller => 'enterprise_validation') if profile.is_validation_entity? %>
-
-  <%= file_manager_button(__('Favorite Enterprises'), 'icons-app/favorites.png', :controller => 'favorite_enterprises') if profile.person? %>
+  <% if !environment.enabled?('disable_asset_enterprises') %>
+    <% if profile.is_validation_entity? %>
+      <%= file_manager_button(__('Enterprise Validation'), 'icons-app/validation.png', :controller => 'enterprise_validation') %>
+    <% end %>
+    <% if profile.person? %>
+      <%= file_manager_button(__('Favorite Enterprises'), 'icons-app/favorites.png', :controller => 'favorite_enterprises') %>
+    <% end %>
+  <% end %>
 
   <% if profile.enterprise? %>
     <% if profile.enabled? %>
