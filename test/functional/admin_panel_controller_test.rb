@@ -140,4 +140,17 @@ class AdminPanelControllerTest < Test::Unit::TestCase
 
     assert_equal profile_template, e.enterprise_template
   end
+
+  should 'not use WYSWYIG if disabled' do
+    e = Environment.default; e.disable('wysiwyg_editor_for_environment_home'); e.save!
+    get :site_info
+    assert_no_tag :tag => "script", :content => /tinyMCE\.init/
+  end
+
+  should 'use WYSWYIG if enabled' do
+    e = Environment.default; e.enable('wysiwyg_editor_for_environment_home'); e.save!
+    get :site_info
+    assert_tag :tag => "script", :content => /tinyMCE\.init/
+  end
+
 end

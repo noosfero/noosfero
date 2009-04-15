@@ -1,10 +1,12 @@
 <h2><%= _('Site info') %></h2>
 
-<%= render :file => 'shared/tiny_mce' %>
+<% if @environment.enabled?('wysiwyg_editor_for_environment_home') %>
+  <%= render :file => 'shared/tiny_mce' %>
+<% end %>
 
 <% labelled_form_for :environment, @environment do |f| %>
 
-  <%= f.text_area :description, :cols => 40, :style => 'width: 90%' %>
+  <%= labelled_form_field _('Homepage content'), text_area(:environment, :description, :cols => 40, :style => 'width: 90%') %>
 
   <% button_bar do %>
     <%= submit_button(:save, _('Save')) %>
