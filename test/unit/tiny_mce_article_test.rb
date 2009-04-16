@@ -26,4 +26,10 @@ class TinyMceArticleTest < Test::Unit::TestCase
     assert_includes Article.find_by_contents('article'), tma
   end
 
+  should 'not sanitize target attribute' do
+    ze = create_user('zezinho').person
+    article = TinyMceArticle.create!(:name => 'open link in new window', :body => "open <a href='www.invalid.com' target='_blank'>link</a> in new window", :profile => ze)
+    assert_tag_in_string article.body, :tag => 'a', :attributes => {:target => '_blank'}
+  end
+
 end
