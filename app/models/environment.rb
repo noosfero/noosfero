@@ -444,6 +444,8 @@ class Environment < ActiveRecord::Base
 
   has_many :events, :through => :profiles, :source => :articles, :class_name => 'Event' 
 
+  has_many :tags, :through => :articles
+
   def theme
     self[:theme] || 'default'
   end

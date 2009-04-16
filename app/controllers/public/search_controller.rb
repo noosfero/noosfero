@@ -209,14 +209,14 @@ class SearchController < PublicController
   attr_reader :category
 
   def tags
-    @tags = Tag.find(:all).inject({}) do |memo,tag|
+    @tags = environment.tags.inject({}) do |memo,tag|
       memo[tag.name] = tag.taggings.count
       memo
     end
   end
 
   def tag
-    @tag = Tag.find_by_name(params[:tag])
+    @tag = environment.tags.find_by_name(params[:tag])
     @tagged = @tag.taggings.map(&:taggable)
   end
 
