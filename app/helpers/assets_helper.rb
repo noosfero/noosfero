@@ -18,7 +18,7 @@ module AssetsHelper
                   link_to(
                     content_tag('span', '', :class => css_class) +
                     content_tag('strong', name),
-                    target ))
+                    target ), :class => "asset_#{target[:asset]}")
     end.join("\n")
   end
 
