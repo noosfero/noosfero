@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.16.0\n"
 "POT-Creation-Date: 2009-04-09 18:20-0300\n"
-"PO-Revision-Date: 2009-04-09 18:22-0300\n"
+"PO-Revision-Date: 2009-04-16 15:38-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2186,7 +2186,7 @@ msgstr "Este bloco exibe as comunidades das quais o usuário é membro."
 
 #: app/models/communities_block.rb:20 app/models/communities_block.rb:24
 msgid "All communities"
-msgstr "Todas comunidades"
+msgstr "Todas as comunidades"
 
 #: app/models/link_list_block.rb:10
 msgid "Display a list of links."
