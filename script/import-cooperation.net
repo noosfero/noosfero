@@ -1,6 +1,8 @@
 #!/usr/bin/ruby
 require File.dirname(__FILE__) + '/../config/environment'
 
+include ActionController::UrlWriter
+
 IMPORT_DIR = '/home/terceiro/src/cooperation-migration/data/export'
 
 if ARGV.size == 0
@@ -83,6 +85,11 @@ for username in ARGV
           person.home_page = article
           person.save!
           puts "I: Article #{article.name.inspect} is #{username}'s homepage!"
+        end
+
+        File.open("tmp/rewrite.txt", 'w+') do |file|
+          file.puts("#{article.id} #{url_for(article.url)}")
+          puts "I: Article with id = #{article.id} redirected to #{url_for(article.url)}"
         end
 
         # import attachments
