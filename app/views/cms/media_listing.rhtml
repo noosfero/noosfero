@@ -1,0 +1,62 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= html_language %>" lang="<%= html_language %>">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <%=
+      stylesheet_import( %w( media_listing button ) ) + "\n" +
+      stylesheet_import( %w( media_listing button ), :themed_source => true )
+  %>
+  <%= javascript_include_tag :defaults %>
+  <%= javascript_include_tag 'lowpro' %>
+  <%= stylesheet_link_tag '/designs/icons/default/style.css' %>
+</head>
+<body class='noosfero'>
+  <script type="text/javascript">
+    /* Adds a class to "msie" to the body element if a Microsoft browser is
+     * detected. This is needed to workaround several of their limitations.
+     */
+    if ( navigator.appVersion.indexOf("MSIE") > -1 ) {
+      document.body.className += " msie msie" +
+        navigator.appVersion.replace(/^.*MSIE\s+([0-9]+).*$/, "$1");
+    }
+    function registerDocumentSize() {
+      document.body.className = document.body.className.replace(/(^| )docSize.+( |$)/g, " ");
+      for ( var x=100; x<=1500; x+=100 ) {
+        if ( document.body.clientWidth > x ) {
+          document.body.className += " docSize-GT-" + x;
+        } else {
+          document.body.className += " docSize-LT-" + x;
+        }
+      }
+    }
+    registerDocumentSize();
+  </script>
+  <div id='media-listing'>
+    <div id='media-listing-images'>
+      <h3><%= _('Images') %></h3>
+      <%= select_folder('folder', 'image_folder_id', @image_folders, {}, :onchange => remote_function(:with => "'image_folder_id=' + value + '&ipage=1'", :url => { :action => :media_listing, :format => 'js' }) ) %>
+      <%= render :partial => 'image_thumb', :locals => { :images => @images } %>
+    </div><!-- id='media-listing-images' -->
+    <div id='media-listing-documents'>
+      <h3><%= _('Documents') %></h3>
+      <%= select_folder('folder', 'document_folder_id', @document_folders, {}, :onchange => remote_function(:with => "'document_folder_id=' + value + '&dpage=1'", :url => { :action => :media_listing }) ) %>
+      <%= render :partial => 'document_link', :locals => { :documents => @documents } %>
+    </div><!-- id='media-listing-documents' -->
+    <br style="clear:both" />
+    <p><%= _('If you want to add images or links to files in your article, click on the file you want, drag it to the text area and drop the file.') %></p>
+    <br style="clear:both" />
+  </div><!-- id='media-listing' -->
+  <div id='media-listing-upload'>
+    <div id="notice" onclick="Element.hide('notice');" style="display:none">
+      <% unless flash[:notice].nil? %>
+        <%= flash[:notice] unless flash[:notice].nil? %>
+        <%= javascript_tag(visual_effect( :appear, 'notice')) %>
+      <% end %>
+    </div>
+
+    <% form_for('uploaded_file', :url => {:action => 'upload_files'}, :html => {:multipart => true}) do |f| %>
+      <%= hidden_field_tag('back_to', @back_to) %>
+      <%= render :partial => 'upload_file_form', :locals => { :size => '30' } %>
+    <% end %>
+  </div><!-- id='media-listing-upload' -->
+</body>
+</html>

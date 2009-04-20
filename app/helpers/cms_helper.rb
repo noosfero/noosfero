@@ -9,10 +9,19 @@ module CmsHelper
     mime_type.gsub('/', '_').gsub('-', '')
   end
 
-  def add_upload_file_field(name)
+  def add_upload_file_field(name, locals)
     button_to_function :add, name, nil do |page|
-      page.insert_html :bottom, :uploaded_files, :partial => 'upload_file', :object => UploadedFile.new
+      page.insert_html :bottom, :uploaded_files, :partial => 'upload_file', :locals => locals, :object => UploadedFile.new
     end
+  end
+
+  def select_folder(object, method, collection, html_options, js_options)
+    labelled_form_field(_('Folder'), select(object, method, collection.map {|f| [ profile.identifier + '/' + f.full_name, f.id ] }, html_options.merge({:include_blank => "#{profile.identifier}"}), js_options))
+  end
+
+  def pagination_links(collection, options={})
+    options = {:prev_label => '&laquo; ', :next_label => ' &raquo;', :page_links => false}.merge(options)
+    will_paginate(collection, options)
   end
 
   attr_reader :environment

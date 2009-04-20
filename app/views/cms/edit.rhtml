@@ -1,6 +1,6 @@
 <%= error_messages_for 'article' %>
 
-<% labelled_form_for 'article', @article, :html => { :multipart => true } do |f| %>
+<% labelled_form_for 'article', @article, :html => { :multipart => true, :style => 'width:57%;float:left;' } do |f| %>
 
   <%= hidden_field_tag("type", @type) if @type %>
 
@@ -37,4 +37,8 @@
       <%= button :cancel, _('Cancel'), :action => 'index' %>
     <% end %>
   <% end %>
+<% end %>
+
+<% if [TinyMceArticle, Event, EnterpriseHomepage].any?{|klass| @article.kind_of?(klass)} %>
+  <%= render :partial => 'media_listing' %>
 <% end %>

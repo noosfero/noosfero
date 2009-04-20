@@ -59,7 +59,9 @@ class CmsController < MyProfileController
   def edit
     @article = profile.articles.find(params[:id])
     @parent_id = params[:parent_id]
-    @type = params[:type]
+    @type = params[:type] || @article.class.to_s
+
+    refuse_blocks
     if !@article.nil? && @article.blog? || !@type.nil? && @type == 'Blog'
       @back_url = url_for(:controller => 'profile_editor', :profile => profile.identifier)
     end
@@ -77,8 +79,8 @@ class CmsController < MyProfileController
     # FIXME this method should share some logic wirh edit !!!
 
     # user must choose an article type first
+
     @type = params[:type]
-    
     if @type.blank?
       @article_types = []
       available_article_types.each do |type|
@@ -95,6 +97,7 @@ class CmsController < MyProfileController
       if @type == 'Blog'
         @back_url = url_for(:controller => 'profile_editor', :profile => profile.identifier)
       end
+      refuse_blocks
     end
 
     raise "Invalid article type #{@type}" unless valid_article_type?(@type)
@@ -134,14 +137,21 @@ class CmsController < MyProfileController
     @uploaded_files = []
     @article = @parent = check_parent(params[:parent_id])
     @target = @parent ? ('/%s/%s' % [profile.identifier, @parent.full_name]) : '/%s' % profile.identifier
+    @folders = Folder.find(:all, :conditions => { :profile_id => profile })
     record_coming_from_public_view if @article
     if request.post? && params[:uploaded_files]
       params[:uploaded_files].each do |file|
         @uploaded_files << UploadedFile.create(:uploaded_data => file, :profile => profile, :parent => @parent) unless file == ''
       end
       @errors = @uploaded_files.select { |f| f.errors.any? }
+      @back_to = params[:back_to]
       if @errors.any?
-        render :action => 'upload_files', :parent_id => @parent_id
+        if @back_to && @back_to == 'media_listing'
+          flash[:notice] = _('Could not upload all files')
+          redirect_back
+        else
+          render :action => 'upload_files', :parent_id => @parent_id
+        end
       else
         if params[:back_to]
           redirect_back
@@ -199,6 +209,39 @@ class CmsController < MyProfileController
     end
   end
 
+  def media_listing
+    if params[:image_folder_id]
+      folder = profile.articles.find(params[:image_folder_id]) if !params[:image_folder_id].blank?
+      @images = (folder ? folder.children : UploadedFile.find(:all, :conditions => ["profile_id = ? AND parent_id is NULL", profile ])).select { |c| c.image? }
+    elsif params[:document_folder_id]
+      folder = profile.articles.find(params[:document_folder_id]) if !params[:document_folder_id].blank?
+      @documents = (folder ? folder.children : UploadedFile.find(:all, :conditions => ["profile_id = ? AND parent_id is NULL", profile ])).select { |c| c.kind_of?(UploadedFile) && !c.image? }
+    else
+      @documents = UploadedFile.find(:all, :conditions => ["profile_id = ? AND parent_id is NULL", profile ])
+      @images = @documents.select(&:image?)
+      @documents -= @images
+    end
+
+    @images = @images.paginate(:per_page => per_page, :page => params[:ipage]) if @images
+    @documents = @documents.paginate(:per_page => per_page, :page => params[:dpage]) if @documents
+
+    @folders = Folder.find(:all, :conditions => { :profile_id => profile })
+    @image_folders = @folders.select {|f| f.children.any? {|c| c.image?} }
+    @document_folders = @folders.select {|f| f.children.any? {|c| !c.image? && c.kind_of?(UploadedFile) } }
+
+    @back_to = 'media_listing'
+
+    respond_to do |format|
+      format.html { render :layout => false}
+      format.js {
+        render :update do |page|
+          page.replace_html 'media-listing-folder-images', :partial => 'image_thumb', :locals => {:images => @images } if !@images.blank?
+          page.replace_html 'media-listing-folder-documents', :partial => 'document_link', :locals => {:documents => @documents } if !@documents.blank?
+        end
+      }
+    end
+  end
+
   protected
 
   def redirect_back
@@ -206,6 +249,8 @@ class CmsController < MyProfileController
       redirect_to :controller => 'profile_editor', :profile => @profile.identifier
     elsif params[:back_to] == 'public_view'
       redirect_to @article.view_url
+    elsif params[:back_to] == 'media_listing'
+      redirect_to :action => 'media_listing'
     elsif @article.parent
       redirect_to :action => 'view', :id => @article.parent
     else
@@ -239,7 +284,7 @@ class CmsController < MyProfileController
   end
 
   def check_parent(id)
-    if id
+    if !id.blank?
       parent = profile.articles.find(id)
       if ! parent.allow_children?
         raise ArgumentError.new("cannot create child of article which does not accept children")
@@ -248,6 +293,16 @@ class CmsController < MyProfileController
     else
       nil
     end
+  end
+
+  def refuse_blocks
+    if ['TinyMceArticle', 'Event', 'EnterpriseHomepage'].include?(@type)
+      @no_design_blocks = true
+    end
+  end
+
+  def per_page
+    10
   end
 end
 

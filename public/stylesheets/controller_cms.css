@@ -145,3 +145,19 @@ div.file-manager-button a:hover {
 #fetch-external-feed #external-feed-options .formfield {
   display: block;
 }
+
+/* Media listing */
+
+#media-listing-iframe {
+  float: right;
+  width: 40%;
+  height: 630px;
+  border: none;
+  margin: 115px 20px 0px 0px;
+  padding: 0px;
+  overflow: hidden;
+}
+
+.msie #media-listing-iframe {
+  height: 610px;
+}

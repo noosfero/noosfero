@@ -2,13 +2,15 @@
 
 <%= render :file => 'shared/tiny_mce' %>
 
-<% if profile.enterprise? && environment.enabled?('disable_cms') && !@article.name.blank? %>
-  <div>
-    <%= _('Title') %>: <%= @article.name %>
-  </div>
-<% else %>
-  <%= required labelled_form_field(_('Title'), text_field(:article, 'name', :size => '64')) %>
-<% end %>
+<div style='margin-left: 20px;'>
+  <% if profile.enterprise? && environment.enabled?('disable_cms') && !@article.name.blank? %>
+    <div>
+      <%= _('Title') %>: <%= @article.name %>
+    </div>
+  <% else %>
+    <%= required labelled_form_field(_('Title'), text_field(:article, 'name', :size => '64')) %>
+  <% end %>
 
-<%= labelled_form_field(_('Text'), text_area(:article, 'body', :cols => 40, :style => 'width:99%')) %>
+  <%= labelled_form_field(_('Text'), text_area(:article, 'body', :cols => 40, :style => 'width:100%')) %>
 
+</div>
