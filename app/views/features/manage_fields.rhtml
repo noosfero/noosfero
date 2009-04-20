@@ -1,6 +1,6 @@
 <%= render :partial => 'manage_person_fields' %>
 
-<% if environment.enabled?('disable_asset_enterprises') %>
+<% if !environment.enabled?('disable_asset_enterprises') %>
   <%= render :partial => 'manage_enterprise_fields' %>
 <% end %>
 
