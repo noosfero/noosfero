@@ -79,4 +79,22 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
     assert_includes  roles, role2
     assert_not_includes roles, role1
   end
+
+  should 'unassociate community member' do
+    com = Community.create!(:identifier => 'test_community', :name => 'test community')
+    admin = create_user_with_permission('admin_user', 'manage_memberships', com)
+    member = create_user('test_member').person
+    com.add_member(member)
+    assert_includes com.members, member
+
+    login_as :admin_user
+    get :unassociate, :profile => com.identifier, :id => member
+
+    assert_response :redirect
+    assert_redirected_to :action => 'index'
+    member.reload
+    com.reload
+    assert_not_includes com.members, member
+  end
+
 end

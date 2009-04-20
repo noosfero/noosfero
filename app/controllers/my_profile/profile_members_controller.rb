@@ -47,12 +47,16 @@ class ProfileMembersController < MyProfileController
   end
 
   def unassociate
-    @association = RoleAssignment.find(params[:id])
-    if @association.destroy
-      flash[:notice] = 'Member succefully unassociated'
-    else
-      flash[:notice] = 'Failed to unassociate member'
+    member = Person.find(params[:id])
+    associations = member.find_roles(profile)
+    RoleAssignment.transaction do
+      if associations.map(&:destroy)
+        flash[:notice] = 'Member succefully unassociated'
+      else
+        flash[:notice] = 'Failed to unassociate member'
+      end
     end
-    redirect_to :aciton => 'index'
+    redirect_to :action => 'index'
   end
+
 end
