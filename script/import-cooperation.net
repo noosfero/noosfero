@@ -116,6 +116,21 @@ for username in ARGV
 
         end
       end
+
+      # import menus
+      for i in [1,2]
+        links = []
+        data = Hash.from_xml(File.read(File.join(IMPORT_DIR, username, "menu#{i}.xml")))
+        data['menu']['items'].each do |item|
+          links << { :name => item['title'], :address => item['url'] }
+        end
+        block = person.blocks.select { |block| block.class == LinkListBlock }[i-1]
+        block.title = data['menu']['title']
+        block.links = links
+        block.save!
+        puts "imported links: #{links.inspect}"
+      end
+
     end
   rescue Exception => e
     $stderr.puts "=================================="
