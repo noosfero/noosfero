@@ -1,7 +1,8 @@
 <% labelled_form_for(:environment, @environment, :url => {:action => 'update'}) do |f| %>
 
 <table>
-  <% @features.each do |feature, text| %>
+  <%= hidden_field_tag('environment[enabled_features][]', '') %>
+  <% @features.each do |feature, text|   %>
   <tr>
     <td><%= text %></td>
     <td><%= check_box_tag "environment[enabled_features][]", feature, @environment.enabled?(feature) %></td>
