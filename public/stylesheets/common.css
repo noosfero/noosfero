@@ -110,6 +110,10 @@ div#profile-disabled {
   font-size: 10px; 
 }
 
+a img {
+  border: none;
+}
+
 /*********************************************************/
 
 
