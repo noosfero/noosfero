@@ -1,7 +1,7 @@
 <div id='media-listing-folder-images' >
   <ul>
     <% images.each do |image| %>
-      <li><%= image_tag url_for(image.url) %></li>
+      <li><%= image_tag image.public_filename %></li>
     <% end %>
   </ul>
   <div id='pagination-images'>
