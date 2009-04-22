@@ -161,3 +161,12 @@ div.file-manager-button a:hover {
 .msie #media-listing-iframe {
   height: 610px;
 }
+
+div.with_media_panel {
+  width: 57%;
+  float: left;
+}
+div.no_media_panel {
+  margin-left: 200px;
+  margin-right: 200px;
+}

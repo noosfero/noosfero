@@ -44,6 +44,7 @@ class Environment < ActiveRecord::Base
       'enterprise_activation' => _('Enable activation of enterprises'),
       'warn_obsolete_browser' => _('Enable warning of obsolete browser'),
       'wysiwyg_editor_for_environment_home' => _('Use WYSIWYG editor to edit environment home page'),
+      'media_panel' => _('Media panel in WYSIWYG editor'),
     }
   end
 
