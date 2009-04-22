@@ -130,21 +130,6 @@ module ApplicationHelper
     link_to text, p.url, options
   end
 
-  def link_to_myprofile(text, url = {}, profile = nil, options = {})
-    p = if profile
-          Profile[profile]
-        else
-          user
-        end
-    link_to text, p.admin_url.merge(url), options
-  end
-
-  def link_to_document(doc, text = nil, html_options = {}, url_options = {})
-    text ||= doc.title
-    path = doc.path.split(/\//)
-    link_to text, homepage_path({:profile => doc.profile.identifier , :page => path, :view => true}.merge(url_options)), html_options
-  end
-
   def link_if_permitted(link, permission = nil, target = nil)
     if permission.nil? || current_user.person.has_permission?(permission, target)
       link
@@ -736,9 +721,7 @@ module ApplicationHelper
   end
 
   def login_url
-    options = { :controller => 'account', :action => 'login' }
-    options.merge!(:protocol => 'https://', :host => request.host) unless ENV['RAILS_ENV'] == 'development' || environment.disable_ssl
-    url_for(options)
+    url_for(Noosfero.url_options.merge({ :controller => 'account', :action => 'login', :host => request.host }))
   end
 
   def base_url

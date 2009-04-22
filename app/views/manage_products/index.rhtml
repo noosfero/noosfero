@@ -47,6 +47,6 @@
 <%= button :add, _('Add raw material'), :action => 'new_consumption' %>
 
 <p>
-<%= link_to_myprofile( '<span>'+ _('Back') +'</span>', {}, @profile.identifier, :class => 'button with-text icon-back' ) %>
+<%= link_to( '<span>'+ _('Back') +'</span>', { :controller => 'profile_editor', :profile => @profile.identifier, :action => 'index' }, :class => 'button with-text icon-back' ) %>
 </p>
 

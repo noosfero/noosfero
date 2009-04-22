@@ -600,6 +600,7 @@ class AccountControllerTest < Test::Unit::TestCase
   end
 
   should 'not point to SSL URL in login popup when in development mode' do
+    @request.stubs(:ssl?).returns(false)
     ENV.expects(:[]).with('RAILS_ENV').returns('development').at_least_once
     get :login_popup
     assert_no_tag :tag => 'form', :attributes => { :action => /^https:\/\// }

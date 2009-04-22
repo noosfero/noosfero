@@ -27,10 +27,9 @@
           </li>
         <% end %>
 
-        <li><%= link_to_myprofile( '<span class="icon-menu-ctrl-panel"></span>'+ _('Control panel'),
-                                     {}, nil, :id => 'link_edit_profile',
-                                     :help => _('Control panel: change your picture, edit your personal information, create content or change the way your home page looks.')
-                                 ) %></li>
+        <li>
+        <%= link_to('<span class="icon-menu-ctrl-panel"></span>'+ _('Control panel'), { :controller => 'profile_editor', :action => 'index', :profile => user.identifier }, :id => 'link_edit_profile', :help => _('Control panel: change your picture, edit your personal information, create content or change the way your home page looks.')) %>
+        </li>
 
         <% if user.is_admin?(environment) %>
           <li><%= link_to( '<span class="icon-menu-"></span>'+ _('Admin'),

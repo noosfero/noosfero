@@ -202,6 +202,9 @@ class ApplicationHelperTest < Test::Unit::TestCase
     environment = mock
     environment.expects(:disable_ssl).returns(true).at_least_once
     stubs(:environment).returns(environment)
+    request = mock
+    request.stubs(:host).returns('localhost')
+    stubs(:request).returns(request)
 
     expects(:url_for).with(has_entries(:protocol => 'https://')).never
     expects(:url_for).with(has_key(:controller)).returns("LALALA")

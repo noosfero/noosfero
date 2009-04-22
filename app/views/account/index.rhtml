@@ -6,7 +6,7 @@
 </p>
 
 <p>
-<%= link_to_myprofile _('Edit Personal details.'), :controller => 'profile_editor' %>
+<%= link_to _('Edit Personal details.'), :controller => 'profile_editor', :profile => user.identifier, :action => 'index' %>
 <%= _('You can change your personal details.') %>
 </p>
 
@@ -16,7 +16,7 @@
 </p>
 
 <p>
-<%= link_to_myprofile(_('Manage content.'), :controller => 'cms') %>
+<%= link_to(_('Manage content.'), :controller => 'cms', :profile => user.identifier, :action => 'index') %>
 <%= _('Manage your content.') %>
 </p>
 

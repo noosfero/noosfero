@@ -9,6 +9,7 @@
   </div>
 <% end %>
 
+<%= optional_field(@person, 'preferred_domain', select_preferred_domain(:profile_data)) %>
 <%= optional_field(@person, 'contact_information', f.text_field(:contact_information)) %>
 <%= optional_field(@person, 'contact_phone', labelled_form_field(_('Home phone'), text_field(:profile_data, :contact_phone))) %>
 <%= optional_field(@person, 'cell_phone', f.text_field(:cell_phone)) %>

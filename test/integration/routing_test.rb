@@ -2,6 +2,10 @@ require "#{File.dirname(__FILE__)}/../test_helper"
 
 class RoutingTest < ActionController::IntegrationTest
 
+  def setup
+    Domain.clear_cache
+  end
+
   # home page
   ################################################################
   def test_homepage
@@ -165,13 +169,21 @@ class RoutingTest < ActionController::IntegrationTest
   end
 
   def test_hosted_domain_routing
-
     user = create_user('testuser').person
     domain = Domain.create!(:name => 'example.com', :owner => user)
 
     ActionController::TestRequest.any_instance.expects(:host).returns('www.example.com')
 
     assert_routing('/work/free-software', :controller => 'content_viewer', :action =>  'view_page', :page => [ 'work', 'free-software'] )
+  end
+
+  def test_root_of_hosted_domain
+    user = create_user('testuser').person
+    domain = Domain.create!(:name => 'example.com', :owner => user)
+
+    ActionController::TestRequest.any_instance.expects(:host).returns('www.example.com')
+
+    assert_routing('', :controller => 'content_viewer', :action =>  'view_page', :page => [])
   end
 
   def test_profile_under_hosted_domain

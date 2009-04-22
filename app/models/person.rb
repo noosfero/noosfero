@@ -42,6 +42,7 @@ class Person < Profile
   end
 
   FIELDS = %w[
+  preferred_domain
   nickname
   sex
   address

@@ -65,6 +65,7 @@ class Zen3Terminology < Noosfero::Terminology::Custom
       'Disable activation of enterprises' => N_('Disable activation of organizations'),
       'Manage community fields' => N_('Manage group fields'),
       'Create a new community' => N_('Create a new group'),
+      'Preferred domain name:' => N_('Choose your host community:'),
     })
   end
 

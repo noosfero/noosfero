@@ -632,4 +632,39 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'a', :attributes => { :href => "/myprofile/default_user/cms/edit/#{profile.blog.id}" }
   end
 
+  should 'not show select preferred domain if not enabled in environment' do
+    profile.environment.custom_person_fields = {}; profile.environment.save!
+
+    get :edit, :profile => profile.identifier
+    assert_no_tag :tag => 'select', :attributes => { :name => 'profile_data[preferred_domain_id]' }
+  end
+
+  should 'be able to choose preferred domain' do
+    profile.environment.custom_person_fields = {'preferred_domain' => {'required' => 'true', 'active' => 'true'} }; profile.environment.save!
+
+    profile.domains << Domain.new(:name => 'myowndomain.net')
+    profile.environment.domains << Domain.new(:name => 'myenv.net')
+
+    get :edit, :profile => profile.identifier
+    assert_tag :tag => 'select', :attributes => { :name => 'profile_data[preferred_domain_id]' }, :descendant => { :tag => "option", :content => 'myowndomain.net' }
+    assert_tag :tag => 'select', :attributes => { :name => 'profile_data[preferred_domain_id]' }, :descendant => { :tag => "option", :content => 'myenv.net' }
+
+    post :edit, :profile => profile.identifier, :profile_data => { :preferred_domain_id => profile.domains.first.id.to_s }
+
+    assert_equal 'myowndomain.net', Profile.find(profile.id).preferred_domain.name
+  end
+
+  should 'be able to set no preferred domain at all' do
+    profile.environment.custom_person_fields = {'preferred_domain' => {'required' => 'true', 'active' => 'true'} }; profile.environment.save!
+
+    profile.domains << Domain.new(:name => 'myowndomain.net')
+    profile.environment.domains << Domain.new(:name => 'myenv.net')
+
+    get :edit, :profile => profile.identifier
+    assert_tag :tag => "select", :attributes => { :name => 'profile_data[preferred_domain_id]'}, :descendant => { :tag => 'option', :content => '&lt;Select domain&gt;', :attributes => { :value => '' } }
+
+    post :edit, :profile => profile.identifier, :profile_data => { :preferred_domain_id => '' }
+    assert_nil Profile.find(profile.id).preferred_domain
+  end
+
 end

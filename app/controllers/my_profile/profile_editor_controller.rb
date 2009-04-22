@@ -11,6 +11,7 @@ class ProfileEditorController < MyProfileController
   # edits the profile info (posts back)
   def edit
     @profile_data = profile
+    @possible_domains = profile.possible_domains
     if request.post?
       if profile.update_attributes(params[:profile_data])
         redirect_to :action => 'index'

@@ -15,18 +15,11 @@ ActionController::Routing::Routes.draw do |map|
   ## Public controllers
   ######################################################
 
-  # You can have the root of your site routed by hooking up ''
-  hosted_domain_matcher = lambda do |env|
-    domain = Domain.find_by_name(env[:host])
-    domain && (domain.owner_type == 'Profile')
-  end
-  map.connect 'profile/:profile/:action/:id', :controller => 'profile', :id => /.*/, :profile => /#{Noosfero.identifier_format}/, :conditions => { :if => hosted_domain_matcher }
-  map.connect '*page', :controller => 'content_viewer', :action => 'view_page', :conditions => { :if => hosted_domain_matcher }
-
   map.connect 'test/:controller/:action/:id'  , :controller => /.*test.*/
  
   # -- just remember to delete public/index.html.
-  map.connect '', :controller => "home"
+  # You can have the root of your site routed by hooking up ''
+  map.connect '', :controller => "home", :conditions => { :if => lambda { |env| !Domain.hosting_profile_at(env[:host]) } }
 
   # user account controller
   map.connect 'account/new_password/:code', :controller => 'account', :action => 'new_password'
@@ -83,7 +76,9 @@ ActionController::Routing::Routes.draw do |map|
   # cache stuff - hack
   map.cache 'public/:action/:id', :controller => 'public'
 
-  # *content viewing*
+  # match requests for content in domains hosted for profiles
+  map.connect '*page', :controller => 'content_viewer', :action => 'view_page', :conditions => { :if => lambda { |env| Domain.hosting_profile_at(env[:host])} }
+
   # XXX this route must come last so other routes have priority over it.
   map.homepage ':profile/*page', :controller => 'content_viewer', :action => 'view_page', :profile => /#{Noosfero.identifier_format}/
 

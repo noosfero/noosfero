@@ -34,24 +34,24 @@
     <div id="article-actions" class="hidden">
       <% unless @page.blog? %>
       <%= link_to content_tag( 'span', label_for_edit_article(@page) ),
-          { :controller => 'cms', :action => 'edit', :id => @page },
+          profile.admin_url.merge({ :controller => 'cms', :action => 'edit', :id => @page.id }),
           :class => 'button with-text icon-edit' %>
       <% end %>
       <% if !(profile.kind_of?(Enterprise) && environment.enabled?('disable_cms')) %>
         <% if @page != profile.home_page %>
           <%= link_to content_tag( 'span', _('Delete') ),
-            { :controller => 'cms', :action => 'destroy', :id => @page },
+            profile.admin_url.merge({ :controller => 'cms', :action => 'destroy', :id => @page }),
             :class => 'button with-text icon-delete' %>
         <% end %>
         <% if profile.kind_of?(Person) && !environment.enabled?('disable_cms') %>
           <%= link_to content_tag( 'span', _('Spread this') ),
-              { :controller => 'cms', :action => 'publish', :id => @page },
+              profile.admin_url.merge({ :controller => 'cms', :action => 'publish', :id => @page }),
               :class => 'button with-text icon-spread' %>
         <% end %>
         <% if @page.display_as_gallery? %>
-          <%= button('upload-file', _('Upload files'), :controller => 'cms', :action => 'upload_files', :parent_id => (@page.folder? ? @page : @page.parent)) %>
+          <%= button('upload-file', _('Upload files'), profile.admin_url.merge(:controller => 'cms', :action => 'upload_files', :parent_id => (@page.folder? ? @page : @page.parent))) %>
         <% else %>
-          <%= lightbox_button(:new, label_for_new_article(@page), :controller => 'cms', :action => 'new', :parent_id => (@page.folder? ? @page : (@page.parent.nil? ? nil : @page.parent))) %>
+          <%= lightbox_button(:new, label_for_new_article(@page), profile.admin_url.merge(:controller => 'cms', :action => 'new', :parent_id => (@page.folder? ? @page : (@page.parent.nil? ? nil : @page.parent)))) %>
         <% end %>
       <% end %>
     </div>
@@ -73,7 +73,7 @@
 
 <% if @page.parent && !@page.parent.path.blank? %>
 <div id="article-parent">
-  <%= link_to_document(@page.parent, _('Go back')) %>
+  <%= link_to _('Go back'), @page.parent.url %>
 </div>
 <% end %>
 

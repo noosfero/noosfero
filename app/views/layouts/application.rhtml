@@ -49,7 +49,6 @@
     <%= icon_theme_stylesheet_tag %>
 
     <%= stylesheet_link_tag 'iepngfix/iepngfix.css' %>
-    <base href="<%= base_url %>"/>
   </head>
 
   <body class='noosfero category<%= category_color %><%=
@@ -110,7 +109,7 @@
 
         <div id="navigation_bar">
           <%= link_to "<span>"+ @environment.name() +"</span>",
-                      { :controller=>"home" },
+                      @environment.top_url,
                         :id=>"menu_link_to_envhome",
                         :title=>@environment.name  %>
           <% unless environment.enabled?(:disable_categories) %>

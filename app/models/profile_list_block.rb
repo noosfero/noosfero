@@ -64,12 +64,10 @@ class ProfileListBlock < Block
     title = self.title
     nl = "\n"
     lambda do
-      #list = profiles.map {|item| content_tag( 'li', profile_image_link(item) ) }.join("\n  ")
       count=0
       list = profiles.map {|item|
                count+=1
                profile_image_link( item ) #+
-               #( ( count%2 == 0 && count < profiles.size ) ? nl+'</tr><tr>' : '' )
              }.join("\n  ")
       if list.empty?
         list = '<div class="common-profile-list-block-none">'+ _('None') +'</div>'

@@ -117,4 +117,20 @@ module ProfileEditorHelper
     select(object, method, [[_('[Select ...]'), nil]] + ProfileEditorHelper::SCHOOLING_STATUS.map{|s| [gettext(s), s]}, {}, options)
   end
 
+  def select_preferred_domain(object)
+    profile = instance_variable_get("@#{object}")
+    domains = []
+    if profile
+      if profile.preferred_domain
+        # FIXME should be able to change
+        return ''
+      else
+        domains = profile.possible_domains
+      end
+    else
+      domains = environment.domains
+    end
+    labelled_form_field(__('Preferred domain name:'), select(object, :preferred_domain_id, domains.map {|item| [item.name, item.id]}, :prompt => '&lt;' + _('Select domain') + '&gt;'))
+  end
+
 end

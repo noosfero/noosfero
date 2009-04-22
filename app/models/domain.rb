@@ -63,4 +63,25 @@ class Domain < ActiveRecord::Base
     end
   end
 
+  @hosting = {}
+
+  # Tells whether the given domain name is hosting a profile or not.
+  #
+  # Since this is going to be called a lot, The queries are cached so the
+  # database is hit only for the first query for a given domain name. This way,
+  # transfering a domain from a profile to an environment of vice-versa
+  # requires restarting the application.
+  def self.hosting_profile_at(domainname)
+    @hosting[domainname] ||=
+      begin
+        domain = Domain.find_by_name(domainname)
+        !domain.nil? && (domain.owner_type == 'Profile')
+      end
+  end
+
+  # clears the cache of hosted domains. Used for testing.
+  def self.clear_cache
+    @hosting = {}
+  end
+
 end

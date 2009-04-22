@@ -234,32 +234,6 @@ class ApplicationControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'div', :attributes => { :id => 'user_box' }, :descendant => { :tag => 'a', :attributes => { :href => 'http://web.mail/' } }
   end
 
-  should 'use environment top_url as base' do
-    Environment.any_instance.expects(:top_url).returns('http://www.lala.net')
-    get :index
-    assert_tag :tag => 'base', :attributes => { :href => 'http://www.lala.net' }
-  end
-
-  should 'request environment top_url with ssl when under ssl for base' do
-    Environment.any_instance.expects(:top_url).with(true).returns('https://www.lala.net/')
-    @request.expects(:ssl?).returns(true).at_least_once
-    get :index
-    assert_tag :tag => 'base', :attributes => { :href => 'https://www.lala.net/' }
-  end
-
-  should 'use correct environment for base tag' do
-    default = Environment.default
-    Environment.stubs(:default).returns(default)
-    default.stubs(:top_url).returns('http://default.com/')
-
-    current = Environment.create!(:name => 'test environment')
-    current.domains.create!(:name => 'example.com')
-    
-    @request.expects(:host).returns('example.com').at_least_once
-    get :index
-    assert_tag :tag => 'base', :attributes => { :href => 'http://example.com' }
-  end
-
   should 'display theme test panel when testing theme' do
     @request.session[:theme] = 'my-test-theme'
     theme = mock

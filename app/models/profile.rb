@@ -94,6 +94,7 @@ class Profile < ActiveRecord::Base
   belongs_to :user
 
   has_many :domains, :as => :owner
+  belongs_to :preferred_domain, :class_name => 'Domain', :foreign_key => 'preferred_domain_id'
   belongs_to :environment
 
   has_many :articles, :dependent => :destroy
@@ -327,19 +328,15 @@ class Profile < ActiveRecord::Base
   end
 
   def url
-    @url ||= if self.domains.empty?
-      generate_url(:controller => 'content_viewer', :action => 'view_page', :page => [])
-    else
-      Noosfero.url_options.merge({ :host => self.domains.first.name, :controller => 'content_viewer', :action => 'view_page', :page => []})
-    end
+    @url ||= generate_url(:controller => 'content_viewer', :action => 'view_page', :page => [])
   end
 
   def admin_url
-    generate_url(:controller => 'profile_editor', :action => 'index')
+    { :profile => identifier, :controller => 'profile_editor', :action => 'index' }
   end
 
   def public_profile_url
-    generate_url(:controller => 'profile', :action => 'index')
+    generate_url(:profile => identifier, :controller => 'profile', :action => 'index')
   end
 
   def generate_url(options)
@@ -347,7 +344,25 @@ class Profile < ActiveRecord::Base
   end
 
   def url_options
-    Noosfero.url_options.merge({ :host => self.environment.default_hostname, :profile => self.identifier})
+    options = { :host => default_hostname, :profile => (hostname ? nil : self.identifier) }
+    Noosfero.url_options.merge(options)
+  end
+
+  def default_hostname
+    @default_hostname ||= (hostname || environment.default_hostname)
+  end
+
+  def hostname
+    if preferred_domain
+      return preferred_domain.name
+    else
+      domain = self.domains.first
+      domain ? domain.name : nil
+    end
+  end
+
+  def possible_domains
+    environment.domains + domains
   end
 
   # FIXME this can be SLOW

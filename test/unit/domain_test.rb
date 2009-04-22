@@ -3,6 +3,10 @@ require File.dirname(__FILE__) + '/../test_helper'
 class DomainTest < Test::Unit::TestCase
   fixtures :domains, :environments, :profiles, :users
 
+  def setup
+    Domain.clear_cache
+  end
+
   # Replace this with your real tests.
   def test_domain_name_format
     c = Domain.new
@@ -81,6 +85,19 @@ class DomainTest < Test::Unit::TestCase
     assert_not_nil Domain.find_by_name('johndoe.net').profile
     # domain linked to Environment
     assert_nil Domain.find_by_name('colivre.net').profile
+  end
+
+  def test_hosted_domain
+    assert_equal false, Domain.hosting_profile_at('example.com')
+
+    profile = create_user('hosted_user').person
+    Domain.create!(:name => 'example.com', :owner => profile)
+    assert_equal true, Domain.hosting_profile_at('example.com')
+  end
+
+  def test_not_report_profile_hosted_for_environment_domains
+    Domain.create!(:name => 'example.com', :owner => Environment.default)
+    assert_equal false, Domain.hosting_profile_at('example.com')
   end
 
 end

@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class ProfileTest < Test::Unit::TestCase
-  fixtures :profiles, :environments, :users, :roles
+  fixtures :profiles, :environments, :users, :roles, :domains
 
   def test_identifier_validation
     p = Profile.new
@@ -284,7 +284,7 @@ class ProfileTest < Test::Unit::TestCase
   should "use own domain name instead of environment's for home page url" do
     profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile', :environment_id => create_environment('mycolivre.net').id)
     profile.domains << Domain.new(:name => 'micojones.net')
-    assert_equal({:host => 'micojones.net', :controller => 'content_viewer', :action => 'view_page', :page => []}, profile.url)
+    assert_equal({:host => 'micojones.net', :profile => nil, :controller => 'content_viewer', :action => 'view_page', :page => []}, profile.url)
   end
 
   should 'help developers by adding a suitable port to url options' do
@@ -1256,6 +1256,44 @@ class ProfileTest < Test::Unit::TestCase
 
     assert_not_nil person.find_in_all_tasks(task1.id)
     assert_nil person.find_in_all_tasks(task2.id)
+  end
+
+  should 'use environment hostname by default' do
+    profile = Profile.new
+    env = mock
+    env.stubs(:default_hostname).returns('myenvironment.net')
+    profile.stubs(:environment).returns(env)
+    assert_equal 'myenvironment.net', profile.default_hostname
+  end
+
+  should 'use its first domain hostname name if available' do
+    profile = create_user('testuser').person
+    profile.domains << Domain.new(:name => 'myowndomain.net')
+    assert_equal 'myowndomain.net', profile.default_hostname
+  end
+
+  should 'have a preferred domain name' do
+    person = create_user('testuser').person
+    domain = Domain.create!(:name => 'myowndomain.net', :owner => person)
+    person.preferred_domain = domain
+    person.save!
+
+    assert_equal domain, Person.find(person.id).preferred_domain(true)
+  end
+
+  should 'use preferred domain for hostname' do
+    profile = Profile.new
+    profile.stubs(:preferred_domain).returns(Domain.new(:name => 'preferred.net'))
+    assert_equal 'preferred.net', profile.url[:host]
+  end
+
+  should 'provide a list of possible preferred domain names' do
+    profile = create_user('testuser').person
+    domain1 = Domain.create!(:name => 'envdomain.net', :owner => profile.environment)
+    domain2 = Domain.create!(:name => 'profiledomain.net', :owner => profile)
+
+    assert_includes profile.possible_domains, domain1
+    assert_includes profile.possible_domains, domain2
   end
 
   private
