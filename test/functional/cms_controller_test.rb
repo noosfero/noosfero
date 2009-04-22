@@ -942,6 +942,10 @@ class CmsControllerTest < Test::Unit::TestCase
   end
 
   should 'display iframe for media listing when it is TinyMceArticle' do
+    env = Environment.default
+    env.enable('media_panel')
+    env.save!
+
     image_folder = Folder.create(:profile => profile, :name => 'Image folder')
     non_image_folder = Folder.create(:profile => profile, :name => 'Non image folder')
 
