@@ -592,4 +592,7 @@ class Profile < ActiveRecord::Base
     !environment.enabled?('disable_contact_' + self.class.name.downcase)
   end
 
+  def folders
+    self.articles.find(:all, :conditions => ['type in (?)', ['Folder', 'Blog']])
+  end
 end

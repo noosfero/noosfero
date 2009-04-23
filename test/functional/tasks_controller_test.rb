@@ -153,4 +153,28 @@ class TasksControllerTest < Test::Unit::TestCase
      assert_equal f, assigns(:ticket).target
   end
 
+  should 'create published article after finish approve article task' do
+    PublishedArticle.destroy_all
+    c = Community.create!(:name => 'test comm', :moderated_articles => false)
+    @controller.stubs(:profile).returns(c)
+    c.affiliate(profile, Profile::Roles.all_roles)
+    article = profile.articles.create!(:name => 'something interesting', :body => 'ruby on rails')
+    t = ApproveArticle.create!(:name => 'test name', :article => article, :target => c, :requestor => profile)
+
+    post :close, :decision => 'finish', :id => t.id, :task => { :name => 'new_name'}
+    assert_equal article, PublishedArticle.find(:first).reference_article
+  end
+
+  should 'create published article in folder after finish approve article task' do
+    PublishedArticle.destroy_all
+    c = Community.create!(:name => 'test comm', :moderated_articles => false)
+    @controller.stubs(:profile).returns(c)
+    folder = c.articles.create!(:name => 'test folder', :type => 'Folder')
+    c.affiliate(profile, Profile::Roles.all_roles)
+    article = profile.articles.create!(:name => 'something interesting', :body => 'ruby on rails')
+    t = ApproveArticle.create!(:name => 'test name', :article => article, :target => c, :requestor => profile)
+
+    post :close, :decision => 'finish', :id => t.id, :task => { :name => 'new_name', :article_parent_id => folder.id}
+    assert_equal folder, PublishedArticle.find(:first).parent
+  end
 end

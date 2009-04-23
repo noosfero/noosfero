@@ -493,6 +493,10 @@ module ApplicationHelper
     content_tag('div', result)
   end
 
+  def select_folder(object, method, collection, html_options = {}, js_options = {})
+    labelled_form_field(_('Folder'), select(object, method, collection.map {|f| [ profile.identifier + '/' + f.full_name, f.id ] }, html_options.merge({:include_blank => "#{profile.identifier}"}), js_options))
+  end
+
   def theme_option(opt = nil)
     conf = RAILS_ROOT.to_s() +
            '/public' + theme_path +

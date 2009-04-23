@@ -1296,6 +1296,21 @@ class ProfileTest < Test::Unit::TestCase
     assert_includes profile.possible_domains, domain2
   end
 
+  should 'list folder articles' do
+    profile = Profile.create!(:name => 'Profile for testing ', :identifier => 'profilefortesting')
+    Article.destroy_all
+    p1 = Folder.create!(:name => 'parent1', :profile => profile)
+    p2 = Blog.create!(:name => 'parent2', :profile => profile)
+
+    assert p1.folder?
+    assert p2.folder?
+
+    child = profile.articles.create!(:name => 'child', :parent => p1)
+    profile.reload
+    assert_equivalent [p1, p2], profile.folders
+    assert !profile.folders.include?(child)
+  end
+
   private
 
   def assert_invalid_identifier(id)

@@ -35,8 +35,24 @@ class ApproveArticle < Task
     data[:closing_statment] = value
   end
 
+  def article_parent_id= value
+    data[:parent_id] = value
+  end
+
+  def article_parent_id
+    data[:parent_id]
+  end
+
+  def article_parent
+    Article.find_by_id article_parent_id
+  end
+
+  def article_parent= value
+    article_parent_id = value.id
+  end
+
   def perform
-    PublishedArticle.create(:name => name, :profile => target, :reference_article => article)
+    PublishedArticle.create(:name => name, :profile => target, :reference_article => article, :parent => article_parent)
   end
 
   def target_notification_message

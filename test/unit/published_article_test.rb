@@ -84,4 +84,12 @@ class PublishedArticleTest < ActiveSupport::TestCase
     assert_equal @profile, PublishedArticle.new(:profile => @profile).author
   end
 
+  should 'have parent if defined' do
+    prof = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
+    folder = Folder.create(:name => 'folder test', :profile => prof)
+    p = PublishedArticle.create(:reference_article => @article, :profile => prof, :parent => folder)
+
+    assert p
+    assert_equal folder, p.parent
+  end
 end

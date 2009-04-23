@@ -15,10 +15,6 @@ module CmsHelper
     end
   end
 
-  def select_folder(object, method, collection, html_options, js_options)
-    labelled_form_field(_('Folder'), select(object, method, collection.map {|f| [ profile.identifier + '/' + f.full_name, f.id ] }, html_options.merge({:include_blank => "#{profile.identifier}"}), js_options))
-  end
-
   def pagination_links(collection, options={})
     options = {:prev_label => '&laquo; ', :next_label => ' &raquo;', :page_links => false}.merge(options)
     will_paginate(collection, options)

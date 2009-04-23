@@ -32,4 +32,22 @@ class ApproveArticleTest < ActiveSupport::TestCase
     end
   end
 
+  should 'have parent if defined' do
+    profile = create_user('test_user').person
+    article = profile.articles.create!(:name => 'test article')
+    folder = profile.articles.create!(:name => 'test folder', :type => 'Folder')
+
+    a = ApproveArticle.create!(:name => 'test name', :article => article, :target => profile, :requestor => profile, :article_parent_id => folder.id)
+
+    assert_equal folder, a.article_parent
+  end
+
+  should 'not have parent if not defined' do
+    profile = create_user('test_user').person
+    article = profile.articles.create!(:name => 'test article')
+
+    a = ApproveArticle.create!(:name => 'test name', :article => article, :target => profile, :requestor => profile)
+
+    assert_nil a.article_parent
+  end
 end
