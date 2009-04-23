@@ -198,7 +198,18 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_same foo, template_stylesheet_tag
   end
 
-  should 'not force ssl when environment has ssl disabled' do
+  should 'use https:// for login_url' do
+    environment = mock
+    environment.expects(:disable_ssl).returns(false)
+    stubs(:environment).returns(environment)
+    request = mock
+    request.stubs(:host).returns('myhost.net')
+    stubs(:request).returns(request)
+    stubs(:url_for).with(has_entries(:protocol => 'https://', :host => 'myhost.net')).returns('LALALA')
+    assert_equal 'LALALA', login_url
+  end
+
+  should 'not force ssl in login_url when environment has ssl disabled' do
     environment = mock
     environment.expects(:disable_ssl).returns(true).at_least_once
     stubs(:environment).returns(environment)

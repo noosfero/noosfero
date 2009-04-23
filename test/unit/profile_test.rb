@@ -261,7 +261,7 @@ class ProfileTest < Test::Unit::TestCase
 
   should 'provide URL to admin area' do
     profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile', :environment_id => create_environment('mycolivre.net').id)
-    assert_equal({ :host => 'mycolivre.net', :profile => 'testprofile', :controller => 'profile_editor', :action => 'index'}, profile.admin_url)
+    assert_equal({ :profile => 'testprofile', :controller => 'profile_editor', :action => 'index'}, profile.admin_url)
   end
 
   should 'provide URL to public profile' do
