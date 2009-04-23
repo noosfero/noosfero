@@ -258,8 +258,11 @@ class Article < ActiveRecord::Base
       profile
   end
 
-  def cache_key
-    "article-id-#{id}"
+  def cache_key(params = {})
+    "article-id-#{id}" +
+      (params[:npage] ? "-npage-#{params[:npage]}" : '') +
+      (params[:year] ? "-year-#{params[:year]}" : '') +
+      (params[:month] ? "-month-#{params[:month]}" : '')
   end
 
   private

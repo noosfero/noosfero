@@ -638,10 +638,10 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'a', :attributes => { :href => "/#{profile.identifier}/#{blog.path}?npage=2", :rel => 'next' }
   end
 
-  should 'extract year and month from path' do
+  should 'set year and month filter from URL params' do
     profile.articles << Blog.new(:name => 'A blog test', :profile => profile)
     year, month = profile.blog.created_at.year.to_s, '%02d' % profile.blog.created_at.month
-    get :view_page, :profile => profile.identifier, :page => [profile.blog.path, year, month]
+    get :view_page, :profile => profile.identifier, :page => [profile.blog.path], :year => year, :month => month
     assert_equal({ :year => year.to_s, :month => month.to_s }, assigns(:page).filter)
   end
 

@@ -695,4 +695,16 @@ class ArticleTest < Test::Unit::TestCase
     assert_equal a.created_at, a.published_at
   end
 
+  should 'use npage to compose cache key' do
+    a = Article.new
+    a.expects(:id).returns(34)
+    assert_equal 'article-id-34-npage-2', a.cache_key(:npage => 2)
+  end
+
+  should 'use year and month to compose cache key' do
+    a = Article.new
+    a.expects(:id).returns(34)
+    assert_equal 'article-id-34-year-2009-month-04', a.cache_key(:year => '2009', :month => '04')
+  end
+
 end

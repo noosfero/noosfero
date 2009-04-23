@@ -38,7 +38,7 @@ class BlogArchivesBlockTest < ActiveSupport::TestCase
     end
     block = BlogArchivesBlock.new
     block.stubs(:owner).returns(profile)
-    assert_tag_in_string block.content, :tag => 'a', :content => 'January (10)', :attributes => {:href => /2008\/01/}
+    assert_tag_in_string block.content, :tag => 'a', :content => 'January (10)', :attributes => {:href => 'http://colivre.net/flatline/blog?month=01&year=2008' }
   end
 
   should 'order list of amount posts' do

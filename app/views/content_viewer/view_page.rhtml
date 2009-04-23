@@ -83,7 +83,7 @@
   </div>
 <% end %>
 
-<% cache(@page.cache_key) do %>
+<% cache(@page.cache_key(params)) do %>
   <div class="<%="article-body article-body-" + @page.css_class_name %>">
     <%= article_to_html(@page) %>
     <br style="clear:both" />
