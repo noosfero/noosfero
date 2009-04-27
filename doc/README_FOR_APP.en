@@ -7,18 +7,18 @@ so the process of setting it up is pretty similar to other Rails applications.
 
 === Requirements
 
+noosfero is intended to be run in Debian stable. It can work in other environments, but we do not test on them.
+
 You need to have a Subversion client (svn) installed, as well as:
 
 * Ruby: http://www.ruby-lang.org/
 * Rake: http://rake.rubyforge.org/
 * Ruby-GetText: http://www.yotabanana.com/hiki/ruby-gettext.html?ruby-gettext (at least version 1.9.0)
-* Mocha: http://mocha.rubyforge.org/
 * Ruby-sqlite3: http://rubyforge.org/projects/sqlite-ruby
 * rcov: http://eigenclass.org/hiki/rcov
 * Ferret: http://ferret.davebalmain.com/trac
 * RMagick: http://rmagick.rubyforge.org/
 * RedCloth: http://whytheluckystiff.net/ruby/redcloth/
-* Ruby Locale: http://rubyforge.org/projects/locale/
 * will_paginate: http://github.com/mislav/will_paginate/wikis
 * contacts: http://github.com/cardmagic/contacts/tree/master
 * iso-codes: http://pkg-isocodes.alioth.debian.org/
@@ -26,12 +26,7 @@ You need to have a Subversion client (svn) installed, as well as:
 
 There are Debian packages available for all of them but ferret. Try:
 
- # aptitude install subversion ruby rake libgettext-ruby libmocha-ruby libsqlite3-ruby rcov librmagick-ruby libredcloth-ruby liblocale-ruby libwill-paginate-ruby iso-codes libfeedparser-ruby
-
-Ferret shall enter Debian soon (as <tt>libferret-ruby</tt>). until there you have two options:
-
-1. build the source package from svn://svn.debian.org/svn/pkg-ruby-extras/packages-wip/libferret-ruby
-1. install ferret via rubygems: issue <tt>gem install ferret</tt> as root (you'll need to install the <tt>rubygems</tt> package for it)
+ # aptitude install subversion ruby rake libgettext-ruby1.8 libsqlite3-ruby rcov librmagick-ruby libredcloth-ruby libwill-paginate-ruby iso-codes libfeedparser-ruby libferret-ruby
 
 If you have problems with the setup, use the development mailing list. In
 special its possible that the requirements list above is not complete.
@@ -54,7 +49,7 @@ commands and make sure you understand what you are doing):
  # create some test data:
  ./script/populate
  # install the test dependences:
- aptitude install libtidy-ruby libhpricot-ruby
+ aptitude install libtidy-ruby libhpricot-ruby libmocha-ruby imagemagick
  # run the automated test suite to make sure your environment is sane:
  rake test
 
