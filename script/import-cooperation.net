@@ -29,6 +29,13 @@ class UploadedFile
   attr_accessor :is_homepage, :filesystem_location
 end
 
+Person # forces loading Noosfero class before adding stuff to id
+class Person
+  delegate :crypted_password=, :to => :user
+  delegate :salt=, :to => :user
+  delegate :password_type=, :to => :user
+end
+
 class FileData < StringIO
   attr_reader :original_filename, :content_type
   def initialize(actual_filename, name, content_type)
@@ -39,15 +46,7 @@ class FileData < StringIO
 end
 
 def import_environment(name)
-  environment = Environment.find_by_name(name)
-  if environment
-    puts "I: environment <#{name}> already exists, loading it."
-  else
-    environment = Environment.create!(:name => name)
-    Domain.create!(:name => domainname(name), :owner => environment)
-    puts "I: environment <#{name}> created."
-  end
-  environment
+  return Environment.default
 end
 
 for username in ARGV
@@ -59,12 +58,14 @@ for username in ARGV
 
       # create user
       login = username.gsub(/@.*$/, '')
-      user = User.create!(:login => login, :email => username, :environment => environment, :password => password(username), :password_confirmation => password(username))
-      puts "I: user account for #{username} created"
+      user = User.new(:login => login, :email => username, :environment => environment)
 
       # import person data
-      person = user.person
+      person = Person.new(:identifier => login)
+      user.person = person
+      person.user = user
       person.from_xml(File.read(File.join(IMPORT_DIR, username + '.xml')))
+      user.save!
       puts "I: #{username} data imported"
 
       # import articles
