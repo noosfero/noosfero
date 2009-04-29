@@ -134,6 +134,10 @@ class User < ActiveRecord::Base
     password
   end
 
+  add_encryption_method :crypt do |password, salt|
+    password.crypt(salt)
+  end
+
   def authenticated?(password)
     result = (crypted_password == encrypt(password))
     if (encryption_method != User.system_encryption_method) && result
@@ -209,7 +213,7 @@ class User < ActiveRecord::Base
     # before filter 
     def encrypt_password
       return if password.blank?
-      self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{login}--") if new_record?
+      self.salt ||= Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{login}--") if new_record?
       self.password_type ||= User.system_encryption_method.to_s
       self.crypted_password = encrypt(password)
     end

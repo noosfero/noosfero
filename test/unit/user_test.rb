@@ -165,7 +165,7 @@ class UserTest < Test::Unit::TestCase
   def test_should_encrypt_password_with_salted_sha1
     user = User.new(:login => 'lalala', :email => 'lalala@example.com', :password => 'test', :password_confirmation => 'test')
     user.build_person(person_data)
-    user.expects(:salt).returns('testsalt')
+    user.stubs(:salt).returns('testsalt')
     user.save!
 
     # SHA1+salt crypted form for password 'test', and salt 'testsalt',
@@ -180,6 +180,11 @@ class UserTest < Test::Unit::TestCase
     # makes 'test' a terrible password. :)
     user = new_user(:login => 'lalala', :email => 'lalala@example.com', :password => 'test', :password_confirmation => 'test', :password_type => 'md5')
     assert_equal '098f6bcd4621d373cade4e832627b4f6', user.crypted_password
+  end
+
+  def test_should_support_crypt_passwords
+    user = new_user(:login => 'lalala', :email => 'lalala@example.com', :password => 'test', :password_confirmation => 'test', :password_type => 'crypt', :salt => 'test')
+    assert_equal 'teH0wLIpW0gyQ', user.crypted_password
   end
 
   def test_should_support_clear_passwords
