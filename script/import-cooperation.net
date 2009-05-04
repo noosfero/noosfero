@@ -10,14 +10,15 @@ if ARGV.size == 0
   exit(1)
 end
 
-def password(username)
-  # FIXME
-  '123456'
+def import_environment(domain_name)
+  env = Environment.default
+  env.domains << get_domain(domain_name)
+  return Environment.default
 end
 
-def domainname(envname)
-  # FIXME remove the suffix
-  envname + '.local'
+def get_domain(envname)
+  suffix = (ENV['RAILS_ENV'] == 'production') ? '' : '.local'
+  domain = Domain.find_or_create_by_name(envname + suffix)
 end
 
 TinyMceArticle # forces loading the Noosfero class before adding stuff to it
@@ -45,16 +46,12 @@ class FileData < StringIO
   end
 end
 
-def import_environment(name)
-  return Environment.default
-end
-
 for username in ARGV
   begin
     User.transaction do
       # guess environment
-      envname = username.gsub(/^.*@/, '')
-      environment = import_environment(envname)
+      domain_name = username.gsub(/^.*@/, '')
+      environment = import_environment(domain_name)
 
       # create user
       login = username.gsub(/@.*$/, '')
@@ -65,6 +62,7 @@ for username in ARGV
       user.person = person
       person.user = user
       person.from_xml(File.read(File.join(IMPORT_DIR, username + '.xml')))
+      person.preferred_domain = get_domain(domain_name)
       user.save!
       puts "I: #{username} data imported"
 
