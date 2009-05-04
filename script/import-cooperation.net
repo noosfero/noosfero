@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../config/environment'
 
 include ActionController::UrlWriter
 
-IMPORT_DIR = '/home/terceiro/src/cooperation-migration/data/export'
+IMPORT_DIR = ENV['IMPORT_DIR'] || '/home/terceiro/src/cooperation-migration/data/export'
 
 if ARGV.size == 0
   puts "usage: %s <username> [ <username> [ <username> ... ] ]" % $PROGRAM_NAME
