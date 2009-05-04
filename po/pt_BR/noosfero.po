@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.16.0\n"
 "POT-Creation-Date: 2009-04-09 18:20-0300\n"
-"PO-Revision-Date: 2009-04-16 15:38-0300\n"
+"PO-Revision-Date: 2009-05-04 11:55-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -3948,7 +3948,7 @@ msgid ""
 "not be fetched immediately."
 msgstr ""
 "Os feeds são atualizados em lote periodicamente. Por favor, note que seus "
-"não serão obtidos imediatamente."
+"posts não serão obtidos imediatamente."
 
 #: app/views/task_mailer/task_cancelled.text.plain.rhtml:1
 #: app/views/task_mailer/task_finished.text.plain.rhtml:1
