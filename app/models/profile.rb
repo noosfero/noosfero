@@ -344,7 +344,7 @@ class Profile < ActiveRecord::Base
   end
 
   def url_options
-    options = { :host => default_hostname, :profile => (hostname ? nil : self.identifier) }
+    options = { :host => default_hostname, :profile => (own_hostname ? nil : self.identifier) }
     Noosfero.url_options.merge(options)
   end
 
@@ -356,9 +356,13 @@ class Profile < ActiveRecord::Base
     if preferred_domain
       return preferred_domain.name
     else
-      domain = self.domains.first
-      domain ? domain.name : nil
+      own_hostname
     end
+  end
+
+  def own_hostname
+    domain = self.domains.first
+    domain ? domain.name : nil
   end
 
   def possible_domains

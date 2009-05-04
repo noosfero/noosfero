@@ -1282,9 +1282,10 @@ class ProfileTest < Test::Unit::TestCase
   end
 
   should 'use preferred domain for hostname' do
-    profile = Profile.new
+    profile = Profile.new(:identifier => 'myself')
     profile.stubs(:preferred_domain).returns(Domain.new(:name => 'preferred.net'))
     assert_equal 'preferred.net', profile.url[:host]
+    assert_equal 'myself', profile.url[:profile]
   end
 
   should 'provide a list of possible preferred domain names' do
