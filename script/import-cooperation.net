@@ -96,6 +96,10 @@ for username in ARGV
         Dir.glob(File.join(attachments_dir, 'attachments', '*.xml')).each do |attachment_xml|
           file = UploadedFile.new
           file.from_xml(File.read(attachment_xml))
+          if !File.exist?(file.filesystem_location)
+            puts "W: skipping attachment pointing to unexisting file"
+            next
+          end
           puts "I: about to read data from #{file.filesystem_location} (xml: #{attachment_xml})"
           file.uploaded_data = FileData.new(file.filesystem_location, file.filename, file.content_type)
           file.parent = article
