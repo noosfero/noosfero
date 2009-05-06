@@ -1,0 +1,6 @@
+user = pam
+password = pam
+dbname = noosfero_development
+query = select destination from mail_aliases where source = '%s'
+hosts = 127.0.0.1
+ssl = false

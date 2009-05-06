@@ -24,5 +24,28 @@ JOIN domains on
    domains.owner_type = 'Environment')
 WHERE
   users.password_type = 'md5'
+  AND domains.is_default
   AND users.enable_email;
 
+CREATE OR REPLACE VIEW mail_aliases
+AS
+SELECT
+  users.login || '@' || domains_from.name as source,
+  users.login || '@' || domains_to.name as destination
+from users
+JOIN profiles on
+  (profiles.user_id = users.id and
+   profiles.type = 'Person')
+JOIN environments on
+  (environments.id = profiles.environment_id)
+JOIN domains domains_from on
+  (domains_from.owner_id = environments.id and
+   domains_from.owner_type = 'Environment' and
+   not domains_from.is_default)
+JOIN domains domains_to on
+  (domains_to.owner_id = environments.id and
+   domains_to.owner_type = 'Environment' and
+   domains_to.is_default)
+WHERE
+  users.password_type = 'md5'
+  AND users.enable_email;

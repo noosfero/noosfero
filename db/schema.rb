@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 66) do
+ActiveRecord::Schema.define(:version => 67) do
 
   create_table "article_versions", :force => true do |t|
     t.integer  "article_id"
@@ -87,8 +87,8 @@ ActiveRecord::Schema.define(:version => 66) do
     t.boolean "virtual",     :default => false
   end
 
-  add_index "articles_categories", ["category_id"], :name => "index_articles_categories_on_category_id"
   add_index "articles_categories", ["article_id"], :name => "index_articles_categories_on_article_id"
+  add_index "articles_categories", ["category_id"], :name => "index_articles_categories_on_category_id"
 
   create_table "blocks", :force => true do |t|
     t.string  "title"
@@ -151,6 +151,7 @@ ActiveRecord::Schema.define(:version => 66) do
     t.string  "name"
     t.string  "owner_type"
     t.integer "owner_id"
+    t.boolean "is_default", :default => false
   end
 
   create_table "environments", :force => true do |t|
@@ -286,8 +287,8 @@ ActiveRecord::Schema.define(:version => 66) do
     t.datetime "created_at"
   end
 
-  add_index "taggings", ["taggable_id", "taggable_type"], :name => "index_taggings_on_taggable_id_and_taggable_type"
   add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
+  add_index "taggings", ["taggable_id", "taggable_type"], :name => "index_taggings_on_taggable_id_and_taggable_type"
 
   create_table "tags", :force => true do |t|
     t.string  "name"
