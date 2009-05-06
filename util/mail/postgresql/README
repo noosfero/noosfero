@@ -172,13 +172,14 @@ Configure Postfix do deliver the mail in the right place
 --------------------------------------------------------
 
 Create a directory called "postgres" in /etc/postfix, and copy (or symlink) the
-files virtual_domains.cf and virtual_mailboxes.cf there.
+files *.cf in this directory there.
 
 Then in main Postfix configuration file, add the following lines to the end of the file:
 
 <<<<<<<<<<<<<<<
 virtual_mailbox_domains = proxy:pgsql:/etc/postfix/postgres/virtual_domains.cf
 virtual_mailbox_maps = proxy:pgsql:/etc/postfix/postgres/virtual_mailboxes.cf
+virtual_alias_maps = proxy:pgsql:/etc/postfix/postgres/virtual_aliases.cf
 virtual_mailbox_base = /home/vmail
 virtual_uid_maps = static:5000
 virtual_gid_maps = static:5000
@@ -215,7 +216,7 @@ virtual_create_maildirsize = yes
 virtual_mailbox_extended = yes
 # TODO limits (quota)
 
-proxy_read_maps = $virtual_mailbox_domains $virtual_mailbox_maps proxy:unix:passwd.byname
+proxy_read_maps = $virtual_mailbox_domains $virtual_mailbox_maps $virtual_alias_maps proxy:unix:passwd.byname
 >>>>>>>>>>>>>>
 
 Don't restart postfix yet, wait for the next step.
