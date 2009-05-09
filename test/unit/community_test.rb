@@ -117,4 +117,32 @@ class CommunityTest < Test::Unit::TestCase
     assert ! community.errors.invalid?(:contact_phone)
   end
 
+  should 'return newest text articles as news' do
+    c = Community.create!(:name => 'test_com')
+    f = Folder.create!(:name => 'folder', :profile => c)
+    u = UploadedFile.create!(:profile => c, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    older_t = TinyMceArticle.create!(:name => 'old news', :profile => c)
+    t = TinyMceArticle.create!(:name => 'news', :profile => c)
+    t_in_f = TinyMceArticle.create!(:name => 'news', :profile => c, :parent => f)
+
+    assert_equal [t_in_f, t], c.news(2)
+  end
+
+  should 'not return highlighted news when not asked' do
+    c = Community.create!(:name => 'test_com')
+    highlighted_t = TinyMceArticle.create!(:name => 'high news', :profile => c, :highlighted => true)
+    t = TinyMceArticle.create!(:name => 'news', :profile => c)
+
+    assert_equal [t].map(&:slug), c.news(2).map(&:slug)
+  end
+
+  should 'return highlighted news when asked' do
+    c = Community.create!(:name => 'test_com')
+    highlighted_t = TinyMceArticle.create!(:name => 'high news', :profile => c, :highlighted => true)
+    t = TinyMceArticle.create!(:name => 'news', :profile => c)
+
+    assert_equal [highlighted_t].map(&:slug), c.news(2, true).map(&:slug)
+  end
+
+
 end

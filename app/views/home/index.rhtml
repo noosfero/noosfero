@@ -2,7 +2,38 @@
   <%= lightbox_button(:new, _('Signup'), { :controller => 'account', :action => 'wizard' }, :class => 'wizard') %>
 <% end %>
 
-<%= environment.description %>
+<% if @has_news %>
+  <h3><%= _('News') %></h3>
+  <% cache @news_cache_key do %>
+    <div id='highlighted-news'>
+      <% @highlighted_news.each do |highlighted| %>
+        <p><%= link_to(highlighted.title, highlighted.url) %><br/>
+        <span class="post-date"><%= show_date(highlighted.published_at, true) %> </span></p>
+	<div class='headline'><%= highlighted.first_paragraph %></div>
+        <br style='clear:both' />
+      <% end%>
+    </div>
+
+    <div id='portal-news'>
+      <% @portal_news.each do |news| %>
+        <p><span class="post-date"><%= show_date(news.published_at, true) %> </span><%= link_to(news.title, news.url) %></p>
+      <% end%>
+    </div>
+
+    <% @area_news.each_with_index do |folder, i| %>
+      <% content_tag(:div, :class => ["news-area", ['even', 'odd'][i%2]].join(' ')) do %>
+        <h3><%= link_to folder.title, folder.url %></h3>
+          <ul>
+          <% folder.news(3).each do |news| %>
+            <li><span class='news-symbol'>&gt;</span> <%= link_to(news.title, news.url) %></li>
+          <% end%>
+          </ul>
+      <%end %>
+    <% end %>
+  <% end %>
+<% else %>
+  <%= environment.description %>
+<% end %>
 
 <% if environment.enabled?('enterprise_activation') %>
 

@@ -147,4 +147,73 @@ class AdminPanelControllerTest < Test::Unit::TestCase
     assert_tag :tag => "script", :content => /tinyMCE\.init/
   end
 
+  should 'set portal community' do
+    e = Environment.default
+    @controller.stubs(:environment).returns(e)
+    c = Community.create!(:name => 'portal_community')
+
+    post :set_portal_community, :portal_community_identifier => c.identifier
+
+    assert_equal c, e.portal_community
+  end
+
+  should 'redirect to set portal folders' do
+    e = Environment.default
+    @controller.stubs(:environment).returns(e)
+    c = Community.create!(:name => 'portal_community')
+
+    post :set_portal_community, :portal_community_identifier => c.identifier
+
+    assert_response :redirect
+    assert_redirected_to :action => 'set_portal_folders'
+  end
+
+  should 'not have a portal community from other environment' do
+    e = Environment.default
+    @controller.stubs(:environment).returns(e)
+    other_e = Environment.create!(:name => 'other environment')
+    c = Community.create!(:name => 'portal community', :environment => other_e)
+
+    post :set_portal_community, :portal_community_identifier => c.identifier
+    e.reload
+
+    assert_not_equal c, e.portal_community
+  end
+
+  should 'give error when portal community is not given' do
+    post :set_portal_community, :portal_community_identifier => 'no_community'
+    assert_response :success
+    assert_template 'set_portal_community'
+  end
+
+  should 'give portal_community folders as option for portal folders' do
+    env = Environment.default
+    c = Community.create!(:name => 'portal')
+    env.portal_community = c
+    local = Folder.create!(:profile => c, :name => 'local news')
+    tech = Folder.create!(:profile => c, :name => 'tech news')
+    politics = Folder.create!(:profile => c, :name => 'politics news')
+    env.save!
+
+    get :set_portal_folders
+    assert_tag :tag => 'option', :attributes => {:value => local.id}, :content => local.name
+    assert_tag :tag => 'option', :attributes => {:value => tech.id}, :content => tech.name
+    assert_tag :tag => 'option', :attributes => {:value => politics.id}, :content => politics.name
+  end
+
+  should 'save a list of folders as portal folders for the environment' do
+    env = Environment.default
+    @controller.stubs(:environment).returns(env)
+    c = Community.create!(:name => 'portal')
+    env.portal_community = c
+    local = Folder.create!(:profile => c, :name => 'local news')
+    discarded = Folder.create!(:profile => c, :name => 'discarded news')
+    tech = Folder.create!(:profile => c, :name => 'tech news')
+    politics = Folder.create!(:profile => c, :name => 'politics news')
+    env.save!
+
+    post :set_portal_folders, :folders => [local, politics, tech].map(&:id)
+
+    assert_equal [local, politics, tech].map(&:id), env.portal_folders.map(&:id)
+  end
 end

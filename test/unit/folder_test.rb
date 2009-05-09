@@ -107,4 +107,33 @@ class FolderTest < ActiveSupport::TestCase
     assert_equal [image], f.images.paginate(:page => 2, :per_page => 1)
   end
 
+  should 'return newest text articles as news' do
+    c = Community.create!(:name => 'test_com')
+    folder = Folder.create!(:name => 'folder', :profile => c)
+    f = Folder.create!(:name => 'folder', :profile => c, :parent => folder)
+    u = UploadedFile.create!(:profile => c, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => folder)
+    older_t = TinyMceArticle.create!(:name => 'old news', :profile => c, :parent => folder)
+    t = TinyMceArticle.create!(:name => 'news', :profile => c, :parent => folder)
+    t_in_f = TinyMceArticle.create!(:name => 'news', :profile => c, :parent => f)
+
+    assert_equal [t], folder.news(1)
+  end
+
+  should 'not return highlighted news when not asked' do
+    c = Community.create!(:name => 'test_com')
+    folder = Folder.create!(:name => 'folder', :profile => c)
+    highlighted_t = TinyMceArticle.create!(:name => 'high news', :profile => c, :highlighted => true, :parent => folder)
+    t = TinyMceArticle.create!(:name => 'news', :profile => c, :parent => folder)
+
+    assert_equal [t].map(&:slug), folder.news(2).map(&:slug)
+  end
+
+  should 'return highlighted news when asked' do
+    c = Community.create!(:name => 'test_com')
+    folder = Folder.create!(:name => 'folder', :profile => c)
+    highlighted_t = TinyMceArticle.create!(:name => 'high news', :profile => c, :highlighted => true, :parent => folder)
+    t = TinyMceArticle.create!(:name => 'news', :profile => c, :parent => folder)
+
+    assert_equal [highlighted_t].map(&:slug), folder.news(2, true).map(&:slug)
+  end
 end

@@ -47,6 +47,7 @@ class Environment < ActiveRecord::Base
       'media_panel' => _('Media panel in WYSIWYG editor'),
       'select_preferred_domain' => _('Select preferred domains per profile'),
       'display_wizard_signup' => _('Display wizard signup'),
+      'use_portal_community' => _('Use the portal as news source for front page'),
     }
   end
 
@@ -537,6 +538,26 @@ class Environment < ActiveRecord::Base
 
   def replace_enterprise_template_when_enable=(value)
     settings[:replace_enterprise_template_when_enable] = value
+  end
+
+  def portal_community
+    Community[settings[:portal_community_identifier]]
+  end
+
+  def portal_community=(value)
+    settings[:portal_community_identifier] = value.identifier
+  end
+
+  def is_portal_community?(profile)
+    portal_community == profile
+  end
+
+  def portal_folders
+    (settings[:portal_folders] || []).map{|fid| Folder.find(:first, :conditions => {:profile_id => portal_community.id, :id => fid})}
+  end
+
+  def portal_folders=(folders)
+    settings[:portal_folders] = folders.map(&:id)
   end
 
   after_create :create_templates

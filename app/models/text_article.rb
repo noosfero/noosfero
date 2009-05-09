@@ -2,5 +2,4 @@
 class TextArticle < Article
 
   xss_terminate :only => [ :name, :abstract, :body ]
-
 end

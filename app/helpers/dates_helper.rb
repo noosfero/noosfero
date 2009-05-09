@@ -22,8 +22,10 @@ module DatesHelper
   end
 
   # formats a date for displaying.
-  def show_date(date)
-    if date
+  def show_date(date, use_numbers = false)
+    if date && use_numbers
+      _('%{month}/%{day}/%{year}') % { :day => date.day, :month => date.month, :year => date.year }
+    elsif date
       _('%{month} %{day}, %{year}') % { :day => date.day, :month => month_name(date.month), :year => date.year }
     else
       ''

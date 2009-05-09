@@ -228,6 +228,15 @@ class ArticleTest < Test::Unit::TestCase
     assert_equal [ second ], Article.recent(nil)
   end
 
+  should 'accept extra conditions to find recent' do
+    p = create_user('usr1').person
+    Article.destroy_all
+    a1 = p.articles.create!(:name => 'first')
+    a2 = p.articles.create!(:name => 'second')
+
+    assert_equal [ a1 ], Article.recent(nil, :name => 'first')
+  end
+
   should 'require that subclasses define description' do
     assert_raise NotImplementedError do
       Article.description
@@ -705,6 +714,11 @@ class ArticleTest < Test::Unit::TestCase
     a = Article.new
     a.expects(:id).returns(34)
     assert_equal 'article-id-34-year-2009-month-04', a.cache_key(:year => '2009', :month => '04')
+  end
+
+  should 'not be highlighted by default' do
+    a = Article.new
+    assert !a.highlighted
   end
 
 end

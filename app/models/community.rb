@@ -41,4 +41,7 @@ class Community < Organization
     environment.community_template
   end
 
+  def news(limit = 30, highlight = false)
+    recent_documents(limit, ["articles.type != ? AND articles.highlighted = ?", 'Folder', highlight])
+  end
 end

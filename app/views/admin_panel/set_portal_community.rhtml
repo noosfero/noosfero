@@ -1,0 +1,9 @@
+<h1> <%= _('Set Environment Portal') %></h1>
+
+<% form_tag do %>
+  <%= labelled_form_field(_('Portal identifier'), text_field_tag('portal_community_identifier', @portal_community.identifier, :size => 40) ) %>
+
+  <% button_bar do %>
+     <%= submit_button 'save', _('Save'), :cancel => { :action => 'index' }  %>
+  <% end %>
+<% end %>

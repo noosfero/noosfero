@@ -15,6 +15,10 @@ protected
     article.hierarchy.each {|a| expire_fragment(/#{a.cache_key}/) }
     blocks = article.profile.blocks.select{|b|[RecentDocumentsBlock, BlogArchivesBlock].any?{|c| b.kind_of?(c)}}
     blocks.map(&:cache_keys).each{|ck|expire_timeout_fragment(ck)}
+    env = article.profile.environment
+    if env.portal_community == article.profile
+      expire_fragment("home_page_news_#{env.id}")
+    end
   end
 
   def expire_fragment(*args)

@@ -288,8 +288,8 @@ class Profile < ActiveRecord::Base
   #
   # +limit+ is the maximum number of documents to be returned. It defaults to
   # 10.
-  def recent_documents(limit = 10)
-    self.articles.recent(limit)
+  def recent_documents(limit = 10, options = {})
+    self.articles.recent(limit, options)
   end
 
   class << self
@@ -605,4 +605,5 @@ class Profile < ActiveRecord::Base
   def folders
     self.articles.find(:all, :conditions => ['type in (?)', ['Folder', 'Blog']])
   end
+
 end

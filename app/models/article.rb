@@ -98,7 +98,7 @@ class Article < ActiveRecord::Base
   # oldest.
   #
   # Only includes articles where advertise == true
-  def self.recent(limit)
+  def self.recent(limit, extra_conditions = {})
     # FIXME this method is a horrible hack
     options = { :limit => limit,
                 :conditions => [
@@ -117,7 +117,13 @@ class Article < ActiveRecord::Base
          scoped_methods.last[:find][:joins].index('profiles') )
       options.delete(:include)
     end
-    self.find(:all, options)
+    if extra_conditions == {}
+      self.find(:all, options)
+    else
+      with_scope :find => {:conditions => extra_conditions} do
+        self.find(:all, options)
+      end
+    end
   end
 
   # retrives the most commented articles, sorted by the comment count (largest
@@ -263,6 +269,11 @@ class Article < ActiveRecord::Base
       (params[:npage] ? "-npage-#{params[:npage]}" : '') +
       (params[:year] ? "-year-#{params[:year]}" : '') +
       (params[:month] ? "-month-#{params[:month]}" : '')
+  end
+
+  def first_paragraph
+    body =~ /(.*<\/p>)/
+    $1
   end
 
   private

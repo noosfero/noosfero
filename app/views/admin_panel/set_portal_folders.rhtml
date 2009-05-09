@@ -1,0 +1,13 @@
+<h1><%= _('Select folders') %></h1>
+
+<p><%= _('Select what folder will hold the news for witch area of the initial page of the environment') %></p>
+
+<% form_tag do %>
+  <% (1..4).each do |i| %>
+    <%= labelled_select _('Area %d: ') % i, 'folders[]', :id, :name, @selected[i-1], @portal_folders %> <br>
+  <% end %>
+
+  <% button_bar do %>
+    <%= submit_button 'save', _('Save'), :cancel => {:action => 'index'} %>
+  <% end %>
+<% end %>

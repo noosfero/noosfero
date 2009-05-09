@@ -716,4 +716,33 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_not_equal 'default', e.icon_theme
   end
 
+  should 'have a portal community' do
+    e = Environment.default
+    c = Community.create!(:name => 'portal community')
+
+    assert_respond_to e, :portal_community
+    e.portal_community = c; e.save!
+    e.reload
+
+    assert_equal c, e.portal_community
+  end
+
+  should 'have a set of portal folders' do
+    e = Environment.default
+
+    assert_respond_to e, :portal_folders
+    c = e.portal_community = Community.create!(:name => 'portal community')
+    news_folder = Folder.create!(:name => 'news folder', :profile => c)
+
+    e.portal_folders = [news_folder]
+    e.save!; e.reload
+
+    assert_equal [news_folder], e.portal_folders
+  end
+
+  should 'return empty array when no portal folders' do
+   e = Environment.default
+
+   assert_equal [], e.portal_folders
+  end
 end

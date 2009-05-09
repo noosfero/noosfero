@@ -40,4 +40,34 @@ all_fixtures
     assert_tag :tag => 'div', :attributes => { :id => 'activation_enterprise' }, :descendant => {:tag => 'form', :attributes => {:action => '/account/activation_question'}}
   end
 
+  should 'not display news from portal if disabled in environment' do
+    env = Environment.default
+    env.disable('use_portal_community')
+    env.save!
+
+    get :index
+    assert_no_tag :tag => 'div', :attributes => { :id => 'portal-news' }
+  end
+
+  should 'not display news from portal if environment doesnt have portal community' do
+    env = Environment.default
+    env.enable('use_portal_community')
+    env.save!
+
+    get :index
+    assert_no_tag :tag => 'div', :attributes => { :id => 'portal-news' }
+  end
+
+  should 'display news from portal if enabled and has portal community' do
+    env = Environment.default
+    env.enable('use_portal_community')
+
+    c = Community.create!(:name => 'community test')
+    env.portal_community = c
+
+    env.save!
+
+    get :index
+    assert_tag :tag => 'div', :attributes => { :id => 'portal-news' } #, :descendant => {:tag => 'form', :attributes => {:action => '/account/activation_question'}}
+  end
 end

@@ -22,6 +22,7 @@
     <%= labelled_form_field _('Name for publishing'), f.text_field(:name, :style => 'width:80%;') %>
 
     <%= labelled_form_field(_('Select the folder where the article must be published'), select_folder('task', 'article_parent_id', task.target.folders)) %>
+    <%= labelled_form_field( _('Highlight'), check_box_tag(:highlighted, true)) %>
     <%= labelled_form_field _('Comment for author'), f.text_area(:closing_statment, :style => 'height:200px; width:80%;') %>
 
   </div>
