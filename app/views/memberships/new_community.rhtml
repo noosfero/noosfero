@@ -4,13 +4,24 @@
 
 <div style='margin-left: 20%; margin-right: 20%'>
 
-<% labelled_form_for :community, @community do |f| %>
+<% labelled_form_for :community, @community, :html => { :multipart => true } do |f| %>
 
   <%= required_fields_message %>
 
   <%= required f.text_field(:name, :style => 'width: 100%') %>
 
   <%= f.text_area :description, :style => 'width: 100%; height: 150px;' %>
+
+  <%= hidden_field_tag :wizard, params[:wizard] %>
+
+  <%= f.text_field('tag_list', :size => 64) %>
+  <%= content_tag( 'small', _('Separate tags with commas') ) %>
+
+  <div id="profile_change_picture">
+    <% f.fields_for :image_builder, @community.image do |i| %>
+      <%= file_field_or_thumbnail(_('Image:'), @community.image, i) %>
+    <% end %>
+  </div>
 
   <div style='margin-bottom: 1em; margin-top: 1em;'>
   <%= _('New members must be approved:')%>
@@ -30,9 +41,17 @@
 
   <% button_bar do %>
     <%= submit_button(:save, _('Create')) %>
-    <%= button(:cancel, _('Cancel'), :action => 'index') %>
+    <% if @wizard %>
+      <%= button(:back, _('Back'), {:controller => 'search', :action => 'assets', :asset => 'communities', :wizard => true}) %>
+    <% else %>
+      <%= button(:cancel, _('Cancel'), :action => 'index') %>
+    <% end %>
   <% end %>
 
 <% end %>
 
 </div>
+
+<% if @wizard %>
+  <%= render :partial => 'account/wizard_steps' %>
+<% end %>

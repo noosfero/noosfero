@@ -28,7 +28,7 @@ class TagsBlockTest < Test::Unit::TestCase
   end
 
   should 'return (none) when no tags to display' do
-    block.owner.expects(:tags).returns([])
+    block.owner.expects(:article_tags).returns([])
     assert_equal '', block.content
   end
 

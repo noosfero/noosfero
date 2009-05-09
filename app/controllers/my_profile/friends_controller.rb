@@ -30,7 +30,8 @@ class FriendsController < MyProfileController
   end
 
   def invite
-
+    @wizard = params[:wizard].blank? ? false : params[:wizard]
+    @step = 3
     if request.post? && params[:import]
       begin
         case params[:import_from]
@@ -80,7 +81,12 @@ class FriendsController < MyProfileController
         end
 
         flash[:notice] = __('Your invitations have been sent.')
-        redirect_to :action => 'index'
+        if @wizard
+          redirect_to :action => 'invite', :wizard => true
+	  return
+	else
+          redirect_to :action => 'index'
+        end
       else
         flash.now[:notice] = __('Please enter a valid email address.')
       end
@@ -92,6 +98,12 @@ class FriendsController < MyProfileController
 
     @import_from = params[:import_from] || "manual"
     @message = params[:message] || environment.message_for_friend_invitation
+    if @wizard
+      if !params[:import]
+        @friends = []
+      end
+      render :layout => 'wizard'
+    end
   end
 
 end

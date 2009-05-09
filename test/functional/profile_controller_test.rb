@@ -324,7 +324,7 @@ class ProfileControllerTest < Test::Unit::TestCase
   end
 
   should 'list tags' do
-    Person.any_instance.stubs(:tags).returns({ 'one' => 1, 'two' => 2})
+    Person.any_instance.stubs(:article_tags).returns({ 'one' => 1, 'two' => 2})
     get :tags, :profile => 'testuser'
 
     assert_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => '/profile/testuser/tag/one'} }
@@ -446,6 +446,18 @@ class ProfileControllerTest < Test::Unit::TestCase
 
     assert_response :redirect
     assert_redirected_to community.url
+
+    profile = Profile.find(@profile.id)
+    assert profile.memberships.include?(community), 'profile should be actually added to the community'
+  end
+
+  should 'join profile from wizard' do
+    community = Community.create!(:name => 'my test community')
+    login_as @profile.identifier
+    post :join, :profile => community.identifier, :confirmation => '1', :wizard => true
+
+    assert_response :redirect
+    assert_redirected_to :controller => 'search', :action => 'assets', :asset => 'communities', :wizard => true
 
     profile = Profile.find(@profile.id)
     assert profile.memberships.include?(community), 'profile should be actually added to the community'

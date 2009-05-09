@@ -1,5 +1,12 @@
 <div id="search-results" class="<%= 'only-one-result-box' if @results.size == 1 %>">
 
+<% if @wizard %>
+  <div id='visualization-mode'>
+    <%= button_without_text('product', '', params.merge(:visualization_mode => 'icons'), :title => _('View as icons')) %>
+    <%= button_without_text('todo', '', params.merge(:visualization_mode => 'list'), :title => _('View as list')) %>
+  </div>
+<% end %>
+
 <%
   pos2 = :odd  # allow to format in a two columns layout
   pos3 = 3     # allow to format in a thre columns layout

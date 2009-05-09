@@ -8,21 +8,35 @@ class MembershipsController < MyProfileController
 
   def leave
     @to_leave = Profile.find(params[:id])
-
+    @wizard = params[:wizard]
     if request.post? && params[:confirmation]
       @to_leave.remove_member(profile)
-      redirect_to :action => 'index'
+      if @wizard
+        redirect_to :controller => 'search', :action => 'assets', :asset => 'communities', :wizard => true
+      else
+        redirect_to :action => 'index'
+      end
     end
   end
 
   def new_community
     @community = Community.new(params[:community])
+    @wizard = params[:wizard].blank? ? false : params[:wizard]
     if request.post?
       @community.environment = environment
       if @community.save
         @community.add_admin(profile)
-        redirect_to :action => 'index'
+        if @wizard
+           redirect_to :controller => 'search', :action => 'assets', :asset => 'communities', :wizard => true
+          return
+        else
+          redirect_to :action => 'index'
+          return
+        end
       end
+    end
+    if @wizard
+      render :layout => 'wizard'
     end
   end
 

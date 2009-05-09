@@ -1,0 +1,12 @@
+<div id='wizard-steps'>
+  <% button_bar do %>
+    <%= button_to_previous_step(@step) if @step %>
+    <%= button_to_step(:step, 1, @step, :class => (logged_in? ? 'logged' : 'not-logged')) %>
+    <% if logged_in? %>
+      <%= button_to_step(:step, 2, @step) %>
+      <%= button_to_step(:step, 3, @step) %>
+      <%= button_to_next_step(@step) if @step %>
+    <% end %>
+    <%= button(:ok, _('Finish'), user.url, :target => '_top') if @step == 3 %>
+  <% end %>
+</div>

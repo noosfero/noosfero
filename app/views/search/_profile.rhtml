@@ -1,2 +1,8 @@
 <%# FIXME add more information %>
-<li> <%= profile_image_link profile, :portrait %> </li>
+<% if (params[:visualization_mode] == 'list') && params[:wizard] %>
+  <%= profile_add_link profile %>
+<% elsif params[:wizard] %>
+  <%= profile_add_link profile, true, :portrait %>
+<% else %>
+  <%= profile_image_link profile, :portrait %>
+<% end %>

@@ -1,3 +1,7 @@
+<% if environment.enabled?('display_wizard_signup') && !logged_in? %>
+  <%= lightbox_button(:new, _('Signup'), { :controller => 'account', :action => 'wizard' }, :class => 'wizard') %>
+<% end %>
+
 <%= environment.description %>
 
 <% if environment.enabled?('enterprise_activation') %>

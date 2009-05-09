@@ -6,8 +6,11 @@
 
 <%= search_page_link_to_all( { :asset => params[:asset],
                                :category => @category }) %>
-
 <%= render :partial => 'search_form', :locals => { :form_title => @query.blank? ? _('Search') : _("Refine your search"), :simple_search => true } %>
+
+<% if @wizard %>
+  <div class='atention'><%= __('Choose the communities you want to join and/or create your own.') %></div>
+<% end %>
 
 <%# FIXME ARMENGUE %>
 <%= display_results(false) %>
@@ -18,8 +21,13 @@
 <% if logged_in? %>
   <% button_bar do %>
     <%# FIXME shouldn't the user create the community in the current environment instead of going to its home environment? %>
-    <%= button(:add, _('New community'), user.url.merge(:controller => 'memberships', :action => 'new_community')) %>
+    <%= button(:add, _('New community'), user.url.merge(:controller => 'memberships', :action => 'new_community', :wizard => @wizard)) %>
   <% end %>
 <% end %>
 
 <br style="clear:both" />
+
+<% if @wizard %>
+  <%= render :partial => 'account/wizard_steps' %>
+<% end %>
+

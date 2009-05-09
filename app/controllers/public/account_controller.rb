@@ -43,6 +43,8 @@ class AccountController < ApplicationController
   # action to register an user to the application
   def signup
     @invitation_code = params[:invitation_code]
+    @wizard = params[:wizard].blank? ? false : params[:wizard]
+    @step = 1
     begin
       @user = User.new(params[:user])
       @user.terms_of_use = environment.terms_of_use
@@ -60,13 +62,34 @@ class AccountController < ApplicationController
           invitation.update_attributes!({:friend => @user.person})
           invitation.finish
         end
-        go_to_user_initial_page if redirect?
         flash[:notice] = _("Thanks for signing up!")
+        if @wizard
+          redirect_to :controller => 'search', :action => 'assets', :asset => 'communities', :wizard => true
+          return
+        else
+          go_to_user_initial_page if redirect?
+        end
       end
+    if @wizard
+      render :layout => 'wizard'
+    end
     rescue ActiveRecord::RecordInvalid
       @person.valid?
-      render :action => 'signup'
+      if @wizard
+        render :action => 'signup', :layout => 'wizard'
+      else
+        render :action => 'signup'
+      end
     end
+  end
+
+  def wizard
+    render :layout => false
+  end
+
+  def profile_details
+    @profile = Profile.find_by_identifier(params[:profile])
+    render :partial => 'profile_details', :layout => 'wizard'
   end
 
   # action to perform logout from the application
@@ -202,6 +225,20 @@ class AccountController < ApplicationController
     unless @enterprise.enabled? && logged_in?
       redirect_to :action => 'index'
     end
+  end
+
+  def check_url
+    @identifier = params[:identifier]
+    valid = Person.is_available?(@identifier)
+    if valid
+      @status = _('Available!')
+      @status_class = 'available'
+    else
+      @status = _('Unavailable!')
+      @status_class = 'unavailable'
+    end
+    @url = environment.top_url + '/' + @identifier
+    render :partial => 'identifier_status'
   end
 
   protected

@@ -45,6 +45,8 @@ class Profile < ActiveRecord::Base
 
   acts_as_searchable :additional_fields => [ :extra_data_for_index ]
 
+  acts_as_taggable
+
   # FIXME ugly workaround
   def self.human_attribute_name(attrib)
       _(self.superclass.human_attribute_name(attrib))
@@ -191,6 +193,10 @@ class Profile < ActiveRecord::Base
       raise ArgumentError.new(_('An existing profile cannot be renamed.'))
     end
     self[:identifier] = value
+  end
+
+  def self.is_available?(identifier)
+    !(identifier =~ IDENTIFIER_FORMAT).nil? && !RESERVED_IDENTIFIERS.include?(identifier) && Profile.find(:first, :conditions => ['environment_id = ? and identifier = ?', Environment.default.id, identifier]).nil?
   end
 
   validates_presence_of :identifier, :name
@@ -370,7 +376,7 @@ class Profile < ActiveRecord::Base
   end
 
   # FIXME this can be SLOW
-  def tags
+  def article_tags
     totals = {}
     articles.each do |article|
       article.tags.each do |tag|

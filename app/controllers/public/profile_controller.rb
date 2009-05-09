@@ -7,11 +7,11 @@ class ProfileController < PublicController
   helper TagsHelper
 
   def index
-    @tags = profile.tags
+    @tags = profile.article_tags
   end
 
   def tags
-    @tags = profile.tags
+    @tags = profile.article_tags
   end
 
   def tag
@@ -44,10 +44,15 @@ class ProfileController < PublicController
   end
 
   def join
+    @wizard = params[:wizard]
     if request.post? && params[:confirmation]
       profile.add_member(current_user.person)
       flash[:notice] = _('%s administrator still needs to accept you as member.') % profile.name if profile.closed?
-      redirect_to profile.url
+      if @wizard
+        redirect_to :controller => 'search', :action => 'assets', :asset => 'communities', :wizard => true
+      else
+        redirect_to profile.url
+      end
     else
       if request.xhr?
         render :layout => false

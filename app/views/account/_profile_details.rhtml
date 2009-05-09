@@ -1,0 +1,21 @@
+<div id='profile-details'>
+  <%= image_tag(profile_icon(@profile, :portrait)) %>
+
+  <strong><%= @profile.short_name %></strong><br/>
+  <%= _('Type: %s') % getterm(@profile.class.name) %> <br/>
+  <%= _('Description: %s') % @profile.description %> <br/>
+  <%= _('Members: %s') % @profile.members.size.to_s %> <br/>
+  <%= _('Created at: %s') % show_date(@profile.created_at) %> <br/>
+
+<% form_tag({ :profile => @profile.identifier, :controller => 'profile', :action => 'join'}) do %>
+  <%= hidden_field_tag(:confirmation, 1) %>
+  <%= hidden_field_tag(:wizard, true) %>
+  <% if @profile.members.include?(user) %>
+    <%= link_to( _('Leave'), { :profile => user.identifier, :controller => 'memberships', :action => 'leave', :id => @profile.id, :confirmation => 1, :wizard => true }, :method => 'post') %>
+  <% else %>
+    <%= submit_button(:ok, _("Join now")) %>
+  <% end %>
+  <%= button(:back, _('Back'), {:controller => 'search', :action => 'assets', :asset => 'communities', :wizard => true}) %>
+<% end %>
+
+</div>

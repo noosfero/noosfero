@@ -468,3 +468,17 @@ div.pending-tasks {
 #content #access-denied p {
   text-align: justify;
 }
+
+/**** Signup wizard ****/
+
+#wizard-iframe {
+  border: none;
+}
+
+#wizard-content {
+  font-size: 13px;
+}
+
+#wizard-content h1 {
+  font-size: 22px;
+}

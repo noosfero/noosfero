@@ -304,14 +304,20 @@ class ProfileTest < Test::Unit::TestCase
     ok('Profile#url must include port options when running in developers mode') { profile.url[:port] == 9999 }
   end
 
-  should 'list tags for profile' do
+  should 'list article tags for profile' do
     profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile')
     profile.articles.build(:name => 'first', :tag_list => 'first-tag').save!
     profile.articles.build(:name => 'second', :tag_list => 'first-tag, second-tag').save!
     profile.articles.build(:name => 'third', :tag_list => 'first-tag, second-tag, third-tag').save!
 
-    assert_equal({ 'first-tag' => 3, 'second-tag' => 2, 'third-tag' => 1 }, profile.tags)
+    assert_equal({ 'first-tag' => 3, 'second-tag' => 2, 'third-tag' => 1 }, profile.article_tags)
 
+  end
+
+  should 'list tags for profile' do
+    profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile', :tag_list => 'first-tag, second-tag')
+
+    assert_equal(['first-tag', 'second-tag'], profile.tags.map(&:name))
   end
 
   should 'find content tagged with given tag' do

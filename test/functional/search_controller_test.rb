@@ -238,6 +238,13 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_equivalent [c3, c1], assigns(:results)[:communities]
   end
 
+  should 'find communities in signup wizard' do
+    c1 = Community.create!(:name => 'a beautiful community', :identifier => 'bea_comm', :environment => Environment.default)
+    get :index, :query => 'beautiful', :find_in => [ 'communities' ], :wizard => true
+    assert_includes assigns(:results)[:communities], c1
+    assert_equal 'layouts/wizard', @response.layout
+  end
+
   should 'find products' do
     ent = Enterprise.create!(:name => 'teste', :identifier => 'teste')
     prod = ent.products.create!(:name => 'a beautiful product')
@@ -971,6 +978,19 @@ class SearchControllerTest < Test::Unit::TestCase
     end
   end
 
+  should 'display steps when searching on wizard' do
+    c1 = Community.create!(:name => 'a beautiful community', :identifier => 'bea_comm', :environment => Environment.default)
+    get :index, :query => 'beautiful', :find_in => [ 'communities' ], :wizard => true
+    assert_equal 'layouts/wizard', @response.layout
+    assert_tag :tag => 'div', :attributes => {:id => 'wizard-steps'}
+  end
+
+  should 'not display steps when searching not on wizard' do
+    c1 = Community.create!(:name => 'a beautiful community', :identifier => 'bea_comm', :environment => Environment.default)
+    get :index, :query => 'beautiful', :find_in => [ 'communities' ]
+    assert_equal 'layouts/application', @response.layout
+    assert_no_tag :tag => 'div', :attributes => {:id => 'wizard-steps'}
+  end
 
   ##################################################################
   ##################################################################

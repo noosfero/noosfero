@@ -46,6 +46,7 @@ class Environment < ActiveRecord::Base
       'wysiwyg_editor_for_environment_home' => _('Use WYSIWYG editor to edit environment home page'),
       'media_panel' => _('Media panel in WYSIWYG editor'),
       'select_preferred_domain' => _('Select preferred domains per profile'),
+      'display_wizard_signup' => _('Display wizard signup'),
     }
   end
 

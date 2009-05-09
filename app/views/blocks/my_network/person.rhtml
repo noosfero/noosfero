@@ -5,6 +5,6 @@
   content_tag('b', owner.friends.count), owner.public_profile_url.merge(:action => 'friends')) %></li>
   <li><%= link_to(n__('One community', '%s communities', owner.communities.size) %
   content_tag('b', owner.communities.size), owner.public_profile_url.merge(:action => 'communities')) %></li>
-  <li><%= link_to(n_('One tag', '%s tags', owner.tags.size) %
-  content_tag('b', owner.tags.size), owner.public_profile_url.merge(:action => 'tags')) %></li>
+  <li><%= link_to(n_('One tag', '%s tags', owner.article_tags.size) %
+  content_tag('b', owner.article_tags.size), owner.public_profile_url.merge(:action => 'tags')) %></li>
 </ul>
