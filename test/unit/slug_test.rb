@@ -7,7 +7,7 @@ class SlugTest < Test::Unit::TestCase
     assert_equal 'abc', 'abc!)@(*#&@!*#*)'.to_slug
   end
 
-  should 'turn punctuation into dashes' do
+  should 'turn punctuation into s' do
     assert_equal 'a-b-c-d-e-f', 'a:b;c+d=e_f'.to_slug
   end
 
@@ -25,6 +25,11 @@ class SlugTest < Test::Unit::TestCase
 
   should 'turn quote and apostrophe into dashes' do
     assert_equal 'a-b-c-d', 'a"b\'c`d'.to_slug
+  end
+
+  should 'not remove numbers in beginning of slug' do
+    assert_equal '3-times', '3 times'.to_slug
+    assert_equal '3x640.jpg', '3x640.jpg'.to_slug
   end
 
 end
