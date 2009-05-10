@@ -46,7 +46,25 @@ class FileData < StringIO
   end
 end
 
+class Progress
+  def self.instance
+    @instance ||= self.new
+  end
+  def start(n)
+    @total = n
+    @current = 0
+  end
+  def step
+    @current += 1
+  end
+  def puts(msg)
+    Kernel.puts("[%d/%d] %s" %  [@current, @total, msg])
+  end
+end
+
+Progress.instance.start(ARGV.size)
 for username in ARGV
+  Progress.instance.step
   begin
     User.transaction do
       # guess environment
@@ -64,17 +82,17 @@ for username in ARGV
       person.from_xml(File.read(File.join(IMPORT_DIR, username + '.xml')))
       person.preferred_domain = get_domain(domain_name)
       user.save!
-      puts "I: #{username} data imported"
+      Progress.instance.puts "I: #{username} data imported"
 
       # import articles
       Dir.glob(File.join(IMPORT_DIR, username, 'articles', '*.xml')) do |xml|
-        puts "I: Trying to import #{username}'s article in #{xml} ..."
+        Progress.instance.puts "I: Trying to import #{username}'s article in #{xml} ..."
         article = TinyMceArticle.new
         article.from_xml(File.read(xml))
         article.profile = person
         if article.valid?
           article.save!
-          puts "I: #{username}'s article #{article.name.inspect} imported"
+          Progress.instance.puts "I: #{username}'s article #{article.name.inspect} imported"
         else
           $stderr.puts "W: #{username}'s article #{article.name.inspect} cannot be saved. Errors: #{article.errors.full_messages.join(', ')}"
           next
@@ -83,12 +101,12 @@ for username in ARGV
         if article.is_homepage
           person.home_page = article
           person.save!
-          puts "I: Article #{article.name.inspect} is #{username}'s homepage!"
+          Progress.instance.puts "I: Article #{article.name.inspect} is #{username}'s homepage!"
         end
 
         File.open("tmp/rewrite.txt", 'w+') do |file|
           file.puts("#{article.id} #{url_for(article.url)}")
-          puts "I: Article with id = #{article.id} redirected to #{url_for(article.url)}"
+          Progress.instance.puts "I: Article with id = #{article.id} redirected to #{url_for(article.url)}"
         end
 
         # import attachments
@@ -97,15 +115,16 @@ for username in ARGV
           file = UploadedFile.new
           file.from_xml(File.read(attachment_xml))
           if !File.exist?(file.filesystem_location)
-            puts "W: skipping attachment pointing to unexisting file"
+            Progress.instance.puts "W: skipping attachment pointing to unexisting file"
             next
           end
-          puts "I: about to read data from #{file.filesystem_location} (xml: #{attachment_xml})"
+          Progress.instance.puts "I: about to read data from #{file.filesystem_location} (xml: #{attachment_xml})"
           file.uploaded_data = FileData.new(file.filesystem_location, file.filename, file.content_type)
           file.parent = article
           file.profile = person
+          Progress.instance.puts "I: Trying to save attachment \"#{file.filename}/#{file.slug}\""
           file.save!
-          puts "I: attachment added to article #{article.id}"
+          Progress.instance.puts "I: attachment added to article #{article.id}"
 
           file.reload
           if file.image?
@@ -131,7 +150,7 @@ for username in ARGV
         block.title = data['menu']['title']
         block.links = links
         block.save!
-        puts "imported links: #{links.inspect}"
+        Progress.instance.puts "imported links: #{links.inspect}"
       end
 
     end
