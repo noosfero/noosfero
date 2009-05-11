@@ -51,7 +51,7 @@ class AdminPanelController < AdminController
   end
 
   def set_portal_folders
-     @portal_folders = environment.portal_community.articles.find_all_by_type('Folder')
+     @portal_folders = environment.portal_community.folders
      if request.post?
        env = environment
        folders = params[:folders].map{|fid| Folder.find(:first, :conditions => {:profile_id => env.portal_community, :id => fid})}

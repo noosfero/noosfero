@@ -553,7 +553,7 @@ class Environment < ActiveRecord::Base
   end
 
   def portal_folders
-    (settings[:portal_folders] || []).map{|fid| Folder.find(:first, :conditions => {:profile_id => portal_community.id, :id => fid})}
+    (settings[:portal_folders] || []).map{|fid| portal_community.articles.find(fid) }
   end
 
   def portal_folders=(folders)
