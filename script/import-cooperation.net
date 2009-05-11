@@ -62,6 +62,9 @@ class Progress
   end
 end
 
+FORBIDDEN_LOGINS = %w[
+  info
+]
 Progress.instance.start(ARGV.size)
 for username in ARGV
   Progress.instance.step
@@ -73,6 +76,10 @@ for username in ARGV
 
       # create user
       login = username.gsub(/@.*$/, '')
+      if FORBIDDEN_LOGINS.include?(login)
+        $stderr.puts "E: not importing #{username}, #{login} is not an allowed login"
+        next
+      end
       user = User.new(:login => login, :email => username, :environment => environment)
 
       # import person data
