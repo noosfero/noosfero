@@ -128,6 +128,7 @@ for username in ARGV
 
           file.reload
           if file.image?
+            file.parent.body ||= ''
             file.parent.body = "<img align='left' style='margin-right: 5px; margin-bottom: 5px;' src='/#{login}/#{file.path}'/> " + file.parent.body
           else
             if file.parent.body
