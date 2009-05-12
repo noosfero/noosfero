@@ -424,7 +424,7 @@ module ApplicationHelper
             :url => {:controller => 'account', :action => 'profile_details', :profile => profile.identifier},
             :onclick => 'document.location.href = this.href', # work-arround for ie.
             :class => 'profile_link url',
-            :help => _('Click on this icon to add <b>%s</b>\'s to your network') % profile.name,
+            :help => _('Click on this icon to add <b>%s</b> to your network') % profile.name,
             :title => profile.name ),
         :class => the_class
   end
