@@ -12,8 +12,7 @@ class UploadedFile < Article
   has_attachment :storage => :file_system,
     :thumbnails => { :icon => [24,24], :thumb => '130x130>' },
     :thumbnail_class => Thumbnail,
-    :max_size => 5.megabytes,
-    :resize_to => '640x480>'
+    :max_size => 5.megabytes
 
   def self.max_size
     UploadedFile.attachment_options[:max_size]

@@ -102,29 +102,4 @@ class UploadedFileTest < Test::Unit::TestCase
     file.destroy
   end
 
-  should 'resize images bigger than in resize_to' do
-    fixture_filename = '/files/test-large-pic.jpg'
-    filename = RAILS_ROOT + '/test/fixtures' + fixture_filename
-    system('echo "image for test" | convert -background yellow -page 1280x960 text:- %s' % filename)
-
-    f = UploadedFile.create(:profile => @profile, :uploaded_data => fixture_file_upload(fixture_filename, 'image/jpg'))
-
-    assert_equal [640, 480], [f.width, f.height]
-
-    File.rm_f(filename)
-  end
-
-  should 'resize images on folder bigger than in resize_to' do
-    fixture_filename = '/files/test-large-pic.jpg'
-    filename = RAILS_ROOT + '/test/fixtures' + fixture_filename
-    system('echo "image for test" | convert -background yellow -page 1280x960 text:- %s' % filename)
-    f = Folder.create!(:name => 'test_folder', :profile => @profile)
-
-    file = UploadedFile.create(:profile => @profile, :uploaded_data => fixture_file_upload(fixture_filename, 'image/jpg'), :parent_id => f.id)
-
-    assert_equal [640, 480], [file.width, file.height]
-
-    File.rm_f(filename)
-  end
-
 end
