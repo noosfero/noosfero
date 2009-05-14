@@ -21,6 +21,9 @@ ActionController::Routing::Routes.draw do |map|
   # You can have the root of your site routed by hooking up ''
   map.connect '', :controller => "home", :conditions => { :if => lambda { |env| !Domain.hosting_profile_at(env[:host]) } }
 
+  map.connect 'images/*stuff', :controller => 'not_found', :action => 'index'
+  map.connect 'stylesheets/*stuff', :controller => 'not_found', :action => 'index'
+
   # user account controller
   map.connect 'account/new_password/:code', :controller => 'account', :action => 'new_password'
   map.connect 'account/:action', :controller => 'account'
