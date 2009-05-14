@@ -2,6 +2,8 @@
 # available in all controllers.
 class ApplicationController < ActionController::Base
 
+  filter_parameter_logging :password
+
   def log_processing
     super
     return unless ENV['RAILS_ENV'] == 'production'
