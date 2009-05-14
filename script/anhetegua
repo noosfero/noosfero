@@ -4,13 +4,13 @@ require 'console_with_helpers'
 
 GetText.locale = 'pt_BR'
 
-Environment.destroy_all
 User.destroy_all
 Profile.destroy_all
 
 Category.destroy_all
 Product.destroy_all
 Article.destroy_all
+Environment.destroy_all
 
 def new_category(parent, name, color = nil)
   category = Environment.default.categories.build(:name => name, :display_color => color, :parent_id => (parent ? parent.id: nil), :display_in_menu => true)
