@@ -104,9 +104,9 @@ class ApplicationController < ActionController::Base
 
   def load_terminology
     # cache terminology for performance
-    @terminology_cache ||= {}
-    @terminology_cache[environment.id] ||= environment.terminology
-    Noosfero.terminology = @terminology_cache[environment.id]
+    @@terminology_cache ||= {}
+    @@terminology_cache[environment.id] ||= environment.terminology
+    Noosfero.terminology = @@terminology_cache[environment.id]
   end
 
   def render_not_found(path = nil)
