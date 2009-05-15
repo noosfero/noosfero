@@ -11,3 +11,9 @@
   padding-top: 20px;
 }
 
+#friends-list {
+  overflow: auto;
+  height: 300px;
+  border: 1px solid #999;
+  margin: 5px 0px;
+}

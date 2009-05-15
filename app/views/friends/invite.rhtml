@@ -61,13 +61,15 @@
         <%= link_to_function __('Check all'), "$$('input.friend_to_invite').each(function(checkbox) { checkbox.checked = true; });" %>
         <%= link_to_function __('Uncheck all'), "$$('input.friend_to_invite').each(function(checkbox) { checkbox.checked = false; });" %>
         <% friend_pos = 0 %>
-        <% @friends.each do |friend| %>
-          <% friend_pos += 1 %>
-          <p>
-            <%= hidden_field_tag("webmail_friends[]", friend.to_yaml)  %>
-            <%= check_box_tag("webmail_import_addresses[]", friend[2], (!@webmail_import_addresses || @webmail_import_addresses.include?(friend[2])), :id => "friends_to_invite_#{friend_pos}", :class => "friend_to_invite" ) %><label for="<%= "friends_to_invite_#{friend_pos}" %>"><%= "#{friend[0]} (#{friend[1]})" %></label>
-          </p>
-        <% end %>
+        <div id='friends-list'>
+          <% @friends.each do |friend| %>
+            <% friend_pos += 1 %>
+            <p>
+              <%= hidden_field_tag("webmail_friends[]", friend.to_yaml)  %>
+              <%= check_box_tag("webmail_import_addresses[]", friend[2], (!@webmail_import_addresses || @webmail_import_addresses.include?(friend[2])), :id => "friends_to_invite_#{friend_pos}", :class => "friend_to_invite" ) %><label for="<%= "friends_to_invite_#{friend_pos}" %>"><%= "#{friend[0]} (#{friend[1]})" %></label>
+            </p>
+          <% end %>
+        </div>
       </div>
     <% end -%>
 
