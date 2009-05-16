@@ -30,22 +30,9 @@
     }
     registerDocumentSize();
   </script>
-  <div id='media-listing'>
-    <div id='media-listing-images'>
-      <h3><%= _('Images') %></h3>
-      <%= select_folder('folder', 'image_folder_id', @image_folders, {}, :onchange => remote_function(:with => "'image_folder_id=' + value + '&ipage=1'", :url => { :action => :media_listing, :format => 'js' }) ) %>
-      <%= render :partial => 'image_thumb', :locals => { :images => @images } %>
-    </div><!-- id='media-listing-images' -->
-    <div id='media-listing-documents'>
-      <h3><%= _('Documents') %></h3>
-      <%= select_folder('folder', 'document_folder_id', @document_folders, {}, :onchange => remote_function(:with => "'document_folder_id=' + value + '&dpage=1'", :url => { :action => :media_listing }) ) %>
-      <%= render :partial => 'document_link', :locals => { :documents => @documents } %>
-    </div><!-- id='media-listing-documents' -->
-    <br style="clear:both" />
-    <p><big><%= _('Drag images and documents to add them to the text.') %></big></p>
-    <br style="clear:both" />
-  </div><!-- id='media-listing' -->
   <div id='media-listing-upload'>
+    <p><%= _("Include files in some folder or select from the list below to add images and documents to the text editor beside (max size %s)") % UploadedFile.max_size.to_humanreadable %></p>
+
     <div id="notice" onclick="Element.hide('notice');" style="display:none">
       <% unless flash[:notice].nil? %>
         <%= flash[:notice] unless flash[:notice].nil? %>
@@ -58,5 +45,22 @@
       <%= render :partial => 'upload_file_form', :locals => { :size => '30' } %>
     <% end %>
   </div><!-- id='media-listing-upload' -->
+  <hr/>
+  <div id='media-listing'>
+    <h3><%= _('Folders') %></h3>
+    <p><%= _('Drag images and documents to add them to the text. If needed, resize images by clicking the tree icon on editor.') %></p>
+
+    <div id='media-listing-images'>
+      <h4><%= _('Images') %></h4>
+      <%= select_folder('', 'folder', 'image_folder_id', @image_folders, {}, :onchange => remote_function(:with => "'image_folder_id=' + value + '&ipage=1'", :url => { :action => :media_listing, :format => 'js' }) ) %>
+      <%= render :partial => 'image_thumb', :locals => { :images => @images } %>
+    </div><!-- id='media-listing-images' -->
+    <div id='media-listing-documents'>
+      <h4><%= _('Documents') %></h4>
+      <%= select_folder('', 'folder', 'document_folder_id', @document_folders, {}, :onchange => remote_function(:with => "'document_folder_id=' + value + '&dpage=1'", :url => { :action => :media_listing }) ) %>
+      <%= render :partial => 'document_link', :locals => { :documents => @documents } %>
+    </div><!-- id='media-listing-documents' -->
+    <br style="clear:both" />
+  </div><!-- id='media-listing' -->
 </body>
 </html>
