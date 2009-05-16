@@ -17,11 +17,9 @@
   <%= f.text_field('tag_list', :size => 64) %>
   <%= content_tag( 'small', _('Separate tags with commas') ) %>
 
-  <div id="profile_change_picture">
-    <% f.fields_for :image_builder, @community.image do |i| %>
-      <%= file_field_or_thumbnail(_('Image:'), @community.image, i) %>
-    <% end %>
-  </div>
+  <% f.fields_for :image_builder, @community.image do |i| %>
+    <%= file_field_or_thumbnail(_('Image:'), @community.image, i) %>
+  <% end %>
 
   <div style='margin-bottom: 1em; margin-top: 1em;'>
   <%= _('New members must be approved:')%>

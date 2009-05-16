@@ -420,7 +420,7 @@ module ApplicationHelper
     end
     content_tag tag,
         link_to_remote( display,
-	    :update => 'search-results',
+	    :update => 'search-results-and-pages',
             :url => {:controller => 'account', :action => 'profile_details', :profile => profile.identifier},
             :onclick => 'document.location.href = this.href', # work-arround for ie.
             :class => 'profile_link url',

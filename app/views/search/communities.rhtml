@@ -12,11 +12,12 @@
   <div class='atention'><%= __('Choose the communities you want to join and/or create your own.') %></div>
 <% end %>
 
-<%# FIXME ARMENGUE %>
-<%= display_results(false) %>
+<div id='search-results-and-pages'>
+  <%# FIXME ARMENGUE %>
+  <%= display_results(false) %>
 
-<%= pagination_links @results.values.first %>
-
+  <%= pagination_links @results.values.first %>
+</div>
 
 <% if logged_in? %>
   <% button_bar do %>
