@@ -19,26 +19,30 @@
 
 <%= required_fields_message %>
 
+<div id='signup-email'>
+<%= required f.text_field(:email,
+    :help => help=_('This e-mail address will be used to contact you.')) %>
+<div class='help-small-msg'><%= help %></div>
+</div>
+
 <%= required f.text_field(:login,
+      :help => help=_('Insert your login'),
       :onchange => 'this.value = convToValidLogin( this.value )') %>
-<small><%= help %></small>
+<div id='url-check'>
+<div class='help-small-msg'><%= help %></div>
+</div>
 
 <%= observe_field 'user_login', :url => {:action => 'check_url'}, :with => 'identifier', :update => 'url-check' %>
 
-<div id='url-check'>
-</div>
-
-<%= required f.text_field(:email,
-    :help => help=_('This e-mail address will be used to contact you.')) %>
-<small><%= help %></small>
-
+<div id='signup-password'>
 <%= required f.password_field(:password,
     :help => help=_('Choose a password that you can remember easily.')) %>
-<small><%= help %></small>
+<div class='help-small-msg'><%= help %></div>
+</div>
 
 <%= required f.password_field(:password_confirmation,
     :help => help=_('To confirm, repeat your password.')) %>
-<small><%= help %></small>
+<div class='help-small-msg'><%= help %></div>
 
 <% labelled_fields_for :profile_data, @person do |f| %>
   <%= render :partial => 'profile_editor/person_form', :locals => {:f => f} %>
@@ -52,7 +56,7 @@
       page['terms-of-use'].show
      end %>
 
-  <div id='terms-of-use' style='max-height: 200px; overflow: auto; display:none;'>
+  <div id='terms-of-use' style='display: none;'>
     <%= @terms_of_use %>
     <%= link_to_function(_('Hide'), nil) do |page|
       page['terms-of-use'].hide
