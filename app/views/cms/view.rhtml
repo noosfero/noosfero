@@ -41,22 +41,15 @@
         <%= folder.class.short_description %>
       </td>
       <td>
-        <%= link_to _('Properties'), :action => 'edit', :id => folder.id %>
-        <%= link_to _('Public view'), folder.url %>
-        <%= link_to _('Use as homepage'), { :action => 'set_home_page', :id => folder.id }, :method => :post %>
-        <%= link_to _('Delete'), { :action => 'destroy', :id => folder.id }, :method => :post, :confirm => _('Are you sure that you want to remove this folder? Note that all the items inside it will also be removed!') %>
+        <%= button_without_text :edit, _('Properties'), :action => 'edit', :id => folder.id %>
+        <%= button_without_text :eyes, _('Public view'), folder.url %>
+        <%= button_without_text :home, _('Use as homepage'), { :action => 'set_home_page', :id => folder.id }, :method => :post %>
+        <%= button_without_text :delete, _('Delete'), { :action => 'destroy', :id => folder.id }, :method => :post, :confirm => _('Are you sure that you want to remove this folder? Note that all the items inside it will also be removed!') %>
       </td>
     </tr>
   <% end %>
 
   <%# non-folder subitems %>
-  <% unless @folders.empty? %>
-    <tr>
-      <td colspan='3'>
-        &nbsp;
-      </td>
-    </tr>
-  <% end %>
   <% for item in @subitems %>
     <tr>
       <td>
@@ -67,11 +60,11 @@
         <%= item.class.short_description %>
       </td>
       <td>
-        <%= link_to _('Edit'), :action => 'edit', :id => item.id %>
-        <%= link_to _('Public view'), item.url %>
-        <%= link_to _('Spread this'), :action => 'publish', :id => item.id %>
-        <%= link_to _('Use as homepage'), { :action => 'set_home_page', :id => item.id }, :method => :post %>
-        <%= link_to _('Delete'), { :action => 'destroy', :id => item.id }, :method => :post, :confirm => _('Are you sure that you want to remove this item?') %>
+        <%= button_without_text :edit, _('Edit'), :action => 'edit', :id => item.id %>
+        <%= button_without_text :eyes, _('Public view'), item.url %>
+        <%= button_without_text :spread, _('Spread this'), :action => 'publish', :id => item.id %>
+        <%= button_without_text :home, _('Use as homepage'), { :action => 'set_home_page', :id => item.id }, :method => :post %>
+        <%= button_without_text :delete, _('Delete'), { :action => 'destroy', :id => item.id }, :method => :post, :confirm => _('Are you sure that you want to remove this item?') %>
       </td>
     </tr>
   <% end %>
