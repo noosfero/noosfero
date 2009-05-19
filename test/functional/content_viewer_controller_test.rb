@@ -712,7 +712,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     a = Blog.create!(:name => 'article folder', :profile => profile)
     t = TextileArticle.create!(:name => 'first post', :parent => a, :profile => profile)
     get :view_page, :profile => profile.identifier, :page => [a.path]
-    assert_tag :tag => 'div', :attributes => { :id => "post-#{t.id}" }, :descendant => { :tag => 'a', :content => 'No comments yet', :attributes => { :href => /#{profile.identifier}\/blog\/first-post\?form=opened#comment_form/ } }
+    assert_tag :tag => 'div', :attributes => { :id => "post-#{t.id}" }, :descendant => { :tag => 'a', :content => 'No comments yet', :attributes => { :href => /#{profile.identifier}\/blog\/first-post\?form=opened#comments_list/ } }
   end
 
   should 'hit the article when viewed' do

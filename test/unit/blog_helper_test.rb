@@ -50,10 +50,8 @@ class BlogHelperTest < Test::Unit::TestCase
     blog.children << article = TextileArticle.create!(:name => 'Second post', :profile => profile, :parent => blog, :published => true)
     expects(:article_title).with(article).returns('TITLE')
     expects(:content_tag).with('p', article.to_html).returns(' TO_HTML')
-    expects(:number_of_comments).with(article).returns('NUMBER OF COMMENTS')
-    expects(:content_tag).with('p', 'NUMBER OF COMMENTS', anything).returns(' COMMENTS').at_least_once
 
-    assert_equal 'TITLE TO_HTML COMMENTS', display_post(article)
+    assert_equal 'TITLE TO_HTML', display_post(article)
   end
 
   def will_paginate(arg1, arg2)

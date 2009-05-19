@@ -28,12 +28,11 @@ module BlogHelper
         content << content_tag('div', display_post(i), :class => 'blog-post' + css_add, :id => "post-#{i.id}")
       end
     }
-    content.join("\n") + (pagination or '')
+    content.join("\n<hr />\n") + (pagination or '')
   end
 
   def display_post(article)
-    article_title(article) + content_tag('p', article.to_html) +
-    content_tag('p', link_to( number_of_comments(article), article.url.merge(:form => 'opened', :anchor => 'comment_form') ), :class => 'metadata')
+    article_title(article) + content_tag('p', article.to_html)
   end
 
 end

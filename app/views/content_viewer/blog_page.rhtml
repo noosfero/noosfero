@@ -2,4 +2,6 @@
 
 <div><%= article.body %></div>
 <hr/>
-<%= (children.compact.empty? ? content_tag('em', _('(no posts)')) : list_posts(user, children)) %>
+<div class="blog-posts">
+  <%= (children.compact.empty? ? content_tag('em', _('(no posts)')) : list_posts(user, children)) %>
+</div>

@@ -1,4 +1,12 @@
 <div id="article">
+<div id="article-wraper-1">
+<div id="article-wraper-2">
+<div id="article-wraper-3">
+<div id="article-wraper-4">
+<div id="article-wraper-5">
+<div id="article-wraper-6">
+<div id="article-wraper-7">
+<div id="article-wraper-8">
 
 <%
   # AddThis Button
@@ -107,6 +115,7 @@
 <% end %>
 
 <div class="comments">
+  <a name="comments_list"></a>
   <% if @page.accept_comments? %>
   <h3 <%= 'class="no-comments-yet"' if @comments.size == 0 %>>
     <%= number_of_comments(@page) %>
@@ -116,4 +125,6 @@
   <% end %>
 </div><!-- end class="comments" -->
 
+</div></div></div></div>
+</div></div></div></div><!-- end id="article-warp-[1-8]" -->
 </div><!-- end id="article" -->

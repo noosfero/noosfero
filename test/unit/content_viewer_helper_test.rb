@@ -49,7 +49,7 @@ class ContentViewerHelperTest < Test::Unit::TestCase
     article = TextileArticle.new(:name => 'first post for test', :body => 'first post for test', :profile => profile)
     article.stubs(:url).returns({})
     article.stubs(:comments).returns([Comment.new(:author => profile, :title => 'test', :body => 'test')])
-    result = display_post(article)
+    result = link_to_comments(article)
     assert_match /One comment/, result
   end
 
