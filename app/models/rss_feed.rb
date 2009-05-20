@@ -14,9 +14,9 @@ class RssFeed < Article
   end
   alias :settings :body
 
-  # The maximum number of articles to be displayed in the RSS feed.
+  # The maximum number of articles to be displayed in the RSS feed. Default: 10
   def limit
-    settings[:limit]
+    settings[:limit] || 10
   end
   def limit=(value)
     settings[:limit] = value
@@ -68,7 +68,7 @@ class RssFeed < Article
       if (self.include == 'parent_and_children') && self.parent
         self.parent.map_traversal
       else
-        profile.recent_documents(self.limit || 10)
+        profile.recent_documents(self.limit)
       end
   end
   def data

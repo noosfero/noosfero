@@ -11,8 +11,8 @@
 <%= labelled_form_field(_('Posts per page:'), f.select(:posts_per_page, [5, 10, 20, 50, 100])) %>
 
 <% f.fields_for 'feed', @article.feed do |feed| %>
-  <%= labelled_form_field(_('Limit of posts in RSS Feed'), feed.select(:limit, ['5', '10', '20', '50'])) %>
-  <%= labelled_form_field(_('Use as description in RSS Feed:'), feed.select(:feed_item_description, [ [ _('Article abstract'), 'abstract'], [ _('Article body'), 'body']])) %>
+  <%= labelled_form_field(_('Limit of posts in RSS Feed'), feed.select(:limit, [5, 10, 20, 50])) %>
+  <%= labelled_form_field(_('Use as description in RSS Feed:'), feed.select(:feed_item_description, [ [ _('Article body'), 'body'], [ _('Article abstract'), 'abstract'] ])) %>
 <% end %>
 
 <% f.fields_for 'external_feed_builder', @article.external_feed do |efeed| %>
