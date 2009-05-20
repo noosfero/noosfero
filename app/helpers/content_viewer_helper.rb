@@ -32,7 +32,7 @@ module ContentViewerHelper
   end
 
   def link_to_comments(article)
-    link_to( number_of_comments(article), article.url.merge(:form => 'opened', :anchor => 'comments_list') )
+    link_to( number_of_comments(article), article.url.merge(:anchor => 'comments_list') )
   end
 
 end
