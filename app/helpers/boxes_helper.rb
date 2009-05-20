@@ -63,7 +63,7 @@ module BoxesHelper
   end
 
   def display_block_content(block, main_content = nil)
-    content = block.main? ? main_content : block.content
+    content = block.main? ? wrap_main_content(main_content) : block.content
     result = extract_block_content(content)
     footer_content = extract_block_content(block.footer)
     unless footer_content.blank?
@@ -85,6 +85,10 @@ module BoxesHelper
     content_tag('div', result + footer_content + box_decorator.block_edit_buttons(block),
                 options) +
     box_decorator.block_handle(block)
+  end
+
+  def wrap_main_content(content)
+    (1..8).to_a.reverse.inject(content) { |acc,n| content_tag('div', acc, :id => 'main-content-wrapper-' + n.to_s) }
   end
 
   def extract_block_content(content)
