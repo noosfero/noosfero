@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.17.0\n"
 "POT-Creation-Date: 2009-05-18 19:12-0300\n"
-"PO-Revision-Date: 2009-05-18 19:49-0300\n"
+"PO-Revision-Date: 2009-05-20 15:36-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -5467,7 +5467,7 @@ msgstr "Gerenciar campos de comunidade"
 
 #: app/views/features/_features_table.rhtml:13
 msgid "Organization Approval Method"
-msgstr "Métode de Aprovação da Organização"
+msgstr "Método de Aprovação de Organização"
 
 #: app/views/themes/new.rhtml:1
 msgid "Create new theme"

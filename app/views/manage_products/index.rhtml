@@ -6,6 +6,11 @@
     <th><%= _('Price') %></th>
     <th><%= _('Actions') %></th>
   </tr>
+  <% if @products.empty? %>
+    <tr>
+      <td colspan='3' style='text-align: center; padding: 10px'><em><%= _('(no product registered yet)') %></em></td>
+    </tr>
+  <% end %>
   <% @products.each do |product| %>
     <tr>
       <td><strong><%= link_to product.name, :action => 'show', :id => product %></strong></td>
@@ -18,7 +23,10 @@
   <% end %>
 </table>
 
-<%= button :add, _('New product or service'), :action => 'new' %>
+<% button_bar do %>
+  <%= button :add, _('New product or service'), :action => 'new' %>
+  <%= button :back,  _('Back'), { :controller => 'profile_editor', :profile => @profile.identifier, :action => 'index' } %>
+<% end %>
 
 <br /> &nbsp;
 
@@ -29,6 +37,11 @@
     <th><%= _('Raw material') %></th>
     <th><%= _('Actions') %></th>
   </tr>
+  <% if @consumptions.empty? %>
+    <tr>
+      <td colspan='3' style='text-align: center; padding: 10px'><em><%= _('(no raw material registered yet)') %></em></td>
+    </tr>
+  <% end %>
   <% @consumptions.each do |consumption| %>
     <tr>
       <td>
@@ -44,9 +57,9 @@
   <% end %>
 </table>
 
-<%= button :add, _('Add raw material'), :action => 'new_consumption' %>
+<% button_bar do %>
+  <%= button :add, _('Add raw material'), :action => 'new_consumption' %>
+  <%= button :back,  _('Back'), { :controller => 'profile_editor', :profile => @profile.identifier, :action => 'index' } %>
+<% end %>
 
-<p>
-<%= link_to( '<span>'+ _('Back') +'</span>', { :controller => 'profile_editor', :profile => @profile.identifier, :action => 'index' }, :class => 'button with-text icon-back' ) %>
-</p>
 

@@ -13,7 +13,7 @@
   <%= link_to_next_month(params[:year], params[:month]) %>
 </div>
 
-<table align='center'>
+<table align='center' class='noborder'>
   <tr>
     <% @calendar.first(7).each do |day,event| %>
       <th style='width: 10%;'><%= show_day_of_week(day) %></th>

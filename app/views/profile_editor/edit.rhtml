@@ -15,14 +15,13 @@
 
 
   <h2><%= _('Privacy options') %></h2>
-  <p>
-    <%= _('This profile is:') %>
-  </p>
 
   <% if profile.person? %>
   <table>
     <tr>
-      <th></th>
+      <th style='text-align: right;'>
+        <%= _('This profile is:') %>
+      </th>
       <th>
         <%= radio_button 'profile_data', 'public_profile', 'true' %>
         <label for="profile_data_public_profile_true"><u><%= _('Public') %></u></label>
@@ -48,7 +47,9 @@
   <% else %>
   <table>
     <tr>
-      <th></th>
+      <th style='text-align: right;'>
+        <%= _('This profile is:') %>
+      </th>
       <th>
         <%= radio_button 'profile_data', 'public_profile', 'true' %>
         <label for="profile_data_public_profile_true"><u><%= _('Public') %></u></label>

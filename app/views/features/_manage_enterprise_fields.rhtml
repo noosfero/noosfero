@@ -36,6 +36,7 @@
 <div>
   <% button_bar do %>
     <%= submit_button('save', _('Save changes')) %>
+    <%= button :back, _('Back to admin panel'), :controller => 'admin_panel', :action => 'index' %>
   <% end %>
 </div>
 

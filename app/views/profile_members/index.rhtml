@@ -11,11 +11,13 @@
     <tr>
       <td><%= m.name %> </td>
       <td>
-        <%= button :edit, _('Edit'), :action => 'change_role', :id => m %>
-        <%= button :delete, _('Remove'), :action => 'unassociate', :id => m %>
+        <%= button_without_text :edit, _('Edit'), :action => 'change_role', :id => m %>
+        <%= button_without_text :delete, _('Remove'), :action => 'unassociate', :id => m %>
       </td>
     </tr>
   <% end %>
 </table>
 
-<%= link_to _('Back'), :controller => 'profile_editor' %>
+<% button_bar do %>
+  <%= button :back, _('Back'), :controller => 'profile_editor' %>
+<% end %>

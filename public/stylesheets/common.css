@@ -242,24 +242,34 @@ div#notice {
 
 table {
   border-collapse: collapse;
+  width: 100%;
 }
 th, td {
   font-size: 14px;
   padding: 2px 10px;
+  height: 26px;
 }
 th {
   font-weight: bold;
+  border-bottom: 2px solid black;
 }
-
-table.cms-articles {
-  width: 100%;
+td {
+  border-bottom: 1px solid #e0e0e0;
 }
-table.cms-articles th, table.cms-articles td {
-  border: 1px solid #e0e0e0;
+tr:hover td {
+  background-color: #f0f0f0;
 }
 
 table.noborder th, table.noborder td{
   border: none;
+}
+table.noborder:hover td {
+  background: none;
+}
+table.noborder:hover td.selected,
+td.selected {
+  background: #ff9;
+  font-style: italic;
 }
 
 /* for fields with auto-completion */
