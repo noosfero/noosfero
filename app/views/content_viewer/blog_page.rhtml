@@ -1,4 +1,4 @@
-<%= content_tag('em', _('(external feed was not loaded yet)'), :id => 'external-feed-info', :class => 'metadata') if article.blog? && article.external_feed && article.external_feed.fetched_at.nil? %>
+<%= content_tag('em', _('(external feed was not loaded yet)'), :id => 'external-feed-info', :class => 'metadata') if article.blog? && article.external_feed && article.external_feed.enabled && article.external_feed.fetched_at.nil? %>
 
 <div><%= article.body %></div>
 <hr/>
