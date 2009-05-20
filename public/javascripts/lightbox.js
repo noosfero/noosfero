@@ -64,6 +64,9 @@ lightbox.prototype = {
 
 	initialize: function(ctrl) {
 		this.content = ctrl.href;
+		if (ctrl.id != '') {
+		    this.lightbox_className = ctrl.id;
+		}
 		Event.observe(ctrl, 'click', this.activate.bindAsEventListener(this), false);
 		ctrl.onclick = function(){return false;};
 	},
@@ -144,9 +147,13 @@ lightbox.prototype = {
 	
 	// Display Ajax response
 	processInfo: function(response){
-		info = "<div id='lbContent'>" + response.responseText + "</div>";
+		info = "<div id='lbContent'><div id='lbBottomBG'><div id='lbTopBG'>" + response.responseText + "</div></div></div>";
 		new Insertion.Before($('lbLoadMessage'), info)
-		$('lightbox').className = "done";	
+		if (this.lightbox_className) {
+			$('lightbox').className = "done " + this.lightbox_className;
+		} else {
+			$('lightbox').className = "done";
+		}
 		this.actions();			
 	},
 	

@@ -51,3 +51,5 @@
 <% if environment.enabled?('media_panel') && [TinyMceArticle, Event, EnterpriseHomepage].any?{|klass| @article.kind_of?(klass)} %>
   <%= render :partial => 'media_listing' %>
 <% end %>
+
+<br style='clear: both'/>

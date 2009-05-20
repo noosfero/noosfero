@@ -212,12 +212,12 @@ class CmsController < MyProfileController
   def media_listing
     if params[:image_folder_id]
       folder = profile.articles.find(params[:image_folder_id]) if !params[:image_folder_id].blank?
-      @images = (folder ? folder.children : UploadedFile.find(:all, :conditions => ["profile_id = ? AND parent_id is NULL", profile ])).select { |c| c.image? }
+      @images = (folder ? folder.children : UploadedFile.find(:all, :order => 'created_at desc', :conditions => ["profile_id = ? AND parent_id is NULL", profile ])).select { |c| c.image? }
     elsif params[:document_folder_id]
       folder = profile.articles.find(params[:document_folder_id]) if !params[:document_folder_id].blank?
-      @documents = (folder ? folder.children : UploadedFile.find(:all, :conditions => ["profile_id = ? AND parent_id is NULL", profile ])).select { |c| c.kind_of?(UploadedFile) && !c.image? }
+      @documents = (folder ? folder.children : UploadedFile.find(:all, :order => 'created_at desc', :conditions => ["profile_id = ? AND parent_id is NULL", profile ])).select { |c| c.kind_of?(UploadedFile) && !c.image? }
     else
-      @documents = UploadedFile.find(:all, :conditions => ["profile_id = ? AND parent_id is NULL", profile ])
+      @documents = UploadedFile.find(:all, :order => 'created_at desc', :conditions => ["profile_id = ? AND parent_id is NULL", profile ])
       @images = @documents.select(&:image?)
       @documents -= @images
     end

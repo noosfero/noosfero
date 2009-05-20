@@ -11,9 +11,9 @@
 
     <%=
       # Load the principal css files:
-      stylesheet_import( %w( common button search forms)
+      stylesheet_import( %w( common button search forms profiles)
                          ) + "\n" +
-      stylesheet_import( %w( common button search forms),
+      stylesheet_import( %w( common button search forms profiles),
       :themed_source => true ) + "\n" +
       # Load the boxes's css file if each exists:
       import_blocks_stylesheets +
@@ -22,13 +22,9 @@
     %>
   </head>
 
-  <body class='noosfero'>
-    <div id="iframe">
-      <div id="content">
+  <body class='noosfero' id='wizard'>
         <div id="wizard-content">
           <%= yield %>
         </div><!-- id="wizard-content" -->
-      </div><!-- id="content" -->
-    </div><!-- id="frame" -->
   </body>
 </html>

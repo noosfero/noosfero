@@ -72,6 +72,7 @@ class Domain < ActiveRecord::Base
   # transfering a domain from a profile to an environment of vice-versa
   # requires restarting the application.
   def self.hosting_profile_at(domainname)
+    return false unless domainname
     @hosting[domainname] ||=
       begin
         domain = Domain.find_by_name(domainname)

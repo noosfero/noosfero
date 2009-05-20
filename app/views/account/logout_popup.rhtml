@@ -1,6 +1,7 @@
-<p><%= _('Are you sure you want to get out?') %></p>
-
+<h2><%= _('Are you sure you want to get out?') %></h2>
+<p>
 <% button_bar do %>
   <%= button :ok, _('Yes'), { :controller => 'account', :action => 'logout' } %>
   <%= lightbox_close_button _('No, I want to stay.') %>
 <% end %>
+</p>

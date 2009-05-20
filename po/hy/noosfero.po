@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.16.0\n"
-"POT-Creation-Date: 2009-05-11 22:11-0300\n"
+"Project-Id-Version: noosfero 0.17.0\n"
+"POT-Creation-Date: 2009-05-18 19:12-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -833,11 +833,6 @@ msgstr "Կատեգորիաներ"
 msgid "open"
 msgstr "բացել"
 
-#: app/helpers/application_helper.rb:523 app/models/folder.rb:8
-#: app/models/folder.rb:18
-msgid "Folder"
-msgstr "Թղթապանակ"
-
 #: app/helpers/application_helper.rb:542
 msgid "Search..."
 msgstr "Որոնել..."
@@ -943,7 +938,7 @@ msgstr ""
 #: app/views/account/accept_terms.rhtml:24 app/views/account/login.rhtml:22
 #: app/views/cms/edit.rhtml:41 app/views/cms/edit.rhtml:43
 #: app/views/cms/edit.rhtml:45 app/views/cms/select_article_type.rhtml:12
-#: app/views/memberships/new_community.rhtml:47
+#: app/views/memberships/new_community.rhtml:45
 #: app/views/profile_editor/header_footer.rhtml:13
 #: app/views/box_organizer/edit.rhtml:11 app/views/themes/add_css.rhtml:8
 #: app/views/tasks/_task.rhtml:12 app/views/tasks/_ticket.rhtml:15
@@ -2192,6 +2187,10 @@ msgid ""
 "friend."
 msgstr ""
 
+#: app/models/folder.rb:8 app/models/folder.rb:18
+msgid "Folder"
+msgstr "Թղթապանակ"
+
 #: app/models/folder.rb:8 app/models/image_gallery.rb:4
 msgid "Image gallery"
 msgstr "Նկարադարան"
@@ -3103,7 +3102,7 @@ msgstr "Հեռացնել"
 #: app/views/profile_members/index.rhtml:21 app/views/role/show.rhtml:10
 #: app/views/role/index.rhtml:12 app/views/account/_profile_details.rhtml:18
 #: app/views/enterprise_editor/index.rhtml:20
-#: app/views/memberships/new_community.rhtml:45
+#: app/views/memberships/new_community.rhtml:43
 #: app/views/environment_role_manager/index.rhtml:13
 #: app/views/enterprise_validation/details.rhtml:3
 #: app/views/enterprise_validation/list_processed.rhtml:3
@@ -3976,18 +3975,31 @@ msgstr ""
 msgid "Are you sure that you want to remove this item?"
 msgstr "Վստա՞ք եք, որ ցականում եք այն հեռացնել:"
 
-#: app/views/cms/media_listing.rhtml:35 app/views/themes/edit.rhtml:24
+#: app/views/cms/media_listing.rhtml:34
+msgid ""
+"Include files in some folder or select from the list below to add images and "
+"documents to the text editor beside (max size %s)"
+msgstr ""
+
+#: app/views/cms/media_listing.rhtml:50
+#, fuzzy
+msgid "Folders"
+msgstr "Թղթապանակ"
+
+#: app/views/cms/media_listing.rhtml:51
+msgid ""
+"Drag images and documents to add them to the text. If needed, resize images "
+"by clicking the tree icon on editor."
+msgstr ""
+
+#: app/views/cms/media_listing.rhtml:54 app/views/themes/edit.rhtml:24
 msgid "Images"
 msgstr ""
 
-#: app/views/cms/media_listing.rhtml:40
+#: app/views/cms/media_listing.rhtml:59
 #, fuzzy
 msgid "Documents"
 msgstr "մեկնաբանություն"
-
-#: app/views/cms/media_listing.rhtml:45
-msgid "Drag images and documents to add them to the text."
-msgstr ""
 
 #: app/views/cms/_upload_file_form.rhtml:4
 msgid "Choose folder to upload files:"
@@ -4163,7 +4175,7 @@ msgstr "Քաղաք չկա"
 msgid "Choose the communities you want to join and/or create your own."
 msgstr ""
 
-#: app/views/search/communities.rhtml:24
+#: app/views/search/communities.rhtml:25
 msgid "New community"
 msgstr ""
 
@@ -4533,18 +4545,18 @@ msgstr "Այո, ես ցանկանում եմ վերացնել:"
 msgid "Creating new community"
 msgstr ""
 
-#: app/views/memberships/new_community.rhtml:22
+#: app/views/memberships/new_community.rhtml:21
 #: app/views/profile_editor/edit.rhtml:12 app/views/categories/_form.rhtml:27
 #: app/views/manage_products/_form.rhtml:10
 msgid "Image:"
 msgstr "Նկար"
 
-#: app/views/memberships/new_community.rhtml:27
+#: app/views/memberships/new_community.rhtml:25
 #: app/views/profile_editor/_organization.rhtml:26
 msgid "New members must be approved:"
 msgstr ""
 
-#: app/views/memberships/new_community.rhtml:32
+#: app/views/memberships/new_community.rhtml:30
 #: app/views/profile_editor/_organization.rhtml:31
 msgid ""
 "<strong>Before</strong> joining this group (a moderator has to accept the "
@@ -4552,14 +4564,14 @@ msgid ""
 "website)."
 msgstr ""
 
-#: app/views/memberships/new_community.rhtml:38
+#: app/views/memberships/new_community.rhtml:36
 #: app/views/profile_editor/_organization.rhtml:37
 msgid ""
 "<strong>After</strong> joining this group (a moderator can always "
 "desactivate access for users later)."
 msgstr ""
 
-#: app/views/memberships/new_community.rhtml:43 app/views/themes/new.rhtml:8
+#: app/views/memberships/new_community.rhtml:41 app/views/themes/new.rhtml:8
 msgid "Create"
 msgstr "Ստեղծել"
 

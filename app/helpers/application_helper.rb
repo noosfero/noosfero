@@ -420,7 +420,7 @@ module ApplicationHelper
     end
     content_tag tag,
         link_to_remote( display,
-	    :update => 'search-results',
+	    :update => 'search-results-and-pages',
             :url => {:controller => 'account', :action => 'profile_details', :profile => profile.identifier},
             :onclick => 'document.location.href = this.href', # work-arround for ie.
             :class => 'profile_link url',
@@ -519,8 +519,8 @@ module ApplicationHelper
     content_tag('div', result)
   end
 
-  def select_folder(object, method, collection, html_options = {}, js_options = {})
-    labelled_form_field(_('Folder'), select(object, method, collection.map {|f| [ profile.identifier + '/' + f.full_name, f.id ] }, html_options.merge({:include_blank => "#{profile.identifier}"}), js_options))
+  def select_folder(label, object, method, collection, html_options = {}, js_options = {})
+    labelled_form_field(label, select(object, method, collection.map {|f| [ profile.identifier + '/' + f.full_name, f.id ] }, html_options.merge({:include_blank => "#{profile.identifier}"}), js_options))
   end
 
   def theme_option(opt = nil)

@@ -47,27 +47,30 @@ class FileData < StringIO
 end
 
 class Progress
-  def self.instance
-    @instance ||= self.new
-  end
-  def start(n)
-    @total = n
-    @current = 0
-  end
-  def step
-    @current += 1
-  end
-  def puts(msg)
-    Kernel.puts("[%d/%d] %s" %  [@current, @total, msg])
+  DEBUG = false
+  class << self
+    def start(n)
+      @total = n
+      @current = 0
+    end
+    def step
+      @current += 1
+    end
+    def step_done
+      say('=> done', true)
+    end
+    def say(msg, force = Progress::DEBUG)
+      puts("[%d/%d] %s" %  [@current, @total, msg]) if force
+    end
   end
 end
 
 FORBIDDEN_LOGINS = %w[
   info
 ]
-Progress.instance.start(ARGV.size)
+Progress.start(ARGV.size)
 for username in ARGV
-  Progress.instance.step
+  Progress.step
   begin
     User.transaction do
       # guess environment
@@ -89,17 +92,17 @@ for username in ARGV
       person.from_xml(File.read(File.join(IMPORT_DIR, username + '.xml')))
       person.preferred_domain = get_domain(domain_name)
       user.save!
-      Progress.instance.puts "I: #{username} data imported"
+      Progress.say "I: #{username} data imported"
 
       # import articles
       Dir.glob(File.join(IMPORT_DIR, username, 'articles', '*.xml')) do |xml|
-        Progress.instance.puts "I: Trying to import #{username}'s article in #{xml} ..."
+        Progress.say "I: Trying to import #{username}'s article in #{xml} ..."
         article = TinyMceArticle.new
         article.from_xml(File.read(xml))
         article.profile = person
         if article.valid?
           article.save!
-          Progress.instance.puts "I: #{username}'s article #{article.name.inspect} imported"
+          Progress.say "I: #{username}'s article #{article.name.inspect} imported"
         else
           $stderr.puts "W: #{username}'s article #{article.name.inspect} cannot be saved. Errors: #{article.errors.full_messages.join(', ')}"
           next
@@ -108,12 +111,12 @@ for username in ARGV
         if article.is_homepage
           person.home_page = article
           person.save!
-          Progress.instance.puts "I: Article #{article.name.inspect} is #{username}'s homepage!"
+          Progress.say "I: Article #{article.name.inspect} is #{username}'s homepage!"
         end
 
         File.open("tmp/rewrite.txt", 'w+') do |file|
           file.puts("#{article.id} #{url_for(article.url)}")
-          Progress.instance.puts "I: Article with id = #{article.id} redirected to #{url_for(article.url)}"
+          Progress.say "I: Article with id = #{article.id} redirected to #{url_for(article.url)}"
         end
 
         # import attachments
@@ -122,16 +125,16 @@ for username in ARGV
           file = UploadedFile.new
           file.from_xml(File.read(attachment_xml))
           if !File.exist?(file.filesystem_location)
-            Progress.instance.puts "W: skipping attachment pointing to unexisting file"
+            Progress.say "W: skipping attachment pointing to unexisting file"
             next
           end
-          Progress.instance.puts "I: about to read data from #{file.filesystem_location} (xml: #{attachment_xml})"
+          Progress.say "I: about to read data from #{file.filesystem_location} (xml: #{attachment_xml})"
           file.uploaded_data = FileData.new(file.filesystem_location, file.filename, file.content_type)
           file.parent = article
           file.profile = person
-          Progress.instance.puts "I: Trying to save attachment \"#{file.filename}/#{file.slug}\""
+          Progress.say "I: Trying to save attachment \"#{file.filename}/#{file.slug}\""
           file.save!
-          Progress.instance.puts "I: attachment added to article #{article.id}"
+          Progress.say "I: attachment added to article #{article.id}"
 
           file.reload
           if file.image?
@@ -158,7 +161,7 @@ for username in ARGV
         block.title = data['menu']['title']
         block.links = links
         block.save!
-        Progress.instance.puts "imported links: #{links.inspect}"
+        Progress.say "imported links: #{links.inspect}"
       end
 
     end
@@ -170,4 +173,5 @@ for username in ARGV
     $stderr.puts "=================================="
     $stderr.puts "E: Note that ALL operations above relative to <#{username}> were CANCELLED due to these errors."
   end
+  Progress.step_done
 end
