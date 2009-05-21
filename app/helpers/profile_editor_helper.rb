@@ -142,8 +142,7 @@ module ProfileEditorHelper
   end
 
   def control_panel_button(title, icon, url)
-    link_to title, url, :style => 'background-image: url(%s)' % image_path('control-panel/' + 'system-users.png') # TODO use icon argument
+    link_to title, url, :class => 'control-panel-%s' % icon
   end
-
 
 end

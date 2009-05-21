@@ -15,6 +15,13 @@
   text-decoration: none;
   font-weight: bold;
   color: black;
+
+  /* default icon */
+  background-image: url(../images/control-panel/system-users.png);
+}
+
+.msie6 .control-panel a {
+  background-image: url(../images/control-panel/system-users.gif);
 }
 
 .control-panel a:hover {
