@@ -54,7 +54,8 @@
   <body class='noosfero category<%= category_color %><%=
     # Identify the current controller and action for the CSS:
     " controller_"+ @controller.controller_name() +
-    " action_"+ @controller.controller_name() +"_"+ @controller.action_name()
+    " action_"+ @controller.controller_name() +"_"+ @controller.action_name() +
+    (logged_in? ? ' logged-in' : '')
     %>' onload='noosfero_init();'
     help=<%= _('Pass the mouse over page elements to get help on them. Click the question mark icon on the top-right corner to deactivate this help window.').inspect %> onresize="registerDocumentSize()">
     <script type="text/javascript">
