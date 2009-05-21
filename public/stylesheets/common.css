@@ -276,6 +276,25 @@ td .button {
   background-color: transparent;
 }
 
+td.field-name {
+  color: #888;
+  width: 150px;
+  text-align: left;
+}
+
+table.profile th {
+  border-bottom: 2px solid #eeeeec;
+  padding: 10px 0px 0px 0px;
+}
+table.profile td {
+  border: none;
+  padding-left: 0px;
+}
+table.profile tr:hover td {
+  background: none;
+}
+
+
 /* for fields with auto-completion */
 div.auto-complete {
   display: block;
