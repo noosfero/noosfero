@@ -23,10 +23,11 @@ You need to have a Subversion client (svn) installed, as well as:
 * contacts: http://github.com/cardmagic/contacts/tree/master
 * iso-codes: http://pkg-isocodes.alioth.debian.org/
 * feedparser: http://packages.debian.org/sid/libfeedparser-ruby
+* tango-icon-theme: http://tango.freedesktop.org/Tango_Icon_Library
 
 There are Debian packages available for all of them but ferret. Try:
 
- # aptitude install subversion ruby rake libgettext-ruby1.8 libsqlite3-ruby rcov librmagick-ruby libredcloth-ruby libwill-paginate-ruby iso-codes libfeedparser-ruby libferret-ruby
+ # aptitude install subversion ruby rake libgettext-ruby1.8 libsqlite3-ruby rcov librmagick-ruby libredcloth-ruby libwill-paginate-ruby iso-codes libfeedparser-ruby libferret-ruby tango-icon-theme
 
 If you have problems with the setup, use the development mailing list. In
 special its possible that the requirements list above is not complete.
