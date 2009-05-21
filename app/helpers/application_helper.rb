@@ -168,21 +168,6 @@ module ApplicationHelper
     text_area(object, method, { :rows => 10, :cols => 64 }.merge(options))
   end
 
-  def file_manager(&block)
-    concat(
-      content_tag('div',
-        content_tag('div', capture(&block) + '<br style="clear:left;"/>&nbsp;'),
-        :class => 'file-manager'),
-      block.binding)
-  end
-
-  def file_manager_button(title, icon, url)
-    content_tag( 'div',
-                 link_to(image_tag(icon, :alt => title, :title => title) +
-                 content_tag('span', title),
-                 url), :class => 'file-manager-button' )
-  end
-
   def hide(id)
     "Element.hide(#{id.inspect});"
   end

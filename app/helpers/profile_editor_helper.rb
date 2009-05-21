@@ -133,4 +133,17 @@ module ProfileEditorHelper
     labelled_form_field(__('Preferred domain name:'), select(object, :preferred_domain_id, domains.map {|item| [item.name, item.id]}, :prompt => '&lt;' + _('Select domain') + '&gt;'))
   end
 
+  def control_panel(&block)
+    concat(
+      content_tag('div',
+        content_tag('div', capture(&block) + '<br style="clear:left;"/>&nbsp;'),
+        :class => 'control-panel'),
+      block.binding)
+  end
+
+  def control_panel_button(title, icon, url)
+    link_to title, url, :style => 'background-image: url(%s)' % image_path('control-panel/' + 'system-users.png') # TODO use icon argument
+  end
+
+
 end

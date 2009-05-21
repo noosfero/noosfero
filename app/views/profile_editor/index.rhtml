@@ -1,67 +1,60 @@
-<div id="profile-editor-index">
-
-  <h1 class="block-title">
-    <div class='control-panel-title'><%= profile.name %></div>
-    <div class='control-panel-subtitle'><%= _('Control Panel') %></div>
-  </h1>
+<h1 class='control-panel-title'><%= _('Control Panel') %> &mdash; <%= profile.name %></h1>
   
 <%= render :partial => 'pending_tasks' %>
 
 <div class='control-panel'>
 
-<% file_manager do %>
+<% control_panel do %>
 
-  <%= file_manager_button(_('Info and settings'), 'icons-app/edit-profile.png', :controller => 'profile_editor', :action => 'edit') %>
+  <%= control_panel_button(_('Info and settings'), 'edit-profile', :controller => 'profile_editor', :action => 'edit') %>
 
-  <%= file_manager_button(_('Mail settings'), 'icons-app/mail.png', :controller => 'mailconf') if profile.person? && MailConf.enabled? %>
+  <%= control_panel_button(_('Mail settings'), 'mail', :controller => 'mailconf') if profile.person? && MailConf.enabled? %>
 
-  <%= file_manager_button(_('Tasks'), 'icons-app/todo.png', :controller => 'tasks', :action => 'index') %>
+  <%= control_panel_button(_('Tasks'), 'todo', :controller => 'tasks', :action => 'index') %>
 
-  <%= file_manager_button(_('Edit sideboxes'), 'icons-app/design-editor.png', :controller => 'profile_design', :action => 'index') %>
+  <%= control_panel_button(_('Edit sideboxes'), 'design-editor', :controller => 'profile_design', :action => 'index') %>
 
-  <%= file_manager_button(_('Edit Appearance'), 'icons-app/design-editor.png', :controller => 'themes', :action => 'index') %>
+  <%= control_panel_button(_('Edit Appearance'), 'design-editor', :controller => 'themes', :action => 'index') %>
   
-  <%= file_manager_button(_('Edit Header and Footer'), 'icons-app/header-and-footer.png', :controller => 'profile_editor', :action => 'header_footer') unless profile.enterprise? && environment.enabled?('disable_header_and_footer') && !user.is_admin?(environment) %>
+  <%= control_panel_button(_('Edit Header and Footer'), 'header-and-footer', :controller => 'profile_editor', :action => 'header_footer') unless profile.enterprise? && environment.enabled?('disable_header_and_footer') && !user.is_admin?(environment) %>
 
-  <%= file_manager_button(_('Manage Content'), 'icons-app/cms.png', :controller => 'cms') if !environment.enabled?('disable_cms') || profile.community? %>
+  <%= control_panel_button(_('Manage Content'), 'cms', :controller => 'cms') if !environment.enabled?('disable_cms') || profile.community? %>
 
   <% unless profile.enterprise? %>
     <% if profile.has_blog? %>
-      <%= file_manager_button(_('Configure blog'), 'icons-app/blog.png', :controller => 'cms', :action => 'edit', :id => profile.blog) %>
+      <%= control_panel_button(_('Configure blog'), 'blog', :controller => 'cms', :action => 'edit', :id => profile.blog) %>
     <% else %>
-      <%= file_manager_button(_('Create blog'), 'icons-app/blog-disabled.png', :controller => 'cms', :action => 'new', :type => 'Blog') %>
+      <%= control_panel_button(_('Create blog'), 'blog-disabled', :controller => 'cms', :action => 'new', :type => 'Blog') %>
     <% end %>
   <% end %>
 
-  <%= file_manager_button(_('Change Password'), 'icons-app/change-password.png', :controller => 'account', :action => 'change_password') if profile.person? %>
+  <%= control_panel_button(_('Change Password'), 'change-password', :controller => 'account', :action => 'change_password') if profile.person? %>
 
-  <%= file_manager_button(__('Manage friends'), 'icons-app/friends.png', :controller => 'friends', :action => 'index') if profile.person? %>
+  <%= control_panel_button(__('Manage friends'), 'friends', :controller => 'friends', :action => 'index') if profile.person? %>
 
-  <%= file_manager_button(_('Manage Members'), 'icons-app/members.png', :controller => 'profile_members') if profile.organization? && user.has_permission?(:manage_memberships, profile) %>
+  <%= control_panel_button(_('Manage Members'), 'members', :controller => 'profile_members') if profile.organization? && user.has_permission?(:manage_memberships, profile) %>
 
-  <%= file_manager_button(_('Manage Products and Services'), 'icons-app/products.png', :controller => 'manage_products') if profile.enterprise? && !environment.enabled?('disable_products_for_enterprises') %>
+  <%= control_panel_button(_('Manage Products and Services'), 'products', :controller => 'manage_products') if profile.enterprise? && !environment.enabled?('disable_products_for_enterprises') %>
 
   <% if !environment.enabled?('disable_asset_enterprises') %>
     <% if profile.is_validation_entity? %>
-      <%= file_manager_button(__('Enterprise Validation'), 'icons-app/validation.png', :controller => 'enterprise_validation') %>
+      <%= control_panel_button(__('Enterprise Validation'), 'validation', :controller => 'enterprise_validation') %>
     <% end %>
     <% if profile.person? %>
-      <%= file_manager_button(__('Favorite Enterprises'), 'icons-app/favorites.png', :controller => 'favorite_enterprises') %>
+      <%= control_panel_button(__('Favorite Enterprises'), 'favorites', :controller => 'favorite_enterprises') %>
     <% end %>
   <% end %>
 
   <% if profile.enterprise? %>
     <% if profile.enabled? %>
-      <%= file_manager_button(__('Disable Enterprise'), 'icons-app/disable.png', :action => 'disable') %>
+      <%= control_panel_button(__('Disable Enterprise'), 'disable', :action => 'disable') %>
     <% else %>
-      <%= file_manager_button(__('Enable Enterprise'), 'icons-app/enable.png', :action => 'enable') %>
+      <%= control_panel_button(__('Enable Enterprise'), 'enable', :action => 'enable') %>
     <% end %>
   <% end %>
 
-  <%= file_manager_button(_('Manage my groups'), 'icons-app/groups.png', :controller => 'memberships') if profile.person? %>
+  <%= control_panel_button(_('Manage my groups'), 'groups', :controller => 'memberships') if profile.person? %>
 
 <% end %>
 
 </div>
-
-</div><!-- end id="profile-editor-index" -->
