@@ -190,7 +190,7 @@ module BoxesHelper
 
     if !block.main?
       buttons << icon_button(:eyes, _('Toggle block visibility'), {:action => 'toggle_visibility', :id => block.id})
-      buttons << icon_button(:delete, _('Remove block'), { :action => 'remove', :id => block.id }, { :method => 'post'})
+      buttons << icon_button(:delete, _('Remove block'), { :action => 'remove', :id => block.id }, { :method => 'post', :confirm => _('Are you sure you want to remove this block?')})
     end
 
     if block.respond_to?(:help)

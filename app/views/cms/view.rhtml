@@ -1,5 +1,4 @@
 <h1>
-  <%= icon('cms') %>
   <%= _('Content management') %>
 </h1>
 
@@ -15,7 +14,7 @@
   <% parent_id = ((@article && @article.allow_children?) ? @article : nil) %>
 
   <% if !@article or !@article.blog? %>
-    <%= button :add, _('New folder'), :action => 'new', :type => 'Folder', :parent_id => parent_id %>
+    <%= button :newfolder, _('New folder'), :action => 'new', :type => 'Folder', :parent_id => parent_id %>
   <% end %>
   <%= lightbox_button('new', label_for_new_article(@article), :action => 'new', :parent_id => parent_id) %>
   <%= button('upload-file', _('Upload files'), :action => 'upload_files', :parent_id => parent_id) %>
@@ -29,6 +28,21 @@
     <th><%= _('Type') %></th>
     <th><%= _('Actions') %></th>
   </tr>
+
+  <% if @article %>
+    <tr>
+      <td>
+        <%= image_tag 'icons-mime/gnome-folder.png' %>
+        <% if @article.parent %>
+          <%= link_to '.. (parent folder)', :action => 'view', :id => @article.parent.id %>
+        <% else %>
+          <%= link_to '.. (parent folder)', :action => 'index' %>
+        <% end %>
+      </td>
+      <td><%= Folder.short_description %></td>
+      <td> </td>
+    </tr>
+  <% end %>
 
   <%# folders %>
   <% for folder in @folders %>
@@ -68,10 +82,5 @@
       </td>
     </tr>
   <% end %>
-
-  <% if @subitems.empty? || @folders.empty? %>
-    <tr><td colspan='3' align='center'><em><%= _('None') %></em></td></tr>
-  <% end %>
-
 
 </table>

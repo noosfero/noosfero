@@ -21,17 +21,10 @@
 </div>
 <% end; end %>
 
-<div onmouseover="showArticleActions(true)"
-     onmouseout="showArticleActions(false)">
+<div>
   <%= article_title(@page, :no_link => true) %>
-  <script type="text/javascript">
-    function showArticleActions( show ) {
-      var act = $("article-actions");
-      if ( act ) act.className = ( show ? "show" : "hidden" );
-    }
-  </script>
   <% if logged_in? && current_user.person.has_permission?('post_content', profile) %>
-    <div id="article-actions" class="hidden">
+    <div id="article-actions">
       <% unless @page.blog? %>
       <%= link_to content_tag( 'span', label_for_edit_article(@page) ),
           profile.admin_url.merge({ :controller => 'cms', :action => 'edit', :id => @page.id }),
@@ -43,15 +36,16 @@
             profile.admin_url.merge({ :controller => 'cms', :action => 'destroy', :id => @page }),
             :class => 'button with-text icon-delete' %>
         <% end %>
-        <% if profile.kind_of?(Person) && !environment.enabled?('disable_cms') %>
+        <% if profile.kind_of?(Person) && !environment.enabled?('disable_cms') && !@page.folder? %>
           <%= link_to content_tag( 'span', _('Spread this') ),
               profile.admin_url.merge({ :controller => 'cms', :action => 'publish', :id => @page }),
               :class => 'button with-text icon-spread' %>
         <% end %>
-        <% if @page.display_as_gallery? %>
-          <%= button('upload-file', _('Upload files'), profile.admin_url.merge(:controller => 'cms', :action => 'upload_files', :parent_id => (@page.folder? ? @page : @page.parent))) %>
-        <% else %>
+        <% if !@page.display_as_gallery? %>
           <%= lightbox_button(:new, label_for_new_article(@page), profile.admin_url.merge(:controller => 'cms', :action => 'new', :parent_id => (@page.folder? ? @page : (@page.parent.nil? ? nil : @page.parent)))) %>
+        <% end %>
+        <% if @page.folder? %>
+          <%= button('upload-file', _('Upload files'), profile.admin_url.merge(:controller => 'cms', :action => 'upload_files', :parent_id => (@page.folder? ? @page : @page.parent))) %>
         <% end %>
       <% end %>
       <% if profile.kind_of?(Enterprise) && @page.display_as_gallery? %>

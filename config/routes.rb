@@ -23,6 +23,11 @@ ActionController::Routing::Routes.draw do |map|
 
   map.connect 'images/*stuff', :controller => 'not_found', :action => 'index'
   map.connect 'stylesheets/*stuff', :controller => 'not_found', :action => 'index'
+  map.connect 'designs/*stuff', :controller => 'not_found', :action => 'index'
+  map.connect 'articles/*stuff', :controller => 'not_found', :action => 'index'
+  map.connect 'javascripts/*stuff', :controller => 'not_found', :action => 'index'
+  map.connect 'thumbnails/*stuff', :controller => 'not_found', :action => 'index'
+  map.connect 'user_themes/*stuff', :controller => 'not_found', :action => 'index'
 
   # user account controller
   map.connect 'account/new_password/:code', :controller => 'account', :action => 'new_password'

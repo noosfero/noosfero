@@ -36,7 +36,7 @@
         </li>
 
         <% if user.is_admin?(environment) %>
-          <li><%= link_to( '<span class="icon-menu-"></span>'+ _('Admin'),
+          <li><%= link_to( '<span class="icon-menu-admin"></span>'+ _('Admin'),
                              {:controller => 'admin_panel' },
                              :id => 'link_admin_panel',
                              :help => _('Access the site administration panel.')
