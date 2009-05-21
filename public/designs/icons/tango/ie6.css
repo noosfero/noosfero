@@ -1,0 +1,51 @@
+.msie6 .icon-edit      { background-image: url(ie6/Tango/16x16/apps/text-editor.gif) }
+.msie6 .icon-home      { background-image: url(ie6/Tango/16x16/places/user-home.gif)          }
+.msie6 .icon-new       { background-image: url(ie6/Tango/16x16/actions/filenew.gif)              }
+.msie6 .icon-close     { background-image: url(ie6/Tango/16x16/actions/gtk-cancel.gif)           }
+.msie6 .icon-newfolder { background-image: url(ie6/Tango/16x16/actions/folder-new.gif) }
+.msie6 .icon-save      { background-image: url(ie6/Tango/16x16/actions/filesave.gif)             }
+.msie6 .icon-send      { background-image: url(ie6/Tango/16x16/actions/stock_mail-forward.gif)             }
+.msie6 .icon-cancel    { background-image: url(ie6/Tango/16x16/actions/gtk-cancel.gif)           }
+.msie6 .icon-person    { background-image: url(ie6/Tango/16x16/apps/system-config-users.gif)           }
+.msie6 .icon-product    { background-image: url(ie6/Tango/16x16/mimetypes/package.gif)          }
+.msie6 .icon-delete    { background-image: url(ie6/Tango/16x16/places/user-trash.gif) }
+.msie6 .icon-back      { background-image: url(ie6/Tango/16x16/actions/back.gif)          }
+.msie6 .icon-next      { background-image: url(ie6/Tango/16x16/actions/go-next.gif)  }
+.msie6 .icon-add       { background-image: url(ie6/Tango/16x16/actions/add.gif)              }
+.msie6 .icon-more      { background-image: url(ie6/Tango/16x16/actions/add.gif)              }
+.msie6 .icon-up        { background-image: url(ie6/Tango/16x16/actions/go-up.gif)            }
+.msie6 .icon-down      { background-image: url(ie6/Tango/16x16/actions/go-down.gif)          }
+.msie6 .icon-left      { background-image: url(ie6/Tango/16x16/actions/go-previous.gif)          }
+.msie6 .icon-right     { background-image: url(ie6/Tango/16x16/actions/go-next.gif)         }
+.msie6 .icon-up-disabled        { background-image: url(ie6/Tango/16x16/actions/go-up.gif); opacity: 0.25; filter:alpha(opacity=25); }
+.msie6 .icon-down-disabled      { background-image: url(ie6/Tango/16x16/actions/go-down.gif); opacity: 0.25; filter:alpha(opacity=25);         }
+.msie6 .icon-left-disabled      { background-image: url(ie6/Tango/16x16/actions/go-previous.gif); opacity: 0.25; filter:alpha(opacity=25);          }
+.msie6 .icon-right-disabled     { background-image: url(ie6/Tango/16x16/actions/go-next.gif); opacity: 0.25; filter:alpha(opacity=25);         }
+.msie6 .icon-up-red    { background-image: url(ie6/Tango-mod/16x16/actions/go-up-red.gif)        }
+.msie6 .icon-forward   { background-image: url(ie6/Tango/16x16/actions/go-next.gif)       }
+.msie6 .icon-search    { background-image: url(ie6/Tango/16x16/actions/search.gif)           }
+.msie6 .icon-ok        { background-image: url(ie6/Tango/16x16/actions/media-playback-start.gif)               }
+.msie6 .icon-login     { background-image: url(ie6/Tango-mod/16x16/actions/login.gif)              }
+.msie6 .icon-help      { background-image: url(ie6/Tango/16x16/apps/gnome-help.gif)                }
+.msie6 .icon-firefox   { background-image: url(firefox-24x24.gif)       }
+.msie6 .icon-help32on  { background-image: url(ie6/Tango/32x32/apps/gnome-help.gif)    }
+.msie6 .icon-help32off { background-image: url(ie6/Tango-mod/32x32/apps/gnome-help-red.gif)   }
+.msie6 .icon-spread    { background-image: url(ie6/Tango-mod/16x16/actions/spread.gif) }
+.msie6 .icon-todo            { background-image: url(ie6/Tango/16x16/actions/stock_paste.gif)          }
+.msie6 .icon-eyes            { background-image: url(ie6/Tango/16x16/actions/gtk-print-preview.gif)          }
+.msie6 .icon-menu-home       { background-image: url(ie6/Tango/16x16/actions/go-home.gif)             }
+.msie6 .icon-menu-product    { background-image: url(ie6/Tango/16x16/mimetypes/package.gif)          }
+.msie6 .icon-menu-enterprise { background-image: url(ie6/Tango/16x16/actions/go-home.gif)       }
+.msie6 .icon-menu-community  { background-image: url(ie6/Tango/16x16/apps/system-config-users.gif)        }
+.msie6 .icon-menu-ctrl-panel { background-image: url(ie6/Tango/16x16/categories/preferences-desktop.gif)          }
+.msie6 .icon-menu-admin      { background-image: url(ie6/Tango/16x16/categories/preferences-system.gif)          }
+.msie6 .icon-menu-my-groups { background-image: url(ie6/Tango/16x16/apps/system-config-users.gif)    }
+.msie6 .icon-menu-login      { background-image: url(ie6/Tango-mod/16x16/actions/login.gif)            }
+.msie6 .icon-menu-logout     { background-image: url(ie6/Tango/16x16/actions/exit.gif)             }
+.msie6 .icon-menu-search     { background-image: url(ie6/Tango/16x16/actions/search.gif)           }
+.msie6 .icon-menu-events     { background-image: url(ie6/Tango/16x16/mimetypes/stock_calendar.gif)         }
+.msie6 .icon-menu-articles   { background-image: url(ie6/Tango/16x16/apps/text-editor.gif)             }
+.msie6 .icon-menu-people     { background-image: url(ie6/Tango-mod/16x16/apps/user.gif)            }
+.msie6 .icon-menu-mail       { background-image: url(ie6/Tango/16x16/apps/email.gif)             }
+.msie6 .icon-upload-file     { background-image: url(ie6/Tango/16x16/actions/filesave.gif)            }
+.msie6 .icon-slideshow       { background-image: url(ie6/Tango/16x16/mimetypes/x-office-presentation.gif)           }
