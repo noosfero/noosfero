@@ -4,13 +4,17 @@ class ContentViewerController < ApplicationController
 
   inverse_captcha :field => 'e_mail'
 
+  helper ProfileHelper
+  helper TagsHelper
+
   def view_page
     path = params[:page].join('/')
 
     if path.blank?
       @page = profile.home_page
       if @page.nil?
-        render :action => 'no_home_page'
+        @tags = profile.tags
+        render :template => 'profile/index'
         return
       end
     else

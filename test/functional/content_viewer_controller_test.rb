@@ -51,15 +51,6 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_equal a, assigns(:page)
   end
 
-  def test_should_display_something_else_for_empty_homepage
-    profile.articles.destroy_all
-
-    get :view_page, :profile => profile.identifier, :page => []
-
-    assert_response :success
-    assert_template 'no_home_page'
-  end
-
   def test_should_get_not_found_error_for_unexisting_page
     uses_host 'anhetegua.net'
     get :view_page, :profile => 'aprofile', :page => ['some_unexisting_page']
@@ -707,14 +698,6 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'link', :attributes => { :rel => 'alternate', :type => 'application/rss+xml', :title => 'feed', :href => "http://#{environment.default_hostname}/testinguser/blog/feed" }
   end
 
-  should 'link to post with comment form opened' do
-    login_as(profile.identifier)
-    a = Blog.create!(:name => 'article folder', :profile => profile)
-    t = TextileArticle.create!(:name => 'first post', :parent => a, :profile => profile)
-    get :view_page, :profile => profile.identifier, :page => [a.path]
-    assert_tag :tag => 'div', :attributes => { :id => "post-#{t.id}" }, :descendant => { :tag => 'a', :content => 'No comments yet', :attributes => { :href => /#{profile.identifier}\/blog\/first-post\?form=opened#comments_list/ } }
-  end
-
   should 'hit the article when viewed' do
     a = profile.articles.create!(:name => 'test article')
     get :view_page, :profile => profile.identifier, :page => [a.path]
@@ -798,6 +781,12 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     profile.articles << TextileArticle.new(:name => "Article one", :profile => profile)
     get :view_page, :profile => profile.identifier, :page => ['article-one']
     assert_no_tag :tag => 'div', :attributes => { :id => 'article-source' }
+  end
+
+  should 'render profile screen when there is no homepage' do
+    profile.home_page.destroy
+    get :view_page, :profile => profile.identifier, :page => []
+    assert_template 'profile/index'
   end
 
 end

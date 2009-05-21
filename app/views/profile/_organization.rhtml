@@ -4,7 +4,7 @@
 <%= display_field(_('Name:'), profile, :name) { |name| link_to name, profile.url  } %>
 <tr>
   <td colspan='2'>
-    <%= link_to _('Members'), :action => 'members' %></li>
+    <%= link_to _('Members'), :controller => 'profile', :action => 'members' %></li>
   </td>
 </tr>
 <% if profile.kind_of?(Enterprise) && !profile.environment.enabled?('disable_products_for_enterprises') %>
