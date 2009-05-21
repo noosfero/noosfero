@@ -2,14 +2,6 @@
   <%= _('Content management') %>
 </h1>
 
-<% if @article %>
-  <h1 id='article-full-path'>
-    <%= icon('cms') %>
-    <%= link_to profile.identifier, :action => 'index' %>
-    <%= @article.hierarchy.map {|item| " / " + ((item == @article) ? item.name : link_to(item.slug, :id => item.id)) } %>
-  </h1>
-<% end %>
-
 <% button_bar(:style => 'margin-bottom: 1em;') do %>
   <% parent_id = ((@article && @article.allow_children?) ? @article : nil) %>
 
@@ -18,6 +10,14 @@
   <% end %>
   <%= lightbox_button('new', label_for_new_article(@article), :action => 'new', :parent_id => parent_id) %>
   <%= button('upload-file', _('Upload files'), :action => 'upload_files', :parent_id => parent_id) %>
+<% end %>
+
+<% if @article %>
+  <div id='article-full-path'>
+    <strong><%= _('Current folder: ') %></strong>
+    <%= link_to profile.identifier, :action => 'index' %>
+    <%= @article.hierarchy.map {|item| " / " + ((item == @article) ? item.name : link_to(item.slug, :id => item.id)) } %>
+  </div>
 <% end %>
 
 <table class='cms-articles'>

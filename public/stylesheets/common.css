@@ -272,6 +272,10 @@ td.selected {
   font-style: italic;
 }
 
+td .button {
+  background-color: transparent;
+}
+
 /* for fields with auto-completion */
 div.auto-complete {
   display: block;

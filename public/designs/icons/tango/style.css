@@ -1,7 +1,7 @@
 @import url(ie6.css);
 
 .icon-edit      { background-image: url(Tango/16x16/apps/text-editor.png) }
-.icon-home      { background-image: url(Tango/16x16/places/user-home.png)          }
+.icon-home      { background-image: url(Tango/16x16/actions/go-home.png)          }
 .icon-new       { background-image: url(Tango/16x16/actions/filenew.png)              }
 .icon-close     { background-image: url(Tango/16x16/actions/gtk-cancel.png)           }
 .icon-newfolder { background-image: url(Tango/16x16/actions/folder-new.png) }

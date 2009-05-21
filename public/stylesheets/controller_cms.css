@@ -21,12 +21,11 @@
 }
 
 #article-full-path {
-  border: 1px solid gray;
   margin: 0px;
-  font-size: 120%;
   overflow: auto;
   padding: 2px;
-  background: #abc;
+  background: #eeeeec;
+  border: 1px solid #d3d7cf;
 }
 
 #article-controls {
