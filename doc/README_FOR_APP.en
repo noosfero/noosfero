@@ -9,7 +9,7 @@ so the process of setting it up is pretty similar to other Rails applications.
 
 noosfero is intended to be run in Debian stable. It can work in other environments, but we do not test on them.
 
-You need to have a Subversion client (svn) installed, as well as:
+You need to have git installed, as well as:
 
 * Ruby: http://www.ruby-lang.org/
 * Rake: http://rake.rubyforge.org/
@@ -32,13 +32,13 @@ There are Debian packages available for all of them but ferret. Try:
 If you have problems with the setup, use the development mailing list. In
 special its possible that the requirements list above is not complete.
 
-=== Boostraping the test environment
+=== Boostraping a test environment
 
 You can copy and paste the commands below into a terminal (please review the
 commands and make sure you understand what you are doing):
 
  # checkout the code from repository
- svn checkout https://svn.colivre.coop.br/svn/noosfero/trunk/ noosfero
+ git clone git://git.colivre.coop.br/noosfero.git
  # enter the directory
  cd noosfero
  # copy a sample config file
@@ -98,8 +98,7 @@ To prepare a release of noosfero, you must follow the steps below:
 * Go to the version's wiki topic and edit it to reflect the new reality.
 * Attach the generated package to that topic. Before attaching calculate the md5 of the package (with mu5sum and paste the MD5 hash as comment in the attachment form)
 * Download the attached and verify the MD5 hash
-* create a svn tag for the released version with <tt>rake tag</tt>. See
-  lib/tasks/svn.rake in case of any questions.
+* create a git tag for the released version with <tt>git tag</tt>.
 * IMMEDIATELY change the version in lib/noosfero.rb to the next version. (e.g.
   0.2.0 -> 0.3.0)
 * update an eventual demonstration version that you run.
@@ -110,8 +109,8 @@ completely delete the generated packages and start the process again.
 
 == Working with translations
 
-* Update translation files: <tt>rake updatepo</tt>. Then <tt>svn commit</tt> them.
+* Update translation files: <tt>rake updatepo</tt>. Then <tt>git commit</tt> them.
 * Send the PO files to the translators.
 * Get the PO files back from translators, put in po/ under the correct language
-  name (e.,g. po/pt_BR/) and <tt>svn commit</tt>.
+  name (e.,g. po/pt_BR/) and <tt>git commit</tt>.
 * test translations: <tt>rake makemo</tt> and browse the application on the web.
