@@ -67,6 +67,7 @@ class Zen3Terminology < Noosfero::Terminology::Custom
       'Create a new community' => N_('Create a new group'),
       'Preferred domain name:' => N_('Choose your host community:'),
       'My communities' => N_('My groups'),
+      'Community Info and settings' => N_('Group Info and Settings'),
     })
   end
 

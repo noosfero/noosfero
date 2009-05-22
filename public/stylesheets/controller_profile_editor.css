@@ -1,6 +1,6 @@
 .control-panel {
   /*border: 1px solid red;*/
-  padding: 0px 25px 0px 25px;
+  padding: 0px 15px 0px 15px;
 }
 
 .control-panel a {
@@ -10,21 +10,77 @@
   background-repeat: no-repeat;
   background-position: 0px 50%;
   height: 48px;
-  padding: 4px 10px 0px 50px;
+  padding: 4px 5px 0px 55px;
+  margin-bottom: 30px;
+  margin-right: 10px;
   text-align: left;
   text-decoration: none;
   font-weight: bold;
   color: black;
 
   /* default icon */
-  background-image: url(../images/control-panel/system-users.png);
+  background-image: url(../images/control-panel/important.png);
 }
 
 .msie6 .control-panel a {
-  background-image: url(../images/control-panel/system-users.gif);
+  background-image: url(../images/control-panel/important.gif);
 }
 
 .control-panel a:hover {
   background-color: #d2e0f0;
   -moz-border-radius: 3px;
 }
+
+a.control-panel-groups { background-image: url(../images/control-panel/system-users.png) }
+.msie6 a.control-panel-groups { background-image: url(../images/control-panel/system-users.gif) }
+
+a.control-panel-design-editor {background-image: url(../images/control-panel/preferences-desktop-wallpaper.png)}
+.msie6 a.control-panel-design-editor {background-image: url(../images/control-panel/preferences-desktop-wallpaper.gif)}
+
+a.control-panel-blog-disabled {background-image: url(../images/control-panel/text-editor-disabled.png)}
+.msie6 a.control-panel-blog-disabled {background-image: url(../images/control-panel/text-disabled.gif)}
+
+a.control-panel-blog {background-image: url(../images/control-panel/text-editor.png)}
+.msie6 a.control-panel-blog {background-image: url(../images/control-panel/text.gif)}
+
+a.control-panel-change-password {background-image: url(../images/control-panel/login.png)}
+.msie6 a.control-change-password {background-image: url(../images/control-panel/login.gif)}
+
+a.control-panel-cms {background-image: url(../images/control-panel/system-file-manager.png)}
+.msie6 a.control-cms {background-image: url(../images/control-panel/system-file-manager.gif)}
+
+a.control-panel-favorites {background-image: url(../images/control-panel/emblem-favorite.png)}
+.msie6 a.control-favorites {background-image: url(../images/control-panel/emblem-favorite.gif)}
+
+a.control-panel-todo {background-image: url(../images/control-panel/editpaste.png)}
+.msie6 a.control-todo {background-image: url(../images/control-panel/editpaste.gif)}
+
+a.control-panel-blocks {background-image: url(../images/control-panel/blocks.png)}
+.msie6 a.control-blocks {background-image: url(../images/control-panel/blocks.gif)}
+
+a.control-panel-header-and-footer {background-image: url(../images/control-panel/header-footer.png)}
+.msie6 a.control-header-and-footer {background-image: url(../images/control-panel/header-footer.gif)}
+
+a.control-panel-friends {background-image: url(../images/control-panel/contact.png)}
+.msie6 a.control-friends {background-image: url(../images/control-panel/contact.gif)}
+
+a.control-panel-edit-profile {background-image: url(../images/control-panel/edit-profile.png)}
+.msie6 a.control-edit-profile {background-image: url(../images/control-panel/edit-profile.gif)}
+
+a.control-panel-edit-profile-group {background-image: url(../images/control-panel/edit-profile-group.png)}
+.msie6 a.control-edit-profile-group {background-image: url(../images/control-panel/edit-profile-group.gif)}
+
+a.control-panel-edit-profile-enterprise {background-image: url(../images/control-panel/edit-profile-enterprise.png)}
+.msie6 a.control-edit-profile-enterprise {background-image: url(../images/control-panel/edit-profile-enterprise.gif)}
+
+a.control-panel-members {background-image: url(../images/control-panel/contact.png)}
+.msie6 a.control-members {background-image: url(../images/control-panel/contact.gif)}
+
+a.control-panel-products {background-image: url(../images/control-panel/package.png)}
+.msie6 a.control-products {background-image: url(../images/control-panel/package.gif)}
+
+a.control-panel-disable {background-image: url(../images/control-panel/stop.png)}
+.msie6 a.control-disable {background-image: url(../images/control-panel/stop.gif)}
+
+a.control-panel-validation {background-image: url(../images/control-panel/application-certificate.png)}
+.msie6 a.control-validation {background-image: url(../images/control-panel/application-certificate.gif)}
