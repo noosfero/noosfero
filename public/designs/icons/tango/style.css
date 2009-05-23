@@ -30,7 +30,7 @@
 .icon-forward   { background-image: url(Tango/16x16/actions/go-next.png)       }
 .icon-search    { background-image: url(Tango/16x16/actions/search.png)           }
 .icon-ok        { background-image: url(Tango/16x16/actions/media-playback-start.png)               }
-.icon-login     { background-image: url(Tango-mod/16x16/actions/login.png)              }
+.icon-login     { background-image: url(Tango-mod/16x16/actions/log-in.png)              }
 .icon-help      { background-image: url(Tango/16x16/apps/gnome-help.png)                }
 .icon-firefox   { background-image: url(firefox-24x24.gif)       }
 .icon-help32on  { background-image: url(Tango/32x32/apps/gnome-help.png)    }
@@ -49,8 +49,8 @@
 .icon-menu-ctrl-panel { background-image: url(Tango/16x16/categories/preferences-desktop.png)          }
 .icon-menu-admin      { background-image: url(Tango/16x16/categories/preferences-system.png)          }
 .icon-menu-my-groups { background-image: url(Tango/16x16/apps/system-config-users.png)    }
-.icon-menu-login      { background-image: url(Tango-mod/16x16/actions/login.png)            }
-.icon-menu-logout     { background-image: url(Tango/16x16/actions/exit.png)             }
+.icon-menu-login      { background-image: url(Tango-mod/16x16/actions/log-in.png)            }
+.icon-menu-logout     { background-image: url(Tango-mod/16x16/actions/log-out.png)             }
 .icon-menu-search     { background-image: url(Tango/16x16/actions/search.png)           }
 /*.icon-menu-ed-design  { background-image: url(edit-design-HC.gif)      } UNUSED */
 .icon-menu-events     { background-image: url(Tango/16x16/mimetypes/stock_calendar.png)         }
