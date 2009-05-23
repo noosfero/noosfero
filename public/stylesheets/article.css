@@ -60,11 +60,13 @@
 
 .article-comment {
   position: relative;
+  border: 1px solid #B8CFE7;
   margin-bottom: 10px;
   padding: 4px;
 }
 
 .comment-from-owner {
+  border: 1px solid #3465A4;
   background: #B8CFE7;
 }
 
