@@ -606,4 +606,12 @@ class Profile < ActiveRecord::Base
     self.articles.find(:all, :conditions => ['type in (?)', ['Folder', 'Blog']])
   end
 
+  def blocks_to_expire_cache
+    []
+  end
+
+  def cache_keys(params = {})
+    []
+  end
+
 end

@@ -38,7 +38,7 @@ class Person < Profile
   end
 
   def remove_friend(friend)
-    friends.delete(friend)
+    Friendship.find(:first, :conditions => {:friend_id => friend, :person_id => id}).destroy
   end
 
   FIELDS = %w[
@@ -238,4 +238,26 @@ class Person < Profile
     refused_communities << community
   end
 
+  def blocks_to_expire_cache
+    [CommunitiesBlock]
+  end
+
+  def cache_keys(params = {})
+    [communities_cache_key]
+  end
+
+  def communities_cache_key(params = {})
+    page = params[:npage] || '1'
+    identifier + '-communities-page-' + page
+  end
+
+  def friends_cache_key(params = {})
+    page = params[:npage] || '1'
+    identifier + '-friends-page-' + page
+  end
+
+  def manage_friends_cache_key(params = {})
+    page = params[:npage] || '1'
+    identifier + '-manage-friends-page-' + page
+  end
 end

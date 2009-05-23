@@ -12,4 +12,9 @@ module ProfileHelper
     end
   end
 
+  def pagination_links(collection, options={})
+    options = {:prev_label => '&laquo; ' + _('Previous'), :next_label => _('Next') + ' &raquo;'}.merge(options)
+    will_paginate(collection, options)
+  end
+
 end

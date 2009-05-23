@@ -28,7 +28,9 @@ class ProfileController < PublicController
   end
 
   def friends
-    @friends= profile.friends
+    if is_cache_expired?(profile.friends_cache_key(params))
+      @friends = profile.friends.paginate(:per_page => per_page, :page => params[:npage])
+    end
   end
 
   def members
@@ -82,4 +84,7 @@ class ProfileController < PublicController
     end
   end
 
+  def per_page
+    10
+  end
 end

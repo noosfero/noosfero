@@ -1,6 +1,11 @@
 @import url(profile-list-block.css);
+@import url(pagination.css);
 
 .button-bar {
   padding-top: 40px;
   clear: both;
+}
+
+#pagination-profiles .pagination span {
+  display: inline;
 }

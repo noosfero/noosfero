@@ -67,7 +67,7 @@ Rails::Initializer.run do |config|
 
   # don't load the sweepers while loading the database
   unless $PROGRAM_NAME =~ /rake$/ && ARGV.first == 'db:schema:load'
-    config.active_record.observers = :article_sweeper
+    config.active_record.observers = :article_sweeper, :role_assignment_sweeper, :friendship_sweeper
   end
   # Make Active Record use UTC-base instead of local time
   # config.active_record.default_timezone = :utc
