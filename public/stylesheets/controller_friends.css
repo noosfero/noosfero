@@ -1,5 +1,6 @@
 
 @import url(manage_contacts_list.css);
+@import url(pagination.css);
 
 #remove_friend .friend_picture {
   float: left;
@@ -16,4 +17,8 @@
   height: 300px;
   border: 1px solid #999;
   margin: 5px 0px;
+}
+
+#pagination-friends .pagination span {
+  display: inline;
 }

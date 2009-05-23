@@ -5,7 +5,9 @@ class FriendsController < MyProfileController
   protect 'manage_friends', :profile
   
   def index
-    @friends = profile.friends
+    if is_cache_expired?(profile.manage_friends_cache_key(params))
+      @friends = profile.friends.paginate(:per_page => per_page, :page => params[:npage])
+    end
   end
 
   def add
@@ -23,7 +25,6 @@ class FriendsController < MyProfileController
   def remove
     @friend = profile.friends.find(params[:id])
     if request.post? && params[:confirmation]
-      expire_fragment(:action => 'friends', :controller => 'profile', :profile => profile.identifier)
       profile.remove_friend(@friend)
       redirect_to :action => 'index'
     end
@@ -106,4 +107,9 @@ class FriendsController < MyProfileController
     end
   end
 
+  protected
+
+    def per_page
+      10
+    end
 end

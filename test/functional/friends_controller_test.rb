@@ -67,6 +67,7 @@ class FriendsControllerTest < Test::Unit::TestCase
       post :remove, :id => friend.id, :confirmation => '1'
       assert_redirected_to :action => 'index'
     end
+    assert_equal friend, Profile.find(friend.id)
   end
 
   should 'display find people button' do

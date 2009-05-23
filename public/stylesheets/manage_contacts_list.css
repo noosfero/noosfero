@@ -29,6 +29,7 @@
   text-decoration: none;
   text-align: center;
   display: block;
+  font-size: 11px;
 }
 .profile-list a.profile-link:hover {
   color: #FFF;
