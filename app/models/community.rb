@@ -44,4 +44,8 @@ class Community < Organization
   def news(limit = 30, highlight = false)
     recent_documents(limit, ["articles.type != ? AND articles.highlighted = ?", 'Folder', highlight])
   end
+
+  def blocks_to_expire_cache
+    [MembersBlock]
+  end
 end

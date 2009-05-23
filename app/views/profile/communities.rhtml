@@ -3,11 +3,17 @@
 
 <h1><%= _("%s's communities") % profile.name %></h1>
 
-<ul class='profile-list'>
-<% @communities.each do |community| %>
-  <li><%= profile_image_link(community)%></li>
+<% cache(profile.communities_cache_key(params)) do %>
+  <ul class='profile-list'>
+  <% @communities.each do |community| %>
+    <li><%= profile_image_link(community)%></li>
+  <% end %>
+  </ul>
+
+  <div id='pagination-profiles'>
+    <%= pagination_links @communities, :param_name => 'npage' %>
+  </div>
 <% end %>
-</ul>
 
 <% button_bar do %>
   <%= button :back, _('Go back'), { :controller => 'profile' },

@@ -20,7 +20,9 @@ class ProfileController < PublicController
   end
 
   def communities
-    @communities = profile.communities
+    if is_cache_expired?(profile.communities_cache_key(params))
+      @communities = profile.communities.paginate(:per_page => per_page, :page => params[:npage])
+    end
   end
 
   def enterprises
