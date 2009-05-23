@@ -77,21 +77,12 @@
 }
 
 .comment-picture {
-  position: relative;
   display: block;
-  width: 70px;
-  height: 50px;
-  background-repeat: no-repeat;
-  background-position: 0% 50%;
-  margin: 0px 4px 4px 4px;
   float: left;
-}
-
-.comment-picture span {
-  top: 50px;
-  position: absolute;
-  width: 100%;
-  overflow: hidden;
+  width: 70px;
+  background-repeat: no-repeat;
+  background-position: 0% 0%;
+  padding-top: 50px;
 }
 
 a.comment-picture {
@@ -120,7 +111,6 @@ a.comment-picture {
 
 .comment-text {
   font-size: 11px;
-  clear: left;
 }
 
 .comment-logged-out .comment-text {
