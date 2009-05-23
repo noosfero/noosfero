@@ -8,27 +8,36 @@
   <% end %>
 
   <% if comment.author %>
-    <%= link_to content_tag( 'span', comment.author.name() ), comment.author.url,
+    <%= link_to content_tag( 'span', comment.author.short_name, :class => 'comment-info' ), comment.author.url,
         :class => 'comment-picture',
         :style => 'background-image:url(%s)' % profile_icon(comment.author, :minor)
     %>
   <% else %>
     <%# unauthenticated user: display gravatar icon %>
-    <%= content_tag 'span', '&nbsp;',
+    <%= content_tag 'span', content_tag('span', comment.name + '<br/>'+ _('(unauthenticated user)'), :class => 'comment-info'),
         :class => 'comment-picture',
         :style => 'background-image:url(%s)' % str_gravatar_url_for( comment.email, :size => 50 )
     %>
   <% end %>
 
-  <h4><%= comment.title %></h4>
-  <div class="comment-info">
-    <%= _('By %{author} on %{date}') % {
-        :author => comment.author ? link_to(comment.author.name, comment.author.url) : content_tag('u', comment.name),
-        :date => show_time(comment.created_at) } %>
-    <%= _('(unauthenticated user)') if ! comment.author %>
-  </div>
-  <div class="comment-text">
-    <p/>
-    <%= txt2html comment.body %>
-  </div>
+  <div class='comment-wrapper-1'>
+  <div class='comment-wrapper-2'>
+  <div class='comment-wrapper-3'>
+  <div class='comment-wrapper-4'>
+  <div class='comment-wrapper-5'>
+  <div class='comment-wrapper-6'>
+  <div class='comment-wrapper-7'>
+  <div class='comment-wrapper-8'>
+    <div class="comment-details">
+      <div class="comment-created-at">
+        <%= show_time(comment.created_at) %>
+      </div>
+      <h4><%= comment.title %></h4>
+      <div class="comment-text">
+        <p/>
+        <%= txt2html comment.body %>
+      </div>
+    </div>
+  </div></div></div></div>
+  </div></div></div></div>
 </div>
