@@ -40,4 +40,21 @@ class LinkListBlockTest < ActiveSupport::TestCase
     assert_tag_in_string l.content, :tag => 'a', :attributes => {:href => '/test_profile/address'}
   end
 
+  should 'display options for icons' do
+    l = LinkListBlock.new
+    l.icons_options.each do |option|
+      assert_match(/<option class='icon-.+' value='.+' (selected='1')?>[^<>]+<\/option>/, option)
+    end
+  end
+
+  should 'link with icon' do
+    l = LinkListBlock.new
+    assert_match /class="icon-save"/, l.link_html({:icon => 'save', :name => 'test', :address => 'test.com'})
+  end
+
+  should 'no class without icon' do
+    l = LinkListBlock.new
+    assert_no_match /class="/, l.link_html({:icon => nil, :name => 'test', :address => 'test.com'})
+  end
+
 end

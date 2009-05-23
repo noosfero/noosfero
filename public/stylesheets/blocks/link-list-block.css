@@ -9,7 +9,7 @@
 }
 
 #edit-link-list-block table .cel-address {
-  width: 300px;
+  width: 180px;
 }
 
 #edit-link-list-block table .cel-address input {
@@ -33,6 +33,19 @@
 }
 
 .link-list-block a {
-  text-decoration: none;
   display: block;
+  text-decoration: none;
+  background-repeat: no-repeat;
+  padding-left: 23px;
+}
+
+#edit-link-list-block select {
+  width: 80px;
+}
+
+#edit-link-list-block option {
+  background-repeat: no-repeat;
+  padding-left: 23px;
+  margin: 2px;
+  height: 16px;
 }
