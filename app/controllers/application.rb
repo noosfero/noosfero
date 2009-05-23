@@ -2,6 +2,12 @@
 # available in all controllers.
 class ApplicationController < ActionController::Base
 
+  include ApplicationHelper
+  layout :get_layout
+  def get_layout
+    theme_option(:layout) || 'application'
+  end
+
   filter_parameter_logging :password
 
   def log_processing

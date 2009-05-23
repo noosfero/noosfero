@@ -1,31 +1,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= html_language %>" lang="<%= html_language %>">
   <head>
-    <title><%=
-       (@page ? @page.name + ' - ' : '') +
-       (@profile ? @profile.name + ' - ' : '') +
-       @environment.name +
-       (@category ? "&rarr; #{@category.full_name}" : '')
-    %></title>
+    <title><%= page_title %></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="description" content="FIXME: Descriptions of Noosfero" />
     <meta name="keywords" content="Noosfero, Community, Open Source" />
     <link rel="shortcut icon" href="<%= '/designs/themes/' + current_theme + '/images/favicon.ico' %>" type="image/x-icon" />
-    <%= meta_tags_for_article(@page) if @controller.controller_name == 'content_viewer' %>
-    <%= javascript_include_tag 'default-config' %>
-    <%= javascript_include_tag :defaults %>
-    <%# javascript_include_tag 'animator' %>
+    <!-- ok --><%= meta_tags_for_article(@page) %>
 
-    <%= javascript_include_tag 'jquery-latest.js' %>
-    <script type="text/javascript">
-      jQuery.noConflict();
-    </script>
-    <%= javascript_include_tag 'thickbox.js' %>
-
-    <%= javascript_include_tag 'menu' %>
-    <%= javascript_include_tag 'auto-open-menu' %>
-    <%= include_lightbox_header %>
-    <%= javascript_include_tag 'cms' if @controller.controller_name == 'cms' %>
+    <%= noosfero_javascript %>
     <%= theme_javascript %>
 
     <%#
@@ -39,16 +22,17 @@
       stylesheet_import( %w( common help menu article button search blocks forms login-box ),
                          :themed_source => true ) + "\n" +
       # Load the boxes's css file if each exists:
-      import_blocks_stylesheets +
+      import_blocks_stylesheets + "\n" +
+      import_blocks_stylesheets(:themed_source => true) + "\n" +
       # Load the controller's css file if it exists:
-      stylesheet_import( "controller_"+ @controller.controller_name() ) + "\n" +
-      stylesheet_import( "controller_"+ @controller.controller_name(), :themed_source => true )
+      import_controller_stylesheets + "\n" +
+      import_controller_stylesheets(:themed_source => true)
     %>
 
     <%= template_stylesheet_tag %>
     <%= icon_theme_stylesheet_tag %>
 
-    <%= stylesheet_link_tag 'iepngfix/iepngfix.css' %>
+    <%= pngfix_stylesheet %>
   </head>
 
   <body class='noosfero category<%= category_color %><%=
@@ -146,18 +130,7 @@
           <div id="header_content">
           </div>
 
-          <% if @controller.send(:boxes_editor?) %>
-            <%= yield %>
-            <%= display_boxes_editor(@controller.boxes_holder) %>
-          <% else %>
-            <% if uses_design_blocks?  %>
-              <%= display_boxes(@controller.boxes_holder, yield) %>
-            <% else %>
-              <div class='no-boxes'>
-                <%= yield %>
-              </div>
-            <% end %>
-          <% end %>
+          <%= insert_boxes(yield) %>
 
         </div><!-- id="content" -->
         <div id="footer_content"><!-- Rodape do Conteudo -->

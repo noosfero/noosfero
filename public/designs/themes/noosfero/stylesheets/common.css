@@ -6,7 +6,7 @@ body.noosfero {
 #wrap {
   background-position: 50% 22px;
   background-repeat: repeat-x;
-  border: 3px solid #2A5896;
+  border: 3px solid #888;
 }
 
 .box-3 {
@@ -27,7 +27,7 @@ a:hover, a:active        { color: #08F }
 
 hr {
   border: none;
-  border-top: 2px dotted #2A5896;
+  border-top: 2px dotted black;
 }
 
 #footer {

@@ -21,14 +21,20 @@ module BlogHelper
       :next_label => _('Older posts &raquo;')
     })
     content = []
-    articles.map{ |i|
-      css_add = ''
-      if i.published? || (user==i.profile)
-        css_add = '-not-published' if !i.published?
-        content << content_tag('div', display_post(i), :class => 'blog-post' + css_add, :id => "post-#{i.id}")
+    artic_len = articles.length
+    articles.each_with_index{ |art,i|
+      css_add = [ 'position-'+(i+1).to_s() ]
+      if art.published? || (user==art.profile)
+        css_add << 'first' if i == 0
+        css_add << 'last'  if i == (artic_len-1)
+        css_add << 'not-published' if !art.published?
+        content << content_tag('div',
+                       display_post(art),
+                       :class => 'blog-post ' + css_add.join(' '),
+                       :id => "post-#{art.id}")
       end
     }
-    content.join("\n<hr />\n") + (pagination or '')
+    content.join("\n<hr class='sep-posts'/>\n") + (pagination or '')
   end
 
   def display_post(article)

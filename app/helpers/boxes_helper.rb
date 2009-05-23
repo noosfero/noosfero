@@ -1,5 +1,17 @@
 module BoxesHelper
 
+  def insert_boxes(content)
+    if @controller.send(:boxes_editor?)
+      content + display_boxes_editor(@controller.boxes_holder)
+    else
+      if @controller.send(:uses_design_blocks?)
+        display_boxes(@controller.boxes_holder, content)
+      else
+        content_tag('div', content, :class => 'no-boxes')
+      end
+    end
+  end
+
   def box_decorator
     @box_decorator || DontMoveBlocks
   end
@@ -204,10 +216,9 @@ module BoxesHelper
     @controller.boxes_holder.boxes.map(&:blocks).inject([]){|ac, a| ac + a}
   end
 
-  def import_blocks_stylesheets
-    blocks_css_files = current_blocks.map{|b|'blocks/' + b.css_class_name}.uniq
-    stylesheet_import(blocks_css_files) + "\n" +
-    stylesheet_import(blocks_css_files, :themed_source => true )
+  def import_blocks_stylesheets(options = {})
+    @blocks_css_files ||= current_blocks.map{|b|'blocks/' + b.css_class_name}.uniq
+    stylesheet_import(@blocks_css_files, options)
   end
 
 end

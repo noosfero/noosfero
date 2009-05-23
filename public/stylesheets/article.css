@@ -60,14 +60,14 @@
 
 .article-comment {
   position: relative;
-  border: 1px solid #B8CFE7;
+  border: 1px solid #ccc;
   margin-bottom: 10px;
   padding: 4px;
 }
 
 .comment-from-owner {
-  border: 1px solid #3465A4;
-  background: #B8CFE7;
+  border: 1px solid #888;
+  background: #eee;
 }
 
 #article .article-comment h4 {
@@ -106,7 +106,7 @@ a.comment-picture {
 }
 
 .comment-from-owner .comment-info {
-  color: #729FCF;
+  color: #666;
 }
 
 .comment-text {
@@ -128,18 +128,18 @@ a.comment-picture {
 .post_comment_box h4 {
   padding: 1px 20px;
   margin: 0px;
-  background: #B8CFE7;
+  background: #eee;
 }
 
 .post_comment_box.closed h4 {
   display: inline;
-  border: 1px solid #729FCF;
+  border: 1px solid #888;
   cursor: pointer;
 }
 
 .post_comment_box.opened {
-  border: 1px solid #729FCF;
-  background: #B8CFE7;
+  border: 1px solid #888;
+  background: #eee;
 }
 
 .post_comment_box form {
@@ -238,22 +238,22 @@ a.comment-picture {
 
 /* NOT PUBLISHED BLOG POSTS */
 
-.blog-post-not-published {
+.blog-post.not-published {
   background: url(/images/hachure.png);
   opacity: 0.25;
   filter: alpha(opacity=25);
   zoom: 1;
 }
 
-.blog-post-not-published a {
+.blog-post.not-published a {
   text-decoration: none;
 }
 
-#content .blog-post-not-published .created-at {
+#content .blog-post.not-published .created-at {
   text-align: left;
 }
 
-.blog-post-not-published .metadata {
+.blog-post.not-published .metadata {
   display: block;
   text-align: center;
   font-size: small;

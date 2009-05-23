@@ -11,7 +11,7 @@
   height: 22px;
   font-size: 11px;
   letter-spacing: -1px;
-  background: #2A5896 url(../images/white-pixel.gif) 0px 100% repeat-x;
+  background: #888 url(../images/white-pixel.gif) 0px 100% repeat-x;
 }
 
 #navigation_bar {
@@ -135,12 +135,13 @@
   width: 11px;
   height: 11px;
   overflow: hidden;
-  background: url(../images/top-bar/assets-menu-top-azul.gif);
+  /*background: url(../images/top-bar/assets-menu-top-azul.gif);*/
 }
 
 #assets_menu_list {
   padding: 0px 0px 6px 5px;
-  background: url(../images/top-bar/assets-menu-bg-azul.gif) 0% 100%;
+  /*background: url(../images/top-bar/assets-menu-bg-azul.gif) 0% 100%;*/
+  background-color: #888;
 }
 
 #assets_menu ul {
@@ -278,8 +279,7 @@
   position: absolute;
   top: 21px;
   right: 0px;
-  background: url(../images/top-bar/assets-menu-bg-azul.gif) 0% 100%;
-  border-right: 1px solid #FFF;
+  background: #888;
 }
 
 #user_menu ul {

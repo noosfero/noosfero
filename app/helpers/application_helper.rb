@@ -290,7 +290,12 @@ module ApplicationHelper
     if in_theme
       result << theme_path
     end
-    result << '/stylesheets/' << name << '.css'
+    name += '.css'  if ( name[-4..-1] != '.css' )
+    if ( name[0..0] == '/' )
+      result << name
+    else
+      result << '/stylesheets/' << name
+    end
   end
 
   def theme_path
@@ -299,6 +304,10 @@ module ApplicationHelper
     else
       '/designs/themes/' + current_theme
     end
+  end
+
+  def theme_stylesheet_path
+    theme_path + '/style.css'
   end
 
   def current_theme
@@ -311,11 +320,19 @@ module ApplicationHelper
     end
   end
 
-  def theme_footer
-    footer = ('../../public' + theme_path + '/footer.rhtml')
-    if File.exists?(RAILS_ROOT + '/app/views/' + footer)
-      render :file => footer
+  def theme_include(template)
+    file = ('../../public' + theme_path + '/' + template + '.rhtml')
+    if File.exists?(RAILS_ROOT + '/app/views/' + file)
+      render :file => file
     end
+  end
+
+  def theme_header
+    theme_include('header')
+  end
+
+  def theme_footer
+    theme_include('footer')
   end
 
   def is_testing_theme
@@ -727,12 +744,15 @@ module ApplicationHelper
     end
   end
 
-  def template_stylesheet_tag
+  def template_stylesheet_path
     if profile.nil?
-      stylesheet_link_tag '/designs/templates/default/stylesheets/style.css'
+      '/designs/templates/default/stylesheets/style.css'
     else
-      stylesheet_link_tag "/designs/templates/#{profile.layout_template}/stylesheets/style.css"
+      "/designs/templates/#{profile.layout_template}/stylesheets/style.css"
     end
+  end
+  def template_stylesheet_tag
+    stylesheet_import template_stylesheet_path()
   end
 
   def login_url
@@ -770,9 +790,11 @@ module ApplicationHelper
   end
 
   def meta_tags_for_article(article)
-    if article and (article.blog? or (article.parent and article.parent.blog?))
-      blog = article.blog? ? article : article.parent
-      "<link rel='alternate' type='application/rss+xml' title='#{blog.feed.title}' href='#{url_for blog.feed.url}' />"
+    if @controller.controller_name == 'content_viewer'
+      if article and (article.blog? or (article.parent and article.parent.blog?))
+        blog = article.blog? ? article : article.parent
+        "<link rel='alternate' type='application/rss+xml' title='#{blog.feed.title}' href='#{url_for blog.feed.url}' />"
+      end
     end
   end
 
@@ -789,14 +811,40 @@ module ApplicationHelper
     end
   end
 
-  def icon_theme_stylesheet_tag
+  def icon_theme_stylesheet_path
     theme_path = "/designs/icons/#{environment.icon_theme}/style.css"
     if File.exists?(File.join(RAILS_ROOT, 'public', theme_path))
-      stylesheet_link_tag theme_path
+      theme_path
     else
-      "<!-- Not included: #{stylesheet_link_tag theme_path} -->\n" +
-      stylesheet_link_tag("/designs/icons/default/style.css")
+      '/designs/icons/default/style.css'
     end
+  end
+
+  def icon_theme_stylesheet_tag
+    theme_path = "/designs/icons/#{environment.icon_theme}/style.css"
+    stylesheet_import icon_theme_stylesheet_path()
+  end
+
+  def page_title
+    (@page ? @page.name + ' - ' : '') +
+    (@profile ? @profile.name + ' - ' : '') +
+    @environment.name +
+    (@category ? "&rarr; #{@category.full_name}" : '')
+  end
+
+  def noosfero_javascript
+    render :file =>  'layouts/_javascript'
+  end
+
+  def import_controller_stylesheets(options = {})
+    stylesheet_import( "controller_"+ @controller.controller_name(), options )
+  end
+
+  def pngfix_stylesheet_path
+    'iepngfix/iepngfix.css'
+  end
+  def pngfix_stylesheet
+    stylesheet_import pngfix_stylesheet_path()
   end
 
 end
