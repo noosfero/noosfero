@@ -19,7 +19,7 @@ protected
   def expire_cache(profile)
     [profile.friends_cache_key, profile.manage_friends_cache_key].each { |ck|
       cache_key = ck.gsub(/(.)-\d.*$/, '\1')
-      expire_fragment(/#{cache_key}/)
+      expire_timeout_fragment(/#{cache_key}/)
     }
 
     blocks = profile.blocks.select{|b| b.kind_of?(FriendsBlock)}

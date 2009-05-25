@@ -3,7 +3,7 @@
 
 <h1><%= _("%s's communities") % profile.name %></h1>
 
-<% cache(profile.communities_cache_key(params)) do %>
+<% cache_timeout(profile.communities_cache_key(params), 4.hour.from_now) do %>
   <ul class='profile-list'>
   <% @communities.each do |community| %>
     <li><%= profile_image_link(community)%></li>

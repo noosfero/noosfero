@@ -16,7 +16,9 @@ module ActionController
       end
       #handles the expiration of timeout fragment
       def expire_timeout_fragment(key)
-        @@cache_timeout_values[key] = nil
+        @@cache_timeout_values.keys.select{|k| key === k}.each do |k|
+          @@cache_timeout_values[k] = nil
+        end
         expire_fragment(/#{key}/)
       end
       #checks to see if a cache has fully expired
