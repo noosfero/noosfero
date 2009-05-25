@@ -312,6 +312,15 @@ module ApplicationHelper
 
   def current_theme
     return session[:theme] if (session[:theme])
+
+    # utility for developers: set the theme to 'random' in development mode and
+    # you will get a different theme every request. This is interesting for
+    # testing
+    if ENV['RAILS_ENV'] == 'development' && @environment.theme == 'random'
+      @theme ||= Dir.glob('public/designs/themes/*').map { |f| File.basename(f) }.rand
+      return @theme
+    end
+
     p = profile
     if p
       p.theme
