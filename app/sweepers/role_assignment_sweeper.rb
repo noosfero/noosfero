@@ -19,17 +19,13 @@ protected
   def expire_cache(profile)
     profile.cache_keys.each { |ck|
       cache_key = ck.gsub(/(.)-\d.*$/, '\1')
-      expire_fragment(/#{cache_key}/)
+      expire_timeout_fragment(/#{cache_key}/)
     }
 
     profile.blocks_to_expire_cache.each { |block|
       blocks = profile.blocks.select{|b| b.kind_of?(block)}
       blocks.map(&:cache_keys).each{|ck|expire_timeout_fragment(ck)}
     }
-  end
-
-  def expire_fragment(*args)
-    ActionController::Base.new().expire_fragment(*args)
   end
 
   def expire_timeout_fragment(*args)
