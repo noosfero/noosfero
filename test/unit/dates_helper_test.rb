@@ -131,9 +131,9 @@ class DatesHelperTest < Test::Unit::TestCase
   end
 
   should 'translate time' do
-    time = mock
-    expects(:_).with('%d %B %Y, %H:%M').returns('the time')
-    time.expects(:strftime).with('the time').returns('translated time')
+    time = Time.parse('25 May 2009, 12:47')
+    expects(:_).with('%{day} %{month} %{year}, %{hour}:%{minutes}').returns('translated time')
+    stubs(:_).with('May').returns("Maio")
     assert_equal 'translated time', show_time(time)
   end
 
