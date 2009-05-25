@@ -11,15 +11,15 @@
   display: block;
   list-style: none;
   margin-bottom: 20px
-}
-
-#memberships-index li {
   background-color: #B8CFE7;
 }
 
 #memberships-index li .vcard {
   float: right;
   padding: 4% 20px 4% 0px;
+}
+#memberships-index li .may-clear {
+  clear: right;
 }
 
 #memberships-index li .profile-details {

@@ -6,13 +6,14 @@
 
 .profile-list li {
   float: left;
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
+  max-width: 80px;
+  max-height: 80px;
   margin: 5px;
   padding: 5px;
   border: 2px solid #B8CFE7;
   list-style: none;
-  overflow: hidden;
   position: relative;
 }
 .profile-list li:hover {
@@ -34,7 +35,7 @@
 }
 
 .profile-list .profile_link span {
-  width: 200px;
+  width: 80px;
   display: block;
   overflow: hidden;
 }
@@ -44,11 +45,14 @@
 }
 .profile-list .controll {
   position: absolute;
-  top: 5px;
-  right: 0px;
+  top: 7px;
+  right: -10px;
+}
+.profile-list .controll a {
+  display: block;
+  margin-bottom: 2px;
 }
 .msie6 .profile-list .controll a {
-  display: block;
   width: 0px;
 }
 

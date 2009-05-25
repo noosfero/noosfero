@@ -135,8 +135,9 @@ module ProfileEditorHelper
 
   def control_panel(&block)
     concat(
-      content_tag('div',
-        content_tag('div', capture(&block) + '<br style="clear:left;"/>&nbsp;'),
+      content_tag(
+        'div',
+        capture(&block) + '<br style="clear:left;"/>&nbsp;',
         :class => 'control-panel'),
       block.binding)
   end

@@ -28,14 +28,12 @@
             :class => 'button icon-delete',
             :title => _('remove'),
             :help => __('Clicking on this button will remove your friend relation with %s.') % friend.name %>
-    </div><!-- end class="controll" -->
-    <div style='text-align: center; margin-top: 3px;'>
       <%= link_to content_tag('span',_('contact')),
             friend.url.merge(:controller => 'contact', :action => 'new'),
             :class => 'button icon-menu-mail',
             :title => _('contact'),
             :help => __('Clicking on this button will let you send a message to %s.') % friend.name %>
-    </div>
+    </div><!-- end class="controll" -->
     </li>
   <% end %>
 </ul>

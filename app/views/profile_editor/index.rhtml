@@ -8,8 +8,6 @@
   
 <%= render :partial => 'pending_tasks' %>
 
-<div class='control-panel'>
-
 <% control_panel do %>
 
   <%= control_panel_button(_('Profile Info and settings'), 'edit-profile', :controller => 'profile_editor', :action => 'edit') if profile.person? %>
@@ -65,6 +63,5 @@
 
 <% end %>
 
-</div>
 
 </div>

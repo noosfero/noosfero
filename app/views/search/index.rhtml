@@ -1,6 +1,6 @@
 <div id="search-page">
 
-<%= search_page_title('', :query => @query, :category => @category ? @category.name : nil, :total_results => @total_results) %>
+<%= search_page_title(_('Search Results'), :query => @query, :category => @category ? @category.name : nil, :total_results => @total_results) %>
 
 <%= render :partial => 'search_form', :locals => { :form_title => _("Refine your search"), :simple_search => true } %>
 

@@ -6,7 +6,7 @@
 <% cache do%>
 <ul class='profile-list'>
   <% @friends.each do |friend| %>
-    <li><%= profile_image_link(friend) %></li>
+    <%= profile_image_link(friend) %>
   <% end%>
 </ul>
 <% end %>
