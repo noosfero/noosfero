@@ -64,7 +64,6 @@ class Theme
       self.send("#{k}=", v)
     end
     config['id'] = id
-    config['layout'] = 'application-ng'
   end
 
   def name
