@@ -54,7 +54,7 @@
         <div id="user">
           <% if logged_in? %>
             <%= _('Welcome, %s.') % link_to('<i></i><strong>' + user.identifier + '</strong>', user.url, :id => "homepage-link", :title => _('Go to your homepage')) %>
-            <%= link_to('<i class="icon-menu-admin"></i><strong>' + _('Administration') + '</strong>', user.admin_url, :id => "controlpanel", :title => _("Configure the system")) %>
+            <%= link_to('<i class="icon-menu-admin"></i><strong>' + _('Administration') + '</strong>', { :controller => 'admin_panel', :action => 'index' }, :id => "controlpanel", :title => _("Configure the system")) %>
             <%= link_to('<i class="icon-menu-ctrl-panel"></i><strong>' + _('Control panel') + '</strong>', user.admin_url, :id => "controlpanel", :title => _("Configure your personal account and content")) %>
             <%= link_to('<i class="icon-menu-logout"></i><strong>' + _('Logout') + '</strong>', { :controller => 'account', :action => 'logout'} , :id => "logout", :title => _("Leave the system")) %>
           <% else %>
