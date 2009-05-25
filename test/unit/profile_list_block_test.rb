@@ -67,5 +67,13 @@ class ProfileListBlockTest < Test::Unit::TestCase
     assert_respond_to ProfileListBlock::Finder.new(nil), :pick_random
   end
 
-
+  should 'provide view_title' do
+    p = ProfileListBlock.new(:title => 'Title from block')
+    assert_equal 'Title from block',  p.view_title
+  end
+  
+  should 'provide view title with variables' do
+    p = ProfileListBlock.new(:title => '{#} members')
+    assert_equal '0 members', p.view_title 
+  end
 end

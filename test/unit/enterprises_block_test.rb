@@ -74,7 +74,7 @@ class EnterprisesBlockTest < Test::Unit::TestCase
     block = EnterprisesBlock.new
     block.expects(:owner).returns(profile)
 
-    expects(:__).with('All enterprises').returns('All enterprises')
+    expects(:__).with('View all').returns('All enterprises')
     expects(:link_to).with('All enterprises', :controller => 'profile', :profile => 'theprofile', :action => 'enterprises')
 
     instance_eval(&block.footer)
@@ -85,7 +85,7 @@ class EnterprisesBlockTest < Test::Unit::TestCase
     block = EnterprisesBlock.new
     block.expects(:owner).returns(env)
 
-    expects(:__).with('All enterprises').returns('All enterprises')
+    expects(:__).with('View all').returns('All enterprises')
     expects(:link_to).with('All enterprises', :controller => 'search', :action => 'assets', :asset => 'enterprises')
     instance_eval(&block.footer)
   end
@@ -94,6 +94,23 @@ class EnterprisesBlockTest < Test::Unit::TestCase
     block = EnterprisesBlock.new
     block.expects(:owner).returns(1)
     assert_equal '', block.footer
+  end
+
+  should 'count number of owner enterprises' do
+    user = create_user('testuser').person
+
+    ent1 = Enterprise.create!(:name => 'test enterprise 1', :identifier => 'ent1', :environment => Environment.default)
+    ent1.expects(:closed?).returns(false)
+    ent1.add_member(user)
+
+    ent2 = Enterprise.create!(:name => 'test enterprise 2', :identifier => 'ent2', :environment => Environment.default)
+    ent2.expects(:closed?).returns(false)
+    ent2.add_member(user)
+
+    block = EnterprisesBlock.new
+    block.expects(:owner).at_least_once.returns(user)
+
+    assert_equal 2, block.profile_count
   end
 
 end

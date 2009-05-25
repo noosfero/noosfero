@@ -46,6 +46,12 @@ class BlockTest < Test::Unit::TestCase
     assert_equal 'my title', b.title
   end
 
+  should 'have default view_title ' do
+    b = Block.new
+    b.expects(:title).returns('my title')
+    assert_equal 'my title', b.view_title
+  end
+
   should 'have a visible setting' do
     b = Block.new
     assert b.visible?

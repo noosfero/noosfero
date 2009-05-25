@@ -86,6 +86,10 @@ class Block < ActiveRecord::Base
     end
   end
 
+  def view_title
+    title
+  end
+
   def cacheable?
     true
   end

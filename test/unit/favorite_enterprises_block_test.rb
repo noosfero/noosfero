@@ -48,8 +48,8 @@ class FavoriteEnterprisesBlockTest < ActiveSupport::TestCase
     block = FavoriteEnterprisesBlock.new
     block.expects(:owner).returns(person)
 
-    expects(:__).with('All favorite enterprises').returns('All enterprises')
-    expects(:link_to).with('All enterprises', :controller => 'profile', :profile => 'theprofile', :action => 'favorite_enterprises')
+    expects(:__).with('View all').returns('View all enterprises')
+    expects(:link_to).with('View all enterprises', :controller => 'profile', :profile => 'theprofile', :action => 'favorite_enterprises')
 
     instance_eval(&block.footer)
   end
@@ -58,6 +58,21 @@ class FavoriteEnterprisesBlockTest < ActiveSupport::TestCase
     block = FavoriteEnterprisesBlock.new
     block.expects(:owner).returns(1)
     assert_equal '', block.footer
+  end
+
+  should 'count number of owner favorite enterprises' do
+    user = create_user('testuser').person
+
+    ent1 = Enterprise.create!(:name => 'test enterprise 1', :identifier => 'ent1', :environment => Environment.default)
+
+    ent2 = Enterprise.create!(:name => 'test enterprise 2', :identifier => 'ent2', :environment => Environment.default)
+
+    user.favorite_enterprises << [ent1, ent2]
+
+    block = FavoriteEnterprisesBlock.new
+    block.expects(:owner).at_least_once.returns(user)
+
+    assert_equal 2, block.profile_count
   end
 
 end

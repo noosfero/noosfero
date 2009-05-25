@@ -39,9 +39,25 @@ class FriendsBlockTest < ActiveSupport::TestCase
 
     def self._(s); s; end
     def self.gettext(s); s; end
-    expects(:link_to).with('All friends', :profile => 'theuser', :controller => 'profile', :action => 'friends')
+    expects(:link_to).with('View all', :profile => 'theuser', :controller => 'profile', :action => 'friends')
 
     instance_eval(&block.footer)
+  end
+
+  should 'count number of owner friends' do
+    p1 = create_user('testuser1').person
+    p2 = create_user('testuser2').person
+    p3 = create_user('testuser3').person
+    p4 = create_user('testuser4').person
+
+    p1.add_friend(p2)
+    p1.add_friend(p3)
+    p1.add_friend(p4)
+
+    block = FriendsBlock.new
+    block.expects(:owner).returns(p1)
+
+    assert_equal 3, block.profile_count
   end
 
 end

@@ -52,7 +52,7 @@ class ProfileListBlock < Block
 
   # the title of the block. Probably will be overriden in subclasses.
   def default_title
-    _('People and Groups')
+    _('{#} People or Groups')
   end
 
   def help
@@ -61,13 +61,14 @@ class ProfileListBlock < Block
 
   def content
     profiles = self.profiles
-    title = self.title
+    title = self.view_title
     nl = "\n"
+    link_method = profile_image_link_method
     lambda do
       count=0
       list = profiles.map {|item|
                count+=1
-               profile_image_link( item ) #+
+               send(link_method, item ) #+
              }.join("\n  ")
       if list.empty?
         list = '<div class="common-profile-list-block-none">'+ _('None') +'</div>'
@@ -78,6 +79,18 @@ class ProfileListBlock < Block
       '<div class="common-profile-list-block">' +
       nl + list + nl + '<br style="clear:both" /></div>'
     end
+  end
+
+  def profile_image_link_method
+    :profile_image_link
+  end
+
+  def view_title
+    title.gsub('{#}', profile_count.to_s)
+  end
+
+  def profile_count #defined in children
+    0
   end
 
 end

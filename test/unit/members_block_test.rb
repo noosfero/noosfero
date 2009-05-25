@@ -52,4 +52,19 @@ class MembersBlockTest < Test::Unit::TestCase
     assert_equal [member3, member1], block.profiles
   end
 
+  should 'count number of owner members' do
+    profile = create_user('mytestuser').person
+    owner = mock
+
+    member1 = mock; member1.stubs(:id).returns(1)
+    member2 = mock; member2.stubs(:id).returns(2)
+    member3 = mock; member3.stubs(:id).returns(3)
+
+    owner.expects(:members).returns([member1, member2, member3])
+    
+    block = MembersBlock.new
+    block.expects(:owner).returns(owner)
+    assert_equal 3, block.profile_count
+  end
 end
+

@@ -5,7 +5,7 @@ class MembersBlock < ProfileListBlock
   end
 
   def default_title
-    _('Members')
+    _('{#} members')
   end
 
   def help
@@ -17,6 +17,10 @@ class MembersBlock < ProfileListBlock
     lambda do
       link_to _('View all'), :profile => profile.identifier, :controller => 'profile', :action => 'members'
     end
+  end
+
+  def profile_count
+    owner.members.count
   end
 
   def profile_finder

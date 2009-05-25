@@ -49,7 +49,7 @@ class CommunitiesBlockTest < Test::Unit::TestCase
     block = CommunitiesBlock.new
     block.expects(:owner).returns(profile)
 
-    expects(:__).with('All communities').returns('All communities')
+    expects(:__).with('View all').returns('All communities')
     expects(:link_to).with('All communities', :controller => 'profile', :profile => 'theprofile', :action => 'communities')
     instance_eval(&block.footer)
   end
@@ -59,7 +59,7 @@ class CommunitiesBlockTest < Test::Unit::TestCase
     block = CommunitiesBlock.new
     block.expects(:owner).returns(env)
 
-    expects(:__).with('All communities').returns('All communities')
+    expects(:__).with('View all').returns('All communities')
     expects(:link_to).with('All communities', :controller => 'search', :action => 'assets', :asset => 'communities')
 
     instance_eval(&block.footer)
@@ -84,6 +84,21 @@ class CommunitiesBlockTest < Test::Unit::TestCase
     block.expects(:owner).at_least_once.returns(user)
 
     assert_equal [public_community], block.profiles
+  end
+
+  should 'count number of owner communities' do
+    user = create_user('testuser').person
+
+    community1 = Community.create!(:name => 'test community 1', :identifier => 'comm1', :environment => Environment.default)
+    community1.add_member(user)
+
+    community2 = Community.create!(:name => 'test community 2', :identifier => 'comm2', :environment => Environment.default)
+    community2.add_member(user)
+
+    block = CommunitiesBlock.new
+    block.expects(:owner).at_least_once.returns(user)
+
+    assert_equal 2, block.profile_count
   end
 
 end

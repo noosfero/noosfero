@@ -1,7 +1,7 @@
 class EnterprisesBlock < ProfileListBlock
 
   def default_title
-    __('Enterprises')
+    __('{#} enterprises')
   end
 
   def help
@@ -17,17 +17,20 @@ class EnterprisesBlock < ProfileListBlock
     case owner
     when Profile
       lambda do
-        link_to __('See all'), :profile => owner.identifier, :controller => 'profile', :action => 'enterprises'
+        link_to __('View all'), :profile => owner.identifier, :controller => 'profile', :action => 'enterprises'
       end
     when Environment
       lambda do
-        link_to __('See all'), :controller => 'search', :action => 'assets', :asset => 'enterprises'
+        link_to __('View all'), :controller => 'search', :action => 'assets', :asset => 'enterprises'
       end
     else
       ''
     end
   end
 
+  def profile_count
+    owner.enterprises.count
+  end
 
   def profile_finder
     @profile_finder ||= EnterprisesBlock::Finder.new(self)

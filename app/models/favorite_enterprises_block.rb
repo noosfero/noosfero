@@ -16,10 +16,13 @@ class FavoriteEnterprisesBlock < ProfileListBlock
     owner = self.owner
     return '' unless owner.kind_of?(Person)
     lambda do
-      link_to __('All favorite enterprises'), :profile => owner.identifier, :controller => 'profile', :action => 'favorite_enterprises'
+      link_to __('View all'), :profile => owner.identifier, :controller => 'profile', :action => 'favorite_enterprises'
     end
   end
 
+  def profile_count
+    owner.favorite_enterprises.count
+  end
 
   def profile_finder
     @profile_finder ||= FavoriteEnterprisesBlock::Finder.new(self)

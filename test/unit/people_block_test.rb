@@ -36,8 +36,8 @@ class PeopleBlockTest < ActiveSupport::TestCase
     block = PeopleBlock.new
     block.stubs(:owner).returns(Environment.default)
 
-    expects(:link_to).with('All people', :controller => 'search', :action => 'assets', :asset => 'people')
-    expects(:_).with('All people').returns('All people')
+    expects(:_).with('View all').returns('View all people')
+    expects(:link_to).with('View all people', :controller => 'search', :action => 'assets', :asset => 'people')
     instance_eval(&block.footer)
   end
 

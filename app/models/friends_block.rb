@@ -5,7 +5,7 @@ class FriendsBlock < ProfileListBlock
   end
 
   def default_title
-    __('Friends')
+    __('{#} friends')
   end
 
   def help
@@ -15,7 +15,7 @@ class FriendsBlock < ProfileListBlock
   def footer
     owner_id = owner.identifier
     lambda do
-      link_to __('See all'), :profile => owner_id, :controller => 'profile', :action => 'friends'
+      link_to __('View all'), :profile => owner_id, :controller => 'profile', :action => 'friends'
     end
   end
 
@@ -27,6 +27,10 @@ class FriendsBlock < ProfileListBlock
 
   def profile_finder
     @profile_finder ||= FriendsBlock::Finder.new(self)
+  end
+
+  def profile_count
+    owner.friends.count
   end
 
 end

@@ -1,11 +1,17 @@
 class CommunitiesBlock < ProfileListBlock
 
+  settings_items :limit, :default => 3
+
   def self.description
     __('A block that displays your communities')
   end
 
   def default_title
-    __('Communities')
+    __('{#} communities')
+  end
+
+  def profile_image_link_method
+    :community_image_link
   end
 
   def help
@@ -17,15 +23,19 @@ class CommunitiesBlock < ProfileListBlock
     case owner
     when Profile
       lambda do
-        link_to __('See all'), :profile => owner.identifier, :controller => 'profile', :action => 'communities'
+        link_to __('View all'), :profile => owner.identifier, :controller => 'profile', :action => 'communities'
       end
     when Environment
       lambda do
-        link_to __('See all'), :controller => 'search', :action => 'assets', :asset => 'communities'
+        link_to __('View all'), :controller => 'search', :action => 'assets', :asset => 'communities'
       end
     else
       ''
     end
+  end
+
+  def profile_count
+    owner.communities.count
   end
 
   def profile_finder
