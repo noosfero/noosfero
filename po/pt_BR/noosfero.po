@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.17.0\n"
 "POT-Creation-Date: 2009-05-18 19:12-0300\n"
-"PO-Revision-Date: 2009-05-20 15:36-0300\n"
+"PO-Revision-Date: 2009-05-25 15:54-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1284,7 +1284,7 @@ msgstr "Este bloco apresenta os membros de um coletivo."
 
 #: app/models/members_block.rb:18
 msgid "View all"
-msgstr "Ver todas e todos"
+msgstr "Ver todas(as)"
 
 #: app/models/enterprise_homepage.rb:4
 msgid "Enterprise homepage."
