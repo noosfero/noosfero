@@ -12,13 +12,12 @@
   max-height: 80px;
   margin: 5px;
   padding: 5px;
-  border: 2px solid #B8CFE7;
+  border: 2px solid transparent;
   list-style: none;
   position: relative;
 }
 .profile-list li:hover {
-  border: 2px solid #2A5896;
-  background: #729FCF;
+  border: 2px solid #eeeeec;
 }
 
 .profile-list img {
