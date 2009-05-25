@@ -7,6 +7,7 @@ class FriendsBlockTest < ActiveSupport::TestCase
   end
 
   should 'declare its default title' do
+    FriendsBlock.any_instance.stubs(:profile_count).returns(0)
     assert_not_equal ProfileListBlock.new.default_title, FriendsBlock.new.default_title
   end
 

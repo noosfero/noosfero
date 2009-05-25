@@ -51,9 +51,9 @@ class BlogTest < ActiveSupport::TestCase
     assert_equal 7, p.blog.feed.limit
   end
 
-  should 'list 20 posts per page by default' do
+  should 'list 5 posts per page by default' do
     blog = Blog.new
-    assert_equal 20, blog.posts_per_page
+    assert_equal 5, blog.posts_per_page
   end
 
   should 'update posts per page setting' do

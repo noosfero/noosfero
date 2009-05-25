@@ -178,13 +178,9 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_equal 'sampleuser', theme_owner
   end
 
-  should 'use default template when no profile' do
+  should 'use default template when there is no profile' do
     stubs(:profile).returns(nil)
-
-    foo = mock
-    expects(:stylesheet_link_tag).with('/designs/templates/default/stylesheets/style.css').returns(foo)
-
-    assert_same foo, template_stylesheet_tag
+    assert_equal "@import url(/designs/templates/default/stylesheets/style.css);", template_stylesheet_tag
   end
 
   should 'use template from profile' do
@@ -193,7 +189,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
     stubs(:profile).returns(profile)
 
     foo = mock
-    expects(:stylesheet_link_tag).with('/designs/templates/mytemplate/stylesheets/style.css').returns(foo)
+    expects(:stylesheet_import).with('/designs/templates/mytemplate/stylesheets/style.css').returns(foo)
 
     assert_same foo, template_stylesheet_tag
   end
@@ -232,6 +228,8 @@ class ApplicationHelperTest < Test::Unit::TestCase
   end
 
   should 'create rss feed link to blog' do
+    @controller = mock
+    @controller.stubs(:controller_name).returns('content_viewer')
     p = create_user('testuser').person
     b = Blog.create!(:profile => p, :name => 'blog_feed_test')
     assert_tag_in_string meta_tags_for_article(b), :tag => 'link', :attributes => {:type => 'application/rss+xml', :title => 'feed'}
@@ -464,7 +462,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
     e = Environment.default
     e.icon_theme = 'something-very-unlikely'
     stubs(:environment).returns(e)
-    assert_equal "<!-- Not included: /designs/icons/something-very-unlikely/style.css -->\n/designs/icons/default/style.css", icon_theme_stylesheet_tag
+    assert_equal "@import url(/designs/icons/default/style.css);", icon_theme_stylesheet_tag
   end
 
   protected

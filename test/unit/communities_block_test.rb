@@ -7,6 +7,7 @@ class CommunitiesBlockTest < Test::Unit::TestCase
   end
 
   should 'declare its default title' do
+    CommunitiesBlock.any_instance.stubs(:profile_count).returns(0)
     assert_not_equal ProfileListBlock.new.default_title, CommunitiesBlock.new.default_title
   end
 

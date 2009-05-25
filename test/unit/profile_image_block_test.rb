@@ -9,12 +9,12 @@ class ProfileImageBlockTest < Test::Unit::TestCase
   should 'display profile image' do
     block = ProfileImageBlock.new
 
-    self.expects(:render).with(:file => 'blocks/profile_image', :locals => { :block => block})
+    self.expects(:render).with(:file => 'blocks/profile_image', :locals => { :block => block, :show_name => false})
     instance_eval(& block.content)
   end
 
   should 'not be editable' do
-    assert !ProfileImageBlock.new.editable?
+    assert ProfileImageBlock.new.editable?
   end
 
 end

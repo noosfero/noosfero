@@ -7,6 +7,7 @@ class EnterprisesBlockTest < Test::Unit::TestCase
   end
 
   should 'declare its default title' do
+    EnterprisesBlock.any_instance.stubs(:profile_count).returns(0)
     assert_not_equal ProfileListBlock.new.default_title, EnterprisesBlock.new.default_title
   end
 
