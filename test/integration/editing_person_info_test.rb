@@ -13,7 +13,7 @@ class EditingPersonInfoTest < ActionController::IntegrationTest
     get "/myprofile/#{profile.identifier}"
     assert_response :success
 
-    assert_tag :tag => 'a', :content => 'Info and settings'
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/profile_editor/edit" }
 
     get "/myprofile/#{profile.identifier}/profile_editor/edit"
     assert_response :success

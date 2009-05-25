@@ -123,14 +123,12 @@ class ProfileControllerTest < Test::Unit::TestCase
   should 'not show enterprises link to enterprise' do
     ent = Enterprise.create!(:identifier => 'test_enterprise1', :name => 'Test enteprise1')
     get :index, :profile => ent.identifier
-    assert_tag :tag => 'h2', :content => "#{ent.identifier}'s profile"
     assert_no_tag :tag => 'a', :content => 'Enterprises', :attributes => { :href => /profile\/#{ent.identifier}\/enterprises$/ }
   end
 
   should 'not show members link to person' do
     person = create_user('person_1').person
     get :index, :profile => person.identifier
-    assert_tag :tag => 'h2', :content => "#{person.identifier}'s profile"
     assert_no_tag :tag => 'a', :content => 'Members', :attributes => { :href => /profile\/#{person.identifier}\/members$/ }
   end
 

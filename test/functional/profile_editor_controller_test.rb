@@ -253,7 +253,7 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
   should 'show edit profile button' do
     person = create_user('testuser').person
     get :index, :profile => 'testuser'
-    assert_tag :tag => 'div', :attributes => { :class => 'file-manager-button' }, :child => { :tag => 'a', :attributes => { :href => '/myprofile/testuser/profile_editor/edit' } }
+    assert_tag :tag => 'a', :attributes => { :href => '/myprofile/testuser/profile_editor/edit' }
   end
 
   should 'show image field on edit profile' do

@@ -705,8 +705,9 @@ class CmsControllerTest < Test::Unit::TestCase
   end
 
   should 'display posts per page input with default value on edit blog' do
+    n = Blog.new.posts_per_page.to_s
     get :new, :profile => profile.identifier, :type => 'Blog'
-    assert_tag :tag => 'select', :attributes => { :name => 'article[posts_per_page]' }, :child => { :tag => 'option', :attributes => {:value => '20', :selected => 'selected'} }
+    assert_tag :tag => 'select', :attributes => { :name => 'article[posts_per_page]' }, :child => { :tag => 'option', :attributes => {:value => n, :selected => 'selected'} }
   end
 
   should 'not offer to create special article types' do
@@ -1054,13 +1055,12 @@ class CmsControllerTest < Test::Unit::TestCase
 
   should 'display pagination links of images' do
     @controller.stubs(:per_page).returns(1)
-    image = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
-
     fixture_filename = '/files/other-pic.jpg'
     filename = RAILS_ROOT + '/test/fixtures' + fixture_filename
     system('echo "image for test" | convert -background yellow -page 32x32 text:- %s' % filename)
+    image = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload(fixture_filename, 'image/jpg'))
 
-    image2 = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload(fixture_filename, 'image/jpg'))
+    image2 = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
 
     get :media_listing, :profile => profile.identifier
 
@@ -1072,8 +1072,8 @@ class CmsControllerTest < Test::Unit::TestCase
 
   should 'display pagination links of documents' do
     @controller.stubs(:per_page).returns(1)
-    file = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'))
-    file2 = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/feed.xml', 'text/xml'))
+    file = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/feed.xml', 'text/xml'))
+    file2 = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'))
 
     get :media_listing, :profile => profile.identifier
 

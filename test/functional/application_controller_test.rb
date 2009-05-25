@@ -260,6 +260,7 @@ class ApplicationControllerTest < Test::Unit::TestCase
     env = Environment.default
     Environment.stubs(:default).returns(env)
     env.stubs(:terminology).returns(term)
+    env.stubs(:id).returns(-9999)
 
     Noosfero.expects(:terminology=).with(term)
     get :index

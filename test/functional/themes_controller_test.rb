@@ -15,6 +15,10 @@ class ThemesControllerTest < Test::Unit::TestCase
 
     @profile = create_user('testinguser').person
     login_as('testinguser')
+
+    env = Environment.default
+    env.enable('user_themes')
+    env.save!
   end
   attr_reader :profile
 

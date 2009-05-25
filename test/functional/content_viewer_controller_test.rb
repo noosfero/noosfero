@@ -734,7 +734,6 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     folder1.children << folder2 = Folder.new(:name => 'gallery2', :profile => profile)
 
     get :view_page, :profile => profile.identifier, :page => folder2.explode_path
-    assert_no_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{folder2.id}/}
     assert_tag :tag => 'a', :content => 'New article', :attributes => {:href =>/parent_id=#{folder2.id}/}
   end
 
