@@ -5,7 +5,7 @@ class FriendsBlock < ProfileListBlock
   end
 
   def default_title
-    __('{#} friends')
+    n__('{#} friend', '{#} friends', profile_count)
   end
 
   def help

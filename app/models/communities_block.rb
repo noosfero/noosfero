@@ -7,7 +7,7 @@ class CommunitiesBlock < ProfileListBlock
   end
 
   def default_title
-    __('{#} communities')
+    n__('{#} community', '{#} communities', profile_count)
   end
 
   def profile_image_link_method

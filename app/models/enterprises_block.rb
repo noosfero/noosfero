@@ -1,7 +1,7 @@
 class EnterprisesBlock < ProfileListBlock
 
   def default_title
-    __('{#} enterprises')
+    n__('{#} enterprise', '{#} enterprises', profile_count)
   end
 
   def help

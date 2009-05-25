@@ -68,6 +68,12 @@ class Zen3Terminology < Noosfero::Terminology::Custom
       'Preferred domain name:' => N_('Choose your host community:'),
       'My communities' => N_('My groups'),
       'Community Info and settings' => N_('Group Info and Settings'),
+      '{#} community' => N_('{#} group'),
+      '{#} communities' => N_('{#} groups'),
+      '{#} enterprise' => N_('{#} organization'),
+      '{#} enterprises' => N_('{#} organizations'),
+      '{#} friend' => N_('{#} contact'),
+      '{#} friends' => N_('{#} contacts'),
     })
   end
 
