@@ -65,31 +65,34 @@
   <% end %>
 
 
-  <tr>
-    <td colspan='6'>
-      <h2><%= _('My themes') %></h2>
-    </td>
-  </tr>
-  <% for themes in profile.themes.in_groups_of(3)  %>
+  <% if environment.enabled?('user_themes') %>
     <tr>
-      <% for theme in themes %>
-        <td>
-          <%# FIXME add proper thumbnails %>
-          <%= image_tag('/images/icons-app/design-editor.png', :alt => (_('The "%s" theme.') % theme.name)) if theme %>
-        </td>
-        <td>
-          <strong><%= theme.name if theme%></strong><br/>
-          <%= link_to(_('Edit this theme'), :action => 'edit', :id => theme.id) if theme %>
-          <br/>
-          <%= link_to(_('Test this theme'), :action => 'start_test', :id => theme.id) if theme %>
-        </td>
-        <td>
-          &nbsp;&nbsp;&nbsp;&nbsp;
-        </td>
-      <% end %>
+      <td colspan='6'>
+        <h2><%= _('My themes') %></h2>
+      </td>
     </tr>
-    <tr><td colspan='3'>&nbsp;</td></tr>
+    <% for themes in profile.themes.in_groups_of(3)  %>
+      <tr>
+        <% for theme in themes %>
+          <td>
+            <%# FIXME add proper thumbnails %>
+            <%= image_tag('/images/icons-app/design-editor.png', :alt => (_('The "%s" theme.') % theme.name)) if theme %>
+          </td>
+          <td>
+            <strong><%= theme.name if theme%></strong><br/>
+            <%= link_to(_('Edit this theme'), :action => 'edit', :id => theme.id) if theme %>
+            <br/>
+            <%= link_to(_('Test this theme'), :action => 'start_test', :id => theme.id) if theme %>
+          </td>
+          <td>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+          </td>
+        <% end %>
+      </tr>
+      <tr><td colspan='3'>&nbsp;</td></tr>
+    <% end %>
   <% end %>
+
 </table>
 
 <% button_bar do %>

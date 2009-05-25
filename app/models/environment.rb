@@ -48,6 +48,7 @@ class Environment < ActiveRecord::Base
       'select_preferred_domain' => _('Select preferred domains per profile'),
       'display_wizard_signup' => _('Display wizard signup'),
       'use_portal_community' => _('Use the portal as news source for front page'),
+      'user_themes' => N_('Allow users to create their own themes'),
     }
   end
 
