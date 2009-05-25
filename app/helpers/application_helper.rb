@@ -873,4 +873,8 @@ module ApplicationHelper
     stylesheet_import pngfix_stylesheet_path()
   end
 
+  def noosfero_layout_features
+    render :file => 'shared/noosfero_layout_features'
+  end
+
 end

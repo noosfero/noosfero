@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= html_language %>" lang="<%= html_language %>">
   <head>
     <title><%= page_title %></title>
     <%= meta_tags_for_article(@page) %>
@@ -79,7 +80,7 @@
         </div><!-- end id="user" -->
 
         <h1 id="site-title">
-          <a href="http://softwarelivre.org"><span> Title of the Site </span></a>
+          <%= link_to content_tag('span', environment.name), environment.top_url %>
         </h1>
         <div id="navigation">
           <ul>
@@ -101,5 +102,8 @@
     <div id="theme-footer">
       <%= theme_footer %>
     </div><!-- end id="theme-footer" -->
+
+    <%= noosfero_layout_features %>
+
   </body>
 </html>
