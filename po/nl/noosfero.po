@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.18.0\n"
-"POT-Creation-Date: 2009-05-25 22:58-0300\n"
+"POT-Creation-Date: 2009-05-26 00:40-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -872,7 +872,7 @@ msgstr ""
 #: app/views/search/_sellers_form.rhtml:21
 #: app/views/search/_search_form.rhtml:19 app/views/search/communities.rhtml:9
 #: app/views/search/articles.rhtml:10 app/views/search/people.rhtml:10
-#: app/views/home/index.rhtml:57 app/views/region_validators/region.rhtml:23
+#: app/views/home/index.rhtml:68 app/views/region_validators/region.rhtml:23
 msgid "Search"
 msgstr ""
 
@@ -1290,8 +1290,8 @@ msgid "This block presents the members of a collective."
 msgstr ""
 
 #: app/models/members_block.rb:18 app/models/favorite_enterprises_block.rb:19
-#: app/models/friends_block.rb:18 app/models/communities_block.rb:26
-#: app/models/communities_block.rb:30 app/models/enterprises_block.rb:20
+#: app/models/friends_block.rb:18 app/models/communities_block.rb:24
+#: app/models/communities_block.rb:28 app/models/enterprises_block.rb:20
 #: app/models/enterprises_block.rb:24 app/models/people_block.rb:27
 msgid "View all"
 msgstr ""
@@ -2187,17 +2187,17 @@ msgstr ""
 msgid "thumbnail"
 msgstr ""
 
-#: app/models/communities_block.rb:6
+#: app/models/communities_block.rb:4
 msgid "A block that displays your communities"
 msgstr ""
 
-#: app/models/communities_block.rb:10
+#: app/models/communities_block.rb:8
 msgid "{#} community"
 msgid_plural "{#} communities"
 msgstr[0] ""
 msgstr[1] ""
 
-#: app/models/communities_block.rb:18
+#: app/models/communities_block.rb:16
 msgid "This block displays the communities in which the user is a member."
 msgstr ""
 
@@ -2670,19 +2670,23 @@ msgstr ""
 msgid "Allow users to create their own themes"
 msgstr ""
 
-#: app/models/environment.rb:295
-msgid "Hello <friend>,"
+#: app/models/environment.rb:52
+msgid "Display search form in home page"
 msgstr ""
 
 #: app/models/environment.rb:296
-msgid "<user> is inviting you to participate on %{environment}."
+msgid "Hello <friend>,"
 msgstr ""
 
 #: app/models/environment.rb:297
+msgid "<user> is inviting you to participate on %{environment}."
+msgstr ""
+
+#: app/models/environment.rb:298
 msgid "To accept the invitation, please follow this link:"
 msgstr ""
 
-#: app/models/environment.rb:390
+#: app/models/environment.rb:391
 msgid "Only one Virtual Community can be the default one"
 msgstr ""
 
@@ -4153,7 +4157,7 @@ msgstr ""
 msgid "Search for:"
 msgstr ""
 
-#: app/views/search/_search_form.rhtml:55 app/views/home/index.rhtml:61
+#: app/views/search/_search_form.rhtml:55 app/views/home/index.rhtml:72
 msgid "More options"
 msgstr ""
 
@@ -4353,19 +4357,19 @@ msgstr ""
 msgid "News"
 msgstr ""
 
-#: app/views/home/index.rhtml:31
+#: app/views/home/index.rhtml:42
 msgid "View more"
 msgstr ""
 
-#: app/views/home/index.rhtml:43
+#: app/views/home/index.rhtml:54
 msgid "Activate your enterprise"
 msgstr ""
 
-#: app/views/home/index.rhtml:44
+#: app/views/home/index.rhtml:55
 msgid "Enterprise activation code"
 msgstr ""
 
-#: app/views/home/index.rhtml:45 app/views/enterprise_editor/index.rhtml:17
+#: app/views/home/index.rhtml:56 app/views/enterprise_editor/index.rhtml:17
 msgid "Activate"
 msgstr ""
 
@@ -5386,6 +5390,10 @@ msgstr ""
 
 #: app/views/box_organizer/_profile_image_block.rhtml:2
 msgid "Show name on block"
+msgstr ""
+
+#: app/views/box_organizer/_profile_list_block.rhtml:2
+msgid "Limit of items"
 msgstr ""
 
 #: app/views/box_organizer/_products_block.rhtml:5

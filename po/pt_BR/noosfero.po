@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.18.0\n"
-"POT-Creation-Date: 2009-05-25 22:58-0300\n"
-"PO-Revision-Date: 2009-05-25 22:59-0300\n"
+"POT-Creation-Date: 2009-05-26 00:40-0300\n"
+"PO-Revision-Date: 2009-05-26 00:41-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -880,7 +880,7 @@ msgstr "Clique, escreva e pressione enter para pesquisar"
 #: app/views/search/_sellers_form.rhtml:21
 #: app/views/search/_search_form.rhtml:19 app/views/search/communities.rhtml:9
 #: app/views/search/articles.rhtml:10 app/views/search/people.rhtml:10
-#: app/views/home/index.rhtml:57 app/views/region_validators/region.rhtml:23
+#: app/views/home/index.rhtml:68 app/views/region_validators/region.rhtml:23
 msgid "Search"
 msgstr "Busca"
 
@@ -1312,8 +1312,8 @@ msgid "This block presents the members of a collective."
 msgstr "Este bloco apresenta os integrantes de um coletivo."
 
 #: app/models/members_block.rb:18 app/models/favorite_enterprises_block.rb:19
-#: app/models/friends_block.rb:18 app/models/communities_block.rb:26
-#: app/models/communities_block.rb:30 app/models/enterprises_block.rb:20
+#: app/models/friends_block.rb:18 app/models/communities_block.rb:24
+#: app/models/communities_block.rb:28 app/models/enterprises_block.rb:20
 #: app/models/enterprises_block.rb:24 app/models/people_block.rb:27
 msgid "View all"
 msgstr "Ver todos(as)"
@@ -2235,17 +2235,17 @@ msgstr "(pasta vazia)"
 msgid "thumbnail"
 msgstr "miniatura"
 
-#: app/models/communities_block.rb:6
+#: app/models/communities_block.rb:4
 msgid "A block that displays your communities"
 msgstr "Um bloco que apresenta suas comunidades"
 
-#: app/models/communities_block.rb:10
+#: app/models/communities_block.rb:8
 msgid "{#} community"
 msgid_plural "{#} communities"
 msgstr[0] "{#} comunidade"
 msgstr[1] "{#} comunidades"
 
-#: app/models/communities_block.rb:18
+#: app/models/communities_block.rb:16
 msgid "This block displays the communities in which the user is a member."
 msgstr "Este bloco exibe as comunidades das quais o usuário é membro."
 
@@ -2724,19 +2724,23 @@ msgstr "Usar portal como fonte de notícias para página inicial"
 msgid "Allow users to create their own themes"
 msgstr "Permitir aos usuários criar seus próprios temas"
 
-#: app/models/environment.rb:295
+#: app/models/environment.rb:52
+msgid "Display search form in home page"
+msgstr "Mostrar formulário de busca na página inicial"
+
+#: app/models/environment.rb:296
 msgid "Hello <friend>,"
 msgstr "Olá <friend>,"
 
-#: app/models/environment.rb:296
+#: app/models/environment.rb:297
 msgid "<user> is inviting you to participate on %{environment}."
 msgstr "<user> está de convidando a participar no %{environment}"
 
-#: app/models/environment.rb:297
+#: app/models/environment.rb:298
 msgid "To accept the invitation, please follow this link:"
 msgstr "Para aceitar o convite, por favor siga este link:"
 
-#: app/models/environment.rb:390
+#: app/models/environment.rb:391
 msgid "Only one Virtual Community can be the default one"
 msgstr "Apenas uma comunidade virtual pode ser a padrão"
 
@@ -4298,7 +4302,7 @@ msgstr "Buscar dentro de:"
 msgid "Search for:"
 msgstr "Buscar por:"
 
-#: app/views/search/_search_form.rhtml:55 app/views/home/index.rhtml:61
+#: app/views/search/_search_form.rhtml:55 app/views/home/index.rhtml:72
 msgid "More options"
 msgstr "Mais opções"
 
@@ -4501,19 +4505,19 @@ msgstr "Editar empreendimento como favorito"
 msgid "News"
 msgstr "Notícias"
 
-#: app/views/home/index.rhtml:31
+#: app/views/home/index.rhtml:42
 msgid "View more"
 msgstr "Ver mais"
 
-#: app/views/home/index.rhtml:43
+#: app/views/home/index.rhtml:54
 msgid "Activate your enterprise"
 msgstr "Ativar seu empreendimento"
 
-#: app/views/home/index.rhtml:44
+#: app/views/home/index.rhtml:55
 msgid "Enterprise activation code"
 msgstr "Código de Ativação do empreendimento"
 
-#: app/views/home/index.rhtml:45 app/views/enterprise_editor/index.rhtml:17
+#: app/views/home/index.rhtml:56 app/views/enterprise_editor/index.rhtml:17
 msgid "Activate"
 msgstr "Ativar"
 
@@ -5589,6 +5593,10 @@ msgstr "Novo link"
 #: app/views/box_organizer/_profile_image_block.rhtml:2
 msgid "Show name on block"
 msgstr "Mostrar nome no bloco"
+
+#: app/views/box_organizer/_profile_list_block.rhtml:2
+msgid "Limit of items"
+msgstr "Limite de ítens"
 
 #: app/views/box_organizer/_products_block.rhtml:5
 msgid "Select the products that must be shown."
