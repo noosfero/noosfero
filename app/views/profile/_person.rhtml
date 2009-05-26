@@ -21,10 +21,15 @@
 </tr>
 <%= display_field(_('Organization:'), profile, :organization) %>
 <%= display_field(_('Organization website:'), profile, :organization_website) { |url| link_to(url, url) }%>
+
+
 <% if !profile.enterprises.empty? %>
-  <% profile.enterprises.each_with_index do |item, i| %>
+  <tr>
+    <th colspan='2'><%= __('Enterprises') %></th>
+  </tr>
+  <% profile.enterprises.each do |item| %>
     <tr>
-      <td class='field-name'><%= __('Enterprises:') if (i == 0) %></td>
+      <td></td>
       <td><%= button 'menu-enterprise', item.name, item.url %></td>
     </tr>
   <% end %>
