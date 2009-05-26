@@ -21,19 +21,38 @@
 </tr>
 <%= display_field(_('Organization:'), profile, :organization) %>
 <%= display_field(_('Organization website:'), profile, :organization_website) { |url| link_to(url, url) }%>
+<% if !profile.enterprises.empty? %>
+  <% profile.enterprises.each_with_index do |item, i| %>
+    <tr>
+      <td class='field-name'><%= __('Enterprises:') if (i == 0) %></td>
+      <td><%= button 'menu-enterprise', item.name, item.url %></td>
+    </tr>
+  <% end %>
+<% end %>
 
 <tr>
   <th colspan='2'><%= _('Network')%></th>
 </tr>
 <tr>
-  <td colspan='2'>
-    <%= link_to __('Friends'), :controller => 'profile', :action => 'friends' %>
+  <td></td>
+  <td><%= link_to  __('Friends') + (' (%d)' % profile.friends.count), { :controller => 'profile', :action => 'friends' } %></td>
+</tr
+<tr>
+  <td></td>
+  <td><%= link_to __('Communities') + (' (%d)' % profile.communities.count), :controller => "profile", :action => 'communities' %></td>
+</tr>
 
-    &mdash; <%= link_to __('Communities'), :controller => "profile", :action => 'communities' %>
-
-    <% if !environment.enabled?('disable_asset_enterprises') %>
-      &mdash; <%= link_to __('Enterprises'), :controller => 'profile', :action => 'enterprises' %>
-    <% end %>
   </td>
 </tr>
 
+<% if !environment.enabled?('disable_categories') && !profile.interests.empty? %>
+  <tr>
+    <th colspan='2'><%= _('Interests') %></th>
+  </tr>
+  <% profile.interests.each do |item| %>
+    <tr>
+      <td></td>
+      <td><%= link_to item.name, :controller => 'search', :action => 'category_index', :category_path => item.explode_path %></td>
+    </tr>
+  <% end %>
+<% end %>

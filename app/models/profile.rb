@@ -137,6 +137,10 @@ class Profile < ActiveRecord::Base
   has_many :profile_categorizations, :conditions => [ 'categories_profiles.virtual = ?', false ]
   has_many :categories, :through => :profile_categorizations
 
+  def interests
+    categories.select {|item| !item.is_a?(Region)}
+  end
+
   belongs_to :region
   
   def location

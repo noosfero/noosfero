@@ -1,9 +1,10 @@
-<% if profile.enterprise? and !profile.enabled? and !profile.blocks.select {|b| b.class == DisabledEnterpriseMessageBlock}.any? %>
+<% if profile.enterprise? && !profile.enabled? && !profile.blocks.select {|b| b.class == DisabledEnterpriseMessageBlock}.any? %>
   <div id='profile-disabled'>
     <%= environment.message_for_disabled_enterprise %>
   </div>
 <% end %>
 
+<% cache_timeout(profile.identifier + '-profile', 30.minutes.from_now) do %>
 <h1><%= _("%s's profile") % profile.identifier %></h1>
 
 <table class='profile'>
@@ -30,3 +31,4 @@
     </td>
   </tr>
 </table>
+<% end %>
