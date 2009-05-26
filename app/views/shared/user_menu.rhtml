@@ -23,6 +23,10 @@
         <%= link_to('<span class="icon-menu-my-groups"></span>' + __('My communities'), { :controller => 'memberships', :profile => user.identifier, :action => 'index' }) %>
         </li>
 
+        <% for enterprise in user.enterprises %>
+          <li><%= link_to('<span class="icon-menu-enterprise"></span>' + (_('Manage %s') % enterprise.short_name), { :controller => 'profile_editor', :profile => enterprise.identifier, :action => 'index' }) %></li>
+        <% end %>
+
         <!-- li><a href="#"><span class="icon-menu-blog"></span> Meu Blog</a></li -->
 
         <% if MailConf.enabled? && current_user.enable_email %>

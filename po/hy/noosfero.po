@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.18.0\n"
-"POT-Creation-Date: 2009-05-26 18:17-0300\n"
+"POT-Creation-Date: 2009-05-26 19:20-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -616,16 +616,16 @@ msgstr "Արտադրանք"
 #: app/controllers/public/search_controller.rb:134
 #: app/controllers/public/search_controller.rb:207
 #: app/views/search/_sellers_form.rhtml:7 app/views/search/enterprises.rhtml:5
-#: app/views/profile/_person.rhtml:30
-#: app/views/content_viewer/_person.rhtml:30
+#: app/views/profile/_person.rhtml:31
+#: app/views/content_viewer/_person.rhtml:31
 msgid "Enterprises"
 msgstr "Ձեռնարկություններ"
 
 #: app/helpers/assets_helper.rb:11
 #: app/controllers/public/search_controller.rb:136
 #: app/controllers/public/search_controller.rb:210
-#: app/views/search/communities.rhtml:1 app/views/profile/_person.rhtml:49
-#: app/views/content_viewer/_person.rhtml:49
+#: app/views/search/communities.rhtml:1 app/views/profile/_person.rhtml:50
+#: app/views/content_viewer/_person.rhtml:50
 #: app/views/layouts/application-ng.rhtml:93
 msgid "Communities"
 msgstr "Համայնքներ"
@@ -668,8 +668,8 @@ msgid "Contact person:"
 msgstr "Կապը պահպանող անձ"
 
 #: app/helpers/enterprise_homepage_helper.rb:7
-#: app/views/profile/_person.rhtml:15
-#: app/views/content_viewer/_person.rhtml:15
+#: app/views/profile/_person.rhtml:16
+#: app/views/content_viewer/_person.rhtml:16
 msgid "e-Mail:"
 msgstr "էլ. հասցե"
 
@@ -678,15 +678,14 @@ msgid "Phone(s):"
 msgstr "Հեռախոս(ներ)"
 
 #: app/helpers/enterprise_homepage_helper.rb:9
-#: app/views/profile/_person.rhtml:17
-#: app/views/content_viewer/_person.rhtml:17
+#: app/views/profile/_person.rhtml:7 app/views/content_viewer/_person.rhtml:7
 msgid "Location:"
 msgstr "Վայր"
 
 #: app/helpers/enterprise_homepage_helper.rb:10 app/models/event.rb:78
 #: app/views/cms/_event.rhtml:14 app/views/enterprise_editor/index.rhtml:6
-#: app/views/profile/_person.rhtml:12
-#: app/views/content_viewer/_person.rhtml:12
+#: app/views/profile/_person.rhtml:13
+#: app/views/content_viewer/_person.rhtml:13
 msgid "Address:"
 msgstr "Հասցե"
 
@@ -761,7 +760,7 @@ msgid "Help"
 msgstr "Օգնություն"
 
 #: app/helpers/boxes_helper.rb:209 app/helpers/application_helper.rb:89
-#: app/views/shared/user_menu.rhtml:66 app/views/account/wizard.rhtml:1
+#: app/views/shared/user_menu.rhtml:70 app/views/account/wizard.rhtml:1
 #: app/views/cms/why_categorize.rhtml:8 app/views/search/_search_form.rhtml:63
 #: app/views/layouts/application-ng.rhtml:69
 #: app/views/box_organizer/add_block.rhtml:19
@@ -2312,7 +2311,7 @@ msgid "Ok"
 msgstr "Այո"
 
 #: app/models/link_list_block.rb:21 app/views/friends/invite.rhtml:31
-#: app/views/shared/user_menu.rhtml:63 app/views/account/login_block.rhtml:4
+#: app/views/shared/user_menu.rhtml:67 app/views/account/login_block.rhtml:4
 #: app/views/account/login.rhtml:3 app/views/layouts/application-ng.rhtml:66
 msgid "Login"
 msgstr "Մուտք"
@@ -3304,18 +3303,23 @@ msgstr "Գնալ Ձեր գլխավոր էջ"
 msgid "My communities"
 msgstr "Բոլոր համայնքները"
 
-#: app/views/shared/user_menu.rhtml:30
+#: app/views/shared/user_menu.rhtml:27
+#, fuzzy
+msgid "Manage %s"
+msgstr "Կառավարել"
+
+#: app/views/shared/user_menu.rhtml:34
 msgid "Webmail"
 msgstr "Webmail"
 
-#: app/views/shared/user_menu.rhtml:35 app/views/blocks/my_network.rhtml:9
+#: app/views/shared/user_menu.rhtml:39 app/views/blocks/my_network.rhtml:9
 #: app/views/blocks/profile_info.rhtml:22
 #: app/views/blocks/profile_image.rhtml:19
 #: app/views/layouts/application-ng.rhtml:62
 msgid "Control panel"
 msgstr "Կառավարման վահանակ"
 
-#: app/views/shared/user_menu.rhtml:35
+#: app/views/shared/user_menu.rhtml:39
 msgid ""
 "Control panel: change your picture, edit your personal information, create "
 "content or change the way your home page looks."
@@ -3323,21 +3327,21 @@ msgstr ""
 "Կառավարման վահանակ. այստեղ կարող եք փոխել Ձեր նկարը, անձնական տվյալները, "
 "գլխավոր էջի արտաքին տեսքը, ինչպես նաև կարող եք ստեղծել հոդվածները:  "
 
-#: app/views/shared/user_menu.rhtml:39
+#: app/views/shared/user_menu.rhtml:43
 #: app/views/environment_role_manager/make_admin.rhtml:4
 msgid "Admin"
 msgstr "Ադմինիստրատոր"
 
-#: app/views/shared/user_menu.rhtml:42
+#: app/views/shared/user_menu.rhtml:46
 msgid "Access the site administration panel."
 msgstr "Մուտք գործել կայքի կառավարման վահանակ:"
 
-#: app/views/shared/user_menu.rhtml:46 app/views/account/user_info.rhtml:11
+#: app/views/shared/user_menu.rhtml:50 app/views/account/user_info.rhtml:11
 #: app/views/layouts/application-ng.rhtml:64
 msgid "Logout"
 msgstr "Դուրս գալ:"
 
-#: app/views/shared/user_menu.rhtml:49
+#: app/views/shared/user_menu.rhtml:53
 msgid ""
 "This link takes you out of the system. You should logout if other people are "
 "willing to use the same computer after you."
@@ -3345,7 +3349,7 @@ msgstr ""
 "Այս հղումը Ձեձ համակարգից հանում է դուրս: Դուք պետք է դուրս գաք համակարգից "
 "եթե այլ մարդիկ ցանկանում են օգտվել դրանից:"
 
-#: app/views/shared/user_menu.rhtml:63
+#: app/views/shared/user_menu.rhtml:67
 #: app/views/account/index_anonymous.rhtml:5
 #: app/views/layouts/application-ng.rhtml:66
 msgid ""
@@ -4453,7 +4457,8 @@ msgid "Add friend"
 msgstr "Ավելացնել ընկեր"
 
 #: app/views/blocks/profile_info_actions/person.rhtml:9
-#: app/views/profile/_person.rhtml:9 app/views/content_viewer/_person.rhtml:9
+#: app/views/profile/_person.rhtml:11
+#: app/views/content_viewer/_person.rhtml:11
 msgid "Contact"
 msgstr ""
 
@@ -4589,8 +4594,8 @@ msgid "Identifier:"
 msgstr "Որոշիչ"
 
 #: app/views/enterprise_editor/index.rhtml:7
-#: app/views/profile/_person.rhtml:14
-#: app/views/content_viewer/_person.rhtml:14
+#: app/views/profile/_person.rhtml:15
+#: app/views/content_viewer/_person.rhtml:15
 msgid "Contact phone:"
 msgstr "Հեռախոս"
 
@@ -4780,7 +4785,7 @@ msgstr "Այստեղ<b>%s</b>-ի բոլոր համայնքներն են:"
 msgid "%s's communities"
 msgstr "%s-ի համայնքները"
 
-#: app/views/profile/index.rhtml:8
+#: app/views/profile/index.rhtml:7
 msgid "%s's profile"
 msgstr "%s-ի անհատական էջ"
 
@@ -4858,42 +4863,42 @@ msgstr "Սեռ"
 msgid "Date of birth:"
 msgstr ""
 
-#: app/views/profile/_person.rhtml:13
-#: app/views/content_viewer/_person.rhtml:13
+#: app/views/profile/_person.rhtml:14
+#: app/views/content_viewer/_person.rhtml:14
 msgid "ZIP code:"
 msgstr ""
 
-#: app/views/profile/_person.rhtml:21
-#: app/views/content_viewer/_person.rhtml:21
+#: app/views/profile/_person.rhtml:22
+#: app/views/content_viewer/_person.rhtml:22
 #, fuzzy
 msgid "Work"
 msgstr "աշխատավայր"
 
-#: app/views/profile/_person.rhtml:24
-#: app/views/content_viewer/_person.rhtml:24
+#: app/views/profile/_person.rhtml:25
+#: app/views/content_viewer/_person.rhtml:25
 #, fuzzy
 msgid "Organization:"
 msgstr "Կազմակերպություն"
 
-#: app/views/profile/_person.rhtml:25
-#: app/views/content_viewer/_person.rhtml:25
+#: app/views/profile/_person.rhtml:26
+#: app/views/content_viewer/_person.rhtml:26
 #, fuzzy
 msgid "Organization website:"
 msgstr "Կազմակերպություններ"
 
-#: app/views/profile/_person.rhtml:41
-#: app/views/content_viewer/_person.rhtml:41
+#: app/views/profile/_person.rhtml:42
+#: app/views/content_viewer/_person.rhtml:42
 #, fuzzy
 msgid "Network"
 msgstr "աշխատավայր"
 
-#: app/views/profile/_person.rhtml:45
-#: app/views/content_viewer/_person.rhtml:45
+#: app/views/profile/_person.rhtml:46
+#: app/views/content_viewer/_person.rhtml:46
 msgid "Friends"
 msgstr "Ընկերներ"
 
-#: app/views/profile/_person.rhtml:57
-#: app/views/content_viewer/_person.rhtml:57
+#: app/views/profile/_person.rhtml:55
+#: app/views/content_viewer/_person.rhtml:55
 #, fuzzy
 msgid "Interests"
 msgstr "Ձեռնարկություններ"
