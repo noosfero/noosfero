@@ -4,31 +4,31 @@
   </div>
 <% end %>
 
-<% cache_timeout(profile.identifier + '-profile', 30.minutes.from_now) do %>
 <h1><%= _("%s's profile") % profile.name %></h1>
 
 <table class='profile'>
   <%= render :partial => partial_for_class(profile.class) %>
-  <tr>
-    <th colspan='2'>
-      <%= _('Content') %>
-    </th>
-  </tr>
-  <tr>
-    <td>
-      <%= _('Content published:') %>
-    </td>
-    <td>
-      <%= link_to _('Site map'), :controller => 'profile', :action => 'sitemap' %>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <%= _('Tags:') %>
-    </td>
-    <td>
-      <%= tag_cloud @tags, :id, { :action => 'tag' }, :max_size => 18, :min_size => 10%>
-    </td>
-  </tr>
+  <% cache_timeout(profile.identifier + '-profile-general-info', 4.hours.from_now) do %>
+    <tr>
+      <th colspan='2'>
+        <%= _('Content') %>
+      </th>
+    </tr>
+    <tr>
+      <td>
+        <%= _('Content published:') %>
+      </td>
+      <td>
+        <%= link_to _('Site map'), :controller => 'profile', :action => 'sitemap' %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= _('Tags:') %>
+      </td>
+      <td>
+        <%= tag_cloud @tags, :id, { :action => 'tag' }, :max_size => 18, :min_size => 10%>
+      </td>
+    </tr>
+  <% end %>
 </table>
-<% end %>
