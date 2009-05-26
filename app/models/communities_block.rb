@@ -1,7 +1,5 @@
 class CommunitiesBlock < ProfileListBlock
 
-  settings_items :limit, :default => 3
-
   def self.description
     __('A block that displays your communities')
   end
