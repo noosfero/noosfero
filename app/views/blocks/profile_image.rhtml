@@ -20,4 +20,8 @@
   </div>
 <% end %>
 
+<div class="profile-info-options">
+  <%= render :file => 'blocks/profile_info_actions/' + block.owner.class.name.underscore %>
+</div>
+
 </div><!-- end class="vcard" -->

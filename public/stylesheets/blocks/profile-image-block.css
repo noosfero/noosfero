@@ -27,3 +27,10 @@
   padding: 2px;
   background: #FFF;
 }
+
+.profile-image-block ul {
+  padding: 0px;
+}
+.profile-image-block li {
+  list-style: none;
+}
