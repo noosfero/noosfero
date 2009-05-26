@@ -11,7 +11,7 @@
 </div>
 
 <% if show_name %>
-  <p><%= block.title %></p>
+  <p><%= block.owner.name %></p>
 <% end %>
 
 <% if !user.nil? and user.has_permission?('edit_profile', profile) %>
