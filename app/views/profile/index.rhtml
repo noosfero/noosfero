@@ -5,7 +5,7 @@
 <% end %>
 
 <% cache_timeout(profile.identifier + '-profile', 30.minutes.from_now) do %>
-<h1><%= _("%s's profile") % profile.identifier %></h1>
+<h1><%= _("%s's profile") % profile.name %></h1>
 
 <table class='profile'>
   <%= render :partial => partial_for_class(profile.class) %>
