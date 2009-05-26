@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-26 00:40-0300\n"
+"POT-Creation-Date: 2009-05-26 16:32-0300\n"
 "PO-Revision-Date: 2008-06-13 16:15-0300\n"
 "Last-Translator: Raphael Rousseau <pootle.colivre.coop.br@r4f.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -609,7 +609,7 @@ msgstr "Articles"
 #: app/controllers/public/search_controller.rb:135
 #: app/controllers/public/search_controller.rb:206
 #: app/models/people_block.rb:4 app/views/search/people.rhtml:1
-#: app/views/layouts/application-ng.rhtml:87
+#: app/views/layouts/application-ng.rhtml:91
 msgid "People"
 msgstr "Personnes"
 
@@ -624,23 +624,21 @@ msgstr "Produits"
 #: app/controllers/public/search_controller.rb:134
 #: app/controllers/public/search_controller.rb:207
 #: app/views/search/_sellers_form.rhtml:7 app/views/search/enterprises.rhtml:5
-#: app/views/profile/_person.rhtml:35
-#: app/views/content_viewer/_person.rhtml:35
 msgid "Enterprises"
 msgstr "Entreprises"
 
 #: app/helpers/assets_helper.rb:11
 #: app/controllers/public/search_controller.rb:136
 #: app/controllers/public/search_controller.rb:210
-#: app/views/search/communities.rhtml:1 app/views/profile/_person.rhtml:32
-#: app/views/content_viewer/_person.rhtml:32
-#: app/views/layouts/application-ng.rhtml:89
+#: app/views/search/communities.rhtml:1 app/views/profile/_person.rhtml:42
+#: app/views/content_viewer/_person.rhtml:42
+#: app/views/layouts/application-ng.rhtml:93
 msgid "Communities"
 msgstr "Groupes"
 
 #: app/helpers/assets_helper.rb:12
 #: app/controllers/public/search_controller.rb:138
-#: app/views/layouts/application-ng.rhtml:91
+#: app/views/layouts/application-ng.rhtml:95
 msgid "Events"
 msgstr "Événements"
 
@@ -772,7 +770,7 @@ msgstr "Aide"
 #: app/helpers/boxes_helper.rb:209 app/helpers/application_helper.rb:89
 #: app/views/shared/user_menu.rhtml:66 app/views/account/wizard.rhtml:1
 #: app/views/cms/why_categorize.rhtml:8 app/views/search/_search_form.rhtml:63
-#: app/views/layouts/application-ng.rhtml:65
+#: app/views/layouts/application-ng.rhtml:69
 #: app/views/box_organizer/add_block.rhtml:19
 msgid "Close"
 msgstr "Fermer"
@@ -871,9 +869,9 @@ msgid "open"
 msgstr "ouvrir"
 
 #: app/helpers/application_helper.rb:571
-#: app/views/layouts/application-ng.rhtml:70
-#: app/views/layouts/application-ng.rhtml:72
-#: app/views/layouts/application-ng.rhtml:75
+#: app/views/layouts/application-ng.rhtml:74
+#: app/views/layouts/application-ng.rhtml:76
+#: app/views/layouts/application-ng.rhtml:79
 msgid "Search..."
 msgstr "Chercher..."
 
@@ -2389,7 +2387,7 @@ msgstr "Ok !"
 
 #: app/models/link_list_block.rb:21 app/views/friends/invite.rhtml:31
 #: app/views/shared/user_menu.rhtml:63 app/views/account/login_block.rhtml:4
-#: app/views/account/login.rhtml:3 app/views/layouts/application-ng.rhtml:62
+#: app/views/account/login.rhtml:3 app/views/layouts/application-ng.rhtml:66
 msgid "Login"
 msgstr "Connexion"
 
@@ -2597,15 +2595,15 @@ msgstr "Éditer l'apparence"
 msgid "View private content"
 msgstr "Le contenu de ce profil est :"
 
-#: app/models/profile.rb:193
+#: app/models/profile.rb:197
 msgid "An existing profile cannot be renamed."
 msgstr "Un profil existant ne peut pas être renommé."
 
-#: app/models/profile.rb:411
+#: app/models/profile.rb:415
 msgid "My home page"
 msgstr "Ma page d'accueil."
 
-#: app/models/profile.rb:411
+#: app/models/profile.rb:415
 msgid ""
 "<p>This is a default homepage created for me. It can be changed though the "
 "control panel.</p>"
@@ -2613,15 +2611,15 @@ msgstr ""
 "<p>C'est la page d'accueil par défaut créée pour moi. Elle peut être "
 "modifiée dans le panneau de contrôle.</p>"
 
-#: app/models/profile.rb:422
+#: app/models/profile.rb:426
 msgid "Intranet"
 msgstr "Intranet"
 
-#: app/models/profile.rb:464
+#: app/models/profile.rb:468
 msgid "%s can't has members"
 msgstr "%s ne peut pas avoir de membres"
 
-#: app/models/profile.rb:481
+#: app/models/profile.rb:485
 msgid "%s can't has moderators"
 msgstr "%s ne peut pas avoir de modérateur"
 
@@ -3021,9 +3019,9 @@ msgstr "Modifier le message pour les entreprises désactivées"
 msgid "Enable/disable features"
 msgstr "Autoriser/interdire des fonctionnalités"
 
-#: app/views/admin_panel/index.rhtml:9
-msgid "Edit the Visual Design"
-msgstr "Éditer l'apparence"
+#: app/views/admin_panel/index.rhtml:9 app/views/profile_editor/index.rhtml:21
+msgid "Edit sideboxes"
+msgstr "Éditer les boîtes de menus"
 
 #: app/views/admin_panel/index.rhtml:10
 msgid "Manage Categories"
@@ -3414,7 +3412,7 @@ msgstr "Webmail"
 #: app/views/shared/user_menu.rhtml:35 app/views/blocks/my_network.rhtml:9
 #: app/views/blocks/profile_info.rhtml:22
 #: app/views/blocks/profile_image.rhtml:19
-#: app/views/layouts/application-ng.rhtml:59
+#: app/views/layouts/application-ng.rhtml:62
 msgid "Control panel"
 msgstr "Panneau de contrôle"
 
@@ -3436,7 +3434,7 @@ msgid "Access the site administration panel."
 msgstr "Accéder au panneau d'administration du site."
 
 #: app/views/shared/user_menu.rhtml:46 app/views/account/user_info.rhtml:11
-#: app/views/layouts/application-ng.rhtml:60
+#: app/views/layouts/application-ng.rhtml:64
 msgid "Logout"
 msgstr "Déconnexion"
 
@@ -3451,7 +3449,7 @@ msgstr ""
 
 #: app/views/shared/user_menu.rhtml:63
 #: app/views/account/index_anonymous.rhtml:5
-#: app/views/layouts/application-ng.rhtml:62
+#: app/views/layouts/application-ng.rhtml:66
 msgid ""
 "Click here to enter your username and password and be recognized by the "
 "system."
@@ -4965,25 +4963,25 @@ msgstr "Voici tous les groupes de <b>%s</b>."
 msgid "%s's communities"
 msgstr "Les groupes de <b>%s</b>"
 
-#: app/views/profile/index.rhtml:7
+#: app/views/profile/index.rhtml:8
 msgid "%s's profile"
 msgstr "Le profil de %s"
 
-#: app/views/profile/index.rhtml:13
+#: app/views/profile/index.rhtml:14
 #, fuzzy
 msgid "Content"
 msgstr "Type de contenu"
 
-#: app/views/profile/index.rhtml:18
+#: app/views/profile/index.rhtml:19
 #, fuzzy
 msgid "Content published:"
 msgstr "Le contenu de %s publié à %s"
 
-#: app/views/profile/index.rhtml:21
+#: app/views/profile/index.rhtml:22
 msgid "Site map"
 msgstr "Carte du site"
 
-#: app/views/profile/index.rhtml:26
+#: app/views/profile/index.rhtml:27
 msgid "Tags:"
 msgstr "Tags :"
 
@@ -5067,16 +5065,28 @@ msgstr "Organisation"
 msgid "Organization website:"
 msgstr "Site d'organisation"
 
-#: app/views/profile/_person.rhtml:26
-#: app/views/content_viewer/_person.rhtml:26
+#: app/views/profile/_person.rhtml:27
+#: app/views/content_viewer/_person.rhtml:27
+#, fuzzy
+msgid "Enterprises:"
+msgstr "Entreprises"
+
+#: app/views/profile/_person.rhtml:34
+#: app/views/content_viewer/_person.rhtml:34
 #, fuzzy
 msgid "Network"
 msgstr "travail"
 
-#: app/views/profile/_person.rhtml:30
-#: app/views/content_viewer/_person.rhtml:30
+#: app/views/profile/_person.rhtml:38
+#: app/views/content_viewer/_person.rhtml:38
 msgid "Friends"
 msgstr "Contacts"
+
+#: app/views/profile/_person.rhtml:50
+#: app/views/content_viewer/_person.rhtml:50
+#, fuzzy
+msgid "Interests"
+msgstr "Mes centres d'intérêt"
 
 #: app/views/profile/tag.rhtml:1
 msgid "Content tagged with \"%s\""
@@ -5158,10 +5168,6 @@ msgstr "Paramètres de messagerie"
 #: app/views/profile_editor/index.rhtml:19
 msgid "Tasks"
 msgstr "Tâches"
-
-#: app/views/profile_editor/index.rhtml:21
-msgid "Edit sideboxes"
-msgstr "Éditer les boîtes de menus"
 
 #: app/views/profile_editor/index.rhtml:23
 msgid "Edit Appearance"
@@ -5543,34 +5549,34 @@ msgstr ""
 msgid "Go to your homepage"
 msgstr "Aller à votre page d'accueil."
 
-#: app/views/layouts/application-ng.rhtml:58
+#: app/views/layouts/application-ng.rhtml:59
 #, fuzzy
 msgid "Administration"
 msgstr "Interface d'administration"
 
-#: app/views/layouts/application-ng.rhtml:58
+#: app/views/layouts/application-ng.rhtml:59
 #, fuzzy
 msgid "Configure the environment"
 msgstr "Profil|Environnement"
 
-#: app/views/layouts/application-ng.rhtml:59
+#: app/views/layouts/application-ng.rhtml:62
 msgid "Configure your personal account and content"
 msgstr ""
 
-#: app/views/layouts/application-ng.rhtml:60
+#: app/views/layouts/application-ng.rhtml:64
 msgid "Leave the system"
 msgstr ""
 
-#: app/views/layouts/application-ng.rhtml:62
+#: app/views/layouts/application-ng.rhtml:66
 #, fuzzy
 msgid "%s or %s"
 msgstr "%s, par %s"
 
-#: app/views/layouts/application-ng.rhtml:62
+#: app/views/layouts/application-ng.rhtml:66
 msgid "Register"
 msgstr "S'enregistrer"
 
-#: app/views/layouts/application-ng.rhtml:78
+#: app/views/layouts/application-ng.rhtml:82
 msgid "Press <strong>Enter</strong> to send the search query."
 msgstr ""
 
@@ -6696,6 +6702,9 @@ msgstr "%s contacts"
 msgid "A Ynternet.org project"
 msgstr "Un projet d'Ynternet.org"
 
+#~ msgid "Edit the Visual Design"
+#~ msgstr "Éditer l'apparence"
+
 # How is this used? (By which function/method?)
 #
 # this is used to display date with time. %d is the day, %B is the month name, %Y is the year, %H is the hour and %m is the minutes.
@@ -7558,9 +7567,6 @@ msgstr "Un projet d'Ynternet.org"
 
 #~ msgid "Change your picture"
 #~ msgstr "Modifiez votre image"
-
-#~ msgid "My Interests"
-#~ msgstr "Mes centres d'intérêt"
 
 #~ msgid "Edit organization info"
 #~ msgstr "Éditer les informations de l'organisation"
