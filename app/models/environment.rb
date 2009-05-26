@@ -49,6 +49,7 @@ class Environment < ActiveRecord::Base
       'display_wizard_signup' => _('Display wizard signup'),
       'use_portal_community' => _('Use the portal as news source for front page'),
       'user_themes' => N_('Allow users to create their own themes'),
+      'search_in_home' => N_("Display search form in home page"),
     }
   end
 
