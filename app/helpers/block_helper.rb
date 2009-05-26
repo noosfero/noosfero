@@ -1,7 +1,9 @@
 module BlockHelper
 
   def block_title(title)
-    content_tag('h3', title, :class => 'block-title')
+    tag_class = 'block-title'
+    tag_class += ' empty' if title.empty?
+    content_tag 'h3', title, :class => tag_class
   end
 
 end
