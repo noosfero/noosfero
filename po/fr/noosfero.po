@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-26 16:32-0300\n"
+"POT-Creation-Date: 2009-05-26 18:17-0300\n"
 "PO-Revision-Date: 2008-06-13 16:15-0300\n"
 "Last-Translator: Raphael Rousseau <pootle.colivre.coop.br@r4f.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -624,14 +624,16 @@ msgstr "Produits"
 #: app/controllers/public/search_controller.rb:134
 #: app/controllers/public/search_controller.rb:207
 #: app/views/search/_sellers_form.rhtml:7 app/views/search/enterprises.rhtml:5
+#: app/views/profile/_person.rhtml:30
+#: app/views/content_viewer/_person.rhtml:30
 msgid "Enterprises"
 msgstr "Entreprises"
 
 #: app/helpers/assets_helper.rb:11
 #: app/controllers/public/search_controller.rb:136
 #: app/controllers/public/search_controller.rb:210
-#: app/views/search/communities.rhtml:1 app/views/profile/_person.rhtml:42
-#: app/views/content_viewer/_person.rhtml:42
+#: app/views/search/communities.rhtml:1 app/views/profile/_person.rhtml:49
+#: app/views/content_viewer/_person.rhtml:49
 #: app/views/layouts/application-ng.rhtml:93
 msgid "Communities"
 msgstr "Groupes"
@@ -5034,8 +5036,9 @@ msgid "Members"
 msgstr "Membres"
 
 #: app/views/profile/_person.rhtml:5 app/views/content_viewer/_person.rhtml:5
-msgid "Gender:"
-msgstr ""
+#, fuzzy
+msgid "Sex:"
+msgstr "Sexe : "
 
 #: app/views/profile/_person.rhtml:6 app/views/content_viewer/_person.rhtml:6
 msgid "Date of birth:"
@@ -5047,43 +5050,37 @@ msgstr ""
 msgid "ZIP code:"
 msgstr "Code postal"
 
-#: app/views/profile/_person.rhtml:20
-#: app/views/content_viewer/_person.rhtml:20
+#: app/views/profile/_person.rhtml:21
+#: app/views/content_viewer/_person.rhtml:21
 #, fuzzy
 msgid "Work"
 msgstr "travail"
 
-#: app/views/profile/_person.rhtml:22
-#: app/views/content_viewer/_person.rhtml:22
+#: app/views/profile/_person.rhtml:24
+#: app/views/content_viewer/_person.rhtml:24
 #, fuzzy
 msgid "Organization:"
 msgstr "Organisation"
 
-#: app/views/profile/_person.rhtml:23
-#: app/views/content_viewer/_person.rhtml:23
+#: app/views/profile/_person.rhtml:25
+#: app/views/content_viewer/_person.rhtml:25
 #, fuzzy
 msgid "Organization website:"
 msgstr "Site d'organisation"
 
-#: app/views/profile/_person.rhtml:27
-#: app/views/content_viewer/_person.rhtml:27
-#, fuzzy
-msgid "Enterprises:"
-msgstr "Entreprises"
-
-#: app/views/profile/_person.rhtml:34
-#: app/views/content_viewer/_person.rhtml:34
+#: app/views/profile/_person.rhtml:41
+#: app/views/content_viewer/_person.rhtml:41
 #, fuzzy
 msgid "Network"
 msgstr "travail"
 
-#: app/views/profile/_person.rhtml:38
-#: app/views/content_viewer/_person.rhtml:38
+#: app/views/profile/_person.rhtml:45
+#: app/views/content_viewer/_person.rhtml:45
 msgid "Friends"
 msgstr "Contacts"
 
-#: app/views/profile/_person.rhtml:50
-#: app/views/content_viewer/_person.rhtml:50
+#: app/views/profile/_person.rhtml:57
+#: app/views/content_viewer/_person.rhtml:57
 #, fuzzy
 msgid "Interests"
 msgstr "Mes centres d'intérêt"
@@ -6702,6 +6699,10 @@ msgstr "%s contacts"
 msgid "A Ynternet.org project"
 msgstr "Un projet d'Ynternet.org"
 
+#, fuzzy
+#~ msgid "Enterprises:"
+#~ msgstr "Entreprises"
+
 #~ msgid "Edit the Visual Design"
 #~ msgstr "Éditer l'apparence"
 
@@ -7401,9 +7402,6 @@ msgstr "Un projet d'Ynternet.org"
 
 #~ msgid "Edit person info"
 #~ msgstr "Éditer les infos personnelles"
-
-#~ msgid "Sex: "
-#~ msgstr "Sexe : "
 
 #~ msgid "My profile"
 #~ msgstr "Mon profil"

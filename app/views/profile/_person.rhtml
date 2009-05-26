@@ -2,7 +2,7 @@
   <th colspan='2'><%= _('Basic information')%></th>
 </tr>
 <%= display_field(_('Name:'), profile, :name) { |name| link_to name, profile.url  } %>
-<%= display_field(_('Gender:'), profile, :sex) { |gender| { 'male' => _('Male'), 'female' => _('Female') }[gender] } %>
+<%= display_field(_('Sex:'), profile, :sex) { |gender| { 'male' => _('Male'), 'female' => _('Female') }[gender] } %>
 <%= display_field(_('Date of birth:'), profile, :birth_date) { |date| show_date(date)  }%>
 
 <tr>

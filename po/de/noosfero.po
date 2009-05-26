@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.18.0\n"
-"POT-Creation-Date: 2009-05-26 16:32-0300\n"
+"POT-Creation-Date: 2009-05-26 18:17-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -613,14 +613,16 @@ msgstr ""
 #: app/controllers/public/search_controller.rb:134
 #: app/controllers/public/search_controller.rb:207
 #: app/views/search/_sellers_form.rhtml:7 app/views/search/enterprises.rhtml:5
+#: app/views/profile/_person.rhtml:30
+#: app/views/content_viewer/_person.rhtml:30
 msgid "Enterprises"
 msgstr ""
 
 #: app/helpers/assets_helper.rb:11
 #: app/controllers/public/search_controller.rb:136
 #: app/controllers/public/search_controller.rb:210
-#: app/views/search/communities.rhtml:1 app/views/profile/_person.rhtml:42
-#: app/views/content_viewer/_person.rhtml:42
+#: app/views/search/communities.rhtml:1 app/views/profile/_person.rhtml:49
+#: app/views/content_viewer/_person.rhtml:49
 #: app/views/layouts/application-ng.rhtml:93
 msgid "Communities"
 msgstr ""
@@ -4715,7 +4717,7 @@ msgid "Members"
 msgstr ""
 
 #: app/views/profile/_person.rhtml:5 app/views/content_viewer/_person.rhtml:5
-msgid "Gender:"
+msgid "Sex:"
 msgstr ""
 
 #: app/views/profile/_person.rhtml:6 app/views/content_viewer/_person.rhtml:6
@@ -4727,38 +4729,33 @@ msgstr ""
 msgid "ZIP code:"
 msgstr ""
 
-#: app/views/profile/_person.rhtml:20
-#: app/views/content_viewer/_person.rhtml:20
+#: app/views/profile/_person.rhtml:21
+#: app/views/content_viewer/_person.rhtml:21
 msgid "Work"
 msgstr ""
 
-#: app/views/profile/_person.rhtml:22
-#: app/views/content_viewer/_person.rhtml:22
+#: app/views/profile/_person.rhtml:24
+#: app/views/content_viewer/_person.rhtml:24
 msgid "Organization:"
 msgstr ""
 
-#: app/views/profile/_person.rhtml:23
-#: app/views/content_viewer/_person.rhtml:23
+#: app/views/profile/_person.rhtml:25
+#: app/views/content_viewer/_person.rhtml:25
 msgid "Organization website:"
 msgstr ""
 
-#: app/views/profile/_person.rhtml:27
-#: app/views/content_viewer/_person.rhtml:27
-msgid "Enterprises:"
-msgstr ""
-
-#: app/views/profile/_person.rhtml:34
-#: app/views/content_viewer/_person.rhtml:34
+#: app/views/profile/_person.rhtml:41
+#: app/views/content_viewer/_person.rhtml:41
 msgid "Network"
 msgstr ""
 
-#: app/views/profile/_person.rhtml:38
-#: app/views/content_viewer/_person.rhtml:38
+#: app/views/profile/_person.rhtml:45
+#: app/views/content_viewer/_person.rhtml:45
 msgid "Friends"
 msgstr ""
 
-#: app/views/profile/_person.rhtml:50
-#: app/views/content_viewer/_person.rhtml:50
+#: app/views/profile/_person.rhtml:57
+#: app/views/content_viewer/_person.rhtml:57
 msgid "Interests"
 msgstr ""
 
