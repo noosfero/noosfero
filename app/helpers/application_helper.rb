@@ -878,4 +878,8 @@ module ApplicationHelper
     render :file => 'shared/noosfero_layout_features'
   end
 
+  def link_to_email(email)
+    javascript_tag('var array = ' + email.split('@').to_json + '; document.write("<a href=\'mailto:" + array.join("@") + "\'>" + array.join("@") +  "</a>")')
+  end
+
 end

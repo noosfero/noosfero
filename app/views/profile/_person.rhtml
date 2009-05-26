@@ -12,7 +12,7 @@
   <%= display_field(_('Address:'), profile, :address) %>
   <%= display_field(_('ZIP code:'), profile, :zip_code) %>
   <%= display_field(_('Contact phone:'), profile, :contact_phone) %>
-  <%= display_field(_('e-Mail:'), profile, :email) { |email| link_to email, 'mailto:'+email } %>
+  <%= display_field(_('e-Mail:'), profile, :email) { |email| link_to_email(email) } %>
 <% end %>
 <%= display_field(_('Location:'), profile, :location) %>
 
