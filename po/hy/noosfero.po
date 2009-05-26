@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.17.1\n"
-"POT-Creation-Date: 2009-05-25 20:58-0300\n"
+"Project-Id-Version: noosfero 0.18.0\n"
+"POT-Creation-Date: 2009-05-25 22:58-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -849,58 +849,58 @@ msgid_plural "%s members"
 msgstr[0] "Նոր անդամ"
 msgstr[1] "Նոր անդամ"
 
-#: app/helpers/application_helper.rb:508
+#: app/helpers/application_helper.rb:509
 #: app/views/content_viewer/view_page.rhtml:92
 #: app/views/categories/index.rhtml:1
 msgid "Categories"
 msgstr "Կատեգորիաներ"
 
-#: app/helpers/application_helper.rb:531
+#: app/helpers/application_helper.rb:532
 msgid "open"
 msgstr "բացել"
 
-#: app/helpers/application_helper.rb:570
+#: app/helpers/application_helper.rb:571
 #: app/views/layouts/application-ng.rhtml:70
 #: app/views/layouts/application-ng.rhtml:72
 #: app/views/layouts/application-ng.rhtml:75
 msgid "Search..."
 msgstr "Որոնել..."
 
-#: app/helpers/application_helper.rb:572
+#: app/helpers/application_helper.rb:573
 msgid "This is a search box. Click, write your query, and press enter to find"
 msgstr ""
 "Այստեղ կարող եք որոնում կատարել: Մուտքագրեք Ձեր հարցումն ու սեղմեք «Enter» "
 "կոճակը:"
 
-#: app/helpers/application_helper.rb:573
+#: app/helpers/application_helper.rb:574
 msgid "Click, write and press enter to find"
 msgstr "Մուտքագրեք և սեղմեք «Enter» կոճակը"
 
-#: app/helpers/application_helper.rb:579 app/models/link_list_block.rb:19
+#: app/helpers/application_helper.rb:580 app/models/link_list_block.rb:19
 #: app/views/search/_sellers_form.rhtml:21
 #: app/views/search/_search_form.rhtml:19 app/views/search/communities.rhtml:9
 #: app/views/search/articles.rhtml:10 app/views/search/people.rhtml:10
-#: app/views/home/index.rhtml:55 app/views/region_validators/region.rhtml:23
+#: app/views/home/index.rhtml:57 app/views/region_validators/region.rhtml:23
 msgid "Search"
 msgstr "Որոնում"
 
-#: app/helpers/application_helper.rb:759
+#: app/helpers/application_helper.rb:760
 msgid "Searched for '%s'"
 msgstr "«%s»-ի որոնում"
 
-#: app/helpers/application_helper.rb:760
+#: app/helpers/application_helper.rb:761
 msgid "In category %s"
 msgstr "%s կատեգորիայում"
 
-#: app/helpers/application_helper.rb:761
+#: app/helpers/application_helper.rb:762
 msgid "within %d km from %s"
 msgstr "%s-ից %d կմ հեռավորության վրա"
 
-#: app/helpers/application_helper.rb:762
+#: app/helpers/application_helper.rb:763
 msgid "%d results found"
 msgstr "Գտնված արդյունքներ %d"
 
-#: app/helpers/application_helper.rb:768
+#: app/helpers/application_helper.rb:769
 #, fuzzy
 msgid "In all categories"
 msgstr "%s կատեգորիայում"
@@ -4258,7 +4258,7 @@ msgstr "Որոնել"
 msgid "Search for:"
 msgstr "Որոնել"
 
-#: app/views/search/_search_form.rhtml:55 app/views/home/index.rhtml:59
+#: app/views/search/_search_form.rhtml:55 app/views/home/index.rhtml:61
 msgid "More options"
 msgstr ""
 
@@ -4465,17 +4465,22 @@ msgstr ""
 msgid "News"
 msgstr "Նորություններ"
 
-#: app/views/home/index.rhtml:42
+#: app/views/home/index.rhtml:31
+#, fuzzy
+msgid "View more"
+msgstr "Նայել անհատական էջը"
+
+#: app/views/home/index.rhtml:43
 #, fuzzy
 msgid "Activate your enterprise"
 msgstr "Ակտիվացնել հաստատված ձեռնարկությունը"
 
-#: app/views/home/index.rhtml:43
+#: app/views/home/index.rhtml:44
 #, fuzzy
 msgid "Enterprise activation code"
 msgstr "Ձեռնարկության հաստատում"
 
-#: app/views/home/index.rhtml:44 app/views/enterprise_editor/index.rhtml:17
+#: app/views/home/index.rhtml:45 app/views/enterprise_editor/index.rhtml:17
 msgid "Activate"
 msgstr "Ակտիվացնել"
 

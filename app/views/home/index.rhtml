@@ -3,31 +3,43 @@
 <% end %>
 
 <% if @has_news %>
-  <h3><%= _('News') %></h3>
+  <h1><%= _('News') %></h1>
   <% cache @news_cache_key do %>
     <div id='highlighted-news'>
       <% @highlighted_news.each do |highlighted| %>
-        <p><%= link_to(highlighted.title, highlighted.url) %><br/>
-        <span class="post-date"><%= show_date(highlighted.published_at, true) %> </span></p>
-	<div class='headline'><%= highlighted.first_paragraph %></div>
-        <br style='clear:both' />
+        <div class='highlighted-news-item'>
+          <h2><%= link_to(highlighted.title, highlighted.url, :class => 'post-title') %></h2>
+          <span class="post-date"><%= show_date(highlighted.published_at, true) %> </span></p>
+          <p class='headline'><%= highlighted.first_paragraph %></p>
+          <br style='clear:both' />
+        </div>
       <% end%>
     </div>
 
+    <div class='sep'></div>
+
     <div id='portal-news'>
-      <% @portal_news.each do |news| %>
-        <p><span class="post-date"><%= show_date(news.published_at, true) %> </span><%= link_to(news.title, news.url) %></p>
-      <% end%>
+      <ul>
+        <% @portal_news.each do |news| %>
+          <li>
+          <span class="post-date"><%= show_date(news.published_at, true) %> </span>
+          <%= link_to(news.title, news.url, :class =>  'post-title' ) %>
+          </li>
+        <% end%>
+      </ul>
     </div>
+
+    <div class='sep'></div>
 
     <% @area_news.each_with_index do |folder, i| %>
       <% content_tag(:div, :class => ["news-area", ['even', 'odd'][i%2]].join(' ')) do %>
         <h3><%= link_to folder.title, folder.url %></h3>
           <ul>
-          <% folder.news(3).each do |news| %>
-            <li><span class='news-symbol'>&gt;</span> <%= link_to(news.title, news.url) %></li>
+          <% folder.news(4).each do |news| %>
+            <li> <%= link_to(news.title, news.url) %></li>
           <% end%>
           </ul>
+        <%= link_to _('View more'), folder.url, :class => 'news-see-more'  %>
       <%end %>
     <% end %>
   <% end %>
@@ -47,16 +59,20 @@
 
 <% end %>
 
-<div id='home-search' style='text-align: center'>
-  <% form_tag :controller => 'search', :action => 'index' do %>
+<% if environment.enabled?('search_in_home') %>
+  <div id='home-search' style='text-align: center'>
+    <% form_tag :controller => 'search', :action => 'index' do %>
 
-    <div id='search-field' style='text-align: center;'>
-      <%= text_field_tag('query', '', :size => 50) %>
-      <%= submit_button(:search, _('Search')) %>
-    </div>
+      <div id='search-field' style='text-align: center;'>
+        <%= text_field_tag('query', '', :size => 50) %>
+        <%= submit_button(:search, _('Search')) %>
+      </div>
 
-    <div>
-      <%= lightbox_link_to _('More options'), :controller => 'search', :action => 'popup' %>
-    </div>
-  <% end %>
-</div>
+      <div>
+        <%= lightbox_link_to _('More options'), :controller => 'search', :action => 'popup' %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<br style='clear: both'/>

@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.17.1\n"
+"Project-Id-Version: noosfero 0.18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-25 20:58-0300\n"
+"POT-Creation-Date: 2009-05-25 22:58-0300\n"
 "PO-Revision-Date: 2008-06-13 16:15-0300\n"
 "Last-Translator: Raphael Rousseau <pootle.colivre.coop.br@r4f.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -860,58 +860,58 @@ msgid_plural "%s members"
 msgstr[0] "Ôter le membre"
 msgstr[1] "Ôter le membre"
 
-#: app/helpers/application_helper.rb:508
+#: app/helpers/application_helper.rb:509
 #: app/views/content_viewer/view_page.rhtml:92
 #: app/views/categories/index.rhtml:1
 msgid "Categories"
 msgstr "Catégories"
 
-#: app/helpers/application_helper.rb:531
+#: app/helpers/application_helper.rb:532
 msgid "open"
 msgstr "ouvrir"
 
-#: app/helpers/application_helper.rb:570
+#: app/helpers/application_helper.rb:571
 #: app/views/layouts/application-ng.rhtml:70
 #: app/views/layouts/application-ng.rhtml:72
 #: app/views/layouts/application-ng.rhtml:75
 msgid "Search..."
 msgstr "Chercher..."
 
-#: app/helpers/application_helper.rb:572
+#: app/helpers/application_helper.rb:573
 msgid "This is a search box. Click, write your query, and press enter to find"
 msgstr ""
 "Ceci est une boîte de recherche. Cliquez, entrez votre requête et appuyez "
 "sur Entrée pour trouver."
 
-#: app/helpers/application_helper.rb:573
+#: app/helpers/application_helper.rb:574
 msgid "Click, write and press enter to find"
 msgstr "Cliquez, écrivez et appuyez sur Entrée pour trouver."
 
-#: app/helpers/application_helper.rb:579 app/models/link_list_block.rb:19
+#: app/helpers/application_helper.rb:580 app/models/link_list_block.rb:19
 #: app/views/search/_sellers_form.rhtml:21
 #: app/views/search/_search_form.rhtml:19 app/views/search/communities.rhtml:9
 #: app/views/search/articles.rhtml:10 app/views/search/people.rhtml:10
-#: app/views/home/index.rhtml:55 app/views/region_validators/region.rhtml:23
+#: app/views/home/index.rhtml:57 app/views/region_validators/region.rhtml:23
 msgid "Search"
 msgstr "Chercher"
 
-#: app/helpers/application_helper.rb:759
+#: app/helpers/application_helper.rb:760
 msgid "Searched for '%s'"
 msgstr "Recherche de «%s»"
 
-#: app/helpers/application_helper.rb:760
+#: app/helpers/application_helper.rb:761
 msgid "In category %s"
 msgstr "Dans la catégorie %s"
 
-#: app/helpers/application_helper.rb:761
+#: app/helpers/application_helper.rb:762
 msgid "within %d km from %s"
 msgstr "dans les %d km de %s"
 
-#: app/helpers/application_helper.rb:762
+#: app/helpers/application_helper.rb:763
 msgid "%d results found"
 msgstr "%d resultats trouvés"
 
-#: app/helpers/application_helper.rb:768
+#: app/helpers/application_helper.rb:769
 #, fuzzy
 msgid "In all categories"
 msgstr "Désactiver les catégories"
@@ -4420,7 +4420,7 @@ msgstr "Recherche dans :"
 msgid "Search for:"
 msgstr "Rechercher :"
 
-#: app/views/search/_search_form.rhtml:55 app/views/home/index.rhtml:59
+#: app/views/search/_search_form.rhtml:55 app/views/home/index.rhtml:61
 msgid "More options"
 msgstr "Plus d'options"
 
@@ -4633,17 +4633,22 @@ msgstr "Toutes les entreprises"
 msgid "News"
 msgstr "Nouveau %s"
 
-#: app/views/home/index.rhtml:42
+#: app/views/home/index.rhtml:31
+#, fuzzy
+msgid "View more"
+msgstr "Voir le profil"
+
+#: app/views/home/index.rhtml:43
 #, fuzzy
 msgid "Activate your enterprise"
 msgstr "Activer une entreprise approuvée"
 
-#: app/views/home/index.rhtml:43
+#: app/views/home/index.rhtml:44
 #, fuzzy
 msgid "Enterprise activation code"
 msgstr "Validation d'entreprises"
 
-#: app/views/home/index.rhtml:44 app/views/enterprise_editor/index.rhtml:17
+#: app/views/home/index.rhtml:45 app/views/enterprise_editor/index.rhtml:17
 msgid "Activate"
 msgstr "Activer"
 
