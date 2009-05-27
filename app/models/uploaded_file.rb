@@ -10,7 +10,7 @@ class UploadedFile < Article
   #  :min_size => 2.megabytes
   #  :max_size => 5.megabytes
   has_attachment :storage => :file_system,
-    :thumbnails => { :icon => [24,24], :thumb => '130x130>' },
+    :thumbnails => { :icon => [24,24], :thumb => '130x130>', :display => [640,480] },
     :thumbnail_class => Thumbnail,
     :max_size => 5.megabytes
 
@@ -50,7 +50,7 @@ class UploadedFile < Article
   include ActionView::Helpers::TagHelper
 
   def to_html(options = {})
-    tag('img', :src => public_filename, :class => css_class_name, :style => 'max-width: 100%') if image?
+    tag('img', :src => public_filename(:display), :class => css_class_name, :style => 'max-width: 100%') if image?
   end
 
   def allow_children?

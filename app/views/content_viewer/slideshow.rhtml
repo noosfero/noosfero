@@ -2,7 +2,7 @@
 <ul id='slideshow' >
   <% @images.each do |img| -%>
     <% if img.image? -%>
-      <li><%= image_tag(url_for(img.url), :title => (img.abstract.blank? ? img.name : img.abstract)) %></li>
+      <li><%= image_tag(url_for(img.public_filename(:display)), :title => (img.abstract.blank? ? img.name : img.abstract)) %></li>
     <% end -%>
   <% end unless @images.blank? -%>
 </ul>
