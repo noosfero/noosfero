@@ -13,7 +13,7 @@ protected
 
   def expire_caches(article)
     article.hierarchy.each {|a| expire_fragment(/#{a.cache_key}/) }
-    blocks = article.profile.blocks.select{|b|[RecentDocumentsBlock, BlogArchivesBlock].any?{|c| b.kind_of?(c)}}
+    blocks = (article.profile.blocks + article.profile.environment.blocks).select{|b|[RecentDocumentsBlock, BlogArchivesBlock].any?{|c| b.kind_of?(c)}}
     blocks.map(&:cache_keys).each{|ck|expire_timeout_fragment(ck)}
     env = article.profile.environment
     if env.portal_community == article.profile
