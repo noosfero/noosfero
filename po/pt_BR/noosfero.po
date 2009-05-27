@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.18.0\n"
 "POT-Creation-Date: 2009-05-27 19:35-0300\n"
-"PO-Revision-Date: 2009-05-27 19:40-0300\n"
+"PO-Revision-Date: 2009-05-27 19:56-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2482,7 +2482,7 @@ msgstr "Gerenciar associação em organização"
 
 #: app/models/profile.rb:31
 msgid "Post content"
-msgstr "Conteúdo da postagem"
+msgstr "Postar conteúdo"
 
 #: app/models/profile.rb:32
 msgid "Edit profile design"
