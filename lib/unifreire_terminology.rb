@@ -37,7 +37,7 @@ class UnifreireTerminology < Noosfero::Terminology::Custom
       'Disable Enterprise' => N_('Disable Institution'),
       'Enable Enterprise' => N_('Enable Institution'),
       'Enterprise Validation' => N_('Institution Validation'),
-      'Enterprise Info and settings' => N('Institution Info and settings'),
+      'Enterprise Info and settings' => N_('Institution Info and settings'),
     })
   end
 
