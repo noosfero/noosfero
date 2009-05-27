@@ -23,14 +23,71 @@ You need to have git installed, as well as:
 * contacts: http://github.com/cardmagic/contacts/tree/master
 * iso-codes: http://pkg-isocodes.alioth.debian.org/
 * feedparser: http://packages.debian.org/sid/libfeedparser-ruby
+* Mongrel: http://mongrel.rubyforge.org/
 * tango-icon-theme: http://tango.freedesktop.org/Tango_Icon_Library
 
-There are Debian packages available for all of them but ferret. Try:
+There are Debian packages available for all of them but contacts. Try:
 
- # aptitude install subversion ruby rake libgettext-ruby1.8 libsqlite3-ruby rcov librmagick-ruby libredcloth-ruby libwill-paginate-ruby iso-codes libfeedparser-ruby libferret-ruby tango-icon-theme
+ # aptitude install subversion ruby rake libgettext-ruby1.8 libsqlite3-ruby rcov librmagick-ruby libredcloth-ruby libwill-paginate-ruby iso-codes libfeedparser-ruby libferret-ruby mongrel mongrel-cluster tango-icon-theme
+
+To install contacts, you need to either use gem (gem install contacts), or you can just download the tarball from github or rubyforge and copy the contents of lib/ under noosfero's lib/ directory.
 
 If you have problems with the setup, use the development mailing list. In
 special its possible that the requirements list above is not complete.
+
+=== Setting up a production environment
+
+* copy config/ferret_server.yml.dist to config/ferret_server.yml.dist
+* configure the mongrel cluster: `mongrel_rails cluster::configure`
+** then edit config/mongrel_cluster.yml to suit your environment. Make sure your apache configuration matches the mongrel cluster configuration, specially in respect to the ports and numbers of mongrel instances.
+* create needed temporary directories:
+  mkdir tmp
+  mkdir tmp/pids
+  mkdir log
+* create database (example using PostgreSQL, YMMV)
+
+  root user
+  =========
+  # sudo apt-get install postgresql libpgsql-ruby
+  # su - postgres
+
+  postgres user
+  =============
+  postgres@HOST:~$ createuser noosfero
+  Shall the new role be a superuser? (y/n) n
+  Shall the new role be allowed to create databases? (y/n) y
+  Shall the new role be allowed to create more new roles? (y/n) n
+
+  noosfero_user
+  =============
+  createdb noosfero_production
+  createdb noosfero_development
+  createdb noosfero_test
+
+* configure database access in config/database.yml
+
+* test database access:
+** first create the development database
+   rake db:schema:load  
+** if everything goes right, then create the production database:
+   RAILS_ENV=production rake db:schema:load
+
+* create sample data:
+  RAILS_ENV=production rake db:populate
+
+* compile the translations:
+  rake makemo
+
+* start the server:
+  ./script/production start
+
+* to stop the server:
+
+  ./script/production stop
+
+* to restart the server:
+
+  ./script/production restart
 
 === Boostraping a test environment
 
