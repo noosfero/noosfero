@@ -1,12 +1,22 @@
-<%= link_to _('New role'), :action => 'new' %>
-<ul>
+<table>
+  <tr>
+    <th><%= _('Role') %></th>
+    <th><%= _('Ações') %></th>
+  </tr>
   <% @roles.each do |role| %>
-    <li> 
-      <%= link_to role.name, :action => 'show', :id => role %>
-      <%= link_to _('Edit'), :action => 'edit', :id => role %>
-      <%= link_to _('Destroy'), :action => 'destroy', :id => role %>
-    </li>
+    <tr>
+      <td>
+        <%= link_to role.name, :action => 'show', :id => role %>
+      </td>
+      <td>
+        <%= button_without_text :edit, _('Edit'), :action => 'edit', :id => role %>
+        <%= button_without_text :delete, _('Destroy'), :action => 'destroy', :id => role %>
+      </td>
+    </tr>
   <% end %>
-</ul>
+</table>
 
-<p> <%= link_to _('Back'), :controller => 'admin_panel' %> </p>
+<% button_bar do %>
+  <%= button :new, _('New role'), :action => 'new' %>
+  <%= button :back, _('Back'), :controller => 'admin_panel' %>
+<% end %>
