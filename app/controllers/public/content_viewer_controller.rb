@@ -22,7 +22,6 @@ class ContentViewerController < ApplicationController
       unless @page
         page_from_old_path = profile.articles.find_by_old_path(path)
         if page_from_old_path
-          flash[:notice] = _("Redirected from \"%s\". please update your links and bookmarks.") % request.url
           redirect_to :profile => profile.identifier, :page => page_from_old_path.explode_path
           return
         end
