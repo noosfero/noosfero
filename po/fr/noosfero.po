@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-27 12:25-0300\n"
+"POT-Creation-Date: 2009-05-27 19:35-0300\n"
 "PO-Revision-Date: 2008-06-13 16:15-0300\n"
 "Last-Translator: Raphael Rousseau <pootle.colivre.coop.br@r4f.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1277,17 +1277,13 @@ msgstr ""
 msgid "Unavailable!"
 msgstr ""
 
-#: app/controllers/public/content_viewer_controller.rb:25
-msgid "Redirected from \"%s\". please update your links and bookmarks."
-msgstr "Redirigé depuis «%s». Prière de mettre à jour vos liens et signets."
-
-#: app/controllers/public/content_viewer_controller.rb:52
+#: app/controllers/public/content_viewer_controller.rb:51
 msgid ""
 "You are not allowed to view this content. You can contact the owner of this "
 "profile to request access then."
 msgstr ""
 
-#: app/controllers/public/content_viewer_controller.rb:112
+#: app/controllers/public/content_viewer_controller.rb:111
 msgid "Comment succesfully deleted"
 msgstr "Le commentaire a bien été effacé"
 
@@ -1556,7 +1552,6 @@ msgstr "Ce bloc présente quelques statistiques sur votre environnement."
 #
 # -- it is correct! :) -- terceiro
 #: app/models/environment_statistics_block.rb:21
-#: public/designs/themes/zen3/footer.rhtml:14
 #, fuzzy
 msgid "One user"
 msgid_plural "%{num} users"
@@ -1747,6 +1742,11 @@ msgstr "Paramètres"
 #, fuzzy
 msgid "Position"
 msgstr "Position"
+
+#: app/models/block.rb:-
+#, fuzzy
+msgid "Last updated"
+msgstr "Dernière mise à jour"
 
 #: app/models/favorite_enterprises_block.rb:4
 #: app/views/profile_editor/index.rhtml:50
@@ -2486,13 +2486,13 @@ msgstr "Échec dans l'édition du rôle"
 
 #: app/models/external_feed.rb:-
 #, fuzzy
-msgid "Fetched at"
-msgstr "Créé le"
+msgid "Only once"
+msgstr "Uniquement dans %s"
 
 #: app/models/external_feed.rb:-
 #, fuzzy
-msgid "Only once"
-msgstr "Uniquement dans %s"
+msgid "Fetched at"
+msgstr "Créé le"
 
 #: app/models/localization_block.rb:4
 msgid "Localization map block"
@@ -2616,11 +2616,11 @@ msgstr ""
 msgid "Intranet"
 msgstr "Intranet"
 
-#: app/models/profile.rb:468
+#: app/models/profile.rb:469
 msgid "%s can't has members"
 msgstr "%s ne peut pas avoir de membres"
 
-#: app/models/profile.rb:485
+#: app/models/profile.rb:486
 msgid "%s can't has moderators"
 msgstr "%s ne peut pas avoir de modérateur"
 
@@ -5165,7 +5165,7 @@ msgstr "Région"
 
 #: app/views/profile_editor/index.rhtml:15
 #, fuzzy
-msgid "Enterprise Info Info and settings"
+msgid "Enterprise Info and settings"
 msgstr "Région"
 
 #: app/views/profile_editor/index.rhtml:17
@@ -6410,6 +6410,26 @@ msgstr "Institutions dans «%s»"
 msgid "Disable activation of institutions"
 msgstr "Désactiver la recherche d'institutions"
 
+#: lib/unifreire_terminology.rb:36
+#, fuzzy
+msgid "%s's favorite institutions"
+msgstr "Toutes les institutions préférées"
+
+#: lib/unifreire_terminology.rb:37
+#, fuzzy
+msgid "Disable Institution"
+msgstr "Désactiver la recherche d'institutions"
+
+#: lib/unifreire_terminology.rb:38
+#, fuzzy
+msgid "Enable Institution"
+msgstr "Une institution"
+
+#: lib/unifreire_terminology.rb:39
+#, fuzzy
+msgid "Institution Validation"
+msgstr "Institutions dans «%s»"
+
 #: lib/zen3_terminology.rb:9
 msgid "My ePortfolio"
 msgstr "Mon ePortfolio"
@@ -6705,9 +6725,31 @@ msgstr "Contact"
 msgid "{#} contacts"
 msgstr "%s contacts"
 
-#: public/designs/themes/zen3/footer.rhtml:2
-msgid "A Ynternet.org project"
-msgstr "Un projet d'Ynternet.org"
+#: lib/zen3_terminology.rb:77
+#, fuzzy
+msgid "%s's favorite organizations"
+msgstr "Toutes les organisations préférées"
+
+#: lib/zen3_terminology.rb:78
+#, fuzzy
+msgid "Disable Organization"
+msgstr "Organisation"
+
+#: lib/zen3_terminology.rb:79
+#, fuzzy
+msgid "Enable Organization"
+msgstr "Une organisation"
+
+#: lib/zen3_terminology.rb:80
+#, fuzzy
+msgid "Organization Validation"
+msgstr "info organisation"
+
+#~ msgid "Redirected from \"%s\". please update your links and bookmarks."
+#~ msgstr "Redirigé depuis «%s». Prière de mettre à jour vos liens et signets."
+
+#~ msgid "A Ynternet.org project"
+#~ msgstr "Un projet d'Ynternet.org"
 
 #, fuzzy
 #~ msgid "Enterprises:"

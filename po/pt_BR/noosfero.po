@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.18.0\n"
-"POT-Creation-Date: 2009-05-27 12:25-0300\n"
-"PO-Revision-Date: 2009-05-27 19:27-0300\n"
+"POT-Creation-Date: 2009-05-27 19:35-0300\n"
+"PO-Revision-Date: 2009-05-27 19:40-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1256,11 +1256,7 @@ msgstr "Disponível!"
 msgid "Unavailable!"
 msgstr "Não disponível!"
 
-#: app/controllers/public/content_viewer_controller.rb:25
-msgid "Redirected from \"%s\". please update your links and bookmarks."
-msgstr "Redirecionado de \"%s\". por favor atualize seus links e favoritos."
-
-#: app/controllers/public/content_viewer_controller.rb:52
+#: app/controllers/public/content_viewer_controller.rb:51
 msgid ""
 "You are not allowed to view this content. You can contact the owner of this "
 "profile to request access then."
@@ -1268,7 +1264,7 @@ msgstr ""
 "Você não tem permissão de visualizar este conteúdo. Você pode contactar o "
 "dono deste perfil e pedir acesso."
 
-#: app/controllers/public/content_viewer_controller.rb:112
+#: app/controllers/public/content_viewer_controller.rb:111
 msgid "Comment succesfully deleted"
 msgstr "Comentário removido com sucesso"
 
@@ -1521,7 +1517,6 @@ msgid "This block presents some statistics about your environment."
 msgstr "Este bloco apresenta suas estatísticas sobre seu ambiente."
 
 #: app/models/environment_statistics_block.rb:21
-#: public/designs/themes/zen3/footer.rhtml:14
 msgid "One user"
 msgid_plural "%{num} users"
 msgstr[0] "Um usuário"
@@ -1695,6 +1690,10 @@ msgstr "Configurações"
 #: app/models/block.rb:- app/models/box.rb:-
 msgid "Position"
 msgstr "Posição"
+
+#: app/models/block.rb:-
+msgid "Last updated"
+msgstr "Última atualização"
 
 #: app/models/favorite_enterprises_block.rb:4
 #: app/views/profile_editor/index.rhtml:50
@@ -2412,12 +2411,12 @@ msgid "Feed title"
 msgstr "Título do feed"
 
 #: app/models/external_feed.rb:-
-msgid "Fetched at"
-msgstr "Obtido em"
-
-#: app/models/external_feed.rb:-
 msgid "Only once"
 msgstr "Uma vez só"
+
+#: app/models/external_feed.rb:-
+msgid "Fetched at"
+msgstr "Obtido em"
 
 #: app/models/localization_block.rb:4
 msgid "Localization map block"
@@ -2537,11 +2536,11 @@ msgstr ""
 msgid "Intranet"
 msgstr "Intranet"
 
-#: app/models/profile.rb:468
+#: app/models/profile.rb:469
 msgid "%s can't has members"
 msgstr "%s não pode ter integrantes"
 
-#: app/models/profile.rb:485
+#: app/models/profile.rb:486
 msgid "%s can't has moderators"
 msgstr "%s não pode ter moderadores"
 
@@ -4996,7 +4995,7 @@ msgid "Community Info and settings"
 msgstr "Informações e Configurações da Comunidade"
 
 #: app/views/profile_editor/index.rhtml:15
-msgid "Enterprise Info Info and settings"
+msgid "Enterprise Info and settings"
 msgstr "Informações e Configurações do Empreendimento"
 
 #: app/views/profile_editor/index.rhtml:17
@@ -6198,6 +6197,22 @@ msgstr "Código de Ativação da Instituição"
 msgid "Disable activation of institutions"
 msgstr "Desabilitar ativação de instituições"
 
+#: lib/unifreire_terminology.rb:36
+msgid "%s's favorite institutions"
+msgstr "Instituições favoritas de %s"
+
+#: lib/unifreire_terminology.rb:37
+msgid "Disable Institution"
+msgstr "Desabilitar Instituição"
+
+#: lib/unifreire_terminology.rb:38
+msgid "Enable Institution"
+msgstr "Habilitar Instituição"
+
+#: lib/unifreire_terminology.rb:39
+msgid "Institution Validation"
+msgstr "Validação de Instituição"
+
 #: lib/zen3_terminology.rb:9
 msgid "My ePortfolio"
 msgstr "Meu ePortfolio"
@@ -6474,9 +6489,27 @@ msgstr "{#} contato"
 msgid "{#} contacts"
 msgstr "{#} contatos"
 
-#: public/designs/themes/zen3/footer.rhtml:2
-msgid "A Ynternet.org project"
-msgstr "Um projeto da Ynternet.org"
+#: lib/zen3_terminology.rb:77
+msgid "%s's favorite organizations"
+msgstr "Organizações favoritas de %s"
+
+#: lib/zen3_terminology.rb:78
+msgid "Disable Organization"
+msgstr "Desabilitar Organização"
+
+#: lib/zen3_terminology.rb:79
+msgid "Enable Organization"
+msgstr "Habilitar Organização"
+
+#: lib/zen3_terminology.rb:80
+msgid "Organization Validation"
+msgstr "Validação de Organização"
+
+#~ msgid "Redirected from \"%s\". please update your links and bookmarks."
+#~ msgstr "Redirecionado de \"%s\". por favor atualize seus links e favoritos."
+
+#~ msgid "A Ynternet.org project"
+#~ msgstr "Um projeto da Ynternet.org"
 
 #~ msgid "Gender:"
 #~ msgstr "Sexo:"

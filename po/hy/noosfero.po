@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.18.0\n"
-"POT-Creation-Date: 2009-05-27 12:25-0300\n"
+"POT-Creation-Date: 2009-05-27 19:35-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1253,17 +1253,13 @@ msgstr ""
 msgid "Unavailable!"
 msgstr ""
 
-#: app/controllers/public/content_viewer_controller.rb:25
-msgid "Redirected from \"%s\". please update your links and bookmarks."
-msgstr ""
-
-#: app/controllers/public/content_viewer_controller.rb:52
+#: app/controllers/public/content_viewer_controller.rb:51
 msgid ""
 "You are not allowed to view this content. You can contact the owner of this "
 "profile to request access then."
 msgstr ""
 
-#: app/controllers/public/content_viewer_controller.rb:112
+#: app/controllers/public/content_viewer_controller.rb:111
 msgid "Comment succesfully deleted"
 msgstr "Մեկնաբանությունը հաջողությամբ հեռացված է:"
 
@@ -1514,7 +1510,6 @@ msgid "This block presents some statistics about your environment."
 msgstr ""
 
 #: app/models/environment_statistics_block.rb:21
-#: public/designs/themes/zen3/footer.rhtml:14
 msgid "One user"
 msgid_plural "%{num} users"
 msgstr[0] "Մեկ օգտվող"
@@ -1687,6 +1682,11 @@ msgstr "Պարամետրեր"
 #: app/models/block.rb:- app/models/box.rb:-
 msgid "Position"
 msgstr "Դիրք"
+
+#: app/models/block.rb:-
+#, fuzzy
+msgid "Last updated"
+msgstr "Վերջինը թարմացվել է %s"
 
 #: app/models/favorite_enterprises_block.rb:4
 #: app/views/profile_editor/index.rhtml:50
@@ -2406,13 +2406,13 @@ msgid "Feed title"
 msgstr "Դերի փոփոխումը ձախողված է"
 
 #: app/models/external_feed.rb:-
+msgid "Only once"
+msgstr ""
+
+#: app/models/external_feed.rb:-
 #, fuzzy
 msgid "Fetched at"
 msgstr "Ստեղծված է"
-
-#: app/models/external_feed.rb:-
-msgid "Only once"
-msgstr ""
 
 #: app/models/localization_block.rb:4
 msgid "Localization map block"
@@ -2532,11 +2532,11 @@ msgstr ""
 msgid "Intranet"
 msgstr ""
 
-#: app/models/profile.rb:468
+#: app/models/profile.rb:469
 msgid "%s can't has members"
 msgstr "%s - ը անդամներ ունենալ չի կարող"
 
-#: app/models/profile.rb:485
+#: app/models/profile.rb:486
 msgid "%s can't has moderators"
 msgstr "մոդերատորներ ունենալ չի կարող"
 
@@ -4975,7 +4975,7 @@ msgstr ""
 
 #: app/views/profile_editor/index.rhtml:15
 #, fuzzy
-msgid "Enterprise Info Info and settings"
+msgid "Enterprise Info and settings"
 msgstr "Փոփոխել ձեռնարկության մասին տեղեկությունները"
 
 #: app/views/profile_editor/index.rhtml:17
@@ -6167,6 +6167,26 @@ msgstr ""
 msgid "Disable activation of institutions"
 msgstr "Դիզակտիվացնել կազմակերպությունների որոնումը"
 
+#: lib/unifreire_terminology.rb:36
+#, fuzzy
+msgid "%s's favorite institutions"
+msgstr "%s-ի նախընտրած ձեռնարկությունները"
+
+#: lib/unifreire_terminology.rb:37
+#, fuzzy
+msgid "Disable Institution"
+msgstr "Դիզակտիվացնել կազմակերպությունների որոնումը"
+
+#: lib/unifreire_terminology.rb:38
+#, fuzzy
+msgid "Enable Institution"
+msgstr "Փոփոխել Ձեր տեղեկությունները"
+
+#: lib/unifreire_terminology.rb:39
+#, fuzzy
+msgid "Institution Validation"
+msgstr "Ձեռնարկության հաստատում"
+
 #: lib/zen3_terminology.rb:9
 msgid "My ePortfolio"
 msgstr "Իմ Էլ. Պորտֆոլիոն"
@@ -6449,9 +6469,28 @@ msgstr ""
 msgid "{#} contacts"
 msgstr ""
 
-#: public/designs/themes/zen3/footer.rhtml:2
-msgid "A Ynternet.org project"
-msgstr "Ynternet.org - ի ծրագրերից մեկը"
+#: lib/zen3_terminology.rb:77
+#, fuzzy
+msgid "%s's favorite organizations"
+msgstr "Բոլոր նախընտրած կազմակերպությունները"
+
+#: lib/zen3_terminology.rb:78
+#, fuzzy
+msgid "Disable Organization"
+msgstr "Կազմակերպություն"
+
+#: lib/zen3_terminology.rb:79
+#, fuzzy
+msgid "Enable Organization"
+msgstr "Մեկ կազմակերպություն"
+
+#: lib/zen3_terminology.rb:80
+#, fuzzy
+msgid "Organization Validation"
+msgstr "Կազնակերպությունները «%s»:"
+
+#~ msgid "A Ynternet.org project"
+#~ msgstr "Ynternet.org - ի ծրագրերից մեկը"
 
 #, fuzzy
 #~ msgid "Enterprises:"

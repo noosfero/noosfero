@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.18.0\n"
-"POT-Creation-Date: 2009-05-27 12:25-0300\n"
+"POT-Creation-Date: 2009-05-27 19:35-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1239,17 +1239,13 @@ msgstr ""
 msgid "Unavailable!"
 msgstr ""
 
-#: app/controllers/public/content_viewer_controller.rb:25
-msgid "Redirected from \"%s\". please update your links and bookmarks."
-msgstr ""
-
-#: app/controllers/public/content_viewer_controller.rb:52
+#: app/controllers/public/content_viewer_controller.rb:51
 msgid ""
 "You are not allowed to view this content. You can contact the owner of this "
 "profile to request access then."
 msgstr ""
 
-#: app/controllers/public/content_viewer_controller.rb:112
+#: app/controllers/public/content_viewer_controller.rb:111
 msgid "Comment succesfully deleted"
 msgstr ""
 
@@ -1499,7 +1495,6 @@ msgid "This block presents some statistics about your environment."
 msgstr ""
 
 #: app/models/environment_statistics_block.rb:21
-#: public/designs/themes/zen3/footer.rhtml:14
 msgid "One user"
 msgid_plural "%{num} users"
 msgstr[0] ""
@@ -1668,6 +1663,10 @@ msgstr ""
 
 #: app/models/block.rb:- app/models/box.rb:-
 msgid "Position"
+msgstr ""
+
+#: app/models/block.rb:-
+msgid "Last updated"
 msgstr ""
 
 #: app/models/favorite_enterprises_block.rb:4
@@ -2360,11 +2359,11 @@ msgid "Feed title"
 msgstr ""
 
 #: app/models/external_feed.rb:-
-msgid "Fetched at"
+msgid "Only once"
 msgstr ""
 
 #: app/models/external_feed.rb:-
-msgid "Only once"
+msgid "Fetched at"
 msgstr ""
 
 #: app/models/localization_block.rb:4
@@ -2483,11 +2482,11 @@ msgstr ""
 msgid "Intranet"
 msgstr ""
 
-#: app/models/profile.rb:468
+#: app/models/profile.rb:469
 msgid "%s can't has members"
 msgstr ""
 
-#: app/models/profile.rb:485
+#: app/models/profile.rb:486
 msgid "%s can't has moderators"
 msgstr ""
 
@@ -4833,7 +4832,7 @@ msgid "Community Info and settings"
 msgstr ""
 
 #: app/views/profile_editor/index.rhtml:15
-msgid "Enterprise Info Info and settings"
+msgid "Enterprise Info and settings"
 msgstr ""
 
 #: app/views/profile_editor/index.rhtml:17
@@ -5981,6 +5980,22 @@ msgstr ""
 msgid "Disable activation of institutions"
 msgstr ""
 
+#: lib/unifreire_terminology.rb:36
+msgid "%s's favorite institutions"
+msgstr ""
+
+#: lib/unifreire_terminology.rb:37
+msgid "Disable Institution"
+msgstr ""
+
+#: lib/unifreire_terminology.rb:38
+msgid "Enable Institution"
+msgstr ""
+
+#: lib/unifreire_terminology.rb:39
+msgid "Institution Validation"
+msgstr ""
+
 #: lib/zen3_terminology.rb:9
 msgid "My ePortfolio"
 msgstr ""
@@ -6251,6 +6266,18 @@ msgstr ""
 msgid "{#} contacts"
 msgstr ""
 
-#: public/designs/themes/zen3/footer.rhtml:2
-msgid "A Ynternet.org project"
+#: lib/zen3_terminology.rb:77
+msgid "%s's favorite organizations"
+msgstr ""
+
+#: lib/zen3_terminology.rb:78
+msgid "Disable Organization"
+msgstr ""
+
+#: lib/zen3_terminology.rb:79
+msgid "Enable Organization"
+msgstr ""
+
+#: lib/zen3_terminology.rb:80
+msgid "Organization Validation"
 msgstr ""
