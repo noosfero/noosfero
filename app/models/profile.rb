@@ -437,6 +437,7 @@ class Profile < ActiveRecord::Base
   end
 
   def copy_article_tree(article, parent=nil)
+    return if article.is_a?(RssFeed)
     original_article = self.articles.find_by_name(article.name)
     if original_article
       num = 2
