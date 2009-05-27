@@ -12,7 +12,16 @@ class Enterprise < Organization
 
   settings_items :organization_website, :historic_and_current_context, :activities_short_description, :zip_code, :city, :state, :country
 
+  def business_name
+    self.nickname
+  end
+  def business_name=(value)
+    self.nickname = value
+  end
+  N_('Business name')
+
   FIELDS = %w[
+    business_name
     zip_code
     city
     state

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.18.0\n"
-"POT-Creation-Date: 2009-05-26 19:20-0300\n"
+"POT-Creation-Date: 2009-05-27 12:25-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1723,8 +1723,8 @@ msgstr ""
 msgid "family"
 msgstr ""
 
-#: app/models/person.rb:77 app/models/community.rb:22
-#: app/models/enterprise.rb:32
+#: app/models/person.rb:77 app/models/community.rb:23
+#: app/models/enterprise.rb:41
 msgid "%{fn} is mandatory"
 msgstr ""
 
@@ -1997,29 +1997,29 @@ msgstr ""
 msgid "articlecategorization"
 msgstr ""
 
-#: app/models/create_enterprise.rb:7 app/models/organization.rb:69
+#: app/models/create_enterprise.rb:7 app/models/organization.rb:68
 msgid "Contact person"
 msgstr ""
 
-#: app/models/create_enterprise.rb:8 app/models/organization.rb:69
+#: app/models/create_enterprise.rb:8 app/models/organization.rb:68
 #: app/views/enterprise_editor/_form.rhtml:13
 #: app/views/enterprise_validation/_details.rhtml:19
 msgid "Acronym"
 msgstr ""
 
-#: app/models/create_enterprise.rb:9 app/models/organization.rb:69
+#: app/models/create_enterprise.rb:9 app/models/organization.rb:68
 msgid "Foundation year"
 msgstr ""
 
-#: app/models/create_enterprise.rb:10 app/models/organization.rb:69
+#: app/models/create_enterprise.rb:10 app/models/organization.rb:68
 msgid "Legal form"
 msgstr ""
 
-#: app/models/create_enterprise.rb:11 app/models/organization.rb:69
+#: app/models/create_enterprise.rb:11 app/models/organization.rb:68
 msgid "Economic activity"
 msgstr ""
 
-#: app/models/create_enterprise.rb:12 app/models/organization.rb:69
+#: app/models/create_enterprise.rb:12 app/models/organization.rb:68
 #: app/views/enterprise_registration/basic_information.rhtml:27
 msgid "Management information"
 msgstr ""
@@ -2343,11 +2343,11 @@ msgstr ""
 msgid "profilecategorization"
 msgstr ""
 
-#: app/models/organization.rb:69 app/models/environment.rb:-
+#: app/models/organization.rb:68 app/models/environment.rb:-
 msgid "Contact email"
 msgstr ""
 
-#: app/models/organization.rb:69
+#: app/models/organization.rb:68
 msgid "Validated"
 msgstr ""
 
@@ -2539,6 +2539,10 @@ msgstr ""
 #: app/views/profile_editor/_enterprise_fields.rhtml:4
 #: app/views/profile_editor/_person_form.rhtml:23
 msgid "ZIP code"
+msgstr ""
+
+#: app/models/enterprise.rb:21
+msgid "Business name"
 msgstr ""
 
 #: app/models/environment.rb:-

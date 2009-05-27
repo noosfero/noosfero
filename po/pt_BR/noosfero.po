@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.18.0\n"
-"POT-Creation-Date: 2009-05-26 19:20-0300\n"
-"PO-Revision-Date: 2009-05-26 19:23-0300\n"
+"POT-Creation-Date: 2009-05-27 12:25-0300\n"
+"PO-Revision-Date: 2009-05-27 12:26-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1749,8 +1749,8 @@ msgstr "escola"
 msgid "family"
 msgstr "família"
 
-#: app/models/person.rb:77 app/models/community.rb:22
-#: app/models/enterprise.rb:32
+#: app/models/person.rb:77 app/models/community.rb:23
+#: app/models/enterprise.rb:41
 msgid "%{fn} is mandatory"
 msgstr "%{fn} é obrigatório"
 
@@ -2027,29 +2027,29 @@ msgstr "artigos categoria"
 msgid "articlecategorization"
 msgstr "categorizaçãoartigo"
 
-#: app/models/create_enterprise.rb:7 app/models/organization.rb:69
+#: app/models/create_enterprise.rb:7 app/models/organization.rb:68
 msgid "Contact person"
 msgstr "Pessoa de contato"
 
-#: app/models/create_enterprise.rb:8 app/models/organization.rb:69
+#: app/models/create_enterprise.rb:8 app/models/organization.rb:68
 #: app/views/enterprise_editor/_form.rhtml:13
 #: app/views/enterprise_validation/_details.rhtml:19
 msgid "Acronym"
 msgstr "Sigla"
 
-#: app/models/create_enterprise.rb:9 app/models/organization.rb:69
+#: app/models/create_enterprise.rb:9 app/models/organization.rb:68
 msgid "Foundation year"
 msgstr "Ano de fundação"
 
-#: app/models/create_enterprise.rb:10 app/models/organization.rb:69
+#: app/models/create_enterprise.rb:10 app/models/organization.rb:68
 msgid "Legal form"
 msgstr "Formulário Legal"
 
-#: app/models/create_enterprise.rb:11 app/models/organization.rb:69
+#: app/models/create_enterprise.rb:11 app/models/organization.rb:68
 msgid "Economic activity"
 msgstr "Atividade econômica"
 
-#: app/models/create_enterprise.rb:12 app/models/organization.rb:69
+#: app/models/create_enterprise.rb:12 app/models/organization.rb:68
 #: app/views/enterprise_registration/basic_information.rhtml:27
 msgid "Management information"
 msgstr "Gerenciamento de informação"
@@ -2395,11 +2395,11 @@ msgstr "categories perfil"
 msgid "profilecategorization"
 msgstr "categorizaçãoperfil"
 
-#: app/models/organization.rb:69 app/models/environment.rb:-
+#: app/models/organization.rb:68 app/models/environment.rb:-
 msgid "Contact email"
 msgstr "Email de contato"
 
-#: app/models/organization.rb:69
+#: app/models/organization.rb:68
 msgid "Validated"
 msgstr "Validado"
 
@@ -2594,6 +2594,10 @@ msgstr "Breve descrição das atividades"
 #: app/views/profile_editor/_person_form.rhtml:23
 msgid "ZIP code"
 msgstr "CEP"
+
+#: app/models/enterprise.rb:21
+msgid "Business name"
+msgstr "Nome fantasia"
 
 #: app/models/environment.rb:-
 msgid "environment"
@@ -5140,7 +5144,7 @@ msgstr "Informações gerais"
 
 #: app/views/profile_editor/_organization.rhtml:6
 msgid "Display name"
-msgstr "Nome de apresentação"
+msgstr "Nome fantasia"
 
 #: app/views/profile_editor/_organization.rhtml:9
 msgid "A short name by which the organization is know."

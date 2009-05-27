@@ -8,6 +8,7 @@ class Community < Organization
   xss_terminate :only => [ :name, :address, :contact_phone, :description ]
 
   FIELDS = %w[
+    nickname
     description
     language
   ]

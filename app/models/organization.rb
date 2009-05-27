@@ -44,7 +44,6 @@ class Organization < Profile
   end
 
   FIELDS = %w[
-    nickname
     contact_person
     contact_phone
     contact_email

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-26 19:20-0300\n"
+"POT-Creation-Date: 2009-05-27 12:25-0300\n"
 "PO-Revision-Date: 2008-06-13 16:15-0300\n"
 "Last-Translator: Raphael Rousseau <pootle.colivre.coop.br@r4f.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1801,8 +1801,8 @@ msgstr "école"
 msgid "family"
 msgstr "famille"
 
-#: app/models/person.rb:77 app/models/community.rb:22
-#: app/models/enterprise.rb:32
+#: app/models/person.rb:77 app/models/community.rb:23
+#: app/models/enterprise.rb:41
 msgid "%{fn} is mandatory"
 msgstr "%{fn} est obligatoire"
 
@@ -2088,30 +2088,30 @@ msgstr "catégorie d'articles"
 msgid "articlecategorization"
 msgstr "categorisationarticle"
 
-#: app/models/create_enterprise.rb:7 app/models/organization.rb:69
+#: app/models/create_enterprise.rb:7 app/models/organization.rb:68
 msgid "Contact person"
 msgstr "Personne de contact"
 
-#: app/models/create_enterprise.rb:8 app/models/organization.rb:69
+#: app/models/create_enterprise.rb:8 app/models/organization.rb:68
 #: app/views/enterprise_editor/_form.rhtml:13
 #: app/views/enterprise_validation/_details.rhtml:19
 msgid "Acronym"
 msgstr "Sigle"
 
-#: app/models/create_enterprise.rb:9 app/models/organization.rb:69
+#: app/models/create_enterprise.rb:9 app/models/organization.rb:68
 msgid "Foundation year"
 msgstr "Année de création"
 
-#: app/models/create_enterprise.rb:10 app/models/organization.rb:69
+#: app/models/create_enterprise.rb:10 app/models/organization.rb:68
 #, fuzzy
 msgid "Legal form"
 msgstr "Forme juridique"
 
-#: app/models/create_enterprise.rb:11 app/models/organization.rb:69
+#: app/models/create_enterprise.rb:11 app/models/organization.rb:68
 msgid "Economic activity"
 msgstr "Activité économique"
 
-#: app/models/create_enterprise.rb:12 app/models/organization.rb:69
+#: app/models/create_enterprise.rb:12 app/models/organization.rb:68
 #: app/views/enterprise_registration/basic_information.rhtml:27
 msgid "Management information"
 msgstr "Information sur les dirigeants"
@@ -2467,11 +2467,11 @@ msgstr "profil de catégories"
 msgid "profilecategorization"
 msgstr "categorisationdeprofils"
 
-#: app/models/organization.rb:69 app/models/environment.rb:-
+#: app/models/organization.rb:68 app/models/environment.rb:-
 msgid "Contact email"
 msgstr "Adresse électronique de contact"
 
-#: app/models/organization.rb:69
+#: app/models/organization.rb:68
 msgid "Validated"
 msgstr "Validé(e)"
 
@@ -2673,6 +2673,11 @@ msgstr "Description courte des activités"
 #: app/views/profile_editor/_person_form.rhtml:23
 msgid "ZIP code"
 msgstr "Code postal"
+
+#: app/models/enterprise.rb:21
+#, fuzzy
+msgid "Business name"
+msgstr "Nom de fichier"
 
 #: app/models/environment.rb:-
 msgid "environment"
