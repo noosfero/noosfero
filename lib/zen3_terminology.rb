@@ -74,6 +74,11 @@ class Zen3Terminology < Noosfero::Terminology::Custom
       '{#} enterprises' => N_('{#} organizations'),
       '{#} friend' => N_('{#} contact'),
       '{#} friends' => N_('{#} contacts'),
+      "%s's favorite enterprises" => N_("%s's favorite organizations"),
+      'Disable Enterprise' => N_('Disable Organization'),
+      'Enable Enterprise' => N_('Enable Organization'),
+      'Enterprise Validation' => N_('Organization Validation'),
+      'Enterprise Info and settings' => N('Organization Info and settings'),
     })
   end
 

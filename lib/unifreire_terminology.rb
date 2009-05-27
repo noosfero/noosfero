@@ -33,6 +33,11 @@ class UnifreireTerminology < Noosfero::Terminology::Custom
       'Activate your enterprise' => N_('Activate your institution'),
       'Enterprise activation code' => N_('Institution activation code'),
       'Disable activation of enterprises' => N_('Disable activation of institutions'),
+      "%s's favorite enterprises" => N_("%s's favorite institutions"),
+      'Disable Enterprise' => N_('Disable Institution'),
+      'Enable Enterprise' => N_('Enable Institution'),
+      'Enterprise Validation' => N_('Institution Validation'),
+      'Enterprise Info and settings' => N('Institution Info and settings'),
     })
   end
 
