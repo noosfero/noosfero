@@ -43,8 +43,8 @@ a.control-panel-blog-disabled {background-image: url(../images/control-panel/tex
 a.control-panel-blog {background-image: url(../images/control-panel/text-editor.png)}
 .msie6 a.control-panel-blog {background-image: url(../images/control-panel/text-editor.gif)}
 
-a.control-panel-change-password {background-image: url(../images/control-panel/login.png)}
-.msie6 a.control-panel-change-password {background-image: url(../images/control-panel/login.gif)}
+a.control-panel-change-password {background-image: url(../images/control-panel/password.png)}
+.msie6 a.control-panel-change-password {background-image: url(../images/control-panel/password.gif)}
 
 a.control-panel-cms {background-image: url(../images/control-panel/system-file-manager.png)}
 .msie6 a.control-panel-cms {background-image: url(../images/control-panel/system-file-manager.gif)}
@@ -84,3 +84,6 @@ a.control-panel-disable {background-image: url(../images/control-panel/stop.png)
 
 a.control-panel-validation {background-image: url(../images/control-panel/application-certificate.png)}
 .msie6 a.control-panel-validation {background-image: url(../images/control-panel/application-certificate.gif)}
+
+a.control-panel-mail {background-image: url(../images/control-panel/email.png)}
+.msie6 a.control-panel-mail {background-image: url(../images/control-panel/email.gif)}
