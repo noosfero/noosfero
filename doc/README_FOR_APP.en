@@ -30,7 +30,7 @@ There are Debian packages available for all of them but contacts. Try:
 
  # aptitude install subversion ruby rake libgettext-ruby1.8 libsqlite3-ruby rcov librmagick-ruby libredcloth-ruby libwill-paginate-ruby iso-codes libfeedparser-ruby libferret-ruby mongrel mongrel-cluster tango-icon-theme
 
-To install contacts, you need to either use gem (gem install contacts), or you can just download the tarball from github or rubyforge and copy the contents of lib/ under noosfero's lib/ directory.
+contacts is bundled together with noosfero for now, so you don't need to install it.
 
 If you have problems with the setup, use the development mailing list. In
 special its possible that the requirements list above is not complete.
