@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.18.0\n"
 "POT-Creation-Date: 2009-05-27 12:25-0300\n"
-"PO-Revision-Date: 2009-05-27 12:26-0300\n"
+"PO-Revision-Date: 2009-05-27 19:27-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -6172,7 +6172,7 @@ msgstr "Instituições em \"%s\""
 
 #: lib/unifreire_terminology.rb:29
 msgid "Register a new Institution"
-msgstr "Registrar nova Instituições"
+msgstr "Registrar nova Instituição"
 
 #: lib/unifreire_terminology.rb:30
 msgid "Schedule"
