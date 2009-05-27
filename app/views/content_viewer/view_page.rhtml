@@ -31,7 +31,7 @@
           :class => 'button with-text icon-edit' %>
       <% end %>
       <% if !(profile.kind_of?(Enterprise) && environment.enabled?('disable_cms')) %>
-        <% if @page != profile.home_page %>
+        <% if @page != profile.home_page && !@page.blog? %>
           <%= link_to content_tag( 'span', _('Delete') ),
             profile.admin_url.merge({ :controller => 'cms', :action => 'destroy', :id => @page }),
             :class => 'button with-text icon-delete' %>
