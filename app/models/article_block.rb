@@ -17,7 +17,7 @@ class ArticleBlock < Block
   end
   
   def article_id= value
-    self.settings[:article_id] = value
+    self.settings[:article_id] = value.to_i
   end
 
   def article(reload = false)
