@@ -1,6 +1,6 @@
 class Blog < Folder
 
-  has_many :posts, :class_name => 'Article', :foreign_key => 'parent_id', :source => :children, :conditions => [ 'type != ?', 'RssFeed' ], :order => 'published_at DESC'
+  has_many :posts, :class_name => 'Article', :foreign_key => 'parent_id', :source => :children, :conditions => [ 'type != ?', 'RssFeed' ], :order => 'published_at DESC, id DESC'
 
   attr_accessor :feed_attrs
   attr_accessor :filter
