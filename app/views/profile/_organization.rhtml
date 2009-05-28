@@ -3,13 +3,15 @@
 </tr>
 <%= display_field(_('Name:'), profile, :name) { |name| link_to name, profile.url  } %>
 <tr>
-  <td colspan='2'>
-    <%= link_to _('Members'), :controller => 'profile', :action => 'members' %>
+  <td></td>
+  <td>
+    <%= link_to _('Members') + " (%s)" % profile.members.count, :controller => 'profile', :action => 'members' %>
   </td>
 </tr>
 <% if profile.kind_of?(Enterprise) && !profile.environment.enabled?('disable_products_for_enterprises') %>
   <tr>
-    <td colspan='2'>
+    <td></td>
+    <td>
       <%= link_to _('Products/Services'), :controller => 'catalog', :action => 'index' %>
     </td>
   </tr>
