@@ -136,4 +136,13 @@ class BlogTest < ActiveSupport::TestCase
     assert post.save!
   end
 
+  should 'remove external feed when removing blog' do
+    p = create_user('testuser').person
+    blog = Blog.create!(:name => 'Blog test', :profile => p, :external_feed_builder => {:enabled => true, :address => "http://bli.org/feed"})
+    assert blog.external_feed
+    assert_difference ExternalFeed, :count, -1 do
+      blog.destroy
+    end
+  end
+
 end
