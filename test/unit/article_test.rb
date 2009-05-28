@@ -721,4 +721,24 @@ class ArticleTest < Test::Unit::TestCase
     assert !a.highlighted
   end
 
+  should 'get tagged with tag' do
+    a = Article.create!(:name => 'Published at', :profile => profile, :tag_list => 'bli')
+    t = a.tags[0]
+    as = Article.find_tagged_with(t)
+
+    assert_includes as, a
+  end
+
+  should 'not get tagged with tag from other environment' do
+    a1 = Article.create!(:name => 'Published at', :profile => profile, :tag_list => 'bli')
+    e = Environment.create!(:name => 'other env')
+    p = create_user('other_user', :environment => e).person
+    a2 = Article.create!(:name => 'Published at', :profile => p, :tag_list => 'bli')
+    t = a2.tags[0]
+    as = e.articles.find_tagged_with(t)
+
+    assert_includes as, a2
+    assert_not_includes as, a1
+  end
+
 end

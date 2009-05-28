@@ -227,7 +227,7 @@ class SearchController < PublicController
 
   def tag
     @tag = environment.tags.find_by_name(params[:tag])
-    @tagged = @tag.taggings.map(&:taggable)
+    @tagged = environment.articles.find_tagged_with(@tag)
   end
 
   #######################################################

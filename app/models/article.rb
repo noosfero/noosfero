@@ -276,6 +276,10 @@ class Article < ActiveRecord::Base
     $1
   end
 
+  def self.find_tagged_with(tag)
+    self.find(:all, :include => :taggings, :conditions => ['taggings.tag_id = ?', tag.id])
+  end
+
   private
 
   def sanitize_tag_list
