@@ -78,7 +78,7 @@ class Zen3Terminology < Noosfero::Terminology::Custom
       'Disable Enterprise' => N_('Disable Organization'),
       'Enable Enterprise' => N_('Enable Organization'),
       'Enterprise Validation' => N_('Organization Validation'),
-      'Enterprise Info and settings' => N('Organization Info and settings'),
+      'Enterprise Info and settings' => N_('Organization Info and settings'),
     })
   end
 
