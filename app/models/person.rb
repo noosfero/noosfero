@@ -229,6 +229,7 @@ class Person < Profile
   has_and_belongs_to_many :refused_communities, :class_name => 'Community', :join_table => 'refused_join_community'
 
   def ask_to_join?(community)
+    return false if !community.public_profile
     return false if memberships.include?(community)
     return false if AddMember.find(:first, :conditions => {:requestor_id => self.id, :target_id => community.id})
     !refused_communities.include?(community)

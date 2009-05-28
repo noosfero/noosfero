@@ -534,4 +534,10 @@ class PersonTest < Test::Unit::TestCase
     assert !p.ask_to_join?(c)
   end
 
+  should 'not ask to join if community is not public' do
+    p = create_user('test_user').person
+    c = Community.create!(:name => 'Test community', :identifier => 'test_community', :public_profile => false)
+
+    assert !p.ask_to_join?(c)
+  end
 end
