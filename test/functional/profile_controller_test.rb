@@ -135,7 +135,7 @@ class ProfileControllerTest < Test::Unit::TestCase
   should 'show friends link to person' do
     person = create_user('person_1').person
     get :index, :profile => person.identifier
-    assert_tag :tag => 'a', :content => 'Friends', :attributes => { :href => /profile\/#{person.identifier}\/friends$/ }
+    assert_tag :tag => 'a', :content => /Friends/, :attributes => { :href => /profile\/#{person.identifier}\/friends$/ }
   end
 
   should 'not show homepage and feed automatically created on recent content' do
@@ -336,7 +336,7 @@ class ProfileControllerTest < Test::Unit::TestCase
     login_as 'tusr1'
 
     get :index, :profile => 'tusr2'
-    assert_tag :content => /t2@t2.com/
+    assert_tag :content => /t2.*t2.com/
   end
 
   should 'not show e-mail for non friends on profile page' do
