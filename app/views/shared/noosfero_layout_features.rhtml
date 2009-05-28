@@ -1,3 +1,14 @@
+    <% unless flash[:notice].nil? %>
+      <div id="notice" onclick="Element.hide('notice');" style="display:none">
+        <%= flash[:notice] %>
+        <%= javascript_tag(
+          visual_effect( :appear,    'notice', :duration => 0.5, :queue => :end ) +
+          visual_effect( :highlight, 'notice', :duration => 3, :queue => :end ) +
+          visual_effect( :fade,      'notice', :duration => 1.5, :queue => :end )
+        ) %>
+      </div>
+    <% end %>
+
     <% if is_testing_theme %>
       <%= render :file => 'shared/theme_test_panel' %>
     <% end %>

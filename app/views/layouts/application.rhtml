@@ -63,17 +63,6 @@
       registerDocumentSize();
     </script>
 
-    <% unless flash[:notice].nil? %>
-      <div id="notice" onclick="Element.hide('notice');" style="display:none">
-        <%= flash[:notice] %>
-        <%= javascript_tag(
-          visual_effect( :appear,    'notice', :duration => 2, :queue => :end ) +
-          visual_effect( :highlight, 'notice', :duration => 3, :queue => :end ) +
-          visual_effect( :fade,      'notice', :duration => 2, :queue => :end )
-        ) %>
-      </div>
-    <% end %>
-
     <div id="accessibility_menu">
       <a href="#content" id="link_go_content"><span><%= _('Go to content') %></span></a>
     </div><!-- accessibility_menu -->
