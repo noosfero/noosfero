@@ -6,13 +6,9 @@ require File.dirname(__FILE__) + '/../config/environment'
     begin
       handler = FeedHandler.new
       handler.process(container)
-      RAILS_DEFAULT_LOGGER.info("%s ID %d fetched at %s" % [container.class.name, container.id, container.fetched_at])
-    rescue FeedHandler::ParseError => ex
-      RAILS_DEFAULT_LOGGER.warn("Error parsing content from %s ID %d\n%s" % [container.class.name, container.id, ex.to_s])
-    rescue FeedHandler::FetchError => ex
-      RAILS_DEFAULT_LOGGER.warn("Error fetching content from %s ID %d\n%s" % [container.class.name, container.id, ex.to_s])
     rescue Exception => ex
-      RAILS_DEFAULT_LOGGER.warn("Unknown error from %s ID %d\n%s" % [container.class.name, container.id, ex.to_s])
+      $stderr.puts("Unknown error from %s ID %d\n%s" % [container.class.name, container.id, ex.to_s])
+      $stderr.puts("Backtrace:\n%s" % ex.backtrace.join("\n"))
     end
   end
 end
