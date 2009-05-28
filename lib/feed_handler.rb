@@ -29,7 +29,7 @@ class FeedHandler
       container.fetched_at = Time.now
       parsed_feed = parse(content)
       container.feed_title = parsed_feed.title
-      parsed_feed.items[0..container.limit-1].each do |item|
+      parsed_feed.items[0..container.limit-1].reverse.each do |item|
         container.add_item(item.title, item.link, item.date, item.content)
       end
       container.finish_fetch

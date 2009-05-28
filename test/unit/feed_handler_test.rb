@@ -26,7 +26,7 @@ class FeedHandlerTest < Test::Unit::TestCase
   should 'process feed and populate container' do
     handler.process(container)
     assert_equal 'Feed for unit tests', container.feed_title
-    assert_equal ["Last POST", "Second POST", "First POST"], container.feed_items.map {|item| item[:title]}
+    assert_equal ["First POST", "Second POST", "Last POST"], container.feed_items.map {|item| item[:title]}
   end
 
   should 'raise exception when parser nil' do
