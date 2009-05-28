@@ -40,8 +40,8 @@ class BlogHelperTest < Test::Unit::TestCase
     blog.children << published_post = TextileArticle.create!(:name => 'Second post', :profile => profile, :parent => blog, :published => true)
 
     expects(:display_post).with(anything).returns('POST')
-    expects(:content_tag).with('div', 'POST', :class => 'blog-post position-2 last', :id => "post-#{published_post.id}").returns('RESULT')
-    expects(:content_tag).with('div', 'POST', :class => 'blog-post position-1 first', :id => "post-#{unpublished_post.id}").never
+    expects(:content_tag).with('div', 'POST', has_entries(:id => "post-#{published_post.id}")).returns('RESULT')
+    expects(:content_tag).with('div', 'POST', has_entries(:id => "post-#{unpublished_post.id}")).never
 
     assert_equal 'RESULT', list_posts(nil, blog.posts)
   end
