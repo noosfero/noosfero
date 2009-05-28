@@ -118,6 +118,20 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'a', :attributes => { :href => '/testuser/test?remove_comment=' + comment.id.to_s }
   end
 
+  should 'display remove comment button with param view when image' do
+    profile = create_user('testuser').person
+
+    image = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    image.save!
+
+    comment = image.comments.build(:author => profile, :title => 'a comment', :body => 'lalala')
+    comment.save!
+
+    login_as 'testuser'
+    get :view_page, :profile => 'testuser', :page => [ image.filename ], :view => true
+    assert_tag :tag => 'a', :attributes => { :href => "/testuser/#{image.filename}?remove_comment=" + comment.id.to_s + '&amp;view=true'}
+  end
+
   should 'not add unneeded params for remove comment button' do
     profile = create_user('testuser').person
     article = profile.articles.build(:name => 'test')
@@ -174,6 +188,25 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_difference Comment, :count, -1 do
       post :view_page, :profile => profile.identifier, :page => [ 'test' ], :remove_comment => comment.id
       assert_response :redirect
+    end
+  end
+
+  should 'be able to remove comments of their images' do
+    profile = create_user('testuser').person
+
+    image = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    image.save!
+
+    commenter = create_user('otheruser').person
+    comment = image.comments.build(:author => commenter, :title => 'a comment', :body => 'lalala')
+    comment.save!
+
+    login_as 'testuser' # testuser must be able to remove comments in his articles
+    assert_difference Comment, :count, -1 do
+      post :view_page, :profile => profile.identifier, :page => [ image.filename ], :remove_comment => comment.id, :view => true
+
+      assert_response :redirect
+      assert_redirected_to :profile => profile.identifier, :page => image.explode_path, :view => true
     end
   end
 

@@ -110,7 +110,7 @@ class ContentViewerController < ApplicationController
       @comment.destroy
       flash[:notice] = _('Comment succesfully deleted')
     end
-    redirect_to :action => 'view_page', :profile => params[:profile], :page => @page.explode_path
+    redirect_to :action => 'view_page', :profile => params[:profile], :page => @page.explode_path, :view => params[:view]
   end
 
 end
