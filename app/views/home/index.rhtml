@@ -6,8 +6,8 @@
   <h1><%= _('News') %></h1>
   <% cache @news_cache_key do %>
     <div id='highlighted-news'>
-      <% @highlighted_news.each do |highlighted| %>
-        <div class='highlighted-news-item'>
+      <% @highlighted_news.each_with_index do |highlighted, index| %>
+        <div class='highlighted-news-item post-<%= index + 1 %>'>
           <h2><%= link_to(highlighted.title, highlighted.url, :class => 'post-title') %></h2>
           <span class="post-date"><%= show_date(highlighted.published_at, true) %> </span></p>
           <p class='headline'><%= highlighted.first_paragraph %></p>
