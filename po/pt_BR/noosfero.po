@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.18.0\n"
 "POT-Creation-Date: 2009-05-27 19:35-0300\n"
-"PO-Revision-Date: 2009-05-27 19:56-0300\n"
+"PO-Revision-Date: 2009-05-28 17:55-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -5655,7 +5655,7 @@ msgstr "Mostrar no registro?"
 
 #: app/views/features/index.rhtml:1
 msgid "System features"
-msgstr "Funcionalidade do sistema"
+msgstr "Funcionalidades do sistema"
 
 #: app/views/features/index.rhtml:3
 msgid "Enable/Disable features"
