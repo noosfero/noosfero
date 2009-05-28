@@ -26,7 +26,7 @@
   <%= display_field(_('Organization website:'), profile, :organization_website) { |url| link_to(url, url) }%>
 
 
-  <% if !profile.enterprises.empty? %>
+  <% if !environment.enabled?('disable_asset_enterprises') && !profile.enterprises.empty? %>
     <tr>
       <th colspan='2'><%= __('Enterprises') %></th>
     </tr>
