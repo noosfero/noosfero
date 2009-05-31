@@ -18,7 +18,6 @@ class AccountController < ApplicationController
     return unless request.post?
     self.current_user = User.authenticate(params[:user][:login], params[:user][:password]) if params[:user]
     if logged_in?
-      self.current_user.person.update_attribute(:last_lang, cookies[:lang])
       if params[:remember_me] == "1"
         self.current_user.remember_me
         cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
@@ -95,7 +94,6 @@ class AccountController < ApplicationController
   # action to perform logout from the application
   def logout
     if logged_in?
-      self.current_user.person.update_attribute(:last_lang, cookies[:lang])
       self.current_user.forget_me
     end
     cookies.delete :auth_token

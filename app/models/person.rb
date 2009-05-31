@@ -12,15 +12,6 @@ class Person < Profile
     Friendship.find(:all, :conditions => { :friend_id => person.id}).each { |friendship| friendship.destroy }
   end
 
-  settings_items :last_lang, :type => :string
-  def last_lang
-    if self.data[:last_lang].nil? or self.data[:last_lang].empty?
-      Noosfero.default_locale
-    else
-      self.data[:last_lang]
-    end
-  end
-
   def suggested_friend_groups
     (friend_groups.compact + [ _('friends'), _('work'), _('school'), _('family') ]).map {|i| i if !i.empty?}.compact.uniq
   end

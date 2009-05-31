@@ -44,13 +44,10 @@ class PersonTest < Test::Unit::TestCase
     assert p.community_memberships.include?(c), "Community should add a new member"
   end
 
-  should 'can have user' do
+  should 'be associated with a user' do
     u = User.new(:login => 'john', :email => 'john@doe.org', :password => 'dhoe', :password_confirmation => 'dhoe')
-    p = Person.new(person_data.merge(:name => 'John', :identifier => 'john'))
-    u.person = p
-    assert u.save
-    assert_kind_of User, p.user
-    assert_equal 'John', u.person.name
+    u.save!
+    assert_equal u, Person['john'].user
   end
 
   should 'only one person per user' do
@@ -412,17 +409,6 @@ class PersonTest < Test::Unit::TestCase
     c.add_admin(p)
 
     assert_equal p.pending_tasks_for_organization(c), c.tasks
-  end
-
-  should 'has default locale as last lang' do
-    p = create_user('user_lang_test').person
-    assert_equal Noosfero.default_locale, p.last_lang
-  end
-
-  should 'be able to change last lang' do
-    p = create_user('user_lang_test').person
-    assert p.update_attribute(:last_lang, 'pt_BR')
-    assert_equal 'pt_BR', Person['user_lang_test'].last_lang
   end
 
   should 'return active_person_fields' do
