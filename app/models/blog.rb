@@ -45,11 +45,14 @@ class Blog < Folder
   end
 
   def feed=(attrs)
-    if self.feed
-      self.feed.update_attributes(attrs)
-    else
-      self.feed_attrs = attrs
+    if attrs
+      if self.feed
+        self.feed.update_attributes(attrs)
+      else
+        self.feed_attrs = attrs
+      end
     end
+    self.feed
   end
 
   def posts_list(npage)
