@@ -22,9 +22,9 @@ class SearchController < PublicController
 
   def prepare_filter
     if @category
-      @finder = CategoryFinder.new(@category)
+      @noosfero_finder = CategoryFinder.new(@category)
     else
-      @finder = EnvironmentFinder.new(@environment)
+      @noosfero_finder = EnvironmentFinder.new(@environment)
     end
   end
 
@@ -93,7 +93,7 @@ class SearchController < PublicController
     # REFACTOR DUPLICATED CODE inner loop doing the same thing that outter loop
 
     if !@query.blank? || @region && !params[:radius].blank?
-      @result_ids = @finder.find(asset, @filtered_query, calculate_find_options(asset, nil, params[:page], @product_category, @region, params[:radius], params[:year], params[:month]).merge({:limit => :all}))
+      @result_ids = @noosfero_finder.find(asset, @filtered_query, calculate_find_options(asset, nil, params[:page], @product_category, @region, params[:radius], params[:year], params[:month]).merge({:limit => :all}))
     end
 
   end
@@ -168,7 +168,7 @@ class SearchController < PublicController
 
     where_to_search.select { |key,description| @searching[key]  }.each do |key, description|
       @order << key
-      @results[key] = @finder.find(key, @filtered_query, calculate_find_options(key, limit, params[:page], @product_category, @region, params[:radius], params[:year], params[:month]))
+      @results[key] = @noosfero_finder.find(key, @filtered_query, calculate_find_options(key, limit, params[:page], @product_category, @region, params[:radius], params[:year], params[:month]))
       @names[key] = getterm(description)
     end
 
@@ -203,13 +203,13 @@ class SearchController < PublicController
     @order = []
     @names = {}
     [
-      [ :people, _('People'), @finder.recent('people', limit) ],
-      [ :enterprises, __('Enterprises'), @finder.recent('enterprises', limit) ],
-      [ :products, _('Products'), @finder.recent('products', limit) ],
-      [ :events, _('Upcoming events'), @finder.upcoming_events({:per_page => limit}) ],
-      [ :communities, __('Communities'), @finder.recent('communities', limit) ],
-      [ :most_commented_articles, _('Most commented articles'), @finder.most_commented_articles(limit) ],
-      [ :articles, _('Articles'), @finder.recent('text_articles', limit) ]
+      [ :people, _('People'), @noosfero_finder.recent('people', limit) ],
+      [ :enterprises, __('Enterprises'), @noosfero_finder.recent('enterprises', limit) ],
+      [ :products, _('Products'), @noosfero_finder.recent('products', limit) ],
+      [ :events, _('Upcoming events'), @noosfero_finder.upcoming_events({:per_page => limit}) ],
+      [ :communities, __('Communities'), @noosfero_finder.recent('communities', limit) ],
+      [ :most_commented_articles, _('Most commented articles'), @noosfero_finder.most_commented_articles(limit) ],
+      [ :articles, _('Articles'), @noosfero_finder.recent('text_articles', limit) ]
     ].each do |key, name, list|
       @order << key
       @results[key] = list

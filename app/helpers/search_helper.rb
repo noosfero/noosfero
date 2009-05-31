@@ -105,7 +105,7 @@ module SearchHelper
     cats += cats.select { |c| c.children_count > 0 }.map(&:children).flatten
     product_categories_ids = cats.map(&:id)
 
-    counts = @finder.product_categories_count(asset, product_categories_ids, object_ids)
+    counts = @noosfero_finder.product_categories_count(asset, product_categories_ids, object_ids)
 
     product_categories_menu = ProductCategory.menu_categories(product_category, environment).map do |cat|
       hits = counts[cat.id]
