@@ -330,9 +330,9 @@ module ApplicationHelper
   end
 
   def theme_include(template)
-    file = ('../../public' + theme_path + '/' + template + '.rhtml')
-    if File.exists?(RAILS_ROOT + '/app/views/' + file)
-      render :file => file
+    file = (RAILS_ROOT + '/public' + theme_path + '/' + template  + '.rhtml')
+    if File.exists?(file)
+      render :file => file, :use_full_path => false
     end
   end
 

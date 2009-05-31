@@ -11,6 +11,7 @@ RAILS_GEM_VERSION = '2.0.2' unless defined? RAILS_GEM_VERSION
 require File.join(File.dirname(__FILE__), 'boot')
 
 # locally-developed modules
+require 'locale'
 require 'gettext/rails'
 require 'acts_as_filesystem'
 require 'acts_as_having_settings'

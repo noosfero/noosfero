@@ -66,9 +66,10 @@ class ApplicationController < ActionController::Base
 
   before_init_gettext :maybe_save_locale
   after_init_gettext :check_locale
-  if Noosfero.available_locales.size == 1
-    GetText.locale = Noosfero.available_locales.first
-  end
+  #if Noosfero.available_locales.size == 1
+    #GetText.locale = Noosfero.available_locales.first
+  #end
+  include GetText
   init_gettext 'noosfero'
 
   include NeedsProfile
@@ -83,12 +84,6 @@ class ApplicationController < ActionController::Base
   def self.post_only(actions, redirect = { :action => 'index'})
     verify :method => :post, :only => actions, :redirect_to => redirect
   end
-
-  # Fix some problems with Single Table Inheritance
-  require_dependency 'textile_article'
-  require_dependency 'tiny_mce_article'
-  require_dependency 'text_article'
-  require_dependency 'article'
 
   protected
 
