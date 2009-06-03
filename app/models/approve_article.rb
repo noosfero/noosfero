@@ -51,8 +51,16 @@ class ApproveArticle < Task
     article_parent_id = value.id
   end
 
+  def highlighted= value
+    data[:highlighted] = value
+  end
+
+  def highlighted
+    data[:highlighted]
+  end
+
   def perform
-    PublishedArticle.create(:name => name, :profile => target, :reference_article => article, :parent => article_parent)
+    PublishedArticle.create(:name => name, :profile => target, :reference_article => article, :parent => article_parent, :highlighted => highlighted)
   end
 
   def target_notification_message

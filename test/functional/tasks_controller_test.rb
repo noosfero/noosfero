@@ -177,4 +177,18 @@ class TasksControllerTest < Test::Unit::TestCase
     post :close, :decision => 'finish', :id => t.id, :task => { :name => 'new_name', :article_parent_id => folder.id}
     assert_equal folder, PublishedArticle.find(:first).parent
   end
+
+  should 'be highlighted if asked when approving a published article' do
+    PublishedArticle.destroy_all
+    c = Community.create!(:name => 'test comm', :moderated_articles => false)
+    @controller.stubs(:profile).returns(c)
+    folder = c.articles.create!(:name => 'test folder', :type => 'Folder')
+    c.affiliate(profile, Profile::Roles.all_roles)
+    article = profile.articles.create!(:name => 'something interesting', :body => 'ruby on rails')
+    t = ApproveArticle.create!(:name => 'test name', :article => article, :target => c, :requestor => profile)
+
+    post :close, :decision => 'finish', :id => t.id, :task => { :name => 'new_name', :article_parent_id => folder.id, :highlighted => true}
+    assert_equal true, PublishedArticle.find(:first).highlighted
+  end
+
 end
