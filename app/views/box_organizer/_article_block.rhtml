@@ -1,1 +1,2 @@
-<%= select('block', 'article_id', @block.box.owner.articles.map {|item| [ item.path, item.id]}) %>
+<% articles = @block.box.owner.articles.select {|article| !article.folder? } %>
+<%= select('block', 'article_id', articles.map {|item| [ item.path, item.id]}) %>
