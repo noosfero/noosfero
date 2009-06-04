@@ -20,6 +20,8 @@ class Article < ActiveRecord::Base
 
   settings_items :display_hits, :type => :boolean, :default => true
 
+  belongs_to :reference_article, :class_name => "Article", :foreign_key => 'reference_article_id'
+
   before_create do |article|
     article.published_at = article.created_at if article.published_at.nil?
   end

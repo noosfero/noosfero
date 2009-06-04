@@ -1,6 +1,4 @@
 class PublishedArticle < Article
-  belongs_to :reference_article, :class_name => "Article"
-
   before_create do |article|
     parent = article.reference_article.parent
     if parent && parent.blog? && article.profile.has_blog?

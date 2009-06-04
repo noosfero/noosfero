@@ -136,4 +136,14 @@ class FolderTest < ActiveSupport::TestCase
 
     assert_equal [highlighted_t].map(&:slug), folder.news(2, true).map(&:slug)
   end
+
+  should 'return published images as images' do
+    p = create_user('test_user').person
+    i = UploadedFile.create!(:profile => p, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    c = Community.create!(:name => 'test_com')
+    folder = Folder.create!(:name => 'folder', :profile => c)
+    pi = PublishedArticle.create!(:profile => c, :reference_article => i, :parent => folder)
+
+    assert_includes folder.images, pi
+  end
 end

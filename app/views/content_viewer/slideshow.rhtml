@@ -1,6 +1,7 @@
 <p class='back-button' ><%= button('', _('Back to gallery'), @page.url)%></p>
 <ul id='slideshow' >
   <% @images.each do |img| -%>
+    <% img = img.reference_article if img.kind_of?(PublishedArticle) -%>
     <% if img.image? -%>
       <li><%= image_tag(url_for(img.public_filename(:display)), :title => (img.abstract.blank? ? img.name : img.abstract)) %></li>
     <% end -%>

@@ -1,0 +1,7 @@
+<% article = published_article.reference_article %>
+<% if article.image? %>
+  <div> <%= link_to image_tag(article.public_filename(:thumb)), article.view_url %> </div>
+<% else %>
+  <%= render :partial => 'article', :object => article %>
+<% end %>
+

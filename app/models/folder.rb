@@ -71,7 +71,8 @@ class Folder < Article
 
   has_many :images, :class_name => 'Article',
                     :foreign_key => 'parent_id',
-                    :order => 'type, name',
-                    :conditions => ['type = ? and content_type in (?) or type = ?', 'UploadedFile', UploadedFile.content_types, 'Folder']
+                    :order => 'articles.type, articles.name',
+                    :include => :reference_article,
+                    :conditions => ["articles.type = 'UploadedFile' and articles.content_type in (?) or articles.type = 'Folder' or (articles.type = 'PublishedArticle' and reference_articles_articles.type = 'UploadedFile' and reference_articles_articles.content_type in (?))", UploadedFile.content_types, UploadedFile.content_types]
 
 end
