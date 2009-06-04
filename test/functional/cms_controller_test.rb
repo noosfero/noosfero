@@ -1095,4 +1095,20 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_template nil
     assert_redirected_to :action => 'media_listing'
   end
+
+  should "display 'Publish' when profile is a person" do
+    a = profile.articles.create!(:name => 'my new home page')
+    Article.stubs(:short_description).returns('bli')
+    get :index, :profile => profile.identifier
+    assert_tag :tag => 'a', :attributes => {:href => "/myprofile/#{profile.identifier}/cms/publish/#{a.id}"}
+  end
+
+  should "not display 'Publish' when profile is not a person" do
+    p = Community.create!(:name => 'community-test')
+    p.add_admin(profile)
+    a = p.articles.create!(:name => 'my new home page')
+    Article.stubs(:short_description).returns('bli')
+    get :index, :profile => p.identifier
+    assert_no_tag :tag => 'a', :attributes => {:href => "/myprofile/#{p.identifier}/cms/publish/#{a.id}"}
+  end
 end
