@@ -555,4 +555,12 @@ class PersonTest < Test::Unit::TestCase
     assert_equal 'http://website.with.http', p.organization_website
   end
 
+  should 'not add a friend if already is a friend' do
+    p1 = create_user('testuser1').person
+    p2 = create_user('testuser2').person
+    assert p1.add_friend(p2)
+    assert Profile['testuser1'].is_a_friend?(p2)
+    assert !Profile['testuser1'].add_friend(p2)
+  end
+
 end

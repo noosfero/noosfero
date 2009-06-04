@@ -30,7 +30,9 @@ class Person < Profile
   end
 
   def add_friend(friend, group = nil)
-    self.friendships.build(:friend => friend, :group => group).save!
+   unless self.is_a_friend?(friend)
+      self.friendships.build(:friend => friend, :group => group).save!
+   end
   end
 
   def already_request_friendship?(person)
