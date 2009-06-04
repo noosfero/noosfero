@@ -1,5 +1,7 @@
 <div class="vcard">
 
+<p><%= block.title %></p>
+
 <div class="profile-big-image">
   <div class="profile-big-image-inner1">
     <span class="profile-big-image-inner2">
@@ -11,7 +13,7 @@
 </div>
 
 <% if show_name %>
-  <p><%= block.owner.name %></p>
+  <p><%= block.owner.short_name %></p>
 <% end %>
 
 <% if !user.nil? and user.has_permission?('edit_profile', profile) %>

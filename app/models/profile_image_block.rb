@@ -10,10 +10,6 @@ class ProfileImageBlock < Block
     _('This block presents the profile image.')
   end
 
-  def default_title
-    owner.name
-  end
-
   def content
     block = self
     s = show_name

@@ -13,8 +13,7 @@ class ProfileImageBlockTest < Test::Unit::TestCase
     instance_eval(& block.content)
   end
 
-  should 'not be editable' do
+  should 'be editable' do
     assert ProfileImageBlock.new.editable?
   end
-
 end
