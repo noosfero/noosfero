@@ -83,6 +83,7 @@ class Person < Profile
   before_save do |person|
     person.custom_formation = nil if (! person.formation.nil? && person.formation != 'Others')
     person.custom_area_of_study = nil if (! person.area_of_study.nil? && person.area_of_study != 'Others')
+    person.organization_website = 'http://' + person.organization_website if person.organization_website && person.organization_website !~ /^https?:\/\//
   end
 
   def active_fields

@@ -540,4 +540,19 @@ class PersonTest < Test::Unit::TestCase
 
     assert !p.ask_to_join?(c)
   end
+
+  should 'save organization_website with http' do
+    p = create_user('person_test').person
+    p.organization_website = 'website.without.http'
+    p.save
+    assert_equal 'http://website.without.http', p.organization_website
+  end
+
+  should 'save organization_website as typed if has http' do
+    p = create_user('person_test').person
+    p.organization_website = 'http://website.with.http'
+    p.save
+    assert_equal 'http://website.with.http', p.organization_website
+  end
+
 end

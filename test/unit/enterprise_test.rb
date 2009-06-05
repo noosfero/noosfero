@@ -308,4 +308,18 @@ class EnterpriseTest < Test::Unit::TestCase
     assert enterprise.enable_contact?
   end
 
+  should 'save organization_website with http' do
+    p = Enterprise.new(:name => 'test_ent', :identifier => 'test_ent')
+    p.organization_website = 'website.without.http'
+    p.save!
+    assert_equal 'http://website.without.http', p.organization_website
+  end
+
+  should 'save organization_website as typed if has http' do
+    p = Enterprise.new(:name => 'test_ent', :identifier => 'test_ent')
+    p.organization_website = 'http://website.with.http'
+    p.save
+    assert_equal 'http://website.with.http', p.organization_website
+  end
+
 end
