@@ -67,7 +67,7 @@ class LinkListBlock < Block
   def icons_options(selected = nil)
     ICONS.map do |i|
       select = "selected='1'" if i[0] == selected
-      "<option class='icon-#{i[0]}' value='#{i[0]}' #{select}>#{i[1]}</option>"
+      "<option class='icon-#{i[0]}' value='#{i[0]}' #{select}>#{gettext(i[1])}</option>"
     end
   end
 
