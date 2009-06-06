@@ -25,6 +25,7 @@ class FriendsBlockTest < ActiveSupport::TestCase
     p1.add_friend(p2)
     p1.add_friend(p3)
     p1.add_friend(p4)
+    p1.friends.reload
 
     block = FriendsBlock.new
     block.expects(:owner).returns(p1)

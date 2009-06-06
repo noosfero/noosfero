@@ -194,6 +194,7 @@ class PersonTest < Test::Unit::TestCase
     
     p1.add_friend(p2)
 
+    p1.friends.reload
     assert_equal [p2], p1.friends
 
     p3 = create_user('testuser3').person
@@ -344,7 +345,7 @@ class PersonTest < Test::Unit::TestCase
     person.save!
     friend = create_user('test_friend').person
     person.add_friend(friend)
-
+    person.friends.reload
     assert person.display_info_to?(friend)
   end
 
@@ -500,6 +501,7 @@ class PersonTest < Test::Unit::TestCase
     p1 = create_user('testuser1').person
     p2 = create_user('testuser2').person
     p1.add_friend(p2)
+    p1.friends.reload
     assert p1.is_a_friend?(p2)
   end
 

@@ -15,6 +15,8 @@ class AddFriendTest < ActiveSupport::TestCase
     assert_difference Friendship, :count, 2 do
       task.finish
     end
+    p1.friends.reload
+    p2.friends.reload
 
     ok('p1 should have p2 as friend') { p1.friends.include?(p2) }
     ok('p2 should have p1 as friend') { p2.friends.include?(p1) }

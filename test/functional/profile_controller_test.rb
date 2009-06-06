@@ -258,6 +258,7 @@ class ProfileControllerTest < Test::Unit::TestCase
     login_as(@profile.identifier)
     friend = create_user('friendtestuser').person
     @profile.add_friend(friend)
+    @profile.friends.reload
     assert @profile.is_a_friend?(friend)
     get :index, :profile => friend.identifier
     assert_no_tag :tag => 'a', :content => 'Add friend'
