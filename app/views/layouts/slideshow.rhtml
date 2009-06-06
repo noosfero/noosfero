@@ -12,8 +12,7 @@
 
     <%= stylesheet_import "slideshow" %>
     <%= javascript_include_tag 'jquery-latest', 'sliderjs', 'pikachoose' %>
-    <script language="javascript">
-      <!--
+    <script type="text/javascript">
       $(document).ready(function (){
         $("#slideshow").PikaChoose({
           buttons: { play: <%= _("Play").to_json %>, stop: <%= _("Stop").to_json %>, previous: <%= _("Previous").to_json %>, next: <%= _("Next").to_json %> }
@@ -23,10 +22,9 @@
           window_height: 55,
           list_width: 832,
           pikachoose: true,
-          auto_play: false,
+          auto_play: false
         });
       });
-      -->
     </script>
   </head>
   <body>
