@@ -183,7 +183,7 @@ class TasksControllerTest < Test::Unit::TestCase
     c = Community.create!(:name => 'test comm', :moderated_articles => false)
     @controller.stubs(:profile).returns(c)
     folder = c.articles.create!(:name => 'test folder', :type => 'Folder')
-    c.affiliate(profile, Profile::Roles.all_roles)
+    c.affiliate(profile, Profile::Roles.all_roles(profile.environment.id))
     article = profile.articles.create!(:name => 'something interesting', :body => 'ruby on rails')
     t = ApproveArticle.create!(:name => 'test name', :article => article, :target => c, :requestor => profile)
 
