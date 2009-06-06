@@ -29,7 +29,7 @@ module BlogHelper
         css_add << 'last'  if i == (artic_len-1)
         css_add << 'not-published' if !art.published?
         content << content_tag('div',
-                       display_post(art),
+                       display_post(art) + '<br style="clear:both"/>',
                        :class => 'blog-post ' + css_add.join(' '),
                        :id => "post-#{art.id}")
       end
@@ -38,7 +38,9 @@ module BlogHelper
   end
 
   def display_post(article)
-    article_title(article) + content_tag('p', article.to_html)
+    html = article.to_html
+    html = content_tag('p', html) if ! html.include?('</p>')
+    article_title(article) + html
   end
 
 end
