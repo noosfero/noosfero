@@ -1,0 +1,49 @@
+#!/bin/bash
+
+append="$1"
+size="$2"
+
+if test \! -d public/thumbnails -o \! -d public/articles \
+        -o -z "$append" -o -z "$size"; then
+  echo "
+  Rode esse script na raiz do Noosfero para criar um tipo de thumbnail
+  para as imagens-artigo.
+
+  Uso:
+  $( basename "$0" ) <append-name> <size>
+
+  <append-name>: será adicionado ao nome da imagem, antes da extensão.
+  Exemplo:
+  $( basename "$0" ) thumb '100x100>'
+  teste.jpg => teste_thumb.jpg
+
+  <size>: deve ser um argumento gemométrico válido para o ImageMagick
+  http://imagemagick.org/script/command-line-processing.php#geometry
+  Exemplo: 200x200> redimensiona proporcionalmente apenas se a imagem
+  for maior que o espaço.
+
+  Esse  script  varre  o  diretório  de  imagens-artigo
+  \"noosfero-path/public/articles/...\" e verifica se um arquivo de
+  mesmo nome e com <append-name> existe no diretório de thumbnails
+  \"noosfero-path/public/thumbnails/...\". Apenas se ele não existir
+  o mesmo será criado. Se deseja redimensionar um tipo já existente,
+  primeiro delete todas as ocorrencias.
+  "
+  exit 1
+fi
+
+cd public/articles
+find * | egrep '\.(jpe?g|png|gif|xpm|svg|ico|pnm|tiff?)$' |
+while read img; do
+  thumb="$( echo "../thumbnails/$img" | sed -r "s/(\.[^.]+)$/_$append\1/" )"
+  if test -e "$thumb"; then
+    echo "  ok  $img"
+  else
+    mkdir -p "$( dirname "$thumb" )" 2>-
+    echo " NOVO $img"
+    if ! convert "$img" -resize "$size" "$thumb"; then
+      echo -e "Deu Merda...\n"
+    fi
+  fi
+done
+
