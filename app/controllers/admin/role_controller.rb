@@ -2,11 +2,11 @@ class RoleController < AdminController
   protect 'manage_environment_roles', :environment
 
   def index
-    @roles = Role.find(:all)
+    @roles = environment.roles.find(:all)
   end
 
   def show
-    @role = Role.find(params[:id])
+    @role = environment.roles.find(params[:id])
   end
 
   def new
@@ -15,6 +15,7 @@ class RoleController < AdminController
 
   def create
     @role = Role.new(params[:role])
+    @role.environment = environment
     if @role.save
       redirect_to :action => 'show', :id => @role
     else
@@ -24,11 +25,11 @@ class RoleController < AdminController
   end
 
   def edit
-    @role = Role.find(params[:id])
+    @role = environment.roles.find(params[:id])
   end
 
   def update
-    @role = Role.find(params[:id])
+    @role = environment.roles.find(params[:id])
     if @role.update_attributes(params[:role])
       redirect_to :action => 'show', :id => @role
     else
@@ -38,7 +39,7 @@ class RoleController < AdminController
   end
 
   def destroy
-    @role = Role.find(params[:id])
+    @role = environment.roles.find(params[:id])
     if @role.destroy
       redirect_to :action => 'index'
     else

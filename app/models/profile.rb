@@ -4,23 +4,28 @@
 class Profile < ActiveRecord::Base
 
   module Roles
-    def self.admin
-      ::Role.find_by_key('profile_admin')
+    def self.admin(env_id)
+      find_role('admin', env_id)
     end
-    def self.member
-      ::Role.find_by_key('profile_member')
+    def self.member(env_id)
+      find_role('member', env_id)
     end
-    def self.moderator
-      ::Role.find_by_key('profile_moderator')
+    def self.moderator(env_id)
+      find_role('moderator', env_id)
     end
-    def self.owner
-      ::Role.find_by_key('profile_owner')
+    def self.owner(env_id)
+      find_role('owner', env_id)
     end
-    def self.editor
-      ::Role.find_by_key('profile_editor')
+    def self.editor(env_id)
+      find_role('editor', env_id)
     end
-    def self.all_roles
-      [admin, member, moderator, owner, editor]
+    def self.all_roles(env_id)
+      [admin(env_id), member(env_id), moderator(env_id), owner(env_id), editor(env_id)]
+    end
+
+    private
+    def self.find_role(name, env_id)
+      ::Role.find_by_key_and_environment_id("profile_#{name}", env_id)
     end
   end
 
@@ -463,7 +468,7 @@ class Profile < ActiveRecord::Base
       if self.closed?
         AddMember.create!(:person => person, :organization => self)
       else
-        self.affiliate(person, Profile::Roles.member)
+        self.affiliate(person, Profile::Roles.member(environment.id))
       end
     else
       raise _("%s can't has members") % self.class.name
@@ -471,17 +476,17 @@ class Profile < ActiveRecord::Base
   end
   
   def remove_member(person)
-    self.disaffiliate(person, Profile::Roles.all_roles)
+    self.disaffiliate(person, Profile::Roles.all_roles(environment.id))
   end
 
   # adds a person as administrator os this profile
   def add_admin(person)
-    self.affiliate(person, Profile::Roles.admin)
+    self.affiliate(person, Profile::Roles.admin(environment.id))
   end
 
   def add_moderator(person)
     if self.has_members?
-      self.affiliate(person, Profile::Roles.moderator)
+      self.affiliate(person, Profile::Roles.moderator(environment.id))
     else
       raise _("%s can't has moderators") % self.class.name
     end
@@ -600,7 +605,7 @@ class Profile < ActiveRecord::Base
   end
 
   def admins
-    self.members_by_role(Profile::Roles.admin)
+    self.members_by_role(Profile::Roles.admin(environment.id))
   end
 
   def enable_contact?

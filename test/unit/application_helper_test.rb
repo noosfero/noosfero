@@ -73,16 +73,16 @@ class ApplicationHelperTest < Test::Unit::TestCase
   end
 
   should 'role color for admin role' do
-    assert_equal 'blue', role_color(Profile::Roles.admin)
+    assert_equal 'blue', role_color(Profile::Roles.admin(Environment.default.id), Environment.default.id)
   end
   should 'role color for member role' do
-    assert_equal 'green', role_color(Profile::Roles.member)
+    assert_equal 'green', role_color(Profile::Roles.member(Environment.default.id), Environment.default.id)
   end
   should 'role color for moderator role' do
-    assert_equal 'gray', role_color(Profile::Roles.moderator)
+    assert_equal 'gray', role_color(Profile::Roles.moderator(Environment.default.id), Environment.default.id)
   end
   should 'default role color' do
-    assert_equal 'black', role_color('none')
+    assert_equal 'black', role_color('none', Environment.default.id)
   end
 
   should 'rolename for' do

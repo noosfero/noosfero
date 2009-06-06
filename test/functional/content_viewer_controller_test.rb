@@ -490,7 +490,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     person = create_user('test_user').person
     profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
     intranet = Folder.create!(:name => 'my_intranet', :profile => profile, :public_article => false)
-    profile.affiliate(person, Profile::Roles.member)
+    profile.affiliate(person, Profile::Roles.member(profile.environment.id))
     login_as('test_user')
 
     @request.stubs(:ssl?).returns(true)
@@ -503,7 +503,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     person = create_user('test_user').person
     profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
     intranet = Folder.create!(:name => 'my_intranet', :profile => profile, :public_article => false)
-    profile.affiliate(person, Profile::Roles.moderator)
+    profile.affiliate(person, Profile::Roles.moderator(profile.environment.id))
     login_as('test_user')
 
     @request.stubs(:ssl?).returns(true)
@@ -516,7 +516,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     person = create_user('test_user').person
     profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
     intranet = Folder.create!(:name => 'my_intranet', :profile => profile, :public_article => false)
-    profile.affiliate(person, Profile::Roles.admin)
+    profile.affiliate(person, Profile::Roles.admin(profile.environment.id))
     login_as('test_user')
 
     @request.stubs(:ssl?).returns(true)
@@ -566,7 +566,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
   should 'not show link to publication on view if not on person profile' do
     prof = Community.create!(:name => 'test comm', :identifier => 'test_comm')
     page = prof.articles.create!(:name => 'myarticle', :body => 'the body of the text')
-    prof.affiliate(profile, Profile::Roles.all_roles)
+    prof.affiliate(profile, Profile::Roles.all_roles(prof.environment.id))
     login_as(profile.identifier)
 
     get :view_page, :profile => prof.identifier, :page => ['myarticle']

@@ -78,19 +78,19 @@ class TasksControllerTest < Test::Unit::TestCase
   end
 
   should 'display member role checked if target has members' do
-    profile.affiliate(profile, Profile::Roles.admin)
+    profile.affiliate(profile, Profile::Roles.admin(profile.environment.id))
     assert_equal 1, profile.members.size
     t = AddMember.create!(:person => profile, :organization => profile)
     get :index, :profile => profile.identifier
-    assert_tag :tag => 'input', :attributes => { :name => 'task[roles][]', :checked => 'checked', :value => Profile::Roles.member.id }
+    assert_tag :tag => 'input', :attributes => { :name => 'task[roles][]', :checked => 'checked', :value => Profile::Roles.member(profile.environment.id).id }
   end
 
   should 'display roles besides role member unchecked if target has members' do
-    profile.affiliate(profile, Profile::Roles.admin)
+    profile.affiliate(profile, Profile::Roles.admin(profile.environment.id))
     assert_equal 1, profile.members.size
     t = AddMember.create!(:person => profile, :organization => profile)
     get :index, :profile => profile.identifier
-    Role.find(:all).select{ |r| r.has_kind?('Profile') and r.id != Profile::Roles.member.id }.each do |i|
+    Role.find(:all).select{ |r| r.has_kind?('Profile') and r.id != Profile::Roles.member(profile.environment.id).id }.each do |i|
       assert_no_tag :tag => 'input', :attributes => { :name => 'task[roles][]', :checked => 'checked', :value => i.id }
     end
   end
@@ -157,7 +157,7 @@ class TasksControllerTest < Test::Unit::TestCase
     PublishedArticle.destroy_all
     c = Community.create!(:name => 'test comm', :moderated_articles => false)
     @controller.stubs(:profile).returns(c)
-    c.affiliate(profile, Profile::Roles.all_roles)
+    c.affiliate(profile, Profile::Roles.all_roles(profile.environment.id))
     article = profile.articles.create!(:name => 'something interesting', :body => 'ruby on rails')
     t = ApproveArticle.create!(:name => 'test name', :article => article, :target => c, :requestor => profile)
 
@@ -170,7 +170,7 @@ class TasksControllerTest < Test::Unit::TestCase
     c = Community.create!(:name => 'test comm', :moderated_articles => false)
     @controller.stubs(:profile).returns(c)
     folder = c.articles.create!(:name => 'test folder', :type => 'Folder')
-    c.affiliate(profile, Profile::Roles.all_roles)
+    c.affiliate(profile, Profile::Roles.all_roles(profile.environment.id))
     article = profile.articles.create!(:name => 'something interesting', :body => 'ruby on rails')
     t = ApproveArticle.create!(:name => 'test name', :article => article, :target => c, :requestor => profile)
 

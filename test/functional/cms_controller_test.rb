@@ -626,7 +626,7 @@ class CmsControllerTest < Test::Unit::TestCase
 
   should 'load communities for that the user belongs' do
     c = Community.create!(:name => 'test comm', :identifier => 'test_comm')
-    c.affiliate(profile, Profile::Roles.all_roles)
+    c.affiliate(profile, Profile::Roles.all_roles(c.environment.id))
     a = profile.articles.create!(:name => 'something intresting', :body => 'ruby on rails')
     
     get :publish, :profile => profile.identifier, :id => a.id
@@ -637,7 +637,7 @@ class CmsControllerTest < Test::Unit::TestCase
 
   should 'publish the article in the selected community if community is not moderated' do
     c = Community.create!(:name => 'test comm', :identifier => 'test_comm', :moderated_articles => false)
-    c.affiliate(profile, Profile::Roles.all_roles)
+    c.affiliate(profile, Profile::Roles.all_roles(c.environment.id))
     a = profile.articles.create!(:name => 'something intresting', :body => 'ruby on rails')
     
     assert_difference PublishedArticle, :count do
@@ -648,7 +648,7 @@ class CmsControllerTest < Test::Unit::TestCase
   
   should 'create a task for article approval if community is moderated' do
     c = Community.create!(:name => 'test comm', :identifier => 'test_comm', :moderated_articles => true)
-    c.affiliate(profile, Profile::Roles.all_roles)
+    c.affiliate(profile, Profile::Roles.all_roles(c.environment.id))
     a = profile.articles.create!(:name => 'something intresting', :body => 'ruby on rails')
     
     assert_no_difference PublishedArticle, :count do

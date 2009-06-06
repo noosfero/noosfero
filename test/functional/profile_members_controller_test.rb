@@ -63,8 +63,8 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
 
   should 'update roles' do
     ent = Enterprise.create!(:identifier => 'test_enterprise', :name => 'test enterprise')
-    role1 = Role.create!(:name => 'member_role', :permissions => ['edit_profile'])
-    role2 = Role.create!(:name => 'owner_role', :permissions => ['edit_profile', 'destroy_profile'])
+    role1 = Role.create!(:name => 'member_role', :permissions => ['edit_profile'], :environment => ent.environment)
+    role2 = Role.create!(:name => 'owner_role', :permissions => ['edit_profile', 'destroy_profile'], :environment => ent.environment)
 
     member = create_user('test_member').person
     member.add_role(role1, ent)

@@ -452,7 +452,7 @@ class ArticleTest < Test::Unit::TestCase
     profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
     article = Article.create!(:name => 'test article', :profile => profile, :public_article => false)
     person = create_user('test_user').person
-    profile.affiliate(person, Profile::Roles.member)
+    profile.affiliate(person, Profile::Roles.member(profile.environment.id))
 
     assert !article.display_to?(person)
   end
@@ -461,7 +461,7 @@ class ArticleTest < Test::Unit::TestCase
     profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
     article = Article.create!(:name => 'test article', :profile => profile, :public_article => false)
     person = create_user('test_user').person
-    profile.affiliate(person, Profile::Roles.admin)
+    profile.affiliate(person, Profile::Roles.admin(profile.environment.id))
 
     assert article.display_to?(person)
   end
@@ -470,7 +470,7 @@ class ArticleTest < Test::Unit::TestCase
     profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
     article = Article.create!(:name => 'test article', :profile => profile, :public_article => false)
     person = create_user('test_user').person
-    profile.affiliate(person, Profile::Roles.moderator)
+    profile.affiliate(person, Profile::Roles.moderator(profile.environment.id))
 
     assert article.display_to?(person)
   end
@@ -479,7 +479,7 @@ class ArticleTest < Test::Unit::TestCase
     profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile', :public_profile => false)
     article = Article.create!(:name => 'test article', :profile => profile, :public_article => true)
     person1 = create_user('test_user1').person
-    profile.affiliate(person1, Profile::Roles.member)
+    profile.affiliate(person1, Profile::Roles.member(profile.environment.id))
     person2 = create_user('test_user2').person
 
     assert !article.display_to?(nil)

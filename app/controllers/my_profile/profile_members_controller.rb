@@ -3,11 +3,11 @@ class ProfileMembersController < MyProfileController
 
   def index
     @members = profile.members
-    @member_role = Role.find_by_name('member')
+    @member_role = environment.roles.find_by_name('member')
   end
 
   def update_roles
-    @roles = params[:roles] ? Role.find(params[:roles]) : []
+    @roles = params[:roles] ? environment.roles.find(params[:roles]) : []
     @roles = @roles.select{|r| r.has_kind?('Profile') }
     @person = Person.find(params[:person])      
     if @person.define_roles(@roles, profile)
@@ -26,18 +26,18 @@ class ProfileMembersController < MyProfileController
 
   def add_role
     @person = Person.find(params[:person])
-    @role = Role.find(params[:role])
+    @role = environment.roles.find(params[:role])
     if @profile.affiliate(@person, @role)
       redirect_to :action => 'index'
     else
       @member = Person.find(params[:person])
-      @roles = Role.find(:all).select{ |r| r.has_kind?('Profile') }
+      @roles = environment.roles.find(:all).select{ |r| r.has_kind?('Profile') }
       render :action => 'affiliate'
     end
   end
 
   def remove_role
-    @association = RoleAssignment.find(params[:id])
+    @association = RoleAssignment.find(:all, :conditions => {:id => params[:id], :target_id => profile.id})
     if @association.destroy
       flash[:notice] = 'Member succefully unassociated'
     else

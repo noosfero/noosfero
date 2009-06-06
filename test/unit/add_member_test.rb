@@ -76,7 +76,7 @@ class AddMemberTest < ActiveSupport::TestCase
     p = create_user('testuser1').person
     c = Community.create!(:name => 'community_test')
 
-    roles = [Profile::Roles.member, Profile::Roles.admin]
+    roles = [Profile::Roles.member(c.environment.id), Profile::Roles.admin(c.environment.id)]
     TaskMailer.stubs(:deliver_target_notification)
     task = AddMember.create!(:roles => roles.map(&:id), :person => p, :organization => c)
     task.finish

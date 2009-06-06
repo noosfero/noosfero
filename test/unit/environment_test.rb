@@ -308,8 +308,8 @@ class EnvironmentTest < Test::Unit::TestCase
   end
 
   should 'have admin role' do
-    Role.expects(:find_by_key).with('environment_administrator').returns(Role.new)
-    assert_kind_of Role, Environment::Roles.admin
+    Role.expects(:find_by_key_and_environment_id).with('environment_administrator', Environment.default.id).returns(Role.new)
+    assert_kind_of Role, Environment::Roles.admin(Environment.default.id)
   end
 
   should 'have products through enterprises' do
@@ -744,5 +744,23 @@ class EnvironmentTest < Test::Unit::TestCase
    e = Environment.default
 
    assert_equal [], e.portal_folders
+  end
+
+  should 'have roles with names independent of other environments' do
+    e1 = Environment.create!(:name => 'a test environment')
+    role1 = Role.create!(:name => 'test_role', :environment => e1)
+    e2 = Environment.create!(:name => 'another test environment')
+    role2 = Role.new(:name => 'test_role', :environment => e2)
+
+    assert_valid role2
+  end
+
+  should 'have roles with keys independent of other environments' do
+    e1 = Environment.create!(:name => 'a test environment')
+    role1 = Role.create!(:name => 'test_role', :environment => e1, :key => 'a_member')
+    e2 = Environment.create!(:name => 'another test environment')
+    role2 = Role.new(:name => 'test_role', :environment => e2, :key => 'a_member')
+
+    assert_valid role2
   end
 end

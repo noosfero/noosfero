@@ -150,19 +150,19 @@ colivre = new_validator(ba, "Colivre", 'colivre', Enterprise)
 #forum_rs = new_validator(rs, 'Forum Gaucho de Economia Solidaria', 'ecosolrs')
 
 # Role for own things
-owner_role = Profile::Roles.admin
+owner_role = Profile::Roles.admin(Environment.default.id)
 
 # Sample user and sample enterprise owned by him
 ze = User.create!(:login => 'ze', :email => 'ze@localhost.localdomain', :password => 'test', :password_confirmation => 'test').person
 
-Environment.default.affiliate(ze, Environment::Roles.admin)
+Environment.default.affiliate(ze, Environment::Roles.admin(Environment.default.id))
 empa = Enterprise.create!(:name => 'Cooperativa A', :identifier => 'coop_a')
 
 empa.affiliate(ze, owner_role)
 colivre.affiliate(ze, owner_role)
 
-member_role = Profile::Roles.member
-moderator_role = Profile::Roles.moderator
+member_role = Profile::Roles.member(Environment.default.id)
+moderator_role = Profile::Roles.moderator(Environment.default.id)
 
 # product categories
 produtos = ProductCategory.create!(:name => 'Produtos', :environment => Environment.default)

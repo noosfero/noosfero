@@ -15,8 +15,8 @@ class Environment < ActiveRecord::Base
   }
 
   module Roles
-    def self.admin
-      Role.find_by_key('environment_administrator')
+    def self.admin(env_id)
+      Role.find_by_key_and_environment_id('environment_administrator', env_id)
     end
   end
 
@@ -90,6 +90,8 @@ class Environment < ActiveRecord::Base
   has_many :display_categories, :class_name => 'Category', :conditions => 'display_color is not null and parent_id is null', :order => 'display_color'
 
   has_many :regions
+
+  has_many :roles
 
   acts_as_accessible
 

@@ -13,7 +13,7 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
     @profile = create_user('default_user').person
-    Environment.default.affiliate(@profile, [Environment::Roles.admin] + Profile::Roles.all_roles)
+    Environment.default.affiliate(@profile, [Environment::Roles.admin(Environment.default.id)] + Profile::Roles.all_roles(Environment.default.id))
     login_as('default_user')
   end
   attr_reader :profile

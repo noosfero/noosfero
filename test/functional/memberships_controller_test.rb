@@ -148,7 +148,7 @@ class MembershipsControllerTest < Test::Unit::TestCase
 
   should 'current user is added as admin after create new community' do
     post :new_community, :profile => profile.identifier, :community => { :name => 'My shiny new community', :description => 'This is a community devoted to anything interesting we find in the internet '}
-    assert_equal Profile::Roles.admin, profile.find_roles(Community.find_by_identifier('my-shiny-new-community')).first.role
+    assert_equal Profile::Roles.admin(profile.environment.id), profile.find_roles(Community.find_by_identifier('my-shiny-new-community')).first.role
   end
 
   should 'display button to create community' do

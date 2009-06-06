@@ -11,7 +11,7 @@ class AddMember < Task
   acts_as_having_settings :roles, :field => :data
 
   def perform
-    self.roles ||= [Profile::Roles.member.id]
+    self.roles ||= [Profile::Roles.member(organization.environment.id).id]
     target.affiliate(requestor, self.roles.map{|i| Role.find(i)})
   end
 

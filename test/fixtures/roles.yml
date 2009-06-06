@@ -1,11 +1,13 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 one:
   id: 1
+  environment_id: 1
   name: 'member'
   permissions: 
    - post_content
 two:
   id: 2
+  environment_id: 1
   name: 'owner'
   permissions:
    - menage_memberships
@@ -14,11 +16,13 @@ two:
    - edit_profile
 three:
   id: 3
+  environment_id: 1
   name: 'moderator'
   permissions:
    - manage_memberships
 four:
   id: 4
+  environment_id: 1
   name: 'admin'
   permissions: 
    - view_environment_admin_panel
@@ -31,6 +35,7 @@ four:
    - perform_task
 profile_admin:
   id: 5
+  environment_id: 1
   key: 'profile_admin'
   name: 'Profile Administrator'
   system: true
@@ -43,6 +48,7 @@ profile_admin:
    - view_private_content
 profile_member:
   id: 6
+  environment_id: 1
   key: 'profile_member'
   name: 'Profile Member'
   system: true
@@ -52,6 +58,7 @@ profile_member:
    - manage_products
 profile_moderator:
   id: 7
+  environment_id: 1
   key: 'profile_moderator'
   name: 'Profile Moderator'
   system: true
@@ -60,6 +67,7 @@ profile_moderator:
    - view_private_content
 environment_administrator:
   id: 8
+  environment_id: 1
   key: 'environment_administrator'
   name: 'Environment administrator'
   system: true

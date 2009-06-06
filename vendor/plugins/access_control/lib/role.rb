@@ -1,10 +1,11 @@
 class Role < ActiveRecord::Base
 
   has_many :role_assignments
+  belongs_to :environment
   serialize :permissions, Array
   validates_presence_of :name
-  validates_uniqueness_of :name
-  validates_uniqueness_of :key, :if => lambda { |role| !role.key.blank? }
+  validates_uniqueness_of :name, :scope => :environment_id
+  validates_uniqueness_of :key, :if => lambda { |role| !role.key.blank? }, :scope => :environment_id
 
   def initialize(*args)
     super(*args)

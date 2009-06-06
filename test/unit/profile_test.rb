@@ -337,18 +337,18 @@ class ProfileTest < Test::Unit::TestCase
   end
 
   should 'have administator role' do
-    Role.expects(:find_by_key).with('profile_admin').returns(Role.new)
-    assert_kind_of Role, Profile::Roles.admin
+    Role.expects(:find_by_key_and_environment_id).with('profile_admin', Environment.default.id).returns(Role.new)
+    assert_kind_of Role, Profile::Roles.admin(Environment.default.id)
   end
 
   should 'have member role' do
-    Role.expects(:find_by_key).with('profile_member').returns(Role.new)
-    assert_kind_of Role, Profile::Roles.member
+    Role.expects(:find_by_key_and_environment_id).with('profile_member', Environment.default.id).returns(Role.new)
+    assert_kind_of Role, Profile::Roles.member(Environment.default.id)
   end
 
   should 'have moderator role' do
-    Role.expects(:find_by_key).with('profile_moderator').returns(Role.new)
-    assert_kind_of Role, Profile::Roles.moderator
+    Role.expects(:find_by_key_and_environment_id).with('profile_moderator', Environment.default.id).returns(Role.new)
+    assert_kind_of Role, Profile::Roles.moderator(Environment.default.id)
   end
 
   should 'not have members by default' do
@@ -768,9 +768,9 @@ class ProfileTest < Test::Unit::TestCase
   end
 
   should 'not return nil members when a member is removed from system' do
-    p = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
+    p = Community.create!(:name => 'test community', :identifier => 'test_comm')
     member = create_user('test_user').person
-    p.affiliate(member, Profile::Roles.member)
+    p.add_member(member)
 
     member.destroy
     p.reload
@@ -905,7 +905,7 @@ class ProfileTest < Test::Unit::TestCase
   should 'remove member with many roles' do
     person = create_user('test_user').person
     community = Community.create!(:name => 'Boca do Siri', :identifier => 'boca_do_siri')
-    community.affiliate(person, Profile::Roles.all_roles)
+    community.affiliate(person, Profile::Roles.all_roles(community.environment.id))
 
     community.remove_member(person)
 
@@ -1267,8 +1267,8 @@ class ProfileTest < Test::Unit::TestCase
     task1 = Task.create!(:requestor => person, :target => env)
     task2 = Task.create!(:requestor => person, :target => another)
 
-    another.affiliate(person, Environment::Roles.admin)
-    env.affiliate(person, Environment::Roles.admin)
+    another.affiliate(person, Environment::Roles.admin(another.id))
+    env.affiliate(person, Environment::Roles.admin(env.id))
 
     Person.any_instance.stubs(:is_admin?).returns(true)
 

@@ -24,10 +24,10 @@
     <p class="member-classify-suggestions">
       <%= _('Roles:') %> <br>
       <% 
-        @roles = Role.find(:all).select{ |r| r.has_kind?('Profile') }
+        @roles = task.target.environment.roles.find(:all).select{ |r| r.has_kind?('Profile') }
       %>
       <% @roles.each do |r| %>
-        <%= labelled_check_box(r.name, 'task[roles][]', r.id, ( task.target.members.empty? ? true : ( r.id == Profile::Roles.member.id ) ) ) %><br/>
+        <%= labelled_check_box(r.name, 'task[roles][]', r.id, ( task.target.members.empty? ? true : ( r.id == Profile::Roles.member(r.environment.id).id ) ) ) %><br/>
       <% end %>
     </p>
   </div>

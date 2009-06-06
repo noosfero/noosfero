@@ -56,8 +56,8 @@ class EnterprisesBlockTest < Test::Unit::TestCase
 
   should 'not list private enterprises in profile' do
     person = create_user('test_user').person
-    role = Profile::Roles.member
     e1 = Enterprise.create!(:name => 'test1', :identifier => 'test1', :public_profile => true)
+    role = Profile::Roles.member(e1.environment.id)
     e1.affiliate(person, role)
     e2 = Enterprise.create!(:name => 'test2', :identifier => 'test2', :public_profile => false) #private profile
     e2.affiliate(person, role)
