@@ -202,7 +202,7 @@ module ApplicationHelper
     if html_options.has_key?(:class)
       the_class << ' ' << html_options[:class]
     end
-    link_to(content_tag('span', label), url, html_options.merge(:class => the_class, :title => label))
+    link_to('&nbsp;'+content_tag('span', label), url, html_options.merge(:class => the_class, :title => label))
   end
 
   def button_to_function(type, label, js_code, html_options = {}, &block)

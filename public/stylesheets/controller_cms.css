@@ -28,17 +28,8 @@
   border: 1px solid #d3d7cf;
 }
 
-#article-controls {
-  background: white;
-  border: 1px solid gray;
-  padding-top: 0px;
-  padding-bottom: 4px;
-  margin-bottom: 1em;
-}
-
-#article-controls .button {
-  position: relative;
-  top: -5px;
+.article-controls {
+  white-space: nowrap;
 }
 
 .categorie_box .button {
