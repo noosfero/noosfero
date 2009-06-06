@@ -249,7 +249,7 @@ class Profile < ActiveRecord::Base
     profile.boxes.each do |box|
       self.boxes << Box.new(:position => box.position)
       box.blocks.each do |block|
-        self.boxes[-1].blocks << block.class.new(:title => block.title, :settings => block.settings, :position => block.position)
+        self.boxes[-1].blocks << block.class.new(:title => block[:title], :settings => block.settings, :position => block.position)
       end
     end
   end

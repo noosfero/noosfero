@@ -1090,6 +1090,34 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal 'some xyz article', Profile['test_profile'].home_page.name
   end
 
+  should 'not copy blocks default_title when applying template' do
+    template = Profile.create!(:name => 'test template', :identifier => 'test_template')
+    template.boxes.destroy_all
+    template.boxes << Box.new
+    b = Block.new()
+    template.boxes[0].blocks << b
+    p = Profile.create!(:name => 'test prof', :identifier => 'test_prof')
+    assert b[:title].blank?
+
+    p.copy_blocks_from(template)
+
+    assert_nil p.boxes[0].blocks.first[:title]
+  end
+
+  should 'copy blocks title when applying template' do
+    template = Profile.create!(:name => 'test template', :identifier => 'test_template')
+    template.boxes.destroy_all
+    template.boxes << Box.new
+    b = Block.new(:title => 'default title')
+    template.boxes[0].blocks << b
+    p = Profile.create!(:name => 'test prof', :identifier => 'test_prof')
+    assert !b[:title].blank?
+
+    p.copy_blocks_from(template)
+
+    assert_equal 'default title', p.boxes[0].blocks.first[:title]
+  end
+
   TMP_THEMES_DIR = RAILS_ROOT + '/test/tmp/profile_themes'
   should 'have themes' do
     Theme.stubs(:user_themes_dir).returns(TMP_THEMES_DIR)
