@@ -44,7 +44,7 @@ class ApproveArticle < Task
   end
 
   def article_parent
-    Article.find_by_id article_parent_id
+    Article.find_by_id article_parent_id.to_i
   end
 
   def article_parent= value

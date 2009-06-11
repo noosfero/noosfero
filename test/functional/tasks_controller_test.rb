@@ -191,4 +191,16 @@ class TasksControllerTest < Test::Unit::TestCase
     assert_equal true, PublishedArticle.find(:first).highlighted
   end
 
+  should 'create published article after choosing root folder on approve article task' do
+    PublishedArticle.destroy_all
+    c = Community.create!(:name => 'test comm', :moderated_articles => false)
+    @controller.stubs(:profile).returns(c)
+    c.affiliate(profile, Profile::Roles.all_roles(profile.environment.id))
+    article = profile.articles.create!(:name => 'something interesting', :body => 'ruby on rails')
+    t = ApproveArticle.create!(:name => 'test name', :article => article, :target => c, :requestor => profile)
+
+    post :close, :decision => 'finish', :id => t.id, :task => { :name => 'new_name', :article_parent_id => ""}
+    assert_not_nil PublishedArticle.find(:first)
+  end
+
 end
