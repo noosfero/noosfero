@@ -10,6 +10,7 @@ tinyMCE.init({
         theme : "advanced",
         relative_urls : false,
         remove_script_host : true,
+        document_base_url : <%= environment.top_url.to_json %>,
         plugins: myplugins,
         theme_advanced_toolbar_location : "top",
         theme_advanced_layout_manager: 'SimpleLayout',
