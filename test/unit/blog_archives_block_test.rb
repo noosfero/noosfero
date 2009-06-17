@@ -66,6 +66,16 @@ class BlogArchivesBlockTest < ActiveSupport::TestCase
     assert_match(/2009.*2008.*2007.*2006.*2005/m, block.content)
   end
 
+  should 'order months from later to former' do
+    blog = profile.blog
+    for month in 1..3
+      post = TextileArticle.create!(:name => "post #{month}", :profile => profile, :parent => blog, :published_at => Date.new(2009, month, 1))
+    end
+    block = BlogArchivesBlock.new
+    block.stubs(:owner).returns(profile)
+    assert_match(/.*March.*February.*January.*/m, block.content)
+  end
+
   should 'not display any content if has no blog' do
     profile.stubs(:has_blog?).returns(false)
     assert !profile.has_blog?
