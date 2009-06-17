@@ -2,9 +2,10 @@ class ContactController < PublicController
 
   needs_profile
 
+  inverse_captcha :field => 'e_mail'
   def new
     @contact
-    if request.post?
+    if request.post? && params[self.icaptcha_field].blank?
       @contact = Contact.new(params[:contact])
       @contact.dest = profile
       @contact.city = (!params[:city].blank? && City.exists?(params[:city])) ? City.find(params[:city]).name : _('Missing')

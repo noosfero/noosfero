@@ -97,5 +97,19 @@ class ContactControllerTest < Test::Unit::TestCase
     get :new, :profile => profile.identifier
     assert_no_tag :tag => 'select', :attributes => {:name => 'state'}
   end
+
+  should 'be able to post contact while inverse captcha field filled' do
+    post :new, :profile => enterprise.identifier, :contact => {:name => 'john', :subject => 'Hi', :email => 'visitor@mail.invalid', :message => 'Hi, all', :state => '', :city => ''}
+
+    assert_response :redirect
+    assert_redirected_to :action => 'new'
+  end
+
+  should 'not be able to post contact while inverse captcha field filled' do
+    post :new, :profile => enterprise.identifier, @controller.icaptcha_field => 'filled', :contact => {:name => 'john', :subject => 'Hi', :email => 'visitor@mail.invalid', :message => 'Hi, all', :state => '', :city => ''}
+
+    assert_response :success
+    assert_template 'new'
+  end
   
 end
