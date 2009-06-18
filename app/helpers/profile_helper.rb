@@ -1,7 +1,10 @@
 module ProfileHelper
 
-  def display_field(title, object, field)
-    value = object.send(field)
+  def display_field(title, profile, field, force = false)
+    if !force && !profile.active_fields.include?(field.to_s)
+      return ''
+    end
+    value = profile.send(field)
     if !value.blank?
       if block_given?
         value = yield(value)

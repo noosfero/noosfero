@@ -1,10 +1,10 @@
 <tr>
   <th colspan='2'><%= _('Basic information')%></th>
 </tr>
-<%= display_field(_('Name:'), profile, :name) { |name| link_to name, profile.url  } %>
+<%= display_field(_('Name:'), profile, :name, true) { |name| link_to name, profile.url  } %>
 <%= display_field(_('Sex:'), profile, :sex) { |gender| { 'male' => _('Male'), 'female' => _('Female') }[gender] } %>
 <%= display_field(_('Date of birth:'), profile, :birth_date) { |date| show_date(date)  }%>
-<%= display_field(_('Location:'), profile, :location) %>
+<%= display_field(_('Location:'), profile, :location, true) %>
 
 <% if profile == user || profile.friends.include?(user) %>
   <tr>
@@ -13,11 +13,11 @@
   <%= display_field(_('Address:'), profile, :address) %>
   <%= display_field(_('ZIP code:'), profile, :zip_code) %>
   <%= display_field(_('Contact phone:'), profile, :contact_phone) %>
-  <%= display_field(_('e-Mail:'), profile, :email) { |email| link_to_email(email) } %>
+  <%= display_field(_('e-Mail:'), profile, :email, true) { |email| link_to_email(email) } %>
 <% end %>
 
 <% cache_timeout(profile.identifier + '-profile-relationships', 4.hours.from_now) do %>
-  <% if !(profile.organization.blank? && profile.organization_website.blank?) %>
+  <% if !(profile.organization.blank? && profile.organization_website.blank?) && (profile.active_fields.include?('organization') || profile.active_fields.include?('organization_website')) %>
     <tr>
       <th colspan='2'><%= _('Work')%></th>
     </tr>
