@@ -16,11 +16,11 @@ class ThemesControllerTest < Test::Unit::TestCase
     @profile = create_user('testinguser').person
     login_as('testinguser')
 
-    env = Environment.default
-    env.enable('user_themes')
-    env.save!
+    @env = Environment.default
+    @env.enable('user_themes')
+    @env.save!
   end
-  attr_reader :profile
+  attr_reader :profile, :env
 
   def teardown
     FileUtils.rm_rf(TMP_THEMES_DIR)
@@ -256,6 +256,20 @@ class ThemesControllerTest < Test::Unit::TestCase
     profile = Profile.find(@profile.id)
     assert_equal 'leftbar', profile.layout_template
     assert_redirected_to :action => 'index'
+  end
+
+  should 'not display "new theme" button when user themes are disabled' do
+    env.disable('user_themes')
+    env.save!
+    get :index, :profile => 'testinguser'
+    assert_no_tag :tag => 'a', :attributes => { :href => '/myprofile/testinguser/themes/new' }
+  end
+
+  should 'not display the "Select themes" section if there are no themes to choose from' do
+    env.themes = []; env.save!
+    Theme.stubs(:system_themes_dir).returns(TMP_THEMES_DIR) # an empty dir
+    get :index, :profile => "testinguser"
+    assert_no_tag :content => "Select theme"
   end
 
 end

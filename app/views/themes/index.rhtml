@@ -33,35 +33,37 @@
   <% end %>
 
 
-  <tr>
-    <td colspan='6'>
-      <h2><%= _('Select theme') %></h2>
-    </td>
-  </tr>
-  <% for themes in @themes.in_groups_of(3)  %>
+  <% if !@themes.empty? %>
     <tr>
-      <% for theme in themes %>
-        <% 
-          selected = (!theme.nil? && (theme.id == @current_theme))
-        %>
-        <td>
-          <%# FIXME add proper thumbnails %>
-          <% if theme %>
-            <%= image_tag('/images/icons-app/design-editor.png', :alt => (_('The "%s" theme.') % theme.name)) %>
-          <% end %>
-        </td>
-        <td <%= 'class="selected theme"' if selected %>>
-          <% if theme %>
-            <strong><%= theme.name %> <%= _('(current)') if selected %></strong><br/>
-            <%= link_to(_('Use this theme'), :action => 'set', :id => theme.id) unless selected %>
-          <% end %>
-        </td>
-        <td>
-          &nbsp;&nbsp;&nbsp;&nbsp;
-        </td>
-      <% end %>
+      <td colspan='6'>
+        <h2><%= _('Select theme') %></h2>
+      </td>
     </tr>
-    <tr><td colspan='3'>&nbsp;</td></tr>
+    <% for themes in @themes.in_groups_of(3)  %>
+      <tr>
+        <% for theme in themes %>
+          <%
+            selected = (!theme.nil? && (theme.id == @current_theme))
+          %>
+          <td>
+            <%# FIXME add proper thumbnails %>
+            <% if theme %>
+              <%= image_tag('/images/icons-app/design-editor.png', :alt => (_('The "%s" theme.') % theme.name)) %>
+            <% end %>
+          </td>
+          <td <%= 'class="selected theme"' if selected %>>
+            <% if theme %>
+              <strong><%= theme.name %> <%= _('(current)') if selected %></strong><br/>
+              <%= link_to(_('Use this theme'), :action => 'set', :id => theme.id) unless selected %>
+            <% end %>
+          </td>
+          <td>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+          </td>
+        <% end %>
+      </tr>
+      <tr><td colspan='3'>&nbsp;</td></tr>
+    <% end %>
   <% end %>
 
 
@@ -96,6 +98,8 @@
 </table>
 
 <% button_bar do %>
-  <%= lightbox_button(:add, _('New theme ...'), :action => 'new') %>
+  <% if environment.enabled?('user_themes') %>
+    <%= lightbox_button(:add, _('New theme ...'), :action => 'new') %>
+  <% end %>
   <%= button(:back, _('Back'), :controller => 'profile_editor', :action => 'index') %>
 <% end %>
