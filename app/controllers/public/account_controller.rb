@@ -94,8 +94,10 @@ class AccountController < ApplicationController
 
   # action to perform logout from the application
   def logout
-    self.current_user.person.update_attribute(:last_lang, cookies[:lang])
-    self.current_user.forget_me if logged_in?
+    if logged_in?
+      self.current_user.person.update_attribute(:last_lang, cookies[:lang])
+      self.current_user.forget_me
+    end
     cookies.delete :auth_token
     reset_session
     flash[:notice] = _("You have been logged out.")

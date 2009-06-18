@@ -627,6 +627,14 @@ class AccountControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'input', :attributes => { :name => "profile_data[contact_phone]" }
   end
 
+  should 'redirect to login when unlogged user try logout' do
+    logout
+    assert_nothing_raised NoMethodError do
+      get :logout
+      assert_redirected_to :action => 'index'
+    end
+  end
+
   protected
     def new_user(options = {}, extra_options ={})
       data = {:profile_data => person_data}
