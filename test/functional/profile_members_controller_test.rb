@@ -97,4 +97,19 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
     assert_not_includes com.members, member
   end
 
+  should 'not list roles from other environments' do
+    env2 = Environment.create!(:name => 'new env')
+    role = Role.create!(:name => 'some role', :environment => env2, :permissions => ['manage_memberships'])
+
+    com = Community.create!(:name => 'test community')
+    p = create_user_with_permission('test_user', 'manage_memberships', com)
+    assert_includes com.members.map(&:name), p.name
+
+    login_as :test_user
+    get :change_role, :id => p.id, :profile => com.identifier
+
+    assert_response :success
+    assert_not_includes assigns(:roles), role
+  end
+
 end
