@@ -73,4 +73,12 @@ class FeedReaderBlockTest < ActiveSupport::TestCase
     feed.finish_fetch
   end
 
+  should 'display the latest post first' do
+    %w[ first-post second-post last-post ].each do |i|
+      feed.add_item(i, "http://localhost/#{i}", Date.today, "some contet for #{i}")
+    end
+
+    assert_equal %w[ last-post second-post first-post ], feed.feed_items.map{|i|i[:title]}
+  end
+
 end

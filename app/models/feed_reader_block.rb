@@ -41,7 +41,7 @@ class FeedReaderBlock < Block
   end
 
   def add_item(title, link, date, content)
-    self.feed_items << {:title => title, :link => link}
+    self.feed_items.unshift( {:title => title, :link => link})
   end
 
   def clear
