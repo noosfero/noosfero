@@ -14,7 +14,12 @@ class ProfileEditorController < MyProfileController
     @possible_domains = profile.possible_domains
     if request.post?
       if profile.update_attributes(params[:profile_data])
-        redirect_to :action => 'index'
+        if profile.image && profile.image.errors.any?
+          @errors = profile.image.errors
+          render :action => 'edit'
+        else
+          redirect_to :action => 'index'
+        end
       end 
     end
   end

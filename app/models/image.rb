@@ -1,6 +1,10 @@
 class Image < ActiveRecord::Base
   belongs_to :owner, :polymorphic => true
-  
+
+  def self.max_size
+    Image.attachment_options[:max_size]
+  end
+
   has_attachment :content_type => :image, 
                  :storage => :file_system, 
                  :max_size => 500.kilobytes,
@@ -11,5 +15,5 @@ class Image < ActiveRecord::Base
                                   :minor    => '50x50',
                                   :icon     => '20x20!' }
 
-  validates_as_attachment
+  validates_attachment :size => N_("The file you uploaded was larger than the maximum size of %s") % Image.max_size.to_humanreadable
 end

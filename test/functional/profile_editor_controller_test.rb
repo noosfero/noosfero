@@ -667,4 +667,23 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     assert_nil Profile.find(profile.id).preferred_domain
   end
 
+  should 'display error message when image has more than max size' do
+    Image.any_instance.stubs(:size).returns(Image.attachment_options[:max_size] + 1024)
+    post :edit, :profile => profile.identifier, :profile_data => { :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png') } }
+    assert_tag :tag => 'div', :attributes => { :class => 'errorExplanation', :id => 'errorExplanation' }
+  end
+
+  should 'not display error message when image has less than max size' do
+    Image.any_instance.stubs(:size).returns(Image.attachment_options[:max_size] - 1024)
+    post :edit, :profile => profile.identifier, :profile_data => { :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png') } }
+    assert_no_tag :tag => 'div', :attributes => { :class => 'errorExplanation', :id => 'errorExplanation' }
+  end
+
+  should 'not redirect when some file has errors' do
+    Image.any_instance.stubs(:size).returns(Image.attachment_options[:max_size] + 1024)
+    post :edit, :profile => profile.identifier, :profile_data => { :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png') } }
+    assert_response :success
+    assert_template 'edit'
+  end
+
 end
