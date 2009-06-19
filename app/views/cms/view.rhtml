@@ -7,9 +7,9 @@
 
   <% if !@article or !@article.blog? %>
     <%= button :newfolder, _('New folder'), :action => 'new', :type => 'Folder', :parent_id => parent_id %>
+    <%= button('upload-file', _('Upload files'), :action => 'upload_files', :parent_id => parent_id) %>
   <% end %>
   <%= lightbox_button('new', label_for_new_article(@article), :action => 'new', :parent_id => parent_id) %>
-  <%= button('upload-file', _('Upload files'), :action => 'upload_files', :parent_id => parent_id) %>
   <%= button(:back, _('Back to control panel'), :controller => 'profile_editor', :action => "index") %>
 <% end %>
 

@@ -44,7 +44,7 @@
         <% if !@page.display_as_gallery? %>
           <%= lightbox_button(:new, label_for_new_article(@page), profile.admin_url.merge(:controller => 'cms', :action => 'new', :parent_id => (@page.folder? ? @page : (@page.parent.nil? ? nil : @page.parent)))) %>
         <% end %>
-        <% if @page.folder? || (@page.parent && @page.parent.folder?) %>
+        <% if (@page.folder? && !@page.blog?) || (@page.parent && @page.parent.folder? && !@page.parent.blog?) %>
           <%= button('upload-file', _('Upload files'), profile.admin_url.merge(:controller => 'cms', :action => 'upload_files', :parent_id => (@page.folder? ? @page : @page.parent))) %>
         <% end %>
       <% end %>

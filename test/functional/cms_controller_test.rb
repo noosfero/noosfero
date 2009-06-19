@@ -1111,4 +1111,14 @@ class CmsControllerTest < Test::Unit::TestCase
     get :index, :profile => p.identifier
     assert_no_tag :tag => 'a', :attributes => {:href => "/myprofile/#{p.identifier}/cms/publish/#{a.id}"}
   end
+
+  should 'not offer to upload files to blog' do
+    profile.articles << Blog.new(:name => 'blog test', :profile => profile)
+
+    profile.articles.reload
+    assert profile.has_blog?
+
+    get :view, :profile => profile.identifier, :id => profile.blog.id
+    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/upload_files?parent_id=#{profile.blog.id}"}
+  end
 end

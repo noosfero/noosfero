@@ -821,4 +821,18 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_template 'profile/index'
   end
 
+  should "not display 'Upload files' when viewing blog" do
+    login_as(profile.identifier)
+    b = Blog.create!(:name => 'article folder', :profile => profile)
+    get :view_page, :profile => profile.identifier, :page => b.explode_path
+    assert_no_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{b.id}/}
+  end
+
+  should "not display 'Upload files' when viewing post from a blog" do
+    login_as(profile.identifier)
+    b = Blog.create!(:name => 'article folder', :profile => profile)
+    blog_post = TextileArticle.create!(:name => 'children-article', :profile => profile, :parent => b)
+    get :view_page, :profile => profile.identifier, :page => blog_post.explode_path
+    assert_no_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{b.id}/}
+  end
 end
