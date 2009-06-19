@@ -164,7 +164,8 @@ class UserTest < Test::Unit::TestCase
 
   def test_should_encrypt_password_with_salted_sha1
     user = User.new(:login => 'lalala', :email => 'lalala@example.com', :password => 'test', :password_confirmation => 'test')
-    user.build_person(person_data)
+#TODO UPGRADE Leandro: I comment this code. The user model already create a person model
+#    user.build_person(person_data)
     user.stubs(:salt).returns('testsalt')
     user.save!
 
@@ -295,7 +296,8 @@ class UserTest < Test::Unit::TestCase
   protected
     def new_user(options = {})
       user = User.new({ :login => 'quire', :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire' }.merge(options))
-      user.build_person(person_data)
+#TODO UPGRADE Leandro: I comment this code. The user model already create a person model
+#      user.build_person(person_data)
       user.save
       user
     end

@@ -10,11 +10,18 @@ rescue LoadError
   require 'rubygems'
   retry
 end
+
+begin
+  require 'ruby-debug'
+  Debugger.start
+rescue LoadError
+end
+
 require 'acts_as_versioned'
 
 config = YAML::load(IO.read(File.dirname(__FILE__) + '/database.yml'))
 ActiveRecord::Base.logger = Logger.new(File.dirname(__FILE__) + "/debug.log")
-ActiveRecord::Base.configurations = {'test' => config[ENV['DB'] || 'sqlite']}
+ActiveRecord::Base.configurations = {'test' => config[ENV['DB'] || 'sqlite3']}
 ActiveRecord::Base.establish_connection(ActiveRecord::Base.configurations['test'])
 
 load(File.dirname(__FILE__) + "/schema.rb")

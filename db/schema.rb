@@ -1,5 +1,5 @@
 # This file is auto-generated from the current state of the database. Instead of editing this file, 
-# please use the migrations feature of ActiveRecord to incrementally modify your database, and
+# please use the migrations feature of Active Record to incrementally modify your database, and
 # then regenerate this schema definition.
 #
 # Note that this schema.rb definition is the authoritative source for your database schema. If you need
@@ -131,8 +131,8 @@ ActiveRecord::Schema.define(:version => 69) do
     t.boolean "virtual",     :default => false
   end
 
-  add_index "categories_profiles", ["category_id"], :name => "index_categories_profiles_on_category_id"
   add_index "categories_profiles", ["profile_id"], :name => "index_categories_profiles_on_profile_id"
+  add_index "categories_profiles", ["category_id"], :name => "index_categories_profiles_on_category_id"
 
   create_table "comments", :force => true do |t|
     t.string   "title"
@@ -211,8 +211,8 @@ ActiveRecord::Schema.define(:version => 69) do
     t.datetime "updated_at"
   end
 
-  add_index "product_categorizations", ["category_id"], :name => "index_product_categorizations_on_category_id"
   add_index "product_categorizations", ["product_id"], :name => "index_product_categorizations_on_product_id"
+  add_index "product_categorizations", ["category_id"], :name => "index_product_categorizations_on_category_id"
 
   create_table "products", :force => true do |t|
     t.integer  "enterprise_id"
