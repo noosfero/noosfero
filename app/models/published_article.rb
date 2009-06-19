@@ -31,4 +31,7 @@ class PublishedArticle < Article
     end
   end
 
+  def to_html(options={})
+    reference_article.to_html
+  end
 end

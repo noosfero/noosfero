@@ -92,4 +92,19 @@ class PublishedArticleTest < ActiveSupport::TestCase
     assert p
     assert_equal folder, p.parent
   end
+
+  should 'use to_html from reference_article' do
+    prof = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
+    p = PublishedArticle.create!(:reference_article => @article, :profile => prof)
+
+    assert_equal @article.to_html, p.to_html
+  end
+
+  should 'use to_html from reference_article when is Textile' do
+    prof = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
+    textile_article = TextileArticle.new(:name => 'textile_article', :body => '*my text*', :profile => prof)
+    p = PublishedArticle.create!(:reference_article => textile_article, :profile => prof)
+
+    assert_equal textile_article.to_html, p.to_html
+  end
 end
