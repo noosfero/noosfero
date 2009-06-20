@@ -73,6 +73,7 @@ class Person < Profile
   end
 
   def validate
+    super
     self.required_fields.each do |field|
       if self.send(field).blank?
         unless (field == 'custom_area_of_study' && self.area_of_study != 'Others') || (field == 'custom_formation' && self.formation != 'Others')

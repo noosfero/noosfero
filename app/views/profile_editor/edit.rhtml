@@ -2,18 +2,6 @@
 
 <%= error_messages_for :profile %>
 
-<% if @errors %>
-  <div class="errorExplanation" id="errorExplanation">
-    <h2><%= n_('This file couldn\'t be saved', 'These %{num} files couldn\'t be saved', @errors.size) % { :num => @errors.size } %></h2>
-    <p><%= _('There were problems with the following files:') %> </p>
-    <ul>
-      <% for msg in profile.image.errors.full_messages %>
-        <li><strong><%= profile.image.filename %></strong> : <%= msg %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
-
 <% labelled_form_for :profile_data, @profile, :html => { :id => 'profile-data', :multipart => true } do |f| %>
 
   <%= render :partial => partial_for_class(@profile.class), :locals => { :f => f } %>

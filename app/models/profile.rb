@@ -624,4 +624,14 @@ class Profile < ActiveRecord::Base
     []
   end
 
+  def validate
+    unless self.image.nil?
+      self.image.valid?
+      self.image.errors.delete(:empty) # dont validate here if exists uploaded data
+      self.image.errors.each do |attr,msg|
+        self.errors.add(attr, msg)
+      end
+    end
+  end
+
 end

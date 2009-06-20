@@ -238,14 +238,14 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
 
   should 'back when update community info fail' do
     org = Community.create!(:name => 'test org', :identifier => 'testorg', :contact_person => 'my contact', :environment => Environment.default)
-    Community.any_instance.stubs(:update_attributes).returns(false)
+    Community.any_instance.stubs(:update_attributes!).returns(false)
     post :edit, :profile => 'testorg'
     assert_template 'edit'
   end
 
   should 'back when update enterprise info fail' do
     org = Enterprise.create!(:name => 'test org', :identifier => 'testorg', :contact_person => 'my contact', :environment => Environment.default)
-    Enterprise.any_instance.stubs(:update_attributes).returns(false)
+    Enterprise.any_instance.stubs(:update_attributes!).returns(false)
     post :edit, :profile => 'testorg'
     assert_template 'edit'
   end
@@ -665,6 +665,14 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
 
     post :edit, :profile => profile.identifier, :profile_data => { :preferred_domain_id => '' }
     assert_nil Profile.find(profile.id).preferred_domain
+  end
+
+  should 'not be able to upload an image bigger than max size' do
+    Image.any_instance.stubs(:size).returns(Image.attachment_options[:max_size] + 1024)
+    person = create_user('test_profile').person
+    assert_nil person.image
+    post :edit, :profile => person.identifier, :profile_data => { :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png') } }
+    assert_nil person.image
   end
 
   should 'display error message when image has more than max size' do

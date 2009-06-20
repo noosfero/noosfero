@@ -40,9 +40,10 @@ class Enterprise < Organization
   end
 
   def validate
+    super
     self.required_fields.each do |field|
       if self.send(field).blank?
-          self.errors.add(field, _('%{fn} is mandatory'))
+        self.errors.add(field, _('%{fn} is mandatory'))
       end
     end
   end

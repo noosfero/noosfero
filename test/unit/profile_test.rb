@@ -1346,6 +1346,19 @@ class ProfileTest < Test::Unit::TestCase
     assert !profile.folders.include?(child)
   end
 
+  should 'validates profile image when save' do
+    profile = Profile.create!(:name => 'Profile for testing ', :identifier => 'profilefortesting', :image_builder => {:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
+    profile.image.expects(:valid?)
+    assert profile.valid?
+  end
+
+  should 'profile is invalid when image not valid' do
+    profile = Profile.create!(:name => 'Profile for testing ', :identifier => 'profilefortesting', :image_builder => {:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
+    profile.image.expects(:valid?)
+    profile.image.errors.add(:size, "fake error")
+    assert !profile.valid?
+  end
+
   private
 
   def assert_invalid_identifier(id)

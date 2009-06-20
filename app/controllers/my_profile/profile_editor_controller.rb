@@ -13,14 +13,17 @@ class ProfileEditorController < MyProfileController
     @profile_data = profile
     @possible_domains = profile.possible_domains
     if request.post?
-      if profile.update_attributes(params[:profile_data])
-        if profile.image && profile.image.errors.any?
-          @errors = profile.image.errors
-          render :action => 'edit'
-        else
-          redirect_to :action => 'index'
+      begin
+        Profile.transaction do
+        Image.transaction do
+          if profile.update_attributes!(params[:profile_data])
+            redirect_to :action => 'index'
+          end
         end
-      end 
+        end
+      rescue
+        flash[:notice] = _('Cannot update profile')
+      end
     end
   end
 

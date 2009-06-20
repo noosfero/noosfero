@@ -5,12 +5,12 @@ Technoweenie::AttachmentFu::InstanceMethods.module_eval do
   protected
     def attachment_valid?
       if self.filename.nil?
-        errors.add_to_base attachment_validation_options[:empty]
+        errors.add :empty, attachment_validation_options[:empty]
         return
       end
       [:content_type, :size].each do |option|
         if attachment_validation_options[option] && attachment_options[option] && !attachment_options[option].include?(self.send(option))
-          errors.add_to_base attachment_validation_options[option]
+          errors.add option, attachment_validation_options[option]
         end
       end
     end

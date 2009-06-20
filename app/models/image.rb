@@ -15,5 +15,5 @@ class Image < ActiveRecord::Base
                                   :minor    => '50x50',
                                   :icon     => '20x20!' }
 
-  validates_attachment :size => N_("The file you uploaded was larger than the maximum size of %s") % Image.max_size.to_humanreadable
+  validates_attachment :size => N_("%{fn} of uploaded file was larger than the maximum size of %s") % Image.max_size.to_humanreadable
 end
