@@ -7,6 +7,7 @@ class ActsAsHavingSettingsTest < Test::Unit::TestCase
     settings_items :flag, :type => :boolean
     settings_items :flag_disabled_by_default, :type => :boolean, :default => false
     settings_items :name, :type => :string, :default => N_('ENGLISH TEXT')
+    settings_items :number, :type => :integer
   end
 
   should 'store settings in a hash' do
@@ -73,5 +74,11 @@ class ActsAsHavingSettingsTest < Test::Unit::TestCase
     obj.flag = 'true'
     assert_equal true, obj.flag
   end
+
+   should 'store nil when set to empty string' do
+     obj = TestClass.new
+     obj.number = ''
+     assert_nil obj.number
+   end
 
 end
