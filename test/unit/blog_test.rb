@@ -113,7 +113,11 @@ class BlogTest < ActiveSupport::TestCase
   should 'update external feed' do
     p = create_user('testuser').person
     blog = Blog.new(:profile => p, :name => 'Blog test')
-    blog.create_external_feed(:address => 'feed address')
+    blog.save
+    e = ExternalFeed.new(:address => 'feed address')
+    e.blog = blog
+    e.save
+    blog.reload
     blog.external_feed_builder = { :address => 'address edited' }
     blog.save!
     assert_equal 'address edited', blog.external_feed.address

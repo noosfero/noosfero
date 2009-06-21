@@ -19,6 +19,8 @@ class RssFeed < Article
     settings[:limit] || 10
   end
   def limit=(value)
+    #UPGRADE Leandro: I add this line to save the serialize attribute
+    self.body_will_change!
     settings[:limit] = value
   end
 

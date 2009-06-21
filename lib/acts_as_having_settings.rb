@@ -31,6 +31,10 @@ module ActsAsHavingSettings
             val.nil? ? (#{default}.is_a?(String) ? gettext(#{default}) : #{default}) : val
           end
           def #{setting}=(value)
+
+            #UPGRADE Leandro: I add this line to save the serialize attribute
+            send(self.class.settings_field.to_s + '_will_change!')
+
             send(self.class.settings_field)[:#{setting}] = self.class.acts_as_having_settings_type_cast(value, #{data_type.inspect})
           end
         CODE
