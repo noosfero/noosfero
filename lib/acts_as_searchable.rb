@@ -3,11 +3,12 @@ class << ActiveRecord::Base
   def acts_as_searchable(options = {})
     acts_as_ferret({ :remote => true }.merge(options))
     def find_by_contents(query, ferret_options = {}, db_options = {})
+      pg_options = {}
       if ferret_options[:page]
-        db_options[:page] = ferret_options.delete(:page)
+        pg_options[:page] = ferret_options.delete(:page)
       end
       if ferret_options[:per_page]
-        db_options[:per_page] = ferret_options.delete(:per_page)
+        pg_options[:per_page] = ferret_options.delete(:per_page)
       end
 
       ferret_options[:limit] = :all
@@ -25,8 +26,9 @@ class << ActiveRecord::Base
         db_options[:conditions] = "#{table_name}.id in (#{ids.join(', ')})"
       end
 
-      db_options[:page] ||= 1
-      paginate(:all, db_options)
+      pg_options[:page] ||= 1
+      result = find(:all, db_options)
+      result.paginate(pg_options)
     end
   end
 
