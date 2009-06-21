@@ -3,6 +3,8 @@
 # domains.
 class Environment < ActiveRecord::Base
 
+  self.partial_updates = false
+
   has_many :tasks, :dependent => :destroy, :as => 'target'
 
   PERMISSIONS['Environment'] = {

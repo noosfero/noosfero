@@ -20,6 +20,14 @@ on lib/acts_as_having_settings
 
 I used the solution 1.
 
+I choose solution number 2 for Environment model. I think it is more clear in this situation.
+I put the code:
+
+  self.partial_updates = false
+
+on Environment model.
+
+
 4 - acts_as_searchable -> find_by_contents
 
 I solved an incompatibility between paginate and geokit with an work around like this the one explained on the link:

@@ -49,7 +49,8 @@ class AccountController < ApplicationController
       @user.terms_of_use = environment.terms_of_use
       @user.environment = environment
       @terms_of_use = environment.terms_of_use
-      @person = @user.build_person(params[:profile_data])
+      @person = Person.new(params[:profile_data])
+      @person.name = @user.login
       @person.environment = @user.environment
       if request.post? && params[self.icaptcha_field].blank?
         @user.signup!
