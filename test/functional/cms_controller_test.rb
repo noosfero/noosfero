@@ -209,7 +209,7 @@ class CmsControllerTest < Test::Unit::TestCase
     file = profile.articles.find_by_path('test.txt')
     assert_equal 'test.txt', file.name
 
-    post :edit, :profile => profile.identifier, :id => file.id, :article => { :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain')}
+    post :edit, :profile => profile.identifier, :id => file.id, :article => { :uploaded_data => fixture_file_upload('/files/test_another.txt', 'text/plain')}
 
     assert_equal 2, file.versions(true).size
   end
