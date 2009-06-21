@@ -62,7 +62,9 @@ class ContactControllerTest < Test::Unit::TestCase
   end
 
   should 'define city and state' do
+    City.stubs(:exists?).returns(true)
     City.stubs(:find).returns(City.new(:name => 'Camaçari'))
+    State.stubs(:exists?).returns(true)
     State.stubs(:find).returns(State.new(:name => 'Bahia'))
     post :new, :profile => enterprise.identifier, :contact => {:name => 'john', :subject => 'Hi', :email => 'visitor@mail.invalid', :message => 'Hi, all'}, :state => '1', :city => '1'
     assert_equal 'Camaçari', assigns(:contact).city
