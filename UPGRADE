@@ -1,0 +1,27 @@
+0 - All modified code have the tag UPGRADE on it.
+
+1 - I Changed acts_as_versioned plugin code to the new one:
+
+  http://github.com/technoweenie/acts_as_versioned/tree/master
+
+2 - I removed the 'build_person' calls after create the user on UserTest
+
+3 - The settings_items method generated a lot of bugs. Theses bugs are explained here:
+  Solution 1: http://casperfabricius.com/site/2008/06/12/serialize-doesnt-play-nice-with-rails-21-partial-updates/
+  Solution 2: http://www.kalzumeus.com/2008/06/28/rails-fails-to-update-serialized-columns-on-save/
+
+The problem is how rails is working with ActiveRecord. The serialization data was not save on database.
+
+I add this code
+
+  send(self.class.settings_field.to_s + '_will_change!')
+
+on lib/acts_as_having_settings
+
+I used the solution 1.
+
+4 - acts_as_searchable -> find_by_contents
+
+I solved an incompatibility between paginate and geokit with an work around like this the one explained on the link:
+
+   http://groups.google.com/group/will_paginate/browse_thread/thread/1bbb1f0c5810f1c1
