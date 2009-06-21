@@ -25,3 +25,13 @@ I used the solution 1.
 I solved an incompatibility between paginate and geokit with an work around like this the one explained on the link:
 
    http://groups.google.com/group/will_paginate/browse_thread/thread/1bbb1f0c5810f1c1
+
+5 - The test of this method 'theme_include' of application helper was not passing.
+
+I changed the tests
+  -  "should 'render theme footer' do"
+  - "  should 'ignore unexisting theme footer' do"
+
+ to make the test usefull
+
+

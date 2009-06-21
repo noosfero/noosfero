@@ -148,19 +148,19 @@ class ApplicationHelperTest < Test::Unit::TestCase
 
   should 'render theme footer' do
     stubs(:theme_path).returns('/user_themes/mytheme')
-    footer = '../../public/user_themes/mytheme/footer.rhtml'
+    footer_path = RAILS_ROOT + '/public/user_themes/mytheme/footer.rhtml'
 
-    File.expects(:exists?).with(RAILS_ROOT + '/app/views/../../public/user_themes/mytheme/footer.rhtml').returns(true)
-    expects(:render).with(:file => footer).returns("BLI")
+    File.expects(:exists?).with(footer_path).returns(true)
+    expects(:render).with(:file => footer_path, :use_full_path => false).returns("BLI")
 
     assert_equal "BLI", theme_footer
   end
 
   should 'ignore unexisting theme footer' do
     stubs(:theme_path).returns('/user_themes/mytheme')
-    footer = '../../public/user_themes/mytheme/footer.rhtml'
+    footer_path = RAILS_ROOT + '/public/user_themes/mytheme/footer.rhtml'
 
-    File.expects(:exists?).with(RAILS_ROOT + '/app/views/../../public/user_themes/mytheme/footer.rhtml').returns(false)
+    File.expects(:exists?).with(footer_path).returns(false)
     expects(:render).with(:file => footer).never
 
     assert_nil theme_footer
