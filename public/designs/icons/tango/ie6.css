@@ -25,7 +25,7 @@
 .msie6 .icon-forward   { background-image: url(ie6/Tango/16x16/actions/go-next.gif)       }
 .msie6 .icon-search    { background-image: url(ie6/Tango/16x16/actions/search.gif)           }
 .msie6 .icon-ok        { background-image: url(ie6/Tango/16x16/actions/media-playback-start.gif)               }
-.msie6 .icon-login     { background-image: url(ie6/Tango-mod/16x16/actions/login.gif)              }
+.msie6 .icon-login     { background-image: url(ie6/Tango-mod/16x16/actions/log-in.gif)              }
 .msie6 .icon-help      { background-image: url(ie6/Tango/16x16/apps/gnome-help.gif)                }
 .msie6 .icon-firefox   { background-image: url(firefox-24x24.gif)       }
 .msie6 .icon-help32on  { background-image: url(ie6/Tango/32x32/apps/gnome-help.gif)    }
@@ -40,7 +40,7 @@
 .msie6 .icon-menu-ctrl-panel { background-image: url(ie6/Tango/16x16/categories/preferences-desktop.gif)          }
 .msie6 .icon-menu-admin      { background-image: url(ie6/Tango/16x16/categories/preferences-system.gif)          }
 .msie6 .icon-menu-my-groups { background-image: url(ie6/Tango/16x16/apps/system-config-users.gif)    }
-.msie6 .icon-menu-login      { background-image: url(ie6/Tango-mod/16x16/actions/login.gif)            }
+.msie6 .icon-menu-login      { background-image: url(ie6/Tango-mod/16x16/actions/log-in.gif)            }
 .msie6 .icon-menu-logout     { background-image: url(ie6/Tango/16x16/actions/exit.gif)             }
 .msie6 .icon-menu-search     { background-image: url(ie6/Tango/16x16/actions/search.gif)           }
 .msie6 .icon-menu-events     { background-image: url(ie6/Tango/16x16/mimetypes/stock_calendar.gif)         }
