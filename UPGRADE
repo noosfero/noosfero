@@ -43,3 +43,7 @@ I changed the tests
  to make the test usefull
 
 
+6 - I changed the way as the product is created on ManageProducts controller. I removed the line:
+    @product.build_image unless @product.image
+
+because the image was never saved. It don't have valid values to be saved.

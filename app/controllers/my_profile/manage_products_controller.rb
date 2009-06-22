@@ -26,7 +26,6 @@ class ManageProductsController < ApplicationController
     @object = Product.new
     @categories = @current_category.nil? ? ProductCategory.top_level_for(environment) : @current_category.children
     @product = @profile.products.build(params[:product])
-    @product.build_image unless @product.image
     if request.post?
       if @product.save
         flash[:notice] = _('Product succesfully created')
