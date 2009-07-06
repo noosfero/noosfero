@@ -12,7 +12,7 @@ class RecentDocumentsBlock < Block
     _('This block lists your recent content.')
   end
 
-  settings_items :limit, :type => :integer, :default => 5
+  settings_items :limit
 
   include ActionController::UrlWriter
   def content

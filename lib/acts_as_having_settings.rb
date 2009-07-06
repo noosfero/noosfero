@@ -31,7 +31,6 @@ module ActsAsHavingSettings
             val.nil? ? (#{default}.is_a?(String) ? gettext(#{default}) : #{default}) : val
           end
           def #{setting}=(value)
-            value = nil if (value.is_a?(String) && value.blank?)
             send(self.class.settings_field)[:#{setting}] = self.class.acts_as_having_settings_type_cast(value, #{data_type.inspect})
           end
         CODE

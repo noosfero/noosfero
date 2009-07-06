@@ -44,11 +44,6 @@ class RecentDocumentsBlockTest < Test::Unit::TestCase
     assert_no_match /href=.*\/testinguser\/first/, output
   end
 
-  should 'have a default limit of items' do
-    block.limit = nil
-    assert_equal 5, block.limit
-  end
-
   should 'display a link to sitemap with title "All content"' do
     expects(:link_to).with('All content', :controller => 'profile', :action => 'sitemap', :profile => profile.identifier)
     expects(:_).with('All content').returns('All content')
