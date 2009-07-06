@@ -12,6 +12,7 @@
 <% labelled_form_for :user, @user,
    :html => { :help=>_('Fill all this fields to join in this environment. <p/> If you forgot your password, do not create a new account, click on the "<b>I forgot my password!</b>" link. ;-)'), :id => 'profile-data'
             } do |f| -%>
+<%= icaptcha_field() %>
 
 <%= hidden_field_tag :invitation_code, @invitation_code %>
 
@@ -47,8 +48,6 @@
 <% labelled_fields_for :profile_data, @person do |f| %>
   <%= render :partial => 'profile_editor/person_form', :locals => {:f => f} %>
 <% end %>
-
-<%= icaptcha_field() %>
 
 <% if @terms_of_use %>
   <%= _("By clicking on 'I accept the terms of use' below you are agreeing to the %s") %

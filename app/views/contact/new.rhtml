@@ -4,6 +4,7 @@
 
 
 <% labelled_form_for :contact, @contact do |f| %>
+  <%= icaptcha_field() %>
 
   <%= required_fields_message %>
 
@@ -15,8 +16,6 @@
   <%= required f.text_field(:subject) %>
   <%= required f.text_area(:message, :rows => 10, :cols => 60) %>
   <%= labelled_form_field check_box(:contact, :receive_a_copy) + _('I want to receive a copy of the message in my e-mail.'), '' %>
-
-  <%= icaptcha_field() %>
 
   <%= submit_button(:send, _('Send')) %>
 
