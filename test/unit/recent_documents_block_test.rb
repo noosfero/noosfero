@@ -44,6 +44,16 @@ class RecentDocumentsBlockTest < Test::Unit::TestCase
     assert_no_match /href=.*\/testinguser\/first/, output
   end
 
+  should 'store limit as a number' do
+    block.limit = ''
+    assert block.limit.is_a?(Fixnum)
+  end
+
+  should 'have a non-zero default' do
+    block.limit = nil
+    assert block.limit > 0
+  end
+
   should 'display a link to sitemap with title "All content"' do
     expects(:link_to).with('All content', :controller => 'profile', :action => 'sitemap', :profile => profile.identifier)
     expects(:_).with('All content').returns('All content')
