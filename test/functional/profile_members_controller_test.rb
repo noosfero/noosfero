@@ -45,7 +45,7 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
 
   should 'show form to change role' do
     ent = Enterprise.create!(:identifier => 'test_enterprise', :name => 'test enterprise')
-    role = Role.create!(:name => 'member_role', :permissions => ['edit_profile'])
+    role = Role.create!(:name => 'member_role', :environment => Environment.default, :permissions => ['edit_profile'])
     member = create_user('test_member').person
     member.add_role(role, ent)
     user = create_user_with_permission('test_user', 'manage_memberships', ent)
