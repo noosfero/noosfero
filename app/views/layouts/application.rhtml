@@ -87,7 +87,7 @@
                         :id=>"menu_link_to_envhome",
                         :title=>@environment.name  %>
           <% unless environment.enabled?(:disable_categories) %>
-            <% cache(:controller => 'public', :action => 'categories_menu') do %>
+            <% cache(environment.name +  '_categories_menu') do %>
               <%= render :file => 'shared/categories_menu' %>
             <% end %>
           <% end %>

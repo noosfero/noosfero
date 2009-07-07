@@ -1,5 +1,6 @@
 class RoleAssignmentSweeper < ActiveRecord::Observer
   observe :role_assignment
+  include SweeperHelper
 
   def after_create(role_assignment)
     expire_caches(role_assignment)
@@ -28,7 +29,4 @@ protected
     }
   end
 
-  def expire_timeout_fragment(*args)
-    ActionController::Base.new().expire_timeout_fragment(*args)
-  end
 end
