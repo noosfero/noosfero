@@ -14,10 +14,6 @@ class PublishedArticle < Article
     _('A reference to another article published in another profile')    
   end
 
-  def body
-    reference_article.body
-  end
-
   before_validation_on_create :update_name
   def update_name
     self.name ||= self.reference_article.name
@@ -32,6 +28,6 @@ class PublishedArticle < Article
   end
 
   def to_html(options={})
-    reference_article.to_html
+    reference_article ? reference_article.to_html : _('Original text was removed.')
   end
 end

@@ -17,13 +17,6 @@ class PublishedArticleTest < ActiveSupport::TestCase
     assert_equal @article, p.reference_article
   end
 
-  should 'have same content as reference article' do
-    prof = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
-    p = PublishedArticle.create(:reference_article => @article, :profile => prof)
-
-    assert_equal @article.body, p.body
-  end
-
   should 'have a different name than reference article' do
     prof = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
     p = PublishedArticle.create(:reference_article => @article, :profile => prof, :name => 'other title')
@@ -106,5 +99,15 @@ class PublishedArticleTest < ActiveSupport::TestCase
     p = PublishedArticle.create!(:reference_article => textile_article, :profile => prof)
 
     assert_equal textile_article.to_html, p.to_html
+  end
+
+  should 'display message when reference_article does not exist' do
+    prof = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
+    textile_article = TextileArticle.new(:name => 'textile_article', :body => '*my text*', :profile => prof)
+    p = PublishedArticle.create!(:reference_article => textile_article, :profile => prof)
+    textile_article.destroy
+    p.reload
+
+    assert_match /removed/, p.to_html
   end
 end
