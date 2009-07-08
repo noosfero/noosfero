@@ -28,6 +28,6 @@ class PublishedArticle < Article
   end
 
   def to_html(options={})
-    reference_article ? reference_article.to_html : _('Original text was removed.')
+    reference_article ? reference_article.to_html : ('<em>' + _('The original text was removed.') + '</em>')
   end
 end
