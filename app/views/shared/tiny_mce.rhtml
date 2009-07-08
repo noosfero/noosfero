@@ -23,7 +23,8 @@ tinyMCE.init({
         paste_use_dialog: false,
         apply_source_formatting : true,
         content_css: '/stylesheets/tinymce.css',
-        language: <%= tinymce_language.inspect %>
+        language: <%= tinymce_language.inspect %>,
+        cleanup_callback : "customCleanup"
         });
 
 function convertWord(type, content) {
@@ -41,8 +42,17 @@ function convertWord(type, content) {
 
   return content;
 }
+
+function customCleanup(type, value) {
+  switch (type) {
+    case "get_from_editor":
+      value = value.replace(/&amp;amp;/g,"&amp;");
+		break;
+    case "insert_to_editor":
+      value = value.replace(/&amp;amp;/g,"&amp;");
+		break;
+  }
+  return value;
+}
+
 </script>
-
-
-
-
