@@ -1,5 +1,7 @@
 class ContactController < PublicController
 
+  before_filter :login_required
+
   needs_profile
 
   inverse_captcha :field => 'e_mail'
