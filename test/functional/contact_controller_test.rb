@@ -15,6 +15,8 @@ class ContactControllerTest < Test::Unit::TestCase
 
     @profile = create_user('contact_test_user').person
     @enterprise = Enterprise.create!(:identifier => 'contact_test_enterprise', :name => 'Test contact enteprise')
+
+    login_as('contact_test_user')
   end
   attr_reader :profile, :enterprise
 
@@ -50,13 +52,11 @@ class ContactControllerTest < Test::Unit::TestCase
   end
 
   should 'fill email if user logged in' do
-    login_as(profile.identifier)
     get :new, :profile => enterprise.identifier
     assert_tag :tag => 'input', :attributes => {:name => 'contact[email]', :value => profile.email}
   end
 
   should 'fill name if user logged in' do
-    login_as(profile.identifier)
     get :new, :profile => enterprise.identifier
     assert_tag :tag => 'input', :attributes => {:name => 'contact[name]', :value => profile.name}
   end
@@ -111,5 +111,11 @@ class ContactControllerTest < Test::Unit::TestCase
     assert_response :success
     assert_template 'new'
   end
-  
+
+  should 'not allow if not logged' do
+    logout
+    get :new, :profile => profile.identifier
+    assert_response :redirect
+    assert_redirected_to :controller => 'account', :action => 'login'
+  end
 end

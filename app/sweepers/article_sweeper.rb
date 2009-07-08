@@ -1,4 +1,5 @@
 class ArticleSweeper < ActiveRecord::Observer
+  include SweeperHelper
   observe :article
 
   def after_save(article)
@@ -21,11 +22,4 @@ protected
     end
   end
 
-  def expire_fragment(*args)
-    ActionController::Base.new().expire_fragment(*args)
-  end
-
-  def expire_timeout_fragment(*args)
-    ActionController::Base.new().expire_timeout_fragment(*args)
-  end
 end

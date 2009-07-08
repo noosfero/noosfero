@@ -1,6 +1,6 @@
 module Noosfero
   PROJECT = 'noosfero'
-  VERSION = '0.18.3'
+  VERSION = '0.18.4'
   SVN_ROOT = 'https://svn.colivre.coop.br/svn/noosfero'
 
   def self.pattern_for_controllers_in_directory(dir)

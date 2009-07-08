@@ -1,5 +1,6 @@
 class FriendshipSweeper < ActiveRecord::Observer
   observe :friendship
+  include SweeperHelper
 
   def after_create(friendship)
     expire_caches(friendship)
@@ -26,7 +27,4 @@ protected
     blocks.map(&:cache_keys).each{|ck|expire_timeout_fragment(ck)}
   end
 
-  def expire_timeout_fragment(*args)
-    ActionController::Base.new().expire_timeout_fragment(*args)
-  end
 end
