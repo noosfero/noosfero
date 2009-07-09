@@ -163,7 +163,7 @@ class EnvironmentTest < Test::Unit::TestCase
 
   should 'provide a default hostname' do
     env = Environment.create!(:name => 'test environment')
-    env.domains << Domain.create(:name => 'example.com')
+    env.domains << Domain.create(:name => 'example.com', :is_default => true)
     assert_equal 'example.com', env.default_hostname
   end
 
@@ -174,14 +174,28 @@ class EnvironmentTest < Test::Unit::TestCase
 
   should 'add www when told to force www' do
     env = Environment.create!(:name => 'test environment', :force_www => true)
-    env.domains << Domain.create(:name => 'example.com')
+    env.domains << Domain.create(:name => 'example.com', :is_default => true)
     assert_equal 'www.example.com', env.default_hostname
   end
 
   should 'not add www when requesting domain for email address' do
     env = Environment.create!(:name => 'test environment', :force_www => true)
-    env.domains << Domain.create(:name => 'example.com')
+    env.domains << Domain.create(:name => 'example.com', :is_default => true)
     assert_equal 'example.com', env.default_hostname(true)
+  end
+
+  should 'use default domain when there is more than one' do
+    env = Environment.create!(:name => 'test environment')
+    env.domains << Domain.create(:name => 'example.com', :is_default => false)
+    env.domains << Domain.create(:name => 'default.com', :is_default => true)
+    assert_equal 'default.com', env.default_hostname
+  end
+
+  should 'use first domain when there is no default' do
+    env = Environment.create!(:name => 'test environment')
+    env.domains << Domain.create(:name => 'domain1.com', :is_default => false)
+    env.domains << Domain.create(:name => 'domain2.com', :is_default => false)
+    assert_equal 'domain1.com', env.default_hostname
   end
 
   should 'provide default top URL' do

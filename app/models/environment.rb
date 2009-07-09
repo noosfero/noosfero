@@ -419,7 +419,7 @@ class Environment < ActiveRecord::Base
     if self.domains(true).empty?
       'localhost'
     else
-      domain = self.domains.find(:first, :order => 'id').name
+      domain = (self.domains.find_by_is_default(true) || self.domains.find(:first, :order => 'id')).name
       email_hostname ? domain : (force_www ? ('www.' + domain) : domain)
     end
   end
