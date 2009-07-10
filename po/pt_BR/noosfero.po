@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.18.2\n"
 "POT-Creation-Date: 2009-06-20 02:04-0300\n"
-"PO-Revision-Date: 2009-06-20 02:07-0300\n"
+"PO-Revision-Date: 2009-07-10 18:03-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2538,7 +2538,7 @@ msgstr "Olá <friend>,"
 
 #: app/models/environment.rb:299
 msgid "<user> is inviting you to participate on %{environment}."
-msgstr "<user> está de convidando a participar no %{environment}"
+msgstr "<user> está te convidando a participar do %{environment}"
 
 #: app/models/environment.rb:300
 msgid "To accept the invitation, please follow this link:"
