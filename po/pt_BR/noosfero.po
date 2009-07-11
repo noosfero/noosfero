@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.18.2\n"
 "POT-Creation-Date: 2009-06-20 02:04-0300\n"
-"PO-Revision-Date: 2009-07-11 17:00-0300\n"
+"PO-Revision-Date: 2009-07-11 17:15-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2610,7 +2610,7 @@ msgstr "Envie qualquer tipo de arquivo que você queira."
 
 #: app/controllers/admin/features_controller.rb:11
 msgid "Features updated successfully."
-msgstr "Funcionalidades alterada com sucesso"
+msgstr "Funcionalidades alteradas com sucesso"
 
 #: app/controllers/admin/features_controller.rb:27
 msgid "Person fields updated successfully."
