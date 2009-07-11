@@ -102,7 +102,9 @@ class CmsController < MyProfileController
 
     raise "Invalid article type #{@type}" unless valid_article_type?(@type)
     klass = @type.constantize
-    @article = klass.new(params[:article])
+    article_data = environment.enabled?('articles_dont_accept_comments_by_default') ? { :accept_comments => false } : {}
+    article_data.merge!(params[:article]) if params[:article]
+    @article = klass.new(article_data)
 
     parent = check_parent(params[:parent_id])
     if parent

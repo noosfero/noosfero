@@ -58,7 +58,9 @@
       <td class="article-controls">
         <%= button_without_text :edit, _('Properties'), :action => 'edit', :id => folder.id %>
         <%= button_without_text :eyes, _('Public view'), folder.url %>
-        <%= button_without_text :home, _('Use as homepage'), { :action => 'set_home_page', :id => folder.id }, :method => :post %>
+        <% if !environment.enabled?('cant_change_homepage') %>
+          <%= button_without_text :home, _('Use as homepage'), { :action => 'set_home_page', :id => folder.id }, :method => :post %>
+        <% end %>
         <%= button_without_text :delete, _('Delete'), { :action => 'destroy', :id => folder.id }, :method => :post, :confirm => _('Are you sure that you want to remove this folder? Note that all the items inside it will also be removed!') %>
       </td>
     </tr>
@@ -80,7 +82,9 @@
         <% if profile.person? %>
           <%= button_without_text :spread, _('Spread this'), :action => 'publish', :id => item.id %>
         <% end %>
-        <%= button_without_text :home, _('Use as homepage'), { :action => 'set_home_page', :id => item.id }, :method => :post %>
+        <% if !environment.enabled?('cant_change_homepage') %>
+          <%= button_without_text :home, _('Use as homepage'), { :action => 'set_home_page', :id => item.id }, :method => :post %>
+        <% end %>
         <%= button_without_text :delete, _('Delete'), { :action => 'destroy', :id => item.id }, :method => :post, :confirm => _('Are you sure that you want to remove this item?') %>
       </td>
     </tr>

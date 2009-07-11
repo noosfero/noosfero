@@ -97,6 +97,16 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'a', :content => 'Use as homepage', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/set_home_page/#{a.id}" }
   end
 
+  should 'not display set as home page if disabled in environment' do
+    article = profile.articles.create!(:name => 'my new home page')
+    folder = Folder.new(:name => 'article folder'); profile.articles << folder;  folder.save!
+    Article.stubs(:short_description).returns('bli')
+    env = Environment.default; env.enable('cant_change_homepage'); env.save!
+    get :index, :profile => profile.identifier
+    assert_no_tag :tag => 'a', :content => 'Use as homepage', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/set_home_page/#{article.id}" }
+    assert_no_tag :tag => 'a', :content => 'Use as homepage', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/set_home_page/#{folder.id}" }
+  end
+
   should 'be able to set home page' do
     a = profile.articles.build(:name => 'my new home page')
     a.save!
