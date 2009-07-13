@@ -359,7 +359,7 @@ class Profile < ActiveRecord::Base
   end
 
   def url_options
-    options = { :host => default_hostname, :profile => (own_hostname ? nil : self.identifier) }
+    options = { :protocol => 'http://', :host => default_hostname, :profile => (own_hostname ? nil : self.identifier) }
     Noosfero.url_options.merge(options)
   end
 
