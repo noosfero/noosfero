@@ -412,4 +412,15 @@ class ApplicationControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'div', :attributes => {:id => 'block-' + b.id.to_s}
   end
 
+  should 'return false when not avoid ssl' do
+    req = mock
+    req.stubs(:ssl?).returns(true)
+
+    @controller.expects(:request).returns(req)
+    @controller.stubs(:params).returns({})
+    @controller.stubs(:redirect_to)
+
+    assert_equal false, @controller.avoid_ssl
+  end
+
 end

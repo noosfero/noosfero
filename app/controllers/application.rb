@@ -67,6 +67,7 @@ class ApplicationController < ActionController::Base
   def avoid_ssl
     return true if (!request.ssl? || ENV['RAILS_ENV'] == 'development')
     redirect_to(params.merge(:protocol => 'http://'))
+    false
   end
 
   before_init_gettext :maybe_save_locale
