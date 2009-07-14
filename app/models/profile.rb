@@ -231,7 +231,7 @@ class Profile < ActiveRecord::Base
   # instances.    
   def create_default_set_of_boxes
     if template
-      copy_blocks_from template
+      apply_template(template, :copy_articles => false)
     else
       3.times do
         self.boxes << Box.new
@@ -264,9 +264,9 @@ class Profile < ActiveRecord::Base
     nil
   end
 
-  def apply_template(template)
+  def apply_template(template, options = {:copy_articles => true})
     copy_blocks_from(template)
-    copy_articles_from(template)
+    copy_articles_from(template) if options[:copy_articles]
 
     # copy interesting attributes
     self.layout_template = template.layout_template
