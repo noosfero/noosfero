@@ -565,4 +565,13 @@ class PersonTest < Test::Unit::TestCase
     assert !Profile['testuser1'].add_friend(p2)
   end
 
+  should 'not raise exception when validates person without e-mail' do
+    person = create_user('testuser1').person
+    person.user.email = nil
+
+    assert_nothing_raised ActiveRecord::RecordInvalid do
+      assert !person.save
+    end
+  end
+
 end

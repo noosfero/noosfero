@@ -142,6 +142,8 @@ class Person < Profile
   validates_presence_of :user_id
   validates_uniqueness_of :user_id
 
+  validates_associated :user
+
   def email
     self.user.nil? ? nil : self.user.email
   end
