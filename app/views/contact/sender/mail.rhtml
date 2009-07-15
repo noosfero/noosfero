@@ -1,6 +1,8 @@
 <%= _('Name: %s') % @name  %>
 <%= _('e-Mail: %s') % @email %>
-<%= _('City and state: %s-%s') % [@city, @state] %>
+<% if @city || @state %>
+  <%= _('City and state: %s/%s') % [@city || '?', @state || '?'] %>
+<% end %>
 
 <%= _('Message:') %>
 --
