@@ -27,7 +27,7 @@ class String
   # Don't abuse this method.
   def transliterate
 
-    new = self.clone
+    new = self.dup
     TRANSLITERATIONS.each { |from,to|
       from.each { |seq|
         new.gsub!(seq, to)
