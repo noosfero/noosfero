@@ -20,9 +20,16 @@ module PermissionCheck
           target = target_method.kind_of?(Symbol) ? c.send(target_method) : target_method
           accessor = accessor_method.kind_of?(Symbol) ? c.send(accessor_method) : accessor_method
           unless accessor && accessor.has_permission?(permission.to_s, target)
-#            c.instance_variable_set('@b', [accessor, permission, target])
-            c.send(:render, :template => access_denied_template_path, :status => 403) && false
+            render_access_denied(c) && false
           end
+      end
+    end
+
+    def render_access_denied(c)
+      if c.respond_to?(:render_access_denied)
+        c.send(:render_access_denied)
+      else
+        c.send(:render, :template => access_denied_template_path, :status => 403)
       end
     end
 

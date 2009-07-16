@@ -37,12 +37,6 @@ class ApplicationController < ActionController::Base
   def uses_design_blocks?
     !@no_design_blocks && self.class.uses_design_blocks?
   end
-  module UsesDesignBlocksHelper
-    def uses_design_blocks?
-      @controller.uses_design_blocks?
-    end
-  end
-  helper UsesDesignBlocksHelper
 
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem

@@ -12,7 +12,7 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
     @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
 
-    @holder = create_user('designtestuser').person
+    @profile = @holder = create_user('designtestuser').person
     holder.save!
  
     @box1 = Box.new
@@ -65,6 +65,7 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
     @controller.stubs(:boxes_holder).returns(holder)
     login_as 'designtestuser'
   end
+  attr_reader :profile
 
   def test_local_files_reference
     assert_local_files_reference :get, :index, :profile => 'designtestuser'
@@ -317,6 +318,19 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
 
     assert_equal 'new feed address', @box1.blocks[-1].address
     assert_equal 20, @box1.blocks[-1].limit
+  end
+
+  should 'require login' do
+    logout
+    get :index, :profile => profile.identifier
+    assert_redirected_to :controller => 'account', :action => 'login'
+  end
+
+  should 'not show sideboxes when render access denied' do
+    another_profile = create_user('bobmarley').person
+    get :index, :profile => another_profile.identifier
+    assert_tag :tag => 'div', :attributes => {:class => 'no-boxes'}
+    assert_tag :tag => 'div', :attributes => {:id => 'access-denied'}
   end
 
 end
