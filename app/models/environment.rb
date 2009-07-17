@@ -594,25 +594,6 @@ class Environment < ActiveRecord::Base
     settings[:inactive_enterprise_template_id] = value.id
   end
 
-  def templates(profile = 'profile')
-    klass = profile.classify.constantize
-    templates = []
-    if settings[:templates_ids]
-      settings[:templates_ids].each do |template_id|
-        templates << klass.find_by_id(template_id)
-      end
-    end
-    templates.compact
-  end
-
-  def add_templates=(values)
-    if settings[:templates_ids]
-      settings[:templates_ids].concat(values.map(&:id))
-    else
-      settings[:templates_ids] = values.map(&:id)
-    end
-  end
-
   def replace_enterprise_template_when_enable
     settings[:replace_enterprise_template_when_enable] || false
   end

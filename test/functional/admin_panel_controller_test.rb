@@ -99,42 +99,6 @@ class AdminPanelControllerTest < Test::Unit::TestCase
     assert_equal "This <strong>is</strong> my new environment", Environment.default.message_for_disabled_enterprise
   end
 
-  should 'list templates' do
-    get :manage_templates
-
-    assert_kind_of Array, assigns(:person_templates)
-    assert_kind_of Array, assigns(:community_templates)
-    assert_kind_of Array, assigns(:enterprise_templates)
-  end
-
-  should 'display environment template options' do
-    e = Environment.default
-    @controller.stubs(:environment).returns(e)
-    profile_template = Profile.create!(:name =>'template_test', :identifier => 'template_test', :environment => e)
-    e.settings[:templates_ids] = [profile_template.id]
-    e.save!
-    e.stubs(:templates).with('person').returns([profile_template])
-    e.stubs(:templates).with('community').returns([profile_template])
-    e.stubs(:templates).with('enterprise').returns([profile_template])
-
-    assert_equal [profile_template], e.templates('person')
-
-    get :manage_templates
-    ['person_template', 'community_template', 'enterprise_template'].each do |template|
-      assert_tag :tag => 'select', :attributes => { :id => "environment_#{template}"}, :descendant => { :tag => 'option', :content => 'template_test'} 
-    end
-  end
-
-  should 'set template' do
-    e = Environment.default
-    @controller.stubs(:environment).returns(e)
-    profile_template = Enterprise.create!(:name =>'template_test', :identifier => 'template_test')
-
-    post :set_template, :environment => {:enterprise_template => profile_template.id}
-
-    assert_equal profile_template, e.enterprise_template
-  end
-
   should 'not use WYSWYIG if disabled' do
     e = Environment.default; e.disable('wysiwyg_editor_for_environment_home'); e.save!
     get :site_info

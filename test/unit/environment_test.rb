@@ -487,34 +487,6 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal template, e.enterprise_template 
   end
 
-  should 'add templates when it is empty' do
-    e = Environment.create!(:name => 'test_env')
-    ent_template_a = Enterprise.create!(:name => 'Enterprise template A', :identifier => e.name.to_slug + 'enterprise_template_a', :environment => e, :public_profile => false)
-    ent_template_b = Enterprise.create!(:name => 'Enterprise template B', :identifier => e.name.to_slug + 'enterprise_template_b', :environment => e, :public_profile => false)
- 
-    e.add_templates = [ent_template_a, ent_template_b]
-    assert_equal [ent_template_a, ent_template_b], e.templates
-  end
-
-  should 'add templates when it is not empty' do
-    e = Environment.create!(:name => 'test_env')
-
-    ent_template_example = Enterprise.create!(:name => 'Enterprise template example', :identifier => e.name.to_slug + 'enterprise_template_example', :environment => e, :public_profile => false)
- 
-    e.settings[:templates_ids] = [ent_template_example.id]
-    e.save
-
-    ent_template_a = Enterprise.create!(:name => 'Enterprise template A', :identifier => e.name.to_slug + 'enterprise_template_a', :environment => e, :public_profile => false)
- 
-    e.add_templates = [ent_template_a]
-
-    assert_equal [ent_template_example, ent_template_a], e.templates
-  end
-
-  should 'have an empty array of templates by default' do
-    assert_equal [], Environment.new.templates
-  end
-
   should 'not disable ssl by default' do
     e = Environment.new
     assert !e.disable_ssl
