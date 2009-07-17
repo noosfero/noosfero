@@ -26,7 +26,6 @@ class NoosferoTest < Test::Unit::TestCase
   should 'identifier format' do
     assert_match /^#{Noosfero.identifier_format}$/, 'bli-bla'
     assert_no_match /^#{Noosfero.identifier_format}$/, 'UPPER'
-    assert_no_match /^#{Noosfero.identifier_format}$/, '129812startingwithnumber'
     assert_match /^#{Noosfero.identifier_format}$/, 'with~tilde'
     assert_match /^#{Noosfero.identifier_format}$/, 'with.dot'
   end
@@ -44,6 +43,10 @@ class NoosferoTest < Test::Unit::TestCase
     ENV.expects(:[]).with('RAILS_ENV').returns('development')
     Noosfero.expects(:development_url_options).returns({ :port => 9999 })
     assert_equal({:port => 9999}, Noosfero.url_options)
+  end
+
+  should 'allow identifier starting with number' do
+    assert_match /^#{Noosfero.identifier_format}$/, '129812startingwithnumber'
   end
 
 end
