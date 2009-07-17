@@ -20,6 +20,78 @@ class Environment < ActiveRecord::Base
     end
   end
 
+  after_create do |e|
+    Role.create!(
+      :key => 'environment_administrator',
+      :name => N_('Environment Administrator'),
+      :environment => e,
+      :permissions => [
+        'view_environment_admin_panel',
+        'edit_environment_features',
+        'edit_environment_design',
+        'manage_environment_categories',
+        'manage_environment_roles',
+        'manage_environment_validators',
+        'edit_profile',
+        'destroy_profile',
+        'manage_memberships',
+        'post_content',
+        'edit_profile_design',
+        'manage_products',
+        'edit_appearance',
+        'manage_friends',
+        'validate_enterprise',
+        'perform_task',
+      ]
+    )
+    Role.create!(
+      :key => 'profile_admin',
+      :name => N_('Profile Administrator'),
+      :environment => e,
+      :permissions => [
+        'edit_profile',
+        'destroy_profile',
+        'manage_memberships',
+        'post_content',
+        'edit_profile_design',
+        'manage_products',
+        'edit_appearance',
+      ]
+    )
+    # members for enterprises, communities etc
+    Role.create!(
+      :key => "profile_member",
+      :name => N_('Member'),
+      :environment => e,
+      :permissions => [
+        'edit_profile',
+        'post_content',
+        'manage_products'
+      ]
+    )
+    # moderators for enterprises, communities etc
+    Role.create!(
+      :key => 'profile_moderator',
+      :name => N_('Moderator'),
+      :environment => e,
+      :permissions => [
+        'manage_memberships',
+        'edit_profile_design',
+        'manage_products',
+        'manage_friends',
+        'perform_task'
+      ]
+    )
+  end
+
+  def add_admin(user)
+    self.affiliate(user, Environment::Roles.admin(self.id))
+  end
+
+  def admins
+    self.members_by_role(Environment::Roles.admin(self.id))
+  end
+
   # returns the available features for a Environment, in the form of a
   # hash, with pairs in the form <tt>'feature_name' => 'Feature name'</tt>.
   def self.available_features

@@ -326,6 +326,15 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_kind_of Role, Environment::Roles.admin(Environment.default.id)
   end
 
+  should 'be able to add admins easily' do
+    env = Environment.create!(:name => 'test')
+    user = create_user('testuser').person
+    env.add_admin(user)
+    env.reload
+
+    assert_includes env.admins, user
+  end
+
   should 'have products through enterprises' do
     env = Environment.default
     e1 = Enterprise.create!(:name => 'test_ent1', :identifier => 'test_ent1')
