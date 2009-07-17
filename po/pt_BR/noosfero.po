@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.18.4\n"
 "POT-Creation-Date: 2009-07-17 17:55-0300\n"
-"PO-Revision-Date: 2009-07-17 18:12-0300\n"
+"PO-Revision-Date: 2009-07-17 18:47-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2047,7 +2047,7 @@ msgstr "Ano de fundação"
 
 #: app/models/create_enterprise.rb:10 app/models/organization.rb:68
 msgid "Legal form"
-msgstr "Formulário Legal"
+msgstr "Estatuto Jurídico"
 
 #: app/models/create_enterprise.rb:11 app/models/organization.rb:68
 msgid "Economic activity"
@@ -2128,7 +2128,7 @@ msgstr "Endereço: %s"
 
 #: app/models/create_enterprise.rb:155
 msgid "Legal form: %s"
-msgstr "Forma legal: %s"
+msgstr "Estaturo Jurídico: %s"
 
 #: app/models/create_enterprise.rb:156
 msgid "Foundation Year: %d"
@@ -4353,7 +4353,7 @@ msgstr ""
 
 #: app/views/search/communities.rhtml:25
 msgid "New community"
-msgstr "Uma comunidade"
+msgstr "Nova comunidade"
 
 #: app/views/search/popup.rhtml:3
 msgid "Search %s"
