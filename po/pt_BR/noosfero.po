@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.18.4\n"
 "POT-Creation-Date: 2009-07-17 17:55-0300\n"
-"PO-Revision-Date: 2009-07-17 18:47-0300\n"
+"PO-Revision-Date: 2009-07-20 14:22-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2382,6 +2382,10 @@ msgstr "Uma busca de empreendimentos por produtos vendidos e localização"
 #: app/models/sellers_search_block.rb:8
 msgid "Sellers search block"
 msgstr "Bloco de busca por vendedores"
+
+#: app/models/environment.rb:299
+msgid "<user> is inviting you to participate on %{environment}."
+msgstr "<user> está te convidando a participar do %{environment}"
 
 #: app/models/sellers_search_block.rb:12
 msgid "Search for sellers"

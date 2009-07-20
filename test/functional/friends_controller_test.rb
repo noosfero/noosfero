@@ -151,4 +151,10 @@ class FriendsControllerTest < Test::Unit::TestCase
     end
   end
 
+  should 'not invite yourself' do
+    assert_no_difference InviteFriend, :count do
+      post :invite, :manual_import_addresses => "#{profile.name} <#{profile.user.email}>", :import_from => "manual", :message => "click: <url>", :confirmation => 1, :wizard => true
+    end
+  end
+
 end

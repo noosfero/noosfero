@@ -22,6 +22,14 @@ class InviteFriend < Task
     TaskMailer.deliver_invitation_notification(task) unless task.friend
   end
 
+  def validate
+    super
+    friendemail = friend ? friend.user.email : friend_email
+    if person && friendemail && person.user.email == friendemail
+      self.errors.add_to_base(_("You can't invite youself"))
+    end
+  end
+
   def perform
     requestor.add_friend(target, group_for_person)
     target.add_friend(requestor, group_for_friend)

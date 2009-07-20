@@ -137,4 +137,14 @@ class InviteFriendTest < ActiveSupport::TestCase
     assert_equal :manage_friends, t.permission
   end
 
+  should 'not invite yourself' do
+    p = create_user('testuser1').person
+
+    task1 = InviteFriend.new(:person => p, :friend => p, :message => 'click here: <url>')
+    assert !task1.save
+
+    task2 = InviteFriend.new(:person => p, :friend_name => 'Myself', :friend_email => p.user.email, :message => 'click here: <url>')
+    assert !task2.save
+  end
+
 end

@@ -37,12 +37,6 @@ class ApplicationController < ActionController::Base
   def uses_design_blocks?
     !@no_design_blocks && self.class.uses_design_blocks?
   end
-  module UsesDesignBlocksHelper
-    def uses_design_blocks?
-      @controller.uses_design_blocks?
-    end
-  end
-  helper UsesDesignBlocksHelper
 
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem
@@ -67,6 +61,7 @@ class ApplicationController < ActionController::Base
   def avoid_ssl
     return true if (!request.ssl? || ENV['RAILS_ENV'] == 'development')
     redirect_to(params.merge(:protocol => 'http://'))
+    false
   end
 
   before_init_gettext :maybe_save_locale

@@ -18,6 +18,12 @@ RoleAssignment.set_table_name 'access_control_test_role_assignments'
 class AccessControlTestAccessor < ActiveRecord::Base
   set_table_name 'access_control_test_accessors'
   acts_as_accessor
+  def cache_keys
+    []
+  end
+  def blocks_to_expire_cache
+    []
+  end
 end
 
 # resource example class to be accessed by some accessor

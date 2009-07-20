@@ -1359,6 +1359,17 @@ class ProfileTest < Test::Unit::TestCase
     assert !profile.valid?
   end
 
+  should 'copy header and footer after create a person' do
+    template = create_user('template').person
+    template.custom_footer = "footer customized"
+    template.custom_header = "header customized"
+    Environment.any_instance.stubs(:person_template).returns(template)
+
+    person = create_user('mytestuser').person
+    assert_equal "footer customized", person.custom_footer
+    assert_equal "header customized", person.custom_header
+  end
+
   private
 
   def assert_invalid_identifier(id)
