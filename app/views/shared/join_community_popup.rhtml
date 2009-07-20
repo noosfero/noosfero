@@ -3,9 +3,9 @@
 
   <% button_bar do %>
     <% if logged_in? %>
-      <%= button(:ok, _('Yes'), { :controller => 'profile', :action => 'join', :profile => profile.identifier, :confirmation => '1'}, :method => :post) %>
+      <%= button(:ok, _('Yes'), profile.join_url.merge(:confirmation => '1'), :method => :post) %>
     <% else %>
-      <%= button(:ok, _('Yes'), :controller => 'profile', :action => 'join', :profile => profile.identifier) %>
+      <%= button(:ok, _('Yes'), profile.join_url) %>
     <% end %>
     <%= button_to_remote(:cancel, _('Not now'), :url => profile.url.merge({:controller => 'profile', :action => 'refuse_for_now', :profile => profile.identifier}), :loaded => '$("join-community-popup").hide()') %>
     <%= button(:cancel, _('No and don\'t ask again'), :controller => 'profile', :action => 'refuse_join', :profile => profile.identifier) if logged_in? %>

@@ -109,41 +109,7 @@ class MembershipsControllerTest < Test::Unit::TestCase
     community = Community.create!(:name => 'my test community', :description => 'description test')
     community.add_member(profile)
     get :index, :profile => profile.identifier
-    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/memberships/leave/#{community.id}" }, :content => 'Leave'
-  end
-
-  should 'present confirmation before leaving a profile' do
-    community = Community.create!(:name => 'my test community')
-    community.add_member(profile)
-    get :leave, :profile => profile.identifier, :id => community.id
-
-    assert_response :success
-    assert_template 'leave'
-  end
-
-  should 'actually leave profile' do
-    community = Community.create!(:name => 'my test community')
-    community.add_member(profile)
-    assert_includes profile.memberships, community
-    post :leave, :profile => profile.identifier, :id => community.id, :confirmation => '1'
-
-    assert_response :redirect
-    assert_redirected_to :action => 'index'
-
-    profile = Profile.find(@profile.id)
-    assert_not_includes profile.memberships, community
-  end
-
-  should 'leave profile when on wizard' do
-    community = Community.create!(:name => 'my test community')
-    community.add_member(profile)
-    post :leave, :profile => profile.identifier, :id => community.id, :confirmation => '1', :wizard => true
-
-    assert_response :redirect
-    assert_redirected_to :controller => 'search', :action => 'assets', :asset => 'communities', :wizard => true
-
-    profile = Profile.find(@profile.id)
-    assert_not_includes profile.memberships, community
+    assert_tag :tag => 'a', :attributes => { :href => "/profile/#{community.identifier}/leave" }, :content => 'Leave'
   end
 
   should 'current user is added as admin after create new community' do

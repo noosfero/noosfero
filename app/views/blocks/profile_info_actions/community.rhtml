@@ -3,11 +3,11 @@
 
     <% if profile.members.include?(user) %>
       <li>
-        <%= link_to content_tag('span', _('Leave')), { :profile => user.identifier, :controller => 'memberships', :action => 'leave', :id => profile.id }, :class => 'button with-text icon-delete', :title => _('Leave this community') %>
+        <%= lightbox_link_to content_tag('span', _('Leave')), profile.leave_url, :class => 'button with-text icon-delete', :title => _('Leave this community') %>
       </li>
     <% else %>
       <li>
-        <%= lightbox_link_to content_tag('span', _('Join')), { :profile => profile.identifier, :controller => 'profile', :action => 'join' }, :class => 'button with-text icon-add', :title => _('Join this community') %>
+        <%= lightbox_link_to content_tag('span', _('Join')), profile.join_url, :class => 'button with-text icon-add', :title => _('Join this community') %>
       </li>
     <% end %>
 

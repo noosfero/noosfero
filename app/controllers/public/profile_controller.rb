@@ -2,7 +2,7 @@ class ProfileController < PublicController
 
   needs_profile
   before_filter :check_access_to_profile
-  before_filter :login_required, :only => [:join, :refuse_join]
+  before_filter :login_required, :only => [:join, :refuse_join, :leave]
 
   helper TagsHelper
 
@@ -55,9 +55,27 @@ class ProfileController < PublicController
       if @wizard
         redirect_to :controller => 'search', :action => 'assets', :asset => 'communities', :wizard => true
       else
-        redirect_to profile.url
+        redirect_back_or_default profile.url
       end
     else
+      store_location(request.referer)
+      if request.xhr?
+        render :layout => false
+      end
+    end
+  end
+
+  def leave
+    @wizard = params[:wizard]
+    if request.post? && params[:confirmation]
+      profile.remove_member(current_user.person)
+      if @wizard
+        redirect_to :controller => 'search', :action => 'assets', :asset => 'communities', :wizard => true
+      else
+        redirect_back_or_default profile.url
+      end
+    else
+      store_location(request.referer)
       if request.xhr?
         render :layout => false
       end
