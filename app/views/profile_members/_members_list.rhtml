@@ -1,0 +1,24 @@
+<h3><%= _('Current Members') %></h3>
+
+<table>
+  <tr>
+    <th><%= _('Member') %></th>
+    <th><%= _('Actions') %></th>
+  </tr>
+  <% profile.members.each do |m| %>
+    <tr>
+      <td><%= link_to_profile m.short_name, m.identifier, :title => m.name %> </td>
+      <td>
+        <div class="members-buttons-cell">
+          <%= button_without_text :edit, _('Edit'), :action => 'change_role', :id => m %>
+          <%= button_to_remote_without_text :remove, _('Remove'),
+                :update => 'members-list',
+                :loading => '$("members-list").addClassName("loading")',
+                :success => "$('tr-#{m.identifier}').show()",
+                :complete => '$("members-list").removeClassName("loading")',
+                :url => {:action => 'unassociate', :id => m} %>
+        </div>
+      </td>
+    </tr>
+  <% end %>
+</table>

@@ -1,5 +1,6 @@
 class ProfileMembersController < MyProfileController
   protect 'manage_memberships', :profile
+  no_design_blocks
 
   def index
     @members = profile.members
@@ -43,7 +44,7 @@ class ProfileMembersController < MyProfileController
     else
       flash[:notice] = 'Failed to unassociate member'
     end
-    redirect_to :aciton => 'index'
+    render :layout => false
   end
 
   def unassociate
@@ -56,7 +57,23 @@ class ProfileMembersController < MyProfileController
         flash[:notice] = 'Failed to unassociate member'
       end
     end
-    redirect_to :action => 'index'
+    render :layout => false
+  end
+
+  def add_members
+  end
+
+  def add_member
+    if profile.enterprise?
+      member = Person.find_by_identifier(params[:id])
+      member.define_roles(Profile::Roles.all_roles(environment), profile)
+    end
+    render :layout => false
+  end
+
+  def find_users
+    @users_found = Person.find_by_contents(params[:query])
+    render :layout => false
   end
 
 end

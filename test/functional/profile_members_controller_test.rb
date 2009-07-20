@@ -90,8 +90,8 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
     login_as :admin_user
     get :unassociate, :profile => com.identifier, :id => member
 
-    assert_response :redirect
-    assert_redirected_to :action => 'index'
+    assert_response :success
+    assert_equal nil, @response.layout
     member.reload
     com.reload
     assert_not_includes com.members, member
@@ -110,6 +110,102 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
 
     assert_response :success
     assert_not_includes assigns(:roles), role
+  end
+
+  should 'enterprises have a add members button' do
+    ent = Enterprise.create!(:name => 'Test Ent', :identifier => 'test_ent')
+    u = create_user_with_permission('test_user', 'manage_memberships', ent)
+    login_as :test_user
+
+    get :index, :profile => ent.identifier
+    assert_tag :tag => 'a', :attributes => {:href => /add_members/}
+  end
+
+  should 'not display add members button for communities' do
+    com = Community.create!(:name => 'Test Com', :identifier => 'test_com')
+    u = create_user_with_permission('test_user', 'manage_memberships', com)
+    login_as :test_user
+
+    get :index, :profile => com.identifier
+    assert_no_tag :tag => 'a', :attributes => {:href => /add_members/}
+  end
+
+  should 'have a add_members page' do
+    ent = Enterprise.create!(:name => 'Test Ent', :identifier => 'test_ent')
+    u = create_user_with_permission('test_user', 'manage_memberships', ent)
+    login_as :test_user
+
+    assert_nothing_raised do
+      get :add_members, :profile => ent.identifier
+    end
+
+  end
+
+  should 'list current members when adding new members' do
+    ent = Enterprise.create!(:name => 'Test Ent', :identifier => 'test_ent')
+    p = create_user_with_permission('test_user', 'manage_memberships', ent)
+    login_as :test_user
+
+    get :add_members, :profile => ent.identifier
+    ent.reload
+    assert_includes ent.members, p
+  end
+
+  should 'add member to profile' do
+    ent = Enterprise.create!(:name => 'Test Ent', :identifier => 'test_ent')
+    p = create_user_with_permission('test_user', 'manage_memberships', ent)
+    login_as :test_user
+
+    u = create_user('member_wannabe').person
+    post :add_member, :profile => ent.identifier, :id => u.identifier
+    ent.reload
+
+    assert_includes ent.members, p
+    assert_includes ent.members, u
+  end
+
+  should 'add member with all roles' do
+    ent = Enterprise.create!(:name => 'Test Ent', :identifier => 'test_ent')
+    p = create_user_with_permission('test_user', 'manage_memberships', ent)
+    login_as :test_user
+
+    u = create_user('member_wannabe').person
+    post :add_member, :profile => ent.identifier, :id => u.identifier
+
+    assert_equivalent Profile::Roles.all_roles(ent.environment).compact, u.role_assignments.find_all_by_resource_id(ent.id).map(&:role).compact
+  end
+
+  should 'not add member to community' do
+    com = Community.create!(:name => 'Test Com', :identifier => 'test_com')
+    p = create_user_with_permission('test_user', 'manage_memberships', com)
+    login_as :test_user
+
+    u = create_user('member_wannabe').person
+    post :add_member, :profile => com.identifier, :id => u.identifier
+    com.reload
+
+    assert_not_includes com.members, u
+  end
+
+  should 'find users' do
+    ent = Enterprise.create!(:name => 'Test Ent', :identifier => 'test_ent')
+    user = create_user('test_user').person
+    u = create_user_with_permission('ent_user', 'manage_memberships', ent)
+    login_as :ent_user
+
+    get :find_users, :profile => ent.identifier, :query => 'test*'
+
+    assert_includes assigns(:users_found), user
+  end
+
+  should 'not appear add button for member in add members page' do
+    ent = Enterprise.create!(:name => 'Test Ent', :identifier => 'test_ent')
+    p = create_user_with_permission('test_user', 'manage_memberships', ent)
+    login_as :test_user
+
+    get :find_users, :profile => ent.identifier, :query => 'test*'
+
+    assert_tag :tag => 'tr', :attributes => {:id => 'tr-test_user', :style => 'display:none'}
   end
 
 end
