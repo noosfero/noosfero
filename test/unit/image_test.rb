@@ -9,4 +9,11 @@ class ImageTest < Test::Unit::TestCase
     end
   end
 
+  should 'match max_size in validates message of size field' do
+    image = Image.new(:filename => 'fake_filename.png')
+    image.valid?
+
+    assert_match /#{Image.max_size.to_humanreadable}/, image.errors[:size]
+  end
+
 end

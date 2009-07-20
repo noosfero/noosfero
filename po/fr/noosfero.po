@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.18.2\n"
+"Project-Id-Version: noosfero 0.18.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-20 02:04-0300\n"
+"POT-Creation-Date: 2009-07-20 11:40-0300\n"
 "PO-Revision-Date: 2008-06-13 16:15-0300\n"
 "Last-Translator: Raphael Rousseau <pootle.colivre.coop.br@r4f.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1254,8 +1254,8 @@ msgstr "Cible"
 msgid "Code"
 msgstr "Code"
 
-#: app/models/task.rb:- app/models/profile.rb:- app/models/category.rb:-
-#: app/models/block.rb:- app/views/cms/view.rhtml:29
+#: app/models/task.rb:- app/models/profile.rb:- app/models/block.rb:-
+#: app/views/cms/view.rhtml:29
 msgid "Type"
 msgstr "Type"
 
@@ -1304,7 +1304,7 @@ msgstr "Nouveau %s"
 msgid "Save"
 msgstr "Enregistrer"
 
-#: app/models/link_list_block.rb:7 app/views/contact/new.rhtml:21
+#: app/models/link_list_block.rb:7 app/views/contact/new.rhtml:20
 #: app/views/tasks/new.rhtml:15
 msgid "Send"
 msgstr "Envoyer"
@@ -1588,12 +1588,12 @@ msgstr "Souscrire à des flux RSS"
 msgid "profile"
 msgstr "profil"
 
-#: app/models/profile.rb:- app/models/category.rb:- app/models/comment.rb:-
+#: app/models/profile.rb:- app/models/comment.rb:-
 #: app/models/create_enterprise.rb:4 app/models/product.rb:-
 #: app/models/domain.rb:- app/models/contact.rb:- app/models/contact.rb:13
 #: app/models/environment.rb:-
 #: app/views/box_organizer/_link_list_block.rhtml:4
-#: app/views/content_viewer/_comment_form.rhtml:26
+#: app/views/content_viewer/_comment_form.rhtml:27
 #: app/views/enterprise_editor/_form.rhtml:1
 #: app/views/enterprise_validation/_details.rhtml:3
 #: app/views/cms/view.rhtml:28
@@ -1605,7 +1605,7 @@ msgstr "Nom"
 msgid "Identifier"
 msgstr "Identifiant"
 
-#: app/models/profile.rb:- app/models/category.rb:- app/models/user.rb:-
+#: app/models/profile.rb:- app/models/user.rb:-
 msgid "Environment"
 msgstr "Environnement"
 
@@ -1622,11 +1622,11 @@ msgstr "Accueil"
 msgid "User"
 msgstr "Utilisateur"
 
-#: app/models/profile.rb:- app/models/category.rb:- app/models/product.rb:-
+#: app/models/profile.rb:- app/models/product.rb:-
 msgid "Lat"
 msgstr "Latitude"
 
-#: app/models/profile.rb:- app/models/category.rb:- app/models/product.rb:-
+#: app/models/profile.rb:- app/models/product.rb:-
 msgid "Lng"
 msgstr "Longitude"
 
@@ -1741,35 +1741,6 @@ msgstr "%s ne peut pas avoir de membres"
 #: app/models/profile.rb:491
 msgid "%s can't has moderators"
 msgstr "%s ne peut pas avoir de modérateur"
-
-#: app/models/category.rb:-
-msgid "category"
-msgstr "catégorie"
-
-#: app/models/category.rb:-
-msgid "Slug"
-msgstr ""
-
-#: app/models/category.rb:-
-msgid "Path"
-msgstr "Chemin"
-
-#: app/models/category.rb:-
-msgid "Display color"
-msgstr "Afficher la couleur"
-
-#: app/models/category.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
-#, fuzzy
-msgid "Parent"
-msgstr "Parent"
-
-#: app/models/category.rb:-
-msgid "Display in menu"
-msgstr "Afficher dans le menu"
-
-#: app/models/category.rb:-
-msgid "Children count"
-msgstr "Nombre d'enfants"
 
 #: app/models/category.rb:3
 msgid "%{fn} cannot be like that."
@@ -1910,7 +1881,7 @@ msgstr "Mémoriser le token"
 msgid "Remember token expires at"
 msgstr "Le token mémorisé expire le"
 
-#: app/models/user.rb:- app/views/account/_signup_form.rhtml:55
+#: app/models/user.rb:- app/views/account/_signup_form.rhtml:54
 #, fuzzy
 msgid "Terms of use"
 msgstr "Conditions d'utilisation"
@@ -2072,6 +2043,11 @@ msgstr "image"
 
 #: app/models/image.rb:- app/models/thumbnail.rb:-
 #, fuzzy
+msgid "Parent"
+msgstr "Parent"
+
+#: app/models/image.rb:- app/models/thumbnail.rb:-
+#, fuzzy
 msgid "Content type"
 msgstr "Type de contenu"
 
@@ -2098,9 +2074,9 @@ msgstr "Largeur"
 msgid "Height"
 msgstr "Hauteur"
 
-#: app/models/image.rb:18 app/models/uploaded_file.rb:21
+#: app/models/image.rb:18
 #, fuzzy
-msgid "%{fn} of uploaded file was larger than the maximum size of %s"
+msgid "%{fn} of uploaded file was larger than the maximum size of 500.0 KB"
 msgstr ""
 "Le fichier que vous avez téléversé était plus gros que la taille maximale de "
 "%s"
@@ -2440,6 +2416,10 @@ msgstr "Référence à un autre article"
 msgid "A reference to another article published in another profile"
 msgstr "Une référence à un autre article publié sur un autre profil"
 
+#: app/models/published_article.rb:31
+msgid "The original text was removed."
+msgstr ""
+
 #: app/models/contact.rb:- app/views/friends/index.rhtml:32
 #: app/views/friends/index.rhtml:35
 msgid "contact"
@@ -2458,7 +2438,7 @@ msgstr "Message"
 msgid "Receive a copy"
 msgstr "Recevoir une copie"
 
-#: app/models/contact.rb:13 app/views/contact/new.rhtml:13
+#: app/models/contact.rb:13 app/views/contact/new.rhtml:14
 msgid "City and state"
 msgstr "Pays et état"
 
@@ -2686,6 +2666,13 @@ msgstr "Les membres de %s"
 msgid "This block presents the members of a collective."
 msgstr "Ce bloc présente les membres d'un collectif."
 
+#: app/models/uploaded_file.rb:21
+#, fuzzy
+msgid "%{fn} of uploaded file was larger than the maximum size of 5.0 MB"
+msgstr ""
+"Le fichier que vous avez téléversé était plus gros que la taille maximale de "
+"%s"
+
 #: app/models/uploaded_file.rb:32
 msgid "Uploaded file"
 msgstr "Fichier téléversé"
@@ -2909,16 +2896,16 @@ msgstr "Événements à venir"
 msgid "Most commented articles"
 msgstr "Articles les plus commentés"
 
-#: app/controllers/public/contact_controller.rb:11
-#: app/controllers/public/contact_controller.rb:12
+#: app/controllers/public/contact_controller.rb:13
+#: app/controllers/public/contact_controller.rb:14
 msgid "Missing"
 msgstr "Manquant"
 
-#: app/controllers/public/contact_controller.rb:14
+#: app/controllers/public/contact_controller.rb:16
 msgid "Contact successfully sent"
 msgstr "Le contact a bien été envoyé"
 
-#: app/controllers/public/contact_controller.rb:17
+#: app/controllers/public/contact_controller.rb:19
 msgid "Contact not sent"
 msgstr "Le contact n'a pas été envoyé"
 
@@ -3686,7 +3673,7 @@ msgstr "(vide)"
 msgid "Post a comment"
 msgstr "Poster un commentaire"
 
-#: app/views/content_viewer/_comment_form.rhtml:27
+#: app/views/content_viewer/_comment_form.rhtml:28
 msgid "e-mail"
 msgstr "courrier électronique"
 
@@ -4309,7 +4296,7 @@ msgstr "Les entreprises préférées de <b>%s</b>"
 msgid "Contact %s"
 msgstr "Contactez %s"
 
-#: app/views/contact/new.rhtml:17
+#: app/views/contact/new.rhtml:18
 msgid "I want to receive a copy of the message in my e-mail."
 msgstr "Recevoir une copie du message par mél"
 
@@ -5697,40 +5684,40 @@ msgstr ""
 "oublié votre mot de passe, ne créez pas un nouveau compte, cliquez sur le "
 "lien «<b>J'ai oublié mon mot de passe</b>»."
 
-#: app/views/account/_signup_form.rhtml:24
+#: app/views/account/_signup_form.rhtml:25
 msgid "This e-mail address will be used to contact you."
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:29
+#: app/views/account/_signup_form.rhtml:30
 #, fuzzy
 msgid "Insert your login"
 msgstr "Entrez votre commentaire"
 
-#: app/views/account/_signup_form.rhtml:39
+#: app/views/account/_signup_form.rhtml:40
 msgid "Choose a password that you can remember easily."
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:44
+#: app/views/account/_signup_form.rhtml:45
 #, fuzzy
 msgid "To confirm, repeat your password."
 msgstr "Confirmer votre nouveau mot de passe"
 
-#: app/views/account/_signup_form.rhtml:54
+#: app/views/account/_signup_form.rhtml:53
 msgid ""
 "By clicking on 'I accept the terms of use' below you are agreeing to the %s"
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:61
+#: app/views/account/_signup_form.rhtml:60
 msgid "Hide"
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:65
+#: app/views/account/_signup_form.rhtml:64
 msgid "I accept the terms of use"
 msgstr "J'accepte les conditions d'utilisation"
 
 # Je ne suis pas sûr de la distinction "sign up" / "register"
-#: app/views/account/_signup_form.rhtml:77
-#: app/views/account/_signup_form.rhtml:79
+#: app/views/account/_signup_form.rhtml:76
+#: app/views/account/_signup_form.rhtml:78
 #, fuzzy
 msgid "Sign up"
 msgstr "S'enregistrer"
@@ -6774,6 +6761,21 @@ msgstr "info organisation"
 #, fuzzy
 msgid "Organization Info and settings"
 msgstr "Région"
+
+#~ msgid "category"
+#~ msgstr "catégorie"
+
+#~ msgid "Path"
+#~ msgstr "Chemin"
+
+#~ msgid "Display color"
+#~ msgstr "Afficher la couleur"
+
+#~ msgid "Display in menu"
+#~ msgstr "Afficher dans le menu"
+
+#~ msgid "Children count"
+#~ msgstr "Nombre d'enfants"
 
 #, fuzzy
 #~ msgid "Last updated"

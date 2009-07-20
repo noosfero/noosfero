@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.18.2\n"
-"POT-Creation-Date: 2009-06-20 02:04-0300\n"
+"Project-Id-Version: noosfero 0.18.4\n"
+"POT-Creation-Date: 2009-07-20 11:40-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1227,8 +1227,8 @@ msgstr "Թիրախ"
 msgid "Code"
 msgstr "Կոդ"
 
-#: app/models/task.rb:- app/models/profile.rb:- app/models/category.rb:-
-#: app/models/block.rb:- app/views/cms/view.rhtml:29
+#: app/models/task.rb:- app/models/profile.rb:- app/models/block.rb:-
+#: app/views/cms/view.rhtml:29
 msgid "Type"
 msgstr "Տեսակ"
 
@@ -1276,7 +1276,7 @@ msgstr "Նորություններ"
 msgid "Save"
 msgstr "Պահպանել"
 
-#: app/models/link_list_block.rb:7 app/views/contact/new.rhtml:21
+#: app/models/link_list_block.rb:7 app/views/contact/new.rhtml:20
 #: app/views/tasks/new.rhtml:15
 msgid "Send"
 msgstr ""
@@ -1551,12 +1551,12 @@ msgstr ""
 msgid "profile"
 msgstr "անհատական էջ"
 
-#: app/models/profile.rb:- app/models/category.rb:- app/models/comment.rb:-
+#: app/models/profile.rb:- app/models/comment.rb:-
 #: app/models/create_enterprise.rb:4 app/models/product.rb:-
 #: app/models/domain.rb:- app/models/contact.rb:- app/models/contact.rb:13
 #: app/models/environment.rb:-
 #: app/views/box_organizer/_link_list_block.rhtml:4
-#: app/views/content_viewer/_comment_form.rhtml:26
+#: app/views/content_viewer/_comment_form.rhtml:27
 #: app/views/enterprise_editor/_form.rhtml:1
 #: app/views/enterprise_validation/_details.rhtml:3
 #: app/views/cms/view.rhtml:28
@@ -1568,7 +1568,7 @@ msgstr "Անվանում"
 msgid "Identifier"
 msgstr "Որոշիչ"
 
-#: app/models/profile.rb:- app/models/category.rb:- app/models/user.rb:-
+#: app/models/profile.rb:- app/models/user.rb:-
 msgid "Environment"
 msgstr "Արտաքին տեսք"
 
@@ -1584,11 +1584,11 @@ msgstr "Գլխավոր էջ"
 msgid "User"
 msgstr "Օգտվող"
 
-#: app/models/profile.rb:- app/models/category.rb:- app/models/product.rb:-
+#: app/models/profile.rb:- app/models/product.rb:-
 msgid "Lat"
 msgstr ""
 
-#: app/models/profile.rb:- app/models/category.rb:- app/models/product.rb:-
+#: app/models/profile.rb:- app/models/product.rb:-
 msgid "Lng"
 msgstr ""
 
@@ -1698,34 +1698,6 @@ msgstr "%s - ը անդամներ ունենալ չի կարող"
 #: app/models/profile.rb:491
 msgid "%s can't has moderators"
 msgstr "մոդերատորներ ունենալ չի կարող"
-
-#: app/models/category.rb:-
-msgid "category"
-msgstr "կատեգորիա"
-
-#: app/models/category.rb:-
-msgid "Slug"
-msgstr "Խորագիր"
-
-#: app/models/category.rb:-
-msgid "Path"
-msgstr "Ճանապարհ"
-
-#: app/models/category.rb:-
-msgid "Display color"
-msgstr "Ցուցադրել գույնը"
-
-#: app/models/category.rb:- app/models/image.rb:- app/models/thumbnail.rb:-
-msgid "Parent"
-msgstr "Ծնող"
-
-#: app/models/category.rb:-
-msgid "Display in menu"
-msgstr "Ցուցադրել մենյուի մեջ"
-
-#: app/models/category.rb:-
-msgid "Children count"
-msgstr "Երեխաների հաշվում"
 
 #: app/models/category.rb:3
 msgid "%{fn} cannot be like that."
@@ -1860,7 +1832,7 @@ msgstr ""
 msgid "Remember token expires at"
 msgstr ""
 
-#: app/models/user.rb:- app/views/account/_signup_form.rhtml:55
+#: app/models/user.rb:- app/views/account/_signup_form.rhtml:54
 msgid "Terms of use"
 msgstr "Օգտագործման կանոններն ու պայմանները"
 
@@ -2014,6 +1986,10 @@ msgid "image"
 msgstr "պատկեր"
 
 #: app/models/image.rb:- app/models/thumbnail.rb:-
+msgid "Parent"
+msgstr "Ծնող"
+
+#: app/models/image.rb:- app/models/thumbnail.rb:-
 msgid "Content type"
 msgstr "Բովանդակության տեսակ"
 
@@ -2037,9 +2013,9 @@ msgstr "Լայնություն"
 msgid "Height"
 msgstr "Բարձրություն"
 
-#: app/models/image.rb:18 app/models/uploaded_file.rb:21
+#: app/models/image.rb:18
 #, fuzzy
-msgid "%{fn} of uploaded file was larger than the maximum size of %s"
+msgid "%{fn} of uploaded file was larger than the maximum size of 500.0 KB"
 msgstr "Ձեր բեռնած ֆայլի չափսն անցնում է առավելագույն սահմանված %s չափսից"
 
 #: app/models/image_gallery.rb:8
@@ -2362,6 +2338,10 @@ msgstr ""
 msgid "A reference to another article published in another profile"
 msgstr ""
 
+#: app/models/published_article.rb:31
+msgid "The original text was removed."
+msgstr ""
+
 #: app/models/contact.rb:- app/views/friends/index.rhtml:32
 #: app/views/friends/index.rhtml:35
 msgid "contact"
@@ -2380,7 +2360,7 @@ msgstr ""
 msgid "Receive a copy"
 msgstr ""
 
-#: app/models/contact.rb:13 app/views/contact/new.rhtml:13
+#: app/models/contact.rb:13 app/views/contact/new.rhtml:14
 msgid "City and state"
 msgstr ""
 
@@ -2603,6 +2583,11 @@ msgstr "%s-ի անդամները"
 msgid "This block presents the members of a collective."
 msgstr ""
 
+#: app/models/uploaded_file.rb:21
+#, fuzzy
+msgid "%{fn} of uploaded file was larger than the maximum size of 5.0 MB"
+msgstr "Ձեր բեռնած ֆայլի չափսն անցնում է առավելագույն սահմանված %s չափսից"
+
 #: app/models/uploaded_file.rb:32
 msgid "Uploaded file"
 msgstr "Վերբեռնած ֆայլ"
@@ -2817,16 +2802,16 @@ msgstr "Գալիք իրադարձություններ"
 msgid "Most commented articles"
 msgstr "Ամենից հաճախ մեկնաբանվող հոդվածները"
 
-#: app/controllers/public/contact_controller.rb:11
-#: app/controllers/public/contact_controller.rb:12
+#: app/controllers/public/contact_controller.rb:13
+#: app/controllers/public/contact_controller.rb:14
 msgid "Missing"
 msgstr ""
 
-#: app/controllers/public/contact_controller.rb:14
+#: app/controllers/public/contact_controller.rb:16
 msgid "Contact successfully sent"
 msgstr ""
 
-#: app/controllers/public/contact_controller.rb:17
+#: app/controllers/public/contact_controller.rb:19
 msgid "Contact not sent"
 msgstr ""
 
@@ -3580,7 +3565,7 @@ msgstr ""
 msgid "Post a comment"
 msgstr "Մեկնաբանություն թողնել"
 
-#: app/views/content_viewer/_comment_form.rhtml:27
+#: app/views/content_viewer/_comment_form.rhtml:28
 msgid "e-mail"
 msgstr "էլ. հասցե"
 
@@ -4173,7 +4158,7 @@ msgstr "%s-ի նախընտրած ձեռնարկությունները"
 msgid "Contact %s"
 msgstr ""
 
-#: app/views/contact/new.rhtml:17
+#: app/views/contact/new.rhtml:18
 msgid "I want to receive a copy of the message in my e-mail."
 msgstr ""
 
@@ -5498,38 +5483,38 @@ msgid ""
 "password!</b>\" link. ;-)"
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:24
+#: app/views/account/_signup_form.rhtml:25
 msgid "This e-mail address will be used to contact you."
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:29
+#: app/views/account/_signup_form.rhtml:30
 #, fuzzy
 msgid "Insert your login"
 msgstr "Գրեք Ձեր մեկնաբանությունը"
 
-#: app/views/account/_signup_form.rhtml:39
+#: app/views/account/_signup_form.rhtml:40
 msgid "Choose a password that you can remember easily."
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:44
+#: app/views/account/_signup_form.rhtml:45
 msgid "To confirm, repeat your password."
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:54
+#: app/views/account/_signup_form.rhtml:53
 msgid ""
 "By clicking on 'I accept the terms of use' below you are agreeing to the %s"
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:61
+#: app/views/account/_signup_form.rhtml:60
 msgid "Hide"
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:65
+#: app/views/account/_signup_form.rhtml:64
 msgid "I accept the terms of use"
 msgstr "Ես ընդունում եմ օգտագործման կանոնները"
 
-#: app/views/account/_signup_form.rhtml:77
-#: app/views/account/_signup_form.rhtml:79
+#: app/views/account/_signup_form.rhtml:76
+#: app/views/account/_signup_form.rhtml:78
 msgid "Sign up"
 msgstr "Գրանցվել"
 
@@ -6518,6 +6503,24 @@ msgstr "Կազնակերպությունները «%s»:"
 #, fuzzy
 msgid "Organization Info and settings"
 msgstr "Անհանատական էջի տվյալների բաժին"
+
+#~ msgid "category"
+#~ msgstr "կատեգորիա"
+
+#~ msgid "Slug"
+#~ msgstr "Խորագիր"
+
+#~ msgid "Path"
+#~ msgstr "Ճանապարհ"
+
+#~ msgid "Display color"
+#~ msgstr "Ցուցադրել գույնը"
+
+#~ msgid "Display in menu"
+#~ msgstr "Ցուցադրել մենյուի մեջ"
+
+#~ msgid "Children count"
+#~ msgstr "Երեխաների հաշվում"
 
 #, fuzzy
 #~ msgid "Last updated"
