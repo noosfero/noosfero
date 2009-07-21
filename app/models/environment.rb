@@ -339,7 +339,7 @@ class Environment < ActiveRecord::Base
   end
 
   def custom_community_fields=(values)
-    self.settings[:custom_community_fields] = values.delete_if { |key, value| ! Community.fields.include?(key)}
+    self.settings[:custom_community_fields] = values.delete_if { |key, value| ! Community.fields.include?(key) }
   end
 
   def custom_community_field(field, status)

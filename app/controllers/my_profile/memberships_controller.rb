@@ -8,9 +8,9 @@ class MembershipsController < MyProfileController
 
   def new_community
     @community = Community.new(params[:community])
+    @community.environment = environment
     @wizard = params[:wizard].blank? ? false : params[:wizard]
     if request.post?
-      @community.environment = environment
       if @community.save
         @community.add_admin(profile)
         if @wizard

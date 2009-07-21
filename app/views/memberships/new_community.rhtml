@@ -10,9 +10,9 @@
 
   <%= required f.text_field(:name, :style => 'width: 100%') %>
 
-  <%= f.text_area :description, :style => 'width: 100%; height: 150px;' %>
-
   <%= hidden_field_tag :wizard, params[:wizard] %>
+
+  <%= render :partial => 'shared/custom_fields', :locals => { :f => f, :object_name => 'community', :profile => @community, :only_required => true } %>
 
   <%= f.text_field('tag_list', :size => 64) %>
   <%= content_tag( 'small', _('Separate tags with commas') ) %>
