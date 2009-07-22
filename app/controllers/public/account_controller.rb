@@ -4,6 +4,8 @@ class AccountController < ApplicationController
 
   require_ssl :except => [ :login_popup, :logout_popup, :wizard, :profile_details ]
 
+  before_filter :login_required, :only => [:activation_question, :accept_terms, :activate_enterprise]
+
   # say something nice, you goof!  something sweet.
   def index
     unless logged_in?
@@ -181,22 +183,6 @@ class AccountController < ApplicationController
   def accept_terms
     @enterprise = load_enterprise
     @question = @enterprise.question
-
-    if @enterprise.enabled
-      render :action => 'already_activated'
-      return
-    end
-
-    @question = @enterprise.question
-    if !@question || @enterprise.blocked?
-      render :action => 'blocked'
-      return
-    end
-  end
-
-  def accept_terms
-    @enterprise = load_enterprise
-    @question = @enterprise.question
     if !@question || @enterprise.blocked?
       render :action => 'blocked'
       return
@@ -212,7 +198,6 @@ class AccountController < ApplicationController
     @question = @enterprise.question
     return unless check_answer
     return unless check_acceptance_of_terms
-    load_user
     
     activation = load_enterprise_activation
     if activation && user
@@ -253,18 +238,6 @@ class AccountController < ApplicationController
     @cannot_redirect = true
   end
   
-  def load_user
-    unless logged_in?
-      no_redirect
-      if params[:new_user]
-        signup
-      else
-        login
-      end
-    end
-    true
-  end
-
   def check_answer
     unless answer_correct
       @enterprise.block
