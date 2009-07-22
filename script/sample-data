@@ -41,4 +41,5 @@ for verb in VERBS
 end
 puts
 
-
+ze = User.create!(:login => "ze", :email => 'root@localhost.localdomain', :password => 'test', :password_confirmation => 'test').person
+Environment.default.add_admin(ze)
