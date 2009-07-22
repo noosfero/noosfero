@@ -712,5 +712,17 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'div', :attributes => { :id => 'activation_enterprise' }, :descendant => {:tag => 'form', :attributes => {:action => '/account/activation_question'}}
   end
 
+  should 'not display enterprise activation to enterprises' do
+    env = Environment.default
+    env.enable('enterprise_activation')
+    env.save!
+
+    enterprise = Enterprise.create!(:name => 'bli', :identifier => 'bli')
+    enterprise.add_admin(profile)
+
+    get :index, :profile => enterprise.identifier
+    assert_no_tag :tag => 'div', :attributes => { :id => 'activation_enterprise' }, :descendant => {:tag => 'form', :attributes => {:action => '/account/activation_question'}}
+  end
+
 
 end

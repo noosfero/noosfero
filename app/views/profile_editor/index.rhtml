@@ -62,7 +62,7 @@
   <%= control_panel_button(_('Manage my groups'), 'groups', :controller => 'memberships') if profile.person? %>
 <% end %>
 
-  <% if environment.enabled?('enterprise_activation') %>
+  <% if profile.person? && environment.enabled?('enterprise_activation') %>
 
       <div id='activation_enterprise'>
       <% form_tag({:controller => 'account', :action => 'activation_question'}, {:method => 'get'}) do %>
