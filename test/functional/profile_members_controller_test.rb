@@ -51,7 +51,7 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
     user = create_user_with_permission('test_user', 'manage_memberships', ent)
     login_as :test_user
 
-    get 'change_role', :profile => 'test_enterprise' , :id => member
+    get 'change_role', :profile => 'test_enterprise' , :id => member.id
 
     assert_response :success
     assert_includes assigns(:roles), role
@@ -59,6 +59,19 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
     assert_template 'change_role'
     assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'roles[]'}
     assert_tag :tag => 'label', :content => role.name
+  end
+
+  should 'not show form to change role if person is not member' do
+    ent = Enterprise.create!(:identifier => 'test_enterprise', :name => 'test enterprise')
+    not_member = create_user('test_member').person
+    user = create_user_with_permission('test_user', 'manage_memberships', ent)
+    login_as :test_user
+
+    get 'change_role', :profile => 'test_enterprise' , :id => not_member.id
+
+    assert_nil assigns('member')
+    assert_response :redirect
+    assert_redirected_to :action => 'index'
   end
 
   should 'update roles' do
@@ -71,7 +84,7 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
     user = create_user_with_permission('test_user', 'manage_memberships', ent)
     login_as :test_user
 
-    post 'update_roles', :profile => 'test_enterprise', :roles => [role2.id], :person => member
+    post 'update_roles', :profile => 'test_enterprise', :roles => [role2.id], :person => member.id
 
     assert_response :redirect
     member = Person.find(member.id)
@@ -79,6 +92,23 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
     assert_includes  roles, role2
     assert_not_includes roles, role1
   end
+
+  should 'not update roles if user is not profile member' do
+    ent = Enterprise.create!(:identifier => 'test_enterprise', :name => 'test enterprise')
+    role = Role.create!(:name => 'owner_role', :permissions => ['edit_profile', 'destroy_profile'], :environment => ent.environment)
+
+    not_member = create_user('test_member').person
+    user = create_user_with_permission('test_user', 'manage_memberships', ent)
+    login_as :test_user
+
+    post 'update_roles', :profile => 'test_enterprise', :roles => [role.id], :person => not_member.id
+
+    assert_response :redirect
+    not_member = Person.find(not_member.id)
+    roles = not_member.find_roles(ent).map(&:role)
+    assert_not_includes  roles, role
+  end
+
 
   should 'unassociate community member' do
     com = Community.create!(:identifier => 'test_community', :name => 'test community')
@@ -108,6 +138,7 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
     login_as :test_user
     get :change_role, :id => p.id, :profile => com.identifier
 
+    assert_equal p, assigns(:member)
     assert_response :success
     assert_not_includes assigns(:roles), role
   end
