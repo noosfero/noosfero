@@ -6,10 +6,10 @@
   <p><%= button(:slideshow, _('View slideshow'), @page.url.merge(:slideshow => true))%></p>
     <ul>
       <% @images.each do |a| %>
-        <li class="image-gallery-item">
+        <% content_tag('li', :title => a.abstract, :class => 'image-gallery-item' ) do %>
           <%= render :partial => partial_for_class(a.class), :object => a %>
           <span><%= a.abstract && (a.abstract.first(40) + (a.abstract.size > 40 ? '…' : ''))%></span>
-        </li>
+        <% end %>
       <% end %>
     </ul>
   <br style="clear:both" />
