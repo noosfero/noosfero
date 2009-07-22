@@ -2,13 +2,13 @@
 
 <%= error_messages_for :community %>
 
-<div style='margin-left: 20%; margin-right: 20%'>
+<div>
 
 <% labelled_form_for :community, @community, :html => { :multipart => true } do |f| %>
 
   <%= required_fields_message %>
 
-  <%= required f.text_field(:name, :style => 'width: 100%') %>
+  <%= required f.text_field(:name) %>
 
   <%= hidden_field_tag :wizard, params[:wizard] %>
 
