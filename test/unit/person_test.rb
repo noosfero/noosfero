@@ -574,4 +574,11 @@ class PersonTest < Test::Unit::TestCase
     end
   end
 
+  should 'not rename' do
+    assert_valid p = create_user('test_user').person
+    assert_raise ArgumentError do
+      p.identifier = 'other_person_name'
+    end
+  end
+
 end

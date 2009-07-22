@@ -17,7 +17,7 @@ class ProfileEditorController < MyProfileController
         Profile.transaction do
         Image.transaction do
           if profile.update_attributes!(params[:profile_data])
-            redirect_to :action => 'index'
+            redirect_to :action => 'index', :profile => profile.identifier
           end
         end
         end

@@ -724,5 +724,37 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'div', :attributes => { :id => 'activation_enterprise' }, :descendant => {:tag => 'form', :attributes => {:action => '/account/activation_question'}}
   end
 
+  should 'have url field for identifier when environment allows' do
+    c = Community.create!(:name => 'test community', :identifier => 'test_comm')
+    env = c.environment
+    env.enable('enable_organization_url_change')
+    env.save!
+
+    get :edit, :profile => c.identifier
+    assert_tag :tag => 'div',
+               :attributes => { :class => 'formfield type-text' },
+               :content => /https?:\/\/#{c.environment.default_hostname}\//,
+               :descendant => {:tag => 'input', :attributes => {:id => 'profile_data_identifier'} }
+  end
+
+  should 'not have url field for identifier when environment not allows' do
+    c = Community.create!(:name => 'test community', :identifier => 'test_comm')
+    env = c.environment
+    env.disable('enable_organization_url_change')
+    env.save!
+
+    get :edit, :profile => c.identifier
+    assert_no_tag :tag => 'div',
+               :attributes => { :class => 'formfield type-text' },
+               :content => /https?:\/\/#{c.environment.default_hostname}\//,
+               :descendant => {:tag => 'input', :attributes => {:id => 'profile_data_identifier'} }
+  end
+
+  should 'redirect to new url when is changed' do
+    c = Community.create!(:name => 'test community', :identifier => 'test_comm')
+    post :edit, :profile => c.identifier, :profile_data => {:identifier => 'new_address'}
+    assert_response :redirect
+    assert_redirected_to :action => 'index', :profile => 'new_address'
+  end
 
 end

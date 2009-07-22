@@ -31,6 +31,21 @@
   -moz-border-radius: 3px;
 }
 
+#identifier-change-confirmation {
+  background-color: #EE4444;
+  padding: 3px 20px 3px 20px;
+  margin: 5px 30px 10px 30px;
+}
+
+#identifier-change-confirmation div {
+  text-align: right;
+  padding: 0px 10px 5px 0px;
+}
+
+code input {
+  font-family: monospace;
+}
+
 a.control-panel-groups { background-image: url(../images/control-panel/system-users.png) }
 .msie6 a.control-panel-groups { background-image: url(../images/control-panel/system-users.gif) }
 
@@ -87,3 +102,4 @@ a.control-panel-validation {background-image: url(../images/control-panel/applic
 
 a.control-panel-mail {background-image: url(../images/control-panel/email.png)}
 .msie6 a.control-panel-mail {background-image: url(../images/control-panel/email.gif)}
+

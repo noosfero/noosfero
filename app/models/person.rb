@@ -12,6 +12,15 @@ class Person < Profile
     Friendship.find(:all, :conditions => { :friend_id => person.id}).each { |friendship| friendship.destroy }
   end
 
+  # Sets the identifier for this person. Raises an exception when called on a
+  # existing person (since peoples' identifiers cannot be changed)
+  def identifier=(value)
+    unless self.new_record?
+      raise ArgumentError.new(_('An existing person cannot be renamed.'))
+    end
+    self[:identifier] = value
+  end
+
   settings_items :last_lang, :type => :string
   def last_lang
     if self.data[:last_lang].nil? or self.data[:last_lang].empty?

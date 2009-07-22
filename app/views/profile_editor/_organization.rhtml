@@ -2,14 +2,59 @@
 
   <%= required_fields_message if @profile.required_fields.any? %>
 
+<% if @environment.enabled?('enable_organization_url_change') %>
+  <script type="text/javascript">
+    function updateUrlField(name_field, id) {
+      url_field = $(id);
+      url_field.value = convToValidIdentifier(name_field.value, "-");
+      warn_value_change(url_field);
+    }
+  </script>
+<% end %>
+
 <div class="formfieldline">
   <label class="formlabel" for="profile_data_nickname"><%= _('Display name') %></label>
   <div class="formfield type-text">
-    <%= text_field_tag 'profile_data[nickname]', @profile_data.nickname, :id => 'profile_data_nickname', :size => 30, :maxlength => 16 %>
+    <%= text_field_tag 'profile_data[nickname]', @profile_data.nickname, :id => 'profile_data_nickname', :size => 30, :maxlength => 16, :onchange => (@environment.enabled?('enable_organization_url_change') ? "updateUrlField(this, 'profile_data_identifier')" : "") %>
     <em><%= _('A short name by which the organization is know.')%></em>
+  </div>
 </div>
 
-  </div>
+<% if @environment.enabled?('enable_organization_url_change') %>
+  <script type="text/javascript">
+    function submit_button() {
+      return $("profile_data_identifier").form.select("input.submit")[0];
+    }
+
+    function warn_value_change(field) {
+      new Effect.Highlight($("profile-identifier-formitem"), {duration:3});
+      $("identifier-change-confirmation").show();
+      submit_button().disable();
+      submit_button().addClassName("disabled");
+    }
+
+    function hide_warning() {
+       submit_button().enable();
+       submit_button().removeClassName("disabled");
+       $("identifier-change-confirmation").hide()
+    }
+  </script>
+
+    <%= hidden_field_tag 'old_profile_identifier', @profile.identifier %>
+    <div id="profile-identifier-formitem">
+      <%= labelled_form_field( _('Address'),
+                              '<code>' + url_for(profile.url).gsub(/#{profile.identifier}$/, '') +
+                                 text_field(:profile_data, :identifier, :onchange => "warn_value_change(this)", :size => 15) + '</code>' +
+                                 content_tag('div',  '<strong>' + _('WARNING:') + '</strong> ' + _("the address was changed, this might break any external links to this profile and articles in this profile, you really want to change? ") +
+                                                       '<div>' + button_to_function(:ok, _("Yes"), 'hide_warning()') + ' ' +
+                                                       button_to_function(:cancel, _('No'), '$("profile_data_identifier").value = $("old_profile_identifier").value; hide_warning()') + '</div>',
+                               :id => 'identifier-change-confirmation'
+                                 )
+          )
+      %>
+    </div>
+<% end %>
+
   <%= f.text_field(:acronym) %>
   <%= f.text_field(:foundation_year) %>
   <%= optional_field(@profile, 'contact_person', f.text_field(:contact_person)) %>

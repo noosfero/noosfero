@@ -127,6 +127,7 @@ class Environment < ActiveRecord::Base
       'display_header_footer_explanation' => N_("Display explanation about header and footer"),
       'articles_dont_accept_comments_by_default' => N_("Articles don't accept comments by default"),
       'organizations_are_moderated_by_default' => N_("Organizations have moderated publication by default"),
+      'enable_organization_url_change' => N_("Enable organizations to change its address"),
     }
   end
 

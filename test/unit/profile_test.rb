@@ -72,13 +72,6 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal Environment.default, e
   end
 
-  def test_cannot_rename
-    assert_valid p = Profile.create(:name => 'new_profile', :identifier => 'new_profile')
-    assert_raise ArgumentError do
-      p.identifier = 'other_profile'
-    end
-  end
-
   should 'provide access to home page' do
     profile = Profile.create!(:identifier => 'newprofile', :name => 'New Profile')
     assert_kind_of Article, profile.home_page
