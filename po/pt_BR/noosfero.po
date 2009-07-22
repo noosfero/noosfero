@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.18.4\n"
 "POT-Creation-Date: 2009-07-17 17:55-0300\n"
-"PO-Revision-Date: 2009-07-20 14:22-0300\n"
+"PO-Revision-Date: 2009-07-22 14:49-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -4710,7 +4710,7 @@ msgstr "Saindo %s"
 
 #: app/views/memberships/leave.rhtml:4
 msgid "Are you sure you want to leave %s?"
-msgstr "Tem certeza que quer sair %s?"
+msgstr "Tem certeza que quer sair de %s?"
 
 #: app/views/memberships/leave.rhtml:9
 msgid "Yes, I want to leave."
