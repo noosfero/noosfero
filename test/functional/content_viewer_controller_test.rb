@@ -846,7 +846,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
     get :view_page, :profile => profile.identifier, :page => folder.explode_path
 
-    assert_tag :tag => 'li', :attributes => {:class => 'image-gallery-item'}, :child => {:tag => 'span', :content => 'a long abstract bigger then 40 chars for'}
+    assert_tag :tag => 'li', :attributes => {:class => 'image-gallery-item'}, :child => {:tag => 'span', :content => 'a long abstract bigger then 40 chars for…'}
   end
 
 end

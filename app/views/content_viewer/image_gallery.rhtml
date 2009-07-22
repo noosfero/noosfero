@@ -8,7 +8,7 @@
       <% @images.each do |a| %>
         <li class="image-gallery-item">
           <%= render :partial => partial_for_class(a.class), :object => a %>
-          <span><%= a.abstract && a.abstract.first(40) %></span>
+          <span><%= a.abstract && (a.abstract.first(40) + (a.abstract.size > 40 ? '…' : ''))%></span>
         </li>
       <% end %>
     </ul>
