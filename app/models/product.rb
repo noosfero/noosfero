@@ -9,7 +9,7 @@ class Product < ActiveRecord::Base
 
   after_update :save_image
 
-  after_create do |p|
+  before_create do |p|
     if p.enterprise
       p['lat'] = p.enterprise.lat
       p['lng'] = p.enterprise.lng

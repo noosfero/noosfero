@@ -82,6 +82,7 @@ class ProductTest < Test::Unit::TestCase
     ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_enterprise', :lat => 30.0, :lng => 30.0 )
     prod = ent.products.create!(:name => 'test product')
 
+    prod = Product.find(prod.id)
     assert_equal ent.lat, prod.lat
     assert_equal ent.lng, prod.lng
   end
