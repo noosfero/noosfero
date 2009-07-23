@@ -1070,7 +1070,7 @@ class CmsControllerTest < Test::Unit::TestCase
     system('echo "image for test" | convert -background yellow -page 32x32 text:- %s' % filename)
     image = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload(fixture_filename, 'image/jpg'))
 
-    image2 = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    image2 = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :created_at => 1.day.ago)
 
     get :media_listing, :profile => profile.identifier
 
