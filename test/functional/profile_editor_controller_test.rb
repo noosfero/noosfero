@@ -797,17 +797,4 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     end
   end
 
-  should 'display nickname field only if active when edit community' do
-    community = Community.create(:name => 'test_profile')
-    Environment.any_instance.stubs(:required_community_fields).returns([])
-
-    Environment.any_instance.stubs(:active_community_fields).returns(['description'])
-    get :edit, :profile => community.identifier
-    assert_no_tag :tag => 'input', :attributes => { :name => "profile_data[nickname]" }
-
-    Environment.any_instance.stubs(:active_community_fields).returns(['nickname'])
-    get :edit, :profile => community.identifier
-    assert_tag :tag => 'input', :attributes => { :name => "profile_data[nickname]" }
-  end
-
 end

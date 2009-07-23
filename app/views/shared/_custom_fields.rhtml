@@ -1,5 +1,4 @@
 <% if profile.community? %>
-  <%= optional_field(profile, 'nickname', labelled_form_field(_('Display name'), text_field(object_name, :nickname) + '&nbsp;' + content_tag('em', _('A short name by which the organization is know.'))), only_required) %>
   <%= optional_field(profile, 'description', f.text_area(:description, :rows => 5)) %>
   <%= optional_field(profile, 'language', f.text_field(:language), only_required) %>
 <% end %>
