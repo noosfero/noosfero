@@ -22,6 +22,9 @@ class ProfileEditorController < MyProfileController
         end
         end
       rescue
+        if profile.identifier.blank?
+          profile.identifier = params[:profile]
+        end
         flash[:notice] = _('Cannot update profile')
       end
     end

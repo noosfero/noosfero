@@ -757,4 +757,12 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     assert_redirected_to :action => 'index', :profile => 'new_address'
   end
 
+  should 'not crash if identifier is left blank' do
+    c = Community.create!(:name => 'test community', :identifier => 'test_comm')
+    assert_nothing_raised do
+      post :edit, :profile => c.identifier, :profile_data => c.attributes.merge('identifier' => '')
+    end
+    assert_response :success
+  end
+
 end
