@@ -341,6 +341,14 @@ class Profile < ActiveRecord::Base
     { :profile => identifier, :controller => 'profile_editor', :action => 'index' }
   end
 
+  def leave_url
+    { :profile => identifier, :controller => 'profile', :action => 'leave' }
+  end
+
+  def join_url
+    { :profile => identifier, :controller => 'profile', :action => 'join' }
+  end
+
   def public_profile_url
     generate_url(:profile => identifier, :controller => 'profile', :action => 'index')
   end

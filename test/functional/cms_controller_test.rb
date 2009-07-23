@@ -1133,4 +1133,5 @@ class CmsControllerTest < Test::Unit::TestCase
     get :view, :profile => profile.identifier, :id => profile.blog.id
     assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/upload_files?parent_id=#{profile.blog.id}"}
   end
+
 end

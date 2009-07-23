@@ -765,4 +765,49 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     assert_response :success
   end
 
+  should 'show active fields when edit community' do
+    env = Environment.default
+    env.custom_community_fields = {
+      'contact_email' => {'active' => 'true', 'required' => 'false'},
+      'contact_phone' => {'active' => 'true', 'required' => 'false'}
+    }
+    env.save!
+    community = Community.create(:name => 'test_profile')
+
+    get :edit, :profile => community.identifier
+
+    community.active_fields.each do |field|
+      assert_tag :tag => 'input', :attributes => { :name => "profile_data[#{field}]" }
+    end
+  end
+
+  should 'not show disabled fields when edit community' do
+    env = Environment.default
+    env.custom_community_fields = {
+      'contact_email' => {'active' => 'false', 'required' => 'false'},
+      'contact_phone' => {'active' => 'false', 'required' => 'false'}
+    }
+    env.save!
+    community = Community.create(:name => 'test_profile')
+
+    get :edit, :profile => community.identifier
+
+    (Community.fields - community.active_fields).each do |field|
+      assert_no_tag :tag => 'input', :attributes => { :name => "profile_data[#{field}]" }
+    end
+  end
+
+  should 'display nickname field only if active when edit community' do
+    community = Community.create(:name => 'test_profile')
+    Environment.any_instance.stubs(:required_community_fields).returns([])
+
+    Environment.any_instance.stubs(:active_community_fields).returns(['description'])
+    get :edit, :profile => community.identifier
+    assert_no_tag :tag => 'input', :attributes => { :name => "profile_data[nickname]" }
+
+    Environment.any_instance.stubs(:active_community_fields).returns(['nickname'])
+    get :edit, :profile => community.identifier
+    assert_tag :tag => 'input', :attributes => { :name => "profile_data[nickname]" }
+  end
+
 end

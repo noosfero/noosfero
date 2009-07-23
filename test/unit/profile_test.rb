@@ -1363,6 +1363,16 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal "header customized", person.custom_header
   end
 
+  should 'provide URL to leave' do
+    profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile', :environment_id => create_environment('mycolivre.net').id)
+    assert_equal({ :profile => 'testprofile', :controller => 'profile', :action => 'leave'}, profile.leave_url)
+  end
+
+  should 'provide URL to join' do
+    profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile', :environment_id => create_environment('mycolivre.net').id)
+    assert_equal({ :profile => 'testprofile', :controller => 'profile', :action => 'join'}, profile.join_url)
+  end
+
   private
 
   def assert_invalid_identifier(id)

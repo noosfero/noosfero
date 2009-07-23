@@ -465,6 +465,13 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_equal "@import url(/designs/icons/default/style.css);", icon_theme_stylesheet_tag
   end
 
+  should 'not display active field if only required' do
+    profile = mock
+    profile.expects(:required_fields).returns([])
+
+    assert_equal '', optional_field(profile, :field_name, '<html tags>', true)
+  end
+
   protected
 
   def url_for(args = {})

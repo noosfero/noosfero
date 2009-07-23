@@ -57,14 +57,10 @@
 
   <%= f.text_field(:acronym) %>
   <%= f.text_field(:foundation_year) %>
-  <%= optional_field(@profile, 'contact_person', f.text_field(:contact_person)) %>
-  <%= optional_field(@profile, 'contact_email', f.text_field(:contact_email)) %>
-  <%= optional_field(@profile, 'economic_activity', f.text_field(:economic_activity)) %>
-  <%= optional_field(@profile, 'description', f.text_area(:description, :rows => 5)) if @profile.community? %>
+
+  <%= render :partial => 'shared/custom_fields', :locals => { :f => f, :object_name => 'profile_data', :profile => @profile, :only_required => false } %>
+
   <%= f.check_box(:enable_contact_us) if @profile.enterprise? %>
-  
-  <%= render :partial => 'community_fields', :locals => { :f => f } if @profile.community? %>
-  <%= render :partial => 'enterprise_fields', :locals => { :f => f } if @profile.enterprise? %>
 
   <h1><%= _('Moderation options') %></h1>
   <div style='margin-bottom: 1em'>

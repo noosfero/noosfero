@@ -729,8 +729,16 @@ module ApplicationHelper
     form_for(name, object, { :builder => NoosferoFormBuilder }.merge(options), &proc)
   end
 
-  def optional_field(profile, name, field_html = nil, options = {}, &block)
+  def optional_field(profile, name, field_html = nil, only_required = false, &block)
     result = ""
+
+    is_required = false
+    if profile.required_fields.include?(name)
+      is_required = true
+    else
+      return result if only_required
+    end
+
     if block
       field_html ||= ''
       field_html += capture(&block)
@@ -744,7 +752,7 @@ module ApplicationHelper
         result = field_html
       end
     end
-    if profile.required_fields.include?(name)
+    if is_required
       result = required(result)
     end
 

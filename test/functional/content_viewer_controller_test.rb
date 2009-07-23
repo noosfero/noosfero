@@ -835,4 +835,18 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     get :view_page, :profile => profile.identifier, :page => blog_post.explode_path
     assert_no_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{b.id}/}
   end
+
+  should 'show only first 40 chars of abstract in image gallery' do
+    login_as(profile.identifier)
+    folder = Folder.create!(:name => 'gallery', :profile => profile, :view_as => 'image_gallery')
+    file = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+
+    file.abstract = 'a long abstract bigger then 40 chars for testing'
+    file.save!
+
+    get :view_page, :profile => profile.identifier, :page => folder.explode_path
+
+    assert_tag :tag => 'li', :attributes => {:class => 'image-gallery-item'}, :child => {:tag => 'span', :content => 'a long abstract bigger then 40 chars for…'}
+  end
+
 end

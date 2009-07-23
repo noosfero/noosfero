@@ -21,7 +21,7 @@
       <%= _('Members: %s') % membership.members.size.to_s %> <br/>
       <%= _('Created at: %s') % show_date(membership.created_at) unless membership.enterprise? %> <br/>
       <%= [ link_to(_('Manage'), membership.admin_url),
-            link_to(_('Leave'), { :profile => profile.identifier, :controller => 'memberships', :action => 'leave', :id => membership }),
+            lightbox_link_to(_('Leave'), membership.leave_url),
             (membership.community? && user.has_permission?(:destroy_profile, membership) ? link_to(_('Remove'), { :action => 'destroy_community', :id => membership }) : nil)
           ].compact.join(', ')
       %>
