@@ -140,10 +140,11 @@ class FolderTest < ActiveSupport::TestCase
   should 'return published images as images' do
     p = create_user('test_user').person
     i = UploadedFile.create!(:profile => p, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+
     c = Community.create!(:name => 'test_com')
     folder = Folder.create!(:name => 'folder', :profile => c)
     pi = PublishedArticle.create!(:profile => c, :reference_article => i, :parent => folder)
 
-    assert_includes folder.images, pi
+    assert_includes folder.images(true), pi
   end
 end
