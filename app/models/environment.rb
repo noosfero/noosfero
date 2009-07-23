@@ -113,7 +113,7 @@ class Environment < ActiveRecord::Base
       'disable_select_city_for_contact' => _('Disable state/city select for contact form'),
       'disable_contact_person' => _('Disable contact for people'),
       'disable_contact_community' => _('Disable contact for groups/communities'),
-      'disable_join_community_popup' => _('Disable the popup that ask to join a group/community'),
+      'join_community_popup' => _('Ask users to join a group/community with a popup'),
 
       'enterprise_activation' => _('Enable activation of enterprises'),
       'warn_obsolete_browser' => _('Enable warning of obsolete browser'),
@@ -129,6 +129,7 @@ class Environment < ActiveRecord::Base
       'display_header_footer_explanation' => N_("Display explanation about header and footer"),
       'articles_dont_accept_comments_by_default' => N_("Articles don't accept comments by default"),
       'organizations_are_moderated_by_default' => N_("Organizations have moderated publication by default"),
+      'enable_organization_url_change' => N_("Enable organizations to change its address"),
     }
   end
 
@@ -418,7 +419,7 @@ class Environment < ActiveRecord::Base
   end
 
   def custom_community_fields=(values)
-    self.settings[:custom_community_fields] = values.delete_if { |key, value| ! Community.fields.include?(key)}
+    self.settings[:custom_community_fields] = values.delete_if { |key, value| ! Community.fields.include?(key) }
   end
 
   def custom_community_field(field, status)

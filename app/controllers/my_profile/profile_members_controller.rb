@@ -1,5 +1,6 @@
 class ProfileMembersController < MyProfileController
   protect 'manage_memberships', :profile
+  no_design_blocks
 
   def index
     @members = profile.members
@@ -9,8 +10,8 @@ class ProfileMembersController < MyProfileController
   def update_roles
     @roles = params[:roles] ? environment.roles.find(params[:roles]) : []
     @roles = @roles.select{|r| r.has_kind?('Profile') }
-    @person = Person.find(params[:person])      
-    if @person.define_roles(@roles, profile)
+    @person = profile.members.find { |m| m.id == params[:person].to_i }
+    if @person && @person.define_roles(@roles, profile)
       flash[:notice] = _('Roles successfuly updated')
     else
       flash[:notice] = _('Couldn\'t change the roles')
@@ -20,8 +21,12 @@ class ProfileMembersController < MyProfileController
   
   def change_role
     @roles = profile.roles
-    @member = Person.find(params[:id])
-    @associations = @member.find_roles(@profile)
+    @member = profile.members.find { |m| m.id == params[:id].to_i }
+    if @member
+      @associations = @member.find_roles(@profile)
+    else
+      redirect_to :action => :index
+    end
   end
 
   def add_role
@@ -43,7 +48,7 @@ class ProfileMembersController < MyProfileController
     else
       flash[:notice] = 'Failed to unassociate member'
     end
-    redirect_to :aciton => 'index'
+    render :layout => false
   end
 
   def unassociate
@@ -56,7 +61,23 @@ class ProfileMembersController < MyProfileController
         flash[:notice] = 'Failed to unassociate member'
       end
     end
-    redirect_to :action => 'index'
+    render :layout => false
+  end
+
+  def add_members
+  end
+
+  def add_member
+    if profile.enterprise?
+      member = Person.find_by_identifier(params[:id])
+      member.define_roles(Profile::Roles.all_roles(environment), profile)
+    end
+    render :layout => false
+  end
+
+  def find_users
+    @users_found = Person.find_by_contents(params[:query])
+    render :layout => false
   end
 
 end

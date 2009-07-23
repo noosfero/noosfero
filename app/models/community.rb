@@ -10,7 +10,6 @@ class Community < Organization
   FIELDS = %w[
     description
     nickname
-    description
     language
   ]
 

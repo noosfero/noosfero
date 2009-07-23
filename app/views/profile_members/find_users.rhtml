@@ -1,0 +1,28 @@
+<h3> <%= _('Users') %> </h3>
+<table>
+  <tr><th><%= _('Name') %></th><th></th></tr>
+  <% @users_found.each do |user| %>
+    <tr id="tr-<%= user.identifier %>"<%= profile.members.include?(user) ? 'style="display:none"' : '' %>>
+      <td>
+        <div id="<%= user.identifier %>" class="draggable-user">
+          <%= image_tag('/images/grip-clue.png') %>
+          <%= profile_image(user, :icon) %>
+          <%= [link_to_profile(user.short_name + " (#{user.identifier})", user.identifier, :title => user.name),
+               (user.sex ? gettext(user.sex.capitalize) : _('Sex not informed')),
+               user.location.empty? ? nil : user.location ].compact.join(' &#151; ') %>
+        </div>
+        <%= draggable_element(user.identifier, :revert => true) %>
+      </td>
+      <td>
+        <%= button_to_remote_without_text(:add, _('Add member'),
+                                          { :loading => '$("members-list").addClassName("loading")',
+                                            :update => 'members-list',
+                                            :url => {:action => 'add_member', :profile => profile.identifier, :id => user.identifier},
+                                            :success => "$('tr-#{user.identifier}').hide()",
+                                            :complete => '$("members-list").removeClassName("loading")'}) %>
+
+
+      </td>
+    </tr>
+  <% end if @users_found %>
+</table>

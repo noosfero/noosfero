@@ -12,6 +12,7 @@ class ProfileControllerTest < Test::Unit::TestCase
 
     @profile = create_user('testuser').person
   end
+  attr_reader :profile
 
   def test_local_files_reference
     assert_local_files_reference
@@ -224,7 +225,8 @@ class ProfileControllerTest < Test::Unit::TestCase
     community = Community.create!(:name => 'my test community')
     community.add_member(@profile)
     get :index, :profile => community.identifier
-    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{@profile.identifier}/memberships/leave/#{community.id}" }
+    assert_tag :tag => 'a',
+      :attributes => { :href => "/profile/#{community.identifier}/leave" }
   end
 
   should 'not show Leave This Community button for non-registered users' do
@@ -508,6 +510,128 @@ class ProfileControllerTest < Test::Unit::TestCase
     get :refuse_for_now, :profile => community.identifier
 
     assert_equal ((2..10).to_a + [community.id]), @request.session[:no_asking]
+  end
+
+  should 'present confirmation before leaving a profile' do
+    community = Community.create!(:name => 'my test community')
+    community.add_member(profile)
+
+    login_as(profile.identifier)
+    get :leave, :profile => community.identifier
+
+    assert_template 'leave'
+    assert_tag :tag => 'input', :attributes => {:value => 'Yes, I want to leave.', :type => 'submit'}
+  end
+
+  should 'actually leave profile' do
+    community = Community.create!(:name => 'my test community')
+    community.add_member(profile)
+    assert_includes profile.memberships, community
+
+    login_as(profile.identifier)
+    post :leave, :profile => community.identifier, :confirmation => '1'
+
+    profile = Profile.find(@profile.id)
+    assert_not_includes profile.memberships, community
+  end
+
+  should 'leave profile when on wizard' do
+    community = Community.create!(:name => 'my test community')
+    community.add_member(profile)
+
+    login_as(profile.identifier)
+    post :leave, :profile => community.identifier, :confirmation => '1', :wizard => true
+
+    assert_response :redirect
+    assert_redirected_to :controller => 'search', :action => 'assets', :asset => 'communities', :wizard => true
+
+    profile = Profile.find(@profile.id)
+    assert_not_includes profile.memberships, community
+  end
+
+  should "offer button to close 'leave community' lightbox" do
+    community = Community.create!(:name => 'my test community')
+    community.add_member(profile)
+
+    login_as(profile.identifier)
+    get :index, :profile => community.identifier
+
+    assert_tag :tag => 'a', :content => 'Leave', :attributes => { :href => "/profile/#{community.identifier}/leave", :class => /^lbOn/ }
+  end
+
+  should 'offer button to cancel leaving community' do
+    community = Community.create!(:name => 'my test community')
+    community.add_member(profile)
+
+    login_as(profile.identifier)
+    get :leave, :profile => community.identifier
+
+    assert_tag :tag => 'a', :content => "No, I don't want."
+  end
+
+  should 'render without layout when use lightbox to leave community' do
+    community = Community.create!(:name => 'my test community')
+    community.add_member(profile)
+
+    @request.stubs(:xhr?).returns(true)
+    login_as(profile.identifier)
+    get :leave, :profile => community.identifier
+
+    assert_no_tag :tag => 'body' # e.g. no layout
+  end
+
+  should 'require login to leave community' do
+    community = Community.create!(:name => 'my test community')
+    get :leave, :profile => community.identifier
+
+    assert_redirected_to :controller => 'account', :action => 'login'
+  end
+
+  should 'redirect to stored location after leave community' do
+    community = Community.create!(:name => 'my test community')
+    community.add_member(profile)
+
+    @request.session[:return_to] = "/profile/#{community.identifier}/to_go"
+    login_as(profile.identifier)
+
+    post :leave, :profile => community.identifier, :confirmation => '1'
+
+    assert_redirected_to "/profile/#{community.identifier}/to_go"
+  end
+
+  should 'store referer location when request leave via get' do
+    community = Community.create!(:name => 'my test community')
+    login_as(profile.identifier)
+
+    assert_nil @request.session[:return_to]
+    @request.expects(:referer).returns("/profile/redirect_to")
+
+    get :leave, :profile => community.identifier
+
+    assert_equal '/profile/redirect_to', @request.session[:return_to]
+  end
+
+  should 'store referer location when request join via get' do
+    community = Community.create!(:name => 'my test community')
+    login_as(profile.identifier)
+
+    assert_nil @request.session[:return_to]
+    @request.expects(:referer).returns("/profile/redirect_to")
+
+    get :join, :profile => community.identifier
+
+    assert_equal '/profile/redirect_to', @request.session[:return_to]
+  end
+
+  should 'redirect to stored location after join community' do
+    community = Community.create!(:name => 'my test community')
+
+    @request.session[:return_to] = "/profile/#{community.identifier}/to_go"
+    login_as(profile.identifier)
+
+    post :join, :profile => community.identifier, :confirmation => '1'
+
+    assert_redirected_to "/profile/#{community.identifier}/to_go"
   end
 
 end

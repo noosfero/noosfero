@@ -351,7 +351,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
 
   should 'not ask_to_join unless profile defined' do
     e = Environment.default
-    e.stubs(:enabled?).with(:disable_join_community_popup).returns(false)
+    e.stubs(:enabled?).with(:join_community_popup).returns(true)
     stubs(:environment).returns(e)
 
     stubs(:profile).returns(nil)
@@ -360,7 +360,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
 
   should 'not ask_to_join unless profile is community' do
     e = Environment.default
-    e.stubs(:enabled?).with(:disable_join_community_popup).returns(false)
+    e.stubs(:enabled?).with(:join_community_popup).returns(true)
     stubs(:environment).returns(e)
 
     p = create_user('test_user').person
@@ -370,7 +370,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
 
   should 'ask_to_join if its not logged and in a community' do
     e = Environment.default
-    e.stubs(:enabled?).with(:disable_join_community_popup).returns(false)
+    e.stubs(:enabled?).with(:join_community_popup).returns(true)
     stubs(:environment).returns(e)
 
     c = Community.create(:name => 'test_comm', :identifier => 'test_comm')
@@ -381,7 +381,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
 
   should 'ask_to_join if user say so' do
     e = Environment.default
-    e.stubs(:enabled?).with(:disable_join_community_popup).returns(false)
+    e.stubs(:enabled?).with(:join_community_popup).returns(true)
     stubs(:environment).returns(e)
 
     c = Community.create(:name => 'test_comm', :identifier => 'test_comm')
@@ -396,7 +396,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
 
   should 'not ask_to_join if user say no' do
     e = Environment.default
-    e.stubs(:enabled?).with(:disable_join_community_popup).returns(false)
+    e.stubs(:enabled?).with(:join_community_popup).returns(true)
     stubs(:environment).returns(e)
     c = Community.create(:name => 'test_comm', :identifier => 'test_comm')
     stubs(:profile).returns(c)
@@ -410,7 +410,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
 
   should 'not ask_to_join if environment say no even if its not logged and in a community' do
     e = Environment.default
-    e.stubs(:enabled?).with(:disable_join_community_popup).returns(true)
+    e.stubs(:enabled?).with(:join_community_popup).returns(false)
     stubs(:environment).returns(e)
     c = Community.create(:name => 'test_comm', :identifier => 'test_comm')
     stubs(:profile).returns(c)
@@ -420,7 +420,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
 
   should 'not ask_to_join if environment say no even if user say so' do
     e = Environment.default
-    e.stubs(:enabled?).with(:disable_join_community_popup).returns(true)
+    e.stubs(:enabled?).with(:join_community_popup).returns(false)
     stubs(:environment).returns(e)
     c = Community.create(:name => 'test_comm', :identifier => 'test_comm')
     stubs(:profile).returns(c)
@@ -434,7 +434,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
 
   should 'not ask_to_join if its recorded in the session' do
     e = Environment.default
-    e.stubs(:enabled?).with(:disable_join_community_popup).returns(false)
+    e.stubs(:enabled?).with(:join_community_popup).returns(true)
     stubs(:environment).returns(e)
 
     c = Community.create(:name => 'test_comm', :identifier => 'test_comm')
@@ -447,7 +447,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
 
   should 'not ask_to_join if its recorded in the session even for authenticated users' do
     e = Environment.default
-    e.stubs(:enabled?).with(:disable_join_community_popup).returns(false)
+    e.stubs(:enabled?).with(:join_community_popup).returns(true)
     stubs(:environment).returns(e)
 
     c = Community.create(:name => 'test_comm', :identifier => 'test_comm')
@@ -463,6 +463,13 @@ class ApplicationHelperTest < Test::Unit::TestCase
     e.icon_theme = 'something-very-unlikely'
     stubs(:environment).returns(e)
     assert_equal "@import url(/designs/icons/default/style.css);", icon_theme_stylesheet_tag
+  end
+
+  should 'not display active field if only required' do
+    profile = mock
+    profile.expects(:required_fields).returns([])
+
+    assert_equal '', optional_field(profile, :field_name, '<html tags>', true)
   end
 
   protected

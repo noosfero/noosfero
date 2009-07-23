@@ -1084,6 +1084,8 @@ class CmsControllerTest < Test::Unit::TestCase
     @controller.stubs(:per_page).returns(1)
     file = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/feed.xml', 'text/xml'))
     file2 = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'))
+    file2.created_at = 1.day.ago
+    file2.save!
 
     get :media_listing, :profile => profile.identifier
 
@@ -1131,4 +1133,5 @@ class CmsControllerTest < Test::Unit::TestCase
     get :view, :profile => profile.identifier, :id => profile.blog.id
     assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/upload_files?parent_id=#{profile.blog.id}"}
   end
+
 end

@@ -102,4 +102,11 @@ class UploadedFileTest < Test::Unit::TestCase
     file.destroy
   end
 
+  should 'match max_size in validates message of size field' do
+    up = UploadedFile.new(:filename => 'fake_filename.png')
+    up.valid?
+
+    assert_match /#{UploadedFile.max_size.to_humanreadable}/, up.errors[:size]
+  end
+
 end

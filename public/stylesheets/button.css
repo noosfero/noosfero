@@ -96,3 +96,7 @@ input.button.with-text:hover {
   border: none;
 }
 
+input.disabled {
+  opacity: 0.5;
+  filter-opacity: 50%;
+}

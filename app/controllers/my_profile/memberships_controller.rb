@@ -6,26 +6,12 @@ class MembershipsController < MyProfileController
     @memberships = profile.memberships
   end
 
-  def leave
-    @to_leave = Profile.find(params[:id])
-    @wizard = params[:wizard]
-    if request.post? && params[:confirmation]
-      @to_leave.remove_member(profile)
-      if @wizard
-        redirect_to :controller => 'search', :action => 'assets', :asset => 'communities', :wizard => true
-      else
-        redirect_to :action => 'index'
-      end
-    end
-  end
-
   def new_community
     community_data = environment.enabled?('organizations_are_moderated_by_default') ? { :moderated_articles => true } : {}
     community_data.merge!(params[:community]) if params[:community]
     @community = Community.new(community_data)
     @wizard = params[:wizard].blank? ? false : params[:wizard]
     if request.post?
-      @community.environment = environment
       if @community.save
         @community.add_admin(profile)
         if @wizard

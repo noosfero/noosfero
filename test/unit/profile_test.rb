@@ -72,13 +72,6 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal Environment.default, e
   end
 
-  def test_cannot_rename
-    assert_valid p = Profile.create(:name => 'new_profile', :identifier => 'new_profile')
-    assert_raise ArgumentError do
-      p.identifier = 'other_profile'
-    end
-  end
-
   should 'provide access to home page' do
     profile = Profile.create!(:identifier => 'newprofile', :name => 'New Profile')
     assert_kind_of Article, profile.home_page
@@ -1368,6 +1361,16 @@ class ProfileTest < Test::Unit::TestCase
     person = create_user('mytestuser').person
     assert_equal "footer customized", person.custom_footer
     assert_equal "header customized", person.custom_header
+  end
+
+  should 'provide URL to leave' do
+    profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile', :environment_id => create_environment('mycolivre.net').id)
+    assert_equal({ :profile => 'testprofile', :controller => 'profile', :action => 'leave'}, profile.leave_url)
+  end
+
+  should 'provide URL to join' do
+    profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile', :environment_id => create_environment('mycolivre.net').id)
+    assert_equal({ :profile => 'testprofile', :controller => 'profile', :action => 'join'}, profile.join_url)
   end
 
   private

@@ -1,23 +1,8 @@
-<h2> <%= _('Listing Members') %> </h2>
-
-<%= link_to _('Affiliate yourself'), :action => 'add_role', :person => current_user.person, :role => @member_role if @member_role %>
-
-<table>
-  <tr>
-    <th><%= _('Member') %></th>
-    <th><%= _('Actions') %></th>
-  </tr>
-  <% @members.each do |m| %>
-    <tr>
-      <td><%= m.name %> </td>
-      <td>
-        <%= button_without_text :edit, _('Edit'), :action => 'change_role', :id => m %>
-        <%= button_without_text :delete, _('Remove'), :action => 'unassociate', :id => m %>
-      </td>
-    </tr>
-  <% end %>
-</table>
+<div id="members-list">
+  <%= render :partial => 'members_list' %>
+</div>
 
 <% button_bar do %>
   <%= button :back, _('Back'), :controller => 'profile_editor' %>
+  <%= button :add, _('Add members'), :action => 'add_members' if profile.enterprise? %>
 <% end %>

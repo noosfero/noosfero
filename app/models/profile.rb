@@ -194,15 +194,6 @@ class Profile < ActiveRecord::Base
     end
     @top_level_articles ||= Article.top_level_for(self)
   end
-  
-  # Sets the identifier for this profile. Raises an exception when called on a
-  # existing profile (since profiles cannot be renamed)
-  def identifier=(value)
-    unless self.new_record?
-      raise ArgumentError.new(_('An existing profile cannot be renamed.'))
-    end
-    self[:identifier] = value
-  end
 
   def self.is_available?(identifier)
     !(identifier =~ IDENTIFIER_FORMAT).nil? && !RESERVED_IDENTIFIERS.include?(identifier) && Profile.find(:first, :conditions => ['environment_id = ? and identifier = ?', Environment.default.id, identifier]).nil?
@@ -348,6 +339,14 @@ class Profile < ActiveRecord::Base
 
   def admin_url
     { :profile => identifier, :controller => 'profile_editor', :action => 'index' }
+  end
+
+  def leave_url
+    { :profile => identifier, :controller => 'profile', :action => 'leave' }
+  end
+
+  def join_url
+    { :profile => identifier, :controller => 'profile', :action => 'join' }
   end
 
   def public_profile_url

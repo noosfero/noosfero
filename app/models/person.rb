@@ -12,6 +12,15 @@ class Person < Profile
     Friendship.find(:all, :conditions => { :friend_id => person.id}).each { |friendship| friendship.destroy }
   end
 
+  # Sets the identifier for this person. Raises an exception when called on a
+  # existing person (since peoples' identifiers cannot be changed)
+  def identifier=(value)
+    unless self.new_record?
+      raise ArgumentError.new(_('An existing person cannot be renamed.'))
+    end
+    self[:identifier] = value
+  end
+
   def suggested_friend_groups
     (friend_groups.compact + [ _('friends'), _('work'), _('school'), _('family') ]).map {|i| i if !i.empty?}.compact.uniq
   end

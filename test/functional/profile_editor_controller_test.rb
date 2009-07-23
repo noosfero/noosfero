@@ -694,4 +694,120 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     assert_template 'edit'
   end
 
+  should 'not display form for enterprise activation if disabled in environment' do
+    env = Environment.default
+    env.disable('enterprise_activation')
+    env.save!
+
+    get :index, :profile => profile.identifier
+    assert_no_tag :tag => 'div', :attributes => { :id => 'activation_enterprise' }, :descendant => {:tag => 'form', :attributes => {:action => '/account/activation_question'}}
+  end
+
+  should 'display form for enterprise activation if enabled on environment' do
+    env = Environment.default
+    env.enable('enterprise_activation')
+    env.save!
+
+    get :index, :profile => profile.identifier
+    assert_tag :tag => 'div', :attributes => { :id => 'activation_enterprise' }, :descendant => {:tag => 'form', :attributes => {:action => '/account/activation_question'}}
+  end
+
+  should 'not display enterprise activation to enterprises' do
+    env = Environment.default
+    env.enable('enterprise_activation')
+    env.save!
+
+    enterprise = Enterprise.create!(:name => 'bli', :identifier => 'bli')
+    enterprise.add_admin(profile)
+
+    get :index, :profile => enterprise.identifier
+    assert_no_tag :tag => 'div', :attributes => { :id => 'activation_enterprise' }, :descendant => {:tag => 'form', :attributes => {:action => '/account/activation_question'}}
+  end
+
+  should 'have url field for identifier when environment allows' do
+    c = Community.create!(:name => 'test community', :identifier => 'test_comm')
+    env = c.environment
+    env.enable('enable_organization_url_change')
+    env.save!
+
+    get :edit, :profile => c.identifier
+    assert_tag :tag => 'div',
+               :attributes => { :class => 'formfield type-text' },
+               :content => /https?:\/\/#{c.environment.default_hostname}\//,
+               :descendant => {:tag => 'input', :attributes => {:id => 'profile_data_identifier'} }
+  end
+
+  should 'not have url field for identifier when environment not allows' do
+    c = Community.create!(:name => 'test community', :identifier => 'test_comm')
+    env = c.environment
+    env.disable('enable_organization_url_change')
+    env.save!
+
+    get :edit, :profile => c.identifier
+    assert_no_tag :tag => 'div',
+               :attributes => { :class => 'formfield type-text' },
+               :content => /https?:\/\/#{c.environment.default_hostname}\//,
+               :descendant => {:tag => 'input', :attributes => {:id => 'profile_data_identifier'} }
+  end
+
+  should 'redirect to new url when is changed' do
+    c = Community.create!(:name => 'test community', :identifier => 'test_comm')
+    post :edit, :profile => c.identifier, :profile_data => {:identifier => 'new_address'}
+    assert_response :redirect
+    assert_redirected_to :action => 'index', :profile => 'new_address'
+  end
+
+  should 'not crash if identifier is left blank' do
+    c = Community.create!(:name => 'test community', :identifier => 'test_comm')
+    assert_nothing_raised do
+      post :edit, :profile => c.identifier, :profile_data => c.attributes.merge('identifier' => '')
+    end
+    assert_response :success
+  end
+
+  should 'show active fields when edit community' do
+    env = Environment.default
+    env.custom_community_fields = {
+      'contact_email' => {'active' => 'true', 'required' => 'false'},
+      'contact_phone' => {'active' => 'true', 'required' => 'false'}
+    }
+    env.save!
+    community = Community.create(:name => 'test_profile')
+
+    get :edit, :profile => community.identifier
+
+    community.active_fields.each do |field|
+      assert_tag :tag => 'input', :attributes => { :name => "profile_data[#{field}]" }
+    end
+  end
+
+  should 'not show disabled fields when edit community' do
+    env = Environment.default
+    env.custom_community_fields = {
+      'contact_email' => {'active' => 'false', 'required' => 'false'},
+      'contact_phone' => {'active' => 'false', 'required' => 'false'}
+    }
+    env.save!
+    community = Community.create(:name => 'test_profile')
+
+    get :edit, :profile => community.identifier
+
+    (Community.fields - community.active_fields).each do |field|
+      assert_no_tag :tag => 'input', :attributes => { :name => "profile_data[#{field}]" }
+    end
+  end
+
+  should 'display nickname field only if active when edit community' do
+    community = Community.create(:name => 'test_profile')
+    Environment.any_instance.stubs(:required_community_fields).returns([])
+
+    Environment.any_instance.stubs(:active_community_fields).returns(['description'])
+    get :edit, :profile => community.identifier
+    assert_no_tag :tag => 'input', :attributes => { :name => "profile_data[nickname]" }
+
+    Environment.any_instance.stubs(:active_community_fields).returns(['nickname'])
+    get :edit, :profile => community.identifier
+    assert_tag :tag => 'input', :attributes => { :name => "profile_data[nickname]" }
+  end
+
 end

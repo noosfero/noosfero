@@ -232,4 +232,11 @@ class OrganizationTest < Test::Unit::TestCase
     assert p.has_permission?(:moderate_comments, o)
   end
 
+  should 'be able to change identifier' do
+    o = Organization.create!(:name => 'Test Org', :identifier => 'test_org')
+    assert_nothing_raised do
+      o.identifier = 'test_org_new_url'
+    end
+  end
+
 end

@@ -29,6 +29,11 @@ function focus_first_field() {
 
 /* * * Convert a string to a valid login name * * */
 function convToValidLogin( str ) {
+  return convToValidIdentifier(str, '')
+}
+
+/* * * Convert a string to a valid login name * * */
+function convToValidIdentifier( str, sep ) {
   return str.toLowerCase()
             .replace( /@.*$/,     ""  )
             .replace( /á|à|ã|â/g, "a" )
@@ -38,7 +43,7 @@ function convToValidLogin( str ) {
             .replace( /ú|ũ|ü/g,   "u" )
             .replace( /ñ/g,       "n" )
             .replace( /ç/g,       "c" )
-            .replace( /[^-_a-z0-9]+/g, "" )
+            .replace( /[^-_a-z0-9]+/g, sep )
 }
 
 document.observe("dom:loaded", function() {
