@@ -32,14 +32,15 @@
 }
 
 #identifier-change-confirmation {
-  background-color: #EE4444;
-  padding: 3px 20px 3px 20px;
+  background-color: #ef2929;
+  border: 6px solid #a40000;
+  padding: 20px;
   margin: 5px 30px 10px 30px;
 }
 
 #identifier-change-confirmation div {
   text-align: right;
-  padding: 0px 10px 5px 0px;
+  padding: 20px 10px 0px 0px;
 }
 
 code input {

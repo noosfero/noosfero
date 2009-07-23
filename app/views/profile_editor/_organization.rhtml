@@ -45,10 +45,10 @@
       <%= labelled_form_field( _('Address'),
                               '<code>' + url_for(profile.url).gsub(/#{profile.identifier}$/, '') +
                                  text_field(:profile_data, :identifier, :onchange => "warn_value_change(this)", :size => 15) + '</code>' +
-                                 content_tag('div',  '<strong>' + _('WARNING:') + '</strong> ' + _("the address was changed, this might break any external links to this profile and articles in this profile, you really want to change? ") +
+                                 content_tag('div',  '<strong>' + _('WARNING!') + '</strong> ' + _("You are about to change the address, and this will break external links to the homepage or to content inside it. Do you really want to change? ") +
                                                        '<div>' + button_to_function(:ok, _("Yes"), 'hide_warning()') + ' ' +
                                                        button_to_function(:cancel, _('No'), '$("profile_data_identifier").value = $("old_profile_identifier").value; hide_warning()') + '</div>',
-                               :id => 'identifier-change-confirmation'
+                               :id => 'identifier-change-confirmation', :style => 'display: none;'
                                  )
           )
       %>
