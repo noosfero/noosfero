@@ -1,1 +1,4 @@
 vendor/rails/
+doc/api
+doc/plugins
+tmp
