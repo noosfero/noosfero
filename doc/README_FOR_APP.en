@@ -37,6 +37,7 @@ special its possible that the requirements list above is not complete.
 
 === Setting up a production environment
 
+* install memcached. Study whether you need to raise the ammount of memory it uses for caching, depending on the demand you expect for your site.
 * copy config/ferret_server.yml.dist to config/ferret_server.yml.dist
 * configure the mongrel cluster: `mongrel_rails cluster::configure`
 ** then edit config/mongrel_cluster.yml to suit your environment. Make sure your apache configuration matches the mongrel cluster configuration, specially in respect to the ports and numbers of mongrel instances.
