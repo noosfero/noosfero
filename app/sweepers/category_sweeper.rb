@@ -3,7 +3,7 @@ class CategorySweeper < ActiveRecord::Observer
   include SweeperHelper
 
   def after_save(category)
-    expire_fragment(category.environment.name + "_categories_menu")
+    expire_fragment(category.environment.id.to_s + "_categories_menu")
   end
 
 end
