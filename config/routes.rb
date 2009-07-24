@@ -84,10 +84,10 @@ ActionController::Routing::Routes.draw do |map|
   # cache stuff - hack
   map.cache 'public/:action/:id', :controller => 'public'
 
-  # match requests for content in domains hosted for profiles
-  map.connect '*page', :controller => 'content_viewer', :action => 'view_page', :conditions => { :if => lambda { |env| Domain.hosting_profile_at(env[:host])} }
+  # match requests for profiles that don't have a custom domain
+  map.homepage ':profile/*page', :controller => 'content_viewer', :action => 'view_page', :profile => /#{Noosfero.identifier_format}/, :conditions => { :if => lambda { |env| !Domain.hosting_profile_at(env[:host]) } }
 
-  # XXX this route must come last so other routes have priority over it.
-  map.homepage ':profile/*page', :controller => 'content_viewer', :action => 'view_page', :profile => /#{Noosfero.identifier_format}/
+  # match requests for content in domains hosted for profiles
+  map.connect '*page', :controller => 'content_viewer', :action => 'view_page'
 
 end
