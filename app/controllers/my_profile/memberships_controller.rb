@@ -10,6 +10,7 @@ class MembershipsController < MyProfileController
     community_data = environment.enabled?('organizations_are_moderated_by_default') ? { :moderated_articles => true } : {}
     community_data.merge!(params[:community]) if params[:community]
     @community = Community.new(community_data)
+    @community.environment = environment
     @wizard = params[:wizard].blank? ? false : params[:wizard]
     if request.post?
       if @community.save
