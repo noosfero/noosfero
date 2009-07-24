@@ -105,5 +105,18 @@ module Rails
   end
 end
 
+# yeah, I know, I shouldn't change this file. But ...
+def install_debian_rails
+  local_rails = File.dirname(__FILE__) + '/../vendor/rails'
+  debian_rails = '/usr/share/rails'
+  if !File.exist?(local_rails) && File.exists?(debian_rails)
+    puts "I: Installing Debian-installed Rails from /usr/share/rails into vendor/rails."
+    recommended_rails_version = Rails::GemBoot.gem_version
+    puts "I: Please note that the recommended Rails version is #{recommended_rails_version}, and that other versions might not work"
+    File.symlink(debian_rails, local_rails)
+  end
+end
+install_debian_rails
+
 # All that for this:
 Rails.boot!
