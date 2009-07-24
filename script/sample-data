@@ -6,7 +6,7 @@ people = []
 NAMES = %w[ José João Antonio Paulo Maria Joana Paula Angela ]
 SURNAMES = %w[ Silva Santos Abreu Oliveira Machado Bonfim  ]
 User.destroy_all
-print "Creating users: "
+print "Creating users: "; $stdout.flush
 for name in NAMES
   for surname in SURNAMES
     full_name = [name, surname].join(' ')
@@ -25,10 +25,22 @@ for name in NAMES
 end
 puts
 
+print "Creating some friendships: "; $stdout.flush
+rand(people.size * 3).times do
+  from = people.rand
+  to = people.rand
+  if from != to && !from.friends.include?(to)
+    from.add_friend(to)
+  end
+  print '.'; $stdout.flush
+end
+puts
+
+
 VERBS = ['Save', 'I like', 'I hate', 'Use']
 STUFF = ['Free Software', 'Organic food', 'the wales', 'the environment', 'Barack Obama', 'Osama Bin Laden', 'Lula']
 Community.destroy_all
-print "Creating communities: "
+print "Creating communities: "; $stdout.flush
 for verb in VERBS
   for stuff in STUFF
     name = [verb, stuff].join(' ')
