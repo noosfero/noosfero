@@ -134,8 +134,8 @@ class BlogTest < ActiveSupport::TestCase
     p = create_user('testuser').person
     blog = Blog.create!(:name => 'Blog test', :profile => p)
     post = Article.create!(:name => 'First post', :profile => p, :parent => blog)
-    ArticleSweeper.any_instance.expects(:expire_fragment).with(/#{blog.cache_key}/)
-    ArticleSweeper.any_instance.expects(:expire_fragment).with(/#{post.cache_key}/)
+    ArticleSweeper.any_instance.expects(:expire_fragment).with(blog.cache_key)
+    ArticleSweeper.any_instance.expects(:expire_fragment).with(post.cache_key)
     post.name = 'Edited First post'
     assert post.save!
   end

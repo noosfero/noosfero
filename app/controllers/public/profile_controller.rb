@@ -105,6 +105,11 @@ class ProfileController < PublicController
   end
 
   def per_page
-    10
+    self.class.per_page
+  end
+  class << self
+    def per_page
+      10
+    end
   end
 end

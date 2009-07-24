@@ -250,7 +250,14 @@ class Person < Profile
   end
 
   def cache_keys(params = {})
-    [communities_cache_key]
+    result = []
+    if params[:per_page]
+      pages = (self.communities.count.to_f / params[:per_page].to_f).ceil
+      (1..pages).each do |i|
+        result << self.communities_cache_key(:npage => i.to_s)
+      end
+    end
+    result
   end
 
   def communities_cache_key(params = {})

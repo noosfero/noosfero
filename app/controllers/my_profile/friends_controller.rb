@@ -109,7 +109,12 @@ class FriendsController < MyProfileController
 
   protected
 
+  class << self
     def per_page
       10
     end
+  end
+  def per_page
+    self.class.per_page
+  end
 end

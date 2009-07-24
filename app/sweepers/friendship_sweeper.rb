@@ -18,10 +18,16 @@ protected
   end
 
   def expire_cache(profile)
-    [profile.friends_cache_key, profile.manage_friends_cache_key].each { |ck|
-      cache_key = ck.gsub(/(.)-\d.*$/, '\1')
-      expire_timeout_fragment(/#{cache_key}/)
-    }
+    # public friends page
+    pages =  profile.friends.count / ProfileController.per_page + 1
+    (1..pages).each do |i|
+      expire_timeout_fragment(profile.friends_cache_key(:npage => i.to_s))
+    end
+    # manage friends page
+    pages =  profile.friends.count / FriendsController.per_page + 1
+    (1..pages).each do |i|
+      expire_timeout_fragment(profile.manage_friends_cache_key(:npage => i.to_s))
+    end
 
     blocks = profile.blocks.select{|b| b.kind_of?(FriendsBlock)}
     blocks.map(&:cache_keys).each{|ck|expire_timeout_fragment(ck)}

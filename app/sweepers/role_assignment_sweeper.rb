@@ -18,9 +18,8 @@ protected
   end
 
   def expire_cache(profile)
-    profile.cache_keys.each { |ck|
-      cache_key = ck.gsub(/(.)-\d.*$/, '\1')
-      expire_timeout_fragment(/#{cache_key}/)
+    profile.cache_keys(:per_page => ProfileController.per_page).each { |ck|
+      expire_timeout_fragment(ck)
     }
 
     profile.blocks_to_expire_cache.each { |block|
