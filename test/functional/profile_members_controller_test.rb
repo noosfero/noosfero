@@ -239,4 +239,18 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'tr', :attributes => {:id => 'tr-test_user', :style => 'display:none'}
   end
 
+  should 'return users with <query> as a prefix' do
+    daniel  = create_user('daniel').person
+    daniela = create_user('daniela').person
+
+    ent = Enterprise.create!(:name => 'Test Ent', :identifier => 'test_ent')
+    p = create_user_with_permission('test_user', 'manage_memberships', ent)
+    login_as :test_user
+
+    get :find_users, :profile => ent.identifier, :query => 'daniel'
+
+    assert_includes assigns(:users_found), daniel
+    assert_includes assigns(:users_found), daniela
+  end
+
 end

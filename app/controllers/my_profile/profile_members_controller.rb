@@ -76,7 +76,7 @@ class ProfileMembersController < MyProfileController
   end
 
   def find_users
-    @users_found = Person.find_by_contents(params[:query])
+    @users_found = Person.find_by_contents(params[:query] + '*')
     render :layout => false
   end
 
