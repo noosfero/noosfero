@@ -50,4 +50,17 @@ class ApproveArticleTest < ActiveSupport::TestCase
 
     assert_nil a.article_parent
   end
+
+  should 'alert when reference article is removed' do
+    profile = create_user('test_user').person
+    article = profile.articles.create!(:name => 'test article')
+
+    a = ApproveArticle.create!(:name => 'test name', :article => article, :target => profile, :requestor => profile)
+
+    article.destroy
+    a.reload
+
+    assert_match /text was removed/, a.description
+  end
+
 end

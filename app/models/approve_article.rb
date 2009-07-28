@@ -4,7 +4,11 @@ class ApproveArticle < Task
   validates_presence_of :requestor_id, :target_id
 
   def description
-    _('%{author} wants to publish "%{article}" on %{community}') % { :author => requestor.name, :article => article.title, :community => target.name }
+    _('%{author} wants to publish "%{article}" on %{community}') % { :author => requestor.name, :article => article_title, :community => target.name }
+  end
+
+  def article_title
+    article ? article.title : _('(The original text was removed)')
   end
   
   def data
