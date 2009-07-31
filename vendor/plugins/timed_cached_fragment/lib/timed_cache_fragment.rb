@@ -20,6 +20,7 @@ module ActionController
       #checks to see if a cache has fully expired
       def is_cache_expired?(name, is_key = false)
         key = is_key ? name : fragment_cache_key(name)
+        return true unless read_fragment(key)
         timeout = get_timeout(key)
         return (!timeout) || (timeout < Time.now)
       end
@@ -43,7 +44,8 @@ module ActionController
         expire_fragment('timeout:' + key)
       end
       def get_timeout(key)
-        read_fragment('timeout:' + key)
+        frag = read_fragment('timeout:' + key)
+        frag ? frag.to_time : nil
       end
       def set_timeout(key, value)
         write_fragment('timeout:' + key, value)
