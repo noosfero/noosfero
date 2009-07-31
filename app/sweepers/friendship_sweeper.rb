@@ -19,12 +19,12 @@ protected
 
   def expire_cache(profile)
     # public friends page
-    pages =  profile.friends.count / ProfileController.per_page + 1
+    pages =  profile.friends.count / Noosfero::Constants::PROFILE_PER_PAGE + 1
     (1..pages).each do |i|
       expire_timeout_fragment(profile.friends_cache_key(:npage => i.to_s))
     end
     # manage friends page
-    pages =  profile.friends.count / FriendsController.per_page + 1
+    pages =  profile.friends.count / Noosfero::Constants::PROFILE_PER_PAGE + 1
     (1..pages).each do |i|
       expire_timeout_fragment(profile.manage_friends_cache_key(:npage => i.to_s))
     end

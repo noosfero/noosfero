@@ -18,7 +18,8 @@ protected
   end
 
   def expire_cache(profile)
-    profile.cache_keys(:per_page => ProfileController.per_page).each { |ck|
+    per_page = Noosfero::Constants::PROFILE_PER_PAGE
+    profile.cache_keys(:per_page => per_page).each { |ck|
       expire_timeout_fragment(ck)
     }
 

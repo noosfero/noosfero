@@ -105,11 +105,6 @@ class ProfileController < PublicController
   end
 
   def per_page
-    self.class.per_page
-  end
-  class << self
-    def per_page
-      10
-    end
+    Noosfero::Constants::PROFILE_PER_PAGE
   end
 end
