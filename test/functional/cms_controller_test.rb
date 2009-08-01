@@ -672,6 +672,7 @@ class CmsControllerTest < Test::Unit::TestCase
   end
 
   should 'require ssl in general' do
+    Environment.default.update_attribute(:enable_ssl, true)
     @request.expects(:ssl?).returns(false).at_least_once
     get :index, :profile => 'testinguser'
     assert_redirected_to :protocol => 'https://'
@@ -684,12 +685,14 @@ class CmsControllerTest < Test::Unit::TestCase
   end
 
   should 'not loose type argument in new action when redirecting to ssl' do
+    Environment.default.update_attribute(:enable_ssl, true)
     @request.expects(:ssl?).returns(false).at_least_once
     get :new, :profile => 'testinguser', :type => 'Folder'
     assert_redirected_to :protocol => 'https://', :action => 'new', :type => 'Folder'
   end
 
   should 'not accept non-ajax connections to new action without ssl' do
+    Environment.default.update_attribute(:enable_ssl, true)
     @request.expects(:ssl?).returns(false).at_least_once
     get :new, :profile => 'testinguser'
     assert_redirected_to :protocol => 'https://'

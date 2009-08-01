@@ -51,6 +51,7 @@ class MyProfileControllerTest < Test::Unit::TestCase
   end
 
   should 'require ssl' do
+    Environment.default.update_attribute(:enable_ssl, true)
     @controller = OnlyForPersonTestController.new
     org = Organization.create!(:identifier => 'hacking_institute', :name => 'Hacking Institute')
 

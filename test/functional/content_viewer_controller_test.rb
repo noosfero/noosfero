@@ -543,6 +543,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
   end
 
   should 'require SSL for viewing non-public articles' do
+    Environment.default.update_attribute(:enable_ssl, true)
     page = profile.articles.create!(:name => 'myarticle', :body => 'top secret', :public_article => false)
     get :view_page, :profile => 'testinguser', :page => [ 'myarticle' ]
     assert_redirected_to :protocol => 'https://', :profile => 'testinguser', :page => [ 'myarticle' ]

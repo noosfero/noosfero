@@ -51,7 +51,7 @@ class ApplicationController < ActionController::Base
   end
   def redirect_to_ssl
     if environment.enable_ssl
-      redirect_to(params.merge(:protocol => 'https://'))
+      redirect_to(params.merge(:protocol => 'https://', :host => ssl_hostname))
       true
     else
       false

@@ -19,6 +19,7 @@ class AdminControllerTest < Test::Unit::TestCase
   end
 
   should 'require ssl' do
+    Environment.default.update_attribute(:enable_ssl, true)
     get :index
     assert_redirected_to :protocol => 'https://'
   end

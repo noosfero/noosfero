@@ -590,6 +590,7 @@ class AccountControllerTest < Test::Unit::TestCase
   end
 
   should 'force ssl' do
+    Environment.default.update_attribute(:enable_ssl, true)
     @request.expects(:ssl?).returns(false).at_least_once
     get :index
     assert_redirected_to :protocol => 'https://'
@@ -608,6 +609,7 @@ class AccountControllerTest < Test::Unit::TestCase
   end
 
   should 'point to SSL URL in login popup' do
+    Environment.default.update_attribute(:enable_ssl, true)
     get :login_popup
     assert_tag :tag => 'form', :attributes => { :action => /^https:\/\// }
   end
