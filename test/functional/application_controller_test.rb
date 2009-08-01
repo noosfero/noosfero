@@ -267,6 +267,7 @@ class ApplicationControllerTest < Test::Unit::TestCase
   end
 
   should 'require ssl when told to' do
+    Environment.default.update_attribute(:enable_ssl, true)
     @request.expects(:ssl?).returns(false).at_least_once
     get :sslonly
     assert_redirected_to :protocol => 'https://'
@@ -292,6 +293,7 @@ class ApplicationControllerTest < Test::Unit::TestCase
   end
 
   should 'keep arguments when redirecting to ssl' do
+    Environment.default.update_attribute(:enable_ssl, true)
     @request.expects(:ssl?).returns(false).at_least_once
     get :sslonly, :x => '1', :y => '2'
     assert_redirected_to :protocol => 'https://', :x => '1', :y => '2'
@@ -327,13 +329,14 @@ class ApplicationControllerTest < Test::Unit::TestCase
   end
 
   should 'add https protocols on redirect_to_ssl' do
+    Environment.default.update_attribute(:enable_ssl, true)
     get :sslonly, :x => '1', :y => '1'
     assert_redirected_to :x => '1', :y => '1', :protocol => 'https://'
   end
 
   should 'return true in redirect_to_ssl' do
     env = mock
-    env.expects(:disable_ssl).returns(false)
+    env.expects(:enable_ssl).returns(true)
     @controller.expects(:environment).returns(env)
     @controller.expects(:params).returns({})
     @controller.expects(:redirect_to).with({:protocol => 'https://'})
@@ -341,14 +344,14 @@ class ApplicationControllerTest < Test::Unit::TestCase
   end
   should 'return false in redirect_to_ssl when ssl is disabled' do
     env = mock
-    env.expects(:disable_ssl).returns(true)
+    env.expects(:enable_ssl).returns(false)
     @controller.expects(:environment).returns(env)
     assert_equal false, @controller.redirect_to_ssl
   end
 
   should 'not force ssl when ssl is disabled' do
     env = Environment.default
-    env.expects(:disable_ssl).returns(true)
+    env.expects(:enable_ssl).returns(false)
     @controller.stubs(:environment).returns(env)
     @request.expects(:ssl?).returns(false).at_least_once
     get :sslonly

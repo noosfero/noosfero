@@ -20,7 +20,7 @@ class LoginToTheApplicationTest < ActionController::IntegrationTest
   end
 
   def test_unauthenticated_user_tries_to_access_his_control_panel
-    Environment.any_instance.stubs(:disable_ssl).returns(true) # ignore SSL for this test 
+    Environment.any_instance.stubs(:enable_ssl).returns(false) # ignore SSL for this test 
 
     get '/myprofile/ze'
     assert_redirected_to '/account/login'

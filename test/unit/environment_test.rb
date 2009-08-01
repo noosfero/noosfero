@@ -487,14 +487,14 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal template, e.enterprise_template 
   end
 
-  should 'not disable ssl by default' do
+  should 'not enable ssl by default' do
     e = Environment.new
-    assert !e.disable_ssl
+    assert !e.enable_ssl
   end
 
-  should 'be able to disable ssl' do
-    e = Environment.new(:disable_ssl => true)
-    assert_equal true, e.disable_ssl
+  should 'be able to enable ssl' do
+    e = Environment.new(:enable_ssl => true)
+    assert_equal true, e.enable_ssl
   end
 
   should 'have a layout template' do

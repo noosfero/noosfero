@@ -50,18 +50,24 @@ class ApplicationController < ActionController::Base
     redirect_to_ssl
   end
   def redirect_to_ssl
-    return false if environment.disable_ssl
-    redirect_to(params.merge(:protocol => 'https://'))
-    true
+    if environment.enable_ssl
+      redirect_to(params.merge(:protocol => 'https://'))
+      true
+    else
+      false
+    end
   end
 
   def self.refuse_ssl(*options)
     before_filter :avoid_ssl, *options
   end
   def avoid_ssl
-    return true if (!request.ssl? || ENV['RAILS_ENV'] == 'development')
-    redirect_to(params.merge(:protocol => 'http://'))
-    false
+    if (!request.ssl? || ENV['RAILS_ENV'] == 'development')
+      true
+    else
+      redirect_to(params.merge(:protocol => 'http://'))
+      false
+    end
   end
 
   before_init_gettext :maybe_save_locale

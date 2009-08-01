@@ -195,19 +195,19 @@ class ApplicationHelperTest < Test::Unit::TestCase
   end
 
   should 'use https:// for login_url' do
-    environment = mock
-    environment.expects(:disable_ssl).returns(false)
+    environment = Environment.default
+    environment.update_attribute(:enable_ssl, true)
+    environment.domains << Domain.new(:name => "test.domain.net", :is_default => true)
     stubs(:environment).returns(environment)
-    request = mock
-    request.stubs(:host).returns('myhost.net')
-    stubs(:request).returns(request)
-    stubs(:url_for).with(has_entries(:protocol => 'https://', :host => 'myhost.net')).returns('LALALA')
+
+    stubs(:url_for).with(has_entries(:protocol => 'https://', :host => 'test.domain.net')).returns('LALALA')
+
     assert_equal 'LALALA', login_url
   end
 
   should 'not force ssl in login_url when environment has ssl disabled' do
     environment = mock
-    environment.expects(:disable_ssl).returns(true).at_least_once
+    environment.expects(:enable_ssl).returns(false).at_least_once
     stubs(:environment).returns(environment)
     request = mock
     request.stubs(:host).returns('localhost')

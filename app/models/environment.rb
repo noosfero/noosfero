@@ -513,12 +513,12 @@ class Environment < ActiveRecord::Base
     result
   end
 
-  def disable_ssl
-    settings[:disable_ssl]
+  def enable_ssl
+    settings[:enable_ssl]
   end
 
-  def disable_ssl=(value)
-    settings[:disable_ssl] = value
+  def enable_ssl=(value)
+    settings[:enable_ssl] = value
   end
 
   def to_s
