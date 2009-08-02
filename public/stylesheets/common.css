@@ -463,7 +463,7 @@ div.pending-tasks {
 #join-community-popup {
   z-index: 150;
   position: absolute;
-  width: 405px;
+  width: 500px;
   height: 180;
   right: 50px;
   top: 50px;
