@@ -10,10 +10,6 @@ class UserRegistersAtTheApplicationTest < ActionController::IntegrationTest
 
     get '/account/signup'
 
-    # going SSL
-    assert_response :redirect
-    follow_redirect!
-
     assert_response :success
     
     post '/account/signup', :user => { :login => 'mylogin', :password => 'mypassword', :password_confirmation => 'mypassword', :email => 'mylogin@example.com' }
@@ -35,10 +31,6 @@ class UserRegistersAtTheApplicationTest < ActionController::IntegrationTest
     assert_can_signup
 
     get '/account/signup'
-
-    # going SSL
-    assert_response :redirect
-    follow_redirect!
 
     assert_response :success
     

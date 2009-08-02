@@ -102,7 +102,12 @@
         </div>
 
         <div id="user_box">
-          <%= render :file => 'shared/user_menu' %>
+          <%# WARNING this is a horrible hack while we don't have an actual SSO system. %>
+          <% if environment.enable_ssl && request.host != environment.default_hostname %>
+            <%= content_tag 'script', '', :type => 'text/javascript', :src => environment.top_url(true) + '/account/user_menu' %>
+          <% else %>
+            <%= render :file => 'shared/user_menu' %>
+          <% end %>
         </div><!-- id='user_box' -->
 
         <a href="#" id="btShowHelp" class="icon-help32on help-on icon-help-on"

@@ -35,7 +35,7 @@ class CategoriesMenuTest < ActionController::IntegrationTest
   end
 
   should 'cache the categories menu' do
-    ActionView::Base.any_instance.expects(:cache).with(Environment.default.name + "_categories_menu")
+    ActionView::Base.any_instance.expects(:cache).with(Environment.default.id.to_s + "_categories_menu")
     get '/'
   end
 
