@@ -122,14 +122,14 @@ class Environment < ActiveRecord::Base
       'select_preferred_domain' => _('Select preferred domains per profile'),
       'display_wizard_signup' => _('Display wizard signup'),
       'use_portal_community' => _('Use the portal as news source for front page'),
-      'user_themes' => N_('Allow users to create their own themes'),
-      'search_in_home' => N_("Display search form in home page"),
+      'user_themes' => _('Allow users to create their own themes'),
+      'search_in_home' => _("Display search form in home page"),
 
-      'cant_change_homepage' => N_("Don't allow users to change which article to use as homepage"),
-      'display_header_footer_explanation' => N_("Display explanation about header and footer"),
-      'articles_dont_accept_comments_by_default' => N_("Articles don't accept comments by default"),
-      'organizations_are_moderated_by_default' => N_("Organizations have moderated publication by default"),
-      'enable_organization_url_change' => N_("Allow organizations to change their address"),
+      'cant_change_homepage' => _("Don't allow users to change which article to use as homepage"),
+      'display_header_footer_explanation' => _("Display explanation about header and footer"),
+      'articles_dont_accept_comments_by_default' => _("Articles don't accept comments by default"),
+      'organizations_are_moderated_by_default' => _("Organizations have moderated publication by default"),
+      'enable_organization_url_change' => _("Allow organizations to change their address"),
     }
   end
 
