@@ -77,6 +77,8 @@ class AccountController < ApplicationController
     end
     rescue ActiveRecord::RecordInvalid
       @person.valid?
+      @person.errors.delete(:identifier)
+      @person.errors.delete(:user_id)
       if @wizard
         render :action => 'signup', :layout => 'wizard'
       else
