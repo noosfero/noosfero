@@ -60,7 +60,7 @@
 
   <%= render :partial => 'shared/custom_fields', :locals => { :f => f, :object_name => 'profile_data', :profile => @profile, :only_required => false } %>
 
-  <%= f.check_box(:enable_contact_us) if @profile.enterprise? %>
+  <%= labelled_check_box(_('Enable "contact us"'), 'profile_data[enable_contact_us]', "1", @profile.enable_contact_us) if @profile.enterprise? %>
 
   <h1><%= _('Moderation options') %></h1>
   <div style='margin-bottom: 1em'>

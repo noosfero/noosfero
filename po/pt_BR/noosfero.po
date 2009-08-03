@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.19.0\n"
-"POT-Creation-Date: 2009-08-03 12:50-0300\n"
-"PO-Revision-Date: 2009-08-03 12:51-0300\n"
+"POT-Creation-Date: 2009-08-03 13:06-0300\n"
+"PO-Revision-Date: 2009-08-03 13:20-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -4530,7 +4530,7 @@ msgstr "Entrar nessa comunidade"
 #: app/views/blocks/profile_info_actions/community.rhtml:16
 #: app/views/blocks/profile_info_actions/enterprise.rhtml:8
 msgid "Contact us"
-msgstr "Contacte-nos"
+msgstr "Fale conosco"
 
 #: app/views/blocks/profile_info_actions/person.rhtml:5
 msgid "Add friend"
@@ -5242,6 +5242,10 @@ msgid ""
 msgstr ""
 "Você está prestes a alterar o endereço, e isto vai quebrar links externos "
 "para a homepage ou para conteúdo dentro dela. Você quer realmente mudar?"
+
+#: app/views/profile_editor/_organization.rhtml:63
+msgid "Enable \"contact us\""
+msgstr "Habilitar \"fale conosco\""
 
 #: app/views/profile_editor/_organization.rhtml:65
 msgid "Moderation options"

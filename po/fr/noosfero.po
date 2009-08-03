@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-03 12:50-0300\n"
+"POT-Creation-Date: 2009-08-03 13:06-0300\n"
 "PO-Revision-Date: 2008-06-13 16:15-0300\n"
 "Last-Translator: Raphael Rousseau <pootle.colivre.coop.br@r4f.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5432,6 +5432,11 @@ msgid ""
 "You are about to change the address, and this will break external links to "
 "the homepage or to content inside it. Do you really want to change? "
 msgstr ""
+
+#: app/views/profile_editor/_organization.rhtml:63
+#, fuzzy
+msgid "Enable \"contact us\""
+msgstr "Gérer les contacts."
 
 #: app/views/profile_editor/_organization.rhtml:65
 msgid "Moderation options"
