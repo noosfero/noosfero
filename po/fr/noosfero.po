@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-25 09:38-0300\n"
+"POT-Creation-Date: 2009-08-03 12:50-0300\n"
 "PO-Revision-Date: 2008-06-13 16:15-0300\n"
 "Last-Translator: Raphael Rousseau <pootle.colivre.coop.br@r4f.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -771,7 +771,7 @@ msgid "Help on this block"
 msgstr "Aide sur ce bloc"
 
 #: app/helpers/boxes_helper.rb:209 app/helpers/application_helper.rb:69
-#: app/models/link_list_block.rb:22 app/views/layouts/application.rhtml:107
+#: app/models/link_list_block.rb:22 app/views/layouts/application.rhtml:112
 msgid "Help"
 msgstr "Aide"
 
@@ -1579,7 +1579,11 @@ msgid "%{author} wants to publish \"%{article}\" on %{community}"
 msgstr ""
 "%{author} veut publier l'article «%{article}» sur le groupe %{community}"
 
-#: app/models/approve_article.rb:68
+#: app/models/approve_article.rb:11
+msgid "(The original text was removed)"
+msgstr ""
+
+#: app/models/approve_article.rb:72
 msgid ""
 "You need to login on %{system} in order to approve or reject this article."
 msgstr ""
@@ -5624,15 +5628,15 @@ msgstr ""
 "de page. La seconde dimension est celle des <em>types contenus</em>, et vous "
 "les trouverez dans la barre animée de votre droite."
 
-#: app/views/layouts/application.rhtml:106
+#: app/views/layouts/application.rhtml:111
 msgid "Turn help on/off"
 msgstr "Activer/désactiver l'aide"
 
-#: app/views/layouts/application.rhtml:147
+#: app/views/layouts/application.rhtml:152
 msgid "Your web browser is obsolete!"
 msgstr "Vote navigateur web est obsolète !"
 
-#: app/views/layouts/application.rhtml:148
+#: app/views/layouts/application.rhtml:153
 #, fuzzy
 msgid ""
 "This website will not look as good as it could. Don't you want to use "
@@ -5644,7 +5648,7 @@ msgstr ""
 "web, libre et gratuit\n"
 "         et élaboré par des gens de partout dans le monde."
 
-#: app/views/layouts/application.rhtml:150
+#: app/views/layouts/application.rhtml:155
 msgid "Get Firefox Now!"
 msgstr "Obtenir Firefox maintenant !"
 

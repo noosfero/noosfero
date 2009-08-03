@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.19.0\n"
-"POT-Creation-Date: 2009-07-25 09:38-0300\n"
-"PO-Revision-Date: 2009-07-25 09:43-0300\n"
+"POT-Creation-Date: 2009-08-03 12:50-0300\n"
+"PO-Revision-Date: 2009-08-03 12:51-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -759,7 +759,7 @@ msgid "Help on this block"
 msgstr "Ajuda sobre este bloco"
 
 #: app/helpers/boxes_helper.rb:209 app/helpers/application_helper.rb:69
-#: app/models/link_list_block.rb:22 app/views/layouts/application.rhtml:107
+#: app/models/link_list_block.rb:22 app/views/layouts/application.rhtml:112
 msgid "Help"
 msgstr "Ajuda"
 
@@ -1534,7 +1534,11 @@ msgstr[1] "%{num} comunidades"
 msgid "%{author} wants to publish \"%{article}\" on %{community}"
 msgstr "%{author} quer publicar \"%{article}\" em %{community}"
 
-#: app/models/approve_article.rb:68
+#: app/models/approve_article.rb:11
+msgid "(The original text was removed)"
+msgstr "(O texto original foi removido)"
+
+#: app/models/approve_article.rb:72
 msgid ""
 "You need to login on %{system} in order to approve or reject this article."
 msgstr ""
@@ -5431,15 +5435,15 @@ msgstr ""
 "dimensão contém os <em>tipos de conteúdo</em> que você encontra na aba "
 "animada da direita."
 
-#: app/views/layouts/application.rhtml:106
+#: app/views/layouts/application.rhtml:111
 msgid "Turn help on/off"
 msgstr "Ligar e desligar a Ajuda"
 
-#: app/views/layouts/application.rhtml:147
+#: app/views/layouts/application.rhtml:152
 msgid "Your web browser is obsolete!"
 msgstr "Seu navegador web esta obsoleto!"
 
-#: app/views/layouts/application.rhtml:148
+#: app/views/layouts/application.rhtml:153
 msgid ""
 "This website will not look as good as it could. Don't you want to use "
 "Firefox? That is a great web browser, free, and made by people from all over "
@@ -5449,7 +5453,7 @@ msgstr ""
 "usar o Firefox? É um ótimo navegador, livre e feito por pessoas de todos as "
 "partes do mundo."
 
-#: app/views/layouts/application.rhtml:150
+#: app/views/layouts/application.rhtml:155
 msgid "Get Firefox Now!"
 msgstr "Baixe o Firefox Já!"
 
