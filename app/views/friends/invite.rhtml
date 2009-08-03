@@ -28,7 +28,7 @@
       }
     </script>
     <div id='invite-friends-login-password' <%= "style='display: none;'" if (@import_from == 'manual') %>>
-    <%= labelled_form_field(__("Login") + ":", text_field_tag(:login, @login)) %>
+    <%= labelled_form_field(__("Username") + ":", text_field_tag(:login, @login)) %>
     <%= labelled_form_field(__("Password") + ":", password_field_tag(:password)) %>
     </div>
 
@@ -48,13 +48,23 @@
   <%= __('Indicate which friends you want to invite.') %>
   </p>
 
+  <% if @wizard && @import_from == 'manual' %>
+    <div>
+    <%= __('Import now your contacts from %s, %s or %s') % [link_to_import('GMail', :import_from => 'gmail'), link_to_import('Yahoo', :import_from => 'yahoo'), link_to_import('Hotmail', :import_from => 'hotmail')] %>
+    </div>
+    <div>
+      <%= _('or') %>
+    </div>
+  <% end %>
+
   <% form_tag do %>
     <%= hidden_field_tag(:confirmation, 1) %>
     <%= hidden_field_tag(:import_from, @import_from) %>
     <%= hidden_field_tag(:wizard, @wizard) %>
 
     <div>
-      <%= labelled_form_field(__('Enter one e-mail address per line:'), text_area_tag(:manual_import_addresses, (@manual_import_addresses || ''), :cols => 72, :rows => 5)) %>
+    <%= __('Enter one e-mail address per line:') %>
+    <%= text_area_tag(:manual_import_addresses, (@manual_import_addresses || ''), :cols => 72, :rows => 5) %>
     </div>
     <% if @import_from != 'manual' %>
       <div>
@@ -89,9 +99,6 @@
     <% end %>
   <% end %>
 
-  <% if @wizard && @import_from == 'manual' %>
-    <%= __('Import now your contacts from %s, %s or %s') % [link_to_import('GMail', :import_from => 'gmail'), link_to_import('Yahoo', :import_from => 'yahoo'), link_to_import('Hotmail', :import_from => 'hotmail')] %>
-  <% end %>
 <% end %>
 
 <% if @wizard %>

@@ -79,6 +79,9 @@ class Zen3Terminology < Noosfero::Terminology::Custom
       'Enable Enterprise' => N_('Enable Organization'),
       'Enterprise Validation' => N_('Organization Validation'),
       'Enterprise Info and settings' => N_('Organization Info and settings'),
+      'Choose the communities you want to join and/or create your own.' => N_('Choose the groups you want to join and/or create your own.'),
+      'New community' => N_('New group'),
+      "Tags are important to new users, they'll be able to find your new community more easily." => N_("Tags are important to new users, they'll be able to find your new group more easily."),
     })
   end
 

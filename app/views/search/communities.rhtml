@@ -1,8 +1,12 @@
+<% if @wizard %>
+  <h2><%= _('Hello %s, now you can choose yours groups') % user.identifier %></h2>
+<% else %>
 <%= search_page_title( __('Communities'), { :query => @query, 
                                       :category => @category ? @category.name : nil, 
                                       :total_results => @total_results, 
                                       :region => @region ? @region.name : nil, 
                                       :distance => @radius } ) %>
+<% end %>
 
 <%= search_page_link_to_all( { :asset => params[:asset],
                                :category => @category }) %>
@@ -22,7 +26,7 @@
 <% if logged_in? %>
   <% button_bar do %>
     <%# FIXME shouldn't the user create the community in the current environment instead of going to its home environment? %>
-    <%= button(:add, _('New community'), user.url.merge(:controller => 'memberships', :action => 'new_community', :wizard => @wizard)) %>
+    <%= button(:add, __('New community'), user.url.merge(:controller => 'memberships', :action => 'new_community', :wizard => @wizard)) %>
   <% end %>
 <% end %>
 

@@ -2,8 +2,8 @@
 
 <% if @wizard %>
   <div id='visualization-mode'>
-    <%= button_without_text('product', '', params.merge(:visualization_mode => 'icons'), :title => _('View as icons')) %>
-    <%= button_without_text('todo', '', params.merge(:visualization_mode => 'list'), :title => _('View as list')) %>
+    <%= button_without_text('product', _('View as icons'), params.merge(:visualization_mode => 'icons')) %>
+    <%= button_without_text('todo',  _('View as list'), params.merge(:visualization_mode => 'list')) %>
   </div>
 <% end %>
 
