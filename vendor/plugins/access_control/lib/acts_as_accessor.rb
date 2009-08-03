@@ -18,7 +18,10 @@ class ActiveRecord::Base
     def add_role(role, resource)
       attributes = role_attributes(role, resource)
       if RoleAssignment.find(:all, :conditions => attributes).empty?
-        RoleAssignment.new(attributes).save
+        ra = RoleAssignment.new(attributes)
+        role_assignments << ra
+        resource.role_assignments << ra
+        ra.save
       else
         false
       end
