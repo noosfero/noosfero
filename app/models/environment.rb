@@ -625,6 +625,22 @@ class Environment < ActiveRecord::Base
     settings[:portal_folders] = folders.map(&:id)
   end
 
+  def help_message_to_add_enterprise
+    self.settings['help_message_to_add_enterprise'] || ''
+  end
+
+  def help_message_to_add_enterprise=(value)
+    self.settings['help_message_to_add_enterprise'] = value
+  end
+
+  def tip_message_enterprise_activation_question
+    self.settings['tip_message_enterprise_activation_question'] || ''
+  end
+
+  def tip_message_enterprise_activation_question=(value)
+    self.settings['tip_message_enterprise_activation_question'] = value
+  end
+
   after_create :create_templates
 
   def create_templates

@@ -758,4 +758,23 @@ class EnvironmentTest < Test::Unit::TestCase
 
     assert_valid role2
   end
+
+  should 'have a help_message_to_add_enterprise attribute' do
+    env = Environment.new
+
+    assert_equal env.help_message_to_add_enterprise, ''
+
+    env.help_message_to_add_enterprise = 'help message'
+    assert_equal 'help message', env.help_message_to_add_enterprise
+  end
+
+  should 'have a tip_message_enterprise_activation_question attribute' do
+    env = Environment.new
+
+    assert_equal env.tip_message_enterprise_activation_question, ''
+
+    env.tip_message_enterprise_activation_question = 'tip message'
+    assert_equal 'tip message', env.tip_message_enterprise_activation_question
+  end
+
 end
