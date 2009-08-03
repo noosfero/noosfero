@@ -3,45 +3,63 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="refresh" content="60"/>
   <title>Noosfero - System Maintainance</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      margin: 0px;
-      padding: 0% 3%;
-      height: 100%;
-      background: #CCC url(/503.jpg) 50% 100% no-repeat;
-    }
-    h1 {
-      margin: 30px 0px 0px 0px;
-      font-weight: bold;
-      text-align: center;
-      color: gray;
-    }
-    div#en {
-      float: right;
-      width: 47%;
-    }
-    div#pt-br {
-      float: left;
-      width: 47%;
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="/designs/themes/default/stylesheets/errors.css"/>
+  <script type='text/javascript' src='/javascripts/prototype.js'></script>
+  <script type='text/javascript' src='/javascripts/errors.js'></script>
 </head>
 <body>
-
-<div id='en'>
-  <h1>System maintainance</h1>
-  <p>
-    This system is under maintainance. It should be back in a few hours.
-  </p>
-</div>
-
-<div id='pt-br'>
-  <h1>Sistema em manutenção</h1>
-  </p>
-  Este sistema está em manutenção, e deve estar de volta em algumas horas.
-  </p>
-</div>
-
+<body onload='display_error_message()'>
+  
+  <div id='wrap'>
+    <div id='header'>
+      <div id='logo'>
+        &nbsp;
+      </div>
+    </div>
+    
+      
+      <div id='fr' style='display: none' class='message'>
+        <h1>Maintenance Du Serveur</h1>
+        <p>
+        Cette plate-forme web est en maintenance. Elle sera à nouveau opérationnelle dans quelques heures.
+        </p>
+      </div>
+    
+      
+      <div id='pt_BR' style='display: none' class='message'>
+        <h1>Manutenção do sistema</h1>
+        <p>
+        Este sistema está em manutenção. Ele deve estar de volta em algumas horas.
+        </p>
+      </div>
+    
+      
+      <div id='hy' style='display: none' class='message'>
+        <h1>System maintainance</h1>
+        <p>
+        This system is under maintainance. It should be back in a few hours.
+        </p>
+      </div>
+    
+      
+      <div id='en' style='display: none' class='message'>
+        <h1>System maintainance</h1>
+        <p>
+        This system is under maintainance. It should be back in a few hours.
+        </p>
+      </div>
+    
+    <div id='languages'>
+      
+        <a href="javascript: display_error_message('fr')">Français</a>
+      
+        <a href="javascript: display_error_message('pt_BR')">Português</a>
+      
+        <a href="javascript: display_error_message('hy')">հայերեն լեզու</a>
+      
+        <a href="javascript: display_error_message('en')">English</a>
+      
+    </div>
+  </div>
 </body>
 </html>

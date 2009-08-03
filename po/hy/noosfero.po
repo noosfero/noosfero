@@ -3,22 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.19.0\n"
-"POT-Creation-Date: 2009-08-03 13:06-0300\n"
-"PO-Revision-Date: 2009-07-11 17:27-0300\n"
+"POT-Creation-Date: 2009-08-03 19:42-0300\n"
+"PO-Revision-Date: 2009-08-03 18:48-0300\n"
 "Last-Translator: Anahit Minassian <anahit.minassian@cooperation.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"#-#-#-#-#  noosfero.po.REMOTE.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"X-Generator: Pootle 0.10.1\n"
-"#-#-#-#-#  noosfero.po.LOCAL.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 0.10.1\n"
 
 #: app/helpers/profile_helper.rb:19 app/helpers/search_helper.rb:99
@@ -628,7 +623,7 @@ msgstr "Ձեռնարկություններ"
 #: app/helpers/assets_helper.rb:11
 #: app/controllers/public/search_controller.rb:136
 #: app/controllers/public/search_controller.rb:210
-#: app/views/search/communities.rhtml:1 app/views/profile/_person.rhtml:50
+#: app/views/search/communities.rhtml:4 app/views/profile/_person.rhtml:50
 #: app/views/content_viewer/_person.rhtml:50
 #: app/views/layouts/application-ng.rhtml:94
 msgid "Communities"
@@ -650,30 +645,8 @@ msgstr[0] "Մեկ մեկնաբանություն"
 msgstr[1] "մեկնաբանություններ"
 
 #: app/helpers/content_viewer_helper.rb:23
-#, fuzzy
 msgid "%s, by %s - %s"
 msgstr ""
-"#-#-#-#-#  noosfero.po.REMOTE.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.9201.po (noosfero 0.16.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.9201.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.26849.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.26849.po (noosfero 0.14.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.21532.po (noosfero 0.14.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.21532.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.25844.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.25844.po (noosfero 0.11.0)  #-#-#-#-#\n"
-"որոնել ըստ %s"
 
 #: app/helpers/tags_helper.rb:33
 msgid "No tags yet."
@@ -906,9 +879,10 @@ msgstr "Մուտքագրեք և սեղմեք «Enter» կոճակը"
 #: app/helpers/application_helper.rb:580 app/models/link_list_block.rb:19
 #: app/views/profile_members/add_members.rhtml:5
 #: app/views/search/_sellers_form.rhtml:21
-#: app/views/search/_search_form.rhtml:19 app/views/search/communities.rhtml:9
-#: app/views/search/articles.rhtml:10 app/views/search/people.rhtml:10
-#: app/views/home/index.rhtml:56 app/views/region_validators/region.rhtml:23
+#: app/views/search/_search_form.rhtml:19
+#: app/views/search/communities.rhtml:13 app/views/search/articles.rhtml:10
+#: app/views/search/people.rhtml:10 app/views/home/index.rhtml:56
+#: app/views/region_validators/region.rhtml:23
 msgid "Search"
 msgstr "Որոնում"
 
@@ -940,28 +914,7 @@ msgstr ""
 #: app/helpers/blog_helper.rb:14
 #, fuzzy
 msgid "Edit blog"
-msgstr ""
-"#-#-#-#-#  noosfero.po.REMOTE.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.9201.po (noosfero 0.16.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.9201.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.26849.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.26849.po (noosfero 0.14.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.21532.po (noosfero 0.14.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.21532.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.25844.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.25844.po (noosfero 0.11.0)  #-#-#-#-#\n"
-"Բաժին փոփոխել"
+msgstr "Բաժին փոփոխել"
 
 #: app/helpers/blog_helper.rb:20
 msgid "&laquo; Newer posts"
@@ -1007,7 +960,7 @@ msgstr ""
 "Այստեղ ընտրված լեզուն վերաբերվում է համակարգի արտաքին տեսքին (կոճակներ և "
 "այլն), և չի փոխում մասնակիցների կողմից ստեղծված հոդվածների լեզուն:"
 
-#: app/helpers/forms_helper.rb:34 app/models/link_list_block.rb:8
+#: app/helpers/forms_helper.rb:35 app/models/link_list_block.rb:8
 #: app/views/admin_panel/message_for_disabled_enterprise.rhtml:11
 #: app/views/admin_panel/site_info.rhtml:13
 #: app/views/shared/_select_categories.rhtml:22
@@ -1024,23 +977,23 @@ msgstr ""
 msgid "Cancel"
 msgstr "Հրաժարում"
 
-#: app/helpers/forms_helper.rb:64
+#: app/helpers/forms_helper.rb:65
 msgid "Select the State"
 msgstr "Ընտրեք նահանգը"
 
-#: app/helpers/forms_helper.rb:65
+#: app/helpers/forms_helper.rb:66
 msgid "Select the City"
 msgstr "Ընտրեք քաղաքը"
 
-#: app/helpers/forms_helper.rb:88
+#: app/helpers/forms_helper.rb:89
 msgid "State:"
 msgstr "Նահանգ"
 
-#: app/helpers/forms_helper.rb:91
+#: app/helpers/forms_helper.rb:92
 msgid "City:"
 msgstr "Քաղաք"
 
-#: app/helpers/forms_helper.rb:105
+#: app/helpers/forms_helper.rb:106
 msgid ""
 "The <label class='pseudoformlabel'>highlighted</label> fields are mandatory."
 msgstr ""
@@ -1132,29 +1085,7 @@ msgstr "«%s» հոդվածը ստեղծել որպես գլխավոր էջ:"
 #: app/controllers/my_profile/cms_controller.rb:152
 #, fuzzy
 msgid "Could not upload all files"
-msgstr ""
-"#-#-#-#-#  noosfero.po.REMOTE.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"Սկզբնական նյութի թարմացումը ձախողված է\n"
-"#-#-#-#-#  noosfero.po.LOCAL.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.9201.po (noosfero 0.16.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.9201.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.26849.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.26849.po (noosfero 0.14.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.21532.po (noosfero 0.14.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.21532.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.25844.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.25844.po (noosfero 0.11.0)  #-#-#-#-#\n"
-"Արտադրանք թարմացնելն անհնար է"
+msgstr "Արտադրանք թարմացնելն անհնար է"
 
 #: app/controllers/my_profile/manage_products_controller.rb:31
 msgid "Product succesfully created"
@@ -1207,29 +1138,7 @@ msgstr "Սկզբնական նյութի թարմացումը ձախողված է
 #: app/controllers/my_profile/profile_editor_controller.rb:28
 #, fuzzy
 msgid "Cannot update profile"
-msgstr ""
-"#-#-#-#-#  noosfero.po.REMOTE.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"Ձեռնարկության թարմացումն անհնար է:\n"
-"#-#-#-#-#  noosfero.po.LOCAL.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.9201.po (noosfero 0.16.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.9201.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.26849.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.26849.po (noosfero 0.14.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.21532.po (noosfero 0.14.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.21532.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.25844.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.25844.po (noosfero 0.11.0)  #-#-#-#-#\n"
-"Արտադրանք թարմացնելն անհնար է"
+msgstr "Արտադրանք թարմացնելն անհնար է"
 
 #: app/controllers/my_profile/profile_editor_controller.rb:37
 msgid "%s was not enabled."
@@ -1298,54 +1207,12 @@ msgstr "Ամենից հաճախ մեկնաբանվող հոդվածները"
 #: app/controllers/public/contact_controller.rb:16
 #, fuzzy
 msgid "Contact successfully sent"
-msgstr ""
-"#-#-#-#-#  noosfero.po.REMOTE.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.9201.po (noosfero 0.16.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.9201.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.26849.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.26849.po (noosfero 0.14.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.21532.po (noosfero 0.14.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.21532.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.25844.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.25844.po (noosfero 0.11.0)  #-#-#-#-#\n"
-"Մեկնաբանությունը հաջողությամբ ջնջված է:"
+msgstr "Մեկնաբանությունը հաջողությամբ ջնջված է:"
 
 #: app/controllers/public/contact_controller.rb:19
 #, fuzzy
 msgid "Contact not sent"
-msgstr ""
-"#-#-#-#-#  noosfero.po.REMOTE.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.9201.po (noosfero 0.16.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.9201.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.26849.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.26849.po (noosfero 0.14.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.21532.po (noosfero 0.14.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.21532.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.25844.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.25844.po (noosfero 0.11.0)  #-#-#-#-#\n"
-"Հեռախոս"
+msgstr "Հեռախոս"
 
 #: app/controllers/public/profile_controller.rb:54
 msgid "%s administrator still needs to accept you as member."
@@ -1363,23 +1230,23 @@ msgstr "Մասնակցի սխալ անուն կամ սխալ գաղտնաբառ"
 msgid "Thanks for signing up!"
 msgstr "Շնորհակալություն գրանցվելու համար:"
 
-#: app/controllers/public/account_controller.rb:104
+#: app/controllers/public/account_controller.rb:106
 msgid "You have been logged out."
 msgstr "Դուք համակարգից դուրս եք եկել:"
 
-#: app/controllers/public/account_controller.rb:115
+#: app/controllers/public/account_controller.rb:117
 msgid "Your password has been changed successfully!"
 msgstr "Ձեր գաղտնաբառը բարեհաջող փոխված է:"
 
-#: app/controllers/public/account_controller.rb:118
+#: app/controllers/public/account_controller.rb:120
 msgid "The supplied current password is incorrect."
 msgstr "Ներկայիս գաղտաբառը սխալ է:"
 
-#: app/controllers/public/account_controller.rb:220
+#: app/controllers/public/account_controller.rb:222
 msgid "Available!"
 msgstr ""
 
-#: app/controllers/public/account_controller.rb:223
+#: app/controllers/public/account_controller.rb:225
 msgid "Unavailable!"
 msgstr ""
 
@@ -1568,6 +1435,7 @@ msgid "user"
 msgstr "մասնակից"
 
 #: app/models/user.rb:- app/models/user.rb:18 app/models/change_password.rb:21
+#: app/views/friends/invite.rhtml:31
 msgid "Username"
 msgstr "Մասնակցի անուն"
 
@@ -1849,28 +1717,7 @@ msgstr ""
 #: app/models/profile_image_block.rb:6
 #, fuzzy
 msgid "A block that displays only image of profiles"
-msgstr ""
-"#-#-#-#-#  noosfero.po.REMOTE.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.9201.po (noosfero 0.16.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.9201.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.26849.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.26849.po (noosfero 0.14.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.21532.po (noosfero 0.14.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.21532.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.25844.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.25844.po (noosfero 0.11.0)  #-#-#-#-#\n"
-"Պատահական անհատական էջեր ցուցադրող բաժին"
+msgstr "Պատահական անհատական էջեր ցուցադրող բաժին"
 
 #: app/models/profile_image_block.rb:10
 msgid "This block presents the profile image."
@@ -2020,54 +1867,12 @@ msgstr ""
 #: app/models/disabled_enterprise_message_block.rb:4
 #, fuzzy
 msgid "Disabled enterprise message block"
-msgstr ""
-"#-#-#-#-#  noosfero.po.REMOTE.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.9201.po (noosfero 0.16.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.9201.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.26849.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.26849.po (noosfero 0.14.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.21532.po (noosfero 0.14.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.21532.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.25844.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.25844.po (noosfero 0.11.0)  #-#-#-#-#\n"
-"Դիզակտիվացնել ձեռնարկությունը"
+msgstr "Դիզակտիվացնել ձեռնարկությունը"
 
 #: app/models/disabled_enterprise_message_block.rb:8
 #, fuzzy
 msgid "Shows a message for disabled enterprises."
-msgstr ""
-"#-#-#-#-#  noosfero.po.REMOTE.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.9201.po (noosfero 0.16.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.9201.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.26849.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.26849.po (noosfero 0.14.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.21532.po (noosfero 0.14.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.21532.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.25844.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.25844.po (noosfero 0.11.0)  #-#-#-#-#\n"
-"Փոխել դիզակտիվացված ձեռնարկություններին ուղարկվելիք հաղորդագրությունը"
+msgstr "Փոխել դիզակտիվացված ձեռնարկություններին ուղարկվելիք հաղորդագրությունը"
 
 #: app/models/disabled_enterprise_message_block.rb:12 app/models/contact.rb:-
 #: app/models/contact.rb:13
@@ -2383,28 +2188,7 @@ msgstr ""
 #: app/models/blog.rb:26
 #, fuzzy
 msgid "A blog, inside which you can put other articles."
-msgstr ""
-"#-#-#-#-#  noosfero.po.REMOTE.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.9201.po (noosfero 0.16.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.9201.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.26849.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.26849.po (noosfero 0.14.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.21532.po (noosfero 0.14.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.21532.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.25844.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.25844.po (noosfero 0.11.0)  #-#-#-#-#\n"
-"Այս թղթապանակում կարող եք տեղադրել Ձեր հոդվածները:"
+msgstr "Այս թղթապանակում կարող եք տեղադրել Ձեր հոդվածները:"
 
 #: app/models/email_activation.rb:10
 msgid "You have already requested activation of your mailbox."
@@ -2547,9 +2331,9 @@ msgstr "Կարմիր"
 msgid "Ok"
 msgstr "Այո"
 
-#: app/models/link_list_block.rb:21 app/views/friends/invite.rhtml:31
-#: app/views/shared/user_menu.rhtml:67 app/views/account/login_block.rhtml:4
-#: app/views/account/login.rhtml:3 app/views/layouts/application-ng.rhtml:67
+#: app/models/link_list_block.rb:21 app/views/shared/user_menu.rhtml:67
+#: app/views/account/login_block.rhtml:4 app/views/account/login.rhtml:3
+#: app/views/layouts/application-ng.rhtml:67
 msgid "Login"
 msgstr "Մուտք"
 
@@ -3352,23 +3136,32 @@ msgstr ""
 msgid "Indicate which friends you want to invite."
 msgstr ""
 
-#: app/views/friends/invite.rhtml:57
+#: app/views/friends/invite.rhtml:53
+msgid "Import now your contacts from %s, %s or %s"
+msgstr ""
+
+#: app/views/friends/invite.rhtml:56
+#, fuzzy
+msgid "or"
+msgstr "աշխատավայր"
+
+#: app/views/friends/invite.rhtml:66
 msgid "Enter one e-mail address per line:"
 msgstr ""
 
-#: app/views/friends/invite.rhtml:61
+#: app/views/friends/invite.rhtml:71
 msgid "Check all"
 msgstr ""
 
-#: app/views/friends/invite.rhtml:62
+#: app/views/friends/invite.rhtml:72
 msgid "Uncheck all"
 msgstr ""
 
-#: app/views/friends/invite.rhtml:78
+#: app/views/friends/invite.rhtml:88
 msgid "Personalize invitation message"
 msgstr ""
 
-#: app/views/friends/invite.rhtml:83
+#: app/views/friends/invite.rhtml:93
 msgid ""
 "Now enter an invitation message. You must keep the <url> code in your "
 "invitation message. When your friends receive the invitation e-mail, <url> "
@@ -3377,16 +3170,12 @@ msgid ""
 "name, but they are optional."
 msgstr ""
 
-#: app/views/friends/invite.rhtml:84
+#: app/views/friends/invite.rhtml:94
 msgid "Invitation message:"
 msgstr ""
 
-#: app/views/friends/invite.rhtml:88
+#: app/views/friends/invite.rhtml:98
 msgid "Invite my friends!"
-msgstr ""
-
-#: app/views/friends/invite.rhtml:93
-msgid "Import now your contacts from %s, %s or %s"
 msgstr ""
 
 #: app/views/profile_members/unassociate.rhtml:1
@@ -3491,28 +3280,7 @@ msgstr "Նոր անդամ"
 #: app/views/contact/new.rhtml:1
 #, fuzzy
 msgid "Contact %s"
-msgstr ""
-"#-#-#-#-#  noosfero.po.REMOTE.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.9201.po (noosfero 0.16.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.9201.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.26849.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.26849.po (noosfero 0.14.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.21532.po (noosfero 0.14.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.21532.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.25844.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.25844.po (noosfero 0.11.0)  #-#-#-#-#\n"
-"Կապ պահպանող անձ"
+msgstr "Կապ պահպանող անձ"
 
 #: app/views/contact/new.rhtml:18
 msgid "I want to receive a copy of the message in my e-mail."
@@ -3762,7 +3530,7 @@ msgstr ""
 
 #: app/views/account/blocked.rhtml:6
 msgid ""
-"There was a failed atempt of activation and the automated acivation was "
+"There was a failed atempt of activation and the automated activation was "
 "disabled for your security."
 msgstr ""
 
@@ -3957,7 +3725,9 @@ msgid "Insert your login"
 msgstr "Գրեք Ձեր մեկնաբանությունը"
 
 #: app/views/account/_signup_form.rhtml:40
-msgid "Choose a password that you can remember easily."
+msgid ""
+"Choose a password that you can remember easily. It must have at least 4 "
+"characters."
 msgstr ""
 
 #: app/views/account/_signup_form.rhtml:45
@@ -4052,7 +3822,9 @@ msgid ""
 msgstr ""
 
 #: app/views/account/activation_question.rhtml:33
-msgid "What year your enterprise was founded?"
+#, fuzzy
+msgid ""
+"What year your enterprise was founded? It must have 4 digits, eg 1990. %s"
 msgstr "Ե՞րբ է հիմնադրվել Ձեր ձեռնարկությունը:"
 
 #: app/views/account/activation_question.rhtml:33
@@ -4318,7 +4090,7 @@ msgstr "Հոդվածների քանակի սահմանափակում"
 msgid "Categorize your article"
 msgstr "Ընտրեք կատեգորիաներ Ձեր հոդվածի համար"
 
-#: app/views/cms/edit.rhtml:32 app/views/memberships/new_community.rhtml:18
+#: app/views/cms/edit.rhtml:32
 msgid "Separate tags with commas"
 msgstr "Պիտակներն իրարից անջատեք ստորակետերով"
 
@@ -4549,7 +4321,7 @@ msgstr ""
 msgid "Products and Services"
 msgstr "Արտադրանք և ծառայություններ"
 
-#: app/views/search/products.rhtml:10 app/views/search/communities.rhtml:9
+#: app/views/search/products.rhtml:10 app/views/search/communities.rhtml:13
 #: app/views/search/articles.rhtml:10 app/views/search/index.rhtml:5
 #: app/views/search/people.rhtml:10 app/views/search/enterprises.rhtml:16
 msgid "Refine your search"
@@ -4599,11 +4371,15 @@ msgstr "Վերջինը թարմացվել է %s"
 msgid "No City"
 msgstr "Քաղաք չկա"
 
-#: app/views/search/communities.rhtml:12
+#: app/views/search/communities.rhtml:2
+msgid "Hello %s, now you can choose yours groups"
+msgstr ""
+
+#: app/views/search/communities.rhtml:16
 msgid "Choose the communities you want to join and/or create your own."
 msgstr ""
 
-#: app/views/search/communities.rhtml:25
+#: app/views/search/communities.rhtml:29
 msgid "New community"
 msgstr ""
 
@@ -4759,28 +4535,7 @@ msgstr "Միանալ այս համայնքին"
 #: app/views/blocks/profile_info_actions/enterprise.rhtml:8
 #, fuzzy
 msgid "Contact us"
-msgstr ""
-"#-#-#-#-#  noosfero.po.REMOTE.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.9201.po (noosfero 0.16.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.9201.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.26849.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.26849.po (noosfero 0.14.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.21532.po (noosfero 0.14.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.21532.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.25844.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.25844.po (noosfero 0.11.0)  #-#-#-#-#\n"
-"Կապ պահպանող անձ"
+msgstr "Կապ պահպանող անձ"
 
 #: app/views/blocks/profile_info_actions/person.rhtml:5
 msgid "Add friend"
@@ -4940,7 +4695,7 @@ msgid "Remove the enterprise from the system"
 msgstr "Հեռացնել ձեռնարկությունը համակարգից"
 
 #: app/views/enterprise_editor/index.rhtml:17
-#: app/views/profile_editor/index.rhtml:72
+#: app/views/profile_editor/index.rhtml:73
 msgid "Activate"
 msgstr "Ակտիվացնել"
 
@@ -4988,6 +4743,17 @@ msgstr "Այո, ես ցանկանում եմ դուրս գալ:"
 
 #: app/views/memberships/new_community.rhtml:1
 msgid "Creating new community"
+msgstr ""
+
+#: app/views/memberships/new_community.rhtml:18
+#, fuzzy
+msgid "Separate tags with commas."
+msgstr "Պիտակներն իրարից անջատեք ստորակետերով"
+
+#: app/views/memberships/new_community.rhtml:18
+msgid ""
+"Tags are important to new users, they'll be able to find your new community "
+"more easily."
 msgstr ""
 
 #: app/views/memberships/new_community.rhtml:21
@@ -5293,11 +5059,7 @@ msgstr ""
 #: app/views/profile_editor/index.rhtml:15
 #, fuzzy
 msgid "Enterprise Info and settings"
-msgstr ""
-"#-#-#-#-#  noosfero.po.REMOTE.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"Փոփոխել ձեռնարկության մասին տեղեկությունները\n"
-"#-#-#-#-#  noosfero.po.LOCAL.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"Ձեռնարկությունների վավերացում"
+msgstr "Ձեռնարկությունների վավերացում"
 
 #: app/views/profile_editor/index.rhtml:17
 msgid "Mail settings"
@@ -5326,28 +5088,7 @@ msgstr ""
 #: app/views/profile_editor/index.rhtml:33
 #, fuzzy
 msgid "Create blog"
-msgstr ""
-"#-#-#-#-#  noosfero.po.REMOTE.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.9201.po (noosfero 0.16.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.9201.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.26849.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.26849.po (noosfero 0.14.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.21532.po (noosfero 0.14.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.21532.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.25844.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.25844.po (noosfero 0.11.0)  #-#-#-#-#\n"
-"Դեր ստեղծել"
+msgstr "Դեր ստեղծել"
 
 #: app/views/profile_editor/index.rhtml:37
 msgid "Change Password"
@@ -5384,7 +5125,7 @@ msgid ""
 "add here the activation code that was sent."
 msgstr ""
 
-#: app/views/profile_editor/index.rhtml:71
+#: app/views/profile_editor/index.rhtml:72
 #, fuzzy
 msgid "Enterprise activation code"
 msgstr "Ձեռնարկության հաստատում"
@@ -5526,28 +5267,7 @@ msgstr ""
 #: app/views/profile_editor/_organization.rhtml:63
 #, fuzzy
 msgid "Enable \"contact us\""
-msgstr ""
-"#-#-#-#-#  noosfero.po.REMOTE.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.9201.po (noosfero 0.16.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.9201.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.26849.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.26849.po (noosfero 0.14.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.21532.po (noosfero 0.14.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.21532.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.25844.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.25844.po (noosfero 0.11.0)  #-#-#-#-#\n"
-"Կապ պահպանող անձ"
+msgstr "Կապ պահպանող անձ"
 
 #: app/views/profile_editor/_organization.rhtml:65
 msgid "Moderation options"
@@ -5772,31 +5492,8 @@ msgid "Leave the system"
 msgstr ""
 
 #: app/views/layouts/application-ng.rhtml:67
-#, fuzzy
 msgid "%s or %s"
 msgstr ""
-"#-#-#-#-#  noosfero.po.REMOTE.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"%-ից մինչև %\n"
-"#-#-#-#-#  noosfero.po.LOCAL.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.9201.po (noosfero 0.16.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.9201.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.26849.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.26849.po (noosfero 0.14.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.21532.po (noosfero 0.14.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.21532.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.25844.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.25844.po (noosfero 0.11.0)  #-#-#-#-#\n"
-"որոնել ըստ %s"
 
 #: app/views/layouts/application-ng.rhtml:67
 msgid "Register"
@@ -6462,54 +6159,12 @@ msgstr "Դասակարգեք Ձեր ընկերոջը"
 #: app/views/pending_task_notifier/notification.rhtml:1
 #, fuzzy
 msgid "Dear %s"
-msgstr ""
-"#-#-#-#-#  noosfero.po.REMOTE.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.9201.po (noosfero 0.16.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.9201.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.26849.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.26849.po (noosfero 0.14.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.21532.po (noosfero 0.14.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.21532.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.25844.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.25844.po (noosfero 0.11.0)  #-#-#-#-#\n"
-"Սիրելի %s,"
+msgstr "Սիրելի %s,"
 
 #: app/views/pending_task_notifier/notification.rhtml:3
 #, fuzzy
 msgid "You have %d pending task(s)."
-msgstr ""
-"#-#-#-#-#  noosfero.po.REMOTE.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.9201.po (noosfero 0.16.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.9201.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.26849.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.26849.po (noosfero 0.14.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.21532.po (noosfero 0.14.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.21532.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.25844.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.25844.po (noosfero 0.11.0)  #-#-#-#-#\n"
-"Դուք սպասող հայցեր ունեք"
+msgstr "Դուք սպասող հայցեր ունեք"
 
 #: app/views/pending_task_notifier/notification.rhtml:7
 #: app/views/pending_task_notifier/notification.rhtml:16
@@ -6519,28 +6174,7 @@ msgstr ""
 #: app/views/pending_task_notifier/notification.rhtml:12
 #, fuzzy
 msgid "%s has %d pending task(s)."
-msgstr ""
-"#-#-#-#-#  noosfero.po.REMOTE.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.9201.po (noosfero 0.16.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.9201.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.26849.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.26849.po (noosfero 0.14.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.21532.po (noosfero 0.14.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.21532.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.25844.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.25844.po (noosfero 0.11.0)  #-#-#-#-#\n"
-"%s-ի սպասող առաջադրանքները:"
+msgstr "%s-ի սպասող առաջադրանքները:"
 
 #: app/views/comment/notifier/mail.rhtml:1
 msgid "Hi, %{recipient}!"
@@ -6689,10 +6323,7 @@ msgstr "Ձեռնարկության հաստատում"
 #: lib/unifreire_terminology.rb:40
 #, fuzzy
 msgid "Institution Info and settings"
-msgstr ""
-"#-#-#-#-#  noosfero.po.REMOTE.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"Փոփոխել ձեռնարկության մասին տեղեկությունները\n"
-"#-#-#-#-#  noosfero.po.LOCAL.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
+msgstr "Փոփոխել ձեռնարկության մասին տեղեկությունները\n"
 
 #: lib/zen3_terminology.rb:9
 msgid "My ePortfolio"
@@ -6975,28 +6606,7 @@ msgstr ""
 #: lib/zen3_terminology.rb:76
 #, fuzzy
 msgid "{#} contacts"
-msgstr ""
-"#-#-#-#-#  noosfero.po.REMOTE.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.9201.po (noosfero 0.16.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.9201.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.26849.po (noosfero 0.15.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.26849.po (noosfero 0.14.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.21532.po (noosfero 0.14.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.21532.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.REMOTE.25844.po (noosfero 0.13.0)  #-#-#-#-#\n"
-"#-#-#-#-#  noosfero.po.LOCAL.25844.po (noosfero 0.11.0)  #-#-#-#-#\n"
-"Կապ պահպանող անձ"
+msgstr "Կապ պահպանող անձ"
 
 #: lib/zen3_terminology.rb:77
 #, fuzzy
@@ -7019,1010 +6629,38 @@ msgid "Organization Validation"
 msgstr "Կազնակերպությունները «%s»:"
 
 #: lib/zen3_terminology.rb:81
-#, fuzzy
 msgid "Organization Info and settings"
 msgstr ""
-"#-#-#-#-#  noosfero.po.REMOTE.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"Անհանատական էջի տվյալների բաժին\n"
-"#-#-#-#-#  noosfero.po.LOCAL.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-"Կազնակերպությունները «%s»:"
 
+#: lib/zen3_terminology.rb:82
+msgid "Choose the groups you want to join and/or create your own."
+msgstr ""
+
+#: lib/zen3_terminology.rb:83
 #, fuzzy
-#~ msgid "Template updated successfully"
-#~ msgstr ""
-#~ "#-#-#-#-#  noosfero.po.REMOTE.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.9201.po (noosfero 0.16.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.9201.po (noosfero 0.15.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.26849.po (noosfero 0.15.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.26849.po (noosfero 0.14.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.21532.po (noosfero 0.14.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.21532.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.25844.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.25844.po (noosfero 0.11.0)  #-#-#-#-#\n"
-#~ "Առանձնահատկությունները հաջողությամբ թարմացված են:"
-
-#, fuzzy
-#~ msgid "Could not update template"
-#~ msgstr ""
-#~ "#-#-#-#-#  noosfero.po.REMOTE.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.9201.po (noosfero 0.16.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.9201.po (noosfero 0.15.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.26849.po (noosfero 0.15.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.26849.po (noosfero 0.14.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.21532.po (noosfero 0.14.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.21532.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.25844.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.25844.po (noosfero 0.11.0)  #-#-#-#-#\n"
-#~ "Արտադրանք թարմացնելն անհնար է"
-
-#, fuzzy
-#~ msgid "Manage Templates"
-#~ msgstr ""
-#~ "#-#-#-#-#  noosfero.po.REMOTE.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.9201.po (noosfero 0.16.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.9201.po (noosfero 0.15.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.26849.po (noosfero 0.15.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.26849.po (noosfero 0.14.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.21532.po (noosfero 0.14.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.21532.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.25844.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.25844.po (noosfero 0.11.0)  #-#-#-#-#\n"
-#~ "Կառավարել անդամներին"
-
-#, fuzzy
-#~ msgid "Community Template"
-#~ msgstr ""
-#~ "#-#-#-#-#  noosfero.po.REMOTE.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.9201.po (noosfero 0.16.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.9201.po (noosfero 0.15.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.26849.po (noosfero 0.15.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.26849.po (noosfero 0.14.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.21532.po (noosfero 0.14.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.21532.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.25844.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.25844.po (noosfero 0.11.0)  #-#-#-#-#\n"
-#~ "Համայնք"
-
-#, fuzzy
-#~ msgid "Enterprise Template"
-#~ msgstr ""
-#~ "#-#-#-#-#  noosfero.po.REMOTE.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.16110.po (noosfero 0.18.4)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.9201.po (noosfero 0.16.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.9201.po (noosfero 0.15.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.17090.po (noosfero 0.15.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.26849.po (noosfero 0.15.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.26849.po (noosfero 0.14.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.21532.po (noosfero 0.14.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.21532.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.25844.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.25844.po (noosfero 0.11.0)  #-#-#-#-#\n"
-#~ "Ձեռնարկության գլխավոր էջ"
-
-#~ msgid "Listing Members"
-#~ msgstr "Անդամների ցուցակ"
-
-#~ msgid "Affiliate yourself"
-#~ msgstr "Միացեք"
-
-#, fuzzy
-#~ msgid "%{fn} of uploaded file was larger than the maximum size of %s"
-#~ msgstr "Ձեր բեռնած ֆայլի չափսն անցնում է առավելագույն սահմանված %s չափսից"
-
-#~ msgid "category"
-#~ msgstr "կատեգորիա"
-
-#~ msgid "Slug"
-#~ msgstr "Խորագիր"
-
-#~ msgid "Path"
-#~ msgstr "Ճանապարհ"
-
-#~ msgid "Display color"
-#~ msgstr "Ցուցադրել գույնը"
-
-#~ msgid "Display in menu"
-#~ msgstr "Ցուցադրել մենյուի մեջ"
-
-#~ msgid "Children count"
-#~ msgstr "Երեխաների հաշվում"
-
-#, fuzzy
-#~ msgid "Highlight"
-#~ msgstr "Բարձրություն"
-
-#~ msgid "A Ynternet.org project"
-#~ msgstr "Ynternet.org - ի ծրագրերից մեկը"
-
-#, fuzzy
-#~ msgid "Enterprises:"
-#~ msgstr "Ձեռնարկություններ"
-
-#~ msgid "Edit the Visual Design"
-#~ msgstr "Փոփոխել արտաքին տեսքը"
-
-#, fuzzy
-#~ msgid "%d %B %Y, %H:%M"
-#~ msgstr "%d %B %Y, %H:%m"
-
-#~ msgid "All favorite enterprises"
-#~ msgstr "Բոլոր նախընտրած ձեռնարկությունները"
-
-#~ msgid "All friends"
-#~ msgstr "Բոլոր ընկերները"
-
-#~ msgid "friendship"
-#~ msgstr "Ընկերություն"
-
-#~ msgid "Friend"
-#~ msgstr "Ընկեր"
-
-#~ msgid "All communities"
-#~ msgstr "Բոլոր համայնքները"
-
-#~ msgid "All enterprises"
-#~ msgstr "Բոլոր ձեռնարկությունները"
-
-#~ msgid "All people"
-#~ msgstr "Բոլոր մարդիկ"
-
-#~ msgid "Yes, I want to destroy."
-#~ msgstr "Այո, ես ցանկանում եմ վերացնել:"
-
-#~ msgid "Missing home page"
-#~ msgstr "Գլխավոր էջ չկա"
-
-#~ msgid "%s did not choose an article for homepage yet."
-#~ msgstr "%s-ը գլխավոր էջի համար դեռևս հոդված չի ընտրել:"
-
-#~ msgid "Click here to set your homepage now!"
-#~ msgstr "Սեղմեք այստեղ Ձեր գլխավոր էջն այժմ տեղադրելու համար:"
-
-#~ msgid "By %{author} on %{date}"
-#~ msgstr "%{author}-ի կողմից %{date}-ին"
-
-#, fuzzy
-#~ msgid "Ativar"
-#~ msgstr "Ակտիվացնել"
-
-#~ msgid "article"
-#~ msgstr "հոդված"
-
-#~ msgid "Abstract"
-#~ msgstr "Համառոտ ակնարկ"
-
-#~ msgid "Last changed by"
-#~ msgstr "Վերջինը փոփոխել է"
-
-#~ msgid "Version"
-#~ msgstr "Տարբերակ"
-
-#~ msgid "Lock version"
-#~ msgstr "Փակ տարբերակ"
-
-#~ msgid "Comments count"
-#~ msgstr "Մեկնաբանությունների հաշվարկում"
-
-#~ msgid "Advertise"
-#~ msgstr "Գովազդել"
-
-#~ msgid "Published"
-#~ msgstr "Հրատարակված"
-
-#~ msgid "%d %B %Y"
-#~ msgstr "%d %B %Y"
-
-#~ msgid "The enterprises where this user works."
-#~ msgstr "Այս մասնակիցն աշխատում է հետևյալ ձեռնարկություններում"
-
-#~ msgid "Task|Data"
-#~ msgstr "Առաջադրանք|Տվյալներ"
-
-#~ msgid "Task|Status"
-#~ msgstr "Առաջադրանք|Կարգավիճակ"
-
-#~ msgid "Task|End date"
-#~ msgstr "Առաջադրանք|Վերջնաժամկետ"
-
-#~ msgid "Task|Requestor"
-#~ msgstr "Առաջադրանք|Դիմող"
-
-#~ msgid "Task|Target"
-#~ msgstr "Առաջադրանք|Թիրախ"
-
-#~ msgid "Task|Code"
-#~ msgstr "Առաջադրանք|Կոդ"
-
-#~ msgid "Task|Type"
-#~ msgstr "Առաջադրանք|Տեսակ"
-
-#~ msgid "Task|Created at"
-#~ msgstr "Առաջադրանք|Ստեղծվել է"
-
-#~ msgid "The task was created at %s"
-#~ msgstr "Առաջադրանքը ստեղծված է %"
-
-#~ msgid "The task was finished at %s"
-#~ msgstr "Առաջադրանքն ավարտված է %"
-
-#~ msgid "The task was cancelled at %s"
-#~ msgstr "Առաջադրանքի կատարումը չեղյալ է համարվել:"
-
-#~ msgid "This user's favorite enterprises."
-#~ msgstr "Մասնակցի նախընտրած ձեռնարկությունները"
-
-#~ msgid "Article|Name"
-#~ msgstr "Հոդված|Անվանում"
-
-#~ msgid "Article|Slug"
-#~ msgstr "Հոդված|Խորագիր"
-
-#~ msgid "Article|Path"
-#~ msgstr "Հոդված|Ճանապարհ"
-
-#~ msgid "Article|Parent"
-#~ msgstr "Հոդված|Ծնող"
-
-#~ msgid "Article|Body"
-#~ msgstr "Հոդված|Գլխավոր"
-
-#~ msgid "Article|Abstract"
-#~ msgstr "Հոդված|Համառոտ ակնարկ"
-
-#~ msgid "Article|Profile"
-#~ msgstr "Հոդված|Անհատական էջ"
-
-#~ msgid "Article|Updated at"
-#~ msgstr "Հոդված|Թարմացված է"
-
-#~ msgid "Article|Created at"
-#~ msgstr "Հոդված|Ստեղծված է"
-
-#~ msgid "Article|Last changed by"
-#~ msgstr "Հոդված|Վերջին անգամ փոփոխել է"
-
-#~ msgid "Article|Version"
-#~ msgstr "Հոդված|Տարբերակ"
-
-#~ msgid "Article|Lock version"
-#~ msgstr "Հոդված|Փակ տարբերակ"
-
-#~ msgid "Article|Type"
-#~ msgstr "Հոդված|Տեսակ"
-
-#~ msgid "Article|Size"
-#~ msgstr "Հոդված|Չափ"
-
-#~ msgid "Article|Content type"
-#~ msgstr "Հոդված|Բովանդակության տեսակ"
-
-#~ msgid "Article|Filename"
-#~ msgstr "Հոդված|Ֆայլի անուն"
-
-#~ msgid "Article|Height"
-#~ msgstr "Հոդված|Բարձրություն"
-
-#~ msgid "Article|Width"
-#~ msgstr "Հոդված|Լայնություն"
-
-#~ msgid "Article|Comments count"
-#~ msgstr "Հոդված|Մեկնաբանությունների հաշվում"
-
-#~ msgid "Article|Advertise"
-#~ msgstr "Հոդված|Գովազդեք"
-
-#~ msgid "Article|Published"
-#~ msgstr "Հոդված|Հրատարակված"
-
-#~ msgid "Article|Start date"
-#~ msgstr "Հոդված|Սկսվել է գրվել"
-
-#~ msgid "Article|End date"
-#~ msgstr "Հոդված|Ավարտվել է գրվել"
-
-#~ msgid "Article|Children count"
-#~ msgstr "Հոդված|Երեխաների հաշվում"
-
-#~ msgid "Box|Owner type"
-#~ msgstr "Պատուհան|Սեփականատիրման տեսակ"
-
-#~ msgid "Box|Owner"
-#~ msgstr "Պատուհան|Սեփականատեր"
-
-#~ msgid "Box|Position"
-#~ msgstr "Պատուհան|Դիրք"
-
-#~ msgid "ProfileCategorization|Profile"
-#~ msgstr "Անհատական էջի կատեգորիզացում|Անհատական էջ"
-
-#~ msgid "ProfileCategorization|Category"
-#~ msgstr "Անհատական էջի կատեգորիզացում|Կատեգորիա"
-
-#~ msgid "ProfileCategorization|Virtual"
-#~ msgstr "Անհատական էջի կատեգորիզացում|Վիրտուալ"
-
-#~ msgid ""
-#~ "The tag is created when you add some one to your article. <p/>\n"
-#~ "       Try to add some tags to some articles and see your tag cloud to "
-#~ "grow."
-#~ msgstr ""
-#~ "Պիտակը ստեղծվում է, երբ դուք այն ավելացնում եք Ձեր հոդվածին:Փորձեք Ձեր "
-#~ "հոդվածների մեջ պիտակներ ավելացնել:"
-
-#~ msgid "Friendship|Person"
-#~ msgstr "Ընկերություն|Անձ"
-
-#~ msgid "Friendship|Friend"
-#~ msgstr "Ընկերություն|Ընկեր"
-
-#~ msgid "Friendship|Created at"
-#~ msgstr "Ընկերություն|Ստեղծված է"
-
-#~ msgid "Friendship|Group"
-#~ msgstr "Ընկերություն|Խումբ"
-
-#~ msgid "Profile|Name"
-#~ msgstr "Անհատական էջ|Անվանում"
-
-#~ msgid "Profile|Type"
-#~ msgstr "Անհատական էջ|Տեսակ"
-
-#~ msgid "Profile|Active"
-#~ msgstr "Անհատական էջ|Ակտիվ"
-
-#~ msgid "Profile|Address"
-#~ msgstr "Անհատական էջ|Հասցե"
-
-#~ msgid "Profile|Contact phone"
-#~ msgstr "Անհատական էջ|Հեռախոս"
-
-#~ msgid "Profile|Home page"
-#~ msgstr "Անհատական էջ|Կայք"
-
-#~ msgid "Profile|User"
-#~ msgstr "Անհատական էջ|Մասնակից"
-
-#~ msgid "Profile|Region"
-#~ msgstr "Անհատական էջ|Տարածաշրջան"
-
-#~ msgid "Profile|Data"
-#~ msgstr "Անհատական էջ|Տվյալներ"
-
-#~ msgid "Profile|Created at"
-#~ msgstr "Անհատական էջ|Ստեղծվել է"
-
-#~ msgid "Profile|Lat"
-#~ msgstr "Անհատական էջ|Լայնություն"
-
-#~ msgid "Profile|Lng"
-#~ msgstr "Անհատական էջ|Երկարություն"
-
-#~ msgid "Profile|Geocode precision"
-#~ msgstr "Անհատական էջ|Գեոկոդի ճշգրտում"
-
-#~ msgid "Profile|Enabled"
-#~ msgstr "Անհատական էջ|Ակտիվացված է"
-
-#~ msgid "%s's home page"
-#~ msgstr "%s - ի գլխավոր էջ"
-
-#~ msgid ""
-#~ "<p>This is a default homepage created for %s. It can be changed though "
-#~ "the control panel.</p>"
-#~ msgstr ""
-#~ "Սա %s-ի համար ստեղծված գլխավոր էջի նախնական տարբերակն է: Ցանկության "
-#~ "դեպքում այն կարող եք փոփոխել կառավարման վահանակի միջոցով:"
-
-#~ msgid "Category|Name"
-#~ msgstr "Կատեգորիա|Անուն"
-
-#~ msgid "Category|Slug"
-#~ msgstr "Կատեգորիա|Խորագիր"
-
-#~ msgid "Category|Path"
-#~ msgstr "Կատեգորիա|Ճանապարհ"
-
-#~ msgid "Category|Display color"
-#~ msgstr "Կատեգորիա|Ցուցադրել գույնը"
-
-#~ msgid "Category|Environment"
-#~ msgstr "Կատեգորիա|Արտաքին տեսք"
-
-#~ msgid "Category|Parent"
-#~ msgstr "Կատեգորիա|Ծնող"
-
-#~ msgid "Category|Type"
-#~ msgstr "Կատեգորիա|Տեսակ"
-
-#~ msgid "Category|Lat"
-#~ msgstr "Կատեգորիա|Լայնություն"
-
-#~ msgid "Category|Lng"
-#~ msgstr "Կատեգորիա|Երկարություն"
-
-#~ msgid "Category|Display in menu"
-#~ msgstr "Կատեգորիա|Ցուցադրել մենյուի մեջ"
-
-#~ msgid "Category|Children count"
-#~ msgstr "Կատեգորիա|Երեխաների հաշվում"
-
-#~ msgid "%{fn} must be the same as the parents'"
-#~ msgstr "%{fn} պետք է համապատասխանի ծնողին"
-
-#~ msgid "User|Username"
-#~ msgstr "Մասնակից|Մասնակցի անուն"
-
-#~ msgid "User|e-Mail"
-#~ msgstr "Մասնակից|Էլ. հասցե"
-
-#~ msgid "User|Crypted password"
-#~ msgstr "Մասնակից|Ծածկագրված գաղտնաբառ"
-
-#~ msgid "User|Created at"
-#~ msgstr "Մասնակից|Ստեղծվել է"
-
-#~ msgid "User|Updated at"
-#~ msgstr "Մասնակից|Թարմացվել է"
-
-#~ msgid "User|Terms of use"
-#~ msgstr "Մասնակից|Օգտագործման կանոններ"
-
-#~ msgid "User|Terms accepted"
-#~ msgstr "Մասնակից|Օգտագործման կանոններն ընդունված են"
-
-#~ msgid "User|Environment"
-#~ msgstr "Մասնակից|Արտաքին տեսք"
-
-#~ msgid "User|Password type"
-#~ msgstr "Մասնակից|Գաղտնաբառի տեսակ"
-
-#~ msgid "User|Enable email"
-#~ msgstr "Մասնակից|Ակտիվացնել էլ. հասցեն"
-
-#~ msgid "User|Password"
-#~ msgstr "Մասնակից|Գաղտնաբառ"
-
-#~ msgid "User|Password confirmation"
-#~ msgstr "Մասնակից|Գաղտնաբառի հաստատում"
-
-#~ msgid "Block|Title"
-#~ msgstr "Բաժին|Վերնագիր"
-
-#~ msgid "Block|Box"
-#~ msgstr "Բաժին|Պատուհան"
-
-#~ msgid "Block|Type"
-#~ msgstr "Բաժին|Տեսակ"
-
-#~ msgid "Block|Settings"
-#~ msgstr "Բաժին|Պարամետրեր"
-
-#~ msgid "Block|Position"
-#~ msgstr "Բաժին|Դիրք"
-
-#~ msgid "The communities in which the user is a member"
-#~ msgstr "Այն համայնքները, որոնց անդամակից է տվյալ մասնակիցը"
-
-#~ msgid "ArticleCategorization|Article"
-#~ msgstr "Հոդվածների կատեգորիզացում|Հոդված"
-
-#~ msgid "ArticleCategorization|Category"
-#~ msgstr "Հոդվածների կատեգորիզացում|Կատեգորիա"
-
-#~ msgid "ArticleCategorization|Virtual"
-#~ msgstr "Հոդվածների կատեգորիզացում|Վիրտուալ"
-
-#~ msgid "Consumption|Product category"
-#~ msgstr "Սպառում|Արտադրանքի կատեգորիա"
-
-#~ msgid "Consumption|Profile"
-#~ msgstr "Սպառում|Անհատական էջ"
-
-#~ msgid "Consumption|Aditional specifications"
-#~ msgstr "Սպառում|Հավելյալ հատկանիշներ"
-
-#~ msgid "Comment|Title"
-#~ msgstr "Մեկնաբանություն|Վերնագիր"
-
-#~ msgid "Comment|Body"
-#~ msgstr "Մեկնաբանություն|Հիմնական"
-
-#~ msgid "Comment|Article"
-#~ msgstr "Մեկնաբանություն|Հոդված"
-
-#~ msgid "Comment|Author"
-#~ msgstr "Մեկնաբանություն|Հեղինակ"
-
-#~ msgid "Comment|Name"
-#~ msgstr "Մեկնաբանություն|Անուն"
-
-#~ msgid "Comment|Email"
-#~ msgstr "Մեկնաբանություն|էլ.հասցե"
-
-#~ msgid "Comment|Created at"
-#~ msgstr "Մեկնաբանություն|Ստեղծված է"
-
-#~ msgid "Image|Owner type"
-#~ msgstr "Պատկեր|Սեփականատիրման տեսակ"
-
-#~ msgid "Image|Owner"
-#~ msgstr "Պատկեր|Սեփականատեր"
-
-#~ msgid "Image|Parent"
-#~ msgstr "Պատկեր|Ծնող"
-
-#~ msgid "Image|Content type"
-#~ msgstr "Պատկեր|Բովանդակության տեսակ"
-
-#~ msgid "Image|Filename"
-#~ msgstr "Պատկեր|Ֆայլի անուն"
-
-#~ msgid "Image|Thumbnail"
-#~ msgstr "Պատկեր|Մանրապատկեր"
-
-#~ msgid "Image|Size"
-#~ msgstr "Պատկեր|Չափս"
-
-#~ msgid "Image|Width"
-#~ msgstr "Պատկեր|Լայնություն"
-
-#~ msgid "Image|Height"
-#~ msgstr "Պատկեր|Բարձրություն"
-
-#~ msgid "Thumbnail|Size"
-#~ msgstr "Մանրապատկեր|Չափս"
-
-#~ msgid "Thumbnail|Content type"
-#~ msgstr "Մանրապատկեր|Բովանդակության տեսակ"
-
-#~ msgid "Thumbnail|Filename"
-#~ msgstr "Մանրապատկեր|Ֆայլի անուն"
-
-#~ msgid "Thumbnail|Height"
-#~ msgstr "Մանրապատկեր|Բարձրություն"
-
-#~ msgid "Thumbnail|Width"
-#~ msgstr "Մանրապատկեր|Լայնություն"
-
-#~ msgid "Thumbnail|Parent"
-#~ msgstr "Մանրապատկեր|Ծնող"
-
-#~ msgid "Thumbnail|Thumbnail"
-#~ msgstr "Մանրապատկեր|Մանրապատկեր"
-
-#~ msgid "ValidationInfo|Validation methodology"
-#~ msgstr "Վավերացման տեղեկատվություն|Վավերացման մեթոդներ"
-
-#~ msgid "ValidationInfo|Restrictions"
-#~ msgstr "Վավերացման տեղեկություններ|Սահմանափակումներ"
-
-#~ msgid "ValidationInfo|Organization"
-#~ msgstr "Վավերացման տեղեկություններ|Կազմակերպություն"
-
-#~ msgid "CreateEnterprise|Name"
-#~ msgstr "Ստեղծել Ձեռնարկություն|Անվանում"
-
-#~ msgid "CreateEnterprise|Address"
-#~ msgstr "Ստեղծել Ձեռնարկություն|Հասցե"
-
-#~ msgid "CreateEnterprise|Contact phone"
-#~ msgstr "Ստեղծել Ձեռնարկություն|Հեռախոս"
-
-#~ msgid "CreateEnterprise|Contact person"
-#~ msgstr "Ստեղծել Ձեռնարկություն|Կապ պահպանող անձ"
-
-#~ msgid "CreateEnterprise|Acronym"
-#~ msgstr "Ստեղծել Ձեռնարկություն|Հապավում"
-
-#~ msgid "CreateEnterprise|Foundation year"
-#~ msgstr "Ստեղծել Ձեռնարկություն|Հիմնադրման տարի"
-
-#~ msgid "CreateEnterprise|Legal form"
-#~ msgstr "Ստեղծել Ձեռնարկություն|Իրավաբանական հիմք"
-
-#~ msgid "CreateEnterprise|Economic activity"
-#~ msgstr "Ստեղծել Ձեռնարկություն|Տնտեսական գործունեություն"
-
-#~ msgid "CreateEnterprise|Management information"
-#~ msgstr "Ստեղծել Ձեռնարկություն|Տեղեկություններ ղեկավարության մասին"
-
-#~ msgid "Product|Enterprise"
-#~ msgstr "Արտադրանք|Ձեռնարկություն"
-
-#~ msgid "Product|Product category"
-#~ msgstr "Արտադրանք|Արտադրանքի կատեգորիա"
-
-#~ msgid "Product|Name"
-#~ msgstr "Արտադրանք|Անվանում"
-
-#~ msgid "Product|Price"
-#~ msgstr "Արտադրանք|Գին"
-
-#~ msgid "Product|Description"
-#~ msgstr "Արտադրանք|Նկարագրություն"
-
-#~ msgid "Product|Image"
-#~ msgstr "Արտադրանք|Նկար"
-
-#~ msgid "Product|Created at"
-#~ msgstr "Արտադրանք|Ստեղծված է"
-
-#~ msgid "Product|Updated at"
-#~ msgstr "Արտադրանք|Թարմացվել է"
-
-#~ msgid "Product|Lat"
-#~ msgstr "Արտադրանք|Լայնություն"
-
-#~ msgid "Product|Lng"
-#~ msgstr "Արտադրանք|Երկարություն"
-
-#~ msgid "Domain|Name"
-#~ msgstr "Տիրույթ|Անվանում"
-
-#~ msgid "Domain|Owner type"
-#~ msgstr "Տիրույթ|Սեփականատիրման տեսակ"
-
-#~ msgid "Domain|Owner"
-#~ msgstr "Տիրույթ|Սեփականատեր"
-
-#~ msgid "%s wants to be a member"
-#~ msgstr "%s ցանկանում է անդամ դառնալ"
-
-#~ msgid "%s wants to be your friend"
-#~ msgstr "%s ցանկանում է Ձեր ընկերը դառնալ"
-
-#~ msgid "Environment|Name"
-#~ msgstr "Համակարգ|Անվանում"
-
-#~ msgid "Environment|Contact email"
-#~ msgstr "Համակարգ|Էլ. հասցե"
-
-#~ msgid "Environment|Is default"
-#~ msgstr "Համակարգ|Նախնական"
-
-#~ msgid "Environment|Settings"
-#~ msgstr "Համակարգ|Պարամետրեր"
-
-#~ msgid "Environment|Design data"
-#~ msgstr "Համակարգ|Տվյալների դասավորում"
-
-#~ msgid "Other feature"
-#~ msgstr "Այլ առանձնահատկություն"
-
-#~ msgid "e-Mail settings saved successfully."
-#~ msgstr "Էլ.փոստի պարամետրերը հաջողությամբ պահպանված են:"
-
-#~ msgid "Enterprise sucessfully erased from the system"
-#~ msgstr "Ձեձնարկությունը հաջողությամբ հեռացված է համակարգից"
-
-#~ msgid "Recently registered people"
-#~ msgstr "Վերջերս գրանցված մարդիկ"
-
-#~ msgid "Recently created communities"
-#~ msgstr "Վերջերս ստեղծված համայնքներ"
-
-#~ msgid "Recent articles"
-#~ msgstr "Վերջին հոդվածներ"
-
-#~ msgid "Recently created enterprises"
-#~ msgstr "Վերջերս ստեղծված ձեռնարկություններ"
-
-#~ msgid "Recently added events"
-#~ msgstr "Վերջերս ավելացված իրադարձություններ"
-
-#~ msgid "%s's groups"
-#~ msgstr "%s - ի խմբեր"
-
-#~ msgid "%s is a member of the following groups:"
-#~ msgstr "%s հետևյալ խմբերի անդամ է"
-
-#~ msgid "Actions: %s"
-#~ msgstr "Գործողություններ %s"
-
-#~ msgid "%s:Products/Services"
-#~ msgstr "%s Արտադրանք/Ծառայություններ"
-
-#~ msgid "Organizing visual design"
-#~ msgstr "Արտաքին տեսքի կազմակերպում"
-
-#~ msgid "You are not allowed to view this content."
-#~ msgstr "Դուք չեք կարող տեսնել տվյալ բովանդակությունը:"
-
-#~ msgid "Legal Form:"
-#~ msgstr "Իրավաբանական հիմք"
-
-#~ msgid "Management infomation:"
-#~ msgstr "Տեղեկություններ ղեկավարության մասին"
-
-#~ msgid "My profile"
-#~ msgstr "Իմ անհատական էջը"
-
-#~ msgid "Edit Profile"
-#~ msgstr "Փոփոխել իմ անհատական էջը"
-
-#~ msgid "Pending tasks"
-#~ msgstr "Սպասող առաջադրանքներ"
-
-#~ msgid "Edit Visual Design"
-#~ msgstr "Փոփոխել արտաքին տեսքը"
-
-#~ msgid "Closed %s"
-#~ msgstr "Փակ %s"
-
-#~ msgid "%s' friends"
-#~ msgstr "%s-ի ընկերները"
-
-#~ msgid "Homepage: "
-#~ msgstr "Գլխավոր էջ"
-
-#~ msgid "Products results for \"%{query}\" of enterprises in \"%{category}\""
-#~ msgstr "«%{category}»-ի «%{query}» հարցման արդյունքները"
-
-#~ msgid "Products results for \"%s\""
-#~ msgstr "«%s»-ի արտադրանքի արդյունքները"
-
-#~ msgid "Products of enterprises in \"%s\""
-#~ msgstr "«%s»-ի ձեռնարկության արտադրանքի արդյունքները"
-
-#~ msgid "Search results for \"%{query}\" in \"%{category}\""
-#~ msgstr "«%{category}»-ի «%{query}» հարցման արդյունքները"
-
-#~ msgid "(recently added)"
-#~ msgstr "(վերջերս ավելացված)"
-
-#~ msgid "Browse by name"
-#~ msgstr "Բեռնել ըստ անվան"
-
-#~ msgid "Recent"
-#~ msgstr "Վերջին"
-
-#~ msgid "more..."
-#~ msgstr "ավելին..."
-
-#~ msgid "Distance (km): "
-#~ msgstr "Հեռավորություն (կմ)"
-
-#~ msgid "From: "
-#~ msgstr "Որտեղից"
-
-#~ msgid "Price: %d"
-#~ msgstr "Գին %d"
-
-#~ msgid "Category: %s"
-#~ msgstr "Կատեգորիա %s"
-
-#~ msgid "Advanced search"
-#~ msgstr "Ընդլայնված որոնում"
-
-#~ msgid "Add favorite enterprise"
-#~ msgstr "Ավելացնել նախընտրած ձեռնարկություն"
-
-#~ msgid "Leave this enterprise"
-#~ msgstr "Դուրս գալ այս ձեռնարկությունից"
-
-#~ msgid "Join this enterprise"
-#~ msgstr "Միանալ այս ձեռնարկությանը"
-
-#~ msgid "More search options"
-#~ msgstr "Որոնման լրացուցիչ հատկություններ"
-
-#~ msgid "Select the file you want to upload (max size %s)."
-#~ msgstr ""
-#~ "Ընտրեք այն ֆայլը, որը ցանկանում եք վերբեռնել(առավելագույն չափսը` %s):"
-
-#~ msgid "Enable e-mail %s"
-#~ msgstr "Ակտիվացնել էլ.փոստը %s"
-
-#~ msgid ""
-#~ "Marking this option gives you an e-mail account with the address above. "
-#~ "You'll be able to access a webmail from your user menu."
-#~ msgstr ""
-#~ "Այս հնարավորությունն ընտրելով`ձեռք կբերեք հետևյալ հասցեով էլ. փոստ, որի "
-#~ "մուտքը Ձեր մենյուից է:"
-
-#~ msgid "You have no friends yet. Go make some."
-#~ msgstr "Դուք դեռ ընկերներ չունեք:"
-
-#~ msgid "Page not found"
-#~ msgstr "Էջը չի գտնվել"
-
-#~ msgid "I want to be an user!"
-#~ msgstr "Ես ցանկանում եմ օգտվող դառնալ:"
-
-#~ msgid ""
-#~ "Fill all this fields to join in this environment.<p/>If you forgot your "
-#~ "password, do not create a new account, click on the \"<b>I forgot my "
-#~ "password!</b>\" link. ;-)"
-#~ msgstr ""
-#~ "Միջավայրին միանալու համար լրացրեք հետևյալ դաշտերը: Եթե մոռանաք Ձեր "
-#~ "գաղտնաբառը, կարիք չկա նորից գրանցվելու, պարզապես կտացրեք «<b>Ես մոռացել եմ "
-#~ "գաղտնաբառս</b>» հղման վրա:"
-
-#~ msgid ""
-#~ "\"Username\" is a simple nickname to recognize you on this environment."
-#~ msgstr ""
-#~ "«Մասնակցի անուն»-ը պարզապես անուն կամ մականուն է Ձեզ ճանաչելու համար:"
-
-#~ msgid "We'll send you an e-mail to validate your registration."
-#~ msgstr "Ձեզ կուղարկվի Ձեր գրանցումը հաստատող էլ. նամակ:"
-
-#~ msgid "Do not use a obviously password, but try some unforgettable word."
-#~ msgstr "Գաղտնաբառն ընտրելիս, ընտրեք որևէ ոչ ակնհայտ բառ:"
-
-#~ msgid "We need to be sure that you wrote correctly your password."
-#~ msgstr "Մենք պետք է համոզվենք, որ Ձեր ներմուծած գաղտնաբառը ճիշտ է:"
-
-#~ msgid "Register and activate enterprise"
-#~ msgstr "Գրանցել և ակտիվացնել ձեռնարկությունը"
-
-#~ msgid ""
-#~ "Fill all this fields to activate your enterprise and join in this "
-#~ "environment.<p/>If you forgot your password, do not create a new account, "
-#~ "click on the \"<b>I forgot my password!</b>\" link. ;-)"
-#~ msgstr ""
-#~ "Ձեր ձեռնարկությունը ակտիվացնելու և այն միջավայրին միանալու համար լրացրեք "
-#~ "հետևյալ դաշտերը: Եթե մոռանաք Ձեր գաղտնաբառը, կարիք չկա նորից գրանցվելու, "
-#~ "պարզապես կտացրեք «<b>Ես մոռացել եմ գաղտնաբառս</b>» հղման վրա:"
-
-#~ msgid "Legal form:"
-#~ msgstr "Իրավաբանական հիմք"
-
-#~ msgid "Newer people"
-#~ msgstr "Ավելի նոր մարդիկ"
-
-#~ msgid "Newer enterprises"
-#~ msgstr "Ավելի նոր ձեռնարկություններ"
-
-#~ msgid "Newer communities"
-#~ msgstr "Ավելի նոր համայնքներ"
-
-#~ msgid "Newer articles"
-#~ msgstr "Ավելի նոր հոդվածներ"
-
-#~ msgid ""
-#~ "New members must be approved by an administrator before joining this "
-#~ "group?"
-#~ msgstr ""
-#~ "Նոր անդամները խմբին միանալու համար պետք է հաստատվեն ադմինիստրատորի կողմից:"
-
-#~ msgid "Sponsored by Loterie Romande"
-#~ msgstr "Հովանավորվում է Loterie Romande -ի կողմից"
-
-#~ msgid "A FBES project"
-#~ msgstr "FBES-ի ծրագրերից մեկը"
-
-#~ msgid "Developed by Colivre"
-#~ msgstr "Ծրագրավորումը`Colivre"
-
-#~ msgid "Destroy %s"
-#~ msgstr "Վերացնել %s"
-
-#~ msgid "Are you sure you want to destroy %s?"
-#~ msgstr "Վստա՞հ եք, որ ցանականում եք վերացնել %s"
-
-#~ msgid "Add favorite organization"
-#~ msgstr "Ավելացնել նախընտրած կազմակերպություն"
-
-#~ msgid "Could not update the enterprise"
-#~ msgstr "Ձեռնարկության թարմացումն անհնար է:"
-
-#~ msgid "%d %B %Y, %H:%m"
-#~ msgstr "%d %B %Y, %H:%m"
-
-#, fuzzy
-#~ msgid "Setting"
-#~ msgstr ""
-#~ "#-#-#-#-#  noosfero.po.REMOTE.26849.po (noosfero 0.15.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.26849.po (noosfero 0.14.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.21532.po (noosfero 0.14.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.21532.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.8544.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.17206.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.9928.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.25844.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.25844.po (noosfero 0.11.0)  #-#-#-#-#\n"
-#~ "Պարամետրեր"
-
-#~ msgid ""
-#~ "This website will not look as good as it could.\n"
-#~ "         Don't you want to use Firefox? That is a great web browser, "
-#~ "free,\n"
-#~ "         and made by people of all the world parts."
-#~ msgstr ""
-#~ "Կայքի արտաքին տեսքն այնպիսին չի լինի, ինչպիսին կարող էր լինել: Ցանկանո՞ւմ "
-#~ "եք արդյոք Firefox օգտագործել: Այն ունի լայն հնարավորութուններ, անվճար է և "
-#~ "ստեղծվել է աշխարհի տարբեր մասերում գտնվող մարդկանց կողմից: "
-
-#, fuzzy
-#~ msgid "Localization Map"
-#~ msgstr ""
-#~ "#-#-#-#-#  noosfero.po.REMOTE.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.25844.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.25844.po (noosfero 0.11.0)  #-#-#-#-#\n"
-#~ "Վայր"
-
-#, fuzzy
-#~ msgid "%s - Pending tasks"
-#~ msgstr ""
-#~ "#-#-#-#-#  noosfero.po.REMOTE.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.21758.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.REMOTE.25844.po (noosfero 0.13.0)  #-#-#-#-#\n"
-#~ "#-#-#-#-#  noosfero.po.LOCAL.25844.po (noosfero 0.11.0)  #-#-#-#-#\n"
-#~ "Սպասող առաջադրանքներ"
-
-#, fuzzy
-#~ msgid "Inactive Enterprise Template"
-#~ msgstr "Ձեռնարկության կոդ անվավեր է:"
-
-#, fuzzy
-#~ msgid "Feed options"
-#~ msgstr "Որոնման ավելի շատ հատկություններ"
-
-#, fuzzy
-#~ msgid "Want you see other persons on this environment?"
-#~ msgstr "Կարող եք շարունակել այս միջավայրը բեռնել:"
-
-#~ msgid "edit your information"
-#~ msgstr "Փոփոխել Ձեր տեղեկությունները"
-
-#~ msgid "This profile's content is:"
-#~ msgstr "Անհատական էջի բովանդակություն"
+msgid "New group"
+msgstr "Մեկ խումբ"
+
+#: lib/zen3_terminology.rb:84
+msgid ""
+"Tags are important to new users, they'll be able to find your new group more "
+"easily."
+msgstr ""
+
+#: public/500.html.erb:25
+msgid "Temporary system problem"
+msgstr ""
+
+#: public/500.html.erb:27
+msgid ""
+"Our technical team is working on it, please try again later. Sorry for the "
+"inconvenience."
+msgstr ""
+
+#: public/503.html.erb:26
+msgid "System maintainance"
+msgstr ""
+
+#: public/503.html.erb:28
+msgid "This system is under maintainance. It should be back in a few hours."
+msgstr ""

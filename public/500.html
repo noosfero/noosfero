@@ -1,49 +1,76 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <title>Noosfero - Application error</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      padding: 100px 0 0 0;
-      background-color: #f99;
-    }
-    h1 {
-      margin: 0px;
-      font-weight: bold;
-      text-align: center;
-    }
-    div#en {
-      float: right;
-      width: 45%;
-    }
-    div#pt-br {
-      float: left;
-      width: 45%;
-    }
-  </style>
+    <meta http-equiv="refresh" content="60"/>
+  <title>Technical problems</title>
+  <link rel="stylesheet" type="text/css" href="/designs/themes/default/stylesheets/errors.css"/>
+  <script type='text/javascript' src='/javascripts/prototype.js'></script>
+  <script type='text/javascript' src='/javascripts/errors.js'></script>
 </head>
-<body>
-
-<div id='en'>
-<h1>Application error</h1>
-<p>
-Oops ... sorry for that. <b>:-(</b>
-</p>
-<p>
-  This was not your fault, this is a <b>bug</b> in our system!
-  Please, help us the development by
-  <a href="http://www.colivre.coop.br/Noosfero/BugItem">reporting the problem</a>.
-  </p>
-</div>
-
-<div id='pt-br'>
-  <h1>Erro no sistema</h1>
-  <p>Ops, foi mail. <b>:-(</b></p>
-  </p>
-  Isto não foi culpa sua, mas um <b>erro</b> em nosso sistemas! Por favor, nos ajude <a href='http://www.colivre.coop.br/Noosfero/BugItem'>relatando este problema</a>.
-  </p>
-</div>
-
+<body onload='display_error_message()'>
+  
+  <div id='wrap'>
+    <div id='header'>
+      <div id='logo'>
+        &nbsp;
+      </div>
+    </div>
+    
+      
+      <div id='fr' style='display: none' class='message'>
+        <h1>Problème temporaire du système</h1>
+        <p>
+        Notre équipe technique y travaille, SVP réessayer plus tard. Désolé pour le dérangement.
+        </p>
+        <ul>
+          <li><a href='javascript: history.back()'>Retour</a></li>
+        </ul>
+      </div>
+    
+      
+      <div id='pt_BR' style='display: none' class='message'>
+        <h1>Problema temporário no sistema</h1>
+        <p>
+        Nossa equipe técnica está trabalhando nele, por favor tente mais tarde. Perdoe o incoveniente. 
+        </p>
+        <ul>
+          <li><a href='javascript: history.back()'>Voltar</a></li>
+        </ul>
+      </div>
+    
+      
+      <div id='hy' style='display: none' class='message'>
+        <h1>Temporary system problem</h1>
+        <p>
+        Our technical team is working on it, please try again later. Sorry for the inconvenience.
+        </p>
+        <ul>
+          <li><a href='javascript: history.back()'>Վերադառնալ</a></li>
+        </ul>
+      </div>
+    
+      
+      <div id='en' style='display: none' class='message'>
+        <h1>Temporary system problem</h1>
+        <p>
+        Our technical team is working on it, please try again later. Sorry for the inconvenience.
+        </p>
+        <ul>
+          <li><a href='javascript: history.back()'>Go back</a></li>
+        </ul>
+      </div>
+    
+    <div id='languages'>
+      
+        <a href="javascript: display_error_message('fr')">Français</a>
+      
+        <a href="javascript: display_error_message('pt_BR')">Português</a>
+      
+        <a href="javascript: display_error_message('hy')">հայերեն լեզու</a>
+      
+        <a href="javascript: display_error_message('en')">English</a>
+      
+    </div>
+  </div>
 </body>
 </html>

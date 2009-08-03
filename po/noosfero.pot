@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.19.0\n"
-"POT-Creation-Date: 2009-08-03 13:06-0300\n"
+"POT-Creation-Date: 2009-08-03 19:42-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -624,7 +624,7 @@ msgstr ""
 #: app/helpers/assets_helper.rb:11
 #: app/controllers/public/search_controller.rb:136
 #: app/controllers/public/search_controller.rb:210
-#: app/views/search/communities.rhtml:1 app/views/profile/_person.rhtml:50
+#: app/views/search/communities.rhtml:4 app/views/profile/_person.rhtml:50
 #: app/views/content_viewer/_person.rhtml:50
 #: app/views/layouts/application-ng.rhtml:94
 msgid "Communities"
@@ -875,9 +875,10 @@ msgstr ""
 #: app/helpers/application_helper.rb:580 app/models/link_list_block.rb:19
 #: app/views/profile_members/add_members.rhtml:5
 #: app/views/search/_sellers_form.rhtml:21
-#: app/views/search/_search_form.rhtml:19 app/views/search/communities.rhtml:9
-#: app/views/search/articles.rhtml:10 app/views/search/people.rhtml:10
-#: app/views/home/index.rhtml:56 app/views/region_validators/region.rhtml:23
+#: app/views/search/_search_form.rhtml:19
+#: app/views/search/communities.rhtml:13 app/views/search/articles.rhtml:10
+#: app/views/search/people.rhtml:10 app/views/home/index.rhtml:56
+#: app/views/region_validators/region.rhtml:23
 msgid "Search"
 msgstr ""
 
@@ -950,7 +951,7 @@ msgid ""
 "It does not affect the language of the content created by other users."
 msgstr ""
 
-#: app/helpers/forms_helper.rb:34 app/models/link_list_block.rb:8
+#: app/helpers/forms_helper.rb:35 app/models/link_list_block.rb:8
 #: app/views/admin_panel/message_for_disabled_enterprise.rhtml:11
 #: app/views/admin_panel/site_info.rhtml:13
 #: app/views/shared/_select_categories.rhtml:22
@@ -967,23 +968,23 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: app/helpers/forms_helper.rb:64
+#: app/helpers/forms_helper.rb:65
 msgid "Select the State"
 msgstr ""
 
-#: app/helpers/forms_helper.rb:65
+#: app/helpers/forms_helper.rb:66
 msgid "Select the City"
 msgstr ""
 
-#: app/helpers/forms_helper.rb:88
+#: app/helpers/forms_helper.rb:89
 msgid "State:"
 msgstr ""
 
-#: app/helpers/forms_helper.rb:91
+#: app/helpers/forms_helper.rb:92
 msgid "City:"
 msgstr ""
 
-#: app/helpers/forms_helper.rb:105
+#: app/helpers/forms_helper.rb:106
 msgid ""
 "The <label class='pseudoformlabel'>highlighted</label> fields are mandatory."
 msgstr ""
@@ -1215,23 +1216,23 @@ msgstr ""
 msgid "Thanks for signing up!"
 msgstr ""
 
-#: app/controllers/public/account_controller.rb:104
+#: app/controllers/public/account_controller.rb:106
 msgid "You have been logged out."
 msgstr ""
 
-#: app/controllers/public/account_controller.rb:115
+#: app/controllers/public/account_controller.rb:117
 msgid "Your password has been changed successfully!"
 msgstr ""
 
-#: app/controllers/public/account_controller.rb:118
+#: app/controllers/public/account_controller.rb:120
 msgid "The supplied current password is incorrect."
 msgstr ""
 
-#: app/controllers/public/account_controller.rb:220
+#: app/controllers/public/account_controller.rb:222
 msgid "Available!"
 msgstr ""
 
-#: app/controllers/public/account_controller.rb:223
+#: app/controllers/public/account_controller.rb:225
 msgid "Unavailable!"
 msgstr ""
 
@@ -1419,6 +1420,7 @@ msgid "user"
 msgstr ""
 
 #: app/models/user.rb:- app/models/user.rb:18 app/models/change_password.rb:21
+#: app/views/friends/invite.rhtml:31
 msgid "Username"
 msgstr ""
 
@@ -2281,9 +2283,9 @@ msgstr ""
 msgid "Ok"
 msgstr ""
 
-#: app/models/link_list_block.rb:21 app/views/friends/invite.rhtml:31
-#: app/views/shared/user_menu.rhtml:67 app/views/account/login_block.rhtml:4
-#: app/views/account/login.rhtml:3 app/views/layouts/application-ng.rhtml:67
+#: app/models/link_list_block.rb:21 app/views/shared/user_menu.rhtml:67
+#: app/views/account/login_block.rhtml:4 app/views/account/login.rhtml:3
+#: app/views/layouts/application-ng.rhtml:67
 msgid "Login"
 msgstr ""
 
@@ -3056,23 +3058,31 @@ msgstr ""
 msgid "Indicate which friends you want to invite."
 msgstr ""
 
-#: app/views/friends/invite.rhtml:57
+#: app/views/friends/invite.rhtml:53
+msgid "Import now your contacts from %s, %s or %s"
+msgstr ""
+
+#: app/views/friends/invite.rhtml:56
+msgid "or"
+msgstr ""
+
+#: app/views/friends/invite.rhtml:66
 msgid "Enter one e-mail address per line:"
 msgstr ""
 
-#: app/views/friends/invite.rhtml:61
+#: app/views/friends/invite.rhtml:71
 msgid "Check all"
 msgstr ""
 
-#: app/views/friends/invite.rhtml:62
+#: app/views/friends/invite.rhtml:72
 msgid "Uncheck all"
 msgstr ""
 
-#: app/views/friends/invite.rhtml:78
+#: app/views/friends/invite.rhtml:88
 msgid "Personalize invitation message"
 msgstr ""
 
-#: app/views/friends/invite.rhtml:83
+#: app/views/friends/invite.rhtml:93
 msgid ""
 "Now enter an invitation message. You must keep the <url> code in your "
 "invitation message. When your friends receive the invitation e-mail, <url> "
@@ -3081,16 +3091,12 @@ msgid ""
 "name, but they are optional."
 msgstr ""
 
-#: app/views/friends/invite.rhtml:84
+#: app/views/friends/invite.rhtml:94
 msgid "Invitation message:"
 msgstr ""
 
-#: app/views/friends/invite.rhtml:88
+#: app/views/friends/invite.rhtml:98
 msgid "Invite my friends!"
-msgstr ""
-
-#: app/views/friends/invite.rhtml:93
-msgid "Import now your contacts from %s, %s or %s"
 msgstr ""
 
 #: app/views/profile_members/unassociate.rhtml:1
@@ -3429,7 +3435,7 @@ msgstr ""
 
 #: app/views/account/blocked.rhtml:6
 msgid ""
-"There was a failed atempt of activation and the automated acivation was "
+"There was a failed atempt of activation and the automated activation was "
 "disabled for your security."
 msgstr ""
 
@@ -3613,7 +3619,9 @@ msgid "Insert your login"
 msgstr ""
 
 #: app/views/account/_signup_form.rhtml:40
-msgid "Choose a password that you can remember easily."
+msgid ""
+"Choose a password that you can remember easily. It must have at least 4 "
+"characters."
 msgstr ""
 
 #: app/views/account/_signup_form.rhtml:45
@@ -3707,7 +3715,8 @@ msgid ""
 msgstr ""
 
 #: app/views/account/activation_question.rhtml:33
-msgid "What year your enterprise was founded?"
+msgid ""
+"What year your enterprise was founded? It must have 4 digits, eg 1990. %s"
 msgstr ""
 
 #: app/views/account/activation_question.rhtml:33
@@ -3957,7 +3966,7 @@ msgstr ""
 msgid "Categorize your article"
 msgstr ""
 
-#: app/views/cms/edit.rhtml:32 app/views/memberships/new_community.rhtml:18
+#: app/views/cms/edit.rhtml:32
 msgid "Separate tags with commas"
 msgstr ""
 
@@ -4181,7 +4190,7 @@ msgstr ""
 msgid "Products and Services"
 msgstr ""
 
-#: app/views/search/products.rhtml:10 app/views/search/communities.rhtml:9
+#: app/views/search/products.rhtml:10 app/views/search/communities.rhtml:13
 #: app/views/search/articles.rhtml:10 app/views/search/index.rhtml:5
 #: app/views/search/people.rhtml:10 app/views/search/enterprises.rhtml:16
 msgid "Refine your search"
@@ -4231,11 +4240,15 @@ msgstr ""
 msgid "No City"
 msgstr ""
 
-#: app/views/search/communities.rhtml:12
+#: app/views/search/communities.rhtml:2
+msgid "Hello %s, now you can choose yours groups"
+msgstr ""
+
+#: app/views/search/communities.rhtml:16
 msgid "Choose the communities you want to join and/or create your own."
 msgstr ""
 
-#: app/views/search/communities.rhtml:25
+#: app/views/search/communities.rhtml:29
 msgid "New community"
 msgstr ""
 
@@ -4534,7 +4547,7 @@ msgid "Remove the enterprise from the system"
 msgstr ""
 
 #: app/views/enterprise_editor/index.rhtml:17
-#: app/views/profile_editor/index.rhtml:72
+#: app/views/profile_editor/index.rhtml:73
 msgid "Activate"
 msgstr ""
 
@@ -4580,6 +4593,16 @@ msgstr ""
 
 #: app/views/memberships/new_community.rhtml:1
 msgid "Creating new community"
+msgstr ""
+
+#: app/views/memberships/new_community.rhtml:18
+msgid "Separate tags with commas."
+msgstr ""
+
+#: app/views/memberships/new_community.rhtml:18
+msgid ""
+"Tags are important to new users, they'll be able to find your new community "
+"more easily."
 msgstr ""
 
 #: app/views/memberships/new_community.rhtml:21
@@ -4934,7 +4957,7 @@ msgid ""
 "add here the activation code that was sent."
 msgstr ""
 
-#: app/views/profile_editor/index.rhtml:71
+#: app/views/profile_editor/index.rhtml:72
 msgid "Enterprise activation code"
 msgstr ""
 
@@ -6370,4 +6393,36 @@ msgstr ""
 
 #: lib/zen3_terminology.rb:81
 msgid "Organization Info and settings"
+msgstr ""
+
+#: lib/zen3_terminology.rb:82
+msgid "Choose the groups you want to join and/or create your own."
+msgstr ""
+
+#: lib/zen3_terminology.rb:83
+msgid "New group"
+msgstr ""
+
+#: lib/zen3_terminology.rb:84
+msgid ""
+"Tags are important to new users, they'll be able to find your new group more "
+"easily."
+msgstr ""
+
+#: public/500.html.erb:25
+msgid "Temporary system problem"
+msgstr ""
+
+#: public/500.html.erb:27
+msgid ""
+"Our technical team is working on it, please try again later. Sorry for the "
+"inconvenience."
+msgstr ""
+
+#: public/503.html.erb:26
+msgid "System maintainance"
+msgstr ""
+
+#: public/503.html.erb:28
+msgid "This system is under maintainance. It should be back in a few hours."
 msgstr ""

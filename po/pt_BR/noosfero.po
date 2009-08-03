@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.19.0\n"
-"POT-Creation-Date: 2009-08-03 13:06-0300\n"
-"PO-Revision-Date: 2009-08-03 13:20-0300\n"
+"POT-Creation-Date: 2009-08-03 19:42-0300\n"
+"PO-Revision-Date: 2009-08-03 19:44-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -627,7 +627,7 @@ msgstr "Empreendimentos"
 #: app/helpers/assets_helper.rb:11
 #: app/controllers/public/search_controller.rb:136
 #: app/controllers/public/search_controller.rb:210
-#: app/views/search/communities.rhtml:1 app/views/profile/_person.rhtml:50
+#: app/views/search/communities.rhtml:4 app/views/profile/_person.rhtml:50
 #: app/views/content_viewer/_person.rhtml:50
 #: app/views/layouts/application-ng.rhtml:94
 msgid "Communities"
@@ -880,9 +880,10 @@ msgstr "Clique, escreva e pressione enter para pesquisar"
 #: app/helpers/application_helper.rb:580 app/models/link_list_block.rb:19
 #: app/views/profile_members/add_members.rhtml:5
 #: app/views/search/_sellers_form.rhtml:21
-#: app/views/search/_search_form.rhtml:19 app/views/search/communities.rhtml:9
-#: app/views/search/articles.rhtml:10 app/views/search/people.rhtml:10
-#: app/views/home/index.rhtml:56 app/views/region_validators/region.rhtml:23
+#: app/views/search/_search_form.rhtml:19
+#: app/views/search/communities.rhtml:13 app/views/search/articles.rhtml:10
+#: app/views/search/people.rhtml:10 app/views/home/index.rhtml:56
+#: app/views/region_validators/region.rhtml:23
 msgid "Search"
 msgstr "Busca"
 
@@ -957,7 +958,7 @@ msgstr ""
 "O idioma que você escolher aqui será usado para opções, botões, etc. Ele não "
 "afeta o idioma do conteúdo criado por outros usuários."
 
-#: app/helpers/forms_helper.rb:34 app/models/link_list_block.rb:8
+#: app/helpers/forms_helper.rb:35 app/models/link_list_block.rb:8
 #: app/views/admin_panel/message_for_disabled_enterprise.rhtml:11
 #: app/views/admin_panel/site_info.rhtml:13
 #: app/views/shared/_select_categories.rhtml:22
@@ -974,23 +975,23 @@ msgstr ""
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: app/helpers/forms_helper.rb:64
+#: app/helpers/forms_helper.rb:65
 msgid "Select the State"
 msgstr "Selecione o Estado"
 
-#: app/helpers/forms_helper.rb:65
+#: app/helpers/forms_helper.rb:66
 msgid "Select the City"
 msgstr "Selecione a Cidade"
 
-#: app/helpers/forms_helper.rb:88
+#: app/helpers/forms_helper.rb:89
 msgid "State:"
 msgstr "Estado:"
 
-#: app/helpers/forms_helper.rb:91
+#: app/helpers/forms_helper.rb:92
 msgid "City:"
 msgstr "Cidade:"
 
-#: app/helpers/forms_helper.rb:105
+#: app/helpers/forms_helper.rb:106
 msgid ""
 "The <label class='pseudoformlabel'>highlighted</label> fields are mandatory."
 msgstr ""
@@ -1229,23 +1230,23 @@ msgstr "Nome ou senha incorreto"
 msgid "Thanks for signing up!"
 msgstr "Obrigado por se registrar!"
 
-#: app/controllers/public/account_controller.rb:104
+#: app/controllers/public/account_controller.rb:106
 msgid "You have been logged out."
 msgstr "Você saiu do sistema."
 
-#: app/controllers/public/account_controller.rb:115
+#: app/controllers/public/account_controller.rb:117
 msgid "Your password has been changed successfully!"
 msgstr "Sua senha foi alterada com sucesso!"
 
-#: app/controllers/public/account_controller.rb:118
+#: app/controllers/public/account_controller.rb:120
 msgid "The supplied current password is incorrect."
 msgstr "A senha informada está incorreta"
 
-#: app/controllers/public/account_controller.rb:220
+#: app/controllers/public/account_controller.rb:222
 msgid "Available!"
 msgstr "Disponível!"
 
-#: app/controllers/public/account_controller.rb:223
+#: app/controllers/public/account_controller.rb:225
 msgid "Unavailable!"
 msgstr "Não disponível!"
 
@@ -1438,6 +1439,7 @@ msgid "user"
 msgstr "usuário"
 
 #: app/models/user.rb:- app/models/user.rb:18 app/models/change_password.rb:21
+#: app/views/friends/invite.rhtml:31
 msgid "Username"
 msgstr "Nome de usuário"
 
@@ -2326,9 +2328,9 @@ msgstr "Acima Vermelho"
 msgid "Ok"
 msgstr "Ok"
 
-#: app/models/link_list_block.rb:21 app/views/friends/invite.rhtml:31
-#: app/views/shared/user_menu.rhtml:67 app/views/account/login_block.rhtml:4
-#: app/views/account/login.rhtml:3 app/views/layouts/application-ng.rhtml:67
+#: app/models/link_list_block.rb:21 app/views/shared/user_menu.rhtml:67
+#: app/views/account/login_block.rhtml:4 app/views/account/login.rhtml:3
+#: app/views/layouts/application-ng.rhtml:67
 msgid "Login"
 msgstr "Entrar"
 
@@ -3120,23 +3122,31 @@ msgstr "Passo 2 de 2: Selecionando Amigos"
 msgid "Indicate which friends you want to invite."
 msgstr "Indique quais amigos você quer convidar."
 
-#: app/views/friends/invite.rhtml:57
+#: app/views/friends/invite.rhtml:53
+msgid "Import now your contacts from %s, %s or %s"
+msgstr "Importe agora seus contatos do %s, %s ou %s"
+
+#: app/views/friends/invite.rhtml:56
+msgid "or"
+msgstr "ou"
+
+#: app/views/friends/invite.rhtml:66
 msgid "Enter one e-mail address per line:"
 msgstr "Digite um endereço de e-mail por linha:"
 
-#: app/views/friends/invite.rhtml:61
+#: app/views/friends/invite.rhtml:71
 msgid "Check all"
 msgstr "Marcar todos"
 
-#: app/views/friends/invite.rhtml:62
+#: app/views/friends/invite.rhtml:72
 msgid "Uncheck all"
 msgstr "Desmarcar todos"
 
-#: app/views/friends/invite.rhtml:78
+#: app/views/friends/invite.rhtml:88
 msgid "Personalize invitation message"
 msgstr "Personalize a mensagem de convite"
 
-#: app/views/friends/invite.rhtml:83
+#: app/views/friends/invite.rhtml:93
 msgid ""
 "Now enter an invitation message. You must keep the <url> code in your "
 "invitation message. When your friends receive the invitation e-mail, <url> "
@@ -3150,17 +3160,13 @@ msgstr ""
 "<user> e <friend> serão substituídos por seu nome e do amigo, mas são "
 "opcionais."
 
-#: app/views/friends/invite.rhtml:84
+#: app/views/friends/invite.rhtml:94
 msgid "Invitation message:"
 msgstr "Mensagem de convite:"
 
-#: app/views/friends/invite.rhtml:88
+#: app/views/friends/invite.rhtml:98
 msgid "Invite my friends!"
 msgstr "Convidar meus amigos!"
-
-#: app/views/friends/invite.rhtml:93
-msgid "Import now your contacts from %s, %s or %s"
-msgstr "Importe agora seus contatos do %s, %s ou %s"
 
 #: app/views/profile_members/unassociate.rhtml:1
 #: app/views/profile_members/add_member.rhtml:1
@@ -3512,7 +3518,7 @@ msgstr "Infelizmente este empreendimento não pode ser ativado pelo sistema."
 
 #: app/views/account/blocked.rhtml:6
 msgid ""
-"There was a failed atempt of activation and the automated acivation was "
+"There was a failed atempt of activation and the automated activation was "
 "disabled for your security."
 msgstr ""
 "Houve uma tentativa falha de ativação e a ativação automática foi desativada "
@@ -3718,8 +3724,12 @@ msgid "Insert your login"
 msgstr "Insira seu login"
 
 #: app/views/account/_signup_form.rhtml:40
-msgid "Choose a password that you can remember easily."
-msgstr "Escolha uma senha fácil de ser lembrada por você."
+msgid ""
+"Choose a password that you can remember easily. It must have at least 4 "
+"characters."
+msgstr ""
+"Escolha uma senha fácil de ser lembrada por você. Ela deve ter ao menos 4 "
+"caracteres."
 
 #: app/views/account/_signup_form.rhtml:45
 msgid "To confirm, repeat your password."
@@ -3820,8 +3830,11 @@ msgstr ""
 "que entrar em contato com os administradores do %s por email ou telefone."
 
 #: app/views/account/activation_question.rhtml:33
-msgid "What year your enterprise was founded?"
-msgstr "Qual o ano de fundação do seu empreendimento?"
+msgid ""
+"What year your enterprise was founded? It must have 4 digits, eg 1990. %s"
+msgstr ""
+"Qual o ano de fundação do seu empreendimento? Ele deve ter 4 dígitos, ex. "
+"1990. %s"
 
 #: app/views/account/activation_question.rhtml:33
 msgid "What is the CNPJ of your enterprise?"
@@ -4090,7 +4103,7 @@ msgstr "Destacar este artigo"
 msgid "Categorize your article"
 msgstr "Categorize seu artigo"
 
-#: app/views/cms/edit.rhtml:32 app/views/memberships/new_community.rhtml:18
+#: app/views/cms/edit.rhtml:32
 msgid "Separate tags with commas"
 msgstr "Separe os marcadores com vírgulas"
 
@@ -4324,7 +4337,7 @@ msgstr ""
 msgid "Products and Services"
 msgstr "Produtos e Serviços"
 
-#: app/views/search/products.rhtml:10 app/views/search/communities.rhtml:9
+#: app/views/search/products.rhtml:10 app/views/search/communities.rhtml:13
 #: app/views/search/articles.rhtml:10 app/views/search/index.rhtml:5
 #: app/views/search/people.rhtml:10 app/views/search/enterprises.rhtml:16
 msgid "Refine your search"
@@ -4374,12 +4387,16 @@ msgstr "Última atualização: %s."
 msgid "No City"
 msgstr "Sem Cidade"
 
-#: app/views/search/communities.rhtml:12
+#: app/views/search/communities.rhtml:2
+msgid "Hello %s, now you can choose yours groups"
+msgstr "Olá %s, agora você pode escolher os seus grupos"
+
+#: app/views/search/communities.rhtml:16
 msgid "Choose the communities you want to join and/or create your own."
 msgstr ""
 "Escolha as comunidades que você deseja participar e/ou crie a sua própria."
 
-#: app/views/search/communities.rhtml:25
+#: app/views/search/communities.rhtml:29
 msgid "New community"
 msgstr "Nova comunidade"
 
@@ -4689,7 +4706,7 @@ msgid "Remove the enterprise from the system"
 msgstr "Excluir o empreendimento do sistema"
 
 #: app/views/enterprise_editor/index.rhtml:17
-#: app/views/profile_editor/index.rhtml:72
+#: app/views/profile_editor/index.rhtml:73
 msgid "Activate"
 msgstr "Ativar"
 
@@ -4736,6 +4753,18 @@ msgstr "Sim, quero remover."
 #: app/views/memberships/new_community.rhtml:1
 msgid "Creating new community"
 msgstr "Criando nova comunidade"
+
+#: app/views/memberships/new_community.rhtml:18
+msgid "Separate tags with commas."
+msgstr "Separe os marcadores com vírgulas."
+
+#: app/views/memberships/new_community.rhtml:18
+msgid ""
+"Tags are important to new users, they'll be able to find your new community "
+"more easily."
+msgstr ""
+"Tags são importantes para novos usuários, ele encontrarão a sua comunidade "
+"mais facilmente."
 
 #: app/views/memberships/new_community.rhtml:21
 #: app/views/profile_editor/edit.rhtml:12 app/views/categories/_form.rhtml:27
@@ -5097,7 +5126,7 @@ msgstr ""
 "Se você recebeu uma carta com informações sobre a ativação do seu "
 "empreendimento, coloqueo aqui o código de ativação recebido."
 
-#: app/views/profile_editor/index.rhtml:71
+#: app/views/profile_editor/index.rhtml:72
 msgid "Enterprise activation code"
 msgstr "Código de Ativação do empreendimento"
 
@@ -6603,35 +6632,38 @@ msgstr "Validação de Organização"
 msgid "Organization Info and settings"
 msgstr "Informações e Configurações da Organização"
 
-#~ msgid "Template updated successfully"
-#~ msgstr "Modelo atualizado com sucesso"
+#: lib/zen3_terminology.rb:82
+msgid "Choose the groups you want to join and/or create your own."
+msgstr "Escolha os grupos que você deseja participar e/ou crie o seu próprio."
 
-#~ msgid "Could not update template"
-#~ msgstr "Não pôde atualizar modelo"
+#: lib/zen3_terminology.rb:83
+msgid "New group"
+msgstr "Novo grupo"
 
-#~ msgid "%{fn} of uploaded file was larger than the maximum size of %s"
-#~ msgstr "%{fn} do arquivo enviado é maior que o máximo permitido de %s"
+#: lib/zen3_terminology.rb:84
+msgid ""
+"Tags are important to new users, they'll be able to find your new group more "
+"easily."
+msgstr ""
+"Tags são importantes para novos usuários, eles vão encontrar o seu grupo "
+"mais facilmente."
 
-#~ msgid "Missing"
-#~ msgstr "Faltando"
+#: public/500.html.erb:25
+msgid "Temporary system problem"
+msgstr "Problema temporário no sistema"
 
-#~ msgid "Manage Templates"
-#~ msgstr "Gerenciar Modelos"
+#: public/500.html.erb:27
+msgid ""
+"Our technical team is working on it, please try again later. Sorry for the "
+"inconvenience."
+msgstr ""
+"Nossa equipe técnica está trabalhando nele, por favor tente mais tarde. "
+"Perdoe o incoveniente. "
 
-#~ msgid "Set Templates"
-#~ msgstr "Definir Modelos"
+#: public/503.html.erb:26
+msgid "System maintainance"
+msgstr "Manutenção do sistema"
 
-#~ msgid "Person Template"
-#~ msgstr "Modelo de Pessoa"
-
-#~ msgid "Community Template"
-#~ msgstr "Modelo de Comunidade"
-
-#~ msgid "Enterprise Template"
-#~ msgstr "Modelo de Empreendimento"
-
-#~ msgid "Listing Members"
-#~ msgstr "Listando Integrantes"
-
-#~ msgid "Affiliate yourself"
-#~ msgstr "Afiliar-se"
+#: public/503.html.erb:28
+msgid "This system is under maintainance. It should be back in a few hours."
+msgstr "Este sistema está em manutenção. Ele deve estar de volta em algumas horas."

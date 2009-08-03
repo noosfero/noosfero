@@ -16,7 +16,7 @@ task :updatepo do
   GetText::RubyParser::ID << '__'
   GetText::RubyParser::PLURAL_ID << 'n__'
   GetText::ActiveRecordParser.init(:use_classname => false)
-  GetText.update_pofiles(Noosfero::PROJECT, Dir.glob("{app,lib,public/designs}/**/*.{rb,rhtml}"),
+  GetText.update_pofiles(Noosfero::PROJECT, Dir.glob("{app,lib,public/designs}/**/*.{rb,rhtml}") + Dir.glob('public/*.html.erb'),
                          "#{Noosfero::PROJECT} #{Noosfero::VERSION}")
 end
 
