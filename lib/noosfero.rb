@@ -15,6 +15,11 @@ module Noosfero
     def available_locales
       @available_locales ||= (Dir.glob(File.join(RAILS_ROOT, 'locale', '*')).map { |f| File.basename(f) }.select {|item| locales.include?(item) })
     end
+    def each_locale
+      locales.keys.sort.each do |key|
+        yield(key, locales[key])
+      end
+    end
   end
 
   def self.identifier_format

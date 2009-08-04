@@ -20,7 +20,7 @@
         &nbsp;
       </div>
     </div>
-    <% Noosfero.locales.each do |language_code,language_name| %>
+    <% Noosfero.each_locale do |language_code,language_name| %>
       <% GetText.locale = language_code %>
       <div id='<%= language_code %>' style='display: none' class='message'>
         <h1><%= _('System maintainance') %></h1>
@@ -30,7 +30,7 @@
       </div>
     <% end %>
     <div id='languages'>
-      <% Noosfero.locales.each do |language_code,language_name| %>
+      <% Noosfero.each_locale do |language_code,language_name| %>
         <a href="javascript: display_error_message('<%= language_code %>')"><%= language_name %></a>
       <% end %>
     </div>
