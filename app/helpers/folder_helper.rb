@@ -4,7 +4,7 @@ module FolderHelper
     content_tag(
       'table',
       content_tag('tr', content_tag('th', _('Title')) + content_tag('th', _('Last update'))) +
-      articles.map {|item| display_article_in_listing(item, recursive, 0)}.join('')
+      articles.select { |item| item.public? }.map {|item| display_article_in_listing(item, recursive, 0)}.join('')
     )
   end
 
