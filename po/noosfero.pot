@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.19.0\n"
-"POT-Creation-Date: 2009-08-03 19:42-0300\n"
+"POT-Creation-Date: 2009-08-04 14:28-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2958,7 +2958,7 @@ msgstr ""
 #: app/views/profile/favorite_enterprises.rhtml:13
 #: app/views/profile/communities.rhtml:19 app/views/profile/members.rhtml:13
 #: app/views/profile/friends.rhtml:22 app/views/profile/enterprises.rhtml:13
-#: app/views/content_viewer/view_page.rhtml:73
+#: app/views/content_viewer/view_page.rhtml:73 public/500.html.erb:30
 msgid "Go back"
 msgstr ""
 

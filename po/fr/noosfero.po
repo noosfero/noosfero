@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-03 19:42-0300\n"
-"PO-Revision-Date: 2009-08-03 19:49-0300\n"
-"Last-Translator: Raphael Rousseau <pootle.colivre.coop.br@r4f.org>\n"
+"POT-Creation-Date: 2009-08-04 14:28-0300\n"
+"PO-Revision-Date: 2009-04-23 09:11-0300\n"
+"Last-Translator: Raphael Rousseau <raph@r4f.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -168,7 +168,6 @@ msgid "Astronomy"
 msgstr "Astronomie"
 
 #: app/helpers/profile_editor_helper.rb:13
-#, fuzzy
 msgid "Librarianship"
 msgstr "Bibliothécaire"
 
@@ -397,7 +396,6 @@ msgid "Chemistry"
 msgstr "Chimie"
 
 #: app/helpers/profile_editor_helper.rb:70
-#, fuzzy
 msgid "Health"
 msgstr "Santé"
 
@@ -474,9 +472,8 @@ msgid "Elementary School"
 msgstr "École primaire"
 
 #: app/helpers/profile_editor_helper.rb:95
-#, fuzzy
 msgid "Concluded"
-msgstr "Conclu"
+msgstr "Achevé"
 
 #: app/helpers/profile_editor_helper.rb:96
 msgid "Incomplete"
@@ -523,7 +520,6 @@ msgid "Location: "
 msgstr "Localisation : "
 
 #: app/helpers/search_helper.rb:62
-#, fuzzy
 msgid "Address: "
 msgstr "Adresse :"
 
@@ -536,7 +532,6 @@ msgid "Distance: "
 msgstr "Distance :"
 
 #: app/helpers/search_helper.rb:83
-#, fuzzy
 msgid "Price: "
 msgstr "Prix :"
 
@@ -545,7 +540,6 @@ msgid "Provider: "
 msgstr "Fournisseur : "
 
 #: app/helpers/search_helper.rb:89
-#, fuzzy
 msgid "Category: "
 msgstr "Catégorie :"
 
@@ -573,7 +567,7 @@ msgstr "Cet article doit être publié (visible par d'autres)"
 
 #: app/helpers/folder_helper.rb:50 app/helpers/article_helper.rb:26
 msgid "I want this article to display the number of hits it received"
-msgstr ""
+msgstr "Je veux que cet article affiche le nombre de visites qu'il a reçues"
 
 #: app/helpers/folder_helper.rb:57 app/helpers/article_helper.rb:32
 #: app/views/tasks/_approve_article.rhtml:1
@@ -581,9 +575,8 @@ msgid "New article"
 msgstr "Nouvel article"
 
 #: app/helpers/folder_helper.rb:61
-#, fuzzy
 msgid "Edit folder"
-msgstr "Éditer le profil"
+msgstr "Éditer le dossier"
 
 #: app/helpers/display_helper.rb:4
 msgid "No product"
@@ -750,7 +743,7 @@ msgstr "Éditer"
 
 #: app/helpers/boxes_helper.rb:204
 msgid "Toggle block visibility"
-msgstr ""
+msgstr "Basculer la visibilité du bloc"
 
 #: app/helpers/boxes_helper.rb:205
 msgid "Remove block"
@@ -858,8 +851,8 @@ msgstr ""
 #, fuzzy
 msgid "1 member"
 msgid_plural "%s members"
-msgstr[0] "Ôter le membre"
-msgstr[1] "Ôter le membre"
+msgstr[0] "Nouveau membre"
+msgstr[1] "Nouveau membre"
 
 #: app/helpers/application_helper.rb:509
 #: app/views/content_viewer/view_page.rhtml:92
@@ -1174,21 +1167,20 @@ msgid ""
 "Please fill your personal information below in order to get your mailbox "
 "approved by one of the administrators"
 msgstr ""
+"Remplissez vos informations personnelles ci-dessous pour que votre boite aux "
+"lettres soit approuvée par un des administrateurs"
 
 #: app/controllers/my_profile/mailconf_controller.rb:26
-#, fuzzy
 msgid "e-Mail was not enabled successfully."
-msgstr "Fonctionnalités mises à jour avec succès."
+msgstr "L'e-mail n'a pas pu être activé."
 
 #: app/controllers/my_profile/mailconf_controller.rb:33
-#, fuzzy
 msgid "e-Mail disabled successfully."
-msgstr "Fonctionnalités mises à jour avec succès."
+msgstr "L'e-mail a bien été désactivé."
 
 #: app/controllers/my_profile/mailconf_controller.rb:36
-#, fuzzy
 msgid "e-Mail was not disabled successfully."
-msgstr "Fonctionnalités mises à jour avec succès."
+msgstr "L'e-mail n'a pas pu être désactivé."
 
 #: app/controllers/my_profile/memberships_controller.rb:36
 msgid "%s was destroyed!"
@@ -1203,22 +1195,24 @@ msgid ""
 "There was an error while looking for your contact list. Did you enter "
 "correct login and password?"
 msgstr ""
+"Une erreur s'est produite lors de la recherche de votre liste de contacts. "
+"Avez-vous entré un identifiant et un mot de passe corrects ?"
 
 #: app/controllers/my_profile/friends_controller.rb:60
 msgid "&lt;url&gt; is needed in invitation message."
-msgstr ""
+msgstr "&lt;url&gt; est nécessaire dans le message d'invitation."
 
 #: app/controllers/my_profile/friends_controller.rb:63
 msgid "Firstname Lastname <friend@email.com>"
-msgstr ""
+msgstr "Prenom Nom <votre-contact@hebergeur.net>"
 
 #: app/controllers/my_profile/friends_controller.rb:84
 msgid "Your invitations have been sent."
-msgstr ""
+msgstr "Votre invitation a été envoyée."
 
 #: app/controllers/my_profile/friends_controller.rb:92
 msgid "Please enter a valid email address."
-msgstr ""
+msgstr "Entrez une adresse e-mail valide SVP."
 
 #: app/controllers/public/search_controller.rb:209
 msgid "Upcoming events"
@@ -1277,6 +1271,8 @@ msgid ""
 "You are not allowed to view this content. You can contact the owner of this "
 "profile to request access then."
 msgstr ""
+"Vous n'êtes pas autorisé(e) à voir ce contenu. Vous pouvez contacter son "
+"propriétaire pour lui en demander l'accès. "
 
 #: app/controllers/public/content_viewer_controller.rb:111
 msgid "Comment succesfully deleted"
@@ -1315,7 +1311,7 @@ msgstr "Un bloc qui affiche des membres."
 #: app/models/members_block.rb:8
 #, fuzzy
 msgid "{#} members"
-msgstr "Les membres de %s"
+msgstr "Tous les membres"
 
 #: app/models/members_block.rb:12
 msgid "This block presents the members of a collective."
@@ -1394,7 +1390,6 @@ msgid "Contact phone"
 msgstr "Téléphone de contact"
 
 #: app/models/user.rb:-
-#, fuzzy
 msgid "Home page"
 msgstr "Accueil"
 
@@ -1403,7 +1398,6 @@ msgid "User"
 msgstr "Utilisateur"
 
 #: app/models/user.rb:- app/models/task.rb:-
-#, fuzzy
 msgid "Data"
 msgstr "Données"
 
@@ -1422,7 +1416,6 @@ msgid "Lng"
 msgstr "Longitude"
 
 #: app/models/user.rb:-
-#, fuzzy
 msgid "Geocode precision"
 msgstr "Précision geocode"
 
@@ -1451,7 +1444,6 @@ msgid "Public profile"
 msgstr "Profil public"
 
 #: app/models/user.rb:- app/views/profile_editor/_person_form.rhtml:18
-#, fuzzy
 msgid "Birth date"
 msgstr "Date de naissance"
 
@@ -1474,38 +1466,31 @@ msgid "e-Mail"
 msgstr "Courrier électronique"
 
 #: app/models/user.rb:-
-#, fuzzy
 msgid "Crypted password"
 msgstr "Mot de passe crypté"
 
 #: app/models/user.rb:-
-#, fuzzy
 msgid "Salt"
 msgstr "Sel"
 
 #: app/models/user.rb:- app/models/product.rb:-
 #: app/models/product_categorization.rb:- app/models/external_feed.rb:-
-#, fuzzy
 msgid "Updated at"
 msgstr "Mis à jour le"
 
 #: app/models/user.rb:-
-#, fuzzy
 msgid "Remember token"
 msgstr "Mémoriser le token"
 
 #: app/models/user.rb:-
-#, fuzzy
 msgid "Remember token expires at"
 msgstr "Le token mémorisé expire le"
 
 #: app/models/user.rb:- app/views/account/_signup_form.rhtml:54
-#, fuzzy
 msgid "Terms of use"
 msgstr "Conditions d'utilisation"
 
 #: app/models/user.rb:- app/models/user.rb:9
-#, fuzzy
 msgid "Terms accepted"
 msgstr "Conditions acceptées"
 
@@ -1522,13 +1507,12 @@ msgid "Password"
 msgstr "Mot de passe"
 
 #: app/models/user.rb:8
-#, fuzzy
 msgid "Password confirmation"
 msgstr "Mot de passe (confirmation)"
 
 #: app/models/user.rb:47
 msgid "[%{environment}] Welcome to %{environment} mail!"
-msgstr ""
+msgstr "[%{environment}] Message de bienvenue à %{environment} !"
 
 #: app/models/user.rb:81
 msgid "%{fn} must be checked in order to signup."
@@ -1550,7 +1534,6 @@ msgstr "Ce bloc présente quelques statistiques sur votre environnement."
 #
 # -- it is correct! :) -- terceiro
 #: app/models/environment_statistics_block.rb:21
-#, fuzzy
 msgid "One user"
 msgid_plural "%{num} users"
 msgstr[0] "Un utilisateur"
@@ -1558,7 +1541,6 @@ msgstr[1] "%{num} utilisateurs"
 
 # (second try of this knid of contents)
 #: app/models/environment_statistics_block.rb:22
-#, fuzzy
 msgid "One enterprise"
 msgid_plural "%{num} enterprises"
 msgstr[0] "Une entreprise"
@@ -1599,12 +1581,10 @@ msgid "Article"
 msgstr "Article"
 
 #: app/models/comment.rb:-
-#, fuzzy
 msgid "Author"
 msgstr "Auteur"
 
 #: app/models/comment.rb:- app/models/contact.rb:-
-#, fuzzy
 msgid "Email"
 msgstr "Adresse électronique"
 
@@ -1656,17 +1636,14 @@ msgid "domain"
 msgstr "domaine"
 
 #: app/models/domain.rb:- app/models/image.rb:- app/models/box.rb:-
-#, fuzzy
 msgid "Owner type"
 msgstr "Type de propriétaire"
 
 #: app/models/domain.rb:- app/models/image.rb:- app/models/box.rb:-
-#, fuzzy
 msgid "Owner"
 msgstr "Propriétaire"
 
 #: app/models/domain.rb:- app/models/environment.rb:-
-#, fuzzy
 msgid "Is default"
 msgstr "Est celle par défaut"
 
@@ -1687,22 +1664,18 @@ msgid "task"
 msgstr "tâche"
 
 #: app/models/task.rb:-
-#, fuzzy
 msgid "Status"
 msgstr "Statut"
 
 #: app/models/task.rb:- app/views/cms/_event.rhtml:10
-#, fuzzy
 msgid "End date"
 msgstr "Date de fin"
 
 #: app/models/task.rb:-
-#, fuzzy
 msgid "Requestor"
 msgstr "Requérant"
 
 #: app/models/task.rb:-
-#, fuzzy
 msgid "Target"
 msgstr "Cible"
 
@@ -1711,9 +1684,8 @@ msgid "Code"
 msgstr "Code"
 
 #: app/models/task.rb:-
-#, fuzzy
 msgid "Target type"
-msgstr "Cible"
+msgstr "Type de cible"
 
 #: app/models/task.rb:26
 msgid "Cancelled"
@@ -1736,12 +1708,10 @@ msgid "Box"
 msgstr "Boîte"
 
 #: app/models/block.rb:- app/models/environment.rb:-
-#, fuzzy
 msgid "Settings"
 msgstr "Paramètres"
 
 #: app/models/block.rb:- app/models/box.rb:-
-#, fuzzy
 msgid "Position"
 msgstr "Position"
 
@@ -1842,7 +1812,6 @@ msgid "Organization"
 msgstr "Organisation"
 
 #: app/models/person.rb:104 app/models/enterprise.rb:11
-#, fuzzy
 msgid "Organization website"
 msgstr "Site d'organisation"
 
@@ -1856,14 +1825,13 @@ msgstr "Formation"
 
 #: app/models/person.rb:110
 msgid "Custom formation"
-msgstr "Formation sur-mesure"
+msgstr "Formation (autre)"
 
 #: app/models/person.rb:110
 msgid "Custom area of study"
-msgstr ""
+msgstr "Domaine d'étude (autre)"
 
 #: app/models/person.rb:113
-#, fuzzy
 msgid "Contact information"
 msgstr "Informations de contact"
 
@@ -1892,9 +1860,8 @@ msgid "Zip code"
 msgstr "Code postal"
 
 #: app/models/person.rb:153
-#, fuzzy
 msgid "%{fn} is already used by other user"
-msgstr "%{fn} est déjà utilisé par une autre catégorie."
+msgstr "%{fn} est déjà utilisé par un autre utilisateur."
 
 #: app/models/products_block.rb:8
 msgid "A block that displays products"
@@ -1965,17 +1932,14 @@ msgid "image"
 msgstr "image"
 
 #: app/models/image.rb:- app/models/thumbnail.rb:-
-#, fuzzy
 msgid "Parent"
 msgstr "Parent"
 
 #: app/models/image.rb:- app/models/thumbnail.rb:-
-#, fuzzy
 msgid "Content type"
 msgstr "Type de contenu"
 
 #: app/models/image.rb:- app/models/thumbnail.rb:-
-#, fuzzy
 msgid "Filename"
 msgstr "Nom de fichier"
 
@@ -1988,12 +1952,10 @@ msgid "Size"
 msgstr "Taille"
 
 #: app/models/image.rb:- app/models/thumbnail.rb:-
-#, fuzzy
 msgid "Width"
 msgstr "Largeur"
 
 #: app/models/image.rb:- app/models/thumbnail.rb:-
-#, fuzzy
 msgid "Height"
 msgstr "Hauteur"
 
@@ -2121,7 +2083,6 @@ msgid "Foundation year"
 msgstr "Année de création"
 
 #: app/models/create_enterprise.rb:10 app/models/organization.rb:68
-#, fuzzy
 msgid "Legal form"
 msgstr "Forme juridique"
 
@@ -2261,11 +2222,11 @@ msgstr "Un blog dans lequel vous pouvez mettre d'autres articles"
 
 #: app/models/email_activation.rb:10
 msgid "You have already requested activation of your mailbox."
-msgstr ""
+msgstr "Vous avez déjà demandé l'activation de votre boite à lettres."
 
 #: app/models/email_activation.rb:15
 msgid "'%{user} wants to activate email '%{email}'"
-msgstr ""
+msgstr "L'utilisateur «%{user}» veut activer l'adresse «%{email}»"
 
 #: app/models/box.rb:-
 msgid "box"
@@ -2284,9 +2245,8 @@ msgid "Restrictions"
 msgstr "Restrictions"
 
 #: app/models/add_friend.rb:21 app/models/invite_friend.rb:45
-#, fuzzy
 msgid "%s wants to be your friend."
-msgstr "%s veut être votre ami"
+msgstr "%s veut être votre contact."
 
 #: app/models/add_friend.rb:30
 msgid ""
@@ -2539,8 +2499,8 @@ msgstr "Ce bloc affiche de l'information sur votre réseau."
 #, fuzzy
 msgid "{#} enterprise"
 msgid_plural "{#} enterprises"
-msgstr[0] "Entreprises"
-msgstr[1] "Entreprises"
+msgstr[0] "entreprises"
+msgstr[1] "entreprises"
 
 #: app/models/enterprises_block.rb:8
 msgid "This block displays the enterprises where this user works."
@@ -2596,7 +2556,6 @@ msgid "Validate enterprise"
 msgstr "Valider l'entreprise"
 
 #: app/models/profile.rb:41
-#, fuzzy
 msgid "Perform task"
 msgstr "Réaliser une tâche"
 
@@ -2672,7 +2631,6 @@ msgid "environment"
 msgstr "environnement"
 
 #: app/models/environment.rb:-
-#, fuzzy
 msgid "Design data"
 msgstr "Données d'identité visuelle"
 
@@ -2771,21 +2729,20 @@ msgstr "Désactiver le menu de catégories"
 
 #: app/models/environment.rb:113
 msgid "Disable state/city select for contact form"
-msgstr ""
+msgstr "Désactiver la sélection d'état/ville pour le formulaire de contact"
 
 #: app/models/environment.rb:114
-#, fuzzy
 msgid "Disable contact for people"
-msgstr "Rechercher :"
+msgstr "Désactiver le contact pour les personnes"
 
 #: app/models/environment.rb:115
-#, fuzzy
 msgid "Disable contact for groups/communities"
-msgstr "Tous ses groupes"
+msgstr "Désactiver le contact pour les groupes"
 
 #: app/models/environment.rb:116
+#, fuzzy
 msgid "Ask users to join a group/community with a popup"
-msgstr ""
+msgstr "Désactiver la pop-up qui propos de rejoindre un groupe "
 
 #: app/models/environment.rb:118
 #, fuzzy
@@ -2811,7 +2768,7 @@ msgstr ""
 #: app/models/environment.rb:123
 #, fuzzy
 msgid "Display wizard signup"
-msgstr "Couleur d'affichage"
+msgstr "Afficher à l'inscription ?"
 
 #: app/models/environment.rb:124
 msgid "Use the portal as news source for front page"
@@ -2841,27 +2798,25 @@ msgid "Articles don't accept comments by default"
 msgstr "Cet article n'accepte pas les commentaires."
 
 #: app/models/environment.rb:131
-#, fuzzy
 msgid "Organizations have moderated publication by default"
-msgstr "info organisation"
+msgstr ""
 
 #: app/models/environment.rb:132
 #, fuzzy
 msgid "Allow organizations to change their address"
-msgstr "Activation de l'entreprise «%s»"
+msgstr "Les organisations pour lesquelles travaille cet utilisateur."
 
 #: app/models/environment.rb:378
-#, fuzzy
 msgid "Hello <friend>,"
-msgstr "Tous ses amis"
+msgstr "Bonjour <contact>,"
 
 #: app/models/environment.rb:379
 msgid "<user> is inviting you to participate on %{environment}."
-msgstr ""
+msgstr "<utilisateur> vous invite à participer à %{environment}."
 
 #: app/models/environment.rb:380
 msgid "To accept the invitation, please follow this link:"
-msgstr ""
+msgstr "Pour accepter l'invitation, prière de suivre ce lien :"
 
 #: app/models/environment.rb:473
 msgid "Only one Virtual Community can be the default one"
@@ -3010,7 +2965,7 @@ msgstr "Ce bloc présente un formulaire d'identification."
 #: app/views/admin_panel/set_portal_community.rhtml:1
 #, fuzzy
 msgid "Set Environment Portal"
-msgstr "Environnement"
+msgstr "environnement"
 
 #: app/views/admin_panel/set_portal_community.rhtml:4
 #, fuzzy
@@ -3045,7 +3000,6 @@ msgstr "Interface d'administration"
 
 # English version is wrong 'you... has' -> 'you... have'
 #: app/views/admin_panel/index.rhtml:3
-#, fuzzy
 msgid "You, as an environment administrator, has the following options:"
 msgstr ""
 "En tant qu'administrateur d'environnement, vous avez les possibilités "
@@ -3128,7 +3082,7 @@ msgstr "Voulez -vous voir d'autres personnes de cet environnement"
 #: app/views/profile/favorite_enterprises.rhtml:13
 #: app/views/profile/communities.rhtml:19 app/views/profile/members.rhtml:13
 #: app/views/profile/friends.rhtml:22 app/views/profile/enterprises.rhtml:13
-#: app/views/content_viewer/view_page.rhtml:73
+#: app/views/content_viewer/view_page.rhtml:73 public/500.html.erb:30
 msgid "Go back"
 msgstr "Retour"
 
@@ -3138,7 +3092,7 @@ msgstr "Trouver des personnes"
 
 #: app/views/friends/index.rhtml:17 app/views/friends/index.rhtml:48
 msgid "Invite people from my e-mail contacts"
-msgstr ""
+msgstr "Invitation à partir de mes contacts e-mail"
 
 #: app/views/friends/index.rhtml:27 app/views/friends/index.rhtml:30
 #: app/views/favorite_enterprises/index.rhtml:12
@@ -3152,9 +3106,8 @@ msgid "Clicking on this button will remove your friend relation with %s."
 msgstr "En cliquant sur ce bouton, vous ôterez %s de vos relations."
 
 #: app/views/friends/index.rhtml:36
-#, fuzzy
 msgid "Clicking on this button will let you send a message to %s."
-msgstr "En cliquant sur ce bouton, vous ôterez %s de vos relations."
+msgstr "En cliquant sur ce bouton, vous enverrez un message à %s."
 
 #: app/views/friends/add.rhtml:1
 msgid "Adding %s as a friend"
@@ -3208,30 +3161,30 @@ msgid "Yes, I want to remove %s from my friend list"
 msgstr "Oui, je veux retirer %s de ma liste de contacts"
 
 #: app/views/friends/invite.rhtml:1
-#, fuzzy
 msgid "Invite your friends"
-msgstr "%s veut être votre ami"
+msgstr "Invitez vos contacts"
 
 #: app/views/friends/invite.rhtml:6
 msgid "Step 1 of 1: Select address book"
-msgstr ""
+msgstr "Étape 1 sur 1 : choisissez votre carnet d'adresse"
 
 #: app/views/friends/invite.rhtml:15
-#, fuzzy
 msgid "Manually (empty field)"
-msgstr "Un groupe"
+msgstr "Manuellement (champ vide)"
 
 #: app/views/friends/invite.rhtml:38
 msgid "We won't store your password or contact anyone without your permission."
 msgstr ""
+"Ne ne stockerons votre mot de pase ni ne contacterons qui que ce soit sans "
+"votre permission."
 
 #: app/views/friends/invite.rhtml:45
 msgid "Step 2 of 2: Selecting Friends"
-msgstr ""
+msgstr "Étape 2 sur 2 : Sélection des contacts"
 
 #: app/views/friends/invite.rhtml:48
 msgid "Indicate which friends you want to invite."
-msgstr ""
+msgstr "Indiquez quels contacts vous souhaitez inviter."
 
 #: app/views/friends/invite.rhtml:53
 msgid "Import now your contacts from %s, %s or %s"
@@ -3244,20 +3197,20 @@ msgstr "travail"
 
 #: app/views/friends/invite.rhtml:66
 msgid "Enter one e-mail address per line:"
-msgstr ""
+msgstr "Entrez une adresse e-mail par ligne : "
 
 #: app/views/friends/invite.rhtml:71
 msgid "Check all"
-msgstr ""
+msgstr "Tout cocher"
 
 #: app/views/friends/invite.rhtml:72
 msgid "Uncheck all"
-msgstr ""
+msgstr "Tout décocher"
 
 #: app/views/friends/invite.rhtml:88
 #, fuzzy
 msgid "Personalize invitation message"
-msgstr "Restrictions (si fournies) :"
+msgstr "Message d'invitation "
 
 #: app/views/friends/invite.rhtml:93
 msgid ""
@@ -3267,23 +3220,26 @@ msgid ""
 "account. <user> and <friend> codes will be replaced by your name and friend "
 "name, but they are optional."
 msgstr ""
+"Maintenant, mettez votre message d'invitation. Vous devez conserver le code "
+"<url> dans votre message. Lorsque vos contacts recevrons le message "
+"d'invitation, <url> sera remplacé par un lien qu'ils devront cliquer poru "
+"activer leur compte. Les codes <user> et <friend> seront remplacés par votre "
+"nom et celui de votre contact, mais sont optionnels."
 
 #: app/views/friends/invite.rhtml:94
-#, fuzzy
 msgid "Invitation message:"
-msgstr "Restrictions (si fournies) :"
+msgstr "Message d'invitation :"
 
 #: app/views/friends/invite.rhtml:98
-#, fuzzy
 msgid "Invite my friends!"
-msgstr "Nouvel(le) ami(e)"
+msgstr "Inviter mes contacts !"
 
 #: app/views/profile_members/unassociate.rhtml:1
 #: app/views/profile_members/add_member.rhtml:1
 #: app/views/profile_members/_members_list.rhtml:1
 #, fuzzy
 msgid "Current Members"
-msgstr "Catégorie courante :"
+msgstr "Membres"
 
 #: app/views/profile_members/unassociate.rhtml:6
 #: app/views/profile_members/add_member.rhtml:6
@@ -3357,7 +3313,7 @@ msgstr "Tous les membres"
 #: app/views/profile_members/add_members.rhtml:1
 #, fuzzy
 msgid "Add members to %s"
-msgstr "Membres : %s"
+msgstr "Tous les membres"
 
 #: app/views/profile_members/_find_users.rhtml:1
 #: app/views/profile_members/find_users.rhtml:1
@@ -3375,7 +3331,7 @@ msgstr "(non renseigné)"
 #: app/views/profile_members/find_users.rhtml:17
 #, fuzzy
 msgid "Add member"
-msgstr "Ôter le membre"
+msgstr "Tous les membres"
 
 #: app/views/contact/new.rhtml:1
 msgid "Contact %s"
@@ -3461,7 +3417,7 @@ msgstr "Aller à votre page d'accueil."
 #: app/views/shared/user_menu.rhtml:23
 #, fuzzy
 msgid "My communities"
-msgstr "Groupes"
+msgstr "groupes"
 
 #: app/views/shared/user_menu.rhtml:27
 #, fuzzy
@@ -3531,6 +3487,8 @@ msgstr "Il n'existe pas une telle page : %s"
 #: app/views/shared/not_found.rhtml:4
 msgid "You may have clicked an expired link or mistyped the address."
 msgstr ""
+"Vous avez peut-être cliqué sur un lien ayant expiré ou fait une erreur dans "
+"l'adresse de la page."
 
 #: app/views/shared/not_found.rhtml:5
 msgid ""
@@ -3538,36 +3496,38 @@ msgid ""
 "someone else, it would be nice if you tell them that their link is not valid "
 "anymore."
 msgstr ""
+"Si vous avez cliqué sur un lien qui se trouvait sur un autre site, ou vous a "
+"été transmis par quelqu'un, vous seriez aimable de l'informer que son lien "
+"n'est plus valide."
 
 #: app/views/shared/not_found.rhtml:8 app/views/shared/access_denied.rhtml:13
-#, fuzzy
 msgid "Go to the site home page"
-msgstr "Aller à votre page d'accueil."
+msgstr "Aller à la page d'accueil du site"
 
 #: app/views/shared/_custom_fields.rhtml:12
 #: app/views/profile_editor/_person_form.rhtml:24
 msgid "Address (street and number)"
-msgstr ""
+msgstr "Adresse (n° et rue)"
 
 #: app/views/shared/access_denied.rhtml:3
 msgid "Access denied"
 msgstr "Accès interdit"
 
 #: app/views/shared/access_denied.rhtml:8
-#, fuzzy
 msgid "You are not allowed to view this page."
-msgstr "Vous pouvez continuer à naviguer sur cette communauté."
+msgstr "Vous n'êtes pas autorisé(e) à voir cette page."
 
 #: app/views/shared/access_denied.rhtml:9
 msgid ""
 "If you are supposed to have access to this area, you'll probably want to "
 "talk to the people responsible and ask them to give you access."
 msgstr ""
+"Si vous êtes supposé(e) avoir accès à cette zone, vous devriez sans doute en "
+"référer aux responsable et leur demander de vous y donner accès."
 
 #: app/views/shared/join_community_popup.rhtml:2
-#, fuzzy
 msgid "Do you want to join this community?"
-msgstr "Êtes-vous sûr(e) que vous voulez retirer ce commentaire ?"
+msgstr "Voulez-vous rejoindre ce groupe ?"
 
 #: app/views/shared/join_community_popup.rhtml:6
 #: app/views/shared/join_community_popup.rhtml:8
@@ -3586,14 +3546,12 @@ msgid "Yes"
 msgstr "Oui"
 
 #: app/views/shared/join_community_popup.rhtml:10
-#, fuzzy
 msgid "Not now"
-msgstr "(non renseigné)"
+msgstr "Pas maintenant"
 
 #: app/views/shared/join_community_popup.rhtml:11
-#, fuzzy
 msgid "No and don't ask again"
-msgstr "Non, je ne veux pas"
+msgstr "Non et ne me demandez plus"
 
 #: app/views/role/_form.rhtml:9
 msgid "Permissions:"
@@ -3639,15 +3597,19 @@ msgstr ""
 "Malheureusement, cette organisation ne peut être activée par le système"
 
 #: app/views/account/blocked.rhtml:6
+#, fuzzy
 msgid ""
 "There was a failed atempt of activation and the automated activation was "
 "disabled for your security."
 msgstr ""
+"Suite à un essai infructueux, l'activation automatique a été désactivée pour "
+"votre sécurité. "
 
 #: app/views/account/blocked.rhtml:8
-#, fuzzy
 msgid "We don't have enough information about your enterprise to identify you."
-msgstr "Modifier les informations concernant l'entreprise"
+msgstr ""
+"Nous n'avons pas suffisamment d'informations concernant votre entreprise "
+"pour vous identifier."
 
 #: app/views/account/blocked.rhtml:13
 msgid "Your enterprise has been blocked"
@@ -3809,30 +3771,32 @@ msgstr ""
 
 # Je ne suis pas sûr de la distinction "sign up" / "register"
 #: app/views/account/signup.rhtml:1 app/views/home/index.rhtml:2
-#, fuzzy
 msgid "Signup"
-msgstr "S'enregistrer"
+msgstr "Se connecter"
 
 #: app/views/account/_signup_form.rhtml:7
+#, fuzzy
 msgid ""
 "Dear user, welcome to the %s network. To start your participation in this "
 "space, fill in the fields below. After this operation, your login and "
 "password will be registered, allowing you to create %s and %s in this "
 "environment."
 msgstr ""
+"Cher membre, binvenue au réseau «%s». Pour engager votre participation\n"
+"à cet espace, remplissez les champs ci-dessous. Après cette opération, vos "
+"identifiant et\n"
+"mot de passe seront enregistrés, vous permettent de créer %s et %s\n"
+"dans cet environnement."
 
 #: app/views/account/_signup_form.rhtml:7
-#, fuzzy
 msgid "communities"
-msgstr "Groupes"
+msgstr "groupes"
 
 #: app/views/account/_signup_form.rhtml:7
-#, fuzzy
 msgid "enterprises"
-msgstr "Entreprises"
+msgstr "entreprises"
 
 #: app/views/account/_signup_form.rhtml:13
-#, fuzzy
 msgid ""
 "Fill all this fields to join in this environment. <p/> If you forgot your "
 "password, do not create a new account, click on the \"<b>I forgot my "
@@ -3844,7 +3808,7 @@ msgstr ""
 
 #: app/views/account/_signup_form.rhtml:25
 msgid "This e-mail address will be used to contact you."
-msgstr ""
+msgstr "Cette adresse électronique sera utilisée pour vous contacter."
 
 #: app/views/account/_signup_form.rhtml:30
 #, fuzzy
@@ -3852,15 +3816,15 @@ msgid "Insert your login"
 msgstr "Entrez votre commentaire"
 
 #: app/views/account/_signup_form.rhtml:40
+#, fuzzy
 msgid ""
 "Choose a password that you can remember easily. It must have at least 4 "
 "characters."
-msgstr ""
+msgstr "Choisissez un mot de passe dont vous pourrez vous souvenir facilement."
 
 #: app/views/account/_signup_form.rhtml:45
-#, fuzzy
 msgid "To confirm, repeat your password."
-msgstr "Confirmer votre nouveau mot de passe"
+msgstr "Confirmer votre mot de passe."
 
 #: app/views/account/_signup_form.rhtml:53
 msgid ""
@@ -3878,16 +3842,13 @@ msgstr "J'accepte les conditions d'utilisation"
 # Je ne suis pas sûr de la distinction "sign up" / "register"
 #: app/views/account/_signup_form.rhtml:76
 #: app/views/account/_signup_form.rhtml:78
-#, fuzzy
 msgid "Sign up"
-msgstr "S'enregistrer"
+msgstr "Se connecter"
 
 # 1- Verify consistency between translations.
 # 2- In English "an user" -> "a user" Cf. http://forum.wordreference.com/showthread.php?t=480322
 #
-#
 #: app/views/account/_login_form.rhtml:3 app/views/account/login.rhtml:9
-#, fuzzy
 msgid "To join on this environment, click on \"<b>I want to be an user!</b>\"."
 msgstr ""
 "Pour rejoindre cette communauté, cliquez sur  \"<b>Je rejoins cette "
@@ -3925,31 +3886,31 @@ msgstr "Maintenant, vous pouvez vous <a href='%s'>connecter</a>."
 
 #: app/views/account/activation_question.rhtml:6
 msgid "The year must be between %d and %d"
-msgstr ""
+msgstr "L'année doit être entre %d et %d"
 
 #: app/views/account/activation_question.rhtml:17
 msgid "An CNPJ have 14 digits"
-msgstr ""
+msgstr "Le code CNPJ comporte 14 chiffres"
 
 #: app/views/account/activation_question.rhtml:26
 #: app/views/account/accept_terms.rhtml:14
-#, fuzzy
 msgid "Enterprise activation"
-msgstr "Validation d'entreprises"
+msgstr "Validation de l'entreprise"
 
 #: app/views/account/activation_question.rhtml:26
 msgid "part 1 of 2"
-msgstr ""
+msgstr "partie 1 sur 2"
 
 #: app/views/account/activation_question.rhtml:26
 msgid "part 1 of 3"
-msgstr ""
+msgstr "partie 1 sur 3"
 
 #: app/views/account/activation_question.rhtml:29
 msgid "Pay atention! You have only one chance!"
-msgstr ""
+msgstr "Attention vous n'avez qu'une seule chance !"
 
 #: app/views/account/activation_question.rhtml:31
+#, fuzzy
 msgid ""
 "This is a question to know if you really are part of this enterprise. Pay "
 "atention because you have only one chance to answer right and activate your "
@@ -3957,6 +3918,12 @@ msgid ""
 "enterprise automaticaly and must get in touch with the admins of %s by email "
 "or phone."
 msgstr ""
+"C'est une question à laquelle vous devez pouvoir répondre si vous faites "
+"vraiment partie de cette entreprise. Attention : vous n'avez qu'une seule "
+"chance de donner la bonne réponse pour activer votre entreprise. Si voter "
+"réponse est fausse, vous ne pourrez pas activer votre entreprise "
+"automatiquement et devrez contacter un administrateur de %s par messagerie "
+"électronique ou par téléphone."
 
 #: app/views/account/activation_question.rhtml:33
 #, fuzzy
@@ -3974,22 +3941,20 @@ msgstr "Nous devons nous assurer qu'il s'agit bien de votre entreprise."
 
 #: app/views/account/activation_question.rhtml:39
 #: app/views/account/accept_terms.rhtml:25
-#, fuzzy
 msgid "Continue"
-msgstr "Groupes"
+msgstr "Continuer"
 
 #: app/views/account/accept_terms.rhtml:14
 msgid "part 2 of 2"
-msgstr ""
+msgstr "partie 2 sur 2"
 
 #: app/views/account/accept_terms.rhtml:14
 msgid " part 2 of 3"
-msgstr ""
+msgstr "partie 2 sur 3"
 
 #: app/views/account/accept_terms.rhtml:22
-#, fuzzy
 msgid "I read the terms of use and accepted them"
-msgstr "J'accepte les conditions d'utilisation"
+msgstr "J'ai lu les conditions d'utilisation et les accepte"
 
 #: app/views/account/index_anonymous.rhtml:1
 msgid "Identify yourself"
@@ -4028,19 +3993,20 @@ msgid "I want to participate!"
 msgstr "Je veux participer !"
 
 #: app/views/account/activate_enterprise.rhtml:2
-#, fuzzy
 msgid "Enterprise activation - part 3 of 3"
-msgstr "Validation d'entreprises"
+msgstr "Activation d'entreprise - partie 3 sur 3"
 
 #: app/views/account/activate_enterprise.rhtml:6
 msgid ""
 "Now for you manage your enterprise you have to associate an individual "
 "account to the enterprise."
 msgstr ""
+"Maintenant, pour gérer votre entreprise, vous devez associer un compte "
+"d'individu avec l'entreprise."
 
 #: app/views/account/activate_enterprise.rhtml:7
 msgid "Do you have a personal user account in the system?"
-msgstr ""
+msgstr "Avez-vous un compte personnel sur le système ?"
 
 #: app/views/account/activate_enterprise.rhtml:11
 #: app/views/profile_editor/edit.rhtml:38
@@ -4052,9 +4018,8 @@ msgid "No"
 msgstr "Non"
 
 #: app/views/account/activate_enterprise.rhtml:15
-#, fuzzy
 msgid "Personal signup form"
-msgstr "info sur la personne"
+msgstr "Formulaire d'enregistrement personnel"
 
 #: app/views/account/activate_enterprise.rhtml:17
 msgid ""
@@ -4062,31 +4027,33 @@ msgid ""
 "enterprise. So you will have a personal account that can manage your "
 "enterprise."
 msgstr ""
+"<b>Attention</b> : ce formulaire est destiné à vos informations "
+"personnelles, pas celles de votre entreprise. Ainsi vous aurez un compte "
+"personnel qui gèrera votre entreprise."
 
 #: app/views/account/activate_enterprise.rhtml:22
-#, fuzzy
 msgid "Enter you user name and password"
-msgstr "Entrez un nouveau mot de passe"
+msgstr "Entrez vos identifiant et mot de passe"
 
 #: app/views/account/welcome.rhtml:2
 msgid "Welcome to %s"
-msgstr ""
+msgstr "Bienvenue sur %s"
 
 #: app/views/account/welcome.rhtml:4
 msgid ""
 "%s was successfuly activated. Now you may go to your control panel or to the "
 "control panel of your enterprise"
 msgstr ""
+"%s a été activée. Maintenant, vous pouvez vous rendre sur le panneau de "
+"contrôle de votre entreprise."
 
 #: app/views/account/welcome.rhtml:7
-#, fuzzy
 msgid "Go to my control panel"
-msgstr "Retour au panneau de contrôle"
+msgstr "Aller sur mon panneau de contrôle"
 
 #: app/views/account/welcome.rhtml:8
-#, fuzzy
 msgid "Go to my enterprise control panel"
-msgstr "Retourner au panneau de contrôle."
+msgstr "Aller sur le panneau de contrôle de mon entreprise"
 
 #: app/views/account/already_activated.rhtml:1
 msgid "This enterprise is already active"
@@ -4152,7 +4119,7 @@ msgstr "Quitter"
 #: app/views/account/_profile_details.rhtml:16
 #, fuzzy
 msgid "Join now"
-msgstr "(non renseigné)"
+msgstr "Se joindre"
 
 #: app/views/account/invalid_enterprise_code.rhtml:1
 msgid "Invalid enterprise code"
@@ -4169,9 +4136,8 @@ msgstr ""
 #: app/views/cms/_enterprise_homepage.rhtml:3 app/views/cms/_article.rhtml:14
 #: app/views/cms/_textile_article.rhtml:7
 #: app/views/cms/_tiny_mce_article.rhtml:14
-#, fuzzy
 msgid "Text"
-msgstr "Suivant"
+msgstr "Texte"
 
 #: app/views/cms/_rss_feed.rhtml:5
 msgid "Limit of articles"
@@ -4248,9 +4214,8 @@ msgid "Describe this file:"
 msgstr "Décrivez ce document :"
 
 #: app/views/cms/_folder.rhtml:4
-#, fuzzy
 msgid "Folder type"
-msgstr "Type de propriétaire"
+msgstr "Type de dossier"
 
 #: app/views/cms/_folder.rhtml:6 app/views/cms/_blog.rhtml:9
 #: app/views/manage_products/_form.rhtml:8
@@ -4276,9 +4241,8 @@ msgstr "Nouveau dossier"
 
 #: app/views/cms/view.rhtml:10 app/views/content_viewer/view_page.rhtml:48
 #: app/views/content_viewer/view_page.rhtml:52
-#, fuzzy
 msgid "Upload files"
-msgstr "Fichier téléversé"
+msgstr "Téléverser (upload) des fichiers"
 
 #: app/views/cms/view.rhtml:13 app/views/profile_editor/edit.rhtml:81
 #: app/views/mailconf/index.rhtml:10 app/views/mailconf/index.rhtml:22
@@ -4357,9 +4321,8 @@ msgid "Choose folder to upload files:"
 msgstr "Impossible de téléverser l'image"
 
 #: app/views/cms/_upload_file_form.rhtml:17
-#, fuzzy
 msgid "More files"
-msgstr "Recherche détaillée"
+msgstr "Plus de documents"
 
 #: app/views/cms/_upload_file_form.rhtml:19
 #: app/views/cms/_upload_file_form.rhtml:21
@@ -4372,24 +4335,22 @@ msgid "Choose the type of article:"
 msgstr "Choisissez le type de l'article :"
 
 #: app/views/cms/upload_files.rhtml:3
-#, fuzzy
 msgid "This file couldn't be saved"
 msgid_plural "These %{num} files couldn't be saved"
-msgstr[0] "Les tags de cet article :"
-msgstr[1] "Les tags de cet article :"
+msgstr[0] "Ce fichier n'a pas pu être sauvegardé"
+msgstr[1] "Ces %{num} fichiers n'ont pas pu être sauvegardés"
 
 #: app/views/cms/upload_files.rhtml:4
 msgid "There were problems with the following files:"
-msgstr ""
+msgstr "Il y a un problème avec les lignes suivantes : "
 
 #: app/views/cms/upload_files.rhtml:15
 msgid "Publish media"
-msgstr ""
+msgstr "Publier le média"
 
 #: app/views/cms/upload_files.rhtml:17
-#, fuzzy
 msgid "Select the files you want to upload (max size %s):"
-msgstr "Choisissez le document que vous voulez téléverser."
+msgstr "Choisissez les documents que vous voulez téléverser (taille max %s) : "
 
 #: app/views/cms/upload_files.rhtml:18
 msgid "Documents, Images, Videos, Audio"
@@ -4398,17 +4359,15 @@ msgstr ""
 #: app/views/cms/upload_files.rhtml:20
 #, fuzzy
 msgid "Uploading files to %s"
-msgstr "Fichier téléversé"
+msgstr "Téléverser (upload) des fichiers"
 
 #: app/views/cms/destroy.rhtml:1
-#, fuzzy
 msgid "Delete: %s"
-msgstr "Détruire"
+msgstr "Détruire : %s"
 
 #: app/views/cms/destroy.rhtml:16
-#, fuzzy
 msgid "Yes, I want."
-msgstr "Oui, je veux la rejoindre."
+msgstr "Oui, je le veux."
 
 #: app/views/cms/destroy.rhtml:17
 #: app/views/memberships/destroy_community.rhtml:8
@@ -4420,21 +4379,19 @@ msgstr "Non, je ne veux pas."
 
 #: app/views/cms/_blog.rhtml:3
 msgid "My Blog"
-msgstr ""
+msgstr "Mon blog"
 
 #: app/views/cms/_blog.rhtml:11
-#, fuzzy
 msgid "Posts per page:"
-msgstr "Page d'accueil de %s"
+msgstr "Billets par page :"
 
 #: app/views/cms/_blog.rhtml:14
 msgid "Limit of posts in RSS Feed"
-msgstr ""
+msgstr "Limite de billets dans le flux RSS"
 
 #: app/views/cms/_blog.rhtml:15
-#, fuzzy
 msgid "Use as description in RSS Feed:"
-msgstr "Utiliser comme description d'élément :"
+msgstr "Utiliser comme description dans le flux RSS :"
 
 #: app/views/cms/_blog.rhtml:22
 msgid "Fetch posts from an external feed"
@@ -4468,14 +4425,15 @@ msgstr "Cher/chère %s,"
 #: app/views/task_mailer/target_notification.rhtml:1
 #: app/views/user/mailer/activation_email_notify.rhtml:1
 msgid "Hello %s,"
-msgstr ""
+msgstr "Bonjour %s,"
 
 #: app/views/task_mailer/target_notification.rhtml:5
-#, fuzzy
 msgid ""
 "Access the address below to see this and other pending actions that need "
 "your attention:"
-msgstr "Vous pouvez continuer à naviguer sur cette communauté."
+msgstr ""
+"Rendez-vous à cette adresse pour voir les autres actions en attente qui "
+"nécessitent votre attention : "
 
 #: app/views/search/products.rhtml:1
 msgid "Products and Services"
@@ -4500,7 +4458,6 @@ msgid "Search in whole site"
 msgstr "Recherche dans tout le site"
 
 #: app/views/search/_search_form.rhtml:28
-#, fuzzy
 msgid "Search within:"
 msgstr "Recherche dans :"
 
@@ -4580,7 +4537,7 @@ msgstr "Liste des vendeurs"
 #: app/views/search/_display_results.rhtml:5
 #, fuzzy
 msgid "View as icons"
-msgstr "Le contenu de ce profil est :"
+msgstr "Version"
 
 #: app/views/search/_display_results.rhtml:6
 #, fuzzy
@@ -4654,11 +4611,10 @@ msgstr[0] "Un article publié"
 msgstr[1] "%s articles publiés"
 
 #: app/views/blocks/my_network/community.rhtml:5
-#, fuzzy
 msgid "One member"
 msgid_plural "%s members"
-msgstr[0] "Ôter le membre"
-msgstr[1] "Ôter le membre"
+msgstr[0] "Un membre"
+msgstr[1] "%s membres"
 
 #: app/views/blocks/my_network/community.rhtml:7
 #: app/views/blocks/my_network/person.rhtml:8
@@ -4686,9 +4642,8 @@ msgid "Leave this community"
 msgstr "Quitter ce groupe"
 
 #: app/views/blocks/profile_info_actions/community.rhtml:10
-#, fuzzy
 msgid "Join"
-msgstr "Connexion"
+msgstr "Se joindre"
 
 #: app/views/blocks/profile_info_actions/community.rhtml:10
 msgid "Join this community"
@@ -4696,9 +4651,8 @@ msgstr "Rejoindre ce groupe"
 
 #: app/views/blocks/profile_info_actions/community.rhtml:16
 #: app/views/blocks/profile_info_actions/enterprise.rhtml:8
-#, fuzzy
 msgid "Contact us"
-msgstr "Personne de contact : "
+msgstr "Contactez-nous"
 
 #: app/views/blocks/profile_info_actions/person.rhtml:5
 msgid "Add friend"
@@ -4707,19 +4661,16 @@ msgstr "Ajouter un contact"
 #: app/views/blocks/profile_info_actions/person.rhtml:9
 #: app/views/profile/_person.rhtml:11
 #: app/views/content_viewer/_person.rhtml:11
-#, fuzzy
 msgid "Contact"
-msgstr "Personne de contact : "
+msgstr "Contact "
 
 #: app/views/blocks/profile_info_actions/enterprise.rhtml:4
-#, fuzzy
 msgid "Add as favorite"
-msgstr "Ajouter un ami"
+msgstr "Ajouter comme favori"
 
 #: app/views/blocks/profile_info_actions/enterprise.rhtml:4
-#, fuzzy
 msgid "Add enterprise as favorite"
-msgstr "Toutes les entreprises"
+msgstr "Ajouter cette entreprise comme favorite"
 
 #: app/views/home/index.rhtml:6
 #, fuzzy
@@ -4829,7 +4780,6 @@ msgstr "Activité économique"
 
 # First & only occurrence of the term Entity
 #: app/views/enterprise_editor/_form.rhtml:22
-#, fuzzy
 msgid "Validation Entity"
 msgstr "Entité de validation"
 
@@ -4878,7 +4828,6 @@ msgstr "Activer une entreprise approuvée"
 
 # No 's' to "information" in English (like for "data")
 #: app/views/enterprise_editor/edit.rhtml:3
-#, fuzzy
 msgid "Edit enterprise informations"
 msgstr "Éditer les informations sur l'entreprise"
 
@@ -4917,7 +4866,6 @@ msgid "Yes, I want to remove."
 msgstr "Oui, je veux le quitter."
 
 #: app/views/memberships/new_community.rhtml:1
-#, fuzzy
 msgid "Creating new community"
 msgstr "Créer un nouveau groupe"
 
@@ -4969,15 +4917,13 @@ msgstr "Créer"
 
 #: app/views/user/mailer/activation_email_notify.rhtml:3
 msgid "Your email %s was just activated."
-msgstr ""
+msgstr "Votre adresse e-mail %s vient d'être activée"
 
 #: app/views/user/mailer/activation_email_notify.rhtml:5
-#, fuzzy
 msgid "You can access your e-mail from anywhere, using the following address:"
 msgstr ""
-"Pour modifier votre mot de passe, veuillez visiter l'adresse suivante :\n"
-"\n"
-"%s"
+"Vous pouvez accéder à votre e-mail de n'importe où en utilisant l'adresse "
+"suivante :"
 
 #: app/views/favorite_enterprises/index.rhtml:3
 msgid "%s's favorite enteprises"
@@ -5078,9 +5024,8 @@ msgid "Here are all <b>%s</b>'s friends."
 msgstr "Voici tous les contacts de <b>%s</b>."
 
 #: app/views/profile/friends.rhtml:20
-#, fuzzy
 msgid "Manage my friends"
-msgstr "Gérer les amis"
+msgstr "Gérer mes amis"
 
 #: app/views/profile/leave.rhtml:1
 msgid "Leaving %s"
@@ -5229,24 +5174,23 @@ msgid "Process requests"
 msgstr "Gérer les requêtes"
 
 #: app/views/profile_editor/index.rhtml:6
-#, fuzzy
 msgid "Control Panel"
 msgstr "Panneau de contrôle"
 
 #: app/views/profile_editor/index.rhtml:13
 #, fuzzy
 msgid "Profile Info and settings"
-msgstr "Région"
+msgstr "Informations et paramètres"
 
 #: app/views/profile_editor/index.rhtml:14
 #, fuzzy
 msgid "Community Info and settings"
-msgstr "Région"
+msgstr "Informations et paramètres"
 
 #: app/views/profile_editor/index.rhtml:15
 #, fuzzy
 msgid "Enterprise Info and settings"
-msgstr "Région"
+msgstr "Informations et paramètres"
 
 #: app/views/profile_editor/index.rhtml:17
 msgid "Mail settings"
@@ -5269,14 +5213,12 @@ msgid "Manage Content"
 msgstr "Gérer le contenu"
 
 #: app/views/profile_editor/index.rhtml:31
-#, fuzzy
 msgid "Configure blog"
-msgstr "Créer un rôle"
+msgstr "Configurer le blog"
 
 #: app/views/profile_editor/index.rhtml:33
-#, fuzzy
 msgid "Create blog"
-msgstr "Créer un rôle"
+msgstr "Créer un blog"
 
 #: app/views/profile_editor/index.rhtml:37
 msgid "Change Password"
@@ -5316,12 +5258,11 @@ msgstr ""
 #: app/views/profile_editor/index.rhtml:72
 #, fuzzy
 msgid "Enterprise activation code"
-msgstr "Validation d'entreprises"
+msgstr "Validation de l'entreprise"
 
 #: app/views/profile_editor/edit.rhtml:1
-#, fuzzy
 msgid "Profile settings for %s"
-msgstr "Région"
+msgstr "Paramètres du profil pour %s"
 
 #: app/views/profile_editor/edit.rhtml:10
 msgid "Change picture"
@@ -5432,9 +5373,8 @@ msgid "Yes, I want to disable."
 msgstr "Oui, je veux la désactiver."
 
 #: app/views/profile_editor/_organization.rhtml:1
-#, fuzzy
 msgid "General information"
-msgstr "Informations de contact"
+msgstr "Informations générales"
 
 #: app/views/profile_editor/_organization.rhtml:16
 msgid "Display name"
@@ -5442,7 +5382,7 @@ msgstr "Afficher le nom"
 
 #: app/views/profile_editor/_organization.rhtml:19
 msgid "A short name by which the organization is know."
-msgstr ""
+msgstr "Nom court sous lequel est connue l'organisation"
 
 #: app/views/profile_editor/_organization.rhtml:48
 msgid "WARNING!"
@@ -5466,6 +5406,8 @@ msgstr "Options de modération"
 #: app/views/profile_editor/_organization.rhtml:84
 msgid "New articles posted by members of this group must be approved:"
 msgstr ""
+"Les nouveaux articles postés par les membres de ce groupe doivent être "
+"approuvés :"
 
 #: app/views/profile_editor/_organization.rhtml:90
 msgid ""
@@ -5486,25 +5428,24 @@ msgstr ""
 "toujours dépublierles articles plus tard)."
 
 #: app/views/profile_editor/_person.rhtml:1
-#, fuzzy
 msgid "Personal information"
-msgstr "Informations de contact"
+msgstr "Informations personnelles"
 
 #: app/views/profile_editor/_person_form.rhtml:3
-#, fuzzy
 msgid "Full name"
-msgstr "Nom de fichier"
+msgstr "Nom complet"
 
 #: app/views/profile_editor/_person_form.rhtml:8
 msgid ""
 "A short name by which you like to be known. Will be used in friends "
 "listings, community member listings etc."
 msgstr ""
+"Un nom court sous lequel vous serez connu. Il sera utilisé dans les listes "
+"de contacts, de membres de groupes..."
 
 #: app/views/profile_editor/_person_form.rhtml:14
-#, fuzzy
 msgid "Home phone"
-msgstr "Accueil"
+msgstr "Téléphone domicile"
 
 #: app/views/profile_editor/enable.rhtml:1
 msgid "Enabling '%s' enterprise"
@@ -5525,8 +5466,8 @@ msgstr "Les tags de cet article :"
 #: app/views/content_viewer/view_page.rhtml:67
 msgid "Viewed one time"
 msgid_plural "Viewed %{num} times"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Vu(e) une fois"
+msgstr[1] "Vu(e) %{num} fois"
 
 #: app/views/content_viewer/view_page.rhtml:99
 #, fuzzy
@@ -5543,7 +5484,7 @@ msgstr "(vide)"
 
 #: app/views/content_viewer/image_gallery.rhtml:6
 msgid "View slideshow"
-msgstr ""
+msgstr "Voir le diaporama"
 
 #: app/views/content_viewer/_comment.rhtml:6
 #, fuzzy
@@ -5582,9 +5523,8 @@ msgid "Post comment"
 msgstr "Poster votre commentaire"
 
 #: app/views/content_viewer/slideshow.rhtml:1
-#, fuzzy
 msgid "Back to gallery"
-msgstr "Galerie d'images"
+msgstr "Retour à la galerie"
 
 #: app/views/mailconf/index.rhtml:1
 msgid "e-Mail configuration"
@@ -5595,28 +5535,28 @@ msgid ""
 "You already request activation of your mailbox. Please wait until an "
 "administrator approves your request."
 msgstr ""
+"Vous avez déjà demandé l'activation de votre boîte e-mail. SVP attendez "
+"qu'un administrateur approuve votre requête."
 
 #: app/views/mailconf/index.rhtml:18
 msgid "Disable e-Mail account below:"
-msgstr ""
+msgstr "Désactiver le compte e-mail suivant :"
 
 #: app/views/mailconf/index.rhtml:21
-#, fuzzy
 msgid "Disable e-Mail"
-msgstr "Adresse e-mail"
+msgstr "Désactiver le compte e-mail"
 
 #: app/views/mailconf/index.rhtml:27
 msgid "Enable e-Mail account below:"
-msgstr ""
+msgstr "Activer le compte e-mail suivant :"
 
 #: app/views/mailconf/index.rhtml:29
 msgid "You'll be able to access a webmail from your user menu."
-msgstr ""
+msgstr "Vous pourrez accéder au webmail à partir de votre menu utilisateur."
 
 #: app/views/mailconf/index.rhtml:31
-#, fuzzy
 msgid "Enable e-Mail"
-msgstr "Adresse e-mail"
+msgstr "Activer le compte e-mail"
 
 #: app/views/layouts/application.rhtml:41
 msgid ""
@@ -5679,8 +5619,9 @@ msgid "Get Firefox Now!"
 msgstr "Obtenir Firefox maintenant !"
 
 #: app/views/layouts/application-ng.rhtml:58
+#, fuzzy
 msgid "Welcome, %s."
-msgstr ""
+msgstr "Bienvenue sur %s"
 
 #: app/views/layouts/application-ng.rhtml:58
 #, fuzzy
@@ -5698,8 +5639,9 @@ msgid "Configure the environment"
 msgstr "Profil|Environnement"
 
 #: app/views/layouts/application-ng.rhtml:63
+#, fuzzy
 msgid "Configure your personal account and content"
-msgstr ""
+msgstr "Avez-vous un compte personnel sur le système ?"
 
 #: app/views/layouts/application-ng.rhtml:65
 msgid "Leave the system"
@@ -5720,11 +5662,11 @@ msgstr ""
 
 #: app/views/layouts/slideshow.rhtml:18
 msgid "Play"
-msgstr ""
+msgstr "Play"
 
 #: app/views/layouts/slideshow.rhtml:18
 msgid "Stop"
-msgstr ""
+msgstr "Stop"
 
 #: app/views/enterprise_validation/index.rhtml:1
 msgid "Enterprise validations"
@@ -5897,8 +5839,9 @@ msgid "Custom title for this block: "
 msgstr "Titre pour ce bloc : "
 
 #: app/views/box_organizer/_feed_reader_block.rhtml:3
+#, fuzzy
 msgid "Limit of posts to display"
-msgstr ""
+msgstr "Limite de billets dans le flux RSS"
 
 #: app/views/box_organizer/_recent_documents_block.rhtml:2
 #: app/views/box_organizer/_profile_list_block.rhtml:2
@@ -5940,22 +5883,20 @@ msgstr "Choisissez le type de bloc que vous voulez ajouter à la page."
 
 # (second try of this knid of contents)
 #: app/views/features/_manage_enterprise_fields.rhtml:1
-#, fuzzy
 msgid "Manage enterprise fields"
-msgstr "Une entreprise"
+msgstr "Gérer les champs d'organisations"
 
 #: app/views/features/_manage_enterprise_fields.rhtml:7
 #: app/views/features/_manage_person_fields.rhtml:7
 #: app/views/features/_manage_community_fields.rhtml:7
-#, fuzzy
 msgid "Field"
-msgstr "Amis"
+msgstr "Champ"
 
 #: app/views/features/_manage_enterprise_fields.rhtml:9
 #: app/views/features/_manage_person_fields.rhtml:9
 #: app/views/features/_manage_community_fields.rhtml:9
 msgid "Required"
-msgstr ""
+msgstr "Obligatoire"
 
 #: app/views/features/_manage_enterprise_fields.rhtml:39
 #: app/views/features/_manage_person_fields.rhtml:45
@@ -5966,14 +5907,12 @@ msgid "Back to admin panel"
 msgstr "Retour au panneau de contrôle"
 
 #: app/views/features/_manage_person_fields.rhtml:1
-#, fuzzy
 msgid "Manage person fields"
-msgstr "Gérer les amis"
+msgstr "Gérer les champs des individus"
 
 #: app/views/features/_manage_person_fields.rhtml:10
-#, fuzzy
 msgid "Display on signup?"
-msgstr "Couleur d'affichage"
+msgstr "Afficher à l'inscription ?"
 
 #: app/views/features/index.rhtml:1
 #, fuzzy
@@ -6033,9 +5972,8 @@ msgid "Organization Approval Method"
 msgstr "Méthode d'approbation de l'organisation"
 
 #: app/views/features/_manage_community_fields.rhtml:1
-#, fuzzy
 msgid "Manage community fields"
-msgstr "Un groupe"
+msgstr "Gérer les champs des groupes"
 
 #: app/views/themes/new.rhtml:1
 msgid "Create new theme"
@@ -6126,7 +6064,6 @@ msgid "Add a CSS file"
 msgstr "Ajouter un fichier CSS"
 
 #: app/views/themes/add_css.rhtml:4
-#, fuzzy
 msgid "File name"
 msgstr "Nom de fichier"
 
@@ -6322,7 +6259,6 @@ msgid "%s wants to be a member of %s."
 msgstr "%s veut être membre de %s."
 
 #: app/views/tasks/_ticket.rhtml:1
-#, fuzzy
 msgid "Processing ticket: %s"
 msgstr "Gestion de la tâche : %s"
 
@@ -6385,48 +6321,45 @@ msgid "Classify your new friend:"
 msgstr "Classez votre nouveau contact :"
 
 #: app/views/pending_task_notifier/notification.rhtml:1
-#, fuzzy
 msgid "Dear %s"
-msgstr "Cher/chère %s,"
+msgstr "Cher/chère %s"
 
 #: app/views/pending_task_notifier/notification.rhtml:3
-#, fuzzy
 msgid "You have %d pending task(s)."
-msgstr "Vous avez des requêtes en attente"
+msgstr "Vous avez %d requête(s) en attente."
 
 #: app/views/pending_task_notifier/notification.rhtml:7
 #: app/views/pending_task_notifier/notification.rhtml:16
 msgid "Click in address below to process task(s):"
-msgstr ""
+msgstr "Cliquez sur l'adresse ci-dessous pour gérer la(les) tâche(s) : "
 
 #: app/views/pending_task_notifier/notification.rhtml:12
-#, fuzzy
 msgid "%s has %d pending task(s)."
-msgstr "Les tâches de %s en attente"
+msgstr "%s a %d tâche(s) en attente."
 
 #: app/views/comment/notifier/mail.rhtml:1
 msgid "Hi, %{recipient}!"
-msgstr ""
+msgstr "Bonjour %{recipient} !"
 
 #: app/views/comment/notifier/mail.rhtml:3
 msgid ""
 "%{sender} (%{sender_link}) created a new comment on your article \"%"
 "{article_title}\"."
 msgstr ""
+"%{sender} (%{sender_link}) a ajouté un nouveau commentaire à votre article "
+"intitulé \"%{article_title}\"."
 
 #: app/views/comment/notifier/mail.rhtml:5
-#, fuzzy
 msgid "Access the address below to view this comment:"
-msgstr "Vous pouvez continuer à naviguer sur cette communauté."
+msgstr "Accéder à ce commentaire en cliquant sur l'adresse suivante :"
 
 #: lib/unifreire_terminology.rb:9
 msgid "Institutions"
 msgstr "Institutions"
 
 #: lib/unifreire_terminology.rb:10
-#, fuzzy
 msgid "institutions"
-msgstr "Restrictions (si fournies) :"
+msgstr "institutions"
 
 #: lib/unifreire_terminology.rb:11
 msgid "The institution where this user belongs."
@@ -6513,14 +6446,12 @@ msgid "Schedule"
 msgstr "Emploi du temps"
 
 #: lib/unifreire_terminology.rb:31
-#, fuzzy
 msgid "Manage institutions fields"
-msgstr "Gérer les amis"
+msgstr "Gérer les champs d'institutions"
 
 #: lib/unifreire_terminology.rb:32
-#, fuzzy
 msgid "%s's institutions"
-msgstr "Restrictions (si fournies) :"
+msgstr "Les institutions de %s"
 
 #: lib/unifreire_terminology.rb:33
 #, fuzzy
@@ -6560,7 +6491,7 @@ msgstr "Institutions dans «%s»"
 #: lib/unifreire_terminology.rb:40
 #, fuzzy
 msgid "Institution Info and settings"
-msgstr "Région"
+msgstr "Informations et paramètres"
 
 #: lib/zen3_terminology.rb:9
 msgid "My ePortfolio"
@@ -6575,9 +6506,8 @@ msgid "Groups"
 msgstr "Groupes"
 
 #: lib/zen3_terminology.rb:12
-#, fuzzy
 msgid "groups"
-msgstr "Les groupes de %s"
+msgstr "groupes"
 
 #: lib/zen3_terminology.rb:13
 msgid "A block that displays your groups"
@@ -6588,7 +6518,6 @@ msgid "A block that displays your contacts"
 msgstr "Un bloc qui affiche vos contacts"
 
 #: lib/zen3_terminology.rb:15
-#, fuzzy
 msgid "The groups in which the user is a member"
 msgstr "Les groupes dont l'utilisateur est membre"
 
@@ -6617,9 +6546,8 @@ msgid "Organizations"
 msgstr "Organisations"
 
 #: lib/zen3_terminology.rb:22
-#, fuzzy
 msgid "organizations"
-msgstr "info organisation"
+msgstr "organisations"
 
 #: lib/zen3_terminology.rb:23
 msgid "The organizations where this user works."
@@ -6670,9 +6598,8 @@ msgid "Edit message for disabled organizations"
 msgstr "Modifier les messages pour les organisations désactivées"
 
 #: lib/zen3_terminology.rb:35
-#, fuzzy
 msgid "Add organization as favorite"
-msgstr "Éditer les informations de l'organisation"
+msgstr "Ajouter l'organisation comme préférée"
 
 #: lib/zen3_terminology.rb:36
 msgid ""
@@ -6700,7 +6627,7 @@ msgstr "Organisations dans «%s»"
 
 #: lib/zen3_terminology.rb:41
 msgid "Register a new organization"
-msgstr "Enregistrer une nouvelle organiastion"
+msgstr "Enregistrer une nouvelle organisation"
 
 #: lib/zen3_terminology.rb:42
 msgid "One contact"
@@ -6784,9 +6711,8 @@ msgid "Creating new group"
 msgstr "Créer un nouveau groupe"
 
 #: lib/zen3_terminology.rb:62
-#, fuzzy
 msgid "Do you want to join this group?"
-msgstr "Êtes-vous sûr(e) que vous voulez retirer ce commentaire ?"
+msgstr "Voulez vous rejoindre ce groupe ?"
 
 #: lib/zen3_terminology.rb:63
 #, fuzzy
@@ -6806,7 +6732,7 @@ msgstr "Déactiver la recherche d'organisations"
 #: lib/zen3_terminology.rb:66
 #, fuzzy
 msgid "Manage group fields"
-msgstr "Gérer les amis"
+msgstr "Gérer les champs des individus"
 
 #: lib/zen3_terminology.rb:67
 #, fuzzy
@@ -6825,7 +6751,7 @@ msgstr "Mes groupes"
 #: lib/zen3_terminology.rb:70
 #, fuzzy
 msgid "Group Info and Settings"
-msgstr "Région"
+msgstr "Informations et paramètres"
 
 #: lib/zen3_terminology.rb:71
 #, fuzzy
@@ -6845,7 +6771,7 @@ msgstr "%{num} organisations"
 #: lib/zen3_terminology.rb:74
 #, fuzzy
 msgid "{#} organizations"
-msgstr "info organisation"
+msgstr "organisations"
 
 #: lib/zen3_terminology.rb:75
 #, fuzzy
@@ -6875,12 +6801,12 @@ msgstr "Une organisation"
 #: lib/zen3_terminology.rb:80
 #, fuzzy
 msgid "Organization Validation"
-msgstr "info organisation"
+msgstr "InfoOrganisation|Validé"
 
 #: lib/zen3_terminology.rb:81
 #, fuzzy
 msgid "Organization Info and settings"
-msgstr "Région"
+msgstr "Informations et paramètres"
 
 #: lib/zen3_terminology.rb:82
 msgid "Choose the groups you want to join and/or create your own."
@@ -6899,20 +6825,1294 @@ msgstr ""
 
 #: public/500.html.erb:25
 msgid "Temporary system problem"
-msgstr "Problème temporaire du système"
+msgstr ""
 
 #: public/500.html.erb:27
 msgid ""
 "Our technical team is working on it, please try again later. Sorry for the "
 "inconvenience."
 msgstr ""
-"Notre équipe technique y travaille, SVP réessayer plus tard. Désolé pour le "
-"dérangement."
 
 #: public/503.html.erb:26
 msgid "System maintainance"
-msgstr "Maintenance Du Serveur"
+msgstr ""
 
 #: public/503.html.erb:28
 msgid "This system is under maintainance. It should be back in a few hours."
-msgstr "Cette plate-forme web est en maintenance. Elle sera à nouveau opérationnelle dans quelques heures."
+msgstr ""
+
+#~ msgid "Could not update the enterprise"
+#~ msgstr "Impossible de mettre à jour l'entreprise"
+
+#~ msgid "Enterprise sucessfully erased from the system"
+#~ msgstr "L'entreprise a bien été effacée du système"
+
+#~ msgid "Image successfully uploaded"
+#~ msgstr "L'image a bien été téléversée"
+
+#~ msgid "This profile does not have any public information"
+#~ msgstr "Ce profil n'a pas d'information publique"
+
+# How is this used? (which function/method?)
+#
+# this is used for displaying dates. %d is the day, %B is the month name and %Y is the year!
+#~ msgid "%d %B %Y"
+#~ msgstr "%d %B %Y"
+
+# How is this used? (By which function/method?)
+#
+# this is used to display date with time. %d is the day, %B is the month name, %Y is the year, %H is the hour and %m is the minutes.
+#~ msgid "%d %B %Y, %H:%m"
+#~ msgstr "%d %B %Y, %H:%m"
+
+#~ msgid "Block|Title"
+#~ msgstr "Bloc|Titre"
+
+#~ msgid "Block|Box"
+#~ msgstr "Bloc|Boîte"
+
+#~ msgid "Block|Type"
+#~ msgstr "Bloc|Type"
+
+#~ msgid "Block|Settings"
+#~ msgstr "Bloc|Paramètres"
+
+#~ msgid "Block|Position"
+#~ msgstr "Bloc|Position"
+
+#~ msgid "Box|Owner type"
+#~ msgstr "Boîte|Type de propriétaire"
+
+#~ msgid "Box|Owner"
+#~ msgstr "Boîte|Propriétaire"
+
+#~ msgid "Box|Position"
+#~ msgstr "Boîte|Position"
+
+#~ msgid "Consumption|Product category"
+#~ msgstr "Consommation|Catégorie de produits"
+
+#~ msgid "Consumption|Profile"
+#~ msgstr "Consommation|Profil"
+
+#~ msgid "Consumption|Aditional specifications"
+#~ msgstr "Consommation|Spécifications supplémentaires"
+
+#~ msgid "CreateEnterprise|Name"
+#~ msgstr "Créer une entreprise|Nom"
+
+#~ msgid "CreateEnterprise|Address"
+#~ msgstr "Créer une entreprise|Adresse"
+
+#~ msgid "CreateEnterprise|Contact phone"
+#~ msgstr "Créer une entreprise|Téléphone de contact"
+
+#~ msgid "CreateEnterprise|Contact person"
+#~ msgstr "Créer une entreprise|Personne de contact"
+
+#~ msgid "CreateEnterprise|Acronym"
+#~ msgstr "Créer une entreprise|Sigle"
+
+#~ msgid "CreateEnterprise|Foundation year"
+#~ msgstr "Créer une entreprise|Année de création"
+
+#~ msgid "CreateEnterprise|Legal form"
+#~ msgstr "Créer une entreprise|Forme juridique"
+
+#~ msgid "CreateEnterprise|Economic activity"
+#~ msgstr "Créer une entreprise|Activité économique"
+
+#~ msgid "CreateEnterprise|Management information"
+#~ msgstr "Créer une entreprise|Information sur les dirigeants"
+
+#~ msgid "Domain|Name"
+#~ msgstr "Domaine|Nom"
+
+#~ msgid "Domain|Owner type"
+#~ msgstr "Domaine|Type de propriétaire"
+
+#~ msgid "Domain|Owner"
+#~ msgstr "Domaine|Propriétaire"
+
+#~ msgid "person info"
+#~ msgstr "info sur la personne"
+
+#~ msgid "PersonInfo|Name"
+#~ msgstr "InfoPersonne|Nom"
+
+#~ msgid "PersonInfo|Photo"
+#~ msgstr "InfoPersonne|Photo"
+
+#~ msgid "PersonInfo|Contact information"
+#~ msgstr "InfoPersonne|Informations de contact"
+
+#~ msgid "PersonInfo|Birth date"
+#~ msgstr "InfoPersonne|Date de naissance"
+
+#~ msgid "PersonInfo|Sex"
+#~ msgstr "InfoPersonne|Sexe"
+
+#~ msgid "PersonInfo|Address"
+#~ msgstr "InfoPersonne|Adresse"
+
+#~ msgid "PersonInfo|City"
+#~ msgstr "InfoPersonne|Ville"
+
+#~ msgid "PersonInfo|State"
+#~ msgstr "InfoPersonne|État"
+
+#~ msgid "PersonInfo|Country"
+#~ msgstr "InfoPersonne|Pays"
+
+#~ msgid "PersonInfo|Created at"
+#~ msgstr "InfoPersonne|Créé le"
+
+#~ msgid "PersonInfo|Updated at"
+#~ msgstr "InfoPersonne|Mis à jour le"
+
+#~ msgid "PersonInfo|Person"
+#~ msgstr "InfoPersonne|Personne"
+
+#~ msgid "Thumbnail|Size"
+#~ msgstr "Aperçu|Taille"
+
+#~ msgid "Thumbnail|Content type"
+#~ msgstr "Aperçu|Type de contenu"
+
+#~ msgid "Thumbnail|Filename"
+#~ msgstr "Aperçu|Nom de fichier"
+
+#~ msgid "Thumbnail|Height"
+#~ msgstr "Aperçu|Hauteur"
+
+#~ msgid "Thumbnail|Width"
+#~ msgstr "Aperçu|Largeur"
+
+#~ msgid "Thumbnail|Parent"
+#~ msgstr "Aperçu|Parent"
+
+#~ msgid "Thumbnail|Thumbnail"
+#~ msgstr "Aperçu|Aperçu"
+
+#~ msgid "Profile|Name"
+#~ msgstr "Profil|Nom"
+
+#~ msgid "Profile|Type"
+#~ msgstr "Profil|Type"
+
+#~ msgid "Profile|Active"
+#~ msgstr "Profil|Actif"
+
+#~ msgid "Profile|Address"
+#~ msgstr "Profil|Adresse"
+
+#~ msgid "Profile|Contact phone"
+#~ msgstr "Profil|Téléphone de contact"
+
+#~ msgid "Profile|Home page"
+#~ msgstr "Profil|Page personnelle"
+
+#~ msgid "Profile|User"
+#~ msgstr "Profil|Utilisateur"
+
+#~ msgid "Profile|Region"
+#~ msgstr "Profil|Région"
+
+#~ msgid "Profile|Data"
+#~ msgstr "Profil|Données"
+
+#~ msgid "Profile|Created at"
+#~ msgstr "Profil|Créé le"
+
+#~ msgid "User|Login"
+#~ msgstr "Utilisateur|Identifiant"
+
+#~ msgid "User|Email"
+#~ msgstr "Utilisateur|Courriel"
+
+#~ msgid "User|Crypted password"
+#~ msgstr "Utilisateur|Mot de passe crypté"
+
+#~ msgid "User|Salt"
+#~ msgstr "Utilisateur|Sel"
+
+#~ msgid "User|Created at"
+#~ msgstr "Utilisateur|Créé le"
+
+#~ msgid "User|Updated at"
+#~ msgstr "Utilisateur|Mis à jour le"
+
+#~ msgid "User|Remember token"
+#~ msgstr "Utilisateur|Mémoriser le token"
+
+#~ msgid "User|Remember token expires at"
+#~ msgstr "Utilisateur|Le token mémorisé expire le"
+
+#~ msgid "User|Terms of use"
+#~ msgstr "Utilisateur|Conditions d'utilisation"
+
+#~ msgid "User|Terms accepted"
+#~ msgstr "Utilisateur|Conditions acceptées"
+
+#~ msgid "User|Environment"
+#~ msgstr "Utilisateur|Environnement"
+
+#~ msgid "person"
+#~ msgstr "personne"
+
+#~ msgid "Person|Name"
+#~ msgstr "Personne|Nom"
+
+#~ msgid "Person|Type"
+#~ msgstr "Personne|Type"
+
+#~ msgid "Person|Identifier"
+#~ msgstr "Personne|Identifiant"
+
+#~ msgid "Person|Environment"
+#~ msgstr "Personne|Environnement"
+
+#~ msgid "Person|Active"
+#~ msgstr "Personne|Active"
+
+#~ msgid "Person|Address"
+#~ msgstr "Personne|Adresse"
+
+#~ msgid "Person|Contact phone"
+#~ msgstr "Personne|Téléphone de contact"
+
+#~ msgid "Person|Home page"
+#~ msgstr "Personne|Page personnelle"
+
+#~ msgid "Person|User"
+#~ msgstr "Personne|Utilisateur"
+
+#~ msgid "Person|Region"
+#~ msgstr "Personne|Région"
+
+#~ msgid "Person|Data"
+#~ msgstr "Personne|Données"
+
+#~ msgid "Person|Created at"
+#~ msgstr "Personne|Crée le"
+
+#~ msgid "article"
+#~ msgstr "article"
+
+#~ msgid "Article|Name"
+#~ msgstr "Article|Nom"
+
+#~ msgid "Article|Slug"
+#~ msgstr "Article|Slug"
+
+#~ msgid "Article|Path"
+#~ msgstr "Article|Chemin"
+
+#~ msgid "Article|Parent"
+#~ msgstr "Article|Parent"
+
+#~ msgid "Article|Body"
+#~ msgstr "Article|Corps"
+
+#~ msgid "Article|Abstract"
+#~ msgstr "Article|Résumé"
+
+#~ msgid "Article|Profile"
+#~ msgstr "Article|Profil"
+
+#~ msgid "Article|Updated on"
+#~ msgstr "Article|Mis à jour le"
+
+#~ msgid "Article|Created on"
+#~ msgstr "Article|Créé le "
+
+#~ msgid "Article|Last changed by"
+#~ msgstr "Article|Modifie en dernier par"
+
+#~ msgid "Article|Version"
+#~ msgstr "Article|Version"
+
+#~ msgid "Article|Lock version"
+#~ msgstr "Article|Verrouiller la version"
+
+#~ msgid "Article|Type"
+#~ msgstr "Article|Type"
+
+#~ msgid "Article|Size"
+#~ msgstr "Article|Taille"
+
+#~ msgid "Article|Content type"
+#~ msgstr "Article|Type de contenu"
+
+#~ msgid "Article|Filename"
+#~ msgstr "Article|Nom de fichier"
+
+#~ msgid "Article|Height"
+#~ msgstr "Article|Hauteur"
+
+#~ msgid "Article|Width"
+#~ msgstr "Article|Largeur"
+
+#~ msgid "Article|Comments count"
+#~ msgstr "Article|Nombre de commentaires"
+
+#~ msgid "User|Password"
+#~ msgstr "Utilisateur|Mot de passe"
+
+#~ msgid "User|Password confirmation"
+#~ msgstr "Utilisateur|Mot de passe (confirmation)"
+
+#~ msgid "ValidationInfo|Validation methodology"
+#~ msgstr "InfoValidation|Méthode de validation"
+
+#~ msgid "ValidationInfo|Restrictions"
+#~ msgstr "InfoValidation|Restrictions"
+
+#~ msgid "ValidationInfo|Organization"
+#~ msgstr "InfoValidation|Organisation"
+
+#~ msgid "category"
+#~ msgstr "catégorie"
+
+#~ msgid "Category|Name"
+#~ msgstr "Catégorie|Nom"
+
+#~ msgid "Category|Slug"
+#~ msgstr "Category|Slug"
+
+#~ msgid "Category|Path"
+#~ msgstr "Catégorie|Chemin"
+
+#~ msgid "Category|Display color"
+#~ msgstr "Catégorie|Couleur d'affichage"
+
+#~ msgid "Category|Environment"
+#~ msgstr "Catégorie|Environnement"
+
+#~ msgid "Category|Parent"
+#~ msgstr "Catégorie|Parent"
+
+#~ msgid "Category|Type"
+#~ msgstr "Catégorie|Type"
+
+#~ msgid "%{fn} must be the same as the parents'"
+#~ msgstr "%{fn} doit être le même que celui de ses parents"
+
+#~ msgid "ProfileCategorization|Profile"
+#~ msgstr "CategorisationDeProfils|Profil"
+
+#~ msgid "ProfileCategorization|Category"
+#~ msgstr "CategorisationDeProfils|Catégorie"
+
+#~ msgid "OrganizationInfo|Organization"
+#~ msgstr "InfoOrganisation|Organisation"
+
+#~ msgid "OrganizationInfo|Contact person"
+#~ msgstr "InfoOrganisation|Personne de contact"
+
+#~ msgid "OrganizationInfo|Contact email"
+#~ msgstr "InfoOrganisation|Courriel de contact"
+
+#~ msgid "OrganizationInfo|Acronym"
+#~ msgstr "InfoOrganisation|Sigle"
+
+#~ msgid "OrganizationInfo|Foundation year"
+#~ msgstr "InfoOrganisation|Année de création"
+
+#~ msgid "OrganizationInfo|Legal form"
+#~ msgstr "InfoOrganisation|Forme juridique"
+
+#~ msgid "OrganizationInfo|Economic activity"
+#~ msgstr "InfoOrganisation|Activité économique"
+
+#~ msgid "OrganizationInfo|Management information"
+#~ msgstr "InfoOrganisation|Information sur les dirigeants"
+
+#~ msgid "Image|Owner type"
+#~ msgstr "Image|Type du propriétaire"
+
+#~ msgid "Image|Owner"
+#~ msgstr "Image|Propriétaire"
+
+#~ msgid "Image|Parent"
+#~ msgstr "Image|Parent"
+
+#~ msgid "Image|Content type"
+#~ msgstr "Image|Type de contenu"
+
+#~ msgid "Image|Filename"
+#~ msgstr "Image|Nom de fichier"
+
+#~ msgid "Image|Thumbnail"
+#~ msgstr "Image|Aperçu"
+
+#~ msgid "Image|Size"
+#~ msgstr "Image|Taille"
+
+#~ msgid "Image|Width"
+#~ msgstr "Image|Largeur"
+
+#~ msgid "Image|Height"
+#~ msgstr "Image|Hauteur"
+
+#~ msgid "ArticleCategorization|Article"
+#~ msgstr "CategorisationArticle|Article"
+
+#~ msgid "ArticleCategorization|Category"
+#~ msgstr "CategorisationArticle|Catégorie"
+
+#~ msgid "friendship"
+#~ msgstr "amitié"
+
+#~ msgid "Friendship|Person"
+#~ msgstr "Amitié|Personne"
+
+#~ msgid "Friendship|Friend"
+#~ msgstr "Amitié|Contact"
+
+#~ msgid "Friendship|Created at"
+#~ msgstr "Amitié|Créé le"
+
+#~ msgid "Friendship|Group"
+#~ msgstr "Amitié|Groupe"
+
+#~ msgid "Comment|Title"
+#~ msgstr "Commentaire|Titre"
+
+#~ msgid "Comment|Body"
+#~ msgstr "Commentaire|Corps"
+
+#~ msgid "Comment|Article"
+#~ msgstr "Commentaire|Article"
+
+#~ msgid "Comment|Author"
+#~ msgstr "Commentaire|Auteur"
+
+#~ msgid "Comment|Name"
+#~ msgstr "Commentaire|Nom"
+
+#~ msgid "Comment|Email"
+#~ msgstr "Commentaire|Adresse électronique"
+
+#~ msgid "Comment|Created on"
+#~ msgstr "Commentaire|Créé le"
+
+#~ msgid "Product|Enterprise"
+#~ msgstr "Produit|Entrprise"
+
+#~ msgid "Product|Product category"
+#~ msgstr "Produit|Catégorie de produit"
+
+#~ msgid "Product|Name"
+#~ msgstr "Produit|Nom"
+
+#~ msgid "Product|Price"
+#~ msgstr "Produit|Prix"
+
+#~ msgid "Product|Description"
+#~ msgstr "Produit|Description"
+
+#~ msgid "Product|Image"
+#~ msgstr "Produit|Image"
+
+#~ msgid "Peform task"
+#~ msgstr "Réaliser une tâche"
+
+#~ msgid "%s's home page"
+#~ msgstr "Page d'accueil de %s"
+
+#~ msgid ""
+#~ "<p>This is a default homepage created for %s. It can be changed though "
+#~ "the control panel.</p>"
+#~ msgstr ""
+#~ "<p>C'est la page d'accueil par défaut créée pour %s. Elle peut être "
+#~ "modifiée dans le panneau de contrôle.</p>"
+
+#~ msgid "Task|Data"
+#~ msgstr "Tâche|Données"
+
+#~ msgid "Task|Status"
+#~ msgstr "Tâche|Statut"
+
+#~ msgid "Task|End date"
+#~ msgstr "Tâche|Date de fin"
+
+#~ msgid "Task|Requestor"
+#~ msgstr "Tâche|Requérant"
+
+#~ msgid "Task|Target"
+#~ msgstr "Tâche|Cible"
+
+#~ msgid "Task|Code"
+#~ msgstr "Tâche|Code"
+
+#~ msgid "Task|Type"
+#~ msgstr "Tâche|Type"
+
+#~ msgid "Task|Created at"
+#~ msgstr "Tâche|Créée le "
+
+#~ msgid "The task was created at %s"
+#~ msgstr "La tâche a été créée à %s"
+
+#~ msgid "The task was finished at %s"
+#~ msgstr "La tâche a été achevée à %s"
+
+#~ msgid "The task was cancelled at %s"
+#~ msgstr "La tâche a été annulée à %s"
+
+#~ msgid "The enterprises where this user works."
+#~ msgstr "Les entreprises pour lesquelles travaille cet utilisateur."
+
+#~ msgid "All enterprises"
+#~ msgstr "Toutes les entreprises"
+
+#~ msgid "\"%s\" article"
+#~ msgstr "L'article «%s»"
+
+#~ msgid "An ordinary article"
+#~ msgstr "Un article ordinaire"
+
+#~ msgid "An article of type \"%s\""
+#~ msgstr "Un article de type «%s»"
+
+#~ msgid ""
+#~ "The tag is created when you add some one to your article. <p/>\n"
+#~ "       Try to add some tags to some articles and see your tag cloud to "
+#~ "grow."
+#~ msgstr ""
+#~ "Un tag est créé lorsque vous l'ajoutez à vote article. <p/>\n"
+#~ "       Essayer d'ajouter quelques tags à des articles et vous verrez le "
+#~ "nuage grossir."
+
+#~ msgid "Tags"
+#~ msgstr "Tags"
+
+#~ msgid "%s wants to be your friend"
+#~ msgstr "%s veut être votre contact"
+
+#~ msgid "All friends"
+#~ msgstr "Tous ses contacts"
+
+#~ msgid "The communities in which the user is a member"
+#~ msgstr "Les groupes dont l'utilisateur est membre"
+
+#~ msgid "All communities"
+#~ msgstr "Tous ses groupes"
+
+#~ msgid "Environment|Name"
+#~ msgstr "Environnement|Nom"
+
+#~ msgid "Environment|Contact email"
+#~ msgstr "Environnement|Adresse électronique de contact"
+
+#~ msgid "Environment|Is default"
+#~ msgstr "Environnement|Est celle par défaut"
+
+#~ msgid "Environment|Settings"
+#~ msgstr "Environnement|Paramètres"
+
+#~ msgid "Environment|Design data"
+#~ msgstr "Environnement|Données d'identité visuelle"
+
+#~ msgid "Other feature"
+#~ msgstr "Autres fonctionnalités"
+
+#~ msgid ""
+#~ "To change your password, please fill the form on this screen using yout "
+#~ "username and your e-mail. You will receive a message at that e-mail "
+#~ "address with a web address you can access to create a new password."
+#~ msgstr ""
+#~ "Pour modifier votre mot de passe, remplissez SVP le formulaire sur cet "
+#~ "écran en utilisant votre identifiant et votre adresse électronique. Vous "
+#~ "recevrez un message à cette adresse avec un lien vers une adresse web à "
+#~ "laquelle vous pourrez accéder pour placer un nouveau mot de passe."
+
+#~ msgid "E-mail"
+#~ msgstr "Adresse électronique"
+
+#~ msgid "I want to be an user!"
+#~ msgstr "Je rejoins cette communauté !"
+
+#~ msgid "Edit the Visual Design"
+#~ msgstr "Éditer l'apparence"
+
+#~ msgid "Catalog"
+#~ msgstr "Catalogue"
+
+#~ msgid "Select the file you want to upload."
+#~ msgstr "Choisissez le document que vous voulez téléverser."
+
+#~ msgid "Hide subitems"
+#~ msgstr "Caches les sous-éléments"
+
+#~ msgid "Show subitems"
+#~ msgstr "Afficher les sous-éléments"
+
+#~ msgid "Subitems"
+#~ msgstr "Sous-éléments"
+
+#~ msgid "New subitem"
+#~ msgstr "Nouveau sous-élément"
+
+#~ msgid "Go up one level"
+#~ msgstr "Remonter d'un niveau"
+
+#~ msgid "\"%{article}\", last changed by %{author}"
+#~ msgstr "«%{article}», modifié en dernier par last %{author}"
+
+#~ msgid "Unknown User"
+#~ msgstr "Utilisateur inconnu"
+
+#~ msgid "Public address of this article: %s"
+#~ msgstr "Adresse publique de cet article : %s"
+
+#~ msgid "Are you sure you wan to remove this article?"
+#~ msgstr "Êtes-vous sûr(e) de vouloir ôter cet article ?"
+
+#~ msgid "Listing products"
+#~ msgstr "Liste des produits"
+
+#~ msgid "Add product"
+#~ msgstr "Ajouter un produit"
+
+#~ msgid "Product:"
+#~ msgstr "Produit :"
+
+#~ msgid "Missing home page"
+#~ msgstr "Pas de page d'accueil"
+
+#~ msgid "%s did not choose an article for homepage yet."
+#~ msgstr "%s  n'a pas encore choisi d'article comme page d'accueil."
+
+#~ msgid "Click here to set your homepage now!"
+#~ msgstr "Cliquez ici pour choisir votre page d'accueil maintenant !"
+
+#~ msgid "By %{author} on %{date}"
+#~ msgstr "Par %{author} le %{date}"
+
+#~ msgid "Legal Form:"
+#~ msgstr "Forme juridique :"
+
+#~ msgid "Management infomation:"
+#~ msgstr "Information sur les dirigeants :"
+
+#~ msgid "More search options"
+#~ msgstr "Recherche détaillée"
+
+#~ msgid "Page not found"
+#~ msgstr "Page non trouvée"
+
+#~ msgid "Do you want to activate the automatic help mode?"
+#~ msgstr "Voulez-vous activer le mode d'aide automatique ?"
+
+#~ msgid ""
+#~ "If needed, you can activate or deactivate the automatic help mode by "
+#~ "clicking the question mark symbol in the top-right corner"
+#~ msgstr ""
+#~ "Si nécessaire, vous pouvez activer ou désactiver le mode d'aide "
+#~ "automatique en cliquant sur le symbole «point d'interrogation» dans le "
+#~ "coin haut-droit"
+
+#~ msgid "category:"
+#~ msgstr "Catégorie :"
+
+#~ msgid "Edit person info"
+#~ msgstr "Éditer les infos personnelles"
+
+#~ msgid "My profile"
+#~ msgstr "Mon profil"
+
+#~ msgid "Upload your picture"
+#~ msgstr "Téléversez votre image"
+
+#~ msgid "Click here to upload any image to be your picture"
+#~ msgstr "Cliquez ici pour téléverser une photo qui sera votre image"
+
+#~ msgid "Edit Profile"
+#~ msgstr "Éditer le profil"
+
+#~ msgid "Pending tasks"
+#~ msgstr "Tâches en attente"
+
+#~ msgid "Edit Visual Design"
+#~ msgstr "Éditer l'apparence"
+
+#~ msgid "Edit Categories"
+#~ msgstr "Éditer les catégories"
+
+#~ msgid "Consumed Products"
+#~ msgstr "Produits consommés"
+
+#~ msgid "Manage Products"
+#~ msgstr "Gérer les produits"
+
+#~ msgid "Listing Members"
+#~ msgstr "Liste des membres"
+
+#~ msgid "Affiliate yourself"
+#~ msgstr "Vous affilier"
+
+#~ msgid "Only in %{category}"
+#~ msgstr "Uniquement dans %{category}"
+
+#~ msgid "Whole site"
+#~ msgstr "Tout le site"
+
+#~ msgid "Recent articles"
+#~ msgstr "Articles récents"
+
+#~ msgid "Recent Comments"
+#~ msgstr "Commentaires récents"
+
+#~ msgid "I consume this"
+#~ msgstr "Je consomme ça"
+
+#~ msgid "One product in this category."
+#~ msgid_plural "%{num} products in this category."
+#~ msgstr[0] "Un produit dans cette catégorie."
+#~ msgstr[1] "%{num} produits dans cette catégorie."
+
+#~ msgid "One enterprise sells products in this category."
+#~ msgid_plural "%{num} enterprises sells products in this category."
+#~ msgstr[0] "Une entreprise vend des produits dans cette catégorie."
+#~ msgstr[1] "%{num} entreprises vendent des produits dans cette catégorie."
+
+#~ msgid "One user consumes this product."
+#~ msgid_plural "%{num} users consumes this product"
+#~ msgstr[0] "Un utilisateur consomme ce produit."
+#~ msgstr[1] "%{num} utilisateurs consomment ce produit."
+
+#~ msgid "Products under this category:"
+#~ msgstr "Produits sous cette catégorie :"
+
+#~ msgid "Price: %d"
+#~ msgstr "Prix : %d"
+
+#~ msgid "Enterprise:"
+#~ msgstr "Entreprise :"
+
+#~ msgid "Users that consumes products in this category:"
+#~ msgstr "Utilisateurs qui consomment des produits de cette catégorie :"
+
+#~ msgid "Category: %s"
+#~ msgstr "Catégorie : %s"
+
+#~ msgid "%{asset_name} in %{category}"
+#~ msgstr "%{asset_name} dans %{category}"
+
+#~ msgid "Search results for \"%{query}\" in %{category}"
+#~ msgstr "Résultats de la recherche de «%{query}» dans %{category}"
+
+#~ msgid "by %s, on \"%s\""
+#~ msgstr "par %s le %s"
+
+#~ msgid "control panel"
+#~ msgstr "panneau de contrôle"
+
+#~ msgid ""
+#~ "Click here to enter your username and password  and be recognized by the "
+#~ "system."
+#~ msgstr ""
+#~ "Cliquez ici pour entrer vos identifiant et mot de passe et être reconnu"
+#~ "(e) par le système."
+
+#~ msgid "Organizing visual design"
+#~ msgstr "Organisation du visuel"
+
+#~ msgid "%s' friends"
+#~ msgstr "Les contacts de %s"
+
+#~ msgid "Homepage: "
+#~ msgstr "Page personnelle : "
+
+#~ msgid "%s's groups"
+#~ msgstr "Les groupes de %s"
+
+#~ msgid "%s is a member of the following groups:"
+#~ msgstr "%s est membre des groupes suivants :"
+
+#~ msgid "You have no friends yet. Go make some."
+#~ msgstr "Vous n'avez pas encore de contact. Cherchez-en !"
+
+#~ msgid "edit your informations"
+#~ msgstr "Éditer vos informations"
+
+#~ msgid "Article|Updated at"
+#~ msgstr "Article|Mis à jour le "
+
+#~ msgid "Article|Created at"
+#~ msgstr "Article|Créé le "
+
+#~ msgid "Article|Advertise"
+#~ msgstr "Article|Mettre en valeur "
+
+#~ msgid "Profile|Lat"
+#~ msgstr "Profile|Latitude"
+
+#~ msgid "Profile|Lng"
+#~ msgstr "Profile|Longitude"
+
+#~ msgid "Profile|Geocode precision"
+#~ msgstr "Profile|Précision geocode"
+
+#~ msgid "Category|Lat"
+#~ msgstr "Category|Latitude"
+
+#~ msgid "Category|Lng"
+#~ msgstr "Category|Longitude"
+
+#~ msgid "All people"
+#~ msgstr "Toutes les personnes"
+
+#~ msgid "User|Username"
+#~ msgstr "User|Nom d'utilisateur"
+
+#~ msgid "User|e-Mail"
+#~ msgstr "User|Adresse électronique"
+
+#~ msgid "Comment|Created at"
+#~ msgstr "Comment|Créé le"
+
+#~ msgid "Product|Created at"
+#~ msgstr "Product|Créé le"
+
+#~ msgid "Product|Updated at"
+#~ msgstr "Product|Mis à jour le "
+
+#~ msgid "Recently registered people"
+#~ msgstr "Personnes enregistrées récemment"
+
+#~ msgid "Recently created communities"
+#~ msgstr "Groupes créés récemment"
+
+#~ msgid "Recent comments"
+#~ msgstr "Commentaires récents"
+
+#~ msgid "Change your picture"
+#~ msgstr "Modifiez votre image"
+
+#~ msgid "Edit organization info"
+#~ msgstr "Éditer les informations de l'organisation"
+
+#~ msgid "Search results for \"%{query}\" in \"%{category}\""
+#~ msgstr "Résultats de la recherche sur «%{query}» dans «%{category}»"
+
+#~ msgid "Recent"
+#~ msgstr "Récents"
+
+#~ msgid "Search for \"%s\" in the whole site"
+#~ msgstr "Recherche de «%s» dans tout le site"
+
+#~ msgid "Are you sure, you want to remove this product from your list"
+#~ msgstr "Êtes-vous sûr(e) de vouloir ôter ce produit de votre liste ?"
+
+#~ msgid "A FBES project"
+#~ msgstr "Un projet du FBES"
+
+#~ msgid "Developed by Colivre"
+#~ msgstr "Développé par Colivre"
+
+#~ msgid ""
+#~ "Ups... It seems you are using Internet Explorer.\n"
+#~ "\n"
+#~ "We are sory, but some things will not work well on this web browser for "
+#~ "now...\n"
+#~ "We propose you to use Firefox, for this web site and any other.\n"
+#~ "\n"
+#~ "Do you want to get your Firefox now?"
+#~ msgstr ""
+#~ "Aïe... Il semblerait que vous utilisez Internet Explorer\n"
+#~ "\n"
+#~ "Nous sommes désolés, mais certains éléments ne fonctionnent pas bien avec "
+#~ "ce navigateur pour le moment...\n"
+#~ "Ne vous suggérons d'utiliser Firefox, pour ce site et n'importe quel "
+#~ "autre.\n"
+#~ "\n"
+#~ "Voulez-vous obtenir Firefox maintenant ?"
+
+#~ msgid ""
+#~ "Fill all this fields to join in this environment.<p/>If you forgot your "
+#~ "password, do not create a new account, click on the \"<b>I forgot my "
+#~ "password!</b>\" link. ;-)"
+#~ msgstr ""
+#~ "Remplissez tous ces champs pour rejoindre cette communauté.<p/>Si vous "
+#~ "avez oublié votre mot de passe, ne créez pas un nouveau compte, cliquez "
+#~ "sur le lien «<b>J'ai oublié mon mot de passe</b>»."
+
+#~ msgid ""
+#~ "\"Username\" is a simple nickname to recognize you on this environment."
+#~ msgstr ""
+#~ "«Identifiant» est un simple surnom pour vous reconnaître dans cette "
+#~ "communauté."
+
+#~ msgid "We'll send you an e-mail to validate your registration."
+#~ msgstr ""
+#~ "Nous vous enverrons un courrier électronique pour valider votre "
+#~ "enregistrement."
+
+#~ msgid "Do not use a obviously password, but try some unforgettable word."
+#~ msgstr ""
+#~ "Ne choisissez pas un mot de passe évident, mais essayez de trouver "
+#~ "quelque chose que vous n'oublierez pas."
+
+#~ msgid "We need to be sure that you wrote correctly your password."
+#~ msgstr ""
+#~ "Nous devons nous assurer que vous avez écrit correctement votre mot de "
+#~ "passe."
+
+#~ msgid "edit your information"
+#~ msgstr "Éditer vos informations"
+
+#~ msgid "This user's favorite enterprises."
+#~ msgstr "Les entreprises préférées de l'utilisateur."
+
+#~ msgid "All favorite enterprises"
+#~ msgstr "Toutes les préférées entreprises"
+
+#~ msgid "Article|Published"
+#~ msgstr "Article|Publié"
+
+#~ msgid "Article|Start date"
+#~ msgstr "Article|Date de début"
+
+#~ msgid "Article|End date"
+#~ msgstr "Article|Date de fin"
+
+#~ msgid "Category|Display in menu"
+#~ msgstr "Catégorie|Afficher dans le menu"
+
+#~ msgid "User|Password type"
+#~ msgstr "User|Type de mot de passe"
+
+#~ msgid "Product|Lat"
+#~ msgstr "Product|Latitude"
+
+#~ msgid "Product|Lng"
+#~ msgstr "Product|Longitude"
+
+#~ msgid "%s wants to be a member"
+#~ msgstr "%s veut devenir membre"
+
+#~ msgid "Recently created enterprises"
+#~ msgstr "Entreprises créés récemment"
+
+#~ msgid "Recently added events"
+#~ msgstr "Événements créés récemment"
+
+#~ msgid "Actions: %s"
+#~ msgstr "Actions : %s"
+
+#~ msgid "You are not allowed to view this content."
+#~ msgstr "Vous n'êtes pas autorisé(e) à voir ce contenu."
+
+#~ msgid "Closed %s"
+#~ msgstr "Fermé %s"
+
+#~ msgid "Products results for \"%{query}\" of enterprises in \"%{category}\""
+#~ msgstr ""
+#~ "Résultats des produits correspondant à «%{query}» d'entreprises dans «%"
+#~ "{category}»"
+
+#~ msgid "Products results for \"%s\""
+#~ msgstr "Résultats des produits correspondant à  «%s»"
+
+#~ msgid "Products of enterprises in \"%s\""
+#~ msgstr "Produits d'entreprises dans «%s»"
+
+#~ msgid "(recently added)"
+#~ msgstr "(récemment ajouté(e))"
+
+#~ msgid "Browse by name"
+#~ msgstr "Parcourir par nom"
+
+#~ msgid "(more ...)"
+#~ msgstr "(plus...)"
+
+#~ msgid "Distance (km): "
+#~ msgstr "Distance (Km):"
+
+#~ msgid "From: "
+#~ msgstr "De: "
+
+#~ msgid "Advanced search"
+#~ msgstr "Recherche avancée"
+
+#~ msgid "Add favorite enterprise"
+#~ msgstr "Ajouter l'entreprise préférée"
+
+#~ msgid "Published"
+#~ msgstr "Publié"
+
+#~ msgid "e-Mail settings saved successfully."
+#~ msgstr "Vos préférences e-mail ont été sauvegardées."
+
+#~ msgid "Profile|Enabled"
+#~ msgstr "Profile|Activé"
+
+#~ msgid "User|Enable email"
+#~ msgstr "User|Activer l'e-mail"
+
+#~ msgid "Manage Enterprises"
+#~ msgstr "Gérer les entreprises"
+
+#~ msgid "Enable e-mail %s"
+#~ msgstr "Activer l'e-mail %s"
+
+#~ msgid ""
+#~ "Marking this option gives you an e-mail account with the address above. "
+#~ "You'll be able to access a webmail from your user menu."
+#~ msgstr ""
+#~ "Choisir cette option vous donne un compte e-mail avec l'adresse indiquée. "
+#~ "Vous pourrez accéder à un webmail à partir de votre menu utilisateur"
+
+#~ msgid "Article|Children count"
+#~ msgstr "Article|Nombre d'enfants"
+
+#~ msgid "ProfileCategorization|Virtual"
+#~ msgstr "ProfileCategorization|Virtuel"
+
+#~ msgid "Category|Children count"
+#~ msgstr "Category|Nombre d'enfants"
+
+#~ msgid "ArticleCategorization|Virtual"
+#~ msgstr "ArticleCategorization|Virtuel"
+
+#~ msgid "%s:Products/Services"
+#~ msgstr "%s : Produits/Services"
+
+#~ msgid "more..."
+#~ msgstr "plus..."
+
+#~ msgid "Leave this enterprise"
+#~ msgstr "Quitter cette entreprise"
+
+#~ msgid "Join this enterprise"
+#~ msgstr "Rejoindre cette entreprise"
+
+#~ msgid "Select the file you want to upload (max size %s)."
+#~ msgstr ""
+#~ "Choisissez le document que vous voulez téléverser (taille maximale %s)."
+
+#~ msgid "Register and activate enterprise"
+#~ msgstr "Enregistrer et activer une entreprise"
+
+#~ msgid ""
+#~ "Fill all this fields to activate your enterprise and join in this "
+#~ "environment.<p/>If you forgot your password, do not create a new account, "
+#~ "click on the \"<b>I forgot my password!</b>\" link. ;-)"
+#~ msgstr ""
+#~ "Remplissez tous ces champs pour activer votre entreprise et rejoindre "
+#~ "cette communauté.<p/>Si vous avez oublié votre mot de passe, ne créez pas "
+#~ "un nouveau compte, cliquez sur le lien «<b>J'ai oublié mon mot de passe</"
+#~ "b>»."
+
+#~ msgid "within %d from %s"
+#~ msgstr "dans les %d de %s"
+
+#~ msgid "Legal form:"
+#~ msgstr "Forme juridique : "
+
+#~ msgid "Slug"
+#~ msgstr "Nom généré pour l'URL de l'article"
+
+#~ msgid "Path"
+#~ msgstr "Chemin"
+
+#~ msgid "Abstract"
+#~ msgstr "Résumé"
+
+#~ msgid "Last changed by"
+#~ msgstr "Modifié en dernier par"
+
+#~ msgid "Lock version"
+#~ msgstr "Verrouiller la version"
+
+#~ msgid "Comments count"
+#~ msgstr "Nombre de commentaires"
+
+#~ msgid "Advertise"
+#~ msgstr "Mettre en valeur "
+
+#~ msgid "Children count"
+#~ msgstr "Nombre d'enfants"
+
+#~ msgid "Friend"
+#~ msgstr "Contact"
+
+#~ msgid "Display color"
+#~ msgstr "Afficher la couleur"
+
+#~ msgid "Newer people"
+#~ msgstr "Les dernières personnes"
+
+#~ msgid "Newer enterprises"
+#~ msgstr "Les dernières entreprises"
+
+#~ msgid "Newer communities"
+#~ msgstr "Les derniers groupes"
+
+#~ msgid "Newer articles"
+#~ msgstr "Derniers articles"
+
+#~ msgid ""
+#~ "New members must be approved by an administrator before joining this "
+#~ "group?"
+#~ msgstr ""
+#~ "Les nouveaux membres doivent-ils être approuvés par un administrateur "
+#~ "avant de rejoindre ce groupe ?"
+
+#~ msgid "A Ynternet.org project"
+#~ msgstr "Un projet d'Ynternet.org"
+
+#~ msgid "Sponsored by Loterie Romande"
+#~ msgstr "Soutien de la Loterie Romande"
+
+#~ msgid "Destroy %s"
+#~ msgstr "Détruire %s"
+
+#~ msgid "Are you sure you want to destroy %s?"
+#~ msgstr "Êtes-vous sûr(e) de vouloir détruire %s ?"
+
+#~ msgid "Yes, I want to destroy."
+#~ msgstr "Oui, je veux le/la détruire."
+
+#~ msgid "Add favorite organization"
+#~ msgstr "Ajouter comme organisation préférée"
+
+#~ msgid "Public article"
+#~ msgstr "Article public"
+
+#~ msgid "Accept comments"
+#~ msgstr "Accepte les commentaires"
+
+#~ msgid "Reference article"
+#~ msgstr "Article de référence"
+
+#~ msgid "%s wants to publish %s"
+#~ msgstr "%s veut publier %s"
+
+#~ msgid "This block presents a list of people."
+#~ msgstr "Ce bloc présente une liste de personnes."
+
+#~ msgid "Want you see other persons on this environment?"
+#~ msgstr "Vous voulez voir d'autre personnes de cette communauté ?"
+
+# 1- Verify consistency between translations.
+# 2- In English "an user" -> "a user" Cf. http://forum.wordreference.com/showthread.php?t=480322
+#
+#~ msgid ""
+#~ "To join on this environment, click on \"<b>I want to participate!</b>\"."
+#~ msgstr ""
+#~ "Pour rejoindre cette communauté, cliquez sur  \"<b>Je veux participer !</"
+#~ "b>\"."
+
+#~ msgid "Answer"
+#~ msgstr "Réponse"
+
+#~ msgid "I accept the terms"
+#~ msgstr "J'accepte les conditions d'utilisation"
+
+#~ msgid "I do NOT accept the terms"
+#~ msgstr "Je n'accepte PAS les conditions d'utilisation"
+
+#~ msgid "What user should be the admin of the enterprise page"
+#~ msgstr ""
+#~ "Quel utilisateur devrait être l'administrateur de la page de "
+#~ "l'entreprise ?"
+
+#~ msgid "Already have user"
+#~ msgstr "Un tel utilisateur existe déjà"
+
+#~ msgid "Create new user"
+#~ msgstr "Créer un nouvel utilisateur"
+
+#~ msgid "Accept Comments"
+#~ msgstr "Accepte les commentaires "
+
+#~ msgid "Send request"
+#~ msgstr "Envoyer une requête"
+
+#~ msgid "Are you sure you want to <u>destroy</u> \"%s\"?"
+#~ msgstr "Êtes-vous sûr(e) de vouloir <u>détruirew/u> «%s» ?"
+
+#~ msgid "New articles must be approved:"
+#~ msgstr "Les nouveaux articles doivent être approuvés :"
+
+#~ msgid "New publication"
+#~ msgstr "Nouvelle publication"
+
+#~ msgid "View my requests"
+#~ msgstr "Voir mes requêtes"
+
+#~ msgid "Template updated successfully"
+#~ msgstr "Mise à jour effectuée avec succès."
+
+#~ msgid "Missing"
+#~ msgstr "Manquant"
+
+#~ msgid "Redirected from \"%s\". please update your links and bookmarks."
+#~ msgstr "Redirigé depuis «%s». Prière de mettre à jour vos liens et signets."
+
+#~ msgid "Setting"
+#~ msgstr "Paramètres"
+
+#~ msgid "Notify comments"
+#~ msgstr "Alerter des commentaires"
+
+#~ msgid "Manage Templates"
+#~ msgstr "Gérer les templates"
+
+#~ msgid "Set Templates"
+#~ msgstr "Choisir les templates"
+
+#~ msgid "Person Template"
+#~ msgstr "Templates d'individu"
+
+#~ msgid "Community Template"
+#~ msgstr "Templates de groupe"
+
+#~ msgid "Enterprise Template"
+#~ msgstr "Templates d'organisation"
+
+#~ msgid "Homepage:"
+#~ msgstr "Page d'accueil : "
+
+#~ msgid "Hits"
+#~ msgstr "Visites"
+
+#~ msgid "Upload file"
+#~ msgstr "Charger un fichier"
+
+#~ msgid "Invite friends from my e-mail contacts"
+#~ msgstr "Inviter des amis de ma liste de contacts e-mail"
+
+#~ msgid "Step 1 of 1: Accessing your contact list"
+#~ msgstr "Étape 1 sur 1 : accéder à votre liste de contacts"
+
+#~ msgid ""
+#~ "Choose your webmail provider and enter your login and password so we can "
+#~ "fetch your contact list. If you only want to invite specific people by "
+#~ "listing their e-mail addresses, select the \"Enter e-mail addresses "
+#~ "manually\" option."
+#~ msgstr ""
+#~ "Choisissez votre hébergeur de webmail puis entrez vos identifiant et mot "
+#~ "de passe pour que nous récupérions votre liste de contact. Si vous "
+#~ "souhaitez uniquement inviter des personnes par leurs adresses e-mail, "
+#~ "choisissez l'option «Entrer les adresses e-mail à la main»."
+
+#~ msgid "Select your e-mail provider:"
+#~ msgstr "Choisissez votre hébergeur de webmail : "
+
+#~ msgid "Enter e-mail addresses manually"
+#~ msgstr "Entrer les adresses e-mail à la main"
+
+#~ msgid "Enter one e-mail address per line, following the example below."
+#~ msgstr ""
+#~ "Entrez une adresse e-mail par ligne, en suivant l'exemple ci-dessous."
+
+#~ msgid "E-mail addresses"
+#~ msgstr "Adresse e-mail"
+
+#~ msgid "Photos/Videos/Audio/Documents"
+#~ msgstr "Photos/Vidéos/Audio/Documents"
