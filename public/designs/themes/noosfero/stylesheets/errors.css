@@ -1,0 +1,20 @@
+body {
+  font-family: sans-serif;
+  margin: 0px;
+  padding: 0% 3%;
+  height: 100%;
+  background: #CCC url(/503.jpg) 100% 100% no-repeat;
+}
+
+h1 {
+  margin: 30px 0px 0px 0px;
+  font-weight: bold;
+  color: gray;
+}
+
+a, a:visited {
+  color: #666;
+}
+a:hover {
+  color: black;
+}
