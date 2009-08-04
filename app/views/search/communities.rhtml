@@ -1,4 +1,4 @@
-<% if @wizard %>
+<% if @wizard && user %>
   <h2><%= _('Hello %s, now you can choose yours groups') % user.identifier %></h2>
 <% else %>
 <%= search_page_title( __('Communities'), { :query => @query, 
