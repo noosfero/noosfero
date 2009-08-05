@@ -12,7 +12,7 @@ module ActsAsHavingImage
       image.attributes = img
     else
       build_image(img)
-    end
+    end unless img[:uploaded_data].blank?
   end
 
 end

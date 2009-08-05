@@ -1352,6 +1352,16 @@ class ProfileTest < Test::Unit::TestCase
     assert !profile.valid?
   end
 
+  should 'profile be valid when image is empty' do
+    profile = Profile.create!(:name => 'Profile for testing ', :identifier => 'profilefortesting', :image_builder => {:uploaded_data => ""})
+    assert_valid profile
+  end
+
+  should 'profile be valid when has no image' do
+    profile = Profile.create!(:name => 'Profile for testing ', :identifier => 'profilefortesting')
+    assert_valid profile
+  end
+
   should 'copy header and footer after create a person' do
     template = create_user('template').person
     template.custom_footer = "footer customized"
