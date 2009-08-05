@@ -50,18 +50,20 @@
 <% end %>
 
 <% if @terms_of_use %>
-  <%= _("By clicking on 'I accept the terms of use' below you are agreeing to the %s") %
+  <div id='terms-of-use-box' class='formfieldline'>
+    <%= _("By clicking on 'I accept the terms of use' below you are agreeing to the %s") %
     link_to_function(_('Terms of use'), nil) do |page|
       page['terms-of-use'].show
-     end %>
-
-  <div id='terms-of-use' style='display: none;'>
-    <%= @terms_of_use %>
-    <%= link_to_function(_('Hide'), nil) do |page|
-      page['terms-of-use'].hide
     end %>
+
+    <div id='terms-of-use' style='display: none;'>
+      <%= @terms_of_use %>
+      <%= link_to_function(_('Hide'), nil) do |page|
+        page['terms-of-use'].hide
+      end %>
+    </div>
+    <p><%= labelled_check_box(_('I accept the terms of use'), 'user[terms_accepted]') %></p>
   </div>
-  <p><%= labelled_check_box(_('I accept the terms of use'), 'user[terms_accepted]') %></p>
 <% end %>
 
 <% if params[:enterprise_code] %>
