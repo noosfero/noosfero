@@ -1,3 +1,7 @@
+<% if @wizard %>
+  <%= render :partial => 'account/wizard_steps' %>
+<% end %>
+
 <h1><%= __('Creating new community') %></h1>
 
 <%= error_messages_for :community %>
@@ -24,13 +28,13 @@
   <div style='margin-bottom: 1em; margin-top: 1em;'>
   <%= _('New members must be approved:')%>
   </div>
-  <div style='margin-bottom: 0.5em'>
+  <div style='margin-bottom: 0.5em' id='community-join-before'>
     <%= radio_button 'community', 'closed', 'true', :style => 'float: left' %>
     <div style='margin-left: 30px'>
       <%= _('<strong>Before</strong> joining this group (a moderator has to accept the member in pending request before member can access the intranet and/or the website).') %>
     </div>
   </div>
-  <div>
+  <div id='community-join-after'>
     <%= radio_button 'community', 'closed', 'false', :style => 'float: left' %>
     <div style='margin-left: 30px'>
       <%= _('<strong>After</strong> joining this group (a moderator can always desactivate access for users later).') %>
@@ -50,6 +54,6 @@
 
 </div>
 
-<% if @wizard %>
-  <%= render :partial => 'account/wizard_steps' %>
-<% end %>
+
+
+

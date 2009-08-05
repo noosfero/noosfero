@@ -1,3 +1,7 @@
+<% if @wizard %>
+  <%= render :partial => 'account/wizard_steps'%>
+<% end %>
+
 <h1><%= __('Invite your friends') %></h1>
 
 <% unless @friends %>
@@ -101,6 +105,3 @@
 
 <% end %>
 
-<% if @wizard %>
-  <%= render :partial => 'account/wizard_steps'%>
-<% end %>

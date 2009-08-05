@@ -7,13 +7,14 @@
     <%= javascript_include_tag 'jquery-latest.js' %>
     <script type="text/javascript">
       jQuery.noConflict();
+
     </script>
 
     <%=
       # Load the principal css files:
       stylesheet_import( %w( common button search forms profiles)
                          ) + "\n" +
-      stylesheet_import( %w( common button search forms profiles),
+      stylesheet_import( %w( common button search forms profiles wizard),
       :themed_source => true ) + "\n" +
       # Load the boxes's css file if each exists:
       import_blocks_stylesheets +
@@ -21,10 +22,20 @@
       stylesheet_import( "controller_"+ @controller.controller_name(), :themed_source => true )
     %>
   </head>
-
   <body class='noosfero' id='wizard'>
         <div id="wizard-content">
+        <a href="#" id="btShowHelp" class="icon-help32on help-on icon-help-on"
+           title="<%= _('Turn help on/off') %>"
+           onclick="mouseHelpOnOff(); return false"><span><%= _('Help') %></span></a>
           <%= yield %>
         </div><!-- id="wizard-content" -->
+    <div id="helpBox" style="display:none">
+      <div id="helpBoxBody">
+        <div class="helpAvatar"></div>
+        <div id="helpBoxContent"></div>
+      </div>
+    <%= javascript_include_tag 'show-mouse-help' %>
+    <%= javascript_include_tag 'noosfero-show-help' %>
+
   </body>
 </html>

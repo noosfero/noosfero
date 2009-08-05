@@ -1,6 +1,11 @@
 <% if @wizard && user %>
   <h2><%= _('Hello %s, now you can choose yours groups') % user.identifier %></h2>
 <% else %>
+
+<% if @wizard %>
+  <%= render :partial => 'account/wizard_steps' %>
+<% end %>
+
 <%= search_page_title( __('Communities'), { :query => @query, 
                                       :category => @category ? @category.name : nil, 
                                       :total_results => @total_results, 
@@ -16,13 +21,6 @@
   <div class='atention'><%= __('Choose the communities you want to join and/or create your own.') %></div>
 <% end %>
 
-<div id='search-results-and-pages'>
-  <%# FIXME ARMENGUE %>
-  <%= display_results(false) %>
-
-  <%= pagination_links @results.values.first %>
-</div>
-
 <% if logged_in? %>
   <% button_bar do %>
     <%# FIXME shouldn't the user create the community in the current environment instead of going to its home environment? %>
@@ -30,9 +28,12 @@
   <% end %>
 <% end %>
 
-<br style="clear:both" />
+<div id='search-results-and-pages'>
+  <%# FIXME ARMENGUE %>
+  <%= display_results(false) %>
 
-<% if @wizard %>
-  <%= render :partial => 'account/wizard_steps' %>
-<% end %>
+  <%= pagination_links @results.values.first %>
+</div>
+
+<br style="clear:both" />
 
