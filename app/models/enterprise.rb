@@ -13,8 +13,9 @@ class Enterprise < Organization
   settings_items :organization_website, :historic_and_current_context, :activities_short_description, :zip_code, :city, :state, :country
 
   before_save do |enterprise|
-    enterprise.organization_website = 'http://' + enterprise.organization_website if enterprise.organization_website && enterprise.organization_website !~ /^https?:\/\//
+    enterprise.organization_website = enterprise.maybe_add_http(enterprise.organization_website)
   end
+  include MaybeAddHttp
 
   def business_name
     self.nickname

@@ -86,8 +86,9 @@ class Person < Profile
   before_save do |person|
     person.custom_formation = nil if (! person.formation.nil? && person.formation != 'Others')
     person.custom_area_of_study = nil if (! person.area_of_study.nil? && person.area_of_study != 'Others')
-    person.organization_website = 'http://' + person.organization_website if person.organization_website && person.organization_website !~ /^https?:\/\//
+    person.organization_website = person.maybe_add_http(person.organization_website)
   end
+  include MaybeAddHttp
 
   def active_fields
     environment ? environment.active_person_fields : []

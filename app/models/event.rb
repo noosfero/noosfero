@@ -100,15 +100,6 @@ class Event < Article
     maybe_add_http(self.body[:link])
   end
 
-  protected
-
-  def maybe_add_http(value)
-    return unless value
-    if value =~ /https?:\/\//
-      value
-    else
-      'http://' + value
-    end
-  end
+  include MaybeAddHttp
 
 end

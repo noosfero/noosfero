@@ -536,6 +536,13 @@ class PersonTest < Test::Unit::TestCase
     assert_equal 'http://website.without.http', p.organization_website
   end
 
+  should 'not add protocol for empty organization website' do
+    p = create_user('person_test').person
+    p.organization_website = ''
+    p.save
+    assert_equal '', p.organization_website
+  end
+
   should 'save organization_website as typed if has http' do
     p = create_user('person_test').person
     p.organization_website = 'http://website.with.http'

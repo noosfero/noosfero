@@ -155,6 +155,14 @@ class EventTest < ActiveSupport::TestCase
     assert_equal 'http://www.gnu.org', a.link
   end
 
+  should 'not add http:// to empty link' do
+    a = Event.new
+    a.body[:link] = ''
+    assert_equal '', a.link
+    a.body[:link] = nil
+    assert_equal '', a.link
+  end
+
   should 'not escape HTML in description' do
     a = Event.new(:description => '<p>a paragraph of text</p>', :link => 'www.gnu.org')
 
