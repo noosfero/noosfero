@@ -110,4 +110,16 @@ class PublishedArticleTest < ActiveSupport::TestCase
 
     assert_match /removed/, p.to_html
   end
+
+  should 'specified parent overwrite blog' do
+    parent = mock
+    @article.stubs(:parent).returns(parent)
+    parent.stubs(:blog?).returns(true)
+    prof = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
+    prof.articles << Blog.new(:profile => prof, :name => 'Blog test')
+    new_parent = Folder.create!(:profile => prof, :name => 'Folder test')
+    p = PublishedArticle.create!(:reference_article => @article, :profile => prof, :parent => new_parent)
+
+    assert_equal p.parent, new_parent
+  end
 end

@@ -1,8 +1,10 @@
 class PublishedArticle < Article
   before_create do |article|
-    parent = article.reference_article.parent
-    if parent && parent.blog? && article.profile.has_blog?
-      article.parent = article.profile.blog
+    unless article.parent
+      parent = article.reference_article.parent
+      if parent && parent.blog? && article.profile.has_blog?
+        article.parent = article.profile.blog
+      end
     end
   end
 
