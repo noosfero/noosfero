@@ -34,6 +34,7 @@ Rake::PackageTask.new(Noosfero::PROJECT, Noosfero::VERSION) do |p|
   p.package_files.include('public/dispatch.*')
   p.package_files.include('public/favicon.ico')
   p.package_files.include('public/*.html')
+  p.package_files.include('public/*.html.erb')
   p.package_files.include('public/images/**/*')
   p.package_files.include('public/javascripts/**/*')
   p.package_files.include('public/robots.txt')
