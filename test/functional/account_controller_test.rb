@@ -635,6 +635,14 @@ class AccountControllerTest < Test::Unit::TestCase
     end
   end
 
+  should 'signup filling in mandatory person fields' do
+    Person.any_instance.stubs(:required_fields).returns(['organization_website'])
+    assert_difference User, :count do
+      post :signup, :user => { :login => 'testuser', :password => '123456', :password_confirmation => '123456', :email => 'testuser@example.com' }, :profile_data => { :organization_website => 'example.com' }
+      assert_redirected_to :controller => 'profile_editor', :profile => 'testuser'
+    end
+  end
+
   protected
     def new_user(options = {}, extra_options ={})
       data = {:profile_data => person_data}
