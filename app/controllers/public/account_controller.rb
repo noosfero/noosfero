@@ -230,10 +230,6 @@ class AccountController < ApplicationController
     render :partial => 'identifier_status'
   end
 
-  def user_menu
-    # nothing
-  end
-
   protected
 
   def redirect?
