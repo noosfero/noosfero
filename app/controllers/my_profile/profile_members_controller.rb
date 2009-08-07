@@ -76,7 +76,11 @@ class ProfileMembersController < MyProfileController
   end
 
   def find_users
-    @users_found = Person.find_by_contents(params[:query] + '*')
+    if !params[:query] || params[:query].length <= 2
+      @users_found = []
+    else
+      @users_found = Person.find_by_contents(params[:query] + '*')
+    end
     render :layout => false
   end
 

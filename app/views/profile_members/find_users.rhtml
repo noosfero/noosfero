@@ -25,4 +25,11 @@
       </td>
     </tr>
   <% end if @users_found %>
+  <% if !params[:query] || params[:query].length <= 2 %>
+    <tr>
+      <td style='text-align: center'>
+        <em><%= _('You must type at least 3 characters') %></em>
+      </td>
+    </tr>
+  <% end %>
 </table>
