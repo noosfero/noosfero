@@ -16,6 +16,6 @@ product_item_pos += 1
     <% if product.enterprise %>
       <li> <%= _('Suplier: %s') % link_to_homepage(product.enterprise.name, product.enterprise.identifier) %> </li>
     <% end %>
-    <li> <%=_('Category:') + ' ' + link_to_product_category(product.product_category) %>
+    <li> <%=_('Category:') + ' ' + link_to_product_category(product.product_category) %> </li>
   </ul>
 </li>
