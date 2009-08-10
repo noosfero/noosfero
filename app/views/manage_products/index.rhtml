@@ -45,7 +45,7 @@
   <% @consumptions.each do |consumption| %>
     <tr>
       <td>
-        <strong><%= link_to_category(consumption.product_category) %></strong>
+        <strong><%= link_to_product_category(consumption.product_category) %></strong>
         <br/>
         <em><%= consumption.aditional_specifications  %></em>
       </td>

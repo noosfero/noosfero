@@ -23,7 +23,7 @@ private
 
   def product_category_name(profile, product_category)
     if profile.enabled?
-      link_to_category(product_category)
+      link_to_product_category(product_category)
     else
       product_category ? product_category.full_name(' &rarr; ') : _('Uncategorized product')
     end

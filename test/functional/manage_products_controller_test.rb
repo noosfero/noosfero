@@ -274,5 +274,23 @@ class ManageProductsControllerTest < Test::Unit::TestCase
 
     assert_equivalent [pc1, pc2], assigns(:categories)
   end
+
+  should 'links to products asset for consumption link' do
+    pc = ProductCategory.create!(:name => 'test_category', :environment =>@enterprise.environment)
+    @enterprise.consumptions.create!(:product_category => pc)
+
+    get :index, :profile => @enterprise.identifier
+
+    assert_tag :tag => 'a', :attributes => {:href => /assets\/products\?product_category=#{pc.id}/}
+  end
+
+  should 'links to products asset for product category link when showing' do
+    pc = ProductCategory.create!(:name => 'test_category', :environment =>@enterprise.environment)
+    p = @enterprise.products.create!(:name => 'test product', :product_category => pc)
+
+    get :show, :profile => @enterprise.identifier, :id => p.id
+
+    assert_tag :tag => 'a', :attributes => {:href => /assets\/products\?product_category=#{pc.id}/}
+  end
   
 end

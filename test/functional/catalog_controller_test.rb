@@ -12,6 +12,7 @@ class CatalogControllerTest < Test::Unit::TestCase
 
     @enterprise = Enterprise.create!(:name => 'My enterprise', :identifier => 'testent')
   end
+  attr_accessor :enterprise
 
   def test_local_files_reference
     ent = Enterprise.create!(:identifier => 'test_enterprise1', :name => 'Test enteprise1')
@@ -111,6 +112,22 @@ class CatalogControllerTest < Test::Unit::TestCase
     assert_nothing_raised do
       get :index, :profile => ent.identifier
     end
+  end
+
+  should 'link to assets products wiht product category in the link to product category on index' do
+    pc = ProductCategory.create!(:name => 'some product', :environment => enterprise.environment)
+    prod = enterprise.products.create!(:name => 'Product test', :price => 50.00, :product_category => pc)
+
+    get :index, :profile => enterprise.identifier
+    assert_tag :tag => 'a', :attributes => {:href => /assets\/products\?product_category=#{pc.id}/}
+  end
+
+  should 'link to assets products wiht product category in the link to product category on show' do
+    pc = ProductCategory.create!(:name => 'some product', :environment => enterprise.environment)
+    prod = enterprise.products.create!(:name => 'Product test', :price => 50.00, :product_category => pc)
+
+    get :show, :id => prod.id, :profile => enterprise.identifier
+    assert_tag :tag => 'a', :attributes => {:href => /assets\/products\?product_category=#{pc.id}/}
   end
 
 end

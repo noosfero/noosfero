@@ -16,6 +16,6 @@ product_item_pos += 1
     <% if product.enterprise %>
       <li> <%= _('Suplier: %s') % link_to_homepage(product.enterprise.name, product.enterprise.identifier) %> </li>
     <% end %>
-    <li> <%= _('Category:') + ' ' + (product.product_category ? link_to(product.product_category.name, :controller => 'search', :action => 'assets', :asset => 'products', :product_category => product.product_category.id) : _('Uncategorized product')) %> </li>
+    <li> <%=_('Category:') + ' ' + link_to_product_category(product.product_category) %>
   </ul>
 </li>
