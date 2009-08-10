@@ -18,7 +18,7 @@ class PublishedArticle < Article
 
   before_validation_on_create :update_name
   def update_name
-    self.name ||= self.reference_article.name
+    self.name = self.reference_article.name if self.name.blank?
   end
 
   def author

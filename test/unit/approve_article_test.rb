@@ -63,4 +63,22 @@ class ApproveArticleTest < ActiveSupport::TestCase
     assert_match /text was removed/, a.description
   end
 
+  should 'preserve article_parent' do
+    profile = create_user('test_user').person
+    article = profile.articles.create!(:name => 'test article')
+    a = ApproveArticle.new(:article_parent => article)
+
+    assert_equal article, a.article_parent
+  end
+
+  should 'handle blank names' do
+    profile = create_user('test_user').person
+    article = profile.articles.create!(:name => 'test article')
+    community = Community.create!(:name => 'test comm')
+    a = ApproveArticle.create!(:name => '', :article => article, :target => community, :requestor => profile)
+
+    assert_difference PublishedArticle, :count do
+      a.finish
+    end
+  end
 end

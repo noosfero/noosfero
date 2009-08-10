@@ -203,4 +203,24 @@ class TasksControllerTest < Test::Unit::TestCase
     assert_not_nil PublishedArticle.find(:first)
   end
 
+  should 'handle blank names for published articles' do
+    c = Community.create!(:name => 'test comm')
+    @controller.stubs(:profile).returns(c)
+    c.affiliate(profile, Profile::Roles.all_roles(c.environment))
+    person = create_user('test_user').person
+    p_blog = Blog.create!(:profile => person)
+    c_blog1 = Blog.create!(:profile => c)
+    c_blog2 = Blog.new(:profile => c); c_blog2.name = 'blog2'; c_blog2.save!
+
+    article = person.articles.create!(:name => 'test article', :parent => p_blog)
+    a = ApproveArticle.create!(:article => article, :target => c, :requestor => person)
+    assert_includes c.tasks, a
+
+    assert_difference PublishedArticle, :count do
+        post :close, {"commit"=>"Ok!", "id"=> a.id.to_s, "task"=>{"name"=>"", "closing_statment"=>"", "highlighted"=>"0", "article_parent_id"=>c_blog2.id.to_s}, "decision"=>"finish"}
+    end
+    assert p_article = PublishedArticle.find_by_reference_article_id(article.id)
+    assert_includes c_blog2.children(true), p_article
+  end
+
 end

@@ -52,7 +52,7 @@ class ApproveArticle < Task
   end
 
   def article_parent= value
-    article_parent_id = value.id
+    self.article_parent_id = value.id
   end
 
   def highlighted= value
