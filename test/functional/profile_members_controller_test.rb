@@ -253,4 +253,16 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
     assert_includes assigns(:users_found), daniela
   end
 
+  should 'ignore roles with id zero' do
+    ent = Enterprise.create!(:name => 'Test Ent', :identifier => 'test_ent')
+    p = create_user_with_permission('test_user', 'manage_memberships', ent)
+    login_as :test_user
+    r = ent.environment.roles.create!(:name => 'test_role', :permissions => ['some_perm'])
+    get :update_roles, :profile => ent.identifier, :person => p.id, :roles => ["0", r.id, nil]
+
+    p_roles = p.find_roles(ent).map(&:role).uniq
+
+    assert p_roles, [r]
+  end
+
 end

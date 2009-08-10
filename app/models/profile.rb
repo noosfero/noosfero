@@ -176,7 +176,7 @@ class Profile < ActiveRecord::Base
   def category_ids=(ids)
     ProfileCategorization.remove_all_for(self)
     ids.uniq.each do |item|
-      add_category(Category.find(item))
+      add_category(Category.find(item)) unless item.to_i.zero?
     end
   end
 

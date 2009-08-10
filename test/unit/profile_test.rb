@@ -1385,6 +1385,14 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal({ :profile => 'testprofile', :controller => 'profile', :action => 'join'}, profile.join_url)
   end
 
+  should 'ignore categgory with id zero' do
+    profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile', :environment_id => create_environment('mycolivre.net').id)
+    c = Category.create!(:name => 'test cat', :environment => profile.environment)
+    profile.category_ids = ['0', c.id, nil]
+
+    assert_equal [c], profile.categories
+  end
+
   private
 
   def assert_invalid_identifier(id)
