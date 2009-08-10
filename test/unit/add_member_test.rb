@@ -95,4 +95,17 @@ class AddMemberTest < ActiveSupport::TestCase
     end
   end
 
+  should 'ignore roles with id zero' do
+    p = create_user('testuser1').person
+    c = Community.create!(:name => 'community_test')
+
+    role = Profile::Roles.member(c.environment.id)
+    TaskMailer.stubs(:deliver_target_notification)
+    task = AddMember.create!(:roles => ["0", role.id, nil], :person => p, :organization => c)
+    task.finish
+
+    current_roles = p.find_roles(c).map(&:role)
+    assert_includes current_roles, role
+  end
+
 end

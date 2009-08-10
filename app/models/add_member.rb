@@ -12,7 +12,7 @@ class AddMember < Task
 
   def perform
     self.roles ||= [Profile::Roles.member(organization.environment.id).id]
-    target.affiliate(requestor, self.roles.map{|i| Role.find(i)})
+    target.affiliate(requestor, self.roles.select{|r| !r.to_i.zero? }.map{|i| Role.find(i)})
   end
 
   def description
