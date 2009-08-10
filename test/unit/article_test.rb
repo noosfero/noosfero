@@ -741,4 +741,12 @@ class ArticleTest < Test::Unit::TestCase
     assert_not_includes as, a1
   end
 
+  should 'ignore category with zero as id' do
+    a = profile.articles.create!(:name => 'a test article')
+    c = Category.create!(:name => 'test category', :environment => profile.environment)
+    a.category_ids = ['0', c.id, nil]
+    assert a.save
+    assert_equal [c], a.categories
+  end
+
 end

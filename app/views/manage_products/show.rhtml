@@ -3,7 +3,7 @@
 <p> <%= image_tag @product.image.public_filename if @product.image %> </p>
 <p> <strong><%= _('Price:') %></strong> <%= @product.price %> </p>
 <p> <strong><%= _('Description:') %></strong> <%= txt2html @product.description  if @product.description %> </p>
-<p> <strong><%= _('Category:') %></strong> <%= link_to_category(@product.product_category) %> </p>
+<p> <strong><%= _('Category:') %></strong> <%= link_to_product_category(@product.product_category) %> </p>
 
 <%= button :back, _('back'), :action => 'index' %>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;

@@ -14,6 +14,14 @@ module DisplayHelper
     link_to name, Noosfero.url_options.merge({:controller => 'search', :action => 'category_index', :category_path => category.path.split('/'),:host => category.environment.default_hostname })
   end
 
+  def link_to_product_category(category)
+    if category
+      link_to(category.name, :controller => 'search', :action => 'assets', :asset => 'products', :product_category => category.id, :host => category.environment.default_hostname)
+    else
+      _('Uncategorized product')
+    end
+  end
+
   def txt2html(txt)
     txt.
       gsub( /\n\s*\n/, ' <p/> ' ).

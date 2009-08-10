@@ -8,7 +8,7 @@ class ProfileMembersController < MyProfileController
   end
 
   def update_roles
-    @roles = params[:roles] ? environment.roles.find(params[:roles]) : []
+    @roles = params[:roles] ? environment.roles.find(params[:roles].select{|r|!r.to_i.zero?}) : []
     @roles = @roles.select{|r| r.has_kind?('Profile') }
     @person = profile.members.find { |m| m.id == params[:person].to_i }
     if @person && @person.define_roles(@roles, profile)

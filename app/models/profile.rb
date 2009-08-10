@@ -176,7 +176,7 @@ class Profile < ActiveRecord::Base
   def category_ids=(ids)
     ProfileCategorization.remove_all_for(self)
     ids.uniq.each do |item|
-      add_category(Category.find(item))
+      add_category(Category.find(item)) unless item.to_i.zero?
     end
   end
 
@@ -636,6 +636,11 @@ class Profile < ActiveRecord::Base
   # FIXME: horrible workaround to circular dependancy in environment.rb
   after_update do |profile|
     ProfileSweeper.new().after_update(profile)
+  end
+
+  # FIXME: horrible workaround to circular dependancy in environment.rb
+  after_create do |profile|
+    ProfileSweeper.new().after_create(profile)
   end
 
 end

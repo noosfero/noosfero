@@ -288,9 +288,9 @@ class CategoryTest < Test::Unit::TestCase
     c = @env.categories.build(:name => 'my category'); c.save!
     person = create_user('testuser').person
 
-    a1 = person.articles.build(:name => 'art1', :category_ids => [c]); a1.save!
-    a2 = person.articles.build(:name => 'art2', :category_ids => [c]); a2.save!
-    a3 = person.articles.build(:name => 'art3', :category_ids => [c]); a3.save!
+    a1 = person.articles.build(:name => 'art1', :category_ids => [c.id]); a1.save!
+    a2 = person.articles.build(:name => 'art2', :category_ids => [c.id]); a2.save!
+    a3 = person.articles.build(:name => 'art3', :category_ids => [c.id]); a3.save!
 
     c1 = a1.comments.build(:title => 'test', :body => 'asdsa', :author => person); c1.save!
     c2 = a2.comments.build(:title => 'test', :body => 'asdsa', :author => person); c2.save!
