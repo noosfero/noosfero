@@ -638,4 +638,9 @@ class Profile < ActiveRecord::Base
     ProfileSweeper.new().after_update(profile)
   end
 
+  # FIXME: horrible workaround to circular dependancy in environment.rb
+  after_create do |profile|
+    ProfileSweeper.new().after_create(profile)
+  end
+
 end

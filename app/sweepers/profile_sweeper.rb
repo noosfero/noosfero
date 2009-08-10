@@ -7,6 +7,10 @@ class ProfileSweeper # < ActiveRecord::Observer
     expire_caches(profile)
   end
 
+  def after_create(profile)
+    expire_statistics_block_cache(profile)
+  end
+
 protected
 
   def expire_caches(profile)
@@ -18,5 +22,10 @@ protected
     profile.blocks.each do |block|
       expire_timeout_fragment(block.cache_keys)
     end
+  end
+
+  def expire_statistics_block_cache(profile)
+    blocks = profile.environment.blocks.select { |b| b.kind_of?(EnvironmentStatisticsBlock) }
+    blocks.map(&:cache_keys).each{|ck|expire_timeout_fragment(ck)}
   end
 end
