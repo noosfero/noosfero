@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: noosfero 0.19.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-08-04 14:28-0300\n"
-"PO-Revision-Date: 2009-04-23 09:11-0300\n"
+"PO-Revision-Date: 2009-08-11 15:22-0300\n"
 "Last-Translator: Raphael Rousseau <raph@r4f.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -6825,21 +6825,23 @@ msgstr ""
 
 #: public/500.html.erb:25
 msgid "Temporary system problem"
-msgstr ""
+msgstr "Problème temporaire du système"
 
 #: public/500.html.erb:27
 msgid ""
 "Our technical team is working on it, please try again later. Sorry for the "
 "inconvenience."
-msgstr ""
+msgstr "Notre équipe technique y travaille, SVP réessayer plus tard. Désolé "
+"pour le dérangement."
 
 #: public/503.html.erb:26
 msgid "System maintainance"
-msgstr ""
+msgstr "Maintenance du Serveur"
 
 #: public/503.html.erb:28
 msgid "This system is under maintainance. It should be back in a few hours."
-msgstr ""
+msgstr "Cette plate-forme web est en maintenance. Elle sera à nouveau "
+"opérationnelle dans quelques heures."
 
 #~ msgid "Could not update the enterprise"
 #~ msgstr "Impossible de mettre à jour l'entreprise"
