@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: noosfero 0.19.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-08-04 14:28-0300\n"
-"PO-Revision-Date: 2009-08-11 15:22-0300\n"
+"PO-Revision-Date: 2009-08-11 17:27-0300\n"
 "Last-Translator: Raphael Rousseau <raph@r4f.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -6740,9 +6740,8 @@ msgid "Create a new group"
 msgstr "Créer un nouveau groupe"
 
 #: lib/zen3_terminology.rb:68
-#, fuzzy
 msgid "Choose your host community:"
-msgstr "Rejoindre ce groupe"
+msgstr "Choisir sa communauté d'accueil"
 
 #: lib/zen3_terminology.rb:69
 msgid "My groups"
