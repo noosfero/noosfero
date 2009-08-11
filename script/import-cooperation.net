@@ -30,12 +30,7 @@ class UploadedFile
   attr_accessor :is_homepage, :filesystem_location
 end
 
-Person # forces loading Noosfero class before adding stuff to id
-class Person
-  delegate :crypted_password=, :to => :user
-  delegate :salt=, :to => :user
-  delegate :password_type=, :to => :user
-end
+Person
 
 class FileData < StringIO
   attr_reader :original_filename, :content_type
@@ -47,7 +42,7 @@ class FileData < StringIO
 end
 
 class Progress
-  DEBUG = false
+  DEBUG = true
   class << self
     def start(n)
       @total = n
@@ -58,6 +53,9 @@ class Progress
     end
     def step_done
       say('=> done', true)
+    end
+    def step_failed
+      say('=> FAILED', true)
     end
     def say(msg, force = Progress::DEBUG)
       puts("[%d/%d] %s" %  [@current, @total, msg]) if force
@@ -86,13 +84,16 @@ for username in ARGV
       user = User.new(:login => login, :email => username, :environment => environment)
 
       # import person data
-      person = Person.new(:identifier => login)
-      user.person = person
-      person.user = user
-      person.from_xml(File.read(File.join(IMPORT_DIR, username + '.xml')))
-      person.preferred_domain = get_domain(domain_name)
+      imported_data = Hash.from_xml(File.read(File.join(IMPORT_DIR, username + '.xml')))['person']
+      user.crypted_password = imported_data.delete(:crypted_password.to_s)
+      user.salt = imported_data.delete(:salt.to_s)
+      user.password_type = imported_data.delete(:password_type.to_s)
+
+      user.person_data = imported_data.merge('preferred_domain_id' => get_domain(domain_name).id)
       user.save!
       Progress.say "I: #{username} data imported"
+
+      person = user.person
 
       # import articles
       Dir.glob(File.join(IMPORT_DIR, username, 'articles', '*.xml')) do |xml|
@@ -165,6 +166,7 @@ for username in ARGV
       end
 
     end
+    Progress.step_done
   rescue Exception => e
     $stderr.puts "=================================="
     $stderr.puts "E: importing <#{username}> failed."
@@ -172,6 +174,6 @@ for username in ARGV
     $stderr.puts e.backtrace
     $stderr.puts "=================================="
     $stderr.puts "E: Note that ALL operations above relative to <#{username}> were CANCELLED due to these errors."
+    Progress.step_failed
   end
-  Progress.step_done
 end

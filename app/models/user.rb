@@ -29,9 +29,9 @@ class User < ActiveRecord::Base
 
   after_create do |user|
     user.person ||= Person.new
-    user.person.attributes = user.person_data
+    user.person.attributes = user.person_data.merge(:identifier => user.login, :user_id => user.id, :environment_id => user.environment_id)
     user.person.name ||= user.login
-    user.person.update_attributes(:identifier => user.login, :user_id => user.id, :environment_id => user.environment_id)
+    user.person.save!
   end
 
   attr_writer :person_data
