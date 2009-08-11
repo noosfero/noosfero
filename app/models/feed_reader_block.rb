@@ -28,7 +28,7 @@ class FeedReaderBlock < Block
 
   def formatted_feed_content
     return "<ul>\n" +
-      self.feed_items.map{ |item| "<li><a href='#{item[:link]}'>#{item[:title]}</a></li>" }.join("\n") +
+      self.feed_items[0..(limit-1)].map{ |item| "<li><a href='#{item[:link]}'>#{item[:title]}</a></li>" }.join("\n") +
       "</ul>"
   end
 
