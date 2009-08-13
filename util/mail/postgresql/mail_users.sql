@@ -2,7 +2,7 @@ CREATE OR REPLACE VIEW mail_users
 AS
 SELECT
   users.login || '@' || domains.name                      as username,
-  if users.password_type = 'crypt' then
+  case when users.password_type = 'crypt' then
     users.crypted_password
   else
     '{MD5}' || encode(decode(users.crypted_password,'hex'), 'base64')
