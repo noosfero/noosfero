@@ -84,7 +84,7 @@ for username in ARGV
       end
 
       profile = nil 
-      if SCRIPT_TYPE == 'group-import-cooperation.net'
+      if SCRIPT_TYPE == 'import-cooperation.net-groups'
         # import as a group
         imported_data = Hash.from_xml(File.read(File.join(IMPORT_DIR, username + '.xml')))['person']
         profile = Community.create!(
@@ -95,6 +95,9 @@ for username in ARGV
           :environment => environment,
           :preferred_domain_id => get_domain(domain_name).id
         )
+      elsif SCRIPT_TYPE == 'import-cooperation.net-articles'
+        # only load the articles
+        profile = Profile[login]
       else
         # import as a user
 
@@ -177,18 +180,20 @@ for username in ARGV
         end
       end
 
-      # import menus
-      for i in [1,2]
-        links = []
-        data = Hash.from_xml(File.read(File.join(IMPORT_DIR, username, "menu#{i}.xml")))
-        data['menu']['items'].each do |item|
-          links << { :name => item['title'], :address => item['url'] }
+      if SCRIPT_TYPE != 'import-cooperation.net-articles'
+        # import menus
+        for i in [1,2]
+          links = []
+          data = Hash.from_xml(File.read(File.join(IMPORT_DIR, username, "menu#{i}.xml")))
+          data['menu']['items'].each do |item|
+            links << { :name => item['title'], :address => item['url'] }
+          end
+          block = profile.blocks.select { |block| block.class == LinkListBlock }[i-1]
+          block.title = data['menu']['title']
+          block.links = links
+          block.save!
+          Progress.say "imported links: #{links.inspect}"
         end
-        block = profile.blocks.select { |block| block.class == LinkListBlock }[i-1]
-        block.title = data['menu']['title']
-        block.links = links
-        block.save!
-        Progress.say "imported links: #{links.inspect}"
       end
 
     end
