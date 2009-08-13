@@ -100,6 +100,7 @@ for username in ARGV
 
         # create user
         user = User.new(:login => login, :email => username, :environment => environment)
+        user.enable_email = true
 
         # import person data
         imported_data = Hash.from_xml(File.read(File.join(IMPORT_DIR, username + '.xml')))['person']

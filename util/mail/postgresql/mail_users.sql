@@ -27,6 +27,7 @@ JOIN domains on
   (
     (
       profiles.preferred_domain_id is null and
+      domain.is_default and
       domains.owner_id = environments.id and
       domains.owner_type = 'Environment'
     )
