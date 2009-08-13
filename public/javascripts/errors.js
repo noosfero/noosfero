@@ -7,6 +7,7 @@ function display_error_message(language) {
     element = $('en');
   }
   $$('.message').each(function(item) { item.hide() });
+  element.getElementsBySelector('h1').each(function(title) { document.title = title.innerHTML; });
   element.show();
 }
 

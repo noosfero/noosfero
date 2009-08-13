@@ -1,9 +1,17 @@
 body {
   font-family: sans-serif;
   margin: 0px;
-  padding: 0% 3%;
+  padding: 0% 0%;
   height: 100%;
+}
+div#wrap {
   background: #CCC url(/503.jpg) 100% 100% no-repeat;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  padding: 1em 3em 1em 3em;
 }
 
 h1 {
