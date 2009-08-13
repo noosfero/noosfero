@@ -4,8 +4,9 @@ body {
   padding: 0% 0%;
   height: 100%;
 }
-div#wrap {
-  background: #CCC url(/503.jpg) 100% 100% no-repeat;
+
+#wrap {
+  background: #CCC url(/503-small.jpg) 100% 100% no-repeat;
   position: absolute;
   top: 0px;
   bottom: 0px;
@@ -14,10 +15,18 @@ div#wrap {
   padding: 1em 3em 1em 3em;
 }
 
+#languages {
+  float: left;
+  width: 40%;
+  margin-top: 3em;
+  border-top: 1px solid #aaa;
+  font-size: smaller;
+}
+
 h1 {
   margin: 30px 0px 0px 0px;
   font-weight: bold;
-  color: gray;
+  color: #555;
 }
 
 a, a:visited {
