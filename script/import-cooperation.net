@@ -3,6 +3,8 @@ require File.dirname(__FILE__) + '/../config/environment'
 
 include ActionController::UrlWriter
 
+SCRIPT_TYPE = File.basename($PROGRAM_NAME)
+
 IMPORT_DIR = ENV['IMPORT_DIR'] || '/home/terceiro/src/cooperation-migration/data/export'
 
 if ARGV.size == 0
@@ -75,32 +77,49 @@ for username in ARGV
       domain_name = username.gsub(/^.*@/, '')
       environment = import_environment(domain_name)
 
-      # create user
       login = username.gsub(/@.*$/, '')
       if FORBIDDEN_LOGINS.include?(login)
         $stderr.puts "E: not importing #{username}, #{login} is not an allowed login"
         next
       end
-      user = User.new(:login => login, :email => username, :environment => environment)
 
-      # import person data
-      imported_data = Hash.from_xml(File.read(File.join(IMPORT_DIR, username + '.xml')))['person']
-      user.crypted_password = imported_data.delete(:crypted_password.to_s)
-      user.salt = imported_data.delete(:salt.to_s)
-      user.password_type = imported_data.delete(:password_type.to_s)
+      profile = nil 
+      if SCRIPT_TYPE == 'group-import-cooperation.net'
+        # import as a group
+        imported_data = Hash.from_xml(File.read(File.join(IMPORT_DIR, username + '.xml')))['person']
+        profile = Community.create!(
+          :identifier => login,
+          :name => login,
+          :contact_email => imported_data['email'],
+          :address => imported_data['address'],
+          :environment => environment,
+          :preferred_domain_id => get_domain(domain_name).id
+        )
+      else
+        # import as a user
 
-      user.person_data = imported_data.merge('preferred_domain_id' => get_domain(domain_name).id)
-      user.save!
-      Progress.say "I: #{username} data imported"
+        # create user
+        user = User.new(:login => login, :email => username, :environment => environment)
 
-      person = user.person
+        # import person data
+        imported_data = Hash.from_xml(File.read(File.join(IMPORT_DIR, username + '.xml')))['person']
+        user.crypted_password = imported_data.delete(:crypted_password.to_s)
+        user.salt = imported_data.delete(:salt.to_s)
+        user.password_type = imported_data.delete(:password_type.to_s)
+
+        user.person_data = imported_data.merge('preferred_domain_id' => get_domain(domain_name).id)
+        user.save!
+        Progress.say "I: #{username} data imported"
+
+        profile = user.person
+      end
 
       # import articles
       Dir.glob(File.join(IMPORT_DIR, username, 'articles', '*.xml')) do |xml|
         Progress.say "I: Trying to import #{username}'s article in #{xml} ..."
         article = TinyMceArticle.new
         article.from_xml(File.read(xml))
-        article.profile = person
+        article.profile = profile
         if article.valid?
           article.save!
           Progress.say "I: #{username}'s article #{article.name.inspect} imported"
@@ -110,13 +129,19 @@ for username in ARGV
         end
 
         if article.is_homepage
-          person.home_page = article
-          person.save!
+          profile.home_page = article
+          profile.save!
           Progress.say "I: Article #{article.name.inspect} is #{username}'s homepage!"
         end
 
-        File.open("tmp/rewrite.txt", 'w+') do |file|
-          file.puts("#{article.id} #{url_for(article.url)}")
+        orig_article_number = File.basename(xml).sub(/\.xml$/, '')
+
+        File.open("tmp/rewrite.txt", 'a') do |file|
+          [ '', '.html' ].each do |ext|
+            [ '', '/[a-z.]*'].each do |prefix|
+              file.puts("Redirect #{prefix}/info/#{orig_article_number}#{ext} #{url_for(article.url)}")
+            end
+          end
           Progress.say "I: Article with id = #{article.id} redirected to #{url_for(article.url)}"
         end
 
@@ -132,7 +157,7 @@ for username in ARGV
           Progress.say "I: about to read data from #{file.filesystem_location} (xml: #{attachment_xml})"
           file.uploaded_data = FileData.new(file.filesystem_location, file.filename, file.content_type)
           file.parent = article
-          file.profile = person
+          file.profile = profile
           Progress.say "I: Trying to save attachment \"#{file.filename}/#{file.slug}\""
           file.save!
           Progress.say "I: attachment added to article #{article.id}"
@@ -158,7 +183,7 @@ for username in ARGV
         data['menu']['items'].each do |item|
           links << { :name => item['title'], :address => item['url'] }
         end
-        block = person.blocks.select { |block| block.class == LinkListBlock }[i-1]
+        block = profile.blocks.select { |block| block.class == LinkListBlock }[i-1]
         block.title = data['menu']['title']
         block.links = links
         block.save!
