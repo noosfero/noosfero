@@ -2,7 +2,7 @@ CREATE OR REPLACE VIEW mail_users
 AS
 SELECT
   users.login || '@' || domains.name                      as username,
-  '{MD5}' || encode(decode(users.crypted_password,'hex'), 'base64')
+  users.crypted_password                                  as crypted_password,
                                                           as passwd,
   ''                                                      as clearpasswd,
   5000                                                    as uid,
@@ -20,10 +20,21 @@ JOIN profiles on
 JOIN environments on
   (environments.id = profiles.environment_id)
 JOIN domains on
-  (domains.owner_id = environments.id and
-   domains.owner_type = 'Environment')
+  (
+    (
+      profiles.preferred_domain is null and
+      domains.owner_id = environments.id and
+      domains.owner_type = 'Environment'
+    )
+    OR
+    (
+      profiles.preferred_domain_id is not null and
+      domain.owner_id = profiles.id and
+      domains.owner_type = 'Profile'
+    )
+  )
 WHERE
-  users.password_type = 'md5'
+  users.password_type = 'crypt'
   AND domains.is_default
   AND users.enable_email;
 
@@ -47,5 +58,4 @@ JOIN domains domains_to on
    domains_to.owner_type = 'Environment' and
    domains_to.is_default)
 WHERE
-  users.password_type = 'md5'
-  AND users.enable_email;
+  users.enable_email;
