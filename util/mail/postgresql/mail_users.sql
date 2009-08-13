@@ -27,15 +27,14 @@ JOIN domains on
   (
     (
       profiles.preferred_domain_id is null and
-      domain.is_default and
+      domains.is_default and
       domains.owner_id = environments.id and
       domains.owner_type = 'Environment'
     )
     OR
     (
       profiles.preferred_domain_id is not null and
-      domains.owner_id = profiles.id and
-      domains.owner_type = 'Profile'
+      domains.id = profiles.preferred_domain_id
     )
   )
 WHERE
