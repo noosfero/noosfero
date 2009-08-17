@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
     @person_data || {}
   end
 
-  before_update do |user|
+  after_update do |user|
     if !User.find(user.id).enable_email and user.enable_email and !user.environment.nil?
       User::Mailer.deliver_activation_email_notify(user)
     end
