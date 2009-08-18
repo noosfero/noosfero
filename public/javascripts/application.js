@@ -43,7 +43,7 @@ function convToValidIdentifier( str, sep ) {
             .replace( /ú|ũ|ü/g,   "u" )
             .replace( /ñ/g,       "n" )
             .replace( /ç/g,       "c" )
-            .replace( /[^-_a-z0-9]+/g, sep )
+            .replace( /[^-_a-z0-9.]+/g, sep )
 }
 
 document.observe("dom:loaded", function() {
