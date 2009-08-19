@@ -21,10 +21,7 @@ class UserMailerTest < Test::Unit::TestCase
   end
 
   should 'deliver notify when activate email' do
-    u = Person.find(:first).user
-    u.environment = Environment.default
-    u.enable_email = false
-    u.save!
+    u = create_user('testuser')
     assert_difference ActionMailer::Base.deliveries, :size do
       u.enable_email = true
       u.save!
@@ -32,8 +29,7 @@ class UserMailerTest < Test::Unit::TestCase
   end
 
   should 'not deliver notify when disactivate email' do
-    u = Person.find(:first).user
-    u.environment = Environment.default
+    u = create_user('testuser')
     u.enable_email = true
     u.save!
     assert_no_difference ActionMailer::Base.deliveries, :size do

@@ -31,8 +31,8 @@ class MailConfTest < ActiveSupport::TestCase
   should 'provide webmail url preference' do
     MailConf.stubs(:config_file).returns(CONFIG_FILE)
     File.expects(:exists?).with(CONFIG_FILE).returns(true)
-    YAML.expects(:load_file).with(CONFIG_FILE).returns({ 'enabled' => false, 'webmail_url' => 'http://some.url/webmail' })
-    assert_equal 'http://some.url/webmail', MailConf.webmail_url
+    YAML.expects(:load_file).with(CONFIG_FILE).returns({ 'enabled' => false, 'webmail_url' => 'http://some.url/webmail/%s/%s' })
+    assert_equal 'http://some.url/webmail/login/example.com', MailConf.webmail_url('login', 'example.com')
   end
 
 end

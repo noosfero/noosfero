@@ -17,8 +17,8 @@ class MailConf
       config['enabled'] || false
     end
 
-    def webmail_url
-      config['webmail_url']
+    def webmail_url(username, domain)
+      config['webmail_url'] % [username, domain]
     end
 
   end

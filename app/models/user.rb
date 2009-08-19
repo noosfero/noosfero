@@ -39,8 +39,13 @@ class User < ActiveRecord::Base
     @person_data || {}
   end
 
+  attr_accessor :had_email_disabled
+  before_update do |user|
+    user.had_email_disabled = !User.find(user.id).enable_email
+    true
+  end
   after_update do |user|
-    if !User.find(user.id).enable_email and user.enable_email and !user.environment.nil?
+    if user.had_email_disabled && user.enable_email && !user.environment.nil?
       User::Mailer.deliver_activation_email_notify(user)
     end
   end
@@ -53,7 +58,7 @@ class User < ActiveRecord::Base
       subject _("[%{environment}] Welcome to %{environment} mail!") % { :environment => user.environment.name }
       body :name => user.name,
         :email => user_email,
-        :webmail => MailConf.webmail_url,
+        :webmail => MailConf.webmail_url(user.login, user.person.preferred_domain && user.person.preferred_domain.name || user.environment.default_hostname(true)),
         :environment => user.environment.name,
         :url => url_for(:host => user.environment.default_hostname, :controller => 'home')
     end

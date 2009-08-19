@@ -31,7 +31,7 @@
 
         <% if MailConf.enabled? && current_user.enable_email %>
           <li>
-          <%= link_to '<span class="icon-menu-mail"></span>' + _('Webmail'), MailConf.webmail_url %>
+          <%= link_to '<span class="icon-menu-mail"></span>' + _('Webmail'), MailConf.webmail_url(user.identifier, user.preferred_domain && user.preferred_domain.name || user.environment.default_hostname(true)) %>
           </li>
         <% end %>
 
