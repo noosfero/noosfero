@@ -140,12 +140,8 @@ for username in ARGV
 
         orig_article_number = File.basename(xml).sub(/\.xml$/, '')
 
-        File.open("tmp/rewrite.txt", 'a') do |file|
-          [ '', '.html' ].each do |ext|
-            [ '', '/[a-z.]*'].each do |prefix|
-              file.puts("Redirect #{prefix}/info/#{orig_article_number}#{ext} #{url_for(article.url)}")
-            end
-          end
+        File.open("tmp/rewrite-articles.txt", 'a') do |file|
+          file.puts("#{orig_article_number}\t\t\t#{url_for(article.url)}")
           Progress.say "I: Article with id = #{article.id} redirected to #{url_for(article.url)}"
         end
 
@@ -176,6 +172,12 @@ for username in ARGV
             end
           end
           file.parent.save
+
+          orig_file_number = File.basename(attachment_xml).gsub(/\.xml$/, '')
+          File.open('tmp/rewrite-files.txt', 'a') do |outfile|
+            outfile.puts("#{orig_file_number}\t\t\t#{url_for(file.url)}")
+            Progress.say "I: Attachment with id = #{orig_article_number} redirected to #{url_for(file.url)}"
+          end
 
         end
       end
