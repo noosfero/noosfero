@@ -50,15 +50,19 @@ class User < ActiveRecord::Base
     end
   end
 
+  def email_domain
+    self.person.preferred_domain && self.person.preferred_domain.name || self.environment.default_hostname(true)
+  end
+
   class Mailer < ActionMailer::Base
     def activation_email_notify(user)
-      user_email = "#{user.login}@#{user.environment.default_hostname(true)}"
+      user_email = "#{user.login}@#{user.email_domain}"
       recipients user_email
       from "#{user.environment.name} <#{user.environment.contact_email}>"
       subject _("[%{environment}] Welcome to %{environment} mail!") % { :environment => user.environment.name }
       body :name => user.name,
         :email => user_email,
-        :webmail => MailConf.webmail_url(user.login, user.person.preferred_domain && user.person.preferred_domain.name || user.environment.default_hostname(true)),
+        :webmail => MailConf.webmail_url(user.login, user.email_domain),
         :environment => user.environment.name,
         :url => url_for(:host => user.environment.default_hostname, :controller => 'home')
     end

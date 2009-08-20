@@ -194,9 +194,13 @@ class Person < Profile
 
   has_and_belongs_to_many :favorite_enterprises, :class_name => 'Enterprise', :join_table => 'favorite_enteprises_people'
 
+  def email_domain
+    user && user.email_domain || environment.default_hostname(true)
+  end
+
   def email_addresses
     # TODO for now, only one e-mail address
-    ['%s@%s' % [self.identifier, (self.preferred_domain ? self.preferred_domain.name : self.environment.default_hostname(true)) ] ]
+    ['%s@%s' % [self.identifier, self.email_domain] ]
   end
 
   def display_info_to?(user)
