@@ -9,7 +9,7 @@
   <div id="profile_change_picture">
     <h2><%= _('Change picture') %></h2>
     <% f.fields_for :image_builder, @profile.image do |i| %>
-      <%= file_field_or_thumbnail(_('Image:'), @profile.image, i) %><%= _("(max size %s)")% Image.max_size.to_humanreadable %>
+      <%= file_field_or_thumbnail(_('Image:'), @profile.image, i) %><%= _("Max size: %s (.jpg, .gif, .png)")% Image.max_size.to_humanreadable %>
     <% end %>
   </div>
 
