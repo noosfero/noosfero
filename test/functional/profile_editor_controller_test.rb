@@ -534,6 +534,17 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     assert_equal 'new footer', person.custom_footer
   end
 
+  should 'save header and footer even if model is invalid' do
+    person = create_user('designtestuser').person
+    person.sex = nil; person.save!
+    person.environment.custom_person_fields = {'sex' => {'required' => 'true', 'active' => 'true'} }; person.environment.save!
+
+    post :header_footer, :profile => 'designtestuser', :custom_header => 'new header', :custom_footer => 'new footer'
+    person = Person.find(person.id)
+    assert_equal 'new header', person.custom_header
+    assert_equal 'new footer', person.custom_footer
+  end
+
   should 'go back to editor after saving header/footer' do
     person = create_user('designtestuser').person
     post :header_footer, :profile => 'designtestuser', :custom_header => 'new header', :custom_footer => 'new footer'

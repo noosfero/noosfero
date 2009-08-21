@@ -64,7 +64,7 @@ class ProfileEditorController < MyProfileController
   def header_footer
     @no_design_blocks = true
     if request.post?
-      @profile.update_attributes!(:custom_footer => params[:custom_footer], :custom_header => params[:custom_header])
+      @profile.update_header_and_footer(params[:custom_header], params[:custom_footer])
       redirect_to :action => 'index'
     else
       @header = boxes_holder.custom_header
