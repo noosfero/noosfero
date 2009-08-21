@@ -130,16 +130,6 @@ class BlogTest < ActiveSupport::TestCase
     assert ! blog.valid?
   end
 
-  should 'expires cache when update post' do
-    p = create_user('testuser').person
-    blog = Blog.create!(:name => 'Blog test', :profile => p)
-    post = Article.create!(:name => 'First post', :profile => p, :parent => blog)
-    ArticleSweeper.any_instance.expects(:expire_fragment).with(blog.cache_key)
-    ArticleSweeper.any_instance.expects(:expire_fragment).with(post.cache_key)
-    post.name = 'Edited First post'
-    assert post.save!
-  end
-
   should 'remove external feed when removing blog' do
     p = create_user('testuser').person
     blog = Blog.create!(:name => 'Blog test', :profile => p, :external_feed_builder => {:enabled => true, :address => "http://bli.org/feed"})

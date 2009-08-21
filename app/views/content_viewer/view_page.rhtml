@@ -23,7 +23,7 @@
 
 <div>
   <%= article_title(@page, :no_link => true) %>
-  <% if logged_in? && current_user.person.has_permission?('post_content', profile) %>
+  <% if @page.allow_post_content?(user) %>
     <div id="article-actions">
       <% unless @page.blog? %>
       <%= link_to content_tag( 'span', label_for_edit_article(@page) ),
@@ -80,7 +80,7 @@
   </div>
 <% end %>
 
-<% cache(@page.cache_key(params)) do %>
+<% cache(@page.cache_key(params, user)) do %>
   <div class="<%="article-body article-body-" + @page.css_class_name %>">
     <%= article_to_html(@page) %>
     <br style="clear:both" />

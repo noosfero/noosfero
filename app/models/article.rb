@@ -214,6 +214,13 @@ class Article < ActiveRecord::Base
     end
   end
 
+  def allow_post_content?(logged_person = nil)
+    if logged_person && logged_person.has_permission?('post_content', profile)
+      return true
+    end
+    false
+  end
+
   def comments_updated
     ferret_update
   end
@@ -266,8 +273,10 @@ class Article < ActiveRecord::Base
       profile
   end
 
-  def cache_key(params = {})
-    "article-id-#{id}" +
+  alias :active_record_cache_key :cache_key
+  def cache_key(params = {}, the_profile = nil)
+    active_record_cache_key +
+      (allow_post_content?(the_profile) ? "-owner" : '') +
       (params[:npage] ? "-npage-#{params[:npage]}" : '') +
       (params[:year] ? "-year-#{params[:year]}" : '') +
       (params[:month] ? "-month-#{params[:month]}" : '')

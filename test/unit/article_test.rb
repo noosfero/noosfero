@@ -705,15 +705,13 @@ class ArticleTest < Test::Unit::TestCase
   end
 
   should 'use npage to compose cache key' do
-    a = Article.new
-    a.expects(:id).returns(34)
-    assert_equal 'article-id-34-npage-2', a.cache_key(:npage => 2)
+    a = Article.create!(:name => 'Published at', :profile => profile)
+    assert_match(/-npage-2/,a.cache_key(:npage => 2))
   end
 
   should 'use year and month to compose cache key' do
-    a = Article.new
-    a.expects(:id).returns(34)
-    assert_equal 'article-id-34-year-2009-month-04', a.cache_key(:year => '2009', :month => '04')
+    a = Article.create!(:name => 'Published at', :profile => profile)
+    assert_match(/-year-2009-month-04/, a.cache_key(:year => '2009', :month => '04'))
   end
 
   should 'not be highlighted by default' do
@@ -747,6 +745,22 @@ class ArticleTest < Test::Unit::TestCase
     a.category_ids = ['0', c.id, nil]
     assert a.save
     assert_equal [c], a.categories
+  end
+
+  should 'add owner on cache_key when has profile' do
+    a = profile.articles.create!(:name => 'a test article')
+    assert_match(/-owner/, a.cache_key({}, profile))
+  end
+
+  should 'not add owner on cache_key when has no profile' do
+    a = profile.articles.create!(:name => 'a test article')
+    assert_no_match(/-owner/, a.cache_key({}))
+  end
+
+  should 'add owner on cache_key when profile is community' do
+    c = Community.create!(:name => 'new_comm')
+    a = c.articles.create!(:name => 'a test article')
+    assert_match(/-owner/, a.cache_key({}, c))
   end
 
 end
