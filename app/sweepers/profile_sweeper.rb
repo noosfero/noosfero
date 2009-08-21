@@ -17,7 +17,10 @@ protected
     profile.members.each do |member|
       expire_communities(member) if profile.community?
       expire_enterprises(member) if profile.enterprise?
+      expire_profile_index(member) if profile.enterprise?
     end
+
+    expire_profile_index(profile) if profile.person?
 
     profile.blocks.each do |block|
       expire_timeout_fragment(block.cache_keys)

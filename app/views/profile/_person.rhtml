@@ -16,7 +16,7 @@
   <%= display_field(_('e-Mail:'), profile, :email, true) { |email| link_to_email(email) } %>
 <% end %>
 
-<% cache_timeout(profile.identifier + '-profile-relationships', 4.hours.from_now) do %>
+<% cache_timeout(profile.relationships_cache_key, 4.hours.from_now) do %>
   <% if !(profile.organization.blank? && profile.organization_website.blank?) && (profile.active_fields.include?('organization') || profile.active_fields.include?('organization_website')) %>
     <tr>
       <th colspan='2'><%= _('Work')%></th>

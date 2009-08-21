@@ -43,4 +43,7 @@ module SweeperHelper
     blocks.map(&:cache_keys).each{|ck|expire_timeout_fragment(ck)}
   end
 
+  def expire_profile_index(profile)
+    expire_timeout_fragment(profile.relationships_cache_key)
+  end
 end
