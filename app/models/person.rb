@@ -279,4 +279,8 @@ class Person < Profile
     page = params[:npage] || '1'
     identifier + '-manage-friends-page-' + page
   end
+
+  def relationships_cache_key
+    identifier + '-profile-relationships'
+  end
 end

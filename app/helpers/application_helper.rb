@@ -311,22 +311,35 @@ module ApplicationHelper
   end
 
   def current_theme
-    return session[:theme] if (session[:theme])
+    @current_theme ||=
+      begin
+        if (session[:theme])
+          session[:theme]
+        else
+          # utility for developers: set the theme to 'random' in development mode and
+          # you will get a different theme every request. This is interesting for
+          # testing
+          if ENV['RAILS_ENV'] == 'development' && environment.theme == 'random'
+            @random_theme ||= Dir.glob('public/designs/themes/*').map { |f| File.basename(f) }.rand
+            @random_theme
+          else
+            if profile
+              profile.theme
+            elsif environment
+              environment.theme
+            else
+              if logger
+                logger.warn("No environment found. This is weird.")
+                logger.warn("Request environment: %s" % request.env.inspect)
+                logger.warn("Request parameters: %s" % params.inspect)
+              end
 
-    # utility for developers: set the theme to 'random' in development mode and
-    # you will get a different theme every request. This is interesting for
-    # testing
-    if ENV['RAILS_ENV'] == 'development' && @environment.theme == 'random'
-      @theme ||= Dir.glob('public/designs/themes/*').map { |f| File.basename(f) }.rand
-      return @theme
-    end
-
-    p = profile
-    if p
-      p.theme
-    else
-      @environment.theme
-    end
+              # could not determine the theme, so return the default one
+              'default'
+            end
+          end
+        end
+      end
   end
 
   def theme_include(template)

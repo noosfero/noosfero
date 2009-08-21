@@ -81,4 +81,16 @@ class FeedReaderBlockTest < ActiveSupport::TestCase
     assert_equal %w[ last-post second-post first-post ], feed.feed_items.map{|i|i[:title]}
   end
 
+  should 'display only limit posts' do
+    feed.limit = 1; feed.save!
+    %w[ first-post second-post ].each do |i|
+      feed.add_item(i, "http://localhost/#{i}", Date.today, "some contet for #{i}")
+    end
+
+    assert_tag_in_string feed.formatted_feed_content, :tag => 'a', :attributes => { :href => 'http://localhost/second-post' }, :content => 'second-post'
+    assert_no_tag_in_string feed.formatted_feed_content, :tag => 'a', :attributes => { :href => 'http://localhost/first-post' }, :content => 'first-post'
+  end
+
+
+
 end

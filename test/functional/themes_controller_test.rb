@@ -78,6 +78,16 @@ class ThemesControllerTest < Test::Unit::TestCase
     assert_equal 'onetheme', profile.theme
   end
 
+  should 'save selection of theme even if model is invalid' do
+    @profile.sex = nil
+    @profile.save!
+    @profile.environment.custom_person_fields = { 'sex' => {'required' => 'true', 'active' => 'true'} }; @profile.environment.save!
+
+    get :set, :profile => 'testinguser', :id => 'onetheme'
+    profile = Profile.find(@profile.id)
+    assert_equal 'onetheme', profile.theme
+  end
+
   should 'point back to control panel' do
     get :index, :profile => 'testinguser'
     assert_tag :tag => 'a', :attributes => { :href =>  '/myprofile/testinguser' }, :content => 'Back'
@@ -252,6 +262,17 @@ class ThemesControllerTest < Test::Unit::TestCase
   end
 
   should 'set template' do
+    post :set_layout_template, :profile => 'testinguser', :id => 'leftbar'
+    profile = Profile.find(@profile.id)
+    assert_equal 'leftbar', profile.layout_template
+    assert_redirected_to :action => 'index'
+  end
+
+  should 'set template even if the model is invalid' do
+    @profile.sex = nil
+    @profile.save!
+    @profile.environment.custom_person_fields = { 'sex' => {'required' => 'true', 'active' => 'true'} }; @profile.environment.save!
+
     post :set_layout_template, :profile => 'testinguser', :id => 'leftbar'
     profile = Profile.find(@profile.id)
     assert_equal 'leftbar', profile.layout_template

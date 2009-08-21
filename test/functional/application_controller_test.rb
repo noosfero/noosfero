@@ -427,4 +427,9 @@ class ApplicationControllerTest < Test::Unit::TestCase
     assert_equal false, @controller.avoid_ssl
   end
 
+  should 'diplay name of environment in description' do
+    get :index
+    assert_tag :tag => 'meta', :attributes => { :name => 'description', :content => assigns(:environment).name }
+  end
+
 end

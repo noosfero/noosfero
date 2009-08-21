@@ -3,14 +3,13 @@ module ActionController
   module Cache
     module TimedCache
       #handles standard ERB fragments used in RHTML
-      def cache_timeout(name={}, expire = 10.minutes.from_now, &block)
+      def cache_timeout(key={}, expire = 10.minutes.from_now, &block)
         unless perform_caching then block.call; return end
-        key = fragment_cache_key(name)
         if is_cache_expired?(key,true)
           expire_timeout_fragment(key)
           set_timeout(key, expire)
         end
-        cache_erb_fragment(block,name)
+        cache_erb_fragment(block,key)
       end
       #handles the expiration of timeout fragment
       def expire_timeout_fragment(key)

@@ -4,7 +4,7 @@ class ThemesController < MyProfileController
   no_design_blocks
 
   def set
-    profile.update_attributes!(:theme => params[:id])
+    profile.update_theme(params[:id])
     redirect_to :action => 'index'
   end
 
@@ -79,8 +79,7 @@ class ThemesController < MyProfileController
   end
 
   def set_layout_template
-    profile.layout_template = params[:id]
-    profile.save!
+    profile.update_layout_template(params[:id])
     redirect_to :action => 'index'
   end
 

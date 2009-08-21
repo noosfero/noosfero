@@ -302,31 +302,23 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     assert_not_nil assigns(:profile).image
   end
 
-  should 'display closed attribute for enterprise when it is set' do
-    org = Enterprise.create!(:name => 'test org', :identifier => 'testorg', :contact_person => 'my contact', :closed => true, :environment => Environment.default)
+  should 'display closed attribute for communities when it is set' do
+    org = Community.create!(:name => 'test org', :identifier => 'testorg', :contact_person => 'my contact', :closed => true, :environment => Environment.default)
     get :edit, :profile => 'testorg'
 
     assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[closed]', :value => 'true', :checked => 'checked' }
     assert_no_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[closed]', :value => 'false', :checked =>  'checked' }
   end
 
-  should 'display closed attribute for organizations when it is set' do
-    org = Organization.create!(:name => 'test org', :identifier => 'testorg', :contact_person => 'my contact', :closed => true, :environment => Environment.default)
-    get :edit, :profile => 'testorg'
-
-    assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[closed]', :value => 'true', :checked => 'checked' }
-    assert_no_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[closed]', :value => 'false', :checked =>  'checked' }
-  end
-
-  should 'display closed attribute for organizations when it is set to false' do
-    org = Organization.create!(:name => 'test org', :identifier => 'testorg', :contact_person => 'my contact', :closed => false)
+  should 'display closed attribute for communities when it is set to false' do
+    org = Community.create!(:name => 'test org', :identifier => 'testorg', :contact_person => 'my contact', :closed => false)
     get :edit, :profile => 'testorg'
     assert_no_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[closed]', :value => 'true', :checked => 'checked' }
     assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[closed]', :value => 'false', :checked => 'checked' }
   end
 
-  should 'display closed attribute for organizations when it is set to nothing at all' do
-    org = Organization.create!(:name => 'test org', :identifier => 'testorg', :contact_person => 'my contact', :closed => nil)
+  should 'display closed attribute for communities when it is set to nothing at all' do
+    org = Community.create!(:name => 'test org', :identifier => 'testorg', :contact_person => 'my contact', :closed => nil)
     get :edit, :profile => 'testorg'
     assert_no_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[closed]', :value => 'true', :checked => 'checked' }
     assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[closed]', :value => 'false', :checked => 'checked' }
@@ -346,6 +338,22 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     post :edit, :profile => 'testorg', :profile_data => { :closed => 'false' }
     org.reload
     assert !org.closed
+  end
+
+  should 'not display option to close when it is enterprise' do
+    org = Enterprise.create!(:name => 'test org', :identifier => 'testorg', :contact_person => 'my contact', :environment => Environment.default)
+    get :edit, :profile => 'testorg'
+
+    assert_no_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[closed]', :value => 'true' }
+    assert_no_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[closed]', :value => 'false' }
+  end
+
+  should 'display option to close when it is community' do
+    org = Community.create!(:name => 'test org', :identifier => 'testorg', :contact_person => 'my contact', :environment => Environment.default)
+    get :edit, :profile => 'testorg'
+
+    assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[closed]', :value => 'true' }
+    assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[closed]', :value => 'false' }
   end
 
   should 'display manage members options if has permission' do
@@ -520,6 +528,17 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
 
   should 'save footer and header' do
     person = create_user('designtestuser').person
+    post :header_footer, :profile => 'designtestuser', :custom_header => 'new header', :custom_footer => 'new footer'
+    person = Person.find(person.id)
+    assert_equal 'new header', person.custom_header
+    assert_equal 'new footer', person.custom_footer
+  end
+
+  should 'save header and footer even if model is invalid' do
+    person = create_user('designtestuser').person
+    person.sex = nil; person.save!
+    person.environment.custom_person_fields = {'sex' => {'required' => 'true', 'active' => 'true'} }; person.environment.save!
+
     post :header_footer, :profile => 'designtestuser', :custom_header => 'new header', :custom_footer => 'new footer'
     person = Person.find(person.id)
     assert_equal 'new header', person.custom_header
