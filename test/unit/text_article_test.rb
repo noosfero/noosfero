@@ -19,5 +19,11 @@ class TextArticleTest < Test::Unit::TestCase
     article = TextileArticle.create!(:name => 'found article test', :profile => person)
     assert_equal TextileArticle.find_by_contents('found'), TextArticle.find_by_contents('found')
   end
-  
+
+  should 'remove comments from TextArticle body' do
+    person = create_user('testuser').person
+    article = TextArticle.create!(:profile => person, :name => 'article', :body => "the <!-- comment --> article ...")
+    assert_equal "the  article ...", article.body
+  end
+
 end

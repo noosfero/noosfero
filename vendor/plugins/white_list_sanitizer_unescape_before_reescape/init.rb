@@ -4,6 +4,13 @@
 # this was solved in rails 2.2.1, then remove this patch when upgrade to it
 
 HTML::WhiteListSanitizer.module_eval do
+  
+  def sanitize_with_filter_comments(*args, &block)
+    text = sanitize_without_filter_comments(*args, &block)
+    text.gsub(/&lt;!--/, '<!--') if text
+  end
+  alias_method_chain :sanitize, :filter_comments
+
   # unescape before reescape to avoid:
   # & -> &amp; -> &amp;amp; -> &amp;amp;amp; -> &amp;amp;amp;amp; -> etc
   protected
