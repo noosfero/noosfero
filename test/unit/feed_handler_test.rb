@@ -73,4 +73,10 @@ class FeedHandlerTest < Test::Unit::TestCase
     handler.process(container)
   end
 
+  should 'identifies itself as noosfero user agent' do
+    handler = FeedHandler.new
+    handler.expects(:open).with('http://site.org/feed.xml', {"User-Agent" => "Noosfero/#{Noosfero::VERSION}"}, anything).returns('bli content')
+    assert_equal 'bli content', handler.fetch('http://site.org/feed.xml')
+  end
+
 end

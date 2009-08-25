@@ -15,7 +15,12 @@ class FeedHandler
   def fetch(address)
     begin
       content = ""
-      open(address) do |s| content = s.read end
+      block = lambda { |s| content = s.read }
+      content = if is_web_address?(address)
+        open( address, "User-Agent" => "Noosfero/#{Noosfero::VERSION}", &block )
+      else
+        open_uri_original_open(address, &block)
+      end
       return content
     rescue Exception => ex
       raise FeedHandler::FetchError, ex.to_s
@@ -38,5 +43,15 @@ class FeedHandler
 
   class ParseError < Exception; end
   class FetchError < Exception; end
+
+  protected
+
+  # extracted from the open implementation in the open-uri library
+  def is_web_address?(address)
+    address.respond_to?(:open) ||
+      address.respond_to?(:to_str) &&
+      (%r{\A[A-Za-z][A-Za-z0-9+\-\.]*://} =~ address) &&
+      URI.parse(address).respond_to?(:open)
+  end
 
 end
