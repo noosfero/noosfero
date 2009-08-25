@@ -2,8 +2,15 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class ApproveArticleTest < ActiveSupport::TestCase
 
+  def setup
+    ActionMailer::Base.delivery_method = :test
+    ActionMailer::Base.perform_deliveries = true
+    ActionMailer::Base.deliveries = []
+    @profile = create_user('test_user').person
+  end
+  attr_reader :profile
+
   should 'have name, reference article and profile' do
-    profile = create_user('test_user').person
     article = profile.articles.create!(:name => 'test article')
 
     a = ApproveArticle.create!(:name => 'test name', :article => article, :target => profile, :requestor => profile)
@@ -14,7 +21,6 @@ class ApproveArticleTest < ActiveSupport::TestCase
   end
 
   should 'create published article when finished' do
-    profile = create_user('test_user').person
     article = profile.articles.create!(:name => 'test article')
     a = ApproveArticle.create!(:name => 'test name', :article => article, :target => profile, :requestor => profile)
 
@@ -24,7 +30,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
   end
 
   should 'override target notification message method from Task' do
-    p1 = create_user('testuser1').person
+    p1 = profile
     p2 = create_user('testuser2').person
     task = AddFriend.new(:person => p1, :friend => p2)
     assert_nothing_raised NotImplementedError do
@@ -33,7 +39,6 @@ class ApproveArticleTest < ActiveSupport::TestCase
   end
 
   should 'have parent if defined' do
-    profile = create_user('test_user').person
     article = profile.articles.create!(:name => 'test article')
     folder = profile.articles.create!(:name => 'test folder', :type => 'Folder')
 
@@ -43,7 +48,6 @@ class ApproveArticleTest < ActiveSupport::TestCase
   end
 
   should 'not have parent if not defined' do
-    profile = create_user('test_user').person
     article = profile.articles.create!(:name => 'test article')
 
     a = ApproveArticle.create!(:name => 'test name', :article => article, :target => profile, :requestor => profile)
@@ -52,7 +56,6 @@ class ApproveArticleTest < ActiveSupport::TestCase
   end
 
   should 'alert when reference article is removed' do
-    profile = create_user('test_user').person
     article = profile.articles.create!(:name => 'test article')
 
     a = ApproveArticle.create!(:name => 'test name', :article => article, :target => profile, :requestor => profile)
@@ -64,7 +67,6 @@ class ApproveArticleTest < ActiveSupport::TestCase
   end
 
   should 'preserve article_parent' do
-    profile = create_user('test_user').person
     article = profile.articles.create!(:name => 'test article')
     a = ApproveArticle.new(:article_parent => article)
 
@@ -72,7 +74,6 @@ class ApproveArticleTest < ActiveSupport::TestCase
   end
 
   should 'handle blank names' do
-    profile = create_user('test_user').person
     article = profile.articles.create!(:name => 'test article')
     community = Community.create!(:name => 'test comm')
     a = ApproveArticle.create!(:name => '', :article => article, :target => community, :requestor => profile)
@@ -81,4 +82,19 @@ class ApproveArticleTest < ActiveSupport::TestCase
       a.finish
     end
   end
+
+  should 'notify target if group is moderated' do
+    article = profile.articles.create!(:name => 'test article')
+    community = Community.create!(:name => 'test comm', :moderated_articles => true)
+    a = ApproveArticle.create!(:name => '', :article => article, :target => community, :requestor => profile)
+    assert !ActionMailer::Base.deliveries.empty?
+  end
+
+  should 'not notify target if group is not moderated' do
+    article = profile.articles.create!(:name => 'test article')
+    community = Community.create!(:name => 'test comm', :moderated_articles => false)
+    a = ApproveArticle.create!(:name => '', :article => article, :target => community, :requestor => profile)
+    assert ActionMailer::Base.deliveries.empty?
+  end
+
 end
