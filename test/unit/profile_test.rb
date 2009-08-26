@@ -809,6 +809,18 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal 'Custom header of Test',  Profile.new(:custom_header => 'Custom header of {name}', :name => 'Test').custom_header_expanded
   end
 
+  should 'provide custom header with nickname when use short_name variable' do
+    profile = Profile.new(:custom_header => 'Custom header of {short_name}', :name => 'Test', :nickname => 'Nickname test')
+    assert_equal 'Custom header of {short_name}', profile.custom_header
+    assert_equal 'Custom header of Nickname test',  profile.custom_header_expanded
+  end
+
+  should 'provide custom header with name when use short_name variable and no nickname' do
+    profile = Profile.new(:custom_header => 'Custom header of {short_name}', :name => 'Test')
+    assert_equal 'Custom header of {short_name}', profile.custom_header
+    assert_equal 'Custom header of Test', profile.custom_header_expanded
+  end
+
   should 'provide custom footer' do
     assert_equal 'my custom footer',  Profile.new(:custom_footer => 'my custom footer').custom_footer
   end

@@ -816,4 +816,20 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     end
   end
 
+  should 'show profile nickname on title' do
+    person = create_user('testuser', {}, :nickname => 'my nick').person
+    get :index, :profile => 'testuser'
+    assert_tag :tag => 'h1', :attributes => { :class => 'block-title'}, :descendant => {
+      :tag => 'span', :attributes => { :class => 'control-panel-title' }, :content => 'my nick'
+    }
+  end
+
+  should 'show profile name on title when no nickname' do
+    person = create_user('testuser').person
+    get :index, :profile => 'testuser'
+    assert_tag :tag => 'h1', :attributes => { :class => 'block-title'}, :descendant => {
+      :tag => 'span', :attributes => { :class => 'control-panel-title' }, :content => 'testuser'
+    }
+  end
+
 end

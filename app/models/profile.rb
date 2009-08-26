@@ -543,11 +543,12 @@ class Profile < ActiveRecord::Base
   def custom_header_expanded
     header = custom_header
     if header
-      if self.respond_to?(:name) && header.include?('{name}')
-        header.gsub('{name}', self.name)
-      else
-        header
+      %w[name short_name].each do |att|
+        if self.respond_to?(att) && header.include?("{#{att}}")
+          header.gsub!("{#{att}}", self.send(att))
+        end
       end
+      header
     end
   end
 
