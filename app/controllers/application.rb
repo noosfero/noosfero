@@ -72,9 +72,6 @@ class ApplicationController < ActionController::Base
 
   before_init_gettext :maybe_save_locale
   after_init_gettext :check_locale
-  #if Noosfero.available_locales.size == 1
-    #GetText.locale = Noosfero.available_locales.first
-  #end
   include GetText
   init_gettext 'noosfero'
 
@@ -133,29 +130,28 @@ class ApplicationController < ActionController::Base
       if params[:lang]
         cookies[:lang] = params[:lang]
       end
-      # force GetText to load a matching locale
-      GetText.locale = nil
     end
   end
 
   def check_locale
-    available_locales = Noosfero.available_locales
-    return if available_locales.size == 1
-
-    # do not accept unsupported locales
-    if !available_locales.include?(locale.to_s)
-      old_locale = locale.to_s
-      # find a similar locale
-      similar = available_locales.find { |loc| locale.to_s.split('_').first == loc.split('_').first }
-      if similar
-        set_locale similar
-        cookies[:lang] = similar
-      else
-        # no similar locale, fallback to default
-        set_locale(Noosfero.default_locale)
-        cookies[:lang] = Noosfero.default_locale
+    if Noosfero.available_locales.size == 1
+      set_locale Noosfero.available_locales.first
+    else
+      # do not accept unsupported locales
+      if !Noosfero.available_locales.include?(locale.to_s)
+        old_locale = locale.to_s
+        # find a similar locale
+        similar = Noosfero.available_locales.find { |loc| locale.to_s.split('_').first == loc.split('_').first }
+        if similar
+          set_locale similar
+          cookies[:lang] = similar
+        else
+          # no similar locale, fallback to default
+          set_locale(Noosfero.default_locale)
+          cookies[:lang] = Noosfero.default_locale
+        end
+        RAILS_DEFAULT_LOGGER.info('Locale reverted from %s to %s' % [old_locale, locale])
       end
-      RAILS_DEFAULT_LOGGER.info('Locale reverted from %s to %s' % [old_locale, locale])
     end
   end
 

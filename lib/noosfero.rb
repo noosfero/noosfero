@@ -13,7 +13,7 @@ module Noosfero
     attr_accessor :locales
     attr_accessor :default_locale
     def available_locales
-      @available_locales ||= (Dir.glob(File.join(RAILS_ROOT, 'locale', '*')).map { |f| File.basename(f) }.select {|item| locales.include?(item) })
+      @available_locales ||= locales.keys
     end
     def each_locale
       locales.keys.sort.each do |key|
