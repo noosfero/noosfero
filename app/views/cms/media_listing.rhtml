@@ -46,6 +46,17 @@
     <% end %>
   </div><!-- id='media-listing-upload' -->
   <hr/>
+
+  <script type='text/javascript'>
+    document.observe("dom:loaded", function() {
+      Event.addBehavior.reassignAfterAjax = true;
+      Event.addBehavior({
+        'div#pagination-images .pagination a' : Remote.Link,
+        'div#pagination-documents .pagination a' : Remote.Link
+      })
+    });
+  </script>
+
   <div id='media-listing'>
     <h3><%= _('Folders') %></h3>
     <p><%= _('Drag images and documents to add them to the text. If needed, resize images by clicking the tree icon on editor.') %></p>
