@@ -74,10 +74,10 @@ class FriendsController < MyProfileController
           end
 
           friend = User.find_by_email(friend_email)
-          if !friend.nil? && friend.person.person?
-            InviteFriend.create(:person => profile, :friend => friend.person)
-          else
+          if friend.nil?
             InviteFriend.create(:person => profile, :friend_name => friend_name, :friend_email => friend_email, :message =>  params[:message])
+          elsif !friend.person.is_a_friend?(profile)
+            InviteFriend.create(:person => profile, :friend => friend.person)
           end
         end
 
