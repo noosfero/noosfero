@@ -57,4 +57,14 @@ class LinkListBlockTest < ActiveSupport::TestCase
     assert_no_match /class="/, l.link_html({:icon => nil, :name => 'test', :address => 'test.com'})
   end
 
+  should 'not add link to javascript' do
+    l = LinkListBlock.new(:links => [{:name => 'link', :address => "javascript:alert('Message test')"}])
+    assert_no_match /javascript/, l.link_html(l.links.first)
+  end
+
+  should 'not add link to onclick' do
+    l = LinkListBlock.new(:links => [{:name => 'link', :address => "#\" onclick=\"alert(123456)"}])
+    assert_no_match /onclick/, l.link_html(l.links.first)
+  end
+
 end
