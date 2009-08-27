@@ -560,12 +560,12 @@ class CmsControllerTest < Test::Unit::TestCase
   end
 
   should 'not make enterprise homepage available to person' do
-    @controller.stubs(:profile).returns(Person.new)
+    @controller.stubs(:profile).returns(create_user('test_user').person)
     assert_not_includes @controller.available_article_types, EnterpriseHomepage
   end
 
   should 'make enterprise homepage available to enterprises' do
-    @controller.stubs(:profile).returns(Enterprise.new)
+    @controller.stubs(:profile).returns(Enterprise.create(:name => 'test_ent', :identifier => 'test_ent'))
     assert_includes @controller.available_article_types, EnterpriseHomepage
   end
 
@@ -767,7 +767,7 @@ class CmsControllerTest < Test::Unit::TestCase
   end
 
   should 'not offer folder to blog articles' do
-    @controller.stubs(:profile).returns(Enterprise.new)
+    @controller.stubs(:profile).returns(Enterprise.create(:name => 'test_ent', :identifier => 'test_ent'))
     blog = Blog.create!(:name => 'Blog for test', :profile => profile)
     @controller.stubs(:params).returns({ :parent_id => blog.id })
 
@@ -775,7 +775,7 @@ class CmsControllerTest < Test::Unit::TestCase
   end
 
   should 'not offer rssfeed to blog articles' do
-    @controller.stubs(:profile).returns(Enterprise.new)
+    @controller.stubs(:profile).returns(Enterprise.create(:name => 'test_ent', :identifier => 'test_ent'))
     blog = Blog.create!(:name => 'Blog for test', :profile => profile)
     @controller.stubs(:params).returns({ :parent_id => blog.id })
 
@@ -1135,6 +1135,17 @@ class CmsControllerTest < Test::Unit::TestCase
 
     get :view, :profile => profile.identifier, :id => profile.blog.id
     assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/upload_files?parent_id=#{profile.blog.id}"}
+  end
+
+  should 'not offer to create events if events is disabled' do
+    e = profile.environment
+    e.enable(:disable_asset_events)
+    e.save!
+
+    get :new, :profile => profile.identifier
+
+
+    assert_not_includes assigns(:article_types).map{|at|at[:name]}, 'Event'
   end
 
 end
