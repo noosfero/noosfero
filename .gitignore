@@ -2,3 +2,15 @@ vendor/rails
 doc/api
 doc/plugins
 tmp
+config/database.yml
+config/session.secret
+index
+locale
+log
+public/articles
+public/images/0000
+public/thumbnails
+public/user_themes
+db/development.db
+db/production.db
+db/test.db
