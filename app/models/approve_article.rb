@@ -68,6 +68,7 @@ class ApproveArticle < Task
   end
 
   def target_notification_message
+    return nil if target.organization? && !target.moderated_articles?
     description + "\n\n" +
     _('You need to login on %{system} in order to approve or reject this article.') % { :system => target.environment.name }
   end

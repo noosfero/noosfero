@@ -53,7 +53,6 @@ function checkIt(string) {
 
 Event.observe(window, 'load', initialize, false);
 Event.observe(window, 'load', getBrowserInfo, false);
-Event.observe(window, 'unload', Event.unloadCache, false);
 
 var lightbox = Class.create();
 

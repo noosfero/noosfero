@@ -35,8 +35,12 @@ class TinyMceArticleTest < Test::Unit::TestCase
   should 'not translate & to amp; over times' do
     article = TinyMceArticle.create!(:name => 'link', :body => "<a href='www.invalid.com?param1=value&param2=value'>link</a>", :profile => profile)
     assert article.save
-    assert_no_match /&amp;amp;/, article.body
-    assert_match /&amp;/, article.body
+    assert_no_match(/&amp;amp;/, article.body)
+    assert_match(/&amp;/, article.body)
   end
 
+  should 'not escape comments from tiny mce article body' do
+    article = TinyMceArticle.create!(:profile => profile, :name => 'article', :abstract => 'abstract', :body => "the <!-- comment --> article ...")
+    assert_equal "the <!-- comment --> article ...", article.body
+  end
 end

@@ -45,12 +45,3 @@ function convToValidIdentifier( str, sep ) {
             .replace( /ç/g,       "c" )
             .replace( /[^-_a-z0-9.]+/g, sep )
 }
-
-document.observe("dom:loaded", function() {
-  Event.addBehavior.reassignAfterAjax = true;
-  Event.addBehavior({
-    'div#pagination-images .pagination a' : Remote.Link,
-    'div#pagination-documents .pagination a' : Remote.Link
-  })
-});
-

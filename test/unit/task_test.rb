@@ -207,6 +207,13 @@ class TaskTest < Test::Unit::TestCase
     end
   end
 
+  should 'not notify target if message is nil' do
+    task = Task.new
+    task.stubs(:target_notification_message).returns(nil)
+    TaskMailer.expects(:deliver_target_notification).never
+    task.save!
+  end
+
   protected
 
   def sample_user

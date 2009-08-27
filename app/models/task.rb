@@ -59,7 +59,7 @@ class Task < ActiveRecord::Base
     
     begin
       target_msg = task.target_notification_message
-      TaskMailer.deliver_target_notification(task, target_msg)
+      TaskMailer.deliver_target_notification(task, target_msg) if target_msg
     rescue NotImplementedError => ex
       RAILS_DEFAULT_LOGGER.info ex.to_s
     end
