@@ -80,6 +80,11 @@ class Task < ActiveRecord::Base
         RAILS_DEFAULT_LOGGER.info ex.to_s
       end
     end
+    after_finish
+  end
+
+  # :nodoc:
+  def after_finish
   end
 
   # this method cancels the task. At the end a message (as returned by

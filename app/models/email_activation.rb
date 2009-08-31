@@ -17,6 +17,10 @@ class EmailActivation < Task
 
   def perform
     person.user.enable_email!
+  end
+
+  # :nodoc:
+  def after_finish
     User::Mailer.deliver_activation_email_notify(person.user)
   end
 
