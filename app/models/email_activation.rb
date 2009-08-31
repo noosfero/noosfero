@@ -17,6 +17,7 @@ class EmailActivation < Task
 
   def perform
     person.user.enable_email!
+    User::Mailer.deliver_activation_email_notify(person.user)
   end
 
   def sends_email?

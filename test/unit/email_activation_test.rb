@@ -2,6 +2,12 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class EmailActivationTest < Test::Unit::TestCase
 
+  def setup
+    ActionMailer::Base.delivery_method = :test
+    ActionMailer::Base.perform_deliveries = true
+    ActionMailer::Base.deliveries = []
+  end
+
   should 'require a requestor' do
     task = EmailActivation.new
     task.valid?
@@ -23,6 +29,15 @@ class EmailActivationTest < Test::Unit::TestCase
     task.finish
     ze.reload
     assert ze.enable_email
+  end
+
+  should 'deliver email after enabling mailbox' do
+    ze = create_user('zezinho', :environment_id => Environment.default.id, :email => 'ze@example.com')
+    assert !ze.enable_email
+    task = EmailActivation.create!(:requestor => ze.person, :target => Environment.default)
+    task.finish
+
+    assert_equal ['zezinho@colivre.net'], ActionMailer::Base.deliveries.first.to
   end
 
   should 'create only once pending task by user' do

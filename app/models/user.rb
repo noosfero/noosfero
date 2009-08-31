@@ -39,17 +39,6 @@ class User < ActiveRecord::Base
     @person_data || {}
   end
 
-  attr_accessor :had_email_disabled
-  before_update do |user|
-    user.had_email_disabled = !User.find(user.id).enable_email
-    true
-  end
-  after_update do |user|
-    if user.had_email_disabled && user.enable_email && !user.environment.nil?
-      User::Mailer.deliver_activation_email_notify(user)
-    end
-  end
-
   def email_domain
     self.person.preferred_domain && self.person.preferred_domain.name || self.environment.default_hostname(true)
   end
