@@ -90,16 +90,31 @@ class CommunitiesBlockTest < Test::Unit::TestCase
   should 'count number of owner communities' do
     user = create_user('testuser').person
 
-    community1 = Community.create!(:name => 'test community 1', :identifier => 'comm1', :environment => Environment.default)
+    community1 = Community.create!(:name => 'test community 1', :identifier => 'comm1', :environment => Environment.default, :public_profile => true)
     community1.add_member(user)
 
-    community2 = Community.create!(:name => 'test community 2', :identifier => 'comm2', :environment => Environment.default)
+    community2 = Community.create!(:name => 'test community 2', :identifier => 'comm2', :environment => Environment.default, :public_profile => true)
     community2.add_member(user)
 
     block = CommunitiesBlock.new
     block.expects(:owner).at_least_once.returns(user)
 
     assert_equal 2, block.profile_count
+  end
+
+  should 'not count non-public communities' do
+    user = create_user('testuser').person
+
+    community_public = Community.create!(:name => 'tcommunity 1', :identifier => 'comm1', :environment => Environment.default, :public_profile => true)
+    community_public.add_member(user)
+
+    community_private = Community.create!(:name => ' community 2', :identifier => 'comm2', :environment => Environment.default, :public_profile => false)
+    community_private.add_member(user)
+
+    block = CommunitiesBlock.new
+    block.expects(:owner).at_least_once.returns(user)
+
+    assert_equal 1, block.profile_count
   end
 
 end
