@@ -59,7 +59,7 @@ Rake::PackageTask.new(Noosfero::PROJECT, Noosfero::VERSION) do |p|
   p.package_files.include('util/**/*')
 
   # external resources
-  p.package_files.include('vendor/**/*')
+  p.package_files.include('vendor/plugins/**/*')
 
   # exclusions
   p.package_files.exclude('coverage/**/*')

@@ -57,4 +57,21 @@ class LinkListBlockTest < ActiveSupport::TestCase
     assert_no_match /class="/, l.link_html({:icon => nil, :name => 'test', :address => 'test.com'})
   end
 
+  should 'not add link to javascript' do
+    l = LinkListBlock.new(:links => [{:name => 'link', :address => "javascript:alert('Message test')"}])
+    assert_no_match /href="javascript/, l.link_html(l.links.first)
+  end
+
+  should 'not add link to onclick' do
+    l = LinkListBlock.new(:links => [{:name => 'link', :address => "#\" onclick=\"alert(123456)"}])
+    assert_no_match /onclick/, l.link_html(l.links.first)
+  end
+
+  should 'add http in front of incomplete external links' do
+    {'/local/link' => '/local/link', 'http://example.org' => 'http://example.org', 'example.org' => 'http://example.org'}.each do |input, output|
+      l = LinkListBlock.new(:links => [{:name => 'categ', :address => input}])
+      assert_tag_in_string l.content, :tag => 'a', :attributes => {:href => output}
+    end
+  end
+
 end

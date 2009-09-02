@@ -109,4 +109,14 @@ class UploadedFileTest < Test::Unit::TestCase
     assert_match /#{UploadedFile.max_size.to_humanreadable}/, up.errors[:size]
   end
 
+  should 'display link to download of non-image files' do
+    p = create_user('test_user').person
+    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'), :profile => p)
+
+    stubs(:content_tag)
+    expects(:link_to).with(file.name, file.url, :class => file.css_class_name)
+
+    instance_eval(&file.to_html)
+  end
+
 end

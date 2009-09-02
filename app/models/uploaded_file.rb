@@ -50,7 +50,14 @@ class UploadedFile < Article
   include ActionView::Helpers::TagHelper
 
   def to_html(options = {})
-    tag('img', :src => public_filename(:display), :class => css_class_name, :style => 'max-width: 100%') if image?
+    if image?
+      tag('img', :src => public_filename(:display), :class => css_class_name, :style => 'max-width: 100%')
+    else
+      article = self
+      lambda do
+        content_tag('ul', content_tag('li', link_to(article.name, article.url, :class => article.css_class_name)))
+      end
+    end
   end
 
   def allow_children?

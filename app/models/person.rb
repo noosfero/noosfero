@@ -128,14 +128,14 @@ class Person < Profile
       :select => 'profiles.*').uniq
   end
 
-  def enterprise_memberships
-    memberships(:type => Enterprise.name)
+  def enterprise_memberships(conditions = {})
+    memberships({:type => Enterprise.name}.merge(conditions))
   end
 
   alias :enterprises :enterprise_memberships
 
-  def community_memberships
-    memberships(:type => Community.name)
+  def community_memberships(conditions = {})
+    memberships({:type => Community.name}.merge(conditions))
   end
 
   alias :communities :community_memberships

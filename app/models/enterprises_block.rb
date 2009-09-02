@@ -29,7 +29,7 @@ class EnterprisesBlock < ProfileListBlock
   end
 
   def profile_count
-    owner.enterprises.count
+    owner.enterprises(:public_profile => true).count
   end
 
   def profile_finder

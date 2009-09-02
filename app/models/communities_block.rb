@@ -33,7 +33,7 @@ class CommunitiesBlock < ProfileListBlock
   end
 
   def profile_count
-    owner.communities.count
+    owner.communities(:public_profile => true).count
   end
 
   def profile_finder

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 69) do
+ActiveRecord::Schema.define(:version => 71) do
 
   create_table "article_versions", :force => true do |t|
     t.integer  "article_id"
@@ -59,7 +59,6 @@ ActiveRecord::Schema.define(:version => 69) do
     t.datetime "created_at"
     t.integer  "last_changed_by_id"
     t.integer  "version"
-    t.integer  "lock_version"
     t.string   "type"
     t.integer  "size"
     t.string   "content_type"
@@ -253,6 +252,7 @@ ActiveRecord::Schema.define(:version => 69) do
     t.boolean  "public_profile",                    :default => true
     t.date     "birth_date"
     t.integer  "preferred_domain_id"
+    t.datetime "updated_at"
   end
 
   add_index "profiles", ["environment_id"], :name => "index_profiles_on_environment_id"

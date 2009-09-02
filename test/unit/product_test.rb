@@ -112,15 +112,12 @@ class ProductTest < Test::Unit::TestCase
   should 'provide url' do
     product = Product.new
 
-    result = mock
-
     enterprise = Enterprise.new
-    enterprise.expects(:generate_url).with(:controller => 'catalog', :action => 'show', :id => 999).returns(result)
+    enterprise.expects(:public_profile_url).returns({})
 
     product.expects(:id).returns(999)
     product.expects(:enterprise).returns(enterprise)
-
-    assert_same result, product.url
+    assert_equal({:controller => 'catalog', :action => 'show', :id => 999}, product.url)
   end
 
   should 'categorize also with product categorization' do

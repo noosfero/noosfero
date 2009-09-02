@@ -157,4 +157,11 @@ class FriendsControllerTest < Test::Unit::TestCase
     end
   end
 
+  should 'not create InviteFriend if is a friend' do
+    friend = create_user('testfriend', :email => 'friend@noosfero.org')
+    friend.person.add_friend(profile)
+    assert_no_difference InviteFriend, :count do
+      post :invite, :manual_import_addresses => "#{friend.name} <#{friend.email}>", :import_from => "manual", :message => "click: <url>", :confirmation => 1, :wizard => true
+    end
+  end
 end
