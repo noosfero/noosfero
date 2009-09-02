@@ -59,7 +59,7 @@ class LinkListBlockTest < ActiveSupport::TestCase
 
   should 'not add link to javascript' do
     l = LinkListBlock.new(:links => [{:name => 'link', :address => "javascript:alert('Message test')"}])
-    assert_no_match /javascript/, l.link_html(l.links.first)
+    assert_no_match /href="javascript/, l.link_html(l.links.first)
   end
 
   should 'not add link to onclick' do
