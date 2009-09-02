@@ -55,10 +55,15 @@ class LinkListBlock < Block
   end
 
   def expand_address(address)
-    if owner.respond_to?(:identifier)
+    add = if owner.respond_to?(:identifier)
       address.gsub('{profile}', owner.identifier)
     else
       address
+    end
+    if add !~ /^[a-z]+:\/\// && add !~ /^\//
+      'http://' + add
+    else
+      add
     end
   end
 
