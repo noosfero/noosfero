@@ -262,30 +262,18 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal({ :host => 'mycolivre.net', :profile => 'testprofile', :controller => 'profile', :action => 'index' }, profile.public_profile_url)
   end
 
-  should 'generate URL' do
-    profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile', :environment_id => create_environment('mycolivre.net').id)
-
-    assert_equal({ :host => 'mycolivre.net', :profile => 'testprofile', :controller => 'profile', :action => 'friends' }, profile.generate_url(:controller => 'profile', :action => 'friends'))
-  end
-
-  should 'provide URL options' do
-    profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile', :environment_id => create_environment('mycolivre.net').id)
-
-    assert_equal({:host => 'mycolivre.net', :profile => 'testprofile'}, profile.url_options)
-  end
-
   should "use own domain name instead of environment's for home page url" do
     profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile', :environment_id => create_environment('mycolivre.net').id)
     profile.domains << Domain.new(:name => 'micojones.net')
     assert_equal({:host => 'micojones.net', :profile => nil, :controller => 'content_viewer', :action => 'view_page', :page => []}, profile.url)
   end
 
-  should 'help developers by adding a suitable port to url options' do
+  should 'help developers by adding a suitable port to url' do
     profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile', :environment_id => create_environment('mycolivre.net').id)
 
     Noosfero.expects(:url_options).returns({ :port => 9999 })
 
-    ok('Profile#url_options must include port option when running in development mode') { profile.url_options[:port] == 9999 }
+    ok('Profile#url_options must include port option when running in development mode') { profile.url[:port] == 9999 }
   end
 
   should 'help developers by adding a suitable port to url options for own domain urls' do

@@ -24,7 +24,7 @@ class TagsBlock < Block
     block_title(title) +
     "\n<div class='tag_cloud'>\n"+
     tag_cloud( tags, :id,
-               owner.generate_url(:controller => 'profile', :action => 'tag'),
+               owner.public_profile_url.merge(:controller => 'profile', :action => 'tag'),
                :max_size => 16, :min_size => 9 ) +
     "\n</div><!-- end class='tag_cloud' -->\n";
   end

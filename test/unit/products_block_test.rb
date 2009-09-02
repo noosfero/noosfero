@@ -123,4 +123,16 @@ class ProductsBlockTest < ActiveSupport::TestCase
     end
   end
 
+  should 'generate footer when enterprise has own hostname' do
+    enterprise = Enterprise.create!(:name => 'testenterprise', :identifier => 'testenterprise')
+    enterprise.domains << Domain.new(:name => 'sometest.com'); enterprise.save!
+    enterprise.products.create!(:name => 'product one')
+    enterprise.products.create!(:name => 'product two')
+
+    block.stubs(:owner).returns(enterprise)
+
+    footer = block.footer
+
+    assert_tag_in_string footer, :tag => 'a', :attributes => { :href => /\/catalog\/testenterprise$/ }, :content => 'View all products'
+  end
 end

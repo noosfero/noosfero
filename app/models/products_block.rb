@@ -25,7 +25,7 @@ class ProductsBlock < Block
   end
 
   def footer
-    link_to(_('View all products'), owner.generate_url(:controller => 'catalog', :action => 'index'))
+    link_to(_('View all products'), owner.public_profile_url.merge(:controller => 'catalog', :action => 'index'))
   end
 
   settings_items :product_ids, Array

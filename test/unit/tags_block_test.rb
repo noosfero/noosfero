@@ -3,12 +3,12 @@ require File.dirname(__FILE__) + '/../test_helper'
 class TagsBlockTest < Test::Unit::TestCase
 
   def setup
-    user = create_user('testinguser').person
-    user.articles.build(:name => 'article 1', :tag_list => 'first-tag').save!
-    user.articles.build(:name => 'article 2', :tag_list => 'first-tag, second-tag').save!
-    user.articles.build(:name => 'article 3', :tag_list => 'first-tag, second-tag, third-tag').save!
+    @user = create_user('testinguser').person
+    @user.articles.build(:name => 'article 1', :tag_list => 'first-tag').save!
+    @user.articles.build(:name => 'article 2', :tag_list => 'first-tag, second-tag').save!
+    @user.articles.build(:name => 'article 3', :tag_list => 'first-tag, second-tag, third-tag').save!
 
-    box = Box.create!(:owner => user)
+    box = Box.create!(:owner => @user)
     @block = TagsBlock.create!(:box => box)
   end
   attr_reader :block
@@ -30,6 +30,11 @@ class TagsBlockTest < Test::Unit::TestCase
   should 'return (none) when no tags to display' do
     block.owner.expects(:article_tags).returns([])
     assert_equal '', block.content
+  end
+
+  should 'generate links when profile has own hostname' do
+    @user.domains << Domain.new(:name => 'testuser.net'); @user.save!
+    assert_match /profile\/testinguser\/tag\/first-tag/, block.content
   end
 
 end

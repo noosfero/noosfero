@@ -60,7 +60,7 @@ class Product < ActiveRecord::Base
   end
 
   def url
-    enterprise.generate_url(:controller => 'catalog', :action => 'show', :id => id)
+    enterprise.public_profile_url.merge(:controller => 'catalog', :action => 'show', :id => id)
   end
 
   def public?

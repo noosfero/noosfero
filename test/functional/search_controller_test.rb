@@ -992,6 +992,15 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'div', :attributes => {:id => 'wizard-steps'}
   end
 
+  should 'find products when enterprises has own hostname' do
+    ent = Enterprise.create!(:name => 'teste', :identifier => 'teste')
+    ent.domains << Domain.new(:name => 'testent.com'); ent.save!
+    prod = ent.products.create!(:name => 'a beautiful product')
+    get 'index', :query => 'beautiful', :find_in => ['products']
+    assert_includes assigns(:results)[:products], prod
+  end
+
+
   ##################################################################
   ##################################################################
 
