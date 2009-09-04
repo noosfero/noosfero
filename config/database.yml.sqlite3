@@ -9,3 +9,6 @@ test:
 production:
   adapter: sqlite3
   database: db/production.db
+
+cucumber:
+  <<: *TEST

@@ -33,3 +33,6 @@ production:
   username: root
   password: 
   host: localhost
+
+cucumber:
+  <<: *TEST
