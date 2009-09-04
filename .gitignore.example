@@ -1,9 +1,11 @@
+.gitignore
 vendor/rails
 doc/api
 doc/plugins
 tmp
 config/database.yml
 config/session.secret
+config/mail.yml
 index
 locale
 log
@@ -14,3 +16,5 @@ public/user_themes
 db/development.db
 db/production.db
 db/test.db
+tags
+pkg
