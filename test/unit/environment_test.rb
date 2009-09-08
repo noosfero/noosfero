@@ -741,6 +741,15 @@ class EnvironmentTest < Test::Unit::TestCase
    assert_equal [], e.portal_folders
   end
 
+  should 'remove all portal folders' do
+    e = Environment.default
+
+    e.portal_folders = nil
+    e.save!; e.reload
+
+    assert_equal [], e.portal_folders
+  end
+
   should 'have roles with names independent of other environments' do
     e1 = Environment.create!(:name => 'a test environment')
     role1 = Role.create!(:name => 'test_role', :environment => e1)

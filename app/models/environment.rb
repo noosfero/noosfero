@@ -622,7 +622,7 @@ class Environment < ActiveRecord::Base
   end
 
   def portal_folders=(folders)
-    settings[:portal_folders] = folders.map(&:id)
+    settings[:portal_folders] = folders ? folders.map(&:id) : nil
   end
 
   def help_message_to_add_enterprise

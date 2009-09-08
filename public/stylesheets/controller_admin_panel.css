@@ -1,0 +1,11 @@
+#available-folders select {
+  width: 50%;
+}
+
+#selection-buttons {
+  display: block;
+}
+
+#portal-folders select {
+  width: 50%;
+}

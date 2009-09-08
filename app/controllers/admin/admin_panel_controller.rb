@@ -32,16 +32,17 @@ class AdminPanelController < AdminController
   end
 
   def set_portal_folders
-     @portal_folders = environment.portal_community.folders
+     @selected = (environment.portal_folders || [])
+     @available_portal_folders = environment.portal_community.folders - @selected
+
      if request.post?
        env = environment
-       folders = params[:folders].map{|fid| Folder.find(:first, :conditions => {:profile_id => env.portal_community, :id => fid})}
+       folders = params[:folders].map{|fid| Folder.find(:first, :conditions => {:profile_id => env.portal_community, :id => fid})} if params[:folders]
        env.portal_folders = folders
        if env.save
          flash[:notice] = _('Saved the portal folders')
          redirect_to :action => 'index'
        end
      end
-     @selected = (environment.portal_folders || []).map(&:id)
   end
 end

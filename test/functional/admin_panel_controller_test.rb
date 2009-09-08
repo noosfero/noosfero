@@ -160,9 +160,43 @@ class AdminPanelControllerTest < Test::Unit::TestCase
     env.save!
 
     get :set_portal_folders
-    assert_tag :tag => 'option', :attributes => {:value => local.id}, :content => local.name
-    assert_tag :tag => 'option', :attributes => {:value => tech.id}, :content => tech.name
-    assert_tag :tag => 'option', :attributes => {:value => politics.id}, :content => politics.name
+    [local, tech, politics].each do |folder|
+      assert_tag :tag => 'div', :attributes => {:id => 'available-folders'}, :descendant => {:tag => 'option', :attributes => {:value => folder.id}, :content => folder.name}
+    end
+  end
+
+  should 'not display not portal folders on portal-folders' do
+    env = Environment.default
+    c = Community.create!(:name => 'portal')
+    env.portal_community = c
+    local = Folder.create!(:profile => c, :name => 'local news')
+    tech = Folder.create!(:profile => c, :name => 'tech news')
+    politics = Folder.create!(:profile => c, :name => 'politics news')
+    env.save!
+
+    get :set_portal_folders
+    [local, tech, politics].each do |folder|
+      assert_no_tag :tag => 'div', :attributes => {:id => 'portal-folders'}, :descendant => {:tag => 'option', :attributes => {:value => folder.id}, :content => folder.name}
+    end
+  end
+
+  should 'list portal folders for removal' do
+    env = Environment.default
+    c = Community.create!(:name => 'portal')
+    env.portal_community = c
+    local = Folder.create!(:profile => c, :name => 'local news')
+    tech = Folder.create!(:profile => c, :name => 'tech news')
+    politics = Folder.create!(:profile => c, :name => 'politics news')
+    env.save!
+    env.portal_folders = [local, tech]
+    env.save!
+
+    get :set_portal_folders
+    [local, tech].each do |folder|
+      assert_tag :tag => 'div', :attributes => {:id => 'portal-folders'}, :descendant => {:tag => 'option', :attributes => {:value => folder.id}, :content => folder.name}
+    end
+
+    assert_no_tag :tag => 'div', :attributes => {:id => 'portal-folders'}, :descendant => {:tag => 'option', :attributes => {:value => politics.id}, :content => politics.name}
   end
 
   should 'save a list of folders as portal folders for the environment' do
@@ -179,5 +213,17 @@ class AdminPanelControllerTest < Test::Unit::TestCase
     post :set_portal_folders, :folders => [local, politics, tech].map(&:id)
 
     assert_equal [local, politics, tech].map(&:id), env.portal_folders.map(&:id)
+  end
+
+  should 'remove all folders as portal folders for the environment' do
+    env = Environment.default
+    @controller.stubs(:environment).returns(env)
+    c = Community.create!(:name => 'portal')
+    env.portal_community = c
+    env.save!
+
+    post :set_portal_folders
+
+    assert_equal [], env.portal_folders
   end
 end
