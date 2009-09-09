@@ -33,21 +33,24 @@ class AccountControllerTest < Test::Unit::TestCase
     assert_response :redirect
   end
 
-  should 'redirect to user control panel on login' do
+  should 'redirect to where user was on login' do
+    @request.env["HTTP_REFERER"] = '/bli'
     u = new_user
     post :login, :user => {:login => 'quire', :password => 'quire'}
 
-    assert_redirected_to :controller => 'profile_editor', :action => 'index', :profile => 'quire'
+    assert_redirected_to '/bli'
   end
 
-  should 'redirect to home when login on other environment' do
+  should 'redirect to where was when login on other environment' do
     e = Environment.create!(:name => 'other_environment')
     e.domains << Domain.new(:name => 'other.environment')
     e.save!
     u = create_user('test_user', :environment => e).person
+
+    @request.env["HTTP_REFERER"] = '/bli'
     post :login, :user => {:login => 'test_user', :password => 'test_user'}
 
-    assert_redirected_to :controller => 'home'
+    assert_redirected_to '/bli'
   end
 
   def test_should_fail_login_and_not_redirect
@@ -120,6 +123,7 @@ class AccountControllerTest < Test::Unit::TestCase
   end
 
   def test_should_remember_me
+    @request.env["HTTP_REFERER"] = '/bli'
     post :login, :user => {:login => 'johndoe', :password => 'test'}, :remember_me => "1"
     assert_not_nil @response.cookies["auth_token"]
   end
@@ -282,12 +286,6 @@ class AccountControllerTest < Test::Unit::TestCase
       new_user(:login => 'user2', :email => 'user@example.com')
       assert assigns(:user).errors.on(:email)
     end
-  end
-
-  should 'correct redirect after login' do
-    user = create_user('correct_redirect').person
-    post :login, :user => {:login => 'correct_redirect', :password => 'correct_redirect'}
-    assert_redirected_to :controller => 'profile_editor'
   end
 
   should 'signup from wizard' do
@@ -642,6 +640,13 @@ class AccountControllerTest < Test::Unit::TestCase
       assert_redirected_to :controller => 'profile_editor', :profile => 'testuser'
     end
     assert_equal 'example.com', Person['testuser'].organization
+  end
+
+  should 'redirect to initial page after logout' do
+    login_as :johndoe
+    get :logout
+    assert_nil session[:user]
+    assert_redirected_to :controller => 'home', :action => 'index'
   end
 
   protected

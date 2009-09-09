@@ -17,6 +17,7 @@ class AccountController < ApplicationController
   def login
     @user = User.new
     @person = @user.build_person
+    store_location(request.referer)
     return unless request.post?
     self.current_user = User.authenticate(params[:user][:login], params[:user][:password]) if params[:user]
     if logged_in?
@@ -24,8 +25,10 @@ class AccountController < ApplicationController
         self.current_user.remember_me
         cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
       end
-      go_to_user_initial_page if redirect?
-      flash[:notice] = _("Logged in successfully") if redirect?
+      if redirect?
+        go_to_initial_page
+        flash[:notice] = _("Logged in successfully")
+      end
     else
       flash[:notice] = _('Incorrect username or password') if redirect?
       redirect_to :back if redirect?
@@ -70,7 +73,7 @@ class AccountController < ApplicationController
           redirect_to :controller => 'search', :action => 'assets', :asset => 'communities', :wizard => true
           return
         else
-          go_to_user_initial_page if redirect?
+          go_to_initial_page if redirect?
         end
       end
     if @wizard
@@ -105,7 +108,7 @@ class AccountController < ApplicationController
     cookies.delete :auth_token
     reset_session
     flash[:notice] = _("You have been logged out.")
-    redirect_back_or_default(:controller => 'account', :action => 'index')
+    redirect_to :controller => 'home', :action => 'index'
   end
 
   def change_password
@@ -280,12 +283,11 @@ class AccountController < ApplicationController
     params[:answer] == enterprise.send(enterprise.question).to_s
   end
 
-  def go_to_user_initial_page
+  def go_to_initial_page
     if environment == current_user.environment
       redirect_back_or_default(user.admin_url)
     else
       redirect_back_or_default(:controller => 'home')
     end
   end
-
 end
