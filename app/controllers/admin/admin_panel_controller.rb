@@ -41,8 +41,17 @@ class AdminPanelController < AdminController
        env.portal_folders = folders
        if env.save
          flash[:notice] = _('Saved the portal folders')
-         redirect_to :action => 'index'
+         redirect_to :action => 'set_portal_news_amount'
        end
      end
+  end
+
+  def set_portal_news_amount
+    if request.post?
+      if @environment.update_attributes(params[:environment])
+        flash[:notice] = _('Saved the number of news on folders')
+        redirect_to :action => 'index'
+      end
+    end
   end
 end

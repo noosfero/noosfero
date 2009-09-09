@@ -625,6 +625,14 @@ class Environment < ActiveRecord::Base
     settings[:portal_folders] = folders ? folders.map(&:id) : nil
   end
 
+  def news_amount_by_folder
+    (settings[:news_amount_by_folder] || 4)
+  end
+
+  def news_amount_by_folder=(amount)
+    settings[:news_amount_by_folder] = amount.to_i
+  end
+
   def help_message_to_add_enterprise
     self.settings['help_message_to_add_enterprise'] || ''
   end

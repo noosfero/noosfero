@@ -226,4 +226,21 @@ class AdminPanelControllerTest < Test::Unit::TestCase
 
     assert_equal [], env.portal_folders
   end
+
+  should 'have amount of news on portal' do
+    env = Environment.default
+    env.news_amount_by_folder = 5
+    env.save
+
+    get :set_portal_news_amount
+    assert_tag :tag => 'select', :descendant => {:tag => 'option', :attributes => {:value => 5, :selected => 'selected'}}
+  end
+
+  should 'save amount of news' do
+    post :set_portal_news_amount, :environment => { :news_amount_by_folder => '3' }
+    assert_redirected_to :action => 'index'
+
+    assert_equal 3, Environment.default.news_amount_by_folder
+  end
+
 end

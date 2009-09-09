@@ -786,4 +786,22 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal 'tip message', env.tip_message_enterprise_activation_question
   end
 
+  should 'have amount of news on portal folders' do
+    e = Environment.default
+
+    assert_respond_to e, :news_amount_by_folder
+
+    e.news_amount_by_folder = 2
+    e.save!; e.reload
+
+    assert_equal 2, e.news_amount_by_folder
+  end
+
+  should 'have default amount of news on portal folders' do
+    e = Environment.default
+
+    assert_respond_to e, :news_amount_by_folder
+
+    assert_equal 4, e.news_amount_by_folder
+  end
 end

@@ -38,7 +38,7 @@
       <% content_tag(:div, :class => ["news-area", ['even', 'odd'][i%2]].join(' ')) do %>
         <h3><%= link_to folder.title, folder.url %></h3>
           <ul>
-          <% folder.news(4).each do |news| %>
+          <% folder.news(environment.news_amount_by_folder).each do |news| %>
             <li> <%= link_to(news.title, news.url) %></li>
           <% end%>
           </ul>

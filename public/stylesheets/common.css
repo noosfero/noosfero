@@ -537,11 +537,10 @@ div.pending-tasks {
 
 .news-area {
   border: 1px solid black;
-  height: 170px;
+  height: auto;
   width: 49%;
   margin: 3px 0px;
   font-size: 11px;
-  overflow: hidden;
 }
 
 #content .news-area h3 {
@@ -552,7 +551,9 @@ div.pending-tasks {
 }
 
 .news-area ul {
-  padding: 2px;
+  padding: 5px;
+  height: 125px;
+  overflow: auto;
 }
 
 .news-area li {
