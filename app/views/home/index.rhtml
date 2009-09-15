@@ -11,6 +11,9 @@
           <h2><%= link_to(highlighted.title, highlighted.url, :class => 'post-title') %></h2>
           <span class="post-date"><%= show_date(highlighted.published_at, true) %> </span></p>
           <p class='headline'><%= highlighted.first_paragraph %></p>
+          <p class='highlighted-news-read-more'>
+            <%= link_to(_('Read more'), highlighted.url) %>
+          </p>
           <br style='clear:both' />
         </div>
       <% end%>
