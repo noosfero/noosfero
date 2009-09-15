@@ -816,10 +816,10 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'div', :attributes => { :id => 'article-source' }
   end
 
-  should 'render profile screen when there is no homepage' do
+  should 'redirect to profile controller when there is no homepage' do
     profile.home_page.destroy
     get :view_page, :profile => profile.identifier, :page => []
-    assert_template 'profile/index'
+    assert_redirected_to :controller => 'profile', :action => 'index', :profile => profile.identifier
   end
 
   should "not display 'Upload files' when viewing blog" do

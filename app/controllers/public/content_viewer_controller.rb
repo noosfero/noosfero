@@ -13,8 +13,7 @@ class ContentViewerController < ApplicationController
     if path.blank?
       @page = profile.home_page
       if @page.nil?
-        @tags = profile.tags
-        render :template => 'profile/index'
+        redirect_to :controller => 'profile', :action => 'index', :profile => profile.identifier
         return
       end
     else
