@@ -33,7 +33,7 @@ class Profile < ActiveRecord::Base
     'edit_profile'         => N_('Edit profile'),
     'destroy_profile'      => N_('Destroy profile'),
     'manage_memberships'   => N_('Manage memberships'),
-    'post_content'         => N_('Post content'),
+    'post_content'         => N_('Manage content'), # changed only presentation name to keep already given permissions
     'edit_profile_design'  => N_('Edit profile design'),
     'manage_products'      => N_('Manage products'),
     'manage_friends'       => N_('Manage friends'),
@@ -42,6 +42,7 @@ class Profile < ActiveRecord::Base
     'moderate_comments'    => N_('Moderate comments'),
     'edit_appearance'      => N_('Edit appearance'),
     'view_private_content' => N_('View private content'),
+    'publish_content'      => N_('Publish content'),
   }
 
   acts_as_accessible

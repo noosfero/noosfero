@@ -214,11 +214,8 @@ class Article < ActiveRecord::Base
     end
   end
 
-  def allow_post_content?(logged_person = nil)
-    if logged_person && logged_person.has_permission?('post_content', profile)
-      return true
-    end
-    false
+  def allow_post_content?(user = nil)
+    user && (user.has_permission?('post_content', profile) || user.has_permission?('publish_content', profile) && (user == self.creator))
   end
 
   def comments_updated
@@ -289,6 +286,11 @@ class Article < ActiveRecord::Base
 
   def self.find_tagged_with(tag)
     self.find(:all, :include => :taggings, :conditions => ['taggings.tag_id = ?', tag.id])
+  end
+
+  def creator
+    creator_id = versions[0][:last_changed_by_id]
+    creator_id && Profile.find(creator_id)
   end
 
   private

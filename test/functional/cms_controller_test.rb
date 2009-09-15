@@ -1148,4 +1148,58 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_not_includes assigns(:article_types).map{|at|at[:name]}, 'Event'
   end
 
+  should 'not allow user without permission create an article in community' do
+    c = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
+    u = create_user_with_permission('test_user', 'bogus_permission', c)
+    login_as :test_user
+
+    get :new, :profile => c.identifier
+    assert_response :forbidden
+    assert_template 'access_denied.rhtml'
+  end
+
+  should 'allow user with permission create an article in community' do
+    c = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
+    u = create_user_with_permission('test_user', 'publish_content', c)
+    login_as :test_user
+
+    get :new, :profile => c.identifier, :type => 'TinyMceArticle'
+    assert_response :success
+    assert_template 'edit'
+  end
+
+  should 'not allow user edit article if he has publish permission but is not owner' do
+    c = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
+    u = create_user_with_permission('test_user', 'publish_content', c)
+    a = c.articles.create!(:name => 'test_article')
+    login_as :test_user
+
+    get :edit, :profile => c.identifier, :id => a.id
+    assert_response :forbidden
+    assert_template 'access_denied.rhtml'
+  end
+
+  should 'not allow user edit article if he is owner but has no publish permission' do
+    c = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
+    u = create_user_with_permission('test_user', 'bogus_permission', c)
+    a = c.articles.create!(:name => 'test_article', :last_changed_by => u)
+    login_as :test_user
+
+    get :edit, :profile => c.identifier, :id => a.id
+    assert_response :forbidden
+    assert_template 'access_denied.rhtml'
+  end
+
+  should 'allow user edit article if he is owner and has publish permission' do
+    c = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
+    u = create_user_with_permission('test_user', 'publish_content', c)
+    a = c.articles.create!(:name => 'test_article', :last_changed_by => u)
+    login_as :test_user
+
+    get :edit, :profile => c.identifier, :id => a.id
+
+    assert_response :success
+    assert_template 'edit'
+  end
+
 end

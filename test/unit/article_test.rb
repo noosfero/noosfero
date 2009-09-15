@@ -763,4 +763,20 @@ class ArticleTest < Test::Unit::TestCase
     assert_match(/-owner/, a.cache_key({}, c))
   end
 
+  should 'have a creator method' do
+    c = Community.create!(:name => 'new_comm')
+    a = c.articles.create!(:name => 'a test article', :last_changed_by => profile)
+    p = create_user('other_user').person
+    a.update_attributes(:body => 'some content', :last_changed_by => p); a.save!
+    assert_equal profile, a.creator
+  end
+
+  should 'allow creator to edit if is publisher' do
+    c = Community.create!(:name => 'new_comm')
+    p = create_user_with_permission('test_user', 'publish_content', c)
+    a = c.articles.create!(:name => 'a test article', :last_changed_by => p)
+
+    assert a.allow_post_content?(p)
+  end
+
 end

@@ -1,7 +1,26 @@
 class CmsController < MyProfileController
 
-  protect 'post_content', :profile, :except => [:set_home_page]
   protect 'edit_profile', :profile, :only => [:set_home_page]
+
+  def self.protect_if(*args)
+    before_filter(*args) do |c|
+      user, profile = c.send(:user), c.send(:profile)
+      if yield(c, user, profile)
+        true
+      else
+        render_access_denied(c)
+        false
+      end
+    end
+  end
+
+  protect_if :except => [:set_home_page, :edit, :destroy, :publish] do |c, user, profile|
+    user && (user.has_permission?('post_content', profile) || user.has_permission?('publish_content', profile))
+  end
+
+  protect_if :only => [:edit, :destroy, :publish] do |c, user, profile|
+    profile.articles.find(c.params[:id]).allow_post_content?(user)
+  end
 
   alias :check_ssl_orig :check_ssl
   # Redefines the SSL checking to avoid requiring SSL when creating the "New
