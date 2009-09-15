@@ -11,12 +11,18 @@ class ProfileController < PublicController
   end
 
   def tags
-    @tags = profile.article_tags
+    @tags_cache_key = "tags_profile_#{profile.id.to_s}"
+    if is_cache_expired?(@tags_cache_key, true)
+      @tags = profile.article_tags
+    end
   end
 
   def tag
     @tag = params[:id]
-    @tagged = profile.find_tagged_with(@tag)
+    @tag_cache_key = "tag_#{@tag.to_s.gsub(' ', '%20')}_#{profile.id.to_s}_page_#{params[:npage]}"
+    if is_cache_expired?(@tag_cache_key, true)
+      @tagged = profile.find_tagged_with(@tag).paginate(:per_page => 20, :page => params[:npage])
+    end
   end
 
   def communities

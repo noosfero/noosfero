@@ -1,3 +1,5 @@
 <h1><%= _("%s's tags") % @profile.name %></h1>
 
-<%= tag_cloud(@tags, :id, { :action => :tag}, {:show_count => true} ) %>
+<% cache_timeout(@tags_cache_key, 4.hour.from_now) do %>
+  <%= tag_cloud(@tags, :id, { :action => :tag}, {:show_count => true} ) %>
+<% end %>

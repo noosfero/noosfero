@@ -219,15 +219,21 @@ class SearchController < PublicController
   attr_reader :category
 
   def tags
-    @tags = environment.tags.inject({}) do |memo,tag|
-      memo[tag.name] = tag.taggings.count
-      memo
+    @tags_cache_key = "tags_env_#{environment.id.to_s}"
+    if is_cache_expired?(@tags_cache_key, true)
+      @tags = environment.tags.inject({}) do |memo,tag|
+        memo[tag.name] = tag.taggings.count
+        memo
+      end
     end
   end
 
   def tag
     @tag = environment.tags.find_by_name(params[:tag])
-    @tagged = environment.articles.find_tagged_with(@tag)
+    @tag_cache_key = "tag_#{@tag.to_s.gsub(' ', '%20')}_env_#{environment.id.to_s}_page_#{params[:npage]}"
+    if is_cache_expired?(@tag_cache_key, true)
+      @tagged = environment.articles.find_tagged_with(@tag).paginate(:per_page => 10, :page => params[:npage])
+    end
   end
 
   #######################################################

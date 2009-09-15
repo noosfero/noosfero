@@ -1,4 +1,5 @@
 <h2><%= _('Tag cloud') %></h2>
 
-<%= tag_cloud(@tags, :tag, :action => 'tag') %>
-
+<% cache_timeout(@tags_cache_key, 4.hour.from_now) do %>
+  <%= tag_cloud(@tags, :tag, :action => 'tag') %>
+<% end %>

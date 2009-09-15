@@ -6,9 +6,14 @@
   <%= button('back', _('Back to tag cloud'), :action => 'tags') %>
 <% end %>
 
-<div class='search-tagged-items'>
-<% @tagged.each do |hit| %>
-  <%= render :partial => partial_for_class(hit.class), :object => hit %>
-  <br style='clear: left;'/>
+<% cache_timeout(@tag_cache_key, 4.hour.from_now) do %>
+  <div class='search-tagged-items'>
+  <% @tagged.each do |hit| %>
+    <%= render :partial => partial_for_class(hit.class), :object => hit %>
+    <br style='clear: left;'/>
+  <% end %>
+
+  </div>
+  <%= pagination_links @tagged, :param_name => 'npage' %>
+
 <% end %>
-</div>
