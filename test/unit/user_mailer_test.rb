@@ -20,24 +20,6 @@ class UserMailerTest < Test::Unit::TestCase
     end
   end
 
-  should 'deliver notify when activate email' do
-    u = create_user('testuser')
-    assert_difference ActionMailer::Base.deliveries, :size do
-      u.enable_email = true
-      u.save!
-    end
-  end
-
-  should 'not deliver notify when disactivate email' do
-    u = create_user('testuser')
-    u.enable_email = true
-    u.save!
-    assert_no_difference ActionMailer::Base.deliveries, :size do
-      u.enable_email = false
-      u.save!
-    end
-  end
-
   private
 
     def read_fixture(action)

@@ -9,7 +9,7 @@ class MailConf
       if File.exists?(config_file)
         YAML.load_file(config_file)
       else
-        {}
+        { 'webmail_url' =>  'http://webmail.example.com' }
       end
     end
 
