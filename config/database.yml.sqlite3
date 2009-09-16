@@ -11,4 +11,5 @@ production:
   database: db/production.db
 
 cucumber:
-  <<: *TEST
+  adapter: sqlite3
+  database: db/test.db
