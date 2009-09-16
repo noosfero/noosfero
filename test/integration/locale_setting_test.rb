@@ -77,17 +77,6 @@ class LocaleSettingTest < ActionController::IntegrationTest
   def assert_locale(locale)
     gettext_locale = GetText.locale.to_s
     ok("Ruby-GetText locale should be #{locale}, but was #{gettext_locale}") { locale == gettext_locale }
-
-    # TODO this test depends on a unpublished patch to liblocale-ruby
-    #system_locale = Locale.getlocale
-    #wanted_system_locale = 
-    #  if locale == 'en'
-    #    'C'
-    #  else
-    #    '%s.utf8' % locale
-    #  end
-
-    #ok("System locale should be #{wanted_system_locale}, but was #{system_locale}") { wanted_system_locale == system_locale }
   end
   
 end
