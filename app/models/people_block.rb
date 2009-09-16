@@ -28,4 +28,8 @@ class PeopleBlock < ProfileListBlock
     end
   end
 
+  def profile_count
+    owner.people.count(:conditions => {:public_profile => true})
+  end
+
 end
