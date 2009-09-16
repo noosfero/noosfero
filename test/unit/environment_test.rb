@@ -811,7 +811,7 @@ class EnvironmentTest < Test::Unit::TestCase
     user.articles.build(:name => 'article 2', :tag_list => 'first-tag, second-tag').save!
     user.articles.build(:name => 'article 3', :tag_list => 'first-tag, second-tag, third-tag').save!
 
-    assert_equal({ 'first-tag' => 3, 'second-tag' => 2, 'third-tag' => 1 }, Environment.default.tags_count)
+    assert_equal({ 'first-tag' => 3, 'second-tag' => 2, 'third-tag' => 1 }, Environment.default.tag_counts)
   end
 
   should 'not list tags count from other environment' do
@@ -819,7 +819,7 @@ class EnvironmentTest < Test::Unit::TestCase
     user = create_user('testinguser', :environment => e).person
     user.articles.build(:name => 'article 1', :tag_list => 'first-tag').save!
 
-    assert_equal({}, Environment.default.tags_count)
+    assert_equal({}, Environment.default.tag_counts)
   end
 
 end

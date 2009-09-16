@@ -534,7 +534,7 @@ class Environment < ActiveRecord::Base
 
   has_many :tags, :through => :articles
 
-  def tags_count
+  def tag_counts
     options = Article.find_options_for_tag_counts.merge(:conditions => ['profiles.environment_id = ?', self.id])
     options[:joins] = options[:joins] + ' LEFT OUTER JOIN profiles on profiles.id = articles.profile_id'
     Tag.find(:all, options).inject({}) do |memo,tag|

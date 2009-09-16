@@ -221,7 +221,7 @@ class SearchController < PublicController
   def tags
     @tags_cache_key = "tags_env_#{environment.id.to_s}"
     if is_cache_expired?(@tags_cache_key, true)
-      @tags = environment.tags_count
+      @tags = environment.tag_counts
     end
   end
 
