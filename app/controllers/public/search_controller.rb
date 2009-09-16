@@ -221,10 +221,7 @@ class SearchController < PublicController
   def tags
     @tags_cache_key = "tags_env_#{environment.id.to_s}"
     if is_cache_expired?(@tags_cache_key, true)
-      @tags = environment.tags.inject({}) do |memo,tag|
-        memo[tag.name] = tag.taggings.count
-        memo
-      end
+      @tags = environment.tags_count
     end
   end
 

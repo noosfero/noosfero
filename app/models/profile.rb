@@ -386,19 +386,11 @@ private :generate_url, :url_options
     environment.domains + domains
   end
 
-  # FIXME this can be SLOW
   def article_tags
-    totals = {}
-    articles.each do |article|
-      article.tags.each do |tag|
-        if totals[tag.name]
-          totals[tag.name] += 1
-        else
-          totals[tag.name] = 1
-        end
-      end
+    articles.tag_counts.inject({}) do |memo,tag|
+      memo[tag.name] = tag.count
+      memo
     end
-    totals
   end
 
   def find_tagged_with(tag)

@@ -804,4 +804,22 @@ class EnvironmentTest < Test::Unit::TestCase
 
     assert_equal 4, e.news_amount_by_folder
   end
+
+  should 'list tags with their counts' do
+    user = create_user('testinguser').person
+    user.articles.build(:name => 'article 1', :tag_list => 'first-tag').save!
+    user.articles.build(:name => 'article 2', :tag_list => 'first-tag, second-tag').save!
+    user.articles.build(:name => 'article 3', :tag_list => 'first-tag, second-tag, third-tag').save!
+
+    assert_equal({ 'first-tag' => 3, 'second-tag' => 2, 'third-tag' => 1 }, Environment.default.tags_count)
+  end
+
+  should 'not list tags count from other environment' do
+    e = Environment.create!(:name => 'test_env')
+    user = create_user('testinguser', :environment => e).person
+    user.articles.build(:name => 'article 1', :tag_list => 'first-tag').save!
+
+    assert_equal({}, Environment.default.tags_count)
+  end
+
 end
