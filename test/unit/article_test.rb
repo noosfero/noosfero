@@ -779,4 +779,12 @@ class ArticleTest < Test::Unit::TestCase
     assert a.allow_post_content?(p)
   end
 
+  should 'allow user with "Manage content" permissions to edit' do
+    c = Community.create!(:name => 'new_comm')
+    p = create_user_with_permission('test_user', 'post_content', c)
+    a = c.articles.create!(:name => 'a test article')
+
+    assert a.allow_post_content?(p)
+  end
+
 end
