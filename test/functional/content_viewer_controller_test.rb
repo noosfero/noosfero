@@ -850,4 +850,16 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'li', :attributes => {:class => 'image-gallery-item'}, :child => {:tag => 'span', :content => 'a long abstract bigger then 40 chars for…'}
   end
 
+  should 'allow publisher owner view private articles' do
+    c = Community.create!(:name => 'test_com')
+    u = create_user_with_permission('test_user', 'publish_content', c)
+    login_as u.identifier
+    a = c.articles.create!(:name => 'test-article', :last_changed_by => u, :published => false)
+
+    get :view_page, :profile => c.identifier, :page => a.explode_path
+
+    assert_response :success
+    assert_template 'view_page'
+  end
+
 end

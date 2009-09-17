@@ -27,7 +27,7 @@ class ContentViewerController < ApplicationController
       end
 
       # only show unpublished articles to those who can edit then
-      if @page && !@page.published && (!user || !user.has_permission?('post_content', profile))
+      if @page && !@page.published && !@page.allow_post_content?(user)
         @page = nil
       end
 
