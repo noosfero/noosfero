@@ -634,4 +634,27 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_redirected_to "/profile/#{community.identifier}/to_go"
   end
 
+  should 'store location before login when request join via get not logged' do
+    community = Community.create!(:name => 'my test community')
+
+    @request.expects(:referer).returns("/profile/#{community.identifier}")
+
+    get :join, :profile => community.identifier
+
+    assert_equal "/profile/#{community.identifier}", @request.session[:before_join]
+  end
+
+  should 'redirect to location before login after join community' do
+    community = Community.create!(:name => 'my test community')
+
+    @request.session[:before_join] = "/profile/#{community.identifier}/to_go"
+    login_as(profile.identifier)
+
+    post :join, :profile => community.identifier, :confirmation => '1'
+
+    assert_redirected_to "/profile/#{community.identifier}/to_go"
+
+    assert_nil @request.session[:before_join]
+  end
+
 end

@@ -350,6 +350,8 @@ class ApplicationHelperTest < Test::Unit::TestCase
   end
 
   should 'not ask_to_join unless profile defined' do
+    stubs(:params).returns({})
+
     e = Environment.default
     e.stubs(:enabled?).with(:join_community_popup).returns(true)
     stubs(:environment).returns(e)
@@ -359,6 +361,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
   end
 
   should 'not ask_to_join unless profile is community' do
+    stubs(:params).returns({})
     e = Environment.default
     e.stubs(:enabled?).with(:join_community_popup).returns(true)
     stubs(:environment).returns(e)
@@ -368,7 +371,22 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert ! ask_to_join?
   end
 
+  should 'not ask_to_join if action join' do
+    expects(:params).returns({:action => 'join'})
+
+    e = Environment.default
+    e.stubs(:enabled?).with(:join_community_popup).returns(true)
+    stubs(:environment).returns(e)
+
+    c = Community.create(:name => 'test_comm', :identifier => 'test_comm')
+    stubs(:profile).returns(c)
+    stubs(:logged_in?).returns(false)
+    assert ! ask_to_join?
+  end
+
   should 'ask_to_join if its not logged and in a community' do
+    stubs(:params).returns({})
+
     e = Environment.default
     e.stubs(:enabled?).with(:join_community_popup).returns(true)
     stubs(:environment).returns(e)
@@ -380,6 +398,8 @@ class ApplicationHelperTest < Test::Unit::TestCase
   end
 
   should 'ask_to_join if user say so' do
+    stubs(:params).returns({})
+
     e = Environment.default
     e.stubs(:enabled?).with(:join_community_popup).returns(true)
     stubs(:environment).returns(e)
@@ -395,6 +415,8 @@ class ApplicationHelperTest < Test::Unit::TestCase
   end
 
   should 'not ask_to_join if user say no' do
+    stubs(:params).returns({})
+
     e = Environment.default
     e.stubs(:enabled?).with(:join_community_popup).returns(true)
     stubs(:environment).returns(e)
@@ -409,6 +431,8 @@ class ApplicationHelperTest < Test::Unit::TestCase
   end
 
   should 'not ask_to_join if environment say no even if its not logged and in a community' do
+    stubs(:params).returns({})
+
     e = Environment.default
     e.stubs(:enabled?).with(:join_community_popup).returns(false)
     stubs(:environment).returns(e)
@@ -419,6 +443,8 @@ class ApplicationHelperTest < Test::Unit::TestCase
   end
 
   should 'not ask_to_join if environment say no even if user say so' do
+    stubs(:params).returns({})
+
     e = Environment.default
     e.stubs(:enabled?).with(:join_community_popup).returns(false)
     stubs(:environment).returns(e)
@@ -433,6 +459,8 @@ class ApplicationHelperTest < Test::Unit::TestCase
   end
 
   should 'not ask_to_join if its recorded in the session' do
+    stubs(:params).returns({})
+
     e = Environment.default
     e.stubs(:enabled?).with(:join_community_popup).returns(true)
     stubs(:environment).returns(e)
@@ -446,6 +474,8 @@ class ApplicationHelperTest < Test::Unit::TestCase
   end
 
   should 'not ask_to_join if its recorded in the session even for authenticated users' do
+    stubs(:params).returns({})
+
     e = Environment.default
     e.stubs(:enabled?).with(:join_community_popup).returns(true)
     stubs(:environment).returns(e)
