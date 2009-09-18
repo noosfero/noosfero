@@ -82,4 +82,12 @@ class RoleControllerTest < Test::Unit::TestCase
       assert_not_nil assigns(:role)
     end
   end
+
+  should 'not crash when editing role with no permissions' do
+    role = Role.create!(:name => 'test_role', :environment => Environment.default)
+
+    assert_nothing_raised do
+      get :edit, :id => role.id
+    end
+  end
 end

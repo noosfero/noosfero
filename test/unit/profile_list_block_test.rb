@@ -24,7 +24,7 @@ class ProfileListBlockTest < Test::Unit::TestCase
     person2 = create_user('testperson2').person
     person3 = create_user('testperson3').person
 
-    owner = create_user('mytestuser').person
+    owner = Environment.create!(:name => 'test env')
     block = ProfileListBlock.new
     owner.boxes.first.blocks << block
     block.save!
@@ -68,12 +68,36 @@ class ProfileListBlockTest < Test::Unit::TestCase
   end
 
   should 'provide view_title' do
-    p = ProfileListBlock.new(:title => 'Title from block')
-    assert_equal 'Title from block',  p.view_title
+    env = Environment.create!(:name => 'test env')
+    block = ProfileListBlock.new(:title => 'Title from block')
+    env.boxes.first.blocks << block
+    block.save!
+    assert_equal 'Title from block', block.view_title
   end
   
   should 'provide view title with variables' do
-    p = ProfileListBlock.new(:title => '{#} members')
-    assert_equal '0 members', p.view_title 
+    env = Environment.create!(:name => 'test env')
+    block = ProfileListBlock.new(:title => '{#} members')
+    env.boxes.first.blocks << block
+    block.save!
+    assert_equal '0 members', block.view_title
+  end
+
+  should 'count number of public profiles' do
+    env = Environment.create!(:name => 'test env')
+    block = ProfileListBlock.new
+    env.boxes.first.blocks << block
+    block.save!
+
+    priv_p = create_user('private', {:environment => env}, {:public_profile => false})
+    pub_p = create_user('public', {:environment => env}, {:public_profile => true})
+
+    priv_c = Community.create!(:name => 'com 1', :public_profile => false, :environment => env)
+    pub_c = Community.create!(:name => 'com 2', :public_profile => true , :environment => env)
+
+    priv_e = Enterprise.create!(:name => 'ent 1', :identifier => 'ent1', :public_profile => false , :environment => env)
+    pub_e = Enterprise.create!(:name => 'ent 2', :identifier => 'ent2', :public_profile => true , :environment => env)
+
+    assert_equal 3, block.profile_count
   end
 end

@@ -32,7 +32,12 @@ class Role < ActiveRecord::Base
   end
 
   def kind
-    perms.keys.detect{|k| perms[k].keys.include?(permissions[0]) }
+    env_perms = perms['Environment'].keys
+    if permissions.any?{ |perm| env_perms.include?(perm) }
+      'Environment'
+    else
+      'Profile'
+    end
   end
 
   def name

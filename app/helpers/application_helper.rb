@@ -852,6 +852,7 @@ module ApplicationHelper
 
   def ask_to_join?
     return if !environment.enabled?(:join_community_popup)
+    return if params[:action] == 'join'
     return unless profile && profile.kind_of?(Community)
     if (session[:no_asking] && session[:no_asking].include?(profile.id))
       return false

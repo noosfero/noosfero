@@ -270,6 +270,7 @@ class Profile < ActiveRecord::Base
   end
 
   xss_terminate :only => [ :name, :nickname, :address, :contact_phone ]
+  xss_terminate :only => [ :custom_footer, :custom_header ], :with => 'white_list'
 
   # returns the contact email for this profile.
   #

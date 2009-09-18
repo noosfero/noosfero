@@ -6,7 +6,7 @@ class Event < Article
   settings_items :link, :type => :string
   settings_items :address, :type => :string
 
-  xss_terminate :only => [ :description ], :with => 'white_list'
+  xss_terminate :only => [ :description, :link, :address ], :with => 'white_list'
 
   validates_presence_of :title, :start_date
 

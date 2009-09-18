@@ -24,9 +24,8 @@ class PeopleBlockTest < ActiveSupport::TestCase
   end
 
   should 'list people' do
-    owner = mock
-    owner.expects(:id).returns(99)
-    Person.expects(:find).with(:all, :select => 'id', :conditions => { :environment_id => 99, :public_profile => true}, :limit => 6, :order => 'random()').returns([])
+    owner = Environment.create!(:name => 'test environment')
+    Person.expects(:find).with(:all, :select => 'id', :conditions => { :environment_id => owner.id, :public_profile => true}, :limit => 6, :order => 'random()').returns([])
     block = PeopleBlock.new
     block.expects(:owner).returns(owner).at_least_once
     block.content
@@ -39,6 +38,15 @@ class PeopleBlockTest < ActiveSupport::TestCase
     expects(:_).with('View all').returns('View all people')
     expects(:link_to).with('View all people', :controller => 'search', :action => 'assets', :asset => 'people')
     instance_eval(&block.footer)
+  end
+
+  should 'count number of public people' do
+    env = Environment.create!(:name => 'test environment')
+    private_p = create_user('private', {:environment => env}, {:public_profile => false})
+    public_p = create_user('public', {:environment => env}, {:public_profile => true})
+
+    env.boxes.first.blocks << block = PeopleBlock.new
+    assert_equal 1, block.profile_count
   end
 
 end

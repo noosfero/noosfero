@@ -89,8 +89,8 @@ class ProfileListBlock < Block
     title.gsub('{#}', profile_count.to_s)
   end
 
-  def profile_count #defined in children
-    0
+  def profile_count
+    owner.profiles.count(:conditions => {:public_profile => true})
   end
 
 end

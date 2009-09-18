@@ -26,6 +26,8 @@ class Article < ActiveRecord::Base
     article.published_at = article.created_at if article.published_at.nil?
   end
 
+  xss_terminate :only => [ :name ]
+
   def self.human_attribute_name(attrib)
     case attrib.to_sym
     when :name

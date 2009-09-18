@@ -2,6 +2,7 @@ class ProfileController < PublicController
 
   needs_profile
   before_filter :check_access_to_profile
+  before_filter :store_before_join, :only => [:join]
   before_filter :login_required, :only => [:join, :refuse_join, :leave]
 
   helper TagsHelper
@@ -61,7 +62,7 @@ class ProfileController < PublicController
       if @wizard
         redirect_to :controller => 'search', :action => 'assets', :asset => 'communities', :wizard => true
       else
-        redirect_back_or_default profile.url
+        redirect_to_before_join
       end
     else
       store_location(request.referer)
@@ -107,6 +108,20 @@ class ProfileController < PublicController
   def check_access_to_profile
     unless profile.display_info_to?(user)
       render :action => 'private_profile', :status => 403, :layout => false
+    end
+  end
+
+  def store_before_join
+    session[:before_join] = request.referer unless logged_in?
+  end
+
+  def redirect_to_before_join
+    back = session[:before_join]
+    if back
+      session[:before_join] = nil
+      redirect_to back
+    else
+      redirect_back_or_default profile.url
     end
   end
 
