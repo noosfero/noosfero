@@ -533,7 +533,7 @@ private :generate_url, :url_options
   end
 
   def custom_header
-    self[:custom_header] || environment.custom_header
+    self[:custom_header] || environment && environment.custom_header
   end
 
   def custom_header_expanded
@@ -549,7 +549,7 @@ private :generate_url, :url_options
   end
 
   def custom_footer
-    self[:custom_footer] || environment.custom_footer
+    self[:custom_footer] || environment && environment.custom_footer
   end
 
   def custom_footer_expanded
