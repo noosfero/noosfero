@@ -851,7 +851,7 @@ class ProfileTest < Test::Unit::TestCase
     profile = Profile.new
     env = mock
     env.expects(:custom_header).returns('environment header')
-    profile.expects(:environment).returns(env)
+    profile.stubs(:environment).returns(env)
 
     assert_equal 'environment header', profile.custom_header
   end
@@ -860,7 +860,7 @@ class ProfileTest < Test::Unit::TestCase
     profile = Profile.new
     env = mock
     env.expects(:custom_footer).returns('environment footer')
-    profile.expects(:environment).returns(env)
+    profile.stubs(:environment).returns(env)
 
     assert_equal 'environment footer', profile.custom_footer
   end
