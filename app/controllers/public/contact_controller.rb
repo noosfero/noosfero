@@ -20,11 +20,7 @@ class ContactController < PublicController
         flash[:notice] = _('Contact not sent')
       end
     else
-      if logged_in?
-        @contact = Contact.new(:name => user.name, :email => user.email)
-      else
-        @contact = Contact.new
-      end
+      @contact = Contact.new(:name => user.name, :email => user.email)
     end
   end
 
