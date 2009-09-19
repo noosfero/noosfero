@@ -1,6 +1,11 @@
 module LanguageHelper
   def language
-    code = GetText.locale.to_s
+    if Noosfero.available_locales.include?(GetText.locale.to_s) ||
+      Noosfero.available_locales.include?(GetText.locale.language)
+      GetText.locale.language
+    else
+      Noosfero.default_locale
+    end
   end
 
   def tinymce_language
@@ -15,6 +20,7 @@ module LanguageHelper
 
   def language_chooser(options = {})
     current = language
+
     if options[:element] == 'dropdown'
       select_tag('lang', 
         options_for_select(Noosfero.locales.map{|code,name| [name, code]}, current),

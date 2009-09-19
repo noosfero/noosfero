@@ -114,7 +114,7 @@ end
 
 Noosfero.locales = {
   'en' => 'English',
-  'pt_BR' => 'Português',
+  'pt' => 'Português',
   'fr' => 'Français',
   'hy' => 'հայերեն լեզու',
 }
