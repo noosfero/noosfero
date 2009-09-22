@@ -1,10 +1,10 @@
 module LanguageHelper
   def language
-    if Noosfero.available_locales.include?(GetText.locale.to_s) ||
-      Noosfero.available_locales.include?(GetText.locale.language)
-      GetText.locale.language
+    if Noosfero.available_locales.include?(locale.to_s) ||
+      Noosfero.available_locales.include?(locale.language)
+      locale.language
     else
-      Noosfero.default_locale
+      Noosfero.default_locale || 'en'
     end
   end
 

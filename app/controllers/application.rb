@@ -71,7 +71,22 @@ class ApplicationController < ActionController::Base
   end
 
   include GetText
-  before_init_gettext :maybe_save_locale
+  before_init_gettext :maybe_save_locale, :default_locale
+  def maybe_save_locale
+    if params[:lang]
+      cookies[:lang] = params[:lang]
+    end
+  end
+  def default_locale
+    if Noosfero.default_locale
+      if cookies[:lang].blank?
+        set_locale Noosfero.default_locale
+      else
+        set_locale cookies[:lang]
+      end
+    end
+  end
+  protected :maybe_save_locale, :default_locale
   init_gettext 'noosfero'
 
   include NeedsProfile
@@ -121,12 +136,6 @@ class ApplicationController < ActionController::Base
 
   def user
     current_user.person if logged_in?
-  end
-
-  def maybe_save_locale
-    if params[:lang]
-      cookies[:lang] = params[:lang]
-    end
   end
 
   def load_category

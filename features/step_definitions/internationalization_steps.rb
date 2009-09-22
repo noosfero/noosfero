@@ -21,6 +21,15 @@ def language_to_code(name)
    language_to_header(name)
 end
 
+Given /^Noosfero is configured to use (.+) as default$/ do |lang|
+  Noosfero.default_locale = language_to_code(lang)
+end
+
+After('@default_locale_config') do
+  Noosfero.default_locale = nil
+  GetText.locale = nil
+end
+
 Given /^a user accessed in (.*) before$/ do |lang|
   session = Webrat::Session.new(Webrat.adapter_class.new(self))
   session.extend(Webrat::Matchers)

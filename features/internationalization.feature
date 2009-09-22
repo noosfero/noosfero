@@ -7,6 +7,12 @@ Feature: internationalization
     When I go to the homepage
     Then the site should be in English
 
+  @default_locale_config
+  Scenario: different default locale configured locally
+    Given Noosfero is configured to use Portuguese as default
+    When I go to the homepage
+    Then the site should be in Portuguese
+
   Scenario: detecting language from browser
     Given my browser prefers Portuguese
     When I go to the homepage

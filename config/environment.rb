@@ -119,7 +119,7 @@ Noosfero.locales = {
   'hy' => 'հայերեն լեզու',
 }
 # if you want to override this, do it in config/local.rb !
-Noosfero.default_locale = 'en'
+Noosfero.default_locale = nil
 
 Tag.hierarchical = true
 
