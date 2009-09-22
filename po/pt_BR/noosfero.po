@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.19.0\n"
 "POT-Creation-Date: 2009-08-04 14:28-0300\n"
-"PO-Revision-Date: 2009-08-24 10:33-0300\n"
+"PO-Revision-Date: 2009-09-21 21:38-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -5191,7 +5191,7 @@ msgstr "Exibir meu website para integrantes"
 
 #: app/views/profile_editor/edit.rhtml:72
 msgid "Include this group directory of groups"
-msgstr "Incluir este group no diretório de groups"
+msgstr "Incluir este grupo no diretório de grupos"
 
 #: app/views/profile_editor/edit.rhtml:77
 msgid "Select the categories of your interest"
@@ -5300,7 +5300,7 @@ msgid ""
 "<strong>After</strong> being published in this group (a moderator can always "
 "remove publicated articles later)."
 msgstr ""
-"<strong>Depois</strong> de ser publicado neste grupo (um moderator pode "
+"<strong>Depois</strong> de ser publicado neste grupo (um moderador pode "
 "sempre remover artigos publicados depois)."
 
 #: app/views/profile_editor/_person.rhtml:1
