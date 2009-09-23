@@ -30,7 +30,7 @@ class FriendsBlock < ProfileListBlock
   end
 
   def profile_count
-    owner.friends.count
+    owner.friends.count(:conditions => { :public_profile => true })
   end
 
 end
