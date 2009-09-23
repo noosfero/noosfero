@@ -128,7 +128,7 @@ require 'noosfero'
 require 'sqlite_extension'
 
 # load a local configuration if present, but not under test environment.
-if ENV['RAILS_ENV'] != 'test'
+if !['test', 'cucumber'].include?(ENV['RAILS_ENV'])
   localconfigfile = File.join(RAILS_ROOT, 'config', 'local.rb')
   if File.exists?(localconfigfile)
     require localconfigfile

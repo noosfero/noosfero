@@ -78,12 +78,8 @@ class ApplicationController < ActionController::Base
     end
   end
   def default_locale
-    if Noosfero.default_locale
-      if cookies[:lang].blank?
-        set_locale Noosfero.default_locale
-      else
-        set_locale cookies[:lang]
-      end
+    if Noosfero.default_locale && cookies[:lang].blank?
+      cookies[:lang] = params[:lang] = Noosfero.default_locale
     end
   end
   protected :maybe_save_locale, :default_locale
