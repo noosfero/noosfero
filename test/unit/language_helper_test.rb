@@ -7,10 +7,11 @@ class LanguageHelperTest < Test::Unit::TestCase
 
   should 'return current language' do
     locale = mock
-    locale.expects(:to_s).returns('pt_BR')
-    GetText.stubs(:locale).returns(locale)
+    locale.stubs(:to_s).returns('pt_BR')
+    locale.stubs(:language).returns('pt')
+    stubs(:locale).returns(locale)
 
-    assert_equal 'pt_BR', self.language
+    assert_equal 'pt', self.language
   end
 
   should 'remove country code for TinyMCE' do
