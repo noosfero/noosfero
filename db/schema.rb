@@ -165,7 +165,7 @@ ActiveRecord::Schema.define(:version => 72) do
     t.text    "custom_header"
     t.text    "custom_footer"
     t.string  "theme"
-    t.string  "terms_of_use_acceptance_text"
+    t.text    "terms_of_use_acceptance_text"
   end
 
   create_table "external_feeds", :force => true do |t|
