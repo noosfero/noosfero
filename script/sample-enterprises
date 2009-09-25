@@ -1,6 +1,15 @@
 #!/usr/bin/env ruby
 require File.dirname(__FILE__) + '/../config/environment'
 
+def rand_position(type)
+  range = {
+    :lat => [-33.52, 4.6],
+    :lng => [-72.9, -32.41],
+  }[type]
+  amplitude = (range.last - range.first)
+  range.first + rand() * amplitude
+end
+
 groups = ['Associação', 'Empresa Solidária', 'Cooperativa']
 what = ['de Produção de Alimentos', 'de Serviços', 'de Artesanato', 'de Comercialização']
 places = ['de Caximbinha do Sul', 'de Bonito', 'de Reviravolta do Serrado']
@@ -11,7 +20,14 @@ groups.each do |group|
   what.each do |production|
     places.each do |place|
       name = [group, production, place].join(' ')
-      Enterprise.create!(:name => name, :identifier => name.to_slug, :enabled => false, :foundation_year => (1990..2008).to_a[rand(18)])
+      Enterprise.create!(
+        :name => name,
+        :identifier => name.to_slug,
+        :enabled => false,
+        :foundation_year => (1990..2008).to_a[rand(18)],
+        :lat => rand_position(:lat),
+        :lng => rand_position(:lng)
+      )
       print "."; $stdout.flush
     end
   end
