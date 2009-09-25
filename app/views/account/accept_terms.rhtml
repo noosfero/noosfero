@@ -19,7 +19,7 @@
     <%= hidden_field_tag :enterprise_code, params[:enterprise_code] %>
     <%= hidden_field_tag :answer, params[:answer] %>
 
-    <%= labelled_check_box _('I read the terms of use and accepted them'), :terms_accepted, '1', false, :onclick => 'toggle_submit_button("submit-accept-terms", this.checked)' %>
+    <%= labelled_check_box(environment.terms_of_use_acceptance_text.blank? ? _('I read the terms of use and accepted them') : environment.terms_of_use_acceptance_text, :terms_accepted, '1', false, :onclick => 'toggle_submit_button("submit-accept-terms", this.checked)') %>
     <% button_bar do %>
       <%= button 'cancel', _('Cancel'), :controller => 'home', :action => 'index' %>
       <%= submit_button 'forward', _('Continue'), {:disabled => true, :class => 'disabled', :id => 'submit-accept-terms'} %>

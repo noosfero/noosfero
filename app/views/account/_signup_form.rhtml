@@ -62,7 +62,7 @@
         page['terms-of-use'].hide
       end %>
     </div>
-    <p><%= labelled_check_box(_('I accept the terms of use'), 'user[terms_accepted]') %></p>
+    <p><%= labelled_check_box(environment.terms_of_use_acceptance_text.blank? ? _('I accept the terms of use') : environment.terms_of_use_acceptance_text, 'user[terms_accepted]') %></p>
   </div>
 <% end %>
 
