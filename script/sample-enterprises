@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+require File.dirname(__FILE__) + '/../config/environment'
+
+groups = ['Associação', 'Empresa Solidária', 'Cooperativa']
+what = ['de Produção de Alimentos', 'de Serviços', 'de Artesanato', 'de Comercialização']
+places = ['de Caximbinha do Sul', 'de Bonito', 'de Reviravolta do Serrado']
+
+start_time = Time.now
+
+groups.each do |group|
+  what.each do |production|
+    places.each do |place|
+      name = [group, production, place].join(' ')
+      Enterprise.create!(:name => name, :identifier => name.to_slug, :enabled => false, :foundation_year => (1990..2008).to_a[rand(18)])
+      print "."; $stdout.flush
+    end
+  end
+end
+puts
+
+EnterpriseActivation.find(:all, :conditions => ['created_at > ?', start_time]).each do |activation|
+  enterprise = activation.enterprise
+  puts [activation.code, enterprise.name, enterprise.foundation_year].join(';')
+end
