@@ -10,6 +10,7 @@ class ContactController < PublicController
     if request.post? && params[self.icaptcha_field].blank?
       @contact = Contact.new(params[:contact])
       @contact.dest = profile
+      @contact.sender = user
       @contact.city = (!params[:city].blank? && City.exists?(params[:city])) ? City.find(params[:city]).name : nil
       @contact.state = (!params[:state].blank? && State.exists?(params[:state])) ? State.find(params[:state]).name : nil
       if @contact.deliver

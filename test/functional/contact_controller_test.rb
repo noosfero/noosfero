@@ -120,4 +120,10 @@ class ContactControllerTest < Test::Unit::TestCase
     assert_response :redirect
     assert_redirected_to :controller => 'account', :action => 'login'
   end
+
+  should 'identify sender' do
+    post :new, :profile => enterprise.identifier, :contact => {:name => 'john', :subject => 'Hi', :email => 'visitor@mail.invalid', :message => 'Hi, all', :state => '', :city => ''}
+    assert_equal Person['contact_test_user'], assigns(:contact).sender
+  end
+
 end

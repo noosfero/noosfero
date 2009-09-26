@@ -9,6 +9,7 @@ class Contact < ActiveRecord::Base #WithoutTable
     [:receive_a_copy, :boolean]
   ]
   attr_accessor :dest
+  attr_accessor :sender
 
   N_('Subject'); N_('Message'); N_('City and state'); N_('e-Mail'); N_('Name')
 
@@ -25,6 +26,9 @@ class Contact < ActiveRecord::Base #WithoutTable
       emails = contact.dest.notification_emails
       recipients emails
       from "#{contact.name} <#{contact.email}>"
+      if contact.sender
+        headers 'X-Noosfero-Sender' => contact.sender.identifier
+      end
       if contact.receive_a_copy
         cc "#{contact.name} <#{contact.email}>"
       end
