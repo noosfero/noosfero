@@ -20,7 +20,7 @@
         </li>
 
         <li>
-        <%= link_to('<span class="icon-menu-my-groups"></span>' + __('My communities'), { :controller => 'memberships', :profile => user.identifier, :action => 'index' }) %>
+        <%= link_to('<span class="icon-menu-my-groups"></span>' + _('My groups'), { :controller => 'memberships', :profile => user.identifier, :action => 'index' }) %>
         </li>
 
         <% for enterprise in user.enterprises %>
