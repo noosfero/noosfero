@@ -102,7 +102,7 @@ class CommunitiesBlockTest < Test::Unit::TestCase
     assert_equal 2, block.profile_count
   end
 
-  should 'not count non-public communities' do
+  should 'not count non-public profile communities' do
     user = create_user('testuser').person
 
     community_public = Community.create!(:name => 'tcommunity 1', :identifier => 'comm1', :environment => Environment.default, :public_profile => true)
@@ -113,6 +113,17 @@ class CommunitiesBlockTest < Test::Unit::TestCase
 
     block = CommunitiesBlock.new
     block.expects(:owner).at_least_once.returns(user)
+
+    assert_equal 1, block.profile_count
+  end
+
+  should 'not count non-public environment communities' do
+    community_public = Community.create!(:name => 'tcommunity 1', :identifier => 'comm1', :environment => Environment.default, :public_profile => true)
+
+    community_private = Community.create!(:name => ' community 2', :identifier => 'comm2', :environment => Environment.default, :public_profile => false)
+
+    block = CommunitiesBlock.new
+    block.expects(:owner).at_least_once.returns(Environment.default)
 
     assert_equal 1, block.profile_count
   end

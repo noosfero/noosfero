@@ -20,7 +20,7 @@ class MembersBlock < ProfileListBlock
   end
 
   def profile_count
-    owner.members.count
+    owner.members.select {|member| member.public_profile? }.count
   end
 
   def profile_finder

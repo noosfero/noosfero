@@ -60,6 +60,14 @@ class ContactSenderTest < Test::Unit::TestCase
     assert_equal [person.email], response.to
   end
 
+  should 'identify the sender in the message headers' do
+    recipient = create_user('contacted_user').person
+    sender = create_user('sender_user').person
+    c = Contact.new(:dest => recipient, :sender => sender)
+    sent_message = Contact::Sender.deliver_mail(c)
+    assert_equal 'sender_user', sent_message['X-Noosfero-Sender'].to_s
+  end
+
   private
 
     def read_fixture(action)

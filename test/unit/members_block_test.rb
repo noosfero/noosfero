@@ -60,11 +60,30 @@ class MembersBlockTest < Test::Unit::TestCase
     member2 = mock; member2.stubs(:id).returns(2)
     member3 = mock; member3.stubs(:id).returns(3)
 
+    member1.stubs(:public_profile?).returns(true)
+    member2.stubs(:public_profile?).returns(true)
+    member3.stubs(:public_profile?).returns(true)
+
     owner.expects(:members).returns([member1, member2, member3])
     
     block = MembersBlock.new
     block.expects(:owner).returns(owner)
     assert_equal 3, block.profile_count
+  end
+
+  should 'not count non-public community members' do
+    community = Community.create!(:name => 'tcommunity 1', :identifier => 'comm1', :environment => Environment.default)
+
+    private_p = create_user('private', {}, {:public_profile => false}).person
+    public_p = create_user('public', {}, {:public_profile => true}).person
+
+    community.add_member(private_p)
+    community.add_member(public_p)
+
+    block = MembersBlock.new
+    block.expects(:owner).at_least_once.returns(community)
+
+    assert_equal 1, block.profile_count
   end
 end
 

@@ -8,8 +8,6 @@
 
   <%= required_fields_message %>
 
-  <%= required f.text_field(:name) %>
-  <%= required f.text_field(:email) %>
   <% unless environment.enabled?('disable_select_city_for_contact') %>
     <%= labelled_form_field _('City and state'), select_city(true) %>
   <% end %>

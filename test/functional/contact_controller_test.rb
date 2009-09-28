@@ -35,11 +35,6 @@ class ContactControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'form', :attributes => { :action => "/contact/#{enterprise.identifier}/new", :method => 'post' }
   end
 
-  should 'display input for destinatary email' do
-    get :new, :profile => enterprise.identifier
-    assert_tag :tag => 'input', :attributes => { :name => 'contact[email]', :type => 'text' }
-  end
-
   should 'display input for message' do
     get :new, :profile => enterprise.identifier
     assert_tag :tag => 'textarea', :attributes => { :name => 'contact[message]' }
@@ -51,14 +46,14 @@ class ContactControllerTest < Test::Unit::TestCase
     assert_redirected_to :action => 'new'
   end
 
-  should 'fill email if user logged in' do
+  should 'have logged user email' do
     get :new, :profile => enterprise.identifier
-    assert_tag :tag => 'input', :attributes => {:name => 'contact[email]', :value => profile.email}
+    assert_equal profile.email, assigns(:contact).email
   end
 
-  should 'fill name if user logged in' do
+  should 'have logged user name' do
     get :new, :profile => enterprise.identifier
-    assert_tag :tag => 'input', :attributes => {:name => 'contact[name]', :value => profile.name}
+    assert_equal profile.name, assigns(:contact).name
   end
 
   should 'define city and state' do
@@ -120,4 +115,10 @@ class ContactControllerTest < Test::Unit::TestCase
     assert_response :redirect
     assert_redirected_to :controller => 'account', :action => 'login'
   end
+
+  should 'identify sender' do
+    post :new, :profile => enterprise.identifier, :contact => {:name => 'john', :subject => 'Hi', :email => 'visitor@mail.invalid', :message => 'Hi, all', :state => '', :city => ''}
+    assert_equal Person['contact_test_user'], assigns(:contact).sender
+  end
+
 end

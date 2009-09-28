@@ -33,7 +33,11 @@ class CommunitiesBlock < ProfileListBlock
   end
 
   def profile_count
-    owner.communities(:public_profile => true).count
+    if owner.kind_of?(Environment)
+      owner.communities.count(:conditions => { :public_profile => true })
+    else
+      owner.communities(:public_profile => true).count
+    end
   end
 
   def profile_finder

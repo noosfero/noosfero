@@ -29,7 +29,12 @@ class EnterprisesBlock < ProfileListBlock
   end
 
   def profile_count
-    owner.enterprises(:public_profile => true).count
+    if owner.kind_of?(Environment)
+      owner.enterprises.count(:conditions => { :public_profile => true })
+    else
+      owner.enterprises(:public_profile => true).count
+    end
+
   end
 
   def profile_finder

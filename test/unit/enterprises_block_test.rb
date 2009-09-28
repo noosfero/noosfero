@@ -114,7 +114,7 @@ class EnterprisesBlockTest < Test::Unit::TestCase
     assert_equal 2, block.profile_count
   end
 
-  should 'not count non-public enterprises' do
+  should 'not count non-public person enterprises' do
     user = create_user('testuser').person
 
     ent1 = Enterprise.create!(:name => 'test enterprise 1', :identifier => 'ent1', :environment => Environment.default, :public_profile => true)
@@ -127,6 +127,18 @@ class EnterprisesBlockTest < Test::Unit::TestCase
 
     block = EnterprisesBlock.new
     block.expects(:owner).at_least_once.returns(user)
+
+    assert_equal 1, block.profile_count
+  end
+
+  should 'not count non-public environment enterprises' do
+    env = Environment.create!(:name => 'test_env')
+    ent1 = Enterprise.create!(:name => 'test enterprise 1', :identifier => 'ent1', :environment => env, :public_profile => true)
+
+    ent2 = Enterprise.create!(:name => 'test enterprise 2', :identifier => 'ent2', :environment => env, :public_profile => false)
+
+    block = EnterprisesBlock.new
+    block.expects(:owner).at_least_once.returns(env)
 
     assert_equal 1, block.profile_count
   end
