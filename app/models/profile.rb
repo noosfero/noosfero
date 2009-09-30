@@ -569,7 +569,7 @@ private :generate_url, :url_options
   end
 
   def theme
-    self[:theme] || environment.theme
+    self[:theme] || environment && environment.theme || 'default'
   end
 
   def public?
