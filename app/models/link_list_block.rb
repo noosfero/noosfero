@@ -1,6 +1,7 @@
 class LinkListBlock < Block
 
   ICONS = [
+    ['no-icon', _('(No icon)')],
     ['edit', N_('Edit')],
     ['new', N_('New')],
     ['save', N_('Save')],
