@@ -217,7 +217,11 @@ class Article < ActiveRecord::Base
   end
 
   def allow_post_content?(user = nil)
-    user && (user.has_permission?('post_content', profile) || user.has_permission?('publish_content', profile) && (user == self.creator))
+    user && (user.has_permission?('post_content', profile) || allow_publish_content?(user) && (user == self.creator))
+  end
+
+  def allow_publish_content?(user = nil)
+    user && user.has_permission?('publish_content', profile)
   end
 
   def comments_updated

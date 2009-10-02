@@ -862,4 +862,15 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_template 'view_page'
   end
 
+  should 'display link to new_article if profile is publisher' do
+    c = Community.create!(:name => 'test_com')
+    u = create_user_with_permission('test_user', 'publish_content', c)
+    login_as u.identifier
+    a = c.articles.create!(:name => 'test-article', :last_changed_by => profile, :published => true)
+
+    get :view_page, :profile => c.identifier, :page => a.explode_path
+
+    assert_tag :tag => 'a', :content => 'New article'
+  end
+
 end

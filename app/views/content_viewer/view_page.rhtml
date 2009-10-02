@@ -23,8 +23,8 @@
 
 <div>
   <%= article_title(@page, :no_link => true) %>
-  <% if @page.allow_post_content?(user) %>
-    <div id="article-actions">
+  <div id="article-actions">
+    <% if @page.allow_post_content?(user) %>
       <% unless @page.blog? %>
       <%= link_to content_tag( 'span', label_for_edit_article(@page) ),
           profile.admin_url.merge({ :controller => 'cms', :action => 'edit', :id => @page.id }),
@@ -41,6 +41,10 @@
               profile.admin_url.merge({ :controller => 'cms', :action => 'publish', :id => @page }),
               :class => 'button with-text icon-spread' %>
         <% end %>
+      <% end %>
+    <% end %>
+    <% if @page.allow_post_content?(user) || @page.allow_publish_content?(user) %>
+      <% if !(profile.kind_of?(Enterprise) && environment.enabled?('disable_cms')) %>
         <% if !@page.display_as_gallery? %>
           <%= lightbox_button(:new, label_for_new_article(@page), profile.admin_url.merge(:controller => 'cms', :action => 'new', :parent_id => (@page.folder? ? @page : (@page.parent.nil? ? nil : @page.parent)))) %>
         <% end %>
@@ -51,8 +55,8 @@
       <% if profile.kind_of?(Enterprise) && @page.display_as_gallery? %>
         <%= button('upload-file', _('Upload files'), :controller => 'cms', :action => 'upload_files', :parent_id => (@page.folder? ? @page : @page.parent)) %>
       <% end %>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 </div>
 
 <% if !@page.tags.empty? %>
