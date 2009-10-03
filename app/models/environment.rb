@@ -658,6 +658,10 @@ class Environment < ActiveRecord::Base
     self.settings['tip_message_enterprise_activation_question'] = value
   end
 
+  def portal_news_cache_key
+    "home-page-news-#{id}_#{portal_community.name}"
+  end
+
   after_create :create_templates
 
   def create_templates

@@ -22,7 +22,7 @@ protected
     blocks.map(&:cache_keys).each{|ck|expire_timeout_fragment(ck)}
     env = article.profile.environment
     if env.portal_community == article.profile
-      expire_fragment("home_page_news_#{env.id}")
+      expire_fragment(env.portal_news_cache_key)
     end
   end
 
