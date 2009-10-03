@@ -27,7 +27,6 @@ end
 
 After('@default_locale_config') do
   Noosfero.default_locale = nil
-  GetText.locale = nil
 end
 
 Given /^a user accessed in (.*) before$/ do |lang|
