@@ -121,6 +121,31 @@ class AdminPanelControllerTest < Test::Unit::TestCase
     assert_equal c, e.portal_community
   end
 
+  should 'change portal_community and list new portal folders as options' do
+    env = Environment.default
+    old = Community.create!(:name => 'old_portal')
+    env.portal_community = old
+    local = Folder.create!(:profile => old, :name => 'local news')
+    tech = Folder.create!(:profile => old, :name => 'tech news')
+    env.portal_folders = [local, tech]
+    env.save!
+
+    new = Community.create!(:name => 'new_portal')
+    politics = Folder.create!(:profile => new, :name => 'politics news')
+
+    post :set_portal_community, :portal_community_identifier => new.identifier
+
+    follow_redirect!
+    assert_tag :tag => 'div', :attributes => {:id => 'available-folders'}, :descendant => {:tag => 'option', :attributes => {:value => politics.id}, :content => politics.name}
+    end
+
+    [local, tech].each do |folder|
+      assert_no_tag :tag => 'div', :attributes => {:id => 'available-folders'}, :descendant => {:tag => 'option', :attributes => {:value => folder.id}, :content => folder.name}
+    end
+
+  end
+
+
   should 'redirect to set portal folders' do
     e = Environment.default
     @controller.stubs(:environment).returns(e)

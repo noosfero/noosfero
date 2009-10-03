@@ -22,8 +22,11 @@ class AdminPanelController < AdminController
     if request.post?
       portal_community = env.communities.find_by_identifier(params[:portal_community_identifier])
       if portal_community
-        env.portal_community = portal_community
-        env.save
+        if (env.portal_community != portal_community)
+          env.portal_community = portal_community
+          env.portal_folders = []
+          env.save
+        end
         redirect_to :action => 'set_portal_folders'
       else
         flash[:notice] = __('Community not found. You must insert the identifier of a community from this environment')
