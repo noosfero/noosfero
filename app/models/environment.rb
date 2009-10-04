@@ -659,7 +659,7 @@ class Environment < ActiveRecord::Base
   end
 
   def portal_news_cache_key
-    "home-page-news-#{id}_#{portal_community.name}"
+    "home-page-news/#{id}/#{portal_community.id}"
   end
 
   after_create :create_templates
