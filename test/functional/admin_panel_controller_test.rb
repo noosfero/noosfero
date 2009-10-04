@@ -134,10 +134,10 @@ class AdminPanelControllerTest < Test::Unit::TestCase
     politics = Folder.create!(:profile => new, :name => 'politics news')
 
     post :set_portal_community, :portal_community_identifier => new.identifier
+    assert_redirected_to :action => 'set_portal_folders'
+    get :set_portal_folders
 
-    follow_redirect!
     assert_tag :tag => 'div', :attributes => {:id => 'available-folders'}, :descendant => {:tag => 'option', :attributes => {:value => politics.id}, :content => politics.name}
-    end
 
     [local, tech].each do |folder|
       assert_no_tag :tag => 'div', :attributes => {:id => 'available-folders'}, :descendant => {:tag => 'option', :attributes => {:value => folder.id}, :content => folder.name}
