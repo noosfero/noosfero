@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.20.0\n"
 "POT-Creation-Date: 2009-09-29 18:56-0300\n"
-"PO-Revision-Date: 2009-09-29 18:59-0300\n"
+"PO-Revision-Date: 2009-10-04 18:18-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -4823,7 +4823,7 @@ msgstr "Notícias"
 
 #: app/views/home/index.rhtml:15
 msgid "Read more"
-msgstr "Ler mais"
+msgstr "Leia mais"
 
 #: app/views/home/index.rhtml:45
 msgid "View more"
