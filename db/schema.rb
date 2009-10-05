@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 72) do
+ActiveRecord::Schema.define(:version => 73) do
 
   create_table "article_versions", :force => true do |t|
     t.integer  "article_id"
@@ -92,12 +92,11 @@ ActiveRecord::Schema.define(:version => 72) do
   add_index "articles_categories", ["category_id"], :name => "index_articles_categories_on_category_id"
 
   create_table "blocks", :force => true do |t|
-    t.string   "title"
-    t.integer  "box_id"
-    t.string   "type"
-    t.text     "settings"
-    t.integer  "position"
-    t.datetime "last_updated"
+    t.string  "title"
+    t.integer "box_id"
+    t.string  "type"
+    t.text    "settings"
+    t.integer "position"
   end
 
   add_index "blocks", ["box_id"], :name => "index_blocks_on_box_id"
@@ -157,26 +156,28 @@ ActiveRecord::Schema.define(:version => 72) do
   end
 
   create_table "environments", :force => true do |t|
-    t.string  "name"
-    t.string  "contact_email"
-    t.boolean "is_default"
-    t.text    "settings"
-    t.text    "design_data"
-    t.text    "custom_header"
-    t.text    "custom_footer"
-    t.string  "theme"
-    t.text    "terms_of_use_acceptance_text"
+    t.string   "name"
+    t.string   "contact_email"
+    t.boolean  "is_default"
+    t.text     "settings"
+    t.text     "design_data"
+    t.text     "custom_header"
+    t.text     "custom_footer"
+    t.string   "theme"
+    t.text     "terms_of_use_acceptance_text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "external_feeds", :force => true do |t|
     t.string   "feed_title"
+    t.date     "fetched_at"
     t.string   "address"
     t.integer  "blog_id",                      :null => false
     t.boolean  "enabled",    :default => true, :null => false
     t.boolean  "only_once",  :default => true, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "fetched_at"
   end
 
   create_table "favorite_enteprises_people", :id => false, :force => true do |t|
@@ -279,9 +280,9 @@ ActiveRecord::Schema.define(:version => 72) do
 
   create_table "roles", :force => true do |t|
     t.string  "name"
-    t.text    "permissions"
+    t.text    "permissions",    :limit => 255
     t.string  "key"
-    t.boolean "system",         :default => false
+    t.boolean "system",                        :default => false
     t.integer "environment_id"
   end
 
