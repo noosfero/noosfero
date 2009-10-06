@@ -41,7 +41,7 @@ class ContactControllerTest < Test::Unit::TestCase
   end
 
   should 'redirect back to contact page after send contact' do
-    post :new, :profile => enterprise.identifier, :contact => {:name => 'john', :subject => 'Hi', :email => 'visitor@mail.invalid', :message => 'Hi, all'}
+    post :new, :profile => enterprise.identifier, :contact => {:subject => 'Hi', :message => 'Hi, all'}
     assert_response :redirect
     assert_redirected_to :action => 'new'
   end
@@ -61,7 +61,7 @@ class ContactControllerTest < Test::Unit::TestCase
     City.stubs(:find).returns(City.new(:name => 'Camaçari'))
     State.stubs(:exists?).returns(true)
     State.stubs(:find).returns(State.new(:name => 'Bahia'))
-    post :new, :profile => enterprise.identifier, :contact => {:name => 'john', :subject => 'Hi', :email => 'visitor@mail.invalid', :message => 'Hi, all'}, :state => '1', :city => '1'
+    post :new, :profile => enterprise.identifier, :contact => {:subject => 'Hi', :message => 'Hi, all'}, :state => '1', :city => '1'
     assert_equal 'Camaçari', assigns(:contact).city
     assert_equal 'Bahia', assigns(:contact).state
   end
@@ -71,17 +71,17 @@ class ContactControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'input', :attributes => {:name => 'contact[receive_a_copy]'}
   end
 
-  should 'not deliver contact if mandatory field is blank' do
+  should 'deliver contact if subject and message are filled' do
     post :new, :profile => enterprise.identifier, :contact => {:subject => 'Hi', :message => 'Hi, all'}
-    assert_response :success
-    assert_template 'new'
+    assert_response :redirect
+    assert_redirected_to :action => 'new'
   end
 
   should 'not throws exception when city and state is blank' do
     State.expects(:exists?).with('').never
     City.expects(:exists?).with('').never
     assert_nothing_raised do
-      post :new, :profile => enterprise.identifier, :contact => {:name => 'john', :subject => 'Hi', :email => 'visitor@mail.invalid', :message => 'Hi, all', :state => '', :city => ''}
+      post :new, :profile => enterprise.identifier, :contact => {:subject => 'Hi', :message => 'Hi, all', :state => '', :city => ''}
     end
   end
 
@@ -96,14 +96,14 @@ class ContactControllerTest < Test::Unit::TestCase
   end
 
   should 'be able to post contact while inverse captcha field filled' do
-    post :new, :profile => enterprise.identifier, :contact => {:name => 'john', :subject => 'Hi', :email => 'visitor@mail.invalid', :message => 'Hi, all', :state => '', :city => ''}
+    post :new, :profile => enterprise.identifier, :contact => {:subject => 'Hi', :message => 'Hi, all', :state => '', :city => ''}
 
     assert_response :redirect
     assert_redirected_to :action => 'new'
   end
 
   should 'not be able to post contact while inverse captcha field filled' do
-    post :new, :profile => enterprise.identifier, @controller.icaptcha_field => 'filled', :contact => {:name => 'john', :subject => 'Hi', :email => 'visitor@mail.invalid', :message => 'Hi, all', :state => '', :city => ''}
+    post :new, :profile => enterprise.identifier, @controller.icaptcha_field => 'filled', :contact => {:subject => 'Hi', :message => 'Hi, all', :state => '', :city => ''}
 
     assert_response :success
     assert_template 'new'
@@ -117,7 +117,7 @@ class ContactControllerTest < Test::Unit::TestCase
   end
 
   should 'identify sender' do
-    post :new, :profile => enterprise.identifier, :contact => {:name => 'john', :subject => 'Hi', :email => 'visitor@mail.invalid', :message => 'Hi, all', :state => '', :city => ''}
+    post :new, :profile => enterprise.identifier, :contact => {:subject => 'Hi', :message => 'Hi, all', :state => '', :city => ''}
     assert_equal Person['contact_test_user'], assigns(:contact).sender
   end
 

@@ -233,6 +233,10 @@ class Person < Profile
     organization.tasks.pending.select{|task| self.has_permission?(task.permission, organization)}
   end
 
+  def build_contact(profile, params = {})
+    Contact.new(params.merge(:name => name, :email => email, :sender => self, :dest => profile))
+  end
+
   def is_a_friend?(person)
     self.friends.include?(person)
   end
