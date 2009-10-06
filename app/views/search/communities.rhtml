@@ -1,10 +1,7 @@
 <% if @wizard && user %>
   <h2><%= _('Hello %s, now you can choose yours groups') % user.identifier %></h2>
-<% else %>
-
-<% if @wizard %>
   <%= render :partial => 'account/wizard_steps' %>
-<% end %>
+<% else %>
 
 <%= search_page_title( __('Communities'), { :query => @query, 
                                       :category => @category ? @category.name : nil, 

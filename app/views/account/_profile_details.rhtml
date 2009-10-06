@@ -11,7 +11,7 @@
   <%= hidden_field_tag(:confirmation, 1) %>
   <%= hidden_field_tag(:wizard, true) %>
   <% if @profile.members.include?(user) %>
-    <%= link_to( _('Leave'), @profile.leave_url.merge(:confirmation => 1, :wizard => true }, :method => 'post') %>
+    <%= link_to( _('Leave'), @profile.leave_url.merge(:confirmation => 1, :wizard => true ), :method => 'post') %>
   <% else %>
     <%= submit_button(:ok, _("Join now")) %>
   <% end %>
