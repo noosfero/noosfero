@@ -81,6 +81,13 @@ class ArticleTest < Test::Unit::TestCase
     assert_equal 'the body of the article', a.to_html
   end
 
+  should 'provide first paragraph of HTML version' do
+    profile = create_user('testinguser').person
+    a = Article.create!(:name => 'my article', :profile_id => profile.id)
+    a.expects(:body).returns('<p>the first paragraph of the article</p> The second paragraph')
+    assert_equal '<p>the first paragraph of the article</p>', a.first_paragraph
+  end
+
   should 'inform the icon to be used' do
     assert_equal 'text-html', Article.new.icon_name
   end

@@ -122,4 +122,13 @@ class PublishedArticleTest < ActiveSupport::TestCase
 
     assert_equal p.parent, new_parent
   end
+
+ should 'provide first paragraph of HTML version' do
+    prof = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
+    a = Article.create!(:name => 'my article', :profile_id => prof.id)
+    a.expects(:body).returns('<p>the first paragraph of the article</p> The second paragraph')
+    p = PublishedArticle.create(:reference_article => a, :profile => prof)
+    assert_equal '<p>the first paragraph of the article</p>', p.first_paragraph
+  end
+
 end

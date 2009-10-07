@@ -286,7 +286,7 @@ class Article < ActiveRecord::Base
   end
 
   def first_paragraph
-    body =~ /(.*<\/p>)/
+    to_html =~ /(.*<\/p>)/
     $1
   end
 
