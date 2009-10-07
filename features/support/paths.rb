@@ -10,6 +10,9 @@ module NavigationHelpers
     
     when /the homepage/
       '/'
+
+    when /^\//
+      page_name
     
     # Add more mappings here.
     # Here is a more fancy example:
