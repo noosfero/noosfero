@@ -980,6 +980,7 @@ class SearchControllerTest < Test::Unit::TestCase
 
   should 'display steps when searching on wizard' do
     c1 = Community.create!(:name => 'a beautiful community', :identifier => 'bea_comm', :environment => Environment.default)
+    login_as('ze')
     get :index, :query => 'beautiful', :find_in => [ 'communities' ], :wizard => true
     assert_equal 'layouts/wizard', @response.layout
     assert_tag :tag => 'div', :attributes => {:id => 'wizard-steps'}
