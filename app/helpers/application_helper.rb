@@ -880,8 +880,8 @@ module ApplicationHelper
 
   def page_title
     (@page ? @page.name + ' - ' : '') +
-    (@profile ? @profile.name + ' - ' : '') +
-    @environment.name +
+    (profile ? profile.short_name + ' - ' : '') +
+    environment.name +
     (@category ? "&rarr; #{@category.full_name}" : '')
   end
 

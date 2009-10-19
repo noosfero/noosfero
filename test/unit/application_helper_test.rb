@@ -502,6 +502,22 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_equal '', optional_field(profile, :field_name, '<html tags>', true)
   end
 
+  should 'display name on page title if profile doesnt have nickname' do
+    stubs(:environment).returns(Environment.default)
+
+    c = Community.create(:name => 'Comm name', :identifier => 'test_comm')
+    stubs(:profile).returns(c)
+    assert_match(/Comm name/, page_title)
+  end
+
+  should 'display nickname on page title if profile has nickname' do
+    stubs(:environment).returns(Environment.default)
+
+    c = Community.create(:name => 'Community for tests', :nickname => 'Community nickname', :identifier => 'test_comm')
+    stubs(:profile).returns(c)
+    assert_match(/Community nickname/, page_title)
+  end
+
   protected
 
   def url_for(args = {})
