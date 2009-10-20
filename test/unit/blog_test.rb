@@ -139,4 +139,20 @@ class BlogTest < ActiveSupport::TestCase
     end
   end
 
+  should 'profile has more then one blog' do
+    p = create_user('testuser').person
+    Blog.create!(:name => 'Blog test', :profile => p)
+    assert_nothing_raised ActiveRecord::RecordInvalid do
+      Blog.create!(:name => 'Another Blog', :profile => p)
+    end
+  end
+
+  should 'not update slug from name for existing blog' do
+    p = create_user('testuser').person
+    blog = Blog.create!(:name => 'Blog test', :profile => p)
+    assert_equal 'blog-test', blog.slug
+    blog.name = 'Changed name'
+    assert_not_equal 'changed-name', blog.slug
+  end
+
 end

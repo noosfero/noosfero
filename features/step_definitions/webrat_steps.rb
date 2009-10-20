@@ -187,3 +187,7 @@ end
 Then /^show me the page$/ do
   save_and_open_page
 end
+
+Then /^the source should contain tag ([^\"]+)$/ do |tag|
+  response_body.should have_tag(tag, {id => 10})
+end

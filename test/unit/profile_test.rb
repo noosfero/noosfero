@@ -1393,6 +1393,15 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal [c], profile.categories
   end
 
+  should 'get first blog when has multiple blogs' do
+    p = create_user('testuser').person
+    p.blogs << Blog.new(:profile => p, :name => 'Blog one')
+    p.blogs << Blog.new(:profile => p, :name => 'Blog two')
+    p.blogs << Blog.new(:profile => p, :name => 'Blog three')
+    assert_equal 'Blog one', p.blog.name
+    assert_equal 3, p.blogs.count
+  end
+
   private
 
   def assert_invalid_identifier(id)

@@ -4,7 +4,7 @@ class BlogArchivesBlockTest < ActiveSupport::TestCase
 
   def setup
     @profile = create_user('flatline').person
-    @profile.articles << Blog.new(:name => 'blog-test', :profile => @profile)
+    @profile.articles << Blog.new(:name => 'Blog One', :profile => @profile)
   end
   attr_reader :profile
 
@@ -34,11 +34,11 @@ class BlogArchivesBlockTest < ActiveSupport::TestCase
     blog = profile.blog
     for i in 1..10 do
       post = TextileArticle.create!(:name => "post #{i} test", :profile => profile, :parent => blog)
-      post.update_attribute(:published_at, date)
+      assert post.update_attribute(:published_at, date)
     end
     block = BlogArchivesBlock.new
     block.stubs(:owner).returns(profile)
-    assert_tag_in_string block.content, :tag => 'a', :content => 'January (10)', :attributes => {:href => /^http:\/\/.*\/flatline\/blog\?month=01&year=2008$/ }
+    assert_tag_in_string block.content, :tag => 'a', :content => 'January (10)', :attributes => {:href => /^http:\/\/.*\/flatline\/blog-one\?month=01&year=2008$/ }
   end
 
   should 'order list of amount posts' do
@@ -77,11 +77,29 @@ class BlogArchivesBlockTest < ActiveSupport::TestCase
   end
 
   should 'not display any content if has no blog' do
-    profile.stubs(:has_blog?).returns(false)
-    assert !profile.has_blog?
+    profile.blogs.destroy_all
     block = BlogArchivesBlock.new
     block.stubs(:owner).returns(profile)
     assert_nil block.content
+  end
+
+  should 'has field to configure blog' do
+    b = BlogArchivesBlock.new
+    assert b.respond_to?(:blog_id)
+    assert b.respond_to?(:blog_id=)
+  end
+
+  should 'show posts from first blog' do
+    (blog_one, blog_two) = profile.blogs
+    profile.articles << Blog.new(:name => 'Blog Two', :profile => profile)
+    for month in 1..3
+      TextileArticle.create!(:name => "blog one - post #{month}", :profile => profile, :parent => blog_one)
+      TextileArticle.create!(:name => "blog two - post #{month}", :profile => profile, :parent => blog_two)
+    end
+    block = BlogArchivesBlock.new
+    block.stubs(:owner).returns(profile)
+    assert_match(/blog-one/m, block.content)
+    assert_no_match(/blog-two/m, block.content)
   end
 
 end

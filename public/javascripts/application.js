@@ -45,3 +45,28 @@ function convToValidIdentifier( str, sep ) {
             .replace( /ç/g,       "c" )
             .replace( /[^-_a-z0-9.]+/g, sep )
 }
+
+function updateUrlField(name_field, id) {
+   url_field = $(id);
+   url_field.value = convToValidIdentifier(name_field.value, "-");
+   warn_value_change(url_field);
+}
+
+function show_warning(field, message) {
+   new Effect.Highlight(field, {duration:3});
+   $(message).show();
+}
+
+function hide_warning(field) {
+   $(field).hide();
+}
+
+function enable_button(button) {
+   button.enable();
+   button.removeClassName("disabled");
+}
+
+function disable_button(button) {
+   button.disable();
+   button.addClassName("disabled");
+}

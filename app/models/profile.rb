@@ -590,14 +590,14 @@ private :generate_url, :url_options
     LayoutTemplate.find(layout_template).number_of_boxes
   end
 
+  has_many :blogs, :source => 'articles', :class_name => 'Blog'
+
   def blog
-    if self.has_blog?
-      self.articles.find(:first, :conditions => {:type => 'Blog'})
-    end
+    self.has_blog? ? self.blogs.first : nil
   end
 
   def has_blog?
-    !self.articles.count(:conditions => {:type => 'Blog'}).zero?
+    self.blogs.count.nonzero?
   end
 
   def admins

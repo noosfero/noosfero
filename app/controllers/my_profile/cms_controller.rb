@@ -275,7 +275,7 @@ class CmsController < MyProfileController
     elsif @article.parent
       redirect_to :action => 'view', :id => @article.parent
     else
-      redirect_to :action => 'index'
+      redirect_back_or_default :action => 'index'
     end
   end
 
@@ -286,6 +286,9 @@ class CmsController < MyProfileController
       @back_to = 'public_view'
       @back_url = @article.view_url
     end
+    if !request.post? and @article.blog?
+      store_location(request.referer)
+    end
   end
 
   def record_creating_from_public_view
@@ -293,6 +296,9 @@ class CmsController < MyProfileController
     if (referer =~ Regexp.new("^#{(url_for(profile.url).sub('https:', 'https?:'))}")) || params[:back_to] == 'public_view'
       @back_to = 'public_view'
       @back_url = referer
+    end
+    if !request.post? and @article.blog?
+      store_location(request.referer)
     end
   end
 

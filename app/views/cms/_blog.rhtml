@@ -4,7 +4,51 @@
 
 <%= render :file => 'shared/tiny_mce' %>
 
-<%= f.text_field('title', :size => '64') %>
+<%= required f.text_field(:name, :size => '64', :onchange => "updateUrlField(this, 'article_slug')") %>
+
+<script type="text/javascript">
+  function submit_button(index) {
+     return $("article_slug").form.select("input.submit")[index];
+  }
+  function warn_value_change() {
+     show_warning('article-formitem', "slug-change-confirmation");
+     disable_button(submit_button(0));
+     disable_button(submit_button(1));
+  }
+  function confirm_change() {
+     enable_button(submit_button(0));
+     enable_button(submit_button(1));
+     hide_warning('slug-change-confirmation');
+  }
+  function no_change() {
+     $("article_slug").value = $("old_article_slug").value;
+     enable_button(submit_button(0));
+     enable_button(submit_button(1));
+     hide_warning('slug-change-confirmation');
+  }
+</script>
+
+<%= hidden_field_tag 'old_article_slug', @article.slug %>
+<div id="article-formitem">
+  <%= labelled_form_field( _('Address'),
+        content_tag('code',
+          url_for(@article.url).gsub(/#{@article.slug}$/, '') +
+          text_field(:article, :slug, :onchange => "warn_value_change()", :size => 25)
+        ) +
+        content_tag('div',
+          content_tag('strong', _('WARNING!')) + '&nbsp;' +
+            _("You are about to change the address, and this will break external links to this blog or to posts inside it. Do you really want to change?") +
+          content_tag('div',
+            button_to_function(:ok, _("Yes"), "confirm_change()") + ' ' +
+            button_to_function(:cancel, _('No'), 'no_change()')
+          ),
+          :id => 'slug-change-confirmation',
+          :class => 'change-confirmation',
+          :style => 'display: none;'
+        )
+      )
+  %>
+</div>
 
 <%= labelled_form_field(_('Description:'), text_area(:article, :body, :cols => 64, :rows => 10)) %>
 
@@ -34,5 +78,3 @@
     </div>
   </div>
 <% end %>
-
-<%= javascript_tag "$('back_to').value = 'control_panel'" %>

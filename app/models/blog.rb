@@ -11,12 +11,6 @@ class Blog < Folder
   end
 
   settings_items :posts_per_page, :type => :integer, :default => 5
-  settings_items :title, :type => :string, :default => N_('Blog')
-
-  def initialize(*args)
-    super(*args)
-    self.name = 'blog'
-  end
 
   def self.short_description
     _('Blog')
@@ -93,6 +87,15 @@ class Blog < Folder
   after_save do |blog|
     if blog.external_feed
       blog.external_feed.save
+    end
+  end
+
+  def name=(value)
+    self.set_name(value)
+    if self.slug.blank?
+      self.slug = self.name.to_slug
+    else
+      self.slug = self.slug.to_slug
     end
   end
 

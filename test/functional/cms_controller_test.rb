@@ -583,7 +583,7 @@ class CmsControllerTest < Test::Unit::TestCase
   should 'record when coming from public view on edit' do
     article = @profile.articles.create!(:name => 'myarticle')
 
-    @request.expects(:referer).returns('http://colivre.net/testinguser/myarticle')
+    @request.expects(:referer).returns('http://colivre.net/testinguser/myarticle').at_least_once
 
     get :edit, :profile => 'testinguser', :id => article.id
     assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'back_to', :value => 'public_view' }
@@ -591,7 +591,7 @@ class CmsControllerTest < Test::Unit::TestCase
   end
 
   should 'detect when comming from home page' do
-    @request.expects(:referer).returns('http://colivre.net/testinguser')
+    @request.expects(:referer).returns('http://colivre.net/testinguser').at_least_once
     get :edit, :profile => 'testinguser', :id => @profile.home_page.id
     assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'back_to', :value => 'public_view' }
     assert_tag :tag => 'a', :descendant => { :content => 'Cancel' }, :attributes => { :href => /^https?:\/\/colivre.net\/testinguser\/#{@profile.home_page.slug}$/ }
@@ -605,7 +605,7 @@ class CmsControllerTest < Test::Unit::TestCase
   end
 
   should 'record as coming from public view when creating article' do
-    @request.expects(:referer).returns('http://colivre.net/testinguser/testingusers-home-page')
+    @request.expects(:referer).returns('http://colivre.net/testinguser/testingusers-home-page').at_least_once
     get :new, :profile => 'testinguser', :type => 'TextileArticle'
     assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'back_to', :value => 'public_view' }
     assert_tag :tag => 'a', :descendant => { :content => 'Cancel' }, :attributes => { :href => 'http://colivre.net/testinguser/testingusers-home-page' }
@@ -712,11 +712,6 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'div', :descendant => { :tag => 'h4', :content => 'Categorize your article' }
   end
 
-  should 'not display input name on create blog' do
-    get :new, :profile => profile.identifier, :type => 'Blog'
-    assert_no_tag :tag => 'input', :attributes => { :name => 'article[name]', :type => 'text' }
-  end
-
   should 'display posts per page input with default value on edit blog' do
     n = Blog.new.posts_per_page.to_s
     get :new, :profile => profile.identifier, :type => 'Blog'
@@ -787,11 +782,6 @@ class CmsControllerTest < Test::Unit::TestCase
     post :edit, :profile => profile.identifier, :id => profile.blog.id, :article => { :posts_per_page => 5 }
     profile.blog.reload
     assert_equal 5, profile.blog.posts_per_page
-  end
-
-  should 'display input title on create blog' do
-    get :new, :profile => profile.identifier, :type => 'Blog'
-    assert_tag :tag => 'input', :attributes => { :name => 'article[title]', :type => 'text' }
   end
 
   should "display 'New article' when create children of folder" do
@@ -868,7 +858,7 @@ class CmsControllerTest < Test::Unit::TestCase
   should 'record when coming from public view on upload files' do
     folder = Folder.create!(:name => 'testfolder', :profile => profile)
 
-    @request.expects(:referer).returns("http://colivre.net/#{profile.identifier}/#{folder.slug}")
+    @request.expects(:referer).returns("http://colivre.net/#{profile.identifier}/#{folder.slug}").at_least_once
 
     get :upload_files, :profile => profile.identifier, :parent_id => folder.id
     assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'back_to', :value => 'public_view' }
@@ -931,14 +921,14 @@ class CmsControllerTest < Test::Unit::TestCase
   end
 
   should "display 'Fetch posts from an external feed' checked if blog has enabled external feed" do
-    profile.articles << Blog.new(:title => 'test blog', :profile => profile)
+    profile.articles << Blog.new(:name => 'test blog', :profile => profile)
     profile.blog.create_external_feed(:address => 'address', :enabled => true)
     get :edit, :profile => profile.identifier, :id => profile.blog.id
     assert_tag :tag => 'input', :attributes => { :name => 'article[external_feed_builder][enabled]', :checked => 'checked' }
   end
 
   should "display 'Fetch posts from an external feed' unchecked if blog has disabled external feed" do
-    profile.articles << Blog.new(:title => 'test blog', :profile => profile)
+    profile.articles << Blog.new(:name => 'test blog', :profile => profile)
     profile.blog.create_external_feed(:address => 'address', :enabled => false)
     get :edit, :profile => profile.identifier, :id => profile.blog.id
     assert_tag :tag => 'input', :attributes => { :name => 'article[external_feed_builder][enabled]', :checked => nil }

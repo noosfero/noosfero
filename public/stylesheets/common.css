@@ -577,3 +577,21 @@ div.pending-tasks {
 .post-date {
   color: #E68A00;
 }
+
+/**** Change confirmation message ****/
+
+.change-confirmation {
+  background-color: #ef2929;
+  border: 6px solid #a40000;
+  padding: 20px;
+  margin: 5px 30px 10px 30px;
+}
+
+.change-confirmation div {
+  text-align: right;
+  padding: 20px 10px 0px 0px;
+}
+
+code input {
+  font-family: monospace;
+}

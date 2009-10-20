@@ -13,7 +13,16 @@ module NavigationHelpers
 
     when /^\//
       page_name
+
+    when /edit "(.+)" by (.+)/
+      article_id = Person[$2].articles.find_by_slug($1.to_slug).id
+      "/myprofile/#{$2}/cms/edit/#{article_id}"
     
+    when /edit BlogArchivesBlock of (.+)/
+      owner = Profile[$1]
+      block = BlogArchivesBlock.find(:all).select{|i| i.owner == owner}.first
+      "/myprofile/#{$1}/profile_design/edit/#{block.id}"
+
     # Add more mappings here.
     # Here is a more fancy example:
     #

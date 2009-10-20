@@ -97,13 +97,16 @@ module ActsAsFileSystem
       self.children.empty?
     end
 
-    # sets the name of the category. Also sets #slug accordingly.
-    def name=(value)
+    def set_name(value)
       if self.name != value
         self.recalculate_path = true
       end
-
       self[:name] = value
+    end
+
+    # sets the name of the category. Also sets #slug accordingly.
+    def name=(value)
+      self.set_name(value)
       unless self.name.blank?
         self.slug = self.name.to_slug
       end

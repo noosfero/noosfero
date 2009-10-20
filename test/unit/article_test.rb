@@ -794,4 +794,11 @@ class ArticleTest < Test::Unit::TestCase
     assert a.allow_post_content?(p)
   end
 
+  should 'update slug from name' do
+    article = Article.create!(:name => 'A test article', :profile => profile)
+    assert_equal 'a-test-article', article.slug
+    article.name = 'Changed name'
+    assert_equal 'changed-name', article.slug
+  end
+
 end

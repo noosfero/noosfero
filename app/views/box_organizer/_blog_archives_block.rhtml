@@ -1,0 +1,4 @@
+<% blogs = @block.box.owner.blogs %>
+<% if blogs.count > 1 %>
+  <%= labelled_form_field _('Choose a blog:'), select('block', 'blog_id', blogs.map {|item| [ item.path, item.id ]}, :selected => @block.blog.id) %>
+<% end %>

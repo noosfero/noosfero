@@ -27,11 +27,14 @@
   <%= control_panel_button(_('Manage Content'), 'cms', :controller => 'cms') if !environment.enabled?('disable_cms') || profile.community? %>
 
   <% unless profile.enterprise? %>
-    <% if profile.has_blog? %>
-      <%= control_panel_button(_('Configure blog'), 'blog', :controller => 'cms', :action => 'edit', :id => profile.blog) %>
-    <% else %>
-      <%= control_panel_button(_('Create blog'), 'blog-disabled', :controller => 'cms', :action => 'new', :type => 'Blog') %>
-    <% end %>
+    <%= case profile.blogs.count
+      when 0
+        control_panel_button(_('Create blog'), 'blog-disabled', :controller => 'cms', :action => 'new', :type => 'Blog')
+      when 1
+        control_panel_button(_('Configure blog'), 'blog', :controller => 'cms', :action => 'edit', :id => profile.blog)
+      else
+        control_panel_button(_('Configure blog'), 'blog', :controller => 'cms')
+    end %>
   <% end %>
 
   <%= control_panel_button(_('Change Password'), 'change-password', :controller => 'account', :action => 'change_password') if profile.person? %>

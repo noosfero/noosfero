@@ -208,8 +208,8 @@ class TasksControllerTest < Test::Unit::TestCase
     @controller.stubs(:profile).returns(c)
     c.affiliate(profile, Profile::Roles.all_roles(c.environment))
     person = create_user('test_user').person
-    p_blog = Blog.create!(:profile => person)
-    c_blog1 = Blog.create!(:profile => c)
+    p_blog = Blog.create!(:profile => person, :name => 'Blog')
+    c_blog1 = Blog.create!(:profile => c, :name => 'Blog')
     c_blog2 = Blog.new(:profile => c); c_blog2.name = 'blog2'; c_blog2.save!
 
     article = person.articles.create!(:name => 'test article', :parent => p_blog)

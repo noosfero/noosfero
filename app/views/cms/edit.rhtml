@@ -37,7 +37,9 @@
 
   <% button_bar do %>
     <%= submit_button :save, _('Save') %>
-    <% if @back_url %>
+    <% if @return_to %>
+      <%= button :cancel, _('Cancel'), @return_to %>
+    <% elsif @back_url %>
       <%= button :cancel, _('Cancel'), @back_url %>
     <% elsif @parent_id || @article.parent %>
       <%= button :cancel, _('Cancel'), :action => 'view', :id => @parent_id || @article.parent %>

@@ -719,14 +719,14 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
   should 'add meta tag to rss feed on view blog' do
     login_as(profile.identifier)
-    profile.articles << Blog.new(:title => 'article blog', :profile => profile)
+    profile.articles << Blog.new(:name => 'Blog', :profile => profile)
     get :view_page, :profile => profile.identifier, :page => ['blog']
     assert_tag :tag => 'link', :attributes => { :rel => 'alternate', :type => 'application/rss+xml', :title => 'feed', :href => "http://#{environment.default_hostname}/testinguser/blog/feed" }
   end
 
   should 'add meta tag to rss feed on view post blog' do
     login_as(profile.identifier)
-    profile.articles << Blog.new(:name => 'article folder', :profile => profile)
+    profile.articles << Blog.new(:name => 'Blog', :profile => profile)
     profile.blog.posts << TextileArticle.new(:name => 'first post', :parent => profile.blog, :profile => profile)
     get :view_page, :profile => profile.identifier, :page => ['blog', 'first-post']
     assert_tag :tag => 'link', :attributes => { :rel => 'alternate', :type => 'application/rss+xml', :title => 'feed', :href => "http://#{environment.default_hostname}/testinguser/blog/feed" }
