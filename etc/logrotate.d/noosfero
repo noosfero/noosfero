@@ -1,7 +1,7 @@
 /var/lib/noosfero/current/log/*.log /home/noosfero/current/log/*.log {
         daily
         missingok
-        rotate 15
+        rotate 30
         compress
         delaycompress
         notifempty
