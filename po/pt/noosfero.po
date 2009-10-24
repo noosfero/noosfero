@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.20.0\n"
 "POT-Creation-Date: 2009-09-29 18:56-0300\n"
-"PO-Revision-Date: 2009-10-04 18:18-0300\n"
+"PO-Revision-Date: 2009-10-24 10:33-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -5084,7 +5084,7 @@ msgid "The year must be between %d and %d"
 msgstr "O ano precisa estar entre %d e %d"
 
 #: app/views/account/activation_question.rhtml:17
-msgid "An CNPJ have 14 digits"
+msgid "A CNPJ have 14 digits"
 msgstr "Um CNPJ tem 14 dígitos"
 
 #: app/views/account/activation_question.rhtml:26

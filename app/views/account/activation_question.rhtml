@@ -14,7 +14,7 @@
     var answer = parseInt(form.answer.value);
     var val = form.answer.value;
     if (!answer || (val.length != 14)) {
-      alert(<%= _('An CNPJ have 14 digits').inspect %>);
+      alert(<%= _('A CNPJ have 14 digits').inspect %>);
       return false;
     } else {
       return true;
