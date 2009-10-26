@@ -18,6 +18,18 @@
     </div>
     
       
+      <div id='de' style='display: none' class='message'>
+        <h1>Kurzzeitiges Systemproblem</h1>
+        <p>
+        Unser technisches Team arbeitet gerade daran, bitte probieren Sie es nachher erneut. Wir entschuldigen uns für die Unannehmlichkeiten.
+        </p>
+        <ul>
+          <li><a href='javascript: history.back()'>Zurück</a></li>
+          <li><a href='/'>Gehe zur Homepage</a></li>
+        </ul>
+      </div>
+    
+      
       <div id='en' style='display: none' class='message'>
         <h1>Temporary system problem</h1>
         <p>
@@ -31,9 +43,9 @@
     
       
       <div id='fr' style='display: none' class='message'>
-        <h1>Problème temporaire du système</h1>
+        <h1>Problème temporaire du système.</h1>
         <p>
-        Notre équipe technique y travaille, SVP réessayer plus tard. Désolé pour le dérangement.
+        Notre équipe technique est en train d'y travailler. Merci de réessayer plus tard. Nous sommes désolés de la gêne occasionnée.
         </p>
         <ul>
           <li><a href='javascript: history.back()'>Retour</a></li>
@@ -54,7 +66,7 @@
       </div>
     
       
-      <div id='pt_BR' style='display: none' class='message'>
+      <div id='pt' style='display: none' class='message'>
         <h1>Problema temporário no sistema</h1>
         <p>
         Nossa equipe técnica está trabalhando nele, por favor tente mais tarde. Perdoe o incoveniente. 
@@ -65,7 +77,21 @@
         </ul>
       </div>
     
+      
+      <div id='ru' style='display: none' class='message'>
+        <h1>Временная ошибка системы</h1>
+        <p>
+        Техники уже работают над проблемой, пожалуйста, попробуйте позже.
+        </p>
+        <ul>
+          <li><a href='javascript: history.back()'>Назад</a></li>
+          <li><a href='/'>Перейти на домашнюю страницу сайта</a></li>
+        </ul>
+      </div>
+    
     <div id='languages'>
+      
+        <a href="javascript: display_error_message('de')">Deutsch</a>
       
         <a href="javascript: display_error_message('en')">English</a>
       
@@ -73,7 +99,9 @@
       
         <a href="javascript: display_error_message('hy')">հայերեն լեզու</a>
       
-        <a href="javascript: display_error_message('pt_BR')">Português</a>
+        <a href="javascript: display_error_message('pt')">Português</a>
+      
+        <a href="javascript: display_error_message('ru')">русский язык</a>
       
     </div>
   </div>

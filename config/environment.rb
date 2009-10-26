@@ -117,6 +117,8 @@ Noosfero.locales = {
   'pt' => 'Português',
   'fr' => 'Français',
   'hy' => 'հայերեն լեզու',
+  'de' => 'Deutsch',
+  'ru' => 'русский язык',
 }
 # if you want to override this, do it in config/local.rb !
 Noosfero.default_locale = nil
