@@ -1,15 +1,13 @@
 class MoveTitleToNameFromBlogs < ActiveRecord::Migration
   def self.up
-    Blog.find(:all).each do |blog|
-      blog.name = blog.title
-      blog.save
+    select_all("select id, setting from articles where type = 'Blog' and name != 'Blog'").each do |blog|
+      title = YAML.load(blog['setting'])[:title]
+      assignments = ActiveRecord::Base.sanitize_sql_for_assignment(:name => title)
+      update("update articles set %s where id = %d" % [assignments, blog['id']] )
     end
   end
 
   def self.down
-    Blog.find(:all).each do |blog|
-      blog.title = blog.name
-      blog.save
-    end
+    say("Nothing to undo (cannot recover the data)")
   end
 end
