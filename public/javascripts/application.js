@@ -48,8 +48,16 @@ function convToValidIdentifier( str, sep ) {
 
 function updateUrlField(name_field, id) {
    url_field = $(id);
-   url_field.value = convToValidIdentifier(name_field.value, "-");
-   warn_value_change(url_field);
+   old_url_value = url_field.value;
+   new_url_value = convToValidIdentifier(name_field.value, "-");
+
+   url_field.value = new_url_value;
+
+   if (!/^\s*$/.test(old_url_value)
+       && old_url_value != new_url_value
+       ) {
+     warn_value_change(url_field);
+   }
 }
 
 function show_warning(field, message) {
