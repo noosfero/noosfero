@@ -593,7 +593,7 @@ private :generate_url, :url_options
   has_many :blogs, :source => 'articles', :class_name => 'Blog'
 
   def blog
-    self.has_blog? ? self.blogs.first : nil
+    self.has_blog? ? self.blogs.first(:order => 'id') : nil
   end
 
   def has_blog?
