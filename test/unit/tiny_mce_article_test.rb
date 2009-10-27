@@ -43,4 +43,10 @@ class TinyMceArticleTest < Test::Unit::TestCase
     article = TinyMceArticle.create!(:profile => profile, :name => 'article', :abstract => 'abstract', :body => "the <!-- comment --> article ...")
     assert_equal "the <!-- comment --> article ...", article.body
   end
+
+  should 'convert entities characters to UTF-8 instead of ISO-8859-1' do
+    article = TinyMceArticle.create!(:profile => profile, :name => 'teste ' + Time.now.to_s, :body => '<a title="inform&#225;tica">link</a>')
+    assert(article.body.is_utf8?, "%s expected to be valid UTF-8 content" % article.body.inspect)
+  end
+
 end

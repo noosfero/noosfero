@@ -5,12 +5,9 @@ class FeedReaderBlockTest < ActiveSupport::TestCase
   include DatesHelper
 
   def setup
-    @feed = FeedReaderBlock.new
-    @fetched_at = Time.now
-    @feed.fetched_at = @fetched_at
-    @feed.save!
+    @feed = fast_create(:feed_reader_block)
   end
-  attr_reader :feed, :fetched_at
+  attr_reader :feed
 
   should 'default describe' do
     assert_not_equal Block.description, FeedReaderBlock.description
@@ -56,8 +53,10 @@ class FeedReaderBlockTest < ActiveSupport::TestCase
   end
 
   should 'display last fetched date' do
+    now = Time.now
     feed.feed_items = ['one', 'two']
-    assert_equal "Updated: #{show_date(@fetched_at)}", feed.footer
+    feed.fetched_at = now
+    assert_equal "Updated: #{show_date(now)}", feed.footer
   end
 
   should 'clear feed title and items' do
@@ -71,6 +70,16 @@ class FeedReaderBlockTest < ActiveSupport::TestCase
   should 'save! when commit' do
     feed.expects(:save!)
     feed.finish_fetch
+  end
+
+  should 'set fetched_at when finishing a fetch' do
+    feed.stubs(:save!)
+    feed.finish_fetch
+    assert_not_nil feed.fetched_at
+  end
+
+  should 'have empty fetched_at by default' do
+    assert_nil feed.fetched_at
   end
 
   should 'display the latest post first' do
@@ -91,6 +100,77 @@ class FeedReaderBlockTest < ActiveSupport::TestCase
     assert_no_tag_in_string feed.formatted_feed_content, :tag => 'a', :attributes => { :href => 'http://localhost/first-post' }, :content => 'first-post'
   end
 
+  should 'have empty error message by default' do
+    assert FeedReaderBlock.new.error_message.blank?, 'new feed reader block expected to have empty error message'
+  end
 
+  should "display error message as content when it's the case" do
+    msg = "there was a problem"
+    feed.error_message = msg
+    assert_match(msg, feed.content)
+  end
+
+  should 'expire after a period' do
+    # save current time
+    now = Time.now
+    expired = FeedReaderBlock.create!
+    not_expired = FeedReaderBlock.create!
+
+    # Noosfero is configured to update feeds every 4 hours
+    FeedUpdater.stubs(:update_interval).returns(4.hours)
+
+    # 5 hours ago
+    Time.stubs(:now).returns(now  - 5.hours)
+    expired.finish_fetch
+
+    # 3 hours ago
+    Time.stubs(:now).returns(now - 3.hours)
+    not_expired.finish_fetch
+
+    # now one block should be expired and the not the other
+    Time.stubs(:now).returns(now)
+    expired_list = FeedReaderBlock.expired
+    assert_includes expired_list, expired
+    assert_not_includes expired_list, not_expired
+  end
+
+  should 'consider recently-created as expired' do
+    # feed is created in setup
+    assert_includes FeedReaderBlock.expired, feed
+  end
+
+  should 'have an update errors counter' do
+    assert_equal 5, FeedReaderBlock.new(:update_errors => 5).update_errors
+  end
+
+  should 'have 0 errors by default' do
+    assert_equal 0, FeedReaderBlock.new.update_errors
+  end
+
+  should 'be disabled by default' do
+    assert_equal false, FeedReaderBlock.new.enabled
+  end
+
+  should 'be enabled when address is filled' do
+    reader = build(:feed_reader_block, :address => 'http://www.example.com/feed')
+    assert_equal true, reader.enabled
+  end
+
+  should 'be disabled when address is empty' do
+    reader = build(:feed_reader_block, :enabled => true, :address => 'http://www.example.com/feed')
+    reader.address = nil
+    assert_equal false, reader.enabled
+  end
+
+  should 're-enable when address is changed' do
+    reader = build(:feed_reader_block, :address => 'http://www.example.com/feed')
+    reader.enabled = false
+
+    reader.address = 'http://www.example.com/feed'
+    assert_equal false, reader.enabled, 'must not enable when setting to the same address'
+
+    reader.address = 'http://www.acme.com/feed'
+    assert_equal true, reader.enabled, 'must enable when setting to new address'
+  end
 
 end

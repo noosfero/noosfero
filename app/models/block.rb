@@ -13,6 +13,8 @@ class Block < ActiveRecord::Base
   acts_as_having_settings
   settings_items :visible, :type => :boolean, :default => true
 
+  named_scope :enabled, :conditions => { :enabled => true }
+
   def visible?
     visible
   end

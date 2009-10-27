@@ -1,13 +1,31 @@
 class FeedReaderBlock < Block
 
+  def initialize(attributes = nil)
+    data = attributes || {}
+    super({ :enabled => !data[:address].blank? }.merge(data))
+  end
+
   include DatesHelper
 
   settings_items :address, :type => :string
+  alias :orig_set_address :address=
+  def address=(new_address)
+    old_address = address
+    orig_set_address(new_address)
+    self.enabled = (old_address.blank? && !new_address.blank?) || (new_address && new_address != old_address) || false
+  end
+
   settings_items :limit, :type => :integer
-  settings_items :fetched_at, :type => :date
 
   settings_items :feed_title, :type => :string
   settings_items :feed_items, :type => :array
+
+  settings_items :update_errors, :type => :integer, :default => 0
+  settings_items :error_message, :type => :string
+
+  named_scope :expired, lambda {
+    { :conditions => [ '(fetched_at is NULL) OR (fetched_at < ?)', Time.now - FeedUpdater.update_interval] }
+  }
 
   before_create do |block|
     block.limit = 5
@@ -27,9 +45,13 @@ class FeedReaderBlock < Block
   end
 
   def formatted_feed_content
-    return "<ul>\n" +
+    if error_message.blank?
+      "<ul>\n" +
       self.feed_items[0..(limit-1)].map{ |item| "<li><a href='#{item[:link]}'>#{item[:title]}</a></li>" }.join("\n") +
       "</ul>"
+    else
+      '<p>' + error_message + '</p>'
+    end
   end
 
   def footer
@@ -49,6 +71,7 @@ class FeedReaderBlock < Block
     self.feed_title = nil
   end
   def finish_fetch
+    self.fetched_at = Time.now
     self.save!
   end
 

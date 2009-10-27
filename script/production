@@ -13,14 +13,13 @@ do_start() {
   fi
 
   ./script/ferret_server -e $RAILS_ENV start
-  sleep 1
+  ./script/feed-updater start
   mongrel_rails cluster::start
-  sleep 3
 }
 
 do_stop() {
   mongrel_rails cluster::stop
-  sleep 1
+  ./script/feed-updater stop
   ./script/ferret_server -e $RAILS_ENV stop
 }
 

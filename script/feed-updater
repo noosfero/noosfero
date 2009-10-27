@@ -1,14 +1,25 @@
 #!/usr/bin/env ruby
-require File.dirname(__FILE__) + '/../config/environment'
 
-(FeedReaderBlock.find(:all) + ExternalFeed.find(:all, :conditions => {:enabled => true})).each do |container|
-  unless container.address.nil?
-    begin
-      handler = FeedHandler.new
-      handler.process(container)
-    rescue Exception => ex
-      $stderr.puts("Unknown error from %s ID %d\n%s" % [container.class.name, container.id, ex.to_s])
-      $stderr.puts("Backtrace:\n%s" % ex.backtrace.join("\n"))
-    end
-  end
+# This is the Noosfero feed updater controller script. It starts and stops the
+# feed updater daemon, which is implemented in the FeedUpdater class.
+#
+# The role of this script is to just start/stop the daemon, write a PID file,
+# etc. The actual feed update logic is in FeedUpdater.
+
+require 'daemons'
+
+NOOSFERO_ROOT = File.expand_path(File.dirname(__FILE__) + '/../')
+
+options = {
+  :dir_mode   => :normal,
+  :dir        => File.dirname(__FILE__) + '/../tmp/pids',
+  :multiple   => false,
+  :backtrace  => true,
+  :monitor    => true,
+}
+
+Daemons.run_proc('feed-updater', options) do
+  require NOOSFERO_ROOT + '/config/environment'
+  FeedUpdater.new.start
 end
+

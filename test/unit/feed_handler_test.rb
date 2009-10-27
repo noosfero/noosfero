@@ -4,9 +4,12 @@ class FeedHandlerTest < Test::Unit::TestCase
 
   def setup
     @handler = FeedHandler.new
-    @container = FeedReaderBlock.create!(:box_id => 99999, :address => 'test/fixtures/files/feed.xml')
+    @container = nil
   end
-  attr_reader :handler, :container
+  attr_reader :handler
+  def container
+    @container ||= fast_create(:feed_reader_block)
+  end
 
   should 'fetch feed content' do
     content = handler.fetch(container.address)
@@ -68,15 +71,47 @@ class FeedHandlerTest < Test::Unit::TestCase
     handler.process(container)
   end
 
-  should 'finish_fetch after processing' do
+  should 'finish fetch after processing' do
+    container.expects(:finish_fetch)
+    handler.process(container)
+  end
+
+  should 'finish fetch even in case of crash' do
+    container.expects(:clear).raises(Exception.new("crash"))
     container.expects(:finish_fetch)
     handler.process(container)
   end
 
   should 'identifies itself as noosfero user agent' do
-    handler = FeedHandler.new
     handler.expects(:open).with('http://site.org/feed.xml', {"User-Agent" => "Noosfero/#{Noosfero::VERSION}"}, anything).returns('bli content')
     assert_equal 'bli content', handler.fetch('http://site.org/feed.xml')
+  end
+
+  [:external_feed, :feed_reader_block].each do |container_class|
+
+    should "reset the errors count after a successfull run (#{container_class})" do
+      container = fast_create(container_class, :update_errors => 1, :address => RAILS_ROOT + '/test/fixtures/files/feed.xml')
+      handler.expects(:actually_process_container).with(container)
+      handler.process(container)
+      assert_equal 0, container.update_errors
+    end
+
+    should "set error message and disable in case of errors (#{container_class})" do
+      FeedHandler.stubs(:max_errors).returns(4)
+
+      container = fast_create(container_class)
+      handler.stubs(:actually_process_container).with(container).raises(Exception.new("crash"))
+
+      # in the first 4 errors, we are ok
+      4.times { handler.process(container) }
+      assert !container.error_message.blank?, 'should set the error message for the first <max_errors> errors (%s)' % container_class
+      assert container.enabled, 'must keep container enabled during the first <max_errors> errors (%s)' % container_class
+
+      # 5 errors it too much
+      handler.process(container)
+      assert !container.error_message.blank?, 'must set error message in container after <max_errors> errors (%s)' % container_class
+      assert !container.enabled, 'must disable continer after <max_errors> errors (%s)' % container_class
+    end
   end
 
 end

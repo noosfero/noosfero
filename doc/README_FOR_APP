@@ -23,12 +23,13 @@ You need to have git installed, as well as:
 * contacts: http://github.com/cardmagic/contacts/tree/master
 * iso-codes: http://pkg-isocodes.alioth.debian.org/
 * feedparser: http://packages.debian.org/sid/libfeedparser-ruby
+* Daemons - http://daemons.rubyforge.org/
 * Mongrel: http://mongrel.rubyforge.org/
 * tango-icon-theme: http://tango.freedesktop.org/Tango_Icon_Library
 
 There are Debian packages available for all of them but contacts. Try:
 
- # aptitude install subversion ruby rake libgettext-ruby1.8 libsqlite3-ruby rcov librmagick-ruby libredcloth-ruby libwill-paginate-ruby iso-codes libfeedparser-ruby libferret-ruby mongrel mongrel-cluster tango-icon-theme
+ # aptitude install subversion ruby rake libgettext-ruby1.8 libsqlite3-ruby rcov librmagick-ruby libredcloth-ruby libwill-paginate-ruby iso-codes libfeedparser-ruby libferret-ruby libdaemons-ruby mongrel mongrel-cluster tango-icon-theme
 
 contacts is bundled together with noosfero for now, so you don't need to install it.
 

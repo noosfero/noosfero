@@ -6,6 +6,7 @@ require 'tidy'
 require 'hpricot'
 
 require 'noosfero/test'
+require File.dirname(__FILE__) + '/factories'
 
 FileUtils.rm_rf(File.join(RAILS_ROOT, 'index', 'test'))
 
@@ -35,6 +36,8 @@ class Test::Unit::TestCase
   self.use_instantiated_fixtures  = false
 
   # Add more helper methods to be used by all tests here...
+
+  include Noosfero::Factory
 
   include AuthenticatedTestHelper
 
@@ -253,6 +256,7 @@ class ActionController::IntegrationTest
     follow_redirect!
     assert_not_equal '/account/login', path
   end
+
 end
 
 Profile

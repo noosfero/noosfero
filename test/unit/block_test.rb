@@ -73,4 +73,11 @@ class BlockTest < Test::Unit::TestCase
      assert_equal( "block-id-#{b.id}", b.cache_keys)
   end
 
+  should 'list enabled blocks' do
+    block1 = Block.create!(:title => 'test 1')
+    block2 = Block.create!(:title => 'test 2', :enabled => false)
+    assert_includes Block.enabled, block1
+    assert_not_includes Block.enabled, block2
+  end
+
 end
