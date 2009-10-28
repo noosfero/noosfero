@@ -58,11 +58,11 @@ Feature: search
   Scenario: simple search for product
     Given the following enterprises
       | identifier | name |
-      | colivre | Colivre |
+      | colivre-ent | Colivre |
     And the following products
       | owner | name |
-      | colivre | social networks consultancy |
-      | colivre | wikis consultancy |
+      | colivre-ent | social networks consultancy |
+      | colivre-ent | wikis consultancy |
     And I am on the homepage
     When I follow "Search"
     And I fill in "query" with "wikis"

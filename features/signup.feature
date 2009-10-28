@@ -7,8 +7,8 @@ Feature: signup
     Given I am on the homepage
     When I follow "Login"
     And I follow "I want to participate"
-    And I fill in "e-Mail" with "ze@example.com"
-    And I fill in "Username" with "ze"
+    And I fill in "e-Mail" with "josesilva@example.com"
+    And I fill in "Username" with "josesilva"
     And I fill in "Password" with "secret"
     And I fill in "Password confirmation" with "secret"
     And I fill in "Full name" with "José da Silva"
