@@ -73,3 +73,10 @@ environment_administrator:
   system: true
   permissions:
    - perform_task
+   - view_environment_admin_panel
+   - edit_environment_features
+   - edit_environment_design
+   - manage_environment_categories
+   - manage_environment_roles
+   - manage_environment_validators
+   - moderate_comments

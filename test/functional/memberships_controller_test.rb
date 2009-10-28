@@ -220,6 +220,13 @@ class MembershipsControllerTest < Test::Unit::TestCase
     get :new_community, :profile => profile.identifier
 
     assert_not_nil assigns(:community).environment
+   end
+
+  should 'set environment' do
+    @controller.stubs(:environment).returns(Environment.default).at_least_once
+    post :new_community, :profile => profile.identifier, :community => {:name => 'test community'}
+
+    assert_not_nil assigns(:community).environment
   end
 
   should 'not show description if isnt enabled when register new community' do

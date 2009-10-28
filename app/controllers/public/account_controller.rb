@@ -221,7 +221,7 @@ class AccountController < ApplicationController
 
   def check_url
     @identifier = params[:identifier]
-    valid = Person.is_available?(@identifier)
+    valid = Person.is_available?(@identifier, environment)
     if valid
       @status = _('Available!')
       @status_class = 'available'

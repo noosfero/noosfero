@@ -649,6 +649,21 @@ class AccountControllerTest < Test::Unit::TestCase
     assert_redirected_to :controller => 'home', :action => 'index'
   end
 
+  should 'check_url is available on environment' do
+    env = Environment.create(:name => 'Environment test')
+    @controller.expects(:environment).returns(env).at_least_once
+    profile = create_user('mylogin').person
+    get :check_url, :identifier => 'mylogin'
+    assert_equal 'available', assigns(:status_class)
+  end
+
+  should 'check if url is not available on environment' do
+    @controller.expects(:environment).returns(Environment.default).at_least_once
+    profile = create_user('mylogin').person
+    get :check_url, :identifier => 'mylogin'
+    assert_equal 'unavailable', assigns(:status_class)
+  end
+
   protected
     def new_user(options = {}, extra_options ={})
       data = {:profile_data => person_data}

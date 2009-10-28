@@ -1,0 +1,34 @@
+<h2><%= _('New community')  %></h2>
+
+<%= link_to( profile_image(task.requestor, :minor, :border => 0), task.requestor.public_profile_url ) %>
+
+<%= _('%s wants to create community %s.') %
+    [content_tag('strong', link_to( task.requestor.name, task.requestor.public_profile_url ) ),
+    content_tag('strong', task.name )] %>
+
+<% form_for('task', task, :url => { :action => 'close', :id => task.id } ) do |f| %>
+
+  <div>
+    <% if !Profile.is_available?(task.name.to_slug, environment) %>
+      <p><b><%= _('This name was already taken, this community cannot be approved') %></b></p>
+      <%= hidden_field_tag(:decision, 'cancel') %>
+    <% else %>
+      <%= radio_button_tag(:decision, 'finish', true,
+          :id => "decision-finish-#{task.id}") %>
+          <label for="<%= "decision-finish-#{task.id}" %>"><b><%= _('Approve') %></b></label>
+
+      &nbsp; &nbsp;
+
+      <%= radio_button_tag(:decision, 'cancel', false,
+          :id => "decision-cancel-#{task.id}") %>
+      <label for="<%= "decision-cancel-#{task.id}" %>"><b><%= _('Reject') %></b></label>
+    <% end %>
+
+      <%= labelled_form_field _('Please provide an explanation for the rejection'), f.text_area(:closing_statement, :style => 'height:200px; width:80%;') %>
+
+  </div>
+
+  <% button_bar do %>
+    <%= submit_button(:ok, _('Ok!')) %>
+  <% end %>
+<% end %>

@@ -2,6 +2,12 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class CommunityTest < Test::Unit::TestCase
 
+  def setup
+    @person = create_user('testuser').person
+  end
+
+  attr_reader :person
+
   should 'inherit from Profile' do
     assert_kind_of Profile, Community.new
   end
@@ -144,5 +150,41 @@ class CommunityTest < Test::Unit::TestCase
     assert_equal [highlighted_t].map(&:slug), c.news(2, true).map(&:slug)
   end
 
+  should 'sanitize description' do
+    c = Community.create!(:name => 'test_com', :description => '<b>new</b> community')
 
+    assert_sanitized c.description
+  end
+
+  should 'sanitize name' do
+    c = Community.create!(:name => '<b>test_com</b>')
+
+    assert_sanitized c.name
+  end
+
+  should 'create a task when creating a community if feature is enabled' do
+    env = Environment.default
+    env.enable('admin_must_approve_new_communities')
+
+    assert_difference CreateCommunity, :count do
+      Community.create_after_moderation(person, {:environment => env, :name => 'Example'})
+    end
+
+    assert_no_difference Community, :count do
+      Community.create_after_moderation(person, {:environment => env, :name => 'Example'})
+    end
+  end
+
+  should 'create a community if feature is disabled' do
+    env = Environment.default
+    env.disable('admin_must_approve_new_communities')
+
+    assert_difference Community, :count do
+      Community.create_after_moderation(person, {:environment => env, :name => 'Example'})
+    end
+
+    assert_no_difference CreateCommunity, :count do
+      Community.create_after_moderation(person, {:environment => env, :name => 'Example'})
+    end
+  end
 end

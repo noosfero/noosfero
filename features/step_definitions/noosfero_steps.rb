@@ -62,7 +62,34 @@ Given /^the following products$/ do |table|
 end
 
 Given /^I am logged in as "(.+)"$/ do |username|
+  visit('/account/login')
   fill_in("Username", :with => username)
   fill_in("Password", :with => '123456')
   click_button("Log in")
+end
+
+Given /^I am logged in as admin$/ do
+  user = User.create!(:login => 'admin_user', :password => '123456', :password_confirmation => '123456', :email => 'admin_user@example.com')
+  e = Environment.default
+  e.add_admin(user.person)
+  visit('/account/login')
+  fill_in("Username", :with => user.login)
+  fill_in("Password", :with => '123456')
+  click_button("Log in")
+end
+
+Given /^I am not logged in$/ do |username|
+  visit('/account/logout')
+end
+
+Given /^feature "(.+)" is enabled on environment$/ do |feature|
+  e = Environment.default
+  e.enable(feature)
+  e.save
+end
+
+Given /^feature "(.+)" is disabled on environment$/ do |feature|
+   e = Environment.default
+   e.disable(feature)
+   e.save
 end

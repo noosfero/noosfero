@@ -7,6 +7,21 @@ class Community < Organization
 
   xss_terminate :only => [ :name, :address, :contact_phone, :description ]
 
+  before_create do |community|
+    community.moderated_articles = true if community.environment.enabled?('organizations_are_moderated_by_default')
+  end
+
+  def self.create_after_moderation(requestor, attributes = {})
+    community = Community.new(attributes)
+    if community.environment.enabled?('admin_must_approve_new_communities')
+      CreateCommunity.create(attributes.merge(:requestor => requestor))
+    else
+      community = Community.create(attributes)
+      community.add_admin(requestor)
+    end
+    community
+  end
+
   FIELDS = %w[
     description
     language
@@ -20,7 +35,7 @@ class Community < Organization
     super
     self.required_fields.each do |field|
       if self.send(field).blank?
-          self.errors.add(field, _('%{fn} is mandatory'))
+        self.errors.add(field, _('%{fn} is mandatory'))
       end
     end
   end

@@ -1462,6 +1462,19 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal [event2, event3, event1], profile.events
   end
 
+  should 'be available if identifier doesnt exist on environment' do
+    p = create_user('identifier-test').person
+
+    env = Environment.create(:name => 'Environment test')
+    assert_equal true, Profile.is_available?('identifier-test', env)
+  end
+
+  should 'not be available if identifier exists on environment' do
+    p = create_user('identifier-test').person
+
+    assert_equal false, Profile.is_available?('identifier-test', Environment.default)
+  end
+
   private
 
   def assert_invalid_identifier(id)

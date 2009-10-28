@@ -14,6 +14,8 @@ class TaskMailer < ActionMailer::Base
 
     recipients task.target.notification_emails
 
+    url_for_tasks_list = task.target.kind_of?(Environment) ? '' : url_for(task.target.url.merge(:controller => 'tasks', :action => 'index'))
+
     from self.class.generate_from(task)
     subject '[%s] %s' % [task.requestor.environment.name, task.description]
     body :requestor => task.requestor.name,
@@ -21,7 +23,7 @@ class TaskMailer < ActionMailer::Base
       :message => msg,
       :environment => task.requestor.environment.name,
       :url => url_for(:host => task.requestor.environment.default_hostname, :controller => 'home'),
-      :tasks_url => url_for(task.target.url.merge(:controller => 'tasks', :action => 'index'))
+      :tasks_url => url_for_tasks_list
   end
 
   def invitation_notification(task)
