@@ -8,11 +8,11 @@ cancel:"Cancelar",
 close:"Fechar",
 browse:"Procurar",
 class_name:"Classe",
-not_set:"-- N\u00E3o especificado --",
-clipboard_msg:"Copiar/cortar/colar n\u00E3o est\u00E1 dispon\u00EDvel no Mozilla/Firefox.\nDeseja mais informa\u00E7\u00F5es sobre este problema?",
-clipboard_no_support:"O seu navegador n\u00E3o tem suporte para esta fun\u00E7\u00E3o, use os atalhos do teclado.",
-popup_blocked:"Detectamos que o seu bloqueador de popups bloqueou uma janela que \u00E9 essencial para o aplicativo. Voc\u00EA precisa desativar o bloqueador de popups para utilizar esta ferramenta.",
-invalid_data:"Erro: Valores inv\u00E1lidos est\u00E3o marcados em vermelho.",
+not_set:"-- N/A --",
+clipboard_msg:"Copiar/cortar/colar n\u00E3o est\u00E1 dispon\u00EDvel no Mozilla e Firefox.\nDeseja mais informa\u00E7\u00F5es sobre este problema?",
+clipboard_no_support:"O seu browser n\u00E3o suporta esta fun\u00E7\u00E3o, use os atalhos do teclado.",
+popup_blocked:"Detectamos que o seu bloqueador de popups bloqueou uma janela que \u00E9 essencial para a aplica\u00E7\u00E3o. Voc\u00EA precisa desativar o bloqueador de janelas de popups para utilizar esta ferramenta.",
+invalid_data:"Erro: Valores inv\u00E1lidos marcados em vermelho.",
 more_colors:"Mais Cores"
 },
 contextmenu:{
@@ -20,7 +20,7 @@ align:"Alinhamento",
 left:"Esquerda",
 center:"Centro",
 right:"Direita",
-full:"Justificar"
+full:"Justificado"
 },
 insertdatetime:{
 date_fmt:"%d-%m-%Y",
@@ -29,14 +29,14 @@ insertdate_desc:"Inserir data",
 inserttime_desc:"Inserir hora",
 months_long:"Janeiro,Fevereiro,Mar\u00E7o,Abril,Maio,Junho,Julho,Agosto,Setembro,Outubro,Novembro,Dezembro",
 months_short:"Jan,Fev,Mar,Abr,Mai,Jun,Jul,Ago,Set,Out,Nov,Dez",
-day_long:"Domingo,Segunda-Feira,Ter\u00E7a-Feira,Quarta-Feira,Quinta-Feira,Sexta-Feira,S\u00E1bado,Domingo",
+day_long:"Domingo,Segunda-feira,Ter\u00E7a-feira,Quarta-feira,Quinta-feira,Sexta-feira,S\u00E1bado,Domingo",
 day_short:"Dom,Seg,Ter,Qua,Qui,Sex,Sab,Dom"
 },
 print:{
 print_desc:"Imprimir"
 },
 preview:{
-preview_desc:"Pr\u00E9-Visualizar"
+preview_desc:"Pr\u00E9-visualizar"
 },
 directionality:{
 ltr_desc:"Da esquerda para direita",
@@ -46,7 +46,7 @@ layer:{
 insertlayer_desc:"Inserir nova camada",
 forward_desc:"Mover para frente",
 backward_desc:"Mover para tr\u00E1s",
-absolute_desc:"Alternar posicionamento absoluto",
+absolute_desc:"Alternar o posicionamento absoluto",
 content:"Nova camada..."
 },
 save:{
@@ -54,11 +54,11 @@ save_desc:"Salvar",
 cancel_desc:"Cancelar todas as altera\u00E7\u00F5es"
 },
 nonbreaking:{
-nonbreaking_desc:"Inserir um espa\u00E7o"
+nonbreaking_desc:"Inserir um espa\u00E7o \"sem quebra\""
 },
 iespell:{
 iespell_desc:"Verificar ortografia",
-download:"Aplicativo de ortografia n\u00E3o-detectado. Deseja instal\u00E1-lo agora?"
+download:"Plugin de ortografia n\u00E3o-detectado. Deseja instalar agora?"
 },
 advhr:{
 advhr_desc:"Separador horizontal"
@@ -79,7 +79,7 @@ link_desc:"Inserir/editar hyperlink"
 xhtmlxtras:{
 cite_desc:"Cita\u00E7\u00E3o",
 abbr_desc:"Abrevia\u00E7\u00E3o",
-acronym_desc:"Acr\u00F3nimo",
+acronym_desc:"Acr\u00F4nimo",
 del_desc:"Apagar",
 ins_desc:"Inserir",
 attribs_desc:"Inserir/Editar atributos"

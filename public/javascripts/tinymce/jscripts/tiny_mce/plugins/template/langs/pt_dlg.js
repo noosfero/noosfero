@@ -10,6 +10,6 @@ mdate_format:"%d-%m-%Y %H:%M:%S",
 cdate_format:"%d-%m-%Y %H:%M:%S",
 months_long:"Janeiro,Fevereiro,Mar\u00E7o,Abril,Maio,Junho,Julho,Agosto,Setembro,Outubro,Novembro,Dezembro",
 months_short:"Jan,Fev,Mar,Abr,Mai,Jun,Jul,Ago,Set,Out,Nov,Dez",
-day_long:"Domingo,Segunda-Feira,Ter\u00E7a-Feira,Quarta-Feira,Quinta-Feira,Sexta-Feira,S\u00E1bado,Domingo",
+day_long:"Domingo,Segunda-feira,Ter\u00E7a-feira,Quarta-feira,Quinta-feira,Sexta-feira,S\u00E1bado,Domingo",
 day_short:"Dom,Seg,Ter,Qua,Qui,Sex,Sab,Dom"
 });
