@@ -6,7 +6,8 @@
 
 #content .task-list li {
   margin: 10px 0px;
-  padding: 0px;
   list-style: none;
-  border: 1px solid #3465A4;
+  border: 1px solid #BFC2BC;
+  padding-left:1em;
+  padding-right:1em;
 }
