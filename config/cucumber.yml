@@ -1,0 +1,2 @@
+default: --tags ~@selenium --exclude features/support/selenium.rb
+selenium: --tags @selenium
