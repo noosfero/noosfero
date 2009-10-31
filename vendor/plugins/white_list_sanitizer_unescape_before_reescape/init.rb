@@ -5,11 +5,22 @@
 
 HTML::WhiteListSanitizer.module_eval do
   
-  def sanitize_with_filter_comments(*args, &block)
-    text = sanitize_without_filter_comments(*args, &block)
-    text.gsub(/&lt;!--/, '<!--') if text
+  def sanitize_with_filter_fixes(*args, &block)
+    text = sanitize_without_filter_fixes(*args, &block)
+    if text
+      final_text = text.gsub(/&lt;!/, '<!')
+      final_text = final_text.gsub(/<!--.*\[if IE\]-->(.*)<!--\[endif\]-->/, '<!–-[if IE]>\1<![endif]-–>') #FIX for itheora comments
+
+      if final_text =~ /iframe/
+        unless final_text =~ /<iframe(.*)src=(.*)itheora.org(.*)<\/iframe>/
+          final_text = final_text.gsub(/<iframe(.*)<\/iframe>/, '')
+        end
+      end
+      final_text = final_text.gsub(/&amp;quot;/, '&quot;') #FIX problems with archive.org
+      final_text
+    end
   end
-  alias_method_chain :sanitize, :filter_comments
+  alias_method_chain :sanitize, :filter_fixes
 
   # unescape before reescape to avoid:
   # & -> &amp; -> &amp;amp; -> &amp;amp;amp; -> &amp;amp;amp;amp; -> etc

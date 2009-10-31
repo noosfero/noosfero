@@ -49,4 +49,24 @@ class TinyMceArticleTest < Test::Unit::TestCase
     assert(article.body.is_utf8?, "%s expected to be valid UTF-8 content" % article.body.inspect)
   end
 
+  should 'fix tinymce mess with itheora comments for IE from tiny mce article body' do
+    article = TinyMceArticle.create!(:profile => profile, :name => 'article', :abstract => 'abstract', :body => "the <!--–-[if IE]--> just for ie... <!--[endif]-->")
+    assert_equal "the <!–-[if IE]> just for ie... <![endif]-–>", article.body
+  end
+
+  should 'not mess with <iframe and </iframe if it is from itheora' do
+    article = TinyMceArticle.create!(:profile => profile, :name => 'article', :abstract => 'abstract', :body => "<iframe src='http://itheora.org'></iframe>")
+    assert_equal "<iframe src=\"http://itheora.org\"></iframe>", article.body
+  end
+
+  should 'remove iframe if it is not from itheora' do
+    article = TinyMceArticle.create!(:profile => profile, :name => 'article', :abstract => 'abstract', :body => "<iframe src='anything'></iframe>")
+    assert_equal "", article.body
+  end
+
+  #TinymMCE convert config={"key":(.*)} in config={&quotkey&quot:(.*)}
+  should 'not replace &quot with &amp;quot; when adding an Archive.org video' do
+    article = TinyMceArticle.create!(:profile => profile, :name => 'article', :abstract => 'abstract', :body => "<embed flashvars='config={&quot;key&quot;:&quot;\#$b6eb72a0f2f1e29f3d4&quot;}'> </embed>")
+    assert_equal "<embed flashvars=\"config={&quot;key&quot;:&quot;\#$b6eb72a0f2f1e29f3d4&quot;}\"> </embed>", article.body
+  end
 end

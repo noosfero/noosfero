@@ -4,3 +4,13 @@ body.mceContentBody td {
   font-size: 12px;
 }
 
+object, embed {
+  border:1px dotted #cc0000;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-color:#ffffcc;
+  display: block;
+  width: 150px;
+  height: 150px;
+  background-image: url(../designs/icons/tango/Tango/22x22/actions/media-playback-start.png);
+}
