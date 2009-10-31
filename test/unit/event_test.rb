@@ -76,35 +76,22 @@ class EventTest < ActiveSupport::TestCase
     assert !e.errors.invalid?(:start_date)
   end
 
-  should 'find by year and month' do
+  should 'find by range of dates' do
     profile = create_user('testuser').person
     e1 = Event.create!(:name => 'e1', :start_date =>  Date.new(2008,1,1), :profile => profile)
     e2 = Event.create!(:name => 'e2', :start_date =>  Date.new(2008,2,1), :profile => profile)
     e3 = Event.create!(:name => 'e3', :start_date =>  Date.new(2008,3,1), :profile => profile)
 
-    found = Event.by_month(2008, 2)
+    found = Event.by_range(Date.new(2008, 1, 1)..Date.new(2008, 2, 28))
+    assert_includes found, e1
     assert_includes found, e2
-    assert_not_includes found, e1
     assert_not_includes found, e3
   end
 
-  should 'find when in first day of month' do
+  should 'filter events by range' do
     profile = create_user('testuser').person
-    e1 = Event.create!(:name => 'e1', :start_date =>  Date.new(2008,1,1), :profile => profile)
-    assert_includes Event.by_month(2008, 1), e1
-  end
-
-  should 'find when in last day of month' do
-    profile = create_user('testuser').person
-    e1 = Event.create!(:name => 'e1', :start_date =>  Date.new(2008,1,31), :profile => profile)
-    assert_includes Event.by_month(2008, 1), e1
-  end
-
-  should 'use current month by default' do
-    profile = create_user('testuser').person
-    e1 = Event.create!(:name => 'e1', :start_date =>  Date.new(2008,1,31), :profile => profile)
-    Date.expects(:today).returns(Date.new(2008, 1, 15))
-    assert_includes Event.by_month, e1
+    e1 = Event.create!(:name => 'e1', :start_date => Date.new(2008,1,15), :profile => profile)
+    assert_includes profile.events.by_range(Date.new(2008, 1, 10)..Date.new(2008, 1, 20)), e1
   end
 
   should 'provide period for searching in month' do
@@ -182,6 +169,57 @@ class EventTest < ActiveSupport::TestCase
     assert_nothing_raised TypeError do
       e.link = nil
     end
+  end
+
+  should 'list all events' do
+    profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile')
+    event1 = Event.new(:name => 'Ze Birthday', :start_date => Date.today)
+    event2 = Event.new(:name => 'Mane Birthday', :start_date => Date.today >> 1)
+    profile.events << [event1, event2]
+    assert_includes profile.events, event1
+    assert_includes profile.events, event2
+  end
+
+  should 'list events by day' do
+    profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile')
+
+    today = Date.today
+    yesterday_event = Event.new(:name => 'Joao Birthday', :start_date => today - 1.day)
+    today_event = Event.new(:name => 'Ze Birthday', :start_date => today)
+    tomorrow_event = Event.new(:name => 'Mane Birthday', :start_date => today + 1.day)
+
+    profile.events << [yesterday_event, today_event, tomorrow_event]
+
+    assert_equal [today_event], profile.events.by_day(today)
+  end
+
+  should 'list events in a range' do
+    profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile')
+
+    today = Date.today
+    event_in_range = Event.new(:name => 'Noosfero Conference', :start_date => today - 2.day, :end_date => today + 2.day)
+    event_in_day = Event.new(:name => 'Ze Birthday', :start_date => today)
+
+    profile.events << [event_in_range, event_in_day]
+
+    assert_equal [event_in_range], profile.events.by_day(today - 1.day)
+    assert_equal [event_in_range], profile.events.by_day(today + 1.day)
+    assert_equal [event_in_range, event_in_day], profile.events.by_day(today)
+  end
+
+  should 'not list events out of range' do
+    profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile')
+
+    today = Date.today
+    event_in_range1 = Event.new(:name => 'Foswiki Conference', :start_date => today - 2.day, :end_date => today + 2.day)
+    event_in_range2 = Event.new(:name => 'Debian Conference', :start_date => today - 2.day, :end_date => today + 3.day)
+    event_out_of_range = Event.new(:name => 'Ze Birthday', :start_date => today - 5.day, :end_date => today - 3.day)
+
+    profile.events << [event_in_range1, event_in_range2, event_out_of_range]
+
+    assert_includes profile.events.by_day(today), event_in_range1
+    assert_includes profile.events.by_day(today), event_in_range2
+    assert_not_includes profile.events.by_day(today), event_out_of_range
   end
 
 end

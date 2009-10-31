@@ -2,6 +2,7 @@ module DatesHelper
 
   include GetText
 
+  # FIXME Date#strftime should translate this for us !!!!
   MONTHS = [
     N_('January'),
     N_('February'),
@@ -49,43 +50,66 @@ module DatesHelper
     end
   end
 
-  def show_day_of_week(date)
-    # FIXME Date#strftime should translate this for us !!!! 
-    _([
-      N_('Sunday'),
-      N_('Monday'),
-      N_('Tuesday'),
-      N_('Wednesday'),
-      N_('Thursday'),
-      N_('Friday'),
-      N_('Saturday'),
-    ][date.wday])
+  def show_day_of_week(date, abbreviated = false)
+    # FIXME Date#strftime should translate this for us !!!!
+    N_('Sun'); N_('Mon'); N_('Tue'); N_('Wed'); N_('Thu'); N_('Fri'); N_('Sat');
+    if abbreviated
+      _(date.strftime("%a"))
+    else
+      # FIXME Date#strftime should translate this for us !!!!
+      _([
+        N_('Sunday'),
+        N_('Monday'),
+        N_('Tuesday'),
+        N_('Wednesday'),
+        N_('Thursday'),
+        N_('Friday'),
+        N_('Saturday'),
+      ][date.wday])
+    end
   end
 
-  def show_month(year, month)
-
-    if year.blank?
-      year = Date.today.year
+  def show_month(year, month, opts = {})
+    date = build_date(year, month)
+    if opts[:next]
+      date = date >> 1
+    elsif opts[:previous]
+      date = date << 1
     end
-    if month.blank?
-      month = Date.today.month
-    end
-
-    _('%{month} %{year}') % { :year => year, :month => month_name(month.to_i) }
+    _('%{month} %{year}') % { :year => date.year, :month => month_name(date.month.to_i) }
   end
 
-  def link_to_previous_month(year, month)
-    date = (year.blank? || month.blank?) ? Date.today : Date.new(year.to_i, month.to_i, 1)
+  def build_date(year, month, day = 1)
+    if year.blank? and month.blank? and day.blank?
+      Date.today
+    else
+      if year.blank?
+        year = Date.today.year
+      end
+      if month.blank?
+        month = Date.today.month
+      end
+      if day.blank?
+        day = 1
+      end
+      Date.new(year.to_i, month.to_i, day.to_i)
+    end
+  end
+
+  def link_to_previous_month(year, month, label = nil)
+    date = build_date(year, month)
     previous_month_date = date - 1.month
 
-    link_to '&larr; ' + show_month(previous_month_date.year, previous_month_date.month), :year => previous_month_date.year, :month => previous_month_date.month
+    label ||= show_month(previous_month_date.year, previous_month_date.month)
+    link_to label, :year => previous_month_date.year, :month => previous_month_date.month
   end
 
-  def link_to_next_month(year, month)
-    date = (year.blank? || month.blank?) ? Date.today : Date.new(year.to_i, month.to_i, 1)
+  def link_to_next_month(year, month, label = nil)
+    date = build_date(year, month)
     next_month_date = date + 1.month
 
-    link_to show_month(next_month_date.year, next_month_date.month) + ' &rarr;', :year => next_month_date.year, :month => next_month_date.month
+    label ||= show_month(next_month_date.year, next_month_date.month)
+    link_to label, :year => next_month_date.year, :month => next_month_date.month
   end
 
   def pick_date(object, method, options = {}, html_options = {})

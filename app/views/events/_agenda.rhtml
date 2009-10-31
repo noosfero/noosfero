@@ -1,0 +1,24 @@
+<div id='agenda'>
+  <div class='agenda-calendar'>
+    <table class='noborder current-month'>
+      <caption>
+        <h2><%= show_month(params[:year], params[:month]) %></h2>
+        <%= link_to_previous_month(params[:year], params[:month], '&larr; previous') %>
+        <%= link_to_next_month(params[:year], params[:month], 'next &rarr;') %>
+      </caption>
+      <%= render :partial => 'events/month', :locals => {:calendar => @calendar, :abbreviated => true} %>
+    </table>
+    <table class='noborder previous-month'>
+      <caption><h3><%= link_to_previous_month(params[:year], params[:month], show_month(params[:year], params[:month], :previous => true)) %></h3></caption>
+      <%= render :partial => 'events/month', :locals => {:calendar => @previous_calendar, :abbreviated => true} %>
+    </table>
+    <table class='noborder next-month'>
+      <caption><h3><%= link_to_next_month(params[:year], params[:month], show_month(params[:year], params[:month], :next => true)) %></h3></caption>
+      <%= render :partial => 'events/month', :locals => {:calendar => @next_calendar, :abbreviated => true} %>
+    </table>
+    <br clear='both'/>
+  </div>
+  <div id='events-of-the-day'>
+    <%= render :partial => 'events/events_by_day' %>
+  </div>
+</div>

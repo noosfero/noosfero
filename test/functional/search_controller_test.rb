@@ -682,7 +682,7 @@ class SearchControllerTest < Test::Unit::TestCase
     person = create_user('testuser').person
 
     create_event(person, :name => 'upcoming event 1', :category_ids => [@category.id], :start_date => Date.new(2008, 1, 25))
-    create_event(person, :name => 'upcoming event 2', :category_ids => [@category.id], :start_date => Date.new(2008, 2, 27))
+    create_event(person, :name => 'upcoming event 2', :category_ids => [@category.id], :start_date => Date.new(2008, 4, 27))
 
     get :assets, :asset => 'events', :year => '2008', :month => '1'
 
@@ -693,7 +693,7 @@ class SearchControllerTest < Test::Unit::TestCase
     person = create_user('testuser').person
 
     create_event(person, :name => 'upcoming event 1', :category_ids => [@category.id], :start_date => Date.new(2008, 1, 25))
-    create_event(person, :name => 'upcoming event 2', :category_ids => [@category.id], :start_date => Date.new(2008, 2, 27))
+    create_event(person, :name => 'upcoming event 2', :category_ids => [@category.id], :start_date => Date.new(2008, 4, 27))
 
     get :assets, :asset => 'events', :category_path => [ 'my-category' ], :year => '2008', :month => '1'
 
@@ -875,11 +875,11 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_equal 0, assigns(:calendar).size % 7
   end
 
-  should 'display current year/month by default' do
+  should 'display current year/month by default as caption of current month' do
     Date.expects(:today).returns(Date.new(2008, 8, 1)).at_least_once
 
     get :assets, :asset => 'events'
-    assert_tag :tag => 'h1', :content => /^\s*August 2008\s*$/
+    assert_tag :tag => 'table', :attributes => {:class => /current-month/}, :descendant => {:tag => 'caption', :content => /August 2008/}
   end
 
   should 'submit search form to /search when viewing asset' do
@@ -1001,6 +1001,55 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_includes assigns(:results)[:products], prod
   end
 
+  should 'show events of specific day' do
+    person = create_user('anotheruser').person
+    event = create_event(person, :name => 'Joao Birthday', :start_date => Date.new(2009, 10, 28))
+
+    get :events_by_day, :year => 2009, :month => 10, :day => 28
+
+    assert_tag :tag => 'a', :content => /Joao Birthday/
+  end
+
+  should 'filter events by category' do
+    person = create_user('anotheruser').person
+
+    searched_category = Category.create!(:name => 'Category with events', :environment => Environment.default)
+
+    event_in_searched_category = create_event(person, :name => 'Maria Birthday', :start_date => Date.today, :category_ids => [searched_category.id])
+    event_in_non_searched_category = create_event(person, :name => 'Joao Birthday', :start_date => Date.today, :category_ids => [@category.id])
+
+    get :assets, :asset => 'events', :category_path => ['category-with-events']
+
+    assert_includes assigns(:events_of_the_day), event_in_searched_category
+    assert_not_includes assigns(:events_of_the_day), event_in_non_searched_category
+  end
+
+  should 'filter events by category of specific day' do
+    person = create_user('anotheruser').person
+
+    searched_category = Category.create!(:name => 'Category with events', :environment => Environment.default)
+
+    event_in_searched_category = create_event(person, :name => 'Maria Birthday', :start_date => Date.new(2009, 10, 28), :category_ids => [searched_category.id])
+    event_in_non_searched_category = create_event(person, :name => 'Joao Birthday', :start_date => Date.new(2009, 10, 28), :category_ids => [@category.id])
+
+    get :events_by_day, :year => 2009, :month => 10, :day => 28, :category_id => searched_category.id
+
+    assert_tag :tag => 'a', :content => /Maria Birthday/
+    assert_no_tag :tag => 'a', :content => /Joao Birthday/
+  end
+
+  should 'ignore filter of events if category not exists' do
+    person = create_user('anotheruser').person
+    create_event(person, :name => 'Joao Birthday', :start_date => Date.new(2009, 10, 28), :category_ids => [@category.id])
+    create_event(person, :name => 'Maria Birthday', :start_date => Date.new(2009, 10, 28))
+
+    id_of_unexistent_category = Category.last.id + 10
+
+    get :events_by_day, :year => 2009, :month => 10, :day => 28, :category_id => id_of_unexistent_category
+
+    assert_tag :tag => 'a', :content => /Joao Birthday/
+    assert_tag :tag => 'a', :content => /Maria Birthday/
+  end
 
   ##################################################################
   ##################################################################
@@ -1011,4 +1060,5 @@ class SearchControllerTest < Test::Unit::TestCase
     ev.save!
     ev
   end
+
 end

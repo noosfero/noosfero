@@ -1,0 +1,5 @@
+<%= button :back, _('Back to %s') % profile.name, profile.public_profile_url %>
+
+<h1><%= _("%s's events") % profile.name %></h1>
+
+<%= render :partial => 'agenda' %>

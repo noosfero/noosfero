@@ -115,6 +115,8 @@ class Profile < ActiveRecord::Base
 
   has_many :tasks, :dependent => :destroy, :as => 'target'
 
+  has_many :events, :source => 'articles', :class_name => 'Event', :order => 'name'
+
   %w[ pending finished ].each do |status|
     class_eval <<-CODE
       def all_#{status}_tasks

@@ -327,17 +327,22 @@ div.pending-tasks {
   margin-bottom: 20px;
 }
 
-/* sitemap */
+/* sitemap and agenda */
+
 .sitemap-item a:link,
-.sitemap-item a:visited {
+.agenda-item a:link,
+.sitemap-item a:visited,
+.agenda-item a:visited {
   display: block;
   border: none;
   text-decoration: none;
 }
-.sitemap-item img {
+.sitemap-item img,
+.agenda-item img {
   border: none;
 }
-.sitemap-item a:hover {
+.sitemap-item a:hover,
+.agenda-item a:hover {
   background: #e0e0e0;
   color: red;
   text-decoration: underline;
@@ -345,7 +350,6 @@ div.pending-tasks {
 .last-update {
   font-size: small;
 }
-
 
 /* * * icons for product category on profile * * */
 
@@ -592,4 +596,11 @@ div.pending-tasks {
 
 code input {
   font-family: monospace;
+}
+
+/** LOADING... **/
+
+.loading {
+  cursor: progress;
+  background: transparent url(../images/loading.gif) no-repeat scroll center 50px;
 }

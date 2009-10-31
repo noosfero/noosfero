@@ -801,4 +801,17 @@ class ArticleTest < Test::Unit::TestCase
     assert_equal 'changed-name', article.slug
   end
 
+  should 'find articles in a specific category' do
+    env = Environment.default
+    category_with_articles = env.categories.create!(:name => "Category with articles")
+    category_without_articles = env.categories.create!(:name => "Category without articles")
+
+    article_in_category = profile.articles.create!(:name => 'Article in category')
+
+    article_in_category.add_category(category_with_articles)
+
+    assert_includes profile.articles.in_category(category_with_articles), article_in_category
+    assert_not_includes profile.articles.in_category(category_without_articles), article_in_category
+  end
+
 end

@@ -43,6 +43,12 @@ class DatesHelperTest < Test::Unit::TestCase
     assert_equal "Domingo", show_day_of_week(date)
   end
 
+  should 'show abbreviated day of week' do
+    expects(:_).with("Sun").returns("Dom")
+    date = Date.new(2009, 10, 25)
+    assert_equal "Dom", show_day_of_week(date, true)
+  end
+
   should 'show month' do
     expects(:_).with('January').returns('January')
     expects(:_).with('%{month} %{year}').returns('%{month} %{year}')
@@ -58,35 +64,47 @@ class DatesHelperTest < Test::Unit::TestCase
     assert_equal 'November 2008', show_month('', '')
   end
 
+  should 'show next month' do
+    expects(:_).with('November').returns('November').at_least_once
+    expects(:_).with('%{month} %{year}').returns('%{month} %{year}').at_least_once
+    assert_equal 'November 2009', show_month(2009, 10, :next => true)
+  end
+
+  should 'show previous month' do
+    expects(:_).with('September').returns('September').at_least_once
+    expects(:_).with('%{month} %{year}').returns('%{month} %{year}').at_least_once
+    assert_equal 'September 2009', show_month(2009, 10, :previous => true)
+  end
+
   should 'provide link to previous month' do
-    expects(:link_to).with('&larr; January 2008', { :year => 2008, :month => 1})
+    expects(:link_to).with('January 2008', { :year => 2008, :month => 1})
     link_to_previous_month('2008', '2')
   end
 
   should 'support last year in link to previous month' do
-    expects(:link_to).with('&larr; December 2007', { :year => 2007, :month => 12})
+    expects(:link_to).with('December 2007', { :year => 2007, :month => 12})
     link_to_previous_month('2008', '1')
   end
 
   should 'provide link to next month' do
-    expects(:link_to).with('March 2008 &rarr;', { :year => 2008, :month => 3})
+    expects(:link_to).with('March 2008', { :year => 2008, :month => 3})
     link_to_next_month('2008', '2')
   end
 
   should 'support next year in link to next month' do
-    expects(:link_to).with('January 2009 &rarr;', { :year => 2009, :month => 1})
+    expects(:link_to).with('January 2009', { :year => 2009, :month => 1})
     link_to_next_month('2008', '12')
   end
 
   should 'get current date when year and month are not informed for next month' do
-    Date.expects(:today).returns(Date.new(2008,1,1))
-    expects(:link_to).with('February 2008 &rarr;', { :year => 2008, :month => 2})
+    Date.stubs(:today).returns(Date.new(2008,1,1))
+    expects(:link_to).with('February 2008', { :year => 2008, :month => 2})
     link_to_next_month(nil, nil)
   end
 
   should 'get current date when year and month are not informed for previous month' do
-    Date.expects(:today).returns(Date.new(2008,1,1))
-    expects(:link_to).with('&larr; December 2007', { :year => 2007, :month => 12})
+    Date.stubs(:today).returns(Date.new(2008,1,1))
+    expects(:link_to).with('December 2007', { :year => 2007, :month => 12})
     link_to_previous_month(nil, nil)
   end
 
@@ -139,6 +157,18 @@ class DatesHelperTest < Test::Unit::TestCase
 
   should 'handle nil time' do
     assert_equal '', show_time(nil)
+  end
+
+  should 'build date' do
+    assert_equal Date.new(2009, 10, 24), build_date(2009, 10, 24)
+  end
+
+  should 'build date to day 1 by default' do
+    assert_equal Date.new(2009, 10, 1), build_date(2009, 10)
+  end
+
+  should 'build today date when year and month are blank' do
+    assert_equal Date.new(Date.today.year, Date.today.month, 1), build_date('', '')
   end
 
 end

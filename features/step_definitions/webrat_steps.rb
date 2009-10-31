@@ -188,6 +188,10 @@ Then /^show me the page$/ do
   save_and_open_page
 end
 
-Then /^the source should contain tag ([^\"]+)$/ do |tag|
-  response_body.should have_tag(tag, {id => 10})
+When /^I should see "([^\"]+)" link$/ do |link|
+  response.should have_selector("a", :content => link)
+end
+
+When /^I should not see "([^\"]+)" link$/ do |link|
+  response.should_not have_selector("a", :content => link)
 end

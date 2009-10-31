@@ -1402,6 +1402,66 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal 3, p.blogs.count
   end
 
+  should 'list all events' do
+    profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile')
+    event1 = Event.new(:name => 'Ze Birthday', :start_date => Date.today)
+    event2 = Event.new(:name => 'Mane Birthday', :start_date => Date.today >> 1)
+    profile.events << [event1, event2]
+    assert_includes profile.events, event1
+    assert_includes profile.events, event2
+  end
+
+  should 'list events by day' do
+    profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile')
+
+    today = Date.today
+    yesterday_event = Event.new(:name => 'Joao Birthday', :start_date => today - 1.day)
+    today_event = Event.new(:name => 'Ze Birthday', :start_date => today)
+    tomorrow_event = Event.new(:name => 'Mane Birthday', :start_date => today + 1.day)
+
+    profile.events << [yesterday_event, today_event, tomorrow_event]
+
+    assert_equal [today_event], profile.events.by_day(today)
+  end
+
+  should 'list events in a range' do
+    profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile')
+
+    today = Date.today
+    event_in_range = Event.new(:name => 'Noosfero Conference', :start_date => today - 2.day, :end_date => today + 2.day)
+    event_in_day = Event.new(:name => 'Ze Birthday', :start_date => today)
+
+    profile.events << [event_in_range, event_in_day]
+
+    assert_equal [event_in_range], profile.events.by_day(today - 1.day)
+    assert_equal [event_in_range], profile.events.by_day(today + 1.day)
+    assert_equal [event_in_range, event_in_day], profile.events.by_day(today)
+  end
+
+  should 'not list events out of range' do
+    profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile')
+
+    today = Date.today
+    event_in_range1 = Event.new(:name => 'Foswiki Conference', :start_date => today - 2.day, :end_date => today + 2.day)
+    event_in_range2 = Event.new(:name => 'Debian Conference', :start_date => today - 2.day, :end_date => today + 3.day)
+    event_out_of_range = Event.new(:name => 'Ze Birthday', :start_date => today - 5.day, :end_date => today - 3.day)
+
+    profile.events << [event_in_range1, event_in_range2, event_out_of_range]
+
+    assert_includes profile.events.by_day(today), event_in_range1
+    assert_includes profile.events.by_day(today), event_in_range2
+    assert_not_includes profile.events.by_day(today), event_out_of_range
+  end
+
+  should 'sort events by name' do
+    profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile')
+    event1 = Event.new(:name => 'Noosfero Hackaton', :start_date => Date.today)
+    event2 = Event.new(:name => 'Debian Day', :start_date => Date.today)
+    event3 = Event.new(:name => 'Fisl 10', :start_date => Date.today)
+    profile.events << [event1, event2, event3]
+    assert_equal [event2, event3, event1], profile.events
+  end
+
   private
 
   def assert_invalid_identifier(id)

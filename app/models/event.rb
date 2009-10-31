@@ -16,6 +16,10 @@ class Event < Article
     end
   end
 
+  named_scope :by_day, lambda { |date|
+    {:conditions => ['start_date = :date AND end_date IS NULL OR (start_date <= :date AND end_date >= :date)', {:date => date}]}
+  }
+
   def self.description
     _('A calendar event')
   end
@@ -28,9 +32,12 @@ class Event < Article
     'event'
   end
 
-  def self.by_month(year = nil, month = nil)
-    self.find(:all, :conditions => { :start_date => date_range(year, month) })
-  end
+  named_scope :by_range, lambda { |range| {
+    :conditions => [
+      'start_date BETWEEN :start_day AND :end_day OR end_date BETWEEN :start_day AND :end_day',
+      { :start_day => range.first, :end_day => range.last }
+    ]
+  }}
 
   def self.date_range(year, month)
     if year.nil? || month.nil?
@@ -43,9 +50,20 @@ class Event < Article
     end
 
     first_day = Date.new(year, month, 1)
-    last_day = Date.new(year, month, 1) + 1.month - 1.day
+    last_day = first_day + 1.month - 1.day
 
     first_day..last_day
+  end
+
+  def self.first_day_of_month(date)
+    date ||= Date.today
+    Date.new(date.year, date.month, 1)
+  end
+
+  def self.last_day_of_month(date)
+    date ||= Date.today
+    date >>= 1
+    Date.new(date.year, date.month, 1) - 1.day
   end
 
   def date_range

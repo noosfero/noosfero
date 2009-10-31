@@ -323,4 +323,19 @@ class EnvironmentFinderTest < ActiveSupport::TestCase
     assert_equal 20, finder.find(:enterprises, 'test').total_entries
   end
 
+  should 'find events in a date range' do
+    finder = EnvironmentFinder.new(Environment.default)
+    person = create_user('testuser').person
+
+    date_range = Date.new(2009, 11, 28)..Date.new(2009, 12, 3)
+
+    event_in_range = Event.create!(:name => 'Event in range', :profile => person, :start_date => Date.new(2009, 11, 27), :end_date => date_range.last)
+    event_out_of_range = Event.create!(:name => 'Event out of range', :profile => person, :start_date => Date.new(2009, 12, 4))
+
+    events_found = finder.find(:events, '', :date_range => date_range)
+
+    assert_includes events_found, event_in_range
+    assert_not_includes events_found, event_out_of_range
+  end
+
 end

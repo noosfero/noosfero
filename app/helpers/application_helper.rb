@@ -908,4 +908,8 @@ module ApplicationHelper
     javascript_tag('var array = ' + email.split('@').to_json + '; document.write("<a href=\'mailto:" + array.join("@") + "\'>" + array.join("@") +  "</a>")')
   end
 
+  def stylesheet(*args)
+    content_for(:head) { stylesheet_link_tag(*args) }
+  end
+
 end

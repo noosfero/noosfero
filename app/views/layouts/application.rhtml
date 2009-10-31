@@ -28,11 +28,13 @@
       import_controller_stylesheets + "\n" +
       import_controller_stylesheets(:themed_source => true)
     %>
-
     <%= template_stylesheet_tag %>
     <%= icon_theme_stylesheet_tag %>
 
     <%= pngfix_stylesheet %>
+
+    <%# Add custom tags/styles/etc via content_for %>
+    <%= yield :head %>
   </head>
 
   <body class='noosfero category<%= category_color %><%=

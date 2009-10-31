@@ -464,4 +464,18 @@ class CategoryFinderTest < ActiveSupport::TestCase
     assert_not_includes list, art2
   end
   
+  should 'find events in a date range' do
+    person = create_user('testuser').person
+
+    date_range = Date.new(2009, 11, 28)..Date.new(2009, 12, 3)
+
+    event_in_range = Event.create!(:name => 'Event in range', :profile => person, :start_date => Date.new(2009, 11, 27), :end_date => date_range.last, :category_ids => [@category.id])
+    event_out_of_range = Event.create!(:name => 'Event out of range', :profile => person, :start_date => Date.new(2009, 12, 4), :category_ids => [@category.id])
+
+    events_found = @finder.find(:events, '', :date_range => date_range)
+
+    assert_includes events_found, event_in_range
+    assert_not_includes events_found, event_out_of_range
+  end
+
 end

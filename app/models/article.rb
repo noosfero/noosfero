@@ -28,6 +28,10 @@ class Article < ActiveRecord::Base
 
   xss_terminate :only => [ :name ]
 
+  named_scope :in_category, lambda { |category|
+    {:include => 'categories', :conditions => { 'categories.id' => category.id }}
+  }
+
   def self.human_attribute_name(attrib)
     case attrib.to_sym
     when :name

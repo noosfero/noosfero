@@ -1,0 +1,84 @@
+#agenda {
+  position: relative;
+  width: 100%;
+}
+
+#agenda .agenda-calendar {
+  width: 50%;
+}
+
+#agenda td, #agenda th {
+  padding: 0px;
+}
+
+#agenda .agenda-calendar .previous-month td,
+#agenda .agenda-calendar .previous-month th,
+#agenda .agenda-calendar .next-month td,
+#agenda .agenda-calendar .next-month th {
+  font-size: 10px;
+  color: gray;
+}
+#agenda .agenda-calendar .current-month td {
+}
+#agenda .agenda-calendar .calendar-day {
+}
+#agenda .agenda-calendar .calendar-day-out {
+  color: gray;
+}
+#agenda .agenda-calendar .calendar-day-out span {
+  display: none;
+}
+#agenda .agenda-calendar td {
+  text-align: center;
+  padding: 0px;
+}
+#agenda .agenda-calendar h3 {
+  font-size: 12px;
+}
+#agenda .agenda-calendar .current-month {
+  height: 250px;
+  border-bottom: 1px solid #BFC2BC;
+}
+#agenda .agenda-calendar .previous-month,
+#agenda .agenda-calendar .next-month {
+  float: left;
+  width: 50%;
+}
+#agenda .agenda-calendar .previous-month {
+}
+#agenda .agenda-calendar .next-month {
+  border-left: 1px solid #BFC2BC;
+}
+#agenda .selected {
+  background: #ff9;
+  font-style: normal;
+}
+#agenda td {
+  vertical-align: middle;
+}
+
+#agenda .agenda-calendar .current-month caption {
+  margin-bottom: 10px;
+}
+
+#agenda #events-of-the-day {
+  position: absolute;
+  left: 50%;
+  width: 45%;
+  top: 0px;
+  height: 100%;
+  border-left: 1px solid #BFC2BC;
+  padding-left: 20px;
+}
+
+#agenda #events-of-the-day #agenda-items {
+  display: block;
+  overflow: auto;
+}
+
+body.noosfero #content .no-boxes a.button.icon-back {
+  float: left;
+  position: absolute;
+  border: none;
+  opacity: 0.5;
+}

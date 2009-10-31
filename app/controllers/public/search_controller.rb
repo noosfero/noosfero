@@ -43,30 +43,26 @@ class SearchController < PublicController
   end
 
   def events
-    @events = @results[:events]
-    @calendar = Event.date_range(params[:year], params[:month]).map do |date|
-      [
-        # the day itself
-        date, 
-        # list of events of that day
-        @events.select do |event|
-          event.date_range.include?(date)
-        end,
-        # is this date in the current month?
-        true
-      ]
+    @category_id = @category ? @category.id : nil
+
+    @selected_day = nil
+    @events_of_the_day = []
+    date = build_date(params[:year], params[:month], params[:day])
+
+    if params[:day] || !params[:year] && !params[:month]
+      @selected_day = date
+      if @category_id and Category.exists?(@category_id)
+        @events_of_the_day = environment.events.by_day(@selected_day).in_category(Category.find(@category_id))
+      else
+        @events_of_the_day = environment.events.by_day(@selected_day)
+      end
     end
 
-    # pad with days before
-    while @calendar.first.first.wday != 0
-      @calendar.unshift([@calendar.first.first - 1.day, [], false])
-    end
+    events = @results[:events]
 
-    # pad with days after (until Saturday)
-    while @calendar.last.first.wday != 6
-      @calendar << [@calendar.last.first + 1.day, [], false]
-    end
-
+    @calendar = populate_calendar(date, events)
+    @previous_calendar = populate_calendar(date - 1.month, events)
+    @next_calendar = populate_calendar(date + 1.month, events)
   end
 
   def people
@@ -105,7 +101,8 @@ class SearchController < PublicController
     end
 
     if month || year
-      result[:date_range] = Event.date_range(year, month)
+      date = Date.new(year.to_i, month.to_i, 1)
+      result[:date_range] = (date - 1.month)..Event.last_day_of_month(date + 1.month)
     end
 
     result
@@ -238,6 +235,16 @@ class SearchController < PublicController
   def popup
     @regions = Region.find(:all).select{|r|r.lat && r.lng}
     render :action => 'popup', :layout => false
+  end
+
+  def events_by_day
+    @selected_day = build_date(params[:year], params[:month], params[:day])
+    if params[:category_id] and Category.exists?(params[:category_id])
+      @events_of_the_day = environment.events.by_day(@selected_day).in_category(Category.find(params[:category_id]))
+    else
+      @events_of_the_day = environment.events.by_day(@selected_day)
+    end
+    render :partial => 'events/events_by_day'
   end
 
 end

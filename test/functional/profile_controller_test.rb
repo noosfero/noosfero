@@ -657,4 +657,9 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_nil @request.session[:before_join]
   end
 
+  should 'show link to events in index' do
+    get :index, :profile => profile.identifier
+    assert_tag :tag => 'a', :attributes => { :href => "/profile/#{profile.identifier}/events" }
+  end
+
 end

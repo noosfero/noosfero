@@ -1,5 +1,8 @@
 module SearchHelper
 
+  # FIXME remove it after search_controler refactored
+  include EventsHelper
+
   STOP_WORDS = {
     'pt_BR' => Ferret::Analysis::FULL_PORTUGUESE_STOP_WORDS,
     'en'    => Ferret::Analysis::FULL_ENGLISH_STOP_WORDS,

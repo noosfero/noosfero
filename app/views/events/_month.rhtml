@@ -1,0 +1,25 @@
+  <tr>
+    <% calendar.first(7).each do |day,event| %>
+      <th><%= show_day_of_week(day, abbreviated) %></th>
+    <% end %>
+  </tr>
+  <% calendar.in_groups_of(7).each do |week| %>
+    <tr>
+      <% week.each do |date, has_events, this_month| %>
+        <td class='calendar-day <%= this_month || "calendar-day-out" %> <%= date == Date.today && "selected" %>'>
+          <span>
+            <%= has_events ?
+              link_to_remote(
+                date.day,
+                :url => {:action => 'events_by_day', :year => date.year, :month => date.month, :day => date.day, :category_id => @category_id},
+                :update => 'events-of-the-day',
+                :loading => '$("events-of-the-day").addClassName("loading")',
+                :complete => '$("events-of-the-day").removeClassName("loading")'
+              ) :
+              date.day
+            %>
+          </span>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>

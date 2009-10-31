@@ -104,7 +104,7 @@ class CategoryFinder
     when 'Event'
       conditions =
         if date_range
-          ['articles_categories.category_id = (?) and start_date between ? and ?', category_id, date_range.first, date_range.last]
+          ['articles_categories.category_id = (:category_id) and (start_date BETWEEN :start_day AND :end_day OR end_date BETWEEN :start_day AND :end_day)', {:category_id => category_id, :start_day => date_range.first, :end_day => date_range.last} ]
         else
           ['articles_categories.category_id = (?) ', category_id ]
         end
