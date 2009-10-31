@@ -2,7 +2,7 @@ development:
   adapter: sqlite3
   database: db/development.db
 
-test:
+test: &TEST
   adapter: sqlite3
   database: db/test.db
 
@@ -11,5 +11,4 @@ production:
   database: db/production.db
 
 cucumber:
-  adapter: sqlite3
-  database: db/test.db
+  <<: *TEST
