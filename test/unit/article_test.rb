@@ -735,15 +735,17 @@ class ArticleTest < Test::Unit::TestCase
   end
 
   should 'not get tagged with tag from other environment' do
-    a1 = Article.create!(:name => 'Published at', :profile => profile, :tag_list => 'bli')
-    e = Environment.create!(:name => 'other env')
-    p = create_user('other_user', :environment => e).person
-    a2 = Article.create!(:name => 'Published at', :profile => p, :tag_list => 'bli')
-    t = a2.tags[0]
-    as = e.articles.find_tagged_with(t)
+    article_from_this_environment = create(Article, :profile => profile, :tag_list => 'bli')
 
-    assert_includes as, a2
-    assert_not_includes as, a1
+    other_environment = fast_create(Environment)
+    user_from_other_environment = create_user('other_user', :environment => other_environment).person
+    article_from_other_enviroment = create(Article, :profile => user_from_other_environment, :tag_list => 'bli')
+
+    tag = article_from_other_enviroment.tags.first
+    tagged_articles_in_other_environment = other_environment.articles.find_tagged_with(tag)
+
+    assert_includes tagged_articles_in_other_environment, article_from_other_enviroment
+    assert_not_includes tagged_articles_in_other_environment, article_from_this_environment
   end
 
   should 'ignore category with zero as id' do

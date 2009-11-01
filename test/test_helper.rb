@@ -68,56 +68,6 @@ class Test::Unit::TestCase
 
   end
 
-  def create_admin_user(env)
-    admin_user = User.find_by_login('adminuser') || create_user('adminuser', :email => 'adminuser@noosfero.org', :password => 'adminuser', :password_confirmation => 'adminuser', :environment => env)
-    admin_role = Role.find_by_name('admin_role') || Role.create!(:name => 'admin_role', :permissions => ['view_environment_admin_panel','edit_environment_features', 'edit_environment_design', 'manage_environment_categories', 'manage_environment_roles', 'manage_environment_validators'])
-    RoleAssignment.create!(:accessor => admin_user.person, :role => admin_role, :resource => env) unless admin_user.person.role_assignments.map{|ra|[ra.role, ra.accessor, ra.resource]}.include?([admin_role, admin_user, env])
-    admin_user.login
-  end
-
-  def create_environment(domainname)
-    env = Environment.create!(:name => domainname) 
-    env.domains << Domain.new(:name => domainname)
-    env.save!
-    env
-  end
-
-  def create_user(name, options = {}, person_options = {})
-    data = {
-      :login => name, 
-      :email => name + '@noosfero.org', 
-      :password => name.underscore, 
-      :password_confirmation => name.underscore
-    }.merge(options)
-    user = User.new(data)
-    user.save!
-    user.person.update_attributes!(person_data.merge(person_options))
-    user
-  end
-
-  def person_data
-    {}
-  end
-
-  def give_permission(user, permission, target)
-    user = Person.find_by_identifier(user) if user.kind_of?(String)
-    target ||= user
-    i = 0
-    while Role.find_by_name('test_role' + i.to_s)
-      i+=1
-    end
-
-    role = Role.create!(:name => 'test_role' + i.to_s, :permissions => [permission])
-    assert user.add_role(role, target) 
-    assert user.has_permission?(permission, target)
-    user
-  end
-
-  def create_user_with_permission(name, permission, target= nil)
-    user = create_user(name).person
-    give_permission(user, permission, target)
-  end
-
   alias :ok :assert_block
 
   def assert_equivalent(enum1, enum2)
@@ -246,7 +196,6 @@ class ActionController::IntegrationTest
   def assert_can_logout
     assert_tag :tag => 'a', :attributes => { :href => '/account/logout'  }
   end
-
 
   def login(username, password)
     ActionController::Integration::Session.any_instance.stubs(:https?).returns(true)

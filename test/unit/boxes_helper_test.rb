@@ -23,8 +23,15 @@ class BoxesHelperTest < Test::Unit::TestCase
     assert_tag_in_string display_boxes(holder, 'main content'), :tag => "div", :attributes => { :id => 'profile-footer' }, :content => 'my custom footer'
   end
 
-  should 'display invisible block for editing' do
+  def create_user_with_blocks
     p = create_user('test_user').person
+    LinkListBlock.create!(:box => p.boxes.first)
+    p
+  end
+
+  should 'display invisible block for editing' do
+    p = create_user_with_blocks
+
     b = p.blocks.select{|bk| !bk.kind_of?(MainBlock) }[0]
     b.visible = false; b.save!
     box = b.box
@@ -37,7 +44,8 @@ class BoxesHelperTest < Test::Unit::TestCase
   end
 
   should 'not display invisible block' do
-    p = create_user('test_user').person
+    p = create_user_with_blocks
+
     b = p.blocks.select{|bk| !bk.kind_of?(MainBlock) }[0]
     b.visible = false; b.save!
     box = b.box

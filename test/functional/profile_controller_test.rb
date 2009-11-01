@@ -139,20 +139,6 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'a', :content => /Friends/, :attributes => { :href => /profile\/#{person.identifier}\/friends$/ }
   end
 
-  should 'not show homepage and feed automatically created on recent content' do
-    person = create_user('person_1').person
-    get :index, :profile => person.identifier
-    assert_tag :tag => 'div', :content => 'Recent content', :attributes => { :class => 'block recent-documents-block' }, :child => { :tag => 'ul', :content => '' }
-  end
-
-  should 'show homepage on recent content after update' do
-    person = create_user('person_1').person
-    person.home_page.name = 'Changed name'
-    assert person.home_page.save!
-    get :index, :profile => person.identifier
-    assert_tag :tag => 'div', :content => 'Recent content', :attributes => { :class => 'block recent-documents-block' }, :child => { :tag => 'ul', :content => /#{person.home_page.name}/ }
-  end
-
   should 'display tag for profile' do
     @profile.articles.create!(:name => 'testarticle', :tag_list => 'tag1')
 
@@ -243,14 +229,14 @@ class ProfileControllerTest < Test::Unit::TestCase
 
   should 'display add friend button' do
     login_as(@profile.identifier)
-    friend = create_user('friendtestuser').person
+    friend = create_user_full('friendtestuser').person
     get :index, :profile => friend.identifier
     assert_tag :tag => 'a', :content => 'Add friend'
   end
 
   should 'not display add friend button if user already request friendship' do
     login_as(@profile.identifier)
-    friend = create_user('friendtestuser').person
+    friend = create_user_full('friendtestuser').person
     AddFriend.create!(:person => @profile, :friend => friend)
     get :index, :profile => friend.identifier
     assert_no_tag :tag => 'a', :content => 'Add friend'
@@ -258,7 +244,7 @@ class ProfileControllerTest < Test::Unit::TestCase
 
   should 'not display add friend button if user already friend' do
     login_as(@profile.identifier)
-    friend = create_user('friendtestuser').person
+    friend = create_user_full('friendtestuser').person
     @profile.add_friend(friend)
     @profile.friends.reload
     assert @profile.is_a_friend?(friend)
@@ -369,7 +355,7 @@ class ProfileControllerTest < Test::Unit::TestCase
   end
   
   should 'display contact button only if friends' do
-    friend = create_user('friend_user').person
+    friend = create_user_full('friend_user').person
     @profile.add_friend(friend)
     env = Environment.default
     env.disable('disable_contact_person')
@@ -380,14 +366,14 @@ class ProfileControllerTest < Test::Unit::TestCase
   end
 
   should 'not display contact button if no friends' do
-    nofriend = create_user('no_friend').person
+    nofriend = create_user_full('no_friend').person
     login_as(@profile.identifier)
     get :index, :profile => nofriend.identifier
     assert_no_tag :tag => 'a', :attributes => { :href => "/contact/#{nofriend.identifier}/new" }
   end
 
   should 'display contact button only if friends and its enable in environment' do
-    friend = create_user('friend_user').person
+    friend = create_user_full('friend_user').person
     env = Environment.default
     env.disable('disable_contact_person')
     env.save!
@@ -398,7 +384,7 @@ class ProfileControllerTest < Test::Unit::TestCase
   end
 
   should 'not display contact button if friends and its disable in environment' do
-    friend = create_user('friend_user').person
+    friend = create_user_full('friend_user').person
     env = Environment.default
     env.enable('disable_contact_person')
     env.save!
@@ -409,7 +395,6 @@ class ProfileControllerTest < Test::Unit::TestCase
   end
 
   should 'display contact button for community if its enable in environment' do
-    friend = create_user('friend_user').person
     env = Environment.default
     community = Community.create!(:name => 'my test community', :environment => env)
     env.disable('disable_contact_community')

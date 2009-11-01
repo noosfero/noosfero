@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class ExternalFeedTest < ActiveSupport::TestCase
 
   should 'require blog' do
-    e = build(:external_feed, :blog => nil)
+    e = ExternalFeed.new
     e.valid?
     assert e.errors[:blog_id]
     e.blog = create_blog

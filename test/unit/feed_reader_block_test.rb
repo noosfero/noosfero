@@ -5,7 +5,7 @@ class FeedReaderBlockTest < ActiveSupport::TestCase
   include DatesHelper
 
   def setup
-    @feed = fast_create(:feed_reader_block)
+    @feed = create(:feed_reader_block)
   end
   attr_reader :feed
 

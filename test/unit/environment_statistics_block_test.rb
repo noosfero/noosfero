@@ -20,36 +20,35 @@ class EnvironmentStatisticsBlockTest < Test::Unit::TestCase
   end
 
   should 'generate statistics' do
-    env = Environment.create!(:name => "My test environment")
+    env = create(Environment)
     user1 = create_user('testuser1', :environment_id => env.id)
     user2 = create_user('testuser2', :environment_id => env.id)
 
-    env.enterprises.build(:identifier => 'mytestenterprise', :name => 'My test enterprise').save!
-
-    env.communities.build(:identifier => 'mytestcommunity', :name => 'mytestcommunity').save!
+    fast_create(Enterprise, :environment_id => env.id)
+    fast_create(Community, :environment_id => env.id)
 
     block = EnvironmentStatisticsBlock.new
     env.boxes.first.blocks << block
 
     content = block.content
 
-    assert_match /One enterprise/, content
-    assert_match /2 users/, content
-    assert_match /One community/, content
+    assert_match(/One enterprise/, content)
+    assert_match(/2 users/, content)
+    assert_match(/One community/, content)
   end
   
   should 'generate statistics but not for private profiles' do
-    env = Environment.create!(:name => "My test environment")
+    env = create(Environment)
     user1 = create_user('testuser1', :environment_id => env.id)
     user2 = create_user('testuser2', :environment_id => env.id)
     user3 = create_user('testuser3', :environment_id => env.id)
     p = user3.person; p.public_profile = false; p.save!
 
-    env.enterprises.build(:identifier => 'mytestenterprise', :name => 'My test enterprise').save!
-    env.enterprises.build(:identifier => 'mytestenterprise2', :name => 'My test enterprise 2', :public_profile => false).save!
+    fast_create(Enterprise, :environment_id => env.id)
+    fast_create(Enterprise, :environment_id => env.id, :public_profile => false)
 
-    env.communities.build(:identifier => 'mytestcommunity', :name => 'mytestcommunity').save!
-    env.communities.build(:identifier => 'mytestcommunity2', :name => 'mytestcommunity 2', :public_profile => false).save!
+    fast_create(Community, :environment_id => env.id)
+    fast_create(Community, :environment_id => env.id, :public_profile => false)
 
     block = EnvironmentStatisticsBlock.new
     env.boxes.first.blocks << block

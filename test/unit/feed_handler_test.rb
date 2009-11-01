@@ -8,7 +8,7 @@ class FeedHandlerTest < Test::Unit::TestCase
   end
   attr_reader :handler
   def container
-    @container ||= fast_create(:feed_reader_block)
+    @container ||= create(:feed_reader_block)
   end
 
   should 'fetch feed content' do
@@ -90,7 +90,7 @@ class FeedHandlerTest < Test::Unit::TestCase
   [:external_feed, :feed_reader_block].each do |container_class|
 
     should "reset the errors count after a successfull run (#{container_class})" do
-      container = fast_create(container_class, :update_errors => 1, :address => RAILS_ROOT + '/test/fixtures/files/feed.xml')
+      container = build(container_class, :update_errors => 1, :address => RAILS_ROOT + '/test/fixtures/files/feed.xml')
       handler.expects(:actually_process_container).with(container)
       handler.process(container)
       assert_equal 0, container.update_errors
@@ -99,7 +99,7 @@ class FeedHandlerTest < Test::Unit::TestCase
     should "set error message and disable in case of errors (#{container_class})" do
       FeedHandler.stubs(:max_errors).returns(4)
 
-      container = fast_create(container_class)
+      container = create(container_class)
       handler.stubs(:actually_process_container).with(container).raises(Exception.new("crash"))
 
       # in the first 4 errors, we are ok

@@ -220,7 +220,7 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
 
   should 'find users' do
     ent = Enterprise.create!(:name => 'Test Ent', :identifier => 'test_ent')
-    user = create_user('test_user').person
+    user = create_user_full('test_user').person
     u = create_user_with_permission('ent_user', 'manage_memberships', ent)
     login_as :ent_user
 
@@ -240,8 +240,8 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
   end
 
   should 'return users with <query> as a prefix' do
-    daniel  = create_user('daniel').person
-    daniela = create_user('daniela').person
+    daniel  = create_user_full('daniel').person
+    daniela = create_user_full('daniela').person
 
     ent = Enterprise.create!(:name => 'Test Ent', :identifier => 'test_ent')
     p = create_user_with_permission('test_user', 'manage_memberships', ent)

@@ -163,14 +163,14 @@ class PersonTest < Test::Unit::TestCase
   end
 
   should 'get a default home page and a RSS feed' do
-    person = create_user('mytestuser').person
+    person = create_user_full('mytestuser').person
 
     assert_kind_of Article, person.home_page
     assert_kind_of RssFeed, person.articles.find_by_path('feed')
   end
 
   should 'create default set of blocks' do
-    p = create_user('testingblocks').person
+    p = create_user_full('testingblocks').person
 
     assert p.boxes[0].blocks.map(&:class).include?(MainBlock), 'person must have a MainBlock upon creation'
 

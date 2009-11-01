@@ -405,7 +405,7 @@ class ApplicationControllerTest < Test::Unit::TestCase
 
   should 'not display invisible blocks' do
     @controller.expects(:uses_design_blocks?).returns(true)
-    p = create_user('test_user').person
+    p = create_user_full('test_user').person
     @controller.expects(:profile).at_least_once.returns(p)
     b = p.blocks[1]
     b.expects(:visible).returns(false)
