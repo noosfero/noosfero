@@ -269,7 +269,7 @@ class CmsController < MyProfileController
     if params[:back_to] == 'control_panel'
       redirect_to :controller => 'profile_editor', :profile => @profile.identifier
     elsif params[:back_to] == 'public_view'
-      redirect_to @article.view_url
+      redirect_to @article.view_url.merge(Noosfero.url_options)
     elsif params[:back_to] == 'media_listing'
       redirect_to :action => 'media_listing'
     elsif @article.parent
