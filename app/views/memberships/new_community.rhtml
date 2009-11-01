@@ -6,7 +6,7 @@
 
 <% if environment.enabled?('admin_must_approve_new_communities') %>
   <div class='explanation'>
-    <%= _("Your request for registering a community will be sent to %{environment} administrator and will be approved or rejected according to his methods and creteria.") % { :environment => environment.name }%>
+    <%= _("Note that the creation of communities in this environment is restricted. Your request to create this new community will be sent to %{environment} administrators and will be approved or rejected according to their methods and criteria.") % { :environment => environment.name }%>
   </div>
 <%end %>
 
