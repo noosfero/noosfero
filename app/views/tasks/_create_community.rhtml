@@ -14,17 +14,30 @@
       <%= hidden_field_tag(:decision, 'cancel') %>
     <% else %>
       <%= radio_button_tag(:decision, 'finish', true,
-          :id => "decision-finish-#{task.id}") %>
+                           :id => "decision-finish-#{task.id}",
+                           :onclick => "hide_closing_statement_area(#{task.id})") %>
           <label for="<%= "decision-finish-#{task.id}" %>"><b><%= _('Approve') %></b></label>
 
       &nbsp; &nbsp;
 
       <%= radio_button_tag(:decision, 'cancel', false,
-          :id => "decision-cancel-#{task.id}") %>
+                           :id => "decision-cancel-#{task.id}",
+                           :onclick => "show_closing_statement_area(#{task.id})") %>
       <label for="<%= "decision-cancel-#{task.id}" %>"><b><%= _('Reject') %></b></label>
     <% end %>
 
+    <script type='text/javascript'>
+      function show_closing_statement_area(id) {
+        $('task-closing-statement-' + id).show();
+      }
+      function hide_closing_statement_area(id) {
+        $('task-closing-statement-' + id).hide();
+      }
+    </script>
+
+    <div style='display:none' id=<%= "task-closing-statement-#{task.id}" %>  >
       <%= labelled_form_field _('Please provide an explanation for the rejection'), f.text_area(:closing_statement, :style => 'height:200px; width:80%;') %>
+    </div>
 
   </div>
 

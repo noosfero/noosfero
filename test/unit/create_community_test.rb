@@ -10,7 +10,7 @@ class CreateCommunityTest < Test::Unit::TestCase
   should 'provide needed data' do
     task = CreateCommunity.new
 
-    Community.fields + %w[ name closed image_builder tag_list ].each do |field|
+    Community.fields + %w[ name closed tag_list ].each do |field|
       assert task.respond_to?(field)
       assert task.respond_to?("#{field}=")
     end
@@ -65,4 +65,22 @@ class CreateCommunityTest < Test::Unit::TestCase
     request.stubs(:status).returns(Task::Status::CANCELLED)
     assert request.rejected?
   end
+
+  should 'create a community with image when finishing the task' do
+
+    task = CreateCommunity.create!({
+      :name => 'My new community',
+      :requestor => person,
+      :target => Environment.default,
+      :image_builder => {:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')}
+    })
+
+    assert_equal 'rails.png', task.image.filename
+    assert_difference Community, :count do
+      task.finish
+    end
+
+    assert_equal 'rails.png', Community['my-new-community'].image.filename
+  end
+
 end

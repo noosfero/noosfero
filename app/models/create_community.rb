@@ -12,7 +12,9 @@ class CreateCommunity < Task
     self[:data] ||= Hash.new
   end
 
-  DATA_FIELDS = Community.fields + ['name', 'closed', 'image_builder', 'tag_list']
+  acts_as_having_image
+
+  DATA_FIELDS = Community.fields + ['name', 'closed', 'tag_list']
 
   DATA_FIELDS.each do |field|
     # getter
@@ -40,6 +42,7 @@ class CreateCommunity < Task
     end
 
     community.update_attributes(community_data)
+    community.image = image if image
     community.environment = self.environment
     community.save!
     community.add_admin(self.requestor)

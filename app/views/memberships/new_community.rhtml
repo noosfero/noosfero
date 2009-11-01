@@ -4,6 +4,12 @@
 
 <h1><%= __('Creating new community') %></h1>
 
+<% if environment.enabled?('admin_must_approve_new_communities') %>
+  <div class='explanation'>
+    <%= _("Your request for registering a community will be sent to %{environment} administrator and will be approved or rejected according to his methods and creteria.") % { :environment => environment.name }%>
+  </div>
+<%end %>
+
 <%= error_messages_for :community %>
 
 <div>
