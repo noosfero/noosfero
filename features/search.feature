@@ -76,9 +76,9 @@ Feature: search
       | identifier | name |
       | nice-people | Nice people |
     And the following events
-      | owner | name |
-      | nice-people | Group meeting |
-      | nice-people | John Doe's birthday |
+      | owner | name | start_date |
+      | nice-people | Group meeting | 2009-10-01 |
+      | nice-people | John Doe's birthday | 2009-09-01 |
     And I am on the homepage
     When I follow "Search"
     And I fill in "query" with "birthday"
