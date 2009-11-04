@@ -873,4 +873,14 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'a', :content => 'New article'
   end
 
+  should 'touch article after adding a comment' do
+    yesterday = Time.now.yesterday
+    Article.record_timestamps = false
+    page = profile.articles.create(:name => 'myarticle', :body => 'the body of the text', :created_at => yesterday, :updated_at => yesterday)
+    Article.record_timestamps = true
+
+    login_as('ze')
+    post :view_page, :profile => profile.identifier, :page => [ 'myarticle' ], :comment => { :title => 'crap!', :body => 'I think that this article is crap' }
+    assert_not_equal yesterday, assigns(:page).updated_at
+  end
 end
