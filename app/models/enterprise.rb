@@ -121,8 +121,19 @@ class Enterprise < Organization
     blocks
   end
 
+  before_create do |enterprise|
+    if enterprise.environment.enabled?('enterprises_are_disabled_when_created')
+      enterprise.enabled = false
+    end
+    true
+  end
+
   def template
-    environment.enterprise_template
+    if enabled?
+      environment.enterprise_template
+    else
+      environment.inactive_enterprise_template
+    end
   end
 
   settings_items :enable_contact_us, :type => :boolean, :default => true

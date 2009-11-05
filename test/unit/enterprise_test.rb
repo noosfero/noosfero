@@ -177,14 +177,17 @@ class EnterpriseTest < Test::Unit::TestCase
    end
 
    should 'not replace template if environment doesnt allow' do
-    template = Enterprise.create!(:name => 'template enteprise', :identifier => 'template_enterprise', :enabled => false)
-    template.boxes.destroy_all
-    template.boxes << Box.new
-    template.boxes[0].blocks << Block.new
-    template.save!
+    inactive_template = Enterprise.create!(:name => 'inactive enteprise template', :identifier => 'inactive_enterprise_template')
+    inactive_template.boxes.destroy_all
+    inactive_template.boxes << Box.new
+    inactive_template.save!
+
+    active_template = Enterprise.create!(:name => 'enteprise template', :identifier => 'enterprise_template')
+    assert_equal 3, active_template.boxes.size
 
     e = Environment.default
-    e.enterprise_template = template
+    e.inactive_enterprise_template = inactive_template
+    e.enterprise_template = active_template
     e.save!
 
     ent = Enterprise.create!(:name => 'test enteprise', :identifier => 'test_ent', :enabled => false)
@@ -193,7 +196,6 @@ class EnterpriseTest < Test::Unit::TestCase
     ent.enable(p)
     ent.reload
     assert_equal 1, ent.boxes.size
-    assert_equal 1, ent.boxes[0].blocks.size
   end
 
   should 'create EnterpriseActivation task when creating with enabled = false' do
@@ -329,4 +331,42 @@ class EnterpriseTest < Test::Unit::TestCase
     assert_equal 'http://website.with.http', p.organization_website
   end
 
+  should 'be created disabled if feature enterprises_are_disabled_when_created is enabled' do
+    e = Environment.default
+    e.enable('enterprises_are_disabled_when_created')
+    e.save!
+
+    ent = Enterprise.create!(:name => 'test enteprise', :identifier => 'test_ent')
+    assert_equal false, Enterprise['test_ent'].enabled?
+  end
+
+  should 'have inactive_template when creating enterprise and feature is enabled' do
+    inactive_template = Enterprise.create!(:name => 'inactive enteprise template', :identifier => 'inactive_enterprise_template')
+    inactive_template.boxes.destroy_all
+    inactive_template.boxes << Box.new
+    inactive_template.save!
+
+    e = Environment.default
+    e.enable('enterprises_are_disabled_when_created')
+    e.inactive_enterprise_template = inactive_template
+    e.save!
+
+    ent = Enterprise.create!(:name => 'test enteprise', :identifier => 'test_ent')
+    assert_equal 1, ent.boxes.size
+  end
+
+  should 'have active_template when creating enterprise and feature is disabled' do
+    inactive_template = Enterprise.create!(:name => 'inactive enteprise template', :identifier => 'inactive_enterprise_template')
+    inactive_template.boxes.destroy_all
+    inactive_template.boxes << Box.new
+    inactive_template.save!
+
+    e = Environment.default
+    e.disable('enterprises_are_disabled_when_created')
+    e.inactive_enterprise_template = inactive_template
+    e.save!
+
+    ent = Enterprise.create!(:name => 'test enteprise', :identifier => 'test_ent')
+    assert_equal 3, ent.boxes.size
+  end
 end

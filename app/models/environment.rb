@@ -130,6 +130,7 @@ class Environment < ActiveRecord::Base
       'articles_dont_accept_comments_by_default' => _("Articles don't accept comments by default"),
       'organizations_are_moderated_by_default' => _("Organizations have moderated publication by default"),
       'enable_organization_url_change' => _("Allow organizations to change their address"),
+      'enterprises_are_disabled_when_created' => _('Enterprises are disabled when created'),
     }
   end
 
