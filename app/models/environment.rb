@@ -131,6 +131,7 @@ class Environment < ActiveRecord::Base
       'organizations_are_moderated_by_default' => _("Organizations have moderated publication by default"),
       'enable_organization_url_change' => _("Allow organizations to change their URL"),
       'admin_must_approve_new_communities' => _("Admin must approve creation of communities"),
+      'enterprises_are_disabled_when_created' => _('Enterprises are disabled when created'),
     }
   end
 

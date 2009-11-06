@@ -97,6 +97,7 @@ class ContentViewerController < ApplicationController
     @comment.author = user if logged_in?
     @comment.article = @page
     if @comment.save
+      @page.touch
       @comment = nil # clear the comment form
     else
       @form_div = 'opened'
