@@ -8,13 +8,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.20.0\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2009-10-14 17:59+0100\n"
+"PO-Revision-Date: 2009-11-06 16:07-0300\n"
 "Last-Translator: Ronny Kursawe <kursawe.ronny@googlemail.com>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: app/helpers/categories_helper.rb:6
 msgid "Do not display at the menu"
@@ -1227,7 +1227,7 @@ msgstr "Kann nicht alle Dateien hochladen"
 
 #: app/controllers/my_profile/friends_controller.rb:19
 msgid "%s still needs to accept being your friend."
-msgstr "%s muss die Freundschft noch akzeptieren."
+msgstr "%s muss die Freundschaft noch akzeptieren."
 
 #: app/controllers/my_profile/friends_controller.rb:51
 msgid "There was an error while looking for your contact list. Did you enter correct login and password?"
@@ -1304,7 +1304,7 @@ msgstr "Ein Block, der Ihre Communities anzeigt"
 #: app/models/communities_block.rb:8
 msgid "{#} community"
 msgid_plural "{#} communities"
-msgstr[0] "Community"
+msgstr[0] "{#} Community"
 msgstr[1] "{#} Communities"
 
 #: app/models/communities_block.rb:16
@@ -1392,8 +1392,9 @@ msgid "A block that displays members."
 msgstr "Ein Block der Mitglieder anzeigt"
 
 #: app/models/members_block.rb:8
+#, fuzzy
 msgid "{#} members"
-msgstr "{#} Mitglieder"
+msgstr "{#} Mitglied(er)"
 
 #: app/models/members_block.rb:12
 msgid "This block presents the members of a collective."
@@ -1976,20 +1977,20 @@ msgstr "Dieser Block stellt einige Statistiken über Ihre Umgebung dar."
 #: app/models/environment_statistics_block.rb:21
 msgid "One user"
 msgid_plural "%{num} users"
-msgstr[0] "Ein Nutzer"
+msgstr[0] "%{num} Nutzer"
 msgstr[1] "%{num} Nutzer"
 
 #: app/models/environment_statistics_block.rb:22
 msgid "One enterprise"
 msgid_plural "%{num} enterprises"
-msgstr[0] "Ein Unternehmen"
+msgstr[0] "%{num} Unternehmen"
 msgstr[1] "%{num} Unternehmen"
 
 #: app/models/environment_statistics_block.rb:23
 #: app/views/blocks/my_network/person.rhtml:6
 msgid "One community"
 msgid_plural "%{num} communities"
-msgstr[0] "Eine Communitiy"
+msgstr[0] "%{num} Communitiy"
 msgstr[1] "%{num} communities"
 
 #: app/models/person.rb:19
@@ -2332,7 +2333,7 @@ msgstr "abgeholt"
 
 #: app/models/tiny_mce_article.rb:4
 msgid "Text article with visual editor."
-msgstr "Text Artikel mit visuellem Editor."
+msgstr "Artikel mit visuellem Editor erstellen."
 
 #: app/models/tiny_mce_article.rb:8
 msgid "Not accessible for visually impaired users."
@@ -2522,7 +2523,7 @@ msgstr "Wähle bevorzugte Domain über das Profil"
 
 #: app/models/environment.rb:123
 msgid "Display wizard signup"
-msgstr ""
+msgstr "Anmeldung als wizard auf der Startseite anzeigen"
 
 #: app/models/environment.rb:124
 msgid "Use the portal as news source for front page"
@@ -3428,12 +3429,12 @@ msgstr "Sind Sie sicher, dass Sie diesen Ordner löschen wollen? Damit wird auch
 #: app/views/cms/view.rhtml:83
 #: app/views/content_viewer/view_page.rhtml:40
 msgid "Spread this"
-msgstr ""
+msgstr "Veröffentlichen"
 
 #: app/views/cms/view.rhtml:88
 #: app/views/cms/destroy.rhtml:11
 msgid "Are you sure that you want to remove this item?"
-msgstr "Sind Sie sicher, dass Sie diesen EIntrag entfernen möchten?"
+msgstr "Sind Sie sicher, dass Sie diesen Eintrag entfernen möchten?"
 
 #: app/views/cms/_uploaded_file.rhtml:1
 msgid "Describe this file:"
@@ -3740,7 +3741,7 @@ msgstr "Passwort ändern"
 
 #: app/views/profile_editor/index.rhtml:41
 msgid "Manage Members"
-msgstr "Mitlgieder verwalten"
+msgstr "Mitglieder verwalten"
 
 #: app/views/profile_editor/index.rhtml:43
 msgid "Manage Products and Services"
@@ -3840,17 +3841,17 @@ msgstr "Moderationseinstellungen"
 #: app/views/profile_editor/_organization.rhtml:68
 #: app/views/memberships/new_community.rhtml:29
 msgid "New members must be approved:"
-msgstr "Neue Mitglieder zur Bestätigung:"
+msgstr "Neue Mitglieder bestätigen:"
 
 #: app/views/profile_editor/_organization.rhtml:73
 #: app/views/memberships/new_community.rhtml:34
 msgid "<strong>Before</strong> joining this group (a moderator has to accept the member in pending request before member can access the intranet and/or the website)."
-msgstr "<strong>Vorher</strong> dieser Gruppe beitreten (ein Moderator muss Ihre Anfrage positiv bestätigen, bevor Sie Zugriff auf das Intranet und/oder die Website bekommen)."
+msgstr "<strong>vor </strong> dem Beitritt (ein Moderator muss Ihre Anfrage positiv bestätigen, bevor Sie Zugriff auf das Intranet und/oder die Website bekommen)."
 
 #: app/views/profile_editor/_organization.rhtml:79
 #: app/views/memberships/new_community.rhtml:40
 msgid "<strong>After</strong> joining this group (a moderator can always desactivate access for users later)."
-msgstr "<strong>Danach</strong> dieser Gruppe beitreten (ein Moderator kann jederzeit den Zugang für Nutzer sperren)."
+msgstr "<strong>nach</strong> dem Beitritt (ein Moderator kann jederzeit den Zugang für Nutzer sperren)."
 
 #: app/views/profile_editor/_organization.rhtml:85
 msgid "New articles posted by members of this group must be approved:"
@@ -3929,7 +3930,7 @@ msgstr "Beinhaltet meine Kontakte im Ordner Leute"
 
 #: app/views/profile_editor/edit.rhtml:63
 msgid "Activate Intranet access (restricted area only for members)"
-msgstr "Aktiviere Intranetzugang (zugangsbeschränkter Bereich nur für Mitlgieder)"
+msgstr "Aktiviere Intranetzugang (zugangsbeschränkter Bereich nur für Mitglieder)"
 
 #: app/views/profile_editor/edit.rhtml:66
 msgid "Show website of this group to all internet users"
@@ -4275,7 +4276,7 @@ msgstr "Basisinformationen"
 #: app/views/content_viewer/_organization.rhtml:8
 #: app/views/profile/_organization.rhtml:8
 msgid "Members"
-msgstr "Mitlgieder"
+msgstr "Mitglieder"
 
 #: app/views/content_viewer/blog_page.rhtml:1
 msgid "(external feed was not loaded yet)"
@@ -4594,7 +4595,7 @@ msgstr "Filiale"
 #: app/views/friends/index.rhtml:3
 #: app/views/profile/friends.rhtml:4
 msgid "%s's friends"
-msgstr "%s's Freund"
+msgstr "%s's Freunde"
 
 #: app/views/friends/index.rhtml:9
 msgid "You have no friends yet."
@@ -4987,7 +4988,6 @@ msgid "%s wants to be a member of %s."
 msgstr "%s möchte Mitglied von %s werden."
 
 #: app/views/tasks/_ticket.rhtml:1
-#, fuzzy
 msgid "Processing ticket: %s"
 msgstr ""
 
@@ -5519,7 +5519,7 @@ msgstr "Verlasse %s"
 
 #: app/views/profile/leave.rhtml:4
 msgid "Are you sure you want to leave %s?"
-msgstr "SindSie sicher, dass Sie %s verlasssen möchten"
+msgstr "Sind Sie sicher, dass Sie %s verlasssen möchten"
 
 #: app/views/profile/leave.rhtml:9
 msgid "Yes, I want to leave."
@@ -5599,7 +5599,7 @@ msgstr "Hier sind alle Mitglieder von <b>%s</b>"
 
 #: app/views/profile/members.rhtml:4
 msgid "%s' members"
-msgstr "%s' Mitlgieder"
+msgstr "%s' Mitglieder"
 
 #: app/views/profile/communities.rhtml:2
 msgid "Here are all <b>%s</b>'s communities."
@@ -5654,7 +5654,7 @@ msgstr "Systemfunktionen"
 
 #: app/views/features/index.rhtml:3
 msgid "Enable/Disable features"
-msgstr "Funktionen aktivieren/deaktivieren"
+msgstr "Funktionen aktivieren / deaktivieren"
 
 #: app/views/features/index.rhtml:6
 msgid ""
@@ -5662,9 +5662,9 @@ msgid ""
 "\n"
 "Check all the features you want to enable for your environment, uncheck all the ones you don't want, and use the <em>\"Save changes\" button</em> to confirm your changes."
 msgstr ""
-"Hier können Sie verschiedenen Funktionen Ihrer Umgebung aktivieren oder deaktivieren.Jede Funktion repräsentiert eine Funktionalität die Ihr Unternehmen nutzen kann, wenn Sie sie aktivieren.\n"
+"Hier können Sie verschiedenen Funktionen Ihrer Umgebung aktivieren oder deaktivieren. Jede Funktion repräsentiert eine Funktionalität die Ihr Unternehmen nutzen kann, wenn Sie sie aktivieren.\n"
 "\n"
-"Markieren Sie alle Funktionen, die nutzen möchten, alle Funktionen die Sie nicht nutzen wollen, lassen Sie unmarkiert und mit dem <em>\"Speichere Änderungen\" Button</em> bestätigen Sie die Änderungen."
+"Markieren Sie alle Funktionen, die nutzen möchten, alle Funktionen die Sie nicht nutzen wollen, lassen Sie unmarkiert und mit dem  <em>\"Save changes\" button</em> bestätigen Sie die Änderungen."
 
 #: app/views/features/index.rhtml:15
 msgid "Feature"
@@ -5688,7 +5688,7 @@ msgstr "Wahl"
 
 #: app/views/features/index.rhtml:35
 msgid "Organization Approval Method"
-msgstr ""
+msgstr "Methode um Organisationen zu prüfen"
 
 #: app/views/features/_manage_person_fields.rhtml:1
 msgid "Manage person fields"
@@ -5704,7 +5704,7 @@ msgstr "Verwalte Unternehmensfelder"
 
 #: app/views/admin_panel/set_portal_community.rhtml:1
 msgid "Set Environment Portal"
-msgstr "Lege Umgebungsportal fest"
+msgstr "Legen Sie den Namen des Portals fest"
 
 #: app/views/admin_panel/set_portal_community.rhtml:4
 msgid "Portal identifier"
@@ -5766,7 +5766,7 @@ msgstr "Felder verwalten"
 
 #: app/views/admin_panel/index.rhtml:15
 msgid "Set Portal"
-msgstr "Portal festlegen"
+msgstr "Portalnamen festlegen"
 
 #: app/views/admin_panel/set_portal_folders.rhtml:1
 msgid "Select folders"
