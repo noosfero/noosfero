@@ -883,4 +883,16 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     post :view_page, :profile => profile.identifier, :page => [ 'myarticle' ], :comment => { :title => 'crap!', :body => 'I think that this article is crap' }
     assert_not_equal yesterday, assigns(:page).updated_at
   end
+
+  should 'display message if user was removed' do
+    article = profile.articles.create(:name => 'comment test')
+    to_be_removed = create_user('removed_user').person
+    comment = article.comments.create(:author => to_be_removed, :title => 'Test Comment', :body => 'My author does not exist =(')
+    to_be_removed.destroy
+
+    get :view_page, :profile => profile.identifier, :page => article.explode_path
+
+    assert_tag :tag => 'span', :content => '(removed user)', :attributes => {:class => 'comment-info'}
+  end
+
 end

@@ -78,6 +78,10 @@ class CommentTest < Test::Unit::TestCase
     assert_equal 'anonymous coward', Comment.new(:name => 'anonymous coward').author_name
   end
 
+  should 'provide empty text for author name if user was removed ' do
+    assert_equal '', Comment.new(:author_id => 9999).author_name
+  end
+
   should "provide author e-mail for athenticated authors" do
     owner = create_user('testuser').person
     assert_equal owner.email, Comment.new(:author => owner).author_email
