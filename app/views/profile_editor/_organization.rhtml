@@ -2,6 +2,8 @@
 
   <%= required_fields_message if @profile.required_fields.any? %>
 
+  <%= required f.text_field(:name) %>
+
 <% if @environment.enabled?('enable_organization_url_change') %>
   <script type="text/javascript">
     function updateUrlField(name_field, id) {
