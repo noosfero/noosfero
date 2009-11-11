@@ -13,7 +13,16 @@ module NavigationHelpers
 
     when /^\//
       page_name
-    
+
+    when /^(.*)'s homepage$/
+      '/%s' % Profile.find_by_name($1).identifier
+
+    when /^login page$/
+      '/account/login'
+
+    when /^(.*)'s control panel$/
+      '/myprofile/%s' % Profile.find_by_name($1).identifier
+
     # Add more mappings here.
     # Here is a more fancy example:
     #
