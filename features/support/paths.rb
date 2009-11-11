@@ -23,6 +23,15 @@ module NavigationHelpers
       block = BlogArchivesBlock.find(:all).select{|i| i.owner == owner}.first
       "/myprofile/#{$1}/profile_design/edit/#{block.id}"
 
+    when /^(.*)'s homepage$/
+      '/%s' % Profile.find_by_name($1).identifier
+
+    when /^login page$/
+      '/account/login'
+
+    when /^(.*)'s control panel$/
+      '/myprofile/%s' % Profile.find_by_name($1).identifier
+
     # Add more mappings here.
     # Here is a more fancy example:
     #

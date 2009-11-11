@@ -78,7 +78,7 @@ Given /^I am logged in as admin$/ do
   click_button("Log in")
 end
 
-Given /^I am not logged in$/ do |username|
+Given /^I am not logged in$/ do
   visit('/account/logout')
 end
 
@@ -92,4 +92,8 @@ Given /^feature "(.+)" is disabled on environment$/ do |feature|
    e = Environment.default
    e.disable(feature)
    e.save
+end
+
+Given /^"(.+)" should be a member of "(.+)"$/ do |person,profile|
+  Profile.find_by_name(profile).members.should include(Person.find_by_name(person))
 end

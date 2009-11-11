@@ -188,10 +188,3 @@ Then /^show me the page$/ do
   save_and_open_page
 end
 
-When /^I should see "([^\"]+)" link$/ do |link|
-  response.should have_selector("a", :content => link)
-end
-
-When /^I should not see "([^\"]+)" link$/ do |link|
-  response.should_not have_selector("a", :content => link)
-end
