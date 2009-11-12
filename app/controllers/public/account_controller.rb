@@ -17,7 +17,7 @@ class AccountController < ApplicationController
   def login
     @user = User.new
     @person = @user.build_person
-    store_location(request.referer)
+    store_location(request.referer) unless session[:return_to]
     return unless request.post?
     self.current_user = User.authenticate(params[:user][:login], params[:user][:password]) if params[:user]
     if logged_in?
@@ -290,4 +290,5 @@ class AccountController < ApplicationController
       redirect_back_or_default(:controller => 'home')
     end
   end
+
 end
