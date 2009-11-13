@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.20.0\n"
 "POT-Creation-Date: 2009-09-29 18:56-0300\n"
-"PO-Revision-Date: 2009-11-04 16:22-0300\n"
+"PO-Revision-Date: 2009-11-13 16:02-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1373,7 +1373,7 @@ msgstr "Este bloco apresenta os integrantes de um coletivo."
 
 #: app/models/profile_info_block.rb:4
 msgid "Profile information block"
-msgstr "Bloco de informações do profile"
+msgstr "Bloco de informações do perfil"
 
 #: app/models/profile_info_block.rb:8
 msgid ""
@@ -1385,7 +1385,7 @@ msgstr ""
 
 #: app/models/profile_list_block.rb:6
 msgid "A block that displays random profiles"
-msgstr "Um bloco que apresenta profiles aleatórios"
+msgstr "Um bloco que apresenta perfis aleatórios"
 
 #: app/models/profile_list_block.rb:55
 msgid "{#} People or Groups"
@@ -2004,7 +2004,7 @@ msgstr "Empreendimentos Favoritos"
 
 #: app/models/favorite_enterprises_block.rb:8
 msgid "This block lists the favorite enterprises of the user."
-msgstr "Este block lista os empreendimentos favoritos to usuário."
+msgstr "Este bloco lista os empreendimentos favoritos do usuário."
 
 #: app/models/favorite_enterprises_block.rb:12
 msgid "A block that displays your favorite enterprises"
@@ -2020,7 +2020,7 @@ msgstr "categorizaçãoperfil"
 
 #: app/models/tags_block.rb:8
 msgid "Block listing content count by tag"
-msgstr "Block que lista a contagem de conteúdo por tag"
+msgstr "Bloco que lista a contagem de conteúdo por tag"
 
 #: app/models/tags_block.rb:12
 msgid "tags"
@@ -2881,7 +2881,7 @@ msgstr "Conteúdo recente"
 
 #: app/models/recent_documents_block.rb:12
 msgid "This block lists your recent content."
-msgstr "Este block listas seu conteúdo recent."
+msgstr "Este bloco listas seu conteúdo recente."
 
 #: app/models/recent_documents_block.rb:31
 msgid "All content"

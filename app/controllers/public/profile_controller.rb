@@ -55,6 +55,7 @@ class ProfileController < PublicController
   end
 
   def join
+    store_location(request.referer)
     @wizard = params[:wizard]
     if request.post? && params[:confirmation]
       profile.add_member(current_user.person)
@@ -65,7 +66,6 @@ class ProfileController < PublicController
         redirect_to_before_join
       end
     else
-      store_location(request.referer)
       if request.xhr?
         render :layout => false
       end

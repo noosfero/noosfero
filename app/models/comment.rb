@@ -21,9 +21,9 @@ class Comment < ActiveRecord::Base
 
   def author_name
     if author
-      author.name
+      author.short_name
     else
-      name
+      author_id ? '' : name
     end
   end
 
@@ -37,6 +37,14 @@ class Comment < ActiveRecord::Base
 
   def url
     article.view_url.merge(:anchor => anchor)
+  end
+
+  def message
+   author_id ? _('(removed user)') : ('<br />' + _('(unauthenticated user)'))
+  end
+
+  def removed_user_image
+    '/images/icons-app/user_icon_size-minor.png'
   end
 
   def anchor

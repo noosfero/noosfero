@@ -1,14 +1,13 @@
 <div id='join-community-popup'>
   <h3> <%= __('Do you want to join this community?') %> </h3>
 
-  <% button_bar do %>
-    <% if logged_in? %>
-      <%= button(:ok, _('Yes'), profile.join_url.merge(:confirmation => '1'), :method => :post) %>
-    <% else %>
-      <%= button(:ok, _('Yes'), profile.join_url) %>
+  <% form_tag(profile.join_url) do %>
+    <%= hidden_field(:confirmation, 1) if logged_in? %>
+    <% button_bar do %>
+      <%= submit_button(:ok,"Yes") %>
+      <%= button_to_remote(:cancel, _('Not now'), :url => profile.join_url.merge({:controller => 'profile', :action => 'refuse_for_now', :profile => profile.identifier}), :loaded => '$("join-community-popup").hide()') %>
+      <%= button(:cancel, _('No and don\'t ask again'), :controller => 'profile', :action => 'refuse_join', :profile => profile.identifier) if logged_in? %>
     <% end %>
-    <%= button_to_remote(:cancel, _('Not now'), :url => profile.join_url.merge({:controller => 'profile', :action => 'refuse_for_now', :profile => profile.identifier}), :loaded => '$("join-community-popup").hide()') %>
-    <%= button(:cancel, _('No and don\'t ask again'), :controller => 'profile', :action => 'refuse_join', :profile => profile.identifier) if logged_in? %>
   <% end %>
 </div>
 <%= draggable_element('join-community-popup') %>

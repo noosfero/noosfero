@@ -8,15 +8,16 @@
   <% end %>
 
   <% if comment.author %>
-    <%= link_to content_tag( 'span', comment.author.short_name, :class => 'comment-info' ), comment.author.url,
+    <%= link_to content_tag( 'span', comment.author_name, :class => 'comment-info' ), comment.author.url,
         :class => 'comment-picture',
         :style => 'background-image:url(%s)' % profile_icon(comment.author, :minor)
     %>
   <% else %>
     <%# unauthenticated user: display gravatar icon %>
-    <%= content_tag 'span', content_tag('span', comment.name + '<br/>'+ _('(unauthenticated user)'), :class => 'comment-info'),
+    <% url_image = comment.author_id ? comment.removed_user_image : str_gravatar_url_for( comment.email, :size => 50 ) %>
+    <%= content_tag 'span', content_tag('span', comment.author_name + comment.message, :class => 'comment-info'),
         :class => 'comment-picture',
-        :style => 'background-image:url(%s)' % str_gravatar_url_for( comment.email, :size => 50 )
+        :style => 'background-image:url(%s)' % url_image
     %>
   <% end %>
 
