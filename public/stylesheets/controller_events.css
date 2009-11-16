@@ -74,6 +74,8 @@
 #agenda #events-of-the-day #agenda-items {
   display: block;
   overflow: auto;
+  overflow-x: hidden;
+  height: 90%;
 }
 
 body.noosfero #content .no-boxes a.button.icon-back {
@@ -81,4 +83,12 @@ body.noosfero #content .no-boxes a.button.icon-back {
   position: absolute;
   border: none;
   opacity: 0.5;
+}
+
+#agenda #events-of-the-day .select-a-day {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: bold;
+  display: block;
+  margin-top: 10px;
 }

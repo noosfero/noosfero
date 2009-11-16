@@ -24,7 +24,8 @@ class LinkListBlock < Block
     ['spread', N_('Spread')],
     ['eyes', N_('Eyes')],
     ['photos', N_('Photos')],
-    ['menu-people', N_('Person')]
+    ['menu-people', N_('Person')],
+    ['menu-events', N_('Event')]
   ]
 
   settings_items :links, Array, :default => []

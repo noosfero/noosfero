@@ -1,13 +1,13 @@
 module EventsHelper
 
   def list_events(date, events)
-    return content_tag('em', _("Select a day on the left to display it's events here"), :class => 'no-events') unless date
+    return content_tag('em', _("Select a day on the left to display it's events here"), :class => 'select-a-day') unless date
     title = _('Events for %s') % show_date(date)
     content_tag('h2', title) +
     content_tag('div',
       (events.any? ?
         content_tag('table', events.select { |item| item.public? }.map {|item| display_event_in_listing(item)}.join('')) :
-        content_tag('em', _('No events for this date'))
+        content_tag('em', _('No events for this date'), :class => 'no-events')
       ), :id => 'agenda-items'
     )
   end

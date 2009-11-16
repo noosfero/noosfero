@@ -12,22 +12,22 @@ Feature: events
 
   Scenario: go to next month
     Given I am on /profile/josesilva/events/2009/10
-    When I follow "next →"
+    When I follow "next »"
     Then I should see "November 2009" within ".current-month"
 
   Scenario: go to next month in global agenda
     Given I am on /assets/events?year=2009&month=11
-    When I follow "next →"
+    When I follow "next »"
     Then I should see "December 2009" within ".current-month"
 
   Scenario: go to previous month
     Given I am on /profile/josesilva/events/2009/10
-    When I follow "← previous"
+    When I follow "« previous"
     Then I should see "September 2009" within ".current-month"
 
   Scenario: go to previous month in global agenda
     Given I am on /assets/events?year=2009&month=11
-    When I follow "← previous"
+    When I follow "« previous"
     Then I should see "October 2009" within ".current-month"
 
   Scenario: go to next month by clicking in month name
@@ -107,9 +107,9 @@ Feature: events
   Scenario: provide links to days with events
     Given I am on /profile/josesilva/events/2009/10
     Then I should see "24" link
-    When I follow "next →"
+    When I follow "next »"
     Then I should see "24" link
-    When I follow "next →"
+    When I follow "next »"
     Then I should not see "24" link
 
   Scenario: provide links to all days between start and end date
