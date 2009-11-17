@@ -1,6 +1,6 @@
 class Role < ActiveRecord::Base
 
-  has_many :role_assignments
+  has_many :role_assignments, :dependent => :destroy
   belongs_to :environment
   serialize :permissions, Array
   validates_presence_of :name

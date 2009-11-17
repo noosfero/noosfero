@@ -15,17 +15,6 @@ class PermissionCheckTest < Test::Unit::TestCase
     assert_template 'access_denied.rhtml'
   end
 
-  def test_global_permission_granted
-    user = AccessControlTestAccessor.create!(:name => 'user')
-    role = Role.create!(:name => 'some_role', :permissions => ['see_index'])
-    assert user.add_role(role, 'global')
-    assert user.has_permission?('see_index', 'global')
-
-    get :index, :user => user.id
-    assert_response :success
-    assert_template nil
-  end
-
   def test_specific_permission_granted
     user = AccessControlTestAccessor.create!(:name => 'other_user')
     role = Role.create!(:name => 'other_role', :permissions => ['do_some_stuff'])

@@ -14,8 +14,8 @@ class ActAsAccessorTest < Test::Unit::TestCase
     r = AccessControlTestResource.create!(:name => 'bla')
     a = AccessControlTestAccessor.create!(:name => 'ze')
     member_role = Role.create!(:name => 'just_a_moderator', :permissions => ['bli'])
-    assert a.add_role(member_role, 'global')
-    assert a.has_permission?('bli', 'global')
+    assert a.add_role(member_role, r)
+    assert a.has_permission?('bli', r)
   end
 
   def test_add_role

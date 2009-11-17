@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 75) do
+ActiveRecord::Schema.define(:version => 76) do
 
   create_table "article_versions", :force => true do |t|
     t.integer  "article_id"
@@ -282,11 +282,11 @@ ActiveRecord::Schema.define(:version => 75) do
   end
 
   create_table "role_assignments", :force => true do |t|
-    t.integer "accessor_id"
+    t.integer "accessor_id",   :null => false
     t.string  "accessor_type"
     t.integer "resource_id"
     t.string  "resource_type"
-    t.integer "role_id"
+    t.integer "role_id",       :null => false
     t.boolean "is_global"
   end
 

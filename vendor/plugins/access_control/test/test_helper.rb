@@ -18,7 +18,7 @@ RoleAssignment.set_table_name 'access_control_test_role_assignments'
 class AccessControlTestAccessor < ActiveRecord::Base
   set_table_name 'access_control_test_accessors'
   acts_as_accessor
-  def cache_keys
+  def cache_keys(arg)
     []
   end
   def blocks_to_expire_cache

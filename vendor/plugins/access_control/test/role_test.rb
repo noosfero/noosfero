@@ -98,4 +98,13 @@ class RoleTest < Test::Unit::TestCase
     assert ! role.has_kind?('kind3')
   end
 
+  def test_should_destroy_associated_role_assignments
+    role = Role.create!(:name => 'a test role', :permissions => ['perm1'])
+    ra = RoleAssignment.create!(:role => role, :accessor => AccessControlTestAccessor.create(:name => 'accessor'))
+
+    role.destroy
+
+    assert !RoleAssignment.exists?(ra.id)
+  end
+
 end
