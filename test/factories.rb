@@ -189,6 +189,14 @@ module Noosfero::Factory
   end
 
   ###############################################
+  # Event
+  ###############################################
+
+  def defaults_for_event
+    { :name => 'My event ' + factory_num_seq.to_s, :start_date => Date.today }
+  end
+
+  ###############################################
   # Blog
   ###############################################
   def create_blog
