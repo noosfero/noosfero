@@ -18,8 +18,17 @@ class CategoryFinder
     date_range = options.delete(:date_range)
 
     options = {:page => 1, :per_page => options.delete(:limit)}.merge(options)
+
+    if asset == :events
+      finder_method = 'find'
+      options.delete(:page)
+      options.delete(:per_page)
+    else
+      finder_method = 'paginate'
+    end
+
     if query.blank?
-      asset_class(asset).paginate(:all, options_for_find(asset_class(asset), {:order => "#{asset_table(asset)}.name"}.merge(options), date_range))
+      asset_class(asset).send(finder_method, :all, options_for_find(asset_class(asset), {:order => "#{asset_table(asset)}.name"}.merge(options), date_range))
     else
       ferret_options = {:page => options.delete(:page), :per_page => options.delete(:per_page)}
       asset_class(asset).find_by_contents(query, ferret_options, options_for_find(asset_class(asset), options, date_range))
@@ -36,16 +45,19 @@ class CategoryFinder
   end
 
   def current_events(year, month, options={})
-    options = {:page => 1}.merge(options)
+    options.delete(:page)
+    options.delete(:per_page)
+
     range = Event.date_range(year, month)
 
-    Event.paginate(:all, {:include => :categories, :conditions => { 'categories.id' => category_id, :start_date => range }}.merge(options))
+    Event.find(:all, {:include => :categories, :conditions => { 'categories.id' => category_id, :start_date => range }}.merge(options))
   end
 
   def upcoming_events(options = {})
-    options = { :page => 1}.merge(options)
+    options.delete(:page)
+    options.delete(:per_page)
 
-    Event.paginate(:all, {:include => :categories, :conditions => [ 'categories.id = ? and start_date >= ?', category_id, Date.today ], :order => 'start_date' }.merge(options))
+    Event.find(:all, {:include => :categories, :conditions => [ 'categories.id = ? and start_date >= ?', category_id, Date.today ], :order => 'start_date' }.merge(options))
   end
 
   def product_categories_count(asset, product_categories_ids, objects_ids=nil)

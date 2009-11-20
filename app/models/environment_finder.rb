@@ -31,11 +31,18 @@ class EnvironmentFinder
       elsif product_category && asset == :enterprises
         @environment.send(asset).send(finder_method, :all, options.merge( :order => 'profiles.name', :joins => 'inner join products on (products.enterprise_id = profiles.id) inner join product_categorizations on (product_categorizations.product_id = products.id)', :conditions => ['product_categorizations.category_id = (?)', product_category.id]))
       else
-        if (asset == :events) && date_range
-          @environment.send(asset).send(finder_method, :all, options.merge(:conditions => [
-            'start_date BETWEEN :start_day AND :end_day OR end_date BETWEEN :start_day AND :end_day',
-               {:start_day => date_range.first, :end_day => date_range.last}
-          ]))
+        if asset == :events
+          # Ignore pagination for asset events
+          options.delete(:per_page)
+          options.delete(:page)
+          if date_range
+            @environment.send(asset).send('find', :all, options.merge(:conditions => [
+              'start_date BETWEEN :start_day AND :end_day OR end_date BETWEEN :start_day AND :end_day',
+                 {:start_day => date_range.first, :end_day => date_range.last}
+            ]))
+          else
+            @environment.send(asset).send('find', :all, options)
+          end
         else
           @environment.send(asset).send(finder_method, :all, options)
         end

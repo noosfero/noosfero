@@ -338,4 +338,25 @@ class EnvironmentFinderTest < ActiveSupport::TestCase
     assert_not_includes events_found, event_out_of_range
   end
 
+  should 'not paginate events' do
+    finder = EnvironmentFinder.new(Environment.default)
+    person = create_user('testuser').person
+
+    fast_create(:event, :profile_id => person.id)
+    fast_create(:event, :profile_id => person.id)
+
+    assert_equal 2, finder.find(:events, '', :per_page => 1, :page => 1).size
+  end
+
+  should 'not paginate events within date range' do
+    finder = EnvironmentFinder.new(Environment.default)
+    person = create_user('testuser').person
+
+    fast_create(:event, :profile_id => person.id)
+    fast_create(:event, :profile_id => person.id)
+
+    date_range = Date.today..Date.today
+    assert_equal 2, finder.find(:events, '', :date_range => date_range, :per_page => 1, :page => 1).size
+  end
+
 end

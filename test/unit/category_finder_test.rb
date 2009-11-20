@@ -234,7 +234,6 @@ class CategoryFinderTest < ActiveSupport::TestCase
     events = finder.current_events(2008, 1)
     assert_includes events, e1
     assert_not_includes events, e2
-    assert_respond_to events, :total_entries
   end
 
   should 'list upcoming events' do
@@ -250,19 +249,6 @@ class CategoryFinderTest < ActiveSupport::TestCase
     not_in_category = Event.create!(:name => 'e1', :profile => person, :start_date => Date.new(2008,1,20))
 
     assert_equal [upcoming_event_1, upcoming_event_2], @finder.upcoming_events
-  end
-
-  should 'limit events' do
-    person = create_user('testuser').person
-
-    Date.expects(:today).returns(Date.new(2008, 1, 15)).at_least_once
-
-    past_event = Event.create!(:name => 'past event', :profile => person, :start_date => Date.new(2008,1,1), :category_ids => [@category.id])
-    upcoming_event_1 = Event.create!(:name => 'upcoming event 1', :profile => person, :start_date => Date.new(2008,1,20), :category_ids => [@category.id])
-    upcoming_event_2 = Event.create!(:name => 'upcoming event 2', :profile => person, :start_date => Date.new(2008,1,25), :category_ids => [@category.id])
-    not_in_category = Event.create!(:name => 'e1', :profile => person, :start_date => Date.new(2008,1,20))
-
-    assert_equal [upcoming_event_1], @finder.upcoming_events(:per_page => 1)
   end
 
   should 'find person and enterprise in category by radius and region even without query' do
@@ -476,6 +462,61 @@ class CategoryFinderTest < ActiveSupport::TestCase
 
     assert_includes events_found, event_in_range
     assert_not_includes events_found, event_out_of_range
+  end
+
+  should 'not paginate events' do
+    person = create_user('testuser').person
+
+    create(:event, :profile_id => person.id, :category_ids => [@category.id])
+    create(:event, :profile_id => person.id, :category_ids => [@category.id])
+
+    assert_equal 2, @finder.find(:events, '', :per_page => 1).size
+  end
+
+  should 'not paginate events within a range' do
+    person = create_user('testuser').person
+
+    create(:event, :profile_id => person.id, :category_ids => [@category.id])
+    create(:event, :profile_id => person.id, :category_ids => [@category.id])
+
+    date_range = Date.today..Date.today
+    assert_equal 2, @finder.find(:events, '', :date_range => date_range, :per_page => 1).size
+  end
+
+  should 'not paginate current events' do
+    person = create_user('testuser').person
+
+    create(:event, :profile_id => person.id, :category_ids => [@category.id])
+    create(:event, :profile_id => person.id, :category_ids => [@category.id])
+
+    assert_equal 2, @finder.current_events(Date.today.year, Date.today.month, :per_page => 1).size
+  end
+
+  should 'not paginate upcoming events' do
+    person = create_user('testuser').person
+
+    create(:event, :profile_id => person.id, :category_ids => [@category.id])
+    create(:event, :profile_id => person.id, :category_ids => [@category.id])
+
+    assert_equal 2, @finder.upcoming_events(:per_page => 1).size
+  end
+
+  should 'not paginate searching for specific event' do
+    person = create_user('teste').person
+
+    today = Date.today
+
+    event_to_found1 = Event.create!(:name => 'ToFound 1', :profile => person, :category_ids => [@category.id], :start_date => today)
+    event_to_found2 = Event.create!(:name => 'ToFound 2', :profile => person, :category_ids => [@category.id], :start_date => today)
+    event_to_not_found1 = Event.create!(:name => 'ToNotFound 1', :profile => person, :category_ids => [@category.id], :start_date => today)
+    event_to_not_found2 = Event.create!(:name => 'ToNotFound 2', :profile => person, :category_ids => [@category.id], :start_date => today)
+
+    result = @finder.find(:events, 'ToFound', :per_page => 1)
+
+    assert_includes result, event_to_found1
+    assert_includes result, event_to_found2
+    assert_not_includes result, event_to_not_found1
+    assert_not_includes result, event_to_not_found2
   end
 
 end
