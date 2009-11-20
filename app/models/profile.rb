@@ -262,6 +262,7 @@ class Profile < ActiveRecord::Base
 
     # copy interesting attributes
     self.layout_template = template.layout_template
+    self.theme = template.theme
     self.custom_footer = template[:custom_footer]
     self.custom_header = template[:custom_header]
 
