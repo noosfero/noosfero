@@ -53,9 +53,14 @@ module TagsHelper
         "top: #{ -(delta/2) - (v * (delta/2)).round }px;"
       destination = url.kind_of?(Hash) ? url_for(url.merge(tagname_option => tag)) : (url.to_s + tag)
 
-      display_count = options[:show_count] ? "<small><sup>(#{count})</sup></small>" : ""
+      if options[:show_count]
+        display_count = options[:show_count] ? "<small><sup>(#{count})</sup></small>" : ""
+        link_to tag + display_count, destination, :style => style
+      else
+        link_to tag , destination, :style => style,
+          :title => n_( 'one item', '%d items', count ) % count
+      end
 
-      link_to tag + display_count, destination, :style => style
     end.join("\n")
   end
 

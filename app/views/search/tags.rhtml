@@ -1,5 +1,7 @@
-<h2><%= _('Tag cloud') %></h2>
+<h1><%= _('Tag cloud') %></h1>
 
+<div class='tag_cloud'>
 <% cache_timeout(@tags_cache_key, 4.hour.from_now) do %>
-  <%= tag_cloud(@tags, :tag, :action => 'tag') %>
+  <%= tag_cloud @tags, :tag, {:action => 'tag'}, {:show_count => true} %>
 <% end %>
+</div>

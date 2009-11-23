@@ -4,6 +4,8 @@ class TagsBlock < Block
   include BlockHelper
   include ActionController::UrlWriter
 
+  settings_items :limit, :type => :integer, :default => 12
+
   def self.description
     _('Block listing content count by tag')
   end
@@ -21,12 +23,25 @@ class TagsBlock < Block
     tags = owner.article_tags
     return '' if tags.empty?
 
+    if limit
+      tags_tmp = tags.sort_by{ |k,v| -v }[0..(limit-1)]
+      tags = {}
+      tags_tmp.map{ |k,v| tags[k] = v }
+    end
+
     block_title(title) +
     "\n<div class='tag_cloud'>\n"+
     tag_cloud( tags, :id,
                owner.public_profile_url.merge(:controller => 'profile', :action => 'tag'),
                :max_size => 16, :min_size => 9 ) +
     "\n</div><!-- end class='tag_cloud' -->\n";
+  end
+
+  def footer
+    owner_id = owner.identifier
+    lambda do
+      link_to s_('tags|View all'), :profile => owner_id, :controller => 'profile', :action => 'tags'
+    end
   end
 
   def timeout
