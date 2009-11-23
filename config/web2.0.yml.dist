@@ -8,3 +8,5 @@ addthis:
   options: favorites, email, digg, delicious, technorati, slashdot, twitter, more
 googlemaps:
   key: <id google>
+gravatar:
+  default: wavatar

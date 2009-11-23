@@ -4,22 +4,14 @@ class GoogleMaps
 
   class << self
 
+    include ApplicationHelper
+
     def erase_config
       @config = nil
     end
 
-    def config_file
-      File.join(RAILS_ROOT, 'config', 'web2.0.yml')
-    end
-
     def config
-      if @config.nil?
-        if File.exists?(config_file)
-          yaml = YAML.load_file(config_file)
-          @config = yaml['googlemaps']
-        end
-      end
-
+      @config = web2_conf['googlemaps'] if @config.nil?
       @config ||= {}
     end
 

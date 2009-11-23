@@ -2,45 +2,23 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class GoogleMapsTest < Test::Unit::TestCase
 
-  CONFIG_FILE = '/not/existing.yml'
-
   def setup
     # force loading of config at every test
     GoogleMaps.erase_config
-    GoogleMaps.stubs(:config_file).returns(CONFIG_FILE)
-  end
-
-  should 'retrieve key from "web2.0" config file' do
-    File.expects(:exists?).with(CONFIG_FILE).returns(true)
-    YAML.expects(:load_file).with(CONFIG_FILE).returns({'googlemaps' => { 'key' => 'MYKEY' }})
-    assert_equal 'MYKEY', GoogleMaps.key
   end
 
   should 'enable when key is defined' do
-    File.expects(:exists?).with(CONFIG_FILE).returns(true)
-    YAML.expects(:load_file).with(CONFIG_FILE).returns({'googlemaps' => { 'key' => 'MYKEY' }})
+    GoogleMaps.stubs(:config).returns({ 'key' => 'MYKEY' })
     assert GoogleMaps.enabled?
   end
 
-  should 'disable if config file not present' do
-    File.expects(:exists?).with(CONFIG_FILE).returns(false)
-    assert !GoogleMaps.enabled?
-  end
-
   should 'disable if key not defined' do
-    File.expects(:exists?).with(CONFIG_FILE).returns(true)
-    YAML.expects(:load_file).with(CONFIG_FILE).returns({})
+    GoogleMaps.stubs(:config).returns({})
     assert !GoogleMaps.enabled?
   end
-  
-  should 'not crash if config not informed' do
-    File.expects(:exists?).with(CONFIG_FILE).returns(true)
-    YAML.expects(:load_file).with(CONFIG_FILE).returns({})
-    assert_equal '', GoogleMaps.key
-  end
 
-  should 'not crash if config file not found' do
-    GoogleMaps.expects(:config_file).returns('/not/present.yml')
+  should 'not crash if config not informed' do
+    GoogleMaps.stubs(:config).returns({})
     assert_equal '', GoogleMaps.key
   end
 
@@ -50,14 +28,12 @@ class GoogleMapsTest < Test::Unit::TestCase
   end
 
   should 'provide initial_zoom setting' do
-    File.expects(:exists?).with(CONFIG_FILE).returns(true)
-    YAML.expects(:load_file).with(CONFIG_FILE).returns({'googlemaps' => { 'initial_zoom' => 2}})
+    GoogleMaps.stubs(:config).returns({'initial_zoom' => 2})
     assert_equal 2, GoogleMaps.initial_zoom
   end
 
   should 'use 4 as default initial_zoom' do
-    File.expects(:exists?).with(CONFIG_FILE).returns(true)
-    YAML.expects(:load_file).with(CONFIG_FILE).returns({'googlemaps' => { }})
+    GoogleMaps.stubs(:config).returns({})
     assert_equal 4, GoogleMaps.initial_zoom
   end
 

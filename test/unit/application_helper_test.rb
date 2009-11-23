@@ -8,6 +8,18 @@ class ApplicationHelperTest < Test::Unit::TestCase
     self.stubs(:session).returns({})
   end
 
+  should 'retrieve conf from "web2.0" config file' do
+    yml = RAILS_ROOT + '/config/web2.0.yml'
+    conf = {
+      'addthis'=>{'pub'=>'mylogin', 'options'=>'favorites, email'},
+      'gravatar'=>{'default'=>'wavatar'}
+    }
+    # does not work!
+    File.stubs(:exists?).with(yml).returns(true)
+    YAML.stubs(:load_file).with(yml).returns(conf)
+    assert_equal conf, web2_conf
+  end
+
   should 'calculate correctly partial for object' do
     self.stubs(:params).returns({:controller => 'test'})
 
@@ -516,6 +528,14 @@ class ApplicationHelperTest < Test::Unit::TestCase
     c = Community.create(:name => 'Community for tests', :nickname => 'Community nickname', :identifier => 'test_comm')
     stubs(:profile).returns(c)
     assert_match(/Community nickname/, page_title)
+  end
+
+  should 'generate a gravatar url' do
+    url = str_gravatar_url_for( 'rms@gnu.org', :size => 50 )
+    assert_match(/^http:\/\/www\.gravatar\.com\/avatar\.php\?/, url)
+    assert_match(/(\?|&)gravatar_id=ed5214d4b49154ba0dc397a28ee90eb7(&|$)/, url)
+    assert_match(/(\?|&)d=wavatar(&|$)/, url)
+    assert_match(/(\?|&)size=50(&|$)/, url)
   end
 
   protected
