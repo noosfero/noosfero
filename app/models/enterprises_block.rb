@@ -17,11 +17,11 @@ class EnterprisesBlock < ProfileListBlock
     case owner
     when Profile
       lambda do
-        link_to __('View all'), :profile => owner.identifier, :controller => 'profile', :action => 'enterprises'
+        link_to s_('enterprises|View all'), :profile => owner.identifier, :controller => 'profile', :action => 'enterprises'
       end
     when Environment
       lambda do
-        link_to __('View all'), :controller => 'search', :action => 'assets', :asset => 'enterprises'
+        link_to s_('enterprises|View all'), :controller => 'search', :action => 'assets', :asset => 'enterprises'
       end
     else
       ''

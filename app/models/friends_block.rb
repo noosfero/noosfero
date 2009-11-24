@@ -15,7 +15,7 @@ class FriendsBlock < ProfileListBlock
   def footer
     owner_id = owner.identifier
     lambda do
-      link_to __('View all'), :profile => owner_id, :controller => 'profile', :action => 'friends'
+      link_to s_('friends|View all'), :profile => owner_id, :controller => 'profile', :action => 'friends'
     end
   end
 
