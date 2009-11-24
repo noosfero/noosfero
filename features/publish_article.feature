@@ -1,0 +1,125 @@
+Feature: publish article
+  As a user
+  I want to publish an article
+  In order to share it with other users
+
+  Background:
+    Given the following users
+      | login | name |
+      | joaosilva | Joao Silva |
+      | mariasilva | Maria Silva |
+    And the following communities
+      | identifier | name |
+      | sample-community | Sample Community |
+    And the following articles
+      | owner | name | body |
+      | joaosilva | Sample Article | This is the first published article |
+
+  Scenario: publishing an article that doesn't exists in the community
+    Given I am logged in as "joaosilva"
+    And "Joao Silva" is a member of "Sample Community"
+    And I am on Joao Silva's control panel
+    And I follow "Manage Content"
+    #These "deletes" are to remove default articles and spread the correct created one
+    And I follow "Delete"
+    And I follow "Delete"
+    And I follow "Delete"
+    And I follow "Spread"
+    And I check "Sample Community"
+    And I press "Publish"
+    And I am on Sample Community's homepage
+    And I follow "View profile"
+    And I follow "Site map"
+    When I follow "Sample Article"
+    Then I should see "This is the first published article"
+
+
+  Scenario: getting an error message when publishing article with same name
+    Given I am logged in as "joaosilva"
+    And "Joao Silva" is a member of "Sample Community"
+    And I am on Joao Silva's control panel
+    And I follow "Manage Content"
+    And I follow "Delete"
+    And I follow "Delete"
+    And I follow "Delete"
+    And I follow "Spread"
+    And I check "Sample Community"
+    And I press "Publish"
+    And I am logged in as "mariasilva"
+    And "Maria Silva" is a member of "Sample Community"
+    And I am on Maria Silva's control panel
+    And I follow "Manage Content"
+    And I follow "New article"
+    And I follow "Text article with Textile markup language"
+    And I fill in the following:
+      | Title | Sample Article |
+      | Text | this is Maria's first published article |
+    And I press "Save"
+    And I follow "Delete"
+    And I follow "Delete"
+    And I follow "Delete"
+    And I follow "Spread"
+    And I check "Sample Community"
+    When I press "Publish"
+    Then I should see "Validation failed: Slug (the code generated from the article name) is already being used by another article.:"
+
+  Scenario: publishing an article in many communities and listing the communities that couldn't publish the article again,
+            stills publishing the article in the other communities.
+    Given the following communities
+      | identifier | name |
+      | another-community1 | Another Community1 |
+      | another-community2 | Another Community2 |
+    And I am logged in as "joaosilva"
+    And "Joao Silva" is a member of "Sample Community"
+    And "Joao Silva" is a member of "Another Community1"
+    And "Joao Silva" is a member of "Another Community2"
+    And I am on Joao Silva's control panel
+    And I follow "Manage Content"
+    And I follow "Delete"
+    And I follow "Delete"
+    And I follow "Delete"
+    And I follow "Spread"
+    And I check "Sample Community"
+    And I press "Publish"
+    And I should not see "This article name is already in use in the following community(ies):"
+    And I follow "Spread"
+    And I check "Sample Community"
+    And I check "Another Community1"
+    And I check "Another Community2"
+    When I press "Publish"
+    Then I should see "Validation failed: Slug (the code generated from the article name) is already being used by another article.:"
+    And I am on Another Community1's homepage
+    And I follow "View profile"
+    When I follow "Site map"
+    Then I should see "Sample Article"
+    And I am on Another Community2's homepage
+    And I follow "View profile"
+    When I follow "Site map"
+    Then I should see "Sample Article"
+
+  Scenario: publishing articles with the same name in a moderated community
+    Given I am logged in as "joaosilva"
+    And "Joao Silva" is a member of "Sample Community"
+    And "Joao Silva" is admin of "Sample Community"
+    And I am on Sample Community's control panel
+    And I follow "Community Info and settings"
+    And I choose "profile_data_moderated_articles_true"
+    And I press "Save"
+    And I am on Joao Silva's control panel
+    And I follow "Manage Content"
+    And I follow "Delete"
+    And I follow "Delete"
+    And I follow "Delete"
+    And I follow "Spread"
+    And I check "Sample Community"
+    And I press "Publish"
+    And I follow "Spread"
+    And I check "Sample Community"
+    And I press "Publish"
+    And I am on Sample Community's control panel
+    And I follow "Tasks"
+    And I press "Ok!"
+    And I should not see "Validation failed: Slug (the code generated from the article name) is already being used by another article.:"
+    When I press "Ok!"
+    Then I should see "Validation failed: Slug (the code generated from the article name) is already being used by another article."
+

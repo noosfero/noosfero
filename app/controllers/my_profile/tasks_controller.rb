@@ -17,7 +17,11 @@ class TasksController < MyProfileController
     if request.post? && VALID_DECISIONS.include?(decision) && params[:id]
       task = profile.find_in_all_tasks(params[:id])
       task.update_attributes!(params[:task])
-      task.send(decision)
+      begin
+        task.send(decision)
+      rescue Exception => ex
+        flash[:notice] = ex.clean_message
+      end
     end
     redirect_to :action => 'index'
   end
