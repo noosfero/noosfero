@@ -4,7 +4,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class CategoryTest < Test::Unit::TestCase
 
   def setup
-    @env = Environment.create!(:name => 'Enviroment for testing')
+    @env = fast_create(Environment)
   end
 
   def test_mandatory_field_name
@@ -22,13 +22,13 @@ class CategoryTest < Test::Unit::TestCase
   end
 
   def test_relationship_with_environment
-    c = Category.create!(:name => 'product category for testing', :environment_id => @env.id)
+    c = build(Category, :environment_id => @env.id)
     assert_equal @env, c.environment
   end
 
   def test_relation_with_parent
-    parent_category = Category.create!(:name => 'parent category for testing', :environment_id => @env.id)
-    c = Category.create!(:name => 'product category for testing', :environment_id => @env.id, :parent_id => parent_category.id)
+    parent_category = fast_create(Category)
+    c = build(Category, :parent_id => parent_category.id)
     assert_equal parent_category, c.parent
   end
 
@@ -98,8 +98,8 @@ class CategoryTest < Test::Unit::TestCase
   end
 
   def test_top_level_for
-    cat = Category.create(:name => 'Category for testing', :environment_id => @env.id)
-    sub_cat = Category.create(:name => 'SubCategory for testing', :environment_id => @env.id, :parent_id => cat.id)
+    cat = fast_create(Category, :environment_id => @env.id)
+    sub_cat = fast_create(Category, :environment_id => @env.id, :parent_id => cat.id)
 
     roots = Category.top_level_for(@env)
     
@@ -107,7 +107,7 @@ class CategoryTest < Test::Unit::TestCase
   end
  
   def test_slug
-    c = Category.create(:name => 'Category name')
+    c = Category.new(:name => 'Category name')
     assert_equal 'category-name', c.slug
   end
 
@@ -137,41 +137,29 @@ class CategoryTest < Test::Unit::TestCase
   end
 
   def test_should_refuse_to_duplicate_slug_under_the_same_parent
-    c1 = Category.create!(:name => 'test category', :environment_id => @env.id)
+    c1 = create(Category, :name => 'test category', :environment_id => @env.id)
     c2 = Category.new(:name => 'Test: Category', :environment_id => @env.id)
 
     assert !c2.valid?
     assert c2.errors.invalid?(:slug)
-
   end
 
   should 'be able to duplicated slug in different scope' do
-    @env.categories.destroy_all
+    root1 = fast_create(Category, :name => 'root category 1', :environment_id => @env.id)
+    root2 = fast_create(Category, :name => 'root category 2', :environment_id => @env.id)
+    child1 = fast_create(Category, :name => 'test category', :environment_id => @env.id, :parent_id => root1.id)
 
-    root1 = Category.create!(:name => 'root category 1', :environment_id => @env.id)
-    root2 = Category.create!(:name => 'root category 2', :environment_id => @env.id)
+    child2 = Category.new(:name => 'test category', :environment_id => @env.id, :parent => root2)
+    assert child2.valid?
 
-    assert_nothing_raised ActiveRecord::RecordInvalid do
-      Category.create!(:name => 'test category', :environment_id => @env.id, :parent => root1)
-      Category.create!(:name => 'test category', :environment_id => @env.id, :parent => root2)
-    end
-  end
-
-  should 'be able to duplicated slug in different scope without parent' do
-    @env.categories.destroy_all
-
-    root1 = Category.create!(:name => 'root category 1', :environment_id => @env.id)
-
-    assert_nothing_raised ActiveRecord::RecordInvalid do
-      Category.create!(:name => 'test category', :environment_id => @env.id, :parent => root1)
-      Category.create!(:name => 'test category', :environment_id => @env.id, :parent => nil)
-    end
+    newroot = Category.new(:name => 'test category', :environment_id => @env.id, :parent => nil)
+    assert newroot.valid?
   end
 
   def test_renaming_a_category_should_change_path_of_children
-    c1 = Category.create!(:name => 'parent', :environment_id => @env.id)
-    c2 = Category.create!(:name => 'child', :environment_id => @env.id, :parent_id => c1.id)
-    c3 = Category.create!(:name => 'grandchild', :environment_id => @env.id, :parent_id => c2.id)
+    c1 = create(Category, :name => 'parent', :environment_id => @env.id)
+    c2 = create(Category, :name => 'child', :environment_id => @env.id, :parent_id => c1.id)
+    c3 = create(Category, :name => 'grandchild', :environment_id => @env.id, :parent_id => c2.id)
 
     c1.name = 'parent new name'
     c1.save!
@@ -184,7 +172,6 @@ class CategoryTest < Test::Unit::TestCase
 
   should "limit the possibile display colors" do
     c = Category.new(:name => 'test category', :environment_id => @env.id)
-
 
     c.display_color = 10
     c.valid?
@@ -200,10 +187,7 @@ class CategoryTest < Test::Unit::TestCase
   end
 
   should 'avoid duplicated display colors' do
-
-    @env.categories.destroy_all
-
-    c1 = Category.create!(:name => 'test category', :environment_id => @env.id, :display_color => 1)
+    c1 = fast_create(Category, :name => 'test category', :environment_id => @env.id, :display_color => 1)
 
     c = Category.new(:name => 'lalala', :environment_id => @env.id)
     c.display_color = 1
@@ -217,9 +201,9 @@ class CategoryTest < Test::Unit::TestCase
   end
 
   should 'be able to get top ancestor' do
-    c1 = Category.create!(:name => 'test category', :environment_id => @env.id)
-    c2 = Category.create!(:name => 'test category', :environment_id => @env.id, :parent_id => c1.id)
-    c3 = Category.create!(:name => 'test category', :environment_id => @env.id, :parent_id => c2.id)
+    c1 = fast_create(Category, :name => 'test category', :environment_id => @env.id)
+    c2 = fast_create(Category, :name => 'test category', :environment_id => @env.id, :parent_id => c1.id)
+    c3 = fast_create(Category, :name => 'test category', :environment_id => @env.id, :parent_id => c2.id)
 
     assert_equal c1, c1.top_ancestor
     assert_equal c1, c2.top_ancestor
@@ -227,10 +211,9 @@ class CategoryTest < Test::Unit::TestCase
   end
 
   should 'explode path' do
-    c1 = Category.create!(:name => 'parent', :environment_id => @env.id)
-    c2 = Category.create!(:name => 'child', :environment_id => @env.id, :parent_id => c1.id)
-
-    assert_equal [ 'parent', 'child'], c2.explode_path
+    c1 = Category.new
+    c1.expects(:path).returns("path/to/myself")
+    assert_equal [ 'path', 'to', 'myself'], c1.explode_path
   end
 
   ################################################################
@@ -301,9 +284,9 @@ class CategoryTest < Test::Unit::TestCase
 
   should 'have enterprises' do
     c = @env.categories.build(:name => 'my category'); c.save!
-    ent1 = Enterprise.create!(:identifier => 'enterprise_1', :name => 'Enterprise one')
+    ent1 = fast_create(Enterprise, :identifier => 'enterprise_1', :name => 'Enterprise one')
     ent1.add_category c
-    ent2 = Enterprise.create!(:identifier => 'enterprise_2', :name => 'Enterprise one')
+    ent2 = fast_create(Enterprise, :identifier => 'enterprise_2', :name => 'Enterprise one')
     ent2.add_category c
     assert_includes c.enterprises, ent1
     assert_includes c.enterprises, ent2
@@ -320,18 +303,18 @@ class CategoryTest < Test::Unit::TestCase
 
   should 'have communities' do
     c = @env.categories.build(:name => 'my category'); c.save!
-    c1 = Environment.default.communities.create!(:name => 'testcommunity_1')
+    c1 = fast_create(Community, :name => 'testcommunity_1')
     c1.add_category c
-    c2 = Environment.default.communities.create!(:name => 'testcommunity_2')
+    c2 = fast_create(Community, :name => 'testcommunity_2')
     c2.add_category c
     assert_equal [c1, c2], c.communities
   end
 
   should 'have products through enteprises' do
     c = @env.categories.build(:name => 'my category'); c.save!
-    ent1 = Enterprise.create!(:identifier => 'enterprise_1', :name => 'Enterprise one')
+    ent1 = fast_create(Enterprise, :identifier => 'enterprise_1', :name => 'Enterprise one')
     ent1.add_category c
-    ent2 = Enterprise.create!(:identifier => 'enterprise_2', :name => 'Enterprise one')
+    ent2 = fast_create(Enterprise, :identifier => 'enterprise_2', :name => 'Enterprise one')
     ent2.add_category c
     prod1 = ent1.products.create!(:name => 'test_prod1')
     prod2 = ent2.products.create!(:name => 'test_prod2')
@@ -341,7 +324,7 @@ class CategoryTest < Test::Unit::TestCase
 
   should 'not have person through communities' do
     c = @env.categories.build(:name => 'my category'); c.save!
-    com = Community.create!(:identifier => 'community_1', :name => 'Community one')
+    com = fast_create(Community, :identifier => 'community_1', :name => 'Community one')
     com.add_category c
     person = create_user('test_user').person
     person.add_category c
@@ -351,7 +334,7 @@ class CategoryTest < Test::Unit::TestCase
 
   should 'not have person through enterprises' do
     c = @env.categories.build(:name => 'my category'); c.save!
-    ent = Enterprise.create!(:identifier => 'enterprise_1', :name => 'Enterprise one')
+    ent = fast_create(Enterprise, :identifier => 'enterprise_1', :name => 'Enterprise one')
     ent.add_category c
     person = create_user('test_user').person
     person.add_category c
@@ -363,31 +346,10 @@ class CategoryTest < Test::Unit::TestCase
     c = @env.categories.build(:name => 'my category'); c.save!
     person = create_user('test_user').person
     person.add_category c
-    ent = Enterprise.create!(:identifier => 'enterprise_1', :name => 'Enterprise one')
+    ent = fast_create(Enterprise, :identifier => 'enterprise_1', :name => 'Enterprise one')
     ent.add_category c
     assert_includes c.people, person
     assert_not_includes c.people, ent
-  end
-
-  should 'report the total items in this category' do
-    @category = Category.create!(:name => 'my category', :environment => @env)
-    # in category
-    person1 = create_user('test1').person; person1.add_category @category; person1.save!
-    art1 = person1.articles.build(:name => 'an article to be counted'); art1.add_category @category; art1.save!
-    comment1 = art1.comments.build(:title => 'comment to be counted', :body => 'hfyfyh', :author => person1); comment1.save!
-    ent1 = Enterprise.create!(:name => 'test2', :identifier => 'test2', :category_ids => [@category.id])
-    com1 = Community.create!(:name => 'test3', :identifier => 'test3', :category_ids => [@category.id])
-    prod1 = Product.create!(:name => 'test4', :enterprise => ent1)
-
-    # not in category
-    person2 = create_user('test5').person
-    art2 = person2.articles.build(:name => 'an article not to be counted'); art2.save!
-    comment2 = art2.comments.build(:title => 'comment not to be counted', :body => 'hfh', :author => person2); comment2.save!
-    ent2 = Enterprise.create!(:name => 'test6', :identifier => 'test6')
-    com2 = Community.create!(:name => 'test7', :identifier => 'test7')
-    prod2 = Product.create!(:name => 'test8', :enterprise => ent2)
-
-    assert_equal 6, @category.total_items
   end
 
   should 'have image' do
@@ -400,11 +362,11 @@ class CategoryTest < Test::Unit::TestCase
   end
 
   should 'display in menu only if have display_menu setted to true' do
-    c = Category.create!(:name => 'test category top',  :environment => Environment.default, :display_in_menu => true)
-    c1 = Category.create!(:name => 'test category 1',   :environment => Environment.default, :display_in_menu => true, :parent => c)
-    c11 = Category.create!(:name => 'test category 11', :environment => Environment.default, :display_in_menu => true, :parent => c1)
-    c2 = Category.create!(:name => 'test category 2',   :environment => Environment.default, :display_in_menu => true, :parent => c)
-    c3 = Category.create!(:name => 'test category 3',   :environment => Environment.default, :parent => c)
+    c   = fast_create(Category, :display_in_menu => true)
+    c1  = fast_create(Category, :display_in_menu => true, :parent_id => c.id)
+    c11 = fast_create(Category, :display_in_menu => true, :parent_id => c1.id)
+    c2  = fast_create(Category, :display_in_menu => true, :parent_id => c.id)
+    c3  = fast_create(Category, :parent_id => c.id)
 
     assert_equivalent [c1, c11, c2], c.children_for_menu
   end

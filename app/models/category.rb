@@ -42,11 +42,6 @@ class Category < ActiveRecord::Base
     self.articles.most_commented(limit)
   end
 
-  def total_items
-    # FIXME this can be SLOW (??)
-    articles.count + comments.count + enterprises.count + people.count + communities.count + products.count
-  end
-
   def display_in_menu?
     display_in_menu
   end
