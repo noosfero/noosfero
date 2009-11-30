@@ -8,6 +8,8 @@ Feature: publish article
       | login | name |
       | joaosilva | Joao Silva |
       | mariasilva | Maria Silva |
+    And "mariasilva" has no articles
+    And "joaosilva" has no articles
     And the following communities
       | identifier | name |
       | sample-community | Sample Community |
@@ -20,10 +22,6 @@ Feature: publish article
     And "Joao Silva" is a member of "Sample Community"
     And I am on Joao Silva's control panel
     And I follow "Manage Content"
-    #These "deletes" are to remove default articles and spread the correct created one
-    And I follow "Delete"
-    And I follow "Delete"
-    And I follow "Delete"
     And I follow "Spread"
     And I check "Sample Community"
     And I press "Publish"
@@ -39,9 +37,6 @@ Feature: publish article
     And "Joao Silva" is a member of "Sample Community"
     And I am on Joao Silva's control panel
     And I follow "Manage Content"
-    And I follow "Delete"
-    And I follow "Delete"
-    And I follow "Delete"
     And I follow "Spread"
     And I check "Sample Community"
     And I press "Publish"
@@ -55,9 +50,6 @@ Feature: publish article
       | Title | Sample Article |
       | Text | this is Maria's first published article |
     And I press "Save"
-    And I follow "Delete"
-    And I follow "Delete"
-    And I follow "Delete"
     And I follow "Spread"
     And I check "Sample Community"
     When I press "Publish"
@@ -75,9 +67,6 @@ Feature: publish article
     And "Joao Silva" is a member of "Another Community2"
     And I am on Joao Silva's control panel
     And I follow "Manage Content"
-    And I follow "Delete"
-    And I follow "Delete"
-    And I follow "Delete"
     And I follow "Spread"
     And I check "Sample Community"
     And I press "Publish"
@@ -107,9 +96,6 @@ Feature: publish article
     And I press "Save"
     And I am on Joao Silva's control panel
     And I follow "Manage Content"
-    And I follow "Delete"
-    And I follow "Delete"
-    And I follow "Delete"
     And I follow "Spread"
     And I check "Sample Community"
     And I press "Publish"

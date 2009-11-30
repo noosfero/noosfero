@@ -107,3 +107,7 @@ Given /^"(.+)" is admin of "(.+)"$/ do |person, organization|
   user = Profile.find_by_name(person)
   org.add_admin(user)
 end
+
+Given /^"([^\"]*)" has no articles$/ do |profile|
+  (Profile[profile] || Profile.find_by_name(profile)).articles.delete_all
+end
