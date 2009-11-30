@@ -1,5 +1,19 @@
 <h1><%= _('Select the groups where you want to publish your article') %></h1>
 
+<% if !@failed.blank? %>
+  <div class="errorExplanation" id="errorExplanation">
+    <p><%=_("There were errors with the following communities: ")%></p>
+    <% @failed.each do |error, communities|%>
+      <strong> <%= error %>: </strong>
+      <ul>
+        <% communities.each do |community| %>
+            <li> <%= community %> </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+<% end %>
+
 <% form_tag do%>
  <%= hidden_field_tag :back_to, @back_to %>
  <% @groups.each do |group| %>

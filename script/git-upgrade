@@ -1,0 +1,92 @@
+#!/bin/sh
+
+set -e
+
+export RAILS_ENV=production
+
+get_value(){
+  ruby -ryaml -e "puts YAML.load_file('config/database.yml')['$RAILS_ENV']['$1']"
+}
+
+usage(){
+  echo "usage: $0 [OPTIONS]"
+  echo
+  echo "Options:"
+  echo
+  echo "  -s, --shell     Opens a shell just after upgrading code and"
+  echo "                  database to make manual steps if needed"
+  echo
+  echo "  -h, --help      Displays the help (this screen)"
+  echo
+  echo "  -v, --version   Displays Noosfero current version"
+  echo
+  exit $1
+}
+
+version(){
+  version=$(ruby -Ilib -rnoosfero -e 'puts Noosfero::VERSION')
+  echo "Noosfero version $version"
+  exit 0
+}
+
+shell=no
+while test $# -gt 0; do
+  case "$1" in
+    --shell)
+      shell=yes
+      ;;
+    --help)
+      usage 0
+      ;;
+    --version)
+      version
+      ;;
+    *)
+      usage 1
+      ;;
+  esac
+  shift
+done
+
+
+./script/production stop || echo "Stop failed, trying to continue anyway"
+
+sudo /etc/init.d/memcached restart
+
+rake backup
+
+database=$(get_value database)
+adapter=$(get_value adapter)
+
+if [ "$adapter" = "postgresql" ]; then
+  mkdir -p backups/
+  backup=backups/dump-$(date +%Y-%m-%d-%H-%M).sql
+  pg_dump "$database" > "$backup"
+fi
+
+git pull
+
+for dir in public/designs/themes/*; do
+  (cd $dir && test -e .git/config && git pull)
+done
+
+rake db:migrate
+
+if test "$shell" = "yes"; then
+  echo "################################################"
+  echo "# Noosfero upgrade shell                       #"
+  echo "################################################"
+  echo "#                                              #"
+  echo "# If you need to do any manual steps during    #"
+  echo "# this upgrade, now is the time.               #"
+  echo "#                                              #"
+  echo "# After you finish, just exit this shell and   #"
+  echo "# the upgrade will proceed                     #"
+  echo "################################################"
+  export PS1="[Noosfero upgrade] $PS1"
+  bash --rcfile config/bashrc
+fi
+
+rake makemo
+
+./script/production start

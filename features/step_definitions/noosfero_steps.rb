@@ -94,6 +94,20 @@ Given /^feature "(.+)" is disabled on environment$/ do |feature|
    e.save
 end
 
+Given /^"(.+)" is a member of "(.+)"$/ do |person,profile|
+  Profile.find_by_name(profile).add_member(Profile.find_by_name(person))
+end
+
 Given /^"(.+)" should be a member of "(.+)"$/ do |person,profile|
   Profile.find_by_name(profile).members.should include(Person.find_by_name(person))
+end
+
+Given /^"(.+)" is admin of "(.+)"$/ do |person, organization|
+  org = Profile.find_by_name(organization)
+  user = Profile.find_by_name(person)
+  org.add_admin(user)
+end
+
+Given /^"([^\"]*)" has no articles$/ do |profile|
+  (Profile[profile] || Profile.find_by_name(profile)).articles.delete_all
 end

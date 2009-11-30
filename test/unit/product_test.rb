@@ -178,4 +178,19 @@ class ProductTest < Test::Unit::TestCase
     assert !p1.public?
   end
 
+  should 'accept prices in american\'s or brazilian\'s currency format' do
+    [
+      [12.34, 12.34],
+      ["12.34", 12.34],
+      ["12,34", 12.34],
+      ["12.345.678,90", 12345678.90],
+      ["12,345,678.90", 12345678.90],
+      ["12.345.678", 12345678.00],
+      ["12,345,678", 12345678.00]
+    ].each do |input, output|
+      product = Product.new(:price => input)
+      assert_equal output, product.price
+    end
+  end
+
 end

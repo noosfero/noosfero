@@ -222,11 +222,18 @@ class CmsController < MyProfileController
       end
     end.compact unless params[:marked_groups].nil?
     if request.post?
+      @failed = {}
       @marked_groups.each do |item|
         task = ApproveArticle.create!(:article => @article, :name => item[:name], :target => item[:group], :requestor => profile)
-        task.finish unless item[:group].moderated_articles?
+        begin
+          task.finish unless item[:group].moderated_articles?
+        rescue Exception => ex
+           @failed[ex.clean_message] ? @failed[ex.clean_message] << item[:group].name : @failed[ex.clean_message] = [item[:group].name]
+        end
       end
-      redirect_back
+      if @failed.blank?
+        redirect_back
+      end
     end
   end
 
