@@ -1,6 +1,7 @@
 <h1>
+  <%= _("%s's events") % @environment.name %>
   <% if @category %>
-    <%= @category.name %>
+    :<small><%= @category.name %></small>
   <% end %>
 </h1>
 

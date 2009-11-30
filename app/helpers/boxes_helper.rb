@@ -4,11 +4,13 @@ module BoxesHelper
     if @controller.send(:boxes_editor?) && @controller.send(:uses_design_blocks?)
       content + display_boxes_editor(@controller.boxes_holder)
     else
+      maybe_display_custom_element(@controller.boxes_holder, :custom_header_expanded, :id => 'profile-header') +
       if @controller.send(:uses_design_blocks?)
         display_boxes(@controller.boxes_holder, content)
       else
         content_tag('div', content, :class => 'no-boxes')
-      end
+      end +
+      maybe_display_custom_element(@controller.boxes_holder, :custom_footer_expanded, :id => 'profile-footer')
     end
   end
 
@@ -35,9 +37,7 @@ module BoxesHelper
     content = boxes.reverse.map { |item| display_box(item, main_content) }.join("\n")
     content = main_content if (content.blank?)
 
-    maybe_display_custom_element(holder, :custom_header_expanded, :id => 'profile-header') +
-    content_tag('div', content, :class => 'boxes', :id => 'boxes' ) +
-    maybe_display_custom_element(holder, :custom_footer_expanded, :id => 'profile-footer')
+    content_tag('div', content, :class => 'boxes', :id => 'boxes' )
   end
 
   def maybe_display_custom_element(holder, element, options = {})

@@ -1,5 +1,11 @@
-<%= button :back, _('Back to %s') % profile.name, profile.public_profile_url %>
-
-<h1><%= _("%s's events") % profile.name %></h1>
+<h1>
+  <div id='toolbar'>
+    <%= button :back, _('Back to %s') % profile.name, profile.public_profile_url %>
+    <% if user && user.has_permission?('post_content', profile) %>
+      <%= button :new, _('New event'), myprofile_url(:controller => 'cms', :action => 'new', :type => 'Event') %>
+    <% end %>
+  </div>
+   <%= _("%s's events") % profile.name %>
+</h1>
 
 <%= render :partial => 'agenda' %>

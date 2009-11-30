@@ -149,3 +149,24 @@ Feature: events
   Scenario: warn when there is no events
     When I am on /profile/josesilva/events/2020/12/1
     Then I should see "No events for this date"
+
+  Scenario: provide button to create new event
+    Given I am logged in as "josesilva"
+    When I am on /profile/josesilva/events/2020/12/1
+    Then I should see "New event" link
+
+  Scenario: not provide button to create new event if I am not logged
+    When I am on /profile/josesilva/events/2020/12/1
+    Then I should not see "New event" link
+
+  Scenario: not provide button to create new event if I haven't permission
+    Given the following users
+      | login    |
+      | fudencio |
+    Given I am logged in as "josesilva"
+    When I am on /profile/fudencio/events/2020/12/1
+    Then I should not see "New events" link
+
+  Scenario: display environment name in global agenda
+    When I am on /assets/events
+    Then I should see "Colivre.net's events"

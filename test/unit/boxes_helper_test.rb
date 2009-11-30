@@ -5,13 +5,20 @@ class BoxesHelperTest < Test::Unit::TestCase
   include BoxesHelper
   include ActionView::Helpers::TagHelper
 
+  def setup
+    @controller = mock
+    @controller.stubs(:boxes_editor?).returns(false)
+    @controller.stubs(:uses_design_blocks?).returns(true)
+  end
+
   should 'include profile-specific header' do
     holder = mock
     holder.stubs(:boxes).returns([])
     holder.stubs(:boxes_limit).returns(0)
     holder.stubs(:custom_header_expanded).returns('my custom header')
+    @controller.stubs(:boxes_holder).returns(holder)
 
-    assert_tag_in_string display_boxes(holder, 'main content'), :tag => "div", :attributes => { :id => 'profile-header' }, :content => 'my custom header'
+    assert_tag_in_string insert_boxes('main content'), :tag => "div", :attributes => { :id => 'profile-header' }, :content => 'my custom header'
   end
 
   should 'include profile-specific footer' do
@@ -19,8 +26,9 @@ class BoxesHelperTest < Test::Unit::TestCase
     holder.stubs(:boxes).returns([])
     holder.stubs(:boxes_limit).returns(0)
     holder.stubs(:custom_footer_expanded).returns('my custom footer')
+    @controller.stubs(:boxes_holder).returns(holder)
 
-    assert_tag_in_string display_boxes(holder, 'main content'), :tag => "div", :attributes => { :id => 'profile-footer' }, :content => 'my custom footer'
+    assert_tag_in_string insert_boxes('main content'), :tag => "div", :attributes => { :id => 'profile-footer' }, :content => 'my custom footer'
   end
 
   def create_user_with_blocks
@@ -53,6 +61,28 @@ class BoxesHelperTest < Test::Unit::TestCase
     expects(:display_block).with(b, '').never
     stubs(:block_target).returns('')
     display_box_content(box, '')
+  end
+
+  should 'include profile-specific header without side boxes' do
+    @controller.stubs(:uses_design_blocks?).returns(false)
+    holder = mock
+    holder.stubs(:boxes).returns([])
+    holder.stubs(:boxes_limit).returns(0)
+    holder.stubs(:custom_header_expanded).returns('my custom header')
+    @controller.stubs(:boxes_holder).returns(holder)
+
+    assert_tag_in_string insert_boxes('main content'), :tag => "div", :attributes => { :id => 'profile-header' }, :content => 'my custom header'
+  end
+
+  should 'include profile-specific footer without side boxes' do
+    @controller.stubs(:uses_design_blocks?).returns(false)
+    holder = mock
+    holder.stubs(:boxes).returns([])
+    holder.stubs(:boxes_limit).returns(0)
+    holder.stubs(:custom_footer_expanded).returns('my custom footer')
+    @controller.stubs(:boxes_holder).returns(holder)
+
+    assert_tag_in_string insert_boxes('main content'), :tag => "div", :attributes => { :id => 'profile-footer' }, :content => 'my custom footer'
   end
 
 end

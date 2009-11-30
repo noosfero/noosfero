@@ -28,6 +28,9 @@
 #agenda .agenda-calendar .calendar-day-out span {
   display: none;
 }
+#agenda .agenda-calendar .calendar-day a {
+  font-weight: bold;
+}
 #agenda .agenda-calendar td {
   text-align: center;
   padding: 0px;
@@ -44,14 +47,26 @@
   float: left;
   width: 50%;
 }
+.msie #agenda .agenda-calendar .previous-month,
+.msie #agenda .agenda-calendar .next-month {
+  width: 49%;
+}
 #agenda .agenda-calendar .previous-month {
 }
 #agenda .agenda-calendar .next-month {
   border-left: 1px solid #BFC2BC;
 }
 #agenda .selected {
-  background: #ff9;
+  background: gray;
+  font-weight: bold;
   font-style: normal;
+}
+#agenda .selected a,
+#agenda .selected span {
+  color: white;
+}
+#agenda .calendar-day-out.selected {
+  background: none;
 }
 #agenda td {
   vertical-align: middle;
@@ -78,11 +93,19 @@
   height: 90%;
 }
 
-body.noosfero #content .no-boxes a.button.icon-back {
-  float: left;
+#content .no-boxes h1 #toolbar {
   position: absolute;
+  left: 0;
+  font-variant: normal;
+  font-weight: normal;
+}
+#content .no-boxes h1 {
+  position: relative;
+}
+
+#content .no-boxes h1 #toolbar a.button {
   border: none;
-  opacity: 0.5;
+  opacity: 0.6;
 }
 
 #agenda #events-of-the-day .select-a-day {
