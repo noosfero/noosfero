@@ -107,7 +107,7 @@ class ProfileController < PublicController
 
   def check_access_to_profile
     unless profile.display_info_to?(user)
-      render :action => 'private_profile', :status => 403, :layout => false
+      render_access_denied(_("Sorry, this profile was defined as private by its owner. You'll not be able to view content here unless the profile owner adds you."), _("Oops ... you cannot go ahead here"))
     end
   end
 

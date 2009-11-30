@@ -124,9 +124,10 @@ class ApplicationController < ActionController::Base
     render :template => 'shared/not_found.rhtml', :status => 404
   end
 
-  def render_access_denied(message = nil)
+  def render_access_denied(message = nil, title = nil)
     @no_design_blocks = true
     @message = message
+    @title = title
     render :template => 'shared/access_denied.rhtml', :status => 403
   end
 

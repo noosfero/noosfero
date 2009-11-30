@@ -1,6 +1,6 @@
 <div id='access-denied'>
 
-  <h1> <%= _('Access denied') %> </h1>
+  <h1> <%= @title || _('Access denied') %> </h1>
 
   <% unless @message.nil? %>
     <p><%= @message %></p>
