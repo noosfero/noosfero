@@ -52,6 +52,7 @@ class ContentViewerController < ApplicationController
 
     # At this point the page will be showed
     @page.hit
+    store_location
 
     unless @page.mime_type == 'text/html' || (@page.image? && params[:view])
       headers['Content-Type'] = @page.mime_type

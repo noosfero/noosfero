@@ -55,7 +55,6 @@ class ProfileController < PublicController
   end
 
   def join
-    store_location(request.referer)
     @wizard = params[:wizard]
     if request.post? && params[:confirmation]
       profile.add_member(current_user.person)
@@ -66,6 +65,12 @@ class ProfileController < PublicController
         redirect_to_before_join
       end
     else
+      store_location(request.referer)
+      if current_user.person.memberships.include?(profile)
+        flash[:notice] = _('You are already a member of "%s"') % profile.name
+        redirect_back_or_default profile.url
+        return
+      end
       if request.xhr?
         render :layout => false
       end

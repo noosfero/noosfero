@@ -131,3 +131,7 @@ Then /^"([^\"]*)" should have the following data$/ do |id, table|
   data = expected.keys.inject({}) { |hash, key| hash[key] = profile.send(key).to_s; hash }
   data.should == expected
 end
+
+Given /^(.+) is member of (.+)$/ do |person, group|
+  Organization[group].add_member(Person[person])
+end

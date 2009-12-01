@@ -611,7 +611,7 @@ class ProfileControllerTest < Test::Unit::TestCase
   should 'redirect to stored location after join community' do
     community = Community.create!(:name => 'my test community')
 
-    @request.expects(:referer).returns("/profile/#{community.identifier}/to_go")
+    @request.session[:return_to] = "/profile/#{community.identifier}/to_go"
     login_as(profile.identifier)
 
     post :join, :profile => community.identifier, :confirmation => '1'
@@ -632,7 +632,7 @@ class ProfileControllerTest < Test::Unit::TestCase
   should 'redirect to location before login after join community' do
     community = Community.create!(:name => 'my test community')
 
-    @request.expects(:referer).returns("/profile/#{community.identifier}/to_go")
+    @request.session[:return_to] = "/profile/#{community.identifier}/to_go"
     login_as(profile.identifier)
 
     post :join, :profile => community.identifier, :confirmation => '1'

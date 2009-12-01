@@ -59,3 +59,22 @@ Feature: join a community
    When I press "Yes, I want to join"
    Then I should be on Sample Community's homepage
    And "Jose Oliveira" should be a member of "Sample Community"
+
+  Scenario: ask confirmation before join community
+    Given I am on the homepage
+    And the following communities
+      | name |
+      | Community to join |
+    And I am logged in as "joaosilva"
+    When I am on /profile/community-to-join/join
+    Then I should see "Are you sure you want to join Community to join"
+
+  Scenario: dont ask confirmation before join community if already member
+    Given I am on the homepage
+    And the following communities
+      | name |
+      | Community to join |
+    And joaosilva is member of community-to-join
+    And I am logged in as "joaosilva"
+    When I am on /profile/community-to-join/join
+    Then I should not see "Are you sure you want to join Community to join"
