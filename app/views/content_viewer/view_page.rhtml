@@ -2,7 +2,7 @@
 
 <%
   # AddThis Button
-  if block_given? and web2_conf['addthis']
+  if block_given? && web2_conf['addthis']
       opts = web2_conf['addthis']
 %>
 <div id="addThis">
@@ -76,7 +76,7 @@
 </div>
 <% end %>
 
-<% if profile.enterprise? and !profile.enabled? and !profile.blocks.select {|b| b.class == DisabledEnterpriseMessageBlock}.any? %>
+<% if profile.enterprise? && !profile.enabled? && !profile.blocks.select {|b| b.class == DisabledEnterpriseMessageBlock}.any? %>
   <div id='profile-disabled'>
     <%= environment.message_for_disabled_enterprise %>
   </div>
@@ -96,7 +96,7 @@
 </div>
 <% end %>
 
-<% if ! @page.source.nil? and ! @page.source.empty?%>
+<% if ! @page.source.nil? && ! @page.source.empty?%>
 <div id="article-source">
   <%= _('Source: %s') % link_to(@page.source, @page.source) %>
 </div>
