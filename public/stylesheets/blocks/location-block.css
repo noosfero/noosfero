@@ -1,10 +1,10 @@
-.localization-block {
+.location-block {
   text-align: center;
 }
 
 .the-localization-map {
+  overflow: hidden;
   margin: auto;
-  width: 211px;
   max-width: 205px;
   padding: 3px;
   background: #FFF;

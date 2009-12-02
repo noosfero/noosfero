@@ -7,15 +7,14 @@ Given /^the following users$/ do |table|
   end
 end
 
-Given /^the following communities$/ do |table|
-  table.hashes.each do |item|
-    Community.create!(item)
-  end
-end
-
-Given /^the following enterprises$/ do |table|
-  table.hashes.each do |item|
-    Enterprise.create!(item)
+Given /^the following (communities|enterprises)$/ do |kind,table|
+  klass = kind.singularize.camelize.constantize
+  table.hashes.each do |row|
+    owner = row.delete("owner")
+    community = klass.create!(row)
+    if owner
+      community.add_admin(Profile[owner])
+    end
   end
 end
 
@@ -110,4 +109,25 @@ end
 
 Given /^"([^\"]*)" has no articles$/ do |profile|
   (Profile[profile] || Profile.find_by_name(profile)).articles.delete_all
+end
+
+Given /^the following (\w+) fields are enabled$/ do |klass, table|
+  env = Environment.default
+  fields = table.raw.inject({}) do |hash, line|
+    hash[line.first] = { "active" => 'true' }
+    hash
+  end
+
+  env.send("custom_#{klass.downcase}_fields=", fields)
+  env.save!
+  if fields.keys != env.send("active_#{klass.downcase}_fields")
+    raise "Not all fields enabled! Requested: %s; Enabled: %s" % [fields.keys.inspect, env.send("active_#{klass.downcase}_fields").inspect] 
+  end
+end
+
+Then /^"([^\"]*)" should have the following data$/ do |id, table|
+  profile = Profile.find_by_identifier(id)
+  expected = table.hashes.first
+  data = expected.keys.inject({}) { |hash, key| hash[key] = profile.send(key).to_s; hash }
+  data.should == expected
 end

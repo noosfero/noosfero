@@ -4,6 +4,7 @@ class Community < Organization
 
   settings_items :description
   settings_items :language
+  settings_items :zip_code, :city, :state, :country
 
   xss_terminate :only => [ :name, :address, :contact_phone, :description ]
 
@@ -23,6 +24,10 @@ class Community < Organization
   end
 
   FIELDS = %w[
+    city
+    state
+    country
+    zip_code
     description
     language
   ]

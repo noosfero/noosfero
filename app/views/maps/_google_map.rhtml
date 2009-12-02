@@ -1,0 +1,136 @@
+<%= content_tag('script', '', :src => GoogleMaps.api_url, :type => 'text/javascript') %>
+
+<script type="text/javascript" >
+  var geocoder;
+  var map;
+  var marker;
+  var center;
+  var move = true;
+  var previousCenter;
+
+  function getAddress(overlay, latlng) {
+    $('location-fields').addClassName("loading");
+    if (latlng != null) {
+      geocoder.getLocations(latlng, showAddress);
+    }
+  }
+
+  function getAddressData() {
+    var text = '';
+    var fields = [
+      'profile_data_country',
+      'profile_data_state',
+      'profile_data_city',
+      'profile_data_address',
+      'profile_data_zip_code'
+    ];
+    for (var i = 0; i < fields.length; i++) {
+      var field = fields[i];
+      if ($(field)) {
+        text += $(field).value + " ";
+      }
+    }
+    return text;
+  }
+
+  function showAddress(response) {
+    var message;
+    place = geoCodeAddress(response);
+    if ( place ) {
+      if ( move ) {
+        center = new GLatLng(place.Point.coordinates[1],place.Point.coordinates[0]);
+        marker.setLatLng(center);
+      } else {
+        move = true;
+      }
+      message = showMessage(place);
+      updateFields(place);
+    } else {
+      message  = showNotFoundMessage();
+    }
+    map.addOverlay(marker);
+    map.setCenter(marker.getLatLng());
+    marker.openInfoWindowHtml(message, {maxWidth:300});
+  }
+
+  function geoCodeAddress(response) {
+    if (!response || (response && response.Status.code != '200')) {
+      return false;
+    } else {
+      place = response.Placemark[0];
+      return place;
+    }
+  }
+
+  function showMessage(place) {
+    var message = '<b><%= _('Address:') %></b> ' + place.address + '<br>' +
+      '<b><%= _('Coordinates:') %></b> ' + place.Point.coordinates[0] + "," + place.Point.coordinates[1] + '<br>' +
+      '<b><%= _('Country code:') %></b> ' + place.AddressDetails.Country.CountryNameCode + '<br>';
+      return message;
+  }
+
+  function showNotFoundMessage() {
+    var message = '<%= _('Address not found') %>' + '<br>' +
+      '<b><%= _('Coordinates:') %></b> ' + marker.getLatLng().lng() + "," + marker.getLatLng().lat();
+    return message;
+  }
+
+  function updateFields(response) {
+    var position = marker.getLatLng();
+    $('profile_data_lat').value = position.lat();
+    $('profile_data_lng').value = position.lng();
+    $('location-fields').removeClassName("loading");
+  }
+
+  function loadMap() {
+    if (GBrowserIsCompatible()) {
+      map = new GMap2(document.getElementById("location-map"));
+      geocoder = new GClientGeocoder();
+      var lat = <%= profile.lat || 'false' %>;
+      var lng = <%= profile.lng || 'false' %>;
+      if ( lat && lng ) {
+        center = new GLatLng( lat, lng );
+        continueLoadMap();
+      } else {
+        geocoder.getLocations('<%= profile.geolocation %>', loadAddress);
+      }
+    }
+  }
+
+  function loadAddress(response) {
+    place = geoCodeAddress(response);
+    if ( move ) {
+      center = new GLatLng(place.Point.coordinates[1],place.Point.coordinates[0]);
+    }
+    continueLoadMap();
+  }
+
+  function continueLoadMap() {
+    marker = new GMarker(center, {draggable: true});
+    map.setCenter(center, 4);
+
+    map.addControl(new GLargeMapControl());
+    map.addControl(new GScaleControl());
+    map.addControl(new GMapTypeControl());
+
+    GEvent.addListener(marker, "dragstart", function() {
+      previousCenter = marker.getLatLng();
+      map.closeInfoWindow();
+    });
+
+    GEvent.addListener(marker, "dragend", function() {
+      move = false;
+      getAddress(overlay, marker.getLatLng());
+    });
+
+    GEvent.addListener(marker, "click", function() {
+      move = false;
+      getAddress(overlay, marker.getLatLng());
+    });
+
+    map.addOverlay(marker);
+  }
+
+  window.onload = loadMap;
+  window.unload = GUnload();
+</script>

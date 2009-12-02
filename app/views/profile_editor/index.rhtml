@@ -14,6 +14,8 @@
   <%= control_panel_button(__('Community Info and settings'), 'edit-profile-group', :controller => 'profile_editor', :action => 'edit') if profile.community? %>
   <%= control_panel_button(__('Enterprise Info and settings'), 'edit-profile-enterprise', :controller => 'profile_editor', :action => 'edit') if profile.enterprise? %>
 
+  <%= control_panel_button(_('Location'), 'edit-location', :controller => 'maps', :action => 'edit_location') %>
+
   <%= control_panel_button(_('Mail settings'), 'mail', :controller => 'mailconf') if profile.person? && MailConf.enabled? %>
 
   <%= control_panel_button(_('Tasks'), 'todo', :controller => 'tasks', :action => 'index') %>

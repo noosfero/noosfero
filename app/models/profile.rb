@@ -151,12 +151,23 @@ class Profile < ActiveRecord::Base
 
   belongs_to :region
   
-  def location
+  def location(separator = ' - ')
     myregion = self.region
     if myregion
-      myregion.hierarchy.reverse.first(2).map(&:name).join(' - ')
+      myregion.hierarchy.reverse.first(2).map(&:name).join(separator)
     else
-      [ :city, :state, :country_name ].map {|item| self.respond_to?(item) ? self.send(item) : nil }.compact.join(' - ')
+      %w[address city state country_name zip_code ].map {|item| (self.respond_to?(item) && !self.send(item).blank?) ? self.send(item) : nil }.compact.join(separator)
+    end
+  end
+
+  def geolocation
+    unless location.blank?
+      location
+    else
+      if environment.location.blank?
+        environment.location = "BRA"
+      end
+      environment.location
     end
   end
 

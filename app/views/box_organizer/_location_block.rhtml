@@ -1,0 +1,10 @@
+<div>
+  <%= labelled_form_field _('Zoom Level:'), select(:block, :zoom, [[_('World'),     0],
+                                                                   1,2,3,4,5,6,7,8,10,11,12,13,14,15,16,17,18,
+                                                                   [_('Street'),     19]]) %>
+  <%= labelled_form_field _('Map Type:'), select(:block, :map_type, [[_('Road Map') , 'roadmap'  ],
+                                                                     [_('Mobile')   , 'mobile'   ],
+                                                                     [_('Satellite'), 'satellite'],
+                                                                     [_('Terrain')  , 'terrain'  ],
+                                                                     [_('Hybrid')   , 'hybrid'   ]]) %>
+</div>

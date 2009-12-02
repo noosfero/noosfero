@@ -698,14 +698,59 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal 'Salvador - Bahia', p.location
   end
 
-  should 'use city/state/country fields for location when no region object is set' do
+  should 'use city/state/country/address/zip_code fields for location when no region object is set' do
     p = Profile.new
     p.expects(:region).returns(nil)
-    p.expects(:city).returns("Salvador")
-    p.expects(:state).returns("Bahia")
-    p.expects(:country_name).returns("Brasil")
-    assert_equal 'Salvador - Bahia - Brasil', p.location
+    p.expects(:address).returns("Rua A").at_least_once
+    p.expects(:city).returns("Salvador").at_least_once
+    p.expects(:state).returns("Bahia").at_least_once
+    p.expects(:country_name).returns("Brasil").at_least_once
+    p.expects(:zip_code).returns("40000000").at_least_once
+    assert_equal 'Rua A - Salvador - Bahia - Brasil - 40000000', p.location
   end
+
+  should 'choose separator for location' do
+    p = Profile.new
+    p.expects(:region).returns(nil)
+    p.expects(:address).returns("Rua A").at_least_once
+    p.expects(:city).returns("Salvador").at_least_once
+    p.expects(:state).returns("Bahia").at_least_once
+    p.expects(:country_name).returns("Brasil").at_least_once
+    p.expects(:zip_code).returns("40000000").at_least_once
+    assert_equal 'Rua A, Salvador, Bahia, Brasil, 40000000', p.location(', ')
+  end
+
+  should 'not display separator on location if city/state/country/address/zip_code is blank' do
+    p = Profile.new
+    p.expects(:region).returns(nil)
+    p.expects(:address).returns("Rua A").at_least_once
+    p.expects(:city).returns("Salvador").at_least_once
+    p.expects(:state).returns("").at_least_once
+    p.expects(:country_name).returns("Brasil").at_least_once
+    p.expects(:zip_code).returns("40000000").at_least_once
+    assert_equal 'Rua A - Salvador - Brasil - 40000000', p.location
+  end
+
+  should 'use location on geolocation if not blank' do
+    p = Profile.new
+    p.expects(:region).returns(nil).at_least_once
+    p.expects(:address).returns("Rua A").at_least_once
+    p.expects(:city).returns("Salvador").at_least_once
+    p.expects(:state).returns("").at_least_once
+    p.expects(:country_name).returns("Brasil").at_least_once
+    p.expects(:zip_code).returns("40000000").at_least_once
+    assert_equal 'Rua A - Salvador - Brasil - 40000000', p.geolocation
+  end
+
+  should 'use default location on geolocation if not blank' do
+    p = Profile.new
+    p.expects(:region).returns(nil)
+    e = Environment.default
+    p.expects(:environment).returns(e)
+    e.expects(:location).returns('Brasil')
+    assert_equal 'Brasil', p.geolocation
+  end
+
 
   should 'lookup country name' do
     p = Profile.new

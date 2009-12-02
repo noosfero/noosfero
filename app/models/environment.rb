@@ -275,6 +275,16 @@ class Environment < ActiveRecord::Base
     self.settings['message_for_disabled_enterprise'] = value
   end
 
+  # the environment's default location
+  def location
+    self.settings['location']
+  end
+
+  # sets the environment's location.
+  def location=(value)
+    self.settings['location'] = value
+  end
+
   # returns the approval method used for this environment. Possible values are:
   #
   # Defaults to <tt>:admim</tt>.
