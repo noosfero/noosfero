@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class EnterprisesBlockTest < Test::Unit::TestCase
 
+  include GetText
+
   should 'inherit from ProfileListBlock' do
     assert_kind_of ProfileListBlock, EnterprisesBlock.new
   end
@@ -75,8 +77,7 @@ class EnterprisesBlockTest < Test::Unit::TestCase
     block = EnterprisesBlock.new
     block.expects(:owner).returns(profile)
 
-    expects(:__).with('View all').returns('All enterprises')
-    expects(:link_to).with('All enterprises', :controller => 'profile', :profile => 'theprofile', :action => 'enterprises')
+    expects(:link_to).with('View all', :controller => 'profile', :profile => 'theprofile', :action => 'enterprises')
 
     instance_eval(&block.footer)
   end
@@ -86,8 +87,7 @@ class EnterprisesBlockTest < Test::Unit::TestCase
     block = EnterprisesBlock.new
     block.expects(:owner).returns(env)
 
-    expects(:__).with('View all').returns('All enterprises')
-    expects(:link_to).with('All enterprises', :controller => 'search', :action => 'assets', :asset => 'enterprises')
+    expects(:link_to).with('View all', :controller => 'search', :action => 'assets', :asset => 'enterprises')
     instance_eval(&block.footer)
   end
 

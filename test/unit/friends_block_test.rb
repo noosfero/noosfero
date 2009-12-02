@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class FriendsBlockTest < ActiveSupport::TestCase
 
+  include GetText
+
   should 'describe itself' do
     assert_not_equal ProfileListBlock.description, FriendsBlock.description
   end
@@ -39,8 +41,6 @@ class FriendsBlockTest < ActiveSupport::TestCase
     user.expects(:identifier).returns('theuser')
     block.expects(:owner).returns(user)
 
-    def self._(s); s; end
-    def self.gettext(s); s; end
     expects(:link_to).with('View all', :profile => 'theuser', :controller => 'profile', :action => 'friends')
 
     instance_eval(&block.footer)

@@ -14,9 +14,8 @@ class ApplicationHelperTest < Test::Unit::TestCase
       'addthis'=>{'pub'=>'mylogin', 'options'=>'favorites, email'},
       'gravatar'=>{'default'=>'wavatar'}
     }
-    # does not work!
-    File.stubs(:exists?).with(yml).returns(true)
-    YAML.stubs(:load_file).with(yml).returns(conf)
+    File.expects(:exists?).with(yml).returns(true)
+    YAML.expects(:load_file).with(yml).returns(conf)
     assert_equal conf, web2_conf
   end
 
@@ -531,6 +530,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
   end
 
   should 'generate a gravatar url' do
+    stubs(:web2_conf).returns({"gravatar" => {"default" => "wavatar"}})
     url = str_gravatar_url_for( 'rms@gnu.org', :size => 50 )
     assert_match(/^http:\/\/www\.gravatar\.com\/avatar\.php\?/, url)
     assert_match(/(\?|&)gravatar_id=ed5214d4b49154ba0dc397a28ee90eb7(&|$)/, url)

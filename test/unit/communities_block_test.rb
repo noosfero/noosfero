@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class CommunitiesBlockTest < Test::Unit::TestCase
 
+  include GetText
+
   should 'inherit from ProfileListBlock' do
     assert_kind_of ProfileListBlock, CommunitiesBlock.new
   end
@@ -50,8 +52,7 @@ class CommunitiesBlockTest < Test::Unit::TestCase
     block = CommunitiesBlock.new
     block.expects(:owner).returns(profile)
 
-    expects(:__).with('View all').returns('All communities')
-    expects(:link_to).with('All communities', :controller => 'profile', :profile => 'theprofile', :action => 'communities')
+    expects(:link_to).with('View all', :controller => 'profile', :profile => 'theprofile', :action => 'communities')
     instance_eval(&block.footer)
   end
 
@@ -60,8 +61,7 @@ class CommunitiesBlockTest < Test::Unit::TestCase
     block = CommunitiesBlock.new
     block.expects(:owner).returns(env)
 
-    expects(:__).with('View all').returns('All communities')
-    expects(:link_to).with('All communities', :controller => 'search', :action => 'assets', :asset => 'communities')
+    expects(:link_to).with('View all', :controller => 'search', :action => 'assets', :asset => 'communities')
 
     instance_eval(&block.footer)
   end
