@@ -11,8 +11,7 @@ class GoogleMaps
     end
 
     def config
-      @config = web2_conf['googlemaps'] if @config.nil?
-      @config ||= {}
+      @config ||= (web2_conf['googlemaps'] || {})
     end
 
     def enabled?
