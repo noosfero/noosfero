@@ -71,6 +71,8 @@ Feature: publish article
     And I check "Sample Community"
     And I press "Publish"
     And I should not see "This article name is already in use in the following community(ies):"
+    And I am on Joao Silva's control panel
+    And I follow "Manage Content"
     And I follow "Spread"
     And I check "Sample Community"
     And I check "Another Community1"
@@ -99,6 +101,8 @@ Feature: publish article
     And I follow "Spread"
     And I check "Sample Community"
     And I press "Publish"
+    And I am on Joao Silva's control panel
+    And I follow "Manage Content"
     And I follow "Spread"
     And I check "Sample Community"
     And I press "Publish"
