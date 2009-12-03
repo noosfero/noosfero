@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.20.2\n"
 "POT-Creation-Date: 2009-12-03 08:48-0300\n"
-"PO-Revision-Date: 2009-11-13 16:02-0300\n"
+"PO-Revision-Date: 2009-12-03 10:13-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -233,24 +233,22 @@ msgid "What are tags?"
 msgstr "O que são tags?"
 
 #: app/helpers/tags_helper.rb:61
-#, fuzzy
 msgid "one item"
 msgid_plural "%d items"
-msgstr[0] "Tipo de conteúdo"
-msgstr[1] "Tipo de conteúdo"
+msgstr[0] "um item"
+msgstr[1] "%s itens"
 
 #: app/helpers/events_helper.rb:4
 msgid "Select a day on the left to display it's events here"
-msgstr ""
+msgstr "Selecione um dia na esquerda para mostra seus eventos aqui"
 
 #: app/helpers/events_helper.rb:5
-#, fuzzy
 msgid "Events for %s"
-msgstr "%s ou %s"
+msgstr "Eventos para %s"
 
 #: app/helpers/events_helper.rb:10
 msgid "No events for this date"
-msgstr ""
+msgstr "Nenhum evento para essa data"
 
 #: app/helpers/dates_helper.rb:7
 msgid "January"
@@ -317,38 +315,32 @@ msgid "from %s to %s"
 msgstr "de %s a %s"
 
 #: app/helpers/dates_helper.rb:55
-#, fuzzy
 msgid "Sun"
-msgstr "Domingo"
+msgstr "Dom"
 
 #: app/helpers/dates_helper.rb:55
-#, fuzzy
 msgid "Mon"
-msgstr "Segunda"
+msgstr "Seg"
 
 #: app/helpers/dates_helper.rb:55
-#, fuzzy
 msgid "Tue"
-msgstr "Terça"
+msgstr "Ter"
 
 #: app/helpers/dates_helper.rb:55
-#, fuzzy
 msgid "Wed"
-msgstr "Vermelho"
+msgstr "Qua"
 
 #: app/helpers/dates_helper.rb:55
 msgid "Thu"
-msgstr ""
+msgstr "Qui"
 
 #: app/helpers/dates_helper.rb:55
-#, fuzzy
 msgid "Fri"
-msgstr "Sexta"
+msgstr "Sex"
 
 #: app/helpers/dates_helper.rb:55
-#, fuzzy
 msgid "Sat"
-msgstr "Sal"
+msgstr "Sab"
 
 #: app/helpers/dates_helper.rb:61
 msgid "Sunday"
@@ -1196,10 +1188,13 @@ msgid ""
 "Sorry, this profile was defined as private by its owner. You'll not be able "
 "to view content here unless the profile owner adds you."
 msgstr ""
+"Desculpe, esse perfil foi definido como privado por seu dono. Você não tem permissão "
+"para visualizar o conteúdo aqui a não ser que o dono do perfil adcione você."
+
 
 #: app/controllers/public/profile_controller.rb:110
 msgid "Oops ... you cannot go ahead here"
-msgstr ""
+msgstr "Oops ... você não pode seguir em frente"
 
 #: app/controllers/my_profile_controller.rb:21
 msgid "This action is not available for \"%s\"."
@@ -1314,14 +1309,12 @@ msgid "%s was destroyed!"
 msgstr "%s foi removido!"
 
 #: app/controllers/my_profile/maps_controller.rb:11
-#, fuzzy
 msgid "Address was updated successfully!"
-msgstr "Funcionalidades alteradas com sucesso"
+msgstr "O endereço foi atualizado com sucesso!"
 
 #: app/controllers/my_profile/maps_controller.rb:16
-#, fuzzy
 msgid "Address could not be saved."
-msgstr "Este arquivo não pode ser salvo"
+msgstr "Endereço não pôde ser salvo"
 
 #: app/controllers/my_profile/profile_editor_controller.rb:28
 msgid "Cannot update profile"
@@ -1370,9 +1363,8 @@ msgid "This block displays the communities in which the user is a member."
 msgstr "Este bloco exibe as comunidades das quais o usuário é membro."
 
 #: app/models/communities_block.rb:24 app/models/communities_block.rb:28
-#, fuzzy
 msgid "communities|View all"
-msgstr "comunidades"
+msgstr "comunidades|Ver todos(as)"
 
 #: app/models/enterprise.rb:5 app/models/product.rb:-
 msgid "Enterprise"
@@ -1499,7 +1491,7 @@ msgstr "Posição"
 
 #: app/models/link_list_block.rb:4
 msgid "(No icon)"
-msgstr ""
+msgstr "(Nenhum ícone)"
 
 #: app/models/link_list_block.rb:6
 msgid "New"
@@ -1663,23 +1655,20 @@ msgid "This block presents the profile image."
 msgstr "Este bloco apresenta a imagem do perfil."
 
 #: app/models/create_community.rb:52 app/views/tasks/_create_community.rhtml:5
-#, fuzzy
 msgid "%s wants to create community %s."
-msgstr "%s quer ser um integrante de %s."
+msgstr "%s quer criar comunidade %s."
 
 #: app/models/create_community.rb:75
-#, fuzzy
 msgid ""
 "User \"%{user}\" just requested to create community %{community}. You have "
 "to approve or reject it through the \"Pending Validations\" section in your "
 "control panel.\n"
 msgstr ""
-"O empreendimento \"%{enterprise}\" requisitou entrada em %{environment}. "
-"Você tem que aprová-lo ou rejeitá-lo através da seção \"Validações pendentes"
-"\" no seu painel de controle.\n"
+"O usuário \"%{user}\" requisitou a criação da comunidade %{community}. Você tem que "
+"aprová-lo ou rejeitá-lo através da seção \"Validações Pendentes\ no seu"
+"painel de controle.\n"
 
 #: app/models/create_community.rb:79
-#, fuzzy
 msgid ""
 "Your request for registering community %{community} at %{environment} was "
 "just sent. Environment administrator will receive it and will approve or "
@@ -1688,15 +1677,14 @@ msgid ""
 "      You will be notified as soon as environment administrator has a "
 "position about your request."
 msgstr ""
-"Seu pedido para cadastro de empreendimento \"%{enterprise}\" em %"
-"{environment} foi recebido. Ele será revisado por um organização validadora "
-"que você escolheu, de acordo com seu métodos e critério.\n"
+"Seu pedido para cadastro de comunidade \"%{community}\" em %{environment} foi "
+"enviado. O administrador do ambiente receberá e aprovará ou rejeitará "
+"a sua requisição de acordo com os seus métodos e critérios.\n"
 "\n"
-"Você será notificado assim que a organização validadora tiver uma posição "
-"sobre seu pedido."
+"      Você será notificado assim que o administrador do ambiente tiver uma "
+"posição sobre a sua requisição."
 
 #: app/models/create_community.rb:85
-#, fuzzy
 msgid ""
 "Your request for registering community %{community} at %{environment} was "
 "not approved by the environment administrator. The following explanation was "
@@ -1704,20 +1692,19 @@ msgid ""
 "\n"
 "%{explanation}"
 msgstr ""
-"Sua requisição para registrar o empreendimento %{enterprise} em %"
-"{environment} NÃO foi aprovada pelo validador de organização. A seguinte "
-"explicação foi dada: \n"
+"Sua requisição para registrar a comunidade %{community} em %{environment} não "
+"foi aprovada pelo administrador do ambiente. A seguinte explicação foi "
+"dada: \n"
 "\n"
 "%{explication}"
 
 #: app/models/create_community.rb:89
-#, fuzzy
 msgid ""
 "Your request for registering the community \"%{community}\" was approved. "
 "You can access %{environment} now and start using your new community."
 msgstr ""
-"Sua requisição para registrar o empreendimento \"%{enterprise}\" foi "
-"aprovada. Você pode acessar %{environment} agora e acessar as informações"
+"Sua requisição para registrar a comunidade \"%{community}\" foi aprovada. "
+"Você pode acessar %{environment} agora e começar a usar a sua nova comunidade."
 
 #: app/models/block.rb:-
 msgid "block"
@@ -1803,9 +1790,8 @@ msgid "A block that displays your enterprises"
 msgstr "Um bloco que apresenta seus empreendimentos"
 
 #: app/models/enterprises_block.rb:20 app/models/enterprises_block.rb:24
-#, fuzzy
 msgid "enterprises|View all"
-msgstr "empreendimentos"
+msgstr "empreendimentos|Ver todos(as)"
 
 #: app/models/consumption.rb:-
 msgid "consumption"
@@ -2174,7 +2160,6 @@ msgstr ""
 "crescer."
 
 #: app/models/tags_block.rb:43
-#, fuzzy
 msgid "tags|View all"
 msgstr "Ver todos(as)"
 
@@ -2205,14 +2190,12 @@ msgid "This block displays your friends."
 msgstr "Este bloco exibe seus amigos."
 
 #: app/models/friends_block.rb:18
-#, fuzzy
 msgid "friends|View all"
-msgstr "Ver todos(as)"
+msgstr "amigos(as)|Ver todos(as)"
 
 #: app/models/location_block.rb:7
-#, fuzzy
 msgid "Location map block"
-msgstr "Bloco de mapa de localização"
+msgstr "Bloco do mapa de localização"
 
 #: app/models/location_block.rb:11
 msgid "Shows where the profile is on the material world."
@@ -2413,14 +2396,12 @@ msgid "Only once"
 msgstr "Uma vez só"
 
 #: app/models/external_feed.rb:-
-#, fuzzy
 msgid "Error message"
-msgstr "Mensagem"
+msgstr "Mensagem de erro"
 
 #: app/models/external_feed.rb:-
-#, fuzzy
 msgid "Update errors"
-msgstr "Atualizado: %s"
+msgstr "Erros de atualização"
 
 #: app/models/tiny_mce_article.rb:4
 msgid "Text article with visual editor."
@@ -2451,13 +2432,12 @@ msgid "%{fn} can only be informed for unauthenticated authors"
 msgstr "%{fn} só pode ser informado para autores não autenticados"
 
 #: app/models/comment.rb:43
-#, fuzzy
 msgid "(removed user)"
-msgstr "Remover %s"
+msgstr "(usuário removido)"
 
 #: app/models/comment.rb:43
 msgid "(unauthenticated user)"
-msgstr "(usuário não identificado)"
+msgstr "(usuário não autenticado)"
 
 #: app/models/comment.rb:78
 msgid "[%s] you got a new comment!"
@@ -2650,19 +2630,16 @@ msgid "Organizations have moderated publication by default"
 msgstr "Coletivos têem publicação moderada por padrão"
 
 #: app/models/environment.rb:132
-#, fuzzy
 msgid "Allow organizations to change their URL"
-msgstr "Permitir que organizações alterem seu endereço"
+msgstr "Permitir que organizações alterem sua URL"
 
 #: app/models/environment.rb:133
-#, fuzzy
 msgid "Admin must approve creation of communities"
-msgstr "Administrador tem que aprovar todas as novas organizações"
+msgstr "Administrador tem que aprovar a criação de comunidades"
 
 #: app/models/environment.rb:134
-#, fuzzy
 msgid "Enterprises are disabled when created"
-msgstr "Registro do Empreendimento completo"
+msgstr "Empreendimentos são desabilitados quando criados"
 
 #: app/models/environment.rb:390
 msgid "Hello <friend>,"
@@ -3503,9 +3480,8 @@ msgid "New folder"
 msgstr "Nova pasta "
 
 #: app/views/cms/view.rhtml:10
-#, fuzzy
 msgid "New Blog"
-msgstr "Blog"
+msgstr "Novo Blog"
 
 #: app/views/cms/view.rhtml:11 app/views/content_viewer/view_page.rhtml:50
 #: app/views/content_viewer/view_page.rhtml:54
@@ -3594,13 +3570,12 @@ msgid "WARNING!"
 msgstr "ATENÇÃO!"
 
 #: app/views/cms/_blog.rhtml:40
-#, fuzzy
 msgid ""
 "You are about to change the address, and this will break external links to "
 "this blog or to posts inside it. Do you really want to change?"
 msgstr ""
-"Você está prestes a alterar o endereço, e isto vai quebrar links externos "
-"para a homepage ou para conteúdo dentro dela. Você quer realmente mudar?"
+"Você está prestes a alterar o endereço, e isto vai quebrar links externos para "
+"esse blog ou para postar dentro dela. Você quer realmente mudar?"
 
 #: app/views/cms/_blog.rhtml:42
 #: app/views/profile_editor/_organization.rhtml:57
@@ -3682,9 +3657,8 @@ msgid "Select the groups where you want to publish your article"
 msgstr "Selecione os grupos onde você quer publicar seu artigo"
 
 #: app/views/cms/publish.rhtml:5
-#, fuzzy
 msgid "There were errors with the following communities: "
-msgstr "Houve problemas com os seguintes arquivos:"
+msgstr "Houveram problemas com as seguintes comunidades :"
 
 #: app/views/cms/publish.rhtml:26
 msgid "Publish"
@@ -3899,9 +3873,8 @@ msgstr "Informações e Configurações do Empreendimento"
 
 #: app/views/profile_editor/index.rhtml:17
 #: app/views/maps/edit_location.rhtml:1
-#, fuzzy
 msgid "Location"
-msgstr "Localização:"
+msgstr "Localização"
 
 #: app/views/profile_editor/index.rhtml:19
 msgid "Mail settings"
@@ -4018,13 +3991,12 @@ msgid "A short name by which the organization is know."
 msgstr "Um nome curto pelo qual a organização é conhecida"
 
 #: app/views/profile_editor/_organization.rhtml:55
-#, fuzzy
 msgid ""
 "You are about to change the address, and this will break external links to "
 "the homepage or to content inside it. Do you really want to change?"
 msgstr ""
-"Você está prestes a alterar o endereço, e isto vai quebrar links externos "
-"para a homepage ou para conteúdo dentro dela. Você quer realmente mudar?"
+"Você está prestes a alterar o endereço, e isto vai quebrar links externos para "
+"a homepage ou para conteúdo dentro dela. Você quer realmente mudar?"
 
 #: app/views/profile_editor/_organization.rhtml:74
 msgid "Enable \"contact us\""
@@ -4212,6 +4184,7 @@ msgid ""
 "administrators and will be approved or rejected according to their methods "
 "and criteria."
 msgstr ""
+""
 
 #: app/views/memberships/new_community.rhtml:28
 msgid "Separate tags with commas."
@@ -4689,9 +4662,8 @@ msgid "Products and Services"
 msgstr "Produtos e Serviços"
 
 #: app/views/search/events.rhtml:2 app/views/events/events.rhtml:8
-#, fuzzy
 msgid "%s's events"
-msgstr "Menu de %s"
+msgstr "Eventos de %s"
 
 #: app/views/search/tag.rhtml:2
 msgid "Tagged with \"%s\""
@@ -4844,30 +4816,28 @@ msgid "Affiliate"
 msgstr "Afiliar"
 
 #: app/views/maps/_google_map.rhtml:67 app/views/maps/_google_map.rhtml:74
-#, fuzzy
 msgid "Coordinates:"
-msgstr "Categorias:"
+msgstr "Coordenadas:"
 
 #: app/views/maps/_google_map.rhtml:68
-#, fuzzy
 msgid "Country code:"
-msgstr "País"
+msgstr "Código do país"
 
 #: app/views/maps/_google_map.rhtml:73
-#, fuzzy
 msgid "Address not found"
-msgstr "%d resultados encontrados"
+msgstr "Endereço não encontrado"
 
 #: app/views/maps/edit_location.rhtml:12
-#, fuzzy
 msgid "Locate in the map"
-msgstr "Criar novo tema"
+msgstr "Localize no mapa"
 
 #: app/views/maps/edit_location.rhtml:12
 msgid ""
 "Locate the address informed above in the map below (note that you'll "
 "probably need to adjust the marker to get a precise position)"
 msgstr ""
+"Localize o endereço informado acima no mapa abaixo (note que você irá "
+"provavelmente precisar ajustar o marcador para conseguir uma posição precisa)"
 
 #: app/views/friends/index.rhtml:3 app/views/profile/friends.rhtml:4
 msgid "%s's friends"
@@ -5010,44 +4980,39 @@ msgstr "Sim, quero remover %s da minha lista de amigos"
 
 #: app/views/box_organizer/_location_block.rhtml:2
 msgid "Zoom Level:"
-msgstr ""
+msgstr "Nível de Zoom:"
 
 #: app/views/box_organizer/_location_block.rhtml:2
-#, fuzzy
 msgid "World"
-msgstr "Trabalho"
+msgstr "Mundo"
 
 #: app/views/box_organizer/_location_block.rhtml:4
 msgid "Street"
-msgstr ""
+msgstr "Rua"
 
 #: app/views/box_organizer/_location_block.rhtml:5
-#, fuzzy
 msgid "Map Type:"
-msgstr "Tipo"
+msgstr "Tipo do mapa:"
 
 #: app/views/box_organizer/_location_block.rhtml:5
 msgid "Road Map"
-msgstr ""
+msgstr "Mapa de Ruas"
 
 #: app/views/box_organizer/_location_block.rhtml:6
-#, fuzzy
 msgid "Mobile"
-msgstr "Mais arquivos"
+msgstr "Móvel"
 
 #: app/views/box_organizer/_location_block.rhtml:7
-#, fuzzy
 msgid "Satellite"
-msgstr "Sal"
+msgstr "Satélite"
 
 #: app/views/box_organizer/_location_block.rhtml:8
 msgid "Terrain"
-msgstr ""
+msgstr "Terreno"
 
 #: app/views/box_organizer/_location_block.rhtml:9
-#, fuzzy
 msgid "Hybrid"
-msgstr "Esconder"
+msgstr "Híbrido"
 
 #: app/views/box_organizer/_profile_list_block.rhtml:2
 #: app/views/box_organizer/_recent_documents_block.rhtml:2
@@ -5075,22 +5040,20 @@ msgid "Select the type of block you want to add to your page."
 msgstr "Selecione o tipo de bloco que você quer adicionar à sua página."
 
 #: app/views/box_organizer/_tags_block.rhtml:2
-#, fuzzy
 msgid "Limit of tags to display:"
-msgstr "Limite de posts para exibir"
+msgstr "Limite de tags para exibir"
 
 #: app/views/box_organizer/_feed_reader_block.rhtml:3
 msgid "Limit of posts to display"
-msgstr "Limite de posts para exibir"
+msgstr "Limite de postagens para exibir"
 
 #: app/views/box_organizer/_products_block.rhtml:5
 msgid "Select the products that must be shown."
 msgstr "Escolha os produtos que serão exibidos."
 
 #: app/views/box_organizer/_blog_archives_block.rhtml:3
-#, fuzzy
 msgid "Choose a blog:"
-msgstr "Criar blog"
+msgstr "Escolha um blog:"
 
 #: app/views/box_organizer/_profile_image_block.rhtml:2
 msgid "Show name on block"
@@ -5199,14 +5162,12 @@ msgid "Enable e-Mail"
 msgstr "Habilitar e-Mail"
 
 #: app/views/events/events.rhtml:3
-#, fuzzy
 msgid "Back to %s"
-msgstr "Voltar à galeria"
+msgstr "Voltar à %s"
 
 #: app/views/events/events.rhtml:5
-#, fuzzy
 msgid "New event"
-msgstr "Nova solicitação"
+msgstr "Novo evento"
 
 #: app/views/tasks/_approve_article.rhtml:3
 msgid "%s wants to publish content: %s."
@@ -5357,7 +5318,7 @@ msgstr "Estado:"
 
 #: app/views/tasks/_create_community.rhtml:13
 msgid "This name was already taken, this community cannot be approved"
-msgstr ""
+msgstr "Esse nome já foi escolhido, essa comunidade não pode ser aprovada"
 
 #: app/views/tasks/_create_community.rhtml:19
 #: app/views/enterprise_validation/details.rhtml:13
@@ -5372,11 +5333,8 @@ msgid "Reject"
 msgstr "Rejeitar"
 
 #: app/views/tasks/_create_community.rhtml:39
-#, fuzzy
 msgid "Please provide an explanation for the rejection"
-msgstr ""
-"Por favor dê uma explicação para a rejeição. Esta explicação será enviada ao "
-"requerente (requerido)."
+msgstr "Por favor dê uma explicação para a rejeição."
 
 #: app/views/account/accept_terms.rhtml:14
 #: app/views/account/activation_question.rhtml:26
@@ -5702,14 +5660,13 @@ msgid "enterprises"
 msgstr "empreendimentos"
 
 #: app/views/account/_signup_form.rhtml:13
-#, fuzzy
 msgid ""
 "Fill all these fields to join in this environment. <p/> If you forgot your "
 "password, do not create a new account, click on the \"<b>I forgot my "
 "password!</b>\" link. ;-)"
 msgstr ""
-"Preencha todos os campos para entrar neste ambiente.<p/> Se você esqueceu "
-"sua senha, não crie uma nova conta, clique no link \"<b>Eu esqueci minha "
+"Preencha todos os campos para entrar neste ambiente.<p/> Se você esqueceu sua "
+"senha, não crie uma nova conta, clique no link \"<b>Eu esqueci minha "
 "senha!</b>\". ;-)"
 
 #: app/views/account/_signup_form.rhtml:25
@@ -5963,13 +5920,12 @@ msgid "Dear %s,"
 msgstr "Caro(a) %s,"
 
 #: app/views/task_mailer/target_notification.rhtml:5
-#, fuzzy
 msgid ""
 "Access your list of tasks or your control panel to see this and other "
 "pending actions that need your attention."
 msgstr ""
-"Acesse o endereço abaixo para ver esta e outras ações pendentes que "
-"necessitam da sua atenção:"
+"Acesse sua lista de tarefas ou o seu painel de controle para ver esta e outras "
+"ações pendentes que necessitam da sua atenção."
 
 #: app/views/profile/private_profile.rhtml:4
 msgid "This profile is not public."
@@ -6711,7 +6667,7 @@ msgstr "Informações e Configurações da Instituição"
 
 #: lib/unifreire_terminology.rb:41
 msgid "Institutions are disabled when created"
-msgstr ""
+msgstr "Instituições são disabilitadas quando criadas"
 
 #: lib/zen3_terminology.rb:9
 msgid "My ePortfolio"
@@ -7022,9 +6978,8 @@ msgstr ""
 "mais facilmente."
 
 #: lib/zen3_terminology.rb:85
-#, fuzzy
 msgid "Organizations are disabled when created"
-msgstr "Coletivos têem publicação moderada por padrão"
+msgstr "Organizações são desabilitadas quando criadas"
 
 #: public/503.html.erb:27
 msgid "System maintainance"
