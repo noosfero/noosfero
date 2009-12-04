@@ -150,6 +150,7 @@ module ActsAsFerret #:nodoc:
     end
 
     def content_for_field_name(field, via = field, dynamic_boost = nil)
+      return nil if field.to_sym == :type
       field_data = self.send(via) || self.instance_variable_get("@#{via}")
       if (dynamic_boost && boost_value = self.send(dynamic_boost))
         field_data = Ferret::Field.new(field_data)
