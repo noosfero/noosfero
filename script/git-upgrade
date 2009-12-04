@@ -33,21 +33,6 @@ version(){
   exit 0
 }
 
-backup(){
-  say "Making files backup"
-  rake backup
-
-  database=$(get_value database)
-  adapter=$(get_value adapter)
-
-  if [ "$adapter" = "postgresql" ]; then
-    mkdir -p backups/
-    dumpfile=backups/dump-$(date +%Y-%m-%d-%H-%M).sql
-    say "Making database backup"
-    pg_dump "$database" > "$dumpfile"
-  fi
-}
-
 stop_service(){
   say "Stopping service"
   ./script/production stop || say "Stop failed, trying to continue anyway"
@@ -62,9 +47,6 @@ start_service(){
 upgrade_code(){
   say "Upgrading code"
   git pull
-  for dir in public/designs/themes/*; do
-    (cd $dir && test -e .git/config && git pull)
-  done
   rake makemo
 }
 
@@ -108,7 +90,6 @@ while test $# -gt 0; do
   shift
 done
 
-backup
 stop_service
 upgrade_code
 upgrade_database
