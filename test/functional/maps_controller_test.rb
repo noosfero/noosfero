@@ -36,8 +36,13 @@ class MapsControllerTest < Test::Unit::TestCase
   end
 
   should 'dispĺay form for address with profile address' do
+    env = Environment.default
+    env.custom_person_fields = { 'city' => { 'active' => 'true' } }
+    env.save!
+
+
     get :edit_location, :profile => profile.identifier
-    assert_tag :tag => 'input', :attributes => { :name => 'location' }
+    assert_tag :tag => 'input', :attributes => { :name => 'profile_data[city]' }
   end
 
 end
