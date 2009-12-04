@@ -746,8 +746,8 @@ class ProfileTest < Test::Unit::TestCase
     p = Profile.new
     p.expects(:region).returns(nil)
     e = Environment.default
-    p.expects(:environment).returns(e)
-    e.expects(:location).returns('Brasil')
+    p.stubs(:environment).returns(e)
+    e.stubs(:location).returns('Brasil')
     assert_equal 'Brasil', p.geolocation
   end
 
