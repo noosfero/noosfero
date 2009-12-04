@@ -46,6 +46,10 @@ start_service(){
 
 upgrade_code(){
   say "Upgrading code"
+
+  # db:migrate always changes this
+  git checkout db/schema.rb
+
   git pull
   rake makemo
 }
