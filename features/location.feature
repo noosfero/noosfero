@@ -36,9 +36,9 @@ Feature: Location
       | city     |
       | zip_code |
     Given the following <plural>
-      | identifier | name    | owner   |
-      | colivre    | Colivre | zezinho |
-    And I am on Colivre's control panel
+      | identifier   | name    | owner   |
+      | mycollective | My Collective | zezinho |
+    And I am on My Collective's control panel
     And I follow "Location"
     And I select "Brazil" from "Country"
     And I fill in the following:
@@ -47,7 +47,7 @@ Feature: Location
       | City     | Salvador                  |
       | ZIP Code | 40110010                  |
     When I press "Save"
-    Then "colivre" should have the following data
+    Then "mycollective" should have the following data
       | address                   | country | state | city     | zip_code |
       | Rua Marechal Floriano, 28 | BR      | Bahia | Salvador | 40110010 |
     Examples:
