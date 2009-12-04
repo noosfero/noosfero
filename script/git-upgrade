@@ -74,13 +74,13 @@ upgrade_database(){
 shell=no
 while test $# -gt 0; do
   case "$1" in
-    --shell)
+    -s|--shell)
       shell=yes
       ;;
-    --help)
+    -h|--help)
       usage 0
       ;;
-    --version)
+    -v|--version)
       version
       ;;
     *)
