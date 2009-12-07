@@ -50,8 +50,9 @@ upgrade_code(){
   # db:migrate always changes this
   git checkout db/schema.rb
 
-  git pull
-  rake makemo
+  git pull --quiet
+
+  rake makemo 2>/dev/null || (echo "Translations compilation failed; run manually to check"; false)
 }
 
 upgrade_database(){
