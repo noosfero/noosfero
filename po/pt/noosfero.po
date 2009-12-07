@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.21.0\n"
 "POT-Creation-Date: 2009-12-07 12:06-0300\n"
-"PO-Revision-Date: 2009-12-07 15:50-0300\n"
+"PO-Revision-Date: 2009-12-07 16:19-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1368,7 +1368,7 @@ msgstr "Este bloco exibe as comunidades das quais o usuário é membro."
 
 #: app/models/communities_block.rb:24 app/models/communities_block.rb:28
 msgid "communities|View all"
-msgstr "comunidades|Ver todos(as)"
+msgstr "Ver todas"
 
 #: app/models/enterprise.rb:5 app/models/product.rb:-
 msgid "Enterprise"
@@ -1796,7 +1796,7 @@ msgstr "Um bloco que apresenta seus empreendimentos"
 
 #: app/models/enterprises_block.rb:20 app/models/enterprises_block.rb:24
 msgid "enterprises|View all"
-msgstr "empreendimentos|Ver todos(as)"
+msgstr "Ver todos"
 
 #: app/models/consumption.rb:-
 msgid "consumption"
@@ -2196,7 +2196,7 @@ msgstr "Este bloco exibe seus amigos."
 
 #: app/models/friends_block.rb:18
 msgid "friends|View all"
-msgstr "amigos(as)|Ver todos(as)"
+msgstr "Ver todos(as)"
 
 #: app/models/location_block.rb:7
 msgid "Location map block"
