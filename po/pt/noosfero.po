@@ -11,9 +11,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.20.2\n"
-"POT-Creation-Date: 2009-12-03 08:48-0300\n"
-"PO-Revision-Date: 2009-12-04 09:06-0300\n"
+"Project-Id-Version: noosfero 0.21.0\n"
+"POT-Creation-Date: 2009-12-07 12:06-0300\n"
+"PO-Revision-Date: 2009-12-07 15:50-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -166,7 +166,7 @@ msgstr "Por favor, tente de novo quando a página terminar da carregar."
 
 #: app/helpers/forms_helper.rb:35 app/models/link_list_block.rb:9
 #: app/views/shared/_select_categories.rhtml:22
-#: app/views/shared/_change_image.rhtml:2 app/views/cms/publish.rhtml:27
+#: app/views/shared/_change_image.rhtml:2
 #: app/views/cms/select_article_type.rhtml:12 app/views/cms/edit.rhtml:41
 #: app/views/cms/edit.rhtml:43 app/views/cms/edit.rhtml:45
 #: app/views/cms/edit.rhtml:47 app/views/profile_editor/header_footer.rhtml:29
@@ -1127,7 +1127,7 @@ msgstr ""
 "Você não tem permissão de visualizar este conteúdo. Você pode contactar o "
 "dono deste perfil e pedir acesso."
 
-#: app/controllers/public/content_viewer_controller.rb:111
+#: app/controllers/public/content_viewer_controller.rb:112
 msgid "Comment succesfully deleted"
 msgstr "Comentário removido com sucesso"
 
@@ -1179,20 +1179,24 @@ msgstr "Contato enviado com sucesso"
 msgid "Contact not sent"
 msgstr "Contato não enviado"
 
-#: app/controllers/public/profile_controller.rb:62
+#: app/controllers/public/profile_controller.rb:61
 msgid "%s administrator still needs to accept you as member."
 msgstr "O administrador de %s ainda precisa aceitar você como integrante."
 
-#: app/controllers/public/profile_controller.rb:110
+#: app/controllers/public/profile_controller.rb:70
+msgid "You are already a member of \"%s\""
+msgstr "Você já é integrante de \"%s\""
+
+#: app/controllers/public/profile_controller.rb:115
 msgid ""
 "Sorry, this profile was defined as private by its owner. You'll not be able "
 "to view content here unless the profile owner adds you."
 msgstr ""
-"Desculpe, esse perfil foi definido como privado por seu dono. Você não tem permissão "
-"para visualizar o conteúdo aqui a não ser que o dono do perfil adcione você."
+"Desculpe, esse perfil foi definido como privado por seu dono. Você não tem "
+"permissão para visualizar o conteúdo aqui a não ser que o dono do perfil "
+"adcione você."
 
-
-#: app/controllers/public/profile_controller.rb:110
+#: app/controllers/public/profile_controller.rb:115
 msgid "Oops ... you cannot go ahead here"
 msgstr "Oops ... você não pode seguir em frente"
 
@@ -1664,9 +1668,9 @@ msgid ""
 "to approve or reject it through the \"Pending Validations\" section in your "
 "control panel.\n"
 msgstr ""
-"O usuário \"%{user}\" requisitou a criação da comunidade %{community}. Você tem que "
-"aprová-lo ou rejeitá-lo através da seção \"Validações Pendentes\" no seu"
-"painel de controle.\n"
+"O usuário \"%{user}\" requisitou a criação da comunidade %{community}. Você "
+"tem que aprová-lo ou rejeitá-lo através da seção \"Validações Pendentes\" no "
+"seupainel de controle.\n"
 
 #: app/models/create_community.rb:79
 msgid ""
@@ -1677,9 +1681,9 @@ msgid ""
 "      You will be notified as soon as environment administrator has a "
 "position about your request."
 msgstr ""
-"Seu pedido para cadastro de comunidade \"%{community}\" em %{environment} foi "
-"enviado. O administrador do ambiente receberá e aprovará ou rejeitará "
-"a sua requisição de acordo com os seus métodos e critérios.\n"
+"Seu pedido para cadastro de comunidade \"%{community}\" em %{environment} "
+"foi enviado. O administrador do ambiente receberá e aprovará ou rejeitará a "
+"sua requisição de acordo com os seus métodos e critérios.\n"
 "\n"
 "      Você será notificado assim que o administrador do ambiente tiver uma "
 "posição sobre a sua requisição."
@@ -1692,8 +1696,8 @@ msgid ""
 "\n"
 "%{explanation}"
 msgstr ""
-"Sua requisição para registrar a comunidade %{community} em %{environment} não "
-"foi aprovada pelo administrador do ambiente. A seguinte explicação foi "
+"Sua requisição para registrar a comunidade %{community} em %{environment} "
+"não foi aprovada pelo administrador do ambiente. A seguinte explicação foi "
 "dada: \n"
 "\n"
 "%{explication}"
@@ -1704,7 +1708,8 @@ msgid ""
 "You can access %{environment} now and start using your new community."
 msgstr ""
 "Sua requisição para registrar a comunidade \"%{community}\" foi aprovada. "
-"Você pode acessar %{environment} agora e começar a usar a sua nova comunidade."
+"Você pode acessar %{environment} agora e começar a usar a sua nova "
+"comunidade."
 
 #: app/models/block.rb:-
 msgid "block"
@@ -3574,8 +3579,8 @@ msgid ""
 "You are about to change the address, and this will break external links to "
 "this blog or to posts inside it. Do you really want to change?"
 msgstr ""
-"Você está prestes a alterar o endereço, e isto vai quebrar links externos para "
-"esse blog ou para postar dentro dela. Você quer realmente mudar?"
+"Você está prestes a alterar o endereço, e isto vai quebrar links externos "
+"para esse blog ou para postar dentro dela. Você quer realmente mudar?"
 
 #: app/views/cms/_blog.rhtml:42
 #: app/views/profile_editor/_organization.rhtml:57
@@ -3995,8 +4000,8 @@ msgid ""
 "You are about to change the address, and this will break external links to "
 "the homepage or to content inside it. Do you really want to change?"
 msgstr ""
-"Você está prestes a alterar o endereço, e isto vai quebrar links externos para "
-"a homepage ou para conteúdo dentro dela. Você quer realmente mudar?"
+"Você está prestes a alterar o endereço, e isto vai quebrar links externos "
+"para a homepage ou para conteúdo dentro dela. Você quer realmente mudar?"
 
 #: app/views/profile_editor/_organization.rhtml:74
 msgid "Enable \"contact us\""
@@ -4185,9 +4190,8 @@ msgid ""
 "and criteria."
 msgstr ""
 "Note que a criação de comunidades neste ambiente é restrita. Sua requisição "
-"para criar essa nova comunidade será enviada aos administradores de "
-"%{environment} e será aprovada ou rejeitada de acordo com os critérios "
-"deles."
+"para criar essa nova comunidade será enviada aos administradores de %"
+"{environment} e será aprovada ou rejeitada de acordo com os critérios deles."
 
 #: app/views/memberships/new_community.rhtml:28
 msgid "Separate tags with commas."
@@ -5668,8 +5672,8 @@ msgid ""
 "password, do not create a new account, click on the \"<b>I forgot my "
 "password!</b>\" link. ;-)"
 msgstr ""
-"Preencha todos os campos para entrar neste ambiente.<p/> Se você esqueceu sua "
-"senha, não crie uma nova conta, clique no link \"<b>Eu esqueci minha "
+"Preencha todos os campos para entrar neste ambiente.<p/> Se você esqueceu "
+"sua senha, não crie uma nova conta, clique no link \"<b>Eu esqueci minha "
 "senha!</b>\". ;-)"
 
 #: app/views/account/_signup_form.rhtml:25
@@ -5927,8 +5931,8 @@ msgid ""
 "Access your list of tasks or your control panel to see this and other "
 "pending actions that need your attention."
 msgstr ""
-"Acesse sua lista de tarefas ou o seu painel de controle para ver esta e outras "
-"ações pendentes que necessitam da sua atenção."
+"Acesse sua lista de tarefas ou o seu painel de controle para ver esta e "
+"outras ações pendentes que necessitam da sua atenção."
 
 #: app/views/profile/private_profile.rhtml:4
 msgid "This profile is not public."

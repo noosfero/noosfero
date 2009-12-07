@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.20.2\n"
-"POT-Creation-Date: 2009-12-03 08:48-0300\n"
+"Project-Id-Version: noosfero 0.21.0\n"
+"POT-Creation-Date: 2009-12-07 12:06-0300\n"
 "PO-Revision-Date: 2009-10-26 16:20-0300\n"
 "Last-Translator: Anahit Minassian <anahit.minassian@cooperation.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -160,7 +160,7 @@ msgstr ""
 
 #: app/helpers/forms_helper.rb:35 app/models/link_list_block.rb:9
 #: app/views/shared/_select_categories.rhtml:22
-#: app/views/shared/_change_image.rhtml:2 app/views/cms/publish.rhtml:27
+#: app/views/shared/_change_image.rhtml:2
 #: app/views/cms/select_article_type.rhtml:12 app/views/cms/edit.rhtml:41
 #: app/views/cms/edit.rhtml:43 app/views/cms/edit.rhtml:45
 #: app/views/cms/edit.rhtml:47 app/views/profile_editor/header_footer.rhtml:29
@@ -1132,7 +1132,7 @@ msgid ""
 "profile to request access then."
 msgstr ""
 
-#: app/controllers/public/content_viewer_controller.rb:111
+#: app/controllers/public/content_viewer_controller.rb:112
 msgid "Comment succesfully deleted"
 msgstr "Մեկնաբանությունը հաջողությամբ հեռացված է:"
 
@@ -1184,17 +1184,22 @@ msgstr ""
 msgid "Contact not sent"
 msgstr ""
 
-#: app/controllers/public/profile_controller.rb:62
+#: app/controllers/public/profile_controller.rb:61
 msgid "%s administrator still needs to accept you as member."
 msgstr "%s դուք դեռևս ադմինիստրատորի կողմից հաստատման կարիք ունեք:"
 
-#: app/controllers/public/profile_controller.rb:110
+#: app/controllers/public/profile_controller.rb:70
+#, fuzzy
+msgid "You are already a member of \"%s\""
+msgstr "%s-ը ցանկանում է %s-ի անդամ դառնալ:"
+
+#: app/controllers/public/profile_controller.rb:115
 msgid ""
 "Sorry, this profile was defined as private by its owner. You'll not be able "
 "to view content here unless the profile owner adds you."
 msgstr ""
 
-#: app/controllers/public/profile_controller.rb:110
+#: app/controllers/public/profile_controller.rb:115
 msgid "Oops ... you cannot go ahead here"
 msgstr ""
 
