@@ -113,3 +113,23 @@ Feature: publish article
     When I press "Ok!"
     Then I should see "Validation failed: Slug (the code generated from the article name) is already being used by another article."
 
+  Scenario: ask to publish an article and remove it before approval
+    Given I am logged in as "joaosilva"
+    And "Joao Silva" is admin of "Sample Community"
+    And I am on Sample Community's control panel
+    And I follow "Community Info and settings"
+    And I choose "profile_data_moderated_articles_true"
+    And I press "Save"
+    And I am on Joao Silva's control panel
+    And I follow "Manage Content"
+    And I follow "Spread"
+    And I check "Sample Community"
+    And I press "Publish"
+    And "joaosilva" has no articles
+    And I am on Sample Community's control panel
+    When I follow "Tasks"
+    Then I should see "Joao Silva wanted to publish an article but it was removed. It cannot be approved."
+    And I press "Ok!"
+    And I am on Sample Community's control panel
+    When I follow "Tasks"
+    Then I should not see "Joao Silva wanted to publish an article but it was removed. It cannot be approved."
