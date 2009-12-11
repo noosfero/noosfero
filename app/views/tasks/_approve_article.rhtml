@@ -3,7 +3,7 @@
 <% form_for('task', task, :url => { :action => 'close', :id => task.id } ) do |f| %>
 
   <% if task.article.nil? %>
-    <%= _('%s wanted to publish content but it was removed. It cannot be approved.') % content_tag('strong', link_to( task.requestor.name, task.requestor.public_profile_url ) ) %>
+    <%= _('%s wanted to publish some content, but this content was deleted and cannot be published anymore.') % content_tag('strong', link_to( task.requestor.name, task.requestor.public_profile_url ) ) %>
     <%= hidden_field_tag(:decision, 'cancel') %>
   <% else %>
     <%= _('%s wants to publish content: %s.') %

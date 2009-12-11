@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.21.0\n"
-"POT-Creation-Date: 2009-12-07 12:06-0300\n"
-"PO-Revision-Date: 2009-12-07 16:19-0300\n"
+"POT-Creation-Date: 2009-12-11 16:30-0300\n"
+"PO-Revision-Date: 2009-12-11 16:31-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -3338,7 +3338,6 @@ msgstr "Ir para a página inicial do site."
 #: app/views/favorite_enterprises/index.rhtml:31
 #: app/views/memberships/index.rhtml:7
 #: app/views/content_viewer/view_page.rhtml:75
-#: app/views/friends/index.rhtml:15 app/views/friends/index.rhtml:46
 #: app/views/profile/friends.rhtml:22
 #: app/views/profile/favorite_enterprises.rhtml:13
 #: app/views/profile/members.rhtml:13 app/views/profile/communities.rhtml:19
@@ -3495,6 +3494,7 @@ msgstr "Enviar arquivos"
 
 #: app/views/cms/view.rhtml:14 app/views/profile_editor/edit.rhtml:81
 #: app/views/maps/edit_location.rhtml:14 app/views/maps/edit_location.rhtml:30
+#: app/views/friends/index.rhtml:15 app/views/friends/index.rhtml:46
 #: app/views/box_organizer/index.rhtml:5 app/views/mailconf/index.rhtml:10
 #: app/views/mailconf/index.rhtml:22 app/views/mailconf/index.rhtml:32
 #: app/views/tasks/index.rhtml:19
@@ -3777,7 +3777,7 @@ msgstr "Enviando arquivos para %s"
 msgid "Choose the type of article:"
 msgstr "Escolha o tipo de artigo:"
 
-#: app/views/cms/edit.rhtml:17 app/views/tasks/_approve_article.rhtml:25
+#: app/views/cms/edit.rhtml:17 app/views/tasks/_approve_article.rhtml:29
 msgid "Highlight this article"
 msgstr "Destacar este artigo"
 
@@ -5176,33 +5176,41 @@ msgstr "Voltar à %s"
 msgid "New event"
 msgstr "Novo evento"
 
-#: app/views/tasks/_approve_article.rhtml:3
+#: app/views/tasks/_approve_article.rhtml:6
+msgid ""
+"%s wanted to publish some content, but this content was deleted and cannot "
+"be published anymore."
+msgstr ""
+"%s queria publicar algum conteúdo, mas esse conteúdo foi apagado e não pode "
+"mais ser publicado."
+
+#: app/views/tasks/_approve_article.rhtml:9
 msgid "%s wants to publish content: %s."
 msgstr "%s quer publicar conteúdo: %s."
 
-#: app/views/tasks/_approve_article.rhtml:13
+#: app/views/tasks/_approve_article.rhtml:17
 #: app/views/tasks/_add_friend.rhtml:15 app/views/tasks/_add_member.rhtml:15
 msgid "Accept"
 msgstr "Aceitar"
 
-#: app/views/tasks/_approve_article.rhtml:20
+#: app/views/tasks/_approve_article.rhtml:24
 #: app/views/tasks/_add_friend.rhtml:22 app/views/tasks/_add_member.rhtml:22
 msgid "Ignore"
 msgstr "Ignorar"
 
-#: app/views/tasks/_approve_article.rhtml:22
+#: app/views/tasks/_approve_article.rhtml:26
 msgid "Name for publishing"
 msgstr "Nome para publicação"
 
-#: app/views/tasks/_approve_article.rhtml:24
+#: app/views/tasks/_approve_article.rhtml:28
 msgid "Select the folder where the article must be published"
 msgstr "Escolha a pasta onde o artigo deve ser publicado"
 
-#: app/views/tasks/_approve_article.rhtml:26
+#: app/views/tasks/_approve_article.rhtml:30
 msgid "Comment for author"
 msgstr "Comentário para o autor"
 
-#: app/views/tasks/_approve_article.rhtml:31
+#: app/views/tasks/_approve_article.rhtml:36
 #: app/views/tasks/_add_friend.rhtml:39 app/views/tasks/_add_member.rhtml:36
 #: app/views/tasks/_create_community.rhtml:45
 msgid "Ok!"
