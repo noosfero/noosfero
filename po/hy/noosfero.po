@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.21.0\n"
-"POT-Creation-Date: 2009-12-07 12:06-0300\n"
+"POT-Creation-Date: 2009-12-11 16:30-0300\n"
 "PO-Revision-Date: 2009-10-26 16:20-0300\n"
 "Last-Translator: Anahit Minassian <anahit.minassian@cooperation.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3361,7 +3361,6 @@ msgstr ""
 #: app/views/favorite_enterprises/index.rhtml:31
 #: app/views/memberships/index.rhtml:7
 #: app/views/content_viewer/view_page.rhtml:75
-#: app/views/friends/index.rhtml:15 app/views/friends/index.rhtml:46
 #: app/views/profile/friends.rhtml:22
 #: app/views/profile/favorite_enterprises.rhtml:13
 #: app/views/profile/members.rhtml:13 app/views/profile/communities.rhtml:19
@@ -3517,6 +3516,7 @@ msgstr ""
 
 #: app/views/cms/view.rhtml:14 app/views/profile_editor/edit.rhtml:81
 #: app/views/maps/edit_location.rhtml:14 app/views/maps/edit_location.rhtml:30
+#: app/views/friends/index.rhtml:15 app/views/friends/index.rhtml:46
 #: app/views/box_organizer/index.rhtml:5 app/views/mailconf/index.rhtml:10
 #: app/views/mailconf/index.rhtml:22 app/views/mailconf/index.rhtml:32
 #: app/views/tasks/index.rhtml:19
@@ -3796,7 +3796,7 @@ msgstr "Վերբեռնած ֆայլ"
 msgid "Choose the type of article:"
 msgstr "Ընտրեք հոդվածի տեսակը"
 
-#: app/views/cms/edit.rhtml:17 app/views/tasks/_approve_article.rhtml:25
+#: app/views/cms/edit.rhtml:17 app/views/tasks/_approve_article.rhtml:29
 #, fuzzy
 msgid "Highlight this article"
 msgstr "Հոդվածների քանակի սահմանափակում"
@@ -5199,34 +5199,40 @@ msgstr ""
 msgid "New event"
 msgstr "Նոր ընկեր"
 
-#: app/views/tasks/_approve_article.rhtml:3
+#: app/views/tasks/_approve_article.rhtml:6
+msgid ""
+"%s wanted to publish some content, but this content was deleted and cannot "
+"be published anymore."
+msgstr ""
+
+#: app/views/tasks/_approve_article.rhtml:9
 msgid "%s wants to publish content: %s."
 msgstr ""
 
-#: app/views/tasks/_approve_article.rhtml:13
+#: app/views/tasks/_approve_article.rhtml:17
 #: app/views/tasks/_add_friend.rhtml:15 app/views/tasks/_add_member.rhtml:15
 msgid "Accept"
 msgstr "Ընդունել"
 
-#: app/views/tasks/_approve_article.rhtml:20
+#: app/views/tasks/_approve_article.rhtml:24
 #: app/views/tasks/_add_friend.rhtml:22 app/views/tasks/_add_member.rhtml:22
 msgid "Ignore"
 msgstr "Հրաժարվել"
 
-#: app/views/tasks/_approve_article.rhtml:22
+#: app/views/tasks/_approve_article.rhtml:26
 msgid "Name for publishing"
 msgstr ""
 
-#: app/views/tasks/_approve_article.rhtml:24
+#: app/views/tasks/_approve_article.rhtml:28
 #, fuzzy
 msgid "Select the folder where the article must be published"
 msgstr "Ընտրեք այն արտադրանքը, որը ցանկանում եք ցուցադրել:"
 
-#: app/views/tasks/_approve_article.rhtml:26
+#: app/views/tasks/_approve_article.rhtml:30
 msgid "Comment for author"
 msgstr ""
 
-#: app/views/tasks/_approve_article.rhtml:31
+#: app/views/tasks/_approve_article.rhtml:36
 #: app/views/tasks/_add_friend.rhtml:39 app/views/tasks/_add_member.rhtml:36
 #: app/views/tasks/_create_community.rhtml:45
 msgid "Ok!"

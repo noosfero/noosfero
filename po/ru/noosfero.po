@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.21.0\n"
-"POT-Creation-Date: 2009-12-07 12:06-0300\n"
+"POT-Creation-Date: 2009-12-11 16:30-0300\n"
 "PO-Revision-Date: 2009-10-09 13:28+0100\n"
 "Last-Translator: Anton <anton.c@live.com>\n"
 "Language-Team: German <de@li.org>\n"
@@ -3339,7 +3339,6 @@ msgstr "Перейти на домашнюю страницу сайта"
 #: app/views/favorite_enterprises/index.rhtml:31
 #: app/views/memberships/index.rhtml:7
 #: app/views/content_viewer/view_page.rhtml:75
-#: app/views/friends/index.rhtml:15 app/views/friends/index.rhtml:46
 #: app/views/profile/friends.rhtml:22
 #: app/views/profile/favorite_enterprises.rhtml:13
 #: app/views/profile/members.rhtml:13 app/views/profile/communities.rhtml:19
@@ -3490,6 +3489,7 @@ msgstr "Загруженные файлы"
 
 #: app/views/cms/view.rhtml:14 app/views/profile_editor/edit.rhtml:81
 #: app/views/maps/edit_location.rhtml:14 app/views/maps/edit_location.rhtml:30
+#: app/views/friends/index.rhtml:15 app/views/friends/index.rhtml:46
 #: app/views/box_organizer/index.rhtml:5 app/views/mailconf/index.rhtml:10
 #: app/views/mailconf/index.rhtml:22 app/views/mailconf/index.rhtml:32
 #: app/views/tasks/index.rhtml:19
@@ -3768,7 +3768,7 @@ msgstr "Загрузить файлы в %s"
 msgid "Choose the type of article:"
 msgstr "Выберите тип статьи"
 
-#: app/views/cms/edit.rhtml:17 app/views/tasks/_approve_article.rhtml:25
+#: app/views/cms/edit.rhtml:17 app/views/tasks/_approve_article.rhtml:29
 msgid "Highlight this article"
 msgstr "Подчеркнуть эту статью"
 
@@ -5142,33 +5142,39 @@ msgstr "Назад в галлерею"
 msgid "New event"
 msgstr "Новый запрос"
 
-#: app/views/tasks/_approve_article.rhtml:3
+#: app/views/tasks/_approve_article.rhtml:6
+msgid ""
+"%s wanted to publish some content, but this content was deleted and cannot "
+"be published anymore."
+msgstr ""
+
+#: app/views/tasks/_approve_article.rhtml:9
 msgid "%s wants to publish content: %s."
 msgstr "%s хочет опубликовать контент %s"
 
-#: app/views/tasks/_approve_article.rhtml:13
+#: app/views/tasks/_approve_article.rhtml:17
 #: app/views/tasks/_add_friend.rhtml:15 app/views/tasks/_add_member.rhtml:15
 msgid "Accept"
 msgstr "Подтвердить"
 
-#: app/views/tasks/_approve_article.rhtml:20
+#: app/views/tasks/_approve_article.rhtml:24
 #: app/views/tasks/_add_friend.rhtml:22 app/views/tasks/_add_member.rhtml:22
 msgid "Ignore"
 msgstr "Игнорировать"
 
-#: app/views/tasks/_approve_article.rhtml:22
+#: app/views/tasks/_approve_article.rhtml:26
 msgid "Name for publishing"
 msgstr "Имя публикации"
 
-#: app/views/tasks/_approve_article.rhtml:24
+#: app/views/tasks/_approve_article.rhtml:28
 msgid "Select the folder where the article must be published"
 msgstr "Выберите папку для публикации"
 
-#: app/views/tasks/_approve_article.rhtml:26
+#: app/views/tasks/_approve_article.rhtml:30
 msgid "Comment for author"
 msgstr "Комментарий для автора"
 
-#: app/views/tasks/_approve_article.rhtml:31
+#: app/views/tasks/_approve_article.rhtml:36
 #: app/views/tasks/_add_friend.rhtml:39 app/views/tasks/_add_member.rhtml:36
 #: app/views/tasks/_create_community.rhtml:45
 msgid "Ok!"
