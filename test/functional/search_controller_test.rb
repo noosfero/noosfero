@@ -11,8 +11,20 @@ class SearchControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
 
     @category = Category.create!(:name => 'my category', :environment => Environment.default)
-    Profile.rebuild_index
-    Article.rebuild_index
+  end
+
+  def create_article_with_optional_category(name, profile, category = nil)
+    article = fast_create(Article, :name => name, :profile_id => profile.id)
+    article.add_category(category) if category
+    article.ferret_create
+    article
+  end
+
+  def create_profile_with_optional_category(klass, name, category = nil, data = {})
+    profile = fast_create(klass, { :name => name }.merge(data))
+    profile.add_category(category) if category
+    profile.ferret_create
+    profile
   end
 
   def test_local_files_reference
@@ -54,25 +66,20 @@ class SearchControllerTest < Test::Unit::TestCase
   end
 
   should 'search for articles' do
-    person = create_user('teste').person
-    art = person.articles.build(:name => 'an article to be found'); art.save!
+    person = fast_create(Person)
+    art = create_article_with_optional_category('an article to be found', person)
 
     get 'index', :query => 'article found', :find_in => [ 'articles' ]
-
     assert_includes assigns(:results)[:articles], art
   end
 
   should 'search for articles in a specific category' do
-    person = create_user('teste').person
+    person = fast_create(Person)
 
     # in category
-    art1 = person.articles.build(:name => 'an article to be found')
-    art1.add_category @category
-    art1.save!
-
+    art1 = create_article_with_optional_category('an article to be found', person, @category)
     # not in category
-    art2 = person.articles.build(:name => 'another article to be found')
-    art2.save!
+    art2 = create_article_with_optional_category('another article to be found', person)
 
     get :index, :category_path => [ 'my-category' ], :query => 'article found', :find_in => [ 'articles' ]
 
@@ -82,12 +89,10 @@ class SearchControllerTest < Test::Unit::TestCase
 
   # 'assets' outside any category
   should 'list articles in general' do
-    person = create_user('testuser').person
-    person2 = create_user('anotheruser').person
+    person = fast_create(Person)
 
-    art1 = person.articles.create!(:name => 'one article', :category_ids => [@category.id])
-
-    art2 = person2.articles.create!(:name => 'two article', :category_ids => [@category.id])
+    art1 = create_article_with_optional_category('one article', person, @category)
+    art2 = create_article_with_optional_category('two article', person, @category)
 
     get :assets, :asset => 'articles'
 
@@ -97,14 +102,13 @@ class SearchControllerTest < Test::Unit::TestCase
 
   # 'assets' inside a category
   should 'list articles in a specific category' do
-    person = create_user('testuser').person
+    person = fast_create(Person)
 
     # in category
-    art1 = person.articles.create!(:name => 'one article', :category_ids => [@category.id])
-    art2 = person.articles.create!(:name => 'other article', :category_ids => [@category.id])
-
+    art1 = create_article_with_optional_category('one article', person, @category)
+    art2 = create_article_with_optional_category('two article', person, @category)
     # not in category
-    art3 = person.articles.create!(:name => 'another article')
+    art3 = create_article_with_optional_category('another article', person)
 
     get :assets, :asset => 'articles', :category_path => ['my-category']
 
@@ -114,7 +118,7 @@ class SearchControllerTest < Test::Unit::TestCase
   end
 
   should 'find enterprises' do
-    ent = Enterprise.create!(:name => 'teste', :identifier => 'teste')
+    ent = create_profile_with_optional_category(Enterprise, 'teste')
     get 'index', :query => 'teste', :find_in => [ 'enterprises' ]
     assert_includes assigns(:results)[:enterprises], ent
   end
@@ -122,10 +126,9 @@ class SearchControllerTest < Test::Unit::TestCase
   should 'find enterprises in a specified category' do
 
     # in category
-    ent1 = Enterprise.create!(:name => 'testing enterprise 1', :identifier => 'test1', :category_ids => [@category.id])
-
+    ent1 = create_profile_with_optional_category(Enterprise, 'testing enterprise 1', @category)
     # not in category
-    ent2 = Enterprise.create!(:name => 'testing enterprise 2', :identifier => 'test2')
+    ent2 = create_profile_with_optional_category(Enterprise, 'testing enterprise 2')
 
     get :index, :category_path => [ 'my-category' ], :query => 'testing', :find_in => [ 'enterprises' ]
 
@@ -134,8 +137,8 @@ class SearchControllerTest < Test::Unit::TestCase
   end
 
   should 'list enterprises in general' do
-    ent1 = Enterprise.create!(:name => 'teste 1', :identifier => 'teste1')
-    ent2 = Enterprise.create!(:name => 'teste 2', :identifier => 'teste2')
+    ent1 = create_profile_with_optional_category(Enterprise, 'teste 1')
+    ent2 = create_profile_with_optional_category(Enterprise, 'teste 2')
 
     get :assets, :asset => 'enterprises'
     assert_includes assigns(:results)[:enterprises], ent1
@@ -145,10 +148,9 @@ class SearchControllerTest < Test::Unit::TestCase
   # 'assets' menu inside a category
   should 'list enterprises in a specified category' do
     # in category
-    ent1 = Enterprise.create!(:name => 'teste 1', :identifier => 'teste1', :category_ids => [@category.id])
-
+    ent1 = create_profile_with_optional_category(Enterprise, 'teste 1', @category)
     # not in category
-    ent2 = Enterprise.create!(:name => 'teste 2', :identifier => 'teste2')
+    ent2 = create_profile_with_optional_category(Enterprise, 'teste 2')
 
     get :assets, :asset => 'enterprises', :category_path => [ 'my-category' ]
     assert_includes assigns(:results)[:enterprises], ent1
@@ -196,15 +198,14 @@ class SearchControllerTest < Test::Unit::TestCase
   end
 
   should 'find communities' do
-    c1 = Community.create!(:name => 'a beautiful community', :identifier => 'bea_comm', :environment => Environment.default)
+    c1 = create_profile_with_optional_category(Community, 'a beautiful community')
     get :index, :query => 'beautiful', :find_in => [ 'communities' ]
     assert_includes assigns(:results)[:communities], c1
   end
 
   should 'find communities in a specified category' do
-    c1 = Community.create!(:name => 'a beautiful community', :identifier => 'bea_comm', :environment => Environment.default)
-    c2 = Community.create!(:name => 'another beautiful community', :identifier => 'an_bea_comm', :environment => Environment.default)
-    c1.add_category @category; c1.save!
+    c1 = create_profile_with_optional_category(Community, 'a beautiful community', @category)
+    c2 = create_profile_with_optional_category(Community, 'another beautiful community')
     get :index, :category_path => [ 'my-category' ], :query => 'beautiful', :find_in => [ 'communities' ]
     assert_includes assigns(:results)[:communities], c1
     assert_not_includes assigns(:results)[:communities], c2
@@ -212,8 +213,8 @@ class SearchControllerTest < Test::Unit::TestCase
 
   # 'assets' menu outside any category
   should 'list communities in general' do
-    c1 = Community.create!(:name => 'a beautiful community', :identifier => 'bea_comm', :environment => Environment.default)
-    c2 = Community.create!(:name => 'another beautiful community', :identifier => 'an_bea_comm', :environment => Environment.default)
+    c1 = create_profile_with_optional_category(Community, 'a beautiful community')
+    c2 = create_profile_with_optional_category(Community, 'another beautiful community')
 
     get :assets, :asset => 'communities'
     assert_equivalent [c2, c1], assigns(:results)[:communities]
@@ -223,15 +224,13 @@ class SearchControllerTest < Test::Unit::TestCase
   should 'list communities in a specified category' do
 
     # in category
-    c1 = Community.create!(:name => 'a beautiful community', :identifier => 'bea_comm', :environment => Environment.default)
-    c1.add_category @category
+    c1 = create_profile_with_optional_category(Community, 'a beautiful community', @category)
 
     # not in category
-    c2 = Community.create!(:name => 'another beautiful community', :identifier => 'an_bea_comm', :environment => Environment.default)
+    c2 = create_profile_with_optional_category(Community, 'another beautiful community')
 
     # in category
-    c3 = Community.create!(:name => 'yet another beautiful community', :identifier => 'yet_an_bea_comm', :environment => Environment.default)
-    c3.add_category @category
+    c3 = create_profile_with_optional_category(Community, 'yet another beautiful community', @category)
 
     get :assets, :asset => 'communities', :category_path => [ 'my-category' ]
 
@@ -239,22 +238,22 @@ class SearchControllerTest < Test::Unit::TestCase
   end
 
   should 'find communities in signup wizard' do
-    c1 = Community.create!(:name => 'a beautiful community', :identifier => 'bea_comm', :environment => Environment.default)
+    c1 = create_profile_with_optional_category(Community, 'a beautiful community')
     get :index, :query => 'beautiful', :find_in => [ 'communities' ], :wizard => true
     assert_includes assigns(:results)[:communities], c1
     assert_equal 'layouts/wizard', @response.layout
   end
 
   should 'find products' do
-    ent = Enterprise.create!(:name => 'teste', :identifier => 'teste')
+    ent = create_profile_with_optional_category(Enterprise, 'teste')
     prod = ent.products.create!(:name => 'a beautiful product')
     get 'index', :query => 'beautiful', :find_in => ['products']
     assert_includes assigns(:results)[:products], prod
   end
 
   should 'find products in a specific category' do
-    ent1 = Enterprise.create!(:name => 'teste1', :identifier => 'teste1', :category_ids => [@category.id])
-    ent2 = Enterprise.create!(:name => 'teste2', :identifier => 'teste2')
+    ent1 = create_profile_with_optional_category(Enterprise, 'teste1', @category)
+    ent2 = create_profile_with_optional_category(Enterprise, 'teste2')
     prod1 = ent1.products.create!(:name => 'a beautiful product')
     prod2 = ent2.products.create!(:name => 'another beautiful product')
     get :index, :category_path => @category.path.split('/'), :query => 'beautiful', :find_in => ['products']
@@ -266,8 +265,8 @@ class SearchControllerTest < Test::Unit::TestCase
   should 'list products in general' do
     Profile.delete_all
 
-    ent1 = Enterprise.create!(:name => 'teste1', :identifier => 'teste1')
-    ent2 = Enterprise.create!(:name => 'teste2', :identifier => 'teste2')
+    ent1 = create_profile_with_optional_category(Enterprise, 'teste1')
+    ent2 = create_profile_with_optional_category(Enterprise, 'teste2')
     prod1 = ent1.products.create!(:name => 'a beautiful product')
     prod2 = ent2.products.create!(:name => 'another beautiful product')
 
@@ -280,11 +279,11 @@ class SearchControllerTest < Test::Unit::TestCase
     Profile.delete_all
 
     # in category
-    ent1 = Enterprise.create!(:name => 'teste1', :identifier => 'teste1'); ent1.add_category @category
+    ent1 = create_profile_with_optional_category(Enterprise, 'teste1', @category)
     prod1 = ent1.products.create!(:name => 'a beautiful product')
 
     # not in category
-    ent2 = Enterprise.create!(:name => 'teste2', :identifier => 'teste2')
+    ent2 = create_profile_with_optional_category(Enterprise, 'teste2')
     prod2 = ent2.products.create!(:name => 'another beautiful product')
 
     get :assets, :asset => 'products', :category_path => [ 'my-category' ]
@@ -294,8 +293,8 @@ class SearchControllerTest < Test::Unit::TestCase
 
   should 'paginate enterprise listing' do
     @controller.expects(:limit).returns(1)
-    ent1 = Enterprise.create!(:name => 'teste 1', :identifier => 'teste_1')
-    ent2 = Enterprise.create!(:name => 'teste 2', :identifier => 'teste_2')
+    ent1 = create_profile_with_optional_category(Enterprise, 'teste 1')
+    ent2 = create_profile_with_optional_category(Enterprise, 'teste 2')
 
     get :assets, :asset => 'enterprises', :page => '2'
 
@@ -303,13 +302,13 @@ class SearchControllerTest < Test::Unit::TestCase
   end
 
   should 'display search results' do
-    ent = Enterprise.create!(:name => 'display enterprise', :identifier => 'teste1')
+    ent = create_profile_with_optional_category(Enterprise, 'display enterprise')
     product = ent.products.create!(:name => 'display product')
     person = create_user('displayperson').person; person.name = 'display person'; person.save!
     article = person.articles.create!(:name => 'display article')
     event = Event.new(:name => 'display event', :start_date => Date.today); event.profile = person; event.save!
     comment = article.comments.create!(:title => 'display comment', :body => '...', :author => person)
-    community = Community.create!(:name => 'display community', :identifier => 'an_bea_comm')
+    community = create_profile_with_optional_category(Community, 'display community')
 
     get :index, :query => 'display'
 
@@ -320,8 +319,8 @@ class SearchControllerTest < Test::Unit::TestCase
         :products => ['Products', product],
         :events => ['Events', event],
     }
-    names.each do |thing, description|
-      description, object = description
+    names.each do |thing, pair|
+      description, object = pair
       assert_tag :tag => 'div', :attributes => { :class => /search-results-#{thing}/ }, :descendant => { :tag => 'h3', :content => Regexp.new(description) }
       assert_tag :tag => 'a', :content => object.respond_to?(:short_name) ? object.short_name : object.name
     end
@@ -507,9 +506,7 @@ class SearchControllerTest < Test::Unit::TestCase
     parent = Category.create!(:name => 'Parent Category', :environment => Environment.default)
     child  = Category.create!(:name => 'Child Category', :environment => Environment.default, :parent => parent)
 
-    p = create_user('test_profile').person
-    p.add_category child
-    p.save!
+    p = create_profile_with_optional_category(Person, 'test_profile', child)
 
     get :index, :category_path => ['parent-category'], :query => 'test_profile', :find_in => ['people']
 
@@ -526,11 +523,11 @@ class SearchControllerTest < Test::Unit::TestCase
   end
 
   should 'find enterprise by product category' do
-    ent1 = Enterprise.create!(:name => 'test1', :identifier => 'test1')
+    ent1 = create_profile_with_optional_category(Enterprise, 'test1')
     prod_cat = ProductCategory.create!(:name => 'pctest', :environment => Environment.default)
     prod = ent1.products.create!(:name => 'teste', :product_category => prod_cat)
 
-    ent2 = Enterprise.create!(:name => 'test2', :identifier => 'test2')
+    ent2 = create_profile_with_optional_category(Enterprise, 'test2')
 
     get :index, :query => prod_cat.name
 
@@ -540,12 +537,11 @@ class SearchControllerTest < Test::Unit::TestCase
 
   should 'find profiles by radius and region' do
     city = City.create!(:name => 'r-test', :environment => Environment.default, :lat => 45.0, :lng => 45.0)
-    ent1 = Enterprise.create!(:name => 'test 1', :identifier => 'test1', :lat => 45.0, :lng => 45.0)
-    p1 = create_user('test2').person
-    p1.name = 'test 2'; p1.lat = 45.0; p1.lng = 45.0; p1.save!
-    ent2 = Enterprise.create!(:name => 'test 3', :identifier => 'test3', :lat => 30.0, :lng => 30.0)
-    p2 = create_user('test4').person
-    p2.name = 'test 4'; p2.lat = 30.0; p2.lng = 30.0; p2.save!
+    ent1 = create_profile_with_optional_category(Enterprise, 'test 1', nil, :lat => 45.0, :lng => 45.0)
+    p1 = create_profile_with_optional_category(Person, 'test 2', nil, :lat => 45.0, :lng => 45.0)
+
+    ent2 = create_profile_with_optional_category(Enterprise, 'test 1', nil, :lat => 30.0, :lng => 30.0)
+    p2 = create_profile_with_optional_category(Person, 'test 2', nil, :lat => 30.0, :lng => 30.0)
 
     get :index, :city => city.id, :radius => 10, :query => 'test'
 
@@ -732,7 +728,7 @@ class SearchControllerTest < Test::Unit::TestCase
   should 'list only categories with products' do
     cat1 = ProductCategory.create!(:name => 'pc test 1', :environment => Environment.default)
     cat2 = ProductCategory.create!(:name => 'pc test 2', :environment => Environment.default)
-    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent')
+    ent = create_profile_with_optional_category(Enterprise, 'test ent')
     
     cat1.products.create!(:name => 'prod test 1', :enterprise => ent)
     
@@ -744,7 +740,7 @@ class SearchControllerTest < Test::Unit::TestCase
 
   should 'display only within a product category when specified' do
     prod_cat = ProductCategory.create!(:name => 'prod cat test', :environment => Environment.default)
-    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent')
+    ent = create_profile_with_optional_category(Enterprise, 'test ent')
 
     p = prod_cat.products.create!(:name => 'prod test 1', :enterprise => ent)
 
@@ -757,7 +753,7 @@ class SearchControllerTest < Test::Unit::TestCase
     cat = Category.create(:name => 'cat', :environment => Environment.default)
     prod_cat1 = ProductCategory.create!(:name => 'prod cat test 1', :environment => Environment.default)
     prod_cat2 = ProductCategory.create!(:name => 'prod cat test 2', :environment => Environment.default, :parent => prod_cat1)
-    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent', :category_ids => [cat.id])
+    ent = create_profile_with_optional_category(Enterprise, 'test ent', cat)
 
     p = prod_cat2.products.create!(:name => 'prod test 1', :enterprise => ent)
 
@@ -769,7 +765,7 @@ class SearchControllerTest < Test::Unit::TestCase
   should 'display only top level product categories that has products when no product category filter is specified' do
     cat1 = ProductCategory.create(:name => 'prod cat 1', :environment => Environment.default)
     cat2 = ProductCategory.create(:name => 'prod cat 2', :environment => Environment.default)
-    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent')
+    ent = create_profile_with_optional_category(Enterprise, 'test ent')
     p = cat1.products.create!(:name => 'prod test 1', :enterprise => ent)
 
     get :index, :find_in => 'products'
@@ -782,7 +778,7 @@ class SearchControllerTest < Test::Unit::TestCase
     cat1 = ProductCategory.create(:name => 'prod cat 1', :environment => Environment.default)
     cat11 = ProductCategory.create(:name => 'prod cat 11', :environment => Environment.default, :parent => cat1)
     cat12 = ProductCategory.create(:name => 'prod cat 12', :environment => Environment.default, :parent => cat1)
-    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent')
+    ent = create_profile_with_optional_category(Enterprise, 'test ent')
     p = cat11.products.create!(:name => 'prod test 1', :enterprise => ent)
 
     get :index, :find_in => 'products', :product_category => cat1.id
@@ -794,7 +790,7 @@ class SearchControllerTest < Test::Unit::TestCase
   should 'list only product categories with enterprises' do
     cat1 = ProductCategory.create!(:name => 'pc test 1', :environment => Environment.default)
     cat2 = ProductCategory.create!(:name => 'pc test 2', :environment => Environment.default)
-    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent')
+    ent = create_profile_with_optional_category(Enterprise, 'test ent')
 
     cat1.products.create!(:name => 'prod test 1', :enterprise => ent)
 
@@ -806,10 +802,10 @@ class SearchControllerTest < Test::Unit::TestCase
 
   should 'display only enterprises in the product category when its specified' do
     prod_cat = ProductCategory.create!(:name => 'prod cat test', :environment => Environment.default)
-    ent1 = Enterprise.create!(:name => 'test ent 1', :identifier => 'test_ent1')
+    ent1 = create_profile_with_optional_category(Enterprise, 'test_ent1')
     p = prod_cat.products.create!(:name => 'prod test 1', :enterprise => ent1)
 
-    ent2 = Enterprise.create!(:name => 'test ent 2', :identifier => 'test_ent2')
+    ent2 = create_profile_with_optional_category(Enterprise, 'test_ent2')
 
     get :index, :find_in => 'enterprises', :product_category => prod_cat.id
 
@@ -821,10 +817,10 @@ class SearchControllerTest < Test::Unit::TestCase
     cat = Category.create(:name => 'cat', :environment => Environment.default)
     prod_cat1 = ProductCategory.create!(:name => 'prod cat test 1', :environment => Environment.default)
     prod_cat2 = ProductCategory.create!(:name => 'prod cat test 2', :environment => Environment.default, :parent => prod_cat1)
-    ent1 = Enterprise.create!(:name => 'test ent 1', :identifier => 'test_ent1', :category_ids => [cat.id])
+    ent1 = create_profile_with_optional_category(Enterprise, 'test ent 1', cat)
     p = prod_cat2.products.create!(:name => 'prod test 1', :enterprise => ent1)
 
-    ent2 = Enterprise.create!(:name => 'test ent 2', :identifier => 'test_ent2', :category_ids => [cat.id])
+    ent2 = create_profile_with_optional_category(Enterprise, 'test ent 2', cat)
 
     get :index, :find_in => 'enterprises', :category_path => cat.path.split('/'), :product_category => prod_cat1.id
 
@@ -835,7 +831,7 @@ class SearchControllerTest < Test::Unit::TestCase
   should 'display only top level product categories that has enterprises when no product category filter is specified' do
     cat1 = ProductCategory.create(:name => 'prod cat 1', :environment => Environment.default)
     cat2 = ProductCategory.create(:name => 'prod cat 2', :environment => Environment.default)
-    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent')
+    ent = create_profile_with_optional_category(Enterprise, 'test ent')
     p = cat1.products.create!(:name => 'prod test 1', :enterprise => ent)
 
     get :index, :find_in => 'enterprises'
@@ -848,7 +844,7 @@ class SearchControllerTest < Test::Unit::TestCase
     cat1 = ProductCategory.create(:name => 'prod cat 1', :environment => Environment.default)
     cat11 = ProductCategory.create(:name => 'prod cat 11', :environment => Environment.default, :parent => cat1)
     cat12 = ProductCategory.create(:name => 'prod cat 12', :environment => Environment.default, :parent => cat1)
-    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent')
+    ent = create_profile_with_optional_category(Enterprise, 'test ent')
     p = cat11.products.create!(:name => 'prod test 1', :enterprise => ent)
 
     get :index, :find_in => 'enterprises', :product_category => cat1.id
@@ -861,7 +857,7 @@ class SearchControllerTest < Test::Unit::TestCase
     cat1 = ProductCategory.create(:name => 'prod cat 1', :environment => Environment.default)
     cat11 = ProductCategory.create(:name => 'prod cat 11', :environment => Environment.default, :parent => cat1)
     cat12 = ProductCategory.create(:name => 'prod cat 12', :environment => Environment.default, :parent => cat1)
-    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent')
+    ent = create_profile_with_optional_category(Enterprise, 'test ent')
     p = cat11.products.create!(:name => 'prod test 1', :enterprise => ent)
 
     get :index, :find_in => 'enterprises'
@@ -924,12 +920,10 @@ class SearchControllerTest < Test::Unit::TestCase
 
   should 'search for products by origin and radius correctly' do
     s = City.create!(:name => 'Salvador', :lat => -12.97, :lng => -38.51, :environment => Environment.default)
-    e1 = Enterprise.create!(:name => 'test ent 1', :identifier => 'test_ent1', :lat => -12.97, :lng => -38.51)
+    e1 = create_profile_with_optional_category(Enterprise, 'test ent 1', nil, :lat => -12.97, :lng => -38.51)
     p1 = e1.products.create!(:name => 'test_product1')
-    e1.save!
-    e2 = Enterprise.create!(:name => 'test ent 2', :identifier => 'test_ent2', :lat => -14.97, :lng => -40.51)
+    e2 = create_profile_with_optional_category(Enterprise, 'test ent 2', nil, :lat => -14.97, :lng => -40.51)
     p2 = e2.products.create!(:name => 'test_product2')
-    e2.save!
 
     get :assets, :asset => 'products', :city => s.id, :radius => 15
 
@@ -956,7 +950,7 @@ class SearchControllerTest < Test::Unit::TestCase
   should 'indicate more than page for total_entries' do
     Enterprise.destroy_all
     ('1'..'20').each do |n|
-      Enterprise.create!(:name => 'test ' + n, :identifier => 'test_' + n)
+      create_profile_with_optional_category(Enterprise, 'test ' + n)
     end
 
     get :index, :query => 'test'
@@ -979,7 +973,7 @@ class SearchControllerTest < Test::Unit::TestCase
   end
 
   should 'display steps when searching on wizard' do
-    c1 = Community.create!(:name => 'a beautiful community', :identifier => 'bea_comm', :environment => Environment.default)
+    c1 = create_profile_with_optional_category(Community, 'a beautiful community')
     login_as('ze')
     get :index, :query => 'beautiful', :find_in => [ 'communities' ], :wizard => true
     assert_equal 'layouts/wizard', @response.layout
@@ -987,14 +981,14 @@ class SearchControllerTest < Test::Unit::TestCase
   end
 
   should 'not display steps when searching not on wizard' do
-    c1 = Community.create!(:name => 'a beautiful community', :identifier => 'bea_comm', :environment => Environment.default)
+    c1 = create_profile_with_optional_category(Community, 'a beautiful community')
     get :index, :query => 'beautiful', :find_in => [ 'communities' ]
     assert_equal 'layouts/application', @response.layout
     assert_no_tag :tag => 'div', :attributes => {:id => 'wizard-steps'}
   end
 
   should 'find products when enterprises has own hostname' do
-    ent = Enterprise.create!(:name => 'teste', :identifier => 'teste')
+    ent = create_profile_with_optional_category(Enterprise, 'teste')
     ent.domains << Domain.new(:name => 'testent.com'); ent.save!
     prod = ent.products.create!(:name => 'a beautiful product')
     get 'index', :query => 'beautiful', :find_in => ['products']

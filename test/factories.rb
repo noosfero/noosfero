@@ -163,12 +163,21 @@ module Noosfero::Factory
   end
 
   ###############################################
-  # Enterprise
+  # Community
   ###############################################
 
   def defaults_for_community
     n = factory_num_seq.to_s
     defaults_for_profile.merge({ :identifier => "community-" + n, :name => 'Community ' + n })
+  end
+
+  ###############################################
+  # Person
+  ###############################################
+
+  def defaults_for_person
+    n = factory_num_seq.to_s
+    defaults_for_profile.merge({ :identifier => "person-" + n, :name => 'Person ' + n })
   end
 
   ###############################################
@@ -178,6 +187,15 @@ module Noosfero::Factory
   def defaults_for_profile
     n = factory_num_seq.to_s
     { :public_profile => true, :identifier => 'profile-' + n, :name => 'Profile ' + n, :environment_id => 1 }
+  end
+
+  ###############################################
+  # Organization
+  ###############################################
+
+  def defaults_for_organization
+    n = factory_num_seq.to_s
+    defaults_for_profile.merge({:identifier => 'organization-' + n, :name => 'Organization ' + n})
   end
 
   ###############################################
