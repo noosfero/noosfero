@@ -3,6 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class BlogHelperTest < Test::Unit::TestCase
 
   include BlogHelper
+  include ContentViewerHelper
 
   def setup
     stubs(:show_date).returns('')
@@ -50,8 +51,28 @@ class BlogHelperTest < Test::Unit::TestCase
     blog.children << article = TextileArticle.create!(:name => 'Second post', :profile => profile, :parent => blog, :published => true)
     expects(:article_title).with(article).returns('TITLE')
     expects(:content_tag).with('p', article.to_html).returns(' TO_HTML')
+    self.stubs(:params).returns({:npage => nil})
 
     assert_equal 'TITLE TO_HTML', display_post(article)
+  end
+
+  should 'display link to file if post is an uploaded_file' do
+    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'), :profile => profile, :published => true, :parent => blog)
+
+    expects(:article_to_html).with(file).returns('TO HTML')
+
+    result = display_post(file)
+    assert_tag_in_string result, :content => /TO HTML/
+  end
+
+  should 'display image if post is an image' do
+    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile, :published => true, :parent => blog)
+
+    self.stubs(:params).returns({:npage => nil})
+
+    result = display_post(file)
+    assert_tag_in_string result, :content => 'rails.png'
+    assert_tag_in_string result, :tag => 'img', :attributes => { :src => /#{file.public_filename(:display)}/ }
   end
 
   def will_paginate(arg1, arg2)
