@@ -38,7 +38,7 @@ module BlogHelper
   end
 
   def display_post(article)
-    html = article.to_html
+    html = article_to_html(article)
     html = content_tag('p', html) if ! html.include?('</p>')
     article_title(article) + html
   end
