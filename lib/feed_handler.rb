@@ -25,7 +25,7 @@ class FeedHandler
     begin
       return FeedParser::Feed::new(content)
     rescue Exception => ex
-      raise FeedHandler::ParseError, ex.to_s
+      raise FeedHandler::ParseError, "Invalid feed format."
     end
   end
 
