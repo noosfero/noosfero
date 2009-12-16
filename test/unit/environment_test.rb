@@ -95,7 +95,7 @@ class EnvironmentTest < Test::Unit::TestCase
   end
 
   def test_should_list_top_level_categories
-    env = Environment.create!(:name => 'a test environment')
+    env = fast_create(Environment)
     cat1 = Category.create!(:name => 'first category', :environment_id => env.id)
     cat2 = Category.create!(:name => 'second category', :environment_id => env.id)
     subcat = Category.create!(:name => 'child category', :environment_id => env.id, :parent_id => cat2.id)
@@ -108,7 +108,7 @@ class EnvironmentTest < Test::Unit::TestCase
   end
 
   def test_should_list_all_categories
-    env = Environment.create!(:name => 'a test environment')
+    env = fast_create(Environment)
     cat1 = Category.create!(:name => 'first category', :environment_id => env.id)
     cat2 = Category.create!(:name => 'second category', :environment_id => env.id)
     subcat = Category.create!(:name => 'child category', :environment_id => env.id, :parent_id => cat2.id)
@@ -121,7 +121,7 @@ class EnvironmentTest < Test::Unit::TestCase
   end
 
   should 'list displayable categories' do
-    env = Environment.create!(:name => 'a test environment')
+    env = fast_create(Environment)
     cat1 = env.categories.create(:name => 'category one', :display_color => 1)
     assert ! cat1.new_record?
 
@@ -138,7 +138,7 @@ class EnvironmentTest < Test::Unit::TestCase
   end
 
   should 'have regions' do
-    env = Environment.create!(:name => 'a test environment')
+    env = fast_create(Environment)
     assert_kind_of Array, env.regions
     assert_raise ActiveRecord::AssociationTypeMismatch do
       env.regions << 1
@@ -162,37 +162,38 @@ class EnvironmentTest < Test::Unit::TestCase
   end
 
   should 'provide a default hostname' do
-    env = Environment.create!(:name => 'test environment')
+    env = fast_create(Environment)
     env.domains << Domain.create(:name => 'example.com', :is_default => true)
     assert_equal 'example.com', env.default_hostname
   end
 
   should 'default to localhost as hostname' do
-    env = Environment.create!(:name => 'test environment')
+    env = Environment.new
     assert_equal 'localhost', env.default_hostname
   end
 
   should 'add www when told to force www' do
-    env = Environment.create!(:name => 'test environment', :force_www => true)
+    env = fast_create(Environment); env.force_www = true; env.save!
+
     env.domains << Domain.create(:name => 'example.com', :is_default => true)
     assert_equal 'www.example.com', env.default_hostname
   end
 
   should 'not add www when requesting domain for email address' do
-    env = Environment.create!(:name => 'test environment', :force_www => true)
+    env = fast_create(Environment)
     env.domains << Domain.create(:name => 'example.com', :is_default => true)
     assert_equal 'example.com', env.default_hostname(true)
   end
 
   should 'use default domain when there is more than one' do
-    env = Environment.create!(:name => 'test environment')
+    env = fast_create(Environment)
     env.domains << Domain.create(:name => 'example.com', :is_default => false)
     env.domains << Domain.create(:name => 'default.com', :is_default => true)
     assert_equal 'default.com', env.default_hostname
   end
 
   should 'use first domain when there is no default' do
-    env = Environment.create!(:name => 'test environment')
+    env = fast_create(Environment)
     env.domains << Domain.create(:name => 'domain1.com', :is_default => false)
     env.domains << Domain.create(:name => 'domain2.com', :is_default => false)
     assert_equal 'domain1.com', env.default_hostname
@@ -255,6 +256,7 @@ class EnvironmentTest < Test::Unit::TestCase
   end
 
   should 'remove boxes and blocks when removing environment' do
+    Environment.any_instance.stubs(:create_templates) # avoid creating templates, it's expensive
     env = Environment.create!(:name => 'test environment')
 
     env_boxes = env.boxes.size
@@ -272,18 +274,20 @@ class EnvironmentTest < Test::Unit::TestCase
   end
   
   should 'have boxes and blocks upon creation' do
+    Environment.any_instance.stubs(:create_templates) # avoid creating templates, it's expensive
     environment = Environment.create!(:name => 'a test environment')
     assert environment.boxes.size > 0
     assert environment.blocks.size > 0
   end
 
   should 'have at least one MainBlock upon creation' do
+    Environment.any_instance.stubs(:create_templates) # avoid creating templates, it's expensive
     environment = Environment.create!(:name => 'a test environment')
     assert(environment.blocks.any? { |block| block.kind_of? MainBlock })
   end
 
   should 'provide recent_documents' do
-    environment = Environment.create(:name => 'a test environment')
+    environment = fast_create(Environment)
 
     p1 = environment.profiles.build(:identifier => 'testprofile1', :name => 'test profile 1'); p1.save!
     p2 = environment.profiles.build(:identifier => 'testprofile2', :name => 'test profile 2'); p2.save!
@@ -327,7 +331,8 @@ class EnvironmentTest < Test::Unit::TestCase
   end
 
   should 'be able to add admins easily' do
-    env = Environment.create!(:name => 'test')
+    Environment.any_instance.stubs(:create_templates) # avoid creating templates, it's expensive
+    env = Environment.create!(:name => 'bli')
     user = create_user('testuser').person
     env.add_admin(user)
     env.reload
@@ -337,7 +342,7 @@ class EnvironmentTest < Test::Unit::TestCase
 
   should 'have products through enterprises' do
     env = Environment.default
-    e1 = Enterprise.create!(:name => 'test_ent1', :identifier => 'test_ent1')
+    e1 = fast_create(Enterprise)
     p1 = e1.products.create!(:name => 'test_prod1')
 
     assert_includes env.products, p1
@@ -345,24 +350,24 @@ class EnvironmentTest < Test::Unit::TestCase
   
   should 'not have person through communities' do
     env = Environment.default
-    com = Community.create!(:identifier => 'community_1', :name => 'Community one')
-    person = create_user('test_user').person
+    com = fast_create(Community)
+    person = fast_create(Person)
     assert_includes env.communities, com
     assert_not_includes env.communities, person
   end
 
   should 'not have person through enterprises' do
     env = Environment.default
-    ent = Enterprise.create!(:identifier => 'enterprise_1', :name => 'Enterprise one')
-    person = create_user('test_user').person
+    ent = fast_create(Enterprise)
+    person = fast_create(Person)
     assert_includes env.enterprises, ent
     assert_not_includes env.enterprises, person
   end
 
   should 'not have enterprises through people' do
     env = Environment.default
-    person = create_user('test_user').person
-    ent = Enterprise.create!(:identifier => 'enterprise_1', :name => 'Enterprise one')
+    person = fast_create(Person)
+    ent = fast_create(Enterprise)
     assert_includes env.people, person
     assert_not_includes env.people, ent
   end
@@ -396,7 +401,7 @@ class EnvironmentTest < Test::Unit::TestCase
   end
 
   should 'find by contents from articles' do
-    environment = Environment.create(:name => 'a test environment')
+    environment = fast_create(Environment)
     assert_nothing_raised do
       environment.articles.find_by_contents('')
       # FIXME
@@ -449,42 +454,31 @@ class EnvironmentTest < Test::Unit::TestCase
     e = Environment.create!(:name => 'test_env')
     e.reload
 
+    # the templates must be created
     assert_kind_of Enterprise, e.enterprise_template
     assert_kind_of Community, e.community_template
     assert_kind_of Person, e.person_template
-  end
 
-  should 'have private templates' do
-    e = Environment.create!(:name => 'test_env')
-    e.reload
-
+    # the templates must be private
     assert !e.enterprise_template.public?
     assert !e.community_template.public?
     assert !e.person_template.public?
   end
 
-  should 'set a template in community_template' do
-    e = Environment.create!(:name => 'test_env')
-    template = Community.create!(:name => 'Community template 2', :identifier => e.name.to_slug + 'community_template_2', :environment => e, :public_profile => false)
-    e.community_template = template
+  should 'set templates' do
+    e = fast_create(Environment)
 
-    assert_equal template, e.community_template 
-  end
+    comm = fast_create(Community)
+    e.community_template = comm
+    assert_equal comm, e.community_template 
 
-  should 'set a template in person_template' do
-    e = Environment.create!(:name => 'test_env')
-    template = create_user('person_template_2').person
-    e.person_template = template
+    person = fast_create(Person)
+    e.person_template = person
+    assert_equal person, e.person_template 
 
-    assert_equal template, e.person_template 
-  end
-
- should 'set a template in enterprise_template' do
-    e = Environment.create!(:name => 'test_env')
-    template = Enterprise.create!(:name => 'Enterprise template 2', :identifier => e.name.to_slug + 'enterprise_template', :environment => e, :public_profile => false)
-    e.enterprise_template = template
-
-    assert_equal template, e.enterprise_template 
+    enterprise = fast_create(Enterprise)
+    e.enterprise_template = enterprise
+    assert_equal enterprise, e.enterprise_template 
   end
 
   should 'not enable ssl by default' do
@@ -580,7 +574,7 @@ class EnvironmentTest < Test::Unit::TestCase
   end
 
   should 'provide a default invitation message' do
-    env = Environment.create!(:name => 'test environment')
+    env = Environment.new
     message = [
       'Hello <friend>,',
       "<user> is inviting you to participate on #{env.name}.",
@@ -713,9 +707,8 @@ class EnvironmentTest < Test::Unit::TestCase
 
   should 'have a portal community' do
     e = Environment.default
-    c = Community.create!(:name => 'portal community')
+    c = fast_create(Community)
 
-    assert_respond_to e, :portal_community
     e.portal_community = c; e.save!
     e.reload
 
@@ -725,8 +718,7 @@ class EnvironmentTest < Test::Unit::TestCase
   should 'have a set of portal folders' do
     e = Environment.default
 
-    assert_respond_to e, :portal_folders
-    c = e.portal_community = Community.create!(:name => 'portal community')
+    c = e.portal_community = fast_create(Community)
     news_folder = Folder.create!(:name => 'news folder', :profile => c)
 
     e.portal_folders = [news_folder]
@@ -751,18 +743,18 @@ class EnvironmentTest < Test::Unit::TestCase
   end
 
   should 'have roles with names independent of other environments' do
-    e1 = Environment.create!(:name => 'a test environment')
+    e1 = fast_create(Environment)
     role1 = Role.create!(:name => 'test_role', :environment => e1)
-    e2 = Environment.create!(:name => 'another test environment')
+    e2 = fast_create(Environment)
     role2 = Role.new(:name => 'test_role', :environment => e2)
 
     assert_valid role2
   end
 
   should 'have roles with keys independent of other environments' do
-    e1 = Environment.create!(:name => 'a test environment')
+    e1 = fast_create(Environment)
     role1 = Role.create!(:name => 'test_role', :environment => e1, :key => 'a_member')
-    e2 = Environment.create!(:name => 'another test environment')
+    e2 = fast_create(Environment)
     role2 = Role.new(:name => 'test_role', :environment => e2, :key => 'a_member')
 
     assert_valid role2
@@ -806,16 +798,16 @@ class EnvironmentTest < Test::Unit::TestCase
   end
 
   should 'list tags with their counts' do
-    user = create_user('testinguser').person
-    user.articles.build(:name => 'article 1', :tag_list => 'first-tag').save!
-    user.articles.build(:name => 'article 2', :tag_list => 'first-tag, second-tag').save!
-    user.articles.build(:name => 'article 3', :tag_list => 'first-tag, second-tag, third-tag').save!
+    person = fast_create(Person)
+    person.articles.build(:name => 'article 1', :tag_list => 'first-tag').save!
+    person.articles.build(:name => 'article 2', :tag_list => 'first-tag, second-tag').save!
+    person.articles.build(:name => 'article 3', :tag_list => 'first-tag, second-tag, third-tag').save!
 
     assert_equal({ 'first-tag' => 3, 'second-tag' => 2, 'third-tag' => 1 }, Environment.default.tag_counts)
   end
 
   should 'not list tags count from other environment' do
-    e = Environment.create!(:name => 'test_env')
+    e = fast_create(Environment)
     user = create_user('testinguser', :environment => e).person
     user.articles.build(:name => 'article 1', :tag_list => 'first-tag').save!
 

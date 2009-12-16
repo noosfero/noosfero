@@ -22,11 +22,12 @@ class Environment < ActiveRecord::Base
     end
   end
 
-  after_create do |e|
+  after_create :create_roles
+  def create_roles
     Role.create!(
       :key => 'environment_administrator',
       :name => N_('Environment Administrator'),
-      :environment => e,
+      :environment => self,
       :permissions => [
         'view_environment_admin_panel',
         'edit_environment_features',
@@ -49,7 +50,7 @@ class Environment < ActiveRecord::Base
     Role.create!(
       :key => 'profile_admin',
       :name => N_('Profile Administrator'),
-      :environment => e,
+      :environment => self,
       :permissions => [
         'edit_profile',
         'destroy_profile',
@@ -64,7 +65,7 @@ class Environment < ActiveRecord::Base
     Role.create!(
       :key => "profile_member",
       :name => N_('Member'),
-      :environment => e,
+      :environment => self,
       :permissions => [
         'edit_profile',
         'post_content',
@@ -75,7 +76,7 @@ class Environment < ActiveRecord::Base
     Role.create!(
       :key => 'profile_moderator',
       :name => N_('Moderator'),
-      :environment => e,
+      :environment => self,
       :permissions => [
         'manage_memberships',
         'edit_profile_design',
