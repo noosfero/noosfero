@@ -3,28 +3,29 @@ require File.dirname(__FILE__) + '/../test_helper'
 class GoogleMapsTest < Test::Unit::TestCase
 
   def setup
+    @domain = fast_create(Domain, :name => 'example-domain', :google_maps_key => 'DOMAIN_KEY')
     # force loading of config at every test
     GoogleMaps.erase_config
   end
 
-  should 'enable when key is defined' do
-    GoogleMaps.stubs(:config).returns({ 'key' => 'MYKEY' })
-    assert GoogleMaps.enabled?
+  attr_reader :domain
+
+  should 'enable when key on domain is defined' do
+    assert GoogleMaps.enabled?(domain.name)
   end
 
-  should 'disable if key not defined' do
-    GoogleMaps.stubs(:config).returns({})
-    assert !GoogleMaps.enabled?
+  should 'disable if key on domain is not defined' do
+    fast_create(Domain, :name => 'domain-without-key')
+    assert !GoogleMaps.enabled?('domain-without-key')
   end
 
   should 'not crash if config not informed' do
     GoogleMaps.stubs(:config).returns({})
-    assert_equal '', GoogleMaps.key
+    assert_equal({}, GoogleMaps.config)
   end
 
   should 'point correctly to google maps' do
-    GoogleMaps.expects(:key).returns('MY_FUCKING_KEY')
-    assert_equal 'http://maps.google.com/maps?file=api&amp;v=2&amp;key=MY_FUCKING_KEY', GoogleMaps.api_url
+    assert_equal 'http://maps.google.com/maps?file=api&amp;v=2&amp;key=DOMAIN_KEY', GoogleMaps.api_url(domain.name)
   end
 
   should 'provide initial_zoom setting' do
@@ -37,4 +38,10 @@ class GoogleMapsTest < Test::Unit::TestCase
     assert_equal 4, GoogleMaps.initial_zoom
   end
 
+  should 'have different keys to different domains' do
+    other_domain = fast_create(Domain, :name => 'different-domain', :google_maps_key => 'DIFFERENT_DOMAIN_KEY')
+
+    assert_equal 'http://maps.google.com/maps?file=api&amp;v=2&amp;key=DOMAIN_KEY', GoogleMaps.api_url(domain.name)
+    assert_equal 'http://maps.google.com/maps?file=api&amp;v=2&amp;key=DIFFERENT_DOMAIN_KEY', GoogleMaps.api_url(other_domain.name)
+  end
 end

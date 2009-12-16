@@ -1,4 +1,4 @@
-<%= content_tag('script', '', :src => GoogleMaps.api_url, :type => 'text/javascript') %>
+<%= content_tag('script', '', :src => GoogleMaps.api_url(environment.default_hostname), :type => 'text/javascript') %>
 
 
 <div style='text-align: center;'>

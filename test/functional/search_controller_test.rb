@@ -13,6 +13,10 @@ class SearchControllerTest < Test::Unit::TestCase
     @category = Category.create!(:name => 'my category', :environment => Environment.default)
     Profile.rebuild_index
     Article.rebuild_index
+
+    domain = Environment.default.domains.first
+    domain.google_maps_key = 'ENVIRONMENT_KEY'
+    domain.save!
   end
 
   def test_local_files_reference
@@ -999,6 +1003,36 @@ class SearchControllerTest < Test::Unit::TestCase
     prod = ent.products.create!(:name => 'a beautiful product')
     get 'index', :query => 'beautiful', :find_in => ['products']
     assert_includes assigns(:results)[:products], prod
+  end
+
+  should 'add script tag for google maps if searching products' do
+    get 'index', :query => 'product', :display => 'map', :find_in => ['products']
+
+    assert_tag :tag => 'script', :attributes => { :src => 'http://maps.google.com/maps?file=api&amp;v=2&amp;key=ENVIRONMENT_KEY'}
+  end
+
+  should 'add script tag for google maps if searching enterprises' do
+    get 'index', :query => 'enterprise', :display => 'map', :find_in => ['enterprises']
+
+    assert_tag :tag => 'script', :attributes => { :src => 'http://maps.google.com/maps?file=api&amp;v=2&amp;key=ENVIRONMENT_KEY'}
+  end
+
+  should 'not add script tag for google maps if searching articles' do
+    get 'index', :query => 'article', :display => 'map', :find_in => ['articles']
+
+    assert_no_tag :tag => 'script', :attributes => { :src => 'http://maps.google.com/maps?file=api&amp;v=2&amp;key=ENVIRONMENT_KEY'}
+  end
+
+  should 'not add script tag for google maps if searching people' do
+    get 'index', :query => 'person', :display => 'map', :find_in => ['people']
+
+    assert_no_tag :tag => 'script', :attributes => { :src => 'http://maps.google.com/maps?file=api&amp;v=2&amp;key=ENVIRONMENT_KEY'}
+  end
+
+  should 'not add script tag for google maps if searching communities' do
+    get 'index', :query => 'community', :display => 'map', :find_in => ['communities']
+
+    assert_no_tag :tag => 'script', :attributes => { :src => 'http://maps.google.com/maps?file=api&amp;v=2&amp;key=ENVIRONMENT_KEY'}
   end
 
   should 'show events of specific day' do

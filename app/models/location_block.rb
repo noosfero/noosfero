@@ -20,7 +20,7 @@ class LocationBlock < Block
       '<img src="http://maps.google.com/staticmap?center=' + profile.lat.to_s() +
       ',' + profile.lng.to_s() + '&zoom=' + zoom.to_s() +
       '&size=205x250&maptype=' + map_type + '&markers=' + profile.lat.to_s() + ',' +
-      profile.lng.to_s() + ',green&key=' + GoogleMaps::key + '&sensor=false"/>',
+      profile.lng.to_s() + ',green&key=' + GoogleMaps::key(profile.default_hostname) + '&sensor=false"/>',
       :class => 'the-localization-map' )
     else
       content_tag('i', _('This profile has no geographical position registered.'))
