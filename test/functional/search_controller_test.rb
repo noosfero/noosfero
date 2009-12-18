@@ -14,17 +14,11 @@ class SearchControllerTest < Test::Unit::TestCase
   end
 
   def create_article_with_optional_category(name, profile, category = nil)
-    article = fast_create(Article, :name => name, :profile_id => profile.id)
-    article.add_category(category) if category
-    article.ferret_create
-    article
+    fast_create(Article, {:name => name, :profile_id => profile.id }, :search => true, :category => category)
   end
 
   def create_profile_with_optional_category(klass, name, category = nil, data = {})
-    profile = fast_create(klass, { :name => name }.merge(data))
-    profile.add_category(category) if category
-    profile.ferret_create
-    profile
+    fast_create(klass, { :name => name }.merge(data), :search => true, :category => category)
   end
 
   def test_local_files_reference

@@ -11,7 +11,20 @@ module Noosfero::Factory
     else
       fast_insert(klass, data)
     end
-    return klass.last(:order => "id")
+    obj = klass.last(:order => "id")
+    if options[:category]
+      categories = options[:category]
+      unless categories.is_a?(Array)
+        categories = [categories]
+      end
+      categories.each do |category|
+        obj.add_category(category)
+      end
+    end
+    if options[:search]
+      obj.ferret_create
+    end
+    obj
   end
 
   def create(name, attrs = {})
