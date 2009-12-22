@@ -82,7 +82,8 @@ class ContentViewerController < ApplicationController
     end
 
     if @page.folder? && @page.view_as == 'image_gallery'
-      @images = @page.images.paginate(:per_page => 12, :page => params[:npage])
+      @images = @page.images
+      @images = @images.paginate(:per_page => per_page, :page => params[:npage]) unless params[:slideshow]
     end
 
     @comments = @page.comments(true)
@@ -114,4 +115,7 @@ class ContentViewerController < ApplicationController
     redirect_to :action => 'view_page', :profile => params[:profile], :page => @page.explode_path, :view => params[:view]
   end
 
+  def per_page
+    12
+  end
 end
