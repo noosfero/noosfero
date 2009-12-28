@@ -1,4 +1,4 @@
-Given /^the following users$/ do |table|
+Given /^the following users?$/ do |table|
   # table is a Cucumber::Ast::Table
   table.hashes.each do |item|
     person_data = item.dup
@@ -7,7 +7,7 @@ Given /^the following users$/ do |table|
   end
 end
 
-Given /^the following (communities|enterprises)$/ do |kind,table|
+Given /^the following (community|communities|enterprises?)$/ do |kind,table|
   klass = kind.singularize.camelize.constantize
   table.hashes.each do |row|
     owner = row.delete("owner")
