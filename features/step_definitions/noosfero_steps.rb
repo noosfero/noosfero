@@ -97,7 +97,7 @@ Given /^"(.+)" is a member of "(.+)"$/ do |person,profile|
   Profile.find_by_name(profile).add_member(Profile.find_by_name(person))
 end
 
-Given /^"(.+)" should be a member of "(.+)"$/ do |person,profile|
+Then /^"(.+)" should be a member of "(.+)"$/ do |person,profile|
   Profile.find_by_name(profile).members.should include(Person.find_by_name(person))
 end
 
