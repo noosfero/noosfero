@@ -1,2 +1,2 @@
-default: --tags ~@selenium --exclude features/support/selenium.rb
-selenium: --tags @selenium
+default: --tags ~@selenium,~@wip --exclude features/support/selenium.rb
+selenium: --tags @selenium,~@wip
