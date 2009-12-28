@@ -20,7 +20,7 @@ module SearchHelper
 
   def display_results(use_map = true)
 
-    unless use_map && GoogleMaps.enabled?
+    unless use_map && GoogleMaps.enabled?(environment.default_hostname)
       return render(:partial => 'display_results')
     end
 

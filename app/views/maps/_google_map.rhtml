@@ -1,4 +1,4 @@
-<%= content_tag('script', '', :src => GoogleMaps.api_url, :type => 'text/javascript') %>
+<%= content_tag('script', '', :src => GoogleMaps.api_url(profile.default_hostname), :type => 'text/javascript') %>
 
 <script type="text/javascript" >
   var geocoder;

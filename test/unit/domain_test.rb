@@ -100,4 +100,14 @@ class DomainTest < Test::Unit::TestCase
     assert_equal false, Domain.hosting_profile_at('example.com')
   end
 
+  should 'not crash if key is not defined' do
+    domain = fast_create(Domain, :name => 'domain-without-key')
+    assert_nil domain.google_maps_key
+  end
+
+  should 'return key if defined' do
+    domain = fast_create(Domain, :name => 'domain-with-key', :google_maps_key => 'DOMAIN_KEY')
+    assert_equal 'DOMAIN_KEY', domain.google_maps_key
+  end
+
 end

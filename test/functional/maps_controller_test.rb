@@ -45,4 +45,13 @@ class MapsControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'input', :attributes => { :name => 'profile_data[city]' }
   end
 
+  should 'add script tag for google maps' do
+    domain = fast_create(Domain, :name => 'domain-with-key', :google_maps_key => 'DOMAIN_KEY')
+    profile.preferred_domain = domain
+    profile.save!
+
+    get 'edit_location', :profile => profile.identifier
+
+    assert_tag :tag => 'script', :attributes => { :src => 'http://maps.google.com/maps?file=api&amp;v=2&amp;key=DOMAIN_KEY'}
+  end
 end

@@ -1,7 +1,6 @@
 module Noosfero
   PROJECT = 'noosfero'
-  VERSION = '0.21.1'
-  SVN_ROOT = 'https://svn.colivre.coop.br/svn/noosfero'
+  VERSION = '0.21.3'
 
   def self.pattern_for_controllers_in_directory(dir)
     disjunction = controllers_in_directory(dir).join('|')
