@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.21.0\n"
 "POT-Creation-Date: 2009-12-11 16:30-0300\n"
-"PO-Revision-Date: 2009-12-11 16:31-0300\n"
+"PO-Revision-Date: 2009-12-28 19:12-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -3223,7 +3223,7 @@ msgstr "Minha página inicial"
 
 #: app/views/shared/user_menu.rhtml:19
 msgid "Go to your home page."
-msgstr "Vá à sua página inicial."
+msgstr "Ir para sua página inicial."
 
 #: app/views/shared/user_menu.rhtml:23 lib/zen3_terminology.rb:69
 msgid "My groups"
