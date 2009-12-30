@@ -100,4 +100,33 @@ class AddFriendTest < ActiveSupport::TestCase
     end
   end
 
+  should 'limit "group for person" number of characters' do
+    #Max value is 150
+    big_word = 'a' * 155
+    task = AddFriend.new
+
+    task.group_for_person = big_word
+    task.valid?
+    assert task.errors[:group_for_person]
+
+    task.group_for_person = 'short name'
+    task.valid?
+    assert !task.errors[:group_for_person]
+  end
+
+  should 'limit "group for friend" number of characters' do
+    #Max value is 150
+    big_word = 'a' * 155
+    task = AddFriend.new
+
+    task.group_for_friend = big_word
+    task.valid?
+    assert task.errors[:group_for_friend]
+
+    task.group_for_friend = 'short name'
+    task.valid?
+    assert !task.errors[:group_for_friend]
+  end
+
+
 end
