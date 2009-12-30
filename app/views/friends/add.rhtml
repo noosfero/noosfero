@@ -15,7 +15,7 @@
 
   <div>
     <%= __('Classify your new friend %s: ') % @friend.name %>
-    <%= text_field_with_local_autocomplete('group', profile.suggested_friend_groups) %>
+    <%= text_field_with_local_autocomplete('group', profile.suggested_friend_groups, :maxlength => 150) %>
     <p>
     <%= _('Suggestions: %s') % profile.suggested_friend_groups.join(', ') %>
     </p>

@@ -40,6 +40,7 @@ Feature: publish article
     And I follow "Spread"
     And I check "Sample Community"
     And I press "Publish"
+    And I am not logged in
     And I am logged in as "mariasilva"
     And "Maria Silva" is a member of "Sample Community"
     And I am on Maria Silva's control panel

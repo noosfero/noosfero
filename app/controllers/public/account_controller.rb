@@ -5,6 +5,7 @@ class AccountController < ApplicationController
   require_ssl :except => [ :login_popup, :logout_popup, :wizard, :profile_details ]
 
   before_filter :login_required, :only => [:activation_question, :accept_terms, :activate_enterprise]
+  before_filter :redirect_if_logged_in, :only => [:login, :signup]
 
   # say something nice, you goof!  something sweet.
   def index
@@ -288,6 +289,12 @@ class AccountController < ApplicationController
       redirect_back_or_default(user.admin_url)
     else
       redirect_back_or_default(:controller => 'home')
+    end
+  end
+
+  def redirect_if_logged_in
+    if logged_in?
+      go_to_initial_page
     end
   end
 

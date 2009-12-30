@@ -36,6 +36,7 @@ class AccountControllerTest < Test::Unit::TestCase
   should 'redirect to where user was on login' do
     @request.env["HTTP_REFERER"] = '/bli'
     u = new_user
+    @controller.stubs(:logged_in?).returns(false)
     post :login, :user => {:login => 'quire', :password => 'quire'}
 
     assert_redirected_to '/bli'
@@ -283,6 +284,7 @@ class AccountControllerTest < Test::Unit::TestCase
     assert_difference User, :count do
       new_user(:login => 'user1', :email => 'user@example.com')
       assert assigns(:user).valid?
+      @controller.stubs(:logged_in?).returns(false)
       new_user(:login => 'user2', :email => 'user@example.com')
       assert assigns(:user).errors.on(:email)
     end

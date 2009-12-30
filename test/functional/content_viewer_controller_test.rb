@@ -804,6 +804,21 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_template 'slideshow'
   end
 
+  should 'display all images from profile in the slideshow' do
+    @controller.stubs(:per_page).returns(1)
+    folder = Folder.create!(:name => 'gallery', :profile => profile, :view_as => 'image_gallery')
+
+    fixture_filename = '/files/other-pic.jpg'
+    filename = RAILS_ROOT + '/test/fixtures' + fixture_filename
+    system('echo "image for test" | convert -background yellow -page 32x32 text:- %s' % filename)
+    image1 = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload(fixture_filename, 'image/jpg'))
+
+    image2 = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    get :view_page, :profile => profile.identifier, :page => folder.explode_path, :slideshow => true
+
+    assert_equal 2, assigns(:images).size
+  end
+
   should 'display source from article' do
     profile.articles << TextileArticle.new(:name => "Article one", :profile => profile, :source => 'http://www.original-source.invalid')
     get :view_page, :profile => profile.identifier, :page => ['article-one']
