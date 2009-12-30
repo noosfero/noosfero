@@ -113,7 +113,7 @@ class TaskMailerTest < Test::Unit::TestCase
 
     task.expects(:message).returns('Hello <friend>, <user> invite you, please follow this link: <url>')
     task.expects(:friend_email).returns('friend@exemple.com')
-    task.expects(:friend_name).returns('friend name')
+    task.expects(:friend_name).returns('friend name').at_least_once
 
     requestor = mock()
     requestor.expects(:name).returns('my name')

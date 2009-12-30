@@ -22,15 +22,15 @@ class TaskMailer < ActionMailer::Base
       :target => task.target.name,
       :message => msg,
       :environment => task.requestor.environment.name,
-      :url => url_for(:host => task.requestor.environment.default_hostname, :controller => 'home'),
+      :url => generate_environment_url(task, :controller => 'home'),
       :tasks_url => url_for_tasks_list
   end
 
   def invitation_notification(task)
     msg = task.message
     msg = msg.gsub(/<user>/, task.requestor.name)
-    msg = msg.gsub(/<friend>/, task.friend_name)
-    msg = msg.gsub(/<url>/, url_for(:host => task.requestor.environment.default_hostname, :controller => 'account', :action => 'signup', :invitation_code => task.code))
+    msg = msg.gsub(/<friend>/, task.friend_name.blank? ? task.friend_email : task.friend_name)
+    msg = msg.gsub(/<url>/, generate_environment_url(task, :controller => 'account', :action => 'signup', :invitation_code => task.code))
 
     recipients task.friend_email
 
@@ -64,6 +64,10 @@ class TaskMailer < ActionMailer::Base
 
   def self.generate_from(task)
     "#{task.requestor.environment.name} <#{task.requestor.environment.contact_email}>"
+  end
+
+  def generate_environment_url(task, url = {})
+    url_for(Noosfero.url_options.merge(:host => task.requestor.environment.default_hostname).merge(url))
   end
 
 end
