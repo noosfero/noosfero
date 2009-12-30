@@ -15,3 +15,10 @@ Feature: signup
     And I press "Sign up"
     Then I should see "Thanks for signing up!"
 
+  Scenario: be redirected if user goes to signup page and is logged
+    Given the following users
+      | login | name |
+      | joaosilva | Joao Silva |
+    Given I am logged in as "joaosilva"
+    And I go to signup page
+    Then I should be on Joao Silva's control panel

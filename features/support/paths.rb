@@ -29,6 +29,9 @@ module NavigationHelpers
     when /^login page$/
       '/account/login'
 
+    when /^signup page$/
+      '/account/signup'
+
     when /^(.*)'s control panel$/
       '/myprofile/%s' % Profile.find_by_name($1).identifier
 

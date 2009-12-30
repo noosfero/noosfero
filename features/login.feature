@@ -39,3 +39,8 @@ Feature: login
       | Password | 123456 |
     When I press "Log in"
     Then I should be on Joao Silva's control panel
+
+  Scenario: be redirected if user goes to login page and is logged
+    Given I am logged in as "joaosilva"
+    And I go to login page
+    Then I should be on Joao Silva's control panel
