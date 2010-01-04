@@ -52,7 +52,6 @@ class ContentViewerController < ApplicationController
 
     # At this point the page will be showed
     @page.hit
-    store_location
 
     unless @page.mime_type == 'text/html' || (@page.image? && params[:view])
       headers['Content-Type'] = @page.mime_type
@@ -66,6 +65,9 @@ class ContentViewerController < ApplicationController
       render :text => data, :layout => false
       return
     end
+
+    # store location if the page is not a download
+    store_location
 
     @form_div = params[:form]
 
