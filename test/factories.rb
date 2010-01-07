@@ -216,7 +216,16 @@ module Noosfero::Factory
   ###############################################
 
   def defaults_for_article
-    { :name => 'My article ' + factory_num_seq.to_s }
+    name = 'My article ' + factory_num_seq.to_s
+    { :name => name, :slug => name.to_slug, :path => name.to_slug }
+  end
+
+  ###############################################
+  # Folder
+  ###############################################
+
+  def defaults_for_folder
+    defaults_for_article
   end
 
   ###############################################

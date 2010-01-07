@@ -1,0 +1,15 @@
+.slideshow-block .slideshow-container {
+  margin: auto;
+}
+
+.slideshow-block .slideshow-container div {
+  width: 130px;
+  height: 130px;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  margin: auto;
+}
+
+.msie .slideshow-block .slideshow-container div {
+  cursor: pointer;
+}

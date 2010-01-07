@@ -816,4 +816,21 @@ class ArticleTest < Test::Unit::TestCase
     assert_not_includes profile.articles.in_category(category_without_articles), article_in_category
   end
 
+  should 'has external_link attr' do
+    assert_nothing_raised NoMethodError do
+      Article.new(:external_link => 'http://some.external.link')
+    end
+  end
+
+  should 'validates format of external_link' do
+    article = Article.new(:external_link => 'http://invalid-url')
+    article.valid?
+    assert_not_nil article.errors[:external_link]
+  end
+
+  should 'put http in external_link' do
+    article = Article.new(:external_link => 'url.without.http')
+    assert_equal 'http://url.without.http', article.external_link
+  end
+
 end
