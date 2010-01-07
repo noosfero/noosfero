@@ -15,7 +15,8 @@ class GoogleMaps
     end
 
     def enabled?(domain)
-      !Domain.find_by_name(domain).google_maps_key.nil?
+      domain = Domain.find_by_name(domain)
+      domain ? !domain.google_maps_key.nil? : false
     end
 
     def key(domain)
