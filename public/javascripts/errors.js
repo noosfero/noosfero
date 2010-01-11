@@ -4,6 +4,9 @@ function display_error_message(language) {
   }
   element = $(language);
   if (!element) {
+    element = $(language.replace(/_.*$/, ''));
+  }
+  if (!element) {
     element = $('en');
   }
   $$('.message').each(function(item) { item.hide() });
