@@ -5,10 +5,10 @@
 
 .controller-search #content .no-boxes h1 {
   font-variant: small-caps;
-  color: #05B; /*6A0*/
+  color: #555753;
   font-size: 18px;
   text-align: left;
-  border-bottom: 2px solid #08C; /*8C0*/
+  border-bottom: 2px solid #2e3436; /*8C0*/
 }
 
 .query {
@@ -36,10 +36,6 @@
 
 .controller-search #content .search_form h3 {
   display: none;
-  /*
-  color: #AAA;
-  margin: 0px;
-  */
 }
 
 .controller-search #content .search_form h4 {
@@ -70,18 +66,18 @@
 }
 
 .controller-search a {
-  color: #6A0;
+  color: #555753;
 }
 
 #search-results h3 {
-  color: #05B; /*6A0*/
+  color: #555753; /*6A0*/
   font-variant: small-caps;
   margin: 0px;
 }
 
 .search-results-innerbox {
   border: 1px solid #CCC;
-  border-top: 2px solid #08C; /*8C0*/
+  border-top: 2px solid #2e3436;
   border-bottom: none;
   background: url(imgs/comment-bg-S.png) 0% 100% repeat-x;
 }
@@ -103,7 +99,7 @@
 }
 #content .search-results-box a.see-more:hover {
   background: transparent url(imgs/arrow-right-p.png) 100% 55% no-repeat;
-  color: #08C;
+  color: #888;
 }
 
 
