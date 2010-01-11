@@ -1,0 +1,58 @@
+/******** controller-friends action-friends-index ********/
+
+.action-friends-index .profile-list li,
+.common-profile-list-block .vcard a {
+  border: 1px solid transparent;
+}
+
+.action-friends-index .profile-list li:hover,
+.common-profile-list-block .vcard a:hover {
+  border: 1px solid #CCC;
+  -moz-border-radius: 5px;
+  background: #EEE;
+  text-decoration: none;
+}
+
+
+/******** controller-profile action-profile-index ********/
+
+table.profile th {
+  font-size: 15px;
+  text-align: left;
+}
+
+/**** controller-memberships action-memberships-index ****/
+
+#memberships-index li {
+  background-color: #FFF;
+  border: 1px solid #EEE;
+  -moz-border-radius: 9px;
+  margin-bottom: 10px;
+}
+
+#memberships-index li .vcard a.profile_link.url {
+  border: 1px solid transparent;
+  background-color: #FFF;
+}
+
+#memberships-index li .vcard a.profile_link.url:hover {
+  border: 1px solid  #CCC;
+  background-color: #EEE;
+  -moz-border-radius: 4px;
+}
+
+/************************** Control Panel ****************************/
+
+.control-panel a,
+.control-panel a:visited {
+  color: #000;
+  font-weight: bold;
+  background-position: 2px 50%;
+}
+.control-panel a:hover {
+  text-decoration: none;
+  color: #2e3436;
+  background-color: #d3d7cf;
+}
+
+

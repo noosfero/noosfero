@@ -1,0 +1,17 @@
+#online-doc-navigation h1 {
+  font-variant: small-caps;
+  color: #AAA;
+  border-bottom-color: #AAA;
+}
+
+#online-doc h1,
+#online-doc h2,
+#online-doc h3,
+#online-doc h4,
+#online-doc h5,
+#online-doc h6
+{
+  font-variant: small-caps;
+  border-bottom: 2px solid #000;
+  text-align: left;
+}

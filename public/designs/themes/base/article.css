@@ -1,0 +1,211 @@
+#article a {
+  text-decoration: underline;
+}
+
+hr.pre-posts, hr.sep-posts {
+  display: none;
+}
+
+.blog-post {
+  background: url(imgs/blog-sep.png) repeat-x;
+  padding: 15px 20px 5px 20px;
+  margin: 0px -19px;
+}
+
+.main-block .article-body {
+  overflow: visible;
+}
+
+#article-actions {
+  top: -18px;
+}
+
+#article-actions a.button,
+#article-actions a.button:hover {
+  border: none;
+  background-color: transparent;
+  color: #888;
+}
+#article-actions a.button:hover {
+  color: #555753;
+}
+
+#bt_addThis {
+  position: absolute;
+  top: -15px;
+  right: 0px;
+}
+
+#content .blog-post .title {
+  border-bottom-color: #CCC;
+}
+#content .blog-post .title a {
+  font-weight: bold;
+  color: #000;
+  text-decoration: none;
+}
+
+#content .main-block .created-at {
+  text-align: left;
+  color: #AAA;
+}
+#content .main-block .created-at a {
+  color: #AAA;
+  text-decoration: none;
+}
+#content .main-block .created-at a:hover {
+  color: #555;
+  text-decoration: underline;
+}
+
+#article-tags {
+  float: right;
+  color: #FFF;
+}
+#article-tags a {
+  text-decoration: none;
+  padding: 0px 2px;
+  -moz-border-radius: 3px;
+  background: #BBB;
+  color: #FFF;
+}
+#article-tags a:hover {
+  background: #555753;
+}
+
+#article-hits {
+  text-align: left;
+  color: #AAA;
+}
+
+#article-parent {
+  display: none;
+}
+
+.msie .post_comment_box {
+  padding-top: 15px;
+}
+
+.post_comment_box.closed h4 {
+  -moz-border-radius: 4px;
+}
+
+.post_comment_box.opened h4 {
+  display: block;
+  background: #FFF;
+  padding: 0px;
+  font-variant: small-caps;
+  color: #555753;
+  font-size: 14px;
+  text-align: left;
+  border-bottom: 2px solid #888a85;
+}
+
+.post_comment_box.opened {
+  border: none;
+  background: #FFF;
+}
+
+
+/**************************** Comments *******************************/
+
+#content .comments h3 {
+  font-variant: small-caps;
+  color: #555753;
+  font-size: 14px;
+  text-align: left;
+  border-bottom: 2px solid #888a85;
+}
+
+.article-comment {
+  border: none;
+  background: #FFF;
+}
+
+.comment-logged-out h4 {
+  color: #888;
+}
+
+#content .comment-picture {
+  text-align: left;
+  text-decoration: none;
+  position: relative;
+}
+
+.comment-wrapper-1 {
+  margin-left: 60px;
+  background: url(imgs/comment-bg-N.png)    0%   0% repeat-x;
+}
+.comment-wrapper-2 {
+  background: url(imgs/comment-bg-S.png)    0% 100% repeat-x;
+}
+.comment-wrapper-3 {
+  background: url(imgs/comment-bg-L.png)  100%   0% repeat-y;
+}
+.comment-wrapper-4 {
+  background: url(imgs/comment-bg-O.png)    0%   0% repeat-y;
+}
+.comment-wrapper-5 {
+  background: url(imgs/comment-bg-SL.png) 100% 100% no-repeat;
+}
+.comment-wrapper-6 {
+  background: url(imgs/comment-bg-SO.png)   0% 100% no-repeat;
+}
+.comment-wrapper-7 {
+  background: url(imgs/comment-bg-NL.png) 100%   0% no-repeat;
+}
+.comment-wrapper-8 {
+  background: url(imgs/comment-bg-NO.png)   0%   0% no-repeat;
+}
+
+.comment-from-owner .comment-wrapper-1 {
+  background: #cecece url(imgs/comment-owner-bg-N.png) repeat-x;
+}
+.comment-from-owner .comment-wrapper-2 {
+  background: url(imgs/comment-owner-bg-S.png)    0% 100% repeat-x;
+}
+.comment-from-owner .comment-wrapper-3 {
+  background: url(imgs/comment-owner-bg-L.png)  100%   0% repeat-y;
+}
+.comment-from-owner .comment-wrapper-4 {
+  background: url(imgs/comment-owner-bg-O.png)    0%   0% repeat-y;
+}
+.comment-from-owner .comment-wrapper-5 {
+  background: url(imgs/comment-owner-bg-SL.png) 100% 100% no-repeat;
+}
+.comment-from-owner .comment-wrapper-6 {
+  background: url(imgs/comment-owner-bg-SO.png)   0% 100% no-repeat;
+}
+.comment-from-owner .comment-wrapper-7 {
+  background: url(imgs/comment-owner-bg-NL.png) 100%   0% no-repeat;
+}
+.comment-from-owner .comment-wrapper-8 {
+  background: url(imgs/comment-owner-bg-NO.png)   0%   0% no-repeat;
+}
+
+
+.comment-created-at {
+  position: relative;
+  padding-right: 10px;
+}
+.comment-from-owner .comment-created-at {
+  color: #333;
+}
+
+
+.article-comment .button-bar {
+  position: relative;
+  top: 3px;
+  right: 1px;
+  z-index: 10px;
+}
+.article-comment .button-bar a {
+  position: relative;
+}
+
+.comment-details {
+  margin: 0px;
+  padding: 7px 12px 3px 26px;
+}
+
+
