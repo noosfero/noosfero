@@ -25,8 +25,12 @@
   display: block;
 }
 
+.profile-info-block a {
+  font-size: smaller;
+}
+
 .profile-info-picture img {
-  border: 1px solid #204A87;
+  border: none;
   padding: 2px;
   background: #FFF;
 }
@@ -111,6 +115,6 @@
 #content .profile-info-block ul li {
   list-style: none;
   list-style-image: none;
-  margin: 0px;
+  margin: 0px 0px 5px 0px;
   padding: 2px;
 }

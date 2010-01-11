@@ -368,6 +368,10 @@ module ApplicationHelper
     theme_include('footer')
   end
 
+  def theme_extra_navigation
+    theme_include('navigation')
+  end
+
   def is_testing_theme
     !@controller.session[:theme].nil?
   end

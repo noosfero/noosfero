@@ -6,7 +6,7 @@
     <!--<meta http-equiv="refresh" content="1"/>-->
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="description" content="<%= @environment.name %>" />
-    <link rel="shortcut icon" href="<%= '/designs/themes/' + current_theme + '/imgs/favicon.ico' %>" type="image/x-icon" />
+    <link rel="shortcut icon" href="<%= '/designs/themes/' + current_theme + '/favicon.ico' %>" type="image/x-icon" />
     <%= noosfero_javascript %>
     <%= import_blocks_stylesheets %>
     <%= import_controller_stylesheets %>
@@ -96,8 +96,7 @@
                             '/assets/people', :id=>'people'           %></li>
             <li><%= link_to '<span class="icon-menu-community">' + _('Communities') + '</span>',
                             '/assets/communities', :id=>'communities' %></li>
-            <li><%= link_to '<span class="icon-menu-events">' + 'Agenda Livre' + '</span>',
-                            '/assets/events', :id=>'events'           %></li>
+            <%= theme_extra_navigation %>
           </ul>
           <div id="navigation-end"></div>
         </div><!-- end id="navigation" -->

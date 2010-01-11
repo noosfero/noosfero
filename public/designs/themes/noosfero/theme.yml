@@ -1,3 +1,2 @@
-title: "Noosfero"
-description: "Noosfero default theme"
-js: [ ]
+theme: "Noosfero default theme"
+layout: "application-ng"

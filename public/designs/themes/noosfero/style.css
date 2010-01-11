@@ -1,0 +1,5 @@
+@import url(../base/style.css);
+
+#site-title {
+  background: url(images/logo-noosfero.png) no-repeat;
+}

@@ -9,21 +9,18 @@ Modified : February 1, 2006
 
 - - - - - - - - - - - - - - - - - - - - - */
 
-#lightbox{
-	display: none;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	z-index: 300;
-	width: 500px;
-	margin: -200px 0 0 -250px;
-	border: 10px solid #000;
-	text-align: left;
+#lightbox {
+  display: none;
+  position: absolute;
+  top: 150px;
+  left: 50%;
+  z-index: 300;
+  width: 500px;
+  margin-left: -265px;
+  border: 1px solid #000;
+  text-align: left;
   padding: 1em;
   background: #FFF;
-}
-#lightbox[id]{
-	position:fixed;
 }
 
 #overlay{
@@ -35,9 +32,9 @@ Modified : February 1, 2006
 	height:100%;
 	z-index:200;
 	background-color:#000;
-	-moz-opacity: 0.5;
-	opacity:.50;
-	filter: alpha(opacity=50);
+	-moz-opacity: 0.75;
+	opacity:.75;
+	filter: alpha(opacity=75);
 }
 #overlay[id]{
 	position:fixed;
