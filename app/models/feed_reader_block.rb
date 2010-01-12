@@ -69,6 +69,7 @@ class FeedReaderBlock < Block
   def clear
     self.feed_items = []
     self.feed_title = nil
+    self.error_message = nil
   end
   def finish_fetch
     self.fetched_at = Time.now
