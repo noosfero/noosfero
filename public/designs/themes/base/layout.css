@@ -30,15 +30,10 @@ body, th, td, input {
   margin-top: 92px;
 }
 
-/*************************** friends *********************************/
+/*************************** language chooser ************************/
 
 #language-chooser {
-  float: right;
-  padding-top: 1px;
-}
-
-#language-chooser select {
-  font-size: 11px;
+  margin-top: 3em;
 }
 
 /*************************** friends *********************************/
