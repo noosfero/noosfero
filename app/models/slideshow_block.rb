@@ -30,7 +30,7 @@ class SlideshowBlock < Block
       end
     else
       lambda do
-        content_tag('em', _('Please, select one gallery to display the images.'))
+        content_tag('em', _('Please select a gallery to display its images.'))
       end
     end
   end
