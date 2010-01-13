@@ -538,6 +538,21 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_match(/(\?|&)size=50(&|$)/, url)
   end
 
+  should 'use theme passed via param when in development mode' do
+    stubs(:environment).returns(Environment.new(:theme => 'environment-theme'))
+    ENV.stubs(:[]).with('RAILS_ENV').returns('development')
+    self.stubs(:params).returns({:theme => 'my-theme'})
+    assert_equal 'my-theme', current_theme
+  end
+
+  should 'not use theme passed via param when in production mode' do
+    stubs(:environment).returns(Environment.new(:theme => 'environment-theme'))
+    ENV.stubs(:[]).with('RAILS_ENV').returns('production')
+    self.stubs(:params).returns({:theme => 'my-theme'})
+    stubs(:profile).returns(Profile.new(:theme => 'profile-theme'))
+    assert_equal 'profile-theme', current_theme
+  end
+
   protected
 
   def url_for(args = {})

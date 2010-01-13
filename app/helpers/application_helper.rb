@@ -333,6 +333,8 @@ module ApplicationHelper
           if ENV['RAILS_ENV'] == 'development' && environment.theme == 'random'
             @random_theme ||= Dir.glob('public/designs/themes/*').map { |f| File.basename(f) }.rand
             @random_theme
+          elsif ENV['RAILS_ENV'] == 'development' && params[:theme]
+            params[:theme]
           else
             if profile
               profile.theme
