@@ -1,1 +1,1 @@
-task :default => [:test, :features]
+task :default => [:test, :cucumber]
