@@ -54,7 +54,8 @@ Feature: create community
     And I choose "Approve"
     When I press "Ok!"
     Then I should not see "admin_user wants to create community Community for approval"
-    When I follow "My groups"
+    When I follow "Control panel"
+    And I follow "Manage my groups"
     Then I should see "Community for approval"
 
   Scenario: environment admin rejects new community task
@@ -67,7 +68,8 @@ Feature: create community
     And I choose "Reject"
     When I press "Ok!"
     Then I should not see "admin_user wants to create community Community for approval"
-    When I follow "My groups"
+    When I follow "Control panel"
+    And I follow "Manage my groups"
     Then I should not see "Community for approval"
 
   Scenario: new community is listed after approval
@@ -75,7 +77,8 @@ Feature: create community
     And feature "admin_must_approve_new_communities" is enabled on environment
     When I create community "Community for approval"
     And I approve community "Community for approval"
-    When I follow "My groups"
+    When I follow "Control panel"
+    And I follow "Manage my groups"
     Then I should see "Community for approval"
 
   Scenario: new community is not listed after rejection
@@ -83,7 +86,8 @@ Feature: create community
     And feature "admin_must_approve_new_communities" is enabled on environment
     When I create community "Community for approval"
     And I reject community "Community for approval"
-    When I follow "My groups"
+    When I follow "Control panel"
+    And I follow "Manage my groups"
     Then I should not see "Community for approval"
 
   Scenario: environment admin accepts new community task but identifier was already taken

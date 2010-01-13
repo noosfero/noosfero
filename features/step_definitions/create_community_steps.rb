@@ -1,5 +1,6 @@
 Given /^I create community "(.+)"$/ do |community|
-  click_link('My groups')
+  click_link('Control panel')
+  click_link('Manage my groups')
   click_link('Create a new community')
   fill_in("Name", :with => community)
   click_button("Create")
