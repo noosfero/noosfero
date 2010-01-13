@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.21.0\n"
 "POT-Creation-Date: 2009-12-11 16:30-0300\n"
-"PO-Revision-Date: 2010-01-05 13:51+0100\n"
+"PO-Revision-Date: 2010-01-13 14:40-0300\n"
 "Last-Translator: Ronny Kursawe <kursawe.ronny@googlemail.com>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1706,7 +1706,6 @@ msgstr "%s möchte die Community %s erstellen."
 msgid "User \"%{user}\" just requested to create community %{community}. You have to approve or reject it through the \"Pending Validations\" section in your control panel.\n"
 msgstr ""
 "Der Nutzer  \"%{user}\" möchte die Community %{community} erstellen. Sie können im Bereich  \"Pending Validations\" diesem Anliegen zustimmen oder es ablehnen.\n"
-" "
 
 #: app/models/create_community.rb:79
 msgid ""
@@ -2978,7 +2977,6 @@ msgstr "Ihrer Anfrage, das Unternehmen %{enterprise} zu registrieren, wurde durc
 msgid "Enterprise \"%{enterprise}\" just requested to enter %{environment}. You have to approve or reject it through the \"Pending Validations\" section in your control panel.\n"
 msgstr ""
 "Das Unternehmen  \"%{enterprise}\" möchte %{environment} beitreten. Sie können im Bereich  \"Pending Validations\" diesem Anliegen zustimmen oder es ablehnen.\n"
-" "
 
 #: app/models/create_enterprise.rb:149
 msgid "The data provided by the enterprise was the following:\n"
