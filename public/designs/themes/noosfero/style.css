@@ -3,3 +3,8 @@
 #site-title {
   background: url(images/logo-noosfero.png) no-repeat;
 }
+
+.docSize-LT-800 #site-title {
+  width: 100px;
+  background: url(images/logo-noosfero-no-text.png) no-repeat;
+}

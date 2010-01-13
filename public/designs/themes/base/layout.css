@@ -160,7 +160,7 @@ body, th, td, input {
   position: absolute;
   top: 49px;
   right: 0px;
-  width: 99%;
+  width: 100%;
   text-align: right;
   background: #ced3ce url(imgs/menu-top-bg-left.png) no-repeat;
 }
@@ -341,7 +341,14 @@ div#notice {
   border: 1px solid #d3d7cf;
   -moz-border-radius: 5px;
 
+  position: absolute;
   top: 33px;
-  left: 30px;
+  left: 10px;
   margin-left: 0px;
 }
+
+.docSize-GT-900  div#notice { top: 33px; left: 1%; margin-left: 10px; }
+.docSize-GT-1000 div#notice { top: 33px; left: 2%; margin-left: 10px; }
+.docSize-GT-1100 div#notice { top: 33px; left: 3%; margin-left: 10px; }
+.docSize-GT-1200 div#notice { top: 33px; left: 4%; margin-left: 10px; }
+.docSize-GT-1300 div#notice { top: 33px; left: 5%; margin-left: 10px; }
