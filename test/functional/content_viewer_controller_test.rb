@@ -817,6 +817,8 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     get :view_page, :profile => profile.identifier, :page => folder.explode_path, :slideshow => true
 
     assert_equal 2, assigns(:images).size
+
+    File.rm_f(filename)
   end
 
   should 'display source from article' do
