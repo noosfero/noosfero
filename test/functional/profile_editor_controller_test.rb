@@ -410,10 +410,10 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
   end
 
   should 'not link to mailconf for organizations' do
-    MailConf.stubs(:enabled?).returns(true).at_least_once
+    MailConf.stubs(:enabled?).returns(true)
     org = fast_create(Organization)
     get :index, :profile => org.identifier
-    assert_no_tag :tag => 'a', :attributes => { :href => '/myprofile/testorg/mailconf' }
+    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{org.identifier}/mailconf" }
   end
 
   should 'not link to mailconf if mail not enabled' do

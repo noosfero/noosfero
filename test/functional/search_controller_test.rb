@@ -981,7 +981,7 @@ class SearchControllerTest < Test::Unit::TestCase
   should 'not display steps when searching not on wizard' do
     c1 = create_profile_with_optional_category(Community, 'a beautiful community')
     get :index, :query => 'beautiful', :find_in => [ 'communities' ]
-    assert_equal 'layouts/application', @response.layout
+    assert_match 'layouts/application', @response.layout
     assert_no_tag :tag => 'div', :attributes => {:id => 'wizard-steps'}
   end
 

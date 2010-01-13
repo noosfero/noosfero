@@ -3,6 +3,9 @@ require "#{File.dirname(__FILE__)}/../test_helper"
 class CategoriesMenuTest < ActionController::IntegrationTest
 
   def setup
+    HomeController.any_instance.stubs(:get_layout).returns('application')
+    SearchController.any_instance.stubs(:get_layout).returns('application')
+
     Category.delete_all
     @cat1 = Category.create!(:display_in_menu => true, :name => 'Food', :environment => Environment.default, :display_color => 1)
     @cat2 = Category.create!(:display_in_menu => true, :name => 'Vegetables', :environment => Environment.default, :parent => @cat1)

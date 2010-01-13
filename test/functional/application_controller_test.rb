@@ -175,6 +175,7 @@ class ApplicationControllerTest < Test::Unit::TestCase
   end
 
   should 'display only some categories in menu' do
+    @controller.stubs(:get_layout).returns('application')
     c1 = Environment.default.categories.create!(:name => 'Category 1', :display_color => 1, :parent => nil, :display_in_menu => true )
     c2 = Environment.default.categories.create!(:name => 'Category 2', :display_color => nil, :parent => c1, :display_in_menu => true )
     get :index
@@ -182,6 +183,7 @@ class ApplicationControllerTest < Test::Unit::TestCase
   end
 
   should 'not display some categories in menu' do
+    @controller.stubs(:get_layout).returns('application')
     c1 = Environment.default.categories.create!(:name => 'Category 1', :display_color => 1, :parent_id => nil, :display_in_menu => true)
     c2 = Environment.default.categories.create!(:name => 'Category 2', :display_color => nil, :parent_id => c1)
     get :index
@@ -198,16 +200,8 @@ class ApplicationControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'option', :attributes => { :value => 'it' }, :content => 'Italiano'
   end
 
-  should 'display links for select language' do
-    Noosfero.expects(:locales).returns({ 'en' => 'English', 'pt_BR' => 'Português Brasileiro', 'fr' => 'Français', 'it' => 'Italiano' }).at_least_once
-    get :index, :lang => 'en'
-    assert_no_tag :tag => 'a', :attributes => { :href => /\?lang=en/ }, :content => 'English'
-    assert_tag :tag => 'a', :attributes => { :href => /\?lang=pt_BR/ }, :content => 'Português Brasileiro'
-    assert_tag :tag => 'a', :attributes => { :href => /\?lang=fr/ }, :content => 'Français'
-    assert_tag :tag => 'a', :attributes => { :href => /\?lang=it/ }, :content => 'Italiano'
-  end
-
   should 'display link to webmail if enabled for system and for user' do
+    @controller.stubs(:get_layout).returns('application')
     login_as('ze')
     MailConf.expects(:enabled?).returns(true)
     MailConf.expects(:webmail_url).returns('http://web.mail/')
@@ -218,6 +212,7 @@ class ApplicationControllerTest < Test::Unit::TestCase
   end
 
   should 'not display link to webmail if not enabled for system' do
+    @controller.stubs(:get_layout).returns('application')
     login_as('ze')
     MailConf.expects(:enabled?).returns(false)
 
@@ -226,6 +221,7 @@ class ApplicationControllerTest < Test::Unit::TestCase
   end
 
   should 'not display link in menu to webmail if not enabled for user' do
+    @controller.stubs(:get_layout).returns('application')
     login_as('ze')
     MailConf.expects(:enabled?).returns(true)
     User.any_instance.expects(:enable_email).returns(false)
@@ -389,6 +385,7 @@ class ApplicationControllerTest < Test::Unit::TestCase
   end
 
   should 'display menu links for my environment when logged in other environment' do
+    @controller.stubs(:get_layout).returns('application')
     e = Environment.create!(:name => 'other_environment')
     e.domains << Domain.new(:name => 'other.environment')
     e.save!

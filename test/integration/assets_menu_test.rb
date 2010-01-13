@@ -3,6 +3,9 @@ require "#{File.dirname(__FILE__)}/../test_helper"
 class AssetsMenuTest < ActionController::IntegrationTest
 
   def setup
+    HomeController.any_instance.stubs(:get_layout).returns('application')
+    SearchController.any_instance.stubs(:get_layout).returns('application')
+
     parent = Category.create!(:name => "Parent Category", :environment => Environment.default, :display_color => 1)
     @category = Category.create!(:name => "Category A", :environment => Environment.default, :parent => parent)
   end

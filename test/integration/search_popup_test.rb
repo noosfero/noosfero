@@ -2,6 +2,11 @@ require "#{File.dirname(__FILE__)}/../test_helper"
 
 class SearchPopupTest < ActionController::IntegrationTest
 
+  def setup
+    HomeController.any_instance.stubs(:get_layout).returns('application')
+    SearchController.any_instance.stubs(:get_layout).returns('application')
+  end
+
   should 'link to search without category when not inside a filter' do
     get '/'
     assert_tag :tag => 'a', :attributes => { :href => '/search/popup' }
