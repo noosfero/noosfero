@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.21.0\n"
-"POT-Creation-Date: 2009-12-11 16:30-0300\n"
+"Project-Id-Version: noosfero 0.21.3\n"
+"POT-Creation-Date: 2010-01-13 13:04-0300\n"
 "PO-Revision-Date: 2009-10-26 16:20-0300\n"
 "Last-Translator: Anahit Minassian <anahit.minassian@cooperation.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1132,39 +1132,39 @@ msgid ""
 "profile to request access then."
 msgstr ""
 
-#: app/controllers/public/content_viewer_controller.rb:112
+#: app/controllers/public/content_viewer_controller.rb:115
 msgid "Comment succesfully deleted"
 msgstr "Մեկնաբանությունը հաջողությամբ հեռացված է:"
 
-#: app/controllers/public/account_controller.rb:30
+#: app/controllers/public/account_controller.rb:31
 msgid "Logged in successfully"
 msgstr "Հաջողությամբ մուտք եք գործել"
 
-#: app/controllers/public/account_controller.rb:33
+#: app/controllers/public/account_controller.rb:34
 msgid "Incorrect username or password"
 msgstr "Մասնակցի սխալ անուն կամ սխալ գաղտնաբառ"
 
-#: app/controllers/public/account_controller.rb:71
+#: app/controllers/public/account_controller.rb:72
 msgid "Thanks for signing up!"
 msgstr "Շնորհակալություն գրանցվելու համար:"
 
-#: app/controllers/public/account_controller.rb:110
+#: app/controllers/public/account_controller.rb:111
 msgid "You have been logged out."
 msgstr "Դուք համակարգից դուրս եք եկել:"
 
-#: app/controllers/public/account_controller.rb:121
+#: app/controllers/public/account_controller.rb:122
 msgid "Your password has been changed successfully!"
 msgstr "Ձեր գաղտնաբառը բարեհաջող փոխված է:"
 
-#: app/controllers/public/account_controller.rb:124
+#: app/controllers/public/account_controller.rb:125
 msgid "The supplied current password is incorrect."
 msgstr "Ներկայիս գաղտաբառը սխալ է:"
 
-#: app/controllers/public/account_controller.rb:226
+#: app/controllers/public/account_controller.rb:227
 msgid "Available!"
 msgstr ""
 
-#: app/controllers/public/account_controller.rb:229
+#: app/controllers/public/account_controller.rb:230
 msgid "Unavailable!"
 msgstr ""
 
@@ -2181,11 +2181,11 @@ msgstr ""
 msgid "tags|View all"
 msgstr "Տեսնել բոլորին"
 
-#: app/models/add_friend.rb:21 app/models/invite_friend.rb:45
+#: app/models/add_friend.rb:23 app/models/invite_friend.rb:45
 msgid "%s wants to be your friend."
 msgstr ""
 
-#: app/models/add_friend.rb:30
+#: app/models/add_friend.rb:32
 msgid ""
 "You need to login to %{system} in order to accept %{requestor} as your "
 "friend."
@@ -3024,6 +3024,10 @@ msgstr "Վավերացված է"
 msgid "domain"
 msgstr "տիրույթ"
 
+#: app/models/domain.rb:-
+msgid "Google maps key"
+msgstr ""
+
 #: app/models/domain.rb:13
 msgid ""
 "%{fn} must be composed only of lowercase latters (a to z), numbers (0 to 9) "
@@ -3535,6 +3539,11 @@ msgstr "Ներկայիս կատեգորիա"
 #: app/views/profile_members/_members_list.rhtml:6
 msgid "Actions"
 msgstr "Գործողություններ"
+
+#: app/views/cms/view.rhtml:39 app/views/cms/view.rhtml:41
+#, fuzzy
+msgid "parent folder"
+msgstr "Ներկայիս կատեգորիա"
 
 #: app/views/cms/view.rhtml:60
 msgid "Properties"
