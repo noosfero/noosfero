@@ -179,4 +179,12 @@ class CommentTest < Test::Unit::TestCase
     assert comment.url[:view]
   end
 
+  should 'not fill fields with javascript' do
+    owner = create_user('testuser').person
+    article = owner.articles.create!(:name => 'test', :body => '...')
+    javascript = "<script>alert('XSS')</script>"
+    comment = article.comments.create!(:article => article, :name => javascript, :title => javascript, :body => javascript, :email => 'cracker@test.org')
+    assert_no_match(/<script>/, comment.name)
+  end
+
 end
