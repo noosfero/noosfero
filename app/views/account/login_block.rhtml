@@ -10,30 +10,24 @@
 %>
     
     <% labelled_form_for :user, @user,
-       :html => { :help => _('If you are a registered user, enter your username and password to be authenticated.')+'<p/>'+_('To join on this environment, click on "<b>New user</b>".')+'<p/>'+_('If you forgot your password, click on "<b>I forgot my password!</b>" link.') },
        :url => login_url do |f| %>
 
-<%= f.text_field :login,
-                 :help => _('Here goes the nickname that you give on the registration.'),
-                 :onchange => 'this.value = convToValidLogin( this.value )' %>
+         <%= f.text_field :login, :onchange => 'this.value = convToValidLogin( this.value )' %>
 
-<%= f.password_field :password,
-                     :help => _('your password is personal, protect it.') %>
+         <%= f.password_field :password %>
 
       <% button_bar do %>
         <%= submit_button( 'login', _('Log in') )%>
         <%= link_to content_tag( 'span', _('New user') ),
             { :controller => 'account', :action => 'signup' },
-            :help => _('Click here to join to this environment, if you is not already an user.'),
             :class => 'button with-text icon-add' %>
       <% end %>
 
     <% end %>
 
-    <div class="forgot-passwd" help="<%= _('You can recover your password clicking on this link.') %>">
-    <%= link_to _("I forgot my password!"),
-       :controller => 'account', :action => 'forgot_password' %>
-    </div>
+    <% button_bar(:style => 'margin: 0px;') do %>
+      <%= button :help, _("I forgot my password!"), :controller => 'account', :action => 'forgot_password' %>
+    <% end %>
 
     </div>
 

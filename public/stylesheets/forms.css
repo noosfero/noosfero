@@ -10,7 +10,7 @@
 .formlabel {
   /* font-size: 11px; */
   display: block;
-  padding: 2px 5px;
+  padding: 2px 0px;
 }
 
 .formfield input,

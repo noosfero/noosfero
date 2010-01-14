@@ -1,10 +1,9 @@
 
 .login-box {
   padding: 3px 20px 8px 20px;
-  font-size: 10px;
 }
-#lightbox .login-box {
-  width: 50%;
+#TB_window .login-box {
+  width: 80%;
   margin: auto;
 }
 
@@ -26,6 +25,10 @@
   width: 99%;
 }
 
+#TB_window .login-box .formfieldline input {
+  width: 150px;
+}
+
 .login-box form {
   margin: 0px;
   padding: 0px 0px 10px 0px;
@@ -40,7 +43,7 @@
   margin: 0px;
   padding: 0px;
 }
-#lightbox .login-box h2 {
+#TB_window .login-box h2 {
   font-size: 20px;
   color: #000;
 }

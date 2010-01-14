@@ -30,11 +30,6 @@
 
 .login-box {
   padding: 0px;
-  font-size: 10px;
-}
-
-#content .login-box-content a.button {
-  font-size: 11px;
 }
 
 .login-box-content {
@@ -54,7 +49,6 @@
 
 .login-box form {
   margin: 0px;
-  padding: 0px 0px 0px 0px;
 }
 .msie7 .login-box form {
   padding: 0px 10px 0px 0px;
