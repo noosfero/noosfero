@@ -9,3 +9,28 @@
 #pagination-profiles .pagination span {
   display: inline;
 }
+
+.no-boxes {
+  margin: 0px 260px 0px 260px;
+}
+
+#content .no-boxes h1 {
+  margin: 1px 0px 1px 160px;
+}
+
+#content .no-boxes h1,
+#content .no-boxes table th {
+  text-align: left;
+}
+
+.private-profile-message {
+  font-style: italic;
+  border: 1px solid #ddd;
+  background: #ffd;
+  padding: 10px;
+}
+
+.private-profile-message,
+.private-profile-description {
+  margin: 5px 0px 5px 160px;
+}

@@ -683,11 +683,11 @@ class Environment < ActiveRecord::Base
 
   def create_templates
     pre = self.name.to_slug + '_'
-    ent_id = Enterprise.create!(:name => 'Enterprise template', :identifier => pre + 'enterprise_template', :environment => self, :public_profile => false).id
-    com_id = Community.create!(:name => 'Community template', :identifier => pre + 'community_template', :environment => self, :public_profile => false).id
+    ent_id = Enterprise.create!(:name => 'Enterprise template', :identifier => pre + 'enterprise_template', :environment => self, :visible => false).id
+    com_id = Community.create!(:name => 'Community template', :identifier => pre + 'community_template', :environment => self, :visible => false).id
     pass = Digest::MD5.hexdigest rand.to_s
     user = User.create!(:login => (pre + 'person_template'), :email => (pre + 'template@template.noo'), :password => pass, :password_confirmation => pass, :environment => self).person
-    user.public_profile = false
+    user.visible = false
     user.save!
     usr_id = user.id
     self.settings[:enterprise_template_id] = ent_id

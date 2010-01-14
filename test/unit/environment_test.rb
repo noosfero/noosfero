@@ -460,9 +460,9 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_kind_of Person, e.person_template
 
     # the templates must be private
-    assert !e.enterprise_template.public?
-    assert !e.community_template.public?
-    assert !e.person_template.public?
+    assert !e.enterprise_template.visible?
+    assert !e.community_template.visible?
+    assert !e.person_template.visible?
   end
 
   should 'set templates' do

@@ -1,8 +1,8 @@
 <% if profile.community? %>
-  <%= optional_field(profile, 'description', f.text_area(:description, :rows => 5)) %>
   <%= optional_field(profile, 'language', f.text_field(:language), only_required) %>
 <% end %>
 
+<%= optional_field(profile, 'description', f.text_area(:description, :rows => 5)) %> <!-- , :maxlength => 10 -->
 <%= optional_field(profile, 'contact_person', f.text_field(:contact_person), only_required) %>
 <%= optional_field(profile, 'contact_email', f.text_field(:contact_email), only_required) %>
 <%= optional_field(profile, 'contact_phone', f.text_field(:contact_phone), only_required) %>

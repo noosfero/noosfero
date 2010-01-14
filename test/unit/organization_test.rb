@@ -239,4 +239,13 @@ class OrganizationTest < Test::Unit::TestCase
     end
   end
 
+  should 'be closed if organization is not public' do
+    organization = fast_create(Organization)
+    assert !organization.closed
+
+    organization.public_profile = false
+    organization.save!
+
+    assert organization.closed
+  end
 end

@@ -2,7 +2,6 @@ class Community < Organization
   N_('Community')
   N_('Language')
 
-  settings_items :description
   settings_items :language
   settings_items :zip_code, :city, :state, :country
 
@@ -28,7 +27,6 @@ class Community < Organization
     state
     country
     zip_code
-    description
     language
   ]
 

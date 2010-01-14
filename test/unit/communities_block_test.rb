@@ -30,19 +30,19 @@ class CommunitiesBlockTest < Test::Unit::TestCase
     owner = mock
     block.expects(:owner).at_least_once.returns(owner)
 
-    member1 = mock; member1.stubs(:id).returns(1); member1.stubs(:public_profile).returns(true)
-    member2 = mock; member2.stubs(:id).returns(2); member2.stubs(:public_profile).returns(true)
-    member3 = mock; member3.stubs(:id).returns(3); member3.stubs(:public_profile).returns(true)
+    community1 = mock; community1.stubs(:id).returns(1); community1.stubs(:visible).returns(true)
+    community2 = mock; community2.stubs(:id).returns(2); community2.stubs(:visible).returns(true)
+    community3 = mock; community3.stubs(:id).returns(3); community3.stubs(:visible).returns(true)
 
-    owner.expects(:communities).returns([member1, member2, member3])
+    owner.expects(:communities).returns([community1, community2, community3])
     
     block.profile_finder.expects(:pick_random).with(3).returns(2)
     block.profile_finder.expects(:pick_random).with(2).returns(0)
 
-    Profile.expects(:find).with(3).returns(member3)
-    Profile.expects(:find).with(1).returns(member1)
+    Profile.expects(:find).with(3).returns(community3)
+    Profile.expects(:find).with(1).returns(community1)
 
-    assert_equal [member3, member1], block.profiles
+    assert_equal [community3, community1], block.profiles
   end
 
   should 'link to all communities of profile' do
@@ -72,28 +72,43 @@ class CommunitiesBlockTest < Test::Unit::TestCase
     assert_equal '', block.footer
   end
 
-  should 'not list non-public communities' do
+  should 'list non-public communities' do
     user = create_user('testuser').person
 
-    public_community = Community.create!(:name => 'test community 1', :identifier => 'comm1', :environment => Environment.default)
+    public_community = fast_create(Community, :environment_id => Environment.default.id)
     public_community.add_member(user)
 
-    private_community = Community.create!(:name => 'test community 2', :identifier => 'comm2', :environment => Environment.default, :public_profile => false)
+    private_community = fast_create(Community, :environment_id => Environment.default.id, :public_profile => false)
     private_community.add_member(user)
 
     block = CommunitiesBlock.new
     block.expects(:owner).at_least_once.returns(user)
 
-    assert_equal [public_community], block.profiles
+    assert_equivalent [public_community, private_community], block.profiles
+  end
+
+  should 'not list non-visible communities' do
+    user = create_user('testuser').person
+
+    visible_community = fast_create(Community, :environment_id => Environment.default.id)
+    visible_community.add_member(user)
+
+    not_visible_community = fast_create(Community, :environment_id => Environment.default.id, :visible => false)
+    not_visible_community.add_member(user)
+
+    block = CommunitiesBlock.new
+    block.expects(:owner).at_least_once.returns(user)
+
+    assert_equal [visible_community], block.profiles
   end
 
   should 'count number of owner communities' do
     user = create_user('testuser').person
 
-    community1 = Community.create!(:name => 'test community 1', :identifier => 'comm1', :environment => Environment.default, :public_profile => true)
+    community1 = fast_create(Community, :environment_id => Environment.default.id, :visible => true)
     community1.add_member(user)
 
-    community2 = Community.create!(:name => 'test community 2', :identifier => 'comm2', :environment => Environment.default, :public_profile => true)
+    community2 = fast_create(Community, :environment_id => Environment.default.id, :visible => true)
     community2.add_member(user)
 
     block = CommunitiesBlock.new
@@ -102,14 +117,29 @@ class CommunitiesBlockTest < Test::Unit::TestCase
     assert_equal 2, block.profile_count
   end
 
-  should 'not count non-public profile communities' do
+  should 'count non-public profile communities' do
     user = create_user('testuser').person
 
-    community_public = Community.create!(:name => 'tcommunity 1', :identifier => 'comm1', :environment => Environment.default, :public_profile => true)
+    community_public = fast_create(Community, :environment_id => Environment.default.id, :public_profile => true)
     community_public.add_member(user)
 
-    community_private = Community.create!(:name => ' community 2', :identifier => 'comm2', :environment => Environment.default, :public_profile => false)
+    community_private = fast_create(Community, :environment_id => Environment.default.id, :public_profile => false)
     community_private.add_member(user)
+
+    block = CommunitiesBlock.new
+    block.expects(:owner).at_least_once.returns(user)
+
+    assert_equal 2, block.profile_count
+  end
+
+  should 'not count non-visible profile communities' do
+    user = create_user('testuser').person
+
+    visible_community = Community.create!(:name => 'tcommunity 1', :identifier => 'comm1', :environment => Environment.default, :visible => true)
+    visible_community.add_member(user)
+
+    not_visible_community = Community.create!(:name => ' community 2', :identifier => 'comm2', :environment => Environment.default, :visible => false)
+    not_visible_community.add_member(user)
 
     block = CommunitiesBlock.new
     block.expects(:owner).at_least_once.returns(user)
@@ -117,10 +147,21 @@ class CommunitiesBlockTest < Test::Unit::TestCase
     assert_equal 1, block.profile_count
   end
 
-  should 'not count non-public environment communities' do
+  should 'count non-public environment communities' do
     community_public = Community.create!(:name => 'tcommunity 1', :identifier => 'comm1', :environment => Environment.default, :public_profile => true)
 
     community_private = Community.create!(:name => ' community 2', :identifier => 'comm2', :environment => Environment.default, :public_profile => false)
+
+    block = CommunitiesBlock.new
+    block.expects(:owner).at_least_once.returns(Environment.default)
+
+    assert_equal 2, block.profile_count
+  end
+
+  should 'not count non-visible environment communities' do
+    visible_community = Community.create!(:name => 'tcommunity 1', :identifier => 'comm1', :environment => Environment.default, :visible => true)
+
+    not_visible_community = Community.create!(:name => ' community 2', :identifier => 'comm2', :environment => Environment.default, :visible => false)
 
     block = CommunitiesBlock.new
     block.expects(:owner).at_least_once.returns(Environment.default)

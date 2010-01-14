@@ -577,9 +577,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
   should 'deny access before trying SSL when SSL is disabled' do
     @controller.expects(:redirect_to_ssl).returns(false)
-    profile = create_user('testuser').person
-    profile.public_profile = false
-    profile.save!
+    profile = create_user('testuser', {}, :visible => false).person
 
     get :view_page, :profile => 'testuser', :page => profile.home_page.explode_path
     assert_response 403

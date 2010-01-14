@@ -1,7 +1,7 @@
 class ProfileController < PublicController
 
   needs_profile
-  before_filter :check_access_to_profile
+  before_filter :check_access_to_profile, :except => [:join, :refuse_join, :refuse_for_now, :index]
   before_filter :store_before_join, :only => [:join]
   before_filter :login_required, :only => [:join, :refuse_join, :leave]
 
@@ -9,6 +9,9 @@ class ProfileController < PublicController
 
   def index
     @tags = profile.article_tags
+    unless profile.display_info_to?(user)
+      profile.visible? ? private_profile : invisible_profile
+    end
   end
 
   def tags
@@ -112,7 +115,7 @@ class ProfileController < PublicController
 
   def check_access_to_profile
     unless profile.display_info_to?(user)
-      render_access_denied(_("Sorry, this profile was defined as private by its owner. You'll not be able to view content here unless the profile owner adds you."), _("Oops ... you cannot go ahead here"))
+      redirect_to :action => 'index'
     end
   end
 
@@ -128,6 +131,21 @@ class ProfileController < PublicController
     else
       redirect_back_or_default profile.url
     end
+  end
+
+  def private_profile
+    if profile.person?
+      @action = :add_friend
+      @message = _("The content here is available to %s's friends only." % profile.short_name)
+    else
+      @action = :join
+      @message = _('The contents in this community is available to members only.')
+    end
+    @no_design_blocks = true
+  end
+
+  def invisible_profile
+    render_access_denied(_("Sorry, this profile was defined as private by its owner. You'll not be able to view content here unless the profile owner adds adds you."), _("Oops ... you cannot go ahead here"))
   end
 
   def per_page

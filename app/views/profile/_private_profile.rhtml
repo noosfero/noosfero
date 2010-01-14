@@ -1,0 +1,17 @@
+<div class='profile-picture' style='float: left; margin-top: 5px'>
+  <%= profile_image(profile, :big) %>
+</div>
+
+<div class='private-profile-message'><%= @message %></div>
+<div class='private-profile-description'><%= profile.description %></div>
+
+<% button_bar do %>
+  <% if @action == :join && logged_in? %>
+    <%= lightbox_link_to content_tag('span', _('Join')), profile.join_url, :class => 'button with-text icon-add', :title => _('Join this community') %>
+  <% end %>
+  <% if @action == :add_friend && logged_in? && !user.already_request_friendship?(profile) %>
+    <%= link_to content_tag('span', __('Add friend')), user.url.merge(:controller => 'friends', :action => 'add', :id => profile.id), :class => 'button with-text icon-add' %>
+  <% end %>
+  <%= button :back, _('Go back'), :back %>
+  <%= button :home, _("Go to %s home page") % environment.name, :controller => 'home' %>
+<% end %>

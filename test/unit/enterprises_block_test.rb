@@ -29,9 +29,9 @@ class EnterprisesBlockTest < Test::Unit::TestCase
     owner = mock
     block.expects(:owner).at_least_once.returns(owner)
 
-    member1 = stub(:id => 1, :public_profile => true )
-    member2 = stub(:id => 2, :public_profile => true )
-    member3 = stub(:id => 3, :public_profile => true )
+    member1 = stub(:id => 1, :visible => true )
+    member2 = stub(:id => 2, :visible => true )
+    member3 = stub(:id => 3, :visible => true )
 
     owner.expects(:enterprises).returns([member1, member2, member3])
     
@@ -44,31 +44,58 @@ class EnterprisesBlockTest < Test::Unit::TestCase
     assert_equal [member3, member1], block.profiles
   end
 
-  should 'not list private enterprises in environment' do
-    env = Environment.create!(:name => 'test env')
-    p1 = Enterprise.create!(:name => 'test1', :identifier => 'test1', :environment_id => env.id, :public_profile => true)
-    p2 = Enterprise.create!(:name => 'test2', :identifier => 'test2', :environment_id => env.id, :public_profile => false) #private profile
+  should 'list private enterprises in environment' do
+    env = Environment.create!(:name => 'test_env')
+    enterprise1 = fast_create(Enterprise, :environment_id => env.id, :public_profile => true)
+    enterprise2 = fast_create(Enterprise, :environment_id => env.id, :public_profile => false) #private profile
     block = EnterprisesBlock.new
     env.boxes.first.blocks << block
     block.save!
     ids = block.profile_finder.ids
-    assert_includes ids, p1.id
-    assert_not_includes ids, p2.id
+    assert_includes ids, enterprise1.id
+    assert_includes ids, enterprise2.id
   end
 
-  should 'not list private enterprises in profile' do
-    person = create_user('test_user').person
-    e1 = Enterprise.create!(:name => 'test1', :identifier => 'test1', :public_profile => true)
-    role = Profile::Roles.member(e1.environment.id)
-    e1.affiliate(person, role)
-    e2 = Enterprise.create!(:name => 'test2', :identifier => 'test2', :public_profile => false) #private profile
-    e2.affiliate(person, role)
+  should 'not list invisible enterprises in environment' do
+    env = Environment.create!(:name => 'test_env')
+    enterprise1 = fast_create(Enterprise, :environment_id => env.id, :visible => true)
+    enterprise2 = fast_create(Enterprise, :environment_id => env.id, :visible => false) #invisible profile
+    block = EnterprisesBlock.new
+    env.boxes.first.blocks << block
+    block.save!
+    ids = block.profile_finder.ids
+    assert_includes ids, enterprise1.id
+    assert_not_includes ids, enterprise2.id
+  end
+
+  should 'list private enterprises in profile' do
+    person = create_user('testuser').person
+    enterprise1 = fast_create(Enterprise, :public_profile => true)
+    role = Profile::Roles.member(enterprise1.environment.id)
+    enterprise1.affiliate(person, role)
+    enterprise2 = fast_create(Enterprise, :public_profile => false)
+    enterprise2.affiliate(person, role)
     block = EnterprisesBlock.new
     person.boxes.first.blocks << block
     block.save!
     ids = block.profile_finder.ids
-    assert_includes ids, e1.id
-    assert_not_includes ids, e2.id
+    assert_includes ids, enterprise1.id
+    assert_includes ids, enterprise2.id
+  end
+
+  should 'not list invisible enterprises in profile' do
+    person = create_user('testuser').person
+    enterprise1 = fast_create(Enterprise, :visible => true)
+    role = Profile::Roles.member(enterprise1.environment.id)
+    enterprise1.affiliate(person, role)
+    enterprise2 = fast_create(Enterprise, :visible => false)
+    enterprise2.affiliate(person, role)
+    block = EnterprisesBlock.new
+    person.boxes.first.blocks << block
+    block.save!
+    ids = block.profile_finder.ids
+    assert_includes ids, enterprise1.id
+    assert_not_includes ids, enterprise2.id
   end
 
   should 'link to all enterprises for profile' do
@@ -114,14 +141,31 @@ class EnterprisesBlockTest < Test::Unit::TestCase
     assert_equal 2, block.profile_count
   end
 
-  should 'not count non-public person enterprises' do
-    user = create_user('testuser').person
+  should 'count non-public person enterprises' do
+    user = fast_create(Person)
 
-    ent1 = Enterprise.create!(:name => 'test enterprise 1', :identifier => 'ent1', :environment => Environment.default, :public_profile => true)
+    ent1 = fast_create(Enterprise, :public_profile => true)
     ent1.expects(:closed?).returns(false)
     ent1.add_member(user)
 
-    ent2 = Enterprise.create!(:name => 'test enterprise 2', :identifier => 'ent2', :environment => Environment.default, :public_profile => false)
+    ent2 = fast_create(Enterprise, :public_profile => false)
+    ent2.expects(:closed?).returns(false)
+    ent2.add_member(user)
+
+    block = EnterprisesBlock.new
+    block.expects(:owner).at_least_once.returns(user)
+
+    assert_equal 2, block.profile_count
+  end
+
+  should 'not count non-visible person enterprises' do
+    user = fast_create(Person)
+
+    ent1 = fast_create(Enterprise, :visible => true)
+    ent1.expects(:closed?).returns(false)
+    ent1.add_member(user)
+
+    ent2 = fast_create(Enterprise, :visible => false)
     ent2.expects(:closed?).returns(false)
     ent2.add_member(user)
 
@@ -131,11 +175,22 @@ class EnterprisesBlockTest < Test::Unit::TestCase
     assert_equal 1, block.profile_count
   end
 
-  should 'not count non-public environment enterprises' do
-    env = Environment.create!(:name => 'test_env')
-    ent1 = Enterprise.create!(:name => 'test enterprise 1', :identifier => 'ent1', :environment => env, :public_profile => true)
 
-    ent2 = Enterprise.create!(:name => 'test enterprise 2', :identifier => 'ent2', :environment => env, :public_profile => false)
+  should 'count non-public environment enterprises' do
+    env = fast_create(Environment)
+    ent1 = fast_create(Enterprise, :environment_id => env.id, :public_profile => true)
+    ent2 = fast_create(Enterprise, :environment_id => env.id, :public_profile => false)
+
+    block = EnterprisesBlock.new
+    block.expects(:owner).at_least_once.returns(env)
+
+    assert_equal 2, block.profile_count
+  end
+
+  should 'not count non-visible environment enterprises' do
+    env = Environment.create!(:name => 'test_env')
+    ent1 = Enterprise.create!(:name => 'test enterprise 1', :identifier => 'ent1', :environment => env, :visible => true)
+    ent2 = Enterprise.create!(:name => 'test enterprise 2', :identifier => 'ent2', :environment => env, :visible => false)
 
     block = EnterprisesBlock.new
     block.expects(:owner).at_least_once.returns(env)

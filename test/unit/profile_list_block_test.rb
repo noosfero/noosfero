@@ -42,17 +42,30 @@ class ProfileListBlockTest < Test::Unit::TestCase
     assert_kind_of String, instance_eval(&block.content)
   end
 
-  should 'not list private profiles' do
+  should 'list private profiles' do
     env = Environment.create!(:name => 'test env')
-    p1 = Profile.create!(:name => 'test1', :identifier => 'test1', :environment => env)
-    p2 = Profile.create!(:name => 'test2', :identifier => 'test2', :environment => env, :public_profile => false) # private profile
+    profile1 = fast_create(Profile, :environment_id => env.id)
+    profile2 = fast_create(Profile, :environment_id => env.id, :public_profile => false) # private profile
     block = ProfileListBlock.new
     env.boxes.first.blocks << block
     block.save!
 
     ids = block.profile_finder.ids
-    assert_includes ids, p1.id
-    assert_not_includes ids, p2.id
+    assert_includes ids, profile1.id
+    assert_includes ids, profile2.id
+  end
+
+  should 'not list invisible profiles' do
+    env = Environment.create!(:name => 'test env')
+    profile1 = fast_create(Profile, :environment_id => env.id)
+    profile2 = fast_create(Profile, :environment_id => env.id, :visible => false) # not visible profile
+    block = ProfileListBlock.new
+    env.boxes.first.blocks << block
+    block.save!
+
+    ids = block.profile_finder.ids
+    assert_includes ids, profile1.id
+    assert_not_includes ids, profile2.id
   end
 
   should 'use finders to find profiles to be listed' do
@@ -83,21 +96,40 @@ class ProfileListBlockTest < Test::Unit::TestCase
     assert_equal '0 members', block.view_title
   end
 
-  should 'count number of public profiles' do
+  should 'count number of public and private profiles' do
     env = Environment.create!(:name => 'test env')
     block = ProfileListBlock.new
     env.boxes.first.blocks << block
     block.save!
 
-    priv_p = create_user('private', {:environment => env}, {:public_profile => false})
-    pub_p = create_user('public', {:environment => env}, {:public_profile => true})
+    priv_p = fast_create(Person, :environment_id => env.id, :public_profile => false)
+    pub_p = fast_create(Person, :environment_id => env.id, :public_profile => true)
 
-    priv_c = Community.create!(:name => 'com 1', :public_profile => false, :environment => env)
-    pub_c = Community.create!(:name => 'com 2', :public_profile => true , :environment => env)
+    priv_c = fast_create(Community, :public_profile => false, :environment_id => env.id)
+    pub_c = fast_create(Community, :public_profile => true , :environment_id => env.id)
 
-    priv_e = Enterprise.create!(:name => 'ent 1', :identifier => 'ent1', :public_profile => false , :environment => env)
-    pub_e = Enterprise.create!(:name => 'ent 2', :identifier => 'ent2', :public_profile => true , :environment => env)
+    priv_e = fast_create(Enterprise, :public_profile => false , :environment_id => env.id)
+    pub_e = fast_create(Enterprise, :public_profile => true , :environment_id => env.id)
+
+    assert_equal 6, block.profile_count
+  end
+
+  should 'only count number of visible profiles' do
+    env = Environment.create!(:name => 'test env')
+    block = ProfileListBlock.new
+    env.boxes.first.blocks << block
+    block.save!
+
+    priv_p = fast_create(Person, :environment_id => env.id, :visible => false)
+    pub_p = fast_create(Person, :environment_id => env.id, :visible => true)
+
+    priv_c = fast_create(Community, :visible => false, :environment_id => env.id)
+    pub_c = fast_create(Community, :visible => true , :environment_id => env.id)
+
+    priv_e = fast_create(Enterprise, :visible => false , :environment_id => env.id)
+    pub_e = fast_create(Enterprise, :visible => true , :environment_id => env.id)
 
     assert_equal 3, block.profile_count
   end
+
 end

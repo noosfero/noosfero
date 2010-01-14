@@ -136,7 +136,7 @@ class ProfileControllerTest < Test::Unit::TestCase
   should 'show friends link to person' do
     person = create_user('person_1').person
     get :index, :profile => person.identifier
-    assert_tag :tag => 'a', :content => /Friends/, :attributes => { :href => /profile\/#{person.identifier}\/friends$/ }
+    assert_tag :tag => 'a', :content => /#{profile.friends.count}/, :attributes => { :href => /profile\/#{person.identifier}\/friends$/ }
   end
 
   should 'display tag for profile' do
@@ -223,6 +223,9 @@ class ProfileControllerTest < Test::Unit::TestCase
 
   should 'check access before displaying profile' do
     Person.any_instance.expects(:display_info_to?).with(anything).returns(false)
+    @profile.visible = false
+    @profile.save
+
     get :index, :profile => @profile.identifier
     assert_response 403
   end
@@ -297,12 +300,6 @@ class ProfileControllerTest < Test::Unit::TestCase
   should 'not display "Products" link for people' do
     get :index, :profile => 'ze'
     assert_no_tag :tag => 'a', :attributes => { :href => '/catalog/my-test-enterprise'}, :content => /Products\/Services/
-  end
-
-  should 'display "Site map" link for profiles' do
-    profile = create_user('testmapuser').person
-    get :index, :profile => profile.identifier
-    assert_tag :tag => 'a', :content => "Site map", :attributes => { :href => '/profile/testmapuser/sitemap' }
   end
 
   should 'list top level articles in sitemap' do

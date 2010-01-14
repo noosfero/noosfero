@@ -66,6 +66,7 @@ class Person < Profile
   custom_formation
   contact_phone
   contact_information
+  description
   ]
 
   def self.fields
@@ -121,6 +122,7 @@ class Person < Profile
   end
 
   def memberships(conditions = {})
+    # FIXME this should be a proper ActiveRecord relationship!
     Profile.find(
       :all, 
       :conditions => self.class.conditions_for_profiles(conditions, self), 
@@ -236,7 +238,7 @@ class Person < Profile
   has_and_belongs_to_many :refused_communities, :class_name => 'Community', :join_table => 'refused_join_community'
 
   def ask_to_join?(community)
-    return false if !community.public_profile
+    return false if !community.visible?
     return false if memberships.include?(community)
     return false if AddMember.find(:first, :conditions => {:requestor_id => self.id, :target_id => community.id})
     !refused_communities.include?(community)

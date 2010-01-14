@@ -18,7 +18,7 @@ class PeopleBlock < ProfileListBlock
 
   class Finder < ProfileListBlock::Finder
     def ids
-      Person.find(:all, :select => 'id', :conditions => { :environment_id => block.owner.id, :public_profile => true}, :limit => block.limit, :order => 'random()')
+      block.owner.people.visible.all(:limit => block.limit, :order => 'random()').map(&:id)
     end
   end
 
@@ -29,7 +29,7 @@ class PeopleBlock < ProfileListBlock
   end
 
   def profile_count
-    owner.people.count(:conditions => {:public_profile => true})
+    owner.people.visible.count
   end
 
 end

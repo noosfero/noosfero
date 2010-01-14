@@ -101,6 +101,12 @@ Then /^"(.+)" should be a member of "(.+)"$/ do |person,profile|
   Profile.find_by_name(profile).members.should include(Person.find_by_name(person))
 end
 
+When /^"(.*)" is accepted on community "(.*)"$/ do |person, community|
+  person = Person.find_by_name(person)
+  community = Community.find_by_name(community)
+  community.affiliate(person, Profile::Roles.member(community.environment.id))
+end
+
 Given /^"(.+)" is admin of "(.+)"$/ do |person, organization|
   org = Profile.find_by_name(organization)
   user = Profile.find_by_name(person)
@@ -134,4 +140,8 @@ end
 
 Given /^(.+) is member of (.+)$/ do |person, group|
   Organization[group].add_member(Person[person])
+end
+
+Given /^"(.+)" is friend of "(.+)"$/ do |person, friend|
+  Person[person].add_friend(Person[friend])
 end

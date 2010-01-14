@@ -6,6 +6,10 @@ class Organization < Profile
     closed
   end
 
+  before_save do |organization|
+    organization.closed = true if !organization.public_profile?
+  end
+
   settings_items :moderated_articles, :type => :boolean, :default => false
   def moderated_articles?
     moderated_articles
@@ -47,6 +51,7 @@ class Organization < Profile
     contact_person
     contact_phone
     contact_email
+    description
     legal_form
     economic_activity
     management_information

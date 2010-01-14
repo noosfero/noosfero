@@ -37,7 +37,7 @@ class EnvironmentStatisticsBlockTest < Test::Unit::TestCase
     assert_match(/One community/, content)
   end
   
-  should 'generate statistics but not for private profiles' do
+  should 'generate statistics including private profiles' do
     env = create(Environment)
     user1 = create_user('testuser1', :environment_id => env.id)
     user2 = create_user('testuser2', :environment_id => env.id)
@@ -49,6 +49,29 @@ class EnvironmentStatisticsBlockTest < Test::Unit::TestCase
 
     fast_create(Community, :environment_id => env.id)
     fast_create(Community, :environment_id => env.id, :public_profile => false)
+
+    block = EnvironmentStatisticsBlock.new
+    env.boxes.first.blocks << block
+
+    content = block.content
+
+    assert_match /2 enterprises/, content
+    assert_match /3 users/, content
+    assert_match /2 communities/, content
+  end
+
+  should 'generate statistics but not for not visible profiles' do
+    env = create(Environment)
+    user1 = create_user('testuser1', :environment_id => env.id)
+    user2 = create_user('testuser2', :environment_id => env.id)
+    user3 = create_user('testuser3', :environment_id => env.id)
+    p = user3.person; p.visible = false; p.save!
+
+    fast_create(Enterprise, :environment_id => env.id)
+    fast_create(Enterprise, :environment_id => env.id, :visible => false)
+
+    fast_create(Community, :environment_id => env.id)
+    fast_create(Community, :environment_id => env.id, :visible => false)
 
     block = EnvironmentStatisticsBlock.new
     env.boxes.first.blocks << block

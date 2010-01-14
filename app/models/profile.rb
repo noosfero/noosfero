@@ -53,6 +53,8 @@ class Profile < ActiveRecord::Base
 
   acts_as_taggable
 
+  named_scope :visible, :conditions => { :visible => true }
+
   # FIXME ugly workaround
   def self.human_attribute_name(attrib)
       _(self.superclass.human_attribute_name(attrib))
@@ -73,6 +75,9 @@ class Profile < ActiveRecord::Base
   acts_as_having_settings :field => :data
 
   settings_items :public_content, :type => :boolean, :default => true
+  settings_items :description
+
+  validates_length_of :description, :maximum => 550, :allow_nil => true
 
   acts_as_mappable :default_units => :kms
 
@@ -283,7 +288,7 @@ class Profile < ActiveRecord::Base
     self.save_without_validation!
   end
 
-  xss_terminate :only => [ :name, :nickname, :address, :contact_phone ]
+  xss_terminate :only => [ :name, :nickname, :address, :contact_phone, :description ]
   xss_terminate :only => [ :custom_footer, :custom_header ], :with => 'white_list'
 
   # returns the contact email for this profile.
@@ -508,15 +513,10 @@ private :generate_url, :url_options
   # returns +true+ if the given +user+ can see profile information about this
   # +profile+, and +false+ otherwise.
   def display_info_to?(user)
-    if self.public_profile
+    if self.public?
       true
     else
-      if user.nil?
-        false
-      else
-        # other possibilities would come here
-        (user == self) || (user.is_admin?(self.environment)) || (user.memberships.include?(self))
-      end
+      display_private_info_to?(user)
     end
   end
 
@@ -587,7 +587,11 @@ private :generate_url, :url_options
   end
 
   def public?
-    public_profile
+    visible && public_profile
+  end
+
+  def privacy_setting
+    self.public? ? _('Public profile') : _('Private profile')
   end
 
   def themes
@@ -623,7 +627,11 @@ private :generate_url, :url_options
   end
 
   def folders
-    self.articles.find(:all, :conditions => ['type in (?)', ['Folder', 'Blog']])
+    articles.folders
+  end
+
+  def image_galleries
+    folders.select { |folder| folder.display_as_gallery?}
   end
 
   def blocks_to_expire_cache
@@ -668,4 +676,13 @@ private :generate_url, :url_options
     self.update_attribute(:layout_template, template)
   end
 
+  protected
+
+    def display_private_info_to?(user)
+      if user.nil?
+        false
+      else
+        (user == self) || (user.is_admin?(self.environment)) || (user.memberships.include?(self))
+      end
+    end
 end

@@ -62,10 +62,24 @@ class FriendsBlockTest < ActiveSupport::TestCase
     assert_equal 3, block.profile_count
   end
 
-  should 'count number of public people' do
+  should 'count number of public and private people' do
     owner = create_user('testuser1').person
-    private_p = create_user('private', {}, {:public_profile => false}).person
-    public_p = create_user('public', {}, {:public_profile => true}).person
+    private_p = fast_create(Person, {:public_profile => false})
+    public_p = fast_create(Person, {:public_profile => true})
+
+    owner.add_friend(private_p)
+    owner.add_friend(public_p)
+
+    block = FriendsBlock.new
+    block.expects(:owner).returns(owner)
+
+    assert_equal 2, block.profile_count
+  end
+
+  should 'not count number of invisible people' do
+    owner = create_user('testuser1').person
+    private_p = fast_create(Person, {:visible => false})
+    public_p = fast_create(Person, {:visible => true})
 
     owner.add_friend(private_p)
     owner.add_friend(public_p)
@@ -75,4 +89,5 @@ class FriendsBlockTest < ActiveSupport::TestCase
 
     assert_equal 1, block.profile_count
   end
+
 end

@@ -25,10 +25,19 @@ class PeopleBlockTest < ActiveSupport::TestCase
 
   should 'list people' do
     owner = Environment.create!(:name => 'test environment')
-    Person.expects(:find).with(:all, :select => 'id', :conditions => { :environment_id => owner.id, :public_profile => true}, :limit => 6, :order => 'random()').returns([])
     block = PeopleBlock.new
     block.expects(:owner).returns(owner).at_least_once
-    block.content
+    person1 = fast_create(Person, :environment_id => owner.id)
+    person2 = fast_create(Person, :environment_id => owner.id)
+
+    expects(:profile_image_link).with(person1).returns(person1.name)
+    expects(:profile_image_link).with(person2).returns(person2.name)
+    expects(:block_title).with(anything).returns('')
+
+    content = instance_eval(&block.content)
+
+    assert_match(/#{person1.name}/, content)
+    assert_match(/#{person2.name}/, content)
   end
 
   should 'link to people directory' do
@@ -40,13 +49,27 @@ class PeopleBlockTest < ActiveSupport::TestCase
     instance_eval(&block.footer)
   end
 
-  should 'count number of public people' do
+  should 'count number of public and private people' do
     env = Environment.create!(:name => 'test environment')
-    private_p = create_user('private', {:environment => env}, {:public_profile => false})
-    public_p = create_user('public', {:environment => env}, {:public_profile => true})
+    private_p = fast_create(Person, :environment_id => env.id, :public_profile => false)
+    public_p = fast_create(Person, :environment_id => env.id, :public_profile => true)
+
+    env.boxes.first.blocks << block = PeopleBlock.new
+    assert_equal 2, block.profile_count
+  end
+
+  should 'count number of visible people' do
+    env = Environment.create!(:name => 'test environment')
+    invisible_p = fast_create(Person, :environment_id => env.id, :visible => false)
+    visible_p = fast_create(Person, :environment_id => env.id, :visible => true)
 
     env.boxes.first.blocks << block = PeopleBlock.new
     assert_equal 1, block.profile_count
   end
 
+  protected
+
+  def content_tag(tag, text, options = {})
+    text
+  end
 end

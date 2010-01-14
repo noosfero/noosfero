@@ -177,9 +177,17 @@ class ArticleTest < Test::Unit::TestCase
   end
 
   should 'not show documents from a private profile as recent' do
-    p = create_user('usr1').person
-    p.public_profile = false
-    p.save!
+    p = fast_create(Person, :public_profile => false)
+    Article.destroy_all
+
+    first  = p.articles.build(:name => 'first',  :published => true);  first.save!
+    second = p.articles.build(:name => 'second', :published => false); second.save!
+
+    assert_equal [ ], Article.recent(nil)
+  end
+
+  should 'not show documents from a invisible profile as recent' do
+    p = fast_create(Person, :visible => false)
     Article.destroy_all
 
     first  = p.articles.build(:name => 'first',  :published => true);  first.save!
@@ -518,6 +526,15 @@ class ArticleTest < Test::Unit::TestCase
 
     assert !a1.public?
     assert !a2.public?
+  end
+
+  should 'respond to public? as false if profile is invisible' do
+    profile = fast_create(Profile, :visible => false)
+    article1 = fast_create(Article, :profile_id => profile.id)
+    article2 = fast_create(Article, :profile_id => profile.id, :public_article => false)
+
+    assert !article1.public?
+    assert !article2.public?
   end
 
   should 'save as private' do

@@ -125,8 +125,9 @@ class Article < ActiveRecord::Base
                   "advertise = ? AND
                   public_article = ? AND
                   published = ? AND
+                  profiles.visible = ? AND
                   profiles.public_profile = ? AND
-                  ((articles.type != ? and articles.type != ? and articles.type != ?) OR articles.type is NULL)", true, true, true, true, 'UploadedFile', 'RssFeed', 'Blog'
+                  ((articles.type != ? and articles.type != ? and articles.type != ?) OR articles.type is NULL)", true, true, true, true, true, 'UploadedFile', 'RssFeed', 'Blog'
                 ],
                 :include => 'profile',
                 :order => 'articles.published_at desc, articles.id desc'
@@ -220,6 +221,8 @@ class Article < ActiveRecord::Base
     false
   end
 
+  named_scope :folders, :conditions => { :type => ['Folder', 'Blog']  }
+
   def display_to?(user)
     if self.public_article
       self.profile.display_info_to?(user)
@@ -249,7 +252,7 @@ class Article < ActiveRecord::Base
   end
 
   def public?
-    profile.public? && public_article
+    profile.visible? && profile.public? && public_article
   end
 
   def copy(options)

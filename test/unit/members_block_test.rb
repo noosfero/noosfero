@@ -27,19 +27,16 @@ class MembersBlockTest < Test::Unit::TestCase
   end
 
   should 'pick random members' do
-
-    profile = create_user('mytestuser').person
     block = MembersBlock.new
-    block.box = profile.boxes.first
     block.limit = 2
     block.save!
 
     owner = mock
     block.expects(:owner).returns(owner)
 
-    member1 = mock; member1.stubs(:id).returns(1)
-    member2 = mock; member2.stubs(:id).returns(2)
-    member3 = mock; member3.stubs(:id).returns(3)
+    member1 = stub(:id => 1, :visible? => true)
+    member2 = stub(:id => 2, :visible? => true)
+    member3 = stub(:id => 3, :visible? => true)
 
     owner.expects(:members).returns([member1, member2, member3])
     
@@ -56,13 +53,13 @@ class MembersBlockTest < Test::Unit::TestCase
     profile = create_user('mytestuser').person
     owner = mock
 
-    member1 = mock; member1.stubs(:id).returns(1)
-    member2 = mock; member2.stubs(:id).returns(2)
-    member3 = mock; member3.stubs(:id).returns(3)
+    member1 = mock
+    member2 = mock
+    member3 = mock
 
-    member1.stubs(:public_profile?).returns(true)
-    member2.stubs(:public_profile?).returns(true)
-    member3.stubs(:public_profile?).returns(true)
+    member1.stubs(:visible?).returns(true)
+    member2.stubs(:visible?).returns(true)
+    member3.stubs(:visible?).returns(true)
 
     owner.expects(:members).returns([member1, member2, member3])
     
@@ -71,11 +68,26 @@ class MembersBlockTest < Test::Unit::TestCase
     assert_equal 3, block.profile_count
   end
 
-  should 'not count non-public community members' do
-    community = Community.create!(:name => 'tcommunity 1', :identifier => 'comm1', :environment => Environment.default)
+  should 'count non-public community members' do
+    community = fast_create(Community)
 
-    private_p = create_user('private', {}, {:public_profile => false}).person
-    public_p = create_user('public', {}, {:public_profile => true}).person
+    private_p = fast_create(Person, :public_profile => false)
+    public_p = fast_create(Person, :public_profile => true)
+
+    community.add_member(private_p)
+    community.add_member(public_p)
+
+    block = MembersBlock.new
+    block.expects(:owner).at_least_once.returns(community)
+
+    assert_equal 2, block.profile_count
+  end
+
+  should 'not count non-visible community members' do
+    community = fast_create(Community)
+
+    private_p = fast_create(Person, :visible => false)
+    public_p = fast_create(Person, :visible => true)
 
     community.add_member(private_p)
     community.add_member(public_p)
@@ -85,5 +97,6 @@ class MembersBlockTest < Test::Unit::TestCase
 
     assert_equal 1, block.profile_count
   end
+
 end
 

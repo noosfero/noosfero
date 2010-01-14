@@ -501,10 +501,10 @@ class ProfileTest < Test::Unit::TestCase
   end
 
   should 'display private profile for members' do
-    p = create_user('testuser').person
-    c = Community.create!(:name => 'my community', :public_profile => false)
+    p = fast_create(Person)
+    c = fast_create(Community, :public_profile => false)
+    c.expects(:closed).returns(false)
     c.add_member(p)
-
     assert c.display_info_to?(p)
   end
 
@@ -1507,6 +1507,14 @@ class ProfileTest < Test::Unit::TestCase
     p = create_user('identifier-test').person
     p = fast_create(Profile, :identifier => 'identifier-test')
     assert_equal false, Profile.is_available?('identifier-test', Environment.default)
+  end
+
+  should 'not have long descriptions' do
+    long_description = 'a' * 600
+    profile = Profile.new
+    profile.description = long_description
+    profile.valid?
+    assert profile.errors.invalid?(:description)
   end
 
   private

@@ -34,9 +34,9 @@ class CommunitiesBlock < ProfileListBlock
 
   def profile_count
     if owner.kind_of?(Environment)
-      owner.communities.count(:conditions => { :public_profile => true })
+      owner.communities.count(:conditions => { :visible => true })
     else
-      owner.communities(:public_profile => true).count
+      owner.communities(:visible => true).count
     end
   end
 
@@ -49,9 +49,9 @@ class CommunitiesBlock < ProfileListBlock
       # FIXME when owner is an environment (i.e. listing communities globally
       # this can become SLOW)
       if block.owner.kind_of?(Environment)
-        Community.find(:all, :conditions => {:environment_id => block.owner.id, :public_profile => true}, :limit => block.limit, :order => 'random()').map(&:id)
+        block.owner.communities.all(:conditions => {:visible => true}, :limit => block.limit, :order => 'random()').map(&:id)
       else
-        block.owner.communities.select(&:public_profile).map(&:id)
+        block.owner.communities(:visible => true).map(&:id)
       end
     end
   end

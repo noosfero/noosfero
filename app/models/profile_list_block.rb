@@ -42,7 +42,7 @@ class ProfileListBlock < Block
       rand(top)
     end
     def ids
-      Profile.find(:all, :limit => block.limit, :order => 'random()', :conditions => {:environment_id => block.owner.id, :public_profile => true}).map(&:id)
+      block.owner.profiles.visible.all(:limit => block.limit, :order => 'random()').map(&:id)
     end
   end
 
@@ -90,7 +90,7 @@ class ProfileListBlock < Block
   end
 
   def profile_count
-    owner.profiles.count(:conditions => {:public_profile => true})
+    owner.profiles.visible.count
   end
 
 end

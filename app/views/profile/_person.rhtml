@@ -1,10 +1,17 @@
 <tr>
   <th colspan='2'><%= _('Basic information')%></th>
 </tr>
-<%= display_field(_('Name:'), profile, :name, true) { |name| link_to name, profile.url  } %>
+<%= display_field(_('About:'), profile, :description) if !@action %>
 <%= display_field(_('Sex:'), profile, :sex) { |gender| { 'male' => _('Male'), 'female' => _('Female') }[gender] } %>
 <%= display_field(_('Date of birth:'), profile, :birth_date) { |date| show_date(date)  }%>
 <%= display_field(_('Location:'), profile, :location, true) %>
+
+<%= display_field(_('Type:'), profile, :privacy_setting, true) %>
+
+<tr>
+  <td class='field-name'><%= _('Created at:')  %></td>
+  <td><%= show_date(profile.created_at) %></td>
+</tr>
 
 <% if profile == user || profile.friends.include?(user) %>
   <tr>
@@ -42,12 +49,12 @@
     <th colspan='2'><%= _('Network')%></th>
   </tr>
   <tr>
-    <td></td>
-    <td><%= link_to  __('Friends') + (' (%d)' % profile.friends.count), { :controller => 'profile', :action => 'friends' } %></td>
+    <td><%= __('Friends') + ':' %></td>
+    <td><%= link_to  profile.friends.count, { :controller => 'profile', :action => 'friends' } %></td>
   </tr>
   <tr>
-    <td></td>
-    <td><%= link_to __('Communities') + (' (%d)' % profile.communities.count), :controller => "profile", :action => 'communities' %></td>
+    <td><%= __('Communities') + ':' %></td>
+    <td><%= link_to profile.communities.count, :controller => "profile", :action => 'communities' %></td>
   </tr>
 
   <% if !environment.enabled?('disable_categories') && !profile.interests.empty? %>

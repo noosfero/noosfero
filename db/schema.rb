@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 79) do
+ActiveRecord::Schema.define(:version => 80) do
 
   create_table "article_versions", :force => true do |t|
     t.integer  "article_id"
@@ -270,6 +270,7 @@ ActiveRecord::Schema.define(:version => 79) do
     t.date     "birth_date"
     t.integer  "preferred_domain_id"
     t.datetime "updated_at"
+    t.boolean  "visible",                           :default => true
   end
 
   add_index "profiles", ["environment_id"], :name => "index_profiles_on_environment_id"

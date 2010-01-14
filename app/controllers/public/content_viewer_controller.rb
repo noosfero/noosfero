@@ -47,7 +47,13 @@ class ContentViewerController < ApplicationController
     end
 
     if !@page.display_to?(user)
-      render_access_denied(_('You are not allowed to view this content. You can contact the owner of this profile to request access then.'))
+      if profile.display_info_to?(user) || !profile.visible?
+        message = _('You are not allowed to view this content. You can contact the owner of this profile to request access then.')
+        render_access_denied(message)
+      elsif !profile.public?
+        redirect_to :controller => 'profile', :action => 'index', :profile => profile.identifier
+      end
+      return
     end
 
     # At this point the page will be showed

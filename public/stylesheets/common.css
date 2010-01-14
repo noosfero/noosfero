@@ -31,9 +31,6 @@ code, pre { color: #666; }
   padding: 0em;
 }
 
-#notice {
-  cursor: pointer;
-}
 
 #environment_identification {
   position: absolute !important;
@@ -134,9 +131,8 @@ div#notice {
   left: 50%;
   margin-left: -200px;
   width: 400px;
-  border: 1px solid #545454;
-  background: #ffffa9;
-  padding: 10px;
+  border: 1px solid #ddd;
+  background: #ffd;
 }
 
 /* * * Generic Content Formating * * */
@@ -280,6 +276,7 @@ td.field-name {
   color: #888;
   width: 150px;
   text-align: left;
+  vertical-align: top;
 }
 
 table.profile th {
@@ -495,13 +492,17 @@ div.pending-tasks {
 #content #not-found h1,
 #content #access-denied h1 {
   text-align: left;
-  background: url(../images/icons-app/alert-icon.png) no-repeat;
-  padding-left: 30px;
+  margin-top: 0px;
 }
 
 #content #not-found p,
 #content #access-denied p {
   text-align: justify;
+}
+
+#content #not-found .button-bar,
+#content #access-denied .button-bar {
+  margin-bottom: 0px;
 }
 
 /**** Signup wizard ****/

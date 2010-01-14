@@ -510,11 +510,18 @@ class PersonTest < Test::Unit::TestCase
     assert !p.ask_to_join?(c)
   end
 
-  should 'not ask to join if community is not public' do
-    p = create_user('test_user').person
-    c = Community.create!(:name => 'Test community', :identifier => 'test_community', :public_profile => false)
+  should 'ask to join if community is not public' do
+    person = fast_create(Person)
+    community = fast_create(Community, :public_profile => false)
 
-    assert !p.ask_to_join?(c)
+    assert person.ask_to_join?(community)
+  end
+
+  should 'not ask to join if community is not visible' do
+    person = fast_create(Person)
+    community = fast_create(Community, :visible => false)
+
+    assert !person.ask_to_join?(community)
   end
 
   should 'save organization_website with http' do
