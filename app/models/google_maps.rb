@@ -19,8 +19,9 @@ class GoogleMaps
       domain ? !domain.google_maps_key.nil? : false
     end
 
-    def key(domain)
-      Domain.find_by_name(domain).google_maps_key || ''
+    def key(domainname)
+      domain = Domain.find_by_name(domainname)
+      domain && domain.google_maps_key || ''
     end
 
     def initial_zoom
