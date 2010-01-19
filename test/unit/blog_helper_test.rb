@@ -70,16 +70,25 @@ class BlogHelperTest < Test::Unit::TestCase
 
     self.stubs(:params).returns({:npage => nil})
 
+    display_filename = file.public_filename(:display)
+
     result = display_post(file)
-    assert_tag_in_string result, :content => 'rails.png'
-    assert_tag_in_string result, :tag => 'img', :attributes => { :src => /#{file.public_filename(:display)}/ }
+    assert_match /rails.png/, result
+    assert_tag_in_string result, :tag => 'img', :attributes => { :src => /#{display_filename}/ }
   end
+
+  protected
 
   def will_paginate(arg1, arg2)
   end
 
   def link_to(content, url)
     content
+  end
+
+  def tag(tag, args = {})
+    attrs = args.map{|k,v| "#{k}='#{v}'"}.join(' ')
+    "<#{tag} #{attrs} />"
   end
 
   def content_tag(tag, content, options = {})

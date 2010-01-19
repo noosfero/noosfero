@@ -50,3 +50,18 @@ div#article-parent {
 .article-body-uploaded-file {
   text-align: center;
 }
+
+/************* uploaded file *****************/
+
+#article .gallery-navigation {
+  padding: 10px 0;
+}
+#article .gallery-navigation .left {
+  margin-right: 10px;
+}
+#article .gallery-navigation .right {
+  margin-left: 10px;
+}
+#article .gallery-navigation .total-of-images {
+  font-weight: bold;
+}

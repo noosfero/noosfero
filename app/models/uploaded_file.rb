@@ -46,14 +46,37 @@ class UploadedFile < Article
     File.read(self.full_filename)
   end
 
-  # FIXME isn't this too much including just to be able to generate some HTML?
-  include ActionView::Helpers::TagHelper
 
   def to_html(options = {})
+    article = self
     if image?
-      tag('img', :src => public_filename(:display), :class => css_class_name, :style => 'max-width: 100%')
+      lambda do
+        if article.display_as_gallery?
+          images = article.parent.images
+          current_index = images.index(article)
+          total_of_images = images.count
+
+          link_to_previous = if current_index >= 1
+            link_to(_('&laquo; Previous'), images[current_index - 1].view_url, :class => 'left')
+          else
+            content_tag('span', _('&laquo; Previous'), :class => 'left')
+          end
+
+          link_to_next = if current_index < total_of_images - 1
+            link_to(_('Next &raquo;'), images[current_index + 1].view_url, :class => 'right')
+          else
+            content_tag('span', _('Next &raquo;'), :class => 'right')
+          end
+
+          content_tag(
+            'div',
+            link_to_previous + content_tag('span', _('image %s of %d'), :class => 'total-of-images') % [current_index + 1, total_of_images] + link_to_next,
+            :class => 'gallery-navigation'
+          )
+        end.to_s +
+        tag('img', :src => article.public_filename(:display), :class => article.css_class_name, :style => 'max-width: 100%')
+      end
     else
-      article = self
       lambda do
         content_tag('ul', content_tag('li', link_to(article.name, article.url, :class => article.css_class_name)))
       end

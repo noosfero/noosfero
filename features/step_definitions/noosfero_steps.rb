@@ -27,11 +27,12 @@ Given /^the following blocks$/ do |table|
   end
 end
 
-Given /^the following (articles|events|blogs)$/ do |content, table|
+Given /^the following (articles|events|blogs|folders)$/ do |content, table|
   klass = {
     'articles' => TextileArticle,
     'events' => Event,
     'blogs' => Blog,
+    'folders' => Folder,
   }[content] || raise("Don't know how to build %s" % content)
   table.hashes.map{|item| item.dup}.each do |item|
     owner_identifier = item.delete("owner")
@@ -44,7 +45,11 @@ Given /^the following files$/ do |table|
   table.hashes.each do |item|
     owner = Profile[item[:owner]]
     file = "/files/#{item[:file]}"
-    article = UploadedFile.create!(:profile => owner, :uploaded_data => fixture_file_upload(file, item[:mime]))
+    article = UploadedFile.new(:profile => owner, :uploaded_data => fixture_file_upload(file, item[:mime]))
+    if item[:parent]
+      article.parent = Article.find_by_slug(item[:parent])
+    end
+    article.save!
     if item[:homepage]
       owner.home_page = article
       owner.save!

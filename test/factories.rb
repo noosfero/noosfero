@@ -237,6 +237,15 @@ module Noosfero::Factory
   end
 
   ###############################################
+  # UploadedFile
+  ###############################################
+
+  def defaults_for_uploaded_file
+    name = 'My uploaded file ' + factory_num_seq.to_s
+    { :name => name, :abstract => name }
+  end
+
+  ###############################################
   # Blog
   ###############################################
   def create_blog

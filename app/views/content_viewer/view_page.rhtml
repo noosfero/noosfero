@@ -72,7 +72,7 @@
 
 <% if @page.parent && !@page.parent.path.blank? %>
 <div id="article-parent">
-  <%= link_to _('Go back'), @page.parent.url %>
+  <%= button(:back, _('Go back to %s') % @page.parent.title, @page.parent.url) %>
 </div>
 <% end %>
 
