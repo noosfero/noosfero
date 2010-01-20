@@ -30,29 +30,6 @@ body, th, td, input {
   margin-top: 92px;
 }
 
-/*************************** language chooser ************************/
-
-#language-chooser {
-  margin-top: 3em;
-}
-
-/*************************** friends *********************************/
-
-#friends {
-  padding: 6px 3px;
-  font-size: 11px;
-}
-
-#friends a {
-  margin-right: 30px;
-  color: #777;
-  text-decoration: none;
-}
-#friends a:hover {
-  color: #333;
-  text-decoration: underline;
-}
-
 /*************************** user bar ********************************/
 
 #user {
@@ -267,7 +244,18 @@ body, th, td, input {
   border-bottom: 2px solid #2e3436;
 }
 
+/***************************** header ********************************/
+#theme-header {
+  height: 20px;
+}
+
 /***************************** footer ********************************/
+
+#theme-footer #language-chooser {
+  margin-top: 3em;
+  text-align: center;
+}
+
 
 #theme-footer {
   padding: 0px;
@@ -297,29 +285,8 @@ body, th, td, input {
   margin-right: 8px;
 }
 
-#footer-links a#slbr {
-  display: block;
-  float: left;
-  background: url(imgs/lettering-slbr.png) 0% 50% no-repeat;
-  max-width: 202px;
-  width: 224px;
-  height: 34px;
-  padding-right: 20px;
-  margin-right: 15px;
-  border-right: 1px solid #F0F0F0;
-  overflow: hidden;
-  position: relative;
-  top: -10px
-}
-
-#slbr span {
-  position: absolute;
-  top: -100px;
-}
-
 #copyright {
   text-align: right;
-  /* background: url(imgs/colivre-nascente-cinza.gif) 100% 100% no-repeat; */
 }
 
 #noosfero-license {
