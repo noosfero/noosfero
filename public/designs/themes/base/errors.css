@@ -10,8 +10,27 @@ body {
   margin: 0px 20px 0px 20px;
   border: 1px solid #d3d7cf;
   background: white url(imgs/50x.png) 100% 100% no-repeat;
-  padding: 1em 3em 1em 3em;
-  height: 400px;
+  height: 480px;
+}
+
+#header {
+  background: #ced3ce url(imgs/menu-top-bg-right.png) top right no-repeat;
+  height: 42px;
+  margin-top: 48px;
+}
+
+#logo {
+  background: url(imgs/menu-top-bg-left.png) 0px 29px no-repeat;
+  position: absolute;
+  top: 20px;
+  height: 92px;
+  width: 400px;
+  z-index: 2;
+}
+
+.message,
+#languages {
+  margin: 0px 20px;
 }
 
 #languages {
