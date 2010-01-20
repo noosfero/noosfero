@@ -696,4 +696,11 @@ class Environment < ActiveRecord::Base
     self.save!
   end
 
+  after_destroy :destroy_templates
+  def destroy_templates
+    [enterprise_template, community_template, person_template].compact.each do |template|
+      template.destroy
+    end
+  end
+
 end

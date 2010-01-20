@@ -263,6 +263,13 @@ class PersonTest < Test::Unit::TestCase
     assert_not_includes p2.friends(true), p1
   end
 
+  should 'destroy use when person is destroyed' do
+    person = create_user('testuser').person
+    assert_difference User, :count, -1 do
+      person.destroy
+    end
+  end
+
   should 'return info name instead of name when info is setted' do
     p = create_user('ze_maria').person
     assert_equal 'ze_maria', p.name

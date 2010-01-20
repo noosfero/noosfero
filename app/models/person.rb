@@ -12,6 +12,11 @@ class Person < Profile
     Friendship.find(:all, :conditions => { :friend_id => person.id}).each { |friendship| friendship.destroy }
   end
 
+  after_destroy :destroy_user
+  def destroy_user
+    self.user.destroy if self.user
+  end
+
   # Sets the identifier for this person. Raises an exception when called on a
   # existing person (since peoples' identifiers cannot be changed)
   def identifier=(value)

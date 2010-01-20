@@ -93,8 +93,7 @@ class CreateEnterpriseTest < Test::Unit::TestCase
 
   should 'actually create an enterprise when finishing the task and associate the task requestor as its owner through the "user" association' do
 
-    Environment.destroy_all
-    environment = Environment.create!(:name => "My environment", :contact_email => 'test@localhost.localdomain', :is_default => true)
+    environment = Environment.create!(:name => "My environment", :contact_email => 'test@localhost.localdomain')
     region = Region.create!(:name => 'My region', :environment_id => environment.id)
     validator = Organization.create!(:name => "My organization", :identifier => 'myorg', :environment_id => environment.id)
     region.validators << validator
@@ -170,8 +169,7 @@ class CreateEnterpriseTest < Test::Unit::TestCase
   end
 
   should 'validate that eveything is ok but the validator (target)' do
-    Environment.destroy_all
-    environment = Environment.create!(:name => "My environment", :contact_email => 'test@localhost.localdomain', :is_default => true)
+    environment = Environment.create!(:name => "My environment", :contact_email => 'test@localhost.localdomain')
     region = Region.create!(:name => 'My region', :environment_id => environment.id)
     validator = Organization.create!(:name => "My organization", :identifier => 'myorg', :environment_id => environment.id)
     region.validators << validator

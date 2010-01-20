@@ -272,7 +272,21 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal boxes - env_boxes, Box.count
     assert_equal blocks - env_blocks, Block.count
   end
-  
+
+  should 'destroy templates' do
+    env = fast_create(Environment)
+    templates = [mock, mock, mock]
+    templates.each do |item|
+      item.expects(:destroy)
+    end
+
+    env.stubs(:person_template).returns(templates[0])
+    env.stubs(:community_template).returns(templates[1])
+    env.stubs(:enterprise_template).returns(templates[2])
+
+    env.destroy
+  end
+
   should 'have boxes and blocks upon creation' do
     Environment.any_instance.stubs(:create_templates) # avoid creating templates, it's expensive
     environment = Environment.create!(:name => 'a test environment')
