@@ -47,7 +47,7 @@ Feature: join a community
     And I am not logged in
     And I go to Sample Community's homepage
     And I press "Yes"
-    And I follow "I want to participate"
+    And I follow "New user"
     And I fill in the following:
       | e-mail | jose@domain.br |
       | Username | joseoliveira |

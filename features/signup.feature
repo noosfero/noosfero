@@ -6,7 +6,7 @@ Feature: signup
   Scenario: successfull registration
     Given I am on the homepage
     When I follow "Login"
-    And I follow "I want to participate"
+    And I follow "New user"
     And I fill in "e-Mail" with "josesilva@example.com"
     And I fill in "Username" with "josesilva"
     And I fill in "Password" with "secret"
@@ -26,7 +26,7 @@ Feature: signup
   Scenario: user cannot register without a name
     Given I am on the homepage
     And I follow "Login"
-    And I follow "I want to participate"
+    And I follow "New user"
     And I fill in "e-Mail" with "josesilva@example.com"
     And I fill in "Username" with "josesilva"
     And I fill in "Password" with "secret"

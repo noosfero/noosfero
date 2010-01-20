@@ -38,6 +38,9 @@ module NavigationHelpers
     when /^(.*)'s control panel$/
       '/myprofile/%s' % Profile.find_by_name($1).identifier
 
+    when /^the search page$/
+      '/search'
+
     # Add more mappings here.
     # Here is a more fancy example:
     #

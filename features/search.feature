@@ -4,36 +4,33 @@ Feature: search
   In order to find stuff
 
   Scenario: simple search for person
-    Given I am on the homepage
-    And the following users
+    Given the following users
       | login | name |
       | joaosilva | Joao Silva |
       | josearaujo | Jose Araujo |
-    When I follow "Search"
+    When I go to the search page
     And I fill in "query" with "Silva"
     And I press "Search"
     Then I should see "Joao Silva"
     And I should not see "Jose Araujo"
 
   Scenario: simple search for community
-    Given I am on the homepage
-    And the following communities
+    Given the following communities
       | identifier | name |
       | boring-community | Boring community |
       | fancy-community | Fancy community |
-    And I follow "Search"
+    And I go to the search page
     And I fill in "query" with "fancy"
     And I press "Search"
     Then I should see "Fancy community"
     And I should not see "Boring community"
 
   Scenario: simple search for enterprise
-    Given I am on the homepage
-    And the following enterprises
+    Given the following enterprises
       | identifier | name |
       | products-factory | Products factory |
       | services-provider | Services Provider |
-    And I follow "Search"
+    And I go to the search page
     And I fill in "query" with "services"
     And I press "Search"
     Then I should see "Services Provider"
@@ -47,8 +44,7 @@ Feature: search
       | owner     | name                 | body |
       | joaosilva | bees and butterflies | this is an article about bees and butterflies |
       | joaosilva | whales and dolphins | this is an article about whales and dolphins |
-    And I am on the homepage
-    When I follow "Search"
+    When I go to the search page
     And I fill in "query" with "whales"
     And I press "Search"
     Then I should see "whales and dolphins"
@@ -63,8 +59,7 @@ Feature: search
       | owner | name |
       | colivre-ent | social networks consultancy |
       | colivre-ent | wikis consultancy |
-    And I am on the homepage
-    When I follow "Search"
+    When I go to the search page
     And I fill in "query" with "wikis"
     And I press "Search"
     Then I should see "wikis consultancy"
@@ -79,8 +74,7 @@ Feature: search
       | owner | name | start_date |
       | nice-people | Group meeting | 2009-10-01 |
       | nice-people | John Doe's birthday | 2009-09-01 |
-    And I am on the homepage
-    When I follow "Search"
+    When I go to the search page
     And I fill in "query" with "birthday"
     And I press "Search"
     Then I should see "John Doe's birthday"
