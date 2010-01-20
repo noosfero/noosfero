@@ -45,7 +45,7 @@ class CreateEnterpriseTest < Test::Unit::TestCase
   end
 
   should 'require that the informed target (validator organization) actually validates for the chosen region' do
-    environment = Environment.create!(:name => "My environment")
+    environment = fast_create(Environment)
     region = Region.create!(:name => 'My region', :environment_id => environment.id)
     validator = Organization.create!(:name => "My organization", :identifier => 'myorg', :environment_id => environment.id)
 
@@ -93,7 +93,7 @@ class CreateEnterpriseTest < Test::Unit::TestCase
 
   should 'actually create an enterprise when finishing the task and associate the task requestor as its owner through the "user" association' do
 
-    environment = Environment.create!(:name => "My environment", :contact_email => 'test@localhost.localdomain')
+    environment = fast_create(Environment)
     region = Region.create!(:name => 'My region', :environment_id => environment.id)
     validator = Organization.create!(:name => "My organization", :identifier => 'myorg', :environment_id => environment.id)
     region.validators << validator
@@ -127,7 +127,7 @@ class CreateEnterpriseTest < Test::Unit::TestCase
 
   should 'actually create an enterprise when finishing the task and associate the task requestor as its owner through the "user" association even when environment is not default' do
 
-    environment = Environment.create!(:name => "My environment", :contact_email => 'test@localhost.localdomain')
+    environment = fast_create(Environment)
     region = Region.create!(:name => 'My region', :environment_id => environment.id)
     validator = Organization.create!(:name => "My organization", :identifier => 'myorg', :environment_id => environment.id)
     region.validators << validator
@@ -169,7 +169,7 @@ class CreateEnterpriseTest < Test::Unit::TestCase
   end
 
   should 'validate that eveything is ok but the validator (target)' do
-    environment = Environment.create!(:name => "My environment", :contact_email => 'test@localhost.localdomain')
+    environment = fast_create(Environment)
     region = Region.create!(:name => 'My region', :environment_id => environment.id)
     validator = Organization.create!(:name => "My organization", :identifier => 'myorg', :environment_id => environment.id)
     region.validators << validator
