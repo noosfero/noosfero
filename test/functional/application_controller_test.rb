@@ -191,6 +191,7 @@ class ApplicationControllerTest < Test::Unit::TestCase
   end
 
   should 'display dropdown for select language' do
+    @controller.stubs(:get_layout).returns('application')
     Noosfero.expects(:locales).returns({ 'en' => 'English', 'pt_BR' => 'Português Brasileiro', 'fr' => 'Français', 'it' => 'Italiano' }).at_least_once
     get :index, :lang => 'en'
     assert_tag :tag => 'option', :attributes => { :value => 'en', :selected => 'selected' }, :content => 'English'
