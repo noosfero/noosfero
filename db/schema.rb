@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 80) do
+ActiveRecord::Schema.define(:version => 81) do
 
   create_table "article_versions", :force => true do |t|
     t.integer  "article_id"
