@@ -67,7 +67,7 @@
             <% end %>
             <%= link_to('<i class="icon-menu-logout"></i><strong>' + _('Logout') + '</strong>', { :controller => 'account', :action => 'logout'} , :id => "logout", :title => _("Leave the system")) %>
           <% else %>
-            <%= _('%s or %s') % [thickbox_inline_popup_link('<i class="icon-menu-login"></i><strong>' + _('Login') + '</strong>', 'inlineLoginBox', :id => 'link_login', :help => _('Click here to enter your username and password and be recognized by the system.')), link_to('<strong>' + _('Register') + '</strong>', :controller => 'account', :action => 'signup') ] %>
+            <%= _('%s or %s') % [thickbox_inline_popup_link('<i class="icon-menu-login"></i><strong>' + _('Login') + '</strong>', login_url, 'inlineLoginBox', :id => 'link_login', :help => _('Click here to enter your username and password and be recognized by the system.')), link_to('<strong>' + _('Register') + '</strong>', :controller => 'account', :action => 'signup') ] %>
             <div id='inlineLoginBox' style='display: none;'>
               <%= render :file => 'account/login' %>
               <center><%= thickbox_close_button _('Close') %></center>

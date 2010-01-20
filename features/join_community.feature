@@ -53,7 +53,7 @@ Feature: join a community
       | Username | joseoliveira |
       | Password | 123456 |
       | Password confirmation | 123456 |
-      | Full name | Jose Oliveira |
+      | Name | Jose Oliveira |
    And I press "Sign up"
    And I should see "Are you sure you want to join Sample Community?"
    When I press "Yes, I want to join"

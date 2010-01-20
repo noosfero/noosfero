@@ -44,4 +44,12 @@ class GoogleMapsTest < Test::Unit::TestCase
     assert_equal 'http://maps.google.com/maps?file=api&amp;v=2&amp;key=DOMAIN_KEY', GoogleMaps.api_url(domain.name)
     assert_equal 'http://maps.google.com/maps?file=api&amp;v=2&amp;key=DIFFERENT_DOMAIN_KEY', GoogleMaps.api_url(other_domain.name)
   end
+
+  should 'not crash without a domain' do
+    Domain.delete_all
+    assert_nothing_raised do
+      GoogleMaps.key('example.com')
+    end
+  end
+
 end

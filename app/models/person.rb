@@ -184,14 +184,6 @@ class Person < Profile
     ]
   end
 
-  def name
-    if !self[:name].blank?
-      self[:name]
-    else
-      self.user ? self.user.login : nil
-    end
-  end
-
   has_and_belongs_to_many :favorite_enterprises, :class_name => 'Enterprise', :join_table => 'favorite_enteprises_people'
 
   def email_domain

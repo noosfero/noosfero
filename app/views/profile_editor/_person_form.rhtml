@@ -1,6 +1,6 @@
 <% @person ||= @profile %>
 
-<%= required labelled_form_field(_('Full name'), text_field(:profile_data, :name)) %>
+<%= required f.text_field(:name) %>
 
 <% optional_field(@person, 'nickname') do %>
   <%= f.text_field(:nickname, :maxlength => 16, :size => 30) %>

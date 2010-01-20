@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.21.0\n"
-"POT-Creation-Date: 2009-12-11 16:30-0300\n"
+"Project-Id-Version: noosfero 0.21.3\n"
+"POT-Creation-Date: 2010-01-13 13:04-0300\n"
 "PO-Revision-Date: 2009-10-09 13:28+0100\n"
 "Last-Translator: Anton <anton.c@live.com>\n"
 "Language-Team: German <de@li.org>\n"
@@ -1120,39 +1120,39 @@ msgid ""
 "profile to request access then."
 msgstr "Вы не можете просматривать данный контент. Обратитесь к автору."
 
-#: app/controllers/public/content_viewer_controller.rb:112
+#: app/controllers/public/content_viewer_controller.rb:115
 msgid "Comment succesfully deleted"
 msgstr "Комментарий успешно удален"
 
-#: app/controllers/public/account_controller.rb:30
+#: app/controllers/public/account_controller.rb:31
 msgid "Logged in successfully"
 msgstr "Успешный логин"
 
-#: app/controllers/public/account_controller.rb:33
+#: app/controllers/public/account_controller.rb:34
 msgid "Incorrect username or password"
 msgstr "Неправильное имя или пароль"
 
-#: app/controllers/public/account_controller.rb:71
+#: app/controllers/public/account_controller.rb:72
 msgid "Thanks for signing up!"
 msgstr "Спасибо за регистрацию!"
 
-#: app/controllers/public/account_controller.rb:110
+#: app/controllers/public/account_controller.rb:111
 msgid "You have been logged out."
 msgstr "Вы произвели выход"
 
-#: app/controllers/public/account_controller.rb:121
+#: app/controllers/public/account_controller.rb:122
 msgid "Your password has been changed successfully!"
 msgstr "Ваш пароль успешно изменен"
 
-#: app/controllers/public/account_controller.rb:124
+#: app/controllers/public/account_controller.rb:125
 msgid "The supplied current password is incorrect."
 msgstr "Пароль неверный"
 
-#: app/controllers/public/account_controller.rb:226
+#: app/controllers/public/account_controller.rb:227
 msgid "Available!"
 msgstr "Свободно!"
 
-#: app/controllers/public/account_controller.rb:229
+#: app/controllers/public/account_controller.rb:230
 msgid "Unavailable!"
 msgstr "Занято"
 
@@ -2161,11 +2161,11 @@ msgstr ""
 msgid "tags|View all"
 msgstr "Просмотреть все"
 
-#: app/models/add_friend.rb:21 app/models/invite_friend.rb:45
+#: app/models/add_friend.rb:23 app/models/invite_friend.rb:45
 msgid "%s wants to be your friend."
 msgstr "%s хочет быть вашим другом"
 
-#: app/models/add_friend.rb:30
+#: app/models/add_friend.rb:32
 msgid ""
 "You need to login to %{system} in order to accept %{requestor} as your "
 "friend."
@@ -3006,6 +3006,10 @@ msgstr "Действительность"
 msgid "domain"
 msgstr "домен"
 
+#: app/models/domain.rb:-
+msgid "Google maps key"
+msgstr ""
+
 #: app/models/domain.rb:13
 msgid ""
 "%{fn} must be composed only of lowercase latters (a to z), numbers (0 to 9) "
@@ -3507,6 +3511,11 @@ msgstr "Текущая папка:"
 #: app/views/profile_members/_members_list.rhtml:6
 msgid "Actions"
 msgstr "Действия"
+
+#: app/views/cms/view.rhtml:39 app/views/cms/view.rhtml:41
+#, fuzzy
+msgid "parent folder"
+msgstr "Текущая папка:"
 
 #: app/views/cms/view.rhtml:60
 msgid "Properties"

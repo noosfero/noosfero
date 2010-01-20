@@ -36,9 +36,9 @@
       <td>
         <%= image_tag 'icons-mime/gnome-folder.png' %>
         <% if @article.parent %>
-          <%= link_to '.. (parent folder)', :action => 'view', :id => @article.parent.id %>
+          <%= link_to '.. (' + _('parent folder') + ')', :action => 'view', :id => @article.parent.id %>
         <% else %>
-          <%= link_to '.. (parent folder)', :action => 'index' %>
+          <%= link_to '.. (' + _('parent folder') + ')', :action => 'index' %>
         <% end %>
       </td>
       <td><%= Folder.short_description %></td>

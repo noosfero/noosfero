@@ -4,9 +4,9 @@
 # , 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.21.0\n"
+"Project-Id-Version: noosfero 0.21.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-11 16:30-0300\n"
+"POT-Creation-Date: 2010-01-13 13:04-0300\n"
 "PO-Revision-Date: 2009-12-04 18:46-0300\n"
 "Last-Translator: Jean-Claude Bulliard <jcb@bulliard-consulting.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -1144,39 +1144,39 @@ msgstr ""
 "Vous n'êtes pas autorisé(e) à voir ce contenu. Vous pouvez contacter son "
 "propriétaire pour lui en demander l'accès. "
 
-#: app/controllers/public/content_viewer_controller.rb:112
+#: app/controllers/public/content_viewer_controller.rb:115
 msgid "Comment succesfully deleted"
 msgstr "Le commentaire a bien été effacé"
 
-#: app/controllers/public/account_controller.rb:30
+#: app/controllers/public/account_controller.rb:31
 msgid "Logged in successfully"
 msgstr "Connexion réussie"
 
-#: app/controllers/public/account_controller.rb:33
+#: app/controllers/public/account_controller.rb:34
 msgid "Incorrect username or password"
 msgstr "Identifiant ou mot de passe incorrect"
 
-#: app/controllers/public/account_controller.rb:71
+#: app/controllers/public/account_controller.rb:72
 msgid "Thanks for signing up!"
 msgstr "Merci de vous être inscrit(e) !"
 
-#: app/controllers/public/account_controller.rb:110
+#: app/controllers/public/account_controller.rb:111
 msgid "You have been logged out."
 msgstr "Vous avez été déconnecté(e)."
 
-#: app/controllers/public/account_controller.rb:121
+#: app/controllers/public/account_controller.rb:122
 msgid "Your password has been changed successfully!"
 msgstr "Votre mot de passe a bien été modifié !"
 
-#: app/controllers/public/account_controller.rb:124
+#: app/controllers/public/account_controller.rb:125
 msgid "The supplied current password is incorrect."
 msgstr "Le mot de passe actuel fourni est incorrect."
 
-#: app/controllers/public/account_controller.rb:226
+#: app/controllers/public/account_controller.rb:227
 msgid "Available!"
 msgstr "Disponible !"
 
-#: app/controllers/public/account_controller.rb:229
+#: app/controllers/public/account_controller.rb:230
 msgid "Unavailable!"
 msgstr "Indisponible"
 
@@ -2222,11 +2222,11 @@ msgstr ""
 msgid "tags|View all"
 msgstr "Voir tout"
 
-#: app/models/add_friend.rb:21 app/models/invite_friend.rb:45
+#: app/models/add_friend.rb:23 app/models/invite_friend.rb:45
 msgid "%s wants to be your friend."
 msgstr "%s veut être votre contact."
 
-#: app/models/add_friend.rb:30
+#: app/models/add_friend.rb:32
 msgid ""
 "You need to login to %{system} in order to accept %{requestor} as your "
 "friend."
@@ -3085,6 +3085,10 @@ msgstr "Validé(e)"
 msgid "domain"
 msgstr "domaine"
 
+#: app/models/domain.rb:-
+msgid "Google maps key"
+msgstr ""
+
 #: app/models/domain.rb:13
 msgid ""
 "%{fn} must be composed only of lowercase latters (a to z), numbers (0 to 9) "
@@ -3606,6 +3610,11 @@ msgstr "Catégorie courante :"
 #: app/views/profile_members/_members_list.rhtml:6
 msgid "Actions"
 msgstr "Actions"
+
+#: app/views/cms/view.rhtml:39 app/views/cms/view.rhtml:41
+#, fuzzy
+msgid "parent folder"
+msgstr "Catégorie courante :"
 
 #: app/views/cms/view.rhtml:60
 msgid "Properties"
