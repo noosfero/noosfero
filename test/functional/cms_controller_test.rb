@@ -1058,19 +1058,14 @@ class CmsControllerTest < Test::Unit::TestCase
 
   should 'display pagination links of images' do
     @controller.stubs(:per_page).returns(1)
-    fixture_filename = '/files/other-pic.jpg'
-    filename = RAILS_ROOT + '/test/fixtures' + fixture_filename
-    system('echo "image for test" | convert -background yellow -page 32x32 text:- %s' % filename)
-    image = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload(fixture_filename, 'image/jpg'))
 
+    image = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
     image2 = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :created_at => 1.day.ago)
 
     get :media_listing, :profile => profile.identifier
 
     assert_includes assigns(:images), image
     assert_not_includes assigns(:images), image2
-
-    File.rm_f(filename)
   end
 
   should 'display pagination links of documents' do

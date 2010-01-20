@@ -806,17 +806,12 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     @controller.stubs(:per_page).returns(1)
     folder = Folder.create!(:name => 'gallery', :profile => profile, :view_as => 'image_gallery')
 
-    fixture_filename = '/files/other-pic.jpg'
-    filename = RAILS_ROOT + '/test/fixtures' + fixture_filename
-    system('echo "image for test" | convert -background yellow -page 32x32 text:- %s' % filename)
-    image1 = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload(fixture_filename, 'image/jpg'))
-
+    image1 = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
     image2 = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+
     get :view_page, :profile => profile.identifier, :page => folder.explode_path, :slideshow => true
 
     assert_equal 2, assigns(:images).size
-
-    File.rm_f(filename)
   end
 
   should 'display source from article' do
