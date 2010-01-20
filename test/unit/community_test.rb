@@ -187,4 +187,17 @@ class CommunityTest < Test::Unit::TestCase
       Community.create_after_moderation(person, {:environment => env, :name => 'Example'})
     end
   end
+
+  should 'not create new request membership if it already exists' do
+    community = fast_create(Community)
+    community.closed = true
+    community.save
+    assert_difference AddMember, :count do
+      community.add_member(person)
+    end
+
+    assert_no_difference AddMember, :count do
+      community.add_member(person)
+    end
+  end
 end
