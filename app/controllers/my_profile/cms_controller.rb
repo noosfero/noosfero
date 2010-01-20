@@ -281,6 +281,8 @@ class CmsController < MyProfileController
       redirect_to :action => 'media_listing'
     elsif @article.parent
       redirect_to :action => 'view', :id => @article.parent
+    elsif @article.folder? && !@article.blog? && @article.parent
+      redirect_to :action => 'index'
     else
       redirect_back_or_default :action => 'index'
     end
