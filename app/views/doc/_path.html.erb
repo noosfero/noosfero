@@ -1,0 +1,10 @@
+<div id='online-doc-path'>
+  <%= _('You are here:') %>
+  <%= link_to _('Documentation'), doc_path %>
+  <% if @section %>
+    &raquo; <%= link_to @section.title, doc_section_path(@section.id) %>
+  <% end %>
+  <% if @topic %>
+    &raquo; <%= @topic.title %>
+  <% end %>
+</div>

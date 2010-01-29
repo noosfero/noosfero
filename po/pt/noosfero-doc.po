@@ -1,0 +1,95 @@
+# Portuguese translations for PACKAGE package
+# Copyright (C) 2010 Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2010-01-27 15:12-0300\n"
+"PO-Revision-Date: 2010-01-27 14:01-0300\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# type: Content of: <h1>
+#: doc/noosfero/admin/index.en.xhtml:1
+msgid "Administration"
+msgstr "Administração"
+
+# type: Content of: <h1>
+#: doc/noosfero/admin/200-roles.en.xhtml:1
+msgid "Managing user roles"
+msgstr "Gerenciando papéis de usuários"
+
+# type: Content of: <h1>
+#: doc/noosfero/admin/100-email.en.xhtml:1
+msgid "E-mail settings"
+msgstr "Configurações de e-mail"
+
+# type: Content of: <h1>
+#: doc/noosfero/index.en.xhtml:1
+msgid "Noosfero online documentation"
+msgstr "Documentação online do Noosfero"
+
+# type: Content of: <p>
+#: doc/noosfero/index.en.xhtml:3
+msgid ""
+"This is the Noosfero online documentation. In these pages you will find "
+"useful information on how to use Noosfero, manage a Noosfero environment and "
+"customize Noosfero in several ways."
+msgstr ""
+"Esta é a documentação online do Noosfero. Nessa páginas você vai encontrar "
+"informaçoes úteis para usar o Noosfero, gerenciar um ambiente Noosfero e "
+"personalizar Noosfero de várias formas."
+
+# type: Content of: <p>
+#: doc/noosfero/index.en.xhtml:8
+msgid ""
+"To display documentation about a given topic, first choose a section in the "
+"left menu, and then choose a topic within the section."
+msgstr ""
+"Para exibir documentação sobre um dado tópico, primeiro escolha uma seção no "
+"menu à esquerda, e então escolha um tópico na seção."
+
+# type: Content of: <h1>
+#: doc/noosfero/user/index.en.xhtml:1
+msgid "User features"
+msgstr "Funcionalidades de Usuário"
+
+# type: Content of: <h1>
+#: doc/noosfero/user/adding-friends.en.xhtml:1
+msgid "Adding new friends"
+msgstr "Adicionando novos amigos"
+
+# type: Content of: <ul><li>
+#: doc/noosfero/admin/toc.en.xhtml:3
+msgid "<a href=\"/doc/admin/200-roles\">Managing user roles</a>"
+msgstr "<a href=\"/doc/admin/200-roles\">Gerenciando papéis de usuário</a>"
+
+# type: Content of: <ul><li>
+#: doc/noosfero/admin/toc.en.xhtml:4
+msgid "<a href=\"/doc/admin/100-email\">E-mail settings</a>"
+msgstr "<a href=\"/doc/admin/100-email\">Configurações de e-mail</a>"
+
+# type: Content of: <ul><li>
+#: doc/noosfero/user/toc.en.xhtml:3
+msgid "<a href=\"/doc/user/adding-friends\">Adding new friends</a>"
+msgstr "<a href=\"/doc/admin/200-roles\">Adicionando novos amigos</a>"
+
+# type: Content of: <ul><li>
+#: doc/noosfero/toc.en.xhtml:3
+msgid "<a href=\"/doc/admin\">Administration</a>"
+msgstr "<a href=\"/doc/admin\">Administração de ambiente</a>"
+
+# type: Content of: <ul><li>
+#: doc/noosfero/toc.en.xhtml:4
+msgid "<a href=\"/doc/user\">User features</a>"
+msgstr "<a href=\"/doc/user\">Manual do usuário</a>"
+
+# type: Attribute 'alt' of: <p><img>
+#~ msgid "The Rails logo"
+#~ msgstr "O logo do Rails"

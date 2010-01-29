@@ -29,6 +29,11 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'thumbnails/*stuff', :controller => 'not_found', :action => 'index'
   map.connect 'user_themes/*stuff', :controller => 'not_found', :action => 'index'
 
+  # online documentation
+  map.doc         'doc', :controller => 'doc', :action => 'index'
+  map.doc_section 'doc/:section', :controller => 'doc', :action => 'section'
+  map.doc_topic   'doc/:section/:topic', :controller => 'doc', :action => 'topic'
+  
   # user account controller
   map.connect 'account/new_password/:code', :controller => 'account', :action => 'new_password'
   map.connect 'account/:action', :controller => 'account'

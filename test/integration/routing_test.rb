@@ -211,4 +211,15 @@ class RoutingTest < ActionController::IntegrationTest
     assert_routing('/contact/wintermute/new', :controller => 'contact', :action => 'new', :profile => 'wintermute')
   end
 
+  # online documentation routes
+  def test_doc_routing_with_section_and_topic
+    assert_routing('/doc/admin/settings', :controller => 'doc', :action => 'view', :section => 'admin', :id => 'settings')
+  end
+  def test_doc_routing_with_section_only
+    assert_routing('/doc/admin', :controller => 'doc', :action => 'view', :section => 'admin', :id => 'index')
+  end
+  def test_doc_routing_root
+    assert_routing('/doc', :controller => 'doc', :action => 'view', :section => nil, :id => 'index')
+  end
+
 end

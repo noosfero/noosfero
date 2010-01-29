@@ -828,4 +828,17 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal({}, Environment.default.tag_counts)
   end
 
+  should 'have a list of local documentation links' do
+    e = fast_create(Environment)
+    e.local_docs = [['/doccommunity/link1', 'Link 1'], ['/doccommunity/link2', 'Link 2']]
+    e.save!
+
+    e = Environment.find(e.id)
+    assert_equal [['/doccommunity/link1', 'Link 1'], ['/doccommunity/link2', 'Link 2']], e.local_docs
+  end
+
+  should 'have an empty list of local docs by default' do
+    assert_equal [], Environment.new.local_docs
+  end
+
 end

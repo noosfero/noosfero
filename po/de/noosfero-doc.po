@@ -1,0 +1,86 @@
+# German translations for PACKAGE package
+# Copyright (C) 2010 Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2010-01-27 15:12-0300\n"
+"PO-Revision-Date: 2010-01-27 09:32-0300\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# type: Content of: <h1>
+#: doc/noosfero/admin/index.en.xhtml:1
+msgid "Administration"
+msgstr ""
+
+# type: Content of: <h1>
+#: doc/noosfero/admin/200-roles.en.xhtml:1
+msgid "Managing user roles"
+msgstr ""
+
+# type: Content of: <h1>
+#: doc/noosfero/admin/100-email.en.xhtml:1
+msgid "E-mail settings"
+msgstr ""
+
+# type: Content of: <h1>
+#: doc/noosfero/index.en.xhtml:1
+msgid "Noosfero online documentation"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/index.en.xhtml:3
+msgid ""
+"This is the Noosfero online documentation. In these pages you will find "
+"useful information on how to use Noosfero, manage a Noosfero environment and "
+"customize Noosfero in several ways."
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/index.en.xhtml:8
+msgid ""
+"To display documentation about a given topic, first choose a section in the "
+"left menu, and then choose a topic within the section."
+msgstr ""
+
+# type: Content of: <h1>
+#: doc/noosfero/user/index.en.xhtml:1
+msgid "User features"
+msgstr ""
+
+# type: Content of: <h1>
+#: doc/noosfero/user/adding-friends.en.xhtml:1
+msgid "Adding new friends"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/admin/toc.en.xhtml:3
+msgid "<a href=\"/doc/admin/200-roles\">Managing user roles</a>"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/admin/toc.en.xhtml:4
+msgid "<a href=\"/doc/admin/100-email\">E-mail settings</a>"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/user/toc.en.xhtml:3
+msgid "<a href=\"/doc/user/adding-friends\">Adding new friends</a>"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/toc.en.xhtml:3
+msgid "<a href=\"/doc/admin\">Administration</a>"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/toc.en.xhtml:4
+msgid "<a href=\"/doc/user\">User features</a>"
+msgstr ""

@@ -703,4 +703,12 @@ class Environment < ActiveRecord::Base
     end
   end
 
+  def local_docs
+    settings[:local_docs] || []
+  end
+
+  def local_docs=(value)
+    settings[:local_docs] = value
+  end
+
 end

@@ -607,3 +607,31 @@ code input {
   height: 320px;
 }
 
+/**** online documentation ****/
+#online-doc {
+  margin-left: 200px;
+}
+#online-doc-navigation {
+  float: left;
+  width: 190px;
+}
+
+#online-doc-navigation ul {
+  padding: 5px;
+}
+#online-doc-navigation li {
+  list-style: none;
+  margin-bottom: 5px;
+}
+#online-doc-navigation h1 {
+  font-size: 16px;
+}
+
+#online-doc-navigation h1, #online-doc h1 {
+  text-align: left;
+}
+
+#online-doc-navigation ul {
+  margin: 0;
+  padding: 0;
+}

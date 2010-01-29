@@ -1,17 +1,25 @@
 #online-doc-navigation h1 {
   font-variant: small-caps;
   color: #AAA;
-  border-bottom-color: #AAA;
+  border-bottom: 2px solid #AAA;
 }
 
-#online-doc h1,
-#online-doc h2,
-#online-doc h3,
-#online-doc h4,
-#online-doc h5,
-#online-doc h6
-{
-  font-variant: small-caps;
-  border-bottom: 2px solid #000;
-  text-align: left;
+#online-doc-text {
+  background: transparent url(imgs/blog-sep.png) repeat-x scroll 0 0;
+  padding: 15px 20px 5px 20px;
+  margin: 10px -19px;
 }
+
+#online-doc-text h1,
+#online-doc-text h2,
+#online-doc-text h3,
+#online-doc-text h4,
+#online-doc-text h5,
+#online-doc-text h6 {
+  font-variant: small-caps;
+}
+
+#online-doc-text h2 {
+  border-bottom: 2px solid black;
+}
+
