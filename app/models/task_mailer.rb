@@ -27,10 +27,8 @@ class TaskMailer < ActionMailer::Base
   end
 
   def invitation_notification(task)
-    msg = task.message
-    msg = msg.gsub(/<user>/, task.requestor.name)
-    msg = msg.gsub(/<friend>/, task.friend_name.blank? ? task.friend_email : task.friend_name)
-    msg = msg.gsub(/<url>/, generate_environment_url(task, :controller => 'account', :action => 'signup', :invitation_code => task.code))
+    msg = task.expanded_message
+    msg = msg.gsub /<url>/, generate_environment_url(task, :controller => 'account', :action => 'signup', :invitation_code => task.code)
 
     recipients task.friend_email
 

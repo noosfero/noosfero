@@ -124,6 +124,7 @@ class TaskMailerTest < Test::Unit::TestCase
     environment.expects(:name).returns('example').at_least_once
 
     task.expects(:requestor).returns(requestor).at_least_once
+    task.expects(:person).returns(requestor).at_least_once
     requestor.expects(:environment).returns(environment).at_least_once
 
     mail = TaskMailer.create_invitation_notification(task)

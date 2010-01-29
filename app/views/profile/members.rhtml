@@ -10,9 +10,10 @@
 </ul>
 
 <% button_bar do %>
-  <%= button :back, _('Go back'), { :controller => 'profile' },
-      :help => _('Back to the page where you come from.') %>
+  <%= button :back, _('Go back'), { :controller => 'profile' }, :help => _('Back to the page where you come from.') %>
+  <% if profile.community? and user and user.has_permission?(:invite_members, profile) %>
+    <%= button :search, _('Invite your friends to join %s') % profile.name, :controller => 'invite', :action => 'friends' %>
+  <% end %>
 <% end %>
 
 </div><!-- fim class="common-profile-list-block" -->
-

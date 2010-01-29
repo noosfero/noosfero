@@ -40,6 +40,8 @@ profile_admin:
   name: 'Profile Administrator'
   system: true
   permissions:
+   - invite_members
+   - manage_memberships
    - edit_profile_design
    - edit_profile
    - moderate_comments

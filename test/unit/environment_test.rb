@@ -587,17 +587,30 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal ['birth_date'], env.required_person_fields
   end
 
-  should 'provide a default invitation message' do
-    env = Environment.new
+  should 'provide a default invitation message for friend' do
+    env = Environment.default
     message = [
       'Hello <friend>,',
-      "<user> is inviting you to participate on #{env.name}.",
-      'To accept the invitation, please follow this link:' + "\n" + '<url>',
-      "--\n#{env.name}",
-      ''
+      "<user> is inviting you to participate on <environment>.",
+      'To accept the invitation, please follow this link:',
+      '<url>',
+      "--\n<environment>",
     ].join("\n\n")
 
     assert_equal message, env.message_for_friend_invitation
+  end
+
+  should 'provide a default invitation message for member' do
+    env = Environment.default
+    message = [
+      'Hello <friend>,',
+      "<user> is inviting you to participate of <community> on <environment>.",
+      'To accept the invitation, please follow this link:',
+      '<url>',
+      "--\n<environment>",
+    ].join("\n\n")
+
+    assert_equal message, env.message_for_member_invitation
   end
 
   should 'set custom_enterprises_fields' do
@@ -839,6 +852,20 @@ class EnvironmentTest < Test::Unit::TestCase
 
   should 'have an empty list of local docs by default' do
     assert_equal [], Environment.new.local_docs
+  end
+
+  should 'provide right invitation mail template for friends' do
+    env = Environment.default
+    person = Person.new
+
+    assert_equal env.message_for_friend_invitation, env.invitation_mail_template(person)
+  end
+
+  should 'provide right invitation mail template for members' do
+    env = Environment.default
+    community = Community.new
+
+    assert_equal env.message_for_member_invitation, env.invitation_mail_template(community)
   end
 
 end

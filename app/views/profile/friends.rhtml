@@ -16,11 +16,11 @@
 <% end %>
 
 <% button_bar do %>
+  <%= button :back, _('Go back'), { :controller => 'profile' }, :help => _('Back to the page where you come from.') %>
   <% if user == profile %>
     <%= button :edit, _('Manage my friends'), :controller => 'friends', :action => 'index', :profile => profile.identifier %>
+    <%= button(:search, _('Invite people from my e-mail contacts'), :controller => 'invite', :action => 'friends') %>
   <% end %>
-  <%= button :back, _('Go back'), { :controller => 'profile' },
-      :help => _('Back to the page where you come from.') %>
 <% end %>
 
 </div><!-- fim class="common-profile-list-block" -->
