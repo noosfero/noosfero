@@ -102,6 +102,7 @@ class Profile < ActiveRecord::Base
   info
   root
   assets
+  doc
   ]
 
   belongs_to :user
