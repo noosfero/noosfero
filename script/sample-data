@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 require File.dirname(__FILE__) + '/../config/environment'
 
+system('rake db:populate')
+
 people = []
 
 NAMES = %w[ José João Antonio Paulo Maria Joana Paula Angela ]
