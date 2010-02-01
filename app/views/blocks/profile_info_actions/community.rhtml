@@ -6,9 +6,11 @@
         <%= lightbox_link_to content_tag('span', _('Leave')), profile.leave_url, :class => 'button with-text icon-delete', :title => _('Leave this community') %>
       </li>
     <% else %>
-      <li>
+      <% unless profile.already_request_membership?(user) %>
+        <li>
         <%= lightbox_link_to content_tag('span', _('Join')), profile.join_url, :class => 'button with-text icon-add', :title => _('Join this community') %>
-      </li>
+        </li>
+      <% end %>
     <% end %>
 
     <% if profile.enable_contact? %>
