@@ -28,38 +28,13 @@ class Environment < ActiveRecord::Base
       :key => 'environment_administrator',
       :name => N_('Environment Administrator'),
       :environment => self,
-      :permissions => [
-        'view_environment_admin_panel',
-        'edit_environment_features',
-        'edit_environment_design',
-        'manage_environment_categories',
-        'manage_environment_roles',
-        'manage_environment_validators',
-        'edit_profile',
-        'destroy_profile',
-        'manage_memberships',
-        'post_content',
-        'edit_profile_design',
-        'manage_products',
-        'edit_appearance',
-        'manage_friends',
-        'validate_enterprise',
-        'perform_task',
-      ]
+      :permissions => PERMISSIONS[Environment.name].keys + PERMISSIONS[Profile.name].keys
     )
     Role.create!(
       :key => 'profile_admin',
       :name => N_('Profile Administrator'),
       :environment => self,
-      :permissions => [
-        'edit_profile',
-        'destroy_profile',
-        'manage_memberships',
-        'post_content',
-        'edit_profile_design',
-        'manage_products',
-        'edit_appearance',
-      ]
+      :permissions => PERMISSIONS[Profile.name].keys
     )
     # members for enterprises, communities etc
     Role.create!(
