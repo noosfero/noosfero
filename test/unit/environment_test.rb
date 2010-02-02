@@ -602,15 +602,10 @@ class EnvironmentTest < Test::Unit::TestCase
 
   should 'provide a default invitation message for member' do
     env = Environment.default
-    message = [
-      'Hello <friend>,',
-      "<user> is inviting you to participate of <community> on <environment>.",
-      'To accept the invitation, please follow this link:',
-      '<url>',
-      "--\n<environment>",
-    ].join("\n\n")
-
-    assert_equal message, env.message_for_member_invitation
+    message = env.message_for_member_invitation
+    ['<friend>', '<user>', '<community>', '<environment>'].each do |item|
+      assert_match(item, message)
+    end
   end
 
   should 'set custom_enterprises_fields' do
