@@ -26,7 +26,7 @@ class InviteMember < Invitation
   # Default message send to friend when user use invite a friend feature
   def self.mail_template
     [ _('Hello <friend>,'),
-      _('<user> is inviting you to participate of <community> on <environment>.'),
+      _('<user> is inviting you to join "<community>" on <environment>.'),
       _('To accept the invitation, please follow this link:'),
       '<url>',
       "--\n<environment>",
