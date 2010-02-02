@@ -213,13 +213,13 @@ class RoutingTest < ActionController::IntegrationTest
 
   # online documentation routes
   def test_doc_routing_with_section_and_topic
-    assert_routing('/doc/admin/settings', :controller => 'doc', :action => 'view', :section => 'admin', :id => 'settings')
+    assert_routing('/doc/admin/settings', :controller => 'doc', :action => 'topic', :section => 'admin', :topic => 'settings')
   end
   def test_doc_routing_with_section_only
-    assert_routing('/doc/admin', :controller => 'doc', :action => 'view', :section => 'admin', :id => 'index')
+    assert_routing('/doc/admin', :controller => 'doc', :action => 'section', :section => 'admin')
   end
   def test_doc_routing_root
-    assert_routing('/doc', :controller => 'doc', :action => 'view', :section => nil, :id => 'index')
+    assert_routing('/doc', :controller => 'doc', :action => 'index')
   end
 
 end
