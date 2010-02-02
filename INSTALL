@@ -9,6 +9,15 @@ free to ask questions in the development mailing list.
 
 == Requirements
 
+You need to install some packages Noosfero depends on.  On Debian GNU/Linux or
+Debian-based systems, all of these packages are available through the Debian
+archive. You can install them with the following command:
+
+ # aptitude install ruby rake libgettext-ruby1.8 libsqlite3-ruby rcov librmagick-ruby libredcloth-ruby libwill-paginate-ruby iso-codes libfeedparser-ruby libferret-ruby libdaemons-ruby mongrel mongrel-cluster tango-icon-theme
+
+On other systems, they may or may not be available through your regular package
+management system. Below are the links to their homepages.
+
 * Ruby: http://www.ruby-lang.org/
 * Rake: http://rake.rubyforge.org/
 * Ruby-GetText: http://www.yotabanana.com/hiki/ruby-gettext.html?ruby-gettext (at least version 1.9.0)
@@ -16,7 +25,7 @@ free to ask questions in the development mailing list.
 * rcov: http://eigenclass.org/hiki/rcov
 * Ferret: http://ferret.davebalmain.com/trac
 * RMagick: http://rmagick.rubyforge.org/
-* RedCloth: http://whytheluckystiff.net/ruby/redcloth/
+* RedCloth: http://redcloth.org/
 * will_paginate: http://github.com/mislav/will_paginate/wikis
 * iso-codes: http://pkg-isocodes.alioth.debian.org/
 * feedparser: http://packages.debian.org/sid/libfeedparser-ruby
@@ -24,21 +33,20 @@ free to ask questions in the development mailing list.
 * Mongrel: http://mongrel.rubyforge.org/
 * tango-icon-theme: http://tango.freedesktop.org/Tango_Icon_Library
 
-On Debian GNU/Linux, all of these packages are available through the Debian
-archive. You can install them with the following command:
-
- # aptitude install ruby rake libgettext-ruby1.8 libsqlite3-ruby rcov librmagick-ruby libredcloth-ruby libwill-paginate-ruby iso-codes libfeedparser-ruby libferret-ruby libdaemons-ruby mongrel mongrel-cluster tango-icon-theme
-
-We do not have specific instructions for other plaforms yet. If you manage to
-install Noosfero successfully, please feel free to contact the Noosfero
-development mailing with the instructions for doing so, and we'll include it
-here.
+If you manage to install Noosfero successfully, please feel free to contact the
+Noosfero development mailing with the instructions for doing so, and we'll
+include it here.
 
 === Setting up a production environment
 
+NOTE: these instructions are for seting up a *production* environment. If you
+are going to do Noosfero development, you don't need to do these steps. See the
+HACKING file instead.
+
 * install memcached. Study whether you need to raise the ammount of memory it uses for caching, depending on the demand you expect for your site.
-* copy config/ferret_server.yml.dist to config/ferret_server.yml.dist
-* configure the mongrel cluster: `mongrel_rails cluster::configure`
+* enter the directory where you unpacked noosfero
+* copy config/ferret_server.yml.dist to config/ferret_server.yml
+* create the mongrel configuration file: `mongrel_rails cluster::configure`
 ** then edit config/mongrel_cluster.yml to suit your environment. Make sure your apache configuration matches the mongrel cluster configuration, specially in respect to the ports and numbers of mongrel instances.
 * create needed temporary directories:
   mkdir tmp
