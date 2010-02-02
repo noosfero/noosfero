@@ -1,17 +1,17 @@
 class AddInviteMembersPermissionToAdmins < ActiveRecord::Migration
   def self.up
-    Environment.all.each{ |env|
-      admin = Profile::Roles.admin(env.id)
-      admin.permissions += ['invite_members']
-      admin.save!
-    }
+    select_all("SELECT * from roles where key = 'profile_admin'").each do |role|
+      permissions = (YAML.load(role['permissions']) + ['invite_members']).to_yaml
+      role_id = role['id']
+      update("update roles set permissions = '%s' where id = %d" % [permissions, role_id])
+    end
   end
 
   def self.down
-    Environment.all.each{ |env|
-      admin = Profile::Roles.admin(env.id)
-      admin.permissions -= ['invite_members']
-      admin.save!
-    }
+    select_all("SELECT * from roles where key = 'profile_admin'").each do |role|
+      permissions = (YAML.load(role['permissions']) - ['invite_members']).to_yaml
+      role_id = role['id']
+      update("update roles set permissions = '%s' where id = %d" % [permissions, role_id])
+    end
   end
 end
