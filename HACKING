@@ -1,0 +1,55 @@
+= Noosfero instructions for developers
+
+This document provides useful information to those who want to help with
+Noosfero development.
+
+== Requirements for development
+
+First, install all requirements listed in INSTALL. After, you need to install
+some packages be able to run Noosfero tests. On Debian GNU/Linux and
+Debian-based systems, you install them with the following command:
+
+ # apt-get install libtidy-ruby libhpricot-ruby libmocha-ruby imagemagick
+
+On other systems, they may or may not be available through your regular package
+management system. Below are the links to their homepages.
+
+* Mocha: http://mocha.rubyforge.org/
+* Tidy: http://tidy.sourceforge.net/
+* Hpricot: http://github.com/whymirror/hpricot
+* Imagemagick: http://wwwimagemagick.org/
+
+== Boostraping a development/test environment
+
+You can copy and paste the commands below into a terminal (please review the
+commands and make sure you understand what you are doing):
+
+ # checkout the code from repository
+ git clone git://git.colivre.coop.br/noosfero.git
+ # enter the directory
+ cd noosfero
+ # copy a sample config file
+ cp config/database.yml.sqlite3 config/database.yml
+ # create the database:
+ rake db:migrate
+ # compile translations:
+ rake makemo
+ # create some test data:
+ ./script/sample-data
+ # run the automated test suite to make sure your environment is sane:
+ rake test
+
+You should now be ready to go. Issue the following command to start the Rails
+development server:
+
+ ./script/server
+
+The server will be available at http://localhost:3000/ . If you want to use
+another port than 3000, you can use the -p option of ./script/server:
+
+ ./script/server -p 9999
+
+The above command makes the server available at http://localhost:9999/
+
+The sample-data data scripts creates one administrator user with login "ze" and
+password "test".

@@ -4068,7 +4068,7 @@ msgid ""
 "website)."
 msgstr ""
 "<strong>Antes</strong> de entrar no grupo (um moderador precisa aceitar uma "
-"solicitação pendente antes do membro poder acessar a intranet e/ou o website."
+"solicitação pendente antes do membro poder acessar a intranet e/ou o website)."
 
 #: app/views/profile_editor/_organization.rhtml:90
 #: app/views/memberships/new_community.rhtml:46

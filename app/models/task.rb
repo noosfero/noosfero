@@ -176,15 +176,10 @@ class Task < ActiveRecord::Base
     end
   end
 
-  class << self
+  named_scope :pending, :conditions => { :status =>  Task::Status::ACTIVE }
+  named_scope :finished, :conditions => { :status =>  [Task::Status::CANCELLED, Task::Status::FINISHED] }
 
-    def pending
-      self.find(:all, :conditions => { :status =>  Task::Status::ACTIVE })
-    end
-    
-    def finished
-      self.find(:all, :conditions => { :status =>  [Task::Status::CANCELLED, Task::Status::FINISHED]})
-    end
+  class << self
 
     # generates a random code string consisting of length characters (or 36 by
     # default) in the ranges a-z and 0-9

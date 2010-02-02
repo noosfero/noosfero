@@ -32,7 +32,7 @@ class Organization < Profile
   end
 
   def find_pending_validation(code)
-    validations.pending.find { |pending| pending.code == code }
+    validations.pending.find(:first, :conditions => {:code => code})
   end
 
   def processed_validations
@@ -40,7 +40,7 @@ class Organization < Profile
   end
 
   def find_processed_validation(code)
-    validations.finished.find { |pending| pending.code == code }
+    validations.finished.find(:first, :conditions => {:code => code})
   end
 
   def is_validation_entity?
@@ -98,4 +98,7 @@ class Organization < Profile
     [contact_email.blank? ? nil : contact_email].compact + admins.map(&:email)
   end
 
+  def already_request_membership?(person)
+    self.tasks.pending.find_by_requestor_id(person.id, :conditions => { :type => 'AddMember' })
+  end
 end

@@ -482,7 +482,7 @@ private :generate_url, :url_options
   def add_member(person)
     if self.has_members?
       if self.closed?
-        AddMember.create!(:person => person, :organization => self)
+        AddMember.create!(:person => person, :organization => self) unless self.already_request_membership?(person)
       else
         self.affiliate(person, Profile::Roles.member(environment.id))
       end
