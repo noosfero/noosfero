@@ -134,7 +134,7 @@ body, th, td, input {
   right: 0px;
   width: 100%;
   text-align: right;
-  background: #d6d3d6 url(imgs/menu-top-bg-left.png) no-repeat;
+  background: #ccc url(imgs/menu-top-bg-left.png) no-repeat;
 }
 
 #navigation-end {
