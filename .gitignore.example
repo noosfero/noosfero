@@ -17,5 +17,7 @@ public/designs/themes/default
 db/development.db
 db/production.db
 db/test.db
+doc/noosfero/*.xhtml
+doc/noosfero/*/*.xhtml
 tags
 pkg
