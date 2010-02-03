@@ -20,7 +20,7 @@ class ProfileMembersController < MyProfileController
   end
   
   def change_role
-    @roles = profile.roles
+    @roles = Profile::Roles.organization_member_roles(environment.id)
     @member = profile.members.find { |m| m.id == params[:id].to_i }
     if @member
       @associations = @member.find_roles(@profile)

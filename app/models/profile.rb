@@ -19,6 +19,9 @@ class Profile < ActiveRecord::Base
     def self.editor(env_id)
       find_role('editor', env_id)
     end
+    def self.organization_member_roles(env_id)
+      [admin(env_id), moderator(env_id), member(env_id)]
+    end
     def self.all_roles(env_id)
       [admin(env_id), member(env_id), moderator(env_id), owner(env_id), editor(env_id)]
     end
