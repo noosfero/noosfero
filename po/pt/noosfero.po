@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.21.5\n"
-"POT-Creation-Date: 2010-02-05 13:04-0300\n"
-"PO-Revision-Date: 2010-01-20 13:44-0300\n"
+"POT-Creation-Date: 2010-02-05 14:43-0300\n"
+"PO-Revision-Date: 2010-02-05 14:54-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1188,7 +1188,6 @@ msgstr ""
 "senha corretamente?"
 
 #: app/controllers/public/invite_controller.rb:22
-#, fuzzy
 msgid "&lt;url&gt; is needed in invitation mail."
 msgstr "&lt;url&gt; é necessária na mensagem de convite."
 
@@ -1210,14 +1209,14 @@ msgstr "Você já é integrante de \"%s\""
 
 #: app/controllers/public/profile_controller.rb:139
 msgid "The content here is available to %s's friends only."
-msgstr ""
+msgstr "O conteúdo aqui está disponível apenas para os amigos do(a) %s."
 
 #: app/controllers/public/profile_controller.rb:142
 msgid "The contents in this community is available to members only."
 msgstr ""
+"O conteúdo desta comuninidade está disponível apenas para os seus membros."
 
 #: app/controllers/public/profile_controller.rb:148
-#, fuzzy
 msgid ""
 "Sorry, this profile was defined as private by its owner. You'll not be able "
 "to view content here unless the profile owner adds adds you."
@@ -1452,9 +1451,8 @@ msgid "View all"
 msgstr "Ver todos(as)"
 
 #: app/models/profile_info_block.rb:4
-#, fuzzy
 msgid "Profile information"
-msgstr "Informações providas"
+msgstr "Informações do perfil"
 
 #: app/models/profile_info_block.rb:8
 msgid ""
@@ -1465,9 +1463,8 @@ msgstr ""
 "parte de <i>%{env}</i> e links úteis."
 
 #: app/models/profile_list_block.rb:6
-#, fuzzy
 msgid "Random profiles"
-msgstr "Editar perfil"
+msgstr "Perfis aleatórios"
 
 #: app/models/profile_list_block.rb:55
 msgid "{#} People or Groups"
@@ -1602,7 +1599,7 @@ msgstr "Evento"
 
 #: app/models/link_list_block.rb:38
 msgid "Links (static menu)"
-msgstr ""
+msgstr "Links (menu estático)"
 
 #: app/models/link_list_block.rb:42
 msgid ""
@@ -1653,19 +1650,16 @@ msgid "Clicking a person takes you to his/her homepage"
 msgstr "Clicando em uma pessoa você será enviado para sua página inicial."
 
 #: app/models/people_block.rb:12
-#, fuzzy
 msgid "Random people"
-msgstr "Buscar pessoas"
+msgstr "Pessoas aleatórias"
 
 #: app/models/profile_image_block.rb:6
-#, fuzzy
 msgid "Picture"
-msgstr "Preço"
+msgstr "Foto"
 
 #: app/models/profile_image_block.rb:10
-#, fuzzy
 msgid "This block presents the profile image"
-msgstr "Este bloco apresenta a imagem do perfil."
+msgstr "Este bloco apresenta a imagem do perfil"
 
 #: app/models/create_community.rb:52 app/views/tasks/_create_community.rhtml:5
 msgid "%s wants to create community %s."
@@ -1762,9 +1756,8 @@ msgid "A search for enterprises by products selled and local"
 msgstr "Uma busca de empreendimentos por produtos vendidos e localização"
 
 #: app/models/sellers_search_block.rb:8
-#, fuzzy
 msgid "Products/Enterprises search"
-msgstr "Produtos/Serviços: "
+msgstr "Busca de Produtos/Serviços"
 
 #: app/models/sellers_search_block.rb:12
 msgid "Search for sellers"
@@ -1936,7 +1929,7 @@ msgstr "Domínio preferido"
 
 #: app/models/user.rb:-
 msgid "Visible"
-msgstr ""
+msgstr "Visível"
 
 #: app/models/user.rb:-
 msgid "user"
@@ -2025,9 +2018,8 @@ msgid "Virtual"
 msgstr "Virtual"
 
 #: app/models/environment_statistics_block.rb:4
-#, fuzzy
 msgid "Environment stastistics"
-msgstr "Administrador do Ambiente"
+msgstr "Estatísticas do Ambiente"
 
 #: app/models/environment_statistics_block.rb:8
 msgid "Statistics for %s"
@@ -2142,14 +2134,12 @@ msgid "Favorite Enterprises"
 msgstr "Empreendimentos Favoritos"
 
 #: app/models/favorite_enterprises_block.rb:8
-#, fuzzy
 msgid "This block lists your favorite enterprises."
-msgstr "Este bloco lista os empreendimentos favoritos do usuário."
+msgstr "Este bloco lista os empreendimentos favoritos."
 
 #: app/models/favorite_enterprises_block.rb:12
-#, fuzzy
 msgid "Favorite enterprises"
-msgstr "Empreendimentos Favoritos"
+msgstr "Empreendimentos favoritos"
 
 #: app/models/profile_categorization.rb:-
 msgid "categories profile"
@@ -2160,9 +2150,8 @@ msgid "profilecategorization"
 msgstr "categorizaçãoperfil"
 
 #: app/models/tags_block.rb:10
-#, fuzzy
 msgid "Tags"
-msgstr "Marcadores:"
+msgstr "Tags"
 
 #: app/models/tags_block.rb:14
 msgid "tags"
@@ -2214,9 +2203,8 @@ msgid "friends|View all"
 msgstr "Ver todos(as)"
 
 #: app/models/location_block.rb:7
-#, fuzzy
 msgid "Location map"
-msgstr "Localização: "
+msgstr "Mapa de localização"
 
 #: app/models/location_block.rb:11
 msgid "Shows where the profile is on the material world."
@@ -2227,9 +2215,8 @@ msgid "This profile has no geographical position registered."
 msgstr "Este perfil não tem posição geográfica registrada."
 
 #: app/models/slideshow_block.rb:9
-#, fuzzy
 msgid "Slideshow"
-msgstr "Ver apresentação"
+msgstr "Slideshow"
 
 #: app/models/product.rb:-
 msgid "product"
@@ -2304,9 +2291,8 @@ msgid "(empty folder)"
 msgstr "(pasta vazia)"
 
 #: app/models/login_block.rb:4
-#, fuzzy
 msgid "Login/logout"
-msgstr "Sair"
+msgstr "Login/Sair"
 
 #: app/models/login_block.rb:8
 msgid "This block presents a login/logout block."
@@ -2325,18 +2311,16 @@ msgid "Upload any kind of file you want."
 msgstr "Envie qualquer tipo de arquivo que você queira."
 
 #: app/models/uploaded_file.rb:67 app/models/uploaded_file.rb:69
-#, fuzzy
 msgid "&laquo; Previous"
-msgstr "Anterior"
+msgstr "&laquo; Anterior"
 
 #: app/models/uploaded_file.rb:73 app/models/uploaded_file.rb:75
-#, fuzzy
 msgid "Next &raquo;"
-msgstr "Posts mais antigos &raquo;"
+msgstr "Próxima &raquo;"
 
 #: app/models/uploaded_file.rb:80
-msgid "image %s of %d"
-msgstr ""
+msgid "image %d of %d"
+msgstr "imagem %d de %d"
 
 #: app/models/products_block.rb:16
 msgid "This block presents a list of your products."
@@ -2751,9 +2735,8 @@ msgid "Publish content"
 msgstr "Publicar conteúdo"
 
 #: app/models/profile.rb:49
-#, fuzzy
 msgid "Invite members"
-msgstr "Um integrante"
+msgstr "Convidar membros"
 
 #: app/models/profile.rb:439
 msgid "My home page"
@@ -2780,16 +2763,14 @@ msgid "%s can't has moderators"
 msgstr "%s não pode ter moderadores"
 
 #: app/models/profile.rb:599
-#, fuzzy
 msgid "Private profile"
-msgstr "Editar perfil"
+msgstr "Perfil privado"
 
 #: app/models/blog.rb:20
 msgid "A blog, inside which you can put other articles."
 msgstr "Um blog, dentro dele você pode colocar outros artigos."
 
 #: app/models/feed_reader_block.rb:36
-#, fuzzy
 msgid "Feed reader"
 msgstr "Leitor de feed"
 
@@ -2859,27 +2840,25 @@ msgid "'%{user} wants to activate email '%{email}'"
 msgstr "%{user} quer ativar o e-mail '%{email}'"
 
 #: app/models/invite_member.rb:19
-#, fuzzy
 msgid "%s invites you to join the community %s."
-msgstr "%s quer criar comunidade %s."
+msgstr "%s te está te convidando para entrar na comunidade %s."
 
 #: app/models/invite_member.rb:28 app/models/invite_friend.rb:20
 msgid "Hello <friend>,"
 msgstr "Olá <friend>,"
 
 #: app/models/invite_member.rb:29
-#, fuzzy
 msgid "<user> is inviting you to join \"<community>\" on <environment>."
-msgstr "<user> está te convidando a participar do %{environment}."
+msgstr ""
+"<user> está te convidando a entrar em \"<community>\" no <environment>."
 
 #: app/models/invite_member.rb:30 app/models/invite_friend.rb:22
 msgid "To accept the invitation, please follow this link:"
 msgstr "Para aceitar o convite, por favor siga este link:"
 
 #: app/models/disabled_enterprise_message_block.rb:4
-#, fuzzy
 msgid "\"Disabled enterprise\" message"
-msgstr "Bloco de mensagem para empreendimento desabilitado"
+msgstr "Mensagem \"Empreendimento desabilitado\""
 
 #: app/models/disabled_enterprise_message_block.rb:8
 msgid "Shows a message for disabled enterprises."
@@ -3047,7 +3026,7 @@ msgstr "domínio"
 
 #: app/models/domain.rb:-
 msgid "Google maps key"
-msgstr ""
+msgstr "Chave do Google maps"
 
 #: app/models/domain.rb:13
 msgid ""
@@ -3074,9 +3053,8 @@ msgid "%{fn} was already assigned to another category."
 msgstr "%{fn} já foi atribuído a outra categoria."
 
 #: app/models/article_block.rb:4
-#, fuzzy
 msgid "Display one of your contents"
-msgstr "Apresentar um dos seus conteúdos."
+msgstr "Apresentar um dos seus conteúdos"
 
 #: app/models/article_block.rb:8
 msgid ""
@@ -3091,18 +3069,16 @@ msgid "Article not selected yet."
 msgstr "Nenhum artigo selecionado ainda."
 
 #: app/models/recent_documents_block.rb:4
-#, fuzzy
 msgid "Last updates"
-msgstr "Última atualização"
+msgstr "Últimas atualizações"
 
 #: app/models/recent_documents_block.rb:8
 msgid "Recent content"
 msgstr "Conteúdo recente"
 
 #: app/models/recent_documents_block.rb:12
-#, fuzzy
 msgid "This block lists your content most recently updated."
-msgstr "Este bloco listas seu conteúdo recente."
+msgstr "Este bloco lista seu conteúdo atualizado mais recentemente."
 
 #: app/models/recent_documents_block.rb:31
 msgid "All content"
@@ -3135,9 +3111,8 @@ msgid "City and state"
 msgstr "Cidade e Estado"
 
 #: app/models/invite_friend.rb:21
-#, fuzzy
 msgid "<user> is inviting you to participate on <environment>."
-msgstr "<user> está te convidando a participar do %{environment}."
+msgstr "<user> está te convidando a participar do <environment>."
 
 #: app/views/categories/index.rhtml:8 app/views/categories/new.rhtml:1
 msgid "New category"
@@ -3268,7 +3243,7 @@ msgstr "Contato"
 
 #: app/views/blocks/slideshow.rhtml:47
 msgid "Please, edit this block and select an image gallery."
-msgstr ""
+msgstr "Por favor, edite este bloco e selecione uma galeria de imagens."
 
 #: app/views/shared/user_menu.rhtml:2
 msgid "This menu gives you access to your personal functionalities."
@@ -3415,9 +3390,8 @@ msgstr ""
 
 #: app/views/shared/not_found.rhtml:9
 #: app/views/profile/_private_profile.rhtml:16
-#, fuzzy
 msgid "Go to %s home page"
-msgstr "Ir para sua página inicial."
+msgstr "Ir para a página inicial do %s"
 
 #: app/views/shared/theme_test_panel.rhtml:3
 msgid "Testing theme \"%s\""
@@ -4097,7 +4071,6 @@ msgstr ""
 "Novos artigos postados por integrantes deste grupo devem ser aprovados:"
 
 #: app/views/profile_editor/_organization.rhtml:102
-#, fuzzy
 msgid ""
 "<strong>Before</strong> being published in this group (a moderator has to "
 "accept the article in pending request before the article be listed as a "
@@ -4105,7 +4078,7 @@ msgid ""
 msgstr ""
 "<strong>Antes</strong> de serem publicados neste grupo (um moderador precisa "
 "aceitar o artigo numa solicitação pendente antes do artigo ser listado como "
-"um artigo deste grupo."
+"um artigo deste grupo)."
 
 #: app/views/profile_editor/_organization.rhtml:108
 msgid ""
@@ -4171,14 +4144,12 @@ msgid "Include my contact in directory of people"
 msgstr "Incluir meu contato no diretório de pessoas"
 
 #: app/views/profile_editor/edit.rhtml:41
-#, fuzzy
 msgid "Show my contents to all internet users"
-msgstr "Exibir meu website para todos os usuários da internet"
+msgstr "Exibir meu conteúdo para todos os usuários da internet"
 
 #: app/views/profile_editor/edit.rhtml:44
-#, fuzzy
 msgid "Show my contents to my friends (person)"
-msgstr "Exibir meu website para meus contatos (pessoas)"
+msgstr "Exibir meu conteúdo para meus contatos (pessoas)"
 
 #: app/views/profile_editor/edit.rhtml:63
 msgid "Activate Intranet access (restricted area only for members)"
@@ -4189,14 +4160,12 @@ msgid "Include this group directory of groups"
 msgstr "Incluir este group no diretório de groups"
 
 #: app/views/profile_editor/edit.rhtml:69
-#, fuzzy
 msgid "Show content of this group to all internet users"
-msgstr "Exibir website deste grupo para todos os usuários da internet"
+msgstr "Exibir conteúdo deste grupo para todos os usuários da internet"
 
 #: app/views/profile_editor/edit.rhtml:72
-#, fuzzy
 msgid "Show content of this group to members"
-msgstr "Exibir website deste grupo para todos os usuários da internet"
+msgstr "Exibir conteúdo deste grupo para membros"
 
 #: app/views/profile_editor/edit.rhtml:77
 msgid "Select the categories of your interest"
@@ -4524,9 +4493,8 @@ msgstr[0] "Visualizado uma vez"
 msgstr[1] "Visualizado %{num} vezes"
 
 #: app/views/content_viewer/view_page.rhtml:75
-#, fuzzy
 msgid "Go back to %s"
-msgstr "Voltar à %s"
+msgstr "Voltar a %s"
 
 #: app/views/content_viewer/view_page.rhtml:101
 msgid "Source: %s"
@@ -4564,22 +4532,19 @@ msgstr "Informações Básicas"
 #: app/views/content_viewer/_organization.rhtml:13
 #: app/views/content_viewer/_person.rhtml:9
 #: app/views/profile/_organization.rhtml:13 app/views/profile/_person.rhtml:9
-#, fuzzy
 msgid "Type:"
-msgstr "Tipo"
+msgstr "Tipo:"
 
 #: app/views/content_viewer/_organization.rhtml:18
 #: app/views/content_viewer/_person.rhtml:12
 #: app/views/profile/_organization.rhtml:18 app/views/profile/_person.rhtml:12
-#, fuzzy
 msgid "Created at:"
-msgstr "Criado em"
+msgstr "Criado em:"
 
 #: app/views/content_viewer/_organization.rhtml:32
 #: app/views/profile/_organization.rhtml:32
-#, fuzzy
 msgid "Administrators:"
-msgstr "Administração"
+msgstr "Administradores:"
 
 #: app/views/content_viewer/blog_page.rhtml:1
 msgid "(external feed was not loaded yet)"
@@ -4591,7 +4556,7 @@ msgstr "(sem posts)"
 
 #: app/views/content_viewer/_person.rhtml:4 app/views/profile/_person.rhtml:4
 msgid "About:"
-msgstr ""
+msgstr "Sobre:"
 
 #: app/views/content_viewer/_person.rhtml:5 app/views/profile/_person.rhtml:5
 msgid "Sex:"
@@ -5070,37 +5035,34 @@ msgid "Show name on block"
 msgstr "Mostrar nome no bloco"
 
 #: app/views/box_organizer/_slideshow_block.rhtml:2
-#, fuzzy
 msgid "Choose a gallery"
-msgstr "Escolha um blog:"
+msgstr "Escolha uma galeria"
 
 #: app/views/box_organizer/_slideshow_block.rhtml:3
 msgid "%{gallery} (%{count} images)"
-msgstr ""
+msgstr "%{gallery} (%{count} imagens)"
 
 #: app/views/box_organizer/_slideshow_block.rhtml:6
-#, fuzzy
 msgid "Image transition:"
-msgstr "Habilitar Organização"
+msgstr "Transição de imagens:"
 
 #: app/views/box_organizer/_slideshow_block.rhtml:6
 msgid "No automatic transition"
-msgstr ""
+msgstr "Sem transição automática"
 
 #: app/views/box_organizer/_slideshow_block.rhtml:6
 msgid "Every 1 second"
 msgid_plural "Every %d seconds"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "A cada 1 segundo"
+msgstr[1] "A cada %d segundos"
 
 #: app/views/box_organizer/_slideshow_block.rhtml:8
 msgid "Show images in random order"
-msgstr ""
+msgstr "Mostrar imagens em order aleatória"
 
 #: app/views/box_organizer/_slideshow_block.rhtml:10
-#, fuzzy
 msgid "Display navigation buttons"
-msgstr "Mostrar uma lista de links"
+msgstr "Mostrar botões de navegação"
 
 #: app/views/box_organizer/_link_list_block.rhtml:1
 msgid "Links"
@@ -5123,24 +5085,20 @@ msgid "Custom title for this block: "
 msgstr "Título personalizado para este bloco: "
 
 #: app/views/box_organizer/edit.rhtml:9
-#, fuzzy
 msgid "Display this block:"
-msgstr "Ajuda sobre este bloco"
+msgstr "Mostrar este bloco:"
 
 #: app/views/box_organizer/edit.rhtml:12
-#, fuzzy
 msgid "In all pages"
-msgstr "Em todas as categorias"
+msgstr "Em todas as páginas"
 
 #: app/views/box_organizer/edit.rhtml:15
-#, fuzzy
 msgid "Only in the homepage"
-msgstr "Ir para a página inicial do site."
+msgstr "Apenas na página inicial"
 
 #: app/views/box_organizer/edit.rhtml:18
-#, fuzzy
 msgid "Don't display"
-msgstr "Não exibir no menu"
+msgstr "Não mostrar"
 
 #: app/views/home/index.rhtml:2 app/views/account/signup.rhtml:1
 msgid "Signup"
@@ -5184,9 +5142,8 @@ msgstr "Adicionar integrantes"
 
 #: app/views/profile_members/index.rhtml:9 app/views/profile/members.rhtml:15
 #: app/views/invite/friends.rhtml:4
-#, fuzzy
 msgid "Invite your friends to join %s"
-msgstr "Convide seus amigos"
+msgstr "Convide seus amigos para entrar em %s"
 
 #: app/views/profile_members/add_member.rhtml:1
 #: app/views/profile_members/unassociate.rhtml:1
@@ -6027,23 +5984,20 @@ msgid "Content"
 msgstr "Conteúdo"
 
 #: app/views/profile/index.rhtml:28
-#, fuzzy
 msgid "One post"
 msgid_plural "%{num} posts"
-msgstr[0] "Novo post"
-msgstr[1] "Novo post"
+msgstr[0] "Um post"
+msgstr[1] "%{num} posts"
 
 #: app/views/profile/index.rhtml:36
-#, fuzzy
 msgid "One picture"
 msgid_plural "%{num} pictures"
-msgstr[0] "Mudar foto"
-msgstr[1] "Mudar foto"
+msgstr[0] "Uma foto"
+msgstr[1] "%{num} fotos"
 
 #: app/views/profile/index.rhtml:42
-#, fuzzy
 msgid "Events:"
-msgstr "Eventos"
+msgstr "Eventos:"
 
 #: app/views/profile/index.rhtml:49
 msgid "Tags:"
@@ -6313,7 +6267,6 @@ msgid "Invite your friends"
 msgstr "Convide seus amigos"
 
 #: app/views/invite/friends.rhtml:9
-#, fuzzy
 msgid "Step 1 of 2: Select address book"
 msgstr "Passo 1 de 2: Selecionar lista de endereços"
 
@@ -6347,29 +6300,26 @@ msgid "Uncheck all"
 msgstr "Desmarcar todos"
 
 #: app/views/invite/friends.rhtml:79
-#, fuzzy
 msgid "Personalize invitation mail"
 msgstr "Personalize a mensagem de convite"
 
 #: app/views/invite/friends.rhtml:84
-#, fuzzy
 msgid ""
 "Now enter an invitation message. You must keep the <url> code in your "
-"invitation mail_template. When your friends receive the invitation e-mail, "
-"<url> will be replaced by a link that they need to click to activate their "
-"account. <user> and <friend> codes will be replaced by your name and friend "
-"name, but they are optional."
+"invitation text. When your friends receive the invitation e-mail, <url> will "
+"be replaced by a link that they need to click to activate their account. "
+"<user> and <friend> codes will be replaced by your name and friend name, but "
+"they are optional."
 msgstr ""
-"Agora inclua uma mensagem de convite. Você deve deixar o código <url> na sua "
-"mensagem de convite. Quando seus amigos receberem o e-mail, <url> será "
+"Agora inclua uma mensagem de convite. Você deve deixar o código <url> no texto "
+"do convite. Quando seus amigos receberem o e-mail, <url> será "
 "substituído por um link que eles deverão clicar para ativar sua conta. "
 "<user> e <friend> serão substituídos por seu nome e do amigo, mas são "
 "opcionais."
 
 #: app/views/invite/friends.rhtml:85
-#, fuzzy
-msgid "Invitation mail_template:"
-msgstr "Mensagem de convite:"
+msgid "Invitation text:"
+msgstr "Texto do convite:"
 
 #: app/views/invite/friends.rhtml:89
 msgid "Invite my friends!"

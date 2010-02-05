@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.21.5\n"
-"POT-Creation-Date: 2010-02-05 13:04-0300\n"
+"POT-Creation-Date: 2010-02-05 14:43-0300\n"
 "PO-Revision-Date: 2009-10-26 16:20-0300\n"
 "Last-Translator: Anahit Minassian <anahit.minassian@cooperation.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2344,7 +2344,7 @@ msgid "Next &raquo;"
 msgstr ""
 
 #: app/models/uploaded_file.rb:80
-msgid "image %s of %d"
+msgid "image %d of %d"
 msgstr ""
 
 #: app/models/products_block.rb:16
@@ -6352,14 +6352,14 @@ msgstr ""
 #: app/views/invite/friends.rhtml:84
 msgid ""
 "Now enter an invitation message. You must keep the <url> code in your "
-"invitation mail_template. When your friends receive the invitation e-mail, "
-"<url> will be replaced by a link that they need to click to activate their "
-"account. <user> and <friend> codes will be replaced by your name and friend "
-"name, but they are optional."
+"invitation text. When your friends receive the invitation e-mail, <url> will "
+"be replaced by a link that they need to click to activate their account. "
+"<user> and <friend> codes will be replaced by your name and friend name, but "
+"they are optional."
 msgstr ""
 
 #: app/views/invite/friends.rhtml:85
-msgid "Invitation mail_template:"
+msgid "Invitation text:"
 msgstr ""
 
 #: app/views/invite/friends.rhtml:89

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.21.5\n"
-"POT-Creation-Date: 2010-02-05 13:04-0300\n"
+"POT-Creation-Date: 2010-02-05 14:43-0300\n"
 "PO-Revision-Date: 2009-10-09 13:28+0100\n"
 "Last-Translator: Anton <anton.c@live.com>\n"
 "Language-Team: German <de@li.org>\n"
@@ -2326,7 +2326,7 @@ msgid "Next &raquo;"
 msgstr "Сообщения старше &raquo;"
 
 #: app/models/uploaded_file.rb:80
-msgid "image %s of %d"
+msgid "image %d of %d"
 msgstr ""
 
 #: app/models/products_block.rb:16
@@ -6280,10 +6280,10 @@ msgstr "Настроить сообщение приветствия"
 #, fuzzy
 msgid ""
 "Now enter an invitation message. You must keep the <url> code in your "
-"invitation mail_template. When your friends receive the invitation e-mail, "
-"<url> will be replaced by a link that they need to click to activate their "
-"account. <user> and <friend> codes will be replaced by your name and friend "
-"name, but they are optional."
+"invitation text. When your friends receive the invitation e-mail, <url> will "
+"be replaced by a link that they need to click to activate their account. "
+"<user> and <friend> codes will be replaced by your name and friend name, but "
+"they are optional."
 msgstr ""
 "Введите сообщение приветствия. Вы должны включить код <url> в него. Он будет "
 "заменен на ссылку активации. Коды <user> и <friend> будут заменены на ваше "
@@ -6291,7 +6291,7 @@ msgstr ""
 
 #: app/views/invite/friends.rhtml:85
 #, fuzzy
-msgid "Invitation mail_template:"
+msgid "Invitation text:"
 msgstr "Сообщение:"
 
 #: app/views/invite/friends.rhtml:89

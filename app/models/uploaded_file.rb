@@ -77,7 +77,7 @@ class UploadedFile < Article
 
           content_tag(
             'div',
-            link_to_previous + content_tag('span', _('image %s of %d'), :class => 'total-of-images') % [current_index + 1, total_of_images] + link_to_next,
+            link_to_previous + content_tag('span', _('image %d of %d'), :class => 'total-of-images') % [current_index + 1, total_of_images] + link_to_next,
             :class => 'gallery-navigation'
           )
         end.to_s +

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.21.5\n"
-"POT-Creation-Date: 2010-02-05 13:04-0300\n"
+"POT-Creation-Date: 2010-02-05 14:43-0300\n"
 "PO-Revision-Date: 2010-01-20 13:44-0300\n"
 "Last-Translator: Ronny Kursawe <kursawe.ronny@googlemail.com>\n"
 "Language-Team: German <de@li.org>\n"
@@ -2337,7 +2337,7 @@ msgid "Next &raquo;"
 msgstr "ältere Posts &raquo;"
 
 #: app/models/uploaded_file.rb:80
-msgid "image %s of %d"
+msgid "image %d of %d"
 msgstr ""
 
 #: app/models/products_block.rb:16
@@ -6365,10 +6365,10 @@ msgstr "Eigener Einladungstext"
 #, fuzzy
 msgid ""
 "Now enter an invitation message. You must keep the <url> code in your "
-"invitation mail_template. When your friends receive the invitation e-mail, "
-"<url> will be replaced by a link that they need to click to activate their "
-"account. <user> and <friend> codes will be replaced by your name and friend "
-"name, but they are optional."
+"invitation text. When your friends receive the invitation e-mail, <url> will "
+"be replaced by a link that they need to click to activate their account. "
+"<user> and <friend> codes will be replaced by your name and friend name, but "
+"they are optional."
 msgstr ""
 "Geben Sie nun Ihre Einladung ein. Ihre Nachricht muss <url> enthalten. In "
 "der Nachricht, die Ihr Freund erhält, wird <url> durch einen Link ersetzt."
@@ -6378,7 +6378,7 @@ msgstr ""
 
 #: app/views/invite/friends.rhtml:85
 #, fuzzy
-msgid "Invitation mail_template:"
+msgid "Invitation text:"
 msgstr "Einladungstext"
 
 #: app/views/invite/friends.rhtml:89
