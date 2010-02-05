@@ -21,7 +21,7 @@ class DocSectionTest < ActiveSupport::TestCase
   should 'list available sections' do
     sections = DocSection.all
     assert(sections.size > 0, 'should load sections ')
-    assert(sections.find { |item| item.title == 'Administration'}, 'should find section "Administration"')
+    assert(sections.find { |item| item.title == 'Content Management'}, 'should find section "Content Management"')
     assert(sections.find { |item| item.title == 'User features'}, 'should find section "User features"')
   end
 
@@ -30,7 +30,7 @@ class DocSectionTest < ActiveSupport::TestCase
   # break. If those translations change, this test will also break.
   should 'list section for a given language' do
     sections = DocSection.all('pt')
-    assert(sections.find { |item| item.title == 'Administração'}, 'should find section "Administration" translated')
+    assert(sections.find { |item| item.title == 'Gerenciamento de conteúdo'}, 'should find section "Content Management" translated')
     assert(sections.find { |item| item.title == 'Funcionalidades de Usuário'}, 'should find section "User features" translated')
   end
 
@@ -46,28 +46,28 @@ class DocSectionTest < ActiveSupport::TestCase
   # This test also depends on the existance of specific documentation sections.
   # The same conditions as the above tests apply.
   should 'list items' do
-    section = DocSection.all.find {|item| item.title == 'Administration' }
+    section = DocSection.all.find {|item| item.title == 'Content Management' }
     assert section.items.size > 0, "should load at least one item"
-    assert section.items.find {|item| item.title == 'E-mail settings' && item.text =~ /<h1>E-mail settings/ }, 'should find "E-mail settings" topic'
-    assert section.items.find {|item| item.title == 'Managing user roles' && item.text =~ /<h1>Managing/ }, 'should find "Managing user roles" topic'
+    assert section.items.find {|item| item.title == 'Adding pictures to gallery' && item.text =~ /<h1>Adding pictures to gallery/ }, 'should find "Adding pictures to gallery" topic'
+    assert section.items.find {|item| item.title == 'Creating a blog' && item.text =~ /<h1>Creating a blog/ }, 'should find "Creating a blog" topic'
   end
 
   # This test assumes ... (yada, yada, yada, the same as above)
   should 'load translated items' do
-    section = DocSection.all('pt').find {|item| item.title == 'Administração' }
+    section = DocSection.all('pt').find {|item| item.title == 'Gerenciamento de conteúdo' }
     assert section.items.size > 0, "should load at least one item"
-    assert section.items.find {|item| item.title == 'Configurações de e-mail' && item.text =~ /<h1>Configurações/ }, 'should find translated "E-mail settings" topic'
-    assert section.items.find {|item| item.title == 'Gerenciando papéis de usuários' && item.text =~ /<h1>Gerenciando/ }, 'should find translated "Managing user roles" topic'
+    assert section.items.find {|item| item.title == 'Adicionando fotos na galeria' && item.text =~ /<h1>Adicionando fotos na galeria/ }, 'should find translated "Adding pictures to gallery" topic'
+    assert section.items.find {|item| item.title == 'Criando um blog' && item.text =~ /<h1>Criando um blog/ }, 'should find translated "Creating a blog" topic'
   end
 
   # This test assumes that Klingon (tlh) is not supported. If Noosfero does get
   # aa Klingon translation, then this test will fail
   should 'fallback to load original items when translation is not available' do
-    section = DocSection.find('admin', 'tlh')
-    assert_equal 'Administration', section.title
+    section = DocSection.find('user', 'tlh')
+    assert_equal 'User features', section.title
 
-    topic = section.find('100-email')
-    assert_equal 'E-mail settings', topic.title
+    topic = section.find('accepting-friends')
+    assert_equal 'Accepting friends', topic.title
   end
 
   should 'find in items' do
@@ -80,8 +80,8 @@ class DocSectionTest < ActiveSupport::TestCase
   end
 
   should 'be able to find section by its id' do
-    assert_equal "Administration", DocSection.find('admin').title
     assert_equal "User features", DocSection.find('user').title
+    assert_equal "Content Management", DocSection.find('cms').title
   end
 
   should 'load null section (the root)' do

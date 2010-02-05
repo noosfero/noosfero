@@ -23,20 +23,20 @@ class DocControllerTest < ActionController::TestCase
   end
 
   should 'translate section' do
-    get :section, :section => 'admin'
+    get :section, :section => 'user'
     assert_equal 'en', assigns(:section).language
 
     @controller.stubs(:language).returns('pt')
-    get :section, :section => 'admin'
+    get :section, :section => 'user'
     assert_equal 'pt', assigns(:section).language
   end
 
   should 'translate topic' do
-    get :topic, :section => 'admin', :topic => '100-email'
+    get :topic, :section => 'user', :topic => 'accepting-friends'
     assert_equal 'en', assigns(:topic).language
 
     @controller.stubs(:language).returns('pt')
-    get :topic, :section => 'admin', :topic => '100-email'
+    get :topic, :section => 'user', :topic => 'accepting-friends'
     assert_equal 'pt', assigns(:topic).language
   end
 

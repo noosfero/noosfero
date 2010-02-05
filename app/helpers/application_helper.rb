@@ -362,6 +362,7 @@ module ApplicationHelper
         return render :file => file, :use_full_path => false
       end
     end
+    nil
   end
 
   def theme_header

@@ -170,8 +170,10 @@ class ApplicationHelperTest < Test::Unit::TestCase
   should 'ignore unexisting theme footer' do
     stubs(:theme_path).returns('/user_themes/mytheme')
     footer_path = RAILS_ROOT + '/public/user_themes/mytheme/footer.rhtml'
+    alternate_footer_path = RAILS_ROOT + '/public/user_themes/mytheme/footer.html.erb'
 
     File.expects(:exists?).with(footer_path).returns(false)
+    File.expects(:exists?).with(alternate_footer_path).returns(false)
     expects(:render).with(:file => footer).never
 
     assert_nil theme_footer
