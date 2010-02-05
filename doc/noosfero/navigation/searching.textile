@@ -1,0 +1,27 @@
+h1. Searching on the system
+
+p.  _To find articles, communities, people, enterprises or products and services, an user in the system, can do a search._
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+*  "Related topics":#RelatedTopics
+
+h2(#HowAccess). How to access
+
+p. Find on top bar the term "Search" and click on it:
+  !=/images/doc/menu-search.en.png(Search on top menu)!
+
+h2(#Description). Description
+
+# Fill in the search field with what you want to look for and press "Enter" on keyboard
+# In this example, we searched for "free software". Then you will see a screen with the search result. Each box brings one kind of information with a limited number of results. To see more results of a box, click on "See all" link below the box.  !=/images/doc/search-results-with-example.en.png(Search results with example)!
+# Clicking on "See all" link of community's box, then you will see all the articles found on search.  !=/images/doc/search-view-all-results-with-example.en.png(View all results on search with example)!
+
+h2(#RelatedTopics). Related topics
+
+*  "Finding people":/doc/navigation/searching-people
+*  "Finding communities":/doc/navigation/searching-communities
+*  "Finding enterprises":/doc/navigation/searching-enterprises
+*  "Finding products and services":/doc/navigation/searching-products-services
+*  "Advanced search":/doc/navigation/advanced-search
+

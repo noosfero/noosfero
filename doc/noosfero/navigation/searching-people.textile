@@ -1,0 +1,32 @@
+h1. Finding people
+
+p.  _To find an user in the system, you can use the search specific for people._
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+*  "Related topics":#RelatedTopics
+
+h2(#HowAccess). How to access
+
+p. Find on top of page the term "People" and click on it:
+  !=/images/doc/menu-people.en.png(People on top menu)!
+
+h2(#Description). Description
+
+# Fill in the search field with what you want to look for and click on "Search"  !=/images/doc/people-search-field.en.png(People search field)!
+# In this example, we search for "john". Then you will see the search results. To see more results, click on the pages below the search results.  !=/images/doc/people-search-results-with-example.en.png(Communities search results with example)!
+# Clicking on one of the search results, you will be redirected to the homepage of choosen person.
+
+
+h3. More options
+
+p. In all kind of search you can specify the search clicking on "More options" link. The options displayed are explained in "Advanced search":/doc/navigation/advanced-search
+
+h2(#RelatedTopics). Related topics
+
+*  "Searching":/doc/navigation/searching
+*  "Finding communities":/doc/navigation/searching-communities
+*  "Finding enterprises":/doc/navigation/searching-enterprises
+*  "Finding products and services":/doc/navigation/searching-products-services
+*  "Advanced search":/doc/navigation/advanced-search
+

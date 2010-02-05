@@ -1,0 +1,29 @@
+h1. Editing user settings
+
+p.  _You can change your profile information and settings in the system._
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+*  "Related topics":#RelatedTopics
+
+h2(#HowAccess). How to access
+
+# Find your user menu on top bar:  !=/images/doc/system-homepage-top-menu.en.png(Top menu)!
+# In user menu, click on Control Panel:  !=/images/doc/menu-control-panel.en.png(Control panel on menu)!
+
+h2(#Description). Description
+
+# In your control panel, click on "Profile Info and settings"  !=/images/doc/control-panel-person-edit-profile-info.en.png(Control panel with edit profile info of person)!
+# You will see a form with your information and settings. This will be explained in parts
+##  *General information:* Fill in with your data  !=/images/doc/person-edit-profile-info-general-informationen.en.png(General information when editing person profile info)!
+##  *Change picture:* Insert or change your picture. Click on"File…" and choose the image in your computer. The image must have a maximum of 500Kb e be _.jpg_ , _.gif_ or _.png_ .  !=/images/doc/person-edit-profile-info-change-picture.en.png(Change picture when editing person profile info)!
+##  *Privacy options:* Choose if your profile will be public or private. When a profile is private, the users that are not friends and that tries to view the profile or some of its contents will be redirected to a page that display only general information.
+  !doc/person-edit-profile-privacy-options.en.png(Privacy options when editing enterprise profile info)!
+##  *Categories:* If enabled in the system, you can choose the categories that the person will have.
+  !doc/person-edit-profile-categories.en.png(Categories when editing person profile info)!
+# Then, click on "Save" button an the profile will be updated.
+
+h2(#RelatedTopics). Related topics
+
+*  "Login into the system":/doc/user/login
+

@@ -1,0 +1,39 @@
+h1. Editing enterprise settings
+
+p.  _If you are administrator of an enterprise, you can edit its settings._
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+*  "Related topics":#RelatedTopics
+
+h2(#HowAccess). How to access
+
+# Find your user menu on top bar:  !=/images/doc/system-homepage-top-menu.en.png(Top menu)!
+# In user menu, click on Control Panel:  !=/images/doc/menu-control-panel.en.png(Control panel on menu)!
+# Then, click on "Manage my groups" button:  !=/images/doc/control-panel-manage-groups.en.png(Manage groups in control panel)!
+# You will see the list of groups (communities/enterprises) that you are a member. The groups that you can manage are listed with a link "Manage". Assuming that you are administrator of enterprise "My enterprise", click on "Manage" link.  !=/images/doc/groups-list-with-manage-enterprise.en.png(Groups list with permission to manage enterprise)!
+
+h2(#Description). Description
+
+# In enterprise's control panel, click on "Enterprise Info and settings"
+  !=/images/doc/control-panel-enterprise-edit-profile-info.en.png(Control panel with edit profile info)!
+# Then you will see a form with the information and settings of the enterprise. This screen will be explained in parts
+# *General information:* Fill in with your enterprise's data. If you want the "Contact" button to be displayed when a person visit your enterprise's page, select "Enable 'contact us'".
+  !=/images/doc/enterprise-edit-profile-info-general-information.en.png(General information when editing enterprise profile info)!
+# *Moderation options:* Choose how the article's moderation on enterprise will be. Choose the first option if you want the enterprise's administrators to approve/deny the articles published and choose the second if approval is not needed.
+  !=/images/doc/enterprise-edit-profile-info-moderation-options.en.png(Moderation options when editing enterprise profile info)!
+# *Change picture:* Insert a picture or change enterprise's picture. Click on "File..." and choose the image in your computer. The image must have a maximum of 500Kb e be _.jpg_ , _.gif_ or _.png_ .
+**  !=/images/doc/enterprise-edit-profile-info-add-picture.en.png(Add picture when editing enterprise profile info)!
+**  !=/images/doc/enterprise-edit-profile-info-change-picture.en.png(Change picture when editing enterprise profile info)!
+# *Privacy options:* Choose if enterprise profile will be public or private. When an enterprise is private, the users that are not friends and tries to view the enterprise's profile or its contents will be redirected to a page that show only general information.
+  !=/images/doc/enterprise-edit-profile-privacy-options.en.png(Privacy options when editing enterprise profile info)!
+# *Categories:* If enabled on the system, you can choose the categories that the enterprise will have.
+  !=/images/doc/enterprise-edit-profile-categories.en.png(Privacy options when editing enterprise profile info)!
+# Then, click on "Save" button" and the profile will be updated.
+
+
+h2(#RelatedTopics). Related topics
+
+*  "Login into the system":/doc/user/login
+*  "Activating enterprise":/doc/enterpise/activating-enterprise
+

@@ -1,0 +1,22 @@
+h1. Login into the system
+
+p.  _Some system features only can be used when the user is logged in._
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+*  "Related Topics":#RelatedTopics
+
+h2(#HowAccess). How to access
+
+p. In the system homepage you will see a box to get into the system.
+
+h2(#Description). Description
+
+# Fill in the fields with the 'login' and 'password' you choosed in your registration and click on "Log in" button.  !=/images/doc/environment-homepage-with-login-button.en.png(Environment homepage with login button)!
+# After clicking on "Log in" button you will be authenticated in the system. You can verify that you are logged in because your menu will be displayed in the top of page.  !=/images/doc/system-homepage-top-menu.en.png(Top menu)!
+
+h2(#RelatedTopics). Related topics
+
+*  "Registering new user":/doc/user/registering-new-user
+*  "Logout of the system":/doc/user/logout
+

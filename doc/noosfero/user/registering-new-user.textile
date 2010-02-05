@@ -1,0 +1,29 @@
+h1. Registering a new user
+
+p.  _To be part of the system, you need to register yourself. After registering, you will be able to join communities, enterprises, add friends and much more._
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+*  "Related Topics":#RelatedTopics
+
+h2(#HowAccess). How to access
+
+# In the system homepage you will see a box to get into the system.
+# Click on "New user":  !=/images/doc/box-register.en.png(Register on box)!
+
+h2(#Description). Description
+
+# You will see registration form. Fill it with you information and read and accept the system terms of use.
+** The fields with red names are mandatory, so your registration won't be done if they are not filled in.
+** Your e-mail and login must be unique within the system. So, if you fill in with a login/e-mail that already exists in the system, a message will be shown informing the error and you should choose another login/e-mail.
+** After clicking the "Sign up" button you will be redirected to your control panel, where you can change your settings and start using the system.
+ !/images/doc/signup-form.en.png(Signup form)!
+
+
+h2(#RelatedTopics). Related topics
+
+*  "Adding friends":/doc/user/adding-friends
+*  "Removing friends":/doc/user/removing-friends
+*  "Accepting friends":/doc/user/accepting-friends
+*  "Finding people":/doc/navigation/searching-people
+

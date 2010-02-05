@@ -1,0 +1,33 @@
+h1. Managing and adding members to an enterprise
+
+p.  _If you are an enterprise administrator, you can add or remove members from enterprise and also define which permissions each member will have_
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+*  "Related topics":#RelatedTopics
+
+h2(HowAccess). How to access
+
+# Find you user menu on top bar:  !=/images/doc/system-homepage-top-menu.en.png(Top menu)!
+# In user menu, click on Control Panel  !=/images/doc/menu-control-panel.en.png(Control panel on menu)!
+# Then, click on "Manage my groups":  !=/images/doc/control-panel-manage-groups.en.png(Manage groups in control panel)!
+# You will see the list of groups (communities/enterprises) that you are a member. The groups that you can manage are
+# listed with a link "Manage". Assuming that you are administrator of an enterprise", click on "Manage" link.  !=/images/doc/groups-list-with-manage-enterprise.en.png(Groups list with permission to manage enterprise)!
+
+h2(#Description). Description
+
+# In enterprise's control panel, click on "Manage members"
+  !=/images/doc/control-panel-manage-members.en.png(Control panel with manage members)!
+# You will see the list of people who are members of the enterprise and some buttons that will be explained in parts:  !=/images/doc/enterprise-members-list.en.png(Members list of enterprise on manage members)!
+##  *Edit user role:* Choose the role the member will have in the enterprise. Each role is associated to some permissions.  !=/images/doc/changing-role-enterprise-member.en.png(Changing role of an enterprise member)!
+##  *Remove user:* Clicking on the button, the user will be removed from the enterprise.
+##  *Add members:* You will see a screen to add new members to the enterprise. The members you add will have administrator role by default, with all permissions.
+### Type in search field the name of the user system you want to add to the enterprise. The table in the left side ("Users") will display the search results.
+### Click on "+" button to add the user. After clicking the button, the table on the right side ("Current members") will be updated with the new member.
+  !=/images/doc/add-member-enterprise.en.png(Add member on manage member)!
+
+h2(#RelatedTopics). Related topics
+
+*  "Editing enterprise settings":/doc/enterprise/editing-enterprise-info
+*  "Activating your enterprise":/doc/enterprise/activating-enterprise
+

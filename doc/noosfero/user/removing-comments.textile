@@ -1,0 +1,22 @@
+h1. Removing comments
+
+p.  _If you are the author of an article or if you have permission to moderate the comments of a profile (community/enterprise), you can remove the unwanted comments posted on it._
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+*  "Related Topics":#RelatedTopics
+
+h2(#HowAccess). How to access
+
+p. Visit an article that you created or that you have permission to moderate the comments. The comments are listed below the article/picture/event
+
+h2(#Description). Description
+
+# Next to each comment of the article, photo or event you will see a trash icon. To delete one, click on the trash icon.  !=/images/doc/comments.en.png(Comments)!
+# You will be asked to confirm exclusion. Clickiing on "Ok" button, the comment will be removed  !=/images/doc/remove-comment-confirmation.en.png(Remove comment confirmation)!
+
+h2(#RelatedTopics). Related topics
+
+*  "Login into the system":/doc/user/login
+*  "Commenting articles, pictures and events":/doc/user/commenting
+

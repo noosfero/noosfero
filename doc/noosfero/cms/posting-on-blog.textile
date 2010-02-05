@@ -1,0 +1,26 @@
+h1. Posting on blog
+
+p.  _You can have a blog and publish posts on it._
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+*  "Related topics":#RelatedTopics
+
+h2(#HowAccess). How to access
+
+# If you don't have a blog yet, you can create yours following instructions on "Creating a blog":/doc/cms/creating-blog .
+# To find your blog, first find you user menu on top bar:  !=/images/doc/system-homepage-top-menu.en.png(Top menu)!
+# In user menu, click on Control Panel:  !=/images/doc/menu-control-panel.en.png(Control panel on menu)!
+# Then, click on "Manage content":  !=/images/doc/control-panel-content-management.en.png(Manage content in control panel)!
+
+h2(#Description). Description
+
+# Find your blog on the list and click to view it.  !=/images/doc/cms-blog-public-visualization.en.png(Public visualization of blog in CMS)!
+# You will see your blog. Click on "New post" button:  !=/images/doc/blog-buttons.en.png(Blog button on visualization mode)!
+# Then, write an article following instructions on "Writing an article":/doc/cms/writing-article .
+
+h2(#RelatedTopics). Related topics
+
+*  "Creating a blog":/doc/cms/creating-blog
+*  "Managing your content":/doc/cms/managing-content
+

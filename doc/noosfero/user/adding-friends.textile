@@ -1,1 +1,23 @@
-h1. Adding new friends
+h1. Adding friends
+
+p.  _To interact with others system users, you can include them in your contact list, adding them as friends._
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+*  "Related Topics":#RelatedTopics
+
+h2(#HowAccess). How to access
+
+p. If you have a friend in this system, you can find her/him with the system search. Use the "search":/doc/navigation/searching-people and click on your friend picture to visite her/his page.
+
+h2(#Description). Description
+
+# In the users page, click on "Add friend" button that you will see below the user picture !=/images/doc/profile-with-button-to-add-friends.en.png(Button to add a profile as friend)!
+# After clicking the button, confirm that you want to add this user as a friend. On this screen you can also classify your friend with your relationship type. !=/images/doc/confirmation-adding-friend.en.png(Confirmation when adding a friend)!
+
+h2(#RelatedTopics). Related topics
+
+*  "Removing friends":/doc/user/removing-friends
+*  "Accepting friends":/doc/user/accepting-friends
+*  "Finding people":/doc/navigation/searching-friends
+

@@ -1,0 +1,26 @@
+h1. Disabling an enterprise
+
+p.  _If you are an administrator of any enterprise and you don't want that it appears in the system anymore, you can disable it by following this steps._
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+*  "Related topics":#RelatedTopics
+
+h2(#HowAccess). How to access
+
+# Find your user menu on top bar:  !=/images/doc/system-homepage-top-menu.en.png(Top menu)!
+# In user menu, click on Control Panel:  !=/images/doc/menu-control-panel.en.png(Control panel on menu)!
+# Then, click on "Manage my groups" button:  !=/images/doc/control-panel-manage-groups.en.png(Manage groups in control panel)!
+# You will see the list of groups (communities/enterprises) that you are a member. The groups that you can manage are listed with a link "Manage". Assuming that you are administrator of enterprise "My enterprise", click on "Manage" link.  !=/images/doc/groups-list-with-manage-enterprise.en.png(Groups list with permission to manage enterprise)!
+
+h2(#HowAccess). Description
+
+# In enterprise's control panel, click on "Disable Enterprise"
+  !=/images/doc/control-panel-disable-enterprise.en.png(Control panel with disable enterprise)!
+# You will see the confirmation screen. If you are sure that you want to disable the enterprise, click on "Yes, I want to disable".
+  !=/images/doc/disable-enterprise-confirmation.en.png(Enterprise disabling confirmation)!
+
+h2(#HowAccess). Related Topics
+
+*  "Login into the system":/doc/user/login
+*  "Activating enterprise":/doc/enterprise/activating-enterprise

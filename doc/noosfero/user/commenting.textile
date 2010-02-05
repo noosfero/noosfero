@@ -1,0 +1,25 @@
+h1. Commenting articles
+
+p.  _Articles, pictures and events of the system can be commented. When a person creates an article or upload a picture, she can allow other people to comment._
+
+p.  _If comments are available, the option to comment will be displayed to everyone who access the article or picture, authenticated or not. Now you will learn how to comment pictures and articles._
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+*  "Related Topics":#RelatedTopics
+
+h2(#HowAccess). How to access
+
+# When a person is viewing an article, picture or event, you will see a button to send comments after the content:  !=/images/doc/closed-comment-box.en.png(Box for comments closed)!
+
+h2(Description). Description
+
+* *Logged in user:* Click the button and a comment form will be displayed. You will see the title and body comment fields:  !=/images/doc/open-comment-box-for-logged-in.en.png(Box for comments open when logged in)!
+* *Not logged in user:* If you are not logged in, you will see name and e-mail fields to identify yourself:  !=/images/doc/open-comment-box-for-not-logged-in.en.png(Box for comments open when not logged in)!
+* After filling the fields and clicking the "Send comment" button, the comment will be displayed below the article.
+  !=/images/doc/comments-of-logged-in-out-person.en.png(Comment of a logged in person)!
+
+h2(#RelatedTopics). Related topics
+
+*  "Login into the system":/doc/user/login
+

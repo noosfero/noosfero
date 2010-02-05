@@ -1,0 +1,26 @@
+h1. Adding pictures to gallery
+
+p.  _You can publish pictures on your image gallery_
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+*  "Related topics":#RelatedTopics
+
+h2(#HowAccess). How to access
+
+# If you don't have an image gallery yet, you can create yours following instructions on "Managing content":/doc/cms/managing-content until item 1 of description. When creating the folder, choose "Image gallery" in "Folder type".
+# To find your image gallery, first find your user menu on top bar:  !=/images/doc/system-homepage-top-menu.en.png(Top menu)!
+# In user menu, click on Control Panel:  !=/images/doc/menu-control-panel.en.png(Control panel on menu)!
+# Then, click on "Manage content":  !=/images/doc/control-panel-content-management.en.png(Manage content in control panel)!
+
+h2(#Description). Description
+
+# Find your gallery on the list and click to view it.  !=/images/doc/cms-gallery-public-visualization.en.png(Public visualization of gallery in CMS)!
+# You will see your image gallery. Click on "Upload files" button  !=/images/doc/gallery-buttons.en.png(Gallery buttons on visualization mode)!
+# Select the pictures you want to upload and click on "Upload" button. If you want to upload more than 3 pictures at once, click on "More files"button and more fields will appear.  !=/images/doc/uploading-files-to-gallery.en.png(uploading files to gallery)!
+
+
+h2(#RelatedTopics). Related topics
+
+*  "Managing your content":/doc/cms/managing-content
+

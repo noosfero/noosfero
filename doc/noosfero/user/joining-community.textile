@@ -1,0 +1,23 @@
+h1. Joining a community
+
+p.  _You can be part of a community and interact with its others members. To do that, you can join a community, as explained below._
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+*  "Related Topics":#RelatedTopics
+
+h2(#HowAccess). How to access
+
+p. To join a community, first you need to access its page. Enter the community address on address bar or search for the community in the system and click to view it.
+
+p. To learn how you can find community in the system, read: "Finding communities":/doc/navigation/searching-communities.
+
+h2(#Descriptio). Description
+
+# In community's page, click on "+ Join" button below community's image.  !=/images/doc/joining-community-button.en.png(Community with join button)!
+# After clicking on "Yes, I want to join" button, you will already be member of the community if it is not moderated.  !=/images/doc/join-community-confirmation.en.png(Confirmation after asking to join a community)!
+# If the community is moderated, the administrator will need to approve your request before you start interacting.
+
+h2(#RelatedTopics). Related topics
+
+*  "Finding communities":/doc/navigation/searching-communities

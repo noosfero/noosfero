@@ -1,0 +1,49 @@
+h1. Write an advanced article (inserting images and links)
+
+p.  _You can add images and links to the articles created on the system to make it more interesting._
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+**  "Inserting links":#InsertingLinks
+**  "Inserting images":#InsertingImages
+*  "Related topics":#RelatedTopics
+
+h2(#HowAccess). How to access
+
+p. Read "Writing an article":/doc/cms/writing-article to learn how to access article edition page.
+
+h2(#Description). Description
+
+h3(#InsertingLinks). Inserting links
+
+# Write the text that will be displayed  !=/images/doc/article-text.en.png(Text on an article)!
+# Select the text and click on "Insert/edit link" button  !=/images/doc/advanced-article-insert-links.en.png(Insert links on an article)!
+# You will see a small window with a form to be filled.
+## *Link URL:* fill in with the link address
+##  *Target:* choose waht will happen when one person click on the link, if it will open in the same window or in a new one.
+##  *Title:* fill in what will be displayed when a person pass mouse over the link.
+  !=/images/doc/advanced-article-popup-inserir-link.en.png(Insert link popup on an article)!
+# After filling in the form, click on "Insert" and the link will be inserted on article.
+  !=/images/doc/advanced-article-created-link.en.png(Created link on an article)!
+
+h3(#InsertingImages). Inserting images
+
+p. When creating/editing an article, you will see a box in the right side.
+
+* In the top of it, you can choose files from your computer and upload them as files from your profile.
+## Select the folder where the file will be uploaded
+## Select the file in your computer
+## If you want to upload more files at once, click on "More files"
+## Click on "Upload"
+  !=/images/doc/advanced-article-upload-images.en.png(Upload images when writing an article)!
+* In the bottom of it, you will see the list of your files, that can be inserted in your article.
+** In the left column, you will see the images and in the right column, others files, below "Documents".
+** When you add a document to your article, a link is created on it to download the file. When you add an image, it will be displayed as an image in the article. But both can be added in the same way:
+### Choose the folder that has the image you want to insert
+### You will see a list with thumbnails of the images in the folder of your choice
+### Using your mouse, click and drag the image to the part of the text where it will be inserted.
+  !=/images/doc/advanced-article-archives-list.en.png(Archives list when writing an article)!
+
+h2(#RelatedTopics). Related topics
+
+*  "Writing an article":/doc/cms/writing-article

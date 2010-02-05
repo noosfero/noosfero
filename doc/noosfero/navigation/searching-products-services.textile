@@ -1,0 +1,34 @@
+h1. Finding products and services
+
+p.  _To find a product or service in the system, you can use the search specific for products and services._
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+*  "Related topics":#RelatedTopics
+
+h2(#HowAccess). How to access
+
+p. Find on top of page the term "Products" and click on it
+  !=/images/doc/menu-products.en.png(Products on top menu)!
+
+h2(#Description). Description
+
+# Fill in the search field with what you want to look for and click on "Search"  !=/images/doc/products-search-field.en.png(Products search field)!
+# In this example, we searched for "software". Then you will see the search results. To see more results, click on the pages below the search results.  !=/images/doc/products-search-results-with-example.en.png(Products search results with example)!
+# Clicking on one of the search results, you will be redirected to the homepage of the enterprise that has the product/service.
+
+h3. More options
+
+p. In all kind of search you can specify the search clicking on "More options" link. The options displayed are explained in "Advanced search":/doc/navigation/advanced-search
+
+h3. Display on map
+
+p. If available on the system, when you are searching for products, services or enterprises and the system allows, you will see the "Display on map" button. Clicking on this button, the search results will be displayed on a map, with house icons indicating the location of enterprises.
+
+h2(#RelatedTopics). Related topics
+
+*  "Searching":/doc/navigation/searching
+*  "Finding people":/doc/navigation/searching-people
+*  "Finding communities":/doc/navigation/searching-communities
+*  "Finding enterprises":/doc/navigation/searching-enterprises
+*  "Advanced search":/doc/navigation/advanced-search

@@ -1,0 +1,27 @@
+h1. Accepting friends
+
+p.  _When one person asks to be your friend, you should accept or reject the request. This is what will be explained._
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+*  "Related Topics":#RelatedTopics
+
+h2(#HowAccess). How to access
+
+# Find your user menu on top bar:  !=/images/doc/system-homepage-top-menu.en.png(Top menu)!
+# In user menu, click on Control Panel:  !=/images/doc/menu-control-panel.en.png(Control panel on menu)!
+
+
+
+h2(#Description). Description
+
+# If you have pending requests, you will see a box with the list of pending tasks on your control panel. In order to accept or deny, you should click on "Process requests" button
+  !=/images/doc/control-panel-with-tasks.en.png(Control panel with pending tasks)!
+# If you want to accept, choose the option "Accept" and you also can classify your new friend according to your relationship type you two have. to confirm, click in "OK". After that, your new friend will be listed in your contact list.
+  !=/images/doc/tasks-list-friendship-request.en.png(Tasks list)!
+
+h2(#RelatedTopics). Related Topics
+
+*  "Adding friends":/doc/user/adding-friends
+*  "Removing friends":/doc/user/removing-friends
+

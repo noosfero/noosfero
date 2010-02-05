@@ -1,0 +1,29 @@
+h1. Activating your enterprise
+
+p.  _If you have an enterprise that is registered in the system, you might have the activation code of the enterprise._
+
+p.  _This article shows how you can activate your enterprise in the system. After that, you can update information, add members, products and much more._
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+*  "Related Topics":#RelatedTopics
+
+h2(#HowAccess). How to access
+
+# Find your user menu on top bar:  !=/images/doc/system-homepage-top-menu.en.png(Top menu)!
+# In user menu, click on Control Panel:  !=/images/doc/menu-control-panel.en.png(Control panel on menu)!
+
+h2(#Description). Description
+
+# Below the control panel actions, you will see a box. Fill in the field with the enterprise activation code and click on "Activate".
+  !=/images/doc/enterprise-activation-box.en.png(Control panel and enterprise activation box)!
+# You will see a screen with the first activations step, the question about the enterprise. You must fill in the field with the correct answer, or your enterprise will be blocked. If you are sure that your answer is right, click on "Continue" button.  !=/images/doc/activation-question.en.png(Activation question)!
+# If the answer is wrong, the enterprise will be blocked and you need to contact the system admin to unblock it. If the answer is right, you will go to step 2. In this step, you should read the terms of use and, if you agree with it, choose the option "I read the terms of use and accepted them.". After that, click on "Continue" button.
+  !=/images/doc/enterprise-activation-terms.en.png(Enterprise terms of use)!
+# Then, you will receive a confirmation that your enterprise was activated. In this screen, you can go to enterprise's control panel and update it or go to your control panel.  !=/images/doc/activation-conlusion.en.png(Conclusion of enterprise activation)!
+
+
+h2(#RelatedTopics). Related Topics
+
+*  "Editing enterprise settings":/doc/enterprise/editing-enterprise-info
+*  "Registering a new user":/doc/user/registering-new-user

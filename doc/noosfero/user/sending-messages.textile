@@ -1,0 +1,27 @@
+h1. Sending messages
+
+p.  _To interact with other system users, you can send messages through the system. The messages will be received by email._
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+*  "Related Topics":#RelatedTopics
+
+h2(#HowAccess). How to access
+
+# Find the user you want to send a message using the "search":/doc/navigation/searching-people and click to view his/her profile.
+# In the person page you will see the "Contact" button below her picture if you are logged in and you are friend of the person in the system.
+  !=/images/doc/contact-button.en.png(Contact button)!
+
+h2(#Description). Description
+
+p. Fill in the form. Note that the fields "Subject" and "Message" are mandatory, so the message will not be sent if you don't fill them.
+
+p. After clicking on "Send" button, the message will be sent to the user e-mail and, if you want to receive a copy of the message, select the option "I want to receive a copy of the message in my e-mail.".
+  !=/images/doc/send-message.en.png(Send message)!
+
+h2(#RelatedTopics). Related topics
+
+*  "Finding people":/doc/navigation/searching-people
+*  "Adding friends":/doc/user/adding-friends
+*  "Accepting friends":/doc/user/accepting-friends
+

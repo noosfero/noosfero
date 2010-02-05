@@ -1,0 +1,26 @@
+h1. Removing friends
+
+p.  _How you can remove one friend from your contact list._
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+*  "Related Topics":#RelatedTopics
+
+h2(#HowAccess). How to access
+
+# Find your user menu on top bar:  !=/images/doc/system-homepage-top-menu.en.png(Top menu)!
+# In user menu, click on Control Panel:  !=/images/doc/control-panel-menu.en.png(Control panel menu)!
+# Then, click on "Manage friends"  !=/images/doc/manage-friends.en.png(Manage Friends)!
+
+h2(#Description). Description
+
+# In manage friends screen, you will see your friends list. Find the friend you want to remove from your contact list and click on trash icon next to the picture of the person you want to remove.
+  !=/images/doc/remove-friend.en.png(Remove Friend)!
+# You will be asked to confirm the exclusion. Confirm that you want to remove your friend.
+  !=/images/doc/remove-friend-confirmation.en.png(Remove friend confirmation)!
+# After confirmation, the user will not be listed on your friends list anymore.
+
+h2(#RelatedTopics). Related topics
+
+*  "Adding friends":/doc/user/adding-friends
+*  "Accepting friends":/doc/user/accepting-friends

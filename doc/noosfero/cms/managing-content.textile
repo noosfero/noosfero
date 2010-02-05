@@ -1,0 +1,47 @@
+h1. Managing your content
+
+p.  _Folder is a structure used to organize files in a computer and can also be called a directory. It may contain other files and folders, which may also contain other directories_
+
+p.  _It is usually used to organize files from the same category, like music, videos, poems, recipes, payments or the way the user prefers._
+
+p.  _To organize your texts/images/files, you should manage your content._
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+*  "Related topics":#RelatedTopics
+
+h2(). How to access
+
+# Find your menu on top bar:  !=/images/doc/ystem-homepage-top-menu.en.png(Top menu)!
+# In user menu, click on Control Panel:  !=/images/doc/menu-control-panel.en.png(Control panel on menu)!
+# Then, click on "Manage content":  !=/images/doc/control-panel-content-management.en.png(Manage content in control panel)!
+
+
+h2. Description
+
+# You will see some buttons and the list of your content. The folders are listed first and then your files/articles. Clicking on your folders, you will see the files/folders inside them.  !=/images/doc/cms.en.png(CMS with marks on buttons)!
+# Click to create a new folder. To understand categories and tags, read "Writing an article":/doc/cms/writing-article from item 7.  !=/images/doc/new-folder.en.png(Creating a new folder)!
+## Fill in with the name you want for your folder
+## Select the type of the folder you want to create. If you want to use it to organize pictures, choose the type "Image gallery"
+## Fill in with some information about the folder
+# Click to upload files  !=/images/doc/cms-uploading-files.en.png(Uploading files from CMS)!
+## Select the folder where the file will be uploaded
+## Select the file in your computer
+## If you want to upload more files at once, click on "More files"
+## Click on "Upload"
+# Clicking on this button, you will create a new article. To learn how to write an article, read "Writing an article":/doc/cms/writing-article
+# Folder options. From left to right:  !=/images/doc/cms-folder-icons.en.png(Folder icons on CMS)!
+##  *Edit:* It allows you to change folder's information
+##  *Public view:* It shows how the folder will be displayed to the others users
+##  *Use as homepage:* Set the folder as your homepage
+##  *Delete:* Delete the folder
+# Files options. From left to right:  !=/images/doc/cms-article-icons.en.png(Article icons on CMS)!
+##  *Edit:* It allows you to change the article
+##  *Public view:* It shows how the folder will be displayed to the others users
+##  *Publish:* It should be used to publish your articles in communities or enterprises that you are member
+##  *Use as homepage:* Set the article as your homepage
+##  *Delete:* Delete the article
+
+h2. Related topics
+
+*  "Writing an article":/doc/cms/writing-article

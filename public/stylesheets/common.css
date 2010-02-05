@@ -626,3 +626,12 @@ code input {
   margin: 0;
   padding: 0;
 }
+
+#online-doc-text img {
+  border: 1px solid #CCC;
+  padding: 2px;
+}
+
+#online-doc-text li img {
+  margin: 10px 0px;
+}
