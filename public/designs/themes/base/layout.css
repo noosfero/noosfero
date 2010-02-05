@@ -236,7 +236,7 @@ body, th, td, input {
   padding: 10px 20px;
 }
 
-#content .main-block h1 {
+#content .main-block h1, #not-found h1, #access-denied h1 {
   font-variant: small-caps;
   color: #555753;
   font-size: 16px;
@@ -281,8 +281,12 @@ body, th, td, input {
   text-align: left;
   float: left;
 }
-#footer-links a {
-  margin-right: 8px;
+
+#link-to-doc {
+ background-repeat: no-repeat;
+ padding-left: 20px;
+ padding-top: 2px;
+ padding-bottom: 2px;
 }
 
 #copyright {

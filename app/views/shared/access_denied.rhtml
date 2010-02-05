@@ -1,19 +1,20 @@
 <div id='access-denied'>
 
-  <h1> <%= @title || _('Access denied') %> </h1>
+  <% noosfero_wrap do %>
+    <h1> <%= @title || _('Access denied') %> </h1>
 
-  <% unless @message.nil? %>
-    <p><%= @message %></p>
-  <% else %>
-    <p><%= _('You are not allowed to view this page.') %></p>
-    <p><%= _("If you are supposed to have access to this area, you'll probably want to talk to the people responsible and ask them to give you access.") %></p>
-  <% end %>
+    <% unless @message.nil? %>
+      <p><%= @message %></p>
+    <% else %>
+      <p><%= _('You are not allowed to view this page.') %></p>
+      <p><%= _("If you are supposed to have access to this area, you'll probably want to talk to the people responsible and ask them to give you access.") %></p>
+    <% end %>
 
-  <hr/>
+    <% button_bar do %>
+      <%= button :back, _('Go back'), :back %>
+      <%= button :home, _('Go to the site home page'), :controller => 'home' %>
+    <% end %>
 
-  <% button_bar do %>
-    <%= button :back, _('Go back'), :back %>
-    <%= button :home, _('Go to the site home page'), :controller => 'home' %>
   <% end %>
 
 </div>

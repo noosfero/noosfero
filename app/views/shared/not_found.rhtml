@@ -1,11 +1,13 @@
 <div id='not-found'>
-  <h1><%= _('There is no such page: %s') % (content_tag('tt', @path)) %></h1>
-  <p>
-  <%= _('You may have clicked an expired link or mistyped the address.') %>
-  <%= _('If you clicked a link that was in another site, or was given to you by someone else, it would be nice if you tell them that their link is not valid anymore.') %>
-  </p>
-  <% button_bar do %>
-    <%= button :back, _('Go back'), :back %>
-    <%= button :home, _('Go to %s home page') % environment.name, :controller => 'home' %>
+  <% noosfero_wrap do %>
+    <h1><%= _('There is no such page: %s') % (content_tag('tt', @path)) %></h1>
+    <p>
+    <%= _('You may have clicked an expired link or mistyped the address.') %>
+    <%= _('If you clicked a link that was in another site, or was given to you by someone else, it would be nice if you tell them that their link is not valid anymore.') %>
+    </p>
+    <% button_bar do %>
+      <%= button :back, _('Go back'), :back %>
+      <%= button :home, _('Go to %s home page') % environment.name, :controller => 'home' %>
+    <% end %>
   <% end %>
 </div>

@@ -476,18 +476,9 @@ div.pending-tasks {
 
 #content #not-found,
 #content #access-denied {
-  padding: 20px;
-  margin: 20px;
-  border: 1px solid #DDD;
   -moz-border-radius: 6px;
   margin-left: 20%;
   margin-right: 20%;
-}
-
-#content #not-found h1,
-#content #access-denied h1 {
-  text-align: left;
-  margin-top: 0px;
 }
 
 #content #not-found p,
