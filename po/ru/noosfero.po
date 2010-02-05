@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.21.5\n"
-"POT-Creation-Date: 2010-02-05 14:43-0300\n"
+"POT-Creation-Date: 2010-02-05 16:18-0300\n"
 "PO-Revision-Date: 2009-10-09 13:28+0100\n"
 "Last-Translator: Anton <anton.c@live.com>\n"
 "Language-Team: German <de@li.org>\n"
@@ -126,6 +126,8 @@ msgstr "Пользователи"
 #: app/controllers/public/search_controller.rb:205
 #: app/models/products_block.rb:8 app/models/products_block.rb:12
 #: app/views/search/_sellers_form.rhtml:8
+#: public/designs/themes/base/navigation.rhtml:2
+#: public/designs/themes/noosfero/navigation.rhtml:2
 msgid "Products"
 msgstr "Продукты"
 
@@ -136,6 +138,8 @@ msgstr "Продукты"
 #: app/views/content_viewer/_person.rhtml:38
 #: app/views/search/_sellers_form.rhtml:7 app/views/search/enterprises.rhtml:5
 #: app/views/profile/_person.rhtml:38
+#: public/designs/themes/base/navigation.rhtml:1
+#: public/designs/themes/noosfero/navigation.rhtml:1
 msgid "Enterprises"
 msgstr "Компании"
 
@@ -150,6 +154,8 @@ msgstr "Сообщества"
 
 #: app/helpers/assets_helper.rb:12
 #: app/controllers/public/search_controller.rb:135
+#: public/designs/themes/base/navigation.rhtml:3
+#: public/designs/themes/noosfero/navigation.rhtml:3
 msgid "Events"
 msgstr "События"
 
@@ -383,27 +389,27 @@ msgstr "Основной контент"
 msgid "This block is invisible. Your visitors will not see it."
 msgstr "Этот блок невидимый для других пользователей"
 
-#: app/helpers/boxes_helper.rb:178
+#: app/helpers/boxes_helper.rb:183
 msgid "Can't move up anymore."
 msgstr "Невозможно передвинуть выше"
 
-#: app/helpers/boxes_helper.rb:180
+#: app/helpers/boxes_helper.rb:185
 msgid "Move block up"
 msgstr "Передвинуть блок выше"
 
-#: app/helpers/boxes_helper.rb:184
+#: app/helpers/boxes_helper.rb:189
 msgid "Can't move down anymore."
 msgstr "Невозможно передвинуть ниже"
 
-#: app/helpers/boxes_helper.rb:186
+#: app/helpers/boxes_helper.rb:191
 msgid "Move block down"
 msgstr "Передвинуть блок ниже"
 
-#: app/helpers/boxes_helper.rb:194 app/helpers/boxes_helper.rb:196
+#: app/helpers/boxes_helper.rb:199 app/helpers/boxes_helper.rb:201
 msgid "Move to the opposite side"
 msgstr "Переместить на другую сторону"
 
-#: app/helpers/boxes_helper.rb:201 app/helpers/article_helper.rb:36
+#: app/helpers/boxes_helper.rb:206 app/helpers/article_helper.rb:36
 #: app/models/link_list_block.rb:5 app/views/categories/_category.rhtml:8
 #: app/views/cms/view.rhtml:81 app/views/manage_products/index.rhtml:19
 #: app/views/manage_products/index.rhtml:53 app/views/role/index.rhtml:14
@@ -413,25 +419,25 @@ msgstr "Переместить на другую сторону"
 msgid "Edit"
 msgstr "Редактировать"
 
-#: app/helpers/boxes_helper.rb:205
+#: app/helpers/boxes_helper.rb:210
 msgid "Remove block"
 msgstr "Удалить блок"
 
-#: app/helpers/boxes_helper.rb:205
+#: app/helpers/boxes_helper.rb:210
 msgid "Are you sure you want to remove this block?"
 msgstr "Вы уверены что хотите удалить блок?"
 
-#: app/helpers/boxes_helper.rb:209
+#: app/helpers/boxes_helper.rb:214
 msgid "Help on this block"
 msgstr "Помощь по блоку"
 
-#: app/helpers/boxes_helper.rb:209 app/helpers/application_helper.rb:80
+#: app/helpers/boxes_helper.rb:214 app/helpers/application_helper.rb:80
 #: app/models/link_list_block.rb:23 app/views/layouts/application.rhtml:109
 #: app/views/layouts/wizard.rhtml:29
 msgid "Help"
 msgstr "Помощь"
 
-#: app/helpers/boxes_helper.rb:209 app/helpers/application_helper.rb:100
+#: app/helpers/boxes_helper.rb:214 app/helpers/application_helper.rb:100
 #: app/views/cms/why_categorize.rhtml:8 app/views/search/_search_form.rhtml:63
 #: app/views/box_organizer/add_block.rhtml:26 app/views/account/wizard.rhtml:1
 msgid "Close"
@@ -875,65 +881,65 @@ msgstr "Дистанция"
 msgid "This is %s, version %s"
 msgstr "Это %s, версия %s"
 
-#: app/helpers/application_helper.rb:417
+#: app/helpers/application_helper.rb:419
 msgid "non registered gender"
 msgstr "не указан пол"
 
-#: app/helpers/application_helper.rb:417
+#: app/helpers/application_helper.rb:419
 #: app/views/profile_editor/_person_form.rhtml:18
 #: app/views/content_viewer/_person.rhtml:5 app/views/profile/_person.rhtml:5
 msgid "Male"
 msgstr "Мужской"
 
-#: app/helpers/application_helper.rb:417
+#: app/helpers/application_helper.rb:419
 #: app/views/profile_editor/_person_form.rhtml:18
 #: app/views/content_viewer/_person.rhtml:5 app/views/profile/_person.rhtml:5
 msgid "Female"
 msgstr "Женский"
 
-#: app/helpers/application_helper.rb:442
+#: app/helpers/application_helper.rb:444
 msgid "Principal Product Categories"
 msgstr "Основные категории продуктов"
 
-#: app/helpers/application_helper.rb:468
+#: app/helpers/application_helper.rb:470
 msgid "Click on this icon to add <b>%s</b> to your network"
 msgstr "Чтоб добавить в сеть, кликните на иконку <b>%s</b>"
 
-#: app/helpers/application_helper.rb:491 app/helpers/application_helper.rb:508
+#: app/helpers/application_helper.rb:493 app/helpers/application_helper.rb:510
 msgid "Click on this icon to go to the <b>%s</b>'s home page"
 msgstr "Кликните на иконку, чтоб перейти на домашнюю страницу <b>%s</b>"
 
-#: app/helpers/application_helper.rb:504
+#: app/helpers/application_helper.rb:506
 msgid "1 member"
 msgid_plural "%s members"
 msgstr[0] "1 участник"
 msgstr[1] "%s участников"
 
-#: app/helpers/application_helper.rb:542 app/views/categories/index.rhtml:1
+#: app/helpers/application_helper.rb:544 app/views/categories/index.rhtml:1
 #: app/views/content_viewer/view_page.rhtml:94
 msgid "Categories"
 msgstr "Категории"
 
-#: app/helpers/application_helper.rb:565
+#: app/helpers/application_helper.rb:567
 msgid "open"
 msgstr "открыть"
 
-#: app/helpers/application_helper.rb:604
+#: app/helpers/application_helper.rb:606
 #: app/views/layouts/application-ng.rhtml:79
 #: app/views/layouts/application-ng.rhtml:81
 #: app/views/layouts/application-ng.rhtml:84
 msgid "Search..."
 msgstr "Искать"
 
-#: app/helpers/application_helper.rb:606
+#: app/helpers/application_helper.rb:608
 msgid "This is a search box. Click, write your query, and press enter to find"
 msgstr "Это поле поиска."
 
-#: app/helpers/application_helper.rb:607
+#: app/helpers/application_helper.rb:609
 msgid "Click, write and press enter to find"
 msgstr "Введите запрос и нажмите enter"
 
-#: app/helpers/application_helper.rb:613 app/models/link_list_block.rb:20
+#: app/helpers/application_helper.rb:615 app/models/link_list_block.rb:20
 #: app/views/region_validators/region.rhtml:23
 #: app/views/search/articles.rhtml:10 app/views/search/_sellers_form.rhtml:21
 #: app/views/search/_search_form.rhtml:19 app/views/search/people.rhtml:10
@@ -942,23 +948,23 @@ msgstr "Введите запрос и нажмите enter"
 msgid "Search"
 msgstr "Поиск"
 
-#: app/helpers/application_helper.rb:801
+#: app/helpers/application_helper.rb:803
 msgid "Searched for '%s'"
 msgstr "Искали: '%s'"
 
-#: app/helpers/application_helper.rb:802
+#: app/helpers/application_helper.rb:804
 msgid "In category %s"
 msgstr "В категории %s"
 
-#: app/helpers/application_helper.rb:803
+#: app/helpers/application_helper.rb:805
 msgid "within %d km from %s"
 msgstr "в %d км. от %s"
 
-#: app/helpers/application_helper.rb:804
+#: app/helpers/application_helper.rb:806
 msgid "%d results found"
 msgstr "найдено %d записей"
 
-#: app/helpers/application_helper.rb:810
+#: app/helpers/application_helper.rb:812
 msgid "In all categories"
 msgstr "Во всех категориях"
 
@@ -3367,21 +3373,21 @@ msgstr "Категории:"
 msgid "Change image"
 msgstr "Сменить изобрежение"
 
-#: app/views/shared/access_denied.rhtml:3
+#: app/views/shared/access_denied.rhtml:4
 msgid "Access denied"
 msgstr "Доступ запрещен"
 
-#: app/views/shared/access_denied.rhtml:8
+#: app/views/shared/access_denied.rhtml:9
 msgid "You are not allowed to view this page."
 msgstr "Вам не позволено просматривать эту страницу"
 
-#: app/views/shared/access_denied.rhtml:9
+#: app/views/shared/access_denied.rhtml:10
 msgid ""
 "If you are supposed to have access to this area, you'll probably want to "
 "talk to the people responsible and ask them to give you access."
 msgstr "Вам нужны права доступа, свяжитесь с администраторами данной зоны"
 
-#: app/views/shared/access_denied.rhtml:15 app/views/shared/not_found.rhtml:8
+#: app/views/shared/access_denied.rhtml:14 app/views/shared/not_found.rhtml:9
 #: app/views/favorite_enterprises/index.rhtml:31
 #: app/views/memberships/index.rhtml:7 app/views/profile/friends.rhtml:19
 #: app/views/profile/_private_profile.rhtml:15
@@ -3391,26 +3397,26 @@ msgstr "Вам нужны права доступа, свяжитесь с ад�
 msgid "Go back"
 msgstr "Назад"
 
-#: app/views/shared/access_denied.rhtml:16 public/500.html.erb:33
+#: app/views/shared/access_denied.rhtml:15 public/500.html.erb:33
 msgid "Go to the site home page"
 msgstr "Перейти на домашнюю страницу сайта"
 
-#: app/views/shared/not_found.rhtml:2
+#: app/views/shared/not_found.rhtml:3
 msgid "There is no such page: %s"
 msgstr "Нет такой страницы: %s"
 
-#: app/views/shared/not_found.rhtml:4
+#: app/views/shared/not_found.rhtml:5
 msgid "You may have clicked an expired link or mistyped the address."
 msgstr "Вы кликнули по устаревшей ссылке или ошиблись с адресом"
 
-#: app/views/shared/not_found.rhtml:5
+#: app/views/shared/not_found.rhtml:6
 msgid ""
 "If you clicked a link that was in another site, or was given to you by "
 "someone else, it would be nice if you tell them that their link is not valid "
 "anymore."
 msgstr "Ссылка не действительна"
 
-#: app/views/shared/not_found.rhtml:9
+#: app/views/shared/not_found.rhtml:10
 #: app/views/profile/_private_profile.rhtml:16
 #, fuzzy
 msgid "Go to %s home page"
@@ -6575,6 +6581,21 @@ msgstr "Категория: %s"
 #: app/views/catalog/show.rhtml:22
 msgid "%s's products/services listing"
 msgstr "%s: список продуктов и сервисов"
+
+#: app/views/doc/_path.html.erb:2
+msgid "You are here:"
+msgstr ""
+
+#: app/views/doc/_path.html.erb:3 public/designs/themes/base/footer.rhtml:2
+#: public/designs/themes/noosfero/footer.rhtml:2
+#, fuzzy
+msgid "Documentation"
+msgstr "Документы"
+
+#: app/views/doc/_toc.html.erb:2
+#, fuzzy
+msgid "On-line documentation"
+msgstr "Документы"
 
 #: lib/unifreire_terminology.rb:9
 msgid "Institutions"

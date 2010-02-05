@@ -356,9 +356,11 @@ module ApplicationHelper
   end
 
   def theme_include(template)
-    file = (RAILS_ROOT + '/public' + theme_path + '/' + template  + '.rhtml')
-    if File.exists?(file)
-      render :file => file, :use_full_path => false
+    ['.rhtml', '.html.erb'].each do |ext|
+      file = (RAILS_ROOT + '/public' + theme_path + '/' + template  + ext)
+      if File.exists?(file)
+        return render :file => file, :use_full_path => false
+      end
     end
   end
 

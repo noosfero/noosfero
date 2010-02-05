@@ -27,8 +27,11 @@ task :updatepo do
     end
   end
 
-  GetText.update_pofiles(Noosfero::PROJECT, Dir.glob("{app,lib}/**/*.{rb,rhtml}") + Dir.glob('public/*.html.erb'),
-                         "#{Noosfero::PROJECT} #{Noosfero::VERSION}")
+  sources =
+    Dir.glob("{app,lib}/**/*.{rb,rhtml,erb}") +
+    Dir.glob('public/*.html.erb') +
+    Dir.glob('public/designs/themes/{base,noosfero}/*.{rhtml,html.erb}')
+  GetText.update_pofiles(Noosfero::PROJECT, sources, "#{Noosfero::PROJECT} #{Noosfero::VERSION}")
 end
 
 # vim: ft=ruby

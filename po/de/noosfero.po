@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.21.5\n"
-"POT-Creation-Date: 2010-02-05 14:43-0300\n"
+"POT-Creation-Date: 2010-02-05 16:18-0300\n"
 "PO-Revision-Date: 2010-01-20 13:44-0300\n"
 "Last-Translator: Ronny Kursawe <kursawe.ronny@googlemail.com>\n"
 "Language-Team: German <de@li.org>\n"
@@ -129,6 +129,8 @@ msgstr "Leute"
 #: app/controllers/public/search_controller.rb:205
 #: app/models/products_block.rb:8 app/models/products_block.rb:12
 #: app/views/search/_sellers_form.rhtml:8
+#: public/designs/themes/base/navigation.rhtml:2
+#: public/designs/themes/noosfero/navigation.rhtml:2
 msgid "Products"
 msgstr "Produkte"
 
@@ -139,6 +141,8 @@ msgstr "Produkte"
 #: app/views/content_viewer/_person.rhtml:38
 #: app/views/search/_sellers_form.rhtml:7 app/views/search/enterprises.rhtml:5
 #: app/views/profile/_person.rhtml:38
+#: public/designs/themes/base/navigation.rhtml:1
+#: public/designs/themes/noosfero/navigation.rhtml:1
 msgid "Enterprises"
 msgstr "Unternehmen"
 
@@ -153,6 +157,8 @@ msgstr "Communities"
 
 #: app/helpers/assets_helper.rb:12
 #: app/controllers/public/search_controller.rb:135
+#: public/designs/themes/base/navigation.rhtml:3
+#: public/designs/themes/noosfero/navigation.rhtml:3
 msgid "Events"
 msgstr "Ereignisse"
 
@@ -383,27 +389,27 @@ msgstr "Hauptinhalt"
 msgid "This block is invisible. Your visitors will not see it."
 msgstr "Dieser Bereich ist nicht sichtbar. Ihre Kunden werden ihn nicht sehen."
 
-#: app/helpers/boxes_helper.rb:178
+#: app/helpers/boxes_helper.rb:183
 msgid "Can't move up anymore."
 msgstr "Kann nicht höher schieben"
 
-#: app/helpers/boxes_helper.rb:180
+#: app/helpers/boxes_helper.rb:185
 msgid "Move block up"
 msgstr "Block nach oben verschieben"
 
-#: app/helpers/boxes_helper.rb:184
+#: app/helpers/boxes_helper.rb:189
 msgid "Can't move down anymore."
 msgstr "Kann nicht weiter nach unten schieben"
 
-#: app/helpers/boxes_helper.rb:186
+#: app/helpers/boxes_helper.rb:191
 msgid "Move block down"
 msgstr "Block nach unten schieben"
 
-#: app/helpers/boxes_helper.rb:194 app/helpers/boxes_helper.rb:196
+#: app/helpers/boxes_helper.rb:199 app/helpers/boxes_helper.rb:201
 msgid "Move to the opposite side"
 msgstr "Zur anderen Seite schieben"
 
-#: app/helpers/boxes_helper.rb:201 app/helpers/article_helper.rb:36
+#: app/helpers/boxes_helper.rb:206 app/helpers/article_helper.rb:36
 #: app/models/link_list_block.rb:5 app/views/categories/_category.rhtml:8
 #: app/views/cms/view.rhtml:81 app/views/manage_products/index.rhtml:19
 #: app/views/manage_products/index.rhtml:53 app/views/role/index.rhtml:14
@@ -413,25 +419,25 @@ msgstr "Zur anderen Seite schieben"
 msgid "Edit"
 msgstr "Ändern"
 
-#: app/helpers/boxes_helper.rb:205
+#: app/helpers/boxes_helper.rb:210
 msgid "Remove block"
 msgstr "Entferne Block"
 
-#: app/helpers/boxes_helper.rb:205
+#: app/helpers/boxes_helper.rb:210
 msgid "Are you sure you want to remove this block?"
 msgstr "Sind Sie sicher, dass Sie diesen Block löschen wollen?"
 
-#: app/helpers/boxes_helper.rb:209
+#: app/helpers/boxes_helper.rb:214
 msgid "Help on this block"
 msgstr "Hilfe für diesen Block"
 
-#: app/helpers/boxes_helper.rb:209 app/helpers/application_helper.rb:80
+#: app/helpers/boxes_helper.rb:214 app/helpers/application_helper.rb:80
 #: app/models/link_list_block.rb:23 app/views/layouts/application.rhtml:109
 #: app/views/layouts/wizard.rhtml:29
 msgid "Help"
 msgstr "Hilfe"
 
-#: app/helpers/boxes_helper.rb:209 app/helpers/application_helper.rb:100
+#: app/helpers/boxes_helper.rb:214 app/helpers/application_helper.rb:100
 #: app/views/cms/why_categorize.rhtml:8 app/views/search/_search_form.rhtml:63
 #: app/views/box_organizer/add_block.rhtml:26 app/views/account/wizard.rhtml:1
 msgid "Close"
@@ -876,68 +882,68 @@ msgstr "Entfernung"
 msgid "This is %s, version %s"
 msgstr "Das ist %s, Version %s"
 
-#: app/helpers/application_helper.rb:417
+#: app/helpers/application_helper.rb:419
 msgid "non registered gender"
 msgstr "Geschlecht nicht registriert"
 
-#: app/helpers/application_helper.rb:417
+#: app/helpers/application_helper.rb:419
 #: app/views/profile_editor/_person_form.rhtml:18
 #: app/views/content_viewer/_person.rhtml:5 app/views/profile/_person.rhtml:5
 msgid "Male"
 msgstr "Mann"
 
-#: app/helpers/application_helper.rb:417
+#: app/helpers/application_helper.rb:419
 #: app/views/profile_editor/_person_form.rhtml:18
 #: app/views/content_viewer/_person.rhtml:5 app/views/profile/_person.rhtml:5
 msgid "Female"
 msgstr "Frau"
 
-#: app/helpers/application_helper.rb:442
+#: app/helpers/application_helper.rb:444
 msgid "Principal Product Categories"
 msgstr "Haupt-Produkt-Kategorien"
 
-#: app/helpers/application_helper.rb:468
+#: app/helpers/application_helper.rb:470
 msgid "Click on this icon to add <b>%s</b> to your network"
 msgstr ""
 "Klicken Sie auf dieses Symbol, um <b>%s</b> zu Ihrem Netzwerk hinzuzufügen"
 
-#: app/helpers/application_helper.rb:491 app/helpers/application_helper.rb:508
+#: app/helpers/application_helper.rb:493 app/helpers/application_helper.rb:510
 msgid "Click on this icon to go to the <b>%s</b>'s home page"
 msgstr "Klicken Sie auf dieses Symbol, um zu <b>%s</b>'s Homepage zu gehen"
 
-#: app/helpers/application_helper.rb:504
+#: app/helpers/application_helper.rb:506
 msgid "1 member"
 msgid_plural "%s members"
 msgstr[0] "Mitglied"
 msgstr[1] "%s Mitglieder"
 
-#: app/helpers/application_helper.rb:542 app/views/categories/index.rhtml:1
+#: app/helpers/application_helper.rb:544 app/views/categories/index.rhtml:1
 #: app/views/content_viewer/view_page.rhtml:94
 msgid "Categories"
 msgstr "Kategorien"
 
-#: app/helpers/application_helper.rb:565
+#: app/helpers/application_helper.rb:567
 msgid "open"
 msgstr "offen"
 
-#: app/helpers/application_helper.rb:604
+#: app/helpers/application_helper.rb:606
 #: app/views/layouts/application-ng.rhtml:79
 #: app/views/layouts/application-ng.rhtml:81
 #: app/views/layouts/application-ng.rhtml:84
 msgid "Search..."
 msgstr "Suche"
 
-#: app/helpers/application_helper.rb:606
+#: app/helpers/application_helper.rb:608
 msgid "This is a search box. Click, write your query, and press enter to find"
 msgstr ""
 "Das ist eine Suchbox. Klicken Sie, schreiben Sie Ihre Frage und bestätigen "
 "Sie mit Enter"
 
-#: app/helpers/application_helper.rb:607
+#: app/helpers/application_helper.rb:609
 msgid "Click, write and press enter to find"
 msgstr "Klicken Sie, schreiben Sie und bestätigen Sie mit Enter"
 
-#: app/helpers/application_helper.rb:613 app/models/link_list_block.rb:20
+#: app/helpers/application_helper.rb:615 app/models/link_list_block.rb:20
 #: app/views/region_validators/region.rhtml:23
 #: app/views/search/articles.rhtml:10 app/views/search/_sellers_form.rhtml:21
 #: app/views/search/_search_form.rhtml:19 app/views/search/people.rhtml:10
@@ -946,23 +952,23 @@ msgstr "Klicken Sie, schreiben Sie und bestätigen Sie mit Enter"
 msgid "Search"
 msgstr "Suche"
 
-#: app/helpers/application_helper.rb:801
+#: app/helpers/application_helper.rb:803
 msgid "Searched for '%s'"
 msgstr "Suche nach '%s'"
 
-#: app/helpers/application_helper.rb:802
+#: app/helpers/application_helper.rb:804
 msgid "In category %s"
 msgstr "In Kategorie %s"
 
-#: app/helpers/application_helper.rb:803
+#: app/helpers/application_helper.rb:805
 msgid "within %d km from %s"
 msgstr "mit %d km von %s"
 
-#: app/helpers/application_helper.rb:804
+#: app/helpers/application_helper.rb:806
 msgid "%d results found"
 msgstr "%d Resultate gefunden"
 
-#: app/helpers/application_helper.rb:810
+#: app/helpers/application_helper.rb:812
 msgid "In all categories"
 msgstr "In allen Kategorien"
 
@@ -3368,15 +3374,15 @@ msgstr "Kategorien:"
 msgid "Change image"
 msgstr "Bild ändern"
 
-#: app/views/shared/access_denied.rhtml:3
+#: app/views/shared/access_denied.rhtml:4
 msgid "Access denied"
 msgstr "Zugriff verweigert"
 
-#: app/views/shared/access_denied.rhtml:8
+#: app/views/shared/access_denied.rhtml:9
 msgid "You are not allowed to view this page."
 msgstr "Es ist Ihnen nicht erlaubt, diese Seite anzusehen."
 
-#: app/views/shared/access_denied.rhtml:9
+#: app/views/shared/access_denied.rhtml:10
 msgid ""
 "If you are supposed to have access to this area, you'll probably want to "
 "talk to the people responsible and ask them to give you access."
@@ -3384,7 +3390,7 @@ msgstr ""
 "Wenn Sie Zugriff auf diesen Bereich möchten, dann wenden Sie sich bittean "
 "die jeweils für diesen Bereich zuständige Person."
 
-#: app/views/shared/access_denied.rhtml:15 app/views/shared/not_found.rhtml:8
+#: app/views/shared/access_denied.rhtml:14 app/views/shared/not_found.rhtml:9
 #: app/views/favorite_enterprises/index.rhtml:31
 #: app/views/memberships/index.rhtml:7 app/views/profile/friends.rhtml:19
 #: app/views/profile/_private_profile.rhtml:15
@@ -3394,21 +3400,21 @@ msgstr ""
 msgid "Go back"
 msgstr "Zurück"
 
-#: app/views/shared/access_denied.rhtml:16 public/500.html.erb:33
+#: app/views/shared/access_denied.rhtml:15 public/500.html.erb:33
 msgid "Go to the site home page"
 msgstr "Gehe zur Homepage"
 
-#: app/views/shared/not_found.rhtml:2
+#: app/views/shared/not_found.rhtml:3
 msgid "There is no such page: %s"
 msgstr "Gesuchte Seite nicht gefunden: %s"
 
-#: app/views/shared/not_found.rhtml:4
+#: app/views/shared/not_found.rhtml:5
 msgid "You may have clicked an expired link or mistyped the address."
 msgstr ""
 "Sie haben auf einen veralteteten Link geklickt oder sich bei der Adresse "
 "vertippt."
 
-#: app/views/shared/not_found.rhtml:5
+#: app/views/shared/not_found.rhtml:6
 msgid ""
 "If you clicked a link that was in another site, or was given to you by "
 "someone else, it would be nice if you tell them that their link is not valid "
@@ -3418,7 +3424,7 @@ msgstr ""
 "Sie bitte den Betreiber dieser Seite, dass dieser Link nicht mehr aktuell "
 "ist."
 
-#: app/views/shared/not_found.rhtml:9
+#: app/views/shared/not_found.rhtml:10
 #: app/views/profile/_private_profile.rhtml:16
 #, fuzzy
 msgid "Go to %s home page"
@@ -6669,6 +6675,21 @@ msgstr "Kategorie: %s"
 #: app/views/catalog/show.rhtml:22
 msgid "%s's products/services listing"
 msgstr "%s's Produkte/Services als Liste"
+
+#: app/views/doc/_path.html.erb:2
+msgid "You are here:"
+msgstr ""
+
+#: app/views/doc/_path.html.erb:3 public/designs/themes/base/footer.rhtml:2
+#: public/designs/themes/noosfero/footer.rhtml:2
+#, fuzzy
+msgid "Documentation"
+msgstr "Dokumente"
+
+#: app/views/doc/_toc.html.erb:2
+#, fuzzy
+msgid "On-line documentation"
+msgstr "Dokumente"
 
 #: lib/unifreire_terminology.rb:9
 msgid "Institutions"
