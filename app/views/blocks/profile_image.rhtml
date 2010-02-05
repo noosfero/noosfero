@@ -5,9 +5,7 @@
 <div class="profile-big-image">
   <div class="profile-big-image-inner1">
     <span class="profile-big-image-inner2">
-      <%=
-        profile_image(block.owner, :big) +"\n"
-      %>
+      <%= link_to profile_image(block.owner, :big) +"\n", profile.url %>
     </span>
   </div>
 </div>
