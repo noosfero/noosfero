@@ -52,7 +52,8 @@ upgrade_code(){
 
   git pull --quiet
 
-  rake makemo 2>/dev/null || (echo "Translations compilation failed; run manually to check"; false)
+  say "Compiling translations"
+  rake noosfero:translations:compile 2>/dev/null || (echo "Translations compilation failed; run manually to check"; false)
 }
 
 upgrade_database(){
