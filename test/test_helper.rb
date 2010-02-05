@@ -208,4 +208,6 @@ class ActionController::IntegrationTest
 
 end
 
+require File.dirname(__FILE__) + '/colors'
+
 Profile
