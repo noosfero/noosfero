@@ -19,6 +19,11 @@ class DocController < PublicController
     @topic = @section.find(params[:topic])
   end
 
+  rescue_from DocItem::NotFound, :with => :not_found
+  def not_found
+    render_not_found
+  end
+
   protected
 
   def load_toc

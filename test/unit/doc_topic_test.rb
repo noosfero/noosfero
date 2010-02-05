@@ -18,4 +18,11 @@ class DocTopicTest < ActiveSupport::TestCase
     assert_equal 'pt', doc.language
     assert_equal 'Teste da documentação', doc.title
   end
+
+  should 'raise DocTopic::NotFound when trying to load an unexisting topic' do
+    assert_raise DocItem::NotFound do
+      DocTopic.loadfile('/path/to/unexisting/file.en.xhtml')
+    end
+  end
+
 end

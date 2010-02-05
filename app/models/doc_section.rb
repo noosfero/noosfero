@@ -20,7 +20,12 @@ class DocSection < DocItem
     if id.blank?
       root(language)
     else
-      all(language, force).find {|item| item.id == id }
+      section = all(language, force).find {|item| item.id == id }
+      if section
+        section
+      else
+        raise DocItem::NotFound
+      end
     end
   end
 
@@ -50,7 +55,7 @@ class DocSection < DocItem
     [
       File.join(dir, "#{id}#{language_suffix}.xhtml"),
       File.join(dir, "#{id}.en.xhtml")
-    ].find {|file| File.exist?(file) }
+    ].find {|file| File.exist?(file) } || raise(DocItem::NotFound)
   end
 
   def load_items

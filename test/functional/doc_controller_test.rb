@@ -40,5 +40,11 @@ class DocControllerTest < ActionController::TestCase
     assert_equal 'pt', assigns(:topic).language
   end
 
+  should 'bail out gracefully for unexisting sections or topics' do
+    assert_nothing_raised do
+      get :section, :section => 'something-very-unlikely'
+      get :section, :section => 'something-very-unlikely', :topic => 'other-thing-very-unlikely'
+    end
+  end
 
 end

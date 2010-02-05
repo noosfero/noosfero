@@ -91,8 +91,10 @@ class DocSectionTest < ActiveSupport::TestCase
     end
   end
 
-  should 'not load null section (the root) for unexisting sections' do
-    assert_nil DocSection.find('something-very-unlikely')
+  should 'raise DocItem::NotFound when loading unexisting section' do
+    assert_raise DocItem::NotFound do
+      DocSection.find('something-very-unlikely')
+    end
   end
 
 end

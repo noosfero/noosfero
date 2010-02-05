@@ -1,5 +1,8 @@
 class DocTopic < DocItem
   def self.loadfile(file)
+    if !File.exist?(file)
+      raise DocItem::NotFound
+    end
     lines = File.readlines(file) 
     title = _find_title(lines)
     File.basename(file) =~ /(.*)\.([^\.]+)\.xhtml$/
