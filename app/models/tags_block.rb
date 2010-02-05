@@ -7,7 +7,7 @@ class TagsBlock < Block
   settings_items :limit, :type => :integer, :default => 12
 
   def self.description
-    _('Block listing content count by tag')
+    _('Tags')
   end
 
   def default_title

@@ -1,7 +1,7 @@
 class MembersBlock < ProfileListBlock
 
   def self.description
-    _('A block that displays members.')
+    _('Members')
   end
 
   def default_title

@@ -5,7 +5,7 @@ class ProductsBlock < Block
   include ActionController::UrlWriter
 
   def self.description
-    _('A block that displays products')
+    _('Products')
   end
 
   def default_title

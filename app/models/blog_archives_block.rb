@@ -7,7 +7,7 @@ class BlogArchivesBlock < Block
   include DatesHelper
 
   def self.description
-    _('List posts of your blog')
+    _('Blog posts')
   end
 
   def default_title

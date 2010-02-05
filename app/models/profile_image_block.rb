@@ -3,11 +3,11 @@ class ProfileImageBlock < Block
   settings_items :show_name, :type => :boolean, :default => false
 
   def self.description
-    _('A block that displays only image of profiles')
+    _('Picture')
   end
 
   def help
-    _('This block presents the profile image.')
+    _('This block presents the profile image')
   end
 
   def content

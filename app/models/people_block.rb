@@ -9,7 +9,7 @@ class PeopleBlock < ProfileListBlock
   end
 
   def self.description
-    _('A block displays random people')
+    _('Random people')
   end
 
   def profile_finder

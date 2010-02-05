@@ -3,7 +3,7 @@ class ProfileListBlock < Block
   settings_items :limit, :type => :integer, :default => 6
 
   def self.description
-    _('A block that displays random profiles')
+    _('Random profiles')
   end
 
   # Override this method to make the block list specific types of profiles

@@ -1,7 +1,7 @@
 class EnvironmentStatisticsBlock < Block
 
   def self.description
-    _('Statistical overview of your environment.')
+    _('Environment stastistics')
   end
 
   def default_title

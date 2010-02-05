@@ -1,7 +1,7 @@
 class LoginBlock < Block
 
   def self.description
-    _('A login box for your users.')
+    _('Login/logout')
   end
 
   def help

@@ -1,7 +1,7 @@
 class ArticleBlock < Block
 
   def self.description
-    _('Display one of your contents.')
+    _('Display one of your contents')
   end
 
   def help

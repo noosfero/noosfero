@@ -1,7 +1,7 @@
 class DisabledEnterpriseMessageBlock < Block
 
   def self.description
-    _('Disabled enterprise message block')
+    _('"Disabled enterprise" message')
   end
 
   def help

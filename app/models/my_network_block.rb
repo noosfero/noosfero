@@ -3,7 +3,7 @@ class MyNetworkBlock < Block
   include ActionController::UrlWriter
 
   def self.description
-    _('A block that displays a summary of your network')
+    _('My network')
   end
 
   def default_title

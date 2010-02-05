@@ -4,7 +4,7 @@ class LocationBlock < Block
   settings_items :map_type, :type => :string , :default => 'roadmap'
 
   def self.description
-    _('Location map block')
+    _('Location map')
   end
 
   def help

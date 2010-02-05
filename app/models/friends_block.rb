@@ -1,7 +1,7 @@
 class FriendsBlock < ProfileListBlock
 
   def self.description
-    __('A block that displays your friends')
+    __('Friends')
   end
 
   def default_title

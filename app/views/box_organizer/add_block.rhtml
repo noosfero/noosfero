@@ -7,12 +7,19 @@
   
   <p><%= _('Select the type of block you want to add to your page.') %></p>
   
-  <% @block_types.each do |item| %>
-    <div>
-      <%= radio_button_tag('type', item.name) %>
-      <%= item.description %>
+  <% @block_types.in_groups_of(2) do |block1, block2| %>
+    <div style='float: left; width: 48%; padding-top: 2px;'>
+      <%= radio_button_tag('type', block1.name) %>
+      <%= label_tag "type_#{block1.name.downcase}", block1.description %>
     </div>
+    <% if block2 %>
+      <div style='float: left; width: 48%; padding-top: 2px;'>
+        <%= radio_button_tag('type', block2.name) %>
+        <%= label_tag "type_#{block2.name.downcase}", block2.description %>
+      </div>
+    <% end %>
   <% end %>
+  <br style='clear: both'/>
   
   <% button_bar do %>
     <%= submit_button(:add, _("Add")) %>

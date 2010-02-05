@@ -9,7 +9,7 @@ class EnterprisesBlock < ProfileListBlock
   end
 
   def self.description
-    __('A block that displays your enterprises')
+    __('Enterprises')
   end
 
   def footer

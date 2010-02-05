@@ -1,7 +1,7 @@
 class ProfileInfoBlock < Block
 
   def self.description
-    _('Profile information block')
+    _('Profile information')
   end
 
   def help

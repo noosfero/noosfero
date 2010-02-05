@@ -33,7 +33,7 @@ class FeedReaderBlock < Block
   end
 
   def self.description
-    _('List the latest N posts from a given RSS feed.')
+    _('Feed reader')
   end
 
   def help

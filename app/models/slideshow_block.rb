@@ -6,7 +6,7 @@ class SlideshowBlock < Block
   settings_items :navigation, :type => 'boolean', :default => false
 
   def self.description
-    _('Slideshow block')
+    _('Slideshow')
   end
 
   def gallery

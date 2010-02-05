@@ -35,7 +35,7 @@ class LinkListBlock < Block
   end
 
   def self.description
-    _('Display a list of links.')
+    _('Links (static menu)')
   end
 
   def help

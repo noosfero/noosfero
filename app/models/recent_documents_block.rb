@@ -1,7 +1,7 @@
 class RecentDocumentsBlock < Block
 
   def self.description
-    _('List of recent content')
+    _('Last updates')
   end
 
   def default_title
@@ -9,7 +9,7 @@ class RecentDocumentsBlock < Block
   end
 
   def help
-    _('This block lists your recent content.')
+    _('This block lists your content most recently updated.')
   end
 
   settings_items :limit, :type => :integer, :default => 5
