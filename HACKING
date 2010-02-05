@@ -9,7 +9,7 @@ First, install all requirements listed in INSTALL. After, you need to install
 some packages be able to run Noosfero tests. On Debian GNU/Linux and
 Debian-based systems, you install them with the following command:
 
- # apt-get install libtidy-ruby libhpricot-ruby libmocha-ruby imagemagick
+ # apt-get install libtidy-ruby libhpricot-ruby libmocha-ruby imagemagick po4a
 
 On other systems, they may or may not be available through your regular package
 management system. Below are the links to their homepages.
@@ -18,6 +18,7 @@ management system. Below are the links to their homepages.
 * Tidy: http://tidy.sourceforge.net/
 * Hpricot: http://github.com/whymirror/hpricot
 * Imagemagick: http://wwwimagemagick.org/
+* po4a: http://po4a.alioth.debian.org/
 
 == Boostraping a development/test environment
 
