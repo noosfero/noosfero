@@ -16,8 +16,12 @@ hr.pre-posts, hr.sep-posts {
   overflow: visible;
 }
 
+#article .logged-in h1 {
+  margin-top: 25px;
+}
+
 #article-actions {
-  top: -18px;
+  top: -28px;
 }
 
 #article-actions a.button,

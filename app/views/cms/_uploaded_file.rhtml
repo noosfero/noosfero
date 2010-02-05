@@ -1,4 +1,5 @@
-<%= labelled_form_field(_('Describe this file:'), text_area(:article, :abstract, :rows => 3, :cols => 64)) %>
+<%= labelled_form_field(_('Title'), text_field(:article, :title, :maxlength => 60)) %>
+<%= labelled_form_field(_('Description'), text_area(:article, :abstract, :rows => 3, :cols => 64)) %>
 <% if @article.image? %>
   <%= f.text_field(:external_link, :size => 64) %>
 <% end %>

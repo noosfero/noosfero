@@ -6,6 +6,18 @@
 
   <%= render :partial => partial_for_class(@block.class) %>
 
+  <%= labelled_form_field _('Display this block:'), '' %>
+  <div style='margin-left: 10px'>
+    <%= radio_button(:block, :display, 'always') %>
+    <%= label_tag('block_display_always', _('In all pages')) %>
+    <br/>
+    <%= radio_button(:block, :display, 'home_page_only') %>
+    <%= label_tag('block_display_home_page_only', _('Only in the homepage')) %>
+    <br/>
+    <%= radio_button(:block, :display, 'never') %>
+    <%= label_tag('block_display_never', _("Don't display")) %>
+  </div>
+
   <% button_bar do %>
     <%= submit_button(:save, _('Save')) %>
     <%= lightbox_close_button(_('Cancel')) %>

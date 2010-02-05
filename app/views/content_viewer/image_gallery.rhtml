@@ -8,7 +8,6 @@
       <% @images.each do |a| %>
         <% content_tag('li', :title => a.abstract, :class => 'image-gallery-item' ) do %>
           <%= render :partial => partial_for_class(a.class), :object => a %>
-          <span><%= a.abstract && (a.abstract.first(40) + (a.abstract.size > 40 ? '…' : ''))%></span>
         <% end %>
       <% end %>
     </ul>

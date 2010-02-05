@@ -64,3 +64,8 @@
 .icon-slideshow       { background-image: url(Tango/16x16/mimetypes/x-office-presentation.png)           }
 .icon-photos          { background-image: url(Tango/16x16/devices/camera-photo.png) }
 
+.icon-media-pause      { background-image: url(Tango/16x16/actions/media-playback-pause.png) }
+.icon-media-play       { background-image: url(Tango/16x16/actions/media-playback-start.png) }
+.icon-media-prev       { background-image: url(Tango/16x16/actions/media-skip-backward.png) }
+.icon-media-next       { background-image: url(Tango/16x16/actions/media-skip-forward.png) }
+

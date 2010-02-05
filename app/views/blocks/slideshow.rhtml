@@ -1,0 +1,49 @@
+<%= block_title(block.title) %>
+<% if images %>
+  <% description = images.any? { |img| !img.abstract.blank? } %>
+  <div class='slideshow-border<%= (description ? ' with-descriptions' : '')%>'>
+    <div class='slideshow-container'>
+      <% images.each do |img| %>
+        <a href="<%= url_for(img.external_link.blank? ? img.view_url: img.external_link) %>">
+          <%= content_tag('div', '', :style => "background-image: url(#{img.public_filename(:thumb)})", :title => (img.abstract.blank? ? '' : img.abstract)) %>
+          <% if !img.abstract.blank? %>
+            <span class='image-description'><%= img.abstract %></span>
+          <% end %>
+        </a>
+      <% end %>
+    </div>
+    <% if block.navigation %>
+      <div class='slideshow-block-navigation'>
+        <%= link_to _('Previous'), '#', :class => 'icon-media-prev'  %>
+        <% if block.interval > 0 %>
+          <%= link_to '&nbsp;', '#', :class => 'icon-media-pause', :onclick => "togglePlayback('#block-#{block.id} .slideshow-container', this); return false;" %>
+        <% end %>
+        <%= link_to _('Next'), '#', :class => 'icon-media-next'  %>
+      </div>
+    <% end %>
+  </div>
+  <script type="text/javascript">
+    (function($) {
+     var options = {fx: 'fade', pause: 1, fastOnEvent: 1, timeout: <%= block.interval * 1000 %>};
+     <% if block.navigation %>
+       options.prev = '#block-<%= block.id %> .icon-media-prev';
+       options.next = '#block-<%= block.id %> .icon-media-next';
+     <% end %>
+      $('#block-<%= block.id %> .slideshow-container').cycle(options);
+    })(jQuery);
+
+    function togglePlayback(slideshow, button) {
+      var $ = jQuery;
+      if (button.className == 'icon-media-pause') {
+        button.className = 'icon-media-play';
+        $(slideshow).cycle('pause');
+      } else {
+        button.className = 'icon-media-pause';
+        $(slideshow).cycle('resume');
+      }
+    }
+  </script>
+<% else %>
+  <em><%= _('Please, edit this block and select an image gallery.') %></em>
+<% end %>
+

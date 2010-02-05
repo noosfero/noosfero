@@ -22,12 +22,6 @@ class BlockTest < Test::Unit::TestCase
     assert_nil Block.new.owner
   end
 
-  should 'generate CSS class name' do
-    block = Block.new
-    block.class.expects(:name).returns('SomethingBlock')
-    assert_equal 'something-block', block.css_class_name
-  end
-
   should 'provide no footer by default' do
     assert_nil Block.new.footer
   end
@@ -52,12 +46,18 @@ class BlockTest < Test::Unit::TestCase
     assert_equal 'my title', b.view_title
   end
 
-  should 'have a visible setting' do
+  should 'be backwards compatible with old "visible" setting' do
     b = Block.new
-    assert b.visible?
-    b.visible = false
-    b.save
+    b.settings[:visible] = false
     assert !b.visible?
+    assert_equal 'never', b.display
+  end
+
+  should 'clean old "visible setting" when display is set' do
+    b = Block.new
+    b.settings[:visible] = false
+    b.display = 'never'
+    assert_nil b.settings[:visible]
   end
 
   should 'be cacheable' do
@@ -78,6 +78,26 @@ class BlockTest < Test::Unit::TestCase
     block2 = Block.create!(:title => 'test 2', :enabled => false)
     assert_includes Block.enabled, block1
     assert_not_includes Block.enabled, block2
+  end
+
+  should 'be displayed everywhere by default' do
+    assert_equal true, Block.new.visible?
+  end
+
+  should 'not display when set to hidden' do
+    assert_equal false, Block.new(:display => 'never').visible?
+    assert_equal false, Block.new(:display => 'never').visible?(:article => Article.new)
+  end
+
+  should 'be able to be displayed only in the homepage' do
+    profile = Profile.new
+    home_page = Article.new
+    profile.home_page = home_page
+    block = Block.new(:display => 'home_page_only')
+    block.stubs(:owner).returns(profile)
+
+    assert_equal true, block.visible?(:article => home_page)
+    assert_equal false, block.visible?(:article => Article.new)
   end
 
 end

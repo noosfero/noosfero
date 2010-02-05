@@ -65,3 +65,10 @@ div#article-parent {
 #article .gallery-navigation .total-of-images {
   font-weight: bold;
 }
+
+#article .uploaded-file-description {
+  background: #f6f6f6;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  padding: 1em;
+}

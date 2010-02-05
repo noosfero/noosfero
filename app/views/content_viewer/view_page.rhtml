@@ -19,7 +19,7 @@
 </div>
 <% end %>
 
-<div>
+<div<%= " class='logged-in'" if user %>>
   <%= article_title(@page, :no_link => true) %>
   <div id="article-actions">
     <% if @page.allow_post_content?(user) %>

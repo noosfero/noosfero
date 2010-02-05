@@ -59,10 +59,11 @@ module BoxesHelper
   end
 
   def display_box_content(box, main_content)
-    box_decorator.select_blocks(box.blocks).map { |item| display_block(item, main_content) }.join("\n") + box_decorator.block_target(box)
+    context = { :article => @page }
+    box_decorator.select_blocks(box.blocks, context).map { |item| display_block(item, main_content) }.join("\n") + box_decorator.block_target(box)
   end
 
-  def select_blocks(arr)
+  def select_blocks(arr, context)
     arr
   end
 
@@ -83,7 +84,7 @@ module BoxesHelper
     end
 
     options = {
-      :class => classes = ['block', block.css_classes ].uniq.join(' '),
+      :class => classes = ['block', block_css_classes(block) ].uniq.join(' '),
       :id => "block-#{block.id}"
     }
     if ( block.respond_to? 'help' )
@@ -134,8 +135,8 @@ module BoxesHelper
     def self.block_edit_buttons(block)
       ''
     end
-    def self.select_blocks(arr)
-      arr.select(&:visible?)
+    def self.select_blocks(arr, context)
+      arr.select { |block| block.visible?(context) }
     end
   end
 
@@ -201,7 +202,6 @@ module BoxesHelper
     end
 
     if !block.main?
-      buttons << icon_button(:eyes, _('Toggle block visibility'), {:action => 'toggle_visibility', :id => block.id})
       buttons << icon_button(:delete, _('Remove block'), { :action => 'remove', :id => block.id }, { :method => 'post', :confirm => _('Are you sure you want to remove this block?')})
     end
 
@@ -217,8 +217,18 @@ module BoxesHelper
   end
 
   def import_blocks_stylesheets(options = {})
-    @blocks_css_files ||= current_blocks.map{|b|'blocks/' + b.css_class_name}.uniq
+    @blocks_css_files ||= current_blocks.map{|b|'blocks/' + block_css_class_name(b)}.uniq
     stylesheet_import(@blocks_css_files, options)
   end
+
+  def block_css_class_name(block)
+    block.class.name.underscore.gsub('_', '-')
+  end
+  def block_css_classes(block)
+    classes = block_css_class_name(block)
+    classes += ' invisible-block' if block.display == 'never'
+    classes
+  end
+
 
 end

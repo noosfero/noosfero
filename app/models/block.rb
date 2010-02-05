@@ -11,13 +11,45 @@ class Block < ActiveRecord::Base
   belongs_to :box
 
   acts_as_having_settings
-  settings_items :visible, :type => :boolean, :default => true
 
   named_scope :enabled, :conditions => { :enabled => true }
 
-  def visible?
-    visible
+  # Determines whether a given block must be visible. Optionally a
+  # <tt>context</tt> must be specified. <tt>context</tt> must be a hash, and
+  # may contain the following keys:
+  #
+  # * <tt>:article</tt>: the article being viewed currently
+  def visible?(context = nil)
+    if settings[:visible] == false || display == 'never'
+      return false
+    end
+    if context && context[:article] && display == 'home_page_only'
+      return context[:article] == owner.home_page
+    end
+    true
   end
+
+  # The condition for displaying a block. It can assume the following values:
+  #
+  # * <tt>'always'</tt>: the block is always displayed
+  # * <tt>'never'</tt>: the block is hidden (it does not appear for visitors)
+  # * <tt>'home_page_only'</tt> the block is displayed only when viewing the
+  #   homepage of its owner.
+  def display
+    if settings[:visible] == false
+      'never'
+    else
+      settings[:display] || 'always'
+    end
+  end
+
+  # Sets the <tt>value</tt> attribute.
+  def display=(value)
+    settings[:display] = value
+    # clear the old setting
+    settings[:visible] = nil
+  end
+
 
   # returns the description of the block, used when the user sees a list of
   # blocks to choose one to include in the design.
@@ -64,16 +96,6 @@ class Block < ActiveRecord::Base
 
   def owner
     box ? box.owner : nil
-  end
-
-  def css_class_name
-    self.class.name.underscore.gsub('_', '-')
-  end
-
-  def css_classes
-    classes = css_class_name
-    classes += ' invisible-block' unless visible?
-    classes
   end
 
   def default_title

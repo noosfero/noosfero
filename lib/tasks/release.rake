@@ -10,7 +10,7 @@ namespace :noosfero do
   end
 
   version = Noosfero::VERSION
-  desc 'checks if there is already a tag for the curren version'
+  desc 'checks if there is already a tag for the current version'
   task :check_tag do
     sh "git tag | grep '^#{version}$' >/dev/null" do |ok, res|
       if ok

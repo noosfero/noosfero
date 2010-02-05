@@ -20,15 +20,35 @@ class SlideshowBlockTest < ActiveSupport::TestCase
     assert_equal 4, slideshow.interval
   end
 
-  should 'not invoke javascript when has no gallery' do
-    slideshow_block = SlideshowBlock.new()
-    assert_nil slideshow_block.footer
+  should 'list in the same order' do
+    gallery = mock
+    images = []
+    images.expects(:shuffle).never
+    gallery.stubs(:images).returns(images)
+
+    block = SlideshowBlock.new
+    block.stubs(:gallery).returns(gallery)
+    block.content
   end
 
-  should 'invoke javascript when has gallery' do
-    gallery = fast_create(Folder, :profile_id => profile.id)
-    slideshow_block = SlideshowBlock.new(:gallery_id => gallery.id)
-    assert_not_nil slideshow_block.footer
+  should 'list in random order' do
+    gallery = mock
+    images = []
+    shuffled = []
+    gallery.stubs(:images).returns(images)
+    images.expects(:shuffle).once.returns(shuffled)
+
+    block = SlideshowBlock.new(:shuffle => true)
+    block.stubs(:gallery).returns(gallery)
+    block.content
+  end
+
+  should 'not shuffle by default' do
+    assert_equal false, SlideshowBlock.new.shuffle
+  end
+
+  should 'not display navigation by default' do
+    assert_equal false, SlideshowBlock.new.navigation
   end
 
 end

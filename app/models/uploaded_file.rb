@@ -4,6 +4,13 @@
 # of the file itself is kept. (FIXME?)
 class UploadedFile < Article
 
+  settings_items :title, :type => 'string'
+  validates_size_of :title, :maximum => 60, :if => (lambda { |file| !file.title.blank? })
+
+  def display_title
+    title.blank? ? name : title
+  end
+
   def self.max_size
     UploadedFile.attachment_options[:max_size]
   end
@@ -74,11 +81,14 @@ class UploadedFile < Article
             :class => 'gallery-navigation'
           )
         end.to_s +
-        tag('img', :src => article.public_filename(:display), :class => article.css_class_name, :style => 'max-width: 100%')
+        tag('img', :src => article.public_filename(:display), :class => article.css_class_name, :style => 'max-width: 100%') +
+          content_tag('p', article.abstract, :class => 'uploaded-file-description')
+
       end
     else
       lambda do
-        content_tag('ul', content_tag('li', link_to(article.name, article.url, :class => article.css_class_name)))
+        content_tag('ul', content_tag('li', link_to(article.name, article.url, :class => article.css_class_name))) +
+          content_tag('p', article.abstract, :class => 'uploaded-file-description')
       end
     end
   end

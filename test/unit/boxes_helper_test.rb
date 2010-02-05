@@ -41,7 +41,7 @@ class BoxesHelperTest < Test::Unit::TestCase
     p = create_user_with_blocks
 
     b = p.blocks.select{|bk| !bk.kind_of?(MainBlock) }[0]
-    b.visible = false; b.save!
+    b.display = 'never'; b.save!
     box = b.box
     box.expects(:blocks).returns([b])
     expects(:display_block).with(b, '')
@@ -55,7 +55,7 @@ class BoxesHelperTest < Test::Unit::TestCase
     p = create_user_with_blocks
 
     b = p.blocks.select{|bk| !bk.kind_of?(MainBlock) }[0]
-    b.visible = false; b.save!
+    b.display = 'never'; b.save!
     box = b.box
     box.expects(:blocks).returns([b])
     expects(:display_block).with(b, '').never
@@ -85,4 +85,13 @@ class BoxesHelperTest < Test::Unit::TestCase
     assert_tag_in_string insert_boxes('main content'), :tag => "div", :attributes => { :id => 'profile-footer' }, :content => 'my custom footer'
   end
 
+  should 'calculate CSS class names correctly' do
+    assert_equal 'slideshow-block', block_css_class_name(SlideshowBlock.new)
+    assert_equal 'main-block', block_css_class_name(MainBlock.new)
+  end
+
+  should 'add invisible CSS class name for invisible blocks' do
+    assert !block_css_classes(Block.new(:display => 'always')).split.any? { |item| item == 'invisible-block'}
+    assert block_css_classes(Block.new(:display => 'never')).split.any? { |item| item == 'invisible-block'}
+  end
 end

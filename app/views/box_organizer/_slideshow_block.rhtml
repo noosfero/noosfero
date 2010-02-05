@@ -3,4 +3,8 @@
   [ _('%{gallery} (%{count} images)') % {:gallery => item.path, :count => item.images.count}, item.id ]
 }) %>
 
-<%= labelled_form_field _('Seconds between image transitions'), select('block', 'interval', [1, 2, 3, 4, 5, 10, 20, 30, 60] ) %>
+<%= labelled_form_field _('Image transition:'), select('block', 'interval', [[_('No automatic transition'), 0]] + [1, 2, 3, 4, 5, 10, 20, 30, 60].map {|item| [n_('Every 1 second', 'Every %d seconds', item) % item, item]}) %>
+
+<%= labelled_form_field check_box(:block, :shuffle) + _('Show images in random order'), '' %>
+
+<%= labelled_form_field check_box(:block, :navigation) + _('Display navigation buttons'), '' %>

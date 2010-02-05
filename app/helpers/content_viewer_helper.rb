@@ -13,7 +13,7 @@ module ContentViewerHelper
   end
 
   def article_title(article, args = {})
-    title = article.abstract if article.kind_of?(UploadedFile) && article.image?
+    title = article.display_title if article.kind_of?(UploadedFile) && article.image?
     title = article.title if title.blank?
     title = content_tag('h1', title, :class => 'title')
     if article.belongs_to_blog?
@@ -33,6 +33,11 @@ module ContentViewerHelper
 
   def link_to_comments(article)
     link_to( number_of_comments(article), article.url.merge(:anchor => 'comments_list') )
+  end
+
+  def image_label(image)
+    text = image.title || image.abstract
+    text && (text.first(40) + (text.size > 40 ? '…' : ''))
   end
 
 end

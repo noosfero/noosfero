@@ -406,7 +406,7 @@ class ApplicationControllerTest < Test::Unit::TestCase
     p = create_user_full('test_user').person
     @controller.expects(:profile).at_least_once.returns(p)
     b = p.blocks[1]
-    b.expects(:visible).returns(false)
+    b.expects(:visible?).returns(false)
     b.save!
 
     get :index, :profile => p.identifier
