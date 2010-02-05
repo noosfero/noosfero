@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-02-05 16:31-0300\n"
+"POT-Creation-Date: 2010-02-05 19:46-0300\n"
 "PO-Revision-Date: 2010-01-27 09:32-0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -14,11 +14,6 @@ msgstr ""
 "Content-Type: text/plain; charset=ASCII\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-
-# type: Content of: <h1>
-#: doc/noosfero/admin/index.en.xhtml:1
-msgid "Administration"
-msgstr ""
 
 # type: Content of: <h1>
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:1
@@ -2768,25 +2763,20 @@ msgstr ""
 
 # type: Content of: <ul><li>
 #: doc/noosfero/toc.en.xhtml:3
-msgid "<a href=\"/doc/admin\">Administration</a>"
-msgstr ""
-
-# type: Content of: <ul><li>
-#: doc/noosfero/toc.en.xhtml:4
 msgid "<a href=\"/doc/cms\">Content Management</a>"
 msgstr ""
 
 # type: Content of: <ul><li>
-#: doc/noosfero/toc.en.xhtml:5
+#: doc/noosfero/toc.en.xhtml:4
 msgid "<a href=\"/doc/user\">User features</a>"
 msgstr ""
 
 # type: Content of: <ul><li>
-#: doc/noosfero/toc.en.xhtml:6
+#: doc/noosfero/toc.en.xhtml:5
 msgid "<a href=\"/doc/enterprise\">Enterprise features</a>"
 msgstr ""
 
 # type: Content of: <ul><li>
-#: doc/noosfero/toc.en.xhtml:7
+#: doc/noosfero/toc.en.xhtml:6
 msgid "<a href=\"/doc/navigation\">Navigation</a>"
 msgstr ""
