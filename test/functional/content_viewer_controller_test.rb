@@ -64,29 +64,6 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_response :missing
   end
 
-  def test_should_be_able_to_post_comment_while_authenticated
-    profile = create_user('popstar').person
-    page = profile.articles.build(:name => 'myarticle', :body => 'the body of the text')
-    page.save!
-    profile.home_page = page; profile.save!
-
-    assert_difference Comment, :count do
-      login_as('ze')
-      post :view_page, :profile => 'popstar', :page => [ 'myarticle' ], :comment => { :title => 'crap!', :body => 'I think that this article is crap' }
-    end
-  end
-
-  def test_should_be_able_to_post_comment_while_not_authenticated
-    profile = create_user('popstar').person
-    page = profile.articles.build(:name => 'myarticle', :body => 'the body of the text')
-    page.save!
-    profile.home_page = page; profile.save!
-    
-    assert_difference Comment, :count do
-      post :view_page, :profile => 'popstar', :page => [ 'myarticle' ], :comment => { :title => 'crap!', :body => 'I think that this article is crap', :name => 'Anonymous coward', :email => 'coward@anonymous.com' }
-    end
-  end
-
   should 'produce a download-like when article is not text/html' do
 
     # for example, RSS feeds
@@ -243,20 +220,6 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'input', :attributes => { :type => 'text', :name => @controller.icaptcha_field }
   end
 
-  should 'show error messages when make a blank comment' do
-    login_as @profile.identifier
-    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
-    post :view_page, :profile => @profile.identifier, :page => [ 'myarticle' ], :comment => { :title => '', :body => '' }
-    assert_tag :tag => 'div', :attributes => { :class => 'errorExplanation', :id => 'errorExplanation' }
-  end
-
-  should 'show comment form opened on error' do
-    login_as @profile.identifier
-    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
-    post :view_page, :profile => @profile.identifier, :page => [ 'myarticle' ], :comment => { :title => '', :body => '' }
-    assert_tag :tag => 'div', :attributes => { :class => 'post_comment_box opened' }
-  end
-
   should 'filter html content from body' do
     login_as @profile.identifier
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
@@ -279,7 +242,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
     get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ]
 
-    assert_tag :tag => 'form', :attributes => { :id => /^comment_form/, :action => 'http://www.mysite.com/person/article' }
+    assert_tag :tag => 'form', :attributes => { :id => /^comment_form/, :action => '/person/article' }
   end
 
   should "display current article's tags" do
@@ -778,14 +741,6 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{folder.id}/}
   end
 
-  should 'have a link to properly post a comment' do
-    login_as(profile.identifier)
-    file = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
-    get :view_page, :profile => profile.identifier, :page => file.explode_path, :view => true
-
-    assert_tag :tag => 'input', :attributes => {:type => 'submit', :value => 'Post comment'}, :ancestor => {:tag => 'form', :attributes => {:action => /#{file.slug}.*view=true/}}
-  end
-
   should 'post comment in a image' do
     login_as(profile.identifier)
     image = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
@@ -903,6 +858,13 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     get :view_page, :profile => profile.identifier, :page => article.explode_path
 
     assert_tag :tag => 'span', :content => '(removed user)', :attributes => {:class => 'comment-info'}
+  end
+
+  should 'show comment form opened on error' do
+    login_as @profile.identifier
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
+    post :view_page, :profile => @profile.identifier, :page => [ 'myarticle' ], :comment => { :title => '', :body => '' }, :confirm => 'true'
+    assert_tag :tag => 'div', :attributes => { :class => 'post_comment_box opened' }
   end
 
 end

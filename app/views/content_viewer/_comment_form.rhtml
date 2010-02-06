@@ -17,8 +17,9 @@
 
 <h4><%= content_tag('a', '', :name => 'comment_form') + _('Post a comment') %></h4>
 
-<% form_tag( @page.view_url, { :id => comment_form_id } ) do %>
+<% form_tag( url_for(@page.view_url.merge({:only_path => true})), { :id => comment_form_id } ) do %>
   <%= icaptcha_field() %>
+  <%= hidden_field_tag(:confirm, 'false') %>
 
   <%= required_fields_message %>
 
@@ -36,7 +37,7 @@
   <%= required labelled_form_field(_('Title'), text_field(:comment, :title)) %>
   <%= required labelled_form_field(_('Enter your comment'), text_area(:comment, :body, :rows => 5)) %>
   <% button_bar do %>
-    <%= submit_button('add', _('Post comment')) %>
+    <%= submit_button('add', _('Post comment'), :onclick => "$('confirm').value = 'true'") %>
   <% end %>
 <% end %>
 
