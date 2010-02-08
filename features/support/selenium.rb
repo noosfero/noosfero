@@ -20,5 +20,6 @@ Before do
 end
 
 After do
+  sleep 2
   DatabaseCleaner.clean
 end
