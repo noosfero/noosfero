@@ -43,7 +43,7 @@
     " action_"+ @controller.controller_name() +"_"+ @controller.action_name() +
     ' ' + (logged_in? ? 'logged-in' : 'not-logged-in')
     %>' onload='noosfero_init();'
-    help=<%= _('Pass the mouse over page elements to get help on them. Click the question mark icon on the top-right corner to deactivate this help window.').inspect %> onresize="registerDocumentSize()">
+    onresize="registerDocumentSize()">
     <script type="text/javascript">
       /* Adds a class to "msie" to the body element if a Microsoft browser is
        * detected. This is needed to workaround several of their limitations.
@@ -76,12 +76,7 @@
 
       <div id="beta-tag"><span>BETA</span></div>
 
-      <div id="noosfero_bar" help="#noosfero_bar_help">
-        <div id="noosfero_bar_help" style="display:none">
-        <%= _("This is %s's shortcuts bar. Using it you have access to the main features of the environment and you find the information of your interest more quickly.") % @environment.name %>
-        <p/>
-        <%= _("This bar helps you find information following two paths or <strong>dimensions</strong>. First dimension is composed of <em>categories</em>, which you'll find in the colored tabs in the top. Second dimension has <em>content types</em>, and you'll find them in the animated bar on your right.") % @environment.name %>
-        </div>
+      <div id="noosfero_bar">
 
         <div id="navigation_bar">
           <%= link_to "<span>"+ @environment.name() +"</span>",
@@ -107,9 +102,8 @@
           <%= render :file => 'shared/user_menu' %>
         </div><!-- id='user_box' -->
 
-        <a href="#" id="btShowHelp" class="icon-help32on help-on icon-help-on"
-           title="<%= _('Turn help on/off') %>"
-           onclick="mouseHelpOnOff(); return false"><span><%= _('Help') %></span></a>
+        <a href="/doc" id="btShowHelp" class="icon-help32on help-on icon-help-on"
+           title="<%= _('Documentation') %>"><span><%= _('Documentation') %></span></a>
 
       </div><!-- id="noosfero_bar" -->
 
@@ -135,15 +129,6 @@
     <div id="footer">
       <%= theme_footer %>
     </div><!-- id="footer" -->
-
-    <div id="helpBox" style="display:none">
-      <div id="helpBoxBody">
-        <div class="helpAvatar"></div>
-        <div id="helpBoxContent"></div>
-      </div>
-    </div>
-    <%= javascript_include_tag 'show-mouse-help' %>
-    <%= javascript_include_tag 'noosfero-show-help' %>
 
     <% if environment.enabled?('warn_obsolete_browser') %>
 

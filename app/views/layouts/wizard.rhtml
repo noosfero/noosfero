@@ -23,20 +23,8 @@
     %>
   </head>
   <body class='noosfero' id='wizard'>
-        <div id="wizard-content">
-        <a href="#" id="btShowHelp" class="icon-help32on help-on icon-help-on"
-           title="<%= _('Turn help on/off') %>"
-           onclick="mouseHelpOnOff(); return false"><span><%= _('Help') %></span></a>
-          <%= yield %>
-        </div><!-- id="wizard-content" -->
-    <div id="helpBox" style="display:none">
-      <div id="helpBoxBody">
-        <div class="helpAvatar"></div>
-        <div id="helpBoxContent"></div>
-      </div>
-    </div>
-    <%= javascript_include_tag 'show-mouse-help' %>
-    <%= javascript_include_tag 'noosfero-show-help' %>
-
+    <div id="wizard-content">
+      <%= yield %>
+    </div><!-- id="wizard-content" -->
   </body>
 </html>
