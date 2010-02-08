@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.21.5\n"
 "POT-Creation-Date: 2010-02-05 16:18-0300\n"
-"PO-Revision-Date: 2010-02-05 16:19-0300\n"
+"PO-Revision-Date: 2010-02-05 20:59-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1993,7 +1993,7 @@ msgstr "Confirmação de senha"
 
 #: app/models/user.rb:51
 msgid "[%{environment}] Welcome to %{environment} mail!"
-msgstr "[%{environment}] Bem-vindo ao correio %{environment}!"
+msgstr "[%{environment}] Bem-vindo(a) ao correio %{environment}!"
 
 #: app/models/user.rb:85
 msgid "%{fn} must be checked in order to signup."
@@ -6561,7 +6561,7 @@ msgstr "Baixe o Firefox Já!"
 
 #: app/views/layouts/application-ng.rhtml:61
 msgid "Welcome, %s."
-msgstr "Bem-vindo, %s."
+msgstr "Bem-vindo(a), %s."
 
 #: app/views/layouts/application-ng.rhtml:61
 msgid "Go to your homepage"

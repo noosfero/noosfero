@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2010-02-05 19:46-0300\n"
-"PO-Revision-Date: 2010-02-05 15:25-0300\n"
+"PO-Revision-Date: 2010-02-05 20:58-0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -3174,7 +3174,7 @@ msgstr ""
 # type: Content of: <ul><li>
 #: doc/noosfero/user/toc.en.xhtml:3
 msgid "<a href=\"/doc/user/logout\">Leaving the system</a>"
-msgstr "<a href=\"/doc/user/logout\">Deslogando do Cirandas</a>"
+msgstr "<a href=\"/doc/user/logout\">Saindo do Sistema</a>"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/user/toc.en.xhtml:5
