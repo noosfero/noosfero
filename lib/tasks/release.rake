@@ -61,6 +61,7 @@ EOF
     sh "git tag #{version}"
     sh 'rake -f Rakefile.pkg'
     puts "I: please upload the tarball to the website!"
+    puts "I: please push the tag for version #{version} that was just created!"
   end
     
 end
