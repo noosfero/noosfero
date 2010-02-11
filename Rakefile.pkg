@@ -16,21 +16,34 @@ Rake::PackageTask.new(Noosfero::PROJECT, Noosfero::VERSION) do |p|
   FileUtils.mkdir_p('tmp/sockets')
 
   # application files
-  p.package_files.include('app/**/*.{rb,rhtml,rjs,rxml}')
+  p.package_files.include('app/**/*.{rb,rhtml,rjs,rxml,erb}')
   p.package_files.include('config/**/*.{rb,sqlite3}')
   p.package_files.include('config/ferret_server.yml.dist')
   p.package_files.include('db/migrate/*.rb')
   p.package_files.include('db/schema.rb')
   p.package_files.include('doc/README_FOR_APP')
   p.package_files.include('lib/**/*.{rake,rb}')
-  p.package_files.include('log')
-  p.package_files.include('po/*/noosfero.po')
+  p.package_files.include('Rakefile')
+  p.package_files.include('Rakefile.pkg')
+
+  # translation files
+  p.package_files.include('po/*/*.po')
   p.package_files.include('po/noosfero.pot')
+
+  # templates
   p.package_files.include('public/designs/templates/**/*')
+
+  # icon sets
   p.package_files.include('public/designs/icons/tango/**/*')
-  p.package_files.include('public/designs/icons/default')
+  p.package_files.exclude('public/designs/icons/tango/Tango')
+  p.package_files.exclude('public/designs/icons/default')
+
+  # themes
   p.package_files.include('public/designs/themes/noosfero/**/*')
-  p.package_files.include('public/designs/themes/default')
+  p.package_files.include('public/designs/themes/base/**/*')
+  p.package_files.exclude('public/designs/themes/default')
+
+  # static files
   p.package_files.include('public/dispatch.*')
   p.package_files.include('public/favicon.ico')
   p.package_files.include('public/*.html')
@@ -39,17 +52,28 @@ Rake::PackageTask.new(Noosfero::PROJECT, Noosfero::VERSION) do |p|
   p.package_files.include('public/javascripts/**/*')
   p.package_files.include('public/robots.txt')
   p.package_files.include('public/stylesheets/**/*')
-  p.package_files.include('Rakefile')
-  p.package_files.include('Rakefile.pkg')
+
+  # top-level docs
   p.package_files.include('README')
   p.package_files.include('COPYING')
   p.package_files.include('COPYRIGHT')
+  p.package_files.include('INSTALL')
+  p.package_files.include('HACKING')
+
+  # scripts
   p.package_files.include('script/**/*')
+
+  # test files
   p.package_files.include('test/**/*.{rb,yml}')
   p.package_files.include('test/fixtures/files/*')
+  p.package_files.include('features/**/*')
+  p.package_files.include('config/cucumber.yml')
+
+  # empty directories that must exist
   p.package_files.include('tmp/cache')
   p.package_files.include('tmp/sessions')
   p.package_files.include('tmp/sockets')
+  p.package_files.include('log')
 
   # symbolic links
   p.package_files.include('app/views/profile_design/*')
@@ -65,7 +89,7 @@ Rake::PackageTask.new(Noosfero::PROJECT, Noosfero::VERSION) do |p|
   # online documentation
   p.package_files.include('doc/noosfero/**/*')
 
-  # exclusions
+  # do not install locally generated files
   p.package_files.exclude('coverage/**/*')
   p.package_files.exclude('public/images/[0-9][0-9][0-9][0-9]/**/*')
 
