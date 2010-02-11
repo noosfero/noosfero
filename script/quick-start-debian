@@ -1,0 +1,39 @@
+#!/bin/sh
+
+say() {
+  echo -e "\033[33;01m$@\033[m"
+}
+
+run() {
+  say "\$ $@"
+  echo "$@" | sh
+  status="$?"
+  if [ $status -ne 0 ]; then
+    say "E: The command \"$@\" failed with status code $status, we cannot proceed."
+    say "I: If you have no idea of what went wrong, please feel free to ask for help in the Noosfero community. Check the contact information in the project website (http://noosfero.org/)."
+    exit 1
+  fi
+}
+
+# Until Lenny tango-icon-theme is only available in non-free, so maybe we need
+# to download it manually
+run "sudo apt-get -y install tango-icon-theme || (wget http://ftp.br.debian.org/debian/pool/non-free/t/tango-icon-theme/tango-icon-theme_0.8.1-4_all.deb && sudo dpkg -i tango-icon-theme_0.8.1-4_all.deb)"
+
+# needed to run noosfero
+run sudo apt-get -y install rails ruby rake libgettext-ruby1.8 libsqlite3-ruby rcov librmagick-ruby libredcloth-ruby libwill-paginate-ruby iso-codes libfeedparser-ruby libferret-ruby libdaemons-ruby mongrel mongrel-cluster
+
+# needed for development
+run sudo apt-get -y install libtidy-ruby libhpricot-ruby libmocha-ruby imagemagick po4a xvfb
+
+# create the database with sample data
+run cp config/database.yml.sqlite3 config/database.yml
+run rake db:schema:load
+run ./script/sample-data
+
+# compile translations
+run rake noosfero:translations:compile
+
+# start server
+say "I: Congratulations, you are ready to run Noosfero."
+say "I: To execute Noosfero server, run \`/script/server\` and browse to http://localhost:3000"
+say "I: To execute Noosfero tests, run \`rake\`."
