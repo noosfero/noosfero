@@ -21,3 +21,4 @@ doc/noosfero/*.xhtml
 doc/noosfero/*/*.xhtml
 tags
 pkg
+*~
