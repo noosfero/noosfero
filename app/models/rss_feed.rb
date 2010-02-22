@@ -75,7 +75,6 @@ class RssFeed < Article
   end
   def data
     articles = fetch_articles
-
     result = ""
     xml = Builder::XmlMarkup.new(:target => result)
 
@@ -91,7 +90,7 @@ class RssFeed < Article
             xml.item do
               xml.title(article.name)
               if self.feed_item_description == 'body'
-                xml.description(article.body)
+                xml.description(article.to_html)
               else
                 xml.description(article.abstract)
               end

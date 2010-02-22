@@ -240,4 +240,15 @@ class RssFeedTest < Test::Unit::TestCase
     assert_equal false, a.can_display_hits?
   end
 
+  should 'display the referenced body of a PublishedArticle' do
+    article = fast_create(Article, :body => 'This is the content of the Sample Article.')
+    profile = fast_create(Profile)
+    blog = fast_create(Blog, :profile_id => profile.id)
+    published_article = PublishedArticle.create!(:reference_article => article, :profile => profile)
+    blog.posts << published_article
+    feed = RssFeed.new(:parent => blog, :profile => profile, :feed_item_description => 'body')
+
+    assert_match published_article.to_html, feed.data
+  end
+
 end

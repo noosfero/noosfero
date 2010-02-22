@@ -248,6 +248,10 @@ module Noosfero::Factory
   ###############################################
   # Blog
   ###############################################
+  def defaults_for_blog
+    { :name => 'My blog ' + factory_num_seq.to_s }
+  end
+
   def create_blog
     profile = Profile.create!(:identifier => 'testuser' + factory_num_seq.to_s, :name => 'Test user')
     Blog.create!(:name => 'blog', :profile => profile)
