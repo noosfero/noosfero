@@ -681,6 +681,11 @@ private :generate_url, :url_options
     self.update_attribute(:layout_template, template)
   end
 
+  def members_cache_key(params = {})
+    page = params[:npage] || '1'
+    identifier + '-members-page-' + page
+  end
+
   protected
 
     def display_private_info_to?(user)

@@ -46,7 +46,9 @@ class ProfileController < PublicController
   end
 
   def members
-    @members = profile.members
+    if is_cache_expired?(profile.members_cache_key(params))
+      @members = profile.members.paginate(:per_page => members_per_page, :page => params[:npage])
+    end
   end
 
   def favorite_enterprises
@@ -150,5 +152,9 @@ class ProfileController < PublicController
 
   def per_page
     Noosfero::Constants::PROFILE_PER_PAGE
+  end
+
+  def members_per_page
+    20
   end
 end

@@ -3,11 +3,17 @@
 
 <h1><%= _("%s's members") % profile.name %></h1>
 
-<ul class='profile-list'>
-  <% @members.each do |member| %>
-    <%= profile_image_link(member) %>
-  <% end %>
-</ul>
+<% cache_timeout(profile.members_cache_key(params), 4.hours.from_now) do %>
+  <ul class='profile-list'>
+    <% @members.each do |member| %>
+      <%= profile_image_link(member) %>
+    <% end %>
+  </ul>
+
+  <div id='pagination-profiles'>
+    <%= pagination_links @members, :param_name => 'npage' %>
+  </div>
+<% end %>
 
 <% button_bar do %>
   <%= button :back, _('Go back'), { :controller => 'profile' }, :help => _('Back to the page where you come from.') %>
