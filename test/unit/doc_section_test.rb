@@ -97,4 +97,12 @@ class DocSectionTest < ActiveSupport::TestCase
     end
   end
 
+  should 'raise DocTopic::NotFound when trying to find an unexisting topic inside a section' do
+    section = DocSection.all.first
+    assert_raise DocItem::NotFound do
+      section.find('unexisting')
+    end
+  end
+
+
 end

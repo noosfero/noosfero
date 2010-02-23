@@ -5,7 +5,12 @@ class DocSection < DocItem
   end
 
   def find(id)
-    items.find {|item| item.id == id }
+    topic = items.find {|item| item.id == id }
+    if topic
+      topic
+    else
+      raise DocItem::NotFound
+    end
   end
 
   def self.all(language = 'en', force = false)
