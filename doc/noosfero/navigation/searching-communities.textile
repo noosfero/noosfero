@@ -14,7 +14,7 @@ p. Find on top of page the term "Communities" and click on it:
 h2(#Description). Description
 
 # Fill in the search field with what you want to look for and click on "Search"  !=/images/doc/communities-search-field.en.png(Communities search field)!
-# In this example, wee search for "free software". Then you will see the search results. To see more results, click on the pages below the search results.  !=/images/doc/communities-search-results-with-example.en.png(Communities search results with example)!
+# Then you will see the search results. To see more results, click on the pages below the search results.  !=/images/doc/communities-search-results-with-example.en.png(Communities search results with example)!
 # Clicking on one of the search results, you will be redirected to the homepage of choosen community.
 
 h3. More options

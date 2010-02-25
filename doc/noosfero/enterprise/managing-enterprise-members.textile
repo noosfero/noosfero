@@ -11,8 +11,7 @@ h2(HowAccess). How to access
 # Find you user menu on top bar:  !=/images/doc/system-homepage-top-menu.en.png(Top menu)!
 # In user menu, click on Control Panel  !=/images/doc/menu-control-panel.en.png(Control panel on menu)!
 # Then, click on "Manage my groups":  !=/images/doc/control-panel-manage-groups.en.png(Manage groups in control panel)!
-# You will see the list of groups (communities/enterprises) that you are a member. The groups that you can manage are
-# listed with a link "Manage". Assuming that you are administrator of an enterprise", click on "Manage" link.  !=/images/doc/groups-list-with-manage-enterprise.en.png(Groups list with permission to manage enterprise)!
+# You will see the list of groups (communities/enterprises) that you are a member. The groups that you can manage are listed with a link "Manage". Assuming that you are administrator of an enterprise", click on "Manage" link.  !=/images/doc/groups-list-with-manage-enterprise.en.png(Groups list with permission to manage enterprise)!
 
 h2(#Description). Description
 

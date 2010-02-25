@@ -35,5 +35,5 @@ h2(#Description). Description
 h2(#RelatedTopics). Related topics
 
 *  "Login into the system":/doc/user/login
-*  "Activating enterprise":/doc/enterpise/activating-enterprise
+*  "Activating enterprise":/doc/enterprise/activating-enterprise
 

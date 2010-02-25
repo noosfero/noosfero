@@ -14,7 +14,7 @@ p. Find on top bar the term "Search" and click on it:
 h2(#Description). Description
 
 # Fill in the search field with what you want to look for and press "Enter" on keyboard
-# In this example, we searched for "free software". Then you will see a screen with the search result. Each box brings one kind of information with a limited number of results. To see more results of a box, click on "See all" link below the box.  !=/images/doc/search-results-with-example.en.png(Search results with example)!
+# Then you will see a screen with the search result. Each box brings one kind of information with a limited number of results. To see more results of a box, click on "See all" link below the box.  !=/images/doc/search-results-with-example.en.png(Search results with example)!
 # Clicking on "See all" link of community's box, then you will see all the articles found on search.  !=/images/doc/search-view-all-results-with-example.en.png(View all results on search with example)!
 
 h2(#RelatedTopics). Related topics

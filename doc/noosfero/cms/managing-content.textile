@@ -10,14 +10,14 @@ p.  _To organize your texts/images/files, you should manage your content._
 *  "Description":#Description
 *  "Related topics":#RelatedTopics
 
-h2(). How to access
+h2(#HowAccess). How to access
 
 # Find your menu on top bar:  !=/images/doc/ystem-homepage-top-menu.en.png(Top menu)!
 # In user menu, click on Control Panel:  !=/images/doc/menu-control-panel.en.png(Control panel on menu)!
 # Then, click on "Manage content":  !=/images/doc/control-panel-content-management.en.png(Manage content in control panel)!
 
 
-h2. Description
+h2(#Description). Description
 
 # You will see some buttons and the list of your content. The folders are listed first and then your files/articles. Clicking on your folders, you will see the files/folders inside them.  !=/images/doc/cms.en.png(CMS with marks on buttons)!
 # Click to create a new folder. To understand categories and tags, read "Writing an article":/doc/cms/writing-article from item 7.  !=/images/doc/new-folder.en.png(Creating a new folder)!
@@ -42,6 +42,6 @@ h2. Description
 ##  *Use as homepage:* Set the article as your homepage
 ##  *Delete:* Delete the article
 
-h2. Related topics
+h2(#RelatedTopics). Related topics
 
 *  "Writing an article":/doc/cms/writing-article

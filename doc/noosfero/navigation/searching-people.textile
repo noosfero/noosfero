@@ -14,7 +14,7 @@ p. Find on top of page the term "People" and click on it:
 h2(#Description). Description
 
 # Fill in the search field with what you want to look for and click on "Search"  !=/images/doc/people-search-field.en.png(People search field)!
-# In this example, we search for "john". Then you will see the search results. To see more results, click on the pages below the search results.  !=/images/doc/people-search-results-with-example.en.png(Communities search results with example)!
+# Then you will see the search results. To see more results, click on the pages below the search results.  !=/images/doc/people-search-results-with-example.en.png(Communities search results with example)!
 # Clicking on one of the search results, you will be redirected to the homepage of choosen person.
 
 
