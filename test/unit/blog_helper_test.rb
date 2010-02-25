@@ -21,7 +21,8 @@ class BlogHelperTest < Test::Unit::TestCase
     blog.children << published_post = TextileArticle.create!(:name => 'Post', :profile => profile, :parent => blog, :published => true)
 
     expects(:display_post).with(anything).returns('POST')
-    expects(:content_tag).with('div', "POST<br style=\"clear:both\"/>", :class => 'blog-post position-1 first last', :id => "post-#{published_post.id}").returns('RESULT')
+    expects(:content_tag).with('div', "POST<br style=\"clear:both\"/>", :class => 'blog-post position-1 first last odd-post-inner', :id => "post-#{published_post.id}").returns('POST')
+    expects(:content_tag).with('div', 'POST', {:class => 'odd-post'}).returns('RESULT')
 
     assert_equal 'RESULT', list_posts(profile, blog.posts)
   end
@@ -30,8 +31,8 @@ class BlogHelperTest < Test::Unit::TestCase
     blog.children << unpublished_post = TextileArticle.create!(:name => 'Post', :profile => profile, :parent => blog, :published => false)
 
     expects(:display_post).with(anything).returns('POST')
-    expects(:content_tag).with('div', "POST<br style=\"clear:both\"/>", :class => 'blog-post position-1 first last not-published', :id => "post-#{unpublished_post.id}").returns('RESULT')
-
+    expects(:content_tag).with('div', "POST<br style=\"clear:both\"/>", :class => 'blog-post position-1 first last not-published odd-post-inner', :id => "post-#{unpublished_post.id}").returns('POST')
+    expects(:content_tag).with('div', 'POST', {:class => 'odd-post'}).returns('RESULT')
     assert_equal 'RESULT', list_posts(profile, blog.posts)
   end
 
@@ -41,11 +42,28 @@ class BlogHelperTest < Test::Unit::TestCase
     blog.children << published_post = TextileArticle.create!(:name => 'Second post', :profile => profile, :parent => blog, :published => true)
 
     expects(:display_post).with(anything).returns('POST')
-    expects(:content_tag).with('div', "POST<br style=\"clear:both\"/>", has_entries(:id => "post-#{published_post.id}")).returns('RESULT')
     expects(:content_tag).with('div', "POST<br style=\"clear:both\"/>", has_entries(:id => "post-#{unpublished_post.id}")).never
-
+    expects(:content_tag).with('div', "POST<br style=\"clear:both\"/>", has_entries(:id => "post-#{published_post.id}")).returns('POST')
+    expects(:content_tag).with('div', 'POST', {:class => 'odd-post'}).returns('RESULT')
     assert_equal 'RESULT', list_posts(nil, blog.posts)
   end
+
+  should 'list even/odd posts with a different class' do
+    blog.children << older_post = TextileArticle.create!(:name => 'First post', :profile => profile, :parent => blog, :published => true)
+
+    blog.children << newer_post = TextileArticle.create!(:name => 'Second post', :profile => profile, :parent => blog, :published => true)
+
+    expects(:display_post).with(anything).returns('POST').times(2)
+
+    expects(:content_tag).with('div', "POST<br style=\"clear:both\"/>", :class => 'blog-post position-1 first odd-post-inner', :id => "post-#{newer_post.id}").returns('POST 1')
+    expects(:content_tag).with('div', "POST 1", :class => 'odd-post').returns('ODD-POST')
+
+    expects(:content_tag).with('div', "POST<br style=\"clear:both\"/>", :class => 'blog-post position-2 last even-post-inner', :id => "post-#{older_post.id}").returns('POST 2')
+    expects(:content_tag).with('div', "POST 2", :class => 'even-post').returns('EVEN-POST')
+
+    assert_equal "ODD-POST\n<hr class='sep-posts'/>\nEVEN-POST", list_posts(nil, blog.posts)
+  end
+
 
   should 'display post' do
     blog.children << article = TextileArticle.create!(:name => 'Second post', :profile => profile, :parent => blog, :published => true)

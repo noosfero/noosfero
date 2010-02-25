@@ -8,7 +8,13 @@ module BoxesHelper
       if @controller.send(:uses_design_blocks?)
         display_boxes(@controller.boxes_holder, content)
       else
-        content_tag('div', content, :class => 'no-boxes')
+        content_tag('div',
+          content_tag('div',
+            content_tag('div', content, :class => 'no-boxes-inner-2'),
+            :class => 'no-boxes-inner-1'
+          ),
+          :class => 'no-boxes'
+        )
       end +
       maybe_display_custom_element(@controller.boxes_holder, :custom_footer_expanded, :id => 'profile-footer')
     end
@@ -95,8 +101,13 @@ module BoxesHelper
     end
 
     box_decorator.block_target(block.box, block) +
-    content_tag('div', result + footer_content + box_decorator.block_edit_buttons(block),
-                options) +
+      content_tag('div',
+       content_tag('div',
+         content_tag('div',
+           result + footer_content + box_decorator.block_edit_buttons(block),
+           :class => 'block-inner-2'),
+         :class => 'block-inner-1'),
+       options) +
     box_decorator.block_handle(block)
   end
 

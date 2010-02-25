@@ -8,15 +8,17 @@
     <div id='highlighted-news'>
       <% @highlighted_news.each_with_index do |highlighted, index| %>
         <div class='highlighted-news-item post-<%= index + 1 %>'>
-          <h2><%= link_to(highlighted.title, highlighted.url, :class => 'post-title') %></h2>
-          <span class="post-date"><%= show_date(highlighted.published_at, true) %> </span></p>
-          <p class='headline'><%= highlighted.first_paragraph %></p>
-          <p class='highlighted-news-read-more'>
-            <%= link_to(_('Read more'), highlighted.url) %>
-          </p>
-          <br style='clear:both' />
+          <div class='highlighted-news-item post-<%= index + 1 %>-inner'>
+            <h2><%= link_to(highlighted.title, highlighted.url, :class => 'post-title') %></h2>
+            <span class="post-date"><%= show_date(highlighted.published_at, true) %> </span></p>
+            <p class='headline'><%= highlighted.first_paragraph %></p>
+            <p class='highlighted-news-read-more'>
+              <%= link_to(_('Read more'), highlighted.url) %>
+            </p>
+            <br style='clear:both' />
+          </div>
         </div>
-      <% end%>
+      <% end %>
     </div>
 
     <div class='sep'></div>
@@ -28,7 +30,7 @@
           <span class="post-date"><%= show_date(news.published_at, true) %> </span>
           <%= link_to(news.title, news.url, :class =>  'post-title' ) %>
           </li>
-        <% end%>
+        <% end %>
       </ul>
     </div>
 
@@ -36,14 +38,18 @@
 
     <% @area_news.each_with_index do |folder, i| %>
       <% content_tag(:div, :class => ["news-area", ['even', 'odd'][i%2]].join(' ')) do %>
-        <h3><%= link_to folder.title, folder.url %></h3>
-          <ul>
-          <% folder.news(environment.news_amount_by_folder).each do |news| %>
-            <li> <%= link_to(news.title, news.url) %></li>
-          <% end%>
-          </ul>
-        <%= link_to _('View more'), folder.url, :class => 'news-see-more'  %>
-      <%end %>
+        <% content_tag(:div, :class => 'news-area-inner-1') do %>
+          <% content_tag(:div, :class => 'news-area-inner-2') do %>
+            <h3><%= link_to folder.title, folder.url %></h3>
+            <ul>
+              <% folder.news(environment.news_amount_by_folder).each do |news| %>
+                <li> <%= link_to(news.title, news.url) %></li>
+              <% end%>
+            </ul>
+            <%= link_to _('View more'), folder.url, :class => 'news-see-more'  %>
+          <% end %>
+        <% end %>
+      <% end %>
     <% end %>
   <% end %>
 <% else %>

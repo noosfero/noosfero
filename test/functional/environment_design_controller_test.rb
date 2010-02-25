@@ -27,6 +27,10 @@ class EnvironmentDesignControllerTest < Test::Unit::TestCase
     assert_includes @controller.available_blocks, LinkListBlock
   end
 
+  should 'SlideshowBlock be available' do
+    assert_includes @controller.available_blocks, SlideshowBlock
+  end
+
   should 'be able to edit LinkListBlock' do
     login_as(create_admin_user(Environment.default))
     l = LinkListBlock.create!(:links => [{:name => 'link 1', :address => '/address_1'}])

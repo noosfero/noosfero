@@ -24,14 +24,18 @@ module BlogHelper
     artic_len = articles.length
     articles.each_with_index{ |art,i|
       css_add = [ 'position-'+(i+1).to_s() ]
+      position = (i%2 == 0) ? 'odd-post' : 'even-post'
       if art.published? || (user==art.profile)
         css_add << 'first' if i == 0
         css_add << 'last'  if i == (artic_len-1)
         css_add << 'not-published' if !art.published?
+        css_add << position + '-inner'
         content << content_tag('div',
+                    content_tag('div',
                        display_post(art) + '<br style="clear:both"/>',
                        :class => 'blog-post ' + css_add.join(' '),
-                       :id => "post-#{art.id}")
+                       :id => "post-#{art.id}"), :class => position
+                   )
       end
     }
     content.join("\n<hr class='sep-posts'/>\n") + (pagination or '')
