@@ -1,4 +1,4 @@
-require 'test_helper'
+require File.dirname(__FILE__) + '/../test_helper'
 
 class DocControllerTest < ActionController::TestCase
 
@@ -38,6 +38,15 @@ class DocControllerTest < ActionController::TestCase
     @controller.stubs(:language).returns('pt')
     get :topic, :section => 'user', :topic => 'accepting-friends'
     assert_equal 'pt', assigns(:topic).language
+  end
+
+  should 'use environment theme' do
+    e = Environment.default
+    e.theme = 'test-theme'
+    e.save
+
+    DocTopic.any_instance.expects(:html).with('test-theme')
+    get :topic, :section => 'user', :topic => 'accepting-friends'
   end
 
   should 'bail out gracefully for unexisting sections or topics' do
