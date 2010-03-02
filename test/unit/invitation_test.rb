@@ -59,4 +59,16 @@ class InvitationTest < ActiveSupport::TestCase
     end
   end
 
+  should 'not crash if the invited friend is already your friend in the environment' do
+    person = create_user('person').person
+    invited_friend = create_user('invited_friend').person
+    community       = fast_create(Community)
+
+    invited_friend.add_friend(person)
+
+    assert_nothing_raised NoMethodError do
+      Invitation.invite( person, [invited_friend.user.email], "", community )
+    end
+  end
+
 end
