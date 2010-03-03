@@ -904,6 +904,9 @@ module ApplicationHelper
   def page_title
     (@page ? @page.name + ' - ' : '') +
     (profile ? profile.short_name + ' - ' : '') +
+    (@topic ? @topic.title + ' - ' : '') +
+    (@section ? @section.title + ' - ' : '') +
+    (@toc ? _('Online Manual') + ' - ' : '') +
     environment.name +
     (@category ? "&rarr; #{@category.full_name}" : '')
   end

@@ -1,0 +1,31 @@
+h1. Inviting contacts from e-mail
+
+p.  _You can invite e-mail contacts to be your friend on the system. If the e-mail is registered on the system, the user will receive an invitation through the system. If it is not registered, the user will receive an invitation on his e-mail._
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+*  "Related topics":#RelatedTopics
+
+h2(#HowAccess). How to access
+
+# Find your user menu on top bar:  !=/images/doc/system-homepage-top-menu.en.png(Top menu)!
+# In user menu, click on Control Panel:  !=/images/doc/control-panel-menu.en.png(Control panel menu)!
+# Then, click on "Manage friends"  !=/images/doc/manage-friends.en.png(Manage Friends)!
+
+h2(#Description). Description
+
+# You will your list of friends and the invitation button. Click on the button.
+  !=/images/doc/user-friends-with-invitation-button.en.png(User's friends list)!
+# You can invite your contacts manually inserting their e-mails or importing the e-mails from your e-mail contacts.
+** *Manually*: Choose the option "Manually" and click on "Next" !=/images/doc/user-manually-invitation-step-1.en.png(Manually invitation for user. Step 1)!
+*** Type the e-mail adresses in the first field. You should type only one e-mail in each line.
+*** Clicking on "Personalize invitation mail", you can edit the text that will be sent. Then, click on "Invite my friends" !=/images/doc/user-manually-invitation-step-2.en.png(Manually invitation for user. Step 2)!
+** *Importing*: Choose one of the other options to import you contacts from your e-mail. Fill in the fields with the username and password you use to access your e-mail and click on "Next". !=/images/doc/user-import-invitation-step-1.en.png(Import invitation for user. Step 1)!
+*** You can type e-mail adresses in the first field, only one e-mail in each line.
+*** You will also see your list of e-mails. Check the e-mails that you want to send an invitation.
+*** Clicking on "Personalize invitation mail", you can edit the text that will be sent. Then, click on "Invite my friends" !=/images/doc/user-import-invitation-step-2.en.png(Import invitation for user. Step 2)!
+
+h2(#RelatedTopics). Related topics
+
+*  "Accepting friends":/doc/user/accepting-friends
+*  "Removing friends":/doc/user/removing-friends

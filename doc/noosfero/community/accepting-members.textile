@@ -1,0 +1,27 @@
+h1. Accepting new members
+
+p.  _If a community is moderated, the administrator/moderator needs to approve the requests of new members._
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+*  "Related topics":#RelatedTopics
+
+h2(#HowAccess). How to access
+
+# Find your user menu on top bar:  !=/images/doc/system-homepage-top-menu.en.png(Top menu)!
+# In user menu, click on Control Panel:  !=/images/doc/menu-control-panel.en.png(Control panel on menu)!
+# Then, click on "Manage my groups" button:  !=/images/doc/control-panel-manage-groups.en.png(Manage groups in control panel)!
+# You will see the list of groups (communities/enterprises) that you are a member. The groups that you can manage are listed with a link "Manage". Assuming that you are a community administrator, click on "Manage" link.  !=/images/doc/groups-list-with-manage-community.en.png(Groups list with permission to manage enterprise)!
+
+h2(#Description). Description
+
+# If the community has pending requests, you will see a box with the list of pending tasks on your control panel. In order to accept or deny, you should click on "Process requests" button
+  !=/images/doc/community-control-panel-with-tasks.en.png(Community control panel with pending tasks)!
+# If you want to accept, choose the option "Accept". You also need to choose wich roles the new member should have. Each role has some permissions, that are defined by the environment administrator.
+  !=/images/doc/tasks-list-membership-request.en.png(Community tasks list)!
+
+h2(#RelatedTopics). Related topics
+
+*  "Creating a community":/doc/community/creating-community
+*  "Joining a community":/doc/community/joining-community
+

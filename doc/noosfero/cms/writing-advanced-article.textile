@@ -1,4 +1,4 @@
-h1. Write an advanced article (inserting images and links)
+h1. Writing an advanced article (inserting images, links, videos and audio)
 
 p.  _You can add images and links to the articles created on the system to make it more interesting._
 
@@ -6,6 +6,7 @@ p.  _You can add images and links to the articles created on the system to make 
 *  "Description":#Description
 **  "Inserting links":#InsertingLinks
 **  "Inserting images":#InsertingImages
+**  "Inserting videos and audio":#InsertingVideosAudio
 *  "Related topics":#RelatedTopics
 
 h2(#HowAccess). How to access
@@ -22,7 +23,7 @@ h3(#InsertingLinks). Inserting links
 ## *Link URL:* fill in with the link address
 ##  *Target:* choose waht will happen when one person click on the link, if it will open in the same window or in a new one.
 ##  *Title:* fill in what will be displayed when a person pass mouse over the link.
-  !=/images/doc/advanced-article-popup-inserir-link.en.png(Insert link popup on an article)!
+  !=/images/doc/advanced-article-popup-insert-link.en.png(Insert link popup on an article)!
 # After filling in the form, click on "Insert" and the link will be inserted on article.
   !=/images/doc/advanced-article-created-link.en.png(Created link on an article)!
 
@@ -43,6 +44,13 @@ p. When creating/editing an article, you will see a box in the right side.
 ### You will see a list with thumbnails of the images in the folder of your choice
 ### Using your mouse, click and drag the image to the part of the text where it will be inserted.
   !=/images/doc/advanced-article-archives-list.en.png(Archives list when writing an article)!
+
+h3(#InsertingVideosAudio). Inserting videos and audio
+
+# Click on "HTML" button  !=/images/doc/advanced-article-insert-html.en.png(Insert html on an article)!
+# Insert the code of the video or audio an click on "Update" !=/images/doc/advanced-article-popup-insert-html.en.png(Insert html popup on an article)!
+# You will see a square with a "play" image on your text !=/images/doc/advanced-article-created-object.en.png(Created object on an article)!
+# After clicking on "Save" button, the video or audio will be displayed on your text.
 
 h2(#RelatedTopics). Related topics
 

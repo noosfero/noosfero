@@ -1,0 +1,32 @@
+h1. Moderating articles
+
+p.  _Community's members can publish articles on community. If the community is moderated, the administrator/moderator needs to approve or deny the publication._
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+*  "Related topics":#RelatedTopics
+
+h2(#HowAccess). How to access
+
+# Find your user menu on top bar:  !=/images/doc/system-homepage-top-menu.en.png(Top menu)!
+# In user menu, click on Control Panel:  !=/images/doc/menu-control-panel.en.png(Control panel on menu)!
+# Then, click on "Manage my groups" button:  !=/images/doc/control-panel-manage-groups.en.png(Manage groups in control panel)!
+# You will see the list of groups (communities/enterprises) that you are a member. The groups that you can manage are listed with a link "Manage". Assuming that you are a community administrator, click on "Manage" link.  !=/images/doc/groups-list-with-manage-community.en.png(Groups list with permission to manage enterprise)!
+
+h2(#Description). Description
+
+# If the community has pending requests, you will see a box with the list of pending tasks on your control panel. In order to accept or deny, you should click on "Process requests" button
+  !=/images/doc/community-control-panel-with-approval-task.en.png(Community control panel with pending tasks)!
+# You will see the tasks list. !=/images/doc/tasks-list-approval-request.en.png(Community tasks list)!
+## If you want to accept, choose the option "Accept". If you want to ignore the request, choose "Ignore".
+## *Name for publishing*: When an article is approved, it will be listed as content of the community. If you think the article should have its original name, leave this field blank. If you want to change it, fill in with the name you want.
+## *Choose the folder where the article must be published*: You can choose the folder where the article will be listed.
+## *Highlight this article*: If the community is the news source of the environment, you can check this option to highlight the article on environment's homepage.
+## *Comment for author*: The text written here will be sent to the requestor after your decision.
+
+After clicking on button "Ok!", your decision will be processed. If you accepted the article, it will be listed as community's content.
+
+h2(#RelatedTopics). Related topics
+
+*  "Creating a community":/doc/community/creating-community
+*  "Joining a community":/doc/community/joining-community

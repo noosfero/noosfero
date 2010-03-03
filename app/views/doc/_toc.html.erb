@@ -1,5 +1,5 @@
 <div id='online-doc-navigation'>
-  <h1><%= _('On-line documentation') %></h1>
+  <h1><%= _('Manual sections') %></h1>
   <ul>
     <% @environment.local_docs.each do |link,text| %>
       <li><%= link_to text, link, :target => '_blank' %></li>
