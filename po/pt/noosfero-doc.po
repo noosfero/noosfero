@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2010-03-03 17:35-0300\n"
-"PO-Revision-Date: 2010-03-03 18:30-0300\n"
+"PO-Revision-Date: 2010-03-04 16:08-0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -1586,7 +1586,7 @@ msgid ""
 "to approve when a person asks to join the community. Choosing the second "
 "option, no moderation is needed."
 msgstr ""
-"<strong>Novos membros devem ser aprovados:</strong> Você deve escolher se a "
+"<strong>Novos integrantes devem ser aprovados:</strong> Você deve escolher se a "
 "comunidade deve ser moderada. Escolhendo a primeira opçãom um moderador "
 "precisa aprovar quando uma pessoa solicita a entrada na comunidade. "
 "Escolhendo a segunda opção, não é necessária moderação."
@@ -1696,7 +1696,7 @@ msgstr ""
 # type: Attribute 'alt' of: <ol><li><p><img>
 #: doc/noosfero/community/invite-contacts.en.xhtml:23
 msgid "Manage members in control panel"
-msgstr "Gerenciar membros no painel de controle"
+msgstr "Gerenciar integrantes no painel de controle"
 
 # type: Content of: <ol><li>
 #: doc/noosfero/community/invite-contacts.en.xhtml:24
@@ -1704,12 +1704,12 @@ msgid ""
 "You will see the members list of community and the invitation button. Click "
 "on the button."
 msgstr ""
-"Você verá a liste de membros da comunidade e o botão de convite. Clique no "
+"Você verá a lista de integrantes da comunidade e o botão de convite. Clique no "
 "botão."
 
 #: doc/noosfero/community/invite-contacts.en.xhtml:25
 msgid "Community's members list"
-msgstr "Lista de membros da comunidade"
+msgstr "Lista de integrantes da comunidade"
 
 # type: Content of: <ol><li>
 #: doc/noosfero/community/invite-contacts.en.xhtml:26
@@ -1828,7 +1828,7 @@ msgstr ""
 # type: Content of: <ul><li>
 #: doc/noosfero/community/invite-contacts.en.xhtml:47
 msgid "<a href=\"/doc/community/accepting-members\">Accepting members</a>"
-msgstr "<a href=\"/doc/community/accepting-members\">Aceitando membros</a>"
+msgstr "<a href=\"/doc/community/accepting-members\">Aceitando integrantes</a>"
 
 # type: Content of: <h1>
 #: doc/noosfero/community/moderating-articles.en.xhtml:1
@@ -1842,7 +1842,7 @@ msgid ""
 "community is moderated, the administrator/moderator needs to approve or deny "
 "the publication.</em>"
 msgstr ""
-"<em>Membros da comunidae podem publicar artigos na comunidade. Se a "
+"<em>Integrantes da comunidade podem publicar artigos na comunidade. Se a "
 "comunidade for moderada, o administrador/moderador precisará aprovar or "
 "negar o pedido de publicação.</em>"
 
@@ -1948,7 +1948,7 @@ msgid ""
 "do that, you can join a community, as explained below.</em>"
 msgstr ""
 "<em>Você pode fazer parte de uma comunidade e interagir com os outros "
-"membros dela. Para isso você pode entrar na comunidade, como explicado a "
+"integrantes dela. Para isso você pode entrar na comunidade, como explicado a "
 "seguir.</em>"
 
 # type: Content of: <ul><li>
@@ -2037,7 +2037,7 @@ msgstr ""
 # type: Content of: <h1>
 #: doc/noosfero/community/accepting-members.en.xhtml:1
 msgid "Accepting new members"
-msgstr "Aceitando novos membros"
+msgstr "Aceitando novos integrantes"
 
 # type: Content of: <ol><li>
 #: doc/noosfero/community/accepting-members.en.xhtml:3
@@ -2046,7 +2046,7 @@ msgid ""
 "approve the requests of new members.</em>"
 msgstr ""
 "<em>Se a comunidade for moderada, o administrador/moderador precisará os "
-"pedidos de novos membros.</em>"
+"pedidos de novos integrantes.</em>"
 
 # type: Content of: <ol><li>
 #: doc/noosfero/community/accepting-members.en.xhtml:25
@@ -2963,7 +2963,7 @@ msgstr ""
 # type: Content of: <h1>
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:1
 msgid "Managing and adding members to an enterprise"
-msgstr "Gerenciando e adicionando membros em um empreendimento"
+msgstr "Gerenciando e adicionando integrantes em um empreendimento"
 
 # type: Content of: <p>
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:3
@@ -2972,7 +2972,7 @@ msgid ""
 "from enterprise and also define which permissions each member will have</em>"
 msgstr ""
 "<em>Se você é administrador de um empreendimento, você pode adicionar e "
-"remover membros e também pode definir as permissões que cada membro terá</em>"
+"remover integrantes e também pode definir as permissões que cada membro terá</em>"
 
 # type: Content of: <ol><li>
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:17
@@ -2993,12 +2993,12 @@ msgid ""
 "In enterprise&#8217;s control panel, click on &#8220;Manage members&#8221;"
 msgstr ""
 "No painel de controle do empreendimento, clique em &#8220;Gerenciar "
-"membros&#8221;"
+"integrantes&#8221;"
 
 # type: Attribute 'alt' of: <ol><li><p><img>
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:24
 msgid "Control panel with manage members"
-msgstr "Painel de controle com gerenciar membros"
+msgstr "Painel de controle com gerenciar integrantes"
 
 # type: Content of: <ol><li>
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:25
@@ -3006,13 +3006,13 @@ msgid ""
 "You will see the list of people who are members of the enterprise and some "
 "buttons that will be explained in parts:"
 msgstr ""
-"Você verá a lista de pessoas que são membros do empreendimento e alguns "
+"Você verá a lista de pessoas que são integrantes do empreendimento e alguns "
 "botões que serão explicados por partes:"
 
 # type: Attribute 'alt' of: <ol><li><p><img>
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:25
 msgid "Members list of enterprise on manage members"
-msgstr "Lista de membros de um empreendimento em gerenciar membros"
+msgstr "Lista de integrantes de um empreendimento em gerenciar integrantes"
 
 # type: Content of: <ol><li><ol><li>
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:27
@@ -3045,7 +3045,7 @@ msgid ""
 "with all permissions."
 msgstr ""
 "<strong>Adicionar integrantes:</strong> Você verá uma tela para adicionar "
-"novos integrantes ao empreendimento. Os membros inseridos terão o papel de "
+"novos integrantes ao empreendimento. Os integrantes inseridos terão o papel de "
 "administrador do perfil por padrão, com todas as permissões."
 
 # type: Content of: <ol><li><ol><li><ol><li>
@@ -3702,7 +3702,8 @@ msgstr "<a href=\"/doc/community/moderating-articles\">Moderando artigos</a>"
 # type: Content of: <ul><li>
 #: doc/noosfero/community/toc.en.xhtml:7
 msgid "<a href=\"/doc/community/accepting-members\">Accepting new members</a>"
-msgstr "<a href=\"/doc/community/accepting-members\">Aceitando novos membros</a>"
+msgstr "<a href=\"/doc/community/accepting-members\">Aceitando novos integrantes"
+"</a>"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/user/toc.en.xhtml:3
@@ -3752,7 +3753,7 @@ msgid ""
 "members to an enterprise</a>"
 msgstr ""
 "<a href=\"/doc/enterprise/managing-enterprise-members\">Gerenciando e "
-"adicionando membros em um empreendimento</a>"
+"adicionando integrantes em um empreendimento</a>"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/navigation/toc.en.xhtml:3
