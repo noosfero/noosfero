@@ -145,6 +145,14 @@ class EnterpriseTest < Test::Unit::TestCase
     assert Enterprise.find(ent.id).blocked?
   end
 
+  should 'unblock' do
+    ent = Enterprise.create!(:name => 'test enteprise', :identifier => 'test_ent')
+    ent.data[:blocked] = true
+    ent.save
+    ent.unblock
+    assert !Enterprise.find(ent.id).blocked?
+  end
+
   should 'enable and make user admin' do
     ent = Enterprise.create!(:name => 'test enteprise', :identifier => 'test_ent', :enabled => false)
     p = create_user('test_user').person

@@ -113,6 +113,11 @@ class ProfileController < PublicController
     render :text => '', :layout => false
   end
 
+  def unblock
+    profile.unblock
+    redirect_to :controller => 'profile', :action => 'index'
+  end
+
   protected
 
   def check_access_to_profile
@@ -157,4 +162,5 @@ class ProfileController < PublicController
   def members_per_page
     20
   end
+
 end

@@ -82,6 +82,11 @@ class Enterprise < Organization
     save
   end
 
+  def unblock
+    data[:blocked] = false
+    save
+  end
+
   def enable(owner)
     return if enabled
     affiliate(owner, Profile::Roles.all_roles(environment.id))

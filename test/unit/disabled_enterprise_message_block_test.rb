@@ -14,7 +14,8 @@ class DisabledEnterpriseMessageBlockTest < Test::Unit::TestCase
     block.expects(:owner).returns(p)
     p.expects(:environment).returns(e)
 
-    assert_tag_in_string block.content, :tag => 'div', :content => /This message is for disabled enterprises/ 
+    expects(:render).with(:file => 'blocks/disabled_enterprise_message', :locals => { :message => 'This message is for disabled enterprises'})
+    instance_eval(&block.content)
   end
 
   should 'display nothing if environment has no message' do
@@ -24,7 +25,8 @@ class DisabledEnterpriseMessageBlockTest < Test::Unit::TestCase
     block.expects(:owner).returns(p)
     p.expects(:environment).returns(e)
 
-    assert_no_tag_in_string block.content, :tag => 'div', :content => /This message is for disabled enterprises/ 
+    expects(:render).with(:file => 'blocks/disabled_enterprise_message', :locals => { :message => ''})
+    instance_eval(&block.content)
   end
 
   should 'not be editable' do

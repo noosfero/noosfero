@@ -150,3 +150,14 @@ end
 Given /^"(.+)" is friend of "(.+)"$/ do |person, friend|
   Person[person].add_friend(Person[friend])
 end
+
+Given /^(.+) is blocked$/ do |enterprise_name|
+  enterprise = Enterprise.find_by_name(enterprise_name)
+  enterprise.block
+end
+
+Given /^(.+) is disabled$/ do |enterprise_name|
+  enterprise = Enterprise.find_by_name(enterprise_name)
+  enterprise.enabled = false
+  enterprise.save
+end

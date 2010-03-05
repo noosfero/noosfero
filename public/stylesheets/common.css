@@ -102,6 +102,10 @@ div#profile-disabled {
   background: url("../images/icons-app/alert.png") no-repeat 5px #ffffa9;
 }
 
+div#profile-disabled .unlock-button{
+  margin: 5px;
+}
+
 .explanation {
   font-style: italic;
   font-size: 10px; 

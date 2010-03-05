@@ -14,7 +14,9 @@ class DisabledEnterpriseMessageBlock < Block
 
   def content
     message = self.owner.environment.message_for_disabled_enterprise || ''
-    content_tag('div', message, :class => 'enterprise-disabled')
+    lambda do
+       render :file => 'blocks/disabled_enterprise_message', :locals => {:message => message}
+    end
   end
 
   def editable?
