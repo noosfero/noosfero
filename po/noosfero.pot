@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.21.5\n"
-"POT-Creation-Date: 2010-02-05 16:18-0300\n"
+"Project-Id-Version: noosfero 0.22.1\n"
+"POT-Creation-Date: 2010-03-08 17:02-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,7 +68,7 @@ msgstr ""
 msgid "Rejected"
 msgstr ""
 
-#: app/helpers/language_helper.rb:28 app/helpers/language_helper.rb:38
+#: app/helpers/language_helper.rb:29 app/helpers/language_helper.rb:39
 msgid ""
 "The language you choose here is the language used for options, buttons, etc. "
 "It does not affect the language of the content created by other users."
@@ -81,7 +81,7 @@ msgstr ""
 #: app/views/cms/_textile_article.rhtml:5
 #: app/views/cms/_tiny_mce_article.rhtml:8
 #: app/views/cms/_tiny_mce_article.rhtml:11
-#: app/views/content_viewer/_comment_form.rhtml:36
+#: app/views/content_viewer/_comment_form.rhtml:37
 msgid "Title"
 msgstr ""
 
@@ -121,7 +121,8 @@ msgstr ""
 #: app/controllers/public/search_controller.rb:132
 #: app/controllers/public/search_controller.rb:203
 #: app/models/people_block.rb:4 app/views/search/people.rhtml:1
-#: app/views/layouts/application-ng.rhtml:96
+#: public/designs/themes/base/navigation.rhtml:1
+#: public/designs/themes/noosfero/navigation.rhtml:1
 msgid "People"
 msgstr ""
 
@@ -130,8 +131,8 @@ msgstr ""
 #: app/controllers/public/search_controller.rb:205
 #: app/models/products_block.rb:8 app/models/products_block.rb:12
 #: app/views/search/_sellers_form.rhtml:8
-#: public/designs/themes/base/navigation.rhtml:2
-#: public/designs/themes/noosfero/navigation.rhtml:2
+#: public/designs/themes/base/navigation.rhtml:4
+#: public/designs/themes/noosfero/navigation.rhtml:4
 msgid "Products"
 msgstr ""
 
@@ -142,8 +143,8 @@ msgstr ""
 #: app/views/content_viewer/_person.rhtml:38
 #: app/views/search/_sellers_form.rhtml:7 app/views/search/enterprises.rhtml:5
 #: app/views/profile/_person.rhtml:38
-#: public/designs/themes/base/navigation.rhtml:1
-#: public/designs/themes/noosfero/navigation.rhtml:1
+#: public/designs/themes/base/navigation.rhtml:3
+#: public/designs/themes/noosfero/navigation.rhtml:3
 msgid "Enterprises"
 msgstr ""
 
@@ -152,14 +153,15 @@ msgstr ""
 #: app/controllers/public/search_controller.rb:207
 #: app/models/communities_block.rb:4 app/views/content_viewer/_person.rhtml:56
 #: app/views/search/communities.rhtml:6 app/views/profile/_person.rhtml:56
-#: app/views/layouts/application-ng.rhtml:98
+#: public/designs/themes/base/navigation.rhtml:2
+#: public/designs/themes/noosfero/navigation.rhtml:2
 msgid "Communities"
 msgstr ""
 
 #: app/helpers/assets_helper.rb:12
 #: app/controllers/public/search_controller.rb:135
-#: public/designs/themes/base/navigation.rhtml:3
-#: public/designs/themes/noosfero/navigation.rhtml:3
+#: public/designs/themes/base/navigation.rhtml:5
+#: public/designs/themes/noosfero/navigation.rhtml:5
 msgid "Events"
 msgstr ""
 
@@ -376,36 +378,36 @@ msgstr ""
 msgid "%{month} %{year}"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:31 app/helpers/boxes_helper.rb:57
+#: app/helpers/boxes_helper.rb:37 app/helpers/boxes_helper.rb:63
 #: app/models/main_block.rb:4
 msgid "Main content"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:94
+#: app/helpers/boxes_helper.rb:100
 msgid "This block is invisible. Your visitors will not see it."
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:183
+#: app/helpers/boxes_helper.rb:194
 msgid "Can't move up anymore."
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:185
+#: app/helpers/boxes_helper.rb:196
 msgid "Move block up"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:189
+#: app/helpers/boxes_helper.rb:200
 msgid "Can't move down anymore."
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:191
+#: app/helpers/boxes_helper.rb:202
 msgid "Move block down"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:199 app/helpers/boxes_helper.rb:201
+#: app/helpers/boxes_helper.rb:210 app/helpers/boxes_helper.rb:212
 msgid "Move to the opposite side"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:206 app/helpers/article_helper.rb:36
+#: app/helpers/boxes_helper.rb:217 app/helpers/article_helper.rb:36
 #: app/models/link_list_block.rb:5 app/views/categories/_category.rhtml:8
 #: app/views/cms/view.rhtml:81 app/views/manage_products/index.rhtml:19
 #: app/views/manage_products/index.rhtml:53 app/views/role/index.rhtml:14
@@ -415,25 +417,24 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:210
+#: app/helpers/boxes_helper.rb:221
 msgid "Remove block"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:210
+#: app/helpers/boxes_helper.rb:221
 msgid "Are you sure you want to remove this block?"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:214
+#: app/helpers/boxes_helper.rb:225
 msgid "Help on this block"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:214 app/helpers/application_helper.rb:80
-#: app/models/link_list_block.rb:23 app/views/layouts/application.rhtml:109
-#: app/views/layouts/wizard.rhtml:29
+#: app/helpers/boxes_helper.rb:225 app/helpers/application_helper.rb:80
+#: app/models/link_list_block.rb:23
 msgid "Help"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:214 app/helpers/application_helper.rb:100
+#: app/helpers/boxes_helper.rb:225 app/helpers/application_helper.rb:100
 #: app/views/cms/why_categorize.rhtml:8 app/views/search/_search_form.rhtml:63
 #: app/views/box_organizer/add_block.rhtml:26 app/views/account/wizard.rhtml:1
 msgid "Close"
@@ -877,91 +878,95 @@ msgstr ""
 msgid "This is %s, version %s"
 msgstr ""
 
-#: app/helpers/application_helper.rb:419
+#: app/helpers/application_helper.rb:420
 msgid "non registered gender"
 msgstr ""
 
-#: app/helpers/application_helper.rb:419
+#: app/helpers/application_helper.rb:420
 #: app/views/profile_editor/_person_form.rhtml:18
 #: app/views/content_viewer/_person.rhtml:5 app/views/profile/_person.rhtml:5
 msgid "Male"
 msgstr ""
 
-#: app/helpers/application_helper.rb:419
+#: app/helpers/application_helper.rb:420
 #: app/views/profile_editor/_person_form.rhtml:18
 #: app/views/content_viewer/_person.rhtml:5 app/views/profile/_person.rhtml:5
 msgid "Female"
 msgstr ""
 
-#: app/helpers/application_helper.rb:444
+#: app/helpers/application_helper.rb:445
 msgid "Principal Product Categories"
 msgstr ""
 
-#: app/helpers/application_helper.rb:470
+#: app/helpers/application_helper.rb:471
 msgid "Click on this icon to add <b>%s</b> to your network"
 msgstr ""
 
-#: app/helpers/application_helper.rb:493 app/helpers/application_helper.rb:510
+#: app/helpers/application_helper.rb:494 app/helpers/application_helper.rb:511
 msgid "Click on this icon to go to the <b>%s</b>'s home page"
 msgstr ""
 
-#: app/helpers/application_helper.rb:506
+#: app/helpers/application_helper.rb:507
 msgid "1 member"
 msgid_plural "%s members"
 msgstr[0] ""
 msgstr[1] ""
 
-#: app/helpers/application_helper.rb:544 app/views/categories/index.rhtml:1
+#: app/helpers/application_helper.rb:545 app/views/categories/index.rhtml:1
 #: app/views/content_viewer/view_page.rhtml:94
 msgid "Categories"
 msgstr ""
 
-#: app/helpers/application_helper.rb:567
+#: app/helpers/application_helper.rb:568
 msgid "open"
 msgstr ""
 
-#: app/helpers/application_helper.rb:606
+#: app/helpers/application_helper.rb:607
 #: app/views/layouts/application-ng.rhtml:79
 #: app/views/layouts/application-ng.rhtml:81
 #: app/views/layouts/application-ng.rhtml:84
 msgid "Search..."
 msgstr ""
 
-#: app/helpers/application_helper.rb:608
+#: app/helpers/application_helper.rb:609
 msgid "This is a search box. Click, write your query, and press enter to find"
 msgstr ""
 
-#: app/helpers/application_helper.rb:609
+#: app/helpers/application_helper.rb:610
 msgid "Click, write and press enter to find"
 msgstr ""
 
-#: app/helpers/application_helper.rb:615 app/models/link_list_block.rb:20
+#: app/helpers/application_helper.rb:616 app/models/link_list_block.rb:20
 #: app/views/region_validators/region.rhtml:23
 #: app/views/search/articles.rhtml:10 app/views/search/_sellers_form.rhtml:21
 #: app/views/search/_search_form.rhtml:19 app/views/search/people.rhtml:10
-#: app/views/search/communities.rhtml:15 app/views/home/index.rhtml:59
+#: app/views/search/communities.rhtml:15 app/views/home/index.rhtml:65
 #: app/views/profile_members/add_members.rhtml:5
 msgid "Search"
 msgstr ""
 
-#: app/helpers/application_helper.rb:803
+#: app/helpers/application_helper.rb:804
 msgid "Searched for '%s'"
 msgstr ""
 
-#: app/helpers/application_helper.rb:804
+#: app/helpers/application_helper.rb:805
 msgid "In category %s"
 msgstr ""
 
-#: app/helpers/application_helper.rb:805
+#: app/helpers/application_helper.rb:806
 msgid "within %d km from %s"
 msgstr ""
 
-#: app/helpers/application_helper.rb:806
+#: app/helpers/application_helper.rb:807
 msgid "%d results found"
 msgstr ""
 
-#: app/helpers/application_helper.rb:812
+#: app/helpers/application_helper.rb:813
 msgid "In all categories"
+msgstr ""
+
+#: app/helpers/application_helper.rb:909
+msgid "Online Manual"
 msgstr ""
 
 #: app/helpers/display_helper.rb:4
@@ -1191,29 +1196,29 @@ msgstr ""
 msgid "Please enter a valid email address."
 msgstr ""
 
-#: app/controllers/public/profile_controller.rb:64
+#: app/controllers/public/profile_controller.rb:66
 msgid "%s administrator still needs to accept you as member."
 msgstr ""
 
-#: app/controllers/public/profile_controller.rb:73
+#: app/controllers/public/profile_controller.rb:75
 msgid "You are already a member of \"%s\""
 msgstr ""
 
-#: app/controllers/public/profile_controller.rb:139
+#: app/controllers/public/profile_controller.rb:141
 msgid "The content here is available to %s's friends only."
 msgstr ""
 
-#: app/controllers/public/profile_controller.rb:142
+#: app/controllers/public/profile_controller.rb:144
 msgid "The contents in this community is available to members only."
 msgstr ""
 
-#: app/controllers/public/profile_controller.rb:148
+#: app/controllers/public/profile_controller.rb:150
 msgid ""
 "Sorry, this profile was defined as private by its owner. You'll not be able "
 "to view content here unless the profile owner adds adds you."
 msgstr ""
 
-#: app/controllers/public/profile_controller.rb:148
+#: app/controllers/public/profile_controller.rb:150
 msgid "Oops ... you cannot go ahead here"
 msgstr ""
 
@@ -1500,7 +1505,7 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: app/models/link_list_block.rb:8 app/views/contact/new.rhtml:18
+#: app/models/link_list_block.rb:8 app/views/contact/new.rhtml:19
 #: app/views/tasks/new.rhtml:15
 msgid "Send"
 msgstr ""
@@ -1633,7 +1638,7 @@ msgid "Random people"
 msgstr ""
 
 #: app/models/profile_image_block.rb:6
-msgid "Picture"
+msgid "Profile Image"
 msgstr ""
 
 #: app/models/profile_image_block.rb:10
@@ -1795,7 +1800,7 @@ msgstr ""
 #: app/models/user.rb:- app/models/product.rb:- app/models/comment.rb:-
 #: app/models/environment.rb:- app/models/create_enterprise.rb:4
 #: app/models/domain.rb:- app/models/contact.rb:- app/models/contact.rb:14
-#: app/views/cms/view.rhtml:29 app/views/content_viewer/_comment_form.rhtml:27
+#: app/views/cms/view.rhtml:29 app/views/content_viewer/_comment_form.rhtml:28
 #: app/views/box_organizer/_link_list_block.rhtml:4
 #: app/views/profile_members/_find_users.rhtml:3
 #: app/views/profile_members/find_users.rhtml:3
@@ -2741,19 +2746,19 @@ msgstr ""
 msgid "Updated: %s"
 msgstr ""
 
-#: app/models/rss_feed.rb:85
+#: app/models/rss_feed.rb:84
 msgid "%s's RSS feed"
 msgstr ""
 
-#: app/models/rss_feed.rb:87
+#: app/models/rss_feed.rb:86
 msgid "%s's content published at %s"
 msgstr ""
 
-#: app/models/rss_feed.rb:113
+#: app/models/rss_feed.rb:112
 msgid "RSS Feed"
 msgstr ""
 
-#: app/models/rss_feed.rb:117
+#: app/models/rss_feed.rb:116
 msgid "Provides a news feed of your more recent articles."
 msgstr ""
 
@@ -3032,7 +3037,7 @@ msgstr ""
 msgid "Receive a copy"
 msgstr ""
 
-#: app/models/contact.rb:14 app/views/contact/new.rhtml:12
+#: app/models/contact.rb:14 app/views/contact/new.rhtml:13
 msgid "City and state"
 msgstr ""
 
@@ -3280,7 +3285,7 @@ msgstr ""
 #: app/views/memberships/index.rhtml:7 app/views/profile/friends.rhtml:19
 #: app/views/profile/_private_profile.rhtml:15
 #: app/views/profile/favorite_enterprises.rhtml:13
-#: app/views/profile/members.rhtml:13 app/views/profile/communities.rhtml:19
+#: app/views/profile/members.rhtml:19 app/views/profile/communities.rhtml:19
 #: app/views/profile/enterprises.rhtml:13 public/500.html.erb:32
 msgid "Go back"
 msgstr ""
@@ -4296,7 +4301,7 @@ msgstr ""
 msgid "Contact %s"
 msgstr ""
 
-#: app/views/contact/new.rhtml:16
+#: app/views/contact/new.rhtml:17
 msgid "I want to receive a copy of the message in my e-mail."
 msgstr ""
 
@@ -4362,20 +4367,20 @@ msgstr ""
 msgid "Post a comment"
 msgstr ""
 
-#: app/views/content_viewer/_comment_form.rhtml:28
+#: app/views/content_viewer/_comment_form.rhtml:29
 msgid "e-mail"
 msgstr ""
 
-#: app/views/content_viewer/_comment_form.rhtml:31
+#: app/views/content_viewer/_comment_form.rhtml:32
 msgid ""
 "If you are a registered user, you can login and be automatically recognized."
 msgstr ""
 
-#: app/views/content_viewer/_comment_form.rhtml:37
+#: app/views/content_viewer/_comment_form.rhtml:38
 msgid "Enter your comment"
 msgstr ""
 
-#: app/views/content_viewer/_comment_form.rhtml:39
+#: app/views/content_viewer/_comment_form.rhtml:40
 msgid "Post comment"
 msgstr ""
 
@@ -4608,7 +4613,7 @@ msgstr ""
 msgid "Search for:"
 msgstr ""
 
-#: app/views/search/_search_form.rhtml:55 app/views/home/index.rhtml:63
+#: app/views/search/_search_form.rhtml:55 app/views/home/index.rhtml:69
 msgid "More options"
 msgstr ""
 
@@ -4956,11 +4961,11 @@ msgstr ""
 msgid "News"
 msgstr ""
 
-#: app/views/home/index.rhtml:15
+#: app/views/home/index.rhtml:16
 msgid "Read more"
 msgstr ""
 
-#: app/views/home/index.rhtml:45
+#: app/views/home/index.rhtml:49
 msgid "View more"
 msgstr ""
 
@@ -4988,7 +4993,7 @@ msgstr ""
 msgid "Add members"
 msgstr ""
 
-#: app/views/profile_members/index.rhtml:9 app/views/profile/members.rhtml:15
+#: app/views/profile_members/index.rhtml:9 app/views/profile/members.rhtml:21
 #: app/views/invite/friends.rhtml:4
 msgid "Invite your friends to join %s"
 msgstr ""
@@ -5758,7 +5763,7 @@ msgstr ""
 
 #: app/views/profile/friends.rhtml:19
 #: app/views/profile/favorite_enterprises.rhtml:14
-#: app/views/profile/members.rhtml:13 app/views/profile/communities.rhtml:20
+#: app/views/profile/members.rhtml:19 app/views/profile/communities.rhtml:20
 #: app/views/profile/enterprises.rhtml:14
 msgid "Back to the page where you come from."
 msgstr ""
@@ -5828,7 +5833,7 @@ msgid "Here are all <b>%s</b>'s members."
 msgstr ""
 
 #: app/views/profile/members.rhtml:4
-msgid "%s' members"
+msgid "%s's members"
 msgstr ""
 
 #: app/views/profile/communities.rhtml:2
@@ -6255,47 +6260,28 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:43
-msgid ""
-"Pass the mouse over page elements to get help on them. Click the question "
-"mark icon on the top-right corner to deactivate this help window."
-msgstr ""
-
 #: app/views/layouts/application.rhtml:66
 msgid "Go to content"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:78
-msgid ""
-"This is %s's shortcuts bar. Using it you have access to the main features of "
-"the environment and you find the information of your interest more quickly."
+#: app/views/layouts/application.rhtml:103 app/views/doc/_path.html.erb:3
+#: public/designs/themes/base/footer.rhtml:2
+#: public/designs/themes/noosfero/footer.rhtml:2
+msgid "Manual"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:80
-msgid ""
-"This bar helps you find information following two paths or "
-"<strong>dimensions</strong>. First dimension is composed of <em>categories</"
-"em>, which you'll find in the colored tabs in the top. Second dimension has "
-"<em>content types</em>, and you'll find them in the animated bar on your "
-"right."
-msgstr ""
-
-#: app/views/layouts/application.rhtml:108 app/views/layouts/wizard.rhtml:28
-msgid "Turn help on/off"
-msgstr ""
-
-#: app/views/layouts/application.rhtml:149
+#: app/views/layouts/application.rhtml:134
 msgid "Your web browser is obsolete!"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:150
+#: app/views/layouts/application.rhtml:135
 msgid ""
 "This website will not look as good as it could. Don't you want to use "
 "Firefox? That is a great web browser, free, and made by people from all over "
 "the world."
 msgstr ""
 
-#: app/views/layouts/application.rhtml:152
+#: app/views/layouts/application.rhtml:137
 msgid "Get Firefox Now!"
 msgstr ""
 
@@ -6372,13 +6358,8 @@ msgstr ""
 msgid "You are here:"
 msgstr ""
 
-#: app/views/doc/_path.html.erb:3 public/designs/themes/base/footer.rhtml:2
-#: public/designs/themes/noosfero/footer.rhtml:2
-msgid "Documentation"
-msgstr ""
-
 #: app/views/doc/_toc.html.erb:2
-msgid "On-line documentation"
+msgid "Manual sections"
 msgstr ""
 
 #: lib/unifreire_terminology.rb:9
