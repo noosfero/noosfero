@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-02-05 19:46-0300\n"
+"POT-Creation-Date: 2010-03-03 17:35-0300\n"
 "PO-Revision-Date: 2010-01-27 09:32-0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -31,16 +31,21 @@ msgstr ""
 #: doc/noosfero/cms/managing-content.en.xhtml:10
 #: doc/noosfero/cms/creating-blog.en.xhtml:6
 #: doc/noosfero/cms/writing-article.en.xhtml:6
+#: doc/noosfero/community/creating-community.en.xhtml:6
+#: doc/noosfero/community/invite-contacts.en.xhtml:6
+#: doc/noosfero/community/moderating-articles.en.xhtml:6
+#: doc/noosfero/community/joining-community.en.xhtml:6
+#: doc/noosfero/community/accepting-members.en.xhtml:6
 #: doc/noosfero/user/logout.en.xhtml:6
 #: doc/noosfero/user/removing-friends.en.xhtml:6
 #: doc/noosfero/user/sending-messages.en.xhtml:6
 #: doc/noosfero/user/removing-comments.en.xhtml:6
 #: doc/noosfero/user/accepting-friends.en.xhtml:6
+#: doc/noosfero/user/invite-contacts.en.xhtml:6
 #: doc/noosfero/user/editing-person-info.en.xhtml:6
 #: doc/noosfero/user/commenting.en.xhtml:8
 #: doc/noosfero/user/adding-friends.en.xhtml:6
 #: doc/noosfero/user/registering-new-user.en.xhtml:6
-#: doc/noosfero/user/joining-community.en.xhtml:6
 #: doc/noosfero/user/login.en.xhtml:6
 #: doc/noosfero/enterprise/disabling-enterprise.en.xhtml:6
 #: doc/noosfero/enterprise/activating-enterprise.en.xhtml:8
@@ -62,16 +67,21 @@ msgstr ""
 #: doc/noosfero/cms/managing-content.en.xhtml:11
 #: doc/noosfero/cms/creating-blog.en.xhtml:7
 #: doc/noosfero/cms/writing-article.en.xhtml:7
+#: doc/noosfero/community/creating-community.en.xhtml:7
+#: doc/noosfero/community/invite-contacts.en.xhtml:7
+#: doc/noosfero/community/moderating-articles.en.xhtml:7
+#: doc/noosfero/community/joining-community.en.xhtml:7
+#: doc/noosfero/community/accepting-members.en.xhtml:7
 #: doc/noosfero/user/logout.en.xhtml:7
 #: doc/noosfero/user/removing-friends.en.xhtml:7
 #: doc/noosfero/user/sending-messages.en.xhtml:7
 #: doc/noosfero/user/removing-comments.en.xhtml:7
 #: doc/noosfero/user/accepting-friends.en.xhtml:7
+#: doc/noosfero/user/invite-contacts.en.xhtml:7
 #: doc/noosfero/user/editing-person-info.en.xhtml:7
 #: doc/noosfero/user/commenting.en.xhtml:9
 #: doc/noosfero/user/adding-friends.en.xhtml:7
 #: doc/noosfero/user/registering-new-user.en.xhtml:7
-#: doc/noosfero/user/joining-community.en.xhtml:7
 #: doc/noosfero/user/login.en.xhtml:7
 #: doc/noosfero/enterprise/disabling-enterprise.en.xhtml:7
 #: doc/noosfero/enterprise/activating-enterprise.en.xhtml:9
@@ -89,10 +99,15 @@ msgstr ""
 # type: Content of: <ul><li>
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:8
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:8
-#: doc/noosfero/cms/writing-advanced-article.en.xhtml:12
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:13
 #: doc/noosfero/cms/managing-content.en.xhtml:12
 #: doc/noosfero/cms/creating-blog.en.xhtml:8
 #: doc/noosfero/cms/writing-article.en.xhtml:8
+#: doc/noosfero/community/creating-community.en.xhtml:8
+#: doc/noosfero/community/invite-contacts.en.xhtml:8
+#: doc/noosfero/community/moderating-articles.en.xhtml:8
+#: doc/noosfero/community/accepting-members.en.xhtml:8
+#: doc/noosfero/user/invite-contacts.en.xhtml:8
 #: doc/noosfero/user/editing-person-info.en.xhtml:8
 #: doc/noosfero/enterprise/disabling-enterprise.en.xhtml:8
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:8
@@ -109,20 +124,25 @@ msgstr ""
 # type: Content of: <h2>
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:11
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:11
-#: doc/noosfero/cms/writing-advanced-article.en.xhtml:15
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:16
 #: doc/noosfero/cms/managing-content.en.xhtml:15
 #: doc/noosfero/cms/creating-blog.en.xhtml:11
 #: doc/noosfero/cms/writing-article.en.xhtml:11
+#: doc/noosfero/community/creating-community.en.xhtml:11
+#: doc/noosfero/community/invite-contacts.en.xhtml:11
+#: doc/noosfero/community/moderating-articles.en.xhtml:11
+#: doc/noosfero/community/joining-community.en.xhtml:11
+#: doc/noosfero/community/accepting-members.en.xhtml:11
 #: doc/noosfero/user/logout.en.xhtml:11
 #: doc/noosfero/user/removing-friends.en.xhtml:11
 #: doc/noosfero/user/sending-messages.en.xhtml:11
 #: doc/noosfero/user/removing-comments.en.xhtml:11
 #: doc/noosfero/user/accepting-friends.en.xhtml:11
+#: doc/noosfero/user/invite-contacts.en.xhtml:11
 #: doc/noosfero/user/editing-person-info.en.xhtml:11
 #: doc/noosfero/user/commenting.en.xhtml:13
 #: doc/noosfero/user/adding-friends.en.xhtml:11
 #: doc/noosfero/user/registering-new-user.en.xhtml:11
-#: doc/noosfero/user/joining-community.en.xhtml:11
 #: doc/noosfero/user/login.en.xhtml:11
 #: doc/noosfero/enterprise/disabling-enterprise.en.xhtml:11
 #: doc/noosfero/enterprise/activating-enterprise.en.xhtml:13
@@ -155,9 +175,14 @@ msgstr ""
 #: doc/noosfero/cms/managing-content.en.xhtml:18
 #: doc/noosfero/cms/creating-blog.en.xhtml:14
 #: doc/noosfero/cms/writing-article.en.xhtml:14
+#: doc/noosfero/community/creating-community.en.xhtml:14
+#: doc/noosfero/community/invite-contacts.en.xhtml:14
+#: doc/noosfero/community/moderating-articles.en.xhtml:14
+#: doc/noosfero/community/accepting-members.en.xhtml:14
 #: doc/noosfero/user/logout.en.xhtml:14
 #: doc/noosfero/user/removing-friends.en.xhtml:14
 #: doc/noosfero/user/accepting-friends.en.xhtml:14
+#: doc/noosfero/user/invite-contacts.en.xhtml:14
 #: doc/noosfero/user/editing-person-info.en.xhtml:14
 #: doc/noosfero/user/login.en.xhtml:19
 #: doc/noosfero/enterprise/disabling-enterprise.en.xhtml:14
@@ -173,8 +198,12 @@ msgstr ""
 #: doc/noosfero/cms/managing-content.en.xhtml:19
 #: doc/noosfero/cms/creating-blog.en.xhtml:15
 #: doc/noosfero/cms/writing-article.en.xhtml:15
+#: doc/noosfero/community/invite-contacts.en.xhtml:15
+#: doc/noosfero/community/moderating-articles.en.xhtml:15
+#: doc/noosfero/community/accepting-members.en.xhtml:15
 #: doc/noosfero/user/removing-friends.en.xhtml:15
 #: doc/noosfero/user/accepting-friends.en.xhtml:15
+#: doc/noosfero/user/invite-contacts.en.xhtml:15
 #: doc/noosfero/user/editing-person-info.en.xhtml:15
 #: doc/noosfero/enterprise/disabling-enterprise.en.xhtml:15
 #: doc/noosfero/enterprise/activating-enterprise.en.xhtml:17
@@ -188,6 +217,10 @@ msgstr ""
 #: doc/noosfero/cms/managing-content.en.xhtml:19
 #: doc/noosfero/cms/creating-blog.en.xhtml:15
 #: doc/noosfero/cms/writing-article.en.xhtml:15
+#: doc/noosfero/community/creating-community.en.xhtml:15
+#: doc/noosfero/community/invite-contacts.en.xhtml:15
+#: doc/noosfero/community/moderating-articles.en.xhtml:15
+#: doc/noosfero/community/accepting-members.en.xhtml:15
 #: doc/noosfero/user/accepting-friends.en.xhtml:15
 #: doc/noosfero/user/editing-person-info.en.xhtml:15
 #: doc/noosfero/enterprise/disabling-enterprise.en.xhtml:15
@@ -216,24 +249,29 @@ msgstr ""
 # type: Content of: <h2>
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:20
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:20
-#: doc/noosfero/cms/writing-advanced-article.en.xhtml:19
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:20
 #: doc/noosfero/cms/managing-content.en.xhtml:23
 #: doc/noosfero/cms/creating-blog.en.xhtml:19
 #: doc/noosfero/cms/writing-article.en.xhtml:19
+#: doc/noosfero/community/creating-community.en.xhtml:19
+#: doc/noosfero/community/invite-contacts.en.xhtml:20
+#: doc/noosfero/community/moderating-articles.en.xhtml:20
+#: doc/noosfero/community/joining-community.en.xhtml:17
+#: doc/noosfero/community/accepting-members.en.xhtml:20
 #: doc/noosfero/user/logout.en.xhtml:18
 #: doc/noosfero/user/removing-friends.en.xhtml:19
 #: doc/noosfero/user/sending-messages.en.xhtml:19
 #: doc/noosfero/user/removing-comments.en.xhtml:15
 #: doc/noosfero/user/accepting-friends.en.xhtml:18
+#: doc/noosfero/user/invite-contacts.en.xhtml:19
 #: doc/noosfero/user/editing-person-info.en.xhtml:18
 #: doc/noosfero/user/commenting.en.xhtml:19
 #: doc/noosfero/user/adding-friends.en.xhtml:15
 #: doc/noosfero/user/registering-new-user.en.xhtml:18
-#: doc/noosfero/user/joining-community.en.xhtml:17
 #: doc/noosfero/user/login.en.xhtml:15
 #: doc/noosfero/enterprise/disabling-enterprise.en.xhtml:20
 #: doc/noosfero/enterprise/activating-enterprise.en.xhtml:20
-#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:21
+#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:20
 #: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:20
 #: doc/noosfero/navigation/searching.en.xhtml:16
 #: doc/noosfero/navigation/searching-people.en.xhtml:16
@@ -274,21 +312,26 @@ msgstr ""
 # type: Content of: <h2>
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:28
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:28
-#: doc/noosfero/cms/writing-advanced-article.en.xhtml:63
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:73
 #: doc/noosfero/cms/managing-content.en.xhtml:58
 #: doc/noosfero/cms/creating-blog.en.xhtml:35
 #: doc/noosfero/cms/writing-article.en.xhtml:79
+#: doc/noosfero/community/creating-community.en.xhtml:34
+#: doc/noosfero/community/invite-contacts.en.xhtml:42
+#: doc/noosfero/community/moderating-articles.en.xhtml:38
+#: doc/noosfero/community/joining-community.en.xhtml:25
+#: doc/noosfero/community/accepting-members.en.xhtml:29
 #: doc/noosfero/user/logout.en.xhtml:22
 #: doc/noosfero/user/removing-friends.en.xhtml:29
 #: doc/noosfero/user/sending-messages.en.xhtml:26
 #: doc/noosfero/user/removing-comments.en.xhtml:22
-#: doc/noosfero/user/editing-person-info.en.xhtml:34
+#: doc/noosfero/user/invite-contacts.en.xhtml:40
+#: doc/noosfero/user/editing-person-info.en.xhtml:33
 #: doc/noosfero/user/commenting.en.xhtml:28
 #: doc/noosfero/user/adding-friends.en.xhtml:22
 #: doc/noosfero/user/registering-new-user.en.xhtml:30
-#: doc/noosfero/user/joining-community.en.xhtml:25
 #: doc/noosfero/user/login.en.xhtml:22
-#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:39
+#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:38
 #: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:42
 #: doc/noosfero/navigation/searching.en.xhtml:24
 #: doc/noosfero/navigation/searching-people.en.xhtml:28
@@ -377,7 +420,7 @@ msgstr ""
 
 # type: Content of: <h1>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:1
-msgid "Write an advanced article (inserting images and links)"
+msgid "Writing an advanced article (inserting images, links, videos and audio)"
 msgstr ""
 
 # type: Content of: <p>
@@ -397,145 +440,150 @@ msgstr ""
 msgid "<a href=\"#InsertingImages\">Inserting images</a>"
 msgstr ""
 
+# type: Content of: <ul><li><ul><li>
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:11
+msgid "<a href=\"#InsertingVideosAudio\">Inserting videos and audio</a>"
+msgstr ""
+
 # type: Content of: <p>
-#: doc/noosfero/cms/writing-advanced-article.en.xhtml:17
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:18
 msgid ""
 "Read <a href=\"/doc/cms/writing-article\">Writing an article</a> to learn "
 "how to access article edition page."
 msgstr ""
 
 # type: Content of: <h3>
-#: doc/noosfero/cms/writing-advanced-article.en.xhtml:21
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:22
 msgid "Inserting links"
 msgstr ""
 
 # type: Content of: <ol><li>
-#: doc/noosfero/cms/writing-advanced-article.en.xhtml:24
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:25
 msgid "Write the text that will be displayed"
 msgstr ""
 
 # type: Attribute 'alt' of: <ol><li><div><img>
-#: doc/noosfero/cms/writing-advanced-article.en.xhtml:24
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:25
 #: doc/noosfero/cms/writing-article.en.xhtml:32
 msgid "Text on an article"
 msgstr ""
 
 # type: Content of: <ol><li>
-#: doc/noosfero/cms/writing-advanced-article.en.xhtml:25
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:26
 msgid "Select the text and click on &#8220;Insert/edit link&#8221; button"
 msgstr ""
 
 # type: Attribute 'alt' of: <ol><li><div><img>
-#: doc/noosfero/cms/writing-advanced-article.en.xhtml:25
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:26
 msgid "Insert links on an article"
 msgstr ""
 
 # type: Content of: <ol><li>
-#: doc/noosfero/cms/writing-advanced-article.en.xhtml:26
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:27
 msgid "You will see a small window with a form to be filled."
 msgstr ""
 
 # type: Content of: <ol><li><ol><li>
-#: doc/noosfero/cms/writing-advanced-article.en.xhtml:28
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:29
 msgid ""
 "<strong>Link <span class=\"caps\">URL</span>:</strong> fill in with the link "
 "address"
 msgstr ""
 
 # type: Content of: <ol><li><ol><li>
-#: doc/noosfero/cms/writing-advanced-article.en.xhtml:29
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:30
 msgid ""
 "<strong>Target:</strong> choose waht will happen when one person click on "
 "the link, if it will open in the same window or in a new one."
 msgstr ""
 
 # type: Content of: <ol><li><ol><li>
-#: doc/noosfero/cms/writing-advanced-article.en.xhtml:30
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:31
 msgid ""
 "<strong>Title:</strong> fill in what will be displayed when a person pass "
 "mouse over the link."
 msgstr ""
 
 # type: Attribute 'alt' of: <ol><li><ol><li><div><img>
-#: doc/noosfero/cms/writing-advanced-article.en.xhtml:31
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:32
 msgid "Insert link popup on an article"
 msgstr ""
 
 # type: Content of: <ol><li>
-#: doc/noosfero/cms/writing-advanced-article.en.xhtml:33
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:34
 msgid ""
 "After filling in the form, click on &#8220;Insert&#8221; and the link will "
 "be inserted on article."
 msgstr ""
 
 # type: Attribute 'alt' of: <ol><li><div><img>
-#: doc/noosfero/cms/writing-advanced-article.en.xhtml:34
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:35
 msgid "Created link on an article"
 msgstr ""
 
 # type: Content of: <h3>
-#: doc/noosfero/cms/writing-advanced-article.en.xhtml:37
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:38
 msgid "Inserting images"
 msgstr ""
 
 # type: Content of: <p>
-#: doc/noosfero/cms/writing-advanced-article.en.xhtml:39
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:40
 msgid "When creating/editing an article, you will see a box in the right side."
 msgstr ""
 
 # type: Content of: <ul><li>
-#: doc/noosfero/cms/writing-advanced-article.en.xhtml:42
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:43
 msgid ""
 "In the top of it, you can choose files from your computer and upload them as "
 "files from your profile."
 msgstr ""
 
 # type: Content of: <ol><li><ol><li>
-#: doc/noosfero/cms/writing-advanced-article.en.xhtml:44
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:45
 #: doc/noosfero/cms/managing-content.en.xhtml:35
 msgid "Select the folder where the file will be uploaded"
 msgstr ""
 
 # type: Content of: <ol><li><ol><li>
-#: doc/noosfero/cms/writing-advanced-article.en.xhtml:45
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:46
 #: doc/noosfero/cms/managing-content.en.xhtml:36
 msgid "Select the file in your computer"
 msgstr ""
 
 # type: Content of: <ol><li><ol><li>
-#: doc/noosfero/cms/writing-advanced-article.en.xhtml:46
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:47
 #: doc/noosfero/cms/managing-content.en.xhtml:37
 msgid ""
 "If you want to upload more files at once, click on &#8220;More files&#8221;"
 msgstr ""
 
 # type: Content of: <ol><li><ol><li>
-#: doc/noosfero/cms/writing-advanced-article.en.xhtml:47
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:48
 #: doc/noosfero/cms/managing-content.en.xhtml:38
 msgid "Click on &#8220;Upload&#8221;"
 msgstr ""
 
 # type: Attribute 'alt' of: <ul><li><ul><li><div><img>
-#: doc/noosfero/cms/writing-advanced-article.en.xhtml:48
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:49
 msgid "Upload images when writing an article"
 msgstr ""
 
 # type: Content of: <ul><li>
-#: doc/noosfero/cms/writing-advanced-article.en.xhtml:50
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:51
 msgid ""
 "In the bottom of it, you will see the list of your files, that can be "
 "inserted in your article."
 msgstr ""
 
 # type: Content of: <ul><li><ul><li>
-#: doc/noosfero/cms/writing-advanced-article.en.xhtml:52
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:53
 msgid ""
 "In the left column, you will see the images and in the right column, others "
 "files, below &#8220;Documents&#8221;."
 msgstr ""
 
 # type: Content of: <ul><li><ul><li>
-#: doc/noosfero/cms/writing-advanced-article.en.xhtml:53
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:54
 msgid ""
 "When you add a document to your article, a link is created on it to download "
 "the file. When you add an image, it will be displayed as an image in the "
@@ -543,31 +591,73 @@ msgid ""
 msgstr ""
 
 # type: Content of: <ul><li><ul><li><ul><li>
-#: doc/noosfero/cms/writing-advanced-article.en.xhtml:55
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:56
 msgid "Choose the folder that has the image you want to insert"
 msgstr ""
 
 # type: Content of: <ul><li><ul><li><ul><li>
-#: doc/noosfero/cms/writing-advanced-article.en.xhtml:56
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:57
 msgid ""
 "You will see a list with thumbnails of the images in the folder of your "
 "choice"
 msgstr ""
 
 # type: Content of: <ul><li><ul><li><ul><li>
-#: doc/noosfero/cms/writing-advanced-article.en.xhtml:57
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:58
 msgid ""
 "Using your mouse, click and drag the image to the part of the text where it "
 "will be inserted."
 msgstr ""
 
 # type: Attribute 'alt' of: <ul><li><ul><li><ul><li><div><img>
-#: doc/noosfero/cms/writing-advanced-article.en.xhtml:58
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:59
 msgid "Archives list when writing an article"
 msgstr ""
 
+# type: Content of: <h3>
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:64
+msgid "Inserting videos and audio"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:67
+msgid "Click on &#8220;HTML&#8221; button"
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:67
+msgid "Insert html on an article"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:68
+msgid "Insert the code of the video or audio an click on &#8220;Update&#8221;"
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:68
+msgid "Insert html popup on an article"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:69
+msgid "You will see a square with a &#8220;play&#8221; image on your text"
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:69
+msgid "Created object on an article"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:70
+msgid ""
+"After clicking on &#8220;Save&#8221; button, the video or audio will be "
+"displayed on your text."
+msgstr ""
+
 # type: Content of: <ul><li>
-#: doc/noosfero/cms/writing-advanced-article.en.xhtml:66
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:76
 #: doc/noosfero/cms/managing-content.en.xhtml:61
 #: doc/noosfero/cms/toc.en.xhtml:8
 msgid "<a href=\"/doc/cms/writing-article\">Writing an article</a>"
@@ -813,8 +903,8 @@ msgid "Fill in with the blog&#8217;s tags."
 msgstr ""
 
 # type: Content of: <ul><li>
-#: doc/noosfero/cms/creating-blog.en.xhtml:39
-msgid "<a href=\"/doc/cms/posting-blog\">Posting on blog</a>"
+#: doc/noosfero/cms/creating-blog.en.xhtml:39 doc/noosfero/cms/toc.en.xhtml:3
+msgid "<a href=\"/doc/cms/posting-on-blog\">Posting on blog</a>"
 msgstr ""
 
 # type: Content of: <h1>
@@ -1183,22 +1273,514 @@ msgstr ""
 
 # type: Content of: <h1>
 #: doc/noosfero/index.en.xhtml:1
-msgid "Noosfero online documentation"
+msgid "Noosfero online manual"
 msgstr ""
 
 # type: Content of: <p>
 #: doc/noosfero/index.en.xhtml:3
 msgid ""
-"This is the Noosfero online documentation. In these pages you will find "
-"useful information on how to use Noosfero, manage a Noosfero environment and "
+"This is the Noosfero online manual. In these pages you will find useful "
+"information on how to use Noosfero, manage a Noosfero environment and "
 "customize Noosfero in several ways."
 msgstr ""
 
 # type: Content of: <p>
 #: doc/noosfero/index.en.xhtml:8
 msgid ""
-"To display documentation about a given topic, first choose a section in the "
+"To display the manual about a given topic, first choose a section in the "
 "left menu, and then choose a topic within the section."
+msgstr ""
+
+# type: Content of: <h1>
+#: doc/noosfero/community/index.en.xhtml:1
+msgid "Community features"
+msgstr ""
+
+# type: Content of: <h1>
+#: doc/noosfero/community/creating-community.en.xhtml:1
+msgid "Creating a community"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/community/creating-community.en.xhtml:3
+msgid "<em>You can create communities to interact to others users</em>"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/community/creating-community.en.xhtml:14
+#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:14
+msgid "Find you user menu on top bar:"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/community/creating-community.en.xhtml:15
+#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:15
+msgid "In user menu, click on Control Panel"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/community/creating-community.en.xhtml:16
+#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:16
+msgid "Then, click on &#8220;Manage my groups&#8221;:"
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/community/creating-community.en.xhtml:16
+#: doc/noosfero/community/invite-contacts.en.xhtml:16
+#: doc/noosfero/community/moderating-articles.en.xhtml:16
+#: doc/noosfero/community/accepting-members.en.xhtml:16
+#: doc/noosfero/enterprise/disabling-enterprise.en.xhtml:16
+#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:16
+#: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:16
+msgid "Manage groups in control panel"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/community/creating-community.en.xhtml:22
+msgid "Find the button &#8220;Create a new community&#8221; and click on it."
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/community/creating-community.en.xhtml:22
+msgid "Groups list"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/community/creating-community.en.xhtml:23
+msgid "You will see a form to be filled with the community information."
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/community/creating-community.en.xhtml:23
+msgid "Form for creation of a community"
+msgstr ""
+
+# type: Content of: <ol><li><ol><li>
+#: doc/noosfero/community/creating-community.en.xhtml:25
+msgid ""
+"<strong>Name:</strong> Fill in with the name of the community you want to "
+"create."
+msgstr ""
+
+# type: Content of: <ol><li><ol><li>
+#: doc/noosfero/community/creating-community.en.xhtml:26
+msgid ""
+"<strong>Tag list:</strong> Fill in with tags. Tags are keywords or terms "
+"associated to your community."
+msgstr ""
+
+# type: Content of: <ol><li><ol><li>
+#: doc/noosfero/community/creating-community.en.xhtml:27
+msgid ""
+"<strong>Image:</strong> Insert a picture. It will be the image of your "
+"community. Click on &#8220;File&#8230;&#8221; and choose the image in your "
+"computer. The image must have a maximum of 500Kb and should be .jpg , .gif "
+"or .png."
+msgstr ""
+
+# type: Content of: <ol><li><ol><li>
+#: doc/noosfero/community/creating-community.en.xhtml:28
+msgid ""
+"<strong>New members must be approved:</strong> You should choose if the "
+"community should be moderated. Choosing the first option, a moderator needs "
+"to approve when a person asks to join the community. Choosing the second "
+"option, no moderation is needed."
+msgstr ""
+
+# type: Content of: <ol><li><ol><li>
+#: doc/noosfero/community/creating-community.en.xhtml:29
+msgid "After filling the fields, click on &#8220;Create&#8221; button."
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/community/creating-community.en.xhtml:31
+msgid ""
+"If allowed by the environment, the community will be already created. "
+"Otherwise, the environment administrator will need to approve/deny the new "
+"community."
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/community/creating-community.en.xhtml:37
+#: doc/noosfero/user/logout.en.xhtml:25
+#: doc/noosfero/user/removing-comments.en.xhtml:25
+#: doc/noosfero/user/editing-person-info.en.xhtml:36
+#: doc/noosfero/user/commenting.en.xhtml:31
+#: doc/noosfero/enterprise/disabling-enterprise.en.xhtml:32
+#: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:45
+#: doc/noosfero/user/toc.en.xhtml:13
+msgid "<a href=\"/doc/user/login\">Login into the system</a>"
+msgstr ""
+
+# type: Content of: <h1>
+#: doc/noosfero/community/invite-contacts.en.xhtml:1
+#: doc/noosfero/user/invite-contacts.en.xhtml:1
+msgid "Inviting contacts from e-mail"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/community/invite-contacts.en.xhtml:3
+msgid ""
+"<em>If you are a community administrator, you can invite e-mail contacts to "
+"join your community. If the e-mail is registered on the system, the user "
+"will receive an invitation through the system. If it is not registered, the "
+"user will receive an invitation on his e-mail.</em>"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/community/invite-contacts.en.xhtml:14
+#: doc/noosfero/community/moderating-articles.en.xhtml:14
+#: doc/noosfero/community/accepting-members.en.xhtml:14
+#: doc/noosfero/user/logout.en.xhtml:14
+#: doc/noosfero/user/removing-friends.en.xhtml:14
+#: doc/noosfero/user/accepting-friends.en.xhtml:14
+#: doc/noosfero/user/invite-contacts.en.xhtml:14
+#: doc/noosfero/user/editing-person-info.en.xhtml:14
+#: doc/noosfero/enterprise/disabling-enterprise.en.xhtml:14
+#: doc/noosfero/enterprise/activating-enterprise.en.xhtml:16
+#: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:14
+msgid "Find your user menu on top bar:"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/community/invite-contacts.en.xhtml:16
+#: doc/noosfero/community/moderating-articles.en.xhtml:16
+#: doc/noosfero/community/accepting-members.en.xhtml:16
+#: doc/noosfero/enterprise/disabling-enterprise.en.xhtml:16
+#: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:16
+msgid "Then, click on &#8220;Manage my groups&#8221; button:"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/community/invite-contacts.en.xhtml:17
+#: doc/noosfero/community/moderating-articles.en.xhtml:17
+#: doc/noosfero/community/accepting-members.en.xhtml:17
+msgid ""
+"You will see the list of groups (communities/enterprises) that you are a "
+"member. The groups that you can manage are listed with a link &#8220;"
+"Manage&#8221;. Assuming that you are a community administrator, click on "
+"&#8220;Manage&#8221; link."
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/community/invite-contacts.en.xhtml:17
+#: doc/noosfero/community/moderating-articles.en.xhtml:17
+#: doc/noosfero/community/accepting-members.en.xhtml:17
+#: doc/noosfero/enterprise/disabling-enterprise.en.xhtml:17
+#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:17
+#: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:17
+msgid "Groups list with permission to manage enterprise"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/community/invite-contacts.en.xhtml:23
+msgid "In community control panel, click on &#8220;Manage members&#8221;"
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/community/invite-contacts.en.xhtml:23
+msgid "Manage members in control panel"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/community/invite-contacts.en.xhtml:24
+msgid ""
+"You will see the members list of community and the invitation button. Click "
+"on the button."
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/community/invite-contacts.en.xhtml:25
+msgid "Community's members list"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/community/invite-contacts.en.xhtml:26
+#: doc/noosfero/user/invite-contacts.en.xhtml:24
+msgid ""
+"You can invite your contacts manually inserting their e-mails or importing "
+"the e-mails from your e-mail contacts."
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/community/invite-contacts.en.xhtml:28
+#: doc/noosfero/user/invite-contacts.en.xhtml:26
+msgid ""
+"<strong>Manually</strong>: Choose the option &#8220;Manually&#8221; and "
+"click on &#8220;Next&#8221;"
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
+#: doc/noosfero/community/invite-contacts.en.xhtml:28
+msgid "Manually invitation for community. Step 1"
+msgstr ""
+
+# type: Content of: <ol><li><ul><li><ul><li>
+#: doc/noosfero/community/invite-contacts.en.xhtml:30
+#: doc/noosfero/user/invite-contacts.en.xhtml:28
+msgid ""
+"Type the e-mail adresses in the first field. You should type only one e-mail "
+"in each line."
+msgstr ""
+
+# type: Content of: <ol><li><ul><li><ul><li>
+#: doc/noosfero/community/invite-contacts.en.xhtml:31
+#: doc/noosfero/community/invite-contacts.en.xhtml:37
+#: doc/noosfero/user/invite-contacts.en.xhtml:29
+#: doc/noosfero/user/invite-contacts.en.xhtml:35
+msgid ""
+"Clicking on &#8220;Personalize invitation mail&#8221;, you can edit the text "
+"that will be sent. Then, click on &#8220;Invite my friends&#8221;"
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><ul><li><ul><li><div><img>
+#: doc/noosfero/community/invite-contacts.en.xhtml:31
+msgid "Manually invitation for community. Step 2"
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/community/invite-contacts.en.xhtml:33
+#: doc/noosfero/user/invite-contacts.en.xhtml:31
+msgid ""
+"<strong>Importing</strong>: Choose one of the other options to import you "
+"contacts from your e-mail. Fill in the fields with the username and password "
+"you use to access your e-mail and click on &#8220;Next&#8221;."
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
+#: doc/noosfero/community/invite-contacts.en.xhtml:33
+msgid "Import invitation for community. Step 1"
+msgstr ""
+
+# type: Content of: <ol><li><ul><li><ul><li>
+#: doc/noosfero/community/invite-contacts.en.xhtml:35
+#: doc/noosfero/user/invite-contacts.en.xhtml:33
+msgid ""
+"You can type e-mail adresses in the first field, only one e-mail in each "
+"line."
+msgstr ""
+
+# type: Content of: <ol><li><ul><li><ul><li>
+#: doc/noosfero/community/invite-contacts.en.xhtml:36
+#: doc/noosfero/user/invite-contacts.en.xhtml:34
+msgid ""
+"You will also see your list of e-mails. Check the e-mails that you want to "
+"send an invitation."
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><ul><li><ul><li><div><img>
+#: doc/noosfero/community/invite-contacts.en.xhtml:37
+msgid "Import invitation for community. Step 2"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/community/invite-contacts.en.xhtml:45
+#: doc/noosfero/community/moderating-articles.en.xhtml:41
+#: doc/noosfero/community/accepting-members.en.xhtml:32
+#: doc/noosfero/community/toc.en.xhtml:3
+msgid "<a href=\"/doc/community/creating-community\">Creating a community</a>"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/community/invite-contacts.en.xhtml:46
+#: doc/noosfero/community/moderating-articles.en.xhtml:42
+#: doc/noosfero/community/accepting-members.en.xhtml:33
+#: doc/noosfero/community/toc.en.xhtml:6
+msgid "<a href=\"/doc/community/joining-community\">Joining a community</a>"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/community/invite-contacts.en.xhtml:47
+msgid "<a href=\"/doc/community/accepting-members\">Accepting members</a>"
+msgstr ""
+
+# type: Content of: <h1>
+#: doc/noosfero/community/moderating-articles.en.xhtml:1
+msgid "Moderating articles"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/community/moderating-articles.en.xhtml:3
+msgid ""
+"<em>Community&#8217;s members can publish articles on community. If the "
+"community is moderated, the administrator/moderator needs to approve or deny "
+"the publication.</em>"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/community/moderating-articles.en.xhtml:23
+#: doc/noosfero/community/accepting-members.en.xhtml:23
+msgid ""
+"If the community has pending requests, you will see a box with the list of "
+"pending tasks on your control panel. In order to accept or deny, you should "
+"click on &#8220;Process requests&#8221; button"
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/community/moderating-articles.en.xhtml:24
+#: doc/noosfero/community/accepting-members.en.xhtml:24
+msgid "Community control panel with pending tasks"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/community/moderating-articles.en.xhtml:25
+msgid "You will see the tasks list."
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/community/moderating-articles.en.xhtml:25
+#: doc/noosfero/community/accepting-members.en.xhtml:26
+msgid "Community tasks list"
+msgstr ""
+
+# type: Content of: <ol><li><ol><li>
+#: doc/noosfero/community/moderating-articles.en.xhtml:27
+msgid ""
+"If you want to accept, choose the option &#8220;Accept&#8221;. If you want "
+"to ignore the request, choose &#8220;Ignore&#8221;."
+msgstr ""
+
+# type: Content of: <ol><li><ol><li>
+#: doc/noosfero/community/moderating-articles.en.xhtml:28
+msgid ""
+"<strong>Name for publishing</strong>: When an article is approved, it will "
+"be listed as content of the community. If you think the article should have "
+"its original name, leave this field blank. If you want to change it, fill in "
+"with the name you want."
+msgstr ""
+
+# type: Content of: <ol><li><ol><li>
+#: doc/noosfero/community/moderating-articles.en.xhtml:29
+msgid ""
+"<strong>Choose the folder where the article must be published</strong>: You "
+"can choose the folder where the article will be listed."
+msgstr ""
+
+# type: Content of: <ol><li><ol><li>
+#: doc/noosfero/community/moderating-articles.en.xhtml:30
+msgid ""
+"<strong>Highlight this article</strong>: If the community is the news source "
+"of the environment, you can check this option to highlight the article on "
+"environment&#8217;s homepage."
+msgstr ""
+
+# type: Content of: <ol><li><ol><li>
+#: doc/noosfero/community/moderating-articles.en.xhtml:31
+msgid ""
+"<strong>Comment for author</strong>: The text written here will be sent to "
+"the requestor after your decision."
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/community/moderating-articles.en.xhtml:35
+msgid ""
+"After clicking on button &#8220;Ok!&#8221;, your decision will be processed. "
+"If you accepted the article, it will be listed as community&#8217;s content."
+msgstr ""
+
+# type: Content of: <h1>
+#: doc/noosfero/community/joining-community.en.xhtml:1
+msgid "Joining a community"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/community/joining-community.en.xhtml:3
+msgid ""
+"<em>You can be part of a community and interact with its others members. To "
+"do that, you can join a community, as explained below.</em>"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/community/joining-community.en.xhtml:8
+#: doc/noosfero/user/logout.en.xhtml:8
+#: doc/noosfero/user/removing-friends.en.xhtml:8
+#: doc/noosfero/user/sending-messages.en.xhtml:8
+#: doc/noosfero/user/removing-comments.en.xhtml:8
+#: doc/noosfero/user/accepting-friends.en.xhtml:8
+#: doc/noosfero/user/commenting.en.xhtml:10
+#: doc/noosfero/user/adding-friends.en.xhtml:8
+#: doc/noosfero/user/registering-new-user.en.xhtml:8
+#: doc/noosfero/user/login.en.xhtml:8
+#: doc/noosfero/enterprise/activating-enterprise.en.xhtml:10
+msgid "<a href=\"#RelatedTopics\">Related Topics</a>"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/community/joining-community.en.xhtml:13
+msgid ""
+"To join a community, first you need to access its page. Enter the community "
+"address on address bar or search for the community in the system and click "
+"to view it."
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/community/joining-community.en.xhtml:15
+msgid ""
+"To learn how you can find community in the system, read: <a href=\"/doc/"
+"navigation/searching-communities\">Finding communities</a>."
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/community/joining-community.en.xhtml:20
+msgid ""
+"In community&#8217;s page, click on &#8221;+ Join&#8221; button below "
+"community&#8217;s image."
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/community/joining-community.en.xhtml:20
+msgid "Community with join button"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/community/joining-community.en.xhtml:21
+msgid ""
+"After clicking on &#8220;Yes, I want to join&#8221; button, you will already "
+"be member of the community if it is not moderated."
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/community/joining-community.en.xhtml:21
+msgid "Confirmation after asking to join a community"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/community/joining-community.en.xhtml:22
+msgid ""
+"If the community is moderated, the administrator will need to approve your "
+"request before you start interacting."
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/community/joining-community.en.xhtml:28
+#: doc/noosfero/navigation/searching.en.xhtml:28
+#: doc/noosfero/navigation/searching-people.en.xhtml:32
+#: doc/noosfero/navigation/searching-products-services.en.xhtml:37
+#: doc/noosfero/navigation/searching-enterprises.en.xhtml:37
+#: doc/noosfero/navigation/advanced-search.en.xhtml:35
+#: doc/noosfero/navigation/toc.en.xhtml:7
+msgid ""
+"<a href=\"/doc/navigation/searching-communities\">Finding communities</a>"
+msgstr ""
+
+# type: Content of: <h1>
+#: doc/noosfero/community/accepting-members.en.xhtml:1
+msgid "Accepting new members"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/community/accepting-members.en.xhtml:3
+msgid ""
+"<em>If a community is moderated, the administrator/moderator needs to "
+"approve the requests of new members.</em>"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/community/accepting-members.en.xhtml:25
+msgid ""
+"If you want to accept, choose the option &#8220;Accept&#8221;. You also need "
+"to choose wich roles the new member should have. Each role has some "
+"permissions, that are defined by the environment administrator."
 msgstr ""
 
 # type: Content of: <h1>
@@ -1210,32 +1792,6 @@ msgstr ""
 #: doc/noosfero/user/logout.en.xhtml:3
 msgid ""
 "<em>After finishing your navigation, we recommend leaving the system.</em>"
-msgstr ""
-
-# type: Content of: <ul><li>
-#: doc/noosfero/user/logout.en.xhtml:8
-#: doc/noosfero/user/removing-friends.en.xhtml:8
-#: doc/noosfero/user/sending-messages.en.xhtml:8
-#: doc/noosfero/user/removing-comments.en.xhtml:8
-#: doc/noosfero/user/accepting-friends.en.xhtml:8
-#: doc/noosfero/user/commenting.en.xhtml:10
-#: doc/noosfero/user/adding-friends.en.xhtml:8
-#: doc/noosfero/user/registering-new-user.en.xhtml:8
-#: doc/noosfero/user/joining-community.en.xhtml:8
-#: doc/noosfero/user/login.en.xhtml:8
-#: doc/noosfero/enterprise/activating-enterprise.en.xhtml:10
-msgid "<a href=\"#RelatedTopics\">Related Topics</a>"
-msgstr ""
-
-# type: Content of: <ol><li>
-#: doc/noosfero/user/logout.en.xhtml:14
-#: doc/noosfero/user/removing-friends.en.xhtml:14
-#: doc/noosfero/user/accepting-friends.en.xhtml:14
-#: doc/noosfero/user/editing-person-info.en.xhtml:14
-#: doc/noosfero/enterprise/disabling-enterprise.en.xhtml:14
-#: doc/noosfero/enterprise/activating-enterprise.en.xhtml:16
-#: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:14
-msgid "Find your user menu on top bar:"
 msgstr ""
 
 # type: Content of: <ol><li>
@@ -1253,17 +1809,6 @@ msgstr ""
 msgid "After clicking the button, you will be logged out of the system"
 msgstr ""
 
-# type: Content of: <ul><li>
-#: doc/noosfero/user/logout.en.xhtml:25
-#: doc/noosfero/user/removing-comments.en.xhtml:25
-#: doc/noosfero/user/editing-person-info.en.xhtml:37
-#: doc/noosfero/user/commenting.en.xhtml:31
-#: doc/noosfero/enterprise/disabling-enterprise.en.xhtml:32
-#: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:45
-#: doc/noosfero/user/toc.en.xhtml:13
-msgid "<a href=\"/doc/user/login\">Login into the system</a>"
-msgstr ""
-
 # type: Content of: <h1>
 #: doc/noosfero/user/removing-friends.en.xhtml:1
 msgid "Removing friends"
@@ -1276,16 +1821,19 @@ msgstr ""
 
 # type: Attribute 'alt' of: <ol><li><div><img>
 #: doc/noosfero/user/removing-friends.en.xhtml:15
+#: doc/noosfero/user/invite-contacts.en.xhtml:15
 msgid "Control panel menu"
 msgstr ""
 
 # type: Content of: <ol><li>
 #: doc/noosfero/user/removing-friends.en.xhtml:16
+#: doc/noosfero/user/invite-contacts.en.xhtml:16
 msgid "Then, click on &#8220;Manage friends&#8221;"
 msgstr ""
 
 # type: Attribute 'alt' of: <ol><li><div><img>
 #: doc/noosfero/user/removing-friends.en.xhtml:16
+#: doc/noosfero/user/invite-contacts.en.xhtml:16
 msgid "Manage Friends"
 msgstr ""
 
@@ -1325,13 +1873,14 @@ msgstr ""
 #: doc/noosfero/user/sending-messages.en.xhtml:30
 #: doc/noosfero/user/accepting-friends.en.xhtml:30
 #: doc/noosfero/user/registering-new-user.en.xhtml:33
-#: doc/noosfero/user/toc.en.xhtml:10
+#: doc/noosfero/user/toc.en.xhtml:11
 msgid "<a href=\"/doc/user/adding-friends\">Adding friends</a>"
 msgstr ""
 
 # type: Content of: <ul><li>
 #: doc/noosfero/user/removing-friends.en.xhtml:33
 #: doc/noosfero/user/sending-messages.en.xhtml:31
+#: doc/noosfero/user/invite-contacts.en.xhtml:43
 #: doc/noosfero/user/adding-friends.en.xhtml:26
 #: doc/noosfero/user/registering-new-user.en.xhtml:35
 #: doc/noosfero/user/toc.en.xhtml:7
@@ -1392,6 +1941,7 @@ msgstr ""
 
 # type: Content of: <ul><li>
 #: doc/noosfero/user/sending-messages.en.xhtml:29
+#: doc/noosfero/user/adding-friends.en.xhtml:27
 #: doc/noosfero/user/registering-new-user.en.xhtml:36
 #: doc/noosfero/navigation/searching.en.xhtml:27
 #: doc/noosfero/navigation/searching-products-services.en.xhtml:36
@@ -1504,10 +2054,51 @@ msgstr ""
 
 # type: Content of: <ul><li>
 #: doc/noosfero/user/accepting-friends.en.xhtml:31
+#: doc/noosfero/user/invite-contacts.en.xhtml:44
 #: doc/noosfero/user/adding-friends.en.xhtml:25
 #: doc/noosfero/user/registering-new-user.en.xhtml:34
 #: doc/noosfero/user/toc.en.xhtml:4
 msgid "<a href=\"/doc/user/removing-friends\">Removing friends</a>"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/user/invite-contacts.en.xhtml:3
+msgid ""
+"<em>You can invite e-mail contacts to be your friend on the system. If the e-"
+"mail is registered on the system, the user will receive an invitation "
+"through the system. If it is not registered, the user will receive an "
+"invitation on his e-mail.</em>"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/user/invite-contacts.en.xhtml:22
+msgid ""
+"You will your list of friends and the invitation button. Click on the button."
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/user/invite-contacts.en.xhtml:23
+msgid "User's friends list"
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
+#: doc/noosfero/user/invite-contacts.en.xhtml:26
+msgid "Manually invitation for user. Step 1"
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><ul><li><ul><li><div><img>
+#: doc/noosfero/user/invite-contacts.en.xhtml:29
+msgid "Manually invitation for user. Step 2"
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
+#: doc/noosfero/user/invite-contacts.en.xhtml:31
+msgid "Import invitation for user. Step 1"
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><ul><li><ul><li><div><img>
+#: doc/noosfero/user/invite-contacts.en.xhtml:35
+msgid "Import invitation for user. Step 2"
 msgstr ""
 
 # type: Content of: <h1>
@@ -1585,12 +2176,12 @@ msgid ""
 msgstr ""
 
 # type: Attribute 'alt' of: <ol><li><ol><li><img>
-#: doc/noosfero/user/editing-person-info.en.xhtml:29
+#: doc/noosfero/user/editing-person-info.en.xhtml:28
 msgid "Categories when editing person profile info"
 msgstr ""
 
 # type: Content of: <ol><li>
-#: doc/noosfero/user/editing-person-info.en.xhtml:31
+#: doc/noosfero/user/editing-person-info.en.xhtml:30
 msgid ""
 "Then, click on &#8220;Save&#8221; button an the profile will be updated."
 msgstr ""
@@ -1709,11 +2300,6 @@ msgstr ""
 msgid "Confirmation when adding a friend"
 msgstr ""
 
-# type: Content of: <ul><li>
-#: doc/noosfero/user/adding-friends.en.xhtml:27
-msgid "<a href=\"/doc/navigation/searching-friends\">Finding people</a>"
-msgstr ""
-
 # type: Content of: <h1>
 #: doc/noosfero/user/registering-new-user.en.xhtml:1
 msgid "Registering a new user"
@@ -1779,76 +2365,6 @@ msgid "Signup form"
 msgstr ""
 
 # type: Content of: <h1>
-#: doc/noosfero/user/joining-community.en.xhtml:1
-msgid "Joining a community"
-msgstr ""
-
-# type: Content of: <p>
-#: doc/noosfero/user/joining-community.en.xhtml:3
-msgid ""
-"<em>You can be part of a community and interact with its others members. To "
-"do that, you can join a community, as explained below.</em>"
-msgstr ""
-
-# type: Content of: <p>
-#: doc/noosfero/user/joining-community.en.xhtml:13
-msgid ""
-"To join a community, first you need to access its page. Enter the community "
-"address on address bar or search for the community in the system and click "
-"to view it."
-msgstr ""
-
-# type: Content of: <p>
-#: doc/noosfero/user/joining-community.en.xhtml:15
-msgid ""
-"To learn how you can find community in the system, read: <a href=\"/doc/"
-"navigation/searching-communities\">Finding communities</a>."
-msgstr ""
-
-# type: Content of: <ol><li>
-#: doc/noosfero/user/joining-community.en.xhtml:20
-msgid ""
-"In community&#8217;s page, click on &#8221;+ Join&#8221; button below "
-"community&#8217;s image."
-msgstr ""
-
-# type: Attribute 'alt' of: <ol><li><div><img>
-#: doc/noosfero/user/joining-community.en.xhtml:20
-msgid "Community with join button"
-msgstr ""
-
-# type: Content of: <ol><li>
-#: doc/noosfero/user/joining-community.en.xhtml:21
-msgid ""
-"After clicking on &#8220;Yes, I want to join&#8221; button, you will already "
-"be member of the community if it is not moderated."
-msgstr ""
-
-# type: Attribute 'alt' of: <ol><li><div><img>
-#: doc/noosfero/user/joining-community.en.xhtml:21
-msgid "Confirmation after asking to join a community"
-msgstr ""
-
-# type: Content of: <ol><li>
-#: doc/noosfero/user/joining-community.en.xhtml:22
-msgid ""
-"If the community is moderated, the administrator will need to approve your "
-"request before you start interacting."
-msgstr ""
-
-# type: Content of: <ul><li>
-#: doc/noosfero/user/joining-community.en.xhtml:28
-#: doc/noosfero/navigation/searching.en.xhtml:28
-#: doc/noosfero/navigation/searching-people.en.xhtml:32
-#: doc/noosfero/navigation/searching-products-services.en.xhtml:37
-#: doc/noosfero/navigation/searching-enterprises.en.xhtml:37
-#: doc/noosfero/navigation/advanced-search.en.xhtml:35
-#: doc/noosfero/navigation/toc.en.xhtml:7
-msgid ""
-"<a href=\"/doc/navigation/searching-communities\">Finding communities</a>"
-msgstr ""
-
-# type: Content of: <h1>
 #: doc/noosfero/user/login.en.xhtml:1
 msgid "Login into the system"
 msgstr ""
@@ -1903,19 +2419,6 @@ msgid ""
 msgstr ""
 
 # type: Content of: <ol><li>
-#: doc/noosfero/enterprise/disabling-enterprise.en.xhtml:16
-#: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:16
-msgid "Then, click on &#8220;Manage my groups&#8221; button:"
-msgstr ""
-
-# type: Attribute 'alt' of: <ol><li><div><img>
-#: doc/noosfero/enterprise/disabling-enterprise.en.xhtml:16
-#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:16
-#: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:16
-msgid "Manage groups in control panel"
-msgstr ""
-
-# type: Content of: <ol><li>
 #: doc/noosfero/enterprise/disabling-enterprise.en.xhtml:17
 #: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:17
 msgid ""
@@ -1923,13 +2426,6 @@ msgid ""
 "member. The groups that you can manage are listed with a link &#8220;"
 "Manage&#8221;. Assuming that you are administrator of enterprise &#8220;My "
 "enterprise&#8221;, click on &#8220;Manage&#8221; link."
-msgstr ""
-
-# type: Attribute 'alt' of: <ol><li><div><img>
-#: doc/noosfero/enterprise/disabling-enterprise.en.xhtml:17
-#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:18
-#: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:17
-msgid "Groups list with permission to manage enterprise"
 msgstr ""
 
 # type: Content of: <ol><li>
@@ -1958,6 +2454,7 @@ msgstr ""
 
 # type: Content of: <ul><li>
 #: doc/noosfero/enterprise/disabling-enterprise.en.xhtml:33
+#: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:46
 msgid ""
 "<a href=\"/doc/enterprise/activating-enterprise\">Activating enterprise</a>"
 msgstr ""
@@ -2043,7 +2540,7 @@ msgstr ""
 
 # type: Content of: <ul><li>
 #: doc/noosfero/enterprise/activating-enterprise.en.xhtml:34
-#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:42
+#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:41
 #: doc/noosfero/enterprise/toc.en.xhtml:6
 msgid ""
 "<a href=\"/doc/enterprise/editing-enterprise-info\">Editing enterprise "
@@ -2052,7 +2549,7 @@ msgstr ""
 
 # type: Content of: <ul><li>
 #: doc/noosfero/enterprise/activating-enterprise.en.xhtml:35
-#: doc/noosfero/user/toc.en.xhtml:11
+#: doc/noosfero/user/toc.en.xhtml:12
 msgid "<a href=\"/doc/user/registering-new-user\">Registering a new user</a>"
 msgstr ""
 
@@ -2069,78 +2566,58 @@ msgid ""
 msgstr ""
 
 # type: Content of: <ol><li>
-#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:14
-msgid "Find you user menu on top bar:"
-msgstr ""
-
-# type: Content of: <ol><li>
-#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:15
-msgid "In user menu, click on Control Panel"
-msgstr ""
-
-# type: Content of: <ol><li>
-#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:16
-msgid "Then, click on &#8220;Manage my groups&#8221;:"
-msgstr ""
-
-# type: Content of: <ol><li>
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:17
 msgid ""
 "You will see the list of groups (communities/enterprises) that you are a "
-"member. The groups that you can manage are"
+"member. The groups that you can manage are listed with a link &#8220;"
+"Manage&#8221;. Assuming that you are administrator of an enterprise&#8221;, "
+"click on &#8220;Manage&#8221; link."
 msgstr ""
 
 # type: Content of: <ol><li>
-#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:18
-msgid ""
-"listed with a link &#8220;Manage&#8221;. Assuming that you are administrator "
-"of an enterprise&#8221;, click on &#8220;Manage&#8221; link."
-msgstr ""
-
-# type: Content of: <ol><li>
-#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:24
+#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:23
 msgid ""
 "In enterprise&#8217;s control panel, click on &#8220;Manage members&#8221;"
 msgstr ""
 
 # type: Attribute 'alt' of: <ol><li><div><img>
-#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:25
+#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:24
 msgid "Control panel with manage members"
 msgstr ""
 
 # type: Content of: <ol><li>
-#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:26
+#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:25
 msgid ""
 "You will see the list of people who are members of the enterprise and some "
 "buttons that will be explained in parts:"
 msgstr ""
 
 # type: Attribute 'alt' of: <ol><li><div><img>
-#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:26
+#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:25
 msgid "Members list of enterprise on manage members"
 msgstr ""
 
 # type: Content of: <ol><li><ol><li>
-#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:28
+#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:27
 msgid ""
 "<strong>Edit user role:</strong> Choose the role the member will have in the "
 "enterprise. Each role is associated to some permissions."
 msgstr ""
 
 # type: Attribute 'alt' of: <ol><li><ol><li><div><img>
-#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:28
+#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:27
 msgid "Changing role of an enterprise member"
 msgstr ""
 
 # type: Content of: <ol><li><ol><li>
-#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:29
+#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:28
 msgid ""
 "<strong>Remove user:</strong> Clicking on the button, the user will be "
 "removed from the enterprise."
 msgstr ""
 
 # type: Content of: <ol><li><ol><li>
-#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:30
+#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:29
 msgid ""
 "<strong>Add members:</strong> You will see a screen to add new members to "
 "the enterprise. The members you add will have administrator role by default, "
@@ -2148,7 +2625,7 @@ msgid ""
 msgstr ""
 
 # type: Content of: <ol><li><ol><li><ol><li>
-#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:32
+#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:31
 msgid ""
 "Type in search field the name of the user system you want to add to the "
 "enterprise. The table in the left side (&#8220;Users&#8221;) will display "
@@ -2156,7 +2633,7 @@ msgid ""
 msgstr ""
 
 # type: Content of: <ol><li><ol><li><ol><li>
-#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:33
+#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:32
 msgid ""
 "Click on &#8221;+&#8221; button to add the user. After clicking the button, "
 "the table on the right side (&#8220;Current members&#8221;) will be updated "
@@ -2164,12 +2641,12 @@ msgid ""
 msgstr ""
 
 # type: Attribute 'alt' of: <ol><li><ol><li><ol><li><div><img>
-#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:34
+#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:33
 msgid "Add member on manage member"
 msgstr ""
 
 # type: Content of: <ul><li>
-#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:43
+#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:42
 #: doc/noosfero/enterprise/toc.en.xhtml:4
 msgid ""
 "<a href=\"/doc/enterprise/activating-enterprise\">Activating your "
@@ -2277,12 +2754,6 @@ msgid ""
 "updated."
 msgstr ""
 
-# type: Content of: <ul><li>
-#: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:46
-msgid ""
-"<a href=\"/doc/enterpise/activating-enterprise\">Activating enterprise</a>"
-msgstr ""
-
 # type: Content of: <h1>
 #: doc/noosfero/navigation/searching.en.xhtml:1
 msgid "Searching on the system"
@@ -2315,10 +2786,9 @@ msgstr ""
 # type: Content of: <ol><li>
 #: doc/noosfero/navigation/searching.en.xhtml:20
 msgid ""
-"In this example, we searched for &#8220;free software&#8221;. Then you will "
-"see a screen with the search result. Each box brings one kind of information "
-"with a limited number of results. To see more results of a box, click on "
-"&#8220;See all&#8221; link below the box."
+"Then you will see a screen with the search result. Each box brings one kind "
+"of information with a limited number of results. To see more results of a "
+"box, click on &#8220;See all&#8221; link below the box."
 msgstr ""
 
 # type: Attribute 'alt' of: <ol><li><div><img>
@@ -2410,10 +2880,12 @@ msgstr ""
 
 # type: Content of: <ol><li>
 #: doc/noosfero/navigation/searching-people.en.xhtml:20
+#: doc/noosfero/navigation/searching-products-services.en.xhtml:20
+#: doc/noosfero/navigation/searching-enterprises.en.xhtml:20
+#: doc/noosfero/navigation/searching-communities.en.xhtml:20
 msgid ""
-"In this example, we search for &#8220;john&#8221;. Then you will see the "
-"search results. To see more results, click on the pages below the search "
-"results."
+"Then you will see the search results. To see more results, click on the "
+"pages below the search results."
 msgstr ""
 
 # type: Attribute 'alt' of: <ol><li><div><img>
@@ -2487,15 +2959,6 @@ msgstr ""
 # type: Attribute 'alt' of: <ol><li><div><img>
 #: doc/noosfero/navigation/searching-products-services.en.xhtml:19
 msgid "Products search field"
-msgstr ""
-
-# type: Content of: <ol><li>
-#: doc/noosfero/navigation/searching-products-services.en.xhtml:20
-#: doc/noosfero/navigation/searching-enterprises.en.xhtml:20
-msgid ""
-"In this example, we searched for &#8220;software&#8221;. Then you will see "
-"the search results. To see more results, click on the pages below the search "
-"results."
 msgstr ""
 
 # type: Attribute 'alt' of: <ol><li><div><img>
@@ -2593,14 +3056,6 @@ msgid "Communities search field"
 msgstr ""
 
 # type: Content of: <ol><li>
-#: doc/noosfero/navigation/searching-communities.en.xhtml:20
-msgid ""
-"In this example, wee search for &#8220;free software&#8221;. Then you will "
-"see the search results. To see more results, click on the pages below the "
-"search results."
-msgstr ""
-
-# type: Content of: <ol><li>
 #: doc/noosfero/navigation/searching-communities.en.xhtml:21
 msgid ""
 "Clicking on one of the search results, you will be redirected to the "
@@ -2695,11 +3150,6 @@ msgid "<a href=\"/doc/navigation/searching-people\">Findind people</a>"
 msgstr ""
 
 # type: Content of: <ul><li>
-#: doc/noosfero/cms/toc.en.xhtml:3
-msgid "<a href=\"/doc/cms/posting-on-blog\">Posting on blog</a>"
-msgstr ""
-
-# type: Content of: <ul><li>
 #: doc/noosfero/cms/toc.en.xhtml:4
 msgid ""
 "<a href=\"/doc/cms/adding-images-to-gallery\">Adding pictures to gallery</a>"
@@ -2708,8 +3158,24 @@ msgstr ""
 # type: Content of: <ul><li>
 #: doc/noosfero/cms/toc.en.xhtml:5
 msgid ""
-"<a href=\"/doc/cms/writing-advanced-article\">Write an advanced article "
-"(inserting images and links)</a>"
+"<a href=\"/doc/cms/writing-advanced-article\">Writing an advanced article "
+"(inserting images, links, videos and audio)</a>"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/community/toc.en.xhtml:4
+msgid ""
+"<a href=\"/doc/community/invite-contacts\">Inviting contacts from e-mail</a>"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/community/toc.en.xhtml:5
+msgid "<a href=\"/doc/community/moderating-articles\">Moderating articles</a>"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/community/toc.en.xhtml:7
+msgid "<a href=\"/doc/community/accepting-members\">Accepting new members</a>"
 msgstr ""
 
 # type: Content of: <ul><li>
@@ -2729,17 +3195,17 @@ msgstr ""
 
 # type: Content of: <ul><li>
 #: doc/noosfero/user/toc.en.xhtml:8
-msgid "<a href=\"/doc/user/editing-person-info\">Editing user settings</a>"
+msgid "<a href=\"/doc/user/invite-contacts\">Inviting contacts from e-mail</a>"
 msgstr ""
 
 # type: Content of: <ul><li>
 #: doc/noosfero/user/toc.en.xhtml:9
-msgid "<a href=\"/doc/user/commenting\">Commenting articles</a>"
+msgid "<a href=\"/doc/user/editing-person-info\">Editing user settings</a>"
 msgstr ""
 
 # type: Content of: <ul><li>
-#: doc/noosfero/user/toc.en.xhtml:12
-msgid "<a href=\"/doc/user/joining-community\">Joining a community</a>"
+#: doc/noosfero/user/toc.en.xhtml:10
+msgid "<a href=\"/doc/user/commenting\">Commenting articles</a>"
 msgstr ""
 
 # type: Content of: <ul><li>
@@ -2767,15 +3233,20 @@ msgstr ""
 
 # type: Content of: <ul><li>
 #: doc/noosfero/toc.en.xhtml:4
-msgid "<a href=\"/doc/user\">User features</a>"
+msgid "<a href=\"/doc/community\">Community features</a>"
 msgstr ""
 
 # type: Content of: <ul><li>
 #: doc/noosfero/toc.en.xhtml:5
-msgid "<a href=\"/doc/enterprise\">Enterprise features</a>"
+msgid "<a href=\"/doc/user\">User features</a>"
 msgstr ""
 
 # type: Content of: <ul><li>
 #: doc/noosfero/toc.en.xhtml:6
+msgid "<a href=\"/doc/enterprise\">Enterprise features</a>"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/toc.en.xhtml:7
 msgid "<a href=\"/doc/navigation\">Navigation</a>"
 msgstr ""
