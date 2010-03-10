@@ -5,7 +5,7 @@ namespace :noosfero do
     task :update => ['updatepo', 'noosfero:doc:rebuild']
 
     desc 'Compiles all translations'
-    task :compile => ['makemo', 'noosfero:doc:build']
+    task :compile => ['makemo', 'noosfero:doc:translate']
 
   end
 end

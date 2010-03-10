@@ -97,5 +97,18 @@ namespace :noosfero do
     end
 
     task :rebuild => [:clean, :build]
+
+    task :translate => english_xhtml do
+      languages = Noosfero.locales.keys - ['en']
+      languages.each do |lang|
+        po = "po/#{lang}/noosfero-doc.po"
+        if File.exists?(po)
+          Dir['doc/noosfero/**/*.en.xhtml'].each do |doc|
+            target = doc.sub('.en.xhtml', ".#{lang}.xhtml")
+            sh "po4a-translate -f xhtml -M utf8 -m #{doc} -p #{po} -L utf8 -l #{target}"
+          end
+        end
+      end
+    end
   end
 end
