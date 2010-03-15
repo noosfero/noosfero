@@ -23,6 +23,10 @@
         <%= link_to('<span class="icon-menu-my-groups"></span>' + _('My groups'), { :controller => 'memberships', :profile => user.identifier, :action => 'index' }) %>
         </li>
 
+        <li>
+        <%= lightbox_link_to('<span class="icon-new"></span>' + _('New article'), user.admin_url.merge(:controller => 'cms', :action => 'new')) %>
+        </li>
+
         <% for enterprise in user.enterprises %>
           <li><%= link_to('<span class="icon-menu-enterprise"></span>' + (_('Manage %s') % enterprise.short_name), { :controller => 'profile_editor', :profile => enterprise.identifier, :action => 'index' }) %></li>
         <% end %>
