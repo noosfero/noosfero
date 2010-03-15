@@ -14,17 +14,19 @@
       <%= profile_image_link(membership, :portrait, 'div') %>
     </div>
     <span class='profile-details'>
-      <strong><%= membership.short_name %></strong><br/>
+      <strong><%= membership.name %></strong><br/>
       <%= _('Role: %s') % rolename_for(profile, membership) %> <br/>
       <%= _('Type: %s') % getterm(membership.class.name) %> <br/>
       <%= _('Description: %s') % membership.description  + '<br/>' if membership.community? %>
       <%= _('Members: %s') % membership.members.size.to_s %> <br/>
       <%= _('Created at: %s') % show_date(membership.created_at) unless membership.enterprise? %> <br/>
-      <%= [ link_to(_('Manage'), membership.admin_url),
-            lightbox_link_to(_('Leave'), membership.leave_url),
-            (membership.community? && user.has_permission?(:destroy_profile, membership) ? link_to(_('Remove'), { :action => 'destroy_community', :id => membership }) : nil)
-          ].compact.join(', ')
-      %>
+      <% button_bar do %>
+        <%= button 'menu-ctrl-panel', _('Control panel of this group'), membership.admin_url %>
+        <%= lightbox_button 'menu-logout', _('Leave'), membership.leave_url %>
+        <% if (membership.community? && user.has_permission?(:destroy_profile, membership)) %>
+          <%= button 'delete', _('Remove'), { :action => 'destroy_community', :id => membership } %>
+        <% end %>
+      <% end %>
     </span>
     <br class="may-clear" />
   </li>

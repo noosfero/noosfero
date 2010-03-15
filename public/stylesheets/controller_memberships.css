@@ -24,7 +24,7 @@
 
 #memberships-index li .profile-details {
   display: block;
-  padding: 3% 0px 3% 30px;
+  padding: 3% 0px 0px 30px;
 }
 
 #memberships-index li .vcard a.profile_link.url {
