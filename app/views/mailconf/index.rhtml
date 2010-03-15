@@ -14,17 +14,23 @@
 
 
   <% if profile.user.enable_email %>
-
-    <p><%= _("Disable e-Mail account below:") %></p>
-    <ul><%= profile.email_addresses.map{|i| content_tag('li', i)}.join("\n") %></ul>
+    <h2><%= ('E-mail address') %></h2>
+    <ul>
+      <%= profile.email_addresses.map{|i| content_tag('li', i)}.join("\n") %>
+    </ul>
+    <h2><%= _('Configuration') %></h2>
+    <ul>
+      <li>
+      <%= link_to _('Mail configuration for POP and IMAP'), 'http://www.ynternet.org/move/infos-technique-pour-utiliser-multypass-pop3-smtp-imap-ftp-quotas...' %>  
+      </li>
+    </ul>
     <% button_bar do %>
-      <%= button(:cancel, _('Disable e-Mail'), { :action => 'disable' }, :method => 'post') %>
       <%= button :back, _('Back to control panel'), :controller => 'profile_editor' %>
     <% end %>
 
   <% else %>
 
-    <p><%= _("Enable e-Mail account below:") %></p>
+    <h2><%= _("Enable e-Mail account below:") %></h2>
     <ul><%= profile.email_addresses.map{|i| content_tag('li', i)}.join("\n") %></ul>
     <blockquote><%= _("You'll be able to access a webmail from your user menu.") %></blockquote>
     <% button_bar do %>
