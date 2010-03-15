@@ -76,11 +76,7 @@
 </div>
 <% end %>
 
-<% if profile.enterprise? && !profile.enabled? && !profile.blocks.select {|b| b.class == DisabledEnterpriseMessageBlock}.any? %>
-  <div id='profile-disabled'>
-    <%= environment.message_for_disabled_enterprise %>
-  </div>
-<% end %>
+<%= render :partial => 'shared/disabled_enterprise' %>
 
 <% cache(@page.cache_key(params, user)) do %>
   <div class="<%="article-body article-body-" + @page.css_class_name %>">

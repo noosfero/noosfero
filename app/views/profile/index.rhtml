@@ -1,8 +1,4 @@
-<% if profile.enterprise? && !profile.enabled? && !profile.blocks.select {|b| b.class == DisabledEnterpriseMessageBlock}.any? %>
-  <div id='profile-disabled'>
-    <%= environment.message_for_disabled_enterprise %>
-  </div>
-<% end %>
+<%= render :partial => 'shared/disabled_enterprise' %>
 
 <h1><%= profile.name %></h1>
 
