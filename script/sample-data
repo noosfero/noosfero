@@ -15,7 +15,6 @@ people = []
 
 NAMES = %w[ José João Antonio Paulo Maria Joana Paula Angela ]
 SURNAMES = %w[ Silva Santos Abreu Oliveira Machado Bonfim  ]
-User.destroy_all
 print "Creating users: "; $stdout.flush
 for name in NAMES
   for surname in SURNAMES
@@ -50,7 +49,6 @@ puts
 
 VERBS = ['Save', 'I like', 'I hate', 'Use']
 STUFF = ['Free Software', 'Organic food', 'the wales', 'the environment', 'Barack Obama', 'Osama Bin Laden', 'Lula']
-Community.destroy_all
 print "Creating communities: "; $stdout.flush
 for verb in VERBS
   for stuff in STUFF
