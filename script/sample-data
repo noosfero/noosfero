@@ -1,7 +1,15 @@
 #!/usr/bin/env ruby
 require File.dirname(__FILE__) + '/../config/environment'
 
-system('rake db:populate')
+
+environment_id = ARGV.first
+environment = nil
+if environment_id
+  environment = Environment.find(environment_id)
+else
+  system('rake db:populate')
+  environment = Environment.default
+end
 
 people = []
 
@@ -12,12 +20,13 @@ print "Creating users: "; $stdout.flush
 for name in NAMES
   for surname in SURNAMES
     full_name = [name, surname].join(' ')
-    user = User.create!(
+    user = User.create!({
       :login => full_name.to_slug,
       :email => full_name.to_slug + '@localhost.localdomain',
       :password => 'test',
-      :password_confirmation => 'test'
-    )
+      :password_confirmation => 'test',
+      :environment => environment,
+    })
     user.person.name = full_name
     user.person.save!
     people << user.person
@@ -46,7 +55,7 @@ print "Creating communities: "; $stdout.flush
 for verb in VERBS
   for stuff in STUFF
     name = [verb, stuff].join(' ')
-    community = Community.create!(:name => name)
+    community = Community.create!(:name => name, :environment => environment)
     rand(10).times do
       community.add_member(people.rand)
     end
@@ -55,5 +64,11 @@ for verb in VERBS
 end
 puts
 
-ze = User.create!(:login => "ze", :email => 'root@localhost.localdomain', :password => 'test', :password_confirmation => 'test').person
-Environment.default.add_admin(ze)
+ze = User.create!({
+  :login => "ze",
+  :email => 'root@localhost.localdomain',
+  :password => 'test',
+  :password_confirmation => 'test',
+  :environment => environment,
+}).person
+environment.add_admin(ze)
