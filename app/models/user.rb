@@ -78,15 +78,16 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password,                   :if => :password_required?
   validates_length_of       :login,    :within => 2..40, :if => (lambda {|user| !user.login.blank?})
   validates_length_of       :email,    :within => 3..100, :if => (lambda {|user| !user.email.blank?})
-  validates_uniqueness_of   :login, :email, :case_sensitive => false
+  validates_uniqueness_of   :login, :email, :case_sensitive => false, :scope => :environment_id
   before_save :encrypt_password
   validates_format_of :email, :with => Noosfero::Constants::EMAIL_FORMAT, :if => (lambda {|user| !user.email.blank?})
 
   validates_inclusion_of :terms_accepted, :in => [ '1' ], :if => lambda { |u| ! u.terms_of_use.blank? }, :message => N_('%{fn} must be checked in order to signup.')
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
-  def self.authenticate(login, password)
-    u = find_by_login(login) # need to get the salt
+  def self.authenticate(login, password, environment = nil)
+    environment ||= Environment.default
+    u = find_by_login_and_environment_id(login, environment.id) # need to get the salt
     u && u.authenticated?(password) ? u : nil
   end
 

@@ -42,6 +42,12 @@ class AccountControllerTest < Test::Unit::TestCase
     assert_redirected_to '/bli'
   end
 
+  should 'authenticate on the current environment' do
+    User.expects(:authenticate).with('fake', 'fake', is_a(Environment))
+    @request.env["HTTP_REFERER"] = '/bli'
+    post :login, :user => { :login => 'fake', :password => 'fake' }
+  end
+
   should 'redirect to where was when login on other environment' do
     e = Environment.create!(:name => 'other_environment')
     e.domains << Domain.new(:name => 'other.environment')

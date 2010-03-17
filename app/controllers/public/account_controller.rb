@@ -20,7 +20,7 @@ class AccountController < ApplicationController
     @person = @user.build_person
     store_location(request.referer) unless session[:return_to]
     return unless request.post?
-    self.current_user = User.authenticate(params[:user][:login], params[:user][:password]) if params[:user]
+    self.current_user = User.authenticate(params[:user][:login], params[:user][:password], environment) if params[:user]
     if logged_in?
       if params[:remember_me] == "1"
         self.current_user.remember_me

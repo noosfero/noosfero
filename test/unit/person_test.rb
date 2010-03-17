@@ -127,11 +127,22 @@ class PersonTest < Test::Unit::TestCase
   end
 
   should 'not be able to change e-mail to an e-mail of other user' do
-    first = create_user('firstuser', :email => 'user@domain.com')
-    second = create_user('seconduser', :email => 'other@domain.com')
-    second.email = 'user@domain.com'
-    second.valid?
-    assert second.errors.invalid?(:email)
+    create_user('firstuser', :email => 'user@domain.com')
+
+    other = create_user('seconduser', :email => 'other@domain.com').person
+    other.email = 'user@domain.com'
+    other.valid?
+    assert other.errors.invalid?(:email)
+  end
+
+  should 'be able to use an e-mail already used in other environment' do
+    first = create_user('user', :email => 'user@example.com')
+
+    other_env = fast_create(Environment)
+    other = create_user('user', :email => 'other@example.com', :environment => other_env).person
+    other.email = 'user@example.com'
+    other.valid?
+    assert !other.errors.invalid?(:email)
   end
 
   should 'be an admin if have permission of environment administration' do

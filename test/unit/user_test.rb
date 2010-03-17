@@ -4,7 +4,7 @@ class UserTest < Test::Unit::TestCase
   # Be sure to include AuthenticatedTestHelper in test/test_helper.rb instead.
   # Then, you can remove it from this and the functional test.
   include AuthenticatedTestHelper
-  fixtures :users
+  fixtures :users, :environments
 
   def test_should_create_user
     assert_difference User, :count do
@@ -53,6 +53,10 @@ class UserTest < Test::Unit::TestCase
 
   def test_should_authenticate_user
     assert_equal users(:johndoe), User.authenticate('johndoe', 'test')
+  end
+
+  def test_should_authenticate_user_of_nondefault_environment
+    assert_equal users(:other_ze), User.authenticate('ze', 'test', environments(:anhetegua_net))
   end
 
   def test_should_set_remember_token
