@@ -1190,6 +1190,13 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal 6, p.boxes_limit
   end
 
+  should 'copy public/private setting from template' do
+    template = fast_create(Profile, :public_profile => false)
+    p = fast_create(Profile)
+    p.apply_template(template)
+    assert_equal false, p.public_profile
+  end
+
   should 'destroy tasks requested to it when destroyed' do
     p = Profile.create!(:name => 'test_profile', :identifier => 'test_profile')
 

@@ -288,6 +288,7 @@ class Profile < ActiveRecord::Base
     self.theme = template.theme
     self.custom_footer = template[:custom_footer]
     self.custom_header = template[:custom_header]
+    self.public_profile = template.public_profile
 
     # flush
     self.save_without_validation!
