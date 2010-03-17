@@ -30,3 +30,5 @@ h2(#RelatedTopics). Related topics
 
 *  "Creating a community":/doc/community/creating-community
 *  "Joining a community":/doc/community/joining-community
+
+"Back to top":#online-doc-text

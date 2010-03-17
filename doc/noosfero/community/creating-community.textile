@@ -26,3 +26,5 @@ h2(#Description). Description
 h2(#RelatedTopics). Related topics
 
 *  "Login into the system":/doc/user/login
+
+"Back to top":#online-doc-text

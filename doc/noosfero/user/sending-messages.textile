@@ -25,3 +25,4 @@ h2(#RelatedTopics). Related topics
 *  "Adding friends":/doc/user/adding-friends
 *  "Accepting friends":/doc/user/accepting-friends
 
+"Back to top":#online-doc-text

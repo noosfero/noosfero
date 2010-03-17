@@ -1,0 +1,32 @@
+h1. Editing appearance
+
+p.  _You can customize the page of your enterprise, changing the template of it._
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+*  "Related topics":#RelatedTopics
+
+h2(#HowAccess). How to access
+
+# Find you user menu on top bar:  !=/images/doc/system-homepage-top-menu.en.png(Top menu)!
+# In user menu, click on Control Panel:  !=/images/doc/menu-control-panel.en.png(Control panel on menu)!
+# Click on "Manage my groups" button:  !=/images/doc/control-panel-manage-groups.en.png(Manage groups in control panel)!
+# You will see the list of groups (communities/enterprises) that you are a member. The groups that you can manage are listed with a link "Manage". Assuming that you are a community administrator, click on "Manage" link. !=/images/doc/groups-list-with-manage-enterprise.en.png(Groups list with permission to manage community)!
+# Then, click on "Edit Appearance:  !=/images/doc/control-panel-enterprise-edit-appearance.en.png(Edit appearance on user control panel)!
+
+h2(#Description). Description
+
+# You will see the available templates:
+## *default:* This template uses 3 columns.
+## *rightbar:* In this template, your pages will have 2 columns. Your blocks will be displayed on the collumn on the right.
+## *lefttbar:* In this template, your pages will have 2 columns. Your blocks will be displayed on the collumn on the left.
+# You can change your template clicking on the link "Use this template"
+!=/images/doc/edit-appearance.en.png(Edit appearance)!
+
+h2(#RelatedTopics). Related topics
+
+*  "Login into the system":/doc/user/login
+*  "Logout of the system":/doc/user/logout
+*  "Editing header and footer":/doc/enterprise/editing-header-footer
+
+"Back to top":#online-doc-text

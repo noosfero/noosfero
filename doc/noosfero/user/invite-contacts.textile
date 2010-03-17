@@ -29,3 +29,5 @@ h2(#RelatedTopics). Related topics
 
 *  "Accepting friends":/doc/user/accepting-friends
 *  "Removing friends":/doc/user/removing-friends
+
+"Back to top":#online-doc-text

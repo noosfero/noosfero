@@ -32,3 +32,4 @@ h2(#RelatedTopics). Related topics
 *  "Managing your content":/doc/cms/managing-content
 *  "Posting on blog":/doc/cms/posting-on-blog
 
+"Back to top":#online-doc-text

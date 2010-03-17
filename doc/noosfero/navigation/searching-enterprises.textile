@@ -33,3 +33,4 @@ h2(#RelatedTopics). Related topics
 *  "Finding products and services":/doc/navigation/searching-products-services
 *  "Advanced search":/doc/navigation/advanced-search
 
+"Back to top":#online-doc-text

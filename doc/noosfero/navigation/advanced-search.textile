@@ -29,3 +29,4 @@ h2(#RelatedTopics). Related topics
 *  "Finding enterprises":/doc/navigation/searching-enterprises
 *  "Finding products and services":/doc/navigation/searching-products-services
 
+"Back to top":#online-doc-text

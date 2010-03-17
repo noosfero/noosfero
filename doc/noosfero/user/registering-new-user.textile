@@ -27,3 +27,4 @@ h2(#RelatedTopics). Related topics
 *  "Accepting friends":/doc/user/accepting-friends
 *  "Finding people":/doc/navigation/searching-people
 
+"Back to top":#online-doc-text

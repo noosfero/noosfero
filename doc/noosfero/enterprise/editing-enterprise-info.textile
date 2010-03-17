@@ -37,3 +37,4 @@ h2(#RelatedTopics). Related topics
 *  "Login into the system":/doc/user/login
 *  "Activating enterprise":/doc/enterprise/activating-enterprise
 
+"Back to top":#online-doc-text

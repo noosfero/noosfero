@@ -45,3 +45,5 @@ h2(#Description). Description
 h2(#RelatedTopics). Related topics
 
 *  "Writing an article":/doc/cms/writing-article
+
+"Back to top":#online-doc-text

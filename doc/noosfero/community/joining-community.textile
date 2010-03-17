@@ -21,3 +21,5 @@ h2(#Descriptio). Description
 h2(#RelatedTopics). Related topics
 
 *  "Finding communities":/doc/navigation/searching-communities
+
+"Back to top":#online-doc-text

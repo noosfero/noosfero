@@ -30,3 +30,4 @@ h2(#RelatedTopics). Related topics
 *  "Editing enterprise settings":/doc/enterprise/editing-enterprise-info
 *  "Activating your enterprise":/doc/enterprise/activating-enterprise
 
+"Back to top":#online-doc-text
