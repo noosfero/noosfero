@@ -20,3 +20,4 @@ h2(#RelatedTopics). Related topics
 *  "Registering new user":/doc/user/registering-new-user
 *  "Logout of the system":/doc/user/logout
 
+"Back to top":#online-doc-text

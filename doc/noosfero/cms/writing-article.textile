@@ -66,3 +66,4 @@ h2(#RelatedTopics). Related topics
 
 *  "Writing advanced articles":/doc/cms/writing-advanced-article
 
+"Back to top":#online-doc-text

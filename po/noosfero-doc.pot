@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-03-03 17:35-0300\n"
+"POT-Creation-Date: 2010-03-16 20:53-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,22 +26,22 @@ msgid "<em>You can have a blog and publish posts on it.</em>"
 msgstr ""
 
 # type: Content of: <ul><li>
-#: doc/noosfero/cms/posting-on-blog.en.xhtml:6 doc/noosfero/cms/adding-images-to-gallery.en.xhtml:6 doc/noosfero/cms/writing-advanced-article.en.xhtml:6 doc/noosfero/cms/managing-content.en.xhtml:10 doc/noosfero/cms/creating-blog.en.xhtml:6 doc/noosfero/cms/writing-article.en.xhtml:6 doc/noosfero/community/creating-community.en.xhtml:6 doc/noosfero/community/invite-contacts.en.xhtml:6 doc/noosfero/community/moderating-articles.en.xhtml:6 doc/noosfero/community/joining-community.en.xhtml:6 doc/noosfero/community/accepting-members.en.xhtml:6 doc/noosfero/user/logout.en.xhtml:6 doc/noosfero/user/removing-friends.en.xhtml:6 doc/noosfero/user/sending-messages.en.xhtml:6 doc/noosfero/user/removing-comments.en.xhtml:6 doc/noosfero/user/accepting-friends.en.xhtml:6 doc/noosfero/user/invite-contacts.en.xhtml:6 doc/noosfero/user/editing-person-info.en.xhtml:6 doc/noosfero/user/commenting.en.xhtml:8 doc/noosfero/user/adding-friends.en.xhtml:6 doc/noosfero/user/registering-new-user.en.xhtml:6 doc/noosfero/user/login.en.xhtml:6 doc/noosfero/enterprise/disabling-enterprise.en.xhtml:6 doc/noosfero/enterprise/activating-enterprise.en.xhtml:8 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:6 doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:6 doc/noosfero/navigation/searching.en.xhtml:6 doc/noosfero/navigation/searching-people.en.xhtml:6 doc/noosfero/navigation/searching-products-services.en.xhtml:6 doc/noosfero/navigation/searching-enterprises.en.xhtml:6 doc/noosfero/navigation/searching-communities.en.xhtml:6 doc/noosfero/navigation/advanced-search.en.xhtml:6
+#: doc/noosfero/cms/posting-on-blog.en.xhtml:6 doc/noosfero/cms/adding-images-to-gallery.en.xhtml:6 doc/noosfero/cms/writing-advanced-article.en.xhtml:6 doc/noosfero/cms/managing-content.en.xhtml:10 doc/noosfero/cms/creating-blog.en.xhtml:6 doc/noosfero/cms/writing-article.en.xhtml:6 doc/noosfero/community/editing-header-footer.en.xhtml:6 doc/noosfero/community/editing-appearance.en.xhtml:6 doc/noosfero/community/creating-community.en.xhtml:6 doc/noosfero/community/invite-contacts.en.xhtml:6 doc/noosfero/community/editing-sideboxes.en.xhtml:6 doc/noosfero/community/moderating-articles.en.xhtml:6 doc/noosfero/community/joining-community.en.xhtml:6 doc/noosfero/community/accepting-members.en.xhtml:6 doc/noosfero/user/logout.en.xhtml:6 doc/noosfero/user/changing-password.en.xhtml:6 doc/noosfero/user/removing-friends.en.xhtml:6 doc/noosfero/user/sending-messages.en.xhtml:6 doc/noosfero/user/editing-header-footer.en.xhtml:6 doc/noosfero/user/removing-comments.en.xhtml:6 doc/noosfero/user/editing-appearance.en.xhtml:6 doc/noosfero/user/accepting-friends.en.xhtml:6 doc/noosfero/user/invite-contacts.en.xhtml:6 doc/noosfero/user/editing-sideboxes.en.xhtml:6 doc/noosfero/user/editing-person-info.en.xhtml:6 doc/noosfero/user/commenting.en.xhtml:8 doc/noosfero/user/adding-friends.en.xhtml:6 doc/noosfero/user/registering-new-user.en.xhtml:6 doc/noosfero/user/login.en.xhtml:6 doc/noosfero/enterprise/disabling-enterprise.en.xhtml:6 doc/noosfero/enterprise/editing-header-footer.en.xhtml:6 doc/noosfero/enterprise/editing-appearance.en.xhtml:6 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:6 doc/noosfero/enterprise/activating-enterprise.en.xhtml:8 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:6 doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:6 doc/noosfero/navigation/searching.en.xhtml:6 doc/noosfero/navigation/searching-people.en.xhtml:6 doc/noosfero/navigation/searching-products-services.en.xhtml:6 doc/noosfero/navigation/searching-enterprises.en.xhtml:6 doc/noosfero/navigation/searching-communities.en.xhtml:6 doc/noosfero/navigation/advanced-search.en.xhtml:6
 msgid "<a href=\"#HowAccess\">How to access</a>"
 msgstr ""
 
 # type: Content of: <ul><li>
-#: doc/noosfero/cms/posting-on-blog.en.xhtml:7 doc/noosfero/cms/adding-images-to-gallery.en.xhtml:7 doc/noosfero/cms/writing-advanced-article.en.xhtml:7 doc/noosfero/cms/managing-content.en.xhtml:11 doc/noosfero/cms/creating-blog.en.xhtml:7 doc/noosfero/cms/writing-article.en.xhtml:7 doc/noosfero/community/creating-community.en.xhtml:7 doc/noosfero/community/invite-contacts.en.xhtml:7 doc/noosfero/community/moderating-articles.en.xhtml:7 doc/noosfero/community/joining-community.en.xhtml:7 doc/noosfero/community/accepting-members.en.xhtml:7 doc/noosfero/user/logout.en.xhtml:7 doc/noosfero/user/removing-friends.en.xhtml:7 doc/noosfero/user/sending-messages.en.xhtml:7 doc/noosfero/user/removing-comments.en.xhtml:7 doc/noosfero/user/accepting-friends.en.xhtml:7 doc/noosfero/user/invite-contacts.en.xhtml:7 doc/noosfero/user/editing-person-info.en.xhtml:7 doc/noosfero/user/commenting.en.xhtml:9 doc/noosfero/user/adding-friends.en.xhtml:7 doc/noosfero/user/registering-new-user.en.xhtml:7 doc/noosfero/user/login.en.xhtml:7 doc/noosfero/enterprise/disabling-enterprise.en.xhtml:7 doc/noosfero/enterprise/activating-enterprise.en.xhtml:9 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:7 doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:7 doc/noosfero/navigation/searching.en.xhtml:7 doc/noosfero/navigation/searching-people.en.xhtml:7 doc/noosfero/navigation/searching-products-services.en.xhtml:7 doc/noosfero/navigation/searching-enterprises.en.xhtml:7 doc/noosfero/navigation/searching-communities.en.xhtml:7 doc/noosfero/navigation/advanced-search.en.xhtml:7
+#: doc/noosfero/cms/posting-on-blog.en.xhtml:7 doc/noosfero/cms/adding-images-to-gallery.en.xhtml:7 doc/noosfero/cms/writing-advanced-article.en.xhtml:7 doc/noosfero/cms/managing-content.en.xhtml:11 doc/noosfero/cms/creating-blog.en.xhtml:7 doc/noosfero/cms/writing-article.en.xhtml:7 doc/noosfero/community/editing-header-footer.en.xhtml:7 doc/noosfero/community/editing-appearance.en.xhtml:7 doc/noosfero/community/creating-community.en.xhtml:7 doc/noosfero/community/invite-contacts.en.xhtml:7 doc/noosfero/community/editing-sideboxes.en.xhtml:7 doc/noosfero/community/moderating-articles.en.xhtml:7 doc/noosfero/community/joining-community.en.xhtml:7 doc/noosfero/community/accepting-members.en.xhtml:7 doc/noosfero/user/logout.en.xhtml:7 doc/noosfero/user/changing-password.en.xhtml:7 doc/noosfero/user/removing-friends.en.xhtml:7 doc/noosfero/user/sending-messages.en.xhtml:7 doc/noosfero/user/editing-header-footer.en.xhtml:7 doc/noosfero/user/removing-comments.en.xhtml:7 doc/noosfero/user/editing-appearance.en.xhtml:7 doc/noosfero/user/accepting-friends.en.xhtml:7 doc/noosfero/user/invite-contacts.en.xhtml:7 doc/noosfero/user/editing-sideboxes.en.xhtml:7 doc/noosfero/user/editing-person-info.en.xhtml:7 doc/noosfero/user/commenting.en.xhtml:9 doc/noosfero/user/adding-friends.en.xhtml:7 doc/noosfero/user/registering-new-user.en.xhtml:7 doc/noosfero/user/login.en.xhtml:7 doc/noosfero/enterprise/disabling-enterprise.en.xhtml:7 doc/noosfero/enterprise/editing-header-footer.en.xhtml:7 doc/noosfero/enterprise/editing-appearance.en.xhtml:7 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:7 doc/noosfero/enterprise/activating-enterprise.en.xhtml:9 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:7 doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:7 doc/noosfero/navigation/searching.en.xhtml:7 doc/noosfero/navigation/searching-people.en.xhtml:7 doc/noosfero/navigation/searching-products-services.en.xhtml:7 doc/noosfero/navigation/searching-enterprises.en.xhtml:7 doc/noosfero/navigation/searching-communities.en.xhtml:7 doc/noosfero/navigation/advanced-search.en.xhtml:7
 msgid "<a href=\"#Description\">Description</a>"
 msgstr ""
 
 # type: Content of: <ul><li>
-#: doc/noosfero/cms/posting-on-blog.en.xhtml:8 doc/noosfero/cms/adding-images-to-gallery.en.xhtml:8 doc/noosfero/cms/writing-advanced-article.en.xhtml:13 doc/noosfero/cms/managing-content.en.xhtml:12 doc/noosfero/cms/creating-blog.en.xhtml:8 doc/noosfero/cms/writing-article.en.xhtml:8 doc/noosfero/community/creating-community.en.xhtml:8 doc/noosfero/community/invite-contacts.en.xhtml:8 doc/noosfero/community/moderating-articles.en.xhtml:8 doc/noosfero/community/accepting-members.en.xhtml:8 doc/noosfero/user/invite-contacts.en.xhtml:8 doc/noosfero/user/editing-person-info.en.xhtml:8 doc/noosfero/enterprise/disabling-enterprise.en.xhtml:8 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:8 doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:8 doc/noosfero/navigation/searching.en.xhtml:8 doc/noosfero/navigation/searching-people.en.xhtml:8 doc/noosfero/navigation/searching-products-services.en.xhtml:8 doc/noosfero/navigation/searching-enterprises.en.xhtml:8 doc/noosfero/navigation/searching-communities.en.xhtml:8 doc/noosfero/navigation/advanced-search.en.xhtml:8
+#: doc/noosfero/cms/posting-on-blog.en.xhtml:8 doc/noosfero/cms/adding-images-to-gallery.en.xhtml:8 doc/noosfero/cms/writing-advanced-article.en.xhtml:13 doc/noosfero/cms/managing-content.en.xhtml:12 doc/noosfero/cms/creating-blog.en.xhtml:8 doc/noosfero/cms/writing-article.en.xhtml:8 doc/noosfero/community/editing-header-footer.en.xhtml:8 doc/noosfero/community/editing-appearance.en.xhtml:8 doc/noosfero/community/creating-community.en.xhtml:8 doc/noosfero/community/invite-contacts.en.xhtml:8 doc/noosfero/community/editing-sideboxes.en.xhtml:8 doc/noosfero/community/moderating-articles.en.xhtml:8 doc/noosfero/community/accepting-members.en.xhtml:8 doc/noosfero/user/changing-password.en.xhtml:8 doc/noosfero/user/editing-header-footer.en.xhtml:8 doc/noosfero/user/editing-appearance.en.xhtml:8 doc/noosfero/user/invite-contacts.en.xhtml:8 doc/noosfero/user/editing-sideboxes.en.xhtml:8 doc/noosfero/user/editing-person-info.en.xhtml:8 doc/noosfero/enterprise/disabling-enterprise.en.xhtml:8 doc/noosfero/enterprise/editing-header-footer.en.xhtml:8 doc/noosfero/enterprise/editing-appearance.en.xhtml:8 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:8 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:8 doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:8 doc/noosfero/navigation/searching.en.xhtml:8 doc/noosfero/navigation/searching-people.en.xhtml:8 doc/noosfero/navigation/searching-products-services.en.xhtml:8 doc/noosfero/navigation/searching-enterprises.en.xhtml:8 doc/noosfero/navigation/searching-communities.en.xhtml:8 doc/noosfero/navigation/advanced-search.en.xhtml:8
 msgid "<a href=\"#RelatedTopics\">Related topics</a>"
 msgstr ""
 
 # type: Content of: <h2>
-#: doc/noosfero/cms/posting-on-blog.en.xhtml:11 doc/noosfero/cms/adding-images-to-gallery.en.xhtml:11 doc/noosfero/cms/writing-advanced-article.en.xhtml:16 doc/noosfero/cms/managing-content.en.xhtml:15 doc/noosfero/cms/creating-blog.en.xhtml:11 doc/noosfero/cms/writing-article.en.xhtml:11 doc/noosfero/community/creating-community.en.xhtml:11 doc/noosfero/community/invite-contacts.en.xhtml:11 doc/noosfero/community/moderating-articles.en.xhtml:11 doc/noosfero/community/joining-community.en.xhtml:11 doc/noosfero/community/accepting-members.en.xhtml:11 doc/noosfero/user/logout.en.xhtml:11 doc/noosfero/user/removing-friends.en.xhtml:11 doc/noosfero/user/sending-messages.en.xhtml:11 doc/noosfero/user/removing-comments.en.xhtml:11 doc/noosfero/user/accepting-friends.en.xhtml:11 doc/noosfero/user/invite-contacts.en.xhtml:11 doc/noosfero/user/editing-person-info.en.xhtml:11 doc/noosfero/user/commenting.en.xhtml:13 doc/noosfero/user/adding-friends.en.xhtml:11 doc/noosfero/user/registering-new-user.en.xhtml:11 doc/noosfero/user/login.en.xhtml:11 doc/noosfero/enterprise/disabling-enterprise.en.xhtml:11 doc/noosfero/enterprise/activating-enterprise.en.xhtml:13 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:11 doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:11 doc/noosfero/navigation/searching.en.xhtml:11 doc/noosfero/navigation/searching-people.en.xhtml:11 doc/noosfero/navigation/searching-products-services.en.xhtml:11 doc/noosfero/navigation/searching-enterprises.en.xhtml:11 doc/noosfero/navigation/searching-communities.en.xhtml:11 doc/noosfero/navigation/advanced-search.en.xhtml:11
+#: doc/noosfero/cms/posting-on-blog.en.xhtml:11 doc/noosfero/cms/adding-images-to-gallery.en.xhtml:11 doc/noosfero/cms/writing-advanced-article.en.xhtml:16 doc/noosfero/cms/managing-content.en.xhtml:15 doc/noosfero/cms/creating-blog.en.xhtml:11 doc/noosfero/cms/writing-article.en.xhtml:11 doc/noosfero/community/editing-header-footer.en.xhtml:11 doc/noosfero/community/editing-appearance.en.xhtml:11 doc/noosfero/community/creating-community.en.xhtml:11 doc/noosfero/community/invite-contacts.en.xhtml:11 doc/noosfero/community/editing-sideboxes.en.xhtml:11 doc/noosfero/community/moderating-articles.en.xhtml:11 doc/noosfero/community/joining-community.en.xhtml:11 doc/noosfero/community/accepting-members.en.xhtml:11 doc/noosfero/user/logout.en.xhtml:11 doc/noosfero/user/changing-password.en.xhtml:11 doc/noosfero/user/removing-friends.en.xhtml:11 doc/noosfero/user/sending-messages.en.xhtml:11 doc/noosfero/user/editing-header-footer.en.xhtml:11 doc/noosfero/user/removing-comments.en.xhtml:11 doc/noosfero/user/editing-appearance.en.xhtml:11 doc/noosfero/user/accepting-friends.en.xhtml:11 doc/noosfero/user/invite-contacts.en.xhtml:11 doc/noosfero/user/editing-sideboxes.en.xhtml:11 doc/noosfero/user/editing-person-info.en.xhtml:11 doc/noosfero/user/commenting.en.xhtml:13 doc/noosfero/user/adding-friends.en.xhtml:11 doc/noosfero/user/registering-new-user.en.xhtml:11 doc/noosfero/user/login.en.xhtml:11 doc/noosfero/enterprise/disabling-enterprise.en.xhtml:11 doc/noosfero/enterprise/editing-header-footer.en.xhtml:11 doc/noosfero/enterprise/editing-appearance.en.xhtml:11 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:11 doc/noosfero/enterprise/activating-enterprise.en.xhtml:13 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:11 doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:11 doc/noosfero/navigation/searching.en.xhtml:11 doc/noosfero/navigation/searching-people.en.xhtml:11 doc/noosfero/navigation/searching-products-services.en.xhtml:11 doc/noosfero/navigation/searching-enterprises.en.xhtml:11 doc/noosfero/navigation/searching-communities.en.xhtml:11 doc/noosfero/navigation/advanced-search.en.xhtml:11
 msgid "How to access"
 msgstr ""
 
@@ -58,17 +58,17 @@ msgid "To find your blog, first find you user menu on top bar:"
 msgstr ""
 
 # type: Attribute 'alt' of: <ol><li><div><img>
-#: doc/noosfero/cms/posting-on-blog.en.xhtml:15 doc/noosfero/cms/posting-on-blog.en.xhtml:15 doc/noosfero/cms/adding-images-to-gallery.en.xhtml:15 doc/noosfero/cms/adding-images-to-gallery.en.xhtml:15 doc/noosfero/cms/managing-content.en.xhtml:18 doc/noosfero/cms/managing-content.en.xhtml:18 doc/noosfero/cms/creating-blog.en.xhtml:14 doc/noosfero/cms/creating-blog.en.xhtml:14 doc/noosfero/cms/writing-article.en.xhtml:14 doc/noosfero/cms/writing-article.en.xhtml:14 doc/noosfero/community/creating-community.en.xhtml:14 doc/noosfero/community/creating-community.en.xhtml:14 doc/noosfero/community/invite-contacts.en.xhtml:14 doc/noosfero/community/invite-contacts.en.xhtml:14 doc/noosfero/community/moderating-articles.en.xhtml:14 doc/noosfero/community/moderating-articles.en.xhtml:14 doc/noosfero/community/accepting-members.en.xhtml:14 doc/noosfero/community/accepting-members.en.xhtml:14 doc/noosfero/user/logout.en.xhtml:14 doc/noosfero/user/logout.en.xhtml:14 doc/noosfero/user/removing-friends.en.xhtml:14 doc/noosfero/user/removing-friends.en.xhtml:14 doc/noosfero/user/accepting-friends.en.xhtml:14 doc/noosfero/user/accepting-friends.en.xhtml:14 doc/noosfero/user/invite-contacts.en.xhtml:14 doc/noosfero/user/invite-contacts.en.xhtml:14 doc/noosfero/user/editing-person-info.en.xhtml:14 doc/noosfero/user/editing-person-info.en.xhtml:14 doc/noosfero/user/login.en.xhtml:19 doc/noosfero/user/login.en.xhtml:19 doc/noosfero/enterprise/disabling-enterprise.en.xhtml:14 doc/noosfero/enterprise/disabling-enterprise.en.xhtml:14 doc/noosfero/enterprise/activating-enterprise.en.xhtml:16 doc/noosfero/enterprise/activating-enterprise.en.xhtml:16 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:14 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:14 doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:14 doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:14
+#: doc/noosfero/cms/posting-on-blog.en.xhtml:15 doc/noosfero/cms/posting-on-blog.en.xhtml:15 doc/noosfero/cms/adding-images-to-gallery.en.xhtml:15 doc/noosfero/cms/adding-images-to-gallery.en.xhtml:15 doc/noosfero/cms/managing-content.en.xhtml:18 doc/noosfero/cms/managing-content.en.xhtml:18 doc/noosfero/cms/creating-blog.en.xhtml:14 doc/noosfero/cms/creating-blog.en.xhtml:14 doc/noosfero/cms/writing-article.en.xhtml:14 doc/noosfero/cms/writing-article.en.xhtml:14 doc/noosfero/community/editing-header-footer.en.xhtml:14 doc/noosfero/community/editing-header-footer.en.xhtml:14 doc/noosfero/community/editing-appearance.en.xhtml:14 doc/noosfero/community/editing-appearance.en.xhtml:14 doc/noosfero/community/creating-community.en.xhtml:14 doc/noosfero/community/creating-community.en.xhtml:14 doc/noosfero/community/invite-contacts.en.xhtml:14 doc/noosfero/community/invite-contacts.en.xhtml:14 doc/noosfero/community/editing-sideboxes.en.xhtml:14 doc/noosfero/community/editing-sideboxes.en.xhtml:14 doc/noosfero/community/moderating-articles.en.xhtml:14 doc/noosfero/community/moderating-articles.en.xhtml:14 doc/noosfero/community/accepting-members.en.xhtml:14 doc/noosfero/community/accepting-members.en.xhtml:14 doc/noosfero/user/logout.en.xhtml:14 doc/noosfero/user/logout.en.xhtml:14 doc/noosfero/user/changing-password.en.xhtml:14 doc/noosfero/user/changing-password.en.xhtml:14 doc/noosfero/user/removing-friends.en.xhtml:14 doc/noosfero/user/removing-friends.en.xhtml:14 doc/noosfero/user/editing-header-footer.en.xhtml:14 doc/noosfero/user/editing-header-footer.en.xhtml:14 doc/noosfero/user/editing-appearance.en.xhtml:14 doc/noosfero/user/editing-appearance.en.xhtml:14 doc/noosfero/user/accepting-friends.en.xhtml:14 doc/noosfero/user/accepting-friends.en.xhtml:14 doc/noosfero/user/invite-contacts.en.xhtml:14 doc/noosfero/user/invite-contacts.en.xhtml:14 doc/noosfero/user/editing-sideboxes.en.xhtml:14 doc/noosfero/user/editing-sideboxes.en.xhtml:14 doc/noosfero/user/editing-person-info.en.xhtml:14 doc/noosfero/user/editing-person-info.en.xhtml:14 doc/noosfero/user/login.en.xhtml:19 doc/noosfero/user/login.en.xhtml:19 doc/noosfero/enterprise/disabling-enterprise.en.xhtml:14 doc/noosfero/enterprise/disabling-enterprise.en.xhtml:14 doc/noosfero/enterprise/editing-header-footer.en.xhtml:14 doc/noosfero/enterprise/editing-header-footer.en.xhtml:14 doc/noosfero/enterprise/editing-appearance.en.xhtml:14 doc/noosfero/enterprise/editing-appearance.en.xhtml:14 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:14 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:14 doc/noosfero/enterprise/activating-enterprise.en.xhtml:16 doc/noosfero/enterprise/activating-enterprise.en.xhtml:16 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:14 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:14 doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:14 doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:14
 msgid "Top menu"
 msgstr ""
 
 # type: Content of: <ol><li>
-#: doc/noosfero/cms/posting-on-blog.en.xhtml:16 doc/noosfero/cms/adding-images-to-gallery.en.xhtml:16 doc/noosfero/cms/managing-content.en.xhtml:19 doc/noosfero/cms/creating-blog.en.xhtml:15 doc/noosfero/cms/writing-article.en.xhtml:15 doc/noosfero/community/invite-contacts.en.xhtml:15 doc/noosfero/community/moderating-articles.en.xhtml:15 doc/noosfero/community/accepting-members.en.xhtml:15 doc/noosfero/user/removing-friends.en.xhtml:15 doc/noosfero/user/accepting-friends.en.xhtml:15 doc/noosfero/user/invite-contacts.en.xhtml:15 doc/noosfero/user/editing-person-info.en.xhtml:15 doc/noosfero/enterprise/disabling-enterprise.en.xhtml:15 doc/noosfero/enterprise/activating-enterprise.en.xhtml:17 doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:15
+#: doc/noosfero/cms/posting-on-blog.en.xhtml:16 doc/noosfero/cms/adding-images-to-gallery.en.xhtml:16 doc/noosfero/cms/managing-content.en.xhtml:19 doc/noosfero/cms/creating-blog.en.xhtml:15 doc/noosfero/cms/writing-article.en.xhtml:15 doc/noosfero/community/editing-header-footer.en.xhtml:15 doc/noosfero/community/editing-appearance.en.xhtml:15 doc/noosfero/community/invite-contacts.en.xhtml:15 doc/noosfero/community/editing-sideboxes.en.xhtml:15 doc/noosfero/community/moderating-articles.en.xhtml:15 doc/noosfero/community/accepting-members.en.xhtml:15 doc/noosfero/user/changing-password.en.xhtml:15 doc/noosfero/user/removing-friends.en.xhtml:15 doc/noosfero/user/editing-header-footer.en.xhtml:15 doc/noosfero/user/editing-appearance.en.xhtml:15 doc/noosfero/user/accepting-friends.en.xhtml:15 doc/noosfero/user/invite-contacts.en.xhtml:15 doc/noosfero/user/editing-sideboxes.en.xhtml:15 doc/noosfero/user/editing-person-info.en.xhtml:15 doc/noosfero/enterprise/disabling-enterprise.en.xhtml:15 doc/noosfero/enterprise/editing-header-footer.en.xhtml:15 doc/noosfero/enterprise/editing-appearance.en.xhtml:15 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:15 doc/noosfero/enterprise/activating-enterprise.en.xhtml:17 doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:15
 msgid "In user menu, click on Control Panel:"
 msgstr ""
 
 # type: Attribute 'alt' of: <ol><li><div><img>
-#: doc/noosfero/cms/posting-on-blog.en.xhtml:16 doc/noosfero/cms/posting-on-blog.en.xhtml:16 doc/noosfero/cms/adding-images-to-gallery.en.xhtml:16 doc/noosfero/cms/adding-images-to-gallery.en.xhtml:16 doc/noosfero/cms/managing-content.en.xhtml:19 doc/noosfero/cms/managing-content.en.xhtml:19 doc/noosfero/cms/creating-blog.en.xhtml:15 doc/noosfero/cms/creating-blog.en.xhtml:15 doc/noosfero/cms/writing-article.en.xhtml:15 doc/noosfero/cms/writing-article.en.xhtml:15 doc/noosfero/community/creating-community.en.xhtml:15 doc/noosfero/community/creating-community.en.xhtml:15 doc/noosfero/community/invite-contacts.en.xhtml:15 doc/noosfero/community/invite-contacts.en.xhtml:15 doc/noosfero/community/moderating-articles.en.xhtml:15 doc/noosfero/community/moderating-articles.en.xhtml:15 doc/noosfero/community/accepting-members.en.xhtml:15 doc/noosfero/community/accepting-members.en.xhtml:15 doc/noosfero/user/accepting-friends.en.xhtml:15 doc/noosfero/user/accepting-friends.en.xhtml:15 doc/noosfero/user/editing-person-info.en.xhtml:15 doc/noosfero/user/editing-person-info.en.xhtml:15 doc/noosfero/enterprise/disabling-enterprise.en.xhtml:15 doc/noosfero/enterprise/disabling-enterprise.en.xhtml:15 doc/noosfero/enterprise/activating-enterprise.en.xhtml:17 doc/noosfero/enterprise/activating-enterprise.en.xhtml:17 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:15 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:15 doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:15 doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:15
+#: doc/noosfero/cms/posting-on-blog.en.xhtml:16 doc/noosfero/cms/posting-on-blog.en.xhtml:16 doc/noosfero/cms/adding-images-to-gallery.en.xhtml:16 doc/noosfero/cms/adding-images-to-gallery.en.xhtml:16 doc/noosfero/cms/managing-content.en.xhtml:19 doc/noosfero/cms/managing-content.en.xhtml:19 doc/noosfero/cms/creating-blog.en.xhtml:15 doc/noosfero/cms/creating-blog.en.xhtml:15 doc/noosfero/cms/writing-article.en.xhtml:15 doc/noosfero/cms/writing-article.en.xhtml:15 doc/noosfero/community/editing-header-footer.en.xhtml:15 doc/noosfero/community/editing-header-footer.en.xhtml:15 doc/noosfero/community/editing-appearance.en.xhtml:15 doc/noosfero/community/editing-appearance.en.xhtml:15 doc/noosfero/community/creating-community.en.xhtml:15 doc/noosfero/community/creating-community.en.xhtml:15 doc/noosfero/community/invite-contacts.en.xhtml:15 doc/noosfero/community/invite-contacts.en.xhtml:15 doc/noosfero/community/editing-sideboxes.en.xhtml:15 doc/noosfero/community/editing-sideboxes.en.xhtml:15 doc/noosfero/community/moderating-articles.en.xhtml:15 doc/noosfero/community/moderating-articles.en.xhtml:15 doc/noosfero/community/accepting-members.en.xhtml:15 doc/noosfero/community/accepting-members.en.xhtml:15 doc/noosfero/user/changing-password.en.xhtml:15 doc/noosfero/user/changing-password.en.xhtml:15 doc/noosfero/user/editing-header-footer.en.xhtml:15 doc/noosfero/user/editing-header-footer.en.xhtml:15 doc/noosfero/user/editing-appearance.en.xhtml:15 doc/noosfero/user/editing-appearance.en.xhtml:15 doc/noosfero/user/accepting-friends.en.xhtml:15 doc/noosfero/user/accepting-friends.en.xhtml:15 doc/noosfero/user/editing-sideboxes.en.xhtml:15 doc/noosfero/user/editing-sideboxes.en.xhtml:15 doc/noosfero/user/editing-person-info.en.xhtml:15 doc/noosfero/user/editing-person-info.en.xhtml:15 doc/noosfero/enterprise/disabling-enterprise.en.xhtml:15 doc/noosfero/enterprise/disabling-enterprise.en.xhtml:15 doc/noosfero/enterprise/editing-header-footer.en.xhtml:15 doc/noosfero/enterprise/editing-header-footer.en.xhtml:15 doc/noosfero/enterprise/editing-appearance.en.xhtml:15 doc/noosfero/enterprise/editing-appearance.en.xhtml:15 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:15 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:15 doc/noosfero/enterprise/activating-enterprise.en.xhtml:17 doc/noosfero/enterprise/activating-enterprise.en.xhtml:17 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:15 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:15 doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:15 doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:15
 msgid "Control panel on menu"
 msgstr ""
 
@@ -83,7 +83,7 @@ msgid "Manage content in control panel"
 msgstr ""
 
 # type: Content of: <h2>
-#: doc/noosfero/cms/posting-on-blog.en.xhtml:20 doc/noosfero/cms/adding-images-to-gallery.en.xhtml:20 doc/noosfero/cms/writing-advanced-article.en.xhtml:20 doc/noosfero/cms/managing-content.en.xhtml:23 doc/noosfero/cms/creating-blog.en.xhtml:19 doc/noosfero/cms/writing-article.en.xhtml:19 doc/noosfero/community/creating-community.en.xhtml:19 doc/noosfero/community/invite-contacts.en.xhtml:20 doc/noosfero/community/moderating-articles.en.xhtml:20 doc/noosfero/community/joining-community.en.xhtml:17 doc/noosfero/community/accepting-members.en.xhtml:20 doc/noosfero/user/logout.en.xhtml:18 doc/noosfero/user/removing-friends.en.xhtml:19 doc/noosfero/user/sending-messages.en.xhtml:19 doc/noosfero/user/removing-comments.en.xhtml:15 doc/noosfero/user/accepting-friends.en.xhtml:18 doc/noosfero/user/invite-contacts.en.xhtml:19 doc/noosfero/user/editing-person-info.en.xhtml:18 doc/noosfero/user/commenting.en.xhtml:19 doc/noosfero/user/adding-friends.en.xhtml:15 doc/noosfero/user/registering-new-user.en.xhtml:18 doc/noosfero/user/login.en.xhtml:15 doc/noosfero/enterprise/disabling-enterprise.en.xhtml:20 doc/noosfero/enterprise/activating-enterprise.en.xhtml:20 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:20 doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:20 doc/noosfero/navigation/searching.en.xhtml:16 doc/noosfero/navigation/searching-people.en.xhtml:16 doc/noosfero/navigation/searching-products-services.en.xhtml:16 doc/noosfero/navigation/searching-enterprises.en.xhtml:16 doc/noosfero/navigation/searching-communities.en.xhtml:16 doc/noosfero/navigation/advanced-search.en.xhtml:15
+#: doc/noosfero/cms/posting-on-blog.en.xhtml:20 doc/noosfero/cms/adding-images-to-gallery.en.xhtml:20 doc/noosfero/cms/writing-advanced-article.en.xhtml:20 doc/noosfero/cms/managing-content.en.xhtml:23 doc/noosfero/cms/creating-blog.en.xhtml:19 doc/noosfero/cms/writing-article.en.xhtml:19 doc/noosfero/community/editing-header-footer.en.xhtml:21 doc/noosfero/community/editing-appearance.en.xhtml:21 doc/noosfero/community/creating-community.en.xhtml:19 doc/noosfero/community/invite-contacts.en.xhtml:20 doc/noosfero/community/editing-sideboxes.en.xhtml:21 doc/noosfero/community/moderating-articles.en.xhtml:20 doc/noosfero/community/joining-community.en.xhtml:17 doc/noosfero/community/accepting-members.en.xhtml:20 doc/noosfero/user/logout.en.xhtml:18 doc/noosfero/user/changing-password.en.xhtml:19 doc/noosfero/user/removing-friends.en.xhtml:19 doc/noosfero/user/sending-messages.en.xhtml:19 doc/noosfero/user/editing-header-footer.en.xhtml:19 doc/noosfero/user/removing-comments.en.xhtml:15 doc/noosfero/user/editing-appearance.en.xhtml:19 doc/noosfero/user/accepting-friends.en.xhtml:18 doc/noosfero/user/invite-contacts.en.xhtml:19 doc/noosfero/user/editing-sideboxes.en.xhtml:19 doc/noosfero/user/editing-person-info.en.xhtml:18 doc/noosfero/user/commenting.en.xhtml:19 doc/noosfero/user/adding-friends.en.xhtml:15 doc/noosfero/user/registering-new-user.en.xhtml:18 doc/noosfero/user/login.en.xhtml:15 doc/noosfero/enterprise/disabling-enterprise.en.xhtml:20 doc/noosfero/enterprise/editing-header-footer.en.xhtml:21 doc/noosfero/enterprise/editing-appearance.en.xhtml:21 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:21 doc/noosfero/enterprise/activating-enterprise.en.xhtml:20 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:20 doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:20 doc/noosfero/navigation/searching.en.xhtml:16 doc/noosfero/navigation/searching-people.en.xhtml:16 doc/noosfero/navigation/searching-products-services.en.xhtml:16 doc/noosfero/navigation/searching-enterprises.en.xhtml:16 doc/noosfero/navigation/searching-communities.en.xhtml:16 doc/noosfero/navigation/advanced-search.en.xhtml:15
 msgid "Description"
 msgstr ""
 
@@ -115,7 +115,7 @@ msgid ""
 msgstr ""
 
 # type: Content of: <h2>
-#: doc/noosfero/cms/posting-on-blog.en.xhtml:28 doc/noosfero/cms/adding-images-to-gallery.en.xhtml:28 doc/noosfero/cms/writing-advanced-article.en.xhtml:73 doc/noosfero/cms/managing-content.en.xhtml:58 doc/noosfero/cms/creating-blog.en.xhtml:35 doc/noosfero/cms/writing-article.en.xhtml:79 doc/noosfero/community/creating-community.en.xhtml:34 doc/noosfero/community/invite-contacts.en.xhtml:42 doc/noosfero/community/moderating-articles.en.xhtml:38 doc/noosfero/community/joining-community.en.xhtml:25 doc/noosfero/community/accepting-members.en.xhtml:29 doc/noosfero/user/logout.en.xhtml:22 doc/noosfero/user/removing-friends.en.xhtml:29 doc/noosfero/user/sending-messages.en.xhtml:26 doc/noosfero/user/removing-comments.en.xhtml:22 doc/noosfero/user/invite-contacts.en.xhtml:40 doc/noosfero/user/editing-person-info.en.xhtml:33 doc/noosfero/user/commenting.en.xhtml:28 doc/noosfero/user/adding-friends.en.xhtml:22 doc/noosfero/user/registering-new-user.en.xhtml:30 doc/noosfero/user/login.en.xhtml:22 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:38 doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:42 doc/noosfero/navigation/searching.en.xhtml:24 doc/noosfero/navigation/searching-people.en.xhtml:28 doc/noosfero/navigation/searching-products-services.en.xhtml:32 doc/noosfero/navigation/searching-enterprises.en.xhtml:32 doc/noosfero/navigation/searching-communities.en.xhtml:28 doc/noosfero/navigation/advanced-search.en.xhtml:30
+#: doc/noosfero/cms/posting-on-blog.en.xhtml:28 doc/noosfero/cms/adding-images-to-gallery.en.xhtml:28 doc/noosfero/cms/writing-advanced-article.en.xhtml:73 doc/noosfero/cms/managing-content.en.xhtml:58 doc/noosfero/cms/creating-blog.en.xhtml:35 doc/noosfero/cms/writing-article.en.xhtml:79 doc/noosfero/community/editing-header-footer.en.xhtml:59 doc/noosfero/community/editing-appearance.en.xhtml:34 doc/noosfero/community/creating-community.en.xhtml:34 doc/noosfero/community/invite-contacts.en.xhtml:42 doc/noosfero/community/editing-sideboxes.en.xhtml:68 doc/noosfero/community/moderating-articles.en.xhtml:38 doc/noosfero/community/joining-community.en.xhtml:25 doc/noosfero/community/accepting-members.en.xhtml:29 doc/noosfero/user/logout.en.xhtml:22 doc/noosfero/user/changing-password.en.xhtml:29 doc/noosfero/user/removing-friends.en.xhtml:29 doc/noosfero/user/sending-messages.en.xhtml:26 doc/noosfero/user/editing-header-footer.en.xhtml:58 doc/noosfero/user/removing-comments.en.xhtml:22 doc/noosfero/user/editing-appearance.en.xhtml:32 doc/noosfero/user/invite-contacts.en.xhtml:40 doc/noosfero/user/editing-sideboxes.en.xhtml:69 doc/noosfero/user/editing-person-info.en.xhtml:33 doc/noosfero/user/commenting.en.xhtml:28 doc/noosfero/user/adding-friends.en.xhtml:22 doc/noosfero/user/registering-new-user.en.xhtml:30 doc/noosfero/user/login.en.xhtml:22 doc/noosfero/enterprise/editing-header-footer.en.xhtml:59 doc/noosfero/enterprise/editing-appearance.en.xhtml:34 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:70 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:38 doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:42 doc/noosfero/navigation/searching.en.xhtml:24 doc/noosfero/navigation/searching-people.en.xhtml:28 doc/noosfero/navigation/searching-products-services.en.xhtml:32 doc/noosfero/navigation/searching-enterprises.en.xhtml:32 doc/noosfero/navigation/searching-communities.en.xhtml:28 doc/noosfero/navigation/advanced-search.en.xhtml:30
 msgid "Related topics"
 msgstr ""
 
@@ -127,6 +127,11 @@ msgstr ""
 # type: Content of: <ul><li>
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:32 doc/noosfero/cms/adding-images-to-gallery.en.xhtml:31 doc/noosfero/cms/creating-blog.en.xhtml:38 doc/noosfero/cms/toc.en.xhtml:6
 msgid "<a href=\"/doc/cms/managing-content\">Managing your content</a>"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/cms/posting-on-blog.en.xhtml:35 doc/noosfero/cms/adding-images-to-gallery.en.xhtml:34 doc/noosfero/cms/writing-advanced-article.en.xhtml:79 doc/noosfero/cms/managing-content.en.xhtml:64 doc/noosfero/cms/creating-blog.en.xhtml:42 doc/noosfero/cms/writing-article.en.xhtml:85 doc/noosfero/community/editing-header-footer.en.xhtml:66 doc/noosfero/community/editing-appearance.en.xhtml:42 doc/noosfero/community/creating-community.en.xhtml:40 doc/noosfero/community/invite-contacts.en.xhtml:50 doc/noosfero/community/editing-sideboxes.en.xhtml:75 doc/noosfero/community/moderating-articles.en.xhtml:45 doc/noosfero/community/joining-community.en.xhtml:31 doc/noosfero/community/accepting-members.en.xhtml:36 doc/noosfero/user/logout.en.xhtml:28 doc/noosfero/user/changing-password.en.xhtml:36 doc/noosfero/user/removing-friends.en.xhtml:36 doc/noosfero/user/sending-messages.en.xhtml:34 doc/noosfero/user/editing-header-footer.en.xhtml:65 doc/noosfero/user/removing-comments.en.xhtml:29 doc/noosfero/user/editing-appearance.en.xhtml:40 doc/noosfero/user/accepting-friends.en.xhtml:34 doc/noosfero/user/invite-contacts.en.xhtml:47 doc/noosfero/user/editing-sideboxes.en.xhtml:76 doc/noosfero/user/editing-person-info.en.xhtml:39 doc/noosfero/user/commenting.en.xhtml:34 doc/noosfero/user/adding-friends.en.xhtml:30 doc/noosfero/user/registering-new-user.en.xhtml:39 doc/noosfero/user/login.en.xhtml:29 doc/noosfero/enterprise/disabling-enterprise.en.xhtml:36 doc/noosfero/enterprise/editing-header-footer.en.xhtml:66 doc/noosfero/enterprise/editing-appearance.en.xhtml:42 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:77 doc/noosfero/enterprise/activating-enterprise.en.xhtml:38 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:45 doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:49 doc/noosfero/navigation/searching.en.xhtml:34 doc/noosfero/navigation/searching-people.en.xhtml:38 doc/noosfero/navigation/searching-products-services.en.xhtml:42 doc/noosfero/navigation/searching-enterprises.en.xhtml:42 doc/noosfero/navigation/searching-communities.en.xhtml:38 doc/noosfero/navigation/advanced-search.en.xhtml:40
+msgid "<a href=\"#online-doc-text\">Back to top</a>"
 msgstr ""
 
 # type: Content of: <h1>
@@ -757,12 +762,12 @@ msgid ""
 msgstr ""
 
 # type: Attribute 'alt' of: <ol><li><div><img>
-#: doc/noosfero/cms/writing-article.en.xhtml:33 doc/noosfero/cms/writing-article.en.xhtml:33
+#: doc/noosfero/cms/writing-article.en.xhtml:33 doc/noosfero/cms/writing-article.en.xhtml:33 doc/noosfero/community/editing-header-footer.en.xhtml:25 doc/noosfero/community/editing-header-footer.en.xhtml:25 doc/noosfero/user/editing-header-footer.en.xhtml:23 doc/noosfero/user/editing-header-footer.en.xhtml:23 doc/noosfero/enterprise/editing-header-footer.en.xhtml:25 doc/noosfero/enterprise/editing-header-footer.en.xhtml:25
 msgid "WYSIWYG buttons"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
-#: doc/noosfero/cms/writing-article.en.xhtml:35
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/cms/writing-article.en.xhtml:35 doc/noosfero/community/editing-header-footer.en.xhtml:27 doc/noosfero/community/editing-sideboxes.en.xhtml:47 doc/noosfero/user/editing-header-footer.en.xhtml:25 doc/noosfero/user/editing-sideboxes.en.xhtml:48 doc/noosfero/enterprise/editing-header-footer.en.xhtml:27 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:49
 msgid "From the left to right:"
 msgstr ""
 
@@ -772,14 +777,14 @@ msgid "<strong>Print:</strong> use this button if you want to print your article
 msgstr ""
 
 # type: Content of: <ol><li><ol><li><ol><li>
-#: doc/noosfero/cms/writing-article.en.xhtml:38
+#: doc/noosfero/cms/writing-article.en.xhtml:38 doc/noosfero/community/editing-header-footer.en.xhtml:30 doc/noosfero/user/editing-header-footer.en.xhtml:28 doc/noosfero/enterprise/editing-header-footer.en.xhtml:30
 msgid ""
 "<strong>Copy:</strong> select a section of the text and click on this button "
 "to copy it"
 msgstr ""
 
 # type: Content of: <ol><li><ol><li><ol><li>
-#: doc/noosfero/cms/writing-article.en.xhtml:39
+#: doc/noosfero/cms/writing-article.en.xhtml:39 doc/noosfero/community/editing-header-footer.en.xhtml:31 doc/noosfero/user/editing-header-footer.en.xhtml:29 doc/noosfero/enterprise/editing-header-footer.en.xhtml:31
 msgid ""
 "<strong>Paste:</strong> if you copied something, then use this button to "
 "paste it on your text. The text will be pasted into the place where the "
@@ -787,42 +792,42 @@ msgid ""
 msgstr ""
 
 # type: Content of: <ol><li><ol><li><ol><li>
-#: doc/noosfero/cms/writing-article.en.xhtml:40
+#: doc/noosfero/cms/writing-article.en.xhtml:40 doc/noosfero/community/editing-header-footer.en.xhtml:32 doc/noosfero/user/editing-header-footer.en.xhtml:30 doc/noosfero/enterprise/editing-header-footer.en.xhtml:32
 msgid ""
 "<strong>Undo:</strong> click on this button after writing or formatting some "
 "text and want to undo the action"
 msgstr ""
 
 # type: Content of: <ol><li><ol><li><ol><li>
-#: doc/noosfero/cms/writing-article.en.xhtml:41
+#: doc/noosfero/cms/writing-article.en.xhtml:41 doc/noosfero/community/editing-header-footer.en.xhtml:33 doc/noosfero/user/editing-header-footer.en.xhtml:31 doc/noosfero/enterprise/editing-header-footer.en.xhtml:33
 msgid ""
 "<strong>Redo:</strong> click on this button if you clicked on button "
 "&#8220;undo&#8221; and want to redo your last action"
 msgstr ""
 
 # type: Content of: <ol><li><ol><li><ol><li>
-#: doc/noosfero/cms/writing-article.en.xhtml:42
+#: doc/noosfero/cms/writing-article.en.xhtml:42 doc/noosfero/community/editing-header-footer.en.xhtml:34 doc/noosfero/user/editing-header-footer.en.xhtml:32 doc/noosfero/enterprise/editing-header-footer.en.xhtml:34
 msgid ""
 "<strong>Find:</strong> click on this button to find some word or phrase in "
 "your text"
 msgstr ""
 
 # type: Content of: <ol><li><ol><li><ol><li>
-#: doc/noosfero/cms/writing-article.en.xhtml:43
+#: doc/noosfero/cms/writing-article.en.xhtml:43 doc/noosfero/community/editing-header-footer.en.xhtml:35 doc/noosfero/user/editing-header-footer.en.xhtml:33 doc/noosfero/enterprise/editing-header-footer.en.xhtml:35
 msgid ""
 "<strong>Find/Replace:</strong> click on this button to find some word or "
 "phrase in your text and replace it for other"
 msgstr ""
 
 # type: Content of: <ol><li><ol><li><ol><li>
-#: doc/noosfero/cms/writing-article.en.xhtml:44
+#: doc/noosfero/cms/writing-article.en.xhtml:44 doc/noosfero/community/editing-header-footer.en.xhtml:36 doc/noosfero/user/editing-header-footer.en.xhtml:34 doc/noosfero/enterprise/editing-header-footer.en.xhtml:36
 msgid ""
 "<strong>Font size:</strong> used to define the size of characters. Select "
 "the text/word and change the size clicking on this button"
 msgstr ""
 
 # type: Content of: <ol><li><ol><li><ol><li>
-#: doc/noosfero/cms/writing-article.en.xhtml:45
+#: doc/noosfero/cms/writing-article.en.xhtml:45 doc/noosfero/community/editing-header-footer.en.xhtml:37 doc/noosfero/user/editing-header-footer.en.xhtml:35 doc/noosfero/enterprise/editing-header-footer.en.xhtml:37
 msgid ""
 "<strong>Format:</strong> if you want to use one of the pre-configured "
 "formats, select text/word, click on this button and select the desired "
@@ -830,7 +835,7 @@ msgid ""
 msgstr ""
 
 # type: Content of: <ol><li><ol><li><ol><li>
-#: doc/noosfero/cms/writing-article.en.xhtml:46
+#: doc/noosfero/cms/writing-article.en.xhtml:46 doc/noosfero/community/editing-header-footer.en.xhtml:38 doc/noosfero/user/editing-header-footer.en.xhtml:36 doc/noosfero/enterprise/editing-header-footer.en.xhtml:38
 msgid ""
 "<strong>Bold:</strong> it formats your text/word with a line thicker than "
 "usual. This format is used to emphasize the words. Example: "
@@ -839,7 +844,7 @@ msgid ""
 msgstr ""
 
 # type: Content of: <ol><li><ol><li><ol><li>
-#: doc/noosfero/cms/writing-article.en.xhtml:47
+#: doc/noosfero/cms/writing-article.en.xhtml:47 doc/noosfero/community/editing-header-footer.en.xhtml:39 doc/noosfero/user/editing-header-footer.en.xhtml:37 doc/noosfero/enterprise/editing-header-footer.en.xhtml:39
 msgid ""
 "<strong>Italic</strong> it formats your text/word as oblique. This format is "
 "also used to emphasize the words. Example: <em>home</em> . To use it, first "
@@ -847,7 +852,7 @@ msgid ""
 msgstr ""
 
 # type: Content of: <ol><li><ol><li><ol><li>
-#: doc/noosfero/cms/writing-article.en.xhtml:48
+#: doc/noosfero/cms/writing-article.en.xhtml:48 doc/noosfero/user/editing-header-footer.en.xhtml:38
 msgid ""
 "<strong>Underline:</strong> it is also used to emphasize a word/phrase. One "
 "line is drawn under the word. Example: <span style=\"text-decoration: "
@@ -865,28 +870,28 @@ msgid ""
 msgstr ""
 
 # type: Content of: <ol><li><ol><li><ol><li>
-#: doc/noosfero/cms/writing-article.en.xhtml:52
+#: doc/noosfero/cms/writing-article.en.xhtml:52 doc/noosfero/community/editing-header-footer.en.xhtml:42 doc/noosfero/user/editing-header-footer.en.xhtml:41 doc/noosfero/enterprise/editing-header-footer.en.xhtml:42
 msgid ""
 "<strong>Unordered list:</strong> it creates a list, inserting a small ball "
 "before each item."
 msgstr ""
 
 # type: Content of: <ol><li><ol><li><ol><li>
-#: doc/noosfero/cms/writing-article.en.xhtml:53
+#: doc/noosfero/cms/writing-article.en.xhtml:53 doc/noosfero/community/editing-header-footer.en.xhtml:43 doc/noosfero/user/editing-header-footer.en.xhtml:42 doc/noosfero/enterprise/editing-header-footer.en.xhtml:43
 msgid ""
 "<strong>Ordered list</strong> it creates a numbered list, adding a number "
 "before each item."
 msgstr ""
 
 # type: Content of: <ol><li><ol><li><ol><li>
-#: doc/noosfero/cms/writing-article.en.xhtml:54
+#: doc/noosfero/cms/writing-article.en.xhtml:54 doc/noosfero/community/editing-header-footer.en.xhtml:44 doc/noosfero/user/editing-header-footer.en.xhtml:43 doc/noosfero/enterprise/editing-header-footer.en.xhtml:44
 msgid ""
 "<strong>Align left:</strong> use this button if you want your text to be "
 "left aligned. In this case, the right border of each line will be misaligned"
 msgstr ""
 
 # type: Content of: <ol><li><ol><li><ol><li>
-#: doc/noosfero/cms/writing-article.en.xhtml:55
+#: doc/noosfero/cms/writing-article.en.xhtml:55 doc/noosfero/community/editing-header-footer.en.xhtml:45 doc/noosfero/user/editing-header-footer.en.xhtml:44 doc/noosfero/enterprise/editing-header-footer.en.xhtml:45
 msgid ""
 "<strong>Align center</strong> the alignment of the text is based on the "
 "center of the text. In this case, the left and right borders will be "
@@ -894,14 +899,14 @@ msgid ""
 msgstr ""
 
 # type: Content of: <ol><li><ol><li><ol><li>
-#: doc/noosfero/cms/writing-article.en.xhtml:56
+#: doc/noosfero/cms/writing-article.en.xhtml:56 doc/noosfero/community/editing-header-footer.en.xhtml:46 doc/noosfero/user/editing-header-footer.en.xhtml:45 doc/noosfero/enterprise/editing-header-footer.en.xhtml:46
 msgid ""
 "<strong>Align right:</strong> use this button if you want your text to be "
 "right aligned. In this case, the left border of each line will be misaligned"
 msgstr ""
 
 # type: Content of: <ol><li><ol><li><ol><li>
-#: doc/noosfero/cms/writing-article.en.xhtml:57
+#: doc/noosfero/cms/writing-article.en.xhtml:57 doc/noosfero/community/editing-header-footer.en.xhtml:47 doc/noosfero/user/editing-header-footer.en.xhtml:46 doc/noosfero/enterprise/editing-header-footer.en.xhtml:47
 msgid ""
 "<strong>Align full:</strong> use this button if you want your text to be "
 "aligned in both sides. In this case, the left and right borders of each line "
@@ -909,33 +914,33 @@ msgid ""
 msgstr ""
 
 # type: Content of: <ol><li><ol><li><ol><li>
-#: doc/noosfero/cms/writing-article.en.xhtml:58
+#: doc/noosfero/cms/writing-article.en.xhtml:58 doc/noosfero/community/editing-header-footer.en.xhtml:48 doc/noosfero/user/editing-header-footer.en.xhtml:47 doc/noosfero/enterprise/editing-header-footer.en.xhtml:48
 msgid ""
 "<strong>Insert/edit link:</strong> use it when you want to insert or edit a "
 "link to some address"
 msgstr ""
 
 # type: Content of: <ol><li><ol><li><ol><li>
-#: doc/noosfero/cms/writing-article.en.xhtml:59
+#: doc/noosfero/cms/writing-article.en.xhtml:59 doc/noosfero/community/editing-header-footer.en.xhtml:49 doc/noosfero/user/editing-header-footer.en.xhtml:48 doc/noosfero/enterprise/editing-header-footer.en.xhtml:49
 msgid ""
 "<strong>Unlink:</strong> if you have a link in your text, click on this "
 "button to remove the link"
 msgstr ""
 
 # type: Content of: <ol><li><ol><li><ol><li>
-#: doc/noosfero/cms/writing-article.en.xhtml:60
+#: doc/noosfero/cms/writing-article.en.xhtml:60 doc/noosfero/community/editing-header-footer.en.xhtml:50 doc/noosfero/user/editing-header-footer.en.xhtml:49 doc/noosfero/enterprise/editing-header-footer.en.xhtml:50
 msgid ""
 "<strong>Insert/edit image:</strong> use it if you want to insert an image or "
 "to edit an image that is in your text"
 msgstr ""
 
 # type: Content of: <ol><li><ol><li><ol><li>
-#: doc/noosfero/cms/writing-article.en.xhtml:61
+#: doc/noosfero/cms/writing-article.en.xhtml:61 doc/noosfero/community/editing-header-footer.en.xhtml:51 doc/noosfero/user/editing-header-footer.en.xhtml:50 doc/noosfero/enterprise/editing-header-footer.en.xhtml:51
 msgid "<strong>Inserts a new table:</strong> use it to insert a table in your text"
 msgstr ""
 
 # type: Content of: <ol><li><ol><li><ol><li>
-#: doc/noosfero/cms/writing-article.en.xhtml:62
+#: doc/noosfero/cms/writing-article.en.xhtml:62 doc/noosfero/community/editing-header-footer.en.xhtml:52 doc/noosfero/user/editing-header-footer.en.xhtml:51 doc/noosfero/enterprise/editing-header-footer.en.xhtml:52
 msgid ""
 "<strong>Cleanup messy code:</strong> click on this button to remove bad "
 "<span class=\"caps\">HTML</span> code. You should use it after pasting a "
@@ -1048,6 +1053,187 @@ msgid ""
 "left menu, and then choose a topic within the section."
 msgstr ""
 
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/community/editing-header-footer.en.xhtml:1 doc/noosfero/community/editing-header-footer.en.xhtml:56 doc/noosfero/community/editing-header-footer.en.xhtml:56 doc/noosfero/user/editing-header-footer.en.xhtml:1 doc/noosfero/user/editing-header-footer.en.xhtml:55 doc/noosfero/user/editing-header-footer.en.xhtml:55 doc/noosfero/enterprise/editing-header-footer.en.xhtml:1 doc/noosfero/enterprise/editing-header-footer.en.xhtml:56 doc/noosfero/enterprise/editing-header-footer.en.xhtml:56
+msgid "Editing header and footer"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/community/editing-header-footer.en.xhtml:3
+msgid ""
+"<em>You can customize the page of your community, adding some text or image "
+"on header or footer.</em>"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/community/editing-header-footer.en.xhtml:14 doc/noosfero/community/editing-appearance.en.xhtml:14 doc/noosfero/community/creating-community.en.xhtml:14 doc/noosfero/community/editing-sideboxes.en.xhtml:14 doc/noosfero/user/changing-password.en.xhtml:14 doc/noosfero/user/editing-header-footer.en.xhtml:14 doc/noosfero/user/editing-appearance.en.xhtml:14 doc/noosfero/user/editing-sideboxes.en.xhtml:14 doc/noosfero/enterprise/editing-header-footer.en.xhtml:14 doc/noosfero/enterprise/editing-appearance.en.xhtml:14 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:14 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:14
+msgid "Find you user menu on top bar:"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/community/editing-header-footer.en.xhtml:16 doc/noosfero/community/editing-appearance.en.xhtml:16 doc/noosfero/community/editing-sideboxes.en.xhtml:16 doc/noosfero/enterprise/editing-header-footer.en.xhtml:16 doc/noosfero/enterprise/editing-appearance.en.xhtml:16 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:16
+msgid "Click on &#8220;Manage my groups&#8221; button:"
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/community/editing-header-footer.en.xhtml:16 doc/noosfero/community/editing-header-footer.en.xhtml:16 doc/noosfero/community/editing-appearance.en.xhtml:16 doc/noosfero/community/editing-appearance.en.xhtml:16 doc/noosfero/community/creating-community.en.xhtml:16 doc/noosfero/community/creating-community.en.xhtml:16 doc/noosfero/community/invite-contacts.en.xhtml:16 doc/noosfero/community/invite-contacts.en.xhtml:16 doc/noosfero/community/editing-sideboxes.en.xhtml:16 doc/noosfero/community/editing-sideboxes.en.xhtml:16 doc/noosfero/community/moderating-articles.en.xhtml:16 doc/noosfero/community/moderating-articles.en.xhtml:16 doc/noosfero/community/accepting-members.en.xhtml:16 doc/noosfero/community/accepting-members.en.xhtml:16 doc/noosfero/enterprise/disabling-enterprise.en.xhtml:16 doc/noosfero/enterprise/disabling-enterprise.en.xhtml:16 doc/noosfero/enterprise/editing-header-footer.en.xhtml:16 doc/noosfero/enterprise/editing-header-footer.en.xhtml:16 doc/noosfero/enterprise/editing-appearance.en.xhtml:16 doc/noosfero/enterprise/editing-appearance.en.xhtml:16 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:16 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:16 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:16 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:16 doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:16 doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:16
+msgid "Manage groups in control panel"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/community/editing-header-footer.en.xhtml:17 doc/noosfero/community/editing-appearance.en.xhtml:17 doc/noosfero/community/invite-contacts.en.xhtml:17 doc/noosfero/community/editing-sideboxes.en.xhtml:17 doc/noosfero/community/moderating-articles.en.xhtml:17 doc/noosfero/community/accepting-members.en.xhtml:17 doc/noosfero/enterprise/editing-header-footer.en.xhtml:17 doc/noosfero/enterprise/editing-appearance.en.xhtml:17
+msgid ""
+"You will see the list of groups (communities/enterprises) that you are a "
+"member. The groups that you can manage are listed with a link "
+"&#8220;Manage&#8221;. Assuming that you are a community administrator, click "
+"on &#8220;Manage&#8221; link."
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/community/editing-header-footer.en.xhtml:17 doc/noosfero/community/editing-header-footer.en.xhtml:17 doc/noosfero/community/editing-appearance.en.xhtml:17 doc/noosfero/community/editing-appearance.en.xhtml:17 doc/noosfero/community/editing-sideboxes.en.xhtml:17 doc/noosfero/community/editing-sideboxes.en.xhtml:17 doc/noosfero/enterprise/editing-appearance.en.xhtml:17 doc/noosfero/enterprise/editing-appearance.en.xhtml:17
+msgid "Groups list with permission to manage community"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/community/editing-header-footer.en.xhtml:18 doc/noosfero/user/editing-header-footer.en.xhtml:16 doc/noosfero/enterprise/editing-header-footer.en.xhtml:18
+msgid "Then, click on &#8220;Edit Header and Footer&#8221;:"
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/community/editing-header-footer.en.xhtml:18 doc/noosfero/community/editing-header-footer.en.xhtml:18
+msgid "Edit header and footer on community control panel"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/community/editing-header-footer.en.xhtml:24 doc/noosfero/user/editing-header-footer.en.xhtml:22 doc/noosfero/enterprise/editing-header-footer.en.xhtml:24
+msgid ""
+"You will see 2 boxes. In the first box, add the content of your header, that "
+"will be displayed on the top of your page. In the second box, add the "
+"content of your footer, that will be displayed on the bottom of your page."
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/community/editing-header-footer.en.xhtml:25 doc/noosfero/user/editing-header-footer.en.xhtml:23 doc/noosfero/enterprise/editing-header-footer.en.xhtml:25
+msgid ""
+"On the top of both boxes you will see some buttons, that will help you "
+"formatting your text. Passing mouse over the button, the name of the button "
+"function is displayed."
+msgstr ""
+
+# type: Content of: <ol><li><ol><li><ol><li>
+#: doc/noosfero/community/editing-header-footer.en.xhtml:29 doc/noosfero/user/editing-header-footer.en.xhtml:27 doc/noosfero/enterprise/editing-header-footer.en.xhtml:29
+msgid ""
+"<strong>Print:</strong> use this button if you want to print your the box "
+"content"
+msgstr ""
+
+# type: Content of: <ol><li><ol><li><ol><li>
+#: doc/noosfero/community/editing-header-footer.en.xhtml:40 doc/noosfero/enterprise/editing-header-footer.en.xhtml:40
+msgid ""
+"<strong>Underline:</strong> it is also used to emphasize a word/phrase. One "
+"line is drawn under the word. Example: <span "
+"style=\"text-decoration:underline;;\">home</span> . To use it, first you "
+"should select the word/phrase and then click on button"
+msgstr ""
+
+# type: Content of: <ol><li><ol><li><ol><li>
+#: doc/noosfero/community/editing-header-footer.en.xhtml:41 doc/noosfero/user/editing-header-footer.en.xhtml:40 doc/noosfero/enterprise/editing-header-footer.en.xhtml:41
+msgid ""
+"<strong>Strikethrough:</strong> one line in drawn in the middle of "
+"word/phrase Example: <span "
+"style=\"text-decoration:line-through;;\">home</span> . To use it, first you "
+"should select the word/phrase and then click on button"
+msgstr ""
+
+# type: Content of: <ol><li><ol><li><ol><li>
+#: doc/noosfero/community/editing-header-footer.en.xhtml:53 doc/noosfero/user/editing-header-footer.en.xhtml:52 doc/noosfero/enterprise/editing-header-footer.en.xhtml:53
+msgid ""
+"<strong>Edit <span class=\"caps\">HTML</span> source:</strong> the text "
+"written in this editor is transformed in <span class=\"caps\">HTML</span> "
+"code, to be viewed on browsers. Use this button to view/edit the <span "
+"class=\"caps\">HTML</span> code of your header/footer."
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/community/editing-header-footer.en.xhtml:56 doc/noosfero/user/editing-header-footer.en.xhtml:55 doc/noosfero/enterprise/editing-header-footer.en.xhtml:56
+msgid "After editing your header and footer, click on &#8220;Save&#8221; button"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/community/editing-header-footer.en.xhtml:62 doc/noosfero/community/editing-appearance.en.xhtml:37 doc/noosfero/community/creating-community.en.xhtml:37 doc/noosfero/user/logout.en.xhtml:25 doc/noosfero/user/changing-password.en.xhtml:32 doc/noosfero/user/editing-header-footer.en.xhtml:61 doc/noosfero/user/removing-comments.en.xhtml:25 doc/noosfero/user/editing-appearance.en.xhtml:35 doc/noosfero/user/editing-person-info.en.xhtml:36 doc/noosfero/user/commenting.en.xhtml:31 doc/noosfero/enterprise/disabling-enterprise.en.xhtml:32 doc/noosfero/enterprise/editing-header-footer.en.xhtml:62 doc/noosfero/enterprise/editing-appearance.en.xhtml:37 doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:45 doc/noosfero/user/toc.en.xhtml:17
+msgid "<a href=\"/doc/user/login\">Login into the system</a>"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/community/editing-header-footer.en.xhtml:63 doc/noosfero/community/editing-appearance.en.xhtml:38 doc/noosfero/user/changing-password.en.xhtml:33 doc/noosfero/user/editing-header-footer.en.xhtml:62 doc/noosfero/user/editing-appearance.en.xhtml:36 doc/noosfero/user/login.en.xhtml:26 doc/noosfero/enterprise/editing-header-footer.en.xhtml:63 doc/noosfero/enterprise/editing-appearance.en.xhtml:38
+msgid "<a href=\"/doc/user/logout\">Logout of the system</a>"
+msgstr ""
+
+# type: Content of: <h1>
+#: doc/noosfero/community/editing-appearance.en.xhtml:1 doc/noosfero/user/editing-appearance.en.xhtml:1 doc/noosfero/enterprise/editing-appearance.en.xhtml:1
+msgid "Editing appearance"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/community/editing-appearance.en.xhtml:3
+msgid ""
+"<em>You can customize the page of your community, changing the template of "
+"it.</em>"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/community/editing-appearance.en.xhtml:18 doc/noosfero/user/editing-appearance.en.xhtml:16 doc/noosfero/enterprise/editing-appearance.en.xhtml:18
+msgid "Then, click on &#8220;Edit Appearance:"
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/community/editing-appearance.en.xhtml:18 doc/noosfero/community/editing-appearance.en.xhtml:18 doc/noosfero/user/editing-appearance.en.xhtml:16 doc/noosfero/user/editing-appearance.en.xhtml:16 doc/noosfero/enterprise/editing-appearance.en.xhtml:18 doc/noosfero/enterprise/editing-appearance.en.xhtml:18
+msgid "Edit appearance on user control panel"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/community/editing-appearance.en.xhtml:24 doc/noosfero/user/editing-appearance.en.xhtml:22 doc/noosfero/enterprise/editing-appearance.en.xhtml:24
+msgid "You will see the available templates:"
+msgstr ""
+
+# type: Content of: <ol><li><ol><li>
+#: doc/noosfero/community/editing-appearance.en.xhtml:26 doc/noosfero/user/editing-appearance.en.xhtml:24 doc/noosfero/enterprise/editing-appearance.en.xhtml:26
+msgid "<strong>default:</strong> This template uses 3 columns."
+msgstr ""
+
+# type: Content of: <ol><li><ol><li>
+#: doc/noosfero/community/editing-appearance.en.xhtml:27 doc/noosfero/user/editing-appearance.en.xhtml:25 doc/noosfero/enterprise/editing-appearance.en.xhtml:27
+msgid ""
+"<strong>rightbar:</strong> In this template, your pages will have 2 "
+"columns. Your blocks will be displayed on the collumn on the right."
+msgstr ""
+
+# type: Content of: <ol><li><ol><li>
+#: doc/noosfero/community/editing-appearance.en.xhtml:28 doc/noosfero/user/editing-appearance.en.xhtml:26 doc/noosfero/enterprise/editing-appearance.en.xhtml:28
+msgid ""
+"<strong>lefttbar:</strong> In this template, your pages will have 2 "
+"columns. Your blocks will be displayed on the collumn on the left."
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/community/editing-appearance.en.xhtml:30 doc/noosfero/user/editing-appearance.en.xhtml:28 doc/noosfero/enterprise/editing-appearance.en.xhtml:30
+msgid ""
+"You can change your template clicking on the link &#8220;Use this "
+"template&#8221;"
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/community/editing-appearance.en.xhtml:31 doc/noosfero/community/editing-appearance.en.xhtml:31 doc/noosfero/user/editing-appearance.en.xhtml:29 doc/noosfero/user/editing-appearance.en.xhtml:29 doc/noosfero/enterprise/editing-appearance.en.xhtml:31 doc/noosfero/enterprise/editing-appearance.en.xhtml:31
+msgid "Edit appearance"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/community/editing-appearance.en.xhtml:39 doc/noosfero/community/editing-sideboxes.en.xhtml:71 doc/noosfero/community/toc.en.xhtml:3
+msgid ""
+"<a href=\"/doc/community/editing-header-footer\">Editing header and "
+"footer</a>"
+msgstr ""
+
 # type: Content of: <h1>
 #: doc/noosfero/community/index.en.xhtml:1
 msgid "Community features"
@@ -1064,11 +1250,6 @@ msgid "<em>You can create communities to interact to others users</em>"
 msgstr ""
 
 # type: Content of: <ol><li>
-#: doc/noosfero/community/creating-community.en.xhtml:14 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:14
-msgid "Find you user menu on top bar:"
-msgstr ""
-
-# type: Content of: <ol><li>
 #: doc/noosfero/community/creating-community.en.xhtml:15 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:15
 msgid "In user menu, click on Control Panel"
 msgstr ""
@@ -1076,11 +1257,6 @@ msgstr ""
 # type: Content of: <ol><li>
 #: doc/noosfero/community/creating-community.en.xhtml:16 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:16
 msgid "Then, click on &#8220;Manage my groups&#8221;:"
-msgstr ""
-
-# type: Attribute 'alt' of: <ol><li><div><img>
-#: doc/noosfero/community/creating-community.en.xhtml:16 doc/noosfero/community/creating-community.en.xhtml:16 doc/noosfero/community/invite-contacts.en.xhtml:16 doc/noosfero/community/invite-contacts.en.xhtml:16 doc/noosfero/community/moderating-articles.en.xhtml:16 doc/noosfero/community/moderating-articles.en.xhtml:16 doc/noosfero/community/accepting-members.en.xhtml:16 doc/noosfero/community/accepting-members.en.xhtml:16 doc/noosfero/enterprise/disabling-enterprise.en.xhtml:16 doc/noosfero/enterprise/disabling-enterprise.en.xhtml:16 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:16 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:16 doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:16 doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:16
-msgid "Manage groups in control panel"
 msgstr ""
 
 # type: Content of: <ol><li>
@@ -1148,11 +1324,6 @@ msgid ""
 "the new community."
 msgstr ""
 
-# type: Content of: <ul><li>
-#: doc/noosfero/community/creating-community.en.xhtml:37 doc/noosfero/user/logout.en.xhtml:25 doc/noosfero/user/removing-comments.en.xhtml:25 doc/noosfero/user/editing-person-info.en.xhtml:36 doc/noosfero/user/commenting.en.xhtml:31 doc/noosfero/enterprise/disabling-enterprise.en.xhtml:32 doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:45 doc/noosfero/user/toc.en.xhtml:13
-msgid "<a href=\"/doc/user/login\">Login into the system</a>"
-msgstr ""
-
 # type: Content of: <h1>
 #: doc/noosfero/community/invite-contacts.en.xhtml:1 doc/noosfero/user/invite-contacts.en.xhtml:1
 msgid "Inviting contacts from e-mail"
@@ -1177,17 +1348,8 @@ msgstr ""
 msgid "Then, click on &#8220;Manage my groups&#8221; button:"
 msgstr ""
 
-# type: Content of: <ol><li>
-#: doc/noosfero/community/invite-contacts.en.xhtml:17 doc/noosfero/community/moderating-articles.en.xhtml:17 doc/noosfero/community/accepting-members.en.xhtml:17
-msgid ""
-"You will see the list of groups (communities/enterprises) that you are a "
-"member. The groups that you can manage are listed with a link "
-"&#8220;Manage&#8221;. Assuming that you are a community administrator, click "
-"on &#8220;Manage&#8221; link."
-msgstr ""
-
 # type: Attribute 'alt' of: <ol><li><div><img>
-#: doc/noosfero/community/invite-contacts.en.xhtml:17 doc/noosfero/community/invite-contacts.en.xhtml:17 doc/noosfero/community/moderating-articles.en.xhtml:17 doc/noosfero/community/moderating-articles.en.xhtml:17 doc/noosfero/community/accepting-members.en.xhtml:17 doc/noosfero/community/accepting-members.en.xhtml:17 doc/noosfero/enterprise/disabling-enterprise.en.xhtml:17 doc/noosfero/enterprise/disabling-enterprise.en.xhtml:17 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:17 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:17 doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:17 doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:17
+#: doc/noosfero/community/invite-contacts.en.xhtml:17 doc/noosfero/community/invite-contacts.en.xhtml:17 doc/noosfero/community/moderating-articles.en.xhtml:17 doc/noosfero/community/moderating-articles.en.xhtml:17 doc/noosfero/community/accepting-members.en.xhtml:17 doc/noosfero/community/accepting-members.en.xhtml:17 doc/noosfero/enterprise/disabling-enterprise.en.xhtml:17 doc/noosfero/enterprise/disabling-enterprise.en.xhtml:17 doc/noosfero/enterprise/editing-header-footer.en.xhtml:17 doc/noosfero/enterprise/editing-header-footer.en.xhtml:17 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:17 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:17 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:17 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:17 doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:17 doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:17
 msgid "Groups list with permission to manage enterprise"
 msgstr ""
 
@@ -1284,18 +1446,315 @@ msgid "Import invitation for community. Step 2"
 msgstr ""
 
 # type: Content of: <ul><li>
-#: doc/noosfero/community/invite-contacts.en.xhtml:45 doc/noosfero/community/moderating-articles.en.xhtml:41 doc/noosfero/community/accepting-members.en.xhtml:32 doc/noosfero/community/toc.en.xhtml:3
+#: doc/noosfero/community/invite-contacts.en.xhtml:45 doc/noosfero/community/moderating-articles.en.xhtml:41 doc/noosfero/community/accepting-members.en.xhtml:32 doc/noosfero/community/toc.en.xhtml:5
 msgid "<a href=\"/doc/community/creating-community\">Creating a community</a>"
 msgstr ""
 
 # type: Content of: <ul><li>
-#: doc/noosfero/community/invite-contacts.en.xhtml:46 doc/noosfero/community/moderating-articles.en.xhtml:42 doc/noosfero/community/accepting-members.en.xhtml:33 doc/noosfero/community/toc.en.xhtml:6
+#: doc/noosfero/community/invite-contacts.en.xhtml:46 doc/noosfero/community/moderating-articles.en.xhtml:42 doc/noosfero/community/accepting-members.en.xhtml:33 doc/noosfero/community/toc.en.xhtml:9
 msgid "<a href=\"/doc/community/joining-community\">Joining a community</a>"
 msgstr ""
 
 # type: Content of: <ul><li>
 #: doc/noosfero/community/invite-contacts.en.xhtml:47
 msgid "<a href=\"/doc/community/accepting-members\">Accepting members</a>"
+msgstr ""
+
+# type: Content of: <h1>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:1 doc/noosfero/user/editing-sideboxes.en.xhtml:1 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:1
+msgid "Editing sideboxes"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:3
+msgid ""
+"<em>You can customize the page of your community, changing the blocks that "
+"will be displayed on it.</em>"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:18 doc/noosfero/user/editing-sideboxes.en.xhtml:16 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:18
+msgid "Then, click on &#8220;Edit Sideboxes&#8221;:"
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:18 doc/noosfero/community/editing-sideboxes.en.xhtml:18
+msgid "Edit sideboxes on community control panel"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:24 doc/noosfero/user/editing-sideboxes.en.xhtml:22 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:24
+msgid ""
+"The model of the page will be displayed, always with 3 columns. If you want "
+"to add a new block, click on &#8220;Add a block&#8221;:"
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:24 doc/noosfero/community/editing-sideboxes.en.xhtml:24 doc/noosfero/user/editing-sideboxes.en.xhtml:22 doc/noosfero/user/editing-sideboxes.en.xhtml:22 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:24 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:24
+msgid "Edit sideboxes"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:25 doc/noosfero/user/editing-sideboxes.en.xhtml:23 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:25
+msgid "You will see the blocks that you can add to your page:"
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:25 doc/noosfero/community/editing-sideboxes.en.xhtml:25 doc/noosfero/user/editing-sideboxes.en.xhtml:23 doc/noosfero/user/editing-sideboxes.en.xhtml:23 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:25 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:25
+msgid "Add a block"
+msgstr ""
+
+# type: Content of: <ol><li><ol><li>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:27 doc/noosfero/user/editing-sideboxes.en.xhtml:25 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:27
+msgid ""
+"Select where you want to add the new block. You have only two options, "
+"&#8220;Area 2&#8221; (left side) and &#8220;Area 3&#8221; (right side). You "
+"cannot add a new block in the middle of your page."
+msgstr ""
+
+# type: Content of: <ol><li><ol><li>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:28 doc/noosfero/user/editing-sideboxes.en.xhtml:26 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:28
+msgid "Choose which block will be added."
+msgstr ""
+
+# type: Content of: <ol><li><ol><li>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:29 doc/noosfero/user/editing-sideboxes.en.xhtml:27 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:29
+msgid ""
+"After clicking on &#8220;Add&#8221; button, the new block will be displayed "
+"on the bottom of the area you selected."
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:31 doc/noosfero/user/editing-sideboxes.en.xhtml:29 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:31
+msgid "Types of blocks:"
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:33
+msgid ""
+"<strong>Display one of your contents:</strong> This block displays one of "
+"the community&#8217;s articles. You can edit the block to select which "
+"article is going to be displayed in the block."
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><ul><li><ul><li><div><img>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:33 doc/noosfero/community/editing-sideboxes.en.xhtml:33 doc/noosfero/community/editing-sideboxes.en.xhtml:52 doc/noosfero/community/editing-sideboxes.en.xhtml:52 doc/noosfero/user/editing-sideboxes.en.xhtml:53 doc/noosfero/user/editing-sideboxes.en.xhtml:53 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:33 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:33 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:54 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:54
+msgid "block"
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:34
+msgid ""
+"<strong>Last updates:</strong> Display the most recents contents created on "
+"the community. You can choose how many articles will be listed."
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:34 doc/noosfero/community/editing-sideboxes.en.xhtml:34 doc/noosfero/user/editing-sideboxes.en.xhtml:32 doc/noosfero/user/editing-sideboxes.en.xhtml:32 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:34 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:34
+msgid "Recent content block"
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:35
+msgid ""
+"<strong>Links (static menu):</strong> You can use it to create a menu of "
+"links. You can add, remove and update the links as you wish. If you want a "
+"link to the community&#8217;s blog, for example, you should type "
+"&#8221;/{profile}/blog&#8221; on the field &#8220;Address&#8221;. The "
+"&#8220;{profile}&#8221; will be replaced by your identifier."
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:35 doc/noosfero/community/editing-sideboxes.en.xhtml:35 doc/noosfero/user/editing-sideboxes.en.xhtml:33 doc/noosfero/user/editing-sideboxes.en.xhtml:33 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:35 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:35
+msgid "Links block"
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:36 doc/noosfero/user/editing-sideboxes.en.xhtml:34
+msgid ""
+"<strong>Feed reader:</strong> This block can be used to list the latest news "
+"from any site you want. You just need to inform the address of a <span "
+"class=\"caps\">RSS</span> feed clicking on &#8220;Edit&#8221; button. You "
+"also can select the number of items that will be displayed."
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:36 doc/noosfero/community/editing-sideboxes.en.xhtml:36 doc/noosfero/user/editing-sideboxes.en.xhtml:34 doc/noosfero/user/editing-sideboxes.en.xhtml:34 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:36 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:36
+msgid "Feed reader block"
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:37
+msgid ""
+"<strong>Location map:</strong> Shows where the community is on the material "
+"world."
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:37 doc/noosfero/community/editing-sideboxes.en.xhtml:37 doc/noosfero/user/editing-sideboxes.en.xhtml:35 doc/noosfero/user/editing-sideboxes.en.xhtml:35 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:37 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:37
+msgid "Location map block"
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:38
+msgid ""
+"<strong>Members:</strong> Displays the members of the community. You can "
+"choose how many members will be displayed."
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:38 doc/noosfero/community/editing-sideboxes.en.xhtml:38 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:38 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:38
+msgid "Members block"
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:39
+msgid ""
+"<strong>Tags:</strong> Tags are created when a person add some of them to "
+"the contents created on the community. This block will display the tags used "
+"on the contents. You can choose how many tags will be displayed."
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:39 doc/noosfero/community/editing-sideboxes.en.xhtml:39 doc/noosfero/user/editing-sideboxes.en.xhtml:38 doc/noosfero/user/editing-sideboxes.en.xhtml:38 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:40 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:40
+msgid "Tags block"
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:40
+msgid ""
+"<strong>Profile Information:</strong> It has a picture and some basic "
+"information about the community, like how long the profile is part of the "
+"environment and useful links."
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:40 doc/noosfero/community/editing-sideboxes.en.xhtml:40 doc/noosfero/user/editing-sideboxes.en.xhtml:39 doc/noosfero/user/editing-sideboxes.en.xhtml:39 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:41 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:41
+msgid "Profile info block"
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:41
+msgid ""
+"<strong>My network:</strong> This block displays some information about the "
+"community&#8217;s networking."
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:41 doc/noosfero/community/editing-sideboxes.en.xhtml:41
+msgid "Community network block"
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:42
+msgid "<strong>Profile Image:</strong> This block presents the community image."
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:42 doc/noosfero/community/editing-sideboxes.en.xhtml:42 doc/noosfero/user/editing-sideboxes.en.xhtml:41 doc/noosfero/user/editing-sideboxes.en.xhtml:41 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:43 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:43
+msgid "Profile image block"
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:43
+msgid ""
+"<strong>Slideshow:</strong> This block displays the images of one of the "
+"community&#8217;s image galleries as a slideshow. You can edit the block to "
+"select which image gallery will be displayed."
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:43 doc/noosfero/community/editing-sideboxes.en.xhtml:43 doc/noosfero/user/editing-sideboxes.en.xhtml:42 doc/noosfero/user/editing-sideboxes.en.xhtml:42 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:44 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:44
+msgid "Slideshow block"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:45 doc/noosfero/user/editing-sideboxes.en.xhtml:46 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:47
+msgid ""
+"In the bottom of each block you will see some buttons. Passing mouse over "
+"the button, the name of the button function is displayed."
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:45 doc/noosfero/community/editing-sideboxes.en.xhtml:45 doc/noosfero/user/editing-sideboxes.en.xhtml:46 doc/noosfero/user/editing-sideboxes.en.xhtml:46 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:47 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:47
+msgid "Buttons from block"
+msgstr ""
+
+# type: Content of: <ol><li><ul><li><ul><li>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:49 doc/noosfero/user/editing-sideboxes.en.xhtml:50 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:51
+msgid ""
+"<strong>Move block up:</strong> The block will change place with the block "
+"on the top of it."
+msgstr ""
+
+# type: Content of: <ol><li><ul><li><ul><li>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:50 doc/noosfero/user/editing-sideboxes.en.xhtml:51 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:52
+msgid ""
+"<strong>Move block down:</strong> The block will change place with the block "
+"on the bottom of it."
+msgstr ""
+
+# type: Content of: <ol><li><ul><li><ul><li>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:51 doc/noosfero/user/editing-sideboxes.en.xhtml:52 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:53
+msgid ""
+"<strong>Move to the opposite side:</strong> The block is moved to the other "
+"side of your page, on the bottom of the column. If it is on the left, it is "
+"moved to the right side. If it is on the right, it is moved to the left "
+"side."
+msgstr ""
+
+# type: Content of: <ol><li><ul><li><ul><li>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:52 doc/noosfero/user/editing-sideboxes.en.xhtml:53 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:54
+msgid ""
+"<strong>Edit:</strong> This button will only be displayed if the block is "
+"editable. Click on this button to configure the block. Some blocks have "
+"specific configuration."
+msgstr ""
+
+# type: Content of: <ol><li><ul><li><ul><li><ol><li>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:54 doc/noosfero/user/editing-sideboxes.en.xhtml:55 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:56
+msgid ""
+"Custom title of this block: Each block has a default title. If you want to "
+"change it, type your title in this field."
+msgstr ""
+
+# type: Content of: <ol><li><ul><li><ul><li><ol><li>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:55 doc/noosfero/user/editing-sideboxes.en.xhtml:56 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:57
+msgid ""
+"Display this block: Select how you want this block to be displayed. There "
+"are 3 options:"
+msgstr ""
+
+# type: Content of: <ol><li><ul><li><ul><li><ol><li><ul><li>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:57 doc/noosfero/user/editing-sideboxes.en.xhtml:58 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:59
+msgid "In all pages: The block will be displayed in all pages of your profile."
+msgstr ""
+
+# type: Content of: <ol><li><ul><li><ul><li><ol><li><ul><li>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:58 doc/noosfero/user/editing-sideboxes.en.xhtml:59 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:60
+msgid "Only in the home page: The block will only be displayed on your homepage."
+msgstr ""
+
+# type: Content of: <ol><li><ul><li><ul><li><ol><li><ul><li>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:59 doc/noosfero/user/editing-sideboxes.en.xhtml:60 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:61
+msgid "Don&#8217;t display: The block will not be displayed."
+msgstr ""
+
+# type: Content of: <ol><li><ul><li><ul><li>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:62 doc/noosfero/user/editing-sideboxes.en.xhtml:63 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:64
+msgid "<strong>Remove block:</strong> Remove the block from your page."
+msgstr ""
+
+# type: Content of: <ol><li><ul><li><ul><li>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:63 doc/noosfero/user/editing-sideboxes.en.xhtml:64 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:65
+msgid ""
+"<strong>Help on this block:</strong> Display a message with a small "
+"description of the block."
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/community/editing-sideboxes.en.xhtml:72 doc/noosfero/community/toc.en.xhtml:4
+msgid "<a href=\"/doc/community/editing-appearance\">Editing appearance</a>"
 msgstr ""
 
 # type: Content of: <h1>
@@ -1493,6 +1952,43 @@ msgstr ""
 msgid "After clicking the button, you will be logged out of the system"
 msgstr ""
 
+# type: Attribute 'alt' of: <div><img>
+#: doc/noosfero/user/changing-password.en.xhtml:1 doc/noosfero/user/changing-password.en.xhtml:21 doc/noosfero/user/changing-password.en.xhtml:21
+msgid "Changing password"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/user/changing-password.en.xhtml:3
+msgid "<em>Whenever you want, you can change your password.</em>"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/user/changing-password.en.xhtml:16
+msgid "Then, click on &#8220;Change Password&#8221;:"
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/user/changing-password.en.xhtml:16 doc/noosfero/user/changing-password.en.xhtml:16
+msgid "Change password in control panel"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/user/changing-password.en.xhtml:23
+msgid "Fill in with your password."
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/user/changing-password.en.xhtml:24
+msgid "Fill in with your new password."
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/user/changing-password.en.xhtml:25
+msgid ""
+"Retype your new password, to confirm it.  Then, click on &#8220;Change "
+"password&#8221;."
+msgstr ""
+
 # type: Content of: <h1>
 #: doc/noosfero/user/removing-friends.en.xhtml:1
 msgid "Removing friends"
@@ -1551,12 +2047,12 @@ msgid ""
 msgstr ""
 
 # type: Content of: <ul><li>
-#: doc/noosfero/user/removing-friends.en.xhtml:32 doc/noosfero/user/sending-messages.en.xhtml:30 doc/noosfero/user/accepting-friends.en.xhtml:30 doc/noosfero/user/registering-new-user.en.xhtml:33 doc/noosfero/user/toc.en.xhtml:11
+#: doc/noosfero/user/removing-friends.en.xhtml:32 doc/noosfero/user/sending-messages.en.xhtml:30 doc/noosfero/user/accepting-friends.en.xhtml:30 doc/noosfero/user/registering-new-user.en.xhtml:33 doc/noosfero/user/toc.en.xhtml:15
 msgid "<a href=\"/doc/user/adding-friends\">Adding friends</a>"
 msgstr ""
 
 # type: Content of: <ul><li>
-#: doc/noosfero/user/removing-friends.en.xhtml:33 doc/noosfero/user/sending-messages.en.xhtml:31 doc/noosfero/user/invite-contacts.en.xhtml:43 doc/noosfero/user/adding-friends.en.xhtml:26 doc/noosfero/user/registering-new-user.en.xhtml:35 doc/noosfero/user/toc.en.xhtml:7
+#: doc/noosfero/user/removing-friends.en.xhtml:33 doc/noosfero/user/sending-messages.en.xhtml:31 doc/noosfero/user/invite-contacts.en.xhtml:43 doc/noosfero/user/adding-friends.en.xhtml:26 doc/noosfero/user/registering-new-user.en.xhtml:35 doc/noosfero/user/toc.en.xhtml:10
 msgid "<a href=\"/doc/user/accepting-friends\">Accepting friends</a>"
 msgstr ""
 
@@ -1618,6 +2114,18 @@ msgstr ""
 msgid "<a href=\"/doc/navigation/searching-people\">Finding people</a>"
 msgstr ""
 
+# type: Content of: <p>
+#: doc/noosfero/user/editing-header-footer.en.xhtml:3
+msgid ""
+"<em>You can customize your page, adding some text or image on header or "
+"footer.</em>"
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/user/editing-header-footer.en.xhtml:16 doc/noosfero/user/editing-header-footer.en.xhtml:16
+msgid "Edit header and footer on user control panel"
+msgstr ""
+
 # type: Content of: <h1>
 #: doc/noosfero/user/removing-comments.en.xhtml:1
 msgid "Removing comments"
@@ -1667,6 +2175,16 @@ msgstr ""
 msgid ""
 "<a href=\"/doc/user/commenting\">Commenting articles, pictures and "
 "events</a>"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/user/editing-appearance.en.xhtml:3
+msgid "<em>You can customize your page, changing the template of it.</em>"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/user/editing-appearance.en.xhtml:37 doc/noosfero/user/editing-sideboxes.en.xhtml:72 doc/noosfero/user/toc.en.xhtml:7
+msgid "<a href=\"/doc/user/editing-header-footer\">Editing header and footer</a>"
 msgstr ""
 
 # type: Content of: <h1>
@@ -1719,7 +2237,7 @@ msgid "Related Topics"
 msgstr ""
 
 # type: Content of: <ul><li>
-#: doc/noosfero/user/accepting-friends.en.xhtml:31 doc/noosfero/user/invite-contacts.en.xhtml:44 doc/noosfero/user/adding-friends.en.xhtml:25 doc/noosfero/user/registering-new-user.en.xhtml:34 doc/noosfero/user/toc.en.xhtml:4
+#: doc/noosfero/user/accepting-friends.en.xhtml:31 doc/noosfero/user/invite-contacts.en.xhtml:44 doc/noosfero/user/adding-friends.en.xhtml:25 doc/noosfero/user/registering-new-user.en.xhtml:34 doc/noosfero/user/toc.en.xhtml:5
 msgid "<a href=\"/doc/user/removing-friends\">Removing friends</a>"
 msgstr ""
 
@@ -1762,6 +2280,149 @@ msgstr ""
 # type: Attribute 'alt' of: <ol><li><ul><li><ul><li><div><img>
 #: doc/noosfero/user/invite-contacts.en.xhtml:35 doc/noosfero/user/invite-contacts.en.xhtml:35
 msgid "Import invitation for user. Step 2"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/user/editing-sideboxes.en.xhtml:3
+msgid ""
+"<em>You can customize your page, changing the blocks that will be displayed "
+"on it.</em>"
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/user/editing-sideboxes.en.xhtml:16 doc/noosfero/user/editing-sideboxes.en.xhtml:16
+msgid "Edit sideboxes on user control panel"
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/user/editing-sideboxes.en.xhtml:31
+msgid ""
+"<strong>Display one of your contents:</strong> This block displays one of "
+"your articles. You can edit the block to select which one of your articles "
+"is going to be displayed in the block."
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
+#: doc/noosfero/user/editing-sideboxes.en.xhtml:31 doc/noosfero/user/editing-sideboxes.en.xhtml:31
+msgid "Article block"
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/user/editing-sideboxes.en.xhtml:32
+msgid ""
+"<strong>Last updates:</strong> Display the most recents contents that you "
+"created. You can choose how many articles will be listed."
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/user/editing-sideboxes.en.xhtml:33
+msgid ""
+"<strong>Links (static menu):</strong> You can use it to create a menu of "
+"links. You can add, remove and update the links as you wish. If you want a "
+"link to your blog, for example, you should type "
+"&#8221;/{profile}/blog&#8221; on the field &#8220;Address&#8221;. The "
+"&#8220;{profile}&#8221; will be replaced by your identifier."
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/user/editing-sideboxes.en.xhtml:35
+msgid ""
+"<strong>Location map:</strong> Shows where the profile is on the material "
+"world."
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/user/editing-sideboxes.en.xhtml:36
+msgid ""
+"<strong>Friends:</strong> Displays your friends. You can choose how many "
+"friends will be displayed."
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
+#: doc/noosfero/user/editing-sideboxes.en.xhtml:36 doc/noosfero/user/editing-sideboxes.en.xhtml:36
+msgid "Friends block"
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/user/editing-sideboxes.en.xhtml:37
+msgid ""
+"<strong>Communities:</strong> Displays the communities in which the user is "
+"a member. You can choose how many communities will be displayed."
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
+#: doc/noosfero/user/editing-sideboxes.en.xhtml:37 doc/noosfero/user/editing-sideboxes.en.xhtml:37
+msgid "Communities block"
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/user/editing-sideboxes.en.xhtml:38
+msgid ""
+"<strong>Tags:</strong> Tags are created when you add some of them to your "
+"contents. This block will display the tags used on your contents. You can "
+"choose how many tags will be displayed."
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/user/editing-sideboxes.en.xhtml:39
+msgid ""
+"<strong>Profile Information:</strong> It has a picture and some basic "
+"information about the profile, like how long the profile is part of the "
+"environment and useful links."
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/user/editing-sideboxes.en.xhtml:40
+msgid ""
+"<strong>My network:</strong> This block displays some information about your "
+"networking."
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
+#: doc/noosfero/user/editing-sideboxes.en.xhtml:40 doc/noosfero/user/editing-sideboxes.en.xhtml:40
+msgid "User network block"
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/user/editing-sideboxes.en.xhtml:41
+msgid "<strong>Profile Image:</strong> This block presents the profile image."
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/user/editing-sideboxes.en.xhtml:42
+msgid ""
+"<strong>Slideshow:</strong> This block displays the images of one of your "
+"image galleries as a slideshow. You can edit the block to select which image "
+"gallery will be displayed."
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/user/editing-sideboxes.en.xhtml:43
+msgid ""
+"<strong>Favorite enterprises:</strong> Lists your favorite enterprises. You "
+"can choose how many enterprises will be listed."
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
+#: doc/noosfero/user/editing-sideboxes.en.xhtml:43 doc/noosfero/user/editing-sideboxes.en.xhtml:43
+msgid "Favorite enterprises block"
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/user/editing-sideboxes.en.xhtml:44
+msgid ""
+"<strong>Enterprises:</strong> This block displays the enterprises in which "
+"the user is a member. You can choose how many enterprises will be listed."
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
+#: doc/noosfero/user/editing-sideboxes.en.xhtml:44 doc/noosfero/user/editing-sideboxes.en.xhtml:44
+msgid "Enterprises block"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/user/editing-sideboxes.en.xhtml:73 doc/noosfero/user/toc.en.xhtml:9
+msgid "<a href=\"/doc/user/editing-appearance\">Editing appearance</a>"
 msgstr ""
 
 # type: Content of: <h1>
@@ -2058,11 +2719,6 @@ msgstr ""
 msgid "<a href=\"/doc/user/registering-new-user\">Registering new user</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
-#: doc/noosfero/user/login.en.xhtml:26
-msgid "<a href=\"/doc/user/logout\">Logout of the system</a>"
-msgstr ""
-
 # type: Content of: <h1>
 #: doc/noosfero/enterprise/disabling-enterprise.en.xhtml:1
 msgid "Disabling an enterprise"
@@ -2114,9 +2770,172 @@ msgstr ""
 msgid "<a href=\"/doc/enterprise/activating-enterprise\">Activating enterprise</a>"
 msgstr ""
 
+# type: Content of: <p>
+#: doc/noosfero/enterprise/editing-header-footer.en.xhtml:3
+msgid ""
+"<em>You can customize the page of your enterprise, adding some text or image "
+"on header or footer.</em>"
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/enterprise/editing-header-footer.en.xhtml:18 doc/noosfero/enterprise/editing-header-footer.en.xhtml:18
+msgid "Edit header and footer on enterprise control panel"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/enterprise/editing-appearance.en.xhtml:3
+msgid ""
+"<em>You can customize the page of your enterprise, changing the template of "
+"it.</em>"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/enterprise/editing-appearance.en.xhtml:39 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:73 doc/noosfero/enterprise/toc.en.xhtml:4
+msgid ""
+"<a href=\"/doc/enterprise/editing-header-footer\">Editing header and "
+"footer</a>"
+msgstr ""
+
 # type: Content of: <h1>
 #: doc/noosfero/enterprise/index.en.xhtml:1
 msgid "Enterprise features"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:3
+msgid ""
+"<em>You can customize the page of your enterprise, changing the blocks that "
+"will be displayed on it.</em>"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:17
+msgid ""
+"You will see the list of groups (communities/enterprises) that you are a "
+"member. The groups that you can manage are listed with a link "
+"&#8220;Manage&#8221;. Assuming that you are an enterprise administrator, "
+"click on &#8220;Manage&#8221; link."
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:18 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:18
+msgid "Edit sideboxes on enterprise control panel"
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:33
+msgid ""
+"<strong>Display one of your contents:</strong> This block displays one of "
+"the enterprise&#8217;s articles. You can edit the block to select which "
+"article is going to be displayed in the block."
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:34
+msgid ""
+"<strong>Last updates:</strong> Display the most recents contents created on "
+"the enterprise. You can choose how many articles will be listed."
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:35
+msgid ""
+"<strong>Links (static menu):</strong> You can use it to create a menu of "
+"links. You can add, remove and update the links as you wish. If you want a "
+"link to the enterprise&#8217;s blog, for example, you should type "
+"&#8221;/{profile}/blog&#8221; on the field &#8220;Address&#8221;. The "
+"&#8220;{profile}&#8221; will be replaced by your identifier."
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:36
+msgid ""
+"<strong>Feed reader:</strong> This block can be used to list the latest news "
+"from any site you want. You just need to inform the address of a <span "
+"class=\"caps\">RSS</span> feed clicking on &#8220;Edit button&#8221;. You "
+"also can select the number of items that will be displayed."
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:37
+msgid ""
+"<strong>Location map:</strong> Shows where the enterprise is on the material "
+"world."
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:38
+msgid ""
+"<strong>Members:</strong> Displays the members of the enterprise. You can "
+"choose how many members will be displayed."
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:39
+msgid ""
+"<strong>Products:</strong> Displays the products of the enterprise. You can "
+"choose how many products will be displayed."
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
+#: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:39 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:39
+msgid "Products block"
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:40
+msgid ""
+"<strong>Tags:</strong> Tags are created when a person add some of them to "
+"the contents created on the enterprise. This block will display the tags "
+"used on the contents. You can choose how many tags will be displayed."
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:41
+msgid ""
+"<strong>Profile Information:</strong> It has a picture and some basic "
+"information about the enterprise, like how long the profile is part of the "
+"environment and useful links."
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:42
+msgid "<strong>My network:</strong> This block displays some links."
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
+#: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:42 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:42
+msgid "enterprise network block"
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:43
+msgid "<strong>Profile Image:</strong> This block presents the enterprise image."
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:44
+msgid ""
+"<strong>Slideshow:</strong> This block displays the images of one of the "
+"enterprise&#8217;s image galleries as a slideshow. You can edit the block to "
+"select which image gallery will be displayed."
+msgstr ""
+
+# type: Content of: <ol><li><ul><li>
+#: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:45
+msgid ""
+"<strong>&#8220;Disabled enterprise&#8221; message:</strong> Shows a message "
+"for disabled enterprises."
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
+#: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:45 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:45
+msgid "Disabled enterprise block"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:74 doc/noosfero/enterprise/toc.en.xhtml:5
+msgid "<a href=\"/doc/enterprise/editing-appearance\">Editing appearance</a>"
 msgstr ""
 
 # type: Content of: <h1>
@@ -2194,14 +3013,14 @@ msgid "Conclusion of enterprise activation"
 msgstr ""
 
 # type: Content of: <ul><li>
-#: doc/noosfero/enterprise/activating-enterprise.en.xhtml:34 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:41 doc/noosfero/enterprise/toc.en.xhtml:6
+#: doc/noosfero/enterprise/activating-enterprise.en.xhtml:34 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:41 doc/noosfero/enterprise/toc.en.xhtml:9
 msgid ""
 "<a href=\"/doc/enterprise/editing-enterprise-info\">Editing enterprise "
 "settings</a>"
 msgstr ""
 
 # type: Content of: <ul><li>
-#: doc/noosfero/enterprise/activating-enterprise.en.xhtml:35 doc/noosfero/user/toc.en.xhtml:12
+#: doc/noosfero/enterprise/activating-enterprise.en.xhtml:35 doc/noosfero/user/toc.en.xhtml:16
 msgid "<a href=\"/doc/user/registering-new-user\">Registering a new user</a>"
 msgstr ""
 
@@ -2297,7 +3116,7 @@ msgid "Add member on manage member"
 msgstr ""
 
 # type: Content of: <ul><li>
-#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:42 doc/noosfero/enterprise/toc.en.xhtml:4
+#: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:42 doc/noosfero/enterprise/toc.en.xhtml:7
 msgid ""
 "<a href=\"/doc/enterprise/activating-enterprise\">Activating your "
 "enterprise</a>"
@@ -2778,17 +3597,22 @@ msgid ""
 msgstr ""
 
 # type: Content of: <ul><li>
-#: doc/noosfero/community/toc.en.xhtml:4
+#: doc/noosfero/community/toc.en.xhtml:6
 msgid "<a href=\"/doc/community/invite-contacts\">Inviting contacts from e-mail</a>"
 msgstr ""
 
 # type: Content of: <ul><li>
-#: doc/noosfero/community/toc.en.xhtml:5
+#: doc/noosfero/community/toc.en.xhtml:7
+msgid "<a href=\"/doc/community/editing-sideboxes\">Editing sideboxes</a>"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/community/toc.en.xhtml:8
 msgid "<a href=\"/doc/community/moderating-articles\">Moderating articles</a>"
 msgstr ""
 
 # type: Content of: <ul><li>
-#: doc/noosfero/community/toc.en.xhtml:7
+#: doc/noosfero/community/toc.en.xhtml:10
 msgid "<a href=\"/doc/community/accepting-members\">Accepting new members</a>"
 msgstr ""
 
@@ -2798,27 +3622,37 @@ msgid "<a href=\"/doc/user/logout\">Leaving the system</a>"
 msgstr ""
 
 # type: Content of: <ul><li>
-#: doc/noosfero/user/toc.en.xhtml:5
-msgid "<a href=\"/doc/user/sending-messages\">Sending messages</a>"
+#: doc/noosfero/user/toc.en.xhtml:4
+msgid "<a href=\"/doc/user/changing-password\">Changing password</a>"
 msgstr ""
 
 # type: Content of: <ul><li>
 #: doc/noosfero/user/toc.en.xhtml:6
-msgid "<a href=\"/doc/user/removing-comments\">Removing comments</a>"
+msgid "<a href=\"/doc/user/sending-messages\">Sending messages</a>"
 msgstr ""
 
 # type: Content of: <ul><li>
 #: doc/noosfero/user/toc.en.xhtml:8
+msgid "<a href=\"/doc/user/removing-comments\">Removing comments</a>"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/user/toc.en.xhtml:11
 msgid "<a href=\"/doc/user/invite-contacts\">Inviting contacts from e-mail</a>"
 msgstr ""
 
 # type: Content of: <ul><li>
-#: doc/noosfero/user/toc.en.xhtml:9
+#: doc/noosfero/user/toc.en.xhtml:12
+msgid "<a href=\"/doc/user/editing-sideboxes\">Editing sideboxes</a>"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/user/toc.en.xhtml:13
 msgid "<a href=\"/doc/user/editing-person-info\">Editing user settings</a>"
 msgstr ""
 
 # type: Content of: <ul><li>
-#: doc/noosfero/user/toc.en.xhtml:10
+#: doc/noosfero/user/toc.en.xhtml:14
 msgid "<a href=\"/doc/user/commenting\">Commenting articles</a>"
 msgstr ""
 
@@ -2828,7 +3662,12 @@ msgid "<a href=\"/doc/enterprise/disabling-enterprise\">Disabling an enterprise<
 msgstr ""
 
 # type: Content of: <ul><li>
-#: doc/noosfero/enterprise/toc.en.xhtml:5
+#: doc/noosfero/enterprise/toc.en.xhtml:6
+msgid "<a href=\"/doc/enterprise/editing-sideboxes\">Editing sideboxes</a>"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/enterprise/toc.en.xhtml:8
 msgid ""
 "<a href=\"/doc/enterprise/managing-enterprise-members\">Managing and adding "
 "members to an enterprise</a>"

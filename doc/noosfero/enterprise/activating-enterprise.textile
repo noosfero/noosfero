@@ -27,3 +27,5 @@ h2(#RelatedTopics). Related Topics
 
 *  "Editing enterprise settings":/doc/enterprise/editing-enterprise-info
 *  "Registering a new user":/doc/user/registering-new-user
+
+"Back to top":#online-doc-text

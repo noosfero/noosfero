@@ -1,0 +1,53 @@
+h1. Editing header and footer
+
+p.  _You can customize your page, adding some text or image on header or footer._
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+*  "Related topics":#RelatedTopics
+
+h2(#HowAccess). How to access
+
+# Find you user menu on top bar:  !=/images/doc/system-homepage-top-menu.en.png(Top menu)!
+# In user menu, click on Control Panel:  !=/images/doc/menu-control-panel.en.png(Control panel on menu)!
+# Then, click on "Edit Header and Footer":  !=/images/doc/control-panel-user-edit-header-footer.en.png(Edit header and footer on user control panel)!
+
+h2(#Description). Description
+
+# You will see 2 boxes. In the first box, add the content of your header, that will be displayed on the top of your page. In the second box, add the content of your footer, that will be displayed on the bottom of your page.
+# On the top of both boxes you will see some buttons, that will help you formatting your text. Passing mouse over the button, the name of the button function is displayed.  !=/images/doc/wysiwyg-buttons.en.png(WYSIWYG buttons)!
+## From the left to right:
+###  *Print:* use this button if you want to print your the box content
+###  *Copy:* select a section of the text and click on this button to copy it
+###  *Paste:* if you copied something, then use this button to paste it on your text. The text will be pasted into the place where the cursor is
+###  *Undo:* click on this button after writing or formatting some text and want to undo the action
+###  *Redo:* click on this button if you clicked on button "undo" and want to redo your last action
+###  *Find:* click on this button to find some word or phrase in your text
+###  *Find/Replace:* click on this button to find some word or phrase in your text and replace it for other
+###  *Font size:* used to define the size of characters. Select the text/word and change the size clicking on this button
+###  *Format:* if you want to use one of the pre-configured formats, select text/word, click on this button and select the desired format.
+###  *Bold:* it formats your text/word with a line thicker than usual. This format is used to emphasize the words. Example: *home* . To use it, first you should select the text/word and then click on button
+###  *Italic* it formats your text/word as oblique. This format is also used to emphasize the words. Example: _home_ . To use it, first you should select the text/word and then click on button
+###  *Underline:* it is also used to emphasize a word/phrase. One line is drawn under the word. Example: %{text-decoration:
+##underline;}home% . To use it, first you should select the word/phrase and then click on button
+###  *Strikethrough:* one line in drawn in the middle of word/phrase Example: %{text-decoration:line-through;}home% . To use it, first you should select the word/phrase and then click on button
+###  *Unordered list:* it creates a list, inserting a small ball before each item.
+###  *Ordered list* it creates a numbered list, adding a number before each item.
+###  *Align left:* use this button if you want your text to be left aligned. In this case, the right border of each line will be misaligned
+###  *Align center* the alignment of the text is based on the center of the text. In this case, the left and right borders will be misaligned
+###  *Align right:* use this button if you want your text to be right aligned. In this case, the left border of each line will be misaligned
+###  *Align full:* use this button if you want your text to be aligned in both sides. In this case, the left and right borders of each line will be aligned
+###  *Insert/edit link:* use it when you want to insert or edit a link to some address
+###  *Unlink:* if you have a link in your text, click on this button to remove the link
+###  *Insert/edit image:* use it if you want to insert an image or to edit an image that is in your text
+###  *Inserts a new table:* use it to insert a table in your text
+###  *Cleanup messy code:* click on this button to remove bad HTML code. You should use it after pasting a formatted text from another place
+###  *Edit HTML source:* the text written in this editor is transformed in HTML code, to be viewed on browsers. Use this button to view/edit the HTML code of your header/footer.
+# After editing your header and footer, click on "Save" button !=/images/doc/edit-header-footer.en.png(Editing header and footer)!
+
+h2(#RelatedTopics). Related topics
+
+*  "Login into the system":/doc/user/login
+*  "Logout of the system":/doc/user/logout
+
+"Back to top":#online-doc-text

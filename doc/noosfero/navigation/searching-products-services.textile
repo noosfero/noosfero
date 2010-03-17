@@ -32,3 +32,5 @@ h2(#RelatedTopics). Related topics
 *  "Finding communities":/doc/navigation/searching-communities
 *  "Finding enterprises":/doc/navigation/searching-enterprises
 *  "Advanced search":/doc/navigation/advanced-search
+
+"Back to top":#online-doc-text

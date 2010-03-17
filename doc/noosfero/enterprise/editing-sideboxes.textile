@@ -1,0 +1,57 @@
+h1. Editing sideboxes
+
+p.  _You can customize the page of your enterprise, changing the blocks that will be displayed on it._
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+*  "Related topics":#RelatedTopics
+
+h2(#HowAccess). How to access
+
+# Find you user menu on top bar:  !=/images/doc/system-homepage-top-menu.en.png(Top menu)!
+# In user menu, click on Control Panel:  !=/images/doc/menu-control-panel.en.png(Control panel on menu)!
+# Click on "Manage my groups" button:  !=/images/doc/control-panel-manage-groups.en.png(Manage groups in control panel)!
+# You will see the list of groups (communities/enterprises) that you are a member. The groups that you can manage are listed with a link "Manage". Assuming that you are an enterprise administrator, click on "Manage" link. !=/images/doc/groups-list-with-manage-enterprise.en.png(Groups list with permission to manage enterprise)!
+# Then, click on "Edit Sideboxes":  !=/images/doc/control-panel-enterprise-edit-sideboxes.en.png(Edit sideboxes on enterprise control panel)!
+
+h2(#Description). Description
+
+# The model of the page will be displayed, always with 3 columns. If you want to add a new block, click on "Add a block": !=/images/doc/enterprise-edit-sideboxes.en.png(Edit sideboxes)!
+# You will see the blocks that you can add to your page: !=/images/doc/enterprise-sideboxes-add-block.en.png(Add a block)!
+## Select where you want to add the new block. You have only two options, "Area 2" (left side) and "Area 3" (right side). You cannot add a new block in the middle of your page.
+## Choose which block will be added.
+## After clicking on "Add" button, the new block will be displayed on the bottom of the area you selected.
+# Types of blocks:
+** *Display one of your contents:* This block displays one of the enterprise's articles. You can edit the block to select which article is going to be displayed in the block. !=/images/doc/article-block.en.png(block)!
+** *Last updates:* Display the most recents contents created on the enterprise. You can choose how many articles will be listed. !=/images/doc/recent-content-block.en.png(Recent content block)!
+** *Links (static menu):* You can use it to create a menu of links. You can add, remove and update the links as you wish. If you want a link to the enterprise's  blog, for example, you should type "/{profile}/blog" on the field "Address". The "{profile}" will be replaced by your identifier. !=/images/doc/links-block.en.png(Links block)!
+** *Feed reader:* This block can be used to list the latest news from any site you want. You just need to inform the address of a RSS feed clicking on "Edit button". You also can select the number of items that will be displayed. !=/images/doc/feed-reader-block.en.png(Feed reader block)!
+** *Location map:* Shows where the enterprise is on the material world. !=/images/doc/location-map-block.en.png(Location map block)!
+** *Members:* Displays the members of the enterprise. You can choose how many members will be displayed. !=/images/doc/members-block.en.png(Members block)!
+** *Products:* Displays the products of the enterprise. You can choose how many products will be displayed. !=/images/doc/products-block.en.png(Products block)!
+** *Tags:* Tags are created when a person add some of them to the contents created on the enterprise. This block will display the tags used on the contents. You can choose how many tags will be displayed. !=/images/doc/tags-block.en.png(Tags block)!
+** *Profile Information:* It has a picture and some basic information about the enterprise, like how long the profile is part of the environment and useful links. !=/images/doc/enterprise-info-block.en.png(Profile info block)!
+** *My network:* This block displays some links. !=/images/doc/enterprise-network-block.en.png(enterprise network block)!
+** *Profile Image:* This block presents the enterprise image. !=/images/doc/enterprise-image-block.en.png(Profile image block)!
+** *Slideshow:* This block displays the images of one of the enterprise's image galleries as a slideshow. You can edit the block to select which image gallery will be displayed. !=/images/doc/slideshow-block.en.png(Slideshow block)!
+** *"Disabled enterprise" message:* Shows a message for disabled enterprises. !=/images/doc/disabled-enterprise-block.en.png(Disabled enterprise block)!
+# In the bottom of each block you will see some buttons. Passing mouse over the button, the name of the button function is displayed.  !=/images/doc/block-actions.en.png(Buttons from block)!
+** From the left to right:
+***  *Move block up:* The block will change place with the block on the top of it.
+***  *Move block down:* The block will change place with the block on the bottom of it.
+***  *Move to the opposite side:* The block is moved to the other side of your page, on the bottom of the column. If it is on the left, it is moved to the right side. If it is on the right, it is moved to the left side.
+***  *Edit:* This button will only be displayed if the block is editable. Click on this button to configure the block. Some blocks have specific configuration. !=/images/doc/edit-block.en.png(block)!
+#### Custom title of this block: Each block has a default title. If you want to change it, type your title in this field.
+#### Display this block: Select how you want this block to be displayed. There are 3 options:
+***** In all pages: The block will be displayed in all pages of your profile.
+***** Only in the home page: The block will only be displayed on your homepage.
+***** Don't display: The block will not be displayed.
+***  *Remove block:* Remove the block from your page.
+***  *Help on this block:* Display a message with a small description of the block.
+
+h2(#RelatedTopics). Related topics
+
+*  "Editing header and footer":/doc/enterprise/editing-header-footer
+*  "Editing appearance":/doc/enterprise/editing-appearance
+
+"Back to top":#online-doc-text

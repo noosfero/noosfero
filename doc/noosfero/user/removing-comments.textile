@@ -20,3 +20,4 @@ h2(#RelatedTopics). Related topics
 *  "Login into the system":/doc/user/login
 *  "Commenting articles, pictures and events":/doc/user/commenting
 
+"Back to top":#online-doc-text
