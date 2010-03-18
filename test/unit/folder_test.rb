@@ -130,4 +130,19 @@ class FolderTest < ActiveSupport::TestCase
 
     assert_includes folder.images(true), pi
   end
+
+  should 'not let pass javascript in the body' do
+    owner = create_user('testuser').person
+    folder = fast_create(Folder, {:profile_id => owner.id, :body => '<script>alert("Xss Attack!")</script>'})
+    folder.save!
+    assert_no_match(/<script>/, folder.body)
+  end
+
+  should 'let pass html in the body' do
+    owner = create_user('testuser').person
+    folder = fast_create(Folder, {:profile_id => owner.id, :body => '<strong>I am not a Xss Attack!")</strong>'})
+    folder.save!
+    assert_match(/<strong>/, folder.body)
+  end
+
 end
