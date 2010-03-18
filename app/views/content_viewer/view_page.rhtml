@@ -85,6 +85,9 @@
 <% cache(@page.cache_key(params, user)) do %>
   <div class="<%="article-body article-body-" + @page.css_class_name %>">
     <%= article_to_html(@page) %>
+    <% if @page.folder? %>
+      <%= list_articles(@page.children, user)%>
+    <% end %>
     <br style="clear:both" />
   </div> <!-- end class="article-body" -->
 <% end %>
