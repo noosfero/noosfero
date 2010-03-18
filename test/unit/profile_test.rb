@@ -930,8 +930,8 @@ class ProfileTest < Test::Unit::TestCase
     p1 = create(Profile)
     p2 = create(Profile, :public_profile => false)
 
-    assert p1.articles.find(:first, :conditions => {:public_article => false})
-    assert !p2.articles.find(:first, :conditions => {:public_article => false})
+    assert p1.articles.find(:first, :conditions => {:published => false})
+    assert !p2.articles.find(:first, :conditions => {:published => false})
   end
 
   should 'remove member with many roles' do
