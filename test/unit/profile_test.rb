@@ -909,15 +909,6 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal 'my-shiny-theme', p.theme
   end
 
-  should 'delegate theme selection to environment by default' do
-    p = Profile.new
-    env = mock
-    p.stubs(:environment).returns(env)
-    env.expects(:theme).returns('environment-stored-theme')
-
-    assert_equal 'environment-stored-theme', p.theme
-  end
-
   should 'respond to public? as public_profile' do
     p1 = fast_create(Profile)
     p2 = fast_create(Profile, :public_profile => false)

@@ -555,6 +555,12 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_equal 'profile-theme', current_theme
   end
 
+  should 'use environment theme if the profile theme is nil' do
+    stubs(:environment).returns(fast_create(Environment, :theme => 'new-theme'))
+    stubs(:profile).returns(fast_create(Profile))
+    assert_equal environment.theme, current_theme
+  end
+
   protected
 
   def url_for(args = {})

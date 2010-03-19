@@ -587,10 +587,6 @@ private :generate_url, :url_options
     end
   end
 
-  def theme
-    self[:theme] || environment && environment.theme || 'default'
-  end
-
   def public?
     visible && public_profile
   end

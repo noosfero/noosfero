@@ -336,7 +336,7 @@ module ApplicationHelper
           elsif ENV['RAILS_ENV'] == 'development' && params[:theme]
             params[:theme]
           else
-            if profile
+            if profile && !profile.theme.nil?
               profile.theme
             elsif environment
               environment.theme
