@@ -1,7 +1,8 @@
 body {
   background: #EEE;
   font-family: Liberation Sans, Arial, sans-serif;
-  min-width: 780px;
+  width: 960px;
+  margin: auto;
 }
 
 body, th, td, input {
@@ -12,12 +13,6 @@ body, th, td, input {
   position: absolute;
   top: -100px;
 }
-
-.docSize-GT-900  #wrap-1 { margin: 0px 1%; }
-.docSize-GT-1000 #wrap-1 { margin: 0px 2%; }
-.docSize-GT-1100 #wrap-1 { margin: 0px 3%; }
-.docSize-GT-1200 #wrap-1 { margin: 0px 4%; }
-.docSize-GT-1300 #wrap-1 { margin: 0px 5%; }
 
 #wrap-2 {
   padding: 10px;
@@ -201,9 +196,6 @@ body, th, td, input {
 .msie6.template-default .box-1 {
   width: expression( $("wrap-2").offsetWidth - 430 ); 640
 }
-/*.docSize-GT-900.msie6.template-default .box-1 {
-  width: 350px;
-}*/
 
 .template-default .box-2 { /* Left */
   position: relative;
@@ -262,11 +254,6 @@ body, th, td, input {
   font-size: 11px;
   color: #555;
 }
-.docSize-GT-900  #theme-footer { margin: 0px 1%; }
-.docSize-GT-1000 #theme-footer { margin: 0px 2%; }
-.docSize-GT-1100 #theme-footer { margin: 0px 3%; }
-.docSize-GT-1200 #theme-footer { margin: 0px 4%; }
-.docSize-GT-1300 #theme-footer { margin: 0px 5%; }
 
 #theme-footer a {
   color: #333;
@@ -314,8 +301,3 @@ div#notice {
   padding: 5px;
 }
 
-.docSize-GT-900  div#notice { top: 33px; left: 1%; margin-left: 10px; }
-.docSize-GT-1000 div#notice { top: 33px; left: 2%; margin-left: 10px; }
-.docSize-GT-1100 div#notice { top: 33px; left: 3%; margin-left: 10px; }
-.docSize-GT-1200 div#notice { top: 33px; left: 4%; margin-left: 10px; }
-.docSize-GT-1300 div#notice { top: 33px; left: 5%; margin-left: 10px; }
