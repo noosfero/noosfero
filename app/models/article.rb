@@ -278,7 +278,6 @@ class Article < ActiveRecord::Base
     :id,
     :profile_id,
     :parent_id,
-    :slug,
     :path,
     :updated_at,
     :created_at,
