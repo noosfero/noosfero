@@ -4,6 +4,6 @@ class SetPublicArticleIntoPublishedAttribute < ActiveRecord::Migration
   end
 
   def self.down
-    raise "this migration can't be reverted"
+    say "this migration can't be reverted"
   end
 end
