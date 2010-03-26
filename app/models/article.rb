@@ -269,14 +269,27 @@ class Article < ActiveRecord::Base
 
 
   def copy(options)
-    attrs = attributes.reject! { |key, value| article_attr_blacklist.include?(key) }
+    attrs = attributes.reject! { |key, value| ATTRIBUTES_NOT_COPIED.include?(key.to_sym) }
     attrs.merge!(options)
     self.class.create(attrs)
   end
 
-  def article_attr_blacklist
-    ['id', 'profile_id', 'parent_id', 'slug', 'path', 'updated_at', 'created_at', 'last_changed_by_id', 'version', 'lock_version', 'type', 'children_count', 'comments_count', 'hits']
-  end
+  ATTRIBUTES_NOT_COPIED = [
+    :id,
+    :profile_id,
+    :parent_id,
+    :slug,
+    :path,
+    :updated_at,
+    :created_at,
+    :last_changed_by_id,
+    :version,
+    :lock_version,
+    :type,
+    :children_count,
+    :comments_count,
+    :hits,
+  ]
 
   def self.find_by_old_path(old_path)
     find(:first, :include => :versions, :conditions => ['article_versions.path = ?', old_path], :order => 'article_versions.id desc')
