@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 83) do
+ActiveRecord::Schema.define(:version => 20100326171758) do
 
   create_table "article_versions", :force => true do |t|
     t.integer  "article_id"
@@ -72,7 +72,6 @@ ActiveRecord::Schema.define(:version => 83) do
     t.date     "start_date"
     t.date     "end_date"
     t.integer  "children_count",       :default => 0
-    t.boolean  "public_article",       :default => true
     t.boolean  "accept_comments",      :default => true
     t.integer  "reference_article_id"
     t.text     "setting"
