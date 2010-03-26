@@ -8,7 +8,7 @@ env = Environment.default
 
 def move_articles_to_blog(profile)
   profile.articles.each { |article|
-    if !article.blog? && !article.is_a?(RssFeed) && article.public_article
+    if !article.blog? && !article.is_a?(RssFeed) && article.published?
       puts 'including ' + article.path + ' in the blog'
       article.parent = profile.blog
       article.save!

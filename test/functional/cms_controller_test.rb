@@ -624,14 +624,14 @@ class CmsControllerTest < Test::Unit::TestCase
   end
 
   should 'create a private article child of private folder' do
-    folder = Folder.new(:name => 'my intranet', :public_article => false); profile.articles << folder; folder.save!
+    folder = Folder.new(:name => 'my intranet', :published => false); profile.articles << folder; folder.save!
     
     post :new, :profile => profile.identifier, :type => 'TextileArticle', :parent_id => folder.id, :article => { :name => 'new-private-article'}
     folder.reload
 
-    assert !assigns(:article).public?
+    assert !assigns(:article).published?
     assert_equal 'new-private-article', folder.children[0].name
-    assert !folder.children[0].public?
+    assert !folder.children[0].published?
   end
 
   should 'load communities for that the user belongs' do

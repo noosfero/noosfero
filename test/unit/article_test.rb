@@ -160,8 +160,8 @@ class ArticleTest < Test::Unit::TestCase
     p = create_user('usr1').person
     Article.destroy_all
 
-    first  = p.articles.build(:name => 'first',  :public_article => true);  first.save!
-    second = p.articles.build(:name => 'second', :public_article => false); second.save!
+    first  = p.articles.build(:name => 'first',  :published => true);  first.save!
+    second = p.articles.build(:name => 'second', :published => false); second.save!
 
     assert_equal [ first ], Article.recent(nil)
   end
@@ -202,8 +202,8 @@ class ArticleTest < Test::Unit::TestCase
 
     now = Time.now
 
-    first  = p.articles.build(:name => 'first',  :public_article => true, :created_at => now, :published_at => now);  first.save!
-    second = p.articles.build(:name => 'second', :public_article => true, :updated_at => now, :published_at => now + 1.second); second.save!
+    first  = p.articles.build(:name => 'first',  :published => true, :created_at => now, :published_at => now);  first.save!
+    second = p.articles.build(:name => 'second', :published => true, :updated_at => now, :published_at => now + 1.second); second.save!
 
     assert_equal [ second, first ], Article.recent(2)
 
@@ -443,21 +443,21 @@ class ArticleTest < Test::Unit::TestCase
     assert !Article.new.accept_category?(ProductCategory.new)
   end
 
-  should 'accept public_article attribute' do
-    assert_respond_to Article.new, :public_article
-    assert_respond_to Article.new, :public_article=
+  should 'accept published attribute' do
+    assert_respond_to Article.new, :published
+    assert_respond_to Article.new, :published=
   end
 
   should 'say that logged off user cannot see private article' do
     profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
-    article = Article.create!(:name => 'test article', :profile => profile, :public_article => false)
+    article = Article.create!(:name => 'test article', :profile => profile, :published => false)
 
     assert !article.display_to?(nil)
   end 
   
   should 'say that not member of profile cannot see private article' do
     profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
-    article = Article.create!(:name => 'test article', :profile => profile, :public_article => false)
+    article = Article.create!(:name => 'test article', :profile => profile, :published => false)
     person = create_user('test_user').person
 
     assert !article.display_to?(person)
@@ -465,7 +465,7 @@ class ArticleTest < Test::Unit::TestCase
   
   should 'say that member user can not see private article' do
     profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
-    article = Article.create!(:name => 'test article', :profile => profile, :public_article => false)
+    article = Article.create!(:name => 'test article', :profile => profile, :published => false)
     person = create_user('test_user').person
     profile.affiliate(person, Profile::Roles.member(profile.environment.id))
 
@@ -474,7 +474,7 @@ class ArticleTest < Test::Unit::TestCase
 
   should 'say that profile admin can see private article' do
     profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
-    article = Article.create!(:name => 'test article', :profile => profile, :public_article => false)
+    article = Article.create!(:name => 'test article', :profile => profile, :published => false)
     person = create_user('test_user').person
     profile.affiliate(person, Profile::Roles.admin(profile.environment.id))
 
@@ -483,7 +483,7 @@ class ArticleTest < Test::Unit::TestCase
 
   should 'say that profile moderator can see private article' do
     profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
-    article = Article.create!(:name => 'test article', :profile => profile, :public_article => false)
+    article = Article.create!(:name => 'test article', :profile => profile, :published => false)
     person = create_user('test_user').person
     profile.affiliate(person, Profile::Roles.moderator(profile.environment.id))
 
@@ -492,7 +492,7 @@ class ArticleTest < Test::Unit::TestCase
 
   should 'not show article to non member if article public but profile private' do
     profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile', :public_profile => false)
-    article = Article.create!(:name => 'test article', :profile => profile, :public_article => true)
+    article = Article.create!(:name => 'test article', :profile => profile, :published => true)
     person1 = create_user('test_user1').person
     profile.affiliate(person1, Profile::Roles.member(profile.environment.id))
     person2 = create_user('test_user2').person
@@ -504,54 +504,27 @@ class ArticleTest < Test::Unit::TestCase
 
   should 'make new article private if created inside a private folder' do
     profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
-    folder = Folder.create!(:name => 'my_intranet', :profile => profile, :public_article => false)
+    folder = Folder.create!(:name => 'my_intranet', :profile => profile, :published => false)
     article = Article.create!(:name => 'my private article', :profile => profile, :parent => folder)
 
-    assert !article.public_article
-  end
-
-  should 'respond to public? like public_article if profile is public' do
-    p = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
-    a1 = Article.create!(:name => 'test public article', :profile => p)
-    a2 = Article.create!(:name => 'test private article', :profile => p, :public_article => false)
-
-    assert a1.public?
-    assert !a2.public?
-  end
-
-  should 'respond to public? as false if profile is private' do
-    p = Profile.create!(:name => 'test profile', :identifier => 'test_profile', :public_profile => false)
-    a1 = Article.create!(:name => 'test public article', :profile => p)
-    a2 = Article.create!(:name => 'test private article', :profile => p, :public_article => false)
-
-    assert !a1.public?
-    assert !a2.public?
-  end
-
-  should 'respond to public? as false if profile is invisible' do
-    profile = fast_create(Profile, :visible => false)
-    article1 = fast_create(Article, :profile_id => profile.id)
-    article2 = fast_create(Article, :profile_id => profile.id, :public_article => false)
-
-    assert !article1.public?
-    assert !article2.public?
+    assert !article.published?
   end
 
   should 'save as private' do
     profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
-    folder = Folder.create!(:name => 'my_intranet', :profile => profile, :public_article => false)
+    folder = Folder.create!(:name => 'my_intranet', :profile => profile, :published => false)
     article = TextileArticle.new(:name => 'my private article')
     article.profile = profile
     article.parent = folder
     article.save!
     article.reload
 
-    assert !article.public_article
+    assert !article.published?
   end
 
   should 'not allow friends of private person see the article' do
     person = create_user('test_user').person
-    article = Article.create!(:name => 'test article', :profile => person, :public_article => false)
+    article = Article.create!(:name => 'test article', :profile => person, :published => false)
     friend = create_user('test_friend').person
     person.add_friend(friend)
     person.save!
@@ -562,7 +535,7 @@ class ArticleTest < Test::Unit::TestCase
 
   should 'display private articles to people who can view private content' do
     person = create_user('test_user').person
-    article = Article.create!(:name => 'test article', :profile => person, :public_article => false)
+    article = Article.create!(:name => 'test article', :profile => person, :published => false)
 
     admin_user = create_user('admin_user').person
     admin_user.stubs(:has_permission?).with('view_private_content', article.profile).returns('true')
@@ -596,6 +569,12 @@ class ArticleTest < Test::Unit::TestCase
     b = a.copy(:parent => a, :profile => p)
 
     assert_kind_of Folder, b
+  end
+
+  should 'copy slug' do
+    a = fast_create(Article, :slug => 'slug123')
+    b = a.copy({})
+    assert_equal a.slug, b.slug
   end
 
   should 'load article under an old path' do

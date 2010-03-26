@@ -293,10 +293,10 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_response 404
   end
 
-  should 'show unpublished articles as unexisting' do
+  should 'show access denied to unpublished articles' do
     profile.articles.create!(:name => 'test', :published => false)
     get :view_page, :profile => profile.identifier, :page => [ 'test' ]
-    assert_response 404
+    assert_response 403
   end
 
   should 'show unpublished articles to the user himself' do
@@ -307,19 +307,9 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_response :success
   end
 
-  should 'show unpublished articles to members' do
-    community = Community.create!(:name => 'testcomm')
-    community.articles.create!(:name => 'test', :published => false)
-    community.add_member(profile)
-
-    login_as(profile.identifier)
-    get :view_page, :profile => community.identifier, :page => [ 'test' ]
-    assert_response :success
-  end
-
   should 'not show private content to members' do
     community = Community.create!(:name => 'testcomm')
-    Folder.create!(:name => 'test', :profile => community, :public_article => false)
+    Folder.create!(:name => 'test', :profile => community, :published => false)
     community.add_member(profile)
 
     login_as(profile.identifier)
@@ -332,7 +322,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
   should 'show private content to profile moderators' do
     community = Community.create!(:name => 'testcomm')
-    community.articles.create!(:name => 'test', :public_article => false)
+    community.articles.create!(:name => 'test', :published => false)
     community.add_moderator(profile)
 
     login_as(profile.identifier)
@@ -344,7 +334,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
   should 'show private content to profile admins' do
     community = Community.create!(:name => 'testcomm')
-    community.articles.create!(:name => 'test', :public_article => false)
+    community.articles.create!(:name => 'test', :published => false)
     community.add_admin(profile)
 
     login_as(profile.identifier)
@@ -430,7 +420,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
   should 'not give access to private articles if logged off' do
     profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
-    intranet = Folder.create!(:name => 'my_intranet', :profile => profile, :public_article => false)
+    intranet = Folder.create!(:name => 'my_intranet', :profile => profile, :published => false)
 
     @request.stubs(:ssl?).returns(true)
     get :view_page, :profile => 'test_profile', :page => [ 'my-intranet' ]
@@ -441,7 +431,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
   should 'not give access to private articles if logged in but not member' do
     login_as('testinguser')
     profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
-    intranet = Folder.create!(:name => 'my_intranet', :profile => profile, :public_article => false)
+    intranet = Folder.create!(:name => 'my_intranet', :profile => profile, :published => false)
 
     @request.stubs(:ssl?).returns(true)
     get :view_page, :profile => 'test_profile', :page => [ 'my-intranet' ]
@@ -452,7 +442,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
   should 'not give access to private articles if logged in and only member' do
     person = create_user('test_user').person
     profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
-    intranet = Folder.create!(:name => 'my_intranet', :profile => profile, :public_article => false)
+    intranet = Folder.create!(:name => 'my_intranet', :profile => profile, :published => false)
     profile.affiliate(person, Profile::Roles.member(profile.environment.id))
     login_as('test_user')
 
@@ -465,7 +455,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
   should 'give access to private articles if logged in and moderator' do
     person = create_user('test_user').person
     profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
-    intranet = Folder.create!(:name => 'my_intranet', :profile => profile, :public_article => false)
+    intranet = Folder.create!(:name => 'my_intranet', :profile => profile, :published => false)
     profile.affiliate(person, Profile::Roles.moderator(profile.environment.id))
     login_as('test_user')
 
@@ -478,7 +468,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
   should 'give access to private articles if logged in and admin' do
     person = create_user('test_user').person
     profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
-    intranet = Folder.create!(:name => 'my_intranet', :profile => profile, :public_article => false)
+    intranet = Folder.create!(:name => 'my_intranet', :profile => profile, :published => false)
     profile.affiliate(person, Profile::Roles.admin(profile.environment.id))
     login_as('test_user')
 
@@ -507,21 +497,21 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
   should 'require SSL for viewing non-public articles' do
     Environment.default.update_attribute(:enable_ssl, true)
-    page = profile.articles.create!(:name => 'myarticle', :body => 'top secret', :public_article => false)
+    page = profile.articles.create!(:name => 'myarticle', :body => 'top secret', :published => false)
     get :view_page, :profile => 'testinguser', :page => [ 'myarticle' ]
     assert_redirected_to :protocol => 'https://', :profile => 'testinguser', :page => [ 'myarticle' ]
   end
 
   should 'avoid SSL for viewing public articles' do
     @request.expects(:ssl?).returns(true).at_least_once
-    page = profile.articles.create!(:name => 'myarticle', :body => 'top secret', :public_article => true)
+    page = profile.articles.create!(:name => 'myarticle', :body => 'top secret', :published => true)
     get :view_page, :profile => 'testinguser', :page => [ 'myarticle' ]
     assert_redirected_to :protocol => 'http://', :profile => 'testinguser', :page => [ 'myarticle' ]
   end
 
   should 'not redirect to SSL if already on SSL' do
     @request.expects(:ssl?).returns(true).at_least_once
-    page = profile.articles.create!(:name => 'myarticle', :body => 'top secret', :public_article => false)
+    page = profile.articles.create!(:name => 'myarticle', :body => 'top secret', :published => false)
     login_as('testinguser')
     get :view_page, :profile => 'testinguser', :page => [ 'myarticle' ]
     assert_response :success

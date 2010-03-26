@@ -18,23 +18,6 @@ class FolderTest < ActiveSupport::TestCase
     assert_not_equal Article.new.icon_name, Folder.new.icon_name
   end
 
-  should 'list subitems as HTML content' do
-    p = create_user('testuser').person
-    f = Folder.create!(:profile => p, :name => 'f')
-    f.children.create!(:profile => p, :name => 'onearticle')
-    f.children.create!(:profile => p, :name => 'otherarticle')
-    f.reload
-
-    assert_tag_in_string f.to_html, :tag => 'td', :descendant => { :tag => 'a', :attributes => { :href => /.*\/testuser\/f\/onearticle(\?|$)/ } }, :content => /onearticle/
-    assert_tag_in_string f.to_html, :tag => 'td', :descendant => { :tag => 'a', :attributes => { :href => /.*\/testuser\/f\/otherarticle(\?|$)/ } }, :content => /otherarticle/
-  end
-
-  should 'explictly advise if empty' do
-    p = create_user('testuser').person
-    f = Folder.create!(:profile => p, :name => 'f')
-    assert_tag_in_string f.to_html, :content => '(empty folder)'
-  end
-
   should 'show text body in HTML content' do
     p = create_user('testuser').person
     f = Folder.create!(:name => 'f', :profile => p, :body => 'this-is-the-text')
@@ -147,4 +130,19 @@ class FolderTest < ActiveSupport::TestCase
 
     assert_includes folder.images(true), pi
   end
+
+  should 'not let pass javascript in the body' do
+    owner = create_user('testuser').person
+    folder = fast_create(Folder, {:profile_id => owner.id, :body => '<script>alert("Xss Attack!")</script>'})
+    folder.save!
+    assert_no_match(/<script>/, folder.body)
+  end
+
+  should 'let pass html in the body' do
+    owner = create_user('testuser').person
+    folder = fast_create(Folder, {:profile_id => owner.id, :body => '<strong>I am not a Xss Attack!")</strong>'})
+    folder.save!
+    assert_match(/<strong>/, folder.body)
+  end
+
 end

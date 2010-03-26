@@ -84,13 +84,6 @@ class Article < ActiveRecord::Base
     pending_categorizations.clear
   end
 
-  before_save do |article|
-    if article.parent
-      article.public_article = article.parent.public_article
-    end
-    true
-  end
-
   acts_as_taggable  
   N_('Tag list')
 
@@ -123,11 +116,10 @@ class Article < ActiveRecord::Base
     options = { :limit => limit,
                 :conditions => [
                   "advertise = ? AND
-                  public_article = ? AND
                   published = ? AND
                   profiles.visible = ? AND
                   profiles.public_profile = ? AND
-                  ((articles.type != ? and articles.type != ? and articles.type != ?) OR articles.type is NULL)", true, true, true, true, true, 'UploadedFile', 'RssFeed', 'Blog'
+                  ((articles.type != ? and articles.type != ? and articles.type != ?) OR articles.type is NULL)", true, true, true, true, 'UploadedFile', 'RssFeed', 'Blog'
                 ],
                 :include => 'profile',
                 :order => 'articles.published_at desc, articles.id desc'
@@ -221,16 +213,32 @@ class Article < ActiveRecord::Base
     false
   end
 
+  def published?
+    if self.published
+      if self.parent && !self.parent.published?
+        return false
+      end
+      true
+    else
+      false
+    end
+  end
+
   named_scope :folders, :conditions => { :type => ['Folder', 'Blog']  }
 
+  def display_unpublished_article_to?(user)
+    self.author == user || allow_view_private_content?(user) || user == self.profile ||
+    user.is_admin?(self.profile.environment) || user.is_admin?(self.profile)
+  end
+
   def display_to?(user)
-    if self.public_article
+    if self.published?
       self.profile.display_info_to?(user)
     else
       if user.nil?
         false
       else
-        (user == self.profile) || user.has_permission?('view_private_content', self.profile)
+        self.display_unpublished_article_to?(user)
       end
     end
   end
@@ -243,6 +251,10 @@ class Article < ActiveRecord::Base
     user && user.has_permission?('publish_content', profile)
   end
 
+  def allow_view_private_content?(user = nil)
+    user && user.has_permission?('view_private_content', profile)
+  end
+
   def comments_updated
     ferret_update
   end
@@ -252,18 +264,31 @@ class Article < ActiveRecord::Base
   end
 
   def public?
-    profile.visible? && profile.public? && public_article
+    profile.visible? && profile.public? && published?
   end
 
+
   def copy(options)
-    attrs = attributes.reject! { |key, value| article_attr_blacklist.include?(key) }
+    attrs = attributes.reject! { |key, value| ATTRIBUTES_NOT_COPIED.include?(key.to_sym) }
     attrs.merge!(options)
     self.class.create(attrs)
   end
 
-  def article_attr_blacklist
-    ['id', 'profile_id', 'parent_id', 'slug', 'path', 'updated_at', 'created_at', 'last_changed_by_id', 'version', 'lock_version', 'type', 'children_count', 'comments_count', 'hits']
-  end
+  ATTRIBUTES_NOT_COPIED = [
+    :id,
+    :profile_id,
+    :parent_id,
+    :path,
+    :updated_at,
+    :created_at,
+    :last_changed_by_id,
+    :version,
+    :lock_version,
+    :type,
+    :children_count,
+    :comments_count,
+    :hits,
+  ]
 
   def self.find_by_old_path(old_path)
     find(:first, :include => :versions, :conditions => ['article_versions.path = ?', old_path], :order => 'article_versions.id desc')

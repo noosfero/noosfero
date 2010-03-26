@@ -448,7 +448,7 @@ private :generate_url, :url_options
 
       # a default private folder if public
       if self.public?
-       folder = Folder.new(:name => _("Intranet"), :public_article => false)
+       folder = Folder.new(:name => _("Intranet"), :published => false)
        self.articles << folder
       end
     end
@@ -588,10 +588,6 @@ private :generate_url, :url_options
     end
   end
 
-  def theme
-    self[:theme] || environment && environment.theme || 'default'
-  end
-
   def public?
     visible && public_profile
   end
@@ -693,7 +689,7 @@ private :generate_url, :url_options
       if user.nil?
         false
       else
-        (user == self) || (user.is_admin?(self.environment)) || (user.memberships.include?(self))
+        (user == self) || (user.is_admin?(self.environment)) || user.is_admin?(self) || user.memberships.include?(self)
       end
     end
 end

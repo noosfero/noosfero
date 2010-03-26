@@ -26,11 +26,6 @@ class ContentViewerController < ApplicationController
         end
       end
 
-      # only show unpublished articles to those who can edit then
-      if @page && !@page.published && !@page.allow_post_content?(user)
-        @page = nil
-      end
-
       # page not found, give error
       if @page.nil?
         render_not_found(@path)
