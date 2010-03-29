@@ -105,7 +105,7 @@ namespace :noosfero do
         if File.exists?(po)
           Dir['doc/noosfero/**/*.en.xhtml'].each do |doc|
             target = doc.sub('.en.xhtml', ".#{lang}.xhtml")
-            sh "po4a-translate -f xhtml -M utf8 -m #{doc} -p #{po} -L utf8 -l #{target}"
+            sh "po4a-translate -f xhtml -M utf8 -m #{doc} -p #{po} -L utf8 -l #{target} >/dev/null 2>&1"
           end
         end
       end
