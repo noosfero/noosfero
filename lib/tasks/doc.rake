@@ -103,10 +103,20 @@ namespace :noosfero do
       languages.each do |lang|
         po = "po/#{lang}/noosfero-doc.po"
         if File.exists?(po)
+          puts "Translating: #{lang}"
           Dir['doc/noosfero/**/*.en.xhtml'].each do |doc|
             target = doc.sub('.en.xhtml', ".#{lang}.xhtml")
-            sh "po4a-translate -f xhtml -M utf8 -m #{doc} -p #{po} -L utf8 -l #{target} >/dev/null 2>&1"
+            command = "po4a-translate -f xhtml -M utf8 -m #{doc} -p #{po} -L utf8 -l #{target} >/dev/null 2>&1"
+            unless system(command)
+              puts "Failed in #{lang} translation!"
+              puts "Run the command manually to check:"
+              puts "$ #{command}"
+              raise "Failed."
+            end
+            print "."
+            $stdout.flush
           end
+          puts
         end
       end
     end
