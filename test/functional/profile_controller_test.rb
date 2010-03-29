@@ -639,9 +639,30 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_nil @request.session[:before_join]
   end
 
-  should 'show link to events in index' do
+  should 'show number of published events in index' do
+    profile.articles << Event.new(:name => 'Published event', :start_date => Date.today)
+    profile.articles << Event.new(:name => 'Unpublished event', :start_date => Date.today, :published => false)
+
     get :index, :profile => profile.identifier
-    assert_tag :tag => 'a', :attributes => { :href => "/profile/#{profile.identifier}/events" }
+    assert_tag :tag => 'a', :content => '1', :attributes => { :href => "/profile/testuser/events" }
   end
 
+  should 'show number of published posts in index' do
+    profile.articles << blog = Blog.create(:name => 'Blog', :profile_id => profile.id)
+    blog.posts << TextileArticle.new(:name => 'Published post', :parent => profile.blog, :profile => profile)
+    blog.posts << TextileArticle.new(:name => 'Other published post', :parent => profile.blog, :profile => profile)
+    blog.posts << TextileArticle.new(:name => 'Unpublished post', :parent => profile.blog, :profile => profile, :published => false)
+
+    get :index, :profile => profile.identifier
+    assert_tag :tag => 'a', :content => '2 posts', :attributes => { :href => /\/testuser\/blog/ }
+  end
+
+  should 'show number of published images in index' do
+    folder = Folder.create!(:name => 'gallery', :profile => profile, :view_as => 'image_gallery')
+    published_file = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    unpublished_file = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'), :published => false)
+
+    get :index, :profile => profile.identifier
+    assert_tag :tag => 'a', :content => 'One picture', :attributes => { :href => /\/testuser\/gallery/ }
+  end
 end

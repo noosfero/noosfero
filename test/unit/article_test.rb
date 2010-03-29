@@ -829,4 +829,12 @@ class ArticleTest < Test::Unit::TestCase
     assert_equal 'http://url.without.http', article.external_link
   end
 
+  should 'list only published articles' do
+    profile = fast_create(Person)
+
+    published  = profile.articles.create(:name => 'Published',  :published => true)
+    unpublished = profile.articles.create(:name => 'Unpublished', :published => false)
+
+    assert_equal [ published ], profile.articles.published
+  end
 end
