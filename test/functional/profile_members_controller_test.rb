@@ -162,6 +162,20 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'a', :attributes => {:href => /add_members/}
   end
 
+  should 'not display remove button if the member is the current user' do
+    com = Community.create!(:name => 'Test Com', :identifier => 'test_com')
+    admin = create_user_with_permission('admin-member', 'manage_memberships', com)
+    member = fast_create(Person, :name => 'just-member')
+    com.add_member(member)
+
+    login_as(admin.identifier)
+
+    get :index, :profile => com.identifier
+
+    assert_tag :tag => 'td', :descendant => { :tag => 'a', :attributes => {:class => /icon-remove/, :onclick => /#{member.identifier}/} }
+    assert_no_tag :tag => 'td', :descendant => { :tag => 'a', :attributes => {:class => /icon-remove/, :onclick => /#{admin.identifier}/} }
+  end
+
   should 'have a add_members page' do
     ent = Enterprise.create!(:name => 'Test Ent', :identifier => 'test_ent')
     u = create_user_with_permission('test_user', 'manage_memberships', ent)

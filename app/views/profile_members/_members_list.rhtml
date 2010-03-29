@@ -11,12 +11,12 @@
       <td>
         <div class="members-buttons-cell">
           <%= button_without_text :edit, _('Edit'), :action => 'change_role', :id => m %>
-          <%= button_to_remote_without_text :remove, _('Remove'),
+          <%= button_to_remote_without_text(:remove, _('Remove'),
                 :update => 'members-list',
                 :loading => '$("members-list").addClassName("loading")',
                 :success => "$('tr-#{m.identifier}').show()",
                 :complete => '$("members-list").removeClassName("loading")',
-                :url => {:action => 'unassociate', :id => m} %>
+                :url => {:action => 'unassociate', :id => m}) if m != user %>
         </div>
       </td>
     </tr>
