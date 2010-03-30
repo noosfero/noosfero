@@ -41,7 +41,7 @@ class Folder < Article
   end
 
   def folder
-    content_tag('div', body) + tag('hr')
+    content_tag('div', body) + tag('hr') + (children.empty? ? content_tag('em', _('(empty folder)')) : list_articles(children))
   end
 
   def image_gallery

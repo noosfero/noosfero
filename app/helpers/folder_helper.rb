@@ -1,15 +1,11 @@
 module FolderHelper
 
-  def list_articles(articles, user, recursive = false)
-    if !articles.blank?
-      content_tag(
-        'table',
-        content_tag('tr', content_tag('th', _('Title')) + content_tag('th', _('Last update'))) +
-        articles.select { |item| item.display_to?(user)}.map {|item| display_article_in_listing(item, recursive, 0)}.join('')
-      )
-    else
-      content_tag('em', _('(empty folder)'))
-    end
+  def list_articles(articles, recursive = false)
+    content_tag(
+      'table',
+      content_tag('tr', content_tag('th', _('Title')) + content_tag('th', _('Last update'))) +
+      articles.select { |item| item.public? }.map {|item| display_article_in_listing(item, recursive, 0)}.join('')
+    )
   end
 
   def display_article_in_listing(article, recursive = false, level = 0)
