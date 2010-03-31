@@ -11,7 +11,7 @@ class CreateEnterprise < Task
   N_('Economic activity')
   N_('Management information')
 
-  DATA_FIELDS = %w[ name identifier address contact_phone contact_person acronym foundation_year legal_form economic_activity management_information region_id reject_explanation ]
+  DATA_FIELDS = Enterprise.fields + %w[name identifier region_id reject_explanation]
 
   serialize :data, Hash
   attr_protected :data
@@ -31,11 +31,20 @@ class CreateEnterprise < Task
   end
 
   # checks for virtual attributes 
-  validates_presence_of :name, :identifier, :address, :contact_phone, :contact_person, :legal_form, :economic_activity, :region_id
+  validates_presence_of :name, :identifier
+
+  #checks if the validation method is region to validates
+  validates_presence_of :region_id, :if => lambda { |obj| obj.environment.organization_approval_method == :region }
+
   validates_format_of :foundation_year, :with => /^\d*$/
 
   # checks for actual attributes
   validates_presence_of :requestor_id, :target_id
+
+  # checks for admins required attributes
+  DATA_FIELDS.each do |attribute|
+    validates_presence_of attribute, :if => lambda { |obj| obj.environment.required_enterprise_fields.include?(attribute) }
+  end
 
   # check for explanation when rejecting
   validates_presence_of :reject_explanation, :if => (lambda { |record| record.status == Task::Status::CANCELLED } )
@@ -43,8 +52,9 @@ class CreateEnterprise < Task
   xss_terminate :only => [ :acronym, :address, :contact_person, :contact_phone, :economic_activity, :legal_form, :management_information, :name ], :on => 'validation'
 
   def validate
+
     if self.region && self.target
-      unless self.region.validators.include?(self.target)
+      unless self.region.validators.include?(self.target) || self.target_type == "Environment"
         self.errors.add(:target, '%{fn} is not a validator for the chosen region')
       end
     end
@@ -58,7 +68,7 @@ class CreateEnterprise < Task
     if valid?
       true
     else
-      self.errors.size == 1 and self.errors[:target_id]
+      self.errors.size == 1 && !self.errors[:target_id].nil?
     end
   end
 
@@ -81,7 +91,27 @@ class CreateEnterprise < Task
   end
 
   def environment
-    region ? region.environment : nil
+    region ? region.environment : self.requestor ? self.requestor.environment : Environment.default
+  end
+
+  def available_regions
+    environment.regions.with_validators
+  end
+
+  def active_fields
+    environment ? environment.active_enterprise_fields : []
+  end
+
+  def required_fields
+    environment ? environment.required_enterprise_fields : []
+  end
+
+  def community?
+    false
+  end
+
+  def enterprise?
+    true
   end
 
   # Rejects the enterprise registration request.
@@ -107,21 +137,16 @@ class CreateEnterprise < Task
   def perform
     enterprise = Enterprise.new
 
-    profile_fields = %w[ name identifier contact_phone address region_id ]
-    profile_fields.each do |field|
+    DATA_FIELDS.reject{|field| field == "reject_explanation"}.each do |field|
       enterprise.send("#{field}=", self.send(field))
-    end
-
-    organization_data = self.data.reject do |key,value|
-      profile_fields.include?(key.to_s)
     end
 
     enterprise.environment = environment
 
     enterprise.user = self.requestor.user
 
-    enterprise.update_attributes(organization_data)
     enterprise.save!
+    enterprise.add_admin(enterprise.user.person)
   end
 
   def description

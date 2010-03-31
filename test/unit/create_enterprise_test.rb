@@ -219,6 +219,21 @@ class CreateEnterpriseTest < Test::Unit::TestCase
     assert request.errors.invalid?(:identifier)
   end
 
+  should 'require the same fields as an enterprise does' do
+    environment = mock
+    request = CreateEnterprise.new
+    request.stubs(:environment).returns(environment)
+    environment.stubs(:organization_approval_method).returns(:region)
+
+    environment.stubs(:required_enterprise_fields).returns([])
+    request.valid?
+    assert_nil request.errors[:contact_person], 'should not require contact_person unless Enterprise requires it'
+
+    environment.stubs(:required_enterprise_fields).returns(['contact_person'])
+    request.valid?
+    assert_not_nil request.errors[:contact_person], 'should require contact_person when Enterprise requires it'
+  end
+
   should 'has permission to validate enterprise' do
     t = CreateEnterprise.new
     assert_equal :validate_enterprise, t.permission

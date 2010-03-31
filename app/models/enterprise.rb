@@ -34,6 +34,8 @@ class Enterprise < Organization
     organization_website
     historic_and_current_context
     activities_short_description
+    acronym
+    foundation_year
   ]
 
   def self.fields
@@ -44,7 +46,7 @@ class Enterprise < Organization
     super
     self.required_fields.each do |field|
       if self.send(field).blank?
-        self.errors.add(field, _('%{fn} is mandatory'))
+        self.errors.add(field, _("%{fn} can't be blank"))
       end
     end
   end

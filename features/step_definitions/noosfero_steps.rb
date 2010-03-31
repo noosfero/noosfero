@@ -65,7 +65,27 @@ Given /^the following products$/ do |table|
   end
 end
 
+Given /^the following states$/ do |table|
+  table.hashes.each do |item|
+    data = item.dup
+    if validator = Enterprise.find_by_name(data.delete("validator_name"))
+      State.create!(data.merge(:environment => Environment.default, :validators => [validator]))
+    else
+      r = State.create!(data.merge(:environment => Environment.default))
+    end
+  end
+end
+
+Given /^the following validation info$/ do |table|
+  table.hashes.each do |item|
+    data = item.dup
+    organization = Organization.find_by_name(data.delete("organization_name"))
+    ValidationInfo.create!(data.merge(:organization => organization))
+  end
+end
+
 Given /^I am logged in as "(.+)"$/ do |username|
+  visit('/account/logout')
   visit('/account/login')
   fill_in("Username", :with => username)
   fill_in("Password", :with => '123456')
@@ -73,6 +93,7 @@ Given /^I am logged in as "(.+)"$/ do |username|
 end
 
 Given /^I am logged in as admin$/ do
+  visit('/account/logout')
   user = User.create!(:login => 'admin_user', :password => '123456', :password_confirmation => '123456', :email => 'admin_user@example.com')
   e = Environment.default
   e.add_admin(user.person)
@@ -86,15 +107,16 @@ Given /^I am not logged in$/ do
   visit('/account/logout')
 end
 
-Given /^feature "(.+)" is enabled on environment$/ do |feature|
+Given /^feature "(.+)" is (enabled|disabled) on environment$/ do |feature, status|
   e = Environment.default
-  e.enable(feature)
+  status.chop!
+  e.send status, feature
   e.save
 end
 
-Given /^feature "(.+)" is disabled on environment$/ do |feature|
+Given /^organization_approval_method is "(.+)" on environment$/ do |approval_method|
    e = Environment.default
-   e.disable(feature)
+   e.organization_approval_method = approval_method
    e.save
 end
 
@@ -122,17 +144,18 @@ Given /^"([^\"]*)" has no articles$/ do |profile|
   (Profile[profile] || Profile.find_by_name(profile)).articles.delete_all
 end
 
-Given /^the following (\w+) fields are enabled$/ do |klass, table|
+Given /^the following (\w+) fields are (\w+)$/ do |klass, status, table|
   env = Environment.default
   fields = table.raw.inject({}) do |hash, line|
     hash[line.first] = { "active" => 'true' }
+    hash[line.first].merge!({ "required" => 'true'}) if status == "required"
     hash
   end
 
   env.send("custom_#{klass.downcase}_fields=", fields)
   env.save!
-  if fields.keys != env.send("active_#{klass.downcase}_fields")
-    raise "Not all fields enabled! Requested: %s; Enabled: %s" % [fields.keys.inspect, env.send("active_#{klass.downcase}_fields").inspect] 
+  if fields.keys != env.send("#{status}_#{klass.downcase}_fields")
+    raise "Not all fields #{status}! Requested: %s; #{status.camelcase}: %s" % [fields.keys.inspect, env.send("#{status}_#{klass.downcase}_fields").inspect] 
   end
 end
 

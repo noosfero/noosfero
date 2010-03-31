@@ -12,6 +12,7 @@
 <%= optional_field(profile, 'address', labelled_form_field(_('Address (street and number)'), text_field(object_name, :address)), only_required) %>
 
 <% if profile.enterprise? %>
+  <%= optional_field(profile, 'business_name', f.text_field(:business_name), only_required) %>
   <%= optional_field(profile, 'zip_code', labelled_form_field(_('ZIP code'), text_field(object_name, :zip_code)), only_required) %>
   <%= optional_field(profile, 'city', f.text_field(:city), only_required) %>
   <%= optional_field(profile, 'state', f.text_field(:state), only_required) %>
@@ -19,4 +20,6 @@
   <%= optional_field(profile, 'organization_website', f.text_field(:organization_website), only_required) %>
   <%= optional_field(profile, 'historic_and_current_context', f.text_area(:historic_and_current_context, :rows => 5), only_required) %>
   <%= optional_field(profile, 'activities_short_description', f.text_area(:activities_short_description, :rows => 5), only_required) %>
+  <%= optional_field(profile, 'acronym', f.text_field(:acronym), only_required) %>
+  <%= optional_field(profile, 'foundation_year', f.text_field(:foundation_year), only_required) %>
 <% end %>

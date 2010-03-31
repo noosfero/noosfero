@@ -9,15 +9,20 @@ class EnterpriseRegistrationController < ApplicationController
   # FIXME: shouldn't this action present some sort of welcome message and point
   # to the first step explicitly?
   def index
+    @validation = environment.organization_approval_method
     @create_enterprise = CreateEnterprise.new(params[:create_enterprise])
-    if params[:create_enterprise] && params[:create_enterprise][:target_id]
-      @create_enterprise.target = Profile.find(params[:create_enterprise][:target_id])
+    if @validation == :region
+      if params[:create_enterprise] && params[:create_enterprise][:target_id]
+        @create_enterprise.target = Profile.find(params[:create_enterprise][:target_id])
+      end
+    elsif @validation == :admin
+        @create_enterprise.target = @create_enterprise.environment
     end
     @create_enterprise.requestor = current_user.person
     the_action =
       if request.post?
         if @create_enterprise.valid_before_selecting_target?
-          if @create_enterprise.valid?
+          if @create_enterprise.valid? || @validation == :admin
             :confirmation
           else
             :select_validator
@@ -38,7 +43,9 @@ class EnterpriseRegistrationController < ApplicationController
   #
   # Posts back.
   def basic_information
-    @regions = environment.regions.select{|i| i.has_validator?}.map {|item| [item.name, item.id]}
+    if @validation == :region
+      @regions = @create_enterprise.available_regions.map {|region| [region.name, region.id]}
+    end
   end
 
   # present information about validator organizations, and the user one to

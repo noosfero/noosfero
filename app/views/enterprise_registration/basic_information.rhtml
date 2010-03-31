@@ -2,34 +2,34 @@
 
 <h2><%= _('Register enterprise') %></h2>
 
-<h3> <%= _('How to proceed') %> </h3>
-<p> <%= _('Fill the form and hit the Register button then the enterprise will be submitted for evaluation at the validation entitiy of your choice (within your state), when the enterprise is aproved you will be able to activate its profile')  %> </p>
 
-<% labelled_form_for(:create_enterprise, @create_enterprise) do |f| %>
-  <%= f.text_field 'identifier', 'size' => 20 %>
-
-  <%= f.text_field 'name', 'size' => 20 %>
-  
-  <%= f.text_field 'address', 'size' => 50 %>
-
-  <%= f.text_field 'contact_phone', 'size' => 20 %>
-  
-  <%= f.text_field 'contact_person', 'size' => 20  %>
-  
-  <%= f.text_field 'acronym', 'size' => 20 %>
-  
-  <%= f.text_field 'foundation_year', 'size' => 20  %>
-  
-  <%= f.text_field 'legal_form', 'size' => 20 %>
-  
-  <%= f.text_field 'economic_activity', 'size' => 20 %>
-  
-  <%= labelled_form_field(_('Management information'), text_editor('create_enterprise', 'management_information')) %>
-
-  <%= labelled_form_field(_('Region'), f.select('region_id', @regions)) %>
+<% if @validation == :region && @regions.empty? %>
+  <div class='atention'>
+    <%= _('There are no validators to validate the registration of this new enterprise. Contact your administrator for instructions.') %>
+  </div>
 
   <% button_bar do %>
-    <%= submit_button('next', _('Next'), :cancel => {:action => 'index'}) %>
+    <%= button :back, _('Go back'), { :profile => current_user.person.identifier, :action=>"enterprises", :controller=>"profile" }%>
   <% end %>
+<% else %>
+  <div class='atention'>
+    <%= _('To register a new enterprise, fill in the form and hit the Register button. Then the enterprise will be submitted for evaluation at the validation entitiy of your choice (within your state) and when the enterprise is aproved you will be able to activate its profile.')  %>
+  </div>
 
+  <%= required_fields_message %>
+
+  <% labelled_form_for(:create_enterprise, @create_enterprise) do |f| %>
+    <%= required f.text_field 'identifier'%>
+    <%= required f.text_field 'name'%>
+    <%= render :partial => 'shared/custom_fields', :locals => { :f => f, :object_name => :create_enterprise, :profile => @create_enterprise, :only_required => false } %>
+    <%= required labelled_form_field(_('Region'), f.select('region_id', @regions)) if @validation == :region %>
+
+    <% if @validation == :admin %>
+      <%= hidden_field_tag  'create_enterprise[target_id]', environment.id %>
+    <% end %>
+
+    <% button_bar do %>
+      <%= submit_button('next', _('Next'), :cancel => {:profile => current_user.person.identifier, :action=>"enterprises", :controller=>"profile"}) %>
+    <% end %>
+  <% end %>
 <% end %>

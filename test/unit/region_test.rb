@@ -53,4 +53,15 @@ class RegionTest < Test::Unit::TestCase
     assert !region.has_validator?
   end
 
+  should 'list regions with validators' do
+    bahia = fast_create(Region, :name => 'Bahia')
+    forum_ecosol_ba = fast_create(Enterprise, :name => 'Forum Baiano de Economia Solidaria', :identifier => 'ecosol-ba')
+    bahia.validators << forum_ecosol_ba
+
+    sergipe = fast_create(Region, :name => 'Sergipe')
+    # Sergipe has no validators
+
+    assert_equivalent Region.with_validators, [bahia]
+  end
+
 end
