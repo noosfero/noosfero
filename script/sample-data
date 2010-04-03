@@ -40,7 +40,7 @@ rand(people.size * 3).times do
   from = people.rand
   to = people.rand
   if from != to && !from.friends.include?(to)
-    from.add_friend(to)
+    AddFriend.create!(:requestor => to, :target => from).finish
   end
   print '.'; $stdout.flush
 end
