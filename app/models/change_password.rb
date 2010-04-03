@@ -1,15 +1,3 @@
-# TODO: send an e-mail with a hash code to the task after the ChangePassword is creatd -> override messages from #Task
-
-# FIXME remove this workaround
-class HumanName
-  def human_name
-    @name
-  end
-  def initialize(name)
-    @name = name
-  end
-end
-
 class ChangePassword < Task
 
   serialize :data, Hash
@@ -17,15 +5,22 @@ class ChangePassword < Task
     self[:data] ||= {}
   end
 
-  # FIXME ugly workaround
-  self.columns_hash['login'] = HumanName.new _('Username')
-  self.columns_hash['email'] = HumanName.new _('e-Mail')
-
   attr_accessor :login, :email, :password, :password_confirmation
-  N_('ChangePassword|Login')
-  N_('ChangePassword|Email')
-  N_('ChangePassword|Password')
-  N_('ChangePassword|Password Confirmation')
+
+  def self.human_attribute_name(attrib)
+    case attrib.to_sym
+    when :login:
+      _('Username')
+    when :email
+      _('e-Mail')
+    when :password
+      _('Password')
+    when :password_confirmation
+      _('Password Confirmation')
+    else
+      _(self.superclass.human_attribute_name(attrib))
+    end
+  end
 
   ###################################################
   # validations for creating a ChangePassword task 
