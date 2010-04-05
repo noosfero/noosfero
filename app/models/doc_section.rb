@@ -1,5 +1,9 @@
 class DocSection < DocItem
 
+  def self.root_dir
+    @root_dir ||= File.join(RAILS_ROOT, 'doc', 'noosfero')
+  end
+
   def items
     @items ||= load_items
   end
@@ -36,7 +40,7 @@ class DocSection < DocItem
 
   def self.root(language = 'en')
     @root ||= {}
-    @root[language] ||= load(File.join(RAILS_ROOT, 'doc', 'noosfero'), language)
+    @root[language] ||= load(root_dir, language)
   end
 
   private
@@ -44,7 +48,7 @@ class DocSection < DocItem
   attr_accessor :directory
 
   def self.load_dirs(language)
-    Dir.glob(File.join(RAILS_ROOT, 'doc', 'noosfero', '*')).select {|item| File.directory?(item) }.map do |dir|
+    Dir.glob(File.join(root_dir, '*')).select {|item| File.directory?(item) }.map do |dir|
       load(dir, language)
     end
   end

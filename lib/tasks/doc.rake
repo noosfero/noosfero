@@ -86,18 +86,22 @@ namespace :noosfero do
       end
     end
 
+    desc "Build Noosfero online documentation"
     task :build => po4a_conf do
       sh "po4a #{po4a_conf}"
     end
 
+    desc "Cleans Noosfero online documentation"
     task :clean do
       sh 'rm -f doc/noosfero/*.xhtml'
       sh 'rm -f doc/noosfero/*/*.xhtml'
       rm_f po4a_conf
     end
 
+    desc "Rebuild Noosfero online documentation"
     task :rebuild => [:clean, :build]
 
+    desc "Translates Noosfero online documentation (does not touch PO files)"
     task :translate => english_xhtml do
       languages = Noosfero.locales.keys - ['en']
       languages.each do |lang|
