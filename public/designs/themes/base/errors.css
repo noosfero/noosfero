@@ -4,10 +4,12 @@ body {
   padding: 0% 0%;
   background: #eee;
   font-size: 12px;
+  width: 960px;
+  margin: auto;
 }
 
 #wrap {
-  margin: 0px 20px 0px 20px;
+  margin: 20px 20px 0px 20px;
   border: 1px solid #d3d7cf;
   background: white url(imgs/50x.png) 100% 100% no-repeat;
   height: 480px;
@@ -22,7 +24,7 @@ body {
 #logo {
   background: url(imgs/menu-top-bg-left.png) 0px 29px no-repeat;
   position: absolute;
-  top: 20px;
+  top: 40px;
   height: 92px;
   width: 400px;
   z-index: 2;
