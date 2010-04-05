@@ -1,7 +1,11 @@
+@docs
 Feature: online manual
   As a user
   I want to read the manual
   So that I know how to do something in Noosfero
+
+  Background:
+    Given the documentation is built
 
   Scenario: initial page of online manual
     When I go to /doc
