@@ -2,6 +2,16 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class DocControllerTest < ActionController::TestCase
 
+  include Noosfero::DocTest
+
+  def setup
+    setup_doc_test
+  end
+
+  def tear_down
+    tear_down_doc_test
+  end
+
   should 'load toc in the root' do
     get :index
     assert_kind_of DocItem, assigns(:toc)

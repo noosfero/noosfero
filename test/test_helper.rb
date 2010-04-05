@@ -7,6 +7,7 @@ require 'hpricot'
 
 require 'noosfero/test'
 require File.dirname(__FILE__) + '/factories'
+require File.dirname(__FILE__) + '/noosfero_doc_test'
 
 FileUtils.rm_rf(File.join(RAILS_ROOT, 'index', 'test'))
 
