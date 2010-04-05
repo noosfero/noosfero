@@ -1,6 +1,5 @@
 module CategoriesHelper
 
-  include GetText
 
   COLORS = [
     [ N_('Do not display at the menu'), nil ],

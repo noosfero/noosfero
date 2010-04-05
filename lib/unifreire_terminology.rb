@@ -1,7 +1,6 @@
 require 'noosfero/terminology'
 
 class UnifreireTerminology < Noosfero::Terminology::Custom
-  include GetText
 
   def initialize
     # NOTE: the hash values must be marked for translation!! 

@@ -10,17 +10,6 @@ RAILS_GEM_VERSION = '2.1.0' unless defined? RAILS_GEM_VERSION
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 
-# locally-developed modules
-require 'locale'
-require 'gettext/rails'
-require 'acts_as_filesystem'
-require 'acts_as_having_settings'
-require 'acts_as_searchable'
-require 'acts_as_having_boxes'
-require 'acts_as_having_image'
-require 'will_paginate'
-require 'route_if'
-
 # extra directories for controllers organization 
 extra_controller_dirs = %w[
   app/controllers/my_profile

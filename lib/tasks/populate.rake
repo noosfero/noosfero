@@ -1,7 +1,5 @@
 require File.dirname(__FILE__) + '/../../config/environment'
 require 'noosfero'
-require 'gettext/rails'
-include GetText
 
 DEFAULT_ENVIRONMENT_TEXT = <<EOF
 <h1>Environment homepage</h1>

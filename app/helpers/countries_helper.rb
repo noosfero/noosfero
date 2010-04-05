@@ -2,9 +2,6 @@ class CountriesHelper
 
   include Singleton
 
-  include GetText
-  bindtextdomain 'iso_3166'
-
   # a dump of iso_3166.xml from Debian source package iso-codes
   COUNTRIES = [
     ["Afghanistan", "AF"],

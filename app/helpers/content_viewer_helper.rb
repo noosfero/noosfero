@@ -1,6 +1,5 @@
 module ContentViewerHelper
 
-  include GetText
   include BlogHelper
 
   def number_of_comments(article)

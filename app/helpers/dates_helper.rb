@@ -1,6 +1,6 @@
-module DatesHelper
+require 'noosfero/i18n'
 
-  include GetText
+module DatesHelper
 
   # FIXME Date#strftime should translate this for us !!!!
   MONTHS = [

@@ -2,8 +2,6 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class FriendsBlockTest < ActiveSupport::TestCase
 
-  include GetText
-
   should 'describe itself' do
     assert_not_equal ProfileListBlock.description, FriendsBlock.description
   end

@@ -12,12 +12,15 @@ module Noosfero
     attr_accessor :locales
     attr_accessor :default_locale
     def available_locales
-      @available_locales ||= locales.keys
-    end
-    def each_locale
-      locales.keys.sort.each do |key|
-        yield(key, locales[key])
-      end
+      @available_locales ||=
+        begin
+          locales_list = locales.keys
+          # move English to the beginning
+          if locales_list.include?('en')
+            locales_list = ['en'] + (locales_list - ['en']).sort
+          end
+          locales_list
+        end
     end
   end
 

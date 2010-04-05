@@ -12,7 +12,6 @@
 class Task < ActiveRecord::Base
 
   module Status
-    include GetText
     # the status of tasks just created
     ACTIVE = 1
 

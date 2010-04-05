@@ -1,6 +1,5 @@
 module AccountHelper
 
-  include GetText
 
   def button_to_step(type, step, current_step, html_options = {})
     if current_step == step

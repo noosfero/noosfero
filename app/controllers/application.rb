@@ -70,20 +70,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  include GetText
-  before_init_gettext :maybe_save_locale, :default_locale
-  def maybe_save_locale
+  before_filter :set_locale
+  def set_locale
+    FastGettext.available_locales = Noosfero.available_locales
+    FastGettext.default_locale = Noosfero.default_locale
+    FastGettext.set_locale(params[:lang] || session[:lang] || Noosfero.default_locale || request.env['HTTP_ACCEPT_LANGUAGE'] || 'en')
     if params[:lang]
-      cookies[:lang] = params[:lang]
+      session[:lang] = params[:lang]
     end
   end
-  def default_locale
-    if Noosfero.default_locale && cookies[:lang].blank?
-      cookies[:lang] = params[:lang] = Noosfero.default_locale
-    end
-  end
-  protected :maybe_save_locale, :default_locale
-  init_gettext 'noosfero'
 
   include NeedsProfile
 

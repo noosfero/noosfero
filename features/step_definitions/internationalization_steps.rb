@@ -1,4 +1,4 @@
-def language_to_header(name)
+def language_to_code(name)
   {
     'Brazilian Portuguese' => 'pt-br',
     'European Portuguese' => 'pt-pt',
@@ -17,29 +17,25 @@ def native_name(name)
   }[name] || name
 end
 
-def language_to_code(name)
-   language_to_header(name)
-end
-
 Given /^Noosfero is configured to use (.+) as default$/ do |lang|
   Noosfero.default_locale = language_to_code(lang)
 end
 
-After('@default_locale_config') do
+After do
+  # reset everything back to normal
   Noosfero.default_locale = nil
+  FastGettext.locale = 'en'
 end
 
 Given /^a user accessed in (.*) before$/ do |lang|
   session = Webrat::Session.new(Webrat.adapter_class.new(self))
   session.extend(Webrat::Matchers)
   session.visit('/')
-  session.should have_selector('html[lang=en]')
+  session.should have_selector("html[lang=#{language_to_code(lang)}]")
 end
 
 Given /^my browser prefers (.*)$/ do |lang|
-  @n ||= 0
-  header 'Accept-Language', language_to_header(lang)
-
+  header 'Accept-Language', language_to_code(lang)
 end
 
 Then /^the site should be in (.*)$/ do |lang|

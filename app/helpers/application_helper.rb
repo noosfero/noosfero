@@ -26,6 +26,10 @@ module ApplicationHelper
 
   include AccountHelper
 
+  def locale
+    FastGettext.locale
+  end
+
   def load_web2_conf
     if File.exists?( RAILS_ROOT + '/config/web2.0.yml')
       YAML.load_file( RAILS_ROOT + '/config/web2.0.yml' )
@@ -664,7 +668,6 @@ module ApplicationHelper
 
   # Should be on the forms_helper file but when its there the translation of labels doesn't work
   class NoosferoFormBuilder < ActionView::Helpers::FormBuilder
-  include GetText
   extend ActionView::Helpers::TagHelper
 
     def self.output_field(text, field_html, field_id = nil)
@@ -687,13 +690,7 @@ module ApplicationHelper
     (field_helpers - %w(hidden_field)).each do |selector|
       src = <<-END_SRC
         def #{selector}(field, *args, &proc)
-          column = object.class.columns_hash[field.to_s]
-          text =
-            ( column ?
-              column.human_name :
-              field.to_s.humanize
-            )
-
+          text = object.class.human_attribute_name(field.to_s)
           NoosferoFormBuilder::output_field(text, super)
         end
       END_SRC

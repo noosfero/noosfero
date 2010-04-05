@@ -1,6 +1,5 @@
 module ProfileEditorHelper
 
-  include GetText
 
   AREAS_OF_STUDY = [
     N_('Agrometeorology'),

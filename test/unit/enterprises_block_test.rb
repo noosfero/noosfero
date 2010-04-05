@@ -2,8 +2,6 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class EnterprisesBlockTest < Test::Unit::TestCase
 
-  include GetText
-
   should 'inherit from ProfileListBlock' do
     assert_kind_of ProfileListBlock, EnterprisesBlock.new
   end
