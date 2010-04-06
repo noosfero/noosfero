@@ -1,6 +1,6 @@
 <% galleries = @block.box.owner.articles.select {|article| article.folder? && article.display_as_gallery? } %>
 <%= labelled_form_field _('Choose a gallery'), select('block', 'gallery_id', galleries.map { |item|
-  [ _('%{gallery} (%{count} images)') % {:gallery => item.path, :count => item.images.count}, item.id ]
+  [ _('%{gallery} (%{count} images)') % {:gallery => item.path, :count => item.images.reject{|image| image.folder?}.count}, item.id ]
 }) %>
 
 <%= labelled_form_field _('Image transition:'), select('block', 'interval', [[_('No automatic transition'), 0]] + [1, 2, 3, 4, 5, 10, 20, 30, 60].map {|item| [n_('Every 1 second', 'Every %d seconds', item) % item, item]}) %>

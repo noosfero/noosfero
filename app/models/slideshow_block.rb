@@ -13,10 +13,14 @@ class SlideshowBlock < Block
     gallery_id ? Folder.find(gallery_id) : nil
   end
 
+  def block_images
+    gallery.images.reject {|item| item.folder?}
+  end
+
   def content
     block = self
     if gallery
-      images = gallery.images
+      images = block_images
       if shuffle
         images = images.shuffle
       end

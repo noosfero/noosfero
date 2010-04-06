@@ -35,11 +35,11 @@ class SlideshowBlockTest < ActiveSupport::TestCase
     gallery = mock
     images = []
     shuffled = []
-    gallery.stubs(:images).returns(images)
-    images.expects(:shuffle).once.returns(shuffled)
-
     block = SlideshowBlock.new(:shuffle => true)
     block.stubs(:gallery).returns(gallery)
+    block.stubs(:block_images).returns(images)
+    images.expects(:shuffle).once.returns(shuffled)
+
     block.content
   end
 
@@ -49,6 +49,16 @@ class SlideshowBlockTest < ActiveSupport::TestCase
 
   should 'not display navigation by default' do
     assert_equal false, SlideshowBlock.new.navigation
+  end
+
+  should 'not show folders' do
+    folder = fast_create(Folder, :profile_id => profile.id)
+    gallery = fast_create(Folder, :profile_id => profile.id)
+    gallery.children << folder
+    block = SlideshowBlock.new
+    block.stubs(:gallery).returns(gallery)
+
+    assert_not_includes block.block_images, folder
   end
 
 end
