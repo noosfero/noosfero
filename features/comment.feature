@@ -40,15 +40,14 @@ Feature: comment
 
   @selenium
   Scenario: redirect to right place after comment a picture
-    Given I am logged in as "booking"
-    And the following files
+    Given the following files
       | owner   | file      | mime      |
       | booking | rails.png | image/png |
+    Given I am logged in as "booking"
     And I am on /booking/rails.png?view=true
     And I fill in "Title" with "Hey ho, let's go!"
     And I fill in "Enter your comment" with "Hey ho, let's go!"
     When I press "Post comment"
-    And I wait 2 seconds
     Then I should be exactly on /booking/rails.png?view=true
 
   @selenium
@@ -56,6 +55,5 @@ Feature: comment
     Given I am logged in as "booking"
     And I am on /booking/article-to-comment
     When I press "Post comment"
-    And I wait 2 seconds
     Then I should see "Title can't be blank"
     And I should see "Body can't be blank"
