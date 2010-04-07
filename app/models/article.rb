@@ -151,7 +151,7 @@ class Article < ActiveRecord::Base
   # HTML.  Other article types can override this method to provide customized
   # views of themselves.
   def to_html(options = {})
-    body
+    body || ''
   end
 
   # returns the data of the article. Must be overriden in each subclass to

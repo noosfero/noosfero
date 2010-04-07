@@ -81,6 +81,11 @@ class ArticleTest < Test::Unit::TestCase
     assert_equal 'the body of the article', a.to_html
   end
 
+  should 'provide HTML version when body is nil' do
+    a = fast_create(Article, :profile_id => profile.id, :body => nil)
+    assert_equal '', a.to_html
+  end
+
   should 'provide first paragraph of HTML version' do
     profile = create_user('testinguser').person
     a = Article.create!(:name => 'my article', :profile_id => profile.id)

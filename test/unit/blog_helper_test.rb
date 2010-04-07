@@ -75,6 +75,15 @@ class BlogHelperTest < Test::Unit::TestCase
     assert_equal 'TITLE TO_HTML', display_post(article)
   end
 
+  should 'display empty post if body is nil' do
+    blog.children << article = fast_create(Article, :profile_id => profile.id, :parent_id => blog.id, :body => nil)
+    expects(:article_title).with(article).returns('TITLE')
+    expects(:content_tag).with('p', '').returns('')
+    self.stubs(:params).returns({:npage => nil})
+
+    assert_equal 'TITLE', display_post(article)
+  end
+
   should 'display link to file if post is an uploaded_file' do
     file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'), :profile => profile, :published => true, :parent => blog)
 
