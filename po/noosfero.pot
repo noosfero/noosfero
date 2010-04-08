@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.22.1\n"
-"POT-Creation-Date: 2010-03-08 17:02-0300\n"
+"Project-Id-Version: noosfero 0.22.3\n"
+"POT-Creation-Date: 2010-04-08 01:24-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,44 +19,44 @@ msgstr ""
 "#-#-#-#-#  noosfero.pot.LOCAL.16110.pot (noosfero 0.18.4)  #-#-#-#-#\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: app/helpers/categories_helper.rb:6
+#: app/helpers/categories_helper.rb:5
 msgid "Do not display at the menu"
 msgstr ""
 
-#: app/helpers/categories_helper.rb:7
+#: app/helpers/categories_helper.rb:6
 msgid "Orange"
 msgstr ""
 
-#: app/helpers/categories_helper.rb:8
+#: app/helpers/categories_helper.rb:7
 msgid "Green"
 msgstr ""
 
-#: app/helpers/categories_helper.rb:9
+#: app/helpers/categories_helper.rb:8
 msgid "Purple"
 msgstr ""
 
-#: app/helpers/categories_helper.rb:10
+#: app/helpers/categories_helper.rb:9
 msgid "Red"
 msgstr ""
 
-#: app/helpers/categories_helper.rb:14
+#: app/helpers/categories_helper.rb:13
 msgid "General Category"
 msgstr ""
 
-#: app/helpers/categories_helper.rb:15
+#: app/helpers/categories_helper.rb:14
 msgid "Product Category"
 msgstr ""
 
-#: app/helpers/categories_helper.rb:16 app/models/user.rb:-
+#: app/helpers/categories_helper.rb:15 app/models/profile.rb:-
 #: app/views/enterprise_registration/basic_information.rhtml:29
 msgid "Region"
 msgstr ""
 
-#: app/helpers/categories_helper.rb:21
+#: app/helpers/categories_helper.rb:20
 msgid "Display at the menu?"
 msgstr ""
 
-#: app/helpers/categories_helper.rb:39
+#: app/helpers/categories_helper.rb:38
 msgid "Type of category"
 msgstr ""
 
@@ -68,7 +68,7 @@ msgstr ""
 msgid "Rejected"
 msgstr ""
 
-#: app/helpers/language_helper.rb:29 app/helpers/language_helper.rb:39
+#: app/helpers/language_helper.rb:24 app/helpers/language_helper.rb:34
 msgid ""
 "The language you choose here is the language used for options, buttons, etc. "
 "It does not affect the language of the content created by other users."
@@ -102,6 +102,7 @@ msgid "I want this article to display the number of hits it received"
 msgstr ""
 
 #: app/helpers/folder_helper.rb:57 app/helpers/article_helper.rb:32
+#: app/views/shared/user_menu.rhtml:27
 #: app/views/tasks/_approve_article.rhtml:1
 msgid "New article"
 msgstr ""
@@ -165,7 +166,7 @@ msgstr ""
 msgid "Events"
 msgstr ""
 
-#: app/helpers/lightbox_helper.rb:31
+#: app/helpers/lightbox_helper.rb:27
 msgid "Please, try again when the page loading completes."
 msgstr ""
 
@@ -429,12 +430,12 @@ msgstr ""
 msgid "Help on this block"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:225 app/helpers/application_helper.rb:80
+#: app/helpers/boxes_helper.rb:225 app/helpers/application_helper.rb:84
 #: app/models/link_list_block.rb:23
 msgid "Help"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:225 app/helpers/application_helper.rb:100
+#: app/helpers/boxes_helper.rb:225 app/helpers/application_helper.rb:104
 #: app/views/cms/why_categorize.rhtml:8 app/views/search/_search_form.rhtml:63
 #: app/views/box_organizer/add_block.rhtml:26 app/views/account/wizard.rhtml:1
 msgid "Close"
@@ -448,17 +449,17 @@ msgstr ""
 msgid "Administrator assigns validator organizations per region."
 msgstr ""
 
-#: app/helpers/content_viewer_helper.rb:9
+#: app/helpers/content_viewer_helper.rb:8
 msgid "No comments yet"
 msgstr ""
 
-#: app/helpers/content_viewer_helper.rb:11
+#: app/helpers/content_viewer_helper.rb:10
 msgid "One comment"
 msgid_plural "%{comments} comments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: app/helpers/content_viewer_helper.rb:23
+#: app/helpers/content_viewer_helper.rb:22
 msgid "%s, by %s - %s"
 msgstr ""
 
@@ -475,362 +476,362 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:6
+#: app/helpers/profile_editor_helper.rb:5
 msgid "Agrometeorology"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:7
+#: app/helpers/profile_editor_helper.rb:6
 msgid "Agronomy"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:8
+#: app/helpers/profile_editor_helper.rb:7
 msgid "Foods"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:9
+#: app/helpers/profile_editor_helper.rb:8
 msgid "Anthropology"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:10
+#: app/helpers/profile_editor_helper.rb:9
 msgid "Architecture"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:11
+#: app/helpers/profile_editor_helper.rb:10
 msgid "Arts"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:12
+#: app/helpers/profile_editor_helper.rb:11
 msgid "Astronomy"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:13
+#: app/helpers/profile_editor_helper.rb:12
 msgid "Librarianship"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:14
+#: app/helpers/profile_editor_helper.rb:13
 msgid "Biosciences"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:15
+#: app/helpers/profile_editor_helper.rb:14
 msgid "Biophysics"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:16
+#: app/helpers/profile_editor_helper.rb:15
 msgid "Biology"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:17
+#: app/helpers/profile_editor_helper.rb:16
 msgid "Biotechnology"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:18
+#: app/helpers/profile_editor_helper.rb:17
 msgid "Botany"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:19
+#: app/helpers/profile_editor_helper.rb:18
 msgid "Science Politics"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:20
+#: app/helpers/profile_editor_helper.rb:19
 msgid "Accounting and Actuarial Science"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:21
+#: app/helpers/profile_editor_helper.rb:20
 msgid "Morphologic Sciences"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:22
+#: app/helpers/profile_editor_helper.rb:21
 msgid "Computation"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:23
+#: app/helpers/profile_editor_helper.rb:22
 msgid "Rural Development"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:24
+#: app/helpers/profile_editor_helper.rb:23
 msgid "Law"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:25
+#: app/helpers/profile_editor_helper.rb:24
 msgid "Ecology"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:26
+#: app/helpers/profile_editor_helper.rb:25
 msgid "Economy"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:27
+#: app/helpers/profile_editor_helper.rb:26
 msgid "Education"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:28
+#: app/helpers/profile_editor_helper.rb:27
 msgid "Long-distance Education"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:29
+#: app/helpers/profile_editor_helper.rb:28
 msgid "Physical Education"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:30
+#: app/helpers/profile_editor_helper.rb:29
 msgid "Professional Education"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:31
+#: app/helpers/profile_editor_helper.rb:30
 msgid "Nursing"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:32
+#: app/helpers/profile_editor_helper.rb:31
 msgid "Engineerings"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:33
+#: app/helpers/profile_editor_helper.rb:32
 msgid "Basic and Average education"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:34
+#: app/helpers/profile_editor_helper.rb:33
 msgid "Statistics"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:35
+#: app/helpers/profile_editor_helper.rb:34
 msgid "Stratigraphy"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:36
+#: app/helpers/profile_editor_helper.rb:35
 msgid "Pharmacy"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:37
+#: app/helpers/profile_editor_helper.rb:36
 msgid "Pharmacology"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:38
+#: app/helpers/profile_editor_helper.rb:37
 msgid "Philosophy"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:39
+#: app/helpers/profile_editor_helper.rb:38
 msgid "Physics"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:40
+#: app/helpers/profile_editor_helper.rb:39
 msgid "Plant Protection"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:41
+#: app/helpers/profile_editor_helper.rb:40
 msgid "Genetics"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:42
+#: app/helpers/profile_editor_helper.rb:41
 msgid "Geosciences"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:43
+#: app/helpers/profile_editor_helper.rb:42
 msgid "Geography"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:44
+#: app/helpers/profile_editor_helper.rb:43
 msgid "Geology"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:45
+#: app/helpers/profile_editor_helper.rb:44
 msgid "Hydrology"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:46
+#: app/helpers/profile_editor_helper.rb:45
 msgid "Hydromechanics"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:47
+#: app/helpers/profile_editor_helper.rb:46
 msgid "History"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:48
+#: app/helpers/profile_editor_helper.rb:47
 msgid "Horticulture"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:49
+#: app/helpers/profile_editor_helper.rb:48
 msgid "Informatics"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:50
+#: app/helpers/profile_editor_helper.rb:49
 msgid "Interdisciplinary"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:51
+#: app/helpers/profile_editor_helper.rb:50
 msgid "Journalism"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:52
+#: app/helpers/profile_editor_helper.rb:51
 msgid "Letters"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:53
+#: app/helpers/profile_editor_helper.rb:52
 msgid "Languages"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:54
+#: app/helpers/profile_editor_helper.rb:53
 msgid "Mathematics"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:55
+#: app/helpers/profile_editor_helper.rb:54
 msgid "Medicines"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:56
+#: app/helpers/profile_editor_helper.rb:55
 msgid "Medicine"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:57
+#: app/helpers/profile_editor_helper.rb:56
 msgid "Metallurgy"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:58
+#: app/helpers/profile_editor_helper.rb:57
 msgid "Microbiology"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:59
+#: app/helpers/profile_editor_helper.rb:58
 msgid "Mineralogy"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:60
+#: app/helpers/profile_editor_helper.rb:59
 msgid "Music"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:61
+#: app/helpers/profile_editor_helper.rb:60
 msgid "Nutrition"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:62
+#: app/helpers/profile_editor_helper.rb:61
 msgid "Odontology"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:63
+#: app/helpers/profile_editor_helper.rb:62
 msgid "Paleontology"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:64
+#: app/helpers/profile_editor_helper.rb:63
 msgid "Petrology"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:65
+#: app/helpers/profile_editor_helper.rb:64
 msgid "Production"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:66
+#: app/helpers/profile_editor_helper.rb:65
 msgid "Psychology"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:67
+#: app/helpers/profile_editor_helper.rb:66
 msgid "Psychiatry"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:68
+#: app/helpers/profile_editor_helper.rb:67
 msgid "Quality"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:69
+#: app/helpers/profile_editor_helper.rb:68
 msgid "Chemistry"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:70
+#: app/helpers/profile_editor_helper.rb:69
 msgid "Health"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:71
+#: app/helpers/profile_editor_helper.rb:70
 msgid "Remote Sensing"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:72
+#: app/helpers/profile_editor_helper.rb:71
 msgid "Forestry"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:73
+#: app/helpers/profile_editor_helper.rb:72
 msgid "Sociology"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:74
+#: app/helpers/profile_editor_helper.rb:73
 msgid "Ground"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:75
+#: app/helpers/profile_editor_helper.rb:74
 msgid "Theater"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:76
+#: app/helpers/profile_editor_helper.rb:75
 msgid "Transport"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:77
+#: app/helpers/profile_editor_helper.rb:76
 msgid "Urbanism"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:78
+#: app/helpers/profile_editor_helper.rb:77
 msgid "Veterinary Medicine"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:79
+#: app/helpers/profile_editor_helper.rb:78
 msgid "Zoology"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:80
+#: app/helpers/profile_editor_helper.rb:79
 msgid "Zootecnia"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:81
+#: app/helpers/profile_editor_helper.rb:80
 msgid "Others"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:85
+#: app/helpers/profile_editor_helper.rb:84
 msgid "Post-Doctoral"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:86
+#: app/helpers/profile_editor_helper.rb:85
 msgid "Ph.D."
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:87
+#: app/helpers/profile_editor_helper.rb:86
 msgid "Masters"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:88
+#: app/helpers/profile_editor_helper.rb:87
 msgid "Undergraduate"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:89
+#: app/helpers/profile_editor_helper.rb:88
 msgid "Graduate"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:90
+#: app/helpers/profile_editor_helper.rb:89
 msgid "High School"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:91
+#: app/helpers/profile_editor_helper.rb:90
 msgid "Elementary School"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:95
+#: app/helpers/profile_editor_helper.rb:94
 msgid "Concluded"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:96
+#: app/helpers/profile_editor_helper.rb:95
 msgid "Incomplete"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:97
+#: app/helpers/profile_editor_helper.rb:96
 msgid "Ongoing"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:101
-#: app/helpers/profile_editor_helper.rb:109
-#: app/helpers/profile_editor_helper.rb:113
-#: app/helpers/profile_editor_helper.rb:117
+#: app/helpers/profile_editor_helper.rb:100
+#: app/helpers/profile_editor_helper.rb:108
+#: app/helpers/profile_editor_helper.rb:112
+#: app/helpers/profile_editor_helper.rb:116
 msgid "[Select ...]"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:133
+#: app/helpers/profile_editor_helper.rb:132
 msgid "Preferred domain name:"
 msgstr ""
 
-#: app/helpers/profile_editor_helper.rb:133
+#: app/helpers/profile_editor_helper.rb:132
 msgid "Select domain"
 msgstr ""
 
@@ -874,69 +875,69 @@ msgstr ""
 msgid "Distance:"
 msgstr ""
 
-#: app/helpers/application_helper.rb:157
+#: app/helpers/application_helper.rb:161
 msgid "This is %s, version %s"
 msgstr ""
 
-#: app/helpers/application_helper.rb:420
+#: app/helpers/application_helper.rb:426
 msgid "non registered gender"
 msgstr ""
 
-#: app/helpers/application_helper.rb:420
+#: app/helpers/application_helper.rb:426
 #: app/views/profile_editor/_person_form.rhtml:18
 #: app/views/content_viewer/_person.rhtml:5 app/views/profile/_person.rhtml:5
 msgid "Male"
 msgstr ""
 
-#: app/helpers/application_helper.rb:420
+#: app/helpers/application_helper.rb:426
 #: app/views/profile_editor/_person_form.rhtml:18
 #: app/views/content_viewer/_person.rhtml:5 app/views/profile/_person.rhtml:5
 msgid "Female"
 msgstr ""
 
-#: app/helpers/application_helper.rb:445
+#: app/helpers/application_helper.rb:451
 msgid "Principal Product Categories"
 msgstr ""
 
-#: app/helpers/application_helper.rb:471
+#: app/helpers/application_helper.rb:477
 msgid "Click on this icon to add <b>%s</b> to your network"
 msgstr ""
 
-#: app/helpers/application_helper.rb:494 app/helpers/application_helper.rb:511
+#: app/helpers/application_helper.rb:500 app/helpers/application_helper.rb:517
 msgid "Click on this icon to go to the <b>%s</b>'s home page"
 msgstr ""
 
-#: app/helpers/application_helper.rb:507
+#: app/helpers/application_helper.rb:513
 msgid "1 member"
 msgid_plural "%s members"
 msgstr[0] ""
 msgstr[1] ""
 
-#: app/helpers/application_helper.rb:545 app/views/categories/index.rhtml:1
-#: app/views/content_viewer/view_page.rhtml:94
+#: app/helpers/application_helper.rb:551 app/views/categories/index.rhtml:1
+#: app/views/content_viewer/view_page.rhtml:90
 msgid "Categories"
 msgstr ""
 
-#: app/helpers/application_helper.rb:568
+#: app/helpers/application_helper.rb:574
 msgid "open"
 msgstr ""
 
-#: app/helpers/application_helper.rb:607
-#: app/views/layouts/application-ng.rhtml:79
-#: app/views/layouts/application-ng.rhtml:81
-#: app/views/layouts/application-ng.rhtml:84
+#: app/helpers/application_helper.rb:613
+#: app/views/layouts/application-ng.rhtml:62
+#: app/views/layouts/application-ng.rhtml:64
+#: app/views/layouts/application-ng.rhtml:67
 msgid "Search..."
 msgstr ""
 
-#: app/helpers/application_helper.rb:609
+#: app/helpers/application_helper.rb:615
 msgid "This is a search box. Click, write your query, and press enter to find"
 msgstr ""
 
-#: app/helpers/application_helper.rb:610
+#: app/helpers/application_helper.rb:616
 msgid "Click, write and press enter to find"
 msgstr ""
 
-#: app/helpers/application_helper.rb:616 app/models/link_list_block.rb:20
+#: app/helpers/application_helper.rb:622 app/models/link_list_block.rb:20
 #: app/views/region_validators/region.rhtml:23
 #: app/views/search/articles.rhtml:10 app/views/search/_sellers_form.rhtml:21
 #: app/views/search/_search_form.rhtml:19 app/views/search/people.rhtml:10
@@ -945,27 +946,27 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: app/helpers/application_helper.rb:804
+#: app/helpers/application_helper.rb:803
 msgid "Searched for '%s'"
 msgstr ""
 
-#: app/helpers/application_helper.rb:805
+#: app/helpers/application_helper.rb:804
 msgid "In category %s"
 msgstr ""
 
-#: app/helpers/application_helper.rb:806
+#: app/helpers/application_helper.rb:805
 msgid "within %d km from %s"
 msgstr ""
 
-#: app/helpers/application_helper.rb:807
+#: app/helpers/application_helper.rb:806
 msgid "%d results found"
 msgstr ""
 
-#: app/helpers/application_helper.rb:813
+#: app/helpers/application_helper.rb:812
 msgid "In all categories"
 msgstr ""
 
-#: app/helpers/application_helper.rb:909
+#: app/helpers/application_helper.rb:900
 msgid "Online Manual"
 msgstr ""
 
@@ -1120,13 +1121,13 @@ msgstr ""
 msgid "Community fields not updated successfully."
 msgstr ""
 
-#: app/controllers/public/content_viewer_controller.rb:51
+#: app/controllers/public/content_viewer_controller.rb:46
 msgid ""
 "You are not allowed to view this content. You can contact the owner of this "
 "profile to request access then."
 msgstr ""
 
-#: app/controllers/public/content_viewer_controller.rb:121
+#: app/controllers/public/content_viewer_controller.rb:116
 msgid "Comment succesfully deleted"
 msgstr ""
 
@@ -1204,21 +1205,21 @@ msgstr ""
 msgid "You are already a member of \"%s\""
 msgstr ""
 
-#: app/controllers/public/profile_controller.rb:141
+#: app/controllers/public/profile_controller.rb:146
 msgid "The content here is available to %s's friends only."
 msgstr ""
 
-#: app/controllers/public/profile_controller.rb:144
+#: app/controllers/public/profile_controller.rb:149
 msgid "The contents in this community is available to members only."
 msgstr ""
 
-#: app/controllers/public/profile_controller.rb:150
+#: app/controllers/public/profile_controller.rb:155
 msgid ""
 "Sorry, this profile was defined as private by its owner. You'll not be able "
 "to view content here unless the profile owner adds adds you."
 msgstr ""
 
-#: app/controllers/public/profile_controller.rb:150
+#: app/controllers/public/profile_controller.rb:155
 msgid "Oops ... you cannot go ahead here"
 msgstr ""
 
@@ -1338,11 +1339,11 @@ msgid ""
 "another article."
 msgstr ""
 
-#: app/models/article.rb:95
+#: app/models/article.rb:88
 msgid "Tag list"
 msgstr ""
 
-#: app/models/article.rb:185
+#: app/models/article.rb:177
 msgid "HTML Text document"
 msgstr ""
 
@@ -1557,9 +1558,9 @@ msgstr ""
 msgid "Ok"
 msgstr ""
 
-#: app/models/link_list_block.rb:22 app/views/shared/user_menu.rhtml:65
+#: app/models/link_list_block.rb:22 app/views/shared/user_menu.rhtml:69
 #: app/views/account/login.rhtml:3 app/views/account/login_block.rhtml:4
-#: app/views/layouts/application-ng.rhtml:71
+#: app/views/layouts/application-ng.rhtml:54
 msgid "Login"
 msgstr ""
 
@@ -1689,7 +1690,7 @@ msgstr ""
 msgid "Box"
 msgstr ""
 
-#: app/models/block.rb:- app/models/user.rb:- app/models/task.rb:-
+#: app/models/block.rb:- app/models/task.rb:- app/models/profile.rb:-
 #: app/views/cms/view.rhtml:30
 msgid "Type"
 msgstr ""
@@ -1698,19 +1699,20 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: app/models/block.rb:- app/models/user.rb:- app/models/external_feed.rb:-
+#: app/models/block.rb:- app/models/external_feed.rb:- app/models/profile.rb:-
 msgid "Enabled"
 msgstr ""
 
 #: app/models/block.rb:- app/models/user.rb:- app/models/product.rb:-
 #: app/models/task.rb:- app/models/external_feed.rb:- app/models/comment.rb:-
-#: app/models/environment.rb:- app/models/product_categorization.rb:-
+#: app/models/environment.rb:- app/models/profile.rb:-
+#: app/models/product_categorization.rb:-
 msgid "Created at"
 msgstr ""
 
 #: app/models/block.rb:- app/models/user.rb:- app/models/product.rb:-
 #: app/models/external_feed.rb:- app/models/environment.rb:-
-#: app/models/product_categorization.rb:-
+#: app/models/profile.rb:- app/models/product_categorization.rb:-
 msgid "Updated at"
 msgstr ""
 
@@ -1794,119 +1796,15 @@ msgid ""
 msgstr ""
 
 #: app/models/user.rb:-
-msgid "profile"
-msgstr ""
-
-#: app/models/user.rb:- app/models/product.rb:- app/models/comment.rb:-
-#: app/models/environment.rb:- app/models/create_enterprise.rb:4
-#: app/models/domain.rb:- app/models/contact.rb:- app/models/contact.rb:14
-#: app/views/cms/view.rhtml:29 app/views/content_viewer/_comment_form.rhtml:28
-#: app/views/box_organizer/_link_list_block.rhtml:4
-#: app/views/profile_members/_find_users.rhtml:3
-#: app/views/profile_members/find_users.rhtml:3
-#: app/views/enterprise_validation/_details.rhtml:3
-#: app/views/enterprise_editor/_form.rhtml:1
-msgid "Name"
-msgstr ""
-
-#: app/models/user.rb:- app/models/create_enterprise.rb:3
-#: app/views/enterprise_validation/_details.rhtml:23
-msgid "Identifier"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Environment"
-msgstr ""
-
-#: app/models/user.rb:- app/models/task.rb:26
-#: app/views/features/_manage_community_fields.rhtml:8
-#: app/views/features/_manage_person_fields.rhtml:8
-#: app/views/features/_manage_enterprise_fields.rhtml:8
-msgid "Active"
-msgstr ""
-
-#: app/models/user.rb:- app/models/external_feed.rb:-
-#: app/models/create_enterprise.rb:5 app/views/cms/_blog.rhtml:33
-#: app/views/profile_editor/_organization.rhtml:48
-#: app/views/box_organizer/_feed_reader_block.rhtml:2
-#: app/views/box_organizer/_link_list_block.rhtml:4
-#: app/views/enterprise_validation/index.rhtml:14
-#: app/views/enterprise_validation/_details.rhtml:7
-#: app/views/enterprise_validation/list_processed.rhtml:9
-#: app/views/enterprise_editor/_form.rhtml:4
-msgid "Address"
-msgstr ""
-
-#: app/models/user.rb:- app/models/create_enterprise.rb:6
-msgid "Contact phone"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Home page"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "User"
-msgstr ""
-
-#: app/models/user.rb:- app/models/task.rb:-
-msgid "Data"
-msgstr ""
-
-#: app/models/user.rb:- app/models/product.rb:-
-msgid "Lat"
-msgstr ""
-
-#: app/models/user.rb:- app/models/product.rb:-
-msgid "Lng"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Geocode precision"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Nickname"
-msgstr ""
-
-#: app/models/user.rb:- app/models/environment.rb:-
-msgid "Custom header"
-msgstr ""
-
-#: app/models/user.rb:- app/models/environment.rb:-
-msgid "Custom footer"
-msgstr ""
-
-#: app/models/user.rb:- app/models/environment.rb:-
-msgid "Theme"
-msgstr ""
-
-#: app/models/user.rb:- app/models/profile.rb:599
-msgid "Public profile"
-msgstr ""
-
-#: app/models/user.rb:- app/views/profile_editor/_person_form.rhtml:19
-msgid "Birth date"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Preferred domain"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Visible"
-msgstr ""
-
-#: app/models/user.rb:-
 msgid "user"
 msgstr ""
 
-#: app/models/user.rb:- app/models/user.rb:18 app/models/change_password.rb:21
+#: app/models/user.rb:- app/models/user.rb:18 app/models/change_password.rb:13
 #: app/views/invite/friends.rhtml:31
 msgid "Username"
 msgstr ""
 
-#: app/models/user.rb:- app/models/user.rb:19 app/models/change_password.rb:22
+#: app/models/user.rb:- app/models/user.rb:19 app/models/change_password.rb:15
 #: app/models/contact.rb:14
 msgid "e-Mail"
 msgstr ""
@@ -1935,6 +1833,10 @@ msgstr ""
 msgid "Terms accepted"
 msgstr ""
 
+#: app/models/user.rb:- app/models/profile.rb:-
+msgid "Environment"
+msgstr ""
+
 #: app/models/user.rb:-
 msgid "Password type"
 msgstr ""
@@ -1943,7 +1845,8 @@ msgstr ""
 msgid "Enable email"
 msgstr ""
 
-#: app/models/user.rb:7 app/views/invite/friends.rhtml:32
+#: app/models/user.rb:7 app/models/change_password.rb:17
+#: app/views/invite/friends.rhtml:32
 msgid "Password"
 msgstr ""
 
@@ -2183,6 +2086,18 @@ msgstr ""
 msgid "product"
 msgstr ""
 
+#: app/models/product.rb:- app/models/comment.rb:- app/models/environment.rb:-
+#: app/models/profile.rb:- app/models/create_enterprise.rb:4
+#: app/models/domain.rb:- app/models/contact.rb:- app/models/contact.rb:14
+#: app/views/cms/view.rhtml:29 app/views/content_viewer/_comment_form.rhtml:28
+#: app/views/box_organizer/_link_list_block.rhtml:4
+#: app/views/profile_members/_find_users.rhtml:3
+#: app/views/profile_members/find_users.rhtml:3
+#: app/views/enterprise_validation/_details.rhtml:3
+#: app/views/enterprise_editor/_form.rhtml:1
+msgid "Name"
+msgstr ""
+
 #: app/models/product.rb:- app/views/manage_products/index.rhtml:6
 msgid "Price"
 msgstr ""
@@ -2195,8 +2110,20 @@ msgstr ""
 msgid "Image"
 msgstr ""
 
+#: app/models/product.rb:- app/models/profile.rb:-
+msgid "Lat"
+msgstr ""
+
+#: app/models/product.rb:- app/models/profile.rb:-
+msgid "Lng"
+msgstr ""
+
 #: app/models/task.rb:-
 msgid "task"
+msgstr ""
+
+#: app/models/task.rb:- app/models/profile.rb:-
+msgid "Data"
 msgstr ""
 
 #: app/models/task.rb:-
@@ -2223,31 +2150,38 @@ msgstr ""
 msgid "Target type"
 msgstr ""
 
-#: app/models/task.rb:26
+#: app/models/task.rb:25 app/models/profile.rb:-
+#: app/views/features/_manage_community_fields.rhtml:8
+#: app/views/features/_manage_person_fields.rhtml:8
+#: app/views/features/_manage_enterprise_fields.rhtml:8
+msgid "Active"
+msgstr ""
+
+#: app/models/task.rb:25
 msgid "Cancelled"
 msgstr ""
 
-#: app/models/task.rb:26
+#: app/models/task.rb:25
 msgid "Finished"
 msgstr ""
 
-#: app/models/task.rb:111
+#: app/models/task.rb:110
 msgid "Generic task"
 msgstr ""
 
-#: app/models/folder.rb:8 app/models/folder.rb:18
+#: app/models/folder.rb:10 app/models/folder.rb:20
 msgid "Folder"
 msgstr ""
 
-#: app/models/folder.rb:8 app/models/image_gallery.rb:4
+#: app/models/folder.rb:10 app/models/image_gallery.rb:4
 msgid "Image gallery"
 msgstr ""
 
-#: app/models/folder.rb:22
+#: app/models/folder.rb:24
 msgid "A folder, inside which you can put other articles."
 msgstr ""
 
-#: app/models/folder.rb:42
+#: app/models/folder.rb:44
 msgid "(empty folder)"
 msgstr ""
 
@@ -2291,46 +2225,34 @@ msgstr ""
 msgid "View all products"
 msgstr ""
 
-#: app/models/change_password.rb:25
-msgid "ChangePassword|Login"
+#: app/models/change_password.rb:19
+msgid "Password Confirmation"
 msgstr ""
 
-#: app/models/change_password.rb:26
-msgid "ChangePassword|Email"
-msgstr ""
-
-#: app/models/change_password.rb:27
-msgid "ChangePassword|Password"
-msgstr ""
-
-#: app/models/change_password.rb:28
-msgid "ChangePassword|Password Confirmation"
-msgstr ""
-
-#: app/models/change_password.rb:43
+#: app/models/change_password.rb:38
 msgid "%{fn} is not a valid username."
 msgstr ""
 
-#: app/models/change_password.rb:46
+#: app/models/change_password.rb:41
 msgid "%{fn} is invalid."
 msgstr ""
 
-#: app/models/change_password.rb:77
+#: app/models/change_password.rb:72
 msgid "Your password change request was cancelled at %s."
 msgstr ""
 
-#: app/models/change_password.rb:81
+#: app/models/change_password.rb:76
 msgid "Your password was changed successfully."
 msgstr ""
 
-#: app/models/change_password.rb:91
+#: app/models/change_password.rb:86
 msgid ""
 "In order to change your password, please visit the following address:\n"
 "\n"
 "%s"
 msgstr ""
 
-#: app/models/change_password.rb:96
+#: app/models/change_password.rb:91
 msgid "Password change request"
 msgstr ""
 
@@ -2358,6 +2280,18 @@ msgstr ""
 
 #: app/models/external_feed.rb:-
 msgid "Feed title"
+msgstr ""
+
+#: app/models/external_feed.rb:- app/models/profile.rb:-
+#: app/models/create_enterprise.rb:5 app/views/cms/_blog.rhtml:33
+#: app/views/profile_editor/_organization.rhtml:48
+#: app/views/box_organizer/_feed_reader_block.rhtml:2
+#: app/views/box_organizer/_link_list_block.rhtml:4
+#: app/views/enterprise_validation/index.rhtml:14
+#: app/views/enterprise_validation/_details.rhtml:7
+#: app/views/enterprise_validation/list_processed.rhtml:9
+#: app/views/enterprise_editor/_form.rhtml:4
+msgid "Address"
 msgstr ""
 
 #: app/models/external_feed.rb:- app/models/blog.rb:16
@@ -2442,6 +2376,18 @@ msgstr ""
 
 #: app/models/environment.rb:-
 msgid "Design data"
+msgstr ""
+
+#: app/models/environment.rb:- app/models/profile.rb:-
+msgid "Custom header"
+msgstr ""
+
+#: app/models/environment.rb:- app/models/profile.rb:-
+msgid "Custom footer"
+msgstr ""
+
+#: app/models/environment.rb:- app/models/profile.rb:-
+msgid "Theme"
 msgstr ""
 
 #: app/models/environment.rb:-
@@ -2559,66 +2505,62 @@ msgid "Enable activation of enterprises"
 msgstr ""
 
 #: app/models/environment.rb:95
-msgid "Enable warning of obsolete browser"
-msgstr ""
-
-#: app/models/environment.rb:96
 msgid "Use WYSIWYG editor to edit environment home page"
 msgstr ""
 
-#: app/models/environment.rb:97
+#: app/models/environment.rb:96
 msgid "Media panel in WYSIWYG editor"
 msgstr ""
 
-#: app/models/environment.rb:98
+#: app/models/environment.rb:97
 msgid "Select preferred domains per profile"
 msgstr ""
 
-#: app/models/environment.rb:99
+#: app/models/environment.rb:98
 msgid "Display wizard signup"
 msgstr ""
 
-#: app/models/environment.rb:100
+#: app/models/environment.rb:99
 msgid "Use the portal as news source for front page"
 msgstr ""
 
-#: app/models/environment.rb:101
+#: app/models/environment.rb:100
 msgid "Allow users to create their own themes"
 msgstr ""
 
-#: app/models/environment.rb:102
+#: app/models/environment.rb:101
 msgid "Display search form in home page"
 msgstr ""
 
-#: app/models/environment.rb:104
+#: app/models/environment.rb:103
 msgid "Don't allow users to change which article to use as homepage"
 msgstr ""
 
-#: app/models/environment.rb:105
+#: app/models/environment.rb:104
 msgid "Display explanation about header and footer"
 msgstr ""
 
-#: app/models/environment.rb:106
+#: app/models/environment.rb:105
 msgid "Articles don't accept comments by default"
 msgstr ""
 
-#: app/models/environment.rb:107
+#: app/models/environment.rb:106
 msgid "Organizations have moderated publication by default"
 msgstr ""
 
-#: app/models/environment.rb:108
+#: app/models/environment.rb:107
 msgid "Allow organizations to change their URL"
 msgstr ""
 
-#: app/models/environment.rb:109
+#: app/models/environment.rb:108
 msgid "Admin must approve creation of communities"
 msgstr ""
 
-#: app/models/environment.rb:110
+#: app/models/environment.rb:109
 msgid "Enterprises are disabled when created"
 msgstr ""
 
-#: app/models/environment.rb:470
+#: app/models/environment.rb:469
 msgid "Only one Virtual Community can be the default one"
 msgstr ""
 
@@ -2636,6 +2578,51 @@ msgstr ""
 
 #: app/models/pending_task_notifier.rb:6
 msgid "[%s] Pending tasks"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "profile"
+msgstr ""
+
+#: app/models/profile.rb:- app/models/create_enterprise.rb:3
+#: app/views/enterprise_validation/_details.rhtml:23
+msgid "Identifier"
+msgstr ""
+
+#: app/models/profile.rb:- app/models/create_enterprise.rb:6
+msgid "Contact phone"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "Home page"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "User"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "Geocode precision"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "Nickname"
+msgstr ""
+
+#: app/models/profile.rb:- app/models/profile.rb:596
+msgid "Public profile"
+msgstr ""
+
+#: app/models/profile.rb:- app/views/profile_editor/_person_form.rhtml:19
+msgid "Birth date"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "Preferred domain"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "Visible"
 msgstr ""
 
 #: app/models/profile.rb:36
@@ -2694,29 +2681,29 @@ msgstr ""
 msgid "Invite members"
 msgstr ""
 
-#: app/models/profile.rb:439
+#: app/models/profile.rb:440
 msgid "My home page"
 msgstr ""
 
-#: app/models/profile.rb:439
+#: app/models/profile.rb:440
 msgid ""
 "<p>This is a default homepage created for me. It can be changed though the "
 "control panel.</p>"
 msgstr ""
 
-#: app/models/profile.rb:450
+#: app/models/profile.rb:451
 msgid "Intranet"
 msgstr ""
 
-#: app/models/profile.rb:493
+#: app/models/profile.rb:494
 msgid "%s can't has members"
 msgstr ""
 
-#: app/models/profile.rb:510
+#: app/models/profile.rb:511
 msgid "%s can't has moderators"
 msgstr ""
 
-#: app/models/profile.rb:599
+#: app/models/profile.rb:596
 msgid "Private profile"
 msgstr ""
 
@@ -3065,7 +3052,7 @@ msgstr ""
 
 #: app/views/categories/_category.rhtml:9
 #: app/views/shared/_select_categories.rhtml:20
-#: app/views/memberships/index.rhtml:25
+#: app/views/memberships/index.rhtml:27
 #: app/views/manage_products/index.rhtml:54
 #: app/views/profile_members/add_member.rhtml:14
 #: app/views/profile_members/unassociate.rhtml:14
@@ -3093,13 +3080,18 @@ msgstr ""
 
 #: app/views/blocks/profile_info.rhtml:24
 #: app/views/blocks/profile_image.rhtml:19 app/views/blocks/my_network.rhtml:9
-#: app/views/shared/user_menu.rhtml:39
-#: app/views/layouts/application-ng.rhtml:66
+#: app/views/shared/user_menu.rhtml:43
+#: app/views/layouts/application-ng.rhtml:49
 msgid "Control panel"
 msgstr ""
 
 #: app/views/blocks/profile_info.rhtml:27
 msgid "Since %{year}/%{month}"
+msgstr ""
+
+#: app/views/blocks/disabled_enterprise_message.rhtml:5
+#: app/views/shared/_disabled_enterprise.rhtml:6
+msgid "Unblock"
 msgstr ""
 
 #: app/views/blocks/my_network/community.rhtml:2
@@ -3129,7 +3121,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: app/views/blocks/profile_info_actions/community.rhtml:6
-#: app/views/memberships/index.rhtml:24
+#: app/views/memberships/index.rhtml:25
 #: app/views/account/_profile_details.rhtml:14
 msgid "Leave"
 msgstr ""
@@ -3192,39 +3184,39 @@ msgstr ""
 msgid "Go to your home page."
 msgstr ""
 
-#: app/views/shared/user_menu.rhtml:23 lib/zen3_terminology.rb:69
+#: app/views/shared/user_menu.rhtml:23 lib/zen3_terminology.rb:68
 msgid "My groups"
 msgstr ""
 
-#: app/views/shared/user_menu.rhtml:27
+#: app/views/shared/user_menu.rhtml:31
 msgid "Manage %s"
 msgstr ""
 
-#: app/views/shared/user_menu.rhtml:34
+#: app/views/shared/user_menu.rhtml:38
 msgid "Webmail"
 msgstr ""
 
-#: app/views/shared/user_menu.rhtml:39
+#: app/views/shared/user_menu.rhtml:43
 msgid ""
 "Control panel: change your picture, edit your personal information, create "
 "content or change the way your home page looks."
 msgstr ""
 
-#: app/views/shared/user_menu.rhtml:43
+#: app/views/shared/user_menu.rhtml:47
 #: app/views/environment_role_manager/make_admin.rhtml:4
 msgid "Admin"
 msgstr ""
 
-#: app/views/shared/user_menu.rhtml:46
+#: app/views/shared/user_menu.rhtml:50
 msgid "Access the site administration panel."
 msgstr ""
 
-#: app/views/shared/user_menu.rhtml:50 app/views/account/user_info.rhtml:11
-#: app/views/layouts/application-ng.rhtml:68
+#: app/views/shared/user_menu.rhtml:54 app/views/account/user_info.rhtml:11
+#: app/views/layouts/application-ng.rhtml:51
 msgid "Logout"
 msgstr ""
 
-#: app/views/shared/user_menu.rhtml:53
+#: app/views/shared/user_menu.rhtml:57
 msgid ""
 "This link takes you out of the system. You should logout if other people are "
 "willing to use the same computer after you."
@@ -3365,8 +3357,8 @@ msgstr ""
 
 #: app/views/favorite_enterprises/add.rhtml:11
 #: app/views/favorite_enterprises/remove.rhtml:15
-#: app/views/friends/add.rhtml:25 app/views/friends/remove.rhtml:21
-#: app/views/profile/leave.rhtml:11 app/views/profile/join.rhtml:11
+#: app/views/friends/add.rhtml:25 app/views/profile/leave.rhtml:11
+#: app/views/profile/join.rhtml:11
 msgid "No, I don't want"
 msgstr ""
 
@@ -3441,7 +3433,7 @@ msgstr ""
 #: app/views/maps/edit_location.rhtml:14 app/views/maps/edit_location.rhtml:30
 #: app/views/friends/index.rhtml:15 app/views/friends/index.rhtml:46
 #: app/views/box_organizer/index.rhtml:5 app/views/mailconf/index.rhtml:10
-#: app/views/mailconf/index.rhtml:22 app/views/mailconf/index.rhtml:32
+#: app/views/mailconf/index.rhtml:28 app/views/mailconf/index.rhtml:38
 #: app/views/tasks/index.rhtml:19
 msgid "Back to control panel"
 msgstr ""
@@ -3532,7 +3524,7 @@ msgstr ""
 #: app/views/profile_editor/edit.rhtml:63
 #: app/views/profile_editor/edit.rhtml:66
 #: app/views/profile_editor/edit.rhtml:69
-#: app/views/profile_editor/edit.rhtml:72
+#: app/views/profile_editor/edit.rhtml:72 app/views/friends/remove.rhtml:20
 #: app/views/account/logout_popup.rhtml:4
 #: app/views/account/activate_enterprise.rhtml:10
 msgid "Yes"
@@ -3541,7 +3533,7 @@ msgstr ""
 #: app/views/cms/_blog.rhtml:43
 #: app/views/profile_editor/_organization.rhtml:58
 #: app/views/profile_editor/edit.rhtml:41
-#: app/views/profile_editor/edit.rhtml:69
+#: app/views/profile_editor/edit.rhtml:69 app/views/friends/remove.rhtml:21
 #: app/views/account/activate_enterprise.rhtml:11
 msgid "No"
 msgstr ""
@@ -3658,27 +3650,27 @@ msgstr ""
 msgid "Folder type"
 msgstr ""
 
-#: app/views/cms/media_listing.rhtml:34
+#: app/views/cms/media_listing.rhtml:32
 msgid ""
 "Include files in some folder or select from the list below to add images and "
 "documents to the text editor beside (max size %s)"
 msgstr ""
 
-#: app/views/cms/media_listing.rhtml:61
+#: app/views/cms/media_listing.rhtml:59
 msgid "Folders"
 msgstr ""
 
-#: app/views/cms/media_listing.rhtml:62
+#: app/views/cms/media_listing.rhtml:60
 msgid ""
 "Drag images and documents to add them to the text. If needed, resize images "
 "by clicking the tree icon on editor."
 msgstr ""
 
-#: app/views/cms/media_listing.rhtml:65 app/views/themes/edit.rhtml:24
+#: app/views/cms/media_listing.rhtml:63 app/views/themes/edit.rhtml:24
 msgid "Images"
 msgstr ""
 
-#: app/views/cms/media_listing.rhtml:70
+#: app/views/cms/media_listing.rhtml:68
 msgid "Documents"
 msgstr ""
 
@@ -4079,8 +4071,8 @@ msgstr ""
 msgid "Created at: %s"
 msgstr ""
 
-#: app/views/memberships/index.rhtml:23
-msgid "Manage"
+#: app/views/memberships/index.rhtml:24
+msgid "Control panel of this group"
 msgstr ""
 
 #: app/views/memberships/new_community.rhtml:5
@@ -4359,7 +4351,7 @@ msgstr[1] ""
 msgid "Go back to %s"
 msgstr ""
 
-#: app/views/content_viewer/view_page.rhtml:101
+#: app/views/content_viewer/view_page.rhtml:97
 msgid "Source: %s"
 msgstr ""
 
@@ -4458,7 +4450,7 @@ msgstr ""
 msgid "Network"
 msgstr ""
 
-#: app/views/content_viewer/_person.rhtml:62 app/views/profile/index.rhtml:58
+#: app/views/content_viewer/_person.rhtml:62 app/views/profile/index.rhtml:54
 #: app/views/profile/_person.rhtml:62
 msgid "Interests"
 msgstr ""
@@ -4788,7 +4780,7 @@ msgstr ""
 msgid "Yes, I want to add %s as my friend"
 msgstr ""
 
-#: app/views/friends/remove.rhtml:3 lib/zen3_terminology.rb:55
+#: app/views/friends/remove.rhtml:3 lib/zen3_terminology.rb:54
 msgid "Removing friend: %s"
 msgstr ""
 
@@ -4800,10 +4792,6 @@ msgstr ""
 msgid ""
 "Note that %s will still have you as a friend, unless he/she also wants to "
 "remove you from his/her friend list."
-msgstr ""
-
-#: app/views/friends/remove.rhtml:20
-msgid "Yes, I want to remove %s from my friend list"
 msgstr ""
 
 #: app/views/box_organizer/_location_block.rhtml:2
@@ -5018,23 +5006,23 @@ msgid ""
 "administrator approves your request."
 msgstr ""
 
-#: app/views/mailconf/index.rhtml:18
-msgid "Disable e-Mail account below:"
-msgstr ""
-
 #: app/views/mailconf/index.rhtml:21
-msgid "Disable e-Mail"
+msgid "Configuration"
 msgstr ""
 
-#: app/views/mailconf/index.rhtml:27
+#: app/views/mailconf/index.rhtml:24
+msgid "Mail configuration for POP and IMAP"
+msgstr ""
+
+#: app/views/mailconf/index.rhtml:33
 msgid "Enable e-Mail account below:"
 msgstr ""
 
-#: app/views/mailconf/index.rhtml:29
+#: app/views/mailconf/index.rhtml:35
 msgid "You'll be able to access a webmail from your user menu."
 msgstr ""
 
-#: app/views/mailconf/index.rhtml:31
+#: app/views/mailconf/index.rhtml:37
 msgid "Enable e-Mail"
 msgstr ""
 
@@ -5772,27 +5760,27 @@ msgstr ""
 msgid "Manage my friends"
 msgstr ""
 
-#: app/views/profile/index.rhtml:20
+#: app/views/profile/index.rhtml:16
 msgid "Content"
 msgstr ""
 
-#: app/views/profile/index.rhtml:28
+#: app/views/profile/index.rhtml:24
 msgid "One post"
 msgid_plural "%{num} posts"
 msgstr[0] ""
 msgstr[1] ""
 
-#: app/views/profile/index.rhtml:36
+#: app/views/profile/index.rhtml:32
 msgid "One picture"
 msgid_plural "%{num} pictures"
 msgstr[0] ""
 msgstr[1] ""
 
-#: app/views/profile/index.rhtml:42
+#: app/views/profile/index.rhtml:38
 msgid "Events:"
 msgstr ""
 
-#: app/views/profile/index.rhtml:49
+#: app/views/profile/index.rhtml:45
 msgid "Tags:"
 msgstr ""
 
@@ -6260,64 +6248,53 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:66
+#: app/views/layouts/application.rhtml:60
 msgid "Go to content"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:103 app/views/doc/_path.html.erb:3
+#: app/views/layouts/application.rhtml:97 app/views/doc/_path.html.erb:3
 #: public/designs/themes/base/footer.rhtml:2
 #: public/designs/themes/noosfero/footer.rhtml:2
 msgid "Manual"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:134
-msgid "Your web browser is obsolete!"
+#: app/views/layouts/application-ng.rhtml:35
+msgid "Go to the content"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:135
-msgid ""
-"This website will not look as good as it could. Don't you want to use "
-"Firefox? That is a great web browser, free, and made by people from all over "
-"the world."
-msgstr ""
-
-#: app/views/layouts/application.rhtml:137
-msgid "Get Firefox Now!"
-msgstr ""
-
-#: app/views/layouts/application-ng.rhtml:61
+#: app/views/layouts/application-ng.rhtml:44
 msgid "Welcome, %s."
 msgstr ""
 
-#: app/views/layouts/application-ng.rhtml:61
+#: app/views/layouts/application-ng.rhtml:44
 msgid "Go to your homepage"
 msgstr ""
 
-#: app/views/layouts/application-ng.rhtml:63
+#: app/views/layouts/application-ng.rhtml:46
 msgid "Administration"
 msgstr ""
 
-#: app/views/layouts/application-ng.rhtml:63
+#: app/views/layouts/application-ng.rhtml:46
 msgid "Configure the environment"
 msgstr ""
 
-#: app/views/layouts/application-ng.rhtml:66
+#: app/views/layouts/application-ng.rhtml:49
 msgid "Configure your personal account and content"
 msgstr ""
 
-#: app/views/layouts/application-ng.rhtml:68
+#: app/views/layouts/application-ng.rhtml:51
 msgid "Leave the system"
 msgstr ""
 
-#: app/views/layouts/application-ng.rhtml:71
+#: app/views/layouts/application-ng.rhtml:54
 msgid "%s or %s"
 msgstr ""
 
-#: app/views/layouts/application-ng.rhtml:71
+#: app/views/layouts/application-ng.rhtml:54
 msgid "Register"
 msgstr ""
 
-#: app/views/layouts/application-ng.rhtml:87
+#: app/views/layouts/application-ng.rhtml:70
 msgid "Press <strong>Enter</strong> to send the search query."
 msgstr ""
 
@@ -6362,67 +6339,67 @@ msgstr ""
 msgid "Manual sections"
 msgstr ""
 
-#: lib/unifreire_terminology.rb:9
+#: lib/unifreire_terminology.rb:8
 msgid "Institutions"
 msgstr ""
 
-#: lib/unifreire_terminology.rb:10
+#: lib/unifreire_terminology.rb:9
 msgid "institutions"
 msgstr ""
 
-#: lib/unifreire_terminology.rb:11
+#: lib/unifreire_terminology.rb:10
 msgid "The institution where this user belongs."
 msgstr ""
 
-#: lib/unifreire_terminology.rb:12
+#: lib/unifreire_terminology.rb:11
 msgid "A block that displays your institutions."
 msgstr ""
 
-#: lib/unifreire_terminology.rb:13
+#: lib/unifreire_terminology.rb:12
 msgid "All institutions"
 msgstr ""
 
-#: lib/unifreire_terminology.rb:14
+#: lib/unifreire_terminology.rb:13
 msgid "Disable search for institutions"
 msgstr ""
 
-#: lib/unifreire_terminology.rb:15
+#: lib/unifreire_terminology.rb:14
 msgid "One institution"
 msgstr ""
 
-#: lib/unifreire_terminology.rb:16
+#: lib/unifreire_terminology.rb:15
 msgid "%{num} institutions"
 msgstr ""
 
-#: lib/unifreire_terminology.rb:17 lib/unifreire_terminology.rb:27
+#: lib/unifreire_terminology.rb:16 lib/unifreire_terminology.rb:26
 msgid "Favorite Institutions"
 msgstr ""
 
-#: lib/unifreire_terminology.rb:18
+#: lib/unifreire_terminology.rb:17
 msgid "This user's favorite institutions"
 msgstr ""
 
-#: lib/unifreire_terminology.rb:19
+#: lib/unifreire_terminology.rb:18
 msgid "A block that displays your favorite institutions"
 msgstr ""
 
-#: lib/unifreire_terminology.rb:20
+#: lib/unifreire_terminology.rb:19
 msgid "All favorite institutions"
 msgstr ""
 
-#: lib/unifreire_terminology.rb:21
+#: lib/unifreire_terminology.rb:20
 msgid "A search for institutions by products selled and local"
 msgstr ""
 
-#: lib/unifreire_terminology.rb:22
+#: lib/unifreire_terminology.rb:21
 msgid "Edit message for disabled institutions"
 msgstr ""
 
-#: lib/unifreire_terminology.rb:23
+#: lib/unifreire_terminology.rb:22
 msgid "Add favorite institution"
 msgstr ""
 
-#: lib/unifreire_terminology.rb:24
+#: lib/unifreire_terminology.rb:23
 msgid ""
 "Validation info is the information the institutions will see about how your "
 "organization processes the institutions validations it receives: validation "
@@ -6430,179 +6407,179 @@ msgid ""
 "validates etc."
 msgstr ""
 
-#: lib/unifreire_terminology.rb:25
+#: lib/unifreire_terminology.rb:24
 msgid "Here are all <b>%s</b>'s institutions."
 msgstr ""
 
-#: lib/unifreire_terminology.rb:26
+#: lib/unifreire_terminology.rb:25
 msgid "Here are all <b>%s</b>'s favorite institutions."
 msgstr ""
 
-#: lib/unifreire_terminology.rb:28
+#: lib/unifreire_terminology.rb:27
 msgid "Institutions in \"%s\""
 msgstr ""
 
-#: lib/unifreire_terminology.rb:29
+#: lib/unifreire_terminology.rb:28
 msgid "Register a new Institution"
 msgstr ""
 
-#: lib/unifreire_terminology.rb:30
+#: lib/unifreire_terminology.rb:29
 msgid "Schedule"
 msgstr ""
 
-#: lib/unifreire_terminology.rb:31
+#: lib/unifreire_terminology.rb:30
 msgid "Manage institutions fields"
 msgstr ""
 
-#: lib/unifreire_terminology.rb:32
+#: lib/unifreire_terminology.rb:31
 msgid "%s's institutions"
 msgstr ""
 
-#: lib/unifreire_terminology.rb:33
+#: lib/unifreire_terminology.rb:32
 msgid "Activate your institution"
 msgstr ""
 
-#: lib/unifreire_terminology.rb:34
+#: lib/unifreire_terminology.rb:33
 msgid "Institution activation code"
 msgstr ""
 
-#: lib/unifreire_terminology.rb:35
+#: lib/unifreire_terminology.rb:34
 msgid "Disable activation of institutions"
 msgstr ""
 
-#: lib/unifreire_terminology.rb:36
+#: lib/unifreire_terminology.rb:35
 msgid "%s's favorite institutions"
 msgstr ""
 
-#: lib/unifreire_terminology.rb:37
+#: lib/unifreire_terminology.rb:36
 msgid "Disable Institution"
 msgstr ""
 
-#: lib/unifreire_terminology.rb:38
+#: lib/unifreire_terminology.rb:37
 msgid "Enable Institution"
 msgstr ""
 
-#: lib/unifreire_terminology.rb:39
+#: lib/unifreire_terminology.rb:38
 msgid "Institution Validation"
 msgstr ""
 
-#: lib/unifreire_terminology.rb:40
+#: lib/unifreire_terminology.rb:39
 msgid "Institution Info and settings"
 msgstr ""
 
-#: lib/unifreire_terminology.rb:41
+#: lib/unifreire_terminology.rb:40
 msgid "Institutions are disabled when created"
 msgstr ""
 
-#: lib/zen3_terminology.rb:9
+#: lib/zen3_terminology.rb:8
 msgid "My ePortfolio"
 msgstr ""
 
-#: lib/zen3_terminology.rb:10
+#: lib/zen3_terminology.rb:9
 msgid "ePortfolio"
 msgstr ""
 
-#: lib/zen3_terminology.rb:11
+#: lib/zen3_terminology.rb:10
 msgid "Groups"
 msgstr ""
 
-#: lib/zen3_terminology.rb:12
+#: lib/zen3_terminology.rb:11
 msgid "groups"
 msgstr ""
 
-#: lib/zen3_terminology.rb:13
+#: lib/zen3_terminology.rb:12
 msgid "A block that displays your groups"
 msgstr ""
 
-#: lib/zen3_terminology.rb:14
+#: lib/zen3_terminology.rb:13
 msgid "A block that displays your contacts"
 msgstr ""
 
-#: lib/zen3_terminology.rb:15
+#: lib/zen3_terminology.rb:14
 msgid "The groups in which the user is a member"
 msgstr ""
 
-#: lib/zen3_terminology.rb:16
+#: lib/zen3_terminology.rb:15
 msgid "All groups"
 msgstr ""
 
-#: lib/zen3_terminology.rb:17
+#: lib/zen3_terminology.rb:16
 msgid "Group"
 msgstr ""
 
-#: lib/zen3_terminology.rb:18
+#: lib/zen3_terminology.rb:17
 msgid "One group"
 msgstr ""
 
-#: lib/zen3_terminology.rb:19
+#: lib/zen3_terminology.rb:18
 msgid "%{num} groups"
 msgstr ""
 
-#: lib/zen3_terminology.rb:20
+#: lib/zen3_terminology.rb:19
 msgid "Disable search for groups"
 msgstr ""
 
-#: lib/zen3_terminology.rb:21
+#: lib/zen3_terminology.rb:20
 msgid "Organizations"
 msgstr ""
 
-#: lib/zen3_terminology.rb:22
+#: lib/zen3_terminology.rb:21
 msgid "organizations"
 msgstr ""
 
-#: lib/zen3_terminology.rb:23
+#: lib/zen3_terminology.rb:22
 msgid "The organizations where this user works."
 msgstr ""
 
-#: lib/zen3_terminology.rb:24
+#: lib/zen3_terminology.rb:23
 msgid "A block that displays your organizations."
 msgstr ""
 
-#: lib/zen3_terminology.rb:25
+#: lib/zen3_terminology.rb:24
 msgid "All organizations"
 msgstr ""
 
-#: lib/zen3_terminology.rb:26
+#: lib/zen3_terminology.rb:25
 msgid "Disable search for organizations"
 msgstr ""
 
-#: lib/zen3_terminology.rb:27
+#: lib/zen3_terminology.rb:26
 msgid "One organization"
 msgstr ""
 
-#: lib/zen3_terminology.rb:28
+#: lib/zen3_terminology.rb:27
 msgid "%{num} organizations"
 msgstr ""
 
-#: lib/zen3_terminology.rb:29 lib/zen3_terminology.rb:39
+#: lib/zen3_terminology.rb:28 lib/zen3_terminology.rb:38
 msgid "Favorite Organizations"
 msgstr ""
 
-#: lib/zen3_terminology.rb:30
+#: lib/zen3_terminology.rb:29
 msgid "This user's favorite organizations"
 msgstr ""
 
-#: lib/zen3_terminology.rb:31
+#: lib/zen3_terminology.rb:30
 msgid "A block that displays your favorite organizations"
 msgstr ""
 
-#: lib/zen3_terminology.rb:32
+#: lib/zen3_terminology.rb:31
 msgid "All favorite organizations"
 msgstr ""
 
-#: lib/zen3_terminology.rb:33
+#: lib/zen3_terminology.rb:32
 msgid "A search for organizations by products selled and local"
 msgstr ""
 
-#: lib/zen3_terminology.rb:34
+#: lib/zen3_terminology.rb:33
 msgid "Edit message for disabled organizations"
 msgstr ""
 
-#: lib/zen3_terminology.rb:35
+#: lib/zen3_terminology.rb:34
 msgid "Add organization as favorite"
 msgstr ""
 
-#: lib/zen3_terminology.rb:36
+#: lib/zen3_terminology.rb:35
 msgid ""
 "Validation info is the information the organizations will see about how your "
 "organization processes the organizations validations it receives: validation "
@@ -6610,191 +6587,191 @@ msgid ""
 "validates etc."
 msgstr ""
 
-#: lib/zen3_terminology.rb:37
+#: lib/zen3_terminology.rb:36
 msgid "Here all all <b>%s</b>'s organizations."
 msgstr ""
 
-#: lib/zen3_terminology.rb:38
+#: lib/zen3_terminology.rb:37
 msgid "Here are all <b>%s</b>'s favorite organizations."
 msgstr ""
 
-#: lib/zen3_terminology.rb:40
+#: lib/zen3_terminology.rb:39
 msgid "Organizations in \"%s\""
 msgstr ""
 
-#: lib/zen3_terminology.rb:41
+#: lib/zen3_terminology.rb:40
 msgid "Register a new organization"
 msgstr ""
 
-#: lib/zen3_terminology.rb:42
+#: lib/zen3_terminology.rb:41
 msgid "One contact"
 msgstr ""
 
-#: lib/zen3_terminology.rb:43
+#: lib/zen3_terminology.rb:42
 msgid "%s contacts"
 msgstr ""
 
-#: lib/zen3_terminology.rb:44
+#: lib/zen3_terminology.rb:43
 msgid "%s groups"
 msgstr ""
 
-#: lib/zen3_terminology.rb:45
+#: lib/zen3_terminology.rb:44
 msgid "Are you sure you want to remove %s from your contacts list?"
 msgstr ""
 
-#: lib/zen3_terminology.rb:46
+#: lib/zen3_terminology.rb:45
 msgid ""
 "Note that %s will still have you as a contact, unless he/she also wants to "
 "remove you from his/her contact list."
 msgstr ""
 
-#: lib/zen3_terminology.rb:47
+#: lib/zen3_terminology.rb:46
 msgid "Yes, I want to remove %s from my contact list"
 msgstr ""
 
-#: lib/zen3_terminology.rb:48
+#: lib/zen3_terminology.rb:47
 msgid "Adding %s as a contact"
 msgstr ""
 
-#: lib/zen3_terminology.rb:49
+#: lib/zen3_terminology.rb:48
 msgid "Are you sure you want to add %s as your contact?"
 msgstr ""
 
-#: lib/zen3_terminology.rb:50
+#: lib/zen3_terminology.rb:49
 msgid "Note that %s will need to accept being added as your contact."
 msgstr ""
 
-#: lib/zen3_terminology.rb:51
+#: lib/zen3_terminology.rb:50
 msgid "Classify your new contact %s: "
 msgstr ""
 
-#: lib/zen3_terminology.rb:52
+#: lib/zen3_terminology.rb:51
 msgid "Yes, I want to add %s as my contact"
 msgstr ""
 
-#: lib/zen3_terminology.rb:53
+#: lib/zen3_terminology.rb:52
 msgid "Manage contacts"
 msgstr ""
 
-#: lib/zen3_terminology.rb:54
+#: lib/zen3_terminology.rb:53
 msgid "Add contact"
 msgstr ""
 
-#: lib/zen3_terminology.rb:56
+#: lib/zen3_terminology.rb:55
 msgid "Clicking on this button will remove your contact relation with %s."
 msgstr ""
 
-#: lib/zen3_terminology.rb:57
+#: lib/zen3_terminology.rb:56
 msgid "You have no contacts yet."
 msgstr ""
 
-#: lib/zen3_terminology.rb:58
+#: lib/zen3_terminology.rb:57
 msgid "%s's contacts"
 msgstr ""
 
-#: lib/zen3_terminology.rb:59
+#: lib/zen3_terminology.rb:58
 msgid "Here are all <b>%s</b>'s contacts."
 msgstr ""
 
-#: lib/zen3_terminology.rb:60
+#: lib/zen3_terminology.rb:59
 msgid "Contacts"
 msgstr ""
 
-#: lib/zen3_terminology.rb:61
+#: lib/zen3_terminology.rb:60
 msgid "Creating new group"
 msgstr ""
 
-#: lib/zen3_terminology.rb:62
+#: lib/zen3_terminology.rb:61
 msgid "Do you want to join this group?"
 msgstr ""
 
-#: lib/zen3_terminology.rb:63
+#: lib/zen3_terminology.rb:62
 msgid "Activate your organization"
 msgstr ""
 
-#: lib/zen3_terminology.rb:64
+#: lib/zen3_terminology.rb:63
 msgid "Organization activation code"
 msgstr ""
 
-#: lib/zen3_terminology.rb:65
+#: lib/zen3_terminology.rb:64
 msgid "Disable activation of organizations"
 msgstr ""
 
-#: lib/zen3_terminology.rb:66
+#: lib/zen3_terminology.rb:65
 msgid "Manage group fields"
 msgstr ""
 
-#: lib/zen3_terminology.rb:67
+#: lib/zen3_terminology.rb:66
 msgid "Create a new group"
 msgstr ""
 
-#: lib/zen3_terminology.rb:68
+#: lib/zen3_terminology.rb:67
 msgid "Choose your host community:"
 msgstr ""
 
-#: lib/zen3_terminology.rb:70
+#: lib/zen3_terminology.rb:69
 msgid "Group Info and Settings"
 msgstr ""
 
-#: lib/zen3_terminology.rb:71
+#: lib/zen3_terminology.rb:70
 msgid "{#} group"
 msgstr ""
 
-#: lib/zen3_terminology.rb:72
+#: lib/zen3_terminology.rb:71
 msgid "{#} groups"
 msgstr ""
 
-#: lib/zen3_terminology.rb:73
+#: lib/zen3_terminology.rb:72
 msgid "{#} organization"
 msgstr ""
 
-#: lib/zen3_terminology.rb:74
+#: lib/zen3_terminology.rb:73
 msgid "{#} organizations"
 msgstr ""
 
-#: lib/zen3_terminology.rb:75
+#: lib/zen3_terminology.rb:74
 msgid "{#} contact"
 msgstr ""
 
-#: lib/zen3_terminology.rb:76
+#: lib/zen3_terminology.rb:75
 msgid "{#} contacts"
 msgstr ""
 
-#: lib/zen3_terminology.rb:77
+#: lib/zen3_terminology.rb:76
 msgid "%s's favorite organizations"
 msgstr ""
 
-#: lib/zen3_terminology.rb:78
+#: lib/zen3_terminology.rb:77
 msgid "Disable Organization"
 msgstr ""
 
-#: lib/zen3_terminology.rb:79
+#: lib/zen3_terminology.rb:78
 msgid "Enable Organization"
 msgstr ""
 
-#: lib/zen3_terminology.rb:80
+#: lib/zen3_terminology.rb:79
 msgid "Organization Validation"
 msgstr ""
 
-#: lib/zen3_terminology.rb:81
+#: lib/zen3_terminology.rb:80
 msgid "Organization Info and settings"
 msgstr ""
 
-#: lib/zen3_terminology.rb:82
+#: lib/zen3_terminology.rb:81
 msgid "Choose the groups you want to join and/or create your own."
 msgstr ""
 
-#: lib/zen3_terminology.rb:83
+#: lib/zen3_terminology.rb:82
 msgid "New group"
 msgstr ""
 
-#: lib/zen3_terminology.rb:84
+#: lib/zen3_terminology.rb:83
 msgid ""
 "Tags are important to new users, they'll be able to find your new group more "
 "easily."
 msgstr ""
 
-#: lib/zen3_terminology.rb:85
+#: lib/zen3_terminology.rb:84
 msgid "Organizations are disabled when created"
 msgstr ""
 
