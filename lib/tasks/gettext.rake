@@ -6,12 +6,16 @@ require 'noosfero'
 
 desc "Create mo-files for L10n"
 task :makemo do
+  require 'gettext'
+  require 'gettext/rails'
   require 'gettext/utils'
   GetText.create_mofiles(true, "po", "locale")
 end
 
 desc "Update pot/po files to match new version."
 task :updatepo do
+  require 'gettext'
+  require 'gettext/rails'
   require 'gettext/utils'
   GetText::RubyParser::ID << '__'
   GetText::RubyParser::PLURAL_ID << 'n__'
