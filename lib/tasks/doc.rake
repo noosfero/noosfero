@@ -101,23 +101,46 @@ namespace :noosfero do
     desc "Rebuild Noosfero online documentation"
     task :rebuild => [:clean, :build]
 
+    def percent_translated(po_file)
+      if !File.exists?(po_file)
+        raise "#{po_file}: not found"
+      end
+      output = `LANG=C msgfmt --output /dev/null --statistics #{po_file} 2>&1`
+      puts output
+      translated = (output =~ /([0-9]+) translated messages/) ? $1.to_i : 0
+      untranslated = (output =~ /([0-9]+) untranslated messages/) ? $1.to_i : 0
+      fuzzy = (output =~ /([0-9]+) fuzzy translations/) ? $1.to_i : 0
+
+      100 * translated / (translated + untranslated + fuzzy)
+    end
+
     desc "Translates Noosfero online documentation (does not touch PO files)"
     task :translate => english_xhtml do
       languages = Noosfero.locales.keys - ['en']
       languages.each do |lang|
         po = "po/#{lang}/noosfero-doc.po"
+        percent = percent_translated(po)
+        if percent < 80
+          puts "Skipping #{lang} translation, only #{percent}% translated (needs 80%)"
+          next
+        end
         if File.exists?(po)
           puts "Translating: #{lang}"
           Dir['doc/noosfero/**/*.en.xhtml'].each do |doc|
             target = doc.sub('.en.xhtml', ".#{lang}.xhtml")
-            command = "po4a-translate -f xhtml -M utf8 -m #{doc} -p #{po} -L utf8 -l #{target} >/dev/null 2>&1"
-            unless system(command)
-              puts "Failed in #{lang} translation!"
-              puts "Run the command manually to check:"
-              puts "$ #{command}"
-              raise "Failed."
+            test = "test ! -e #{target} || test #{target} -ot #{doc} || test #{target} -ot #{po}"
+            command = "po4a-translate -f xhtml -M utf8 -m #{doc} -p #{po} -L utf8 -l #{target}"
+            if system(test)
+              unless system("#{command} >/dev/null 2>&1")
+                puts "Failed in #{lang} translation!"
+                puts "Run the command manually to check:"
+                puts "$ #{command}"
+                raise "Failed."
+              end
+              print "."
+            else
+              print "#"
             end
-            print "."
             $stdout.flush
           end
           puts
