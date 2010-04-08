@@ -8,18 +8,18 @@ end
 
 class ActiveRecord::Errors
   default_error_messages.update(
-    :inclusion => N_("%{fn} is not included in the list"),
-    :exclusion => N_("%{fn} is reserved"),
-    :invalid => N_("%{fn} is invalid"),
-    :confirmation => N_("%{fn} doesn't match confirmation"),
-    :accepted  => N_("%{fn} must be accepted"),
-    :empty => N_("%{fn} can't be empty"),
-    :blank => N_("%{fn} can't be blank"),
-    :too_long => N_("%{fn} is too long (maximum is %d characters)"),
-    :too_short => N_("%{fn} is too short (minimum is %d characters)"),
-    :wrong_length => N_("%{fn} is the wrong length (should be %d characters)"),
-    :taken => N_("%{fn} has already been taken"),
-    :not_a_number => N_("%{fn} is not a number")
+    :inclusion => "%{fn} is not included in the list",
+    :exclusion => "%{fn} is reserved",
+    :invalid => "%{fn} is invalid",
+    :confirmation => "%{fn} doesn't match confirmation",
+    :accepted  => "%{fn} must be accepted",
+    :empty => "%{fn} can't be empty",
+    :blank => "%{fn} can't be blank",
+    :too_long => "%{fn} is too long (maximum is %d characters)",
+    :too_short => "%{fn} is too short (minimum is %d characters)",
+    :wrong_length => "%{fn} is the wrong length (should be %d characters)",
+    :taken => "%{fn} has already been taken",
+    :not_a_number => "%{fn} is not a number"
   )
 
   def localize_error_messages
@@ -55,8 +55,8 @@ end
 
 module ActionView::Helpers::ActiveRecordHelper
   module L10n
-    @error_message_title = Nn_("%{num} error prohibited this %{record} from being saved", "%{num} errors prohibited this %{record} from being saved").flatten
-    @error_message_explanation = Nn_("There was a problem with the following field:", "There were problems with the following fields:").flatten
+    @error_message_title = ["%{num} error prohibited this %{record} from being saved", "%{num} errors prohibited this %{record} from being saved"]
+    @error_message_explanation = ["There was a problem with the following field:", "There were problems with the following fields:"]
     module_function
     def error_messages_for(instance, objects, object_names, count, options)
       record = _(options[:object_name] || object_names[0].to_s)
