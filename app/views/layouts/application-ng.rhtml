@@ -6,18 +6,13 @@
     <!--<meta http-equiv="refresh" content="1"/>-->
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="description" content="<%= @environment.name %>" />
-    <link rel="shortcut icon" href="<%= '/designs/themes/' + current_theme + '/favicon.ico' %>" type="image/x-icon" />
+    <link rel="shortcut icon" href="<%= image_path('/designs/themes/' + current_theme + '/favicon.ico') %>" type="image/x-icon" />
     <%= noosfero_javascript %>
-    <%= import_blocks_stylesheets %>
-    <%= import_controller_stylesheets %>
-    <%= stylesheet_import(
-          %w( common help menu article button search ),
-          %w( blocks forms login-box thickbox profiles),
-          template_stylesheet_path(),
-          icon_theme_stylesheet_path(),
-          theme_stylesheet_path(),
-          pngfix_stylesheet_path()
-        ) %>
+    <%= stylesheet_link_tag 'application', 'thickbox', 'lightbox', pngfix_stylesheet_path, :cache => 'cache' %>
+    <%= stylesheet_link_tag template_stylesheet_path %>
+    <%= stylesheet_link_tag icon_theme_stylesheet_path %>
+    <%= stylesheet_link_tag theme_stylesheet_path %>
+
     <%# Add custom tags/styles/etc via content_for %>
     <%= yield :head %>
   </head>

@@ -1,5 +1,5 @@
-<h1>
-  <div id='toolbar'>
+<h1 id='agenda-title'>
+  <div id='agenda-toolbar'>
     <%= button :back, _('Back to %s') % profile.name, profile.public_profile_url %>
     <% if user && user.has_permission?('post_content', profile) %>
       <%= button :new, _('New event'), myprofile_url(:controller => 'cms', :action => 'new', :type => 'Event') %>

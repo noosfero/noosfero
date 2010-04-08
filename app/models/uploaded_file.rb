@@ -81,7 +81,7 @@ class UploadedFile < Article
             :class => 'gallery-navigation'
           )
         end.to_s +
-        tag('img', :src => article.public_filename(:display), :class => article.css_class_name, :style => 'max-width: 100%') +
+        image_tag(article.public_filename(:display), :class => article.css_class_name, :style => 'max-width: 100%') +
           content_tag('p', article.abstract, :class => 'uploaded-file-description')
 
       end

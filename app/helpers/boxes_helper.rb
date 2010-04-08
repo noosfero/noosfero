@@ -232,6 +232,7 @@ module BoxesHelper
     @controller.boxes_holder.boxes.map(&:blocks).inject([]){|ac, a| ac + a}
   end
 
+  # DEPRECATED. Do not use this.
   def import_blocks_stylesheets(options = {})
     @blocks_css_files ||= current_blocks.map{|b|'blocks/' + block_css_class_name(b)}.uniq
     stylesheet_import(@blocks_css_files, options)

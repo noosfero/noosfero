@@ -193,7 +193,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
 
   should 'use default template when there is no profile' do
     stubs(:profile).returns(nil)
-    assert_equal "@import url(/designs/templates/default/stylesheets/style.css);", template_stylesheet_tag
+    assert_equal "/designs/templates/default/stylesheets/style.css", template_stylesheet_path
   end
 
   should 'use template from profile' do
@@ -201,10 +201,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
     profile.expects(:layout_template).returns('mytemplate')
     stubs(:profile).returns(profile)
 
-    foo = mock
-    expects(:stylesheet_import).with('/designs/templates/mytemplate/stylesheets/style.css').returns(foo)
-
-    assert_same foo, template_stylesheet_tag
+    assert_equal '/designs/templates/mytemplate/stylesheets/style.css', template_stylesheet_path
   end
 
   should 'use https:// for login_url' do
@@ -501,11 +498,11 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert !ask_to_join?
   end
 
-  should 'give default icon theme when no exists stylesheet file' do
+  should 'use default icon theme when there is no stylesheet file for the current icon theme' do
     e = Environment.default
     e.icon_theme = 'something-very-unlikely'
     stubs(:environment).returns(e)
-    assert_equal "@import url(/designs/icons/default/style.css);", icon_theme_stylesheet_tag
+    assert_equal "/designs/icons/default/style.css", icon_theme_stylesheet_path
   end
 
   should 'not display active field if only required' do

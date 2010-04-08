@@ -8,12 +8,6 @@ class LightboxHelperTest < Test::Unit::TestCase
     stubs(:_).with(anything).returns('TEXT')
   end
 
-  should 'include lightbox properly' do
-    expects(:stylesheet_link_tag).with('lightbox').returns('[lightbox.css]')
-    expects(:javascript_include_tag).with('lightbox').returns('[lightbox.js]')
-    assert_equal '[lightbox.css][lightbox.js]', include_lightbox_header
-  end
-
   should 'provide the needed files' do
     assert File.exists?(File.join(RAILS_ROOT, 'public', 'stylesheets', 'lightbox.css')), 'lightbox.css expected to be in public/stylesheets, but not found'
     assert File.exists?(File.join(RAILS_ROOT, 'public', 'javascripts', 'lightbox.js')), 'lightbox.js expected to be in public/javascripts, but not found'

@@ -5,33 +5,24 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="description" content="<%= @environment.name %>" />
     <meta name="keywords" content="Noosfero, Community, Open Source" />
-    <link rel="shortcut icon" href="<%= '/designs/themes/' + current_theme + '/favicon.ico' %>" type="image/x-icon" />
+    <link rel="shortcut icon" href="<%= image_path('/designs/themes/' + current_theme + '/favicon.ico') %>" type="image/x-icon" />
     <!-- ok --><%= meta_tags_for_article(@page) %>
 
     <%= noosfero_javascript %>
+    <%= javascript_include_tag 'menu', 'auto-open-menu', 'menu-config', :cache => 'cache-menu' %>
     <%= theme_javascript %>
 
-    <%#
-     stylesheet_import is better then stylesheet_link_tag because the stylesheet
-     must be loaded before the page show.
-    %>
     <%=
       # Load the principal css files:
-      stylesheet_import( %w( common help menu article button search blocks forms login-box thickbox profiles )
-                         ) + "\n" +
+      stylesheet_link_tag('application', 'thickbox', 'lightbox', pngfix_stylesheet_path, :cache => 'cache') +
       stylesheet_import( %w( common help menu article button search blocks forms login-box ),
                          :themed_source => true ) + "\n" +
-      # Load the boxes's css file if each exists:
-      import_blocks_stylesheets + "\n" +
       import_blocks_stylesheets(:themed_source => true) + "\n" +
       # Load the controller's css file if it exists:
-      import_controller_stylesheets + "\n" +
       import_controller_stylesheets(:themed_source => true)
     %>
-    <%= template_stylesheet_tag %>
-    <%= icon_theme_stylesheet_tag %>
-
-    <%= pngfix_stylesheet %>
+    <%= stylesheet_link_tag template_stylesheet_path %>
+    <%= stylesheet_link_tag icon_theme_stylesheet_path %>
 
     <%# Add custom tags/styles/etc via content_for %>
     <%= yield :head %>
@@ -39,7 +30,7 @@
 
   <body class='noosfero category<%= category_color %><%=
     # Identify the current controller and action for the CSS:
-    " controller_"+ @controller.controller_name() +
+    " controller-"+ @controller.controller_name() +
     " action_"+ @controller.controller_name() +"_"+ @controller.action_name() +
     ' ' + (logged_in? ? 'logged-in' : 'not-logged-in')
     %>' onload='noosfero_init();'
@@ -129,19 +120,6 @@
     <div id="footer">
       <%= theme_footer %>
     </div><!-- id="footer" -->
-
-    <% if environment.enabled?('warn_obsolete_browser') %>
-
-      <div id="better-browser-promotion" style="display:none">
-        <h3><%=
-        _('Your web browser is obsolete!') +'</h3><p/>'+
-        _('This website will not look as good as it could. Don\'t you want to use Firefox? That is a great web browser, free, and made by people from all over the world.')
-        %><p/>
-        <b id="bbp-getff"><a href="http://getfirefox.com" class="icon-firefox" target="getff"><%= _('Get Firefox Now!') %></a></b>
-      </div>
-
-    <% end %>
-    <%= javascript_include_tag 'better-browser-promotion' %>
 
     <%# if you need to add HTML stuff to the layout, include it in
     app/views/shared/noosfero_layout_features.rhtml! %>

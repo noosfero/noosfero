@@ -1,13 +1,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= html_language %>" lang="<%= html_language %>">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <%=
-      stylesheet_import( %w( media_listing button ) ) + "\n" +
-      stylesheet_import( %w( media_listing button ), :themed_source => true )
-  %>
+  <%= stylesheet_link_tag 'application', 'media_listing', :cache => 'cache-media-listing' %>
+  <%= stylesheet_import 'button', :themed_source => true %>
   <%= javascript_include_tag :defaults %>
   <%= javascript_include_tag 'lowpro' %>
-  <%= icon_theme_stylesheet_tag %>
+  <%= stylesheet_link_tag icon_theme_stylesheet_path %>
 </head>
 <body class='noosfero'>
   <script type="text/javascript">

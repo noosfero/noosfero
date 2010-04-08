@@ -1,13 +1,1 @@
-<%= javascript_include_tag 'default-config' %>
-<%= javascript_include_tag :defaults %>
-<%= javascript_include_tag 'jquery-latest.js' %>
-<script type="text/javascript">
-  jQuery.noConflict();
-</script>
-<%= javascript_include_tag 'jquery.cycle.all.min.js' %>
-<%= javascript_include_tag 'thickbox.js' %>
-
-<%= javascript_include_tag 'menu' %>
-<%= javascript_include_tag 'auto-open-menu' %>
-<%= include_lightbox_header %>
-<%= javascript_include_tag 'cms' if @controller.controller_name == 'cms' %>
+<%= javascript_include_tag :defaults, 'jquery-latest.js', 'jquery.noconflict.js', 'jquery.cycle.all.min.js', 'thickbox.js', 'lightbox', :cache => 'cache-general' %>

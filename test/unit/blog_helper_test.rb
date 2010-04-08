@@ -4,6 +4,7 @@ class BlogHelperTest < Test::Unit::TestCase
 
   include BlogHelper
   include ContentViewerHelper
+  include ActionView::Helpers::AssetTagHelper
 
   def setup
     stubs(:show_date).returns('')

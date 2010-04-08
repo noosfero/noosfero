@@ -14,6 +14,8 @@ public/images/0000
 public/thumbnails
 public/user_themes
 public/designs/themes/default
+public/javascripts/cache*.js
+public/stylesheets/cache*.css
 db/development.db
 db/production.db
 db/test.db

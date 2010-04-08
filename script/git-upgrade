@@ -54,6 +54,10 @@ upgrade_code(){
 
   say "Compiling translations"
   rake noosfero:translations:compile 2>/dev/null || (echo "Translations compilation failed; run manually to check"; false)
+
+  # remove cached files
+  rm -f public/javascripts/cache*.js
+  rm -f public/stylesheets/cache*.css
 }
 
 upgrade_database(){

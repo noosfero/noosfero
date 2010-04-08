@@ -83,6 +83,13 @@ HACKING file instead.
 * create sample data:
   RAILS_ENV=production rake db:populate
 
+* Add the domain name you will be using for your noosfero site to the list of
+  environment domain, like this:
+
+  ./script/runner "Environment.default.domains << Domain.new(:name => 'your.domain.com')"
+
+  (of course, replace your.domain.com with your real domain)
+
 * compile the translations:
   rake makemo
 
@@ -96,3 +103,56 @@ HACKING file instead.
 * to restart the server:
 
   ./script/production restart
+
+* Configure apache web server as a reverse proxy. You can use the template
+  below, replacing /path/to/noosfero with the directory in which your noosfero
+  installation is, your.domain.com with the domain name of your noosfero site.
+  We are assuming that you are running two mongrel instances on ports 4000 and
+  4001. If your setup is different you'll need to adjust <Proxy> section. Make
+  sure you have the follwing apache modules enabled: deflate, expires, proxy,
+  proxy_balancer, proxy_http, rewrite. If you don't understand something in the
+  configuration, please refer to the apache documentation.
+
+  <VirtualHost *:80>
+    ServerName your.domain.com
+
+    DocumentRoot "/path/to/noosfero/public"
+    <Directory "/path/to/noosfero/public">
+      Options FollowSymLinks
+      AllowOverride None
+      Order Allow,Deny
+      Allow from all
+    </Directory>
+
+    RewriteEngine On
+
+    # Rewrite index to check for static index.html
+    RewriteRule ^/$ /index.html [QSA]
+
+    # Rewrite to check for Rails cached page
+    RewriteRule ^([^.]+)$ $1.html [QSA]
+
+    RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_FILENAME} !-f
+    RewriteRule ^.*$ balancer://noosfero-%{REQUEST_URI} [P,QSA,L]
+
+    ErrorDocument 503 /503.html
+
+    ErrorLog /var/log/apache2/noosfero.log
+    LogLevel warn
+    CustomLog /var/log/apache2/noosfero.access.log combined
+
+    Include /path/to/noosfero/etc/noosfero/apache/cache.conf
+
+  </VirtualHost>
+
+  <Proxy balancer://noosfero-test>
+    BalancerMember http://127.0.0.1:4000
+    BalancerMember http://127.0.0.1:4001
+    Order Allow,Deny
+    Allow from All
+  </Proxy>
+
+  The cache.conf file included in the end of the <VirtualHost> section is
+  important, since it will tell apache to pass expiration and cache headers to
+  clients so that the site feels faster for users. Do we need to say that using
+  that configuration is strongly recommended?

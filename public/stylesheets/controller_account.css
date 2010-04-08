@@ -1,9 +1,0 @@
-@import url(person_data.css);
-
-.button.disabled {
-  opacity: 0.5;
-}
-
-#content .icon-forward.disabled { 
-  background-image: url('/designs/icons/default/go-right-disabled-HC.gif');
-}

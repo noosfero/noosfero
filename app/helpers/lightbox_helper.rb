@@ -1,9 +1,5 @@
 module LightboxHelper
 
-  def include_lightbox_header
-    stylesheet_link_tag('lightbox') + javascript_include_tag('lightbox')
-  end
-
   def lightbox_link_to(text, url, options = {})
     link_to(text, url, lightbox_options(options))
   end

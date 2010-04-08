@@ -282,6 +282,7 @@ module ApplicationHelper
     @controller.send(:user)
   end
 
+  # DEPRECATED. Do not use this.
   def stylesheet_import(*sources)
     options = sources.last.is_a?(Hash) ? sources.pop : { }
     themed_source = options.delete(:themed_source) 
@@ -300,6 +301,7 @@ module ApplicationHelper
     )
   end 
 
+  # DEPRECATED. Do not use this.
   def filename_for_stylesheet(name, in_theme)
     result = ''
     if in_theme
@@ -819,9 +821,6 @@ module ApplicationHelper
       "/designs/templates/#{profile.layout_template}/stylesheets/style.css"
     end
   end
-  def template_stylesheet_tag
-    stylesheet_import template_stylesheet_path()
-  end
 
   def login_url
     options = Noosfero.url_options.merge({ :controller => 'account', :action => 'login' })
@@ -893,11 +892,6 @@ module ApplicationHelper
     end
   end
 
-  def icon_theme_stylesheet_tag
-    theme_path = "/designs/icons/#{environment.icon_theme}/style.css"
-    stylesheet_import icon_theme_stylesheet_path()
-  end
-
   def page_title
     (@page ? @page.name + ' - ' : '') +
     (profile ? profile.short_name + ' - ' : '') +
@@ -912,15 +906,13 @@ module ApplicationHelper
     render :file =>  'layouts/_javascript'
   end
 
+  # DEPRECATED. Do not use this·
   def import_controller_stylesheets(options = {})
     stylesheet_import( "controller_"+ @controller.controller_name(), options )
   end
 
   def pngfix_stylesheet_path
     'iepngfix/iepngfix.css'
-  end
-  def pngfix_stylesheet
-    stylesheet_import pngfix_stylesheet_path()
   end
 
   def noosfero_layout_features
