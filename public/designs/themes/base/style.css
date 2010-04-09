@@ -327,18 +327,9 @@ div.no_media_panel {
 }
 
 div#notice {
-  background-color: #ffd;
-  color: black;
-  border: 1px solid #d3d7cf;
-  -moz-border-radius: 5px;
-
-  position: absolute;
-  top: 33px;
-  left: 10px;
-  margin-left: 0px;
-  padding: 5px;
+  right: 50%;
+  margin-right: -470px;
 }
-
 
 /* ==> blocks.css <== */
 

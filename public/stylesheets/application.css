@@ -126,17 +126,22 @@ a img {
   top: 200px;
 }
 
-/* Notice */ 
+/* Notice box */
 
 div#notice {
-  z-index: 20;
+  background-color: #000;
+  color: white;
+  -moz-border-radius: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  z-index: 100000;
+  padding: 10px;
+
+  width: 300px;
+  min-height: 60px;
   position: absolute;
-  top: 100px;
-  left: 50%;
-  margin-left: -200px;
-  width: 400px;
-  border: 1px solid #ddd;
-  background: #ffd;
+  top: 30px;
+  right: 30px;
 }
 
 /* * * Generic Content Formating * * */

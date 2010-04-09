@@ -2,9 +2,8 @@
       <div id="notice" onclick="Element.hide('notice');" style="display:none">
         <%= flash[:notice] %>
         <%= javascript_tag(
-          visual_effect( :appear,    'notice', :duration => 0.5, :queue => :end ) +
-          visual_effect( :highlight, 'notice', :duration => 3, :queue => :end ) +
-          visual_effect( :fade,      'notice', :duration => 1.5, :queue => :end )
+          visual_effect( :appear,    'notice', :duration => 1.5, :to => 0.8, :queue => :end ) +
+          'setTimeout(function() { %s }, 5000)' % visual_effect( :fade,      'notice', :duration => 1.0, :from => 0.8, :queue => :end )
         ) %>
       </div>
     <% end %>
