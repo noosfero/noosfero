@@ -30,7 +30,7 @@
 
   <p><%= _("This is a question to know if you really are part of this enterprise. Pay atention because you have only one chance to answer right and activate your enterprise. If you answer wrong you will not be able to activate the enterprise automaticaly and must get in touch with the admins of %s by email or phone.") % environment.name %> </p>
 
-  <%= ApplicationHelper::NoosferoFormBuilder::output_field(@question == :foundation_year ? (_("What year your enterprise was founded? It must have 4 digits, eg 1990. %s") % environment.tip_message_enterprise_activation_question) : _('What is the CNPJ of your enterprise?'), text_field_tag(:answer, nil, :id => 'enterprise-activation-answer', :help => help=_('We need to be sure that this is your enterprise'))) %>
+  <%= ApplicationHelper::NoosferoFormBuilder::output_field(@question == :foundation_year ? (_("What year your enterprise was founded? It must have 4 digits, eg 1990. %s") % environment.tip_message_enterprise_activation_question) : _('What is the CNPJ of your enterprise?'), text_field_tag(:answer, nil, :id => 'enterprise-activation-answer')) %>
 
     <%= hidden_field_tag :enterprise_code, params[:enterprise_code] %>
 

@@ -1,5 +1,4 @@
-<div class="common-profile-list-block"
-     help="<%= __('Here are all <b>%s</b>\'s friends.') % profile.name %>">
+<div class="common-profile-list-block">
 
 <h1><%= __("%s's friends") % profile.name %></h1>
 
@@ -16,7 +15,7 @@
 <% end %>
 
 <% button_bar do %>
-  <%= button :back, _('Go back'), { :controller => 'profile' }, :help => _('Back to the page where you come from.') %>
+  <%= button :back, _('Go back'), { :controller => 'profile' } %>
   <% if user == profile %>
     <%= button :edit, _('Manage my friends'), :controller => 'friends', :action => 'index', :profile => profile.identifier %>
     <%= button(:search, _('Invite people from my e-mail contacts'), :controller => 'invite', :action => 'friends') %>

@@ -1,5 +1,4 @@
-<div class="common-profile-list-block"
-     help="<%= _('Here are all <b>%s</b>\'s communities.') % profile.name %>">
+<div class="common-profile-list-block">
 
 <h1><%= _("%s's communities") % profile.name %></h1>
 
@@ -16,8 +15,7 @@
 <% end %>
 
 <% button_bar do %>
-  <%= button :back, _('Go back'), { :controller => 'profile' },
-      :help => _('Back to the page where you come from.') %>
+  <%= button :back, _('Go back'), { :controller => 'profile' } %>
   <%= button :add, _('Create a new community'),
       :controller => 'memberships', :action => 'new_community' if logged_in? && user == profile %>
 <% end %>
