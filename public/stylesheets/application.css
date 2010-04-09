@@ -1190,6 +1190,14 @@ a.comment-picture {
   font-size: small;
 }
 
+.blog-feed-link {
+  float: right;
+}
+
+.blog-description {
+  margin-right: 30px;
+}
+
 
 
 a.button, a.button:visited,
