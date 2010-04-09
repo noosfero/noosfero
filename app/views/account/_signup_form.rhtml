@@ -21,29 +21,23 @@
 <%= required_fields_message %>
 
 <div id='signup-email'>
-<%= required f.text_field(:email,
-    :help => help=_('This e-mail address will be used to contact you.')) %>
-<div class='help-small-msg'><%= help %></div>
+  <%= required f.text_field(:email) %>
+  <%= content_tag(:small,_('This e-mail address will be used to contact you.')) %>
 </div>
 
-<%= required f.text_field(:login,
-      :help => help=_('Insert your login'),
-      :onchange => 'this.value = convToValidLogin( this.value )') %>
-<div id='url-check'>
-<div class='help-small-msg'><%= help %></div>
-</div>
+<%= required f.text_field(:login, :onchange => 'this.value = convToValidLogin( this.value )') %>
+<%= content_tag(:small,_('Insert your login')) %>
+<div id='url-check'></div>
 
 <%= observe_field 'user_login', :url => {:action => 'check_url'}, :with => 'identifier', :update => 'url-check' %>
 
 <div id='signup-password'>
-<%= required f.password_field(:password,
-    :help => help=_('Choose a password that you can remember easily. It must have at least 4 characters.')) %>
-<div class='help-small-msg'><%= help %></div>
+  <%= required f.password_field(:password) %>
+  <%= content_tag(:small,_('Choose a password that you can remember easily. It must have at least 4 characters.')) %>
 </div>
 
-<%= required f.password_field(:password_confirmation,
-    :help => help=_('To confirm, repeat your password.')) %>
-<div class='help-small-msg'><%= help %></div>
+<%= required f.password_field(:password_confirmation) %>
+<%= content_tag(:small,_('To confirm, repeat your password.')) %>
 
 <% labelled_fields_for :profile_data, @person do |f| %>
   <%= render :partial => 'profile_editor/person_form', :locals => {:f => f} %>
