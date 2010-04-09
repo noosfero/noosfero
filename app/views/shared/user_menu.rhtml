@@ -1,6 +1,4 @@
-<div id="user_menu" class="top_extra_menu AOM_paddingBottom_6"<%=
-  ' help="'+ _('This menu gives you access to your personal functionalities.') +'"' if logged_in?
-  %>>
+<div id="user_menu" class="top_extra_menu AOM_paddingBottom_6">
 
   <% if logged_in? %>
 
@@ -40,22 +38,20 @@
         <% end %>
 
         <li>
-        <%= link_to('<span class="icon-menu-ctrl-panel"></span>'+ _('Control panel'), { :controller => 'profile_editor', :action => 'index', :profile => user.identifier }, :id => 'link_edit_profile', :help => _('Control panel: change your picture, edit your personal information, create content or change the way your home page looks.')) %>
+        <%= link_to('<span class="icon-menu-ctrl-panel"></span>'+ _('Control panel'), { :controller => 'profile_editor', :action => 'index', :profile => user.identifier }, :id => 'link_edit_profile') %>
         </li>
 
         <% if user.is_admin?(environment) %>
           <li><%= link_to( '<span class="icon-menu-admin"></span>'+ _('Admin'),
                              {:controller => 'admin_panel' },
-                             :id => 'link_admin_panel',
-                             :help => _('Access the site administration panel.')
-                             )%></li>
+                             :id => 'link_admin_panel' ) %>
+          </li>
         <% end %>
 
         <li><%= link_to( '<span class="icon-menu-logout"></span>'+ _('Logout'),
                                   {:controller => 'account', :action => 'logout'},
-                                  :id => 'link_logout',
-                                  :help => _('This link takes you out of the system. You should logout if other people are willing to use the same computer after you.')
-                                ) %></li>
+                                  :id => 'link_logout' ) %>
+        </li>
 
       </ul>
     </div><!-- id="user_menu_ul" -->
