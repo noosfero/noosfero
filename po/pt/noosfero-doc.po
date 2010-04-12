@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2010-03-16 20:53-0300\n"
-"PO-Revision-Date: 2010-03-16 20:55-0300\n"
+"PO-Revision-Date: 2010-04-12 16:13-0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -5094,7 +5094,7 @@ msgstr "<a href=\"/doc/user/sending-messages\">Enviando mensagens</a>"
 # type: Content of: <ul><li>
 #: doc/noosfero/user/toc.en.xhtml:8
 msgid "<a href=\"/doc/user/removing-comments\">Removing comments</a>"
-msgstr "<a href=\"/doc/user/removing-comments\">Removedo comentários</a>"
+msgstr "<a href=\"/doc/user/removing-comments\">Removendo comentários</a>"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/user/toc.en.xhtml:11
