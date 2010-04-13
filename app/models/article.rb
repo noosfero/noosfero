@@ -348,7 +348,11 @@ class Article < ActiveRecord::Base
 
   def sanitize_tag_list
     sanitizer = HTML::FullSanitizer.new
-    self.tag_list.names.map!{|i| sanitizer.sanitize(i) }
+    self.tag_list.names.map!{|i| strip_tag_name sanitizer.sanitize(i) }
+  end
+
+  def strip_tag_name(tag_name)
+    tag_name.gsub(/[<>]/, '')
   end
 
 end
