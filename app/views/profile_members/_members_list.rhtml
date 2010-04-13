@@ -16,6 +16,7 @@
                 :loading => '$("members-list").addClassName("loading")',
                 :success => "$('tr-#{m.identifier}').show()",
                 :complete => '$("members-list").removeClassName("loading")',
+                :confirm => _('Are you sure that you want to remove this member?'),
                 :url => {:action => 'unassociate', :id => m}) if m != user %>
         </div>
       </td>
