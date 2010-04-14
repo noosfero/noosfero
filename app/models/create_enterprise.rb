@@ -154,13 +154,13 @@ class CreateEnterprise < Task
   end
 
   def task_created_message
-    _('Your request for registering enterprise "%{enterprise}" at %{environment} was just received. It will be reviewed by the chosen validator organization you chose, according to its methods and creteria.
+    _('Your request for registering enterprise "%{enterprise}" at %{environment} was just received. It will be reviewed by the validator organization of your choice, according to its methods and criteria.
 
       You will be notified as soon as the validator organization has a position about your request.') % { :enterprise => self.name, :environment => self.environment }
   end
 
   def task_finished_message
-    _('Your request for registering the enterprise "%{enterprise}" was approved. You can access %{environment} now and start using it for your new enterprise.') % { :enterprise => self.name, :environment => self.environment }
+    _('Your request for registering the enterprise "%{enterprise}" was approved. You can access %{environment} now and provide start providing all relevant information your new enterprise.') % { :enterprise => self.name, :environment => self.environment }
   end
 
   def task_cancelled_message
