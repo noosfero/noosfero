@@ -12,7 +12,7 @@
 <% button_bar do %>
   <%= button :back, _('Go back'), { :controller => 'profile' },
       :help => _('Back to the page where you come from.') %>
-  <%= button :add, __('Register a new Enterprise'), :controller => 'enterprise_registration' if logged_in? && !environment.enabled?('disable_enterprise_registration') %>
+  <%= button :add, __('Register a new Enterprise'), :controller => 'enterprise_registration' if logged_in? && environment.enabled?('enterprise_registration') %>
 <% end %>
 
 </div><!-- fim class="common-profile-list-block" -->

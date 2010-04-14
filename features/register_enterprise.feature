@@ -10,9 +10,10 @@ Feature: register enterprise
 
     And I am logged in as "joaosilva"
     And I am on Joao Silva's control panel
+    And feature "enterprise_registration" is enabled on environment
 
   Scenario: enterprise registration is disabled by admin
-    Given feature "disable_enterprise_registration" is enabled on environment
+    Given feature "enterprise_registration" is disabled on environment
     When I follow "Manage my groups"
     Then I should not see "Register a new enterprise"
 
