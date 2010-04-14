@@ -22,6 +22,11 @@ module Noosfero
           locales_list
         end
     end
+    def each_locale
+      locales.keys.sort.each do |key|
+        yield(key, locales[key])
+      end
+    end
   end
 
   def self.identifier_format
