@@ -3025,6 +3025,16 @@ h1#agenda-title {
 }
 
 /* ==> public/stylesheets/controller_profile_editor.css <== */
+
+.controller-profile_editor .categorie_box .button {
+  float: left;
+}
+
+.controller-profile_editor #content ul.categories,
+.controller-profile_editor #content ul.categories li {
+  list-style: none;
+}
+
 .controller-profile_editor .control-panel {
   /*border: 1px solid red;*/
   padding: 0px 15px 0px 15px;
