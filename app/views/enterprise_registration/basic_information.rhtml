@@ -1,6 +1,6 @@
 <%= error_messages_for 'create_enterprise' %>
 
-<h2><%= _('Register enterprise') %></h2>
+<h1><%= _('Register enterprise') %></h1>
 
 
 <% if @validation == :region && @regions.empty? %>
@@ -19,8 +19,8 @@
   <%= required_fields_message %>
 
   <% labelled_form_for(:create_enterprise, @create_enterprise) do |f| %>
-    <%= required f.text_field 'identifier'%>
-    <%= required f.text_field 'name'%>
+    <%= required f.text_field 'name', :onchange => "updateUrlField(this, 'create_enterprise_identifier')", :size => 40 %>
+    <%= required labelled_form_field(_('Address'), content_tag('code', environment.top_url + "/" + text_field(:create_enterprise, 'identifier', :size => 25))) %>
     <%= render :partial => 'shared/custom_fields', :locals => { :f => f, :object_name => :create_enterprise, :profile => @create_enterprise, :only_required => false } %>
     <%= required labelled_form_field(_('Region'), f.select('region_id', @regions)) if @validation == :region %>
 

@@ -1,4 +1,4 @@
-<h2><%= _('Enterprise Registration: Select a validator organization') %></h2>
+<h1><%= _('Enterprise Registration: validator organization') %></h1>
 
 <p>
 <%= _('Select one organization to validate your enterprise registration request. Check the provided information about their validation methodoly and criteria.') %>
@@ -7,14 +7,20 @@
 <% form_tag do %>
   <%= render :partial => 'hidden_fields' %>
 
-  <% for validator in @validators %>
-    <div>
-      <%= labelled_radio_button validator.name, 'create_enterprise[target_id]', validator.id, true %>
-
-      <%= labelled_form_field(_('Validation Methodology:'), validator.validation_methodology || _("(not informed)")) %>
-      <%= labelled_form_field(_('Restrictions (if any):'), validator.validation_restrictions || _("(not informed)")) %>
-    </div>
+  <table>
+    <tr>
+      <th><%= _('Name') %></th>
+      <th><%= _('Validation Methodology:') %></th>
+      <th><%= _('Restrictions (if any):') %></th>
+    </tr>
+  <% @validators.each do |validator| %>
+    <tr>
+      <td><%= labelled_radio_button validator.name, 'create_enterprise[target_id]', validator.id  %></td>
+      <td><%= validator.validation_methodology || _("(not informed)") %></td>
+      <td><%= validator.validation_restrictions || _("(not informed)") %></td>
+    </tr>
   <% end %>
+  </table>
 
   <% button_bar do %>
     <%= submit_button 'save', _('Confirm') %>
