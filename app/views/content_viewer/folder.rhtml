@@ -1,0 +1,10 @@
+<div>
+  <%= folder.body %>
+</div>
+<hr/>
+
+<% if folder.children.empty? %>
+  <em><%= _('(empty folder)') %></em>
+<% else %>
+  <%= list_articles(available_articles(folder.children, user)) %>
+<% end %>
