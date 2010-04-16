@@ -7,6 +7,8 @@ class EnterpriseRegistrationTest < ActionController::IntegrationTest
   should 'be able to create an enterprise registration request' do
 
     environment = Environment.default
+    environment.organization_approval_method = :region
+    environment.save
     region1 = environment.regions.build(:name => 'A region')
     region1.save!
     region2 = environment.regions.build(:name => 'Other region')

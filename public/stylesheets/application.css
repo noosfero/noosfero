@@ -317,7 +317,7 @@ div.pending-tasks {
   text-decoration: underline;
 }
 .last-update {
-  font-size: small;
+  font-size: 12px;
 }
 
 /* * * icons for product category on profile * * */
@@ -1148,7 +1148,7 @@ a.comment-picture {
 
 #content .created-at {
   color: gray;
-  font-size: small;
+  font-size: 12px;
   display: block;
   text-align: right;
 }
@@ -1892,7 +1892,7 @@ div#activation_enterprise div {
 
 .blog-archives-block .subscribe-feed {
   padding: 5px 0px 10px 10px;
-  font-size: small;
+  font-size: 12px;
 }
 
 /* ==> blocks/profile-info-block.css <<= */ 
@@ -3025,6 +3025,16 @@ h1#agenda-title {
 }
 
 /* ==> public/stylesheets/controller_profile_editor.css <== */
+
+.controller-profile_editor .categorie_box .button {
+  float: left;
+}
+
+.controller-profile_editor #content ul.categories,
+.controller-profile_editor #content ul.categories li {
+  list-style: none;
+}
+
 .controller-profile_editor .control-panel {
   /*border: 1px solid red;*/
   padding: 0px 15px 0px 15px;

@@ -3,11 +3,11 @@ class TasksController < MyProfileController
   protect 'perform_task', :profile
   
   def index
-    @tasks = profile.all_pending_tasks
+    @tasks = profile.all_pending_tasks.sort_by(&:created_at)
   end
 
   def processed
-    @tasks = profile.all_finished_tasks
+    @tasks = profile.all_finished_tasks.sort_by(&:created_at)
   end
 
   VALID_DECISIONS = [ 'finish', 'cancel' ]

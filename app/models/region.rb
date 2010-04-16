@@ -14,6 +14,10 @@ class Region < Category
   def has_validator?
     validators.count > 0
   end
+
+  def self.with_validators
+    Region.find(:all, :joins => 'INNER JOIN region_validators on (region_validators.region_id = categories.id)', :select => "distinct #{table_name}.*")
+  end
   
 end
 

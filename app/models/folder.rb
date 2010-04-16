@@ -41,7 +41,10 @@ class Folder < Article
   end
 
   def folder
-    content_tag('div', body) + tag('hr') + (children.empty? ? content_tag('em', _('(empty folder)')) : list_articles(children))
+    folder = self
+    lambda do
+      render :file => 'content_viewer/folder', :locals => { :folder => folder }
+    end
   end
 
   def image_gallery

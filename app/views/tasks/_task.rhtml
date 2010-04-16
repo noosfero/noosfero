@@ -4,12 +4,14 @@
 <% form_for('task', task, :url => { :action => 'close', :id => task.id}) do |f| %>
 
   <div>
-    <%= radio_button_tag(:decision, 'finish', true) %>
-    <%= _('OK') %>
+    <%= labelled_radio_button _('OK'), :decision, 'finish', true, :onclick => 'if(this.checked) $("rejection-field").style.display="none"' %>
   </div>
   <div>
-    <%= radio_button_tag(:decision, 'cancel', false) %>
-    <%= _('Cancel') %>
+    <%= labelled_radio_button _('Cancel'), :decision, 'cancel', false, :onclick => 'if(this.checked) $("rejection-field").style.display="block"' %>
+  </div>
+
+  <div id="rejection-field" style='display: none'>
+    <%= required labelled_form_field(_('Rejection explanation'), text_area(:task, :reject_explanation, :rows => 5))%>
   </div>
 
   <% button_bar do %>

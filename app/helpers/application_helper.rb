@@ -241,7 +241,7 @@ module ApplicationHelper
   def button_to_remote_without_text(type, label, options, html_options = {})
     html_options[:class] = "" unless html_options[:class]
     html_options[:class] << " button icon-#{type}"
-    link_to_remote(content_tag('span', label), options, html_options)
+    link_to_remote(content_tag('span', label), options, html_options.merge(:title => label))
   end
 
   def icon(icon_name, html_options = {})

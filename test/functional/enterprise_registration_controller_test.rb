@@ -30,23 +30,29 @@ all_fixtures
     assert_template 'basic_information'
   end
 
-  should 'prompt for basic information' do
-    get :index
-    %w[ name identifier address contact_phone contact_person
-        acronym foundation_year legal_form economic_activity ].each do |item|
-      assert_tag :tag => 'input', :attributes => { :name => "create_enterprise[#{item}]" }
-    end
-    assert_tag :tag => 'textarea', :attributes => { :name => "create_enterprise[management_information]"}
-    assert_tag :tag => 'select', :attributes => { :name => "create_enterprise[region_id]"}
-  end
-
   should 'get back to entering basic information if data is invalid' do
     post :index, :create_enterprise => {}
     assert_response :success
     assert_template 'basic_information'
   end
 
-  should 'prompt for selecting validator' do
+  should 'skip prompt for selection validator if approval method is admin' do
+    env = Environment.default
+    env.organization_approval_method = :admin
+    env.save
+    region = fast_create(Region)
+
+    data = { :name => 'My new enterprise', :identifier => 'mynew', :region => region }
+    create_enterprise = CreateEnterprise.new(data)
+
+    post :index, :create_enterprise => data
+    assert_template 'confirmation'
+  end
+
+  should 'prompt for selecting validator if approval method is region' do
+    env = Environment.default
+    env.organization_approval_method = :region
+    env.save
     data = { 'name' => 'My new enterprise', 'identifier' => 'mynew' }
 
     create_enterprise = CreateEnterprise.new
@@ -135,8 +141,10 @@ all_fixtures
     assert_sanitized assigns(:create_enterprise).management_information
   end
 
-  should 'load only regions with validator organizations' do
+  should 'load only regions with validator organizations if approval method is region' do
     env = Environment.default
+    env.organization_approval_method = :region
+    env.save
 
     reg1 = env.regions.create!(:name => 'Region with validator')
     reg1.validators.create!(:name => 'Validator one', :identifier => 'validator-one')

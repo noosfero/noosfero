@@ -21,18 +21,17 @@
         :onclick => "Element.hide('group-for-friend-#{task.id}')") %>
     <label for="<%= "decision-cancel-#{task.id}" %>"><b><%= _('Ignore') %></b></label>
 
-    <%
-      content_tag('div', :id => "group-for-friend-#{task.id}",
-                  :help => _('You can type the first letters of an existing group and have the system present you the available options, or you can type the name of a new group if you want.'))              do %>
-        <%= _('Classify your new friend:') %>
-        <%= text_field_with_local_autocomplete("task[group_for_friend]",
-            profile.suggested_friend_groups,
-            {:id => "field-group-for-friend-#{task.id}", :maxlength => 150}) %>
-      <p class="friend-classify-suggestions">
-      <%= _('Suggestions: %s') % profile.suggested_friend_groups.join(', ') %>
-      </p>
+    <% content_tag('div', :id => "group-for-friend-#{task.id}") do %>
+      <%= _('Classify your new friend:') %>
+      <%= text_field_with_local_autocomplete("task[group_for_friend]",
+          profile.suggested_friend_groups,
+          {:id => "field-group-for-friend-#{task.id}", :maxlength => 150}) %>
 
+      <p class="friend-classify-suggestions">
+        <%= _('Suggestions: %s') % profile.suggested_friend_groups.join(', ') %>
+      </p>
     <% end %>
+
   </div>
 
   <% button_bar do %>

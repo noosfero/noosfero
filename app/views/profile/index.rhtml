@@ -21,7 +21,7 @@
         <tr>
           <td><%= blog.name + ':' %></td>
           <td>
-            <%= link_to(n_('One post', '%{num} posts', blog.posts.count) % { :num => blog.posts.count }, blog.url) %>
+            <%= link_to(n_('One post', '%{num} posts', blog.posts.published.count) % { :num => blog.posts.published.count }, blog.url) %>
           </td>
         </tr>
       <% end %>
@@ -29,7 +29,7 @@
         <tr>
           <td><%= gallery.name + ':' %></td>
           <td>
-            <%= link_to(n_('One picture', '%{num} pictures', gallery.images.count) % { :num => gallery.images.count }, gallery.url) %>
+            <%= link_to(n_('One picture', '%{num} pictures', gallery.images.published.count) % { :num => gallery.images.published.count }, gallery.url) %>
           </td>
         </tr>
       <% end %>
@@ -37,7 +37,7 @@
       <tr>
         <td><%= _('Events:') %></td>
         <td>
-          <%= link_to profile.events.count, :controller => 'events', :action => 'events' %>
+          <%= link_to profile.events.published.count, :controller => 'events', :action => 'events' %>
         </td>
       </tr>
       <tr>

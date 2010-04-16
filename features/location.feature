@@ -10,7 +10,7 @@ Feature: Location
     And I am logged in as "zezinho"
 
   Scenario: editing my address
-    Given the following Person fields are enabled
+    Given the following Person fields are active
       | address  |
       | country  |
       | state    |
@@ -29,7 +29,7 @@ Feature: Location
       | Rua Marechal Floriano, 28 | BR      | Bahia | Salvador | 40110010 |
 
   Scenario Outline: editing address of collectives
-    Given the following <class> fields are enabled
+    Given the following <class> fields are active
       | address  |
       | country  |
       | state    |

@@ -89,6 +89,7 @@ class Environment < ActiveRecord::Base
       'disable_select_city_for_contact' => _('Disable state/city select for contact form'),
       'disable_contact_person' => _('Disable contact for people'),
       'disable_contact_community' => _('Disable contact for groups/communities'),
+      'enterprise_registration' => _('Enterprise registration'),
       'join_community_popup' => _('Ask users to join a group/community with a popup'),
 
       'enterprise_activation' => _('Enable activation of enterprises'),

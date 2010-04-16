@@ -11,11 +11,6 @@
 </head>
 <body>
 <body onload='display_error_message()'>
-  <%
-    require 'gettext'
-    include GetText
-    bindtextdomain("noosfero")
-  %>
   <div id='wrap'>
     <div id='header'>
       <div id='logo'>
@@ -23,7 +18,7 @@
       </div>
     </div>
     <% Noosfero.each_locale do |language_code,language_name| %>
-      <% GetText.locale = language_code %>
+      <% FastGettext.set_locale language_code %>
       <div id='<%= language_code %>' style='display: none' class='message'>
         <h1><%= _('System maintainance') %></h1>
         <p>

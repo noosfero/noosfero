@@ -1,5 +1,4 @@
-<div class="common-profile-list-block"
-     help="<%= __('Here are all <b>%s</b>\'s enterprises.') % profile.name %>">
+<div class="common-profile-list-block">
 
 <h1><%= __("%s's enterprises") % profile.name %></h1>
 
@@ -10,10 +9,8 @@
 </ul>
 
 <% button_bar do %>
-  <%= button :back, _('Go back'), { :controller => 'profile' },
-      :help => _('Back to the page where you come from.') %>
-  <%= button :add, __('Register a new Enterprise'),
-      :controller => 'enterprise_registration' if logged_in? %>
+  <%= button :back, _('Go back'), { :controller => 'profile' } %>
+  <%= button :add, __('Register a new Enterprise'), :controller => 'enterprise_registration' if logged_in? && environment.enabled?('enterprise_registration') %>
 <% end %>
 
 </div><!-- fim class="common-profile-list-block" -->

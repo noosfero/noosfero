@@ -4,12 +4,12 @@
 
 require 'noosfero'
 
+makemo_stamp = 'tmp/makemo.stamp'
 desc "Create mo-files for L10n"
-task :makemo do
-  require 'gettext'
-  require 'gettext/rails'
-  require 'gettext/utils'
-  GetText.create_mofiles(true, "po", "locale")
+task :makemo => makemo_stamp
+file makemo_stamp do
+  ruby '-rconfig/boot -rgettext -rgettext/rails -rgettext/utils -e \'GetText.create_mofiles(true, "po", "locale")\' 2>/dev/null'
+  FileUtils.touch makemo_stamp
 end
 
 desc "Update pot/po files to match new version."

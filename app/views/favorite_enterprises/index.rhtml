@@ -12,8 +12,7 @@
       <%= link_to content_tag('span',_('remove')),
           { :action => 'remove', :id => enterprise.id },
             :class => 'button icon-delete',
-            :title => _('remove'),
-            :help => _('Clicking on this button will remove your friend relation with %s.') % enterprise.name %>
+            :title => _('remove') %>
     </div><!-- end class="controll" -->
   </li>
 <% end %>
