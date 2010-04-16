@@ -1,7 +1,9 @@
-<div>
-  <%= folder.body %>
-</div>
-<hr/>
+<% unless folder.body.blank? %>
+  <div>
+    <%= folder.body %>
+  </div>
+  <hr/>
+<% end %>
 
 <% if folder.children.empty? %>
   <em><%= _('(empty folder)') %></em>
