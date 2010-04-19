@@ -28,13 +28,6 @@ class Folder < Article
     'folder'
   end
 
-  # FIXME isn't this too much including just to be able to generate some HTML?
-  include ActionView::Helpers::TagHelper
-  include ActionView::Helpers::UrlHelper
-  include ActionController::UrlWriter
-  include ActionView::Helpers::AssetTagHelper
-  include FolderHelper
-  include DatesHelper
 
   def to_html(options = {})
     send(view_as)
