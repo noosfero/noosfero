@@ -67,7 +67,7 @@ Feature: register enterprise
       | contact_email   |
     And I follow "Register a new enterprise"
     And I fill in the following:
-      | Identifier        | my-enterprise   |
+      | Address        | my-enterprise   |
       | Name              | My Enterprise   |
       | Foundation year   |                 |
       | Contact person    |                 |
@@ -86,10 +86,10 @@ Feature: register enterprise
       | Sample State  |
     And I follow "Register a new enterprise"
     And I fill in the following:
-      | Identifier        | my-enterprise   |
+      | Address        | my-enterprise   |
       | Name              | My Enterprise   |
     And I press "Next"
-    Then I should see "Enterprise Registration completed"
+    Then I should see "Enterprise registration completed"
     And I am logged in as admin
     And I follow "Control panel"
     When I follow "Tasks"
@@ -110,10 +110,10 @@ Feature: register enterprise
       | Sample State  |
     And I follow "Register a new enterprise"
     And I fill in the following:
-      | Identifier        | my-enterprise   |
+      | Address        | my-enterprise   |
       | Name              | My Enterprise   |
     And I press "Next"
-    Then I should see "Enterprise Registration completed"
+    Then I should see "Enterprise registration completed"
     And I am logged in as admin
     And I follow "Control panel"
     When I follow "Tasks"
@@ -141,14 +141,15 @@ Feature: register enterprise
       | Sample State  | Validator      |
     And I follow "Register a new enterprise"
     And I fill in the following:
-      | Identifier        | my-enterprise   |
+      | Address        | my-enterprise   |
       | Name              | My Enterprise   |
     And I select "Sample State" from "Region"
     And I press "Next"
     Then I should see "Validator"
     Then I should see "Sample methodology"
-    When I press "Confirm"
-    Then I should see "Enterprise Registration completed"
+    When I choose "Validator"
+    And I press "Confirm"
+    Then I should see "Enterprise registration completed"
     And I am on Validator's control panel
     When I follow "Tasks"
     Then I should see /Processing task: Enterprise registration: "My Enterprise"/
@@ -173,14 +174,15 @@ Feature: register enterprise
       | Sample State  | Validator      |
     And I follow "Register a new enterprise"
     And I fill in the following:
-      | Identifier        | my-enterprise   |
+      | Address        | my-enterprise   |
       | Name              | My Enterprise   |
     And I select "Sample State" from "Region"
     And I press "Next"
     Then I should see "Validator"
     Then I should see "Sample methodology"
-    When I press "Confirm"
-    Then I should see "Enterprise Registration completed"
+    When I choose "Validator"
+    And I press "Confirm"
+    Then I should see "Enterprise registration completed"
     And I am on Validator's control panel
     When I follow "Tasks"
     Then I should see /Processing task: Enterprise registration: "My Enterprise"/
