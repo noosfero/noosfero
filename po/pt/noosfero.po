@@ -11,9 +11,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.22.3\n"
-"POT-Creation-Date: 2010-04-08 01:24-0300\n"
-"PO-Revision-Date: 2010-04-08 01:22-0300\n"
+"Project-Id-Version: noosfero 0.23.0\n"
+"POT-Creation-Date: 2010-04-20 09:10-0300\n"
+"PO-Revision-Date: 2010-04-20 09:29-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -51,7 +51,7 @@ msgid "Product Category"
 msgstr "Categoria do Produto"
 
 #: app/helpers/categories_helper.rb:15 app/models/profile.rb:-
-#: app/views/enterprise_registration/basic_information.rhtml:29
+#: app/views/enterprise_registration/basic_information.rhtml:25
 msgid "Region"
 msgstr "Região"
 
@@ -79,7 +79,7 @@ msgstr ""
 "O idioma que você escolher aqui será usado para opções, botões, etc. Ele não "
 "afeta o idioma do conteúdo criado por outros usuários."
 
-#: app/helpers/folder_helper.rb:6 app/models/article.rb:50
+#: app/helpers/folder_helper.rb:7 app/models/article.rb:50
 #: app/models/block.rb:- app/models/comment.rb:-
 #: app/views/cms/_uploaded_file.rhtml:1 app/views/cms/_article.rhtml:8
 #: app/views/cms/_article.rhtml:11 app/views/cms/publish.rhtml:21
@@ -90,29 +90,33 @@ msgstr ""
 msgid "Title"
 msgstr "Título"
 
-#: app/helpers/folder_helper.rb:6
+#: app/helpers/folder_helper.rb:7
 msgid "Last update"
 msgstr "Última atualização"
 
-#: app/helpers/folder_helper.rb:40 app/helpers/article_helper.rb:5
+#: app/helpers/folder_helper.rb:11 app/views/content_viewer/folder.rhtml:9
+msgid "(empty folder)"
+msgstr "(pasta vazia)"
+
+#: app/helpers/folder_helper.rb:48 app/helpers/article_helper.rb:5
 msgid "Options"
 msgstr "Opções"
 
-#: app/helpers/folder_helper.rb:45 app/helpers/article_helper.rb:10
+#: app/helpers/folder_helper.rb:53 app/helpers/article_helper.rb:10
 msgid "This article must be published (visible to other people)"
 msgstr "Este artigo deve ser publicado (visível para outras pessoas)"
 
-#: app/helpers/folder_helper.rb:50 app/helpers/article_helper.rb:26
+#: app/helpers/folder_helper.rb:58 app/helpers/article_helper.rb:26
 msgid "I want this article to display the number of hits it received"
 msgstr "Eu quero que este artigo mostre o número de acessos que recebeu"
 
-#: app/helpers/folder_helper.rb:57 app/helpers/article_helper.rb:32
-#: app/views/shared/user_menu.rhtml:27
+#: app/helpers/folder_helper.rb:65 app/helpers/article_helper.rb:32
+#: app/views/shared/user_menu.rhtml:25
 #: app/views/tasks/_approve_article.rhtml:1
 msgid "New article"
 msgstr "Novo artigo"
 
-#: app/helpers/folder_helper.rb:61
+#: app/helpers/folder_helper.rb:69
 msgid "Edit folder"
 msgstr "Editar pasta"
 
@@ -182,10 +186,10 @@ msgstr "Por favor, tente de novo quando a página terminar da carregar."
 #: app/views/cms/edit.rhtml:43 app/views/cms/edit.rhtml:45
 #: app/views/cms/edit.rhtml:47 app/views/profile_editor/header_footer.rhtml:29
 #: app/views/memberships/new_community.rhtml:55
-#: app/views/box_organizer/edit.rhtml:23 app/views/tasks/_task.rhtml:12
+#: app/views/box_organizer/edit.rhtml:23 app/views/tasks/_task.rhtml:10
 #: app/views/tasks/_ticket.rhtml:15 app/views/account/accept_terms.rhtml:24
 #: app/views/account/activation_question.rhtml:38
-#: app/views/account/login.rhtml:19 app/views/account/_login_form.rhtml:22
+#: app/views/account/login.rhtml:17 app/views/account/_login_form.rhtml:19
 #: app/views/themes/add_css.rhtml:8
 #: app/views/admin_panel/message_for_disabled_enterprise.rhtml:11
 #: app/views/admin_panel/set_portal_news_amount.rhtml:9
@@ -1410,13 +1414,13 @@ msgid "State"
 msgstr "Estado"
 
 #: app/models/enterprise.rb:11 app/models/person.rb:120
-#: app/views/shared/_custom_fields.rhtml:18
+#: app/views/shared/_custom_fields.rhtml:19
 #: app/views/profile_editor/_person_form.rhtml:21
 #: app/views/maps/edit_location.rhtml:6
 msgid "Country"
 msgstr "País"
 
-#: app/models/enterprise.rb:11 app/views/shared/_custom_fields.rhtml:15
+#: app/models/enterprise.rb:11 app/views/shared/_custom_fields.rhtml:16
 #: app/views/profile_editor/_person_form.rhtml:24
 #: app/views/maps/edit_location.rhtml:9
 msgid "ZIP code"
@@ -1426,10 +1430,10 @@ msgstr "CEP"
 msgid "Business name"
 msgstr "Nome fantasia"
 
-#: app/models/enterprise.rb:47 app/models/create_community.rb:33
-#: app/models/person.rb:86 app/models/community.rb:41
-msgid "%{fn} is mandatory"
-msgstr "%{fn} é obrigatório"
+#: app/models/enterprise.rb:49
+#, fuzzy
+msgid "%{fn} can't be blank"
+msgstr "%{fn} não pode ser assim."
 
 #: app/models/published_article.rb:12
 msgid "Reference to other article"
@@ -1583,7 +1587,7 @@ msgstr "Acima Vermelho"
 msgid "Ok"
 msgstr "Ok"
 
-#: app/models/link_list_block.rb:22 app/views/shared/user_menu.rhtml:69
+#: app/models/link_list_block.rb:22 app/views/shared/user_menu.rhtml:65
 #: app/views/account/login.rhtml:3 app/views/account/login_block.rhtml:4
 #: app/views/layouts/application-ng.rhtml:54
 msgid "Login"
@@ -1672,6 +1676,11 @@ msgstr "Imagem do Perfil"
 #: app/models/profile_image_block.rb:10
 msgid "This block presents the profile image"
 msgstr "Este bloco apresenta a imagem do perfil"
+
+#: app/models/create_community.rb:33 app/models/person.rb:86
+#: app/models/community.rb:41
+msgid "%{fn} is mandatory"
+msgstr "%{fn} é obrigatório"
 
 #: app/models/create_community.rb:52 app/views/tasks/_create_community.rhtml:5
 msgid "%s wants to create community %s."
@@ -1870,7 +1879,7 @@ msgstr "Lembrar token"
 msgid "Remember token expires at"
 msgstr "Lembre do token que expira em"
 
-#: app/models/user.rb:- app/views/account/_signup_form.rhtml:55
+#: app/models/user.rb:- app/views/account/_signup_form.rhtml:47
 msgid "Terms of use"
 msgstr "Termos de Uso"
 
@@ -2139,7 +2148,9 @@ msgstr "produto"
 #: app/models/product.rb:- app/models/comment.rb:- app/models/environment.rb:-
 #: app/models/profile.rb:- app/models/create_enterprise.rb:4
 #: app/models/domain.rb:- app/models/contact.rb:- app/models/contact.rb:14
-#: app/views/cms/view.rhtml:29 app/views/content_viewer/_comment_form.rhtml:28
+#: app/views/cms/view.rhtml:29
+#: app/views/enterprise_registration/select_validator.rhtml:12
+#: app/views/content_viewer/_comment_form.rhtml:28
 #: app/views/box_organizer/_link_list_block.rhtml:4
 #: app/views/profile_members/_find_users.rhtml:3
 #: app/views/profile_members/find_users.rhtml:3
@@ -2230,10 +2241,6 @@ msgstr "Galeria de Imagens"
 #: app/models/folder.rb:24
 msgid "A folder, inside which you can put other articles."
 msgstr "Uma pasta, dentro dela você pode colocar outros artigos."
-
-#: app/models/folder.rb:44
-msgid "(empty folder)"
-msgstr "(pasta vazia)"
 
 #: app/models/login_block.rb:4
 msgid "Login/logout"
@@ -2340,6 +2347,7 @@ msgstr "Título do feed"
 #: app/models/external_feed.rb:- app/models/profile.rb:-
 #: app/models/create_enterprise.rb:5 app/views/cms/_blog.rhtml:33
 #: app/views/profile_editor/_organization.rhtml:48
+#: app/views/enterprise_registration/basic_information.rhtml:23
 #: app/views/box_organizer/_feed_reader_block.rhtml:2
 #: app/views/box_organizer/_link_list_block.rhtml:4
 #: app/views/enterprise_validation/index.rhtml:14
@@ -2552,70 +2560,75 @@ msgid "Disable contact for groups/communities"
 msgstr "Desabilitar contato para comunidades"
 
 #: app/models/environment.rb:92
+#: app/views/enterprise_registration/basic_information.rhtml:3
+msgid "Enterprise registration"
+msgstr "Registaro de empreendimento"
+
+#: app/models/environment.rb:93
 msgid "Ask users to join a group/community with a popup"
 msgstr "Convidar usuários para entrar num grupo/comunidade com um popup"
 
-#: app/models/environment.rb:94
+#: app/models/environment.rb:95
 msgid "Enable activation of enterprises"
 msgstr "Habilitar ativação de empreendimentos"
 
-#: app/models/environment.rb:95
+#: app/models/environment.rb:96
 msgid "Use WYSIWYG editor to edit environment home page"
 msgstr "Usar editor WYSIWYG para editar página inicial do ambiente"
 
-#: app/models/environment.rb:96
+#: app/models/environment.rb:97
 msgid "Media panel in WYSIWYG editor"
 msgstr "Painel de mídia no editor WYSIWYG"
 
-#: app/models/environment.rb:97
+#: app/models/environment.rb:98
 msgid "Select preferred domains per profile"
 msgstr "Selecionar domínios preferidos por perfil"
 
-#: app/models/environment.rb:98
+#: app/models/environment.rb:99
 msgid "Display wizard signup"
 msgstr "Exibir assistente de registro"
 
-#: app/models/environment.rb:99
+#: app/models/environment.rb:100
 msgid "Use the portal as news source for front page"
 msgstr "Usar portal como fonte de notícias para página inicial"
 
-#: app/models/environment.rb:100
+#: app/models/environment.rb:101
 msgid "Allow users to create their own themes"
 msgstr "Permitir aos usuários criar seus próprios temas"
 
-#: app/models/environment.rb:101
+#: app/models/environment.rb:102
 msgid "Display search form in home page"
 msgstr "Mostrar formulário de busca na página inicial"
 
-#: app/models/environment.rb:103
+#: app/models/environment.rb:104
 msgid "Don't allow users to change which article to use as homepage"
 msgstr "Não permitir aos usuários alterar qual artigo usar como páginal incial"
 
-#: app/models/environment.rb:104
+#: app/models/environment.rb:105
 msgid "Display explanation about header and footer"
 msgstr "Exibir explicação sobre cabeçalho e rodapé"
 
-#: app/models/environment.rb:105
+#: app/models/environment.rb:106
 msgid "Articles don't accept comments by default"
 msgstr "Artigos não aceitam comentários por padrão"
 
-#: app/models/environment.rb:106
+#: app/models/environment.rb:107
 msgid "Organizations have moderated publication by default"
 msgstr "Coletivos têem publicação moderada por padrão"
 
-#: app/models/environment.rb:107
+#: app/models/environment.rb:108
 msgid "Allow organizations to change their URL"
 msgstr "Permitir que organizações alterem sua URL"
 
-#: app/models/environment.rb:108
+#: app/models/environment.rb:109
 msgid "Admin must approve creation of communities"
 msgstr "Administrador tem que aprovar a criação de comunidades"
 
-#: app/models/environment.rb:109
+#: app/models/environment.rb:110
 msgid "Enterprises are disabled when created"
 msgstr "Empreendimentos são desabilitados quando criados"
 
-#: app/models/environment.rb:469
+#: app/models/environment.rb:470
 msgid "Only one Virtual Community can be the default one"
 msgstr "Apenas uma comunidade virtual pode ser a padrão"
 
@@ -2902,39 +2915,40 @@ msgid "Economic activity"
 msgstr "Atividade econômica"
 
 #: app/models/create_enterprise.rb:12 app/models/organization.rb:73
-#: app/views/enterprise_registration/basic_information.rhtml:27
 msgid "Management information"
 msgstr "Gerenciamento de informação"
 
-#: app/models/create_enterprise.rb:128
+#: app/models/create_enterprise.rb:153
 msgid "Enterprise registration: \"%s\""
 msgstr "Cadastro de empreendimento: \"%s\""
 
-#: app/models/create_enterprise.rb:132
+#: app/models/create_enterprise.rb:157
 msgid ""
 "Your request for registering enterprise \"%{enterprise}\" at %{environment} "
-"was just received. It will be reviewed by the chosen validator organization "
-"you chose, according to its methods and creteria.\n"
+"was just received. It will be reviewed by the validator organization of your "
+"choice, according to its methods and criteria.\n"
 "\n"
 "      You will be notified as soon as the validator organization has a "
 "position about your request."
 msgstr ""
 "Seu pedido para cadastro de empreendimento \"%{enterprise}\" em %"
 "{environment} foi recebido. Ele será revisado por um organização validadora "
-"que você escolheu, de acordo com seu métodos e critério.\n"
+"que você escolheu, de acordo com seu métodos e critérios.\n"
 "\n"
 "Você será notificado assim que a organização validadora tiver uma posição "
 "sobre seu pedido."
 
-#: app/models/create_enterprise.rb:138
+#: app/models/create_enterprise.rb:163
 msgid ""
 "Your request for registering the enterprise \"%{enterprise}\" was approved. "
-"You can access %{environment} now and start using it for your new enterprise."
+"You can access %{environment} now and provide start providing all relevant "
+"information your new enterprise."
 msgstr ""
 "Sua requisição para registrar o empreendimento \"%{enterprise}\" foi "
-"aprovada. Você pode acessar %{environment} agora e acessar as informações"
+"aprovada. Você pode acessar %{environment} agora e começar a fornecer "
+"informações relevantes sobre seu novo empreendimento."
 
-#: app/models/create_enterprise.rb:142
+#: app/models/create_enterprise.rb:167
 msgid ""
 "Your request for registering the enterprise %{enterprise} at %{environment} "
 "was NOT approved by the validator organization. The following explanation "
@@ -2948,7 +2962,7 @@ msgstr ""
 "\n"
 "%{explication}"
 
-#: app/models/create_enterprise.rb:147
+#: app/models/create_enterprise.rb:172
 msgid ""
 "Enterprise \"%{enterprise}\" just requested to enter %{environment}. You "
 "have to approve or reject it through the \"Pending Validations\" section in "
@@ -2958,47 +2972,47 @@ msgstr ""
 "Você tem que aprová-lo ou rejeitá-lo através da seção \"Validações pendentes"
 "\" no seu painel de controle.\n"
 
-#: app/models/create_enterprise.rb:149
+#: app/models/create_enterprise.rb:174
 msgid "The data provided by the enterprise was the following:\n"
 msgstr "Os dados providos pelo empreendimento foram os seguintes:\n"
 
-#: app/models/create_enterprise.rb:152 app/views/contact/sender/mail.rhtml:1
+#: app/models/create_enterprise.rb:177 app/views/contact/sender/mail.rhtml:1
 msgid "Name: %s"
 msgstr "Nome: %s"
 
-#: app/models/create_enterprise.rb:153
+#: app/models/create_enterprise.rb:178
 msgid "Acronym: %s"
 msgstr "Sigla: %s"
 
-#: app/models/create_enterprise.rb:154
+#: app/models/create_enterprise.rb:179
 msgid "Address: %s"
 msgstr "Endereço: %s"
 
-#: app/models/create_enterprise.rb:155
+#: app/models/create_enterprise.rb:180
 msgid "Legal form: %s"
 msgstr "Estaturo Jurídico: %s"
 
-#: app/models/create_enterprise.rb:156
+#: app/models/create_enterprise.rb:181
 msgid "Foundation Year: %d"
 msgstr "Ano de fundação: %d"
 
-#: app/models/create_enterprise.rb:157
+#: app/models/create_enterprise.rb:182
 msgid "Economic activity: %s"
 msgstr "Atividade econômica: %s"
 
-#: app/models/create_enterprise.rb:159
+#: app/models/create_enterprise.rb:184
 msgid "Information about enterprise's management:\n"
 msgstr "Alterar a informação sobre o empreendimento:\n"
 
-#: app/models/create_enterprise.rb:161
+#: app/models/create_enterprise.rb:186
 msgid "Contact phone: %s"
 msgstr "Telefone de contato: %s"
 
-#: app/models/create_enterprise.rb:162
+#: app/models/create_enterprise.rb:187
 msgid "Contact person: %s"
 msgstr "Pessoa de contato: %s"
 
-#: app/models/create_enterprise.rb:164
+#: app/models/create_enterprise.rb:189
 msgid "CreateEnterprise|Identifier"
 msgstr "Identificador"
 
@@ -3091,8 +3105,8 @@ msgstr "categorização do produto"
 msgid "Product"
 msgstr "Produto"
 
-#: app/models/contact.rb:- app/views/friends/index.rhtml:32
-#: app/views/friends/index.rhtml:35
+#: app/models/contact.rb:- app/views/friends/index.rhtml:31
+#: app/views/friends/index.rhtml:34
 msgid "contact"
 msgstr "contato"
 
@@ -3132,7 +3146,7 @@ msgstr "Adicionar subcategoria"
 
 #: app/views/categories/_category.rhtml:9
 #: app/views/shared/_select_categories.rhtml:20
-#: app/views/memberships/index.rhtml:27
+#: app/views/memberships/index.rhtml:28
 #: app/views/manage_products/index.rhtml:54
 #: app/views/profile_members/add_member.rhtml:14
 #: app/views/profile_members/unassociate.rhtml:14
@@ -3160,7 +3174,7 @@ msgstr "Ver perfil"
 
 #: app/views/blocks/profile_info.rhtml:24
 #: app/views/blocks/profile_image.rhtml:19 app/views/blocks/my_network.rhtml:9
-#: app/views/shared/user_menu.rhtml:43
+#: app/views/shared/user_menu.rhtml:41
 #: app/views/layouts/application-ng.rhtml:49
 msgid "Control panel"
 msgstr "Painel de controle"
@@ -3201,7 +3215,7 @@ msgstr[0] "Um amigo"
 msgstr[1] "%s amigos"
 
 #: app/views/blocks/profile_info_actions/community.rhtml:6
-#: app/views/memberships/index.rhtml:25
+#: app/views/memberships/index.rhtml:26
 #: app/views/account/_profile_details.rhtml:14
 msgid "Leave"
 msgstr "Sair"
@@ -3248,63 +3262,35 @@ msgstr "Contato"
 msgid "Please, edit this block and select an image gallery."
 msgstr "Por favor, edite este bloco e selecione uma galeria de imagens."
 
-#: app/views/shared/user_menu.rhtml:2
-msgid "This menu gives you access to your personal functionalities."
-msgstr "Este menu te dá acesso às suas funcionalidades pessoais."
-
-#: app/views/shared/user_menu.rhtml:12
+#: app/views/shared/user_menu.rhtml:10
 msgid "%s's Menu"
 msgstr "Menu de %s"
 
-#: app/views/shared/user_menu.rhtml:19
+#: app/views/shared/user_menu.rhtml:17
 msgid "My Home Page"
 msgstr "Minha página inicial"
 
-#: app/views/shared/user_menu.rhtml:19
-msgid "Go to your home page."
-msgstr "Ir para sua página inicial."
-
-#: app/views/shared/user_menu.rhtml:23 lib/zen3_terminology.rb:68
+#: app/views/shared/user_menu.rhtml:21 lib/zen3_terminology.rb:68
 msgid "My groups"
 msgstr "Meus grupos"
 
-#: app/views/shared/user_menu.rhtml:31
+#: app/views/shared/user_menu.rhtml:29
 msgid "Manage %s"
 msgstr "Gerenciar %s"
 
-#: app/views/shared/user_menu.rhtml:38
+#: app/views/shared/user_menu.rhtml:36
 msgid "Webmail"
 msgstr "Webmail"
 
-#: app/views/shared/user_menu.rhtml:43
-msgid ""
-"Control panel: change your picture, edit your personal information, create "
-"content or change the way your home page looks."
-msgstr ""
-"Painel de controle: altere sua foto, edite suas informações pessoais, crie "
-"conteúdo ou altere o visual da sua página."
-
-#: app/views/shared/user_menu.rhtml:47
+#: app/views/shared/user_menu.rhtml:45
 #: app/views/environment_role_manager/make_admin.rhtml:4
 msgid "Admin"
 msgstr "Administrador"
 
-#: app/views/shared/user_menu.rhtml:50
-msgid "Access the site administration panel."
-msgstr "Acesso o painel de administrador do site."
-
-#: app/views/shared/user_menu.rhtml:54 app/views/account/user_info.rhtml:11
+#: app/views/shared/user_menu.rhtml:51 app/views/account/user_info.rhtml:11
 #: app/views/layouts/application-ng.rhtml:51
 msgid "Logout"
 msgstr "Sair"
-
-#: app/views/shared/user_menu.rhtml:57
-msgid ""
-"This link takes you out of the system. You should logout if other people are "
-"willing to use the same computer after you."
-msgstr ""
-"Este link te leva pra fora do sistema. Você deve sair se outras pessoas vão "
-"usar o mesmo computador depois de você."
 
 #: app/views/shared/_custom_fields.rhtml:12
 #: app/views/profile_editor/_person_form.rhtml:25
@@ -3359,16 +3345,18 @@ msgstr ""
 "contato com as pessoas responsáveis e pedir acesso."
 
 #: app/views/shared/access_denied.rhtml:14 app/views/shared/not_found.rhtml:9
-#: app/views/favorite_enterprises/index.rhtml:31
-#: app/views/memberships/index.rhtml:7 app/views/profile/friends.rhtml:19
+#: app/views/favorite_enterprises/index.rhtml:30
+#: app/views/memberships/index.rhtml:8
+#: app/views/enterprise_registration/basic_information.rhtml:12
+#: app/views/profile/friends.rhtml:18
 #: app/views/profile/_private_profile.rhtml:15
-#: app/views/profile/favorite_enterprises.rhtml:13
-#: app/views/profile/members.rhtml:19 app/views/profile/communities.rhtml:19
-#: app/views/profile/enterprises.rhtml:13 public/500.html.erb:32
+#: app/views/profile/favorite_enterprises.rhtml:12
+#: app/views/profile/members.rhtml:18 app/views/profile/communities.rhtml:18
+#: app/views/profile/enterprises.rhtml:12 public/500.html.erb:27
 msgid "Go back"
 msgstr "Voltar"
 
-#: app/views/shared/access_denied.rhtml:15 public/500.html.erb:33
+#: app/views/shared/access_denied.rhtml:15 public/500.html.erb:28
 msgid "Go to the site home page"
 msgstr "Ir para a página inicial do site."
 
@@ -3426,12 +3414,7 @@ msgstr "Empreendimentos favoritos de %s"
 msgid "remove"
 msgstr "remover"
 
-#: app/views/favorite_enterprises/index.rhtml:16
-#: app/views/friends/index.rhtml:31
-msgid "Clicking on this button will remove your friend relation with %s."
-msgstr "Clicando neste botão removerá sua relação de amizade com %s."
-
-#: app/views/favorite_enterprises/index.rhtml:25
+#: app/views/favorite_enterprises/index.rhtml:24
 msgid "You have no favorite enteprises yet."
 msgstr "Você não tem empreendimentos favoritos ainda."
 
@@ -3526,7 +3509,7 @@ msgstr "Enviar arquivos"
 
 #: app/views/cms/view.rhtml:14 app/views/profile_editor/edit.rhtml:81
 #: app/views/maps/edit_location.rhtml:14 app/views/maps/edit_location.rhtml:30
-#: app/views/friends/index.rhtml:15 app/views/friends/index.rhtml:46
+#: app/views/friends/index.rhtml:15 app/views/friends/index.rhtml:44
 #: app/views/box_organizer/index.rhtml:5 app/views/mailconf/index.rhtml:10
 #: app/views/mailconf/index.rhtml:28 app/views/mailconf/index.rhtml:38
 #: app/views/tasks/index.rhtml:19
@@ -4035,20 +4018,20 @@ msgstr ""
 "Você está prestes a alterar o endereço, e isto vai quebrar links externos "
 "para a homepage ou para conteúdo dentro dela. Você quer realmente mudar?"
 
-#: app/views/profile_editor/_organization.rhtml:74
+#: app/views/profile_editor/_organization.rhtml:71
 msgid "Enable \"contact us\""
 msgstr "Habilitar \"fale conosco\""
 
-#: app/views/profile_editor/_organization.rhtml:76
+#: app/views/profile_editor/_organization.rhtml:73
 msgid "Moderation options"
 msgstr "Opções de moderação"
 
-#: app/views/profile_editor/_organization.rhtml:79
+#: app/views/profile_editor/_organization.rhtml:76
 #: app/views/memberships/new_community.rhtml:35
 msgid "New members must be approved:"
 msgstr "Novos integrantes devem ser aprovados:"
 
-#: app/views/profile_editor/_organization.rhtml:84
+#: app/views/profile_editor/_organization.rhtml:81
 #: app/views/memberships/new_community.rhtml:40
 msgid ""
 "<strong>Before</strong> joining this group (a moderator has to accept the "
@@ -4059,7 +4042,7 @@ msgstr ""
 "solicitação pendente antes do membro poder acessar a intranet e/ou o "
 "website)."
 
-#: app/views/profile_editor/_organization.rhtml:90
+#: app/views/profile_editor/_organization.rhtml:87
 #: app/views/memberships/new_community.rhtml:46
 msgid ""
 "<strong>After</strong> joining this group (a moderator can always "
@@ -4068,12 +4051,12 @@ msgstr ""
 "<strong>Depois</strong> de entrar no grupo (um moderador sempre pode "
 "desativar acesso dos usuários depois)."
 
-#: app/views/profile_editor/_organization.rhtml:96
+#: app/views/profile_editor/_organization.rhtml:93
 msgid "New articles posted by members of this group must be approved:"
 msgstr ""
 "Novos artigos postados por integrantes deste grupo devem ser aprovados:"
 
-#: app/views/profile_editor/_organization.rhtml:102
+#: app/views/profile_editor/_organization.rhtml:99
 msgid ""
 "<strong>Before</strong> being published in this group (a moderator has to "
 "accept the article in pending request before the article be listed as a "
@@ -4083,7 +4066,7 @@ msgstr ""
 "aceitar o artigo numa solicitação pendente antes do artigo ser listado como "
 "um artigo deste grupo)."
 
-#: app/views/profile_editor/_organization.rhtml:108
+#: app/views/profile_editor/_organization.rhtml:105
 msgid ""
 "<strong>After</strong> being published in this group (a moderator can always "
 "remove publicated articles later)."
@@ -4174,36 +4157,40 @@ msgstr "Exibir conteúdo deste grupo para membros"
 msgid "Select the categories of your interest"
 msgstr "Selecione as categorias de seu interesse"
 
-#: app/views/memberships/index.rhtml:6 app/views/profile/communities.rhtml:21
+#: app/views/memberships/index.rhtml:6 app/views/profile/communities.rhtml:19
 msgid "Create a new community"
 msgstr "Criar nova comunidade"
 
-#: app/views/memberships/index.rhtml:18
+#: app/views/memberships/index.rhtml:7
+msgid "Register a new enterprise"
+msgstr "Registrar um novo empreendimento"
+
+#: app/views/memberships/index.rhtml:19
 msgid "Role: %s"
 msgstr "Papel: %s"
 
-#: app/views/memberships/index.rhtml:19
+#: app/views/memberships/index.rhtml:20
 #: app/views/account/_profile_details.rhtml:5
 msgid "Type: %s"
 msgstr "Tipo: %s"
 
-#: app/views/memberships/index.rhtml:20
+#: app/views/memberships/index.rhtml:21
 #: app/views/tasks/ticket_details.rhtml:10
 #: app/views/account/_profile_details.rhtml:6
 msgid "Description: %s"
 msgstr "Descrição: %s"
 
-#: app/views/memberships/index.rhtml:21
+#: app/views/memberships/index.rhtml:22
 #: app/views/account/_profile_details.rhtml:7
 msgid "Members: %s"
 msgstr "Integrantes: %s"
 
-#: app/views/memberships/index.rhtml:22
+#: app/views/memberships/index.rhtml:23
 #: app/views/account/_profile_details.rhtml:8
 msgid "Created at: %s"
 msgstr "Criado em: %s"
 
-#: app/views/memberships/index.rhtml:24
+#: app/views/memberships/index.rhtml:25
 msgid "Control panel of this group"
 msgstr "Painel de controle deste grupo"
 
@@ -4269,8 +4256,8 @@ msgid "Yes, I want to remove."
 msgstr "Sim, quero remover."
 
 #: app/views/enterprise_registration/select_validator.rhtml:1
-msgid "Enterprise Registration: Select a validator organization"
-msgstr "Registo do Empreendimento: Selecione uma organização validadora"
+msgid "Enterprise registration: validator organization"
+msgstr "Registo do empreendimento: organização validadora"
 
 #: app/views/enterprise_registration/select_validator.rhtml:4
 msgid ""
@@ -4280,45 +4267,46 @@ msgstr ""
 "Selecione uma organização para validar seu pedido do registo da empresa. "
 "Verifique a informação fornecida sobre seu método de validação e critérios."
 
-#: app/views/enterprise_registration/select_validator.rhtml:15
+#: app/views/enterprise_registration/select_validator.rhtml:13
 msgid "Validation Methodology:"
 msgstr "Metodologia de Validação:"
 
-#: app/views/enterprise_registration/select_validator.rhtml:15
-#: app/views/enterprise_registration/select_validator.rhtml:16
-msgid "(not informed)"
-msgstr "(não informado)"
-
-#: app/views/enterprise_registration/select_validator.rhtml:16
+#: app/views/enterprise_registration/select_validator.rhtml:14
 msgid "Restrictions (if any):"
 msgstr "Limitações (se tiver):"
 
-#: app/views/enterprise_registration/select_validator.rhtml:21
+#: app/views/enterprise_registration/select_validator.rhtml:19
+#: app/views/enterprise_registration/select_validator.rhtml:20
+msgid "(not informed)"
+msgstr "(não informado)"
+
+#: app/views/enterprise_registration/select_validator.rhtml:26
 msgid "Confirm"
 msgstr "Confirmar"
 
-#: app/views/enterprise_registration/basic_information.rhtml:3
-msgid "Register enterprise"
-msgstr "Registrar empreendimento"
-
-#: app/views/enterprise_registration/basic_information.rhtml:5
-msgid "How to proceed"
-msgstr "Como proceder"
-
-#: app/views/enterprise_registration/basic_information.rhtml:6
+#: app/views/enterprise_registration/basic_information.rhtml:8
 msgid ""
-"Fill the form and hit the Register button then the enterprise will be "
-"submitted for evaluation at the validation entitiy of your choice (within "
-"your state), when the enterprise is aproved you will be able to activate its "
-"profile"
+"There are no validators to validate the registration of this new enterprise. "
+"Contact your administrator for instructions."
 msgstr ""
-"Preencha o formulário e pressione o botão Registrar para que o "
-"empreendimento seja submetido a avaliação pela entidade de sua escolha. Uma "
-"vez aprovada, você poderá ativar o perfil do empreendimento"
+"Não existem validadores para validar o registro desse novo empreendimento. "
+"Contacte seu administrador para instruções"
+
+#: app/views/enterprise_registration/basic_information.rhtml:16
+msgid ""
+"To register a new enterprise, fill in the form and hit the Register button. "
+"Then the enterprise will be submitted for evaluation at the validation "
+"entitiy of your choice (within your state) and when the enterprise is "
+"aproved you will be able to activate its profile."
+msgstr ""
+"Para registrar um novo empreendimento, preencha o formulário e pressione o "
+"botão Registrar. O empreendimento será submetido à avaliação pela entidade "
+"validadora de sua escolha no seu estado, e quando quando o empreendimento "
+"for aprovado você poderá ativar o seu perfil."
 
 #: app/views/enterprise_registration/confirmation.rhtml:1
-msgid "Enterprise Registration completed"
-msgstr "Registro do Empreendimento completo"
+msgid "Enterprise registration completed"
+msgstr "Registro do empreendimento completo"
 
 #: app/views/enterprise_registration/confirmation.rhtml:4
 msgid ""
@@ -4553,7 +4541,7 @@ msgstr "Administradores:"
 msgid "(external feed was not loaded yet)"
 msgstr "(feed externo não foi carregado ainda)"
 
-#: app/views/content_viewer/blog_page.rhtml:6
+#: app/views/content_viewer/blog_page.rhtml:11
 msgid "(no posts)"
 msgstr "(sem posts)"
 
@@ -4887,7 +4875,7 @@ msgstr ""
 "Localize o endereço informado acima no mapa abaixo (note que você irá "
 "provavelmente precisar ajustar o marcador para conseguir uma posição precisa)"
 
-#: app/views/friends/index.rhtml:3 app/views/profile/friends.rhtml:4
+#: app/views/friends/index.rhtml:3 app/views/profile/friends.rhtml:3
 msgid "%s's friends"
 msgstr "Amigos de %s"
 
@@ -4899,18 +4887,14 @@ msgstr "Você não tem amigos ainda."
 msgid "Do you want to see other people in this environment?"
 msgstr "Você quer ver outras pessoas neste ambiente?"
 
-#: app/views/friends/index.rhtml:16 app/views/friends/index.rhtml:47
+#: app/views/friends/index.rhtml:16 app/views/friends/index.rhtml:45
 msgid "Find people"
 msgstr "Buscar pessoas"
 
-#: app/views/friends/index.rhtml:17 app/views/friends/index.rhtml:48
-#: app/views/profile/friends.rhtml:22
+#: app/views/friends/index.rhtml:17 app/views/friends/index.rhtml:46
+#: app/views/profile/friends.rhtml:21
 msgid "Invite people from my e-mail contacts"
 msgstr "Convidar pessoas dos meus contatos de e-mail"
-
-#: app/views/friends/index.rhtml:36
-msgid "Clicking on this button will let you send a message to %s."
-msgstr "Clicar neste botão permite mandar uma mensagem para %s."
 
 #: app/views/friends/add.rhtml:1
 msgid "Adding %s as a friend"
@@ -4928,7 +4912,7 @@ msgstr "Note que %s precisará aceitar ser adicionado como seu amigo."
 msgid "Classify your new friend %s: "
 msgstr "Classifique seu(sua) novo(a) amigo(a) %s:"
 
-#: app/views/friends/add.rhtml:20 app/views/tasks/_add_friend.rhtml:32
+#: app/views/friends/add.rhtml:20 app/views/tasks/_add_friend.rhtml:31
 msgid "Suggestions: %s"
 msgstr "Sugestões: %s"
 
@@ -5139,7 +5123,7 @@ msgstr "Você precisa digitar pelo menos 3 caracteres"
 msgid "Add members"
 msgstr "Adicionar integrantes"
 
-#: app/views/profile_members/index.rhtml:9 app/views/profile/members.rhtml:21
+#: app/views/profile_members/index.rhtml:9 app/views/profile/members.rhtml:20
 #: app/views/invite/friends.rhtml:4
 msgid "Invite your friends to join %s"
 msgstr "Convide seus amigos para entrar em %s"
@@ -5149,6 +5133,12 @@ msgstr "Convide seus amigos para entrar em %s"
 #: app/views/profile_members/_members_list.rhtml:1
 msgid "Current Members"
 msgstr "Membros atuais"
+
+#: app/views/profile_members/add_member.rhtml:19
+#: app/views/profile_members/unassociate.rhtml:19
+#: app/views/profile_members/_members_list.rhtml:19
+msgid "Are you sure that you want to remove this member?"
+msgstr "Tem certeza que quer excluir este integrante?"
 
 #: app/views/profile_members/add_members.rhtml:1
 msgid "Add members to %s"
@@ -5229,7 +5219,7 @@ msgid "Comment for author"
 msgstr "Comentário para o autor"
 
 #: app/views/tasks/_approve_article.rhtml:36
-#: app/views/tasks/_add_friend.rhtml:39 app/views/tasks/_add_member.rhtml:36
+#: app/views/tasks/_add_friend.rhtml:38 app/views/tasks/_add_member.rhtml:36
 #: app/views/tasks/_create_community.rhtml:45
 msgid "Ok!"
 msgstr "Ok!"
@@ -5274,17 +5264,7 @@ msgstr "Novo amigo"
 msgid "%s wants to connect to you as a friend."
 msgstr "%s quer se conectar com você como amigo."
 
-#: app/views/tasks/_add_friend.rhtml:26
-msgid ""
-"You can type the first letters of an existing group and have the system "
-"present you the available options, or you can type the name of a new group "
-"if you want."
-msgstr ""
-"Você pode digitar as primeiras letras de um grupo que já existe e deixar o "
-"sistema te apresentar as opções disponíveis, ou então digitar o nome de um "
-"novo grupo de você quiser."
-
-#: app/views/tasks/_add_friend.rhtml:27
+#: app/views/tasks/_add_friend.rhtml:25
 msgid "Classify your new friend:"
 msgstr "Classifique seu(sua) novo(a) amigo(a):"
 
@@ -5320,10 +5300,14 @@ msgstr "Processado:"
 msgid "Processing task: %s"
 msgstr "Processando tarefa: %s"
 
-#: app/views/tasks/_task.rhtml:8 app/views/tasks/_task.rhtml:16
+#: app/views/tasks/_task.rhtml:7 app/views/tasks/_task.rhtml:18
 #: app/views/tasks/_ticket.rhtml:11 app/views/tasks/_ticket.rhtml:19
 msgid "OK"
 msgstr "OK"
+
+#: app/views/tasks/_task.rhtml:14
+msgid "Rejection explanation"
+msgstr "Explicação para a rejeição"
 
 #: app/views/tasks/_add_member.rhtml:1
 msgid "New member"
@@ -5452,10 +5436,6 @@ msgstr ""
 msgid "What is the CNPJ of your enterprise?"
 msgstr "Qual o CNPJ do seu empreendimento?"
 
-#: app/views/account/activation_question.rhtml:33
-msgid "We need to be sure that this is your enterprise"
-msgstr "Nós precisamos ter certeza que este empreendimento é seu"
-
 #: app/views/account/blocked.rhtml:2
 msgid "This enterprise can't be activated by the system"
 msgstr "Este empreendimento não pôde ser ativado pelo sistema"
@@ -5534,57 +5514,34 @@ msgstr ""
 msgid "Finish"
 msgstr "Finalizar"
 
-#: app/views/account/login.rhtml:10 app/views/account/_login_form.rhtml:3
-msgid ""
-"If you are a registered user, enter your username and password to be "
-"authenticated."
-msgstr ""
-"Se você é um usuário registrado, informe seu login e senha para ser "
-"autenticado."
-
-#: app/views/account/login.rhtml:10 app/views/account/_login_form.rhtml:3
-msgid "To join on this environment, click on \"<b>I want to be an user!</b>\"."
-msgstr ""
-"Para entrar neste ambiente, clique em \"<b>Quero ser um usuário!</b>\"."
-
-#: app/views/account/login.rhtml:10 app/views/account/_login_form.rhtml:3
-msgid ""
-"If you forgot your password, click on \"<b>I forgot my password!</b>\" link."
-msgstr ""
-"Se você esqueceu sua senha, clique no link \"<b>Eu esqueci a minha senha!</b>"
-"\"."
-
-#: app/views/account/login.rhtml:17 app/views/account/login_block.rhtml:20
-#: app/views/account/_login_form.rhtml:21
+#: app/views/account/login.rhtml:15 app/views/account/login_block.rhtml:20
+#: app/views/account/_login_form.rhtml:18
 msgid "Log in"
 msgstr "Entrar"
 
-#: app/views/account/login.rhtml:26 app/views/account/login_block.rhtml:21
+#: app/views/account/login.rhtml:24 app/views/account/login_block.rhtml:21
 msgid "New user"
 msgstr "Novo usuário"
 
-#: app/views/account/login.rhtml:27 app/views/account/login_block.rhtml:29
+#: app/views/account/login.rhtml:25 app/views/account/login_block.rhtml:29
 msgid "I forgot my password!"
 msgstr "Eu esqueci a minha senha!"
 
 #: app/views/account/forgot_password.rhtml:1
-#: app/views/account/password_recovery_sent.rhtml:1
-msgid "Password recovery"
-msgstr "Recuperar senha"
+msgid "Forgot your password?"
+msgstr "Esqueceu sua senha?"
 
-#: app/views/account/forgot_password.rhtml:7
+#: app/views/account/forgot_password.rhtml:14
+msgid "Send instructions"
+msgstr "Enviar instruções"
+
+#: app/views/account/forgot_password.rhtml:17
 msgid ""
-"To change your password, please fill the form on this screen using your "
-"username and your e-mail. You will receive a message at that e-mail address "
-"with a web address you can access to create a new password."
+"After clicking the button above, you will receive an email with a link to a "
+"page where you will be able to create a new password."
 msgstr ""
-"Para mudar sua senha, por favor preencha o formulário nesta tela usando o "
-"seu username e o seu e-mail. Você receberá uma mensagem nesse endereço de e-"
-"mail com um endereço web que você pode acessar para criar uma nova senha."
-
-#: app/views/account/forgot_password.rhtml:16
-msgid "Send change password procedure by e-mail"
-msgstr "Mande a mudança da senha pelo e-mail"
+"Após clicar no botão acima, você receberá um e-mail com um link para uma "
+"página onde você poderá criar uma nova senha."
 
 #: app/views/account/new_password_ok.rhtml:1
 msgid "Password changed sucessfully"
@@ -5671,25 +5628,15 @@ msgstr "comunidades"
 msgid "enterprises"
 msgstr "empreendimentos"
 
-#: app/views/account/_signup_form.rhtml:13
-msgid ""
-"Fill all these fields to join in this environment. <p/> If you forgot your "
-"password, do not create a new account, click on the \"<b>I forgot my "
-"password!</b>\" link. ;-)"
-msgstr ""
-"Preencha todos os campos para entrar neste ambiente.<p/> Se você esqueceu "
-"sua senha, não crie uma nova conta, clique no link \"<b>Eu esqueci minha "
-"senha!</b>\". ;-)"
-
-#: app/views/account/_signup_form.rhtml:25
+#: app/views/account/_signup_form.rhtml:23
 msgid "This e-mail address will be used to contact you."
 msgstr "Este endereço de e-mail será usado para contactar você."
 
-#: app/views/account/_signup_form.rhtml:30
+#: app/views/account/_signup_form.rhtml:27
 msgid "Insert your login"
 msgstr "Insira seu login"
 
-#: app/views/account/_signup_form.rhtml:40
+#: app/views/account/_signup_form.rhtml:34
 msgid ""
 "Choose a password that you can remember easily. It must have at least 4 "
 "characters."
@@ -5697,27 +5644,27 @@ msgstr ""
 "Escolha uma senha fácil de ser lembrada por você. Ela deve ter ao menos 4 "
 "caracteres."
 
-#: app/views/account/_signup_form.rhtml:45
+#: app/views/account/_signup_form.rhtml:38
 msgid "To confirm, repeat your password."
 msgstr "Para confirmar, repita sua senha."
 
-#: app/views/account/_signup_form.rhtml:54
+#: app/views/account/_signup_form.rhtml:46
 msgid ""
 "By clicking on 'I accept the terms of use' below you are agreeing to the %s"
 msgstr ""
 "Ao clicar em 'Eu aceito os termos de uso' abaixo você está concordando com "
 "os %s"
 
-#: app/views/account/_signup_form.rhtml:61
+#: app/views/account/_signup_form.rhtml:53
 msgid "Hide"
 msgstr "Esconder"
 
-#: app/views/account/_signup_form.rhtml:65
+#: app/views/account/_signup_form.rhtml:57
 msgid "I accept the terms of use"
 msgstr "Eu aceito os termos de uso"
 
-#: app/views/account/_signup_form.rhtml:78
-#: app/views/account/_signup_form.rhtml:80
+#: app/views/account/_signup_form.rhtml:70
+#: app/views/account/_signup_form.rhtml:72
 msgid "Sign up"
 msgstr "Registre-se"
 
@@ -5755,6 +5702,10 @@ msgstr ""
 msgid "Enter you user name and password"
 msgstr "Entre com seu nome de usuário e senha"
 
+#: app/views/account/password_recovery_sent.rhtml:1
+msgid "Password recovery"
+msgstr "Recuperar senha"
+
 #: app/views/account/password_recovery_sent.rhtml:4
 msgid ""
 "An e-mail was just sent to your e-mail address, with instructions for "
@@ -5762,14 +5713,6 @@ msgid ""
 msgstr ""
 "Um email foi enviado para seu endereço de e-mail, com as instruções para "
 "mudar a sua senha. Você deve recebê-lo em alguns minutos."
-
-#: app/views/account/_login_form.rhtml:7
-msgid "Here goes the nickname that you give on the registration."
-msgstr "Aqui vai o apelido que você informou no registro."
-
-#: app/views/account/_login_form.rhtml:12
-msgid "your password is personal, protect it."
-msgstr "sua senha é pessoal, proteja-a."
 
 #: app/views/account/invalid_change_password_code.rhtml:1
 msgid "Invalid change password code"
@@ -5797,26 +5740,18 @@ msgstr "Identifique-se"
 msgid "Login."
 msgstr "Login."
 
-#: app/views/account/index_anonymous.rhtml:5
-msgid ""
-"Click here to enter your username and password and be recognized by the "
-"system."
-msgstr ""
-"Clique aqui para informar seu nome de usuário e senha e ser reconhecido pelo "
-"sistema."
-
-#: app/views/account/index_anonymous.rhtml:7
+#: app/views/account/index_anonymous.rhtml:6
 msgid ""
 "You need to login to be able to use all the features in this environment."
 msgstr ""
 "Você precisa se identificar para usar todas as funcionalidades desse "
 "ambiente."
 
-#: app/views/account/index_anonymous.rhtml:11
+#: app/views/account/index_anonymous.rhtml:10
 msgid "Sign up."
 msgstr "Registre-se."
 
-#: app/views/account/index_anonymous.rhtml:12
+#: app/views/account/index_anonymous.rhtml:11
 msgid ""
 "If you are not an user already, you can register now to become a member of "
 "this environment."
@@ -5963,18 +5898,7 @@ msgstr "Tem certeza que quer sair de %s?"
 msgid "Yes, I want to leave."
 msgstr "Sim, quero sair."
 
-#: app/views/profile/friends.rhtml:2
-msgid "Here are all <b>%s</b>'s friends."
-msgstr "Aqui estão todos os amigos de <b>%s</b>."
-
-#: app/views/profile/friends.rhtml:19
-#: app/views/profile/favorite_enterprises.rhtml:14
-#: app/views/profile/members.rhtml:19 app/views/profile/communities.rhtml:20
-#: app/views/profile/enterprises.rhtml:14
-msgid "Back to the page where you come from."
-msgstr "De volta à página de onde você veio."
-
-#: app/views/profile/friends.rhtml:21
+#: app/views/profile/friends.rhtml:20
 msgid "Manage my friends"
 msgstr "Gerenciar meus amigos"
 
@@ -6026,27 +5950,15 @@ msgstr "Conteúdo marcado com \"%s\""
 msgid "See content tagged with \"%s\" in the entire site"
 msgstr "Veja o conteúdo marcado com \"%s\" em todo o site"
 
-#: app/views/profile/favorite_enterprises.rhtml:2
-msgid "Here are all <b>%s</b>'s favorite enterprises."
-msgstr "Aqui estão todos os empreendimentos favoritos de <b>%s</b>"
-
-#: app/views/profile/favorite_enterprises.rhtml:4
+#: app/views/profile/favorite_enterprises.rhtml:3
 msgid "%s's favorite enterprises"
 msgstr "Empreendimentos favoritos de %s"
 
-#: app/views/profile/members.rhtml:2
-msgid "Here are all <b>%s</b>'s members."
-msgstr "Aqui estão todos os integrantes de <b>%s</b>."
-
-#: app/views/profile/members.rhtml:4
+#: app/views/profile/members.rhtml:3
 msgid "%s's members"
 msgstr "Integrantes de %s"
 
-#: app/views/profile/communities.rhtml:2
-msgid "Here are all <b>%s</b>'s communities."
-msgstr "Aqui estão todas a comunidades de <b>%s</b>"
-
-#: app/views/profile/communities.rhtml:4
+#: app/views/profile/communities.rhtml:3
 msgid "%s's communities"
 msgstr "Comunidades de %s"
 
@@ -6054,15 +5966,11 @@ msgstr "Comunidades de %s"
 msgid "%s's tags"
 msgstr "Tags de %s"
 
-#: app/views/profile/enterprises.rhtml:2
-msgid "Here are all <b>%s</b>'s enterprises."
-msgstr "Aqui estão todos os empreendimentos de <b>%s</b>"
-
-#: app/views/profile/enterprises.rhtml:4
+#: app/views/profile/enterprises.rhtml:3
 msgid "%s's enterprises"
 msgstr "Empreendimentos de %s"
 
-#: app/views/profile/enterprises.rhtml:15
+#: app/views/profile/enterprises.rhtml:13
 msgid "Register a new Enterprise"
 msgstr "Registrar novo Empreendimento"
 
@@ -6332,25 +6240,9 @@ msgstr "Validações de empreendimento"
 msgid "Edit validation info"
 msgstr "Editando informações de validação"
 
-#: app/views/enterprise_validation/index.rhtml:4
-msgid ""
-"Validation info is the information the enterprises will see about how your "
-"organization processes the enterprises validations it receives: validation "
-"methodology, restrictions to the types of enterprises the organization "
-"validates etc."
-msgstr ""
-"Informações de validação são as informações que os empreendimentos verão "
-"sobre como sua organização processa as validações de empreendimento que ela "
-"recebe: metodologia de validação, restrição de tipos de empreendimentos que "
-"a organização valida etc."
-
 #: app/views/enterprise_validation/index.rhtml:5
 msgid "Go Back"
 msgstr "Voltar"
-
-#: app/views/enterprise_validation/index.rhtml:5
-msgid "Go back to the control panel."
-msgstr "Voltar ao painel de controle"
 
 #: app/views/enterprise_validation/index.rhtml:8
 msgid "Pending enterprise validations"
@@ -7032,23 +6924,156 @@ msgstr ""
 msgid "Organizations are disabled when created"
 msgstr "Organizações são desabilitadas quando criadas"
 
-#: public/503.html.erb:28
+#: public/503.html.erb:23
 msgid "System maintainance"
 msgstr "Manutenção do sistema"
 
-#: public/503.html.erb:30
+#: public/503.html.erb:25
 msgid "This system is under maintainance. It should be back in a few hours."
 msgstr ""
 "Este sistema está em manutenção. Ele deve estar de volta em algumas horas."
 
-#: public/500.html.erb:27
+#: public/500.html.erb:22
 msgid "Temporary system problem"
 msgstr "Problema temporário no sistema"
 
-#: public/500.html.erb:29
+#: public/500.html.erb:24
 msgid ""
 "Our technical team is working on it, please try again later. Sorry for the "
 "inconvenience."
 msgstr ""
 "Nossa equipe técnica está trabalhando nele, por favor tente mais tarde. "
 "Perdoe o incoveniente. "
+
+#~ msgid "This menu gives you access to your personal functionalities."
+#~ msgstr "Este menu te dá acesso às suas funcionalidades pessoais."
+
+#~ msgid "Go to your home page."
+#~ msgstr "Ir para sua página inicial."
+
+#~ msgid ""
+#~ "Control panel: change your picture, edit your personal information, "
+#~ "create content or change the way your home page looks."
+#~ msgstr ""
+#~ "Painel de controle: altere sua foto, edite suas informações pessoais, "
+#~ "crie conteúdo ou altere o visual da sua página."
+
+#~ msgid "Access the site administration panel."
+#~ msgstr "Acesso o painel de administrador do site."
+
+#~ msgid ""
+#~ "This link takes you out of the system. You should logout if other people "
+#~ "are willing to use the same computer after you."
+#~ msgstr ""
+#~ "Este link te leva pra fora do sistema. Você deve sair se outras pessoas "
+#~ "vão usar o mesmo computador depois de você."
+
+#~ msgid "Clicking on this button will remove your friend relation with %s."
+#~ msgstr "Clicando neste botão removerá sua relação de amizade com %s."
+
+#~ msgid "Register enterprise"
+#~ msgstr "Registrar empreendimento"
+
+#~ msgid "How to proceed"
+#~ msgstr "Como proceder"
+
+#~ msgid "Clicking on this button will let you send a message to %s."
+#~ msgstr "Clicar neste botão permite mandar uma mensagem para %s."
+
+#~ msgid ""
+#~ "You can type the first letters of an existing group and have the system "
+#~ "present you the available options, or you can type the name of a new "
+#~ "group if you want."
+#~ msgstr ""
+#~ "Você pode digitar as primeiras letras de um grupo que já existe e deixar "
+#~ "o sistema te apresentar as opções disponíveis, ou então digitar o nome de "
+#~ "um novo grupo de você quiser."
+
+#~ msgid "We need to be sure that this is your enterprise"
+#~ msgstr "Nós precisamos ter certeza que este empreendimento é seu"
+
+#~ msgid ""
+#~ "If you are a registered user, enter your username and password to be "
+#~ "authenticated."
+#~ msgstr ""
+#~ "Se você é um usuário registrado, informe seu login e senha para ser "
+#~ "autenticado."
+
+#~ msgid ""
+#~ "To join on this environment, click on \"<b>I want to be an user!</b>\"."
+#~ msgstr ""
+#~ "Para entrar neste ambiente, clique em \"<b>Quero ser um usuário!</b>\"."
+
+#~ msgid ""
+#~ "If you forgot your password, click on \"<b>I forgot my password!</b>\" "
+#~ "link."
+#~ msgstr ""
+#~ "Se você esqueceu sua senha, clique no link \"<b>Eu esqueci a minha senha!"
+#~ "</b>\"."
+
+#~ msgid ""
+#~ "To change your password, please fill the form on this screen using your "
+#~ "username and your e-mail. You will receive a message at that e-mail "
+#~ "address with a web address you can access to create a new password."
+#~ msgstr ""
+#~ "Para mudar sua senha, por favor preencha o formulário nesta tela usando o "
+#~ "seu username e o seu e-mail. Você receberá uma mensagem nesse endereço de "
+#~ "e-mail com um endereço web que você pode acessar para criar uma nova "
+#~ "senha."
+
+#~ msgid "Send change password procedure by e-mail"
+#~ msgstr "Mande a mudança da senha pelo e-mail"
+
+#~ msgid ""
+#~ "Fill all these fields to join in this environment. <p/> If you forgot "
+#~ "your password, do not create a new account, click on the \"<b>I forgot my "
+#~ "password!</b>\" link. ;-)"
+#~ msgstr ""
+#~ "Preencha todos os campos para entrar neste ambiente.<p/> Se você esqueceu "
+#~ "sua senha, não crie uma nova conta, clique no link \"<b>Eu esqueci minha "
+#~ "senha!</b>\". ;-)"
+
+#~ msgid "Here goes the nickname that you give on the registration."
+#~ msgstr "Aqui vai o apelido que você informou no registro."
+
+#~ msgid "your password is personal, protect it."
+#~ msgstr "sua senha é pessoal, proteja-a."
+
+#~ msgid ""
+#~ "Click here to enter your username and password and be recognized by the "
+#~ "system."
+#~ msgstr ""
+#~ "Clique aqui para informar seu nome de usuário e senha e ser reconhecido "
+#~ "pelo sistema."
+
+#~ msgid "Here are all <b>%s</b>'s friends."
+#~ msgstr "Aqui estão todos os amigos de <b>%s</b>."
+
+#~ msgid "Back to the page where you come from."
+#~ msgstr "De volta à página de onde você veio."
+
+#~ msgid "Here are all <b>%s</b>'s favorite enterprises."
+#~ msgstr "Aqui estão todos os empreendimentos favoritos de <b>%s</b>"
+
+#~ msgid "Here are all <b>%s</b>'s members."
+#~ msgstr "Aqui estão todos os integrantes de <b>%s</b>."
+
+#~ msgid "Here are all <b>%s</b>'s communities."
+#~ msgstr "Aqui estão todas a comunidades de <b>%s</b>"
+
+#~ msgid "Here are all <b>%s</b>'s enterprises."
+#~ msgstr "Aqui estão todos os empreendimentos de <b>%s</b>"
+
+#~ msgid ""
+#~ "Validation info is the information the enterprises will see about how "
+#~ "your organization processes the enterprises validations it receives: "
+#~ "validation methodology, restrictions to the types of enterprises the "
+#~ "organization validates etc."
+#~ msgstr ""
+#~ "Informações de validação são as informações que os empreendimentos verão "
+#~ "sobre como sua organização processa as validações de empreendimento que "
+#~ "ela recebe: metodologia de validação, restrição de tipos de "
+#~ "empreendimentos que a organização valida etc."
+
+#~ msgid "Go back to the control panel."
+#~ msgstr "Voltar ao painel de controle"
