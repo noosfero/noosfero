@@ -1,7 +1,7 @@
 <% if profile.enterprise? && !profile.enabled? && !profile.blocks.select {|b| b.class == DisabledEnterpriseMessageBlock}.any? %>
   <div id='profile-disabled'>
     <%= environment.message_for_disabled_enterprise %>
-    <% if profile.blocked? && user.is_admin?(profile.environment) %>
+    <% if profile.blocked? && user && user.is_admin?(profile.environment) %>
       <div class='unlock-button'>
         <%= button :lock, _('Unblock'), {:controller => 'profile', :action => 'unblock'} %>
       </div>

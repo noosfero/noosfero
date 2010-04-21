@@ -1,6 +1,6 @@
 <div id='enterprise-disabled'>
   <%= message %>
-  <% if profile.blocked? && user.is_admin?(profile.environment) %>
+  <% if profile.blocked? && user && user.is_admin?(profile.environment) %>
     <div class='unlock-button'>
     <%= button :lock, _('Unblock'), {:controller => 'profile', :action => 'unblock'} %>
     </div>
