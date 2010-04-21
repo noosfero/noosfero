@@ -148,7 +148,7 @@ HACKING file instead.
     RewriteRule ^([^.]+)$ $1.html [QSA]
 
     RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_FILENAME} !-f
-    RewriteRule ^.*$ balancer://noosfero-%{REQUEST_URI} [P,QSA,L]
+    RewriteRule ^.*$ balancer://noosfero%{REQUEST_URI} [P,QSA,L]
 
     ErrorDocument 503 /503.html
 
@@ -160,7 +160,7 @@ HACKING file instead.
 
   </VirtualHost>
 
-  <Proxy balancer://noosfero-test>
+  <Proxy balancer://noosfero>
     BalancerMember http://127.0.0.1:4000
     BalancerMember http://127.0.0.1:4001
     Order Allow,Deny
