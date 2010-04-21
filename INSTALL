@@ -104,14 +104,29 @@ HACKING file instead.
 
   ./script/production restart
 
+* enable the following apache modules:
+
+  deflate
+  expires
+  proxy
+  proxy_balancer
+  proxy_http
+  rewrite
+
+  On Debian GNU/Linux system, these modules can be enabled with the following
+  command line, as root:
+
+  a2enmod deflate expires proxy proxy_balancer proxy_http rewrite
+
+  In other systems the way by which you enable apache modules may be different.
+
 * Configure apache web server as a reverse proxy. You can use the template
   below, replacing /path/to/noosfero with the directory in which your noosfero
   installation is, your.domain.com with the domain name of your noosfero site.
   We are assuming that you are running two mongrel instances on ports 4000 and
-  4001. If your setup is different you'll need to adjust <Proxy> section. Make
-  sure you have the follwing apache modules enabled: deflate, expires, proxy,
-  proxy_balancer, proxy_http, rewrite. If you don't understand something in the
-  configuration, please refer to the apache documentation.
+  4001. If your setup is different you'll need to adjust <Proxy> section. If
+  you don't understand something in the configuration, please refer to the
+  apache documentation.
 
   <VirtualHost *:80>
     ServerName your.domain.com
