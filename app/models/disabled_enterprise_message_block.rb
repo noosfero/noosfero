@@ -22,4 +22,8 @@ class DisabledEnterpriseMessageBlock < Block
   def editable?
     false
   end
+
+  def cacheable?
+    false
+  end
 end
