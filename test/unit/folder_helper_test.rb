@@ -2,6 +2,12 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class FolderHelperTest < Test::Unit::TestCase
 
+  include ActionView::Helpers::TagHelper
+  include ActionView::Helpers::UrlHelper
+  include ActionController::UrlWriter
+  include ActionView::Helpers::AssetTagHelper
+  include DatesHelper
+
   include FolderHelper
 
   should 'display icon for articles' do
@@ -74,7 +80,7 @@ class FolderHelperTest < Test::Unit::TestCase
     article = fast_create(Article, {:name => 'Article1', :parent_id => folder.id, :profile_id => profile.id})
     article = fast_create(Article, {:name => 'Article2', :parent_id => folder.id, :profile_id => profile.id})
 
-    result = folder.list_articles(folder.children)
+    result = list_articles(folder.children)
 
     assert_tag_in_string result, :tag => 'td', :descendant => { :tag => 'a', :attributes => { :href => /.*\/folder-owner\/my-article-[0-9]*(\?|$)/ } }, :content => /Article1/
     assert_tag_in_string result, :tag => 'td', :descendant => { :tag => 'a', :attributes => { :href => /.*\/folder-owner\/my-article-[0-9]*(\?|$)/ } }, :content => /Article2/
@@ -83,9 +89,22 @@ class FolderHelperTest < Test::Unit::TestCase
   should 'explictly advise if empty' do
     profile = create_user('folder-owner').person
     folder = fast_create(Folder, {:name => 'Parent Folder', :profile_id => profile.id})
-    result = folder.list_articles(folder.children)
+    result = render 'content_viewer/folder', binding
 
     assert_match '(empty folder)', result
+  end
+
+  should 'show body (folder description)' do
+    profile = create_user('folder-owner').person
+    folder = fast_create(Folder, {:name => 'Parent Folder', :profile_id => profile.id, :body => "This is the folder description"})
+    result = render 'content_viewer/folder', binding
+    assert_match 'This is the folder description', result
+  end
+
+
+  private
+  def render(template, the_binding)
+    ERB.new(File.read(RAILS_ROOT + '/app/views/' + template + '.rhtml')).result(the_binding)
   end
 
 end
