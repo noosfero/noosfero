@@ -40,4 +40,9 @@ class ArticleBlock < Block
     @article = obj
   end
 
+  def available_articles
+    return [] if self.box.nil? or self.box.owner.nil?
+    self.box.owner.kind_of?(Environment) ? self.box.owner.portal_community.articles : self.box.owner.articles
+  end
+
 end

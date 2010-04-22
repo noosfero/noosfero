@@ -52,4 +52,33 @@ class ArticleBlockTest < Test::Unit::TestCase
     assert_nil block.article_id
   end
 
+  should "take available articles with a person as the box owner" do
+    person = create_user('testuser').person
+    person.articles.delete_all
+    assert_equal [], person.articles
+    a = person.articles.create!(:name => 'test')
+    block = ArticleBlock.create(:article => a)
+    person.boxes.first.blocks << block
+    block.save!
+    
+    block.reload
+    assert_equal [a],block.available_articles
+  end
+
+  should "take available articles with an environment as the box owner" do
+    env = Environment.create!(:name => 'test env')
+    env.articles.destroy_all
+    assert_equal [], env.articles
+    community = fast_create(Community)
+    a = community.articles.create!(:name => 'test')
+    env.portal_community=community
+    env.save
+    block = ArticleBlock.create(:article => a)
+    env.boxes.first.blocks << block
+    block.save!
+    
+    block.reload
+    assert_equal [a],block.available_articles
+  end
+
 end

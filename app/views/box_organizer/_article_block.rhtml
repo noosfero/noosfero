@@ -1,2 +1,9 @@
-<% articles = @block.box.owner.articles.select {|article| !article.folder? } %>
-<%= select('block', 'article_id', articles.map {|item| [ item.path, item.id]}) %>
+
+<% if @block.box.owner.kind_of?(Environment) and @block.box.owner.portal_community.nil? %>
+  <p id='no_portal_community'>
+  <%= _("You don't have an community defined as the portal community. Define it before use this block properly.") %>
+  </p>
+<% else %>
+  <% articles = @block.available_articles.select {|article| !article.folder? } %>
+  <%= select('block', 'article_id', articles.map {|item| [ item.path, item.id]}) %>
+<% end %>
