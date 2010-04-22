@@ -16,6 +16,17 @@ class AdminPanelController < AdminController
     end
   end
 
+  def manage_portal_community
+    params[:activate] == '1' ? environment.enable('use_portal_community') : environment.disable('use_portal_community')
+    environment.save
+    redirect_to :action => 'set_portal_community'
+  end
+
+  def unset_portal_community
+    environment.unset_portal_community!
+    redirect_to :action => 'set_portal_community'
+  end
+
   def set_portal_community
     env = environment
     @portal_community = env.portal_community || Community.new

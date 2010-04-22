@@ -121,6 +121,59 @@ class AdminPanelControllerTest < Test::Unit::TestCase
     assert_equal c, e.portal_community
   end
 
+  should 'unset portal community' do
+    e = Environment.default
+    @controller.stubs(:environment).returns(e)
+    c = Community.create!(:name => 'portal_community')
+
+    get :unset_portal_community
+    e.reload
+
+    assert_nil e.portal_community
+    assert_equal false, e.enabled?('use_portal_community')
+  end
+
+  should 'redirect to set_portal_community after unset portal community' do
+    e = Environment.default
+    @controller.stubs(:environment).returns(e)
+
+    get :unset_portal_community
+    assert_redirected_to :action => 'set_portal_community'
+  end
+
+  should 'enable portal community' do
+    e = Environment.default
+    @controller.stubs(:environment).returns(e)
+    c = Community.create!(:name => 'portal_community')
+    e.portal_community=c
+    e.save
+    assert_equal false, e.enabled?('use_portal_community')
+
+    get :manage_portal_community, :activate => 1
+    e.reload
+    assert_equal true, e.enabled?('use_portal_community')
+  end
+
+  should 'disable portal community' do
+    e = Environment.default
+    @controller.stubs(:environment).returns(e)
+    c = Community.create!(:name => 'portal_community')
+    e.portal_community=c
+    e.save
+    assert_equal false, e.enabled?('use_portal_community')
+
+    get :manage_portal_community, :activate => 0
+    e.reload
+    assert_equal false, e.enabled?('use_portal_community')
+  end
+
+  should 'redirect to set_portal_community after enable or disable portal community' do
+    e = Environment.default
+    @controller.stubs(:environment).returns(e)
+    get :manage_portal_community
+    assert_redirected_to :action => 'set_portal_community'
+  end
+
   should 'change portal_community and list new portal folders as options' do
     env = Environment.default
     old = Community.create!(:name => 'old_portal')

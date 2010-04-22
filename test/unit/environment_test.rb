@@ -737,6 +737,21 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal c, e.portal_community
   end
 
+  should 'unset the portal community' do
+    e = Environment.default
+    c = fast_create(Community)
+
+    e.portal_community = c; e.save!
+    e.reload
+    assert_equal c, e.portal_community
+    e.unset_portal_community!
+    e.reload
+    assert_nil e.portal_community 
+    assert_equal [], e.portal_folders
+    assert_equal 0, e.news_amount_by_folder
+    assert_equal false, e.enabled?('use_portal_community')
+  end
+
   should 'have a set of portal folders' do
     e = Environment.default
 

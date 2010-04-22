@@ -616,7 +616,15 @@ class Environment < ActiveRecord::Base
   end
 
   def portal_community=(value)
-    settings[:portal_community_identifier] = value.identifier
+    settings[:portal_community_identifier] = value.nil? ? nil : value.identifier
+  end
+
+  def unset_portal_community!
+    self.portal_community=nil
+    self.portal_folders=nil
+    self.news_amount_by_folder=nil
+    self.disable('use_portal_community')
+    self.save
   end
 
   def is_portal_community?(profile)
