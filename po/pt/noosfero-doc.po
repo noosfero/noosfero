@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-03-16 20:53-0300\n"
-"PO-Revision-Date: 2010-04-12 16:13-0300\n"
+"POT-Creation-Date: 2010-04-22 19:54-0300\n"
+"PO-Revision-Date: 2010-04-22 20:23-0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 # type: Content of: <h1>
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:1
 msgid "Posting on blog"
-msgstr "Postando no blog"
+msgstr "Postar no blog"
 
 # type: Content of: <p>
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:3
@@ -205,7 +205,7 @@ msgid ""
 "instructions on <a href=\"/doc/cms/creating-blog\">Creating a blog</a> ."
 msgstr ""
 "Se você ainda não tem um blog, você pode criar um seguindo as orientações em "
-"<a href=\"/doc/cms/creating-blog\">Criando um blog</a>."
+"<a href=\"/doc/cms/creating-blog\">Criar um blog</a>."
 
 # type: Content of: <ol><li>
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:15
@@ -441,16 +441,16 @@ msgstr "Tópicos relacionados"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:31
-#: doc/noosfero/cms/toc.en.xhtml:7
+#: doc/noosfero/cms/toc.en.xhtml:5
 msgid "<a href=\"/doc/cms/creating-blog\">Creating a blog</a>"
-msgstr "<a href=\"/doc/cms/creating-blog\">Criando um blog</a>"
+msgstr "<a href=\"/doc/cms/creating-blog\">Criar um blog</a>"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:32
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:31
-#: doc/noosfero/cms/creating-blog.en.xhtml:38 doc/noosfero/cms/toc.en.xhtml:6
+#: doc/noosfero/cms/creating-blog.en.xhtml:38 doc/noosfero/cms/toc.en.xhtml:8
 msgid "<a href=\"/doc/cms/managing-content\">Managing your content</a>"
-msgstr "<a href=\"/doc/cms/managing-content\">Gerenciando seu conteúdo</a>"
+msgstr "<a href=\"/doc/cms/managing-content\">Gerenciar seu conteúdo</a>"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:35
@@ -501,12 +501,12 @@ msgstr "<a href=\"#online-doc-text\">Voltar ao topo</a>"
 # type: Content of: <h1>
 #: doc/noosfero/cms/index.en.xhtml:1
 msgid "Content Management"
-msgstr "Gerenciamento de conteúdo"
+msgstr "Gerenciar conteúdo"
 
 # type: Content of: <h1>
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:1
 msgid "Adding pictures to gallery"
-msgstr "Adicionando fotos na galeria"
+msgstr "Adicionar fotos na galeria"
 
 # type: Content of: <p>
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:3
@@ -522,9 +522,9 @@ msgid ""
 "gallery&#8221; in &#8220;Folder type&#8221;."
 msgstr ""
 "Se você ainda não tem uma galeria de imagens, você pode criar uma seguindo "
-"as orientações em <a href=\"/doc/cms/managing-content\">Gerenciando "
-"conteúdo</a> até o item 1 da descrição. Ao criar a pasta, escolha &#8220;"
-"Galeria de imagens&#8221; em &#8220;Tipo de Pasta&#8221;."
+"as orientações em <a href=\"/doc/cms/managing-content\">Gerenciar conteúdo</"
+"a> até o item 1 da descrição. Ao criar a pasta, escolha &#8220;Galeria de "
+"imagens&#8221; em &#8220;Tipo de Pasta&#8221;."
 
 # type: Content of: <ol><li>
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:15
@@ -575,8 +575,7 @@ msgstr "enviando arquivos para a galeria"
 # type: Content of: <h1>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:1
 msgid "Writing an advanced article (inserting images, links, videos and audio)"
-msgstr ""
-"Escrevendo um artigo avançado (inserindo imagens, links, vídeos e áudio)"
+msgstr "Escrever um artigo avançado (inserindo imagens, links, vídeos e áudio)"
 
 # type: Content of: <p>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:3
@@ -590,17 +589,17 @@ msgstr ""
 # type: Content of: <ul><li><ul><li>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:9
 msgid "<a href=\"#InsertingLinks\">Inserting links</a>"
-msgstr "<a href=\"#InsertingLinks\">Inserindo links</a>"
+msgstr "<a href=\"#InsertingLinks\">Inserir links</a>"
 
 # type: Content of: <ul><li><ul><li>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:10
 msgid "<a href=\"#InsertingImages\">Inserting images</a>"
-msgstr "<a href=\"#InsertingImages\">Inserindo imagens</a>"
+msgstr "<a href=\"#InsertingImages\">Inserir imagens</a>"
 
 # type: Content of: <ul><li><ul><li>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:11
 msgid "<a href=\"#InsertingVideosAudio\">Inserting videos and audio</a>"
-msgstr "<a href=\"#InsertingVideosAudio\">Inserindo vídeos e áudio</a>"
+msgstr "<a href=\"#InsertingVideosAudio\">Inserir vídeos e áudio</a>"
 
 # type: Content of: <p>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:18
@@ -690,7 +689,7 @@ msgstr "Link criado num artigo"
 # type: Content of: <h1>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:38
 msgid "Inserting images"
-msgstr "Inserindo imagens"
+msgstr "Inserir imagens"
 
 # type: Content of: <p>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:40
@@ -798,7 +797,7 @@ msgstr "Lista de arquivos na edição de artigo"
 # type: Content of: <h1>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:64
 msgid "Inserting videos and audio"
-msgstr "Inserindo vídeos e áudio"
+msgstr "Inserir vídeos e áudio"
 
 # type: Content of: <ol><li>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:67
@@ -842,14 +841,14 @@ msgstr ""
 # type: Content of: <ul><li>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:76
 #: doc/noosfero/cms/managing-content.en.xhtml:61
-#: doc/noosfero/cms/toc.en.xhtml:8
+#: doc/noosfero/cms/toc.en.xhtml:3
 msgid "<a href=\"/doc/cms/writing-article\">Writing an article</a>"
-msgstr "<a href=\"/doc/cms/writing-article\">Escrevendo um artigo</a>"
+msgstr "<a href=\"/doc/cms/writing-article\">Escrever um artigo</a>"
 
 # type: Content of: <h1>
 #: doc/noosfero/cms/managing-content.en.xhtml:1
 msgid "Managing your content"
-msgstr "Gerenciando seu conteúdo"
+msgstr "Gerenciar seu conteúdo"
 
 # type: Content of: <p>
 #: doc/noosfero/cms/managing-content.en.xhtml:3
@@ -1037,7 +1036,7 @@ msgstr "<strong>Remover:</strong> Apaga o artigo."
 # type: Content of: <h1>
 #: doc/noosfero/cms/creating-blog.en.xhtml:1
 msgid "Creating a blog"
-msgstr "Criando um blog"
+msgstr "Criar um blog"
 
 # type: Content of: <p>
 #: doc/noosfero/cms/creating-blog.en.xhtml:3
@@ -1122,14 +1121,14 @@ msgid "Fill in with the blog&#8217;s tags."
 msgstr "Preencha com as tags do blog."
 
 # type: Content of: <ul><li>
-#: doc/noosfero/cms/creating-blog.en.xhtml:39 doc/noosfero/cms/toc.en.xhtml:3
+#: doc/noosfero/cms/creating-blog.en.xhtml:39 doc/noosfero/cms/toc.en.xhtml:6
 msgid "<a href=\"/doc/cms/posting-on-blog\">Posting on blog</a>"
-msgstr "<a href=\"/doc/cms/posting-on-blog\">Postando no blog</a>"
+msgstr "<a href=\"/doc/cms/posting-on-blog\">Postar no blog</a>"
 
 # type: Content of: <h1>
 #: doc/noosfero/cms/writing-article.en.xhtml:1
 msgid "Writing an article"
-msgstr "Escrevendo um artigo básico"
+msgstr "Escrever um artigo básico"
 
 # type: Content of: <p>
 #: doc/noosfero/cms/writing-article.en.xhtml:3
@@ -1662,7 +1661,7 @@ msgstr ""
 msgid ""
 "<a href=\"/doc/cms/writing-advanced-article\">Writing advanced articles</a>"
 msgstr ""
-"<a href=\"/doc/cms/writing-advanced-article\">Escrevendo um artigo avançado "
+"<a href=\"/doc/cms/writing-advanced-article\">Escrever um artigo avançado "
 "(inserindo links e imagens)</a>"
 
 # type: Content of: <h1>
@@ -1895,9 +1894,9 @@ msgstr ""
 #: doc/noosfero/enterprise/editing-header-footer.en.xhtml:62
 #: doc/noosfero/enterprise/editing-appearance.en.xhtml:37
 #: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:45
-#: doc/noosfero/user/toc.en.xhtml:17
+#: doc/noosfero/user/toc.en.xhtml:4
 msgid "<a href=\"/doc/user/login\">Login into the system</a>"
-msgstr "<a href=\"/doc/user/login\">Entrando no sistema</a>"
+msgstr "<a href=\"/doc/user/login\">Entrar no sistema</a>"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/community/editing-header-footer.en.xhtml:63
@@ -1909,14 +1908,14 @@ msgstr "<a href=\"/doc/user/login\">Entrando no sistema</a>"
 #: doc/noosfero/enterprise/editing-header-footer.en.xhtml:63
 #: doc/noosfero/enterprise/editing-appearance.en.xhtml:38
 msgid "<a href=\"/doc/user/logout\">Logout of the system</a>"
-msgstr "<a href=\"/doc/user/logout\">Saindo do sistema</a>"
+msgstr "<a href=\"/doc/user/logout\">Sair do sistema</a>"
 
 # type: Content of: <h1>
 #: doc/noosfero/community/editing-appearance.en.xhtml:1
 #: doc/noosfero/user/editing-appearance.en.xhtml:1
 #: doc/noosfero/enterprise/editing-appearance.en.xhtml:1
 msgid "Editing appearance"
-msgstr "Editando aparência"
+msgstr "Editar aparência"
 
 # type: Content of: <p>
 #: doc/noosfero/community/editing-appearance.en.xhtml:3
@@ -1997,7 +1996,7 @@ msgstr "Editar aparência"
 # type: Content of: <ul><li>
 #: doc/noosfero/community/editing-appearance.en.xhtml:39
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:71
-#: doc/noosfero/community/toc.en.xhtml:3
+#: doc/noosfero/community/toc.en.xhtml:10
 msgid ""
 "<a href=\"/doc/community/editing-header-footer\">Editing header and footer</"
 "a>"
@@ -2013,7 +2012,7 @@ msgstr "Funcionalidades da comunidade"
 # type: Content of: <h1>
 #: doc/noosfero/community/creating-community.en.xhtml:1
 msgid "Creating a community"
-msgstr "Criando uma comunidade"
+msgstr "Criar uma comunidade"
 
 # type: Content of: <p>
 #: doc/noosfero/community/creating-community.en.xhtml:3
@@ -2117,7 +2116,7 @@ msgstr ""
 #: doc/noosfero/community/invite-contacts.en.xhtml:1
 #: doc/noosfero/user/invite-contacts.en.xhtml:1
 msgid "Inviting contacts from e-mail"
-msgstr "Convidando contatos por e-mail"
+msgstr "Convidar contatos por e-mail"
 
 # type: Content of: <p>
 #: doc/noosfero/community/invite-contacts.en.xhtml:3
@@ -2293,31 +2292,30 @@ msgstr "Convite de importação para comunidade. Passo 2"
 #: doc/noosfero/community/invite-contacts.en.xhtml:45
 #: doc/noosfero/community/moderating-articles.en.xhtml:41
 #: doc/noosfero/community/accepting-members.en.xhtml:32
-#: doc/noosfero/community/toc.en.xhtml:5
+#: doc/noosfero/community/toc.en.xhtml:4
 msgid "<a href=\"/doc/community/creating-community\">Creating a community</a>"
-msgstr ""
-"<a href=\"/doc/community/creating-community\">Criando uma comunidade</a>"
+msgstr "<a href=\"/doc/community/creating-community\">Criar uma comunidade</a>"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/community/invite-contacts.en.xhtml:46
 #: doc/noosfero/community/moderating-articles.en.xhtml:42
 #: doc/noosfero/community/accepting-members.en.xhtml:33
-#: doc/noosfero/community/toc.en.xhtml:9
+#: doc/noosfero/community/toc.en.xhtml:3
 msgid "<a href=\"/doc/community/joining-community\">Joining a community</a>"
 msgstr ""
-"<a href=\"/doc/community/joining-community\">Entrando em uma comunidade</a>"
+"<a href=\"/doc/community/joining-community\">Entrar em uma comunidade</a>"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/community/invite-contacts.en.xhtml:47
 msgid "<a href=\"/doc/community/accepting-members\">Accepting members</a>"
-msgstr "<a href=\"/doc/community/accepting-members\">Aceitando integrantes</a>"
+msgstr "<a href=\"/doc/community/accepting-members\">Aceitar integrantes</a>"
 
 # type: Content of: <h1>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:1
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:1
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:1
 msgid "Editing sideboxes"
-msgstr "Editando blocos laterais"
+msgstr "Editar blocos laterais"
 
 # type: Content of: <p>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:3
@@ -2735,14 +2733,14 @@ msgstr ""
 
 # type: Content of: <ul><li>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:72
-#: doc/noosfero/community/toc.en.xhtml:4
+#: doc/noosfero/community/toc.en.xhtml:8
 msgid "<a href=\"/doc/community/editing-appearance\">Editing appearance</a>"
-msgstr "<a href=\"/doc/community/editing-appearance\">Editando aparência</a>"
+msgstr "<a href=\"/doc/community/editing-appearance\">Editar aparência</a>"
 
 # type: Content of: <h1>
 #: doc/noosfero/community/moderating-articles.en.xhtml:1
 msgid "Moderating articles"
-msgstr "Moderando artigos"
+msgstr "Moderar artigos"
 
 # type: Content of: <ol><li>
 #: doc/noosfero/community/moderating-articles.en.xhtml:3
@@ -2848,7 +2846,7 @@ msgstr ""
 # type: Content of: <h1>
 #: doc/noosfero/community/joining-community.en.xhtml:1
 msgid "Joining a community"
-msgstr "Entrando em uma comunidade"
+msgstr "Entrar em uma comunidade"
 
 # type: Content of: <p>
 #: doc/noosfero/community/joining-community.en.xhtml:3
@@ -2893,7 +2891,7 @@ msgid ""
 "navigation/searching-communities\">Finding communities</a>."
 msgstr ""
 "Para aprender a encontrar comunidades no sistema, acesse: <a href=\"/doc/"
-"navigation/searching-communities\">Encontrando comunidades</a>."
+"navigation/searching-communities\">Encontrar comunidades</a>."
 
 # type: Content of: <ol><li>
 #: doc/noosfero/community/joining-community.en.xhtml:20
@@ -2937,16 +2935,16 @@ msgstr ""
 #: doc/noosfero/navigation/searching-products-services.en.xhtml:37
 #: doc/noosfero/navigation/searching-enterprises.en.xhtml:37
 #: doc/noosfero/navigation/advanced-search.en.xhtml:35
-#: doc/noosfero/navigation/toc.en.xhtml:7
+#: doc/noosfero/navigation/toc.en.xhtml:3
 msgid ""
 "<a href=\"/doc/navigation/searching-communities\">Finding communities</a>"
 msgstr ""
-"<a href=\"/doc/navigation/searching-communities\">Encontrando comunidades</a>"
+"<a href=\"/doc/navigation/searching-communities\">Encontrar comunidades</a>"
 
 # type: Content of: <h1>
 #: doc/noosfero/community/accepting-members.en.xhtml:1
 msgid "Accepting new members"
-msgstr "Aceitando novos integrantes"
+msgstr "Aceitar novos integrantes"
 
 # type: Content of: <ol><li>
 #: doc/noosfero/community/accepting-members.en.xhtml:3
@@ -2971,7 +2969,7 @@ msgstr ""
 # type: Content of: <h1>
 #: doc/noosfero/user/logout.en.xhtml:1
 msgid "Leaving the system"
-msgstr "Saindo do sistema"
+msgstr "Sair do sistema"
 
 # type: Content of: <p>
 #: doc/noosfero/user/logout.en.xhtml:3
@@ -3038,7 +3036,7 @@ msgstr ""
 # type: Content of: <h1>
 #: doc/noosfero/user/removing-friends.en.xhtml:1
 msgid "Removing friends"
-msgstr "Removendo amigos"
+msgstr "Remover amigos"
 
 # type: Content of: <p>
 #: doc/noosfero/user/removing-friends.en.xhtml:3
@@ -3106,9 +3104,9 @@ msgstr ""
 #: doc/noosfero/user/sending-messages.en.xhtml:30
 #: doc/noosfero/user/accepting-friends.en.xhtml:30
 #: doc/noosfero/user/registering-new-user.en.xhtml:33
-#: doc/noosfero/user/toc.en.xhtml:15
+#: doc/noosfero/user/toc.en.xhtml:8
 msgid "<a href=\"/doc/user/adding-friends\">Adding friends</a>"
-msgstr "<a href=\"/doc/user/adding-friends\">Adicionando amigos</a>"
+msgstr "<a href=\"/doc/user/adding-friends\">Adicionar amigos</a>"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/user/removing-friends.en.xhtml:33
@@ -3116,14 +3114,14 @@ msgstr "<a href=\"/doc/user/adding-friends\">Adicionando amigos</a>"
 #: doc/noosfero/user/invite-contacts.en.xhtml:43
 #: doc/noosfero/user/adding-friends.en.xhtml:26
 #: doc/noosfero/user/registering-new-user.en.xhtml:35
-#: doc/noosfero/user/toc.en.xhtml:10
+#: doc/noosfero/user/toc.en.xhtml:9
 msgid "<a href=\"/doc/user/accepting-friends\">Accepting friends</a>"
-msgstr "<a href=\"/doc/user/accepting-friends\">Aceitando amigos</a>"
+msgstr "<a href=\"/doc/user/accepting-friends\">Aceitar amigos</a>"
 
 # type: Content of: <h1>
 #: doc/noosfero/user/sending-messages.en.xhtml:1
 msgid "Sending messages"
-msgstr "Enviando mensagens"
+msgstr "Enviar mensagens"
 
 # type: Content of: <p>
 #: doc/noosfero/user/sending-messages.en.xhtml:3
@@ -3192,7 +3190,7 @@ msgstr "Enviar mensagem"
 #: doc/noosfero/navigation/searching-communities.en.xhtml:32
 #: doc/noosfero/navigation/toc.en.xhtml:4
 msgid "<a href=\"/doc/navigation/searching-people\">Finding people</a>"
-msgstr "<a href=\"/doc/navigation/searching-people\">Encontrando pessoas</a>"
+msgstr "<a href=\"/doc/navigation/searching-people\">Encontrar pessoas</a>"
 
 # type: Content of: <p>
 #: doc/noosfero/user/editing-header-footer.en.xhtml:3
@@ -3264,8 +3262,7 @@ msgstr "Confirmação de remover comentário"
 #: doc/noosfero/user/removing-comments.en.xhtml:26
 msgid ""
 "<a href=\"/doc/user/commenting\">Commenting articles, pictures and events</a>"
-msgstr ""
-"<a href=\"/doc/user/commenting\">Comentando artigos, fotos e eventos</a>"
+msgstr "<a href=\"/doc/user/commenting\">Comentar artigos, fotos e eventos</a>"
 
 # type: Content of: <p>
 #: doc/noosfero/user/editing-appearance.en.xhtml:3
@@ -3275,11 +3272,11 @@ msgstr "<em>Você pode personalizar sua página, alterando o modelo dela.</em>"
 # type: Content of: <ul><li>
 #: doc/noosfero/user/editing-appearance.en.xhtml:37
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:72
-#: doc/noosfero/user/toc.en.xhtml:7
+#: doc/noosfero/user/toc.en.xhtml:17
 msgid ""
 "<a href=\"/doc/user/editing-header-footer\">Editing header and footer</a>"
 msgstr ""
-"<a href=\"/doc/user/editing-header-footer\">Editando cabeçalho e rodapé</a>"
+"<a href=\"/doc/user/editing-header-footer\">Editar cabeçalho e rodapé</a>"
 
 # type: Content of: <h1>
 #: doc/noosfero/user/index.en.xhtml:1
@@ -3289,7 +3286,7 @@ msgstr "Funcionalidades de Usuário"
 # type: Content of: <h1>
 #: doc/noosfero/user/accepting-friends.en.xhtml:1
 msgid "Accepting friends"
-msgstr "Aceitando amigos"
+msgstr "Aceitar amigos"
 
 # type: Content of: <p>
 #: doc/noosfero/user/accepting-friends.en.xhtml:3
@@ -3348,9 +3345,9 @@ msgstr "Tópicos Relacionados"
 #: doc/noosfero/user/invite-contacts.en.xhtml:44
 #: doc/noosfero/user/adding-friends.en.xhtml:25
 #: doc/noosfero/user/registering-new-user.en.xhtml:34
-#: doc/noosfero/user/toc.en.xhtml:5
+#: doc/noosfero/user/toc.en.xhtml:15
 msgid "<a href=\"/doc/user/removing-friends\">Removing friends</a>"
-msgstr "<a href=\"/doc/user/removing-friends\">Removendo amigos</a>"
+msgstr "<a href=\"/doc/user/removing-friends\">Remover amigos</a>"
 
 # type: Content of: <p>
 #: doc/noosfero/user/invite-contacts.en.xhtml:3
@@ -3571,14 +3568,14 @@ msgstr "Bloco de empreendimentos"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:73
-#: doc/noosfero/user/toc.en.xhtml:9
+#: doc/noosfero/user/toc.en.xhtml:16
 msgid "<a href=\"/doc/user/editing-appearance\">Editing appearance</a>"
-msgstr "<a href=\"/doc/user/editing-appearance\">Editando aparência</a>"
+msgstr "<a href=\"/doc/user/editing-appearance\">Editar aparência</a>"
 
 # type: Content of: <h1>
 #: doc/noosfero/user/editing-person-info.en.xhtml:1
 msgid "Editing user settings"
-msgstr "Alterando informações/configurações de um usuário"
+msgstr "Alterar informações/configurações de um usuário"
 
 # type: Content of: <p>
 #: doc/noosfero/user/editing-person-info.en.xhtml:3
@@ -3680,7 +3677,7 @@ msgstr ""
 # type: Content of: <h1>
 #: doc/noosfero/user/commenting.en.xhtml:1
 msgid "Commenting articles"
-msgstr "Comentando artigos"
+msgstr "Comentar artigos"
 
 # type: Content of: <p>
 #: doc/noosfero/user/commenting.en.xhtml:3
@@ -3760,7 +3757,7 @@ msgstr "Comentário de uma pessoa logada"
 # type: Content of: <h1>
 #: doc/noosfero/user/adding-friends.en.xhtml:1
 msgid "Adding friends"
-msgstr "Adicionando amigos"
+msgstr "Adicionar amigos"
 
 # type: Content of: <p>
 #: doc/noosfero/user/adding-friends.en.xhtml:3
@@ -3812,7 +3809,7 @@ msgstr "Confirmação quando está adicionando um amigo"
 # type: Content of: <h1>
 #: doc/noosfero/user/registering-new-user.en.xhtml:1
 msgid "Registering a new user"
-msgstr "Cadastrando no sistema"
+msgstr "Cadastrar um novo usuário"
 
 # type: Content of: <p>
 #: doc/noosfero/user/registering-new-user.en.xhtml:3
@@ -3888,7 +3885,7 @@ msgstr "Formulário de registro"
 # type: Content of: <h1>
 #: doc/noosfero/user/login.en.xhtml:1
 msgid "Login into the system"
-msgstr "Logar"
+msgstr "Logar no sistema"
 
 # type: Content of: <p>
 #: doc/noosfero/user/login.en.xhtml:3
@@ -3925,12 +3922,12 @@ msgstr ""
 # type: Content of: <ul><li>
 #: doc/noosfero/user/login.en.xhtml:25
 msgid "<a href=\"/doc/user/registering-new-user\">Registering new user</a>"
-msgstr "<a href=\"/doc/user/registering-new-user\">Cadastro no Cirandas</a>"
+msgstr "<a href=\"/doc/user/registering-new-user\">Cadastrar novo usuário</a>"
 
 # type: Content of: <h1>
 #: doc/noosfero/enterprise/disabling-enterprise.en.xhtml:1
 msgid "Disabling an enterprise"
-msgstr "Desabilitando um empreendimento"
+msgstr "Desabilitar um empreendimento"
 
 # type: Content of: <p>
 #: doc/noosfero/enterprise/disabling-enterprise.en.xhtml:3
@@ -3991,7 +3988,7 @@ msgstr "Confirmação da desabilitação do empreendimento"
 msgid ""
 "<a href=\"/doc/enterprise/activating-enterprise\">Activating enterprise</a>"
 msgstr ""
-"<a href=\"/doc/enterprise/activating-enterprise\">Ativando empreendimento</a>"
+"<a href=\"/doc/enterprise/activating-enterprise\">Ativar empreendimento</a>"
 
 # type: Content of: <p>
 #: doc/noosfero/enterprise/editing-header-footer.en.xhtml:3
@@ -4019,13 +4016,13 @@ msgstr ""
 # type: Content of: <ul><li>
 #: doc/noosfero/enterprise/editing-appearance.en.xhtml:39
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:73
-#: doc/noosfero/enterprise/toc.en.xhtml:4
+#: doc/noosfero/enterprise/toc.en.xhtml:8
 msgid ""
 "<a href=\"/doc/enterprise/editing-header-footer\">Editing header and footer</"
 "a>"
 msgstr ""
-"<a href=\"/doc/enterprise/editing-header-footer\">Editando cabeçalho e "
-"rodapé</a>"
+"<a href=\"/doc/enterprise/editing-header-footer\">Editar cabeçalho e rodapé</"
+"a>"
 
 # type: Content of: <h1>
 #: doc/noosfero/enterprise/index.en.xhtml:1
@@ -4207,14 +4204,14 @@ msgstr "Bloco de empreendimentos desabilitados"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:74
-#: doc/noosfero/enterprise/toc.en.xhtml:5
+#: doc/noosfero/enterprise/toc.en.xhtml:7
 msgid "<a href=\"/doc/enterprise/editing-appearance\">Editing appearance</a>"
-msgstr "<a href=\"/doc/enterprise/editing-appearance\">Editando aparência</a>"
+msgstr "<a href=\"/doc/enterprise/editing-appearance\">Editar aparência</a>"
 
 # type: Content of: <h1>
 #: doc/noosfero/enterprise/activating-enterprise.en.xhtml:1
 msgid "Activating your enterprise"
-msgstr "Ativando seu empreendimento"
+msgstr "Ativar seu empreendimento"
 
 # type: Content of: <p>
 #: doc/noosfero/enterprise/activating-enterprise.en.xhtml:3
@@ -4309,25 +4306,25 @@ msgstr "Conclusão da ativação de empreendimento"
 # type: Content of: <ul><li>
 #: doc/noosfero/enterprise/activating-enterprise.en.xhtml:34
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:41
-#: doc/noosfero/enterprise/toc.en.xhtml:9
+#: doc/noosfero/enterprise/toc.en.xhtml:5
 msgid ""
 "<a href=\"/doc/enterprise/editing-enterprise-info\">Editing enterprise "
 "settings</a>"
 msgstr ""
-"<a href=\"/doc/enterprise/editing-enterprise-info\">Editando informações/"
+"<a href=\"/doc/enterprise/editing-enterprise-info\">Editar informações/"
 "configurações do empreendimento</a>"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/enterprise/activating-enterprise.en.xhtml:35
-#: doc/noosfero/user/toc.en.xhtml:16
+#: doc/noosfero/user/toc.en.xhtml:3
 msgid "<a href=\"/doc/user/registering-new-user\">Registering a new user</a>"
 msgstr ""
-"<a href=\"/doc/user/registering-new-user\">Registrando um novo usuário</a>"
+"<a href=\"/doc/user/registering-new-user\">Cadastrar um novo usuário</a>"
 
 # type: Content of: <h1>
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:1
 msgid "Managing and adding members to an enterprise"
-msgstr "Gerenciando e adicionando integrantes em um empreendimento"
+msgstr "Gerenciar e adicionar integrantes em um empreendimento"
 
 # type: Content of: <p>
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:3
@@ -4442,18 +4439,18 @@ msgstr "Adicionar membro em gerenciar membro"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:42
-#: doc/noosfero/enterprise/toc.en.xhtml:7
+#: doc/noosfero/enterprise/toc.en.xhtml:3
 msgid ""
 "<a href=\"/doc/enterprise/activating-enterprise\">Activating your "
 "enterprise</a>"
 msgstr ""
-"<a href=\"/doc/enterprise/activating-enterprise\">Ativando seu "
-"empreendimento</a>"
+"<a href=\"/doc/enterprise/activating-enterprise\">Ativar seu empreendimento</"
+"a>"
 
 # type: Content of: <h1>
 #: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:1
 msgid "Editing enterprise settings"
-msgstr "Editando configurações do empreendimento"
+msgstr "Editar configurações do empreendimento"
 
 # type: Content of: <p>
 #: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:3
@@ -4582,7 +4579,7 @@ msgstr ""
 # type: Content of: <h1>
 #: doc/noosfero/navigation/searching.en.xhtml:1
 msgid "Searching on the system"
-msgstr "Buscando na rede"
+msgstr "Buscar na rede"
 
 # type: Content of: <p>
 #: doc/noosfero/navigation/searching.en.xhtml:3
@@ -4649,12 +4646,12 @@ msgstr "Ver todos os resultados da busca com exemplo"
 #: doc/noosfero/navigation/searching-products-services.en.xhtml:38
 #: doc/noosfero/navigation/searching-communities.en.xhtml:33
 #: doc/noosfero/navigation/advanced-search.en.xhtml:36
-#: doc/noosfero/navigation/toc.en.xhtml:6
+#: doc/noosfero/navigation/toc.en.xhtml:8
 msgid ""
 "<a href=\"/doc/navigation/searching-enterprises\">Finding enterprises</a>"
 msgstr ""
-"<a href=\"/doc/navigation/searching-enterprises\">Encontrando "
-"empreendimentos</a>"
+"<a href=\"/doc/navigation/searching-enterprises\">Encontrar empreendimentos</"
+"a>"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/navigation/searching.en.xhtml:30
@@ -4662,13 +4659,13 @@ msgstr ""
 #: doc/noosfero/navigation/searching-enterprises.en.xhtml:38
 #: doc/noosfero/navigation/searching-communities.en.xhtml:34
 #: doc/noosfero/navigation/advanced-search.en.xhtml:37
-#: doc/noosfero/navigation/toc.en.xhtml:5
+#: doc/noosfero/navigation/toc.en.xhtml:7
 msgid ""
 "<a href=\"/doc/navigation/searching-products-services\">Finding products and "
 "services</a>"
 msgstr ""
-"<a href=\"/doc/navigation/searching-products-services\">Encontrando produtos "
-"e serviços</a>"
+"<a href=\"/doc/navigation/searching-products-services\">Encontrar produtos e "
+"serviços</a>"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/navigation/searching.en.xhtml:31
@@ -4676,14 +4673,14 @@ msgstr ""
 #: doc/noosfero/navigation/searching-products-services.en.xhtml:39
 #: doc/noosfero/navigation/searching-enterprises.en.xhtml:39
 #: doc/noosfero/navigation/searching-communities.en.xhtml:35
-#: doc/noosfero/navigation/toc.en.xhtml:8
+#: doc/noosfero/navigation/toc.en.xhtml:5
 msgid "<a href=\"/doc/navigation/advanced-search\">Advanced search</a>"
 msgstr "<a href=\"/doc/navigation/advanced-search\">Busca avançada</a>"
 
 # type: Content of: <h1>
 #: doc/noosfero/navigation/searching-people.en.xhtml:1
 msgid "Finding people"
-msgstr "Encontrando pessoas"
+msgstr "Encontrar pessoas"
 
 # type: Content of: <p>
 #: doc/noosfero/navigation/searching-people.en.xhtml:3
@@ -4779,7 +4776,7 @@ msgstr ""
 #: doc/noosfero/navigation/searching-communities.en.xhtml:31
 #: doc/noosfero/navigation/advanced-search.en.xhtml:33
 msgid "<a href=\"/doc/navigation/searching\">Searching</a>"
-msgstr "<a href=\"/doc/navigation/searching\">Fazendo busca</a>"
+msgstr "<a href=\"/doc/navigation/searching\">Busca</a>"
 
 # type: Content of: <h1>
 #: doc/noosfero/navigation/index.en.xhtml:1
@@ -4789,7 +4786,7 @@ msgstr "Navegação"
 # type: Content of: <h1>
 #: doc/noosfero/navigation/searching-products-services.en.xhtml:1
 msgid "Finding products and services"
-msgstr "Encontrando produtos e serviços"
+msgstr "Encontrar produtos e serviços"
 
 # type: Content of: <p>
 #: doc/noosfero/navigation/searching-products-services.en.xhtml:3
@@ -4853,7 +4850,7 @@ msgstr ""
 # type: Content of: <h1>
 #: doc/noosfero/navigation/searching-enterprises.en.xhtml:1
 msgid "Finding enterprises"
-msgstr "Encontrando empreendimentos"
+msgstr "Encontrar empreendimentos"
 
 # type: Content of: <p>
 #: doc/noosfero/navigation/searching-enterprises.en.xhtml:3
@@ -4898,7 +4895,7 @@ msgstr ""
 # type: Content of: <h1>
 #: doc/noosfero/navigation/searching-communities.en.xhtml:1
 msgid "Finding communities"
-msgstr "Encontrando comunidades"
+msgstr "Encontrar comunidades"
 
 # type: Content of: <p>
 #: doc/noosfero/navigation/searching-communities.en.xhtml:3
@@ -5033,118 +5030,116 @@ msgstr "Resultado da busca avançada com exemplo"
 # type: Content of: <ul><li>
 #: doc/noosfero/navigation/advanced-search.en.xhtml:34
 msgid "<a href=\"/doc/navigation/searching-people\">Findind people</a>"
-msgstr "<a href=\"/doc/navigation/searching-people\";>Encontrando pessoas</a>"
+msgstr "<a href=\"/doc/navigation/searching-people\">Encontrarpessoas</a>"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/cms/toc.en.xhtml:4
 msgid ""
 "<a href=\"/doc/cms/adding-images-to-gallery\">Adding pictures to gallery</a>"
 msgstr ""
-"<a href=\"/doc/cms/adding-images-to-gallery\">Adicionando imagens à galeria</"
-"a>"
+"<a href=\"/doc/cms/adding-images-to-gallery\">Adicionar imagens à galeria</a>"
 
 # type: Content of: <ul><li>
-#: doc/noosfero/cms/toc.en.xhtml:5
+#: doc/noosfero/cms/toc.en.xhtml:7
 msgid ""
 "<a href=\"/doc/cms/writing-advanced-article\">Writing an advanced article "
 "(inserting images, links, videos and audio)</a>"
 msgstr ""
-"<a href=\"/doc/cms/writing-advanced-article\">Escrevendo um artigo avançado"
+"<a href=\"/doc/cms/writing-advanced-article\">Escrever um artigo avançado"
 "(inserindo imagens, links, vídeos e áudio)</a>"
 
 # type: Content of: <ul><li>
-#: doc/noosfero/community/toc.en.xhtml:6
+#: doc/noosfero/community/toc.en.xhtml:5
 msgid ""
 "<a href=\"/doc/community/invite-contacts\">Inviting contacts from e-mail</a>"
 msgstr ""
-"<a href=\"/doc/community/invite-contacts\">Convidando contatos por e-mail</a>"
+"<a href=\"/doc/community/invite-contacts\">Convidar contatos por e-mail</a>"
+
+# type: Content of: <ul><li>
+#: doc/noosfero/community/toc.en.xhtml:6
+msgid "<a href=\"/doc/community/accepting-members\">Accepting new members</a>"
+msgstr ""
+"<a href=\"/doc/community/accepting-members\">Aceitar novos integrantes</a>"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/community/toc.en.xhtml:7
-msgid "<a href=\"/doc/community/editing-sideboxes\">Editing sideboxes</a>"
-msgstr ""
-"<a href=\"/doc/community/editing-sideboxes\">Editando blocos laterais</a>"
-
-# type: Content of: <ul><li>
-#: doc/noosfero/community/toc.en.xhtml:8
 msgid "<a href=\"/doc/community/moderating-articles\">Moderating articles</a>"
-msgstr "<a href=\"/doc/community/moderating-articles\">Moderando artigos</a>"
+msgstr "<a href=\"/doc/community/moderating-articles\">Moderar artigos</a>"
 
 # type: Content of: <ul><li>
-#: doc/noosfero/community/toc.en.xhtml:10
-msgid "<a href=\"/doc/community/accepting-members\">Accepting new members</a>"
-msgstr ""
-"<a href=\"/doc/community/accepting-members\">Aceitando novos integrantes</a>"
+#: doc/noosfero/community/toc.en.xhtml:9
+msgid "<a href=\"/doc/community/editing-sideboxes\">Editing sideboxes</a>"
+msgstr "<a href=\"/doc/community/editing-sideboxes\">Editar blocos laterais</a>"
 
 # type: Content of: <ul><li>
-#: doc/noosfero/user/toc.en.xhtml:3
-msgid "<a href=\"/doc/user/logout\">Leaving the system</a>"
-msgstr "<a href=\"/doc/user/logout\">Saindo do Sistema</a>"
-
-# type: Content of: <ul><li>
-#: doc/noosfero/user/toc.en.xhtml:4
-msgid "<a href=\"/doc/user/changing-password\">Changing password</a>"
-msgstr "<a href=\"/doc/user/changing-password\">Alterando a senha</a>"
-
-# type: Content of: <ul><li>
-#: doc/noosfero/user/toc.en.xhtml:6
-msgid "<a href=\"/doc/user/sending-messages\">Sending messages</a>"
-msgstr "<a href=\"/doc/user/sending-messages\">Enviando mensagens</a>"
-
-# type: Content of: <ul><li>
-#: doc/noosfero/user/toc.en.xhtml:8
-msgid "<a href=\"/doc/user/removing-comments\">Removing comments</a>"
-msgstr "<a href=\"/doc/user/removing-comments\">Removendo comentários</a>"
-
-# type: Content of: <ul><li>
-#: doc/noosfero/user/toc.en.xhtml:11
-msgid "<a href=\"/doc/user/invite-contacts\">Inviting contacts from e-mail</a>"
-msgstr ""
-"<a href=\"/doc/user/invite-contacts\">Convidando contatos por e-mail</a>"
-
-# type: Content of: <ul><li>
-#: doc/noosfero/user/toc.en.xhtml:12
-msgid "<a href=\"/doc/user/editing-sideboxes\">Editing sideboxes</a>"
-msgstr "<a href=\"/doc/user/editing-sideboxes\">Editando blocos laterais</a>"
-
-# type: Content of: <ul><li>
-#: doc/noosfero/user/toc.en.xhtml:13
+#: doc/noosfero/user/toc.en.xhtml:5
 msgid "<a href=\"/doc/user/editing-person-info\">Editing user settings</a>"
 msgstr ""
-"<a href=\"/doc/user/editing-person-info\">Editando informações/configurações "
+"<a href=\"/doc/user/editing-person-info\">Editar informações/configurações "
 "do usuário</a>"
 
 # type: Content of: <ul><li>
-#: doc/noosfero/user/toc.en.xhtml:14
+#: doc/noosfero/user/toc.en.xhtml:6
+msgid "<a href=\"/doc/user/logout\">Leaving the system</a>"
+msgstr "<a href=\"/doc/user/logout\">Sair do Sistema</a>"
+
+# type: Content of: <ul><li>
+#: doc/noosfero/user/toc.en.xhtml:7
+msgid "<a href=\"/doc/user/invite-contacts\">Inviting contacts from e-mail</a>"
+msgstr "<a href=\"/doc/user/invite-contacts\">Convidar contatos por e-mail</a>"
+
+# type: Content of: <ul><li>
+#: doc/noosfero/user/toc.en.xhtml:10
 msgid "<a href=\"/doc/user/commenting\">Commenting articles</a>"
-msgstr "<a href=\"/doc/user/commenting\">Comentando artigos</a>"
+msgstr "<a href=\"/doc/user/commenting\">Comentar artigos</a>"
 
 # type: Content of: <ul><li>
-#: doc/noosfero/enterprise/toc.en.xhtml:3
-msgid ""
-"<a href=\"/doc/enterprise/disabling-enterprise\">Disabling an enterprise</a>"
-msgstr ""
-"<a href=\"/doc/enterprise/disabling-enterprise\">Desabilitando um "
-"empreendimento</a>"
+#: doc/noosfero/user/toc.en.xhtml:11
+msgid "<a href=\"/doc/user/removing-comments\">Removing comments</a>"
+msgstr "<a href=\"/doc/user/removing-comments\">Remover comentários</a>"
 
 # type: Content of: <ul><li>
-#: doc/noosfero/enterprise/toc.en.xhtml:6
-msgid "<a href=\"/doc/enterprise/editing-sideboxes\">Editing sideboxes</a>"
-msgstr "<a href=\"/doc/enterprise/editing-sideboxes\">Editando blocos laterais</a>"
+#: doc/noosfero/user/toc.en.xhtml:12
+msgid "<a href=\"/doc/user/sending-messages\">Sending messages</a>"
+msgstr "<a href=\"/doc/user/sending-messages\">Enviar mensagens</a>"
 
 # type: Content of: <ul><li>
-#: doc/noosfero/enterprise/toc.en.xhtml:8
+#: doc/noosfero/user/toc.en.xhtml:13
+msgid "<a href=\"/doc/user/editing-sideboxes\">Editing sideboxes</a>"
+msgstr "<a href=\"/doc/user/editing-sideboxes\">Editar blocos laterais</a>"
+
+# type: Content of: <ul><li>
+#: doc/noosfero/user/toc.en.xhtml:14
+msgid "<a href=\"/doc/user/changing-password\">Changing password</a>"
+msgstr "<a href=\"/doc/user/changing-password\">Alterar senha</a>"
+
+# type: Content of: <ul><li>
+#: doc/noosfero/enterprise/toc.en.xhtml:4
 msgid ""
 "<a href=\"/doc/enterprise/managing-enterprise-members\">Managing and adding "
 "members to an enterprise</a>"
 msgstr ""
-"<a href=\"/doc/enterprise/managing-enterprise-members\">Gerenciando e "
-"adicionando integrantes em um empreendimento</a>"
+"<a href=\"/doc/enterprise/managing-enterprise-members\">Gerenciar e "
+"adicionar integrantes em um empreendimento</a>"
 
 # type: Content of: <ul><li>
-#: doc/noosfero/navigation/toc.en.xhtml:3
+#: doc/noosfero/enterprise/toc.en.xhtml:6
+msgid "<a href=\"/doc/enterprise/editing-sideboxes\">Editing sideboxes</a>"
+msgstr ""
+"<a href=\"/doc/enterprise/editing-sideboxes\">Editar blocos laterais</a>"
+
+# type: Content of: <ul><li>
+#: doc/noosfero/enterprise/toc.en.xhtml:9
+msgid ""
+"<a href=\"/doc/enterprise/disabling-enterprise\">Disabling an enterprise</a>"
+msgstr ""
+"<a href=\"/doc/enterprise/disabling-enterprise\">Desabilitar um "
+"empreendimento</a>"
+
+# type: Content of: <ul><li>
+#: doc/noosfero/navigation/toc.en.xhtml:6
 msgid "<a href=\"/doc/navigation/searching\">Searching on the system</a>"
-msgstr "<a href=\"/doc/navigation/searching\">Fazendo buscas no sistema</a>"
+msgstr "<a href=\"/doc/navigation/searching\">Buscar no sistema</a>"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/toc.en.xhtml:3
@@ -5172,19 +5167,8 @@ msgid "<a href=\"/doc/navigation\">Navigation</a>"
 msgstr "<a href=\"/doc/navigation\">Navegação</a>"
 
 # type: Content of: <ul><li>
-#, fuzzy
-#~ msgid "<a href=\"/doc/enterprise/editing-sideboxes\"></a>"
-#~ msgstr ""
-#~ "<a href=\"/doc/enterprise/editing-sideboxes\">Editando blocos laterais</a>"
-
-# type: Content of: <ul><li>
 #~ msgid "<a href=\"/doc/admin\">Administration</a>"
 #~ msgstr "<a href=\"/doc/admin\">Administração</a>"
-
-# type: Content of: <ul><li>
-#~ msgid "<a href=\"/doc/user/joining-community\">Joining a community</a>"
-#~ msgstr ""
-#~ "<a href=\"/doc/user/joining-community\">Entrando em uma comunidade</a>"
 
 # type: Content of: <h1>
 #~ msgid "Administration"

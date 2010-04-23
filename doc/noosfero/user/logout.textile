@@ -1,4 +1,4 @@
-h1. Leaving the system
+h1(order-430). Leaving the system
 
 p.  _After finishing your navigation, we recommend leaving the system._
 

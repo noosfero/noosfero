@@ -1,4 +1,4 @@
-h1. Activating your enterprise
+h1(order-200). Activating your enterprise
 
 p.  _If you have an enterprise that is registered in the system, you might have the activation code of the enterprise._
 

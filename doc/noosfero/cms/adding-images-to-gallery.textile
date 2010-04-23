@@ -1,4 +1,4 @@
-h1. Adding pictures to gallery
+h1(order-310). Adding pictures to gallery
 
 p.  _You can publish pictures on your image gallery_
 

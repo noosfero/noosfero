@@ -1,4 +1,4 @@
-h1. Moderating articles
+h1(order-140). Moderating articles
 
 p.  _Community's members can publish articles on community. If the community is moderated, the administrator/moderator needs to approve or deny the publication._
 

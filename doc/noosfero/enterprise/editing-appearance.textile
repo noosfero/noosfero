@@ -1,4 +1,4 @@
-h1. Editing appearance
+h1(order-240). Editing appearance
 
 p.  _You can customize the page of your enterprise, changing the template of it._
 

@@ -1,4 +1,4 @@
-h1. Commenting articles
+h1(order-470). Commenting articles
 
 p.  _Articles, pictures and events of the system can be commented. When a person creates an article or upload a picture, she can allow other people to comment._
 

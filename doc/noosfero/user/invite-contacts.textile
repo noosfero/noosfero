@@ -1,4 +1,4 @@
-h1. Inviting contacts from e-mail
+h1(order-440). Inviting contacts from e-mail
 
 p.  _You can invite e-mail contacts to be your friend on the system. If the e-mail is registered on the system, the user will receive an invitation through the system. If it is not registered, the user will receive an invitation on his e-mail._
 

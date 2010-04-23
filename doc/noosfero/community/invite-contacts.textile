@@ -1,4 +1,4 @@
-h1. Inviting contacts from e-mail
+h1(order-120). Inviting contacts from e-mail
 
 p.  _If you are a community administrator, you can invite e-mail contacts to join your community. If the e-mail is registered on the system, the user will receive an invitation through the system. If it is not registered, the user will receive an invitation on his e-mail._
 

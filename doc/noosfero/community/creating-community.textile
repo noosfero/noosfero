@@ -1,4 +1,4 @@
-h1. Creating a community
+h1(order-110). Creating a community
 
 p.  _You can create communities to interact to others users_
 

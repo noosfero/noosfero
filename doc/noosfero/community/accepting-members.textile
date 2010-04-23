@@ -1,4 +1,4 @@
-h1. Accepting new members
+h1(order-130). Accepting new members
 
 p.  _If a community is moderated, the administrator/moderator needs to approve the requests of new members._
 

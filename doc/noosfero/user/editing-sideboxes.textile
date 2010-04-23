@@ -1,4 +1,4 @@
-h1. Editing sideboxes
+h1(order-500). Editing sideboxes
 
 p.  _You can customize your page, changing the blocks that will be displayed on it._
 

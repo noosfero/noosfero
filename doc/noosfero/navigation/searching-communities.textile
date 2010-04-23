@@ -1,4 +1,4 @@
-h1. Finding communities
+h1(order-600). Finding communities
 
 p.  _To find a community in the system, you can use the search specific for communities._
 

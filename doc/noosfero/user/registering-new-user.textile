@@ -1,4 +1,4 @@
-h1. Registering a new user
+h1(order-400). Registering a new user
 
 p.  _To be part of the system, you need to register yourself. After registering, you will be able to join communities, enterprises, add friends and much more._
 

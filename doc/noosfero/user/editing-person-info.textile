@@ -1,4 +1,4 @@
-h1. Editing user settings
+h1(order-420). Editing user settings
 
 p.  _You can change your profile information and settings in the system._
 

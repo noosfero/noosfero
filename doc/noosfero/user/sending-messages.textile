@@ -1,4 +1,4 @@
-h1. Sending messages
+h1(order-490). Sending messages
 
 p.  _To interact with other system users, you can send messages through the system. The messages will be received by email._
 

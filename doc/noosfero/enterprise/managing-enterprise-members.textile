@@ -1,4 +1,4 @@
-h1. Managing and adding members to an enterprise
+h1(order-210). Managing and adding members to an enterprise
 
 p.  _If you are an enterprise administrator, you can add or remove members from enterprise and also define which permissions each member will have_
 

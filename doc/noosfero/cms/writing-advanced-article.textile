@@ -1,4 +1,4 @@
-h1. Writing an advanced article (inserting images, links, videos and audio)
+h1(order-340). Writing an advanced article (inserting images, links, videos and audio)
 
 p.  _You can add images and links to the articles created on the system to make it more interesting._
 

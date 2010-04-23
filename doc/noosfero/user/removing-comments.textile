@@ -1,4 +1,4 @@
-h1. Removing comments
+h1(order-480). Removing comments
 
 p.  _If you are the author of an article or if you have permission to moderate the comments of a profile (community/enterprise), you can remove the unwanted comments posted on it._
 
