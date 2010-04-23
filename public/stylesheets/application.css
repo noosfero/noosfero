@@ -1403,6 +1403,10 @@ input.disabled {
   border: none;
 }
 
+.block-title.empty {
+  display: none;
+}
+
 .invisible-block {
   background: url(/images/hachure.png);
   opacity: 0.25;

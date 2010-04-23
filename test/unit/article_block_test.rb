@@ -8,12 +8,11 @@ class ArticleBlockTest < Test::Unit::TestCase
 
   should "take article's content" do
     block = ArticleBlock.new
-    html = mock
     article = mock
-    article.expects(:to_html).returns(html)
+    article.expects(:to_html).returns("Article content")
     block.stubs(:article).returns(article)
 
-    assert_same html, block.content
+    assert_match(/Article content/, block.content)
   end
 
   should 'refer to an article' do
@@ -50,6 +49,26 @@ class ArticleBlockTest < Test::Unit::TestCase
 
     block.article
     assert_nil block.article_id
+  end
+
+  should "display empty title if title is blank" do
+    block = ArticleBlock.new
+    article = mock
+    article.expects(:to_html).returns("Article content")
+    block.expects(:title).returns('')
+    block.stubs(:article).returns(article)
+
+    assert_equal "<h3 class=\"block-title empty\"></h3>Article content", block.content
+  end
+
+  should "display title if defined" do
+    block = ArticleBlock.new
+    article = mock
+    article.expects(:to_html).returns("Article content")
+    block.expects(:title).returns('Article title')
+    block.stubs(:article).returns(article)
+
+    assert_equal "<h3 class=\"block-title\">Article title</h3>Article content", block.content
   end
 
 end
