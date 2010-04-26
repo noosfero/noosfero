@@ -57,7 +57,7 @@ module TagsHelper
         display_count = options[:show_count] ? "<small><sup>(#{count})</sup></small>" : ""
         link_to tag + display_count, destination, :style => style
       else
-        link_to tag , destination, :style => style,
+        link_to h(tag) , destination, :style => style,
           :title => n_( 'one item', '%d items', count ) % count
       end
 

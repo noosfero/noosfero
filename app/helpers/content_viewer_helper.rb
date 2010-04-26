@@ -14,7 +14,7 @@ module ContentViewerHelper
   def article_title(article, args = {})
     title = article.display_title if article.kind_of?(UploadedFile) && article.image?
     title = article.title if title.blank?
-    title = content_tag('h1', title, :class => 'title')
+    title = content_tag('h1', h(title), :class => 'title')
     if article.belongs_to_blog?
       unless args[:no_link]
         title = content_tag('h1', link_to(article.name, article.url), :class => 'title')
