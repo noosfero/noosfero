@@ -15,6 +15,10 @@ class SlideshowBlockTest < ActiveSupport::TestCase
     assert_equal gallery, slideshow_block.gallery
   end
 
+  should 'not crash if referencing unexisting folder' do
+    assert_nil SlideshowBlock.new(:gallery_id => -999).gallery
+  end
+
   should 'default interval between transitions is 4 seconds' do
     slideshow = SlideshowBlock.new
     assert_equal 4, slideshow.interval
