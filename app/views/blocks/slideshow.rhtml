@@ -5,7 +5,7 @@
     <div class='slideshow-container'>
       <% images.each do |img| %>
         <a href="<%= url_for(img.external_link.blank? ? img.view_url: img.external_link) %>">
-          <%= content_tag('div', '', :style => "background-image: url(#{img.public_filename(:thumb)})", :title => (img.abstract.blank? ? '' : img.abstract)) %>
+          <%= content_tag('div', '', :style => "background-image: url(#{block.public_filename_for(img)})", :title => (img.abstract.blank? ? '' : img.abstract)) %>
           <% if !img.abstract.blank? %>
             <span class='image-description'><%= img.abstract %></span>
           <% end %>

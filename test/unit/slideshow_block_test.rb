@@ -65,4 +65,36 @@ class SlideshowBlockTest < ActiveSupport::TestCase
     assert_not_includes block.block_images, folder
   end
 
+  should 'display "thumb" size by default' do
+    assert_equal 'thumb', SlideshowBlock.new.image_size
+  end
+
+  should 'set different image size' do
+    block = SlideshowBlock.new(:image_size => 'slideshow')
+    assert_equal 'slideshow', block.image_size
+  end
+
+  should 'decide correct public filename for image' do
+    image = mock
+    image.expects(:public_filename).with('slideshow').returns('/bli/slideshow.png')
+    File.expects(:exists?).with("#{Rails.root}/public/bli/slideshow.png").returns(true)
+
+    assert_equal '/bli/slideshow.png', SlideshowBlock.new(:image_size => 'slideshow').public_filename_for(image)
+  end
+
+  should 'fallback to existing size in case the requested size does not exist' do
+    block = SlideshowBlock.new(:image_size => 'slideshow')
+
+    image = mock
+    # "slideshow" size does not exist
+    image.expects(:public_filename).with('slideshow').returns('/bli/slideshow.png')
+    File.expects(:exists?).with("#{Rails.root}/public/bli/slideshow.png").returns(false) # <<<<<
+
+    # thumb size does exist
+    image.expects(:public_filename).with('thumb').returns('/bli/thumb.png')
+    File.expects(:exists?).with("#{Rails.root}/public/bli/thumb.png").returns(true) # <<<<<
+
+    assert_equal '/bli/thumb.png', block.public_filename_for(image)
+  end
+
 end
