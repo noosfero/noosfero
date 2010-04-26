@@ -1172,6 +1172,10 @@ a.comment-picture {
   display: inline;
 }
 
+#content #article .article-body img {
+  max-width: 100%;
+}
+
 /* NOT PUBLISHED BLOG POSTS */
 
 .blog-post.not-published {
