@@ -17,6 +17,7 @@ class BlogHelperTest < Test::Unit::TestCase
   attr :blog
 
   def _(s); s; end
+  def h(s); s; end
 
   should 'list published posts with class blog-post' do
     blog.children << published_post = TextileArticle.create!(:name => 'Post', :profile => profile, :parent => blog, :published => true)
