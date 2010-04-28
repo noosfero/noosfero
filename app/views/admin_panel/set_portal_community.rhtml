@@ -13,12 +13,12 @@
 
   <% button_bar do %>
     <%if @portal_community.environment.enabled?('use_portal_community') %>
-      <%= button 'disable', _('Disable'), {:action => 'manage_portal_community', :activate => 0} %>
+      <%= button 'cancel', _('Disable'), {:action => 'manage_portal_community', :activate => 0} %>
     <% else %>
-      <%= button 'enable', _('Enable'), {:action => 'manage_portal_community', :activate => 1} %>
+      <%= button 'ok', _('Enable'), {:action => 'manage_portal_community', :activate => 1} %>
     <% end %>
     <%= button 'folder', _('Select Portal Folders'), {:action => 'set_portal_folders'} %>
-    <%= button 'amount', _('Define Amount by Folder'), {:action => 'set_portal_news_amount'} %>
+    <%= button 'edit', _('Define Amount by Folder'), {:action => 'set_portal_news_amount'} %>
     <%= button 'delete', _('Remove'), { :action => 'unset_portal_community'} %>
   <% end %>
 <% end %>
