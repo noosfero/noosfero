@@ -1,4 +1,3 @@
 #!/bin/sh
 
-export CUCUMBER_FORMAT=progress
 cp config/database.yml.sqlite3 config/database.yml && /usr/bin/rake db:schema:load && /usr/bin/rake
