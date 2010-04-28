@@ -22,8 +22,11 @@ class DocTopic < DocItem
   end
 
   def self.order(line)
-    line =~ /<h1 class="order-(.*)">.*<\/h1>/
-    $1
+    if line =~ /<h1 class="order-(.*)">.*<\/h1>/
+      $1.to_i
+    else
+      0
+    end
   end
 
 end
