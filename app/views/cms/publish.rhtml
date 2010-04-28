@@ -16,7 +16,7 @@
 
 
 <!-- Workaroud while the publish feature isn't ready for Events -->
-<% if @article.type != "Event" %>
+<% unless @article.is_a?(Event) %>
   <% form_tag do%>
     <%= hidden_field_tag :back_to, @back_to %>
     <% @groups.each do |group| %>
