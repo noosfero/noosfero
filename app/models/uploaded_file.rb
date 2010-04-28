@@ -21,7 +21,7 @@ class UploadedFile < Article
   #  :min_size => 2.megabytes
   #  :max_size => 5.megabytes
   has_attachment :storage => :file_system,
-    :thumbnails => { :icon => [24,24], :thumb => '130x130>', :display => '640X480>' },
+    :thumbnails => { :icon => [24,24], :thumb => '130x130>', :slideshow => '320x240>', :display => '640X480>' },
     :thumbnail_class => Thumbnail,
     :max_size => 5.megabytes # remember to update validate message below
 

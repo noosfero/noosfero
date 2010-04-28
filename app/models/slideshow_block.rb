@@ -4,13 +4,27 @@ class SlideshowBlock < Block
   settings_items :interval, :type => 'integer', :default => 4
   settings_items :shuffle, :type => 'boolean', :default => false
   settings_items :navigation, :type => 'boolean', :default => false
+  settings_items :image_size, :type => 'string', :default => 'thumb'
 
   def self.description
     _('Slideshow')
   end
 
   def gallery
-    gallery_id ? Folder.find(gallery_id) : nil
+    gallery_id ? Folder.find(:first, :conditions => { :id => gallery_id }) : nil
+  end
+
+  def public_filename_for(image)
+    check_filename(image, image_size) || check_filename(image, 'thumb')
+  end
+
+  def check_filename(image, size)
+    filename = image.public_filename(size)
+    if File.exists?(File.join(Rails.root, 'public', filename))
+      filename
+    else
+      nil
+    end
   end
 
   def block_images

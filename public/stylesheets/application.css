@@ -2536,7 +2536,7 @@ div#activation_enterprise div {
   width: 40%;
   height: 630px;
   border: none;
-  margin: 115px 20px 0px 0px;
+  margin: 104px 20px 0px 0px;
   padding: 0px;
   overflow: hidden;
 }
@@ -2546,12 +2546,11 @@ div#activation_enterprise div {
 }
 
 .controller-cms div.with_media_panel {
-  width: 57%;
   float: left;
 }
-.controller-cms div.no_media_panel {
-  margin-left: 200px;
-  margin-right: 200px;
+
+div.with_media_panel .formfield input {
+  width: 100%;
 }
 
 /* ==> public/stylesheets/controller_contact.css <== */

@@ -2,7 +2,7 @@
 
 <%= render :file => 'shared/tiny_mce' %>
 
-<div style='margin-left: 20px;'>
+<div>
   <% if profile.enterprise? && environment.enabled?('disable_cms') && !@article.name.blank? %>
     <div>
       <%= _('Title') %>: <%= @article.name %>

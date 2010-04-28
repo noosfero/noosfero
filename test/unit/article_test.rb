@@ -842,4 +842,21 @@ class ArticleTest < Test::Unit::TestCase
 
     assert_equal [ published ], profile.articles.published
   end
+
+  should 'sanitize tags after save article' do
+    article = fast_create(Article, :slug => 'article-with-tags', :profile_id => profile.id)
+    article.tags << Tag.new(:name => "TV Web w<script type='javascript'></script>")
+    assert_match /[<>]/, article.tags.last.name
+    article.save!
+    assert_no_match /[<>]/, article.tags.last.name
+  end
+
+  should 'strip HTML from tag names after save article' do
+    article = fast_create(Article, :slug => 'article-with-tags', :profile_id => profile.id)
+    article.tags << Tag.new(:name => "TV Web w<script type=...")
+    assert_match /</, article.tags.last.name
+    article.save!
+    assert_no_match /</, article.tags.last.name
+  end
+
 end
