@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.23.0\n"
-"POT-Creation-Date: 2010-04-20 09:10-0300\n"
+"Project-Id-Version: noosfero 0.23.1\n"
+"POT-Creation-Date: 2010-04-30 20:17-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -77,7 +77,7 @@ msgstr ""
 #: app/helpers/folder_helper.rb:7 app/models/article.rb:50
 #: app/models/block.rb:- app/models/comment.rb:-
 #: app/views/cms/_uploaded_file.rhtml:1 app/views/cms/_article.rhtml:8
-#: app/views/cms/_article.rhtml:11 app/views/cms/publish.rhtml:21
+#: app/views/cms/_article.rhtml:11 app/views/cms/publish.rhtml:24
 #: app/views/cms/_textile_article.rhtml:5
 #: app/views/cms/_tiny_mce_article.rhtml:8
 #: app/views/cms/_tiny_mce_article.rhtml:11
@@ -392,27 +392,27 @@ msgstr ""
 msgid "This block is invisible. Your visitors will not see it."
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:194
+#: app/helpers/boxes_helper.rb:189
 msgid "Can't move up anymore."
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:196
+#: app/helpers/boxes_helper.rb:191
 msgid "Move block up"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:200
+#: app/helpers/boxes_helper.rb:195
 msgid "Can't move down anymore."
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:202
+#: app/helpers/boxes_helper.rb:197
 msgid "Move block down"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:210 app/helpers/boxes_helper.rb:212
+#: app/helpers/boxes_helper.rb:205 app/helpers/boxes_helper.rb:207
 msgid "Move to the opposite side"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:217 app/helpers/article_helper.rb:36
+#: app/helpers/boxes_helper.rb:212 app/helpers/article_helper.rb:36
 #: app/models/link_list_block.rb:5 app/views/categories/_category.rhtml:8
 #: app/views/cms/view.rhtml:81 app/views/manage_products/index.rhtml:19
 #: app/views/manage_products/index.rhtml:53 app/views/role/index.rhtml:14
@@ -422,24 +422,24 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:221
+#: app/helpers/boxes_helper.rb:216
 msgid "Remove block"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:221
+#: app/helpers/boxes_helper.rb:216
 msgid "Are you sure you want to remove this block?"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:225
+#: app/helpers/boxes_helper.rb:220
 msgid "Help on this block"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:225 app/helpers/application_helper.rb:84
+#: app/helpers/boxes_helper.rb:220 app/helpers/application_helper.rb:84
 #: app/models/link_list_block.rb:23
 msgid "Help"
 msgstr ""
 
-#: app/helpers/boxes_helper.rb:225 app/helpers/application_helper.rb:104
+#: app/helpers/boxes_helper.rb:220 app/helpers/application_helper.rb:104
 #: app/views/cms/why_categorize.rhtml:8 app/views/search/_search_form.rhtml:63
 #: app/views/box_organizer/add_block.rhtml:26 app/views/account/wizard.rhtml:1
 msgid "Close"
@@ -950,27 +950,27 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: app/helpers/application_helper.rb:803
+#: app/helpers/application_helper.rb:812
 msgid "Searched for '%s'"
 msgstr ""
 
-#: app/helpers/application_helper.rb:804
+#: app/helpers/application_helper.rb:813
 msgid "In category %s"
 msgstr ""
 
-#: app/helpers/application_helper.rb:805
+#: app/helpers/application_helper.rb:814
 msgid "within %d km from %s"
 msgstr ""
 
-#: app/helpers/application_helper.rb:806
+#: app/helpers/application_helper.rb:815
 msgid "%d results found"
 msgstr ""
 
-#: app/helpers/application_helper.rb:812
+#: app/helpers/application_helper.rb:821
 msgid "In all categories"
 msgstr ""
 
-#: app/helpers/application_helper.rb:900
+#: app/helpers/application_helper.rb:909
 msgid "Online Manual"
 msgstr ""
 
@@ -1614,6 +1614,7 @@ msgid "Filename"
 msgstr ""
 
 #: app/models/image.rb:- app/models/thumbnail.rb:-
+#: app/views/box_organizer/_slideshow_block.rhtml:6
 msgid "Thumbnail"
 msgstr ""
 
@@ -2086,7 +2087,7 @@ msgstr ""
 msgid "This profile has no geographical position registered."
 msgstr ""
 
-#: app/models/slideshow_block.rb:9
+#: app/models/slideshow_block.rb:10
 msgid "Slideshow"
 msgstr ""
 
@@ -2994,7 +2995,7 @@ msgid ""
 "which one of your articles is going to be displayed in the block."
 msgstr ""
 
-#: app/models/article_block.rb:12
+#: app/models/article_block.rb:13
 msgid "Article not selected yet."
 msgstr ""
 
@@ -3246,21 +3247,21 @@ msgstr ""
 msgid "Change image"
 msgstr ""
 
-#: app/views/shared/access_denied.rhtml:4
+#: app/views/shared/access_denied.rhtml:3
 msgid "Access denied"
 msgstr ""
 
-#: app/views/shared/access_denied.rhtml:9
+#: app/views/shared/access_denied.rhtml:8
 msgid "You are not allowed to view this page."
 msgstr ""
 
-#: app/views/shared/access_denied.rhtml:10
+#: app/views/shared/access_denied.rhtml:9
 msgid ""
 "If you are supposed to have access to this area, you'll probably want to "
 "talk to the people responsible and ask them to give you access."
 msgstr ""
 
-#: app/views/shared/access_denied.rhtml:14 app/views/shared/not_found.rhtml:9
+#: app/views/shared/access_denied.rhtml:13 app/views/shared/not_found.rhtml:8
 #: app/views/favorite_enterprises/index.rhtml:30
 #: app/views/memberships/index.rhtml:8
 #: app/views/enterprise_registration/basic_information.rhtml:12
@@ -3272,26 +3273,26 @@ msgstr ""
 msgid "Go back"
 msgstr ""
 
-#: app/views/shared/access_denied.rhtml:15 public/500.html.erb:28
+#: app/views/shared/access_denied.rhtml:14 public/500.html.erb:28
 msgid "Go to the site home page"
 msgstr ""
 
-#: app/views/shared/not_found.rhtml:3
+#: app/views/shared/not_found.rhtml:2
 msgid "There is no such page: %s"
 msgstr ""
 
-#: app/views/shared/not_found.rhtml:5
+#: app/views/shared/not_found.rhtml:4
 msgid "You may have clicked an expired link or mistyped the address."
 msgstr ""
 
-#: app/views/shared/not_found.rhtml:6
+#: app/views/shared/not_found.rhtml:5
 msgid ""
 "If you clicked a link that was in another site, or was given to you by "
 "someone else, it would be nice if you tell them that their link is not valid "
 "anymore."
 msgstr ""
 
-#: app/views/shared/not_found.rhtml:10
+#: app/views/shared/not_found.rhtml:9
 #: app/views/profile/_private_profile.rhtml:16
 msgid "Go to %s home page"
 msgstr ""
@@ -3581,8 +3582,12 @@ msgstr ""
 msgid "There were errors with the following communities: "
 msgstr ""
 
-#: app/views/cms/publish.rhtml:26
+#: app/views/cms/publish.rhtml:29
 msgid "Publish"
+msgstr ""
+
+#: app/views/cms/publish.rhtml:34
+msgid "This option is temporarily disabled."
 msgstr ""
 
 #: app/views/cms/_event.rhtml:8
@@ -4867,24 +4872,32 @@ msgid "%{gallery} (%{count} images)"
 msgstr ""
 
 #: app/views/box_organizer/_slideshow_block.rhtml:6
+msgid "Image size"
+msgstr ""
+
+#: app/views/box_organizer/_slideshow_block.rhtml:6
+msgid "Slideshow size"
+msgstr ""
+
+#: app/views/box_organizer/_slideshow_block.rhtml:8
 msgid "Image transition:"
 msgstr ""
 
-#: app/views/box_organizer/_slideshow_block.rhtml:6
+#: app/views/box_organizer/_slideshow_block.rhtml:8
 msgid "No automatic transition"
 msgstr ""
 
-#: app/views/box_organizer/_slideshow_block.rhtml:6
+#: app/views/box_organizer/_slideshow_block.rhtml:8
 msgid "Every 1 second"
 msgid_plural "Every %d seconds"
 msgstr[0] ""
 msgstr[1] ""
 
-#: app/views/box_organizer/_slideshow_block.rhtml:8
+#: app/views/box_organizer/_slideshow_block.rhtml:10
 msgid "Show images in random order"
 msgstr ""
 
-#: app/views/box_organizer/_slideshow_block.rhtml:10
+#: app/views/box_organizer/_slideshow_block.rhtml:12
 msgid "Display navigation buttons"
 msgstr ""
 
@@ -5675,10 +5688,6 @@ msgstr ""
 msgid ""
 "Access your list of tasks or your control panel to see this and other "
 "pending actions that need your attention."
-msgstr ""
-
-#: app/views/profile/private_profile.rhtml:4
-msgid "This profile is not public."
 msgstr ""
 
 #: app/views/profile/leave.rhtml:1

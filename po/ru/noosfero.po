@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.23.0\n"
-"POT-Creation-Date: 2010-04-20 09:10-0300\n"
+"Project-Id-Version: noosfero 0.23.1\n"
+"POT-Creation-Date: 2010-04-30 20:17-0300\n"
 "PO-Revision-Date: 2009-10-09 13:28+0100\n"
 "Last-Translator: Anton <anton.c@live.com>\n"
 "Language-Team: German <de@li.org>\n"
@@ -73,7 +73,7 @@ msgstr "Выбранный тут язык является языком для 
 #: app/helpers/folder_helper.rb:7 app/models/article.rb:50
 #: app/models/block.rb:- app/models/comment.rb:-
 #: app/views/cms/_uploaded_file.rhtml:1 app/views/cms/_article.rhtml:8
-#: app/views/cms/_article.rhtml:11 app/views/cms/publish.rhtml:21
+#: app/views/cms/_article.rhtml:11 app/views/cms/publish.rhtml:24
 #: app/views/cms/_textile_article.rhtml:5
 #: app/views/cms/_tiny_mce_article.rhtml:8
 #: app/views/cms/_tiny_mce_article.rhtml:11
@@ -396,27 +396,27 @@ msgstr "Основной контент"
 msgid "This block is invisible. Your visitors will not see it."
 msgstr "Этот блок невидимый для других пользователей"
 
-#: app/helpers/boxes_helper.rb:194
+#: app/helpers/boxes_helper.rb:189
 msgid "Can't move up anymore."
 msgstr "Невозможно передвинуть выше"
 
-#: app/helpers/boxes_helper.rb:196
+#: app/helpers/boxes_helper.rb:191
 msgid "Move block up"
 msgstr "Передвинуть блок выше"
 
-#: app/helpers/boxes_helper.rb:200
+#: app/helpers/boxes_helper.rb:195
 msgid "Can't move down anymore."
 msgstr "Невозможно передвинуть ниже"
 
-#: app/helpers/boxes_helper.rb:202
+#: app/helpers/boxes_helper.rb:197
 msgid "Move block down"
 msgstr "Передвинуть блок ниже"
 
-#: app/helpers/boxes_helper.rb:210 app/helpers/boxes_helper.rb:212
+#: app/helpers/boxes_helper.rb:205 app/helpers/boxes_helper.rb:207
 msgid "Move to the opposite side"
 msgstr "Переместить на другую сторону"
 
-#: app/helpers/boxes_helper.rb:217 app/helpers/article_helper.rb:36
+#: app/helpers/boxes_helper.rb:212 app/helpers/article_helper.rb:36
 #: app/models/link_list_block.rb:5 app/views/categories/_category.rhtml:8
 #: app/views/cms/view.rhtml:81 app/views/manage_products/index.rhtml:19
 #: app/views/manage_products/index.rhtml:53 app/views/role/index.rhtml:14
@@ -426,24 +426,24 @@ msgstr "Переместить на другую сторону"
 msgid "Edit"
 msgstr "Редактировать"
 
-#: app/helpers/boxes_helper.rb:221
+#: app/helpers/boxes_helper.rb:216
 msgid "Remove block"
 msgstr "Удалить блок"
 
-#: app/helpers/boxes_helper.rb:221
+#: app/helpers/boxes_helper.rb:216
 msgid "Are you sure you want to remove this block?"
 msgstr "Вы уверены что хотите удалить блок?"
 
-#: app/helpers/boxes_helper.rb:225
+#: app/helpers/boxes_helper.rb:220
 msgid "Help on this block"
 msgstr "Помощь по блоку"
 
-#: app/helpers/boxes_helper.rb:225 app/helpers/application_helper.rb:84
+#: app/helpers/boxes_helper.rb:220 app/helpers/application_helper.rb:84
 #: app/models/link_list_block.rb:23
 msgid "Help"
 msgstr "Помощь"
 
-#: app/helpers/boxes_helper.rb:225 app/helpers/application_helper.rb:104
+#: app/helpers/boxes_helper.rb:220 app/helpers/application_helper.rb:104
 #: app/views/cms/why_categorize.rhtml:8 app/views/search/_search_form.rhtml:63
 #: app/views/box_organizer/add_block.rhtml:26 app/views/account/wizard.rhtml:1
 msgid "Close"
@@ -954,27 +954,27 @@ msgstr "Введите запрос и нажмите enter"
 msgid "Search"
 msgstr "Поиск"
 
-#: app/helpers/application_helper.rb:803
+#: app/helpers/application_helper.rb:812
 msgid "Searched for '%s'"
 msgstr "Искали: '%s'"
 
-#: app/helpers/application_helper.rb:804
+#: app/helpers/application_helper.rb:813
 msgid "In category %s"
 msgstr "В категории %s"
 
-#: app/helpers/application_helper.rb:805
+#: app/helpers/application_helper.rb:814
 msgid "within %d km from %s"
 msgstr "в %d км. от %s"
 
-#: app/helpers/application_helper.rb:806
+#: app/helpers/application_helper.rb:815
 msgid "%d results found"
 msgstr "найдено %d записей"
 
-#: app/helpers/application_helper.rb:812
+#: app/helpers/application_helper.rb:821
 msgid "In all categories"
 msgstr "Во всех категориях"
 
-#: app/helpers/application_helper.rb:900
+#: app/helpers/application_helper.rb:909
 msgid "Online Manual"
 msgstr ""
 
@@ -1630,6 +1630,7 @@ msgid "Filename"
 msgstr "Имя файла"
 
 #: app/models/image.rb:- app/models/thumbnail.rb:-
+#: app/views/box_organizer/_slideshow_block.rhtml:6
 msgid "Thumbnail"
 msgstr "Превью"
 
@@ -2139,7 +2140,7 @@ msgstr "Показывает, где географически находитс
 msgid "This profile has no geographical position registered."
 msgstr "В профиле не указана географическая позиция."
 
-#: app/models/slideshow_block.rb:9
+#: app/models/slideshow_block.rb:10
 #, fuzzy
 msgid "Slideshow"
 msgstr "Посмотреть слайдшоу"
@@ -3105,7 +3106,7 @@ msgstr ""
 "В этом блоке отображается одна из ваших статей. Вы можете настроить блок для "
 "ее выбора."
 
-#: app/models/article_block.rb:12
+#: app/models/article_block.rb:13
 msgid "Article not selected yet."
 msgstr "Статья не выбрана"
 
@@ -3361,21 +3362,21 @@ msgstr "Категории:"
 msgid "Change image"
 msgstr "Сменить изобрежение"
 
-#: app/views/shared/access_denied.rhtml:4
+#: app/views/shared/access_denied.rhtml:3
 msgid "Access denied"
 msgstr "Доступ запрещен"
 
-#: app/views/shared/access_denied.rhtml:9
+#: app/views/shared/access_denied.rhtml:8
 msgid "You are not allowed to view this page."
 msgstr "Вам не позволено просматривать эту страницу"
 
-#: app/views/shared/access_denied.rhtml:10
+#: app/views/shared/access_denied.rhtml:9
 msgid ""
 "If you are supposed to have access to this area, you'll probably want to "
 "talk to the people responsible and ask them to give you access."
 msgstr "Вам нужны права доступа, свяжитесь с администраторами данной зоны"
 
-#: app/views/shared/access_denied.rhtml:14 app/views/shared/not_found.rhtml:9
+#: app/views/shared/access_denied.rhtml:13 app/views/shared/not_found.rhtml:8
 #: app/views/favorite_enterprises/index.rhtml:30
 #: app/views/memberships/index.rhtml:8
 #: app/views/enterprise_registration/basic_information.rhtml:12
@@ -3387,26 +3388,26 @@ msgstr "Вам нужны права доступа, свяжитесь с ад�
 msgid "Go back"
 msgstr "Назад"
 
-#: app/views/shared/access_denied.rhtml:15 public/500.html.erb:28
+#: app/views/shared/access_denied.rhtml:14 public/500.html.erb:28
 msgid "Go to the site home page"
 msgstr "Перейти на домашнюю страницу сайта"
 
-#: app/views/shared/not_found.rhtml:3
+#: app/views/shared/not_found.rhtml:2
 msgid "There is no such page: %s"
 msgstr "Нет такой страницы: %s"
 
-#: app/views/shared/not_found.rhtml:5
+#: app/views/shared/not_found.rhtml:4
 msgid "You may have clicked an expired link or mistyped the address."
 msgstr "Вы кликнули по устаревшей ссылке или ошиблись с адресом"
 
-#: app/views/shared/not_found.rhtml:6
+#: app/views/shared/not_found.rhtml:5
 msgid ""
 "If you clicked a link that was in another site, or was given to you by "
 "someone else, it would be nice if you tell them that their link is not valid "
 "anymore."
 msgstr "Ссылка не действительна"
 
-#: app/views/shared/not_found.rhtml:10
+#: app/views/shared/not_found.rhtml:9
 #: app/views/profile/_private_profile.rhtml:16
 #, fuzzy
 msgid "Go to %s home page"
@@ -3705,9 +3706,13 @@ msgstr "Выберите группы, где вы хотите опублико
 msgid "There were errors with the following communities: "
 msgstr "Со следующими файлами возникли проблемы:"
 
-#: app/views/cms/publish.rhtml:26
+#: app/views/cms/publish.rhtml:29
 msgid "Publish"
 msgstr "Публиковать"
+
+#: app/views/cms/publish.rhtml:34
+msgid "This option is temporarily disabled."
+msgstr ""
 
 #: app/views/cms/_event.rhtml:8
 msgid "Start date"
@@ -5038,24 +5043,34 @@ msgstr ""
 
 #: app/views/box_organizer/_slideshow_block.rhtml:6
 #, fuzzy
+msgid "Image size"
+msgstr "Картинки"
+
+#: app/views/box_organizer/_slideshow_block.rhtml:6
+#, fuzzy
+msgid "Slideshow size"
+msgstr "Посмотреть слайдшоу"
+
+#: app/views/box_organizer/_slideshow_block.rhtml:8
+#, fuzzy
 msgid "Image transition:"
 msgstr "Включить организацию"
 
-#: app/views/box_organizer/_slideshow_block.rhtml:6
+#: app/views/box_organizer/_slideshow_block.rhtml:8
 msgid "No automatic transition"
 msgstr ""
 
-#: app/views/box_organizer/_slideshow_block.rhtml:6
+#: app/views/box_organizer/_slideshow_block.rhtml:8
 msgid "Every 1 second"
 msgid_plural "Every %d seconds"
 msgstr[0] ""
 msgstr[1] ""
 
-#: app/views/box_organizer/_slideshow_block.rhtml:8
+#: app/views/box_organizer/_slideshow_block.rhtml:10
 msgid "Show images in random order"
 msgstr ""
 
-#: app/views/box_organizer/_slideshow_block.rhtml:10
+#: app/views/box_organizer/_slideshow_block.rhtml:12
 #, fuzzy
 msgid "Display navigation buttons"
 msgstr "Отобразить список ссылок"
@@ -5874,10 +5889,6 @@ msgid ""
 "Access your list of tasks or your control panel to see this and other "
 "pending actions that need your attention."
 msgstr "Перейдите по следующему адресу чтоб просмотреть ожидающие события"
-
-#: app/views/profile/private_profile.rhtml:4
-msgid "This profile is not public."
-msgstr "Этот профиль не публичный"
 
 #: app/views/profile/leave.rhtml:1
 msgid "Leaving %s"
@@ -6929,6 +6940,9 @@ msgid ""
 "Our technical team is working on it, please try again later. Sorry for the "
 "inconvenience."
 msgstr "Техники уже работают над проблемой, пожалуйста, попробуйте позже."
+
+#~ msgid "This profile is not public."
+#~ msgstr "Этот профиль не публичный"
 
 #~ msgid "This menu gives you access to your personal functionalities."
 #~ msgstr "Это меню дает доступ к вашим персональным функциям"
