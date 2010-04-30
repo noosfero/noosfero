@@ -115,11 +115,6 @@ module BoxesHelper
     (1..8).to_a.reverse.inject(content) { |acc,n| content_tag('div', acc, :id => 'main-content-wrapper-' + n.to_s) }
   end
 
-  def noosfero_wrap(&block)
-    text = capture(&block)
-    concat(wrap_main_content(text), block.binding)
-  end
-
   def extract_block_content(content)
     case content
     when Hash
