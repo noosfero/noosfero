@@ -1,5 +1,4 @@
 <div id='not-found'>
-  <% noosfero_wrap do %>
     <h1><%= _('There is no such page: %s') % (content_tag('tt', @path)) %></h1>
     <p>
     <%= _('You may have clicked an expired link or mistyped the address.') %>
@@ -9,5 +8,4 @@
       <%= button :back, _('Go back'), :back %>
       <%= button :home, _('Go to %s home page') % environment.name, :controller => 'home' %>
     <% end %>
-  <% end %>
 </div>

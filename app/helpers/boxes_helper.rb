@@ -10,7 +10,7 @@ module BoxesHelper
       else
         content_tag('div',
           content_tag('div',
-            content_tag('div', content, :class => 'no-boxes-inner-2'),
+            content_tag('div', wrap_main_content(content), :class => 'no-boxes-inner-2'),
             :class => 'no-boxes-inner-1'
           ),
           :class => 'no-boxes'

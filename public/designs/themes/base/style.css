@@ -773,7 +773,7 @@ X.sep {
   width: 48%;
 }
 
-.controller-search #content .no-boxes h1 {
+#content .no-boxes h1 {
   font-variant: small-caps;
   color: #555753;
   font-size: 18px;
