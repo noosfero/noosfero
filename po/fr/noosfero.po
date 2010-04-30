@@ -4,9 +4,9 @@
 # , 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.23.0\n"
+"Project-Id-Version: noosfero 0.23.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-20 09:10-0300\n"
+"POT-Creation-Date: 2010-04-30 20:17-0300\n"
 "PO-Revision-Date: 2009-12-04 18:46-0300\n"
 "Last-Translator: Jean-Claude Bulliard <jcb@bulliard-consulting.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -77,7 +77,7 @@ msgstr ""
 #: app/helpers/folder_helper.rb:7 app/models/article.rb:50
 #: app/models/block.rb:- app/models/comment.rb:-
 #: app/views/cms/_uploaded_file.rhtml:1 app/views/cms/_article.rhtml:8
-#: app/views/cms/_article.rhtml:11 app/views/cms/publish.rhtml:21
+#: app/views/cms/_article.rhtml:11 app/views/cms/publish.rhtml:24
 #: app/views/cms/_textile_article.rhtml:5
 #: app/views/cms/_tiny_mce_article.rhtml:8
 #: app/views/cms/_tiny_mce_article.rhtml:11
@@ -403,27 +403,27 @@ msgstr "Contenu principal"
 msgid "This block is invisible. Your visitors will not see it."
 msgstr "Ce bloc est invisible, vos visiteurs ne le verront pas."
 
-#: app/helpers/boxes_helper.rb:194
+#: app/helpers/boxes_helper.rb:189
 msgid "Can't move up anymore."
 msgstr "Impossible d'aller plus haut"
 
-#: app/helpers/boxes_helper.rb:196
+#: app/helpers/boxes_helper.rb:191
 msgid "Move block up"
 msgstr "Vers le haut"
 
-#: app/helpers/boxes_helper.rb:200
+#: app/helpers/boxes_helper.rb:195
 msgid "Can't move down anymore."
 msgstr "Impossible d'aller plus bas"
 
-#: app/helpers/boxes_helper.rb:202
+#: app/helpers/boxes_helper.rb:197
 msgid "Move block down"
 msgstr "Vers le bas"
 
-#: app/helpers/boxes_helper.rb:210 app/helpers/boxes_helper.rb:212
+#: app/helpers/boxes_helper.rb:205 app/helpers/boxes_helper.rb:207
 msgid "Move to the opposite side"
 msgstr "Déplacer du côté opposé"
 
-#: app/helpers/boxes_helper.rb:217 app/helpers/article_helper.rb:36
+#: app/helpers/boxes_helper.rb:212 app/helpers/article_helper.rb:36
 #: app/models/link_list_block.rb:5 app/views/categories/_category.rhtml:8
 #: app/views/cms/view.rhtml:81 app/views/manage_products/index.rhtml:19
 #: app/views/manage_products/index.rhtml:53 app/views/role/index.rhtml:14
@@ -433,25 +433,25 @@ msgstr "Déplacer du côté opposé"
 msgid "Edit"
 msgstr "Éditer"
 
-#: app/helpers/boxes_helper.rb:221
+#: app/helpers/boxes_helper.rb:216
 msgid "Remove block"
 msgstr "Effacer le bloc"
 
-#: app/helpers/boxes_helper.rb:221
+#: app/helpers/boxes_helper.rb:216
 #, fuzzy
 msgid "Are you sure you want to remove this block?"
 msgstr "Êtes-vous sûr(e) que vous voulez retirer ce commentaire ?"
 
-#: app/helpers/boxes_helper.rb:225
+#: app/helpers/boxes_helper.rb:220
 msgid "Help on this block"
 msgstr "Aide sur ce bloc"
 
-#: app/helpers/boxes_helper.rb:225 app/helpers/application_helper.rb:84
+#: app/helpers/boxes_helper.rb:220 app/helpers/application_helper.rb:84
 #: app/models/link_list_block.rb:23
 msgid "Help"
 msgstr "Aide"
 
-#: app/helpers/boxes_helper.rb:225 app/helpers/application_helper.rb:104
+#: app/helpers/boxes_helper.rb:220 app/helpers/application_helper.rb:104
 #: app/views/cms/why_categorize.rhtml:8 app/views/search/_search_form.rhtml:63
 #: app/views/box_organizer/add_block.rhtml:26 app/views/account/wizard.rhtml:1
 msgid "Close"
@@ -971,28 +971,28 @@ msgstr "Cliquez, écrivez et appuyez sur Entrée pour trouver."
 msgid "Search"
 msgstr "Chercher"
 
-#: app/helpers/application_helper.rb:803
+#: app/helpers/application_helper.rb:812
 msgid "Searched for '%s'"
 msgstr "Recherche de «%s»"
 
-#: app/helpers/application_helper.rb:804
+#: app/helpers/application_helper.rb:813
 msgid "In category %s"
 msgstr "Dans la catégorie %s"
 
-#: app/helpers/application_helper.rb:805
+#: app/helpers/application_helper.rb:814
 msgid "within %d km from %s"
 msgstr "dans les %d km de %s"
 
-#: app/helpers/application_helper.rb:806
+#: app/helpers/application_helper.rb:815
 msgid "%d results found"
 msgstr "%d resultats trouvés"
 
-#: app/helpers/application_helper.rb:812
+#: app/helpers/application_helper.rb:821
 #, fuzzy
 msgid "In all categories"
 msgstr "Désactiver les catégories"
 
-#: app/helpers/application_helper.rb:900
+#: app/helpers/application_helper.rb:909
 msgid "Online Manual"
 msgstr ""
 
@@ -1675,6 +1675,7 @@ msgid "Filename"
 msgstr "Nom de fichier"
 
 #: app/models/image.rb:- app/models/thumbnail.rb:-
+#: app/views/box_organizer/_slideshow_block.rhtml:6
 msgid "Thumbnail"
 msgstr "Aperçu"
 
@@ -2203,7 +2204,7 @@ msgstr "Montre où se trouve le profil dans le monde physique."
 msgid "This profile has no geographical position registered."
 msgstr "Ce profil n'a pas de position géographique enregistrée."
 
-#: app/models/slideshow_block.rb:9
+#: app/models/slideshow_block.rb:10
 #, fuzzy
 msgid "Slideshow"
 msgstr "Voir le diaporama"
@@ -3184,7 +3185,7 @@ msgstr ""
 "Ce bloc affiche un de vos articles. Vous pouvez éditer le bloc pour "
 "sélectionner lequel de vos articles va être affiche dans ce bloc."
 
-#: app/models/article_block.rb:12
+#: app/models/article_block.rb:13
 msgid "Article not selected yet."
 msgstr "Article non encore sélectionné."
 
@@ -3442,15 +3443,15 @@ msgstr "Catégories :"
 msgid "Change image"
 msgstr "Modifier l'image"
 
-#: app/views/shared/access_denied.rhtml:4
+#: app/views/shared/access_denied.rhtml:3
 msgid "Access denied"
 msgstr "Accès interdit"
 
-#: app/views/shared/access_denied.rhtml:9
+#: app/views/shared/access_denied.rhtml:8
 msgid "You are not allowed to view this page."
 msgstr "Vous n'êtes pas autorisé(e) à voir cette page."
 
-#: app/views/shared/access_denied.rhtml:10
+#: app/views/shared/access_denied.rhtml:9
 msgid ""
 "If you are supposed to have access to this area, you'll probably want to "
 "talk to the people responsible and ask them to give you access."
@@ -3458,7 +3459,7 @@ msgstr ""
 "Si vous êtes supposé(e) avoir accès à cette zone, vous devriez sans doute en "
 "référer aux responsable et leur demander de vous y donner accès."
 
-#: app/views/shared/access_denied.rhtml:14 app/views/shared/not_found.rhtml:9
+#: app/views/shared/access_denied.rhtml:13 app/views/shared/not_found.rhtml:8
 #: app/views/favorite_enterprises/index.rhtml:30
 #: app/views/memberships/index.rhtml:8
 #: app/views/enterprise_registration/basic_information.rhtml:12
@@ -3470,21 +3471,21 @@ msgstr ""
 msgid "Go back"
 msgstr "Retour"
 
-#: app/views/shared/access_denied.rhtml:15 public/500.html.erb:28
+#: app/views/shared/access_denied.rhtml:14 public/500.html.erb:28
 msgid "Go to the site home page"
 msgstr "Aller à la page d'accueil du site"
 
-#: app/views/shared/not_found.rhtml:3
+#: app/views/shared/not_found.rhtml:2
 msgid "There is no such page: %s"
 msgstr "Il n'existe pas une telle page : %s"
 
-#: app/views/shared/not_found.rhtml:5
+#: app/views/shared/not_found.rhtml:4
 msgid "You may have clicked an expired link or mistyped the address."
 msgstr ""
 "Vous avez peut-être cliqué sur un lien ayant expiré ou fait une erreur dans "
 "l'adresse de la page."
 
-#: app/views/shared/not_found.rhtml:6
+#: app/views/shared/not_found.rhtml:5
 msgid ""
 "If you clicked a link that was in another site, or was given to you by "
 "someone else, it would be nice if you tell them that their link is not valid "
@@ -3494,7 +3495,7 @@ msgstr ""
 "été transmis par quelqu'un, vous seriez aimable de l'informer que son lien "
 "n'est plus valide."
 
-#: app/views/shared/not_found.rhtml:10
+#: app/views/shared/not_found.rhtml:9
 #: app/views/profile/_private_profile.rhtml:16
 #, fuzzy
 msgid "Go to %s home page"
@@ -3805,9 +3806,13 @@ msgstr "Choisissez les groupes dans lesquels vous voulez publier cet article"
 msgid "There were errors with the following communities: "
 msgstr "Il y a un problème avec les lignes suivantes : "
 
-#: app/views/cms/publish.rhtml:26
+#: app/views/cms/publish.rhtml:29
 msgid "Publish"
 msgstr "Publier"
+
+#: app/views/cms/publish.rhtml:34
+msgid "This option is temporarily disabled."
+msgstr ""
 
 #: app/views/cms/_event.rhtml:8
 msgid "Start date"
@@ -5219,24 +5224,34 @@ msgstr ""
 
 #: app/views/box_organizer/_slideshow_block.rhtml:6
 #, fuzzy
+msgid "Image size"
+msgstr "Image|Taille"
+
+#: app/views/box_organizer/_slideshow_block.rhtml:6
+#, fuzzy
+msgid "Slideshow size"
+msgstr "Voir le diaporama"
+
+#: app/views/box_organizer/_slideshow_block.rhtml:8
+#, fuzzy
 msgid "Image transition:"
 msgstr "Une organisation"
 
-#: app/views/box_organizer/_slideshow_block.rhtml:6
+#: app/views/box_organizer/_slideshow_block.rhtml:8
 msgid "No automatic transition"
 msgstr ""
 
-#: app/views/box_organizer/_slideshow_block.rhtml:6
+#: app/views/box_organizer/_slideshow_block.rhtml:8
 msgid "Every 1 second"
 msgid_plural "Every %d seconds"
 msgstr[0] ""
 msgstr[1] ""
 
-#: app/views/box_organizer/_slideshow_block.rhtml:8
+#: app/views/box_organizer/_slideshow_block.rhtml:10
 msgid "Show images in random order"
 msgstr ""
 
-#: app/views/box_organizer/_slideshow_block.rhtml:10
+#: app/views/box_organizer/_slideshow_block.rhtml:12
 #, fuzzy
 msgid "Display navigation buttons"
 msgstr "Affiche une liste de liens."
@@ -6113,10 +6128,6 @@ msgid ""
 msgstr ""
 "Rendez-vous à cette adresse pour voir les autres actions en attente qui "
 "nécessitent votre attention : "
-
-#: app/views/profile/private_profile.rhtml:4
-msgid "This profile is not public."
-msgstr "Ce profil n'est pas public."
 
 #: app/views/profile/leave.rhtml:1
 msgid "Leaving %s"
@@ -7248,6 +7259,9 @@ msgstr ""
 "Notre équipe technique est en train d'y travailler. Merci de réessayer plus "
 "tard. Nous sommes désolés de la gêne occasionnée."
 
+#~ msgid "This profile is not public."
+#~ msgstr "Ce profil n'est pas public."
+
 #~ msgid "This menu gives you access to your personal functionalities."
 #~ msgstr "Ce menu donne accès à vos fonctionnalités personnelles."
 
@@ -8024,9 +8038,6 @@ msgstr ""
 
 #~ msgid "Image|Thumbnail"
 #~ msgstr "Image|Aperçu"
-
-#~ msgid "Image|Size"
-#~ msgstr "Image|Taille"
 
 #~ msgid "Image|Width"
 #~ msgstr "Image|Largeur"
