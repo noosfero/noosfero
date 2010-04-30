@@ -3008,6 +3008,10 @@ h1#agenda-title {
   margin: 0px 200px 0px 200px;
 }
 
+.controller-search .no-boxes {
+  margin: 0px;
+}
+
 .controller-profile #content .no-boxes h1,
 .controller-profile #content .no-boxes table th {
   text-align: left;
