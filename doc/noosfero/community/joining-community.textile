@@ -1,4 +1,4 @@
-h1. Joining a community
+h1(order-100). Joining a community
 
 p.  _You can be part of a community and interact with its others members. To do that, you can join a community, as explained below._
 

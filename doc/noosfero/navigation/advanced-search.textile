@@ -1,4 +1,4 @@
-h1. Advanced search
+h1(order-620). Advanced search
 
 p.  _When an user is navigating on the system, he can do a search to find articles, communities, people, enterprises or products._
 

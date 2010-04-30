@@ -1,4 +1,4 @@
-h1. Disabling an enterprise
+h1(order-260). Disabling an enterprise
 
 p.  _If you are an administrator of any enterprise and you don't want that it appears in the system anymore, you can disable it by following this steps._
 

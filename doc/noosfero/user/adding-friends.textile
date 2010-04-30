@@ -1,4 +1,4 @@
-h1. Adding friends
+h1(order-450). Adding friends
 
 p.  _To interact with others system users, you can include them in your contact list, adding them as friends._
 

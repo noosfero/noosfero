@@ -1,6 +1,6 @@
 class DocItem
   class  NotFound < Exception; end
-  attr_accessor :id, :title, :text, :language
+  attr_accessor :id, :title, :text, :language, :order
   def initialize(attrs = {})
     attrs.each do |name,value|
       self.send("#{name}=", value)

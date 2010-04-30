@@ -1,4 +1,4 @@
-h1. Finding people
+h1(order-610). Finding people
 
 p.  _To find an user in the system, you can use the search specific for people._
 

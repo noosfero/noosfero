@@ -1,4 +1,4 @@
-h1. Searching on the system
+h1(order-630). Searching on the system
 
 p.  _To find articles, communities, people, enterprises or products and services, an user in the system, can do a search._
 

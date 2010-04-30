@@ -1,6 +1,5 @@
 <div id='access-denied'>
 
-  <% noosfero_wrap do %>
     <h1> <%= @title || _('Access denied') %> </h1>
 
     <% unless @message.nil? %>
@@ -15,6 +14,5 @@
       <%= button :home, _('Go to the site home page'), :controller => 'home' %>
     <% end %>
 
-  <% end %>
 
 </div>

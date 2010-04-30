@@ -1,4 +1,4 @@
-require 'test_helper'
+require File.dirname(__FILE__) + '/../test_helper'
 
 class DocTopicTest < ActiveSupport::TestCase
   should 'be a DocItem' do
@@ -23,6 +23,14 @@ class DocTopicTest < ActiveSupport::TestCase
     assert_raise DocItem::NotFound do
       DocTopic.loadfile('/path/to/unexisting/file.en.xhtml')
     end
+  end
+
+  should 'read order from HTML' do
+    assert_equal 1, DocTopic.order('<h1 class="order-1">Some topic</h1>')
+  end
+
+  should 'use 0 as order by default' do
+    assert_equal 0, DocTopic.order('<h1>Some topic</h1>')
   end
 
 end

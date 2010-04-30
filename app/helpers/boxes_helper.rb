@@ -10,7 +10,7 @@ module BoxesHelper
       else
         content_tag('div',
           content_tag('div',
-            content_tag('div', content, :class => 'no-boxes-inner-2'),
+            content_tag('div', wrap_main_content(content), :class => 'no-boxes-inner-2'),
             :class => 'no-boxes-inner-1'
           ),
           :class => 'no-boxes'
@@ -113,11 +113,6 @@ module BoxesHelper
 
   def wrap_main_content(content)
     (1..8).to_a.reverse.inject(content) { |acc,n| content_tag('div', acc, :id => 'main-content-wrapper-' + n.to_s) }
-  end
-
-  def noosfero_wrap(&block)
-    text = capture(&block)
-    concat(wrap_main_content(text), block.binding)
   end
 
   def extract_block_content(content)

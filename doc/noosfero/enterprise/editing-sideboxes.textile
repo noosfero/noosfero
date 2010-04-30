@@ -1,4 +1,4 @@
-h1. Editing sideboxes
+h1(order-230). Editing sideboxes
 
 p.  _You can customize the page of your enterprise, changing the blocks that will be displayed on it._
 

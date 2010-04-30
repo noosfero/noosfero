@@ -1,4 +1,4 @@
-h1. Editing enterprise settings
+h1(order-220). Editing enterprise settings
 
 p.  _If you are administrator of an enterprise, you can edit its settings._
 

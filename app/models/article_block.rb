@@ -9,7 +9,8 @@ class ArticleBlock < Block
   end
 
   def content
-    article ? article.to_html : _('Article not selected yet.')
+    block_title(title) +
+    (article ? article.to_html : _('Article not selected yet.'))
   end
 
   def article_id

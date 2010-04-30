@@ -1,4 +1,4 @@
-h1. Removing friends
+h1(order-520). Removing friends
 
 p.  _How you can remove one friend from your contact list._
 

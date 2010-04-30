@@ -1,4 +1,4 @@
-h1. Editing appearance
+h1(order-150). Editing appearance
 
 p.  _You can customize the page of your community, changing the template of it._
 

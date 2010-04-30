@@ -1,4 +1,4 @@
-h1. Accepting friends
+h1(order-460). Accepting friends
 
 p.  _When one person asks to be your friend, you should accept or reject the request. This is what will be explained._
 

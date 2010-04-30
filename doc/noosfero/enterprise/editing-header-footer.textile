@@ -1,4 +1,4 @@
-h1. Editing header and footer
+h1(order-250). Editing header and footer
 
 p.  _You can customize the page of your enterprise, adding some text or image on header or footer._
 

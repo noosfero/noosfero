@@ -454,8 +454,6 @@ div.pending-tasks {
 #content #not-found,
 #content #access-denied {
   -moz-border-radius: 6px;
-  margin-left: 20%;
-  margin-right: 20%;
 }
 
 #content #not-found p,
@@ -1172,6 +1170,10 @@ a.comment-picture {
   display: inline;
 }
 
+#content #article .article-body img {
+  max-width: 100%;
+}
+
 /* NOT PUBLISHED BLOG POSTS */
 
 .blog-post.not-published {
@@ -1401,6 +1403,10 @@ input.disabled {
 .block iframe {
   width: 100%;
   border: none;
+}
+
+.block-title.empty {
+  display: none;
 }
 
 .invisible-block {
@@ -2998,12 +3004,8 @@ h1#agenda-title {
   display: inline;
 }
 
-.controller-profile .no-boxes {
-  margin: 0px 260px 0px 260px;
-}
-
-.controller-profile #content .no-boxes h1 {
-  margin: 1px 0px 1px 160px;
+.no-boxes {
+  margin: 0px 200px 0px 200px;
 }
 
 .controller-profile #content .no-boxes h1,

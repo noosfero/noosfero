@@ -1,4 +1,4 @@
-h1. Posting on blog
+h1(order-330). Posting on blog
 
 p.  _You can have a blog and publish posts on it._
 
