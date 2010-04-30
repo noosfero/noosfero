@@ -5,9 +5,13 @@ Noosfero development.
 
 == Requirements for development
 
-First, install all requirements listed in INSTALL. After, you need to install
-some packages be able to run Noosfero tests. On Debian GNU/Linux and
-Debian-based systems, you install them with the following command:
+First, install all requirements listed in INSTALL. Note that you do not need to
+follow all the steps described there, you only need to install the packages
+listed in the "Requirements" section.
+
+After installing the requirements listed in INSTALL, you need to install some
+packages be able to run Noosfero tests. On Debian GNU/Linux and Debian-based
+systems, you install them with the following command:
 
  # apt-get install libtidy-ruby libhpricot-ruby libmocha-ruby imagemagick po4a xvfb
 
