@@ -32,7 +32,9 @@ commands and make sure you understand what you are doing):
  cd noosfero
  # copy a sample config file
  cp config/database.yml.sqlite3 config/database.yml
- # create the database:
+ # create the development database
+ rake db:schema:load
+ # run pending migrations
  rake db:migrate
  # compile translations:
  rake makemo
