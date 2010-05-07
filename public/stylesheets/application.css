@@ -1513,21 +1513,14 @@ input.disabled {
   text-decoration: none;
 }
 
-
 /* ==> blocks/link-list-block.css <<= */ 
-
-#edit-link-list-block {
-  overflow: auto;
-  overflow-x: hidden;
-  height: 120px;
-}
  
 #edit-link-list-block table {
   width: 100%;
 }
 
 #edit-link-list-block table .cel-address {
-  width: 180px;
+  width: 220px;
 }
 
 #edit-link-list-block table .cel-address input {
@@ -1557,15 +1550,36 @@ input.disabled {
   padding-left: 23px;
 }
 
-#edit-link-list-block select {
-  width: 80px;
+.icon-selector {
+  background: #EEE;
+  border: 1px solid #555;
+  padding: 10px;
+  width: 110px;
+  height: 110px;
+  position: absolute;
+  z-index: 100;
+}
+.icon {
+  border:1px solid #EEE;
+}
+.icon:hover {
+  border: 1px solid black;
+  cursor: pointer;
+  background-color: #555;
 }
 
-#edit-link-list-block option {
-  background-repeat: no-repeat;
-  padding-left: 23px;
-  margin: 2px;
-  height: 16px;
+.icon-selector span {
+  height:16px;
+  width:16px;
+  border:1px solid #555;
+  margin:2px;
+  display: block;
+  float: left;
+}
+
+.icon-selector span:hover {
+  border: 1px solid black;
+  background-color: #555;
 }
 
 /* ==> blocks/profile-list-block.css <<= */ 

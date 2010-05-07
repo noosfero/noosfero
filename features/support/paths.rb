@@ -18,10 +18,11 @@ module NavigationHelpers
       article_id = Person[$2].articles.find_by_slug($1.to_slug).id
       "/myprofile/#{$2}/cms/edit/#{article_id}"
     
-    when /edit BlogArchivesBlock of (.+)/
-      owner = Profile[$1]
-      block = BlogArchivesBlock.find(:all).select{|i| i.owner == owner}.first
-      "/myprofile/#{$1}/profile_design/edit/#{block.id}"
+    when /edit (.*Block) of (.+)/
+      owner = Profile[$2]
+      klass = $1.constantize
+      block = klass.find(:all).select{|i| i.owner == owner}.first
+      "/myprofile/#{$2}/profile_design/edit/#{block.id}"
 
     when /^(.*)'s homepage$/
       '/%s' % Profile.find_by_name($1).identifier

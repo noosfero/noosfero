@@ -23,6 +23,12 @@ begin
       t.cucumber_opts = "--color --tags @wip:2 --wip --format #{ENV['CUCUMBER_FORMAT'] || 'progress'}"
     end
 
+    Cucumber::Rake::Task.new({:selenium => 'db:test:prepare'}, 'Run features with selenium') do |t|
+      t.binary = vendored_cucumber_binary
+      t.fork = true # You may get faster startup if you set this to false
+      t.cucumber_opts = "--color -p selenium --format #{ENV['CUCUMBER_FORMAT'] || 'pretty'}"
+    end
+
     desc 'Run all features'
     task :all => [:ok, :wip]
   end

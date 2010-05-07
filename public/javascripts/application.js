@@ -78,3 +78,24 @@ function disable_button(button) {
    button.disable();
    button.addClassName("disabled");
 }
+
+/* ICON SELECTOR - LinkListBlock */
+
+function showIconSelector(main_div) {
+   iconSelector = jQuery(main_div).children('.icon-selector')[0];
+   jQuery(iconSelector).toggle();
+}
+
+function changeIcon(iconSelected, iconName) {
+   iconSelector = iconSelected.parentNode;
+   setTimeout('iconSelector.style.display = "none"', 100);
+   main_div = iconSelector.parentNode;
+   span = main_div.getElementsByTagName('span')[0];
+   span.className = iconSelected.className;
+   iconInput = main_div.getElementsByTagName('input')[0];
+   iconInput.value = iconName;
+}
+
+function hideOthersIconSelector(current_div) {
+   jQuery('.icon-selector').not(jQuery(current_div).children('.icon-selector')).hide();
+}

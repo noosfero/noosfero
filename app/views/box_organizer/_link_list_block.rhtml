@@ -4,15 +4,21 @@
   <tr><th><%= _('Icon') %></th><th><%= _('Name') %></th><th><%= _('Address') %></th></tr>
   <% for link in @block.links do %>
     <tr>
-      <td><%= select_tag 'block[links][][icon]', @block.icons_options(link['icon']) %></td>
-      <td><%= text_field_tag 'block[links][][name]', link[:name], :maxlength => 20 %></td>
-      <td class='cel-address'><%= text_field_tag 'block[links][][address]', link[:address] %></td>
+      <td>
+         <%= icon_selector(link['icon']) %>
+      </td>
+      <td><%= text_field_tag 'block[links][][name]', link[:name], :class => 'link-name', :maxlength => 20 %></td>
+      <td class='cel-address'><%= text_field_tag 'block[links][][address]', link[:address], :class => 'link-address' %></td>
     </tr>
   <% end %>
 </table>
 </div>
 
 <%= link_to_function(_('New link'), nil, :class => 'button icon-add with-text') do |page|
-  page.insert_html :bottom, 'links', content_tag('tr', content_tag('td', select_tag('block[links][][icon]', @block.icons_options)) + content_tag('td',text_field_tag('block[links][][name]', '', :maxlength => 20)) + content_tag('td',text_field_tag('block[links][][address]', nil, :class => 'cel-address'))) +
+    page.insert_html :bottom, 'links', content_tag('tr',
+      content_tag('td', icon_selector('ok')) +
+      content_tag('td', text_field_tag('block[links][][name]', '', :maxlength => 20)) +
+      content_tag('td', text_field_tag('block[links][][address]', nil, :class => 'cel-address'))
+    ) +
     javascript_tag("$('edit-link-list-block').scrollTop = $('edit-link-list-block').scrollHeight")
 end %>
