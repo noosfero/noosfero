@@ -80,6 +80,7 @@ lightbox.prototype = {
 		}
 		this.hideObjectsAndEmbeds('hidden');
 		this.displayLightbox("block");
+		window.location.href= "#";
 	},
 	
 	// Ie requires height to 100% and overflow hidden or else you can scroll down past the lightbox

@@ -1514,12 +1514,6 @@ input.disabled {
 }
 
 /* ==> blocks/link-list-block.css <<= */ 
-
-#edit-link-list-block {
-  overflow: auto;
-  overflow-x: hidden;
-  height: 120px;
-}
  
 #edit-link-list-block table {
   width: 100%;
