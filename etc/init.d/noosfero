@@ -39,7 +39,7 @@ if [ -z $NOOSFERO_DIR ] || [ -z $NOOSFERO_USER ]; then
 fi
 
 ######################
-FERRET_PID_FILE=$NOOSFERO_DIR/log/ferret.pid
+FERRET_PID_FILE=$NOOSFERO_DIR/tmp/pids/ferret.production.pid
 
 main_script() {
   cd $NOOSFERO_DIR
@@ -58,6 +58,39 @@ do_start() {
     exit 2
   fi
 
+  # PID directories
+  if [ ! -d /var/run/noosfero ]; then
+    mkdir /var/run/noosfero
+    chown $NOOSFERO_USER:root /var/run/noosfero
+    chmod 755 /var/run/noosfero
+  fi
+
+  # Noosfero logs
+  if [ ! -d /var/log/noosfero ]; then
+    mkdir /var/log/noosfero
+    chown $NOOSFERO_USER:root /var/log/noosfero
+    chmod 750 /var/log/noosfero
+  fi
+
+  # Noosfero tmp directory
+  if [ ! -d /var/tmp/noosfero ]; then
+    mkdir /var/tmp/noosfero
+    chown $NOOSFERO_USER:root /var/tmp/noosfero
+    chmod 750 /var/tmp/noosfero
+  fi
+
+  # symlink the directories into Noosfero directory
+  if [ ! -e $NOOSFERO_DIR/tmp ]; then
+    ln -s /var/tmp/noosfero $NOOSFERO_DIR/tmp
+  fi
+  if [ ! -e $NOOSFERO_DIR/tmp/pids ]; then
+    ln -s /var/run/noosfero $NOOSFERO_DIR/tmp/pids
+  fi
+  if [ ! -e $NOOSFERO_DIR/log ]; then
+    ln -s /var/log/noosfero $NOOSFERO_DIR/log
+  fi
+
+  # actually start the service
   main_script start
 }
 
