@@ -1,7 +1,6 @@
 <tr>
   <th colspan='2'><%= _('Basic information')%></th>
 </tr>
-<%= display_field(_('About:'), profile, :description) if !@action %>
 <%= display_field(_('Sex:'), profile, :sex) { |gender| { 'male' => _('Male'), 'female' => _('Female') }[gender] } %>
 <%= display_field(_('Date of birth:'), profile, :birth_date) { |date| show_date(date)  }%>
 <%= display_field(_('Location:'), profile, :location, true) %>

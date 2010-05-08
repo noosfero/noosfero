@@ -3038,6 +3038,10 @@ h1#agenda-title {
   padding: 10px;
 }
 
+.controller-profile .public-profile-description {
+  font-weight: bold;
+}
+
 .controller-profile .private-profile-message,
 .controller-profile .private-profile-description {
   margin: 5px 0px 5px 160px;

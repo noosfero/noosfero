@@ -6,6 +6,12 @@
   <%= render :partial => 'private_profile' %>
 <% end %>
 
+<% if !@action %>
+  <div class='public-profile-description'>
+    <%= profile.description %>
+  </div>
+<% end %>
+
 <table class='profile'>
   <%= render :partial => partial_for_class(profile.class) %>
 

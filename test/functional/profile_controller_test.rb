@@ -665,4 +665,23 @@ class ProfileControllerTest < Test::Unit::TestCase
     get :index, :profile => profile.identifier
     assert_tag :tag => 'a', :content => 'One picture', :attributes => { :href => /\/testuser\/gallery/ }
   end
+
+  should 'show description of orgarnization' do
+    login_as(@profile.identifier)
+    ent = fast_create(Enterprise)
+    ent.description = 'Enterprise\'s description'
+    ent.save
+    get :index, :profile => ent.identifier
+    assert_tag :tag => 'div', :attributes => { :class => 'public-profile-description' }, :content => /Enterprise\'s description/
+  end
+
+  should 'show description of person' do
+    login_as(@profile.identifier)
+    @profile.description = 'Person\'s description'
+    @profile.save
+    get :index, :profile => @profile.identifier
+    assert_tag :tag => 'div', :attributes => { :class => 'public-profile-description' }, :content => /Person\'s description/
+  end
+
+
 end
