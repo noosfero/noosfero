@@ -19,7 +19,7 @@ module FolderHelper
   def display_article_in_listing(article, recursive = false, level = 0)
     result = content_tag(
       'tr',
-      content_tag('td', link_to(('&nbsp;' * (level * 4) ) + image_tag(icon_for_article(article)) + article.name, article.url.merge(:view => true)))+
+      content_tag('td', link_to(('&nbsp;' * (level * 4) ) + image_tag(icon_for_article(article)) + short_filename(article.name), article.url.merge(:view => true)))+
       content_tag('td', show_date(article.updated_at), :class => 'last-update'),
       :class => 'sitemap-item'
     )
@@ -69,4 +69,11 @@ module FolderHelper
     _('Edit folder')
   end
 
+  def short_filename(filename, limit_chars = 43)
+    return filename if filename.size <= limit_chars
+    extname = File.extname(filename)
+    basename = File.basename(filename,extname)
+    str_complement = '(...)'
+    return basename[0..(limit_chars - extname.size - str_complement.size - 1)] + str_complement + extname
+  end
 end
