@@ -2047,8 +2047,8 @@ div#activation_enterprise div {
 .the-localization-map {
   overflow: hidden;
   margin: auto;
-  max-width: 205px;
-  padding: 3px;
+  max-width: 190px;
+  padding: 0px;
   background: #FFF;
   border: 1px solid #888;
 }
