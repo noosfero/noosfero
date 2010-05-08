@@ -51,7 +51,6 @@ class ArticleBlockTest < Test::Unit::TestCase
     assert_nil block.article_id
   end
 
-<<<<<<< HEAD
   should "take available articles with a person as the box owner" do
     person = create_user('testuser').person
     person.articles.delete_all
