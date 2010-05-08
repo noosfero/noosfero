@@ -25,5 +25,5 @@ config.gem 'rspec',       :lib => 'spec',        :version => '>=1.2.8' unless Fi
 config.gem 'rspec-rails', :lib => 'spec/rails',        :version => '>=1.2.7.1' unless File.directory?(File.join(Rails.root, 'vendor/plugins/rspec-rails'))
 config.gem 'Selenium',    :lib => 'selenium',      :version => '>= 1.1.14' unless File.directory?(File.join(Rails.root, 'vendor/plugins/selenium'))
 config.gem 'selenium-client',    :lib => 'selenium/client',      :version => '>= 1.2.17' unless File.directory?(File.join(Rails.root, 'vendor/plugins/selenium-client'))
-config.gem 'bmabey-database_cleaner', :lib => 'database_cleaner', :source => 'http://gems.github.com/'
+config.gem 'database_cleaner', :lib => 'database_cleaner'
 
