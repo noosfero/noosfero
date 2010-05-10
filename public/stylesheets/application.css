@@ -2550,10 +2550,10 @@ div#activation_enterprise div {
 
 .controller-cms #media-listing-iframe {
   float: right;
-  width: 40%;
+  width: 380px;
   height: 630px;
   border: none;
-  margin: 104px 20px 0px 0px;
+  margin-top: 104px;
   padding: 0px;
   overflow: hidden;
 }
@@ -2564,6 +2564,7 @@ div#activation_enterprise div {
 
 .controller-cms div.with_media_panel {
   float: left;
+  width: 500px;
 }
 
 div.with_media_panel .formfield input {
@@ -3016,11 +3017,12 @@ h1#agenda-title {
 }
 
 .no-boxes {
-  margin: 0px 200px 0px 200px;
+  margin: 0px;
 }
 
-.controller-search .no-boxes {
-  margin: 0px;
+.controller-content_viewer .no-boxes,
+.controller-profile .no-boxes {
+  margin: 0px 200px;
 }
 
 .controller-profile #content .no-boxes h1,
