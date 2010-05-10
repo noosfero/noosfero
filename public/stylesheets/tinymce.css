@@ -14,3 +14,14 @@ object, embed {
   height: 150px;
   background-image: url(../designs/icons/tango/Tango/22x22/actions/media-playback-start.png);
 }
+
+body.mceContentBody h2 { font-size: 18px }
+body.mceContentBody h3 { font-size: 16px }
+body.mceContentBody h4 { font-size: 14px }
+body.mceContentBody h5 { font-size: 13px }
+body.mceContentBody h6 { font-size: 12px }
+
+body.mceContentBody h1, body.mceContentBody h2, body.mceContentBody h3,
+body.mceContentBody h4, body.mceContentBody h5, body.mceContentBody h6 {
+  margin: 10px 0px;
+}

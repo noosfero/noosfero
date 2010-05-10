@@ -158,11 +158,11 @@ div#notice {
   margin: 10px 0px;
   /*color: #2A5896;*/
 }
-#content h1 { font-size: 24px }
-#content h2 { font-size: 20px }
-#content h3 { font-size: 18px }
-#content h4 { font-size: 16px }
-#content h5 { font-size: 14px }
+#content h1 { font-size: 20px }
+#content h2 { font-size: 18px }
+#content h3 { font-size: 16px }
+#content h4 { font-size: 14px }
+#content h5 { font-size: 13px }
 #content h6 { font-size: 12px }
 
 #content .block-title {
@@ -588,9 +588,6 @@ code input {
 #online-doc-navigation li {
   list-style: none;
   margin-bottom: 5px;
-}
-#online-doc-navigation h1 {
-  font-size: 16px;
 }
 
 #online-doc-navigation h1, #online-doc h1 {

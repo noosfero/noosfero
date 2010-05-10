@@ -269,7 +269,6 @@ body, th, td, input {
 #content .main-block h1, #not-found h1, #access-denied h1 {
   font-variant: small-caps;
   color: #555753;
-  font-size: 16px;
   text-align: left;
   border-bottom: 2px solid #2e3436;
 }
@@ -776,7 +775,6 @@ X.sep {
 #content .no-boxes h1 {
   font-variant: small-caps;
   color: #555753;
-  font-size: 18px;
   text-align: left;
   border-bottom: 2px solid #2e3436; /*8C0*/
 }
