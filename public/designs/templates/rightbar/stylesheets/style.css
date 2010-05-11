@@ -1,11 +1,7 @@
-
-#boxes {
-  /* none */
-}
-
 .box-1 {
-  margin: 0px 260px 0px 30px;
+  margin: 0 200px 0 0;
 }
+
 .box-1 .blocks {
   width: 100%;
   float: right;
@@ -13,12 +9,11 @@
 
 .box-2 {
   float: right;
-  width: 230px;
+  width: 190px;
 }
 
 .block {
   position: relative;
-  padding: 10px 0px;
+  padding: 10px 0;
   float: none;
 }
-

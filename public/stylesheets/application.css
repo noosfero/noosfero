@@ -158,11 +158,11 @@ div#notice {
   margin: 10px 0px;
   /*color: #2A5896;*/
 }
-#content h1 { font-size: 24px }
-#content h2 { font-size: 20px }
-#content h3 { font-size: 18px }
-#content h4 { font-size: 16px }
-#content h5 { font-size: 14px }
+#content h1 { font-size: 20px }
+#content h2 { font-size: 18px }
+#content h3 { font-size: 16px }
+#content h4 { font-size: 14px }
+#content h5 { font-size: 13px }
 #content h6 { font-size: 12px }
 
 #content .block-title {
@@ -588,9 +588,6 @@ code input {
 #online-doc-navigation li {
   list-style: none;
   margin-bottom: 5px;
-}
-#online-doc-navigation h1 {
-  font-size: 16px;
 }
 
 #online-doc-navigation h1, #online-doc h1 {
@@ -2047,8 +2044,8 @@ div#activation_enterprise div {
 .the-localization-map {
   overflow: hidden;
   margin: auto;
-  max-width: 205px;
-  padding: 3px;
+  max-width: 190px;
+  padding: 0px;
   background: #FFF;
   border: 1px solid #888;
 }
@@ -2553,10 +2550,10 @@ div#activation_enterprise div {
 
 .controller-cms #media-listing-iframe {
   float: right;
-  width: 40%;
+  width: 380px;
   height: 630px;
   border: none;
-  margin: 104px 20px 0px 0px;
+  margin-top: 104px;
   padding: 0px;
   overflow: hidden;
 }
@@ -2567,6 +2564,7 @@ div#activation_enterprise div {
 
 .controller-cms div.with_media_panel {
   float: left;
+  width: 500px;
 }
 
 div.with_media_panel .formfield input {
@@ -2717,7 +2715,7 @@ div.event-info div.event-description {
 }
 
 div#article-parent {
-  margin-bottom: 5px;
+  margin: 5px 0px;
   text-align: right;
   font-style: italic;
 }
@@ -3019,11 +3017,12 @@ h1#agenda-title {
 }
 
 .no-boxes {
-  margin: 0px 200px 0px 200px;
+  margin: 0px;
 }
 
-.controller-search .no-boxes {
-  margin: 0px;
+.controller-content_viewer .no-boxes,
+.controller-profile .no-boxes {
+  margin: 0px 200px;
 }
 
 .controller-profile #content .no-boxes h1,
