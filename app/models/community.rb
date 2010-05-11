@@ -5,8 +5,6 @@ class Community < Organization
   settings_items :language
   settings_items :zip_code, :city, :state, :country
 
-  xss_terminate :only => [ :name, :address, :contact_phone, :description ]
-
   before_create do |community|
     community.moderated_articles = true if community.environment.enabled?('organizations_are_moderated_by_default')
   end
@@ -21,6 +19,8 @@ class Community < Organization
     end
     community
   end
+
+  xss_terminate :only => [ :name, :address, :contact_phone, :description ], :on => 'validation'
 
   FIELDS = %w[
     city

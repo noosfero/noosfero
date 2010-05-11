@@ -4,6 +4,6 @@ class Consumption < ActiveRecord::Base
 
   validates_uniqueness_of :product_category_id, :scope => :profile_id
 
-  xss_terminate :only => [ :aditional_specifications ]
+  xss_terminate :only => [ :aditional_specifications ], :on => 'validation'
 
 end

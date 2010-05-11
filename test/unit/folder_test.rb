@@ -125,17 +125,27 @@ class FolderTest < ActiveSupport::TestCase
   end
 
   should 'not let pass javascript in the body' do
-    owner = create_user('testuser').person
-    folder = fast_create(Folder, {:profile_id => owner.id, :body => '<script>alert("Xss Attack!")</script>'})
-    folder.save!
-    assert_no_match(/<script>/, folder.body)
+    folder = Folder.new
+    folder.body = "<script> alert(Xss!); </script>"
+    folder.valid?
+
+    assert_no_match /(<script>)/, folder.body
   end
 
-  should 'let pass html in the body' do
-    owner = create_user('testuser').person
-    folder = fast_create(Folder, {:profile_id => owner.id, :body => '<strong>I am not a Xss Attack!")</strong>'})
-    folder.save!
-    assert_match(/<strong>/, folder.body)
+  should 'filter fields with white_list filter' do
+    folder = Folder.new
+    folder.body = "<h1> Body </h1>"
+    folder.valid?
+
+    assert_equal "<h1> Body </h1>", folder.body
+  end
+
+  should 'escape malformed html tags' do
+    folder = Folder.new
+    folder.body = "<h1<< Description >>/h1>"
+    folder.valid?
+
+    assert_no_match /[<>]/, folder.body
   end
 
 end

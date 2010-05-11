@@ -859,4 +859,20 @@ class ArticleTest < Test::Unit::TestCase
     assert_no_match /</, article.tags.last.name
   end
 
+  should 'sanitize name before validation' do
+    article = Article.new
+    article.name = "<h1 Bla </h1>"
+    article.valid?
+
+    assert article.errors.invalid?(:name)
+  end
+
+  should 'escape malformed html tags' do
+    article = Article.new
+    article.name = "<h1 Malformed >> html >< tag"
+    article.valid?
+
+    assert_no_match /[<>]/, article.name
+  end
+
 end

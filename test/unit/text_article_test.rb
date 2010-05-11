@@ -26,4 +26,17 @@ class TextArticleTest < Test::Unit::TestCase
     assert_equal "the  article ...", article.body
   end
 
+  should 'escape malformed html tags' do
+    person = create_user('testuser').person
+    article = TextArticle.new(:profile => person)
+    article.name = "<h1 Malformed >> html >>></a>< tag"
+    article.abstract = "<h1 Malformed <<h1>>< html >< tag"
+    article.body = "<h1><</h2< Malformed >> html >< tag"
+    article.valid?
+
+    assert_no_match /[<>]/, article.name
+    assert_no_match /[<>]/, article.abstract
+    assert_no_match /[<>]/, article.body
+  end
+
 end

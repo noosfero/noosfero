@@ -4,7 +4,7 @@ class Folder < Article
 
   settings_items :view_as, :type => :string, :default => 'folder'
 
-  xss_terminate :only => [ :body ], :with => 'white_list'
+  xss_terminate :only => [ :body ], :with => 'white_list', :on => 'validation'
 
   def self.select_views
     [[_('Folder'), 'folder'], [_('Image gallery'), 'image_gallery']]
