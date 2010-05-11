@@ -3039,7 +3039,11 @@ h1#agenda-title {
 }
 
 .controller-profile .public-profile-description {
-  font-weight: bold;
+  font-style: italic;
+  border: 1px solid #ccc;
+  background: #eeeeec;
+  color: black;
+  padding: 10px;
 }
 
 .controller-profile .private-profile-message,
