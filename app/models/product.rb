@@ -31,7 +31,7 @@ class Product < ActiveRecord::Base
 
   acts_as_searchable :fields => [ :name, :description, :category_full_name ]
 
-  xss_terminate :only => [ :name, :description ]
+  xss_terminate :only => [ :name, :description ], :on => 'validation'
 
   acts_as_mappable
   

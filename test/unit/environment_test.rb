@@ -878,4 +878,20 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal env.message_for_member_invitation, env.invitation_mail_template(community)
   end
 
+  should 'filter fields with white_list filter' do
+    environment = Environment.new
+    environment.message_for_disabled_enterprise = "<h1> Disabled Enterprise </h1>"
+    environment.valid?
+
+    assert_equal "<h1> Disabled Enterprise </h1>", environment.message_for_disabled_enterprise
+  end
+
+  should 'escape malformed html tags' do
+    environment = Environment.new
+    environment.message_for_disabled_enterprise = "<h1> Disabled Enterprise /h1>"
+    environment.valid?
+
+    assert_no_match /[<>]/, environment.message_for_disabled_enterprise
+  end
+
 end

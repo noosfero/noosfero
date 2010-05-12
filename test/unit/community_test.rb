@@ -114,7 +114,7 @@ class CommunityTest < Test::Unit::TestCase
   should 'require fields if community needs' do
     e = Environment.default
     e.expects(:required_community_fields).returns(['contact_phone']).at_least_once
-    community = Community.new(:environment => e)
+    community = Community.new(:name => 'My community', :environment => e)
     assert ! community.valid?
     assert community.errors.invalid?(:contact_phone)
 
@@ -200,4 +200,19 @@ class CommunityTest < Test::Unit::TestCase
       community.add_member(person)
     end
   end
+
+  should 'escape malformed html tags' do
+    community = Community.new
+    community.name = "<h1 Malformed >> html >< tag"
+    community.address = "<h1 Malformed >,<<<asfdf> html >< tag"
+    community.contact_phone = "<h1 Malformed<<> >> html >><>< tag"
+    community.description = "<h1 Malformed /h1>>><<> html ><>h1< tag"
+    community.valid?
+
+    assert_no_match /[<>]/, community.name
+    assert_no_match /[<>]/, community.address
+    assert_no_match /[<>]/, community.contact_phone
+    assert_no_match /[<>]/, community.description
+  end
+
 end

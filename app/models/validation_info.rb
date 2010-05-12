@@ -3,5 +3,5 @@ class ValidationInfo < ActiveRecord::Base
 
   belongs_to :organization
 
-  xss_terminate :only => [ :validation_methodology, :restrictions ]
+  xss_terminate :only => [ :validation_methodology, :restrictions ], :on => 'validation'
 end

@@ -1515,6 +1515,44 @@ class ProfileTest < Test::Unit::TestCase
     assert profile.errors.invalid?(:description)
   end
 
+  should 'sanitize name before validation' do
+    profile = Profile.new
+    profile.name = "<h1 Bla </h1>"
+    profile.valid?
+
+    assert profile.errors.invalid?(:name)
+  end
+
+  should 'filter fields with white_list filter' do
+    profile = Profile.new
+    profile.custom_header = "<h1> Custom Header </h1>"
+    profile.custom_footer = "<strong> Custom Footer <strong>"
+    profile.valid?
+
+    assert_equal "<h1> Custom Header </h1>", profile.custom_header
+    assert_equal "<strong> Custom Footer <strong>", profile.custom_footer
+  end
+
+  should 'escape malformed html tags' do
+    profile = Profile.new
+    profile.name = "<h1 Malformed >> html >>></a>< tag"
+    profile.nickname = "<h1 Malformed <<h1>>< html >< tag"
+    profile.address = "<h1><</h2< Malformed >> html >< tag"
+    profile.contact_phone = "<h1<< Malformed ><>>> html >< tag"
+    profile.description = "<h1<a> Malformed >> html ></a>< tag"
+    profile.custom_header = "<h1<a>><<> Malformed >> html ></a>< tag"
+    profile.custom_footer = "<h1> Malformed <><< html ></a>< tag"
+    profile.valid?
+
+    assert_no_match /[<>]/, profile.name
+    assert_no_match /[<>]/, profile.nickname
+    assert_no_match /[<>]/, profile.address
+    assert_no_match /[<>]/, profile.contact_phone
+    assert_no_match /[<>]/, profile.description
+    assert_no_match /[<>]/, profile.custom_header
+    assert_no_match /[<>]/, profile.custom_footer
+  end
+
   private
 
   def assert_invalid_identifier(id)

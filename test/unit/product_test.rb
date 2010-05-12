@@ -193,4 +193,22 @@ class ProductTest < Test::Unit::TestCase
     end
   end
 
+  should 'sanitize name before validation' do
+    product = Product.new
+    product.name = "<h1 Bla </h1>"
+    product.valid?
+
+    assert product.errors.invalid?(:name)
+  end
+
+  should 'escape malformed html tags' do
+    product = Product.new
+    product.name = "<h1 Malformed >> html >< tag"
+    product.description = "<h1 Malformed</h1>><<<a>> >> html >< tag"
+    product.valid?
+
+    assert_no_match /[<>]/, product.name
+    assert_no_match /[<>]/, product.description
+  end
+
 end

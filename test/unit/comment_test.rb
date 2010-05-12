@@ -187,4 +187,26 @@ class CommentTest < Test::Unit::TestCase
     assert_no_match(/<script>/, comment.name)
   end
 
+  should 'sanitize required fields before validation' do
+    owner = create_user('testuser').person
+    article = owner.articles.create(:name => 'test', :body => '...')
+    comment = article.comments.new(:title => '<h1 title </h1>', :body => '<h1 body </h1>', :name => '<h1 name </h1>', :email => 'cracker@test.org')
+    comment.valid?
+
+    assert comment.errors.invalid?(:name)
+    assert comment.errors.invalid?(:title)
+    assert comment.errors.invalid?(:body)
+  end
+
+  should 'escape malformed html tags' do
+    owner = create_user('testuser').person
+    article = owner.articles.create(:name => 'test', :body => '...')
+    comment = article.comments.new(:title => '<h1 title </h1>>> sd f <<', :body => '<h1>> sdf><asd>< body </h1>', :name => '<h1 name </h1>>><<dfsf<sd', :email => 'cracker@test.org')
+    comment.valid?
+
+    assert_no_match /[<>]/, comment.title
+    assert_no_match /[<>]/, comment.body
+    assert_no_match /[<>]/, comment.name
+  end
+
 end

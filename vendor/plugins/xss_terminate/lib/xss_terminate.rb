@@ -38,7 +38,7 @@ module XssTerminate
 
   module InstanceMethods
 
-    def sanitize_field(sanitizer, field, serialized = false)
+    def sanitize_field(sanitizer, field, serialized = false, with= :full)
       field = field.to_sym
       if serialized
         puts field
@@ -49,8 +49,22 @@ module XssTerminate
       else
         if self[field]
           self[field] = sanitizer.sanitize(self[field])
+
+          if with == :full
+            self[field] = CGI.escapeHTML(self[field])
+          elsif with == :white_list
+            self[field] = CGI.escapeHTML(self[field]) if !wellformed_html_tag?(self[field])
+          end
+
         else
           self.send("#{field}=", sanitizer.sanitize(self.send("#{field}")))
+
+          if with == :full
+            self.send("#{field}=", CGI.escapeHTML(self.send("#{field}")))
+          elsif with == :white_list
+            self.send("#{field}=", CGI.escapeHTML(self.send("#{field}"))) if !wellformed_html_tag?(self.send("#{field}"))
+          end
+
         end
       end
     end
@@ -69,7 +83,7 @@ module XssTerminate
       sanitizer = RailsSanitize.full_sanitizer
       columns, columns_serialized = sanitize_columns(:full)
       columns.each do |column|
-        sanitize_field(sanitizer, column.to_sym, columns_serialized.include?(column))
+        sanitize_field(sanitizer, column.to_sym, columns_serialized.include?(column), :full)
       end
     end
 
@@ -77,16 +91,31 @@ module XssTerminate
       sanitizer = RailsSanitize.white_list_sanitizer
       columns, columns_serialized = sanitize_columns(:white_list)
       columns.each do |column|
-        sanitize_field(sanitizer, column.to_sym, columns_serialized.include?(column))
+        sanitize_field(sanitizer, column.to_sym, columns_serialized.include?(column), :white_list)
       end
-    end
+   end
 
     def sanitize_fields_with_html5lib
       sanitizer = HTML5libSanitize.new
       columns = sanitize_columns(:html5lib)
       columns.each do |column|
-        sanitize_field(sanitizer, column.to_sym, columns_serialized.include?(column))
+        sanitize_field(sanitizer, column.to_sym, columns_serialized.include?(column), :html5lib)
       end
+    end
+
+    def wellformed_html_tag?(field)
+      return true if !field
+
+      counter = 0
+      field.split(//).each do |letter|
+        counter += 1 if letter == '<'
+        counter -= 1 if letter == '>'
+        if counter < 0 ||  1 < counter
+          return false
+        end
+      end
+
+      return counter == 0
     end
 
   end
