@@ -121,6 +121,25 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_equal a, profile.home_page
   end
 
+  should 'be able to set home page even when profile description is invalid' do
+    a = profile.articles.build(:name => 'my new home page')
+    a.save!
+
+    profile.description = 'a' * 600
+    profile.save(false)
+
+    assert !profile.valid?
+    assert_not_equal a, profile.home_page
+
+    post :set_home_page, :profile => profile.identifier, :id => a.id
+
+    assert_redirected_to :action => 'view', :id => a.id
+
+    profile = Profile.find(@profile.id)
+    assert_equal a, profile.home_page
+  end
+
+
   should 'set last_changed_by when creating article' do
     login_as(profile.identifier)
 

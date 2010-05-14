@@ -149,7 +149,7 @@ class CmsController < MyProfileController
   def set_home_page
     @article = profile.articles.find(params[:id])
     profile.home_page = @article
-    profile.save!
+    profile.save(false)
     flash[:notice] = _('"%s" configured as home page.') % @article.name
     redirect_to :action => 'view', :id => @article.id
   end
