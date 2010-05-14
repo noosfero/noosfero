@@ -296,4 +296,11 @@ module Noosfero::Factory
     defaults_for_category
   end
 
+  ###############################################
+  # Box
+  ###############################################
+  def defaults_for_box
+    { }
+  end
+
 end
