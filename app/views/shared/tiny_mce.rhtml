@@ -22,7 +22,7 @@ tinyMCE.init({
         paste_insert_word_content_callback : "convertWord",
         paste_use_dialog: false,
         apply_source_formatting : true,
-        extended_valid_elements : "applet[style|archive|codebase|code|height|width],comment,iframe[src|style|allowtransparency|frameborder]",
+        extended_valid_elements : "applet[style|archive|codebase|code|height|width],comment,iframe[src|style|allowtransparency|frameborder|width|height]",
         content_css: '/stylesheets/tinymce.css',
         language: <%= tinymce_language.inspect %>,
         entity_encoding: 'raw'

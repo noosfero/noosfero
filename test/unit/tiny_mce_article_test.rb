@@ -59,9 +59,14 @@ class TinyMceArticleTest < Test::Unit::TestCase
     assert_equal "<iframe src=\"http://itheora.org\"></iframe>", article.body
   end
 
-  should 'remove iframe if it is not from itheora' do
+  should 'remove iframe if it is not from itheora or softwarelivre' do
     article = TinyMceArticle.create!(:profile => profile, :name => 'article', :abstract => 'abstract', :body => "<iframe src='anything'></iframe>")
     assert_equal "", article.body
+  end
+
+  should 'allow iframe if it is from stream.softwarelivre.org' do
+    article = TinyMceArticle.create!(:profile => profile, :name => 'article', :abstract => 'abstract', :body => "<iframe src='http://stream.softwarelivre.org'></iframe>")
+    assert_equal "<iframe src=\"http://stream.softwarelivre.org\"></iframe>", article.body
   end
 
   #TinymMCE convert config={"key":(.*)} in config={&quotkey&quot:(.*)}

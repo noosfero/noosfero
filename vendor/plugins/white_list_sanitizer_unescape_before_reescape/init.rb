@@ -12,7 +12,9 @@ HTML::WhiteListSanitizer.module_eval do
       final_text = final_text.gsub(/<!--.*\[if IE\]-->(.*)<!--\[endif\]-->/, '<!–-[if IE]>\1<![endif]-–>') #FIX for itheora comments
 
       if final_text =~ /iframe/
-        unless final_text =~ /<iframe(.*)src=(.*)itheora.org(.*)<\/iframe>/
+        itheora_video = /<iframe(.*)src=(.*)itheora.org(.*)<\/iframe>/
+        sl_video = /<iframe(.*)src=\"http:\/\/stream.softwarelivre.org(.*)<\/iframe>/
+        unless (final_text =~ itheora_video || final_text =~ sl_video)
           final_text = final_text.gsub(/<iframe(.*)<\/iframe>/, '')
         end
       end
