@@ -912,6 +912,15 @@ module ApplicationHelper
     render :file =>  'layouts/_javascript'
   end
 
+  def noosfero_stylesheets
+    [
+      'application',
+      'thickbox',
+      'lightbox',
+      pngfix_stylesheet_path,
+    ]
+  end
+
   # DEPRECATED. Do not use this·
   def import_controller_stylesheets(options = {})
     stylesheet_import( "controller_"+ @controller.controller_name(), options )
