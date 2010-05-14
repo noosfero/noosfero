@@ -30,6 +30,9 @@ module NavigationHelpers
     when /^(.*)'s sitemap/
       '/profile/%s/sitemap' % Profile.find_by_name($1).identifier
 
+    when /^(.*)'s profile/
+      '/profile/%s' % Profile.find_by_name($1).identifier
+
     when /^login page$/
       '/account/login'
 

@@ -65,6 +65,9 @@ ActionController::Routing::Routes.draw do |map|
   # invite
   map.invite 'profile/:profile/invite/:action', :controller => 'invite', :profile => /#{Noosfero.identifier_format}/
 
+  # feeds per tag
+  map.tag_feed 'profile/:profile/tag/:id/feed', :controller => 'profile', :action =>'tag_feed', :id => /.*/, :profile => /#{Noosfero.identifier_format}/
+
   # public profile information
   map.profile 'profile/:profile/:action/:id', :controller => 'profile', :action => 'index', :id => /.*/, :profile => /#{Noosfero.identifier_format}/
 

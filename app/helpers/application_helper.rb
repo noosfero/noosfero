@@ -869,12 +869,9 @@ module ApplicationHelper
     article_helper.cms_label_for_edit
   end
 
-  def meta_tags_for_article(article)
-    if @controller.controller_name == 'content_viewer'
-      if article and (article.blog? or (article.parent and article.parent.blog?))
-        blog = article.blog? ? article : article.parent
-        "<link rel='alternate' type='application/rss+xml' title='#{blog.feed.title}' href='#{url_for blog.feed.url}' />"
-      end
+  def add_rss_feed_to_head(title, url)
+    content_for :feeds do
+      "<link rel='alternate' type='application/rss+xml' title='#{h(title)}' href='#{url_for(url)}' />"
     end
   end
 

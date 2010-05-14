@@ -62,24 +62,6 @@ class RssFeedTest < Test::Unit::TestCase
     feed.data
   end
 
-  should 'be able to choose to put abstract or entire body on feed' do
-    profile = create_user('testuser').person
-    a1 = profile.articles.build(:name => 'article 1', 'abstract' => 'my abstract', 'body' => 'my text'); a1.save!
-
-    feed = RssFeed.new(:name => 'testfeed')
-    feed.profile = profile
-    feed.save!
-
-    rss = feed.data
-    assert_match /<description>my abstract<\/description>/, rss
-    assert_no_match /<description>my text<\/description>/, rss
-
-    feed.feed_item_description = 'body'
-    rss = feed.data
-    assert_match /<description>my text<\/description>/, rss
-    assert_no_match /<description>my abstract<\/description>/, rss
-  end
-
   should "be able to search only children of feed's parent" do
     profile = create_user('testuser').person
     a1 = profile.articles.build(:name => 'article 1'); a1.save!
@@ -201,21 +183,6 @@ class RssFeedTest < Test::Unit::TestCase
     assert !feed.errors.invalid?(:include)
   end
 
-  should 'allow only body and abstract as feed_item_description' do
-    feed = RssFeed.new
-    feed.feed_item_description = :something_else
-    feed.valid?
-    assert feed.errors.invalid?(:feed_item_description)
-
-    feed.feed_item_description = 'body'
-    feed.valid?
-    assert !feed.errors.invalid?(:feed_item_description)
-
-    feed.feed_item_description = 'abstract'
-    feed.valid?
-    assert !feed.errors.invalid?(:feed_item_description)
-  end
-
   should 'provide proper short description' do
     assert_kind_of String, RssFeed.short_description
   end
@@ -246,7 +213,7 @@ class RssFeedTest < Test::Unit::TestCase
     blog = fast_create(Blog, :profile_id => profile.id)
     published_article = PublishedArticle.create!(:reference_article => article, :profile => profile)
     blog.posts << published_article
-    feed = RssFeed.new(:parent => blog, :profile => profile, :feed_item_description => 'body')
+    feed = RssFeed.new(:parent => blog, :profile => profile)
 
     assert_match published_article.to_html, feed.data
   end

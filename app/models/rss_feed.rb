@@ -41,16 +41,6 @@ class RssFeed < Article
   end
   validates_inclusion_of :include, :in => [ 'all', 'parent_and_children' ], :if => :include
 
-  # determinates what to include in the feed as items' description. Possible
-  # values are +:body+ (default) and +:abstract+.
-  def feed_item_description
-    settings[:feed_item_description]
-  end
-  def feed_item_description=(value)
-    settings[:feed_item_description] = value
-  end
-  validates_inclusion_of :feed_item_description, :in => [ 'body', 'abstract' ], :if => :feed_item_description
-
   # TODO
   def to_html(options = {})
   end
@@ -74,38 +64,13 @@ class RssFeed < Article
       end
   end
   def data
-    articles = fetch_articles
-    result = ""
-    xml = Builder::XmlMarkup.new(:target => result)
-
-    xml.instruct! :xml, :version=>"1.0" 
-    xml.rss(:version=>"2.0") do
-      xml.channel do
-        xml.title(_("%s's RSS feed") % (self.profile.name))
-        xml.link(url_for(self.profile.url))
-        xml.description(_("%s's content published at %s") % [self.profile.name, self.profile.environment.name])
-        xml.language("pt_BR")
-        for article in articles
-          unless self == article
-            xml.item do
-              xml.title(article.name)
-              if self.feed_item_description == 'body'
-                xml.description(article.to_html)
-              else
-                xml.description(article.abstract)
-              end
-              # rfc822
-              xml.pubDate(article.created_at.rfc2822)
-              # link to article
-              xml.link(url_for(article.url))
-              xml.guid(url_for(article.url))
-            end
-          end
-        end
-      end
-    end
-
-    result
+    articles = fetch_articles.select { |a| a != self }
+    FeedWriter.new.write(
+      articles,
+      :title => _("%s's RSS feed") % (self.profile.name),
+      :description => _("%s's content published at %s") % [self.profile.name, self.profile.environment.name],
+      :link => url_for(self.profile.url)
+    )
   end
 
   def self.short_description

@@ -1,3 +1,9 @@
+<%
+  if @page.parent && @page.parent.blog? && @page.parent.feed
+    add_rss_feed_to_head(@page.parent.name, @page.parent.feed.url)
+  end
+%>
+
 <div id="article">
 
 <%

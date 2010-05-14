@@ -29,6 +29,19 @@ class ProfileController < PublicController
     end
   end
 
+  def tag_feed
+    @tag = params[:id]
+    tagged = profile.find_tagged_with(@tag).paginate(:per_page => 20, :page => 1)
+    feed_writer = FeedWriter.new
+    data = feed_writer.write(
+      tagged,
+      :title => _("%s's contents tagged with \"%s\"") % [profile.name, @tag],
+      :description => _("%s's contents tagged with \"%s\"") % [profile.name, @tag],
+      :link => url_for(:action => 'tag')
+    )
+    render :text => data, :content_type => "text/xml"
+  end
+
   def communities
     if is_cache_expired?(profile.communities_cache_key(params))
       @communities = profile.communities.paginate(:per_page => per_page, :page => params[:npage])

@@ -1,3 +1,5 @@
+<% add_rss_feed_to_head(article.name, article.feed.url)  if article.blog? && article.feed %>
+
 <%= content_tag('em', _('(external feed was not loaded yet)'), :id => 'external-feed-info', :class => 'metadata') if article.blog? && article.external_feed && article.external_feed.enabled && article.external_feed.fetched_at.nil? %>
 
 <div>

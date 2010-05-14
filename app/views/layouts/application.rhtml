@@ -6,7 +6,7 @@
     <meta name="description" content="<%= @environment.name %>" />
     <meta name="keywords" content="Noosfero, Community, Open Source" />
     <link rel="shortcut icon" href="<%= image_path('/designs/themes/' + current_theme + '/favicon.ico') %>" type="image/x-icon" />
-    <!-- ok --><%= meta_tags_for_article(@page) %>
+    <%= yield(:feeds) %>
 
     <%= noosfero_javascript %>
     <%= javascript_include_tag 'menu', 'auto-open-menu', 'menu-config', :cache => 'cache-menu' %>
