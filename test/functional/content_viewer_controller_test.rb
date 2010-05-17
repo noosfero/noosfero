@@ -672,7 +672,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     login_as(profile.identifier)
     profile.articles << Blog.new(:name => 'Blog', :profile => profile)
     get :view_page, :profile => profile.identifier, :page => ['blog']
-    assert_tag :tag => 'link', :attributes => { :rel => 'alternate', :type => 'application/rss+xml', :title => 'feed', :href => "http://#{environment.default_hostname}/testinguser/blog/feed" }
+    assert_tag :tag => 'link', :attributes => { :rel => 'alternate', :type => 'application/rss+xml', :title => 'Blog', :href => "http://#{environment.default_hostname}/testinguser/blog/feed" }
   end
 
   should 'add meta tag to rss feed on view post blog' do
@@ -680,7 +680,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     profile.articles << Blog.new(:name => 'Blog', :profile => profile)
     profile.blog.posts << TextileArticle.new(:name => 'first post', :parent => profile.blog, :profile => profile)
     get :view_page, :profile => profile.identifier, :page => ['blog', 'first-post']
-    assert_tag :tag => 'link', :attributes => { :rel => 'alternate', :type => 'application/rss+xml', :title => 'feed', :href => "http://#{environment.default_hostname}/testinguser/blog/feed" }
+    assert_tag :tag => 'link', :attributes => { :rel => 'alternate', :type => 'application/rss+xml', :title => 'Blog', :href => "http://#{environment.default_hostname}/testinguser/blog/feed" }
   end
 
   should 'hit the article when viewed' do

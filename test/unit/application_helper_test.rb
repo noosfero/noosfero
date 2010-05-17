@@ -237,14 +237,6 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_nil select_categories(mock)
   end
 
-  should 'create rss feed link to blog' do
-    @controller = mock
-    @controller.stubs(:controller_name).returns('content_viewer')
-    p = create_user('testuser').person
-    b = Blog.create!(:profile => p, :name => 'blog_feed_test')
-    assert_tag_in_string meta_tags_for_article(b), :tag => 'link', :attributes => {:type => 'application/rss+xml', :title => 'feed'}
-  end
-
   should 'provide sex icon for males' do
     stubs(:environment).returns(Environment.default)
     expects(:content_tag).with(anything, 'male').returns('MALE!!')

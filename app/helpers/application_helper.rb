@@ -871,7 +871,7 @@ module ApplicationHelper
 
   def add_rss_feed_to_head(title, url)
     content_for :feeds do
-      "<link rel='alternate' type='application/rss+xml' title='#{h(title)}' href='#{url_for(url)}' />"
+      tag(:link, :rel => 'alternate', :type => 'application/rss+xml', :title => title, :href => url_for(url))
     end
   end
 
