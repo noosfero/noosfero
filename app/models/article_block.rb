@@ -9,8 +9,11 @@ class ArticleBlock < Block
   end
 
   def content
-    block_title(title) +
-    (article ? article.to_html : _('Article not selected yet.'))
+    block = self
+    lambda do
+      block_title(block.title) +
+      (block.article ? article_to_html(block.article) : _('Article not selected yet.'))
+    end
   end
 
   def article_id

@@ -24,12 +24,6 @@ module ContentViewerHelper
     title
   end
 
-  def article_to_html(article)
-    content = article.to_html(:page => params[:npage])
-    return self.instance_eval(&content) if content.kind_of?(Proc)
-    content
-  end
-
   def link_to_comments(article)
     link_to( number_of_comments(article), article.url.merge(:anchor => 'comments_list') )
   end

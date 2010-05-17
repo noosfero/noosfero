@@ -5,6 +5,7 @@ class ContentViewerHelperTest < Test::Unit::TestCase
   include ActionView::Helpers::TagHelper
   include ContentViewerHelper
   include DatesHelper
+  include ApplicationHelper
 
   def setup
     @profile = create_user('blog_helper_test').person
