@@ -3,7 +3,7 @@ class ProfileController < PublicController
   needs_profile
   before_filter :check_access_to_profile, :except => [:join, :refuse_join, :refuse_for_now, :index]
   before_filter :store_before_join, :only => [:join]
-  before_filter :login_required, :only => [:join, :refuse_join, :leave]
+  before_filter :login_required, :only => [:join, :refuse_join, :leave, :unblock]
 
   helper TagsHelper
 
@@ -114,8 +114,14 @@ class ProfileController < PublicController
   end
 
   def unblock
-    profile.unblock
-    redirect_to :controller => 'profile', :action => 'index'
+    if current_user.person.is_admin?(profile.environment)
+      profile.unblock
+      flash[:notice] = _("You have unblocked %s successfully. ") % profile.name
+      redirect_to :controller => 'profile', :action => 'index'
+    else
+      message = _('You are not allowed to unblock enterprises in this environment.')
+      render_access_denied(message)
+    end
   end
 
   protected

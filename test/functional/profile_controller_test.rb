@@ -665,4 +665,26 @@ class ProfileControllerTest < Test::Unit::TestCase
     get :index, :profile => profile.identifier
     assert_tag :tag => 'a', :content => 'One picture', :attributes => { :href => /\/testuser\/gallery/ }
   end
+
+  should 'ask for login if user not logged' do
+    enterprise = fast_create(Enterprise)
+    get :unblock, :profile => enterprise.identifier
+    assert_redirected_to "asdf"
+  end
+
+  should ' not allow ordinary users to unblock enterprises' do
+    login_as(profile.identifier)
+    enterprise = fast_create(Enterprise)
+    get :unblock, :profile => enterprise.identifier
+    assert_response 403
+  end
+
+  should 'allow environment admin to unblock enteprises' do
+    login_as(profile.identifier)
+    enterprise = fast_create(Enterprise)
+    enterprise.environment.add_admin(profile)
+    get :unblock, :profile => enterprise.identifier
+    assert_response 302
+  end
+
 end
