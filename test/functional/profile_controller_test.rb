@@ -669,7 +669,7 @@ class ProfileControllerTest < Test::Unit::TestCase
   should 'ask for login if user not logged' do
     enterprise = fast_create(Enterprise)
     get :unblock, :profile => enterprise.identifier
-    assert_redirected_to "asdf"
+    assert_redirected_to :controller => 'account', :action => 'login'
   end
 
   should ' not allow ordinary users to unblock enterprises' do
