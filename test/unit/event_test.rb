@@ -250,4 +250,14 @@ class EventTest < ActiveSupport::TestCase
     assert_no_match /[<>]/, event.address
   end
 
+  should 'not sanitize html comments' do
+    event = Event.new
+    event.description = '<p><!-- <asdf> << aasdfa >>> --> <h1> Wellformed html code </h1>'
+    event.address = '<p><!-- <asdf> << aasdfa >>> --> <h1> Wellformed html code </h1>'
+    event.valid?
+
+    assert_match  /<!-- .* --> <h1> Wellformed html code <\/h1>/, event.description
+    assert_match  /<!-- .* --> <h1> Wellformed html code <\/h1>/, event.address
+  end
+
 end

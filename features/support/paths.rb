@@ -48,6 +48,9 @@ module NavigationHelpers
     when /^(.+)'s cms/
       '/myprofile/%s/cms' % Profile.find_by_name($1).identifier
 
+    when /^(.+)'s members management/
+      '/myprofile/%s/profile_members' % Profile.find_by_name($1).identifier
+
     # Add more mappings here.
     # Here is a more fancy example:
     #

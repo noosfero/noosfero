@@ -69,4 +69,13 @@ class RecentDocumentsBlockTest < Test::Unit::TestCase
     assert_equal nil, block.footer
   end
 
+  should 'be able to update display setting' do
+    user = create_user('testinguser').person
+    box = fast_create(Box, :owner_id => user.id)
+    block = RecentDocumentsBlock.create!(:display => 'never', :box => box)
+    assert block.update_attributes!(:display => 'always')
+    block.reload
+    assert_equal 'always', block.display
+  end
+
 end

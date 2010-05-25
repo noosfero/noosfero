@@ -683,5 +683,25 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'div', :attributes => { :class => 'public-profile-description' }, :content => /Person\'s description/
   end
 
+  should 'ask for login if user not logged' do
+    enterprise = fast_create(Enterprise)
+    get :unblock, :profile => enterprise.identifier
+    assert_redirected_to :controller => 'account', :action => 'login'
+  end
+
+  should ' not allow ordinary users to unblock enterprises' do
+    login_as(profile.identifier)
+    enterprise = fast_create(Enterprise)
+    get :unblock, :profile => enterprise.identifier
+    assert_response 403
+  end
+
+  should 'allow environment admin to unblock enteprises' do
+    login_as(profile.identifier)
+    enterprise = fast_create(Enterprise)
+    enterprise.environment.add_admin(profile)
+    get :unblock, :profile => enterprise.identifier
+    assert_response 302
+  end
 
 end

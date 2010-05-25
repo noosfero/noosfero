@@ -20,7 +20,7 @@ class Block < ActiveRecord::Base
   #
   # * <tt>:article</tt>: the article being viewed currently
   def visible?(context = nil)
-    if settings[:visible] == false || display == 'never'
+    if display == 'never'
       return false
     end
     if context && context[:article] && display == 'home_page_only'
@@ -35,21 +35,7 @@ class Block < ActiveRecord::Base
   # * <tt>'never'</tt>: the block is hidden (it does not appear for visitors)
   # * <tt>'home_page_only'</tt> the block is displayed only when viewing the
   #   homepage of its owner.
-  def display
-    if settings[:visible] == false
-      'never'
-    else
-      settings[:display] || 'always'
-    end
-  end
-
-  # Sets the <tt>value</tt> attribute.
-  def display=(value)
-    settings[:display] = value
-    # clear the old setting
-    settings[:visible] = nil
-  end
-
+  settings_items :display, :type => :string, :default => 'always'
 
   # returns the description of the block, used when the user sees a list of
   # blocks to choose one to include in the design.

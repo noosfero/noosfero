@@ -140,6 +140,14 @@ class FolderTest < ActiveSupport::TestCase
     assert_equal "<h1> Body </h1>", folder.body
   end
 
+  should 'not sanitize html comments' do
+    folder = Folder.new
+    folder.body = '<p><!-- <asdf> << aasdfa >>> --> <h1> Wellformed html code </h1>'
+    folder.valid?
+
+    assert_match  /<!-- .* --> <h1> Wellformed html code <\/h1>/, folder.body
+  end
+
   should 'escape malformed html tags' do
     folder = Folder.new
     folder.body = "<h1<< Description >>/h1>"

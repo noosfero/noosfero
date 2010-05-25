@@ -1,14 +1,14 @@
-<h2><%= _('New friend')  %></h2>
+<h2><%= _('Join community')  %></h2>
 
 <%= link_to( profile_image(task.requestor, :minor, :border => 0), task.requestor.public_profile_url ) %>
 
-<%= _('%s wants to be your friend.') %
-    content_tag('strong', link_to( task.requestor.name, task.requestor.public_profile_url ) ) %>
+<%= _('%s invites you to join the community %s.') %
+    [content_tag('strong', link_to( task.requestor.name, task.requestor.public_profile_url ) ),
+    content_tag('strong', link_to( task.community.name, task.community.public_profile_url ) )] %>
 
 <% form_for('task', task, :url => { :action => 'close', :id => task.id } ) do |f| %>
 
   <div>
-
     <%= radio_button_tag(:decision, 'finish', true,
         :id => "decision-finish-#{task.id}",
         :onclick => "Element.show('group-for-friend-#{task.id}')") %>
@@ -19,18 +19,7 @@
     <%= radio_button_tag(:decision, 'cancel', false,
         :id => "decision-cancel-#{task.id}",
         :onclick => "Element.hide('group-for-friend-#{task.id}')") %>
-    <label for="<%= "decision-cancel-#{task.id}" %>"><b><%= _('Ignore') %></b></label>
-
-    <% content_tag('div', :id => "group-for-friend-#{task.id}") do %>
-      <%= _('Classify your new friend:') %>
-      <%= text_field_with_local_autocomplete("task[group_for_friend]",
-          profile.suggested_friend_groups,
-          {:id => "field-group-for-friend-#{task.id}", :maxlength => 150}) %>
-
-      <p class="friend-classify-suggestions">
-        <%= _('Suggestions: %s') % profile.suggested_friend_groups.join(', ') %>
-      </p>
-    <% end %>
+    <label for="<%= "decision-cancel-#{task.id}" %>"><b><%= _('Reject') %></b></label>
 
   </div>
 

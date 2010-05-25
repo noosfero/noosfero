@@ -46,20 +46,6 @@ class BlockTest < Test::Unit::TestCase
     assert_equal 'my title', b.view_title
   end
 
-  should 'be backwards compatible with old "visible" setting' do
-    b = Block.new
-    b.settings[:visible] = false
-    assert !b.visible?
-    assert_equal 'never', b.display
-  end
-
-  should 'clean old "visible setting" when display is set' do
-    b = Block.new
-    b.settings[:visible] = false
-    b.display = 'never'
-    assert_nil b.settings[:visible]
-  end
-
   should 'be cacheable' do
     b = Block.new
     assert b.cacheable?
@@ -98,6 +84,23 @@ class BlockTest < Test::Unit::TestCase
 
     assert_equal true, block.visible?(:article => home_page)
     assert_equal false, block.visible?(:article => Article.new)
+  end
+
+  should 'be able to save display setting' do
+    user = create_user('testinguser').person
+    box = fast_create(Box, :owner_id => user.id)
+    block = Block.create!(:display => 'never', :box => box)
+    block.reload
+    assert_equal 'never', block.display
+  end
+
+  should 'be able to update display setting' do
+    user = create_user('testinguser').person
+    box = fast_create(Box, :owner_id => user.id)
+    block = Block.create!(:display => 'never', :box => box)
+    assert block.update_attributes!(:display => 'always')
+    block.reload
+    assert_equal 'always', block.display
   end
 
 end
