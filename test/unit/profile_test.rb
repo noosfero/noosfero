@@ -1553,6 +1553,16 @@ class ProfileTest < Test::Unit::TestCase
     assert_no_match /[<>]/, profile.custom_footer
   end
 
+  should 'not sanitize html comments' do
+    profile = Profile.new
+    profile.custom_header = '<p><!-- <asdf> << aasdfa >>> --> <h1> Wellformed html code </h1>'
+    profile.custom_footer = '<p><!-- <asdf> << aasdfa >>> --> <h1> Wellformed html code </h1>'
+    profile.valid?
+
+    assert_match  /<!-- .* --> <h1> Wellformed html code <\/h1>/, profile.custom_header
+    assert_match  /<!-- .* --> <h1> Wellformed html code <\/h1>/, profile.custom_footer
+  end
+
   private
 
   def assert_invalid_identifier(id)

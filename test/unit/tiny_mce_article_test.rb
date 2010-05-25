@@ -74,4 +74,13 @@ class TinyMceArticleTest < Test::Unit::TestCase
     article = TinyMceArticle.create!(:profile => profile, :name => 'article', :abstract => 'abstract', :body => "<embed flashvars='config={&quot;key&quot;:&quot;\#$b6eb72a0f2f1e29f3d4&quot;}'> </embed>")
     assert_equal "<embed flashvars=\"config={&quot;key&quot;:&quot;\#$b6eb72a0f2f1e29f3d4&quot;}\"> </embed>", article.body
   end
+
+  should 'not sanitize html comments' do
+    article = TinyMceArticle.new
+    article.body = '<p><!-- <asdf> << aasdfa >>> --> <h1> Wellformed html code </h1>'
+    article.valid?
+
+    assert_match  /<!-- .* --> <h1> Wellformed html code <\/h1>/, article.body
+  end
+
 end

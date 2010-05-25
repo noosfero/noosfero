@@ -53,7 +53,7 @@ module XssTerminate
           if with == :full
             self[field] = CGI.escapeHTML(self[field])
           elsif with == :white_list
-            self[field] = CGI.escapeHTML(self[field]) if !wellformed_html_tag?(self[field])
+            self[field] = CGI.escapeHTML(self[field]) if !wellformed_html_code?(self[field])
           end
 
         else
@@ -62,7 +62,7 @@ module XssTerminate
           if with == :full
             self.send("#{field}=", CGI.escapeHTML(self.send("#{field}")))
           elsif with == :white_list
-            self.send("#{field}=", CGI.escapeHTML(self.send("#{field}"))) if !wellformed_html_tag?(self.send("#{field}"))
+            self.send("#{field}=", CGI.escapeHTML(self.send("#{field}"))) if !wellformed_html_code?(self.send("#{field}"))
           end
 
         end
@@ -103,14 +103,29 @@ module XssTerminate
       end
     end
 
-    def wellformed_html_tag?(field)
+    def wellformed_html_code?(field)
       return true if !field
-
       counter = 0
-      field.split(//).each do |letter|
-        counter += 1 if letter == '<'
-        counter -= 1 if letter == '>'
-        if counter < 0 ||  1 < counter
+      in_comment = false
+      field=field.split(//)
+      for i in 0..field.length-1
+        if !in_comment
+          if field[i] == '<'
+            if field[i+1..i+3] == ["!","-","-"]
+              in_comment = true
+            else
+              counter += 1
+            end
+          elsif field[i] == '>'
+            counter -= 1
+          end
+        else
+          if field[i-2..i] == ["-","-",">"]
+            in_comment = false
+          end
+        end
+
+        if counter < 0 || 1 < counter
           return false
         end
       end

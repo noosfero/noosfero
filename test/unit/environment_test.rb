@@ -879,4 +879,12 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_no_match /[<>]/, environment.message_for_disabled_enterprise
   end
 
+  should 'not sanitize html comments' do
+    environment = Environment.new
+    environment.message_for_disabled_enterprise = '<p><!-- <asdf> << aasdfa >>> --> <h1> Wellformed html code </h1>'
+    environment.valid?
+
+    assert_match  /<!-- .* --> <h1> Wellformed html code <\/h1>/, environment.message_for_disabled_enterprise
+  end
+
 end
