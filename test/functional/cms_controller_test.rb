@@ -736,6 +736,12 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'select', :attributes => { :name => 'article[posts_per_page]' }, :child => { :tag => 'option', :attributes => {:value => n, :selected => 'selected'} }
   end
 
+  should 'display options for blog visualization with default value on edit blog' do
+    format = Blog.new.visualization_format
+    get :new, :profile => profile.identifier, :type => 'Blog'
+    assert_tag :tag => 'select', :attributes => { :name => 'article[visualization_format]' }, :child => { :tag => 'option', :attributes => {:value => 'full', :selected => 'selected'} }
+  end
+
   should 'not offer to create special article types' do
     get :new, :profile => profile.identifier
     assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?type=Blog"}

@@ -23,7 +23,7 @@ class BlogHelperTest < Test::Unit::TestCase
   should 'list published posts with class blog-post' do
     blog.children << published_post = TextileArticle.create!(:name => 'Post', :profile => profile, :parent => blog, :published => true)
 
-    expects(:display_post).with(anything).returns('POST')
+    expects(:display_post).with(anything, anything).returns('POST')
     expects(:content_tag).with('div', "POST<br style=\"clear:both\"/>", :class => 'blog-post position-1 first last odd-post-inner', :id => "post-#{published_post.id}").returns('POST')
     expects(:content_tag).with('div', 'POST', {:class => 'odd-post'}).returns('RESULT')
 
@@ -33,7 +33,7 @@ class BlogHelperTest < Test::Unit::TestCase
   should 'list unpublished posts to owner with a different class' do
     blog.children << unpublished_post = TextileArticle.create!(:name => 'Post', :profile => profile, :parent => blog, :published => false)
 
-    expects(:display_post).with(anything).returns('POST')
+    expects(:display_post).with(anything, anything).returns('POST')
     expects(:content_tag).with('div', "POST<br style=\"clear:both\"/>", :class => 'blog-post position-1 first last not-published odd-post-inner', :id => "post-#{unpublished_post.id}").returns('POST')
     expects(:content_tag).with('div', 'POST', {:class => 'odd-post'}).returns('RESULT')
     assert_equal 'RESULT', list_posts(profile, blog.posts)
@@ -44,7 +44,7 @@ class BlogHelperTest < Test::Unit::TestCase
 
     blog.children << published_post = TextileArticle.create!(:name => 'Second post', :profile => profile, :parent => blog, :published => true)
 
-    expects(:display_post).with(anything).returns('POST')
+    expects(:display_post).with(anything, anything).returns('POST')
     expects(:content_tag).with('div', "POST<br style=\"clear:both\"/>", has_entries(:id => "post-#{unpublished_post.id}")).never
     expects(:content_tag).with('div', "POST<br style=\"clear:both\"/>", has_entries(:id => "post-#{published_post.id}")).returns('POST')
     expects(:content_tag).with('div', 'POST', {:class => 'odd-post'}).returns('RESULT')
@@ -56,7 +56,7 @@ class BlogHelperTest < Test::Unit::TestCase
 
     blog.children << newer_post = TextileArticle.create!(:name => 'Second post', :profile => profile, :parent => blog, :published => true)
 
-    expects(:display_post).with(anything).returns('POST').times(2)
+    expects(:display_post).with(anything, anything).returns('POST').times(2)
 
     expects(:content_tag).with('div', "POST<br style=\"clear:both\"/>", :class => 'blog-post position-1 first odd-post-inner', :id => "post-#{newer_post.id}").returns('POST 1')
     expects(:content_tag).with('div', "POST 1", :class => 'odd-post').returns('ODD-POST')
@@ -70,7 +70,7 @@ class BlogHelperTest < Test::Unit::TestCase
 
   should 'display post' do
     blog.children << article = TextileArticle.create!(:name => 'Second post', :profile => profile, :parent => blog, :published => true)
-    expects(:article_title).with(article).returns('TITLE')
+    expects(:article_title).with(article, anything).returns('TITLE')
     expects(:content_tag).with('p', article.to_html).returns(' TO_HTML')
     self.stubs(:params).returns({:npage => nil})
 
@@ -79,12 +79,38 @@ class BlogHelperTest < Test::Unit::TestCase
 
   should 'display empty post if body is nil' do
     blog.children << article = fast_create(Article, :profile_id => profile.id, :parent_id => blog.id, :body => nil)
-    expects(:article_title).with(article).returns('TITLE')
+    expects(:article_title).with(article, anything).returns('TITLE')
     expects(:content_tag).with('p', '').returns('')
     self.stubs(:params).returns({:npage => nil})
 
     assert_equal 'TITLE', display_post(article)
   end
+
+  should 'display full post by default' do
+    blog.children << article = fast_create(Article, :profile_id => profile.id, :parent_id => blog.id, :body => nil)
+    expects(:article_title).with(article, anything).returns('')
+    expects(:display_full_format).with(article).returns('FULL POST')
+
+    assert_equal 'FULL POST', display_post(article)
+  end
+
+  should 'no_comments is false if blog displays full post' do
+    blog.children << article = fast_create(Article, :profile_id => profile.id, :parent_id => blog.id, :body => nil)
+    expects(:article_title).with(article, :no_comments => false).returns('')
+    expects(:display_full_format).with(article).returns('FULL POST')
+
+    assert_equal 'FULL POST', display_post(article, 'full')
+  end
+
+  should 'no_comments is true if blog displays short post' do
+    blog.update_attribute(:visualization_format, 'short')
+    blog.children << article = fast_create(Article, :profile_id => profile.id, :parent_id => blog.id, :body => nil)
+    expects(:article_title).with(article, :no_comments => true).returns('')
+    expects(:display_short_format).with(article).returns('SHORT POST')
+
+    assert_equal 'SHORT POST', display_post(article, 'short')
+  end
+
 
   should 'display link to file if post is an uploaded_file' do
     file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'), :profile => profile, :published => true, :parent => blog)

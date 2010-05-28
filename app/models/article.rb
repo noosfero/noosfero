@@ -332,7 +332,7 @@ class Article < ActiveRecord::Base
 
   def first_paragraph
     to_html =~ /(.*<\/p>)/
-    $1
+    $1 || ''
   end
 
   def self.find_tagged_with(tag)

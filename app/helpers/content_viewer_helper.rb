@@ -19,12 +19,13 @@ module ContentViewerHelper
       unless args[:no_link]
         title = content_tag('h1', link_to(article.name, article.url), :class => 'title')
       end
-      title << content_tag('span', _("%s, by %s - %s") % [show_date(article.published_at), link_to(article.author.name, article.author.url), link_to_comments(article)], :class => 'created-at')
+      comments = args[:no_comments] ? '' : (("- %s") % link_to_comments(article))
+      title << content_tag('span', _("%s, by %s %s") % [show_date(article.published_at), link_to(article.author.name, article.author.url), comments], :class => 'created-at')
     end
     title
   end
 
-  def link_to_comments(article)
+  def link_to_comments(article, args = {})
     link_to( number_of_comments(article), article.url.merge(:anchor => 'comments_list') )
   end
 

@@ -10,5 +10,5 @@
 </div>
 <hr class="pre-posts"/>
 <div class="blog-posts">
-  <%= (children.compact.empty? ? content_tag('em', _('(no posts)')) : list_posts(user, children)) %>
+  <%= (children.compact.empty? ? content_tag('em', _('(no posts)')) : list_posts(user, children, article.visualization_format)) %>
 </div>

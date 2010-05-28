@@ -149,4 +149,33 @@ class BlogTest < ActiveSupport::TestCase
     assert_not_equal 'changed-name', blog.slug
   end
 
+  should 'display full posts by default' do
+    blog = Blog.new
+    assert_equal 'full', blog.visualization_format
+  end
+
+  should 'update visualization_format setting' do
+    p = create_user('testuser').person
+    p.articles << Blog.new(:profile => p, :name => 'Blog test')
+    blog = p.blog
+    blog.visualization_format = 'short'
+    assert blog.save!
+    assert_equal 'short', p.blog.visualization_format
+  end
+
+  should 'allow only full and short as visualization_format' do
+    blog = Blog.new(:name => 'blog')
+    blog.visualization_format = 'wrong_format'
+    blog.valid?
+    assert blog.errors.invalid?(:visualization_format)
+
+    blog.visualization_format = 'short'
+    blog.valid?
+    assert !blog.errors.invalid?(:visualization_format)
+
+    blog.visualization_format = 'full'
+    blog.valid?
+    assert !blog.errors.invalid?(:visualization_format)
+  end
+
 end

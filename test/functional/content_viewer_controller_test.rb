@@ -857,4 +857,17 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'div', :attributes => { :class => 'post_comment_box opened' }
   end
 
+  should 'show only first paragraph of blog posts if visualization_format is short' do
+    login_as(profile.identifier)
+
+    blog = Blog.create!(:name => 'A blog test', :profile => profile, :visualization_format => 'short')
+
+    blog.posts << TinyMceArticle.create!(:name => 'first post', :parent => blog, :profile => profile, :body => '<p>Content to be displayed.</p> Anything')
+
+    get :view_page, :profile => profile.identifier, :page => blog.explode_path
+
+    assert_tag :tag => 'div', :attributes => { :class => 'short-post'}, :content => /Content to be displayed./
+    assert_no_tag :tag => 'div', :attributes => { :class => 'short-post'}, :content => /Anything/
+  end
+
 end

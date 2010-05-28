@@ -1171,6 +1171,14 @@ a.comment-picture {
   max-width: 100%;
 }
 
+#content .blog-post .read-more {
+  text-align: right;
+  clear: both;
+}
+#content .blog-post .read-more a {
+  margin: 0 10px;
+}
+
 /* NOT PUBLISHED BLOG POSTS */
 
 .blog-post.not-published {

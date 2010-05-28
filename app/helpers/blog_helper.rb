@@ -14,7 +14,7 @@ module BlogHelper
     _('Edit blog')
   end
 
-  def list_posts(user, articles)
+  def list_posts(user, articles, format = 'full')
     pagination = will_paginate(articles, {
       :param_name => 'npage',
       :prev_label => _('&laquo; Newer posts'),
@@ -32,7 +32,7 @@ module BlogHelper
         css_add << position + '-inner'
         content << content_tag('div',
                     content_tag('div',
-                       display_post(art) + '<br style="clear:both"/>',
+                       display_post(art, format) + '<br style="clear:both"/>',
                        :class => 'blog-post ' + css_add.join(' '),
                        :id => "post-#{art.id}"), :class => position
                    )
@@ -41,10 +41,29 @@ module BlogHelper
     content.join("\n<hr class='sep-posts'/>\n") + (pagination or '')
   end
 
-  def display_post(article)
+  def display_post(article, format = 'full')
+    no_comments = (format == 'full') ? false : true
+    html = send("display_#{format}_format", article)
+
+    article_title(article, :no_comments => no_comments) + html
+  end
+
+  def display_short_format(article)
+    html = content_tag('div',
+             article.first_paragraph +
+             content_tag('div',
+               link_to_comments(article) +
+               link_to( _('Read more'), article.url),
+               :class => 'read-more'),
+             :class => 'short-post'
+           )
+    html
+  end
+
+  def display_full_format(article)
     html = article_to_html(article)
     html = content_tag('p', html) if ! html.include?('</p>')
-    article_title(article) + html
+    html
   end
 
 end
