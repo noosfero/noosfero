@@ -232,6 +232,7 @@ class CmsController < MyProfileController
         end
       end
       if @failed.blank?
+        flash[:notice] = _("Your publish request was sent successfully")
         redirect_back
       end
     end
