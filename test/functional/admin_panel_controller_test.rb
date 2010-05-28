@@ -66,7 +66,12 @@ class AdminPanelControllerTest < Test::Unit::TestCase
     get :index
     assert_tag :tag => 'a', :attributes => { :href => '/admin/admin_panel/message_for_disabled_enterprise' }
   end
-  
+
+  should 'link to define terms of use' do
+    get :index
+    assert_tag :tag => 'a', :attributes => { :href => '/admin/admin_panel/terms_of_use' }
+  end
+ 
   should 'display form for editing site info' do
     get :site_info
     assert_template 'site_info'
@@ -77,6 +82,12 @@ class AdminPanelControllerTest < Test::Unit::TestCase
     get :message_for_disabled_enterprise
     assert_template 'message_for_disabled_enterprise'
     assert_tag :tag => 'textarea', :attributes => { :name => 'environment[message_for_disabled_enterprise]'}
+  end
+
+  should 'display form for editing terms of use' do
+    get :terms_of_use
+    assert_template 'terms_of_use'
+    assert_tag :tag => 'textarea', :attributes => { :name => 'environment[terms_of_use]'}
   end
 
   should 'save site description' do
@@ -91,6 +102,23 @@ class AdminPanelControllerTest < Test::Unit::TestCase
     assert_redirected_to :action => 'index'
 
     assert_equal "This enterprise is disabled", Environment.default.message_for_disabled_enterprise
+  end
+
+  should 'save content of terms of use' do
+    content = "This is my term of use"
+    post :site_info, :environment => { :terms_of_use => content }
+    assert_redirected_to :action => 'index'
+
+    assert_equal content, Environment.default.terms_of_use
+    assert Environment.default.has_terms_of_use?
+  end
+
+  should 'not save empty string as terms of use' do
+    content = ""
+    post :site_info, :environment => { :terms_of_use => content }
+    assert_redirected_to :action => 'index'
+
+    assert !Environment.default.has_terms_of_use?
   end
 
   should 'sanitize message for disabled enterprise with white_list' do

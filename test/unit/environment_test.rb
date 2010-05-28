@@ -71,6 +71,16 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal 'To be part of this environment, you must accept the following terms: ...', Environment.find(id).terms_of_use
   end
 
+  should "terms of use not be an empty string" do
+    v = Environment.new(:name => 'My test environment')
+    assert_nil v.terms_of_use
+    v.terms_of_use = ""
+    assert v.save
+    assert !v.has_terms_of_use?
+    id = v.id
+    assert_nil Environment.find(v.id).terms_of_use
+  end
+
   def test_has_terms_of_use
     v = Environment.new
     assert !v.has_terms_of_use?
@@ -900,6 +910,19 @@ class EnvironmentTest < Test::Unit::TestCase
     environment.valid?
 
     assert_match  /<!-- .* --> <h1> Wellformed html code <\/h1>/, environment.message_for_disabled_enterprise
+  end
+
+  should "not crash when set nil as terms of use" do
+    v = Environment.new(:name => 'My test environment')
+    v.terms_of_use = nil
+    assert v.save!
+  end
+
+  should "terms of use not be an blank string" do
+    v = Environment.new(:name => 'My test environment')
+    v.terms_of_use = "   "
+    assert v.save!
+    assert !v.has_terms_of_use?
   end
 
 end

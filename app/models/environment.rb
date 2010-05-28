@@ -209,7 +209,7 @@ class Environment < ActiveRecord::Base
 
   # sets the environment's terms of use.
   def terms_of_use=(value)
-    self.settings['terms_of_use'] = value
+    self.settings['terms_of_use'] = value.blank? ? nil : value
   end
 
   # returns <tt>true</tt> if this Environment has terms of use to be
