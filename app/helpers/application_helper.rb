@@ -917,6 +917,7 @@ module ApplicationHelper
       'application',
       'thickbox',
       'lightbox',
+      'colorpicker',
       pngfix_stylesheet_path,
     ]
   end
@@ -948,5 +949,12 @@ module ApplicationHelper
     content
   end
 
+  def colorpicker_field(object_name, method, options = {})
+    text_field(object_name, method, options.merge(:class => 'colorpicker_field'))
+  end
+
+  def colorpicker_field_tag(name, value = nil, options = {})
+    text_field_tag(name, value, options.merge(:class => 'colorpicker_field'))
+  end
 
 end
