@@ -132,6 +132,7 @@ div#notice {
   background-color: #000;
   color: white;
   -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
   font-size: 16px;
   font-weight: bold;
   z-index: 100000;
@@ -454,6 +455,7 @@ div.pending-tasks {
 #content #not-found,
 #content #access-denied {
   -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
 }
 
 #content #not-found p,
@@ -3100,6 +3102,7 @@ h1#agenda-title {
 .controller-profile_editor .control-panel a:hover {
   background-color: #d2e0f0;
   -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
 }
 
 .controller-profile_editor a.control-panel-groups { background-image: url(../images/control-panel/system-users.png) }

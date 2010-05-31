@@ -3,6 +3,7 @@
 
 .button {
   -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
 }
 
 #content input.button, #content a.button {
@@ -112,6 +113,7 @@ body, th, td, input {
   width: 160px;
   border: 1px solid #BBB;
   -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
   color: #CCC;
 }
 #user form.focused input {
@@ -555,11 +557,14 @@ div#notice {
   background-color: #EEE;
   background-position: 4px 50%;
   -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
 }
 
 #content .link-list-block li a.link-this-page {
   -moz-border-radius-topright: 0px;
   -moz-border-radius-bottomright: 0px;
+  -webkit-border-radius-topright: 0px;
+  -webkit-border-radius-bottomright: 0px;
   background-color: #cecece;
   max-width: 175px;
   width: 200px;
@@ -786,6 +791,7 @@ X.sep {
 .controller-search #content .search_form {
   background: #DDD;
   -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
   padding: 12px 15px 13px 15px;
   position: relative;
   text-align: left;
@@ -813,6 +819,7 @@ X.sep {
 .controller-search .search-options {
   border: 1px solid #777;
   -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
 }
 .controller-search .search-options ul li {
   position: relative;
@@ -962,6 +969,7 @@ hr.pre-posts, hr.sep-posts {
   text-decoration: none;
   padding: 0px 2px;
   -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
   background: #BBB;
   color: #FFF;
 }
@@ -984,6 +992,7 @@ hr.pre-posts, hr.sep-posts {
 
 .post_comment_box.closed h4 {
   -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
 }
 
 .post_comment_box.opened h4 {
@@ -1119,6 +1128,7 @@ hr.pre-posts, hr.sep-posts {
 .common-profile-list-block .vcard a:hover {
   border: 1px solid #CCC;
   -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
   background: #EEE;
   text-decoration: none;
 }
@@ -1137,6 +1147,7 @@ table.profile th {
   background-color: #FFF;
   border: 1px solid #EEE;
   -moz-border-radius: 9px;
+  -webkit-border-radius: 9px;
   margin-bottom: 10px;
 }
 
@@ -1149,6 +1160,7 @@ table.profile th {
   border: 1px solid  #CCC;
   background-color: #EEE;
   -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
 }
 
 /************************** Control Panel ****************************/
