@@ -4,12 +4,12 @@
 
 <% if @action %>
   <%= render :partial => 'private_profile' %>
-<% end %>
-
-<% if !@action %>
-  <div class='public-profile-description'>
-    <%= profile.description %>
-  </div>
+<% else %>
+  <% unless profile.description.blank? %>
+    <div class='public-profile-description'>
+      <%= profile.description %>
+    </div>
+  <% end %>
 <% end %>
 
 <table class='profile'>

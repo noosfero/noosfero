@@ -683,6 +683,19 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'div', :attributes => { :class => 'public-profile-description' }, :content => /Person\'s description/
   end
 
+  should 'not show description of orgarnization if not filled' do
+    login_as(@profile.identifier)
+    ent = fast_create(Enterprise)
+    get :index, :profile => ent.identifier
+    assert_no_tag :tag => 'div', :attributes => { :class => 'public-profile-description' }
+  end
+
+  should 'not show description of person if not filled' do
+    login_as(@profile.identifier)
+    get :index, :profile => @profile.identifier
+    assert_no_tag :tag => 'div', :attributes => { :class => 'public-profile-description' }
+  end
+
   should 'ask for login if user not logged' do
     enterprise = fast_create(Enterprise)
     get :unblock, :profile => enterprise.identifier
