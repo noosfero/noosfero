@@ -420,8 +420,7 @@ private :generate_url, :url_options
   end
 
   def find_tagged_with(tag)
-    # FIXME: this can be SLOW
-    articles.select {|item| item.tags.map(&:name).include?(tag) }
+    self.articles.find_tagged_with(tag)
   end
 
   # Tells whether a specified profile has members or nor.

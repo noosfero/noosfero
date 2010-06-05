@@ -729,8 +729,7 @@ class ArticleTest < Test::Unit::TestCase
 
   should 'get tagged with tag' do
     a = Article.create!(:name => 'Published at', :profile => profile, :tag_list => 'bli')
-    t = a.tags[0]
-    as = Article.find_tagged_with(t)
+    as = Article.find_tagged_with('bli')
 
     assert_includes as, a
   end
@@ -742,8 +741,7 @@ class ArticleTest < Test::Unit::TestCase
     user_from_other_environment = create_user('other_user', :environment => other_environment).person
     article_from_other_enviroment = create(Article, :profile => user_from_other_environment, :tag_list => 'bli')
 
-    tag = article_from_other_enviroment.tags.first
-    tagged_articles_in_other_environment = other_environment.articles.find_tagged_with(tag)
+    tagged_articles_in_other_environment = other_environment.articles.find_tagged_with('bli')
 
     assert_includes tagged_articles_in_other_environment, article_from_other_enviroment
     assert_not_includes tagged_articles_in_other_environment, article_from_this_environment

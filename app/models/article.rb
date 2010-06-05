@@ -335,10 +335,6 @@ class Article < ActiveRecord::Base
     $1 || ''
   end
 
-  def self.find_tagged_with(tag)
-    self.find(:all, :include => :taggings, :conditions => ['taggings.tag_id = ?', tag.id])
-  end
-
   def creator
     creator_id = versions[0][:last_changed_by_id]
     creator_id && Profile.find(creator_id)
