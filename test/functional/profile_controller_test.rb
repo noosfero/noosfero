@@ -704,4 +704,25 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_response 302
   end
 
+  should 'reverse the order of posts in tag feed' do
+    TextileArticle.create!(:name => 'First post', :profile => profile, :tag_list => 'tag1', :published_at => Time.now)
+    TextileArticle.create!(:name => 'Second post', :profile => profile, :tag_list => 'tag1', :published_at => Time.now + 1.day)
+
+    get :tag_feed, :profile => profile.identifier, :id => 'tag1'
+    assert_match(/Second.*First/, @response.body)
+  end
+
+  should 'display the most recent posts in tag feed' do
+    start = Time.now - 30.days
+    first = TextileArticle.create!(:name => 'First post', :profile => profile, :tag_list => 'tag1', :published_at => start)
+    20.times do |i|
+      TextileArticle.create!(:name => 'Post #' + i.to_s, :profile => profile, :tag_list => 'tag1', :published_at => start + i.days)
+    end
+    last = TextileArticle.create!(:name => 'Last post', :profile => profile, :tag_list => 'tag1', :published_at => Time.now)
+
+    get :tag_feed, :profile => profile.identifier, :id => 'tag1'
+    assert_no_match(/First post/, @response.body) # First post is older than other 20 posts already
+    assert_match(/Last post/, @response.body) # Latest post must come in the feed
+  end
+
 end
