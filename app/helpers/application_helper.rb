@@ -945,8 +945,9 @@ module ApplicationHelper
     content_for(:head) { stylesheet_link_tag(*args) }
   end
 
-  def article_to_html(article)
-    content = article.to_html(:page => params[:npage])
+  def article_to_html(article, options = {})
+    options.merge(:page => params[:npage])
+    content = article.to_html(options)
     return self.instance_eval(&content) if content.kind_of?(Proc)
     content
   end

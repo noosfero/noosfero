@@ -115,6 +115,21 @@ class ArticleBlockTest < Test::Unit::TestCase
     assert_match(/image/, instance_eval(&block.content))
   end
 
+  should 'not display gallery pages navigation in content' do
+    profile = create_user('testuser').person
+    block = ArticleBlock.new
+    gallery = fast_create(Folder, :profile_id => profile.id)
+    gallery.view_as = 'image_gallery'
+    gallery.save!
+    image = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => gallery)
+    block.article = image
+    block.save!
+
+    expects(:image_tag).with(image.public_filename(:display), :class => image.css_class_name, :style => 'max-width: 100%').returns('image')
+
+    assert_no_match(/Previous/, instance_eval(&block.content))
+  end
+
   should 'display link to archive if article is an archive' do
     profile = create_user('testuser').person
     block = ArticleBlock.new

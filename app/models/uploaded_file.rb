@@ -58,7 +58,7 @@ class UploadedFile < Article
     article = self
     if image?
       lambda do
-        if article.display_as_gallery?
+        if article.display_as_gallery? && options[:gallery_view]
           images = article.parent.images
           current_index = images.index(article)
           total_of_images = images.count
