@@ -37,7 +37,7 @@ class ProfileController < PublicController
       tagged,
       :title => _("%s's contents tagged with \"%s\"") % [profile.name, @tag],
       :description => _("%s's contents tagged with \"%s\"") % [profile.name, @tag],
-      :link => url_for(:action => 'tag')
+      :link => url_for(:action => 'tags')
     )
     render :text => data, :content_type => "text/xml"
   end

@@ -311,8 +311,8 @@ class ProfileControllerTest < Test::Unit::TestCase
     Person.any_instance.stubs(:article_tags).returns({ 'one' => 1, 'two' => 2})
     get :tags, :profile => 'testuser'
 
-    assert_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => '/profile/testuser/tag/one'} }
-    assert_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => '/profile/testuser/tag/two'} }
+    assert_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => '/profile/testuser/tags/one'} }
+    assert_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => '/profile/testuser/tags/two'} }
   end
 
   should 'show e-mail for friends on profile page' do

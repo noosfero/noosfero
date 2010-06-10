@@ -251,11 +251,11 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ]
     assert_tag :tag => 'div', :attributes => { :id => 'article-tags' }, :descendant => {
       :tag => 'a',
-      :attributes => { :href => "/profile/#{profile.identifier}/tag/tag1" }
+      :attributes => { :href => "/profile/#{profile.identifier}/tags/tag1" }
     }
     assert_tag :tag => 'div', :attributes => { :id => 'article-tags' }, :descendant => {
       :tag => 'a',
-      :attributes => { :href => "/profile/#{profile.identifier}/tag/tag2" }
+      :attributes => { :href => "/profile/#{profile.identifier}/tags/tag2" }
     }
 
     assert_tag :tag => 'div', :attributes => { :id => 'article-tags' }, :descendant => { :content => /This article's tags:/ }

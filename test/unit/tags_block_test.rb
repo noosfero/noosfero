@@ -22,9 +22,9 @@ class TagsBlockTest < Test::Unit::TestCase
   end
 
   should 'generate links to tags' do
-    assert_match /profile\/testinguser\/tag\/first-tag/, block.content
-    assert_match /profile\/testinguser\/tag\/second-tag/, block.content
-    assert_match /profile\/testinguser\/tag\/third-tag/, block.content
+    assert_match /profile\/testinguser\/tags\/first-tag/, block.content
+    assert_match /profile\/testinguser\/tags\/second-tag/, block.content
+    assert_match /profile\/testinguser\/tags\/third-tag/, block.content
   end
 
   should 'return (none) when no tags to display' do
@@ -34,7 +34,7 @@ class TagsBlockTest < Test::Unit::TestCase
 
   should 'generate links when profile has own hostname' do
     @user.domains << Domain.new(:name => 'testuser.net'); @user.save!
-    assert_match /profile\/testinguser\/tag\/first-tag/, block.content
+    assert_match /profile\/testinguser\/tags\/first-tag/, block.content
   end
 
 end
