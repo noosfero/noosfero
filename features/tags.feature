@@ -31,3 +31,12 @@ Feature: tags
     And I follow "whales"
     Then I should see "save the whales"
     And I should not see "the Amazon is being destroyed"
+
+  Scenario: viewing profile's tag cloud
+    When I go to /profile/joaoaraujo/tags
+    Then I should see "amazon"
+    And I should not see "whales"
+
+  Scenario: viewing profile's content tagged
+    When I go to /profile/joaoaraujo/tags/amazon
+    Then I should see "the Amazon is being destroyed"

@@ -119,7 +119,7 @@ class RoutingTest < ActionController::IntegrationTest
   end
 
   def test_profile_route_for_tags_with_dot
-    assert_routing('/profile/ze/tags/tag.withdot', :controller => 'profile', :profile => 'ze', :action => 'tag', :id => 'tag.withdot')
+    assert_routing('/profile/ze/tags/tag.withdot', :controller => 'profile', :profile => 'ze', :action => 'content_tagged', :id => 'tag.withdot')
   end
 
   def test_profile_with_tilde_routing

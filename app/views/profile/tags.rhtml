@@ -2,6 +2,6 @@
 
 <div class='tag_cloud'>
 <% cache_timeout(@tags_cache_key, 4.hour.from_now) do %>
-  <%= tag_cloud @tags, :id, { :action => :tag}, {:show_count => true} %>
+  <%= tag_cloud @tags, :id, { :action => :tags }, {:show_count => true} %>
 <% end %>
 </div>

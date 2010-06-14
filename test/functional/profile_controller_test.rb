@@ -142,13 +142,13 @@ class ProfileControllerTest < Test::Unit::TestCase
   should 'display tag for profile' do
     @profile.articles.create!(:name => 'testarticle', :tag_list => 'tag1')
 
-    get :tag, :profile => @profile.identifier, :id => 'tag1'
+    get :content_tagged, :profile => @profile.identifier, :id => 'tag1'
     assert_tag :tag => 'a', :attributes => { :href => /testuser\/testarticle$/ }
   end
 
   should 'link to the same tag but for whole environment' do
     @profile.articles.create!(:name => 'testarticle', :tag_list => 'tag1')
-    get :tag, :profile => @profile.identifier, :id => 'tag1'
+    get :content_tagged, :profile => @profile.identifier, :id => 'tag1'
 
     assert_tag :tag => 'a', :attributes => { :href => '/tag/tag1' }, :content => 'See content tagged with "tag1" in the entire site'
   end
