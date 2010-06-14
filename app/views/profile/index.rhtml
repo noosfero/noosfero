@@ -16,7 +16,7 @@
   <%= render :partial => partial_for_class(profile.class) %>
 
   <% unless @action %>
-    <% cache_timeout(profile.identifier + '-profile-general-info', 4.hours.from_now) do %>
+    <% cache_timeout(profile.cache_key + '-profile-general-info', 4.hours.from_now) do %>
       <tr>
         <th colspan='2'>
           <%= _('Content') %>
