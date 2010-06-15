@@ -21,7 +21,7 @@ class ProfileController < PublicController
     end
   end
 
-  def tag
+  def content_tagged
     @tag = params[:id]
     @tag_cache_key = "tag_#{CGI.escape(@tag.to_s)}_#{profile.id.to_s}_page_#{params[:npage]}"
     if is_cache_expired?(@tag_cache_key, true)
@@ -37,7 +37,7 @@ class ProfileController < PublicController
       tagged,
       :title => _("%s's contents tagged with \"%s\"") % [profile.name, @tag],
       :description => _("%s's contents tagged with \"%s\"") % [profile.name, @tag],
-      :link => url_for(:action => 'tag')
+      :link => url_for(:action => 'tags')
     )
     render :text => data, :content_type => "text/xml"
   end

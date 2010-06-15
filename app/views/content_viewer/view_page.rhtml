@@ -66,7 +66,7 @@
 <% if !@page.tags.empty? %>
   <div id="article-tags">
     <%= _("This article's tags:") %>
-    <%= @page.tags.map { |t| link_to(t, :controller => 'profile', :profile => @profile.identifier, :action => 'tag', :id => t.name ) }.join("\n") %>
+    <%= @page.tags.map { |t| link_to(t, :controller => 'profile', :profile => @profile.identifier, :action => 'tags', :id => t.name ) }.join("\n") %>
   </div>
 <% end %>
 

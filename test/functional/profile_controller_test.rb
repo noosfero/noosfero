@@ -142,13 +142,13 @@ class ProfileControllerTest < Test::Unit::TestCase
   should 'display tag for profile' do
     @profile.articles.create!(:name => 'testarticle', :tag_list => 'tag1')
 
-    get :tag, :profile => @profile.identifier, :id => 'tag1'
+    get :content_tagged, :profile => @profile.identifier, :id => 'tag1'
     assert_tag :tag => 'a', :attributes => { :href => /testuser\/testarticle$/ }
   end
 
   should 'link to the same tag but for whole environment' do
     @profile.articles.create!(:name => 'testarticle', :tag_list => 'tag1')
-    get :tag, :profile => @profile.identifier, :id => 'tag1'
+    get :content_tagged, :profile => @profile.identifier, :id => 'tag1'
 
     assert_tag :tag => 'a', :attributes => { :href => '/tag/tag1' }, :content => 'See content tagged with "tag1" in the entire site'
   end
@@ -311,8 +311,8 @@ class ProfileControllerTest < Test::Unit::TestCase
     Person.any_instance.stubs(:article_tags).returns({ 'one' => 1, 'two' => 2})
     get :tags, :profile => 'testuser'
 
-    assert_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => '/profile/testuser/tag/one'} }
-    assert_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => '/profile/testuser/tag/two'} }
+    assert_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => '/profile/testuser/tags/one'} }
+    assert_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => '/profile/testuser/tags/two'} }
   end
 
   should 'show e-mail for friends on profile page' do
@@ -681,6 +681,19 @@ class ProfileControllerTest < Test::Unit::TestCase
     @profile.save
     get :index, :profile => @profile.identifier
     assert_tag :tag => 'div', :attributes => { :class => 'public-profile-description' }, :content => /Person\'s description/
+  end
+
+  should 'not show description of orgarnization if not filled' do
+    login_as(@profile.identifier)
+    ent = fast_create(Enterprise)
+    get :index, :profile => ent.identifier
+    assert_no_tag :tag => 'div', :attributes => { :class => 'public-profile-description' }
+  end
+
+  should 'not show description of person if not filled' do
+    login_as(@profile.identifier)
+    get :index, :profile => @profile.identifier
+    assert_no_tag :tag => 'div', :attributes => { :class => 'public-profile-description' }
   end
 
   should 'ask for login if user not logged' do

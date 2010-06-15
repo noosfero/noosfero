@@ -4,19 +4,19 @@
 
 <% if @action %>
   <%= render :partial => 'private_profile' %>
-<% end %>
-
-<% if !@action %>
-  <div class='public-profile-description'>
-    <%= profile.description %>
-  </div>
+<% else %>
+  <% unless profile.description.blank? %>
+    <div class='public-profile-description'>
+      <%= profile.description %>
+    </div>
+  <% end %>
 <% end %>
 
 <table class='profile'>
   <%= render :partial => partial_for_class(profile.class) %>
 
   <% unless @action %>
-    <% cache_timeout(profile.identifier + '-profile-general-info', 4.hours.from_now) do %>
+    <% cache_timeout(profile.cache_key + '-profile-general-info', 4.hours.from_now) do %>
       <tr>
         <th colspan='2'>
           <%= _('Content') %>
@@ -51,7 +51,7 @@
           <%= _('Tags:') %>
         </td>
         <td>
-          <%= tag_cloud @tags, :id, { :action => 'tag' }, :max_size => 18, :min_size => 10%>
+          <%= tag_cloud @tags, :id, { :action => 'tags' }, :max_size => 18, :min_size => 10%>
         </td>
       </tr>
 

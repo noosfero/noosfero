@@ -679,7 +679,7 @@ private :generate_url, :url_options
 
   def members_cache_key(params = {})
     page = params[:npage] || '1'
-    identifier + '-members-page-' + page
+    cache_key + '-members-page-' + page
   end
 
   protected
