@@ -5,6 +5,11 @@ export RAILS_ENV=production
 ACTION=$1
 shift
 
+clear_cache() {
+  rm -f ./public/javascripts/cache-*.js
+  rm -f ./public/stylesheets/cache.css
+}
+
 do_start() {
   if ! rake db:abort_if_pending_migrations; then
     echo "========================================"
@@ -12,6 +17,7 @@ do_start() {
     exit 1
   fi
 
+  clear_cache
   ./script/ferret_server -e $RAILS_ENV start
   ./script/feed-updater start
   mongrel_rails cluster::start
