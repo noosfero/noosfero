@@ -5,6 +5,14 @@ class ProfileDesignController; def rescue_action(e) raise e end; end
 
 class ProfileDesignControllerTest < Test::Unit::TestCase
   
+  COMMOM_BLOCKS = [ ArticleBlock, TagsBlock, RecentDocumentsBlock, ProfileInfoBlock, LinkListBlock, MyNetworkBlock, FeedReaderBlock, ProfileImageBlock, LocationBlock, SlideshowBlock]
+  PERSON_BLOCKS = COMMOM_BLOCKS + [FriendsBlock, FavoriteEnterprisesBlock, CommunitiesBlock, EnterprisesBlock ]
+  PERSON_BLOCKS_WITH_MEMBERS = PERSON_BLOCKS + [MembersBlock]
+  PERSON_BLOCKS_WITH_BLOG = PERSON_BLOCKS + [BlogArchivesBlock]
+
+  ENTERPRISE_BLOCKS = COMMOM_BLOCKS + [DisabledEnterpriseMessageBlock, HighlightsBlock]
+  ENTERPRISE_BLOCKS_WITH_PRODUCTS_ENABLE = ENTERPRISE_BLOCKS + [ProductsBlock]
+
   attr_reader :holder
   def setup
     @controller = ProfileDesignController.new
@@ -322,6 +330,71 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
     get :index, :profile => another_profile.identifier
     assert_tag :tag => 'div', :attributes => {:class => 'no-boxes'}
     assert_tag :tag => 'div', :attributes => {:id => 'access-denied'}
+  end
+
+  should 'the person blocks are all available' do
+    profile = mock
+    profile.stubs(:has_members?).returns(false)
+    profile.stubs(:person?).returns(true)
+    profile.stubs(:enterprise?).returns(false)
+    profile.stubs(:has_blog?).returns(false)
+    environment = mock
+    profile.stubs(:environment).returns(environment)
+    environment.stubs(:enabled?).returns(false)
+    @controller.stubs(:profile).returns(profile)
+    assert_equal PERSON_BLOCKS, @controller.available_blocks
+  end
+
+  should 'the person with members blocks are all available' do
+    profile = mock
+    profile.stubs(:has_members?).returns(true)
+    profile.stubs(:person?).returns(true)
+    profile.stubs(:enterprise?).returns(false)
+    profile.stubs(:has_blog?).returns(false)
+    environment = mock
+    profile.stubs(:environment).returns(environment)
+    environment.stubs(:enabled?).returns(false)
+    @controller.stubs(:profile).returns(profile)
+    assert_equal [], @controller.available_blocks - PERSON_BLOCKS_WITH_MEMBERS
+  end
+
+  should 'the person with blog blocks are all available' do
+    profile = mock
+    profile.stubs(:has_members?).returns(false)
+    profile.stubs(:person?).returns(true)
+    profile.stubs(:enterprise?).returns(false)
+    profile.stubs(:has_blog?).returns(true)
+    environment = mock
+    profile.stubs(:environment).returns(environment)
+    environment.stubs(:enabled?).returns(false)
+    @controller.stubs(:profile).returns(profile)
+    assert_equal [], @controller.available_blocks - PERSON_BLOCKS_WITH_BLOG
+  end
+
+  should 'the enterprise blocks are all available' do
+    profile = mock
+    profile.stubs(:has_members?).returns(false)
+    profile.stubs(:person?).returns(false)
+    profile.stubs(:enterprise?).returns(true)
+    profile.stubs(:has_blog?).returns(false)
+    environment = mock
+    profile.stubs(:environment).returns(environment)
+    environment.stubs(:enabled?).returns(true)
+    @controller.stubs(:profile).returns(profile)
+    assert_equal [], @controller.available_blocks - ENTERPRISE_BLOCKS
+  end
+
+  should 'the enterprise with products for enterprise enable blocks are all available' do
+    profile = mock
+    profile.stubs(:has_members?).returns(false)
+    profile.stubs(:person?).returns(false)
+    profile.stubs(:enterprise?).returns(true)
+    profile.stubs(:has_blog?).returns(false)
+    environment = mock
+    profile.stubs(:environment).returns(environment)
+    environment.stubs(:enabled?).returns(false)
+    @controller.stubs(:profile).returns(profile)
+    assert_equal [], @controller.available_blocks - ENTERPRISE_BLOCKS_WITH_PRODUCTS_ENABLE
   end
 
 end

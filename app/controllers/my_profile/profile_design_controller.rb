@@ -23,6 +23,7 @@ class ProfileDesignController < BoxOrganizerController
     # blocks exclusive for enterprises
     if profile.enterprise?
       blocks << DisabledEnterpriseMessageBlock
+      blocks << HighlightsBlock
     end
 
     # product block exclusive for enterprises in environments that permits it

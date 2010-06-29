@@ -3639,3 +3639,56 @@ h1#agenda-title {
   width: 500px;
 }
 
+/* highlights block stuff */
+
+.highlights-block {
+  float: left;
+}
+
+.highlights-block-pager {
+  border: 1px solid #ccc;
+  border-top: 0;
+  display: inline;
+  padding-right: 5px;
+}
+
+.highlights-block-pager a {
+  text-decoration: none;
+  margin-left: 5px;
+}
+
+.highlights-block-pager a.activeSlide:visited,
+.highlights-block-pager a.activeSlide {
+  color: #000;
+}
+
+.highlights-block a,
+.highlights-block a:visited {
+  text-decoration: none;
+}
+
+.highlights-image-link {
+  height: 150px;
+  width: 400px;
+  overflow: hidden;
+}
+
+.highlights-label {
+  border: 0;
+  position: absolute;
+  bottom: 0;
+  z-index: 9999;
+  background-color: #000;
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  height: 30px;
+  overflow: hidden;
+  margin: 0;
+  padding: 4px 0;
+}
+
+.highlights-image-link {
+  border: 1px solid #ccc;
+}

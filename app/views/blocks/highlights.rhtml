@@ -1,0 +1,29 @@
+<%= block_title(block.title) %>
+<% if !block.featured_images.empty? %>
+  <div class='highlights-border'>
+    <div class='highlights-container'>
+      <% block.featured_images.each do |img| %>
+        <a href="<%= img[:address] %>" title="<%= img[:title] %>" class="highlights-image-link">
+          <%= content_tag :img, nil, :src => img[:image_src], :alt => img[:title] %>
+          <p class="highlights-label"><%= img[:title] %></p>
+        </a>
+      <% end %>
+    </div>
+    <% if block.navigation %>
+      <div class='highlights-block-pager'>
+      </div>
+    <% end %>
+  </div>
+  <p class="highlights-block-footer"></p>
+  <script type="text/javascript">
+    (function($) {
+     var options = {fx: 'fade', fastOnEvent: 1, timeout: <%= block.interval * 1000 %>};
+     <% if block.navigation %>
+       options.pager = '#block-<%= block.id %> .highlights-block-pager';
+     <% end %>
+      $('#block-<%= block.id %> .highlights-container').cycle(options);
+    })(jQuery);
+  </script>
+<% else %>
+  <em><%= _('Please, edit this block and choose some images') %></em>
+<% end %>
