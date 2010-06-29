@@ -241,6 +241,7 @@ class EnvironmentTest < Test::Unit::TestCase
       valid = %w[
         admin
         region
+        none
       ].each do |item|
         env.organization_approval_method = item
         env.organization_approval_method = item.to_sym

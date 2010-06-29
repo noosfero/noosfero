@@ -275,6 +275,7 @@ class Environment < ActiveRecord::Base
   # * <tt>:region</tt>: organization registering must be approved by some other
   #   organization asssigned as validator to the Region the new organization
   #   belongs to.
+  # * <tt>:none</tt>: organization registration is approved by default.
   #
   # Trying to set organization_approval_method to any other value will raise an
   # ArgumentError.
@@ -287,6 +288,7 @@ class Environment < ActiveRecord::Base
     accepted_values = %w[
       admin
       region
+      none
     ].map(&:to_sym)
     raise ArgumentError unless accepted_values.include?(actual_value)
 

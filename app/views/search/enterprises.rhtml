@@ -15,6 +15,12 @@
 
 <%= render :partial => 'search_form', :locals => { :form_title => _("Refine your search"), :simple_search => true } %>
 
+<% if logged_in? && environment.enabled?('enterprise_registration') %>
+  <% button_bar do %>
+    <%= button(:add, __('New enterprise'), {:controller => 'enterprise_registration'}) %>
+  <% end %>
+<% end %>
+
 <% if @categories_menu %>
 <div class="has_cat_list">
 <% end %>

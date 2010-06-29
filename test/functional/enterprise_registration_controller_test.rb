@@ -49,6 +49,19 @@ all_fixtures
     assert_template 'confirmation'
   end
 
+  should 'skip prompt for selection validator if approval method is none' do
+    env = Environment.default
+    env.organization_approval_method = :none
+    env.save
+    region = fast_create(Region)
+
+    data = { :name => 'My new enterprise', :identifier => 'mynew', :region => region }
+    create_enterprise = CreateEnterprise.new(data)
+
+    post :index, :create_enterprise => data
+    assert_template 'creation'
+  end
+
   should 'prompt for selecting validator if approval method is region' do
     env = Environment.default
     env.organization_approval_method = :region
@@ -77,7 +90,7 @@ all_fixtures
 
     # all data but validator selected
     create_enterprise.expects(:valid_before_selecting_target?).returns(true)
-    create_enterprise.expects(:valid?).returns(false) 
+    create_enterprise.stubs(:valid?).returns(false)
 
     post :index, :create_enterprise => data
     assert_template 'select_validator'
@@ -93,7 +106,7 @@ all_fixtures
     validator = mock()
     validator.stubs(:name).returns("lalala")
     create_enterprise.expects(:valid_before_selecting_target?).returns(true)
-    create_enterprise.expects(:valid?).returns(true) # validator already selected
+    create_enterprise.stubs(:valid?).returns(true) # validator already selected
     create_enterprise.expects(:save!)
     create_enterprise.expects(:target).returns(validator)
 

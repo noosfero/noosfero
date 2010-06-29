@@ -15,14 +15,16 @@ class EnterpriseRegistrationController < ApplicationController
       if params[:create_enterprise] && params[:create_enterprise][:target_id]
         @create_enterprise.target = Profile.find(params[:create_enterprise][:target_id])
       end
-    elsif @validation == :admin
+    elsif @validation == :admin || @validation == :none
         @create_enterprise.target = @create_enterprise.environment
     end
     @create_enterprise.requestor = current_user.person
     the_action =
       if request.post?
         if @create_enterprise.valid_before_selecting_target?
-          if @create_enterprise.valid? || @validation == :admin
+          if @create_enterprise.valid? && @validation == :none
+            :creation
+          elsif @create_enterprise.valid? || @validation == :admin
             :confirmation
           else
             :select_validator
@@ -61,6 +63,13 @@ class EnterpriseRegistrationController < ApplicationController
   # request was done.
   def confirmation
     @create_enterprise.save!
+  end
+
+  # Records the enterprise and presents a confirmation message
+  # saying to the user that the enterprise was created.
+  def creation
+    @create_enterprise.perform
+    @enterprise = @create_enterprise.target.profiles.find_by_identifier(@create_enterprise.identifier)
   end
 
 end

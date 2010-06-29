@@ -192,3 +192,12 @@ Feature: register enterprise
     And I am on Joao Silva's control panel
     When I follow "Manage my groups"
     Then I should not see "My Enterprise"
+
+  Scenario: a user can see button to register new enterprise
+    When I am on /assets/enterprises
+    Then I should see "New enterprise" link
+
+  Scenario: a user cant see button to register new enterprise if enterprise_registration disabled
+    Given feature "enterprise_registration" is disabled on environment
+    When I am on /assets/enterprises
+    Then I should not see "New enterprise" link
