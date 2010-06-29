@@ -605,10 +605,6 @@ private :generate_url, :url_options
 
   settings_items :layout_template, :type => String, :default => 'default'
 
-  def boxes_limit
-    LayoutTemplate.find(layout_template).number_of_boxes
-  end
-
   has_many :blogs, :source => 'articles', :class_name => 'Blog'
 
   def blog

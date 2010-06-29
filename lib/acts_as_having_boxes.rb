@@ -29,8 +29,9 @@ module ActsAsHavingBoxes
   # returns 3 unless the class table has a boxes_limit column. In that case
   # return the value of the column. 
   def boxes_limit
-    self[:boxes_limit] || 3
+    LayoutTemplate.find(layout_template).number_of_boxes || 3
   end
+
 end
 
 ActiveRecord::Base.extend(ActsAsHavingBoxes::ClassMethods)

@@ -9,7 +9,7 @@
 <% end %>
 </p>
 
-<% if @environment.activation_blocked_text.nil? %>
+<% if @environment.activation_blocked_text.blank? %>
   <%= _('Your enterprise has been blocked') %>
 <% else %>
   <%= @environment.activation_blocked_text %>

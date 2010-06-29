@@ -41,7 +41,7 @@
   <%= render :partial => 'profile_editor/person_form', :locals => {:f => f} %>
 <% end %>
 
-<% if @terms_of_use %>
+<% unless @terms_of_use.blank? %>
   <div id='terms-of-use-box' class='formfieldline'>
     <%= _("By clicking on 'I accept the terms of use' below you are agreeing to the %s") %
     link_to_function(_('Terms of use'), nil) do |page|

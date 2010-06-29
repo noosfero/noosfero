@@ -76,9 +76,8 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_nil v.terms_of_use
     v.terms_of_use = ""
     assert v.save
+    v.reload
     assert !v.has_terms_of_use?
-    id = v.id
-    assert_nil Environment.find(v.id).terms_of_use
   end
 
   def test_has_terms_of_use
@@ -102,6 +101,8 @@ class EnvironmentTest < Test::Unit::TestCase
     assert !v.has_terms_of_enterprise_use?
     v.terms_of_enterprise_use = 'some terms of enterprise use'
     assert v.has_terms_of_enterprise_use?
+    v.terms_of_enterprise_use = ''
+    assert !v.has_terms_of_enterprise_use?
   end
 
   def test_should_list_top_level_categories

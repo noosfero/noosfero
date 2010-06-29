@@ -161,15 +161,47 @@ class Environment < ActiveRecord::Base
   # #################################################
 
   # store the Environment settings as YAML-serialized Hash.
-  serialize :settings
+  acts_as_having_settings :field => :settings
 
-  def homepage
-     settings[:homepage]
-  end
+  # the environment's terms of use: every user must accept them before registering.
+  settings_items :terms_of_use, :type => String
 
-  # returns a Hash containing the Environment configuration
-  def settings
-    self[:settings] ||= {}
+  # the environment's terms of enterprise use: every enterprise member must accept them before
+  # registering or activating enterprises.
+  settings_items :terms_of_enterprise_use, :type => String
+
+  # returns the approval method used for this environment. Possible values are:
+  #
+  # Defaults to <tt>:admim</tt>.
+  settings_items :organization_approval_method, :type => Symbol, :default => :admin
+
+  # Whether this environment should force having 'www.' in its domain name or
+  # not. Defauls to false.
+  #
+  # Sets the value of #force_www. <tt>value</tt> must be a boolean.
+  #
+  # See also #default_hostname
+  settings_items :force_www, :default => false
+
+  settings_items :message_for_friend_invitation, :type => String, :default => InviteFriend.mail_template
+  settings_items :message_for_member_invitation, :type => String, :default => InviteMember.mail_template
+  settings_items :activation_blocked_text, :type => String
+  settings_items :message_for_disabled_enterprise, :type => String
+  settings_items :location, :type => String
+  settings_items :layout_template, :type => String, :default => 'default'
+  settings_items :homepage, :type => String
+  settings_items :description, :type => String
+  settings_items :category_types, :type => Array, :default => ['Category']
+  settings_items :enable_ssl
+  settings_items :theme, :type => String, :default => 'default'
+  settings_items :icon_theme, :type => String, :default => 'default'
+  settings_items :local_docs, :type => Array, :default => []
+  settings_items :news_amount_by_folder, :type => Integer, :default => 4
+  settings_items :help_message_to_add_enterprise, :type => String, :default => ''
+  settings_items :tip_message_enterprise_activation_question, :type => String, :default => ''
+
+  def news_amount_by_folder=(amount)
+    settings[:news_amount_by_folder] = amount.to_i
   end
 
   # Enables a feature identified by its name
@@ -201,71 +233,16 @@ class Environment < ActiveRecord::Base
     end
   end
 
-  # the environment's terms of use: every user must accept them before
-  # registering.
-  def terms_of_use
-    self.settings['terms_of_use']
-  end
-
-  # sets the environment's terms of use.
-  def terms_of_use=(value)
-    self.settings['terms_of_use'] = value.blank? ? nil : value
-  end
-
   # returns <tt>true</tt> if this Environment has terms of use to be
   # accepted by users before registration.
   def has_terms_of_use?
-    ! self.settings['terms_of_use'].nil?
-  end
-
-  # the environment's terms of enterprise use: every enterprise member must accept them before
-  # registering or activating enterprises.
-  def terms_of_enterprise_use
-    self.settings['terms_of_enterprise_use']
-  end
-
-  # sets the environment's terms of enterprise use.
-  def terms_of_enterprise_use=(value)
-    self.settings['terms_of_enterprise_use'] = value
+    ! self.terms_of_use.blank?
   end
 
   # returns <tt>true</tt> if this Environment has terms of enterprise use to be
   # accepted by users before registration or activation of enterprises.
   def has_terms_of_enterprise_use?
-    ! self.settings['terms_of_enterprise_use'].blank?
-  end
-
-  def activation_blocked_text
-    self.settings['activation_blocked_text']
-  end
-  
-  def activation_blocked_text= value
-    self.settings['activation_blocked_text'] = value
-  end
-
-  def message_for_disabled_enterprise
-    self.settings['message_for_disabled_enterprise']
-  end
-
-  def message_for_disabled_enterprise=(value)
-    self.settings['message_for_disabled_enterprise'] = value
-  end
-
-  # the environment's default location
-  def location
-    self.settings['location']
-  end
-
-  # sets the environment's location.
-  def location=(value)
-    self.settings['location'] = value
-  end
-
-  # returns the approval method used for this environment. Possible values are:
-  #
-  # Defaults to <tt>:admim</tt>.
-  def organization_approval_method
-    self.settings['organization_approval_method'] || :admin
+    ! self.terms_of_enterprise_use.blank?
   end
 
   # Sets the organization_approval_method. Only accepts the following values:
@@ -292,17 +269,7 @@ class Environment < ActiveRecord::Base
     ].map(&:to_sym)
     raise ArgumentError unless accepted_values.include?(actual_value)
 
-    self.settings['organization_approval_method'] = actual_value
-  end
-
-  # the description of the environment. Normally used in the homepage.
-  def description
-    self.settings[:description]
-  end
-
-  # sets the #description of the environment
-  def description=(value)
-    self.settings[:description] = value
+    self.settings[:organization_approval_method] = actual_value
   end
 
   def terminology
@@ -370,22 +337,6 @@ class Environment < ActiveRecord::Base
     end
   end
 
-  def message_for_friend_invitation
-    self.settings['message_for_friend_invitation'] || InviteFriend.mail_template
-  end
-
-  def message_for_friend_invitation=(value)
-    self.settings['message_for_friend_invitation'] = value
-  end
-
-  def message_for_member_invitation
-    self.settings['message_for_member_invitation'] || InviteMember.mail_template
-  end
-
-  def message_for_member_invitation=(value)
-    self.settings['message_for_member_invitation'] = value
-  end
-
   def custom_enterprise_fields
     self.settings[:custom_enterprise_fields].nil? ? {} : self.settings[:custom_enterprise_fields]
   end
@@ -440,27 +391,6 @@ class Environment < ActiveRecord::Base
     required_fields
   end
 
-  def category_types
-    self.settings[:category_types].nil? ? ['Category'] : self.settings[:category_types]
-  end
-
-  def category_types=(values)
-    self.settings[:category_types] = values
-  end
-
-  # Whether this environment should force having 'www.' in its domain name or
-  # not. Defauls to false.
-  #
-  # See also #default_hostname
-  def force_www
-    settings[:force_www] || false
-  end
-
-  # Sets the value of #force_www. <tt>value</tt> must be a boolean.
-  def force_www=(value)
-    settings[:force_www] = value
-  end
-
   # #################################################
   # Validations
   # #################################################
@@ -512,14 +442,6 @@ class Environment < ActiveRecord::Base
     result
   end
 
-  def enable_ssl
-    settings[:enable_ssl]
-  end
-
-  def enable_ssl=(value)
-    settings[:enable_ssl] = value
-  end
-
   def to_s
     self.name || '?'
   end
@@ -542,10 +464,6 @@ class Environment < ActiveRecord::Base
     end
   end
 
-  def theme
-    self[:theme] || 'default'
-  end
-
   def themes
     if settings[:themes]
       Theme.system_themes.select { |theme| settings[:themes].include?(theme.id) }
@@ -556,21 +474,6 @@ class Environment < ActiveRecord::Base
 
   def themes=(values)
     settings[:themes] = values.map(&:id)
-  end
-
-  def icon_theme
-    settings[:icon_theme] || 'default'
-  end
-  def icon_theme=(theme)
-    settings[:icon_theme] = theme
-  end
-
-  def layout_template
-    settings[:layout_template] || 'default'
-  end
-
-  def layout_template=(value)
-    settings[:layout_template] = value
   end
 
   def community_template
@@ -641,30 +544,6 @@ class Environment < ActiveRecord::Base
     settings[:portal_folders] = folders ? folders.map(&:id) : nil
   end
 
-  def news_amount_by_folder
-    (settings[:news_amount_by_folder] || 4)
-  end
-
-  def news_amount_by_folder=(amount)
-    settings[:news_amount_by_folder] = amount.to_i
-  end
-
-  def help_message_to_add_enterprise
-    self.settings['help_message_to_add_enterprise'] || ''
-  end
-
-  def help_message_to_add_enterprise=(value)
-    self.settings['help_message_to_add_enterprise'] = value
-  end
-
-  def tip_message_enterprise_activation_question
-    self.settings['tip_message_enterprise_activation_question'] || ''
-  end
-
-  def tip_message_enterprise_activation_question=(value)
-    self.settings['tip_message_enterprise_activation_question'] = value
-  end
-
   def portal_news_cache_key
     "home-page-news/#{cache_key}"
   end
@@ -695,14 +574,6 @@ class Environment < ActiveRecord::Base
     [enterprise_template, community_template, person_template].compact.each do |template|
       template.destroy
     end
-  end
-
-  def local_docs
-    settings[:local_docs] || []
-  end
-
-  def local_docs=(value)
-    settings[:local_docs] = value
   end
 
 end
