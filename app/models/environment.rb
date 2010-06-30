@@ -183,8 +183,16 @@ class Environment < ActiveRecord::Base
   # See also #default_hostname
   settings_items :force_www, :default => false
 
-  settings_items :message_for_friend_invitation, :type => String, :default => InviteFriend.mail_template
-  settings_items :message_for_member_invitation, :type => String, :default => InviteMember.mail_template
+  settings_items :message_for_friend_invitation, :type => String
+  def message_for_friend_invitation
+    settings[:message_for_member_invitation] || InviteFriend.mail_template
+  end
+
+  settings_items :message_for_member_invitation, :type => String
+  def message_for_member_invitation
+    settings[:message_for_member_invitation] || InviteMember.mail_template
+  end
+
   settings_items :activation_blocked_text, :type => String
   settings_items :message_for_disabled_enterprise, :type => String
   settings_items :location, :type => String

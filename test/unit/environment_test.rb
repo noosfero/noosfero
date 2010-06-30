@@ -890,6 +890,15 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal env.message_for_member_invitation, env.invitation_mail_template(community)
   end
 
+  should 'translate friend invitation message' do
+    InviteFriend.expects(:_).returns('').at_least_once
+    Environment.new.message_for_friend_invitation
+  end
+  should 'translate member invitation message' do
+    InviteMember.expects(:_).returns('').at_least_once
+    Environment.new.message_for_member_invitation
+  end
+
   should 'filter fields with white_list filter' do
     environment = Environment.new
     environment.message_for_disabled_enterprise = "<h1> Disabled Enterprise </h1>"
