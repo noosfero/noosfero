@@ -14,6 +14,8 @@ class ChangePasswordTest < Test::Unit::TestCase
 
     data = ChangePassword.new
     data.login = 'unexisting'
+    data.email = 'example@example.com'
+    data.environment_id = Environment.default.id
     data.valid?
     assert data.errors.invalid?(:login)
   end
@@ -35,6 +37,7 @@ class ChangePasswordTest < Test::Unit::TestCase
     data = ChangePassword.new
     data.login = 'testuser'
     data.email = 'wrong@example.com'
+    data.environment_id = Environment.default.id
 
     data.valid?
     assert !data.errors.invalid?(:login)
@@ -48,6 +51,7 @@ class ChangePasswordTest < Test::Unit::TestCase
     data = ChangePassword.new
     data.login = 'testuser'
     data.email = 'test@example.com'
+    data.environment_id = Environment.default.id
 
     data.valid?
     assert !data.errors.invalid?(:login)
@@ -60,6 +64,7 @@ class ChangePasswordTest < Test::Unit::TestCase
     change = ChangePassword.new
     change.login = 'testuser'
     change.email = 'test@example.com'
+    change.environment_id = Environment.default.id
     change.save!
 
     change.status = Task::Status::FINISHED
@@ -80,6 +85,7 @@ class ChangePasswordTest < Test::Unit::TestCase
     change = ChangePassword.new
     change.login = 'testuser'
     change.email = 'test@example.com'
+    change.environment_id = Environment.default.id
     change.save!
 
     change.expects(:requestor).returns(person).at_least_once
@@ -98,6 +104,7 @@ class ChangePasswordTest < Test::Unit::TestCase
     change = ChangePassword.new
     change.login = 'testuser'
     change.email = 'test@example.com'
+    change.environment_id = Environment.default.id
     change.save!
 
     assert_nothing_raised do
@@ -109,6 +116,20 @@ class ChangePasswordTest < Test::Unit::TestCase
     t1 = Task.new
     t2 = ChangePassword.new
     assert_equal t1.permission, t2.permission
+  end
+
+  should 'search for user in the correct environment' do
+    e1 = Environment.create!(:id => 1, :name => "environment1")
+    e2 = Environment.create!(:id => 2, :name => "environment2")
+    p1 = create_user('sample-user', :password => 'test', :password_confirmation => 'test', :email => 'sample-user@e1.com', :environment => e1).person
+    p2 = create_user('sample-user', :password => 'test', :password_confirmation => 'test', :email => 'sample-user@e2.com', :environment => e2).person
+
+    change = ChangePassword.new
+    change.login = 'sample-user'
+    change.email = 'sample-user@e2.com'
+    change.environment_id = e2.id
+
+    assert change.valid?
   end
 
 end
