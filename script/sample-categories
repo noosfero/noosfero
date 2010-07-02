@@ -1,0 +1,125 @@
+#!/usr/bin/env ruby
+require File.dirname(__FILE__) + '/../config/environment'
+
+# tourn on autoflush
+STDOUT.sync = true
+
+$environment_default = Environment.default
+
+def new_category(parent, name, color = nil)
+  print '.'
+  $environment_default.categories.create(:name => name, :display_color => color, :parent_id => (parent ? parent.id: nil), :display_in_menu => true)
+end
+
+def new_region(parent, name, color = nil)
+  print '.'
+  $environment_default.regions.create(:name => name, :display_color => color, :parent_id => (parent ? parent.id: nil), :display_in_menu => true)
+end
+
+def new_state(parent, name)
+  print '.'
+  State.create(:name => name, :parent => parent, :environment => $environment_default)
+end
+
+def new_productcategory(parent, name)
+  print '.'
+  ProductCategory.create(:name => name, :environment => $environment_default, :parent => parent)
+end
+
+def done
+  puts ' done!'
+end
+
+print "Creating categories: "
+tematicas = new_category(nil, 'Temáticas', 1)
+new_category(tematicas, 'Formação')
+new_category(tematicas, 'Produção, comercialização e consumo')
+new_category(tematicas, 'Relações internacionais')
+new_category(tematicas, 'Marco Legal')
+new_category(tematicas, 'Finanças Solidárias')
+new_category(tematicas, 'Comunicação')
+new_category(tematicas, 'Políticas públicas')
+new_category(tematicas, 'Organização do movimento')
+new_category(tematicas, 'Software, cultura e conhecimentos livres')
+new_category(tematicas, 'Agroecologia')
+new_category(tematicas, 'Pesquisa e tecnologia')
+new_category(tematicas, 'Comércio justo e solidário')
+new_category(tematicas, 'Cultura')
+
+cadeias = new_category(nil, 'Redes/Cadeias', 3)
+new_category(cadeias, 'Agropecuária, extrativismo e pesca')
+new_category(cadeias, 'Alimentação')
+new_category(cadeias, 'Artesanato')
+new_category(cadeias, 'Indústria')
+new_category(cadeias, 'Confecção, fiação e tecelagem')
+new_category(cadeias, 'Reciclagem')
+new_category(cadeias, 'Turismo')
+new_category(cadeias, 'Construção')
+new_category(cadeias, 'Crédito e finanças')
+new_category(cadeias, 'Saúde')
+new_category(cadeias, 'Educação e formação')
+new_category(cadeias, 'Limpeza e higiene')
+new_category(cadeias, 'Cultura')
+new_category(cadeias, 'Cadeia do mel')
+new_category(cadeias, 'Cadeia do algodão agroecológico')
+new_category(cadeias, 'Cadeia das sementes')
+new_category(cadeias, 'Cadeia da fruta')
+done
+
+print "Creating regions: "
+territorios = new_region(nil, 'Territórios', 2)
+nacional = new_region(territorios, 'Nacional')
+internacional = new_region(territorios, 'Internacional')
+centro_oeste = new_region(nacional, 'Região Centro-Oeste')
+mt = new_state(centro_oeste, 'Mato Grosso')
+ms = new_state(centro_oeste, 'Mato Grosso do Sul')
+go = new_state(centro_oeste, 'Goiás')
+df = new_state(centro_oeste, 'Distrito Federal')
+nordeste = new_region(nacional, 'Região Nordeste')
+al = new_state(nordeste, 'Alagoas')
+ba = new_state(nordeste, 'Bahia')
+ce = new_state(nordeste, 'Ceará')
+ma = new_state(nordeste, 'Maranhão')
+pb = new_state(nordeste, 'Paraíba')
+pe = new_state(nordeste, 'Pernambuco')
+pi = new_state(nordeste, 'Piauí')
+rn = new_state(nordeste, 'Rio Grande do Norte')
+se = new_state(nordeste, 'Sergipe')
+norte = new_region(nacional, 'Região Norte')
+ac = new_state(norte, 'Acre')
+ap = new_state(norte, 'Amapá')
+am = new_state(norte, 'Amazonas')
+pa = new_state(norte, 'Pará')
+ro = new_state(norte, 'Rondônia')
+rr = new_state(norte, 'Roraima')
+to = new_state(norte, 'Tocantins')
+sudeste = new_region(nacional, 'Região Sudeste')
+mg = new_state(sudeste, 'Minas Gerais')
+sp = new_state(sudeste, 'São Paulo')
+rj = new_state(sudeste, 'Rio de Janeiro')
+es = new_state(sudeste, 'Espírito Santo')
+sul = new_region(nacional, 'Região Sul')
+pr = new_state(sul, 'Paraná')
+rs = new_state(sul, 'Rio Grande do Sul')
+sc = new_state(sul, 'Santa Catarina')
+done
+
+print "Creating product categories: "
+produtos = new_productcategory(nil, 'Produtos')
+alimentacao = new_productcategory(produtos, 'Alimentação')
+vegetais = new_productcategory(alimentacao, 'Vegetais')
+feijao = new_productcategory(vegetais, 'Feijão')
+arroz = new_productcategory(vegetais, 'Arroz')
+batata = new_productcategory(vegetais, 'Batata')
+carnes = new_productcategory(alimentacao, 'Carnes')
+boi = new_productcategory(carnes, 'Boi')
+frango = new_productcategory(carnes, 'Frango')
+vestuario = new_productcategory(produtos, 'Vestuário')
+camisetas = new_productcategory(vestuario, 'Camisetas')
+calcas = new_productcategory(vestuario, 'Calças')
+software_livre = new_productcategory(produtos, 'Software Livre')
+desenv = new_productcategory(software_livre, 'Desenvolvimento')
+capacitacao = new_productcategory(software_livre, 'Capacitação')
+admin_de_sistemas = new_productcategory(software_livre, 'Administração de sistemas')
+arte_digital = new_productcategory(software_livre, 'Arte Digital')
+done
