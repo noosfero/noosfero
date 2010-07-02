@@ -269,7 +269,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_equal '', profile_sex_icon(Person.new(:sex => 'male'))
   end
 
-  should 'display field on signup' do
+  should 'display field on person signup' do
     env = Environment.create!(:name => 'env test')
     stubs(:environment).returns(env)
 
@@ -277,9 +277,36 @@ class ApplicationHelperTest < Test::Unit::TestCase
     stubs(:controller).returns(controller)
     controller.expects(:action_name).returns('signup')
 
-    profile = Person.new
-    profile.expects(:signup_fields).returns(['field'])
-    assert_equal 'SIGNUP_FIELD', optional_field(profile, 'field', 'SIGNUP_FIELD')
+    person = Person.new
+    person.expects(:signup_fields).returns(['field'])
+    assert_equal 'SIGNUP_FIELD', optional_field(person, 'field', 'SIGNUP_FIELD')
+  end
+
+  should 'display field on enterprise registration' do
+    env = Environment.create!(:name => 'env test')
+    stubs(:environment).returns(env)
+
+    controller = mock
+    stubs(:controller).returns(controller)
+    controller.stubs(:controller_name).returns('enterprise_registration')
+    controller.stubs(:action_name).returns('index')
+
+    enterprise = Enterprise.new
+    enterprise.expects(:signup_fields).returns(['field'])
+    assert_equal 'SIGNUP_FIELD', optional_field(enterprise, 'field', 'SIGNUP_FIELD')
+  end
+
+  should 'display field on community creation' do
+    env = Environment.create!(:name => 'env test')
+    stubs(:environment).returns(env)
+
+    controller = mock
+    stubs(:controller).returns(controller)
+    controller.stubs(:action_name).returns('new_community')
+
+    community = Community.new
+    community.expects(:signup_fields).returns(['field'])
+    assert_equal 'SIGNUP_FIELD', optional_field(community, 'field', 'SIGNUP_FIELD')
   end
 
   should 'not display field on signup' do
@@ -290,9 +317,36 @@ class ApplicationHelperTest < Test::Unit::TestCase
     stubs(:controller).returns(controller)
     controller.expects(:action_name).returns('signup')
 
-    profile = Person.new
-    profile.expects(:signup_fields).returns([])
-    assert_equal '', optional_field(profile, 'field', 'SIGNUP_FIELD')
+    person = Person.new
+    person.expects(:signup_fields).returns([])
+    assert_equal '', optional_field(person, 'field', 'SIGNUP_FIELD')
+  end
+
+  should 'not display field on enterprise registration' do
+    env = Environment.create!(:name => 'env test')
+    stubs(:environment).returns(env)
+
+    controller = mock
+    stubs(:controller).returns(controller)
+    controller.stubs(:controller_name).returns('enterprise_registration')
+    controller.stubs(:action_name).returns('index')
+
+    enterprise = Enterprise.new
+    enterprise.expects(:signup_fields).returns([])
+    assert_equal '', optional_field(enterprise, 'field', 'SIGNUP_FIELD')
+  end
+
+  should 'not display field on community creation' do
+    env = Environment.create!(:name => 'env test')
+    stubs(:environment).returns(env)
+
+    controller = mock
+    stubs(:controller).returns(controller)
+    controller.stubs(:action_name).returns('new_community')
+
+    community = Community.new
+    community.stubs(:signup_fields).returns([])
+    assert_equal '', optional_field(community, 'field', 'SIGNUP_FIELD')
   end
 
   should 'display active fields' do
@@ -301,7 +355,8 @@ class ApplicationHelperTest < Test::Unit::TestCase
 
     controller = mock
     stubs(:controller).returns(controller)
-    controller.expects(:action_name).returns('edit')
+    controller.stubs(:controller_name).returns('')
+    controller.stubs(:action_name).returns('edit')
 
     profile = Person.new
     profile.expects(:active_fields).returns(['field'])
@@ -314,7 +369,8 @@ class ApplicationHelperTest < Test::Unit::TestCase
 
     controller = mock
     stubs(:controller).returns(controller)
-    controller.expects(:action_name).returns('edit')
+    controller.stubs(:action_name).returns('edit')
+    controller.stubs(:controller_name).returns('')
 
     profile = Person.new
     profile.expects(:active_fields).returns([])
@@ -327,27 +383,13 @@ class ApplicationHelperTest < Test::Unit::TestCase
 
     controller = mock
     stubs(:controller).returns(controller)
-    controller.expects(:action_name).returns('edit')
+    controller.stubs(:controller_name).returns('')
+    controller.stubs(:action_name).returns('edit')
 
     stubs(:required).with('SIGNUP_FIELD').returns('<span>SIGNUP_FIELD</span>')
     profile = Person.new
     profile.expects(:active_fields).returns(['field'])
     profile.expects(:required_fields).returns(['field'])
-    assert_equal '<span>SIGNUP_FIELD</span>', optional_field(profile, 'field', 'SIGNUP_FIELD')
-  end
-
-  should 'display required fields on signup even if admin did not marked field to show up in signup' do
-    env = Environment.create!(:name => 'env test')
-    stubs(:environment).returns(env)
-
-    controller = mock
-    stubs(:controller).returns(controller)
-    controller.expects(:action_name).returns('signup')
-
-    stubs(:required).with('SIGNUP_FIELD').returns('<span>SIGNUP_FIELD</span>')
-    profile = Person.new
-    profile.stubs(:required_fields).returns(['field'])
-    profile.stubs(:signup_fields).returns([])
     assert_equal '<span>SIGNUP_FIELD</span>', optional_field(profile, 'field', 'SIGNUP_FIELD')
   end
 

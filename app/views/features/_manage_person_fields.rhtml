@@ -13,15 +13,15 @@
   <tr>
     <td><label for="person_fields[<%= field %>][active]"><%= _(field.humanize) %></label></td>
     <td>
-      <%= check_box_tag "person_fields[#{field}][active]", true, environment.custom_person_field(field, 'active'), :onclick => "$('person_fields[#{field}][required]').disabled=$('person_fields[#{field}][signup]').disabled=!this.checked" %>
+      <%= check_box_tag "person_fields[#{field}][active]", true, environment.custom_person_field(field, 'active'), :onclick => "$('person_fields[#{field}][required]').disabled=$('person_fields[#{field}][signup]').disabled=!this.checked;" %>
       <%= hidden_field_tag  "person_fields[#{field}][active]", false %>
     </td>
     <td>
-      <%= check_box_tag "person_fields[#{field}][required]", true, environment.custom_person_field(field, 'required') %>
+      <%= check_box_tag "person_fields[#{field}][required]", true, environment.custom_person_field(field, 'required'), :onclick => "if(this.checked) $('person_fields[#{field}][signup]').checked = true;" %>
       <%= hidden_field_tag  "person_fields[#{field}][required]", false %>
     </td>
     <td>
-      <%= check_box_tag "person_fields[#{field}][signup]", true, environment.custom_person_field(field, 'signup') %>
+      <%= check_box_tag "person_fields[#{field}][signup]", true, environment.custom_person_field(field, 'signup'), :onclick => "if(!this.checked) $('person_fields[#{field}][required]').checked = false;" %>
       <%= hidden_field_tag  "person_fields[#{field}][signup]", false %>
     </td>
   </tr>

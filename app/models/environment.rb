@@ -238,7 +238,7 @@ class Environment < ActiveRecord::Base
   def activation_blocked_text
     self.settings['activation_blocked_text']
   end
-  
+
   def activation_blocked_text= value
     self.settings['activation_blocked_text'] = value
   end
@@ -327,14 +327,25 @@ class Environment < ActiveRecord::Base
     if values['schooling'] && values['schooling']['active'] == 'true'
       schooling_status = values['schooling']
     end
+
     self.settings[:custom_person_fields] = values.delete_if { |key, value| ! Person.fields.include?(key)}
+    self.settings[:custom_person_fields].each_pair do |key, value|
+      if value['required'] == 'true'
+        self.settings[:custom_person_fields][key]['active'] = 'true'
+        self.settings[:custom_person_fields][key]['signup'] = 'true'
+      end
+      if value['signup'] == 'true'
+        self.settings[:custom_person_fields][key]['active'] = 'true'
+      end
+    end
+
     if schooling_status
       self.settings[:custom_person_fields]['schooling_status'] = schooling_status
     end
   end
 
   def custom_person_field(field, status)
-    if (custom_person_fields[field] && custom_person_fields[field][status] == 'true') 
+    if (custom_person_fields[field] && custom_person_fields[field][status] == 'true')
       return true
     end
     false
@@ -390,10 +401,19 @@ class Environment < ActiveRecord::Base
 
   def custom_enterprise_fields=(values)
     self.settings[:custom_enterprise_fields] = values.delete_if { |key, value| ! Enterprise.fields.include?(key)}
+    self.settings[:custom_enterprise_fields].each_pair do |key, value|
+      if value['required'] == 'true'
+        self.settings[:custom_enterprise_fields][key]['active'] = 'true'
+        self.settings[:custom_enterprise_fields][key]['signup'] = 'true'
+      end
+      if value['signup'] == 'true'
+        self.settings[:custom_enterprise_fields][key]['active'] = 'true'
+      end
+    end
   end
 
   def custom_enterprise_field(field, status)
-    if (custom_enterprise_fields[field] && custom_enterprise_fields[field][status] == 'true') 
+    if (custom_enterprise_fields[field] && custom_enterprise_fields[field][status] == 'true')
       return true
     end
     false
@@ -411,16 +431,32 @@ class Environment < ActiveRecord::Base
     required_fields
   end
 
+  def signup_enterprise_fields
+    signup_fields = []
+    active_enterprise_fields.each do |field|
+      signup_fields << field if custom_enterprise_fields[field]['signup'] == 'true'
+    end
+    signup_fields
+  end
+
   def custom_community_fields
     self.settings[:custom_community_fields].nil? ? {} : self.settings[:custom_community_fields]
   end
-
   def custom_community_fields=(values)
     self.settings[:custom_community_fields] = values.delete_if { |key, value| ! Community.fields.include?(key) }
+    self.settings[:custom_community_fields].each_pair do |key, value|
+      if value['required'] == 'true'
+        self.settings[:custom_community_fields][key]['active'] = 'true'
+        self.settings[:custom_community_fields][key]['signup'] = 'true'
+      end
+      if value['signup'] == 'true'
+        self.settings[:custom_community_fields][key]['active'] = 'true'
+      end
+    end
   end
 
   def custom_community_field(field, status)
-    if (custom_community_fields[field] && custom_community_fields[field][status] == 'true') 
+    if (custom_community_fields[field] && custom_community_fields[field][status] == 'true')
       return true
     end
     false
@@ -436,6 +472,14 @@ class Environment < ActiveRecord::Base
       required_fields << field if custom_community_fields[field]['required'] == 'true'
     end
     required_fields
+  end
+
+  def signup_community_fields
+    signup_fields = []
+    active_community_fields.each do |field|
+      signup_fields << field if custom_community_fields[field]['signup'] == 'true'
+    end
+    signup_fields
   end
 
   def category_types
@@ -483,7 +527,7 @@ class Environment < ActiveRecord::Base
     self.find(:first, :conditions => [ 'is_default = ?', true ] )
   end
 
-  # returns an array with the top level categories for this environment. 
+  # returns an array with the top level categories for this environment.
   def top_level_categories
     Category.top_level_for(self)
   end
@@ -527,7 +571,7 @@ class Environment < ActiveRecord::Base
     self.articles.recent(limit)
   end
 
-  has_many :events, :through => :profiles, :source => :articles, :class_name => 'Event' 
+  has_many :events, :through => :profiles, :source => :articles, :class_name => 'Event'
 
   has_many :tags, :through => :articles
 
@@ -578,7 +622,7 @@ class Environment < ActiveRecord::Base
   def community_template=(value)
     settings[:community_template_id] = value.id
   end
- 
+
   def person_template
     Person.find_by_id settings[:person_template_id]
   end

@@ -7,18 +7,25 @@
     <th><%= _('Field') %></th>
     <th><%= _('Active') %></th>
     <th><%= _('Required') %></th>
+    <th><%= _('Display on creation?') %></th>
   </tr>
   <% @community_fields.each do |field| %>
   <tr>
     <td><label for="community_fields[<%= field %>][active]"><%= _(field.humanize) %></label></td>
+
     <td>
-      <%= check_box_tag "community_fields[#{field}][active]", true, environment.custom_community_field(field, 'active'), :onclick => "$('community_fields[#{field}][required]').disabled=!this.checked" %>
+      <%= check_box_tag "community_fields[#{field}][active]", true, environment.custom_community_field(field, 'active'), :onclick => "$('community_fields[#{field}][required]').disabled=$('community_fields[#{field}][signup]').disabled=!this.checked;" %>
       <%= hidden_field_tag  "community_fields[#{field}][active]", false %>
     </td>
     <td>
-      <%= check_box_tag "community_fields[#{field}][required]", true, environment.custom_community_field(field, 'required') %>
+      <%= check_box_tag "community_fields[#{field}][required]", true, environment.custom_community_field(field, 'required'), :onclick => "if(this.checked) $('community_fields[#{field}][signup]').checked = true;" %>
       <%= hidden_field_tag  "community_fields[#{field}][required]", false %>
     </td>
+    <td>
+      <%= check_box_tag "community_fields[#{field}][signup]", true, environment.custom_community_field(field, 'signup'), :onclick => "if(!this.checked) $('community_fields[#{field}][required]').checked = false;" %>
+      <%= hidden_field_tag  "community_fields[#{field}][signup]", false %>
+    </td>
+
   </tr>
   <% end %>
 </table>

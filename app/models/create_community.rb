@@ -14,7 +14,7 @@ class CreateCommunity < Task
 
   acts_as_having_image
 
-  DATA_FIELDS = Community.fields + ['name', 'closed', 'tag_list']
+  DATA_FIELDS = Community.fields + ['name', 'closed']
 
   DATA_FIELDS.each do |field|
     # getter
@@ -30,7 +30,7 @@ class CreateCommunity < Task
   def validate
     self.environment.required_community_fields.each do |field|
       if self.send(field).blank?
-        self.errors.add(field, _('%{fn} is mandatory'))
+        self.errors.add(field, _('%{fn} can\'t be blank'))
       end
     end
   end

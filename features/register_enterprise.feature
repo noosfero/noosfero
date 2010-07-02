@@ -44,8 +44,8 @@ Feature: register enterprise
     When I follow "Register a new enterprise"
     Then I should see "There are no validators to validate the registration of this new enterprise. Contact your administrator for instructions."
 
-  Scenario: some active fields
-    Given the following enterprise fields are active
+  Scenario: some signup fields
+    Given the following enterprise fields are signup fields
       | foundation_year |
       | contact_person  |
       | contact_email   |
@@ -61,7 +61,7 @@ Feature: register enterprise
     And the following states
       | name          |
       | Sample State  |
-    And the following enterprise fields are required
+    And the following enterprise fields are required fields
       | foundation_year |
       | contact_person  |
       | contact_email   |

@@ -27,10 +27,6 @@ class Enterprise < Organization
 
   FIELDS = %w[
     business_name
-    zip_code
-    city
-    state
-    country
     organization_website
     historic_and_current_context
     activities_short_description
@@ -57,6 +53,10 @@ class Enterprise < Organization
 
   def required_fields
     environment ? environment.required_enterprise_fields : []
+  end
+
+  def signup_fields
+    environment ? environment.signup_enterprise_fields : []
   end
 
   def product_categories
