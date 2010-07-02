@@ -172,7 +172,7 @@ class EventTest < ActiveSupport::TestCase
   end
 
   should 'list all events' do
-    profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile')
+    profile = fast_create(Profile)
     event1 = Event.new(:name => 'Ze Birthday', :start_date => Date.today)
     event2 = Event.new(:name => 'Mane Birthday', :start_date => Date.today >> 1)
     profile.events << [event1, event2]
@@ -181,7 +181,7 @@ class EventTest < ActiveSupport::TestCase
   end
 
   should 'list events by day' do
-    profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile')
+    profile = fast_create(Profile)
 
     today = Date.today
     yesterday_event = Event.new(:name => 'Joao Birthday', :start_date => today - 1.day)
@@ -194,7 +194,7 @@ class EventTest < ActiveSupport::TestCase
   end
 
   should 'list events in a range' do
-    profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile')
+    profile = fast_create(Profile)
 
     today = Date.today
     event_in_range = Event.new(:name => 'Noosfero Conference', :start_date => today - 2.day, :end_date => today + 2.day)
@@ -208,7 +208,7 @@ class EventTest < ActiveSupport::TestCase
   end
 
   should 'not list events out of range' do
-    profile = Profile.create!(:name => "Test Profile", :identifier => 'testprofile')
+    profile = fast_create(Profile)
 
     today = Date.today
     event_in_range1 = Event.new(:name => 'Foswiki Conference', :start_date => today - 2.day, :end_date => today + 2.day)

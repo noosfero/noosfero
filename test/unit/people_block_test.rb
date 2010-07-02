@@ -24,7 +24,7 @@ class PeopleBlockTest < ActiveSupport::TestCase
   end
 
   should 'list people' do
-    owner = Environment.create!(:name => 'test environment')
+    owner = fast_create(Environment)
     block = PeopleBlock.new
     block.expects(:owner).returns(owner).at_least_once
     person1 = fast_create(Person, :environment_id => owner.id)

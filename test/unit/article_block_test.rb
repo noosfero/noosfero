@@ -71,7 +71,7 @@ class ArticleBlockTest < Test::Unit::TestCase
     env.articles.destroy_all
     assert_equal [], env.articles
     community = fast_create(Community)
-    a = community.articles.create!(:name => 'test')
+    a = fast_create(TextArticle, :profile_id => community.id, :name => 'test')
     env.portal_community=community
     env.save
     block = ArticleBlock.create(:article => a)

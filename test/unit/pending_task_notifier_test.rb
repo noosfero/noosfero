@@ -21,7 +21,7 @@ class PendingTaskNotifierTest < Test::Unit::TestCase
 
   should 'list organization pending tasks' do
     p = create_user('maelcum').person
-    c = Community.create!(:name => 'my test community')
+    c = fast_create(Community)
     c.add_admin(p)
     c.tasks << Task.new
 

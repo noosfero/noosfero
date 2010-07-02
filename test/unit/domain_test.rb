@@ -51,7 +51,7 @@ class DomainTest < Test::Unit::TestCase
 
   def test_find_by_name
     Domain.delete_all
-    Domain.create(:name => 'example.net')
+    fast_create(Domain, :name => 'example.net')
     d1 = Domain.find_by_name('example.net')
     d2 =  Domain.find_by_name('www.example.net')
     assert !d1.nil?

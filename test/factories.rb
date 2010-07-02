@@ -220,6 +220,11 @@ module Noosfero::Factory
     { :name => name, :slug => name.to_slug, :path => name.to_slug }
   end
 
+  alias :defaults_for_text_article :defaults_for_article
+  alias :defaults_for_textile_article :defaults_for_article
+  alias :defaults_for_tiny_mce_article :defaults_for_article
+  alias :defaults_for_rss_feed :defaults_for_article
+
   ###############################################
   # Folder
   ###############################################
@@ -249,7 +254,8 @@ module Noosfero::Factory
   # Blog
   ###############################################
   def defaults_for_blog
-    { :name => 'My blog ' + factory_num_seq.to_s }
+    name = 'My blog ' + factory_num_seq.to_s
+    { :name => name, :slug => name.to_slug }
   end
 
   def create_blog
@@ -289,12 +295,11 @@ module Noosfero::Factory
   # Category
   ###############################################
   def defaults_for_category
-    { :environment_id => Environment.default.id, :name => 'category' + factory_num_seq.to_s }
+    name = 'category' + factory_num_seq.to_s
+    { :environment_id => 1, :name => name, :slug => name.to_slug, :path => name.to_slug }
   end
 
-  def defaults_for_region
-    defaults_for_category
-  end
+  alias :defaults_for_region :defaults_for_category
 
   ###############################################
   # Box
@@ -302,5 +307,24 @@ module Noosfero::Factory
   def defaults_for_box
     { }
   end
+
+  ###############################################
+  # Block
+  ###############################################
+  def defaults_for_block
+    { }
+  end
+
+  ###############################################
+  # Task
+  ###############################################
+  def defaults_for_task
+    { :code => "task_for_test_#{factory_num_seq.to_s}" }
+  end
+
+  alias :defaults_for_add_friend :defaults_for_task
+  alias :defaults_for_add_member :defaults_for_task
+  alias :defaults_for_create_community :defaults_for_task
+  alias :defaults_for_email_activation :defaults_for_task
 
 end

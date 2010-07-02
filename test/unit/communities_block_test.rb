@@ -121,7 +121,7 @@ class CommunitiesBlockTest < Test::Unit::TestCase
     community_public = fast_create(Community, :environment_id => Environment.default.id, :public_profile => true)
     community_public.add_member(user)
 
-    community_private = fast_create(Community, :environment_id => Environment.default.id, :public_profile => false)
+    community_private = fast_create(Community, :public_profile => false)
     community_private.add_member(user)
 
     block = CommunitiesBlock.new
@@ -133,10 +133,10 @@ class CommunitiesBlockTest < Test::Unit::TestCase
   should 'not count non-visible profile communities' do
     user = create_user('testuser').person
 
-    visible_community = Community.create!(:name => 'tcommunity 1', :identifier => 'comm1', :environment => Environment.default, :visible => true)
+    visible_community = fast_create(Community, :name => 'tcommunity 1', :identifier => 'comm1', :visible => true)
     visible_community.add_member(user)
 
-    not_visible_community = Community.create!(:name => ' community 2', :identifier => 'comm2', :environment => Environment.default, :visible => false)
+    not_visible_community = fast_create(Community, :name => ' community 2', :identifier => 'comm2', :visible => false)
     not_visible_community.add_member(user)
 
     block = CommunitiesBlock.new
@@ -146,9 +146,9 @@ class CommunitiesBlockTest < Test::Unit::TestCase
   end
 
   should 'count non-public environment communities' do
-    community_public = Community.create!(:name => 'tcommunity 1', :identifier => 'comm1', :environment => Environment.default, :public_profile => true)
+    community_public = fast_create(Community, :name => 'tcommunity 1', :identifier => 'comm1', :public_profile => true)
 
-    community_private = Community.create!(:name => ' community 2', :identifier => 'comm2', :environment => Environment.default, :public_profile => false)
+    community_private = fast_create(Community, :name => ' community 2', :identifier => 'comm2', :public_profile => false)
 
     block = CommunitiesBlock.new
     block.expects(:owner).at_least_once.returns(Environment.default)
@@ -157,9 +157,9 @@ class CommunitiesBlockTest < Test::Unit::TestCase
   end
 
   should 'not count non-visible environment communities' do
-    visible_community = Community.create!(:name => 'tcommunity 1', :identifier => 'comm1', :environment => Environment.default, :visible => true)
+    visible_community = fast_create(Community, :name => 'tcommunity 1', :identifier => 'comm1', :visible => true)
 
-    not_visible_community = Community.create!(:name => ' community 2', :identifier => 'comm2', :environment => Environment.default, :visible => false)
+    not_visible_community = fast_create(Community, :name => ' community 2', :identifier => 'comm2', :visible => false)
 
     block = CommunitiesBlock.new
     block.expects(:owner).at_least_once.returns(Environment.default)

@@ -21,7 +21,7 @@ class BlogArchivesBlockTest < ActiveSupport::TestCase
     date = DateTime.parse('2008-01-01')
     blog = profile.blog
     for i in 1..10 do
-      post = TextileArticle.create!(:name => "post #{i} test", :profile => profile, :parent => blog)
+      post = fast_create(TextileArticle, :name => "post #{i} test", :profile_id => profile.id, :parent_id => blog.id)
       post.update_attribute(:published_at, date)
     end
     block = BlogArchivesBlock.new
@@ -33,7 +33,7 @@ class BlogArchivesBlockTest < ActiveSupport::TestCase
     date = DateTime.parse('2008-01-01')
     blog = profile.blog
     for i in 1..10 do
-      post = TextileArticle.create!(:name => "post #{i} test", :profile => profile, :parent => blog)
+      post = fast_create(TextileArticle, :name => "post #{i} test", :profile_id => profile.id, :parent_id => blog.id)
       assert post.update_attribute(:published_at, date)
     end
     block = BlogArchivesBlock.new
@@ -44,7 +44,7 @@ class BlogArchivesBlockTest < ActiveSupport::TestCase
   should 'order list of amount posts' do
     blog = profile.blog
     for i in 1..10 do
-      post = TextileArticle.create!(:name => "post #{i} test", :profile => profile, :parent => blog)
+      post = fast_create(TextileArticle, :name => "post #{i} test", :profile_id => profile.id, :parent_id => blog.id)
       post.update_attribute(:published_at, DateTime.parse("2008-#{i}-01"))
     end
     block = BlogArchivesBlock.new
@@ -90,11 +90,11 @@ class BlogArchivesBlockTest < ActiveSupport::TestCase
   end
 
   should 'show posts from first blog' do
-    (blog_one, blog_two) = profile.blogs
     profile.articles << Blog.new(:name => 'Blog Two', :profile => profile)
+    (blog_one, blog_two) = profile.blogs
     for month in 1..3
-      TextileArticle.create!(:name => "blog one - post #{month}", :profile => profile, :parent => blog_one)
-      TextileArticle.create!(:name => "blog two - post #{month}", :profile => profile, :parent => blog_two)
+      create(TextileArticle, :name => "blog one - post #{month}", :profile_id => profile.id, :parent_id => blog_one.id)
+      create(TextileArticle, :name => "blog two - post #{month}", :profile_id => profile.id, :parent_id => blog_two.id)
     end
     block = BlogArchivesBlock.new
     block.stubs(:owner).returns(profile)

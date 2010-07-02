@@ -94,7 +94,7 @@ class RssFeedTest < Test::Unit::TestCase
     blog = Blog.create!(:name => 'blog-test', :profile => profile)
     posts = []
     6.times do |i|
-      posts << TextArticle.create!(:name => "post #{i}", :profile => profile, :parent => blog)
+      posts << fast_create(TextArticle, :name => "post #{i}", :profile_id => profile.id, :parent_id => blog.id)
     end
     feed = blog.feed
     feed.limit = 5
@@ -108,7 +108,7 @@ class RssFeedTest < Test::Unit::TestCase
     blog = Blog.create!(:name => 'blog-test', :profile => profile)
     posts = []
     5.times do |i|
-      posts << TextArticle.create!(:name => "post #{i}", :profile => profile, :parent => blog)
+      posts << fast_create(TextArticle, :name => "post #{i}", :profile_id => profile.id, :parent_id => blog.id)
     end
     posts[0].published = false
     posts[0].save!

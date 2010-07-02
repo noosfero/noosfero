@@ -4,7 +4,7 @@ class OrganizationTest < Test::Unit::TestCase
   fixtures :profiles
 
   def create_create_enterprise(org)
-    region = Region.create!(:name => 'some region', :environment => Environment.default)
+    region = fast_create(Region, :name => 'some region')
     region.validators << org
 
     requestor = create_user('testreq').person
@@ -130,7 +130,7 @@ class OrganizationTest < Test::Unit::TestCase
   end
 
   should 'be able to find a pending validation by its code' do
-    org = Organization.create!(:name => 'test org', :identifier => 'testorg')
+    org = fast_create(Organization)
 
     validation = create_create_enterprise(org)
 
@@ -148,7 +148,7 @@ class OrganizationTest < Test::Unit::TestCase
   end
 
   should 'be able to find an already processed validation by its code' do
-    org = Organization.create!(:name => 'test org', :identifier => 'testorg')
+    org = fast_create(Organization)
     validation = create_create_enterprise(org)
     validation.finish
 
@@ -167,7 +167,7 @@ class OrganizationTest < Test::Unit::TestCase
   end
 
   should 'update contact_person' do
-    org = Organization.create!(:name => 'test org', :identifier => 'testorg')
+    org = fast_create(Organization)
     assert_nil org.contact_person
     org.contact_person = 'person'
     assert_not_nil org.contact_person
@@ -197,7 +197,7 @@ class OrganizationTest < Test::Unit::TestCase
   end
 
   should 'allow to add new member' do
-    o = Organization.create!(:name => 'my test profile', :identifier => 'mytestprofile')
+    o = fast_create(Organization)
     p = create_user('mytestuser').person
 
     o.add_member(p)
@@ -206,7 +206,7 @@ class OrganizationTest < Test::Unit::TestCase
   end
   
   should 'allow to remove members' do
-    c = Organization.create!(:name => 'my other test profile', :identifier => 'myothertestprofile')
+    c = fast_create(Organization)
     p = create_user('myothertestuser').person
 
     c.add_member(p)
@@ -217,7 +217,7 @@ class OrganizationTest < Test::Unit::TestCase
   end
 
   should 'allow to add new moderator' do
-    o = Organization.create!(:name => 'my test profile', :identifier => 'mytestprofile')
+    o = fast_create(Organization)
     p = create_user('myanothertestuser').person
 
     o.add_moderator(p)
@@ -226,14 +226,14 @@ class OrganizationTest < Test::Unit::TestCase
   end
 
   should 'moderator has moderate_comments permission' do
-    o = Organization.create!(:name => 'my test profile', :identifier => 'mytestprofile')
+    o = fast_create(Organization)
     p = create_user('myanothertestuser').person
     o.add_moderator(p)
     assert p.has_permission?(:moderate_comments, o)
   end
 
   should 'be able to change identifier' do
-    o = Organization.create!(:name => 'Test Org', :identifier => 'test_org')
+    o = fast_create(Organization)
     assert_nothing_raised do
       o.identifier = 'test_org_new_url'
     end

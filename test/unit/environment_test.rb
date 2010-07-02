@@ -107,9 +107,9 @@ class EnvironmentTest < Test::Unit::TestCase
 
   def test_should_list_top_level_categories
     env = fast_create(Environment)
-    cat1 = Category.create!(:name => 'first category', :environment_id => env.id)
-    cat2 = Category.create!(:name => 'second category', :environment_id => env.id)
-    subcat = Category.create!(:name => 'child category', :environment_id => env.id, :parent_id => cat2.id)
+    cat1 = fast_create(Category, :name => 'first category', :environment_id => env.id)
+    cat2 = fast_create(Category, :name => 'second category', :environment_id => env.id)
+    subcat = fast_create(Category, :name => 'child category', :environment_id => env.id, :parent_id => cat2.id)
 
     cats = env.top_level_categories
     assert_equal 2, cats.size
@@ -120,9 +120,9 @@ class EnvironmentTest < Test::Unit::TestCase
 
   def test_should_list_all_categories
     env = fast_create(Environment)
-    cat1 = Category.create!(:name => 'first category', :environment_id => env.id)
-    cat2 = Category.create!(:name => 'second category', :environment_id => env.id)
-    subcat = Category.create!(:name => 'child category', :environment_id => env.id, :parent_id => cat2.id)
+    cat1 = fast_create(Category, :name => 'first category', :environment_id => env.id)
+    cat2 = fast_create(Category, :name => 'second category', :environment_id => env.id)
+    subcat = fast_create(Category, :name => 'child category', :environment_id => env.id, :parent_id => cat2.id)
 
     cats = env.categories
     assert_equal 3, cats.size
@@ -315,21 +315,21 @@ class EnvironmentTest < Test::Unit::TestCase
   should 'provide recent_documents' do
     environment = fast_create(Environment)
 
-    p1 = environment.profiles.build(:identifier => 'testprofile1', :name => 'test profile 1'); p1.save!
-    p2 = environment.profiles.build(:identifier => 'testprofile2', :name => 'test profile 2'); p2.save!
+    p1 = fast_create(Profile, :environment_id => environment.id)
+    p2 = fast_create(Profile, :environment_id => environment.id)
 
     # clear the articles
     Article.destroy_all
 
     # p1 creates one article
-    doc1 = p1.articles.build(:name => 'text 1'); doc1.save!
+    doc1 = fast_create(Article, :profile_id => p1.id)
 
     # p2 creates two articles
-    doc2 = p2.articles.build(:name => 'text 2'); doc2.save!
-    doc3 = p2.articles.build(:name => 'text 3'); doc3.save!
+    doc2 = fast_create(Article, :profile_id => p2.id)
+    doc3 = fast_create(Article, :profile_id => p2.id)
 
     # p1 creates another article
-    doc4 = p1.articles.build(:name => 'text 4'); doc4.save!
+    doc4 = fast_create(Article, :profile_id => p1.id)
 
     all_recent = environment.recent_documents
     [doc1,doc2,doc3,doc4].each do |item|
@@ -404,34 +404,10 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal 'this enterprise was disabled', env.message_for_disabled_enterprise
   end
 
-  should 'have articles and text_articles' do
-    # FIXME 
-    assert true
-    #environment = Environment.create(:name => 'a test environment')
-
-    ## creates profile
-    #profile = environment.profiles.create!(:identifier => 'testprofile1', :name => 'test profile 1')
-
-    ## profile creates one article
-    #article = profile.articles.create!(:name => 'text article')
-
-    ## profile creates one textile article
-    #textile = TextileArticle.create!(:name => 'textile article', :profile => profile)
-    #profile.articles << textile
-
-    #assert_includes environment.articles, article
-    #assert_includes environment.articles, textile
-
-    #assert_includes environment.text_articles, textile
-    #assert_not_includes environment.text_articles, article
-  end
-
   should 'find by contents from articles' do
     environment = fast_create(Environment)
     assert_nothing_raised do
       environment.articles.find_by_contents('')
-      # FIXME
-      #environment.text_articles.find_by_contents('')
     end
   end
 
@@ -768,7 +744,7 @@ class EnvironmentTest < Test::Unit::TestCase
     e = Environment.default
 
     c = e.portal_community = fast_create(Community)
-    news_folder = Folder.create!(:name => 'news folder', :profile => c)
+    news_folder = fast_create(Folder, :name => 'news folder', :profile_id => c.id)
 
     e.portal_folders = [news_folder]
     e.save!; e.reload
@@ -848,9 +824,9 @@ class EnvironmentTest < Test::Unit::TestCase
 
   should 'list tags with their counts' do
     person = fast_create(Person)
-    person.articles.build(:name => 'article 1', :tag_list => 'first-tag').save!
-    person.articles.build(:name => 'article 2', :tag_list => 'first-tag, second-tag').save!
-    person.articles.build(:name => 'article 3', :tag_list => 'first-tag, second-tag, third-tag').save!
+    person.articles.create!(:name => 'article 1', :tag_list => 'first-tag')
+    person.articles.create!(:name => 'article 2', :tag_list => 'first-tag, second-tag')
+    person.articles.create!(:name => 'article 3', :tag_list => 'first-tag, second-tag, third-tag')
 
     assert_equal({ 'first-tag' => 3, 'second-tag' => 2, 'third-tag' => 1 }, Environment.default.tag_counts)
   end

@@ -32,13 +32,13 @@ class ContactTest < ActiveSupport::TestCase
   end
 
   should 'deliver message' do
-    ent = Enterprise.create!(:name => 'my enterprise', :identifier => 'myent', :environment => Environment.default)
+    ent = fast_create(Enterprise, :name => 'my enterprise', :identifier => 'myent')
     c = Contact.new(:name => 'john', :email => 'john@invalid.com', :subject => 'hi', :message => 'hi, all', :dest => ent)
     assert c.deliver
   end
 
   should 'not deliver message if contact is invalid' do
-    ent = Enterprise.create!(:name => 'my enterprise', :identifier => 'myent', :environment => Environment.default)
+    ent = fast_create(Enterprise, :name => 'my enterprise', :identifier => 'myent')
     c = Contact.new(:name => 'john', :subject => 'hi', :message => 'hi, all', :dest => ent)
     assert !c.valid?
     assert !c.deliver

@@ -51,7 +51,7 @@ class CommunityTest < Test::Unit::TestCase
   end
 
   should 'allow to add new members' do
-    c = Community.create!(:environment => Environment.default, :name => 'my test profile', :identifier => 'mytestprofile')
+    c = fast_create(Community, :name => 'my test profile', :identifier => 'mytestprofile')
     p = create_user('mytestuser').person
 
     c.add_member(p)
@@ -60,7 +60,7 @@ class CommunityTest < Test::Unit::TestCase
   end
 
   should 'allow to remove members' do
-    c = Community.create!(:environment => Environment.default, :name => 'my other test profile', :identifier => 'myothertestprofile')
+    c = fast_create(Community, :name => 'my other test profile', :identifier => 'myothertestprofile')
     p = create_user('myothertestuser').person
 
     c.add_member(p)
@@ -71,7 +71,7 @@ class CommunityTest < Test::Unit::TestCase
   end
 
   should 'clear relationships after destroy' do
-    c = Community.create!(:environment => Environment.default, :name => 'my test profile', :identifier => 'mytestprofile')
+    c = fast_create(Community, :name => 'my test profile', :identifier => 'mytestprofile')
     member = create_user('memberuser').person
     admin = create_user('adminuser').person
     moderator = create_user('moderatoruser').person
@@ -91,7 +91,7 @@ class CommunityTest < Test::Unit::TestCase
 
   should 'have a community template' do
     env = Environment.create!(:name => 'test env')
-    p = Community.create!(:environment => Environment.default, :name => 'test_com', :identifier => 'test_com', :environment => env)
+    p = Community.create!(:name => 'test_com', :identifier => 'test_com', :environment => env)
     assert_kind_of Community, p.template
   end
 
@@ -124,28 +124,28 @@ class CommunityTest < Test::Unit::TestCase
   end
 
   should 'return newest text articles as news' do
-    c = Community.create!(:name => 'test_com')
-    f = Folder.create!(:name => 'folder', :profile => c)
+    c = fast_create(Community, :name => 'test_com')
+    f = fast_create(Folder, :name => 'folder', :profile_id => c.id)
     u = UploadedFile.create!(:profile => c, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
-    older_t = TinyMceArticle.create!(:name => 'old news', :profile => c)
-    t = TinyMceArticle.create!(:name => 'news', :profile => c)
-    t_in_f = TinyMceArticle.create!(:name => 'news', :profile => c, :parent => f)
+    older_t = fast_create(TinyMceArticle, :name => 'old news', :profile_id => c.id)
+    t = fast_create(TinyMceArticle, :name => 'news', :profile_id => c.id)
+    t_in_f = fast_create(TinyMceArticle, :name => 'news', :profile_id => c.id, :parent_id => f.id)
 
     assert_equal [t_in_f, t], c.news(2)
   end
 
   should 'not return highlighted news when not asked' do
-    c = Community.create!(:name => 'test_com')
-    highlighted_t = TinyMceArticle.create!(:name => 'high news', :profile => c, :highlighted => true)
-    t = TinyMceArticle.create!(:name => 'news', :profile => c)
+    c = fast_create(Community, :name => 'test_com')
+    highlighted_t = fast_create(TinyMceArticle, :name => 'high news', :profile_id => c.id, :highlighted => true)
+    t = fast_create(TinyMceArticle, :name => 'news', :profile_id => c.id)
 
     assert_equal [t].map(&:slug), c.news(2).map(&:slug)
   end
 
   should 'return highlighted news when asked' do
-    c = Community.create!(:name => 'test_com')
-    highlighted_t = TinyMceArticle.create!(:name => 'high news', :profile => c, :highlighted => true)
-    t = TinyMceArticle.create!(:name => 'news', :profile => c)
+    c = fast_create(Community, :name => 'test_com')
+    highlighted_t = fast_create(TinyMceArticle, :name => 'high news', :profile_id => c.id, :highlighted => true)
+    t = fast_create(TinyMceArticle, :name => 'news', :profile_id => c.id)
 
     assert_equal [highlighted_t].map(&:slug), c.news(2, true).map(&:slug)
   end

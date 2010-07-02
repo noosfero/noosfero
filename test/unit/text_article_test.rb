@@ -10,7 +10,7 @@ class TextArticleTest < Test::Unit::TestCase
 
   should 'found TextileArticle by TextArticle class' do
     person = create_user('testuser').person
-    article = TextileArticle.create!(:name => 'textile article test', :profile => person)
+    article = fast_create(TextileArticle, :name => 'textile article test', :profile_id => person.id)
     assert_includes TextArticle.find(:all), article
   end
   

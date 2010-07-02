@@ -10,7 +10,7 @@ class AddFriendTest < ActiveSupport::TestCase
     p1 = create_user('testuser1').person
     p2 = create_user('testuser2').person
 
-    task = AddFriend.create!(:person => p1, :friend => p2)
+    task = fast_create(AddFriend, :requestor_id => p1.id, :target_id => p2.id, :target_type => 'Person')
 
     assert_difference Friendship, :count, 2 do
       task.finish
@@ -26,7 +26,10 @@ class AddFriendTest < ActiveSupport::TestCase
     p1 = create_user('testuser1').person
     p2 = create_user('testuser2').person
 
-    task = AddFriend.create!(:person => p1, :group_for_person => 'friend1', :friend => p2, :group_for_friend => 'friend2')
+    task = fast_create(AddFriend, :requestor_id => p1, :target_id => p2.id, :target_type => 'Person')
+    task.group_for_person = 'friend1'
+    task.group_for_friend = 'friend2'
+    assert task.save
 
     assert_difference Friendship, :count, 2 do
       task.finish
@@ -72,7 +75,7 @@ class AddFriendTest < ActiveSupport::TestCase
     p1 = create_user('testuser1').person
     p2 = create_user('testuser2').person
 
-    task = AddFriend.create!(:person => p1, :friend => p2)
+    task = fast_create(AddFriend, :requestor_id => p1.id, :target_id => p2.id)
 
     assert_equal 'testuser1 wants to be your friend.', task.description
   end
@@ -85,7 +88,7 @@ class AddFriendTest < ActiveSupport::TestCase
   should 'not add friend twice' do
     p1 = create_user('testuser1').person
     p2 = create_user('testuser2').person
-    AddFriend.create!(:person => p1, :friend => p2)
+    fast_create(AddFriend, :requestor_id => p1.id, :target_id => p2.id)
     assert_raise ActiveRecord::RecordInvalid do
       AddFriend.create!(:person => p1, :friend => p2)
     end

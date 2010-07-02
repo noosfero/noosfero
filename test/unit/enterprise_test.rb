@@ -46,7 +46,7 @@ class EnterpriseTest < Test::Unit::TestCase
   end
 
   should 'remove products when removing enterprise' do
-    e = Enterprise.create!(:name => "My enterprise", :identifier => 'myenterprise')
+    e = fast_create(Enterprise)
     e.products.build(:name => 'One product').save!
     e.products.build(:name => 'Another product').save!
 
@@ -77,7 +77,7 @@ class EnterpriseTest < Test::Unit::TestCase
   end
 
   should 'be found in search for its product categories' do
-    ent1 = Enterprise.create!(:name => 'test1', :identifier => 'test1')
+    ent1 = fast_create(Enterprise)
     prod_cat = ProductCategory.create!(:name => 'pctest', :environment => Environment.default)
     prod = ent1.products.create!(:name => 'teste', :product_category => prod_cat)
 
@@ -90,7 +90,7 @@ class EnterpriseTest < Test::Unit::TestCase
   end
 
    should 'be found in search for its product categories hierarchy' do
-    ent1 = Enterprise.create!(:name => 'test1', :identifier => 'test1')
+    ent1 = fast_create(Enterprise)
     prod_cat = ProductCategory.create!(:name => 'pctest', :environment => Environment.default)
     prod_child = ProductCategory.create!(:name => 'pchild', :environment => Environment.default, :parent => prod_cat)
     prod = ent1.products.create!(:name => 'teste', :product_category => prod_child)
@@ -104,7 +104,7 @@ class EnterpriseTest < Test::Unit::TestCase
   end
 
   should 'not allow to add new members' do
-    o = Enterprise.create!(:name => 'my test profile', :identifier => 'mytestprofile')
+    o = fast_create(Enterprise)
     p = create_user('mytestuser').person
 
     o.add_member(p)
@@ -114,7 +114,7 @@ class EnterpriseTest < Test::Unit::TestCase
   end
 
   should 'allow to remove members' do
-    c = Enterprise.create!(:name => 'my other test profile', :identifier => 'myothertestprofile')
+    c = fast_create(Enterprise)
     c.expects(:closed?).returns(false)
     p = create_user('myothertestuser').person
 
@@ -126,27 +126,27 @@ class EnterpriseTest < Test::Unit::TestCase
   end
 
   should 'have foudation_year' do
-    ent = Enterprise.create!(:name => 'test enteprise', :identifier => 'test_ent')
+    ent = fast_create(Enterprise)
 
     assert_respond_to ent, 'foundation_year'
     assert_respond_to ent, 'foundation_year='
   end
 
   should 'have cnpj' do
-    ent = Enterprise.create!(:name => 'test enteprise', :identifier => 'test_ent')
+    ent = fast_create(Enterprise)
 
     assert_respond_to ent, 'cnpj'
     assert_respond_to ent, 'cnpj='
   end
 
   should 'block' do
-    ent = Enterprise.create!(:name => 'test enteprise', :identifier => 'test_ent')
+    ent = fast_create(Enterprise)
     ent.block
     assert Enterprise.find(ent.id).blocked?
   end
 
   should 'unblock' do
-    ent = Enterprise.create!(:name => 'test enteprise', :identifier => 'test_ent')
+    ent = fast_create(Enterprise)
     ent.data[:blocked] = true
     ent.save
     ent.unblock
@@ -154,7 +154,7 @@ class EnterpriseTest < Test::Unit::TestCase
   end
 
   should 'enable and make user admin' do
-    ent = Enterprise.create!(:name => 'test enteprise', :identifier => 'test_ent', :enabled => false)
+    ent = fast_create(Enterprise, :enabled => false)
     p = create_user('test_user').person
 
     assert ent.enable(p)

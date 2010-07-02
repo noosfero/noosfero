@@ -98,34 +98,9 @@ class ApplicationHelperTest < Test::Unit::TestCase
 
   should 'rolename for' do
     person = create_user('usertest').person
-    community = Community.create!(:name => 'new community', :identifier => 'new-community', :environment => Environment.default)
+    community = fast_create(Community, :name => 'new community', :identifier => 'new-community', :environment_id => Environment.default.id)
     community.add_member(person)
     assert_equal 'Profile Member', rolename_for(person, community)
-  end
-
-  should 'display categories' do
-    # FIXME implement this test!!!
-    assert true
-    #category = Category.create!(:name => 'parent category for testing', :environment_id => Environment.default)
-    #child = Category.create!(:name => 'child category for testing',   :environment => Environment.default, :display_in_menu => true, :parent => category)
-    #owner = create_user('testuser').person
-    #@article = owner.articles.create!(:name => 'ytest')
-    #@article.add_category(category)
-    #expects(:environment).returns(Environment.default)
-    #result = select_categories(:article)
-    #assert_match /parent category/, result
-  end
-
-  should 'not display categories if has no child' do
-    # FIXME implement this test!!!
-    assert true
-    #category = Category.create!(:name => 'parent category for testing', :environment_id => Environment.default)
-    #owner = create_user('testuser').person
-    #@article = owner.articles.create!(:name => 'ytest')
-    #@article.add_category(category)
-    #expects(:environment).returns(Environment.default)
-    #result = select_categories(:article)
-    #assert_no_match /parent category/, result
   end
 
   should 'get theme from environment by default' do
@@ -229,7 +204,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
   end
 
   should 'return nil if disable_categories is enabled' do
-    env = Environment.create!(:name => 'env test')
+    env = fast_create(Environment, :name => 'env test')
     stubs(:environment).returns(env)
     assert_not_nil env
     env.enable(:disable_categories)
@@ -263,14 +238,14 @@ class ApplicationHelperTest < Test::Unit::TestCase
   end
 
   should 'not draw sex icon when disabled in the environment' do
-    env = Environment.create!(:name => 'env test')
+    env = fast_create(Environment, :name => 'env test')
     env.expects(:enabled?).with('disable_gender_icon').returns(true)
     stubs(:environment).returns(env)
     assert_equal '', profile_sex_icon(Person.new(:sex => 'male'))
   end
 
   should 'display field on signup' do
-    env = Environment.create!(:name => 'env test')
+    env = fast_create(Environment, :name => 'env test')
     stubs(:environment).returns(env)
 
     controller = mock
@@ -283,7 +258,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
   end
 
   should 'not display field on signup' do
-    env = Environment.create!(:name => 'env test')
+    env = fast_create(Environment, :name => 'env test')
     stubs(:environment).returns(env)
 
     controller = mock
@@ -296,7 +271,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
   end
 
   should 'display active fields' do
-    env = Environment.create!(:name => 'env test')
+    env = fast_create(Environment, :name => 'env test')
     stubs(:environment).returns(env)
 
     controller = mock
@@ -309,7 +284,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
   end
 
   should 'not display active fields' do
-    env = Environment.create!(:name => 'env test')
+    env = fast_create(Environment, :name => 'env test')
     stubs(:environment).returns(env)
 
     controller = mock
@@ -322,7 +297,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
   end
 
   should 'display required fields' do
-    env = Environment.create!(:name => 'env test')
+    env = fast_create(Environment, :name => 'env test')
     stubs(:environment).returns(env)
 
     controller = mock
@@ -380,7 +355,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
     e.stubs(:enabled?).with(:join_community_popup).returns(true)
     stubs(:environment).returns(e)
 
-    c = Community.create(:name => 'test_comm', :identifier => 'test_comm')
+    c = fast_create(Community, :name => 'test_comm', :identifier => 'test_comm')
     stubs(:profile).returns(c)
     stubs(:logged_in?).returns(false)
     assert ! ask_to_join?
@@ -393,7 +368,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
     e.stubs(:enabled?).with(:join_community_popup).returns(true)
     stubs(:environment).returns(e)
 
-    c = Community.create(:name => 'test_comm', :identifier => 'test_comm')
+    c = fast_create(Community, :name => 'test_comm', :identifier => 'test_comm')
     stubs(:profile).returns(c)
     stubs(:logged_in?).returns(false)
     assert ask_to_join?
@@ -406,7 +381,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
     e.stubs(:enabled?).with(:join_community_popup).returns(true)
     stubs(:environment).returns(e)
 
-    c = Community.create(:name => 'test_comm', :identifier => 'test_comm')
+    c = fast_create(Community, :name => 'test_comm', :identifier => 'test_comm')
     stubs(:profile).returns(c)
     stubs(:logged_in?).returns(true)
     p = create_user('test_user').person
@@ -422,7 +397,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
     e = Environment.default
     e.stubs(:enabled?).with(:join_community_popup).returns(true)
     stubs(:environment).returns(e)
-    c = Community.create(:name => 'test_comm', :identifier => 'test_comm')
+    c = fast_create(Community, :name => 'test_comm', :identifier => 'test_comm')
     stubs(:profile).returns(c)
     stubs(:logged_in?).returns(true)
     p = create_user('test_user').person
@@ -438,7 +413,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
     e = Environment.default
     e.stubs(:enabled?).with(:join_community_popup).returns(false)
     stubs(:environment).returns(e)
-    c = Community.create(:name => 'test_comm', :identifier => 'test_comm')
+    c = fast_create(Community, :name => 'test_comm', :identifier => 'test_comm')
     stubs(:profile).returns(c)
     stubs(:logged_in?).returns(false)
     assert !ask_to_join?
@@ -450,7 +425,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
     e = Environment.default
     e.stubs(:enabled?).with(:join_community_popup).returns(false)
     stubs(:environment).returns(e)
-    c = Community.create(:name => 'test_comm', :identifier => 'test_comm')
+    c = fast_create(Community, :name => 'test_comm', :identifier => 'test_comm')
     stubs(:profile).returns(c)
     stubs(:logged_in?).returns(true)
     p = create_user('test_user').person
@@ -467,7 +442,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
     e.stubs(:enabled?).with(:join_community_popup).returns(true)
     stubs(:environment).returns(e)
 
-    c = Community.create(:name => 'test_comm', :identifier => 'test_comm')
+    c = fast_create(Community, :name => 'test_comm', :identifier => 'test_comm')
     stubs(:profile).returns(c)
     stubs(:logged_in?).returns(false)
     stubs(:session).returns({:no_asking => [c.id]})
@@ -482,7 +457,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
     e.stubs(:enabled?).with(:join_community_popup).returns(true)
     stubs(:environment).returns(e)
 
-    c = Community.create(:name => 'test_comm', :identifier => 'test_comm')
+    c = fast_create(Community, :name => 'test_comm', :identifier => 'test_comm')
     stubs(:profile).returns(c)
     stubs(:logged_in?).returns(true)
     stubs(:session).returns({:no_asking => [c.id]})
@@ -507,7 +482,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
   should 'display name on page title if profile doesnt have nickname' do
     stubs(:environment).returns(Environment.default)
 
-    c = Community.create(:name => 'Comm name', :identifier => 'test_comm')
+    c = fast_create(Community, :name => 'Comm name', :identifier => 'test_comm')
     stubs(:profile).returns(c)
     assert_match(/Comm name/, page_title)
   end
@@ -515,7 +490,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
   should 'display nickname on page title if profile has nickname' do
     stubs(:environment).returns(Environment.default)
 
-    c = Community.create(:name => 'Community for tests', :nickname => 'Community nickname', :identifier => 'test_comm')
+    c = fast_create(Community, :name => 'Community for tests', :nickname => 'Community nickname', :identifier => 'test_comm')
     stubs(:profile).returns(c)
     assert_match(/Community nickname/, page_title)
   end

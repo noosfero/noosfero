@@ -25,7 +25,7 @@ class EmailActivationTest < Test::Unit::TestCase
   should 'enable user email when finish' do
     ze = create_user('zezinho', :environment_id => Environment.default.id)
     assert !ze.enable_email
-    task = EmailActivation.create!(:requestor => ze.person, :target => Environment.default)
+    task = fast_create(EmailActivation, :requestor_id => ze.person.id, :target_id => Environment.default.id)
     task.finish
     ze.reload
     assert ze.enable_email

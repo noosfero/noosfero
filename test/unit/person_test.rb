@@ -36,7 +36,7 @@ class PersonTest < Test::Unit::TestCase
   end
 
   should 'belong to communities' do
-    c = Community.create!(:name => 'my test community')
+    c = fast_create(Community)
     p = create_user('mytestuser').person
 
     c.add_member(p)
@@ -78,7 +78,7 @@ class PersonTest < Test::Unit::TestCase
 
   should 'change the roles of the user' do
     p = create_user('jonh', :email => 'john@doe.org', :password => 'dhoe', :password_confirmation => 'dhoe').person
-    e = Enterprise.create(:identifier => 'enter', :name => 'Enter')
+    e = fast_create(Enterprise)
     r1 = Role.create(:name => 'associate')
     assert e.affiliate(p, r1)
     r2 = Role.create(:name => 'partner')
@@ -91,7 +91,7 @@ class PersonTest < Test::Unit::TestCase
   should 'report that the user has the permission' do
     p = create_user('john', :email => 'john@doe.org', :password => 'dhoe', :password_confirmation => 'dhoe').person
     r = Role.create(:name => 'associate', :permissions => ['edit_profile'])
-    e = Enterprise.create(:identifier => 'enterpri', :name => 'Enterpri')
+    e = fast_create(Enterprise)
     assert e.affiliate(p, r)
     p = Person.find(p.id)
     assert e.reload
@@ -147,7 +147,7 @@ class PersonTest < Test::Unit::TestCase
 
   should 'be an admin if have permission of environment administration' do
     role = Role.create!(:name => 'just_another_admin_role')
-    env = Environment.create!(:name => 'blah')
+    env = fast_create(Environment)
     person = create_user('just_another_person').person
     env.affiliate(person, role)
     assert ! person.is_admin?(env)
@@ -157,8 +157,8 @@ class PersonTest < Test::Unit::TestCase
   end
 
   should 'separate admins of different environments' do
-    env1 = Environment.create!(:name => 'blah1')
-    env2 = Environment.create!(:name => 'blah2')
+    env1 = fast_create(Environment)
+    env2 = fast_create(Environment)
 
     # role is an admin role
     role = Role.create!(:name => 'just_another_admin_role')
@@ -290,7 +290,7 @@ class PersonTest < Test::Unit::TestCase
 
   should 'have favorite enterprises' do
     p = create_user('test_person').person
-    e = Enterprise.create!(:name => 'test_ent', :identifier => 'test_ent')
+    e = fast_create(Enterprise)
 
     p.favorite_enterprises << e
 
@@ -325,7 +325,8 @@ class PersonTest < Test::Unit::TestCase
   end
 
   should 'have e-mail addresses' do
-    env = Environment.create!(:name => 'sample env', :domains => [Domain.new(:name => 'somedomain.com')])
+    env = fast_create(Environment)
+    env.domains <<  Domain.new(:name => 'somedomain.com')
     person = Person.new(:environment => env, :identifier => 'testuser')
     person.expects(:environment).returns(env)
 
@@ -333,9 +334,9 @@ class PersonTest < Test::Unit::TestCase
   end
 
   should 'not show www in e-mail addresses when force_www=true' do
-    env = Environment.create!(:name => 'sample env', :domains => [Domain.new(:name => 'somedomain.com')])
-    env.force_www = true
-    env.save
+    env = fast_create(Environment)
+    env.domains <<  Domain.new(:name => 'somedomain.com')
+    env.update_attribute(:force_www, true)
     person = Person.new(:environment => env, :identifier => 'testuser')
     person.expects(:environment).returns(env)
 
@@ -377,12 +378,12 @@ class PersonTest < Test::Unit::TestCase
 
   should 'person has group with pending tasks' do
     p1 = create_user('user_with_tasks').person
-    c1 = Community.create!(:name => 'my test community')
+    c1 = fast_create(Community)
     c1.tasks << Task.new
     assert !c1.tasks.pending.empty?
     c1.add_admin(p1)
 
-    c2 = Community.create!(:name => 'my other test community')
+    c2 = fast_create(Community)
     p2 = create_user('user_without_tasks').person
     c2.add_admin(p2)
 
@@ -391,7 +392,7 @@ class PersonTest < Test::Unit::TestCase
   end
 
   should 'not allow simple member to view group pending tasks' do
-    c = Community.create!(:name => 'my test community')
+    c = fast_create(Community)
     c.tasks << Task.new
     p = create_user('user_without_tasks').person
     c.add_member(p)
@@ -400,7 +401,7 @@ class PersonTest < Test::Unit::TestCase
   end
 
   should 'person has organization pending tasks' do
-    c = Community.create!(:name => 'my test community')
+    c = fast_create(Community)
     c.tasks << Task.new
     p = create_user('user_with_tasks').person
     c.add_admin(p)
@@ -409,7 +410,7 @@ class PersonTest < Test::Unit::TestCase
   end
 
   should 'select organization pending tasks' do
-    c = Community.create!(:name => 'my test community')
+    c = fast_create(Community)
     c.tasks << Task.new
     p = create_user('user_with_tasks').person
     c.add_admin(p)
@@ -505,7 +506,7 @@ class PersonTest < Test::Unit::TestCase
 
   should 'refuse join community' do
     p = create_user('test_user').person
-    c = Community.create!(:name => 'Test community', :identifier => 'test_community')
+    c = fast_create(Community)
 
     assert p.ask_to_join?(c)
     p.refuse_join(c)
@@ -514,7 +515,7 @@ class PersonTest < Test::Unit::TestCase
 
   should 'not ask to join for a member' do
     p = create_user('test_user').person
-    c = Community.create!(:name => 'Test community', :identifier => 'test_community')
+    c = fast_create(Community)
     c.add_member(p)
 
     assert !p.ask_to_join?(c)
@@ -522,7 +523,7 @@ class PersonTest < Test::Unit::TestCase
 
   should 'not ask to join if already asked' do
     p = create_user('test_user').person
-    c = Community.create!(:name => 'Test community', :identifier => 'test_community')
+    c = fast_create(Community)
     AddMember.create!(:person => p, :organization => c)
 
     assert !p.ask_to_join?(c)

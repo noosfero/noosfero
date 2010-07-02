@@ -75,9 +75,9 @@ class ActsAsFilesystemTest < Test::Unit::TestCase
 
   should 'be able to list text articles that are children of a folder' do
     profile = create_user('testinguser').person
-    folder = Folder.create!(:name => 'folder', :profile => profile)
-    article1 = Article.create(:name => 'article 1', :profile => profile, :parent => folder)
-    article2 = Article.create(:name => 'article 2', :profile => profile, :parent => folder)
+    folder = fast_create(Folder, :name => 'folder', :profile_id => profile.id)
+    article1 = Article.create!(:name => 'article 1', :profile => profile, :parent => folder)
+    article2 = Article.create!(:name => 'article 2', :profile => profile, :parent => folder)
     folder.reload
 
     assert_equal [folder, article1, article2], folder.map_traversal

@@ -153,7 +153,7 @@ class UserTest < Test::Unit::TestCase
   end
 
   should 'set the same environment for user and person objects' do
-    env = Environment.create!(:name => 'my test environment')
+    env = fast_create(Environment)
     user = new_user(:environment_id => env.id)
     assert_equal env, user.environment
     assert_equal env, user.person.environment

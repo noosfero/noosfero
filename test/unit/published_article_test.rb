@@ -4,12 +4,11 @@ class PublishedArticleTest < ActiveSupport::TestCase
 
   def setup
     @profile = create_user('test_user').person
-    @article = @profile.articles.create!(:name => 'test_article', :body => 'some trivial body')
+    @article = fast_create(Article, :profile_id => @profile.id, :name => 'test_article', :body => 'some trivial body')
   end
   
-  
   should 'have a reference article and profile' do
-    prof = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
+    prof = fast_create(Community)
     p = PublishedArticle.create(:reference_article => @article, :profile => prof)
 
     assert p
@@ -18,7 +17,7 @@ class PublishedArticleTest < ActiveSupport::TestCase
   end
 
   should 'have a different name than reference article' do
-    prof = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
+    prof = fast_create(Community)
     p = PublishedArticle.create(:reference_article => @article, :profile => prof, :name => 'other title')
 
     assert_equal 'other title', p.name
@@ -27,7 +26,7 @@ class PublishedArticleTest < ActiveSupport::TestCase
   end
 
   should 'use name of reference article a default name' do
-    prof = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
+    prof = fast_create(Community)
     p = PublishedArticle.create!(:reference_article => @article, :profile => prof)
 
     assert_equal @article.name, p.name
@@ -37,7 +36,7 @@ class PublishedArticleTest < ActiveSupport::TestCase
     parent = mock
     @article.expects(:parent).returns(parent)
     parent.expects(:blog?).returns(true)
-    prof = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
+    prof = fast_create(Community)
     p = PublishedArticle.create!(:reference_article => @article, :profile => prof)
 
     assert !prof.has_blog?
@@ -48,7 +47,7 @@ class PublishedArticleTest < ActiveSupport::TestCase
     parent = mock
     @article.expects(:parent).returns(parent)
     parent.expects(:blog?).returns(true)
-    prof = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
+    prof = fast_create(Community)
     prof.articles << Blog.new(:profile => prof, :name => 'Blog test')
     p = PublishedArticle.create!(:reference_article => @article, :profile => prof)
 
@@ -59,8 +58,8 @@ class PublishedArticleTest < ActiveSupport::TestCase
     parent = mock
     @article.expects(:parent).returns(parent)
     parent.expects(:blog?).returns(false)
-    prof = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
-    blog = Blog.create!(:profile => prof, :name => 'Blog test')
+    prof = fast_create(Community)
+    blog = fast_create(Blog, :profile_id => prof.id, :name => 'Blog test')
     p = PublishedArticle.create!(:reference_article => @article, :profile => prof)
 
     assert_nil p.parent
@@ -78,8 +77,8 @@ class PublishedArticleTest < ActiveSupport::TestCase
   end
 
   should 'have parent if defined' do
-    prof = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
-    folder = Folder.create(:name => 'folder test', :profile => prof)
+    prof = fast_create(Community)
+    folder = fast_create(Folder, :name => 'folder test', :profile_id => prof.id)
     p = PublishedArticle.create(:reference_article => @article, :profile => prof, :parent => folder)
 
     assert p
@@ -87,23 +86,23 @@ class PublishedArticleTest < ActiveSupport::TestCase
   end
 
   should 'use to_html from reference_article' do
-    prof = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
+    prof = fast_create(Community)
     p = PublishedArticle.create!(:reference_article => @article, :profile => prof)
 
     assert_equal @article.to_html, p.to_html
   end
 
   should 'use to_html from reference_article when is Textile' do
-    prof = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
-    textile_article = TextileArticle.new(:name => 'textile_article', :body => '*my text*', :profile => prof)
+    prof = fast_create(Community)
+    textile_article = fast_create(TextileArticle, :name => 'textile_article', :body => '*my text*', :profile_id => prof.id)
     p = PublishedArticle.create!(:reference_article => textile_article, :profile => prof)
 
     assert_equal textile_article.to_html, p.to_html
   end
 
   should 'display message when reference_article does not exist' do
-    prof = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
-    textile_article = TextileArticle.new(:name => 'textile_article', :body => '*my text*', :profile => prof)
+    prof = fast_create(Community)
+    textile_article = fast_create(TextileArticle, :name => 'textile_article', :body => '*my text*', :profile_id => prof.id)
     p = PublishedArticle.create!(:reference_article => textile_article, :profile => prof)
     textile_article.destroy
     p.reload
@@ -115,17 +114,17 @@ class PublishedArticleTest < ActiveSupport::TestCase
     parent = mock
     @article.stubs(:parent).returns(parent)
     parent.stubs(:blog?).returns(true)
-    prof = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
+    prof = fast_create(Community)
     prof.articles << Blog.new(:profile => prof, :name => 'Blog test')
-    new_parent = Folder.create!(:profile => prof, :name => 'Folder test')
+    new_parent = fast_create(Folder, :profile_id => prof.id, :name => 'Folder test')
     p = PublishedArticle.create!(:reference_article => @article, :profile => prof, :parent => new_parent)
 
     assert_equal p.parent, new_parent
   end
 
  should 'provide first paragraph of HTML version' do
-    prof = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
-    a = Article.create!(:name => 'my article', :profile_id => prof.id)
+    prof = fast_create(Community)
+    a = fast_create(Article, :name => 'my article', :profile_id => prof.id)
     a.expects(:body).returns('<p>the first paragraph of the article</p> The second paragraph')
     p = PublishedArticle.create(:reference_article => a, :profile => prof)
     assert_equal '<p>the first paragraph of the article</p>', p.first_paragraph

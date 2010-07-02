@@ -87,7 +87,7 @@ class UploadedFileTest < Test::Unit::TestCase
 
   should 'create icon when created in folder' do
     p = create_user('test_user').person
-    f = Folder.create!(:name => 'test_folder', :profile => p)
+    f = fast_create(Folder, :name => 'test_folder', :profile_id => p.id)
     file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent_id => f.id, :profile => p)
 
     assert File.exists?(file.public_filename(:icon))

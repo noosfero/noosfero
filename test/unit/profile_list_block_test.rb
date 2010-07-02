@@ -24,7 +24,8 @@ class ProfileListBlockTest < Test::Unit::TestCase
     person2 = create_user('testperson2').person
     person3 = create_user('testperson3').person
 
-    owner = Environment.create!(:name => 'test env')
+    owner = fast_create(Environment)
+    owner.boxes << Box.new
     block = ProfileListBlock.new
     owner.boxes.first.blocks << block
     block.save!
@@ -43,7 +44,8 @@ class ProfileListBlockTest < Test::Unit::TestCase
   end
 
   should 'list private profiles' do
-    env = Environment.create!(:name => 'test env')
+    env = fast_create(Environment)
+    env.boxes << Box.new
     profile1 = fast_create(Profile, :environment_id => env.id)
     profile2 = fast_create(Profile, :environment_id => env.id, :public_profile => false) # private profile
     block = ProfileListBlock.new
@@ -56,7 +58,8 @@ class ProfileListBlockTest < Test::Unit::TestCase
   end
 
   should 'not list invisible profiles' do
-    env = Environment.create!(:name => 'test env')
+    env = fast_create(Environment)
+    env.boxes << Box.new
     profile1 = fast_create(Profile, :environment_id => env.id)
     profile2 = fast_create(Profile, :environment_id => env.id, :visible => false) # not visible profile
     block = ProfileListBlock.new
@@ -81,7 +84,8 @@ class ProfileListBlockTest < Test::Unit::TestCase
   end
 
   should 'provide view_title' do
-    env = Environment.create!(:name => 'test env')
+    env = fast_create(Environment)
+    env.boxes << Box.new
     block = ProfileListBlock.new(:title => 'Title from block')
     env.boxes.first.blocks << block
     block.save!
@@ -89,7 +93,8 @@ class ProfileListBlockTest < Test::Unit::TestCase
   end
   
   should 'provide view title with variables' do
-    env = Environment.create!(:name => 'test env')
+    env = fast_create(Environment)
+    env.boxes << Box.new
     block = ProfileListBlock.new(:title => '{#} members')
     env.boxes.first.blocks << block
     block.save!
@@ -97,7 +102,8 @@ class ProfileListBlockTest < Test::Unit::TestCase
   end
 
   should 'count number of public and private profiles' do
-    env = Environment.create!(:name => 'test env')
+    env = fast_create(Environment)
+    env.boxes << Box.new
     block = ProfileListBlock.new
     env.boxes.first.blocks << block
     block.save!
@@ -115,7 +121,8 @@ class ProfileListBlockTest < Test::Unit::TestCase
   end
 
   should 'only count number of visible profiles' do
-    env = Environment.create!(:name => 'test env')
+    env = fast_create(Environment)
+    env.boxes << Box.new
     block = ProfileListBlock.new
     env.boxes.first.blocks << block
     block.save!

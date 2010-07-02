@@ -13,7 +13,7 @@ class ContentViewerHelperTest < Test::Unit::TestCase
   attr :profile
 
   should 'display published-at for blog posts' do
-    blog = Blog.create!(:name => 'Blog test', :profile => profile)
+    blog = fast_create(Blog, :name => 'Blog test', :profile_id => profile.id)
     post = TextileArticle.create!(:name => 'post test', :profile => profile, :parent => blog)
     result = article_title(post)
     assert_match /#{show_date(post.published_at)}, by .*#{profile.identifier}/, result
@@ -26,22 +26,22 @@ class ContentViewerHelperTest < Test::Unit::TestCase
   end
 
   should 'create link on title of blog posts' do
-    blog = Blog.create!(:name => 'Blog test', :profile => profile)
-    post = TextileArticle.create!(:name => 'post test', :profile => profile, :parent => blog)
+    blog = fast_create(Blog, :name => 'Blog test', :profile_id => profile.id)
+    post = fast_create(TextileArticle, :name => 'post test', :profile_id => profile.id, :parent_id => blog.id)
     assert post.belongs_to_blog?
     result = article_title(post)
     assert_match /a href='#{post.url}'>#{post.name}</, result
   end
 
   should 'not create link on title if pass no_link option' do
-    blog = Blog.create!(:name => 'Blog test', :profile => profile)
-    post = TextileArticle.create!(:name => 'post test', :profile => profile, :parent => blog)
+    blog = fast_create(Blog, :name => 'Blog test', :profile_id => profile.id)
+    post = fast_create(TextileArticle, :name => 'post test', :profile_id => profile.id, :parent_id => blog.id)
     result = article_title(post, :no_link => :true)
     assert_no_match /a href='#{post.url}'>#{post.name}</, result
   end
 
   should 'not create link on title if non-blog post' do
-    article = TextileArticle.create!(:name => 'art test', :profile => profile)
+    article = fast_create(TextileArticle, :name => 'art test', :profile_id => profile.id)
     result = article_title(article)
     assert_no_match /a href='#{article.url}'>#{article.name}</, result
   end

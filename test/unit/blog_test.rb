@@ -28,7 +28,7 @@ class BlogTest < ActiveSupport::TestCase
 
   should 'create rss feed automatically' do
     p = create_user('testuser').person
-    b = Blog.create!(:profile => p, :name => 'blog_feed_test')
+    b = create(Blog, :profile_id => p.id, :name => 'blog_feed_test')
     assert_kind_of RssFeed, b.feed
   end
 
@@ -61,37 +61,37 @@ class BlogTest < ActiveSupport::TestCase
 
   should 'has posts' do
     p = create_user('testuser').person
-    blog = Blog.create!(:profile => p, :name => 'Blog test')
-    post = TextileArticle.create!(:name => 'First post', :profile => p, :parent => blog)
+    blog = fast_create(Blog, :profile_id => p.id, :name => 'Blog test')
+    post = fast_create(TextileArticle, :name => 'First post', :profile_id => p.id, :parent_id => blog.id)
     blog.children << post
     assert_includes blog.posts, post
   end
 
   should 'not includes rss feed in posts' do
     p = create_user('testuser').person
-    blog = Blog.create!(:profile => p, :name => 'Blog test')
+    blog = create(Blog, :profile_id => p.id, :name => 'Blog test')
     assert_includes blog.children, blog.feed
     assert_not_includes blog.posts, blog.feed
   end
 
   should 'list posts ordered by published at' do
     p = create_user('testuser').person
-    blog = Blog.create!(:profile => p, :name => 'Blog test')
-    newer = TextileArticle.create!(:name => 'Post 2', :parent => blog, :profile => p)
-    older = TextileArticle.create!(:name => 'Post 1', :parent => blog, :profile => p, :published_at => Time.now - 1.month)
+    blog = fast_create(Blog, :profile_id => p.id, :name => 'Blog test')
+    newer = create(TextileArticle, :name => 'Post 2', :parent => blog, :profile => p)
+    older = create(TextileArticle, :name => 'Post 1', :parent => blog, :profile => p, :published_at => Time.now - 1.month)
     assert_equal [newer, older], blog.posts
   end
 
   should 'has filter' do
     p = create_user('testuser').person
-    blog = Blog.create!(:profile => p, :name => 'Blog test')
+    blog = fast_create(Blog, :profile_id => p.id, :name => 'Blog test')
     blog.filter = {:param => 'value'}
     assert_equal 'value', blog.filter[:param]
   end
 
   should 'has one external feed' do
     p = create_user('testuser').person
-    blog = Blog.create!(:profile => p, :name => 'Blog test')
+    blog = fast_create(Blog, :profile_id => p.id, :name => 'Blog test')
     efeed = blog.create_external_feed(:address => 'http://invalid.url')
     assert_equal efeed, blog.external_feed
   end
@@ -135,7 +135,7 @@ class BlogTest < ActiveSupport::TestCase
 
   should 'profile has more then one blog' do
     p = create_user('testuser').person
-    Blog.create!(:name => 'Blog test', :profile => p)
+    fast_create(Blog, :name => 'Blog test', :profile_id => p.id)
     assert_nothing_raised ActiveRecord::RecordInvalid do
       Blog.create!(:name => 'Another Blog', :profile => p)
     end

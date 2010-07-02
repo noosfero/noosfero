@@ -11,7 +11,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
   attr_reader :profile
 
   should 'have name, reference article and profile' do
-    article = profile.articles.create!(:name => 'test article')
+    article = fast_create(TextArticle, :profile_id => profile.id, :name => 'test article')
 
     a = ApproveArticle.create!(:name => 'test name', :article => article, :target => profile, :requestor => profile)
 
@@ -21,7 +21,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
   end
 
   should 'create published article when finished' do
-    article = profile.articles.create!(:name => 'test article')
+    article = fast_create(TextArticle, :profile_id => profile.id, :name => 'test article')
     a = ApproveArticle.create!(:name => 'test name', :article => article, :target => profile, :requestor => profile)
 
     assert_difference PublishedArticle, :count do
@@ -39,7 +39,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
   end
 
   should 'have parent if defined' do
-    article = profile.articles.create!(:name => 'test article')
+    article = fast_create(TextArticle, :profile_id => profile.id, :name => 'test article')
     folder = profile.articles.create!(:name => 'test folder', :type => 'Folder')
 
     a = ApproveArticle.create!(:name => 'test name', :article => article, :target => profile, :requestor => profile, :article_parent_id => folder.id)
@@ -48,7 +48,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
   end
 
   should 'not have parent if not defined' do
-    article = profile.articles.create!(:name => 'test article')
+    article = fast_create(TextArticle, :profile_id => profile.id, :name => 'test article')
 
     a = ApproveArticle.create!(:name => 'test name', :article => article, :target => profile, :requestor => profile)
 
@@ -75,7 +75,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
 
   should 'handle blank names' do
     article = profile.articles.create!(:name => 'test article')
-    community = Community.create!(:name => 'test comm')
+    community = fast_create(Community, :name => 'test comm')
     a = ApproveArticle.create!(:name => '', :article => article, :target => community, :requestor => profile)
 
     assert_difference PublishedArticle, :count do
@@ -84,14 +84,14 @@ class ApproveArticleTest < ActiveSupport::TestCase
   end
 
   should 'notify target if group is moderated' do
-    article = profile.articles.create!(:name => 'test article')
+    article = fast_create(TextArticle, :profile_id => profile.id, :name => 'test article')
     community = Community.create!(:name => 'test comm', :moderated_articles => true)
     a = ApproveArticle.create!(:name => '', :article => article, :target => community, :requestor => profile)
     assert !ActionMailer::Base.deliveries.empty?
   end
 
   should 'not notify target if group is not moderated' do
-    article = profile.articles.create!(:name => 'test article')
+    article = fast_create(TextArticle, :profile_id => profile.id, :name => 'test article')
     community = Community.create!(:name => 'test comm', :moderated_articles => false)
     a = ApproveArticle.create!(:name => '', :article => article, :target => community, :requestor => profile)
     assert ActionMailer::Base.deliveries.empty?

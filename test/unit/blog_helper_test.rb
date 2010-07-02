@@ -11,7 +11,7 @@ class BlogHelperTest < Test::Unit::TestCase
     stubs(:show_date).returns('')
     @environment = Environment.default
     @profile = create_user('blog_helper_test').person
-    @blog = Blog.create!(:profile => profile, :name => 'Blog test')
+    @blog = fast_create(Blog, :profile_id => profile.id, :name => 'Blog test')
   end
 
   attr :profile

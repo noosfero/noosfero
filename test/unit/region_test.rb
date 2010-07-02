@@ -17,8 +17,8 @@ class RegionTest < Test::Unit::TestCase
   end
 
   should 'be able to search for possible validators by name' do
-    env = Environment.create!(:name => "my test environment")
-    region = Region.create!(:environment_id => env.id, :name => 'My Region')
+    env = fast_create(Environment)
+    region = fast_create(Region, :environment_id => env.id, :name => 'My Region')
     org1 = Organization.create!(:name => 'Organization 1', :identifier => 'org1', :environment_id => env.id)
     org2 = Organization.create!(:name => 'Organization 2', :identifier => 'org2', :environment_id => env.id)
 
@@ -29,10 +29,10 @@ class RegionTest < Test::Unit::TestCase
   end
 
   should 'return search results without validators that are already associated to the current region' do
-    env = Environment.create!(:name => "my test environment")
-    region = Region.create!(:environment_id => env.id, :name => 'My Region')
-    org1 = Organization.create!(:name => 'Organization 1', :identifier => 'org1', :environment_id => env.id)
-    org2 = Organization.create!(:name => 'Organization 2', :identifier => 'org2', :environment_id => env.id)
+    env = fast_create(Environment)
+    region = fast_create(Region, :environment_id => env.id, :name => 'My Region')
+    org1 = fast_create(Organization, :name => 'Organization 1', :identifier => 'org1', :environment_id => env.id)
+    org2 = fast_create(Organization, :name => 'Organization 2', :identifier => 'org2', :environment_id => env.id)
     region.validators << org1
 
     possible = region.search_possible_validators('organization')
@@ -41,15 +41,15 @@ class RegionTest < Test::Unit::TestCase
   end
 
   should 'has validator' do
-    env = Environment.create!(:name => "my test environment")
-    region = Region.create!(:environment_id => env.id, :name => 'My Region')
+    env = fast_create(Environment)
+    region = fast_create(Region, :environment_id => env.id, :name => 'My Region')
     region.validators.create!(:name => 'Validator entity', :identifier => 'validator-entity')
     assert region.has_validator?
   end
 
   should 'has no validator' do
-    env = Environment.create!(:name => "my test environment")
-    region = Region.create!(:environment_id => env.id, :name => 'My Region')
+    env = fast_create(Environment)
+    region = fast_create(Region, :environment_id => env.id, :name => 'My Region')
     assert !region.has_validator?
   end
 

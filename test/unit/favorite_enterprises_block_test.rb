@@ -63,9 +63,9 @@ class FavoriteEnterprisesBlockTest < ActiveSupport::TestCase
   should 'count number of owner favorite enterprises' do
     user = create_user('testuser').person
 
-    ent1 = Enterprise.create!(:name => 'test enterprise 1', :identifier => 'ent1', :environment => Environment.default)
+    ent1 = fast_create(Enterprise, :name => 'test enterprise 1', :identifier => 'ent1')
 
-    ent2 = Enterprise.create!(:name => 'test enterprise 2', :identifier => 'ent2', :environment => Environment.default)
+    ent2 = fast_create(Enterprise, :name => 'test enterprise 2', :identifier => 'ent2')
 
     user.favorite_enterprises << [ent1, ent2]
 

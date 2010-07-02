@@ -8,9 +8,10 @@ class AddMemberTest < ActiveSupport::TestCase
 
   should 'actually add memberships when confirmed' do
     p = create_user('testuser1').person
-    c = Community.create!(:name => 'closed community', :closed => true)
+    c = fast_create(Community, :name => 'closed community')
+    c.update_attribute(:closed, true)
     TaskMailer.stubs(:deliver_target_notification)
-    task = AddMember.create!(:person => p, :organization => c)
+    task = fast_create(AddMember, :requestor_id => p.id, :target_id => c.id, :target_type => 'Community')
     assert_difference c, :members, [p] do
       task.finish
       c.reload
@@ -41,7 +42,8 @@ class AddMemberTest < ActiveSupport::TestCase
 
   should 'send e-mails' do
     p = create_user('testuser1').person
-    c = Community.create!(:name => 'closed community', :closed => true)
+    c = fast_create(Community, :name => 'closed community')
+    c.update_attribute(:closed, true)
 
     TaskMailer.expects(:deliver_target_notification).at_least_once
 
@@ -50,11 +52,12 @@ class AddMemberTest < ActiveSupport::TestCase
 
   should 'provide proper description' do
     p = create_user('testuser1').person
-    c = Community.create!(:name => 'closed community', :closed => true)
+    c = fast_create(Community, :name => 'closed community')
+    c.update_attribute(:closed, true)
 
     TaskMailer.stubs(:deliver_target_notification)
 
-    task = AddMember.create!(:person => p, :organization => c)
+    task = fast_create(AddMember, :requestor_id => p.id, :target_id => c.id, :target_type => 'Community')
 
     assert_equal 'testuser1 wants to be a member of "closed community".', task.description
   end
@@ -66,7 +69,7 @@ class AddMemberTest < ActiveSupport::TestCase
 
   should 'have roles' do
     p = create_user('testuser1').person
-    c = Community.create!(:name => 'community_test')
+    c = fast_create(Community, :name => 'community_test')
     TaskMailer.stubs(:deliver_target_notification)
     task = AddMember.create!(:roles => [1,2,3], :person => p, :organization => c)
     assert_equal [1,2,3], task.roles
@@ -74,7 +77,7 @@ class AddMemberTest < ActiveSupport::TestCase
 
   should 'put member with the right roles' do
     p = create_user('testuser1').person
-    c = Community.create!(:name => 'community_test')
+    c = fast_create(Community, :name => 'community_test')
 
     roles = [Profile::Roles.member(c.environment.id), Profile::Roles.admin(c.environment.id)]
     TaskMailer.stubs(:deliver_target_notification)
@@ -97,7 +100,7 @@ class AddMemberTest < ActiveSupport::TestCase
 
   should 'ignore roles with id zero' do
     p = create_user('testuser1').person
-    c = Community.create!(:name => 'community_test')
+    c = fast_create(Community, :name => 'community_test')
 
     role = Profile::Roles.member(c.environment.id)
     TaskMailer.stubs(:deliver_target_notification)

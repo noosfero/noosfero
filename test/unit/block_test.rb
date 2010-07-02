@@ -9,7 +9,7 @@ class BlockTest < Test::Unit::TestCase
   should 'access owner through box' do
     user = create_user('testinguser').person
 
-    box = Box.create!(:owner => user)
+    box = fast_create(Box, :owner_id => user, :owner_type => 'Person')
 
     block = Block.new
     block.box = box
@@ -54,14 +54,14 @@ class BlockTest < Test::Unit::TestCase
   should 'provide chache keys' do
      p = create_user('test_user').person
      box = p.boxes[0]
-     b = Block.create!(:box => box)
+     b = fast_create(Block, :box_id => box.id)
 
      assert_equal( "block-id-#{b.id}", b.cache_keys)
   end
 
   should 'list enabled blocks' do
-    block1 = Block.create!(:title => 'test 1')
-    block2 = Block.create!(:title => 'test 2', :enabled => false)
+    block1 = fast_create(Block, :title => 'test 1')
+    block2 = fast_create(Block, :title => 'test 2', :enabled => false)
     assert_includes Block.enabled, block1
     assert_not_includes Block.enabled, block2
   end
@@ -89,7 +89,7 @@ class BlockTest < Test::Unit::TestCase
   should 'be able to save display setting' do
     user = create_user('testinguser').person
     box = fast_create(Box, :owner_id => user.id)
-    block = Block.create!(:display => 'never', :box => box)
+    block = create(Block, :display => 'never', :box_id => box.id)
     block.reload
     assert_equal 'never', block.display
   end
@@ -97,7 +97,7 @@ class BlockTest < Test::Unit::TestCase
   should 'be able to update display setting' do
     user = create_user('testinguser').person
     box = fast_create(Box, :owner_id => user.id)
-    block = Block.create!(:display => 'never', :box => box)
+    block = create(Block, :display => 'never', :box_id => box.id)
     assert block.update_attributes!(:display => 'always')
     block.reload
     assert_equal 'always', block.display

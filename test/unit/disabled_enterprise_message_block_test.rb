@@ -7,7 +7,7 @@ class DisabledEnterpriseMessageBlockTest < Test::Unit::TestCase
   end
 
   should 'display message for disabled enterprise' do
-    e = Environment.create(:name => 'test_env')
+    e = Environment.default
     e.expects(:message_for_disabled_enterprise).returns('This message is for disabled enterprises')
     block = DisabledEnterpriseMessageBlock.new
     p = Profile.new
@@ -19,7 +19,7 @@ class DisabledEnterpriseMessageBlockTest < Test::Unit::TestCase
   end
 
   should 'display nothing if environment has no message' do
-    e = Environment.create(:name => 'test_env')
+    e = fast_create(Environment)
     block = DisabledEnterpriseMessageBlock.new
     p = Profile.new
     block.expects(:owner).returns(p)

@@ -125,11 +125,11 @@ class EnterprisesBlockTest < Test::Unit::TestCase
   should 'count number of owner enterprises' do
     user = create_user('testuser').person
 
-    ent1 = Enterprise.create!(:name => 'test enterprise 1', :identifier => 'ent1', :environment => Environment.default)
+    ent1 = fast_create(Enterprise, :name => 'test enterprise 1', :identifier => 'ent1')
     ent1.expects(:closed?).returns(false)
     ent1.add_member(user)
 
-    ent2 = Enterprise.create!(:name => 'test enterprise 2', :identifier => 'ent2', :environment => Environment.default)
+    ent2 = fast_create(Enterprise, :name => 'test enterprise 2', :identifier => 'ent2')
     ent2.expects(:closed?).returns(false)
     ent2.add_member(user)
 
@@ -186,9 +186,9 @@ class EnterprisesBlockTest < Test::Unit::TestCase
   end
 
   should 'not count non-visible environment enterprises' do
-    env = Environment.create!(:name => 'test_env')
-    ent1 = Enterprise.create!(:name => 'test enterprise 1', :identifier => 'ent1', :environment => env, :visible => true)
-    ent2 = Enterprise.create!(:name => 'test enterprise 2', :identifier => 'ent2', :environment => env, :visible => false)
+    env = fast_create(Environment)
+    ent1 = fast_create(Enterprise, :name => 'test enterprise 1', :identifier => 'ent1', :environment_id => env.id, :visible => true)
+    ent2 = fast_create(Enterprise, :name => 'test enterprise 2', :identifier => 'ent2', :environment_id => env.id, :visible => false)
 
     block = EnterprisesBlock.new
     block.expects(:owner).at_least_once.returns(env)
