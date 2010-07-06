@@ -54,7 +54,7 @@ Feature: publish article
     And I follow "Spread"
     And I check "Sample Community"
     When I press "Publish"
-    Then I should see "Validation failed: Slug (the code generated from the article name) is already being used by another article.:"
+    Then I should see "The title (article name) is already being used by another article, please use another title."
 
   Scenario: publishing an article in many communities and listing the communities that couldn't publish the article again,
             stills publishing the article in the other communities.
@@ -79,7 +79,7 @@ Feature: publish article
     And I check "Another Community1"
     And I check "Another Community2"
     When I press "Publish"
-    Then I should see "Validation failed: Slug (the code generated from the article name) is already being used by another article.:"
+    Then I should see "The title (article name) is already being used by another article, please use another title."
     And I am on Another Community1's homepage
     And I follow "View profile"
     When I go to Another Community1's sitemap
@@ -110,9 +110,9 @@ Feature: publish article
     And I am on Sample Community's control panel
     And I follow "Tasks"
     And I press "Ok!"
-    And I should not see "Validation failed: Slug (the code generated from the article name) is already being used by another article.:"
+    And I should not see "The title (article name) is already being used by another article, please use another title."
     When I press "Ok!"
-    Then I should see "Validation failed: Slug (the code generated from the article name) is already being used by another article."
+    Then I should see "The title (article name) is already being used by another article, please use another title."
 
   Scenario: ask to publish an article that was deleted before approval
     Given I am logged in as "joaosilva"
