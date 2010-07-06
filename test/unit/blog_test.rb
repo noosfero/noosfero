@@ -82,13 +82,6 @@ class BlogTest < ActiveSupport::TestCase
     assert_equal [newer, older], blog.posts
   end
 
-  should 'has filter' do
-    p = create_user('testuser').person
-    blog = Blog.create!(:profile => p, :name => 'Blog test')
-    blog.filter = {:param => 'value'}
-    assert_equal 'value', blog.filter[:param]
-  end
-
   should 'has one external feed' do
     p = create_user('testuser').person
     blog = Blog.create!(:profile => p, :name => 'Blog test')
