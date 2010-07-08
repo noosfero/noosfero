@@ -23,7 +23,7 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
   
   should 'not access index if dont have permission' do
     user = create_user('test_user')
-    Enterprise.create!(:identifier => 'test_enterprise', :name => 'test enterprise')
+    fast_create(Enterprise, :identifier => 'test_enterprise', :name => 'test enterprise')
     login_as :test_user
 
     get 'index', :profile => 'test_enterprise'
@@ -33,7 +33,7 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
   end
 
   should 'access index' do
-    ent = Enterprise.create!(:identifier => 'test_enterprise', :name => 'test enterprise')
+    ent = fast_create(Enterprise, :identifier => 'test_enterprise', :name => 'test enterprise')
     user = create_user_with_permission('test_user', 'manage_memberships', ent)
     login_as :test_user
 
@@ -44,7 +44,7 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
   end
 
   should 'show form to change role' do
-    ent = Enterprise.create!(:identifier => 'test_enterprise', :name => 'test enterprise')
+    ent = fast_create(Enterprise, :identifier => 'test_enterprise', :name => 'test enterprise')
     role = Profile::Roles.member(Environment.default)
 
     member = create_user('test_member').person
@@ -63,7 +63,7 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
   end
 
   should 'not show form to change role if person is not member' do
-    ent = Enterprise.create!(:identifier => 'test_enterprise', :name => 'test enterprise')
+    ent = fast_create(Enterprise, :identifier => 'test_enterprise', :name => 'test enterprise')
     not_member = create_user('test_member').person
     user = create_user_with_permission('test_user', 'manage_memberships', ent)
     login_as :test_user
@@ -76,7 +76,7 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
   end
 
   should 'update roles' do
-    ent = Enterprise.create!(:identifier => 'test_enterprise', :name => 'test enterprise')
+    ent = fast_create(Enterprise, :identifier => 'test_enterprise', :name => 'test enterprise')
     role1 = Role.create!(:name => 'member_role', :permissions => ['edit_profile'], :environment => ent.environment)
     role2 = Role.create!(:name => 'owner_role', :permissions => ['edit_profile', 'destroy_profile'], :environment => ent.environment)
 
@@ -95,7 +95,7 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
   end
 
   should 'not update roles if user is not profile member' do
-    ent = Enterprise.create!(:identifier => 'test_enterprise', :name => 'test enterprise')
+    ent = fast_create(Enterprise, :identifier => 'test_enterprise', :name => 'test enterprise')
     role = Role.create!(:name => 'owner_role', :permissions => ['edit_profile', 'destroy_profile'], :environment => ent.environment)
 
     not_member = create_user('test_member').person
@@ -129,7 +129,7 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
   end
 
   should 'not list roles from other environments' do
-    env2 = Environment.create!(:name => 'new env')
+    env2 = fast_create(Environment, :name => 'new env')
     role = Role.create!(:name => 'some role', :environment => env2, :permissions => ['manage_memberships'])
 
     com = Community.create!(:name => 'test community')
@@ -145,7 +145,7 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
   end
 
   should 'enterprises have a add members button' do
-    ent = Enterprise.create!(:name => 'Test Ent', :identifier => 'test_ent')
+    ent = fast_create(Enterprise, :name => 'Test Ent', :identifier => 'test_ent')
     u = create_user_with_permission('test_user', 'manage_memberships', ent)
     login_as :test_user
 
@@ -177,7 +177,7 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
   end
 
   should 'have a add_members page' do
-    ent = Enterprise.create!(:name => 'Test Ent', :identifier => 'test_ent')
+    ent = fast_create(Enterprise, :name => 'Test Ent', :identifier => 'test_ent')
     u = create_user_with_permission('test_user', 'manage_memberships', ent)
     login_as :test_user
 
@@ -188,7 +188,7 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
   end
 
   should 'list current members when adding new members' do
-    ent = Enterprise.create!(:name => 'Test Ent', :identifier => 'test_ent')
+    ent = fast_create(Enterprise, :name => 'Test Ent', :identifier => 'test_ent')
     p = create_user_with_permission('test_user', 'manage_memberships', ent)
     login_as :test_user
 
@@ -198,7 +198,7 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
   end
 
   should 'add member to profile' do
-    ent = Enterprise.create!(:name => 'Test Ent', :identifier => 'test_ent')
+    ent = fast_create(Enterprise, :name => 'Test Ent', :identifier => 'test_ent')
     p = create_user_with_permission('test_user', 'manage_memberships', ent)
     login_as :test_user
 
@@ -211,7 +211,7 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
   end
 
   should 'add member with all roles' do
-    ent = Enterprise.create!(:name => 'Test Ent', :identifier => 'test_ent')
+    ent = fast_create(Enterprise, :name => 'Test Ent', :identifier => 'test_ent')
     p = create_user_with_permission('test_user', 'manage_memberships', ent)
     login_as :test_user
 
@@ -234,7 +234,7 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
   end
 
   should 'find users' do
-    ent = Enterprise.create!(:name => 'Test Ent', :identifier => 'test_ent')
+    ent = fast_create(Enterprise, :name => 'Test Ent', :identifier => 'test_ent')
     user = create_user_full('test_user').person
     u = create_user_with_permission('ent_user', 'manage_memberships', ent)
     login_as :ent_user
@@ -245,7 +245,7 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
   end
 
   should 'not appear add button for member in add members page' do
-    ent = Enterprise.create!(:name => 'Test Ent', :identifier => 'test_ent')
+    ent = fast_create(Enterprise, :name => 'Test Ent', :identifier => 'test_ent')
     p = create_user_with_permission('test_user', 'manage_memberships', ent)
     login_as :test_user
 
@@ -258,7 +258,7 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
     daniel  = create_user_full('daniel').person
     daniela = create_user_full('daniela').person
 
-    ent = Enterprise.create!(:name => 'Test Ent', :identifier => 'test_ent')
+    ent = fast_create(Enterprise, :name => 'Test Ent', :identifier => 'test_ent')
     p = create_user_with_permission('test_user', 'manage_memberships', ent)
     login_as :test_user
 
@@ -269,7 +269,7 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
   end
 
   should 'ignore roles with id zero' do
-    ent = Enterprise.create!(:name => 'Test Ent', :identifier => 'test_ent')
+    ent = fast_create(Enterprise, :name => 'Test Ent', :identifier => 'test_ent')
     p = create_user_with_permission('test_user', 'manage_memberships', ent)
     login_as :test_user
     r = ent.environment.roles.create!(:name => 'test_role', :permissions => ['some_perm'])

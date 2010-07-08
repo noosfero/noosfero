@@ -10,12 +10,12 @@ class CatalogControllerTest < Test::Unit::TestCase
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
 
-    @enterprise = Enterprise.create!(:name => 'My enterprise', :identifier => 'testent')
+    @enterprise = fast_create(Enterprise, :name => 'My enterprise', :identifier => 'testent')
   end
   attr_accessor :enterprise
 
   def test_local_files_reference
-    ent = Enterprise.create!(:identifier => 'test_enterprise1', :name => 'Test enteprise1')
+    ent = fast_create(Enterprise, :identifier => 'test_enterprise1', :name => 'Test enteprise1')
     assert_local_files_reference :get, :index, :profile => ent.identifier
   end
   
@@ -35,13 +35,13 @@ class CatalogControllerTest < Test::Unit::TestCase
   end
   
   should 'list products of enterprise' do
-    ent = Enterprise.create!(:identifier => 'test_enterprise1', :name => 'Test enteprise1')
+    ent = fast_create(Enterprise, :identifier => 'test_enterprise1', :name => 'Test enteprise1')
     get :index, :profile => ent.identifier
     assert_kind_of Array, assigns(:products)
   end
 
   should 'show product of enterprise' do
-    ent = Enterprise.create!(:identifier => 'test_enterprise1', :name => 'Test enteprise1')
+    ent = fast_create(Enterprise, :identifier => 'test_enterprise1', :name => 'Test enteprise1')
     prod = ent.products.create!(:name => 'Product test')
     get :show, :id => prod.id, :profile => ent.identifier
     assert_tag :tag => 'h1', :content => /#{prod.name}/
@@ -70,28 +70,28 @@ class CatalogControllerTest < Test::Unit::TestCase
     env = Environment.default
     env.enable('disable_products_for_enterprises')
     env.save!
-    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent', :environment => env)
+    ent = fast_create(Enterprise, :name => 'test ent', :identifier => 'test_ent', :environment_id => env.id)
     get :index, :profile => ent.identifier
 
     assert_redirected_to :controller => 'profile', :action => 'index', :profile => ent.identifier
   end
 
   should 'not show product price when listing products if not informed' do
-    ent = Enterprise.create!(:identifier => 'test_enterprise1', :name => 'Test enteprise1')
+    ent = fast_create(Enterprise, :identifier => 'test_enterprise1', :name => 'Test enteprise1')
     prod = ent.products.create!(:name => 'Product test')
     get :index, :profile => ent.identifier
     assert_no_tag :tag => 'li', :attributes => { :class => 'product_price' }, :content => /Price:/
   end
 
   should 'show product price when listing products if informed' do
-    ent = Enterprise.create!(:identifier => 'test_enterprise1', :name => 'Test enteprise1')
+    ent = fast_create(Enterprise, :identifier => 'test_enterprise1', :name => 'Test enteprise1')
     prod = ent.products.create!(:name => 'Product test', :price => 50.00)
     get :index, :profile => ent.identifier
     assert_tag :tag => 'li', :attributes => { :class => 'product_price' }, :content => /Price:/
   end
 
   should 'not show product price when showing product if not informed' do
-    ent = Enterprise.create!(:identifier => 'test_enterprise1', :name => 'Test enteprise1')
+    ent = fast_create(Enterprise, :identifier => 'test_enterprise1', :name => 'Test enteprise1')
     prod = ent.products.create!(:name => 'Product test')
     get :show, :id => prod.id, :profile => ent.identifier
 
@@ -99,7 +99,7 @@ class CatalogControllerTest < Test::Unit::TestCase
   end
 
   should 'show product price when showing product if informed' do
-    ent = Enterprise.create!(:identifier => 'test_enterprise1', :name => 'Test enteprise1')
+    ent = fast_create(Enterprise, :identifier => 'test_enterprise1', :name => 'Test enteprise1')
     prod = ent.products.create!(:name => 'Product test', :price => 50.00)
     get :show, :id => prod.id, :profile => ent.identifier
 
@@ -107,7 +107,7 @@ class CatalogControllerTest < Test::Unit::TestCase
   end
 
   should 'not crash on index when product has no product_category and enterprise not enabled' do
-    ent = Enterprise.create!(:identifier => 'test_enterprise1', :name => 'Test enteprise1', :enabled => false)
+    ent = fast_create(Enterprise, :identifier => 'test_enterprise1', :name => 'Test enteprise1', :enabled => false)
     prod = ent.products.create!(:name => 'Product test', :price => 50.00, :product_category => nil)
     assert_nothing_raised do
       get :index, :profile => ent.identifier

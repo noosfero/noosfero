@@ -11,7 +11,7 @@ class ManageProductsControllerTest < Test::Unit::TestCase
     @request    = ActionController::TestRequest.new
     @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
-    @enterprise = Enterprise.create(:name => 'teste', :identifier => 'test_ent')
+    @enterprise = fast_create(Enterprise, :name => 'teste', :identifier => 'test_ent')
     @user = create_user_with_permission('test_user', 'manage_products', @enterprise)
     login_as :test_user
   end

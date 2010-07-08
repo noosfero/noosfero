@@ -49,7 +49,7 @@ class AccountControllerTest < Test::Unit::TestCase
   end
 
   should 'redirect to where was when login on other environment' do
-    e = Environment.create!(:name => 'other_environment')
+    e = fast_create(Environment, :name => 'other_environment')
     e.domains << Domain.new(:name => 'other.environment')
     e.save!
     u = create_user('test_user', :environment => e).person
@@ -338,7 +338,8 @@ class AccountControllerTest < Test::Unit::TestCase
     person = create_user('mylogin').person
     login_as(person.identifier)
 
-    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :cnpj => '0'*14, :enabled => true)
+    ent = fast_create(Enterprise, :name => 'test enterprise', :identifier => 'test_ent', :enabled => true)
+    ent.update_attribute(:cnpj, '0'*14)
     task = mock
     task.expects(:enterprise).returns(ent).at_least_once
     EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
@@ -352,7 +353,7 @@ class AccountControllerTest < Test::Unit::TestCase
     person = create_user('mylogin').person
     login_as(person.identifier)
 
-    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent')
+    ent = fast_create(Enterprise, :name => 'test enterprise', :identifier => 'test_ent')
     
     task = mock
     task.expects(:enterprise).returns(ent).at_least_once
@@ -367,7 +368,7 @@ class AccountControllerTest < Test::Unit::TestCase
     person = create_user('mylogin').person
     login_as(person.identifier)
 
-    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :enabled => false)
+    ent = fast_create(Enterprise, :name => 'test enterprise', :identifier => 'test_ent', :enabled => false)
     
     task = mock
     task.expects(:enterprise).returns(ent).at_least_once
@@ -382,7 +383,8 @@ class AccountControllerTest < Test::Unit::TestCase
     person = create_user('mylogin').person
     login_as(person.identifier)
 
-    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :foundation_year => 1998, :enabled => false)
+    ent = fast_create(Enterprise, :name => 'test enterprise', :identifier => 'test_ent', :enabled => false)
+    ent.update_attribute(:foundation_year, 1998)
 
     task = mock
     task.expects(:enterprise).returns(ent).at_least_once
@@ -397,7 +399,8 @@ class AccountControllerTest < Test::Unit::TestCase
     person = create_user('mylogin').person
     login_as(person.identifier)
 
-    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :cnpj => '0'*14, :enabled => false)
+    ent = fast_create(Enterprise, :name => 'test enterprise', :identifier => 'test_ent', :enabled => false)
+    ent.update_attribute(:cnpj, '0'*14)
 
     task = mock
     task.expects(:enterprise).returns(ent).at_least_once
@@ -412,7 +415,8 @@ class AccountControllerTest < Test::Unit::TestCase
     person = create_user('mylogin').person
     login_as(person.identifier)
 
-    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :foundation_year => '1998', :enabled => false)
+    ent = fast_create(Enterprise, :name => 'test enterprise', :identifier => 'test_ent', :enabled => false)
+    ent.update_attribute(:foundation_year, 1998)
     ent.block
 
     task = mock
@@ -428,7 +432,8 @@ class AccountControllerTest < Test::Unit::TestCase
     person = create_user('mylogin').person
     login_as(person.identifier)
 
-    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :foundation_year => 1998, :enabled => false)
+    ent = fast_create(Enterprise, :name => 'test enterprise', :identifier => 'test_ent', :enabled => false)
+    ent.update_attribute(:foundation_year, 1998)
 
     task = mock
     task.expects(:enterprise).returns(ent).at_least_once
@@ -440,7 +445,8 @@ class AccountControllerTest < Test::Unit::TestCase
   end
 
   should 'require login for accept terms' do
-    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :foundation_year => 1998, :enabled => false)
+    ent = fast_create(Enterprise, :name => 'test enterprise', :identifier => 'test_ent', :enabled => false)
+    ent.update_attribute(:foundation_year, 1998)
 
     task = mock
     task.expects(:enterprise).returns(ent).never
@@ -455,7 +461,8 @@ class AccountControllerTest < Test::Unit::TestCase
     person = create_user('mylogin').person
     login_as(person.identifier)
 
-    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :foundation_year => 1998, :enabled => false)
+    ent = fast_create(Enterprise, :name => 'test enterprise', :identifier => 'test_ent', :enabled => false)
+    ent.update_attribute(:foundation_year, 1998)
 
     task = mock
     task.expects(:enterprise).returns(ent).at_least_once
@@ -478,7 +485,8 @@ class AccountControllerTest < Test::Unit::TestCase
     env.terms_of_enterprise_use = 'Some terms'
     env.save!
 
-    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :foundation_year => 1998, :enabled => false)
+    ent = fast_create(Enterprise, :name => 'test enterprise', :identifier => 'test_ent', :enabled => false)
+    ent.update_attribute(:foundation_year, 1998)
     task = EnterpriseActivation.create!(:enterprise => ent)
     EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
 
@@ -492,7 +500,8 @@ class AccountControllerTest < Test::Unit::TestCase
     person = create_user('mylogin').person
     login_as(person.identifier)
 
-    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :foundation_year => 1998, :enabled => false)
+    ent = fast_create(Enterprise, :name => 'test enterprise', :identifier => 'test_ent', :enabled => false)
+    ent.update_attribute(:foundation_year, 1998)
     ent.block
     ent.save
 
@@ -509,7 +518,8 @@ class AccountControllerTest < Test::Unit::TestCase
     env = Environment.default
     env.terms_of_use = 'some terms'
     env.save!
-    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :foundation_year => 1998, :enabled => false)
+    ent = fast_create(Enterprise, :name => 'test enterprise', :identifier => 'test_ent', :enabled => false)
+    ent.update_attribute(:foundation_year, 1998)
     task = EnterpriseActivation.create!(:enterprise => ent)
     EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).never
 
@@ -519,7 +529,8 @@ class AccountControllerTest < Test::Unit::TestCase
   end
 
   should 'not activate if user does not accept terms' do
-    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :foundation_year => 1998, :enabled => false)
+    ent = fast_create(Enterprise, :name => 'test enterprise', :identifier => 'test_ent', :enabled => false)
+    ent.update_attribute(:foundation_year, 1998)
     p = create_user('test_user', :password => 'blih', :password_confirmation => 'blih', :email => 'test@noosfero.com').person
     login_as(p.identifier)
 
@@ -534,7 +545,8 @@ class AccountControllerTest < Test::Unit::TestCase
   end
 
   should 'activate enterprise and make logged user admin' do
-    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :foundation_year => 1998, :enabled => false)
+    ent = fast_create(Enterprise, :name => 'test enterprise', :identifier => 'test_ent', :enabled => false)
+    ent.update_attribute(:foundation_year, 1998)
     p = create_user('test_user', :password => 'blih', :password_confirmation => 'blih', :email => 'test@noosfero.com').person
     login_as(p.identifier)
 
@@ -555,7 +567,8 @@ class AccountControllerTest < Test::Unit::TestCase
     env = Environment.default
     env.terms_of_use = 'some terms' 
     env.save!
-    ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :foundation_year => 1998, :enabled => false)
+    ent = fast_create(Enterprise, :name => 'test enterprise', :identifier => 'test_ent', :enabled => false)
+    ent.update_attribute(:foundation_year, 1998)
     task = EnterpriseActivation.create!(:enterprise => ent)
     EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
 
@@ -583,7 +596,7 @@ class AccountControllerTest < Test::Unit::TestCase
     template.boxes << Box.new
     template.boxes[0].blocks << Block.new
     template.save!
-    env = Environment.create!(:name => 'test_env')
+    env = fast_create(Environment, :name => 'test_env')
     env.settings[:person_template_id] = template.id
     env.save!
 
@@ -658,7 +671,7 @@ class AccountControllerTest < Test::Unit::TestCase
   end
 
   should 'check_url is available on environment' do
-    env = Environment.create(:name => 'Environment test')
+    env = fast_create(Environment, :name => 'Environment test')
     @controller.expects(:environment).returns(env).at_least_once
     profile = create_user('mylogin').person
     get :check_url, :identifier => 'mylogin'

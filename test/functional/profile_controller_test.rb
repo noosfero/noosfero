@@ -122,7 +122,7 @@ class ProfileControllerTest < Test::Unit::TestCase
   end
 
   should 'not show enterprises link to enterprise' do
-    ent = Enterprise.create!(:identifier => 'test_enterprise1', :name => 'Test enteprise1')
+    ent = fast_create(Enterprise, :identifier => 'test_enterprise1', :name => 'Test enteprise1')
     get :index, :profile => ent.identifier
     assert_no_tag :tag => 'a', :content => 'Enterprises', :attributes => { :href => /profile\/#{ent.identifier}\/enterprises$/ }
   end
@@ -257,7 +257,7 @@ class ProfileControllerTest < Test::Unit::TestCase
 
   should 'show message for disabled enterprise' do
     login_as(@profile.identifier)
-    ent = Enterprise.create!(:name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false)
+    ent = fast_create(Enterprise, :name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false)
     get :index, :profile => ent.identifier
     assert_tag :tag => 'div', :attributes => { :id => 'profile-disabled' }, :content => Environment.default.message_for_disabled_enterprise
   end
@@ -271,7 +271,7 @@ class ProfileControllerTest < Test::Unit::TestCase
 
   should 'not show message for disabled enterprise if there is a block for it' do
     login_as(@profile.identifier)
-    ent = Enterprise.create!(:name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false)
+    ent = fast_create(Enterprise, :name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false)
     ent.boxes << Box.new
     ent.boxes[0].blocks << DisabledEnterpriseMessageBlock.new
     ent.save
@@ -280,7 +280,7 @@ class ProfileControllerTest < Test::Unit::TestCase
   end
 
   should 'display "Products" link for enterprise' do
-    ent = Enterprise.create!(:name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false)
+    ent = fast_create(Enterprise, :name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false)
 
     get :index, :profile => 'my-test-enterprise'
     assert_tag :tag => 'a', :attributes => { :href => '/catalog/my-test-enterprise'}, :content => /Products\/Services/
@@ -290,7 +290,7 @@ class ProfileControllerTest < Test::Unit::TestCase
     env = Environment.default
     env.enable('disable_products_for_enterprises')
     env.save!
-    ent = Enterprise.create!(:name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false, :environment => env)
+    ent = fast_create(Enterprise, :name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false, :environment_id => env.id)
 
     get :index, :profile => 'my-test-enterprise'
     assert_no_tag :tag => 'a', :attributes => { :href => '/catalog/my-test-enterprise'}, :content => /Products\/Services/
@@ -346,7 +346,8 @@ class ProfileControllerTest < Test::Unit::TestCase
   end
 
   should 'display contact us only if enabled' do
-    ent = Enterprise.create!(:name => 'my test enterprise', :identifier => 'my-test-enterprise', :enable_contact_us => false)
+    ent = fast_create(Enterprise, :name => 'my test enterprise', :identifier => 'my-test-enterprise')
+    ent.update_attribute(:enable_contact_us, false)
     get :index, :profile => 'my-test-enterprise'
     assert_no_tag :tag => 'a', :attributes => { :href => "/contact/my-test-enterprise/new" }, :content => 'Contact us'
   end
