@@ -3,7 +3,6 @@ class Blog < Folder
   has_many :posts, :class_name => 'Article', :foreign_key => 'parent_id', :source => :children, :conditions => [ 'type != ?', 'RssFeed' ], :order => 'published_at DESC, id DESC'
 
   attr_accessor :feed_attrs
-  attr_accessor :filter
 
   after_create do |blog|
     blog.children << RssFeed.new(:name => 'feed', :profile => blog.profile)
@@ -23,7 +22,9 @@ class Blog < Folder
   # FIXME isn't this too much including just to be able to generate some HTML?
   include ActionView::Helpers::TagHelper
   def to_html(options = {})
-    posts_list(options[:page])
+    lambda do
+      render :file => 'content_viewer/blog_page'
+    end
   end
 
   def folder?
@@ -47,19 +48,6 @@ class Blog < Folder
       end
     end
     self.feed
-  end
-
-  def posts_list(npage)
-    article = self
-    children = if filter and filter[:year] and filter[:month]
-                filter_date = DateTime.parse("#{filter[:year]}-#{filter[:month]}-01")
-                posts.paginate :page => npage, :per_page => posts_per_page, :conditions => [ 'published_at between ? and ?', filter_date, filter_date + 1.month - 1.day ]
-              else
-                posts.paginate :page => npage, :per_page => posts_per_page
-              end
-    lambda do
-      render :file => 'content_viewer/blog_page', :locals => {:article => article, :children => children}
-    end
   end
 
   has_one :external_feed, :foreign_key => 'blog_id', :dependent => :destroy

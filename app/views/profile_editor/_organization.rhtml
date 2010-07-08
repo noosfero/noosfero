@@ -14,14 +14,6 @@
   </script>
 <% end %>
 
-<div class="formfieldline">
-  <label class="formlabel" for="profile_data_nickname"><%= _('Display name') %></label>
-  <div class="formfield type-text">
-    <%= text_field_tag 'profile_data[nickname]', @profile_data.nickname, :id => 'profile_data_nickname', :size => 30, :maxlength => 16, :onchange => (@environment.enabled?('enable_organization_url_change') ? "updateUrlField(this, 'profile_data_identifier')" : "") %>
-    <em><%= _('A short name by which the organization is know.')%></em>
-  </div>
-</div>
-
 <% if @environment.enabled?('enable_organization_url_change') %>
   <script type="text/javascript">
     function submit_button() {
@@ -45,7 +37,7 @@
 
     <%= hidden_field_tag 'old_profile_identifier', @profile.identifier %>
     <div id="profile-identifier-formitem">
-      <%= labelled_form_field( _('Address'),
+      <%= required labelled_form_field( _('Address'),
             content_tag('code',
               url_for(profile.url).gsub(/#{profile.identifier}$/, '') +
               text_field(:profile_data, :identifier, :onchange => "warn_value_change()", :size => 25)
@@ -66,7 +58,7 @@
     </div>
 <% end %>
 
-  <%= render :partial => 'shared/custom_fields', :locals => { :f => f, :object_name => 'profile_data', :profile => @profile, :only_required => false } %>
+  <%= render :partial => 'shared/organization_custom_fields', :locals => { :f => f, :object_name => 'profile_data', :profile => @profile } %>
 
   <%= labelled_check_box(_('Enable "contact us"'), 'profile_data[enable_contact_us]', "1", @profile.enable_contact_us) if @profile.enterprise? %>
 

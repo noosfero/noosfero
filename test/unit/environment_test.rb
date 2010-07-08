@@ -253,7 +253,7 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_raise ArgumentError do
       env.organization_approval_method = :lalala
     end
-    
+
   end
 
   should 'provide environment name in to_s' do
@@ -373,7 +373,7 @@ class EnvironmentTest < Test::Unit::TestCase
 
     assert_includes env.products, p1
   end
-  
+
   should 'not have person through communities' do
     env = Environment.default
     com = fast_create(Community)
@@ -472,15 +472,15 @@ class EnvironmentTest < Test::Unit::TestCase
 
     comm = fast_create(Community)
     e.community_template = comm
-    assert_equal comm, e.community_template 
+    assert_equal comm, e.community_template
 
     person = fast_create(Person)
     e.person_template = person
-    assert_equal person, e.person_template 
+    assert_equal person, e.person_template
 
     enterprise = fast_create(Enterprise)
     e.enterprise_template = enterprise
-    assert_equal enterprise, e.enterprise_template 
+    assert_equal enterprise, e.enterprise_template
   end
 
   should 'not enable ssl by default' do
@@ -523,11 +523,11 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal false, Environment.new.replace_enterprise_template_when_enable
   end
 
-  should 'set custom_person_fields' do
+  should 'set custom_person_fields with its dependecies' do
     env = Environment.new
-    env.custom_person_fields = {'cell_phone' => {'required' => 'true', 'active' => 'true'},'comercial_phone'=>  {'required' => 'true', 'active' => 'true'}}
+    env.custom_person_fields = {'cell_phone' => {'required' => 'true', 'active' => '', 'signup' => ''}, 'comercial_phone'=>  {'required' => '', 'active' => 'true', 'signup' => '' }, 'description' => {'required' => '', 'active' => '', 'signup' => 'true'}}
 
-    assert_equal({'cell_phone' => {'required' => 'true', 'active' => 'true'},'comercial_phone'=>  {'required' => 'true', 'active' => 'true'}}, env.custom_person_fields)
+    assert_equal({'cell_phone' => {'required' => 'true', 'active' => 'true', 'signup' => 'true'}, 'comercial_phone'=>  {'required' => '', 'active' => 'true', 'signup' => '' }, 'description' => {'required' => '', 'active' => 'true', 'signup' => 'true'}}, env.custom_person_fields)
   end
 
   should 'have no custom_person_fields by default' do
@@ -539,7 +539,7 @@ class EnvironmentTest < Test::Unit::TestCase
     Person.stubs(:fields).returns(['cell_phone', 'comercial_phone'])
 
     env.custom_person_fields = { 'birth_date' => {'required' => 'true', 'active' => 'true'}, 'cell_phone' => {'required' => 'true', 'active' => 'true'}}
-    assert_equal({'cell_phone' => {'required' => 'true', 'active' => 'true'}}, env.custom_person_fields)
+    assert_equal({'cell_phone' => {'required' => 'true','signup' => 'true',  'active' => 'true'}}, env.custom_person_fields)
     assert ! env.custom_person_fields.keys.include?('birth_date')
   end
 
@@ -548,7 +548,7 @@ class EnvironmentTest < Test::Unit::TestCase
     Person.stubs(:fields).returns(['cell_phone', 'schooling'])
 
     env.custom_person_fields = { 'schooling' => {'required' => 'true', 'active' => 'true'}}
-    assert_equal({'schooling' => {'required' => 'true', 'active' => 'true'}, 'schooling_status' => {'required' => 'true', 'active' => 'true'}}, env.custom_person_fields)
+    assert_equal({'schooling' => {'required' => 'true', 'signup' => 'true', 'active' => 'true'}, 'schooling_status' => {'required' => 'true', 'signup' => 'true', 'active' => 'true'}}, env.custom_person_fields)
     assert ! env.custom_person_fields.keys.include?('birth_date')
   end
 
@@ -596,11 +596,11 @@ class EnvironmentTest < Test::Unit::TestCase
     end
   end
 
-  should 'set custom_enterprises_fields' do
+  should 'set custom_enterprise_fields with its dependencies' do
     env = Environment.new
-    env.custom_enterprise_fields = {'contact_person' => {'required' => 'true', 'active' => 'true'},'contact_email'=>  {'required' => 'true', 'active' => 'true'}}
+    env.custom_enterprise_fields = {'contact_person' => {'required' => 'true', 'active' => '', 'signup' => ''}, 'contact_email'=>  {'required' => '', 'active' => 'true', 'signup' => '' }, 'description' => {'required' => '', 'active' => '', 'signup' => 'true'}}
 
-    assert_equal({'contact_person' => {'required' => 'true', 'active' => 'true'},'contact_email'=>  {'required' => 'true', 'active' => 'true'}}, env.custom_enterprise_fields)
+    assert_equal({'contact_person' => {'required' => 'true', 'active' => 'true', 'signup' => 'true'}, 'contact_email'=>  {'required' => '', 'active' => 'true', 'signup' => '' }, 'description' => {'required' => '', 'active' => 'true', 'signup' => 'true'}} , env.custom_enterprise_fields)
   end
 
   should 'have no custom_enterprise_fields by default' do
@@ -612,7 +612,7 @@ class EnvironmentTest < Test::Unit::TestCase
     Enterprise.stubs(:fields).returns(['contact_person', 'comercial_phone'])
 
     env.custom_enterprise_fields = { 'contact_email' => {'required' => 'true', 'active' => 'true'}, 'contact_person' => {'required' => 'true', 'active' => 'true'}}
-    assert_equal({'contact_person' => {'required' => 'true', 'active' => 'true'}}, env.custom_enterprise_fields)
+    assert_equal({'contact_person' => {'required' => 'true', 'signup' => 'true', 'active' => 'true'}}, env.custom_enterprise_fields)
     assert ! env.custom_enterprise_fields.keys.include?('contact_email')
   end
 
@@ -639,11 +639,11 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal ['contact_email'], env.required_enterprise_fields
   end
 
-  should 'set custom_communitys_fields' do
+  should 'set custom_community_fields with its dependencies' do
     env = Environment.new
-    env.custom_community_fields = {'contact_person' => {'required' => 'true', 'active' => 'true'},'contact_email'=>  {'required' => 'true', 'active' => 'true'}}
+    env.custom_community_fields = {'contact_person' => {'required' => 'true', 'active' => '', 'signup' => ''}, 'contact_email'=>  {'required' => '', 'active' => 'true', 'signup' => '' }, 'description' => {'required' => '', 'active' => '', 'signup' => 'true'}}
 
-    assert_equal({'contact_person' => {'required' => 'true', 'active' => 'true'},'contact_email'=>  {'required' => 'true', 'active' => 'true'}}, env.custom_community_fields)
+    assert_equal({'contact_person' => {'required' => 'true', 'active' => 'true', 'signup' => 'true'}, 'contact_email'=>  {'required' => '', 'active' => 'true', 'signup' => '' }, 'description' => {'required' => '', 'active' => 'true', 'signup' => 'true'}} , env.custom_community_fields)
   end
 
   should 'have no custom_community_fields by default' do
@@ -655,7 +655,7 @@ class EnvironmentTest < Test::Unit::TestCase
     Community.stubs(:fields).returns(['contact_person', 'comercial_phone'])
 
     env.custom_community_fields = { 'contact_email' => {'required' => 'true', 'active' => 'true'}, 'contact_person' => {'required' => 'true', 'active' => 'true'}}
-    assert_equal({'contact_person' => {'required' => 'true', 'active' => 'true'}}, env.custom_community_fields)
+    assert_equal({'contact_person' => {'required' => 'true', 'signup' => 'true', 'active' => 'true'}}, env.custom_community_fields)
     assert ! env.custom_community_fields.keys.include?('contact_email')
   end
 

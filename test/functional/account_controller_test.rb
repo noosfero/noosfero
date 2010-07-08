@@ -265,7 +265,7 @@ class AccountControllerTest < Test::Unit::TestCase
 
   should 'require password confirmation correctly to enter new pasword' do
     user = create_user('testuser', :email => 'testuser@example.com', :password => 'test', :password_confirmation => 'test')
-    change = ChangePassword.create!(:login => 'testuser', :email => 'testuser@example.com')
+    change = ChangePassword.create!(:login => 'testuser', :email => 'testuser@example.com', :environment_id => Environment.default.id)
 
     post :new_password, :code => change.code, :change_password => { :password => 'onepass', :password_confirmation => 'another_pass' }
     assert_response :success

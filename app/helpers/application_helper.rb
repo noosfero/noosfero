@@ -11,7 +11,7 @@ module ApplicationHelper
   include BoxesHelper
 
   include FormsHelper
-  
+
   include AssetsHelper
 
   include BlockHelper
@@ -94,7 +94,7 @@ module ApplicationHelper
     if options[:type] == :textile
       content = RedCloth.new(content).to_html
     end
-    
+
     options[:class] = '' if ! options[:class]
     options[:class] += ' button icon-help' # with-text
 
@@ -269,7 +269,7 @@ module ApplicationHelper
     if klass.nil?
       raise ArgumentError, 'No partial for object. Is there a partial for any class in the inheritance hierarchy?'
     end
-    
+
     name = klass.name.underscore
     if File.exists?(File.join(RAILS_ROOT, 'app', 'views', params[:controller], "_#{name}.rhtml"))
       name
@@ -285,7 +285,7 @@ module ApplicationHelper
   # DEPRECATED. Do not use this.
   def stylesheet_import(*sources)
     options = sources.last.is_a?(Hash) ? sources.pop : { }
-    themed_source = options.delete(:themed_source) 
+    themed_source = options.delete(:themed_source)
     content_tag(
       'style',
       "\n" +
@@ -299,7 +299,7 @@ module ApplicationHelper
       end.join(),
       { "type" => "text/css" }.merge(options)
     )
-  end 
+  end
 
   # DEPRECATED. Do not use this.
   def filename_for_stylesheet(name, in_theme)
@@ -391,7 +391,7 @@ module ApplicationHelper
     Theme.find(current_theme).owner.identifier
   end
 
-  # generates a image tag for the profile. 
+  # generates a image tag for the profile.
   #
   # If the profile has no image set yet, then a default image is used.
   def profile_image(profile, size=:portrait, opt={})
@@ -787,8 +787,9 @@ module ApplicationHelper
       field_html ||= ''
       field_html += capture(&block)
     end
-    if (controller.action_name == 'signup')
-      if profile.signup_fields.include?(name) || profile.required_fields.include?(name)
+
+    if controller.action_name == 'signup' || controller.action_name == 'new_community' || (controller.controller_name == "enterprise_registration" && controller.action_name == 'index')
+      if profile.signup_fields.include?(name)
         result = field_html
       end
     else
@@ -796,6 +797,7 @@ module ApplicationHelper
         result = field_html
       end
     end
+
     if is_required
       result = required(result)
     end
@@ -943,8 +945,9 @@ module ApplicationHelper
     content_for(:head) { stylesheet_link_tag(*args) }
   end
 
-  def article_to_html(article)
-    content = article.to_html(:page => params[:npage])
+  def article_to_html(article, options = {})
+    options.merge(:page => params[:npage])
+    content = article.to_html(options)
     return self.instance_eval(&content) if content.kind_of?(Proc)
     content
   end

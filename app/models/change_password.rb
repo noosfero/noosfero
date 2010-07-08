@@ -5,7 +5,7 @@ class ChangePassword < Task
     self[:data] ||= {}
   end
 
-  attr_accessor :login, :email, :password, :password_confirmation
+  attr_accessor :login, :email, :password, :password_confirmation, :environment_id
 
   def self.human_attribute_name(attrib)
     case attrib.to_sym
@@ -25,15 +25,15 @@ class ChangePassword < Task
   ###################################################
   # validations for creating a ChangePassword task 
   
-  validates_presence_of :login, :email, :on => :create
+  validates_presence_of :login, :email, :environment_id, :on => :create
 
   validates_presence_of :requestor_id
 
   validates_format_of :email, :on => :create, :with => Noosfero::Constants::EMAIL_FORMAT, :if => (lambda { |obj| !obj.email.blank? })
 
   validates_each :login, :on => :create do |data,attr,value|
-    unless data.login.blank?
-      user = User.find_by_login(data.login)
+    unless data.login.blank? || data.email.blank?
+      user = User.find_by_login_and_environment_id(data.login, data.environment_id)
       if user.nil? 
         data.errors.add(:login, _('%{fn} is not a valid username.'))
       else

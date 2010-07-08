@@ -106,6 +106,10 @@ class CreateEnterprise < Task
     environment ? environment.required_enterprise_fields : []
   end
 
+  def signup_fields
+    environment ? environment.signup_enterprise_fields : []
+  end
+
   def community?
     false
   end

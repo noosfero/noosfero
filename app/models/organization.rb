@@ -48,14 +48,20 @@ class Organization < Profile
   end
 
   FIELDS = %w[
-    contact_person
-    contact_phone
-    contact_email
+    display_name
     description
+    contact_person
+    contact_email
+    contact_phone
     legal_form
     economic_activity
     management_information
     address
+    zip_code
+    city
+    state
+    country
+    tag_list
   ]
 
   def self.fields
@@ -70,8 +76,12 @@ class Organization < Profile
     []
   end
 
-  N_('Contact person'); N_('Contact email'); N_('Acronym'); N_('Foundation year'); N_('Legal form'); N_('Economic activity'); N_('Management information'); N_('Validated')
-  settings_items :contact_person, :contact_email, :acronym, :foundation_year, :legal_form, :economic_activity, :management_information, :validated, :cnpj
+  def signup_fields
+    []
+  end
+
+  N_('Display name'); N_('Description'); N_('Contact person'); N_('Contact email'); N_('Acronym'); N_('Foundation year'); N_('Legal form'); N_('Economic activity'); N_('Management information'); N_('Validated'); N_('Tag list')
+  settings_items :display_name, :description, :contact_person, :contact_email, :acronym, :foundation_year, :legal_form, :economic_activity, :management_information, :validated, :cnpj
 
   validates_format_of :foundation_year, :with => Noosfero::Constants::INTEGER_FORMAT
 

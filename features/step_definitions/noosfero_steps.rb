@@ -144,18 +144,21 @@ Given /^"([^\"]*)" has no articles$/ do |profile|
   (Profile[profile] || Profile.find_by_name(profile)).articles.delete_all
 end
 
-Given /^the following (\w+) fields are (\w+)$/ do |klass, status, table|
+Given /^the following (\w+) fields are (\w+) fields$/ do |klass, status, table|
   env = Environment.default
   fields = table.raw.inject({}) do |hash, line|
-    hash[line.first] = { "active" => 'true' }
-    hash[line.first].merge!({ "required" => 'true'}) if status == "required"
+    hash[line.first] = {}
+    hash[line.first].merge!({ "active" => 'true' })   if status == "active"
+    hash[line.first].merge!({ "required" => 'true'})  if status == "required"
+    hash[line.first].merge!({ "signup" => 'true'})    if status == "signup"
     hash
   end
 
   env.send("custom_#{klass.downcase}_fields=", fields)
   env.save!
+
   if fields.keys != env.send("#{status}_#{klass.downcase}_fields")
-    raise "Not all fields #{status}! Requested: %s; #{status.camelcase}: %s" % [fields.keys.inspect, env.send("#{status}_#{klass.downcase}_fields").inspect] 
+    raise "Not all fields #{status}! Requested: %s; #{status.camelcase}: %s" % [fields.keys.inspect, env.send("#{status}_#{klass.downcase}_fields").inspect]
   end
 end
 

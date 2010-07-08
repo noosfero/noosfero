@@ -20,8 +20,8 @@
 
   <% labelled_form_for(:create_enterprise, @create_enterprise) do |f| %>
     <%= required f.text_field 'name', :onchange => "updateUrlField(this, 'create_enterprise_identifier')", :size => 40 %>
-    <%= required labelled_form_field(_('Address'), content_tag('code', environment.top_url + "/" + text_field(:create_enterprise, 'identifier', :size => 25))) %>
-    <%= render :partial => 'shared/custom_fields', :locals => { :f => f, :object_name => :create_enterprise, :profile => @create_enterprise, :only_required => false } %>
+    <%= required labelled_form_field(_('Address'), content_tag('code', environment.top_url + "/" + text_field(:create_enterprise, 'identifier', :size => 26))) %>
+    <%= render :partial => 'shared/organization_custom_fields', :locals => { :f => f, :object_name => :create_enterprise, :profile => @create_enterprise } %>
     <%= required labelled_form_field(_('Region'), f.select('region_id', @regions)) if @validation == :region %>
 
     <% if @validation == :admin %>

@@ -22,10 +22,7 @@
 
   <%= hidden_field_tag :wizard, params[:wizard] %>
 
-  <%= render :partial => 'shared/custom_fields', :locals => { :f => f, :object_name => 'community', :profile => @community, :only_required => true } %>
-
-  <%= f.text_field('tag_list', :size => 64) %>
-  <%= content_tag( 'small', _('Separate tags with commas.') + '<br/>' + __("Tags are important to new users, they'll be able to find your new community more easily.") ) %>
+  <%= render :partial => 'shared/organization_custom_fields', :locals => { :f => f, :object_name => 'community', :profile => @community } %>
 
   <% f.fields_for :image_builder, @community.image do |i| %>
     <%= file_field_or_thumbnail(_('Image:'), @community.image, i) %>

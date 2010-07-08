@@ -32,6 +32,23 @@ class Article < ActiveRecord::Base
     {:include => 'categories', :conditions => { 'categories.id' => category.id }}
   }
 
+  named_scope :by_range, lambda { |range| {
+    :conditions => [
+      'published_at BETWEEN :start_date AND :end_date', { :start_date => range.first, :end_date => range.last }
+    ]
+  }}
+
+  def self.first_day_of_month(date)
+    date ||= Date.today
+    Date.new(date.year, date.month, 1)
+  end
+
+  def self.last_day_of_month(date)
+    date ||= Date.today
+    date >>= 1
+    Date.new(date.year, date.month, 1) - 1.day
+  end
+
   URL_FORMAT = /\A(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?\Z/ix
 
   validates_format_of :external_link, :with => URL_FORMAT, :if => lambda { |article| !article.external_link.blank? }

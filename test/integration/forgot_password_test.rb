@@ -19,7 +19,7 @@ class ForgotPasswordTest < ActionController::IntegrationTest
     assert_response :success
     assert_tag :tag => 'form', :attributes => { :action => '/account/forgot_password', :method => 'post' }
 
-    post '/account/forgot_password', :change_password => { :login => 'forgotten', :email => 'forgotten@localhost.localdomain' }
+    post '/account/forgot_password', :change_password => { :login => 'forgotten', :email => 'forgotten@localhost.localdomain', :environment_id => Environment.default.id }
 
     assert_response :success
     assert_template 'password_recovery_sent'

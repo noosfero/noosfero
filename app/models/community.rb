@@ -23,10 +23,6 @@ class Community < Organization
   xss_terminate :only => [ :name, :address, :contact_phone, :description ], :on => 'validation'
 
   FIELDS = %w[
-    city
-    state
-    country
-    zip_code
     language
   ]
 
@@ -38,7 +34,7 @@ class Community < Organization
     super
     self.required_fields.each do |field|
       if self.send(field).blank?
-        self.errors.add(field, _('%{fn} is mandatory'))
+        self.errors.add(field, _('%{fn} can\'t be blank'))
       end
     end
   end
@@ -49,6 +45,10 @@ class Community < Organization
 
   def required_fields
     environment ? environment.required_community_fields : []
+  end
+
+  def signup_fields
+    environment ? environment.signup_community_fields : []
   end
 
   def name=(value)
