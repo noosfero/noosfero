@@ -51,7 +51,7 @@ module TagsHelper
       style = ""+
         "font-size: #{ (v * delta).round + min_size }px;"+
         "top: #{ -(delta/2) - (v * (delta/2)).round }px;"
-      destination = url.kind_of?(Hash) ? url_for(url.merge(tagname_option => tag)) : (url.to_s + tag)
+      destination = url.merge(tagname_option => tag)
 
       if options[:show_count]
         display_count = options[:show_count] ? "<small><sup>(#{count})</sup></small>" : ""

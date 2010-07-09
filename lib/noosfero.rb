@@ -60,16 +60,16 @@ module Noosfero
     end
   end
 
-  # FIXME couldn't think of a way to test this.
-  #
-  # Works (tested by hand) on Rails 2.0.2, with mongrel. Should work with
-  # webrick too.
   def self.development_url_options
-    if Object.const_defined?('OPTIONS')
-      { :port => OPTIONS[:port ]}
-    else
-      {}
-    end
+    @development_url_options ||=
+      begin
+        options = { :port => 3000 }
+        config = File.join(Rails.root, 'config', 'url_options.yml')
+        if File.exists?(config)
+          options.merge!(YAML.load_file(config).symbolize_keys)
+        end
+        options
+      end
   end
 
 
