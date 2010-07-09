@@ -99,3 +99,33 @@ function changeIcon(iconSelected, iconName) {
 function hideOthersIconSelector(current_div) {
    jQuery('.icon-selector').not(jQuery(current_div).children('.icon-selector')).hide();
 }
+
+function loading(element_id, message) {
+   $(element_id).addClassName('loading');
+   if (message) {
+      $(element_id).update(message);
+   }
+}
+
+function loading_done(element_id) {
+   $(element_id).removeClassName('loading');
+}
+
+function open_loading(message) {
+   jQuery('body').append("<div id='overlay_loading' class='ui-widget-overlay' style='display: none'/><div id='overlay_loading_modal' style='display: none'><p>"+message+"</p><img src='/images/loading-dark.gif'/></div>");
+   jQuery('#overlay_loading').show();
+   jQuery('#overlay_loading_modal').fadeIn('slow');
+}
+function close_loading() {
+   jQuery('#overlay_loading_modal').fadeOut('slow', function() {
+      jQuery('#overlay_loading_modal').remove();
+      jQuery('#overlay_loading').remove();
+   });
+}
+function update_loading(message) {
+   jQuery('#overlay_loading_modal p').text(message);
+}
+
+function redirect_to(url) {
+  document.location=url;
+}

@@ -965,4 +965,8 @@ module ApplicationHelper
     number_to_currency(price, :unit => 'R$', :separator => ',', :delimiter => '.')
   end
 
+  def ui_icon(icon_type)
+    "<span class='ui-icon ui-icon-#{icon_type}' style='float:left; margin-right:7px;'></span>"
+  end
+
 end
