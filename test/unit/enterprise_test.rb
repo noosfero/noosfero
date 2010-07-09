@@ -377,4 +377,22 @@ class EnterpriseTest < Test::Unit::TestCase
     ent = Enterprise.create!(:name => 'test enteprise', :identifier => 'test_ent')
     assert_equal 3, ent.boxes.size
   end
+
+  should 'collect the highlighted products with image' do
+    env = Environment.default
+    e1 = fast_create(Enterprise)
+    p1 = e1.products.create!(:name => 'test_prod1')
+    products = []
+    3.times {|n|
+      products.push(Product.create!(:name => "product #{n}", :enterprise_id => e1.id, :highlighted => true, :image_builder => { 
+        :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
+      }))
+    }
+    Product.create!(:name => "product 4", :enterprise_id => e1.id, :highlighted => true)
+    Product.create!(:name => "product 5", :enterprise_id => e1.id, :image_builder => {
+        :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
+      })
+    assert_equal products, e1.highlighted_products_with_image
+  end
+
 end

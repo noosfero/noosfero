@@ -10,7 +10,7 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
   PERSON_BLOCKS_WITH_MEMBERS = PERSON_BLOCKS + [MembersBlock]
   PERSON_BLOCKS_WITH_BLOG = PERSON_BLOCKS + [BlogArchivesBlock]
 
-  ENTERPRISE_BLOCKS = COMMOM_BLOCKS + [DisabledEnterpriseMessageBlock, HighlightsBlock]
+  ENTERPRISE_BLOCKS = COMMOM_BLOCKS + [DisabledEnterpriseMessageBlock, HighlightsBlock, FeaturedProductsBlock]
   ENTERPRISE_BLOCKS_WITH_PRODUCTS_ENABLE = ENTERPRISE_BLOCKS + [ProductsBlock]
 
   attr_reader :holder

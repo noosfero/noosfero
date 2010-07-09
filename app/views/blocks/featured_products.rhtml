@@ -1,0 +1,55 @@
+<%= block_title(block.title) %>
+<% unless block.products.blank? %>
+  <%= link_to content_tag(:span, _('Previous')), '#', :class => 'featured-product-prev featured-product-arrow'  %>
+  <div class="featured-products-block-container">
+    <ul class="featured-products-list">
+      <% block.products.in_groups_of(block.groups_of).each do |group| %>
+        <li class="featured-products-group">
+          <div class="featured-product-items">
+            <ul>
+            <% group.reject{ |x| x.nil? }.each_with_index do |p, i| %>
+            <li class="featured-product-item">
+            <%= link_to content_tag(:img, nil, :src => p.image.public_filename(:thumb), :alt => p.name, :class => ('reflect' if block.reflect)), product_path(p.enterprise.identifier, p), :class => 'featured-product-image' %>
+              <div class="featured-product-info position-<%= i + 1 %>" style="display: none">
+                <div class="featured-product-text">
+                  <h3><%= p.name %></h3>
+                  <p class="featured-product-price"><%= float_to_currency(p.price) %></p>
+                  <p class="featured-product-desc"><%= p.description.chars[0...50].to_s + '...' %></p>
+                  <p><%= link_to _('See More'), product_path(p.enterprise.identifier, p), :class => 'featured-product-link' %></p>
+                </div>
+              </div>
+            </li>
+            <% end %>
+            </ul>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <%= link_to content_tag(:span, _('Next')), '#', :class => 'featured-product-next featured-product-arrow'  %>
+  <script type="text/javascript">
+    (function($) {
+     var options = {
+       fx : 'scrollHorz',
+       timeout: 0,
+       prev: '#block-<%= block.id %> .featured-product-prev',
+       next: '#block-<%= block.id %> .featured-product-next',
+       speed: <%= block.speed || 2000 %>
+      }
+      $('#block-<%= block.id %> .featured-products-list').cycle(options);
+
+      $(document).ready(function(){
+        $(".featured-product-item").hover(
+          function() {
+            $(".featured-product-info", this).fadeIn('slow');
+          },
+          function() {
+            $(".featured-product-info", this).fadeOut('slow');
+        });
+      });
+    })(jQuery);
+  </script>
+  <p class="featured-products-footer"></p>
+<% else %>
+  <em><%= _('Please, edit this block and choose some products') %></em>
+<% end %>

@@ -51,6 +51,10 @@ class Enterprise < Organization
     environment ? environment.active_enterprise_fields : []
   end
 
+  def highlighted_products_with_image(options = {})
+    Product.find(:all, {:conditions => {:highlighted => true}, :joins => :image}.merge(options))
+  end
+
   def required_fields
     environment ? environment.required_enterprise_fields : []
   end

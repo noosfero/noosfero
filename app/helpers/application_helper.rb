@@ -960,4 +960,9 @@ module ApplicationHelper
     text_field_tag(name, value, options.merge(:class => 'colorpicker_field'))
   end
 
+  # for now force currency to Brazillian format, like: "12.345,20"
+  def float_to_currency(price)
+    number_to_currency(price, :unit => 'R$', :separator => ',', :delimiter => '.')
+  end
+
 end

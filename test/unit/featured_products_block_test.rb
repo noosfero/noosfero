@@ -1,0 +1,127 @@
+require File.dirname(__FILE__) + '/../test_helper'
+
+class FeaturedProductsBlockTest < ActiveSupport::TestCase
+
+  def setup
+    @profile = fast_create(Profile)
+    @environment = Environment.default
+    @environment.boxes << Box.new
+  end
+  attr_reader :profile
+
+  should 'refer to products' do
+    products = []
+    3.times {|n| products.push(Product.create!(:name => "product #{n}", :enterprise_id => profile.id)) }
+    featured_products_block = FeaturedProductsBlock.create!(:product_ids => products.map(&:id))
+    assert_equal products, featured_products_block.products
+  end
+
+  should "have method products_for_selection" do
+    block = FeaturedProductsBlock.new
+    assert_respond_to block, 'products_for_selection'
+  end
+
+  should " the defaul product_ids be an empty array" do
+    block = FeaturedProductsBlock.new
+    assert_equal [], block.product_ids
+  end
+
+  should " the defaul groups_of be 3" do
+    block = FeaturedProductsBlock.new
+    assert_equal 3, block.groups_of
+  end
+
+  should 'default interval between transitions is 1000 miliseconds' do
+    block = FeaturedProductsBlock.new
+    assert_equal 1000, block.speed
+  end
+
+  should "reflect by default" do
+    block = FeaturedProductsBlock.new
+    assert_equal true, block.reflect
+  end
+
+  should 'describe itself' do
+    assert_not_equal Block.description, FeaturedProductsBlock.description
+  end
+
+  should "the groups_of variabe be a integer" do
+    block = FeaturedProductsBlock.new
+    assert_kind_of Integer, block.groups_of
+    block.groups_of = 2
+    block.save
+    block.reload
+    assert_kind_of Integer, block.groups_of
+    block.groups_of = '2'
+    block.save
+    block.reload
+    assert_kind_of Integer, block.groups_of
+  end
+
+  should "an environment block collect product automatically" do
+    block = FeaturedProductsBlock.new()
+    block.product_ids = []
+    enterprise = Enterprise.create!(:name => "My enterprise", :identifier => 'myenterprise', :environment => @environment)
+    3.times {|n|
+      Product.create!(:name => "product #{n}", :enterprise_id => enterprise.id, :highlighted => true, :image_builder => {
+        :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
+      })
+    }
+    @environment.boxes.first.blocks<< block
+
+    assert_not_equal [], block.product_ids
+  end
+
+  should "an environment block collect just product with image automatically" do
+    block = FeaturedProductsBlock.new()
+    block.product_ids = []
+    enterprise = Enterprise.create!(:name => "My enterprise", :identifier => 'myenterprise', :environment => @environment)
+    3.times {|n|
+      Product.create!(:name => "product #{n}", :enterprise_id => enterprise.id, :highlighted => true)
+    }
+    @environment.boxes.first.blocks<< block
+
+    assert_equal [], block.product_ids
+  end
+
+  should "an environment block collect just highlighted product automatically" do
+    block = FeaturedProductsBlock.new()
+    block.product_ids = []
+    enterprise = Enterprise.create!(:name => "My enterprise", :identifier => 'myenterprise', :environment => @environment)
+    3.times {|n|
+      Product.create!(:name => "product #{n}", :enterprise_id => enterprise.id, :image_builder => {
+        :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
+      })
+    }
+    @environment.boxes.first.blocks<< block
+
+    assert_equal [], block.product_ids
+  end
+
+  should 'display feature products block' do
+    block = FeaturedProductsBlock.new
+
+    self.expects(:render).with(:file => 'blocks/featured_products', :locals => { :block => block})
+    instance_eval(& block.content)
+  end
+
+  should "return just highlighted products with image for selection" do
+    block = FeaturedProductsBlock.new()
+    block.product_ids = []
+    enterprise = Enterprise.create!(:name => "My enterprise", :identifier => 'myenterprise', :environment => @environment)
+    products = []
+    3.times {|n|
+      products.push(Product.create!(:name => "product #{n}", :enterprise_id => enterprise.id, :highlighted => true, :image_builder => {
+        :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
+      }))
+    }
+    Product.create!(:name => "product 4", :enterprise_id => enterprise.id, :highlighted => true)
+    Product.create!(:name => "product 5", :enterprise_id => enterprise.id, :image_builder => {
+        :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
+      })
+    @environment.boxes.first.blocks<< block
+
+    assert_equal products, block.products_for_selection
+  end
+
+end
