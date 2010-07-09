@@ -85,7 +85,7 @@ Rails::Initializer.run do |config|
   end
 end
 extra_controller_dirs.each do |item|
-  Dependencies.load_paths << item
+  (ActiveSupport.const_defined?('Dependencies') ? ActiveSupport::Dependencies : ::Dependencies).load_paths << item
 end
 
 # Add new inflection rules using the following format 

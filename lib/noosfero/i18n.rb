@@ -153,8 +153,8 @@ module ActionController::Caching::Fragments
   alias_method_chain :expire_fragment, :fast_gettext
 end
 
-FileUtils.mkdir_p(Rails.root + '/locale')
-Dir.glob(Rails.root + '/locale/*').each do |dir|
+FileUtils.mkdir_p(File.join(Rails.root, 'locale'))
+Dir.glob(File.join(Rails.root, 'locale/*')).each do |dir|
   lang = File.basename(dir)
   FileUtils.mkdir_p("#{Rails.root}/locale/#{lang}/LC_MESSAGES")
   ['iso_3166', 'rails'].each do |domain|
@@ -174,9 +174,9 @@ Dir.glob(Rails.root + '/locale/*').each do |dir|
 end
 
 repos = [
-  FastGettext::TranslationRepository.build('noosfero', :type => 'mo', :path => Rails.root + '/locale'),
-  FastGettext::TranslationRepository.build('iso_3166', :type => 'mo', :path => Rails.root + '/locale'),
-  FastGettext::TranslationRepository.build('rails',    :type => 'mo', :path => Rails.root + '/locale'),
+  FastGettext::TranslationRepository.build('noosfero', :type => 'mo', :path => File.join(Rails.root, 'locale')),
+  FastGettext::TranslationRepository.build('iso_3166', :type => 'mo', :path => File.join(Rails.root, 'locale')),
+  FastGettext::TranslationRepository.build('rails',    :type => 'mo', :path => File.join(Rails.root, 'locale')),
 ]
 
 FastGettext.add_text_domain 'noosferofull', :type => :chain, :chain => repos
