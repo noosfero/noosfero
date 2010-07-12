@@ -11,6 +11,35 @@ else
   environment = Environment.default
 end
 
+places = [
+  { :country=>'BR', :city=>'Salvador',
+    :lat=>-12.94032, :lng=>-38.58398  },
+  { :country=>'BR', :city=>'São Paulo',
+    :lat=>-23.54894, :lng=>-46.63881  },
+  { :country=>'BR', :city=>'Rio de Janeiro',
+    :lat=>-22.90353, :lng=>-43.20958  },
+  { :country=>'AR', :city=>'Buenos Aires',
+    :lat=>-34.61088, :lng=>-58.39782  },
+  { :country=>'AR', :city=>'Mar del Plata',
+    :lat=>-37.98317, :lng=>-57.59513  },
+  { :country=>'MX', :city=>'Acapulco',
+    :lat=>16.86369,  :lng=>-99.88151  },
+  { :country=>'US', :city=>'Los Angeles',
+    :lat=>34.02307,  :lng=>-118.24310 },
+  { :country=>'IT', :city=>'Roma',
+    :lat=>41.89512,  :lng=>12.48184   },
+  { :country=>'IN', :city=>'Mumbai',
+    :lat=>19.01798,  :lng=>72.85583   },
+  { :country=>'CN', :city=>'Shanghai',
+    :lat=>31.23041,  :lng=>121.47308  },
+  { :country=>'JP', :city=>'Tokyo',
+    :lat=>35.68964,  :lng=>139.69116  },
+  { :country=>'FR', :city=>'Paris',
+    :lat=>48.85658,  :lng=>2.351074   },
+  { :country=>'BW', :city=>'Sowa',
+    :lat=>-20.56891, :lng=>26.22367   }
+]
+
 people = []
 
 NAMES = %w[ José João Antonio Paulo Maria Joana Paula Angela ]
@@ -27,6 +56,11 @@ for name in NAMES
       :environment => environment,
     })
     user.person.name = full_name
+    place = places[rand(places.length)]
+    user.person.data[:country] = place[:country]
+    user.person.city = place[:city]
+    user.person.lat = place[:lat] + (rand/100)-0.005
+    user.person.lng = place[:lng] + (rand/100)-0.005
     user.person.save!
     people << user.person
 
