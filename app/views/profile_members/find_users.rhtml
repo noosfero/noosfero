@@ -17,7 +17,7 @@
         <%= button_to_remote_without_text(:add, _('Add member'),
                                           { :loading => '$("members-list").addClassName("loading")',
                                             :update => 'members-list',
-                                            :url => {:action => 'add_member', :profile => profile.identifier, :id => user.identifier},
+                                            :url => {:action => 'add_member', :profile => profile.identifier, :id => user.id},
                                             :success => "$('tr-#{user.identifier}').hide()",
                                             :complete => '$("members-list").removeClassName("loading")'}) %>
 
