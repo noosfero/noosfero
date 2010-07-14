@@ -137,7 +137,7 @@ class CategoryTest < Test::Unit::TestCase
   end
 
   def test_should_refuse_to_duplicate_slug_under_the_same_parent
-    c1 = create(Category, :name => 'test category', :environment_id => @env.id)
+    c1 = Category.create!(:name => 'test category', :environment_id => @env.id)
     c2 = Category.new(:name => 'Test: Category', :environment_id => @env.id)
 
     assert !c2.valid?
@@ -157,9 +157,9 @@ class CategoryTest < Test::Unit::TestCase
   end
 
   def test_renaming_a_category_should_change_path_of_children
-    c1 = create(Category, :name => 'parent', :environment_id => @env.id)
-    c2 = create(Category, :name => 'child', :environment_id => @env.id, :parent_id => c1.id)
-    c3 = create(Category, :name => 'grandchild', :environment_id => @env.id, :parent_id => c2.id)
+    c1 = Category.create!(:name => 'parent', :environment_id => @env.id)
+    c2 = Category.create!(:name => 'child', :environment_id => @env.id, :parent_id => c1.id)
+    c3 = Category.create!(:name => 'grandchild', :environment_id => @env.id, :parent_id => c2.id)
 
     c1.name = 'parent new name'
     c1.save!
@@ -311,13 +311,14 @@ class CategoryTest < Test::Unit::TestCase
   end
 
   should 'have products through enteprises' do
+    product_category = fast_create(ProductCategory, :name => 'Products', :environment_id => Environment.default.id)
     c = @env.categories.build(:name => 'my category'); c.save!
     ent1 = fast_create(Enterprise, :identifier => 'enterprise_1', :name => 'Enterprise one')
     ent1.add_category c
     ent2 = fast_create(Enterprise, :identifier => 'enterprise_2', :name => 'Enterprise one')
     ent2.add_category c
-    prod1 = ent1.products.create!(:name => 'test_prod1')
-    prod2 = ent2.products.create!(:name => 'test_prod2')
+    prod1 = ent1.products.create!(:name => 'test_prod1', :product_category => product_category)
+    prod2 = ent2.products.create!(:name => 'test_prod2', :product_category => product_category)
     assert_includes c.products, prod1
     assert_includes c.products, prod2
   end
@@ -382,6 +383,10 @@ class CategoryTest < Test::Unit::TestCase
 
     assert_equal 2, c.children_count
     assert_equal 2, c.children.size
+  end
+
+  should 'accept_products is true by default' do
+    assert Category.new.accept_products?
   end
 
 end

@@ -3,8 +3,12 @@ require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "pat
 def string_to_element_locator(selector)
   if selector.gsub!(/^\./, '')
     "css=[class='#{selector}']"
+  elsif selector.gsub!(/^value\./, '')
+    "xpath=//input[@value='#{selector}']"
+  elsif selector.gsub!(/^#/, '')
+    "css=[id='#{selector}']"
   else
-    raise "I can't find '#{selector}'!"
+    selector
   end
 end
 
@@ -18,4 +22,12 @@ end
 
 When /^I click "([^\"]*)"$/ do |selector|
   selenium.click(string_to_element_locator(selector))
+end
+
+Then /^the "([^\"]*)" button should not be enabled$/ do |text|
+  selenium.is_editable(string_to_element_locator(text)).should be_false
+end
+
+Then /^the "([^\"]*)" button should be enabled$/ do |text|
+  selenium.is_editable(string_to_element_locator("value.#{text}")).should be_true
 end

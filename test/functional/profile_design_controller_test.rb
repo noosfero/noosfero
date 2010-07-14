@@ -72,6 +72,8 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
 
     @controller.stubs(:boxes_holder).returns(holder)
     login_as 'designtestuser'
+
+    @product_category = fast_create(ProductCategory)
   end
   attr_reader :profile
 
@@ -217,8 +219,8 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
     block = ProductsBlock.new
 
     enterprise = Enterprise.create!(:name => "test", :identifier => 'testenterprise')
-    p1 = enterprise.products.create!(:name => 'product one')
-    p2 = enterprise.products.create!(:name => 'product two')
+    p1 = enterprise.products.create!(:name => 'product one', :product_category => @product_category)
+    p2 = enterprise.products.create!(:name => 'product two', :product_category => @product_category)
     enterprise.boxes.first.blocks << block
     enterprise.add_admin(holder)
 
@@ -237,8 +239,8 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
     block = ProductsBlock.new
 
     enterprise = Enterprise.create!(:name => "test", :identifier => 'testenterprise')
-    p1 = enterprise.products.create!(:name => 'product one')
-    p2 = enterprise.products.create!(:name => 'product two')
+    p1 = enterprise.products.create!(:name => 'product one', :product_category => @product_category)
+    p2 = enterprise.products.create!(:name => 'product two', :product_category => @product_category)
     enterprise.boxes.first.blocks << block
     enterprise.add_admin(holder)
 

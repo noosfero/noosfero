@@ -49,6 +49,7 @@ profile_admin:
    - perform_task
    - post_content
    - view_private_content
+   - manage_products
 profile_member:
   id: 6
   environment_id: 1

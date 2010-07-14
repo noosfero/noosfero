@@ -11,7 +11,8 @@ class FeaturedProductsBlockTest < ActiveSupport::TestCase
 
   should 'refer to products' do
     products = []
-    3.times {|n| products.push(Product.create!(:name => "product #{n}", :enterprise_id => profile.id)) }
+    category = fast_create(ProductCategory)
+    3.times {|n| products.push(Product.create!(:name => "product #{n}", :enterprise_id => profile.id, :product_category_id => category.id)) }
     featured_products_block = FeaturedProductsBlock.create!(:product_ids => products.map(&:id))
     assert_equal products, featured_products_block.products
   end
@@ -62,10 +63,12 @@ class FeaturedProductsBlockTest < ActiveSupport::TestCase
     block = FeaturedProductsBlock.new()
     block.product_ids = []
     enterprise = Enterprise.create!(:name => "My enterprise", :identifier => 'myenterprise', :environment => @environment)
+    category = fast_create(ProductCategory)
     3.times {|n|
-      Product.create!(:name => "product #{n}", :enterprise_id => enterprise.id, :highlighted => true, :image_builder => {
-        :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
-      })
+      Product.create!(:name => "product #{n}", :enterprise_id => enterprise.id,
+        :highlighted => true, :product_category_id => category.id,
+        :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png') }
+      )
     }
     @environment.boxes.first.blocks<< block
 
@@ -76,8 +79,9 @@ class FeaturedProductsBlockTest < ActiveSupport::TestCase
     block = FeaturedProductsBlock.new()
     block.product_ids = []
     enterprise = Enterprise.create!(:name => "My enterprise", :identifier => 'myenterprise', :environment => @environment)
+    category = fast_create(ProductCategory)
     3.times {|n|
-      Product.create!(:name => "product #{n}", :enterprise_id => enterprise.id, :highlighted => true)
+      Product.create!(:name => "product #{n}", :enterprise_id => enterprise.id, :highlighted => true, :product_category_id => category.id)
     }
     @environment.boxes.first.blocks<< block
 
@@ -88,8 +92,9 @@ class FeaturedProductsBlockTest < ActiveSupport::TestCase
     block = FeaturedProductsBlock.new()
     block.product_ids = []
     enterprise = Enterprise.create!(:name => "My enterprise", :identifier => 'myenterprise', :environment => @environment)
+    category = fast_create(ProductCategory)
     3.times {|n|
-      Product.create!(:name => "product #{n}", :enterprise_id => enterprise.id, :image_builder => {
+      Product.create!(:name => "product #{n}", :enterprise_id => enterprise.id, :product_category_id => category.id, :image_builder => {
         :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
       })
     }
@@ -109,14 +114,16 @@ class FeaturedProductsBlockTest < ActiveSupport::TestCase
     block = FeaturedProductsBlock.new()
     block.product_ids = []
     enterprise = Enterprise.create!(:name => "My enterprise", :identifier => 'myenterprise', :environment => @environment)
+    category = fast_create(ProductCategory)
     products = []
     3.times {|n|
-      products.push(Product.create!(:name => "product #{n}", :enterprise_id => enterprise.id, :highlighted => true, :image_builder => {
-        :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
-      }))
+      products.push(Product.create!(:name => "product #{n}", :enterprise_id => enterprise.id,
+        :highlighted => true, :product_category_id => category.id,
+        :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png') }
+      ))
     }
-    Product.create!(:name => "product 4", :enterprise_id => enterprise.id, :highlighted => true)
-    Product.create!(:name => "product 5", :enterprise_id => enterprise.id, :image_builder => {
+    Product.create!(:name => "product 4", :enterprise_id => enterprise.id, :product_category_id => category.id, :highlighted => true)
+    Product.create!(:name => "product 5", :enterprise_id => enterprise.id, :product_category_id => category.id, :image_builder => {
         :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
       })
     @environment.boxes.first.blocks<< block

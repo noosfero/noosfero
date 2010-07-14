@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+require File.dirname(__FILE__) + '/../config/environment'
+require File.dirname(__FILE__) + '/../test/test_helper'
+include ActionController::TestProcess
+
+# tourn on autoflush
+STDOUT.sync = true
+
+enterprises = Enterprise.all
+
+print "Creating products: "
+THINGS = %w[ Car House Bicycle Book Pen Computer Webcam ]
+COLORS = %w[ Black Red White Blue Green Purple ]
+for thing in THINGS
+  for color in COLORS
+    name = [color, thing].join(' ')
+    rand(10).times do |i|
+      Product.create(:name => name, :enterprise_id => enterprises.rand.id, :price => (i * 13.7), :image_builder => {
+        :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
+      })
+      print '.'
+    end
+  end
+end
+puts ' done!'

@@ -79,6 +79,15 @@ function disable_button(button) {
    button.addClassName("disabled");
 }
 
+function toggleDisabled(enable, element) {
+   if (enable) {
+      enable_button(element);
+   }
+   else {
+      disable_button(element);
+   }
+}
+
 /* ICON SELECTOR - LinkListBlock */
 
 function showIconSelector(main_div) {

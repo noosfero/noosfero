@@ -27,39 +27,3 @@
   <%= button :add, _('New product or service'), :action => 'new' %>
   <%= button :back,  _('Back'), { :controller => 'profile_editor', :profile => @profile.identifier, :action => 'index' } %>
 <% end %>
-
-<br /> &nbsp;
-
-<h3> <%=_('Listing raw materials') %> </h3>
-
-<table>
-  <tr>
-    <th><%= _('Raw material') %></th>
-    <th><%= _('Actions') %></th>
-  </tr>
-  <% if @consumptions.empty? %>
-    <tr>
-      <td colspan='3' style='text-align: center; padding: 10px'><em><%= _('(no raw material registered yet)') %></em></td>
-    </tr>
-  <% end %>
-  <% @consumptions.each do |consumption| %>
-    <tr>
-      <td>
-        <strong><%= link_to_product_category(consumption.product_category) %></strong>
-        <br/>
-        <em><%= consumption.aditional_specifications  %></em>
-      </td>
-      <td>
-        <%= button :edit, _('Edit'), :action => 'edit_consumption', :id => consumption %>
-        <%= button :delete, _('Remove'), { :action => 'destroy_consumption', :id => consumption }, :confirm => _('Are you sure, you want to remove this raw material from your list') %>
-      </td>
-    </tr>
-  <% end %>
-</table>
-
-<% button_bar do %>
-  <%= button :add, _('Add raw material'), :action => 'new_consumption' %>
-  <%= button :back,  _('Back'), { :controller => 'profile_editor', :profile => @profile.identifier, :action => 'index' } %>
-<% end %>
-
-

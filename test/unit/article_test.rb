@@ -796,7 +796,7 @@ class ArticleTest < Test::Unit::TestCase
   end
 
   should 'update slug from name' do
-    article = create(Article, :name => 'A test article', :profile_id => profile.id)
+    article = Article.create!(:name => 'A test article', :profile_id => profile.id)
     assert_equal 'a-test-article', article.slug
     article.name = 'Changed name'
     assert_equal 'changed-name', article.slug

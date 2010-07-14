@@ -4,6 +4,7 @@ class EnterpriseHomepageTest < Test::Unit::TestCase
   
   def setup
     @profile = create_user('testing').person
+    @product_category = fast_create(ProductCategory, :name => 'Products')
   end
   attr_reader :profile
 
@@ -25,8 +26,8 @@ class EnterpriseHomepageTest < Test::Unit::TestCase
   end
 
   should 'display products list' do
-    ent = Enterprise.create!(:identifier => 'test_enterprise', :name => 'Test enteprise')
-    prod = ent.products.create!(:name => 'Product test')
+    ent = fast_create(Enterprise, :identifier => 'test_enterprise', :name => 'Test enteprise')
+    prod = ent.products.create!(:name => 'Product test', :product_category => @product_category)
     a = EnterpriseHomepage.new(:name => 'article homepage')
     ent.articles << a
     result = a.to_html
@@ -37,8 +38,8 @@ class EnterpriseHomepageTest < Test::Unit::TestCase
     e = Environment.default
     e.enable('disable_products_for_enterprises')
     e.save!
-    ent = Enterprise.create!(:identifier => 'test_enterprise', :name => 'Test enteprise', :environment => e)
-    prod = ent.products.create!(:name => 'Product test')
+    ent = fast_create(Enterprise, :identifier => 'test_enterprise', :name => 'Test enteprise', :environment_id => e.id)
+    prod = ent.products.create!(:name => 'Product test', :product_category => @product_category)
     a = EnterpriseHomepage.new(:name => 'article homepage')
     ent.articles << a
     result = a.to_html
@@ -46,8 +47,8 @@ class EnterpriseHomepageTest < Test::Unit::TestCase
   end
 
   should 'display link to product' do
-    ent = Enterprise.create!(:identifier => 'test_enterprise', :name => 'Test enteprise')
-    prod = ent.products.create!(:name => 'Product test')
+    ent = fast_create(Enterprise, :identifier => 'test_enterprise', :name => 'Test enteprise')
+    prod = ent.products.create!(:name => 'Product test', :product_category => @product_category)
     a = EnterpriseHomepage.new(:name => 'article homepage')
     ent.articles << a
     result = a.to_html

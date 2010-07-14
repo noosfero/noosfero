@@ -212,7 +212,7 @@ module Noosfero::Factory
   end
 
   ###############################################
-  # Article
+  # Article (and friends)
   ###############################################
 
   def defaults_for_article
@@ -220,18 +220,12 @@ module Noosfero::Factory
     { :name => name, :slug => name.to_slug, :path => name.to_slug }
   end
 
-  alias :defaults_for_text_article :defaults_for_article
-  alias :defaults_for_textile_article :defaults_for_article
-  alias :defaults_for_tiny_mce_article :defaults_for_article
-  alias :defaults_for_rss_feed :defaults_for_article
-
-  ###############################################
-  # Folder
-  ###############################################
-
-  def defaults_for_folder
-    defaults_for_article
-  end
+  alias :defaults_for_text_article       :defaults_for_article
+  alias :defaults_for_textile_article    :defaults_for_article
+  alias :defaults_for_tiny_mce_article   :defaults_for_article
+  alias :defaults_for_rss_feed           :defaults_for_article
+  alias :defaults_for_textile_article    :defaults_for_article
+  alias :defaults_for_folder             :defaults_for_article
 
   ###############################################
   # Event
@@ -300,6 +294,7 @@ module Noosfero::Factory
   end
 
   alias :defaults_for_region :defaults_for_category
+  alias :defaults_for_product_category :defaults_for_category
 
   ###############################################
   # Box
@@ -326,5 +321,13 @@ module Noosfero::Factory
   alias :defaults_for_add_member :defaults_for_task
   alias :defaults_for_create_community :defaults_for_task
   alias :defaults_for_email_activation :defaults_for_task
+
+  ###############################################
+  # Product
+  ###############################################
+
+  def defaults_for_product
+    { :name => 'Product ' + factory_num_seq.to_s }
+  end
 
 end

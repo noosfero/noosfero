@@ -9,8 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-
-ActiveRecord::Schema.define(:version => 20100619031945) do
+ActiveRecord::Schema.define(:version => 20100621235235) do
 
   create_table "article_versions", :force => true do |t|
     t.integer  "article_id"
@@ -130,6 +129,7 @@ ActiveRecord::Schema.define(:version => 20100619031945) do
     t.float   "lng"
     t.boolean "display_in_menu", :default => false
     t.integer "children_count",  :default => 0
+    t.boolean "accept_products", :default => true
   end
 
   create_table "categories_profiles", :id => false, :force => true do |t|

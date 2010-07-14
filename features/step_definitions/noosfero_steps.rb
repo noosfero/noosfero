@@ -61,7 +61,8 @@ Given /^the following products$/ do |table|
   table.hashes.each do |item|
     data = item.dup
     owner = Enterprise[data.delete("owner")]
-    Product.create!(data.merge(:enterprise => owner))
+    category = Category.find_by_slug(data.delete("category"))
+    Product.create!(data.merge(:enterprise => owner, :product_category => category))
   end
 end
 
@@ -81,6 +82,18 @@ Given /^the following validation info$/ do |table|
     data = item.dup
     organization = Organization.find_by_name(data.delete("organization_name"))
     ValidationInfo.create!(data.merge(:organization => organization))
+  end
+end
+
+Given /^the following (product_categories|product_category|category|categories)$/ do |kind,table|
+  klass = kind.singularize.camelize.constantize
+  table.hashes.each do |row|
+    parent = row.delete("parent")
+    if parent
+      parent = Category.find_by_slug(parent)
+      row.merge!({:parent_id => parent.id})
+    end
+    category = klass.create!({:environment_id => Environment.default.id}.merge(row))
   end
 end
 

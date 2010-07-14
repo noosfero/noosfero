@@ -55,10 +55,13 @@ Feature: search
     Given the following enterprises
       | identifier | name |
       | colivre-ent | Colivre |
+    And the following product_categories
+      | name |
+      | Development |
     And the following products
-      | owner | name |
-      | colivre-ent | social networks consultancy |
-      | colivre-ent | wikis consultancy |
+      | owner | category | name |
+      | colivre-ent | development | social networks consultancy |
+      | colivre-ent | development | wikis consultancy |
     When I go to the search page
     And I fill in "query" with "wikis"
     And I press "Search"

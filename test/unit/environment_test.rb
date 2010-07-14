@@ -367,9 +367,10 @@ class EnvironmentTest < Test::Unit::TestCase
   end
 
   should 'have products through enterprises' do
+    product_category = fast_create(ProductCategory, :name => 'Products', :environment_id => Environment.default.id)
     env = Environment.default
     e1 = fast_create(Enterprise)
-    p1 = e1.products.create!(:name => 'test_prod1')
+    p1 = e1.products.create!(:name => 'test_prod1', :product_category => product_category)
 
     assert_includes env.products, p1
   end
@@ -377,15 +378,17 @@ class EnvironmentTest < Test::Unit::TestCase
   should 'collect the highlighted products with image through enterprises' do
     env = Environment.default
     e1 = fast_create(Enterprise)
-    p1 = e1.products.create!(:name => 'test_prod1')
+    category = fast_create(ProductCategory)
+    p1 = e1.products.create!(:name => 'test_prod1', :product_category_id => category.id)
     products = []
     3.times {|n|
-      products.push(Product.create!(:name => "product #{n}", :enterprise_id => e1.id, :highlighted => true, :image_builder => {
-        :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
-      }))
+      products.push(Product.create!(:name => "product #{n}", :enterprise_id => e1.id,
+        :product_category_id => category.id, :highlighted => true,
+        :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png') }
+      ))
     }
-    Product.create!(:name => "product 4", :enterprise_id => e1.id, :highlighted => true)
-    Product.create!(:name => "product 5", :enterprise_id => e1.id, :image_builder => {
+    Product.create!(:name => "product 4", :enterprise_id => e1.id, :product_category_id => category.id, :highlighted => true)
+    Product.create!(:name => "product 5", :enterprise_id => e1.id, :product_category_id => category.id, :image_builder => {
         :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
       })
     assert_equal products, env.highlighted_products_with_image

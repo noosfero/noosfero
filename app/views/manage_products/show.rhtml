@@ -5,8 +5,8 @@
 <p> <strong><%= _('Description:') %></strong> <%= txt2html @product.description  if @product.description %> </p>
 <p> <strong><%= _('Category:') %></strong> <%= link_to_product_category(@product.product_category) %> </p>
 
-<%= button :back, _('back'), :action => 'index' %>
+<%= button :back, _('Back'), :action => 'index' %>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-<%= button :delete, _('destroy'), :action => 'destroy', :id => @product %>
-<%= button :edit, _('edit'), :action => 'edit', :id => @product %>
+<%= button :delete, _('Destroy'), :action => 'destroy', :id => @product %>
+<%= button :edit, _('Edit'), :action => 'edit', :id => @product %>
 

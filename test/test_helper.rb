@@ -177,6 +177,40 @@ class Test::Unit::TestCase
 
 end
 
+module NoosferoTestHelper
+  def link_to(content, url, options = {})
+    "<a href='#{url.to_s}'>#{content}</a>"
+  end
+
+  def content_tag(tag, content, options = {})
+    "<#{tag}>#{content}</#{tag}>"
+  end
+
+  def submit_tag(content, options = {})
+    content
+  end
+
+  def remote_function(options = {})
+    ''
+  end
+
+  def tag(tag)
+    "<#{tag}/>"
+  end
+
+  def options_from_collection_for_select(collection, value_method, content_method)
+    "<option value='fake value'>fake content</option>"
+  end
+
+  def select_tag(id, collection, options = {})
+    "<select id='#{id}'>fake content</select>"
+  end
+
+  def options_for_select(collection)
+    collection.map{|item| "<option value='#{item[1]}'>#{item[0]}</option>"}.join("\n")
+  end
+end
+
 class ActionController::IntegrationTest
   def assert_can_login
     assert_tag :tag => 'a', :attributes => { :id => 'link_login' }
