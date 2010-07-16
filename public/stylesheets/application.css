@@ -3905,3 +3905,7 @@ h1#agenda-title {
 .fg-button span {
   padding: 0.1em 1em !important;
 }
+
+.treeitem .button{
+  display: inline;
+}

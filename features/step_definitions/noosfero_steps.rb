@@ -85,12 +85,12 @@ Given /^the following validation info$/ do |table|
   end
 end
 
-Given /^the following (product_categories|product_category|category|categories)$/ do |kind,table|
+Given /^the following (product_categories|product_category|category|categories|regions?)$/ do |kind,table|
   klass = kind.singularize.camelize.constantize
   table.hashes.each do |row|
     parent = row.delete("parent")
     if parent
-      parent = Category.find_by_slug(parent)
+      parent = Category.find_by_slug(parent.to_slug)
       row.merge!({:parent_id => parent.id})
     end
     category = klass.create!({:environment_id => Environment.default.id}.merge(row))

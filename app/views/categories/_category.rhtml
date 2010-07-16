@@ -2,6 +2,12 @@
 <div class='treeitem'>
   <%= display_color_for_category(category) %>
   <%= category.name %>
+  <div class='button' id="show_button_<%= category.id %>">
+    <%= link_to_function(_('Show'), "['category_#{category.id}','hide_button_#{category.id}'].each(Element.show); Element.hide('show_button_#{category.id}');") unless category.children.empty? %>
+  </div>
+  <div class='button' id="hide_button_<%= category.id %>" style='display:none;'>
+    <%= link_to_function(_('Hide'), "['category_#{category.id}','hide_button_#{category.id}'].each(Element.hide); Element.show('show_button_#{category.id}') ") %>
+  </div>
 
   <div>
     <%= link_to _('Add subcategory'), :action => 'new', :parent_id => category %>
@@ -10,11 +16,12 @@
   </div>
 </div>
 
-  <% unless category.children.empty? %>
-    <ul class='tree'>
-      <%= render :partial => 'category', :collection => category.children %>
-    </ul>
-  <% end %>
+  <div id="category_<%= category.id %>" style='display:none;'>
+    <% unless category.children.empty? %>
+      <ul class='tree'>
+        <%= render :partial => 'category', :collection => category.children %>
+      </ul>
+    <% end %>
+  </div>
 
 </li>
-

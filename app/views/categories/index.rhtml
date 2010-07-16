@@ -3,8 +3,25 @@
 <ul class='tree'>
   <%= render :partial => 'category', :collection => @categories %>
 </ul>
-
 <div>
   <%= link_to _('New category'), :action => 'new' %>
+</div>
+
+<h1><%= _('Product Categories') %></h1>
+<ul class='tree'>
+  <%= render :partial => 'category', :collection => @product_categories %>
+</ul>
+
+<div>
+  <%= link_to _('New category'), :action => 'new', :type => 'ProductCategory' %>
+</div>
+
+<h1><%= _('Regions') %></h1>
+<ul class='tree'>
+  <%= render :partial => 'category', :collection => @regions %>
+</ul>
+
+<div>
+  <%= link_to _('New category'), :action => 'new', :type => 'Region' %>
 </div>
 

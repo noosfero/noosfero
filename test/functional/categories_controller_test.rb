@@ -36,6 +36,8 @@ class CategoriesControllerTest < Test::Unit::TestCase
     assert_response :success
     assert_template 'index'
     assert_kind_of Array, assigns(:categories)
+    assert_kind_of Array, assigns(:product_categories)
+    assert_kind_of Array, assigns(:regions)
     assert_tag :tag => 'a', :attributes => { :href => '/admin/categories/new'}
   end
 
@@ -178,11 +180,13 @@ class CategoriesControllerTest < Test::Unit::TestCase
   should 'not list regions and product categories' do
     Environment.default.categories.destroy_all
     c = Category.create!(:name => 'Regular category', :environment => Environment.default)
-    ProductCategory.create!(:name => 'Product category', :environment => Environment.default)
-    Region.create!(:name => 'Some region', :environment => Environment.default)
+    p = ProductCategory.create!(:name => 'Product category', :environment => Environment.default)
+    r = Region.create!(:name => 'Some region', :environment => Environment.default)
 
     get :index
     assert_equal [c], assigns(:categories)
+    assert_equal [p], assigns(:product_categories)
+    assert_equal [r], assigns(:regions)
   end
 
 end

@@ -131,6 +131,22 @@ class EnvironmentTest < Test::Unit::TestCase
     assert cats.include?(subcat)
   end
 
+  def test_should_list_all_product_categories
+    env = fast_create(Environment)
+    Category.create!(:name => 'first category', :environment_id => env.id)
+    cat = Category.create!(:name => 'second category', :environment_id => env.id)
+    Category.create!(:name => 'child category', :environment_id => env.id, :parent_id => cat.id)
+    cat1 = ProductCategory.create!(:name => 'first product category', :environment_id => env.id)
+    cat2 = ProductCategory.create!(:name => 'second product category', :environment_id => env.id)
+    subcat = ProductCategory.create!(:name => 'child product category', :environment_id => env.id, :parent_id => cat2.id)
+
+    cats = env.product_categories
+    assert_equal 3, cats.size
+    assert cats.include?(cat1)
+    assert cats.include?(cat2)
+    assert cats.include?(subcat)
+  end
+
   should 'list displayable categories' do
     env = fast_create(Environment)
     cat1 = env.categories.create(:name => 'category one', :display_color => 1)
