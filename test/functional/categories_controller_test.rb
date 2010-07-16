@@ -12,7 +12,7 @@ class CategoriesControllerTest < Test::Unit::TestCase
     @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
    
-    @env = Environment.create!(:name => "My test environment")
+    @env = fast_create(Environment, :name => "My test environment")
     Environment.stubs(:default).returns(env)
     assert (@cat1 = env.categories.create(:name => 'a test category'))
     assert (@cat1 = env.categories.create(:name => 'another category'))

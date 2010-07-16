@@ -68,7 +68,7 @@ class CatalogControllerTest < Test::Unit::TestCase
     env = Environment.default
     env.enable('disable_products_for_enterprises')
     env.save!
-    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent', :environment => env)
+    ent = fast_create(Enterprise, :name => 'test ent', :identifier => 'test_ent', :environment_id => env.id)
     get :index, :profile => ent.identifier
 
     assert_redirected_to :controller => 'profile', :action => 'index', :profile => ent.identifier

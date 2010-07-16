@@ -14,7 +14,7 @@ class FavoriteEnterprisesControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
 
     self.profile = create_user('testuser').person
-    self.favorite_enterprise = Enterprise.create!(:name => 'the_enterprise', :identifier => 'the_enterprise')
+    self.favorite_enterprise = fast_create(Enterprise, :name => 'the_enterprise', :identifier => 'the_enterprise')
     login_as ('testuser')
   end
   attr_accessor :profile, :favorite_enterprise

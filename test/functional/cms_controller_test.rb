@@ -583,7 +583,7 @@ class CmsControllerTest < Test::Unit::TestCase
   end
 
   should 'make enterprise homepage available to enterprises' do
-    @controller.stubs(:profile).returns(Enterprise.create(:name => 'test_ent', :identifier => 'test_ent'))
+    @controller.stubs(:profile).returns(fast_create(Enterprise, :name => 'test_ent', :identifier => 'test_ent'))
     assert_includes @controller.available_article_types, EnterpriseHomepage
   end
 
@@ -786,7 +786,7 @@ class CmsControllerTest < Test::Unit::TestCase
   end
 
   should 'not offer folder to blog articles' do
-    @controller.stubs(:profile).returns(Enterprise.create(:name => 'test_ent', :identifier => 'test_ent'))
+    @controller.stubs(:profile).returns(fast_create(Enterprise, :name => 'test_ent', :identifier => 'test_ent'))
     blog = Blog.create!(:name => 'Blog for test', :profile => profile)
     @controller.stubs(:params).returns({ :parent_id => blog.id })
 
@@ -794,7 +794,7 @@ class CmsControllerTest < Test::Unit::TestCase
   end
 
   should 'not offer rssfeed to blog articles' do
-    @controller.stubs(:profile).returns(Enterprise.create(:name => 'test_ent', :identifier => 'test_ent'))
+    @controller.stubs(:profile).returns(fast_create(Enterprise, :name => 'test_ent', :identifier => 'test_ent'))
     blog = Blog.create!(:name => 'Blog for test', :profile => profile)
     @controller.stubs(:params).returns({ :parent_id => blog.id })
 

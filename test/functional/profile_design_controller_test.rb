@@ -218,7 +218,8 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
   should 'be able to edit ProductsBlock' do
     block = ProductsBlock.new
 
-    enterprise = Enterprise.create!(:name => "test", :identifier => 'testenterprise')
+    enterprise = fast_create(Enterprise, :name => "test", :identifier => 'testenterprise')
+    enterprise.boxes << Box.new
     p1 = enterprise.products.create!(:name => 'product one', :product_category => @product_category)
     p2 = enterprise.products.create!(:name => 'product two', :product_category => @product_category)
     enterprise.boxes.first.blocks << block
@@ -238,7 +239,8 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
   should 'be able to save ProductsBlock' do
     block = ProductsBlock.new
 
-    enterprise = Enterprise.create!(:name => "test", :identifier => 'testenterprise')
+    enterprise = fast_create(Enterprise, :name => "test", :identifier => 'testenterprise')
+    enterprise.boxes << Box.new
     p1 = enterprise.products.create!(:name => 'product one', :product_category => @product_category)
     p2 = enterprise.products.create!(:name => 'product two', :product_category => @product_category)
     enterprise.boxes.first.blocks << block
@@ -266,7 +268,7 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
     env = Environment.default
     env.enable('disable_products_for_enterprises')
     env.save!
-    ent = Enterprise.create!(:name => 'test ent', :identifier => 'test_ent', :environment => env)
+    ent = fast_create(Enterprise, :name => 'test ent', :identifier => 'test_ent', :environment_id => env.id)
     person = create_user_with_permission('test_user', 'edit_profile_design', ent)
     login_as(person.user.login)
 

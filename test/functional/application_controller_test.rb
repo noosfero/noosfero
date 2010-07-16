@@ -49,7 +49,7 @@ class ApplicationControllerTest < Test::Unit::TestCase
     Environment.stubs(:default).returns(default)
     default.stubs(:top_url).returns('http://default.com/')
 
-    current = Environment.create!(:name => 'test environment')
+    current = fast_create(Environment, :name => 'test environment')
     current.domains.create!(:name => 'example.com')
 
     @request.expects(:host).returns('example.com').at_least_once
@@ -387,7 +387,7 @@ class ApplicationControllerTest < Test::Unit::TestCase
 
   should 'display menu links for my environment when logged in other environment' do
     @controller.stubs(:get_layout).returns('application')
-    e = Environment.create!(:name => 'other_environment')
+    e = fast_create(Environment, :name => 'other_environment')
     e.domains << Domain.new(:name => 'other.environment')
     e.save!
 

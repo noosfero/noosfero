@@ -31,7 +31,7 @@ class RegionValidatorsControllerTest < Test::Unit::TestCase
   end
 
   should 'view validators for a  specific region' do
-    environment = Environment.create!(:name => "my environment")
+    environment = fast_create(Environment, :name => "my environment")
     give_permission('ze', 'manage_environment_validators', environment)
     region = Region.new(:name => 'my region')
     environment.regions << region
@@ -47,7 +47,7 @@ class RegionValidatorsControllerTest < Test::Unit::TestCase
   end
 
   should 'search possible validators by name' do
-    environment = Environment.create!(:name => "my environment")
+    environment = fast_create(Environment, :name => "my environment")
     give_permission('ze', 'manage_environment_validators', environment)    
     region = Region.new(:name => 'my region')
     environment.regions << region
@@ -63,7 +63,7 @@ class RegionValidatorsControllerTest < Test::Unit::TestCase
   end
 
   should 'be able to add validators to the current region' do
-    environment = Environment.create!(:name => "my environment")
+    environment = fast_create(Environment, :name => "my environment")
     give_permission('ze', 'manage_environment_validators', environment)
     region = Region.new(:name => 'my region')
     environment.regions << region
@@ -80,7 +80,7 @@ class RegionValidatorsControllerTest < Test::Unit::TestCase
   end
 
   should 'be able to remove validators from the current region' do
-    environment = Environment.create!(:name => "my environment")
+    environment = fast_create(Environment, :name => "my environment")
     give_permission('ze', 'manage_environment_validators', environment)
     region = Region.new(:name => 'my region')
     environment.regions << region

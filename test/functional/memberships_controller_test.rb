@@ -99,7 +99,7 @@ class MembershipsControllerTest < Test::Unit::TestCase
   end
 
   should 'not show description to enterprises on list' do
-    enterprise = Enterprise.create!(:identifier => 'enterprise-test', :name => 'my test enterprise')
+    enterprise = fast_create(Enterprise, :identifier => 'enterprise-test', :name => 'my test enterprise')
     enterprise.add_member(profile)
     get :index, :profile => profile.identifier
     assert_no_tag :tag => 'li', :content => /Description:/
@@ -130,7 +130,7 @@ class MembershipsControllerTest < Test::Unit::TestCase
 
   should 'display destroy link only to communities' do
     community = Community.create!(:name => 'A community to destroy')
-    enterprise = Enterprise.create!(:name => 'A enterprise test', :identifier => 'enterprise-test')
+    enterprise = fast_create(Enterprise, :name => 'A enterprise test', :identifier => 'enterprise-test')
 
     person = Person['testuser']
     community.add_admin(person)
@@ -173,7 +173,7 @@ class MembershipsControllerTest < Test::Unit::TestCase
     template.boxes[0].blocks << Block.new
     template.save!
 
-    env = Environment.create!(:name => 'test_env')
+    env = fast_create(Environment, :name => 'test_env')
     env.settings[:community_template_id] = template.id
     env.save!
 

@@ -360,7 +360,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
   should 'not show message for disabled enterprise if there is a block for it' do
     login_as(@profile.identifier)
-    ent = Enterprise.create!(:name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false)
+    ent = fast_create(Enterprise, :name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false)
     ent.boxes << Box.new
     ent.boxes[0].blocks << DisabledEnterpriseMessageBlock.new
     ent.save
@@ -595,7 +595,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
   should 'not show a profile in an environment that is not its home environment' do
     p = Profile.create!(:identifier => 'mytestprofile', :name => 'My test profile', :environment => Environment.default)
 
-    current = Environment.create!(:name => 'test environment')
+    current = fast_create(Environment, :name => 'test environment')
     current.domains.create!(:name => 'example.com')
     uses_host 'www.example.com'
 

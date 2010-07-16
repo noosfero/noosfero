@@ -69,7 +69,7 @@ class ProfileMembersController < MyProfileController
 
   def add_member
     if profile.enterprise?
-      member = Person.find_by_identifier(params[:id])
+      member = Person.find(params[:id])
       member.define_roles(Profile::Roles.all_roles(environment), profile)
     end
     render :layout => false
