@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class RecentDocumentsBlockTest < Test::Unit::TestCase
+class RecentDocumentsBlockTest < ActiveSupport::TestCase
 
   def setup
     @profile = create_user('testinguser').person

@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class OrganizationTest < Test::Unit::TestCase
+class OrganizationTest < ActiveSupport::TestCase
   fixtures :profiles
 
   def create_create_enterprise(org)

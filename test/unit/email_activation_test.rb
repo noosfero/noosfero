@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class EmailActivationTest < Test::Unit::TestCase
+class EmailActivationTest < ActiveSupport::TestCase
 
   def setup
     ActionMailer::Base.delivery_method = :test

@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class ImageGalleryTest < Test::Unit::TestCase
+class ImageGalleryTest < ActiveSupport::TestCase
 
   should 'be a type of article' do
     assert_kind_of Article, ImageGallery.new

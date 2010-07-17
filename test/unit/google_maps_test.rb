@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class GoogleMapsTest < Test::Unit::TestCase
+class GoogleMapsTest < ActiveSupport::TestCase
 
   def setup
     @domain = fast_create(Domain, :name => 'example-domain', :google_maps_key => 'DOMAIN_KEY')

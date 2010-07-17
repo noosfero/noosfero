@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 require 'extended_tag.rb'
 
-class UserTest < Test::Unit::TestCase
+class UserTest < ActiveSupport::TestCase
 
   def test_find_without_pendings
     tag1 = Tag.create(:name => 'pending_tag', :pending => true)

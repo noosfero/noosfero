@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 # if this test is run without SQLite (e.g. with mysql or postgres), the tests
 # will just pass. The idea is to test our local extensions to SQLite.
-class SQliteExtensionTest < Test::Unit::TestCase
+class SQliteExtensionTest < ActiveSupport::TestCase
 
   if ActiveRecord::Base.connection.adapter_name =~ /^sqlite$/i
 

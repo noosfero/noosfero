@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class DisabledEnterpriseMessageBlockTest < Test::Unit::TestCase
+class DisabledEnterpriseMessageBlockTest < ActiveSupport::TestCase
 
   should 'provide description' do
     assert_not_equal Block.description, DisabledEnterpriseMessageBlock.description

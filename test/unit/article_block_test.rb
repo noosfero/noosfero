@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class ArticleBlockTest < Test::Unit::TestCase
+class ArticleBlockTest < ActiveSupport::TestCase
 
   include ApplicationHelper
 

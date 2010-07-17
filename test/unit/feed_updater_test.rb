@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class FeedUpdaterTest < Test::Unit::TestCase
+class FeedUpdaterTest < ActiveSupport::TestCase
 
   should 'be running by default' do
     assert_equal true, FeedUpdater.new.running

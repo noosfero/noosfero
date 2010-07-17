@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class ArticleTest < Test::Unit::TestCase
+class ArticleTest < ActiveSupport::TestCase
 
   fixtures :environments
 

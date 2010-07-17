@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class EnterpriseTest < Test::Unit::TestCase
+class EnterpriseTest < ActiveSupport::TestCase
   fixtures :profiles, :environments, :users
 
   def test_identifier_validation

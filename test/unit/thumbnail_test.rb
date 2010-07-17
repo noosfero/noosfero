@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class ThumbnailTest < Test::Unit::TestCase
+class ThumbnailTest < ActiveSupport::TestCase
 
   should 'use sensible options' do
     assert_equal :file_system, Thumbnail.attachment_options[:storage]

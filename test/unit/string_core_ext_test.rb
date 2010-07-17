@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 # tests for String core extension. See lib/noosfero/core_ext/string.rb
-class StringCoreExtTest < Test::Unit::TestCase
+class StringCoreExtTest < ActiveSupport::TestCase
 
   # tests for String#to_slug
   should 'keep only alphanum' do

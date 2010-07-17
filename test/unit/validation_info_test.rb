@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class ValidationInfoTest < Test::Unit::TestCase
+class ValidationInfoTest < ActiveSupport::TestCase
 
   should 'validate the presence of validation methodology description' do
     info = ValidationInfo.new

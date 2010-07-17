@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class ThickboxHelperTest < Test::Unit::TestCase
+class ThickboxHelperTest < ActiveSupport::TestCase
   include ThickboxHelper
 
   def url_for(url)

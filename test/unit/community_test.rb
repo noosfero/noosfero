@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class CommunityTest < Test::Unit::TestCase
+class CommunityTest < ActiveSupport::TestCase
 
   def setup
     @person = create_user('testuser').person

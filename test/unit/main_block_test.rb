@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class MainBlockTest < Test::Unit::TestCase
+class MainBlockTest < ActiveSupport::TestCase
 
   should 'describe itself' do
     assert_kind_of String, MainBlock.description

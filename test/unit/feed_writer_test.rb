@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class FeedWriterTest < Test::Unit::TestCase
+class FeedWriterTest < ActiveSupport::TestCase
 
   should 'generate feeds' do
     articles = []

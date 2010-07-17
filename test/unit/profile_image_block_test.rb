@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class ProfileImageBlockTest < Test::Unit::TestCase
+class ProfileImageBlockTest < ActiveSupport::TestCase
 
   should 'provide description' do
     assert_not_equal Block.description, ProfileImageBlock.description

@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class EnvironmentTest < Test::Unit::TestCase
+class EnvironmentTest < ActiveSupport::TestCase
   fixtures :environments
 
   def test_exists_default_and_it_is_unique

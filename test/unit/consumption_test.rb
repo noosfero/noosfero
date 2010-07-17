@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class ConsumptionTest < Test::Unit::TestCase
+class ConsumptionTest < ActiveSupport::TestCase
   fixtures :consumptions
 
   should 'escape malformed html tags' do

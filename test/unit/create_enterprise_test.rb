@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class CreateEnterpriseTest < Test::Unit::TestCase
+class CreateEnterpriseTest < ActiveSupport::TestCase
 
   should 'provide needed data' do
     task = CreateEnterprise.new

@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 # tests for String#to_slug core extension. See lib/noosfero/core_ext/string.rb
-class SlugTest < Test::Unit::TestCase
+class SlugTest < ActiveSupport::TestCase
 
   should 'keep only alphanum' do
     assert_equal 'abc', 'abc!)@(*#&@!*#*)'.to_slug

@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class LanguageHelperTest < Test::Unit::TestCase
+class LanguageHelperTest < ActiveSupport::TestCase
 
   include LanguageHelper
 

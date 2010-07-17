@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class FeedHandlerTest < Test::Unit::TestCase
+class FeedHandlerTest < ActiveSupport::TestCase
 
   def setup
     @handler = FeedHandler.new

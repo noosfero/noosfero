@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class FriendshipTest < Test::Unit::TestCase
+class FriendshipTest < ActiveSupport::TestCase
 
   should 'connect a person to another' do
     p1 = create_user('person_test').person

@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class ImageTest < Test::Unit::TestCase
+class ImageTest < ActiveSupport::TestCase
   fixtures :images
 
   should 'have thumbnails options' do

@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class ContentViewerHelperTest < Test::Unit::TestCase
+class ContentViewerHelperTest < ActiveSupport::TestCase
 
   include ActionView::Helpers::TagHelper
   include ContentViewerHelper

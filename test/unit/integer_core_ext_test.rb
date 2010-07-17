@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 # tests for Integer core extension. See lib/noosfero/core_ext/integer.rb
-class IntegerCoreExtTest < Test::Unit::TestCase
+class IntegerCoreExtTest < ActiveSupport::TestCase
 
   should 'display bytes in human readable' do
     assert_equal '2 bytes', 2.bytes.to_humanreadable

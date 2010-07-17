@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class RegionTest < Test::Unit::TestCase
+class RegionTest < ActiveSupport::TestCase
 
   should 'be a subclass of category' do
     assert_equal Category, Region.superclass

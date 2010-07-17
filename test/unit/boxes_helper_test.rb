@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class BoxesHelperTest < Test::Unit::TestCase
+class BoxesHelperTest < ActiveSupport::TestCase
 
   include BoxesHelper
   include ActionView::Helpers::TagHelper

@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class ArticleCategorizationTest < Test::Unit::TestCase
+class ArticleCategorizationTest < ActiveSupport::TestCase
 
   should 'use articles_categories table' do
     assert_equal 'articles_categories', ArticleCategorization.table_name

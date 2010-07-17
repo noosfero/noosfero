@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class ActsAsHavingSettingsTest < Test::Unit::TestCase
+class ActsAsHavingSettingsTest < ActiveSupport::TestCase
 
   # using Block class as a sample user of the module 
   class TestClass < Block
