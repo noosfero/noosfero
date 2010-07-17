@@ -2,7 +2,7 @@ module DisplayHelper
 
   def link_to_product(product, opts={})
     return _('No product') unless product
-    target = product.enterprise.enabled? ? product.enterprise.public_profile_url.merge(:controller => 'catalog', :action => 'show', :id => product) : product.enterprise.url
+    target = product.enterprise.enabled? ? product.enterprise.public_profile_url.merge(:controller => 'manage_products', :action => 'show', :id => product) : product.enterprise.url
     link_to content_tag( 'span', product.name ),
             target,
             opts

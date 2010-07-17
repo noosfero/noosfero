@@ -1,0 +1,21 @@
+<% remote_form_for(@product,
+                   :loading => "open_loading('#{ _('loading...') }')",
+                   :loaded => 'close_loading()',
+                   :update => 'product-name',
+                   :url => {:controller => 'manage_products', :action => 'edit', :id => @product, :field => 'name'},
+                   :html => {:method => 'post'}) do |f| %>
+                     <%= f.text_field(:name, :value => @product.name, :class => 'name_edition') %>
+
+  <% button_bar do %>
+    <%= submit_button :save, _('Save') %>
+    <%= cancel_edit_product_link(@product, 'name') %>
+  <% end %>
+<% end %>
+
+<script type="text/javascript">
+  jQuery('#product_name').focus().select();
+</script>
+
+<% if errors %>
+  <%= render :partial => 'shared/dialog_error_messages', :locals => { :object_name => 'product' } %>
+<% end %>

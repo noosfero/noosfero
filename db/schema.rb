@@ -141,6 +141,15 @@ ActiveRecord::Schema.define(:version => 20100621235235) do
   add_index "categories_profiles", ["category_id"], :name => "index_categories_profiles_on_category_id"
   add_index "categories_profiles", ["profile_id"], :name => "index_categories_profiles_on_profile_id"
 
+  create_table "certifiers", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.string   "link"
+    t.integer  "environment_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "comments", :force => true do |t|
     t.string   "title"
     t.text     "body"
@@ -230,6 +239,14 @@ ActiveRecord::Schema.define(:version => 20100621235235) do
   add_index "product_categorizations", ["category_id"], :name => "index_product_categorizations_on_category_id"
   add_index "product_categorizations", ["product_id"], :name => "index_product_categorizations_on_product_id"
 
+  create_table "product_qualifiers", :force => true do |t|
+    t.integer  "product_id"
+    t.integer  "qualifier_id"
+    t.integer  "certifier_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "products", :force => true do |t|
     t.integer  "enterprise_id"
     t.integer  "product_category_id"
@@ -241,6 +258,9 @@ ActiveRecord::Schema.define(:version => 20100621235235) do
     t.datetime "updated_at"
     t.float    "lat"
     t.float    "lng"
+    t.string   "unit"
+    t.float    "discount"
+    t.boolean  "available"
     t.boolean  "highlighted"
   end
 
@@ -275,6 +295,13 @@ ActiveRecord::Schema.define(:version => 20100621235235) do
   end
 
   add_index "profiles", ["environment_id"], :name => "index_profiles_on_environment_id"
+
+  create_table "qualifiers", :force => true do |t|
+    t.string   "name"
+    t.integer  "environment_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "refused_join_community", :id => false, :force => true do |t|
     t.integer "person_id"

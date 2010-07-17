@@ -52,7 +52,7 @@ class EnterpriseHomepageTest < Test::Unit::TestCase
     a = EnterpriseHomepage.new(:name => 'article homepage')
     ent.articles << a
     result = a.to_html
-    assert_match /catalog\/test_enterprise\/#{prod.id}/, result
+    assert_match /\/test_enterprise\/manage_products\/show\/#{prod.id}/, result
   end
 
   should 'can display hits' do

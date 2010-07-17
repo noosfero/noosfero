@@ -1,12 +1,26 @@
-<h3> <%= @product.name %> </h3>
+<div id="product-category">
+  <%= render :partial => 'manage_products/display_category', :locals => {:product => @product} %>
+</div>
 
-<p> <%= image_tag @product.image.public_filename if @product.image %> </p>
-<p> <strong><%= _('Price:') %></strong> <%= @product.price %> </p>
-<p> <strong><%= _('Description:') %></strong> <%= txt2html @product.description  if @product.description %> </p>
-<p> <strong><%= _('Category:') %></strong> <%= link_to_product_category(@product.product_category) %> </p>
+<div id="show_product">
 
-<%= button :back, _('Back'), :action => 'index' %>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-<%= button :delete, _('Destroy'), :action => 'destroy', :id => @product %>
-<%= button :edit, _('Edit'), :action => 'edit', :id => @product %>
+  <div id='product-name'>
+    <%= render :partial => 'manage_products/display_name', :locals => {:product => @product} %>
+  </div>
 
+  <div id='product-details'>
+    <div id='product-image'>
+      <%= render :partial => 'manage_products/display_image', :locals => {:product => @product} %>
+    </div>
+
+    <div id='product-info'>
+      <%= render :partial => 'manage_products/display_info', :locals => {:product => @product} %>
+    </div>
+
+  </div>
+</div>
+
+<% button_bar do %>
+  <%= button :back, _('Back to the product listing'), :action => 'index' %>
+  <%= button :delete, _('Remove product or service'), {:action => 'destroy', :id => @product}, :class => 'requires-permission-manage_products', :style => 'display:none;' %>
+<% end %>

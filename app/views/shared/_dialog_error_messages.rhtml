@@ -1,5 +1,3 @@
-<%= error_messages_for object_name %>
-
 <% javascript_tag do %>
   close_loading()
   jQuery('#errorExplanation h2').hide()
@@ -11,3 +9,4 @@
      title: "<%= ui_icon(:alert) %>Ops…",
   });
 <% end %>
+<%= error_messages_for object_name %>

@@ -948,4 +948,28 @@ class EnvironmentTest < Test::Unit::TestCase
     assert !v.has_terms_of_use?
   end
 
+  should 'have currency unit attribute' do
+    env = Environment.new
+    assert_equal env.currency_unit, '$'
+
+    env.currency_unit = 'R$'
+    assert_equal 'R$', env.currency_unit
+  end
+
+  should 'have currency separator attribute' do
+    env = Environment.new
+    assert_equal env.currency_separator, '.'
+
+    env.currency_separator = ','
+    assert_equal ',', env.currency_separator
+  end
+
+  should 'have currency delimiter attribute' do
+    env = Environment.new
+    assert_equal env.currency_delimiter, ','
+
+    env.currency_delimiter = '.'
+    assert_equal '.', env.currency_delimiter
+  end
+
 end

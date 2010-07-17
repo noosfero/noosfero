@@ -39,31 +39,6 @@ class CatalogControllerTest < Test::Unit::TestCase
     assert_kind_of Array, assigns(:products)
   end
 
-  should 'show product of enterprise' do
-    prod = @enterprise.products.create!(:name => 'Product test', :product_category => @product_category)
-    get :show, :id => prod.id, :profile => @enterprise.identifier
-    assert_tag :tag => 'h1', :content => /#{prod.name}/
-  end
-
-  should 'link back to index from product show' do
-    enterprise = Enterprise.create!(:name => 'test_enterprise_1', :identifier => 'test_enterprise_1', :environment => Environment.default)
-    prod = enterprise.products.create!(:name => 'Product test', :product_category => @product_category)
-    get :show, :id => prod.id, :profile => enterprise.identifier
-    assert_tag({
-      :tag => 'div',
-      :attributes => {
-        :class => /main-block/
-      },
-      :descendant => {
-        :tag => 'a',
-        :attributes => {
-          :href => "/catalog/#{enterprise.identifier}"
-        }
-      }
-    })
-    
-  end
-
   should 'not give access if environment do not let' do
     env = Environment.default
     env.enable('disable_products_for_enterprises')
@@ -86,33 +61,11 @@ class CatalogControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'li', :attributes => { :class => 'product_price' }, :content => /Price:/
   end
 
-  should 'not show product price when showing product if not informed' do
-    prod = @enterprise.products.create!(:name => 'Product test', :product_category => @product_category)
-    get :show, :id => prod.id, :profile => @enterprise.identifier
-
-    assert_no_tag :tag => 'p', :attributes => { :class => 'product_price' }, :content => /Price:/
-  end
-
-  should 'show product price when showing product if informed' do
-    prod = @enterprise.products.create!(:name => 'Product test', :price => 50.00, :product_category => @product_category)
-    get :show, :id => prod.id, :profile => @enterprise.identifier
-
-    assert_tag :tag => 'p', :attributes => { :class => 'product_price' }, :content => /Price:/
-  end
-
   should 'link to assets products wiht product category in the link to product category on index' do
     pc = ProductCategory.create!(:name => 'some product', :environment => enterprise.environment)
     prod = enterprise.products.create!(:name => 'Product test', :price => 50.00, :product_category => pc)
 
     get :index, :profile => enterprise.identifier
-    assert_tag :tag => 'a', :attributes => {:href => /assets\/products\?product_category=#{pc.id}/}
-  end
-
-  should 'link to assets products wiht product category in the link to product category on show' do
-    pc = ProductCategory.create!(:name => 'some product', :environment => enterprise.environment)
-    prod = enterprise.products.create!(:name => 'Product test', :price => 50.00, :product_category => pc)
-
-    get :show, :id => prod.id, :profile => enterprise.identifier
     assert_tag :tag => 'a', :attributes => {:href => /assets\/products\?product_category=#{pc.id}/}
   end
 

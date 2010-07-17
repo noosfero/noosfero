@@ -579,11 +579,6 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_equal 'filename.mp3', short_filename('filename.mp3')
   end
 
-  include ActionView::Helpers::NumberHelper
-  should 'format float to money as Brazillian currency' do
-    assert_equal 'R$10,00', float_to_currency(10.0)
-  end
-
   protected
 
   def url_for(args = {})

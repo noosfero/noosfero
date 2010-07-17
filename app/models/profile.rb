@@ -386,7 +386,7 @@ class Profile < ActiveRecord::Base
 
   def url_options
     options = { :host => default_hostname, :profile => (own_hostname ? nil : self.identifier) }
-    Noosfero.url_options.merge(options)
+    options.merge(Noosfero.url_options.merge(options))
   end
 
 private :generate_url, :url_options

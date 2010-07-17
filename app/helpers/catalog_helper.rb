@@ -1,6 +1,7 @@
 module CatalogHelper
 
 include DisplayHelper
+include ManageProductsHelper
 
   def display_products_list(profile, products)
     data = ''
@@ -19,7 +20,7 @@ include DisplayHelper
     content_tag('h1', _('Products/Services')) + content_tag('ul', data, :id => 'product_list')
   end
 
-private
+  private
 
   def product_category_name(profile, product_category)
     if profile.enabled?

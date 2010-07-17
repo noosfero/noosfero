@@ -60,7 +60,6 @@ ActionController::Routing::Routes.draw do |map|
 
   # catalog
   map.catalog 'catalog/:profile', :controller => 'catalog', :action => 'index', :profile => /#{Noosfero.identifier_format}/
-  map.product 'catalog/:profile/:id', :controller => 'catalog', :action => 'show', :profile => /#{Noosfero.identifier_format}/
 
   # invite
   map.invite 'profile/:profile/invite/:action', :controller => 'invite', :profile => /#{Noosfero.identifier_format}/

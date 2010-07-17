@@ -15,7 +15,6 @@
     <%=
       # Load the principal css files:
       stylesheet_link_tag(noosfero_stylesheets, :cache => 'cache') +
-      stylesheet_link_tag('jquery.ui/smoothness/jquery-ui-1.8.2.custom') +
       stylesheet_import( %w( common help menu article button search blocks forms login-box ),
                          :themed_source => true ) + "\n" +
       import_blocks_stylesheets(:themed_source => true) + "\n" +
@@ -125,6 +124,11 @@
     <%# if you need to add HTML stuff to the layout, include it in
     app/views/shared/noosfero_layout_features.rhtml! %>
     <%= noosfero_layout_features %>
+
+    <script type='text/javascript'>
+       // transform all element with class ui_button in a jQuery UI button
+       render_jquery_ui_buttons()
+    </script>
 
   </body>
 </html>

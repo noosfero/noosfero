@@ -138,3 +138,58 @@ function update_loading(message) {
 function redirect_to(url) {
   document.location=url;
 }
+
+/* Products edition  */
+
+function numbersonly(e, separator) {
+  var key;
+  var keychar;
+
+  if (window.event) {
+    key = window.event.keyCode;
+  }
+  else if (e) {
+    key = e.which;
+  }
+  else {
+    return true;
+  }
+  keychar = String.fromCharCode(key);
+
+  if ((key==null) || (key==0) || (key==8) ||  (key==9) || (key==13) || (key==27) ) {
+    return true;
+  }
+  else if ((("0123456789").indexOf(keychar) > -1)) {
+    return true;
+  }
+  else if (keychar == separator) {
+    return true;
+  }
+  else
+    return false;
+}
+
+// transform all element with class ui_button in a jQuery UI button
+function render_jquery_ui_buttons(element_id) {
+   if (element_id) {
+      element_id = '#' + element_id
+      jQuery(element_id).button({
+         icons: {
+             primary: jQuery(element_id).attr('data-primary-icon'),
+             secondary: jQuery(element_id).attr('data-secondary-icon')
+            }
+         }
+      )
+   }
+   else {
+      jQuery('.ui_button').each(function() {
+         jQuery(this).button({
+            icons: {
+                primary: this.getAttribute('data-primary-icon'),
+                secondary: this.getAttribute('data-secondary-icon')
+               }
+            }
+         )
+      })
+   }
+}

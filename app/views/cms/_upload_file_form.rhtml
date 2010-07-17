@@ -11,7 +11,7 @@
   <% end %>
 </div>
 
-<%= hidden_field_tag('back_to', @back_to) if @back_to %>
+<%= hidden_field_tag('back_to', @back_to) %>
 
 <% button_bar do %>
   <%= add_upload_file_field(_('More files'), {:size => size}) %>

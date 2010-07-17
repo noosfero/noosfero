@@ -2,10 +2,14 @@ class Product < ActiveRecord::Base
   belongs_to :enterprise
   belongs_to :product_category
   has_many :product_categorizations
+  has_many :product_qualifiers
+  has_many :qualifiers, :through => :product_qualifiers
 
   validates_uniqueness_of :name, :scope => :enterprise_id, :allow_nil => true
   validates_presence_of :product_category
+
   validates_numericality_of :price, :allow_nil => true
+  validates_numericality_of :discount, :allow_nil => true
 
   after_update :save_image
 
@@ -31,10 +35,36 @@ class Product < ActiveRecord::Base
 
   acts_as_searchable :fields => [ :name, :description, :category_full_name ]
 
-  xss_terminate :only => [ :name, :description ], :on => 'validation'
+  xss_terminate :only => [ :name ], :on => 'validation'
+  xss_terminate :only => [ :description ], :with => 'white_list', :on => 'validation'
 
   acts_as_mappable
-  
+
+  def self.units
+    {
+      _('Litre') => 'litre',
+      _('Kilo')  => 'kilo',
+      _('Meter') => 'meter',
+      _('Unit')  => 'unit',
+    }
+  end
+
+  def name
+    self[:name].blank? ? category_name : self[:name]
+  end
+
+  def name=(value)
+    if (value == category_name)
+      self[:name] = nil
+    else
+      self[:name] = value
+    end
+  end
+
+  def default_image(size='thumb')
+    '/images/icons-app/product-default-pic-%s.png' % size
+  end
+
   def category_full_name
     product_category ? product_category.full_name.split('/') : nil
   end
@@ -60,14 +90,30 @@ class Product < ActiveRecord::Base
   end
 
   def url
-    enterprise.public_profile_url.merge(:controller => 'catalog', :action => 'show', :id => id)
+    enterprise.public_profile_url.merge(:controller => 'manage_products', :action => 'show', :id => id)
   end
 
   def public?
     enterprise.public_profile
   end
 
+  def formatted_value(value)
+    ("%.2f" % self[value]).to_s.gsub('.', enterprise.environment.currency_separator) if self[value]
+  end
+
+  def price_with_discount
+    price - discount if discount
+  end
+
   def price=(value)
+    if value.is_a?(String)
+      super(currency_to_float(value))
+    else
+      super(value)
+    end
+  end
+
+  def discount=(value)
     if value.is_a?(String)
       super(currency_to_float(value))
     else
@@ -99,4 +145,17 @@ class Product < ActiveRecord::Base
     return num.tr(',.','').to_f
   end
 
+  def has_basic_info?
+    %w[description price].each do |field|
+      return true if !self.send(field).blank?
+    end
+    false
+  end
+
+  def qualifiers_list=(qualifiers)
+    self.product_qualifiers.delete_all
+    qualifiers.each do |item|
+      self.product_qualifiers.create(item[1]) if item[1].has_key?('qualifier_id')
+    end
+  end
 end

@@ -20,6 +20,27 @@ class ProductTest < Test::Unit::TestCase
     end   
   end
 
+  should 'display category name if name is nil' do
+    p = fast_create(Product, :name => nil)
+    p.expects(:category_name).returns('Software')
+    assert_equal 'Software', p.name
+  end
+
+  should 'display category name if name is blank' do
+    p = fast_create(Product, :name => '')
+    p.expects(:category_name).returns('Software')
+    assert_equal 'Software', p.name
+  end
+
+  should 'set nil to name if name is equal to category name' do
+    p = fast_create(Product)
+    p.expects(:category_name).returns('Software').at_least_once
+    p.name = 'Software'
+    p.save
+    assert_equal 'Software', p.name
+    assert_equal nil, p[:name]
+  end
+
   should 'list recent products' do
     enterprise = fast_create(Enterprise, :name => "My enterprise", :identifier => 'my-enterprise')
     Product.delete_all
@@ -113,7 +134,7 @@ class ProductTest < Test::Unit::TestCase
 
     product.expects(:id).returns(999)
     product.expects(:enterprise).returns(enterprise)
-    assert_equal({:controller => 'catalog', :action => 'show', :id => 999}, product.url)
+    assert_equal({:controller => 'manage_products', :action => 'show', :id => 999}, product.url)
   end
 
   should 'categorize also with product categorization' do
@@ -178,12 +199,27 @@ class ProductTest < Test::Unit::TestCase
     end
   end
 
+  should 'accept discount in american\'s or brazilian\'s currency format' do
+    [
+      [12.34, 12.34],
+      ["12.34", 12.34],
+      ["12,34", 12.34],
+      ["12.345.678,90", 12345678.90],
+      ["12,345,678.90", 12345678.90],
+      ["12.345.678", 12345678.00],
+      ["12,345,678", 12345678.00]
+    ].each do |input, output|
+      product = Product.new(:discount => input)
+      assert_equal output, product.discount
+    end
+  end
+
   should 'strip name with malformed HTML when sanitize' do
     product = Product.new(:product_category => @product_category)
     product.name = "<h1 Bla </h1>"
     product.valid?
 
-    assert_equal '', product.name
+    assert_equal @product_category.name, product.name
   end
 
   should 'escape malformed html tags' do
@@ -208,4 +244,23 @@ class ProductTest < Test::Unit::TestCase
     assert product.errors.invalid?(:product_category)
   end
 
+  should 'format values to float with 2 decimals' do
+     ent = fast_create(Enterprise, :name => 'test ent 1', :identifier => 'test_ent1')
+     product = fast_create(Product, :enterprise_id => ent.id, :price => 12.994, :discount => 1.994)
+
+    assert_equal "12.99", product.formatted_value(:price)
+    assert_equal "1.99", product.formatted_value(:discount)
+  end
+
+  should 'calculate price with discount' do
+     ent = fast_create(Enterprise, :name => 'test ent 1', :identifier => 'test_ent1')
+     product = fast_create(Product, :enterprise_id => ent.id, :price => 12.994, :discount => 1.994)
+
+    assert_equal 11.00, product.price_with_discount
+  end
+
+  should 'have default image' do
+    product = Product.new
+    assert_equal '/images/icons-app/product-default-pic-thumb.png', product.default_image
+  end
 end

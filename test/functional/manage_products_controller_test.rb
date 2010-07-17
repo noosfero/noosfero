@@ -65,27 +65,60 @@ class ManageProductsControllerTest < Test::Unit::TestCase
     end
   end
 
-  should "get edit form" do
-    p = @enterprise.products.create!(:name => 'test product', :product_category => @product_category)
-    get 'edit', :profile => @enterprise.identifier, :id => p.id
+  should "get edit name form" do
+    product = fast_create(Product, :name => 'test product', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    get 'edit', :profile => @enterprise.identifier, :id => product.id, :field => 'name'
     assert_response :success
     assert assigns(:product)
-    assert_template 'edit'
-    assert_tag :tag => 'form', :attributes => { :action => /edit/ }
+    assert_tag :tag => 'form', :attributes => { :action => /myprofile\/#{@enterprise.identifier}\/manage_products\/edit\/#{product.id}\?field=name/ }
   end
 
-  should "edit product" do
-    p = @enterprise.products.create!(:name => 'test product', :product_category => @product_category)
-    post 'edit', :profile => @enterprise.identifier, :product => {:name => 'new test product'}, :id => p.id
-    assert_response :redirect
+  should "get edit info form" do
+    product = fast_create(Product, :name => 'test product', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    get 'edit', :profile => @enterprise.identifier, :id => product.id, :field => 'info'
+    assert_response :success
+    assert assigns(:product)
+    assert_tag :tag => 'form', :attributes => { :action => /myprofile\/#{@enterprise.identifier}\/manage_products\/edit\/#{product.id}\?field=info/ }
+  end
+
+  should "get edit image form" do
+    product = fast_create(Product, :name => 'test product', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    get 'edit', :profile => @enterprise.identifier, :id => product.id, :field => 'image'
+    assert_response :success
+    assert assigns(:product)
+    assert_tag :tag => 'form', :attributes => { :action => /myprofile\/#{@enterprise.identifier}\/manage_products\/edit\/#{product.id}\?field=image/ }
+  end
+
+  should "edit product name" do
+    product = fast_create(Product, :name => 'test product', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    post :edit, :profile => @enterprise.identifier, :product => {:name => 'new test product'}, :id => product.id, :field => 'name'
+    assert_response :success
     assert assigns(:product)
     assert ! assigns(:product).new_record?
-    assert_equal p, Product.find_by_name('new test product')
+    assert_equal product, Product.find_by_name('new test product')
+  end
+
+  should "edit product description" do
+    product = fast_create(Product, :name => 'test product', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id, :description => 'My product is very good')
+    post :edit, :profile => @enterprise.identifier, :product => {:description => 'A very good product!'}, :id => product.id, :field => 'info'
+    assert_response :success
+    assert assigns(:product)
+    assert ! assigns(:product).new_record?
+    assert_equal 'A very good product!', Product.find_by_name('test product').description
+  end
+
+  should "edit product image" do
+    product = fast_create(Product, :name => 'test product', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    post :edit, :profile => @enterprise.identifier, :product => { :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png') } }, :id => product.id, :field => 'image'
+    assert_response :success
+    assert assigns(:product)
+    assert ! assigns(:product).new_record?
+    assert_equal 'rails.png', Product.find_by_name('test product').image.filename
   end
 
   should "not edit to invalid parameters" do
-    p = @enterprise.products.create!(:name => 'test product', :product_category => @product_category)
-    post 'edit', :profile => @enterprise.identifier, :product => {:product_category => nil}, :id => p.id
+    product = fast_create(Product, :name => 'test product', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    post 'edit_category', :profile => @enterprise.identifier, :product => {:product_category => nil}, :id => product.id
     assert_response :success
     assert assigns(:product)
     assert ! assigns(:product).valid?
@@ -131,32 +164,16 @@ class ManageProductsControllerTest < Test::Unit::TestCase
     end
   end
 
-  should 'show thumbnail image when edit product' do
-    p = @enterprise.products.create!(:name => 'test product1', :product_category => @product_category, :image_builder => {
-      :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
-    })
-    get 'edit', :profile => @enterprise.identifier, :id => p.id
-    assert_tag :tag => 'img', :attributes => { :src => /#{p.image.public_filename(:thumb)}/ }
-  end
-
-  should 'show change image link above thumbnail image' do
-    p = @enterprise.products.create!(:name => 'test product1', :product_category => @product_category, :image_builder => {
-      :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
-    })
-    get 'edit', :profile => @enterprise.identifier, :id => p.id
-    assert_tag :tag => 'a', :attributes => { :href => '#' }, :content => 'Change image'
-  end
-  
   should 'filter html from name of product' do
     category = fast_create(ProductCategory, :name => 'Category 1')
     post 'new', :profile => @enterprise.identifier, :product => { :name => "<b id='html_name'>name bold</b>", :product_category_id => category.id }
     assert_sanitized assigns(:product).name
   end
 
-  should 'filter html from description of product' do
+  should 'filter html with whit list from description of product' do
     category = fast_create(ProductCategory, :name => 'Category 1')
     post 'new', :profile => @enterprise.identifier, :product => { :name => 'name', :description => "<b id='html_descr'>descr bold</b>", :product_category_id => category.id }
-    assert_sanitized assigns(:product).description
+    assert_equal "<b>descr bold</b>", assigns(:product).description
   end
   
   should 'not let users in if environment do not let' do
@@ -177,15 +194,6 @@ class ManageProductsControllerTest < Test::Unit::TestCase
     get :new, :profile => @enterprise.identifier
 
     assert_equivalent ProductCategory.top_level_for(pc1.environment), assigns(:categories)
-  end
-
-  should 'links to products asset for product category link when showing' do
-    pc = fast_create(ProductCategory, :name => 'test_category')
-    p = @enterprise.products.create!(:name => 'test product', :product_category => pc)
-
-    get :show, :profile => @enterprise.identifier, :id => p.id
-
-    assert_tag :tag => 'a', :attributes => {:href => /assets\/products\?product_category=#{pc.id}/}
   end
 
   should 'increase level while navigate on hierarchy categories' do
@@ -230,6 +238,60 @@ class ManageProductsControllerTest < Test::Unit::TestCase
       post :new, :profile => @enterprise.identifier, :product => { :name => 'Invalid product', :product_category_id => @product_category.id }
       assert_template 'shared/_redirect_via_javascript'
     end
+  end
+
+  should 'show product of enterprise' do
+    prod = @enterprise.products.create!(:name => 'Product test', :product_category => @product_category)
+    get :show, :id => prod.id, :profile => @enterprise.identifier
+    assert_tag :tag => 'h2', :content => /#{prod.name}/
+  end
+
+  should 'link back to index from product show' do
+    enterprise = Enterprise.create!(:name => 'test_enterprise_1', :identifier => 'test_enterprise_1', :environment => Environment.default)
+    prod = enterprise.products.create!(:name => 'Product test', :product_category => @product_category)
+    get :show, :id => prod.id, :profile => enterprise.identifier
+    assert_tag({
+      :tag => 'div',
+      :attributes => {
+        :class => /main-block/
+      },
+      :descendant => {
+        :tag => 'a',
+        :attributes => {
+          :href => "/myprofile/#{enterprise.identifier}/manage_products",
+        },
+        :content => /Back to the product listing/
+      }
+    })
+  end
+
+  should 'not show product price when showing product if not informed' do
+    product = fast_create(Product, :name => 'test product', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    get :show, :id => product.id, :profile => @enterprise.identifier
+
+    assert_no_tag :tag => 'span', :attributes => { :class => 'product_price' }, :content => /Price:/
+  end
+
+  should 'show product price when showing product if unit was informed' do
+    prod = @enterprise.products.create!(:name => 'Product test', :price => 50.00, :unit => 'unit', :product_category => @product_category)
+    get :show, :id => prod.id, :profile => @enterprise.identifier
+
+    assert_tag :tag => 'span', :attributes => { :class => 'field-name' }, :content => /Price:/
+  end
+
+  should 'show product price when showing product if discount was informed' do
+    prod = @enterprise.products.create!(:name => 'Product test', :price => 50.00, :discount => 3.50, :unit => 'unit', :product_category => @product_category)
+    get :show, :id => prod.id, :profile => @enterprise.identifier
+
+    assert_tag :tag => 'span', :attributes => { :class => 'field-name' }, :content => /List price:/
+    assert_tag :tag => 'span', :attributes => { :class => 'field-name' }, :content => /On sale:/
+  end
+
+  should 'not show product price when showing product if unit not informed' do
+    prod = @enterprise.products.create!(:name => 'Product test', :price => 50.00, :product_category => @product_category)
+    get :show, :id => prod.id, :profile => @enterprise.identifier
+
+    assert_no_tag :tag => 'span', :attributes => { :class => 'product_price' }, :content => /Price:/
   end
 
 end

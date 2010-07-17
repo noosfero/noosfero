@@ -152,6 +152,9 @@ class Environment < ActiveRecord::Base
 
   has_many :roles
 
+  has_many :qualifiers
+  has_many :certifiers
+
   acts_as_accessible
 
   def superior_intances
@@ -208,6 +211,10 @@ class Environment < ActiveRecord::Base
   settings_items :news_amount_by_folder, :type => Integer, :default => 4
   settings_items :help_message_to_add_enterprise, :type => String, :default => ''
   settings_items :tip_message_enterprise_activation_question, :type => String, :default => ''
+
+  settings_items :currency_unit, :type => String, :default => '$'
+  settings_items :currency_separator, :type => String, :default => '.'
+  settings_items :currency_delimiter, :type => String, :default => ','
 
   def news_amount_by_folder=(amount)
     settings[:news_amount_by_folder] = amount.to_i

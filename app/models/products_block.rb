@@ -20,7 +20,7 @@ class ProductsBlock < Block
     block_title(title) +
     content_tag(
       'ul',
-      products.map {|product| content_tag('li', link_to(product.name, product.url, :style => 'background-image:url(%s)' % ( product.image ? product.image.public_filename(:minor) : '/images/icons-app/product-default-pic-minor.png' )), :class => 'product' )}
+      products.map {|product| content_tag('li', link_to(product.name, product.url, :style => 'background-image:url(%s)' % ( product.image ? product.image.public_filename(:minor) : product.default_image('minor'))), :class => 'product' )}
     )
   end
 

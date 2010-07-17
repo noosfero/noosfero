@@ -54,6 +54,14 @@ module NavigationHelpers
     when /^(.+)'s new product page/
       '/myprofile/%s/manage_products/new' % Profile.find_by_name($1).identifier
 
+    when /^(.+)'s page of product (.*)$/
+       enterprise = Profile.find_by_name($1)
+       product = enterprise.products.find_by_name($2)
+      '/myprofile/%s/manage_products/show/%s' % [enterprise.identifier, product.id]
+
+    when /^(.*)'s products page$/
+      '/catalog/%s' % Profile.find_by_name($1).identifier
+
     # Add more mappings here.
     # Here is a more fancy example:
     #

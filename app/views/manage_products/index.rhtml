@@ -16,7 +16,6 @@
       <td><strong><%= link_to product.name, :action => 'show', :id => product %></strong></td>
       <td><%= product.price %></td>
       <td>
-        <%= button :edit, _('Edit'), :action => 'edit', :id => product %>
         <%= button :delete, _('Destroy'), :action => 'destroy', :id => product %>
       </td>
     </tr>

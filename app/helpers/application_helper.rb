@@ -907,7 +907,7 @@ module ApplicationHelper
     (@section ? @section.title + ' - ' : '') +
     (@toc ? _('Online Manual') + ' - ' : '') +
     environment.name +
-    (@category ? "&rarr; #{@category.full_name}" : '')
+    (@category ? " - #{@category.full_name}" : '')
   end
 
   def noosfero_javascript
@@ -921,6 +921,7 @@ module ApplicationHelper
       'lightbox',
       'colorpicker',
       pngfix_stylesheet_path,
+      'jquery.ui/sunny/jquery-ui-1.8.2.custom',
     ]
   end
 
@@ -960,13 +961,16 @@ module ApplicationHelper
     text_field_tag(name, value, options.merge(:class => 'colorpicker_field'))
   end
 
-  # for now force currency to Brazillian format, like: "12.345,20"
-  def float_to_currency(price)
-    number_to_currency(price, :unit => 'R$', :separator => ',', :delimiter => '.')
-  end
-
   def ui_icon(icon_type)
     "<span class='ui-icon ui-icon-#{icon_type}' style='float:left; margin-right:7px;'></span>"
+  end
+
+  def ui_button(label, url, html_options = {})
+    link_to(label, url, html_options.merge(:class => 'ui_button fg-button'))
+  end
+
+  def ui_button_to_remote(label, options, html_options = {})
+    link_to_remote(label, options, html_options.merge(:class => 'ui_button fg-button'))
   end
 
 end

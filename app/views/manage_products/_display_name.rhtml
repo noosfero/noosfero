@@ -1,0 +1,5 @@
+<div id='display-product-name'>
+  <h2><%= @product.reload.name %></h2>
+  <%= edit_product_link(@product, 'name', _('Edit name')) %>
+</div>
+
