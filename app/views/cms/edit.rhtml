@@ -28,6 +28,9 @@
 
   <%= select_categories(:article, _('Categorize your article')) %>
 
+  <%= f.text_field('tag_list', :size => 64) %>
+  <%= content_tag( 'small', _('Separate tags with commas') ) %>
+
   <div id='edit-article-options'>
     <%= options_for_article(@article) %>
   </div>

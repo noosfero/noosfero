@@ -33,3 +33,29 @@ Feature: create article
     And I follow "New Folder"
     When I follow "Cancel"
     Then I should be on Joao Silva's cms
+
+  Scenario: display tag list field when creating event
+    Given I follow "Control panel"
+    And I follow "Manage Content"
+    And I follow "New article"
+    When I follow "Event"
+    Then I should see "Tag list"
+
+  Scenario: display tag list field when creating folder
+    Given I follow "Control panel"
+    And I follow "Manage Content"
+    When I follow "New folder"
+    Then I should see "Tag list"
+
+  Scenario: create new article with tags
+    Given I follow "Control panel"
+    And I follow "Manage Content"
+    And I follow "New article"
+    When I follow "Text article with Textile markup language"
+    Then I should see "Tag list"
+    When I fill in "Title" with "Article with tags"
+    And I fill in "Tag list" with "aurium, bug"
+    And I press "Save"
+    And I go to /joaosilva/article-with-tags
+    Then I should see "aurium" within "#article-tags a:first"
+    And I should see "bug" within "#article-tags a:last"

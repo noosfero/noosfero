@@ -87,3 +87,9 @@ Feature: blog
     And I press "Save"
     When I am on /joaosilva/blog-two
     Then I should see "Blog One"
+
+  Scenario: display tag list field when creating new blog
+    Given I follow "Control panel"
+    And I follow "Manage Content"
+    When I follow "New blog"
+    Then I should see "Tag list"
