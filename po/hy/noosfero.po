@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.24.2\n"
-"POT-Creation-Date: 2010-07-17 12:05-0300\n"
+"POT-Creation-Date: 2010-07-17 17:20-0300\n"
 "PO-Revision-Date: 2009-10-26 16:20-0300\n"
 "Last-Translator: Anahit Minassian <anahit.minassian@cooperation.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -174,7 +174,8 @@ msgstr "Իրադարձություններ"
 msgid "Please, try again when the page loading completes."
 msgstr ""
 
-#: app/helpers/forms_helper.rb:35 app/models/link_list_block.rb:9
+#: app/helpers/forms_helper.rb:35 app/helpers/manage_products_helper.rb:144
+#: app/models/link_list_block.rb:9
 #: app/views/shared/_select_categories.rhtml:22
 #: app/views/shared/_change_image.rhtml:2
 #: app/views/cms/select_article_type.rhtml:12 app/views/cms/edit.rhtml:41
@@ -214,19 +215,18 @@ msgid ""
 "The <label class='pseudoformlabel'>highlighted</label> fields are mandatory."
 msgstr ""
 
-#: app/helpers/catalog_helper.rb:13 app/views/search/_product.rhtml:15
-#: app/views/catalog/show.rhtml:13
+#: app/helpers/catalog_helper.rb:14 app/views/search/_product.rhtml:15
 msgid "Price: %s"
 msgstr "Գին %s"
 
-#: app/helpers/catalog_helper.rb:19 app/views/blocks/profile_info.rhtml:21
+#: app/helpers/catalog_helper.rb:20 app/views/blocks/profile_info.rhtml:21
 #: app/views/content_viewer/_organization.rhtml:25
 #: app/views/profile/_organization.rhtml:25
 msgid "Products/Services"
 msgstr "Արտադրանք/Ծառայություններ"
 
-#: app/helpers/catalog_helper.rb:28 app/helpers/display_helper.rb:12
-#: app/helpers/display_helper.rb:21 app/models/product.rb:49
+#: app/helpers/catalog_helper.rb:29 app/helpers/display_helper.rb:12
+#: app/helpers/display_helper.rb:21 app/models/product.rb:79
 msgid "Uncategorized product"
 msgstr "Չկատեգորիզացված արտադրանք"
 
@@ -424,8 +424,7 @@ msgstr ""
 
 #: app/helpers/boxes_helper.rb:212 app/helpers/article_helper.rb:36
 #: app/models/link_list_block.rb:5 app/views/categories/_category.rhtml:14
-#: app/views/cms/view.rhtml:81 app/views/manage_products/index.rhtml:19
-#: app/views/manage_products/show.rhtml:11 app/views/role/index.rhtml:14
+#: app/views/cms/view.rhtml:81 app/views/role/index.rhtml:14
 #: app/views/profile_members/add_member.rhtml:13
 #: app/views/profile_members/unassociate.rhtml:13
 #: app/views/profile_members/_members_list.rhtml:13
@@ -1005,6 +1004,33 @@ msgstr "Արտադրանք չկա"
 msgid "Are you sure you want to visit this web site?"
 msgstr "Ցանկանո՞ւմ եք արդյոք այս կայքն այցելել:"
 
+#: app/helpers/manage_products_helper.rb:152
+#, fuzzy
+msgid "Change category"
+msgstr "Նոր կատեգորիա"
+
+#: app/helpers/manage_products_helper.rb:166 app/helpers/search_helper.rb:86
+msgid "Price: "
+msgstr "Գին"
+
+#: app/helpers/manage_products_helper.rb:183
+msgid "On sale: "
+msgstr ""
+
+#: app/helpers/manage_products_helper.rb:184
+#, fuzzy
+msgid "List price: "
+msgstr "Հեռավորություն"
+
+#: app/helpers/manage_products_helper.rb:190
+msgid " certified by %s"
+msgstr ""
+
+#: app/helpers/manage_products_helper.rb:203
+#, fuzzy
+msgid "Select..."
+msgstr "Որոնել..."
+
 #: app/helpers/search_helper.rb:31
 msgid "Display in list"
 msgstr "Ցուցադրել ցուցակի մեջ"
@@ -1036,10 +1062,6 @@ msgstr "Արտադրանք/Ծառայություններ"
 #: app/helpers/search_helper.rb:71
 msgid "Distance: "
 msgstr "Հեռավորություն"
-
-#: app/helpers/search_helper.rb:86
-msgid "Price: "
-msgstr "Գին"
 
 #: app/helpers/search_helper.rb:89
 msgid "Provider: "
@@ -1277,23 +1299,19 @@ msgstr ""
 msgid "This action is not available for \"%s\"."
 msgstr "Այս գործողության կատարումն անհնար է «%s» - ի համար:"
 
-#: app/controllers/my_profile/manage_products_controller.rb:44
+#: app/controllers/my_profile/manage_products_controller.rb:47
 msgid "Product succesfully created"
 msgstr "Արտադրանքը հաջողությամբ ստեղծված է"
 
-#: app/controllers/my_profile/manage_products_controller.rb:59
-msgid "Product succesfully updated"
-msgstr "Արտադրանքը հաջողությամբ թարմացված է"
-
-#: app/controllers/my_profile/manage_products_controller.rb:62
+#: app/controllers/my_profile/manage_products_controller.rb:83
 msgid "Could not update the product"
 msgstr "Արտադրանք թարմացնելն անհնար է"
 
-#: app/controllers/my_profile/manage_products_controller.rb:70
+#: app/controllers/my_profile/manage_products_controller.rb:92
 msgid "Product succesfully removed"
 msgstr "Արտադրանքը հաջողությամբ հեռացված է"
 
-#: app/controllers/my_profile/manage_products_controller.rb:73
+#: app/controllers/my_profile/manage_products_controller.rb:95
 msgid "Could not remove the product"
 msgstr "Արտադրանքի հեռացումը ձախողված է"
 
@@ -1542,6 +1560,9 @@ msgstr "Նորություններ"
 #: app/views/shared/_select_categories.rhtml:17 app/views/cms/edit.rhtml:22
 #: app/views/cms/edit.rhtml:39 app/views/profile_editor/header_footer.rhtml:28
 #: app/views/profile_editor/edit.rhtml:80
+#: app/views/manage_products/_edit_info.rhtml:44
+#: app/views/manage_products/_edit_name.rhtml:10
+#: app/views/manage_products/_edit_image.rhtml:11
 #: app/views/maps/edit_location.rhtml:13 app/views/maps/edit_location.rhtml:29
 #: app/views/box_organizer/edit.rhtml:22 app/views/themes/css_editor.rhtml:7
 #: app/views/admin_panel/set_portal_community.rhtml:8
@@ -1778,16 +1799,20 @@ msgstr "Պարամետրեր"
 msgid "Enabled"
 msgstr "Ակտիվացված է"
 
-#: app/models/block.rb:- app/models/user.rb:- app/models/product.rb:-
-#: app/models/task.rb:- app/models/external_feed.rb:- app/models/comment.rb:-
+#: app/models/block.rb:- app/models/user.rb:- app/models/qualifier.rb:-
+#: app/models/product.rb:- app/models/task.rb:-
+#: app/models/product_qualifier.rb:- app/models/certifier.rb:-
+#: app/models/external_feed.rb:- app/models/comment.rb:-
 #: app/models/environment.rb:- app/models/profile.rb:-
 #: app/models/product_categorization.rb:-
 msgid "Created at"
 msgstr "Ստեղծված է"
 
-#: app/models/block.rb:- app/models/user.rb:- app/models/product.rb:-
-#: app/models/external_feed.rb:- app/models/environment.rb:-
-#: app/models/profile.rb:- app/models/product_categorization.rb:-
+#: app/models/block.rb:- app/models/user.rb:- app/models/qualifier.rb:-
+#: app/models/product.rb:- app/models/product_qualifier.rb:-
+#: app/models/certifier.rb:- app/models/external_feed.rb:-
+#: app/models/environment.rb:- app/models/profile.rb:-
+#: app/models/product_categorization.rb:-
 msgid "Updated at"
 msgstr "Թարմացվել է"
 
@@ -1920,7 +1945,8 @@ msgstr "Օգտագործման կանոններն ու պայմանները"
 msgid "Terms accepted"
 msgstr "Պայմանները ընդունված են"
 
-#: app/models/user.rb:- app/models/profile.rb:-
+#: app/models/user.rb:- app/models/qualifier.rb:- app/models/certifier.rb:-
+#: app/models/profile.rb:-
 msgid "Environment"
 msgstr "Արտաքին տեսք"
 
@@ -2105,6 +2131,24 @@ msgstr "Ձեր նախընտրած ձեռնարկությունները ցուց�
 msgid "Favorite enterprises"
 msgstr "Նախընտրած ձեռնարկությունները"
 
+#: app/models/qualifier.rb:-
+msgid "qualifier"
+msgstr ""
+
+#: app/models/qualifier.rb:- app/models/product.rb:- app/models/certifier.rb:-
+#: app/models/comment.rb:- app/models/environment.rb:- app/models/profile.rb:-
+#: app/models/create_enterprise.rb:4 app/models/domain.rb:-
+#: app/models/contact.rb:- app/models/contact.rb:14
+#: app/views/cms/view.rhtml:29
+#: app/views/enterprise_registration/select_validator.rhtml:12
+#: app/views/content_viewer/_comment_form.rhtml:28
+#: app/views/box_organizer/_link_list_block.rhtml:4
+#: app/views/profile_members/_find_users.rhtml:3
+#: app/views/profile_members/find_users.rhtml:3
+#: app/views/enterprise_validation/_details.rhtml:3
+msgid "Name"
+msgstr "Անվանում"
+
 #: app/models/profile_categorization.rb:-
 msgid "categories profile"
 msgstr "Կատեգորիաների էջ"
@@ -2193,25 +2237,12 @@ msgstr ""
 msgid "product"
 msgstr "արտադրանք"
 
-#: app/models/product.rb:- app/models/comment.rb:- app/models/environment.rb:-
-#: app/models/profile.rb:- app/models/create_enterprise.rb:4
-#: app/models/domain.rb:- app/models/contact.rb:- app/models/contact.rb:14
-#: app/views/cms/view.rhtml:29
-#: app/views/enterprise_registration/select_validator.rhtml:12
-#: app/views/content_viewer/_comment_form.rhtml:28
-#: app/views/box_organizer/_link_list_block.rhtml:4
-#: app/views/profile_members/_find_users.rhtml:3
-#: app/views/profile_members/find_users.rhtml:3
-#: app/views/enterprise_validation/_details.rhtml:3
-msgid "Name"
-msgstr "Անվանում"
-
 #: app/models/product.rb:- app/views/manage_products/index.rhtml:6
 msgid "Price"
 msgstr "Գին"
 
-#: app/models/product.rb:- app/models/organization.rb:83
-#: app/views/cms/_uploaded_file.rhtml:2
+#: app/models/product.rb:- app/models/certifier.rb:-
+#: app/models/organization.rb:83 app/views/cms/_uploaded_file.rhtml:2
 msgid "Description"
 msgstr "Նկարագրություն"
 
@@ -2232,7 +2263,7 @@ msgstr ""
 msgid "Highlighted"
 msgstr "Հոդվածների քանակի սահմանափակում"
 
-#: app/models/product.rb:-
+#: app/models/product.rb:- app/models/product.rb:48
 msgid "Unit"
 msgstr ""
 
@@ -2244,6 +2275,20 @@ msgstr ""
 #, fuzzy
 msgid "Available"
 msgstr "Նոր թղթապանակ"
+
+#: app/models/product.rb:45
+#, fuzzy
+msgid "Litre"
+msgstr "Գին"
+
+#: app/models/product.rb:46
+msgid "Kilo"
+msgstr ""
+
+#: app/models/product.rb:47
+#, fuzzy
+msgid "Meter"
+msgstr "Անդամ"
 
 #: app/models/task.rb:-
 msgid "task"
@@ -2343,6 +2388,28 @@ msgstr ""
 msgid "image %d of %d"
 msgstr ""
 
+#: app/models/product_qualifier.rb:-
+#, fuzzy
+msgid "product qualifier"
+msgstr "Արտադրանքի կատեգորիա"
+
+#: app/models/product_qualifier.rb:- app/models/product_categorization.rb:-
+#: app/views/manage_products/index.rhtml:5
+msgid "Product"
+msgstr "Արտադրանք"
+
+#: app/models/product_qualifier.rb:-
+#: app/views/manage_products/_edit_info.rhtml:27
+#, fuzzy
+msgid "Qualifier"
+msgstr "Որակ"
+
+#: app/models/product_qualifier.rb:-
+#: app/views/manage_products/_edit_info.rhtml:28
+#, fuzzy
+msgid "Certifier"
+msgstr "Որոշիչ"
+
 #: app/models/products_block.rb:16
 msgid "This block presents a list of your products."
 msgstr ""
@@ -2385,6 +2452,16 @@ msgstr ""
 #: app/models/change_password.rb:91
 msgid "Password change request"
 msgstr "Գաղտնաբառը փոխելու հայց"
+
+#: app/models/certifier.rb:-
+#, fuzzy
+msgid "certifier"
+msgstr "Որոշիչ"
+
+#: app/models/certifier.rb:-
+#, fuzzy
+msgid "Link"
+msgstr "Հղումներ"
 
 #: app/models/add_member.rb:19
 msgid "%s wants to be a member of \"%s\"."
@@ -2710,7 +2787,7 @@ msgstr "Բոլոր նոր կազմակերպությունները պետք է �
 msgid "Enterprises are disabled when created"
 msgstr "Ձեռնարկության գրանցումն ավարտված է"
 
-#: app/models/environment.rb:455
+#: app/models/environment.rb:462
 msgid "Only one Virtual Community can be the default one"
 msgstr ""
 "Որպես նախնական համայնք, դուք կարող եք ընտրել միայն մեկ վիրտուալ համայնք"
@@ -3188,11 +3265,6 @@ msgstr "Ամբողջ բովանդակությունը"
 msgid "product categorization"
 msgstr "արտադրանքի կատեգորիզացում"
 
-#: app/models/product_categorization.rb:-
-#: app/views/manage_products/index.rhtml:5
-msgid "Product"
-msgstr "Արտադրանք"
-
 #: app/models/contact.rb:- app/views/friends/index.rhtml:31
 #: app/views/friends/index.rhtml:34
 msgid "contact"
@@ -3446,6 +3518,7 @@ msgid "Categories:"
 msgstr "Կատեգորիաներ."
 
 #: app/views/shared/_show_thumbnail.rhtml:5
+#: app/views/manage_products/_display_image.rhtml:5
 msgid "Change image"
 msgstr "Փոխել նկարը"
 
@@ -3728,8 +3801,9 @@ msgstr ""
 #: app/views/profile_editor/edit.rhtml:63
 #: app/views/profile_editor/edit.rhtml:66
 #: app/views/profile_editor/edit.rhtml:69
-#: app/views/profile_editor/edit.rhtml:72 app/views/friends/remove.rhtml:20
-#: app/views/account/logout_popup.rhtml:4
+#: app/views/profile_editor/edit.rhtml:72
+#: app/views/manage_products/_edit_info.rhtml:19
+#: app/views/friends/remove.rhtml:20 app/views/account/logout_popup.rhtml:4
 #: app/views/account/activate_enterprise.rhtml:10
 msgid "Yes"
 msgstr "Այո"
@@ -3737,13 +3811,15 @@ msgstr "Այո"
 #: app/views/cms/_blog.rhtml:43
 #: app/views/profile_editor/_organization.rhtml:50
 #: app/views/profile_editor/edit.rhtml:41
-#: app/views/profile_editor/edit.rhtml:69 app/views/friends/remove.rhtml:21
+#: app/views/profile_editor/edit.rhtml:69
+#: app/views/manage_products/_edit_info.rhtml:20
+#: app/views/friends/remove.rhtml:21
 #: app/views/account/activate_enterprise.rhtml:11
 msgid "No"
 msgstr ""
 
 #: app/views/cms/_blog.rhtml:53 app/views/cms/_folder.rhtml:6
-#: app/views/manage_products/show.rhtml:5
+#: app/views/manage_products/_edit_info.rhtml:13
 #: app/views/manage_products/_form.rhtml:8
 msgid "Description:"
 msgstr "Նկարագրություն"
@@ -4205,6 +4281,7 @@ msgid "Change picture"
 msgstr "Փոխել նկարը"
 
 #: app/views/profile_editor/edit.rhtml:12
+#: app/views/manage_products/_edit_image.rhtml:8
 msgid "Max size: %s (.jpg, .gif, .png)"
 msgstr ""
 
@@ -4319,8 +4396,7 @@ msgid "Create"
 msgstr "Ստեղծել"
 
 #: app/views/memberships/new_community.rhtml:50
-#: app/views/manage_products/index.rhtml:28
-#: app/views/manage_products/show.rhtml:8 app/views/role/index.rhtml:23
+#: app/views/manage_products/index.rhtml:27 app/views/role/index.rhtml:23
 #: app/views/role/show.rhtml:10
 #: app/views/environment_role_manager/index.rhtml:13
 #: app/views/profile_members/index.rhtml:6
@@ -4427,6 +4503,28 @@ msgstr ""
 msgid "You can continue to browse this environment."
 msgstr "Կարող եք շարունակել բեռնել այս միջավայրը :"
 
+#: app/views/manage_products/edit_category.rhtml:18
+#, fuzzy
+msgid "Edit category of this product:"
+msgstr "Չկատեգորիզացված արտադրանք"
+
+#: app/views/manage_products/edit_category.rhtml:23
+#, fuzzy
+msgid "Back to product"
+msgstr "Արտադրանք չկա"
+
+#: app/views/manage_products/edit_category.rhtml:25
+#: app/views/manage_products/new.rhtml:18
+msgid "Save and continue"
+msgstr ""
+
+#: app/views/manage_products/edit_category.rhtml:28
+#: app/views/manage_products/new.rhtml:21
+msgid ""
+"This category does not allow registration of products, select a more "
+"specific category"
+msgstr ""
+
 #: app/views/manage_products/index.rhtml:1
 msgid "Listing products and services"
 msgstr "Արտադրանքի և ծառայությունների ցուցակ"
@@ -4436,12 +4534,11 @@ msgstr "Արտադրանքի և ծառայությունների ցուցակ"
 msgid "(no product registered yet)"
 msgstr "սեռը գրանցված չէ"
 
-#: app/views/manage_products/index.rhtml:20
-#: app/views/manage_products/show.rhtml:10 app/views/role/index.rhtml:15
+#: app/views/manage_products/index.rhtml:19 app/views/role/index.rhtml:15
 msgid "Destroy"
 msgstr "Վերացնել"
 
-#: app/views/manage_products/index.rhtml:27
+#: app/views/manage_products/index.rhtml:26
 #: app/views/manage_products/new.rhtml:1
 msgid "New product or service"
 msgstr "Նոր արտադրանք կամ ծառայություն"
@@ -4451,32 +4548,42 @@ msgstr "Նոր արտադրանք կամ ծառայություն"
 msgid "Select the category of the new product or service"
 msgstr "Ընտրեք Ձեզ հետաքրքրող կատեգորիաները"
 
-#: app/views/manage_products/new.rhtml:24
+#: app/views/manage_products/new.rhtml:16
+#: app/views/manage_products/show.rhtml:24
 msgid "Back to the product listing"
 msgstr ""
 
-#: app/views/manage_products/new.rhtml:26
-msgid "Save and continue"
+#: app/views/manage_products/_edit_info.rhtml:14
+#, fuzzy
+msgid "Price (%s):"
+msgstr "Գին %s"
+
+#: app/views/manage_products/_edit_info.rhtml:15
+#, fuzzy
+msgid "Unit:"
+msgstr "Քաղաք"
+
+#: app/views/manage_products/_edit_info.rhtml:16
+msgid "Discount (%s):"
 msgstr ""
 
-#: app/views/manage_products/new.rhtml:29
-msgid ""
-"This category does not allow registration of products, select a more "
-"specific category"
-msgstr ""
+#: app/views/manage_products/_edit_info.rhtml:17
+#, fuzzy
+msgid "Available:"
+msgstr "Նոր թղթապանակ"
 
-#: app/views/manage_products/show.rhtml:4
-#: app/views/manage_products/_form.rhtml:7
-msgid "Price:"
-msgstr "Գին"
-
-#: app/views/manage_products/show.rhtml:6 app/views/search/_product.rhtml:19
-msgid "Category:"
-msgstr "Կատեգորիա"
+#: app/views/manage_products/show.rhtml:25
+#, fuzzy
+msgid "Remove product or service"
+msgstr "Նոր արտադրանք կամ ծառայություն"
 
 #: app/views/manage_products/_form.rhtml:6
 msgid "Name:"
 msgstr "Անվանում"
+
+#: app/views/manage_products/_form.rhtml:7
+msgid "Price:"
+msgstr "Գին"
 
 #: app/views/manage_products/_form.rhtml:9
 #, fuzzy
@@ -4496,6 +4603,30 @@ msgstr "Ստեղծել արտադրանք"
 #: app/views/features/_manage_enterprise_fields.rhtml:45
 msgid "Save changes"
 msgstr "Պահպանել փոփոխությունները"
+
+#: app/views/manage_products/_display_info.rhtml:10
+#, fuzzy
+msgid "Edit basic information"
+msgstr "Էլ. հասցե"
+
+#: app/views/manage_products/_display_info.rhtml:12
+msgid "Add description, price and other basic information"
+msgstr ""
+
+#: app/views/manage_products/_display_info.rhtml:12
+msgid ""
+"Click here to add description, price, discount and qualifiers/certifiers to "
+"make your product more attractive and detailed for the consumers"
+msgstr ""
+
+#: app/views/manage_products/_display_name.rhtml:3
+#, fuzzy
+msgid "Edit name"
+msgstr "Փոփոխում"
+
+#: app/views/manage_products/_edit_image.rhtml:18
+msgid "loading... "
+msgstr ""
 
 #: app/views/manage_products/edit.rhtml:1
 msgid "Editing"
@@ -4822,6 +4953,10 @@ msgstr "Չտեղեկացված"
 #: app/views/search/_product.rhtml:17
 msgid "Suplier: %s"
 msgstr "Առաքիչ %s"
+
+#: app/views/search/_product.rhtml:19
+msgid "Category:"
+msgstr "Կատեգորիա"
 
 #: app/views/search/_search_form.rhtml:21
 msgid "Search in whole site"
@@ -6515,11 +6650,11 @@ msgstr "%s-ի վավերացման դիմում"
 msgid "See details"
 msgstr "Մանրամասն"
 
-#: app/views/layouts/application.rhtml:61
+#: app/views/layouts/application.rhtml:60
 msgid "Go to content"
 msgstr "Նայել բովանդակությունը"
 
-#: app/views/layouts/application.rhtml:98 app/views/doc/_path.html.erb:3
+#: app/views/layouts/application.rhtml:97 app/views/doc/_path.html.erb:3
 #: public/designs/themes/base/footer.rhtml:2
 #: public/designs/themes/noosfero/footer.rhtml:2
 #, fuzzy
@@ -6595,14 +6730,6 @@ msgstr ""
 #: app/views/pending_task_notifier/notification.rhtml:12
 msgid "%s has %d pending task(s)."
 msgstr ""
-
-#: app/views/catalog/show.rhtml:18
-msgid "Category: %s "
-msgstr "Կատեգորիա %s"
-
-#: app/views/catalog/show.rhtml:22
-msgid "%s's products/services listing"
-msgstr "-ի արտադրանք/ծառայությունների ցուցակ"
 
 #: app/views/doc/_path.html.erb:2
 msgid "You are here:"
@@ -7094,6 +7221,15 @@ msgid ""
 "inconvenience."
 msgstr ""
 
+#~ msgid "Product succesfully updated"
+#~ msgstr "Արտադրանքը հաջողությամբ թարմացված է"
+
+#~ msgid "Category: %s "
+#~ msgstr "Կատեգորիա %s"
+
+#~ msgid "%s's products/services listing"
+#~ msgstr "-ի արտադրանք/ծառայությունների ցուցակ"
+
 #~ msgid "Could not create the product"
 #~ msgstr "Արտադրանք ստեղծելն անհնար է"
 
@@ -7352,10 +7488,6 @@ msgstr ""
 
 #~ msgid "Get Firefox Now!"
 #~ msgstr "Ձեռք բեր FireFox"
-
-#, fuzzy
-#~ msgid "Picture"
-#~ msgstr "Գին"
 
 #~ msgid "Turn help on/off"
 #~ msgstr "Միացնել/անջատել օգնությունը"

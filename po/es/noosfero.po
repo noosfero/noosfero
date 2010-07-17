@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.24.2\n"
-"POT-Creation-Date: 2010-07-17 12:05-0300\n"
+"POT-Creation-Date: 2010-07-17 17:20-0300\n"
 "PO-Revision-Date: 2010-04-30 20:14-0300\n"
 "Last-Translator: Martín Olivera <molivera@solar.org.ar>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -176,7 +176,8 @@ msgstr "Eventos"
 msgid "Please, try again when the page loading completes."
 msgstr "Por favor, inténtelo de nuevo cuando la página cargue completa."
 
-#: app/helpers/forms_helper.rb:35 app/models/link_list_block.rb:9
+#: app/helpers/forms_helper.rb:35 app/helpers/manage_products_helper.rb:144
+#: app/models/link_list_block.rb:9
 #: app/views/shared/_select_categories.rhtml:22
 #: app/views/shared/_change_image.rhtml:2
 #: app/views/cms/select_article_type.rhtml:12 app/views/cms/edit.rhtml:41
@@ -218,19 +219,18 @@ msgstr ""
 "Los campos <label class='pseudoformlabel'>destacados</label> son "
 "obligatorios."
 
-#: app/helpers/catalog_helper.rb:13 app/views/search/_product.rhtml:15
-#: app/views/catalog/show.rhtml:13
+#: app/helpers/catalog_helper.rb:14 app/views/search/_product.rhtml:15
 msgid "Price: %s"
 msgstr "Precio: %s"
 
-#: app/helpers/catalog_helper.rb:19 app/views/blocks/profile_info.rhtml:21
+#: app/helpers/catalog_helper.rb:20 app/views/blocks/profile_info.rhtml:21
 #: app/views/content_viewer/_organization.rhtml:25
 #: app/views/profile/_organization.rhtml:25
 msgid "Products/Services"
 msgstr "Productos/Servicios"
 
-#: app/helpers/catalog_helper.rb:28 app/helpers/display_helper.rb:12
-#: app/helpers/display_helper.rb:21 app/models/product.rb:49
+#: app/helpers/catalog_helper.rb:29 app/helpers/display_helper.rb:12
+#: app/helpers/display_helper.rb:21 app/models/product.rb:79
 msgid "Uncategorized product"
 msgstr "Producto sin categoría"
 
@@ -433,8 +433,7 @@ msgstr "Mover hacia el otro lado"
 
 #: app/helpers/boxes_helper.rb:212 app/helpers/article_helper.rb:36
 #: app/models/link_list_block.rb:5 app/views/categories/_category.rhtml:14
-#: app/views/cms/view.rhtml:81 app/views/manage_products/index.rhtml:19
-#: app/views/manage_products/show.rhtml:11 app/views/role/index.rhtml:14
+#: app/views/cms/view.rhtml:81 app/views/role/index.rhtml:14
 #: app/views/profile_members/add_member.rhtml:13
 #: app/views/profile_members/unassociate.rhtml:13
 #: app/views/profile_members/_members_list.rhtml:13
@@ -1021,6 +1020,33 @@ msgstr "Ningún producto"
 msgid "Are you sure you want to visit this web site?"
 msgstr "¿Esta seguro de querer visitar este sitio?"
 
+#: app/helpers/manage_products_helper.rb:152
+#, fuzzy
+msgid "Change category"
+msgstr "Nueva categoría"
+
+#: app/helpers/manage_products_helper.rb:166 app/helpers/search_helper.rb:86
+msgid "Price: "
+msgstr "Precio: "
+
+#: app/helpers/manage_products_helper.rb:183
+msgid "On sale: "
+msgstr ""
+
+#: app/helpers/manage_products_helper.rb:184
+#, fuzzy
+msgid "List price: "
+msgstr "Distancia: "
+
+#: app/helpers/manage_products_helper.rb:190
+msgid " certified by %s"
+msgstr ""
+
+#: app/helpers/manage_products_helper.rb:203
+#, fuzzy
+msgid "Select..."
+msgstr "[Seleccione ...]"
+
 #: app/helpers/search_helper.rb:31
 msgid "Display in list"
 msgstr "Mostrar en la lista"
@@ -1052,10 +1078,6 @@ msgstr "Productos/Servicios: "
 #: app/helpers/search_helper.rb:71
 msgid "Distance: "
 msgstr "Distancia: "
-
-#: app/helpers/search_helper.rb:86
-msgid "Price: "
-msgstr "Precio: "
 
 #: app/helpers/search_helper.rb:89
 msgid "Provider: "
@@ -1305,23 +1327,19 @@ msgstr ""
 msgid "This action is not available for \"%s\"."
 msgstr "Esta acción no está disponible para \"%s\"."
 
-#: app/controllers/my_profile/manage_products_controller.rb:44
+#: app/controllers/my_profile/manage_products_controller.rb:47
 msgid "Product succesfully created"
 msgstr "El producto se ha creado correctamente"
 
-#: app/controllers/my_profile/manage_products_controller.rb:59
-msgid "Product succesfully updated"
-msgstr "El producto se ha actualizado correctamente"
-
-#: app/controllers/my_profile/manage_products_controller.rb:62
+#: app/controllers/my_profile/manage_products_controller.rb:83
 msgid "Could not update the product"
 msgstr "No se ha podido actualizar el producto"
 
-#: app/controllers/my_profile/manage_products_controller.rb:70
+#: app/controllers/my_profile/manage_products_controller.rb:92
 msgid "Product succesfully removed"
 msgstr "El producto se ha eliminado correctamente"
 
-#: app/controllers/my_profile/manage_products_controller.rb:73
+#: app/controllers/my_profile/manage_products_controller.rb:95
 msgid "Could not remove the product"
 msgstr "No se ha podido eliminar el producto"
 
@@ -1575,6 +1593,9 @@ msgstr "Nuevo %s"
 #: app/views/shared/_select_categories.rhtml:17 app/views/cms/edit.rhtml:22
 #: app/views/cms/edit.rhtml:39 app/views/profile_editor/header_footer.rhtml:28
 #: app/views/profile_editor/edit.rhtml:80
+#: app/views/manage_products/_edit_info.rhtml:44
+#: app/views/manage_products/_edit_name.rhtml:10
+#: app/views/manage_products/_edit_image.rhtml:11
 #: app/views/maps/edit_location.rhtml:13 app/views/maps/edit_location.rhtml:29
 #: app/views/box_organizer/edit.rhtml:22 app/views/themes/css_editor.rhtml:7
 #: app/views/admin_panel/set_portal_community.rhtml:8
@@ -1811,16 +1832,20 @@ msgstr "Configuraciones"
 msgid "Enabled"
 msgstr "Habilitado"
 
-#: app/models/block.rb:- app/models/user.rb:- app/models/product.rb:-
-#: app/models/task.rb:- app/models/external_feed.rb:- app/models/comment.rb:-
+#: app/models/block.rb:- app/models/user.rb:- app/models/qualifier.rb:-
+#: app/models/product.rb:- app/models/task.rb:-
+#: app/models/product_qualifier.rb:- app/models/certifier.rb:-
+#: app/models/external_feed.rb:- app/models/comment.rb:-
 #: app/models/environment.rb:- app/models/profile.rb:-
 #: app/models/product_categorization.rb:-
 msgid "Created at"
 msgstr "Creado el"
 
-#: app/models/block.rb:- app/models/user.rb:- app/models/product.rb:-
-#: app/models/external_feed.rb:- app/models/environment.rb:-
-#: app/models/profile.rb:- app/models/product_categorization.rb:-
+#: app/models/block.rb:- app/models/user.rb:- app/models/qualifier.rb:-
+#: app/models/product.rb:- app/models/product_qualifier.rb:-
+#: app/models/certifier.rb:- app/models/external_feed.rb:-
+#: app/models/environment.rb:- app/models/profile.rb:-
+#: app/models/product_categorization.rb:-
 msgid "Updated at"
 msgstr "Actualizado el"
 
@@ -1955,7 +1980,8 @@ msgid "Terms accepted"
 msgstr "Términos aceptados"
 
 # Entorno o ambiente?
-#: app/models/user.rb:- app/models/profile.rb:-
+#: app/models/user.rb:- app/models/qualifier.rb:- app/models/certifier.rb:-
+#: app/models/profile.rb:-
 #, fuzzy
 msgid "Environment"
 msgstr "Entorno"
@@ -2141,6 +2167,24 @@ msgstr "Este bloque lista las empresas favoritas del usuario."
 msgid "Favorite enterprises"
 msgstr "Empresas favoritas"
 
+#: app/models/qualifier.rb:-
+msgid "qualifier"
+msgstr ""
+
+#: app/models/qualifier.rb:- app/models/product.rb:- app/models/certifier.rb:-
+#: app/models/comment.rb:- app/models/environment.rb:- app/models/profile.rb:-
+#: app/models/create_enterprise.rb:4 app/models/domain.rb:-
+#: app/models/contact.rb:- app/models/contact.rb:14
+#: app/views/cms/view.rhtml:29
+#: app/views/enterprise_registration/select_validator.rhtml:12
+#: app/views/content_viewer/_comment_form.rhtml:28
+#: app/views/box_organizer/_link_list_block.rhtml:4
+#: app/views/profile_members/_find_users.rhtml:3
+#: app/views/profile_members/find_users.rhtml:3
+#: app/views/enterprise_validation/_details.rhtml:3
+msgid "Name"
+msgstr "Nombre"
+
 #: app/models/profile_categorization.rb:-
 msgid "categories profile"
 msgstr ""
@@ -2233,25 +2277,12 @@ msgstr ""
 msgid "product"
 msgstr "producto"
 
-#: app/models/product.rb:- app/models/comment.rb:- app/models/environment.rb:-
-#: app/models/profile.rb:- app/models/create_enterprise.rb:4
-#: app/models/domain.rb:- app/models/contact.rb:- app/models/contact.rb:14
-#: app/views/cms/view.rhtml:29
-#: app/views/enterprise_registration/select_validator.rhtml:12
-#: app/views/content_viewer/_comment_form.rhtml:28
-#: app/views/box_organizer/_link_list_block.rhtml:4
-#: app/views/profile_members/_find_users.rhtml:3
-#: app/views/profile_members/find_users.rhtml:3
-#: app/views/enterprise_validation/_details.rhtml:3
-msgid "Name"
-msgstr "Nombre"
-
 #: app/models/product.rb:- app/views/manage_products/index.rhtml:6
 msgid "Price"
 msgstr "Precio"
 
-#: app/models/product.rb:- app/models/organization.rb:83
-#: app/views/cms/_uploaded_file.rhtml:2
+#: app/models/product.rb:- app/models/certifier.rb:-
+#: app/models/organization.rb:83 app/views/cms/_uploaded_file.rhtml:2
 msgid "Description"
 msgstr "Descripción"
 
@@ -2271,7 +2302,7 @@ msgstr "Long"
 msgid "Highlighted"
 msgstr ""
 
-#: app/models/product.rb:-
+#: app/models/product.rb:- app/models/product.rb:48
 msgid "Unit"
 msgstr ""
 
@@ -2283,6 +2314,20 @@ msgstr ""
 #, fuzzy
 msgid "Available"
 msgstr "Distancia:"
+
+#: app/models/product.rb:45
+#, fuzzy
+msgid "Litre"
+msgstr "Título"
+
+#: app/models/product.rb:46
+msgid "Kilo"
+msgstr ""
+
+#: app/models/product.rb:47
+#, fuzzy
+msgid "Meter"
+msgstr "Letras"
 
 #: app/models/task.rb:-
 msgid "task"
@@ -2381,6 +2426,28 @@ msgstr "Entradas más recientes &raquo;"
 msgid "image %d of %d"
 msgstr ""
 
+#: app/models/product_qualifier.rb:-
+#, fuzzy
+msgid "product qualifier"
+msgstr "Categoría del producto"
+
+#: app/models/product_qualifier.rb:- app/models/product_categorization.rb:-
+#: app/views/manage_products/index.rhtml:5
+msgid "Product"
+msgstr "Producto"
+
+#: app/models/product_qualifier.rb:-
+#: app/views/manage_products/_edit_info.rhtml:27
+#, fuzzy
+msgid "Qualifier"
+msgstr "Calidad"
+
+#: app/models/product_qualifier.rb:-
+#: app/views/manage_products/_edit_info.rhtml:28
+#, fuzzy
+msgid "Certifier"
+msgstr "Identificador"
+
 #: app/models/products_block.rb:16
 msgid "This block presents a list of your products."
 msgstr "Este bloque presenta una lista de tus productos."
@@ -2419,6 +2486,15 @@ msgstr ""
 
 #: app/models/change_password.rb:91
 msgid "Password change request"
+msgstr ""
+
+#: app/models/certifier.rb:-
+#, fuzzy
+msgid "certifier"
+msgstr "Identificador"
+
+#: app/models/certifier.rb:-
+msgid "Link"
 msgstr ""
 
 #: app/models/add_member.rb:19
@@ -2747,7 +2823,7 @@ msgstr "Un administrador debe aprobar las nuevas organizaciones"
 msgid "Enterprises are disabled when created"
 msgstr ""
 
-#: app/models/environment.rb:455
+#: app/models/environment.rb:462
 msgid "Only one Virtual Community can be the default one"
 msgstr ""
 
@@ -3224,11 +3300,6 @@ msgstr "Todo el contenido"
 msgid "product categorization"
 msgstr "Categorización de productos"
 
-#: app/models/product_categorization.rb:-
-#: app/views/manage_products/index.rhtml:5
-msgid "Product"
-msgstr "Producto"
-
 #: app/models/contact.rb:- app/views/friends/index.rhtml:31
 #: app/views/friends/index.rhtml:34
 msgid "contact"
@@ -3482,6 +3553,7 @@ msgid "Categories:"
 msgstr ""
 
 #: app/views/shared/_show_thumbnail.rhtml:5
+#: app/views/manage_products/_display_image.rhtml:5
 msgid "Change image"
 msgstr ""
 
@@ -3755,8 +3827,9 @@ msgstr ""
 #: app/views/profile_editor/edit.rhtml:63
 #: app/views/profile_editor/edit.rhtml:66
 #: app/views/profile_editor/edit.rhtml:69
-#: app/views/profile_editor/edit.rhtml:72 app/views/friends/remove.rhtml:20
-#: app/views/account/logout_popup.rhtml:4
+#: app/views/profile_editor/edit.rhtml:72
+#: app/views/manage_products/_edit_info.rhtml:19
+#: app/views/friends/remove.rhtml:20 app/views/account/logout_popup.rhtml:4
 #: app/views/account/activate_enterprise.rhtml:10
 msgid "Yes"
 msgstr ""
@@ -3764,13 +3837,15 @@ msgstr ""
 #: app/views/cms/_blog.rhtml:43
 #: app/views/profile_editor/_organization.rhtml:50
 #: app/views/profile_editor/edit.rhtml:41
-#: app/views/profile_editor/edit.rhtml:69 app/views/friends/remove.rhtml:21
+#: app/views/profile_editor/edit.rhtml:69
+#: app/views/manage_products/_edit_info.rhtml:20
+#: app/views/friends/remove.rhtml:21
 #: app/views/account/activate_enterprise.rhtml:11
 msgid "No"
 msgstr ""
 
 #: app/views/cms/_blog.rhtml:53 app/views/cms/_folder.rhtml:6
-#: app/views/manage_products/show.rhtml:5
+#: app/views/manage_products/_edit_info.rhtml:13
 #: app/views/manage_products/_form.rhtml:8
 msgid "Description:"
 msgstr ""
@@ -4225,6 +4300,7 @@ msgid "Change picture"
 msgstr ""
 
 #: app/views/profile_editor/edit.rhtml:12
+#: app/views/manage_products/_edit_image.rhtml:8
 msgid "Max size: %s (.jpg, .gif, .png)"
 msgstr ""
 
@@ -4339,8 +4415,7 @@ msgid "Create"
 msgstr ""
 
 #: app/views/memberships/new_community.rhtml:50
-#: app/views/manage_products/index.rhtml:28
-#: app/views/manage_products/show.rhtml:8 app/views/role/index.rhtml:23
+#: app/views/manage_products/index.rhtml:27 app/views/role/index.rhtml:23
 #: app/views/role/show.rhtml:10
 #: app/views/environment_role_manager/index.rhtml:13
 #: app/views/profile_members/index.rhtml:6
@@ -4438,6 +4513,28 @@ msgstr ""
 msgid "You can continue to browse this environment."
 msgstr ""
 
+#: app/views/manage_products/edit_category.rhtml:18
+#, fuzzy
+msgid "Edit category of this product:"
+msgstr "Producto sin categoría"
+
+#: app/views/manage_products/edit_category.rhtml:23
+#, fuzzy
+msgid "Back to product"
+msgstr "Ningún producto"
+
+#: app/views/manage_products/edit_category.rhtml:25
+#: app/views/manage_products/new.rhtml:18
+msgid "Save and continue"
+msgstr ""
+
+#: app/views/manage_products/edit_category.rhtml:28
+#: app/views/manage_products/new.rhtml:21
+msgid ""
+"This category does not allow registration of products, select a more "
+"specific category"
+msgstr ""
+
 #: app/views/manage_products/index.rhtml:1
 msgid "Listing products and services"
 msgstr "Listando productos y servicios"
@@ -4448,12 +4545,11 @@ msgstr "Listando productos y servicios"
 msgid "(no product registered yet)"
 msgstr "género no registrado"
 
-#: app/views/manage_products/index.rhtml:20
-#: app/views/manage_products/show.rhtml:10 app/views/role/index.rhtml:15
+#: app/views/manage_products/index.rhtml:19 app/views/role/index.rhtml:15
 msgid "Destroy"
 msgstr ""
 
-#: app/views/manage_products/index.rhtml:27
+#: app/views/manage_products/index.rhtml:26
 #: app/views/manage_products/new.rhtml:1
 msgid "New product or service"
 msgstr "Nuevo producto o servicio"
@@ -4462,32 +4558,42 @@ msgstr "Nuevo producto o servicio"
 msgid "Select the category of the new product or service"
 msgstr ""
 
-#: app/views/manage_products/new.rhtml:24
+#: app/views/manage_products/new.rhtml:16
+#: app/views/manage_products/show.rhtml:24
 msgid "Back to the product listing"
 msgstr ""
 
-#: app/views/manage_products/new.rhtml:26
-msgid "Save and continue"
+#: app/views/manage_products/_edit_info.rhtml:14
+#, fuzzy
+msgid "Price (%s):"
+msgstr "Precio: %s"
+
+#: app/views/manage_products/_edit_info.rhtml:15
+#, fuzzy
+msgid "Unit:"
+msgstr "Ciudad:"
+
+#: app/views/manage_products/_edit_info.rhtml:16
+msgid "Discount (%s):"
 msgstr ""
 
-#: app/views/manage_products/new.rhtml:29
-msgid ""
-"This category does not allow registration of products, select a more "
-"specific category"
-msgstr ""
+#: app/views/manage_products/_edit_info.rhtml:17
+#, fuzzy
+msgid "Available:"
+msgstr "Distancia:"
 
-#: app/views/manage_products/show.rhtml:4
-#: app/views/manage_products/_form.rhtml:7
-msgid "Price:"
-msgstr "Precio:"
-
-#: app/views/manage_products/show.rhtml:6 app/views/search/_product.rhtml:19
-msgid "Category:"
-msgstr ""
+#: app/views/manage_products/show.rhtml:25
+#, fuzzy
+msgid "Remove product or service"
+msgstr "Nuevo producto o servicio"
 
 #: app/views/manage_products/_form.rhtml:6
 msgid "Name:"
 msgstr ""
+
+#: app/views/manage_products/_form.rhtml:7
+msgid "Price:"
+msgstr "Precio:"
 
 #: app/views/manage_products/_form.rhtml:9
 msgid "Highlight this product"
@@ -4505,6 +4611,30 @@ msgstr "Crear producto"
 #: app/views/features/_manage_person_fields.rhtml:44
 #: app/views/features/_manage_enterprise_fields.rhtml:45
 msgid "Save changes"
+msgstr ""
+
+#: app/views/manage_products/_display_info.rhtml:10
+#, fuzzy
+msgid "Edit basic information"
+msgstr "Información de contacto"
+
+#: app/views/manage_products/_display_info.rhtml:12
+msgid "Add description, price and other basic information"
+msgstr ""
+
+#: app/views/manage_products/_display_info.rhtml:12
+msgid ""
+"Click here to add description, price, discount and qualifiers/certifiers to "
+"make your product more attractive and detailed for the consumers"
+msgstr ""
+
+#: app/views/manage_products/_display_name.rhtml:3
+#, fuzzy
+msgid "Edit name"
+msgstr "Nombre de archivo"
+
+#: app/views/manage_products/_edit_image.rhtml:18
+msgid "loading... "
 msgstr ""
 
 #: app/views/manage_products/edit.rhtml:1
@@ -4829,6 +4959,10 @@ msgstr ""
 
 #: app/views/search/_product.rhtml:17
 msgid "Suplier: %s"
+msgstr ""
+
+#: app/views/search/_product.rhtml:19
+msgid "Category:"
 msgstr ""
 
 #: app/views/search/_search_form.rhtml:21
@@ -6475,11 +6609,11 @@ msgstr ""
 msgid "See details"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:61
+#: app/views/layouts/application.rhtml:60
 msgid "Go to content"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:98 app/views/doc/_path.html.erb:3
+#: app/views/layouts/application.rhtml:97 app/views/doc/_path.html.erb:3
 #: public/designs/themes/base/footer.rhtml:2
 #: public/designs/themes/noosfero/footer.rhtml:2
 #, fuzzy
@@ -6551,14 +6685,6 @@ msgstr ""
 
 #: app/views/pending_task_notifier/notification.rhtml:12
 msgid "%s has %d pending task(s)."
-msgstr ""
-
-#: app/views/catalog/show.rhtml:18
-msgid "Category: %s "
-msgstr ""
-
-#: app/views/catalog/show.rhtml:22
-msgid "%s's products/services listing"
 msgstr ""
 
 #: app/views/doc/_path.html.erb:2
@@ -7057,6 +7183,9 @@ msgid ""
 "Our technical team is working on it, please try again later. Sorry for the "
 "inconvenience."
 msgstr ""
+
+#~ msgid "Product succesfully updated"
+#~ msgstr "El producto se ha actualizado correctamente"
 
 #~ msgid "Could not create the product"
 #~ msgstr "No se ha podido crear este producto"
