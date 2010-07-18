@@ -34,7 +34,7 @@ module ManageProductsHelper
         count_chars += toplevel.name.length
       end
       ancestors.each do |category|
-        if count_chars > 60
+        if count_chars > 55
           hierarchy << hierarchy_category_item(category, options[:make_links], '( … )')
           break
         else

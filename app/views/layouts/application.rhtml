@@ -23,6 +23,7 @@
     %>
     <%= stylesheet_link_tag template_stylesheet_path %>
     <%= stylesheet_link_tag icon_theme_stylesheet_path %>
+    <%= stylesheet_link_tag jquery_ui_theme_stylesheet_path %>
 
     <%# Add custom tags/styles/etc via content_for %>
     <%= yield :head %>
@@ -124,11 +125,6 @@
     <%# if you need to add HTML stuff to the layout, include it in
     app/views/shared/noosfero_layout_features.rhtml! %>
     <%= noosfero_layout_features %>
-
-    <script type='text/javascript'>
-       // transform all element with class ui_button in a jQuery UI button
-       render_jquery_ui_buttons()
-    </script>
-
+    <%= render_jquery_ui_buttons %>
   </body>
 </html>

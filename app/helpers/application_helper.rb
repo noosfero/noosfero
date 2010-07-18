@@ -921,7 +921,6 @@ module ApplicationHelper
       'lightbox',
       'colorpicker',
       pngfix_stylesheet_path,
-      'jquery.ui/sunny/jquery-ui-1.8.2.custom',
     ]
   end
 
@@ -962,7 +961,7 @@ module ApplicationHelper
   end
 
   def ui_icon(icon_type)
-    "<span class='ui-icon ui-icon-#{icon_type}' style='float:left; margin-right:7px;'></span>"
+    "<span class='ui-icon #{icon_type}' style='float:left; margin-right:7px;'></span>"
   end
 
   def ui_button(label, url, html_options = {})
@@ -971,6 +970,15 @@ module ApplicationHelper
 
   def ui_button_to_remote(label, options, html_options = {})
     link_to_remote(label, options, html_options.merge(:class => 'ui_button fg-button'))
+  end
+
+  def jquery_ui_theme_stylesheet_path
+    'jquery.ui/sunny/jquery-ui-1.8.2.custom'
+  end
+
+  # transform all element with class ui_button in a jQuery UI button
+  def render_jquery_ui_buttons
+    javascript_tag('render_jquery_ui_buttons()')
   end
 
 end

@@ -12,6 +12,7 @@
     <%= stylesheet_link_tag template_stylesheet_path %>
     <%= stylesheet_link_tag icon_theme_stylesheet_path %>
     <%= stylesheet_link_tag theme_stylesheet_path %>
+    <%= stylesheet_link_tag jquery_ui_theme_stylesheet_path %>
 
     <%# Add custom tags/styles/etc via content_for %>
     <%= yield :head %>
@@ -91,5 +92,6 @@
     </div><!-- end id="theme-footer" -->
     <%= noosfero_layout_features %>
     <%= theme_javascript_ng %>
+    <%= render_jquery_ui_buttons %>
   </body>
 </html>

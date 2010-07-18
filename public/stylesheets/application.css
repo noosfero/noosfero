@@ -3142,15 +3142,13 @@ h1#agenda-title {
 
 /* ==> public/stylesheets/controller_manage_products.css <== */
 
-#new_product_title {
-  text-align: center;
-}
 #product_category_form {
   border: 1px solid #AABB88;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   background: url(/images/ccc.gif); /* image ccc.gif from http://www.wannabegirl.org/translucent */
   padding: 10px 30px 20px 30px;
+  width: 570px;
 }
 #categories_container_wrapper {
   overflow-x: scroll;

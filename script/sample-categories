@@ -122,4 +122,7 @@ desenv = new_productcategory(software_livre, 'Desenvolvimento')
 capacitacao = new_productcategory(software_livre, 'Capacitação')
 admin_de_sistemas = new_productcategory(software_livre, 'Administração de sistemas')
 arte_digital = new_productcategory(software_livre, 'Arte Digital')
+arte_vetorial = new_productcategory(arte_digital, 'Arte Digital com Vetores')
+animacao = new_productcategory(arte_digital, 'Animação Digital')
+animacao_com_blender = new_productcategory(animacao, 'Animação Digital com Blender 3D')
 done
