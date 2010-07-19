@@ -40,6 +40,9 @@ input.button.with-text {
 body {
   background: #EEE;
   font-family: Liberation Sans, Arial, sans-serif;
+}
+
+#wrap-1, #theme-footer {
   width: 960px;
   margin: auto;
 }
@@ -639,10 +642,6 @@ div#notice {
 
 /********************* Environment Statistics ************************/
 
-#content .environment-statistics-block .block-title {
-  color: #AAA;
-  border-bottom: 2px solid #AAA;
-}
 #content .environment-statistics-block ul {
   margin: 0px 20px;
   padding: 0px;
