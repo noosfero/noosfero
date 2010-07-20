@@ -7,6 +7,7 @@ include ActionController::TestProcess
 STDOUT.sync = true
 
 enterprises = Enterprise.all
+categories = ProductCategory.all
 
 print "Creating products: "
 THINGS = %w[ Car House Bicycle Book Pen Computer Webcam ]
@@ -15,9 +16,12 @@ for thing in THINGS
   for color in COLORS
     name = [color, thing].join(' ')
     rand(10).times do |i|
-      Product.create(:name => name, :enterprise_id => enterprises.rand.id, :price => (i * 13.7), :image_builder => {
-        :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
-      })
+      Product.create(
+        :name => name,
+        :enterprise_id => enterprises.rand.id, :price => (i * 13.7),
+        :product_category => categories.rand,
+        :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png') }
+      )
       print '.'
     end
   end
