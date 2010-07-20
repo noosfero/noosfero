@@ -973,4 +973,8 @@ module ApplicationHelper
     link_to_remote(label, options, html_options.merge(:class => 'ui_button fg-button'))
   end
 
+  def float_to_currency(value)
+    number_to_currency(value, :unit => environment.currency_unit, :separator => environment.currency_separator, :delimiter => environment.currency_delimiter, :format => "%u %n")
+  end
+
 end

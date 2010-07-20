@@ -152,10 +152,6 @@ module ManageProductsHelper
     link_to(_('Change category'), { :action => 'edit_category', :id => product.id}, options)
   end
 
-  def float_to_currency(value)
-    number_to_currency(value, :unit => environment.currency_unit, :separator => environment.currency_separator, :delimiter => environment.currency_delimiter, :format => "%u %n")
-  end
-
   def display_value(product)
     price = product.price
     unless price.blank? || price.zero?
