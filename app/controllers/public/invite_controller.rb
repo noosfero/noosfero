@@ -23,7 +23,11 @@ class InviteController < PublicController
         elsif !contacts_to_invite.empty?
           Invitation.invite(current_user.person, contacts_to_invite, params[:mail_template], profile)
           flash[:notice] = _('Your invitations have been sent.')
-          redirect_back_or_default :controller => 'profile'
+          if profile.person?
+            redirect_to :controller => 'friends'
+          else
+            redirect_to :controller => 'profile_members'
+          end
         else
           flash.now[:notice] = _('Please enter a valid email address.')
         end
@@ -31,8 +35,6 @@ class InviteController < PublicController
         @manual_import_addresses = manual_import_addresses || ""
         @webmail_import_addresses = webmail_import_addresses || []
       end
-    else
-      store_location(request.referer)
     end
     @import_from = params[:import_from] || "manual"
     @mail_template = params[:mail_template] || environment.invitation_mail_template(profile)

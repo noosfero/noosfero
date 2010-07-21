@@ -13,7 +13,7 @@ class InviteControllerTest < ActionController::TestCase
   should 'actually invite manually added address with friend object' do
     assert_difference InviteFriend, :count, 1 do
       post :friends, :profile => profile.identifier, :manual_import_addresses => "#{friend.name} <#{friend.email}>", :import_from => "manual", :mail_template => "click: <url>", :step => 2
-      assert_redirected_to :controller => 'profile'
+      assert_redirected_to :controller => 'friends'
     end
   end
 
@@ -81,6 +81,17 @@ class InviteControllerTest < ActionController::TestCase
   should 'deny access when trying to invite friends to another user' do
     get :friends, :profile => friend.identifier
     assert_response 403 # forbidden
+  end
+
+  should 'redirect to friends after invitation if profile is a person' do
+    post :friends, :profile => profile.identifier, :manual_import_addresses => "#{friend.name} <#{friend.email}>", :import_from => "manual", :mail_template => "click: <url>", :step => 2
+    assert_redirected_to :controller => 'friends'
+  end
+
+  should 'redirect to friends after invitation if profile is not a person' do
+    community.add_admin(profile)
+    post :friends, :profile => community.identifier, :manual_import_addresses => "#{friend.name} <#{friend.email}>", :import_from => "manual", :mail_template => "click: <url>", :step => 2
+    assert_redirected_to :controller => 'profile_members'
   end
 
 end

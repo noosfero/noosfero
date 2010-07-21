@@ -15,25 +15,24 @@ Feature: blog
     Then I should see "My Blog"
     When I fill in "Title" with "My Blog"
     And I press "Save"
-    And I follow "Control panel"
+    And I go to Joao Silva's control panel
     Then I should see "Configure blog"
 
-  Scenario: redirect to control panel after create blog
+  Scenario: redirect to blog after create blog from control panel
     Given I follow "Control panel"
     And I follow "Create blog"
     Then I should see "My Blog"
     When I fill in "Title" with "My Blog"
     And I press "Save"
-    Then I should be on /myprofile/joaosilva
+    Then I should be on /joaosilva/my-blog
 
-  Scenario: redirect to cms after create blog
+  Scenario: redirect to blog after create blog from cms
     Given I follow "Control panel"
     And I follow "Manage Content"
     When I follow "New Blog"
-    Then I should see "My Blog"
-    When I fill in "Title" with "My Blog"
+    And I fill in "Title" with "Blog from cms"
     And I press "Save"
-    Then I should be on /myprofile/joaosilva/cms
+    Then I should be on /joaosilva/blog-from-cms
 
   Scenario: create multiple blogs
     Given I follow "Control panel"
@@ -41,11 +40,13 @@ Feature: blog
     And I follow "New Blog"
     And I fill in "Title" with "Blog One"
     And I press "Save"
+    Then I follow "Control panel"
+    And I follow "Manage Content"
     And I follow "New Blog"
     And I fill in "Title" with "Blog Two"
     And I press "Save"
     Then I should not see "error"
-    And I should be on /myprofile/joaosilva/cms
+    And I should be on /joaosilva/blog-two
 
   Scenario: cancel button back to cms
     Given I follow "Control panel"

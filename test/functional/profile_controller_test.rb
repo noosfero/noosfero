@@ -574,10 +574,10 @@ class ProfileControllerTest < Test::Unit::TestCase
     community = Community.create!(:name => 'my test community')
     community.add_member(profile)
 
-    @request.session[:return_to] = "/profile/#{community.identifier}/to_go"
+    @request.expects(:referer).returns("/profile/#{community.identifier}/to_go").at_least_once
     login_as(profile.identifier)
 
-    post :leave, :profile => community.identifier, :confirmation => '1'
+    post :leave, :profile => community.identifier, :confirmation => '1', :back_to => @request.referer
 
     assert_redirected_to "/profile/#{community.identifier}/to_go"
   end
@@ -586,30 +586,28 @@ class ProfileControllerTest < Test::Unit::TestCase
     community = Community.create!(:name => 'my test community')
     login_as(profile.identifier)
 
-    assert_nil @request.session[:return_to]
-    @request.expects(:referer).returns("/profile/redirect_to")
+    @request.expects(:referer).returns("/profile/redirect_to").at_least_once
 
     get :leave, :profile => community.identifier
 
-    assert_equal '/profile/redirect_to', @request.session[:return_to]
+    assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'back_to', :value => @request.referer }
   end
 
   should 'store referer location when request join via get' do
     community = Community.create!(:name => 'my test community')
     login_as(profile.identifier)
 
-    assert_nil @request.session[:return_to]
-    @request.expects(:referer).returns("/profile/redirect_to").at_least_once
+    @request.session[:before_join] = "/profile/redirect_to"
 
     get :join, :profile => community.identifier
 
-    assert_equal '/profile/redirect_to', @request.session[:return_to]
+    assert_equal '/profile/redirect_to', @request.session[:before_join]
   end
 
   should 'redirect to stored location after join community' do
     community = Community.create!(:name => 'my test community')
 
-    @request.session[:return_to] = "/profile/#{community.identifier}/to_go"
+    @request.expects(:referer).returns("/profile/#{community.identifier}/to_go")
     login_as(profile.identifier)
 
     post :join, :profile => community.identifier, :confirmation => '1'
@@ -630,7 +628,7 @@ class ProfileControllerTest < Test::Unit::TestCase
   should 'redirect to location before login after join community' do
     community = Community.create!(:name => 'my test community')
 
-    @request.session[:return_to] = "/profile/#{community.identifier}/to_go"
+    @request.expects(:referer).returns("/profile/#{community.identifier}/to_go")
     login_as(profile.identifier)
 
     post :join, :profile => community.identifier, :confirmation => '1'

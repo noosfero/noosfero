@@ -55,6 +55,8 @@ module Noosfero
   def self.url_options
     if ENV['RAILS_ENV'] == 'development'
       development_url_options
+    elsif ENV['RAILS_ENV'] == 'cucumber'
+      {:host => ''}
     else
       {}
     end

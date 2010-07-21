@@ -83,10 +83,9 @@ class ProfileController < PublicController
         redirect_to_before_join
       end
     else
-      store_location(request.referer)
       if current_user.person.memberships.include?(profile)
         flash[:notice] = _('You are already a member of "%s"') % profile.name
-        redirect_back_or_default profile.url
+        redirect_to profile.url
         return
       end
       if request.xhr?
@@ -97,15 +96,16 @@ class ProfileController < PublicController
 
   def leave
     @wizard = params[:wizard]
+    @back_to = params[:back_to] || request.referer
     if request.post? && params[:confirmation]
       profile.remove_member(current_user.person)
       if @wizard
         redirect_to :controller => 'search', :action => 'assets', :asset => 'communities', :wizard => true
       else
-        redirect_back_or_default profile.url
+        back = @back_to || profile.url
+        redirect_to back
       end
     else
-      store_location(request.referer)
       if request.xhr?
         render :layout => false
       end
@@ -146,7 +146,9 @@ class ProfileController < PublicController
   end
 
   def store_before_join
-    session[:before_join] = request.referer unless logged_in?
+    if session[:before_join].nil?
+      session[:before_join] = request.referer
+    end
   end
 
   def redirect_to_before_join
@@ -155,7 +157,7 @@ class ProfileController < PublicController
       session[:before_join] = nil
       redirect_to back
     else
-      redirect_back_or_default profile.url
+      redirect_to profile.url
     end
   end
 

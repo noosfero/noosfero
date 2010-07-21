@@ -6,6 +6,7 @@
 
 <% form_tag do %>
   <%= hidden_field_tag(:confirmation, 1) %>
+  <%= hidden_field_tag(:back_to, @back_to) %>
   <%= submit_button(:ok, _("Yes, I want to leave.") % profile.name) %>
   <% if logged_in? && request.xhr? %>
     <%= lightbox_close_button(_("No, I don't want")) %>

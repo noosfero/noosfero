@@ -29,7 +29,7 @@ class ManageDocumentsTest < ActionController::IntegrationTest
     assert_response :redirect
     follow_redirect!
     a = Article.find_by_path('my-article')
-    assert_equal "/myprofile/myuser/cms", path
+    assert_equal "/myuser/#{a.slug}", path
   end
 
   def test_update_of_an_existing_article
@@ -62,7 +62,7 @@ class ManageDocumentsTest < ActionController::IntegrationTest
     assert_response :redirect
     follow_redirect!
     a = Article.find_by_path('my-article')
-    assert_equal "/myprofile/myuser/cms", path
+    assert_equal "/myuser/#{a.slug}", path
   end
 
   def test_removing_an_article
