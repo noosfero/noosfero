@@ -81,14 +81,11 @@ class CmsController < MyProfileController
     @type = params[:type] || @article.class.to_s
 
     refuse_blocks
-    if !@article.nil? && @article.blog? || !@type.nil? && @type == 'Blog'
-      @back_url = url_for(:controller => 'profile_editor', :profile => profile.identifier)
-    end
-    record_coming_from_public_view
+    record_coming
     if request.post?
       @article.last_changed_by = user
       if @article.update_attributes(params[:article])
-        redirect_back
+        redirect_to @article.view_url
         return
       end
     end
@@ -99,6 +96,7 @@ class CmsController < MyProfileController
 
     # user must choose an article type first
 
+    record_coming
     @type = params[:type]
     if @type.blank?
       @article_types = []
@@ -110,12 +108,9 @@ class CmsController < MyProfileController
         })
       end
       @parent_id = params[:parent_id]
-      render :action => 'select_article_type', :layout => false
+      render :action => 'select_article_type', :layout => false, :back_to => @back_to
       return
     else
-      if @type == 'Blog'
-        @back_url = url_for(:controller => 'profile_editor', :profile => profile.identifier)
-      end
       refuse_blocks
     end
 
@@ -131,13 +126,11 @@ class CmsController < MyProfileController
       @parent_id = parent.id
     end
 
-    record_creating_from_public_view
-
     @article.profile = profile
     @article.last_changed_by = user
     if request.post?
       if @article.save
-        redirect_back
+        redirect_to @article.view_url
         return
       end
     end
@@ -159,29 +152,36 @@ class CmsController < MyProfileController
     @article = @parent = check_parent(params[:parent_id])
     @target = @parent ? ('/%s/%s' % [profile.identifier, @parent.full_name]) : '/%s' % profile.identifier
     @folders = Folder.find(:all, :conditions => { :profile_id => profile })
-    record_coming_from_public_view if @article
+    @media_listing = params[:media_listing]
+    if @article && !@media_listing
+      record_coming
+    end
     if request.post? && params[:uploaded_files]
       params[:uploaded_files].each do |file|
         @uploaded_files << UploadedFile.create(:uploaded_data => file, :profile => profile, :parent => @parent) unless file == ''
       end
       @errors = @uploaded_files.select { |f| f.errors.any? }
-      @back_to = params[:back_to]
       if @errors.any?
-        if @back_to && @back_to == 'media_listing'
+        if @media_listing
           flash[:notice] = _('Could not upload all files')
-          redirect_back
+          redirect_to :action => 'media_listing'
         else
           render :action => 'upload_files', :parent_id => @parent_id
         end
       else
-        if params[:back_to]
-          redirect_back
+        if @media_listing
+          flash[:notice] = _('All files were uploaded successfully')
+          redirect_to :action => 'media_listing'
         else
-          redirect_to( if @parent
-            {:action => 'view', :id => @parent.id}
+          if @back_to
+            redirect_to @back_to
           else
-            {:action => 'index'}
-          end)
+            redirect_to( if @parent
+              {:action => 'view', :id => @parent.id}
+            else
+              {:action => 'index'}
+            end)
+          end
         end
       end
     end
@@ -212,7 +212,7 @@ class CmsController < MyProfileController
 
   def publish
     @article = profile.articles.find(params[:id])
-    record_coming_from_public_view
+    record_coming
     @groups = profile.memberships - [profile]
     @marked_groups = []
     groups_ids = profile.memberships.map{|m|m.id.to_s}
@@ -233,7 +233,11 @@ class CmsController < MyProfileController
       end
       if @failed.blank?
         flash[:notice] = _("Your publish request was sent successfully")
-        redirect_back
+        if @back_to
+          redirect_to @back_to
+        else
+          redirect_to @article.view_url
+        end
       end
     end
   end
@@ -258,7 +262,7 @@ class CmsController < MyProfileController
     @image_folders = @folders.select {|f| f.children.any? {|c| c.image?} }
     @document_folders = @folders.select {|f| f.children.any? {|c| !c.image? && c.kind_of?(UploadedFile) } }
 
-    @back_to = 'media_listing'
+    @media_listing = true
 
     respond_to do |format|
       format.html { render :layout => false}
@@ -273,42 +277,11 @@ class CmsController < MyProfileController
 
   protected
 
-  def redirect_back
-    if params[:back_to] == 'control_panel'
-      redirect_to :controller => 'profile_editor', :profile => @profile.identifier
-    elsif params[:back_to] == 'public_view'
-      redirect_to @article.view_url.merge(Noosfero.url_options)
-    elsif params[:back_to] == 'media_listing'
-      redirect_to :action => 'media_listing'
-    elsif @article.parent
-      redirect_to :action => 'view', :id => @article.parent
-    elsif @article.folder? && !@article.blog? && @article.parent
-      redirect_to :action => 'index'
+  def record_coming
+    if request.post?
+      @back_to = params[:back_to]
     else
-      redirect_back_or_default :action => 'index'
-    end
-  end
-
-  def record_coming_from_public_view
-    referer = request.referer
-    referer.gsub!(/\?.*/, '') unless referer.nil?
-    if (maybe_ssl(url_for(@article.url)).include?(referer)) || (@article == profile.home_page && maybe_ssl(url_for(profile.url)).include?(referer))
-      @back_to = 'public_view'
-      @back_url = @article.view_url
-    end
-    if !request.post? and @article.blog?
-      store_location(request.referer)
-    end
-  end
-
-  def record_creating_from_public_view
-    referer = request.referer
-    if (referer =~ Regexp.new("^#{(url_for(profile.url).sub('https:', 'https?:'))}")) || params[:back_to] == 'public_view'
-      @back_to = 'public_view'
-      @back_url = referer
-    end
-    if !request.post? and @article.blog?
-      store_location(request.referer)
+      @back_to = params[:back_to] || request.referer
     end
   end
 

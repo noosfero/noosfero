@@ -67,9 +67,6 @@ class ContentViewerController < ApplicationController
       return
     end
 
-    # store location if the page is not a download
-    store_location
-
     @form_div = params[:form]
 
     if request.post? && params[:comment] && params[self.icaptcha_field].blank? && params[:confirm] == 'true' && @page.accept_comments?

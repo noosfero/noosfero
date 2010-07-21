@@ -39,7 +39,7 @@
     </div>
 
     <% form_for('uploaded_file', :url => {:action => 'upload_files'}, :html => {:multipart => true}) do |f| %>
-      <%= hidden_field_tag('back_to', @back_to) %>
+      <%= hidden_field_tag('media_listing', @media_listing) %>
       <%= render :partial => 'upload_file_form', :locals => { :size => '30' } %>
     <% end %>
   </div><!-- id='media-listing-upload' -->

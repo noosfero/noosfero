@@ -5,6 +5,7 @@
 </p>
 
 <% form_tag do %>
+  <%= hidden_field_tag('back_to', @back_to) %>
   <%= hidden_field_tag(:confirmation, 1) %>
   <%= submit_button(:ok, _("Yes, I want to join.") % profile.name) %>
   <% if logged_in? && request.xhr? %>

@@ -26,7 +26,7 @@
     <% end %>
 
     <% button_bar do %>
-      <%= submit_button 'spread', _('Publish') %>
+      <%= submit_button 'spread', _('Publish'), :cancel => @back_to %>
     <% end %>
   <% end %>
 <% else %>

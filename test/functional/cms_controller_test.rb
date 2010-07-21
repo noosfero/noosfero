@@ -478,29 +478,31 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?parent_id=#{f.id}&amp;type=Folder" }
   end
 
-  should 'redirect back to index after creating top-level article' do
-    post :new, :profile => profile.identifier, :type => 'TextileArticle', :article => { :name => 'test' }
-    assert_redirected_to :action => 'index'
+  should 'redirect to article after creating top-level article' do
+    post :new, :profile => profile.identifier, :type => 'TextileArticle', :article => { :name => 'top-level-article' }
+
+    assert_redirected_to @profile.articles.find_by_name('top-level-article').url
   end
 
-  should 'redirect back to folder after creating article inside it' do
+  should 'redirect to article after creating article inside a folder' do
     f = Folder.new(:name => 'f'); profile.articles << f; f.save!
-    post :new, :profile => profile.identifier, :type => 'TextileArticle', :parent_id => f.id, :article => { :name => 'test' }
-    assert_redirected_to :action => 'view', :id => f.id
+    post :new, :profile => profile.identifier, :type => 'TextileArticle', :parent_id => f.id, :article => { :name => 'article-inside-folder' }
+
+    assert_redirected_to @profile.articles.find_by_name('article-inside-folder').url
   end
 
-  should 'redirect back to index after editing top-level article' do
-    f = Folder.new(:name => 'f'); profile.articles << f; f.save!
+  should 'redirect back to article after editing top-level article' do
+    f = Folder.new(:name => 'top-level-article'); profile.articles << f; f.save!
     post :edit, :profile => profile.identifier, :id => f.id
-    assert_redirected_to :action => 'index'
+    assert_redirected_to @profile.articles.find_by_name('top-level-article').url
   end
 
-  should 'redirect back to folder after editing article inside it' do
+  should 'redirect back to article after editing article inside a folder' do
     f = Folder.new(:name => 'f'); profile.articles << f; f.save!
-    a = TextileArticle.create!(:parent => f, :name => 'test', :profile_id => profile.id)
+    a = TextileArticle.create!(:parent => f, :name => 'article-inside-folder', :profile_id => profile.id)
 
     post :edit, :profile => profile.identifier, :id => a.id
-    assert_redirected_to :action => 'view', :id => f.id
+    assert_redirected_to @profile.articles.find_by_name('article-inside-folder').url
   end
 
   should 'point back to index when cancelling creation of top-level article' do
@@ -604,15 +606,15 @@ class CmsControllerTest < Test::Unit::TestCase
     @request.expects(:referer).returns('http://colivre.net/testinguser/myarticle').at_least_once
 
     get :edit, :profile => 'testinguser', :id => article.id
-    assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'back_to', :value => 'public_view' }
+    assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'back_to', :value => @request.referer }
     assert_tag :tag => 'a', :descendant => { :content => 'Cancel' }, :attributes => { :href => /^https?:\/\/colivre.net\/testinguser\/myarticle/ }
   end
 
   should 'detect when comming from home page' do
     @request.expects(:referer).returns('http://colivre.net/testinguser').at_least_once
     get :edit, :profile => 'testinguser', :id => @profile.home_page.id
-    assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'back_to', :value => 'public_view' }
-    assert_tag :tag => 'a', :descendant => { :content => 'Cancel' }, :attributes => { :href => /^https?:\/\/colivre.net\/testinguser\/#{@profile.home_page.slug}$/ }
+    assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'back_to', :value => @request.referer }
+    assert_tag :tag => 'a', :descendant => { :content => 'Cancel' }, :attributes => { :href => @request.referer }
   end
 
   should 'go back to public view when saving coming from there' do
@@ -625,7 +627,7 @@ class CmsControllerTest < Test::Unit::TestCase
   should 'record as coming from public view when creating article' do
     @request.expects(:referer).returns('http://colivre.net/testinguser/testingusers-home-page').at_least_once
     get :new, :profile => 'testinguser', :type => 'TextileArticle'
-    assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'back_to', :value => 'public_view' }
+    assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'back_to', :value => @request.referer }
     assert_tag :tag => 'a', :descendant => { :content => 'Cancel' }, :attributes => { :href => 'http://colivre.net/testinguser/testingusers-home-page' }
   end
 
@@ -835,17 +837,18 @@ class CmsControllerTest < Test::Unit::TestCase
     assert :tag => 'input', :attributes => {:name => 'article[notify_comments]', :value => 1}
   end
 
-  should 'back to control panel after create blog' do
+  should 'go to blog after create it' do
     assert_difference Blog, :count do
       post :new, :type => Blog.name, :profile => profile.identifier, :article => { :name => 'my-blog' }, :back_to => 'control_panel'
-      assert_redirected_to :controller => 'profile_editor', :profile => profile.identifier
     end
+    assert_redirected_to @profile.articles.find_by_name('my-blog').view_url
   end
 
-  should 'back to control panel after config blog' do
+  should 'back to blog after config blog' do
     profile.articles << Blog.new(:name => 'my-blog', :profile => profile)
-    post :edit, :profile => profile.identifier, :id => profile.blog.id, :back_to => 'control_panel'
-    assert_redirected_to :controller => 'profile_editor', :profile => profile.identifier
+    post :edit, :profile => profile.identifier, :id => profile.blog.id
+
+    assert_redirected_to @profile.articles.find_by_name('my-blog').view_url
   end
 
   should 'back to control panel if cancel create blog' do
@@ -885,27 +888,26 @@ class CmsControllerTest < Test::Unit::TestCase
     @request.expects(:referer).returns("http://colivre.net/#{profile.identifier}/#{folder.slug}").at_least_once
 
     get :upload_files, :profile => profile.identifier, :parent_id => folder.id
-    assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'back_to', :value => 'public_view' }
+    assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'back_to', :value => @request.referer }
     assert_tag :tag => 'a', :descendant => { :content => 'Cancel' }, :attributes => { :href => /^https?:\/\/colivre.net\/#{profile.identifier}\/#{folder.slug}/ }
   end
 
   should 'detect when comming from home page to upload files' do
     folder = Folder.create!(:name => 'testfolder', :profile => profile)
-    profile.expects(:home_page).returns(folder).at_least_once
-
     @request.expects(:referer).returns("http://colivre.net/#{profile.identifier}").at_least_once
     @controller.stubs(:profile).returns(profile)
     get :upload_files, :profile => profile.identifier, :parent_id => folder.id
-    assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'back_to', :value => 'public_view' }
-    assert_tag :tag => 'a', :descendant => { :content => 'Cancel' }, :attributes => { :href => /^https?:\/\/colivre.net\/#{profile.identifier}\/#{profile.home_page.slug}$/ }
+    assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'back_to', :value => @request.referer }
+    assert_tag :tag => 'a', :descendant => { :content => 'Cancel' }, :attributes => { :href => @request.referer }
   end
 
   should 'go back to public view when upload files coming from there' do
     folder = Folder.create!(:name => 'test_folder', :profile => profile)
+    @request.expects(:referer).returns(folder.view_url).at_least_once
 
-    post :upload_files, :profile => profile.identifier, :parent_id => folder.id, :back_to => 'public_view', :uploaded_files => [fixture_file_upload('files/rails.png', 'image/png')]
+    post :upload_files, :profile => profile.identifier, :parent_id => folder.id, :back_to => @request.referer, :uploaded_files => [fixture_file_upload('files/rails.png', 'image/png')]
     assert_template nil
-    assert_redirected_to folder.url
+    assert_redirected_to folder.view_url
   end
 
   should 'record when coming from public view on edit files with view true' do
@@ -914,26 +916,25 @@ class CmsControllerTest < Test::Unit::TestCase
     @request.expects(:referer).returns("http://colivre.net/#{profile.identifier}/#{file.slug}?view=true").at_least_once
 
     get :edit, :profile => profile.identifier, :id => file.id
-    assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'back_to', :value => 'public_view' }
+    assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'back_to', :value => @request.referer }
     assert_tag :tag => 'a', :descendant => { :content => 'Cancel' }, :attributes => { :href => /^https?:\/\/colivre.net\/#{profile.identifier}\/#{file.slug}?.*view=true/ }
   end
 
   should 'detect when comming from home page to edit files with view true' do
     file = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
-    profile.expects(:home_page).returns(file).at_least_once
 
     @request.expects(:referer).returns("http://colivre.net/#{profile.identifier}?view=true").at_least_once
     @controller.stubs(:profile).returns(profile)
     get :edit, :profile => profile.identifier, :id => file.id
-    assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'back_to', :value => 'public_view' }
-    assert_tag :tag => 'a', :descendant => { :content => 'Cancel' }, :attributes => { :href => /^https?:\/\/colivre.net\/#{profile.identifier}\/#{profile.home_page.slug}?.*view=true$/ }
+    assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'back_to', :value => @request.referer }
+    assert_tag :tag => 'a', :descendant => { :content => 'Cancel' }, :attributes => { :href => @request.referer }
   end
 
   should 'go back to public view when edit files coming from there with view true' do
     file = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
     @request.expects(:referer).returns("http://colivre.net/#{profile.identifier}/#{file.slug}?view=true").at_least_once
 
-    post :edit, :profile => profile.identifier, :id => file.id, :back_to => 'public_view', :article => {:abstract => 'some description'}
+    post :edit, :profile => profile.identifier, :id => file.id, :back_to => @request.referer, :article => {:abstract => 'some description'}
     assert_template nil
     assert_redirected_to file.url.merge(:view => true)
   end
@@ -1107,7 +1108,7 @@ class CmsControllerTest < Test::Unit::TestCase
 
 
   should 'redirect to media listing when upload files from there' do
-    post :upload_files, :profile => profile.identifier, :back_to => 'media_listing', :uploaded_files => [fixture_file_upload('files/rails.png', 'image/png')]
+    post :upload_files, :profile => profile.identifier, :media_listing => true, :uploaded_files => [fixture_file_upload('files/rails.png', 'image/png')]
     assert_template nil
     assert_redirected_to :action => 'media_listing'
   end
@@ -1115,7 +1116,7 @@ class CmsControllerTest < Test::Unit::TestCase
   should 'redirect to media listing when occur errors when upload files from there' do
     file = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('files/rails.png', 'image/png'))
 
-    post :upload_files, :profile => profile.identifier, :back_to => 'media_listing', :uploaded_files => [fixture_file_upload('files/rails.png', 'image/png')]
+    post :upload_files, :profile => profile.identifier, :media_listing => true, :uploaded_files => [fixture_file_upload('files/rails.png', 'image/png')]
     assert_template nil
     assert_redirected_to :action => 'media_listing'
   end
