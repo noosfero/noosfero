@@ -209,6 +209,10 @@ module NoosferoTestHelper
   def options_for_select(collection)
     collection.map{|item| "<option value='#{item[1]}'>#{item[0]}</option>"}.join("\n")
   end
+
+  def params
+    {}
+  end
 end
 
 class ActionController::IntegrationTest
