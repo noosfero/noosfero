@@ -89,7 +89,7 @@ class ArticleBlockTest < Test::Unit::TestCase
     block.expects(:title).returns('')
     block.stubs(:article).returns(article)
 
-    assert_equal "<h3></h3>Article content", instance_eval(&block.content)
+    assert_equal "<h3><span></span></h3>Article content", instance_eval(&block.content)
   end
 
   should "display title if defined" do
@@ -99,7 +99,7 @@ class ArticleBlockTest < Test::Unit::TestCase
     block.expects(:title).returns('Article title')
     block.stubs(:article).returns(article)
 
-    assert_equal "<h3>Article title</h3>Article content", instance_eval(&block.content)
+    assert_equal "<h3><span>Article title</span></h3>Article content", instance_eval(&block.content)
   end
 
   should 'display image if article is an image' do
@@ -142,17 +142,6 @@ class ArticleBlockTest < Test::Unit::TestCase
   end
 
   protected
+    include NoosferoTestHelper
 
-    def content_tag(tag, text, options = {})
-      "<#{tag}>#{text}</#{tag}>"
-    end
-    def image_tag(arg)
-      arg
-    end
-    def link_to(text, url, options = {})
-      "<a href='#{url.to_s}'>#{text}</a>"
-    end
-    def params
-      {}
-    end
 end
