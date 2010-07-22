@@ -972,4 +972,11 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal '.', env.currency_delimiter
   end
 
+  should 'set a new theme' do
+    env = fast_create(Environment)
+    env.theme = 'another'
+    env.save! && env.reload
+    assert_equal 'another', env.theme
+  end
+
 end
