@@ -17,13 +17,6 @@ class ProductCategoryTest < Test::Unit::TestCase
     assert_equivalent [p1], c1.all_products 
   end
 
-  should 'have consumers' do
-    c = ProductCategory.create!(:name => 'base_cat', :environment => Environment.default)
-    person = create_user('test_user').person
-    c.consumers << person
-    assert_includes c.consumers, person
-  end
-
   should 'return top level product categories for environment when no parent product category specified' do
     env1 = Environment.create!(:name => 'test env 1')
     env2 = Environment.create!(:name => 'test env 2')

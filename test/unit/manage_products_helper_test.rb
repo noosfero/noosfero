@@ -55,7 +55,7 @@ class ManageProductsHelperTest < Test::Unit::TestCase
     @controller.expects(:profile).returns(mock)
     category = fast_create(ProductCategory, :name => 'Category 1', :environment_id => @environment.id)
     product = fast_create(Product, :product_category_id => category.id)
-    assert_equal '', edit_product_link(product, 'field', 'link to edit')
+    assert_equal '', edit_product_link_to_remote(product, 'field', 'link to edit')
   end
 
   should 'display link to edit product when user has permission' do
@@ -69,7 +69,7 @@ class ManageProductsHelperTest < Test::Unit::TestCase
 
     expects(:link_to_remote).with('link to edit', {:update => "product-name", :url => {:controller => 'manage_products', :action => 'edit', :id => product.id, :field => 'name'}, :method => :get}, anything).returns('LINK')
 
-    assert_equal 'LINK', edit_product_link(product, 'name', 'link to edit')
+    assert_equal 'LINK', edit_product_link_to_remote(product, 'name', 'link to edit')
   end
 
   should 'not display link to edit product category when user does not have permission' do
@@ -80,7 +80,7 @@ class ManageProductsHelperTest < Test::Unit::TestCase
     @controller.expects(:profile).returns(mock)
     category = fast_create(ProductCategory, :name => 'Category 1', :environment_id => @environment.id)
     product = fast_create(Product, :product_category_id => category.id)
-    assert_equal '', edit_product_category_link(product)
+    assert_equal '', edit_product_link('product-category', 'link to edit category', { :action => 'edit_category', :id => product.id })
   end
 
   should 'display link to edit product category when user has permission' do
@@ -92,7 +92,49 @@ class ManageProductsHelperTest < Test::Unit::TestCase
     category = fast_create(ProductCategory, :name => 'Category 1', :environment_id => @environment.id)
     product = fast_create(Product, :product_category_id => category.id)
 
-    assert_tag_in_string edit_product_category_link(product), {:tag => 'a', :content => 'Change category'}
+    expects(:link_to).with('link to edit category', { :action => 'edit_category', :id => product.id }, {:id => 'link-edit-product-category'} ).returns('LINK')
+
+    assert_equal 'LINK', edit_product_link('product-category', 'link to edit category', { :action => 'edit_category', :id => product.id })
+  end
+
+  should 'not display ui_button to edit product when user does not have permission' do
+    user = mock
+    user.expects(:has_permission?).with(anything, anything).returns(false)
+    @controller = mock
+    @controller.expects(:user).returns(user).at_least_once
+    @controller.expects(:profile).returns(mock)
+    category = fast_create(ProductCategory, :name => 'Category 1', :environment_id => @environment.id)
+    product = fast_create(Product, :product_category_id => category.id)
+    assert_equal '', edit_product_ui_button(product, 'field', 'link to edit')
+  end
+
+  should 'display ui_button_to_remote to edit product when user has permission' do
+    user = mock
+    user.expects(:has_permission?).with(anything, anything).returns(true)
+    @controller = mock
+    @controller.expects(:user).returns(user).at_least_once
+    @controller.expects(:profile).returns(mock)
+    category = fast_create(ProductCategory, :name => 'Category 1', :environment_id => @environment.id)
+    product = fast_create(Product, :product_category_id => category.id)
+
+    expects(:ui_button_to_remote).with('link to edit', {:update => "product-info", :url => {:controller => 'manage_products', :action => 'edit', :id => product.id, :field => 'info'}, :complete => "$('edit-product-button-ui-info').hide()", :method => :get}, :id => 'edit-product-remote-button-ui-info').returns('LINK')
+
+    assert_equal 'LINK', edit_product_ui_button_to_remote(product, 'info', 'link to edit')
+  end
+
+
+  should 'display ui_button to edit product when user has permission' do
+    user = mock
+    user.expects(:has_permission?).with(anything, anything).returns(true)
+    @controller = mock
+    @controller.expects(:user).returns(user).at_least_once
+    @controller.expects(:profile).returns(mock)
+    category = fast_create(ProductCategory, :name => 'Category 1', :environment_id => @environment.id)
+    product = fast_create(Product, :product_category_id => category.id)
+
+    expects(:ui_button).with('link to edit', { :action => 'add_input', :id => product.id }, {:id => 'edit-product-button-ui-info'}).returns('LINK')
+
+    assert_equal 'LINK', edit_product_ui_button('info', 'link to edit', {:action => 'add_input', :id => product.id})
   end
 
   protected

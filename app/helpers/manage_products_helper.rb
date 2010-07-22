@@ -89,8 +89,8 @@ module ManageProductsHelper
     )
   end
 
-  def categories_container(field_id_html, categories_selection_html, hierarchy_html = '')
-    field_id_html +
+  def categories_container(categories_selection_html, hierarchy_html = '')
+    hidden_field_tag('selected_category_id') +
     content_tag('div', hierarchy_html, :id => 'hierarchy_navigation') +
     content_tag('div', categories_selection_html, :id => 'categories_container_wrapper')
   end
@@ -108,7 +108,13 @@ module ManageProductsHelper
     end
   end
 
-  def edit_product_link(product, field, label, html_options = {})
+  def edit_product_link(field, label, url, html_options = {})
+    return '' unless (user && user.has_permission?('manage_products', profile))
+    options = html_options.merge(:id => "link-edit-#{field}")
+    link_to(label, url, options)
+  end
+
+  def edit_product_link_to_remote(product, field, label, html_options = {})
     return '' unless (user && user.has_permission?('manage_products', profile))
     options = html_options.merge(:id => 'link-edit-product-' + field)
 
@@ -124,12 +130,18 @@ module ManageProductsHelper
     if html_options.has_key?(:class)
      the_class << ' ' << html_options[:class]
     end
-    edit_product_link(product, field, label, html_options.merge(:class => the_class))
+    edit_product_link_to_remote(product, field, label, html_options.merge(:class => the_class))
   end
 
-  def edit_product_ui_button(product, field, label, html_options = {})
+  def edit_product_ui_button(field, label, url, html_options = {})
     return '' unless (user && user.has_permission?('manage_products', profile))
     options = html_options.merge(:id => 'edit-product-button-ui-' + field)
+    ui_button(label, url, options)
+  end
+
+  def edit_product_ui_button_to_remote(product, field, label, html_options = {})
+    return '' unless (user && user.has_permission?('manage_products', profile))
+    options = html_options.merge(:id => 'edit-product-remote-button-ui-' + field)
 
     ui_button_to_remote(label,
                    {:update => "product-#{field}",
@@ -144,12 +156,6 @@ module ManageProductsHelper
     button_to_function(:cancel, _('Cancel'), nil, html_options) do |page|
       page.replace_html "product-#{field}", :partial => "display_#{field}", :locals => {:product => product}
     end
-  end
-
-  def edit_product_category_link(product, html_options = {})
-    return '' unless (user && user.has_permission?('manage_products', profile))
-    options = html_options.merge(:id => 'link-edit-product-category')
-    link_to(_('Change category'), { :action => 'edit_category', :id => product.id}, options)
   end
 
   def float_to_currency(value)

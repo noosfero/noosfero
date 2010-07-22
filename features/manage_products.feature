@@ -351,3 +351,37 @@ Feature: manage products
     When I follow "Cancel"
     Then I should see "A new red bicycle"
     And I should be on Rede Moinho's page of product Bike
+
+  @selenium
+  Scenario: add an input to a product
+   Given the following product_category
+      | name |
+      | Food |
+    And the following product_categories
+      | name  | parent |
+      | Cake  | food   |
+      | Sugar | food   |
+    And the following products
+      | owner      | category | name           |
+      | redemoinho | cake     | Chocolate cake |
+    And I am logged in as "joaosilva"
+    When I go to Rede Moinho's page of product Chocolate cake
+    And I follow "Add the inputs used by this product"
+    And I select "Food »"
+    And I select "Sugar"
+    And I press "Save and continue"
+    Then I should see "Sugar"
+
+  @selenium
+  Scenario: cancel addition of a product input
+    Given the following product_category
+      | name |
+      | Food |
+    And the following products
+      | owner      | category | name |
+      | redemoinho | food     | Cake |
+    And I am logged in as "joaosilva"
+    When I go to Rede Moinho's page of product Cake
+    And I follow "Add the inputs used by this product"
+    When I follow "Back to product"
+    Then I should see "Cake"

@@ -6,11 +6,11 @@
    :loading => "open_loading('#{ _('loading...') }')",
    :update => "request_result_message",
    :url => {:action => 'new'},
-   :html => {:method => 'post', :id => 'product_category_form'} do |f| %>
+   :html => {:method => 'post', :id => 'category_form'} do |f| %>
 
   <h3><%= _('Select the category of the new product or service') %></h3>
 
-  <%= categories_container(f.hidden_field('product_category_id'), select_for_new_category) %>
+  <%= categories_container(select_for_new_category) %>
 
   <div id='categories_selection_actionbar'>
     <%= button :back, _('Back to the product listing'), :action => 'index' %>

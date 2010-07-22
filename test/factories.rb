@@ -330,4 +330,12 @@ module Noosfero::Factory
     { :name => 'Product ' + factory_num_seq.to_s }
   end
 
+  ###############################################
+  # Input
+  ###############################################
+
+  def defaults_for_input
+    { }
+  end
+
 end

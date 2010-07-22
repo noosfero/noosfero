@@ -2,4 +2,4 @@
   <%= image_tag (@product.reload.image ? @product.image.public_filename : @product.default_image('thumb')), :class => 'product-pic' %>
 </div>
 
-<%= edit_product_link(@product, 'image', _('Change image')) %>
+<%= edit_product_link_to_remote(@product, 'image', _('Change image')) %>

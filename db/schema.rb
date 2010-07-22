@@ -160,12 +160,6 @@ ActiveRecord::Schema.define(:version => 20100722020357) do
     t.datetime "created_at"
   end
 
-  create_table "consumptions", :force => true do |t|
-    t.integer "product_category_id"
-    t.integer "profile_id"
-    t.text    "aditional_specifications"
-  end
-
   create_table "domains", :force => true do |t|
     t.string  "name"
     t.string  "owner_type"
@@ -226,6 +220,13 @@ ActiveRecord::Schema.define(:version => 20100722020357) do
     t.integer "size"
     t.integer "width"
     t.integer "height"
+  end
+
+  create_table "inputs", :force => true do |t|
+    t.integer  "product_category_id", :null => false
+    t.integer  "product_id",          :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "product_categorizations", :force => true do |t|

@@ -2613,7 +2613,7 @@ div#activation_enterprise div {
   list-style: none;
 }
 
-#edit-product-button-ui-info {
+#edit-product-remote-button-ui-info {
   margin-top: 40px;
 }
 
@@ -2655,6 +2655,11 @@ div#activation_enterprise div {
 #product-qualifiers-list .product-certifier-title {
   margin-right: 20px;
 }
+
+#edit-product-button-ui-inputs {
+  margin-top: 20px;
+}
+
 /* ==> public/stylesheets/controller_cms.css <== */
 
 .controller-cms #article_types li {
@@ -3142,7 +3147,7 @@ h1#agenda-title {
 
 /* ==> public/stylesheets/controller_manage_products.css <== */
 
-#product_category_form {
+#category_form {
   border: 1px solid #AABB88;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;

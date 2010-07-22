@@ -241,7 +241,7 @@ class ProductTest < Test::Unit::TestCase
   should 'not save without category' do
     product = Product.new(:name => 'A product without category')
     product.valid?
-    assert product.errors.invalid?(:product_category)
+    assert product.errors.invalid?(:product_category_id)
   end
 
   should 'format values to float with 2 decimals' do
@@ -262,5 +262,36 @@ class ProductTest < Test::Unit::TestCase
   should 'have default image' do
     product = Product.new
     assert_equal '/images/icons-app/product-default-pic-thumb.png', product.default_image
+  end
+
+  should 'have inputs' do
+    product = Product.new
+    assert_respond_to product, :inputs
+  end
+
+  should 'return empty array if has no input' do
+    product = Product.new
+    assert product.inputs.empty?
+  end
+
+  should 'return product inputs' do
+     ent = fast_create(Enterprise)
+     product = fast_create(Product, :enterprise_id => ent.id)
+     input = fast_create(Input, :product_id => product.id, :product_category_id => @product_category.id)
+
+     assert_equal [input], product.inputs
+  end
+
+  should 'destroy inputs when product is removed' do
+     ent = fast_create(Enterprise)
+     product = fast_create(Product, :enterprise_id => ent.id)
+     input = fast_create(Input, :product_id => product.id, :product_category_id => @product_category.id)
+
+     services_category = fast_create(ProductCategory, :name => 'Services')
+     input2 = fast_create(Input, :product_id => product.id, :product_category_id => services_category.id)
+
+     assert_difference Input, :count, -2 do
+       product.destroy
+     end
   end
 end

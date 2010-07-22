@@ -50,7 +50,7 @@ class ManageProductsControllerTest < Test::Unit::TestCase
 
   should "create new product" do
     assert_difference Product, :count do
-      post 'new', :profile => @enterprise.identifier, :product => {:name => 'test product', :product_category_id => @product_category.id}
+      post 'new', :profile => @enterprise.identifier, :product => {:name => 'test product'}, :selected_category_id => @product_category.id
       assert assigns(:product)
       assert !assigns(:product).new_record?
     end
@@ -117,17 +117,16 @@ class ManageProductsControllerTest < Test::Unit::TestCase
   end
 
   should "not edit to invalid parameters" do
-    product = fast_create(Product, :name => 'test product', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
-    post 'edit_category', :profile => @enterprise.identifier, :product => {:product_category => nil}, :id => product.id
+    product = fast_create(Product, :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    post 'edit_category', :profile => @enterprise.identifier, :selected_category_id => nil, :id => product.id
     assert_response :success
-    assert assigns(:product)
-    assert ! assigns(:product).valid?
+    assert_template 'shared/_dialog_error_messages'
   end
 
   should "destroy product" do
-    p = @enterprise.products.create!(:name => 'test product', :product_category => @product_category)
+    product = fast_create(Product, :name => 'test product', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
     assert_difference Product, :count, -1 do
-      post 'destroy', :profile => @enterprise.identifier, :id => p.id
+      post 'destroy', :profile => @enterprise.identifier, :id => product.id
       assert_response :redirect
       assert_redirected_to :action => 'index'
       assert assigns(:product)
@@ -136,10 +135,10 @@ class ManageProductsControllerTest < Test::Unit::TestCase
   end
 
   should "fail to destroy product" do
-    p = @enterprise.products.create!(:name => 'test product', :product_category => @product_category)
+    product = fast_create(Product, :name => 'test product', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
     Product.any_instance.stubs(:destroy).returns(false)
     assert_no_difference Product, :count do
-      post 'destroy', :profile => @enterprise.identifier, :id => p.id
+      post 'destroy', :profile => @enterprise.identifier, :id => product.id
       assert_response :redirect
       assert_redirected_to :action => 'show'
       assert assigns(:product)
@@ -159,20 +158,20 @@ class ManageProductsControllerTest < Test::Unit::TestCase
     category1 = fast_create(ProductCategory, :name => 'Category 1')
     category2 = fast_create(ProductCategory, :name => 'Category 2', :parent_id => category1)
     assert_difference Product, :count do
-      post 'new', :profile => @enterprise.identifier, :product => { :name => 'test product', :product_category_id => category2.id }
+      post 'new', :profile => @enterprise.identifier, :product => { :name => 'test product' }, :selected_category_id => category2.id
       assert_equal category2, assigns(:product).product_category
     end
   end
 
   should 'filter html from name of product' do
     category = fast_create(ProductCategory, :name => 'Category 1')
-    post 'new', :profile => @enterprise.identifier, :product => { :name => "<b id='html_name'>name bold</b>", :product_category_id => category.id }
+    post 'new', :profile => @enterprise.identifier, :product => { :name => "<b id='html_name'>name bold</b>" }, :selected_category_id => category.id
     assert_sanitized assigns(:product).name
   end
 
-  should 'filter html with whit list from description of product' do
-    category = fast_create(ProductCategory, :name => 'Category 1')
-    post 'new', :profile => @enterprise.identifier, :product => { :name => 'name', :description => "<b id='html_descr'>descr bold</b>", :product_category_id => category.id }
+  should 'filter html with white list from description of product' do
+    product = fast_create(Product, :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    post 'edit', :profile => @enterprise.identifier, :id => product.id, :field => 'info', :product => { :name => 'name', :description => "<b id='html_descr'>descr bold</b>" }
     assert_equal "<b>descr bold</b>", assigns(:product).description
   end
   
@@ -235,7 +234,7 @@ class ManageProductsControllerTest < Test::Unit::TestCase
 
   should 'render redirect_via_javascript template after save' do
     assert_difference Product, :count do
-      post :new, :profile => @enterprise.identifier, :product => { :name => 'Invalid product', :product_category_id => @product_category.id }
+      post :new, :profile => @enterprise.identifier, :product => { :name => 'Invalid product' }, :selected_category_id => @product_category.id
       assert_template 'shared/_redirect_via_javascript'
     end
   end
@@ -273,25 +272,37 @@ class ManageProductsControllerTest < Test::Unit::TestCase
   end
 
   should 'show product price when showing product if unit was informed' do
-    prod = @enterprise.products.create!(:name => 'Product test', :price => 50.00, :unit => 'unit', :product_category => @product_category)
-    get :show, :id => prod.id, :profile => @enterprise.identifier
+    product = fast_create(Product, :name => 'test product', :price => 50.00, :unit => 'unit', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    get :show, :id => product.id, :profile => @enterprise.identifier
 
     assert_tag :tag => 'span', :attributes => { :class => 'field-name' }, :content => /Price:/
+    assert_tag :tag => 'span', :attributes => { :class => 'field-value' }, :content => '$ 50.00'
   end
 
   should 'show product price when showing product if discount was informed' do
-    prod = @enterprise.products.create!(:name => 'Product test', :price => 50.00, :discount => 3.50, :unit => 'unit', :product_category => @product_category)
-    get :show, :id => prod.id, :profile => @enterprise.identifier
+    product = fast_create(Product, :name => 'test product', :price => 50.00, :unit => 'unit', :discount => 3.50, :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    get :show, :id => product.id, :profile => @enterprise.identifier
 
     assert_tag :tag => 'span', :attributes => { :class => 'field-name' }, :content => /List price:/
+    assert_tag :tag => 'span', :attributes => { :class => 'field-value' }, :content => '$ 50.00'
     assert_tag :tag => 'span', :attributes => { :class => 'field-name' }, :content => /On sale:/
+    assert_tag :tag => 'span', :attributes => { :class => 'field-value' }, :content => '$ 46.50'
   end
 
   should 'not show product price when showing product if unit not informed' do
-    prod = @enterprise.products.create!(:name => 'Product test', :price => 50.00, :product_category => @product_category)
-    get :show, :id => prod.id, :profile => @enterprise.identifier
+    product = fast_create(Product, :name => 'test product', :price => 50.00, :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    get :show, :id => product.id, :profile => @enterprise.identifier
 
-    assert_no_tag :tag => 'span', :attributes => { :class => 'product_price' }, :content => /Price:/
+    assert_no_tag :tag => 'span', :attributes => { :class => 'field-name' }, :content => /Price:/
+    assert_no_tag :tag => 'span', :attributes => { :class => 'field-value' }, :content => '$ 50.00'
+  end
+
+  should 'display button to add input when product has no input' do
+    product = fast_create(Product, :name => 'test product', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    get :show, :id => product.id, :profile => @enterprise.identifier
+
+    assert_tag :tag => 'div', :attributes => { :id => 'product-inputs'},
+      :descendant => {:tag => 'a', :attributes => { :id => 'edit-product-button-ui-inputs' }, :content => 'Add the inputs used by this product'}
   end
 
 end

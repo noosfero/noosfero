@@ -18,7 +18,6 @@ class ManageProductsController < ApplicationController
 
   def index
     @products = @profile.products
-    @consumptions = @profile.consumptions
   end
 
   def show
@@ -38,7 +37,7 @@ class ManageProductsController < ApplicationController
   end
 
   def new
-    @product = @profile.products.build(params[:product])
+    @product = @profile.products.build(:product_category_id => params[:selected_category_id])
     @category = @product.product_category
     @categories = ProductCategory.top_level_for(environment)
     @level = 0
@@ -75,12 +74,25 @@ class ManageProductsController < ApplicationController
     @edit = true
     @level = @category.level
     if request.post?
-      begin
-        @product.update_attributes!(params[:product])
+      if @product.update_attributes(:product_category_id => params[:selected_category_id])
         render :partial => 'shared/redirect_via_javascript',
           :locals => { :url => url_for(:controller => 'manage_products', :action => 'show', :id => @product) }
-      rescue Exception => e
-        flash[:notice] = _('Could not update the product')
+      else
+        render :partial => 'shared/dialog_error_messages', :locals => { :object_name => 'product' }
+      end
+    end
+  end
+
+  def add_input
+    @product = @profile.products.find(params[:id])
+    @input = @product.inputs.build
+    @categories = ProductCategory.top_level_for(environment)
+    @level = 0
+    if request.post?
+      if @input.update_attributes(:product_category_id => params[:selected_category_id])
+        render :partial => 'shared/redirect_via_javascript',
+          :locals => { :url => url_for(:controller => 'manage_products', :action => 'show', :id => @product) }
+      else
         render :partial => 'shared/dialog_error_messages', :locals => { :object_name => 'product' }
       end
     end

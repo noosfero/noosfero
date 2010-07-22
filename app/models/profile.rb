@@ -120,9 +120,6 @@ class Profile < ActiveRecord::Base
 
   acts_as_having_image
 
-  has_many :consumptions
-  has_many :consumed_product_categories, :through => :consumptions, :source => :product_category
-
   has_many :tasks, :dependent => :destroy, :as => 'target'
 
   has_many :events, :source => 'articles', :class_name => 'Event', :order => 'name'

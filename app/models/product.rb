@@ -4,9 +4,11 @@ class Product < ActiveRecord::Base
   has_many :product_categorizations
   has_many :product_qualifiers
   has_many :qualifiers, :through => :product_qualifiers
+  has_many :inputs, :dependent => :destroy
 
   validates_uniqueness_of :name, :scope => :enterprise_id, :allow_nil => true
-  validates_presence_of :product_category
+  validates_presence_of :product_category_id
+  validates_associated :product_category
 
   validates_numericality_of :price, :allow_nil => true
   validates_numericality_of :discount, :allow_nil => true
