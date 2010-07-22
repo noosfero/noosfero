@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100621235235) do
+ActiveRecord::Schema.define(:version => 20100722020357) do
 
   create_table "article_versions", :force => true do |t|
     t.integer  "article_id"
@@ -182,7 +182,7 @@ ActiveRecord::Schema.define(:version => 20100621235235) do
     t.text     "design_data"
     t.text     "custom_header"
     t.text     "custom_footer"
-    t.string   "theme"
+    t.string   "theme",                        :default => "default"
     t.text     "terms_of_use_acceptance_text"
     t.datetime "created_at"
     t.datetime "updated_at"

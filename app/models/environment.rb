@@ -205,7 +205,6 @@ class Environment < ActiveRecord::Base
   settings_items :description, :type => String
   settings_items :category_types, :type => Array, :default => ['Category']
   settings_items :enable_ssl
-  settings_items :theme, :type => String, :default => 'default'
   settings_items :icon_theme, :type => String, :default => 'default'
   settings_items :local_docs, :type => Array, :default => []
   settings_items :news_amount_by_folder, :type => Integer, :default => 4
