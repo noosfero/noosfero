@@ -62,7 +62,8 @@ Given /^the following products$/ do |table|
     data = item.dup
     owner = Enterprise[data.delete("owner")]
     category = Category.find_by_slug(data.delete("category"))
-    Product.create!(data.merge(:enterprise => owner, :product_category => category))
+    product = Product.create!(data.merge(:enterprise => owner, :product_category => category))
+    image = Image.create!(:owner => product, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
   end
 end
 

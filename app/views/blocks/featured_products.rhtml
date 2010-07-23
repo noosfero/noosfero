@@ -9,13 +9,13 @@
             <ul>
             <% group.reject{ |x| x.nil? }.each_with_index do |p, i| %>
             <li class="featured-product-item">
-            <%= link_to content_tag(:img, nil, :src => p.image.public_filename(:thumb), :alt => p.name, :class => ('reflect' if block.reflect)), product_path(p.enterprise.identifier, p), :class => 'featured-product-image' %>
+            <%= link_to content_tag(:img, nil, :src => p.image.public_filename(:thumb), :alt => p.name, :class => ('reflect' if block.reflect)), product_path(p), :class => 'featured-product-image' %>
               <div class="featured-product-info position-<%= i + 1 %>" style="display: none">
                 <div class="featured-product-text">
                   <h3><%= p.name %></h3>
                   <p class="featured-product-price"><%= float_to_currency(p.price) %></p>
                   <p class="featured-product-desc"><%= p.description.chars[0...50].to_s + '...' %></p>
-                  <p><%= link_to _('See More'), product_path(p.enterprise.identifier, p), :class => 'featured-product-link' %></p>
+                  <p><%= link_to _('See More'), product_path(p), :class => 'featured-product-link' %></p>
                 </div>
               </div>
             </li>

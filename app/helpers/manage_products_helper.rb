@@ -158,8 +158,10 @@ module ManageProductsHelper
     end
   end
 
-  def float_to_currency(value)
-    number_to_currency(value, :unit => environment.currency_unit, :separator => environment.currency_separator, :delimiter => environment.currency_delimiter, :format => "%u %n")
+  def edit_product_category_link(product, html_options = {})
+    return '' unless (user && user.has_permission?('manage_products', profile))
+    options = html_options.merge(:id => 'link-edit-product-category')
+    link_to(_('Change category'), { :action => 'edit_category', :id => product.id}, options)
   end
 
   def display_value(product)
