@@ -37,7 +37,7 @@
   <%= required labelled_form_field(_('Title'), text_field(:comment, :title)) %>
   <%= required labelled_form_field(_('Enter your comment'), text_area(:comment, :body, :rows => 5)) %>
   <% button_bar do %>
-    <%= submit_button('add', _('Post comment'), :onclick => "$('confirm').value = 'true'") %>
+    <%= submit_button('add', _('Post comment'), :onclick => "$('confirm').value = 'true'; this.disabled = true") %>
   <% end %>
 <% end %>
 
