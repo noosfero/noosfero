@@ -9,9 +9,9 @@ class Category < ActiveRecord::Base
   validates_uniqueness_of :display_color, :scope => :environment_id, :if => (lambda { |cat| ! cat.display_color.nil? }), :message => N_('%{fn} was already assigned to another category.')
 
   # Finds all top level categories for a given environment. 
-  def self.top_level_for(environment)
-    self.find(:all, :conditions => ['parent_id is null and environment_id = ?', environment.id ])
-  end
+  named_scope :top_level_for, lambda { |environment|
+    {:conditions => ['parent_id is null and environment_id = ?', environment.id ]}
+  }
 
   acts_as_filesystem
 
@@ -29,6 +29,12 @@ class Category < ActiveRecord::Base
   has_many :products, :through => :enterprises
 
   acts_as_having_image
+
+  named_scope :from_types, lambda { |types|
+    types.select{ |t| t.blank? }.empty? ?
+      { :conditions => { :type => types } } :
+      { :conditions => [ "type IN (?) OR type IS NULL", types.reject{ |t| t.blank? } ] }
+  }
 
   def recent_articles(limit = 10)
     self.articles.recent(limit)
@@ -56,6 +62,11 @@ class Category < ActiveRecord::Base
     end
 
     results
+  end
+
+  def is_leaf_displayable_in_menu?
+    return false if self.display_in_menu == false
+    self.children.find(:all, :conditions => {:display_in_menu => true}).empty?
   end
 
 end

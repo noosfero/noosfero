@@ -21,7 +21,12 @@ end
 Given /^the following blocks$/ do |table|
   table.hashes.map{|item| item.dup}.each do |item|
     klass = item.delete('type')
-    owner = Profile[item.delete('owner')]
+    owner_type = item.delete('owner')
+    owner = owner_type == 'environment' ? Environment.default : Profile[owner_type]
+    if owner.boxes.empty?
+      owner.boxes<< Box.new
+      owner.boxes.first.blocks << MainBlock.new
+    end
     box_id = owner.boxes.last.id
     klass.constantize.create!(item.merge(:box_id => box_id))
   end

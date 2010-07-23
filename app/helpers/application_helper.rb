@@ -985,4 +985,38 @@ module ApplicationHelper
     number_to_currency(value, :unit => environment.currency_unit, :separator => environment.currency_separator, :delimiter => environment.currency_delimiter, :format => "%u %n")
   end
 
+  def collapsed_item_icon
+    "<span class='ui-icon ui-icon-circlesmall-plus' style='float:left;'></span>"
+  end
+  def expanded_item_icon
+    "<span class='ui-icon ui-icon-circlesmall-minus' style='float:left;'></span>"
+  end
+  def leaf_item_icon
+    "<span class='ui-icon ui-icon-arrow-1-e' style='float:left;'></span>"
+  end
+
+  def display_category_menu(block, categories, root = true)
+    categories = categories.sort{|x,y| x.name <=> y.name}
+    return "" if categories.blank?
+    content_tag(:ul,
+      categories.map do |category|
+        category_path = category.kind_of?(ProductCategory) ? {:controller => 'search', :action => 'assets', :asset => 'products', :product_category => category.id} : { :controller => 'search', :action => 'category_index', :category_path => category.explode_path }
+        category.display_in_menu? ?
+        content_tag(:li,
+          ( !category.is_leaf_displayable_in_menu? ? content_tag(:a, collapsed_item_icon, :href => "#", :id => "block_#{block.id}_category_#{category.id}", :class => 'category-link-expand ' + (root ? 'category-root' : 'category-no-root'), :onclick => "expandCategory(#{block.id}, #{category.id}); return false", :style => 'display: none') : leaf_item_icon) +
+          link_to(content_tag(:span, category.name, :class => 'category-name'), category_path, :class => ("category-leaf" if category.is_leaf_displayable_in_menu?)) +
+          content_tag(:div, display_category_menu(block, category.children, false), :id => "block_#{block.id}_category_content_#{category.id}", :class => 'child-category')
+        ) : ''
+      end
+    ) +
+    content_tag(:p) +
+    (root ? javascript_tag("
+      jQuery('.child-category').hide();
+      jQuery('.category-link-expand').show();
+      var expanded_icon = \"#{ expanded_item_icon }\";
+      var collapsed_icon = \"#{ collapsed_item_icon }\";
+      var category_expanded = { 'block' : 0, 'category' : 0 };
+    ") : '')
+  end
+
 end

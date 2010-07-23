@@ -389,4 +389,50 @@ class CategoryTest < Test::Unit::TestCase
     assert Category.new.accept_products?
   end
 
+  should 'get categories by type including nil' do
+    category = Category.create!(:name => 'test category', :environment => Environment.default)
+    region = Region.create!(:name => 'test region', :environment => Environment.default)
+    product = ProductCategory.create!(:name => 'test product', :environment => Environment.default)
+    result = Category.from_types(['ProductCategory', '']).all
+    assert_equal 2, result.size
+    assert result.include?(product)
+    assert result.include?(category)
+  end
+
+  should 'get categories by type and not nil' do
+    category = Category.create!(:name => 'test category', :environment => Environment.default)
+    region = Region.create!(:name => 'test region', :environment => Environment.default)
+    product = ProductCategory.create!(:name => 'test product', :environment => Environment.default)
+    result = Category.from_types(['Region', 'ProductCategory']).all
+    assert_equal 2, result.size
+    assert result.include?(region)
+    assert result.include?(product)
+  end
+
+  should 'define a leaf to be displayed in menu' do
+    c1 = fast_create(Category, :display_in_menu => true)
+    c11  = fast_create(Category, :display_in_menu => true, :parent_id => c1.id)
+    c2   = fast_create(Category, :display_in_menu => true)
+    c21  = fast_create(Category, :display_in_menu => false, :parent_id => c2.id)
+    c22  = fast_create(Category, :display_in_menu => false, :parent_id => c2.id)
+
+    assert_equal false, c1.is_leaf_displayable_in_menu?
+    assert_equal true, c11.is_leaf_displayable_in_menu?
+    assert_equal true, c2.is_leaf_displayable_in_menu?
+    assert_equal false, c21.is_leaf_displayable_in_menu?
+    assert_equal false, c22.is_leaf_displayable_in_menu?
+  end
+
+  should 'filter top_level categories by type' do
+    toplevel_productcategory = fast_create(ProductCategory)
+    leaf_productcategory = fast_create(ProductCategory, :parent_id => toplevel_productcategory.id)
+
+    toplevel_category = fast_create(Category)
+    leaf_category = fast_create(Category, :parent_id => toplevel_category.id)
+
+    assert_includes Category.top_level_for(Environment.default).from_types(['ProductCategory']), toplevel_productcategory
+    assert_not_includes Category.top_level_for(Environment.default).from_types(['ProductCategory']), leaf_productcategory
+    assert_not_includes Category.top_level_for(Environment.default).from_types(['ProductCategory']), toplevel_category
+  end
+
 end

@@ -193,3 +193,24 @@ function render_jquery_ui_buttons(element_id) {
       })
    }
 }
+
+function expandCategory(block, id) {
+  var link = jQuery('#block_' + block + '_category_' + id);
+  if (category_expanded['block'] > 0 && category_expanded['category'] > 0 && category_expanded['block'] == block && category_expanded['category'] != id && link.hasClass('category-root')) {
+    expandCategory(category_expanded['block'], category_expanded['category']);
+    category_expanded['category'] = id;
+    category_expanded['block'] = block;
+  }
+  if (category_expanded['block'] == 0) category_expanded['block'] = block;
+  if (category_expanded['category'] == 0) category_expanded['category'] = id;
+  jQuery('#block_' + block + '_category_content_' + id).slideToggle('slow');
+  link.toggleClass('category-expanded');
+  if (link.hasClass('category-expanded')) link.html(expanded_icon);
+  else {
+    link.html(collapsed_icon);
+    if (link.hasClass('category-root')) {
+      category_expanded['block'] = 0;
+      category_expanded['category'] = 0;
+    }
+  }
+}
