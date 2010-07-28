@@ -143,4 +143,11 @@ class UploadedFileTest < Test::Unit::TestCase
     assert_equal 'test.txt', upload.display_title
   end
 
+  should 'use name as title by default' do
+    upload = UploadedFile.new
+    upload.stubs(:name).returns('test.txt')
+
+    assert_equal 'test.txt', upload.title
+  end
+
 end

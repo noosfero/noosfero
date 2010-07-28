@@ -901,7 +901,7 @@ module ApplicationHelper
   end
 
   def page_title
-    (@page ? @page.name + ' - ' : '') +
+    (@page ? @page.title + ' - ' : '') +
     (profile ? profile.short_name + ' - ' : '') +
     (@topic ? @topic.title + ' - ' : '') +
     (@section ? @section.title + ' - ' : '') +
