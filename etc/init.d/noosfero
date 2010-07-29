@@ -50,14 +50,7 @@ main_script() {
   fi
 }
 
-do_start() {
-
-  # FIXME should not test for ferret only
-  if [ -e $FERRET_PID_FILE ]; then
-    echo 'noosfero already running, cannot start.'
-    exit 2
-  fi
-
+do_setup() {
   # PID directories
   if [ ! -d /var/run/noosfero ]; then
     mkdir /var/run/noosfero
@@ -89,6 +82,17 @@ do_start() {
   if [ ! -e $NOOSFERO_DIR/log ]; then
     ln -s /var/log/noosfero $NOOSFERO_DIR/log
   fi
+}
+
+do_start() {
+
+  # FIXME should not test for ferret only
+  if [ -e $FERRET_PID_FILE ]; then
+    echo 'noosfero already running, cannot start.'
+    exit 2
+  fi
+
+  do_setup
 
   # actually start the service
   main_script start
@@ -111,11 +115,11 @@ do_restart() {
 }
 
 case "$1" in
-  start|stop|restart)
+  start|stop|restart|setup)
     do_$1
     ;;
   *)
-    echo "Usage: $SCRIPTNAME {start|stop|restart}" >&2
+    echo "Usage: $SCRIPTNAME {start|stop|restart|setup}" >&2
     exit 3
     ;;
 esac
