@@ -318,7 +318,13 @@ Upgrading
 =========
 
 If you followed the steps in this document and installed Noosfero from the git
-repository, then upgrading is easy. As the noosfero user, do the following:
+repository, then upgrading is easy. First, you need to allow the noosfero user
+to restart the memcached server with sudo, by adding the following line in
+/etc/sudoers:
+
+noosfero ALL=NOPASSWD: /etc/init.d/memcached
+
+Then, to perform an upgrade, do the following as the noosfero user:
 
 $ cd /var/lib/noosfero/current
 $ ./script/git-upgrade
