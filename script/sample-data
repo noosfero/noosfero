@@ -82,7 +82,7 @@ puts
 
 
 communities = []
-VERBS = ['Save', 'I like', 'I hate', 'Use']
+VERBS = ['Save', 'I like', 'Use']
 STUFF = ['Free Software', 'Organic food', 'the wales', 'the environment', 'Barack Obama', 'Osama Bin Laden', 'Lula']
 print "Creating communities: "; $stdout.flush
 for verb in VERBS
