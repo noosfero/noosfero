@@ -11,6 +11,38 @@ Feature: manage products
       | redemoinho | joaosilva | Rede Moinho | true |
     And feature "disable_products_for_enterprises" is disabled on environment
 
+  Scenario: paginate public listing products and services
+    Given the following product_category
+      | name |
+      | Bicycle |
+    And the following products
+      | owner      | category |  name  | description |
+      | redemoinho | bicycle  | Bike 1 | bicycle 1  |
+      | redemoinho | bicycle  | Bike 2 | bicycle 2  |
+      | redemoinho | bicycle  | Bike 3 | bicycle 3  |
+      | redemoinho | bicycle  | Bike 4 | bicycle 4  |
+      | redemoinho | bicycle  | Bike 5 | bicycle 5  |
+      | redemoinho | bicycle  | Bike 6 | bicycle 6  |
+      | redemoinho | bicycle  | Bike 7 | bicycle 7  |
+      | redemoinho | bicycle  | Bike 8 | bicycle 8  |
+      | redemoinho | bicycle  | Bike 9 | bicycle 9  |
+      | redemoinho | bicycle  | Bike 10| bicycle 10 |
+      | redemoinho | bicycle  | Bike 11| bicycle 11 |
+    When I go to /catalog/redemoinho
+    Then I should see "Bike 1"
+    And I should see "Bike 2"
+    And I should see "Bike 3"
+    And I should see "Bike 4"
+    And I should see "Bike 5"
+    And I should see "Bike 6"
+    And I should see "Bike 7"
+    And I should see "Bike 8"
+    And I should see "Bike 9"
+    And I should see "Bike 10"
+    And I should not see "Bike 11"
+    When I follow "Next"
+    Then I should see "Bike 11"
+
   Scenario: listing products and services
     Given I am logged in as "joaosilva"
     And I am on Rede Moinho's control panel

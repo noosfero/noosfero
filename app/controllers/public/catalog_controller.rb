@@ -4,7 +4,7 @@ class CatalogController < PublicController
   before_filter :check_enterprise_and_environment
 
   def index
-    @products = @profile.products
+    @products = @profile.products.paginate(:per_page => 10, :page => params[:page])
   end
 
   protected
