@@ -91,7 +91,7 @@ class CreateEnterprise < Task
   end
 
   def environment
-    region ? region.environment : self.requestor ? self.requestor.environment : Environment.default
+    requestor.environment
   end
 
   def available_regions

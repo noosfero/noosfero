@@ -170,4 +170,14 @@ all_fixtures
     assert_no_tag :tag => 'option', :content => "Region without validator"
   end
 
+  should 'set current environment as the task target if approval method is admin' do
+    environment = Environment.new(:name => "Another environment")
+    environment.organization_approval_method = :admin
+    environment.save
+    @controller.stubs(:environment).returns(environment)
+
+    get :index
+    assert_equal assigns(:create_enterprise).target, environment
+  end
+
 end
