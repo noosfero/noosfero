@@ -195,7 +195,12 @@ module ManageProductsHelper
   def display_qualifiers(product)
     data = ''
     product.product_qualifiers.each do |pq|
-      certified_by = pq.certifier ? _(' certified by %s') % link_to(pq.certifier.name, pq.certifier.link) : ''
+      certified_by = ''
+      certifier = pq.certifier
+      if certifier
+        certifier_name = certifier.link.blank? ? certifier.name : link_to(certifier.name, certifier.link)
+        certified_by = _(' certified by %s') % certifier_name
+      end
       data << content_tag('li', '✔ ' + pq.qualifier.name + certified_by, :class => 'product-qualifiers-item')
     end
     content_tag('ul', data, :id => 'product-qualifiers')

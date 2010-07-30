@@ -257,7 +257,7 @@ class ManageProductsControllerTest < Test::Unit::TestCase
       :descendant => {
         :tag => 'a',
         :attributes => {
-          :href => "/myprofile/#{enterprise.identifier}/manage_products",
+          :href => "/catalog/#{enterprise.identifier}",
         },
         :content => /Back to the product listing/
       }
