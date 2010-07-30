@@ -30,7 +30,7 @@ module ContentViewerHelper
   end
 
   def image_label(image)
-    text = image.title || image.abstract
+    text = image.abstract || image.title
     text && (text.first(40) + (text.size > 40 ? '…' : ''))
   end
 

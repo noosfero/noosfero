@@ -207,4 +207,6 @@ Given /^(.+) is disabled$/ do |enterprise_name|
   enterprise.save
 end
 
-
+Then /^The page title should contain "(.*)"$/ do |text|
+  response.should have_selector("title:contains('#{text}')")
+end

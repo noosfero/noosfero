@@ -5,6 +5,11 @@
 class UploadedFile < Article
 
   settings_items :title, :type => 'string'
+  def title_with_default
+    title_without_default || name
+  end
+  alias_method_chain :title, :default
+
   validates_size_of :title, :maximum => 60, :if => (lambda { |file| !file.title.blank? })
 
   def display_title
