@@ -72,7 +72,7 @@ Rails::Initializer.run do |config|
   }
 
   # Adds custom attributes to the Set of allowed html attributes for the #sanitize helper
-  config.action_view.sanitized_allowed_attributes = 'align', 'border', 'alt', 'vspace', 'hspace', 'width', 'heigth', 'value', 'type', 'data', 'style', 'target', 'codebase', 'archive', 'classid', 'code', 'flashvars'
+  config.action_view.sanitized_allowed_attributes = 'align', 'border', 'alt', 'vspace', 'hspace', 'width', 'heigth', 'value', 'type', 'data', 'style', 'target', 'codebase', 'archive', 'classid', 'code', 'flashvars', 'scrolling', 'frameborder'
   
    # Adds custom tags to the Set of allowed html tags for the #sanitize helper
   config.action_view.sanitized_allowed_tags = 'object', 'embed', 'param', 'table', 'tr', 'th', 'td', 'applet', 'comment', 'iframe'
