@@ -83,4 +83,14 @@ class EnvironmentStatisticsBlockTest < Test::Unit::TestCase
     assert_match /One community/, content
   end
 
+  should 'not display enterprises if disabled' do
+    env = Environment.new
+    env.enable('disable_asset_enterprises')
+
+    block = EnvironmentStatisticsBlock.new
+    block.stubs(:owner).returns(env)
+
+    assert_no_match /enterprises/i, block.content
+  end
+
 end

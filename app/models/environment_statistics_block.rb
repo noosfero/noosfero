@@ -17,11 +17,12 @@ class EnvironmentStatisticsBlock < Block
     enterprises = owner.enterprises.visible.count
     communities = owner.communities.visible.count
 
-    info = [
-      n_('One user', '%{num} users', users) % { :num => users },
-      n__('One enterprise', '%{num} enterprises', enterprises) % { :num => enterprises },
-      n__('One community', '%{num} communities', communities) % { :num => communities },
-    ]
+    info = []
+    info << (n_('One user', '%{num} users', users) % { :num => users })
+    unless owner.enabled?('disable_asset_enterprises')
+      info << (n__('One enterprise', '%{num} enterprises', enterprises) % { :num => enterprises })
+    end
+    info << (n__('One community', '%{num} communities', communities) % { :num => communities })
 
     block_title(title) + content_tag('ul', info.map {|item| content_tag('li', item) }.join("\n"))
   end
