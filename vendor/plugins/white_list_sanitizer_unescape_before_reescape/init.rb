@@ -13,7 +13,7 @@ HTML::WhiteListSanitizer.module_eval do
 
       if final_text =~ /iframe/
         itheora_video = /<iframe(.*)src=(.*)itheora.org(.*)<\/iframe>/
-        sl_video = /<iframe(.*)src=\"http:\/\/stream.softwarelivre.org(.*)<\/iframe>/
+        sl_video = /<iframe(.*)src=\"http:\/\/(stream|tv).softwarelivre.org(.*)<\/iframe>/
         unless (final_text =~ itheora_video || final_text =~ sl_video)
           final_text = final_text.gsub(/<iframe(.*)<\/iframe>/, '')
         end

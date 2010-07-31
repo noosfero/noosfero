@@ -210,3 +210,24 @@ end
 Then /^The page title should contain "(.*)"$/ do |text|
   response.should have_selector("title:contains('#{text}')")
 end
+
+Given /^the mailbox is empty$/ do
+  ActionMailer::Base.deliveries = []
+end
+
+Given /^the (.+) mail (?:is|has) (.+) (.+)$/ do |position, field, value|
+  if(/^[0-9]+$/ =~ position)
+    ActionMailer::Base.deliveries[position.to_i][field] == value
+  else
+    ActionMailer::Base.deliveries.send(position)[field] == value
+  end
+end
+
+Given /^the (.+) mail (.+) is like (.+)$/ do |position, field, regexp|
+  re = Regexp.new(regexp)
+  if(/^[0-9]+$/ =~ position)
+    re =~ ActionMailer::Base.deliveries[position.to_i][field.to_sym]
+  else
+    re =~ ActionMailer::Base.deliveries.send(position)[field.to_sym]
+  end
+end

@@ -83,4 +83,9 @@ class TinyMceArticleTest < Test::Unit::TestCase
     assert_match  /<!-- .* --> <h1> Wellformed html code <\/h1>/, article.body
   end
 
+  should 'allow iframe if it is from tv.softwarelivre.org' do
+    article = TinyMceArticle.create!(:profile => profile, :name => 'article', :abstract => 'abstract', :body => "<iframe id='player-base' src='http://tv.softwarelivre.org/embed/1170' width='482' height='406' align='right' frameborder='0' scrolling='no'></iframe>")
+    assert_tag_in_string article.body, :tag => 'iframe', :attributes => { :src => "http://tv.softwarelivre.org/embed/1170", :width => "482", :height => "406", :align => "right", :frameborder => "0", :scrolling => "no"}
+  end
+
 end

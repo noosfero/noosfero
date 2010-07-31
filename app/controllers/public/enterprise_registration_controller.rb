@@ -16,9 +16,9 @@ class EnterpriseRegistrationController < ApplicationController
         @create_enterprise.target = Profile.find(params[:create_enterprise][:target_id])
       end
     elsif @validation == :admin || @validation == :none
-        @create_enterprise.target = @create_enterprise.environment
+        @create_enterprise.target = environment
     end
-    @create_enterprise.requestor = current_user.person
+    @create_enterprise.requestor = user
     the_action =
       if request.post?
         if @create_enterprise.valid_before_selecting_target?

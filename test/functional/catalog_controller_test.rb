@@ -39,6 +39,17 @@ class CatalogControllerTest < Test::Unit::TestCase
     assert_kind_of Array, assigns(:products)
   end
 
+  should 'paginate enterprise products list' do
+    1.upto(12).map do
+      fast_create(Product, :enterprise_id => @enterprise.id)
+    end
+
+    assert_equal 12, @enterprise.products.count
+    get :index, :profile => @enterprise.identifier
+    assert_equal 10, assigns(:products).count
+    assert_tag :a, :attributes => {:class => 'next_page'}
+  end
+
   should 'not give access if environment do not let' do
     env = Environment.default
     env.enable('disable_products_for_enterprises')

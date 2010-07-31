@@ -13,6 +13,7 @@ class CreateEnterpriseTest < Test::Unit::TestCase
   
   should 'accept only numbers as foundation year' do
     task = CreateEnterprise.new
+    task.stubs(:environment).returns(Environment.default)
 
     task.foundation_year = "test"
     task.valid?
@@ -25,6 +26,7 @@ class CreateEnterpriseTest < Test::Unit::TestCase
 
   should 'require a requestor' do
     task = CreateEnterprise.new
+    task.stubs(:environment).returns(Environment.default)
     task.valid?
 
     assert task.errors.invalid?(:requestor_id)
@@ -35,6 +37,7 @@ class CreateEnterpriseTest < Test::Unit::TestCase
 
   should 'require a target (validator organization)' do
     task = CreateEnterprise.new
+    task.stubs(:environment).returns(Environment.default)
     task.valid?
 
     assert task.errors.invalid?(:target_id)
@@ -50,6 +53,7 @@ class CreateEnterpriseTest < Test::Unit::TestCase
     validator = fast_create(Organization, :name => "My organization", :identifier => 'myorg', :environment_id => environment.id)
 
     task = CreateEnterprise.new
+    task.stubs(:environment).returns(Environment.default)
 
     task.region = region
     task.target = validator
@@ -71,6 +75,7 @@ class CreateEnterpriseTest < Test::Unit::TestCase
 
   should 'require an explanation for rejecting enterprise creation' do
     task = CreateEnterprise.new
+    task.stubs(:environment).returns(Environment.default)
     task.reject_explanation = nil
 
     task.valid?
@@ -98,6 +103,8 @@ class CreateEnterpriseTest < Test::Unit::TestCase
     validator = fast_create(Organization, :name => "My organization", :identifier => 'myorg', :environment_id => environment.id)
     region.validators << validator
     person = create_user('testuser').person
+    person.environment = environment
+    person.save
 
     task = CreateEnterprise.create!({
       :name => 'My new enterprise',
@@ -132,6 +139,8 @@ class CreateEnterpriseTest < Test::Unit::TestCase
     validator = fast_create(Organization, :name => "My organization", :identifier => 'myorg', :environment_id => environment.id)
     region.validators << validator
     person = create_user('testuser').person
+    person.environment = environment
+    person.save
 
     task = CreateEnterprise.create!({
       :name => 'My new enterprise',
@@ -161,6 +170,7 @@ class CreateEnterpriseTest < Test::Unit::TestCase
 
   should 'override message methods from Task' do
     specific = CreateEnterprise.new
+    specific.stubs(:environment).returns(Environment.default)
     %w[ task_created_message task_finished_message task_cancelled_message ].each do |method|
       assert_nothing_raised NotImplementedError do
         specific.send(method)
@@ -193,7 +203,9 @@ class CreateEnterpriseTest < Test::Unit::TestCase
   end
 
   should 'provide a message to be sent to the target' do
-    assert_not_nil CreateEnterprise.new.target_notification_message
+    task = CreateEnterprise.new
+    task.stubs(:environment).returns(Environment.default)
+    assert_not_nil task.target_notification_message
   end
 
   should 'report as approved when approved' do
@@ -210,6 +222,7 @@ class CreateEnterpriseTest < Test::Unit::TestCase
 
   should 'refuse to create an enterprise creation request with an identifier already used by another profile' do
     request = CreateEnterprise.new
+    request.stubs(:environment).returns(Environment.default)
     request.identifier = 'testid'
     request.valid?
     assert !request.errors.invalid?(:identifier)

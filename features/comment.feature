@@ -57,3 +57,14 @@ Feature: comment
     When I press "Post comment"
     Then I should see "Title can't be blank"
     And I should see "Body can't be blank"
+
+  @selenium
+  Scenario: disable post comment button
+    Given I am on /booking/article-to-comment
+    And I fill in "Name" with "Joey Ramone"
+    And I fill in "e-Mail" with "joey@ramones.com"
+    And I fill in "Title" with "Hey ho, let's go!"
+    And I fill in "Enter your comment" with "Hey ho, let's go!"
+    When I press "Post comment"
+    Then the "value.Post comment" button should not be enabled
+    And I should see "Hey ho, let's go"

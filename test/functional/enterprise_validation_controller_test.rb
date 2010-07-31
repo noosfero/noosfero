@@ -74,6 +74,7 @@ class EnterpriseValidationControllerTest < Test::Unit::TestCase
 
   should 'require the user to fill in the explanation for an rejection' do
     validation = CreateEnterprise.new
+    validation.stubs(:environment).returns(Environment.default)
     @org.expects(:find_pending_validation).with('kakakaka').returns(validation)
 
     # FIXME: this is not working, but should. Anyway the assert_response and
