@@ -18,7 +18,7 @@ class PeopleBlock < ProfileListBlock
 
   class Finder < ProfileListBlock::Finder
     def ids
-      block.owner.people.visible.all(:limit => block.limit, :order => 'random()').map(&:id)
+      block.owner.people.visible.all(:limit => block.limit, :order => Noosfero::SQL.random_function).map(&:id)
     end
   end
 

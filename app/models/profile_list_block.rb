@@ -42,7 +42,7 @@ class ProfileListBlock < Block
       rand(top)
     end
     def ids
-      block.owner.profiles.visible.all(:limit => block.limit, :order => 'random()').map(&:id)
+      block.owner.profiles.visible.all(:limit => block.limit, :order => Noosfero::SQL.random_function).map(&:id)
     end
   end
 
