@@ -64,6 +64,7 @@ h2(#Description). Description
 
 h2(#RelatedTopics). Related topics
 
+*  "Spreading an article":/doc/cms/spreading-articles
 *  "Writing advanced articles":/doc/cms/writing-advanced-article
 
 "Back to top":#online-doc-text

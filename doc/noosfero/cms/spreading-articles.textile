@@ -1,0 +1,34 @@
+h1(order-305). Spreading articles
+
+p.  _With an article already created, you can spread it in the communities that you participate._
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+*  "Related Topics":#RelatedTopics
+
+h2(#HowAccess). How to access
+To spread your articles there are two options that you can follow:
+
+* Through the Content Manager
+*# Find your menu on top bar:  !=/images/doc/system-homepage-top-menu.en.png(Top menu)!
+*# In user menu, click on Control Panel:  !=/images/doc/menu-control-panel.en.png(Control panel on menu)!
+*# Click on "Manage content":  !=/images/doc/control-panel-content-management.en.png(Manage content in control panel)!
+*# Then click on the "Spread this" button: !=/images/doc/cms-spread-article-icon.en.png(Spread article)!
+
+* Through the article's view page
+*# Access your article and press the "Spread this" button: !=/images/doc/article-bigger-spread-view.en.png(Spread article)!
+!=/images/doc/article-spread-view.en.png(Spread article)!
+
+h2(#Description). Description
+
+p. Check the communities where you want to spread your article and fill in the name that you want to spread it.
+  !=/images/doc/article-spread.en.png(Choose the communities)!
+
+p. After choosing the communities and the respective names, you just need to press "Spread this". Note that there are communities where the publication needs the moderation of the administrator.
+
+h2(#RelatedTopics). Related topics
+
+*  "Writing an article":/doc/cms/writing-article
+*  "Writing an advanced article":/doc/cms/writing-advanced-article
+
+"Back to top":#online-doc-text

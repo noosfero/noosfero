@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-04-22 19:54-0300\n"
-"PO-Revision-Date: 2010-04-22 20:23-0300\n"
+"POT-Creation-Date: 2010-08-04 13:57-0300\n"
+"PO-Revision-Date: 2010-08-04 13:26-0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -30,6 +30,7 @@ msgstr "<em>Você pode ter um blog e publicar posts nele.</em>"
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:6
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:6
 #: doc/noosfero/cms/managing-content.en.xhtml:10
+#: doc/noosfero/cms/spreading-articles.en.xhtml:6
 #: doc/noosfero/cms/creating-blog.en.xhtml:6
 #: doc/noosfero/cms/writing-article.en.xhtml:6
 #: doc/noosfero/community/editing-header-footer.en.xhtml:6
@@ -76,6 +77,7 @@ msgstr "<a href=\"#HowAccess\">Como acessar</a>"
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:7
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:7
 #: doc/noosfero/cms/managing-content.en.xhtml:11
+#: doc/noosfero/cms/spreading-articles.en.xhtml:7
 #: doc/noosfero/cms/creating-blog.en.xhtml:7
 #: doc/noosfero/cms/writing-article.en.xhtml:7
 #: doc/noosfero/community/editing-header-footer.en.xhtml:7
@@ -157,6 +159,7 @@ msgstr "<a href=\"#RelatedTopics\">Tópicos relacionados</a>"
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:11
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:16
 #: doc/noosfero/cms/managing-content.en.xhtml:15
+#: doc/noosfero/cms/spreading-articles.en.xhtml:11
 #: doc/noosfero/cms/creating-blog.en.xhtml:11
 #: doc/noosfero/cms/writing-article.en.xhtml:11
 #: doc/noosfero/community/editing-header-footer.en.xhtml:11
@@ -218,6 +221,7 @@ msgstr ""
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:15
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:15
 #: doc/noosfero/cms/managing-content.en.xhtml:18
+#: doc/noosfero/cms/spreading-articles.en.xhtml:17
 #: doc/noosfero/cms/creating-blog.en.xhtml:14
 #: doc/noosfero/cms/writing-article.en.xhtml:14
 #: doc/noosfero/community/editing-header-footer.en.xhtml:14
@@ -251,6 +255,7 @@ msgstr "Menu superior"
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:16
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:16
 #: doc/noosfero/cms/managing-content.en.xhtml:19
+#: doc/noosfero/cms/spreading-articles.en.xhtml:18
 #: doc/noosfero/cms/creating-blog.en.xhtml:15
 #: doc/noosfero/cms/writing-article.en.xhtml:15
 #: doc/noosfero/community/editing-header-footer.en.xhtml:15
@@ -280,6 +285,7 @@ msgstr "No menu de usuário, clique em Painel de Controle:"
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:16
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:16
 #: doc/noosfero/cms/managing-content.en.xhtml:19
+#: doc/noosfero/cms/spreading-articles.en.xhtml:18
 #: doc/noosfero/cms/creating-blog.en.xhtml:15
 #: doc/noosfero/cms/writing-article.en.xhtml:15
 #: doc/noosfero/community/editing-header-footer.en.xhtml:15
@@ -317,6 +323,7 @@ msgstr "Depois, clique em &#8220;Gerenciar conteúdo&#8221;"
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:17
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:17
 #: doc/noosfero/cms/managing-content.en.xhtml:20
+#: doc/noosfero/cms/spreading-articles.en.xhtml:19
 #: doc/noosfero/cms/writing-article.en.xhtml:16
 msgid "Manage content in control panel"
 msgstr "Manage content in control panel"
@@ -326,6 +333,7 @@ msgstr "Manage content in control panel"
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:20
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:20
 #: doc/noosfero/cms/managing-content.en.xhtml:23
+#: doc/noosfero/cms/spreading-articles.en.xhtml:32
 #: doc/noosfero/cms/creating-blog.en.xhtml:19
 #: doc/noosfero/cms/writing-article.en.xhtml:19
 #: doc/noosfero/community/editing-header-footer.en.xhtml:21
@@ -401,6 +409,7 @@ msgstr ""
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:28
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:73
 #: doc/noosfero/cms/managing-content.en.xhtml:58
+#: doc/noosfero/cms/spreading-articles.en.xhtml:39
 #: doc/noosfero/cms/creating-blog.en.xhtml:35
 #: doc/noosfero/cms/writing-article.en.xhtml:79
 #: doc/noosfero/community/editing-header-footer.en.xhtml:59
@@ -441,24 +450,25 @@ msgstr "Tópicos relacionados"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:31
-#: doc/noosfero/cms/toc.en.xhtml:5
+#: doc/noosfero/cms/toc.en.xhtml:6
 msgid "<a href=\"/doc/cms/creating-blog\">Creating a blog</a>"
 msgstr "<a href=\"/doc/cms/creating-blog\">Criar um blog</a>"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:32
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:31
-#: doc/noosfero/cms/creating-blog.en.xhtml:38 doc/noosfero/cms/toc.en.xhtml:8
+#: doc/noosfero/cms/creating-blog.en.xhtml:38 doc/noosfero/cms/toc.en.xhtml:9
 msgid "<a href=\"/doc/cms/managing-content\">Managing your content</a>"
 msgstr "<a href=\"/doc/cms/managing-content\">Gerenciar seu conteúdo</a>"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:35
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:34
-#: doc/noosfero/cms/writing-advanced-article.en.xhtml:79
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:80
 #: doc/noosfero/cms/managing-content.en.xhtml:64
+#: doc/noosfero/cms/spreading-articles.en.xhtml:46
 #: doc/noosfero/cms/creating-blog.en.xhtml:42
-#: doc/noosfero/cms/writing-article.en.xhtml:85
+#: doc/noosfero/cms/writing-article.en.xhtml:86
 #: doc/noosfero/community/editing-header-footer.en.xhtml:66
 #: doc/noosfero/community/editing-appearance.en.xhtml:42
 #: doc/noosfero/community/creating-community.en.xhtml:40
@@ -840,10 +850,18 @@ msgstr ""
 
 # type: Content of: <ul><li>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:76
+#: doc/noosfero/cms/writing-article.en.xhtml:82
+#, fuzzy
+msgid "<a href=\"/doc/cms/spreading-articles\">Spreading an article</a>"
+msgstr "<a href=\"/doc/cms/writing-article\">Divulgando um artigo</a>"
+
+# type: Content of: <ul><li>
+#: doc/noosfero/cms/writing-advanced-article.en.xhtml:77
 #: doc/noosfero/cms/managing-content.en.xhtml:61
+#: doc/noosfero/cms/spreading-articles.en.xhtml:42
 #: doc/noosfero/cms/toc.en.xhtml:3
 msgid "<a href=\"/doc/cms/writing-article\">Writing an article</a>"
-msgstr "<a href=\"/doc/cms/writing-article\">Escrever um artigo</a>"
+msgstr "<a href=\"/doc/cms/writing-article\">Escrevendo um artigo</a>"
 
 # type: Content of: <h1>
 #: doc/noosfero/cms/managing-content.en.xhtml:1
@@ -881,6 +899,7 @@ msgstr ""
 
 # type: Content of: <ol><li>
 #: doc/noosfero/cms/managing-content.en.xhtml:18
+#: doc/noosfero/cms/spreading-articles.en.xhtml:17
 #: doc/noosfero/cms/creating-blog.en.xhtml:14
 #: doc/noosfero/cms/writing-article.en.xhtml:14
 msgid "Find your menu on top bar:"
@@ -1034,6 +1053,106 @@ msgid "<strong>Delete:</strong> Delete the article"
 msgstr "<strong>Remover:</strong> Apaga o artigo."
 
 # type: Content of: <h1>
+#: doc/noosfero/cms/spreading-articles.en.xhtml:1
+msgid "Spreading articles"
+msgstr "Divulgando artigos"
+
+# type: Content of: <p>
+#: doc/noosfero/cms/spreading-articles.en.xhtml:3
+msgid ""
+"<em>With an article already created, you can spread it in the communities "
+"that you participate.</em>"
+msgstr ""
+"<em>Com um artigo já criado, você pode divulga-lo nas comunidades que você "
+"participa.</em>"
+
+# type: Content of: <ul><li>
+#: doc/noosfero/cms/spreading-articles.en.xhtml:8
+#: doc/noosfero/community/joining-community.en.xhtml:8
+#: doc/noosfero/user/logout.en.xhtml:8
+#: doc/noosfero/user/removing-friends.en.xhtml:8
+#: doc/noosfero/user/sending-messages.en.xhtml:8
+#: doc/noosfero/user/removing-comments.en.xhtml:8
+#: doc/noosfero/user/accepting-friends.en.xhtml:8
+#: doc/noosfero/user/commenting.en.xhtml:10
+#: doc/noosfero/user/adding-friends.en.xhtml:8
+#: doc/noosfero/user/registering-new-user.en.xhtml:8
+#: doc/noosfero/user/login.en.xhtml:8
+#: doc/noosfero/enterprise/activating-enterprise.en.xhtml:10
+msgid "<a href=\"#RelatedTopics\">Related Topics</a>"
+msgstr "<a href=\"#RelatedTopics\">Tópicos Relacionados</a>"
+
+# type: Content of: outside any tag (error?)
+#: doc/noosfero/cms/spreading-articles.en.xhtml:12
+msgid "To spread your articles there are two options that you can follow:"
+msgstr "Para divulgar seus articles existem duas opções que você pode serguir:"
+
+# type: Content of: <h1>
+#: doc/noosfero/cms/spreading-articles.en.xhtml:15
+msgid "Through the Content Manager"
+msgstr "Através do Gerenciador de Conteúdo"
+
+# type: Content of: <ol><li>
+#: doc/noosfero/cms/spreading-articles.en.xhtml:19
+msgid "Click on &#8220;Manage content&#8221;:"
+msgstr "Clique em &#8220;Gerenciar conteúdo&#8221;:"
+
+# type: Content of: <ol><li>
+#: doc/noosfero/cms/spreading-articles.en.xhtml:20
+msgid "Then click on the &#8220;Spread this&#8221; button:"
+msgstr "Então clique no botão &#8220;Divulgar&#8221;:"
+
+# type: Attribute 'alt' of: <ol><li><p><img>
+#: doc/noosfero/cms/spreading-articles.en.xhtml:20
+#: doc/noosfero/cms/spreading-articles.en.xhtml:27
+#: doc/noosfero/cms/spreading-articles.en.xhtml:28
+msgid "Spread article"
+msgstr "Divulgar artigo"
+
+# type: Content of: <ol><li>
+#: doc/noosfero/cms/spreading-articles.en.xhtml:25
+msgid "Through the article&#8217;s view page"
+msgstr "Através da página de visualização do artigo"
+
+# type: Content of: <ol><li>
+#: doc/noosfero/cms/spreading-articles.en.xhtml:27
+msgid "Access your article and press the &#8220;Spread this&#8221; button:"
+msgstr "Acesse o seu artigo e pressione o botão &#8220;Divulgar&#8221;:"
+
+# type: Content of: <p>
+#: doc/noosfero/cms/spreading-articles.en.xhtml:34
+msgid ""
+"Check the communities where you want to spread your article and fill in the "
+"name that you want to spread it."
+msgstr ""
+"Marque as comunidades nas quais você quer divulgar o seu artigo e preencha o "
+"nome com o qual você quer divulga-lo."
+
+# type: Attribute 'alt' of: <div><img>
+#: doc/noosfero/cms/spreading-articles.en.xhtml:35
+msgid "Choose the communities"
+msgstr "Escolha as comunidades"
+
+# type: Content of: <p>
+#: doc/noosfero/cms/spreading-articles.en.xhtml:37
+msgid ""
+"After choosing the communities and the respective names, you just need to "
+"press &#8220;Spread this&#8221;. Note that there are communities where the "
+"publication needs the moderation of the administrator."
+msgstr ""
+"Depois de escolher as comunidades e os respectivos nomes, você só precisa "
+"apertar &#8220;Divulgar&#8221;. Note que existem comunidades onde a "
+"publicação necessita de moderação do administrador."
+
+# type: Content of: <ul><li>
+#: doc/noosfero/cms/spreading-articles.en.xhtml:43
+msgid ""
+"<a href=\"/doc/cms/writing-advanced-article\">Writing an advanced article</a>"
+msgstr ""
+"<a href=\"/doc/cms/writing-advanced-article\">Escrever um artigo avançado "
+"(inserindo links e imagens)</a>"
+
+# type: Content of: <h1>
 #: doc/noosfero/cms/creating-blog.en.xhtml:1
 msgid "Creating a blog"
 msgstr "Criar um blog"
@@ -1121,7 +1240,7 @@ msgid "Fill in with the blog&#8217;s tags."
 msgstr "Preencha com as tags do blog."
 
 # type: Content of: <ul><li>
-#: doc/noosfero/cms/creating-blog.en.xhtml:39 doc/noosfero/cms/toc.en.xhtml:6
+#: doc/noosfero/cms/creating-blog.en.xhtml:39 doc/noosfero/cms/toc.en.xhtml:7
 msgid "<a href=\"/doc/cms/posting-on-blog\">Posting on blog</a>"
 msgstr "<a href=\"/doc/cms/posting-on-blog\">Postar no blog</a>"
 
@@ -1657,7 +1776,7 @@ msgstr ""
 "criado."
 
 # type: Content of: <ul><li>
-#: doc/noosfero/cms/writing-article.en.xhtml:82
+#: doc/noosfero/cms/writing-article.en.xhtml:83
 msgid ""
 "<a href=\"/doc/cms/writing-advanced-article\">Writing advanced articles</a>"
 msgstr ""
@@ -2857,21 +2976,6 @@ msgstr ""
 "<em>Você pode fazer parte de uma comunidade e interagir com os outros "
 "integrantes dela. Para isso você pode entrar na comunidade, como explicado a "
 "seguir.</em>"
-
-# type: Content of: <ul><li>
-#: doc/noosfero/community/joining-community.en.xhtml:8
-#: doc/noosfero/user/logout.en.xhtml:8
-#: doc/noosfero/user/removing-friends.en.xhtml:8
-#: doc/noosfero/user/sending-messages.en.xhtml:8
-#: doc/noosfero/user/removing-comments.en.xhtml:8
-#: doc/noosfero/user/accepting-friends.en.xhtml:8
-#: doc/noosfero/user/commenting.en.xhtml:10
-#: doc/noosfero/user/adding-friends.en.xhtml:8
-#: doc/noosfero/user/registering-new-user.en.xhtml:8
-#: doc/noosfero/user/login.en.xhtml:8
-#: doc/noosfero/enterprise/activating-enterprise.en.xhtml:10
-msgid "<a href=\"#RelatedTopics\">Related Topics</a>"
-msgstr "<a href=\"#RelatedTopics\">Tópicos Relacionados</a>"
 
 # type: Content of: <p>
 #: doc/noosfero/community/joining-community.en.xhtml:13
@@ -5034,13 +5138,18 @@ msgstr "<a href=\"/doc/navigation/searching-people\">Encontrarpessoas</a>"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/cms/toc.en.xhtml:4
+msgid "<a href=\"/doc/cms/spreading-articles\">Spreading articles</a>"
+msgstr "<a href=\"/doc/cms/spreading-articles\">Divulgando artigos</a>"
+
+# type: Content of: <ul><li>
+#: doc/noosfero/cms/toc.en.xhtml:5
 msgid ""
 "<a href=\"/doc/cms/adding-images-to-gallery\">Adding pictures to gallery</a>"
 msgstr ""
 "<a href=\"/doc/cms/adding-images-to-gallery\">Adicionar imagens à galeria</a>"
 
 # type: Content of: <ul><li>
-#: doc/noosfero/cms/toc.en.xhtml:7
+#: doc/noosfero/cms/toc.en.xhtml:8
 msgid ""
 "<a href=\"/doc/cms/writing-advanced-article\">Writing an advanced article "
 "(inserting images, links, videos and audio)</a>"
@@ -5069,7 +5178,8 @@ msgstr "<a href=\"/doc/community/moderating-articles\">Moderar artigos</a>"
 # type: Content of: <ul><li>
 #: doc/noosfero/community/toc.en.xhtml:9
 msgid "<a href=\"/doc/community/editing-sideboxes\">Editing sideboxes</a>"
-msgstr "<a href=\"/doc/community/editing-sideboxes\">Editar blocos laterais</a>"
+msgstr ""
+"<a href=\"/doc/community/editing-sideboxes\">Editar blocos laterais</a>"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/user/toc.en.xhtml:5
@@ -5165,6 +5275,10 @@ msgstr "<a href=\"/doc/enterprise\">Funcionalidades do empreendimento</a>"
 #: doc/noosfero/toc.en.xhtml:7
 msgid "<a href=\"/doc/navigation\">Navigation</a>"
 msgstr "<a href=\"/doc/navigation\">Navegação</a>"
+
+# type: Content of: <p>
+#~ msgid "Or"
+#~ msgstr "Ou"
 
 # type: Content of: <ul><li>
 #~ msgid "<a href=\"/doc/admin\">Administration</a>"
