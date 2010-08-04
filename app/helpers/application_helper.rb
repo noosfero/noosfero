@@ -371,6 +371,24 @@ module ApplicationHelper
     nil
   end
 
+  def theme_favicon
+    return '/designs/themes/' + current_theme + '/favicon.ico' if profile.nil? || profile.theme.nil?
+    if File.exists?(File.join(RAILS_ROOT, 'public', theme_path, 'favicon.ico'))
+      '/designs/themes/' + profile.theme + '/favicon.ico'
+    else
+      favicon = profile.articles.find_by_path('favicon.ico')
+      if favicon
+        favicon.public_filename
+      else
+        '/designs/themes/' + environment.theme + '/favicon.ico'
+      end
+    end
+  end
+
+  def theme_site_title
+    theme_include('site_title')
+  end
+
   def theme_header
     theme_include('header')
   end

@@ -6,7 +6,7 @@
     <!--<meta http-equiv="refresh" content="1"/>-->
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="description" content="<%= @environment.name %>" />
-    <link rel="shortcut icon" href="<%= image_path('/designs/themes/' + current_theme + '/favicon.ico') %>" type="image/x-icon" />
+    <link rel="shortcut icon" href="<%= image_path(theme_favicon) %>" type="image/x-icon" />
     <%= noosfero_javascript %>
     <%= stylesheet_link_tag noosfero_stylesheets, :cache => 'cache' %>
     <%= stylesheet_link_tag template_stylesheet_path %>
@@ -73,7 +73,7 @@
         </div><!-- end id="user" -->
 
         <h1 id="site-title">
-          <%= link_to content_tag('span', environment.name), environment.top_url %>
+          <%= theme_site_title %>
         </h1>
         <div id="navigation">
           <ul>

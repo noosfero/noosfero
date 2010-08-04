@@ -154,6 +154,28 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_nil theme_footer
   end
 
+  should 'render theme site title' do
+    stubs(:theme_path).returns('/user_themes/mytheme')
+    site_title_path = RAILS_ROOT + '/public/user_themes/mytheme/site_title.rhtml'
+
+    File.expects(:exists?).with(site_title_path).returns(true)
+    expects(:render).with(:file => site_title_path, :use_full_path => false).returns("Site title")
+
+    assert_equal "Site title", theme_site_title
+  end
+
+  should 'ignore unexisting theme site title' do
+    stubs(:theme_path).returns('/user_themes/mytheme')
+    site_title_path = RAILS_ROOT + '/public/user_themes/mytheme/site_title.rhtml'
+    alternate_site_title_path = RAILS_ROOT + '/public/user_themes/mytheme/site_title.html.erb'
+
+    File.expects(:exists?).with(site_title_path).returns(false)
+    File.expects(:exists?).with(alternate_site_title_path).returns(false)
+    expects(:render).with(:file => site_title_path).never
+
+    assert_nil theme_site_title
+  end
+
   should 'expose theme owner' do
     theme = mock
     profile = mock
@@ -619,6 +641,40 @@ class ApplicationHelperTest < Test::Unit::TestCase
     stubs(:catalog_path)
     links = links_for_balloon(enterprise)
     assert_equal ['Home Page', 'Products', 'Members', 'Agenda'], links.map{|i| i.keys.first}
+  end
+
+  should 'use favicon from environment theme if does not have profile' do
+    stubs(:environment).returns(fast_create(Environment, :theme => 'new-theme'))
+    stubs(:profile).returns(nil)
+    assert_equal '/designs/themes/new-theme/favicon.ico', theme_favicon
+  end
+
+  should 'use favicon from environment theme if the profile theme is nil' do
+    stubs(:environment).returns(fast_create(Environment, :theme => 'new-theme'))
+    stubs(:profile).returns(fast_create(Profile))
+    assert_equal '/designs/themes/new-theme/favicon.ico', theme_favicon
+  end
+
+  should 'use favicon from profile theme if the profile has theme' do
+    stubs(:environment).returns(fast_create(Environment, :theme => 'new-theme'))
+    stubs(:profile).returns(fast_create(Profile, :theme => 'profile-theme'))
+    File.expects(:exists?).with(File.join(RAILS_ROOT, 'public', '/designs/themes/profile-theme', 'favicon.ico')).returns(true)
+    assert_equal '/designs/themes/profile-theme/favicon.ico', theme_favicon
+  end
+
+  should 'use favicon from profile articles if the profile theme does not have' do
+    stubs(:environment).returns(fast_create(Environment, :theme => 'new-theme'))
+    stubs(:profile).returns(fast_create(Profile, :theme => 'profile-theme'))
+    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/favicon.ico', 'image/png'), :profile => profile)
+    File.expects(:exists?).with(File.join(RAILS_ROOT, 'public', theme_path, 'favicon.ico')).returns(false)
+    assert_equal file.public_filename, theme_favicon
+  end
+
+  should 'use favicon from environment if the profile theme and profile articles do not have' do
+    stubs(:environment).returns(fast_create(Environment, :theme => 'new-theme'))
+    stubs(:profile).returns(fast_create(Profile, :theme => 'profile-theme'))
+    File.expects(:exists?).with(File.join(RAILS_ROOT, 'public', theme_path, 'favicon.ico')).returns(false)
+    assert_equal '/designs/themes/new-theme/favicon.ico', theme_favicon
   end
 
   protected

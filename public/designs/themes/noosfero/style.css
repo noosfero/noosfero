@@ -1,10 +1,7 @@
 @import url(../base/style.css);
 
-#site-title {
-  background: url(images/logo-noosfero.png) no-repeat;
-}
-
-.docSize-LT-800 #site-title {
-  width: 100px;
-  background: url(images/logo-noosfero-no-text.png) no-repeat;
+#site-title img {
+  left:-22px;
+  position:absolute;
+  top:-30px;
 }

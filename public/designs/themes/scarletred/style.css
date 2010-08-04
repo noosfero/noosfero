@@ -1,0 +1,221 @@
+@import url(../base/style.css);
+
+head {
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  margin: 0px auto;
+  padding: 0px;
+}
+
+#wrap-1 {
+  position: relative;
+}
+
+#wrap-2 {
+  margin-top: -4px;
+  padding-bottom: 0px;
+}
+
+#navigation,
+#navigation-end {
+  display: none;
+}
+
+#theme-header {
+  height: 30px;
+}
+
+/************************** user bar ***************************/
+
+#user {
+  top: -23px;
+  right: 10px;
+  height: 20px;
+}
+
+#user a,
+#user a strong {
+  color: #A40000;
+}
+
+/************************** navigation ***************************/
+
+#navigation {
+  background: none;
+}
+
+/************************** content ***************************/
+
+#content {
+  margin-top: 0px;
+}
+
+#boxes {
+  margin-top: 20px;
+}
+
+#profile-header {
+  margin: -10px;
+  margin-bottom: 0px;
+  width: 958px;
+  max-width: none;
+  max-height: none;
+}
+
+#profile-footer {
+  margin-left: -10px;
+  width: 958px;
+  max-width: none;
+}
+
+#content .block-title,
+#content .main-block h1, #not-found h1, #access-denied h1 {
+  border-bottom:2px solid #A40000;
+  color: #A40000;
+}
+
+.profile-image-block p {
+  color: #A40000;
+}
+
+.block a {
+  color: #A40000;
+}
+
+.block a:visited {
+  color: #CC0000;
+}
+
+.control-panel a,
+.control-panel a:visited {
+  color: #000;
+}
+
+.controller-profile_editor .control-panel a:hover {
+  background-color: #A40000;
+  color: #FFF;
+}
+
+#content .link-list-block li a:hover {
+  background-color: #A40000;
+}
+
+#content .link-list-block li a.link-this-page {
+  background-color: #CC0000;
+  border-right:2px solid #A40000;
+}
+
+.template-rightbar #content .link-list-block li a.link-this-page,
+#content .box-3 .link-list-block li a.link-this-page {
+  border-left: 2px solid #A40000;
+  border-right: none;
+  margin-left: -5px;
+  margin-right: 0px;
+  max-width: 170px;
+  -moz-border-radius-bottomleft: 0;
+  -moz-border-radius-topleft: 0;
+  -moz-border-radius-bottomright: 4px;
+  -moz-border-radius-topright: 4px;
+  -webkit-border-radius-bottomleft: 0;
+  -webkit-border-radius-topleft: 0;
+  -webkit-border-radius-bottomright: 4px;
+  -webkit-border-radius-topright: 4px;
+}
+
+/************** blog **************/
+
+#content .blog-posts {
+  margin-top: 30px;
+}
+
+#content .blog-post .title a:hover {
+  color: #A40000;
+}
+
+#article .blog-feed-link {
+  position: absolute;
+  right: 0px;
+  top: 28px;
+}
+
+#article-tags {
+  margin-right: 30px;
+}
+
+/************** environment bar **************/
+
+#site-title {
+  position: absolute;
+  left: 10px;
+  top: -27px;
+  height: 40px;
+  width: 264px;
+}
+
+#site-title a {
+  display: block;
+  top: 0px;
+  height: 20px;
+}
+
+#assets-menu {
+  display: none;
+  position: absolute;
+  top: 26px;
+  left: 56px;
+  min-width: 140px;
+  z-index: 10;
+  border: 1px solid #D3D7CF;
+  border-top: none;
+  background: #EEE;
+  padding: 0px 4px 6px 4px;
+  -moz-border-radius-bottomleft: 10px;
+  -moz-border-radius-bottomright: 10px;
+  -webkit-border-radius-bottomleft: 10px;
+  -webkit-border-radius-bottomright: 10px;
+  border-radius-bottomleft: 10px;
+  border-radius-bottomright: 10px;
+}
+
+#assets-menu ul,
+#assets-menu li {
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+}
+
+#assets-menu a {
+  text-decoration: none;
+  display: block;
+  padding: 2px 4px 2px 8px;
+  color: #555;
+  border: 1px solid #EEE;
+}
+
+#assets-menu a:hover {
+  background: #FBFBFB;
+  border: 1px solid #F6F6F6;
+  color: #000;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+
+/**************************** Comments *******************************/
+
+#content .comments h3 {
+  color: #A40000;
+  border-bottom: 2px solid #A40000;
+}
+
+.post_comment_box h4 {
+  background-color: #A40000;
+  color: #FFF;
+}
+
+.post_comment_box.closed h4 {
+  border: none;
+}
