@@ -72,7 +72,7 @@
     <tr>
       <td>
         <%= image_tag(icon_for_article(item)) %>
-        <%= link_to short_filename(item.name,30), :action => 'edit', :id => item.id %>
+        <%= link_to short_filename(item.name,30), item.url %>
       </td>
       <td>
         <%= item.class.short_description %>
