@@ -338,4 +338,12 @@ module Noosfero::Factory
     { }
   end
 
+  ###############################################
+  # Contact
+  ###############################################
+
+  def defaults_for_contact
+    { :subject => 'hello there', :message => 'here I come to SPAM you' }
+  end
+
 end

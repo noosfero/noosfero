@@ -17,6 +17,9 @@
 
 <%= url_for(:host => @default_hostname, :controller => 'tasks', :profile => organization.identifier) %>
 <% end %>
+
+<%= _('Greetings,') %>
+
 --
-<%= _('%s environment system') % @environment %>
+<%= _('%s team.') % @environment %>
 <%= @url %>

@@ -1,7 +1,9 @@
 <%= _('Dear %s,') % @requestor %>
 
-<%= @message %>
+<%= word_wrap(@message) %>
+
+<%= _('Greetings,') %>
 
 --
-<%= _('%s environment system') % @environment %>
+<%= _('%s team.') % @environment %>
 <%= @url %>
