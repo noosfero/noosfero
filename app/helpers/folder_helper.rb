@@ -1,5 +1,7 @@
 module FolderHelper
 
+  include ShortFilename
+
   def list_articles(articles, recursive = false)
     if !articles.blank?
       content_tag(
