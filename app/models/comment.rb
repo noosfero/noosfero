@@ -81,6 +81,8 @@ class Comment < ActiveRecord::Base
         :sender_link => comment.author_link,
         :article_title => comment.article.name,
         :comment_url => comment.url,
+        :comment_title => comment.title,
+        :comment_body => comment.body,
         :environment => profile.environment.name,
         :url => profile.environment.top_url
     end

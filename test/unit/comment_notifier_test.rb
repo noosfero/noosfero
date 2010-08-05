@@ -44,6 +44,18 @@ class CommentNotifierTest < Test::Unit::TestCase
     end
   end
 
+  should 'include comment title in the e-mail' do
+    @article.comments << Comment.new(:author => @profile, :title => 'comment title', :body => 'comment title')
+    sent = ActionMailer::Base.deliveries.first
+    assert_match /comment title/, sent.body
+  end
+
+  should 'include comment text in the e-mail' do
+    @article.comments << Comment.new(:author => @profile, :title => 'comment title', :body => 'comment body')
+    sent = ActionMailer::Base.deliveries.first
+    assert_match /comment body/, sent.body
+  end
+
   private
 
     def read_fixture(action)

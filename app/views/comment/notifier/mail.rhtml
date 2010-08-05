@@ -2,9 +2,18 @@
 
 <%= word_wrap(_('%{sender} (%{sender_link}) created a new comment on your article "%{article_title}".') % { :sender => @sender, :sender_link => url_for(@sender_link), :article_title => @article_title }) %>
 
+<%= word_wrap(_('Title: %s') % @comment_title) %>
+
+<%= _("Comment:") %>
+-------------------------------------------------------------------------------
+<%= word_wrap(@comment_body) %>
+-------------------------------------------------------------------------------
+
 <%= _('Access the address below to view this comment:') %>
 <%= url_for @comment_url %>
 
+<%= _("Greetings,") %>
+
 --
-<%= _('%s environment system') % @environment %>
+<%= _('%s team.') % @environment %>
 <%= url_for @url %>
