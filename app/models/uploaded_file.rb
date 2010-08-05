@@ -4,9 +4,11 @@
 # of the file itself is kept. (FIXME?)
 class UploadedFile < Article
 
+  include Noosfero::Filenames
+
   settings_items :title, :type => 'string'
   def title_with_default
-    title_without_default || name
+    title_without_default || short_filename(name, 60)
   end
   alias_method_chain :title, :default
 
