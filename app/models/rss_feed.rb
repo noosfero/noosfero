@@ -14,6 +14,14 @@ class RssFeed < Article
   end
   alias :settings :body
 
+  def feed_item_description
+    self.body[:feed_item_description]
+  end
+
+  def feed_item_description=(feed_item_description)
+    self.body[:feed_item_description] = feed_item_description
+  end
+
   # The maximum number of articles to be displayed in the RSS feed. Default: 10
   def limit
     settings[:limit] || 10

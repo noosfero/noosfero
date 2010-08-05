@@ -194,6 +194,14 @@ class CmsControllerTest < Test::Unit::TestCase
     end
   end
 
+  should 'be able to acess Rss feed creation page' do
+    login_as(profile.identifier)
+    assert_nothing_raised do
+      post :new, :type => "RssFeed", :profile => profile.identifier
+    end
+    assert_response 200
+  end
+
   should 'be able to create a RSS feed' do
     login_as(profile.identifier)
     assert_difference RssFeed, :count do
