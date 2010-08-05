@@ -150,4 +150,10 @@ class UploadedFileTest < Test::Unit::TestCase
     assert_equal 'test.txt', upload.title
   end
 
+  should 'use name as title by default but cut down the title' do
+    upload = UploadedFile.new(:uploaded_data => fixture_file_upload('/files/AGENDA_CULTURA_-_FESTA_DE_VAQUEIROS_PONTO_DE_SERRA_PRETA_BAIXA.txt'))
+    upload.valid?
+    assert_nil upload.errors[:title]
+  end
+
 end
