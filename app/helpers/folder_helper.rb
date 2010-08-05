@@ -1,7 +1,5 @@
 module FolderHelper
 
-  include Noosfero::Filenames
-
   def list_articles(articles, recursive = false)
     if !articles.blank?
       content_tag(
