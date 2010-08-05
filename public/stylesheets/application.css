@@ -2421,6 +2421,11 @@ div#activation_enterprise div {
   background-image: url('/designs/icons/default/go-right-disabled-HC.gif');
 }
 
+.controller-account .no-boxes {
+  margin-left: 200px;
+  margin-right: 200px;
+}
+
 /* ==> public/stylesheets/controller_admin_panel.css <== */
 .controller-admin_panel #available-folders select {
   width: 50%;

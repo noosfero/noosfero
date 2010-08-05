@@ -1,5 +1,7 @@
 class AccountController < ApplicationController
 
+  no_design_blocks
+
   inverse_captcha :field => 'e_mail'
 
   require_ssl :except => [ :login_popup, :logout_popup, :wizard, :profile_details ]
