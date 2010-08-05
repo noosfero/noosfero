@@ -34,9 +34,9 @@ class FeaturesController < AdminController
   def manage_enterprise_fields
     environment.custom_enterprise_fields = params[:enterprise_fields]
     if environment.save!
-      flash[:notice] = _('Enterprise fields updated successfully.')
+      flash[:notice] = __('Enterprise fields updated successfully.')
     else
-      flash[:error] = _('Enterprise fields not updated successfully.')
+      flash[:error] = __('Enterprise fields not updated successfully.')
     end
     redirect_to :action => 'manage_fields'
   end

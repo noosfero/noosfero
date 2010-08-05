@@ -5,7 +5,7 @@ class SellersSearchBlock < Block
   end
 
   def self.short_description
-    _('Products/Enterprises search')
+    __('Products/Enterprises search')
   end
 
   def default_title

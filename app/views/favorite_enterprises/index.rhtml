@@ -1,6 +1,6 @@
 <div id="manage_favorite_enterprises">
 
-<h1><%= _("%s's favorite enteprises") % profile.name %></h1>
+<h1><%= __("%s's favorite enterprises") % profile.name %></h1>
 
 <ul class="profile-list">
 <% @favorite_enterprises.each do |enterprise| %>
@@ -21,7 +21,7 @@
 <% if @favorite_enterprises.empty? %>
 <p>
 <em>
-  <%= _('You have no favorite enteprises yet.') %>
+  <%= __('You have no favorite enterprises yet.') %>
 </em>
 </p>
 <% end %>

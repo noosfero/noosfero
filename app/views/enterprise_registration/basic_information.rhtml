@@ -1,11 +1,11 @@
 <%= error_messages_for 'create_enterprise' %>
 
-<h1><%= _('Enterprise registration') %></h1>
+<h1><%= __('Enterprise registration') %></h1>
 
 
 <% if @validation == :region && @regions.empty? %>
   <div class='atention'>
-    <%= _('There are no validators to validate the registration of this new enterprise. Contact your administrator for instructions.') %>
+    <%= __('There are no validators to validate the registration of this new enterprise. Contact your administrator for instructions.') %>
   </div>
 
   <% button_bar do %>
@@ -13,7 +13,7 @@
   <% end %>
 <% else %>
   <div class='atention'>
-    <%= _('To register a new enterprise, fill in the form and hit the Register button. Then the enterprise will be submitted for evaluation at the validation entitiy of your choice (within your state) and when the enterprise is aproved you will be able to activate its profile.')  %>
+    <%= __('To register a new enterprise, fill in the form and hit the Register button. Then the enterprise will be submitted for evaluation at the validation entitiy of your choice (within your state) and when the enterprise is aproved you will be able to activate its profile.')  %>
   </div>
 
   <%= required_fields_message %>

@@ -9,7 +9,7 @@ class FavoriteEnterprisesBlock < ProfileListBlock
   end
 
   def self.description
-    __('Favorite enterprises')
+    __('Favorite Enterprises')
   end
 
   def footer

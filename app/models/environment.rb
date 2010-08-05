@@ -80,7 +80,7 @@ class Environment < ActiveRecord::Base
       'disable_asset_communities' => __('Disable search for communities'),
       'disable_asset_products' => _('Disable search for products'),
       'disable_asset_events' => _('Disable search for events'),
-      'disable_products_for_enterprises' => _('Disable products for enterprises'),
+      'disable_products_for_enterprises' => __('Disable products for enterprises'),
       'disable_categories' => _('Disable categories'),
       'disable_cms' => _('Disable CMS'),
       'disable_header_and_footer' => _('Disable header/footer editing by users'),
@@ -89,10 +89,10 @@ class Environment < ActiveRecord::Base
       'disable_select_city_for_contact' => _('Disable state/city select for contact form'),
       'disable_contact_person' => _('Disable contact for people'),
       'disable_contact_community' => _('Disable contact for groups/communities'),
-      'enterprise_registration' => _('Enterprise registration'),
+      'enterprise_registration' => __('Enterprise registration'),
       'join_community_popup' => _('Ask users to join a group/community with a popup'),
 
-      'enterprise_activation' => _('Enable activation of enterprises'),
+      'enterprise_activation' => __('Enable activation of enterprises'),
       'wysiwyg_editor_for_environment_home' => _('Use WYSIWYG editor to edit environment home page'),
       'media_panel' => _('Media panel in WYSIWYG editor'),
       'select_preferred_domain' => _('Select preferred domains per profile'),
@@ -107,7 +107,7 @@ class Environment < ActiveRecord::Base
       'organizations_are_moderated_by_default' => _("Organizations have moderated publication by default"),
       'enable_organization_url_change' => _("Allow organizations to change their URL"),
       'admin_must_approve_new_communities' => _("Admin must approve creation of communities"),
-      'enterprises_are_disabled_when_created' => _('Enterprises are disabled when created'),
+      'enterprises_are_disabled_when_created' => __('Enterprises are disabled when created'),
     }
   end
 
