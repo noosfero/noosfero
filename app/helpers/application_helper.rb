@@ -1053,9 +1053,9 @@ module ApplicationHelper
 
   def browse_people_menu
      links = [
-       {_('More Recent') => url_for({:controller => 'browse', :action => 'people', :filter => 'more_recent'})},
-       {_('More Active') => url_for({:controller => 'browse', :action => 'people', :filter => 'more_active'})},
-       {_('More Popular') => url_for({:controller => 'browse', :action => 'people', :filter => 'more_popular'})}
+       {_('people|More Recent') => url_for({:controller => 'browse', :action => 'people', :filter => 'more_recent'})},
+       {_('people|More Active') => url_for({:controller => 'browse', :action => 'people', :filter => 'more_active'})},
+       {_('people|More Popular') => url_for({:controller => 'browse', :action => 'people', :filter => 'more_popular'})}
      ]
      if logged_in?
        links.push(_('My friends') => url_for({:profile => current_user.login, :controller => 'friends'}))
@@ -1068,9 +1068,9 @@ module ApplicationHelper
 
   def browse_communities_menu
      links = [
-       {_('More Recent') => url_for({:controller => 'browse', :action => 'communities', :filter => 'more_recent'})},
-       {_('More Active') => url_for({:controller => 'browse', :action => 'communities', :filter => 'more_active'})},
-       {_('More Popular') => url_for({:controller => 'browse', :action => 'communities', :filter => 'more_popular'})}
+       {_('communities|More Recent') => url_for({:controller => 'browse', :action => 'communities', :filter => 'more_recent'})},
+       {_('communities|More Active') => url_for({:controller => 'browse', :action => 'communities', :filter => 'more_active'})},
+       {_('communities|More Popular') => url_for({:controller => 'browse', :action => 'communities', :filter => 'more_popular'})}
      ]
      if logged_in?
        links.push(_('My communities') => url_for({:profile => current_user.login, :controller => 'memberships'}))

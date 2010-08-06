@@ -46,12 +46,12 @@ class BrowseController < PublicController
 
   def filter_description(str)
     {
-      'people_more_recent' => _('People more recent'),
-      'people_more_active' => _('People more active'),
-      'people_more_popular' => _('People more popular'),
-      'communities_more_recent' => _('Communities more recent'),
-      'communities_more_active' => _('Communities more active'),
-      'communities_more_popular' => _('Communities more popular'),
+      'people_more_recent' => _('More recent people'),
+      'people_more_active' => _('More active people'),
+      'people_more_popular' => _('More popular people'),
+      'communities_more_recent' => _('More recent communities'),  
+      'communities_more_active' => _('More active communities'),  
+      'communities_more_popular' => _('More popular communities'),
     }[str] || str
   end
 
