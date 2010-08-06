@@ -1,6 +1,6 @@
 module FolderHelper
 
-  include Noosfero::Filenames
+  include ShortFilename
 
   def list_articles(articles, recursive = false)
     if !articles.blank?

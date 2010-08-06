@@ -4,7 +4,7 @@
 # of the file itself is kept. (FIXME?)
 class UploadedFile < Article
 
-  include Noosfero::Filenames
+  include ShortFilename
 
   settings_items :title, :type => 'string'
   def title_with_default

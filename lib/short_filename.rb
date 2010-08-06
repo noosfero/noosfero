@@ -1,4 +1,4 @@
-module Noosfero::Filenames
+module ShortFilename
 
   def short_filename(filename, limit_chars = 43)
     return filename if filename.size <= limit_chars
