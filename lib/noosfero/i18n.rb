@@ -137,14 +137,14 @@ module ActionController::Caching::Fragments
     key = fragment_cache_key_without_fast_gettext(name)
     if key.is_a?(Regexp)
       self.class.benchmark "Expired fragments matching: #{key.source}" do
-        fragment_cache_store.delete_matched(key, options)
+        cache_store.delete_matched(key, options)
       end
     else
       key = key.gsub(/:/, ".")
       self.class.benchmark "Expired fragment: #{key}, lang = #{FastGettext.available_locales.inspect}" do
         if FastGettext.available_locales
           FastGettext.available_locales.each do |lang|
-            fragment_cache_store.delete("#{key}_#{lang}", options)
+            cache_store.delete("#{key}_#{lang}", options)
           end
         end
       end
