@@ -1563,6 +1563,212 @@ class ProfileTest < Test::Unit::TestCase
     assert_match  /<!-- .* --> <h1> Wellformed html code <\/h1>/, profile.custom_footer
   end
 
+  should 'find more recent people' do
+    Person.delete_all
+    p1 = fast_create(Person,:created_at => 4.days.ago)
+    p2 = fast_create(Person, :created_at => DateTime.now)
+    p3 = fast_create(Person, :created_at => 2.days.ago)
+
+    assert_equal [p2,p3,p1] , Person.more_recent
+
+    p4 = fast_create(Person, :created_at => 3.days.ago)
+    assert_equal [p2,p3,p4,p1] , Person.more_recent
+  end
+
+  should 'find more active people' do
+    Person.delete_all
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+    p3 = fast_create(Person)
+    Article.delete_all
+    fast_create(Article, :profile_id => p1, :created_at => 7.days.ago)
+    fast_create(Article, :profile_id => p1, :created_at => DateTime.now.beginning_of_day)
+    fast_create(Article, :profile_id => p2, :created_at => DateTime.now.beginning_of_day)
+    assert_equal [p1,p2] , Person.more_active
+
+    fast_create(Article, :profile_id => p2, :created_at => 1.day.ago)
+    fast_create(Article, :profile_id => p2, :created_at => 5.days.ago)
+    fast_create(Article, :profile_id => p3, :created_at => 2.days.ago)
+    assert_equal [p2,p1,p3] , Person.more_active
+  end
+
+  should 'the ties on more active people be solved by the number of comments' do
+    Person.delete_all
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+    Article.delete_all
+    a1 = fast_create(Article, :profile_id => p1, :created_at => DateTime.now.beginning_of_day)
+    a2 = fast_create(Article, :profile_id => p2, :created_at => DateTime.now.beginning_of_day)
+    assert_equal [], [p1,p2] - Person.more_active
+    assert_equal [], Person.more_active - [p1, p2]
+
+    a2.comments.build(:title => 'test comment', :body => 'anything', :author => p1).save!
+    assert_equal [p2,p1] , Person.more_active
+
+    a1.comments.build(:title => 'test comment', :body => 'anything', :author => p2).save!
+    a1.comments.build(:title => 'test comment', :body => 'anything', :author => p2).save!
+    assert_equal [p1,p2] , Person.more_active
+  end
+
+  should 'more active people take in consideration only articles created current the last week' do
+    Person.delete_all
+    env = fast_create(Environment)
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+    p3 = fast_create(Person)
+    Article.delete_all
+    fast_create(Article, :profile_id => p1, :created_at => DateTime.now.beginning_of_day)
+    fast_create(Article, :profile_id => p2, :created_at => 10.days.ago)
+    assert_equal [p1] , Person.more_active
+
+    fast_create(Article, :profile_id => p2, :created_at => DateTime.now.beginning_of_day)
+    fast_create(Article, :profile_id => p2, :created_at => 7.days.ago)
+    fast_create(Article, :profile_id => p3, :created_at => 8.days.ago)
+    assert_equal [p2,p1] , Person.more_active
+  end
+
+  should 'find more recent community' do
+    c1 = fast_create(Community, :created_at => 3.days.ago)
+    c2 = fast_create(Community, :created_at => 1.day.ago)
+    c3 = fast_create(Community, :created_at => DateTime.now)
+
+    assert_equal [c3,c2,c1] , Community.more_recent
+
+    c4 = fast_create(Community, :created_at => 2.days.ago)
+    assert_equal [c3,c2,c4,c1] , Community.more_recent
+  end
+
+  should 'find more active community' do
+    c1 = fast_create(Community)
+    c2 = fast_create(Community)
+    c3 = fast_create(Community)
+
+    Article.delete_all
+    fast_create(Article, :profile_id => c1, :created_at => 1.day.ago)
+    fast_create(Article, :profile_id => c1, :created_at => DateTime.now.beginning_of_day)
+    fast_create(Article, :profile_id => c2, :created_at => DateTime.now.beginning_of_day)
+    assert_equal [c1,c2], Community.more_active
+
+    fast_create(Article, :profile_id => c2, :created_at => 2.days.ago)
+    fast_create(Article, :profile_id => c2, :created_at => 7.days.ago)
+    fast_create(Article, :profile_id => c3, :created_at => 1.day.ago)
+    assert_equal [c2,c1,c3] , Community.more_active
+  end
+
+  should 'the ties on more active communities be solved by the number of comments' do
+    env = create(Environment)
+    Community.delete_all
+    c1 = fast_create(Community)
+    c2 = fast_create(Community)
+    Article.delete_all
+    a1 = fast_create(Article, :profile_id => c1, :created_at => DateTime.now.beginning_of_day)
+    a2 = fast_create(Article, :profile_id => c2, :created_at => DateTime.now.beginning_of_day)
+    assert_equal [c1,c2] , Community.more_active
+
+    p1 = fast_create(Person)
+    a2.comments.build(:title => 'test comment', :body => 'anything', :author => p1).save!
+    assert_equal [c2,c1] , Community.more_active
+
+    a1.comments.build(:title => 'test comment', :body => 'anything', :author => p1).save!
+    a1.comments.build(:title => 'test comment', :body => 'anything', :author => p1).save!
+    assert_equal [c1,c2] , Community.more_active
+  end
+
+  should 'more active communities take in consideration only articles created current the last week' do
+    c1 = fast_create(Community)
+    c2 = fast_create(Community)
+    c3 = fast_create(Community)
+    Article.delete_all
+    fast_create(Article, :profile_id => c1, :created_at => DateTime.now.beginning_of_day)
+    fast_create(Article, :profile_id => c2, :created_at => 10.days.ago)
+    assert_equal [c1] , Community.more_active
+
+    fast_create(Article, :profile_id => c2, :created_at => DateTime.now.beginning_of_day)
+    fast_create(Article, :profile_id => c2, :created_at => 7.days.ago)
+    fast_create(Article, :profile_id => c3, :created_at => 8.days.ago)
+    assert_equal [c2,c1] , Community.more_active
+  end
+
+  should 'find more popular communities' do
+    Community.delete_all
+
+    c1 = fast_create(Community)
+    c2 = fast_create(Community)
+    fast_create(Community)
+
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+    c1.add_member(p1)
+    assert_equal [c1] , Community.more_popular
+
+    c2.add_member(p1)
+    c2.add_member(p2)
+    assert_equal [c2,c1] , Community.more_popular
+
+    c2.remove_member(p2)
+    c2.remove_member(p1)
+    assert_equal [c1] , Community.more_popular
+  end
+
+  should "return the more recent label" do
+    p = fast_create(Profile)
+    assert_equal "Since: ", p.more_recent_label
+  end
+
+  should "return none on label if the profile hasn't articles" do
+    p = fast_create(Profile)
+    assert_equal 0, p.articles.count
+    assert_equal "none", p.more_active_label
+  end
+
+  should "return one article on label if the profile has one article" do
+    p = fast_create(Profile)
+    fast_create(Article, :profile_id => p.id)
+    assert_equal 1, p.articles.count
+    assert_equal "one article", p.more_active_label
+  end
+
+  should "return number of artciles on label if the profile has more than one article" do
+    p = fast_create(Profile)
+    fast_create(Article, :profile_id => p.id)
+    fast_create(Article, :profile_id => p.id)
+    assert_equal 2, p.articles.count
+    assert_equal "2 articles", p.more_active_label
+
+    fast_create(Article, :profile_id => p.id)
+    assert_equal 3, p.articles.count
+    assert_equal "3 articles", p.more_active_label
+  end
+
+  should "return none on label if the profile hasn't members" do
+    p = fast_create(Profile)
+    assert_equal 0, p.members.count
+    assert_equal "none", p.more_popular_label
+  end
+
+  should "return one member on label if the profile has one member" do
+    p = fast_create(Person)
+    c = fast_create(Community)
+    c.add_member(p)
+    assert_equal 1, c.members.count
+    assert_equal "one member", c.more_popular_label
+  end
+
+  should "return the number of members on label if the profile has more than one member" do
+    p1 = fast_create(Profile)
+    p2 = fast_create(Person)
+    c = fast_create(Community)
+    c.add_member(p1)
+    c.add_member(p2)
+    assert_equal 2, c.members.count
+    assert_equal "2 members", c.more_popular_label
+
+    p3 = fast_create(Person)
+    c.add_member(p3)
+    assert_equal 3, c.members.count
+    assert_equal "3 members", c.more_popular_label
+  end
+
   private
 
   def assert_invalid_identifier(id)

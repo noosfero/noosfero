@@ -201,18 +201,20 @@ body, th, td, input {
   margin: 0px;
   padding: 0px 10px 0px 0px;
   float: right;
-  overflow: hidden;
 }
 
 #navigation li {
   list-style: none;
   display: block;
-  height: 54px;
+  height: auto;
+  width: 125px;
   float: left;
-  border-left: 1px solid #888a85;
+  text-align: center;
+  position: relative;
 }
 
 #navigation a {
+  border-left: 1px solid #888a85;
   display: block;
   font-size: 15px;
   line-height: 42px;
@@ -225,9 +227,69 @@ body, th, td, input {
 }
 
 #navigation span {
-  padding: 0px 10px 0px 35px;
-  background-position: 15px 50%;
+  padding: 0px 0px 0px 30px;
+  background-position: 5px 50%;
   background-repeat: no-repeat;
+}
+
+#navigation .menu-submenu ul, #navigation .menu-submenu li{
+  float: none;
+  text-align: right;
+  border-left: 0px;
+}
+
+#navigation .menu-submenu ul{
+  border: 1px solid #888a85;
+  border-top: 0px;
+  border-left: 0px;
+  background-color: #ccc;
+  padding-right: 2px;
+  height: auto;
+  display: block;
+}
+
+#navigation .menu-submenu{
+  bottom: -75px;
+  width: 126px;
+  top: 0px;
+  right: 0px;
+  position: relative;
+}
+
+#navigation .menu-submenu a{
+  padding: 4px 5px;
+  font-size: 12px;
+  line-height: normal;
+}
+
+#navigation .menu-submenu-trigger {
+  background: #eee url(/images/down-arrow.png) center center no-repeat;
+  border: 0px;
+  height: 8px;
+  width: 124px;
+}
+#navigation li:hover .menu-submenu-trigger:hover {
+  background: #eee url(/images/down-arrow.png) center center no-repeat;
+}
+
+#navigation li:hover .menu-submenu-trigger{
+  display: block;
+}
+
+#navigation li .menu-submenu-trigger{
+  display: none;
+}
+
+#navigation .menu-submenu-header, #navigation .menu-submenu-footer, #navigation .menu-submenu h4{
+  display: none;
+}
+
+#navigation .common-profile-list-block .vcard .menu-submenu-trigger,
+.menu-submenu-trigger {
+  left: 1px;
+  top: 33px;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
 }
 
 /***************************** boxes ********************************/
@@ -1119,12 +1181,12 @@ hr.pre-posts, hr.sep-posts {
 /******** controller-friends action-friends-index ********/
 
 .action-friends-index .profile-list li,
-.common-profile-list-block .vcard a {
+.common-profile-list-block .vcard {
   border: 1px solid transparent;
 }
 
 .action-friends-index .profile-list li:hover,
-.common-profile-list-block .vcard a:hover {
+.common-profile-list-block .vcard:hover {
   border: 1px solid #CCC;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -1132,6 +1194,11 @@ hr.pre-posts, hr.sep-posts {
   text-decoration: none;
 }
 
+.common-profile-list-block .vcard a,
+.common-profile-list-block .vcard a:hover {
+  background: transparent;
+  border: 0;
+}
 
 /******** controller-profile action-profile-index ********/
 
@@ -1205,4 +1272,56 @@ table.profile th {
   border-bottom: 2px solid black;
 }
 
+/**************************** Browse *******************************/
 
+.controller-browse #content .search_form {
+  background: #DDD;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  padding: 12px 15px 13px 15px;
+  position: relative;
+  text-align: left;
+}
+
+.controller-browse a {
+  color: #555753;
+}
+
+.browse-results-innerbox {
+  margin-top: 10px;
+  border-bottom: none;
+  border: 1px solid #CCC;
+  background: url(imgs/comment-bg-S.png) 0% 100% repeat-x;
+  padding-bottom: 10px;
+
+}
+.browse-results-innerbox ul{
+  padding: 0px;
+}
+
+.browse-results-innerbox .browse-results-type-empty div {
+  text-align: center;
+  color: #DDD;
+  font-weight: bold;
+  font-size: 30px;
+  padding: 70px 10px 0px 0px;
+  border: none;
+
+}
+
+.search-results-type-article.search-results-innerbox {
+  padding: 5px 0px 5px 10px;
+  max-height: 215px;
+  height: 225px;
+}
+
+#content .search-results-type-article li {
+  padding: 5px 0px;
+}
+
+.search-results-type-article a {
+  text-decoration: none;
+}
+.search-results-type-article a:hover {
+  text-decoration: underline;
+}

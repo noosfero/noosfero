@@ -57,7 +57,23 @@ class Profile < ActiveRecord::Base
 
   acts_as_taggable
 
+  def self.qualified_column_names
+    Profile.column_names.map{|n| [Profile.table_name, n].join('.')}.join(',')
+  end
+
   named_scope :visible, :conditions => { :visible => true }
+  named_scope :more_recent, :order => "created_at DESC"
+  named_scope :more_popular,
+       :select => "#{Profile.qualified_column_names}, count(resource_id) as total",
+       :group => Profile.qualified_column_names,
+       :joins => :role_assignments,
+       :order => "total DESC"
+  named_scope :more_active,
+       :select => "#{Profile.qualified_column_names}, count(articles.id) as total, sum(articles.comments_count) as total_comments",
+       :joins => :articles,
+       :group => Profile.qualified_column_names,
+       :order => "total DESC, total_comments DESC",
+       :conditions => ["articles.created_at BETWEEN ? AND ?", 7.days.ago, DateTime.now]
 
   # FIXME ugly workaround
   def self.human_attribute_name(attrib)
@@ -675,6 +691,26 @@ private :generate_url, :url_options
     cache_key + '-members-page-' + page
   end
 
+  def more_recent_label
+    _("Since: ")
+  end
+
+  def more_active_label
+    amount = self.articles.count
+    {
+      0 => _('none'),
+      1 => _('one article')
+    }[amount] || _("%s articles") % amount
+  end
+
+  def more_popular_label
+    amount = self.members.count
+    {
+      0 => _('none'),
+      1 => _('one member')
+    }[amount] || _("%s members") % amount
+  end
+
   protected
 
     def display_private_info_to?(user)
@@ -684,4 +720,5 @@ private :generate_url, :url_options
         (user == self) || (user.is_admin?(self.environment)) || user.is_admin?(self) || user.memberships.include?(self)
       end
     end
+
 end

@@ -4,7 +4,7 @@ class Enterprise < Organization
 
   N_('Enterprise')
 
-  has_many :products, :dependent => :destroy
+  has_many :products, :dependent => :destroy, :order => 'name ASC'
 
   extra_data_for_index :product_categories
 

@@ -1644,13 +1644,13 @@ input.disabled {
   margin: 0px;
   padding: 0px;
   list-style: none;
-  display: inline;
+  position: relative;
 }
 
 .common-profile-list-block .vcard a {
   display: block;
-  height: 95px;
-  max-height: 92px;
+  height: 112px;
+  max-height: 112px;
   padding-top: 3px;
   margin: 0px 2px;
   float: left;
@@ -1736,6 +1736,12 @@ input.disabled {
 #content .common-profile-list-block .sex-female span,
 #content .common-profile-list-block .sex-undef span {
   display: none;
+}
+
+.common-profile-list-block .extra_info {
+  font-size: 9px;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
 }
 
 
@@ -3603,7 +3609,6 @@ h1#agenda-title {
   border: 1px solid #2A5896;
   padding: 10px 0px 10px 10px;
   height: 205px;
-  overflow: auto;
   position: relative; /* work-arround-bug fo MSIE */
 }
 
@@ -3630,6 +3635,7 @@ h1#agenda-title {
 .controller-search .only-one-result-box .search-results-innerbox,
 .controller-search .only-one-result-box .search-results-innerbox.common-profile-list-block {
   height: auto;
+  float: left;
   padding: 10px 4px 10px 10px;
 }
 
@@ -4087,4 +4093,101 @@ h1#agenda-title {
 }
 .categories-block .ui-icon {
   margin-top: 2px;
+}
+
+/* Profile balloon */
+
+.common-profile-list-block .vcard {
+  position: relative !important;
+  float: left;
+}
+
+.common-profile-list-block .vcard .menu-submenu-trigger,
+.menu-submenu-trigger {
+  display: none;
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  top: -1px;
+  left: -3px;
+  overflow: hidden;
+  background: #efefef url(/images/top-arrow.png) center center no-repeat;
+  border: 1px solid #ccc;
+  z-index: 2;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+.common-profile-list-block .vcard .menu-submenu-trigger:hover,
+.menu-submenu-trigger:hover {
+  background: #fff url(/images/top-arrow.png) center center no-repeat;
+  border: 1px solid #ccc;
+}
+
+.menu-submenu-trigger span {
+  display: none;
+}
+
+.common-profile-list-block .vcard:hover .menu-submenu-trigger {
+  display: block;
+}
+
+.menu-submenu {
+  position: absolute;
+  bottom: 115px;
+  right: -27px;
+  z-index: 11;
+  width: 150px;
+  padding: 0;
+  text-align: left;
+}
+
+.menu-submenu-footer {
+  background: transparent url(/images/balloon-footer.png) center center no-repeat;
+  height: 29px;
+  margin: 0;
+}
+
+.menu-submenu-header {
+  background: transparent url(/images/balloon-header.png) center center no-repeat;
+  height: 17px;
+  margin: 0;
+}
+
+.menu-submenu-content {
+  background: transparent url(/images/balloon-middle.png) top left repeat-y;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+#content .menu-submenu-content ul {
+  margin: 0;
+  padding: 0;
+  width: 100% !important;
+  min-width: 100% !important;
+}
+
+#content .menu-submenu-content ul a {
+  text-align: left;
+  padding-left: 12px;
+}
+
+.common-profile-list-block .vcard .menu-submenu a {
+  float: none;
+  display: block;
+  height: auto;
+  font-size: 12px;
+}
+
+#content .menu-submenu h4 {
+  margin: 0;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: left;
+  margin: 0 auto;
+  padding-bottom: 3px;
+  margin-bottom: 3px;
+  border-bottom: 1px solid #000;
+  width: 90%;
 }

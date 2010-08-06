@@ -214,3 +214,52 @@ function expandCategory(block, id) {
     }
   }
 }
+
+function toggleSubmenu(trigger, title, link_list) {
+  trigger.onclick = function() {
+    var submenu = jQuery(trigger).siblings('.menu-submenu');
+    var hide = false;
+    if (submenu.length > 0 && submenu.is(':visible')) hide = true;
+    hideAllSubmenus();
+    // Hide or show this submenu if it already exists
+    if (submenu.length > 0) {
+      if (!hide) {
+        var direction = 'down';
+        if (submenu.hasClass('up')) direction = 'up';
+        submenu.show('slide', { 'direction' : direction }, 'slow');
+      }
+    }
+    return false;
+  }
+
+  hideAllSubmenus();
+  // Build and show this submenu if it doesn't exist yet
+  var direction = 'down';
+  if (jQuery(trigger).hasClass('up')) direction = 'up';
+  var submenu = jQuery('<div></div>').attr('class', 'menu-submenu ' + direction).attr('style', 'display: none');
+  var header = jQuery('<div></div>').attr('class', 'menu-submenu-header');
+  var content = jQuery('<div></div>').attr('class', 'menu-submenu-content');
+  var list = jQuery('<ul></ul>').attr('class', 'menu-submenu-list');
+  var footer = jQuery('<div></div>').attr('class', 'menu-submenu-footer');
+  content.append('<h4>' + title + '</h4>');
+  jQuery.each(link_list, function(index, link_hash) {
+    for (label in link_hash) {
+      list.append('<li><a href="' + link_hash[label] + '">' + label + '</a></li>');
+    }
+  });
+  content.append(list);
+  submenu.append(header).append(content).append(footer);
+  jQuery(trigger).before(submenu);
+  submenu.show('slide', { 'direction' : direction }, 'slow');
+}
+
+function hideAllSubmenus() {
+  jQuery('.menu-submenu.up:visible').hide('slide', { 'direction' : 'up' }, 'slow');
+  jQuery('.menu-submenu.down:visible').hide('slide', { 'direction' : 'down' }, 'slow');
+}
+
+// Hide visible ballons when clicked outside them
+jQuery(document).ready(function() {
+  jQuery('body').click(function() { hideAllSubmenus(); });
+  jQuery('.menu-submenu-trigger').click(function(e) { e.stopPropagation(); });
+});

@@ -1,0 +1,19 @@
+<div id="browse-results">
+
+  <div class='browse-results-innerbox'>
+    <% if @results.empty? %>
+      <div class="browse-results-type-empty">
+        <div> <%= _('None') %> </div>
+      </div><!-- end class="browse-results-innerbox" -->
+    <% end %>
+    <ul class='common-profile-list-block'>
+      <% @results.each do |result| %>
+        <%= render :partial => partial_for_class(result.class), :locals => {:profile => result} %>
+      <% end %>
+    </ul>
+    <br style='clear: both;'>
+  </div>
+
+  <br style="clear:both" />
+</div><!-- end id="browse-results" -->
+

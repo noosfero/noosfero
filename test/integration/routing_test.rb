@@ -216,4 +216,11 @@ class RoutingTest < ActionController::IntegrationTest
     assert_routing('/doc', :controller => 'doc', :action => 'index')
   end
 
+  # browse controller
+  def test_browse_routing
+    assert_routing('/browse/people', :controller => 'browse', :action => 'people')
+    assert_routing('/browse/people/more_popular', :controller => 'browse', :action => 'people', :filter => 'more_popular')
+    assert_routing('/browse/communities', :controller => 'browse', :action => 'communities')
+    assert_routing('/browse/communities/more_active', :controller => 'browse', :action => 'communities', :filter => 'more_active')
+  end
 end

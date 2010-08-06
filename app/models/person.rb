@@ -8,6 +8,12 @@ class Person < Profile
 
   has_many :requested_tasks, :class_name => 'Task', :foreign_key => :requestor_id, :dependent => :destroy
 
+  named_scope :more_popular,
+       :select => "#{Profile.qualified_column_names}, count(friend_id) as total",
+       :group => Profile.qualified_column_names,
+       :joins => :friendships,
+       :order => "total DESC"
+
   after_destroy do |person|
     Friendship.find(:all, :conditions => { :friend_id => person.id}).each { |friendship| friendship.destroy }
   end
@@ -286,4 +292,13 @@ class Person < Profile
   def relationships_cache_key
     cache_key + '-profile-relationships'
   end
+
+  def more_popular_label
+    amount = self.friends.count
+    {
+      0 => _('none'),
+      1 => _('one friend')
+    }[amount] || _("%s friends") % amount
+  end
+
 end

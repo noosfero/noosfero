@@ -588,4 +588,51 @@ class PersonTest < Test::Unit::TestCase
     end
   end
 
+  should "return none on label if the person hasn't friends" do
+    p = fast_create(Person)
+    assert_equal 0, p.friends.count
+    assert_equal "none", p.more_popular_label
+  end
+
+  should "return one friend on label if the profile has one member" do
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+    p1.add_friend(p2)
+    assert_equal 1, p1.friends.count
+    assert_equal "one friend", p1.more_popular_label
+  end
+
+  should "return the number of friends on label if the person has more than one friend" do
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+    p3 = fast_create(Person)
+    p1.add_friend(p2)
+    p1.add_friend(p3)
+    assert_equal 2, p1.friends.count
+    assert_equal "2 friends", p1.more_popular_label
+
+    p4 = fast_create(Person)
+    p1.add_friend(p4)
+    assert_equal 3, p1.friends.count
+    assert_equal "3 friends", p1.more_popular_label
+  end
+
+  should 'find more popular people' do
+    Person.delete_all
+    env = fast_create(Environment)
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+    p3 = fast_create(Person)
+
+    p1.add_friend(p2)
+    assert_equal [p1], Person.more_popular
+
+    p2.add_friend(p1)
+    p2.add_friend(p3)
+    assert_equal [p2,p1] , Person.more_popular
+
+    p2.remove_friend(p3)
+    assert_equal [p1,p2] , Person.more_popular
+  end
+
 end

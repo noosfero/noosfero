@@ -567,6 +567,60 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_equal environment.theme, current_theme
   end
 
+  should 'trunc to 15 chars the big filename' do
+    assert_equal 'AGENDA(...).mp3', short_filename('AGENDA_CULTURA_-_FESTA_DE_VAQUEIROS_PONTO_DE_SERRA_PRETA_BAIXA.mp3',15)
+  end
+
+  should 'trunc to default limit the big filename' do
+    assert_equal 'AGENDA_CULTURA_-_FESTA_DE_VAQUEIRO(...).mp3', short_filename('AGENDA_CULTURA_-_FESTA_DE_VAQUEIROS_PONTO_DE_SERRA_PRETA_BAIXA.mp3')
+  end
+
+  should 'does not trunc short filename' do
+    assert_equal 'filename.mp3', short_filename('filename.mp3')
+  end
+
+  should 'return nil when :show_balloon_with_profile_links_when_clicked is not enabled in environment' do
+    env = Environment.default
+    env.stubs(:enabled?).with(:show_balloon_with_profile_links_when_clicked).returns(false)
+    stubs(:environment).returns(env)
+    profile = Profile.new
+    assert_nil links_for_balloon(profile)
+  end
+
+  should 'return ordered list of links to balloon to Person' do
+    env = Environment.default
+    env.stubs(:enabled?).with(:show_balloon_with_profile_links_when_clicked).returns(true)
+    stubs(:environment).returns(env)
+    person = Person.new
+    person.stubs(:url).returns('url for person')
+    person.stubs(:public_profile_url).returns('url for person')
+    links = links_for_balloon(person)
+    assert_equal ['Home Page', 'Profile', 'Friends', 'Communities'], links.map{|i| i.keys.first}
+  end
+
+  should 'return ordered list of links to balloon to Community' do
+    env = Environment.default
+    env.stubs(:enabled?).with(:show_balloon_with_profile_links_when_clicked).returns(true)
+    stubs(:environment).returns(env)
+    community = Community.new
+    community.stubs(:url).returns('url for community')
+    community.stubs(:public_profile_url).returns('url for community')
+    links = links_for_balloon(community)
+    assert_equal ['Home Page', 'Profile', 'Members', 'Agenda'], links.map{|i| i.keys.first}
+  end
+
+  should 'return ordered list of links to balloon to Enterprise' do
+    env = Environment.default
+    env.stubs(:enabled?).with(:show_balloon_with_profile_links_when_clicked).returns(true)
+    stubs(:environment).returns(env)
+    enterprise = Enterprise.new
+    enterprise.stubs(:url).returns('url for enterprise')
+    enterprise.stubs(:public_profile_url).returns('url for enterprise')
+    stubs(:catalog_path)
+    links = links_for_balloon(enterprise)
+    assert_equal ['Home Page', 'Products', 'Members', 'Agenda'], links.map{|i| i.keys.first}
+  end
+
   protected
 
   def url_for(args = {})
