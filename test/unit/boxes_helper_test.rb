@@ -39,12 +39,16 @@ class BoxesHelperTest < Test::Unit::TestCase
 
   should 'display invisible block for editing' do
     p = create_user_with_blocks
+    request = mock()
+    request.expects(:path).returns(nil)
+
 
     b = p.blocks.select{|bk| !bk.kind_of?(MainBlock) }[0]
     b.display = 'never'; b.save!
     box = b.box
     box.expects(:blocks).returns([b])
     expects(:display_block).with(b, '')
+    expects(:request).returns(request)
     stubs(:block_target).returns('')
     with_box_decorator self do
       display_box_content(box, '')
@@ -53,12 +57,15 @@ class BoxesHelperTest < Test::Unit::TestCase
 
   should 'not display invisible block' do
     p = create_user_with_blocks
+    request = mock()
+    request.expects(:path).returns(nil)
 
     b = p.blocks.select{|bk| !bk.kind_of?(MainBlock) }[0]
     b.display = 'never'; b.save!
     box = b.box
     box.expects(:blocks).returns([b])
     expects(:display_block).with(b, '').never
+    expects(:request).returns(request)
     stubs(:block_target).returns('')
     display_box_content(box, '')
   end
@@ -94,4 +101,17 @@ class BoxesHelperTest < Test::Unit::TestCase
     assert !block_css_classes(Block.new(:display => 'always')).split.any? { |item| item == 'invisible-block'}
     assert block_css_classes(Block.new(:display => 'never')).split.any? { |item| item == 'invisible-block'}
   end
+
+  should 'fill context with the article and request_path' do
+    request = mock()
+    box = mock()
+
+    box.expects(:blocks).returns([])
+    request.expects(:path).returns('/')
+    expects(:request).returns(request)
+    box_decorator.expects(:select_blocks).with([], {:article => nil, :request_path => '/'}).returns([])
+
+    display_box_content(box, '')
+  end
+
 end
