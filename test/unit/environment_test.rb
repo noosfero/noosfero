@@ -993,4 +993,16 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal 'another', env.theme
   end
 
+  should 'has many users' do
+    user_from_other_environment = create_user('one user from other env', :environment => Environment.default)
+    env = fast_create(Environment)
+    user_from_this_environment1 = create_user('one user', :environment => env)
+    user_from_this_environment2 = create_user('another user', :environment => env)
+    user_from_this_environment3 = create_user('some other user', :environment => env)
+    assert_includes env.users, user_from_this_environment1
+    assert_includes env.users, user_from_this_environment2
+    assert_includes env.users, user_from_this_environment3
+    assert_not_includes env.users, user_from_other_environment
+  end
+
 end

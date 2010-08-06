@@ -93,6 +93,7 @@ ActionController::Routing::Routes.draw do |map|
   ######################################################
   # administrative tasks for a environment
   map.admin 'admin', :controller => 'admin_panel'
+  map.admin 'admin/:controller.:format/:action/:id', :controller => Noosfero.pattern_for_controllers_in_directory('admin')
   map.admin 'admin/:controller/:action/:id', :controller => Noosfero.pattern_for_controllers_in_directory('admin')
 
 

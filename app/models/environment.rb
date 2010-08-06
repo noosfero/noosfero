@@ -3,6 +3,8 @@
 # domains.
 class Environment < ActiveRecord::Base
 
+  has_many :users
+
   self.partial_updates = false
 
   has_many :tasks, :dependent => :destroy, :as => 'target'
@@ -14,6 +16,7 @@ class Environment < ActiveRecord::Base
     'manage_environment_categories' => N_('Manage environment categories'),
     'manage_environment_roles' => N_('Manage environment roles'),
     'manage_environment_validators' => N_('Manage environment validators'),
+    'manage_environment_users' => N_('Manage environment users'),
   }
 
   module Roles
