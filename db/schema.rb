@@ -223,8 +223,8 @@ ActiveRecord::Schema.define(:version => 20100730141134) do
   end
 
   create_table "inputs", :force => true do |t|
-    t.integer  "product_category_id", :null => false
     t.integer  "product_id",          :null => false
+    t.integer  "product_category_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

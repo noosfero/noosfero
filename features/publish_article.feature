@@ -24,7 +24,7 @@ Feature: publish article
     And I follow "Manage Content"
     And I follow "Spread"
     And I check "Sample Community"
-    And I press "Publish"
+    And I press "Spread this"
     And I am on Sample Community's homepage
     And I follow "View profile"
     And I go to Sample Community's sitemap
@@ -39,7 +39,7 @@ Feature: publish article
     And I follow "Manage Content"
     And I follow "Spread"
     And I check "Sample Community"
-    And I press "Publish"
+    And I press "Spread this"
     And I am not logged in
     And I am logged in as "mariasilva"
     And "Maria Silva" is a member of "Sample Community"
@@ -53,7 +53,7 @@ Feature: publish article
     And I press "Save"
     And I follow "Spread"
     And I check "Sample Community"
-    When I press "Publish"
+    When I press "Spread this"
     Then I should see "The title (article name) is already being used by another article, please use another title."
 
   Scenario: publishing an article in many communities and listing the communities that couldn't publish the article again,
@@ -70,7 +70,7 @@ Feature: publish article
     And I follow "Manage Content"
     And I follow "Spread"
     And I check "Sample Community"
-    And I press "Publish"
+    And I press "Spread this"
     And I should not see "This article name is already in use in the following community(ies):"
     And I am on Joao Silva's control panel
     And I follow "Manage Content"
@@ -78,7 +78,7 @@ Feature: publish article
     And I check "Sample Community"
     And I check "Another Community1"
     And I check "Another Community2"
-    When I press "Publish"
+    When I press "Spread this"
     Then I should see "The title (article name) is already being used by another article, please use another title."
     And I am on Another Community1's homepage
     And I follow "View profile"
@@ -101,12 +101,12 @@ Feature: publish article
     And I follow "Manage Content"
     And I follow "Spread"
     And I check "Sample Community"
-    And I press "Publish"
+    And I press "Spread this"
     And I am on Joao Silva's control panel
     And I follow "Manage Content"
     And I follow "Spread"
     And I check "Sample Community"
-    And I press "Publish"
+    And I press "Spread this"
     And I am on Sample Community's control panel
     And I follow "Tasks"
     And I press "Ok!"
@@ -125,7 +125,7 @@ Feature: publish article
     And I follow "Manage Content"
     And I follow "Spread"
     And I check "Sample Community"
-    And I press "Publish"
+    And I press "Spread this"
     And "joaosilva" has no articles
     And I am on Sample Community's control panel
     When I follow "Tasks"
