@@ -803,6 +803,20 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal [], e.portal_folders
   end
 
+  should 'not crash when a portal folder is removed' do
+    e = Environment.default
+
+    c = e.portal_community = fast_create(Community)
+    news_folder = fast_create(Folder, :name => 'news folder', :profile_id => c.id)
+
+    e.portal_folders = [news_folder]
+    e.save!; e.reload
+
+    news_folder.destroy
+
+    assert_not_includes e.portal_folders, nil
+  end
+
   should 'have roles with names independent of other environments' do
     e1 = fast_create(Environment)
     role1 = Role.create!(:name => 'test_role', :environment => e1)
