@@ -23,8 +23,12 @@ class Block < ActiveRecord::Base
     if display == 'never'
       return false
     end
-    if context && context[:article] && display == 'home_page_only'
-      return context[:article] == owner.home_page
+    if context && display == 'home_page_only'
+      if context[:article]
+        return context[:article] == owner.home_page
+      else
+        return context[:request_path] == '/'
+      end
     end
     true
   end

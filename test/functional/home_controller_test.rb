@@ -52,4 +52,16 @@ all_fixtures
     get :index
     assert_tag :tag => 'div', :attributes => { :id => 'portal-news' } #, :descendant => {:tag => 'form', :attributes => {:action => '/account/activation_question'}}
   end
+
+  should 'display block in index page if it\'s configured to display on homepage and its an environment block' do
+    env = Environment.default
+    box = Box.create(:owner_type => 'Environment', :owner_id => env.id)
+    block = Block.create(:title => "Index Block", :box_id => box.id, :display => 'home_page_only')
+    env.save!
+
+    get :index
+    assert block.visible?
+  end
+
+
 end

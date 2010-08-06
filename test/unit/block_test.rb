@@ -86,6 +86,13 @@ class BlockTest < Test::Unit::TestCase
     assert_equal false, block.visible?(:article => Article.new)
   end
 
+  should 'be able to be displayed only in the homepage (index) of the environment' do
+    block = Block.new(:display => 'home_page_only')
+
+    assert_equal true, block.visible?(:article => nil, :request_path => '/')
+    assert_equal false, block.visible?(:article => nil)
+  end
+
   should 'be able to save display setting' do
     user = create_user('testinguser').person
     box = fast_create(Box, :owner_id => user.id)
