@@ -1,4 +1,10 @@
-Rake::Task[:test].clear
+t = Rake::Task[:test]
+if t.respond_to?(:clear)
+  t.clear
+else
+  t.prerequisites.clear
+  t.instance_variable_get('@actions').clear
+end
 
 task :test do
   errors = %w(test:units test:functionals test:integration cucumber selenium).collect do |task|
