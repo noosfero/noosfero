@@ -57,8 +57,30 @@ class ContentViewerHelperTest < Test::Unit::TestCase
   should 'not list feed article' do
     profile.articles << Blog.new(:name => 'Blog test', :profile => profile)
     assert_includes profile.blog.children.map{|i| i.class}, RssFeed
-    result = list_posts(profile.blog.posts)
+    result = list_posts(nil, profile.blog.posts)
     assert_no_match /feed/, result
+  end
+
+  should 'filter blog posts by date' do
+    blog = Blog.create!(:name => 'Blog test', :profile => profile)
+
+    nov = TextileArticle.create!(:name => 'November post', :parent => blog, :profile => profile)
+    nov.update_attributes!(:published_at => DateTime.parse('2008-11-15'))
+
+    sep = TextileArticle.create!(:name => 'September post', :parent => blog, :profile => profile)
+    sep.update_attribute(:published_at, DateTime.parse('2008-09-10'))
+
+    blog.reload
+    blog.filter = {:year => 2008, :month => 11}
+    assert blog.save!
+
+    self.stubs(:params).returns({:npage => nil})
+
+    expects(:render).with(:file => 'content_viewer/blog_page', :locals => {:article => blog, :children => [nov]}).returns("BLI")
+
+    result = article_to_html(blog)
+
+    assert_equal 'BLI', result
   end
 
 end

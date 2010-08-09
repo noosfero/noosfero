@@ -1,14 +1,14 @@
-<% add_rss_feed_to_head(@page.name, @page.feed.url)  if @page.blog? && @page.feed %>
+<% add_rss_feed_to_head(article.name, article.feed.url)  if article.blog? && article.feed %>
 
-<%= content_tag('em', _('(external feed was not loaded yet)'), :id => 'external-feed-info', :class => 'metadata') if @page.blog? && @page.external_feed && @page.external_feed.enabled && @page.external_feed.fetched_at.nil? %>
+<%= content_tag('em', _('(external feed was not loaded yet)'), :id => 'external-feed-info', :class => 'metadata') if article.blog? && article.external_feed && article.external_feed.enabled && article.external_feed.fetched_at.nil? %>
 
 <div>
-  <%= link_to(image_tag('icons-mime/rss-feed.png'), @page.feed.url, :class => 'blog-feed-link') if @page.blog? && @page.feed %>
+  <%= link_to(image_tag('icons-mime/rss-feed.png'), article.feed.url, :class => 'blog-feed-link') if article.blog? && article.feed %>
   <div class='blog-description'>
-    <%= @page.body %>
+    <%= article.body %>
   </div>
 </div>
 <hr class="pre-posts"/>
 <div class="blog-posts">
-  <%= (@posts.compact.empty? ? content_tag('em', _('(no posts)')) : list_posts(@posts, @page.visualization_format)) %>
+  <%= (children.compact.empty? ? content_tag('em', _('(no posts)')) : list_posts(user, children, article.visualization_format)) %>
 </div>

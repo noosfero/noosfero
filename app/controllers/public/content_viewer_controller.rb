@@ -78,13 +78,7 @@ class ContentViewerController < ApplicationController
     end
     
     if @page.blog?
-      posts = if params[:year] and params[:month]
-        filter_date = DateTime.parse("#{params[:year]}-#{params[:month]}-01")
-        @page.posts.by_range(filter_date..Article.last_day_of_month(filter_date))
-      else
-        @page.posts
-      end
-      @posts = available_articles(posts, user).paginate :page => params[:npage], :per_page => @page.posts_per_page
+      @page.filter = {:year => params[:year], :month => params[:month]}
     end
 
     if @page.folder? && @page.view_as == 'image_gallery'
