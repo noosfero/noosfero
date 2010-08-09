@@ -305,4 +305,25 @@ class ManageProductsControllerTest < Test::Unit::TestCase
       :descendant => {:tag => 'a', :attributes => { :id => 'edit-product-button-ui-inputs' }, :content => 'Add the inputs used by this product'}
   end
 
+  should 'not list all the products of enterprise' do
+    @enterprise.products = []
+    1.upto(12) do |n|
+      fast_create(Product, :name => "test product_#{n}", :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    end
+    get :index, :profile => @enterprise.identifier
+    assert_equal 10, assigns(:products).count
+  end
+
+  should 'paginate the manage products list of enterprise' do
+    @enterprise.products = []
+    1.upto(12) do |n|
+      fast_create(Product, :name => "test product_#{n}", :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    end
+    get :index, :profile => @enterprise.identifier
+    assert_tag :tag => 'a', :attributes => { :rel => 'next', :href => "/myprofile/#{@enterprise.identifier}/manage_products?page=2" }
+
+    get :index, :profile => @enterprise.identifier, :page => 2
+    assert_equal 2, assigns(:products).count
+  end
+
 end

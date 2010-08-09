@@ -22,6 +22,8 @@
   <% end %>
 </table>
 
+<%= will_paginate @products %>
+
 <% button_bar do %>
   <%= button :add, _('New product or service'), :action => 'new' %>
   <%= button :back,  _('Back'), { :controller => 'profile_editor', :profile => @profile.identifier, :action => 'index' } %>

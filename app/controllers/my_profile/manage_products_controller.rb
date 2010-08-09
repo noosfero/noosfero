@@ -17,7 +17,7 @@ class ManageProductsController < ApplicationController
   public
 
   def index
-    @products = @profile.products
+    @products = @profile.products.paginate(:per_page => 10, :page => params[:page])
   end
 
   def show
