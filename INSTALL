@@ -319,6 +319,22 @@ Noosfero will be automatically started during system boot, and automatically
 stopped if the system shuts down for some reason (or during the shutdown part
 of a reboot).
 
+=============
+Rotating logs
+=============
+
+Noosfero provides an example logrotate configuation to rotate its logs. To use
+it, create a symbolic link in /etc/logrotate.d/:
+
+# cd /etc/logrotate.d/
+# ln -s /var/lib/noosfero/current/etc/logrotate.d/noosfero
+
+Note that the provided file assumes Noosfero logging is being done in
+/var/log/noosfero (which is the case if you followed the instructions above
+correctly). If the logs are stored elsewhere, it's recommended that you copy
+the file over to /etc/logrotate.d/ and modify it to point to your local log
+directly.
+
 =========
 Upgrading
 =========
