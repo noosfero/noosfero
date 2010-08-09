@@ -48,6 +48,12 @@ instructions for doing so, and we'll include it here.
 
 === Setting up a production environment
 
+DISCLAIMER: this installation procedure is tested with Debian stable, which is
+currently the only recommended operating system for production usage. It is
+possible that you can install it on other systems, and if you do so, please
+report it on one of the Noosfero mailing lists, and please send a patch
+updating these instructions.
+
 As root user
 ============
 
