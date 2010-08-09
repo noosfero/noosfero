@@ -873,22 +873,4 @@ class ArticleTest < Test::Unit::TestCase
     assert_no_match /[<>]/, article.name
   end
 
-  should 'found articles with published date between a range' do
-    start_date = DateTime.parse('2010-07-06')
-    end_date = DateTime.parse('2010-08-02')
-
-    article_found1 = fast_create(Article, :published_at => start_date)
-    article_found2 = fast_create(Article, :published_at => end_date)
-    article_not_found = fast_create(Article, :published_at => end_date + 1.month)
-
-    assert_includes Article.by_range(start_date..end_date), article_found1
-    assert_includes Article.by_range(start_date..end_date), article_found2
-    assert_not_includes Article.by_range(start_date..end_date), article_not_found
-  end
-
-  should 'calculate first/end day of a month' do
-    assert_equal 1, Article.first_day_of_month(DateTime.parse('2010-07-06')).day
-    assert_equal 31, Article.last_day_of_month(DateTime.parse('2010-07-06')).day
-  end
-
 end
