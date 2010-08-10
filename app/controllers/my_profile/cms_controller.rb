@@ -40,9 +40,9 @@ class CmsController < MyProfileController
   def available_article_types
     articles = [
       TinyMceArticle,
-      TextileArticle
+      TextileArticle,
+      Event
     ]
-    articles << Event unless profile.environment.enabled?(:disable_asset_events)
     parent_id = params ? params[:parent_id] : nil
     if !parent_id or !Article.find(parent_id).blog?
       articles += [

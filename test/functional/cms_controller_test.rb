@@ -1155,17 +1155,6 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/upload_files?parent_id=#{profile.blog.id}"}
   end
 
-  should 'not offer to create events if events is disabled' do
-    e = profile.environment
-    e.enable(:disable_asset_events)
-    e.save!
-
-    get :new, :profile => profile.identifier
-
-
-    assert_not_includes assigns(:article_types).map{|at|at[:name]}, 'Event'
-  end
-
   should 'not allow user without permission create an article in community' do
     c = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
     u = create_user_with_permission('test_user', 'bogus_permission', c)
