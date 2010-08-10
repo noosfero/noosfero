@@ -106,20 +106,20 @@ class BrowseControllerTest < Test::Unit::TestCase
 
   should 'the people filter define the title' do
     get :people, :filter => 'more_recent'
-    assert_equal 'People more recent' , assigns(:title)
-    assert_tag :h1, :content => 'People more recent'
+    assert_equal 'More recent people' , assigns(:title)
+    assert_tag :h1, :content => 'More recent people'
 
     get :people, :filter => 'more_active'
-    assert_equal 'People more active' , assigns(:title)
-    assert_tag :h1, :content => 'People more active'
+    assert_equal 'More active people' , assigns(:title)
+    assert_tag :h1, :content => 'More active people'
 
     get :people, :filter => 'more_popular'
-    assert_equal 'People more popular' , assigns(:title)
-    assert_tag :h1, :content => 'People more popular'
+    assert_equal 'More popular people' , assigns(:title)
+    assert_tag :h1, :content => 'More popular people'
 
     get :people, :filter => 'more_anything'
-    assert_equal 'People more recent' , assigns(:title)
-    assert_tag :h1, :content => 'People more recent'
+    assert_equal 'More recent people' , assigns(:title)
+    assert_tag :h1, :content => 'More recent people'
   end
 
   should 'search for community' do
@@ -202,20 +202,20 @@ class BrowseControllerTest < Test::Unit::TestCase
 
   should 'the communities filter define the title' do
     get :communities, :filter => 'more_recent'
-    assert_equal 'Communities more recent' , assigns(:title)
-    assert_tag :h1, :content => 'Communities more recent'
+    assert_equal 'More recent communities' , assigns(:title)
+    assert_tag :h1, :content => 'More recent communities'
 
     get :communities, :filter => 'more_active'
-    assert_equal 'Communities more active' , assigns(:title)
-    assert_tag :h1, :content => 'Communities more active'
+    assert_equal 'More active communities' , assigns(:title)
+    assert_tag :h1, :content => 'More active communities'
 
     get :communities, :filter => 'more_popular'
-    assert_equal 'Communities more popular' , assigns(:title)
-    assert_tag :h1, :content => 'Communities more popular'
+    assert_equal 'More popular communities' , assigns(:title)
+    assert_tag :h1, :content => 'More popular communities'
 
     get :communities, :filter => 'more_anything'
-    assert_equal 'Communities more recent' , assigns(:title)
-    assert_tag :h1, :content => 'Communities more recent'
+    assert_equal 'More recent communities' , assigns(:title)
+    assert_tag :h1, :content => 'More recent communities'
   end
 
 end
