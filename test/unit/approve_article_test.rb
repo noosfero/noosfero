@@ -97,4 +97,14 @@ class ApproveArticleTest < ActiveSupport::TestCase
     assert ActionMailer::Base.deliveries.empty?
   end
 
+  should 'copy the source from the original article' do
+    article = fast_create(TextArticle, :profile_id => profile.id, :name => 'test article', :source => "sample-feed.com")
+    community = fast_create(Community, :name => 'test comm')
+
+    a = ApproveArticle.create!(:name => 'test name', :article => article, :target => community, :requestor => profile)
+    a.finish
+
+    assert_equal PublishedArticle.last.source, article.source
+  end
+
 end
