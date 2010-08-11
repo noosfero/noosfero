@@ -332,6 +332,16 @@ class Profile < ActiveRecord::Base
     self.articles.recent(limit, options)
   end
 
+  def last_articles(limit = 10, options = {})
+    options = { :limit => limit,
+                :conditions => ["advertise = ? AND published = ? AND
+                                 ((articles.type != ? and articles.type != ? and articles.type != ?) OR
+                                 articles.type is NULL)",
+                                 true, true, 'UploadedFile', 'RssFeed', 'Blog'],
+                :order => 'articles.published_at desc, articles.id desc' }.merge(options)
+    self.articles.find(:all, options)
+  end
+
   class << self
 
     # finds a profile by its identifier. This method is a shortcut to

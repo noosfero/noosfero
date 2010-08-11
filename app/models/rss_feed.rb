@@ -68,7 +68,7 @@ class RssFeed < Article
       if (self.include == 'parent_and_children') && self.parent
         self.parent.map_traversal
       else
-        profile.recent_documents(self.limit)
+        profile.last_articles(self.limit)
       end
   end
   def data

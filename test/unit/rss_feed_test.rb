@@ -58,7 +58,7 @@ class RssFeedTest < Test::Unit::TestCase
     feed = RssFeed.new
     feed.expects(:profile).returns(profile).at_least_once
     array = []
-    profile.expects(:recent_documents).returns(array)
+    profile.expects(:last_articles).returns(array)
     feed.data
   end
 
@@ -150,11 +150,11 @@ class RssFeedTest < Test::Unit::TestCase
     feed.profile = profile
     feed.save!
 
-    feed.profile.expects(:recent_documents).with(10).returns([]).once
+    feed.profile.expects(:last_articles).with(10).returns([]).once
     feed.data
 
     feed.limit = 5
-    feed.profile.expects(:recent_documents).with(5).returns([]).once
+    feed.profile.expects(:last_articles).with(5).returns([]).once
     feed.data
   end
 
@@ -216,6 +216,24 @@ class RssFeedTest < Test::Unit::TestCase
     feed = RssFeed.new(:parent => blog, :profile => profile)
 
     assert_match published_article.to_html, feed.data
+  end
+
+  should 'display articles even within a private profile' do
+    profile = create_user('testuser').person
+    profile.public_profile = false
+    profile.save!
+    a1 = profile.articles.build(:name => 'article 1'); a1.save!
+    a2 = profile.articles.build(:name => 'article 2'); a2.save!
+    a3 = profile.articles.build(:name => 'article 3'); a3.save!
+
+    feed = RssFeed.new(:name => 'testfeed')
+    feed.profile = profile
+    feed.save!
+
+    rss = feed.data
+    assert_match /<item><title>article 1<\/title>/, rss
+    assert_match /<item><title>article 2<\/title>/, rss
+    assert_match /<item><title>article 3<\/title>/, rss
   end
 
 end
