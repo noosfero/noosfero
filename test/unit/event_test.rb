@@ -35,8 +35,14 @@ class EventTest < ActiveSupport::TestCase
     assert_kind_of Date, e.start_date
   end
 
+  should 'set start date default value as today' do
+    e = Event.new
+    assert_equal Date.today, e.start_date
+  end
+
   should 'require start date' do
     e = Event.new
+    e.start_date = nil
     e.valid?
     assert e.errors.invalid?(:start_date)
     e.start_date = Date.today

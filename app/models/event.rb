@@ -9,6 +9,11 @@ class Event < Article
   xss_terminate :only => [ :link ], :on => 'validation'
   xss_terminate :only => [ :description, :link, :address ], :with => 'white_list', :on => 'validation'
 
+  def initialize(*args)
+    super(*args)
+    self.start_date ||= Date.today
+  end
+
   validates_presence_of :title, :start_date
 
   validates_each :start_date do |event,field,value|
