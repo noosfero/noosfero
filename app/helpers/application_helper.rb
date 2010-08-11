@@ -538,7 +538,9 @@ module ApplicationHelper
   # #profile_image) and its name and number of members beside it.
   def community_image_link( profile, size=:portrait, tag='li' )
     name = h(profile.name)
+    links = links_for_balloon(profile)
     content_tag tag,
+        (environment.enabled?(:show_balloon_with_profile_links_when_clicked) ? link_to( content_tag( 'span', _('Profile links')), '#', :onclick => "toggleSubmenu(this, '#{profile.short_name}', #{links.to_json}); return false", :class => 'menu-submenu-trigger' ) : "") +
         link_to(
             content_tag( 'span', profile_image( profile, size ), :class => 'profile-image' ) +
             content_tag( 'span', name, :class => 'org' ) +

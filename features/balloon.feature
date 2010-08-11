@@ -29,7 +29,7 @@ Feature: balloon
     Then I should not see "Friends"
 
   @selenium
-  Scenario: I should see balloon when clicked on block trigger
+  Scenario: I should see balloon when clicked on people block trigger
     Given the following blocks
       | owner       | type        |
       | environment | PeopleBlock |
@@ -39,6 +39,18 @@ Feature: balloon
     Then I should see "Profile"
     And I should see "Friends"
     And I should see "Home Page"
+
+  @selenium
+  Scenario: I should see balloon when clicked on community block trigger
+    Given the following blocks
+      | owner       | type        |
+      | environment | CommunitiesBlock |
+    And feature "show_balloon_with_profile_links_when_clicked" is enabled on environment
+    And I go to the homepage
+    When I click ".menu-submenu-trigger"
+    Then I should see "Profile"
+    And I should see "Members"
+    And I should see "Agenda"
 
   @selenium
   Scenario: I should not see trigger if not enabled on page
