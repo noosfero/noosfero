@@ -406,14 +406,20 @@ module ApplicationHelper
     if profile.image
       profile.image.public_filename( size )
     else
-      if profile.organization?
-        if profile.kind_of?(Community)
-          '/images/icons-app/users_size-'+ size.to_s() +'.png'
+      icon =
+        if profile.organization?
+          if profile.kind_of?(Community)
+            '/images/icons-app/community-'+ size.to_s() +'.png'
+          else
+            '/images/icons-app/enterprise-'+ size.to_s() +'.png'
+          end
         else
-          '/images/icons-app/enterprise-default-pic-'+ size.to_s() +'.png'
+          '/images/icons-app/person-'+ size.to_s() +'.png'
         end
+      if File.exists?(File.join(Rails.root, 'public', theme_path, icon))
+        theme_path + icon
       else
-        '/images/icons-app/user_icon_size-'+ size.to_s() +'.png'
+        icon
       end
     end
 

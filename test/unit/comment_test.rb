@@ -209,4 +209,9 @@ class CommentTest < Test::Unit::TestCase
     assert_no_match /[<>]/, comment.name
   end
 
+  should 'use an existing image for deleted comments' do
+    image = Comment.new.removed_user_image
+    assert File.exists?(File.join(Rails.root, 'public', image)), "#{image} does not exist."
+  end
+
 end

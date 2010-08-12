@@ -44,7 +44,7 @@ class Comment < ActiveRecord::Base
   end
 
   def removed_user_image
-    '/images/icons-app/user_icon_size-minor.png'
+    '/images/icons-app/person-minor.png'
   end
 
   def anchor
