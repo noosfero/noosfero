@@ -23,11 +23,11 @@ class CmsControllerTest < Test::Unit::TestCase
   def test_local_files_reference
     assert_local_files_reference :get, :index, :profile => profile.identifier
   end
-  
+
   def test_valid_xhtml
     assert_valid_xhtml
   end
-  
+
   should 'list top level documents on index' do
     get :index, :profile => profile.identifier
 
@@ -41,7 +41,7 @@ class CmsControllerTest < Test::Unit::TestCase
 
     a = profile.articles.build(:name => 'blablabla')
     a.save!
-    
+
     get :view, :profile => profile.identifier, :id => a.id
 
     assert_template 'view'
@@ -110,7 +110,7 @@ class CmsControllerTest < Test::Unit::TestCase
   should 'be able to set home page' do
     a = profile.articles.build(:name => 'my new home page')
     a.save!
-    
+
     assert_not_equal a, profile.home_page
 
     post :set_home_page, :profile => profile.identifier, :id => a.id
@@ -156,7 +156,7 @@ class CmsControllerTest < Test::Unit::TestCase
     a = profile.articles.build(:name => 'my article')
     a.last_changed_by = other_person
     a.save!
-    
+
     login_as(profile.identifier)
     post :edit, :profile => profile.identifier, :id => a.id, :article => { :body => 'new content for this article' }
 
@@ -384,7 +384,7 @@ class CmsControllerTest < Test::Unit::TestCase
     c1 = env.categories.build(:name => "Test category 1"); c1.save!
     c2 = env.categories.build(:name => "Test category 2"); c2.save!
     c3 = env.categories.build(:name => "Test Category 3"); c3.save!
-  
+
     # post is in c1 and c3
     post :new, :type => TextileArticle.name, :profile => profile.identifier, :article => { :name => 'adding-categories-test', :category_ids => [ c1.id, c3.id] }
 
@@ -399,44 +399,44 @@ class CmsControllerTest < Test::Unit::TestCase
     c1 = env.categories.build(:name => "Test category 1"); c1.save!
     c2 = env.categories.build(:name => "Test category 2"); c2.save!
     c3 = env.categories.build(:name => "Test Category 3"); c3.save!
-  
+
     # post is in c1, c3 and c3
     post :new, :type => TextileArticle.name, :profile => profile.identifier, :article => { :name => 'adding-categories-test', :category_ids => [ c1.id, c3.id, c3.id ] }
 
     saved = profile.articles.find_by_name('adding-categories-test')
     assert_equal [c1, c3], saved.categories
   end
-  
+
   should 'filter html from textile article name' do
     post :new, :type => 'TextileArticle', :profile => profile.identifier, :article => { :name => 'a <strong>test</strong> article', :body => 'the text of the article ...' }
     assert_sanitized assigns(:article).name
   end
-  
+
   should 'filter html from textile article abstract' do
     post :new, :type => 'TextileArticle', :profile => profile.identifier, :article => { :name => 'article', :abstract => '<strong>abstract</strong>', :body => 'the text of the article ...' }
     assert_sanitized assigns(:article).abstract
   end
-  
+
   should 'filter html from textile article body' do
     post :new, :type => 'TextileArticle', :profile => profile.identifier, :article => { :name => 'article', :abstract => 'abstract', :body => 'the <b>text</b> of <a href=#>the</a> article ...' }
     assert_sanitized assigns(:article).body
   end
-  
+
   should 'filter html with white_list from tiny mce article name' do
     post :new, :type => 'TinyMceArticle', :profile => profile.identifier, :article => { :name => "<strong>test</strong>", :body => 'the text of the article ...' }
     assert_equal "<strong>test</strong>", assigns(:article).name
   end
-  
+
   should 'filter html with white_list from tiny mce article abstract' do
     post :new, :type => 'TinyMceArticle', :profile => profile.identifier, :article => { :name => 'article', :abstract => "<script>alert('test')</script> article", :body => 'the text of the article ...' }
     assert_equal " article", assigns(:article).abstract
   end
-  
+
   should 'filter html with white_list from tiny mce article body' do
     post :new, :type => 'TinyMceArticle', :profile => profile.identifier, :article => { :name => 'article', :abstract => 'abstract', :body => "the <script>alert('text')</script> of article ..." }
     assert_equal "the  of article ...", assigns(:article).body
   end
-  
+
   should 'not filter html tags permitted from tiny mce article body' do
     post :new, :type => 'TinyMceArticle', :profile => profile.identifier, :article => { :name => 'article', :abstract => 'abstract', :body => "<b>the</b> <script>alert('text')</script> <strong>of</strong> article ..." }
     assert_equal "<b>the</b>  <strong>of</strong> article ...", assigns(:article).body
@@ -653,7 +653,7 @@ class CmsControllerTest < Test::Unit::TestCase
 
   should 'create a private article child of private folder' do
     folder = Folder.new(:name => 'my intranet', :published => false); profile.articles << folder; folder.save!
-    
+
     post :new, :profile => profile.identifier, :type => 'TextileArticle', :parent_id => folder.id, :article => { :name => 'new-private-article'}
     folder.reload
 
@@ -666,7 +666,7 @@ class CmsControllerTest < Test::Unit::TestCase
     c = Community.create!(:name => 'test comm', :identifier => 'test_comm')
     c.affiliate(profile, Profile::Roles.all_roles(c.environment.id))
     a = profile.articles.create!(:name => 'something intresting', :body => 'ruby on rails')
-    
+
     get :publish, :profile => profile.identifier, :id => a.id
 
     assert_equal [c], assigns(:groups)
@@ -677,23 +677,59 @@ class CmsControllerTest < Test::Unit::TestCase
     c = Community.create!(:name => 'test comm', :identifier => 'test_comm', :moderated_articles => false)
     c.affiliate(profile, Profile::Roles.all_roles(c.environment.id))
     a = profile.articles.create!(:name => 'something intresting', :body => 'ruby on rails')
-    
+
     assert_difference PublishedArticle, :count do
       post :publish, :profile => profile.identifier, :id => a.id, :marked_groups => [{:name => 'bli', :group_id => c.id.to_s}]
       assert_equal [{'group' => c, 'name' => 'bli'}], assigns(:marked_groups)
     end
   end
-  
+
+  should "not crash if there is a post and no portal community defined" do
+    Environment.any_instance.stubs(:portal_community).returns(nil)
+    article = profile.articles.create!(:name => 'something intresting', :body => 'ruby on rails')
+    assert_nothing_raised do
+      post :publish_on_portal_community, :profile => profile.identifier, :id => article.id, :name => article.name
+    end
+  end
+
+  should 'publish the article on portal community if it is not moderated' do
+    portal_community = fast_create(Community)
+    portal_community.moderated_articles = false
+    portal_community.save
+    Environment.any_instance.stubs(:portal_community).returns(portal_community)
+    article = profile.articles.create!(:name => 'something intresting', :body => 'ruby on rails')
+
+    assert_difference PublishedArticle, :count do
+      post :publish_on_portal_community, :profile => profile.identifier, :id => article.id, :name => article.name
+    end
+  end
+
   should 'create a task for article approval if community is moderated' do
     c = Community.create!(:name => 'test comm', :identifier => 'test_comm', :moderated_articles => true)
     c.affiliate(profile, Profile::Roles.all_roles(c.environment.id))
     a = profile.articles.create!(:name => 'something intresting', :body => 'ruby on rails')
-    
+
     assert_no_difference PublishedArticle, :count do
       assert_difference ApproveArticle, :count do
         assert_difference c.tasks, :count do
           post :publish, :profile => profile.identifier, :id => a.id, :marked_groups => [{:name => 'bli', :group_id => c.id.to_s}]
           assert_equal [{'group' => c, 'name' => 'bli'}], assigns(:marked_groups)
+        end
+      end
+    end
+  end
+
+  should 'create a task for article approval if portal community is moderated' do
+    portal_community = fast_create(Community)
+    portal_community.moderated_articles = true
+    portal_community.save
+    Environment.any_instance.stubs(:portal_community).returns(portal_community)
+    article = profile.articles.create!(:name => 'something intresting', :body => 'ruby on rails')
+
+    assert_no_difference PublishedArticle, :count do
+      assert_difference ApproveArticle, :count do
+        assert_difference portal_community.tasks, :count do
+          post :publish_on_portal_community, :profile => profile.identifier, :id => article.id, :name => article.name
         end
       end
     end
@@ -1136,7 +1172,17 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'a', :attributes => {:href => "/myprofile/#{profile.identifier}/cms/publish/#{a.id}"}
   end
 
-  should "not display 'Publish' when profile is not a person" do
+  should "display 'Publish' when profile is a community" do
+    community = fast_create(Community)
+    community.add_member(profile)
+    Environment.any_instance.stubs(:portal_community).returns(community)
+    a = community.articles.create!(:name => 'my new home page')
+    Article.stubs(:short_description).returns('bli')
+    get :index, :profile => community.identifier
+    assert_tag :tag => 'a', :attributes => {:href => "/myprofile/#{community.identifier}/cms/publish_on_portal_community/#{a.id}"}
+  end
+
+  should "not display 'Publish' when profile is not a person nor a community" do
     p = Community.create!(:name => 'community-test')
     p.add_admin(profile)
     a = p.articles.create!(:name => 'my new home page')

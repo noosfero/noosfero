@@ -40,10 +40,16 @@
             profile.admin_url.merge({ :controller => 'cms', :action => 'destroy', :id => @page }),
             :class => 'button with-text icon-delete' %>
         <% end %>
-        <% if profile.kind_of?(Person) && !environment.enabled?('disable_cms') && !@page.folder? %>
-          <%= link_to content_tag( 'span', _('Spread this') ),
-              profile.admin_url.merge({ :controller => 'cms', :action => 'publish', :id => @page }),
-              :class => 'button with-text icon-spread' %>
+        <% if !environment.enabled?('disable_cms') && !@page.folder? %>
+          <% if profile.kind_of?(Person) %>
+            <%= link_to content_tag( 'span', _('Spread this') ),
+                profile.admin_url.merge({ :controller => 'cms', :action => 'publish', :id => @page }),
+                :class => 'button with-text icon-spread' %>
+          <% elsif profile.kind_of?(Community) && environment.portal_community %>
+            <%= link_to content_tag( 'span', _('Spread this') ),
+                profile.admin_url.merge({ :controller => 'cms', :action => 'publish_on_portal_community', :id => @page }),
+                :class => 'button with-text icon-spread' %>
+          <% end %>
         <% end %>
       <% end %>
     <% end %>

@@ -242,6 +242,29 @@ class CmsController < MyProfileController
     end
   end
 
+  def publish_on_portal_community
+    @article = profile.articles.find(params[:id])
+    if request.post?
+      if environment.portal_community
+        task = ApproveArticle.create!(:article => @article, :name => params[:name], :target => environment.portal_community, :requestor => user)
+        begin
+          task.finish unless environment.portal_community.moderated_articles?
+          flash[:notice] = _("Your publish request was sent successfully")
+        rescue
+          flash[:error] = _("Your publish request couldn't be sent.")
+        end
+      else
+        flash[:notice] = _("There is no portal community to publish your article.")
+      end
+
+      if @back_to
+        redirect_to @back_to
+      else
+        redirect_to @article.view_url
+      end
+    end
+  end
+
   def media_listing
     if params[:image_folder_id]
       folder = profile.articles.find(params[:image_folder_id]) if !params[:image_folder_id].blank?

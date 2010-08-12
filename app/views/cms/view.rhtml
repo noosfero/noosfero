@@ -82,6 +82,8 @@
         <%= button_without_text :eyes, _('Public view'), item.url %>
         <% if profile.person? %>
           <%= button_without_text :spread, _('Spread this'), :action => 'publish', :id => item.id %>
+        <% elsif profile.community? && environment.portal_community %>
+          <%= button_without_text :spread, _('Spread this'), :action => 'publish_on_portal_community', :id => item.id %>
         <% end %>
         <% if !environment.enabled?('cant_change_homepage') %>
           <%= button_without_text :home, _('Use as homepage'), { :action => 'set_home_page', :id => item.id }, :method => :post %>
