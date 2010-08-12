@@ -614,6 +614,38 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'a', :attributes => { :href => "/#{profile.identifier}/#{blog.path}?npage=2", :rel => 'next' }
   end
 
+  should 'display first page of blog posts' do
+    blog = Blog.create!(:name => 'My blog', :profile => profile, :posts_per_page => 5)
+    for n in 1..10
+      blog.children << TextileArticle.create!(:name => "Post #{n}", :profile => profile, :parent => blog)
+    end
+    assert_equal 10, blog.posts.size
+
+    get :view_page, :profile => profile.identifier, :page => [blog.path]
+    for n in 1..5
+      assert_no_tag :tag => 'h1', :attributes => { :class => 'title' }, :descendant => {:tag => 'a', :attributes => {:href => /\/#{profile.identifier}\/my-blog\/post-#{n}/}, :content => "Post #{n}"}
+    end
+    for n in 6..10
+      assert_tag :tag => 'h1', :attributes => { :class => 'title' }, :descendant => {:tag => 'a', :attributes => {:href => /\/#{profile.identifier}\/my-blog\/post-#{n}/}, :content => "Post #{n}"}
+    end
+  end
+
+  should 'display others pages of blog posts' do
+    blog = Blog.create!(:name => 'My blog', :profile => profile, :posts_per_page => 5)
+    for n in 1..10
+      blog.children << TextileArticle.create!(:name => "Post #{n}", :profile => profile, :parent => blog)
+    end
+    assert_equal 10, blog.posts.size
+
+    get :view_page, :profile => profile.identifier, :page => [blog.path], :npage => 2
+    for n in 1..5
+      assert_tag :tag => 'h1', :attributes => { :class => 'title' }, :descendant => {:tag => 'a', :attributes => {:href => /\/#{profile.identifier}\/my-blog\/post-#{n}/}, :content => "Post #{n}"}
+    end
+    for n in 6..10
+      assert_no_tag :tag => 'h1', :attributes => { :class => 'title' }, :descendant => {:tag => 'a', :attributes => {:href => /\/#{profile.identifier}\/my-blog\/post-#{n}/}, :content => "Post #{n}"}
+    end
+  end
+
   should 'set year and month filter from URL params' do
     profile.articles << Blog.new(:name => 'A blog test', :profile => profile)
     year, month = profile.blog.created_at.year.to_s, '%02d' % profile.blog.created_at.month
