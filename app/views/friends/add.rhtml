@@ -13,7 +13,7 @@
 <% form_tag do %>
   <%= hidden_field_tag(:confirmation, 1) %>
 
-  <div>
+  <div class="add-friend-tags">
     <%= __('Classify your new friend %s: ') % @friend.name %>
     <%= text_field_with_local_autocomplete('group', profile.suggested_friend_groups, :maxlength => 150) %>
     <p>

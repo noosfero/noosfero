@@ -21,7 +21,7 @@
         :onclick => "Element.hide('group-for-friend-#{task.id}')") %>
     <label for="<%= "decision-cancel-#{task.id}" %>"><b><%= _('Ignore') %></b></label>
 
-    <% content_tag('div', :id => "group-for-friend-#{task.id}") do %>
+    <% content_tag('div', :id => "group-for-friend-#{task.id}", :class => "add-friend-tags") do %>
       <%= _('Classify your new friend:') %>
       <%= text_field_with_local_autocomplete("task[group_for_friend]",
           profile.suggested_friend_groups,
