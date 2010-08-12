@@ -295,6 +295,7 @@ class Profile < ActiveRecord::Base
   def apply_template(template, options = {:copy_articles => true})
     copy_blocks_from(template)
     copy_articles_from(template) if options[:copy_articles]
+    self.apply_type_specific_template(template)
 
     # copy interesting attributes
     self.layout_template = template.layout_template
@@ -305,6 +306,9 @@ class Profile < ActiveRecord::Base
 
     # flush
     self.save_without_validation!
+  end
+
+  def apply_type_specific_template(template)
   end
 
   xss_terminate :only => [ :name, :nickname, :address, :contact_phone, :description ], :on => 'validation'

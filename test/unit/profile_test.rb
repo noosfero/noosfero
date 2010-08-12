@@ -953,6 +953,21 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal 'some child article', child_art.name
   end
 
+  should 'copy communities from person template' do
+    template = create_user('test_template').person
+    Environment.any_instance.stubs(:person_template).returns(template)
+
+    c1 = fast_create(Community)
+    c2 = fast_create(Community)
+    c1.add_member(template)
+    c2.add_member(template)
+
+    p = create_user_full('new_user').person
+
+    assert_includes p.communities, c1
+    assert_includes p.communities, c2
+  end
+
   should 'copy homepage from template' do
     template = create_user('test_template').person
     template.articles.destroy_all
@@ -1398,7 +1413,7 @@ class ProfileTest < Test::Unit::TestCase
   end
 
   should 'copy header and footer after create a person' do
-    template = fast_create(Profile)
+    template = create_user('test_template').person
     template.custom_footer = "footer customized"
     template.custom_header = "header customized"
     Environment.any_instance.stubs(:person_template).returns(template)

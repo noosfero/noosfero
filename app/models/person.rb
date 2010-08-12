@@ -220,6 +220,15 @@ class Person < Profile
     environment.person_template
   end
 
+  def apply_type_specific_template(template)
+    copy_communities_from(template)
+  end
+
+  def copy_communities_from(template)
+    template.communities.each {|community| community.add_member(self)}
+  end
+
+
   def self.with_pending_tasks
     Person.find(:all).select{ |person| !person.tasks.pending.empty? or person.has_organization_pending_tasks? }
   end
