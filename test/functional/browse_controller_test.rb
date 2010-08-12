@@ -218,4 +218,18 @@ class BrowseControllerTest < Test::Unit::TestCase
     assert_tag :h1, :content => 'More recent communities'
   end
 
+  should "only include visible people in more_recent filter" do
+    # assuming that all filters behave the same!
+    p1 = fast_create(Person, :visible => false)
+    get :people, :filter => 'more_recent'
+    assert_not_includes assigns(:results), p1
+  end
+
+  should "only include visible communities in more_recent filter" do
+    # assuming that all filters behave the same!
+    p1 = fast_create(Community, :visible => false)
+    get :communities, :filter => 'more_recent'
+    assert_not_includes assigns(:results), p1
+  end
+
 end

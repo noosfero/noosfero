@@ -12,7 +12,7 @@ class BrowseController < PublicController
     @filter = filter
     @title = self.filter_description(params[:action] + '_' + @filter )
 
-    @results = @environment.people.send(@filter)
+    @results = @environment.people.visible.send(@filter)
 
     if params[:query].blank?
       @results = @results.paginate(:per_page => 27, :page => params[:page])
@@ -25,7 +25,7 @@ class BrowseController < PublicController
     @filter = filter
     @title = self.filter_description(params[:action] + '_' + @filter )
 
-    @results = @environment.communities.send(@filter)
+    @results = @environment.communities.visible.send(@filter)
 
     if params[:query].blank?
       @results = @results.paginate(:per_page => 27, :page => params[:page])
