@@ -972,10 +972,6 @@ hr.pre-posts, hr.sep-posts {
   margin: 0px -19px;
 }
 
-.main-block .article-body {
-  overflow: visible;
-}
-
 #article .logged-in h1 {
   margin-top: 25px;
 }

@@ -1803,8 +1803,12 @@ input.disabled {
    Use article.css for article related css
 */
 
-.main-block .article-body, .main-block h1 {
+.main-block .main-block h1 {
   overflow: hidden;
+}
+
+.main-block .article-body {
+  overflow-x: auto;
 }
 
 body div#activation_enterprise {
