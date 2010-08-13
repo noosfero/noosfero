@@ -50,6 +50,11 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_equal 'carne vaca', assigns('filtered_query')
   end
 
+  should 'espape xss attack' do
+    get 'index', :query => '<wslite>'
+    assert_no_tag :tag => 'wslite'
+  end
+
   should 'search only in specified types of content' do
     get :index, :query => 'something not important', :find_in => [ 'articles' ]
     assert_equal [:articles], assigns(:results).keys

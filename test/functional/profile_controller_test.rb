@@ -716,6 +716,11 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_response 302
   end
 
+  should 'escape xss attack in tag feed' do
+    get :content_tagged, :profile => profile.identifier, :id => "<wslite>"
+    assert_no_tag :tag => 'wslite'
+  end
+
   should 'reverse the order of posts in tag feed' do
     TextileArticle.create!(:name => 'First post', :profile => profile, :tag_list => 'tag1', :published_at => Time.now)
     TextileArticle.create!(:name => 'Second post', :profile => profile, :tag_list => 'tag1', :published_at => Time.now + 1.day)
