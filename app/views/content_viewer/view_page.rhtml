@@ -109,6 +109,10 @@
 <div id="article-source">
   <%= _('Source: %s') % link_to(@page.source, @page.source) %>
 </div>
+<% elsif @page.reference_article  %>
+<div id="article-source">
+  <%= _('Source: %s') % link_to(@page.reference_article.profile.name, @page.reference_article.url) %>
+</div>
 <% end %>
 
 <div class="comments">
