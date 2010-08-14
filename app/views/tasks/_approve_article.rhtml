@@ -8,7 +8,7 @@
   <% else %>
     <%= _('%s wants to publish content: %s.') %
       [content_tag('strong', link_to( task.requestor.name, task.requestor.public_profile_url ) ),
-      content_tag('strong', link_to( task.name, task.article.url ) )] %>
+      content_tag('strong', link_to( task.article.name, task.article.url ) )] %>
 
     <div>
       <%= radio_button_tag(:decision, 'finish', true,
