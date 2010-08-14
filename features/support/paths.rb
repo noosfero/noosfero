@@ -42,6 +42,9 @@ module NavigationHelpers
     when /^(.*)'s control panel$/
       '/myprofile/%s' % Profile.find_by_name($1).identifier
 
+    when /^the Control panel$/
+      '/myprofile/%s' % User.find_by_id(session[:user]).login
+
     when /^the search page$/
       '/search'
 

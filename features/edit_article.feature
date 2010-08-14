@@ -31,27 +31,27 @@ Feature: edit article
     And I should be on /joaosilva/my-folder
 
   Scenario: cancel button back to cms
-    Given I follow "Control panel"
+    Given I go to the Control panel
     And I follow "Manage Content"
     And I follow "New Folder"
-    When I follow "Cancel"
+    When I follow "Cancel" within ".main-block"
     Then I should be on Joao Silva's cms
 
   Scenario: display tag list field when creating event
-    Given I follow "Control panel"
+    Given I go to the Control panel
     And I follow "Manage Content"
     And I follow "New article"
     When I follow "Event"
     Then I should see "Tag list"
 
   Scenario: display tag list field when creating folder
-    Given I follow "Control panel"
+    Given I go to the Control panel
     And I follow "Manage Content"
     When I follow "New folder"
     Then I should see "Tag list"
 
   Scenario: create new article with tags
-    Given I follow "Control panel"
+    Given I go to the Control panel
     And I follow "Manage Content"
     And I follow "New article"
     When I follow "Text article with Textile markup language"
@@ -85,7 +85,7 @@ Feature: edit article
     Given I am on Joao Silva's sitemap
     And I follow "Save the whales"
     And I follow "Edit"
-    When I follow "Cancel"
+    When I follow "Cancel" within ".main-block"
     Then I should be on /joaosilva/save-the-whales
 
   Scenario: create an article inside a folder
@@ -111,6 +111,6 @@ Feature: edit article
     Then I should be on /joaosilva/my-folder
     When I follow "New article"
     And I follow "Text article with visual editor"
-    When I follow "Cancel"
+    When I follow "Cancel" within ".no-boxes"
     And I should be on /joaosilva/my-folder
 

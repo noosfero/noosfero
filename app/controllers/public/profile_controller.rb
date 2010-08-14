@@ -76,7 +76,7 @@ class ProfileController < PublicController
     @wizard = params[:wizard]
     if request.post? && params[:confirmation]
       profile.add_member(current_user.person)
-      flash[:notice] = _('%s administrator still needs to accept you as member.') % profile.name if profile.closed?
+      session[:notice] = _('%s administrator still needs to accept you as member.') % profile.name if profile.closed?
       if @wizard
         redirect_to :controller => 'search', :action => 'assets', :asset => 'communities', :wizard => true
       else
@@ -84,7 +84,7 @@ class ProfileController < PublicController
       end
     else
       if current_user.person.memberships.include?(profile)
-        flash[:notice] = _('You are already a member of "%s"') % profile.name
+        session[:notice] = _('You are already a member of "%s"') % profile.name
         redirect_to profile.url
         return
       end
@@ -129,7 +129,7 @@ class ProfileController < PublicController
   def unblock
     if current_user.person.is_admin?(profile.environment)
       profile.unblock
-      flash[:notice] = _("You have unblocked %s successfully. ") % profile.name
+      session[:notice] = _("You have unblocked %s successfully. ") % profile.name
       redirect_to :controller => 'profile', :action => 'index'
     else
       message = __('You are not allowed to unblock enterprises in this environment.')

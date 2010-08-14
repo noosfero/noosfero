@@ -263,3 +263,27 @@ jQuery(document).ready(function() {
   jQuery('body').click(function() { hideAllSubmenus(); });
   jQuery('.menu-submenu-trigger').click(function(e) { e.stopPropagation(); });
 });
+
+// controls the display of the login/logout stuff
+jQuery(function($) {
+  $.getJSON('/account/user_data', function(data) {
+    if (data.login) {
+      // logged in
+     $('#user .logged-in, .login-block .logged-user-info').each(function() {
+       $(this).find('a[href]').each(function() {
+         $(this).attr('href', $(this).attr('href').replace('%{login}', data.login))
+       });
+       var html = $(this).html().replace('%{login}', data.login).replace('%{month}', data.since_month).replace('%{year}', data.since_year);
+       $(this).html(html).fadeIn();
+     });
+    } else {
+      // not logged in
+      $('#user .not-logged-in, .login-block .not-logged-user').fadeIn();
+    }
+    if (data.notice) {
+      var $noticeBox = $('<div id="notice"></div>').html(data.notice).appendTo('body').fadeTo('fast', 0.8);
+      $noticeBox.click(function() { $(this).hide(); });
+      setTimeout(function() { $noticeBox.fadeOut('fast'); }, 5000);
+    }
+  });
+});

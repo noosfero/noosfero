@@ -14,7 +14,7 @@ class FriendsController < MyProfileController
       # FIXME this shouldn't be in Person model?
       AddFriend.create!(:person => profile, :friend => @friend, :group_for_person => params[:group])
 
-      flash[:notice] = _('%s still needs to accept being your friend.') % @friend.name
+      session[:notice] = _('%s still needs to accept being your friend.') % @friend.name
       # FIXME shouldn't redirect to the friend's page?
       redirect_to :action => 'index' 
     end

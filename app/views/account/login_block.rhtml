@@ -6,7 +6,7 @@
     <div class="login-box-content">
 
 <%
-  @user = User.new  if ! @user
+  @user ||= User.new
 %>
     
     <% labelled_form_for :user, @user,

@@ -40,7 +40,7 @@ class AdminPanelController < AdminController
         end
         redirect_to :action => 'set_portal_folders'
       else
-        flash[:notice] = __('Community not found. You must insert the identifier of a community from this environment')
+        session[:notice] = __('Community not found. You must insert the identifier of a community from this environment')
       end
     end
   end
@@ -54,7 +54,7 @@ class AdminPanelController < AdminController
        folders = params[:folders].map{|fid| Folder.find(:first, :conditions => {:profile_id => env.portal_community, :id => fid})} if params[:folders]
        env.portal_folders = folders
        if env.save
-         flash[:notice] = _('Saved the portal folders')
+         session[:notice] = _('Saved the portal folders')
          redirect_to :action => 'set_portal_news_amount'
        end
      end
@@ -63,7 +63,7 @@ class AdminPanelController < AdminController
   def set_portal_news_amount
     if request.post?
       if @environment.update_attributes(params[:environment])
-        flash[:notice] = _('Saved the number of news on folders')
+        session[:notice] = _('Saved the number of news on folders')
         redirect_to :action => 'index'
       end
     end

@@ -19,7 +19,7 @@ class RoleController < AdminController
     if @role.save
       redirect_to :action => 'show', :id => @role
     else
-      flash[:notice] = _('Failed to create role')
+      session[:notice] = _('Failed to create role')
       render :action => 'new'
     end
   end
@@ -33,7 +33,7 @@ class RoleController < AdminController
     if @role.update_attributes(params[:role])
       redirect_to :action => 'show', :id => @role
     else
-      flash[:notice] = _('Failed to edit role')
+      session[:notice] = _('Failed to edit role')
       render :action => 'edit'
     end
   end
@@ -43,7 +43,7 @@ class RoleController < AdminController
     if @role.destroy
       redirect_to :action => 'index'
     else
-      flash[:notice] = _('Failed to edit role')
+      session[:notice] = _('Failed to edit role')
       redirect_to :action => 'index'
     end
   end

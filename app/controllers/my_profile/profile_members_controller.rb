@@ -12,9 +12,9 @@ class ProfileMembersController < MyProfileController
     @roles = @roles.select{|r| r.has_kind?('Profile') }
     @person = profile.members.find { |m| m.id == params[:person].to_i }
     if @person && @person.define_roles(@roles, profile)
-      flash[:notice] = _('Roles successfuly updated')
+      session[:notice] = _('Roles successfuly updated')
     else
-      flash[:notice] = _('Couldn\'t change the roles')
+      session[:notice] = _('Couldn\'t change the roles')
     end
     redirect_to :action => :index
   end
@@ -44,9 +44,9 @@ class ProfileMembersController < MyProfileController
   def remove_role
     @association = RoleAssignment.find(:all, :conditions => {:id => params[:id], :target_id => profile.id})
     if @association.destroy
-      flash[:notice] = 'Member succefully unassociated'
+      session[:notice] = 'Member succefully unassociated'
     else
-      flash[:notice] = 'Failed to unassociate member'
+      session[:notice] = 'Failed to unassociate member'
     end
     render :layout => false
   end
@@ -56,9 +56,9 @@ class ProfileMembersController < MyProfileController
     associations = member.find_roles(profile)
     RoleAssignment.transaction do
       if associations.map(&:destroy)
-        flash[:notice] = 'Member succefully unassociated'
+        session[:notice] = 'Member succefully unassociated'
       else
-        flash[:notice] = 'Failed to unassociate member'
+        session[:notice] = 'Failed to unassociate member'
       end
     end
     render :layout => false

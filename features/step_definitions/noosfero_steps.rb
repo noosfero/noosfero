@@ -231,3 +231,15 @@ Given /^the (.+) mail (.+) is like (.+)$/ do |position, field, regexp|
     re =~ ActionMailer::Base.deliveries.send(position)[field.to_sym]
   end
 end
+
+Given /^the following environment configuration$/ do |table|
+  env = Environment.default
+  table.raw.each do |item|
+    env.send("#{item[0]}=", item[1])
+  end
+  env.save
+end
+
+Then /^I should be logged in as "(.+)"$/ do |login|
+  User.find(session[:user]).login.should == login
+end

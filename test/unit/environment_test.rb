@@ -1005,4 +1005,73 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_not_includes env.users, user_from_other_environment
   end
 
+  should 'provide cache time for home page' do
+    env = Environment.new
+    assert env.respond_to?(:home_cache_in_minutes)
+  end
+
+  should 'store cache time for home page' do
+    env = Environment.new(:home_cache_in_minutes => 99)
+    assert_equal 99, env.home_cache_in_minutes
+  end
+
+  should 'retrieve cache time for home page' do
+    env = fast_create(Environment)
+    env.home_cache_in_minutes = 33
+    env.save!
+
+    assert_equal 33, Environment.find(env.id).home_cache_in_minutes
+  end
+
+  should 'cache home page for 5 minutes by default' do
+    env = Environment.new
+    assert_equal 5, env.home_cache_in_minutes
+  end
+
+  should 'provide cache time for general content' do
+    env = Environment.new
+    assert env.respond_to?(:general_cache_in_minutes)
+  end
+
+  should 'store cache time for general content' do
+    env = Environment.new(:general_cache_in_minutes => 99)
+    assert_equal 99, env.general_cache_in_minutes
+  end
+
+  should 'retrieve cache time for general content' do
+    env = fast_create(Environment)
+    env.general_cache_in_minutes = 33
+    env.save!
+
+    assert_equal 33, Environment.find(env.id).general_cache_in_minutes
+  end
+
+  should 'cache general content for 15 minutes by default' do
+    env = Environment.new
+    assert_equal 15, env.general_cache_in_minutes
+  end
+
+  should 'provide cache time for profile content' do
+    env = Environment.new
+    assert env.respond_to?(:profile_cache_in_minutes)
+  end
+
+  should 'store cache time for profile content' do
+    env = Environment.new(:profile_cache_in_minutes => 99)
+    assert_equal 99, env.profile_cache_in_minutes
+  end
+
+  should 'retrieve cache time for profile content' do
+    env = fast_create(Environment)
+    env.profile_cache_in_minutes = 33
+    env.save!
+
+    assert_equal 33, Environment.find(env.id).profile_cache_in_minutes
+  end
+
+  should 'cache profile content for 15 minutes by default' do
+    env = Environment.new
+    assert_equal 15, env.profile_cache_in_minutes
+  end
+
 end

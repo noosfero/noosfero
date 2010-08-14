@@ -20,20 +20,20 @@ class MailconfController < MyProfileController
     @task = EmailActivation.new(:target => environment, :requestor => profile)
     begin
       @task.save!
-      flash[:notice] = _('Please fill your personal information below in order to get your mailbox approved by one of the administrators')
+      session[:notice] = _('Please fill your personal information below in order to get your mailbox approved by one of the administrators')
       redirect_to :controller => 'profile_editor', :action => 'edit'
     rescue Exception => ex
-      flash[:notice] = _('e-Mail was not enabled successfully.')
+      session[:notice] = _('e-Mail was not enabled successfully.')
       render :action => 'index'
     end
   end
   post_only :disable
   def disable
     if profile.user.disable_email!
-      flash[:notice] = _('e-Mail disabled successfully.')
+      session[:notice] = _('e-Mail disabled successfully.')
       redirect_to :controller => 'profile_editor'
     else
-      flash[:notice] = _('e-Mail was not disabled successfully.')
+      session[:notice] = _('e-Mail was not disabled successfully.')
       redirect_to :action => 'index'
     end
   end

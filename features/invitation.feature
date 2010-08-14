@@ -92,32 +92,32 @@ Feature: invitation
     And I fill in "mail_template" with "Follow this link <url>"
     And I press "Invite my friends!"
     When I am logged in as "josesantos"
-    And I follow "Control Panel"
+    And I go to the Control panel
     And I should see "josesilva invites you to join the community 26 Bsslines."
 
   Scenario: noosfero user accepts to join community
     Given I invite email "santos@invalid.br" to join community "26 Bsslines"
     When I am logged in as "josesantos"
-    And I follow "Control panel"
+    And I go to the Control panel
     And I follow "Process requests"
     And I should see "josesilva invites you to join the community 26 Bsslines."
     And I choose "Accept"
     When I press "Ok!"
     Then I should not see "josesilva invites you to join the community 26 Bsslines."
-    When I follow "Control panel"
+    When I go to the Control panel
     And I follow "Manage my groups"
     Then I should see "26 Bsslines"
 
   Scenario: noosfero user rejects to join community
     Given I invite email "santos@invalid.br" to join community "26 Bsslines"
     When I am logged in as "josesantos"
-    And I follow "Control panel"
+    And I go to the Control panel
     And I follow "Process requests"
     And I should see "josesilva invites you to join the community 26 Bsslines."
     And I choose "Reject"
     When I press "Ok!"
     Then I should not see "josesilva invites you to join the community 26 Bsslines."
-    When I follow "Control panel"
+    When I go to the Control panel
     And I follow "Manage my groups"
     Then I should not see "26 Bsslines"
 
@@ -130,31 +130,31 @@ Feature: invitation
     And I fill in "mail_template" with "Follow this link <url>"
     And I press "Invite my friends!"
     When I am logged in as "josesantos"
-    And I follow "Control Panel"
+    And I go to the Control panel
     And I should see "josesilva wants to be your friend."
 
   Scenario: noosfero user accepts to be friend
     Given I invite email "santos@invalid.br" to be my friend
     When I am logged in as "josesantos"
-    And I follow "Control panel"
+    And I go to the Control panel
     And I follow "Process requests"
     And I should see "josesilva wants to be your friend."
     And I choose "Accept"
     When I press "Ok!"
     And I should not see "josesilva wants to be your friend."
-    When I follow "Control panel"
+    When I go to the Control panel
     And I follow "Manage friends"
     Then I should see "josesilva"
 
   Scenario: noosfero user rejects to be friend
     Given I invite email "santos@invalid.br" to be my friend
     When I am logged in as "josesantos"
-    And I follow "Control panel"
+    And I go to the Control panel
     And I follow "Process requests"
     And I should see "josesilva wants to be your friend."
     And I choose "Ignore"
     When I press "Ok!"
     And I should not see "josesilva wants to be your friend."
-    When I follow "Control panel"
+    When I go to the Control panel
     And I follow "Manage friends"
     Then I should not see "josesilva"

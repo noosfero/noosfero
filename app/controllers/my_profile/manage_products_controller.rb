@@ -43,7 +43,7 @@ class ManageProductsController < ApplicationController
     @level = 0
     if request.post?
       if @product.save
-        flash[:notice] = _('Product succesfully created')
+        session[:notice] = _('Product succesfully created')
         render :partial => 'shared/redirect_via_javascript',
           :locals => { :url => url_for(:controller => 'manage_products', :action => 'show', :id => @product) }
       else
@@ -101,10 +101,10 @@ class ManageProductsController < ApplicationController
   def destroy
     @product = @profile.products.find(params[:id])
     if @product.destroy
-      flash[:notice] = _('Product succesfully removed')
+      session[:notice] = _('Product succesfully removed')
       redirect_back_or_default :action => 'index'
     else
-      flash[:notice] = _('Could not remove the product')
+      session[:notice] = _('Could not remove the product')
       redirect_back_or_default :action => 'show', :id => @product
     end
   end

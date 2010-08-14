@@ -22,7 +22,7 @@ class InviteController < PublicController
           flash.now[:notice] = _('&lt;url&gt; is needed in invitation mail.')
         elsif !contacts_to_invite.empty?
           Invitation.invite(current_user.person, contacts_to_invite, params[:mail_template], profile)
-          flash[:notice] = _('Your invitations have been sent.')
+          session[:notice] = _('Your invitations have been sent.')
           if profile.person?
             redirect_to :controller => 'friends'
           else

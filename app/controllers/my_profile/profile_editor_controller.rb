@@ -25,7 +25,7 @@ class ProfileEditorController < MyProfileController
         if profile.identifier.blank?
           profile.identifier = params[:profile]
         end
-        flash[:notice] = _('Cannot update profile')
+        session[:notice] = _('Cannot update profile')
       end
     end
   end
@@ -34,7 +34,7 @@ class ProfileEditorController < MyProfileController
     @to_enable = profile
     if request.post? && params[:confirmation]
       unless @to_enable.update_attribute('enabled', true)
-        flash[:notice] = _('%s was not enabled.') % @to_enable.name
+        session[:notice] = _('%s was not enabled.') % @to_enable.name
       end
       redirect_to :action => 'index'
     end
@@ -44,7 +44,7 @@ class ProfileEditorController < MyProfileController
     @to_disable = profile
     if request.post? && params[:confirmation]
       unless @to_disable.update_attribute('enabled', false)
-        flash[:notice] = _('%s was not disabled.') % @to_disable.name
+        session[:notice] = _('%s was not disabled.') % @to_disable.name
       end
       redirect_to :action => 'index'
     end

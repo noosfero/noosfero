@@ -41,24 +41,18 @@
       </div>
       <div id="wrap-2">
         <div id="user">
-          <% if logged_in? %>
-            <%= _('Welcome, %s.') % link_to('<i></i><strong>' + user.identifier + '</strong>', user.url, :id => "homepage-link", :title => _('Go to your homepage')) %>
-            <% if user.is_admin?(environment) %>
-              <%= link_to('<i class="icon-menu-admin"></i><strong>' + _('Administration') + '</strong>', { :controller => 'admin_panel', :action => 'index' }, :id => "controlpanel", :title => _("Configure the environment")) %>
-            <% end %>
-            <% if (user.environment == environment) %>
-              <%= link_to('<i class="icon-menu-ctrl-panel"></i><strong>' + _('Control panel') + '</strong>', user.admin_url, :id => "controlpanel", :title => _("Configure your personal account and content")) %>
-            <% end %>
+          <span class='logged-in' style='display: none;'>
+            <%= _('Welcome, %s.') % link_to('<i></i><strong>%{login}</strong>', '/%{login}', :id => "homepage-link", :title => _('Go to your homepage')) %>
+            <%= link_to('<i class="icon-menu-admin"></i><strong>' + _('Administration') + '</strong>', { :controller => 'admin_panel', :action => 'index' }, :id => "controlpanel", :title => _("Configure the environment"), :class => 'admin-link') %>
+            <%= link_to('<i class="icon-menu-ctrl-panel"></i><strong>' + _('Control panel') + '</strong>', '/myprofile/%{login}', :id => "controlpanel", :title => _("Configure your personal account and content")) %>
             <%= link_to('<i class="icon-menu-logout"></i><strong>' + _('Logout') + '</strong>', { :controller => 'account', :action => 'logout'} , :id => "logout", :title => _("Leave the system")) %>
-          <% else %>
-            <% if params[:controller] != 'account' || params[:action] != 'signup' %>
+          </span>
+          <span class='not-logged-in' style='display: none'>
               <%= _('%s or %s') % [thickbox_inline_popup_link('<i class="icon-menu-login"></i><strong>' + _('Login') + '</strong>', login_url, 'inlineLoginBox', :id => 'link_login'), link_to('<strong>' + _('Register') + '</strong>', :controller => 'account', :action => 'signup') ] %>
               <div id='inlineLoginBox' style='display: none;'>
                 <%= render :file => 'account/login', :locals => { :is_thickbox => true } %>
               </div>
-            <% end %>
-          <% end %>
-
+          </span>
           <form action="/search" class="search_form" method="get" class="clean">
             <input name="query" size="15" value="<%=_('Search...')%>"
                 onfocus="this.form.className='focused';

@@ -10,11 +10,7 @@ class LoginBlock < Block
 
   def content
     lambda do
-      if logged_in?
-        render :file => 'account/user_info'
-      else
-        render :file => 'account/login_block'
-      end
+      render :file => 'blocks/login_block'
     end
   end
 

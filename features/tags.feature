@@ -22,7 +22,7 @@ Feature: tags
 
   Scenario: viewing a single tag
     When I go to /tag
-    And I follow "environment"
+    And I follow "environment" within ".no-boxes"
     Then I should see "save the whales"
     And I should see "the Amazon is being destroyed"
 

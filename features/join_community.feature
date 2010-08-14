@@ -48,7 +48,7 @@ Feature: join a community
     And I go to Sample Community's homepage
     And I press "Yes"
     And I follow "New user"
-    And I fill in the following:
+    And I fill in the following within ".no-boxes":
       | e-mail | jose@domain.br |
       | Username | joseoliveira |
       | Password | 123456 |

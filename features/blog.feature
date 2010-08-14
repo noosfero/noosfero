@@ -10,7 +10,7 @@ Feature: blog
     And I am logged in as "joaosilva"
 
   Scenario: create a blog
-    Given I follow "Control panel"
+    Given I go to the Control panel
     And I follow "Create blog"
     Then I should see "My Blog"
     When I fill in "Title" with "My Blog"
@@ -19,7 +19,7 @@ Feature: blog
     Then I should see "Configure blog"
 
   Scenario: redirect to blog after create blog from control panel
-    Given I follow "Control panel"
+    Given I go to the Control panel
     And I follow "Create blog"
     Then I should see "My Blog"
     When I fill in "Title" with "My Blog"
@@ -27,7 +27,7 @@ Feature: blog
     Then I should be on /joaosilva/my-blog
 
   Scenario: redirect to blog after create blog from cms
-    Given I follow "Control panel"
+    Given I go to the Control panel
     And I follow "Manage Content"
     When I follow "New Blog"
     And I fill in "Title" with "Blog from cms"
@@ -35,12 +35,12 @@ Feature: blog
     Then I should be on /joaosilva/blog-from-cms
 
   Scenario: create multiple blogs
-    Given I follow "Control panel"
+    Given I go to the Control panel
     And I follow "Manage Content"
     And I follow "New Blog"
     And I fill in "Title" with "Blog One"
     And I press "Save"
-    Then I follow "Control panel"
+    Then I go to the Control panel
     And I follow "Manage Content"
     And I follow "New Blog"
     And I fill in "Title" with "Blog Two"
@@ -49,16 +49,16 @@ Feature: blog
     And I should be on /joaosilva/blog-two
 
   Scenario: cancel button back to cms
-    Given I follow "Control panel"
+    Given I go to the Control panel
     And I follow "Manage Content"
     And I follow "New Blog"
-    When I follow "Cancel"
+    When I follow "Cancel" within ".main-block"
     Then I should be on /myprofile/joaosilva/cms
 
   Scenario: cancel button back to myprofile
-    Given I follow "Control panel"
+    Given I go to the Control panel
     And I follow "Create blog"
-    When I follow "Cancel"
+    When I follow "Cancel" within ".main-block"
     Then I should be on /myprofile/joaosilva
 
   Scenario: configure blog link to cms
@@ -66,7 +66,7 @@ Feature: blog
       | owner     | name     |
       | joaosilva | Blog One |
       | joaosilva | Blog Two |
-    And I follow "Control panel"
+    And I go to the Control panel
     When I follow "Configure blog"
     Then I should be on /myprofile/joaosilva/cms
 
@@ -74,7 +74,7 @@ Feature: blog
     Given the following blogs
        | owner     | name     |
        | joaosilva | Blog One |
-    And I follow "Control panel"
+    And I go to the Control panel
     When I follow "Configure blog"
     Then I should be on edit "Blog One" by joaosilva
 
@@ -82,7 +82,7 @@ Feature: blog
     Given the following blogs
       | owner     | name     |
       | joaosilva | Blog One |
-    And I follow "Control panel"
+    And I go to the Control panel
     And I follow "Configure blog"
     And I fill in "Address" with "blog-two"
     And I press "Save"
@@ -90,7 +90,7 @@ Feature: blog
     Then I should see "Blog One"
 
   Scenario: display tag list field when creating new blog
-    Given I follow "Control panel"
+    Given I go to the Control panel
     And I follow "Manage Content"
     When I follow "New blog"
     Then I should see "Tag list"

@@ -33,7 +33,7 @@
 
     <div id="notice" onclick="Element.hide('notice');" style="display:none">
       <% unless flash[:notice].nil? %>
-        <%= flash[:notice] unless flash[:notice].nil? %>
+        <%= flash[:notice] %>
         <%= javascript_tag(visual_effect( :appear, 'notice')) %>
       <% end %>
     </div>

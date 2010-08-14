@@ -143,7 +143,7 @@ class CmsController < MyProfileController
     @article = profile.articles.find(params[:id])
     profile.home_page = @article
     profile.save(false)
-    flash[:notice] = _('"%s" configured as home page.') % @article.name
+    session[:notice] = _('"%s" configured as home page.') % @article.name
     redirect_to :action => 'view', :id => @article.id
   end
 
@@ -232,7 +232,7 @@ class CmsController < MyProfileController
         end
       end
       if @failed.blank?
-        flash[:notice] = _("Your publish request was sent successfully")
+        session[:notice] = _("Your publish request was sent successfully")
         if @back_to
           redirect_to @back_to
         else

@@ -643,5 +643,9 @@ class Environment < ActiveRecord::Base
     Product.find(:all, {:conditions => {:highlighted => true, :enterprise_id => self.enterprises.find(:all, :select => :id) }, :joins => :image}.merge(options))
   end
 
+  settings_items :home_cache_in_minutes, :type => :integer, :default => 5
+  settings_items :general_cache_in_minutes, :type => :integer, :default => 15
+  settings_items :profile_cache_in_minutes, :type => :integer, :default => 15
+
 end
 

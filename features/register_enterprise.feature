@@ -92,7 +92,7 @@ Feature: register enterprise
     And I press "Next"
     Then I should see "Enterprise registration completed"
     And I am logged in as admin
-    And I follow "Control panel"
+    And I go to the Control panel
     When I follow "Tasks"
     Then I should see /Processing task: Enterprise registration: "My Enterprise"/
     And the first mail is to admin_user@example.com
@@ -118,7 +118,7 @@ Feature: register enterprise
     And I press "Next"
     Then I should see "Enterprise registration completed"
     And I am logged in as admin
-    And I follow "Control panel"
+    And I go to the Control panel
     When I follow "Tasks"
     Then I should see /Processing task: Enterprise registration: "My Enterprise"/
     And the first mail is to admin_user@example.com

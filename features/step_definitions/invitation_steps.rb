@@ -9,7 +9,7 @@ Given /^I invite email "(.+)" to join community "(.+)"$/ do |email, community|
 end
 
 Given /^I invite email "(.+)" to be my friend$/ do |email|
-  click_link('Control panel')
+  Given "I go to the Control panel"
   click_link('Manage friends')
   click_link('Invite people from my e-mail contacts')
   click_button('Next')

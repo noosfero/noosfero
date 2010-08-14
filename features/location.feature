@@ -16,7 +16,7 @@ Feature: Location
       | state    |
       | city     |
       | zip_code |
-    And I follow "Control panel"
+    And I go to the Control panel
     And I follow "Location"
     When I fill in "Address" with "Rua Marechal Floriano, 28"
     And I select "Brazil" from "Country"

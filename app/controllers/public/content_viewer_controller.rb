@@ -110,7 +110,7 @@ class ContentViewerController < ApplicationController
     @comment = @page.comments.find(params[:remove_comment])
     if (user == @comment.author || user == @page.profile || user.has_permission?(:moderate_comments, @page.profile))
       @comment.destroy
-      flash[:notice] = _('Comment succesfully deleted')
+      session[:notice] = _('Comment succesfully deleted')
     end
     redirect_to :action => 'view_page', :profile => params[:profile], :page => @page.explode_path, :view => params[:view]
   end

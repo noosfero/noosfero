@@ -30,10 +30,10 @@ class AccountController < ApplicationController
       end
       if redirect?
         go_to_initial_page
-        flash[:notice] = _("Logged in successfully")
+        session[:notice] = _("Logged in successfully")
       end
     else
-      flash[:notice] = _('Incorrect username or password') if redirect?
+      session[:notice] = _('Incorrect username or password') if redirect?
       redirect_to :back if redirect?
     end
   end
@@ -70,7 +70,7 @@ class AccountController < ApplicationController
           invitation.update_attributes!({:friend => @user.person})
           invitation.finish
         end
-        flash[:notice] = _("Thanks for signing up!")
+        session[:notice] = _("Thanks for signing up!")
         if @wizard
           redirect_to :controller => 'search', :action => 'assets', :asset => 'communities', :wizard => true
           return
@@ -109,7 +109,7 @@ class AccountController < ApplicationController
     end
     cookies.delete :auth_token
     reset_session
-    flash[:notice] = _("You have been logged out.")
+    session[:notice] = _("You have been logged out.")
     redirect_to :controller => 'home', :action => 'index'
   end
 
@@ -120,10 +120,10 @@ class AccountController < ApplicationController
         @user.change_password!(params[:current_password],
                                params[:new_password],
                                params[:new_password_confirmation])
-        flash[:notice] = _('Your password has been changed successfully!')
+        session[:notice] = _('Your password has been changed successfully!')
         redirect_to :action => 'index'
       rescue User::IncorrectPassword => e
-        flash[:notice] = _('The supplied current password is incorrect.')
+        session[:notice] = _('The supplied current password is incorrect.')
         render :action => 'change_password'
       end
     else
@@ -233,6 +233,21 @@ class AccountController < ApplicationController
     end
     @url = environment.top_url + '/' + @identifier
     render :partial => 'identifier_status'
+  end
+
+  def user_data
+    user_data =
+      if logged_in?
+        { "login" => current_user.login, "is_admin" => user.is_admin?(environment), 'since_month' => user.created_at.month, 'since_year' => user.created_at.year }
+      else
+        { }
+      end
+    if session[:notice]
+      user_data['notice'] = session[:notice]
+      session[:notice] = nil # consume the notice
+    end
+
+    render :text => user_data.to_json, :layout => false, :content_type => "application/javascript"
   end
 
   protected

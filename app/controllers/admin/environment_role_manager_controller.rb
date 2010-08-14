@@ -14,9 +14,9 @@ class EnvironmentRoleManagerController < AdminController
     @roles = params[:roles] ? Role.find(params[:roles]) : []
     @person = Person.find(params[:person])
     if @person.define_roles(@roles, environment)
-      flash[:notice] = _('Roles successfuly updated')
+      session[:notice] = _('Roles successfuly updated')
     else
-      flash[:notice] = _('Couldn\'t change the roles')
+      session[:notice] = _('Couldn\'t change the roles')
     end
     redirect_to :action => :index
   end
@@ -42,9 +42,9 @@ class EnvironmentRoleManagerController < AdminController
   def remove_role
     @association = RoleAssignment.find(params[:id])
     if @association.destroy
-      flash[:notice] = _('Member succefully unassociated')
+      session[:notice] = _('Member succefully unassociated')
     else
-      flash[:notice] = _('Failed to unassociate member')
+      session[:notice] = _('Failed to unassociate member')
     end
     redirect_to :aciton => 'index'
   end
@@ -52,9 +52,9 @@ class EnvironmentRoleManagerController < AdminController
   def unassociate
     @association = RoleAssignment.find(params[:id])
     if @association.destroy
-      flash[:notice] = _('Member succefully unassociated')
+      session[:notice] = _('Member succefully unassociated')
     else
-      flash[:notice] = _('Failed to unassociate member')
+      session[:notice] = _('Failed to unassociate member')
     end
     redirect_to :aciton => 'index'
   end

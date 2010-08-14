@@ -18,3 +18,15 @@ When /^I select "([^\"]*)"$/ do |value|
     selenium.wait_for_ajax
   end
 end
+
+When /^I fill in the following within "([^\"]*)":$/ do |parent, fields|
+  fields.rows_hash.each do |name, value|
+    When %{I fill in "#{name}" with "#{value}" within "#{parent}"}
+  end
+end
+
+When /^I fill in "([^\"]*)" with "([^\"]*)" within "([^\"]*)"$/ do |field, value, parent|
+  within(parent) do |content|
+    content.fill_in(field, :with => value)
+  end
+end

@@ -12,10 +12,10 @@ class ContactController < PublicController
       @contact.city = (!params[:city].blank? && City.exists?(params[:city])) ? City.find(params[:city]).name : nil
       @contact.state = (!params[:state].blank? && State.exists?(params[:state])) ? State.find(params[:state]).name : nil
       if @contact.deliver
-        flash[:notice] = _('Contact successfully sent')
+        session[:notice] = _('Contact successfully sent')
         redirect_to :action => 'new'
       else
-        flash[:notice] = _('Contact not sent')
+        session[:notice] = _('Contact not sent')
       end
     else
       @contact = user.build_contact(profile)

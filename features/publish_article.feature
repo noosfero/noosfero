@@ -110,9 +110,11 @@ Feature: publish article
     And I am on Sample Community's control panel
     And I follow "Tasks"
     And I press "Ok!"
-    And I should not see "The title (article name) is already being used by another article, please use another title."
-    When I press "Ok!"
-    Then I should see "The title (article name) is already being used by another article, please use another title."
+    And I press "Ok!"
+    Then I should see "wants to publish"
+    When I fill in "Name for publishing" with "other title"
+    And I press "Ok!"
+    Then I should not see "wants to publish"
 
   Scenario: ask to publish an article that was deleted before approval
     Given I am logged in as "joaosilva"

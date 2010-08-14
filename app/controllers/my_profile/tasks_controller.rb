@@ -20,7 +20,7 @@ class TasksController < MyProfileController
       begin
         task.send(decision)
       rescue Exception => ex
-        flash[:notice] = ex.clean_message
+        session[:notice] = ex.clean_message
       end
     end
     redirect_to :action => 'index'
