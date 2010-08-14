@@ -434,13 +434,16 @@ module ApplicationHelper
         else
           '/images/icons-app/person-'+ size.to_s() +'.png'
         end
-      if File.exists?(File.join(Rails.root, 'public', theme_path, icon))
-        theme_path + icon
-      else
-        icon
-      end
+      default_or_themed_icon(icon)
     end
+  end
 
+  def default_or_themed_icon(icon)
+    if File.exists?(File.join(Rails.root, 'public', theme_path, icon))
+      theme_path + icon
+    else
+      icon
+    end
   end
 
   def profile_sex_icon( profile )

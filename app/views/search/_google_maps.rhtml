@@ -48,7 +48,11 @@ if (GBrowserIsCompatible()) {
       baseIcon.shadowSize=new GSize(36,32);
       baseIcon.iconAnchor=new GPoint(16,32);
       baseIcon.infoWindowAnchor=new GPoint(16,0);
-  var icon = new GIcon(baseIcon, "/images/icons-map/enterprise.png", null, "/images/icons-map/enterprise_shadow.png");
+  <%
+    icon = default_or_themed_icon("/images/icons-map/enterprise.png")
+    icon_shadow = default_or_themed_icon("/images/icons-map/enterprise_shadow.png")
+  %>
+  var icon = new GIcon(baseIcon, "<%= icon %>", null, "<%= icon_shadow %>");
 
 <%
   missed = false
