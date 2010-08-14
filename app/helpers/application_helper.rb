@@ -1092,7 +1092,7 @@ module ApplicationHelper
      end
 
     link_to(content_tag(:span, _('People'), :class => 'icon-menu-people'), {:controller => "browse", :action => 'people'}, :id => 'submenu-people') +
-    link_to(content_tag(:span, _('People Menu')), '#', :onclick => "toggleSubmenu(this,'',#{links.to_json})", :class => 'menu-submenu-trigger up', :id => 'submenu-people-trigger')
+    link_to(content_tag(:span, _('People Menu')), '#', :onclick => "toggleSubmenu(this,'',#{links.to_json}); return false", :class => 'menu-submenu-trigger up', :id => 'submenu-people-trigger')
   end
 
   def browse_communities_menu
@@ -1107,7 +1107,7 @@ module ApplicationHelper
      end
 
     link_to(content_tag(:span, _('Communities'), :class => 'icon-menu-community'), {:controller => "browse", :action => 'communities'}, :id => 'submenu-communities') +
-    link_to(content_tag(:span, _('Communities Menu')), '#', :onclick => "toggleSubmenu(this,'',#{links.to_json})", :class => 'menu-submenu-trigger up', :id => 'submenu-communities-trigger')
+    link_to(content_tag(:span, _('Communities Menu')), '#', :onclick => "toggleSubmenu(this,'',#{links.to_json}); return false", :class => 'menu-submenu-trigger up', :id => 'submenu-communities-trigger')
   end
 
 end
