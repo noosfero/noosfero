@@ -58,3 +58,12 @@ Feature: HTTP caching
     When I go to /admin
     Then there must be no cache at all
 
+  Scenario: logged in user in the homepage
+    Given I am logged in as "joao"
+    When I go to the homepage
+    Then there must be no cache at all
+
+  Scenario: logged in user in a profile page
+    Given I am logged in as "joao"
+    When I go to /joao
+    Then there must be no cache at all

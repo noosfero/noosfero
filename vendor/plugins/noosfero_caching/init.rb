@@ -7,6 +7,7 @@ module NoosferoHttpCaching
   end
 
   def noosfero_set_cache
+    return if logged_in?
     n = nil
     if profile
       unless request.path =~ /^\/myprofile/
