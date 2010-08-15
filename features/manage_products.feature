@@ -81,7 +81,7 @@ Feature: manage products
     And I am on Rede Moinho's control panel
     And I follow "Manage Products and Services"
     When I follow "New product or service"
-    And I select "Products level0 »"
+    And I select "Products level0 »" and wait for jquery
     Then I should see "Computers level1"
     And I should see "DVDs level1"
 
@@ -99,11 +99,11 @@ Feature: manage products
     And I am on Rede Moinho's control panel
     And I follow "Manage Products and Services"
     When I follow "New product or service"
-    And I select "Products level0 »"
-    And I select "Computers level1"
-    And I select "Services level0 »"
-    Then I should see "Software development level1"
-    And I should not see "Computers level1"
+    And I select "Products level0 »" and wait for jquery
+    And I select "Computers level1" and wait for jquery
+    And I select "Services level0 »" and wait for jquery
+    Then I should see /Software develop/
+    And I should not see /Computers level/
 
   @selenium
   Scenario: show hierarchy of categories
@@ -117,8 +117,8 @@ Feature: manage products
     And I am on Rede Moinho's control panel
     And I follow "Manage Products and Services"
     When I follow "New product or service"
-    And I select "Products »"
-    And I select "Computers"
+    And I select "Products »" and wait for jquery
+    And I select "Computers" and wait for jquery
     Then I should see "Products → Computers"
 
   @selenium
@@ -133,8 +133,8 @@ Feature: manage products
     And I am on Rede Moinho's control panel
     And I follow "Manage Products and Services"
     When I follow "New product or service"
-    And I select "Toplevel Product Categories »"
-    And I select "Category Level 1"
+    And I select "Toplevel Product ... »" and wait for jquery
+    And I select "Category Level 1" and wait for jquery
     Then I should see "Toplevel Product Categories" link
     And I should not see "Category Level 1" link
 
@@ -156,7 +156,7 @@ Feature: manage products
     And I am on Rede Moinho's control panel
     And I follow "Manage Products and Services"
     When I follow "New product or service"
-    And I select "Browsers (accept categories)"
+    And I select "Browsers (accept ..." and wait for jquery
     Then the "Save and continue" button should be enabled
 
   @selenium
@@ -168,7 +168,7 @@ Feature: manage products
     And I am on Rede Moinho's control panel
     And I follow "Manage Products and Services"
     When I follow "New product or service"
-    And I select "Browsers"
+    And I select "Browsers" and wait for jquery
     Then the "#save_and_continue" button should not be enabled
 
   @selenium
@@ -180,7 +180,7 @@ Feature: manage products
     And I am on Rede Moinho's control panel
     And I follow "Manage Products and Services"
     When I follow "New product or service"
-    And I select "Bicycle"
+    And I select "Bicycle" and wait for jquery
     And I press "Save and continue"
     Then I should see "Bicycle"
     And I should see "Change category"
@@ -194,11 +194,11 @@ Feature: manage products
     And I am on Rede Moinho's control panel
     And I follow "Manage Products and Services"
     And I follow "New product or service"
-    And I select "Bicycle"
+    And I select "Bicycle" and wait for jquery
     And I press "Save and continue"
     When I follow "Back"
     And I follow "New product or service"
-    And I select "Bicycle"
+    And I select "Bicycle" and wait for jquery
     And I press "Save and continue"
     Then I should be on Rede Moinho's new product page
     And I should see "Bicycle"
@@ -214,7 +214,22 @@ Feature: manage products
     When I go to Rede Moinho's page of product Bike
     Then I should see "Change category"
     And I should see "Edit name"
-    And I should see "Edit basic information"
+    And I should see "Edit description"
+    And I should see "Change image"
+
+  Scenario: an allowed user will see a different button when has no description
+    Given the following product_category
+      | name |
+      | Bicycle |
+    And the following products
+      | owner      | category | name |
+      | redemoinho | bicycle  | Bike |
+    And I am logged in as "joaosilva"
+    When I go to Rede Moinho's page of product Bike
+    Then I should see "Change category"
+    And I should see "Edit name"
+    And I should see "Add some description to your product"
+    And I should see "Add price and other basic information"
     And I should see "Change image"
 
   Scenario: an allowed user will see a different button when has no basic info
@@ -228,7 +243,7 @@ Feature: manage products
     When I go to Rede Moinho's page of product Bike
     Then I should see "Change category"
     And I should see "Edit name"
-    And I should see "Add description, price and other basic information"
+    And I should see "Add price and other basic information"
     And I should see "Change image"
 
   Scenario: a not logged user cannot see edit links
@@ -242,6 +257,7 @@ Feature: manage products
     When I go to Rede Moinho's page of product Bike
     Then I should not see "Change category"
     And I should not see "Edit name"
+    And I should not see "Edit description"
     And I should not see "Edit basic information"
     And I should not see "Change image"
 
@@ -259,6 +275,7 @@ Feature: manage products
     When I go to Rede Moinho's page of product Bike
     Then I should not see "Change category"
     And I should not see "Edit name"
+    And I should not see "Edit description"
     And I should not see "Edit basic information"
     And I should not see "Change image"
 
@@ -307,8 +324,8 @@ Feature: manage products
     And I am logged in as "joaosilva"
     When I go to Rede Moinho's page of product Generic pc
     And I follow "Change category"
-    And I select "Eletronics »"
-    Then I select "DVDs"
+    And I select "Eletronics »" and wait for jquery
+    Then I select "DVDs" and wait for jquery
     And I press "Save and continue"
     Then I should see "Eletronics → DVDs"
 
@@ -379,41 +396,123 @@ Feature: manage products
     And I am logged in as "joaosilva"
     When I go to Rede Moinho's page of product Bike
     Then I should see "A new red bicycle"
-    And I follow "Edit basic information"
+    And I follow "Edit description"
     When I follow "Cancel"
     Then I should see "A new red bicycle"
     And I should be on Rede Moinho's page of product Bike
 
   @selenium
-  Scenario: add an input to a product
-   Given the following product_category
-      | name |
-      | Food |
-    And the following product_categories
-      | name  | parent |
-      | Cake  | food   |
-      | Sugar | food   |
-    And the following products
-      | owner      | category | name           |
-      | redemoinho | cake     | Chocolate cake |
-    And I am logged in as "joaosilva"
-    When I go to Rede Moinho's page of product Chocolate cake
-    And I follow "Add the inputs used by this product"
-    And I select "Food »"
-    And I select "Sugar"
-    And I press "Save and continue"
-    Then I should see "Sugar"
-
-  @selenium
-  Scenario: cancel addition of a product input
+  Scenario: Edit product category and save without select any category
     Given the following product_category
       | name |
-      | Food |
+      | Eletronics |
+    And the following product_category
+      | name | parent |
+      | Computers | eletronics |
+    And the following products
+      | owner      | category   | name       |
+      | redemoinho | computers  | Generic pc |
+    And I am logged in as "joaosilva"
+    When I go to Rede Moinho's page of product Generic pc
+    And I follow "Change category"
+    And I press "Save and continue"
+    Then I should not see "Product category can't be blank"
+    And I should be on Rede Moinho's page of product Generic pc
+    And I should see "Generic pc"
+
+  @selenium
+  Scenario: Scroll categories selection to right when editing
+    Given the following product_category
+      | name |
+      | Eletronics |
+    And the following product_category
+      | name | parent |
+      | Quantum Computers | eletronics |
+    And the following product_category
+      | name | parent |
+      | Laptops from Mars | Quantum Computers |
+    And the following product_category
+      | name | parent |
+      | Netbook from Venus | Laptops from Mars |
+    And the following product_category
+      | name | parent |
+      | Nanonote nanotech with long name | Netbook from Venus |
+    And the following products
+      | owner      | category   | name       |
+      | redemoinho | Nanonote nanotech with long name | Generic pc |
+    And I am logged in as "joaosilva"
+    When I go to Rede Moinho's page of product Generic pc
+    And I follow "Change category"
+    Then the select for category "Netbook from Venus" should be visible
+
+  @selenium
+  Scenario: Truncate long category name in selection of category
+    Given the following product_category
+      | name |
+      | Super Quantum Computers |
+      | Nanonote nanotech with long name |
+    And the following product_category
+      | name | parent |
+      | Netbook Quantum | Super Quantum Computers |
+    And I am logged in as "joaosilva"
+    When I go to Rede Moinho's new product page
+    Then I should see "Nanonote nanotech..."
+    And I should see "Super Quantum Com... »"
+
+  @selenium
+  Scenario: Edit unit of a product together your name
+    Given the following product_category
+      | name    |
+      | Bicycle |
     And the following products
       | owner      | category | name |
-      | redemoinho | food     | Cake |
+      | redemoinho | bicycle  | Bike |
     And I am logged in as "joaosilva"
-    When I go to Rede Moinho's page of product Cake
-    And I follow "Add the inputs used by this product"
-    When I follow "Back to product"
-    Then I should see "Cake"
+    When I go to Rede Moinho's page of product Bike
+    And I follow "Edit name and unit"
+    And I fill in "product_name" with "Red bicycle"
+    And I select "kilo"
+    And I press "Save"
+    Then I should see "Red bicycle - kilo"
+
+  @selenium
+  Scenario: Show info about unavailable product
+    Given the following product_category
+      | name    |
+      | Bicycle |
+    And the following products
+      | owner      | category | name |
+      | redemoinho | bicycle  | Bike |
+    And I am logged in as "joaosilva"
+    When I go to Rede Moinho's page of product Bike
+    And I follow "Add price and other basic information"
+    And I fill in "product_price" with "10"
+    And I choose "No"
+    And I press "Save"
+    Then I should see "Product not available!"
+
+  @selenium
+  Scenario: Add and remove some qualifiers
+    Given the following product_category
+      | name    |
+      | Bicycle |
+    And the following products
+      | owner      | category | name |
+      | redemoinho | bicycle  | Bike |
+    And the following qualifiers
+      | name |
+      | Organic |
+    And the following certifiers
+      | name | qualifiers |
+      | Colivre | Organic |
+    And I am logged in as "joaosilva"
+    When I go to Rede Moinho's page of product Bike
+    And I follow "Add price and other basic information"
+    And I follow "Add new qualifier"
+    And I select "Organic" and wait for jquery
+    And I press "Save"
+    Then I should see "Organic (Self declared)"
+    When I follow "Edit basic information"
+    And I follow "Delete qualifier"
+    And I press "Save"
+    Then I should not see "Organic (Self declared)"

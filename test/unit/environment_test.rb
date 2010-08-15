@@ -993,6 +993,14 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal 'another', env.theme
   end
 
+  should 'not accept environment without theme' do
+    env = fast_create(Environment)
+    env.theme = nil
+    assert_raise ActiveRecord::RecordInvalid do
+      env.save!
+    end
+  end
+
   should 'has many users' do
     user_from_other_environment = create_user('one user from other env', :environment => Environment.default)
     env = fast_create(Environment)

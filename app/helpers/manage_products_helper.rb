@@ -26,8 +26,11 @@ module ManageProductsHelper
   def hierarchy_category_navigation(current_category, options = {})
     hierarchy = []
     if current_category
-      hierarchy << current_category.name
-      count_chars = current_category.name.length
+      count_chars = 0
+      unless options[:hide_current_category]
+        hierarchy << current_category.name
+        count_chars += current_category.name.length
+      end
       ancestors = current_category.ancestors
       toplevel = ancestors.pop
       if toplevel
@@ -52,40 +55,37 @@ module ManageProductsHelper
   def options_for_select_categories(categories, selected = nil)
     categories.sort_by{|cat| cat.name.transliterate}.map do |category|
       selected_attribute = selected.nil? ? '' : (category == selected ? "selected='selected'" : '')
-      "<option value='#{category.id}' #{selected_attribute}>#{category.name + (category.leaf? ? '': ' &raquo;')}</option>"
+      "<option value='#{category.id}' title='#{category.name}' #{selected_attribute}>#{truncate(category.name, 20) + (category.leaf? ? '': ' &raquo;')}</option>"
     end.join("\n")
   end
 
-  def build_selects_for_ancestors(ancestors, last_level)
-    current_category = ancestors.shift
-    if current_category.nil?
-      content_tag('div', '<!-- no categories -->',
-        :class => 'categories_container',
-        :id => "categories_container_level#{ last_level }"
-      )
+  def build_selects_for_ancestors(ancestors, current_category)
+    current_ancestor = ancestors.shift
+    if current_ancestor.nil?
+      select_for_new_category(current_category.children, current_category.level + 1)
     else
       content_tag('div',
         select_tag('category_id',
-          options_for_select_categories(current_category.siblings + [current_category], current_category),
+          options_for_select_categories(current_ancestor.siblings + [current_ancestor], current_ancestor),
           :size => 10,
-          :onchange => remote_function_to_update_categories_selection("categories_container_level#{ current_category.level + 1 }", :with => "'category_id=' + this.value")
+          :onchange => remote_function_to_update_categories_selection("categories_container_level#{ current_ancestor.level + 1 }", :with => "'category_id=' + this.value")
         ) +
-        build_selects_for_ancestors(ancestors, last_level),
+        build_selects_for_ancestors(ancestors, current_category),
         :class => 'categories_container',
-        :id => "categories_container_level#{ current_category.level }"
+        :id => "categories_container_level#{ current_ancestor.level }"
       )
     end
   end
 
   def selects_for_all_ancestors(current_category)
-    build_selects_for_ancestors(current_category.ancestors.reverse + [current_category], current_category.level + 1)
+    build_selects_for_ancestors(current_category.ancestors.reverse + [current_category], current_category)
   end
 
-  def select_for_new_category
+  def select_for_new_category(categories, level)
     content_tag('div',
-      render(:partial => 'categories_for_selection'),
+      render(:partial => 'categories_for_selection', :locals => { :categories => categories, :level => level }),
       :class => 'categories_container',
-      :id => 'categories_container_level0'
+      :id => "categories_container_level#{ level }"
     )
   end
 
@@ -108,24 +108,30 @@ module ManageProductsHelper
     end
   end
 
-  def edit_product_link(field, label, url, html_options = {})
+  def edit_link(label, url, html_options = {})
     return '' unless (user && user.has_permission?('manage_products', profile))
-    options = html_options.merge(:id => "link-edit-#{field}")
-    link_to(label, url, options)
+    link_to(label, url, html_options)
   end
 
   def edit_product_link_to_remote(product, field, label, html_options = {})
     return '' unless (user && user.has_permission?('manage_products', profile))
     options = html_options.merge(:id => 'link-edit-product-' + field)
+    options[:class] = options[:class] ? options[:class] + ' link-to-remote' : 'link-to-remote'
 
     link_to_remote(label,
                    {:update => "product-#{field}",
                    :url => { :controller => 'manage_products', :action => "edit", :id => product.id, :field => field },
-                   :method => :get},
+                   :method => :get,
+                   :loading => "loading_for_button('#link-edit-product-#{field}')"},
                    options)
   end
 
-  def edit_product_button(product, field, label, html_options = {})
+  def edit_button(type, label, url, html_options = {})
+    return '' unless (user && user.has_permission?('manage_products', profile))
+    button(type, label, url, html_options)
+  end
+
+  def edit_product_button_to_remote(product, field, label, html_options = {})
     the_class = 'button with-text icon-edit'
     if html_options.has_key?(:class)
      the_class << ' ' << html_options[:class]
@@ -133,21 +139,22 @@ module ManageProductsHelper
     edit_product_link_to_remote(product, field, label, html_options.merge(:class => the_class))
   end
 
-  def edit_product_ui_button(field, label, url, html_options = {})
+  def edit_ui_button(label, url, html_options = {})
     return '' unless (user && user.has_permission?('manage_products', profile))
-    options = html_options.merge(:id => 'edit-product-button-ui-' + field)
-    ui_button(label, url, options)
+    ui_button(label, url, html_options)
   end
 
   def edit_product_ui_button_to_remote(product, field, label, html_options = {})
     return '' unless (user && user.has_permission?('manage_products', profile))
-    options = html_options.merge(:id => 'edit-product-remote-button-ui-' + field)
+    id = 'edit-product-remote-button-ui-' + field
+    options = html_options.merge(:id => id)
 
     ui_button_to_remote(label,
                    {:update => "product-#{field}",
                    :url => { :controller => 'manage_products', :action => "edit", :id => product.id, :field => field },
                    :complete => "$('edit-product-button-ui-#{field}').hide()",
-                   :method => :get},
+                   :method => :get,
+                   :loading => "loading_for_button('##{id}')"},
                    options)
   end
 
@@ -166,30 +173,31 @@ module ManageProductsHelper
 
   def display_value(product)
     price = product.price
-    unless price.blank? || price.zero?
-      unit = product.unit
-      return '' if unit.blank?
-      discount = product.discount
-      if discount.blank? || discount.zero?
-        display_price(_('Price: '), price, unit)
-      else
-        display_price_with_discount(price, unit, product.price_with_discount)
-      end
+    return '' if price.blank? || price.zero?
+    discount = product.discount
+    if discount.blank? || discount.zero?
+      result = display_price(_('Price: '), price)
     else
-      ''
+      result = display_price_with_discount(price, product.price_with_discount)
+    end
+    content_tag('span', content_tag('span', result, :class => 'product-price'), :class => "#{product.available? ? '' : 'un'}available-product")
+  end
+
+  def display_availability(product)
+    if !product.available?
+      ui_highlight(_('Product not available!'))
     end
   end
 
-  def display_price(label, price, unit)
+  def display_price(label, price)
     content_tag('span', label, :class => 'field-name') +
-    content_tag('span', float_to_currency(price), :class => 'field-value') +
-    ' (%s)' % unit
+    content_tag('span', float_to_currency(price), :class => 'field-value')
   end
 
-  def display_price_with_discount(price, unit, price_with_discount)
+  def display_price_with_discount(price, price_with_discount)
     original_value = content_tag('span', float_to_currency(price), :class => 'field-value')
-    discount_value = display_price(_('On sale: '), price_with_discount, unit)
-    content_tag('span', _('List price: '), :class => 'field-name') + original_value + "<p/>" + discount_value
+    discount_value = display_price(_('On sale: '), price_with_discount)
+    content_tag('span', _('List price: '), :class => 'field-name') + original_value + tag('br') + discount_value
   end
 
   def display_qualifiers(product)
@@ -199,20 +207,70 @@ module ManageProductsHelper
       certifier = pq.certifier
       if certifier
         certifier_name = certifier.link.blank? ? certifier.name : link_to(certifier.name, certifier.link)
-        certified_by = _(' certified by %s') % certifier_name
+        certified_by = _('certified by %s') % certifier_name
+      else
+        certified_by = _('(Self declared)')
       end
-      data << content_tag('li', '✔ ' + pq.qualifier.name + certified_by, :class => 'product-qualifiers-item')
+      data << content_tag('li', "✔ #{pq.qualifier.name} #{certified_by}", :class => 'product-qualifiers-item')
     end
     content_tag('ul', data, :id => 'product-qualifiers')
   end
 
-  def checkboxes_qualifiers(product, qualifier)
-    check_box_tag("product[qualifiers_list][#{qualifier.id}][qualifier_id]", qualifier.id, product.qualifiers.include?(qualifier)) + qualifier.name
+  def qualifiers_for_select
+    [[_('Select...'), nil]] + environment.qualifiers.map{ |c| [c.name, c.id] }
+  end
+  def certifiers_for_select(qualifier)
+    [[_('Self declared'), nil]] + qualifier.certifiers.map{ |c| [c.name, c.id] }
+  end
+  def select_qualifiers(product, selected = nil)
+    select_tag('selected_qualifier', options_for_select(qualifiers_for_select, selected),
+      :onchange => remote_function(
+        :url => {:action => 'certifiers_for_selection'},
+        :with => "'id=' + value + '&certifier_area=' + jQuery(this).parent().next().attr('id')",
+        :before => "small_loading(jQuery(this).parent().next().attr('id'), '&nbsp;')"
+      ),
+      :id => nil
+    )
+  end
+  def select_certifiers(qualifier, product = nil)
+    if qualifier
+      selected = product ? product.product_qualifiers.find_by_qualifier_id(qualifier.id).certifier_id : nil
+      select_tag("product[qualifiers_list][#{qualifier.id}]", options_for_select(certifiers_for_select(qualifier), selected))
+    else
+      select_tag("product[qualifiers_list][nil]")
+    end
   end
 
-  def select_certifiers(product, qualifier, certifiers)
-    relation = product.product_qualifiers.find(:first, :conditions => {:qualifier_id => qualifier.id})
-    selected = relation.nil? ? 0 : relation.certifier_id
-    select_tag("product[qualifiers_list][#{qualifier.id}][certifier_id]", options_for_select([[_('Select...') , 0 ]] + certifiers.map {|c|[c.name, c.id]}, selected))
+  def select_unit(object)
+    selected = object.unit.nil? ? '' : object.unit
+    select(object.class.name.downcase, 'unit', Product::UNITS.map{|unit| [_(unit[0]), unit[0]]}, {:selected => selected, :include_blank => _('Select the unit')})
+  end
+
+  def input_icon(input)
+    if input.is_from_solidarity_economy?
+      hint = _('Product from solidarity economy')
+      image_tag("/images/solidarity-economy.png", :class => 'solidatiry-economy-icon', :alt => hint, :title => hint)
+    end
+  end
+
+  def display_price_by(unit)
+    selected_unit = content_tag('span', unit, :class => 'selected-unit')
+    content_tag('span', _('by') + ' ' + selected_unit, :class => 'price-by-unit')
+  end
+
+  def label_amount_used(input)
+    product_unit = input.product.unit
+    if product_unit.blank?
+       _('Amount used in this product or service')
+    else
+       _('Amount used by %s of this product or service') % _(product_unit)
+    end
+  end
+
+  def display_unit(input)
+    input_amount_used = content_tag('span', input.formatted_amount, :class => 'input-amount-used')
+    return input_amount_used if input.unit.blank?
+    units = Product::UNITS.find {|unit| unit[0] == input.unit}
+    n_('1 %{singular_unit}', '%{num} %{plural_unit}', input.amount_used.to_f) % { :num => input_amount_used, :singular_unit => content_tag('span', units[0], :class => 'input-unit'), :plural_unit => content_tag('span', units[1], :class => 'input-unit') }
   end
 end

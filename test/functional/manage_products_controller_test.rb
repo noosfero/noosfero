@@ -289,20 +289,55 @@ class ManageProductsControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'span', :attributes => { :class => 'field-value' }, :content => '$ 46.50'
   end
 
-  should 'not show product price when showing product if unit not informed' do
+  should 'show product price when showing product if unit not informed' do
     product = fast_create(Product, :name => 'test product', :price => 50.00, :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
     get :show, :id => product.id, :profile => @enterprise.identifier
 
-    assert_no_tag :tag => 'span', :attributes => { :class => 'field-name' }, :content => /Price:/
-    assert_no_tag :tag => 'span', :attributes => { :class => 'field-value' }, :content => '$ 50.00'
+    assert_tag :tag => 'span', :attributes => { :class => 'field-name' }, :content => /Price:/
+    assert_tag :tag => 'span', :attributes => { :class => 'field-value' }, :content => '$ 50.00'
   end
 
   should 'display button to add input when product has no input' do
     product = fast_create(Product, :name => 'test product', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
     get :show, :id => product.id, :profile => @enterprise.identifier
 
-    assert_tag :tag => 'div', :attributes => { :id => 'product-inputs'},
-      :descendant => {:tag => 'a', :attributes => { :id => 'edit-product-button-ui-inputs' }, :content => 'Add the inputs used by this product'}
+    assert_tag :tag => 'div', :attributes => { :id => 'display-add-input-button'},
+      :descendant => {:tag => 'a', :attributes => { :href => "/myprofile/#{@enterprise.identifier}/manage_products/add_input/#{product.id}", :id => 'add-input-button'},  :content => 'Add the inputs or raw material used by this product'}
+  end
+
+  should 'has instance of input list when showing product' do
+    product = fast_create(Product, :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    get :show, :id => product.id, :profile => @enterprise.identifier
+    assert_equal [], assigns(:inputs)
+  end
+
+  should 'remove input of a product' do
+    product = fast_create(Product, :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    input = fast_create(Input, :product_id => product.id, :product_category_id => @product_category.id)
+    assert_equal [input], product.inputs
+
+    post :remove_input, :id => input.id, :profile => @enterprise.identifier
+    product.reload
+    assert_equal [], product.inputs
+  end
+
+  should 'save inputs order' do
+    product = fast_create(Product, :enterprise_id => @enterprise.id)
+    first = Input.create!(:product => product, :product_category => fast_create(ProductCategory))
+    second = Input.create!(:product => product, :product_category => fast_create(ProductCategory))
+    third = Input.create!(:product => product, :product_category => fast_create(ProductCategory))
+
+    assert_equal [first, second, third], product.inputs(true)
+
+    get :order_inputs, :profile => @enterprise.identifier, :id => product, :input => [second.id, third.id, first.id]
+    assert_template nil
+
+    assert_equal [second, third, first], product.inputs(true)
+  end
+
+  should 'render partial certifiers for selection' do
+    get :certifiers_for_selection, :profile => @enterprise.identifier
+    assert_template '_certifiers_for_selection'
   end
 
   should 'not list all the products of enterprise' do
@@ -324,6 +359,66 @@ class ManageProductsControllerTest < Test::Unit::TestCase
 
     get :index, :profile => @enterprise.identifier, :page => 2
     assert_equal 2, assigns(:products).count
+  end
+
+  should 'display tabs even if description and inputs are empty and user is allowed' do
+    product = fast_create(Product, :name => 'test product', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    get :show, :id => product.id, :profile => @enterprise.identifier
+
+    assert_tag :tag => 'div', :attributes => { :id => "product-#{product.id}-tabs" }
+  end
+
+  should 'not display tabs if description and inputs are empty and user is not allowed' do
+    not_allowed_person = fast_create(Person)
+
+    login_as not_allowed_person.identifier
+    product = fast_create(Product, :name => 'test product', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    get :show, :id => product.id, :profile => @enterprise.identifier
+
+    assert_no_tag :tag => 'div', :attributes => { :id => "product-#{product.id}-tabs" }
+  end
+
+  should 'not display tabs if description and inputs are empty and user is not logged in' do
+    logout
+
+    product = fast_create(Product, :name => 'test product', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    get :show, :id => product.id, :profile => @enterprise.identifier
+
+    assert_no_tag :tag => 'div', :attributes => { :id => "product-#{product.id}-tabs" }
+  end
+
+  should 'display only description tab if inputs are empty and user is not allowed' do
+    not_allowed_person = fast_create(Person)
+
+    login_as not_allowed_person.identifier
+    product = fast_create(Product, :description => 'This product is very good', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    get :show, :id => product.id, :profile => @enterprise.identifier
+    assert_tag :tag => 'div', :attributes => { :id => "product-#{product.id}-tabs" }, :descendant => {:tag => 'a', :attributes => {:href => '#product-description'}, :content => 'Description'}
+    assert_no_tag :tag => 'div', :attributes => { :id => "product-#{product.id}-tabs" }, :descendant => {:tag => 'a', :attributes => {:href => '#inputs'}, :content => 'Inputs and raw material'}
+  end
+
+  should 'display only inputs tab if description is empty and user is not allowed' do
+    not_allowed_person = fast_create(Person)
+
+    login_as not_allowed_person.identifier
+    product = fast_create(Product, :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    input = fast_create(Input, :product_id => product.id, :product_category_id => @product_category.id)
+
+    get :show, :id => product.id, :profile => @enterprise.identifier
+    assert_no_tag :tag => 'div', :attributes => { :id => "product-#{product.id}-tabs" }, :descendant => {:tag => 'a', :attributes => {:href => '#product-description'}, :content => 'Description'}
+    assert_tag :tag => 'div', :attributes => { :id => "product-#{product.id}-tabs" }, :descendant => {:tag => 'a', :attributes => {:href => '#product-inputs'}, :content => 'Inputs and raw material'}
+  end
+
+  should 'display tabs if description and inputs are not empty and user is not allowed' do
+    not_allowed_person = fast_create(Person)
+
+    login_as not_allowed_person.identifier
+    product = fast_create(Product, :description => 'This product is very good', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    input = fast_create(Input, :product_id => product.id, :product_category_id => @product_category.id)
+
+    get :show, :id => product.id, :profile => @enterprise.identifier
+    assert_tag :tag => 'div', :attributes => { :id => "product-#{product.id}-tabs" }, :descendant => {:tag => 'a', :attributes => {:href => '#product-description'}, :content => 'Description'}
+    assert_tag :tag => 'div', :attributes => { :id => "product-#{product.id}-tabs" }, :descendant => {:tag => 'a', :attributes => {:href => '#product-inputs'}, :content => 'Inputs and raw material'}
   end
 
 end

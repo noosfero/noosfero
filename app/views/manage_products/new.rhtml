@@ -10,7 +10,7 @@
 
   <h3><%= _('Select the category of the new product or service') %></h3>
 
-  <%= categories_container(select_for_new_category) %>
+  <%= categories_container(select_for_new_category(@categories, @level)) %>
 
   <div id='categories_selection_actionbar'>
     <%= button :back, _('Back to the product listing'), :action => 'index' %>

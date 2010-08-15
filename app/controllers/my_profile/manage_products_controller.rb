@@ -22,10 +22,13 @@ class ManageProductsController < ApplicationController
 
   def show
     @product = @profile.products.find(params[:id])
+    @inputs = @product.inputs
+    @allowed_user = user && user.has_permission?('manage_products', profile)
   end
 
   def categories_for_selection
     @category = Category.find(params[:category_id]) if params[:category_id]
+    @object_name = params[:object_name]
     if @category
       @categories = @category.children
       @level = @category.leaf? ? @category.level : @categories.first.level
@@ -33,7 +36,7 @@ class ManageProductsController < ApplicationController
       @categories = ProductCategory.top_level_for(environment)
       @level = 0
     end
-    render :partial => 'categories_for_selection'
+    render :partial => 'categories_for_selection', :locals => { :categories => @categories, :level => @level }
   end
 
   def new
@@ -90,11 +93,13 @@ class ManageProductsController < ApplicationController
     @level = 0
     if request.post?
       if @input.update_attributes(:product_category_id => params[:selected_category_id])
-        render :partial => 'shared/redirect_via_javascript',
-          :locals => { :url => url_for(:controller => 'manage_products', :action => 'show', :id => @product) }
+        @inputs = @product.inputs
+        render :partial => 'display_inputs'
       else
         render :partial => 'shared/dialog_error_messages', :locals => { :object_name => 'product' }
       end
+    else
+      render :partial => 'add_input'
     end
   end
 
@@ -106,6 +111,51 @@ class ManageProductsController < ApplicationController
     else
       session[:notice] = _('Could not remove the product')
       redirect_back_or_default :action => 'show', :id => @product
+    end
+  end
+
+  def edit_input
+    if request.xhr?
+      @input = @profile.inputs.find_by_id(params[:id])
+      if @input
+        if request.post?
+          if @input.update_attributes(params[:input])
+            render :partial => 'display_input', :locals => {:input => @input}
+          else
+            render :partial => 'edit_input'
+          end
+        else
+          render :partial => 'edit_input'
+        end
+      else
+        render :text => _('The input was not found')
+      end
+    end
+  end
+
+  def order_inputs
+    @product = @profile.products.find(params[:id])
+    @product.order_inputs!(params[:input]) if params[:input]
+    render :nothing => true
+  end
+
+  def remove_input
+    @input = @profile.inputs.find(params[:id])
+    @product = @input.product
+    if request.post?
+      if @input.destroy
+        @inputs = @product.inputs
+        render :partial => 'display_inputs'
+      else
+        render :partial => 'shared/dialog_error_messages', :locals => { :object_name => 'input' }
+      end
+    end
+  end
+
+  def certifiers_for_selection
+    @qualifier = Qualifier.exists?(params[:id]) ? Qualifier.find(params[:id]) : nil
+    render :update do |page|
+      page.replace_html params[:certifier_area], :partial => 'certifiers_for_selection'
     end
   end
 

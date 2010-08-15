@@ -470,9 +470,10 @@ class Environment < ActiveRecord::Base
 
   xss_terminate :only => [ :message_for_disabled_enterprise ], :with => 'white_list', :on => 'validation'
 
+  validates_presence_of :theme
+
   include WhiteListFilter
   filter_iframes :message_for_disabled_enterprise, :whitelist => lambda { trusted_sites_for_iframe }
-
 
   # #################################################
   # Business logic in general

@@ -346,4 +346,18 @@ module Noosfero::Factory
     { :subject => 'hello there', :message => 'here I come to SPAM you' }
   end
 
+  ###############################################
+  # Qualifier
+  ###############################################
+
+  def defaults_for_qualifier
+    { :name => 'Qualifier ' + factory_num_seq.to_s, :environment_id => 1 }
+  end
+
+  ###############################################
+  # Certifier
+  ###############################################
+
+  alias :defaults_for_certifier :defaults_for_qualifier
+
 end

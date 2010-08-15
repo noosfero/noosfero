@@ -117,6 +117,7 @@ class Profile < ActiveRecord::Base
   not_found
   cat
   tag
+  tags
   environment
   webmaster
   info

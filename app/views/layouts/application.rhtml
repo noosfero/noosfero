@@ -27,6 +27,12 @@
 
     <%# Add custom tags/styles/etc via content_for %>
     <%= yield :head %>
+    <%= javascript_tag('render_all_jquery_ui_widgets()') %>
+    <script type="text/javascript">
+       jQuery(".numbers-only").keypress(function(event) {
+          return numbersonly(event, '<%= environment.currency_separator %>')
+       });
+    </script>
   </head>
 
   <body class='noosfero category<%= category_color %><%=
@@ -125,6 +131,5 @@
     <%# if you need to add HTML stuff to the layout, include it in
     app/views/shared/noosfero_layout_features.rhtml! %>
     <%= noosfero_layout_features %>
-    <%= render_jquery_ui_buttons %>
   </body>
 </html>

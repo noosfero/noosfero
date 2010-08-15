@@ -12,11 +12,6 @@ end
 
 When /^I select "([^\"]*)"$/ do |value|
   select(value)
-  # FIXME ugly hack to make selenium tests waiting to render page
-  # "select(value, :wait_for => :ajax)" did not effect
-  if selenium
-    selenium.wait_for_ajax
-  end
 end
 
 When /^I fill in the following within "([^\"]*)":$/ do |parent, fields|

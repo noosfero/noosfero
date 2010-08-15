@@ -27,4 +27,134 @@ class InputTest < Test::Unit::TestCase
     assert !input.errors.invalid?(:product)
   end
 
+  should 'store inputs ordered by position' do
+    product_category = fast_create(ProductCategory)
+    product = fast_create(Product, :product_category_id => product_category.id)
+
+    first_input = Input.create!(:product => product, :product_category => product_category)
+    assert_equal 1, first_input.position
+
+    second_input = Input.create!(:product => product, :product_category => product_category)
+    assert_equal 2, second_input.position
+  end
+
+  should 'move input to top of input list' do
+    product_category = fast_create(ProductCategory)
+    product = fast_create(Product, :product_category_id => product_category.id)
+
+    first_input = Input.create!(:product => product, :product_category => product_category)
+    second_input = Input.create!(:product => product, :product_category => product_category)
+    last_input = Input.create!(:product => product, :product_category => product_category)
+
+    assert_equal [first_input, second_input, last_input], product.inputs(true)
+
+    last_input.move_to_top
+
+    assert_equal [last_input, first_input, second_input], product.inputs(true)
+  end
+
+  should 'use name of product category' do
+    product_category = fast_create(ProductCategory)
+    product = fast_create(Product, :product_category_id => product_category.id)
+    input = fast_create(Input, :product_id => product.id, :product_category_id => product_category.id)
+
+    assert_not_nil input.name
+    assert_equal product_category.name, input.name
+  end
+
+  should 'dont have price details when price related fields was not filled' do
+    input = Input.new
+    assert !input.has_price_details?
+  end
+
+  should 'has price details if price_per_unit filled' do
+    input = Input.new(:price_per_unit => 10.0)
+    assert input.has_price_details?
+  end
+
+  should 'has price details if amount_used filled' do
+    input = Input.new(:amount_used => 10)
+    assert input.has_price_details?
+  end
+
+  should 'not have price details if only unit is filled' do
+    input = Input.new(:unit => 'unit')
+    assert !input.has_price_details?
+  end
+
+  should 'accept price_per_unit in american\'s or brazilian\'s currency format' do
+    [
+      [12.34, 12.34],
+      ["12.34", 12.34],
+      ["12,34", 12.34],
+      ["12.345.678,90", 12345678.90],
+      ["12,345,678.90", 12345678.90],
+      ["12.345.678", 12345678.00],
+      ["12,345,678", 12345678.00]
+    ].each do |input, output|
+      new_input = Input.new(:price_per_unit => input)
+      assert_equal output, new_input.price_per_unit
+    end
+  end
+
+  should 'accept amount_used in american\'s or brazilian\'s quantidade format' do
+    [
+      [12.34, 12.34],
+      ["12.34", 12.34],
+      ["12,34", 12.34],
+      ["12.345.678,90", 12345678.90],
+      ["12,345,678.90", 12345678.90],
+      ["12.345.678", 12345678.00],
+      ["12,345,678", 12345678.00]
+    ].each do |input, output|
+      new_input = Input.new(:amount_used => input)
+      assert_equal output, new_input.amount_used
+    end
+  end
+
+  should 'display amount used' do
+    ent = fast_create(Enterprise, :name => 'test ent 1', :identifier => 'test_ent1')
+    product_category = fast_create(ProductCategory, :name => 'Products')
+    product = fast_create(Product, :enterprise_id => ent.id, :product_category_id => product_category.id)
+
+    input = Input.new(:product => product)
+    input.amount_used = 10.45
+    assert_equal '10.45', input.formatted_amount
+  end
+
+  should 'display blank if amount_used is blank or nil or zero' do
+    input = Input.new
+    assert_equal '', input.formatted_amount
+    input.amount_used = ''
+    input.save
+
+    assert_equal '', input.formatted_amount
+  end
+
+  should 'display only integer value if decimal value is 00' do
+    ent = fast_create(Enterprise, :name => 'test ent 1', :identifier => 'test_ent1')
+    product_category = fast_create(ProductCategory, :name => 'Products')
+    product = fast_create(Product, :enterprise_id => ent.id, :product_category_id => product_category.id)
+
+    input = Input.new(:product => product)
+    input.amount_used = 10.00
+    assert_equal '10', input.formatted_amount
+  end
+
+  should 'display formatted value' do
+    ent = fast_create(Enterprise, :name => 'test ent 1', :identifier => 'test_ent1')
+    product_category = fast_create(ProductCategory, :name => 'Products')
+    product = fast_create(Product, :enterprise_id => ent.id, :product_category_id => product_category.id)
+
+    input = Input.new(:product => product)
+    input.price_per_unit = 1.45
+    assert_equal '1.45', input.formatted_value(:price_per_unit)
+
+    input.price_per_unit = 1.4
+    assert_equal '1.40', input.formatted_value(:price_per_unit)
+
+    input.price_per_unit = 1
+    assert_equal '1.00', input.formatted_value(:price_per_unit)
+  end
+
 end

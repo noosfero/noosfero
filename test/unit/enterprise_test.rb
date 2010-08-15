@@ -389,4 +389,13 @@ class EnterpriseTest < Test::Unit::TestCase
     assert_equal products, e1.highlighted_products_with_image
   end
 
+  should 'has many inputs through products' do
+    enterprise = fast_create(Enterprise)
+    product = fast_create(Product, :enterprise_id => enterprise.id, :product_category_id => @product_category.id)
+    product.inputs << Input.new(:product_category => @product_category)
+    product.inputs << Input.new(:product_category => @product_category)
+
+    assert_equal product.inputs, enterprise.inputs
+  end
+
 end

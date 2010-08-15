@@ -1,7 +1,5 @@
 #!/usr/bin/env ruby
 require File.dirname(__FILE__) + '/../config/environment'
-require File.dirname(__FILE__) + '/../test/test_helper'
-include ActionController::TestProcess
 
 # tourn on autoflush
 STDOUT.sync = true
@@ -19,11 +17,25 @@ for thing in THINGS
       Product.create(
         :name => name,
         :enterprise_id => enterprises.rand.id, :price => (i * 13.7),
-        :product_category => categories.rand,
-        :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png') }
+        :product_category_id => categories.rand.id
       )
       print '.'
     end
   end
+end
+puts ' done!'
+
+environment = Environment.default
+
+print "Creating qualifiers and certifier: "
+QUALIFIERS = ['Organic', 'Free as in Freedom', 'Regional']
+CERTIFIERS = ['FBES', 'Colivre', 'Institute Paulo Freire', 'Fora do Eixo']
+for qualifier in QUALIFIERS
+  environment.qualifiers << Qualifier.new(:name => qualifier)
+  print '.'
+end
+for certifier in CERTIFIERS
+  environment.certifiers << Certifier.new(:name => certifier)
+  print '.'
 end
 puts ' done!'

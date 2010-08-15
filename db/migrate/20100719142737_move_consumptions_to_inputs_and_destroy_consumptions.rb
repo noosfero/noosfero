@@ -1,8 +1,13 @@
 class MoveConsumptionsToInputsAndDestroyConsumptions < ActiveRecord::Migration
   def self.up
     select_all('SELECT product_category_id, profile_id FROM consumptions').each do |consumption|
-      Profile.find(consumption['profile_id']).products.each do |product|
-        Input.create(:product_category_id => consumption['product_category_id'], :product_id => product.id)
+      enterprise = Enterprise.exists?(consumption['profile_id']) ? Enterprise.find(consumption['profile_id']) : nil
+      if enterprise
+        enterprise.products.each do |product|
+          category_id = consumption['product_category_id']
+          category_id ||= ProductCategory.first.id
+          execute("INSERT INTO inputs (product_category_id, product_id) VALUES(#{category_id}, #{product.id})")
+        end
       end
     end
     drop_table :consumptions

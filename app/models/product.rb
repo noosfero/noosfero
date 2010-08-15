@@ -4,7 +4,7 @@ class Product < ActiveRecord::Base
   has_many :product_categorizations
   has_many :product_qualifiers
   has_many :qualifiers, :through => :product_qualifiers
-  has_many :inputs, :dependent => :destroy
+  has_many :inputs, :dependent => :destroy, :order => 'position'
 
   validates_uniqueness_of :name, :scope => :enterprise_id, :allow_nil => true
   validates_presence_of :product_category_id
@@ -42,17 +42,17 @@ class Product < ActiveRecord::Base
 
   acts_as_mappable
 
+  include FloatHelper
+
+  UNITS = [
+    [N_('unit'), _('units')],
+    [N_('litre'), _('litres')],
+    [N_('kilo'), _('kilos')],
+    [N_('meter'), _('meters')],
+  ]
+
   include WhiteListFilter
   filter_iframes :description, :whitelist => lambda { enterprise && enterprise.environment && enterprise.environment.trusted_sites_for_iframe }
-
-  def self.units
-    {
-      _('Litre') => 'litre',
-      _('Kilo')  => 'kilo',
-      _('Meter') => 'meter',
-      _('Unit')  => 'unit',
-    }
-  end
 
   def name
     self[:name].blank? ? category_name : self[:name]
@@ -64,6 +64,10 @@ class Product < ActiveRecord::Base
     else
       self[:name] = value
     end
+  end
+
+  def name_is_blank?
+    self[:name].blank?
   end
 
   def default_image(size='thumb')
@@ -112,7 +116,7 @@ class Product < ActiveRecord::Base
 
   def price=(value)
     if value.is_a?(String)
-      super(currency_to_float(value))
+      super(decimal_to_float(value))
     else
       super(value)
     end
@@ -120,47 +124,34 @@ class Product < ActiveRecord::Base
 
   def discount=(value)
     if value.is_a?(String)
-      super(currency_to_float(value))
+      super(decimal_to_float(value))
     else
       super(value)
     end
   end
 
-  def currency_to_float( num )
-    if num.count('.') == 1 && num.count(',') == 0
-      # number like "12.34"
-      return num.to_f
-    end
-
-    if num.count('.') == 0 && num.count(',') == 1
-      # number like "12,34"
-      return num.tr(',','.').to_f
-    end
-
-    if num.count('.') > 0 && num.count(',') > 0
-      # number like "12.345.678,90" or "12,345,678.90"
-      dec_sep = num.tr('0-9','')[-1].chr
-      return num.tr('^0-9'+dec_sep,'').tr(dec_sep,'.').to_f
-    end
-
-    # if you are here is because there is only one
-    # separator and this appears 2 times or more.
-    # number like "12.345.678" or "12,345,678"
-
-    return num.tr(',.','').to_f
-  end
-
   def has_basic_info?
-    %w[description price].each do |field|
+    %w[unit price discount].each do |field|
       return true if !self.send(field).blank?
     end
     false
   end
 
   def qualifiers_list=(qualifiers)
-    self.product_qualifiers.delete_all
-    qualifiers.each do |item|
-      self.product_qualifiers.create(item[1]) if item[1].has_key?('qualifier_id')
+    self.product_qualifiers.destroy_all
+    qualifiers.each do |qualifier_id, certifier_id|
+      self.product_qualifiers.create(:qualifier_id => qualifier_id, :certifier_id => certifier_id)
     end
   end
+
+  def order_inputs!(order = [])
+    order.each_with_index do |input_id, array_index|
+      self.inputs.find(input_id).update_attributes(:position => array_index + 1)
+    end
+  end
+
+  def name_with_unit
+    unit.blank? ? name : "#{name} - #{_(unit)}"
+  end
+
 end

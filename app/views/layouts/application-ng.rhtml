@@ -16,6 +16,7 @@
 
     <%# Add custom tags/styles/etc via content_for %>
     <%= yield :head %>
+    <%= javascript_tag('render_all_jquery_ui_widgets()') %>
   </head>
   <body class="<%=
     # Identify the current controller and action for the CSS:
@@ -86,6 +87,5 @@
     </div><!-- end id="theme-footer" -->
     <%= noosfero_layout_features %>
     <%= theme_javascript_ng %>
-    <%= render_jquery_ui_buttons %>
   </body>
 </html>

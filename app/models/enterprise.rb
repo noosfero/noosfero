@@ -5,6 +5,7 @@ class Enterprise < Organization
   N_('Enterprise')
 
   has_many :products, :dependent => :destroy, :order => 'name ASC'
+  has_many :inputs, :through => :products
 
   extra_data_for_index :product_categories
 

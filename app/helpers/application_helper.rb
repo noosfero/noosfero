@@ -217,7 +217,8 @@ module ApplicationHelper
     if html_options.has_key?(:class)
       the_class << ' ' << html_options[:class]
     end
-    link_to('&nbsp;'+content_tag('span', label), url, html_options.merge(:class => the_class, :title => label))
+    the_title = html_options[:title] || label
+    link_to('&nbsp;'+content_tag('span', label), url, html_options.merge(:class => the_class, :title => the_title))
   end
 
   def button_to_function(type, label, js_code, html_options = {}, &block)
@@ -1021,8 +1022,8 @@ module ApplicationHelper
     text_field_tag(name, value, options.merge(:class => 'colorpicker_field'))
   end
 
-  def ui_icon(icon_type)
-    "<span class='ui-icon #{icon_type}' style='float:left; margin-right:7px;'></span>"
+  def ui_icon(icon_class, extra_class = '')
+    "<span class='ui-icon #{icon_class} #{extra_class}' style='float:left; margin-right:7px;'></span>"
   end
 
   def ui_button(label, url, html_options = {})
@@ -1034,12 +1035,15 @@ module ApplicationHelper
   end
 
   def jquery_ui_theme_stylesheet_path
-    'jquery.ui/sunny/jquery-ui-1.8.2.custom'
+    'jquery.ui/sunny-mod/jquery-ui-1.8.2.custom'
   end
 
-  # transform all element with class ui_button in a jQuery UI button
-  def render_jquery_ui_buttons
-    javascript_tag('render_jquery_ui_buttons()')
+  def ui_error(message)
+    content_tag('div', ui_icon('ui-icon-alert') + message, :class => 'alert fg-state-error ui-state-error')
+  end
+
+  def ui_highlight(message)
+    content_tag('div', ui_icon('ui-icon-info') + message, :class => 'alert fg-state-highlight ui-state-highlight')
   end
 
   def float_to_currency(value)

@@ -15,8 +15,7 @@
 <script type="text/javascript">
   jQuery("#uploadForm").ajaxForm({
     beforeSubmit: function(a,f,o) {
-      o.loading = open_loading('<%= _('loading... ') %>');
-      o.loaded = close_loading();
+      o.loading = small_loading("uploadForm");
     },
     target: '#product-image'
   });

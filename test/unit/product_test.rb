@@ -294,4 +294,62 @@ class ProductTest < Test::Unit::TestCase
        product.destroy
      end
   end
+
+  should 'has a list of units' do
+    assert_kind_of Array, Product::UNITS
+    assert_includes Product::UNITS.flatten, 'unit'
+  end
+
+  should 'test if name is blank' do
+    product = Product.new
+    assert product.name_is_blank?
+  end
+
+  should 'has basic info if filled unit, price or discount' do
+    product = Product.new
+    assert !product.has_basic_info?
+
+    product = Product.new(:unit => 'unit')
+    assert product.has_basic_info?
+
+    product = Product.new(:price => 1)
+    assert product.has_basic_info?
+
+    product = Product.new(:discount => 1)
+    assert product.has_basic_info?
+  end
+
+  should 'destroy all qualifiers when save qualifiers list' do
+    product = fast_create(Product)
+    product.product_qualifiers.create(:qualifier => fast_create(Qualifier), :certifier => fast_create(Certifier))
+    product.product_qualifiers.create(:qualifier => fast_create(Qualifier), :certifier => fast_create(Certifier))
+    product.product_qualifiers.create(:qualifier => fast_create(Qualifier), :certifier => fast_create(Certifier))
+
+    assert_equal 3, product.qualifiers.count
+
+    product.qualifiers_list = [[fast_create(Qualifier).id, fast_create(Certifier).id]]
+
+    assert_equal 1, product.qualifiers.count
+  end
+
+  should 'save order of inputs' do
+    product = fast_create(Product)
+    first = Input.create!(:product => product, :product_category => fast_create(ProductCategory))
+    second = Input.create!(:product => product, :product_category => fast_create(ProductCategory))
+    third = Input.create!(:product => product, :product_category => fast_create(ProductCategory))
+
+    assert_equal [first, second, third], product.inputs
+
+    product.order_inputs!([second.id, first.id, third.id])
+
+    assert_equal [second, first, third], product.inputs(true)
+  end
+
+  should 'format name with unit' do
+    product = Product.new(:name => "My product")
+    assert_equal "My product", product.name_with_unit
+    product.unit = 'litre'
+    assert_equal "My product - litre", product.name_with_unit
+  end
+
 end

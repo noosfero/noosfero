@@ -142,12 +142,12 @@ ActiveRecord::Schema.define(:version => 20100811211216) do
   add_index "categories_profiles", ["profile_id"], :name => "index_categories_profiles_on_profile_id"
 
   create_table "certifiers", :force => true do |t|
-    t.string   "name"
+    t.string   "name",           :null => false
     t.string   "description"
     t.string   "link"
-    t.integer  "environment_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "environment_id"
   end
 
   create_table "comments", :force => true do |t|
@@ -176,7 +176,7 @@ ActiveRecord::Schema.define(:version => 20100811211216) do
     t.text     "design_data"
     t.text     "custom_header"
     t.text     "custom_footer"
-    t.string   "theme",                        :default => "default"
+    t.string   "theme",                        :default => "default", :null => false
     t.text     "terms_of_use_acceptance_text"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -223,10 +223,16 @@ ActiveRecord::Schema.define(:version => 20100811211216) do
   end
 
   create_table "inputs", :force => true do |t|
-    t.integer  "product_id",          :null => false
-    t.integer  "product_category_id", :null => false
+    t.integer  "product_id",                                    :null => false
+    t.integer  "product_category_id",                           :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "position"
+    t.string   "unit"
+    t.decimal  "price_per_unit"
+    t.decimal  "amount_used"
+    t.boolean  "relevant_to_price",          :default => true
+    t.boolean  "is_from_solidarity_economy", :default => false
   end
 
   create_table "product_categorizations", :force => true do |t|
@@ -261,7 +267,7 @@ ActiveRecord::Schema.define(:version => 20100811211216) do
     t.float    "lng"
     t.string   "unit"
     t.float    "discount"
-    t.boolean  "available"
+    t.boolean  "available",           :default => true
     t.boolean  "highlighted"
   end
 
@@ -297,8 +303,13 @@ ActiveRecord::Schema.define(:version => 20100811211216) do
 
   add_index "profiles", ["environment_id"], :name => "index_profiles_on_environment_id"
 
+  create_table "qualifier_certifiers", :force => true do |t|
+    t.integer "qualifier_id"
+    t.integer "certifier_id"
+  end
+
   create_table "qualifiers", :force => true do |t|
-    t.string   "name"
+    t.string   "name",           :null => false
     t.integer  "environment_id"
     t.datetime "created_at"
     t.datetime "updated_at"

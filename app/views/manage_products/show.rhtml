@@ -1,27 +1,43 @@
 <div id="product-category">
-  <%= render :partial => 'manage_products/display_category', :locals => {:product => @product} %>
+  <%= render :partial => 'manage_products/display_category' %>
 </div>
 
 <div id="show_product">
 
   <div id='product-name'>
-    <%= render :partial => 'manage_products/display_name', :locals => {:product => @product} %>
+    <%= render :partial => 'manage_products/display_name' %>
   </div>
 
   <div id='product-details'>
     <div id='product-image'>
-      <%= render :partial => 'manage_products/display_image', :locals => {:product => @product} %>
+      <%= render :partial => 'manage_products/display_image' %>
     </div>
-
     <div id='product-info'>
-      <%= render :partial => 'manage_products/display_info', :locals => {:product => @product} %>
+      <%= render :partial => 'manage_products/display_info' %>
     </div>
-
-    <div id='product-inputs'>
-      <%= render :partial => 'manage_products/display_inputs', :locals => {:product => @product} %>
-    </div>
-
   </div>
+
+  <br style='clear: both'/>
+
+  <% unless !@allowed_user && (@product.description.blank? && @product.inputs.empty?) %>
+    <div class='ui-tabs' id='product-<%= @product.id %>-tabs'>
+      <ul>
+        <% if !@product.description.blank? || @allowed_user %>
+          <li class='tab'><a href='#product-description'><%= _('Description') %></a></li>
+        <% end %>
+        <% if !@product.inputs.empty? || @allowed_user %>
+          <li class='tab'><a href='#product-inputs'><%= _('Inputs and raw material') %></a></li>
+        <% end %>
+      </ul>
+      <div id='product-description'>
+        <%= render :partial => 'manage_products/display_description' %>
+      </div>
+      <div id='product-inputs'>
+        <%= render :partial => 'manage_products/display_inputs' %>
+      </div>
+    </div>
+  <% end %>
+
 </div>
 
 <% button_bar do %>

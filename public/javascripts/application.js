@@ -115,11 +115,16 @@ function loading(element_id, message) {
       $(element_id).update(message);
    }
 }
-
+function small_loading(element_id, message) {
+   $(element_id).addClassName('small-loading');
+   if (message) {
+      $(element_id).update(message);
+   }
+}
 function loading_done(element_id) {
    $(element_id).removeClassName('loading');
+   $(element_id).removeClassName('small-loading');
 }
-
 function open_loading(message) {
    jQuery('body').append("<div id='overlay_loading' class='ui-widget-overlay' style='display: none'/><div id='overlay_loading_modal' style='display: none'><p>"+message+"</p><img src='/images/loading-dark.gif'/></div>");
    jQuery('#overlay_loading').show();
@@ -144,7 +149,6 @@ function redirect_to(url) {
 function numbersonly(e, separator) {
   var key;
   var keychar;
-
   if (window.event) {
     key = window.event.keyCode;
   }
@@ -163,6 +167,9 @@ function numbersonly(e, separator) {
     return true;
   }
   else if (keychar == separator) {
+    if (e.target.value.indexOf(separator) > -1) {
+      return false;
+    }
     return true;
   }
   else
@@ -192,6 +199,17 @@ function render_jquery_ui_buttons(element_id) {
          )
       })
    }
+}
+
+function render_all_jquery_ui_widgets() {
+  jQuery(function() {
+    render_jquery_ui_buttons();
+    jQuery('.ui-tabs').each(function(){
+      jQuery(this).tabs({
+        cookie: { name: this.id }
+      });
+    });
+  });
 }
 
 function expandCategory(block, id) {
@@ -263,6 +281,159 @@ jQuery(document).ready(function() {
   jQuery('body').click(function() { hideAllSubmenus(); });
   jQuery('.menu-submenu-trigger').click(function(e) { e.stopPropagation(); });
 });
+
+function input_javascript_ordering_stuff() {
+   jQuery(function() {
+      jQuery(".input-list").sortable({
+         placeholder: 'ui-state-highlight',
+         axis: 'y',
+         opacity: 0.8,
+         tolerance: 'pointer',
+         forcePlaceholderSize: true,
+         update: function(event, ui) {
+            jQuery.post(jQuery(this).next('.order-inputs').attr('href'), jQuery(this).sortable('serialize'));
+         }
+      });
+      jQuery(".input-list li").disableSelection();
+
+      jQuery(".input-list li").hover(
+         function() {
+            jQuery(this).addClass('editing-input');
+            jQuery(this).css('cursor', 'move');
+         },
+         function() {
+            jQuery(this).removeClass('editing-input');
+            jQuery(this).css('cursor', 'pointer');
+         }
+      );
+
+      jQuery("#display-add-input-button > .hint").show();
+   });
+}
+
+function display_input_stuff() {
+   jQuery(function() {
+      jQuery("#add-input-button").click(function() {
+        jQuery("#display-add-input-button").find('.loading-area').addClass('small-loading');
+         url = jQuery(this).attr('href');
+         jQuery.get(url, function(data){
+            jQuery("#" + "new-product-input").html(data);
+            jQuery("#display-add-input-button").find('.loading-area').removeClass('small-loading');
+            jQuery("#add-input-button").hide();
+         });
+         return false;
+      });
+   });
+}
+
+function add_input_stuff() {
+   jQuery(function() {
+      jQuery(".cancel-add-input").click(function() {
+         jQuery("#new-product-input").html('');
+         jQuery("#add-input-button").show();
+         return false;
+      });
+      jQuery("#input-category-form").submit(function() {
+         id = "product-inputs";
+         jQuery(this).find('.loading-area').addClass('small-loading');
+         jQuery("#input-category-form,#input-category-form *").css('cursor', 'progress');
+         jQuery.post(this.action, jQuery(this).serialize(), function(data) {
+            jQuery("#" + id).html(data);
+         });
+         return false;
+      });
+      jQuery('body').scrollTo('50%', 500);
+   });
+}
+
+function input_javascript_stuff(id) {
+   jQuery(function() {
+      id = 'input-' + id;
+      jQuery("#add-"+ id +"-details,#edit-"+id).click(function() {
+        target = '#' + id + '-form';
+
+        jQuery('#' + id + ' ' + '.input-details').hide();
+        jQuery(target).show();
+
+        // make request only if the form is not loaded yet
+        if (jQuery(target + ' form').length == 0) {
+           small_loading(id);
+           jQuery(target).load(jQuery(this).attr('href'), function() {
+             loading_done(id);
+             jQuery('#' + id + ' .input-informations').removeClass('input-form-closed').addClass('input-form-opened');
+           });
+        }
+        else {
+           jQuery('#' + id + ' .input-informations').removeClass('input-form-closed').addClass('input-form-opened');
+        }
+
+        return false;
+      });
+      jQuery("#remove-" + id).unbind('click').click(function() {
+         if (confirm(jQuery(this).attr('data-confirm'))) {
+            url = jQuery(this).attr('href');
+            small_loading("product-inputs");
+            jQuery.post(url, function(data){
+              jQuery("#" + "product-inputs").html(data);
+              loading_done("product-inputs");
+            });
+         }
+         return false;
+      });
+    });
+}
+
+function edit_input_stuff(id, currency_separator) {
+   id = "input-" + id;
+
+   jQuery(function() {
+      jQuery("#" + "edit-" + id + "-form").ajaxForm({
+         target: "#" + id,
+         beforeSubmit: function(a,f,o) {
+           o.loading = small_loading('edit-' + id + '-form');
+           o.loaded = loading_done(id);
+         }
+      });
+
+      jQuery("#cancel-edit-" + id).click(function() {
+         jQuery("#" + id + ' ' + '.input-details').show();
+         jQuery("#" + id + '-form').hide();
+         jQuery('#' + id + ' .input-informations').removeClass('input-form-opened').addClass('input-form-closed');
+         return false;
+      });
+
+      jQuery(".numbers-only").keypress(function(event) {
+         return numbersonly(event, currency_separator)
+      });
+
+      add_input_unit(id, jQuery("#" + id + " select :selected").val())
+
+      jQuery("#" + id + ' select').change(function() {
+         add_input_unit(id, jQuery("#" + id + " select :selected").val())
+      });
+
+      jQuery("#" + id).enableSelection();
+   });
+}
+
+function add_input_unit(id, selected_unit) {
+   if (selected_unit != '') {
+      jQuery("#" + id + ' .price-by-unit').show();
+      jQuery("#" + id + ' .selected-unit').text(jQuery("#" + id + " select :selected").text());
+   } else {
+      jQuery("#" + id + ' .price-by-unit').hide();
+   }
+}
+
+function loading_for_button(selector) {
+  jQuery(selector).append("<div class='small-loading' style='width:16px; height:16px; position:absolute; top:0; right:-20px;'></div>");
+  jQuery(selector).css('cursor', 'progress');
+}
+
+function new_qualifier_row(selector, select_qualifiers) {
+  index = jQuery(selector + ' tr').size() - 1;
+  jQuery(selector).append("<tr><td>" + select_qualifiers + "</td><td id='certifier-area-" + index + "'><select></select></td></tr>");
+}
 
 // controls the display of the login/logout stuff
 jQuery(function($) {

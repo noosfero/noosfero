@@ -1,3 +1,7 @@
+def selenium_driver?
+  self.class.to_s == 'Webrat::SeleniumSession'
+end
+
 Given /^the following users?$/ do |table|
   # table is a Cucumber::Ast::Table
   table.hashes.each do |item|
@@ -62,13 +66,23 @@ Given /^the following files$/ do |table|
   end
 end
 
-Given /^the following products$/ do |table|
+Given /^the following products?$/ do |table|
   table.hashes.each do |item|
     data = item.dup
     owner = Enterprise[data.delete("owner")]
-    category = Category.find_by_slug(data.delete("category"))
+    category = Category.find_by_slug(data.delete("category").to_slug)
     product = Product.create!(data.merge(:enterprise => owner, :product_category => category))
     image = Image.create!(:owner => product, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+  end
+end
+
+Given /^the following inputs?$/ do |table|
+  table.hashes.each do |item|
+    data = item.dup
+    product = Product.find_by_name(data.delete("product"))
+    category = Category.find_by_slug(data.delete("category").to_slug)
+    input = Input.create!(data.merge(:product => product, :product_category => category))
+    input.update_attributes!(:position => data['position'])
   end
 end
 
@@ -103,12 +117,33 @@ Given /^the following (product_categories|product_category|category|categories|r
   end
 end
 
+Given /^the following qualifiers$/ do |table|
+  table.hashes.each do |row|
+    Qualifier.create!(row.merge(:environment_id => 1))
+  end
+end
+
+Given /^the following certifiers$/ do |table|
+  table.hashes.each do |row|
+    row = row.dup
+    qualifiers_list = row.delete("qualifiers")
+    if qualifiers_list
+      row["qualifiers"] = qualifiers_list.split(', ').map{|i| Qualifier.find_by_name(i)}
+    end
+    Certifier.create!(row.merge(:environment_id => 1))
+  end
+end
+
 Given /^I am logged in as "(.+)"$/ do |username|
   visit('/account/logout')
   visit('/account/login')
   fill_in("Username", :with => username)
   fill_in("Password", :with => '123456')
   click_button("Log in")
+  # FIXME selenium do not wait page load sometimes
+  if selenium_driver?
+    selenium.wait_for_page
+  end
 end
 
 Given /^I am logged in as admin$/ do
@@ -120,6 +155,10 @@ Given /^I am logged in as admin$/ do
   fill_in("Username", :with => user.login)
   fill_in("Password", :with => '123456')
   click_button("Log in")
+  # FIXME selenium do not wait page load sometimes
+  if selenium_driver?
+    selenium.wait_for_page
+  end
 end
 
 Given /^I am not logged in$/ do

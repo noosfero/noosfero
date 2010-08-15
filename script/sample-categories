@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require File.dirname(__FILE__) + '/../config/environment'
 
-# tourn on autoflush
+# turn on autoflush
 STDOUT.sync = true
 
 $environment_default = Environment.default
