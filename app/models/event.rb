@@ -26,6 +26,9 @@ class Event < Article
     {:conditions => ['start_date = :date AND end_date IS NULL OR (start_date <= :date AND end_date >= :date)', {:date => date}]}
   }
 
+  include WhiteListFilter
+  filter_iframes :description, :link, :address, :whitelist => lambda { profile && profile.environment && profile.environment.trusted_sites_for_iframe }
+
   def self.description
     _('A calendar event')
   end

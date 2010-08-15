@@ -1074,4 +1074,15 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal 15, env.profile_cache_in_minutes
   end
 
+  should 'have a list of trusted sites by default' do
+    assert_equal ['itheora.org', 'tv.softwarelivre.org', 'stream.softwarelivre.org'], Environment.new.trusted_sites_for_iframe
+  end
+
+  should 'have a list of trusted sites' do
+    e = Environment.default
+    e.trusted_sites_for_iframe = ['trusted.site.org']
+    e.save!
+
+    assert_equal ['trusted.site.org'], Environment.default.trusted_sites_for_iframe
+  end
 end

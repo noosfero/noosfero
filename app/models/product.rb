@@ -42,6 +42,9 @@ class Product < ActiveRecord::Base
 
   acts_as_mappable
 
+  include WhiteListFilter
+  filter_iframes :description, :whitelist => lambda { enterprise && enterprise.environment && enterprise.environment.trusted_sites_for_iframe }
+
   def self.units
     {
       _('Litre') => 'litre',

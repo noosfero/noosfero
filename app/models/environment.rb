@@ -219,6 +219,8 @@ class Environment < ActiveRecord::Base
   settings_items :currency_separator, :type => String, :default => '.'
   settings_items :currency_delimiter, :type => String, :default => ','
 
+  settings_items :trusted_sites_for_iframe, :type => Array, :default => ['itheora.org', 'tv.softwarelivre.org', 'stream.softwarelivre.org']
+
   def news_amount_by_folder=(amount)
     settings[:news_amount_by_folder] = amount.to_i
   end
@@ -467,6 +469,9 @@ class Environment < ActiveRecord::Base
   validates_format_of :contact_email, :with => Noosfero::Constants::EMAIL_FORMAT, :if => (lambda { |record| ! record.contact_email.blank? })
 
   xss_terminate :only => [ :message_for_disabled_enterprise ], :with => 'white_list', :on => 'validation'
+
+  include WhiteListFilter
+  filter_iframes :message_for_disabled_enterprise, :whitelist => lambda { trusted_sites_for_iframe }
 
 
   # #################################################

@@ -6,6 +6,9 @@ class Folder < Article
 
   xss_terminate :only => [ :body ], :with => 'white_list', :on => 'validation'
 
+  include WhiteListFilter
+  filter_iframes :body, :whitelist => lambda { profile && profile.environment && profile.environment.trusted_sites_for_iframe }
+
   def self.select_views
     [[_('Folder'), 'folder'], [_('Image gallery'), 'image_gallery']]
   end

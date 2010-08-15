@@ -9,6 +9,10 @@ class TinyMceArticle < TextArticle
   end
   
   xss_terminate :except => [ :abstract, :body ]
+
   xss_terminate :only => [ :abstract, :body ], :with => 'white_list', :on => 'validation'
+
+  include WhiteListFilter
+  filter_iframes :abstract, :body, :whitelist => lambda { profile && profile.environment && profile.environment.trusted_sites_for_iframe }
 
 end
