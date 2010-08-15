@@ -3,7 +3,6 @@
 <%= content_tag('em', _('(external feed was not loaded yet)'), :id => 'external-feed-info', :class => 'metadata') if article.blog? && article.external_feed && article.external_feed.enabled && article.external_feed.fetched_at.nil? %>
 
 <div>
-  <%= link_to(image_tag('icons-mime/rss-feed.png'), article.feed.url, :class => 'blog-feed-link') if article.blog? && article.feed %>
   <div class='blog-description'>
     <%= article.body %>
   </div>

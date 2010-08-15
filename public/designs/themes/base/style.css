@@ -904,6 +904,14 @@ hr.pre-posts, hr.sep-posts {
   display: none;
 }
 
+.blog-feed-link {
+  float: right;
+  margin-left: 5px;
+  position: absolute;
+  right: 0px;
+  top: -2px;
+}
+
 .blog-post {
   background: url(imgs/blog-sep.png) repeat-x;
   padding: 15px 20px 5px 20px;
@@ -918,10 +926,6 @@ hr.pre-posts, hr.sep-posts {
   margin-top: 25px;
 }
 
-#article-actions {
-  top: -28px;
-}
-
 #article-actions a.button,
 #article-actions a.button:hover {
   border: none;
@@ -932,10 +936,8 @@ hr.pre-posts, hr.sep-posts {
   color: #555753;
 }
 
-#bt_addThis {
-  position: absolute;
-  top: -15px;
-  right: 0px;
+#addThis {
+  text-align: right;
 }
 
 #content .blog-post .title {
@@ -961,7 +963,6 @@ hr.pre-posts, hr.sep-posts {
 }
 
 #article-tags {
-  float: right;
   color: #FFF;
 }
 #article-tags a {
