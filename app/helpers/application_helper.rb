@@ -1110,4 +1110,9 @@ module ApplicationHelper
     link_to(content_tag(:span, _('Communities Menu')), '#', :onclick => "toggleSubmenu(this,'',#{links.to_json}); return false", :class => 'menu-submenu-trigger up', :id => 'submenu-communities-trigger')
   end
 
+  def pagination_links(collection, options={})
+    options = {:prev_label => '&laquo; ' + _('Previous'), :next_label => _('Next') + ' &raquo;'}.merge(options)
+    will_paginate(collection, options)
+  end
+
 end
