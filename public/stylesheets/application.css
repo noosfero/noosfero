@@ -969,8 +969,8 @@ code input {
 
 #article-actions {
   position: absolute;
-  top: -25px;
-  right: -17px;
+  top: 1px;
+  right: 20px;
   padding-right: 15px;
 }
 
@@ -1143,8 +1143,6 @@ a.comment-picture {
   margin-bottom: -5px;
 }
 #bt_addThis {
-  float: right;
-  margin: 0px;
 }
 
 #addthis_dropdown15 table td {
@@ -1233,16 +1231,6 @@ a.comment-picture {
   text-align: center;
   font-size: small;
 }
-
-.blog-feed-link {
-  float: right;
-}
-
-.blog-description {
-  margin-right: 30px;
-}
-
-
 
 a.button, a.button:visited,
 body.noosfero a.button, body.noosfero a.button:visited,
@@ -1802,12 +1790,8 @@ input.disabled {
    Use article.css for article related css
 */
 
-.main-block .main-block h1 {
-  overflow: hidden;
-}
-
-.main-block .article-body {
-  overflow-x: auto;
+.main-block, .main-block h1{
+  overflow: visible;
 }
 
 body div#activation_enterprise {
@@ -2003,7 +1987,6 @@ div#activation_enterprise div {
 .profile-info-picture img {
   border: none;
   padding: 2px;
-  background: #FFF;
 }
 
 .profile-info-picture .sex-male,
