@@ -58,8 +58,8 @@ EOF
 
   desc 'prepares a release tarball'
   task :release => [ :check_tag, 'noosfero:doc:translate', 'noosfero:error-pages:translate', :authors, :check_repo ] do
-    sh "git tag #{version}"
     sh 'rake -f Rakefile.pkg'
+    sh "git tag #{version}"
     puts "I: please upload the tarball to the website!"
     puts "I: please push the tag for version #{version} that was just created!"
   end
