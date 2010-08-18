@@ -7,12 +7,12 @@
   <% if @category.new_record? %>
     <% if @category.parent %>
       <%= hidden_field_tag('parent_id', @category.parent.id) %>
-      <%= hidden_field_tag('type', @category.parent.class.name) %>
+      <%= hidden_field_tag('parent_type', @category.parent.class.name) %>
     <% else %>
       <% if environment.category_types.length > 1 %>
         <%= select_category_type :type %>
       <% else %>
-        <%= hidden_field_tag('type', environment.category_types.to_s) %>
+        <%= hidden_field_tag('type', @category.class.name) %>
       <% end%>
     <% end %>
   <% end %>
