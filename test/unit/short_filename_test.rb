@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class NoosferoFilenamesTest < Test::Unit::TestCase
 
-  include Noosfero::Filenames
+  include ShortFilename
 
   should 'trunc to 15 chars the big filename' do
     assert_equal 'AGENDA(...).mp3', short_filename('AGENDA_CULTURA_-_FESTA_DE_VAQUEIROS_PONTO_DE_SERRA_PRETA_BAIXA.mp3',15)
