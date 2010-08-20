@@ -446,6 +446,9 @@ jQuery(function($) {
        });
        var html = $(this).html().replace('%{login}', data.login).replace('%{month}', data.since_month).replace('%{year}', data.since_year);
        $(this).html(html).fadeIn();
+       if (data.is_admin) {
+         $('#user .admin-link').show();
+       }
      });
     } else {
       // not logged in
