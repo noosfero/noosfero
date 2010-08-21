@@ -11,7 +11,7 @@ module BlogHelper
   end
 
   def cms_label_for_edit
-    _('Edit blog')
+    _('Configure blog')
   end
 
   def list_posts(user, articles, format = 'full')

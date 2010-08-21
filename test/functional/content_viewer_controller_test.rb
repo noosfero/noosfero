@@ -902,4 +902,11 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'div', :attributes => { :class => 'short-post'}, :content => /Anything/
   end
 
+  should 'display link to edit blog for allowed' do
+    blog = fast_create(Blog, :profile_id => profile.id, :path => 'blog')
+    login_as(profile.identifier)
+    get :view_page, :profile => profile.identifier, :page => blog.explode_path
+    assert_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{blog.id}" }, :content => 'Configure blog' }
+  end
+
 end

@@ -78,6 +78,14 @@ Feature: blog
     When I follow "Configure blog"
     Then I should be on edit "Blog One" by joaosilva
 
+  Scenario: configure blog when viewing it
+    Given the following blogs
+       | owner     | name     |
+       | joaosilva | Blog One |
+    And I go to /joaosilva/blog-one
+    When I follow "Configure blog"
+    Then I should be on edit "Blog One" by joaosilva
+
   Scenario: change address of blog
     Given the following blogs
       | owner     | name     |

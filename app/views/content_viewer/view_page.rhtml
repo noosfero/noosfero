@@ -12,11 +12,9 @@
   <%= article_title(@page, :no_link => true) %>
   <div id="article-actions">
     <% if @page.allow_post_content?(user) %>
-      <% unless @page.blog? %>
       <%= link_to content_tag( 'span', label_for_edit_article(@page) ),
           profile.admin_url.merge({ :controller => 'cms', :action => 'edit', :id => @page.id }),
           :class => 'button with-text icon-edit' %>
-      <% end %>
       <% if !(profile.kind_of?(Enterprise) && environment.enabled?('disable_cms')) %>
         <% if @page != profile.home_page && !@page.blog? %>
           <%= link_to content_tag( 'span', _('Delete') ),
