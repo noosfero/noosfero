@@ -873,4 +873,10 @@ class ArticleTest < Test::Unit::TestCase
     assert_no_match /[<>]/, article.name
   end
 
+  should 'return truncated title in short_title' do
+    article = Article.new
+    article.name = 'a123456789abcdefghij'
+    assert_equal 'a123456789ab...', article.short_title
+  end
+
 end

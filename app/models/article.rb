@@ -189,6 +189,11 @@ class Article < ActiveRecord::Base
     name
   end
 
+  include ActionView::Helpers::TextHelper
+  def short_title
+    truncate self.title, 15, '...'
+  end
+
   def belongs_to_blog?
     self.parent and self.parent.blog?
   end
