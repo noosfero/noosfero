@@ -10,48 +10,83 @@ class InviteControllerTest < ActionController::TestCase
   end
   attr_accessor :profile, :friend, :community
 
-  should 'actually invite manually added address with friend object' do
-    assert_difference InviteFriend, :count, 1 do
+  should 'add manually invitation of an added address with friend object on a queue and process it later' do
+    assert_difference Delayed::Job, :count, 1 do
       post :friends, :profile => profile.identifier, :manual_import_addresses => "#{friend.name} <#{friend.email}>", :import_from => "manual", :mail_template => "click: <url>", :step => 2
       assert_redirected_to :controller => 'friends'
     end
+
+    assert_difference InviteFriend, :count, 1 do
+      Delayed::Worker.new.work_off
+    end
   end
 
-  should 'actually invite manually added address with only e-mail' do
-    assert_difference InviteFriend, :count, 1 do
+  should 'add manually invitation of an added address with only email on a queue and process it later' do
+    assert_difference Delayed::Job, :count, 1 do
       post :friends, :profile => profile.identifier, :manual_import_addresses => "test@test.com", :import_from => "manual", :mail_template => "click: <url>", :step => 2
+      assert_redirected_to :controller => 'friends'
+    end
+
+    assert_difference InviteFriend, :count, 1 do
+      Delayed::Worker.new.work_off
     end
   end
 
-  should 'actually invite manually added addresses with e-mail and other format' do
-    assert_difference InviteFriend, :count, 1 do
+  should 'add manually invitation of an added address with email and other format on a queue and process it later' do
+    assert_difference Delayed::Job, :count, 1 do
       post :friends, :profile => profile.identifier, :manual_import_addresses => "test@test.cz.com", :import_from => "manual", :mail_template => "click: <url>", :step => 2
+      assert_redirected_to :controller => 'friends'
     end
-  end
 
-  should 'actually invite more than one manually added address' do
-    assert_difference InviteFriend, :count, 2 do
-      post :friends, :profile => profile.identifier, :manual_import_addresses => "Some Friend <somefriend@email.com>\r\notherperson@bleble.net\r\n", :import_from => "manual", :mail_template => "click: <url>", :step => 2
-    end
-  end
-
-  should 'actualy invite manually added addresses with name and e-mail' do
     assert_difference InviteFriend, :count, 1 do
+      Delayed::Worker.new.work_off
+    end
+  end
+
+  should 'add manually invitation of more than one added address on a queue and process it later' do
+    assert_difference Delayed::Job, :count, 1 do
+      post :friends, :profile => profile.identifier, :manual_import_addresses => "Some Friend <somefriend@email.com>\r\notherperson@bleble.net\r\n", :import_from => "manual", :mail_template => "click: <url>", :step => 2
+      assert_redirected_to :controller => 'friends'
+    end
+
+    assert_difference InviteFriend, :count, 2 do
+      Delayed::Worker.new.work_off
+    end
+  end
+
+  should 'add manually invitation of an added address with name and e-mail on a queue and process it later' do
+    assert_difference Delayed::Job, :count, 1 do
       post :friends, :profile => profile.identifier, :manual_import_addresses => "Test Name <test@test.com>", :import_from => "manual", :mail_template => "click: <url>", :step => 2
+      assert_redirected_to :controller => 'friends'
+    end
+
+    assert_difference InviteFriend, :count, 1 do
+      Delayed::Worker.new.work_off
     end
   end
 
-  should 'not invite yourself' do
-    assert_no_difference InviteFriend, :count do
+  should 'add invitation of yourself on a queue and not process it later' do
+    assert_difference Delayed::Job, :count, 1 do
       post :friends, :profile => profile.identifier, :manual_import_addresses => "#{profile.name} <#{profile.user.email}>", :import_from => "manual", :mail_template => "click: <url>", :step => 2
+      assert_redirected_to :controller => 'friends'
+    end
+
+    assert_no_difference InviteFriend, :count do
+      Delayed::Worker.new.work_off
     end
   end
 
-  should 'not invite if already a friend' do
+  should 'add invitation of an already friend on a queue and not process it later' do
     friend = create_user('testfriend', :email => 'friend@noosfero.org')
     friend.person.add_friend(profile)
-    assert_no_difference InviteFriend, :count do
+
+    assert_difference Delayed::Job, :count, 1 do
       post :friends, :profile => profile.identifier, :manual_import_addresses => "#{friend.name} <#{friend.email}>", :import_from => "manual", :mail_template => "click: <url>", :step => 2
+      assert_redirected_to :controller => 'friends'
+    end
+
+    assert_no_difference InviteFriend, :count do
+      Delayed::Worker.new.work_off
     end
   end
 

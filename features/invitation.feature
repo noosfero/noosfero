@@ -91,12 +91,14 @@ Feature: invitation
     And I fill in "manual_import_addresses" with "santos@invalid.br"
     And I fill in "mail_template" with "Follow this link <url>"
     And I press "Invite my friends!"
+    Given there are no pending jobs
     When I am logged in as "josesantos"
     And I go to the Control panel
     And I should see "josesilva invites you to join the community 26 Bsslines."
 
   Scenario: noosfero user accepts to join community
     Given I invite email "santos@invalid.br" to join community "26 Bsslines"
+    And there are no pending jobs
     When I am logged in as "josesantos"
     And I go to the Control panel
     And I follow "Process requests"
@@ -110,6 +112,7 @@ Feature: invitation
 
   Scenario: noosfero user rejects to join community
     Given I invite email "santos@invalid.br" to join community "26 Bsslines"
+    And there are no pending jobs
     When I am logged in as "josesantos"
     And I go to the Control panel
     And I follow "Process requests"
@@ -129,12 +132,14 @@ Feature: invitation
     And I fill in "manual_import_addresses" with "santos@invalid.br"
     And I fill in "mail_template" with "Follow this link <url>"
     And I press "Invite my friends!"
+    Given there are no pending jobs
     When I am logged in as "josesantos"
     And I go to the Control panel
     And I should see "josesilva wants to be your friend."
 
   Scenario: noosfero user accepts to be friend
     Given I invite email "santos@invalid.br" to be my friend
+    And there are no pending jobs
     When I am logged in as "josesantos"
     And I go to the Control panel
     And I follow "Process requests"
@@ -148,6 +153,7 @@ Feature: invitation
 
   Scenario: noosfero user rejects to be friend
     Given I invite email "santos@invalid.br" to be my friend
+    And there are no pending jobs
     When I am logged in as "josesantos"
     And I go to the Control panel
     And I follow "Process requests"
