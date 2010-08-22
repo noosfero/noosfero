@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100811211216) do
+ActiveRecord::Schema.define(:version => 20100822034415) do
 
   create_table "article_versions", :force => true do |t|
     t.integer  "article_id"
@@ -184,7 +184,7 @@ ActiveRecord::Schema.define(:version => 20100811211216) do
 
   create_table "external_feeds", :force => true do |t|
     t.string   "feed_title"
-    t.date     "fetched_at"
+    t.datetime "fetched_at"
     t.string   "address"
     t.integer  "blog_id",                         :null => false
     t.boolean  "enabled",       :default => true, :null => false

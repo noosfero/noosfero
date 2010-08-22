@@ -118,6 +118,25 @@
 </div>
 <% end %>
 
+<%
+  # AddThis Button
+  if block_given? && web2_conf['addthis']
+      opts = web2_conf['addthis']
+%>
+<div id="addThis">
+<script type="text/javascript">
+  addthis_brand = '<%= escape_javascript( @environment.name ) %>';
+<%=
+  str = ''
+  opts.each { |k, v|
+    str += '  addthis_'+ k +' = "'+ escape_javascript( v ) +"\";\n"
+  }
+  str
+%></script>
+<a href="http://www.addthis.com/bookmark.php" id="bt_addThis" target="_blank" onmouseover="return addthis_open(this, '', '[URL]')" onmouseout="addthis_close()" onclick="return addthis_sendto()"><img src="/images/bt-bookmark.gif" width="53" height="16" border="0" alt="" /></a><script type="text/javascript" src="http://s7.addthis.com/js/152/addthis_widget.js"></script>
+</div>
+<% end %>
+
 <div class="comments">
   <a name="comments_list"></a>
   <% if @page.accept_comments? %>
