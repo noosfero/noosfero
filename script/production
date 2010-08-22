@@ -21,9 +21,11 @@ do_start() {
   ./script/ferret_server -e $RAILS_ENV start
   ./script/feed-updater start
   mongrel_rails cluster::start
+  ./script/delayed_job start
 }
 
 do_stop() {
+  ./script/delayed_job stop
   mongrel_rails cluster::stop
   ./script/feed-updater stop
   ./script/ferret_server -e $RAILS_ENV stop

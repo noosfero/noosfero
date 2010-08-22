@@ -17,3 +17,7 @@ Given /^I invite email "(.+)" to be my friend$/ do |email|
   fill_in('mail_template', :with => 'Follow this link <url>')
   click_button("Invite my friends!")
 end
+
+Given /^there are no pending jobs$/ do
+  Delayed::Worker.new.work_off
+end
