@@ -9,8 +9,10 @@
 
   <%= required_fields_message %>
 
-  <% unless environment.enabled?('disable_select_city_for_contact') %>
-    <%= labelled_form_field _('City and state'), select_city(true) %>
+  <% location_fields = select_city(true) %>
+
+  <% unless environment.enabled?('disable_select_city_for_contact') || location_fields.blank? %>
+    <%= labelled_form_field _('City and state'), location_fields %>
   <% end %>
   <%= required f.text_field(:subject) %>
   <%= required f.text_area(:message, :rows => 10, :cols => 60) %>

@@ -64,6 +64,7 @@ class ContactControllerTest < Test::Unit::TestCase
   end
 
   should 'not display select/city select when disable it in environment' do
+    state = State.create!(:name => "Bahia", :environment => Environment.default)
     get :new, :profile => profile.identifier
     assert_tag :tag => 'select', :attributes => {:name => 'state'}
     env = Environment.default

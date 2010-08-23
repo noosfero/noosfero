@@ -60,6 +60,10 @@ module FormsHelper
     
     state_id = 'state-' + FormsHelper.next_id_number
     city_id = 'city-' + FormsHelper.next_id_number
+
+    if states.length < 1
+      return
+    end
     
     if simple
       states = [State.new(:name => _('Select the State'))] + states

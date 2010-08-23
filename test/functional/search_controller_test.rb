@@ -365,6 +365,7 @@ class SearchControllerTest < Test::Unit::TestCase
   end
 
   should 'display option to search within a given point and distance' do
+    state = State.create!(:name => "Bahia", :environment => Environment.default)
     get :popup
 
     assert_tag :tag => 'select', :attributes => {:name => 'radius'}
