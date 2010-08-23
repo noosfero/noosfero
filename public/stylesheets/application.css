@@ -4359,3 +4359,9 @@ h1#agenda-title {
   font-style: italic;
   color: #555;
 }
+
+.clean-list {
+  list-style-type: none;
+  padding-left: 0px;
+  margin: 0px;
+}
