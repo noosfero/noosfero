@@ -21,7 +21,7 @@ class InviteController < PublicController
         if !params[:mail_template].match(/<url>/)
           flash.now[:notice] = _('&lt;url&gt; is needed in invitation mail.')
         elsif !contacts_to_invite.empty?
-          Delayed::Job.enqueue InvitationJob.new(current_user.person, contacts_to_invite, params[:mail_template], profile)
+          Delayed::Job.enqueue InvitationJob.new(user.id, contacts_to_invite, params[:mail_template], profile.id)
           session[:notice] = _('Your invitations are being sent.')
           if profile.person?
             redirect_to :controller => 'friends'
