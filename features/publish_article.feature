@@ -31,6 +31,20 @@ Feature: publish article
     When I follow "Sample Article"
     Then I should see "This is the first published article"
 
+  Scenario: publishing an article with a different name
+    Given I am logged in as "joaosilva"
+    And "Joao Silva" is a member of "Sample Community"
+    And I am on Joao Silva's control panel
+    And I follow "Manage Content"
+    And I follow "Spread"
+    And I check "Sample Community"
+    And I fill in "Title" with "Another name"
+    And I press "Spread this"
+    And I am on Sample Community's homepage
+    And I follow "View profile"
+    When I go to Sample Community's sitemap
+    Then I should see "Another name"
+    And I should not see "Sample Article"
 
   Scenario: getting an error message when publishing article with same name
     Given I am logged in as "joaosilva"

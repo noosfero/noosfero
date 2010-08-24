@@ -679,7 +679,7 @@ class CmsControllerTest < Test::Unit::TestCase
     a = profile.articles.create!(:name => 'something intresting', :body => 'ruby on rails')
 
     assert_difference PublishedArticle, :count do
-      post :publish, :profile => profile.identifier, :id => a.id, :marked_groups => [{:name => 'bli', :group_id => c.id.to_s}]
+      post :publish, :profile => profile.identifier, :id => a.id, :marked_groups => {c.id.to_s => {:name => 'bli', :group_id => c.id.to_s}}
       assert_equal [{'group' => c, 'name' => 'bli'}], assigns(:marked_groups)
     end
   end
@@ -712,7 +712,7 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_no_difference PublishedArticle, :count do
       assert_difference ApproveArticle, :count do
         assert_difference c.tasks, :count do
-          post :publish, :profile => profile.identifier, :id => a.id, :marked_groups => [{:name => 'bli', :group_id => c.id.to_s}]
+          post :publish, :profile => profile.identifier, :id => a.id, :marked_groups => {c.id.to_s => {:name => 'bli', :group_id => c.id.to_s}}
           assert_equal [{'group' => c, 'name' => 'bli'}], assigns(:marked_groups)
         end
       end

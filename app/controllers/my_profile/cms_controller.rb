@@ -216,7 +216,7 @@ class CmsController < MyProfileController
     @groups = profile.memberships - [profile]
     @marked_groups = []
     groups_ids = profile.memberships.map{|m|m.id.to_s}
-    @marked_groups = params[:marked_groups].map do |item|
+    @marked_groups = params[:marked_groups].map do |key, item|
       if groups_ids.include?(item[:group_id])
         item.merge :group => Profile.find(item.delete(:group_id))
       end
