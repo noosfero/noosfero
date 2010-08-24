@@ -127,6 +127,10 @@ class Event < Article
     maybe_add_http(self.body[:link])
   end
 
+  def event?
+    true
+  end
+
   include MaybeAddHttp
 
 end

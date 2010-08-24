@@ -64,7 +64,11 @@ class ApproveArticle < Task
   end
 
   def perform
-    PublishedArticle.create!(:name => name, :profile => target, :reference_article => article, :parent => article_parent, :highlighted => highlighted, :source => article.source)
+    if article.event?
+      article.copy(:name => name, :profile => target, :reference_article => article)
+    else
+      PublishedArticle.create!(:name => name, :profile => target, :reference_article => article, :parent => article_parent, :highlighted => highlighted, :source => article.source)
+    end
   end
 
   def target_notification_message

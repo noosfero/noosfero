@@ -684,6 +684,16 @@ class CmsControllerTest < Test::Unit::TestCase
     end
   end
 
+  should 'create a new event after publishing an event' do
+    c = fast_create(Community)
+    c.affiliate(profile, Profile::Roles.all_roles(c.environment.id))
+    a = Event.create!(:name => "Some event", :profile => profile, :start_date => Date.today)
+
+    assert_difference Event, :count do
+      post :publish, :profile => profile.identifier, :id => a.id, :marked_groups => {c.id.to_s => {:name => 'bli', :group_id => c.id.to_s}}
+    end
+  end
+
   should "not crash if there is a post and no portal community defined" do
     Environment.any_instance.stubs(:portal_community).returns(nil)
     article = profile.articles.create!(:name => 'something intresting', :body => 'ruby on rails')

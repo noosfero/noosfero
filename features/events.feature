@@ -170,3 +170,18 @@ Feature: events
   Scenario: display environment name in global agenda
     When I am on /assets/events
     Then I should see "Colivre.net's events"
+
+  Scenario: published events should be listed in the agenda too
+    Given the following community
+      | identifier | name |
+      | sample-community | Sample Community |
+    And I am logged in as "josesilva"
+    And "josesilva" is a member of "Sample Community"
+    And I am on josesilva's control panel
+    And I follow "Manage content"
+    And I follow "Another Conference"
+    And I follow "Spread"
+    And I check "Sample Community"
+    And I press "Spread this"
+    And I am on /profile/sample-community/events/2009/10/24
+    Then I should see "Another Conference"

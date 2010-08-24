@@ -274,7 +274,7 @@ class Article < ActiveRecord::Base
   end
 
 
-  def copy(options)
+  def copy(options = {})
     attrs = attributes.reject! { |key, value| ATTRIBUTES_NOT_COPIED.include?(key.to_sym) }
     attrs.merge!(options)
     self.class.create(attrs)
@@ -314,6 +314,10 @@ class Article < ActiveRecord::Base
   end
 
   def image?
+    false
+  end
+
+  def event?
     false
   end
 
