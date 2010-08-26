@@ -5,8 +5,7 @@
 </div><!-- fim id="assets-menu" -->
 
 <script type="text/javascript">
-  jQuery(document).ready(function() {
-    $ = jQuery;
+  jQuery(function($) {
     $("#site-title, #assets-menu").mouseover(function() {
       clearTimeout( window.closeAssetsTimeout );
       $("#assets-menu").slideDown("slow");
