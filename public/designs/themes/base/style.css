@@ -187,13 +187,13 @@ body, th, td, input {
 .msie6 #navigation {
   background: none;
   filter: progid:DXImageTransform.Microsoft.AlphaImageLoader
-          (src='/stylesheets/ng/imgs/menu-top-bg-left.png', sizingMethod='scale');
+          (src='imgs/menu-top-bg-left.png', sizingMethod='scale');
 }
 .msie6 #navigation-end {
   right: -1px;
   background: none;
   filter: progid:DXImageTransform.Microsoft.AlphaImageLoader
-          (src='/stylesheets/ng/imgs/menu-top-bg-right.png', sizingMethod='scale');
+          (src='imgs/menu-top-bg-right.png', sizingMethod='scale');
 }
 
 #navigation ul {
