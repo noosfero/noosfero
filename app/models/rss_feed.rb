@@ -51,6 +51,7 @@ class RssFeed < Article
 
   # TODO
   def to_html(options = {})
+    ""
   end
 
   # RSS feeds have type =text/xml=.
