@@ -8,11 +8,11 @@
   jQuery(function($) {
     $("#site-title, #assets-menu").mouseover(function() {
       clearTimeout( window.closeAssetsTimeout );
-      $("#assets-menu").slideDown("slow");
+      $("#assets-menu").slideDown(400);
     });
     $("#site-title, #assets-menu").mouseout(function() {
       window.closeAssetsTimeout =
-        setTimeout( '$("#assets-menu").slideUp("slow")', 500 );
+      setTimeout( function() { $("#assets-menu").slideUp(400); }, 500 );
     });
   });
 </script>
