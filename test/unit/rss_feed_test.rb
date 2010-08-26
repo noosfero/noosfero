@@ -236,4 +236,8 @@ class RssFeedTest < Test::Unit::TestCase
     assert_match /<item><title>article 3<\/title>/, rss
   end
 
+  should 'provide a non-nil to_html' do
+    assert_not_nil RssFeed.new.to_html
+  end
+
 end
