@@ -224,18 +224,6 @@ class ActionController::IntegrationTest
     assert_tag :tag => 'a', :attributes => { :href => '/account/signup'}
   end
 
-  def assert_cannot_logout
-    assert_no_tag :tag => 'a', :attributes => { :href => '/account/logout'  }
-  end
-
-  def assert_cannot_login
-    assert_no_tag :tag => 'a', :attributes => { :id => 'link_login' }
-  end
-
-  def assert_can_logout
-    assert_tag :tag => 'a', :attributes => { :href => '/account/logout'  }
-  end
-
   def login(username, password)
     ActionController::Integration::Session.any_instance.stubs(:https?).returns(true)
 
