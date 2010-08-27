@@ -59,7 +59,7 @@ class CreateEnterprise < Task
       end
     end
 
-    if self.identifier && Profile.exists?(:identifier => self.identifier)
+    if self.status != Task::Status::CANCELLED && self.identifier && Profile.exists?(:identifier => self.identifier)
       self.errors.add(:identifier, '%{fn} is already being as identifier by another enterprise, organization or person.')
     end
   end

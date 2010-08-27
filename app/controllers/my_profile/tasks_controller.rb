@@ -16,7 +16,7 @@ class TasksController < MyProfileController
     decision = params[:decision]
     if request.post? && VALID_DECISIONS.include?(decision) && params[:id]
       task = profile.find_in_all_tasks(params[:id])
-      task.update_attributes!(params[:task])
+      task.update_attributes(params[:task])
       begin
         task.send(decision)
       rescue Exception => ex

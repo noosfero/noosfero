@@ -223,4 +223,18 @@ class TasksControllerTest < Test::Unit::TestCase
     assert_includes c_blog2.children(true), p_article
   end
 
+  should 'cancel an enterprise registration task even if there is an enterprise with the same identifier' do
+    e = Environment.default
+    e.add_admin(profile)
+    task = CreateEnterprise.create!(:name => "My Enterprise", :identifier => "my-enterprise", :requestor => profile, :target => e)
+    enterprise = fast_create(Enterprise, :name => "My Enterprise", :identifier => "my-enterprise")
+
+    assert_nothing_raised do
+      post :close, {:profile => profile.identifier, :id => task.id, :task => {:reject_explanation => "Bla bla"}, :decision => "cancel"}
+    end
+
+    task.reload
+    assert_equal Task::Status::CANCELLED, task.status
+  end
+
 end
