@@ -9,6 +9,7 @@
 require File.expand_path(File.join(File.dirname(__FILE__), '..', 'config', 'environment'))
 require 'daemons'
 require 'delayed/command'
+require 'app/models/profile'
 
 ENV['RAILS_ENV'] ||= "production"
 Delayed::Command.new(ARGV).daemonize
