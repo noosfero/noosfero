@@ -20,14 +20,14 @@ do_start() {
   clear_cache
   ./script/ferret_server -e $RAILS_ENV start
   ./script/feed-updater start
-#  ./script/delayed_job start -n 4
+  ./script/delayed_job start -n 4
   mongrel_rails cluster::start
 }
 
 do_stop() {
   mongrel_rails cluster::stop
   ./script/delayed_job stop
-#  ./script/feed-updater stop
+  ./script/feed-updater stop
   ./script/ferret_server -e $RAILS_ENV stop
 }
 

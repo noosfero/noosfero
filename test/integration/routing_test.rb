@@ -219,4 +219,9 @@ class RoutingTest < ActionController::IntegrationTest
     assert_routing('/browse/communities', :controller => 'browse', :action => 'communities')
     assert_routing('/browse/communities/more_active', :controller => 'browse', :action => 'communities', :filter => 'more_active')
   end
+
+  def test_invite_routing
+    assert_routing('/profile/colivre/invite/friends', :controller => 'invite', :action => 'select_address_book', :profile => 'colivre')
+  end
+
 end
