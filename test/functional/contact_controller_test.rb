@@ -27,7 +27,7 @@ class ContactControllerTest < Test::Unit::TestCase
 
   should 'display destinatary name in title' do
     get :new, :profile => enterprise.identifier
-    assert_tag :tag => 'h1', :content => "Contact #{enterprise.name}"
+    assert_tag :tag => 'h1', :content => "Send a message to #{enterprise.name}"
   end
 
   should 'add form to create contact via post' do

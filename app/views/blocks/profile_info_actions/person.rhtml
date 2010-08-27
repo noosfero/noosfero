@@ -6,7 +6,7 @@
     <% end %>
 
     <% if user.is_a_friend?(profile) && profile.enable_contact? %>
-      <li> <%= link_to content_tag('span', _('Contact')), {:profile => profile.identifier, :controller => 'contact', :action => 'new'}, :class => 'button with-text icon-menu-mail' %> </li>
+      <li> <%= link_to content_tag('span', _('Send a message')), {:profile => profile.identifier, :controller => 'contact', :action => 'new'}, :class => 'button with-text icon-menu-mail' %> </li>
     <% end %>
 
   <% end %>
