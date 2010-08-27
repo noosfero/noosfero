@@ -32,15 +32,14 @@ Feature: invitation
     When I am on /profile/josesilva/invite/friends
     Then I should see "Invite your friends"
 
-  # why not work?
-  Scenario: back to manage friends after invite friends
+  Scenario: back to friends after invite friends
     Given I am on /myprofile/josesilva/friends
     And I follow "Invite people from my e-mail contacts"
     And I press "Next"
     And I fill in "manual_import_addresses" with "misfits@devil.doll"
     And I fill in "mail_template" with "Follow this link <url>"
     When I press "Invite my friends!"
-    Then I should be on /myprofile/josesilva/friends
+    Then I should be on /profile/josesilva/friends
 
   Scenario: see link to invite members to community
     When I am on /profile/26-bsslines/members
@@ -75,14 +74,14 @@ Feature: invitation
     Given I am on Beatles For Sale's members management
     Then I should not see "Invite your friends to join Beatles For Sale" link
 
-  Scenario: back to manage members after invite friends
+  Scenario: back to members after invite friends to join a community
     Given I am on 26 Bsslines's members management
     And I follow "Invite your friends to join 26 Bsslines"
     And I press "Next"
     And I fill in "manual_import_addresses" with "misfits@devil.doll"
     And I fill in "mail_template" with "Follow this link <url>"
     When I press "Invite my friends!"
-    Then I should be on /myprofile/26-bsslines/profile_members
+    Then I should be on /profile/26-bsslines/members
 
   Scenario: noosfero user receives a task when a user invites to join a community
     Given I am on 26 Bsslines's members management

@@ -455,9 +455,46 @@ jQuery(function($) {
       $('#user .not-logged-in, .login-block .not-logged-user').fadeIn();
     }
     if (data.notice) {
-      var $noticeBox = $('<div id="notice"></div>').html(data.notice).appendTo('body').fadeTo('fast', 0.8);
-      $noticeBox.click(function() { $(this).hide(); });
-      setTimeout(function() { $noticeBox.fadeOut('fast'); }, 5000);
+      display_notice(data.notice);
     }
   });
 });
+
+// controls the display of contact list
+function check_contact_list(contact_list) {
+  jQuery(function($) {
+    var verify_url = $('#verify-contact-list').attr('href');
+    var add_contacts_url = $('#add-contact-list').attr('href');
+    var cancel_contacts_fetching_url = $('#cancel-fetching-emails').attr('href');
+    var interval = setInterval(function() {
+      $.getJSON(verify_url, function(data) {
+        if (data.fetched) {
+          clearInterval(interval);
+          if (data.error) {
+            $("#loading-dialog").dialog('close');
+            $.get(cancel_contacts_fetching_url);
+            redirect_to($('#invitation_back_button').attr('href'));
+            display_notice(data.error);
+          } else {
+            $.get(add_contacts_url, function(data){
+              $("#contacts-list").html(data);
+            });
+          };
+          $("#loading-dialog").dialog('close');
+        }
+      });
+    }, 5000);
+    setTimeout(function() {
+      clearInterval(interval);
+      $("#loading-dialog").dialog('close');
+      $.get(cancel_contacts_fetching_url);
+      redirect_to($('#invitation_back_button').attr('href'));
+    }, 600000);
+  });
+}
+
+function display_notice(message) {
+   var $noticeBox = jQuery('<div id="notice"></div>').html(message).appendTo('body').fadeTo('fast', 0.8);
+   $noticeBox.click(function() { $(this).hide(); });
+   setTimeout(function() { $noticeBox.fadeOut('fast'); }, 5000);
+}

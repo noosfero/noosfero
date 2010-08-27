@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100822034415) do
+ActiveRecord::Schema.define(:version => 20100823190348) do
 
   create_table "article_versions", :force => true do |t|
     t.integer  "article_id"
@@ -145,9 +145,9 @@ ActiveRecord::Schema.define(:version => 20100822034415) do
     t.string   "name",           :null => false
     t.string   "description"
     t.string   "link"
+    t.integer  "environment_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "environment_id"
   end
 
   create_table "comments", :force => true do |t|
@@ -158,6 +158,14 @@ ActiveRecord::Schema.define(:version => 20100822034415) do
     t.string   "name"
     t.string   "email"
     t.datetime "created_at"
+  end
+
+  create_table "contact_lists", :force => true do |t|
+    t.text     "list"
+    t.string   "error_fetching"
+    t.boolean  "fetched",        :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "delayed_jobs", :force => true do |t|
@@ -351,9 +359,9 @@ ActiveRecord::Schema.define(:version => 20100822034415) do
 
   create_table "roles", :force => true do |t|
     t.string  "name"
+    t.text    "permissions"
     t.string  "key"
     t.boolean "system",         :default => false
-    t.text    "permissions"
     t.integer "environment_id"
   end
 

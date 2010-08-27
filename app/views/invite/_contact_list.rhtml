@@ -1,0 +1,12 @@
+<% friend_pos = 0 %>
+<% contacts.each do |contact| %>
+  <% friend_pos += 1 %>
+  <p>
+    <%= check_box_tag("webmail_import_addresses[]", contact[2],
+          (!@webmail_import_addresses || @webmail_import_addresses.include?(contact[2])),
+          :id => "contacts_to_invite_#{friend_pos}",
+          :class => "contact_to_invite" )
+    %>
+    <label for="<%= "contacts_to_invite_#{friend_pos}" %>"><%= "#{contact[0]} (#{contact[1]})" %></label>
+  </p>
+<% end %>

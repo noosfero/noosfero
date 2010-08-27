@@ -6,28 +6,9 @@
 # The role of this script is to just start/stop the daemon, write a PID file,
 # etc. The actual feed update logic is DelayedJob plugin.
 
+require File.expand_path(File.join(File.dirname(__FILE__), '..', 'config', 'environment'))
 require 'daemons'
+require 'delayed/command'
 
-NOOSFERO_ROOT = File.expand_path(File.dirname(__FILE__) + '/../')
-
-options = {
-  :dir_mode  => :normal,
-  :dir       => File.dirname(__FILE__) + '/../tmp/pids',
-  :multiple  => false,
-  :backtrace => true,
-  :monitor   => true,
-}
-
-Daemons.run_proc('job_runner', options) do
-  if ARGV.include?('--')
-    ARGV.slice! 0..ARGV.index('--')
-  else
-    ARGV.clear
-  end
-
-  Dir.chdir NOOSFERO_ROOT
-  RAILS_ENV = ARGV.first || ENV['RAILS_ENV'] || 'development'
-  require NOOSFERO_ROOT + '/config/environment'
-
-  Delayed::Worker.new.start
-end
+ENV['RAILS_ENV'] ||= "production"
+Delayed::Command.new(ARGV).daemonize
