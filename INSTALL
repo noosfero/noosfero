@@ -13,7 +13,7 @@ You need to install some packages Noosfero depends on.  On Debian GNU/Linux or
 Debian-based systems, all of these packages are available through the Debian
 archive. You can install them with the following command:
 
- # apt-get install ruby rake po4a libgettext-ruby-util libgettext-ruby1.8 libsqlite3-ruby rcov librmagick-ruby libredcloth-ruby libwill-paginate-ruby iso-codes libfeedparser-ruby libferret-ruby libdaemons-ruby mongrel mongrel-cluster tango-icon-theme
+ # apt-get install ruby rake po4a libgettext-ruby-util libgettext-ruby1.8 libsqlite3-ruby rcov librmagick-ruby libredcloth-ruby libwill-paginate-ruby iso-codes libfeedparser-ruby libferret-ruby libdaemons-ruby mongrel mongrel-cluster tango-icon-theme libhpricot-ruby
 
 On other systems, they may or may not be available through your regular package
 management system. Below are the links to their homepages.
@@ -33,6 +33,7 @@ management system. Below are the links to their homepages.
 * Daemons - http://daemons.rubyforge.org/
 * Mongrel: http://mongrel.rubyforge.org/
 * tango-icon-theme: http://tango.freedesktop.org/Tango_Icon_Library
+* Hpricot: http://hpricot.com/
 
 Note: the tango-icon-theme package is not available in Debian Lenny's main
 repository, because back then it was not DFSG-free (Debian Squeeze will have it
