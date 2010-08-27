@@ -12,13 +12,16 @@ In order to ask questions and solve problems
       | sample-community | Sample Community |
     And I am logged in as "joaosilva" 
 
-  Scenario: contact us show state field only if there is any state
+  Scenario: without states
     Given I am on Sample Community's homepage
-    When I follow "Contact us"
+    When I follow "Send a message"
     Then I should not see "City and state"
+
+  Scenario: with states
     Given the following states
       | name  |
       | Bahia |
-    When I follow "Contact us"
+    And I am on Sample Community's homepage
+    When I follow "Send a message"
     Then I should see "City and state"
     
