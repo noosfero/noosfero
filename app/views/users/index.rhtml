@@ -1,1 +1,13 @@
-<%= _('Not implemented yet!') %>
+<h1><%= _('Manage users') %></h1>
+
+<ul>
+  <li>
+  <%= _('Download users list') %>:
+  <%= link_to '[CSV]', :format => 'csv' %>
+  <%= link_to '[XML]', :format => 'xml' %>
+  </li>
+</ul>
+
+<% button_bar do %>
+  <%= button :back, _('Back to admin panel'), :controller => 'admin_panel' %>
+<% end %>
