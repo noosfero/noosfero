@@ -19,5 +19,7 @@ Given /^I invite email "(.+)" to be my friend$/ do |email|
 end
 
 Given /^there are no pending jobs$/ do
-  Delayed::Worker.new.work_off
+  silence_stream(STDOUT) do
+    Delayed::Worker.new.work_off
+  end
 end
