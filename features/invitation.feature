@@ -134,6 +134,7 @@ Feature: invitation
     Given there are no pending jobs
     When I am logged in as "josesantos"
     And I go to the Control panel
+    And I follow "Process requests"
     And I should see "josesilva wants to be your friend."
 
   Scenario: noosfero user accepts to be friend
