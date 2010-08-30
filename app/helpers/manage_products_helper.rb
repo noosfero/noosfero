@@ -195,9 +195,9 @@ module ManageProductsHelper
   end
 
   def display_price_with_discount(price, price_with_discount)
-    original_value = content_tag('span', float_to_currency(price), :class => 'field-value')
-    discount_value = display_price(_('On sale: '), price_with_discount)
-    content_tag('span', _('List price: '), :class => 'field-name') + original_value + tag('br') + discount_value
+    original_value = content_tag('span', display_price(_('List price: '), price), :class => 'list-price')
+    discount_value = content_tag('span', display_price(_('On sale: '), price_with_discount), :class => 'on-sale-price')
+    original_value + tag('br') + discount_value
   end
 
   def display_qualifiers(product)
