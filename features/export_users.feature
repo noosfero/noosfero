@@ -7,19 +7,18 @@ Feature: export users
       | login |
       | ultraje |
 
-  Scenario: Manage users not implemented yet
-    Given I am logged in as admin
-    When I go to /admin/users
-    Then I should see "Not implemented yet!"
-
   Scenario: Export users as XML
     Given I am logged in as admin
-    When I go to /admin/users.xml
+    When I follow "Administration"
+    And I follow "Manage users"
+    And I follow "[XML]"
     Then I should see "ultraje"
 
   Scenario: Export users as CSV
     Given I am logged in as admin
-    When I go to /admin/users.csv
+    When I follow "Administration"
+    And I follow "Manage users"
+    And I follow "[CSV]"
     Then I should see "name;email"
     And I should see "ultraje"
 
