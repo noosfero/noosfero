@@ -8,7 +8,7 @@ class InviteFriend < Invitation
   end
 
   def description
-    _('%s wants to be your friend.') % [person.name]
+    _('%s invited you to join %s') % [person.name, person.environment.name]
   end
 
   def permission
