@@ -22,7 +22,7 @@ class InviteController < PublicController
       webmail_import_addresses = params[:webmail_import_addresses]
       contacts_to_invite = Invitation.join_contacts(manual_import_addresses, webmail_import_addresses)
       if !contacts_to_invite.empty?
-        Delayed::Job.enqueue InvitationJob.new(current_user.person.id, contacts_to_invite, params[:mail_template], profile.id, @contact_list.id)
+        Delayed::Job.enqueue InvitationJob.new(current_user.person.id, contacts_to_invite, params[:mail_template], profile.id, @contact_list.id, locale)
         session[:notice] = _('Your invitations are being sent.')
         if profile.person?
           redirect_to :controller => 'profile', :action => 'friends'

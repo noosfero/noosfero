@@ -225,4 +225,12 @@ class InviteControllerTest < ActionController::TestCase
     assert_redirected_to :action => 'select_address_book'
   end
 
+  should 'set locale in the background job' do
+    @controller.stubs(:locale).returns('pt')
+
+    contact_list = ContactList.create
+    post :select_friends, :profile => profile.identifier, :manual_import_addresses => "#{friend.name} <#{friend.email}>", :import_from => "manual", :mail_template => "click: <url>", :contact_list => contact_list.id
+    assert_equal 'pt', Delayed::Job.first.payload_object.locale
+  end
+
 end

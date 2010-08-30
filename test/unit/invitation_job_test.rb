@@ -19,4 +19,10 @@ class InvitationJobTest < ActiveSupport::TestCase
     end
   end
 
+  should 'change locale according to the locale informed' do
+    job = InvitationJob.new(nil, nil, nil, nil, nil, 'pt')
+    Noosfero.expects(:with_locale).with('pt')
+    job.perform
+  end
+
 end
