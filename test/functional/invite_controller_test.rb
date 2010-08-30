@@ -18,7 +18,7 @@ class InviteControllerTest < ActionController::TestCase
     end
 
     assert_difference InviteFriend, :count, 1 do
-      Delayed::Worker.new.work_off
+      process_delayed_job_queue
     end
   end
 
@@ -30,7 +30,7 @@ class InviteControllerTest < ActionController::TestCase
     end
 
     assert_difference InviteFriend, :count, 1 do
-      Delayed::Worker.new.work_off
+      process_delayed_job_queue
     end
   end
 
@@ -42,7 +42,7 @@ class InviteControllerTest < ActionController::TestCase
     end
 
     assert_difference InviteFriend, :count, 1 do
-      Delayed::Worker.new.work_off
+      process_delayed_job_queue
     end
   end
 
@@ -54,7 +54,7 @@ class InviteControllerTest < ActionController::TestCase
     end
 
     assert_difference InviteFriend, :count, 2 do
-      Delayed::Worker.new.work_off
+      process_delayed_job_queue
     end
   end
 
@@ -66,7 +66,7 @@ class InviteControllerTest < ActionController::TestCase
     end
 
     assert_difference InviteFriend, :count, 1 do
-      Delayed::Worker.new.work_off
+      process_delayed_job_queue
     end
   end
 
@@ -78,7 +78,7 @@ class InviteControllerTest < ActionController::TestCase
     end
 
     assert_no_difference InviteFriend, :count do
-      Delayed::Worker.new.work_off
+      process_delayed_job_queue
     end
   end
 
@@ -93,7 +93,7 @@ class InviteControllerTest < ActionController::TestCase
     end
 
     assert_no_difference InviteFriend, :count do
-      Delayed::Worker.new.work_off
+      process_delayed_job_queue
     end
   end
 
@@ -164,7 +164,7 @@ class InviteControllerTest < ActionController::TestCase
     post :select_friends, :profile => profile.identifier, :manual_import_addresses => "#{friend.name} <#{friend.email}>", :import_from => "manual", :mail_template => "click: <url>", :contact_list => contact_list.id
 
     assert ContactList.exists?(contact_list.id)
-    Delayed::Worker.new.work_off
+    process_delayed_job_queue
     assert !ContactList.exists?(contact_list.id)
   end
 
@@ -173,7 +173,7 @@ class InviteControllerTest < ActionController::TestCase
     post :select_friends, :profile => profile.identifier, :manual_import_addresses => "#{friend.name} <#{friend.email}>", :import_from => "not_manual", :mail_template => "click: <url>", :contact_list => contact_list.id
 
     assert ContactList.exists?(contact_list.id)
-    Delayed::Worker.new.work_off
+    process_delayed_job_queue
     assert !ContactList.exists?(contact_list.id)
   end
 

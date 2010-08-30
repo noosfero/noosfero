@@ -175,6 +175,12 @@ class Test::Unit::TestCase
     @request.instance_variable_set('@host', name)
   end
 
+  def process_delayed_job_queue
+    silence_stream(STDOUT) do
+      Delayed::Worker.new.work_off
+    end
+  end
+
 end
 
 module NoosferoTestHelper
