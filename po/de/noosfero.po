@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.25.3\n"
-"POT-Creation-Date: 2010-08-27 19:10-0300\n"
+"POT-Creation-Date: 2010-08-30 16:46-0300\n"
 "PO-Revision-Date: 2010-07-28 18:52+0100\n"
 "Last-Translator: Ronny Kursawe <kursawe.ronny@googlemail.com>\n"
 "Language-Team: German <de@li.org>\n"
@@ -1101,14 +1101,14 @@ msgstr "Preis"
 msgid "Product not available!"
 msgstr "Nicht verfügbar!"
 
-#: app/helpers/manage_products_helper.rb:199
-msgid "On sale: "
-msgstr ""
-
-#: app/helpers/manage_products_helper.rb:200
+#: app/helpers/manage_products_helper.rb:198
 #, fuzzy
 msgid "List price: "
 msgstr "Entfernung"
+
+#: app/helpers/manage_products_helper.rb:199
+msgid "On sale: "
+msgstr ""
 
 #: app/helpers/manage_products_helper.rb:210
 #, fuzzy
@@ -2423,8 +2423,7 @@ msgstr "Tags werden erstellt, wenn Sie diese ihrem Inhalt hinzufügen. <p/> "
 msgid "tags|View all"
 msgstr "Tags|zeige alle"
 
-#: app/models/add_friend.rb:23 app/models/invite_friend.rb:11
-#: app/views/tasks/_add_friend.rhtml:5
+#: app/models/add_friend.rb:23 app/views/tasks/_add_friend.rhtml:5
 msgid "%s wants to be your friend."
 msgstr "%s möchte Ihr Freund werden."
 
@@ -3544,6 +3543,11 @@ msgstr "Erhält eine Kopie"
 #: app/models/contact.rb:14 app/views/contact/new.rhtml:15
 msgid "City and state"
 msgstr "Ort und Bundesland"
+
+#: app/models/invite_friend.rb:11
+#, fuzzy
+msgid "%s invited you to join %s"
+msgstr "%s möchte Sie in die Community %s einladen."
 
 #: app/models/invite_friend.rb:21
 msgid "<user> is inviting you to participate on <environment>."

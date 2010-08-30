@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.25.3\n"
-"POT-Creation-Date: 2010-08-27 19:10-0300\n"
+"POT-Creation-Date: 2010-08-30 16:46-0300\n"
 "PO-Revision-Date: 2009-10-09 13:28+0100\n"
 "Last-Translator: Anton <anton.c@live.com>\n"
 "Language-Team: German <de@li.org>\n"
@@ -1100,14 +1100,14 @@ msgstr "Цена:"
 msgid "Product not available!"
 msgstr "Занято"
 
-#: app/helpers/manage_products_helper.rb:199
-msgid "On sale: "
-msgstr ""
-
-#: app/helpers/manage_products_helper.rb:200
+#: app/helpers/manage_products_helper.rb:198
 #, fuzzy
 msgid "List price: "
 msgstr "Расстояние:"
+
+#: app/helpers/manage_products_helper.rb:199
+msgid "On sale: "
+msgstr ""
 
 #: app/helpers/manage_products_helper.rb:210
 #, fuzzy
@@ -2429,8 +2429,7 @@ msgstr ""
 msgid "tags|View all"
 msgstr "Просмотреть все"
 
-#: app/models/add_friend.rb:23 app/models/invite_friend.rb:11
-#: app/views/tasks/_add_friend.rhtml:5
+#: app/models/add_friend.rb:23 app/views/tasks/_add_friend.rhtml:5
 msgid "%s wants to be your friend."
 msgstr "%s хочет быть вашим другом"
 
@@ -3579,6 +3578,11 @@ msgstr "Получить копию"
 #: app/models/contact.rb:14 app/views/contact/new.rhtml:15
 msgid "City and state"
 msgstr "Город и страна"
+
+#: app/models/invite_friend.rb:11
+#, fuzzy
+msgid "%s invited you to join %s"
+msgstr "%s хочет быть участником %s"
 
 #: app/models/invite_friend.rb:21
 #, fuzzy

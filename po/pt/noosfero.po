@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.25.3\n"
-"POT-Creation-Date: 2010-08-27 19:10-0300\n"
-"PO-Revision-Date: 2010-08-27 19:24-0300\n"
+"POT-Creation-Date: 2010-08-30 16:46-0300\n"
+"PO-Revision-Date: 2010-08-30 16:47-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE TEAM <E-MAIL@ADDRESS or HOME PAGE>\n"
 "MIME-Version: 1.0\n"
@@ -1087,13 +1087,13 @@ msgstr "Preço:"
 msgid "Product not available!"
 msgstr "Produto não disponível!"
 
+#: app/helpers/manage_products_helper.rb:198
+msgid "List price: "
+msgstr "De: "
+
 #: app/helpers/manage_products_helper.rb:199
 msgid "On sale: "
 msgstr "Por: "
-
-#: app/helpers/manage_products_helper.rb:200
-msgid "List price: "
-msgstr "De: "
 
 #: app/helpers/manage_products_helper.rb:210
 msgid "certified by %s"
@@ -2373,8 +2373,7 @@ msgstr ""
 msgid "tags|View all"
 msgstr "Ver todos(as)"
 
-#: app/models/add_friend.rb:23 app/models/invite_friend.rb:11
-#: app/views/tasks/_add_friend.rhtml:5
+#: app/models/add_friend.rb:23 app/views/tasks/_add_friend.rhtml:5
 msgid "%s wants to be your friend."
 msgstr "%s quer ser seu(sua) amigo(a)."
 
@@ -3476,6 +3475,10 @@ msgstr "Receber uma cópia"
 #: app/models/contact.rb:14 app/views/contact/new.rhtml:15
 msgid "City and state"
 msgstr "Cidade e Estado"
+
+#: app/models/invite_friend.rb:11
+msgid "%s invited you to join %s"
+msgstr "%s te convidou para entrar no %s"
 
 #: app/models/invite_friend.rb:21
 msgid "<user> is inviting you to participate on <environment>."
@@ -4791,7 +4794,8 @@ msgstr "Desconto (%s)"
 
 #: app/views/manage_products/_edit_info.rhtml:18
 msgid "If your product is on sale, fill this field with the discount value"
-msgstr "Se o seu produto está à venda, preencha este campo com o valor de desconto"
+msgstr ""
+"Se o seu produto está à venda, preencha este campo com o valor de desconto"
 
 #: app/views/manage_products/_edit_info.rhtml:46
 msgid "Add new qualifier"

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.25.3\n"
-"POT-Creation-Date: 2010-08-27 19:10-0300\n"
+"POT-Creation-Date: 2010-08-30 16:46-0300\n"
 "PO-Revision-Date: 2007-08-30 18:47-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1079,12 +1079,12 @@ msgstr ""
 msgid "Product not available!"
 msgstr ""
 
-#: app/helpers/manage_products_helper.rb:199
-msgid "On sale: "
+#: app/helpers/manage_products_helper.rb:198
+msgid "List price: "
 msgstr ""
 
-#: app/helpers/manage_products_helper.rb:200
-msgid "List price: "
+#: app/helpers/manage_products_helper.rb:199
+msgid "On sale: "
 msgstr ""
 
 #: app/helpers/manage_products_helper.rb:210
@@ -2325,8 +2325,7 @@ msgstr ""
 msgid "tags|View all"
 msgstr ""
 
-#: app/models/add_friend.rb:23 app/models/invite_friend.rb:11
-#: app/views/tasks/_add_friend.rhtml:5
+#: app/models/add_friend.rb:23 app/views/tasks/_add_friend.rhtml:5
 msgid "%s wants to be your friend."
 msgstr ""
 
@@ -3393,6 +3392,10 @@ msgstr ""
 
 #: app/models/contact.rb:14 app/views/contact/new.rhtml:15
 msgid "City and state"
+msgstr ""
+
+#: app/models/invite_friend.rb:11
+msgid "%s invited you to join %s"
 msgstr ""
 
 #: app/models/invite_friend.rb:21
