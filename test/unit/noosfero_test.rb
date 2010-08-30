@@ -49,4 +49,11 @@ class NoosferoTest < Test::Unit::TestCase
     assert_match /^#{Noosfero.identifier_format}$/, '129812startingwithnumber'
   end
 
+  should 'change locale temporarily' do
+    Noosfero.with_locale('pt') do
+      assert_equal 'pt', FastGettext.locale
+    end
+    assert_equal 'en', FastGettext.locale
+  end
+
 end

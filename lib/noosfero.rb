@@ -27,6 +27,12 @@ module Noosfero
         yield(key, locales[key])
       end
     end
+    def with_locale(locale)
+      orig_locale = FastGettext.locale
+      FastGettext.set_locale(locale)
+      yield
+      FastGettext.set_locale(orig_locale)
+    end
   end
 
   def self.identifier_format
