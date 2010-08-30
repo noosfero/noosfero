@@ -11,5 +11,4 @@ require 'daemons'
 require 'delayed/command'
 require 'app/models/profile'
 
-ENV['RAILS_ENV'] ||= "production"
 Delayed::Command.new(ARGV).daemonize
