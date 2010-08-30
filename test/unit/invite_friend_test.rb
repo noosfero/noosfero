@@ -105,16 +105,11 @@ class InviteFriendTest < ActiveSupport::TestCase
     task = InviteFriend.create!(:person => p1, :friend => p2)
   end
 
-  should 'provide proper description' do
+  should 'mention inviter in description' do
     p1 = create_user('testuser1').person
-    p2 = create_user('testuser2').person
+    task = InviteFriend.new(:person => p1)
 
-    TaskMailer.expects(:deliver_task_finished).never
-    TaskMailer.expects(:deliver_task_created).never
-
-    task = InviteFriend.create!(:person => p1, :friend => p2)
-
-    assert_equal 'testuser1 wants to be your friend.', task.description
+    assert_match 'testuser1', task.description
   end
 
   should 'has permission to manage friends' do
