@@ -20,7 +20,7 @@ class Invitation < Task
 
   before_create do |task|
     if task.message && !task.message.match(/<url>/)
-      task.message += task.message_to_accept_invitation
+      task.message += Invitation.default_message_to_accept_invitation
     end
   end
 
@@ -122,7 +122,7 @@ class Invitation < Task
     raise 'You should implement mail_template in a subclass'
   end
 
-  def message_to_accept_invitation
-    '<p>' + _('To accept invitation, please follow this link: <url>') + '</p>'
+  def self.default_message_to_accept_invitation
+    "\n\n" + _('To accept invitation, please follow this link: <url>')
   end
 end

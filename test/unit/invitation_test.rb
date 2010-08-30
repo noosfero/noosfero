@@ -80,7 +80,7 @@ class InvitationTest < ActiveSupport::TestCase
       :friend => friend,
       :message => 'Hi <friend>, <user> is inviting you!'
     )
-    assert_equal "Hi <friend>, <user> is inviting you!#{invitation.message_to_accept_invitation}", invitation.message
+    assert_equal "Hi <friend>, <user> is inviting you!#{Invitation.default_message_to_accept_invitation}", invitation.message
   end
 
   should 'do nothing with message if user added url' do
@@ -95,6 +95,6 @@ class InvitationTest < ActiveSupport::TestCase
   end
 
   should 'have a message with url' do
-    assert_equal "<p>To accept invitation, please follow this link: <url></p>", Invitation.new.message_to_accept_invitation
+    assert_equal "\n\nTo accept invitation, please follow this link: <url>", Invitation.default_message_to_accept_invitation
   end
 end
