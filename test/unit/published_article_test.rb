@@ -127,7 +127,7 @@ class PublishedArticleTest < ActiveSupport::TestCase
     a = fast_create(Article, :name => 'my article', :profile_id => prof.id)
     a.expects(:body).returns('<p>the first paragraph of the article</p> The second paragraph')
     p = PublishedArticle.create(:reference_article => a, :profile => prof)
-    assert_equal '<p>the first paragraph of the article</p>', p.first_paragraph
+    assert_equal 'the first paragraph of the article', p.first_paragraph
   end
 
 end
