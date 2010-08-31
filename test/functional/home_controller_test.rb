@@ -53,6 +53,29 @@ all_fixtures
     assert_tag :tag => 'div', :attributes => { :id => 'portal-news' } #, :descendant => {:tag => 'form', :attributes => {:action => '/account/activation_question'}}
   end
 
+  should 'display the news leads if there is any' do
+    env = Environment.default
+    env.enable('use_portal_community')
+    c = fast_create(Community)
+    a1 = TextileArticle.create!(:name => "Article 1",
+                                :profile => c,
+                                :abstract => "This is the article1 lead.",
+                                :body => "This is the article1 body.",
+                                :highlighted => true)
+    a2 = TextileArticle.create!(:name => "Article 2",
+                                :profile => c,
+                                :body => "This is the article2 body.",
+                                :highlighted => true)
+    env.portal_community = c
+    env.save!
+
+
+    get :index
+    assert_tag :tag => 'p', :content => a1.abstract
+    assert_no_tag :tag => 'p', :content => a1.body
+    assert_tag :tag => 'p', :content => a2.body
+  end
+
   should 'display block in index page if it\'s configured to display on homepage and its an environment block' do
     env = Environment.default
     box = Box.create(:owner_type => 'Environment', :owner_id => env.id)

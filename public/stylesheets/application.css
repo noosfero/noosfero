@@ -1005,6 +1005,11 @@ code input {
   font-weight: normal;
 }
 
+#article-lead {
+  margin-top: 10px;
+  display: none;
+}
+
 /* * *  Comments  * * */
 
 .comments {  }
