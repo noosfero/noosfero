@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.25.3\n"
 "POT-Creation-Date: 2010-08-30 16:46-0300\n"
-"PO-Revision-Date: 2010-08-30 16:47-0300\n"
+"PO-Revision-Date: 2010-08-31 19:55-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE TEAM <E-MAIL@ADDRESS or HOME PAGE>\n"
 "MIME-Version: 1.0\n"
@@ -3207,8 +3207,8 @@ msgid "'%{user} wants to activate email '%{email}'"
 msgstr "%{user} quer ativar o e-mail '%{email}'"
 
 #: app/models/invite_member.rb:19 app/views/tasks/_invite_member.rhtml:5
-msgid "%s invites you to join the community %s."
-msgstr "%s te está te convidando para entrar na comunidade %s."
+msgid "%s invited you to join the community %s"
+msgstr "%s te convidou para entrar na comunidade %s"
 
 #: app/models/invite_member.rb:28 app/models/invite_friend.rb:20
 msgid "Hello <friend>,"

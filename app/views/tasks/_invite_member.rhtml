@@ -2,7 +2,7 @@
 
 <%= link_to( profile_image(task.requestor, :minor, :border => 0), task.requestor.public_profile_url ) %>
 
-<%= _('%s invites you to join the community %s.') %
+<%= _('%s invited you to join the community %s') %
     [content_tag('strong', link_to( task.requestor.name, task.requestor.public_profile_url ) ),
     content_tag('strong', link_to( task.community.name, task.community.public_profile_url ) )] %>
 

@@ -16,7 +16,7 @@ class InviteMember < Invitation
   end
 
   def description
-    _('%s invites you to join the community %s.') % [person.name, community.name]
+    _('%s invited you to join the community %s') % [person.name, community.name]
   end
 
   def expanded_message
