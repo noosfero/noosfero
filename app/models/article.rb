@@ -340,7 +340,7 @@ class Article < ActiveRecord::Base
   end
 
   def first_paragraph
-    to_html =~ /(.*<\/p>)/
+    to_html =~ /<p>(.*)<\/p>/
     $1 || ''
   end
 
