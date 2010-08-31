@@ -1785,6 +1785,14 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal "3 members", c.more_popular_label
   end
 
+  should 'provide list of galleries' do
+    p = fast_create(Profile)
+    f1 = Folder.create(:profile => p, :name => "folder1", :view_as => 'image_gallery')
+    f2 = Folder.create(:profile => p, :name => "folder2", :view_as => 'folder')
+
+    assert_equal [f1], p.image_galleries
+  end
+
   private
 
   def assert_invalid_identifier(id)

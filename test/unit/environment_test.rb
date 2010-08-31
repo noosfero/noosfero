@@ -1093,4 +1093,21 @@ class EnvironmentTest < Test::Unit::TestCase
 
     assert_equal ['trusted.site.org'], Environment.default.trusted_sites_for_iframe
   end
+
+  should 'provide list of galleries' do
+    env = Environment.new
+    portal = Community.new
+    env.stubs(:portal_community).returns(portal)
+    list = []
+    portal.expects(:image_galleries).returns(list)
+
+    assert_same list, env.image_galleries
+  end
+
+  should 'profile empty list of image galleries when there is no portal community' do
+    p = Environment.new
+    p.stubs(:portal_community).returns(nil)
+    assert_equal [], p.image_galleries
+  end
+
 end

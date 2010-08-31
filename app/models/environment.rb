@@ -653,5 +653,9 @@ class Environment < ActiveRecord::Base
   settings_items :general_cache_in_minutes, :type => :integer, :default => 15
   settings_items :profile_cache_in_minutes, :type => :integer, :default => 15
 
+  def image_galleries
+    portal_community ? portal_community.image_galleries : []
+  end
+
 end
 

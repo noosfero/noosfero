@@ -97,4 +97,14 @@ class SlideshowBlockTest < ActiveSupport::TestCase
     assert_equal '/bli/thumb.png', block.public_filename_for(image)
   end
 
+  should 'choose between owner image galleries' do
+    block = SlideshowBlock.new
+    owner = mock
+    block.stubs(:owner).returns(owner)
+
+    list = []
+    owner.expects(:image_galleries).returns(list)
+    assert_same list, block.folder_choices
+  end
+
 end

@@ -129,4 +129,15 @@ class HighlightsBlockTest < ActiveSupport::TestCase
     assert_not_equal [i2,i3,i1,i4,i5], block.featured_images
   end
 
+  [Environment, Profile].each do |klass|
+    should "choose between owner galleries when owner is #{klass.name}" do
+      owner = fast_create(klass)
+
+      block = HighlightsBlock.new
+      block.stubs(:owner).returns(owner)
+
+      assert_kind_of Array, block.folder_choices
+    end
+  end
+
 end
