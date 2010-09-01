@@ -972,10 +972,8 @@ code input {
 }
 
 #article-actions {
-  position: absolute;
-  top: 1px;
-  right: 20px;
-  padding-right: 15px;
+  margin-bottom: 5px;
+  width: 100%;
 }
 
 #article-tags {
@@ -1162,6 +1160,10 @@ a.comment-picture {
 
 .blog-post a {
   text-decoration: none;
+}
+
+.blog-feed-link {
+  float: right;
 }
 
 #content .title {

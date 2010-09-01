@@ -966,22 +966,10 @@ hr.pre-posts, hr.sep-posts {
   display: none;
 }
 
-.blog-feed-link {
-  float: right;
-  margin-left: 5px;
-  position: absolute;
-  right: 0px;
-  top: -2px;
-}
-
 .blog-post {
   background: url(imgs/blog-sep.png) repeat-x;
   padding: 15px 20px 5px 20px;
   margin: 0px -19px;
-}
-
-#article .logged-in h1 {
-  margin-top: 25px;
 }
 
 #article-actions a.button,
