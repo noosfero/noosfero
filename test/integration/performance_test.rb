@@ -29,13 +29,13 @@ class PerformanceTest < ActionController::IntegrationTest
     create_posts(person2, 100)
 
     # no posts
-    time0 = (Benchmark.measure { get '/person0/blog' })
+    time0 = (Benchmark.measure { 10.times { get '/person0/blog' } })
 
     # first 50
-    time1 = (Benchmark.measure { get '/person1/blog' })
+    time1 = (Benchmark.measure { 10.times { get '/person1/blog' } })
 
     # another 50
-    time2 = (Benchmark.measure { get '/person2/blog' })
+    time2 = (Benchmark.measure { 10.times { get '/person2/blog' } })
 
     # should not scale linearly, i.e. the inclination of the first segment must
     # be a lot higher than the one of the segment segment. To compensate for
