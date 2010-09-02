@@ -9,7 +9,7 @@
       <% @highlighted_news.each_with_index do |highlighted, index| %>
         <div class='highlighted-news-item post-<%= index + 1 %>'>
           <div class='highlighted-news-item post-<%= index + 1 %>-inner'>
-            <h2><%= link_to(highlighted.title, highlighted.url, :class => 'post-title') %></h2>
+            <h2><%= link_to(h(highlighted.title), highlighted.url, :class => 'post-title') %></h2>
             <span class="post-date"><%= show_date(highlighted.published_at, true) %> </span>
             <p class='headline'><%= !highlighted.abstract.blank? ? highlighted.abstract : highlighted.first_paragraph %></p>
             <p class='highlighted-news-read-more'>
@@ -28,7 +28,7 @@
         <% @portal_news.each do |news| %>
           <li>
           <span class="post-date"><%= show_date(news.published_at, true) %> </span>
-          <%= link_to(news.title, news.url, :class =>  'post-title' ) %>
+          <%= link_to(h(news.title), news.url, :class =>  'post-title' ) %>
           </li>
         <% end %>
       </ul>
@@ -40,10 +40,10 @@
       <% content_tag(:div, :class => ["news-area", ['even', 'odd'][i%2]].join(' ')) do %>
         <% content_tag(:div, :class => 'news-area-inner-1') do %>
           <% content_tag(:div, :class => 'news-area-inner-2') do %>
-            <h3><%= link_to folder.title, folder.url %></h3>
+            <h3><%= link_to h(folder.title), folder.url %></h3>
             <ul>
               <% folder.news(environment.news_amount_by_folder).each do |news| %>
-                <li> <%= link_to(news.title, news.url) %></li>
+                <li> <%= link_to(h(news.title), news.url) %></li>
               <% end%>
             </ul>
             <%= link_to _('View more'), folder.url, :class => 'news-see-more'  %>
