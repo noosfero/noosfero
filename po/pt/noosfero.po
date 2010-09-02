@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.25.3\n"
 "POT-Creation-Date: 2010-08-30 16:46-0300\n"
-"PO-Revision-Date: 2010-08-31 19:55-0300\n"
+"PO-Revision-Date: 2010-09-02 08:45-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE TEAM <E-MAIL@ADDRESS or HOME PAGE>\n"
 "MIME-Version: 1.0\n"
@@ -4782,7 +4782,7 @@ msgstr "Selecione a categoria de seu novo produto ou serviço"
 #: app/views/manage_products/new.rhtml:16
 #: app/views/manage_products/show.rhtml:44
 msgid "Back to the product listing"
-msgstr "Boltar para lista de produtos"
+msgstr "Voltar para lista de produtos"
 
 #: app/views/manage_products/_edit_info.rhtml:13
 msgid "Price (%s)"
