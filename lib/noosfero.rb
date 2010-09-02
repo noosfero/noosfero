@@ -68,16 +68,8 @@ module Noosfero
     end
   end
 
-  # FIXME couldn't think of a way to test this.
-  #
-  # Works (tested by hand) on Rails 2.0.2, with mongrel. Should work with
-  # webrick too.
   def self.development_url_options
-    if Object.const_defined?('OPTIONS')
-      { :port => OPTIONS[:port ]}
-    else
-      {}
-    end
+    @development_url_options || {}
   end
 
 
