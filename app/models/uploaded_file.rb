@@ -34,6 +34,8 @@ class UploadedFile < Article
 
   validates_attachment :size => N_("%{fn} of uploaded file was larger than the maximum size of 5.0 MB")
 
+  delay_attachment_fu_thumbnails
+
   def icon_name
     self.image? ? public_filename(:icon) : self.content_type.gsub('/', '-')
   end
@@ -59,7 +61,6 @@ class UploadedFile < Article
   def data
     File.read(self.full_filename)
   end
-
 
   def to_html(options = {})
     article = self

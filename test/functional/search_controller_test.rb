@@ -562,6 +562,8 @@ class SearchControllerTest < Test::Unit::TestCase
     cat = Category.create!(:name => 'category2', :environment => Environment.default, :parent => parent,
       :image_builder => {:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')}
     )
+
+    process_delayed_job_queue
     get :category_index, :category_path => [ 'category1', 'category2' ], :query => 'teste'
     assert_tag :tag => 'img', :attributes => { :src => /rails_thumb\.png/ }
   end

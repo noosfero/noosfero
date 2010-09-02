@@ -90,7 +90,8 @@ class UploadedFileTest < Test::Unit::TestCase
     f = fast_create(Folder, :name => 'test_folder', :profile_id => p.id)
     file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent_id => f.id, :profile => p)
 
-    assert File.exists?(file.public_filename(:icon))
+    process_delayed_job_queue
+    assert File.exists?(UploadedFile.find(file.id).public_filename(:icon))
     file.destroy
   end
 
@@ -98,7 +99,8 @@ class UploadedFileTest < Test::Unit::TestCase
     p = create_user('test_user').person
     file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => p)
 
-    assert File.exists?(file.public_filename(:icon))
+    process_delayed_job_queue
+    assert File.exists?(UploadedFile.find(file.id).public_filename(:icon))
     file.destroy
   end
 
@@ -156,4 +158,74 @@ class UploadedFileTest < Test::Unit::TestCase
     assert_nil upload.errors[:title]
   end
 
+  should 'create thumbnails after processing jobs' do
+    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile)
+
+    process_delayed_job_queue
+
+    UploadedFile.attachment_options[:thumbnails].each do |suffix, size|
+      assert File.exists?(UploadedFile.find(file.id).public_filename(suffix))
+    end
+    file.destroy
+  end
+
+  should 'set thumbnails_processed to true after creating thumbnails' do
+    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile)
+
+    process_delayed_job_queue
+
+    assert UploadedFile.find(file.id).thumbnails_processed
+    file.destroy
+  end
+
+  should 'have thumbnails_processed attribute' do
+    assert UploadedFile.new.respond_to?(:thumbnails_processed)
+  end
+
+  should 'return false by default in thumbnails_processed' do
+    assert !UploadedFile.new.thumbnails_processed
+  end
+
+  should 'set thumbnails_processed to true' do
+    file = UploadedFile.new
+    file.thumbnails_processed = true
+
+    assert file.thumbnails_processed
+  end
+
+  should 'have a default image if thumbnails were not processed' do
+    file = UploadedFile.new
+    assert_equal '/images/icons-app/image-loading-thumb.png', file.public_filename
+  end
+
+  should 'return image thumbnail if thumbnails were processed' do
+    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile)
+    process_delayed_job_queue
+
+    assert_match(/rails_thumb.png/, UploadedFile.find(file.id).public_filename(:thumb))
+
+    file.destroy
+  end
+
+  should 'return the default thumbnail image as icon for images ' do
+    f = UploadedFile.new
+    f.expects(:image?).returns(true)
+    f.expects(:public_filename).with(:icon).returns('/path/to/file.xyz')
+    assert_equal '/path/to/file.xyz', f.icon_name
+  end
+
+  should 'store width and height after processing' do
+    file = UploadedFile.create!(:profile => @profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    file.create_thumbnails
+
+    file = UploadedFile.find(file.id)
+    assert_equal [50, 64], [file.width, file.height]
+  end
+
+  should 'have a loading image to each size of thumbnails' do
+    UploadedFile.attachment_options[:thumbnails].each do |suffix, size|
+      image = RAILS_ROOT + '/public/images/icons-app/image-loading-%s.png' % suffix
+      assert File.exists?(image)
+    end
+  end
 end

@@ -136,4 +136,27 @@ class ProductsBlockTest < ActiveSupport::TestCase
 
     assert_tag_in_string footer, :tag => 'a', :attributes => { :href => /\/catalog\/testenterprise$/ }, :content => 'View all products'
   end
+
+  should 'display the default minor image if thumbnails were not processed' do
+    enterprise = Enterprise.create!(:name => 'testenterprise', :identifier => 'testenterprise')
+    enterprise.products.create!(:name => 'product', :product_category => @product_category, :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
+
+    block.expects(:products).returns(enterprise.products)
+
+    content = block.content
+
+    assert_tag_in_string content, :tag => 'a', :attributes => { :style => /image-loading-minor.png/ }
+  end
+
+  should 'display the thumbnail image if thumbnails were processed' do
+    enterprise = Enterprise.create!(:name => 'testenterprise', :identifier => 'testenterprise')
+    enterprise.products.create!(:name => 'product', :product_category => @product_category, :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
+
+    process_delayed_job_queue
+    block.expects(:products).returns(enterprise.products.reload)
+
+    content = block.content
+    assert_tag_in_string content, :tag => 'a', :attributes => { :style => /rails_minor.png/ }
+  end
+
 end

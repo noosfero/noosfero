@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100823190348) do
+ActiveRecord::Schema.define(:version => 20100901203836) do
 
   create_table "article_versions", :force => true do |t|
     t.integer  "article_id"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(:version => 20100823190348) do
     t.string   "source"
     t.boolean  "highlighted",          :default => false
     t.string   "external_link"
+    t.boolean  "thumbnails_processed", :default => false
   end
 
   create_table "articles", :force => true do |t|
@@ -81,6 +82,7 @@ ActiveRecord::Schema.define(:version => 20100823190348) do
     t.string   "source"
     t.boolean  "highlighted",          :default => false
     t.string   "external_link"
+    t.boolean  "thumbnails_processed", :default => false
   end
 
   create_table "articles_categories", :id => false, :force => true do |t|
@@ -243,6 +245,7 @@ ActiveRecord::Schema.define(:version => 20100823190348) do
     t.integer "size"
     t.integer "width"
     t.integer "height"
+    t.boolean "thumbnails_processed", :default => false
   end
 
   create_table "inputs", :force => true do |t|

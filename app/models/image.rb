@@ -16,4 +16,7 @@ class Image < ActiveRecord::Base
                  :max_size => 500.kilobytes # remember to update validate message below
 
   validates_attachment :size => N_("%{fn} of uploaded file was larger than the maximum size of 500.0 KB")
+
+  delay_attachment_fu_thumbnails
+
 end

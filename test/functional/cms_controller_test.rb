@@ -923,8 +923,10 @@ class CmsControllerTest < Test::Unit::TestCase
                :parent_id => f.id,
                :article => {:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')}
 
-    assert File.exists?(assigns(:article).icon_name)
-    assigns(:article).destroy
+    process_delayed_job_queue
+    file = profile.articles.find_by_name('rails.png')
+    assert File.exists?(file.icon_name)
+    file.destroy
   end
 
   should 'create icon upload file' do
@@ -932,8 +934,10 @@ class CmsControllerTest < Test::Unit::TestCase
                :type => UploadedFile.name,
                :article => {:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')}
 
-    assert File.exists?(assigns(:article).icon_name)
-    assigns(:article).destroy
+    process_delayed_job_queue
+    file = profile.articles.find_by_name('rails.png')
+    assert File.exists?(file.icon_name)
+    file.destroy
   end
 
   should 'record when coming from public view on upload files' do
@@ -1052,9 +1056,19 @@ class CmsControllerTest < Test::Unit::TestCase
 
   should 'display list of images' do
     file = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    process_delayed_job_queue
     get :media_listing, :profile => profile.identifier
-    assert_tag :tag => 'div', :attributes => { :id => 'media-listing-images' }, :descendant => { :tag => 'img', :attributes => {:src => /#{file.name}/}}
+
+    assert_tag :tag => 'div', :attributes => { :id => 'media-listing-images' }, :descendant => { :tag => 'img', :attributes => {:src => /rails.png/}}
   end
+
+  should 'display loading image if not processed yet' do
+    file = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    get :media_listing, :profile => profile.identifier
+
+    assert_tag :tag => 'div', :attributes => { :id => 'media-listing-images' }, :descendant => { :tag => 'img', :attributes => {:src => /image-loading-thumb.png/}}
+  end
+
 
   should 'display list of documents' do
     file = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'))
@@ -1263,6 +1277,21 @@ class CmsControllerTest < Test::Unit::TestCase
 
     assert_response :success
     assert_template 'edit'
+  end
+
+  should 'create thumbnails for images with delayed_job' do
+    post :upload_files, :profile => profile.identifier, :uploaded_files => [fixture_file_upload('/files/rails.png', 'image/png'), fixture_file_upload('/files/test.txt', 'text/plain')]
+    file_1 = profile.articles.find_by_path('rails.png')
+    file_2 = profile.articles.find_by_path('test.txt')
+
+    process_delayed_job_queue
+
+    UploadedFile.attachment_options[:thumbnails].each do |suffix, size|
+      assert File.exists?(UploadedFile.find(file_1.id).public_filename(suffix))
+      assert !File.exists?(UploadedFile.find(file_2.id).public_filename(suffix))
+    end
+    file_1.destroy
+    file_2.destroy
   end
 
 end

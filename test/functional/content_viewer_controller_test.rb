@@ -791,6 +791,52 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_equal 2, assigns(:images).size
   end
 
+  should 'display default image in the slideshow if thumbnails were not processed' do
+    @controller.stubs(:per_page).returns(1)
+    folder = Folder.create!(:name => 'gallery', :profile => profile, :view_as => 'image_gallery')
+
+    image1 = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
+
+    get :view_page, :profile => profile.identifier, :page => folder.explode_path, :slideshow => true
+
+    assert_tag :tag => 'img', :attributes => {:src => /\/images\/icons-app\/image-loading-display.png/}
+  end
+
+  should 'display thumbnail image in the slideshow if thumbnails were processed' do
+    @controller.stubs(:per_page).returns(1)
+    folder = Folder.create!(:name => 'gallery', :profile => profile, :view_as => 'image_gallery')
+
+    image1 = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
+
+    process_delayed_job_queue
+    get :view_page, :profile => profile.identifier, :page => folder.explode_path, :slideshow => true
+
+    assert_tag :tag => 'img', :attributes => {:src => /other-pic_display.jpg/}
+  end
+
+  should 'display default image in gallery if thumbnails were not processed' do
+    @controller.stubs(:per_page).returns(1)
+    folder = Folder.create!(:name => 'gallery', :profile => profile, :view_as => 'image_gallery')
+
+    image1 = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
+
+    get :view_page, :profile => profile.identifier, :page => folder.explode_path
+
+    assert_tag :tag => 'img', :attributes => {:src => /\/images\/icons-app\/image-loading-thumb.png/}
+  end
+
+  should 'display thumbnail image in gallery if thumbnails were processed' do
+    @controller.stubs(:per_page).returns(1)
+    folder = Folder.create!(:name => 'gallery', :profile => profile, :view_as => 'image_gallery')
+
+    image1 = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
+
+    process_delayed_job_queue
+    get :view_page, :profile => profile.identifier, :page => folder.explode_path
+
+    assert_tag :tag => 'img', :attributes => {:src => /other-pic_thumb.jpg/}
+  end
+
   should 'display source from article' do
     profile.articles << TextileArticle.new(:name => "Article one", :profile => profile, :source => 'http://www.original-source.invalid')
     get :view_page, :profile => profile.identifier, :page => ['article-one']

@@ -82,6 +82,14 @@ class SlideshowBlockTest < ActiveSupport::TestCase
     assert_equal '/bli/slideshow.png', SlideshowBlock.new(:image_size => 'slideshow').public_filename_for(image)
   end
 
+  should 'display the default slideshow image if thumbnails were not processed' do
+    image = mock
+    image.expects(:public_filename).with('slideshow').returns('/images/icons-app/image-loading-slideshow.png')
+    File.expects(:exists?).with("#{Rails.root}/public/images/icons-app/image-loading-slideshow.png").returns(true)
+
+    assert_equal '/images/icons-app/image-loading-slideshow.png', SlideshowBlock.new(:image_size => 'slideshow').public_filename_for(image)
+  end
+
   should 'fallback to existing size in case the requested size does not exist' do
     block = SlideshowBlock.new(:image_size => 'slideshow')
 
