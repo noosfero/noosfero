@@ -5,7 +5,7 @@
 <%= required labelled_form_field(_('Title'), text_field(:article, 'name', :size => '64')) %>
 
 <br style="clear: both;"/>
-<%= button_to_function :edit, _("Lead"), nil, :id => "lead-link", :style => "margin-left: 0px;" %>
+<%= button :add, _("Lead"), '#', :id => "lead-button", :style => "margin-left: 0px;" %>
 
 <div id="article-lead">
   <%= labelled_form_field(_('Lead'), text_area(:article, 'abstract', :cols => 64, :rows => 10)) %>

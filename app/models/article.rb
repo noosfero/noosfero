@@ -345,6 +345,10 @@ class Article < ActiveRecord::Base
     Hpricot(to_html).search('p').first.to_html
   end
 
+  def lead
+    abstract.blank? ? first_paragraph : abstract
+  end
+
   def creator
     creator_id = versions[0][:last_changed_by_id]
     creator_id && Profile.find(creator_id)

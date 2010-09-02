@@ -50,7 +50,7 @@ module BlogHelper
 
   def display_short_format(article)
     html = content_tag('div',
-             article.first_paragraph +
+             article.lead +
              content_tag('div',
                link_to_comments(article) +
                link_to( _('Read more'), article.url),

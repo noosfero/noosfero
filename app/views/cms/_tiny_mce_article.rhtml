@@ -12,7 +12,7 @@
   <% end %>
 
   <br style="clear: both;"/>
-  <%= button_to_function :edit, _("Lead"), nil, :id => "lead-link", :style => "margin-left: 0px;" %>
+  <%= button :add, _("Lead"), '#', :id => "lead-button", :style => "margin-left: 0px;" %>
 
   <div id="article-lead">
     <%= labelled_form_field(_('Lead'), text_area(:article, 'abstract', :style => 'width: 100%; height: 300px;')) %>

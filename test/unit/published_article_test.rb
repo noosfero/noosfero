@@ -110,6 +110,21 @@ class PublishedArticleTest < ActiveSupport::TestCase
     assert_match /removed/, p.to_html
   end
 
+  should 'use abstract from referenced article' do
+    original = Article.new(:abstract => 'this is the abstract')
+    published = PublishedArticle.new
+    published.stubs(:reference_article).returns(original)
+
+    assert_equal 'this is the abstract', published.abstract
+  end
+
+  should 'return no abstract when reference_article does not exist' do
+    published = PublishedArticle.new
+    published.stubs(:reference_article).returns(nil)
+
+    assert_nil published.abstract
+  end
+
   should 'specified parent overwrite blog' do
     parent = mock
     @article.stubs(:parent).returns(parent)

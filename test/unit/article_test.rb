@@ -895,4 +895,22 @@ class ArticleTest < Test::Unit::TestCase
     article.name = 'a123456789abcdefghij'
     assert_equal 'a123456789ab...', article.short_title
   end
+
+  should 'return abstract as lead' do
+    a = Article.new(:abstract => 'lead')
+    assert_equal 'lead', a.lead
+  end
+
+  should 'return first paragraph as lead by default' do
+    a = Article.new
+    a.stubs(:first_paragraph).returns('<p>first</p>')
+    assert_equal '<p>first</p>', a.lead
+  end
+
+  should 'return first paragraph as lead with empty but non-null abstract' do
+    a = Article.new(:abstract => '')
+    a.stubs(:first_paragraph).returns('<p>first</p>')
+    assert_equal '<p>first</p>', a.lead
+  end
+
 end
