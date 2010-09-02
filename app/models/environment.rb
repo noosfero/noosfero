@@ -93,7 +93,6 @@ class Environment < ActiveRecord::Base
       'disable_contact_person' => _('Disable contact for people'),
       'disable_contact_community' => _('Disable contact for groups/communities'),
       'enterprise_registration' => __('Enterprise registration'),
-      'join_community_popup' => _('Ask users to join a group/community with a popup'),
 
       'enterprise_activation' => __('Enable activation of enterprises'),
       'wysiwyg_editor_for_environment_home' => _('Use WYSIWYG editor to edit environment home page'),

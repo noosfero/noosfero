@@ -2,10 +2,6 @@
       <%= render :file => 'shared/theme_test_panel' %>
     <% end %>
 
-    <% if ask_to_join? %>
-      <%= render :file => 'shared/join_community_popup' %>
-    <% end %>
-
     <script type="text/javascript">
       $$("a").each(function(a){
         if ( a.href == document.location.href ) {

@@ -1,9 +1,9 @@
 class ProfileController < PublicController
 
   needs_profile
-  before_filter :check_access_to_profile, :except => [:join, :refuse_join, :refuse_for_now, :index]
+  before_filter :check_access_to_profile, :except => [:join, :index]
   before_filter :store_before_join, :only => [:join]
-  before_filter :login_required, :only => [:join, :refuse_join, :leave, :unblock]
+  before_filter :login_required, :only => [:join, :leave, :unblock]
 
   helper TagsHelper
 
@@ -110,20 +110,6 @@ class ProfileController < PublicController
         render :layout => false
       end
     end
-  end
-
-  def refuse_join
-    p = current_user.person
-    p.refused_communities << profile
-    p.save
-    redirect_to profile.url
-  end
-
-  def refuse_for_now
-    session[:no_asking] ||= []
-    session[:no_asking].shift if session[:no_asking].size >= 10
-    session[:no_asking] << profile.id
-    render :text => '', :layout => false
   end
 
   def unblock

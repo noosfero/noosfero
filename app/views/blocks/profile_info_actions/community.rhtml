@@ -19,5 +19,11 @@
       </li>
     <% end %>
 
+  <% else %>
+
+    <li>
+    <%= link_to content_tag('span', _('Join')), profile.join_url, :class => 'button with-text icon-add', :title => _('Join this community') %>
+    </li>
+
   <% end %>
 </ul>

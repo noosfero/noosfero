@@ -939,20 +939,6 @@ module ApplicationHelper
     end
   end
 
-  def ask_to_join?
-    return if !environment.enabled?(:join_community_popup)
-    return if params[:action] == 'join'
-    return unless profile && profile.kind_of?(Community)
-    if (session[:no_asking] && session[:no_asking].include?(profile.id))
-      return false
-    end
-    if logged_in?
-      user.ask_to_join?(profile)
-    else
-      true
-    end
-  end
-
   def icon_theme_stylesheet_path
     theme_path = "/designs/icons/#{environment.icon_theme}/style.css"
     if File.exists?(File.join(RAILS_ROOT, 'public', theme_path))
