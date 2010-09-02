@@ -4,7 +4,7 @@ module DelayedAttachmentFu
     def delay_attachment_fu_thumbnails
       include DelayedAttachmentFu::InstanceMethods
       after_create do |file|
-        if file.image?
+        if file.thumbnailable?
           Delayed::Job.enqueue CreateThumbnailsJob.new(file.class.name, file.id)
         end
       end

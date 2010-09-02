@@ -84,4 +84,14 @@ class ImageTest < Test::Unit::TestCase
     end
   end
 
+  should 'not create a background job for an image that is already a thumbnail' do
+    # this test verifies whether it created background jobs also for the
+    # thumbnails!
+    assert_no_difference Delayed::Job, :count do
+      image = Image.new(:owner => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+      image.stubs(:is_thumbnail?).returns(true)
+      image.save!
+    end
+  end
+
 end
