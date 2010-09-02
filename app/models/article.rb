@@ -26,7 +26,7 @@ class Article < ActiveRecord::Base
     article.published_at = article.created_at if article.published_at.nil?
   end
 
-  xss_terminate :only => [ :name ], :on => 'validation'
+  xss_terminate :only => [ :name ], :on => 'validation', :with => 'white_list'
 
   named_scope :in_category, lambda { |category|
     {:include => 'categories', :conditions => { 'categories.id' => category.id }}

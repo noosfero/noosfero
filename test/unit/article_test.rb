@@ -862,7 +862,24 @@ class ArticleTest < Test::Unit::TestCase
     article.name = "<h1 Bla </h1>"
     article.valid?
 
-    assert article.errors.invalid?(:name)
+    assert_no_match /<[^>]*</, article.name
+  end
+
+  should 'not doubly escape quotes in the name' do
+    profile = fast_create(Profile)
+    a = fast_create(Article, :profile_id => profile.id)
+    p = PublishedArticle.create!(:reference_article => a, :profile => fast_create(Community))
+
+    p.name = 'title with "quotes"'
+    p.save
+    assert_equal 'title with "quotes"', p.name
+  end
+
+  should 'remove script tags from name' do
+    a = Article.new(:name => 'hello <script>alert(1)</script>')
+    a.valid?
+
+    assert_no_match(/<script>/, a.name)
   end
 
   should 'escape malformed html tags' do
@@ -878,5 +895,4 @@ class ArticleTest < Test::Unit::TestCase
     article.name = 'a123456789abcdefghij'
     assert_equal 'a123456789ab...', article.short_title
   end
-
 end

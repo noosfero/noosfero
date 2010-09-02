@@ -113,4 +113,9 @@ class TinyMceArticleTest < Test::Unit::TestCase
     assert_match  /<!-- .* --> <h1> Wellformed html code <\/h1>/, article.body
   end
 
+  should 'not allow XSS on name' do
+    article = TinyMceArticle.create!(:name => 'title with <script>alert("xss")</script>', :profile => profile)
+    assert_no_match /script/, article.name
+  end
+
 end
