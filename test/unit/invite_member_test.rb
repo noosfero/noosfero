@@ -95,7 +95,7 @@ class InviteMemberTest < ActiveSupport::TestCase
     community = fast_create(Community)
     task = InviteMember.create!(:person => p1, :friend => p2, :community_id => community.id)
 
-    assert_equal "#{p1.name} invites you to join the community #{community.name}.", task.description
+    assert_match(/#{p1.name}.*#{community.name}/, task.description)
   end
 
   should 'not invite yourself' do

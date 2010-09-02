@@ -137,12 +137,4 @@ class PublishedArticleTest < ActiveSupport::TestCase
     assert_equal p.parent, new_parent
   end
 
- should 'provide first paragraph of HTML version' do
-    prof = fast_create(Community)
-    a = fast_create(Article, :name => 'my article', :profile_id => prof.id)
-    a.expects(:body).returns('<p>the first paragraph of the article</p> The second paragraph')
-    p = PublishedArticle.create(:reference_article => a, :profile => prof)
-    assert_equal 'the first paragraph of the article', p.first_paragraph
-  end
-
 end

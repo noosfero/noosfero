@@ -71,9 +71,9 @@ all_fixtures
 
 
     get :index
-    assert_tag :tag => 'p', :content => a1.abstract
-    assert_no_tag :tag => 'p', :content => a1.body
-    assert_tag :tag => 'p', :content => a2.body
+    assert_tag :attributes => { :class => 'headline' }, :content => a1.abstract
+    assert_no_tag :attributes => { :class => 'headline' }, :content => a1.body
+    assert_tag :attributes => { :class => 'headline' }, :content => a2.body
   end
 
   should 'display block in index page if it\'s configured to display on homepage and its an environment block' do
