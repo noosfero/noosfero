@@ -1,3 +1,5 @@
+require 'hpricot'
+
 class Article < ActiveRecord::Base
 
   # xss_terminate plugin can't sanitize array fields
@@ -340,8 +342,7 @@ class Article < ActiveRecord::Base
   end
 
   def first_paragraph
-    to_html =~ /<p>(.*)<\/p>/
-    $1 || ''
+    Hpricot(to_html).search('p').first.to_html
   end
 
   def creator

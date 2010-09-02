@@ -89,8 +89,8 @@ class ArticleTest < Test::Unit::TestCase
   should 'provide first paragraph of HTML version' do
     profile = create_user('testinguser').person
     a = fast_create(Article, :name => 'my article', :profile_id => profile.id)
-    a.expects(:body).returns('<p>the first paragraph of the article</p> The second paragraph')
-    assert_equal 'the first paragraph of the article', a.first_paragraph
+    a.expects(:body).returns('<p>the first paragraph of the article</p><p>The second paragraph</p>')
+    assert_equal '<p>the first paragraph of the article</p>', a.first_paragraph
   end
 
   should 'inform the icon to be used' do
