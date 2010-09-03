@@ -6,6 +6,7 @@
 
 <br style="clear: both;"/>
 <%= button :add, _("Lead"), '#', :id => "lead-button", :style => "margin-left: 0px;" %>
+<em><%= _('Used when a short version your text is needed.') %></em>
 
 <div id="article-lead">
   <%= labelled_form_field(_('Lead'), text_area(:article, 'abstract', :cols => 64, :rows => 10)) %>
