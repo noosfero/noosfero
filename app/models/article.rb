@@ -342,7 +342,8 @@ class Article < ActiveRecord::Base
   end
 
   def first_paragraph
-    Hpricot(to_html).search('p').first.to_html
+    paragraphs = Hpricot(to_html).search('p')
+    paragraphs.empty? ? '' : paragraphs.first.to_html
   end
 
   def lead

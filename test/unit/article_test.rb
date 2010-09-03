@@ -913,4 +913,9 @@ class ArticleTest < Test::Unit::TestCase
     assert_equal '<p>first</p>', a.lead
   end
 
+  should 'return blank as lead when article has no paragraphs' do
+    a = Article.new(:body => "<div>an article with content <em>but without</em> a paragraph</div>")
+    assert_equal '', a.lead
+  end
+
 end
