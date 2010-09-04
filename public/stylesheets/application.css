@@ -907,7 +907,6 @@ code input {
 
 #user_menu {
   border: none; /* work arround IE Bug */
-  background: transparent; /* work arround IE Bug */
 }
 
 #user_menu_head {
@@ -928,7 +927,6 @@ code input {
   margin-left: 4px;
 }
 #user_menu a#link_login:hover {
-  background: none;
 }
 
 #user_box a#link_go_home {

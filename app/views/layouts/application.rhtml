@@ -9,7 +9,6 @@
     <%= yield(:feeds) %>
 
     <%= noosfero_javascript %>
-    <%= javascript_include_tag 'menu', 'auto-open-menu', 'menu-config', :cache => 'cache-menu' %>
     <%= theme_javascript %>
 
     <%=
@@ -88,9 +87,6 @@
           <% end %>
           <%= render :file => 'shared/assets_menu' %>
         </div><!-- id='navigation_bar' -->
-        <script type="text/javascript">
-          prepareMenu('navigation_bar', { timeout: 1000 });
-        </script>
 
         <div id="language-selector">
            <%= language_chooser(:element => 'dropdown') %>
