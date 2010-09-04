@@ -36,6 +36,13 @@ case "$ACTION" in
     do_$ACTION
     ;;
 
+  run)
+    do_start
+    echo "=> Running in production mode. Hit ctrl-C to stop."
+    trap do_stop INT TERM
+    tail -n 0 -f log/production.log
+    ;;
+
   restart)
     do_stop
     sleep 1
@@ -43,7 +50,7 @@ case "$ACTION" in
     ;;
 
   *)
-    echo "usage: $0 start|stop|restart"
+    echo "usage: $0 start|stop|restart|run"
     exit 1
     ;;
 esac
