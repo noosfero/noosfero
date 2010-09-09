@@ -14,6 +14,8 @@ class Person < Profile
 
   has_many :requested_tasks, :class_name => 'Task', :foreign_key => :requestor_id, :dependent => :destroy
 
+  has_many :mailings
+
   named_scope :more_popular,
        :select => "#{Profile.qualified_column_names}, count(friend_id) as total",
        :group => Profile.qualified_column_names,

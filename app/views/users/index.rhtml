@@ -2,9 +2,12 @@
 
 <ul>
   <li>
-  <%= _('Download users list') %>:
-  <%= link_to '[CSV]', :format => 'csv' %>
-  <%= link_to '[XML]', :format => 'xml' %>
+    <%= _('Download users list') %>:
+    <%= link_to '[CSV]', :format => 'csv' %>
+    <%= link_to '[XML]', :format => 'xml' %>
+  </li>
+  <li>
+    <%= link_to _('Send e-mail to users'), :action => 'send_mail' %>
   </li>
 </ul>
 

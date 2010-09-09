@@ -19,4 +19,18 @@ class UsersController < AdminController
     end
   end
 
+  def send_mail
+    @mailing = environment.mailings.build(params[:mailing])
+    if request.post?
+      @mailing.locale = locale
+      @mailing.person = user
+      if @mailing.save
+        session[:notice] = _('The e-mails are being sent')
+        redirect_to :action => 'index'
+      else
+        session[:notice] = _('Could not create the e-mail')
+      end
+    end
+  end
+
 end

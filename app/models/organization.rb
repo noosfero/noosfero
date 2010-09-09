@@ -19,6 +19,8 @@ class Organization < Profile
 
   has_many :validations, :class_name => 'CreateEnterprise', :foreign_key => :target_id
 
+  has_many :mailings, :class_name => 'OrganizationMailing', :foreign_key => :source_id, :as => 'source'
+
   def validation_methodology
     self.validation_info ? self.validation_info.validation_methodology : nil
   end

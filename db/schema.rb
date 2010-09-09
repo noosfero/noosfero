@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100901203836) do
+ActiveRecord::Schema.define(:version => 20100909103951) do
 
   create_table "article_versions", :force => true do |t|
     t.integer  "article_id"
@@ -259,6 +259,25 @@ ActiveRecord::Schema.define(:version => 20100901203836) do
     t.decimal  "amount_used"
     t.boolean  "relevant_to_price",          :default => true
     t.boolean  "is_from_solidarity_economy", :default => false
+  end
+
+  create_table "mailing_sents", :force => true do |t|
+    t.integer  "mailing_id"
+    t.integer  "person_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "mailings", :force => true do |t|
+    t.string   "type"
+    t.string   "subject"
+    t.text     "body"
+    t.integer  "source_id"
+    t.string   "source_type"
+    t.integer  "person_id"
+    t.string   "locale"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "product_categorizations", :force => true do |t|

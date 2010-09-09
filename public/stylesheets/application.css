@@ -3640,6 +3640,11 @@ h1#agenda-title {
   text-align: left;
 }
 
+.controller-profile_members #mailing-form .formfield textarea,
+.controller-profile_members #mailing-form .type-text input {
+  width: 100%;
+}
+
 /* ==> public/stylesheets/controller_search.css <== */
 /* @import url(pagination.css); ALREADY INCLUDED ABOVE */
 

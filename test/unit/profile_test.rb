@@ -823,9 +823,14 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal 'code', p.nickname
   end
 
-  should 'return truncated name in short_name if nickname is blank' do
+  should 'return truncated name in short_name with 15 chars by default if nickname is blank' do
     p = Profile.new(:name => 'a123456789abcdefghij')
     assert_equal 'a123456789ab...', p.short_name
+  end
+
+  should 'return truncated name in short_name with chars size if nickname is blank' do
+    p = Profile.new(:name => 'a123456789abcdefghij')
+    assert_equal 'a123456...', p.short_name(10)
   end
 
   should 'provide custom header' do

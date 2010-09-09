@@ -158,6 +158,8 @@ class Environment < ActiveRecord::Base
   has_many :qualifiers
   has_many :certifiers
 
+  has_many :mailings, :class_name => 'EnvironmentMailing', :foreign_key => :source_id, :as => 'source'
+
   acts_as_accessible
 
   def superior_intances

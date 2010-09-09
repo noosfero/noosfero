@@ -1,0 +1,8 @@
+<% button_bar do %>
+  <%= button :back, _('Back'), :controller => 'profile_editor' %>
+  <%= button :add, _('Add members'), :action => 'add_members' if profile.enterprise? %>
+  <% if profile.community? and user.has_permission?(:invite_members, profile) %>
+    <%= button :search, _('Invite your friends to join %s') % profile.short_name, :controller => 'invite', :action => 'select_address_book' %>
+  <% end %>
+  <%= button :send, _('Send e-mail to members'), :action => 'send_mail' %>
+<% end %>

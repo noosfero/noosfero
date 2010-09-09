@@ -280,4 +280,31 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
     assert p_roles, [r]
   end
 
+  should 'add locale on mailing' do
+    community = fast_create(Community)
+    admin_user = create_user_with_permission('profile_admin_user', 'manage_memberships', community)
+    login_as('profile_admin_user')
+    @controller.stubs(:locale).returns('pt')
+    post :send_mail, :profile => community.identifier, :mailing => {:subject => 'Hello', :body => 'We have some news'}
+    assert_equal 'pt', assigns(:mailing).locale
+  end
+
+  should 'save mailing' do
+    community = fast_create(Community)
+    admin_user = create_user_with_permission('profile_admin_user', 'manage_memberships', community)
+    login_as('profile_admin_user')
+    @controller.stubs(:locale).returns('pt')
+    post :send_mail, :profile => community.identifier, :mailing => {:subject => 'Hello', :body => 'We have some news'}
+    assert_equal ['Hello', 'We have some news'], [assigns(:mailing).subject, assigns(:mailing).body]
+    assert_redirected_to :action => 'index'
+  end
+
+  should 'add the user logged on mailing' do
+    community = fast_create(Community)
+    admin_user = create_user_with_permission('profile_admin_user', 'manage_memberships', community)
+    login_as('profile_admin_user')
+    post :send_mail, :profile => community.identifier, :mailing => {:subject => 'Hello', :body => 'We have some news'}
+    assert_equal Profile['profile_admin_user'], assigns(:mailing).person
+  end
+
 end
