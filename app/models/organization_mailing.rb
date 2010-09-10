@@ -5,8 +5,7 @@ class OrganizationMailing < Mailing
   end
 
   def recipient(offset=0)
-    environment_id = source.environment_id
-    Person.find(:first, :conditions => ['environment_id = ? and role_assignments.resource_type = ? and role_assignments.resource_id = ?', environment_id, 'Profile', source.id], :include => :role_assignments, :order => "profiles.id", :offset => offset)
+    source.members.first(:order => :id, :offset => offset)
   end
 
   def each_recipient
