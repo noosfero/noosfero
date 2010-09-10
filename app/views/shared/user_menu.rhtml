@@ -29,11 +29,11 @@
 
         <!-- li><a href="#"><span class="icon-menu-blog"></span> Meu Blog</a></li -->
 
-        <%# if MailConf.enabled? && current_user.enable_email %>
-          <li>
-          <%# link_to '<span class="icon-menu-mail"></span>' + _('Webmail'), MailConf.webmail_url(user.identifier, current_user.email_domain) %>
+        <% if MailConf.enabled? %>
+          <li class='webmail-link' style='display: none'>
+          <%= link_to '<span class="icon-menu-mail"></span>' + _('Webmail'), MailConf.webmail_url('%{login}', '%{email_domain}') %>
           </li>
-        <%# end %>
+        <% end %>
 
         <li>
         <%= link_to('<span class="icon-menu-ctrl-panel"></span>'+ _('Control panel'), '/myprofile/%{login}', :id => 'link_edit_profile') %>

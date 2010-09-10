@@ -442,12 +442,19 @@ jQuery(function($) {
       // logged in
      $('#user .logged-in, .login-block .logged-user-info').each(function() {
        $(this).find('a[href]').each(function() {
-         $(this).attr('href', $(this).attr('href').replace('%{login}', data.login))
+         var new_href = $(this).attr('href').replace('%{login}', data.login);
+         if (data.email_domain) {
+           new_href = new_href.replace('%{email_domain}', data.email_domain);
+         }
+         $(this).attr('href', new_href);
        });
        var html = $(this).html().replace(/%{login}/g, data.login).replace('%{month}', data.since_month).replace('%{year}', data.since_year);
        $(this).html(html).fadeIn();
        if (data.is_admin) {
          $('#user .admin-link').show();
+       }
+       if (data.email_domain) {
+         $('#user .webmail-link').show();
        }
      });
     } else {
