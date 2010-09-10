@@ -103,33 +103,6 @@ Feature: publish article
     When I go to Another Community2's sitemap
     Then I should see "Sample Article"
 
-  Scenario: publishing articles with the same name in a moderated community
-    Given I am logged in as "joaosilva"
-    And "Joao Silva" is a member of "Sample Community"
-    And "Joao Silva" is admin of "Sample Community"
-    And I am on Sample Community's control panel
-    And I follow "Community Info and settings"
-    And I choose "profile_data_moderated_articles_true"
-    And I press "Save"
-    And I am on Joao Silva's control panel
-    And I follow "Manage Content"
-    And I follow "Spread"
-    And I check "Sample Community"
-    And I press "Spread this"
-    And I am on Joao Silva's control panel
-    And I follow "Manage Content"
-    And I follow "Spread"
-    And I check "Sample Community"
-    And I press "Spread this"
-    And I am on Sample Community's control panel
-    And I follow "Tasks"
-    And I press "Ok!"
-    And I press "Ok!"
-    Then I should see "wants to publish"
-    When I fill in "Name for publishing" with "other title"
-    And I press "Ok!"
-    Then I should not see "wants to publish"
-
   Scenario: ask to publish an article that was deleted before approval
     Given I am logged in as "joaosilva"
     And "Joao Silva" is admin of "Sample Community"
