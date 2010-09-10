@@ -32,7 +32,7 @@ class PersonTest < Test::Unit::TestCase
     e.affiliate(p, member_role)
 
     assert p.memberships.include?(e)
-    assert p.enterprise_memberships.include?(e)
+    assert p.enterprises.include?(e)
   end
 
   should 'belong to communities' do
@@ -41,7 +41,7 @@ class PersonTest < Test::Unit::TestCase
 
     c.add_member(p)
 
-    assert p.community_memberships.include?(c), "Community should add a new member"
+    assert p.communities.include?(c), "Community should add a new member"
   end
 
   should 'be associated with a user' do

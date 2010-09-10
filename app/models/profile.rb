@@ -51,6 +51,18 @@ class Profile < ActiveRecord::Base
 
   acts_as_accessible
 
+  named_scope :memberships_of, lambda { |person| { :select => 'DISTINCT profiles.*', :joins => :role_assignments, :conditions => ['role_assignments.accessor_type = ? AND role_assignments.accessor_id = ?', person.class.base_class.name, person.id ] } }
+  named_scope :enterprises, :conditions => "profiles.type = 'Enterprise'"
+  named_scope :communities, :conditions => "profiles.type = 'Community'"
+
+  def members
+    Person.members_of(self)
+  end
+
+  def members_by_role(role)
+    Person.members_of(self).all(:conditions => ['role_assignments.role_id = ?', role.id])
+  end
+
   acts_as_having_boxes
 
   acts_as_searchable :additional_fields => [ :extra_data_for_index ]

@@ -1771,7 +1771,7 @@ class ProfileTest < Test::Unit::TestCase
   end
 
   should "return the number of members on label if the profile has more than one member" do
-    p1 = fast_create(Profile)
+    p1 = fast_create(Person)
     p2 = fast_create(Person)
     c = fast_create(Community)
     c.add_member(p1)

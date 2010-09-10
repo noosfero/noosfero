@@ -19,20 +19,8 @@ class MembersBlock < ProfileListBlock
     end
   end
 
-  def profile_count
-    owner.members.select {|member| member.visible? }.count
+  def profiles
+    owner.members
   end
-
-  def profile_finder
-    @profile_finder ||= MembersBlock::Finder.new(self)
-  end
-
-  # Finds random members, up to the limit.
-  class Finder < ProfileListBlock::Finder
-    def ids
-      block.owner.members.select {|member| member.visible? }.map(&:id)
-    end
-  end
-
 
 end

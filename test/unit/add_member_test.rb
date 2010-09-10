@@ -12,10 +12,9 @@ class AddMemberTest < ActiveSupport::TestCase
     c.update_attribute(:closed, true)
     TaskMailer.stubs(:deliver_target_notification)
     task = fast_create(AddMember, :requestor_id => p.id, :target_id => c.id, :target_type => 'Community')
-    assert_difference c, :members, [p] do
-      task.finish
-      c.reload
-    end
+    task.finish
+
+    assert_equal [p], c.members
   end
 
   should 'require requestor' do

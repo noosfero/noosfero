@@ -3,6 +3,12 @@ class Person < Profile
 
   acts_as_accessor
 
+  named_scope :members_of, lambda { |resource| { :select => 'DISTINCT profiles.*', :joins => :role_assignments, :conditions => ['role_assignments.resource_type = ? AND role_assignments.resource_id = ?', resource.class.base_class.name, resource.id ] } }
+
+  def memberships
+    Profile.memberships_of(self)
+  end
+
   has_many :friendships, :dependent => :destroy
   has_many :friends, :class_name => 'Person', :through => :friendships
 
@@ -132,26 +138,13 @@ class Person < Profile
     new_conditions
   end
 
-  def memberships(conditions = {})
-    # FIXME this should be a proper ActiveRecord relationship!
-    Profile.find(
-      :all, 
-      :conditions => self.class.conditions_for_profiles(conditions, self), 
-      :joins => "LEFT JOIN role_assignments ON profiles.id = role_assignments.resource_id AND role_assignments.resource_type = \'#{Profile.base_class.name}\'",
-      :select => 'profiles.*').uniq
+  def enterprises
+    memberships.enterprises
   end
 
-  def enterprise_memberships(conditions = {})
-    memberships({:type => Enterprise.name}.merge(conditions))
+  def communities
+    memberships.communities
   end
-
-  alias :enterprises :enterprise_memberships
-
-  def community_memberships(conditions = {})
-    memberships({:type => Community.name}.merge(conditions))
-  end
-
-  alias :communities :community_memberships
 
   validates_presence_of :user_id
   validates_uniqueness_of :user_id

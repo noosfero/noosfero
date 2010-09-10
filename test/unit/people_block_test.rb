@@ -18,11 +18,6 @@ class PeopleBlockTest < ActiveSupport::TestCase
     assert_not_equal ProfileListBlock.new.help, PeopleBlock.new.help
   end
 
-  should 'use its own finder' do
-    assert_not_equal ProfileListBlock::Finder, PeopleBlock::Finder
-    assert_kind_of PeopleBlock::Finder, PeopleBlock.new.profile_finder
-  end
-
   should 'list people' do
     owner = fast_create(Environment)
     block = PeopleBlock.new
@@ -47,24 +42,6 @@ class PeopleBlockTest < ActiveSupport::TestCase
     expects(:_).with('View all').returns('View all people')
     expects(:link_to).with('View all people', :controller => 'search', :action => 'assets', :asset => 'people')
     instance_eval(&block.footer)
-  end
-
-  should 'count number of public and private people' do
-    env = Environment.create!(:name => 'test environment')
-    private_p = fast_create(Person, :environment_id => env.id, :public_profile => false)
-    public_p = fast_create(Person, :environment_id => env.id, :public_profile => true)
-
-    env.boxes.first.blocks << block = PeopleBlock.new
-    assert_equal 2, block.profile_count
-  end
-
-  should 'count number of visible people' do
-    env = Environment.create!(:name => 'test environment')
-    invisible_p = fast_create(Person, :environment_id => env.id, :visible => false)
-    visible_p = fast_create(Person, :environment_id => env.id, :visible => true)
-
-    env.boxes.first.blocks << block = PeopleBlock.new
-    assert_equal 1, block.profile_count
   end
 
   protected

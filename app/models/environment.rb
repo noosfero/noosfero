@@ -70,7 +70,7 @@ class Environment < ActiveRecord::Base
   end
 
   def admins
-    self.members_by_role(Environment::Roles.admin(self.id))
+    Person.members_of(self).all(:conditions => ['role_assignments.role_id = ?', Environment::Roles.admin(self).id])
   end
 
   # returns the available features for a Environment, in the form of a

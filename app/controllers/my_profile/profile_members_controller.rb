@@ -10,7 +10,11 @@ class ProfileMembersController < MyProfileController
   def update_roles
     @roles = params[:roles] ? environment.roles.find(params[:roles].select{|r|!r.to_i.zero?}) : []
     @roles = @roles.select{|r| r.has_kind?('Profile') }
-    @person = profile.members.find { |m| m.id == params[:person].to_i }
+    begin
+      @person = profile.members.find(params[:person])
+    rescue ActiveRecord::RecordNotFound
+      @person = nil
+    end
     if @person && @person.define_roles(@roles, profile)
       session[:notice] = _('Roles successfuly updated')
     else
@@ -21,7 +25,11 @@ class ProfileMembersController < MyProfileController
   
   def change_role
     @roles = Profile::Roles.organization_member_roles(environment.id)
-    @member = profile.members.find { |m| m.id == params[:id].to_i }
+    begin
+      @member = profile.members.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      @member = nil
+    end
     if @member
       @associations = @member.find_roles(@profile)
     else

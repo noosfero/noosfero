@@ -32,28 +32,8 @@ class CommunitiesBlock < ProfileListBlock
     end
   end
 
-  def profile_count
-    if owner.kind_of?(Environment)
-      owner.communities.count(:conditions => { :visible => true })
-    else
-      owner.communities(:visible => true).count
-    end
-  end
-
-  def profile_finder
-    @profile_finder ||= CommunitiesBlock::Finder.new(self)
-  end
-
-  class Finder < ProfileListBlock::Finder
-    def ids
-      # FIXME when owner is an environment (i.e. listing communities globally
-      # this can become SLOW)
-      if block.owner.kind_of?(Environment)
-        block.owner.communities.all(:conditions => {:visible => true}, :limit => block.limit, :order => Noosfero::SQL.random_function).map(&:id)
-      else
-        block.owner.communities(:visible => true).map(&:id)
-      end
-    end
+  def profiles
+    owner.communities
   end
 
 end

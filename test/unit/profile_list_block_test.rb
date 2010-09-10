@@ -19,22 +19,17 @@ class ProfileListBlockTest < Test::Unit::TestCase
   end
 
   should 'list people' do
-    User.destroy_all
-    person1 = create_user('testperson1').person
-    person2 = create_user('testperson2').person
-    person3 = create_user('testperson3').person
+    env = fast_create(Environment)
 
-    owner = fast_create(Environment)
-    owner.boxes << Box.new
+    person1 = create_user('testperson1', :environment => env).person
+    person2 = create_user('testperson2', :environment => env).person
+    person3 = create_user('testperson3', :environment => env).person
+
     block = ProfileListBlock.new
-    owner.boxes.first.blocks << block
-    block.save!
-
-    profiles = [person1, person3]
-    block.expects(:profiles).returns(profiles)
+    block.stubs(:owner).returns(env)
 
     self.expects(:profile_image_link).with(person1).once
-    self.expects(:profile_image_link).with(person2).never
+    self.expects(:profile_image_link).with(person2).once
     self.expects(:profile_image_link).with(person3).once
 
     self.expects(:content_tag).returns('<div></div>').at_least_once
@@ -52,9 +47,9 @@ class ProfileListBlockTest < Test::Unit::TestCase
     env.boxes.first.blocks << block
     block.save!
 
-    ids = block.profile_finder.ids
-    assert_includes ids, profile1.id
-    assert_includes ids, profile2.id
+    profiles = block.profiles
+    assert_includes profiles, profile1
+    assert_includes profiles, profile2
   end
 
   should 'not list invisible profiles' do
@@ -66,21 +61,9 @@ class ProfileListBlockTest < Test::Unit::TestCase
     env.boxes.first.blocks << block
     block.save!
 
-    ids = block.profile_finder.ids
-    assert_includes ids, profile1.id
-    assert_not_includes ids, profile2.id
-  end
-
-  should 'use finders to find profiles to be listed' do
-    block = ProfileListBlock.new
-    finder = mock
-    block.expects(:profile_finder).returns(finder).once
-    finder.expects(:find)
-    block.profiles
-  end
-
-  should 'provide random numbers' do
-    assert_respond_to ProfileListBlock::Finder.new(nil), :pick_random
+    profiles = block.profile_list
+    assert_includes profiles, profile1
+    assert_not_includes profiles, profile2
   end
 
   should 'provide view_title' do
@@ -137,6 +120,34 @@ class ProfileListBlockTest < Test::Unit::TestCase
     pub_e = fast_create(Enterprise, :visible => true , :environment_id => env.id)
 
     assert_equal 3, block.profile_count
+  end
+
+  should 'respect limit when listing profiles' do
+    env = fast_create(Environment)
+    p1 = fast_create(Person, :environment_id => env.id)
+    p2 = fast_create(Person, :environment_id => env.id)
+    p3 = fast_create(Person, :environment_id => env.id)
+    p4 = fast_create(Person, :environment_id => env.id)
+
+    block = ProfileListBlock.new(:limit => 3)
+    block.stubs(:owner).returns(env)
+
+    assert_equal 3, block.profile_list.size
+  end
+
+  should 'list random profiles' do
+    env = fast_create(Environment)
+    p1 = fast_create(Person, :environment_id => env.id)
+    p2 = fast_create(Person, :environment_id => env.id)
+    p3 = fast_create(Person, :environment_id => env.id)
+
+    # force the "random" function to be something we know
+    Noosfero::SQL.stubs(:random_function).returns('-id')
+
+    block = ProfileListBlock.new
+    block.stubs(:owner).returns(env)
+
+    assert_equal [p3.id, p2.id, p1.id], block.profile_list.map(&:id)
   end
 
 end
