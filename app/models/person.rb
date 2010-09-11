@@ -31,11 +31,6 @@ class Person < Profile
     self.user.destroy if self.user
   end
 
-  named_scope :connected,
-    :select => Profile.qualified_column_names,
-    :joins => :user,
-    :conditions => ['presence_status IS NOT NULL AND presence_status != ? AND presence_status != ?', 'offline', '']
-
   # Sets the identifier for this person. Raises an exception when called on a
   # existing person (since peoples' identifiers cannot be changed)
   def identifier=(value)

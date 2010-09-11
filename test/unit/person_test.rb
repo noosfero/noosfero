@@ -635,16 +635,6 @@ class PersonTest < Test::Unit::TestCase
     assert_equal [p1,p2] , Person.more_popular
   end
 
-  should 'who is connected and available for chat' do
-    online_user = create_user('Online')
-    online_user.update_attribute(:presence_status, 'chat')
-
-    offline_user = create_user('Offline')
-
-    assert_includes Person.connected, online_user.person(true)
-    assert_not_includes Person.connected, offline_user.person(true)
-  end
-
   should 'persons has reference to user' do
     person = Person.new
     assert_nothing_raised do
