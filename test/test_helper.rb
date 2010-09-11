@@ -219,6 +219,11 @@ module NoosferoTestHelper
   def params
     {}
   end
+
+  def ui_icon(icon)
+    icon
+  end
+
 end
 
 class ActionController::IntegrationTest

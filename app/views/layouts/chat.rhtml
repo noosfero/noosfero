@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= html_language %>" lang="<%= html_language %>">
+  <head>
+    <title><%= h page_title %></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="description" content="<%= @environment.name %>" />
+    <link rel="shortcut icon" href="<%= image_path(theme_favicon) %>" type="image/x-icon" />
+    <%= javascript_include_tag 'jquery-latest', 'jquery.noconflict', 'jquery-ui-1.8.2.custom.min', 'jquery.scrollTo', 'jquery.scrollabletab', 'strophejs-1.0.1/strophe', 'application', 'chat', 'jquery.emoticon', '/designs/icons/pidgin/emoticons.js', :cache => 'cache-chat' %>
+    <%= stylesheet_link_tag noosfero_stylesheets, :cache => 'cache' %>
+    <%= stylesheet_link_tag icon_theme_stylesheet_path %>
+    <%= stylesheet_link_tag theme_stylesheet_path %>
+    <%= stylesheet_link_tag jquery_ui_theme_stylesheet_path %>
+    <script type='text/javascript'>
+      var $presence_status_label = {
+        chat: '<%= _('Chat online') %>',
+        dnd: '<%= _('Chat busy') %>',
+        '': '<%= _('Chat offline') %>'
+      };
+      var $own_name = '<%= user.name %>';
+      var $starting_chat_notify = '<%= _("starting chat with %{name}") %>';
+    </script>
+  </head>
+  <body id='chat'>
+    <div id='title-bar'>
+      <h1 class='title'><%= _("%s - Friends online (<span id='friends-online'>%d</span>)") % [h(page_title), 0] %></h1>
+    </div>
+    <div id='buddy-list'>
+      <div id='environment-logo'>
+        <%= image_tag "#{theme_path}/images/thin-logo.png", :title => environment.name, :alt => environment.name %>
+      </div>
+      <div class='toolbar'>
+        <div id='user-status'><%= user_status_menu('icon-menu-offline', _('Chat offline')) %></div>
+        <div class='dialog-error' style='display: none'></div>
+      </div>
+      <ul class='buddy-list'>
+        <!-- <li class='offline'><a id='%{jid_id}' class='icon-menu-offline-11' href='#'>%{name}</a></li> -->
+      </ul>
+    </div>
+    <div id='chat-window' class='tabs-bottom'>
+      <div id='tabs'>
+        <ul>
+          <!-- <li class="tab"><a href="#{href}">#{label}</a> <span class="ui-icon ui-icon-close">Remove Tab</span></li> -->
+        </ul>
+      </div>
+      <!--
+      <div id='#conversation-%{jid_id}' class='conversation'>
+        <div class='history'>
+          <div class='message %{who}'><img ... /><h5 class='%{who}-info'>%{name}</h5><span class='time'>%{time}</span><p>%{message}</p></div>
+        </div>
+        <div class='input-div'>
+          <div class='icon-chat'></div>
+          <textarea type='textarea' data-to='%{jid}'></textarea>
+        </div>
+      </div>
+      -->
+    </div>
+    <%= yield %>
+  </body>
+</html>

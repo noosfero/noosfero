@@ -1,0 +1,37 @@
+ruby_bosh
+=========
+
+The RubyBOSH library handles creating and pre-authenticating BOSH streams inside your Ruby application before passing them off to your template engine. 
+
+This method allows you to hide authentication details for your users' XMPP accounts.  
+
+Tested on Rails 2.x with eJabberd 1.2+
+
+References
+==========
+BOSH: http://xmpp.org/extensions/xep-0124.html
+XMPP via BOSH: http://xmpp.org/extensions/xep-0206.html
+
+Example
+=======
+In your Ruby app controller (or equivalent):
+
+@session_jid, @session_id, @session_random_id = 
+  RubyBOSH.initialize_session("me@jabber.org", "my_password", "http://localhost:5280/http-bind")
+
+In your template, you would then pass these directly to your javascript BOSH connector:
+
+var bosh_jid = '<%= @session_jid %>';
+var bosh_sid = '<%= @session_id %>';
+var bosh_rid = '<%= @session_random_id %>';
+
+// using Strophe:
+connect.attach(bosh_jid, bosh_sid, bosh_rid, onConnectHandlerFunction); 
+
+Acknowledgements
+================
+Jack Moffit
+- thanks for the nice Django example :)
+#=> http://metajack.im/2008/10/03/getting-attached-to-strophe/
+
+Copyright (c) 2008 Pradeep Elankumaran. See LICENSE for details.

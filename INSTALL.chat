@@ -1,0 +1,12 @@
+To configure XMPP/BOSH in Noosfero you need:
+
+* REST Client - http://github.com/archiloque/rest-client
+* SystemTimer - http://ph7spot.com/musings/system-timer
+* Pidgin data files - http://www.pidgin.im/
+
+# apt-get install librestclient-ruby
+# apt-get install libsystemtimer-ruby (depends to do Debian package to this)
+# apt-get install pidgin-data
+
+Take a look at util/chat directory to see samples of config file to configure a
+XMPP/BOSH server with ejabberd, postgresql and apache2.

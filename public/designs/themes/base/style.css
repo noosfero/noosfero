@@ -86,7 +86,7 @@ body, th, td, input {
   color: #555753;
 }
 
-#controlpanel, #logout {
+#controlpanel, #logout, #openchat {
   margin-left: 25px;
 }
 
@@ -1309,4 +1309,25 @@ table.profile th {
 }
 .search-results-type-article a:hover {
   text-decoration: underline;
+}
+
+/* simplemenu */
+
+.simplemenu-submenu {
+  background: #EEE;
+  border: 1px solid #AAA;
+  opacity: 0.9;
+  text-align: left;
+}
+.user-status .simplemenu-item a {
+  color: black;
+}
+
+/* chat */
+
+#chat-window .history .self-name {
+   color: #3F3F90;
+}
+#chat-window .history .other-name {
+   color: #7F1F1F;
 }

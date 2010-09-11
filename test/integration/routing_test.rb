@@ -224,4 +224,9 @@ class RoutingTest < ActionController::IntegrationTest
     assert_routing('/profile/colivre/invite/friends', :controller => 'invite', :action => 'select_address_book', :profile => 'colivre')
   end
 
+  def test_chat_routing
+    assert_routing('/chat', :controller => 'chat', :action => 'index')
+    assert_routing('/chat/avatar/chemical-brothers', :controller => 'chat', :action => 'avatar', :id => 'chemical-brothers')
+  end
+
 end

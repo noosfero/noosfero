@@ -124,6 +124,7 @@ function small_loading(element_id, message) {
 function loading_done(element_id) {
    $(element_id).removeClassName('loading');
    $(element_id).removeClassName('small-loading');
+   $(element_id).removeClassName('small-loading-dark');
 }
 function open_loading(message) {
    jQuery('body').append("<div id='overlay_loading' class='ui-widget-overlay' style='display: none'/><div id='overlay_loading_modal' style='display: none'><p>"+message+"</p><img src='/images/loading-dark.gif'/></div>");
@@ -271,8 +272,14 @@ function toggleSubmenu(trigger, title, link_list) {
   submenu.show('slide', { 'direction' : direction }, 'slow');
 }
 
+function toggleMenu(trigger) {
+  hideAllSubmenus();
+  jQuery(trigger).siblings('.simplemenu-submenu').toggle('slide', {direction: 'up'}, 'slow').toggleClass('opened');
+}
+
 function hideAllSubmenus() {
   jQuery('.menu-submenu.up:visible').hide('slide', { 'direction' : 'up' }, 'slow');
+  jQuery('.simplemenu-submenu:visible').hide('slide', { 'direction' : 'up' }, 'slow').toggleClass('opened');
   jQuery('.menu-submenu.down:visible').hide('slide', { 'direction' : 'down' }, 'slow');
 }
 
@@ -280,6 +287,7 @@ function hideAllSubmenus() {
 jQuery(document).ready(function() {
   jQuery('body').click(function() { hideAllSubmenus(); });
   jQuery('.menu-submenu-trigger').click(function(e) { e.stopPropagation(); });
+  jQuery('.simplemenu-trigger').click(function(e) { e.stopPropagation(); });
 });
 
 function input_javascript_ordering_stuff() {
@@ -505,3 +513,35 @@ function display_notice(message) {
    $noticeBox.click(function() { $(this).hide(); });
    setTimeout(function() { $noticeBox.fadeOut('fast'); }, 5000);
 }
+
+function log(msg) {
+   jQuery('#log').append('<div></div>').append(document.createTextNode(msg));
+}
+
+/* XMPP */
+
+var noosfero_chat_window = null;
+function open_chat_window(self_link) {
+   if (!noosfero_chat_window || noosfero_chat_window.closed) {
+      noosfero_chat_window = window.open('/chat','noosfero_chat','width=900,height=500');
+   }
+   noosfero_chat_window.focus();
+   return false;
+}
+
+jQuery(function($) {
+   /* Adds a class to "msie" to the body element if a Microsoft browser is
+    * detected. This is needed to workaround several of their limitations.
+    */
+   if ( navigator.appVersion.indexOf("MSIE") > -1 ) {
+     document.body.className += " msie msie" +
+       navigator.appVersion.replace(/^.*MSIE\s+([0-9]+).*$/, "$1");
+   }
+
+   /* Adds a class to "webkit" to the body element if a Webkit based browser
+    * detected.
+    */
+   if (window.devicePixelRatio) {
+     $('body').addClass('webkit');
+   }
+});

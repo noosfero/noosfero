@@ -136,6 +136,7 @@ class Profile < ActiveRecord::Base
   root
   assets
   doc
+  chat
   ]
 
   belongs_to :user

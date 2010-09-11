@@ -421,9 +421,11 @@ module ApplicationHelper
     image_tag(profile_icon(profile, size), opt )
   end
 
-  def profile_icon( profile, size=:portrait )
+  def profile_icon( profile, size=:portrait, return_mimetype=false )
+    filename, mimetype = '', 'image/png'
     if profile.image
-      profile.image.public_filename( size )
+      filename = profile.image.public_filename( size )
+      mimetype = profile.image.content_type
     else
       icon =
         if profile.organization?
@@ -435,8 +437,9 @@ module ApplicationHelper
         else
           '/images/icons-app/person-'+ size.to_s() +'.png'
         end
-      default_or_themed_icon(icon)
+      filename = default_or_themed_icon(icon)
     end
+    return_mimetype ? [filename, mimetype] : filename
   end
 
   def default_or_themed_icon(icon)
@@ -940,12 +943,15 @@ module ApplicationHelper
   end
 
   def icon_theme_stylesheet_path
-    theme_path = "/designs/icons/#{environment.icon_theme}/style.css"
-    if File.exists?(File.join(RAILS_ROOT, 'public', theme_path))
-      theme_path
-    else
-      '/designs/icons/default/style.css'
+    icon_themes = []
+    theme_icon_themes = theme_option(:icon_theme) || []
+    for icon_theme in theme_icon_themes do
+      theme_path = "/designs/icons/#{icon_theme}/style.css"
+      if File.exists?(File.join(RAILS_ROOT, 'public', theme_path))
+        icon_themes << theme_path
+      end
     end
+    icon_themes
   end
 
   def page_title
@@ -954,6 +960,7 @@ module ApplicationHelper
     (@topic ? @topic.title + ' - ' : '') +
     (@section ? @section.title + ' - ' : '') +
     (@toc ? _('Online Manual') + ' - ' : '') +
+    (@controller.controller_name == 'chat' ? _('Chat') + ' - ' : '') +
     environment.name +
     (@category ? " - #{@category.full_name}" : '')
   end
@@ -1103,6 +1110,25 @@ module ApplicationHelper
   def pagination_links(collection, options={})
     options = {:prev_label => '&laquo; ' + _('Previous'), :next_label => _('Next') + ' &raquo;'}.merge(options)
     will_paginate(collection, options)
+  end
+
+  def usermenu_from_environment_features
+    usermenu_html = ''
+    environment.enabled_features.keys.each do |feature|
+      file = File.join(@controller.view_paths, 'shared', 'usermenu', "#{feature}.rhtml")
+      if File.exists?(file)
+        usermenu_html << render(:file => file, :use_full_path => false)
+      end
+    end
+    usermenu_html
+  end
+
+  def usermenu_logged_in
+    (_('Welcome, %s') % link_to('<i></i><strong>%{login}</strong>', '/%{login}', :id => "homepage-link", :title => _('Go to your homepage'))) +
+    usermenu_from_environment_features +
+    link_to('<i class="icon-menu-admin"></i><strong>' + _('Administration') + '</strong>', { :controller => 'admin_panel', :action => 'index' }, :id => "controlpanel", :title => _("Configure the environment"), :class => 'admin-link', :style => 'display: none') +
+    link_to('<i class="icon-menu-ctrl-panel"></i><strong>' + _('Control panel') + '</strong>', '/myprofile/%{login}', :id => "controlpanel", :title => _("Configure your personal account and content")) +
+    link_to('<i class="icon-menu-logout"></i><strong>' + _('Logout') + '</strong>', { :controller => 'account', :action => 'logout'} , :id => "logout", :title => _("Leave the system"))
   end
 
 end

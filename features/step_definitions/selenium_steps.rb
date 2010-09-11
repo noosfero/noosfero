@@ -19,14 +19,14 @@ def string_to_element_locator(selector)
 end
 
 Then /^the "([^\"]*)" should be visible$/ do |selector|
-  selenium.is_visible(string_to_element_locator(selector)).should be_true
+  (selenium.is_element_present(string_to_element_locator(selector)) && selenium.is_visible(string_to_element_locator(selector))).should be_true
 end
 Then /^the content "([^\"]*)" should be visible$/ do |selector|
   selenium.is_visible(string_to_element_locator("content=#{selector}")).should be_true
 end
 
 Then /^the "([^\"]*)" should not be visible$/ do |selector|
-  selenium.is_visible(string_to_element_locator(selector)).should be_false
+  (selenium.is_element_present(string_to_element_locator(selector)) && selenium.is_visible(string_to_element_locator(selector))).should be_false
 end
 Then /^the content "([^\"]*)" should not be visible$/ do |selector|
   selenium.is_visible(string_to_element_locator("content=#{selector}")).should be_false
@@ -60,6 +60,10 @@ When /^I select "([^\"]*)" and wait for (jquery)$/ do |value, framework|
   # FIXME ugly hack to make selenium tests waiting to render page
   # "select(value, :wait_for => :ajax)" did not effect
   selenium.wait_for(:wait_for => :ajax, :javascript_framework => framework)
+end
+
+When /^I select window "([^\"]*)"$/ do |selector|
+  selenium.select_window(selector)
 end
 
 #### Noosfero specific steps ####

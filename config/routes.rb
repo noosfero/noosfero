@@ -81,6 +81,10 @@ ActionController::Routing::Routes.draw do |map|
   # contact
   map.contact 'contact/:profile/:action/:id', :controller => 'contact', :action => 'index', :id => /.*/, :profile => /#{Noosfero.identifier_format}/
 
+  # chat
+  map.chat 'chat/:action/:id', :controller => 'chat'
+  map.chat 'chat/:action', :controller => 'chat'
+
   ######################################################
   ## Controllers that are profile-specific (for profile admins )
   ######################################################

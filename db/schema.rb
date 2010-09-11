@@ -381,9 +381,9 @@ ActiveRecord::Schema.define(:version => 20100909103951) do
 
   create_table "roles", :force => true do |t|
     t.string  "name"
-    t.text    "permissions"
     t.string  "key"
     t.boolean "system",         :default => false
+    t.text    "permissions"
     t.integer "environment_id"
   end
 
@@ -439,6 +439,8 @@ ActiveRecord::Schema.define(:version => 20100909103951) do
     t.integer  "environment_id"
     t.string   "password_type"
     t.boolean  "enable_email",                            :default => false
+    t.string   "last_presence_status",                    :default => ""
+    t.string   "presence_status",                         :default => ""
   end
 
   create_table "validation_infos", :force => true do |t|

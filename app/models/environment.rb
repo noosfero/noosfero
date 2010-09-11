@@ -111,6 +111,7 @@ class Environment < ActiveRecord::Base
       'admin_must_approve_new_communities' => _("Admin must approve creation of communities"),
       'enterprises_are_disabled_when_created' => __('Enterprises are disabled when created'),
       'show_balloon_with_profile_links_when_clicked' => _('Show a balloon with profile links when a profile image is clicked'),
+      'xmpp_chat' => _('XMPP/Jabber based chat'),
     }
   end
 
@@ -210,7 +211,6 @@ class Environment < ActiveRecord::Base
   settings_items :description, :type => String
   settings_items :category_types, :type => Array, :default => ['Category']
   settings_items :enable_ssl
-  settings_items :icon_theme, :type => String, :default => 'default'
   settings_items :local_docs, :type => Array, :default => []
   settings_items :news_amount_by_folder, :type => Integer, :default => 4
   settings_items :help_message_to_add_enterprise, :type => String, :default => ''
@@ -253,6 +253,11 @@ class Environment < ActiveRecord::Base
         self.disable(feature)
       end
     end
+  end
+
+  def enabled_features
+    features = self.class.available_features
+    features.delete_if{ |k, v| !self.enabled?(k) }
   end
 
   # returns <tt>true</tt> if this Environment has terms of use to be

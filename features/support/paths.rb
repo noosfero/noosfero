@@ -65,6 +65,9 @@ module NavigationHelpers
     when /^(.*)'s products page$/
       '/catalog/%s' % Profile.find_by_name($1).identifier
 
+    when /^chat$/
+      '/chat'
+
     # Add more mappings here.
     # Here is a more fancy example:
     #

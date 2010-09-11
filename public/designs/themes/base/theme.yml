@@ -1,2 +1,3 @@
 theme: "Noosfero base theme"
 layout: "application-ng"
+icon_theme: [default, pidgin]

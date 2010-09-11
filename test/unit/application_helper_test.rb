@@ -390,11 +390,15 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_equal '<span>SIGNUP_FIELD</span>', optional_field(profile, 'field', 'SIGNUP_FIELD')
   end
 
-  should 'use default icon theme when there is no stylesheet file for the current icon theme' do
-    e = Environment.default
-    e.icon_theme = 'something-very-unlikely'
-    stubs(:environment).returns(e)
-    assert_equal "/designs/icons/default/style.css", icon_theme_stylesheet_path
+  should 'base theme uses default icon theme' do
+    stubs(:current_theme).returns('base')
+    assert_equal "/designs/icons/default/style.css", icon_theme_stylesheet_path.first
+  end
+
+  should 'base theme uses config to specify more then an icon theme' do
+    stubs(:current_theme).returns('base')
+    assert_includes icon_theme_stylesheet_path, "/designs/icons/default/style.css"
+    assert_includes icon_theme_stylesheet_path, "/designs/icons/pidgin/style.css"
   end
 
   should 'not display active field if only required' do
@@ -406,6 +410,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
 
   should 'display name on page title if profile doesnt have nickname' do
     stubs(:environment).returns(Environment.default)
+    @controller = ApplicationController.new
 
     c = fast_create(Community, :name => 'Comm name', :identifier => 'test_comm')
     stubs(:profile).returns(c)
@@ -414,6 +419,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
 
   should 'display nickname on page title if profile has nickname' do
     stubs(:environment).returns(Environment.default)
+    @controller = ApplicationController.new
 
     c = fast_create(Community, :name => 'Community for tests', :nickname => 'Community nickname', :identifier => 'test_comm')
     stubs(:profile).returns(c)
@@ -536,6 +542,39 @@ class ApplicationHelperTest < Test::Unit::TestCase
     stubs(:profile).returns(fast_create(Profile, :theme => 'profile-theme'))
     File.expects(:exists?).with(File.join(RAILS_ROOT, 'public', theme_path, 'favicon.ico')).returns(false)
     assert_equal '/designs/themes/new-theme/favicon.ico', theme_favicon
+  end
+
+  should 'include item in usermenu for environment enabled features' do
+    env = Environment.new
+    env.enable('xmpp_chat')
+    stubs(:environment).returns(env)
+
+    @controller = ApplicationController.new
+    path = File.join(RAILS_ROOT, 'app', 'views')
+    @controller.stubs(:view_paths).returns(path)
+
+    file = path + '/shared/usermenu/xmpp_chat.rhtml'
+    expects(:render).with(:file => file, :use_full_path => false).returns('Open chat')
+
+    assert_equal 'Open chat', usermenu_from_environment_features
+  end
+
+  should 'not return mime type of profile icon if not requested' do
+    stubs(:profile).returns(Person.new)
+    stubs(:current_theme).returns('default')
+
+    filename, mime = profile_icon(Person.new, :thumb)
+    assert_not_nil filename
+    assert_nil mime
+  end
+
+  should 'return mime type of profile icon' do
+    stubs(:profile).returns(Person.new)
+    stubs(:current_theme).returns('default')
+
+    filename, mime = profile_icon(Person.new, :thumb, true)
+    assert_not_nil filename
+    assert_not_nil mime
   end
 
   protected

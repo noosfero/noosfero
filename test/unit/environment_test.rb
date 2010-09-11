@@ -30,7 +30,7 @@ class EnvironmentTest < Test::Unit::TestCase
   end
 
   def test_mock
-    assert_equal ['feature1', 'feature2', 'feature3'], Environment.available_features.keys.sort
+    assert_equal ['feature1', 'feature2', 'feature3', 'xmpp_chat'], Environment.available_features.keys.sort
   end
 
   def test_features
@@ -736,21 +736,6 @@ class EnvironmentTest < Test::Unit::TestCase
     end
   end
 
-  should 'provide icon theme' do
-    assert_equal 'my-icons-theme', Environment.new(:icon_theme => 'my-icons-theme').icon_theme
-  end
-
-  should 'give default icon theme' do
-    assert_equal 'default', Environment.new.icon_theme
-  end
-
-  should 'modify icon theme' do
-    e = Environment.new
-    assert_equal 'default', e.icon_theme
-    e.icon_theme = 'non-default'
-    assert_not_equal 'default', e.icon_theme
-  end
-
   should 'have a portal community' do
     e = Environment.default
     c = fast_create(Community)
@@ -1108,6 +1093,17 @@ class EnvironmentTest < Test::Unit::TestCase
     p = Environment.new
     p.stubs(:portal_community).returns(nil)
     assert_equal [], p.image_galleries
+  end
+
+  should 'get enabled features' do
+    env = Environment.new
+    env.enable('feature1')
+    env.enable('feature2')
+    env.disable('feature3')
+
+    assert_includes env.enabled_features.keys, 'feature1'
+    assert_includes env.enabled_features.keys, 'feature2'
+    assert_not_includes env.enabled_features.keys, 'feature3'
   end
 
 end

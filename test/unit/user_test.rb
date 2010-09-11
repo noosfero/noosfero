@@ -297,6 +297,21 @@ class UserTest < Test::Unit::TestCase
     assert_equal users(:ze), User['ze']
   end
 
+  should 'user has presence status to know when online or offline' do
+    user = User.new
+    assert_respond_to user, :presence_status
+  end
+
+  should 'remember last status from user' do
+    user = User.new
+    assert_respond_to user, :last_presence_status
+  end
+
+  should 'compose jabber id by login plus default hostname' do
+    user = create_user('online_user')
+    assert_equal "online_user@#{user.environment.default_hostname}", user.jid
+  end
+
   protected
     def new_user(options = {})
       user = User.new({ :login => 'quire', :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire' }.merge(options))

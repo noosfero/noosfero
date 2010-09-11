@@ -42,13 +42,6 @@
     %>' onload='noosfero_init();'
     onresize="registerDocumentSize()">
     <script type="text/javascript">
-      /* Adds a class to "msie" to the body element if a Microsoft browser is
-       * detected. This is needed to workaround several of their limitations.
-       */
-      if ( navigator.appVersion.indexOf("MSIE") > -1 ) {
-        document.body.className += " msie msie" +
-          navigator.appVersion.replace(/^.*MSIE\s+([0-9]+).*$/, "$1");
-      }
       function registerDocumentSize() {
         document.body.className = document.body.className.replace(/(^| )docSize.+( |$)/g, " ");
         for ( var x=100; x<=1500; x+=100 ) {

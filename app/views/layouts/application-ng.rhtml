@@ -24,15 +24,6 @@
     " action-"+ @controller.controller_name() +"-"+ @controller.action_name() +
     " template-"+ ( profile.nil? ? "default" : profile.layout_template )
     %>" >
-    <script type="text/javascript">
-      /* Adds a class to "msie" to the body element if a Microsoft browser is
-       * detected. This is needed to workaround several of their limitations.
-       */
-      if ( navigator.appVersion.indexOf("MSIE") > -1 ) {
-        document.body.className += " msie msie" +
-          navigator.appVersion.replace(/^.*MSIE\s+([0-9]+).*$/, "$1");
-      }
-    </script>
 
     <a href="#content" id="link-go-content"><span><%= _("Go to the content") %></span></a>
 
@@ -43,10 +34,7 @@
       <div id="wrap-2">
         <div id="user">
           <span class='logged-in' style='display: none;'>
-            <%= _('Welcome, %s.') % link_to('<i></i><strong>%{login}</strong>', '/%{login}', :id => "homepage-link", :title => _('Go to your homepage')) %>
-            <%= link_to('<i class="icon-menu-admin"></i><strong>' + _('Administration') + '</strong>', { :controller => 'admin_panel', :action => 'index' }, :id => "controlpanel", :title => _("Configure the environment"), :class => 'admin-link', :style => 'display: none') %>
-            <%= link_to('<i class="icon-menu-ctrl-panel"></i><strong>' + _('Control panel') + '</strong>', '/myprofile/%{login}', :id => "controlpanel", :title => _("Configure your personal account and content")) %>
-            <%= link_to('<i class="icon-menu-logout"></i><strong>' + _('Logout') + '</strong>', { :controller => 'account', :action => 'logout'} , :id => "logout", :title => _("Leave the system")) %>
+            <%= usermenu_logged_in %>
           </span>
           <span class='not-logged-in' style='display: none'>
               <%= _('%s or %s') % [thickbox_inline_popup_link('<i class="icon-menu-login"></i><strong>' + _('Login') + '</strong>', login_url, 'inlineLoginBox', :id => 'link_login'), link_to('<strong>' + _('Register') + '</strong>', :controller => 'account', :action => 'signup') ] %>

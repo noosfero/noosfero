@@ -214,6 +214,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def jid
+    "#{login}@#{environment.default_hostname}"
+  end
+
   protected
     # before filter 
     def encrypt_password
