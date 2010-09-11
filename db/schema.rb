@@ -9,7 +9,27 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100909103951) do
+ActiveRecord::Schema.define(:version => 20100910205427) do
+
+  create_table "action_tracker", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "user_type"
+    t.integer  "dispatcher_id"
+    t.string   "dispatcher_type"
+    t.text     "params"
+    t.string   "verb"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "action_tracker", ["dispatcher_id", "dispatcher_type"], :name => "index_action_tracker_on_dispatcher_id_and_dispatcher_type"
+  add_index "action_tracker", ["user_id", "user_type"], :name => "index_action_tracker_on_user_id_and_user_type"
+  add_index "action_tracker", ["verb"], :name => "index_action_tracker_on_verb"
+
+  create_table "action_tracker_notifications", :force => true do |t|
+    t.integer "action_tracker_id"
+    t.integer "profile_id"
+  end
 
   create_table "article_versions", :force => true do |t|
     t.integer  "article_id"
@@ -385,6 +405,15 @@ ActiveRecord::Schema.define(:version => 20100909103951) do
     t.boolean "system",         :default => false
     t.text    "permissions"
     t.integer "environment_id"
+  end
+
+  create_table "scraps", :force => true do |t|
+    t.text     "content"
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.integer  "scrap_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "taggings", :force => true do |t|
