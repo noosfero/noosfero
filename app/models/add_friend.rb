@@ -15,8 +15,8 @@ class AddFriend < Task
   alias :friend= :target=
 
   def perform
-    requestor.add_friend(target, group_for_person)
     target.add_friend(requestor, group_for_friend)
+    requestor.add_friend(target, group_for_person)
   end
 
   def description

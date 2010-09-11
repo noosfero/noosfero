@@ -1,0 +1,6 @@
+<div id='profile-network'>
+  <h3><%= _("%s's network activity") % @profile.name %></h3>
+  <ul>
+    <%= render :partial => 'profile_network_activities', :locals => {:network_activities => @network_activities} %>
+  </ul>
+</div>

@@ -398,4 +398,24 @@ class EnterpriseTest < Test::Unit::TestCase
     assert_equal product.inputs, enterprise.inputs
   end
 
+  should "the followed_by? be true only to members" do
+    e = fast_create(Enterprise)
+    e.stubs(:closed?).returns(false)
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+    p3 = fast_create(Person)
+
+    assert !p1.is_member_of?(e)
+    e.add_member(p1)
+    assert p1.is_member_of?(e)
+
+    assert !p3.is_member_of?(e)
+    e.add_member(p3)
+    assert p3.is_member_of?(e)
+
+    assert_equal true, e.send(:followed_by?,p1)
+    assert_equal true, e.send(:followed_by?,p3)
+    assert_equal false, e.send(:followed_by?,p2)
+  end
+
 end

@@ -228,4 +228,55 @@ class UploadedFileTest < Test::Unit::TestCase
       assert File.exists?(image)
     end
   end
+
+  should 'return a thumbnail for images' do
+    f = UploadedFile.new
+    f.expects(:image?).returns(true)
+    f.expects(:full_filename).with(:thumb).returns(File.join(RAILS_ROOT, 'public', 'images', '0000', '0005', 'x.png'))
+    assert_equal '/images/0000/0005/x.png', f.thumbnail_path
+    f = UploadedFile.new
+    f.stubs(:full_filename).with(:thumb).returns(File.join(RAILS_ROOT, 'public', 'images', '0000', '0005', 'x.png'))
+    f.expects(:image?).returns(false)
+    assert_nil f.thumbnail_path
+  end
+
+  should 'track action when a published image is uploaded in a gallery' do
+    p = fast_create(Folder, :profile_id => @profile.id)
+    p.view_as = 'image_gallery'; p.save!
+    f = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => p, :profile => @profile)
+    ta = ActionTracker::Record.last(:conditions => { :verb => "upload_image" })
+    assert_kind_of String, ta.get_thumbnail_path[0]
+    assert_equal [f.reload.view_url], ta.get_view_url
+    assert_equal [p.reload.url], ta.get_parent_url
+    assert_equal [p.name], ta.get_parent_name
+  end
+
+  should 'not track action when is not image' do
+    ActionTracker::Record.delete_all
+    p = fast_create(Folder, :profile_id => @profile.id)
+    p.view_as = 'image_gallery'; p.save!
+    f = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'), :parent => p, :profile => @profile)
+    assert_nil ActionTracker::Record.last(:conditions => { :verb => "upload_image" })
+  end
+
+  should 'not track action when has no parent' do
+    f = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => nil, :profile => @profile)
+    assert_nil ActionTracker::Record.last(:conditions => { :verb => "upload_image" })
+  end
+
+  should 'not track action when is not published' do
+    ActionTracker::Record.delete_all
+    p = fast_create(Folder, :profile_id => @profile.id)
+    p.view_as = 'image_gallery'; p.save!
+    f = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => p, :profile => @profile, :published => false)
+    assert_nil ActionTracker::Record.last(:conditions => { :verb => "upload_image" })
+  end
+
+  should 'not track action when parent is not gallery' do
+    ActionTracker::Record.delete_all
+    p = fast_create(Folder, :profile_id => @profile.id)
+    f = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => p, :profile => @profile)
+    assert_nil ActionTracker::Record.last(:conditions => { :verb => "upload_image" })
+  end
+
 end

@@ -1798,6 +1798,13 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal [f1], p.image_galleries
   end
 
+  should 'get custom profile icon' do
+    profile = build(Profile, :image_builder => {:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
+    assert_kind_of String, profile.profile_custom_icon
+    profile = build(Profile, :image_builder => {:uploaded_data => nil})
+    assert_nil profile.profile_custom_icon
+  end
+
   private
 
   def assert_invalid_identifier(id)

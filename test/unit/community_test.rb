@@ -215,4 +215,63 @@ class CommunityTest < Test::Unit::TestCase
     assert_no_match /[<>]/, community.description
   end
 
+  should "the followed_by method be protected and true to the community members by default" do
+    c = fast_create(Community)
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+    p3 = fast_create(Person)
+
+    assert !p1.is_member_of?(c)
+    c.add_member(p1)
+    assert p1.is_member_of?(c)
+
+    assert !p3.is_member_of?(c)
+    c.add_member(p3)
+    assert p3.is_member_of?(c)
+
+    assert_equal true, c.send(:followed_by?,p1)
+    assert_equal true, c.send(:followed_by?,p3)
+    assert_equal false, c.send(:followed_by?,p2)
+  end
+
+  should "be created an tracked action when the user is join to the community" do
+    p1 = Person.first
+    community = fast_create(Community)
+    p2 = fast_create(Person)
+    p3 = fast_create(Person)
+
+    RoleAssignment.delete_all
+    ActionTrackerNotification.delete_all
+    RoleAssignment.any_instance.stubs(:role_id).returns(3)
+    assert_difference(ActionTrackerNotification, :count, 3) do
+      community.add_member(p1)
+      community.add_member(p3)
+      assert p1.is_member_of?(community)
+      assert !p2.is_member_of?(community)
+      assert p3.is_member_of?(community)
+      process_delayed_job_queue
+    end
+    ActionTrackerNotification.all.map{|a|a.profile}.map do |profile|
+      assert [community,p1,p3].include?(profile)
+    end
+  end
+
+  should "be created an tracked action to the community when an community's article is commented" do
+    ActionTrackerNotification.delete_all
+    p1 = Person.first
+    community = fast_create(Community)
+    p2 = fast_create(Person)
+    p3 = fast_create(Person)
+    community.add_member(p3)
+    article = fast_create(Article, :profile_id => community.id)
+    ActionTracker::Record.destroy_all
+    assert_difference(ActionTrackerNotification, :count, 3) do
+      Comment.create!(:article_id => article.id, :title => 'some', :body => 'some', :author_id => p2.id)
+      process_delayed_job_queue
+    end
+    ActionTrackerNotification.all.map{|a|a.profile}.map do |profile|
+      assert [community,p1,p3].include?(profile)
+    end
+  end
+
 end

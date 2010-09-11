@@ -214,4 +214,16 @@ class CommentTest < Test::Unit::TestCase
     assert File.exists?(File.join(Rails.root, 'public', image)), "#{image} does not exist."
   end
 
+  should 'track action when comment is created' do
+    owner = create_user('testuser').person
+    article = owner.articles.create!(:name => 'test', :body => '...')
+    comment = article.comments.create!(:article => article, :name => 'foo', :title => 'bar', :body => 'my comment', :email => 'cracker@test.org')
+    ta = ActionTracker::Record.last
+    assert_equal 'bar', ta.get_title
+    assert_equal 'my comment', ta.get_body
+    assert_equal 'test', ta.get_article_title
+    assert_equal article.url, ta.get_article_url
+    assert_equal comment.url, ta.get_url
+  end
+
 end

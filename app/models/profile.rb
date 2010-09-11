@@ -87,6 +87,11 @@ class Profile < ActiveRecord::Base
        :order => "total DESC, total_comments DESC",
        :conditions => ["articles.created_at BETWEEN ? AND ?", 7.days.ago, DateTime.now]
 
+  acts_as_trackable :dependent => :destroy
+
+  has_many :action_tracker_notifications, :foreign_key => 'profile_id'
+  has_many :tracked_notifications, :through => :action_tracker_notifications, :source => :action_tracker, :order => 'updated_at DESC'
+
   # FIXME ugly workaround
   def self.human_attribute_name(attrib)
       _(self.superclass.human_attribute_name(attrib))
@@ -743,7 +748,15 @@ private :generate_url, :url_options
     }[amount] || _("%s members") % amount
   end
 
+  def profile_custom_icon
+    self.image.public_filename(:icon) unless self.image.blank?
+  end
+
   protected
+
+    def followed_by?(person)
+      person.is_member_of?(self)
+    end
 
     def display_private_info_to?(user)
       if user.nil?

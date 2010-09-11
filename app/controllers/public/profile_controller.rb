@@ -3,11 +3,21 @@ class ProfileController < PublicController
   needs_profile
   before_filter :check_access_to_profile, :except => [:join, :index]
   before_filter :store_before_join, :only => [:join]
-  before_filter :login_required, :only => [:join, :leave, :unblock]
+  before_filter :login_required, :only => [:join, :leave, :unblock, :leave_scrap, :remove_scrap, :remove_activity, :view_more_scraps, :view_more_activities, :view_more_network_activities]
+
 
   helper TagsHelper
 
   def index
+    @activities = @profile.tracked_actions.paginate(:per_page => 30, :page => params[:page])
+    @network_activities = []
+    @wall_items = []
+    if !@profile.is_a?(Person)
+      @network_activities = @profile.tracked_notifications.paginate(:per_page => 30, :page => params[:page]) 
+    elsif logged_in? && current_person.follows?(@profile)
+      @network_activities = @profile.tracked_notifications.paginate(:per_page => 30, :page => params[:page])
+      @wall_items = @profile.scraps_received.not_replies.paginate(:per_page => 30, :page => params[:page]) if @profile.is_a?(Person)
+    end
     @tags = profile.article_tags
     unless profile.display_info_to?(user)
       profile.visible? ? private_profile : invisible_profile
@@ -120,6 +130,53 @@ class ProfileController < PublicController
     else
       message = __('You are not allowed to unblock enterprises in this environment.')
       render_access_denied(message)
+    end
+  end
+
+  def leave_scrap
+    sender = params[:sender_id].nil? ? current_user.person : Person.find(params[:sender_id])
+    receiver = params[:receiver_id].nil? ? @profile : Person.find(params[:receiver_id])
+    @scrap = Scrap.new(params[:scrap])
+    @scrap.sender= sender
+    @scrap.receiver= receiver
+    @tab_action = params[:tab_action]
+    @message = @scrap.save ? _("Message successfully sent.") : _("You can't leave an empty message.")
+    @scraps = @profile.scraps_received.not_replies.paginate(:per_page => 30, :page => params[:page]) if params[:not_load_scraps].nil?
+    render :partial => 'leave_scrap'
+  end
+
+  def view_more_scraps
+    @scraps = @profile.scraps_received.not_replies.paginate(:per_page => 30, :page => params[:page])
+    render :partial => 'profile_scraps', :locals => {:scraps => @scraps}
+  end
+
+  def view_more_activities
+    @activities = @profile.tracked_actions.paginate(:per_page => 30, :page => params[:page])
+    render :partial => 'profile_activities', :locals => {:activities => @activities}
+  end
+
+  def view_more_network_activities
+    @activities = @profile.tracked_notifications.paginate(:per_page => 30, :page => params[:page]) 
+    render :partial => 'profile_network_activities', :locals => {:network_activities => @activities}
+  end
+
+  def remove_scrap
+    begin
+      scrap = current_user.person.scraps(params[:scrap_id])
+      scrap.destroy
+      render :text => _('Scrap successfully removed.')
+    rescue
+      render :text => _('You could not remove this scrap')
+    end
+  end
+
+  def remove_activity
+    begin
+      activity = current_user.person.tracked_actions.find(params[:activity_id])
+      ActionTrackerNotification.find(:first, :conditions => {:profile_id => current_user.person, :action_tracker_id => activity}).destroy
+      render :text => _('Activity successfully removed.')
+    rescue
+      render :text => _('You could not remove this activity')
     end
   end
 

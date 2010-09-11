@@ -1,6 +1,7 @@
 # A person is the profile of an user holding all relationships with the rest of the system
 class Person < Profile
 
+  acts_as_trackable :after_add => Proc.new {|p,t| notify_activity(t)}
   acts_as_accessor
 
   named_scope :members_of, lambda { |resource| { :select => 'DISTINCT profiles.*', :joins => :role_assignments, :conditions => ['role_assignments.resource_type = ? AND role_assignments.resource_id = ?', resource.class.base_class.name, resource.id ] } }
@@ -16,6 +17,9 @@ class Person < Profile
 
   has_many :mailings
 
+  has_many :scraps_received, :class_name => 'Scrap', :foreign_key => :receiver_id, :order => "updated_at DESC"
+  has_many :scraps_sent, :class_name => 'Scrap', :foreign_key => :sender_id
+
   named_scope :more_popular,
        :select => "#{Profile.qualified_column_names}, count(friend_id) as total",
        :group => Profile.qualified_column_names,
@@ -29,6 +33,23 @@ class Person < Profile
   after_destroy :destroy_user
   def destroy_user
     self.user.destroy if self.user
+  end
+
+  def scraps(scrap=nil)
+    scrap = scrap.is_a?(Scrap) ? scrap.id : scrap
+    scrap.nil? ? Scrap.all_scraps(self) : Scrap.all_scraps(self).find(scrap)
+  end
+
+  def can_control_scrap?(scrap)
+    begin
+      !self.scraps(scrap).nil?
+    rescue
+      false
+    end
+  end
+
+  def can_control_activity?(activity)
+    self.tracked_notifications.exists?(activity)
   end
 
   # Sets the identifier for this person. Raises an exception when called on a
@@ -303,6 +324,36 @@ class Person < Profile
       0 => _('none'),
       1 => _('one friend')
     }[amount] || _("%s friends") % amount
+  end
+
+  def self.notify_activity(tracked_action)
+    profile = tracked_action.dispatcher.profile if tracked_action.dispatcher.is_a?(Article)
+    profile = tracked_action.dispatcher.resource if tracked_action.dispatcher.is_a?(RoleAssignment)
+    profile = tracked_action.dispatcher.article.profile if tracked_action.dispatcher.is_a?(Comment)
+    profile_id = profile.nil? ? nil : profile.id
+    Delayed::Job.enqueue NotifyActivityToProfilesJob.new(tracked_action.id, profile_id)
+    ActionTrackerNotification.create(:action_tracker => tracked_action, :profile => tracked_action.user)
+  end
+
+  def is_member_of?(profile)
+    profile.members.include?(self)
+  end
+
+  def follows?(profile)
+    profile.followed_by?(self)
+  end
+
+  def each_friend(offset=0)
+    while friend = self.friends.first(:order => :id, :offset => offset)
+      yield friend
+      offset = offset + 1
+    end
+  end
+
+  protected
+
+  def followed_by?(profile)
+    self == profile || self.is_a_friend?(profile)
   end
 
 end

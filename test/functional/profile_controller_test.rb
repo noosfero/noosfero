@@ -709,4 +709,496 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_match(/Last post/, @response.body) # Latest post must come in the feed
   end
 
+  should "be logged in to leave a scrap" do
+    count = Scrap.count
+    post :leave_scrap, :profile => profile.identifier, :scrap => {:content => 'something'}
+    assert_equal count, Scrap.count
+    assert_redirected_to :controller => 'account', :action => 'login'
+  end
+
+  should "leave a scrap in the own profile" do
+    login_as(profile.identifier)
+    count = Scrap.count
+    assert profile.scraps_received.empty?
+    post :leave_scrap, :profile => profile.identifier, :scrap => {:content => 'something'}
+    assert_equal count + 1, Scrap.count
+    assert_response :success
+    assert_equal "Message successfully sent.", assigns(:message)
+    profile.reload
+    assert !profile.scraps_received.empty?
+  end
+
+  should "leave a scrap on another profile" do
+    login_as(profile.identifier)
+    count = Scrap.count
+    another_person = fast_create(Person)
+    assert another_person.scraps_received.empty?
+    post :leave_scrap, :profile => another_person.identifier, :scrap => {:content => 'something'}
+    assert_equal count + 1, Scrap.count
+    assert_response :success
+    assert_equal "Message successfully sent.", assigns(:message)
+    another_person.reload
+    assert !another_person.scraps_received.empty?
+  end
+
+  should "the owner of scrap could remove it" do
+    login_as(profile.identifier)
+    scrap = fast_create(Scrap, :sender_id => profile.id)
+    count = Scrap
+    assert_difference Scrap, :count, -1 do
+      post :remove_scrap, :profile => profile.identifier, :scrap_id => scrap.id
+    end
+  end
+
+  should "the receiver scrap remove it" do
+    login_as(profile.identifier)
+    scrap = fast_create(Scrap, :receiver_id => profile.id)
+    count = Scrap
+    assert_difference Scrap, :count, -1 do
+      post :remove_scrap, :profile => profile.identifier, :scrap_id => scrap.id
+    end
+  end
+
+  should "not remove others scraps" do
+    login_as(profile.identifier)
+    person = fast_create(Person)
+    scrap = fast_create(Scrap, :sender_id => person.id, :receiver_id => person.id)
+    count = Scrap
+    assert_difference Scrap, :count, 0 do
+      post :remove_scrap, :profile => profile.identifier, :scrap_id => scrap.id
+    end
+  end
+
+  should "be logged in to remove a scrap" do
+    count = Scrap.count
+    post :remove_scrap, :profile => profile.identifier, :scrap => {:content => 'something'}
+    assert_equal count, Scrap.count
+    assert_redirected_to :controller => 'account', :action => 'login'
+  end
+
+  should "not remove an scrap of another user" do
+    login_as(profile.identifier)
+    person = fast_create(Person)
+    scrap = fast_create(Scrap, :receiver_id => person.id) 
+    count = Scrap.count
+    post :remove_scrap, :profile => person.identifier, :scrap_id => scrap.id
+    assert_equal count, Scrap.count
+  end
+
+  should "the sender be the logged user by default" do
+    login_as(profile.identifier)
+    count = Scrap.count
+    another_person = fast_create(Person)
+    post :leave_scrap, :profile => another_person.identifier, :scrap => {:content => 'something'}
+    last = Scrap.last
+    assert_equal profile, last.sender
+  end
+
+ should "the receiver be the current profile by default" do
+    login_as(profile.identifier)
+    count = Scrap.count
+    another_person = fast_create(Person)
+    post :leave_scrap, :profile => another_person.identifier, :scrap => {:content => 'something'}
+    last = Scrap.last
+    assert_equal another_person, last.receiver
+  end
+
+  should "report to user the scrap errors on creation" do
+    login_as(profile.identifier)
+    count = Scrap.count
+    post :leave_scrap, :profile => profile.identifier, :scrap => {:content => ''}
+    assert_response :success
+    assert_equal "You can't leave an empty message.", assigns(:message)
+  end
+
+  should 'see all activities of the current profile' do
+    p1= Person.first
+    p2= fast_create(Person)
+    assert !p1.is_a_friend?(p2)
+    p3= fast_create(Person)
+    assert !p1.is_a_friend?(p3)
+    ActionTracker::Record.destroy_all
+    Scrap.create!(defaults_for_scrap(:sender => p1, :receiver => p1))
+    a1 = ActionTracker::Record.last
+    UserStampSweeper.any_instance.stubs(:current_user).returns(p2)
+    Scrap.create!(defaults_for_scrap(:sender => p2, :receiver => p3))
+    a2 = ActionTracker::Record.last
+    UserStampSweeper.any_instance.stubs(:current_user).returns(p3)
+    Scrap.create!(defaults_for_scrap(:sender => p3, :receiver => p1))
+    a3 = ActionTracker::Record.last
+    login_as(profile.identifier)
+    get :index, :profile => p1.identifier
+    assert_not_nil assigns(:activities)
+    assert_equal [a1], assigns(:activities)
+  end
+
+  should 'see the activities_items paginated' do
+    p1= Person.first
+    ActionTracker::Record.destroy_all
+    40.times{Scrap.create!(defaults_for_scrap(:sender => p1, :receiver => p1))}
+    login_as(p1.identifier)
+    get :index, :profile => p1.identifier
+    assert_equal 30, assigns(:activities).count
+  end
+
+  should 'see not see the friends activities in the current profile activity' do
+    p1= Person.first
+    p2= fast_create(Person)
+    assert !p1.is_a_friend?(p2)
+    p3= fast_create(Person)
+    p1.add_friend(p3)
+    assert p1.is_a_friend?(p3)
+    ActionTracker::Record.destroy_all
+    Scrap.create!(defaults_for_scrap(:sender => p1, :receiver => p1))
+    a1 = ActionTracker::Record.last
+    UserStampSweeper.any_instance.stubs(:current_user).returns(p2)
+    Scrap.create!(defaults_for_scrap(:sender => p2, :receiver => p3))
+    a2 = ActionTracker::Record.last
+    UserStampSweeper.any_instance.stubs(:current_user).returns(p3)
+    Scrap.create!(defaults_for_scrap(:sender => p3, :receiver => p1))
+    a3 = ActionTracker::Record.last
+    login_as(profile.identifier)
+    get :index, :profile => p1.identifier
+    assert_not_nil assigns(:activities)
+    assert_equal [a1], assigns(:activities)
+  end
+
+  should 'see all the activities in the current profile network' do
+    p1= Person.first
+    p2= fast_create(Person)
+    assert !p1.is_a_friend?(p2)
+    p3= fast_create(Person)
+    p3.add_friend(p1)
+    assert p3.is_a_friend?(p1)
+    ActionTracker::Record.destroy_all
+    Scrap.create!(defaults_for_scrap(:sender => p1, :receiver => p1))
+    a1 = ActionTracker::Record.last
+    UserStampSweeper.any_instance.stubs(:current_user).returns(p2)
+    Scrap.create!(defaults_for_scrap(:sender => p2, :receiver => p3))
+    a2 = ActionTracker::Record.last
+    UserStampSweeper.any_instance.stubs(:current_user).returns(p3)
+    Scrap.create!(defaults_for_scrap(:sender => p3, :receiver => p1))
+    a3 = ActionTracker::Record.last
+
+
+    @controller.stubs(:logged_in?).returns(true)
+    user = mock()
+    user.stubs(:person).returns(p3)
+    user.stubs(:login).returns('some')
+    @controller.stubs(:current_user).returns(user)
+    Person.any_instance.stubs(:follows?).returns(true)
+
+    process_delayed_job_queue
+    get :index, :profile => p1.identifier
+    assert_not_nil assigns(:network_activities)
+    assert_equal [], [a1,a3] - assigns(:network_activities)
+    assert_equal assigns(:network_activities) - [a1, a3], []
+  end
+
+  should 'the network activity be visible only to profile followers' do
+    p1= Person.first
+    p2= fast_create(Person)
+    assert !p1.is_a_friend?(p2)
+    p3= fast_create(Person)
+    p3.add_friend(p1)
+    assert p3.is_a_friend?(p1)
+    ActionTracker::Record.destroy_all
+    Scrap.create!(defaults_for_scrap(:sender => p1, :receiver => p1))
+    a1 = ActionTracker::Record.last
+    UserStampSweeper.any_instance.stubs(:current_user).returns(p2)
+    Scrap.create!(defaults_for_scrap(:sender => p2, :receiver => p3))
+    a2 = ActionTracker::Record.last
+    UserStampSweeper.any_instance.stubs(:current_user).returns(p3)
+    Scrap.create!(defaults_for_scrap(:sender => p3, :receiver => p1))
+    a3 = ActionTracker::Record.last
+
+    @controller.stubs(:logged_in?).returns(true)
+    user = mock()
+    user.stubs(:person).returns(p2)
+    user.stubs(:login).returns('some')
+    @controller.stubs(:current_user).returns(user)
+    get :index, :profile => p1.identifier
+    assert_equal [], assigns(:network_activities)
+
+    user = mock()
+    user.stubs(:person).returns(p3)
+    user.stubs(:login).returns('some')
+    @controller.stubs(:current_user).returns(user)
+    Person.any_instance.stubs(:follows?).returns(true)
+    process_delayed_job_queue
+    get :index, :profile => p3.identifier
+    assert_equal [], [a1,a3] - assigns(:network_activities)
+    assert_equal assigns(:network_activities) - [a1, a3], []
+  end
+
+  should 'the network activity be paginated' do
+    p1= Person.first
+    40.times{Scrap.create!(defaults_for_scrap(:sender => p1, :receiver => p1))}
+
+    @controller.stubs(:logged_in?).returns(true)
+    user = mock()
+    user.stubs(:person).returns(p1)
+    user.stubs(:login).returns('some')
+    @controller.stubs(:current_user).returns(user)
+    get :index, :profile => p1.identifier
+    assert_equal 30, assigns(:network_activities).count
+  end
+
+  should 'the network activity be visible only to logged users' do
+    p1= ActionTracker::Record.current_user_from_model
+    p2= fast_create(Person)
+    assert !p1.is_a_friend?(p2)
+    p3= fast_create(Person)
+    p3.add_friend(p1)
+    assert p3.is_a_friend?(p1)
+    ActionTracker::Record.destroy_all
+    Scrap.create!(defaults_for_scrap(:sender => p1, :receiver => p1))
+    a1 = ActionTracker::Record.last
+    UserStampSweeper.any_instance.stubs(:current_user).returns(p2)
+    Scrap.create!(defaults_for_scrap(:sender => p2, :receiver => p3))
+    a2 = ActionTracker::Record.last
+    UserStampSweeper.any_instance.stubs(:current_user).returns(p3)
+    Scrap.create!(defaults_for_scrap(:sender => p3, :receiver => p1))
+    a3 = ActionTracker::Record.last
+
+    login_as(profile.identifier)
+    get :index, :profile => p1.identifier
+    assert_equal [], assigns(:network_activities)
+    assert_response :success
+    assert_template 'index'
+
+    get :index, :profile => p2.identifier
+    assert_equal [], assigns(:network_activities)
+    assert_response :success
+    assert_template 'index'
+
+    get :index, :profile => p3.identifier
+    assert_equal [], assigns(:network_activities)
+    assert_response :success
+    assert_template 'index'
+  end
+
+  should 'the network activity be visible to uses not logged in on communities and enteprises' do
+    p1= Person.first
+    community = fast_create(Community)
+    p2= fast_create(Person)
+    assert !p1.is_a_friend?(p2)
+    community.add_member(p1)
+    community.add_member(p2)
+    ActionTracker::Record.destroy_all
+    Article.create! :name => 'a', :profile_id => community.id
+    Article.create! :name => 'b', :profile_id => community.id
+    UserStampSweeper.any_instance.stubs(:current_user).returns(p2)
+    Article.create! :name => 'c', :profile_id => community.id
+    process_delayed_job_queue
+
+    get :index, :profile => community.identifier
+    assert_not_equal [], assigns(:network_items)
+    assert_response :success
+    assert_template 'index'
+  end
+
+  should 'the network activity be paginated on communities' do
+    community = fast_create(Community)
+    at = fast_create(ActionTracker::Record, :user_id => profile.id)
+    40.times{ fast_create(ActionTrackerNotification, :profile_id => community.id, :action_tracker_id => at.id) }
+    get :index, :profile => community.identifier
+    assert_equal 30, assigns(:network_activities).count
+  end
+
+  should 'the self activity not crashes with user not logged in' do
+    p1= Person.first
+    p2= fast_create(Person)
+    assert !p1.is_a_friend?(p2)
+    p3= fast_create(Person)
+    p3.add_friend(p1)
+    assert p3.is_a_friend?(p1)
+    ActionTracker::Record.destroy_all
+    Scrap.create!(defaults_for_scrap(:sender => p1, :receiver => p1))
+    a1 = ActionTracker::Record.last
+    UserStampSweeper.any_instance.stubs(:current_user).returns(p2)
+    Scrap.create!(defaults_for_scrap(:sender => p2, :receiver => p3))
+    a2 = ActionTracker::Record.last
+    UserStampSweeper.any_instance.stubs(:current_user).returns(p3)
+    Scrap.create!(defaults_for_scrap(:sender => p3, :receiver => p1))
+    a3 = ActionTracker::Record.last
+
+    get :index, :profile => p1.identifier
+    assert_response :success
+    assert_template 'index'
+  end
+
+  should 'have wall_itens defined' do
+    p1= ActionTracker::Record.current_user_from_model
+    get :index, :profile => p1.identifier
+    assert_equal [], assigns(:wall_items)
+  end
+
+  should 'the wall_itens be the received scraps' do
+    p1 = ActionTracker::Record.current_user_from_model
+    p2 = fast_create(Person)
+    p3 = fast_create(Person)
+    s1 = fast_create(Scrap, :sender_id => p1.id, :receiver_id => p2.id)
+    s2 = fast_create(Scrap, :sender_id => p2.id, :receiver_id => p1.id)
+    s3 = fast_create(Scrap, :sender_id => p3.id, :receiver_id => p1.id)
+
+    @controller.stubs(:logged_in?).returns(true)
+    user = mock()
+    user.stubs(:person).returns(p1)
+    user.stubs(:login).returns('some')
+    @controller.stubs(:current_user).returns(user)
+    Person.any_instance.stubs(:follows?).returns(true)
+    get :index, :profile => p1.identifier
+    assert_equal [s2,s3], assigns(:wall_items)
+  end
+
+  should 'the wall_itens be paginated' do
+    p1 = Person.first
+    40.times{fast_create(Scrap, :sender_id => p1.id)}
+
+    @controller.stubs(:logged_in?).returns(true)
+    user = mock()
+    user.stubs(:person).returns(p1)
+    user.stubs(:login).returns('some')
+    @controller.stubs(:current_user).returns(user)
+    Person.any_instance.stubs(:follows?).returns(true)
+    assert_equal 40, p1.scraps_received.not_replies.count
+    get :index, :profile => p1.identifier
+    assert_equal 30, assigns(:wall_items).count
+  end
+
+  should "the owner of activity could remove it" do
+    login_as(profile.identifier)
+    at = fast_create(ActionTracker::Record, :user_id => profile.id)
+    atn = fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => at.id)
+    assert_difference ActionTrackerNotification, :count, -1 do
+      post :remove_activity, :profile => profile.identifier, :activity_id => at.id
+    end
+  end
+
+  should "not remove others activities" do
+    login_as(profile.identifier)
+    person = fast_create(Person)
+    at = fast_create(ActionTracker::Record, :user_id => profile.id)
+    atn = fast_create(ActionTrackerNotification, :profile_id => person.id, :action_tracker_id => at.id)
+    count = ActionTrackerNotification
+    assert_difference ActionTrackerNotification, :count, 0 do
+      post :remove_activity, :profile => profile.identifier, :activity_id => at.id
+    end
+  end
+
+  should "be logged in to remove the activity" do
+    at = fast_create(ActionTracker::Record, :user_id => profile.id)
+    atn = fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => at.id)
+    count = ActionTrackerNotification.count
+    post :remove_activity, :profile => profile.identifier, :activity_id => at.id
+    assert_equal count, ActionTrackerNotification.count
+    assert_redirected_to :controller => 'account', :action => 'login'
+  end
+
+  should "not remove an activity of another user" do
+    login_as(profile.identifier)
+    person = fast_create(Person)
+    at = fast_create(ActionTracker::Record, :user_id => profile.id)
+    atn = fast_create(ActionTrackerNotification, :profile_id => person.id, :action_tracker_id => at.id) 
+    count = ActionTrackerNotification.count
+    post :remove_activity, :profile => person.identifier, :activity_id => at.id
+    assert_equal count, ActionTrackerNotification.count
+  end
+
+  should "not show the scrap button on network activity if the user don't follow the user" do
+    login_as(profile.identifier)
+    person = fast_create(Person)
+    at = fast_create(ActionTracker::Record, :user_id => person.id)
+    atn = fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => at.id) 
+    get :index, :profile => profile.identifier
+    assert_no_tag :tag => 'p', :attributes => {:class => 'profile-network-send-message'}
+
+    person.add_friend(profile)
+    get :index, :profile => profile.identifier
+    assert_tag :tag => 'p', :attributes => {:class => 'profile-network-send-message'}
+  end
+
+  should "not show the scrap button on network activity if the user is himself" do
+    login_as(profile.identifier)
+    at = fast_create(ActionTracker::Record, :user_id => profile.id)
+    atn = fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => at.id) 
+    get :index, :profile => profile.identifier
+    assert_no_tag :tag => 'p', :attributes => {:class => 'profile-network-send-message'}
+  end
+
+  should "not show the scrap button on wall activity if the user don't follow the user" do
+    login_as(profile.identifier)
+    person = fast_create(Person)
+    scrap = fast_create(Scrap, :sender_id => person.id, :receiver_id => profile.id)
+    get :index, :profile => profile.identifier
+    assert_no_tag :tag => 'p', :attributes => {:class => 'profile-wall-send-message'}
+
+    person.add_friend(profile)
+    get :index, :profile => profile.identifier
+    assert_tag :tag => 'p', :attributes => {:class => 'profile-wall-send-message'}
+  end
+
+  should "not show the scrap button on wall activity if the user is himself" do
+    login_as(profile.identifier)
+    scrap = fast_create(Scrap, :sender_id => profile.id, :receiver_id => profile.id)
+    get :index, :profile => profile.identifier
+    assert_no_tag :tag => 'p', :attributes => {:class => 'profile-wall-send-message'}
+  end
+
+  should "not show the activities to offline users if the profile is private" do
+    at = fast_create(ActionTracker::Record, :user_id => profile.id)
+    profile.public_profile=false
+    profile.save
+    atn = fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => at.id) 
+    get :index, :profile => profile.identifier
+    assert_equal [at], profile.tracked_actions
+    assert_no_tag :tag => 'li', :attributes => {:id => "profile-activity-item-#{atn.id}"}
+  end
+
+  should "view more scraps paginate the scraps" do
+    login_as(profile.identifier)
+    40.times{fast_create(Scrap, :receiver_id => profile.id)}
+    get :view_more_scraps, :profile => profile.identifier, :page => 2
+    assert_response :success
+    assert_template '_profile_scraps'
+    assert_equal 10, assigns(:scraps).count
+  end
+
+  should "be logged in to access the view_more_scraps action" do
+    get :view_more_scraps, :profile => profile.identifier
+    assert_redirected_to :controller => 'account', :action => 'login'
+  end
+
+  should "view more activities paginated" do
+    login_as(profile.identifier)
+    40.times{ fast_create(ActionTracker::Record, :user_id => profile.id)}
+    assert_equal 40, profile.tracked_actions.count
+    get :view_more_activities, :profile => profile.identifier, :page => 2
+    assert_response :success
+    assert_template '_profile_activities'
+    assert_equal 10, assigns(:activities).count
+  end
+
+  should "be logged in to access the view_more_activities action" do
+    get :view_more_activities, :profile => profile.identifier
+    assert_redirected_to :controller => 'account', :action => 'login'
+  end
+
+  should "view more network activities paginated" do
+    login_as(profile.identifier)
+    at = fast_create(ActionTracker::Record, :user_id => profile.id)
+    40.times{fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => at.id) }
+    assert_equal 40, profile.tracked_notifications.count
+    get :view_more_network_activities, :profile => profile.identifier, :page => 2
+    assert_response :success
+    assert_template '_profile_network_activities'
+    assert_equal 10, assigns(:activities).count
+  end
+
+  should "be logged in to access the view_more_network_activities action" do
+    get :view_more_network_activities, :profile => profile.identifier
+    assert_redirected_to :controller => 'account', :action => 'login'
+  end
+
 end

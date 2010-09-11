@@ -1,5 +1,7 @@
 class Comment < ActiveRecord::Base
-  
+
+  track_actions :leave_comment, :after_create, :keep_params => ["article.title", "article.url", "title", "url", "body"]
+
   validates_presence_of :title, :body
   belongs_to :article, :counter_cache => true
   belongs_to :author, :class_name => 'Person', :foreign_key => 'author_id'

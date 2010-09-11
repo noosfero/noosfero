@@ -414,6 +414,7 @@ module ApplicationHelper
   #
   # If the profile has no image set yet, then a default image is used.
   def profile_image(profile, size=:portrait, opt={})
+    return '' if profile.nil?
     opt[:alt]   ||= profile.name()
     opt[:title] ||= ''
     opt[:class] ||= ''
@@ -515,14 +516,14 @@ module ApplicationHelper
       if profile.kind_of?(Person)
         [
           {_('Home Page') => url_for(profile.url)},
-          {_('Profile') => url_for(profile.public_profile_url)},
+          {_('Wall') => url_for(profile.public_profile_url)},
           {_('Friends') => url_for(:controller => :profile, :action => :friends, :profile => profile.identifier)},
           {_('Communities') => url_for(:controller => :profile, :action => :communities, :profile => profile.identifier)}
         ]
       elsif profile.kind_of?(Community)
         [
           {_('Home Page') => url_for(profile.url)},
-          {_('Profile') => url_for(profile.public_profile_url)},
+          {_('Wall') => url_for(profile.public_profile_url)},
           {_('Members') => url_for(:controller => :profile, :action => :members, :profile => profile.identifier)},
           {_('Agenda') => url_for(:controller => :profile, :action => :events, :profile => profile.identifier)}
         ]
@@ -1027,8 +1028,12 @@ module ApplicationHelper
     link_to_remote(label, options, html_options.merge(:class => 'ui_button fg-button'))
   end
 
+  def jquery_theme
+    theme_option(:jquery_theme) || 'smoothness_mod'
+  end
+
   def jquery_ui_theme_stylesheet_path
-    'jquery.ui/sunny-mod/jquery-ui-1.8.2.custom'
+    'jquery.ui/' + jquery_theme + '/jquery-ui-1.8.2.custom'
   end
 
   def ui_error(message)
@@ -1129,6 +1134,22 @@ module ApplicationHelper
     link_to('<i class="icon-menu-admin"></i><strong>' + _('Administration') + '</strong>', { :controller => 'admin_panel', :action => 'index' }, :id => "controlpanel", :title => _("Configure the environment"), :class => 'admin-link', :style => 'display: none') +
     link_to('<i class="icon-menu-ctrl-panel"></i><strong>' + _('Control panel') + '</strong>', '/myprofile/%{login}', :id => "controlpanel", :title => _("Configure your personal account and content")) +
     link_to('<i class="icon-menu-logout"></i><strong>' + _('Logout') + '</strong>', { :controller => 'account', :action => 'logout'} , :id => "logout", :title => _("Leave the system"))
+  end
+
+  def limited_text_area(object_name, method, limit, text_area_id, options = {})
+    content_tag(:div, [
+      text_area(object_name, method, { :id => text_area_id, :onkeyup => "limited_text_area('#{text_area_id}', #{limit})" }.merge(options)),
+      content_tag(:p, content_tag(:span, limit) + _(' characters left'), :id => text_area_id + '_left'),
+      content_tag(:p, _('Limit of characters reached'), :id => text_area_id + '_limit', :style => 'display: none')
+    ], :class => 'limited-text-area')
+  end
+
+  def pluralize_without_count(count, singular, plural = nil)
+    count == 1 ? singular : (plural || singular.pluralize)
+  end
+
+  def unique_with_count(list, connector = 'for')
+    list.sort.inject(Hash.new(0)){|h,i| h[i] += 1; h }.collect{ |x, n| [n, connector, x].join(" ") }.sort
   end
 
 end

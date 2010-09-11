@@ -484,7 +484,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
     person.stubs(:url).returns('url for person')
     person.stubs(:public_profile_url).returns('url for person')
     links = links_for_balloon(person)
-    assert_equal ['Home Page', 'Profile', 'Friends', 'Communities'], links.map{|i| i.keys.first}
+    assert_equal ['Home Page', 'Wall', 'Friends', 'Communities'], links.map{|i| i.keys.first}
   end
 
   should 'return ordered list of links to balloon to Community' do
@@ -495,7 +495,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
     community.stubs(:url).returns('url for community')
     community.stubs(:public_profile_url).returns('url for community')
     links = links_for_balloon(community)
-    assert_equal ['Home Page', 'Profile', 'Members', 'Agenda'], links.map{|i| i.keys.first}
+    assert_equal ['Home Page', 'Wall', 'Members', 'Agenda'], links.map{|i| i.keys.first}
   end
 
   should 'return ordered list of links to balloon to Enterprise' do
@@ -575,6 +575,16 @@ class ApplicationHelperTest < Test::Unit::TestCase
     filename, mime = profile_icon(Person.new, :thumb, true)
     assert_not_nil filename
     assert_not_nil mime
+  end
+
+  should 'pluralize without count' do
+    assert_equal "tests", pluralize_without_count(2, "test")
+    assert_equal "test", pluralize_without_count(1, "test")
+    assert_equal "testes", pluralize_without_count(2, "test", "testes")
+  end
+
+  should 'unique with count' do
+    assert_equal ["1 for b", "2 for c", "3 for a"], unique_with_count(%w(a b c a c a))
   end
 
   protected

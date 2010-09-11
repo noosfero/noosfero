@@ -265,7 +265,7 @@ table.profile th {
 }
 table.profile td {
   border: none;
-  padding-left: 0px;
+  padding: 0px;
 }
 table.profile tr:hover td {
   background: none;
@@ -4616,4 +4616,262 @@ h1#agenda-title {
   color: gray;
   text-align: center;
   display: block;
+}
+
+#profile-activity ul, #profile-network ul, #profile-wall ul {
+  padding-left: 0;
+  clear: both;
+}
+
+#profile-activity li, #profile-network li, #profile-wall li {
+  display: block;
+  padding: 0;
+  margin-bottom: 8px;
+}
+
+#profile-activity .profile-activity-image, #profile-network .profile-network-image, #profile-wall .profile-wall-image {
+  float: left;
+  width: 100px;
+  height: 80px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid transparent;
+  text-align: center;
+}
+
+#profile-activity .profile-activity-description, #profile-network .profile-network-description, #profile-wall .profile-wall-description {
+  float: left;
+  min-height: 80px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #ccc;
+  width: 355px;
+  overflow: hidden;
+  background-color: #fff;
+  position: relative;
+}
+
+#profile-activity .profile-activity-description .icon-delete span,
+#profile-network .profile-network-description .icon-delete span,
+#profile-wall .profile-wall-description .icon-delete span {
+  display: none;
+}
+
+#profile-activity .profile-activity-description .icon-delete,
+#profile-network .profile-network-description .icon-delete,
+#profile-wall .profile-wall-description .icon-delete {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background-position: center center;
+}
+
+#profile-activity .profile-activity-text, #profile-network .profile-network-text, #profile-wall .profile-wall-text {
+  font-size: 13px;
+  margin: 5px;
+  padding-top: 15px;
+}
+
+#profile-wall .profile-wall-text {
+  padding-top: 0;
+}
+
+#profile-activity .profile-activity-time, #profile-network .profile-network-time, #profile-wall .profile-wall-time {
+  font-size: 11px;
+  margin: 5px;
+  color: #333;
+}
+
+#profile-activity hr, #profile-network hr, #profile-wall hr {
+  clear: both;
+  border: 0;
+}
+
+#profile-activity .profile-activity-send-message, #profile-network .profile-network-send-message, #profile-wall .profile-wall-send-message {
+  text-decoration: none;
+  font-size: 11px;
+  color: #000;
+  margin: 10px 0 0 0;
+}
+
+#profile-activity .profile-activity-send-message a, #profile-network .profile-network-send-message a, #profile-wall .profile-wall-send-message a {
+  text-decoration: none;
+}
+
+#profile-activity .profile-activity-text img, #profile-network .profile-network-text img, #profile-wall .profile-wall-text img {
+  padding: 1px;
+  border: 1px solid #ccc;
+  margin: 4px 3px 0 0;
+}
+
+.profile-wall-image,
+.leave_scrap_to_self .profile-network-image,
+.leave_scrap .profile-network-image,
+.leave_scrap_to_self .profile-activity-image,
+.leave_scrap .profile-activity-image {
+  background: transparent url(/images/scrap-bg.png) 104% 10px no-repeat;
+  position: relative;
+  left: 1px;
+  z-index: 2;
+}
+
+#leave_scrap_content {
+  width: 450px;
+  border: 1px solid #ccc;
+  padding: 2px;
+}
+
+#profile-network .upload_image .profile-network-text span,
+#profile-activity .upload_image .profile-activity-text span {
+  width: 109px;
+  height: 109px;
+  overflow: hidden;
+  display: inline-block;
+  padding: 0;
+  margin: 4px 3px 0 0;
+  text-align: center;
+}
+
+#profile-network .upload_image .profile-network-text img,
+#profile-activity .upload_image .profile-activity-text img {
+  padding: 0;
+  border: 0;
+  margin: 0;
+}
+
+#leave_scrap_response {
+  font-size: 12px;
+  text-align: right;
+  font-weight: bold;
+  color: #333;
+  margin: 4px;
+}
+
+.profile-network-message-response, .profile-wall-message-response {
+  color: #204a87;
+  padding: 4px;
+  color: #333;
+  text-align: right;
+  font-size: 12px;
+}
+
+.profile-wall-sender,
+.profile-wall-time,
+.profile-wall-description,
+.profile-activity-sender,
+.profile-activity-time,
+.profile-activity-description,
+.profile-network-sender,
+.profile-network-time,
+.profile-network-description {
+  padding-left: 5px;
+}
+
+.profile-network-sender,
+.profile-wall-sender {
+  margin: 2px 0;
+}
+
+#profile-activity .profile-activity-time,
+#profile-network .profile-network-time,
+#profile-wall .profile-wall-time {
+  margin: 0;
+}
+
+#profile-network textarea,
+#profile-wall textarea {
+  margin: 4px 0;
+  width: 453px;
+  border: 1px solid #ccc;
+  padding: 2px;
+  overflow: hidden;
+}
+
+.profile-network-message,
+.profile-wall-message {
+  margin: 0;
+}
+
+.profile-send-message {
+  color: #555;
+  border: 1px solid #ccc;
+  background-color: #eee;
+  padding: 4px 4px 4px 20px;
+  background-repeat: no-repeat;
+  background-position: 4px center;
+}
+
+.ui-widget-content .profile-send-message:hover,
+.profile-send-message:hover {
+  color: #eee;
+  background-color: #555;
+}
+
+.limited-text-area p {
+  margin: 0;
+  font-size: 11px;
+  color: #333;
+  text-align: right;
+}
+
+#leave_scrap input.button {
+  float: right;
+  margin-bottom: 10px;
+}
+
+#leave_scrap_content_limit,
+#leave_scrap_content_left {
+  float: left;
+}
+
+#leave_scrap {
+  float: left;
+  padding: 4px;
+  border: 1px dotted #aaa;
+  margin-bottom: 10px;
+}
+
+#leave_scrap textarea {
+  width: 440px;
+  overflow: hidden;
+}
+
+.profile-send-reply {
+  background-color: #eee;
+  border: 1px solid #aaa;
+  padding: 2px;
+  padding-left: 20px;
+  background-repeat: no-repeat;
+  background-position: 2px center;
+  color: #aaa;
+  text-decoration: none;
+  margin-left: 8px;
+}
+
+#content .profile-send-reply:hover {
+  text-decoration: none;
+}
+
+#profile-wall .profile-wall-description .profile-wall-image {
+  background-image: url(/images/scrap-bg-gray.png);
+}
+
+#profile-wall .profile-wall-description .profile-wall-description {
+  width: 242px;
+  background-color: #eee;
+}
+
+#profile-network .profile-wall-description textarea,
+#profile-wall .profile-wall-description textarea {
+  width: 338px;
+  margin-left: 2px;
+}
+
+#profile-network .profile-wall-description .limited-text-area p,
+#profile-wall .profile-wall-description .limited-text-area p {
+  margin-right: 10px;
+}
+
+.limited-text-area div.fieldWithErrors {
+  background: transparent;
 }

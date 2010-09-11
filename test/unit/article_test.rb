@@ -918,4 +918,80 @@ class ArticleTest < Test::Unit::TestCase
     assert_equal '', a.lead
   end
 
+  should 'track action when a published article is created outside a community' do
+    article = Article.create! :name => 'Tracked Article', :profile_id => profile.id
+    assert article.published?
+    assert_kind_of Person, article.profile
+    ta = ActionTracker::Record.last
+    assert_equal 'Tracked Article', ta.get_name.last
+    assert_equal article.url, ta.get_url.last
+    assert_kind_of Person, ta.user
+    ta.back_in_time(26.hours)
+    article = Article.create! :name => 'Another Tracked Article', :profile_id => profile.id
+    ta = ActionTracker::Record.last
+    assert_equal ['Another Tracked Article'], ta.get_name
+    assert_equal [article.url], ta.get_url
+  end
+
+  should 'track action when a published article is created in a community' do
+    community = fast_create(Community)
+    p1 = ActionTracker::Record.current_user_from_model 
+    p2 = fast_create(Person)
+    p3 = fast_create(Person)
+    community.add_member(p1)
+    community.add_member(p2)
+    assert p1.is_member_of?(community)
+    assert p2.is_member_of?(community)
+    assert !p3.is_member_of?(community)
+    Article.destroy_all
+    ActionTracker::Record.destroy_all
+    article = Article.create! :name => 'Tracked Article', :profile_id => community.id
+    assert article.published?
+    assert_kind_of Community, article.profile
+    ta = ActionTracker::Record.last
+    assert_equal 'Tracked Article', ta.get_name.last
+    assert_equal article.url, ta.get_url.last
+    assert_kind_of Person, ta.user
+    process_delayed_job_queue
+    assert_equal 3, ActionTrackerNotification.count
+    ActionTrackerNotification.all.map{|a|a.profile}.map do |profile|
+      assert [p1,p2,community].include?(profile)
+    end
+  end
+
+  should 'track action when a published article is updated' do
+    a = Article.create! :name => 'a', :profile_id => profile.id
+    a.update_attributes! :name => 'b'
+    ta = ActionTracker::Record.last
+    assert_equal ['b'], ta.get_name
+    assert_equal [a.reload.url], ta.get_url
+    a.update_attributes! :name => 'c'
+    ta = ActionTracker::Record.last
+    assert_equal ['b','c'], ta.get_name
+    assert_equal [a.url,a.reload.url], ta.get_url
+    a.update_attributes! :body => 'test'
+    ta = ActionTracker::Record.last
+    assert_equal ['b','c','c'], ta.get_name
+    assert_equal [a.url,a.reload.url,a.reload.url], ta.get_url
+    a.update_attributes! :hits => 50
+    ta = ActionTracker::Record.last
+    assert_equal ['b','c','c'], ta.get_name
+    assert_equal [a.url,a.reload.url,a.reload.url], ta.get_url
+  end
+
+  should 'track action when a published article is removed' do
+    a = Article.create! :name => 'a', :profile_id => profile.id
+    a.destroy
+    ta = ActionTracker::Record.last
+    assert_equal ['a'], ta.get_name
+    a = Article.create! :name => 'b', :profile_id => profile.id
+    a.destroy
+    ta = ActionTracker::Record.last
+    assert_equal ['a','b'], ta.get_name
+    a = Article.create! :name => 'c', :profile_id => profile.id, :published => false
+    a.destroy
+    ta = ActionTracker::Record.last
+    assert_equal ['a','b'], ta.get_name
+  end
+
 end

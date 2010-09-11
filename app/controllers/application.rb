@@ -93,7 +93,15 @@ class ApplicationController < ActionController::Base
     verify :method => :post, :only => actions, :redirect_to => redirect
   end
 
+  helper_method :current_person, :current_person
+
   protected
+
+  def user
+    current_user.person if logged_in?
+  end
+  
+  alias :current_person :user
 
   # TODO: move this logic somewhere else (Domain class?)
   def detect_stuff_by_domain
@@ -124,10 +132,6 @@ class ApplicationController < ActionController::Base
     @message = message
     @title = title
     render :template => 'shared/access_denied.rhtml', :status => 403
-  end
-
-  def user
-    current_user.person if logged_in?
   end
 
   def load_category

@@ -4,6 +4,8 @@
 # of the file itself is kept. (FIXME?)
 class UploadedFile < Article
 
+  track_actions :upload_image, :after_create, :keep_params => ["view_url", "thumbnail_path", "parent.url", "parent.name"], :if => Proc.new { |a| a.published? && a.image? && !a.parent.nil? && a.parent.display_as_gallery? }
+
   include ShortFilename
 
   settings_items :title, :type => 'string'
@@ -13,6 +15,10 @@ class UploadedFile < Article
   alias_method_chain :title, :default
 
   validates_size_of :title, :maximum => 60, :if => (lambda { |file| !file.title.blank? })
+
+  def thumbnail_path
+    self.image? ? self.full_filename(:thumb).gsub(File.join(RAILS_ROOT, 'public'), '') : nil
+  end
 
   def display_title
     title.blank? ? name : title

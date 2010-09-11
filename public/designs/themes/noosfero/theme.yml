@@ -1,3 +1,4 @@
 theme: "Noosfero default theme"
 layout: "application-ng"
+jquery_theme: "smoothness_mod"
 icon_theme: [default, pidgin]

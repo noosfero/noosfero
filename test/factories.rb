@@ -1,7 +1,7 @@
 module Noosfero::Factory
 
   def fast_create(name, attrs = {}, options = {})
-    data = defaults_for(name).merge(attrs)
+    data = defaults_for(name.to_s.gsub('::','')).merge(attrs)
     klass = name.to_s.camelize.constantize
     if klass.superclass != ActiveRecord::Base
       data[:type] = klass.to_s
@@ -359,5 +359,45 @@ module Noosfero::Factory
   ###############################################
 
   alias :defaults_for_certifier :defaults_for_qualifier
+
+  ###############################################
+  # Scrap
+  ###############################################
+
+  def defaults_for_scrap(params = {})
+    { :content => 'soment content ', :sender_id => 1, :receiver_id => 1, :created_at => DateTime.now }.merge(params)
+  end
+
+  ###############################################
+  # ActionTrackerNotification
+  ###############################################
+
+  def defaults_for_action_tracker_notification(params = {})
+    { :action_tracker_id => 1, :profile_id => 1 }.merge(params)
+  end
+
+  ###############################################
+  # ActionTracker
+  ###############################################
+
+  def defaults_for_action_tracker_record(params = {})
+    { :created_at => DateTime.now, :verb => :leave_comment, :user_type => 'Profile', :user_id => 1 }.merge(params)
+  end
+
+  ###############################################
+  # Friendship
+  ###############################################
+
+  def defaults_for_friendship(params = {})
+    { :created_at => DateTime.now, :person_id => 1, :friend_id => 2 }.merge(params)
+  end
+
+  ###############################################
+  # RoleAssignment
+  ###############################################
+
+  def defaults_for_role_assignment(params = {})
+    { :role_id => 1, :accessor_id => 1, :accessor_type => 'Profile', :resource_id => 2, :resource_type => 'Profile' }.merge(params)
+  end
 
 end

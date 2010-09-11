@@ -123,9 +123,7 @@ class RssFeedTest < Test::Unit::TestCase
     feed.profile = profile
     feed.save!
 
-    profile.environment.expects(:default_hostname).returns('mysite.net').at_least_once
-
-    assert_match "<link>http://mysite.net/testuser</link>", feed.data
+    assert_match "<link>http://colivre.net/testuser</link>", feed.data
   end
 
   should 'provide link to each article' do

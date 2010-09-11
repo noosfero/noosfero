@@ -1,0 +1,14 @@
+=============
+ActionTracker
+=============
+Installation
+=============
+$ ./script/generate action_tracker
+
+The migration will be created.
+
+$ rake db:migrate
+
+The table will be created.
+
+Copyright (c) 2010 Caio SBA <caiosba@gmail.com>, released under the MIT license

@@ -545,3 +545,29 @@ jQuery(function($) {
      $('body').addClass('webkit');
    }
 });
+
+function hide_and_show(hide_elements, show_elements) {
+  for(i=0; i < hide_elements.length; i++){
+    jQuery(hide_elements[i]).hide();
+  }
+  for(i=0; i < show_elements.length; i++){
+    jQuery(show_elements[i]).show();
+  }
+}
+
+function limited_text_area(textid, limit) {
+  var text = jQuery('#' + textid).val();
+  jQuery('#' + textid).css('height', jQuery('#' + textid).attr('scrollHeight') + 'px');
+  var textlength = text.length;
+  jQuery('#' + textid + '_left span').html(limit - textlength);
+  if (textlength > limit) {
+    jQuery('#' + textid + '_left').hide();
+    jQuery('#' + textid + '_limit').show();
+    jQuery('#' + textid).val(text.substr(0,limit));
+    return false;
+  } else {
+    jQuery('#' + textid + '_left').show();
+    jQuery('#' + textid + '_limit').hide();
+    return true;
+  }
+}
