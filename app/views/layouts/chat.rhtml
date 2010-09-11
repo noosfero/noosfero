@@ -12,9 +12,9 @@
     <%= stylesheet_link_tag jquery_ui_theme_stylesheet_path %>
     <script type='text/javascript'>
       var $presence_status_label = {
-        chat: '<%= _('Chat online') %>',
-        dnd: '<%= _('Chat busy') %>',
-        '': '<%= _('Chat offline') %>'
+        chat: '<%= _('Online') %>',
+        dnd: '<%= _('Busy') %>',
+        '': '<%= _('Offline') %>'
       };
       var $own_name = '<%= user.name %>';
       var $starting_chat_notify = '<%= _("starting chat with %{name}") %>';
@@ -29,7 +29,7 @@
         <%= image_tag "#{theme_path}/images/thin-logo.png", :title => environment.name, :alt => environment.name %>
       </div>
       <div class='toolbar'>
-        <div id='user-status'><%= user_status_menu('icon-menu-offline', _('Chat offline')) %></div>
+        <div id='user-status'><%= user_status_menu('icon-menu-offline', _('Offline')) %></div>
         <div class='dialog-error' style='display: none'></div>
       </div>
       <ul class='buddy-list'>

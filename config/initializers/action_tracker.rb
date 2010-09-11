@@ -36,7 +36,7 @@ ActionTrackerConfig.verbs = {
     :type => :groupable
   },
   :leave_comment => {
-    :description => _('has left the following comment "%s" on the article %s: <br /> "%s" (%s)') % ["{{truncate(ta.get_title)}}", "{{link_to(truncate(ta.get_article_title), ta.get_article_url)}}", "{{truncate(ta.get_body, 50)}}", "{{link_to(_('read'), ta.get_url)}}"]
+    :description => _('has left a comment entitled "%s" on the article %s: <br /> "%s" (%s)') % ["{{truncate(ta.get_title)}}", "{{link_to(truncate(ta.get_article_title), ta.get_article_url)}}", "{{truncate(ta.get_body, 50)}}", "{{link_to(_('read'), ta.get_url)}}"]
   },
   :leave_scrap => {
     :description => _('sent a message to %s: <br /> "%s"') % ["{{link_to(ta.get_receiver_name, ta.get_receiver_url)}}", "{{auto_link_urls(ta.get_content)}}"]

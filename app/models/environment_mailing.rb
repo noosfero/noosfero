@@ -15,7 +15,7 @@ class EnvironmentMailing < Mailing
   end
 
   def signature_message
-    _('Sent by Noosfero %s.') % source.name
+    _('Sent by %s.') % source.name
   end
 
   def url
