@@ -4579,6 +4579,9 @@ h1#agenda-title {
   margin: 0.4em 0.5em 0 0;
   cursor: pointer;
 }
+#chat .ui-tabs .ui-tabs-panel {
+  border: none;
+}
 #chat #log {
    border: 1px solid ;
    padding: 10px;
