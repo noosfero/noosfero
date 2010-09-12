@@ -21,6 +21,9 @@ HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
+
+The icons above are based in Debian pidgin-data package package version 2.4.3
+
 */
 
 var emoticons = {
@@ -37,7 +40,7 @@ var emoticons = {
          }
       },
       "::bigSmile": {
-         "image": "excited.png",
+         "image": "smile-big.png",
          "emotes": {
             ":D": "",
             "=D": "",
@@ -45,7 +48,7 @@ var emoticons = {
          }
       },
       "::shock": {
-         "image": "shocked.png",
+         "image": "shock.png",
          "emotes": {
             ":O":  "",
             ":0":  "",
@@ -91,7 +94,7 @@ var emoticons = {
          }
       },
       "::love": {
-         "image": "in_love.png",
+         "image": "in-love.png",
          "emotes": {
             "<3":   "",
             "<333": ""
