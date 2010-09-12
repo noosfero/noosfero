@@ -15,4 +15,8 @@ class TinyMceArticle < TextArticle
   include WhiteListFilter
   filter_iframes :abstract, :body, :whitelist => lambda { profile && profile.environment && profile.environment.trusted_sites_for_iframe }
 
+  def notifiable?
+    true
+  end
+
 end

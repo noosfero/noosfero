@@ -919,7 +919,7 @@ class ArticleTest < Test::Unit::TestCase
   end
 
   should 'track action when a published article is created outside a community' do
-    article = Article.create! :name => 'Tracked Article', :profile_id => profile.id
+    article = TinyMceArticle.create! :name => 'Tracked Article', :profile_id => profile.id
     assert article.published?
     assert_kind_of Person, article.profile
     ta = ActionTracker::Record.last
@@ -927,7 +927,7 @@ class ArticleTest < Test::Unit::TestCase
     assert_equal article.url, ta.get_url.last
     assert_kind_of Person, ta.user
     ta.back_in_time(26.hours)
-    article = Article.create! :name => 'Another Tracked Article', :profile_id => profile.id
+    article = TinyMceArticle.create! :name => 'Another Tracked Article', :profile_id => profile.id
     ta = ActionTracker::Record.last
     assert_equal ['Another Tracked Article'], ta.get_name
     assert_equal [article.url], ta.get_url
@@ -945,7 +945,7 @@ class ArticleTest < Test::Unit::TestCase
     assert !p3.is_member_of?(community)
     Article.destroy_all
     ActionTracker::Record.destroy_all
-    article = Article.create! :name => 'Tracked Article', :profile_id => community.id
+    article = TinyMceArticle.create! :name => 'Tracked Article', :profile_id => community.id
     assert article.published?
     assert_kind_of Community, article.profile
     ta = ActionTracker::Record.last
@@ -960,7 +960,7 @@ class ArticleTest < Test::Unit::TestCase
   end
 
   should 'track action when a published article is updated' do
-    a = Article.create! :name => 'a', :profile_id => profile.id
+    a = TinyMceArticle.create! :name => 'a', :profile_id => profile.id
     a.update_attributes! :name => 'b'
     ta = ActionTracker::Record.last
     assert_equal ['b'], ta.get_name
@@ -980,18 +980,44 @@ class ArticleTest < Test::Unit::TestCase
   end
 
   should 'track action when a published article is removed' do
-    a = Article.create! :name => 'a', :profile_id => profile.id
+    a = TinyMceArticle.create! :name => 'a', :profile_id => profile.id
     a.destroy
     ta = ActionTracker::Record.last
     assert_equal ['a'], ta.get_name
-    a = Article.create! :name => 'b', :profile_id => profile.id
+    a = TinyMceArticle.create! :name => 'b', :profile_id => profile.id
     a.destroy
     ta = ActionTracker::Record.last
     assert_equal ['a','b'], ta.get_name
-    a = Article.create! :name => 'c', :profile_id => profile.id, :published => false
+    a = TinyMceArticle.create! :name => 'c', :profile_id => profile.id, :published => false
     a.destroy
     ta = ActionTracker::Record.last
     assert_equal ['a','b'], ta.get_name
+  end
+
+  should 'notifiable is false by default' do
+    a = fast_create(Article)
+    assert !a.notifiable?
+  end
+
+  should 'not notify activity by default on create' do
+    ActionTracker::Record.delete_all
+    Article.create! :name => 'test', :profile_id => fast_create(Profile).id, :published => true
+    assert_equal 0, ActionTracker::Record.count
+  end
+
+  should 'not notify activity by default on update' do
+    ActionTracker::Record.delete_all
+    a = Article.create! :name => 'bar', :profile_id => fast_create(Profile).id, :published => true
+    a.name = 'foo'
+    a.save!
+    assert_equal 0, ActionTracker::Record.count
+  end
+
+  should 'not notify activity by default on destroy' do
+    ActionTracker::Record.delete_all
+    a = Article.create! :name => 'bar', :profile_id => fast_create(Profile).id, :published => true
+    a.destroy
+    assert_equal 0, ActionTracker::Record.count
   end
 
 end

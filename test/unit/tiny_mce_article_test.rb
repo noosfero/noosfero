@@ -118,4 +118,32 @@ class TinyMceArticleTest < Test::Unit::TestCase
     assert_no_match /script/, article.name
   end
 
+  should 'notifiable be true' do
+    a = fast_create(TinyMceArticle)
+    assert a.notifiable?
+  end
+
+  should 'notify activity on create' do
+    ActionTracker::Record.delete_all
+    TinyMceArticle.create! :name => 'test', :profile_id => fast_create(Profile).id, :published => true
+    assert_equal 1, ActionTracker::Record.count
+  end
+
+  should 'notify activity on update' do
+    ActionTracker::Record.delete_all
+    a = TinyMceArticle.create! :name => 'bar', :profile_id => fast_create(Profile).id, :published => true
+    assert_equal 1, ActionTracker::Record.count
+    a.name = 'foo'
+    a.save!
+    assert_equal 2, ActionTracker::Record.count
+  end
+
+  should 'notify activity on destroy' do
+    ActionTracker::Record.delete_all
+    a = TinyMceArticle.create! :name => 'bar', :profile_id => fast_create(Profile).id, :published => true
+    assert_equal 1, ActionTracker::Record.count
+    a.destroy
+    assert_equal 2, ActionTracker::Record.count
+  end
+
 end

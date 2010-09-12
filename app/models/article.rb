@@ -2,10 +2,10 @@ require 'hpricot'
 
 class Article < ActiveRecord::Base
 
-  track_actions :create_article, :after_create, :keep_params => [:name, :url], :if => Proc.new { |a| a.published? && !a.profile.is_a?(Community) && !a.image? }
-  track_actions :update_article, :before_update, :keep_params => [:name, :url], :if => Proc.new { |a| a.published? && (a.body_changed? || a.name_changed?) }
-  track_actions :remove_article, :before_destroy, :keep_params => [:name], :if => :published?
-  track_actions :publish_article_in_community, :after_create, :keep_params => ["name", "url", "profile.url", "profile.name"], :if => Proc.new { |a| a.published? && a.profile.is_a?(Community) && !a.image? }
+  track_actions :create_article, :after_create, :keep_params => [:name, :url], :if => Proc.new { |a| a.published? && !a.profile.is_a?(Community) && !a.image? && a.notifiable? }
+  track_actions :update_article, :before_update, :keep_params => [:name, :url], :if => Proc.new { |a| a.published? && (a.body_changed? || a.name_changed?) && a.notifiable? }
+  track_actions :remove_article, :before_destroy, :keep_params => [:name], :if => Proc.new { |a| a.published? && a.notifiable? }
+  track_actions :publish_article_in_community, :after_create, :keep_params => ["name", "url", "profile.url", "profile.name"], :if => Proc.new { |a| a.published? && a.profile.is_a?(Community) && !a.image? && a.notifiable? }
 
   # xss_terminate plugin can't sanitize array fields
   before_save :sanitize_tag_list
@@ -358,6 +358,10 @@ class Article < ActiveRecord::Base
   def creator
     creator_id = versions[0][:last_changed_by_id]
     creator_id && Profile.find(creator_id)
+  end
+
+  def notifiable?
+    false
   end
 
   private
