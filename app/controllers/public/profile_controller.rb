@@ -5,7 +5,6 @@ class ProfileController < PublicController
   before_filter :store_before_join, :only => [:join]
   before_filter :login_required, :only => [:join, :leave, :unblock, :leave_scrap, :remove_scrap, :remove_activity, :view_more_scraps, :view_more_activities, :view_more_network_activities]
 
-
   helper TagsHelper
 
   def index
@@ -172,8 +171,8 @@ class ProfileController < PublicController
 
   def remove_activity
     begin
-      activity = current_user.person.tracked_actions.find(params[:activity_id])
-      ActionTrackerNotification.find(:first, :conditions => {:profile_id => current_user.person, :action_tracker_id => activity}).destroy
+      activity = current_person.tracked_actions.find(params[:activity_id])
+      activity.destroy
       render :text => _('Activity successfully removed.')
     rescue
       render :text => _('You could not remove this activity')

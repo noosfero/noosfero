@@ -778,10 +778,11 @@ class ProfileControllerTest < Test::Unit::TestCase
 
   should "not remove an scrap of another user" do
     login_as(profile.identifier)
-    person = fast_create(Person)
-    scrap = fast_create(Scrap, :receiver_id => person.id) 
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+    scrap = fast_create(Scrap, :sender_id => p1.id, :receiver_id => p2.id)
     count = Scrap.count
-    post :remove_scrap, :profile => person.identifier, :scrap_id => scrap.id
+    post :remove_scrap, :profile => p2.identifier, :scrap_id => scrap.id
     assert_equal count, Scrap.count
   end
 
@@ -962,6 +963,7 @@ class ProfileControllerTest < Test::Unit::TestCase
     a3 = ActionTracker::Record.last
 
     login_as(profile.identifier)
+    ActionTracker::Record.delete_all
     get :index, :profile => p1.identifier
     assert_equal [], assigns(:network_activities)
     assert_response :success
@@ -1070,19 +1072,18 @@ class ProfileControllerTest < Test::Unit::TestCase
   should "the owner of activity could remove it" do
     login_as(profile.identifier)
     at = fast_create(ActionTracker::Record, :user_id => profile.id)
-    atn = fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => at.id)
-    assert_difference ActionTrackerNotification, :count, -1 do
+    assert_difference ActionTracker::Record, :count, -1 do
       post :remove_activity, :profile => profile.identifier, :activity_id => at.id
     end
   end
 
-  should "not remove others activities" do
+  should "remove the network activities dependent an ActionTracker::Record" do
     login_as(profile.identifier)
     person = fast_create(Person)
     at = fast_create(ActionTracker::Record, :user_id => profile.id)
     atn = fast_create(ActionTrackerNotification, :profile_id => person.id, :action_tracker_id => at.id)
     count = ActionTrackerNotification
-    assert_difference ActionTrackerNotification, :count, 0 do
+    assert_difference ActionTrackerNotification, :count, -1 do
       post :remove_activity, :profile => profile.identifier, :activity_id => at.id
     end
   end
@@ -1098,11 +1099,11 @@ class ProfileControllerTest < Test::Unit::TestCase
 
   should "not remove an activity of another user" do
     login_as(profile.identifier)
-    person = fast_create(Person)
-    at = fast_create(ActionTracker::Record, :user_id => profile.id)
-    atn = fast_create(ActionTrackerNotification, :profile_id => person.id, :action_tracker_id => at.id) 
+    p1 = fast_create(Person)
+    at = fast_create(ActionTracker::Record, :user_id => p1.id)
+    atn = fast_create(ActionTrackerNotification, :profile_id => p1.id, :action_tracker_id => at.id) 
     count = ActionTrackerNotification.count
-    post :remove_activity, :profile => person.identifier, :activity_id => at.id
+    post :remove_activity, :profile => profile.identifier, :activity_id => at.id
     assert_equal count, ActionTrackerNotification.count
   end
 
