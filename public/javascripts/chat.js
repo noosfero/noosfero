@@ -50,11 +50,21 @@ jQuery(function($) {
         $('#' + jid_id).parent('li').remove();
      },
 
+     render_body_message: function(body) {
+        body = $().emoticon(body);
+        body = linkify(body, {
+           callback: function(text, href) {
+              return href ? '<a href="' + href + '" title="' + href + '" target="_blank">' + text + '</a>' : text;
+           }
+        });
+        return body;
+     },
+
      show_message: function (jid, body, who) {
          jid_id = Jabber.jid_to_id(jid);
          if (body) {
             var tab_id = '#' + Jabber.tab_prefix + jid_id;
-            body = $().emoticon(body);
+            body = Jabber.render_body_message(body);
             if ($(tab_id).find('.message').length > 0 && $(tab_id).find('.message:last').hasClass(who)) {
                $(tab_id).find('.history').find('.message:last').append('<p>' + body + '</p>');
             }
@@ -75,7 +85,7 @@ jQuery(function($) {
                  .replace('%{avatar_url}', '/chat/avatar/' + identifier);
                $('#' + Jabber.tab_prefix + jid_id).find('.history').append(message_html);
             }
-            $(tab_id).find('.history').scrollTo('100%');
+            $(tab_id).find('.history').scrollTo({top:'100%', left:'0%'});
             if (who === "other" && $(tab_id).find('.history:visible').length == 0) {
                count_unread_messages(jid_id);
             }
@@ -361,7 +371,7 @@ jQuery(function($) {
          // TODO notify window close
       },
       show: function(event, ui) {
-         $(ui.panel).find('.history').scrollTo('100%');
+         $(ui.panel).find('.history').scrollTo({top:'100%', left:'0%'});
          $(ui.panel).find('textarea').focus();
          var jid_id = ui.panel.id.replace('conversation-', '');
          count_unread_messages(jid_id, true);

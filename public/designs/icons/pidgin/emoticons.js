@@ -1,5 +1,5 @@
 /* Copyright (c) 2010 Colivre - www.colivre.coop.br
-/* Copyright (c) 2009 Marak Squires - www.maraksquires.com
+   Copyright (c) 2009 Marak Squires - www.maraksquires.com
  
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation
@@ -24,93 +24,128 @@ OTHER DEALINGS IN THE SOFTWARE.
 */
 
 var emoticons = {
-  "image_path": '/designs/icons/pidgin/pidgin/emotes/default/',
-	"emoticon": {
-		"::smile": {
-			"image": "mean.png",
-			"emotes": {
-				":-)": "",
-				":)": "",
-				":]": "",
-				"=]": "",
-				"=)": ""
-			}
-		},
-		"::bigSmile": {
-			"image": "excited.png",
-			"emotes": {
-				":D": "",
-				"=D": "",
-				":-D": "",
-				"XD": "",
-				"BD": ""
-			}
-		},
-		"::shock": {
-			"image": "shocked.png",
-			"emotes": {
-					":O": "",
-					":0": "",
-					"=O": "",
-					":-0": "",
-					":-O": ""
-
-			}
-		},
-		"::frown": {
-			"image": "sad.png",
-			"emotes": {
-				":-(": "",
-				"=(": "",
-				":[": "",
-				":<": "",
-				"=[": "",
-				":(": "",
-				":-\\": ""
-			}
-		},
-		"::tongue": {
-			"image": "tongue.png",
-			"emotes": {
-				":P": "",
-				"=P": "",
-				"XP": "",
-			}
-		},
-		"::bored": {
-			"image": "thinking.png",
-			"emotes": {
-				"=I": "",
-				":/": "",
-				":-\\": "",
-		    ":|": ""
-		}
-		},
-		"::wink": {
-			"image": "wink.png",
-			"emotes": {
-				";-)": "",
-				";)": "",
-				";]": ""
-			}
-		},
-		"::love": {
-			"image": "rose.png",
-				"emotes": {
-					"<3": "",
-					"<3": "",
-					"S2": "",
-					":3": ""
-				}
-			}
-		,
-		"::confused": {
-			"image": "confused.png",
-			"emotes": {
-				":S": "",
-				"=S": "",
-				":\?": ""
-			}
-		}
-	}
+   "image_path": '/designs/icons/pidgin/pidgin/emotes/default/',
+   "emoticon": {
+      "::smile": {
+         "image": "mean.png",
+         "emotes": {
+            ":-)": "",
+            ":)": "",
+            ":]": "",
+            "=]": "",
+            "=)": ""
+         }
+      },
+      "::bigSmile": {
+         "image": "excited.png",
+         "emotes": {
+            ":D": "",
+            "=D": "",
+            ":-D": ""
+         }
+      },
+      "::shock": {
+         "image": "shocked.png",
+         "emotes": {
+            ":O":  "",
+            ":0":  "",
+            "=O":  "",
+            ":-0": "",
+            ":-O": ""
+         }
+      },
+      "::frown": {
+         "image": "sad.png",
+         "emotes": {
+            ":-(":  "",
+            "=(":   "",
+            ":[":   "",
+            ":<":   "",
+            "=[":   "",
+            ":(":   "",
+            ":-\\": ""
+         }
+      },
+      "::tongue": {
+         "image": "tongue.png",
+         "emotes": {
+            ":P":  "",
+            ":-P": "",
+            "=P":  ""
+         }
+      },
+      "::bored": {
+         "image": "thinking.png",
+         "emotes": {
+            "=I":   "",
+            ":/":   "",
+            ":-\\": "",
+            ":|":   ""
+         }
+      },
+      "::wink": {
+         "image": "wink.png",
+         "emotes": {
+            ";-)": "",
+            ";)":  "",
+            ";]":  ""
+         }
+      },
+      "::love": {
+         "image": "in_love.png",
+         "emotes": {
+            "<3":   "",
+            "<333": ""
+         }
+      },
+      "::confused": {
+         "image": "confused.png",
+         "emotes": {
+            ":S":  "",
+            "=S":  "",
+            ":\?": ""
+         }
+      },
+      "::crying": {
+         "image": "crying.png",
+         "emotes": {
+            ":'(": "",
+            ";*(": ""
+         }
+      },
+      "::kiss": {
+         "image": "kiss.png",
+         "emotes": {
+            ":-*": "",
+            ":*":  ""
+         }
+      },
+      "::evil": {
+         "image": "devil.png",
+         "emotes": {
+            ">:)":  "",
+            ">;)":  "",
+            ">:-)": ""
+         }
+      },
+      "::nolove": {
+         "image": "love-over.png",
+         "emotes": {
+            "</3": ""
+         }
+      },
+      "::praise": {
+         "image": "victory.png",
+         "emotes": {
+            "\\o/": ""
+         }
+      },
+      "::angel": {
+         "image": "angel.png",
+         "emotes": {
+            "O:-)": "",
+            "O:)":  ""
+         }
+      }
+   }
 };

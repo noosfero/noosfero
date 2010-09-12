@@ -4536,6 +4536,9 @@ h1#agenda-title {
   overflow-y: scroll;
   padding-top: 5px;
 }
+.msie7 #chat-window .conversation .history {
+  overflow-x: hidden;
+}
 #chat .unread-messages {
   background: red;
   position: absolute;
