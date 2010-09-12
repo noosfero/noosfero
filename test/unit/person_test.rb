@@ -907,7 +907,7 @@ class PersonTest < Test::Unit::TestCase
     article.stubs(:profile).returns(community)
     ActionTrackerNotification.delete_all
 
-    assert_difference(Delayed::Job, :count, 2) do
+    assert_difference(Delayed::Job, :count, 1) do
       Person.notify_activity(action_tracker)
     end
     ActionTrackerNotification.all.map{|a|a.profile}.map do |profile|

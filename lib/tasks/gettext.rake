@@ -33,7 +33,7 @@ task :updatepo do
 
   sources =
     Dir.glob("{app,lib}/**/*.{rb,rhtml,erb}") +
-    Dir.blog('config/initializers/*.rb')
+    Dir.glob('config/initializers/*.rb')
     Dir.glob('public/*.html.erb') +
     Dir.glob('public/designs/themes/{base,noosfero}/*.{rhtml,html.erb}')
   GetText.update_pofiles(Noosfero::PROJECT, sources, "#{Noosfero::PROJECT} #{Noosfero::VERSION}")

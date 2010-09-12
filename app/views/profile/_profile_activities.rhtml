@@ -4,7 +4,7 @@
       <%= link_to(profile_image(activity.user, :minor), activity.user.url) %>
     </div>
     <div class='profile-activity-description'>
-      <p class='profile-activity-time'><%= time_ago_in_words(activity.created_at) + ' ' + _('ago') %></p>
+      <p class='profile-activity-time'><%= time_ago_as_sentence(activity.created_at) + ' ' + _('ago') %></p>
       <p class='profile-activity-text'><%= link_to activity.user.name, activity.user.url %> <%= describe activity %></p>
       <%= button_to_remote(:delete, content_tag(:span, _('Remove')), :url =>{:action => 'remove_activity', :activity_id => activity.id}, :update => "profile-activity-item-#{activity.id}") if logged_in? && current_person == @profile %>
     </div>
