@@ -7,7 +7,7 @@ module FolderHelper
       content_tag(
         'table',
         content_tag('tr', content_tag('th', _('Title')) + content_tag('th', _('Last update'))) +
-        articles.map {|item| display_article_in_listing(item, recursive, 0)}.join('')
+        articles.sort_by { |article| article.updated_at }.reverse.map {|item| display_article_in_listing(item, recursive, 0)}.join('')
       )
     else
       content_tag('em', _('(empty folder)'))
