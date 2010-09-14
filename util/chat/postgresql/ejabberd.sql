@@ -46,7 +46,7 @@ CREATE VIEW rosterusers AS
   select
     p1.identifier AS username,               -- text NOT NULL,         
     p2.identifier || '@' || d.name AS jid,   -- text NOT NULL,         
-    coalesce(p2.nickname, p2.name) AS nick,  -- text NOT NULL,         
+    CASE WHEN p2.nickname='' THEN p2.name WHEN p2.nickname IS NULL THEN p2.name ELSE p2.nickname END as nick, -- text NOT NULL,
     'B' AS subscription,                     -- character(1) NOT NULL, 
     'N' AS ask,                              -- character(1) NOT NULL, 
     '' AS askmessage,                        -- text NOT NULL,         
