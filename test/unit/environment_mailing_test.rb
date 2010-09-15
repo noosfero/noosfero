@@ -35,7 +35,7 @@ class EnvironmentMailingTest < ActiveSupport::TestCase
 
   should 'return signature message' do
     mailing = EnvironmentMailing.new(:source => environment)
-    assert_equal 'Sent by Noosfero Network.', mailing.signature_message
+    assert_equal 'Sent by Network.', mailing.signature_message
   end
 
   should 'return url for environment on url' do
