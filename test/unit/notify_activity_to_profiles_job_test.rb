@@ -15,7 +15,11 @@ class NotifyActivityToProfilesJobTest < ActiveSupport::TestCase
     job = NotifyActivityToProfilesJob.new(action_tracker.id, community.id)
     job.perform
     process_delayed_job_queue
-    assert_equal 5, ActionTrackerNotification.count
+
+    [community, p1, p2, m1, m2].each do |profile|
+      notification = ActionTrackerNotification.find_by_profile_id profile.id
+      assert_equal action_tracker, notification.action_tracker
+    end
   end
 
 end

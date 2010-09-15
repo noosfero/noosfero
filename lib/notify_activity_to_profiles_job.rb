@@ -3,12 +3,12 @@ class NotifyActivityToProfilesJob < Struct.new(:tracked_action_id, :target_profi
     profile = Profile.find(target_profile_id) unless target_profile_id.nil?
     tracked_action = ActionTracker::Record.find(tracked_action_id)
     tracked_action.user.each_friend do |friend|
-      Delayed::Job.enqueue NotifyActivityJob.new(tracked_action_id, friend.id)
+      ActionTrackerNotification.create(:action_tracker => tracked_action, :profile => friend)
     end
     if profile.is_a?(Community)
       profile.each_member do |member|
         next if member == tracked_action.user
-        Delayed::Job.enqueue NotifyActivityJob.new(tracked_action_id, member.id)
+        ActionTrackerNotification.create(:action_tracker => tracked_action, :profile => member)
       end
       ActionTrackerNotification.create(:action_tracker => tracked_action, :profile => profile)
     end
