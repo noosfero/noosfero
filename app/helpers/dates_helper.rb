@@ -36,7 +36,7 @@ module DatesHelper
   # formats a datetime for displaying. 
   def show_time(time)
     if time
-      _('%{day} %{month} %{year}, %{hour}:%{minutes}') % { :year => time.year, :month => month_name(time.month), :day => time.day, :hour => time.hour, :minutes => time.min }
+      _('%{day} %{month} %{year}, %{hour}:%{minutes}') % { :year => time.year, :month => month_name(time.month), :day => time.day, :hour => time.hour, :minutes => time.strftime("%M") }
     else
       ''
     end

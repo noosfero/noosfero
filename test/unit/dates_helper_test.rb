@@ -148,6 +148,10 @@ class DatesHelperTest < Test::Unit::TestCase
     assert_equal '22 November 2008, 15:34', show_time(Time.mktime(2008, 11, 22, 15, 34, 0, 0))
   end
 
+  should 'format time with 2 digits minutes' do
+    assert_equal '22 November 2008, 15:04', show_time(Time.mktime(2008, 11, 22, 15, 04, 0, 0))
+  end
+
   should 'translate time' do
     time = Time.parse('25 May 2009, 12:47')
     expects(:_).with('%{day} %{month} %{year}, %{hour}:%{minutes}').returns('translated time')
