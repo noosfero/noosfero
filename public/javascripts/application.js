@@ -448,6 +448,7 @@ jQuery(function($) {
   $.getJSON('/account/user_data', function(data) {
     if (data.login) {
       // logged in
+      $('body').addClass('logged-in');
       $('#user .logged-in, .login-block .logged-user-info').each(function() {
         $(this).find('a[href]').each(function() {
           var new_href = $(this).attr('href').replace('%{login}', data.login);
