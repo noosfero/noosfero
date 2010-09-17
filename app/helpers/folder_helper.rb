@@ -4,10 +4,11 @@ module FolderHelper
 
   def list_articles(articles, recursive = false)
     if !articles.blank?
-      articles = articles.find(
-                         :all,
-                         :order => "updated_at DESC"
-                         ).paginate(:per_page => 10, :page => params[:npage])
+      articles = articles.paginate(
+        :order => "updated_at DESC",
+        :per_page => 10,
+        :page => params[:npage]
+      )
 
       render :file => 'shared/articles_list', :locals => {:articles => articles, :recursive => recursive}
     else

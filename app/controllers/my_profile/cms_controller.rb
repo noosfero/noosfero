@@ -66,19 +66,21 @@ class CmsController < MyProfileController
       conditions = ['type != ?', 'RssFeed']
     end
 
-    @articles = @article.children.find(
-                         :all,
-                         :order => "case when type = 'Folder' then 0 when type ='Blog' then 1 else 2 end, updated_at DESC",
-                         :conditions => conditions
-                         ).paginate(:per_page => per_page, :page => params[:npage])
+    @articles = @article.children.paginate(
+      :order => "case when type = 'Folder' then 0 when type ='Blog' then 1 else 2 end, updated_at DESC",
+      :conditions => conditions,
+      :per_page => per_page,
+      :page => params[:npage]
+    )
   end
 
   def index
     @article = nil
-    @articles = profile.top_level_articles.find(
-                         :all,
-                         :order => "case when type = 'Folder' then 0 when type ='Blog' then 1 else 2 end, updated_at DESC"
-                         ).paginate(:per_page => per_page, :page => params[:npage])
+    @articles = profile.top_level_articles.paginate(
+      :order => "case when type = 'Folder' then 0 when type ='Blog' then 1 else 2 end, updated_at DESC",
+      :per_page => per_page,
+      :page => params[:npage]
+    )
     render :action => 'view'
   end
 
