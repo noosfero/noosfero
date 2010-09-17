@@ -70,7 +70,7 @@ jQuery(function($) {
             }
             else {
                var time = new Date();
-               time = time.getHours() + ':' + time.getMinutes();
+               time = time.getHours() + ':' + checkTime(time.getMinutes());
                name = $('#' + jid_id).html();
                identifier = Strophe.getNodeFromJid(jid);
                if (who === "self") {
@@ -418,3 +418,10 @@ jQuery(function($) {
    });
 
 });
+
+function checkTime(i) {
+   if (i<10) {
+      i="0" + i;
+   }
+   return i;
+}
