@@ -77,8 +77,16 @@ class FolderHelperTest < Test::Unit::TestCase
   should 'list subitems as HTML content' do
     profile = create_user('folder-owner').person
     folder = fast_create(Folder, {:name => 'Parent Folder', :profile_id => profile.id})
-    article = fast_create(Article, {:name => 'Article1', :parent_id => folder.id, :profile_id => profile.id})
-    article = fast_create(Article, {:name => 'Article2', :parent_id => folder.id, :profile_id => profile.id})
+    article1 = fast_create(Article, {:name => 'Article1', :parent_id => folder.id, :profile_id => profile.id, :updated_at => DateTime.now })
+    article2 = fast_create(Article, {:name => 'Article2', :parent_id => folder.id, :profile_id => profile.id, :updated_at => DateTime.now })
+    self.stubs(:params).returns({:npage => nil})
+
+    articles = folder.children.find(:all, :order => 'updated_at DESC').paginate(:per_page => 10, :page => params[:npage])
+    expects(:user).returns(profile).at_least_once
+    expects(:recursive).returns(false).at_least_once
+    expects(:pagination_links).with(anything, anything).returns('')
+    list = render 'shared/articles_list', binding
+    expects(:render).with(:file => 'shared/articles_list', :locals => { :articles => articles, :recursive => false}).returns(list)
 
     result = list_articles(folder.children)
 

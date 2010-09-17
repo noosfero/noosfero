@@ -61,17 +61,24 @@ class CmsController < MyProfileController
 
   def view
     @article = profile.articles.find(params[:id])
-    @subitems = @article.children.reject {|item| item.folder? }
+    conditions = []
     if @article.blog?
-      @subitems.reject! {|item| item.class == RssFeed }
+      conditions = ['type != ?', 'RssFeed']
     end
-    @folders = @article.children.select {|item| item.folder? }
+
+    @articles = @article.children.find(
+                         :all,
+                         :order => "case when type = 'Folder' then 0 when type ='Blog' then 1 else 2 end, updated_at DESC",
+                         :conditions => conditions
+                         ).paginate(:per_page => per_page, :page => params[:npage])
   end
 
   def index
     @article = nil
-    @subitems = profile.top_level_articles.reject {|item| item.folder? }
-    @folders = profile.top_level_articles.select {|item| item.folder?}
+    @articles = profile.top_level_articles.find(
+                         :all,
+                         :order => "case when type = 'Folder' then 0 when type ='Blog' then 1 else 2 end, updated_at DESC"
+                         ).paginate(:per_page => per_page, :page => params[:npage])
     render :action => 'view'
   end
 

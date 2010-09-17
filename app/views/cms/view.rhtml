@@ -46,51 +46,27 @@
     </tr>
   <% end %>
 
-  <%# folders %>
-  <% for folder in @folders %>
+  <% @articles.each do |article| %>
     <tr>
       <td>
-        <%= image_tag(icon_for_article(folder)) %>
-        <%= link_to folder.name, :action => 'view', :id => folder.id %>
+        <%= image_tag(icon_for_article(article)) %>
+        <%= link_to_article(article) %>
       </td>
       <td>
-        <%= folder.class.short_description %>
+        <%= article.class.short_description %>
       </td>
       <td class="article-controls">
-        <%= button_without_text :edit, _('Properties'), :action => 'edit', :id => folder.id %>
-        <%= button_without_text :eyes, _('Public view'), folder.url %>
+        <%= button_without_text :edit, _('Edit'), :action => 'edit', :id => article.id %>
+        <%= button_without_text :eyes, _('Public view'), article.url %>
+        <%= display_spread_button(profile, article) unless article.folder? %>
         <% if !environment.enabled?('cant_change_homepage') %>
-          <%= button_without_text :home, _('Use as homepage'), { :action => 'set_home_page', :id => folder.id }, :method => :post %>
+          <%= button_without_text :home, _('Use as homepage'), { :action => 'set_home_page', :id => article.id }, :method => :post %>
         <% end %>
-        <%= button_without_text :delete, _('Delete'), { :action => 'destroy', :id => folder.id }, :method => :post, :confirm => _('Are you sure that you want to remove this folder? Note that all the items inside it will also be removed!') %>
-      </td>
-    </tr>
-  <% end %>
-
-  <%# non-folder subitems %>
-  <% for item in @subitems %>
-    <tr>
-      <td>
-        <%= image_tag(icon_for_article(item)) %>
-        <%= link_to short_filename(item.name,30), item.url %>
-      </td>
-      <td>
-        <%= item.class.short_description %>
-      </td>
-      <td class="article-controls">
-        <%= button_without_text :edit, _('Edit'), :action => 'edit', :id => item.id %>
-        <%= button_without_text :eyes, _('Public view'), item.url %>
-        <% if profile.person? %>
-          <%= button_without_text :spread, _('Spread this'), :action => 'publish', :id => item.id %>
-        <% elsif profile.community? && environment.portal_community %>
-          <%= button_without_text :spread, _('Spread this'), :action => 'publish_on_portal_community', :id => item.id %>
-        <% end %>
-        <% if !environment.enabled?('cant_change_homepage') %>
-          <%= button_without_text :home, _('Use as homepage'), { :action => 'set_home_page', :id => item.id }, :method => :post %>
-        <% end %>
-        <%= button_without_text :delete, _('Delete'), { :action => 'destroy', :id => item.id }, :method => :post, :confirm => _('Are you sure that you want to remove this item?') %>
+        <%= display_delete_button(article) %>
       </td>
     </tr>
   <% end %>
 
 </table>
+
+<%= pagination_links @articles, {:param_name => 'npage', :prev_label => '&laquo; ' + _('Previous'), :next_label => _('Next') + ' &raquo;', :page_links => true} %>

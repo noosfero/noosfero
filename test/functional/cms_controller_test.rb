@@ -34,7 +34,7 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_template 'view'
     assert_equal profile, assigns(:profile)
     assert_nil assigns(:article)
-    assert_kind_of Array, assigns(:subitems)
+    assert_kind_of Array, assigns(:articles)
   end
 
   should 'be able to view a particular document' do
@@ -46,9 +46,9 @@ class CmsControllerTest < Test::Unit::TestCase
 
     assert_template 'view'
     assert_equal a, assigns(:article)
-    assert_equal [], assigns(:subitems)
+    assert_equal [], assigns(:articles)
 
-    assert_kind_of Array, assigns(:subitems)
+    assert_kind_of Array, assigns(:articles)
   end
 
   should 'be able to edit a document' do
@@ -84,7 +84,7 @@ class CmsControllerTest < Test::Unit::TestCase
   end
 
   should 'display set as home page link to non folder' do
-    a = profile.articles.create!(:name => 'my new home page')
+    a = fast_create(TextileArticle, :profile_id => profile.id, :updated_at => DateTime.now)
     Article.stubs(:short_description).returns('bli')
     get :index, :profile => profile.identifier
     assert_tag :tag => 'a', :content => 'Use as homepage', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/set_home_page/#{a.id}" }
@@ -452,26 +452,27 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'input', :attributes => { :name => 'parent_id', :value => profile.home_page.id }
   end
 
-  should 'list folders at top level' do
-    Folder.destroy_all
-    f1 = Folder.new(:name => 'f1'); profile.articles << f1;  f1.save!
-    f2 = Folder.new(:name => 'f2'); profile.articles << f2;  f2.save!
+  should 'list folders before others' do
+    profile.articles.destroy_all
+
+    folder1 = fast_create(Folder, :profile_id => profile.id, :updated_at => DateTime.now - 1.hour)
+    article = fast_create(TextileArticle, :profile_id => profile.id, :updated_at => DateTime.now)
+    folder2 = fast_create(Folder, :profile_id => profile.id, :updated_at => DateTime.now + 1.hour)
 
     get :index, :profile => profile.identifier
-    assert_equal [f1, f2], assigns(:folders)
-    assert_not_includes assigns(:subitems), f1
-    assert_not_includes assigns(:subitems), f2
+    assert_equal [folder2, folder1, article], assigns(:articles)
   end
 
   should 'list folders inside another folder' do
-    parent = Folder.new(:name => 'parent'); profile.articles << parent;  parent.save!
-    f1 = Folder.new(:name => 'f1', :parent => parent); profile.articles << f1;  f1.save!
-    f2 = Folder.new(:name => 'f2', :parent => parent); profile.articles << f2;  f2.save!
+    profile.articles.destroy_all
+
+    parent = fast_create(Folder, :profile_id => profile.id)
+    folder1 = fast_create(Folder, :parent_id => parent.id, :profile_id => profile.id, :updated_at => DateTime.now - 1.hour)
+    article = fast_create(TextileArticle, :parent_id => parent.id, :profile_id => profile.id, :updated_at => DateTime.now)
+    folder2 = fast_create(Folder, :parent_id => parent.id, :profile_id => profile.id, :updated_at => DateTime.now + 1.hour)
 
     get :view, :profile => profile.identifier, :id => parent.id
-    assert_equal [f1, f2], assigns(:folders)
-    assert_not_includes assigns(:subitems), f1
-    assert_not_includes assigns(:subitems), f2
+    assert_equal [folder2, folder1, article], assigns(:articles)
   end
 
   should 'offer to create new top-level folder' do
@@ -1190,7 +1191,7 @@ class CmsControllerTest < Test::Unit::TestCase
   end
 
   should "display 'Publish' when profile is a person" do
-    a = profile.articles.create!(:name => 'my new home page')
+    a = fast_create(TextileArticle, :profile_id => profile.id, :updated_at => DateTime.now)
     Article.stubs(:short_description).returns('bli')
     get :index, :profile => profile.identifier
     assert_tag :tag => 'a', :attributes => {:href => "/myprofile/#{profile.identifier}/cms/publish/#{a.id}"}
@@ -1200,7 +1201,7 @@ class CmsControllerTest < Test::Unit::TestCase
     community = fast_create(Community)
     community.add_member(profile)
     Environment.any_instance.stubs(:portal_community).returns(community)
-    a = community.articles.create!(:name => 'my new home page')
+    a = fast_create(TextileArticle, :profile_id => community.id, :updated_at => DateTime.now)
     Article.stubs(:short_description).returns('bli')
     get :index, :profile => community.identifier
     assert_tag :tag => 'a', :attributes => {:href => "/myprofile/#{community.identifier}/cms/publish_on_portal_community/#{a.id}"}

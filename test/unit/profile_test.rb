@@ -193,10 +193,10 @@ class ProfileTest < Test::Unit::TestCase
 
     list = profile.top_level_articles
     same_list = profile.top_level_articles
-    assert_same list, same_list
+    assert_equal list.object_id, same_list.object_id
 
     other_list = profile.top_level_articles(true)
-    assert_not_same list, other_list
+    assert_not_equal list.object_id, other_list.object_id
   end
 
   should 'be able to find profiles by their names with ferret' do

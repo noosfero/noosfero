@@ -4,11 +4,12 @@ module FolderHelper
 
   def list_articles(articles, recursive = false)
     if !articles.blank?
-      content_tag(
-        'table',
-        content_tag('tr', content_tag('th', _('Title')) + content_tag('th', _('Last update'))) +
-        articles.sort_by { |article| article.updated_at }.reverse.map {|item| display_article_in_listing(item, recursive, 0)}.join('')
-      )
+      articles = articles.find(
+                         :all,
+                         :order => "updated_at DESC"
+                         ).paginate(:per_page => 10, :page => params[:npage])
+
+      render :file => 'shared/articles_list', :locals => {:articles => articles, :recursive => recursive}
     else
       content_tag('em', _('(empty folder)'))
     end

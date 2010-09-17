@@ -110,9 +110,9 @@ class Article < ActiveRecord::Base
   
   # retrieves all articles belonging to the given +profile+ that are not
   # sub-articles of any other article.
-  def self.top_level_for(profile)
-    self.find(:all, :conditions => [ 'parent_id is null and profile_id = ?', profile.id ])
-  end
+  named_scope :top_level_for, lambda { |profile|
+    {:conditions => [ 'parent_id is null and profile_id = ?', profile.id ]}
+  }
 
   # retrieves the latest +limit+ articles, sorted from the most recent to the
   # oldest.
