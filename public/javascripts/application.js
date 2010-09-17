@@ -448,23 +448,23 @@ jQuery(function($) {
   $.getJSON('/account/user_data', function(data) {
     if (data.login) {
       // logged in
-     $('#user .logged-in, .login-block .logged-user-info').each(function() {
-       $(this).find('a[href]').each(function() {
-         var new_href = $(this).attr('href').replace('%{login}', data.login);
-         if (data.email_domain) {
-           new_href = new_href.replace('%{email_domain}', data.email_domain);
-         }
-         $(this).attr('href', new_href);
-       });
-       var html = $(this).html().replace(/%{login}/g, data.login).replace('%{month}', data.since_month).replace('%{year}', data.since_year);
-       $(this).html(html).fadeIn();
-       if (data.is_admin) {
-         $('#user .admin-link').show();
-       }
-       if (data.email_domain) {
-         $('#user .webmail-link').show();
-       }
-     });
+      $('#user .logged-in, .login-block .logged-user-info').each(function() {
+        $(this).find('a[href]').each(function() {
+          var new_href = $(this).attr('href').replace('%{login}', data.login);
+          if (data.email_domain) {
+            new_href = new_href.replace('%{email_domain}', data.email_domain);
+          }
+          $(this).attr('href', new_href);
+        });
+        var html = $(this).html().replace(/%{login}/g, data.login).replace('%{month}', data.since_month).replace('%{year}', data.since_year);
+        $(this).html(html).fadeIn();
+        if (data.is_admin) {
+          $('#user .admin-link').show();
+        }
+        if (data.email_domain) {
+          $('#user .webmail-link').show();
+        }
+      });
     } else {
       // not logged in
       $('#user .not-logged-in, .login-block .not-logged-user').fadeIn();
