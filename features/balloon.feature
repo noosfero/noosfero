@@ -38,7 +38,6 @@ Feature: balloon
     When I click ".menu-submenu-trigger"
     Then I should see "Profile"
     And I should see "Friends"
-    And I should see "Home Page"
 
   @selenium
   Scenario: I should see balloon when clicked on community block trigger
@@ -71,4 +70,3 @@ Feature: balloon
     When I click ".menu-submenu-trigger"
     Then I should see "Members"
     And I should see "Agenda"
-    And I should see "Home Page"

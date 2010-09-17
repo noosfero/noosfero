@@ -34,23 +34,6 @@ class FriendsControllerTest < Test::Unit::TestCase
     assert_kind_of Array, assigns(:friends)
   end
 
-  should 'confirm addition of new friend' do
-    get :add, :id => friend.id
-
-    assert_response :success
-    assert_template 'add'
-
-    ok("must load the friend being added to display") { friend == assigns(:friend) } 
-
-  end
-
-  should 'actually add friend' do
-    assert_difference AddFriend, :count do
-      post :add, :id => friend.id, :confirmation => '1'
-      assert_response :redirect
-    end
-  end
-
   should 'confirm removal of friend' do
     profile.add_friend(friend)
 

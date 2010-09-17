@@ -76,49 +76,22 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_kind_of Array, assigns(:favorite_enterprises)
   end
 
-  should 'render join template without layout when called with AJAX' do
+  should 'not render any template when joining community due to Ajax request' do
     community = Community.create!(:name => 'my test community')
     login_as(@profile.identifier)
-    @request.expects(:xhr?).returns(true).at_least_once
 
     get :join, :profile => community.identifier
     assert_response :success
-    assert_template 'join'
+    assert_template nil
     assert_no_tag :tag => 'html'
   end
 
-  should 'render join template with layout in general' do
-    community = Community.create!(:name => 'my test community')
+  should 'actually add friend' do
     login_as(@profile.identifier)
-    @request.expects(:xhr?).returns(false).at_least_once
-
-    get :join, :profile => community.identifier
-    assert_response :success
-    assert_template 'join'
-    assert_tag :tag => 'html'
-  end
-
-  should 'show Join This Community button for non-member users' do
-    login_as(@profile.identifier)
-    community = Community.create!(:name => 'my test community')
-    get :index, :profile => community.identifier
-    assert_tag :tag => 'a', :attributes => { :href => "/profile/#{community.identifier}/join" }
-  end
-
-  should 'not show Join This Community button for member users' do
-    login_as(@profile.identifier)
-    community = Community.create!(:name => 'my test community')
-    community.add_member(@profile)
-    get :index, :profile => community.identifier
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{@profile.identifier}/memberships/join/#{community.id}" }
-
-  end
-
-  should 'not show Join This Community button for non-registered users' do
-    community = Community.create!(:name => 'my test community')
-    get :index, :profile => community.identifier
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{@profile.identifier}/memberships/leave/#{community.id}" }
-
+    person = fast_create(Person)
+    assert_difference AddFriend, :count do
+      post :add, :profile => person.identifier
+    end
   end
 
   should 'not show enterprises link to enterprise' do
@@ -199,26 +172,10 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'a', :child => { :tag => 'span', :content => 'Create a new community' }
   end
 
-  should 'not show Leave This Community button for non-member users' do
-    login_as(@profile.identifier)
-    community = Community.create!(:name => 'my test community')
-    get :index, :profile => community.identifier
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{@profile.identifier}/memberships/leave/#{community.id}" }
-  end
-
-  should 'show Leave This Community button for member users' do
-    login_as(@profile.identifier)
-    community = Community.create!(:name => 'my test community')
-    community.add_member(@profile)
-    get :index, :profile => community.identifier
-    assert_tag :tag => 'a',
-      :attributes => { :href => "/profile/#{community.identifier}/leave" }
-  end
-
   should 'not show Leave This Community button for non-registered users' do
     community = Community.create!(:name => 'my test community')
     get :index, :profile => community.identifier
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{@profile.identifier}/memberships/leave/#{community.id}" }
+    assert_no_tag :tag => 'a', :attributes => { :href => "/profile/#{@profile.identifier}/leave" }
   end
 
   should 'check access before displaying profile' do
@@ -414,34 +371,13 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'a', :attributes => { :href => "/contact/#{community.identifier}/new" }
   end
 
-  should 'present confirmation before joining a profile' do
-    community = Community.create!(:name => 'my test community')
-    login_as @profile.identifier
-    get :join, :profile => community.identifier
-
-    assert_response :success
-    assert_template 'join'
-  end
-
   should 'actually join profile' do
     community = Community.create!(:name => 'my test community')
     login_as @profile.identifier
-    post :join, :profile => community.identifier, :confirmation => '1'
+    post :join, :profile => community.identifier
 
-    assert_response :redirect
-    assert_redirected_to community.url
-
-    profile = Profile.find(@profile.id)
-    assert profile.memberships.include?(community), 'profile should be actually added to the community'
-  end
-
-  should 'join profile from wizard' do
-    community = Community.create!(:name => 'my test community')
-    login_as @profile.identifier
-    post :join, :profile => community.identifier, :confirmation => '1', :wizard => true
-
-    assert_response :redirect
-    assert_redirected_to :controller => 'search', :action => 'assets', :asset => 'communities', :wizard => true
+    assert_response :success
+    assert_template nil
 
     profile = Profile.find(@profile.id)
     assert profile.memberships.include?(community), 'profile should be actually added to the community'
@@ -451,7 +387,7 @@ class ProfileControllerTest < Test::Unit::TestCase
     community = Community.create!(:name => 'my test community', :closed => true)
     login_as @profile.identifier
     assert_difference AddMember, :count do
-      post :join, :profile => community.identifier, :confirmation => '1'
+      post :join, :profile => community.identifier
     end
   end
 
@@ -462,72 +398,16 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_redirected_to :controller => 'account', :action => 'login'
   end
 
-  should 'present confirmation before leaving a profile' do
-    community = Community.create!(:name => 'my test community')
-    community.add_member(profile)
-
-    login_as(profile.identifier)
-    get :leave, :profile => community.identifier
-
-    assert_template 'leave'
-    assert_tag :tag => 'input', :attributes => {:value => 'Yes, I want to leave.', :type => 'submit'}
-  end
-
   should 'actually leave profile' do
     community = Community.create!(:name => 'my test community')
     community.add_member(profile)
     assert_includes profile.memberships, community
 
     login_as(profile.identifier)
-    post :leave, :profile => community.identifier, :confirmation => '1'
+    post :leave, :profile => community.identifier
 
     profile = Profile.find(@profile.id)
     assert_not_includes profile.memberships, community
-  end
-
-  should 'leave profile when on wizard' do
-    community = Community.create!(:name => 'my test community')
-    community.add_member(profile)
-
-    login_as(profile.identifier)
-    post :leave, :profile => community.identifier, :confirmation => '1', :wizard => true
-
-    assert_response :redirect
-    assert_redirected_to :controller => 'search', :action => 'assets', :asset => 'communities', :wizard => true
-
-    profile = Profile.find(@profile.id)
-    assert_not_includes profile.memberships, community
-  end
-
-  should "offer button to close 'leave community' lightbox" do
-    community = Community.create!(:name => 'my test community')
-    community.add_member(profile)
-
-    login_as(profile.identifier)
-    get :index, :profile => community.identifier
-
-    assert_tag :tag => 'a', :content => 'Leave', :attributes => { :href => "/profile/#{community.identifier}/leave", :class => /^lbOn/ }
-  end
-
-  should 'offer button to cancel leaving community' do
-    community = Community.create!(:name => 'my test community')
-    community.add_member(profile)
-
-    login_as(profile.identifier)
-    get :leave, :profile => community.identifier
-
-    assert_tag :tag => 'a', :content => "No, I don't want."
-  end
-
-  should 'render without layout when use lightbox to leave community' do
-    community = Community.create!(:name => 'my test community')
-    community.add_member(profile)
-
-    @request.stubs(:xhr?).returns(true)
-    login_as(profile.identifier)
-    get :leave, :profile => community.identifier
-
-    assert_no_tag :tag => 'body' # e.g. no layout
   end
 
   should 'require login to leave community' do
@@ -535,51 +415,6 @@ class ProfileControllerTest < Test::Unit::TestCase
     get :leave, :profile => community.identifier
 
     assert_redirected_to :controller => 'account', :action => 'login'
-  end
-
-  should 'redirect to stored location after leave community' do
-    community = Community.create!(:name => 'my test community')
-    community.add_member(profile)
-
-    @request.expects(:referer).returns("/profile/#{community.identifier}/to_go").at_least_once
-    login_as(profile.identifier)
-
-    post :leave, :profile => community.identifier, :confirmation => '1', :back_to => @request.referer
-
-    assert_redirected_to "/profile/#{community.identifier}/to_go"
-  end
-
-  should 'store referer location when request leave via get' do
-    community = Community.create!(:name => 'my test community')
-    login_as(profile.identifier)
-
-    @request.expects(:referer).returns("/profile/redirect_to").at_least_once
-
-    get :leave, :profile => community.identifier
-
-    assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'back_to', :value => @request.referer }
-  end
-
-  should 'store referer location when request join via get' do
-    community = Community.create!(:name => 'my test community')
-    login_as(profile.identifier)
-
-    @request.session[:before_join] = "/profile/redirect_to"
-
-    get :join, :profile => community.identifier
-
-    assert_equal '/profile/redirect_to', @request.session[:before_join]
-  end
-
-  should 'redirect to stored location after join community' do
-    community = Community.create!(:name => 'my test community')
-
-    @request.expects(:referer).returns("/profile/#{community.identifier}/to_go")
-    login_as(profile.identifier)
-
-    post :join, :profile => community.identifier, :confirmation => '1'
-
-    assert_redirected_to "/profile/#{community.identifier}/to_go"
   end
 
   should 'store location before login when request join via get not logged' do
@@ -598,7 +433,7 @@ class ProfileControllerTest < Test::Unit::TestCase
     @request.expects(:referer).returns("/profile/#{community.identifier}/to_go")
     login_as(profile.identifier)
 
-    post :join, :profile => community.identifier, :confirmation => '1'
+    post :join_not_logged, :profile => community.identifier
 
     assert_redirected_to "/profile/#{community.identifier}/to_go"
 

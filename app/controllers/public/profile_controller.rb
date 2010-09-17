@@ -1,9 +1,9 @@
 class ProfileController < PublicController
 
   needs_profile
-  before_filter :check_access_to_profile, :except => [:join, :index]
-  before_filter :store_before_join, :only => [:join]
-  before_filter :login_required, :only => [:join, :leave, :unblock, :leave_scrap, :remove_scrap, :remove_activity, :view_more_scraps, :view_more_activities, :view_more_network_activities]
+  before_filter :check_access_to_profile, :except => [:join, :join_not_logged, :index]
+  before_filter :store_before_join, :only => [:join, :join_not_logged]
+  before_filter :login_required, :only => [:join, :join_not_logged, :leave, :unblock, :leave_scrap, :remove_scrap, :remove_activity, :view_more_scraps, :view_more_activities, :view_more_network_activities]
 
   helper TagsHelper
 
@@ -82,18 +82,26 @@ class ProfileController < PublicController
   end
 
   def join
-    @wizard = params[:wizard]
-    if request.post? && params[:confirmation]
-      profile.add_member(current_user.person)
-      session[:notice] = _('%s administrator still needs to accept you as member.') % profile.name if profile.closed?
-      if @wizard
-        redirect_to :controller => 'search', :action => 'assets', :asset => 'communities', :wizard => true
+    if !user.memberships.include?(profile)
+      profile.add_member(user)
+      if profile.closed?
+        render :text => _('%s administrator still needs to accept you as member.') % profile.name
       else
-        redirect_to_before_join
+        render :text => _('You just became a member of %s.') % profile.name
       end
     else
-      if current_user.person.memberships.include?(profile)
-        session[:notice] = _('You are already a member of "%s"') % profile.name
+      render :text => _('You are already a member of %s.') % profile.name
+    end
+  end
+
+  def join_not_logged
+    if request.post?
+      profile.add_member(user)
+      session[:notice] = _('%s administrator still needs to accept you as member.') % profile.name if profile.closed?
+      redirect_to_before_join
+    else
+      if user.memberships.include?(profile)
+        session[:notice] = _('You are already a member of %s') % profile.name
         redirect_to profile.url
         return
       end
@@ -104,20 +112,37 @@ class ProfileController < PublicController
   end
 
   def leave
-    @wizard = params[:wizard]
-    @back_to = params[:back_to] || request.referer
-    if request.post? && params[:confirmation]
+    if user.memberships.include?(profile)
       profile.remove_member(current_user.person)
-      if @wizard
-        redirect_to :controller => 'search', :action => 'assets', :asset => 'communities', :wizard => true
-      else
-        back = @back_to || profile.url
-        redirect_to back
-      end
+      render :text => _('You just left %s.') % profile.name
     else
-      if request.xhr?
-        render :layout => false
-      end
+      render :text => _('You are already a member of %s.') % profile.name
+    end
+  end
+
+  def check_membership
+    if user.memberships.include?(profile)
+      render :text => 'true'
+    else
+      render :text => 'false'
+    end
+  end
+
+  def add
+    # FIXME this shouldn't be in Person model?
+    if !user.memberships.include?(profile)
+      AddFriend.create!(:person => user, :friend => profile)
+      render :text => _('%s still needs to accept being your friend.') % profile.name
+    else
+      render :text => _('You are already a friend of %s.') % profile.name
+    end
+  end
+
+  def check_friendship
+    if user == profile || user.already_request_friendship?(profile) || user.is_a_friend?(profile)
+      render :text => 'true'
+    else
+      render :text => 'false'
     end
   end
 

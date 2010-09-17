@@ -23,7 +23,6 @@ Feature: my_network_block
     Then I should see "2 communities"
     When I go to Public Community's homepage
     And I follow "Join"
-    And I press "Yes, I want to join."
     When I go to Joao Silva's homepage
     Then I should see "3 communities"
 
@@ -37,7 +36,6 @@ Feature: my_network_block
     Then I should see "One community"
     When I go to Public Community's homepage
     And I follow "Join"
-    And I press "Yes, I want to join."
     When I go to Joao Silva's homepage
     Then I should see "2 communities"
 

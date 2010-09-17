@@ -17,7 +17,6 @@ Feature: private profiles
     When I go to Safernet's homepage
     Then I should see "members only"
     When I follow "Join"
-    And I press "Yes, I want to join"
     And "joao" is accepted on community "Safernet"
     Then "joao" should be a member of "Safernet"
     When I go to Safernet's homepage
@@ -27,5 +26,4 @@ Feature: private profiles
     Given I am logged in as "joao"
     When I go to shygirl's homepage
     Then I should see "friends only"
-    When I follow "Add friend"
-    And I press "Yes, I want"
+    And I follow "Add friend"

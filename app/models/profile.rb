@@ -426,6 +426,22 @@ class Profile < ActiveRecord::Base
     { :profile => identifier, :controller => 'profile', :action => 'join' }
   end
 
+  def join_not_logged_url
+    { :profile => identifier, :controller => 'profile', :action => 'join_not_logged' }
+  end
+
+  def check_membership_url
+    { :profile => identifier, :controller => 'profile', :action => 'check_membership' }
+  end
+
+  def add_url
+    { :profile => identifier, :controller => 'profile', :action => 'add' }
+  end
+
+  def check_friendship_url
+    { :profile => identifier, :controller => 'profile', :action => 'check_friendship' }
+  end
+
   def public_profile_url
     generate_url(:profile => identifier, :controller => 'profile', :action => 'index')
   end

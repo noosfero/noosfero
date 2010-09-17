@@ -2,7 +2,9 @@
   <%if logged_in? && (user != profile) %>
 
     <% if !user.already_request_friendship?(profile) and !user.is_a_friend?(profile) %>
-      <li><%= link_to content_tag('span', __('Add friend')), user.url.merge(:controller => 'friends', :action => 'add', :id => profile.id), :class => 'button with-text icon-add' %></li>
+      <li>
+      <%= button(:add, content_tag('span', __('Add friend')), profile.add_url, :class => 'add-friend', :title => _("Add friend"), :style => 'position: relative;') %>
+      </li>
     <% end %>
 
     <% if user.is_a_friend?(profile) && profile.enable_contact? %>

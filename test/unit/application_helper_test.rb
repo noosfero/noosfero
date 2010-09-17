@@ -484,7 +484,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
     person.stubs(:url).returns('url for person')
     person.stubs(:public_profile_url).returns('url for person')
     links = links_for_balloon(person)
-    assert_equal ['Home Page', 'Wall', 'Friends', 'Communities'], links.map{|i| i.keys.first}
+    assert_equal ['Wall', 'Friends', 'Communities', 'Send an e-mail', 'Add'], links.map{|i| i.keys.first}
   end
 
   should 'return ordered list of links to balloon to Community' do
@@ -495,7 +495,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
     community.stubs(:url).returns('url for community')
     community.stubs(:public_profile_url).returns('url for community')
     links = links_for_balloon(community)
-    assert_equal ['Home Page', 'Wall', 'Members', 'Agenda'], links.map{|i| i.keys.first}
+    assert_equal ['Wall', 'Members', 'Agenda', 'Join', 'Leave', 'Send an e-mail'], links.map{|i| i.keys.first}
   end
 
   should 'return ordered list of links to balloon to Enterprise' do
@@ -507,7 +507,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
     enterprise.stubs(:public_profile_url).returns('url for enterprise')
     stubs(:catalog_path)
     links = links_for_balloon(enterprise)
-    assert_equal ['Home Page', 'Products', 'Members', 'Agenda'], links.map{|i| i.keys.first}
+    assert_equal ['Products', 'Members', 'Agenda', 'Send an e-mail'], links.map{|i| i.keys.first}
   end
 
   should 'use favicon from environment theme if does not have profile' do
