@@ -26,7 +26,7 @@
       <div class="controll">
         <%= link_to content_tag('span',_('remove')),
             { :action => 'remove', :id => friend.id },
-              :class => 'button icon-delete',
+              :class => 'button icon-remove',
               :title => _('remove') %>
         <%= link_to content_tag('span',_('contact')),
               friend.url.merge(:controller => 'contact', :action => 'new'),
