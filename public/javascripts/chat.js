@@ -232,6 +232,7 @@ jQuery(function($) {
         var name = $('#' + jid_id).data('name');
         create_conversation_tab(name, jid_id);
         Jabber.show_message(jid, body, 'other');
+        $.sound.play('/sounds/receive.wav');
         return true;
      },
 
@@ -384,7 +385,7 @@ jQuery(function($) {
    $('#chat-window #tabs').removeClass("ui-corner-all ui-widget-content");
 
    // positionting scrollabletab wrapper at bottom and tabs next/prev buttons
-   $('#stTabswrapper,#tabs').css('position', 'absolute').css('top', 0).css('bottom', 0).css('left', 0).css('right', 0);
+   $('#stTabswrapper,#tabs').css({'position':'absolute', 'top':0, 'bottom':0, 'left': 0, 'right': 0, 'width': 'auto'});
    $('.stNavWrapper').css('position', 'absolute').css('bottom', 0).css('left', 0).css('right', 0)
       .find('.stNav').css('top', null).css('bottom', '12px').css('height', '22px')
       .find('.ui-icon').css('margin-top', '2px');
