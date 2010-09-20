@@ -139,9 +139,15 @@ class CmsController < MyProfileController
 
     @article.profile = profile
     @article.last_changed_by = user
+
+    continue = params[:continue]
     if request.post?
       if @article.save
-        redirect_to @article.view_url
+        if continue
+          redirect_to :action => 'edit', :id => @article
+        else
+          redirect_to @article.view_url
+        end
         return
       end
     end

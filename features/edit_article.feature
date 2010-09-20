@@ -122,3 +122,14 @@ Feature: edit article
     Then show me the page
     Then the "Text" field should contain "new text"
     And I should be on "Save the whales" edit page
+
+  Scenario: save and continue when creating a new article
+    Given I am on /joaosilva
+    When I follow "New article"
+    And I follow "Text article with visual editor"
+    And I fill in "Title" with "My new article"
+    And I fill in "Text" with "text for the new article"
+    And I press "Save and continue"
+    Then I should be on "My new article" edit page
+    And the "Title" field should contain "My new article"
+    And the "Text" field should contain "text for the new article"
