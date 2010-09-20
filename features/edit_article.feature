@@ -114,3 +114,11 @@ Feature: edit article
     When I follow "Cancel" within ".no-boxes"
     And I should be on /joaosilva/my-folder
 
+  Scenario: save and continue
+    Given I am on /joaosilva/save-the-whales
+    And I follow "Edit"
+    When I fill in "Text" with "new text"
+    And I press "Save and continue"
+    Then show me the page
+    Then the "Text" field should contain "new text"
+    And I should be on "Save the whales" edit page

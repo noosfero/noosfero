@@ -51,6 +51,10 @@ module NavigationHelpers
     when /^(.+)'s cms/
       '/myprofile/%s/cms' % Profile.find_by_name($1).identifier
 
+    when /^"(.+)" edit page/
+      article = Article.find_by_name($1)
+      '/myprofile/%s/cms/edit/%s' % [article.profile.identifier, article.id]
+
     when /^(.+)'s members management/
       '/myprofile/%s/profile_members' % Profile.find_by_name($1).identifier
 

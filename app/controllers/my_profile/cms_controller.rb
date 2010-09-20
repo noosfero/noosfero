@@ -88,14 +88,16 @@ class CmsController < MyProfileController
     @article = profile.articles.find(params[:id])
     @parent_id = params[:parent_id]
     @type = params[:type] || @article.class.to_s
+    continue = params[:continue]
 
     refuse_blocks
     record_coming
     if request.post?
       @article.last_changed_by = user
       if @article.update_attributes(params[:article])
-        redirect_to @article.view_url
-        return
+        if !continue
+          redirect_to @article.view_url
+        end
       end
     end
   end
