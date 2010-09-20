@@ -337,19 +337,19 @@ class ProfileControllerTest < Test::Unit::TestCase
   should 'display contact us for enterprises' do
     ent = Enterprise.create!(:name => 'my test enterprise', :identifier => 'my-test-enterprise')
     get :index, :profile => 'my-test-enterprise'
-    assert_tag :tag => 'a', :attributes => { :href => "/contact/my-test-enterprise/new" }, :content => 'Send a message'
+    assert_tag :tag => 'a', :attributes => { :href => "/contact/my-test-enterprise/new" }, :content => /Send/
   end
 
   should 'not display contact us for non-enterprises' do
     get :index, :profile => @profile.identifier
-    assert_no_tag :tag => 'a', :attributes => { :href => "/contact/#{@profile.identifier}/new" }, :content => 'Send a message'
+    assert_no_tag :tag => 'a', :attributes => { :href => "/contact/#{@profile.identifier}/new" }, :content => /Send/
   end
 
   should 'display contact us only if enabled' do
     ent = fast_create(Enterprise, :name => 'my test enterprise', :identifier => 'my-test-enterprise')
     ent.update_attribute(:enable_contact_us, false)
     get :index, :profile => 'my-test-enterprise'
-    assert_no_tag :tag => 'a', :attributes => { :href => "/contact/my-test-enterprise/new" }, :content => 'Send a message'
+    assert_no_tag :tag => 'a', :attributes => { :href => "/contact/my-test-enterprise/new" }, :content => /Send/
   end
   
   should 'display contact button only if friends' do
