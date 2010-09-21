@@ -7,7 +7,8 @@ class ChatController < PublicController
     login = current_user.jid
     password = current_user.crypted_password
     begin
-      jid, sid, rid = RubyBOSH.initialize_session(login, password, "http://#{environment.default_hostname}/http-bind")
+      jid, sid, rid = RubyBOSH.initialize_session(login, password, "http://#{environment.default_hostname}/http-bind",
+                                                  :wait => 30, :hold => 1, :window => 5)
       session_data = { :jid => jid, :sid => sid, :rid => rid }
       render :text => session_data.to_json, :layout => false, :content_type => 'application/javascript'
     rescue
