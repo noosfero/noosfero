@@ -56,6 +56,7 @@ class UploadedFileTest < Test::Unit::TestCase
     file = UploadedFile.new(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
     file.profile = profile
     assert file.save
+    assert file.is_image
   end
 
   should 'has attachment_fu validation options' do

@@ -1164,6 +1164,7 @@ class CmsControllerTest < Test::Unit::TestCase
 
   should 'display pagination links of documents' do
     @controller.stubs(:per_page).returns(1)
+    profile.articles.destroy_all
     file = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/feed.xml', 'text/xml'))
     file2 = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'))
     file2.created_at = 1.day.ago

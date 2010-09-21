@@ -16,6 +16,10 @@ class UploadedFile < Article
 
   validates_size_of :title, :maximum => 60, :if => (lambda { |file| !file.title.blank? })
 
+  before_create do |uploaded_file|
+    uploaded_file.is_image = true if uploaded_file.image?
+  end
+
   def thumbnail_path
     self.image? ? self.full_filename(:thumb).gsub(File.join(RAILS_ROOT, 'public'), '') : nil
   end

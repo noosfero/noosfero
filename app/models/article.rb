@@ -238,6 +238,7 @@ class Article < ActiveRecord::Base
 
   named_scope :published, :conditions => { :published => true  }
   named_scope :folders, :conditions => { :type => ['Folder', 'Blog']  }
+  named_scope :images, :conditions => { :is_image => true }
 
   def display_unpublished_article_to?(user)
     self.author == user || allow_view_private_content?(user) || user == self.profile ||

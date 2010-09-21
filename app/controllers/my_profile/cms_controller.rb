@@ -285,20 +285,20 @@ class CmsController < MyProfileController
   def media_listing
     if params[:image_folder_id]
       folder = profile.articles.find(params[:image_folder_id]) if !params[:image_folder_id].blank?
-      @images = (folder ? folder.children : UploadedFile.find(:all, :order => 'created_at desc', :conditions => ["profile_id = ? AND parent_id is NULL", profile ])).select { |c| c.image? }
+      @images = (folder ? folder.children : profile.top_level_articles).images
     elsif params[:document_folder_id]
       folder = profile.articles.find(params[:document_folder_id]) if !params[:document_folder_id].blank?
-      @documents = (folder ? folder.children : UploadedFile.find(:all, :order => 'created_at desc', :conditions => ["profile_id = ? AND parent_id is NULL", profile ])).select { |c| c.kind_of?(UploadedFile) && !c.image? }
+      @documents = (folder ? folder.children : profile.top_level_articles)
     else
-      @documents = UploadedFile.find(:all, :order => 'created_at desc', :conditions => ["profile_id = ? AND parent_id is NULL", profile ])
-      @images = @documents.select(&:image?)
+      @documents = profile.articles
+      @images = @documents.images
       @documents -= @images
     end
 
-    @images = @images.paginate(:per_page => per_page, :page => params[:ipage]) if @images
-    @documents = @documents.paginate(:per_page => per_page, :page => params[:dpage]) if @documents
+    @images = @images.paginate(:per_page => per_page, :page => params[:ipage], :order => "updated_at desc") if @images
+    @documents = @documents.paginate(:per_page => per_page, :page => params[:dpage], :order => "updated_at desc", :conditions => {:is_image => false}) if @documents
 
-    @folders = Folder.find(:all, :conditions => { :profile_id => profile })
+    @folders = profile.folders
     @image_folders = @folders.select {|f| f.children.any? {|c| c.image?} }
     @document_folders = @folders.select {|f| f.children.any? {|c| !c.image? && c.kind_of?(UploadedFile) } }
 
