@@ -14,15 +14,15 @@ ActiveRecord::Schema.define(:version => 20100921121528) do
   create_table "action_tracker", :force => true do |t|
     t.integer  "user_id"
     t.string   "user_type"
-    t.integer  "dispatcher_id"
-    t.string   "dispatcher_type"
+    t.integer  "target_id"
+    t.string   "target_type"
     t.text     "params"
     t.string   "verb"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "action_tracker", ["dispatcher_id", "dispatcher_type"], :name => "index_action_tracker_on_dispatcher_id_and_dispatcher_type"
+  add_index "action_tracker", ["target_id", "target_type"], :name => "index_action_tracker_on_dispatcher_id_and_dispatcher_type"
   add_index "action_tracker", ["user_id", "user_type"], :name => "index_action_tracker_on_user_id_and_user_type"
   add_index "action_tracker", ["verb"], :name => "index_action_tracker_on_verb"
 
