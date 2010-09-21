@@ -6,7 +6,7 @@ class ChangeActionTrackerRecord < ActiveRecord::Migration
   end
 
   def self.down
-    raise "this migration can't be reverted"
+    puts "Warning: cannot restore action tracker records with verb = 'publish_article_in_community'"
     rename_column(:action_tracker, :target_type, :dispatcher_type)
     rename_column(:action_tracker, :target_id, :dispatcher_id)
   end
