@@ -769,7 +769,8 @@ class ProfileControllerTest < Test::Unit::TestCase
 
   should 'the network activity be paginated' do
     p1= Person.first
-    40.times{Scrap.create!(defaults_for_scrap(:sender => p1, :receiver => p1))}
+    at = fast_create(ActionTracker::Record)
+    40.times{fast_create(ActionTrackerNotification, :action_tracker_id => at.id, :profile_id => p1.id)}
 
     @controller.stubs(:logged_in?).returns(true)
     user = mock()

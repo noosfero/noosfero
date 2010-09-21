@@ -224,7 +224,7 @@ module Noosfero::Factory
   alias :defaults_for_textile_article    :defaults_for_article
   alias :defaults_for_tiny_mce_article   :defaults_for_article
   alias :defaults_for_rss_feed           :defaults_for_article
-  alias :defaults_for_textile_article    :defaults_for_article
+  alias :defaults_for_published_article  :defaults_for_article
   alias :defaults_for_folder             :defaults_for_article
 
   ###############################################
@@ -381,7 +381,7 @@ module Noosfero::Factory
   ###############################################
 
   def defaults_for_action_tracker_record(params = {})
-    { :created_at => DateTime.now, :verb => :leave_comment, :user_type => 'Profile', :user_id => 1 }.merge(params)
+    { :created_at => DateTime.now, :verb => 'add_member_in_community', :user_type => 'Profile', :user_id => 1 }.merge(params)
   end
 
   ###############################################

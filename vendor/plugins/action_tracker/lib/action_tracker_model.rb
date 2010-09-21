@@ -4,7 +4,7 @@ module ActionTracker
     set_table_name 'action_tracker'
 
     belongs_to :user, :polymorphic => true
-    belongs_to :dispatcher, :polymorphic => true
+    belongs_to :target, :polymorphic => true
 
     serialize :params, Hash
 
@@ -25,7 +25,9 @@ module ActionTracker
     def self.update_or_create(params)
       u = params[:user] || current_user_from_model
       return if u.nil?
-      l = last :conditions => { :user_id => u.id, :user_type => u.class.base_class.to_s, :verb => params[:verb].to_s }
+      target_hash = params[:target].nil? ? {} : {:target_type => params[:target].class.base_class.to_s, :target_id => params[:target].id}
+      conditions = { :user_id => u.id, :user_type => u.class.base_class.to_s, :verb => params[:verb].to_s }.merge(target_hash)
+      l = last :conditions => conditions
       ( !l.nil? and Time.now - l.updated_at < ActionTrackerConfig.timeout ) ? l.update_attributes(params.merge({ :updated_at => Time.now })) : l = new(params)
       l
     end
@@ -33,7 +35,8 @@ module ActionTracker
     def self.add_or_create(params)
       u = params[:user] || current_user_from_model
       return if u.nil?
-      l = last :conditions => { :user_id => u.id, :user_type => u.class.base_class.to_s, :verb => params[:verb].to_s }
+      target_hash = params[:target].nil? ? {} : {:target_type => params[:target].class.base_class.to_s, :target_id => params[:target].id}
+      l = last :conditions => { :user_id => u.id, :user_type => u.class.base_class.to_s, :verb => params[:verb].to_s }.merge(target_hash)
       if !l.nil? and Time.now - l.updated_at < ActionTrackerConfig.timeout
         params[:params].clone.each { |key, value| params[:params][key] = l.params[key].clone.push(value) }
         l.update_attributes params

@@ -37,4 +37,8 @@ class PublishedArticle < Article
     reference_article && reference_article.abstract
   end
 
+  def notifiable?
+    true
+  end
+
 end

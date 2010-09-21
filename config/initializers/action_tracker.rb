@@ -19,11 +19,6 @@ ActionTrackerConfig.verbs = {
     :type => :groupable
   },
 
-  :publish_article_in_community => {
-    :description => lambda { n_('published 1 article in communities: %{title}', 'published %{num} articles in communities: %{title}', get_name.size) % { :num => get_name.size, :title => '{{ta.collect_group_with_index(:name){ |n,i| link_to(truncate(n), ta.get_url[i]) + " (%s " + link_to(ta.get_profile_name[i], ta.get_profile_url[i]) + ")" }.to_sentence(:connector => "%s")}}' % [_("in"), _("and")] } },
-    :type => :groupable
-  },
-
   :new_friendship => { 
     :description => lambda { n_('has made 1 new friend:<br />%{name}', 'has made %{num} new friends:<br />%{name}', get_friend_name.size) % { :num => get_friend_name.size, :name => '{{ta.collect_group_with_index(:friend_name){ |n,i| link_to(content_tag(:img, nil, :src => (ta.get_friend_profile_custom_icon[i] || default_or_themed_icon("/images/icons-app/person-icon.png"))), ta.get_friend_url[i], :title => n)}.join}}' } },
     :type => :groupable
@@ -32,6 +27,14 @@ ActionTrackerConfig.verbs = {
   :join_community => { 
     :description => lambda { n_('has joined 1 community:<br />%{name}', 'has joined %{num} communities:<br />%{name}', get_resource_name.size) % { :num => get_resource_name.size, :name => '{{ta.collect_group_with_index(:resource_name){ |n,i| link_to(content_tag(:img, nil, :src => (ta.get_resource_profile_custom_icon[i] || default_or_themed_icon("/images/icons-app/community-icon.png"))), ta.get_resource_url[i], :title => n)}.join}}' } },
     :type => :groupable
+  },
+
+  :add_member_in_community => { 
+    :description => lambda { _('has joined the community.') },
+  },
+
+  :remove_member_in_community => { 
+    :description => lambda { _('has left the community.') },
   },
 
   :leave_community => {

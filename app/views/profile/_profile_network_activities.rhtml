@@ -9,6 +9,7 @@
       <div class='profile-network-description'>
         <p class='profile-network-time'><%= time_ago_as_sentence(activity.created_at) + ' ' + _('ago') %></p>
         <p class='profile-network-text'><%= link_to activity.user.name, activity.user.url %> <%= describe activity %></p>
+        <p class='profile-network-where'><%= _('In community %s') % link_to(activity.target.name, activity.target.url) if !profile.is_a?(Community) && activity.target.is_a?(Community) %></p>
       </div>
         <div id='profile-network-message-<%= activity.id%>' style='display:none;'>
         <div id='profile-network-form-<%= activity.id%>' style='display:none;'>

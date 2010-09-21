@@ -1,6 +1,6 @@
 class Comment < ActiveRecord::Base
 
-  track_actions :leave_comment, :after_create, :keep_params => ["article.title", "article.url", "title", "url", "body"]
+  track_actions :leave_comment, :after_create, :keep_params => ["article.title", "article.url", "title", "url", "body"], :custom_target => :action_tracker_target 
 
   validates_presence_of :title, :body
   belongs_to :article, :counter_cache => true
@@ -20,6 +20,10 @@ class Comment < ActiveRecord::Base
   end
 
   xss_terminate :only => [ :body, :title, :name ], :on => 'validation'
+
+  def action_tracker_target
+    self.article.profile
+  end
 
   def author_name
     if author

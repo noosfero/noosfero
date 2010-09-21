@@ -15,7 +15,7 @@ ActiveRecord::Schema.define do
   end
   create_table :action_tracker do |t|
     t.belongs_to :user, :polymorphic => true
-    t.belongs_to :dispatcher, :polymorphic => true
+    t.belongs_to :target, :polymorphic => true
     t.text :params
     t.string :verb
     t.timestamps
@@ -29,6 +29,7 @@ end
 
 class OtherModel < ActiveRecord::Base
   set_table_name :other_table
+  acts_as_trackable
 end
 
 class ThingsController < ActionController::Base
@@ -38,7 +39,7 @@ class ThingsController < ActionController::Base
     render :text => "test"
   end
 
-	def test
+  def test
     render :text => "test"
   end
 
@@ -490,7 +491,81 @@ class ActionTrackerTest < ActiveSupport::TestCase
         get :test
       end
     end
-		assert_equal "test", OtherModel.last.other_column
+    assert_equal "test", OtherModel.last.other_column
+  end
+
+  def test_track_actions_custom_user_as_symbol
+    ActionTrackerConfig.verbs = { :test => { :description => "Some" } }
+    model = create_model do
+      track_actions :test, :after_create, :custom_user => :test_custom_user
+      def current_user
+        SomeModel.create!
+      end
+      def test_custom_user
+        OtherModel.create!
+      end
+    end
+    @controller = create_controller_for_model(model, :another_column => 2)
+    assert_difference('ActionTracker::Record.count') { get :test }
+		assert_kind_of OtherModel, ActionTracker::Record.last.user
+  end
+
+  def test_track_actions_custom_user_as_string
+    ActionTrackerConfig.verbs = { :test => { :description => "Some" } }
+    model = create_model do
+      track_actions :test, :after_create, "custom_user" => :test_custom_user
+      def current_user
+        SomeModel.create!
+      end
+      def test_custom_user
+        OtherModel.create!
+      end
+    end
+    @controller = create_controller_for_model(model, :another_column => 2)
+    assert_difference('ActionTracker::Record.count') { get :test }
+		assert_kind_of OtherModel, ActionTracker::Record.last.user
+  end
+
+  def test_track_actions_custom_user_is_nil_by_default
+    ActionTrackerConfig.verbs = { :test => { :description => "Some" } }
+    model = create_model do
+      track_actions :test, :after_create
+      def current_user
+        SomeModel.create!
+      end
+      def test_custom_user
+        OtherModel.create!
+      end
+    end
+    @controller = create_controller_for_model(model, :another_column => 2)
+    assert_difference('ActionTracker::Record.count') { get :test }
+		assert_kind_of SomeModel, ActionTracker::Record.last.user
+  end
+
+  def test_track_actions_custom_target_as_symbol
+    ActionTrackerConfig.verbs = { :test => { :description => "Some" } }
+    model = create_model do
+      track_actions :test, :after_create, :custom_target => :test_custom_target
+      def test_custom_target
+        SomeModel.create!
+      end
+    end
+    @controller = create_controller_for_model(model, :another_column => 2)
+    assert_difference('ActionTracker::Record.count') { get :test }
+		assert_kind_of SomeModel, ActionTracker::Record.last.target
+  end
+
+  def test_track_actions_custom_target_as_string
+    ActionTrackerConfig.verbs = { :test => { :description => "Some" } }
+    model = create_model do
+      track_actions :test, :after_create, "custom_target" => :test_custom_target
+      def test_custom_target
+        SomeModel.create!
+      end
+    end
+    @controller = create_controller_for_model(model, :another_column => 2)
+    assert_difference('ActionTracker::Record.count') { get :test }
+		assert_kind_of SomeModel, ActionTracker::Record.last.target
   end
 
   def test_acts_as_trackable_with_options
@@ -515,7 +590,7 @@ class ActionTrackerTest < ActiveSupport::TestCase
     end
   end
 
-  def test_track_actions_save_dispatcher
+  def test_track_actions_save_target
     ActionTrackerConfig.verbs = { :test => { :description => "Some" } }
     model = create_model do
       track_actions :test, :after_create
@@ -524,7 +599,7 @@ class ActionTrackerTest < ActiveSupport::TestCase
     assert_difference 'ActionTracker::Record.count' do
       get :test
     end
-    assert_kind_of model.base_class, ActionTracker::Record.last.dispatcher
+    assert_kind_of model.base_class, ActionTracker::Record.last.target
   end
 
   private

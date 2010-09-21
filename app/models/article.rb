@@ -2,10 +2,9 @@ require 'hpricot'
 
 class Article < ActiveRecord::Base
 
-  track_actions :create_article, :after_create, :keep_params => [:name, :url], :if => Proc.new { |a| a.published? && !a.profile.is_a?(Community) && !a.image? && a.notifiable? }
-  track_actions :update_article, :before_update, :keep_params => [:name, :url], :if => Proc.new { |a| a.published? && (a.body_changed? || a.name_changed?) && a.notifiable? }
-  track_actions :remove_article, :before_destroy, :keep_params => [:name], :if => Proc.new { |a| a.published? && a.notifiable? }
-  track_actions :publish_article_in_community, :after_create, :keep_params => ["name", "url", "profile.url", "profile.name"], :if => Proc.new { |a| a.published? && a.profile.is_a?(Community) && !a.image? && a.notifiable? }
+  track_actions :create_article, :after_create, :keep_params => [:name, :url], :if => Proc.new { |a| a.is_trackable? && !a.image? }, :custom_target => :action_tracker_target
+  track_actions :update_article, :before_update, :keep_params => [:name, :url], :if => Proc.new { |a| a.is_trackable? && (a.body_changed? || a.name_changed?) }, :custom_target => :action_tracker_target
+  track_actions :remove_article, :before_destroy, :keep_params => [:name], :if => Proc.new { |a| a.is_trackable? }, :custom_target => :action_tracker_target
 
   # xss_terminate plugin can't sanitize array fields
   before_save :sanitize_tag_list
@@ -43,6 +42,10 @@ class Article < ActiveRecord::Base
 
   validates_format_of :external_link, :with => URL_FORMAT, :if => lambda { |article| !article.external_link.blank? }
 
+  def is_trackable?
+    self.published? && self.notifiable? && self.advertise?
+  end
+
   def external_link=(link)
     if !link.blank? && link !~ /^[a-z]+:\/\//i
       link = 'http://' + link
@@ -50,6 +53,9 @@ class Article < ActiveRecord::Base
     self[:external_link] = link
   end
 
+  def action_tracker_target
+    self.profile
+  end
 
   def self.human_attribute_name(attrib)
     case attrib.to_sym

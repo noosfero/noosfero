@@ -11,7 +11,7 @@ ActiveRecord::Schema.define do
   end
   create_table :action_tracker do |t|
     t.belongs_to :user, :polymorphic => true
-    t.belongs_to :dispatcher, :polymorphic => true
+    t.belongs_to :target, :polymorphic => true
     t.text :params
     t.string :verb
     t.timestamps
@@ -29,7 +29,7 @@ class ActionTrackerModelTest < ActiveSupport::TestCase
     ActionTrackerConfig.verbs = { :some_verb => { :description => "Did something" } }
     @mymodel = SomeModel.create!
     @othermodel = SomeModel.create!
-    @tracked_action = ActionTracker::Record.create! :verb => :some_verb, :params => { :user => "foo" }, :user => @mymodel, :dispatcher => @othermodel
+    @tracked_action = ActionTracker::Record.create! :verb => :some_verb, :params => { :user => "foo" }, :user => @mymodel, :target => @othermodel
   end
 
   def test_has_relationship
@@ -47,10 +47,10 @@ class ActionTrackerModelTest < ActiveSupport::TestCase
     assert_equal [@tracked_action], @mymodel.tracked_actions
   end
 
-  def test_has_a_polymorphic_relation_with_dispatcher
-    assert_equal @othermodel.id, @tracked_action.dispatcher_id
-    assert_equal "SomeModel", @tracked_action.dispatcher_type
-    assert_equal @othermodel, @tracked_action.dispatcher
+  def test_has_a_polymorphic_relation_with_target
+    assert_equal @othermodel.id, @tracked_action.target_id
+    assert_equal "SomeModel", @tracked_action.target_type
+    assert_equal @othermodel, @tracked_action.target
   end
 
   def test_should_stringify_verb_before_validation
@@ -90,7 +90,7 @@ class ActionTrackerModelTest < ActiveSupport::TestCase
     assert_equal @mymodel, ActionTracker::Record.last.user
   end
 
-  def test_update_or_create_create_if_no_timeout
+  def test_update_or_create_create_if_timeout
     ActionTrackerConfig.verbs = { :some => { :description => "Something", :type => :updatable } }
     ActionTrackerConfig.timeout = 5.minutes
     ActionTracker::Record.delete_all
@@ -111,7 +111,7 @@ class ActionTrackerModelTest < ActiveSupport::TestCase
     assert_equal t, ta.reload.updated_at
   end
 
-  def test_update_or_create_update_if_timeout
+  def test_update_or_create_update_if_no_timeout
     ActionTrackerConfig.verbs = { :some => { :description => "Something", :type => :updatable } }
     ActionTrackerConfig.timeout = 7.minutes
     ActionTracker::Record.delete_all
@@ -134,7 +134,37 @@ class ActionTrackerModelTest < ActiveSupport::TestCase
     assert_equal 3, ta.reload.get_foo
   end
 
-  def test_add_or_create_create_if_no_timeout
+  def test_should_update_or_create_method_create_a_new_tracker_with_different_dispacthers
+    ActionTrackerConfig.verbs = { :some => { :description => "Something", :type => :updatable } }
+    ActionTracker::Record.delete_all
+    ta = nil
+    assert_difference "ActionTracker::Record.count" do
+      ta = ActionTracker::Record.update_or_create :verb => :some, :user => @mymodel, :target => @mymodel, :params => { :foo => 2 }
+      ta.save; ta.reload
+    end
+    assert_kind_of ActionTracker::Record, ta
+    t = ta.reload.updated_at
+    sleep(1)
+    assert_no_difference "ActionTracker::Record.count" do
+      ta2 = ActionTracker::Record.update_or_create :verb => :some, :user => @mymodel, :target => @mymodel, :params => { :foo => 3 }
+      ta2.save; ta2.reload
+      assert_kind_of ActionTracker::Record, ta2
+    end
+    assert_equal 3, ta.reload.get_foo
+    assert_not_equal t, ta.reload.updated_at
+
+    assert_kind_of ActionTracker::Record, ta
+    t = ta.reload.updated_at
+    assert_difference "ActionTracker::Record.count" do
+      ta2 = ActionTracker::Record.update_or_create :verb => :some, :user => @mymodel, :target => @othermodel, :params => { :foo => 4 }
+      ta2.save; ta2.reload
+      assert_kind_of ActionTracker::Record, ta2
+    end
+    assert_equal t, ta.reload.updated_at
+    assert_equal 3, ta.reload.get_foo
+  end
+
+  def test_add_or_create_create_if_timeout
     ActionTrackerConfig.verbs = { :some => { :description => "Something", :type => :groupable } }
     ActionTrackerConfig.timeout = 5.minutes
     ActionTracker::Record.delete_all
@@ -157,7 +187,7 @@ class ActionTrackerModelTest < ActiveSupport::TestCase
     assert_equal ["test"], ActionTracker::Record.last.params[:foo]
   end
 
-  def test_add_or_create_update_if_timeout
+  def test_add_or_create_update_if_no_timeout
     ActionTrackerConfig.verbs = { :some => { :description => "Something", :type => :updatable } }
     ActionTrackerConfig.timeout = 7.minutes
     ActionTracker::Record.delete_all
@@ -186,6 +216,30 @@ class ActionTrackerModelTest < ActiveSupport::TestCase
     end
     assert_equal ["test 1", "test 2", "test 1"], ActionTracker::Record.last.params[:foo]
     assert_equal [2, 1, 1], ActionTracker::Record.last.params[:bar]
+  end
+
+  def test_add_or_create_create_if_no_timeout_and_different_target
+    ActionTrackerConfig.verbs = { :some => { :description => "Something", :type => :updatable } }
+    ActionTrackerConfig.timeout = 7.minutes
+    ActionTracker::Record.delete_all
+    ta = nil
+    assert_difference "ActionTracker::Record.count" do
+      ta = ActionTracker::Record.add_or_create :verb => :some, :user => @mymodel, :target => @mymodel, :params => { :foo => "test 1", :bar => 2 }
+      ta.save; ta.reload
+    end
+    assert_kind_of ActionTracker::Record, ta
+    assert_equal ["test 1"], ta.params[:foo]
+    assert_equal [2], ta.params[:bar]
+    ta.updated_at = Time.now.ago(6.minutes)
+    ta.send :update_without_callbacks
+    t = ta.reload.updated_at
+    assert_difference "ActionTracker::Record.count" do
+      ta2 = ActionTracker::Record.add_or_create :verb => :some, :user => @mymodel, :target => @othermodel, :params => { :foo => "test 2", :bar => 1 }
+      ta2.save; ta2.reload
+      assert_kind_of ActionTracker::Record, ta2
+    end
+    assert_equal ["test 1"], ta.params[:foo]
+    assert_equal [2], ta.params[:bar]
   end
 
   def test_time_spent

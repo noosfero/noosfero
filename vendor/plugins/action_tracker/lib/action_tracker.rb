@@ -67,7 +67,9 @@ module ActionTracker
       def track_actions(verb, callback, options = {}, &block)
         keep_params = options.delete(:keep_params) || options.delete('keep_params') || :all
         post_proc = options.delete(:post_processing) || options.delete('post_processing') || Proc.new{}
-        send(callback, Proc.new { |tracked| tracked.save_action_for_verb(verb.to_s, keep_params, post_proc) }, options)
+        custom_user = options.delete(:custom_user) || options.delete('custom_user') || nil
+        custom_target = options.delete(:custom_target) || options.delete('custom_target') || nil
+        send(callback, Proc.new { |tracked| tracked.save_action_for_verb(verb.to_s, keep_params, post_proc, custom_user, custom_target) }, options)
         send :include, InstanceMethods
       end
 
@@ -86,8 +88,10 @@ module ActionTracker
         time.to_f
       end
 
-      def save_action_for_verb(verb, keep_params = :all, post_proc = Proc.new{})
-        user = ActionTracker::Record.current_user_from_model
+      def save_action_for_verb(verb, keep_params = :all, post_proc = Proc.new{}, custom_user = nil, custom_target = nil)
+        user = self.send(custom_user) unless custom_user.blank?
+        user ||= ActionTracker::Record.current_user_from_model
+        target = self.send(custom_target) unless custom_target.blank?
         return nil if user.nil?
         if keep_params.is_a? Array
           stored_params = {}
@@ -103,13 +107,13 @@ module ActionTracker
         end
         tracked_action = case ActionTrackerConfig.verb_type(verb)
           when :groupable
-            Record.add_or_create :verb => verb, :params => stored_params
+            Record.add_or_create :verb => verb, :params => stored_params, :user => user, :target => target
           when :updatable
-            Record.update_or_create :verb => verb, :params => stored_params
+            Record.update_or_create :verb => verb, :params => stored_params, :user => user, :target => target
           when :single
-            Record.new :verb => verb, :params => stored_params
+            Record.new :verb => verb, :params => stored_params, :user => user
         end
-        tracked_action.dispatcher = self
+        tracked_action.target = target || self
         user.tracked_actions << tracked_action
         post_proc.call tracked_action.reload
       end

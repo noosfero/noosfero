@@ -226,4 +226,16 @@ class CommentTest < Test::Unit::TestCase
     assert_equal comment.url, ta.get_url
   end
 
+  should 'have the action_tracker_target defined' do
+    assert Comment.method_defined?(:action_tracker_target)
+  end
+
+  should "have the action_tracker_target be the articles's profile" do
+    owner = create_user('testuser').person
+    article = owner.articles.create!(:name => 'test', :body => '...')
+    comment = article.comments.create!(:article => article, :name => 'foo', :title => 'bar', :body => 'my comment', :email => 'cracker@test.org')
+    ta = ActionTracker::Record.last
+    assert_equal owner, ta.target
+  end
+
 end

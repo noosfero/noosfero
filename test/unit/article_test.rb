@@ -1020,4 +1020,40 @@ class ArticleTest < Test::Unit::TestCase
     assert_equal 0, ActionTracker::Record.count
   end
 
+  should "the action_tracker_target method be defined" do
+    assert Article.method_defined?(:action_tracker_target)
+  end
+
+  should "the action_tracker_target method return the article profile" do
+    profile = fast_create(Person)
+    article = fast_create(Article, :profile_id => profile.id)
+    assert_equal profile, article.action_tracker_target
+
+    profile = fast_create(Community)
+    article = fast_create(Article, :profile_id => profile.id)
+    assert_equal profile, article.action_tracker_target
+  end
+
+  should "have defined the is_trackable method defined" do
+    assert Article.method_defined?(:is_trackable?)
+  end
+
+  should "the common trackable conditions return the correct value" do
+    a =  Article.new
+    a.published = a.advertise = true
+    assert_equal true, a.published?
+    assert_equal false, a.notifiable?
+    assert_equal true, a.advertise?
+    assert_equal false, a.is_trackable?
+   
+    a.published=false
+    assert_equal false, a.published?
+    assert_equal false, a.is_trackable?
+
+    a.published=true
+    a.advertise=false
+    assert_equal false, a.advertise?
+    assert_equal false, a.is_trackable?
+  end
+
 end

@@ -30,12 +30,14 @@ class UserStampSweeper < ActionController::Caching::Sweeper
   def before_validation(record)
     return unless current_user
     
-    if record.respond_to?(UserStamp.creator_assignment_method) && record.new_record?
-      record.send(UserStamp.creator_assignment_method, current_user)
+    attribute, method = UserStamp.creator_attribute, UserStamp.creator_assignment_method
+    if record.respond_to?(method) && record.new_record?
+      record.send(method, current_user) unless record.send("#{attribute}_id_changed?") || record.send("#{attribute}_type_changed?")
     end
     
-    if record.respond_to?(UserStamp.updater_assignment_method)
-      record.send(UserStamp.updater_assignment_method, current_user)
+    attribute, method = UserStamp.updater_attribute, UserStamp.updater_assignment_method
+    if record.respond_to?(method)
+      record.send(method, current_user) if record.send(attribute).blank?
     end
   end
   

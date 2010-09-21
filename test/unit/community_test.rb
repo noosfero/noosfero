@@ -242,9 +242,9 @@ class CommunityTest < Test::Unit::TestCase
 
     RoleAssignment.delete_all
     ActionTrackerNotification.delete_all
-    RoleAssignment.any_instance.stubs(:role_id).returns(3)
-    assert_difference(ActionTrackerNotification, :count, 3) do
+    assert_difference(ActionTrackerNotification, :count, 5) do
       community.add_member(p1)
+      process_delayed_job_queue
       community.add_member(p3)
       assert p1.is_member_of?(community)
       assert !p2.is_member_of?(community)

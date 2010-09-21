@@ -327,12 +327,7 @@ class Person < Profile
   end
 
   def self.notify_activity(tracked_action)
-    profile = tracked_action.dispatcher.profile if tracked_action.dispatcher.is_a?(Article)
-    profile = tracked_action.dispatcher.resource if tracked_action.dispatcher.is_a?(RoleAssignment)
-    profile = tracked_action.dispatcher.article.profile if tracked_action.dispatcher.is_a?(Comment)
-    profile_id = profile.nil? ? nil : profile.id
-    Delayed::Job.enqueue NotifyActivityToProfilesJob.new(tracked_action.id, profile_id)
-    ActionTrackerNotification.create(:action_tracker => tracked_action, :profile => tracked_action.user)
+    Delayed::Job.enqueue NotifyActivityToProfilesJob.new(tracked_action.id)
   end
 
   def is_member_of?(profile)
