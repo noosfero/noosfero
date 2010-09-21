@@ -5,7 +5,7 @@
       <p class='profile-wall-send-message'><%= link_to_function _('Scrap'), "hide_and_show(['#profile-wall-message-response-#{scrap.id}'],['#profile-wall-message-#{scrap.id}', '#profile-wall-form-#{scrap.id}']);$('content_#{scrap.id}').value='';return false", :class => "profile-send-message icon-scrap" %></p>
     <% end %>
   </div>
-  <div class='profile-wall-description'>
+  <% comment_balloon :class => 'profile-wall-description' do %>
     <p class='profile-wall-sender'><%= link_to scrap.sender.name, scrap.sender.url %></p>
     <p class='profile-wall-time'><%= time_ago_as_sentence(scrap.created_at) + ' ' + _('ago') %></p>
     <p class='profile-wall-text'><%= auto_link_urls scrap.content %></p>
@@ -13,12 +13,12 @@
     <% if logged_in? && current_person.follows?(scrap.sender) && scrap.root.nil? %>
       <p class='profile-wall-send-reply'><%= link_to_function _('Reply'), "hide_and_show(['#profile-wall-reply-response-#{scrap.id}'],['#profile-wall-reply-#{scrap.id}', '#profile-wall-reply-form-#{scrap.id}']);$('reply_content_#{scrap.id}').value='';$('scrap_id_#{scrap.id}').value='#{scrap.id}';return false", :class => "profile-send-reply icon-reply" %></p>
     <% end %>
-    <ul>
-      <% scrap.replies.map do |reply| %>
-        <%= render :partial => 'profile_scrap', :locals => {:scrap => reply} %>
-      <% end %>
-    </ul>
-  </div>
+  <% end %>
+  <ul class="profile-wall-scrap-replies">
+    <% scrap.replies.map do |reply| %>
+      <%= render :partial => 'profile_scrap', :locals => {:scrap => reply} %>
+    <% end %>
+  </ul>
   <div id='profile-wall-message-<%= scrap.id%>' style='display:none;'>
     <div id='profile-wall-form-<%= scrap.id%>' style='display:none;'>
       <p class='profile-wall-message'>

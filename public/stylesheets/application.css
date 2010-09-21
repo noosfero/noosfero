@@ -3445,8 +3445,8 @@ h1#agenda-title {
 
 .controller-profile .public-profile-description {
   font-style: italic;
-  border: 1px solid #ccc;
-  background: #eeeeec;
+  border: 0;
+  background: transparent;
   color: black;
   padding: 10px;
 }
@@ -4657,6 +4657,10 @@ h1#agenda-title {
   position: relative;
 }
 
+#profile-wall .profile-wall-description {
+  border: 0;
+}
+
 #profile-activity .profile-activity-description .icon-delete span,
 #profile-network .profile-network-description .icon-delete span,
 #profile-wall .profile-wall-description .icon-delete span {
@@ -4670,6 +4674,10 @@ h1#agenda-title {
   top: 4px;
   right: 4px;
   background-position: center center;
+  visibility: hidden;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
 }
 
 #profile-activity .profile-activity-text, #profile-network .profile-network-text, #profile-wall .profile-wall-text {
@@ -4710,12 +4718,8 @@ h1#agenda-title {
   margin: 4px 3px 0 0;
 }
 
-.profile-wall-image,
-.leave_scrap_to_self .profile-network-image,
-.leave_scrap .profile-network-image,
-.leave_scrap_to_self .profile-activity-image,
-.leave_scrap .profile-activity-image {
-  background: transparent url(/images/scrap-bg.png) 104% 10px no-repeat;
+.profile-wall-image {
+  background: transparent;
   position: relative;
   left: 1px;
   z-index: 2;
@@ -4858,18 +4862,13 @@ h1#agenda-title {
   text-decoration: none;
 }
 
-#profile-wall .profile-wall-description .profile-wall-image {
-  background-image: url(/images/scrap-bg-gray.png);
+#profile-wall .profile-wall-scrap-replies .profile-wall-description {
+  width: 240px;
+  background: transparent;
 }
 
-#profile-wall .profile-wall-description .profile-wall-description {
-  width: 242px;
-  background-color: #eee;
-}
-
-#profile-network .profile-wall-description textarea,
-#profile-wall .profile-wall-description textarea {
-  width: 338px;
+#profile-wall .profile-wall-scrap-replies textarea {
+  width: 334px;
   margin-left: 2px;
 }
 
@@ -4880,4 +4879,28 @@ h1#agenda-title {
 
 .limited-text-area div.fieldWithErrors {
   background: transparent;
+}
+
+#profile-wall .profile-wall-description .icon-scrap, #profile-wall .profile-wall-description .icon-reply {
+  visibility: hidden;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+}
+
+#profile-wall .comment-wrapper-1 {
+  margin-left: 0;
+}
+
+#profile-wall .comment-balloon-content {
+  padding: 3px 0 3px 15px;
+}
+
+.profile-wall-reply {
+  margin: 0;
+}
+
+.profile-wall-scrap-replies {
+  float: right;
+  margin-right: 2px;
 }

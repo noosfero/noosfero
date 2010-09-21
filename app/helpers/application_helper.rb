@@ -1194,4 +1194,11 @@ module ApplicationHelper
     end
   end
 
+  def comment_balloon(options = {}, &block)
+    wrapper = content_tag(:div, capture(&block), :class => 'comment-balloon-content')
+    (1..8).to_a.reverse.each { |i| wrapper = content_tag(:div, wrapper, :class => "comment-wrapper-#{i}") }
+    classes = options.delete(:class) || options.delete("class") || ''
+    concat(content_tag('div', wrapper + tag('br', :style => 'clear: both;'), { :class => 'comment-balloon ' + classes.to_s }.merge(options)), block.binding)
+  end
+
 end
