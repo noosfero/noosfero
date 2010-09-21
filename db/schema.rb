@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100910205427) do
+ActiveRecord::Schema.define(:version => 20100921121528) do
 
   create_table "action_tracker", :force => true do |t|
     t.integer  "user_id"
@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(:version => 20100910205427) do
     t.boolean  "highlighted",          :default => false
     t.string   "external_link"
     t.boolean  "thumbnails_processed", :default => false
+    t.boolean  "is_image",             :default => false
   end
 
   create_table "articles", :force => true do |t|
@@ -103,6 +104,7 @@ ActiveRecord::Schema.define(:version => 20100910205427) do
     t.boolean  "highlighted",          :default => false
     t.string   "external_link"
     t.boolean  "thumbnails_processed", :default => false
+    t.boolean  "is_image",             :default => false
   end
 
   create_table "articles_categories", :id => false, :force => true do |t|
