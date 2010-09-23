@@ -6,7 +6,7 @@ module EventsHelper
     content_tag('h2', title) +
     content_tag('div',
       (events.any? ?
-        content_tag('table', events.select { |item| item.public? }.map {|item| display_event_in_listing(item)}.join('')) :
+        content_tag('table', events.select { |item| item.display_to?(user) }.map {|item| display_event_in_listing(item)}.join('')) :
         content_tag('em', _('No events for this date'), :class => 'no-events')
       ), :id => 'agenda-items'
     )
@@ -26,7 +26,7 @@ module EventsHelper
         # the day itself
         date,
         # is there any events in this date?
-        events.any? do |event|
+        events.select {|event| event.display_to?(user)}.any? do |event|
           event.date_range.include?(date)
         end,
         # is this date in the current month?

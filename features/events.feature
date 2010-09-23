@@ -185,3 +185,20 @@ Feature: events
     And I press "Spread this"
     And I am on /profile/sample-community/events/2009/10/24
     Then I should see "Another Conference"
+
+  Scenario: events that are not allowed to the user should not be displayed nor listed in the calendar
+    Given the following events
+      | owner     | name               | start_date | published |
+      | josesilva | Unpublished event  | 2009-10-25 | false     |
+    When I am on /profile/josesilva/events/2009/10/25
+    Then I should not see "Unpublished event"
+    And I should not see "25" link
+
+  Scenario: events that are allowed to the user should be displayed and listed in the calendar
+    Given the following events
+      | owner     | name               | start_date | published |
+      | josesilva | Unpublished event  | 2009-10-25 | false     |
+    And I am logged in as "josesilva"
+    When I am on /profile/josesilva/events/2009/10/25
+    Then I should see "Unpublished event"
+    And I should see "25" link
