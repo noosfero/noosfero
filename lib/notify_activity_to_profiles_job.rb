@@ -12,21 +12,17 @@ class NotifyActivityToProfilesJob < Struct.new(:tracked_action_id)
     tracked_action = ActionTracker::Record.find(tracked_action_id)
     target = tracked_action.target
     if target.is_a?(Community) && NOTIFY_ONLY_COMMUNITY.include?(tracked_action.verb)
-      ActionTrackerNotification.create(:action_tracker => tracked_action, :profile => target)
+      ActionTrackerNotification.connection.execute("insert into action_tracker_notifications(profile_id, action_tracker_id) values (#{target.id}, #{tracked_action.id})")
       return
     end
 
-    ActionTrackerNotification.create(:action_tracker => tracked_action, :profile => tracked_action.user)
-    tracked_action.user.each_friend do |friend|
-      ActionTrackerNotification.create(:action_tracker => tracked_action, :profile => friend)
-    end
+    ActionTrackerNotification.connection.execute("insert into action_tracker_notifications(profile_id, action_tracker_id) values (#{tracked_action.user.id}, #{tracked_action.id})")
+    ActionTrackerNotification.connection.execute("insert into action_tracker_notifications(profile_id, action_tracker_id) select friend_id, #{tracked_action_id} from friendships where person_id=#{tracked_action.user.id}")
 
     if target.is_a?(Community)
-      target.each_member do |member|
-        next if member == tracked_action.user
-        ActionTrackerNotification.create(:action_tracker => tracked_action, :profile => member)
-      end
-      ActionTrackerNotification.create(:action_tracker => tracked_action, :profile => target) unless NOT_NOTIFY_COMMUNITY.include?(tracked_action.verb)
+      ActionTrackerNotification.connection.execute("insert into action_tracker_notifications(profile_id, action_tracker_id) select distinct profiles.id, #{tracked_action_id} from role_assignments, profiles where profiles.type = 'Person' and profiles.id = role_assignments.accessor_id and profiles.id != #{tracked_action.user.id} and role_assignments.resource_type = 'Profile' and role_assignments.resource_id = #{target.id}")
+
+      ActionTrackerNotification.connection.execute("insert into action_tracker_notifications(profile_id, action_tracker_id) values (#{target.id}, #{tracked_action_id})") unless NOT_NOTIFY_COMMUNITY.include?(tracked_action.verb)
     end
   end
 end
