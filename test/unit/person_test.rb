@@ -1059,4 +1059,10 @@ class PersonTest < Test::Unit::TestCase
     assert has_remove_member_notification
   end
 
+  should 'return url to a person wall' do
+    environment = create_environment('mycolivre.net')
+    profile = build(Person, :identifier => 'testprofile', :environment_id => create_environment('mycolivre.net').id)
+    assert_equal({ :host => "mycolivre.net", :profile => 'testprofile', :controller => 'profile', :action => 'index', :anchor => 'profile-wall' }, profile.wall_url)
+  end
+
 end

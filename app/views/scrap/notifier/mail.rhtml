@@ -1,0 +1,16 @@
+<%= _('Hi, %{recipient}!') % { :recipient => @recipient } %>
+
+<%= word_wrap(_('%{sender} (%{sender_link}) has left the following scrap for you:') % { :sender => @sender, :sender_link => url_for(@sender_link) }) %>
+
+-------------------------------------------------------------------------------
+<%= word_wrap(@scrap_content) %>
+-------------------------------------------------------------------------------
+
+<%= _('View this scrap on your wall:') %>
+<%= url_for @wall_url %>
+
+<%= _("Greetings,") %>
+
+--
+<%= _('%s team.') % @environment %>
+<%= url_for @url %>

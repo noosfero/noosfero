@@ -345,6 +345,10 @@ class Person < Profile
     end
   end
 
+  def wall_url
+    generate_url(:profile => identifier, :controller => 'profile', :action => 'index', :anchor => 'profile-wall')
+  end
+
   protected
 
   def followed_by?(profile)
