@@ -119,17 +119,17 @@ class ChangePasswordTest < Test::Unit::TestCase
   end
 
   should 'search for user in the correct environment' do
-    e1 = Environment.create!(:id => 1, :name => "environment1")
-    e2 = Environment.create!(:id => 2, :name => "environment2")
-    p1 = create_user('sample-user', :password => 'test', :password_confirmation => 'test', :email => 'sample-user@e1.com', :environment => e1).person
-    p2 = create_user('sample-user', :password => 'test', :password_confirmation => 'test', :email => 'sample-user@e2.com', :environment => e2).person
+    e1 = Environment.default
+    e2 = fast_create(Environment)
 
-    change = ChangePassword.new
-    change.login = 'sample-user'
-    change.email = 'sample-user@e2.com'
-    change.environment_id = e2.id
+    p1 = create_user('sample-user', :password => 'test', :password_confirmation => 'test', :email => 'sample-user@test.com', :environment => e1).person
+    p2 = create_user('sample-user', :password => 'test', :password_confirmation => 'test', :email => 'sample-user@test.com', :environment => e2).person
 
-    assert change.valid?
+    c1 = ChangePassword.create!(:login => 'sample-user', :email => 'sample-user@test.com', :environment_id => e1.id)
+    c2 = ChangePassword.create!(:login => 'sample-user', :email => 'sample-user@test.com', :environment_id => e2.id)
+
+    assert_equal c1.requestor, p1
+    assert_equal c2.requestor, p2
   end
 
 end
