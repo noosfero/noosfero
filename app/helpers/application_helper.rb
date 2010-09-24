@@ -518,24 +518,24 @@ module ApplicationHelper
           {_('Wall') => {:href => url_for(profile.public_profile_url)}},
           {_('Friends') => {:href => url_for(:controller => :profile, :action => :friends, :profile => profile.identifier)}},
           {_('Communities') => {:href => url_for(:controller => :profile, :action => :communities, :profile => profile.identifier)}},
-          {_('Send an e-mail') => {:href => url_for(:profile => profile.identifier, :controller => 'contact', :action => 'new'), :class => 'send-an-email'}},
-          {_('Add') => {:href => url_for(profile.add_url), :class => 'add-friend'}}
+          {_('Send an e-mail') => {:href => url_for(:profile => profile.identifier, :controller => 'contact', :action => 'new'), :class => 'send-an-email', :style => 'display: none'}},
+          {_('Add') => {:href => url_for(profile.add_url), :class => 'add-friend', :style => 'display: none'}}
         ]
       elsif profile.kind_of?(Community)
         [
           {_('Wall') => {:href => url_for(profile.public_profile_url)}},
           {_('Members') => {:href => url_for(:controller => :profile, :action => :members, :profile => profile.identifier)}},
           {_('Agenda') => {:href => url_for(:controller => :profile, :action => :events, :profile => profile.identifier)}},
-          {_('Join') => {:href => url_for(profile.join_url), :class => 'join-community'}},
-          {_('Leave') => {:href => url_for(profile.leave_url), :class => 'leave-community'}},
-          {_('Send an e-mail') => {:href => url_for(:profile => profile.identifier, :controller => 'contact', :action => 'new'), :class => 'send-an-email'}}
+          {_('Join') => {:href => url_for(profile.join_url), :class => 'join-community', :style => 'display: none'}},
+          {_('Leave') => {:href => url_for(profile.leave_url), :class => 'leave-community', :style => 'display:  none'}},
+          {_('Send an e-mail') => {:href => url_for(:profile => profile.identifier, :controller => 'contact', :action => 'new'), :class => 'send-an-email', :style => 'display: none'}}
         ]
       elsif profile.kind_of?(Enterprise)
         [
           {_('Products') => {:href => catalog_path(profile.identifier)}},
           {_('Members') => {:href => url_for(:controller => :profile, :action => :members, :profile => profile.identifier)}},
           {_('Agenda') => {:href => url_for(:controller => :profile, :action => :events, :profile => profile.identifier)}},
-          {_('Send an e-mail') => {:href => url_for(:profile => profile.identifier, :controller => 'contact', :action => 'new'), :class => 'send-an-email'}},
+          {_('Send an e-mail') => {:href => url_for(:profile => profile.identifier, :controller => 'contact', :action => 'new'), :class => 'send-an-email', :style => 'display: none'}},
         ]
       else
         []
