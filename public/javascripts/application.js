@@ -267,7 +267,7 @@ function toggleSubmenu(trigger, title, link_list) {
       jQuery.each(link_hash[label], function(option, value){
         options += option +'="'+ value + '" ';
       })
-      list.append('<li><a '+ options +'">' + label + '</a></li>');
+      list.append('<li><a '+ options +'>' + label + '</a></li>');
     }
   });
   content.append(list);
