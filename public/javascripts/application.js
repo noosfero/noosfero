@@ -576,3 +576,11 @@ function limited_text_area(textid, limit) {
     return true;
   }
 }
+
+jQuery(function($) {
+  $('a').each(function() {
+    if (this.href == document.location.href) {
+      $(this).addClass('link-this-page');
+    }
+  });
+});

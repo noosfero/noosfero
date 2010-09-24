@@ -1,11 +1,3 @@
     <% if is_testing_theme %>
       <%= render :file => 'shared/theme_test_panel' %>
     <% end %>
-
-    <script type="text/javascript">
-      $$("a").each(function(a){
-        if ( a.href == document.location.href ) {
-          a.className += " link-this-page";
-        }
-      });
-    </script>
