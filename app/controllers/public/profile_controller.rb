@@ -3,7 +3,7 @@ class ProfileController < PublicController
   needs_profile
   before_filter :check_access_to_profile, :except => [:join, :join_not_logged, :index]
   before_filter :store_before_join, :only => [:join, :join_not_logged]
-  before_filter :login_required, :only => [:join, :join_not_logged, :leave, :unblock, :leave_scrap, :remove_scrap, :remove_activity, :view_more_scraps, :view_more_activities, :view_more_network_activities]
+  before_filter :login_required, :only => [:add, :join, :join_not_logged, :leave, :unblock, :leave_scrap, :remove_scrap, :remove_activity, :view_more_scraps, :view_more_activities, :view_more_network_activities]
 
   helper TagsHelper
 
@@ -121,6 +121,10 @@ class ProfileController < PublicController
   end
 
   def check_membership
+    unless logged_in?
+      render :text => ''
+      return
+    end
     if user.memberships.include?(profile)
       render :text => 'true'
     else
@@ -139,6 +143,10 @@ class ProfileController < PublicController
   end
 
   def check_friendship
+    unless logged_in?
+      render :text => ''
+      return
+    end
     if user == profile || user.already_request_friendship?(profile) || user.is_a_friend?(profile)
       render :text => 'true'
     else

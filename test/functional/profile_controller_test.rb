@@ -1038,4 +1038,14 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_redirected_to :controller => 'account', :action => 'login'
   end
 
+  should 'render empty response for not logged in users in check_membership' do
+    get :check_membership
+    assert_equal '', @response.body
+  end
+
+  should 'render empty response for not logged in users in check_friendship' do
+    get :check_friendship
+    assert_equal '', @response.body
+  end
+
 end
