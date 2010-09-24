@@ -28,13 +28,7 @@ class Mailing < ActiveRecord::Base
     ''
   end
 
-  def already_sent_mailing_to?(recipient)
-    self.mailing_sents.find_by_person_id(recipient.id)
-  end
-
   def deliver
-    offset = 0
-    people = []
     each_recipient do |recipient|
       Mailing::Sender.deliver_mail(self, recipient.email)
       self.mailing_sents.create(:person => recipient)

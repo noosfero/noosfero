@@ -87,15 +87,20 @@ class OrganizationMailingTest < ActiveSupport::TestCase
   end
 
   should 'return recipient' do
-    mailing = OrganizationMailing.new(:source => community)
-    assert_equal Person['user_one'], mailing.recipient
+    mailing = OrganizationMailing.create(:source => community, :subject => 'Hello', :body => 'We have some news', :person => person)
+    assert_equal [Person['user_one'], Person['user_two']], mailing.recipients
+  end
+
+  should 'return recipients according to limit' do
+    mailing = OrganizationMailing.create(:source => community, :subject => 'Hello', :body => 'We have some news', :person => person)
+    assert_equal [Person['user_one']], mailing.recipients(0, 1)
   end
 
   should 'return true if already sent mailing to a recipient' do
     member = Person['user_one']
     mailing = OrganizationMailing.create(:source => community, :subject => 'Hello', :body => 'We have some news', :person => person)
     process_delayed_job_queue
-    assert mailing.already_sent_mailing_to?(member)
+    assert mailing.mailing_sents.find_by_person_id(member.id)
   end
 
   should 'return false if did not sent mailing to a recipient' do
@@ -103,7 +108,7 @@ class OrganizationMailingTest < ActiveSupport::TestCase
     mailing = OrganizationMailing.create(:source => community, :subject => 'Hello', :body => 'We have some news', :person => person)
     process_delayed_job_queue
 
-    assert !mailing.already_sent_mailing_to?(recipient)
+    assert !mailing.mailing_sents.find_by_person_id(recipient.id)
   end
 
   protected

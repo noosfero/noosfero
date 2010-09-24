@@ -4,17 +4,18 @@ class OrganizationMailing < Mailing
     "#{person.name} <#{source.environment.contact_email}>"
   end
 
-  def recipient(offset=0)
-    source.members.first(:order => :id, :offset => offset)
+  def recipients(offset=0, limit=100)
+   source.members.all(:order => :id, :offset => offset, :limit => limit, :joins => "LEFT OUTER JOIN mailing_sents m ON (m.mailing_id = #{id} AND m.person_id = profiles.id)", :order => :id, :conditions => { "m.person_id" => nil })
   end
 
   def each_recipient
     offset = 0
-    while person = recipient(offset)
-      unless self.already_sent_mailing_to?(person)
-        yield person
+    limit = 50
+    while !(people = recipients(offset, limit)).empty?
+      people.each do |person|
+          yield person
       end
-      offset = offset + 1
+      offset = offset + limit
     end
   end
 

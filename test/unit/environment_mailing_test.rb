@@ -7,10 +7,10 @@ class EnvironmentMailingTest < ActiveSupport::TestCase
     ActionMailer::Base.perform_deliveries = true
     ActionMailer::Base.deliveries = []
     @environment = fast_create(Environment, :name => 'Network')
-    create_user('user_one', :environment_id => @environment.id)
-    create_user('user_two', :environment_id => @environment.id)
+    @person_1 = create_user('user_one', :environment_id => @environment.id).person
+    @person_2 = create_user('user_two', :environment_id => @environment.id).person
   end
-  attr_reader :environment
+  attr_reader :environment, :person_1, :person_2
 
 
   should 'require source_id' do
@@ -45,53 +45,53 @@ class EnvironmentMailingTest < ActiveSupport::TestCase
   end
 
   should 'display name and email on generate_from' do
-    person = Person['user_one']
-    mailing = EnvironmentMailing.new(:source => environment, :person => person)
+    mailing = EnvironmentMailing.new(:source => environment, :person => person_1)
     assert_equal "#{environment.name} <#{environment.contact_email}>", mailing.generate_from
   end
 
   should 'deliver mailing to each recipient after create' do
-    person = Person['user_one']
-    mailing = EnvironmentMailing.create(:source => environment, :subject => 'Hello', :body => 'We have some news', :person => person)
+    mailing = EnvironmentMailing.create(:source => environment, :subject => 'Hello', :body => 'We have some news', :person => person_1)
     process_delayed_job_queue
     assert_equal 2, ActionMailer::Base.deliveries.count
   end
 
   should 'create mailing sent to each recipient after delivering mailing' do
-    person = Person['user_one']
-    mailing = EnvironmentMailing.create(:source => environment, :subject => 'Hello', :body => 'We have some news', :person => person)
+    mailing = EnvironmentMailing.create(:source => environment, :subject => 'Hello', :body => 'We have some news', :person => person_1)
     assert_difference MailingSent, :count, 2 do
       process_delayed_job_queue
     end
   end
 
   should 'change locale according to the mailing locale' do
-    person = Person['user_one']
-    mailing = EnvironmentMailing.create(:source => environment, :subject => 'Hello', :body => 'We have some news', :locale => 'pt', :person => person)
+    mailing = EnvironmentMailing.create(:source => environment, :subject => 'Hello', :body => 'We have some news', :locale => 'pt', :person => person_1)
     Noosfero.expects(:with_locale).with('pt')
     process_delayed_job_queue
   end
 
-  should 'return recipient' do
-    mailing = EnvironmentMailing.new(:source => environment)
-    assert_equal Person['user_one'], mailing.recipient
+  should 'return recipients' do
+    mailing = EnvironmentMailing.create(:source => environment, :subject => 'Hello', :body => 'We have some news', :locale => 'pt', :person => person_1)
+    assert_equal [person_1, person_2], mailing.recipients
+  end
+
+  should 'return recipients according to limit' do
+    mailing = EnvironmentMailing.create(:source => environment, :subject => 'Hello', :body => 'We have some news', :locale => 'pt', :person => person_1)
+    assert_equal [person_1], mailing.recipients(0, 1)
   end
 
   should 'return true if already sent mailing to a recipient' do
-    person = Person['user_one']
-    mailing = EnvironmentMailing.create(:source => environment, :subject => 'Hello', :body => 'We have some news', :person => person)
+    mailing = EnvironmentMailing.create(:source => environment, :subject => 'Hello', :body => 'We have some news', :person => person_1)
     process_delayed_job_queue
 
-    assert mailing.already_sent_mailing_to?(person)
+    assert mailing.mailing_sents.find_by_person_id(person_1.id)
   end
 
   should 'return false if did not sent mailing to a recipient' do
     recipient = fast_create(Person)
     person = Person['user_one']
-    mailing = EnvironmentMailing.create(:source => environment, :subject => 'Hello', :body => 'We have some news', :person => person)
+    mailing = EnvironmentMailing.create(:source => environment, :subject => 'Hello', :body => 'We have some news', :person => person_1)
     process_delayed_job_queue
 
-    assert !mailing.already_sent_mailing_to?(recipient)
+    assert !mailing.mailing_sents.find_by_person_id(recipient.id)
   end
 
 end
