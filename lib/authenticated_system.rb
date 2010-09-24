@@ -64,8 +64,12 @@ module AuthenticatedSystem
     def access_denied
       respond_to do |accepts|
         accepts.html do
-          store_location
-          redirect_to :controller => '/account', :action => 'login'
+          if request.xhr?
+            render :text => _('Access denied'), :status => 401
+          else
+            store_location
+            redirect_to :controller => '/account', :action => 'login'
+          end
         end
         accepts.xml do
           headers["Status"]           = "Unauthorized"
