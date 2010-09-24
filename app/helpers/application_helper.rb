@@ -1140,10 +1140,10 @@ module ApplicationHelper
   end
 
   def usermenu_logged_in
-    (_('Welcome, %s') % link_to('<i></i><strong>%{login}</strong>', '/%{login}', :id => "homepage-link", :title => _('Go to your homepage'))) +
+    (_('Welcome, %s') % link_to('<i></i><strong>{login}</strong>', '/{login}', :id => "homepage-link", :title => _('Go to your homepage'))) +
     usermenu_from_environment_features +
     link_to('<i class="icon-menu-admin"></i><strong>' + _('Administration') + '</strong>', { :controller => 'admin_panel', :action => 'index' }, :id => "controlpanel", :title => _("Configure the environment"), :class => 'admin-link', :style => 'display: none') +
-    link_to('<i class="icon-menu-ctrl-panel"></i><strong>' + _('Control panel') + '</strong>', '/myprofile/%{login}', :id => "controlpanel", :title => _("Configure your personal account and content")) +
+    link_to('<i class="icon-menu-ctrl-panel"></i><strong>' + _('Control panel') + '</strong>', '/myprofile/{login}', :id => "controlpanel", :title => _("Configure your personal account and content")) +
     link_to('<i class="icon-menu-logout"></i><strong>' + _('Logout') + '</strong>', { :controller => 'account', :action => 'logout'} , :id => "logout", :title => _("Leave the system"))
   end
 

@@ -4,23 +4,23 @@
     <div class='logged-in' style='display: none'>
 
     <div id="user_menu_head">
-      <%= image_tag 'icons-app/person-icon.png', :alt => "%{login} icon photo", :height => "20", :border => "0" %>
-      <span><%= _("%s's Menu") % '%{login}' %> </span>
+      <%= image_tag 'icons-app/person-icon.png', :alt => "{login} icon photo", :height => "20", :border => "0" %>
+      <span><%= _("%s's Menu") % '{login}' %> </span>
     </div>
 
     <div id="user_menu_ul">
       <ul>
 
         <li>
-          <%= link_to( '<span class="icon-menu-home"></span>' + __('My Home Page'), '/%{login}')%>
+          <%= link_to( '<span class="icon-menu-home"></span>' + __('My Home Page'), '/{login}')%>
         </li>
 
         <li>
-        <%= link_to('<span class="icon-menu-my-groups"></span>' + _('My groups'), '/myprofile/%{login}/memberships') %>
+        <%= link_to('<span class="icon-menu-my-groups"></span>' + _('My groups'), '/myprofile/{login}/memberships') %>
         </li>
 
         <li>
-        <%= lightbox_link_to('<span class="icon-new"></span>' + _('New article'), '/myprofile/%{login}/cms/new') %>
+        <%= lightbox_link_to('<span class="icon-new"></span>' + _('New article'), '/myprofile/{login}/cms/new') %>
         </li>
 
         <%# for enterprise in user.enterprises %>
@@ -31,12 +31,12 @@
 
         <% if MailConf.enabled? %>
           <li class='webmail-link' style='display: none'>
-          <%= link_to '<span class="icon-menu-mail"></span>' + _('Webmail'), MailConf.webmail_url('%{login}', '%{email_domain}') %>
+          <%= link_to '<span class="icon-menu-mail"></span>' + _('Webmail'), MailConf.webmail_url('{login}', '{email_domain}') %>
           </li>
         <% end %>
 
         <li>
-        <%= link_to('<span class="icon-menu-ctrl-panel"></span>'+ _('Control panel'), '/myprofile/%{login}', :id => 'link_edit_profile') %>
+        <%= link_to('<span class="icon-menu-ctrl-panel"></span>'+ _('Control panel'), '/myprofile/{login}', :id => 'link_edit_profile') %>
         </li>
 
           <li class='admin-link' style='display: none'><%= link_to( '<span class="icon-menu-admin"></span>'+ _('Admin'),
