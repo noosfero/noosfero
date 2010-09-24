@@ -578,7 +578,7 @@ function limited_text_area(textid, limit) {
 }
 
 jQuery(function($) {
-  $('a').each(function() {
+  $('a').each(function($) {
     if (this.href == document.location.href) {
       $(this).addClass('link-this-page');
     }
