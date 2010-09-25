@@ -5,10 +5,11 @@ class EventsHelperTest < Test::Unit::TestCase
   include EventsHelper
 
   should 'list events' do
+    stubs(:user)
     expects(:show_date).returns('')
     expects(:_).with('Events for %s').returns('')
-    event1 = mock; event1.expects(:public?).returns(true); event1.expects(:name).returns('Event 1'); event1.expects(:url).returns({})
-    event2 = mock; event2.expects(:public?).returns(true); event2.expects(:name).returns('Event 2'); event2.expects(:url).returns({})
+    event1 = mock; event1.expects(:display_to?).with(anything).returns(true); event1.expects(:name).returns('Event 1'); event1.expects(:url).returns({})
+    event2 = mock; event2.expects(:display_to?).with(anything).returns(true); event2.expects(:name).returns('Event 2'); event2.expects(:url).returns({})
     result = list_events('', [event1, event2])
     assert_match /Event 1/, result
     assert_match /Event 2/, result

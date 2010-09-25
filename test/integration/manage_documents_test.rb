@@ -8,7 +8,7 @@ class ManageDocumentsTest < ActionController::IntegrationTest
     create_user('myuser')
 
     login('myuser', 'myuser')
-    assert_tag :tag => 'a', :attributes => { :href => '/myprofile/%{login}'  }
+    assert_tag :tag => 'a', :attributes => { :href => '/myprofile/{login}'  }
 
     get '/myprofile/myuser'
     assert_response :success
@@ -38,7 +38,7 @@ class ManageDocumentsTest < ActionController::IntegrationTest
     article.save!
 
     login('myuser', 'myuser')
-    assert_tag :tag => 'a', :attributes => { :href => '/myprofile/%{login}'  }
+    assert_tag :tag => 'a', :attributes => { :href => '/myprofile/{login}'  }
 
     get '/myprofile/myuser'
     assert_response :success
@@ -72,7 +72,7 @@ class ManageDocumentsTest < ActionController::IntegrationTest
 
     login('myuser', 'myuser')
 
-    assert_tag :tag => 'a', :attributes => { :href => '/myprofile/%{login}'  }
+    assert_tag :tag => 'a', :attributes => { :href => '/myprofile/{login}'  }
     get '/myprofile/myuser'
     assert_response :success
     
