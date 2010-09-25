@@ -101,7 +101,7 @@ class ProfileController < PublicController
       redirect_to_before_join
     else
       if user.memberships.include?(profile)
-        session[:notice] = _('You are already a member of %s') % profile.name
+        session[:notice] = _('You are already a member of %s.') % profile.name
         redirect_to profile.url
         return
       end
