@@ -20,12 +20,12 @@ ActionTrackerConfig.verbs = {
   },
 
   :new_friendship => { 
-    :description => lambda { n_('has made 1 new friend:<br />%{name}', 'has made %{num} new friends:<br />%{name}', get_friend_name.size) % { :num => get_friend_name.size, :name => '{{ta.collect_group_with_index(:friend_name){ |n,i| link_to(content_tag(:img, nil, :src => (ta.get_friend_profile_custom_icon[i] || default_or_themed_icon("/images/icons-app/person-icon.png"))), ta.get_friend_url[i], :title => n)}.join}}' } },
+    :description => lambda { n_('has made 1 new friend:<br />%{name}', 'has made %{num} new friends:<br />%{name}', get_friend_name.size) % { :num => get_friend_name.size, :name => '{{ta.collect_group_with_index(:friend_name){ |n,i| link_to(image_tag(ta.get_friend_profile_custom_icon[i] || default_or_themed_icon("/images/icons-app/person-icon.png")), ta.get_friend_url[i], :title => n)}.join}}' } },
     :type => :groupable
   },
 
   :join_community => { 
-    :description => lambda { n_('has joined 1 community:<br />%{name}', 'has joined %{num} communities:<br />%{name}', get_resource_name.size) % { :num => get_resource_name.size, :name => '{{ta.collect_group_with_index(:resource_name){ |n,i| link_to(content_tag(:img, nil, :src => (ta.get_resource_profile_custom_icon[i] || default_or_themed_icon("/images/icons-app/community-icon.png"))), ta.get_resource_url[i], :title => n)}.join}}' } },
+    :description => lambda { n_('has joined 1 community:<br />%{name}', 'has joined %{num} communities:<br />%{name}', get_resource_name.size) % { :num => get_resource_name.size, :name => '{{ta.collect_group_with_index(:resource_name){ |n,i| link_to(image_tag(ta.get_resource_profile_custom_icon[i] || default_or_themed_icon("/images/icons-app/community-icon.png")), ta.get_resource_url[i], :title => n)}.join}}' } },
     :type => :groupable
   },
 
@@ -38,12 +38,12 @@ ActionTrackerConfig.verbs = {
   },
 
   :leave_community => {
-    :description => lambda { n_('has left 1 community:<br />%{name}', 'has left %{num} communities:<br />%{name}', get_resource_name.size) % { :num => get_resource_name.size, :name => '{{ta.collect_group_with_index(:resource_name){ |n,i| link_to(content_tag(:img, nil, :src => (ta.get_resource_profile_custom_icon[i] || default_or_themed_icon("/images/icons-app/community-icon.png"))), ta.get_resource_url[i], :title => n)}.join}}' } },
+    :description => lambda { n_('has left 1 community:<br />%{name}', 'has left %{num} communities:<br />%{name}', get_resource_name.size) % { :num => get_resource_name.size, :name => '{{ta.collect_group_with_index(:resource_name){ |n,i| link_to(image_tag(ta.get_resource_profile_custom_icon[i] || default_or_themed_icon("/images/icons-app/community-icon.png")), ta.get_resource_url[i], :title => n)}.join}}' } },
     :type => :groupable
   },
 
   :upload_image => { 
-    :description => lambda { n_('uploaded 1 image:<br />%{thumbnails}<br />%{details}', 'uploaded %{num} images:<br />%{thumbnails}<br />%{details}', get_view_url.size) % { :num => get_view_url.size, :thumbnails => '{{ta.collect_group_with_index(:thumbnail_path){ |t,i| content_tag(:span, link_to(content_tag(:img, nil, :src => t), ta.get_view_url[i]))}.last(3).join}}', :details => '{{unique_with_count(ta.collect_group_with_index(:parent_name){ |n,i| link_to(n, ta.get_parent_url[i])}, "%s").join("<br />")}}' % _("in the gallery") } },
+    :description => lambda { n_('uploaded 1 image:<br />%{thumbnails}<br />%{details}', 'uploaded %{num} images:<br />%{thumbnails}<br />%{details}', get_view_url.size) % { :num => get_view_url.size, :thumbnails => '{{ta.collect_group_with_index(:thumbnail_path){ |t,i| content_tag(:span, link_to(image_tag(t), ta.get_view_url[i]))}.last(3).join}}', :details => '{{unique_with_count(ta.collect_group_with_index(:parent_name){ |n,i| link_to(n, ta.get_parent_url[i])}, "%s").join("<br />")}}' % _("in the gallery") } },
     :type => :groupable
   },
 
