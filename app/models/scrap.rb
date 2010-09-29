@@ -30,6 +30,10 @@ class Scrap < ActiveRecord::Base
     self.receiver.is_a?(Community) ? self.receiver : self
   end
 
+  def scrap_wall_url
+    self.root.nil? ? self.receiver.wall_url : self.root.receiver.wall_url
+  end
+
   class Notifier < ActionMailer::Base
     def mail(scrap)
       sender, receiver = scrap.sender, scrap.receiver
@@ -41,7 +45,7 @@ class Scrap < ActiveRecord::Base
         :sender => sender.name,
         :sender_link => sender.url,
         :scrap_content => scrap.content,
-        :wall_url => receiver.wall_url,
+        :wall_url => scrap.scrap_wall_url,
         :environment => sender.environment.name,
         :url => sender.environment.top_url
     end

@@ -258,4 +258,18 @@ class ScrapTest < ActiveSupport::TestCase
     assert_equal community, scrap.action_tracker_target
   end
 
+  should 'scrap wall url be the root scrap receiver url if it is a reply' do
+    p1, p2 = fast_create(Person), fast_create(Person)
+    r = Scrap.create! :sender => p1, :receiver => p2, :content => "Hello!"
+    s = Scrap.new :sender => p2, :receiver => p1, :content => "Hi!"
+    r.replies << s; s.reload
+    assert_equal s.scrap_wall_url, s.root.receiver.wall_url
+  end
+
+  should 'scrap wall url be the scrap receiver url if it is not a reply' do
+    p1, p2 = fast_create(Person), fast_create(Person)
+    s = Scrap.create! :sender => p1, :receiver => p2, :content => "Hello!"
+    assert_equal s.scrap_wall_url, s.receiver.wall_url
+  end
+
 end
