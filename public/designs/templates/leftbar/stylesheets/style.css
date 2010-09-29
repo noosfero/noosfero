@@ -1,5 +1,5 @@
 .box-1 {
-  margin: 0 30px 0 260px;
+  margin: 0 30px 0 210px;
 }
 
 .box-1 .blocks {
@@ -15,5 +15,10 @@
 .block {
   position: relative;
   padding: 10px 0;
+  float: none;
+}
+
+#leave_scrap_content_limit,
+#leave_scrap_content_left {
   float: none;
 }
