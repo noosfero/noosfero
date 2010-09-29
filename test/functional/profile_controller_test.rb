@@ -769,8 +769,7 @@ class ProfileControllerTest < Test::Unit::TestCase
 
   should 'the network activity be paginated' do
     p1= Person.first
-    at = fast_create(ActionTracker::Record)
-    40.times{fast_create(ActionTrackerNotification, :action_tracker_id => at.id, :profile_id => p1.id)}
+    40.times{fast_create(ActionTrackerNotification, :action_tracker_id => fast_create(ActionTracker::Record), :profile_id => p1.id)}
 
     @controller.stubs(:logged_in?).returns(true)
     user = mock()
@@ -838,8 +837,7 @@ class ProfileControllerTest < Test::Unit::TestCase
 
   should 'the network activity be paginated on communities' do
     community = fast_create(Community)
-    at = fast_create(ActionTracker::Record, :user_id => profile.id)
-    40.times{ fast_create(ActionTrackerNotification, :profile_id => community.id, :action_tracker_id => at.id) }
+    40.times{ fast_create(ActionTrackerNotification, :profile_id => community.id, :action_tracker_id => fast_create(ActionTracker::Record, :user_id => profile.id)) }
     get :index, :profile => community.identifier
     assert_equal 30, assigns(:network_activities).count
   end
@@ -872,7 +870,7 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_equal [], assigns(:wall_items)
   end
 
-  should 'the wall_itens be the received scraps' do
+  should 'the wall_itens be the received scraps in people profile' do
     p1 = ActionTracker::Record.current_user_from_model
     p2 = fast_create(Person)
     p3 = fast_create(Person)
@@ -890,7 +888,26 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_equal [s2,s3], assigns(:wall_items)
   end
 
-  should 'the wall_itens be paginated' do
+  should 'the wall_itens be the received scraps in community profile' do
+    c = fast_create(Community)
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+    p3 = fast_create(Person)
+    s1 = fast_create(Scrap, :sender_id => p1.id, :receiver_id => p2.id)
+    s2 = fast_create(Scrap, :sender_id => p2.id, :receiver_id => c.id)
+    s3 = fast_create(Scrap, :sender_id => p3.id, :receiver_id => c.id)
+
+    @controller.stubs(:logged_in?).returns(true)
+    user = mock()
+    user.stubs(:person).returns(p1)
+    user.stubs(:login).returns('some')
+    @controller.stubs(:current_user).returns(user)
+    Person.any_instance.stubs(:follows?).returns(true)
+    get :index, :profile => c.identifier
+    assert_equal [s2,s3], assigns(:wall_items)
+  end
+
+  should 'the wall_itens be paginated in people profiles' do
     p1 = Person.first
     40.times{fast_create(Scrap, :sender_id => p1.id)}
 
@@ -902,6 +919,22 @@ class ProfileControllerTest < Test::Unit::TestCase
     Person.any_instance.stubs(:follows?).returns(true)
     assert_equal 40, p1.scraps_received.not_replies.count
     get :index, :profile => p1.identifier
+    assert_equal 30, assigns(:wall_items).count
+  end
+
+  should 'the wall_itens be paginated in community profiles' do
+    p1 = Person.first
+    c = fast_create(Community)
+    40.times{fast_create(Scrap, :receiver_id => c.id)}
+
+    @controller.stubs(:logged_in?).returns(true)
+    user = mock()
+    user.stubs(:person).returns(p1)
+    user.stubs(:login).returns('some')
+    @controller.stubs(:current_user).returns(user)
+    Person.any_instance.stubs(:follows?).returns(true)
+    assert_equal 40, c.scraps_received.not_replies.count
+    get :index, :profile => c.identifier
     assert_equal 30, assigns(:wall_items).count
   end
 
@@ -993,7 +1026,7 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'li', :attributes => {:id => "profile-activity-item-#{atn.id}"}
   end
 
-  should "view more scraps paginate the scraps" do
+  should "view more scraps paginate the scraps in people profiles" do
     login_as(profile.identifier)
     40.times{fast_create(Scrap, :receiver_id => profile.id)}
     get :view_more_scraps, :profile => profile.identifier, :page => 2
@@ -1002,8 +1035,24 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_equal 10, assigns(:scraps).count
   end
 
-  should "be logged in to access the view_more_scraps action" do
+  should "view more scraps paginate the scraps in community profiles" do
+    login_as(profile.identifier)
+    c = fast_create(Community)
+    40.times{fast_create(Scrap, :receiver_id => c.id)}
+    get :view_more_scraps, :profile => c.identifier, :page => 2
+    assert_response :success
+    assert_template '_profile_scraps'
+    assert_equal 10, assigns(:scraps).count
+  end
+
+  should "be logged in to access the view_more_scraps action in people profiles" do
     get :view_more_scraps, :profile => profile.identifier
+    assert_redirected_to :controller => 'account', :action => 'login'
+  end
+
+  should "be logged in to access the view_more_scraps action in community profiles" do
+    c = fast_create(Community)
+    get :view_more_scraps, :profile => c.identifier
     assert_redirected_to :controller => 'account', :action => 'login'
   end
 
@@ -1024,8 +1073,7 @@ class ProfileControllerTest < Test::Unit::TestCase
 
   should "view more network activities paginated" do
     login_as(profile.identifier)
-    at = fast_create(ActionTracker::Record, :user_id => profile.id)
-    40.times{fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => at.id) }
+    40.times{fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => fast_create(ActionTracker::Record, :user_id => profile.id)) }
     assert_equal 40, profile.tracked_notifications.count
     get :view_more_network_activities, :profile => profile.identifier, :page => 2
     assert_response :success

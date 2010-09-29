@@ -777,7 +777,7 @@ class PersonTest < Test::Unit::TestCase
     assert_equal s2, person.scraps(s2)
   end
 
-  should "the person browse for a scrap with an inter and string id" do
+  should "the person browse for a scrap with an integer and string id" do
     person = fast_create(Person)
     s1 = fast_create(Scrap, :sender_id => person.id)
     s2 = fast_create(Scrap, :sender_id => person.id)
@@ -918,11 +918,10 @@ class PersonTest < Test::Unit::TestCase
     a2 = fast_create(ActionTracker::Record, :user_id => person.id )
     a3 = fast_create(ActionTracker::Record)
     assert_equal 3, ActionTracker::Record.count
-    fast_create(ActionTrackerNotification, :action_tracker_id => a1.id)
-    fast_create(ActionTrackerNotification, :action_tracker_id => a1.id)
+    fast_create(ActionTrackerNotification, :action_tracker_id => a1.id, :profile_id => person.id)
     fast_create(ActionTrackerNotification, :action_tracker_id => a3.id)
-    fast_create(ActionTrackerNotification, :action_tracker_id => a2.id)
-    assert_equal 4, ActionTrackerNotification.count
+    fast_create(ActionTrackerNotification, :action_tracker_id => a2.id, :profile_id => person.id)
+    assert_equal 3, ActionTrackerNotification.count
     person.destroy
     assert_equal 1, ActionTracker::Record.count
     assert_equal 1, ActionTrackerNotification.count

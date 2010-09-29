@@ -41,9 +41,9 @@ class ActionTrackerNotificationTest < ActiveSupport::TestCase
   should "destroy the notifications if the activity is destroyed" do
     action_tracker = fast_create(ActionTracker::Record)
     count = ActionTrackerNotification.count
-    fast_create(ActionTrackerNotification, :action_tracker_id => action_tracker.id)
-    fast_create(ActionTrackerNotification, :action_tracker_id => action_tracker.id)
-    fast_create(ActionTrackerNotification, :action_tracker_id => action_tracker.id)
+    fast_create(ActionTrackerNotification, :action_tracker_id => action_tracker.id, :profile_id => 1)
+    fast_create(ActionTrackerNotification, :action_tracker_id => action_tracker.id, :profile_id => 2)
+    fast_create(ActionTrackerNotification, :action_tracker_id => action_tracker.id, :profile_id => 3)
     action_tracker.destroy
     assert_equal count, ActionTrackerNotification.count
   end

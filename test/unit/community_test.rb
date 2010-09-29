@@ -274,4 +274,48 @@ class CommunityTest < Test::Unit::TestCase
     end
   end
 
+  should "see get all received scraps" do
+    c = fast_create(Community)
+    assert_equal [], c.scraps_received
+    fast_create(Scrap, :receiver_id => c.id)
+    fast_create(Scrap, :receiver_id => c.id)
+    assert_equal 2, c.scraps_received.count
+    c2 = fast_create(Community)
+    fast_create(Scrap, :receiver_id => c2.id)
+    assert_equal 2, c.scraps_received.count
+    fast_create(Scrap, :receiver_id => c.id)
+    assert_equal 3, c.scraps_received.count
+  end
+
+  should "see get all received scraps that are not replies" do
+    c = fast_create(Community)
+    s1 = fast_create(Scrap, :receiver_id => c.id)
+    s2 = fast_create(Scrap, :receiver_id => c.id)
+    s3 = fast_create(Scrap, :receiver_id => c.id, :scrap_id => s1.id)
+    assert_equal 3, c.scraps_received.count
+    assert_equal [s1,s2], c.scraps_received.not_replies
+    c2 = fast_create(Community)
+    s4 = fast_create(Scrap, :receiver_id => c2.id)
+    s5 = fast_create(Scrap, :receiver_id => c2.id, :scrap_id => s4.id)
+    assert_equal 2, c2.scraps_received.count
+    assert_equal [s4], c2.scraps_received.not_replies
+  end
+
+  should "the community browse for a scrap with a Scrap object" do
+    c = fast_create(Community)
+    s1 = fast_create(Scrap, :receiver_id => c.id)
+    s2 = fast_create(Scrap, :receiver_id => c.id)
+    s3 = fast_create(Scrap, :receiver_id => c.id)
+    assert_equal s2, c.scraps(s2)
+  end
+
+  should "the person browse for a scrap with an integer and string id" do
+    c = fast_create(Community)
+    s1 = fast_create(Scrap, :receiver_id => c.id)
+    s2 = fast_create(Scrap, :receiver_id => c.id)
+    s3 = fast_create(Scrap, :receiver_id => c.id)
+    assert_equal s2, c.scraps(s2.id)
+    assert_equal s2, c.scraps(s2.id.to_s)
+  end
+
 end

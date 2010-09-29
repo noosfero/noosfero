@@ -9,13 +9,11 @@ class ProfileController < PublicController
 
   def index
     @activities = @profile.tracked_actions.paginate(:per_page => 30, :page => params[:page])
-    @network_activities = []
     @wall_items = []
-    if !@profile.is_a?(Person)
-      @network_activities = @profile.tracked_notifications.paginate(:per_page => 30, :page => params[:page]) 
-    elsif logged_in? && current_person.follows?(@profile)
-      @network_activities = @profile.tracked_notifications.paginate(:per_page => 30, :page => params[:page])
-      @wall_items = @profile.scraps_received.not_replies.paginate(:per_page => 30, :page => params[:page]) if @profile.is_a?(Person)
+    @network_activities = !@profile.is_a?(Person) ? @profile.tracked_notifications.paginate(:per_page => 30, :page => params[:page]) : []
+    if logged_in? && current_person.follows?(@profile)
+      @network_activities = @profile.tracked_notifications.paginate(:per_page => 30, :page => params[:page]) if @network_activities.empty?
+      @wall_items = @profile.scraps_received.not_replies.paginate(:per_page => 30, :page => params[:page])
     end
     @tags = profile.article_tags
     unless profile.display_info_to?(user)

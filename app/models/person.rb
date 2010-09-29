@@ -17,7 +17,6 @@ class Person < Profile
 
   has_many :mailings
 
-  has_many :scraps_received, :class_name => 'Scrap', :foreign_key => :receiver_id, :order => "updated_at DESC"
   has_many :scraps_sent, :class_name => 'Scrap', :foreign_key => :sender_id
 
   named_scope :more_popular,
@@ -33,11 +32,6 @@ class Person < Profile
   after_destroy :destroy_user
   def destroy_user
     self.user.destroy if self.user
-  end
-
-  def scraps(scrap=nil)
-    scrap = scrap.is_a?(Scrap) ? scrap.id : scrap
-    scrap.nil? ? Scrap.all_scraps(self) : Scrap.all_scraps(self).find(scrap)
   end
 
   def can_control_scrap?(scrap)

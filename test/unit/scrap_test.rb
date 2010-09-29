@@ -51,6 +51,14 @@ class ScrapTest < ActiveSupport::TestCase
     end
   end
 
+  should "be associated to Community as receiver" do
+    community = fast_create(Community)
+    s = Scrap.new
+    assert_nothing_raised do
+      s.receiver = community
+    end
+  end
+
   should "collect all scraps sent and received of a person" do
     person = fast_create(Person)
     s1 = fast_create(Scrap, :sender_id => person.id)
@@ -59,6 +67,17 @@ class ScrapTest < ActiveSupport::TestCase
     assert_equal [s1,s2], Scrap.all_scraps(person)
     s3 = fast_create(Scrap, :receiver_id => person.id)
     assert_equal [s1,s2,s3], Scrap.all_scraps(person)
+  end
+
+  should "collect all scraps sent and received of a community" do
+    community = fast_create(Community)
+    person = fast_create(Person)
+    s1 = fast_create(Scrap, :sender_id => person.id)
+    assert_equal [], Scrap.all_scraps(community)
+    s2 = fast_create(Scrap, :receiver_id => community.id, :sender_id => person.id)
+    assert_equal [s2], Scrap.all_scraps(community)
+    s3 = fast_create(Scrap, :receiver_id => community.id)
+    assert_equal [s2,s3], Scrap.all_scraps(community)
   end
 
   should "create the leave_scrap action tracker verb on scrap creation of one user to another" do
@@ -78,6 +97,24 @@ class ScrapTest < ActiveSupport::TestCase
     assert_equal p1, ta.user
   end
 
+  should "create the leave_scrap action tracker verb on scrap creation of one user to community" do
+    p = Person.first
+    c = fast_create(Community)
+    s = Scrap.new
+    s.sender= p
+    s.receiver= c
+    s.content = 'some content'
+    s.save!
+    ta = ActionTracker::Record.last
+    assert_equal s.content, ta.params['content']
+    assert_equal s.sender.name, ta.params['sender_name']
+    assert_equal s.receiver.name, ta.params['receiver_name']
+    assert_equal s.receiver.url, ta.params['receiver_url']
+    assert_equal 'leave_scrap', ta.verb
+    assert_equal p, ta.user
+    assert_equal c, ta.target
+  end
+
   should "notify leave_scrap action tracker verb to friends and itself" do
     p1 = ActionTracker::Record.current_user_from_model
     p2 = fast_create(Person)
@@ -93,6 +130,24 @@ class ScrapTest < ActiveSupport::TestCase
     assert_equal 2, ActionTrackerNotification.count
     ActionTrackerNotification.all.map{|a|a.profile}.map do |profile|
       assert [p1,p2].include?(profile)
+    end
+  end
+
+  should "notify leave_scrap action tracker verb to members of the communities and the community itself" do
+    p = Person.first
+    c = fast_create(Community)
+    c.add_member(p)
+    ActionTrackerNotification.destroy_all
+    Delayed::Job.destroy_all
+    s = Scrap.new
+    s.sender= p
+    s.receiver= c
+    s.content = 'some content'
+    s.save!
+    process_delayed_job_queue
+    assert_equal 2, ActionTrackerNotification.count
+    ActionTrackerNotification.all.map{|a|a.profile}.map do |profile|
+      assert [p,c].include?(profile)
     end
   end
 
@@ -192,6 +247,15 @@ class ScrapTest < ActiveSupport::TestCase
     assert !s.valid?
     s.content = "<p>Test</p>"
     assert s.valid?
+  end
+
+  should 'the action_tracker_target be the community when the scraps has the community as receiver' do
+    scrap = Scrap.new
+    assert_equal scrap, scrap.action_tracker_target
+    
+    community = fast_create(Community)
+    scrap.receiver = community
+    assert_equal community, scrap.action_tracker_target
   end
 
 end

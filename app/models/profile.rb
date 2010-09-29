@@ -91,10 +91,16 @@ class Profile < ActiveRecord::Base
 
   has_many :action_tracker_notifications, :foreign_key => 'profile_id'
   has_many :tracked_notifications, :through => :action_tracker_notifications, :source => :action_tracker, :order => 'updated_at DESC'
+  has_many :scraps_received, :class_name => 'Scrap', :foreign_key => :receiver_id, :order => "updated_at DESC"
 
   # FIXME ugly workaround
   def self.human_attribute_name(attrib)
       _(self.superclass.human_attribute_name(attrib))
+  end
+
+  def scraps(scrap=nil)
+    scrap = scrap.is_a?(Scrap) ? scrap.id : scrap
+    scrap.nil? ? Scrap.all_scraps(self) : Scrap.all_scraps(self).find(scrap)
   end
 
   class_inheritable_accessor :extra_index_methods
