@@ -285,6 +285,7 @@ function hideAllSubmenus() {
   jQuery('.menu-submenu.up:visible').hide('slide', { 'direction' : 'up' }, 'slow');
   jQuery('.simplemenu-submenu:visible').hide('slide', { 'direction' : 'up' }, 'slow').toggleClass('opened');
   jQuery('.menu-submenu.down:visible').hide('slide', { 'direction' : 'down' }, 'slow');
+  jQuery('#chat-online-users-content').hide();
 }
 
 // Hide visible ballons when clicked outside them
@@ -292,6 +293,7 @@ jQuery(document).ready(function() {
   jQuery('body').click(function() { hideAllSubmenus(); });
   jQuery('.menu-submenu-trigger').click(function(e) { e.stopPropagation(); });
   jQuery('.simplemenu-trigger').click(function(e) { e.stopPropagation(); });
+  jQuery('#chat-online-users').click(function(e) { e.stopPropagation(); });
 });
 
 function input_javascript_ordering_stuff() {
@@ -449,27 +451,11 @@ function new_qualifier_row(selector, select_qualifiers) {
 
 // controls the display of the login/logout stuff
 jQuery(function($) {
-  $.getJSON('/account/user_data', function(data) {
+  $.getJSON('/account/user_data', function userDataCallBack(data) {
     if (data.login) {
       // logged in
-      $('body').addClass('logged-in');
-      $('#user .logged-in, .login-block .logged-user-info').each(function() {
-        $(this).find('a[href]').each(function() {
-          var new_href = $(this).attr('href').replace('{login}', data.login);
-          if (data.email_domain) {
-            new_href = new_href.replace('{email_domain}', data.email_domain);
-          }
-          $(this).attr('href', new_href);
-        });
-        var html = $(this).html().replace(/{login}/g, data.login).replace('{month}', data.since_month).replace('{year}', data.since_year);
-        $(this).html(html).fadeIn();
-        if (data.is_admin) {
-          $('#user .admin-link').show();
-        }
-        if (data.email_domain) {
-          $('#user .webmail-link').show();
-        }
-      });
+      loggedInDataCallBack(data);
+      chatOnlineUsersDataCallBack(data);
     } else {
       // not logged in
       $('#user .not-logged-in, .login-block .not-logged-user').fadeIn();
@@ -478,6 +464,52 @@ jQuery(function($) {
       display_notice(data.notice);
     }
   });
+
+  function loggedInDataCallBack(data) {
+    // logged in
+    $('body').addClass('logged-in');
+    $('#user .logged-in, .login-block .logged-user-info').each(function() {
+      $(this).find('a[href]').each(function() {
+        var new_href = $(this).attr('href').replace('{login}', data.login);
+        if (data.email_domain) {
+          new_href = new_href.replace('{email_domain}', data.email_domain);
+        }
+        $(this).attr('href', new_href);
+      });
+      var html = $(this).html().replace(/{login}/g, data.login).replace('{month}', data.since_month).replace('{year}', data.since_year);
+      $(this).html(html).fadeIn();
+      if (data.is_admin) {
+        $('#user .admin-link').show();
+      }
+      if (data.email_domain) {
+        $('#user .webmail-link').show();
+      }
+    });
+  }
+
+  function chatOnlineUsersDataCallBack(data) {
+     var content = '';
+     $('#chat-online-users').html($('#chat-online-users').html().replace(/%{amount}/g, data['amount_of_friends']));
+     $('#chat-online-users').fadeIn();
+     for (var user in data['friends_list']) {
+       var name = "<span class='friend_name'>%{name}</span>";
+       var avatar = data['friends_list'][user]['avatar'];
+       var jid = data['friends_list'][user]['jid'];
+       var status_name = data['friends_list'][user]['status'] || 'offline';
+       avatar = avatar ? '<img src="' + avatar + '" />' : ''
+       name = name.replace('%{name}',data['friends_list'][user]['name']);
+       open_chat_link = "onclick='open_chat_window(this, \"#" + jid + "\")'";
+       var status_icon = "<div class='chat-online-user-status icon-menu-"+ status_name + "-11'><span>" + status_name + '</span></div>';
+       content += "<li><a href='#' class='chat-online-user' " + open_chat_link + "><div class='chat-online-user-avatar'>" + avatar + '</div>' + name + status_icon + '</a></li>';
+     }
+     content ? $('#chat-online-users-hidden-content ul').html(content) : $('#anyone-online').show();
+     $('#chat-online-users-title').click(function(){
+       if($('#chat-online-users-content').is(':visible'))
+         $('#chat-online-users-content').hide();
+       else
+         $('#chat-online-users-content').show();
+     });
+  }
 });
 
 // controls the display of contact list
@@ -519,17 +551,9 @@ function display_notice(message) {
    setTimeout(function() { $noticeBox.fadeOut('fast'); }, 5000);
 }
 
-function log(msg) {
-   jQuery('#log').append('<div></div>').append(document.createTextNode(msg));
-}
-
-/* XMPP */
-
-var noosfero_chat_window = null;
-function open_chat_window(self_link) {
-   if (!noosfero_chat_window || noosfero_chat_window.closed) {
-      noosfero_chat_window = window.open('/chat','noosfero_chat','width=900,height=500');
-   }
+function open_chat_window(self_link, anchor) {
+   anchor = anchor || '#';
+   var noosfero_chat_window = window.open('/chat' + anchor,'noosfero_chat','width=900,height=500');
    noosfero_chat_window.focus();
    return false;
 }

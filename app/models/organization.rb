@@ -113,4 +113,9 @@ class Organization < Profile
   def already_request_membership?(person)
     self.tasks.pending.find_by_requestor_id(person.id, :conditions => { :type => 'AddMember' })
   end
+
+  def jid(options = {})
+    super({:domain => "conference.#{environment.default_hostname}"}.merge(options))
+  end
+
 end

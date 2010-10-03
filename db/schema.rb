@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100921121528) do
+ActiveRecord::Schema.define(:version => 20100923160040) do
 
   create_table "action_tracker", :force => true do |t|
     t.integer  "user_id"
@@ -470,8 +470,9 @@ ActiveRecord::Schema.define(:version => 20100921121528) do
     t.integer  "environment_id"
     t.string   "password_type"
     t.boolean  "enable_email",                            :default => false
-    t.string   "last_presence_status",                    :default => ""
-    t.string   "presence_status",                         :default => ""
+    t.string   "last_chat_status",                        :default => ""
+    t.string   "chat_status",                             :default => ""
+    t.datetime "chat_status_at"
   end
 
   create_table "validation_infos", :force => true do |t|

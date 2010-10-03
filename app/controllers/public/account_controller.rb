@@ -238,7 +238,7 @@ class AccountController < ApplicationController
   def user_data
     user_data =
       if logged_in?
-        { "login" => current_user.login, "is_admin" => user.is_admin?(environment), 'since_month' => user.created_at.month, 'since_year' => user.created_at.year, 'email_domain' => current_user.enable_email ? current_user.email_domain : nil }
+        current_user.data_hash
       else
         { }
       end

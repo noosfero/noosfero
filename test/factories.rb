@@ -190,7 +190,7 @@ module Noosfero::Factory
 
   def defaults_for_person
     n = factory_num_seq.to_s
-    defaults_for_profile.merge({ :identifier => "person-" + n, :name => 'Person ' + n })
+    defaults_for_profile.merge({ :identifier => "person-" + n, :name => 'Person ' + n, :created_at => DateTime.now })
   end
 
   ###############################################
@@ -398,6 +398,15 @@ module Noosfero::Factory
 
   def defaults_for_role_assignment(params = {})
     { :role_id => 1, :accessor_id => 1, :accessor_type => 'Profile', :resource_id => 2, :resource_type => 'Profile' }.merge(params)
+  end
+
+  ###############################################
+  # User
+  ###############################################
+
+  def defaults_for_user(params = {})
+    username = "user_#{rand(1000)}"
+    { :login => username, :email => username + '@noosfero.colivre', :crypted_password => 'test'}.merge(params)
   end
 
 end

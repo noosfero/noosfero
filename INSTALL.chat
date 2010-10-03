@@ -1,3 +1,5 @@
+== Client setup
+
 To configure XMPP/BOSH in Noosfero you need:
 
 * REST Client - http://github.com/archiloque/rest-client
@@ -10,3 +12,28 @@ To configure XMPP/BOSH in Noosfero you need:
 
 Take a look at util/chat directory to see samples of config file to configure a
 XMPP/BOSH server with ejabberd, postgresql and apache2.
+
+== Server setup
+
+Ejabberd creates semi-anonymous rooms by default, but Noosfero's Jabber client needs
+non-anonymous room, then we need to change default params of creation rooms in ejabberd
+to create non-anonymous rooms.
+
+In non-anonymous rooms the jabber service sends the new occupant's full JID to
+all occupants in the room[1].
+
+Add option "{default_room_options, [{anonymous, false}]}" to
+/etc/ejabberd/ejabberd.cfg to mod_muc session. See below:
+
+  {mod_muc,      [
+                  %%{host, "conference.@HOST@"},
+                  {access, muc},
+                  {access_create, muc},
+                  {access_persistent, muc},
+                  {access_admin, muc_admin},
+                  {max_users, 500},
+                  {default_room_options, [{anonymous, false}]}
+                 ]},
+
+
+[1] - http://xmpp.org/extensions/xep-0045.html#enter-nonanon

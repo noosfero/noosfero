@@ -1128,20 +1128,20 @@ module ApplicationHelper
     will_paginate(collection, options)
   end
 
-  def usermenu_from_environment_features
-    usermenu_html = ''
+  def render_environment_features(folder)
+    result = ''
     environment.enabled_features.keys.each do |feature|
-      file = File.join(@controller.view_paths, 'shared', 'usermenu', "#{feature}.rhtml")
+      file = File.join(@controller.view_paths, 'shared', folder.to_s, "#{feature}.rhtml")
       if File.exists?(file)
-        usermenu_html << render(:file => file, :use_full_path => false)
+        result << render(:file => file, :use_full_path => false)
       end
     end
-    usermenu_html
+    result
   end
 
   def usermenu_logged_in
     (_('Welcome, %s') % link_to('<i></i><strong>{login}</strong>', '/{login}', :id => "homepage-link", :title => _('Go to your homepage'))) +
-    usermenu_from_environment_features +
+    render_environment_features(:usermenu) +
     link_to('<i class="icon-menu-admin"></i><strong>' + _('Administration') + '</strong>', { :controller => 'admin_panel', :action => 'index' }, :id => "controlpanel", :title => _("Configure the environment"), :class => 'admin-link', :style => 'display: none') +
     link_to('<i class="icon-menu-ctrl-panel"></i><strong>' + _('Control panel') + '</strong>', '/myprofile/{login}', :id => "controlpanel", :title => _("Configure your personal account and content")) +
     link_to('<i class="icon-menu-logout"></i><strong>' + _('Logout') + '</strong>', { :controller => 'account', :action => 'logout'} , :id => "logout", :title => _("Leave the system"))

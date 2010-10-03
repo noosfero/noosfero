@@ -299,24 +299,96 @@ class UserTest < Test::Unit::TestCase
 
   should 'user has presence status to know when online or offline' do
     user = User.new
-    assert_respond_to user, :presence_status
+    assert_respond_to user, :chat_status
   end
 
   should 'remember last status from user' do
     user = User.new
-    assert_respond_to user, :last_presence_status
+    assert_respond_to user, :last_chat_status
   end
 
-  should 'compose jabber id by login plus default hostname' do
-    user = create_user('online_user')
-    assert_equal "online_user@#{user.environment.default_hostname}", user.jid
+  should "have data_hash method defined" do
+    user = fast_create(User)
+    assert user.respond_to?(:data_hash)
+  end
+
+  should "data_hash method have the following keys" do
+    person = create_user('coldplay').person
+    expected_keys = ['login','is_admin','since_month', 'since_year', 'email_domain','friends_list','amount_of_friends']
+    assert_equal [], expected_keys - person.user.data_hash.keys
+    assert_equal [], person.user.data_hash.keys - expected_keys
+  end
+
+  should "data_hash friends_list method have the following keys" do
+    person = create_user('coldplay').person
+    friend = create_user('coldplayfriend', :chat_status => 'chat', :chat_status_at => DateTime.now).person
+    person.add_friend(friend)
+    expected_keys = ['avatar','name','jid','status']
+    assert_equal [], expected_keys - person.user.data_hash['friends_list']['coldplayfriend'].keys
+    assert_equal [], person.user.data_hash['friends_list']['coldplayfriend'].keys - expected_keys
+  end
+
+  should "data_hash method return the user information" do
+    person = create_user('x_and_y').person
+    Person.any_instance.stubs(:is_admin?).returns(true)
+    Person.any_instance.stubs(:created_at).returns(DateTime.parse('16-08-2010'))
+    expected_hash = {
+      'login' => 'x_and_y', 'is_admin' => true, 'since_month' => 8, 'since_year' => 2010, 'email_domain' => nil, 'amount_of_friends' => 0,
+      'friends_list' => {}
+    }
+    assert_equal expected_hash, person.user.data_hash
+  end
+
+  should "data_hash return the friends_list information" do
+    person = create_user('coldplay').person
+    friend = create_user('coldplayfriend', :chat_status => 'chat', :chat_status_at => DateTime.now).person
+    person.add_friend(friend)
+    Person.any_instance.stubs(:profile_custom_icon).returns('/custom_icon')
+    expected_hash = {
+      'coldplayfriend' => {
+        'avatar' => '/custom_icon', 'name' => 'coldplayfriend', 'jid' => 'coldplayfriend@colivre.net/coldplayfriend', 'status' => 'chat'
+      }
+    }
+    assert_equal expected_hash, person.user.data_hash['friends_list']
+  end
+
+  should "data_hash return the correct number of friends parameter" do
+    person = create_user('coldplay').person
+    friend = create_user('coldplayfriend', :chat_status => 'chat', :chat_status_at => DateTime.now).person
+    person.add_friend(friend)
+    another_friend = create_user('coldplayanotherfriend', :chat_status => 'chat', :chat_status_at => DateTime.now).person
+    person.add_friend(another_friend)
+    assert_equal 2, person.user.data_hash['amount_of_friends']
+  end
+
+  should "data_hash collect friend with online status and with presence in last 15 minutes" do
+    person = create_user('coldplay').person
+    friend = create_user('coldplayfriend', :chat_status => 'chat', :chat_status_at => DateTime.now).person
+    person.add_friend(friend)
+    assert_equal 1, person.user.data_hash['amount_of_friends']
+  end
+
+  should "data_hash collect friend with busy status and with presence in last 15 minutes" do
+    person = create_user('coldplay').person
+    friend = create_user('coldplayfriend', :chat_status => 'dnd', :chat_status_at => DateTime.now).person
+    person.add_friend(friend)
+    assert_equal 1, person.user.data_hash['amount_of_friends']
+  end
+
+  should "data_hash status friend be described" do
+    person = create_user('coldplay').person
+    friend = create_user('coldplayfriend', :chat_status => 'chat', :chat_status_at => DateTime.now).person
+    person.add_friend(friend)
+    assert_equal 'chat', person.user.data_hash['friends_list'][friend.identifier]['status']
+  end
+
+  should 'update chat status every 15 minutes' do
+    assert_equal 15, User.expires_chat_status_every
   end
 
   protected
     def new_user(options = {})
       user = User.new({ :login => 'quire', :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire' }.merge(options))
-#TODO UPGRADE Leandro: I comment this code. The user model already create a person model
-#      user.build_person(person_data)
       user.save
       user
     end

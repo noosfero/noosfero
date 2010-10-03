@@ -214,8 +214,29 @@ class User < ActiveRecord::Base
     end
   end
 
-  def jid
-    "#{login}@#{environment.default_hostname}"
+  def data_hash
+    friends_list = {}
+    self.person.friends.online.map do |person|
+      friends_list[person.identifier] = {
+        'avatar' => person.profile_custom_icon,
+        'name' => person.short_name,
+        'jid' => person.full_jid,
+        'status' => person.user.chat_status,
+      }
+    end
+    {
+      'login' => self.login,
+      'is_admin' => self.person.is_admin?,
+      'since_month' => self.person.created_at.month,
+      'since_year' => self.person.created_at.year,
+      'email_domain' => self.enable_email ? self.email_domain : nil,
+      'friends_list' => friends_list,
+      'amount_of_friends' => friends_list.count
+    }
+  end
+
+  def self.expires_chat_status_every
+    15 # in minutes
   end
 
   protected

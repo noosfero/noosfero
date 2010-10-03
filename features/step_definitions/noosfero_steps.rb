@@ -11,6 +11,11 @@ Given /^the following users?$/ do |table|
   end
 end
 
+Given /^"(.+)" is (online|offline|busy) in chat$/ do |user, status|
+  status = {'online' => 'chat', 'offline' => '', 'busy' => 'dnd'}[status]
+  User.find_by_login(user).update_attributes(:chat_status => status, :chat_status_at => DateTime.now)
+end
+
 Given /^the following (community|communities|enterprises?)$/ do |kind,table|
   klass = kind.singularize.camelize.constantize
   table.hashes.each do |row|
@@ -281,4 +286,11 @@ end
 
 Then /^I should be logged in as "(.+)"$/ do |login|
   User.find(session[:user]).login.should == login
+end
+
+Given /^the profile "(.+)" has no blocks$/ do |profile|
+  profile = Profile[profile]
+  profile.boxes.map do |box|
+    box.blocks.destroy_all
+  end
 end

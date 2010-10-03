@@ -556,7 +556,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
     file = path + '/shared/usermenu/xmpp_chat.rhtml'
     expects(:render).with(:file => file, :use_full_path => false).returns('Open chat')
 
-    assert_equal 'Open chat', usermenu_from_environment_features
+    assert_equal 'Open chat', render_environment_features(:usermenu)
   end
 
   should 'not return mime type of profile icon if not requested' do

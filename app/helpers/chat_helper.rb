@@ -13,7 +13,7 @@ module ChatHelper
         :class => icon_class + ' simplemenu-trigger'
       ) +
       content_tag('ul',
-        links.map{|link| content_tag('li', link_to(link[1], '#', :class => link[0], :id => link[2], 'data-jid' => current_user.jid), :class => 'simplemenu-item') }.join("\n"),
+        links.map{|link| content_tag('li', link_to(link[1], '#', :class => link[0], :id => link[2], 'data-jid' => user.jid), :class => 'simplemenu-item') }.join("\n"),
         :style => 'display: none; z-index: 100',
         :class => 'simplemenu-submenu'
       ),

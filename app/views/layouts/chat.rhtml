@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="description" content="<%= @environment.name %>" />
     <link rel="shortcut icon" href="<%= image_path(theme_favicon) %>" type="image/x-icon" />
-    <%= javascript_include_tag 'jquery-latest', 'jquery.noconflict', 'jquery-ui-1.8.2.custom.min', 'jquery.scrollTo', 'jquery.scrollabletab', 'strophejs-1.0.1/strophe', 'jquery.emoticon', '/designs/icons/pidgin/emoticons.js', 'ba-linkify', 'application', 'chat', 'jquery.sound', :cache => 'cache-chat' %>
+    <%= javascript_include_tag 'jquery-latest', 'jquery.noconflict', 'jquery-ui-1.8.2.custom.min', 'jquery.scrollTo', 'jquery.scrollabletab', 'strophejs-1.0.1/strophe', 'jquery.emoticon', '/designs/icons/pidgin/emoticons.js', 'ba-linkify', 'jquery.ba-hashchange', 'jquery.sound', 'application', 'chat', :cache => 'cache-chat' %>
     <%= stylesheet_link_tag noosfero_stylesheets, :cache => 'cache' %>
     <%= stylesheet_link_tag icon_theme_stylesheet_path %>
     <%= stylesheet_link_tag theme_stylesheet_path %>
@@ -17,7 +17,10 @@
         '': '<%= _('Offline') %>'
       };
       var $own_name = '<%= user.name %>';
-      var $starting_chat_notify = '<%= _("starting chat with %{name}") %>';
+      var $starting_chat_notice = '<%= _("starting chat with %{name}") %>';
+      var $muc_domain = '<%= "conference.#{environment.default_hostname}" %>';
+      var $user_unavailable_error = '<%= _("<strong>ooops!</strong> The message could not be sent because the user is not online") %>';
+      var $update_presence_status_every = <%= User.expires_chat_status_every.minutes %>;
     </script>
   </head>
   <body id='chat'>
@@ -39,13 +42,13 @@
     <div id='chat-window' class='tabs-bottom'>
       <div id='tabs'>
         <ul>
-          <!-- <li class="tab"><a href="#{href}">#{label}</a> <span class="ui-icon ui-icon-close">Remove Tab</span></li> -->
+          <!-- <li class="tab"><a href="#{href}">#{label}</a></li> -->
         </ul>
       </div>
       <!--
       <div id='#conversation-%{jid_id}' class='conversation'>
         <div class='history'>
-          <div class='message %{who}'><img ... /><h5 class='%{who}-info'>%{name}</h5><span class='time'>%{time}</span><p>%{message}</p></div>
+          <div class='message %{who}'><img class='avatar' src='%{avatar_url}' /><h5 class='%{who}-info'>%{name}</h5><span class='time'>%{time}</span><p>%{message}</p></div>
         </div>
         <div class='input-div'>
           <div class='icon-chat'></div>

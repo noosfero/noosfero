@@ -287,4 +287,14 @@ class OrganizationTest < Test::Unit::TestCase
     assert_equal false, o.send(:followed_by?,p2)
   end
 
+  should "compose bare jabber id by identifier plus 'conference' and default hostname" do
+    org = fast_create(Organization, :identifier => 'online_community')
+    assert_equal "online_community@conference.#{org.environment.default_hostname}", org.jid
+  end
+
+  should "compose full jabber id by identifier plus 'conference.default_hostname' and short_name as resource" do
+    org = fast_create(Organization, :identifier => 'online_community')
+    assert_equal "online_community@conference.#{org.environment.default_hostname}/#{org.short_name}", org.full_jid
+  end
+
 end

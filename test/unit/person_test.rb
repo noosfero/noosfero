@@ -1058,6 +1058,43 @@ class PersonTest < Test::Unit::TestCase
     assert has_remove_member_notification
   end
 
+  should 'get all friends online' do
+    now = DateTime.now
+    person_1 = create_user('person_1').person
+    person_2 = create_user('person_2', :chat_status_at => now, :chat_status => 'chat').person
+    person_3 = create_user('person_3', :chat_status_at => now).person
+    person_4 = create_user('person_4', :chat_status_at => now, :chat_status => 'dnd').person
+    person_1.add_friend(person_2)
+    person_1.add_friend(person_3)
+    person_1.add_friend(person_4)
+    assert_equal [person_2, person_3, person_4], person_1.friends
+    assert_equal [person_2, person_4], person_1.friends.online
+  end
+
+  should 'compose bare jabber id by login plus default hostname' do
+    person = create_user('online_user').person
+    assert_equal "online_user@#{person.environment.default_hostname}", person.jid
+  end
+
+  should "compose full jabber id by identifier plus default hostname and short_name as resource" do
+    person = create_user('online_user').person
+    assert_equal "online_user@#{person.environment.default_hostname}/#{person.short_name}", person.full_jid
+  end
+
+  should 'dont get online friends which not updates chat_status in last 15 minutes' do
+    now = DateTime.now
+    one_hour_ago = DateTime.now - 1.hour
+    person = create_user('person_1').person
+    friend_1 = create_user('person_2', :chat_status_at => now, :chat_status => 'chat').person
+    friend_2 = create_user('person_3', :chat_status_at => one_hour_ago, :chat_status => 'chat').person
+    friend_3 = create_user('person_4', :chat_status_at => one_hour_ago, :chat_status => 'dnd').person
+    person.add_friend(friend_1)
+    person.add_friend(friend_2)
+    person.add_friend(friend_3)
+    assert_equal [friend_1, friend_2, friend_3], person.friends
+    assert_equal [friend_1], person.friends.online
+  end
+
   should 'return url to a person wall' do
     environment = create_environment('mycolivre.net')
     profile = build(Person, :identifier => 'testprofile', :environment_id => create_environment('mycolivre.net').id)

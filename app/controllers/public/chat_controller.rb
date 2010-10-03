@@ -4,7 +4,7 @@ class ChatController < PublicController
   before_filter :check_environment_feature
 
   def start_session
-    login = current_user.jid
+    login = user.jid
     password = current_user.crypted_password
     begin
       jid, sid, rid = RubyBOSH.initialize_session(login, password, "http://#{environment.default_hostname}/http-bind",
@@ -17,18 +17,16 @@ class ChatController < PublicController
   end
 
   def avatar
-    person = environment.people.find_by_identifier(params[:id])
-    filename, mimetype = profile_icon(person, :minor, true)
+    profile = environment.profiles.find_by_identifier(params[:id])
+    filename, mimetype = profile_icon(profile, :minor, true)
     data = File.read(File.join(RAILS_ROOT, 'public', filename))
     render :text => data, :layout => false, :content_type => mimetype
     expires_in 24.hours
   end
 
   def index
-    presence = current_user.last_presence_status
-    if presence.blank?
-      render :text => '', :layout => 'chat'
-    elsif presence == 'chat'
+    presence = current_user.last_chat_status
+    if presence.blank? or presence == 'chat'
       render :action => 'auto_connect_online'
     else
       render :action => 'auto_connect_busy'
@@ -37,10 +35,7 @@ class ChatController < PublicController
 
   def update_presence_status
     if request.xhr?
-      unless params[:closing_window]
-        current_user.update_attribute(:last_presence_status, params[:presence_status])
-      end
-      current_user.update_attribute(:presence_status, params[:presence_status])
+      current_user.update_attributes({:chat_status_at => DateTime.now}.merge(params[:status] || {}))
     end
     render :nothing => true
   end

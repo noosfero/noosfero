@@ -774,6 +774,14 @@ private :generate_url, :url_options
     self.image.public_filename(:icon) unless self.image.blank?
   end
 
+  def jid(options = {})
+    domain = options[:domain] || environment.default_hostname
+    "#{identifier}@#{domain}"
+  end
+  def full_jid(options = {})
+    "#{jid(options)}/#{short_name}"
+  end
+
   protected
 
     def followed_by?(person)

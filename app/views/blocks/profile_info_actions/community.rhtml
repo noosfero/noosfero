@@ -14,12 +14,12 @@
         </li>
       <% end %>
     <% end %>
-
     <% if profile.enable_contact? %>
       <li>
         <%= link_to content_tag('span', _('Send an e-mail')), {:profile => profile.identifier, :controller => 'contact', :action => 'new'}, :class => 'button with-text icon-menu-mail' %>
       </li>
     <% end %>
+    <%= render_environment_features(:profile_actions) %>
 
   <% else %>
 

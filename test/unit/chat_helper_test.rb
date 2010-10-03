@@ -7,7 +7,7 @@ class ChatHelperTest < Test::Unit::TestCase
   should 'provide menu to change chat presence status' do
     env = Environment.default
     stubs(:environment).returns(env)
-    stubs(:current_user).returns(create_user('testing'))
+    stubs(:user).returns(create_user('testing').person)
     links = user_status_menu('fake-class', 'offline')
     assert_match /Online/, links
     assert_match /Busy/, links

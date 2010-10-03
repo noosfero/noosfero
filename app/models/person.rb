@@ -13,6 +13,8 @@ class Person < Profile
   has_many :friendships, :dependent => :destroy
   has_many :friends, :class_name => 'Person', :through => :friendships
 
+  named_scope :online, lambda { { :include => :user, :conditions => ["users.chat_status != '' AND users.chat_status_at >= ?", DateTime.now - User.expires_chat_status_every.minutes] } }
+
   has_many :requested_tasks, :class_name => 'Task', :foreign_key => :requestor_id, :dependent => :destroy
 
   has_many :mailings
@@ -191,7 +193,8 @@ class Person < Profile
     person.user.save!
   end
 
-  def is_admin?(environment)
+  def is_admin?(environment = nil)
+    environment ||= self.environment
     role_assignments.select { |ra| ra.resource == environment }.map{|ra|ra.role.permissions}.any? do |ps|
       ps.any? do |p|
         ActiveRecord::Base::PERMISSIONS['Environment'].keys.include?(p)

@@ -70,6 +70,6 @@
 .icon-media-prev       { background-image: url(Tango/16x16/actions/media-skip-backward.png) }
 .icon-media-next       { background-image: url(Tango/16x16/actions/media-skip-forward.png) }
 .icon-lock	       { background-image: url(Tango/16x16/actions/lock.png) }
-.icon-chat             { background-image: url(Tango/16x16/apps/internet-group-chat.png) }
+.icon-chat             { background-image: url(Tango/16x16/apps/internet-group-chat.png); background-repeat: no-repeat }
 .icon-scrap	       { background-image: url(Tango/16x16/actions/format-justify-left.png) }
 .icon-reply            { background-image: url(Tango/16x16/actions/mail-reply-sender.png) }
