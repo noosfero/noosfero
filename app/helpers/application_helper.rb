@@ -1095,13 +1095,13 @@ module ApplicationHelper
 
   def browse_people_menu
      links = [
-       {s_('people|More Recent') => url_for({:controller => 'browse', :action => 'people', :filter => 'more_recent'})},
-       {s_('people|More Active') => url_for({:controller => 'browse', :action => 'people', :filter => 'more_active'})},
-       {s_('people|More Popular') => url_for({:controller => 'browse', :action => 'people', :filter => 'more_popular'})}
+       {s_('people|More Recent') => {:href => url_for({:controller => 'browse', :action => 'people', :filter => 'more_recent'})}},
+       {s_('people|More Active') => {:href => url_for({:controller => 'browse', :action => 'people', :filter => 'more_active'})}},
+       {s_('people|More Popular') => {:href => url_for({:controller => 'browse', :action => 'people', :filter => 'more_popular'})}}
      ]
      if logged_in?
-       links.push(_('My friends') => url_for({:profile => current_user.login, :controller => 'friends'}))
-       links.push(_('Invite friends') => url_for({:profile => current_user.login, :controller => 'invite', :action => 'friends'}))
+       links.push(_('My friends') => {:href => url_for({:profile => current_user.login, :controller => 'friends'})})
+       links.push(_('Invite friends') => {:href => url_for({:profile => current_user.login, :controller => 'invite', :action => 'friends'})})
      end
 
     link_to(content_tag(:span, _('People'), :class => 'icon-menu-people'), {:controller => "browse", :action => 'people'}, :id => 'submenu-people') +
@@ -1110,13 +1110,13 @@ module ApplicationHelper
 
   def browse_communities_menu
      links = [
-       {s_('communities|More Recent') => url_for({:controller => 'browse', :action => 'communities', :filter => 'more_recent'})},
-       {s_('communities|More Active') => url_for({:controller => 'browse', :action => 'communities', :filter => 'more_active'})},
-       {s_('communities|More Popular') => url_for({:controller => 'browse', :action => 'communities', :filter => 'more_popular'})}
+       {s_('communities|More Recent') => {:href => url_for({:controller => 'browse', :action => 'communities', :filter => 'more_recent'})}},
+       {s_('communities|More Active') => {:href => url_for({:controller => 'browse', :action => 'communities', :filter => 'more_active'})}},
+       {s_('communities|More Popular') => {:href => url_for({:controller => 'browse', :action => 'communities', :filter => 'more_popular'})}}
      ]
      if logged_in?
-       links.push(_('My communities') => url_for({:profile => current_user.login, :controller => 'memberships'}))
-       links.push(_('New community') => url_for({:profile => current_user.login, :controller => 'memberships', :action => 'new_community'}))
+       links.push(_('My communities') => {:href => url_for({:profile => current_user.login, :controller => 'memberships'})})
+       links.push(_('New community') => {:href => url_for({:profile => current_user.login, :controller => 'memberships', :action => 'new_community'})})
      end
 
     link_to(content_tag(:span, _('Communities'), :class => 'icon-menu-community'), {:controller => "browse", :action => 'communities'}, :id => 'submenu-communities') +
