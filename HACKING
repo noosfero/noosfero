@@ -61,3 +61,12 @@ The above command makes the server available at http://localhost:9999/
 
 The sample-data data scripts creates one administrator user with login "ze" and
 password "test".
+
+Note that some operations, like generating image thumbnails, sending e-mails,
+etc, are done in background in the context of a service independent from the
+Rails application server. To have those tasks performed in a development
+environment, you must run the delayed_job server like this:
+
+ ./script/delayed_job run
+
+This will block your terminal. To stop the delayed_job server, hit Control-C.
