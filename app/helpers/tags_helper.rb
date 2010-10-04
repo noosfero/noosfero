@@ -28,7 +28,6 @@ module TagsHelper
   # courtesy of Aurelio: http://www.colivre.coop.br/Aurium/Nuvem 
   # (pt_BR only).
   def tag_cloud(tags, tagname_option, url, options = {})
-  
 
     return content_tag('em', _('No tags yet.')) +
            ' <a href="' + _('http://en.wikipedia.org/wiki/Tag_%28metadata%29') +
@@ -42,7 +41,7 @@ module TagsHelper
     max = tags.values.max.to_f
     min = tags.values.min.to_f
 
-    tags.map do |tag,count|
+    tags.sort_by{ |k,v| k.downcase }.map do |tag,count|
       if ( max == min )
         v = 0.5
       else
