@@ -21,6 +21,7 @@
       var $muc_domain = '<%= "conference.#{environment.default_hostname}" %>';
       var $user_unavailable_error = '<%= _("<strong>ooops!</strong> The message could not be sent because the user is not online") %>';
       var $update_presence_status_every = <%= User.expires_chat_status_every.minutes %>;
+      var $balloon_template = '<div data-who="%{who}" class="message %{who}"><img class="avatar" src="%{avatar_url}"/><% comment_balloon do %><h5 class="%{who}-name">%{name}</h5><span class="time">%{time}</span><p>%{message}</p><% end %></div>';
     </script>
   </head>
   <body id='chat'>

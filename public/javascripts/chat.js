@@ -33,7 +33,7 @@ jQuery(function($) {
         buddy_item: "<li class='%{presence_status}'><a id='%{jid_id}' class='icon-menu-%{presence_status}-11' href='#'>%{name}</a></li>",
         occupant_item: "<li class='%{presence_status}'><a data-id='%{jid_id}' class='icon-menu-%{presence_status}-11' href='#'>%{name}</a></li>",
         room_item: "<li class='room'><a id='%{jid_id}' class='icon-chat' href='#'>%{name}</a></li>",
-        message: "<div data-who='%{who}' class='message %{who}'><img class='avatar' src='%{avatar_url}'/><h5 class='%{who}-name'>%{name}</h5><span class='time'>%{time}</span><p>%{message}</p></div>",
+        message: $balloon_template,
         error: "<span class='error'>%{text}</span>",
         occupant_list: "<div class='occupant-list'><ul class='occupant-list'></ul></div>"
      },
@@ -114,7 +114,7 @@ jQuery(function($) {
             var jid_id = Jabber.jid_to_id(jid);
             var tab_id = '#' + Jabber.tab_prefix + jid_id;
             if ($(tab_id).find('.message').length > 0 && $(tab_id).find('.message:last').attr('data-who') == who) {
-               $(tab_id).find('.history').find('.message:last').append('<p>' + body + '</p>');
+               $(tab_id).find('.history').find('.message:last .comment-balloon-content').append('<p>' + body + '</p>');
             }
             else {
                var time = new Date();

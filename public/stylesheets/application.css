@@ -4373,7 +4373,6 @@ h1#agenda-title {
 }
 .user-status {
   position: relative;
-  /*margin: auto 5px;*/
 }
 .user-status .ui-icon {
   position: absolute;
@@ -4424,15 +4423,13 @@ h1#agenda-title {
   padding-left: 18px;
 }
 
-/* chat window */
+/* chat window {{{ */
 
 #title-bar {
   height: 25px;
   width: 100%;
   position: absolute;
-  background-image: url(/images/icons-app/chat-22x22.png);
-  background-position: 2px;
-  background-repeat: no-repeat;
+  background: #ccc url(/images/icons-app/chat-22x22.png) 2px 2px no-repeat;
 }
 #title-bar .title {
   margin: 0;
@@ -4500,6 +4497,7 @@ h1#agenda-title {
   right: 0;
   top: 25px;
   left: 250px;
+  background: white;
 }
 .conversation {
   margin: 15px;
@@ -4553,7 +4551,6 @@ h1#agenda-title {
   display: block;
   line-height: 1em;
 }
-
 #chat .tabs-bottom .ui-tabs-nav {
   position: absolute;
   left: 0;
@@ -4561,6 +4558,7 @@ h1#agenda-title {
   right:0;
   padding: 0 5px 10px 5px;
   border: 0;
+  background: #eee;
 }
 #chat .tabs-bottom .ui-tabs-nav li {
   top: 0;
@@ -4585,12 +4583,13 @@ h1#agenda-title {
   border: none;
 }
 #chat-window .history .message {
-  min-height: 32px;
-  padding: 0 50px 10px 40px;
+  padding: 0 50px 0 40px;
+  position: relative;
 }
 #chat-window .history .message .time {
   position: absolute;
-  right: 20px;
+  right: 10px;
+  top: 5px;
   color: gray;
   font-style: italic;
   font-size: 11px;
@@ -4602,8 +4601,9 @@ h1#agenda-title {
 #chat-window .history .message .avatar {
   position: absolute;
   left: 0;
-  height: 32px;
-  width: 32px;
+  max-height: 32px;
+  max-width: 32px;
+  top: 10px;
 }
 #chat-window .history .notice {
   font-size: 10px;
@@ -4627,6 +4627,16 @@ h1#agenda-title {
 #chat-window .history.room {
   right: 200px
 }
+#chat-window .comment-balloon-content {
+  min-height: 50px;
+  padding: 5px 0 5px 25px;
+  position: relative;
+}
+#chat-window .comment-wrapper-1 {
+  margin-left: 0;
+}
+
+/* chat window }}} */
 
 #profile-activity ul, #profile-network ul, #profile-wall ul {
   padding-left: 0;
@@ -4885,7 +4895,7 @@ h1#agenda-title {
   background: transparent;
 }
 
-/* Chat: Online users window */
+/* friends online {{{ */
 
 #chat-online-users {
   position: fixed;
@@ -4915,32 +4925,28 @@ h1#agenda-title {
   margin-right: 5px;
   float: left;
 }
-
 #chat-online-users-content {
   bottom: 24px;
   right: 0px;
   width: 200px;
   border-top: 1px solid #333;
 }
-
 #chat-online-users .menu-submenu-content h4 ul {
   border-top: 1px solid #333;
   background-color: #efefef;
   margin: 0px;
 }
-
 #chat-online-users-content li {
   list-style: none;
 }
-
 #chat-online-users-title:hover,
 #chat-online-users-title:visited {
   color: #000;
 }
-.webkit #chat-online-users-title {
+.webkit #chat-online-users-title,
+.opera #chat-online-users-title {
   text-decoration: none;
 }
-
 .chat-online-user {
   font-size: 12px;
   color: #000;
@@ -4951,27 +4957,22 @@ h1#agenda-title {
   white-space: nowrap;
   position: relative;
 }
-
 .chat-online-user .friend_name {
   line-height: 20px;
   vertical-align: super;
   margin-left: 5px;
 }
-
 .chat-online-user:visited,
 .chat-online-user:active {
   color: #000;
 }
-
 .chat-online-user:hover {
   background-color: #efefef;
 }
-
 #chat-online-users ul {
   padding: 0;
   margin: 0;
 }
-
 .chat-online-user-avatar {
   display: inline-block;
   width: 20px;
@@ -4979,10 +4980,37 @@ h1#agenda-title {
   background: url('/images/icons-app/person-icon.png');
   position: relative;
 }
-
 .msie .chat-online-user-avatar {
   display: inline;
 }
+#chat-online-users-hidden-content {
+  max-height: 200px;
+  overflow: auto;
+  overflow-x: hidden;
+  border-top: 5px solid;
+}
+.chat-online-user-status {
+  position: absolute;
+  font-size: 9px;
+  font-weight: bold;
+  display: block;
+  height: 11px;
+  width: 11px;
+  top: 15px;
+  right: 10px;
+}
+.chat-online-user-status span {
+  display: none;
+}
+#anyone-online {
+  display: block;
+  text-align: center;
+  padding: 5px 0;
+  font-style: italic;
+  color: #444;
+}
+
+/* friends online }}} */
 
 #profile-wall .profile-wall-description .icon-scrap, #profile-wall .profile-wall-description .icon-reply {
   visibility: hidden;
@@ -5006,34 +5034,4 @@ h1#agenda-title {
 .profile-wall-scrap-replies {
   float: right;
   margin-right: 2px;
-}
-
-#chat-online-users-hidden-content {
-  max-height: 200px;
-  overflow: auto;
-  overflow-x: hidden;
-  border-top: 5px solid;
-}
-
-.chat-online-user-status {
-  position: absolute;
-  font-size: 9px;
-  font-weight: bold;
-  display: block;
-  height: 11px;
-  width: 11px;
-  top: 15px;
-  right: 10px;
-}
-
-.chat-online-user-status span {
-  display: none;
-}
-
-#anyone-online {
-  display: block;
-  text-align: center;
-  padding: 5px 0;
-  font-style: italic;
-  color: #444;
 }

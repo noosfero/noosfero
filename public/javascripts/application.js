@@ -559,10 +559,16 @@ function open_chat_window(self_link, anchor) {
 }
 
 jQuery(function($) {
+   /* Adds a class to "opera" to the body element if Opera browser detected.
+    */
+   if ( navigator.userAgent.indexOf("Opera") > -1 ) {
+     $('body').addClass('opera');
+   }
+
    /* Adds a class to "msie" to the body element if a Microsoft browser is
     * detected. This is needed to workaround several of their limitations.
     */
-   if ( navigator.appVersion.indexOf("MSIE") > -1 ) {
+   else if ( navigator.appVersion.indexOf("MSIE") > -1 ) {
      document.body.className += " msie msie" +
        navigator.appVersion.replace(/^.*MSIE\s+([0-9]+).*$/, "$1");
    }
@@ -570,7 +576,7 @@ jQuery(function($) {
    /* Adds a class to "webkit" to the body element if a Webkit based browser
     * detected.
     */
-   if (window.devicePixelRatio) {
+   else if (window.devicePixelRatio) {
      $('body').addClass('webkit');
    }
 });
