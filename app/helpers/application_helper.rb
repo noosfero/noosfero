@@ -519,7 +519,7 @@ module ApplicationHelper
           {_('Friends') => {:href => url_for(:controller => :profile, :action => :friends, :profile => profile.identifier)}},
           {_('Communities') => {:href => url_for(:controller => :profile, :action => :communities, :profile => profile.identifier)}},
           {_('Send an e-mail') => {:href => url_for(:profile => profile.identifier, :controller => 'contact', :action => 'new'), :class => 'send-an-email', :style => 'display: none'}},
-          {_('Add') => {:href => url_for(profile.add_url), :class => 'add-friend', :style => 'display: none'}}
+          {_('Add friend') => {:href => url_for(profile.add_url), :class => 'add-friend', :style => 'display: none'}}
         ]
       elsif profile.kind_of?(Community)
         [
