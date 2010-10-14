@@ -78,7 +78,14 @@ class ContentViewerController < ApplicationController
     end
     
     if @page.blog?
-      @page.filter = {:year => params[:year], :month => params[:month]}
+      posts = if params[:year] and params[:month]
+        filter_date = DateTime.parse("#{params[:year]}-#{params[:month]}-01")
+        @page.posts.by_range(filter_date..filter_date.at_end_of_month)
+      else
+        @page.posts
+      end
+
+      @posts = posts.paginate({ :page => params[:npage], :per_page => @page.posts_per_page }.merge(Article.display_filter(user, profile)))
     end
 
     if @page.folder? && @page.view_as == 'image_gallery'

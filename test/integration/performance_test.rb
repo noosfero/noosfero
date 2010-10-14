@@ -28,6 +28,10 @@ class PerformanceTest < ActionController::IntegrationTest
     person2 = create_profile('person2')
     create_posts(person2, 100)
 
+    get '/person0/blog'
+    get '/person1/blog'
+    get '/person2/blog'
+
     # no posts
     time0 = (Benchmark.measure { 10.times { get '/person0/blog' } })
 

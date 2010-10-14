@@ -1193,4 +1193,22 @@ class ArticleTest < Test::Unit::TestCase
     assert_equal 6, ActionTrackerNotification.count
   end
 
+  should 'found articles with published date between a range' do
+    start_date = DateTime.parse('2010-07-06')
+    end_date = DateTime.parse('2010-08-02')
+
+    article_found1 = fast_create(Article, :published_at => start_date)
+    article_found2 = fast_create(Article, :published_at => end_date)
+    article_not_found = fast_create(Article, :published_at => end_date + 1.month)
+
+    assert_includes Article.by_range(start_date..end_date), article_found1
+    assert_includes Article.by_range(start_date..end_date), article_found2
+    assert_not_includes Article.by_range(start_date..end_date), article_not_found
+  end
+
+  should 'calculate first/end day of a month' do
+    assert_equal 1, (DateTime.parse('2010-07-06')).at_beginning_of_month.day
+    assert_equal 31, (DateTime.parse('2010-07-06')).at_end_of_month.day
+  end
+
 end

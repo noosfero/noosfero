@@ -64,17 +64,6 @@ class Event < Article
     first_day..last_day
   end
 
-  def self.first_day_of_month(date)
-    date ||= Date.today
-    Date.new(date.year, date.month, 1)
-  end
-
-  def self.last_day_of_month(date)
-    date ||= Date.today
-    date >>= 1
-    Date.new(date.year, date.month, 1) - 1.day
-  end
-
   def date_range
     start_date..(end_date||start_date)
   end

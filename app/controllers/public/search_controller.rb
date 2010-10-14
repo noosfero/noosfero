@@ -102,7 +102,7 @@ class SearchController < PublicController
 
     if month || year
       date = Date.new(year.to_i, month.to_i, 1)
-      result[:date_range] = (date - 1.month)..Event.last_day_of_month(date + 1.month)
+      result[:date_range] = (date - 1.month)..(date + 1.month).at_end_of_month
     end
 
     result

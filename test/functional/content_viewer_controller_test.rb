@@ -603,10 +603,27 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_response :missing
   end
 
+  should 'list unpublished posts to owner with a different class' do
+    login_as('testinguser')
+    blog = Blog.create!(:name => 'A blog test', :profile => profile)
+    blog.posts << TextileArticle.create!(:name => 'Post', :profile => profile, :parent => blog, :published => false)
+
+    get :view_page, :profile => profile.identifier, :page => [blog.path]
+    assert_tag :tag => 'div', :attributes => {:class => /not-published/}
+  end
+
+  should 'not list unpublished posts to a not logged person' do
+    blog = Blog.create!(:name => 'A blog test', :profile => profile)
+    blog.posts << TextileArticle.create!(:name => 'Post', :profile => profile, :parent => blog, :published => false)
+
+    get :view_page, :profile => profile.identifier, :page => [blog.path]
+    assert_no_tag :tag => 'a', :content => "Post"
+  end
+
   should 'display pagination links of blog' do
     blog = Blog.create!(:name => 'A blog test', :profile => profile, :posts_per_page => 5)
     for n in 1..10
-      blog.children << TextileArticle.create!(:name => "Post #{n}", :profile => profile, :parent => blog)
+      blog.posts << TextileArticle.create!(:name => "Post #{n}", :profile => profile, :parent => blog)
     end
     assert_equal 10, blog.posts.size
 
@@ -647,10 +664,20 @@ class ContentViewerControllerTest < Test::Unit::TestCase
   end
 
   should 'set year and month filter from URL params' do
-    profile.articles << Blog.new(:name => 'A blog test', :profile => profile)
+    blog = Blog.create!(:name => "blog", :profile => profile)
+    profile.articles << blog
+
+    past_post = TextileArticle.create!(:name => "past post", :profile => profile, :parent => blog, :created_at => blog.created_at - 1.year)
+    actual_post = TextileArticle.create!(:name => "actual post", :profile => profile, :parent => blog)
+    blog.children << past_post
+    blog.children << actual_post
+
     year, month = profile.blog.created_at.year.to_s, '%02d' % profile.blog.created_at.month
+
     get :view_page, :profile => profile.identifier, :page => [profile.blog.path], :year => year, :month => month
-    assert_equal({ :year => year.to_s, :month => month.to_s }, assigns(:page).filter)
+
+    assert_no_tag :tag => 'a', :content => past_post.title
+    assert_tag :tag => 'a', :content => actual_post.title
   end
 
   should 'give link to create new article inside folder when view child of folder' do

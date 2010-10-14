@@ -38,6 +38,12 @@ class Article < ActiveRecord::Base
     {:include => 'categories', :conditions => { 'categories.id' => category.id }}
   }
 
+  named_scope :by_range, lambda { |range| {
+    :conditions => [
+      'published_at BETWEEN :start_date AND :end_date', { :start_date => range.first, :end_date => range.last }
+    ]
+  }}
+
   URL_FORMAT = /\A(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?\Z/ix
 
   validates_format_of :external_link, :with => URL_FORMAT, :if => lambda { |article| !article.external_link.blank? }
@@ -246,19 +252,28 @@ class Article < ActiveRecord::Base
   named_scope :folders, :conditions => { :type => ['Folder', 'Blog']  }
   named_scope :images, :conditions => { :is_image => true }
 
-  def display_unpublished_article_to?(user)
-    self.author == user || allow_view_private_content?(user) || user == self.profile ||
-    user.is_admin?(self.profile.environment) || user.is_admin?(self.profile)
+  def self.display_filter(user, profile)
+    return {:conditions => ['published = ?', true]} if !user
+    {:conditions => ["  articles.published = ? OR
+                        articles.last_changed_by_id = ? OR
+                        articles.profile_id = ? OR
+                        ?",
+                        true, user.id, user.id, user.has_permission?(:view_private_content, profile)] }
   end
 
-  def display_to?(user)
-    if self.published?
-      self.profile.display_info_to?(user)
+  def display_unpublished_article_to?(user)
+    user == author || allow_view_private_content?(user) || user == profile ||
+    user.is_admin?(profile.environment) || user.is_admin?(profile)
+  end
+
+  def display_to?(user = nil)
+    if published?
+      profile.display_info_to?(user)
     else
-      if user.nil?
+      if !user
         false
       else
-        self.display_unpublished_article_to?(user)
+        display_unpublished_article_to?(user)
       end
     end
   end
