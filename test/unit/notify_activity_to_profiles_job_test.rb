@@ -166,4 +166,17 @@ class NotifyActivityToProfilesJobTest < ActiveSupport::TestCase
     assert_equal [], NotifyActivityToProfilesJob::NOT_NOTIFY_COMMUNITY - not_notify_community_verbs
   end
 
+  should 'cancel notify when target no more exists' do
+    person = fast_create(Person)
+    friend = fast_create(Person)
+    fast_create(Friendship, :person_id => person.id, :friend_id => friend.id)
+    action_tracker = fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => person.id, :target_type => 'Profile', :verb => 'create_article')
+    ActionTrackerNotification.delete_all
+    job = NotifyActivityToProfilesJob.new(action_tracker.id)
+    person.destroy
+    job.perform
+    process_delayed_job_queue
+    assert_equal 0, ActionTrackerNotification.count
+  end
+
 end

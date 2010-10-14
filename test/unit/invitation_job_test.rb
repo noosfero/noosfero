@@ -25,4 +25,14 @@ class InvitationJobTest < ActiveSupport::TestCase
     job.perform
   end
 
+  should 'skip contact list deletion if it not exists' do
+    contact_list = ContactList.create!
+    person = create_user('maluquete').person
+    job = InvitationJob.new(person.id, ['email1@example.com'], 'Hi!', person.id, contact_list.id)
+    contact_list.destroy
+    assert_nothing_raised do
+      job.perform
+    end
+  end
+
 end

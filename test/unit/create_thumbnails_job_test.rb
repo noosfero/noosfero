@@ -24,4 +24,14 @@ class CreateThumbnailsJobTest < ActiveSupport::TestCase
     assert file.thumbnails_processed
   end
 
+  should 'not create thumbnails from deleted files' do
+    person = create_user('test_user').person
+    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => person)
+    job = CreateThumbnailsJob.new(file.class.name, file.id)
+    file.destroy
+    assert_nothing_raised do
+      job.perform
+    end
+  end
+
 end

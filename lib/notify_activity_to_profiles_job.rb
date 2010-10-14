@@ -9,6 +9,7 @@ class NotifyActivityToProfilesJob < Struct.new(:tracked_action_id)
     'leave_community',
   ]
   def perform
+    return unless ActionTracker::Record.exists?(tracked_action_id)
     tracked_action = ActionTracker::Record.find(tracked_action_id)
     target = tracked_action.target
     if target.is_a?(Community) && NOTIFY_ONLY_COMMUNITY.include?(tracked_action.verb)

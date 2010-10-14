@@ -4,7 +4,7 @@ class InvitationJob < Struct.new(:person_id, :contacts_to_invite, :message, :pro
       person = Person.find(person_id)
       profile = Profile.find(profile_id)
       Invitation.invite(person, contacts_to_invite, message, profile)
-      ContactList.find(contact_list_id).destroy
+      ContactList.exists?(contact_list_id) && ContactList.find(contact_list_id).destroy
     end
   end
 end
