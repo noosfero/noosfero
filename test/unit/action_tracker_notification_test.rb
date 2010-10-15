@@ -48,4 +48,32 @@ class ActionTrackerNotificationTest < ActiveSupport::TestCase
     assert_equal count, ActionTrackerNotification.count
   end
 
+  should "the action_tracker_id be unique on scope of profile" do
+    atn = fast_create(ActionTrackerNotification, :action_tracker_id => 1, :profile_id => 1)
+    assert atn.valid?
+
+    atn = ActionTrackerNotification.new(:action_tracker_id => 1, :profile_id => 1)
+    atn.valid?
+    assert atn.errors.invalid?(:action_tracker_id)
+
+    atn.profile_id = 2
+    atn.valid?
+    assert !atn.errors.invalid?(:action_tracker_id)
+  end
+
+  should "the action_tracker_id be unique on scope of profile when created by ActionTracker::Record association" do
+    at = fast_create(ActionTracker::Record)
+    person = fast_create(Person)
+    assert_equal [], at.action_tracker_notifications
+    at.action_tracker_notifications<< ActionTrackerNotification.new(:profile => person)
+    at.reload
+
+    assert_equal 1, at.action_tracker_notifications.count
+    last_notification = at.action_tracker_notifications.first
+
+    at.action_tracker_notifications<< ActionTrackerNotification.new(:profile => person)
+    at.reload
+    assert_equal [last_notification], at.action_tracker_notifications
+  end
+
 end

@@ -1056,4 +1056,141 @@ class ArticleTest < Test::Unit::TestCase
     assert_equal false, a.is_trackable?
   end
 
+  should 'not create more than one notification track action to community when update more than one artile' do
+    community = fast_create(Community)
+    p1 = Person.first || fast_create(Person)
+    community.add_member(p1)
+    assert p1.is_member_of?(community)
+    Article.destroy_all
+    ActionTracker::Record.destroy_all
+    article = TinyMceArticle.create! :name => 'Tracked Article 1', :profile_id => community.id
+    assert article.published?
+    assert_kind_of Community, article.profile
+    assert_equal 1, ActionTracker::Record.count
+    ta = ActionTracker::Record.last
+    assert_equal 'Tracked Article 1', ta.get_name.last
+    assert_equal article.url, ta.get_url.last
+    assert p1, ta.user
+    assert community, ta.target
+    process_delayed_job_queue
+    assert_equal 2, ActionTrackerNotification.count
+
+    article = TinyMceArticle.create! :name => 'Tracked Article 2', :profile_id => community.id
+    assert article.published?
+    assert_kind_of Community, article.profile
+    assert_equal 1, ActionTracker::Record.count
+    ta = ActionTracker::Record.last
+    assert_equal 'Tracked Article 2', ta.get_name.last
+    assert_equal article.url, ta.get_url.last
+    assert_equal p1, ta.user
+    assert_equal community, ta.target
+    process_delayed_job_queue
+    assert_equal 2, ActionTrackerNotification.count
+  end
+
+  should 'create the notification to the member when one member has the notification and the other no' do
+    community = fast_create(Community)
+    p1 = Person.first || fast_create(Person)
+    community.add_member(p1)
+    assert p1.is_member_of?(community)
+    Article.destroy_all
+    ActionTracker::Record.destroy_all
+    article = TinyMceArticle.create! :name => 'Tracked Article 1', :profile_id => community.id
+    assert article.published?
+    assert_kind_of Community, article.profile
+    assert_equal 1, ActionTracker::Record.count
+    ta = ActionTracker::Record.first
+    assert_equal 'Tracked Article 1', ta.get_name.last
+    assert_equal article.url, ta.get_url.last
+    assert p1, ta.user
+    assert community, ta.target
+    process_delayed_job_queue
+    assert_equal 2, ActionTrackerNotification.count
+
+    p2 = fast_create(Person)
+    community.add_member(p2)
+    process_delayed_job_queue
+    assert_equal 5, ActionTrackerNotification.count
+
+    article = TinyMceArticle.create! :name => 'Tracked Article 2', :profile_id => community.id
+    assert article.published?
+    assert_kind_of Community, article.profile
+    assert_equal 3, ActionTracker::Record.count
+    ta = ActionTracker::Record.first
+    assert_equal 'Tracked Article 2', ta.get_name.last
+    assert_equal article.url, ta.get_url.last
+    assert_equal p1, ta.user
+    assert_equal community, ta.target
+    process_delayed_job_queue
+    assert_equal 6, ActionTrackerNotification.count
+  end
+
+  should 'not create more than one notification track action to friends when update more than one artile' do
+    p1 = Person.first || fast_create(Person)
+    friend = fast_create(Person)
+    p1.add_friend(friend)
+    Article.destroy_all
+    ActionTracker::Record.destroy_all
+    ActionTrackerNotification.destroy_all
+    article = TinyMceArticle.create! :name => 'Tracked Article 1', :profile_id => p1.id
+    assert article.published?
+    assert_kind_of Person, article.profile
+    assert_equal 1, ActionTracker::Record.count
+    ta = ActionTracker::Record.last
+    assert_equal 'Tracked Article 1', ta.get_name.last
+    assert_equal article.url, ta.get_url.last
+    assert p1, ta.user
+    assert p1, ta.target
+    process_delayed_job_queue
+    assert_equal 2, ActionTrackerNotification.count
+
+    article = TinyMceArticle.create! :name => 'Tracked Article 2', :profile_id => p1.id
+    assert article.published?
+    assert_kind_of Person, article.profile
+    assert_equal 1, ActionTracker::Record.count
+    ta = ActionTracker::Record.last
+    assert_equal 'Tracked Article 2', ta.get_name.last
+    assert_equal article.url, ta.get_url.last
+    assert_equal p1, ta.user
+    assert_equal p1, ta.target
+    process_delayed_job_queue
+    assert_equal 2, ActionTrackerNotification.count
+  end
+
+  should 'create the notification to the friend when one friend has the notification and the other no' do
+    p1 = Person.first || fast_create(Person)
+    f1 = fast_create(Person)
+    p1.add_friend(f1)
+    Article.destroy_all
+    ActionTracker::Record.destroy_all
+    ActionTrackerNotification.destroy_all
+    article = TinyMceArticle.create! :name => 'Tracked Article 1', :profile_id => p1.id
+    assert article.published?
+    assert_kind_of Person, article.profile
+    assert_equal 1, ActionTracker::Record.count
+    ta = ActionTracker::Record.first
+    assert_equal 'Tracked Article 1', ta.get_name.last
+    assert_equal article.url, ta.get_url.last
+    assert p1, ta.user
+    assert p1, ta.target
+    process_delayed_job_queue
+    assert_equal 2, ActionTrackerNotification.count
+
+    f2 = fast_create(Person)
+    p1.add_friend(f2)
+    process_delayed_job_queue
+    assert_equal 5, ActionTrackerNotification.count
+    article = TinyMceArticle.create! :name => 'Tracked Article 2', :profile_id => p1.id
+    assert article.published?
+    assert_kind_of Person, article.profile
+    assert_equal 2, ActionTracker::Record.count
+    ta = ActionTracker::Record.first
+    assert_equal 'Tracked Article 2', ta.get_name.last
+    assert_equal article.url, ta.get_url.last
+    assert_equal p1, ta.user
+    assert_equal p1, ta.target
+    process_delayed_job_queue
+    assert_equal 6, ActionTrackerNotification.count
+  end
+
 end
