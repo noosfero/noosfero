@@ -1,5 +1,7 @@
 class AggressiveIndexingStrategy2 < ActiveRecord::Migration
   def self.up
+    add_index(:action_tracker_notifications, :profile_id)
+    add_index(:action_tracker_notifications, :action_tracker_id)
 
     say 'Removing duplicate notification records ...'
     buffer = ''
@@ -29,8 +31,6 @@ class AggressiveIndexingStrategy2 < ActiveRecord::Migration
       execute buffer
     end
 
-    add_index(:action_tracker_notifications, :profile_id)
-    add_index(:action_tracker_notifications, :action_tracker_id)
     add_index(:action_tracker_notifications, [:profile_id, :action_tracker_id], :unique => true)
   end
 
