@@ -17,11 +17,29 @@
   <p class="highlights-block-footer"></p>
   <script type="text/javascript">
     (function($) {
-     var options = {fx: 'fade', fastOnEvent: 1, timeout: <%= block.interval * 1000 %>};
+     var options = {
+       fx: 'custom',
+       animIn : {
+         opacity : 1
+       },
+       animOut : {
+         opacity : 0
+       },
+       cssBefore : {
+         zIndex : 1,
+         opacity : 0,
+         display : 'block'
+       },
+       cssAfter : {
+         zIndex : 0
+       },
+       fastOnEvent : 1,
+       timeout : <%= block.interval * 1000 %>
+     };
      <% if block.navigation %>
        options.pager = '#block-<%= block.id %> .highlights-block-pager';
      <% end %>
-      $('#block-<%= block.id %> .highlights-container').cycle(options);
+     $('#block-<%= block.id %> .highlights-container').cycle(options);
     })(jQuery);
   </script>
 <% else %>
