@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.25.3\n"
 "POT-Creation-Date: 2010-10-03 11:50-0300\n"
-"PO-Revision-Date: 2010-10-03 11:55-0300\n"
+"PO-Revision-Date: 2010-10-18 17:24-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE TEAM <E-MAIL@ADDRESS or HOME PAGE>\n"
 "Language: \n"
@@ -3305,7 +3305,7 @@ msgstr "Desabilitar contato para comunidades"
 #: app/models/environment.rb:95
 #: app/views/enterprise_registration/basic_information.rhtml:3
 msgid "Enterprise registration"
-msgstr "Registaro de empreendimento"
+msgstr "Registro de empreendimento"
 
 #: app/models/environment.rb:97
 msgid "Enable activation of enterprises"
