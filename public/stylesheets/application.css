@@ -3760,6 +3760,7 @@ h1#agenda-title {
   border: 1px solid #2A5896;
   padding: 10px 0px 10px 10px;
   height: 205px;
+  overflow: auto;
   position: relative; /* work-arround-bug fo MSIE */
 }
 
