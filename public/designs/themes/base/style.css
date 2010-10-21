@@ -695,7 +695,6 @@ div#notice {
 
 .tag_cloud a {
   text-decoration: none;
-  white-space: nowrap;
 }
 
 .tag_cloud a small {

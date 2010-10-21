@@ -24,7 +24,9 @@ class TagsBlock < Block
     return '' if tags.empty?
 
     if limit
-      tags = tags.sort_by{ |k,v| -v }[0..(limit-1)]
+      tags_tmp = tags.sort_by{ |k,v| -v }[0..(limit-1)]
+      tags = {}
+      tags_tmp.map{ |k,v| tags[k] = v }
     end
 
     block_title(title) +
