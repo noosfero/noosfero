@@ -786,6 +786,14 @@ class PersonTest < Test::Unit::TestCase
     assert_equal s2, person.scraps(s2.id.to_s)
   end
 
+  should "destroy scrap if sender was removed" do
+    person = fast_create(Person)
+    scrap = fast_create(Scrap, :sender_id => person.id)
+    assert_not_nil Scrap.find_by_id(scrap.id)
+    person.destroy
+    assert_nil Scrap.find_by_id(scrap.id)
+  end
+
   should "the tracked action be notified to person friends and herself" do
     p1 = Person.first
     p2 = fast_create(Person)

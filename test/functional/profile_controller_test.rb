@@ -647,6 +647,23 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_equal "You can't leave an empty message.", assigns(:message)
   end
 
+  should "display a scrap sent" do
+    another_person = fast_create(Person)
+    Scrap.create!(defaults_for_scrap(:sender => another_person, :receiver => profile, :content => 'A scrap'))
+    login_as(profile.identifier)
+    get :index, :profile => profile.identifier
+    assert_tag :tag => 'p', :content => 'A scrap'
+  end
+
+  should "not display a scrap sent by a removed user" do
+    another_person = fast_create(Person)
+    Scrap.create!(defaults_for_scrap(:sender => another_person, :receiver => profile, :content => 'A scrap'))
+    login_as(profile.identifier)
+    another_person.destroy
+    get :index, :profile => profile.identifier
+    assert_no_tag :tag => 'p', :content => 'A scrap'
+  end
+
   should 'see all activities of the current profile' do
     p1= Person.first
     p2= fast_create(Person)

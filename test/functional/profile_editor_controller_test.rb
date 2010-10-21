@@ -798,4 +798,64 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     }
   end
 
+  should 'render destroy_profile template' do
+    community = fast_create(Community)
+    get :destroy_profile, :profile => community.identifier
+    assert_template 'destroy_profile'
+  end
+
+  should 'be able to destroy a person' do
+    person = fast_create(Person)
+
+    assert_difference Person, :count, -1 do
+      post :destroy_profile, :profile => person.identifier
+    end
+  end
+
+  should 'be able to destroy communities' do
+    community = fast_create(Community)
+
+    person = fast_create(Person)
+    community.add_admin(person)
+
+    assert_difference Community, :count, -1 do
+      post :destroy_profile, :profile => community.identifier
+    end
+  end
+
+  should 'not be able to destroy communities if is a regular member' do
+    community = fast_create(Community)
+
+    person = fast_create(Person)
+    community.add_admin(person)
+
+    login_as(person.identifier)
+    assert_difference Community, :count, 0 do
+      post :destroy_profile, :profile => community.identifier
+    end
+  end
+
+  should 'be able to destroy enterprise' do
+    enterprise = fast_create(Enterprise)
+
+    person = fast_create(Person)
+    enterprise.add_admin(person)
+
+    assert_difference Enterprise, :count, -1 do
+      post :destroy_profile, :profile => enterprise.identifier
+    end
+  end
+
+  should 'not be able to destroy enterprise if is a regular member' do
+    enterprise = fast_create(Enterprise)
+
+    person = fast_create(Person)
+    enterprise.add_admin(person)
+
+    login_as(person.identifier)
+    assert_difference Enterprise, :count, 0 do
+      post :destroy_profile, :profile => enterprise.identifier
+    end
+  end
+
 end

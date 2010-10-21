@@ -76,6 +76,10 @@
 
   <%= select_categories(:profile_data, _('Select the categories of your interest'), 2) %>
 
+  <% if user && user.has_permission?('destroy_profile', profile) %>
+    <%= link_to _('Delete profile'), {:action => :destroy_profile}, :id => 'delete-profile-link' %>
+  <% end %>
+
   <% button_bar do %>
     <%= submit_button('save', _('Save'), :cancel => {:action => 'index'}) %>
     <%= button(:back, _('Back to control panel'), :controller => 'profile_editor') %>

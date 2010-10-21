@@ -122,15 +122,9 @@ class MembershipsControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testuser/memberships/new_community" }
   end
 
-  should 'render destroy_community template' do
-    community = Community.create!(:name => 'A community to destroy')
-    get :destroy_community, :profile => 'testuser', :id => community.id
-    assert_template 'destroy_community'
-  end
-
   should 'display destroy link only to communities' do
     community = Community.create!(:name => 'A community to destroy')
-    enterprise = fast_create(Enterprise, :name => 'A enterprise test', :identifier => 'enterprise-test')
+    enterprise = fast_create(Enterprise, :name => 'A enterprise test')
 
     person = Person['testuser']
     community.add_admin(person)
@@ -138,19 +132,8 @@ class MembershipsControllerTest < Test::Unit::TestCase
 
     get :index, :profile => 'testuser'
 
-    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testuser/memberships/destroy_community/#{community.id}" }
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/testuser/memberships/destroy_community/#{enterprise.id}" }
-  end
-
-  should 'be able to destroy communities' do
-    community = Community.create!(:name => 'A community to destroy')
-
-    person = Person['testuser']
-    community.add_admin(person)
-
-    assert_difference Community, :count, -1 do
-      post :destroy_community, :profile => 'testuser', :id => community.id
-    end
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{community.identifier}/profile_editor/destroy_profile" }
+    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{enterprise.identifier}/profile_editor/destroy_profile" }
   end
 
   should 'not display destroy link to normal members' do
@@ -163,7 +146,7 @@ class MembershipsControllerTest < Test::Unit::TestCase
     get :index, :profile => 'testuser'
 
     assert_template 'index'
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/testuser/memberships/destroy_community/#{community.id}" }
+    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{community.identifier}/profile_editor/destroy_profile" }
   end
 
   should 'use the current environment for the template of user' do

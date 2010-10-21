@@ -25,7 +25,7 @@
         <%= button 'menu-ctrl-panel', _('Control panel of this group'), membership.admin_url %>
         <%= lightbox_button 'menu-logout', _('Leave'), membership.leave_url %>
         <% if (membership.community? && user.has_permission?(:destroy_profile, membership)) %>
-          <%= button 'delete', _('Remove'), { :action => 'destroy_community', :id => membership } %>
+          <%= button 'delete', _('Remove'), { :controller => 'profile_editor', :action => 'destroy_profile', :profile => membership.identifier } %>
         <% end %>
       <% end %>
     </span>

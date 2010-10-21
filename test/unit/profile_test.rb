@@ -1805,6 +1805,15 @@ class ProfileTest < Test::Unit::TestCase
     assert_nil profile.profile_custom_icon
   end
 
+  should "destroy scrap if receiver was removed" do
+    person = fast_create(Person)
+    scrap = fast_create(Scrap, :receiver_id => person.id)
+    assert_not_nil Scrap.find_by_id(scrap.id)
+    person.destroy
+    assert_nil Scrap.find_by_id(scrap.id)
+  end
+
+
   private
 
   def assert_invalid_identifier(id)

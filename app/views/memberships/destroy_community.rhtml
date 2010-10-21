@@ -1,9 +1,0 @@
-<h1><%= _('To remove %s') % @community.short_name %></h1>
-
-<p><strong><%= _('Are you sure you want to <u>remove</u> "%s"?') % content_tag( 'i', @community.name ) %></strong></p>
-
-<% form_tag do %>
-  <%= hidden_field_tag(:confirmation, 1) %>
-  <%= submit_button(:ok, _("Yes, I want to remove.") % @community.short_name) %>
-  <%= button(:cancel, _("No, I don't want."), :action => 'index') %>
-<% end %>

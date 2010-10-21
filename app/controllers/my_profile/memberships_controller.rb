@@ -24,15 +24,4 @@ class MembershipsController < MyProfileController
       render :layout => 'wizard'
     end
   end
-
-  def destroy_community
-    @community = Community.find(params[:id])
-    if request.post?
-      if @community.destroy
-        session[:notice] = _('%s was removed.') % @community.short_name
-        redirect_to :action => 'index'
-      end
-    end
-  end
-
 end

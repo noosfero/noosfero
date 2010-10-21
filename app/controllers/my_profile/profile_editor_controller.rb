@@ -1,6 +1,7 @@
 class ProfileEditorController < MyProfileController
 
-  protect 'edit_profile', :profile
+  protect 'edit_profile', :profile, :except => [:destroy_profile]
+  protect 'destroy_profile', :profile, :only => [:destroy_profile]
 
   def index
     @pending_tasks = profile.all_pending_tasks.select{|i| user.has_permission?(i.permission, profile)}
@@ -72,4 +73,14 @@ class ProfileEditorController < MyProfileController
     end
   end
 
+  def destroy_profile
+    if request.post?
+      if @profile.destroy
+        session[:notice] = _('The profile was deleted.')
+        redirect_to :controller => 'home'
+      else
+        session[:notice] = _('Could not delete profile')
+      end
+    end
+  end
 end

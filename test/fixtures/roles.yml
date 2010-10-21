@@ -86,3 +86,5 @@ environment_administrator:
    - manage_environment_validators
    - moderate_comments
    - manage_environment_users
+   - edit_profile
+   - destroy_profile
