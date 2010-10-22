@@ -502,6 +502,9 @@ jQuery(function($) {
   }
 
   function chatOnlineUsersDataCallBack(data) {
+     if ($('#chat-online-users').length == 0) {
+       return;
+     }
      var content = '';
      $('#chat-online-users').html($('#chat-online-users').html().replace(/%{amount}/g, data['amount_of_friends']));
      $('#chat-online-users').fadeIn();
