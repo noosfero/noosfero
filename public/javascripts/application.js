@@ -455,6 +455,7 @@ jQuery(function($) {
     if (data.login) {
       // logged in
       loggedInDataCallBack(data);
+      addManageEnterprisesToOldStyleMenu(data);
       chatOnlineUsersDataCallBack(data);
     } else {
       // not logged in
@@ -485,6 +486,19 @@ jQuery(function($) {
         $('#user .webmail-link').show();
       }
     });
+  }
+
+  function addManageEnterprisesToOldStyleMenu(data) {
+    if ($('#manage-enterprises-link-template').length > 0) {
+      $.each(data.enterprises, function(index, enterprise) {
+        var item = $('<li>' + $('#manage-enterprises-link-template').html() + '</li>');
+        item.find('a[href]').each(function() {
+          $(this).attr('href', '/myprofile/' + enterprise.identifier);
+        });
+        item.html(item.html().replace('{name}', enterprise.name));
+        item.insertAfter('#manage-enterprises-link-template');
+      });
+    }
   }
 
   function chatOnlineUsersDataCallBack(data) {
