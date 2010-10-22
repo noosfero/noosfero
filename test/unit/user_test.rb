@@ -312,11 +312,11 @@ class UserTest < Test::Unit::TestCase
     assert user.respond_to?(:data_hash)
   end
 
-  should "data_hash method have the following keys" do
-    person = create_user('coldplay').person
-    expected_keys = ['login','is_admin','since_month', 'since_year', 'email_domain','friends_list','amount_of_friends', 'enterprises']
-    assert_equal [], expected_keys - person.user.data_hash.keys
-    assert_equal [], person.user.data_hash.keys - expected_keys
+  should "data_hash method have at least the following keys" do
+    user = create_user('coldplay')
+    expected_keys = ['login','is_admin','since_month', 'since_year', 'email_domain','friends_list','amount_of_friends', 'enterprises', 'bli']
+    data = user.data_hash
+    assert(expected_keys.all? { |k| data.has_key?(k) }, "User#data_hash expected to have at least the following keys: #{expected_keys.inspect} (missing: #{(expected_keys-data.keys).inspect})")
   end
 
   should "data_hash friends_list method have the following keys" do
