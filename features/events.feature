@@ -142,9 +142,10 @@ Feature: events
     When I follow "31"
     Then I should see "YAPC::Brasil 2010"
 
-  Scenario: provide button to back from profile
-    When I am on /profile/josesilva/events
-    Then I should see "Back to josesilva" link
+  Scenario: provide button to go back to profile homepage
+    Given I am on /profile/josesilva/events
+    When I follow "Back to josesilva"
+    Then I should be on josesilva's homepage
 
   Scenario: warn when there is no events
     When I am on /profile/josesilva/events/2020/12/1
