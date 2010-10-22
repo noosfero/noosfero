@@ -3503,8 +3503,8 @@ h1#agenda-title {
   -webkit-border-radius: 3px;
 }
 
-.controller-profile_editor #delete-profile-link {
-  float: right;
+.controller-profile_editor #delete-profile {
+  margin-top: 30px;
 }
 
 .controller-profile_editor a.control-panel-groups { background-image: url(../images/control-panel/system-users.png) }
