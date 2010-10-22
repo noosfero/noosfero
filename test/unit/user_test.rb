@@ -314,7 +314,7 @@ class UserTest < Test::Unit::TestCase
 
   should "data_hash method have the following keys" do
     person = create_user('coldplay').person
-    expected_keys = ['login','is_admin','since_month', 'since_year', 'email_domain','friends_list','amount_of_friends']
+    expected_keys = ['login','is_admin','since_month', 'since_year', 'email_domain','friends_list','amount_of_friends', 'enterprises']
     assert_equal [], expected_keys - person.user.data_hash.keys
     assert_equal [], person.user.data_hash.keys - expected_keys
   end
@@ -334,7 +334,7 @@ class UserTest < Test::Unit::TestCase
     Person.any_instance.stubs(:created_at).returns(DateTime.parse('16-08-2010'))
     expected_hash = {
       'login' => 'x_and_y', 'is_admin' => true, 'since_month' => 8, 'since_year' => 2010, 'email_domain' => nil, 'amount_of_friends' => 0,
-      'friends_list' => {}
+      'friends_list' => {}, 'enterprises' => [],
     }
     assert_equal expected_hash, person.user.data_hash
   end
@@ -380,6 +380,17 @@ class UserTest < Test::Unit::TestCase
     friend = create_user('coldplayfriend', :chat_status => 'chat', :chat_status_at => DateTime.now).person
     person.add_friend(friend)
     assert_equal 'chat', person.user.data_hash['friends_list'][friend.identifier]['status']
+  end
+
+  should 'return empty list of enterprises on data_hash for newly created user' do
+    assert_equal [], create_user('testuser').data_hash['enterprises']
+  end
+
+  should 'return list of enterprises in data_hash' do
+    user = create_user('testuser')
+    enterprise = fast_create(Enterprise, :name => "My enterprise", :identifier => 'my-enterprise')
+    user.person.expects(:enterprises).returns([enterprise])
+    assert_includes user.data_hash['enterprises'], {'name' => 'My enterprise', 'identifier' => 'my-enterprise'}
   end
 
   should 'update chat status every 15 minutes' do
