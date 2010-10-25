@@ -175,7 +175,7 @@ class ActionTrackerModelTest < ActiveSupport::TestCase
     end
     assert_kind_of ActionTracker::Record, ta
     assert_equal ["bar"], ta.reload.params[:foo]
-    ta.updated_at = Time.now.ago(6.minutes)
+    ta.created_at = Time.now.ago(6.minutes)
     ta.send :update_without_callbacks
     t = ta.reload.updated_at
     assert_difference "ActionTracker::Record.count" do

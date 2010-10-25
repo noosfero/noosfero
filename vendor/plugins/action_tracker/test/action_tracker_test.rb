@@ -295,7 +295,7 @@ class ActionTrackerTest < ActiveSupport::TestCase
       get :test, :foo => "bar"
     end
     t = ActionTracker::Record.last
-    t.updated_at = t.updated_at.ago(6.minutes)
+    t.created_at = t.updated_at.ago(6.minutes)
     t.send :update_without_callbacks
 	  assert_difference 'ActionTracker::Record.count' do
       get :test, :foo => "test"

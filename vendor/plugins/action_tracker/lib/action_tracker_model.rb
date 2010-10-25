@@ -37,7 +37,7 @@ module ActionTracker
       return if u.nil?
       target_hash = params[:target].nil? ? {} : {:target_type => params[:target].class.base_class.to_s, :target_id => params[:target].id}
       l = last :conditions => { :user_id => u.id, :user_type => u.class.base_class.to_s, :verb => params[:verb].to_s }.merge(target_hash)
-      if !l.nil? and Time.now - l.updated_at < ActionTrackerConfig.timeout
+      if !l.nil? and Time.now - l.created_at < ActionTrackerConfig.timeout
         params[:params].clone.each { |key, value| params[:params][key] = l.params[key].clone.push(value) }
         l.update_attributes params
       else

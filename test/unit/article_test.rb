@@ -926,7 +926,7 @@ class ArticleTest < Test::Unit::TestCase
     assert_equal 'Tracked Article', ta.get_name.last
     assert_equal article.url, ta.get_url.last
     assert_kind_of Person, ta.user
-    ta.back_in_time(26.hours)
+    ta.created_at = Time.now.ago(26.hours); ta.save!
     article = TinyMceArticle.create! :name => 'Another Tracked Article', :profile_id => profile.id
     ta = ActionTracker::Record.last
     assert_equal ['Another Tracked Article'], ta.get_name
