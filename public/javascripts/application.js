@@ -234,8 +234,18 @@ function expandCategory(block, id) {
   }
 }
 
+function ieZIndexBugFix(trigger) {
+  if (jQuery.browser.msie && parseInt(jQuery.browser.version) == 7) {
+    jQuery('#navigation').css({ zIndex : 6 });
+    jQuery('.box-2, .box-3').css({ zIndex : 5 });
+    jQuery(trigger).parents('.box-2, .box-3').css({ zIndex : 11 });
+  }
+}
+
 function toggleSubmenu(trigger, title, link_list) {
+  ieZIndexBugFix(trigger);
   trigger.onclick = function() {
+    ieZIndexBugFix(trigger);
     var submenu = jQuery(trigger).siblings('.menu-submenu');
     var hide = false;
     if (submenu.length > 0 && submenu.is(':visible')) hide = true;
