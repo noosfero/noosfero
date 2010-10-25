@@ -141,7 +141,7 @@ body, th, td, input {
   position: absolute;
   top: 20px;
   left: 0px;
-  z-index: 2;
+  z-index: 7;
   overflow: hidden;
   width: 310px;
   height: 90px;

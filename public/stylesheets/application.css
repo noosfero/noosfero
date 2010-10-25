@@ -7,6 +7,10 @@ body {
 
 code, pre { color: #666; }
 
+.msie7 #content {
+  border: 1px solid transparent;
+}
+
 #beta-tag {
   position: absolute;
   top: 4px;
@@ -30,7 +34,6 @@ code, pre { color: #666; }
   margin-right: 10px;
   padding: 0em;
 }
-
 
 #environment_identification {
   position: absolute !important;
@@ -158,6 +161,10 @@ div#notice {
 
 .main-block {
   text-align: justify;
+}
+
+.msie7 #content {
+  z-index: 8;
 }
 
 #content h1 {
@@ -697,6 +704,17 @@ code input {
   color: #FFF;
 }
 
+#navigation {
+  z-index: 6;
+}
+
+#navigation .menu-submenu {
+  z-index: 5;
+}
+
+#navigation li .menu-submenu-trigger {
+  z-index: 12;
+}
 
 #menu_link_to_envhome {
   float: left;
@@ -796,6 +814,10 @@ code input {
   margin: 0px;
   padding: 1px 0px 0px 0px;
   list-style: none;
+}
+
+#user form input {
+  z-index: 7;
 }
 
 #user_box {
@@ -1415,6 +1437,52 @@ input.disabled {
 /***********************************************************
  * style for blocks 
  ***********************************************************/
+
+#content .communities-block .profile-image {
+  float: none;
+  padding-left: 0px;
+  max-width: none;
+  width: 92px;
+  height: 64px;
+}
+
+#content .communities-block .vcard .profile_link {
+  text-align: center;
+  padding-bottom: 0px;
+  height: 112px;
+}
+
+.msie7 .communities-block .common-profile-list-block .vcard .profile_link {
+  height: 120px;
+  padding-bottom: 0px;
+}
+
+.msie7 #content .communities-block .vcard {
+  width: 96px;
+}
+
+.msie7 #content .communities-block .vcard .menu-submenu-trigger {
+  height: 20px;
+}
+
+.msie7 .block .menu-submenu {
+  z-index: 4;
+}
+
+.msie7 .common-profile-list-block .vcard {
+  z-index: 3;
+}
+
+.msie7 .box-1 {
+  z-index: 0;
+  position: relative;
+}
+
+.msie7 .box-2,
+.msie7 .box-3 {
+  z-index: 5;
+  position: relative;
+}
 
 .block iframe {
   border: none;
@@ -3764,7 +3832,7 @@ h1#agenda-title {
   border: 1px solid #2A5896;
   padding: 10px 0px 10px 10px;
   height: 205px;
-  overflow: auto;
+  overflow: visible;
   position: relative; /* work-arround-bug fo MSIE */
 }
 
@@ -4051,13 +4119,17 @@ h1#agenda-title {
 
 .highlights-block {
   float: left;
+  height: 300px;
+  background: transparent;
+  text-align: center;
 }
 
 .highlights-block-pager {
-  border: 1px solid #ccc;
-  border-top: 0;
+  border: 0;
   display: inline;
   padding-right: 5px;
+  float: left;
+  position: static;
 }
 
 .highlights-block-pager a {
@@ -4075,18 +4147,29 @@ h1#agenda-title {
   text-decoration: none;
 }
 
+.highlights-container,
 .highlights-image-link {
-  height: 150px;
-  width: 400px;
+  height: 270px !important; /* Important is neeeded for Chrome */
   overflow: hidden;
+  text-align: center;
+}
+
+.highlights-image-link {
+  width: 100% !important;  /* Important is neeeded for Chrome */
+}
+
+.highlights-container {
+  width: 99% !important;  /* Important is neeeded for Chrome */
+  border: 1px solid #ccc;
+  background: #000;
 }
 
 .highlights-label {
   border: 0;
   position: absolute;
   bottom: 0;
-  z-index: 9999;
-  background-color: #000;
+  z-index: 2;
+  background: transparent url(/images/black-alpha-pixel.png);
   color: #fff;
   text-decoration: none;
   display: block;
@@ -4095,10 +4178,18 @@ h1#agenda-title {
   overflow: hidden;
   margin: 0;
   padding: 4px 0;
+  left: 0;
+  text-align: left;
 }
 
-.highlights-image-link {
-  border: 1px solid #ccc;
+.msie7 .highlights-block,
+.msie .highlights-block .block-inner-2,
+.msie .highlights-block .block-inner-1,
+.msie7 .highlights-border,
+.msie7 #content #box-1 .highlights-block {
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
 }
 
 /* Featured Products stuff */
@@ -4341,6 +4432,12 @@ h1#agenda-title {
 #content .menu-submenu-content ul a {
   text-align: left;
   padding-left: 12px;
+}
+
+.msie7 .block .menu-submenu-trigger,
+.msie7 #search-results .menu-submenu-trigger,
+.msie7 #browse-results .menu-submenu-trigger {
+  width: 20px !important;
 }
 
 .common-profile-list-block .vcard .menu-submenu a {
@@ -4656,7 +4753,6 @@ h1#agenda-title {
 
 #profile-activity .profile-activity-image, #profile-network .profile-network-image, #profile-wall .profile-wall-image {
   float: left;
-  width: 100px;
   height: 80px;
   margin: 0;
   padding: 0;
@@ -4670,7 +4766,6 @@ h1#agenda-title {
   margin: 0;
   padding: 0;
   border: 1px solid #ccc;
-  width: 355px;
   overflow: hidden;
   background-color: #fff;
   position: relative;
@@ -4745,7 +4840,6 @@ h1#agenda-title {
 }
 
 #leave_scrap_content {
-  width: 450px;
   border: 1px solid #ccc;
   padding: 2px;
 }
@@ -4810,7 +4904,6 @@ h1#agenda-title {
 #profile-network textarea,
 #profile-wall textarea {
   margin: 4px 0;
-  width: 453px;
   border: 1px solid #ccc;
   padding: 2px;
   overflow: hidden;
@@ -4861,7 +4954,6 @@ h1#agenda-title {
 }
 
 #leave_scrap textarea {
-  width: 440px;
   overflow: hidden;
 }
 
@@ -4882,12 +4974,10 @@ h1#agenda-title {
 }
 
 #profile-wall .profile-wall-scrap-replies .profile-wall-description {
-  width: 240px;
   background: transparent;
 }
 
 #profile-wall .profile-wall-scrap-replies textarea {
-  width: 334px;
   margin-left: 2px;
 }
 
@@ -5039,4 +5129,105 @@ h1#agenda-title {
 .profile-wall-scrap-replies {
   float: right;
   margin-right: 2px;
+}
+
+/* Profile activity relative dimensions */
+
+#leave_scrap {
+  width: 98%;
+}
+
+#leave_scrap textarea {
+  width: 98%;
+}
+
+#profile-activity .profile-activity-image, #profile-network .profile-network-image, #profile-wall .profile-wall-image {
+  width: 19%;
+}
+
+#profile-activity .profile-activity-description, #profile-network .profile-network-description, #profile-wall .profile-wall-description {
+  width: 80%;
+}
+
+#profile-wall .profile-wall-scrap-replies textarea,
+#profile-network textarea, #profile-wall textarea {
+  width: 99%;
+}
+
+.profile-wall-scrap-replies {
+  width: 100%;
+  position: relative;
+}
+
+.profile-wall-scrap-replies li {
+  position: relative;
+  width: 80%;
+  left: 19%;
+}
+
+/* Profile activity IE fixes */
+
+.msie7 table.profile {
+  width: 100%;
+}
+
+.msie7 #profile-activity li, .msie7 #profile-network li, .msie7 #profile-wall li {
+  list-style: none;
+  z-index: 1;
+}
+
+.msie7 #profile-activity .profile-activity-description,
+.msie7 #profile-network .profile-network-description,
+.msie7 #profile-wall .profile-wall-description {
+  z-index: 2;
+}
+
+.msie7 #leave_scrap {
+	overflow: hidden;
+}
+
+.msie7 #profile-activity hr, .msie7 #profile-network hr, .msie7 #profile-wall hr {
+  visibility: hidden;
+}
+
+.msie #profile-activity .profile-activity-description,
+.msie #profile-network .profile-network-description {
+  border: 1px solid #ccc;
+}
+
+.msie7 #profile-activity ul, .msie7 #profile-network ul, .msie7 #profile-wall ul {
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.msie7 .profile-wall-image,
+.msie7 .leave_scrap_to_self .profile-network-image,
+.msie7 .leave_scrap .profile-network-image,
+.msie7 .leave_scrap_to_self .profile-activity-image,
+.msie7 .leave_scrap .profile-activity-image {
+  z-index: 3;
+	left: 2px;
+}
+
+.msie7 #profile-activity .profile-activity-send-message,
+.msie7 #profile-network .profile-network-send-message,
+.msie7 #profile-wall .profile-wall-send-message {
+  line-height: 24px;
+	margin-top: 2px;
+}
+
+.msie7 #profile-wall a.button.with-text.icon-cancel {
+  display: inline-block;
+  line-height: 17px;
+}
+
+.msie7 .ui-tabs .ui-tabs-nav li {
+  top: 1px;
+	margin: 0;
+	margin-right: 4px;
+}
+
+.msie7 .profile-wall-scrap-replies {
+  float: none;
+	margin-top: 10px;
 }
