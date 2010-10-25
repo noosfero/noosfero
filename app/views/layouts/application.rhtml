@@ -42,7 +42,7 @@
     onresize="registerDocumentSize()">
     <script type="text/javascript">
       function registerDocumentSize() {
-        document.body.className = document.body.className.replace(/(^| )docSize.+( |$)/g, " ");
+        document.body.className = document.body.className.replace(/docSize-(G|L)T-\d+/g, "");
         for ( var x=100; x<=1500; x+=100 ) {
           if ( document.body.clientWidth > x ) {
             document.body.className += " docSize-GT-" + x;
