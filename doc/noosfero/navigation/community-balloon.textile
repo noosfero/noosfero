@@ -16,7 +16,7 @@ h2(#Description). Description
 p. The community balloon has links to allow direct access to some community's pages !=/images/doc/community-balloon-en.png(Community balloon links)!
 # Wall: lists scraps sent to this community
 # Members: lists the community's members
-# Agenda: lists the events crated on community
+# Agenda: lists the events created on community
 # Join: if you are not a member of community, you can quickly join it clicking on this link
 # Leave: if you are a member of community, you can quickly leave it clicking on this link
 # Send an e-mail: if you are a member of community, you can send an e-mail to the community admins clicking on this link

@@ -1,0 +1,35 @@
+h1(order-212). Adding products to an enterprise
+
+p.  _If you are an enterprise administrator, you can add products to the enterprise._
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+*  "Related topics":#RelatedTopics
+
+h2(HowAccess). How to access
+
+# Go to the enterprise's page. Use the "search":/doc/navigation/searching-enterprises and click on the enterprise you want to add a product.
+
+h2(#Description). Description
+
+# In enterprise's control panel, click on "Manage products and services" !=/images/doc/control-panel-manage-products.en.png(Control panel with manage products)!
+# You will see the list of products already registered. To add a new product/service click on "New product or service" button !=/images/doc/enterprise-product-list-new-product-button.en.png(Product list of enterprise on manage products)!
+# Choose the category of your product. The button "Save and continue" will become active if you are allowed to add a product on the choosen category. Otherwise, you should keep browsing through the category's children until you choose a category that allows registration of products. When you finish choosing the category, press the "Save and continue button":
+!=/images/doc/enterprise-new-product-no-category.en.png(First category of product)!
+!=/images/doc/enterprise-new-product-second-category.en.png(Second category of product)!
+!=/images/doc/enterprise-new-product-last-category.en.png(Last category of product)!
+# Then you will see the product you have just created. By default, the product's name is the same as the product's category. In this page you can change the product's category, name, unit, image, basic information and add inputs clicking on the link indicated by numbers !=/images/doc/enterprise-product.en.png(Product created)!
+## "Edit name and unit": Fill in the form with the name of your product and choose the unit of it (unit, litre, kilo) and press the "Save" button !=/images/doc/enterprise-product-edit-name-form.en.png(Edit name form)!
+## "Change image": Choose an image and press the "Save" button !=/images/doc/enterprise-product-change-image-form.en.png(Change image form)!
+## "Add price and other basic information": Fill in the form with the information about your product and press the "Save" button !=/images/doc/enterprise-product-edit-basic-info-form.en.png(Edit basic info form)!
+## "Add some description about your product": Write some information about your product and press the "Save" button !=/images/doc/enterprise-product-edit-description-form.en.png(Edit description form)!
+## "Input and raw material": Click on the tab and then press the button to add a new input !=/images/doc/enterprise-product-add-input-button.en.png(Inputs tab)!
+### Fill in the form with the category of the input you are adding and press the "Save and continue" button !=/images/doc/enterprise-product-add-input-form.en.png(Inputs tab)!
+# Now the product is ready to be displayed !=/images/doc/enterprise-product-complete.en.png(Product created final)!
+
+h2(#RelatedTopics). Related topics
+
+*  "Editing enterprise settings":/doc/enterprise/editing-enterprise-info
+*  "Activating your enterprise":/doc/enterprise/activating-enterprise
+
+"Back to top":#online-doc-text
