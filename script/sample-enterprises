@@ -42,3 +42,9 @@ EnterpriseActivation.find(:all, :conditions => ['created_at > ?', start_time]).e
   enterprise = activation.enterprise
   puts [activation.code, enterprise.name, enterprise.foundation_year].join(';')
 end
+
+ze = Person['ze']
+# give admin rights for 'ze' in some enterprises
+Enterprise.all.rand.add_admin(ze)
+Enterprise.all.rand.add_admin(ze)
+Enterprise.all.rand.add_admin(ze)

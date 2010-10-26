@@ -135,7 +135,8 @@ class Environment < ActiveRecord::Base
     env.boxes[1].blocks << RecentDocumentsBlock.new
 
     # "right" area
-    env.boxes[2].blocks << ProfileListBlock.new
+    env.boxes[2].blocks << CommunitiesBlock.new(:limit => 4)
+    env.boxes[2].blocks << PeopleBlock.new(:limit => 4)
   end
 
   # One Environment can be reached by many domains
