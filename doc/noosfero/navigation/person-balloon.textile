@@ -1,0 +1,26 @@
+h1(order-618). Person balloon
+
+p.  _When an user is navigating on the system, he can see details of a person and become a friend quickly._
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+*  "Related topics":#RelatedTopics
+
+h2(#HowAccess). How to access
+
+p. If enabled on environment, wherever a person appears you can click on the top-left corner to see the person balloon !=/images/doc/person-balloon-closed-en.png(Person balloon link)!
+
+h2(#Description). Description
+
+p. The person balloon has links to allow direct access to some person's pages !=/images/doc/person-balloon-en.png(person balloon links)!
+# Wall: lists scraps sent to this person
+# Friends: lists the person's friends
+# Communities: lists the person's communities
+# Add: if you are not friend of the person, you can quickly ask to add her clicking on this link
+# Send an e-mail: if you are a friend of the person, you can send an e-mail to the her clicking on this link
+
+h2(#RelatedTopics). Related topics
+
+*  "Finding people":/doc/navigation/searching-people
+
+"Back to top":#online-doc-text

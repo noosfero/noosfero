@@ -1,0 +1,19 @@
+h1(order-10). Sending e-mail to members
+
+p.  _If you are an environment administrator, you can send e-mail to all members of your environment._
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+
+h2(#HowAccess). How to access
+
+# Find your user menu on top bar:  !=/images/doc/system-homepage-top-menu-admin.en.png(Top menu)!
+# In user menu, click on Administration:  !=/images/doc/menu-admin.en.png(Control panel on menu)!
+# Then, click on "Manage users" link:  !=/images/doc/admin-panel-manage-users.en.png(Manage users in admin panel)!
+
+h2(#Description). Description
+
+# In "Manage users", click on "Send e-mail to users" link:  !=/images/doc/admin-panel-send-email.en.png(Send e-mail link on manage users)!
+# Fill in the "Subject" field with the subject of the e-mail and the "Body" field with the content of the e-mail you want to send. Then, click on "Send" !=/images/doc/admin-send-email.en.png(Sending e-mail to environment members)!
+
+"Back to top":#online-doc-text

@@ -1,0 +1,25 @@
+h1(order-405). Deleting a profile
+
+p.  _You can delete your profile if you don't want to be a member of the environment anymore._
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+*  "Related topics":#RelatedTopics
+
+h2(#HowAccess). How to access
+
+# Find your user menu on top bar:  !=/images/doc/system-homepage-top-menu.en.png(Top menu)!
+# In user menu, click on Control Panel:  !=/images/doc/menu-control-panel.en.png(Control panel on menu)!
+
+h2(#Description). Description
+
+# In your control panel, click on "Profile Info and settings"  !=/images/doc/control-panel-person-edit-profile-info.en.png(Control panel with edit profile info of person)!
+# You will see a form with your information and settings. Click on the "Delete profile" button below the privacy options !=/images/doc/control-panel-person-delete-profile.en.png(Delete profile link)!
+# You will see a confirmation page. If you are sure that you want to delete the profile, click on "Yes, I am sure" !=/images/doc/person-delete-profile-confirmation.en.png(Delete profile confirmation)!
+
+h2(#RelatedTopics). Related topics
+
+*  "Registering a new user":/doc/user/registering-new-user
+*  "Login into the system":/doc/user/login
+
+"Back to top":#online-doc-text

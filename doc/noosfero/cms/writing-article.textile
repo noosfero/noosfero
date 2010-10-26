@@ -21,37 +21,38 @@ h2(#Description). Description
 **  *Event:* creates an event, that will be listed on calendar
 **  *Feed RSS:* provides a "feed":http://pt.wikipedia.org/wiki/Feed  "RSS":http://pt.wikipedia.org/wiki/RSS of your recent articles
 ** In this example, we will create an article with visual editor. Click on "Text article with visual editor"  !=/images/doc/cms-article-types.en.png(List of article types)!
-# Fill in the field "Title" with the name of the article you want to create. Below, there is a space for text, where you will write the content of your article. You can write your text the same way you write in others text editors.
-  !=/images/doc/article-text.en.png(Text on an article)!
-# In the top of the box where you type your article you will see some buttons, that will help you formatting your text. Passing mouse over the button, the name of the button function is displayed.  !=/images/doc/wysiwyg-buttons.en.png(WYSIWYG buttons)!
-## From the left to right:
-###  *Print:* use this button if you want to print your article
-###  *Copy:* select a section of the text and click on this button to copy it
-###  *Paste:* if you copied something, then use this button to paste it on your text. The text will be pasted into the place where the cursor is
-###  *Undo:* click on this button after writing or formatting some text and want to undo the action
-###  *Redo:* click on this button if you clicked on button "undo" and want to redo your last action
-###  *Find:* click on this button to find some word or phrase in your text
-###  *Find/Replace:* click on this button to find some word or phrase in your text and replace it for other
-###  *Font size:* used to define the size of characters. Select the text/word and change the size clicking on this button
-###  *Format:* if you want to use one of the pre-configured formats, select text/word, click on this button and select the desired format.
-###  *Bold:* it formats your text/word with a line thicker than usual. This format is used to emphasize the words. Example: *home* . To use it, first you should select the text/word and then click on button
-###  *Italic* it formats your text/word as oblique. This format is also used to emphasize the words. Example: _home_ . To use it, first you should select the text/word and then click on button
-###  *Underline:* it is also used to emphasize a word/phrase. One line is drawn under the word. Example: %{text-decoration:
-##underline;}home% . To use it, first you should select the word/phrase and then click on button
-###  *Strikethrough:* one line in drawn in the middle of word/phrase Example: %{text-decoration:
-##line-through;}home% . To use it, first you should select the word/phrase and then click on button
-###  *Unordered list:* it creates a list, inserting a small ball before each item.
-###  *Ordered list* it creates a numbered list, adding a number before each item.
-###  *Align left:* use this button if you want your text to be left aligned. In this case, the right border of each line will be misaligned
-###  *Align center* the alignment of the text is based on the center of the text. In this case, the left and right borders will be misaligned
-###  *Align right:* use this button if you want your text to be right aligned. In this case, the left border of each line will be misaligned
-###  *Align full:* use this button if you want your text to be aligned in both sides. In this case, the left and right borders of each line will be aligned
-###  *Insert/edit link:* use it when you want to insert or edit a link to some address
-###  *Unlink:* if you have a link in your text, click on this button to remove the link
-###  *Insert/edit image:* use it if you want to insert an image or to edit an image that is in your text
-###  *Inserts a new table:* use it to insert a table in your text
-###  *Cleanup messy code:* click on this button to remove bad HTML code. You should use it after pasting a formatted text from another place
-###  *Edit HTML source:* the text written in this editor is transformed in HTML code, to be viewed on browsers. Use this button to view/edit the HTML code of your article.
+# Create your article !=/images/doc/article-text.en.png(Text on an article)!
+## Fill in the field "Title" with the name of the article you want to create.
+## Sometimes you need an introduction of the article, like when your blog is configured to display only the initial part of the post. If you need a shorter version click on "Lead" button and write the introduction. !=/images/doc/article-text-lead.en.png(Lead text on an article)!
+## Below, there is a space for text, where you will write the content of your article. You can write your text the same way you write in others text editors.
+## After the text box, there are two buttons: "Save" (saves the article and display it) and "Save an continue" (saves the article and keeps on the same edition page)
+## In the top of the box where you type your article you will see some buttons, that will help you formatting your text. Passing mouse over the button, the name of the button function is displayed.  !=/images/doc/wysiwyg-buttons.en.png(WYSIWYG buttons)!
+### From the left to right:
+####  *Print:* use this button if you want to print your article
+####  *Copy:* select a section of the text and click on this button to copy it
+####  *Paste:* if you copied something, then use this button to paste it on your text. The text will be pasted into the place where the cursor is
+####  *Undo:* click on this button after writing or formatting some text and want to undo the action
+####  *Redo:* click on this button if you clicked on button "undo" and want to redo your last action
+####  *Find:* click on this button to find some word or phrase in your text
+####  *Find/Replace:* click on this button to find some word or phrase in your text and replace it for other
+####  *Font size:* used to define the size of characters. Select the text/word and change the size clicking on this button
+####  *Format:* if you want to use one of the pre-configured formats, select text/word, click on this button and select the desired format.
+####  *Bold:* it formats your text/word with a line thicker than usual. This format is used to emphasize the words. Example: *home* . To use it, first you should select the text/word and then click on button
+####  *Italic* it formats your text/word as oblique. This format is also used to emphasize the words. Example: _home_ . To use it, first you should select the text/word and then click on button
+####  *Underline:* it is also used to emphasize a word/phrase. One line is drawn under the word. Example: %{text-decoration:underline;}home% . To use it, first you should select the word/phrase and then click on button
+####  *Strikethrough:* one line in drawn in the middle of word/phrase Example: %{text-decoration:line-through;}home% . To use it, first you should select the word/phrase and then click on button
+####  *Unordered list:* it creates a list, inserting a small ball before each item.
+####  *Ordered list* it creates a numbered list, adding a number before each item.
+####  *Align left:* use this button if you want your text to be left aligned. In this case, the right border of each line will be misaligned
+####  *Align center* the alignment of the text is based on the center of the text. In this case, the left and right borders will be misaligned
+####  *Align right:* use this button if you want your text to be right aligned. In this case, the left border of each line will be misaligned
+####  *Align full:* use this button if you want your text to be aligned in both sides. In this case, the left and right borders of each line will be aligned
+####  *Insert/edit link:* use it when you want to insert or edit a link to some address
+####  *Unlink:* if you have a link in your text, click on this button to remove the link
+####  *Insert/edit image:* use it if you want to insert an image or to edit an image that is in your text
+####  *Inserts a new table:* use it to insert a table in your text
+####  *Cleanup messy code:* click on this button to remove bad HTML code. You should use it after pasting a formatted text from another place
+####  *Edit HTML source:* the text written in this editor is transformed in HTML code, to be viewed on browsers. Use this button to view/edit the HTML code of your article.
 # If categorization is enabled in the system, you can categorize your article, increasing the possibility of others to access it. To view and select the categories, click on the arrow:  !=/images/doc/article-creation-categorization.en.png(Categorization of an article on creation)!
 # You can select as many categories as you want.  !=/images/doc/article-creation-category-choosen.en.png(Category choosen on an article creation)!
 # Tags list: fill in with tags. Tags are keywords or terms associated to your article. It is also used to increase the possibility of others to access it, because it will be listed when an user clicks in one of the tags your article has.  !=/images/doc/article-creation-tags.en.png(Tag on an article creation)!

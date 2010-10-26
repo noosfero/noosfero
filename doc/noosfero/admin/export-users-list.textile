@@ -1,0 +1,20 @@
+h1(order-20). Export the list of users
+
+p.  _If you are an environment administrator, you can export the list of all users in XML or CSV formats._
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+
+h2(#HowAccess). How to access
+
+# Find your user menu on top bar:  !=/images/doc/system-homepage-top-menu-admin.en.png(Top menu)!
+# In user menu, click on Administration:  !=/images/doc/menu-admin.en.png(Control panel on menu)!
+# Then, click on "Manage users" link:  !=/images/doc/admin-panel-manage-users.en.png(Manage users in admin panel)!
+
+h2(#Description). Description
+
+p. In "Manage users", choose which format you want to export the list. There are 2 options, "CSV" and "XML".
+
+p. Click on the link of the format you choosed and download it:  !=/images/doc/admin-panel-export-users.en.png(Download list of users link on manage users)!
+
+"Back to top":#online-doc-text
