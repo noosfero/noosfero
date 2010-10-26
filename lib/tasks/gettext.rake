@@ -39,4 +39,8 @@ task :updatepo do
   GetText.update_pofiles(Noosfero::PROJECT, sources, "#{Noosfero::PROJECT} #{Noosfero::VERSION}")
 end
 
+task :checkpo do
+  sh 'for po in po/*/noosfero.po; do echo -n "$po: "; msgfmt --statistics --output /dev/null $po; done'
+end
+
 # vim: ft=ruby
