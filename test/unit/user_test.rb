@@ -314,7 +314,7 @@ class UserTest < Test::Unit::TestCase
 
   should "data_hash method have at least the following keys" do
     user = create_user('coldplay')
-    expected_keys = ['login','is_admin','since_month', 'since_year', 'email_domain','friends_list','amount_of_friends', 'enterprises', 'bli']
+    expected_keys = ['login','is_admin','since_month', 'since_year', 'email_domain','friends_list','amount_of_friends', 'enterprises', ]
     data = user.data_hash
     assert(expected_keys.all? { |k| data.has_key?(k) }, "User#data_hash expected to have at least the following keys: #{expected_keys.inspect} (missing: #{(expected_keys-data.keys).inspect})")
   end
