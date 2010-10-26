@@ -64,7 +64,7 @@ body, th, td, input {
 }
 
 #content {
-  margin-top: 92px;
+  margin-top: 105px;
 }
 
 /*************************** user bar ********************************/
@@ -241,11 +241,11 @@ body, th, td, input {
 #navigation .menu-submenu ul{
   border: 1px solid #888a85;
   border-top: 0px;
-  border-left: 0px;
   background-color: #ccc;
   padding-right: 2px;
   height: auto;
   display: block;
+  padding-top: 20px;
 }
 
 #navigation .menu-submenu{
@@ -260,6 +260,7 @@ body, th, td, input {
   padding: 4px 5px;
   font-size: 12px;
   line-height: normal;
+  border-left: 0;
 }
 
 #navigation .menu-submenu-trigger {
@@ -269,7 +270,7 @@ body, th, td, input {
   width: 124px;
 }
 #navigation li:hover .menu-submenu-trigger:hover {
-  background: #eee url(/images/down-arrow.png) center center no-repeat;
+  background: #585858 url(imgs/down-arrow-light.png) center center no-repeat;
 }
 
 #navigation li:hover .menu-submenu-trigger{
@@ -278,6 +279,11 @@ body, th, td, input {
 
 #navigation li .menu-submenu-trigger{
   display: none;
+  height: 16px;
+  top: 42px;
+  left: 0;
+  border: 1px solid #888A85;
+  outline: none;
 }
 
 #navigation .menu-submenu-header, #navigation .menu-submenu-footer, #navigation .menu-submenu h4{
