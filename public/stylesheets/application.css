@@ -3122,7 +3122,8 @@ div#article-parent {
 
 #agenda-toolbar {
   position: absolute;
-  left: 0;
+  right: 0;
+  top: -10px;
   font-variant: normal;
   font-weight: normal;
 }
