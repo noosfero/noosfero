@@ -17,24 +17,32 @@
   <p class="highlights-block-footer"></p>
   <script type="text/javascript">
     (function($) {
+     $.fn.cycle.transitions.customFade = function($cont, $slides, opts) {
+       $slides.not(":eq(" + opts.currSlide + ")").css("opacity", 0);
+       opts.before.push(function(curr, next, opts) {
+         $.fn.cycle.commonReset(curr, next, opts);
+         opts.cssBefore.opacity = 0;
+       });
+       opts.animIn = {
+         opacity: 1
+       };
+       opts.animOut = {
+         opacity: 0
+       };
+       opts.cssBefore = {
+         top: 0,
+         left: 0,
+         zIndex: 1,
+         display: 'block'
+       };
+       opts.cssAfter = {
+         zIndex: 0
+       };
+     };
      var options = {
-       fx: 'custom',
-       animIn : {
-         opacity : 1
-       },
-       animOut : {
-         opacity : 0
-       },
-       cssBefore : {
-         zIndex : 1,
-         opacity : 0,
-         display : 'block'
-       },
-       cssAfter : {
-         zIndex : 0
-       },
-       fastOnEvent : 1,
-       timeout : <%= block.interval * 1000 %>
+       fx: 'customFade',
+       fastOnEvent: 1,
+       timeout: <%= block.interval * 1000 %>
      };
      <% if block.navigation %>
        options.pager = '#block-<%= block.id %> .highlights-block-pager';
