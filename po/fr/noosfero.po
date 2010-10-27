@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.25.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-22 14:36-0300\n"
+"POT-Creation-Date: 2010-10-26 21:10-0300\n"
 "PO-Revision-Date: 2009-12-04 18:46-0300\n"
 "Last-Translator: Jean-Claude Bulliard <jcb@bulliard-consulting.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -119,8 +119,8 @@ msgstr "Personnes"
 #: app/helpers/assets_helper.rb:9 app/helpers/application_helper.rb:535
 #: app/controllers/public/search_controller.rb:134
 #: app/controllers/public/search_controller.rb:205
-#: app/models/products_block.rb:8 app/models/products_block.rb:12
-#: app/views/search/_sellers_form.rhtml:8
+#: app/models/enterprise.rb:128 app/models/products_block.rb:8
+#: app/models/products_block.rb:12 app/views/search/_sellers_form.rhtml:8
 msgid "Products"
 msgstr "Produits"
 
@@ -948,6 +948,7 @@ msgid "Members"
 msgstr "Membres"
 
 #: app/helpers/application_helper.rb:528 app/helpers/application_helper.rb:537
+#: app/models/person.rb:209 app/models/organization.rb:105
 #, fuzzy
 msgid "Agenda"
 msgstr "Envoyer"
@@ -1903,6 +1904,18 @@ msgstr "Nom de fichier"
 msgid "%{fn} can't be blank"
 msgstr "%{fn} ne peut pas être comme ça."
 
+#: app/models/enterprise.rb:126
+#, fuzzy
+msgid "Enterprises's profile"
+msgstr "profil de catégories"
+
+#: app/models/enterprise.rb:127 app/models/enterprise.rb:143
+#: app/models/person.rb:210 app/models/person.rb:221
+#: app/models/external_feed.rb:- app/models/blog.rb:15
+#: app/models/organization.rb:107 app/models/organization.rb:118
+msgid "Blog"
+msgstr "Blog"
+
 #: app/models/published_article.rb:12
 msgid "Reference to other article"
 msgstr "Référence à un autre article"
@@ -1997,7 +2010,7 @@ msgstr "Nouveau %s"
 #: app/models/link_list_block.rb:7 app/views/categories/_form.rhtml:31
 #: app/views/shared/_select_categories.rhtml:17 app/views/cms/edit.rhtml:22
 #: app/views/cms/edit.rhtml:40 app/views/profile_editor/header_footer.rhtml:28
-#: app/views/profile_editor/edit.rhtml:84
+#: app/views/profile_editor/edit.rhtml:80
 #: app/views/manage_products/_edit_description.rhtml:11
 #: app/views/manage_products/_edit_info.rhtml:53
 #: app/views/manage_products/_edit_name.rhtml:10
@@ -2628,18 +2641,36 @@ msgstr "Code postal"
 msgid "%{fn} is already used by other user"
 msgstr "%{fn} est déjà utilisé par un autre utilisateur."
 
-#: app/models/person.rb:321 app/models/profile.rb:760
-#: app/models/profile.rb:768
+#: app/models/person.rb:207 app/models/profile_categorization.rb:-
+#: app/models/action_tracker_notification.rb:-
+#: app/views/content_viewer/_organization.rhtml:11
+#: app/views/content_viewer/_person.rhtml:13
+#: app/views/profile/_organization.rhtml:11 app/views/profile/_person.rhtml:13
+msgid "Profile"
+msgstr "Profil"
+
+#: app/models/person.rb:208 app/models/folder.rb:13
+#: app/models/image_gallery.rb:4 app/models/organization.rb:106
+msgid "Image gallery"
+msgstr "Galerie d'images"
+
+#: app/models/person.rb:222 app/models/organization.rb:119
+#, fuzzy
+msgid "Gallery"
+msgstr "Galerie d'images"
+
+#: app/models/person.rb:334 app/models/profile.rb:763
+#: app/models/profile.rb:771
 #, fuzzy
 msgid "none"
 msgstr "Aucun(e)"
 
-#: app/models/person.rb:322
+#: app/models/person.rb:335
 #, fuzzy
 msgid "one friend"
 msgstr "Un contact"
 
-#: app/models/person.rb:323
+#: app/models/person.rb:336
 #, fuzzy
 msgid "%s friends"
 msgstr "Les contacts de %s"
@@ -2767,14 +2798,6 @@ msgstr "profil de catégories"
 #: app/models/profile_categorization.rb:-
 msgid "profilecategorization"
 msgstr "categorisationdeprofils"
-
-#: app/models/profile_categorization.rb:-
-#: app/models/action_tracker_notification.rb:-
-#: app/views/content_viewer/_organization.rhtml:11
-#: app/views/content_viewer/_person.rhtml:13
-#: app/views/profile/_organization.rhtml:11 app/views/profile/_person.rhtml:13
-msgid "Profile"
-msgstr "Profil"
 
 #: app/models/tags_block.rb:10
 msgid "Tags"
@@ -3016,10 +3039,6 @@ msgstr "Tâche générique"
 msgid "Folder"
 msgstr "Dossier"
 
-#: app/models/folder.rb:13 app/models/image_gallery.rb:4
-msgid "Image gallery"
-msgstr "Galerie d'images"
-
 #: app/models/folder.rb:27
 msgid "A folder, inside which you can put other articles."
 msgstr "Un dossier dans lequel vous pouvez placer d'autres articles."
@@ -3161,10 +3180,6 @@ msgstr "Échec dans l'édition du rôle"
 #: app/views/enterprise_validation/list_processed.rhtml:9
 msgid "Address"
 msgstr "Adresse"
-
-#: app/models/external_feed.rb:- app/models/blog.rb:15
-msgid "Blog"
-msgstr "Blog"
 
 #: app/models/external_feed.rb:-
 #, fuzzy
@@ -3336,157 +3351,157 @@ msgstr "Liste des administrateurs"
 msgid "Member"
 msgstr "Membre"
 
-#: app/models/environment.rb:56
+#: app/models/environment.rb:54
 #, fuzzy
 msgid "Moderator"
 msgstr "Modérer les commentaires"
 
-#: app/models/environment.rb:80
+#: app/models/environment.rb:78
 msgid "Disable search for articles "
 msgstr "Désactiver la recherche d'articles"
 
-#: app/models/environment.rb:81
+#: app/models/environment.rb:79
 msgid "Disable search for enterprises"
 msgstr "Désactiver la recherche d'entreprises"
 
-#: app/models/environment.rb:82
+#: app/models/environment.rb:80
 msgid "Disable search for people"
 msgstr "Désactiver la recherche de personnes"
 
-#: app/models/environment.rb:83
+#: app/models/environment.rb:81
 msgid "Disable search for communities"
 msgstr "Désactiver la recherche de groupes"
 
-#: app/models/environment.rb:84
+#: app/models/environment.rb:82
 msgid "Disable search for products"
 msgstr "Désactiver la recherche de produits"
 
-#: app/models/environment.rb:85
+#: app/models/environment.rb:83
 msgid "Disable search for events"
 msgstr "Désactiver la recherche d'événements"
 
-#: app/models/environment.rb:86
+#: app/models/environment.rb:84
 msgid "Disable products for enterprises"
 msgstr "Désactiver les produits pour les entreprises"
 
-#: app/models/environment.rb:87
+#: app/models/environment.rb:85
 msgid "Disable categories"
 msgstr "Désactiver les catégories"
 
-#: app/models/environment.rb:88
+#: app/models/environment.rb:86
 msgid "Disable CMS"
 msgstr "Désactiver le système de gestion de contenu"
 
-#: app/models/environment.rb:89
+#: app/models/environment.rb:87
 msgid "Disable header/footer editing by users"
 msgstr "Interdire l'édition des en-tête/pied de page par les utilisateurs"
 
-#: app/models/environment.rb:90
+#: app/models/environment.rb:88
 msgid "Disable gender icon"
 msgstr "Désactiver l'icône de genre "
 
-#: app/models/environment.rb:91
+#: app/models/environment.rb:89
 msgid "Disable the categories menu"
 msgstr "Désactiver le menu de catégories"
 
-#: app/models/environment.rb:92
+#: app/models/environment.rb:90
 msgid "Disable state/city select for contact form"
 msgstr "Désactiver la sélection d'état/ville pour le formulaire de contact"
 
-#: app/models/environment.rb:93
+#: app/models/environment.rb:91
 msgid "Disable contact for people"
 msgstr "Désactiver le contact pour les personnes"
 
-#: app/models/environment.rb:94
+#: app/models/environment.rb:92
 msgid "Disable contact for groups/communities"
 msgstr "Désactiver le contact pour les groupes"
 
-#: app/models/environment.rb:95
+#: app/models/environment.rb:93
 #: app/views/enterprise_registration/basic_information.rhtml:3
 #, fuzzy
 msgid "Enterprise registration"
 msgstr "Enregistrement de l'enterprise : \"%s\""
 
-#: app/models/environment.rb:97
+#: app/models/environment.rb:95
 #, fuzzy
 msgid "Enable activation of enterprises"
 msgstr "Activation de l'entreprise «%s»"
 
-#: app/models/environment.rb:98
+#: app/models/environment.rb:96
 msgid "Use WYSIWYG editor to edit environment home page"
 msgstr ""
 "Utiliser l'éditeur visuel pour modifier la page d'accueil de l'environnement"
 
-#: app/models/environment.rb:99
+#: app/models/environment.rb:97
 msgid "Media panel in WYSIWYG editor"
 msgstr "Panneau de médias dans l'éditeur visuel"
 
-#: app/models/environment.rb:100
+#: app/models/environment.rb:98
 msgid "Select preferred domains per profile"
 msgstr "Choisir les domaines préférés par profil"
 
-#: app/models/environment.rb:101
+#: app/models/environment.rb:99
 #, fuzzy
 msgid "Display wizard signup"
 msgstr "Afficher à l'inscription ?"
 
-#: app/models/environment.rb:102
+#: app/models/environment.rb:100
 msgid "Use the portal as news source for front page"
 msgstr "Utiliser le portail comme source de news pour la première page "
 
-#: app/models/environment.rb:103
+#: app/models/environment.rb:101
 msgid "Allow users to create their own themes"
 msgstr "Autoriser les utilisateurs à créer leurs propres thèmes"
 
-#: app/models/environment.rb:104
+#: app/models/environment.rb:102
 #, fuzzy
 msgid "Display search form in home page"
 msgstr "Désactiver la recherche de personnes"
 
-#: app/models/environment.rb:106
+#: app/models/environment.rb:104
 msgid "Don't allow users to change which article to use as homepage"
 msgstr ""
 "Ne pas autoriser les utilisateurs à modifier l'article qui leur sert de page "
 "d'accueil"
 
-#: app/models/environment.rb:107
+#: app/models/environment.rb:105
 #, fuzzy
 msgid "Display explanation about header and footer"
 msgstr "Édition des en-tête et pied de page"
 
-#: app/models/environment.rb:108
+#: app/models/environment.rb:106
 #, fuzzy
 msgid "Articles don't accept comments by default"
 msgstr "Cet article n'accepte pas les commentaires."
 
-#: app/models/environment.rb:109
+#: app/models/environment.rb:107
 msgid "Organizations have moderated publication by default"
 msgstr "Les organisations ont une publication modérée par défaut"
 
-#: app/models/environment.rb:110
+#: app/models/environment.rb:108
 #, fuzzy
 msgid "Allow organizations to change their URL"
 msgstr "Les organisations pour lesquelles travaille cet utilisateur."
 
-#: app/models/environment.rb:111
+#: app/models/environment.rb:109
 #, fuzzy
 msgid "Admin must approve creation of communities"
 msgstr "Toute nouvelle organisation doit être approuvée"
 
-#: app/models/environment.rb:112
+#: app/models/environment.rb:110
 #, fuzzy
 msgid "Enterprises are disabled when created"
 msgstr "Enregistrement d'entreprise terminé"
 
-#: app/models/environment.rb:113
+#: app/models/environment.rb:111
 msgid "Show a balloon with profile links when a profile image is clicked"
 msgstr ""
 
-#: app/models/environment.rb:114
+#: app/models/environment.rb:112
 msgid "XMPP/Jabber based chat"
 msgstr ""
 
-#: app/models/environment.rb:473
+#: app/models/environment.rb:490
 msgid "Only one Virtual Community can be the default one"
 msgstr "Seule une CoVi peut être celle par défaut"
 
@@ -3535,7 +3550,7 @@ msgstr "Précision geocode"
 msgid "Nickname"
 msgstr "Pseudo"
 
-#: app/models/profile.rb:- app/models/profile.rb:667
+#: app/models/profile.rb:- app/models/profile.rb:670
 msgid "Public profile"
 msgstr "Profil public"
 
@@ -3611,56 +3626,40 @@ msgstr "Poster le contenu"
 msgid "Invite members"
 msgstr "Un membre"
 
-#: app/models/profile.rb:511
-msgid "My home page"
-msgstr "Ma page d'accueil."
-
-#: app/models/profile.rb:511
-msgid ""
-"<p>This is a default homepage created for me. It can be changed though the "
-"control panel.</p>"
-msgstr ""
-"<p>C'est la page d'accueil par défaut créée pour moi. Elle peut être "
-"modifiée dans le panneau de contrôle.</p>"
-
-#: app/models/profile.rb:522
-msgid "Intranet"
-msgstr "Intranet"
-
-#: app/models/profile.rb:565
+#: app/models/profile.rb:572
 msgid "%s can't has members"
 msgstr "%s ne peut pas avoir de membres"
 
-#: app/models/profile.rb:582
+#: app/models/profile.rb:589
 msgid "%s can't has moderators"
 msgstr "%s ne peut pas avoir de modérateur"
 
-#: app/models/profile.rb:667
+#: app/models/profile.rb:670
 #, fuzzy
 msgid "Private profile"
 msgstr "Éditer le profil"
 
-#: app/models/profile.rb:754
+#: app/models/profile.rb:757
 #, fuzzy
 msgid "Since: "
 msgstr "Prix :"
 
-#: app/models/profile.rb:761
+#: app/models/profile.rb:764
 #, fuzzy
 msgid "one article"
 msgstr "Nouvel article"
 
-#: app/models/profile.rb:762
+#: app/models/profile.rb:765
 #, fuzzy
 msgid "%s articles"
 msgstr "L'article «%s»"
 
-#: app/models/profile.rb:769
+#: app/models/profile.rb:772
 #, fuzzy
 msgid "one member"
 msgstr "Un membre"
 
-#: app/models/profile.rb:770
+#: app/models/profile.rb:773
 #, fuzzy
 msgid "%s members"
 msgstr "Les membres de %s"
@@ -3928,6 +3927,16 @@ msgstr "Afficher le nom"
 #: app/models/organization.rb:85
 msgid "Validated"
 msgstr "Validé(e)"
+
+#: app/models/organization.rb:103
+#, fuzzy
+msgid "Community's profile"
+msgstr "Templates de groupe"
+
+#: app/models/organization.rb:104
+#, fuzzy
+msgid "Invite Friends"
+msgstr "Inviter mes contacts !"
 
 #: app/models/domain.rb:-
 msgid "domain"
@@ -4482,7 +4491,7 @@ msgstr "Blog"
 msgid "Upload files"
 msgstr "Téléverser (upload) des fichiers"
 
-#: app/views/cms/view.rhtml:14 app/views/profile_editor/edit.rhtml:85
+#: app/views/cms/view.rhtml:14 app/views/profile_editor/edit.rhtml:81
 #: app/views/maps/edit_location.rhtml:14 app/views/maps/edit_location.rhtml:30
 #: app/views/friends/index.rhtml:15 app/views/friends/index.rhtml:44
 #: app/views/box_organizer/index.rhtml:5 app/views/mailconf/index.rhtml:10
@@ -5217,7 +5226,7 @@ msgstr "Montrer le site à tous les utilisateurs d'internet"
 msgid "Select the categories of your interest"
 msgstr "Choisissez les catégories de vos centres d'intérêt"
 
-#: app/views/profile_editor/edit.rhtml:80
+#: app/views/profile_editor/edit.rhtml:86
 #, fuzzy
 msgid "Delete profile"
 msgstr "Détruire le profil"
@@ -8424,6 +8433,19 @@ msgstr ""
 msgid "wrote: <br /> \"%{text}\""
 msgstr ""
 
+#~ msgid "My home page"
+#~ msgstr "Ma page d'accueil."
+
+#~ msgid ""
+#~ "<p>This is a default homepage created for me. It can be changed though "
+#~ "the control panel.</p>"
+#~ msgstr ""
+#~ "<p>C'est la page d'accueil par défaut créée pour moi. Elle peut être "
+#~ "modifiée dans le panneau de contrôle.</p>"
+
+#~ msgid "Intranet"
+#~ msgstr "Intranet"
+
 #, fuzzy
 #~ msgid "%s was removed."
 #~ msgstr "%s a été détruit(e) !"
@@ -10307,9 +10329,6 @@ msgstr ""
 
 #~ msgid "Person Template"
 #~ msgstr "Templates d'individu"
-
-#~ msgid "Community Template"
-#~ msgstr "Templates de groupe"
 
 #~ msgid "Enterprise Template"
 #~ msgstr "Templates d'organisation"
