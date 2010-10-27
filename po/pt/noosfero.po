@@ -11,9 +11,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.25.3\n"
-"POT-Creation-Date: 2010-10-26 21:10-0300\n"
-"PO-Revision-Date: 2010-10-26 21:11-0300\n"
+"Project-Id-Version: noosfero 0.26.0\n"
+"POT-Creation-Date: 2010-10-26 22:00-0300\n"
+"PO-Revision-Date: 2010-10-26 22:02-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE TEAM <E-MAIL@ADDRESS or HOME PAGE>\n"
 "MIME-Version: 1.0\n"
@@ -150,6 +150,8 @@ msgstr "Comunidades"
 
 #: app/helpers/assets_helper.rb:12
 #: app/controllers/public/search_controller.rb:135
+#: public/designs/themes/base/navigation.rhtml:7
+#: public/designs/themes/noosfero/navigation.rhtml:7
 msgid "Events"
 msgstr "Eventos"
 
@@ -4085,11 +4087,11 @@ msgstr ""
 #: app/views/profile/_private_profile.rhtml:15
 #: app/views/profile/favorite_enterprises.rhtml:12
 #: app/views/profile/members.rhtml:18 app/views/profile/communities.rhtml:18
-#: app/views/profile/enterprises.rhtml:12
+#: app/views/profile/enterprises.rhtml:12 public/500.html.erb:27
 msgid "Go back"
 msgstr "Voltar"
 
-#: app/views/shared/access_denied.rhtml:14
+#: app/views/shared/access_denied.rhtml:14 public/500.html.erb:28
 msgid "Go to the site home page"
 msgstr "Ir para a página inicial do site."
 
@@ -7371,6 +7373,8 @@ msgid "Go to content"
 msgstr "Ir para o conteúdo"
 
 #: app/views/layouts/application.rhtml:92 app/views/doc/_path.html.erb:3
+#: public/designs/themes/base/footer.rhtml:2
+#: public/designs/themes/noosfero/footer.rhtml:2
 msgid "Manual"
 msgstr "Manual"
 
@@ -7974,6 +7978,39 @@ msgstr "deixou um recado para %{receiver}: <br /> \"%{message}\""
 msgid "wrote: <br /> \"%{text}\""
 msgstr "escreveu: <br /> \"%{text}\""
 
+#: public/503.html.erb:22
+msgid "System maintainance"
+msgstr "Manutenção do sistema"
+
+#: public/503.html.erb:24
+msgid "This system is under maintainance. It should be back in a few moments."
+msgstr ""
+"Este sistema está em manutenção. Ele deve estar de volta em alguns instantes."
+
+#: public/500.html.erb:22
+msgid "Temporary system problem"
+msgstr "Problema temporário no sistema"
+
+#: public/500.html.erb:24
+msgid ""
+"Our technical team is working on it, please try again later. Sorry for the "
+"inconvenience."
+msgstr ""
+"Nossa equipe técnica está trabalhando nele, por favor tente mais tarde. "
+"Perdoe o incoveniente. "
+
+#: public/designs/themes/base/footer.rhtml:5
+#: public/designs/themes/noosfero/footer.rhtml:5
+msgid ""
+"This social network uses <a href=\"http://noosfero.org/\">Noosfero</a>, "
+"developed by %s and licensed under the <a href=\"http://www.gnu.org/licenses/"
+"agpl.html\">GNU Affero General Public License</a> version 3 or any later "
+"version."
+msgstr ""
+"Esta rede social usa <a href=\"http://noosfero.org/\">Noosfero</a>, "
+"desenvolvido pela %s e licenciado sob a <a href=\"http://www.gnu.org/licenses/"
+"agpl.html\">GNU Affero General Public License</a> versão 3 ou superior."
+
 #~ msgid "My home page"
 #~ msgstr "Minha página inicial"
 
@@ -8046,25 +8083,6 @@ msgstr "escreveu: <br /> \"%{text}\""
 
 #~ msgid "Welcome, %s."
 #~ msgstr "Bem-vindo(a), %s"
-
-#~ msgid "System maintainance"
-#~ msgstr "Manutenção do sistema"
-
-#~ msgid ""
-#~ "This system is under maintainance. It should be back in a few moments."
-#~ msgstr ""
-#~ "Este sistema está em manutenção. Ele deve estar de volta em alguns "
-#~ "instantes."
-
-#~ msgid "Temporary system problem"
-#~ msgstr "Problema temporário no sistema"
-
-#~ msgid ""
-#~ "Our technical team is working on it, please try again later. Sorry for "
-#~ "the inconvenience."
-#~ msgstr ""
-#~ "Nossa equipe técnica está trabalhando nele, por favor tente mais tarde. "
-#~ "Perdoe o incoveniente. "
 
 #, fuzzy
 #~ msgid "Chat offline"

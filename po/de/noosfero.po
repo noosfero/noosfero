@@ -6,8 +6,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.25.3\n"
-"POT-Creation-Date: 2010-10-26 21:10-0300\n"
+"Project-Id-Version: noosfero 0.26.0\n"
+"POT-Creation-Date: 2010-10-26 22:00-0300\n"
 "PO-Revision-Date: 2010-10-05 10:42+0100\n"
 "Last-Translator: Ronny Kursawe <kursawe.ronny@googlemail.com>\n"
 "Language-Team: German <de@li.org>\n"
@@ -143,6 +143,8 @@ msgstr "Communities"
 
 #: app/helpers/assets_helper.rb:12
 #: app/controllers/public/search_controller.rb:135
+#: public/designs/themes/base/navigation.rhtml:7
+#: public/designs/themes/noosfero/navigation.rhtml:7
 msgid "Events"
 msgstr "Ereignisse"
 
@@ -4175,11 +4177,11 @@ msgstr ""
 #: app/views/profile/_private_profile.rhtml:15
 #: app/views/profile/favorite_enterprises.rhtml:12
 #: app/views/profile/members.rhtml:18 app/views/profile/communities.rhtml:18
-#: app/views/profile/enterprises.rhtml:12
+#: app/views/profile/enterprises.rhtml:12 public/500.html.erb:27
 msgid "Go back"
 msgstr "Zurück"
 
-#: app/views/shared/access_denied.rhtml:14
+#: app/views/shared/access_denied.rhtml:14 public/500.html.erb:28
 msgid "Go to the site home page"
 msgstr "Gehe zur Homepage"
 
@@ -7515,6 +7517,8 @@ msgid "Go to content"
 msgstr "Gehe zum Inhalt"
 
 #: app/views/layouts/application.rhtml:92 app/views/doc/_path.html.erb:3
+#: public/designs/themes/base/footer.rhtml:2
+#: public/designs/themes/noosfero/footer.rhtml:2
 msgid "Manual"
 msgstr "Anleitung"
 
@@ -8122,6 +8126,37 @@ msgstr ""
 msgid "wrote: <br /> \"%{text}\""
 msgstr ""
 
+#: public/503.html.erb:22
+msgid "System maintainance"
+msgstr "Systempflege"
+
+#: public/503.html.erb:24
+msgid "This system is under maintainance. It should be back in a few moments."
+msgstr ""
+"Das System wird gerade gepflegt. Es wird in ein paar Stunden wieder "
+"verfügbar sein."
+
+#: public/500.html.erb:22
+msgid "Temporary system problem"
+msgstr "Kurzzeitiges Systemproblem"
+
+#: public/500.html.erb:24
+msgid ""
+"Our technical team is working on it, please try again later. Sorry for the "
+"inconvenience."
+msgstr ""
+"Unser technisches Team arbeitet gerade daran, bitte probieren Sie es nachher "
+"erneut. Wir entschuldigen uns für die Unannehmlichkeiten."
+
+#: public/designs/themes/base/footer.rhtml:5
+#: public/designs/themes/noosfero/footer.rhtml:5
+msgid ""
+"This social network uses <a href=\"http://noosfero.org/\">Noosfero</a>, "
+"developed by %s and licensed under the <a href=\"http://www.gnu.org/licenses/"
+"agpl.html\">GNU Affero General Public License</a> version 3 or any later "
+"version."
+msgstr ""
+
 #~ msgid "My home page"
 #~ msgstr "Meine Homepage"
 
@@ -8234,25 +8269,6 @@ msgstr ""
 
 #~ msgid "Register a new Enterprise"
 #~ msgstr "Neues Unternehmen anmelden"
-
-#~ msgid "System maintainance"
-#~ msgstr "Systempflege"
-
-#~ msgid ""
-#~ "This system is under maintainance. It should be back in a few moments."
-#~ msgstr ""
-#~ "Das System wird gerade gepflegt. Es wird in ein paar Stunden wieder "
-#~ "verfügbar sein."
-
-#~ msgid "Temporary system problem"
-#~ msgstr "Kurzzeitiges Systemproblem"
-
-#~ msgid ""
-#~ "Our technical team is working on it, please try again later. Sorry for "
-#~ "the inconvenience."
-#~ msgstr ""
-#~ "Unser technisches Team arbeitet gerade daran, bitte probieren Sie es "
-#~ "nachher erneut. Wir entschuldigen uns für die Unannehmlichkeiten."
 
 #~ msgid "Product succesfully updated"
 #~ msgstr "Produkt erfolgreich aktualisiert"
