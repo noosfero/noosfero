@@ -2,10 +2,6 @@
   <a id="link-to-doc" class='icon-help'><%= link_to _('Manual'), '/doc' %></a>
 </div><!-- end id="footer-links" -->
 <div id="copyright">
-  <p id='noosfero-license'>
-  Powered by <a
-    href="http://www.noosfero.org/" id='link-noosfero'>Noosfero</a>, licensed under
-    <a href="http://www.gnu.org/licenses/agpl.html">GNU Affero General Public
-      License</a>, version 3 or above.  </p>
+  <p><%= _('This social network uses Noosfero, developed by %s and licensed under the <a href="http://www.gnu.org/licenses/agpl.html">GNU Affero General Public License</a> version 3 or any later version.') % link_to('Colivre', 'http://colivre.coop.br/') %></p>
 </div><!-- end id="copyright" -->
 <%= language_chooser %>

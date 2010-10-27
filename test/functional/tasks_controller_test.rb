@@ -155,7 +155,8 @@ class TasksControllerTest < Test::Unit::TestCase
 
   should 'create published article after finish approve article task' do
     PublishedArticle.destroy_all
-    c = Community.create!(:name => 'test comm', :moderated_articles => false)
+    c = fast_create(Community)
+    c.update_attributes(:moderated_articles => false)
     @controller.stubs(:profile).returns(c)
     c.affiliate(profile, Profile::Roles.all_roles(profile.environment.id))
     article = profile.articles.create!(:name => 'something interesting', :body => 'ruby on rails')
@@ -167,7 +168,8 @@ class TasksControllerTest < Test::Unit::TestCase
 
   should 'create published article in folder after finish approve article task' do
     PublishedArticle.destroy_all
-    c = Community.create!(:name => 'test comm', :moderated_articles => false)
+    c = fast_create(Community)
+    c.update_attributes(:moderated_articles => false)
     @controller.stubs(:profile).returns(c)
     folder = c.articles.create!(:name => 'test folder', :type => 'Folder')
     c.affiliate(profile, Profile::Roles.all_roles(profile.environment.id))
@@ -180,7 +182,8 @@ class TasksControllerTest < Test::Unit::TestCase
 
   should 'be highlighted if asked when approving a published article' do
     PublishedArticle.destroy_all
-    c = Community.create!(:name => 'test comm', :moderated_articles => false)
+    c = fast_create(Community)
+    c.update_attributes(:moderated_articles => false)
     @controller.stubs(:profile).returns(c)
     folder = c.articles.create!(:name => 'test folder', :type => 'Folder')
     c.affiliate(profile, Profile::Roles.all_roles(profile.environment.id))
@@ -193,7 +196,8 @@ class TasksControllerTest < Test::Unit::TestCase
 
   should 'create published article after choosing root folder on approve article task' do
     PublishedArticle.destroy_all
-    c = Community.create!(:name => 'test comm', :moderated_articles => false)
+    c = fast_create(Community)
+    c.update_attributes(:moderated_articles => false)
     @controller.stubs(:profile).returns(c)
     c.affiliate(profile, Profile::Roles.all_roles(profile.environment.id))
     article = profile.articles.create!(:name => 'something interesting', :body => 'ruby on rails')
@@ -204,7 +208,7 @@ class TasksControllerTest < Test::Unit::TestCase
   end
 
   should 'handle blank names for published articles' do
-    c = Community.create!(:name => 'test comm')
+    c = fast_create(Community)
     @controller.stubs(:profile).returns(c)
     c.affiliate(profile, Profile::Roles.all_roles(c.environment))
     person = create_user('test_user').person

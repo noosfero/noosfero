@@ -293,7 +293,7 @@ class Profile < ActiveRecord::Base
       if self.respond_to?(:default_set_of_blocks)
         default_set_of_blocks.each_with_index do |blocks,i|
           blocks.each do |block|
-            self.boxes[i].blocks << block.new
+            self.boxes[i].blocks << block
           end
         end
       end
@@ -507,23 +507,30 @@ private :generate_url, :url_options
     if template 
       copy_articles_from template
     else
-      # a default homepage
-      hp = default_homepage(:name => _("My home page"), :body => _("<p>This is a default homepage created for me. It can be changed though the control panel.</p>"), :advertise => false)
-      hp.profile = self
-      hp.save!
-      self.home_page = hp
-
-      # a default rss feed
-      feed = RssFeed.new(:name => 'feed')
-      self.articles << feed
-
-      # a default private folder if public
-      if self.public?
-       folder = Folder.new(:name => _("Intranet"), :published => false)
-       self.articles << folder
+      default_set_of_articles.each do |article|
+        article.profile = self
+        article.advertise = false
+        article.save!
       end
     end
     self.save!
+  end
+
+  # Override this method in subclasses of Profile to create a default article
+  # set upon creation. Note that this method will be called *only* if there is
+  # no template for the type of profile (i.e. if the template was removed or in
+  # the creation of the template itself).
+  #
+  # This method must return an array of pre-populated articles, which will be
+  # associated to the profile before being saved. Example:
+  #
+  #   def default_set_of_articles
+  #     [Blog.new(:name => 'Blog'), Folder.new(:name => 'Gallery', :view_as => 'image_gallery')]
+  #   end
+  #
+  # By default, this method returns an empty array.
+  def default_set_of_articles
+    []
   end
 
   def copy_articles_from other
@@ -608,10 +615,6 @@ private :generate_url, :url_options
   def accept_category?(cat)
     forbidden = [ ProductCategory, Region ]
     !forbidden.include?(cat.class)
-  end
-
-  def default_homepage(attrs)
-    TinyMceArticle.new(attrs)
   end
 
   include ActionView::Helpers::TextHelper

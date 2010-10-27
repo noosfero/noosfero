@@ -99,10 +99,24 @@ class Organization < Profile
   end
 
   def default_set_of_blocks
+    links = [
+      {:name => _("Community's profile"), :address => '/profile/{profile}', :icon => 'ok'},
+      {:name => _('Invite Friends'), :address => '/profile/{profile}/invite/friends', :icon => 'send'},
+      {:name => _('Agenda'), :address => '/profile/{profile}/events', :icon => 'menu-events'},
+      {:name => _('Image gallery'), :address => '/{profile}/gallery', :icon => 'photos'},
+      {:name => _('Blog'), :address => '/{profile}/blog', :icon => 'edit'},
+    ]
     [
-      [MainBlock],
-      [ProfileInfoBlock, RecentDocumentsBlock],
-      [MembersBlock, TagsBlock]
+      [MainBlock.new],
+      [ProfileImageBlock.new, LinkListBlock.new(:links => links)],
+      [MembersBlock.new, RecentDocumentsBlock.new]
+    ]
+  end
+
+  def default_set_of_articles
+    [
+      Blog.new(:name => _('Blog')),
+      Folder.new(:name => _('Gallery'), :view_as => 'image_gallery'),
     ]
   end
 

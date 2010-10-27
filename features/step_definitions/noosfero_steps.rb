@@ -51,7 +51,12 @@ Given /^the following (articles|events|blogs|folders)$/ do |content, table|
   table.hashes.map{|item| item.dup}.each do |item|
     owner_identifier = item.delete("owner")
     owner = Profile[owner_identifier]
-    klass.create!(item.merge(:profile => owner))
+    home = item.delete("homepage")
+    result = klass.create!(item.merge(:profile => owner))
+    if home
+      owner.home_page = result
+      owner.save!
+    end
   end
 end
 

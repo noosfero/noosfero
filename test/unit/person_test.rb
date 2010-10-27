@@ -173,27 +173,29 @@ class PersonTest < Test::Unit::TestCase
     assert !person.is_admin?(env2)
   end
 
-  should 'get a default home page and a RSS feed' do
+  should 'create a default set of articles' do
+    Person.any_instance.stubs(:default_set_of_articles).returns([Blog.new(:name => 'blog')])
     person = create_user_full('mytestuser').person
 
-    assert_kind_of Article, person.home_page
-    assert_kind_of RssFeed, person.articles.find_by_path('feed')
+    assert_kind_of Blog, person.articles.find_by_path('blog')
+    assert_kind_of RssFeed, person.articles.find_by_path('blog/feed')
   end
 
-  should 'create default set of blocks' do
+  should 'create a default set of blocks' do
     p = create_user_full('testingblocks').person
 
-    assert p.boxes[0].blocks.map(&:class).include?(MainBlock), 'person must have a MainBlock upon creation'
+    assert !p.boxes[0].blocks.empty?, 'person must have blocks in area 1'
+    assert !p.boxes[1].blocks.empty?, 'person must have blocks in area 2'
+    assert !p.boxes[2].blocks.empty?, 'person must have blocks in area 3'
+  end
 
-    assert p.boxes[1].blocks.map(&:class).include?(ProfileInfoBlock), 'person must have a ProfileInfoBlock upon creation'
-    assert p.boxes[1].blocks.map(&:class).include?(RecentDocumentsBlock), 'person must have a RecentDocumentsBlock upon creation'
-    assert p.boxes[1].blocks.map(&:class).include?(TagsBlock), 'person must have a Tags Block upon creation'
-
-    assert p.boxes[2].blocks.map(&:class).include?(CommunitiesBlock), 'person must have a CommunitiesBlock upon creation'
-    assert p.boxes[2].blocks.map(&:class).include?(EnterprisesBlock), 'person must have a EnterprisesBlock upon creation'
-    assert p.boxes[2].blocks.map(&:class).include?(FriendsBlock), 'person must have a FriendsBlock upon creation'
-
-    assert_equal 7,  p.blocks.size
+  should 'link to all articles created by default' do
+    p = create_user_full('testingblocks').person
+    blocks = p.blocks.select { |b| b.is_a?(LinkListBlock) }
+    p.articles.reject { |a| a.is_a?(RssFeed) }.each do |article|
+      path = '/' + p.identifier + '/' + article.path
+      assert blocks.any? { |b| b.links.any? { |link| b.expand_address(link[:address]) == path  }}, "#{path.inspect} must be linked by at least one of the blocks: #{blocks.inspect}"
+    end
   end
 
   should 'have friends' do

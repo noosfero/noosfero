@@ -25,8 +25,6 @@ Feature: publish article
     And I follow "Spread"
     And I check "Sample Community"
     And I press "Spread this"
-    And I am on Sample Community's homepage
-    And I follow "View profile"
     And I go to Sample Community's sitemap
     When I follow "Sample Article"
     Then I should see "This is the first published article"
@@ -40,8 +38,6 @@ Feature: publish article
     And I check "Sample Community"
     And I fill in "Title" with "Another name"
     And I press "Spread this"
-    And I am on Sample Community's homepage
-    And I follow "View profile"
     When I go to Sample Community's sitemap
     Then I should see "Another name"
     And I should not see "Sample Article"
@@ -94,12 +90,8 @@ Feature: publish article
     And I check "Another Community2"
     When I press "Spread this"
     Then I should see "The title (article name) is already being used by another article, please use another title."
-    And I am on Another Community1's homepage
-    And I follow "View profile"
     When I go to Another Community1's sitemap
     Then I should see "Sample Article"
-    And I am on Another Community2's homepage
-    And I follow "View profile"
     When I go to Another Community2's sitemap
     Then I should see "Sample Article"
 

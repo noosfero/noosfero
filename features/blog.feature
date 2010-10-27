@@ -7,6 +7,7 @@ Feature: blog
     And the following users
       | login | name |
       | joaosilva | Joao Silva |
+    And "joaosilva" has no articles
     And I am logged in as "joaosilva"
 
   Scenario: create a blog

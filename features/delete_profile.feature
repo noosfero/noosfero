@@ -34,7 +34,7 @@ Feature: delete profile
     And I follow "Delete profile"
     Then I should see "Are you sure you want to delete this profile?"
     When I follow "No, I gave up"
-    Then I should be on Joao Silva's homepage
+    Then I should be on Joao Silva's profile
 
   Scenario: community admin can see link to delete profile
     Given the following community

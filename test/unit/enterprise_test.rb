@@ -59,25 +59,20 @@ class EnterpriseTest < Test::Unit::TestCase
     end
   end
 
-  should 'get a default homepage and RSS feed' do
+  should 'create a default set of articles' do
+    Enterprise.any_instance.expects(:default_set_of_articles).returns([Blog.new(:name => 'Blog')])
     enterprise = Enterprise.create!(:name => 'my test enterprise', :identifier => 'myenterprise')
 
-    assert_kind_of Article, enterprise.home_page
-    assert_kind_of RssFeed, enterprise.articles.find_by_path('feed')
+    assert_kind_of Blog, enterprise.articles.find_by_path('blog')
+    assert_kind_of RssFeed, enterprise.articles.find_by_path('blog/feed')
   end
 
   should 'create default set of blocks' do
     e = Enterprise.create(:name => 'my new community', :identifier => 'mynewcommunity')
 
-    assert e.boxes[0].blocks.map(&:class).include?(MainBlock), 'enterprise must have a MainBlock upon creation'
-
-    assert e.boxes[1].blocks.map(&:class).include?(ProfileInfoBlock), 'enterprise must have a ProfileInfoBlock upon creation'
-    assert e.boxes[1].blocks.map(&:class).include?(MembersBlock), 'enterprise must have a MembersBlock upon creation'
-
-    assert e.boxes[2].blocks.map(&:class).include?(RecentDocumentsBlock), 'enterprise must have a RecentDocumentsBlock upon creation'
-    assert e.boxes[2].blocks.map(&:class).include?(ProductsBlock), 'enterprise must have a ProductsBlock upon creation'
-
-    assert_equal 5,  e.blocks.size
+    assert !e.boxes[0].blocks.empty?, 'person must have blocks in area 1'
+    assert !e.boxes[1].blocks.empty?, 'person must have blocks in area 2'
+    assert !e.boxes[2].blocks.empty?, 'person must have blocks in area 3'
   end
 
   should 'be found in search for its product categories' do
@@ -250,11 +245,6 @@ class EnterpriseTest < Test::Unit::TestCase
     p = ent.products.create!(:name => 'test prod', :product_category => subcategory)
 
     assert_equal [p.category_full_name], ent.product_categories
-  end
-
-  should 'default home page is a EnterpriseHomepage' do
-    enterprise = Enterprise.create!(:name => 'my test enterprise', :identifier => 'myenterprise')
-    assert_kind_of EnterpriseHomepage, enterprise.home_page
   end
 
   should 'not create a products block for enterprise if environment do not let' do

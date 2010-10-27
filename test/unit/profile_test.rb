@@ -73,8 +73,8 @@ class ProfileTest < Test::Unit::TestCase
   end
 
   should 'provide access to home page' do
-    profile = create(Profile)
-    assert_kind_of Article, profile.home_page
+    profile = Profile.new
+    assert_nil profile.home_page
   end
 
   def test_name_should_be_mandatory
@@ -335,13 +335,6 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal false, Profile.new.has_members?
   end
 
-  should 'create a homepage and a feed on creation' do
-    profile = create(Profile)
-
-    assert_kind_of Article, profile.home_page
-    assert_kind_of RssFeed, profile.articles.find_by_path('feed')
-  end
-
   should 'not allow to add members' do
     c = fast_create(Profile)
     p = create_user('mytestuser').person
@@ -429,26 +422,21 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal [p3,p2], Profile.recent(2)
   end
 
-  should 'advertise false to homepage and feed on creation' do
+  should 'not advertise articles created together with the profile' do
+    Profile.any_instance.stubs(:default_set_of_articles).returns([Article.new(:name => 'home'), RssFeed.new(:name => 'feed')])
     profile = create(Profile)
-    assert !profile.home_page.advertise?
+    assert !profile.articles.find_by_path('home').advertise?
     assert !profile.articles.find_by_path('feed').advertise?
   end
 
-  should 'advertise true to homepage after update' do
+  should 'advertise article after update' do
+    Profile.any_instance.stubs(:default_set_of_articles).returns([Article.new(:name => 'home')])
     profile = create(Profile)
-    assert !profile.home_page.advertise?
-    profile.home_page.name = 'Changed name'
-    assert profile.home_page.save!
-    assert profile.home_page.advertise?
-  end
-
-  should 'advertise true to feed after update' do
-    profile = create(Profile)
-    assert !profile.articles.find_by_path('feed').advertise?
-    profile.articles.find_by_path('feed').name = 'Changed name'
-    assert profile.articles.find_by_path('feed').save!
-    assert profile.articles.find_by_path('feed').advertise?
+    article = profile.articles.find_by_path('home')
+    assert !article.advertise?
+    article.name = 'Changed name'
+    article.save!
+    assert article.advertise?
   end
 
   should 'have latitude and longitude' do
@@ -774,11 +762,6 @@ class ProfileTest < Test::Unit::TestCase
     end
   end
 
-  should 'default home page is a TinyMceArticle' do
-    profile = create(Profile)
-    assert_kind_of TinyMceArticle, profile.home_page
-  end
-
   should 'not add a category twice to profile' do
     c1 = fast_create(Category)
     c2 = fast_create(Category, :parent_id => c1.id)
@@ -921,14 +904,6 @@ class ProfileTest < Test::Unit::TestCase
 
     assert p1.public?
     assert !p2.public?
-  end
-
-  should 'create a initial private folder when a public profile is created' do
-    p1 = create(Profile)
-    p2 = create(Profile, :public_profile => false)
-
-    assert p1.articles.find(:first, :conditions => {:published => false})
-    assert !p2.articles.find(:first, :conditions => {:published => false})
   end
 
   should 'remove member with many roles' do

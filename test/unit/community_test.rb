@@ -27,22 +27,17 @@ class CommunityTest < Test::Unit::TestCase
   should 'create default set of blocks' do
     c = Community.create!(:environment => Environment.default, :name => 'my new community')
 
-    assert c.boxes[0].blocks.map(&:class).include?(MainBlock)
-
-    assert c.boxes[1].blocks.map(&:class).include?(ProfileInfoBlock)
-    assert c.boxes[1].blocks.map(&:class).include?(RecentDocumentsBlock)
-
-    assert c.boxes[2].blocks.map(&:class).include?(MembersBlock)
-    assert c.boxes[2].blocks.map(&:class).include?(TagsBlock)
-
-    assert_equal 5,  c.blocks.size
+    assert !c.boxes[0].blocks.empty?, 'person must have blocks in area 1'
+    assert !c.boxes[1].blocks.empty?, 'person must have blocks in area 2'
+    assert !c.boxes[2].blocks.empty?, 'person must have blocks in area 3'
   end
 
-  should 'get a default home page and RSS feed' do
+  should 'create a default set of articles' do
+    Community.any_instance.stubs(:default_set_of_articles).returns([Blog.new(:name => 'blog')])
     community = Community.create!(:environment => Environment.default, :name => 'my new community')
 
-    assert_kind_of Article, community.home_page
-    assert_kind_of RssFeed, community.articles.find_by_path('feed')
+    assert_kind_of Blog, community.articles.find_by_path('blog')
+    assert_kind_of RssFeed, community.articles.find_by_path('blog/feed')
   end
 
   should 'have contact_person' do

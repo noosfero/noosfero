@@ -203,10 +203,23 @@ class Person < Profile
   end
 
   def default_set_of_blocks
+    links = [
+      {:name => _('Profile'), :address => '/profile/{profile}', :icon => 'menu-people'},
+      {:name => _('Image gallery'), :address => '/{profile}/gallery', :icon => 'photos'},
+      {:name => _('Agenda'), :address => '/profile/{profile}/events', :icon => 'menu-events'},
+      {:name => _('Blog'), :address => '/{profile}/blog', :icon => 'edit'},
+    ]
     [
-      [MainBlock],
-      [ProfileInfoBlock, RecentDocumentsBlock, TagsBlock],
-      [FriendsBlock, EnterprisesBlock, CommunitiesBlock]
+      [MainBlock.new],
+      [ProfileImageBlock.new, LinkListBlock.new(:links => links), RecentDocumentsBlock.new],
+      [FriendsBlock.new, CommunitiesBlock.new]
+    ]
+  end
+
+  def default_set_of_articles
+    [
+      Blog.new(:name => _('Blog')),
+      Folder.new(:name => _('Gallery'), :view_as => 'image_gallery'),
     ]
   end
 

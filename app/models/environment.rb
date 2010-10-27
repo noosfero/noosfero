@@ -45,9 +45,7 @@ class Environment < ActiveRecord::Base
       :name => N_('Member'),
       :environment => self,
       :permissions => [
-        'edit_profile',
-        'post_content',
-        'manage_products'
+        'invite_members',
       ]
     )
     # moderators for enterprises, communities etc
@@ -209,7 +207,7 @@ class Environment < ActiveRecord::Base
   settings_items :location, :type => String
   settings_items :layout_template, :type => String, :default => 'default'
   settings_items :homepage, :type => String
-  settings_items :description, :type => String
+  settings_items :description, :type => String, :default => '<div style="text-align: center"><a href="http://noosfero.org/"><img src="/images/noosfero-network.png" alt="Noosfero"/></a></div>'
   settings_items :category_types, :type => Array, :default => ['Category']
   settings_items :enable_ssl
   settings_items :local_docs, :type => Array, :default => []
@@ -259,6 +257,24 @@ class Environment < ActiveRecord::Base
   def enabled_features
     features = self.class.available_features
     features.delete_if{ |k, v| !self.enabled?(k) }
+  end
+
+  before_create :enable_default_features
+  def enable_default_features
+    %w(
+      disable_asset_products
+      disable_gender_icon
+      disable_products_for_enterprises
+      disable_select_city_for_contact
+      enterprise_registration
+      media_panel
+      organizations_are_moderated_by_default
+      show_balloon_with_profile_links_when_clicked
+      use_portal_community
+      wysiwyg_editor_for_environment_home
+    ).each do |feature|
+      enable(feature)
+    end
   end
 
   # returns <tt>true</tt> if this Environment has terms of use to be

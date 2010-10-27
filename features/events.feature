@@ -143,6 +143,9 @@ Feature: events
     Then I should see "YAPC::Brasil 2010"
 
   Scenario: provide button to go back to profile homepage
+    Given the following articles
+      | owner     | name        | homepage |
+      | josesilva | my homepage | true     |
     Given I am on /profile/josesilva/events
     When I follow "Back to josesilva"
     Then I should be on josesilva's homepage
