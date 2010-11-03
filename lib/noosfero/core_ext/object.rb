@@ -5,6 +5,6 @@ class Object
   alias :getterm :__
 
   def n__(for_one, for_many, num)
-    getterm(ngettext(for_one, for_many, num))
+    ngettext(getterm(for_one), getterm(for_many), num)
   end
 end

@@ -56,4 +56,16 @@ class NoosferoTest < Test::Unit::TestCase
     assert_equal 'en', FastGettext.locale
   end
 
+  should 'use terminology with ngettext' do
+   Noosfero.terminology = UnifreireTerminology.instance
+
+   Noosfero.with_locale('en') do
+     assert_equal 'One institution', n__('One enterprise', '%{num} enterprises', 1)
+   end
+
+   Noosfero.with_locale('pt') do
+     assert_equal 'Uma instituição', n__('One enterprise', '%{num} enterprises', 1)
+   end
+  end
+
 end
