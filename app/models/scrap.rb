@@ -16,7 +16,7 @@ class Scrap < ActiveRecord::Base
 
   after_create do |scrap|
     scrap.root.update_attribute('updated_at', DateTime.now) unless scrap.root.nil?
-    Scrap::Notifier.deliver_mail(scrap) if !scrap.receiver.is_a?(Community) && !(scrap.sender == scrap.receiver)
+    Scrap::Notifier.deliver_mail(scrap) if scrap.send_notification?
   end
 
   before_validation :strip_all_html_tags
@@ -30,8 +30,16 @@ class Scrap < ActiveRecord::Base
     self.receiver.is_a?(Community) ? self.receiver : self
   end
 
+  def is_root?
+    !root.nil?
+  end
+
   def scrap_wall_url
-    self.root.nil? ? self.receiver.wall_url : self.root.receiver.wall_url
+    is_root? ? root.receiver.wall_url : receiver.wall_url
+  end
+
+  def send_notification?
+    sender != receiver && (is_root? ? root.receiver.receives_scrap_notification? : receiver.receives_scrap_notification?)
   end
 
   class Notifier < ActionMailer::Base

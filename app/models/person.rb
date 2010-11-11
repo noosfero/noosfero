@@ -44,6 +44,10 @@ class Person < Profile
     end
   end
 
+  def receives_scrap_notification?
+    true
+  end
+
   def can_control_activity?(activity)
     self.tracked_notifications.exists?(activity)
   end

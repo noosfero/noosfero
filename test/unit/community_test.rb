@@ -313,4 +313,9 @@ class CommunityTest < Test::Unit::TestCase
     assert_equal s2, c.scraps(s2.id.to_s)
   end
 
+  should 'receive scrap notification' do
+    community = fast_create(Community)
+    assert_equal false, community.receives_scrap_notification?
+  end
+
 end

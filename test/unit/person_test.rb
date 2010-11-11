@@ -1111,4 +1111,9 @@ class PersonTest < Test::Unit::TestCase
     assert_equal({ :host => "mycolivre.net", :profile => 'testprofile', :controller => 'profile', :action => 'index', :anchor => 'profile-wall' }, profile.wall_url)
   end
 
+  should 'receive scrap notification' do
+    person = fast_create(Person)
+    assert person.receives_scrap_notification?
+  end
+
 end

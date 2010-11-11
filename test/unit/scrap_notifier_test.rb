@@ -55,6 +55,15 @@ class ScrapNotifierTest < Test::Unit::TestCase
     end
   end
 
+  should 'not deliver mail if is a reply on a community' do
+    community = fast_create(Community)
+    person = fast_create(Person)
+    scrap = fast_create(Scrap, :receiver_id => community.id, :sender_id => @sender.id)
+    assert_no_difference ActionMailer::Base.deliveries, :size do
+      Scrap.create!(:sender => person, :receiver => @sender, :scrap_id => scrap.id, :content => 'Hi myself!')
+    end
+  end
+
   private
 
     def read_fixture(action)

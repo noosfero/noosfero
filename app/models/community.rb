@@ -75,4 +75,8 @@ class Community < Organization
     end
   end
 
+  def receives_scrap_notification?
+    false
+  end
+
 end
