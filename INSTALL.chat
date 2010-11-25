@@ -107,16 +107,14 @@ Unused modules can be disabled, for example:
 
 3. Configuring Postgresql
 
- 3.1. Create a new database
+Change to the noosfero user, and:
 
-# createdb ejabberd
+	$ psql noosfero_production < /path/to/noosfero/util/chat/postgresql/ejabberd.sql
 
+where "noosfero_production" may need to be replace by the name of the
+database used for noosfero.
 
- 3.2. Basic database scheme for this setup:
-
-# zcat /usr/share/doc/ejabberd/examples/pg.sql.gz > pg.sql
-# psql ejabberd < pg.sql
-
+This will create a new schema inside the noosfero database, called 'ejabberd'.
 
 4. ODBC configuration
 
@@ -139,7 +137,7 @@ The following files must be created:
 	ShowSystemTables= No
 	ShowOidColumn	= No
 	FakeOidIndex	= No
-	ConnSettings	=
+	ConnSettings  = SET search_path TO ejabberd
 
  * /etc/odbcinst.ini
 
