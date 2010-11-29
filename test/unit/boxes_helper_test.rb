@@ -50,6 +50,7 @@ class BoxesHelperTest < Test::Unit::TestCase
     expects(:display_block).with(b, '')
     expects(:request).returns(request)
     stubs(:block_target).returns('')
+    expects(:locale).returns('en')
     with_box_decorator self do
       display_box_content(box, '')
     end
@@ -67,6 +68,7 @@ class BoxesHelperTest < Test::Unit::TestCase
     expects(:display_block).with(b, '').never
     expects(:request).returns(request)
     stubs(:block_target).returns('')
+    expects(:locale).returns('en')
     display_box_content(box, '')
   end
 
@@ -102,14 +104,15 @@ class BoxesHelperTest < Test::Unit::TestCase
     assert block_css_classes(Block.new(:display => 'never')).split.any? { |item| item == 'invisible-block'}
   end
 
-  should 'fill context with the article and request_path' do
+  should 'fill context with the article, request_path and locale' do
     request = mock()
     box = mock()
 
     box.expects(:blocks).returns([])
     request.expects(:path).returns('/')
     expects(:request).returns(request)
-    box_decorator.expects(:select_blocks).with([], {:article => nil, :request_path => '/'}).returns([])
+    expects(:locale).returns('en')
+    box_decorator.expects(:select_blocks).with([], {:article => nil, :request_path => '/', :locale => 'en'}).returns([])
 
     display_box_content(box, '')
   end

@@ -19,15 +19,21 @@ class Block < ActiveRecord::Base
   # may contain the following keys:
   #
   # * <tt>:article</tt>: the article being viewed currently
+  # * <tt>:language</tt>: in which language the block will be displayed
   def visible?(context = nil)
     if display == 'never'
       return false
     end
-    if context && display == 'home_page_only'
-      if context[:article]
-        return context[:article] == owner.home_page
-      else
-        return context[:request_path] == '/'
+    if context
+      if language != 'all' && language != context[:locale]
+        return false
+      end
+      if display == 'home_page_only'
+        if context[:article]
+          return context[:article] == owner.home_page
+        else
+          return context[:request_path] == '/'
+        end
       end
     end
     true
@@ -40,6 +46,11 @@ class Block < ActiveRecord::Base
   # * <tt>'home_page_only'</tt> the block is displayed only when viewing the
   #   homepage of its owner.
   settings_items :display, :type => :string, :default => 'always'
+
+  # The block can be configured to be displayed in all languages or in just one language. It can assume any locale of the environment:
+  #
+  # * <tt>'all'</tt>: the block is always displayed
+  settings_items :language, :type => :string, :default => 'all'
 
   # returns the description of the block, used when the user sees a list of
   # blocks to choose one to include in the design.

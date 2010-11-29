@@ -110,4 +110,30 @@ class BlockTest < Test::Unit::TestCase
     assert_equal 'always', block.display
   end
 
+  should 'display block in all languages by default' do
+    profile = Profile.new
+    block = Block.new
+    block.stubs(:owner).returns(profile)
+
+    assert_equal 'all', block.language
+  end
+
+  should 'be able to be displayed in all languages' do
+    profile = Profile.new
+    block = Block.new(:language => 'all')
+    block.stubs(:owner).returns(profile)
+
+    assert_equal true, block.visible?(:locale => 'pt')
+    assert_equal true, block.visible?(:locale => 'en')
+  end
+
+  should 'be able to be displayed only in the selected language' do
+    profile = Profile.new
+    block = Block.new(:language => 'pt')
+    block.stubs(:owner).returns(profile)
+
+    assert_equal true, block.visible?(:locale => 'pt')
+    assert_equal false, block.visible?(:locale => 'en')
+  end
+
 end

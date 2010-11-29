@@ -18,6 +18,8 @@
     <%= label_tag('block_display_never', _("Don't display")) %>
   </div>
 
+  <%= labelled_form_field(_('Show for:'), select(:block, :language, [ [ _('all languages'), 'all']] + Noosfero.locales.map {|key, value| [value, key]} )) %>
+
   <% button_bar do %>
     <%= submit_button(:save, _('Save')) %>
     <%= lightbox_close_button(_('Cancel')) %>
