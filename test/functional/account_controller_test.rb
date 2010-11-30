@@ -296,21 +296,6 @@ class AccountControllerTest < Test::Unit::TestCase
     end
   end
 
-  should 'signup from wizard' do
-    assert_difference User, :count do
-      post :signup, :user => { :login => 'mylogin', :password => 'mypassword', :password_confirmation => 'mypassword', :email => 'mylogin@example.com' }, :wizard => true
-    end
-    assert_redirected_to :controller => 'search', :action => 'assets', :asset => 'communities', :wizard => true
-  end
-
-  should 'not have layout when fail signup from wizard' do
-    user = create_user('mylogin').person
-    post :signup, :user => { :login => 'mylogin', :password => 'mypassword', :password_confirmation => 'mypassword', :email => 'mylogin@example.com' }, :wizard => true
-    assert_response :success
-    assert_template 'signup'
-    assert_equal 'layouts/wizard', @response.layout
-  end
-
 ################################
 #                              #
 #  Enterprise activation tests #

@@ -148,8 +148,6 @@ class SearchController < PublicController
   end
 
   def index
-    @wizard = params[:wizard].blank? ? false : params[:wizard]
-    @step = 2
     @query = params[:query] || ''
     @filtered_query = remove_stop_words(@query)
     @product_category = ProductCategory.find(params[:product_category]) if params[:product_category]
@@ -174,20 +172,12 @@ class SearchController < PublicController
       if respond_to?(specific_action)
         @asset_name = getterm(@names[@results.keys.first])
         send(specific_action)
-        if @wizard
-          render :action => specific_action, :layout => 'wizard'
-        else
-          render :action => specific_action
-        end
+        render :action => specific_action
         return
       end
     end
 
-    if @wizard
-      render :action => 'index', :layout => 'wizard'
-    else
-      render :action => 'index'
-    end
+    render :action => 'index'
   end
 
   alias :assets :index

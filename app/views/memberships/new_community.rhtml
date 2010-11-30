@@ -1,7 +1,3 @@
-<% if @wizard %>
-  <%= render :partial => 'account/wizard_steps' %>
-<% end %>
-
 <h1><%= __('Creating new community') %></h1>
 
 <% if environment.enabled?('admin_must_approve_new_communities') %>
@@ -19,8 +15,6 @@
   <%= required_fields_message %>
 
   <%= required f.text_field(:name) %>
-
-  <%= hidden_field_tag :wizard, params[:wizard] %>
 
   <%= render :partial => 'shared/organization_custom_fields', :locals => { :f => f, :object_name => 'community', :profile => @community } %>
 
@@ -46,11 +40,7 @@
 
   <% button_bar do %>
     <%= submit_button(:save, _('Create')) %>
-    <% if @wizard %>
-      <%= button(:back, _('Back'), {:controller => 'search', :action => 'assets', :asset => 'communities', :wizard => true}) %>
-    <% else %>
-      <%= button(:cancel, _('Cancel'), :action => 'index') %>
-    <% end %>
+    <%= button(:cancel, _('Cancel'), :action => 'index') %>
   <% end %>
 
 <% end %>

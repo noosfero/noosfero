@@ -4,7 +4,7 @@ class AccountController < ApplicationController
 
   inverse_captcha :field => 'e_mail'
 
-  require_ssl :except => [ :login_popup, :logout_popup, :wizard, :profile_details ]
+  require_ssl :except => [ :login_popup, :logout_popup, :profile_details ]
 
   before_filter :login_required, :only => [:activation_question, :accept_terms, :activate_enterprise]
   before_filter :redirect_if_logged_in, :only => [:login, :signup]
@@ -50,8 +50,6 @@ class AccountController < ApplicationController
   # action to register an user to the application
   def signup
     @invitation_code = params[:invitation_code]
-    @wizard = params[:wizard].blank? ? false : params[:wizard]
-    @step = 1
     begin
       @user = User.new(params[:user])
       @user.terms_of_use = environment.terms_of_use
@@ -71,35 +69,14 @@ class AccountController < ApplicationController
           invitation.finish
         end
         session[:notice] = _("Thanks for signing up!")
-        if @wizard
-          redirect_to :controller => 'search', :action => 'assets', :asset => 'communities', :wizard => true
-          return
-        else
-          go_to_initial_page if redirect?
-        end
+        go_to_initial_page if redirect?
       end
-    if @wizard
-      render :layout => 'wizard'
-    end
     rescue ActiveRecord::RecordInvalid
       @person.valid?
       @person.errors.delete(:identifier)
       @person.errors.delete(:user_id)
-      if @wizard
-        render :action => 'signup', :layout => 'wizard'
-      else
-        render :action => 'signup'
-      end
+      render :action => 'signup'
     end
-  end
-
-  def wizard
-    render :layout => false
-  end
-
-  def profile_details
-    @profile = Profile.find_by_identifier(params[:profile])
-    render :partial => 'profile_details', :layout => 'wizard'
   end
 
   # action to perform logout from the application

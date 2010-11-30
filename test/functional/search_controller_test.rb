@@ -242,13 +242,6 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_equivalent [c3, c1], assigns(:results)[:communities]
   end
 
-  should 'find communities in signup wizard' do
-    c1 = create_profile_with_optional_category(Community, 'a beautiful community')
-    get :index, :query => 'beautiful', :find_in => [ 'communities' ], :wizard => true
-    assert_includes assigns(:results)[:communities], c1
-    assert_equal 'layouts/wizard', @response.layout
-  end
-
   should 'find products' do
     ent = create_profile_with_optional_category(Enterprise, 'teste')
     prod = ent.products.create!(:name => 'a beautiful product', :product_category => @product_category)
@@ -978,21 +971,6 @@ class SearchControllerTest < Test::Unit::TestCase
       get :index, :asset => asset
       assert_no_tag :tag => 'div', :content => 'In all categories'
     end
-  end
-
-  should 'display steps when searching on wizard' do
-    c1 = create_profile_with_optional_category(Community, 'a beautiful community')
-    login_as('ze')
-    get :index, :query => 'beautiful', :find_in => [ 'communities' ], :wizard => true
-    assert_equal 'layouts/wizard', @response.layout
-    assert_tag :tag => 'div', :attributes => {:id => 'wizard-steps'}
-  end
-
-  should 'not display steps when searching not on wizard' do
-    c1 = create_profile_with_optional_category(Community, 'a beautiful community')
-    get :index, :query => 'beautiful', :find_in => [ 'communities' ]
-    assert_match 'layouts/application', @response.layout
-    assert_no_tag :tag => 'div', :attributes => {:id => 'wizard-steps'}
   end
 
   should 'find products when enterprises has own hostname' do

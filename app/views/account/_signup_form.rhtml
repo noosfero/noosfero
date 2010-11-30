@@ -1,20 +1,16 @@
 <%= error_messages_for :user, :person %>
 
-<% if !@wizard %>
-  <% if ! defined? hidden_atention || ! hidden_atention %>
-  <p/>
-  <div class="atention">
-  <%= _('Dear user, welcome to the %s network. To start your participation in this space, fill in the fields below. After this operation, your login and password will be registered, allowing you to create %s and %s in this environment.') % [environment.name, __('communities'), __('enterprises')] %>
-  </div>
-  <% end %>
+<% if ! defined? hidden_atention || ! hidden_atention %>
+<p/>
+<div class="atention">
+<%= _('Dear user, welcome to the %s network. To start your participation in this space, fill in the fields below. After this operation, your login and password will be registered, allowing you to create %s and %s in this environment.') % [environment.name, __('communities'), __('enterprises')] %>
+</div>
 <% end %>
 
 <% labelled_form_for :user, @user do |f| %>
 <%= icaptcha_field() %>
 
 <%= hidden_field_tag :invitation_code, @invitation_code %>
-
-<%= hidden_field_tag :wizard, @wizard %>
 
 <%= required_fields_message %>
 
@@ -66,10 +62,6 @@
 <% end %>
 
 <% button_bar do %>
-  <% if @wizard %>
-    <%= submit_button('save', _('Sign up'), :class => 'icon-menu-login') %>
-  <% else %>
-    <%= submit_button('save', _('Sign up'), :cancel => {:action => 'index'}, :class => 'icon-menu-login') %>
-  <% end %>
+  <%= submit_button('save', _('Sign up'), :cancel => {:action => 'index'}, :class => 'icon-menu-login') %>
 <% end %>
 <% end -%>

@@ -1,7 +1,3 @@
-<% if environment.enabled?('display_wizard_signup') && !logged_in? %>
-  <%= lightbox_button(:new, _('Signup'), { :controller => 'account', :action => 'wizard' }, :class => 'wizard', :id => 'signup-wizard') %>
-<% end %>
-
 <% if @has_news %>
   <h1><%= _('News') %></h1>
   <% cache @news_cache_key do %>

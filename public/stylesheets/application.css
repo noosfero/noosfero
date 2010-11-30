@@ -484,19 +484,7 @@ div.pending-tasks {
   margin-bottom: 0px;
 }
 
-/**** Signup wizard ****/
-
-#wizard-iframe {
-  border: none;
-}
-
-#wizard-content {
-  font-size: 13px;
-}
-
-#wizard-content h1 {
-  font-size: 22px;
-}
+/**** portal news ****/
 
 #portal-news {
   font-size: 11px;
