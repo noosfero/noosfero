@@ -25,8 +25,8 @@ class PeopleBlockTest < ActiveSupport::TestCase
     person1 = fast_create(Person, :environment_id => owner.id)
     person2 = fast_create(Person, :environment_id => owner.id)
 
-    expects(:profile_image_link).with(person1).returns(person1.name)
-    expects(:profile_image_link).with(person2).returns(person2.name)
+    expects(:profile_image_link).with(person1, :minor).returns(person1.name)
+    expects(:profile_image_link).with(person2, :minor).returns(person2.name)
     expects(:block_title).with(anything).returns('')
 
     content = instance_eval(&block.content)

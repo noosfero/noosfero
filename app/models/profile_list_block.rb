@@ -38,7 +38,7 @@ class ProfileListBlock < Block
       count=0
       list = profiles.map {|item|
                count+=1
-               send(link_method, item ) #+
+               send(link_method, item, :minor )
              }.join("\n  ")
       if list.empty?
         list = '<div class="common-profile-list-block-none">'+ _('None') +'</div>'

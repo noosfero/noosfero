@@ -1430,8 +1430,6 @@ input.disabled {
   float: none;
   padding-left: 0px;
   max-width: none;
-  width: 92px;
-  height: 64px;
 }
 
 #content .communities-block .vcard .profile_link {
@@ -1719,6 +1717,18 @@ input.disabled {
 
 .common-profile-list-block img {
   border: none;
+}
+
+.box-2 .common-profile-list-block span,
+.box-3 .common-profile-list-block span,
+.box-2 .common-profile-list-block .profile-image,
+.box-3 .common-profile-list-block .profile-image {
+  width: 58px;
+}
+
+.box-2 .common-profile-list-block .profile-image,
+.box-3 .common-profile-list-block .profile-image {
+  height: 50px;
 }
 
 .common-profile-list-block .locality {
