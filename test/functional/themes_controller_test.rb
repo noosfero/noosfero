@@ -31,12 +31,12 @@ class ThemesControllerTest < Test::Unit::TestCase
   should 'display themes that can be applied' do
     env = Environment.default
     Theme.stubs(:approved_themes).with(@profile).returns([Theme.new('t1', :name => 't1')])
-    t2 = Theme.create('t2')
-    t3 = Theme.create('t3')
+    t2 = 't2'
+    t3 = 't3'
     env.themes = [t2]
     env.save
 
-    Theme.stubs(:system_themes).returns([t2, t3])
+    Theme.stubs(:system_themes).returns([Theme.new(t2), Theme.new(t3)])
     get :index, :profile => 'testinguser'
 
     %w[ t1 t2 ].each do |item|
@@ -48,13 +48,13 @@ class ThemesControllerTest < Test::Unit::TestCase
 
   should 'highlight current theme' do
     env = Environment.default
-    t1 = Theme.create('one', :name => 'one')
-    t2 = Theme.create('two', :name => 'two')
+    t1 = 'one'
+    t2 = 'two'
     env.themes = [t1, t2]
     env.save
 
-    Theme.stubs(:system_themes).returns([t1, t2])
-    profile.update_attributes(:theme => 'one')
+    Theme.stubs(:system_themes).returns([Theme.new(t1), Theme.new(t2)])
+    profile.update_theme(t1)
     get :index, :profile => 'testinguser'
 
     assert_tag :attributes => { :class => 'selected theme' }, :descendant =>  { :content => /(current)/ }
@@ -86,6 +86,22 @@ class ThemesControllerTest < Test::Unit::TestCase
     get :set, :profile => 'testinguser', :id => 'onetheme'
     profile = Profile.find(@profile.id)
     assert_equal 'onetheme', profile.theme
+  end
+
+  should 'unset selection of theme' do
+    get :unset, :profile => 'testinguser'
+    assert_equal nil, profile.theme
+  end
+
+  should 'display link to use the default theme' do
+    env = Environment.default
+    env.themes = ['new-theme']
+    env.save
+
+    Theme.stubs(:system_themes).returns([Theme.new('new-theme')])
+
+    get :index, :profile => 'testinguser'
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/themes/unset" }
   end
 
   should 'point back to control panel' do

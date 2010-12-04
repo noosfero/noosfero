@@ -196,6 +196,7 @@ class UploadedFileTest < Test::Unit::TestCase
 
   should 'have a default image if thumbnails were not processed' do
     file = UploadedFile.new
+    file.expects(:thumbnailable?).returns(true)
     assert_equal '/images/icons-app/image-loading-thumb.png', file.public_filename
   end
 

@@ -8,6 +8,11 @@ class ThemesController < MyProfileController
     redirect_to :action => 'index'
   end
 
+  def unset
+    profile.update_theme(nil)
+    redirect_to :action => 'index'
+  end
+
   def index
     @themes = profile.environment.themes + Theme.approved_themes(profile)
     @current_theme = profile.theme

@@ -38,7 +38,7 @@ module DelayedAttachmentFu
     end
 
     def public_filename(size=nil)
-      if self.thumbnails_processed
+      if !self.thumbnailable? || self.thumbnails_processed
         super(size)
       else
         size ||= 'thumb'

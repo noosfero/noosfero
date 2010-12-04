@@ -564,7 +564,15 @@ class Environment < ActiveRecord::Base
   end
 
   def themes=(values)
-    settings[:themes] = values.map(&:id)
+    settings[:themes] = values
+  end
+
+  def add_themes(values)
+    if settings[:themes].nil?
+      self.themes = values
+    else
+      settings[:themes] += values
+    end
   end
 
   def community_template

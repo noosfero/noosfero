@@ -37,6 +37,7 @@
     <tr>
       <td colspan='6'>
         <h2><%= _('Select theme') %></h2>
+        <%= button :home, _('Use the default theme'), { :action => 'unset'}, :method => 'post', :confirm => _('Are you sure you want to use the environment default theme?') %>
       </td>
     </tr>
     <% for themes in @themes.in_groups_of(3)  %>

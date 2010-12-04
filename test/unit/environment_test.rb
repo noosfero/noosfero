@@ -465,27 +465,40 @@ class EnvironmentTest < Test::Unit::TestCase
 
   should 'have a list of themes' do
     env = Environment.default
-    t1 = mock
-    t2 = mock
 
-    t1.stubs(:id).returns('theme_1')
-    t2.stubs(:id).returns('theme_2')
+    t1 = 'theme_1'
+    t2 = 'theme_2'
 
-    Theme.expects(:system_themes).returns([t1, t2])
+    Theme.expects(:system_themes).returns([Theme.new(t1), Theme.new(t2)])
     env.themes = [t1, t2]
     env.save!
-    assert_equal  [t1, t2], Environment.default.themes
+    assert_equal  [t1, t2], Environment.default.themes.map(&:id)
   end
 
   should 'set themes to environment' do
     env = Environment.default
-    t1 = mock
 
-    t1.stubs(:id).returns('theme_1')
-
-    env.themes = [t1]
+    env.themes = ['new-theme']
     env.save
-    assert_equal  [t1.id], Environment.default.settings[:themes]
+    assert_equal  ['new-theme'], Environment.default.settings[:themes]
+  end
+
+  should 'return only themes included on system_themes' do
+    Theme.expects(:system_themes).returns([Theme.new('new-theme')])
+    env = Environment.default
+
+    env.themes = ['new-theme', 'other-theme']
+    env.save
+    assert_equal  ['new-theme'], Environment.default.themes.map(&:id)
+  end
+
+  should 'add new themes to environment' do
+    Theme.expects(:system_themes).returns([Theme.new('new-theme'), Theme.new('other-theme')])
+    env = Environment.default
+
+    env.add_themes(['new-theme', 'other-theme'])
+    env.save
+    assert_equal ['new-theme', 'other-theme'], Environment.default.themes.map(&:id)
   end
 
   should 'create templates' do
