@@ -1,0 +1,3 @@
+theme: "Butter theme"
+layout: "application-ng"
+icon_theme: [default, pidgin]

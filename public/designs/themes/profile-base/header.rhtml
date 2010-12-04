@@ -1,0 +1,18 @@
+<div id="assets-menu">
+  <ul>
+    <%= generate_assets_menu %>
+  </ul>
+</div><!-- fim id="assets-menu" -->
+
+<script type="text/javascript">
+  jQuery(function($) {
+    $("#site-title, #assets-menu").mouseover(function() {
+      clearTimeout( window.closeAssetsTimeout );
+      $("#assets-menu").slideDown(400);
+    });
+    $("#site-title, #assets-menu").mouseout(function() {
+      window.closeAssetsTimeout =
+      setTimeout( function() { $("#assets-menu").slideUp(400); }, 500 );
+    });
+  });
+</script>
