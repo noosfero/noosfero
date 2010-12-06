@@ -5,9 +5,11 @@
 <% button_bar(:style => 'margin-bottom: 1em;') do %>
   <% parent_id = ((@article && @article.allow_children?) ? @article : nil) %>
 
-  <% if !@article or !@article.blog? %>
+  <% if !@article or !@article.has_posts? %>
     <%= button :newfolder, _('New folder'), :action => 'new', :type => 'Folder', :parent_id => parent_id %>
     <%= button :newblog, _('New Blog'), :action => 'new', :type => 'Blog', :parent_id => parent_id %>
+    <%= button :newforum, _('New Forum'), :action => 'new', :type => 'Forum', :parent_id => parent_id %>
+    <%= button :newgallery, _('New Gallery'), :action => 'new', :type => 'Gallery', :parent_id => parent_id %>
     <%= button('upload-file', _('Upload files'), :action => 'upload_files', :parent_id => parent_id) %>
   <% end %>
   <%= lightbox_button('new', label_for_new_article(@article), :action => 'new', :parent_id => parent_id) %>

@@ -243,8 +243,7 @@ class UploadedFileTest < Test::Unit::TestCase
   end
 
   should 'track action when a published image is uploaded in a gallery' do
-    p = fast_create(Folder, :profile_id => @profile.id)
-    p.view_as = 'image_gallery'; p.save!
+    p = fast_create(Gallery, :profile_id => @profile.id)
     f = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => p, :profile => @profile)
     ta = ActionTracker::Record.last(:conditions => { :verb => "upload_image" })
     assert_kind_of String, ta.get_thumbnail_path[0]
@@ -255,8 +254,7 @@ class UploadedFileTest < Test::Unit::TestCase
 
   should 'not track action when is not image' do
     ActionTracker::Record.delete_all
-    p = fast_create(Folder, :profile_id => @profile.id)
-    p.view_as = 'image_gallery'; p.save!
+    p = fast_create(Gallery, :profile_id => @profile.id)
     f = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'), :parent => p, :profile => @profile)
     assert_nil ActionTracker::Record.last(:conditions => { :verb => "upload_image" })
   end
@@ -268,8 +266,7 @@ class UploadedFileTest < Test::Unit::TestCase
 
   should 'not track action when is not published' do
     ActionTracker::Record.delete_all
-    p = fast_create(Folder, :profile_id => @profile.id)
-    p.view_as = 'image_gallery'; p.save!
+    p = fast_create(Gallery, :profile_id => @profile.id)
     f = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => p, :profile => @profile, :published => false)
     assert_nil ActionTracker::Record.last(:conditions => { :verb => "upload_image" })
   end

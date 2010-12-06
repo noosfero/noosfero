@@ -118,9 +118,7 @@ class ArticleBlockTest < Test::Unit::TestCase
   should 'not display gallery pages navigation in content' do
     profile = create_user('testuser').person
     block = ArticleBlock.new
-    gallery = fast_create(Folder, :profile_id => profile.id)
-    gallery.view_as = 'image_gallery'
-    gallery.save!
+    gallery = fast_create(Gallery, :profile_id => profile.id)
     image = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => gallery)
     block.article = image
     block.save!

@@ -73,3 +73,5 @@
 .icon-chat             { background-image: url(Tango/16x16/apps/internet-group-chat.png); background-repeat: no-repeat }
 .icon-scrap	       { background-image: url(Tango/16x16/actions/format-justify-left.png) }
 .icon-reply            { background-image: url(Tango/16x16/actions/mail-reply-sender.png) }
+.icon-newforum   { background-image: url(Tango/16x16/apps/system-users.png) }
+.icon-newgallery   { background-image: url(Tango/16x16/mimetypes/image-x-generic.png) }

@@ -77,7 +77,7 @@ class ContentViewerController < ApplicationController
       remove_comment
     end
     
-    if @page.blog?
+    if @page.has_posts?
       posts = if params[:year] and params[:month]
         filter_date = DateTime.parse("#{params[:year]}-#{params[:month]}-01")
         @page.posts.by_range(filter_date..filter_date.at_end_of_month)
@@ -88,7 +88,7 @@ class ContentViewerController < ApplicationController
       @posts = posts.paginate({ :page => params[:npage], :per_page => @page.posts_per_page }.merge(Article.display_filter(user, profile)))
     end
 
-    if @page.folder? && @page.view_as == 'image_gallery'
+    if @page.folder? && @page.gallery?
       @images = @page.images
       @images = @images.paginate(:per_page => per_page, :page => params[:npage]) unless params[:slideshow]
     end

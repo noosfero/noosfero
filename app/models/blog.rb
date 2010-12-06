@@ -1,15 +1,6 @@
 class Blog < Folder
 
-  has_many :posts, :class_name => 'Article', :foreign_key => 'parent_id', :source => :children, :conditions => [ 'articles.type != ?', 'RssFeed' ], :order => 'published_at DESC, id DESC'
-
-  attr_accessor :feed_attrs
-
-  after_create do |blog|
-    blog.children << RssFeed.new(:name => 'feed', :profile => blog.profile)
-    blog.feed = blog.feed_attrs
-  end
-
-  settings_items :posts_per_page, :type => :integer, :default => 5
+  acts_as_having_posts
 
   def self.short_description
     _('Blog')
@@ -33,21 +24,6 @@ class Blog < Folder
 
   def blog?
     true
-  end
-
-  def feed
-    self.children.find(:first, :conditions => {:type => 'RssFeed'})
-  end
-
-  def feed=(attrs)
-    if attrs
-      if self.feed
-        self.feed.update_attributes(attrs)
-      else
-        self.feed_attrs = attrs
-      end
-    end
-    self.feed
   end
 
   has_one :external_feed, :foreign_key => 'blog_id', :dependent => :destroy
@@ -78,17 +54,7 @@ class Blog < Folder
     end
   end
 
-  def name=(value)
-    self.set_name(value)
-    if self.slug.blank?
-      self.slug = self.name.to_slug
-    else
-      self.slug = self.slug.to_slug
-    end
-  end
-
   settings_items :visualization_format, :type => :string, :default => 'full'
   validates_inclusion_of :visualization_format, :in => [ 'full', 'short' ], :if => :visualization_format
-
 
 end

@@ -41,12 +41,14 @@ Given /^the following blocks$/ do |table|
   end
 end
 
-Given /^the following (articles|events|blogs|folders)$/ do |content, table|
+Given /^the following (articles|events|blogs|folders|forums|galleries)$/ do |content, table|
   klass = {
     'articles' => TextileArticle,
     'events' => Event,
     'blogs' => Blog,
     'folders' => Folder,
+    'forums' => Forum,
+    'galleries' => Gallery
   }[content] || raise("Don't know how to build %s" % content)
   table.hashes.map{|item| item.dup}.each do |item|
     owner_identifier = item.delete("owner")

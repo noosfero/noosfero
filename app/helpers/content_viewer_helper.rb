@@ -1,6 +1,7 @@
 module ContentViewerHelper
 
   include BlogHelper
+  include ForumHelper
 
   def number_of_comments(article)
     n = article.comments.size

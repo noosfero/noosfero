@@ -1,5 +1,5 @@
 <%
-  if @page.parent && @page.parent.blog? && @page.parent.feed
+  if @page.parent && @page.parent.has_posts? && @page.parent.feed
     add_rss_feed_to_head(@page.parent.name, @page.parent.feed.url)
   end
 %>
@@ -15,7 +15,7 @@
             profile.admin_url.merge({ :controller => 'cms', :action => 'edit', :id => @page.id }),
             :class => 'button with-text icon-edit' %>
         <% if !(profile.kind_of?(Enterprise) && environment.enabled?('disable_cms')) %>
-          <% if @page != profile.home_page && !@page.blog? %>
+          <% if @page != profile.home_page && !@page.has_posts? %>
             <%= link_to content_tag( 'span', _('Delete') ),
               profile.admin_url.merge({ :controller => 'cms', :action => 'destroy', :id => @page }),
               :class => 'button with-text icon-delete' %>
@@ -34,20 +34,20 @@
         <% end %>
       <% end %>
       <% if !(profile.kind_of?(Enterprise) && environment.enabled?('disable_cms')) %>
-        <% if !@page.display_as_gallery? %>
+        <% if !@page.gallery? %>
           <%= lightbox_button(:new, label_for_new_article(@page), profile.admin_url.merge(:controller => 'cms', :action => 'new', :parent_id => (@page.folder? ? @page : (@page.parent.nil? ? nil : @page.parent)))) %>
         <% end %>
-        <% if (@page.folder? && !@page.blog?) || (@page.parent && @page.parent.folder? && !@page.parent.blog?) %>
+        <% if (@page.folder? && !@page.has_posts?) || (@page.parent && @page.parent.folder? && !@page.parent.has_posts?) %>
           <%= button('upload-file', _('Upload files'), profile.admin_url.merge(:controller => 'cms', :action => 'upload_files', :parent_id => (@page.folder? ? @page : @page.parent))) %>
         <% end %>
       <% end %>
-      <% if profile.kind_of?(Enterprise) && @page.display_as_gallery? %>
+      <% if profile.kind_of?(Enterprise) && @page.gallery? %>
         <%= button('upload-file', _('Upload files'), :controller => 'cms', :action => 'upload_files', :parent_id => (@page.folder? ? @page : @page.parent)) %>
       <% end %>
     </div>
   <% end %>
   <div id="article-header">
-    <%= link_to(image_tag('icons-mime/rss-feed.png'), @page.feed.url, :class => 'blog-feed-link') if @page.blog? && @page.feed %>
+    <%= link_to(image_tag('icons-mime/rss-feed.png'), @page.feed.url, :class => 'blog-feed-link') if @page.has_posts? && @page.feed %>
     <%= article_title(@page, :no_link => true) %>
   </div>
 </div>

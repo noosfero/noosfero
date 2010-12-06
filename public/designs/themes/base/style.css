@@ -1035,10 +1035,6 @@ hr.pre-posts, hr.sep-posts {
   color: #AAA;
 }
 
-#article-parent {
-  display: none;
-}
-
 .msie .post_comment_box {
   padding-top: 15px;
 }

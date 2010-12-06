@@ -5230,3 +5230,9 @@ h1#agenda-title {
   float: none;
 	margin-top: 10px;
 }
+
+/* Forum */
+
+.forum-posts .pagination {
+  margin-top: 20px;
+}

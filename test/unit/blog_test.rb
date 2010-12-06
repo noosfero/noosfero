@@ -171,4 +171,8 @@ class BlogTest < ActiveSupport::TestCase
     assert !blog.errors.invalid?(:visualization_format)
   end
 
+  should 'have posts' do
+    assert Blog.new.has_posts?
+  end
+
 end

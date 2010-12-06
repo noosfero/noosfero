@@ -802,6 +802,7 @@ class CmsControllerTest < Test::Unit::TestCase
   should 'not offer to create special article types' do
     get :new, :profile => profile.identifier
     assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?type=Blog"}
+    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?type=Forum"}
   end
 
   should 'offer to edit a blog' do
@@ -918,7 +919,7 @@ class CmsControllerTest < Test::Unit::TestCase
   end
 
   should 'create icon upload file in folder' do
-    f = Folder.create!(:name => 'test_folder', :profile => profile, :view_as => 'image_gallery')
+    f = Gallery.create!(:name => 'test_folder', :profile => profile)
     post :new, :profile => profile.identifier,
                :type => UploadedFile.name,
                :parent_id => f.id,
@@ -1155,6 +1156,8 @@ class CmsControllerTest < Test::Unit::TestCase
 
     image = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
     image2 = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :created_at => 1.day.ago)
+    image2.updated_at = 1.day.ago
+    image2.send :update_without_callbacks
 
     get :media_listing, :profile => profile.identifier
 
@@ -1294,6 +1297,117 @@ class CmsControllerTest < Test::Unit::TestCase
     end
     file_1.destroy
     file_2.destroy
+  end
+
+  # Forum
+
+  should 'display posts per page input with default value on edit forum' do
+    n = Forum.new.posts_per_page.to_s
+    get :new, :profile => profile.identifier, :type => 'Forum'
+    assert_tag :tag => 'select', :attributes => { :name => 'article[posts_per_page]' }, :child => { :tag => 'option', :attributes => {:value => n, :selected => 'selected'} }
+  end
+
+  should 'offer to edit a forum' do
+    profile.articles << Forum.new(:name => 'forum test', :profile => profile)
+
+    profile.articles.reload
+    assert profile.has_forum?
+
+    b = profile.forum
+    get :index, :profile => profile.identifier
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/edit/#{b.id}"}
+  end
+
+  should 'not offer to add folder to forum' do
+    profile.articles << Forum.new(:name => 'forum test', :profile => profile)
+
+    profile.articles.reload
+    assert profile.has_forum?
+
+    get :view, :profile => profile.identifier, :id => profile.forum.id
+    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?parent_id=#{profile.forum.id}&amp;type=Folder"}
+  end
+
+  should 'not show feed subitem for forum' do
+    profile.articles << Forum.new(:name => 'Forum for test', :profile => profile)
+
+    profile.articles.reload
+    assert profile.has_forum?
+
+    get :view, :profile => profile.identifier, :id => profile.forum.id
+
+    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/edit/#{profile.forum.feed.id}" }
+  end
+
+  should 'update feed options by edit forum form' do
+    profile.articles << Forum.new(:name => 'Forum for test', :profile => profile)
+    post :edit, :profile => profile.identifier, :id => profile.forum.id, :article => { :feed => { :limit => 7 } }
+    assert_equal 7, profile.forum.feed.limit
+  end
+
+  should 'not offer folder to forum articles' do
+    @controller.stubs(:profile).returns(fast_create(Enterprise, :name => 'test_ent', :identifier => 'test_ent'))
+    forum = Forum.create!(:name => 'Forum for test', :profile => profile)
+    @controller.stubs(:params).returns({ :parent_id => forum.id })
+
+    assert_not_includes @controller.available_article_types, Folder
+  end
+
+  should 'not offer rssfeed to forum articles' do
+    @controller.stubs(:profile).returns(fast_create(Enterprise, :name => 'test_ent', :identifier => 'test_ent'))
+    forum = Forum.create!(:name => 'Forum for test', :profile => profile)
+    @controller.stubs(:params).returns({ :parent_id => forum.id })
+
+    assert_not_includes @controller.available_article_types, RssFeed
+  end
+
+  should 'update forum posts_per_page setting' do
+    profile.articles << Forum.new(:name => 'Forum for test', :profile => profile)
+    post :edit, :profile => profile.identifier, :id => profile.forum.id, :article => { :posts_per_page => 5 }
+    profile.forum.reload
+    assert_equal 5, profile.forum.posts_per_page
+  end
+
+  should "display 'New post' when create children of forum" do
+    a = Forum.create!(:name => 'forum_for_test', :profile => profile)
+    Article.stubs(:short_description).returns('bli')
+    get :view, :profile => profile.identifier, :id => a
+    assert_tag :tag => 'a', :content => 'New discussion topic'
+  end
+
+  should 'go to forum after create it' do
+    assert_difference Forum, :count do
+      post :new, :type => Forum.name, :profile => profile.identifier, :article => { :name => 'my-forum' }, :back_to => 'control_panel'
+    end
+    assert_redirected_to @profile.articles.find_by_name('my-forum').view_url
+  end
+
+  should 'back to forum after config forum' do
+    profile.articles << Forum.new(:name => 'my-forum', :profile => profile)
+    post :edit, :profile => profile.identifier, :id => profile.forum.id
+
+    assert_redirected_to @profile.articles.find_by_name('my-forum').view_url
+  end
+
+  should 'back to control panel if cancel create forum' do
+    get :new, :profile => profile.identifier, :type => Forum.name
+    assert_tag :tag => 'a', :content => 'Cancel', :attributes => { :href => /\/myprofile\/#{profile.identifier}/ }
+  end
+
+  should 'back to control panel if cancel config forum' do
+    profile.articles << Forum.new(:name => 'my-forum', :profile => profile)
+    get :edit, :profile => profile.identifier, :id => profile.forum.id
+    assert_tag :tag => 'a', :content => 'Cancel', :attributes => { :href => /\/myprofile\/#{profile.identifier}/ }
+  end
+
+  should 'not offer to upload files to forum' do
+    profile.articles << Forum.new(:name => 'forum test', :profile => profile)
+
+    profile.articles.reload
+    assert profile.has_forum?
+
+    get :view, :profile => profile.identifier, :id => profile.forum.id
+    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/upload_files?parent_id=#{profile.forum.id}"}
   end
 
 end

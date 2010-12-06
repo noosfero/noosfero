@@ -525,7 +525,7 @@ private :generate_url, :url_options
   # associated to the profile before being saved. Example:
   #
   #   def default_set_of_articles
-  #     [Blog.new(:name => 'Blog'), Folder.new(:name => 'Gallery', :view_as => 'image_gallery')]
+  #     [Blog.new(:name => 'Blog'), Gallery.new(:name => 'Gallery')]
   #   end
   #
   # By default, this method returns an empty array.
@@ -690,6 +690,16 @@ private :generate_url, :url_options
     self.blogs.count.nonzero?
   end
 
+  has_many :forums, :source => 'articles', :class_name => 'Forum'
+
+  def forum
+    self.has_forum? ? self.forums.first(:order => 'id') : nil
+  end
+
+  def has_forum?
+    self.forums.count.nonzero?
+  end
+
   def admins
     self.members_by_role(Profile::Roles.admin(environment.id))
   end
@@ -703,7 +713,7 @@ private :generate_url, :url_options
   end
 
   def image_galleries
-    folders.select { |folder| folder.display_as_gallery?}
+    articles.galleries
   end
 
   def blocks_to_expire_cache

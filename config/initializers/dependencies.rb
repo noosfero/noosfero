@@ -4,6 +4,7 @@ require 'acts_as_having_settings'
 require 'acts_as_searchable'
 require 'acts_as_having_boxes'
 require 'acts_as_having_image'
+require 'acts_as_having_posts'
 require 'route_if'
 
 # third-party libraries

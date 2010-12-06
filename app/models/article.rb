@@ -237,6 +237,14 @@ class Article < ActiveRecord::Base
     false
   end
 
+  def forum?
+    false
+  end
+
+  def has_posts?
+    false
+  end
+
   def published?
     if self.published
       if self.parent && !self.parent.published?
@@ -248,8 +256,9 @@ class Article < ActiveRecord::Base
     end
   end
 
-  named_scope :published, :conditions => { :published => true  }
-  named_scope :folders, :conditions => { :type => ['Folder', 'Blog']  }
+  named_scope :published, :conditions => { :published => true }
+  named_scope :folders, :conditions => { :type => ['Folder', 'Blog', 'Forum', 'Gallery'] }
+  named_scope :galleries, :conditions => { :type => 'Gallery' }
   named_scope :images, :conditions => { :is_image => true }
 
   def self.display_filter(user, profile)
@@ -350,7 +359,7 @@ class Article < ActiveRecord::Base
     false
   end
 
-  def display_as_gallery?
+  def gallery?
     false
   end
 

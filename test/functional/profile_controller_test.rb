@@ -459,7 +459,7 @@ class ProfileControllerTest < Test::Unit::TestCase
   end
 
   should 'show number of published images in index' do
-    folder = Folder.create!(:name => 'gallery', :profile => profile, :view_as => 'image_gallery')
+    folder = Gallery.create!(:name => 'gallery', :profile => profile)
     published_file = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
     unpublished_file = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'), :published => false)
 

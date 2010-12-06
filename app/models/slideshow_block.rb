@@ -11,7 +11,7 @@ class SlideshowBlock < Block
   end
 
   def gallery
-    gallery_id ? Folder.find(:first, :conditions => { :id => gallery_id }) : nil
+    gallery_id ? Gallery.find(:first, :conditions => { :id => gallery_id }) : nil
   end
 
   def public_filename_for(image)

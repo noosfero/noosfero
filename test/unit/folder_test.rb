@@ -28,31 +28,6 @@ class FolderTest < ActiveSupport::TestCase
     assert_equal false, a.can_display_hits?
   end
 
-  should 'be viewed as image gallery' do
-    p = create_user('test_user').person
-    f = fast_create(Folder, :profile_id => p.id)
-    f.view_as = 'image_gallery'; f.save!
-    f.reload
-
-    assert_equal 'image_gallery', f.view_as
-  end
-
-  should 'not allow view as bogus' do
-    p = create_user('test_user').person
-    f = fast_create(Folder, :profile_id => p.id)
-    f.view_as = 'bogus'
-    assert !f.save
-  end
-
-  should 'view as folder by default' do
-    p = create_user('test_user').person
-    f = fast_create(Folder, :profile_id => p.id)
-    f.expects(:folder)
-    f.to_html
-
-    assert_equal 'folder', f.view_as
-  end
-
   should 'have images that are only images or other folders' do
     p = create_user('test_user').person
     f = fast_create(Folder, :profile_id => p.id)

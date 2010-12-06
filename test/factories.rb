@@ -409,4 +409,22 @@ module Noosfero::Factory
     { :login => username, :email => username + '@noosfero.colivre', :crypted_password => 'test'}.merge(params)
   end
 
+  ###############################################
+  # Forum
+  ###############################################
+
+  def defaults_for_forum(params = {})
+    name = "forum_#{rand(1000)}"
+    { :profile_id => 1, :path => name, :name => name, :slug => name.to_slug }.merge(params)
+  end
+
+  ###############################################
+  # Gallery
+  ###############################################
+
+  def defaults_for_gallery(params = {})
+    name = "gallery_#{rand(1000)}"
+    { :profile_id => 1, :path => name, :name => name, :slug => name.to_slug }.merge(params)
+  end
+
 end

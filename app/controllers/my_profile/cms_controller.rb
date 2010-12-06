@@ -44,7 +44,7 @@ class CmsController < MyProfileController
       Event
     ]
     parent_id = params ? params[:parent_id] : nil
-    if !parent_id or !Article.find(parent_id).blog?
+    if !parent_id or !Article.find(parent_id).has_posts?
       articles += [
         RssFeed
       ]
@@ -56,13 +56,13 @@ class CmsController < MyProfileController
   end
 
   def special_article_types
-    [Folder, Blog, UploadedFile]
+    [Folder, Blog, UploadedFile, Forum, Gallery]
   end
 
   def view
     @article = profile.articles.find(params[:id])
     conditions = []
-    if @article.blog?
+    if @article.has_posts?
       conditions = ['type != ?', 'RssFeed']
     end
 

@@ -1767,8 +1767,8 @@ class ProfileTest < Test::Unit::TestCase
 
   should 'provide list of galleries' do
     p = fast_create(Profile)
-    f1 = Folder.create(:profile => p, :name => "folder1", :view_as => 'image_gallery')
-    f2 = Folder.create(:profile => p, :name => "folder2", :view_as => 'folder')
+    f1 = Gallery.create(:profile => p, :name => "folder1")
+    f2 = Folder.create(:profile => p, :name => "folder2")
 
     assert_equal [f1], p.image_galleries
   end
@@ -1788,6 +1788,30 @@ class ProfileTest < Test::Unit::TestCase
     assert_nil Scrap.find_by_id(scrap.id)
   end
 
+  should 'have forum' do
+    p = fast_create(Profile)
+    p.articles << Forum.new(:profile => p, :name => 'forum_feed_test')
+    assert p.has_forum?
+  end
+
+  should 'not have forum' do
+    p = fast_create(Profile)
+    assert !p.has_forum?
+  end
+
+  should 'get nil when no forum' do
+    p = fast_create(Profile)
+    assert_nil p.forum
+  end
+
+  should 'get first forum when has multiple forums' do
+    p = fast_create(Profile)
+    p.forums << Forum.new(:profile => p, :name => 'Forum one')
+    p.forums << Forum.new(:profile => p, :name => 'Forum two')
+    p.forums << Forum.new(:profile => p, :name => 'Forum three')
+    assert_equal 'Forum one', p.forum.name
+    assert_equal 3, p.forums.count
+  end
 
   private
 

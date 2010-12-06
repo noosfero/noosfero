@@ -116,7 +116,7 @@ class Organization < Profile
   def default_set_of_articles
     [
       Blog.new(:name => _('Blog')),
-      Folder.new(:name => _('Gallery'), :view_as => 'image_gallery'),
+      Gallery.new(:name => _('Gallery')),
     ]
   end
 

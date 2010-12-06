@@ -8,9 +8,7 @@ class SlideshowBlockTest < ActiveSupport::TestCase
   attr_reader :profile
 
   should 'refer to a gallery' do
-    gallery = fast_create(Folder, :profile_id => profile.id)
-    gallery.view_as = 'image_gallery'
-    gallery.save!
+    gallery = fast_create(Gallery, :profile_id => profile.id)
     slideshow_block = SlideshowBlock.create!(:gallery_id => gallery.id)
     assert_equal gallery, slideshow_block.gallery
   end

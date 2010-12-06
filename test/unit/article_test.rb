@@ -1211,4 +1211,19 @@ class ArticleTest < Test::Unit::TestCase
     assert_equal 31, (DateTime.parse('2010-07-06')).at_end_of_month.day
   end
 
+  should 'not be a forum by default' do
+    assert !fast_create(Article).forum?
+  end
+
+  should 'not have posts by default' do
+    assert !fast_create(Article).has_posts?
+  end
+
+  should 'get article galleries' do
+    p = fast_create(Profile)
+    a = fast_create(Article, :profile_id => p.id)
+    g = fast_create(Gallery, :profile_id => p.id)
+    assert_equal [g], p.articles.galleries
+  end
+
 end

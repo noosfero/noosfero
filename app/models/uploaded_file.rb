@@ -4,7 +4,7 @@
 # of the file itself is kept. (FIXME?)
 class UploadedFile < Article
 
-  track_actions :upload_image, :after_create, :keep_params => ["view_url", "thumbnail_path", "parent.url", "parent.name"], :if => Proc.new { |a| a.published? && a.image? && !a.parent.nil? && a.parent.display_as_gallery? }
+  track_actions :upload_image, :after_create, :keep_params => ["view_url", "thumbnail_path", "parent.url", "parent.name"], :if => Proc.new { |a| a.published? && a.image? && !a.parent.nil? && a.parent.gallery? }
 
   include ShortFilename
 
@@ -76,7 +76,7 @@ class UploadedFile < Article
     article = self
     if image?
       lambda do
-        if article.display_as_gallery? && options[:gallery_view]
+        if article.gallery? && options[:gallery_view]
           images = article.parent.images
           current_index = images.index(article)
           total_of_images = images.count
@@ -119,7 +119,7 @@ class UploadedFile < Article
     false
   end
 
-  def display_as_gallery?
-    self.parent && self.parent.folder? && self.parent.display_as_gallery?
+  def gallery?
+    self.parent && self.parent.folder? && self.parent.gallery?
   end
 end

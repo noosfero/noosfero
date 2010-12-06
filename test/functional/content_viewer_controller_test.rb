@@ -743,14 +743,14 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
   should "display 'Upload files' when create children of image gallery" do
     login_as(profile.identifier)
-    f = Folder.create!(:name => 'gallery', :profile => profile, :view_as => 'image_gallery')
+    f = Gallery.create!(:name => 'gallery', :profile => profile)
     get :view_page, :profile => profile.identifier, :page => f.explode_path
     assert_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{f.id}/}
   end
 
   should "display 'New article' when showing folder child of image gallery" do
     login_as(profile.identifier)
-    folder1 = Folder.create!(:name => 'gallery1', :profile => profile, :view_as => 'image_gallery')
+    folder1 = Gallery.create!(:name => 'gallery1', :profile => profile)
     folder1.children << folder2 = Folder.new(:name => 'gallery2', :profile => profile)
 
     get :view_page, :profile => profile.identifier, :page => folder2.explode_path
@@ -759,7 +759,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
   should "display 'Upload files' to image gallery when showing its children" do
     login_as(profile.identifier)
-    folder = Folder.create!(:name => 'gallery', :profile => profile, :view_as => 'image_gallery')
+    folder = Gallery.create!(:name => 'gallery', :profile => profile)
     file = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
     get :view_page, :profile => profile.identifier, :page => file.explode_path, :view => true
 
@@ -784,7 +784,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
   should 'display all images from profile in the slideshow' do
     @controller.stubs(:per_page).returns(1)
-    folder = Folder.create!(:name => 'gallery', :profile => profile, :view_as => 'image_gallery')
+    folder = Gallery.create!(:name => 'gallery', :profile => profile)
 
     image1 = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
     image2 = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
@@ -796,7 +796,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
   should 'display default image in the slideshow if thumbnails were not processed' do
     @controller.stubs(:per_page).returns(1)
-    folder = Folder.create!(:name => 'gallery', :profile => profile, :view_as => 'image_gallery')
+    folder = Gallery.create!(:name => 'gallery', :profile => profile)
 
     image1 = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
 
@@ -807,7 +807,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
   should 'display thumbnail image in the slideshow if thumbnails were processed' do
     @controller.stubs(:per_page).returns(1)
-    folder = Folder.create!(:name => 'gallery', :profile => profile, :view_as => 'image_gallery')
+    folder = Gallery.create!(:name => 'gallery', :profile => profile)
 
     image1 = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
 
@@ -819,7 +819,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
   should 'display default image in gallery if thumbnails were not processed' do
     @controller.stubs(:per_page).returns(1)
-    folder = Folder.create!(:name => 'gallery', :profile => profile, :view_as => 'image_gallery')
+    folder = Gallery.create!(:name => 'gallery', :profile => profile)
 
     image1 = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
 
@@ -830,7 +830,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
   should 'display thumbnail image in gallery if thumbnails were processed' do
     @controller.stubs(:per_page).returns(1)
-    folder = Folder.create!(:name => 'gallery', :profile => profile, :view_as => 'image_gallery')
+    folder = Gallery.create!(:name => 'gallery', :profile => profile)
 
     image1 = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
 
@@ -875,7 +875,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
   should 'show only first 40 chars of abstract in image gallery' do
     login_as(profile.identifier)
-    folder = Folder.create!(:name => 'gallery', :profile => profile, :view_as => 'image_gallery')
+    folder = Gallery.create!(:name => 'gallery', :profile => profile)
     file = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
 
     file.abstract = 'a long abstract bigger then 40 chars for testing'
@@ -956,6 +956,143 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     login_as(profile.identifier)
     get :view_page, :profile => profile.identifier, :page => blog.explode_path
     assert_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{blog.id}" }, :content => 'Configure blog' }
+  end
+
+  # Forum
+
+  should 'list unpublished forum posts to owner with a different class' do
+    login_as('testinguser')
+    forum = Forum.create!(:name => 'A forum test', :profile => profile)
+    forum.posts << TextileArticle.create!(:name => 'Post', :profile => profile, :parent => forum, :published => false)
+
+    get :view_page, :profile => profile.identifier, :page => [forum.path]
+    assert_tag :tag => 'tr', :attributes => {:class => /not-published/}
+  end
+
+  should 'not list unpublished forum posts to a not logged person' do
+    forum = Forum.create!(:name => 'A forum test', :profile => profile)
+    forum.posts << TextileArticle.create!(:name => 'Post', :profile => profile, :parent => forum, :published => false)
+
+    get :view_page, :profile => profile.identifier, :page => [forum.path]
+    assert_no_tag :tag => 'a', :content => "Post"
+  end
+
+  should 'display pagination links of forum' do
+    forum = Forum.create!(:name => 'A forum test', :profile => profile, :posts_per_page => 5)
+    for n in 1..10
+      forum.posts << TextileArticle.create!(:name => "Post #{n}", :profile => profile, :parent => forum)
+    end
+    assert_equal 10, forum.posts.size
+
+    get :view_page, :profile => profile.identifier, :page => [forum.path]
+    assert_tag :tag => 'a', :attributes => { :href => "/#{profile.identifier}/#{forum.path}?npage=2", :rel => 'next' }
+  end
+
+  should 'display first page of forum posts' do
+    forum = Forum.create!(:name => 'My forum', :profile => profile, :posts_per_page => 5)
+    for n in 1..10
+      forum.children << art = TextileArticle.create!(:name => "Post #{n}", :profile => profile, :parent => forum)
+      art.updated_at = (10 - n).days.ago
+      art.send :update_without_callbacks
+    end
+    assert_equal 10, forum.posts.size
+
+    get :view_page, :profile => profile.identifier, :page => [forum.path]
+    for n in 1..5
+      assert_no_tag :tag => 'a', :content => "Post #{n}", :parent => { :tag => 'td', :parent => { :tag => 'tr', :attributes => { :class => /forum-post/ } } }
+    end
+    for n in 6..10
+      assert_tag :tag => 'a', :content => "Post #{n}", :parent => { :tag => 'td', :parent => { :tag => 'tr', :attributes => { :class => /forum-post/ } } }
+    end
+  end
+
+  should 'display others pages of forum posts' do
+    forum = Forum.create!(:name => 'My forum', :profile => profile, :posts_per_page => 5)
+    for n in 1..10
+      forum.children << art = TextileArticle.create!(:name => "Post #{n}", :profile => profile, :parent => forum)
+      art.updated_at = (10 - n).days.ago
+      art.send :update_without_callbacks
+    end
+    assert_equal 10, forum.posts.size
+
+    get :view_page, :profile => profile.identifier, :page => [forum.path], :npage => 2
+    for n in 1..5
+      assert_tag :tag => 'a', :content => "Post #{n}", :parent => { :tag => 'td', :parent => { :tag => 'tr', :attributes => { :class => /forum-post/ } } }
+    end
+    for n in 6..10
+      assert_no_tag :tag => 'a', :content => "Post #{n}", :parent => { :tag => 'td', :parent => { :tag => 'tr', :attributes => { :class => /forum-post/ } } }
+    end
+  end
+
+  should 'set year and month filter from URL params for forum' do
+    forum = Forum.create!(:name => "forum", :profile => profile)
+    profile.articles << forum
+
+    past_post = TextileArticle.create!(:name => "past post", :profile => profile, :parent => forum, :created_at => forum.created_at - 1.year)
+    actual_post = TextileArticle.create!(:name => "actual post", :profile => profile, :parent => forum)
+    forum.children << past_post
+    forum.children << actual_post
+
+    year, month = profile.forum.created_at.year.to_s, '%02d' % profile.forum.created_at.month
+
+    get :view_page, :profile => profile.identifier, :page => [profile.forum.path], :year => year, :month => month
+
+    assert_no_tag :tag => 'a', :content => past_post.title
+    assert_tag :tag => 'a', :content => actual_post.title
+  end
+
+  should "display 'New discussion topic' when create children of forum" do
+    login_as(profile.identifier)
+    a = Forum.create!(:name => 'article folder', :profile => profile)
+    Article.stubs(:short_description).returns('bli')
+    get :view_page, :profile => profile.identifier, :page => [a.path]
+    assert_tag :tag => 'a', :content => 'New discussion topic'
+  end
+
+  should "display same label for new article button of forum parent" do
+    login_as(profile.identifier)
+    a = Forum.create!(:name => 'article folder', :profile => profile)
+    Article.stubs(:short_description).returns('bli')
+    t = TextileArticle.create!(:name => 'first post', :parent => a, :profile => profile)
+    get :view_page, :profile => profile.identifier, :page => [t.path]
+    assert_tag :tag => 'a', :content => 'New discussion topic'
+  end
+
+  should 'add meta tag to rss feed on view forum' do
+    login_as(profile.identifier)
+    profile.articles << Forum.new(:name => 'Forum', :profile => profile)
+    get :view_page, :profile => profile.identifier, :page => ['forum']
+    assert_tag :tag => 'link', :attributes => { :rel => 'alternate', :type => 'application/rss+xml', :title => 'Forum', :href => "http://#{environment.default_hostname}/testinguser/forum/feed" }
+  end
+
+  should 'add meta tag to rss feed on view post forum' do
+    login_as(profile.identifier)
+    profile.articles << Forum.new(:name => 'Forum', :profile => profile)
+    profile.forum.posts << TextileArticle.new(:name => 'first post', :parent => profile.forum, :profile => profile)
+    get :view_page, :profile => profile.identifier, :page => ['forum', 'first-post']
+    assert_tag :tag => 'link', :attributes => { :rel => 'alternate', :type => 'application/rss+xml', :title => 'Forum', :href => "http://#{environment.default_hostname}/testinguser/forum/feed" }
+  end
+
+  should "not display 'Upload files' when viewing forum" do
+    login_as(profile.identifier)
+    b = Forum.create!(:name => 'article folder', :profile => profile)
+    get :view_page, :profile => profile.identifier, :page => b.explode_path
+    assert_no_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{b.id}/}
+  end
+
+  should "not display 'Upload files' when viewing post from a forum" do
+    login_as(profile.identifier)
+    b = Forum.create!(:name => 'article folder', :profile => profile)
+    forum_post = TextileArticle.create!(:name => 'children-article', :profile => profile, :parent => b)
+    get :view_page, :profile => profile.identifier, :page => forum_post.explode_path
+    assert_no_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{b.id}/}
+  end
+
+  should 'display link to edit forum for allowed' do
+    forum = fast_create(Forum, :profile_id => profile.id, :path => 'forum')
+    login_as(profile.identifier)
+    get :view_page, :profile => profile.identifier, :page => forum.explode_path
+    assert_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{forum.id}" }, :content => 'Configure forum' }
   end
 
 end

@@ -6,9 +6,9 @@ Feature: gallery_navigation
     Given the following users
       | login       |
       | marciopunk  |
-    And the following folders
-      | owner      | name       | view_as       |
-      | marciopunk | my-gallery | image_gallery |
+    And the following galleries
+      | owner      | name       |
+      | marciopunk | my-gallery |
     And the following files
       | owner      | file          | mime       | parent     |
       | marciopunk | rails.png     | image/png  | my-gallery |
