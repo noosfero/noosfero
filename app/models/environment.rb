@@ -575,6 +575,20 @@ class Environment < ActiveRecord::Base
     end
   end
 
+  before_create do |env|
+    env.settings[:themes] ||= %w[
+      aluminium
+      butter
+      chameleon
+      chocolate
+      noosfero
+      orange
+      plum
+      scarletred
+      skyblue
+    ]
+  end
+
   def community_template
     Community.find_by_id settings[:community_template_id]
   end
