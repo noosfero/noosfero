@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100928000952) do
+ActiveRecord::Schema.define(:version => 20101202205446) do
 
   create_table "action_tracker", :force => true do |t|
     t.integer  "user_id"

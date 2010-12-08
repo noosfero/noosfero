@@ -30,6 +30,12 @@ class Article < ActiveRecord::Base
 
   before_create do |article|
     article.published_at = article.created_at if article.published_at.nil?
+    if article.reference_article && !article.parent
+      parent = article.reference_article.parent
+      if parent && parent.blog? && article.profile.has_blog?
+        article.parent = article.profile.blog
+      end
+    end
   end
 
   xss_terminate :only => [ :name ], :on => 'validation', :with => 'white_list'
@@ -318,6 +324,12 @@ class Article < ActiveRecord::Base
     self.class.create(attrs)
   end
 
+  def copy!(options = {})
+    attrs = attributes.reject! { |key, value| ATTRIBUTES_NOT_COPIED.include?(key.to_sym) }
+    attrs.merge!(options)
+    self.class.create!(attrs)
+  end
+
   ATTRIBUTES_NOT_COPIED = [
     :id,
     :profile_id,
@@ -364,8 +376,11 @@ class Article < ActiveRecord::Base
   end
 
   def author
-    last_changed_by ||
-      profile
+    if reference_article
+      reference_article.author
+    else
+      last_changed_by || profile
+    end
   end
 
   alias :active_record_cache_key :cache_key

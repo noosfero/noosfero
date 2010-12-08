@@ -123,7 +123,7 @@ class RssFeedTest < Test::Unit::TestCase
     feed.profile = profile
     feed.save!
 
-    assert_match "<link>http://colivre.net/testuser</link>", feed.data
+    assert_match "<link>http://#{profile.environment.default_hostname}/testuser</link>", feed.data
   end
 
   should 'provide link to each article' do
@@ -205,15 +205,17 @@ class RssFeedTest < Test::Unit::TestCase
     assert_equal false, a.can_display_hits?
   end
 
-  should 'display the referenced body of a PublishedArticle' do
-    article = fast_create(Article, :body => 'This is the content of the Sample Article.')
+  should 'display the referenced body of a article published' do
+    article = fast_create(TextileArticle, :body => 'This is the content of the Sample Article.')
     profile = fast_create(Profile)
     blog = fast_create(Blog, :profile_id => profile.id)
-    published_article = PublishedArticle.create!(:reference_article => article, :profile => profile)
-    blog.posts << published_article
+    a = ApproveArticle.create!(:name => 'test name', :article => article, :target => profile, :requestor => fast_create(Person))
+    a.finish
+
+    blog.posts << published_article = article.class.last
     feed = RssFeed.new(:parent => blog, :profile => profile)
 
-    assert_match published_article.to_html, feed.data
+    assert_match "This is the content of the Sample Article", feed.data
   end
 
   should 'display articles even within a private profile' do

@@ -89,14 +89,15 @@ class FolderTest < ActiveSupport::TestCase
   end
 
   should 'return published images as images' do
-    p = create_user('test_user').person
-    i = UploadedFile.create!(:profile => p, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    person = create_user('test_user').person
+    image = UploadedFile.create!(:profile => person, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
 
-    c = fast_create(Community)
-    folder = fast_create(Folder, :profile_id => c.id)
-    pi = PublishedArticle.create!(:profile => c, :reference_article => i, :parent => folder)
+    community = fast_create(Community)
+    folder = fast_create(Folder, :profile_id => community.id)
+    a = ApproveArticle.create!(:article => image, :target => community, :requestor => person, :article_parent => folder)
+    a.finish
 
-    assert_includes folder.images(true), pi
+    assert_includes folder.images(true), community.articles.find_by_name('rails.png')
   end
 
   should 'not let pass javascript in the body' do

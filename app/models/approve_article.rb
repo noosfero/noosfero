@@ -24,7 +24,7 @@ class ApproveArticle < Task
   end
 
   def name
-    data[:name]
+    data[:name].blank? ? article.name : data[:name]
   end
 
   def name= value
@@ -63,12 +63,24 @@ class ApproveArticle < Task
     data[:highlighted]
   end
 
+  def abstract= value
+    data[:abstract] = value
+  end
+
+  def abstract
+    data[:abstract].blank? ? article.abstract : data[:abstract]
+  end
+
+  def body= value
+    data[:body] = value
+  end
+
+  def body
+    data[:body].blank? ? article.body : data[:body]
+  end
+
   def perform
-    if article.event?
-      article.copy(:name => name, :profile => target, :reference_article => article)
-    else
-      PublishedArticle.create!(:name => name, :profile => target, :reference_article => article, :parent => article_parent, :highlighted => highlighted, :source => article.source)
-    end
+     article.copy!(:name => name, :abstract => abstract, :body => body, :profile => target, :reference_article => article, :parent => article_parent, :highlighted => highlighted, :source => article.source)
   end
 
   def target_notification_message

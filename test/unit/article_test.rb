@@ -866,13 +866,16 @@ class ArticleTest < Test::Unit::TestCase
   end
 
   should 'not doubly escape quotes in the name' do
-    profile = fast_create(Profile)
-    a = fast_create(Article, :profile_id => profile.id)
-    p = PublishedArticle.create!(:reference_article => a, :profile => fast_create(Community))
+    person = fast_create(Person)
+    community = fast_create(Community)
+    article = fast_create(Article, :name => 'article name', :profile_id => person.id)
+    a = ApproveArticle.create!(:article => article, :target => community, :requestor => profile)
+    a.finish
 
-    p.name = 'title with "quotes"'
-    p.save
-    assert_equal 'title with "quotes"', p.name
+    published = community.articles.find_by_name('article name')
+    published.name = 'title with "quotes"'
+    published.save
+    assert_equal 'title with "quotes"', published.name
   end
 
   should 'remove script tags from name' do

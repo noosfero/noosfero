@@ -153,8 +153,7 @@ class TasksControllerTest < Test::Unit::TestCase
      assert_equal f, assigns(:ticket).target
   end
 
-  should 'create published article after finish approve article task' do
-    PublishedArticle.destroy_all
+  should 'create article with reference_article after finish approve article task' do
     c = fast_create(Community)
     c.update_attributes(:moderated_articles => false)
     @controller.stubs(:profile).returns(c)
@@ -162,12 +161,11 @@ class TasksControllerTest < Test::Unit::TestCase
     article = profile.articles.create!(:name => 'something interesting', :body => 'ruby on rails')
     t = ApproveArticle.create!(:name => 'test name', :article => article, :target => c, :requestor => profile)
 
-    post :close, :decision => 'finish', :id => t.id, :task => { :name => 'new_name'}
-    assert_equal article, PublishedArticle.find(:first).reference_article
+    post :close, :decision => 'finish', :id => t.id, :task => { :name => 'new name'}
+    assert_equal article, c.articles.find_by_name('new name').reference_article
   end
 
   should 'create published article in folder after finish approve article task' do
-    PublishedArticle.destroy_all
     c = fast_create(Community)
     c.update_attributes(:moderated_articles => false)
     @controller.stubs(:profile).returns(c)
@@ -176,35 +174,33 @@ class TasksControllerTest < Test::Unit::TestCase
     article = profile.articles.create!(:name => 'something interesting', :body => 'ruby on rails')
     t = ApproveArticle.create!(:name => 'test name', :article => article, :target => c, :requestor => profile)
 
-    post :close, :decision => 'finish', :id => t.id, :task => { :name => 'new_name', :article_parent_id => folder.id}
-    assert_equal folder, PublishedArticle.find(:first).parent
+    post :close, :decision => 'finish', :id => t.id, :task => { :name => 'new name', :article_parent_id => folder.id}
+    assert_equal folder, c.articles.find_by_name('new name').parent
   end
 
   should 'be highlighted if asked when approving a published article' do
-    PublishedArticle.destroy_all
     c = fast_create(Community)
     c.update_attributes(:moderated_articles => false)
     @controller.stubs(:profile).returns(c)
     folder = c.articles.create!(:name => 'test folder', :type => 'Folder')
     c.affiliate(profile, Profile::Roles.all_roles(profile.environment.id))
     article = profile.articles.create!(:name => 'something interesting', :body => 'ruby on rails')
-    t = ApproveArticle.create!(:name => 'test name', :article => article, :target => c, :requestor => profile)
+    t = ApproveArticle.create!(:article => article, :target => c, :requestor => profile)
 
-    post :close, :decision => 'finish', :id => t.id, :task => { :name => 'new_name', :article_parent_id => folder.id, :highlighted => true}
-    assert_equal true, PublishedArticle.find(:first).highlighted
+    post :close, :decision => 'finish', :id => t.id, :task => { :name => 'new name', :article_parent_id => folder.id, :highlighted => true}
+    assert_equal true, c.articles.find_by_name('new name').highlighted
   end
 
-  should 'create published article after choosing root folder on approve article task' do
-    PublishedArticle.destroy_all
+  should 'create article of same class after choosing root folder on approve article task' do
     c = fast_create(Community)
     c.update_attributes(:moderated_articles => false)
     @controller.stubs(:profile).returns(c)
     c.affiliate(profile, Profile::Roles.all_roles(profile.environment.id))
     article = profile.articles.create!(:name => 'something interesting', :body => 'ruby on rails')
-    t = ApproveArticle.create!(:name => 'test name', :article => article, :target => c, :requestor => profile)
+    t = ApproveArticle.create!(:article => article, :target => c, :requestor => profile)
 
-    post :close, :decision => 'finish', :id => t.id, :task => { :name => 'new_name', :article_parent_id => ""}
-    assert_not_nil PublishedArticle.find(:first)
+    post :close, :decision => 'finish', :id => t.id, :task => { :name => 'new name', :article_parent_id => ""}
+    assert_equal article.class, c.articles.find_by_name('new name').class
   end
 
   should 'handle blank names for published articles' do
@@ -220,10 +216,10 @@ class TasksControllerTest < Test::Unit::TestCase
     a = ApproveArticle.create!(:article => article, :target => c, :requestor => person)
     assert_includes c.tasks, a
 
-    assert_difference PublishedArticle, :count do
+    assert_difference article.class, :count do
         post :close, {"commit"=>"Ok!", "id"=> a.id.to_s, "task"=>{"name"=>"", "closing_statment"=>"", "highlighted"=>"0", "article_parent_id"=>c_blog2.id.to_s}, "decision"=>"finish"}
     end
-    assert p_article = PublishedArticle.find_by_reference_article_id(article.id)
+    assert p_article = article.class.find_by_reference_article_id(article.id)
     assert_includes c_blog2.children(true), p_article
   end
 

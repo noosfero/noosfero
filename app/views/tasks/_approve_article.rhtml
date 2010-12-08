@@ -27,7 +27,8 @@
 
       <%= select_folder(_('Select the folder where the article must be published'), 'task', 'article_parent_id', task.target.folders) %>
       <%= labelled_form_field( _('Highlight this article'), f.check_box(:highlighted)) %>
-      <%= labelled_form_field _('Comment for author'), f.text_area(:closing_statment, :style => 'height:200px; width:80%;') %>
+      <%= labelled_form_field _('Comment for author'), f.text_field(:closing_statment, :style => 'width:80%;') %>
+      <%= render :partial => partial_for_class(task.article.class), :locals => { :f => f } %>
 
     </div>
   <% end %>

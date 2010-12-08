@@ -677,10 +677,10 @@ class CmsControllerTest < Test::Unit::TestCase
   should 'publish the article in the selected community if community is not moderated' do
     c = Community.create!(:name => 'test comm', :identifier => 'test_comm', :moderated_articles => false)
     c.affiliate(profile, Profile::Roles.all_roles(c.environment.id))
-    a = profile.articles.create!(:name => 'something intresting', :body => 'ruby on rails')
+    article = profile.articles.create!(:name => 'something intresting', :body => 'ruby on rails')
 
-    assert_difference PublishedArticle, :count do
-      post :publish, :profile => profile.identifier, :id => a.id, :marked_groups => {c.id.to_s => {:name => 'bli', :group_id => c.id.to_s}}
+    assert_difference article.class, :count do
+      post :publish, :profile => profile.identifier, :id => article.id, :marked_groups => {c.id.to_s => {:name => 'bli', :group_id => c.id.to_s}}
       assert_equal [{'group' => c, 'name' => 'bli'}], assigns(:marked_groups)
     end
   end
@@ -710,7 +710,7 @@ class CmsControllerTest < Test::Unit::TestCase
     Environment.any_instance.stubs(:portal_community).returns(portal_community)
     article = profile.articles.create!(:name => 'something intresting', :body => 'ruby on rails')
 
-    assert_difference PublishedArticle, :count do
+    assert_difference article.class, :count do
       post :publish_on_portal_community, :profile => profile.identifier, :id => article.id, :name => article.name
     end
   end
@@ -720,7 +720,7 @@ class CmsControllerTest < Test::Unit::TestCase
     c.affiliate(profile, Profile::Roles.all_roles(c.environment.id))
     a = profile.articles.create!(:name => 'something intresting', :body => 'ruby on rails')
 
-    assert_no_difference PublishedArticle, :count do
+    assert_no_difference a.class, :count do
       assert_difference ApproveArticle, :count do
         assert_difference c.tasks, :count do
           post :publish, :profile => profile.identifier, :id => a.id, :marked_groups => {c.id.to_s => {:name => 'bli', :group_id => c.id.to_s}}
@@ -737,7 +737,7 @@ class CmsControllerTest < Test::Unit::TestCase
     Environment.any_instance.stubs(:portal_community).returns(portal_community)
     article = profile.articles.create!(:name => 'something intresting', :body => 'ruby on rails')
 
-    assert_no_difference PublishedArticle, :count do
+    assert_no_difference article.class, :count do
       assert_difference ApproveArticle, :count do
         assert_difference portal_community.tasks, :count do
           post :publish_on_portal_community, :profile => profile.identifier, :id => article.id, :name => article.name

@@ -301,3 +301,9 @@ Given /^the profile "(.+)" has no blocks$/ do |profile|
     box.blocks.destroy_all
   end
 end
+
+Given /^the articles of "(.+)" are moderated$/ do |organization|
+  organization = Organization.find_by_name(organization)
+  organization.moderated_articles = true
+  organization.save
+end

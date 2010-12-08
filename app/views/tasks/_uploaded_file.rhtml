@@ -1,0 +1,9 @@
+<% button_bar do %>
+  <%= button :add, _("Description"), '#', :id => "lead-button", :title => _('Used when a short version your text is needed.') %>
+<% end %>
+
+<div id="article-lead">
+  <%= labelled_form_field(_('Description'), text_area(:article, :abstract, :rows => 3, :cols => 64)) %>
+</div>
+
+<%= javascript_include_tag 'article' %>

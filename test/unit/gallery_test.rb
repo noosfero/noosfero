@@ -98,9 +98,11 @@ class GalleryTest < ActiveSupport::TestCase
 
     c = fast_create(Community)
     gallery = fast_create(Gallery, :profile_id => c.id)
-    pi = PublishedArticle.create!(:profile => c, :reference_article => i, :parent => gallery)
 
-    assert_includes gallery.images(true), pi
+    a = ApproveArticle.create!(:article => i, :target => c, :requestor => p, :article_parent => gallery)
+    a.finish
+
+    assert_includes gallery.images(true), c.articles.find_by_name('rails.png')
   end
 
   should 'not let pass javascript in the body' do
