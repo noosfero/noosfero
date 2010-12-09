@@ -237,5 +237,8 @@ class TinyMceArticleTest < Test::Unit::TestCase
     assert_equal false, a.is_trackable?
   end
 
-
+  should 'be translatable' do
+    a = TinyMceArticle.new
+    assert a.translatable?
+  end
 end

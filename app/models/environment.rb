@@ -108,7 +108,7 @@ class Environment < ActiveRecord::Base
       'admin_must_approve_new_communities' => _("Admin must approve creation of communities"),
       'enterprises_are_disabled_when_created' => __('Enterprises are disabled when created'),
       'show_balloon_with_profile_links_when_clicked' => _('Show a balloon with profile links when a profile image is clicked'),
-      'xmpp_chat' => _('XMPP/Jabber based chat'),
+      'xmpp_chat' => _('XMPP/Jabber based chat')
     }
   end
 

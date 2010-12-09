@@ -11,6 +11,8 @@
     <%= required labelled_form_field(_('Title'), text_field(:article, 'name', :size => '64')) %>
   <% end %>
 
+  <%= render :partial => 'translatable' %>
+
   <br style="clear: both;"/>
   <%= button :add, _("Lead"), '#', :id => "lead-button", :style => "margin-left: 0px;" %>
   <em><%= _('Used when a short version of your text is needed.') %></em>

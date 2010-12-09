@@ -1,0 +1,7 @@
+<% if @article.translatable? %>
+  <div class="article-translation-field">
+    <%= label :article, :language, _('Language') %> <br />
+    <%= select :article, :language, @locales, { :selected => @selected_locale, :include_blank => true } %>
+    <%= hidden_field(:article, :translation_of_id) %>
+  </div>
+<% end %>

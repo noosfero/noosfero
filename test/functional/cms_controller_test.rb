@@ -1440,4 +1440,63 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_response :success
   end
 
+  should 'article language should be selected' do
+    textile = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'textile', :language => 'ru')
+    get :edit, :profile => @profile.identifier, :id => textile.id
+    assert_tag :option, :attributes => { :selected => 'selected', :value => 'ru' }, :parent => {
+      :tag => 'select', :attributes => { :id => 'article_language'} }
+  end
+
+  should 'list possible languages and include blank option' do
+    get :new, :profile => @profile.identifier, :type => 'TextileArticle'
+    assert_equal Noosfero.locales.invert, assigns(:locales)
+    assert_tag :option, :attributes => { :value => '' }, :parent => {
+      :tag => 'select', :attributes => { :id => 'article_language'} }
+  end
+
+  should 'add translation to an article' do
+    textile = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'textile', :language => 'ru')
+    assert_difference Article, :count do
+      post :new, :profile => @profile.identifier, :type => 'TextileArticle', :article => { :name => 'english translation', :translation_of_id => textile.id, :language => 'en' }
+    end
+  end
+
+  should 'not display language selection if article is not translatable' do
+    blog = fast_create(Blog, :name => 'blog', :profile_id => @profile.id)
+    get :edit, :profile => @profile.identifier, :id => blog.id
+    assert_no_tag :select, :attributes => { :id => 'article_language'}
+  end
+
+  should 'display display posts in current language input checked on edit blog' do
+    get :new, :profile => profile.identifier, :type => 'Blog'
+    assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'article[display_posts_in_current_language]', :checked => 'checked' }
+  end
+
+  should 'update to false blog display posts in current language setting' do
+    profile.articles << Blog.new(:name => 'Blog for test', :profile => profile, :display_posts_in_current_language => true)
+    post :edit, :profile => profile.identifier, :id => profile.blog.id, :article => { :display_posts_in_current_language => false }
+    profile.blog.reload
+    assert !profile.blog.display_posts_in_current_language?
+  end
+
+  should 'update to true blog display posts in current language setting' do
+    profile.articles << Blog.new(:name => 'Blog for test', :profile => profile, :display_posts_in_current_language => false)
+    post :edit, :profile => profile.identifier, :id => profile.blog.id, :article => { :display_posts_in_current_language => true }
+    profile.blog.reload
+    assert profile.blog.display_posts_in_current_language?
+  end
+
+  should 'be checked display posts in current language checkbox' do
+    profile.articles << Blog.new(:name => 'Blog for test', :profile => profile, :display_posts_in_current_language => true)
+    get :edit, :profile => profile.identifier, :id => profile.blog.id
+    assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'article[display_posts_in_current_language]', :checked => 'checked' }
+  end
+
+  should 'be unchecked display posts in current language checkbox' do
+    profile.articles << Blog.new(:name => 'Blog for test', :profile => profile, :display_posts_in_current_language => false)
+    get :edit, :profile => profile.identifier, :id => profile.blog.id
+    assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'article[display_posts_in_current_language]' }
+    assert_no_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'article[display_posts_in_current_language]', :checked => 'checked' }
+  end
+
 end

@@ -1095,4 +1095,147 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{forum.id}" }, :content => 'Configure forum' }
   end
 
+  should 'display add translation link if article is translatable' do
+    login_as @profile.identifier
+    textile = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'textile', :language => 'en')
+    get :view_page, :profile => @profile.identifier, :page => textile.explode_path
+    assert_tag :a, :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?article%5Btranslation_of_id%5D=#{textile.id}&amp;type=#{TextileArticle}" }
+  end
+
+  should 'not display add translation link if article is not translatable' do
+    login_as @profile.identifier
+    blog = fast_create(Blog, :profile_id => @profile.id, :path => 'blog')
+    get :view_page, :profile => @profile.identifier, :page => blog.explode_path
+    assert_no_tag :a, :attributes => { :content => 'Add translation', :class => /icon-locale/ }
+  end
+
+  should 'not display add translation link if article hasnt a language defined' do
+    login_as @profile.identifier
+    textile = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'textile')
+    get :view_page, :profile => @profile.identifier, :page => textile.explode_path
+    assert_no_tag :a, :attributes => { :content => 'Add translation', :class => /icon-locale/ }
+  end
+
+  should 'diplay translations link if article has translations' do
+    login_as @profile.identifier
+    textile     = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'textile', :language => 'en')
+    translation = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'translation', :language => 'es', :translation_of_id => textile)
+    get :view_page, :profile => @profile.identifier, :page => textile.explode_path
+    assert_tag :a, :attributes => { :class => /article-translations-menu/, :onclick => /toggleSubmenu/ }
+  end
+
+  should 'be redirected to translation if article is a root' do
+    @request.env['HTTP_REFERER'] = 'http://some.path'
+    FastGettext.stubs(:locale).returns('es')
+    en_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'en_article', :language => 'en')
+    es_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :translation_of_id => en_article)
+    get :view_page, :profile => @profile.identifier, :page => en_article.explode_path
+    assert_redirected_to :profile => @profile.identifier, :page => es_article.explode_path
+    assert_equal es_article, assigns(:page)
+  end
+
+  should 'be redirected to translation' do
+    @request.env['HTTP_REFERER'] = 'http://some.path'
+    FastGettext.stubs(:locale).returns('en')
+    en_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'en_article', :language => 'en')
+    es_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :translation_of_id => en_article)
+    get :view_page, :profile => @profile.identifier, :page => es_article.explode_path
+    assert_redirected_to :profile => @profile.identifier, :page => en_article.explode_path
+    assert_equal en_article, assigns(:page)
+  end
+
+  should 'not be redirected if already in translation' do
+    en_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'en_article', :language => 'en')
+    es_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :translation_of_id => en_article)
+    @request.env['HTTP_REFERER'] = "http://localhost:3000/#{@profile.identifier}/#{es_article.path}"
+    FastGettext.stubs(:locale).returns('es')
+    get :view_page, :profile => @profile.identifier, :page => es_article.explode_path
+    assert_response :success
+    assert_equal es_article, assigns(:page)
+  end
+
+  should 'not be redirected if article does not have a language' do
+    FastGettext.stubs(:locale).returns('es')
+    article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'article')
+    get :view_page, :profile => @profile.identifier, :page => article.explode_path
+    assert_response :success
+    assert_equal article, assigns(:page)
+  end
+
+  should 'not be redirected if http_referer is a translation' do
+    en_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'en_article', :language => 'en')
+    es_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :translation_of_id => en_article)
+    @request.env['HTTP_REFERER'] = "http://localhost:3000/#{@profile.identifier}/#{es_article.path}"
+    FastGettext.stubs(:locale).returns('es')
+    get :view_page, :profile => @profile.identifier, :page => en_article.explode_path
+    assert_response :success
+    assert_equal en_article, assigns(:page)
+  end
+
+  should 'be redirected if http_referer is nil' do
+    en_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'en_article', :language => 'en')
+    es_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :translation_of_id => en_article)
+    @request.env['HTTP_REFERER'] = nil
+    FastGettext.stubs(:locale).returns('es')
+    get :view_page, :profile => @profile.identifier, :page => en_article.explode_path
+    assert_redirected_to :profile => @profile.identifier, :page => es_article.explode_path
+    assert_equal es_article, assigns(:page)
+  end
+
+  should 'not be redirected to transition if came from edit' do
+    en_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'en_article', :language => 'en')
+    es_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :translation_of_id => en_article)
+    FastGettext.stubs(:locale).returns('es')
+    @request.env['HTTP_REFERER'] = "http://localhost/myprofile/#{@profile.identifier}/cms/edit/#{en_article.id}"
+    get :view_page, :profile => @profile.identifier, :page => es_article.explode_path
+    assert_response :success
+    assert_equal es_article, assigns(:page)
+  end
+
+  should 'not be redirected to transition if came from new' do
+    en_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'en_article', :language => 'en')
+    es_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :translation_of_id => en_article)
+    FastGettext.stubs(:locale).returns('es')
+    @request.env['HTTP_REFERER'] = "http://localhost/myprofile/#{@profile.identifier}/cms/new"
+    get :view_page, :profile => @profile.identifier, :page => es_article.explode_path
+    assert_response :success
+    assert_equal es_article, assigns(:page)
+  end
+
+  should 'replace article for his translation at blog listing if blog option is enabled' do
+    FastGettext.stubs(:locale).returns('es')
+    blog = fast_create(Blog, :profile_id => profile.id, :path => 'blog')
+    blog.stubs(:display_posts_in_current_language).returns(true)
+    en_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'en_article', :language => 'en')
+    es_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :translation_of_id => en_article)
+    blog.posts = [en_article, es_article]
+
+    get :view_page, :profile => @profile.identifier, :page => blog.explode_path
+    assert_tag :div, :attributes => { :id => "post-#{es_article.id}" }
+    assert_no_tag :div, :attributes => { :id => "post-#{en_article.id}" }
+  end
+
+  should 'list all posts at blog listing if blog option is disabled' do
+    FastGettext.stubs(:locale).returns('es')
+    blog = Blog.create!(:name => 'A blog test', :profile => profile, :display_posts_in_current_language => false)
+    blog.posts << es_post = TextileArticle.create!(:name => 'Spanish Post', :profile => profile, :parent => blog, :language => 'es')
+    blog.posts << en_post = TextileArticle.create!(:name => 'English Post', :profile => profile, :parent => blog, :language => 'en', :translation_of_id => es_post.id)
+    get :view_page, :profile => profile.identifier, :page => [blog.path]
+    assert_equal 2, assigns(:posts).size
+    assert_tag :div, :attributes => { :id => "post-#{es_post.id}" }
+    assert_tag :div, :attributes => { :id => "post-#{en_post.id}" }
+  end
+
+  should 'display only native translations at blog listing if blog option is enabled' do
+    FastGettext.stubs(:locale).returns('es')
+    blog = fast_create(Blog, :profile_id => profile.id, :path => 'blog')
+    blog.stubs(:display_posts_in_current_language).returns(true)
+    en_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'en_article', :language => 'en')
+    es_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :translation_of_id => en_article)
+    blog.posts = [en_article, es_article]
+
+    get :view_page, :profile => @profile.identifier, :page => blog.explode_path
+    assert_equal [es_article], assigns(:posts)
+  end
+
 end

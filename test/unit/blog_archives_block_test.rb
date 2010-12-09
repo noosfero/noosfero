@@ -102,4 +102,36 @@ class BlogArchivesBlockTest < ActiveSupport::TestCase
     assert_no_match(/blog-two/m, block.content)
   end
 
+  should 'list amount native posts by year' do
+    date = DateTime.parse('2008-01-01')
+    blog = profile.blog
+    2.times do |i|
+      post = fast_create(TextileArticle, :name => "post #{i} test", :profile_id => profile.id,
+                         :parent_id => blog.id, :language => 'en')
+      post.update_attribute(:published_at, date)
+      translation = fast_create(TextileArticle, :name => "post #{i} test", :profile_id => profile.id,
+                  :parent_id => blog.id, :language => 'en', :translation_of_id => post.id)
+      translation.update_attribute(:published_at, date)
+    end
+    block = BlogArchivesBlock.new
+    block.stubs(:owner).returns(profile)
+    assert_tag_in_string block.content, :tag => 'li', :content => '2008 (2)'
+  end
+
+  should 'list amount native posts by month' do
+    date = DateTime.parse('2008-01-01')
+    blog = profile.blog
+    2.times do |i|
+      post = fast_create(TextileArticle, :name => "post #{i} test", :profile_id => profile.id,
+                         :parent_id => blog.id, :language => 'en')
+      post.update_attribute(:published_at, date)
+      translation = fast_create(TextileArticle, :name => "post #{i} test", :profile_id => profile.id,
+                  :parent_id => blog.id, :language => 'en', :translation_of_id => post.id)
+      translation.update_attribute(:published_at, date)
+    end
+    block = BlogArchivesBlock.new
+    block.stubs(:owner).returns(profile)
+    assert_tag_in_string block.content, :tag => 'a', :content => 'January (2)', :attributes => {:href => /^http:\/\/.*\/flatline\/blog-one\?month=01&year=2008$/ }
+  end
+
 end

@@ -28,6 +28,10 @@ class Article < ActiveRecord::Base
 
   belongs_to :reference_article, :class_name => "Article", :foreign_key => 'reference_article_id'
 
+  has_many :translations, :class_name => 'Article', :foreign_key => :translation_of_id
+  belongs_to :translation_of, :class_name => 'Article', :foreign_key => :translation_of_id
+  before_destroy :rotate_translations
+
   before_create do |article|
     article.published_at = article.created_at if article.published_at.nil?
     if article.reference_article && !article.parent
@@ -53,6 +57,10 @@ class Article < ActiveRecord::Base
   URL_FORMAT = /\A(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?\Z/ix
 
   validates_format_of :external_link, :with => URL_FORMAT, :if => lambda { |article| !article.external_link.blank? }
+  validate :known_language
+  validate :used_translation
+  validate :native_translation_must_have_language
+  validate :translation_must_have_language
 
   def is_trackable?
     self.published? && self.notifiable? && self.advertise?
@@ -249,6 +257,65 @@ class Article < ActiveRecord::Base
 
   def has_posts?
     false
+  end
+
+  named_scope :native_translations, :conditions => { :translation_of_id => nil }
+
+  def translatable?
+    false
+  end
+
+  def native_translation
+    self.translation_of.nil? ? self : self.translation_of
+  end
+
+  def possible_translations
+    possibilities = Noosfero.locales.keys - self.native_translation.translations(:select => :language).map(&:language) - [self.native_translation.language]
+    possibilities << self.language unless self.language_changed?
+    possibilities
+  end
+
+  def known_language
+    unless self.language.blank?
+      errors.add(:language, N_('Language not supported by Noosfero')) unless Noosfero.locales.key?(self.language)
+    end
+  end
+
+  def used_translation
+    unless self.language.blank? or self.translation_of.nil?
+      errors.add(:language, N_('Language is already used')) unless self.possible_translations.include?(self.language)
+    end
+  end
+
+  def translation_must_have_language
+    unless self.translation_of.nil?
+      errors.add(:language, N_('Language must be choosen')) if self.language.blank?
+    end
+  end
+
+  def native_translation_must_have_language
+    unless self.translation_of.nil?
+      errors.add_to_base(N_('A language must be choosen for the native article')) if self.translation_of.language.blank?
+    end
+  end
+
+  def rotate_translations
+    unless self.translations.empty?
+      rotate = self.translations
+      root = rotate.shift
+      root.update_attribute(:translation_of_id, nil)
+      root.translations = rotate
+    end
+  end
+
+  def get_translation_to(locale)
+    if self.language.nil? || self.language == locale
+      self
+    elsif self.native_translation.language == locale
+      self.native_translation
+    else
+      self.native_translation.translations.first(:conditions => { :language => locale }) || self
+    end
   end
 
   def published?

@@ -62,7 +62,8 @@ class RssFeed < Article
   include ActionController::UrlWriter
   def fetch_articles
     if parent && parent.has_posts?
-      return parent.posts.find(:all, :conditions => ['published = ?', true], :limit => self.limit, :order => 'id desc')
+      language = self.language.blank? ? {} : { :language => self.language }
+      return parent.posts.find(:all, :conditions => { :published => true }.merge(language), :limit => self.limit, :order => 'id desc')
     end
 
     articles =

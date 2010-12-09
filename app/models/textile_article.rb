@@ -16,4 +16,8 @@ class TextileArticle < TextArticle
     true
   end
 
+  def translatable?
+    true
+  end
+
 end

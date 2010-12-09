@@ -175,4 +175,20 @@ class BlogTest < ActiveSupport::TestCase
     assert Blog.new.has_posts?
   end
 
+  should 'display posts in current language by default' do
+    blog = Blog.new
+    assert blog.display_posts_in_current_language
+    assert blog.display_posts_in_current_language?
+  end
+
+  should 'update display posts in current language setting' do
+    p = create_user('testuser').person
+    p.articles << Blog.new(:profile => p, :name => 'Blog test')
+    blog = p.blog
+    blog.display_posts_in_current_language = false
+    assert blog.save! && blog.reload
+    assert !blog.reload.display_posts_in_current_language
+    assert !blog.reload.display_posts_in_current_language?
+  end
+
 end

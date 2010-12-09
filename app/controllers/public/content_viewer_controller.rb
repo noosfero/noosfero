@@ -51,6 +51,8 @@ class ContentViewerController < ApplicationController
       return
     end
 
+    redirect_to_translation
+
     # At this point the page will be showed
     @page.hit
 
@@ -85,7 +87,11 @@ class ContentViewerController < ApplicationController
         @page.posts
       end
 
+      posts = posts.native_translations if @page.blog? && @page.display_posts_in_current_language?
+
       @posts = posts.paginate({ :page => params[:npage], :per_page => @page.posts_per_page }.merge(Article.display_filter(user, profile)))
+
+      @posts.map!{ |p| p.get_translation_to(FastGettext.locale) } if @page.blog? && @page.display_posts_in_current_language?
     end
 
     if @page.folder? && @page.gallery?
@@ -125,4 +131,24 @@ class ContentViewerController < ApplicationController
   def per_page
     12
   end
+
+  def redirect_to_translation
+    locale = FastGettext.locale
+    if !@page.language.nil? && @page.language != locale
+      translations = [@page.native_translation] + @page.native_translation.translations
+      urls = translations.map{ |t| URI.parse(url_for(t.url)).path }
+      urls << URI.parse(url_for(profile.admin_url.merge({ :controller => 'cms', :action => 'edit', :id => @page.id }))).path
+      urls << URI.parse(url_for(profile.admin_url.merge(:controller => 'cms', :action => 'new'))).path
+      referer = URI.parse(url_for(request.referer)).path unless request.referer.blank?
+      unless urls.include?(referer)
+        translations.each do |translation|
+          if translation.language == locale
+            @page = translation
+            redirect_to :profile => @page.profile.identifier, :page => @page.explode_path
+          end
+        end
+      end
+    end
+  end
+
 end

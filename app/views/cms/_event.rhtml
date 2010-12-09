@@ -5,6 +5,8 @@
 
 <%= required f.text_field('name', :size => '64') %>
 
+<%= render :partial => 'translatable' %>
+
 <%= labelled_form_field(_('Start date'), pick_date(:article, :start_date)) %>
 
 <%= labelled_form_field(_('End date'), pick_date(:article, :end_date)) %>

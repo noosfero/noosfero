@@ -240,4 +240,24 @@ class RssFeedTest < Test::Unit::TestCase
     assert_not_nil RssFeed.new.to_html
   end
 
+  should 'include posts from all languages' do
+    profile = create_user('testuser').person
+    blog = Blog.create!(:name => 'blog-test', :profile => profile, :language => nil)
+    blog.posts << en_post = fast_create(TextArticle, :name => "English", :profile_id => profile.id, :parent_id => blog.id, :published => true, :language => 'en')
+    blog.posts << es_post = fast_create(TextArticle, :name => "Spanish", :profile_id => profile.id, :parent_id => blog.id, :published => true, :language => 'es')
+
+    assert blog.feed.fetch_articles.include?(en_post)
+    assert blog.feed.fetch_articles.include?(es_post)
+  end
+
+  should 'include only posts from some language' do
+    profile = create_user('testuser').person
+    blog = Blog.create!(:name => 'blog-test', :profile => profile)
+    blog.feed.update_attributes! :language => 'es'
+    blog.posts << en_post = fast_create(TextArticle, :name => "English", :profile_id => profile.id, :parent_id => blog.id, :published => true, :language => 'en')
+    blog.posts << es_post = fast_create(TextArticle, :name => "Spanish", :profile_id => profile.id, :parent_id => blog.id, :published => true, :language => 'es')
+
+    assert_equal [es_post], blog.feed.fetch_articles
+  end
+
 end

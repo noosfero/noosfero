@@ -27,7 +27,7 @@ module ApplicationHelper
   include AccountHelper
 
   def locale
-    FastGettext.locale
+    (@page && !@page.language.blank?) ? @page.language : FastGettext.locale
   end
 
   def load_web2_conf

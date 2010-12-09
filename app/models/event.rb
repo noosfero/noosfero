@@ -120,6 +120,10 @@ class Event < Article
     true
   end
 
+  def translatable?
+    true
+  end
+
   include MaybeAddHttp
 
 end

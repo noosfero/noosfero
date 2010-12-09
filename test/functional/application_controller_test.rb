@@ -419,4 +419,26 @@ class ApplicationControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'meta', :attributes => { :name => 'description', :content => assigns(:environment).name }
   end
 
+  should 'set html lang as the article language if an article is present and has a language' do
+    a = fast_create(Article, :name => 'test article', :language => 'fr')
+    @controller.instance_variable_set('@page', a)
+    FastGettext.stubs(:locale).returns('es')
+    get :index
+    assert_tag :html, :attributes => { :lang => 'fr' }
+  end
+
+  should 'set html lang as locale if no page present' do
+    FastGettext.stubs(:locale).returns('es')
+    get :index
+    assert_tag :html, :attributes => { :lang => 'es' }
+  end
+
+  should 'set html lang as locale if page has no language' do
+    a = fast_create(Article, :name => 'test article', :language => nil)
+    @controller.instance_variable_set('@page', a)
+    FastGettext.stubs(:locale).returns('es')
+    get :index
+    assert_tag :html, :attributes => { :lang => 'es' }
+  end
+
 end

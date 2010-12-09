@@ -35,6 +35,11 @@
       <% end %>
       <% if !(profile.kind_of?(Enterprise) && environment.enabled?('disable_cms')) %>
         <% if !@page.gallery? %>
+          <%= link_to _('Add translation'),
+              profile.admin_url.merge(:controller => 'cms', :action => 'new',
+                                      :parent_id => (@page.folder? ? @page : (@page.parent.nil? ? nil : @page.parent)),
+                                      :type => @page.type, :article => { :translation_of_id => @page.native_translation.id }),
+              :class => 'button with-text icon-locale' if @page.translatable? && !@page.native_translation.language.blank? %>
           <%= lightbox_button(:new, label_for_new_article(@page), profile.admin_url.merge(:controller => 'cms', :action => 'new', :parent_id => (@page.folder? ? @page : (@page.parent.nil? ? nil : @page.parent)))) %>
         <% end %>
         <% if (@page.folder? && !@page.has_posts?) || (@page.parent && @page.parent.folder? && !@page.parent.has_posts?) %>
@@ -50,6 +55,7 @@
       <%= link_to content_tag( 'span', _('Suggest an article') ), profile.admin_url.merge({ :controller => 'cms', :action => 'suggest_an_article'}), :class => 'button with-text icon-new' %>
     <% end %>
   <% end %>
+  <%= article_translations(@page) %>
   <div id="article-header">
     <%= link_to(image_tag('icons-mime/rss-feed.png'), @page.feed.url, :class => 'blog-feed-link') if @page.has_posts? && @page.feed %>
     <%= article_title(@page, :no_link => true) %>

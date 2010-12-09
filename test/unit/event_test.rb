@@ -265,4 +265,10 @@ class EventTest < ActiveSupport::TestCase
     assert_match  /<!-- .* --> <h1> Wellformed html code <\/h1>/, event.description
     assert_match  /<!-- .* --> <h1> Wellformed html code <\/h1>/, event.address
   end
+
+  should 'be translatable' do
+    e = Event.new
+    assert e.translatable?
+  end
+
 end

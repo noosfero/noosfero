@@ -1229,4 +1229,174 @@ class ArticleTest < Test::Unit::TestCase
     assert_equal [g], p.articles.galleries
   end
 
+  should 'has many translations' do
+    a = build(Article)
+    assert_raises(ActiveRecord::AssociationTypeMismatch) { a.translations << 1 }
+    assert_nothing_raised { a.translations << build(Article) }
+  end
+
+  should 'belongs to translation of' do
+    a = build(Article)
+    assert_raises(ActiveRecord::AssociationTypeMismatch) { a.translation_of = 1 }
+    assert_nothing_raised { a.translation_of = build(Article) }
+  end
+
+  should 'has language' do
+    a = build(Article)
+    assert_nothing_raised { a.language = 'en' }
+  end
+
+  should 'validade inclusion of language' do
+    a = build(Article)
+    a.language = '12'
+    a.valid?
+    assert a.errors.invalid?(:language)
+    a.language = 'en'
+    a.valid?
+    assert !a.errors.invalid?(:language)
+  end
+
+  should 'language can be blank' do
+    a = build(Article)
+    a.valid?
+    assert !a.errors.invalid?(:language)
+    a.language = ''
+    a.valid?
+    assert !a.errors.invalid?(:language)
+  end
+
+  should 'article is not translatable' do
+    a = build(Article)
+    assert !a.translatable?
+  end
+
+  should 'get native translation' do
+    native_article = fast_create(Article)
+    article_translation = fast_create(Article)
+    native_article.translations << article_translation
+    assert_equal native_article, native_article.native_translation
+    assert_equal native_article, article_translation.native_translation
+  end
+
+  should 'list possible translations' do
+    native_article = fast_create(Article, :language => 'pt')
+    article_translation = fast_create(Article, :language => 'en', :translation_of_id => native_article.id)
+    possible_translations = native_article.possible_translations
+    assert !possible_translations.include?('en')
+    assert possible_translations.include?('pt')
+  end
+
+  should 'verify if translation is already in use' do
+    native_article = fast_create(Article, :language => 'pt')
+    article_translation = fast_create(Article, :language => 'en', :translation_of_id => native_article.id)
+    a = build(Article)
+    a.language = 'en'
+    a.translation_of = native_article
+    a.valid?
+    assert a.errors.invalid?(:language)
+    a.language = 'es'
+    a.valid?
+    assert !a.errors.invalid?(:language)
+  end
+
+  should 'verify if native translation is already in use' do
+    native_article = fast_create(Article, :language => 'pt')
+    a = build(Article)
+    a.language = 'pt'
+    a.translation_of = native_article
+    a.valid?
+    assert a.errors.invalid?(:language)
+    a.language = 'es'
+    a.valid?
+    assert !a.errors.invalid?(:language)
+  end
+
+  should 'translation have a language' do
+    native_article = fast_create(Article, :language => 'pt')
+    a = build(Article)
+    a.translation_of = native_article
+    a.valid?
+    assert a.errors.invalid?(:language)
+    a.language = 'en'
+    a.valid?
+    assert !a.errors.invalid?(:language)
+  end
+
+  should 'native translation have a language' do
+    native_article = fast_create(Article)
+    a = build(Article)
+    a.language = 'en'
+    a.translation_of = native_article
+    a.valid?
+    n = a.errors.count
+    native_article.language = 'pt'
+    native_article.save
+    a.valid?
+    assert_equal n - 1, a.errors.count
+  end
+
+  should 'rotate translations when root article is destroyed' do
+    native_article = fast_create(Article, :language => 'pt', :profile_id => @profile.id)
+    translation1 = fast_create(Article, :language => 'en', :translation_of_id => native_article.id, :profile_id => @profile.id)
+    translation2 = fast_create(Article, :language => 'es', :translation_of_id => native_article.id, :profile_id => @profile.id)
+    native_article.destroy
+    assert translation1.translation_of.nil?
+    assert translation1.translations.include?(translation2)
+  end
+
+  should 'rotate one translation when root article is destroyed' do
+    native_article = fast_create(Article, :language => 'pt', :profile_id => @profile.id)
+    translation = fast_create(Article, :language => 'en', :translation_of_id => native_article.id, :profile_id => @profile.id)
+    native_article.destroy
+    assert translation.translation_of.nil?
+    assert translation.translations.empty?
+  end
+
+  should 'get self if article does not a language' do
+    article = fast_create(Article, :profile_id => @profile.id)
+    assert_equal article, article.get_translation_to('en')
+  end
+
+  should 'get self if article is the translation' do
+    article = fast_create(Article, :language => 'pt', :profile_id => @profile.id)
+    assert_equal article, article.get_translation_to('pt')
+  end
+
+  should 'get the native translation if it is the translation' do
+    native_article = fast_create(Article, :language => 'pt', :profile_id => @profile.id)
+    translation = fast_create(Article, :language => 'en', :translation_of_id => native_article.id, :profile_id => @profile.id)
+    assert_equal native_article, translation.get_translation_to('pt')
+  end
+
+  should 'get the translation if article has translation' do
+    native_article = fast_create(Article, :language => 'pt', :profile_id => @profile.id)
+    translation = fast_create(Article, :language => 'en', :translation_of_id => native_article.id, :profile_id => @profile.id)
+    assert_equal translation, native_article.get_translation_to('en')
+  end
+
+  should 'get self if article does not has a translation' do
+    native_article = fast_create(Article, :language => 'pt', :profile_id => @profile.id)
+    assert_equal native_article, native_article.get_translation_to('en')
+  end
+
+  should 'get only non translated articles' do
+    p = fast_create(Profile)
+    native = fast_create(Article, :language => 'pt', :profile_id => p.id)
+    translation = fast_create(Article, :language => 'en', :translation_of_id => native.id, :profile_id => p.id)
+    assert_equal [native], p.articles.native_translations
+  end
+
+  should 'not list own language as a possible translation if language has changed' do
+    a = build(Article, :language => 'pt')
+    assert !a.possible_translations.include?('pt')
+    a = fast_create(Article, :language => 'pt')
+    a.language = 'en'
+    assert !a.possible_translations.include?('en')
+  end
+
+  should 'list own language as a possible translation if language has not changed' do
+    a = fast_create(Article, :language => 'pt')
+    assert a.possible_translations.include?('pt')
+  end
+
 end

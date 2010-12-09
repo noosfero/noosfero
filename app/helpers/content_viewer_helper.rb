@@ -35,4 +35,16 @@ module ContentViewerHelper
     text && (text.first(40) + (text.size > 40 ? '…' : ''))
   end
 
+  def article_translations(article)
+    unless article.native_translation.translations.empty?
+      links = (article.native_translation.translations + [article.native_translation]).map do |translation|
+        { Noosfero.locales[translation.language] => { :href => url_for(translation.url) } }
+      end
+      content_tag(:div, link_to(_('Translations'), '#',
+                                :onclick => "toggleSubmenu(this, '#{_('Translations')}', #{links.to_json}); return false",
+                                :class => 'article-translations-menu simplemenu-trigger up'),
+                  :class => 'article-translations')
+    end
+  end
+
 end

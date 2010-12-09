@@ -89,6 +89,7 @@ class CmsController < MyProfileController
     @article = profile.articles.find(params[:id])
     @parent_id = params[:parent_id]
     @type = params[:type] || @article.class.to_s
+    translations if @article.translatable?
     continue = params[:continue]
 
     refuse_blocks
@@ -137,6 +138,8 @@ class CmsController < MyProfileController
       @article.parent = parent
       @parent_id = parent.id
     end
+
+    translations if @article.translatable?
 
     @article.profile = profile
     @article.last_changed_by = user
@@ -367,5 +370,11 @@ class CmsController < MyProfileController
   def per_page
     10
   end
+
+  def translations
+    @locales = Noosfero.locales.invert.reject { |name, lang| !@article.possible_translations.include?(lang) }
+    @selected_locale = @article.language || FastGettext.locale
+  end
+
 end
 

@@ -133,3 +133,32 @@ Feature: edit article
     Then I should be on "My new article" edit page
     And the "Title" field should contain "My new article"
     And the "Text" field should contain "text for the new article"
+
+  Scenario: add a translation to an article
+    Given I am on Joao Silva's sitemap
+    And I follow "Save the whales"
+    Then I should not see "Add translation"
+    And I follow "Edit"
+    And I select "English" from "Language"
+    Then I press "Save"
+    And I follow "Add translation"
+    And I fill in "Title" with "Mi neuvo artículo"
+    And I select "Español" from "Language"
+    When I press "Save"
+    Then I should be on /joaosilva/save-the-whales
+    And I should see "Translations"
+
+  Scenario: not add a translation without a language
+    Given the following articles
+      | owner     | name               | language |
+      | joaosilva | Article in English | en       |
+    And I am on Joao Silva's sitemap
+    And I follow "Article in English"
+    And I follow "Add translation"
+    And I fill in "Title" with "Article in Portuguese"
+    When I press "Save"
+    Then I should see "Language must be choosen"
+    And I select "Português" from "Language"
+    When I press "Save"
+    Then I should not see "Language must be choosen"
+    And I should be on /joaosilva/article-in-english
