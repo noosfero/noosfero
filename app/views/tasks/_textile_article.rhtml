@@ -7,7 +7,7 @@
   <%= labelled_form_field(_('Lead'), f.text_area(:abstract, :cols => 64, :rows => 10)) %>
 </div>
 <div id="article-body-field" style="margin-top: 10px;">
-  <%= labelled_form_field(_('Text'), f.text_area(:body, :cols => 64)) %>
+  <%= labelled_form_field(_('Text'), f.text_area(:body, :cols => 64, :rows => 30)) %>
 </div>
 
 <%= javascript_include_tag 'article'%>
