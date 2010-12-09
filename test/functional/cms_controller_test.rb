@@ -1410,4 +1410,36 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/upload_files?parent_id=#{profile.forum.id}"}
   end
 
+  should 'not logged in to suggest an article' do
+    logout
+    get :suggest_an_article, :profile => profile.identifier, :back_to => 'action_view'
+
+    assert_template 'suggest_an_article'
+  end
+
+  should 'create a task suggest task to a profile' do
+    c = Community.create!(:name => 'test comm', :identifier => 'test_comm', :moderated_articles => true)
+
+    SuggestArticle.any_instance.stubs(:skip_captcha?).returns(true)
+    assert_difference SuggestArticle, :count do
+      post :suggest_an_article, :profile => c.identifier, :back_to => 'action_view', :task => {:article_name => 'some name', :article_body => 'some body', :email => 'some@localhost.com', :name => 'some name'}
+    end
+  end
+
+  should 'suggest an article from a profile' do
+    c = Community.create!(:name => 'test comm', :identifier => 'test_comm', :moderated_articles => true)
+    get :suggest_an_article, :profile => c.identifier, :back_to => c.identifier
+    assert_response :success
+    assert_template 'suggest_an_article'
+    assert_tag :tag => 'input', :attributes => { :value => c.identifier, :id => 'back_to' }
+  end
+
+  should 'suggest an article accessing the url directly' do
+    c = Community.create!(:name => 'test comm', :identifier => 'test_comm', :moderated_articles => true)
+    get :suggest_an_article, :profile => c.identifier
+    assert_response :success
+    assert_template 'suggest_an_article'
+    assert_tag :tag => 'input', :attributes => { :value => "https://colivre.net/profile/test_comm", :id => 'back_to' }
+  end
+
 end

@@ -45,6 +45,8 @@
         <%= button('upload-file', _('Upload files'), :controller => 'cms', :action => 'upload_files', :parent_id => (@page.folder? ? @page : @page.parent)) %>
       <% end %>
     </div>
+  <% else %>
+    <%= link_to content_tag( 'span', _('Suggest an article') ), profile.admin_url.merge({ :controller => 'cms', :action => 'suggest_an_article'}), :class => 'button with-text icon-new' %>
   <% end %>
   <div id="article-header">
     <%= link_to(image_tag('icons-mime/rss-feed.png'), @page.feed.url, :class => 'blog-feed-link') if @page.has_posts? && @page.feed %>
@@ -89,15 +91,7 @@
 </div>
 <% end %>
 
-<% if ! @page.source.nil? && ! @page.source.empty?%>
-<div id="article-source">
-  <%= _('Source: %s') % link_to(@page.source, @page.source) %>
-</div>
-<% elsif @page.reference_article  %>
-<div id="article-source">
-  <%= _('Source: %s') % link_to(@page.reference_article.profile.name, @page.reference_article.url) %>
-</div>
-<% end %>
+<%= display_source_info(@page) %>
 
 <%
   # AddThis Button

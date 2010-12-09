@@ -5237,3 +5237,17 @@ h1#agenda-title {
 .forum-posts .pagination {
   margin-top: 20px;
 }
+
+#captcha input {
+  border: 1px solid #ccc;
+  margin: 4px 0px 2px 10px !important;
+  padding: 0px !important;
+  width: 150px !important;
+  font-size: 24px;
+  float: left;
+}
+
+#captcha label{
+  float: left;
+  font-size: 24px;
+}

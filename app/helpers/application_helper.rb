@@ -1177,4 +1177,13 @@ module ApplicationHelper
     concat(content_tag('div', wrapper + tag('br', :style => 'clear: both;'), { :class => 'comment-balloon ' + classes.to_s }.merge(options)), block.binding)
   end
 
+  def display_source_info(page)
+    if !page.source.blank?
+      source_url = link_to(page.source_name.blank? ? page.source : page.source_name, page.source)
+    elsif page.reference_article
+      source_url = link_to(page.reference_article.profile.name, page.reference_article.url)
+    end
+    content_tag(:div, _('Source: %s') % source_url, :id => 'article-source') unless source_url.nil?
+  end
+
 end

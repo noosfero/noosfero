@@ -237,4 +237,29 @@ class TasksControllerTest < Test::Unit::TestCase
     assert_equal Task::Status::CANCELLED, task.status
   end
 
+  should 'create TinyMceArticle article after finish approve suggested article task' do
+    TinyMceArticle.destroy_all
+    c = fast_create(Community)
+    c.affiliate(profile, Profile::Roles.all_roles(profile.environment.id))
+    @controller.stubs(:profile).returns(c)
+    SuggestArticle.skip_captcha!
+    t = SuggestArticle.create!(:article_name => 'test name', :article_body => 'test body', :name => 'some name', :email => 'test@localhost.com', :target => c)
+
+    post :close, :decision => 'finish', :id => t.id, :task => {}
+    assert_not_nil TinyMceArticle.find(:first)
+  end
+
+  should "change the article's attributes on suggested article task approval" do
+    TinyMceArticle.destroy_all
+    c = fast_create(Community)
+    c.affiliate(profile, Profile::Roles.all_roles(profile.environment.id))
+    @controller.stubs(:profile).returns(c)
+    SuggestArticle.skip_captcha!
+    t = SuggestArticle.create!(:article_name => 'test name', :article_body => 'test body', :name => 'some name', :email => 'test@localhost.com', :target => c)
+
+    post :close, :decision => 'finish', :id => t.id, :task => {:article_name => 'new name', :article_body => 'new body'}
+    assert_equal 'new name', TinyMceArticle.find(:first).name
+    assert_equal 'new body', TinyMceArticle.find(:first).body
+  end
+
 end

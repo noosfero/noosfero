@@ -14,7 +14,8 @@ class CmsController < MyProfileController
     end
   end
 
-  protect_if :except => [:set_home_page, :edit, :destroy, :publish] do |c, user, profile|
+  before_filter :login_required, :except => [:suggest_an_article]
+  protect_if :except => [:suggest_an_article, :set_home_page, :edit, :destroy, :publish] do |c, user, profile|
     user && (user.has_permission?('post_content', profile) || user.has_permission?('publish_content', profile))
   end
 
@@ -278,6 +279,18 @@ class CmsController < MyProfileController
         redirect_to @back_to
       else
         redirect_to @article.view_url
+      end
+    end
+  end
+
+  def suggest_an_article
+    @back_to = params[:back_to] || request.referer || url_for(profile.public_profile_url)
+    @task = SuggestArticle.new(params[:task])
+    if request.post?
+       @task.target = profile
+      if @task.save
+        session[:notice] = _('You make your suggestion successfully. Please wait the article approval.')
+        redirect_to @back_to
       end
     end
   end
