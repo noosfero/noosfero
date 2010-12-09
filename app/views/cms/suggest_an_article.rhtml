@@ -6,23 +6,25 @@
 
 <% labelled_form_for 'task', @task do |f| %>
 
-  <%= required labelled_form_field(_('Title'), text_field(:task, 'article_name')) %>
+  <%= required labelled_form_field(_('Title'), text_field(:task, 'article_name', :size => 50)) %>
 
-  <%= labelled_form_field(_('Url Source'), text_field(:task, 'source')) %>
+  <%= labelled_form_field(_('Source'), text_field(:task, 'source_name')) %>
 
-  <%= required labelled_form_field(_('Name'), text_field(:task, 'name')) %>
+  <%= labelled_form_field(_('Source link'), text_field(:task, 'source')) %>
+
+  <%= required labelled_form_field(_('Your name'), text_field(:task, 'name')) %>
 
   <%= required labelled_form_field(_('Email'), text_field(:task, 'email')) %>
 
   <br style="clear: both;"/>
   <%= button :add, _("Lead"), '#', :id => "lead-button", :style => "margin-left: 0px;" %>
-  <em><%= _('Used when a short version your text is needed.') %></em>
+  <em><%= _('Used when a short version of your text is needed.') %></em>
 
   <div id="article-lead">
-    <%= labelled_form_field(_('Lead'), text_area(:task , 'article_abstract', :style => 'width: 100%; height: 300px;')) %>
+    <%= labelled_form_field(_('Lead'), text_area(:task , 'article_abstract', :style => 'width: 100%; height: 200px;')) %>
   </div>
   <div style="margin-top: 10px;">
-    <%= labelled_form_field(_('Text'), text_area(:task, 'article_body', :style => 'width:100%')) %>
+    <%= labelled_form_field(_('Text'), text_area(:task, 'article_body', :style => 'width:100%; height: 500px;')) %>
   </div>
 
   <div id="captcha">

@@ -4,24 +4,24 @@
 
 <% form_for('task', task, :url => { :action => 'close', :id => task.id}) do |f| %>
 
-  <p> <%= label_tag(_("Sent by: %s") % task.name) %> </p>
+  <p><%= label_tag(_("Sent by: %s") % task.name) %> </p>
   <p><%= label_tag(_("Email: %s") % task.email) %> </p>
-  <p><%= label_tag(_("Source: %s") % task.source) %> </p>
 
-  <%= required labelled_form_field(_('Title'), text_field_tag('task[article_name]', task.article_name)) %>
+  <%= required labelled_form_field(_('Title'), f.text_field(:article_name, :size => 50)) %>
+  <%= labelled_form_field(_('Source'), f.text_field(:source_name)) %>
+  <%= labelled_form_field(_("Source URL"), f.text_field(:source)) %>
 
   <%= select_folder(_('Select the folder where the article must be published'), 'task', 'article_parent_id', task.target.folders) %>
-
 
   <br style="clear: both;"/>
   <%= button :add, _("Lead"), '#', :id => "lead-button", :style => "margin-left: 0px;" %>
   <em><%= _('Used when a short version your text is needed.') %></em>
       
   <div id="article-lead">
-    <%= labelled_form_field(_('Lead'), text_area_tag('task[article_abstract]', task.article_abstract, :style => 'width: 100%; height: 300px;')) %>
+    <%= labelled_form_field(_('Lead'), text_area_tag('task[article_abstract]', task.article_abstract, :style => 'width: 100%; height: 200px;')) %>
   </div>
   <div style="margin-top: 10px;">
-    <%= labelled_form_field(_('Text'), text_area_tag('task[article_body]', task.article_body, :style => 'width:100%')) %>
+    <%= labelled_form_field(_('Text'), text_area_tag('task[article_body]', task.article_body, :style => 'width:100%; height: 500px;')) %>
   </div>
 
   <div>

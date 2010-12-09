@@ -1438,8 +1438,6 @@ class CmsControllerTest < Test::Unit::TestCase
     c = Community.create!(:name => 'test comm', :identifier => 'test_comm', :moderated_articles => true)
     get :suggest_an_article, :profile => c.identifier
     assert_response :success
-    assert_template 'suggest_an_article'
-    assert_tag :tag => 'input', :attributes => { :value => "https://colivre.net/profile/test_comm", :id => 'back_to' }
   end
 
 end

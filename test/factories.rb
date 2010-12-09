@@ -427,4 +427,8 @@ module Noosfero::Factory
     { :profile_id => 1, :path => name, :name => name, :slug => name.to_slug }.merge(params)
   end
 
+  def defaults_for_suggest_article
+    { :name => 'Sender', :email => 'sender@example.com', :article_name => 'Some title', :article_body => 'some body text', :article_abstract => 'some abstract text'}
+  end
+
 end

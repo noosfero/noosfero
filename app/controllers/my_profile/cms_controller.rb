@@ -289,7 +289,7 @@ class CmsController < MyProfileController
     if request.post?
        @task.target = profile
       if @task.save
-        session[:notice] = _('You make your suggestion successfully. Please wait the article approval.')
+        session[:notice] = _('Thanks for your suggestion. The community administrators were notified.')
         redirect_to @back_to
       end
     end

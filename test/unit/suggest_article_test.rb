@@ -86,4 +86,37 @@ class SuggestArticleTest < ActiveSupport::TestCase
     assert_equal count + 1, TinyMceArticle.count
   end
 
+  should 'fill source name and URL into created article' do
+    t = build(SuggestArticle, :target => @profile)
+    t.source_name = 'GNU project'
+    t.source = 'http://www.gnu.org/'
+    t.perform
+
+    article = TinyMceArticle.last
+    assert_equal 'GNU project', article.source_name
+    assert_equal 'http://www.gnu.org/', article.source
+  end
+
+  should 'use sender name in description' do
+    t = build(SuggestArticle, :target => @profile)
+    t.stubs(:sender).returns('XYZ')
+    assert_match(/XYZ/, t.description)
+  end
+
+  should 'use name and e-mail as sender info' do
+    t = build(SuggestArticle, :target => @profile)
+    t.name = 'Some One'
+    t.email = 'someone@example.com'
+    assert_match(/.*Some One.*someone@example.com/, t.sender)
+  end
+
+  should 'highlight created article' do
+    t = build(SuggestArticle, :target => @profile)
+    t.highlighted = true
+    t.perform
+
+    article = TinyMceArticle.last(:conditions => { :name => t.article_name}) # just to be sure
+    assert article.highlighted
+  end
+
 end

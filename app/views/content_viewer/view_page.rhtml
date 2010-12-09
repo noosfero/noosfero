@@ -46,7 +46,9 @@
       <% end %>
     </div>
   <% else %>
-    <%= link_to content_tag( 'span', _('Suggest an article') ), profile.admin_url.merge({ :controller => 'cms', :action => 'suggest_an_article'}), :class => 'button with-text icon-new' %>
+    <% if profile.community? %>
+      <%= link_to content_tag( 'span', _('Suggest an article') ), profile.admin_url.merge({ :controller => 'cms', :action => 'suggest_an_article'}), :class => 'button with-text icon-new' %>
+    <% end %>
   <% end %>
   <div id="article-header">
     <%= link_to(image_tag('icons-mime/rss-feed.png'), @page.feed.url, :class => 'blog-feed-link') if @page.has_posts? && @page.feed %>

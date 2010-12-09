@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101205034144) do
+ActiveRecord::Schema.define(:version => 20101209001631) do
 
   create_table "action_tracker", :force => true do |t|
     t.integer  "user_id"
@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(:version => 20101205034144) do
     t.boolean  "is_image",             :default => false
     t.integer  "translation_of_id"
     t.string   "language"
+    t.string   "source_name"
   end
 
   create_table "articles", :force => true do |t|
@@ -113,6 +114,7 @@ ActiveRecord::Schema.define(:version => 20101205034144) do
     t.boolean  "is_image",             :default => false
     t.integer  "translation_of_id"
     t.string   "language"
+    t.string   "source_name"
   end
 
   add_index "articles", ["translation_of_id"], :name => "index_articles_on_translation_of_id"
