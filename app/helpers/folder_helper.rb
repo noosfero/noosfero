@@ -21,9 +21,14 @@ module FolderHelper
   end
 
   def display_article_in_listing(article, recursive = false, level = 0)
+    article_link = if article.image?
+         link_to('&nbsp;' * (level * 4) + image_tag(icon_for_article(article)) + short_filename(article.name), article.url.merge(:view => true))
+       else
+         link_to('&nbsp;' * (level * 4) + short_filename(article.name), article.url.merge(:view => true), :class => icon_for_article(article))
+       end
     result = content_tag(
       'tr',
-      content_tag('td', link_to(('&nbsp;' * (level * 4) ) + image_tag(icon_for_article(article)) + short_filename(article.name), article.url.merge(:view => true)))+
+      content_tag('td', article_link )+
       content_tag('td', show_date(article.updated_at), :class => 'last-update'),
       :class => 'sitemap-item'
     )
@@ -35,16 +40,16 @@ module FolderHelper
   end
 
   def icon_for_article(article)
-    icon = article.icon_name
+    icon = article.class.icon_name(article)
     if (icon =~ /\//)
       icon
     else
-      if File.exists?(File.join(RAILS_ROOT, 'public', 'images', 'icons-mime', "#{icon}.png"))
-        "icons-mime/#{icon}.png"
-      else
-        "icons-mime/unknown.png"
-      end
+      'icon icon-' + icon
     end
+  end
+
+  def icon_for_new_article(type)
+    "icon-new icon-new%s" % type.constantize.icon_name
   end
 
   def custom_options_for_article(article)

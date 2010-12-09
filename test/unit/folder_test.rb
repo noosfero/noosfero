@@ -15,7 +15,7 @@ class FolderTest < ActiveSupport::TestCase
   end
 
   should 'provide own icon name' do
-    assert_not_equal Article.new.icon_name, Folder.new.icon_name
+    assert_not_equal Article.icon_name, Folder.icon_name
   end
 
   should 'identify as folder' do

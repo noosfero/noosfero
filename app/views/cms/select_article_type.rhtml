@@ -1,12 +1,16 @@
-<h2> <%= _('Choose the type of article:') %> </h2>
+<h2> <%= _('Choose the type of content:') %> </h2>
 
 <ul id="article_types">
   <% for type in @article_types %>
-    <li>
-    <%= link_to type[:short_description], :action => 'new', :type => type[:name], :parent_id => @parent_id, :back_to => @back_to %>
-    <br/> <%= type[:description] %>
-    </li>
+    <% action = type[:name] == 'UploadedFile' ? {:action => 'upload_files'} : {:action => 'new', :type => type[:name]} %>
+    <% content_tag('a', :href => url_for(action.merge(:parent_id => @parent_id, :back_to => @back_to))) do %>
+      <li class="<%= icon_for_new_article(type[:name]) %>" onmouseover="javascript: jQuery(this).addClass('mouseover')" onmouseout="jQuery(this).removeClass('mouseover')">
+        <strong><%= type[:short_description] %></strong>
+        <div class='description'><%= type[:description] %></div>
+      </li>
+    <% end %>
   <% end %>
 </ul>
+<br style="clear:both" />
 
 <%= lightbox_close_button(_('Cancel')) %>

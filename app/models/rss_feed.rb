@@ -91,7 +91,7 @@ class RssFeed < Article
     _('Provides a news feed of your more recent articles.')
   end
 
-  def icon_name
+  def self.icon_name(article = nil)
     'rss-feed'
   end
 

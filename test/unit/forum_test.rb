@@ -11,7 +11,11 @@ class ForumTest < ActiveSupport::TestCase
   end
 
   should 'provide own icon name' do
-    assert_not_equal Article.new.icon_name, Forum.new.icon_name
+    assert_not_equal Article.icon_name, Forum.icon_name
+  end
+
+  should 'provide forum as icon name' do
+    assert_equal 'forum', Forum.icon_name
   end
 
   should 'identify as folder' do

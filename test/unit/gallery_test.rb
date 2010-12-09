@@ -15,7 +15,11 @@ class GalleryTest < ActiveSupport::TestCase
   end
 
   should 'provide own icon name' do
-    assert_not_equal Article.new.icon_name, Gallery.new.icon_name
+    assert_not_equal Article.icon_name, Gallery.icon_name
+  end
+
+  should 'provide gallery as icon name' do
+    assert_not_equal Article.icon_name, Gallery.icon_name
   end
 
   should 'identify as folder' do

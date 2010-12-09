@@ -15,7 +15,11 @@ class BlogTest < ActiveSupport::TestCase
   end
 
   should 'provide own icon name' do
-    assert_not_equal Article.new.icon_name, Blog.new.icon_name
+    assert_not_equal Article.icon_name, Blog.icon_name
+  end
+
+  should 'provide blog as icon name' do
+    assert_equal 'blog', Blog.icon_name
   end
 
   should 'identify as folder' do

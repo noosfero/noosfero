@@ -1,7 +1,7 @@
 <div id='media-listing-folder-documents' >
   <ul>
     <% documents.each do |document| %>
-      <li><%= link_to(image_tag(icon_for_article(document)) + document.name, document.view_url) %></li>
+      <li><%= link_to(document.name, document.view_url, :class => icon_for_article(document)) %></li>
     <% end %>
   </ul>
   <div id='pagination-documents'>

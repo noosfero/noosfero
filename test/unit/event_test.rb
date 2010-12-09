@@ -69,7 +69,7 @@ class EventTest < ActiveSupport::TestCase
   end
 
   should 'use its own icon' do
-    assert_equal 'event', Event.new.icon_name
+    assert_equal 'event', Event.icon_name
   end
 
   should 'not allow end date before start date' do

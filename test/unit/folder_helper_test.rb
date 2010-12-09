@@ -11,14 +11,29 @@ class FolderHelperTest < Test::Unit::TestCase
   include FolderHelper
 
   should 'display icon for articles' do
-    art1 = mock; art1.expects(:icon_name).returns('icon1')
-    art2 = mock; art2.expects(:icon_name).returns('icon2')
+    art1 = mock; art1_class = mock
+    art1.expects(:class).returns(art1_class)
+    art1_class.expects(:icon_name).returns('icon1')
 
-    File.expects(:exists?).with(File.join(RAILS_ROOT, 'public', 'images', 'icons-mime', 'icon1.png')).returns(true)
-    File.expects(:exists?).with(File.join(RAILS_ROOT, 'public', 'images', 'icons-mime', 'icon2.png')).returns(false)
+    art2 = mock; art2_class = mock
+    art2.expects(:class).returns(art2_class)
+    art2_class.expects(:icon_name).returns('icon2')
 
-    assert_equal 'icons-mime/icon1.png', icon_for_article(art1)
-    assert_equal 'icons-mime/unknown.png', icon_for_article(art2)
+    assert_equal 'icon icon-icon1', icon_for_article(art1)
+    assert_equal 'icon icon-icon2', icon_for_article(art2)
+  end
+
+  should 'display icon for images' do
+    profile = fast_create(Profile)
+    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile)
+    process_delayed_job_queue
+
+    assert_match /rails_icon\.png/, icon_for_article(file.reload)
+  end
+
+  should 'display icon for type of article' do
+    Article.expects(:icon_name).returns('article')
+    assert_match /icon-newarticle/, icon_for_new_article('Article')
   end
 
   should 'list all the folder\'s children to the owner' do

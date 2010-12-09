@@ -13,7 +13,8 @@ Feature: forum
   Scenario: create a forum
     Given I go to the Control panel
     And I follow "Manage Content"
-    When I follow "New Forum"
+    And I follow "New content"
+    When I follow "Forum"
     And I fill in "Title" with "My Forum"
     And I press "Save"
     Then I should see "Configure forum"
@@ -21,7 +22,8 @@ Feature: forum
   Scenario: redirect to forum after create forum from cms
     Given I go to the Control panel
     And I follow "Manage Content"
-    When I follow "New Forum"
+    And I follow "New content"
+    When I follow "Forum"
     And I fill in "Title" with "Forum from cms"
     And I press "Save"
     Then I should be on /joaosilva/forum-from-cms
@@ -29,12 +31,14 @@ Feature: forum
   Scenario: create multiple forums
     Given I go to the Control panel
     And I follow "Manage Content"
-    And I follow "New Forum"
+    And I follow "New content"
+    And I follow "Forum"
     And I fill in "Title" with "Forum One"
     And I press "Save"
     Then I go to the Control panel
     And I follow "Manage Content"
-    And I follow "New Forum"
+    And I follow "New content"
+    And I follow "Forum"
     And I fill in "Title" with "Forum Two"
     And I press "Save"
     Then I should not see "error"
@@ -43,14 +47,16 @@ Feature: forum
   Scenario: cancel button back to cms
     Given I go to the Control panel
     And I follow "Manage Content"
-    And I follow "New Forum"
+    And I follow "New content"
+    And I follow "Forum"
     When I follow "Cancel" within ".main-block"
     Then I should be on /myprofile/joaosilva/cms
 
   Scenario: cancel button back to myprofile
     Given I go to the Control panel
     And I follow "Manage Content"
-    And I follow "New Forum"
+    And I follow "New content"
+    And I follow "Forum"
     When I follow "Cancel" within ".main-block"
     Then I should be on /myprofile/joaosilva/cms
 

@@ -37,7 +37,7 @@ class Event < Article
     _('Event')
   end
 
-  def icon_name
+  def self.icon_name(article = nil)
     'event'
   end
 

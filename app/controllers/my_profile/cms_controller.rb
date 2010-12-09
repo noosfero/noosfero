@@ -44,6 +44,7 @@ class CmsController < MyProfileController
       TextileArticle,
       Event
     ]
+    articles += special_article_types if params && params[:cms]
     parent_id = params ? params[:parent_id] : nil
     if !parent_id or !Article.find(parent_id).has_posts?
       articles += [

@@ -94,7 +94,7 @@ class ArticleTest < Test::Unit::TestCase
   end
 
   should 'inform the icon to be used' do
-    assert_equal 'text-html', Article.new.icon_name
+    assert_equal 'text-html', Article.icon_name
   end
 
   should 'provide a (translatable) description' do

@@ -210,7 +210,7 @@ class Person < Profile
     links = [
       {:name => _('Profile'), :address => '/profile/{profile}', :icon => 'menu-people'},
       {:name => _('Image gallery'), :address => '/{profile}/gallery', :icon => 'photos'},
-      {:name => _('Agenda'), :address => '/profile/{profile}/events', :icon => 'menu-events'},
+      {:name => _('Agenda'), :address => '/profile/{profile}/events', :icon => 'event'},
       {:name => _('Blog'), :address => '/{profile}/blog', :icon => 'edit'},
     ]
     [

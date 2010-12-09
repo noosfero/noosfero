@@ -190,7 +190,7 @@ class RssFeedTest < Test::Unit::TestCase
   end
 
   should 'provide the correct icon name' do
-    assert_equal 'rss-feed', RssFeed.new.icon_name
+    assert_equal 'rss-feed', RssFeed.icon_name
   end
 
   should 'advertise is false before create' do

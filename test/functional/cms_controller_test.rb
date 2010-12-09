@@ -314,6 +314,21 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_template 'upload_files'
   end
 
+  should 'offer to create new content' do
+    get :index, :profile => profile.identifier
+    assert_response :success
+    assert_template 'view'
+    assert_tag :tag => 'a', :attributes => { :title => 'New content', :href => "/myprofile/#{profile.identifier}/cms/new?cms=true"}
+  end
+
+  should 'offer to create new content when viewing an article' do
+    article = fast_create(Article, :profile_id => profile.id)
+    get :view, :profile => profile.identifier, :id => article.id
+    assert_response :success
+    assert_template 'view'
+    assert_tag :tag => 'a', :attributes => { :title => 'New content', :href => "/myprofile/#{profile.identifier}/cms/new?cms=true&amp;parent_id=#{article.id}"}
+  end
+
   should 'offer to create children' do
     Article.any_instance.stubs(:allow_children?).returns(true)
 
@@ -321,10 +336,8 @@ class CmsControllerTest < Test::Unit::TestCase
     article.profile = profile
     article.save!
 
-    get :view, :profile => profile.identifier, :id => article.id
-    assert_response :success
-    assert_template 'view'
-    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?parent_id=#{article.id}"}
+    get :new, :profile => profile.identifier, :parent_id => article.id, :cms => true
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?parent_id=#{article.id}&amp;type=TextileArticle"}
   end
 
   should 'not offer to create children if article does not accept them' do
@@ -476,13 +489,13 @@ class CmsControllerTest < Test::Unit::TestCase
   end
 
   should 'offer to create new top-level folder' do
-    get :index, :profile => profile.identifier
+    get :new, :profile => profile.identifier, :cms => true
     assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?type=Folder"}
   end
 
   should 'offer to create sub-folder' do
     f = Folder.new(:name => 'f'); profile.articles << f; f.save!
-    get :view, :profile => profile.identifier, :id => f.id
+    get :new, :profile => profile.identifier, :parent_id => f.id, :cms => true
 
     assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?parent_id=#{f.id}&amp;type=Folder" }
   end
@@ -866,18 +879,18 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_equal 5, profile.blog.posts_per_page
   end
 
-  should "display 'New article' when create children of folder" do
+  should "display 'New content' when create children of folder" do
     a = Folder.new(:name => 'article folder'); profile.articles << a;  a.save!
     Article.stubs(:short_description).returns('bli')
     get :view, :profile => profile.identifier, :id => a
-    assert_tag :tag => 'a', :content => 'New article'
+    assert_tag :tag => 'a', :content => 'New content'
   end
 
-  should "display 'New post' when create children of blog" do
+  should "display 'New content' when create children of blog" do
     a = Blog.create!(:name => 'blog_for_test', :profile => profile)
     Article.stubs(:short_description).returns('bli')
     get :view, :profile => profile.identifier, :id => a
-    assert_tag :tag => 'a', :content => 'New post'
+    assert_tag :tag => 'a', :content => 'New content'
   end
 
   should 'offer confirmation to remove article' do
@@ -927,7 +940,7 @@ class CmsControllerTest < Test::Unit::TestCase
 
     process_delayed_job_queue
     file = profile.articles.find_by_name('rails.png')
-    assert File.exists?(file.icon_name)
+    assert File.exists?(file.class.icon_name(file))
     file.destroy
   end
 
@@ -938,7 +951,7 @@ class CmsControllerTest < Test::Unit::TestCase
 
     process_delayed_job_queue
     file = profile.articles.find_by_name('rails.png')
-    assert File.exists?(file.icon_name)
+    assert File.exists?(file.class.icon_name(file))
     file.destroy
   end
 
@@ -1366,13 +1379,6 @@ class CmsControllerTest < Test::Unit::TestCase
     post :edit, :profile => profile.identifier, :id => profile.forum.id, :article => { :posts_per_page => 5 }
     profile.forum.reload
     assert_equal 5, profile.forum.posts_per_page
-  end
-
-  should "display 'New post' when create children of forum" do
-    a = Forum.create!(:name => 'forum_for_test', :profile => profile)
-    Article.stubs(:short_description).returns('bli')
-    get :view, :profile => profile.identifier, :id => a
-    assert_tag :tag => 'a', :content => 'New discussion topic'
   end
 
   should 'go to forum after create it' do

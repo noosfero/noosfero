@@ -21,4 +21,7 @@ class Forum < Folder
     true
   end
 
+  def self.icon_name(article = nil)
+    'forum'
+  end
 end

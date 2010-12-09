@@ -25,7 +25,7 @@ class LinkListBlock < Block
     ['eyes', N_('Eyes')],
     ['photos', N_('Photos')],
     ['menu-people', N_('Person')],
-    ['menu-events', N_('Event')]
+    ['event', N_('Event')]
   ]
 
   settings_items :links, Array, :default => []

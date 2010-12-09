@@ -20,4 +20,8 @@ class Gallery < Folder
     true
   end
 
+  def self.icon_name(article = nil)
+    'gallery'
+  end
+
 end

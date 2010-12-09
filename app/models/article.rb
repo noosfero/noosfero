@@ -198,7 +198,7 @@ class Article < ActiveRecord::Base
   # to return their specific icons.
   #
   # FIXME use mime_type and generate this name dinamically
-  def icon_name
+  def self.icon_name(article = nil)
     'text-html'
   end
 

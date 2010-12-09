@@ -54,6 +54,10 @@ class Blog < Folder
     end
   end
 
+  def self.icon_name(article = nil)
+    'blog'
+  end
+
   settings_items :visualization_format, :type => :string, :default => 'full'
   validates_inclusion_of :visualization_format, :in => [ 'full', 'short' ], :if => :visualization_format
 

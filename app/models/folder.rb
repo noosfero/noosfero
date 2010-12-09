@@ -15,7 +15,7 @@ class Folder < Article
     _('A folder, inside which you can put other articles.')
   end
 
-  def icon_name
+  def self.icon_name(article = nil)
     'folder'
   end
 

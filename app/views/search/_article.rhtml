@@ -1,6 +1,5 @@
 <li>
-  <%= image_tag 'icons-mime/text-html.png', :style => 'float: left' %>
-  <strong><%= link_to(article.title, article.url) %></strong>
+  <strong><%= link_to(article.title, article.url, :class => icon_for_article(article)) %></strong>
   <div class="item_meta">
     <% if article.last_changed_by %>
       <span class="cat_item_by">

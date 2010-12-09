@@ -30,7 +30,8 @@ Feature: blog
   Scenario: redirect to blog after create blog from cms
     Given I go to the Control panel
     And I follow "Manage Content"
-    When I follow "New Blog"
+    And I follow "New content"
+    When I follow "Blog"
     And I fill in "Title" with "Blog from cms"
     And I press "Save"
     Then I should be on /joaosilva/blog-from-cms
@@ -38,12 +39,14 @@ Feature: blog
   Scenario: create multiple blogs
     Given I go to the Control panel
     And I follow "Manage Content"
-    And I follow "New Blog"
+    And I follow "New content"
+    And I follow "Blog"
     And I fill in "Title" with "Blog One"
     And I press "Save"
     Then I go to the Control panel
     And I follow "Manage Content"
-    And I follow "New Blog"
+    And I follow "New content"
+    And I follow "Blog"
     And I fill in "Title" with "Blog Two"
     And I press "Save"
     Then I should not see "error"
@@ -52,7 +55,8 @@ Feature: blog
   Scenario: cancel button back to cms
     Given I go to the Control panel
     And I follow "Manage Content"
-    And I follow "New Blog"
+    And I follow "New content"
+    And I follow "Blog"
     When I follow "Cancel" within ".main-block"
     Then I should be on /myprofile/joaosilva/cms
 
@@ -101,5 +105,6 @@ Feature: blog
   Scenario: display tag list field when creating new blog
     Given I go to the Control panel
     And I follow "Manage Content"
-    When I follow "New blog"
+    And I follow "New content"
+    When I follow "Blog"
     Then I should see "Tag list"

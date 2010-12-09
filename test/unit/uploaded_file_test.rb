@@ -11,14 +11,11 @@ class UploadedFileTest < Test::Unit::TestCase
     f = UploadedFile.new
     f.expects(:image?).returns(true)
     f.expects(:public_filename).with(:icon).returns('/path/to/file.xyz')
-    assert_equal '/path/to/file.xyz', f.icon_name
+    assert_equal '/path/to/file.xyz', UploadedFile.icon_name(f)
   end
 
-  should 'return mime-type icon for non-image files' do
-    f= UploadedFile.new
-    f.expects(:image?).returns(false)
-    f.expects(:content_type).returns('application/pdf')
-    assert_equal 'application-pdf', f.icon_name
+  should 'return a default icon for uploaded files' do
+    assert_equal 'upload-file', UploadedFile.icon_name
   end
 
   should 'use attachment_fu content_type method to return mime_type' do
@@ -213,7 +210,7 @@ class UploadedFileTest < Test::Unit::TestCase
     f = UploadedFile.new
     f.expects(:image?).returns(true)
     f.expects(:public_filename).with(:icon).returns('/path/to/file.xyz')
-    assert_equal '/path/to/file.xyz', f.icon_name
+    assert_equal '/path/to/file.xyz', UploadedFile.icon_name(f)
   end
 
   should 'store width and height after processing' do

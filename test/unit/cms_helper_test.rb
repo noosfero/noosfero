@@ -21,7 +21,7 @@ class CmsHelperTest < Test::Unit::TestCase
   should 'display link to folder content if article is folder' do
     profile = fast_create(Profile)
     folder = fast_create(Folder, :name => 'My folder', :profile_id => profile.id)
-    expects(:link_to).with('My folder', :action => 'view', :id => folder.id)
+    expects(:link_to).with('My folder', {:action => 'view', :id => folder.id}, :class => icon_for_article(folder))
 
     result = link_to_article(folder)
   end
@@ -29,9 +29,19 @@ class CmsHelperTest < Test::Unit::TestCase
   should 'display link to article if article is not folder' do
     profile = fast_create(Profile)
     article = fast_create(TinyMceArticle, :name => 'My article', :profile_id => profile.id)
-    expects(:link_to).with('My article', article.url)
+    expects(:link_to).with('My article', article.url, :class => icon_for_article(article))
 
     result = link_to_article(article)
+  end
+
+  should 'display image and link if article is an image' do
+    profile = fast_create(Profile)
+    file = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    icon = icon_for_article(file)
+    expects(:image_tag).with(icon).returns('icon')
+
+    expects(:link_to).with('rails.png', file.url).returns('link')
+    result = link_to_article(file)
   end
 
   should 'display spread button when profile is a person' do

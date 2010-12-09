@@ -15,7 +15,8 @@ Feature: edit article
   Scenario: create a folder
     Given I am on Joao Silva's control panel
     And I follow "Manage Content"
-    When I follow "New Folder"
+    And I follow "New content"
+    When I follow "Folder"
     And I fill in "Title" with "My Folder"
     And I press "Save"
     And I go to Joao Silva's control panel
@@ -24,7 +25,8 @@ Feature: edit article
   Scenario: redirect to the created folder
     Given I am on Joao Silva's control panel
     And I follow "Manage Content"
-    When I follow "New Folder"
+    And I follow "New content"
+    When I follow "Folder"
     And I fill in "Title" with "My Folder"
     And I press "Save"
     Then I should see "My Folder"
@@ -33,27 +35,29 @@ Feature: edit article
   Scenario: cancel button back to cms
     Given I go to the Control panel
     And I follow "Manage Content"
-    And I follow "New Folder"
+    And I follow "New content"
+    And I follow "Folder"
     When I follow "Cancel" within ".main-block"
     Then I should be on Joao Silva's cms
 
   Scenario: display tag list field when creating event
     Given I go to the Control panel
     And I follow "Manage Content"
-    And I follow "New article"
+    And I follow "New content"
     When I follow "Event"
     Then I should see "Tag list"
 
   Scenario: display tag list field when creating folder
     Given I go to the Control panel
     And I follow "Manage Content"
-    When I follow "New folder"
+    And I follow "New content"
+    When I follow "Folder"
     Then I should see "Tag list"
 
   Scenario: create new article with tags
     Given I go to the Control panel
     And I follow "Manage Content"
-    And I follow "New article"
+    And I follow "New content"
     When I follow "Text article with Textile markup language"
     Then I should see "Tag list"
     When I fill in "Title" with "Article with tags"
@@ -66,7 +70,7 @@ Feature: edit article
   Scenario: redirect to the created article
     Given I am on Joao Silva's control panel
     And I follow "Manage Content"
-    When I follow "New article"
+    When I follow "New content"
     When I follow "Text article with visual editor"
     And I fill in "Title" with "My Article"
     And I press "Save"
@@ -91,7 +95,8 @@ Feature: edit article
   Scenario: create an article inside a folder
     Given I am on Joao Silva's control panel
     And I follow "Manage Content"
-    And I follow "New Folder"
+    And I follow "New content"
+    And I follow "Folder"
     And I fill in "Title" with "My Folder"
     And I press "Save"
     Then I should be on /joaosilva/my-folder
@@ -105,7 +110,8 @@ Feature: edit article
   Scenario: cancel button back to folder after giving up creating
     Given I am on Joao Silva's control panel
     And I follow "Manage Content"
-    And I follow "New Folder"
+    And I follow "New content"
+    And I follow "Folder"
     And I fill in "Title" with "My Folder"
     And I press "Save"
     Then I should be on /joaosilva/my-folder
@@ -125,7 +131,7 @@ Feature: edit article
   Scenario: save and continue when creating a new article
     Given I am on Joao Silva's control panel
     When I follow "Manage Content"
-    And I follow "New article"
+    And I follow "New content"
     And I follow "Text article with visual editor"
     And I fill in "Title" with "My new article"
     And I fill in "Text" with "text for the new article"

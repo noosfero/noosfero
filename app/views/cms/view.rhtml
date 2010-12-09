@@ -5,14 +5,7 @@
 <% button_bar(:style => 'margin-bottom: 1em;') do %>
   <% parent_id = ((@article && @article.allow_children?) ? @article : nil) %>
 
-  <% if !@article or !@article.has_posts? %>
-    <%= button :newfolder, _('New folder'), :action => 'new', :type => 'Folder', :parent_id => parent_id %>
-    <%= button :newblog, _('New Blog'), :action => 'new', :type => 'Blog', :parent_id => parent_id %>
-    <%= button :newforum, _('New Forum'), :action => 'new', :type => 'Forum', :parent_id => parent_id %>
-    <%= button :newgallery, _('New Gallery'), :action => 'new', :type => 'Gallery', :parent_id => parent_id %>
-    <%= button('upload-file', _('Upload files'), :action => 'upload_files', :parent_id => parent_id) %>
-  <% end %>
-  <%= lightbox_button('new', label_for_new_article(@article), :action => 'new', :parent_id => parent_id) %>
+  <%= lightbox_button('new', _('New content'), :action => 'new', :parent_id => parent_id, :cms => true) %>
   <%= button(:back, _('Back to control panel'), :controller => 'profile_editor', :action => "index") %>
 <% end %>
 
@@ -36,11 +29,10 @@
   <% if @article %>
     <tr>
       <td>
-        <%= image_tag 'icons-mime/gnome-folder.png' %>
         <% if @article.parent %>
-          <%= link_to '.. (' + _('parent folder') + ')', :action => 'view', :id => @article.parent.id %>
+          <%= link_to '.. (' + _('parent folder') + ')', {:action => 'view', :id => @article.parent.id}, :class => 'icon-parent-folder' %>
         <% else %>
-          <%= link_to '.. (' + _('parent folder') + ')', :action => 'index' %>
+          <%= link_to '.. (' + _('parent folder') + ')', {:action => 'index'}, :class => 'icon-parent-folder' %>
         <% end %>
       </td>
       <td><%= Folder.short_description %></td>
@@ -51,7 +43,6 @@
   <% @articles.each do |article| %>
     <tr>
       <td>
-        <%= image_tag(icon_for_article(article)) %>
         <%= link_to_article(article) %>
       </td>
       <td>

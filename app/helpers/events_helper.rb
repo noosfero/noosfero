@@ -15,7 +15,7 @@ module EventsHelper
   def display_event_in_listing(article)
     content_tag(
       'tr',
-      content_tag('td', link_to(image_tag(icon_for_article(article)) + article.name, article.url)),
+      content_tag('td', link_to(article.name, article.url, :class => icon_for_article(article))),
       :class => 'agenda-item'
     )
   end

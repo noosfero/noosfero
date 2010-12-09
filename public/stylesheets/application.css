@@ -315,11 +315,21 @@ div.pending-tasks {
 
 /* sitemap and agenda */
 
+.agenda-item a.icon,
+.sitemap-item a.icon {
+  background-repeat: no-repeat;
+  padding-left: 20px;
+}
+
+.agenda-item .icon:hover,
+.sitemap-item .icon:hover {
+  background-color: transparent;
+}
+
 .sitemap-item a:link,
 .agenda-item a:link,
 .sitemap-item a:visited,
 .agenda-item a:visited {
-  display: block;
   border: none;
   text-decoration: none;
 }
@@ -329,7 +339,6 @@ div.pending-tasks {
 }
 .sitemap-item a:hover,
 .agenda-item a:hover {
-  background: #e0e0e0;
   color: red;
   text-decoration: underline;
 }
@@ -2750,13 +2759,64 @@ div#activation_enterprise div {
 
 /* ==> public/stylesheets/controller_cms.css <== */
 
-.controller-cms #article_types li {
-  margin-bottom: 14px;
-  list-style: none;
+
+table.cms-articles img {
+  width: 16px;
+  height: 16px;
 }
 
-.controller-cms #article_types a {
-  font-weight: bold;
+table.cms-articles a.icon {
+  display: block;
+  border: none;
+}
+
+table.cms-articles a.icon,
+table.cms-articles a.icon-parent-folder {
+  padding: 0px 0px 3px 20px;
+  background-repeat: no-repeat;
+}
+
+table.cms-articles .icon:hover {
+  background-color: transparent;
+}
+
+#article_types {
+  padding-left: 5px;
+  margin-top: 20px;
+}
+
+#article_types li {
+  list-style: none;
+  float: left;
+  width: 180px;
+  height: 50px;
+  background-repeat: no-repeat;
+  background-position: 5px 5px;
+  padding-left: 30px;
+  padding-right: 12px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+#article_types .description {
+  color: #888a85;
+  font-size: smaller;
+}
+
+#article_types .icon-newrss-feed,
+#content .icon-rss-feed {
+  background-image: url(../images/icons-mime/rss-feed-16.png);
+}
+
+#article_types a {
+  text-decoration: none;
+  color: black;
+}
+
+#article_types li.mouseover {
+  background-color: #eeeeec;
 }
 
 .controller-cms #article-subitems-hide.hide-button {
@@ -3734,6 +3794,21 @@ h1#agenda-title {
 
 .controller-search .only-one-result-box .search-results-box {
   width: 100%;
+}
+
+#search-results li a.icon {
+  display: block;
+  border: none;
+  padding-left: 20px;
+  background-repeat: no-repeat;
+}
+
+#search-results li .icon:hover {
+  background-color: transparent;
+}
+
+#search-results li:hover {
+  background-color: #F0F0F0;
 }
 
 .controller-search .has_cat_list #map,

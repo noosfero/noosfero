@@ -55,7 +55,7 @@ Feature: publish article
     And "Maria Silva" is a member of "Sample Community"
     And I am on Maria Silva's control panel
     And I follow "Manage Content"
-    And I follow "New article"
+    And I follow "New content"
     And I follow "Text article with Textile markup language"
     And I fill in the following:
       | Title | Sample Article |
