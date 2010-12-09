@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.26.0\n"
 "POT-Creation-Date: 2010-10-26 22:00-0300\n"
-"PO-Revision-Date: 2010-10-26 22:02-0300\n"
+"PO-Revision-Date: 2010-12-09 11:49-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE TEAM <E-MAIL@ADDRESS or HOME PAGE>\n"
 "MIME-Version: 1.0\n"
@@ -4302,7 +4302,7 @@ msgstr "Não, não quero."
 #: app/views/cms/_tiny_mce_article.rhtml:15
 #: app/views/cms/_tiny_mce_article.rhtml:19
 msgid "Lead"
-msgstr "Olho"
+msgstr "Prévia"
 
 #: app/views/cms/_article.rhtml:16 app/views/cms/_textile_article.rhtml:9
 #: app/views/cms/_tiny_mce_article.rhtml:16
