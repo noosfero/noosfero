@@ -1,9 +1,9 @@
 class AddLanguageAndTranslationOfIdToArticle < ActiveRecord::Migration
   def self.up
-    add_column :articles, :translation_of_id, :interger
+    add_column :articles, :translation_of_id, :integer
     add_column :articles, :language, :string
 
-    add_column :article_versions, :translation_of_id, :interger
+    add_column :article_versions, :translation_of_id, :integer
     add_column :article_versions, :language, :string
 
     add_index  :articles, :translation_of_id
