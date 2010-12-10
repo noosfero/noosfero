@@ -46,11 +46,6 @@ class CmsController < MyProfileController
     ]
     articles += special_article_types if params && params[:cms]
     parent_id = params ? params[:parent_id] : nil
-    if !parent_id or !Article.find(parent_id).has_posts?
-      articles += [
-        RssFeed
-      ]
-    end
     if profile.enterprise?
       articles << EnterpriseHomepage
     end
@@ -58,7 +53,7 @@ class CmsController < MyProfileController
   end
 
   def special_article_types
-    [Folder, Blog, UploadedFile, Forum, Gallery]
+    [Folder, Blog, UploadedFile, Forum, Gallery, RssFeed]
   end
 
   def view
