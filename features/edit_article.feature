@@ -151,7 +151,7 @@ Feature: edit article
     And I fill in "Title" with "Mi neuvo artículo"
     And I select "Español" from "Language"
     When I press "Save"
-    Then I should be on /joaosilva/save-the-whales
+    Then I should be on /joaosilva/mi-neuvo-articulo
     And I should see "Translations"
 
   Scenario: not add a translation without a language
@@ -167,4 +167,4 @@ Feature: edit article
     And I select "Português" from "Language"
     When I press "Save"
     Then I should not see "Language must be choosen"
-    And I should be on /joaosilva/article-in-english
+    And I should be on /joaosilva/article-in-portuguese
