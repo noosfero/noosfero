@@ -51,7 +51,7 @@
       <% end %>
     </div>
   <% else %>
-    <% if profile.community? %>
+    <% if profile.community? && (@page.blog? || @page.parent && @page.parent.blog?) %>
       <%= link_to content_tag( 'span', _('Suggest an article') ), profile.admin_url.merge({ :controller => 'cms', :action => 'suggest_an_article'}), :class => 'button with-text icon-new' %>
     <% end %>
   <% end %>
