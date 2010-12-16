@@ -38,4 +38,9 @@ class SuggestArticle < Task
     )
   end
 
+  def target_notification_message
+    description + "\n\n" +
+    _('You need to login on %{system} in order to approve or reject this article.') % { :system => target.environment.name }
+  end
+
 end

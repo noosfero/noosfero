@@ -119,4 +119,16 @@ class SuggestArticleTest < ActiveSupport::TestCase
     assert article.highlighted
   end
 
+  should 'override target notification message method from Task' do
+    task = build(SuggestArticle, :target => @profile)
+    assert_nothing_raised NotImplementedError do
+      task.target_notification_message
+    end
+  end
+
+  should 'notify community moderators after create article suggestions' do
+    task = build(SuggestArticle, :target => @profile)
+    task.save
+  end
+
 end

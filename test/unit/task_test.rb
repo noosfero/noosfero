@@ -214,6 +214,23 @@ class TaskTest < Test::Unit::TestCase
     task.save!
   end
 
+  should 'the environment method be defined' do
+    task = Task.new
+    assert task.method_exists?('environment')
+  end
+
+  should 'the task environment method return the target environment' do
+    task = Task.new
+    target = Profile.new(:environment => Environment.new)
+    task.target = target
+    assert_equal task.environment, target.environment
+  end
+
+  should 'the task environment method return nil if the target task is nil' do
+    task = Task.new
+    assert_equal task.environment, nil
+  end
+
   protected
 
   def sample_user

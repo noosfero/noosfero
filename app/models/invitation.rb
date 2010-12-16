@@ -125,4 +125,9 @@ class Invitation < Task
   def self.default_message_to_accept_invitation
     "\n\n" + _('To accept invitation, please follow this link: <url>')
   end
+
+  def environment
+    self.requestor.environment
+  end
+
 end

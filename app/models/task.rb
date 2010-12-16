@@ -144,6 +144,10 @@ class Task < ActiveRecord::Base
     :perform_task
   end
 
+  def environment
+    self.target.environment unless self.target.nil?
+  end
+
   protected
 
   # This method must be overrided in subclasses, and its implementation must do

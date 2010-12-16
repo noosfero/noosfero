@@ -91,4 +91,8 @@ class ChangePassword < Task
     _('Password change request')
   end
 
+  def environment
+    self.requestor.environment
+  end
+
 end

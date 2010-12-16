@@ -30,6 +30,7 @@ class TaskMailerTest < Test::Unit::TestCase
 
     task.expects(:requestor).returns(requestor).at_least_once
     requestor.expects(:environment).returns(environment).at_least_once
+    task.expects(:environment).returns(environment).at_least_once
 
     TaskMailer.deliver_task_finished(task)
     assert !ActionMailer::Base.deliveries.empty?
@@ -52,6 +53,7 @@ class TaskMailerTest < Test::Unit::TestCase
 
     task.expects(:requestor).returns(requestor).at_least_once
     requestor.expects(:environment).returns(environment).at_least_once
+    task.expects(:environment).returns(environment).at_least_once
 
     TaskMailer.deliver_task_cancelled(task)
     assert !ActionMailer::Base.deliveries.empty?
@@ -75,6 +77,7 @@ class TaskMailerTest < Test::Unit::TestCase
 
     task.expects(:requestor).returns(requestor).at_least_once
     requestor.expects(:environment).returns(environment).at_least_once
+    task.expects(:environment).returns(environment).at_least_once
 
     TaskMailer.deliver_task_created(task)
     assert !ActionMailer::Base.deliveries.empty?
@@ -83,9 +86,6 @@ class TaskMailerTest < Test::Unit::TestCase
   should 'be able to send a "target notification" message' do
     task = Task.new
     task.expects(:description).returns('the task')
-
-    requestor = mock()
-    requestor.expects(:name).returns('my name')
 
     target = mock()
     target.expects(:notification_emails).returns(['target@example.com'])
@@ -97,9 +97,8 @@ class TaskMailerTest < Test::Unit::TestCase
     environment.expects(:default_hostname).returns('example.com')
     environment.expects(:name).returns('example').at_least_once
 
-    task.expects(:requestor).returns(requestor).at_least_once
     task.expects(:target).returns(target).at_least_once
-    requestor.expects(:environment).returns(environment).at_least_once
+    task.expects(:environment).returns(environment).at_least_once
 
     TaskMailer.deliver_target_notification(task, 'the message')
     assert !ActionMailer::Base.deliveries.empty?
@@ -126,6 +125,7 @@ class TaskMailerTest < Test::Unit::TestCase
     task.expects(:requestor).returns(requestor).at_least_once
     task.expects(:person).returns(requestor).at_least_once
     requestor.expects(:environment).returns(environment).at_least_once
+    task.expects(:environment).returns(environment).at_least_once
 
     mail = TaskMailer.create_invitation_notification(task)
 
@@ -137,13 +137,11 @@ class TaskMailerTest < Test::Unit::TestCase
 
   should 'use environment name and contact email' do
     task = mock
-    requestor = mock
     environment = mock
     environment.expects(:name).returns('My name')
     environment.expects(:contact_email).returns('email@example.com')
 
-    task.expects(:requestor).returns(requestor).at_least_once
-    requestor.expects(:environment).returns(environment).at_least_once
+    task.expects(:environment).returns(environment).at_least_once
 
     assert_equal 'My name <email@example.com>', TaskMailer.generate_from(task)
   end
