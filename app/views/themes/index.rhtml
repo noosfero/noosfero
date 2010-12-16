@@ -20,7 +20,7 @@
                 :alt => _('The "%s" template')) %>
           <% end %>
         </td>
-        <td <%= 'class="selected template"' if selected %>>
+        <td <%= 'class="selected template"' if selected %> style='vertical-align: top;'>
           <% if template %>
             <strong><%= template.id %> <%= _('(current)') if selected %></strong>
             <br/>
@@ -57,7 +57,7 @@
                   :alt => (_('The "%s" theme.') % theme.name)) %>
             <% end %>
           </td>
-          <td <%= 'class="selected theme"' if selected %>>
+          <td <%= 'class="selected theme"' if selected %> style='vertical-align: top'>
             <% if theme %>
               <strong><%= theme.name %> <%= _('(current)') if selected %></strong><br/>
               <%= link_to(_('Use this theme'), :action => 'set', :id => theme.id) unless selected %>
