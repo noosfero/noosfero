@@ -1,0 +1,1 @@
+This plugin depends on ruby binds for subversion. Checkout http://packages.debian.org/lenny/libsvn-ruby and http://subversion.tigris.org/ for further information.

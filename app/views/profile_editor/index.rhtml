@@ -65,6 +65,11 @@
   <% end %>
 
   <%= control_panel_button(_('Manage my groups'), 'groups', :controller => 'memberships') if profile.person? %>
+
+  <% @plugins.map(:control_panel_buttons).each do |button| %>
+    <%= control_panel_button(button[:title], button[:icon], button[:url]) %>
+  <% end %>
+
 <% end %>
 
   <% if profile.person? && environment.enabled?('enterprise_activation') %>

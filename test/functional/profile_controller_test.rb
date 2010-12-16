@@ -1113,4 +1113,18 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_equal '', @response.body
   end
 
+  should 'display plugins tabs' do
+    plugin1_tab = {:title => 'Plugin1 tab', :id => 'plugin1_tab', :content => 'Content from plugin1.'}
+    plugin2_tab = {:title => 'Plugin2 tab', :id => 'plugin2_tab', :content => 'Content from plugin2.'}
+    tabs = [plugin1_tab, plugin2_tab]
+    plugins = mock()
+    plugins.stubs(:map).with(:profile_tabs).returns(tabs)
+    Noosfero::Plugin::Manager.stubs(:new).returns(plugins)
+
+    get :index, :profile => profile.identifier
+
+    assert_tag :tag => 'a', :content => /#{plugin1_tab[:title]}/, :attributes => {:href => /#{plugin1_tab[:id]}/}
+    assert_tag :tag => 'div', :content => /#{plugin1_tab[:content]}/, :attributes => {:id => /#{plugin1_tab[:id]}/}
+  end
+
 end

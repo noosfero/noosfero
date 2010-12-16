@@ -858,4 +858,18 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     end
   end
 
+  should 'display plugins buttons on the control panel' do
+    plugin1_button = {:title => "Plugin1 button", :icon => 'plugin1_icon', :url => 'plugin1_url'}
+    plugin2_button = {:title => "Plugin2 button", :icon => 'plugin2_icon', :url => 'plugin2_url'}
+    buttons = [plugin1_button, plugin2_button]
+    plugins = mock()
+    plugins.stubs(:map).with(:control_panel_buttons).returns(buttons)
+    Noosfero::Plugin::Manager.stubs(:new).returns(plugins)
+
+    get :index, :profile => profile.identifier
+
+    assert_tag :tag => 'a', :content => plugin1_button[:title], :attributes => {:class => /#{plugin1_button[:icon]}/, :href => /#{plugin1_button[:url]}/}
+    assert_tag :tag => 'a', :content => plugin2_button[:title], :attributes => {:class => /#{plugin2_button[:icon]}/, :href => /#{plugin2_button[:url]}/}
+  end
+
 end

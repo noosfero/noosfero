@@ -83,6 +83,7 @@ class ApplicationController < ActionController::Base
   include NeedsProfile
 
   before_filter :detect_stuff_by_domain
+  before_filter :init_noosfero_plugins
   attr_reader :environment
 
   before_filter :load_terminology
@@ -112,6 +113,10 @@ class ApplicationController < ActionController::Base
       @environment = @domain.environment
       @profile = @domain.profile
     end
+  end
+
+  def init_noosfero_plugins
+    @plugins = Noosfero::Plugin::Manager.new(self)
   end
 
   def load_terminology

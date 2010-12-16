@@ -109,6 +109,12 @@ ActionController::Routing::Routes.draw do |map|
   map.system 'system', :controller => 'system'
   map.system 'system/:controller/:action/:id', :controller => Noosfero.pattern_for_controllers_in_directory('system')
 
+  ######################################################
+  # plugin routes
+  ######################################################
+  plugins_routes = File.join(Rails.root + '/lib/noosfero/plugin/routes.rb')
+  eval(IO.read(plugins_routes), binding, plugins_routes)
+
   # cache stuff - hack
   map.cache 'public/:action/:id', :controller => 'public'
 

@@ -220,6 +220,8 @@ class Environment < ActiveRecord::Base
 
   settings_items :trusted_sites_for_iframe, :type => Array, :default => ['itheora.org', 'tv.softwarelivre.org', 'stream.softwarelivre.org']
 
+  settings_items :enabled_plugins, :type => Array, :default => []
+
   def news_amount_by_folder=(amount)
     settings[:news_amount_by_folder] = amount.to_i
   end

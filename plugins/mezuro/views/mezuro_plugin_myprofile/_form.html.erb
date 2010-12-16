@@ -1,0 +1,20 @@
+<%= error_messages_for 'project' %>
+
+<% labelled_form_for :project, @project, :url => @url  do |f| %>
+  <%= hidden_field_tag 'project[profile_id]', profile.id %>
+  <%= hidden_field_tag 'id', @project.id %>
+
+  <%= required_fields_message %>
+
+  <%= required f.text_field(:name) %>
+  <%= required f.text_field(:repository_url) %>
+  <%= required f.text_field(:identifier) %>
+  <%= f.check_box(:with_tab) %>
+  <%= f.text_area(:description, :size => '30x3') %>
+
+  <% button_bar do %>
+    <%= submit_button(:save, @submit_button, :cancel => {:action => 'index'})%>
+  <% end %>
+<% end %>
+
+<%= javascript_tag "$('project_name').focus();" %>

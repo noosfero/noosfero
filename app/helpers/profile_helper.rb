@@ -15,4 +15,12 @@ module ProfileHelper
     end
   end
 
+  def render_tabs(tabs)
+    titles = tabs.inject(''){ |result, tab| result << content_tag(:li, link_to(tab[:title], '#'+tab[:id]), :class => 'tab') }
+    contents = tabs.inject(''){ |result, tab| result << content_tag(:div, tab[:content], :id => tab[:id]) }
+
+    content_tag :div, :class => 'ui-tabs' do
+      content_tag(:ul, titles) + contents
+    end
+  end
 end
