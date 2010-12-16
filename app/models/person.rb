@@ -215,7 +215,7 @@ class Person < Profile
     ]
     [
       [MainBlock.new],
-      [ProfileImageBlock.new, LinkListBlock.new(:links => links), RecentDocumentsBlock.new],
+      [ProfileImageBlock.new(:show_name => true), LinkListBlock.new(:links => links), RecentDocumentsBlock.new],
       [FriendsBlock.new, CommunitiesBlock.new]
     ]
   end
