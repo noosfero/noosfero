@@ -1454,7 +1454,7 @@ input.disabled {
 }
 
 .msie7 #content .communities-block .vcard {
-  width: 96px;
+  width: 58px;
 }
 
 .msie7 #content .communities-block .vcard .menu-submenu-trigger {
@@ -1705,7 +1705,7 @@ input.disabled {
   height: 90px;
 }
 .msie7 .common-profile-list-block .vcard a {
-  width: 92px;
+  width: 58px;
 }
 .common-profile-list-block .vcard a:hover {
   border: 2px solid #2A5896;
