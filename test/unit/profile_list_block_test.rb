@@ -153,8 +153,15 @@ class ProfileListBlockTest < Test::Unit::TestCase
   should 'randomize using modulo operator and random number' do
     block = ProfileListBlock.new
     block.expects(:profile_count).returns(10)
-    block.expects(:rand).with(11).returns(5)
-    assert_match /profiles.id % 5/, block.randomizer
+    block.expects(:rand).with(10).returns(5)
+    assert_match /profiles.id % 6/, block.randomizer
+  end
+
+  should 'not divide by zero' do
+    block = ProfileListBlock.new
+    block.stubs(:profile_count).returns(0)
+    block.expects(:rand).returns(0)
+    assert_no_match /profiles.id % 0/, block.randomizer
   end
 
 end

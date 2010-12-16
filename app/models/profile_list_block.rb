@@ -21,7 +21,7 @@ class ProfileListBlock < Block
   end
 
   def randomizer
-    @randomizer ||= "(profiles.id % #{rand(profile_count + 1)})"
+    @randomizer ||= "(profiles.id % #{rand(profile_count) + 1})"
   end
 
   # the title of the block. Probably will be overriden in subclasses.
