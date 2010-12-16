@@ -641,3 +641,11 @@ jQuery(function($) {
     }
   });
 });
+
+jQuery(function($) {
+  if ($.browser.msie) {
+    $('.profile_link').click(function() {
+      document.location.href = this.href;
+    })
+  }
+});

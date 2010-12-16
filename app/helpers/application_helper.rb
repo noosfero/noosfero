@@ -545,7 +545,6 @@ module ApplicationHelper
             content_tag( 'span', h(name), :class => ( profile.class == Person ? 'fn' : 'org' ) ) +
             city + extra_info + profile_sex_icon( profile ) + profile_cat_icons( profile ),
             profile.url,
-            :onclick => 'document.location.href = this.href', # work-arround for ie.
             :class => 'profile_link url',
             :help => _('Click on this icon to go to the <b>%s</b>\'s home page') % profile.name,
             :title => profile.name ),
@@ -565,7 +564,6 @@ module ApplicationHelper
             content_tag( 'span', name, :class => 'org' ) +
             content_tag( 'span', n_('1 member', '%s members', profile.members.count) % profile.members.count, :class => 'community-member-count' ),
             profile.url,
-            :onclick => 'document.location.href = this.href', # work-arround for ie.
             :class => 'profile_link url',
             :help => _('Click on this icon to go to the <b>%s</b>\'s home page') % profile.name,
             :title => profile.name ) +
