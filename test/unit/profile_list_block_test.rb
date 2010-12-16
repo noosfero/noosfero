@@ -141,13 +141,20 @@ class ProfileListBlockTest < Test::Unit::TestCase
     p2 = fast_create(Person, :environment_id => env.id)
     p3 = fast_create(Person, :environment_id => env.id)
 
-    # force the "random" function to be something we know
-    Noosfero::SQL.stubs(:random_function).returns('-id')
-
     block = ProfileListBlock.new
     block.stubs(:owner).returns(env)
 
+    # force the "random" function to return something we know
+    block.stubs(:randomizer).returns('-id')
+
     assert_equal [p3.id, p2.id, p1.id], block.profile_list.map(&:id)
+  end
+
+  should 'randomize using modulo operator and random number' do
+    block = ProfileListBlock.new
+    block.expects(:profile_count).returns(10)
+    block.expects(:rand).with(10).returns(5)
+    assert_match /profiles.id % 5/, block.randomizer
   end
 
 end

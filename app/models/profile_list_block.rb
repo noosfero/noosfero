@@ -12,12 +12,16 @@ class ProfileListBlock < Block
   end
 
   def profile_list
-    random = Noosfero::SQL.random_function
+    random = randomizer
     profiles.visible.all(:limit => limit, :select => 'DISTINCT profiles.*, ' + random, :order => random)
   end
 
   def profile_count
-    profiles.visible.count
+    profiles.visible.count('DISTINCT(profiles.id)')
+  end
+
+  def randomizer
+    @randomizer ||= "(profiles.id % #{rand(profile_count)})"
   end
 
   # the title of the block. Probably will be overriden in subclasses.
