@@ -13,9 +13,11 @@
         <%
           selected = (!template.nil? && (@current_template == template.id))
         %>
-        <td>
+        <td class="template-preview-cell">
           <% if template %>
-            <%= image_tag("/designs/templates/#{template.id}/thumbnail.png", :alt => _('The "%s" template')) %>
+            <%= image_tag("/designs/templates/#{template.id}/thumbnail.png",
+                :class => 'template-preview',
+                :alt => _('The "%s" template')) %>
           <% end %>
         </td>
         <td <%= 'class="selected template"' if selected %>>
@@ -49,9 +51,10 @@
             selected = (!theme.nil? && (theme.id == @current_theme))
           %>
           <td>
-            <%# FIXME add proper thumbnails %>
             <% if theme %>
-              <%= image_tag('/images/icons-app/design-editor.png', :alt => (_('The "%s" theme.') % theme.name)) %>
+              <%= image_tag("/designs/themes/#{theme.name}/preview.png",
+                  :class => 'theme-preview',
+                  :alt => (_('The "%s" theme.') % theme.name)) %>
             <% end %>
           </td>
           <td <%= 'class="selected theme"' if selected %>>

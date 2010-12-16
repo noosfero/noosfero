@@ -4071,6 +4071,15 @@ h1#agenda-title {
 
 /* ==> public/stylesheets/controller_themes.css <== */
 /* common stuff */
+
+.controller-themes .template-preview-cell {
+  text-align: center;
+}
+
+.controller-themes .theme-preview {
+  border: 1px solid #BBB;
+}
+
 .controller-themes #css-files-list h2,
 .controller-themes #image-files-list h2 {
   margin-top: 0px;
