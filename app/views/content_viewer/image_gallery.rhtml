@@ -3,7 +3,11 @@
 </div>
 
 <div class="image-gallery">
-  <p><%= button(:slideshow, _('View slideshow'), @page.url.merge(:slideshow => true))%></p>
+  <% if @images.empty? %>
+    <p><em><%= _('This gallery contains no images yet') %></em></p>
+  <% else %>
+    <p><%= button(:slideshow, _('View slideshow'), @page.url.merge(:slideshow => true))%></p>
+  <% end %>
     <ul>
       <% @images.each do |a| %>
         <% content_tag('li', :title => a.abstract, :class => 'image-gallery-item' ) do %>
