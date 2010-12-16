@@ -679,8 +679,6 @@ div#notice {
 
 .communities-block .vcard a .org {
   padding-top: 5px;
-  font-size: 12px;
-  color: #000;
   max-height: 30px;
   overflow: hidden;
 }

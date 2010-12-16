@@ -1741,7 +1741,8 @@ input.disabled {
   height: 50px;
 }
 
-.common-profile-list-block .locality {
+.common-profile-list-block .locality,
+.common-profile-list-block .community-member-count {
   font-size: 9px;
   opacity: 0.5;
 	filter: alpha(opacity=50);
