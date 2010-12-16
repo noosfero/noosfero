@@ -1505,4 +1505,38 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'article[display_posts_in_current_language]', :checked => 'checked' }
   end
 
+  should 'not display accept comments option when creating forum post' do
+    profile.articles << f = Forum.new(:name => 'Forum for test')
+    get :new, :profile => profile.identifier, :type => 'TinyMceArticle', :parent_id => f.id
+    assert :tag => 'input', :attributes => {:name => 'article[accept_comments]', :value => 1, :type => 'hidden'}
+    assert_no_tag :tag => 'input', :attributes => {:name => 'article[accept_comments]', :value => 1, :type => 'checkbox'}
+  end
+
+  should 'display accept comments option when creating an article that is not a forum post' do
+    get :new, :profile => profile.identifier, :type => 'TinyMceArticle'
+    assert_no_tag :tag => 'input', :attributes => {:name => 'article[accept_comments]', :value => 1, :type => 'hidden'}
+    assert_tag :tag => 'input', :attributes => {:name => 'article[accept_comments]', :value => 1, :type => 'checkbox'}
+  end
+
+  should 'display accept comments option when editing forum post' do
+    profile.articles << f = Forum.new(:name => 'Forum for test')
+    profile.articles << a = TinyMceArticle.new(:name => 'Forum post for test', :parent => f)
+    get :edit, :profile => profile.identifier, :id => a.id
+    assert_no_tag :tag => 'input', :attributes => {:name => 'article[accept_comments]', :value => 1, :type => 'hidden'}
+    assert_tag :tag => 'input', :attributes => {:name => 'article[accept_comments]', :value => 1, :type => 'checkbox'}
+  end
+
+  should 'display accept comments option when editing forum post with a different label' do
+    profile.articles << f = Forum.new(:name => 'Forum for test')
+    profile.articles << a = TinyMceArticle.new(:name => 'Forum post for test', :parent => f)
+    get :edit, :profile => profile.identifier, :id => a.id
+    assert_tag :tag => 'label', :attributes => { :for => 'article_accept_comments' }, :content => _('This topic is opened for replies')
+  end
+
+  should 'display correct label for accept comments option for an article that is not a forum post' do
+    profile.articles << a = TinyMceArticle.new(:name => 'Forum post for test')
+    get :edit, :profile => profile.identifier, :id => a.id
+    assert_tag :tag => 'label', :attributes => { :for => 'article_accept_comments' }, :content => _('I want to receive comments about this article')
+  end
+
 end

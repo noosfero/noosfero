@@ -904,6 +904,7 @@ module ApplicationHelper
 
   def helper_for_article(article)
     article_helper = ActionView::Base.new
+    article_helper.controller = controller
     article_helper.extend ArticleHelper
     begin
       class_name = article.class.name + 'Helper'
