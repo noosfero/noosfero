@@ -25,6 +25,7 @@ class Article < ActiveRecord::Base
   acts_as_having_settings :field => :setting
 
   settings_items :display_hits, :type => :boolean, :default => true
+  settings_items :author_name, :type => :string, :default => ""
 
   belongs_to :reference_article, :class_name => "Article", :foreign_key => 'reference_article_id'
 
@@ -448,6 +449,10 @@ class Article < ActiveRecord::Base
     else
       last_changed_by || profile
     end
+  end
+
+  def author_name
+    setting[:author_name].blank? ? author.name : setting[:author_name]
   end
 
   alias :active_record_cache_key :cache_key

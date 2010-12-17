@@ -21,7 +21,7 @@ module ContentViewerHelper
         title = content_tag('h1', link_to(article.name, article.url), :class => 'title')
       end
       comments = args[:no_comments] ? '' : (("- %s") % link_to_comments(article))
-      title << content_tag('span', _("%s, by %s %s") % [show_date(article.published_at), link_to(article.author.name, article.author.url), comments], :class => 'created-at')
+      title << content_tag('span', _("%s, by %s %s") % [show_date(article.published_at), link_to(article.author_name, article.author.url), comments], :class => 'created-at')
     end
     title
   end

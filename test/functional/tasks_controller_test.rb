@@ -255,11 +255,22 @@ class TasksControllerTest < Test::Unit::TestCase
     c.affiliate(profile, Profile::Roles.all_roles(profile.environment.id))
     @controller.stubs(:profile).returns(c)
     SuggestArticle.skip_captcha!
-    t = SuggestArticle.create!(:article_name => 'test name', :article_body => 'test body', :name => 'some name', :email => 'test@localhost.com', :target => c)
+    t = SuggestArticle.new
+    t.article_name = 'test name' 
+    t.article_body = 'test body'
+    t.name = 'some name'
+    t.source = 'http://test.com'
+    t.source_name = 'some source name'
+    t.email = 'test@localhost.com'
+    t.target = c
+    t.save!
 
-    post :close, :decision => 'finish', :id => t.id, :task => {:article_name => 'new name', :article_body => 'new body'}
-    assert_equal 'new name', TinyMceArticle.find(:first).name
+    post :close, :decision => 'finish', :id => t.id, :task => {:article_name => 'new article name', :article_body => 'new body', :source => 'http://www.noosfero.com', :source_name => 'new source', :name => 'new name'}
+    assert_equal 'new article name', TinyMceArticle.find(:first).name
+    assert_equal 'new name', TinyMceArticle.find(:first).author_name
     assert_equal 'new body', TinyMceArticle.find(:first).body
+    assert_equal 'http://www.noosfero.com', TinyMceArticle.find(:first).source
+    assert_equal 'new source', TinyMceArticle.find(:first).source_name
   end
 
 end

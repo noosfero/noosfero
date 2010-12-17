@@ -4,9 +4,9 @@
 
 <% form_for('task', task, :url => { :action => 'close', :id => task.id}) do |f| %>
 
-  <p><%= label_tag(_("Sent by: %s") % task.name) %> </p>
-  <p><%= label_tag(_("Email: %s") % task.email) %> </p>
 
+  <%= labelled_form_field(_("Sent by: "), f.text_field(:name)) %>
+  <p><%= label_tag(_("Email: %s") % task.email) %> </p>
   <%= required labelled_form_field(_('Title'), f.text_field(:article_name, :size => 50)) %>
   <%= labelled_form_field(_('Source'), f.text_field(:source_name)) %>
   <%= labelled_form_field(_("Source URL"), f.text_field(:source)) %>

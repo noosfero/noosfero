@@ -1399,4 +1399,18 @@ class ArticleTest < Test::Unit::TestCase
     assert a.possible_translations.include?('pt')
   end
 
+  should 'have the author_name method defined' do
+    assert Article.method_defined?('author_name')
+  end
+
+  should "the author_name returns the name od the article's author" do
+    author = mock()
+    author.expects(:name).returns('author name')
+    a = Article.new
+    a.expects(:author).returns(author)
+    assert_equal 'author name', a.author_name
+    a.author_name = 'some name'
+    assert_equal 'some name', a.author_name
+  end
+
 end

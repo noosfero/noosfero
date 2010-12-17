@@ -131,4 +131,13 @@ class SuggestArticleTest < ActiveSupport::TestCase
     task.save
   end
 
+  should 'fill name into author_name created article' do
+    t = build(SuggestArticle, :target => @profile)
+    t.name = 'some name'
+    t.perform
+
+    article = TinyMceArticle.last
+    assert_equal 'some name', article.author_name
+  end
+
 end

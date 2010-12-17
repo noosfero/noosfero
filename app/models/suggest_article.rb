@@ -29,6 +29,7 @@ class SuggestArticle < Task
     TinyMceArticle.create!(
       :profile => target,
       :name => article_name,
+      :author_name => name,
       :body => article_body,
       :abstract => article_abstract,
       :parent_id => article_parent_id,
