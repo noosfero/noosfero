@@ -21,7 +21,7 @@
             :class => 'template-opt list-opt selected')
         else  # Not selected
           link_to(
-            base_content + content_tag('span', _('Use this template') ) +'</div>',
+            base_content +'</div>',
             { :action => 'set_layout_template', :id => template.id },
             :class => 'template-opt list-opt')
         end
@@ -46,7 +46,7 @@
       if theme
 
         base_content = image_tag(
-          "/designs/themes/#{theme.name}/preview.png",
+          "/designs/themes/#{theme.id}/preview.png",
           :alt => (_('The "%s" theme.') % theme.name)) +
         '<div class="opt-info">' +
         content_tag('strong', theme.name, :class => 'name') +
@@ -58,7 +58,7 @@
             :class => 'theme-opt list-opt selected')
         else  # Not selected
           link_to(
-            base_content + content_tag('span', _('Use this theme') ) +'</div>',
+            base_content + '</div>',
             { :action => 'set', :id => theme.id },
             :class => 'theme-opt list-opt')
         end

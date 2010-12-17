@@ -1,3 +1,3 @@
-theme: "Chocolate theme"
+name: "Chocolate"
 layout: "application-ng"
 icon_theme: [default, pidgin]

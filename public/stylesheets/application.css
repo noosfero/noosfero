@@ -4101,10 +4101,10 @@ h1#agenda-title {
   -webkit-border-radius: 10px;
 }
 .list-opt:hover {
-  background: #FE0;
+  background: #eeeeec;
 }
 .list-opt.selected {
-  background: #F8F0A0;
+  background: #fcf5c0;
 }
 
 #theme-options .list-opt {
@@ -4123,7 +4123,7 @@ h1#agenda-title {
 
 .opt-info {
   position: absolute;
-  top: 15px;
+  top: 0px;
   left: 75px;
   width: 130px;
 }
@@ -4135,16 +4135,12 @@ h1#agenda-title {
   top: 2px;
 }
 
-.list-opt span {
-  text-decoration: underline;
-}
-
 .list-opt big {
   opacity: 0.5;
 }
 
 .list-opt .name {
-  font-size: 20px;
+  font-size: 16px;
 }
 #user-themes .list-opt .name {
   font-size: 18px;
