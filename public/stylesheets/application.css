@@ -2180,7 +2180,7 @@ div#activation_enterprise div {
 .profile-big-image img {
   border: 1px solid #888;
   padding: 2px;
-  background: #FFF;
+  background: transparent;
 }
 
 .profile-image-block ul {
