@@ -23,7 +23,7 @@ class ThemesController < MyProfileController
 
   def new
     if !request.xhr?
-      id = params[:name].to_slug
+      id = params[:name] ? params[:name].to_slug : 'my-theme'
       t = Theme.new(id, :name => params[:name], :owner => profile, :public => false)
       t.save
       redirect_to :action => 'index'

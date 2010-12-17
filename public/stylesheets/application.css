@@ -4070,7 +4070,92 @@ h1#agenda-title {
 }
 
 /* ==> public/stylesheets/controller_themes.css <== */
-/* common stuff */
+
+.action-themes-index .button-bar {
+  padding-top: 20px;
+}
+
+.list-options {
+  width: 800px;
+  margin: auto;
+  clear: left;
+  padding-top: 20px;
+}
+
+#theme-options .list-group {
+  clear: left;
+  padding-top: 7px;
+}
+
+.list-opt {
+  position: relative;
+  display: block;
+  width: 200px;
+  padding: 5px 2px 4px 5px;
+  margin: 0px 35px 0px 20px;
+  float: left;
+  color: #000;
+  text-decoration: none;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+}
+.list-opt:hover {
+  background: #FE0;
+}
+.list-opt.selected {
+  background: #F8F0A0;
+}
+
+#theme-options .list-opt {
+  width: 240px;
+  padding: 5px 2px 5px 5px;
+  margin: 0px 5px 0px 10px;
+}
+#user-themes .list-opt {
+  width: 220px;
+  margin: 0px 15px 0px 20px;
+}
+
+#theme-options img {
+  border: 1px solid #BBB;
+}
+
+.opt-info {
+  position: absolute;
+  top: 15px;
+  left: 75px;
+  width: 130px;
+}
+#theme-options .opt-info {
+  left: 115px;
+  width: 130px;
+}
+#user-themes .opt-info {
+  top: 2px;
+}
+
+.list-opt span {
+  text-decoration: underline;
+}
+
+.list-opt big {
+  opacity: 0.5;
+}
+
+.list-opt .name {
+  font-size: 20px;
+}
+#user-themes .list-opt .name {
+  font-size: 18px;
+}
+
+#user-themes a {
+  text-decoration: none;
+}
+#user-themes a:hover {
+  text-decoration: underline;
+}
 
 .controller-themes .template-preview-cell {
   text-align: center;
