@@ -26,3 +26,4 @@ doc/noosfero/*/*.xhtml
 tags
 pkg
 *~
+*.swp
