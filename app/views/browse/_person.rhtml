@@ -1,0 +1,3 @@
+<%= profile_image_link profile, :portrait, 'li',
+                                "<span class='adr'>#{profile.city}</span>" +
+                                (@filter == 'more_recent' ? profile.send(@filter + '_label') + show_date(profile.created_at) : profile.send(@filter + '_label')) %>

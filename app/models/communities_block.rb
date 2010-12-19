@@ -8,10 +8,6 @@ class CommunitiesBlock < ProfileListBlock
     n__('{#} community', '{#} communities', profile_count)
   end
 
-  def profile_image_link_method
-    :community_image_link
-  end
-
   def help
     __('This block displays the communities in which the user is a member.')
   end

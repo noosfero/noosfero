@@ -678,8 +678,6 @@ div#notice {
 }
 
 .communities-block .vcard a .org {
-  padding-top: 5px;
-  max-height: 30px;
   overflow: hidden;
 }
 .msie .communities-block .vcard a .org {

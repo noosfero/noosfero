@@ -1445,11 +1445,10 @@ input.disabled {
 #content .communities-block .vcard .profile_link {
   text-align: center;
   padding-bottom: 0px;
-  height: 112px;
 }
 
 .msie7 .communities-block .common-profile-list-block .vcard .profile_link {
-  height: 120px;
+  height: 75px;
   padding-bottom: 0px;
 }
 
@@ -1705,8 +1704,20 @@ input.disabled {
   height: 90px;
 }
 .msie7 .common-profile-list-block .vcard a {
+  width: 92px;
+}
+
+.box-2 .common-profile-list-block .vcard a.profile_link,
+.box-3 .common-profile-list-block .vcard a.profile_link {
+  height: 75px;
+  max-height: 75px;
+}
+
+.msie7 .box-2 .common-profile-list-block .vcard a,
+.msie7 .box-3 .common-profile-list-block .vcard a {
   width: 58px;
 }
+
 .common-profile-list-block .vcard a:hover {
   border: 2px solid #2A5896;
   background: #B8CFE7;

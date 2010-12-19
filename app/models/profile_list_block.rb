@@ -37,12 +37,11 @@ class ProfileListBlock < Block
     profiles = self.profile_list
     title = self.view_title
     nl = "\n"
-    link_method = profile_image_link_method
     lambda do
       count=0
       list = profiles.map {|item|
                count+=1
-               send(link_method, item, :minor )
+               send(:profile_image_link, item, :minor )
              }.join("\n  ")
       if list.empty?
         list = '<div class="common-profile-list-block-none">'+ _('None') +'</div>'
@@ -53,10 +52,6 @@ class ProfileListBlock < Block
       '<div class="common-profile-list-block">' +
       nl + list + nl + '<br style="clear:both" /></div>'
     end
-  end
-
-  def profile_image_link_method
-    :profile_image_link
   end
 
   def view_title
