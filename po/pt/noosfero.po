@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.27.0\n"
 "POT-Creation-Date: 2010-12-20 10:43-0300\n"
-"PO-Revision-Date: 2010-12-09 11:49-0300\n"
+"PO-Revision-Date: 2010-12-20 14:25-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE TEAM <E-MAIL@ADDRESS or HOME PAGE>\n"
 "MIME-Version: 1.0\n"
@@ -221,12 +221,11 @@ msgstr ""
 
 #: app/helpers/forum_helper.rb:4
 msgid "New discussion topic"
-msgstr ""
+msgstr "Novo tópido de discussão"
 
 #: app/helpers/forum_helper.rb:8
-#, fuzzy
 msgid "Configure forum"
-msgstr "Configurar blog"
+msgstr "Configurar fórum"
 
 #: app/helpers/forum_helper.rb:14 app/helpers/blog_helper.rb:20
 msgid "&laquo; Newer posts"
@@ -238,17 +237,15 @@ msgstr "Posts mais antigos &raquo;"
 
 #: app/helpers/forum_helper.rb:18
 msgid "Discussion topic"
-msgstr ""
+msgstr "Tópico de discussão"
 
 #: app/helpers/forum_helper.rb:19
-#, fuzzy
 msgid "Posts"
-msgstr "Fotos"
+msgstr "Posts"
 
 #: app/helpers/forum_helper.rb:20
-#, fuzzy
 msgid "Last post"
-msgstr "Última atualização"
+msgstr "Último post"
 
 #: app/helpers/forum_helper.rb:44 app/views/profile/_profile_scrap.rhtml:10
 #: app/views/profile/_profile_activities.rhtml:7
@@ -518,9 +515,8 @@ msgid "%s, by %s %s"
 msgstr "%s, por %s %s"
 
 #: app/helpers/content_viewer_helper.rb:43
-#, fuzzy
 msgid "Translations"
-msgstr "Organizações"
+msgstr "Traduções"
 
 #: app/helpers/profile_editor_helper.rb:5
 msgid "Agrometeorology"
@@ -1384,7 +1380,7 @@ msgstr "Remover"
 
 #: app/helpers/article_helper.rb:16
 msgid "This topic is opened for replies"
-msgstr ""
+msgstr "Este tópico está aberto para respostas"
 
 #: app/helpers/article_helper.rb:16
 msgid "I want to receive comments about this article"
@@ -1716,7 +1712,7 @@ msgstr "Não há comunidade portal para publicar seu artigo"
 
 #: app/controllers/my_profile/cms_controller.rb:291
 msgid "Thanks for your suggestion. The community administrators were notified."
-msgstr ""
+msgstr "Obrigado pela sua sugestão. Os administradores da comunidade foram notificados."
 
 #: app/controllers/my_profile/mailconf_controller.rb:23
 msgid ""
@@ -1802,19 +1798,19 @@ msgstr "Documento de Texto HTML"
 
 #: app/models/article.rb:281
 msgid "Language not supported by Noosfero"
-msgstr ""
+msgstr "Idioma não suportado pelo Noosfero"
 
 #: app/models/article.rb:287
 msgid "Language is already used"
-msgstr ""
+msgstr "Idioma já foi usado"
 
 #: app/models/article.rb:293
 msgid "Language must be choosen"
-msgstr ""
+msgstr "É preciso escolher um idioma"
 
 #: app/models/article.rb:299
 msgid "A language must be choosen for the native article"
-msgstr ""
+msgstr "Um idioma deve ser escolhido para o artigo nativo"
 
 #: app/models/communities_block.rb:8
 msgid "{#} community"
@@ -3006,17 +3002,17 @@ msgstr "Pedido de alteração de senha"
 
 #: app/models/forum.rb:6
 msgid "Forum"
-msgstr ""
+msgstr "Fórum"
 
 #: app/models/forum.rb:10
 msgid ""
 "An internet forum, also called message board, where discussions can be held."
 msgstr ""
+"Um fórum online, também chamado de quadro de mensagens, onde discussões podem ser feitas"
 
 #: app/models/suggest_article.rb:11
-#, fuzzy
 msgid "%{sender} suggested to publish \"%{article}\" on %{community}"
-msgstr "%{author} quer publicar \"%{article}\" em %{community}"
+msgstr "%{sender} sugeriu publicar \"%{article}\" em %{community}"
 
 #: app/models/certifier.rb:-
 msgid "certifier"
@@ -3377,9 +3373,8 @@ msgid "thumbnail"
 msgstr "miniatura"
 
 #: app/models/gallery.rb:8
-#, fuzzy
 msgid "A gallery, inside which you can put images."
-msgstr "Uma pasta, dentro dela você pode colocar outros artigos."
+msgstr "Uma galeria, dentro da qual você pode inserir imagens."
 
 #: app/models/pending_task_notifier.rb:6
 msgid "[%s] Pending tasks"
@@ -4305,7 +4300,7 @@ msgstr "Texto"
 
 #: app/views/cms/_forum.rhtml:3
 msgid "My Forum"
-msgstr ""
+msgstr "Meu fórum"
 
 #: app/views/cms/_forum.rhtml:9 app/views/cms/_blog.rhtml:53
 #: app/views/cms/_folder.rhtml:5 app/views/cms/_gallery.rhtml:5
@@ -4323,9 +4318,8 @@ msgid "Content management"
 msgstr "Gerenciamento de conteúdo"
 
 #: app/views/cms/view.rhtml:8
-#, fuzzy
 msgid "New content"
-msgstr "Todo o conteúdo"
+msgstr "Novo conteúdo"
 
 #: app/views/cms/view.rhtml:9 app/views/profile_editor/edit.rhtml:81
 #: app/views/maps/edit_location.rhtml:14 app/views/maps/edit_location.rhtml:30
@@ -4393,9 +4387,8 @@ msgstr "Prévia"
 #: app/views/cms/_textile_article.rhtml:11
 #: app/views/cms/_tiny_mce_article.rhtml:18
 #: app/views/tasks/_textile_article.rhtml:2
-#, fuzzy
 msgid "Used when a short version of your text is needed."
-msgstr "Usado quando uma versão curta do seu texto é necessária."
+msgstr "Usada quando uma versão curta do seu texto é necessária."
 
 #: app/views/cms/_blog.rhtml:3
 msgid "My Blog"
@@ -4458,7 +4451,7 @@ msgstr "Primeiro parágrafo"
 
 #: app/views/cms/_blog.rhtml:59
 msgid "Try listing only translated posts"
-msgstr ""
+msgstr "Tentar listar apenas posts traduzidos"
 
 #: app/views/cms/_blog.rhtml:62
 msgid "Limit of posts in RSS Feed"
@@ -4466,11 +4459,11 @@ msgstr "Limite de posts no feed RSS"
 
 #: app/views/cms/_blog.rhtml:63 app/views/cms/_rss_feed.rhtml:7
 msgid "Include in RSS Feed only posts from language:"
-msgstr ""
+msgstr "Incluir no feed RSS apenas posts no idioma:"
 
 #: app/views/cms/_blog.rhtml:63 app/views/cms/_rss_feed.rhtml:7
 msgid "All"
-msgstr ""
+msgstr "Todos"
 
 #: app/views/cms/_blog.rhtml:70
 msgid "Fetch posts from an external feed"
@@ -4587,18 +4580,16 @@ msgid "Documents"
 msgstr "Documentos"
 
 #: app/views/cms/suggest_an_article.rhtml:13
-#, fuzzy
 msgid "Source link"
-msgstr "Fonte"
+msgstr "Link da fonte"
 
 #: app/views/cms/suggest_an_article.rhtml:15
-#, fuzzy
 msgid "Your name"
-msgstr "Jornalismo"
+msgstr "Seu nome"
 
 #: app/views/cms/suggest_an_article.rhtml:31
 msgid "What is the result of '%s = ?'"
-msgstr ""
+msgstr "Qual o resultado de '%s = ?'"
 
 #: app/views/cms/upload_files.rhtml:3
 msgid "This file couldn't be saved"
@@ -4627,9 +4618,8 @@ msgid "Uploading files to %s"
 msgstr "Enviando arquivos para %s"
 
 #: app/views/cms/select_article_type.rhtml:1
-#, fuzzy
 msgid "Choose the type of content:"
-msgstr "Escolha o tipo de artigo:"
+msgstr "Escolha o tipo de conteúdo"
 
 #: app/views/cms/_published_article.rhtml:3
 msgid "This is a republication of \"%s\", by %s."
@@ -5441,18 +5431,16 @@ msgid "Access the address below to view this comment:"
 msgstr "Acesse o endereço abaixo para ver este comentário:"
 
 #: app/views/content_viewer/image_gallery.rhtml:7
-#, fuzzy
 msgid "This gallery contains no images yet"
-msgstr "%{gallery} (%{count} imagens)"
+msgstr "Esta galeria não contém imagens ainda"
 
 #: app/views/content_viewer/image_gallery.rhtml:9
 msgid "View slideshow"
 msgstr "Ver apresentação"
 
 #: app/views/content_viewer/view_page.rhtml:38
-#, fuzzy
 msgid "Add translation"
-msgstr "Transição de imagens:"
+msgstr "Adicionar tradução"
 
 #: app/views/content_viewer/view_page.rhtml:46
 #: app/views/content_viewer/view_page.rhtml:50
@@ -5460,9 +5448,8 @@ msgid "Upload files"
 msgstr "Enviar arquivos"
 
 #: app/views/content_viewer/view_page.rhtml:55
-#, fuzzy
 msgid "Suggest an article"
-msgstr "Novo artigo"
+msgstr "Sugerir um artigo"
 
 #: app/views/content_viewer/view_page.rhtml:68
 msgid "This article's tags:"
@@ -6088,14 +6075,12 @@ msgid "Don't display"
 msgstr "Não mostrar"
 
 #: app/views/box_organizer/edit.rhtml:21
-#, fuzzy
 msgid "Show for:"
-msgstr "Buscar por:"
+msgstr "Exibir para:"
 
 #: app/views/box_organizer/edit.rhtml:21
-#, fuzzy
 msgid "all languages"
-msgstr "Línguas"
+msgstr "todos os idiomas"
 
 #: app/views/home/index.rhtml:2
 msgid "News"
@@ -6359,19 +6344,16 @@ msgid "Reject"
 msgstr "Rejeitar"
 
 #: app/views/tasks/_suggest_article.rhtml:8
-#, fuzzy
 msgid "Sent by: "
-msgstr "Enviado pelo %s."
+msgstr "Enviado por: "
 
 #: app/views/tasks/_suggest_article.rhtml:9
-#, fuzzy
 msgid "Email: %s"
 msgstr "e-Mail: %s"
 
 #: app/views/tasks/_suggest_article.rhtml:12
-#, fuzzy
 msgid "Source URL"
-msgstr "Fonte"
+msgstr "URL da fonte"
 
 #: app/views/tasks/_add_member.rhtml:1
 msgid "New member"
@@ -6839,14 +6821,12 @@ msgid "Select theme"
 msgstr "Selecione um tema"
 
 #: app/views/themes/index.rhtml:41
-#, fuzzy
 msgid "Use the default theme"
-msgstr "Usar este tema"
+msgstr "Usar o tema padrão"
 
 #: app/views/themes/index.rhtml:41
-#, fuzzy
 msgid "Are you sure you want to use the environment default theme?"
-msgstr "Tem certeza que quer sair?"
+msgstr "Tem certeza que quer usar o tema padrão do ambiente?"
 
 #: app/views/themes/index.rhtml:50 app/views/themes/index.rhtml:94
 msgid "The \"%s\" theme."
@@ -8132,13 +8112,12 @@ msgstr ""
 "superior."
 
 #: public/designs/themes/profile-base/footer.rhtml:2
-#, fuzzy
 msgid ""
 "This site uses <a href=\"http://noosfero.org/\">Noosfero</a>, developed by %"
 "s and licensed under the <a href=\"http://www.gnu.org/licenses/agpl.html"
 "\">GNU Affero General Public License</a> version 3 or any later version."
 msgstr ""
-"Esta rede social usa <a href=\"http://noosfero.org/\">Noosfero</a>, "
+"Este site usa <a href=\"http://noosfero.org/\">Noosfero</a>, "
 "desenvolvido pela %s e licenciado sob a <a href=\"http://www.gnu.org/"
 "licenses/agpl.html\">GNU Affero General Public License</a> versão 3 ou "
 "superior."
