@@ -57,8 +57,8 @@ class ThemesControllerTest < Test::Unit::TestCase
     profile.update_theme(t1)
     get :index, :profile => 'testinguser'
 
-    assert_tag :attributes => { :class => 'selected theme' }, :descendant =>  { :content => /(current)/ }
-    assert_no_tag :attributes => { :class => 'selected theme' }, :descendant =>  { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/themes/set/one" } }
+    assert_tag :attributes => { :class => 'theme-opt list-opt selected' }
+    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/themes/set/one" }
   end
 
   should 'display list of my themes for edition' do
@@ -273,8 +273,8 @@ class ThemesControllerTest < Test::Unit::TestCase
     LayoutTemplate.expects(:all).returns([t1, t2])
 
     get :index, :profile => 'testinguser'
-    assert_tag :tag => 'td', :attributes => { :class => 'selected template' }, :descendant => { :content => /(current)/ }
-    assert_no_tag :tag => 'td', :attributes => { :class => 'selected template' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/themes/set_layout_template/default"} }
+    assert_tag :attributes => { :class => 'template-opt list-opt selected' }
+    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/themes/set_layout_template/default"}
   end
 
   should 'set template' do
