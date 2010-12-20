@@ -57,13 +57,14 @@ class NoosferoTest < Test::Unit::TestCase
   end
 
   should 'use terminology with ngettext' do
-   Noosfero.terminology = UnifreireTerminology.instance
+   Noosfero.stubs(:terminology).returns(UnifreireTerminology.instance)
 
    Noosfero.with_locale('en') do
      assert_equal 'One institution', n__('One enterprise', '%{num} enterprises', 1)
    end
 
    Noosfero.with_locale('pt') do
+     stubs(:ngettext).with('One institution', '%{num} institutions', 1).returns('Uma instituição')
      assert_equal 'Uma instituição', n__('One enterprise', '%{num} enterprises', 1)
    end
   end
