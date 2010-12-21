@@ -1,7 +1,7 @@
 class RemovePublishedArticles < ActiveRecord::Migration
   def self.up
     select_all("SELECT * from articles WHERE type = 'PublishedArticle'").each do |published|
-      reference = select('select * from articles where id = %d' % published['reference_article_id']).first
+      reference = select_one('select * from articles where id = %d' % published['reference_article_id'])
       if reference
         execute(ActiveRecord::Base.sanitize_sql(["UPDATE articles SET type = ?, abstract = ?, body = ? WHERE articles.id  = ?", reference['type'], reference['abstract'], reference['body'], published['id']]))
       else
