@@ -1238,4 +1238,11 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_equal [es_article], assigns(:posts)
   end
 
+  should 'be redirect after posting a comment' do
+    login_as @profile.identifier
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
+    post :view_page, :profile => @profile.identifier, :page => [ 'myarticle' ], :comment => { :title => 'title', :body => 'body' }, :confirm => 'true'
+    assert_redirected_to :profile => @profile.identifier, :page => page.explode_path
+  end
+
 end

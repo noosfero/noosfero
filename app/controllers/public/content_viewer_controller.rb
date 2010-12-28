@@ -114,6 +114,7 @@ class ContentViewerController < ApplicationController
     if @comment.save
       @page.touch
       @comment = nil # clear the comment form
+      redirect_to :action => 'view_page', :profile => params[:profile], :page => @page.explode_path, :view => params[:view]
     else
       @form_div = 'opened'
     end
