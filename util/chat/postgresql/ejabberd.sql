@@ -36,12 +36,6 @@ CREATE VIEW users AS
   WHERE
     e.is_default;
 
-CREATE TABLE last (
-    username text PRIMARY KEY,
-    seconds text NOT NULL,
-    state text NOT NULL
-);
-
 CREATE VIEW rosterusers AS
   select
     p1.identifier AS username,               -- text NOT NULL,         

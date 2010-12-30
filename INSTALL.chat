@@ -1,4 +1,4 @@
-== Client setup
+== XMPP/Chat Client Setup
 
 To configure XMPP/BOSH in Noosfero you need:
 
@@ -6,22 +6,24 @@ To configure XMPP/BOSH in Noosfero you need:
 * SystemTimer - http://ph7spot.com/musings/system-timer
 * Pidgin data files - http://www.pidgin.im/
 
-# apt-get install librestclient-ruby
-# apt-get install libsystemtimer-ruby (depends to do Debian package to this)
+If you use Debian Lenny:
+
+# apt-get install librestclient-ruby (from backports)
 # apt-get install pidgin-data
+# apt-get install ruby1.8-dev
+# gem install SystemTimer
 
 Take a look at util/chat directory to see samples of config file to configure a
 XMPP/BOSH server with ejabberd, postgresql and apache2.
 
-
-== XMPP Server Setup
+== XMPP/Chat Server Setup
 
 This is a step-by-step guide to get a XMPP service working, in a Debian system.
 
 1. Install the required packages
 
-# aptitude install ejabberd odbc-postgresql
-
+# apt-get -t lenny-backports install ejabberd
+# apt-get install odbc-postgresql
 
 2. Ejabberd configuration
 
@@ -31,24 +33,26 @@ All the following changes must be done in config file:
 
  2.1. Set the default admin user
 
-{ acl, admin, { user, "", "localhost" } }.
+{ acl, admin, { user, "john", "www.example.com" } }.
+{ acl, admin, { user, "bart", "www.example.com" } }.
 
  2.2. Set the default host
 
-{ hosts, [ "localhost" ] }.
+{ hosts, [ "www.example.com" ] }.
 
  2.3. Http-Bind activation
 
 { 5280, ejabberd_http, [
-		http bind,
-	]
+      http_bind,
+      web_admin
+   ]
 }
 
 (...)
 
 { modules, [
-	...
-	{ mod_http_bind, [] }
+   {mod_http_bind, []},
+   ...
 ] }.
 
 Ejabberd creates semi-anonymous rooms by default, but Noosfero's Jabber client
@@ -59,16 +63,16 @@ In non-anonymous rooms the jabber service sends the new occupant's full JID to
 all occupants in the room[1].
 
 Add option "{default_room_options, [{anonymous, false}]}" to
-/etc/ejabberd/ejabberd.cfg to mod_muc session. See below:
+/etc/ejabberd/ejabberd.cfg in mod_muc session. See below:
 
 { mod_muc, [
-	%%{host, "conference.@HOST@"},
-	{access, muc},
-	{access_create, muc},
-	{access_persistent, muc},
-	{access_admin, muc_admin},
-	{max_users, 500},
-	{default_room_options, [{anonymous, false}]}
+   %%{host, "conference.@HOST@"},
+   {access, muc},
+   {access_create, muc},
+   {access_persistent, muc},
+   {access_admin, muc_admin},
+   {max_users, 500},
+   {default_room_options, [{anonymous, false}]}
 ]},
 
 [1] - http://xmpp.org/extensions/xep-0045.html#enter-nonanon
@@ -80,12 +84,15 @@ To use Postgresql through ODBC, the following modifications must be done:
 
  * Disable the default method:
 
-{ auth_method, internal }.
+{auth_method, internal}.
 
  * Enable autheticantion through ODBC:
 
-{ auth_method, odbc }.
-{ odbc_server, "DSN=PSQLejabberd" }.
+{auth_method, odbc}.
+
+ * Set database server name
+
+{odbc_server, "DSN=PostgreSQLEjabberdNoosfero"}.
 
 
  2.5. Increase the shaper traffic limit
@@ -102,19 +109,31 @@ Unused modules can be disabled, for example:
  * mod_pubsub
  * mod_irc
  * mod_offine
- * ...
+ * mod_admin_extra
+ * mod_register
 
+
+ 2.7. Enable ODBC modules
+
+ * mod_privacy -> mod_privacy_odbc
+ * mod_private -> mod_private_odbc
+ * mod_roster  -> mod_roster_odbc
 
 3. Configuring Postgresql
 
-Change to the noosfero user, and:
+Login as noosfero user, and execute:
 
-	$ psql noosfero_production < /path/to/noosfero/util/chat/postgresql/ejabberd.sql
+   $ psql noosfero < /path/to/noosfero/util/chat/postgresql/ejabberd.sql
 
-where "noosfero_production" may need to be replace by the name of the
-database used for noosfero.
+Where 'noosfero' may need to be replace by the name of the database used for
+Noosfero.
 
 This will create a new schema inside the noosfero database, called 'ejabberd'.
+
+Note 'noosfero' user should have permission to create Postgresql schemas. Also,
+there should be at least one domain with 'is_default = true' in 'domains'
+table, otherwise people couldn't see your friends online.
+
 
 4. ODBC configuration
 
@@ -122,42 +141,42 @@ The following files must be created:
 
  * /etc/odbc.ini
 
-[ PSQLejabberd ]
-	Description	= PostgreSQL
-	Driver		= PostgreSQL Unicode
-	Trace		= No
-	TraceFile	= /tmp/psqlodbc.log
-	Database	= ejabberd
-	Servername	= localhost
-	UserName	= USER
-	Password	= PASSWORD
-	Port		=
-	ReadOnly	= No
-	RowVersioning	= No
-	ShowSystemTables= No
-	ShowOidColumn	= No
-	FakeOidIndex	= No
-	ConnSettings  = SET search_path TO ejabberd
+[PostgreSQLEjabberdNoosfero]
+Description      = PostgreSQL Noosfero ejabberd database
+Driver           = PostgreSQL Unicode
+Trace            = No
+TraceFile        = /tmp/psqlodbc.log
+Database         = noosfero
+Servername       = localhost
+UserName         = <DBUSER>
+Password         = <DBPASS>
+Port             =
+ReadOnly         = No
+RowVersioning    = No
+ShowSystemTables = No
+ShowOidColumn    = No
+FakeOidIndex     = No
+ConnSettings     = SET search_path TO ejabberd
 
  * /etc/odbcinst.ini
 
-[ PostgreSQL Unicode ]
-	Description 	= PostgreSQL ODBC driver ( Unicode version )
-	Driver		= /usr/lib/odbc/psqlodbcw.so
-	Setup		= /usr/lib/odbc/libodbcpsqlS.so
-	Debug		= 0
-	CommLog		= 1
-	UsageCount	= 3
+[PostgreSQL Unicode]
+Description = PostgreSQL ODBC driver (Unicode version)
+Driver      = /usr/lib/odbc/psqlodbcw.so
+Setup       = /usr/lib/odbc/libodbcpsqlS.so
+Debug       = 0
+CommLog     = 1
+UsageCount  = 3
 
  * testing all:
 
-# isql 'PSQLejabberd' USER
+# isql 'PostgreSQLEjabberdNoosfero' DBUSER
 
 
 5. Enabling kernel polling and SMP in /etc/default/ejabberd
 
-POLL = true
-SMP = auto
+POLL=true
+SMP=auto
 
 
 6. Increase the file descriptors limit for user ejabberd
@@ -169,8 +188,8 @@ session required pam_limits.so
 
  6.2. Add this lines to file /etc/security/limits.conf:
 
-ejabberd	hard	nofile	65536
-ejabberd	soft	nofile	65536
+ejabberd       hard    nofile  65536
+ejabberd       soft    nofile  65536
 
 Now, test the configuration:
 
@@ -179,26 +198,23 @@ Now, test the configuration:
 
 7. Apache Configuration
 
-Be our server is jabber-br.org, Apache server must be configurated as follow:
+Apache server must be configurated as follow:
 
- * /etc/apache2/sites-available/jabber-br-proxy:
+ * /etc/apache2/sites-enabled/noosfero
 
-ProxyPass /http-bind/ https://jabber-br.org:5280/http-bind/
-	<Proxy ∗>
-		Order deny, allow
-		Allow from all
-	</Proxy>
+RewriteEngine On
+Include /usr/share/noosfero/util/chat/apache/xmpp.conf
 
  * /etc/apache2/apache2.conf:
 
 <IfModule mpm_worker_module>
-	StartServers	8
-	MinSpareThreads	25
-	MaxSpareThreads	75
-	ThreadLimit	128
-	ThreadsPerChild	128
-	MaxClients	2048
-	MaxRequestsPerChild	0
+   StartServers          8
+   MinSpareThreads       25
+   MaxSpareThreads       75
+   ThreadLimit           128
+   ThreadsPerChild       128
+   MaxClients            2048
+   MaxRequestsPerChild   0
 </IfModule>
 
 Note: module proxy_http must be enabled:
@@ -210,10 +226,10 @@ Note: module proxy_http must be enabled:
 
  * /etc/bind/db.colivre:
 
-_xmpp-client._tcp	SRV	5 100 5222 master
+_xmpp-client._tcp   SRV   5 100 5222 master
 (...)
-conference	CNAME master
-_xmpp-client._tcp.conference	SRV	5 100 5222 master
+conference   CNAME master
+_xmpp-client._tcp.conference   SRV   5 100 5222 master
 
 
 9. Testing this Setup
@@ -237,4 +253,3 @@ To measure the bandwidth between server and client:
 For heavy load tests, clone and use this software:
 
 git clone http://git.holoscopio.com/git/metal/tester.git
-
