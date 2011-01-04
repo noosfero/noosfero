@@ -1,7 +1,7 @@
 class PluginsController < AdminController
 
   def index
-    @active_plugins = Noosfero::Plugin.all.map {|plugin_name| eval(plugin_name)}.compact
+    @active_plugins = Noosfero::Plugin.all.map {|plugin_name| plugin_name.constantize }.compact
   end
 
   post_only :update

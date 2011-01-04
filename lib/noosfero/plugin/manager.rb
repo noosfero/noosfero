@@ -12,7 +12,7 @@ class Noosfero::Plugin::Manager
 
   def enabled_plugins
     @enabled_plugins ||= (Noosfero::Plugin.all & context.environment.enabled_plugins).map do |plugin|
-      p = eval(plugin).new
+      p = plugin.constantize.new
       p.context = context
       p
     end
