@@ -449,15 +449,15 @@ Feature: manage products
   Scenario: Truncate long category name in selection of category
     Given the following product_category
       | name |
-      | Super Quantum Computers |
-      | Nanonote nanotech with long name |
+      | Super Quantum Computers with teraflops |
+      | Nanonote nanotech with long long name |
     And the following product_category
       | name | parent |
       | Netbook Quantum | Super Quantum Computers |
     And I am logged in as "joaosilva"
     When I go to Rede Moinho's new product page
-    Then I should see "Nanonote nanotech..."
-    And I should see "Super Quantum Com... »"
+    Then I should see "Nanonote nanotech with long lo..."
+    And I should see "Super Quantum Computers with t... »"
 
   @selenium
   Scenario: Edit unit of a product together your name

@@ -3364,6 +3364,7 @@ h1#agenda-title {
 .categories_container select {
   margin-right: 10px;
   height: 176px;
+  font-size: 11px;
 }
 .controller-manage_products #categories_selection_actionbar input.button {
   height: 23px !important;
