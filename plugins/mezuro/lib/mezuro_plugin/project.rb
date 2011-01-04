@@ -1,3 +1,5 @@
+require 'svn/client'
+
 class MezuroPlugin::Project < Noosfero::Plugin::ActiveRecord
   has_many :metrics, :as => :metricable
 
