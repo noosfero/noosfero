@@ -98,10 +98,6 @@ body, th, td, input {
   left: -17px;
   top: -1px;
 }
-.msie6 #user a i {
-  left: 8px;
-  top: 3px;
-}
 .msie7 #user a i {
   top: 3px;
 }
@@ -146,9 +142,7 @@ body, th, td, input {
   width: 310px;
   height: 90px;
 }
-.msie6 #site-title {
-  left: -10px;
-}
+
 #site-title a {
   display: block;
   width: 300px;
@@ -182,18 +176,6 @@ body, th, td, input {
   width: 14px;
   height: 42px;
   background: url(imgs/menu-top-bg-right.png);
-}
-
-.msie6 #navigation {
-  background: none;
-  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader
-          (src='imgs/menu-top-bg-left.png', sizingMethod='scale');
-}
-.msie6 #navigation-end {
-  right: -1px;
-  background: none;
-  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader
-          (src='imgs/menu-top-bg-right.png', sizingMethod='scale');
 }
 
 #navigation ul {
@@ -303,9 +285,6 @@ body, th, td, input {
 .template-default .box-1 { /* Center */
   position: relative;
   margin: 0px 200px 0px 200px;
-}
-.msie6.template-default .box-1 {
-  width: expression( $("wrap-2").offsetWidth - 430 ); 640
 }
 
 .template-default .box-2 { /* Left */
@@ -670,7 +649,6 @@ div#notice {
   width: 99%;
   height: auto;
 }
-.msie6 .communities-block .common-profile-list-block .vcard a,
 .msie7 .communities-block .common-profile-list-block .vcard a {
   height: auto;
   width: 99%;
