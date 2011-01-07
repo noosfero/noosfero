@@ -1539,4 +1539,16 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'label', :attributes => { :for => 'article_accept_comments' }, :content => _('I want to receive comments about this article')
   end
 
+  should 'display filename if uploaded file has not title' do
+    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => @profile)
+    get :index, :profile => @profile.identifier
+    assert_tag :a, :content => "rails.png"
+  end
+
+  should 'display title if uploaded file has one' do
+    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => @profile, :title => 'An image')
+    get :index, :profile => @profile.identifier
+    assert_tag :a, :content => "An image"
+  end
+
 end

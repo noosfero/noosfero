@@ -28,7 +28,7 @@ module CmsHelper
   end
 
   def link_to_article(article)
-    article_name = short_filename(article.name, 30)
+    article_name = short_filename(article.title, 30)
     if article.folder?
       link_to article_name, {:action => 'view', :id => article.id}, :class => icon_for_article(article)
     else
