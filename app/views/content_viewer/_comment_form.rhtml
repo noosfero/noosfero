@@ -1,23 +1,25 @@
-<%
-  comment_form_id = 'comment_form'+ rand(9999).to_s
-%>
-
 <% focus_on = logged_in? ? 'title' : 'name' %>
 
-<%= error_messages_for :comment %>
+<% if @comment && @comment.errors.any? && @comment.reply_of_id.blank? %>
+  <%= error_messages_for :comment %>
+  <script type="text/javascript">jQuery(function() { document.location.href = '#page-comment-form'; });</script>
+<% end %>
 
 <% @form_div ||= 'closed' %>
 
-<div
-  class="post_comment_box <%= @form_div %>"
-  onclick="f=$('<%= comment_form_id %>');
-           this.className = this.className.replace(/closed/,'opened');
-           f.commit.focus(); f['comment[<%= focus_on %>]'].focus();
-           this.onclick=null">
+<div class="post_comment_box <%= @form_div %>">
 
-<h4><%= content_tag('a', '', :name => 'comment_form') + _('Post a comment') %></h4>
+<h4 onclick="var d = jQuery(this).parent('.post_comment_box');
+             if (d.hasClass('closed')) {
+               d.removeClass('closed');
+               d.addClass('opened');
+               d.find('input[name=comment[title]], textarea').val('');
+               d.find('.comment_form input[name=comment[<%= focus_on %>]]').focus();
+             }">
+  <%= content_tag('a', '', :name => 'comment_form') + _('Post a comment') %>
+</h4>
 
-<% form_tag( url_for(@page.view_url.merge({:only_path => true})), { :id => comment_form_id } ) do %>
+<% form_tag( url_for(@page.view_url.merge({:only_path => true})), { :class => 'comment_form' } ) do %>
   <%= icaptcha_field() %>
   <%= hidden_field_tag(:confirm, 'false') %>
 
@@ -37,7 +39,8 @@
   <%= required labelled_form_field(_('Title'), text_field(:comment, :title)) %>
   <%= required labelled_form_field(_('Enter your comment'), text_area(:comment, :body, :rows => 5)) %>
   <% button_bar do %>
-    <%= submit_button('add', _('Post comment'), :onclick => "$('confirm').value = 'true'; this.disabled = true; this.form.submit(); return true;") %>
+    <%= submit_button('add', _('Post comment'), :onclick => "this.form.confirm.value = 'true'; this.disabled = true; this.form.submit(); return true;") %>
+    <%= button_to_function :cancel, _('Cancel'), "f=jQuery(this).parents('.post_comment_box'); f.removeClass('opened'); f.addClass('closed'); return false" %>
   <% end %>
 <% end %>
 

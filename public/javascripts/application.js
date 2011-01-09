@@ -649,3 +649,20 @@ jQuery(function($) {
     })
   }
 });
+
+function add_comment_reply_form(button, comment_id) {
+  var container = jQuery(button).parents('.comment_reply');
+  var f = container.find('.comment_form');
+  if (f.length == 0) {
+    f = jQuery('#page-comment-form .comment_form').clone();
+    f.find('.fieldWithErrors').map(function() { jQuery(this).replaceWith(jQuery(this).contents()); });
+    f.prepend('<input type="hidden" name="comment[reply_of_id]" value="' + comment_id + '" />');
+    container.append(f);
+  }
+  if (container.hasClass('closed')) {
+    container.removeClass('closed');
+    container.addClass('opened');
+    container.find('.comment_form input[type=text]:visible:first').focus();
+  }
+  return f;
+}

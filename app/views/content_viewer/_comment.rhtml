@@ -1,17 +1,23 @@
-<%= content_tag('a', '', :name => comment.anchor) %>
-<div class="article-comment<%= ' comment-from-owner' if ( comment.author && (@page.profile.name == comment.author.name) ) %> comment-logged-<%= comment.author ? 'in' : 'out' %>">
+<li id="<%= comment.anchor %>" class="article-comment">
+  <div class="article-comment-inner">
+
+  <div class="comment-content comment-logged-<%= comment.author ? 'in' : 'out' %> <%= 'comment-from-owner' if ( comment.author && (@page.profile.name == comment.author.name) ) %>">
 
   <% if comment.author %>
-    <%= link_to content_tag( 'span', comment.author_name, :class => 'comment-info' ), comment.author.url,
+    <%= link_to image_tag(profile_icon(comment.author, :minor)) +
+                content_tag('span', comment.author_name, :class => 'comment-info'),
+        comment.author.url,
         :class => 'comment-picture',
-        :style => 'background-image:url(%s)' % profile_icon(comment.author, :minor)
+        :title => comment.author_name
     %>
   <% else %>
     <%# unauthenticated user: display gravatar icon %>
-    <% url_image = comment.author_id ? comment.removed_user_image : str_gravatar_url_for( comment.email, :size => 50 ) %>
-    <%= content_tag 'span', content_tag('span', comment.author_name + comment.message, :class => 'comment-info'),
+    <% url_image, status_class = comment.author_id ? [comment.removed_user_image, 'icon-user-removed'] : [str_gravatar_url_for( comment.email, :size => 50 ), 'icon-user-unknown'] %>
+    <%= content_tag 'span', image_tag(url_image) +
+                            content_tag('span', comment.author_name, :class => 'comment-info') +
+                            content_tag('span', comment.message, :class => 'comment-user-status ' + status_class),
         :class => 'comment-picture',
-        :style => 'background-image:url(%s)' % url_image
+        :title => '%s %s' % [comment.author_name, comment.message]
     %>
   <% end %>
 
@@ -32,6 +38,35 @@
         <%= txt2html comment.body %>
       </div>
     </div>
+
+    <div class="comment_reply post_comment_box closed">
+      <% if @comment && @comment.errors.any? && @comment.reply_of_id.to_i == comment.id %>
+        <%= error_messages_for :comment %>
+        <script type="text/javascript">
+          jQuery(function() {
+            document.location.href = '#<%= comment.anchor %>';
+            add_comment_reply_form('#comment-reply-to-<%= comment.id %>', <%= comment.id %>);
+          });
+        </script>
+      <% end %>
+      <%= link_to_function _('Reply'),
+          "var f = add_comment_reply_form(this, %s); f.find('input[name=comment[title]], textarea').val(''); return false" % comment.id,
+          :class => 'comment-reply-link',
+          :id => 'comment-reply-to-' + comment.id.to_s
+      %>
+    </div>
+
   <% end %>
 
-</div>
+  </div>
+
+  <% unless comment.replies.blank? %>
+  <ul class="comment-replies">
+    <% comment.replies.each do |reply| %>
+      <%= render :partial => 'comment', :locals => { :comment => reply } %>
+    <% end %>
+  </ul>
+  <% end %>
+
+  </div>
+</li>

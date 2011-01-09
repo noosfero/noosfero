@@ -238,4 +238,83 @@ class CommentTest < Test::Unit::TestCase
     assert_equal owner, ta.target
   end
 
+  should "get children of a comment" do
+    c = fast_create(Comment)
+    c1 = fast_create(Comment, :reply_of_id => c.id)
+    c2 = fast_create(Comment)
+    c3 = fast_create(Comment, :reply_of_id => c.id)
+    assert_equal [c1,c3], c.children
+  end
+
+  should "get parent of a comment" do
+    c = fast_create(Comment)
+    c1 = fast_create(Comment, :reply_of_id => c.id)
+    c2 = fast_create(Comment, :reply_of_id => c1.id)
+    c3 = fast_create(Comment, :reply_of_id => c.id)
+    c4 = fast_create(Comment)
+    assert_equal c, c1.reply_of
+    assert_equal c, c3.reply_of
+    assert_equal c1, c2.reply_of
+    assert_nil c4.reply_of
+  end
+
+  should 'destroy replies when comment is removed' do
+    Comment.delete_all
+    owner = create_user('testuser').person
+    article = owner.articles.create!(:name => 'test', :body => '...')
+    c = article.comments.create!(:article => article, :name => 'foo', :title => 'bar', :body => 'my comment', :email => 'cracker@test.org')
+    c1 = article.comments.create!(:article => article, :name => 'foo', :title => 'bar', :body => 'my comment', :email => 'cracker@test.org', :reply_of_id => c.id)
+    c2 = article.comments.create!(:article => article, :name => 'foo', :title => 'bar', :body => 'my comment', :email => 'cracker@test.org')
+    c3 = article.comments.create!(:article => article, :name => 'foo', :title => 'bar', :body => 'my comment', :email => 'cracker@test.org', :reply_of_id => c.id)
+    assert_equal 4, Comment.count
+    c.destroy
+    assert_equal [c2], Comment.all
+  end
+
+  should "get children if replies are not loaded" do
+    c = fast_create(Comment)
+    c1 = fast_create(Comment, :reply_of_id => c.id)
+    c2 = fast_create(Comment)
+    c3 = fast_create(Comment, :reply_of_id => c.id)
+    assert_nil c.instance_variable_get('@replies')
+    assert_equal [c1,c3], c.replies
+  end
+
+  should "get replies if they are loaded" do
+    c = fast_create(Comment)
+    c1 = fast_create(Comment, :reply_of_id => c.id)
+    c2 = fast_create(Comment)
+    c3 = fast_create(Comment, :reply_of_id => c.id)
+    c.replies = [c2]
+    assert_not_nil c.instance_variable_get('@replies')
+    assert_equal [c2], c.replies
+  end
+
+  should "set replies" do
+    c = fast_create(Comment)
+    c1 = fast_create(Comment, :reply_of_id => c.id)
+    c2 = fast_create(Comment)
+    c3 = fast_create(Comment, :reply_of_id => c.id)
+    c.replies = []
+    c.replies << c2
+    assert_equal [c2], c.instance_variable_get('@replies')
+    assert_equal [c2], c.replies
+    assert_equal [c1,c3], c.reload.children
+  end
+
+  should "return comments as a thread" do
+    a = fast_create(Article)
+    c0 = fast_create(Comment, :article_id => a.id)
+    c1 = fast_create(Comment, :reply_of_id => c0.id, :article_id => a.id)
+    c2 = fast_create(Comment, :reply_of_id => c1.id, :article_id => a.id)
+    c3 = fast_create(Comment, :reply_of_id => c0.id, :article_id => a.id)
+    c4 = fast_create(Comment, :article_id => a.id)
+    result = a.comments.as_thread
+    assert_equal c0.id, result[0].id
+    assert_equal [c1.id, c3.id], result[0].replies.map(&:id)
+    assert_equal [c2.id], result[0].replies[0].replies.map(&:id)
+    assert_equal c4.id, result[1].id
+    assert result[1].replies.empty?
+  end
+
 end

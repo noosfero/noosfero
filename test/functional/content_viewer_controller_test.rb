@@ -242,7 +242,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
     get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ]
 
-    assert_tag :tag => 'form', :attributes => { :id => /^comment_form/, :action => '/person/article' }
+    assert_tag :tag => 'form', :attributes => { :class => /^comment_form/, :action => '/person/article' }
   end
 
   should "display current article's tags" do
@@ -928,7 +928,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
     get :view_page, :profile => profile.identifier, :page => article.explode_path
 
-    assert_tag :tag => 'span', :content => '(removed user)', :attributes => {:class => 'comment-info'}
+    assert_tag :tag => 'span', :content => '(removed user)', :attributes => {:class => 'comment-user-status icon-user-removed'}
   end
 
   should 'show comment form opened on error' do
@@ -1243,6 +1243,77 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
     post :view_page, :profile => @profile.identifier, :page => [ 'myarticle' ], :comment => { :title => 'title', :body => 'body' }, :confirm => 'true'
     assert_redirected_to :profile => @profile.identifier, :page => page.explode_path
+  end
+
+  should 'display reply to comment button if authenticated' do
+    profile = create_user('testuser').person
+    article = profile.articles.build(:name => 'test')
+    article.save!
+    comment = article.comments.build(:author => profile, :title => 'a comment', :body => 'lalala')
+    comment.save!
+    login_as 'testuser'
+    get :view_page, :profile => 'testuser', :page => [ 'test' ]
+    assert_tag :tag => 'a', :attributes => { :class => /comment-reply-link/ }
+  end
+
+  should 'display reply to comment button if not authenticated' do
+    profile = create_user('testuser').person
+    article = profile.articles.build(:name => 'test')
+    article.save!
+    comment = article.comments.build(:author => profile, :title => 'a comment', :body => 'lalala')
+    comment.save!
+    get :view_page, :profile => 'testuser', :page => [ 'test' ]
+    assert_tag :tag => 'a', :attributes => { :class => /comment-reply-link/ }
+  end
+
+  should 'display replies if comment has replies' do
+    profile = create_user('testuser').person
+    article = profile.articles.build(:name => 'test')
+    article.save!
+    comment1 = article.comments.build(:author => profile, :title => 'a comment', :body => 'lalala')
+    comment1.save!
+    comment2 = article.comments.build(:author => profile, :title => 'a comment', :body => 'replying to lalala', :reply_of_id => comment1.id)
+    comment2.save!
+    get :view_page, :profile => 'testuser', :page => [ 'test' ]
+    assert_tag :tag => 'ul', :attributes => { :class => 'comment-replies' }
+  end
+
+  should 'not display replies if comment does not have replies' do
+    profile = create_user('testuser').person
+    article = profile.articles.build(:name => 'test')
+    article.save!
+    comment = article.comments.build(:author => profile, :title => 'a comment', :body => 'lalala')
+    comment.save!
+    get :view_page, :profile => 'testuser', :page => [ 'test' ]
+    assert_no_tag :tag => 'ul', :attributes => { :class => 'comment-replies' }
+  end
+
+  should 'show reply error' do
+    profile = create_user('testuser').person
+    article = profile.articles.build(:name => 'test')
+    article.save!
+    comment = article.comments.build(:author => profile, :title => 'root', :body => 'root')
+    comment.save!
+    login_as 'testuser'
+    post :view_page, :profile => profile.identifier, :page => ['test'], :comment => { :title => '', :body => '', :reply_of_id => comment.id }, :confirm => 'true'
+    assert_tag :tag => 'div', :attributes => { :class => /comment_reply/ }, :descendant => {:tag => 'div', :attributes => {:class => 'errorExplanation'} }
+    assert_no_tag :tag => 'div', :attributes => { :id => 'page-comment-form' }, :descendant => {:tag => 'div', :attributes => {:class => 'errorExplanation'} }
+    assert_tag :tag => 'div', :attributes => { :id => 'page-comment-form' }, :descendant => { :tag => 'div', :attributes => { :class => /post_comment_box closed/ } }
+  end
+
+  should 'show comment error' do
+    profile = create_user('testuser').person
+    article = profile.articles.build(:name => 'test')
+    article.save!
+    comment1 = article.comments.build(:author => profile, :title => 'root', :body => 'root')
+    comment1.save!
+    comment2 = article.comments.build(:author => profile, :title => 'root', :body => 'root', :reply_of_id => comment1.id)
+    comment2.save!
+    login_as 'testuser'
+    post :view_page, :profile => profile.identifier, :page => ['test'], :comment => { :title => '', :body => '' }, :confirm => 'true'
+    assert_no_tag :tag => 'div', :attributes => { :class => /comment_reply/ }, :descendant => {:tag => 'div', :attributes => {:class => 'errorExplanation'} }
+    assert_tag :tag => 'div', :attributes => { :id => 'page-comment-form' }, :descendant => {:tag => 'div', :attributes => {:class => 'errorExplanation'} }
+    assert_tag :tag => 'div', :attributes => { :id => 'page-comment-form' }, :descendant => { :tag => 'div', :attributes => { :class => /post_comment_box opened/ } }
   end
 
 end

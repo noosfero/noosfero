@@ -1111,22 +1111,22 @@ hr.pre-posts, hr.sep-posts {
   background: url(imgs/comment-owner-bg-NO.png)   0%   0% no-repeat;
 }
 
-
 .comment-created-at {
   position: relative;
-  padding-right: 10px;
+  padding-right: 9px;
 }
+
 .comment-from-owner .comment-created-at {
   color: #333;
 }
 
-
 .article-comment .button-bar {
   position: relative;
-  top: 3px;
-  right: 1px;
+  top: 9px;
+  right: 8px;
   z-index: 10px;
 }
+
 .article-comment .button-bar a {
   position: relative;
 }
@@ -1135,8 +1135,6 @@ hr.pre-posts, hr.sep-posts {
   margin: 0px;
   padding: 7px 12px 3px 26px;
 }
-
-
 
 /* ==> controllers.css <== */
 

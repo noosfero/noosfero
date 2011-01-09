@@ -66,6 +66,20 @@ When /^I select window "([^\"]*)"$/ do |selector|
   selenium.select_window(selector)
 end
 
+When /^I fill in "([^\"]*)" within "([^\"]*)" with "([^\"]*)"$/ do |field_label, parent_class, value|
+  selenium.type("xpath=//*[contains(@class, '#{parent_class}')]//*[@id=//label[contains(., '#{field_label}')]/@for]", value)
+end
+
+When /^I press "([^\"]*)" within "([^\"]*)"$/ do |button_value, selector|
+  selenium.click("css=#{selector} input[value=#{button_value}]")
+  selenium.wait_for_page_to_load(10000)
+end
+
+Then /^there should be ([1-9][0-9]*) "([^\"]*)" within "([^\"]*)"$/ do |number, child_class, parent_class|
+  # Using xpath is the only way to count
+  response.selenium.get_xpath_count("//*[contains(@class,'#{parent_class}')]//*[contains(@class,'#{child_class}')]").to_i.should be(number.to_i)
+end
+
 #### Noosfero specific steps ####
 
 Then /^the select for category "([^\"]*)" should be visible$/ do |name|

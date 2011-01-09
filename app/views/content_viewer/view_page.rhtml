@@ -120,14 +120,15 @@
 </div>
 <% end %>
 
-<div class="comments">
-  <a name="comments_list"></a>
+<div class="comments" id="comments_list">
   <% if @page.accept_comments? %>
   <h3 <%= 'class="no-comments-yet"' if @comments.size == 0 %>>
     <%= number_of_comments(@page) %>
   </h3>
-  <%= render :partial => 'comment', :collection => @comments %>
-  <%= render :partial => 'comment_form' %>
+  <ul class="article-comments-list">
+    <%= render :partial => 'comment', :collection => @comments %>
+  </ul>
+  <div id="page-comment-form"><%= render :partial => 'comment_form' %></div>
   <% end %>
 </div><!-- end class="comments" -->
 

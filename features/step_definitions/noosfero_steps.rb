@@ -307,3 +307,13 @@ Given /^the articles of "(.+)" are moderated$/ do |organization|
   organization.moderated_articles = true
   organization.save
 end
+
+Given /^the following comments?$/ do |table|
+  table.hashes.each do |item|
+    data = item.dup
+    article = Article.find_by_name(data.delete("article"))
+    author = Profile[data.delete("author")]
+    comment = article.comments.build(:author => author, :title => data.delete("title"), :body => data.delete("body"))
+    comment.save!
+  end
+end

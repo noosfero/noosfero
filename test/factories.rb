@@ -431,4 +431,9 @@ module Noosfero::Factory
     { :name => 'Sender', :email => 'sender@example.com', :article_name => 'Some title', :article_body => 'some body text', :article_abstract => 'some abstract text'}
   end
 
+  def defaults_for_comment(params = {})
+    name = "comment_#{rand(1000)}"
+    { :title => name, :body => "my own comment", :article_id => 1 }.merge(params)
+  end
+
 end

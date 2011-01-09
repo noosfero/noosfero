@@ -99,7 +99,7 @@ class ContentViewerController < ApplicationController
       @images = @images.paginate(:per_page => per_page, :page => params[:npage]) unless params[:slideshow]
     end
 
-    @comments = @page.comments(true)
+    @comments = @page.comments(true).as_thread
     if params[:slideshow]
       render :action => 'slideshow', :layout => 'slideshow'
     end
@@ -116,7 +116,7 @@ class ContentViewerController < ApplicationController
       @comment = nil # clear the comment form
       redirect_to :action => 'view_page', :profile => params[:profile], :page => @page.explode_path, :view => params[:view]
     else
-      @form_div = 'opened'
+      @form_div = 'opened' if params[:comment][:reply_of_id].blank?
     end
   end
 
