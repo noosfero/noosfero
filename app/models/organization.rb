@@ -132,4 +132,8 @@ class Organization < Profile
     super({:domain => "conference.#{environment.default_hostname}"}.merge(options))
   end
 
+  def receives_scrap_notification?
+    false
+  end
+
 end
