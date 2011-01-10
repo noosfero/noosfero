@@ -731,17 +731,6 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal ['contact_email'], env.required_community_fields
   end
 
-  should 'set category_types' do
-    env = Environment.new
-    env.category_types = ['Category', 'ProductCategory']
-
-    assert_equal ['Category', 'ProductCategory'], env.category_types
-  end
-
-  should 'have type /Category/ on category_types by default' do
-    assert_equal ['Category'], Environment.new.category_types
-  end
-
   should 'has tasks' do
     e = Environment.default
     assert_nothing_raised do

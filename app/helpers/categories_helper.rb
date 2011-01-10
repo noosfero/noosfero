@@ -34,8 +34,7 @@ module CategoriesHelper
 
   def select_category_type(field)
     value = params[field]
-    types = TYPES.select { |title,typename| environment.category_types.include?(typename) }
-    labelled_form_field(_('Type of category'), select_tag('type', options_for_select(types, value)))
+    labelled_form_field(_('Type of category'), select_tag('type', options_for_select(TYPES, value)))
   end
 
 end

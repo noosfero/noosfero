@@ -207,7 +207,6 @@ class Environment < ActiveRecord::Base
   settings_items :layout_template, :type => String, :default => 'default'
   settings_items :homepage, :type => String
   settings_items :description, :type => String, :default => '<div style="text-align: center"><a href="http://noosfero.org/"><img src="/images/noosfero-network.png" alt="Noosfero"/></a></div>'
-  settings_items :category_types, :type => Array, :default => ['Category']
   settings_items :enable_ssl
   settings_items :local_docs, :type => Array, :default => []
   settings_items :news_amount_by_folder, :type => Integer, :default => 4
