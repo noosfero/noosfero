@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101209001631) do
+ActiveRecord::Schema.define(:version => 20101221134544) do
 
   create_table "action_tracker", :force => true do |t|
     t.integer  "user_id"
@@ -194,6 +194,7 @@ ActiveRecord::Schema.define(:version => 20101209001631) do
     t.string   "name"
     t.string   "email"
     t.datetime "created_at"
+    t.integer  "reply_of_id"
   end
 
   create_table "contact_lists", :force => true do |t|
