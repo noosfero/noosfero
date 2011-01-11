@@ -10,12 +10,12 @@ Feature: comment
       | owner   | name               |
       | booking | article to comment |
       | booking | another article    |
-		And the following comments
-		  | article            | author  | title        | body                        |
-			| article to comment | booking | root comment | this comment is not a reply |
-			| another article    | booking | some comment | this is my very own comment |
+    And the following comments
+      | article            | author  | title        | body                        |
+      | article to comment | booking | root comment | this comment is not a reply |
+      | another article    | booking | some comment | this is my very own comment |
 
-	Scenario: not post a comment without javascript
+  Scenario: not post a comment without javascript
     Given I am on /booking/article-to-comment
     When I follow "Reply" within ".comment-balloon"
     Then I should not see "Enter your comment" within "div.comment-balloon"
@@ -40,29 +40,29 @@ Feature: comment
     Then I should not see "Enter your comment" within "div.comment-balloon"
     And I should see "Reply" within "div.comment-balloon"
 
-	@selenium
+  @selenium
   Scenario: render reply form
     Given I am on /booking/article-to-comment
     When I follow "Reply" within ".comment-balloon"
     Then I should see "Enter your comment" within "div.comment_reply.opened"
 
-	@selenium
+  @selenium
   Scenario: cancel comment reply
     Given I am on /booking/article-to-comment
     When I follow "Reply" within ".comment-balloon"
-		And I follow "Cancel" within ".comment-balloon"
+    And I follow "Cancel" within ".comment-balloon"
     Then I should see "Enter your comment" within "div.comment_reply.closed"
 
-	@selenium
+  @selenium
   Scenario: not render same reply form twice
     Given I am on /booking/article-to-comment
     When I follow "Reply" within ".comment-balloon"
-		And I follow "Cancel" within ".comment-balloon"
+    And I follow "Cancel" within ".comment-balloon"
     And I follow "Reply" within ".comment-balloon"
     Then there should be 1 "comment_form" within "comment_reply"
     And I should see "Enter your comment" within "div.comment_reply.opened"
 
-	@selenium
+  @selenium
   Scenario: reply a comment
     Given I am logged in as "booking"
     And I go to /booking/another-article
@@ -79,9 +79,9 @@ Feature: comment
       | owner   | file      | mime      |
       | booking | rails.png | image/png |
     And the following comment
-		  | article   | author  | title        | body                        |
-			| rails.png | booking | root comment | this comment is not a reply |
-		Given I am logged in as "booking"
+      | article   | author  | title        | body                        |
+      | rails.png | booking | root comment | this comment is not a reply |
+    Given I am logged in as "booking"
     And I go to /booking/rails.png?view=true
     And I follow "Reply" within ".comment-balloon"
     And I fill in "Title" within "comment-balloon" with "Hey ho, let's go!"
