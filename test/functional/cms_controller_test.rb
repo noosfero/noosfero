@@ -1551,4 +1551,29 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_tag :a, :content => "An image"
   end
 
+  should 'update image and be redirect to view_page' do
+    image = UploadedFile.create!(:profile => @profile, :uploaded_data => fixture_file_upload('files/rails.png', 'image/png'))
+    post :edit, :profile => @profile.identifier, :id => image.id, :article => { }
+    assert_redirected_to image.view_url
+  end
+
+  should 'update article and be redirect to view_page' do
+    a = fast_create(TextileArticle, :profile_id => @profile.id)
+    post :edit, :profile => @profile.identifier, :id => a.id, :article => { }
+    assert_redirected_to a.view_url
+  end
+
+  should 'update file and be redirect to cms' do
+    file = UploadedFile.create!(:profile => @profile, :uploaded_data => fixture_file_upload('files/test.txt', 'text/plain'))
+    post :edit, :profile => @profile.identifier, :id => file.id, :article => { }
+    assert_redirected_to :action => 'index'
+  end
+
+  should 'update file and be redirect to cms folder' do
+    f = fast_create(Folder, :profile_id => @profile.id, :name => 'foldername')
+    file = UploadedFile.create!(:profile => @profile, :uploaded_data => fixture_file_upload('files/test.txt', 'text/plain'), :parent_id => f.id)
+    post :edit, :profile => @profile.identifier, :id => file.id, :article => { :title => 'text file' }
+    assert_redirected_to :action => 'view', :id => f
+  end
+
 end

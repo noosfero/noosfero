@@ -94,7 +94,11 @@ class CmsController < MyProfileController
       @article.last_changed_by = user
       if @article.update_attributes(params[:article])
         if !continue
-          redirect_to @article.view_url
+          if @article.content_type.nil? || @article.image?
+            redirect_to @article.view_url
+          else
+            redirect_to :action => (@article.parent ? 'view' : 'index'), :id => @article.parent
+          end
         end
       end
     end
