@@ -1245,4 +1245,12 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_redirected_to :profile => @profile.identifier, :page => page.explode_path
   end
 
+  should 'add an zero width space every 4 caracters of comment urls' do
+    url = 'www.an.url.to.be.splited.com'
+    a = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'textile', :language => 'en')
+    c = a.comments.create!(:author => @profile, :title => 'An url', :body => url)
+    get :view_page, :profile => @profile.identifier, :page => [ 'textile' ]
+    assert_tag :a, :attributes => { :href => "http://" + url}, :content => url.scan(/.{4}/).join('&#x200B;')
+  end
+
 end

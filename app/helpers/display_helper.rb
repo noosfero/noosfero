@@ -31,9 +31,10 @@ module DisplayHelper
       gsub( /\n\s*\n/, ' <p/> ' ).
       gsub( /\n/, ' <br/> ' ).
       gsub( /(^|\s)(www\.[^\s])/, '\1http://\2' ).
-      gsub( /(https?:\/\/([^\s]+))/,
-            '<a href="\1" target="_blank" rel="nofolow" onclick="return confirm(\'' +
-            escape_javascript( _('Are you sure you want to visit this web site?') ) +
-            '\n\n\'+this.href)">\2</a>' )
+      gsub( /(https?:\/\/([^\s]+))/ ) do
+        href, content = $1, $2.scan(/.{4}/).join('&#x200B;')
+        content_tag(:a, content, :href => href, :target => '_blank', :rel => 'nofolow',
+                    :onclick => "return confirm('%s')" % escape_javascript(_('Are you sure you want to visit this web site?')))
+      end
   end
 end
