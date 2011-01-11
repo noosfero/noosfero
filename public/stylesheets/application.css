@@ -5409,23 +5409,14 @@ h1#agenda-title {
 	margin-top: 10px;
 }
 
-
 .article-translations-menu {
-    float: right;
-    bottom: -15px;
-}
-
-.opera .article-translations-menu {
-  bottom: -8px;
-}
-
-.webkit .article-translations-menu {
-  bottom: -10px;
+    bottom: 17px;
 }
 
 .article-translations-menu {
     text-decoration: none !important;
     height: 0;
+    float: right;
 }
 
 .article-translations .menu-submenu-header,
@@ -5436,16 +5427,9 @@ h1#agenda-title {
 
 .article-translations .menu-submenu {
     bottom: auto;
-    top: 60px;
     right: 0;
     border: 1px solid;
     background: #fff;
-}
-
-.msie7 .article-translations .menu-submenu,
-.webkit .article-translations .menu-submenu,
-.opera .article-translations .menu-submenu {
-  top: 30px;
 }
 
 .article-translations .menu-submenu-list {

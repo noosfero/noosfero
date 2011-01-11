@@ -55,10 +55,10 @@
       <%= link_to content_tag( 'span', _('Suggest an article') ), profile.admin_url.merge({ :controller => 'cms', :action => 'suggest_an_article'}), :class => 'button with-text icon-new' %>
     <% end %>
   <% end %>
-  <%= article_translations(@page) %>
   <div id="article-header">
     <%= link_to(image_tag('icons-mime/rss-feed.png'), @page.feed.url, :class => 'blog-feed-link') if @page.has_posts? && @page.feed %>
     <%= article_title(@page, :no_link => true) %>
+    <%= article_translations(@page) %>
   </div>
 </div>
 
