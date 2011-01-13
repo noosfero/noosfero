@@ -1071,6 +1071,7 @@ a.comment-picture {
 
 .comment-text {
   font-size: 11px;
+  overflow: hidden;
 }
 
 .comment-logged-out .comment-text {
