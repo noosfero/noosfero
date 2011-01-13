@@ -80,4 +80,11 @@ class CatalogControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'a', :attributes => {:href => /assets\/products\?product_category=#{pc.id}/}
   end
 
+  should 'add an zero width space every 4 caracters of comment urls' do
+    url = 'www.an.url.to.be.splited.com'
+    prod = @enterprise.products.create!(:name => 'Product test', :price => 50.00, :product_category => @product_category, :description => url)
+    get :index, :profile => @enterprise.identifier
+    assert_tag :a, :attributes => { :href => "http://" + url}, :content => url.scan(/.{4}/).join('&#x200B;')
+  end
+
 end
