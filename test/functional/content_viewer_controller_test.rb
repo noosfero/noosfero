@@ -1324,4 +1324,22 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_tag :a, :attributes => { :href => "http://" + url}, :content => url.scan(/.{4}/).join('&#x200B;')
   end
 
+  should 'show a post comment button on top if there are comments' do
+    profile = create_user('testuser').person
+    article = profile.articles.build(:name => 'test')
+    article.save!
+    comment = article.comments.build(:author => profile, :title => 'hi', :body => 'hello')
+    comment.save!
+    get :view_page, :profile => 'testuser', :page => [ 'test' ]
+    assert_tag :tag => 'p', :attributes => { :class => 'post-comment-button' }
+  end
+
+  should 'not show a post comment button on top if there are no comments' do
+    profile = create_user('testuser').person
+    article = profile.articles.build(:name => 'test')
+    article.save!
+    get :view_page, :profile => 'testuser', :page => [ 'test' ]
+    assert_no_tag :tag => 'p', :attributes => { :class => 'post-comment-button' }
+  end
+
 end

@@ -1087,28 +1087,28 @@ hr.pre-posts, hr.sep-posts {
 }
 
 .comment-from-owner .comment-wrapper-1 {
-  background: #cecece url(imgs/comment-owner-bg-N.png) repeat-x;
+  background: #fbf7b5 url(/images/comment-owner-bg-N.png) repeat-x;
 }
 .comment-from-owner .comment-wrapper-2 {
-  background: url(imgs/comment-owner-bg-S.png)    0% 100% repeat-x;
+  background: url(/images/comment-owner-bg-S.png)    0% 100% repeat-x;
 }
 .comment-from-owner .comment-wrapper-3 {
-  background: url(imgs/comment-owner-bg-L.png)  100%   0% repeat-y;
+  background: url(/images/comment-owner-bg-L.png)  100%   0% repeat-y;
 }
 .comment-from-owner .comment-wrapper-4 {
-  background: url(imgs/comment-owner-bg-O.png)    0%   0% repeat-y;
+  background: url(/images/comment-owner-bg-O.png)    0%   0% repeat-y;
 }
 .comment-from-owner .comment-wrapper-5 {
-  background: url(imgs/comment-owner-bg-SL.png) 100% 100% no-repeat;
+  background: url(/images/comment-owner-bg-SL.png) 100% 100% no-repeat;
 }
 .comment-from-owner .comment-wrapper-6 {
-  background: url(imgs/comment-owner-bg-SO.png)   0% 100% no-repeat;
+  background: url(/images/comment-owner-bg-SO.png)   0% 100% no-repeat;
 }
 .comment-from-owner .comment-wrapper-7 {
-  background: url(imgs/comment-owner-bg-NL.png) 100%   0% no-repeat;
+  background: url(/images/comment-owner-bg-NL.png) 100%   0% no-repeat;
 }
 .comment-from-owner .comment-wrapper-8 {
-  background: url(imgs/comment-owner-bg-NO.png)   0%   0% no-repeat;
+  background: url(/images/comment-owner-bg-NO.png)   0%   0% no-repeat;
 }
 
 .comment-created-at {

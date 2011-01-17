@@ -10,6 +10,10 @@ Then /^I should be exactly on (.+)$/ do |page_name|
   URI.parse(current_url).request_uri.should == path_to(page_name)
 end
 
+Then /^I should be moved to anchor "([^\"]+)"$/ do |anchor|
+  URI.parse(current_url).fragment.should == anchor
+end
+
 When /^I select "([^\"]*)"$/ do |value|
   select(value)
 end

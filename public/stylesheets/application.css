@@ -1087,6 +1087,17 @@ a.comment-picture {
   right: 8px;
 }
 
+#content .comment-balloon a.button.icon-delete {
+  border: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: transparent;
+}
+
+#content .comments .comment-balloon a.button.icon-delete {
+  display: none;
+}
+
 .msie7 .article-comments-list .comment-balloon {
   margin-top: -15px;
 }
@@ -1139,7 +1150,7 @@ a.comment-picture {
 
 .article-comment .comment-details {
   margin: 0px;
-  padding: 7px 1px 3px 26px;
+  padding: 7px 1px 3px 5px;
 }
 
 #article .comment-reply-link {
@@ -1164,6 +1175,22 @@ a.comment-picture {
 
 .comment_form div.fieldWithErrors {
   background: transparent;
+}
+
+.block #article .post-comment-button a:hover,
+.block #article .post-comment-button a:visited,
+.block #article .post-comment-button a {
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+  color: #000;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+
+.comment-balloon-content {
+  margin-left: 15px;
 }
 
 /* * * Comment Replies * * */
@@ -1192,7 +1219,7 @@ a.comment-picture {
 }
 
 .comment-replies .comment-from-owner.comment-content {
-  background: transparent url(/images/comment-reply-owner-bg.png) left top repeat-x;
+  background: transparent url(/images/comment-reply-owner-bg.png) left bottom repeat-x;
 }
 
 .comment-replies .comment-user-status {
@@ -1211,6 +1238,10 @@ a.comment-picture {
 .comment-replies .comment-text,
 .comment-replies .comment-created-at {
   padding-right: 7px;
+}
+
+.comment-replies .comment-text {
+  margin-top: 1px;
 }
 
 .comment-replies .comment-picture {
@@ -1333,12 +1364,14 @@ a.comment-picture {
   margin: 10px auto;
 }
 
+.post-comment-button a,
 .post_comment_box h4 {
   padding: 1px 20px;
   margin: 0px;
   background: #eee;
 }
 
+.post-comment-button a,
 .post_comment_box.closed h4 {
   display: inline;
   border: 1px solid #888;
@@ -1407,6 +1440,11 @@ a.comment-picture {
 
 .post_comment_box.comment_reply #comment_title {
   width: 100%;
+}
+
+#page-comment-form .post_comment_box {
+  text-align: left;
+  padding-left: 0;
 }
 
 /* * * addThis button * * */
