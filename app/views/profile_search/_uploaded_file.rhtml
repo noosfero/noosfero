@@ -1,10 +1,10 @@
 <% if article.image? %>
   <li class='result-image'>
-    <%= link_to image_tag(article.public_filename(:thumb), :alt => article.display_title), article.view_url, :class => 'article-details' %>
+    <%= link_to image_tag(article.public_filename(:thumb), :alt => article.abstract, :title => article.abstract), article.view_url, :class => 'article-details' %>
   </li>
 <% else %>
-  <li>
-    <%= link_to article.title, article.view_url, :class =>  'result-title ' + icon_for_article(article) %>
+  <li class="<%= icon_for_article(article) %>">
+    <%= link_to article.title, article.view_url, :class =>  'result-title' %>
     <p><%= link_to article.title, article.short_lead, :class => 'article-details' %></p>
     <div><%= link_to url_for(article.url), article.url, :class => 'article-url' %></div>
   </li>

@@ -4396,6 +4396,7 @@ h1#agenda-title {
 
 #profile-search-results ul {
   padding-left: 0px;
+  margin-left: 0px;
 }
 
 #profile-search-results form .formfield input {
@@ -4415,9 +4416,8 @@ h1#agenda-title {
 #profile-search-results li.result-image {
   float: left;
   clear: none;
-  height: 150px;
-  margin-right: 10px;
-  margin-left: 10px;
+  height: 130px;
+  margin-right: 20px;
 }
 
 #profile-search-results .result-title {
@@ -4445,7 +4445,7 @@ h1#agenda-title {
 
 #profile-search-results .results-list .icon {
   background-repeat: no-repeat;
-  background-position: left;
+  background-position: left 5px;
   padding: 0px 0px 3px 20px;
   border: none;
 }
