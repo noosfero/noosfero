@@ -19,8 +19,4 @@ class TinyMceArticle < TextArticle
     true
   end
 
-  def translatable?
-    true
-  end
-
 end

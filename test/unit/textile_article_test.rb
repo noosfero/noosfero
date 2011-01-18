@@ -145,10 +145,4 @@ class TextileArticleTest < Test::Unit::TestCase
     assert_equal false, a.advertise?
     assert_equal false, a.is_trackable?
   end
-
-  should 'be translatable' do
-    a = TextileArticle.new
-    assert a.translatable?
-  end
-
 end

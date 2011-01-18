@@ -39,4 +39,8 @@ class TextArticleTest < Test::Unit::TestCase
     assert_no_match /[<>]/, article.body
   end
 
+  should 'be translatable' do
+    assert_kind_of Noosfero::TranslatableContent, TextArticle.new
+  end
+
 end
