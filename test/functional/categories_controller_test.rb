@@ -155,28 +155,6 @@ class CategoriesControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'select', :attributes => { :name => "category[display_color]" }
   end
 
-  should 'not display category_type if only one category is available' do
-    env.category_types = ['Category']
-    get :new
-
-    assert_no_tag :tag => 'select', :attributes => { :name => "type" }
-  end
-
-  should 'have hidden_tag type if only one category is available' do
-    env.category_types = ['Category']
-    env.save!
-    get :new
-
-    assert_tag :tag => 'input', :attributes => { :name => 'type', :value => "Category", :type => 'hidden' }
-  end
-
- should 'display category_type if more than one category is available' do
-    env.category_types = 'Category', 'ProductCategory'
-    get :new
-
-    assert_tag :tag => 'select', :attributes => { :name => "type" }
-  end
-
   should 'not list regions and product categories' do
     Environment.default.categories.destroy_all
     c = Category.create!(:name => 'Regular category', :environment => Environment.default)

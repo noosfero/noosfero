@@ -267,8 +267,7 @@ class EventTest < ActiveSupport::TestCase
   end
 
   should 'be translatable' do
-    e = Event.new
-    assert e.translatable?
+    assert_kind_of Noosfero::TranslatableContent, Event.new
   end
 
 end

@@ -70,7 +70,7 @@ class Comment < ActiveRecord::Base
   end
 
   after_create do |comment|
-    if comment.article.notify_comments?
+    if comment.article.notify_comments? && !comment.article.profile.notification_emails.empty?
       Comment::Notifier.deliver_mail(comment)
     end
   end
@@ -97,10 +97,7 @@ class Comment < ActiveRecord::Base
   class Notifier < ActionMailer::Base
     def mail(comment)
       profile = comment.article.profile
-      email = profile.notification_emails
-      return unless email
-      recipients email
-
+      recipients profile.notification_emails
       from "#{profile.environment.name} <#{profile.environment.contact_email}>"
       subject _("[%s] you got a new comment!") % [profile.environment.name]
       body :recipient => profile.nickname || profile.name,

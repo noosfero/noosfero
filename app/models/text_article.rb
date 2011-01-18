@@ -2,4 +2,6 @@
 class TextArticle < Article
 
   xss_terminate :only => [ :name, :abstract, :body ], :on => 'validation'
+
+  include Noosfero::TranslatableContent
 end

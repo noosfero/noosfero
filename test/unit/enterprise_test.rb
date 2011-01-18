@@ -408,4 +408,9 @@ class EnterpriseTest < Test::Unit::TestCase
     assert_equal false, e.send(:followed_by?,p2)
   end
 
+  should 'receive scrap notification' do
+    enterprise = fast_create(Enterprise)
+    assert_equal false, enterprise.receives_scrap_notification?
+  end
+
 end
