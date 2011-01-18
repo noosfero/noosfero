@@ -20,4 +20,20 @@ class EnterpriseActivation < Task
     self.enterprise.enable(requestor)
   end
 
+  def title
+    _("Enterprise activation")
+  end
+
+  def linked_subject
+    {:text => target.name, :url => target.public_profile_url}
+  end
+
+  def information
+    {:message => _('%{requestor} wants to activate enterprise %{linked_subject}.')}
+  end
+
+  def icon
+    {:type => :profile_image, :profile => requestor, :url => requestor.url}
+  end
+
 end

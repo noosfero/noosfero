@@ -305,12 +305,25 @@ div.auto-complete li.selected {
   color: #204A87;
 }
 
-/* pending tasks list */
+/* pending tasks */
 
 div.pending-tasks {
   padding: 10px;
   border: 1px solid #BFC2BC;
   margin-bottom: 20px;
+}
+
+#pending-tasks-count {
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-left: 2px;
+  text-decoration: none;
+  background-color: #F57900;
+  color: #FFFFFF;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -khtml-border-radius: 2px;
+  border-radius: 2px;
 }
 
 /* sitemap and agenda */

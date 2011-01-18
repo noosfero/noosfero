@@ -93,7 +93,7 @@ Feature: invitation
     Given there are no pending jobs
     When I am logged in as "josesantos"
     And I go to the Control panel
-    And I should see "josesilva invited you to join the community 26 Bsslines"
+    And I should see "josesilva invited you to join 26 Bsslines."
 
   Scenario: noosfero user accepts to join community
     Given I invite email "santos@invalid.br" to join community "26 Bsslines"
@@ -101,10 +101,10 @@ Feature: invitation
     When I am logged in as "josesantos"
     And I go to the Control panel
     And I follow "Process requests"
-    And I should see "josesilva invited you to join the community 26 Bsslines"
+    And I should see "josesilva invited you to join 26 Bsslines."
     And I choose "Accept"
-    When I press "Ok!"
-    Then I should not see "josesilva invited you to join the community 26 Bsslines"
+    When I press "Apply!"
+    Then I should not see "josesilva invited you to join 26 Bsslines."
     When I go to the Control panel
     And I follow "Manage my groups"
     Then I should see "26 Bsslines"
@@ -115,10 +115,10 @@ Feature: invitation
     When I am logged in as "josesantos"
     And I go to the Control panel
     And I follow "Process requests"
-    And I should see "josesilva invited you to join the community 26 Bsslines"
+    And I should see "josesilva invited you to join 26 Bsslines."
     And I choose "Reject"
-    When I press "Ok!"
-    Then I should not see "josesilva invited you to join the community 26 Bsslines"
+    When I press "Apply!"
+    Then I should not see "josesilva invited you to join 26 Bsslines."
     When I go to the Control panel
     And I follow "Manage my groups"
     Then I should not see "26 Bsslines"
@@ -135,7 +135,7 @@ Feature: invitation
     When I am logged in as "josesantos"
     And I go to the Control panel
     And I follow "Process requests"
-    And I should see "josesilva wants to be your friend."
+    Then I should see "josesilva wants to be your friend."
 
   Scenario: noosfero user accepts to be friend
     Given I invite email "santos@invalid.br" to be my friend
@@ -145,7 +145,7 @@ Feature: invitation
     And I follow "Process requests"
     And I should see "josesilva wants to be your friend."
     And I choose "Accept"
-    When I press "Ok!"
+    When I press "Apply!"
     And I should not see "josesilva wants to be your friend."
     When I go to the Control panel
     And I follow "Manage friends"
@@ -158,8 +158,8 @@ Feature: invitation
     And I go to the Control panel
     And I follow "Process requests"
     And I should see "josesilva wants to be your friend."
-    And I choose "Ignore"
-    When I press "Ok!"
+    And I choose "Reject"
+    When I press "Apply!"
     And I should not see "josesilva wants to be your friend."
     When I go to the Control panel
     And I follow "Manage friends"

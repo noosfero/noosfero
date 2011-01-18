@@ -49,18 +49,6 @@ class AddMemberTest < ActiveSupport::TestCase
     task = AddMember.create!(:person => p, :organization => c)
   end
 
-  should 'provide proper description' do
-    p = create_user('testuser1').person
-    c = fast_create(Community, :name => 'closed community')
-    c.update_attribute(:closed, true)
-
-    TaskMailer.stubs(:deliver_target_notification)
-
-    task = fast_create(AddMember, :requestor_id => p.id, :target_id => c.id, :target_type => 'Community')
-
-    assert_equal 'testuser1 wants to be a member of "closed community".', task.description
-  end
-
   should 'has permission to manage members' do
     t = AddMember.new
     assert_equal :manage_memberships, t.permission

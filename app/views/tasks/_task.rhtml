@@ -1,21 +1,64 @@
-<%# a generic task solver %>
-<h2><%= _('Processing task: %s') % task.description %></h2>
+<div class="task_box">
 
-<% form_for('task', task, :url => { :action => 'close', :id => task.id}) do |f| %>
+  <div class="task_icon">
+    <%
+        icon_info = task.icon
+        if icon_info[:type] == :profile_image
+          icon = profile_image(icon_info[:profile], :minor)
+        elsif icon_info[:type] == :defined_image
+          icon = "<img src='#{icon_info[:src]}' alt='#{icon_info[:name]}' />"
+        end
+      %>
+    <%=
+        if icon_info[:url]
+          link_to(icon, icon_info[:url])
+        else
+          icon
+        end
+      %>
 
-  <div>
-  <%= labelled_radio_button _('OK'), :decision, 'finish', true, :onclick => "if(this.checked) $('rejection-field-#{task.id}').style.display='none'" %>
   </div>
-  <div>
-    <%= labelled_radio_button _('Cancel'), :decision, 'cancel', false, :onclick => "if(this.checked) $('rejection-field-#{task.id}').style.display='block'" %>
+
+  <div class="task_decisions">
+    <%=
+        labelled_radio_button(_("Accept"), "tasks[#{task.id}][decision]", 'finish', task.default_decision == 'accept',
+                              :id => "decision-finish-#{task.id}",
+                              :class => 'task_accept_radio',
+                              :disabled => task.accept_disabled?,
+                              :task_id => "#{task.id}") +
+        labelled_radio_button(_("Reject"), "tasks[#{task.id}][decision]", 'cancel', task.default_decision == 'reject',
+                              :id => "decision-cancel-#{task.id}",
+                              :class => 'task_reject_radio',
+                              :disabled => task.reject_disabled?,
+                              :task_id => "#{task.id}") +
+        labelled_radio_button(_("Skip"), "tasks[#{task.id}][decision]", 'skip', task.default_decision == 'skip',
+                              :id => "decision-skip-#{task.id}",
+                              :class => 'task_skip_radio',
+                              :disabled => task.skip_disabled?,
+                              :task_id => "#{task.id}")
+    %>
+  </div><!-- class="task_decisions" -->
+
+  <strong class="task_title">
+    <%= task.title %>
+  </strong>
+
+  <div class="task_information">
+    <%= task_information(task) %>
   </div>
 
-  <div id="rejection-field-<%= task.id %>" style='display: none'>
-    <%= required labelled_form_field(_('Rejection explanation'), text_area(:task, :reject_explanation, :rows => 5))%>
-  </div>
+  <% fields_for "tasks[#{task.id}][task]", task do |f| %>
+    <% if task.accept_details %>
+      <div id="on-accept-information-<%=task.id%>" style="display: none">
+        <%= render :partial => partial_for_task_class(task.class, :accept_details), :locals => {:task => task, :f => f} %>
+      </div>
+    <% end %>
 
-  <% button_bar do %>
-    <%= submit_button(:ok, _('OK')) %>
+    <% if task.reject_details %>
+      <div id="on-reject-information-<%=task.id%>" style="display: none">
+        <%= render :partial => partial_for_task_class(task.class, :reject_details), :locals => {:task => task, :f => f} %>
+      </div>
+    <% end %>
   <% end %>
 
-<% end %>
+</div><!-- class="task_box" -->

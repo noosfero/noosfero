@@ -15,8 +15,20 @@ class AddMember < Task
     target.affiliate(requestor, self.roles.select{|r| !r.to_i.zero? }.map{|i| Role.find(i)})
   end
 
-  def description
-    _('%s wants to be a member of "%s".') % [requestor.name, organization.name]
+  def title
+    _("New member")
+  end
+
+  def information
+    {:message => _('%{requestor} wants to be a member of this community.')}
+  end
+
+  def accept_details
+    true
+  end
+
+  def icon
+    {:type => :profile_image, :profile => requestor, :url => requestor.url}
   end
 
   def permission
@@ -24,7 +36,7 @@ class AddMember < Task
   end
 
   def target_notification_message
-    description + "\n\n" +
+    _('%{requestor} wants to be a member of this community.') % {:requestor => requestor.name} + "\n\n" +
     _('You will need login to %{system} in order to accept or reject %{requestor} as a member of %{organization}.') % { :system => target.environment.name, :requestor => requestor.name, :organization => organization.name }
   end
 

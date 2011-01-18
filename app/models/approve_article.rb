@@ -3,10 +3,6 @@ class ApproveArticle < Task
 
   validates_presence_of :requestor_id, :target_id
 
-  def description
-    _('%{author} wants to publish "%{article}" on %{community}') % { :author => requestor.name, :article => article_title, :community => target.name }
-  end
-
   def article_title
     article ? article.title : _('(The original text was removed)')
   end
@@ -24,7 +20,7 @@ class ApproveArticle < Task
   end
 
   def name
-    data[:name].blank? ? article.name : data[:name]
+    data[:name].blank? ? (article ? article.name : _("Article removed.")) : data[:name]
   end
 
   def name= value
@@ -68,7 +64,7 @@ class ApproveArticle < Task
   end
 
   def abstract
-    data[:abstract].blank? ? article.abstract : data[:abstract]
+    data[:abstract].blank? ? (article ? article.abstract : '') : data[:abstract]
   end
 
   def body= value
@@ -76,17 +72,63 @@ class ApproveArticle < Task
   end
 
   def body
-    data[:body].blank? ? article.body : data[:body]
+    data[:body].blank? ? (article ? article.body : "") : data[:body]
   end
 
   def perform
      article.copy!(:name => name, :abstract => abstract, :body => body, :profile => target, :reference_article => article, :parent => article_parent, :highlighted => highlighted, :source => article.source)
   end
 
+  def title
+    _("New article")
+  end
+
+  def icon
+    result = {:type => :defined_image, :src => '/images/icons-app/article-minor.png', :name => name}
+    result.merge({:url => article.url}) if article
+    return result
+  end
+
+  def linked_subject
+    {:text => name, :url => article.url} if article
+  end
+
+  def information
+    if article
+      {:message => _('%{requestor} wants to publish the article: %{linked_subject}.')}
+    else
+      {:message => _("The article was removed.")}
+    end
+  end
+
+  def accept_details
+    true
+  end
+
+  def default_decision
+    if article
+      'skip'
+    else
+      'reject'
+    end
+  end
+
+  def accept_disabled?
+    article.blank?
+  end
+
   def target_notification_message
     return nil if target.organization? && !target.moderated_articles?
-    description + "\n\n" +
+    _('%{requestor} wants to publish the article: %{article}.') % {:requestor => requestor.name, :article => article.name} + "\n\n"
     _('You need to login on %{system} in order to approve or reject this article.') % { :system => target.environment.name }
+  end
+
+  def task_finished_message
+    if !closing_statment.blank?
+      _("Your request for publishing the article \"%{article}\" was approved. Here is the comment left by the admin who approved your article:\n\n%{comment} ") % {:article => name, :comment => closing_statment}
+    else
+      _('Your request for publishing the article "%{article}" was approved.') % {:article => name}
+    end
   end
 
 end

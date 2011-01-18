@@ -11,7 +11,7 @@
 <% pending_tasks = @person.pending_tasks_for_organization(organization) %>
 <%= _("%s has %d pending task(s).") % [organization.name, pending_tasks.size] %>
 
-<%= pending_tasks.map{|i| " * #{i.description}"}.join("\n") %>
+<%= pending_tasks.map{|i| " * #{i.information}"}.join("\n") %>
 
 <%= _("Click in address below to process task(s):") %>
 

@@ -28,7 +28,8 @@ Feature: approve article
     And I go to Sample Community's control panel
     And I follow "Process requests"
     And I fill in "Text" with "This is an article edited"
-    And I press "Ok!"
+    And I choose "Accept"
+    And I press "Apply!"
     And I go to Sample Community's sitemap
     When I follow "Sample Article"
     Then I should see "This is an article edited"

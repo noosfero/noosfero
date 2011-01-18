@@ -61,6 +61,18 @@ class ChangePassword < Task
     self[:data] = {}
   end
 
+  def title
+    _("Change password")
+  end
+
+  def information
+    {:message => _('%{requestor} wants to change its password.')}
+  end
+
+  def icon
+    {:type => :profile_image, :profile => requestor, :url => requestor.url}
+  end
+
   def perform
     user = self.requestor.user
     user.force_change_password!(self.password, self.password_confirmation)
@@ -85,10 +97,6 @@ class ChangePassword < Task
     lambda do
       _("In order to change your password, please visit the following address:\n\n%s") % url 
     end
-  end
-
-  def description
-    _('Password change request')
   end
 
   def environment

@@ -11,7 +11,7 @@ class CreateEnterprise < Task
   N_('Economic activity')
   N_('Management information')
 
-  DATA_FIELDS = Enterprise.fields + %w[name identifier region_id reject_explanation]
+  DATA_FIELDS = Enterprise.fields + %w[name identifier region_id]
 
   serialize :data, Hash
   attr_protected :data
@@ -48,7 +48,6 @@ class CreateEnterprise < Task
 
   # check for explanation when rejecting
   validates_presence_of :reject_explanation, :if => (lambda { |record| record.status == Task::Status::CANCELLED } )
-
   xss_terminate :only => [ :acronym, :address, :contact_person, :contact_phone, :economic_activity, :legal_form, :management_information, :name ], :on => 'validation'
 
   def validate
@@ -153,8 +152,24 @@ class CreateEnterprise < Task
     enterprise.add_admin(enterprise.user.person)
   end
 
-  def description
-    __('Enterprise registration: "%s"') % self.name
+  def title
+    _("Enterprise registration")
+  end
+
+  def icon
+    {:type => :defined_image, :src => '/images/icons-app/enterprise-minor.png', :name => name}
+  end
+
+  def subject
+    name
+  end
+
+  def information
+    {:message => _('%{requestor} wants to create enterprise %{subject}.')}
+  end
+
+  def reject_details
+    true
   end
 
   def task_created_message

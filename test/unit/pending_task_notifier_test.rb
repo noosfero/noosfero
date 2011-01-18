@@ -23,10 +23,10 @@ class PendingTaskNotifierTest < Test::Unit::TestCase
     p = create_user('maelcum').person
     c = fast_create(Community)
     c.add_admin(p)
-    c.tasks << Task.new
+    c.tasks << Task.new(:requestor => p)
 
     response = PendingTaskNotifier.deliver_notification(p)
-    assert_match /Generic task/, response.body
+    assert_match /sent you a task/, response.body
   end
 
   private

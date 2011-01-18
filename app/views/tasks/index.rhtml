@@ -1,20 +1,56 @@
-<h1><%= _("%s's pending tasks") % profile.name %></h1>
+<%= stylesheet_link_tag 'tasks' %>
 
+<h1><%= _("%s's pending tasks") % profile.name %></h1>
 <p>
+
+<% if !@failed.blank? %>
+  <div id="errorExplanation">
+    <% @failed.each do |error, tasks_descriptions|%>
+      <h2> <%= error %></h2>
+      <p><%=_("This error happened with the following tasks: ")%></p>
+      <ul>
+        <% tasks_descriptions.each do |description| %>
+            <li> <%= description %> </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+<% end %>
+
 <% if @tasks.empty? %>
   <em><%= _('No pending tasks for %s') % profile.name %></em>
 <% else %>
-  <ul class='task-list'>
-    <% @tasks.each do |item| %>
-      <li class="task-<%= item.class %>"><%= render :partial => partial_for_class(item.class), :locals => { :task => item } %></li>
+  <% form_tag :action => 'close' do%>
+    <% button_bar do %>
+      <%# FiXME button(:edit, _('View my requests'), :action => 'list_requested') %>
+      <%# FIXME button('menu-mail',  _('Send request'), :action => 'new') %>
+      <%= submit_button :save, _("Apply!") %>
+      <%= button(:edit, _('View processed tasks'), :action => 'processed') %>
+      <%= button(:back, _('Back to control panel'), :controller => 'profile_editor') %>
     <% end %>
-  </ul>
+
+    <ul class='task-list'>
+      <p>
+      <%= labelled_select(_("Set all to: "), 'set-decisions', 'downcase', 'to_s', nil, ["","Accept", "Reject", "Skip"], :id => "up-set-all-tasks-to") %>
+      </p>
+      <% @tasks.each do |task| %>
+        <%= render :partial => 'task', :locals => { :task => task } %>
+      <% end %>
+      <p>
+      <%= labelled_select(_("Set all to: "), 'set-decisions', 'downcase', 'to_s', nil, ["","Accept", "Reject", "Skip"], :id => "down-set-all-tasks-to") %>
+      </p>
+    </ul>
+
+    <% button_bar do %>
+      <%# FiXME button(:edit, _('View my requests'), :action => 'list_requested') %>
+      <%# FIXME button('menu-mail',  _('Send request'), :action => 'new') %>
+      <%= submit_button :save, _("Apply!") %>
+      <%= button(:edit, _('View processed tasks'), :action => 'processed') %>
+      <%= button(:back, _('Back to control panel'), :controller => 'profile_editor') %>
+    <% end %>
+  <% end %>
 <% end %>
 </p>
 
-<% button_bar do %>
-  <%= button(:edit, _('View processed tasks'), :action => 'processed') %>
-  <%# FiXME button(:edit, _('View my requests'), :action => 'list_requested') %>
-  <%# FIXME button('menu-mail',  _('Send request'), :action => 'new') %>
-  <%= button(:back, _('Back to control panel'), :controller => 'profile_editor') %>
-<% end %>
+
+<%= javascript_include_tag 'tasks' %>

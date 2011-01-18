@@ -62,7 +62,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
     article.destroy
     a.reload
 
-    assert_match /text was removed/, a.description
+    assert_equal "The article was removed.", a.information[:message]
   end
 
   should 'preserve article_parent' do

@@ -11,7 +11,7 @@ Given /^I approve community "(.+)"$/ do |community|
    Given 'I go to the Control panel'
    click_link('Process requests')
    choose("decision-finish-#{task.id}")
-   click_button('OK!')
+   click_button('Apply!')
 end
 
 Given /^I reject community "(.+)"$/ do |community|
@@ -19,5 +19,5 @@ Given /^I reject community "(.+)"$/ do |community|
    Given 'I go to the Control panel'
    click_link('Process requests')
    choose("decision-cancel-#{task.id}")
-   click_button('OK!')
+   click_button('Apply!')
 end

@@ -279,6 +279,19 @@ module ApplicationHelper
     end
   end
 
+  def partial_for_task_class(klass, action)
+    if klass.nil?
+      raise ArgumentError, 'No partial for object. Is there a partial for any class in the inheritance hierarchy?'
+    end
+
+    name = "#{klass.name.underscore}_#{action.to_s}"
+    if File.exists?(File.join(RAILS_ROOT, 'app', 'views', params[:controller], "_#{name}.rhtml"))
+      name
+    else
+      partial_for_task_class(klass.superclass, action)
+    end
+  end
+
   def user
     @controller.send(:user)
   end
@@ -621,7 +634,16 @@ module ApplicationHelper
   end
 
   def select_folder(label, object, method, collection, html_options = {}, js_options = {})
-    labelled_form_field(label, select(object, method, collection.map {|f| [ profile.identifier + '/' + f.full_name, f.id ] }, html_options.merge({:include_blank => "#{profile.identifier}"}), js_options))
+    root = profile ? profile.identifier : _("root")
+    labelled_form_field(label, select(object, method,
+                                      collection.map {|f| [ root + '/' + f.full_name, f.id ]},
+                                      {:include_blank => root}, html_options.merge(js_options)))
+  end
+
+  def select_profile_folder(label, object, method, profile, html_options = {}, js_options = {})
+    labelled_form_field(label, select(object, method,
+                                      profile.folders.map {|f| [ profile.identifier + '/' + f.full_name, f.id ]},
+                                      {:include_blank => profile.identifier}, html_options.merge(js_options)))
   end
 
   def theme_option(opt = nil)
@@ -1094,10 +1116,16 @@ module ApplicationHelper
   end
 
   def usermenu_logged_in
+    pending_tasks_count = ''
+    if user && user.all_pending_tasks.count > 0
+      pending_tasks_count = link_to(user.all_pending_tasks.count.to_s, '/myprofile/{login}/tasks', :id => 'pending-tasks-count')
+    end
+
     (_('Welcome, %s') % link_to('<i></i><strong>{login}</strong>', '/{login}', :id => "homepage-link", :title => _('Go to your homepage'))) +
     render_environment_features(:usermenu) +
     link_to('<i class="icon-menu-admin"></i><strong>' + _('Administration') + '</strong>', { :controller => 'admin_panel', :action => 'index' }, :id => "controlpanel", :title => _("Configure the environment"), :class => 'admin-link', :style => 'display: none') +
     link_to('<i class="icon-menu-ctrl-panel"></i><strong>' + _('Control panel') + '</strong>', '/myprofile/{login}', :id => "controlpanel", :title => _("Configure your personal account and content")) +
+    pending_tasks_count +
     link_to('<i class="icon-menu-logout"></i><strong>' + _('Logout') + '</strong>', { :controller => 'account', :action => 'logout'} , :id => "logout", :title => _("Leave the system"))
   end
 
@@ -1162,6 +1190,15 @@ module ApplicationHelper
       source_url = link_to(page.reference_article.profile.name, page.reference_article.url)
     end
     content_tag(:div, _('Source: %s') % source_url, :id => 'article-source') unless source_url.nil?
+  end
+
+  def task_information(task)
+    values = {}
+    values.merge!({:requestor => link_to(task.requestor.name, task.requestor.public_profile_url)}) if task.requestor
+    values.merge!({:subject => content_tag('span', task.subject, :class=>'task_target')}) if task.subject
+    values.merge!({:linked_subject => link_to(content_tag('span', task.linked_subject[:text], :class => 'task_target'), task.linked_subject[:url])}) if task.linked_subject
+    values.merge!(task.information[:variables]) if task.information[:variables]
+    task.information[:message] % values
   end
 
 end

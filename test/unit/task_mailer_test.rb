@@ -17,7 +17,7 @@ class TaskMailerTest < Test::Unit::TestCase
 
     task = Task.new
     task.expects(:task_finished_message).returns('the message')
-    task.expects(:description).returns('the task')
+    task.expects(:information).returns('the task')
 
     requestor = mock()
     requestor.expects(:notification_emails).returns(['requestor@example.com'])
@@ -40,7 +40,7 @@ class TaskMailerTest < Test::Unit::TestCase
 
     task = Task.new
     task.expects(:task_cancelled_message).returns('the message')
-    task.expects(:description).returns('the task')
+    task.expects(:information).returns('the task')
 
     requestor = mock()
     requestor.expects(:notification_emails).returns(['requestor@example.com'])
@@ -64,7 +64,7 @@ class TaskMailerTest < Test::Unit::TestCase
     task = Task.new
 
     task.expects(:task_created_message).returns('the message')
-    task.expects(:description).returns('the task')
+    task.expects(:information).returns('the task')
 
     requestor = mock()
     requestor.expects(:notification_emails).returns(['requestor@example.com'])
@@ -85,7 +85,7 @@ class TaskMailerTest < Test::Unit::TestCase
 
   should 'be able to send a "target notification" message' do
     task = Task.new
-    task.expects(:description).returns('the task')
+    task.expects(:information).returns('the task')
 
     target = mock()
     target.expects(:notification_emails).returns(['target@example.com'])
@@ -104,18 +104,18 @@ class TaskMailerTest < Test::Unit::TestCase
     assert !ActionMailer::Base.deliveries.empty?
   end
 
-  should 'be able to send a "invitatiom notification" message' do
+  should 'be able to send a "invitation notification" message' do
 
     task = InviteFriend.new
-    task.expects(:description).returns('the task')
     task.expects(:code).returns('123456')
 
-    task.expects(:message).returns('Hello <friend>, <user> invite you, please follow this link: <url>')
+    task.stubs(:message).returns('Hello <friend>, <user> invite you, please follow this link: <url>')
     task.expects(:friend_email).returns('friend@exemple.com')
     task.expects(:friend_name).returns('friend name').at_least_once
 
     requestor = mock()
-    requestor.expects(:name).returns('my name')
+    requestor.stubs(:name).returns('my name')
+    requestor.stubs(:public_profile_url).returns('requestor_path')
 
     environment = mock()
     environment.expects(:contact_email).returns('sender@example.com')

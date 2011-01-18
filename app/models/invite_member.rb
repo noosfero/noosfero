@@ -15,8 +15,24 @@ class InviteMember < Invitation
     community.add_member(friend)
   end
 
-  def description
-    _('%s invited you to join the community %s') % [person.name, community.name]
+  def title
+    _("Community invitation")
+  end
+
+  def linked_subject
+    {:text => community.name, :url => community.public_profile_url}
+  end
+
+  def information
+    {:message => _('%{requestor} invited you to join %{linked_subject}.')}
+  end
+
+  def url
+    community.url
+  end
+
+  def icon
+    {:type => :profile_image, :profile => community, :url => community.url}
   end
 
   def expanded_message

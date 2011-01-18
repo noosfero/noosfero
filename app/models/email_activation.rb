@@ -11,8 +11,20 @@ class EmailActivation < Task
     end
   end
 
-  def description
-    _("'%{user} wants to activate email '%{email}'") % { :user => person.name, :email => person.email_addresses.join(', ') }
+  def title
+    _("Email activation")
+  end
+
+  def subject
+    person.email_addresses.join(', ')
+  end
+
+  def information
+    {:message => _("%{requestor} wants to activate the following email: %{subject}.")}
+  end
+
+  def icon
+    {:type => :profile_image, :profile => requestor, :url => requestor.url}
   end
 
   def perform

@@ -51,8 +51,8 @@ Feature: create community
     And I go to the Control panel
     And I follow "Process requests"
     And I should see "admin_user wants to create community Community for approval"
-    And I choose "Approve"
-    When I press "Ok!"
+    And I choose "Accept"
+    When I press "Apply!"
     Then I should not see "admin_user wants to create community Community for approval"
     When I go to the Control panel
     And I follow "Manage my groups"
@@ -66,7 +66,7 @@ Feature: create community
     And I follow "Process requests"
     And I should see "admin_user wants to create community Community for approval"
     And I choose "Reject"
-    When I press "Ok!"
+    When I press "Apply!"
     Then I should not see "admin_user wants to create community Community for approval"
     When I go to the Control panel
     And I follow "Manage my groups"
@@ -89,12 +89,3 @@ Feature: create community
     When I go to the Control panel
     And I follow "Manage my groups"
     Then I should not see "Community for approval"
-
-  Scenario: environment admin accepts new community task but identifier was already taken
-    Given I am logged in as admin
-    And feature "admin_must_approve_new_communities" is enabled on environment
-    And I create community "Community for approval"
-    And I create community "Community for approval"
-    When I approve community "Community for approval"
-    Then I should see "This name was already taken, this community cannot be approved"
-    And I should see "admin_user wants to create community Community for approval"

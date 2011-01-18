@@ -71,15 +71,6 @@ class AddFriendTest < ActiveSupport::TestCase
     task = AddFriend.create!(:person => p1, :friend => p2)
   end
 
-  should 'provide proper description' do
-    p1 = create_user('testuser1').person
-    p2 = create_user('testuser2').person
-
-    task = fast_create(AddFriend, :requestor_id => p1.id, :target_id => p2.id)
-
-    assert_equal 'testuser1 wants to be your friend.', task.description
-  end
-
   should 'has permission to manage friends' do
     t = AddFriend.new
     assert_equal :manage_friends, t.permission

@@ -1,0 +1,8 @@
+<%=_('Classify your new friend:') +
+text_field_with_local_autocomplete("tasks[#{task.id}][task][group_for_friend]",
+   task.target.suggested_friend_groups,
+     {:id => "field-group-for-friend-#{task.id}", :maxlength => 150})
+%>
+<p class="friend-classify-suggestions">
+  <%=_('Suggestions: %s') % task.target.suggested_friend_groups.join(', ') %>
+</p>

@@ -7,7 +7,7 @@
   <ul>
     <% @tasks.each do |item| %>
       <li>
-        <strong><%= item.description %></strong> <br/>
+        <strong><%= item.information %></strong> <br/>
         <small>
           <%= _('Created:')   +' '+ show_date(item.created_at) %>
           &nbsp; &#151; &nbsp;

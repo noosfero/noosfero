@@ -588,6 +588,12 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_equal ["1 for b", "2 for c", "3 for a"], unique_with_count(%w(a b c a c a))
   end
 
+  should 'show task information with the requestor' do
+    person = create_user('usertest').person
+    task = Task.create(:requestor => person)
+    assert_match person.name, task_information(task)
+  end
+
   protected
 
   def url_for(args = {})

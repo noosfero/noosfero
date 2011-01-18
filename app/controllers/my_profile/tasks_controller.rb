@@ -4,26 +4,38 @@ class TasksController < MyProfileController
   
   def index
     @tasks = profile.all_pending_tasks.sort_by(&:created_at)
+    @failed = params ? params[:failed] : {}
   end
 
   def processed
     @tasks = profile.all_finished_tasks.sort_by(&:created_at)
   end
 
-  VALID_DECISIONS = [ 'finish', 'cancel' ]
+  VALID_DECISIONS = [ 'finish', 'cancel', 'skip' ]
 
   def close
-    decision = params[:decision]
-    if request.post? && VALID_DECISIONS.include?(decision) && params[:id]
-      task = profile.find_in_all_tasks(params[:id])
-      task.update_attributes(params[:task])
-      begin
-        task.send(decision)
-      rescue Exception => ex
-        session[:notice] = ex.clean_message
+    failed = {}
+
+    params[:tasks].each do |id, value|
+      decision = value[:decision]
+      if request.post? && VALID_DECISIONS.include?(decision) && id && decision != 'skip'
+        task = profile.find_in_all_tasks(id)
+        task.update_attributes!(value[:task])
+        begin
+          task.send(decision)
+        rescue Exception => ex
+          message = "#{task.title} (#{task.requestor ? task.requestor.name : task.author_name})"
+          failed[ex.clean_message] ? failed[ex.clean_message] << message : failed[ex.clean_message] = [message]
+        end
       end
     end
-    redirect_to :action => 'index'
+
+    if failed.blank?
+      session[:notice] = _("All decisions were applied successfully.")
+    else
+      session[:notice] = _("Some tasks couldn't be applied.")
+    end
+    redirect_to params.merge!(:action => 'index', :failed => failed)
   end
 
   def new

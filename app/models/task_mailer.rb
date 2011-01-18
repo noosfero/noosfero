@@ -17,7 +17,7 @@ class TaskMailer < ActionMailer::Base
     url_for_tasks_list = task.target.kind_of?(Environment) ? '' : url_for(task.target.url.merge(:controller => 'tasks', :action => 'index'))
 
     from self.class.generate_from(task)
-    subject '[%s] %s' % [task.environment.name, task.description]
+    subject '[%s] %s' % [task.environment.name, task.information]
     body :target => task.target.name,
       :message => msg,
       :environment => task.environment.name,
@@ -32,7 +32,7 @@ class TaskMailer < ActionMailer::Base
     recipients task.friend_email
 
     from self.class.generate_from(task)
-    subject '[%s] %s' % [ task.requestor.environment.name, task.description ]
+    subject '[%s] %s' % [ task.requestor.environment.name, task.information ]
     body :message => msg
   end
 
@@ -52,7 +52,7 @@ class TaskMailer < ActionMailer::Base
 
     recipients task.requestor.notification_emails
     from self.class.generate_from(task)
-    subject '[%s] %s' % [task.requestor.environment.name, task.description]
+    subject '[%s] %s' % [task.requestor.environment.name, task.information]
     body :requestor => task.requestor.name,
       :message => text,
       :environment => task.requestor.environment.name,

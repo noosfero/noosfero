@@ -87,7 +87,8 @@ class TaskTest < Test::Unit::TestCase
   end
 
   should 'provide a description method' do
-    assert_kind_of String, Task.new.description
+    requestor = create_user('requestor').person
+    assert_kind_of Hash, Task.new(:requestor => requestor).information
   end
 
   should 'notify just after the task is created' do

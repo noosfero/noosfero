@@ -206,7 +206,7 @@ class RssFeedTest < Test::Unit::TestCase
   end
 
   should 'display the referenced body of a article published' do
-    article = fast_create(TextileArticle, :body => 'This is the content of the Sample Article.')
+    article = fast_create(TextileArticle, :body => 'This is the content of the Sample Article.', :profile_id => fast_create(Person).id)
     profile = fast_create(Profile)
     blog = fast_create(Blog, :profile_id => profile.id)
     a = ApproveArticle.create!(:name => 'test name', :article => article, :target => profile, :requestor => fast_create(Person))

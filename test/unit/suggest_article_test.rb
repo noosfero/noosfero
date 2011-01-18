@@ -97,12 +97,6 @@ class SuggestArticleTest < ActiveSupport::TestCase
     assert_equal 'http://www.gnu.org/', article.source
   end
 
-  should 'use sender name in description' do
-    t = build(SuggestArticle, :target => @profile)
-    t.stubs(:sender).returns('XYZ')
-    assert_match(/XYZ/, t.description)
-  end
-
   should 'use name and e-mail as sender info' do
     t = build(SuggestArticle, :target => @profile)
     t.name = 'Some One'
