@@ -69,7 +69,19 @@
 .icon-newupload-file     { background-image: url(Tango/16x16/actions/filesave.png)            }
 .icon-slideshow       { background-image: url(Tango/16x16/mimetypes/x-office-presentation.png)           }
 .icon-photos          { background-image: url(Tango/16x16/devices/camera-photo.png) }
+
 .icon-text-html          { background-image: url(Tango/16x16/mimetypes/text-html.png) }
+.icon-text-plain      { background-image: url(Tango/16x16/mimetypes/text-x-generic.png) }
+.icon-image-svg-xml      { background-image: url(Tango/16x16/mimetypes/image-x-generic.png) }
+.icon-application-octet-stream { background-image: url(Tango/16x16/mimetypes/binary.png) }
+.icon-application-x-gzip { background-image: url(Tango/16x16/mimetypes/gnome-mime-application-x-gzip.png) }
+.icon-application-postscript { background-image: url(Tango/16x16/mimetypes/gnome-mime-application-postscript.png) }
+.icon-application-pdf   { background-image: url(Tango/16x16/mimetypes/gnome-mime-application-pdf.png) }
+.icon-application-ogg   { background-image: url(Tango/16x16/mimetypes/gnome-mime-application-ogg.png) }
+.icon-video-mpeg   { background-image: url(Tango/16x16/mimetypes/video-x-generic.png) }
+.icon-application-vnd-oasis-opendocument-text  { background-image: url(Tango/16x16/mimetypes/gnome-mime-application-vnd.oasis.opendocument.text.png) }
+.icon-application-vnd-oasis-opendocument-spreadsheet  { background-image: url(Tango/16x16/mimetypes/gnome-mime-application-vnd.oasis.opendocument.spreadsheet.png) }
+.icon-application-vnd-oasis-opendocument-presentation  { background-image: url(Tango/16x16/mimetypes/gnome-mime-application-vnd.oasis.opendocument.presentation.png) }
 
 .icon-media-pause      { background-image: url(Tango/16x16/actions/media-playback-pause.png) }
 .icon-media-play       { background-image: url(Tango/16x16/actions/media-playback-start.png) }

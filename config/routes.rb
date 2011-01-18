@@ -75,6 +75,9 @@ ActionController::Routing::Routes.draw do |map|
   map.tag 'profile/:profile/tags/:id', :controller => 'profile', :action => 'content_tagged', :id => /.+/, :profile => /#{Noosfero.identifier_format}/
   map.tag 'profile/:profile/tags', :controller => 'profile', :action => 'tags', :profile => /#{Noosfero.identifier_format}/
 
+  # profile search
+  map.profile_search 'profile/:profile/search', :controller => 'profile_search', :action => 'index', :profile => /#{Noosfero.identifier_format}/
+
   # public profile information
   map.profile 'profile/:profile/:action/:id', :controller => 'profile', :action => 'index', :id => /.*/, :profile => /#{Noosfero.identifier_format}/
 

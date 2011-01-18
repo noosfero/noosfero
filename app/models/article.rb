@@ -473,6 +473,10 @@ class Article < ActiveRecord::Base
     abstract.blank? ? first_paragraph : abstract
   end
 
+  def short_lead
+    truncate sanitize_html(self.lead), 170, '...'
+  end
+
   def creator
     creator_id = versions[0][:last_changed_by_id]
     creator_id && Profile.find(creator_id)
@@ -491,6 +495,11 @@ class Article < ActiveRecord::Base
 
   def strip_tag_name(tag_name)
     tag_name.gsub(/[<>]/, '')
+  end
+
+  def sanitize_html(text)
+    sanitizer = HTML::FullSanitizer.new
+    sanitizer.sanitize(text)
   end
 
 end

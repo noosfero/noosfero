@@ -47,8 +47,8 @@ class UploadedFile < Article
   delay_attachment_fu_thumbnails
 
   def self.icon_name(article = nil)
-    if article && article.image?
-      article.public_filename(:icon)
+    if article
+      article.image? ? article.public_filename(:icon) : article.mime_type.gsub(/[\/+.]/, '-')
     else
       'upload-file'
     end

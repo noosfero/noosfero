@@ -44,7 +44,11 @@ module FolderHelper
     if (icon =~ /\//)
       icon
     else
-      'icon icon-' + icon
+      klasses = 'icon icon-' + icon
+      if article.kind_of?(UploadedFile)
+        klasses += ' icon-upload-file'
+      end
+      klasses
     end
   end
 

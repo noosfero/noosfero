@@ -921,6 +921,16 @@ class ArticleTest < Test::Unit::TestCase
     assert_equal '', a.lead
   end
 
+  should 'have short lead' do
+    a = fast_create(TinyMceArticle, :body => '<p>' + ('a' *180) + '</p>')
+    assert_equal 170, a.short_lead.length
+  end
+
+  should 'remove html from short lead' do
+    a = Article.new(:body => "<p>an article with html that should be <em>removed</em></p>")
+    assert_equal 'an article with html that should be removed', a.short_lead
+  end
+
   should 'track action when a published article is created outside a community' do
     article = TinyMceArticle.create! :name => 'Tracked Article', :profile_id => profile.id
     assert article.published?

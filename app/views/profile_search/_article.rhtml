@@ -1,0 +1,5 @@
+<li>
+  <%= link_to article.title, article.view_url, :class =>  'result-title ' + icon_for_article(article) %>
+  <p><%= link_to article.short_lead, article.url, {:class => 'article-details'} %></p>
+  <div><%= link_to url_for(article.url), article.url, :class => 'article-url'  %></div>
+</li>

@@ -43,4 +43,14 @@ class TextArticleTest < Test::Unit::TestCase
     assert_kind_of Noosfero::TranslatableContent, TextArticle.new
   end
 
+  should 'return article icon name' do
+    assert_equal Article.icon_name, TextArticle.icon_name
+  end
+
+  should 'return blog icon name if the article is a blog post' do
+    blog = fast_create(Blog)
+    article = TextArticle.new(:parent => blog)
+    assert_equal Blog.icon_name, TextArticle.icon_name(article)
+  end
+
 end

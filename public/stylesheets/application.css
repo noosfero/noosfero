@@ -1567,6 +1567,10 @@ input.button {
 input.button {
   background-position: 2px 50%;
 }
+#content form input.button.submit {
+  height: 28px;
+  cursor: pointer;
+}
 
 .button span {
   display: none;
@@ -4372,6 +4376,98 @@ h1#agenda-title {
   text-align: left;
 }
 
+/* * * Profile search * * * * * * * */
+
+#public-profile-search,
+#profile-search-results form,
+.profile-search-block form {
+  padding: 10px;
+  margin-bottom: 15px;
+  background-color: #E6E6E6;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+#public-profile-search .formfield input {
+  width: 400px;
+}
+
+/* * * Profile Search Results * * * * * * * */
+
+#profile-search-results ul {
+  padding-left: 0px;
+}
+
+#profile-search-results form .formfield input {
+  width: 395px;
+}
+
+#profile-search-results form .search_form .button {
+  margin-top: 5px;
+}
+
+#profile-search-results li {
+  list-style: none;
+  margin-bottom: 20px;
+  clear: left;
+}
+
+#profile-search-results li.result-image {
+  float: left;
+  clear: none;
+  height: 150px;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+#profile-search-results .result-title {
+  font-size: 18px;
+}
+
+#profile-search-results p {
+  margin-top: 5px;
+  margin-bottom: 0px;
+}
+
+#profile-search-results .article-details {
+  color: #000;
+  text-decoration: none;
+}
+
+#profile-search-results a.article-url {
+  text-decoration: none;
+  color: #77AA44;
+}
+
+#profile-search-results a.article-url:hover {
+  text-decoration: underline;
+}
+
+#profile-search-results .results-list .icon {
+  background-repeat: no-repeat;
+  background-position: left;
+  padding: 0px 0px 3px 20px;
+  border: none;
+}
+
+#profile-search-results .results-list .icon:hover {
+  background-color: transparent;
+}
+
+#profile-search-results .results-found-message {
+  margin-top: 10px;
+  font-style: italic;
+}
+
+/* * * Profile search block * * * * * * * */
+
+.profile-search-block .formfield input {
+  width: 100%;
+}
+
+.profile-search-block .button.icon-search {
+  display: none;
+}
 
 /* * * Sub-category stuff * * * * * * * */
 
