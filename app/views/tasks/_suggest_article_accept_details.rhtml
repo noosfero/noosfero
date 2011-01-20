@@ -1,5 +1,3 @@
-<%= render :file => 'shared/tiny_mce' %>
-
 <%= labelled_form_field(_("Sent by: "), f.text_field(:name)) %>
 <p><%= label_tag(_("Email: %s") % task.email) %> </p>
 <%= required labelled_form_field(_('Title'), f.text_field(:article_name, :size => 50)) %>

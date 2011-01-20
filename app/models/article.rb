@@ -443,6 +443,10 @@ class Article < ActiveRecord::Base
     false
   end
 
+  def tiny_mce?
+    false
+  end
+
   def author
     if reference_article
       reference_article.author
