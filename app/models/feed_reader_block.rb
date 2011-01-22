@@ -12,7 +12,7 @@ class FeedReaderBlock < Block
   def address=(new_address)
     old_address = address
     orig_set_address(new_address)
-    self.enabled = (old_address.blank? && !new_address.blank?) || (new_address && new_address != old_address) || false
+    self.enabled = (new_address && new_address != old_address) || (new_address && self.enabled) || false
   end
 
   settings_items :limit, :type => :integer
