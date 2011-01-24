@@ -64,7 +64,7 @@ here and see the HACKING file instead.
 
 Install memcached. On Debian:
 
-# sudo apt-get install memcached
+# apt-get install memcached
 
 Study whether you need to raise the ammount of memory it uses for caching,
 depending on the demand you expect for your site. If you are going to run a
@@ -74,7 +74,7 @@ caching.
 It is recommended that you run noosfero with its own user account. To create
 such an account, please do the following:
 
-# sudo adduser --system --group noosfero --shell /bin/sh --home /var/lib/noosfero noosfero
+# adduser --system --group noosfero --shell /bin/sh --home /var/lib/noosfero
 
 (note that you can change the $HOME directory of the user if you wish, here we
 are using /var/lib/noosfero)
@@ -87,18 +87,30 @@ this user, you have to use sudo:
 
 or
 
-# sudo su - noosfero
+# su - noosfero
 
 As noosfero user
 ================
 
-Enter the directory where you unpacked noosfero (or do it now and enter the
-directory). Here we are cloning the noosfero repository from git, but you can
-do it with a tarball as well.
+downloading from git
+--------------------
+
+Here we are cloning the noosfero repository from git. Note: you will need to
+install git before.
 
 $ git clone git://git.colivre.coop.br/noosfero.git current
 $ cd current
 $ git checkout -b stable origin/stable
+
+downloading tarball
+-------------------
+
+Note: replace 0.27.1 below from the latest stable version.
+
+$ wget http://noosfero.org/pub/Development/NoosferoVersion00x27x01/noosfero-0.27.1.tar.gz
+$ tar -zxvf noosfero-0.27.1.tar.gz
+$ ln -s noosfero-0.27.1 current
+$ cd current
 
 Copy config/ferret_server.yml.dist to config/ferret_server.yml. You will
 probably not need to customize this configuration, but have a look at it.
@@ -127,16 +139,21 @@ As root user
 Setup Noosfero log and tmp directories:
 
 # cd /var/lib/noosfero/current
-# sudo etc/init.d/noosfero setup
+# ./etc/init.d/noosfero setup
 
 Now it's time to setup the database. In this example we are using PostgreSQL,
 so if you are planning to use a different database this steps won't apply.
 
 # apt-get install postgresql libpgsql-ruby
-# su postgres -c 'createuser noosfero'
-Shall the new role be a superuser? (y/n) n
-Shall the new role be allowed to create databases? (y/n) y
-Shall the new role be allowed to create more new roles? (y/n) n
+# su postgres -c 'createuser noosfero -S -d -R'
+
+By default Rails will try to connect on postgresql through 5432 port, but
+Debian start postgresql on port 5433, then is needed to change postgresql to
+start on port 5432 in /etc/postgresql/8.3/main/postgresql.conf file.
+
+Restart postgresql:
+
+# invoke-rc.d postgresql-8.3 restart
 
 As noosfero user
 ================
@@ -198,9 +215,14 @@ At this point you have a functional Noosfero installation running, the only
 thing left is to configure your webserver as a reverse proxy to pass requests
 to them.
 
-====================
+==================
+Apache instalation
+==================
+
+# apt-get install apache2
+
 Apache configuration
-====================
+--------------------
 
 Firts you have to enable the following some apache modules:
 
