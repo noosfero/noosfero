@@ -7,8 +7,13 @@ Feature: comment
       | login   |
       | booking |
     And the following articles
-      | owner   | name               |
-      | booking | article to comment |
+      | owner   | name                 |
+      | booking | article to comment   |
+      | booking | article with comment |
+    And the following comments
+      | article              | author  | title | body         |
+      | article with comment | booking | hi    | how are you? |
+      | article with comment | booking | hello | i am fine    |
 
   Scenario: not post a comment without javascript
     Given I am on /booking/article-to-comment
@@ -71,11 +76,8 @@ Feature: comment
 
   @selenium
   Scenario: render comment form and go to bottom
-    Given the following comment
-      | article            | author  | title | body         |
-      | article to comment | booking | hi    | how are you? |
-    Given I am on /booking/article-to-comment
+    Given I am on /booking/article-with-comment
     When I follow "Post a comment" within ".post-comment-button"
     Then I should see "Enter your comment" within "div#page-comment-form div.post_comment_box.opened"
-    And I should be exactly on /booking/article-to-comment
+    And I should be exactly on /booking/article-with-comment
     And I should be moved to anchor "comment_form"

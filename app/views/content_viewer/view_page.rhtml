@@ -125,7 +125,7 @@
   <h3 <%= 'class="no-comments-yet"' if @comments.size == 0 %>>
     <%= number_of_comments(@page) %>
   </h3>
-  <% if @comments.size > 0 %>
+  <% if @comments_count > 1 %>
   <p class="post-comment-button"><a href="#comment_form" onclick="jQuery('#page-comment-form h4').first().trigger('click')"><%= _('Post a comment') %></a></p>
   <% end %>
   <ul class="article-comments-list">

@@ -100,6 +100,7 @@ class ContentViewerController < ApplicationController
     end
 
     @comments = @page.comments(true).as_thread
+    @comments_count = @page.comments.count
     if params[:slideshow]
       render :action => 'slideshow', :layout => 'slideshow'
     end
