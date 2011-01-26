@@ -8,17 +8,6 @@ class ApplicationHelperTest < Test::Unit::TestCase
     self.stubs(:session).returns({})
   end
 
-  should 'retrieve conf from "web2.0" config file' do
-    yml = RAILS_ROOT + '/config/web2.0.yml'
-    conf = {
-      'addthis'=>{'pub'=>'mylogin', 'options'=>'favorites, email'},
-      'gravatar'=>{'default'=>'wavatar'}
-    }
-    File.expects(:exists?).with(yml).returns(true)
-    YAML.expects(:load_file).with(yml).returns(conf)
-    assert_equal conf, web2_conf
-  end
-
   should 'calculate correctly partial for object' do
     self.stubs(:params).returns({:controller => 'test'})
 
@@ -436,12 +425,13 @@ class ApplicationHelperTest < Test::Unit::TestCase
   end
 
   should 'generate a gravatar url' do
-    stubs(:web2_conf).returns({"gravatar" => {"default" => "wavatar"}})
-    url = str_gravatar_url_for( 'rms@gnu.org', :size => 50 )
-    assert_match(/^http:\/\/www\.gravatar\.com\/avatar\.php\?/, url)
-    assert_match(/(\?|&)gravatar_id=ed5214d4b49154ba0dc397a28ee90eb7(&|$)/, url)
-    assert_match(/(\?|&)d=wavatar(&|$)/, url)
-    assert_match(/(\?|&)size=50(&|$)/, url)
+    with_constants :NOOSFERO_CONF => {'gravatar' => 'crazyvatar'} do
+      url = str_gravatar_url_for( 'rms@gnu.org', :size => 50 )
+      assert_match(/^http:\/\/www\.gravatar\.com\/avatar\.php\?/, url)
+      assert_match(/(\?|&)gravatar_id=ed5214d4b49154ba0dc397a28ee90eb7(&|$)/, url)
+      assert_match(/(\?|&)d=crazyvatar(&|$)/, url)
+      assert_match(/(\?|&)size=50(&|$)/, url)
+    end
   end
 
   should 'use theme passed via param when in development mode' do

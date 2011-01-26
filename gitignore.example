@@ -5,7 +5,7 @@ doc/plugins
 tmp
 config/database.yml
 config/session.secret
-config/mail.yml
+config/noosfero.yml
 config/ferret_server.yml
 config/mongrel_cluster.yml
 index

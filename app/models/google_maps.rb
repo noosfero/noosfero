@@ -6,14 +6,6 @@ class GoogleMaps
 
     include ApplicationHelper
 
-    def erase_config
-      @config = nil
-    end
-
-    def config
-      @config ||= (web2_conf['googlemaps'] || {})
-    end
-
     def enabled?(domain)
       domain = Domain.find_by_name(domain)
       domain ? !domain.google_maps_key.nil? : false
@@ -25,7 +17,7 @@ class GoogleMaps
     end
 
     def initial_zoom
-      config['initial_zoom'] || 4
+      NOOSFERO_CONF['googlemaps_initial_zoom'] || 4
     end
 
     def api_url(domain)

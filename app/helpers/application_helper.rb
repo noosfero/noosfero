@@ -30,17 +30,6 @@ module ApplicationHelper
     (@page && !@page.language.blank?) ? @page.language : FastGettext.locale
   end
 
-  def load_web2_conf
-    if File.exists?( RAILS_ROOT + '/config/web2.0.yml')
-      YAML.load_file( RAILS_ROOT + '/config/web2.0.yml' )
-    else
-      {}
-    end
-  end
-  def web2_conf
-    @web_conf ||= load_web2_conf
-  end
-
   # Displays context help. You can pass the content of the help message as the
   # first parameter or using template code inside a block passed to this
   # method. *Note*: the block is ignored if <tt>content</tt> is not
@@ -570,12 +559,12 @@ module ApplicationHelper
                :protocol => 'http://',
                :only_path => false,
                :controller => 'avatar.php',
-               :d => web2_conf['gravatar'] ? web2_conf['gravatar']['default'] : nil
+               :d => NOOSFERO_CONF['gravatar'] ? NOOSFERO_CONF['gravatar'] : nil
              }.merge(options) )
   end
 
   def str_gravatar_url_for(email, options = {})
-    default = web2_conf['gravatar'] ? web2_conf['gravatar']['default'] : nil
+    default = NOOSFERO_CONF['gravatar'] ? NOOSFERO_CONF['gravatar'] : nil
     url = 'http://www.gravatar.com/avatar.php?gravatar_id=' +
            Digest::MD5.hexdigest(email)
     {
