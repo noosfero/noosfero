@@ -1,4 +1,4 @@
-development: &DEVELOPMENT
+development:
   mail_enabled: true
   webmail_url: "http://localhost.localdomain/"
   addthis_enabled: true
@@ -8,7 +8,6 @@ development: &DEVELOPMENT
   gravatar: wavatar
   googlemaps_initial_zoom: 4
 
-test: &TEST
-  <<: *DEVELOPMENT
+test:
 
 production:

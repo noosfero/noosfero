@@ -1,1 +1,2 @@
-NOOSFERO_CONF = YAML.load_file("#{RAILS_ROOT}/config/noosfero.yml")[RAILS_ENV]
+file = "#{RAILS_ROOT}/config/noosfero.yml"
+NOOSFERO_CONF = File.exists?(file) ? YAML.load_file(file)[RAILS_ENV] || {} : {}
