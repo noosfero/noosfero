@@ -7,6 +7,7 @@ development:
   addthis_options: favorites, email, digg, delicious, technorati, slashdot, twitter, more
   gravatar: wavatar
   googlemaps_initial_zoom: 4
+  exception_recipients: [admin@example.com]
 
 test:
 

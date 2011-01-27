@@ -215,6 +215,24 @@ At this point you have a functional Noosfero installation running, the only
 thing left is to configure your webserver as a reverse proxy to pass requests
 to them.
 
+Enabling exception notifications
+================================
+
+This is an optional step. You will need it only if you want to receive e-mail
+notifications when some exception occurs on Noosfero.
+
+First, install this version of the gem.
+Others versions may not be compatible with Noosfero:
+
+# gem install exception_notification -v 1.0.20090728
+
+You can configure the e-mails that will receive the notifications.
+Change the file config/noosfero.yml as the following example, replacing the
+e-mails by real ones:
+
+  production:
+    exception_recipients: [admin@example.com, you@example.com]
+
 ==================
 Apache instalation
 ==================
@@ -224,7 +242,7 @@ Apache instalation
 Apache configuration
 --------------------
 
-Firts you have to enable the following some apache modules:
+First you have to enable the following some apache modules:
 
   deflate
   expires
