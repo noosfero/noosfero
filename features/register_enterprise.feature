@@ -93,7 +93,7 @@ Feature: register enterprise
     Then I should see "Enterprise registration completed"
     And I am logged in as admin
     And I go to the Control panel
-    When I follow "Tasks"
+    When I follow "Tasks" within ".control-panel"
     Then I should see "Joao Silva wants to create enterprise My Enterprise."
     And the first mail is to admin_user@example.com
     And I choose "Accept"
@@ -120,7 +120,7 @@ Feature: register enterprise
     Then I should see "Enterprise registration completed"
     And I am logged in as admin
     And I go to the Control panel
-    When I follow "Tasks"
+    When I follow "Tasks" within ".control-panel"
     Then I should see "Joao Silva wants to create enterprise My Enterprise."
     And the first mail is to admin_user@example.com
     And I choose "Reject"

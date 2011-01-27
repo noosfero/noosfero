@@ -23,8 +23,8 @@ jQuery(function($) {
       });
       clicked.css("cursor","");
       $(".small-loading").remove();
-      display_notice(data);
-    });
+      display_notice(data.message);
+    }, "json");
     return false;
   })
 
@@ -33,15 +33,24 @@ jQuery(function($) {
     url = clicked.attr("href");
     loading_for_button(this);
     $.post(url, function(data){
-      clicked.fadeOut(function(){
-        clicked.css("display","none");
-        clicked.parent().parent().find(".join-community").fadeIn();
-        clicked.parent().parent().find(".join-community").css("display", "");
-      });
-      clicked.css("cursor","");
-      $(".small-loading").remove();
-      display_notice(data);
-    });
+      if(data.redirect_to){
+        document.location.href = data.redirect_to;
+      }
+      else if(data.reload){
+        document.location.reload(true);
+      }
+      else{
+        clicked.fadeOut(function(){
+          clicked.css("display","none");
+          clicked.parent().parent().find(".join-community").fadeIn();
+          clicked.parent().parent().find(".join-community").css("display", "");
+        });
+        clicked.css("cursor","");
+        $(".small-loading").remove();
+
+        display_notice(data.message);
+      }
+    }, "json");
     return false;
   })
 

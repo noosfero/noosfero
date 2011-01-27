@@ -236,22 +236,42 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
   should 'find users' do
     ent = fast_create(Enterprise, :name => 'Test Ent', :identifier => 'test_ent')
     user = create_user_full('test_user').person
-    u = create_user_with_permission('ent_user', 'manage_memberships', ent)
+    person = create_user_with_permission('ent_user', 'manage_memberships', ent)
     login_as :ent_user
 
-    get :find_users, :profile => ent.identifier, :query => 'test*'
+    get :find_users, :profile => ent.identifier, :query => 'test*', :scope => 'all_users'
 
     assert_includes assigns(:users_found), user
   end
 
-  should 'not appear add button for member in add members page' do
+  should 'not display members when finding users in all_users scope' do
     ent = fast_create(Enterprise, :name => 'Test Ent', :identifier => 'test_ent')
-    p = create_user_with_permission('test_user', 'manage_memberships', ent)
-    login_as :test_user
+    user = create_user_full('test_user').person
 
-    get :find_users, :profile => ent.identifier, :query => 'test*'
+    person = create_user_with_permission('ent_user', 'manage_memberships', ent)
+    login_as :ent_user
 
-    assert_tag :tag => 'tr', :attributes => {:id => 'tr-test_user', :style => 'display:none'}
+    get :find_users, :profile => ent.identifier, :query => '*user', :scope => 'all_users'
+
+    assert_tag :tag => 'a', :content => /#{user.name}/
+    assert_no_tag :tag => 'a', :content => /#{person.name}/
+  end
+
+  should 'not display admins when finding users in new_admins scope' do
+    ent = fast_create(Enterprise, :name => 'Test Ent', :identifier => 'test_ent')
+
+    person = create_user('admin_user').person
+    ent.add_admin(person)
+
+    user = create_user_full('test_user').person
+    ent.add_member(user).finish
+
+    login_as :admin_user
+
+    get :find_users, :profile => ent.identifier, :query => '*user', :scope => 'new_admins'
+
+    assert_tag :tag => 'a', :content => /#{user.name}/
+    assert_no_tag :tag => 'a', :content => /#{person.name}/
   end
 
   should 'return users with <query> as a prefix' do
@@ -259,10 +279,10 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
     daniela = create_user_full('daniela').person
 
     ent = fast_create(Enterprise, :name => 'Test Ent', :identifier => 'test_ent')
-    p = create_user_with_permission('test_user', 'manage_memberships', ent)
+    person = create_user_with_permission('test_user', 'manage_memberships', ent)
     login_as :test_user
 
-    get :find_users, :profile => ent.identifier, :query => 'daniel'
+    get :find_users, :profile => ent.identifier, :query => 'daniel', :scope => 'all_users'
 
     assert_includes assigns(:users_found), daniel
     assert_includes assigns(:users_found), daniela
@@ -305,6 +325,34 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
     login_as('profile_admin_user')
     post :send_mail, :profile => community.identifier, :mailing => {:subject => 'Hello', :body => 'We have some news'}
     assert_equal Profile['profile_admin_user'], assigns(:mailing).person
+  end
+
+  should 'set a community member as admin' do
+    community = fast_create(Community)
+    admin = create_user_with_permission('admin_user', 'manage_memberships', community)
+    member = create_user('test_member').person
+    community.add_member(member)
+
+    assert_not_includes community.admins, member
+
+    login_as :admin_user
+    get :add_admin, :profile => community.identifier, :id => member.identifier
+
+    assert_includes community.admins, member
+  end
+
+  should 'remove a community admin' do
+    community = fast_create(Community)
+    admin = create_user_with_permission('admin_user', 'manage_memberships', community)
+    member = create_user('test_member').person
+    community.add_admin(member)
+
+    assert_includes community.admins, member
+
+    login_as :admin_user
+    get :remove_admin, :profile => community.identifier, :id => member.identifier
+
+    assert_not_includes community.admins, member
   end
 
 end

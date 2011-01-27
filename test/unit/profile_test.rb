@@ -1406,7 +1406,12 @@ class ProfileTest < Test::Unit::TestCase
 
   should 'provide URL to leave' do
     profile = build(Profile, :identifier => 'testprofile')
-    assert_equal({ :profile => 'testprofile', :controller => 'profile', :action => 'leave'}, profile.leave_url)
+    assert_equal({ :profile => 'testprofile', :controller => 'profile', :action => 'leave', :reload => false}, profile.leave_url)
+  end
+
+  should 'provide URL to leave with reload' do
+    profile = build(Profile, :identifier => 'testprofile')
+    assert_equal({ :profile => 'testprofile', :controller => 'profile', :action => 'leave', :reload => true}, profile.leave_url(true))
   end
 
   should 'provide URL to join' do
@@ -1743,26 +1748,25 @@ class ProfileTest < Test::Unit::TestCase
   end
 
   should "return one member on label if the profile has one member" do
-    p = fast_create(Person)
-    c = fast_create(Community)
-    c.add_member(p)
-    assert_equal 1, c.members.count
-    assert_equal "one member", c.more_popular_label
+    person = fast_create(Person)
+    community = fast_create(Community)
+    community.add_member(person)
+
+    assert_equal "one member", community.more_popular_label
   end
 
   should "return the number of members on label if the profile has more than one member" do
-    p1 = fast_create(Person)
-    p2 = fast_create(Person)
-    c = fast_create(Community)
-    c.add_member(p1)
-    c.add_member(p2)
-    assert_equal 2, c.members.count
-    assert_equal "2 members", c.more_popular_label
+    person1 = fast_create(Person)
+    person2 = fast_create(Person)
+    community = fast_create(Community)
 
-    p3 = fast_create(Person)
-    c.add_member(p3)
-    assert_equal 3, c.members.count
-    assert_equal "3 members", c.more_popular_label
+    community.add_member(person1)
+    community.add_member(person2)
+    assert_equal "2 members", community.more_popular_label
+
+    person3 = fast_create(Person)
+    community.add_member(person3)
+    assert_equal "3 members", community.more_popular_label
   end
 
   should 'provide list of galleries' do

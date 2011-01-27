@@ -102,14 +102,24 @@ class EnterpriseTest < Test::Unit::TestCase
     assert_not_includes result, ent2
   end
 
+  should 'allow to add new members if has no members' do
+    enterprise = fast_create(Enterprise)
+
+    person = fast_create(Person)
+    enterprise.add_member(person)
+
+    assert person.is_member_of?(enterprise)
+  end
+
   should 'not allow to add new members' do
-    o = fast_create(Enterprise, :name => 'my test profile', :identifier => 'mytestprofile')
-    p = create_user('mytestuser').person
+    enterprise = fast_create(Enterprise)
+    member = fast_create(Person)
+    enterprise.add_member(member)
 
-    o.add_member(p)
-    o.reload
+    person = fast_create(Person)
+    enterprise.add_member(person)
 
-    assert_not_includes  o.members, p
+    assert_equal false, person.is_member_of?(enterprise)
   end
 
   should 'allow to remove members' do

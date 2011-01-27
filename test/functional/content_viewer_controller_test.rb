@@ -308,14 +308,16 @@ class ContentViewerControllerTest < Test::Unit::TestCase
   end
 
   should 'not show private content to members' do
-    community = Community.create!(:name => 'testcomm')
-    Folder.create!(:name => 'test', :profile => community, :published => false)
-    community.add_member(profile)
+    community = fast_create(Community)
+    admin = fast_create(Person)
+    community.add_member(admin)
 
+    folder = fast_create(Folder, :profile_id => community.id, :published => false)
+    community.add_member(profile)
     login_as(profile.identifier)
 
     @request.stubs(:ssl?).returns(true)
-    get :view_page, :profile => community.identifier, :page => [ 'test' ]
+    get :view_page, :profile => community.identifier, :page => [ folder.path ]
 
     assert_template 'access_denied.rhtml'
   end

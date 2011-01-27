@@ -1,0 +1,27 @@
+<h1><%= _('Last administrator leaving %s') % profile.name %></h1>
+
+<% if profile.members.count > 1 %>
+  <div id='last-admin-message'>
+    <%= _('Since you are the last administrator, you must choose at least one member to administer this community.') % profile.name %>
+  </div>
+
+  <%= render :partial => 'add_admins' %>
+
+  <% form_tag :action => 'update_roles', :roles => @roles, :person => @person, :confirmation => profile.admins.count > 1 do %>
+    <% button_bar do %>
+      <%= submit_button(:save, _("Leave administration and save"), :cancel => {:action => 'index'}) %>
+    <% end %>
+  <% end %>
+
+<% else %>
+
+  <div id='last-admin-message'>
+    <%= _('Since you are the last administrator and there is no other member in this community, the next member to join this community will assume the administrator role.') % profile.name %>
+  </div>
+
+  <% form_tag :action => 'update_roles', :roles => @roles, :person => @person, :confirmation => true do %>
+    <% button_bar do %>
+      <%= submit_button(:ok, _("Ok, I want to leave"), :cancel => {:action => 'index'}) %>
+    <% end %>
+  <% end %>
+<% end %>

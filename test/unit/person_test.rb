@@ -394,12 +394,16 @@ class PersonTest < Test::Unit::TestCase
   end
 
   should 'not allow simple member to view group pending tasks' do
-    c = fast_create(Community)
-    c.tasks << Task.new
-    p = create_user('user_without_tasks').person
-    c.add_member(p)
+    community = fast_create(Community)
+    member = fast_create(Person)
+    community.add_member(member)
 
-    assert_not_includes Person.with_pending_tasks, p
+    community.tasks << Task.new
+
+    person = fast_create(Person)
+    community.add_member(person)
+
+    assert_not_includes Person.with_pending_tasks, person
   end
 
   should 'person has organization pending tasks' do
@@ -1116,4 +1120,29 @@ class PersonTest < Test::Unit::TestCase
     assert person.receives_scrap_notification?
   end
 
+  should 'check if person is the only admin' do
+    person = fast_create(Person)
+    organization = fast_create(Organization)
+    organization.add_admin(person)
+
+    assert person.is_last_admin?(organization)
+  end
+
+  should 'check if person is the last admin leaving the community' do
+    person = fast_create(Person)
+    organization = fast_create(Organization)
+    organization.add_admin(person)
+
+    assert person.is_last_admin_leaving?(organization, [])
+    assert !person.is_last_admin_leaving?(organization, [Role.find_by_key('profile_admin')])
+  end
+
+  should 'return unique members of a community' do
+    person = fast_create(Person)
+    community = fast_create(Community)
+    community.add_member(person)
+
+    assert_equal [person], Person.members_of(community)
+    assert_equal 1, Person.members_of(community).count
+  end
 end

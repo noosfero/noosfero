@@ -96,11 +96,20 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_equal 'black', role_color('none', Environment.default.id)
   end
 
-  should 'rolename for' do
+  should 'rolename for first organization member' do
     person = create_user('usertest').person
     community = fast_create(Community, :name => 'new community', :identifier => 'new-community', :environment_id => Environment.default.id)
     community.add_member(person)
-    assert_equal 'Profile Member', rolename_for(person, community)
+    assert_equal 'Profile Administrator', rolename_for(person, community)
+  end
+
+  should 'rolename for a member' do
+    member1 = create_user('usertest1').person
+    member2 = create_user('usertest2').person
+    community = fast_create(Community, :name => 'new community', :identifier => 'new-community', :environment_id => Environment.default.id)
+    community.add_member(member1)
+    community.add_member(member2)
+    assert_equal 'Profile Member', rolename_for(member2, community)
   end
 
   should 'get theme from environment by default' do

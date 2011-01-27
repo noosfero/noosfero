@@ -4,7 +4,7 @@ class Person < Profile
   acts_as_trackable :after_add => Proc.new {|p,t| notify_activity(t)}
   acts_as_accessor
 
-  named_scope :members_of, lambda { |resource| { :select => 'DISTINCT profiles.*', :joins => :role_assignments, :conditions => ['role_assignments.resource_type = ? AND role_assignments.resource_id = ?', resource.class.base_class.name, resource.id ] } }
+  named_scope :members_of, lambda { |resource| { :select => 'DISTINCT profiles.*', :include => :role_assignments, :group => 'profiles.id', :conditions => ['role_assignments.resource_type = ? AND role_assignments.resource_id = ?', resource.class.base_class.name, resource.id ] } }
 
   def memberships
     Profile.memberships_of(self)
@@ -363,10 +363,26 @@ class Person < Profile
     generate_url(:profile => identifier, :controller => 'profile', :action => 'index', :anchor => 'profile-wall')
   end
 
+  def is_last_admin?(organization)
+    organization.admins == [self]
+  end
+
+  def is_last_admin_leaving?(organization, roles)
+    is_last_admin?(organization) && roles.select {|role| role.key == "profile_admin"}.blank?
+  end
+
+  def leave(profile, reload = false)
+    leave_hash = {:message => _('You just left %s.') % profile.name}
+    if reload
+      leave_hash.merge!({:reload => true})
+    end
+    profile.remove_member(self)
+    leave_hash.to_json
+  end
+
   protected
 
   def followed_by?(profile)
     self == profile || self.is_a_friend?(profile)
   end
-
 end

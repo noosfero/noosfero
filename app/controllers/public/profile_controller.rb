@@ -82,13 +82,13 @@ class ProfileController < PublicController
   def join
     if !user.memberships.include?(profile)
       profile.add_member(user)
-      if profile.closed?
-        render :text => _('%s administrator still needs to accept you as member.') % profile.name
+      if !profile.members.include?(user)
+        render :text => {:message => _('%s administrator still needs to accept you as member.') % profile.name}.to_json
       else
-        render :text => _('You just became a member of %s.') % profile.name
+        render :text => {:message => _('You just became a member of %s.') % profile.name}.to_json
       end
     else
-      render :text => _('You are already a member of %s.') % profile.name
+      render :text => {:message => _('You are already a member of %s.') % profile.name}.to_json
     end
   end
 
@@ -110,11 +110,14 @@ class ProfileController < PublicController
   end
 
   def leave
-    if user.memberships.include?(profile)
-      profile.remove_member(current_user.person)
-      render :text => _('You just left %s.') % profile.name
+    if current_person.memberships.include?(profile)
+      if current_person.is_last_admin?(profile)
+        render :text => {:redirect_to => url_for({:controller => 'profile_members', :action => 'last_admin', :person => current_person.id})}.to_json
+      else
+        render :text => current_person.leave(profile, params[:reload])
+      end
     else
-      render :text => _('You are already a member of %s.') % profile.name
+      render :text => {:message => _('You are not a member of %s.') % profile.name}.to_json
     end
   end
 

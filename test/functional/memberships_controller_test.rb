@@ -95,11 +95,11 @@ class MembershipsControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'li', :content => /Description:/
   end
 
-  should 'show link to leave from community' do
+  should 'show link to leave from community with reload' do
     community = Community.create!(:name => 'my test community', :description => 'description test')
     community.add_member(profile)
     get :index, :profile => profile.identifier
-    assert_tag :tag => 'a', :attributes => { :href => "/profile/#{community.identifier}/leave" }, :content => 'Leave'
+    assert_tag :tag => 'a', :attributes => { :href => "/profile/#{community.identifier}/leave?reload=true" }, :content => 'Leave'
   end
 
   should 'current user is added as admin after create new community' do
@@ -127,7 +127,9 @@ class MembershipsControllerTest < Test::Unit::TestCase
   end
 
   should 'not display destroy link to normal members' do
-    community = Community.create!(:name => 'A community to destroy')
+    community = fast_create(Community)
+    admin = fast_create(Person)
+    community.add_member(admin)
 
     person = Person['testuser']
     community.add_member(person)

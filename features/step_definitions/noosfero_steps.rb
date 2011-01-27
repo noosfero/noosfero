@@ -16,13 +16,13 @@ Given /^"(.+)" is (online|offline|busy) in chat$/ do |user, status|
   User.find_by_login(user).update_attributes(:chat_status => status, :chat_status_at => DateTime.now)
 end
 
-Given /^the following (community|communities|enterprises?)$/ do |kind,table|
+Given /^the following (community|communities|enterprises?|organizations?)$/ do |kind,table|
   klass = kind.singularize.camelize.constantize
   table.hashes.each do |row|
     owner = row.delete("owner")
-    community = klass.create!(row)
+    organization = klass.create!(row)
     if owner
-      community.add_admin(Profile[owner])
+      organization.add_admin(Profile[owner])
     end
   end
 end
@@ -210,6 +210,12 @@ Given /^"(.+)" is admin of "(.+)"$/ do |person, organization|
   org.add_admin(user)
 end
 
+Then /^"(.+)" should be admin of "(.+)"$/ do |person, organization|
+  org = Organization.find_by_name(organization)
+  user = Person.find_by_name(person)
+  org.admins.should include(user)
+end
+
 Given /^"([^\"]*)" has no articles$/ do |profile|
   (Profile[profile] || Profile.find_by_name(profile)).articles.delete_all
 end
@@ -316,4 +322,10 @@ Given /^the following comments?$/ do |table|
     comment = article.comments.build(:author => author, :title => data.delete("title"), :body => data.delete("body"))
     comment.save!
   end
+end
+
+Given /^the community "(.+)" is closed$/ do |community|
+  community = Community.find_by_name(community)
+  community.closed = true
+  community.save
 end

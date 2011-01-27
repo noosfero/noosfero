@@ -424,8 +424,8 @@ class Profile < ActiveRecord::Base
     { :profile => identifier, :controller => 'profile_editor', :action => 'index' }
   end
 
-  def leave_url
-    { :profile => identifier, :controller => 'profile', :action => 'leave' }
+  def leave_url(reload = false)
+    { :profile => identifier, :controller => 'profile', :action => 'leave', :reload => reload }
   end
 
   def join_url
@@ -563,13 +563,16 @@ private :generate_url, :url_options
   # Adds a person as member of this Profile.
   def add_member(person)
     if self.has_members?
-      if self.closed?
+      if self.closed? && members.count > 0
         AddMember.create!(:person => person, :organization => self) unless self.already_request_membership?(person)
       else
+        if members.count == 0
+          self.affiliate(person, Profile::Roles.admin(environment.id))
+        end
         self.affiliate(person, Profile::Roles.member(environment.id))
       end
     else
-      raise _("%s can't has members") % self.class.name
+      raise _("%s can't have members") % self.class.name
     end
   end
   
@@ -580,6 +583,10 @@ private :generate_url, :url_options
   # adds a person as administrator os this profile
   def add_admin(person)
     self.affiliate(person, Profile::Roles.admin(environment.id))
+  end
+
+  def remove_admin(person)
+    self.disaffiliate(person, Profile::Roles.admin(environment.id))
   end
 
   def add_moderator(person)

@@ -383,10 +383,24 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert profile.memberships.include?(community), 'profile should be actually added to the community'
   end
 
-  should 'create task when join to closed organization' do
-    community = Community.create!(:name => 'my test community', :closed => true)
-    login_as @profile.identifier
+  should 'create task when join to closed organization with members' do
+    community = fast_create(Community)
+    community.update_attribute(:closed, true)
+    admin = fast_create(Person)
+    community.add_member(admin)
+
+    login_as profile.identifier
     assert_difference AddMember, :count do
+      post :join, :profile => community.identifier
+    end
+  end
+
+  should 'not create task when join to closed and empty organization' do
+    community = fast_create(Community)
+    community.update_attribute(:closed, true)
+
+    login_as profile.identifier
+    assert_no_difference AddMember, :count do
       post :join, :profile => community.identifier
     end
   end
@@ -399,7 +413,10 @@ class ProfileControllerTest < Test::Unit::TestCase
   end
 
   should 'actually leave profile' do
-    community = Community.create!(:name => 'my test community')
+    community = fast_create(Community)
+    admin = fast_create(Person)
+    community.add_member(admin)
+
     community.add_member(profile)
     assert_includes profile.memberships, community
 
@@ -415,6 +432,21 @@ class ProfileControllerTest < Test::Unit::TestCase
     get :leave, :profile => community.identifier
 
     assert_redirected_to :controller => 'account', :action => 'login'
+  end
+
+  should 'not leave if is last admin' do
+    community = fast_create(Community)
+
+    community.add_admin(profile)
+    assert_includes profile.memberships, community
+
+    login_as(profile.identifier)
+    post :leave, :profile => community.identifier
+
+    profile.reload
+    assert_response :success
+    assert_match(/last_admin/, @response.body)
+    assert_includes profile.memberships, community
   end
 
   should 'store location before login when request join via get not logged' do

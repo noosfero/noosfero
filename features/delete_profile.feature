@@ -7,6 +7,11 @@ Feature: delete profile
     Given the following users
       | login | name |
       | joaosilva | Joao Silva |
+      | mariasilva | Maria Silva |
+    And the following community
+      | identifier | name |
+      | sample-community | Sample Community |
+    And "Maria Silva" is a member of "Sample Community"
 
   Scenario: deleting profile
     Given I am logged in as "joaosilva"
@@ -20,10 +25,7 @@ Feature: delete profile
     Then I should see "There is no such page"
 
   Scenario: deleting other profile
-    Given the following users
-      | login | name |
-      | mariasilva | Maria Silva |
-    And I am logged in as "mariasilva"
+    Given I am logged in as "mariasilva"
     And I go to /myprofile/joaosilva/profile_editor/destroy_profile
     Then I should see "Access denied"
 
@@ -37,20 +39,14 @@ Feature: delete profile
     Then I should be on Joao Silva's profile
 
   Scenario: community admin can see link to delete profile
-    Given the following community
-      | identifier | name |
-      | sample-community | Sample Community |
-    And "Joao Silva" is admin of "Sample Community"
+    Given "Joao Silva" is admin of "Sample Community"
     And I am logged in as "joaosilva"
     And I am on Sample Community's control panel
     When I follow "Community Info and settings"
     Then I should see "Delete profile"
 
   Scenario: community admin deletes the community
-    Given the following community
-      | identifier | name |
-      | sample-community | Sample Community |
-    And "Joao Silva" is admin of "Sample Community"
+    Given "Joao Silva" is admin of "Sample Community"
     And I am logged in as "joaosilva"
     And I am on Sample Community's control panel
     And I follow "Community Info and settings"
@@ -62,10 +58,7 @@ Feature: delete profile
     Then I should see "There is no such page"
 
   Scenario: community regular member tries to delete the community
-    Given the following community
-      | identifier | name |
-      | sample-community | Sample Community |
-    And "Joao Silva" is a member of "Sample Community"
+    Given "Joao Silva" is a member of "Sample Community"
     And I am logged in as "joaosilva"
     And I go to /myprofile/sample-community/profile_editor/destroy_profile
     Then I should see "Access denied"
@@ -96,19 +89,17 @@ Feature: delete profile
     Then I should see "There is no such page"
 
   Scenario: enterprise regular member tries to delete the enterprise
-    Given the following community
+    Given the following enterprise
       | identifier | name |
       | sample-enterprise | Sample Enterprise |
+    And "Maria Silva" is a member of "Sample Enterprise"
     And "Joao Silva" is a member of "Sample Enterprise"
     And I am logged in as "joaosilva"
     And I go to /myprofile/sample-enterprise/profile_editor/destroy_profile
     Then I should see "Access denied"
 
   Scenario: community regular member cannot see link to delete profile
-    Given the following community
-      | identifier | name |
-      | sample-community | Sample Community |
-    And "Joao Silva" is a member of "Sample Community"
+    Given "Joao Silva" is a member of "Sample Community"
     And I am logged in as "joaosilva"
     And I am on Sample Community's control panel
     When I follow "Community Info and settings"

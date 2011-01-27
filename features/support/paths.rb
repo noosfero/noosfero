@@ -36,6 +36,12 @@ module NavigationHelpers
     when /^the profile$/
       '/profile/%s' % User.find_by_id(session[:user]).login
 
+    when /^(.*)'s join page/
+      '/profile/%s/join' % Profile.find_by_name($1).identifier
+
+    when /^(.*)'s leave page/
+      '/profile/%s/leave' % Profile.find_by_name($1).identifier
+
     when /^login page$/
       '/account/login'
 

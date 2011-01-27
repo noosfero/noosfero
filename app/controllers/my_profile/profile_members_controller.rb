@@ -15,26 +15,29 @@ class ProfileMembersController < MyProfileController
     rescue ActiveRecord::RecordNotFound
       @person = nil
     end
-    if @person && @person.define_roles(@roles, profile)
-      session[:notice] = _('Roles successfuly updated')
+    if !params[:confirmation] && @person && @person.is_last_admin_leaving?(profile, @roles)
+      redirect_to :action => :last_admin, :roles => params[:roles], :person => @person
     else
-      session[:notice] = _('Couldn\'t change the roles')
+      if @person && @person.define_roles(@roles, profile)
+        session[:notice] = _('Roles successfuly updated')
+      else
+        session[:notice] = _('Couldn\'t change the roles')
+      end
+      if params[:confirmation]
+        redirect_to profile.url
+      else
+        redirect_to :action => :index
+      end
     end
-    redirect_to :action => :index
   end
   
-  def change_role
-    @roles = Profile::Roles.organization_member_roles(environment.id)
-    begin
-      @member = profile.members.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-      @member = nil
-    end
-    if @member
-      @associations = @member.find_roles(@profile)
-    else
-      redirect_to :action => :index
-    end
+  def last_admin
+    @person = params[:person]
+    @roles = params[:roles] || []
+    @members = profile.members.select {|member| !profile.admins.include?(member)}
+    @title = _('Current admins')
+    @collection = :profile_admins
+    @remove_action = {:action => 'remove_admin'}
   end
 
   def add_role
@@ -59,14 +62,28 @@ class ProfileMembersController < MyProfileController
     render :layout => false
   end
 
+  def change_role
+    @roles = Profile::Roles.organization_member_roles(environment.id)
+    begin
+      @member = profile.members.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      @member = nil
+    end
+    if @member
+      @associations = @member.find_roles(@profile)
+    else
+      redirect_to :action => :index
+    end
+  end
+
   def unassociate
     member = Person.find(params[:id])
     associations = member.find_roles(profile)
     RoleAssignment.transaction do
       if associations.map(&:destroy)
-        session[:notice] = 'Member succefully unassociated'
+        session[:notice] = _('Member succesfully unassociated')
       else
-        session[:notice] = 'Failed to unassociate member'
+        session[:notice] = _('Failed to unassociate member')
       end
     end
     render :layout => false
@@ -83,11 +100,39 @@ class ProfileMembersController < MyProfileController
     render :layout => false
   end
 
+  def add_admin
+    @title = _('Current admins')
+    @collection = :profile_admins
+
+    if profile.community?
+      member = profile.members.find_by_identifier(params[:id])
+      profile.add_admin(member)
+    end
+    render :layout => false
+  end
+
+  def remove_admin
+    @title = _('Current admins')
+    @collection = :profile_admins
+
+    if profile.community?
+      member = profile.members.find_by_identifier(params[:id])
+      profile.remove_admin(member)
+    end
+    render :layout => false
+  end
+
   def find_users
     if !params[:query] || params[:query].length <= 2
       @users_found = []
-    else
-      @users_found = Person.find_by_contents(params[:query] + '*')
+    elsif params[:scope] == 'all_users'
+      @users_found = Person.find_by_contents(params[:query] + '*').select {|user| !profile.members.include?(user)}
+      @button_alt = _('Add member')
+      @add_action = {:action => 'add_member'}
+    elsif params[:scope] == 'new_admins'
+      @users_found = Person.find_by_contents(params[:query] + '*').select {|user| profile.members.include?(user) && !profile.admins.include?(user)}
+      @button_alt = _('Add member')
+      @add_action = {:action => 'add_admin'}
     end
     render :layout => false
   end
