@@ -3895,7 +3895,7 @@ msgstr "Limitações"
 
 #: app/models/organization.rb:85
 msgid "Display name"
-msgstr "Nome fantasia"
+msgstr "Nome de exibição"
 
 #: app/models/organization.rb:85
 msgid "Validated"
