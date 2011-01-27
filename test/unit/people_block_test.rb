@@ -35,12 +35,12 @@ class PeopleBlockTest < ActiveSupport::TestCase
     assert_match(/#{person2.name}/, content)
   end
 
-  should 'link to people directory' do
+  should 'link to browse people' do
     block = PeopleBlock.new
     block.stubs(:owner).returns(Environment.default)
 
     expects(:_).with('View all').returns('View all people')
-    expects(:link_to).with('View all people', :controller => 'search', :action => 'assets', :asset => 'people')
+    expects(:link_to).with('View all people', :controller => 'browse', :action => 'people')
     instance_eval(&block.footer)
   end
 
