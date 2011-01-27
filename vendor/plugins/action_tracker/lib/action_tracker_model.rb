@@ -11,8 +11,7 @@ module ActionTracker
     before_validation :stringify_verb
 
     validates_presence_of :verb
-    validates_presence_of :user_id
-    validates_presence_of :user_type
+    validates_presence_of :user
 
     alias_method :subject, :user
 

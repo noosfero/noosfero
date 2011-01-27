@@ -67,6 +67,11 @@ class ActionTrackerModelTest < ActiveSupport::TestCase
     end
   end
 
+  def test_user_exists_indeed
+    ta = ActionTracker::Record.new(:user_id => -1, :user_type => "SomeModel", :verb => :some_verb)
+    assert !ta.valid?
+  end
+
   def test_verb_must_be_declared_previously
     ActionTrackerConfig.verbs = { :some_verb => { :description => "Did something" } }
     assert_raise ActiveRecord::RecordInvalid do
