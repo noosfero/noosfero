@@ -59,6 +59,10 @@ class Profile < ActiveRecord::Base
     Person.members_of(self)
   end
 
+  def members_count
+    members.count('DISTINCT(profiles.id)')
+  end
+
   def members_by_role(role)
     Person.members_of(self).all(:conditions => ['role_assignments.role_id = ?', role.id])
   end
@@ -563,10 +567,10 @@ private :generate_url, :url_options
   # Adds a person as member of this Profile.
   def add_member(person)
     if self.has_members?
-      if self.closed? && members.count > 0
+      if self.closed? && members_count > 0
         AddMember.create!(:person => person, :organization => self) unless self.already_request_membership?(person)
       else
-        if members.count == 0
+        if members_count == 0
           self.affiliate(person, Profile::Roles.admin(environment.id))
         end
         self.affiliate(person, Profile::Roles.member(environment.id))
@@ -783,7 +787,7 @@ private :generate_url, :url_options
   end
 
   def more_popular_label
-    amount = self.members.count
+    amount = self.members_count
     {
       0 => _('none'),
       1 => _('one member')

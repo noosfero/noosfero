@@ -1,6 +1,6 @@
 <h1><%= _('Last administrator leaving %s') % profile.name %></h1>
 
-<% if profile.members.count > 1 %>
+<% if profile.members_count > 1 %>
   <div id='last-admin-message'>
     <%= _('Since you are the last administrator, you must choose at least one member to administer this community.') % profile.name %>
   </div>

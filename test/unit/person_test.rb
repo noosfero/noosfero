@@ -1143,6 +1143,6 @@ class PersonTest < Test::Unit::TestCase
     community.add_member(person)
 
     assert_equal [person], Person.members_of(community)
-    assert_equal 1, Person.members_of(community).count
   end
+
 end

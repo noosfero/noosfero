@@ -11,13 +11,22 @@ Feature: remove administrator role
     And the following community
       | name        | identifier  |
       | Nice people | nice-people |
-    And "Joao Silva" is admin of "Nice people"
+    And "Joao Silva" is a member of "Nice people"
     And I am logged in as "joaosilva"
+
+  Scenario: the last administrator removes his administrator role and must choose the new administrator
+    Given "Maria Souza" is a member of "Nice people"
+    And I am on Nice people's members management
+    And I follow "Edit"
+    And I uncheck "Profile Administrator"
+    When I press "Save changes"
+    Then I should see "Since you are the last administrator, you must choose"
 
   Scenario: the last administrator and member removes his administrator role and the next member to join becomes the new administrator
     Given I am on Nice people's members management
     And I follow "Edit"
     And I uncheck "Profile Administrator"
+    And I uncheck "Profile Member"
     When I press "Save changes"
     Then I should see "Since you are the last administrator and there is no other member in this community"
     And I press "Ok, I want to leave"
@@ -30,6 +39,7 @@ Feature: remove administrator role
     And I am on Nice people's members management
     And I follow "Edit"
     And I uncheck "Profile Administrator"
+    And I uncheck "Profile Member"
     When I press "Save changes"
     Then I should see "Since you are the last administrator and there is no other member in this community"
     And I press "Ok, I want to leave"

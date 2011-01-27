@@ -1743,7 +1743,7 @@ class ProfileTest < Test::Unit::TestCase
 
   should "return none on label if the profile hasn't members" do
     p = fast_create(Profile)
-    assert_equal 0, p.members.count
+    assert_equal 0, p.members_count
     assert_equal "none", p.more_popular_label
   end
 
@@ -1815,6 +1815,22 @@ class ProfileTest < Test::Unit::TestCase
     p.forums << Forum.new(:profile => p, :name => 'Forum three')
     assert_equal 'Forum one', p.forum.name
     assert_equal 3, p.forums.count
+  end
+
+  should 'return unique members of a community' do
+    person = fast_create(Person)
+    community = fast_create(Community)
+    community.add_member(person)
+
+    assert_equal [person], community.members
+  end
+
+  should 'count unique members of a community' do
+    person = fast_create(Person)
+    community = fast_create(Community)
+    community.add_member(person)
+
+    assert_equal 1, community.members_count
   end
 
   private
