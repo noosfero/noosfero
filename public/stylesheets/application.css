@@ -4121,6 +4121,7 @@ h1#agenda-title {
 
 .controller-search #search-page {
   position: relative; /* to the text appear on MSIE 6 */
+  width: 100%;
 }
 
 .controller-search #content .map-toggle-button {
@@ -4137,6 +4138,7 @@ h1#agenda-title {
 
 .controller-search #search-results {
   margin-top: 10px;
+  width: 100%;
   /* none by default, but... Who knows the future?  :-) */
 }
 
@@ -4170,10 +4172,6 @@ h1#agenda-title {
 
 #search-results li .icon:hover {
   background-color: transparent;
-}
-
-#search-results li:hover {
-  background-color: #F0F0F0;
 }
 
 .controller-search .has_cat_list #map,
@@ -4320,6 +4318,58 @@ h1#agenda-title {
 .controller-search .search-results-type-event .item_meta {
   font-size: 10px;
   color: #888;
+}
+
+.search-results-type-article.search-results-innerbox {
+  overflow: auto;
+}
+
+#content .only-one-result-box .search-results-enterprises li.vcard {
+  margin: 4.5px;
+}
+
+.search-results-type-article a {
+  height: 16px;
+  overflow: hidden;
+}
+
+.search-results-innerbox .menu-submenu {
+  bottom: 107px;
+}
+
+.controller-search .search-results-innerbox.common-profile-list-block {
+  padding: 5px;
+}
+
+#content .common-profile-list-block .search-results-innerbox2 li.vcard {
+  height: 105px;
+  margin-left: 4.5px;
+  margin-right: 4.5px;
+}
+
+.msie7 #content .common-profile-list-block .search-results-innerbox2 li.vcard {
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+.controller-search .search-results-type-product,
+.controller-search .search-results-type-event {
+  overflow: auto;
+}
+
+.search-results-type-product .odd,
+.search-results-type-product .even {
+  float: none;
+}
+
+.search-results-type-product li.product-item {
+  height: 60px;
+  overflow: hidden;
+}
+
+#content #search-results .common-profile-list-block li a.profile_link {
+  height: 103px;
+  overflow: hidden;
 }
 
 .controller-search #category-comments {
