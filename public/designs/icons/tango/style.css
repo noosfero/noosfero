@@ -1,5 +1,6 @@
 @import url(ie6.css);
 
+/******************SMALL ICONS********************/
 .icon-edit      { background-image: url(Tango/16x16/apps/text-editor.png) }
 .icon-home      { background-image: url(Tango/16x16/actions/go-home.png)          }
 .icon-new       { background-image: url(Tango/16x16/actions/filenew.png)              }
@@ -98,3 +99,6 @@
 .icon-locale           { background-image: url(Tango/16x16/apps/preferences-desktop-locale.png) }
 .icon-user-removed           { background-image: url(Tango/16x16/actions/gtk-cancel.png) }
 .icon-user-unknown           { background-image: url(Tango/16x16/status/dialog-error.png) }
+
+/******************LARGE ICONS********************/
+.image-gallery-item .folder { background-image: url(mod/96x96/places/folder.png) }

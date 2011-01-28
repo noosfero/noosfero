@@ -1,5 +1,5 @@
 <% if uploaded_file.image? %>
-  <div> <%= link_to image_tag(uploaded_file.public_filename(:thumb), :alt => uploaded_file.display_title), uploaded_file.view_url %> </div>
+  <%= link_to content_tag(:span, uploaded_file.display_title), uploaded_file.view_url, :class => 'image', :style => 'background-image: url(%s)'% uploaded_file.public_filename(:thumb) %>
   <span><%= image_label(uploaded_file) %></span>
 <% else %>
   <%= render :partial => 'article', :object => uploaded_file %>

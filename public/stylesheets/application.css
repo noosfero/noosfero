@@ -3301,6 +3301,7 @@ div.with_media_panel .formfield input {
   margin: 5px;
   float: left;
   overflow: hidden;
+  background-repeat: no-repeat;
 }
 
 .image-gallery-item span {
@@ -3315,26 +3316,28 @@ div.with_media_panel .formfield input {
 
 .image-gallery-item img {
   padding: 2px;
-  border: 1px solid;
 }
 
-.image-gallery-item .folder, .image-gallery-item .uploaded-file {
-  width: 120px;
-  height: 120px;
-  border: 1px solid;
+
+.image-gallery-item a{
+  width: 130px;
+  height: 130px;
 }
 
-.image-gallery-item .folder {
-  background: transparent url('../images/icons-app/gtk-folder.png') no-repeat 50% 43%;
+.image-gallery-item a {
   display: block;
   color: #DB8;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  margin: auto;
 }
 
-.image-gallery-item .folder:hover {
-  border: 4px solid;
-  width: 114px;
-  height: 114px;
-  background-color: #FF9
+.image-gallery-item a span {
+  display: none;
+}
+
+.image-gallery-item a:hover {
+  background-color: #EEE;
 }
 
 .image-gallery-item .uploaded-file {
