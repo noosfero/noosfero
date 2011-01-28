@@ -3857,7 +3857,8 @@ h1#agenda-title {
 
 .controller-memberships #memberships-index li .vcard {
   float: right;
-  padding: 4% 20px 4% 0px;
+  padding: 5px;
+  margin-bottom: 5px;
 }
 .controller-memberships #memberships-index li .may-clear {
   clear: right;
@@ -3868,18 +3869,30 @@ h1#agenda-title {
   padding: 3% 0px 0px 30px;
 }
 
-.controller-memberships #memberships-index li .vcard a.profile_link.url {
-  border: 2px solid #729FCF;
-  background-color: #ABC;
-}
-
-.controller-memberships #memberships-index li .vcard a.profile_link.url:hover {
-  border: 2px solid  #2A5896;
-}
-
 .controller-memberships .action_memberships_destroy_community .main-block u {
   text-decoration: none;
   border-bottom: 1px dotted red;
+}
+
+#memberships-index .menu-submenu {
+  bottom: 127px;
+  right: -20px;
+}
+
+#memberships-index .menu-submenu li {
+  border: 0;
+  background: transparent;
+}
+
+.controller-memberships .button-bar {
+  clear: both;
+}
+
+.controller-memberships #memberships-index li .vcard a.profile_link.url,
+.controller-memberships #memberships-index li .vcard a.profile_link.url:hover {
+  background: transparent;
+  border: 0;
+  text-decoration: none;
 }
 
 /* ==> public/stylesheets/controller_profile.css <== */
@@ -5010,6 +5023,12 @@ h1#agenda-title {
   width: 150px;
   padding: 0;
   text-align: left;
+}
+
+.box-2 .menu-submenu,
+.box-3 .menu-submenu {
+  bottom: 78px;
+  right: -44px;
 }
 
 .menu-submenu-footer {
