@@ -1,6 +1,6 @@
 #! /bin/sh
 ### BEGIN INIT INFO
-# Provides:          skeleton
+# Provides:          noosfero
 # Required-Start:    $remote_fs
 # Required-Stop:     $remote_fs
 # Default-Start:     2 3 4 5
@@ -122,8 +122,11 @@ case "$1" in
   start|stop|restart|setup)
     do_$1
     ;;
+  force-reload)
+    do_restart
+    ;;
   *)
-    echo "Usage: $SCRIPTNAME {start|stop|restart|setup}" >&2
+    echo "Usage: $SCRIPTNAME {start|stop|restart|force-reload|setup}" >&2
     exit 3
     ;;
 esac

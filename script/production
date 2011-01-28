@@ -1,13 +1,17 @@
 #!/bin/sh
 
+set -e
+
 export RAILS_ENV=production
 
 ACTION=$1
 shift
 
 clear_cache() {
-  rm -f ./public/javascripts/cache-*.js
-  rm -f ./public/stylesheets/cache.css
+  if test -w ./public; then
+    rm -f ./public/javascripts/cache-*.js
+    rm -f ./public/stylesheets/cache.css
+  fi
 }
 
 do_start() {
@@ -40,7 +44,7 @@ case "$ACTION" in
     do_start
     echo "=> Running in production mode. Hit ctrl-C to stop."
     trap do_stop INT TERM
-    tail -n 0 -f log/production.log
+    tail -n 0 -f log/production.log || true
     ;;
 
   restart)

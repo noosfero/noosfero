@@ -19,7 +19,7 @@ extra_controller_dirs = %w[
 ].map {|item| File.join(RAILS_ROOT, item) }
 
 def noosfero_session_secret
-  file = File.join(File.dirname(__FILE__), 'session.secret')
+  file = File.join(File.dirname(__FILE__), '/../tmp/session.secret')
   if !File.exists?(file)
     secret = (1..128).map { %w[0 1 2 3 4 5 6 7 8 9 a b c d e f][rand(16)] }.join('')
     File.open(file, 'w') do |f|
@@ -56,7 +56,14 @@ Rails::Initializer.run do |config|
   # config.active_record.observers = :cacher, :garbage_collector
 
   # don't load the sweepers while loading the database
-  unless $PROGRAM_NAME =~ /rake$/ && (ARGV.first == 'db:schema:load' || ARGV.first == 'gems:install')
+  ignore_rake_commands = %w[
+    db:schema:load
+    gems:install
+    clobber
+    noosfero:translations:compile
+    makemo
+  ]
+  unless $PROGRAM_NAME =~ /rake$/ && (ignore_rake_commands.include?(ARGV.first))
     config.active_record.observers = :article_sweeper, :role_assignment_sweeper, :friendship_sweeper, :category_sweeper
   end
   # Make Active Record use UTC-base instead of local time

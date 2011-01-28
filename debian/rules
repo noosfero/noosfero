@@ -1,0 +1,32 @@
+#!/usr/bin/make -f
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+# This has to be exported to make some magic below work.
+export DH_OPTIONS
+
+VERSION = $(shell dpkg-parsechangelog | grep '^Version:' | cut -d ' ' -f 2)
+# to support new databases, change debian/noosfero.config!
+SUPPORTED_DATABASES = $(shell sed -e '/dbc_dbtypes=/!d; s/.*"\(.*\)".*/\1/; s/,//g' debian/noosfero.config)
+
+%:
+	dh --without=python-support $@
+
+override_dh_link:
+	dh_link
+	for db in $(SUPPORTED_DATABASES); do \
+		dh_link usr/lib/noosfero/dbupgrade usr/share/dbconfig-common/scripts/noosfero/upgrade/$$db/$(VERSION); \
+		dh_link usr/lib/noosfero/dbinstall usr/share/dbconfig-common/scripts/noosfero/install/$$db; \
+	done
+
+override_dh_installinit:
+	dh_installinit -pnoosfero --onlyscripts
+
+override_dh_clean:
+	dh_clean
+	rake clobber
+
+override_dh_auto_build:
+	dh_auto_build
+	rake noosfero:translations:compile

@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+
+case ARGV.first
+when 'mongrel'
+  require 'yaml'
+  mongrel_config = YAML.load_file(File.dirname(__FILE__) + "/../config/mongrel_cluster.yml")
+  ip = mongrel_config['address'] || '127.0.0.1'
+  ports = port_range = mongrel_config['port']..(mongrel_config['port']+mongrel_config['servers']-1)
+  ports.each do |port|
+    puts "BalancerMember http://#{ip}:#{port}"
+  end
+when 'virtualhosts'
+  require File.dirname(__FILE__) + '/../config/environment'
+  Environment.all.each do |environment|
+    domains = environment.domains.sort do |domain|
+      domain.is_default ? 0 : 1
+    end
+    if domains.empty?
+      domains << Domain.new(:name => 'localhost')
+    end
+    puts "# #{environment.name}"
+    puts "<VirtualHost *:80>"
+    server_directive = 'ServerName'
+    domains.each do |domain|
+      puts "  #{server_directive} #{domain.name}"
+      server_directive = 'ServerAlias'
+    end
+    puts "  Include /etc/noosfero/apache/virtualhost.conf"
+    puts "</VirtualHost>"
+  end
+  puts "# vim: ft=apache"
+else
+  puts "usage: %s mongrel|virtualhosts" % $PROGRAM_NAME
+  exit 1
+end

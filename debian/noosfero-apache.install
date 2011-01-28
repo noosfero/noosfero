@@ -1,0 +1,3 @@
+debian/apache2/conf.d/noosfero-mongrel.conf     etc/apache2/conf.d
+debian/apache2/virtualhost.conf                 etc/noosfero/apache
+debian/update-noosfero-apache                   usr/sbin

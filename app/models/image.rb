@@ -7,6 +7,7 @@ class Image < ActiveRecord::Base
 
   has_attachment :content_type => :image, 
                  :storage => :file_system, 
+                 :path_prefix => 'public/image_uploads',
                  :resize_to => '320x200>',
                  :thumbnails => { :big      => '150x150',
                                   :thumb    => '100x100',

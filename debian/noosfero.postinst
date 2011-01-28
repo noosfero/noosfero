@@ -1,0 +1,59 @@
+#!/bin/sh
+
+set -e
+
+makedir() {
+  if [ ! -d $1 ]; then
+    mkdir $1
+  fi
+  chown noosfero:noosfero $1
+}
+
+# create user noosfero in a portable way, while creating the log directory.
+# (idea taken from the postfix package)
+##############################################################################
+if [ ! -d /var/log/noosfero ]; then
+  mkdir /var/log/noosfero
+fi
+chgrp noosfero /var/log/noosfero 2>/dev/null ||
+  addgroup --system noosfero
+chown noosfero /var/log/noosfero 2>/dev/null ||
+  adduser --system --home /usr/share/noosfero --shell /bin/sh --no-create-home --disabled-password --ingroup noosfero noosfero
+
+# create noosfero dynamic data directories
+##############################################################################
+noosfero_data_dir='/var/lib/noosfero-data'
+makedir $noosfero_data_dir
+makedir $noosfero_data_dir/index
+makedir $noosfero_data_dir/cache
+makedir $noosfero_data_dir/public
+makedir $noosfero_data_dir/public/articles
+makedir $noosfero_data_dir/public/image_uploads
+makedir $noosfero_data_dir/public/thumbnails
+
+# Instruct dbconfig-common to generate database configuration file
+##############################################################################
+noosfero_database_yml="/etc/noosfero/database.yml"
+dbc_generate_include="template:$noosfero_database_yml"
+dbc_generate_include_args="-o template_infile=/usr/share/noosfero/config/database.yml.template"
+dbc_generate_include_owner="root:noosfero"
+dbc_generate_include_perms="640"
+
+. /usr/share/debconf/confmodule
+
+db_get noosfero/initial_domain
+if [ ! -z "$RET" ]; then
+  # this is going to be used by the db:data:minimal rake task, called by
+  # /usr/lib/noosfero/dbinstall
+  export NOOSFERO_DOMAIN="$RET"
+fi
+
+# dbconfig-common magic
+. /usr/share/dbconfig-common/dpkg/postinst
+dbc_go noosfero $@
+
+# stop debconf to avoid the problem with infinite hanging, cfe
+# http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=295477
+db_stop
+
+#DEBHELPER#

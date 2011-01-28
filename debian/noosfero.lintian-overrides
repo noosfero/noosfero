@@ -1,0 +1,6 @@
+noosfero binary: python-script-but-no-python-dep
+noosfero binary: script-not-executable
+noosfero binary: executable-not-elf-or-script
+noosfero binary: extra-license-file
+noosfero binary: embedded-javascript-library
+noosfero binary: package-contains-vcs-control-file
