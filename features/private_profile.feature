@@ -27,3 +27,5 @@ Feature: private profiles
     When I go to shygirl's homepage
     Then I should see "friends only"
     And I follow "Add friend"
+    When I go to shygirl's homepage
+    Then I should not see "Add friend"

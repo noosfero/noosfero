@@ -1,7 +1,7 @@
 class ProfileController < PublicController
 
   needs_profile
-  before_filter :check_access_to_profile, :except => [:join, :join_not_logged, :index]
+  before_filter :check_access_to_profile, :except => [:join, :join_not_logged, :index, :add]
   before_filter :store_before_join, :only => [:join, :join_not_logged]
   before_filter :login_required, :only => [:add, :join, :join_not_logged, :leave, :unblock, :leave_scrap, :remove_scrap, :remove_activity, :view_more_scraps, :view_more_activities, :view_more_network_activities]
 
