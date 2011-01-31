@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.27.0\n"
-"POT-Creation-Date: 2010-12-20 10:43-0300\n"
+"Project-Id-Version: noosfero 0.27.1\n"
+"POT-Creation-Date: 2011-01-31 15:26-0300\n"
 "PO-Revision-Date: 2010-10-26 09:57-0300\n"
 "Last-Translator: Anton <anton.c@live.com>\n"
 "Language-Team: German <de@li.org>\n"
@@ -54,7 +54,7 @@ msgstr "Регион"
 msgid "Display at the menu?"
 msgstr "Показывать в меню?"
 
-#: app/helpers/categories_helper.rb:38
+#: app/helpers/categories_helper.rb:37
 msgid "Type of category"
 msgstr "Kategorietyp"
 
@@ -76,25 +76,24 @@ msgstr "Выбранный тут язык является языком для 
 msgid "(empty folder)"
 msgstr "(пустая папка)"
 
-#: app/helpers/folder_helper.rb:57 app/helpers/article_helper.rb:5
+#: app/helpers/folder_helper.rb:61 app/helpers/article_helper.rb:5
 msgid "Options"
 msgstr "Опции"
 
-#: app/helpers/folder_helper.rb:62 app/helpers/article_helper.rb:10
+#: app/helpers/folder_helper.rb:66 app/helpers/article_helper.rb:10
 msgid "This article must be published (visible to other people)"
 msgstr "Статья должна быть опубликована (видима другим)"
 
-#: app/helpers/folder_helper.rb:67 app/helpers/article_helper.rb:27
+#: app/helpers/folder_helper.rb:71 app/helpers/article_helper.rb:27
 msgid "I want this article to display the number of hits it received"
 msgstr "Хочу чтоб статья отображала количество полученных хитов"
 
-#: app/helpers/folder_helper.rb:74 app/helpers/article_helper.rb:33
-#: app/views/shared/user_menu.rhtml:23
-#: app/views/tasks/_approve_article.rhtml:1
+#: app/helpers/folder_helper.rb:78 app/helpers/article_helper.rb:33
+#: app/models/approve_article.rb:83 app/views/shared/user_menu.rhtml:23
 msgid "New article"
 msgstr "Новая статья"
 
-#: app/helpers/folder_helper.rb:78
+#: app/helpers/folder_helper.rb:82
 msgid "Edit folder"
 msgstr "Редактировать папку"
 
@@ -105,14 +104,14 @@ msgstr "Редактировать папку"
 msgid "Articles"
 msgstr "Статьи"
 
-#: app/helpers/assets_helper.rb:8 app/helpers/application_helper.rb:1061
+#: app/helpers/assets_helper.rb:8 app/helpers/application_helper.rb:1072
 #: app/controllers/public/search_controller.rb:132
 #: app/controllers/public/search_controller.rb:193
 #: app/models/people_block.rb:4 app/views/search/people.rhtml:1
 msgid "People"
 msgstr "Пользователи"
 
-#: app/helpers/assets_helper.rb:9 app/helpers/application_helper.rb:511
+#: app/helpers/assets_helper.rb:9 app/helpers/application_helper.rb:513
 #: app/controllers/public/search_controller.rb:134
 #: app/controllers/public/search_controller.rb:195
 #: app/models/enterprise.rb:128 app/models/products_block.rb:8
@@ -123,19 +122,18 @@ msgstr "Продукты"
 #: app/helpers/assets_helper.rb:10
 #: app/controllers/public/search_controller.rb:131
 #: app/controllers/public/search_controller.rb:194
-#: app/models/enterprises_block.rb:12
-#: app/views/content_viewer/_person.rhtml:63
-#: app/views/search/_sellers_form.rhtml:7 app/views/search/enterprises.rhtml:5
-#: app/views/profile/_person.rhtml:63
+#: app/models/enterprises_block.rb:12 app/views/search/_sellers_form.rhtml:7
+#: app/views/search/enterprises.rhtml:5
+#: app/views/profile/_person_profile.rhtml:38
 msgid "Enterprises"
 msgstr "Компании"
 
-#: app/helpers/assets_helper.rb:11 app/helpers/application_helper.rb:496
-#: app/helpers/application_helper.rb:1076
+#: app/helpers/assets_helper.rb:11 app/helpers/application_helper.rb:498
+#: app/helpers/application_helper.rb:1087
 #: app/controllers/public/search_controller.rb:133
 #: app/controllers/public/search_controller.rb:197
-#: app/models/communities_block.rb:4 app/views/content_viewer/_person.rhtml:81
-#: app/views/search/communities.rhtml:1 app/views/profile/_person.rhtml:81
+#: app/models/communities_block.rb:4 app/views/search/communities.rhtml:1
+#: app/views/profile/_person_profile.rhtml:56
 msgid "Communities"
 msgstr "Сообщества"
 
@@ -173,8 +171,8 @@ msgstr "Выйти из чата"
 #: app/views/memberships/new_community.rhtml:43
 #: app/views/manage_products/_add_input.rhtml:20
 #: app/views/manage_products/_edit_input.rhtml:33
-#: app/views/box_organizer/edit.rhtml:25 app/views/tasks/_task.rhtml:10
-#: app/views/tasks/_suggest_article.rhtml:31 app/views/tasks/_ticket.rhtml:15
+#: app/views/content_viewer/_comment_form.rhtml:43
+#: app/views/box_organizer/edit.rhtml:25
 #: app/views/account/accept_terms.rhtml:24
 #: app/views/account/activation_question.rhtml:38
 #: app/views/account/login.rhtml:17 app/views/account/_login_form.rhtml:19
@@ -188,23 +186,23 @@ msgstr "Выйти из чата"
 msgid "Cancel"
 msgstr "Отмена"
 
-#: app/helpers/forms_helper.rb:69
+#: app/helpers/forms_helper.rb:68
 msgid "Select the State"
 msgstr "Выберите область"
 
-#: app/helpers/forms_helper.rb:70
+#: app/helpers/forms_helper.rb:69
 msgid "Select the City"
 msgstr "Выберите город"
 
-#: app/helpers/forms_helper.rb:93
+#: app/helpers/forms_helper.rb:92
 msgid "State:"
 msgstr "Область:"
 
-#: app/helpers/forms_helper.rb:96
+#: app/helpers/forms_helper.rb:95
 msgid "City:"
 msgstr "Город:"
 
-#: app/helpers/forms_helper.rb:110
+#: app/helpers/forms_helper.rb:109
 msgid ""
 "The <label class='pseudoformlabel'>highlighted</label> fields are mandatory."
 msgstr "<label class='pseudoformlabel'>подчеркнутые</label> поля обязательны."
@@ -255,8 +253,7 @@ msgid "Price: %s"
 msgstr "Цена: %s"
 
 #: app/helpers/catalog_helper.rb:20 app/views/blocks/profile_info.rhtml:21
-#: app/views/content_viewer/_organization.rhtml:45
-#: app/views/profile/_organization.rhtml:45
+#: app/views/profile/_organization_profile.rhtml:26
 msgid "Products/Services"
 msgstr "Продукты/Сервисы"
 
@@ -452,9 +449,11 @@ msgstr "Переместить на другую сторону"
 #: app/models/link_list_block.rb:5 app/views/categories/_category.rhtml:14
 #: app/views/cms/view.rhtml:52
 #: app/views/manage_products/_display_input.rhtml:6
-#: app/views/role/index.rhtml:14 app/views/profile_members/add_member.rhtml:13
-#: app/views/profile_members/unassociate.rhtml:13
-#: app/views/profile_members/_members_list.rhtml:13
+#: app/views/role/index.rhtml:14 app/views/profile_members/add_admin.rhtml:17
+#: app/views/profile_members/add_member.rhtml:17
+#: app/views/profile_members/remove_admin.rhtml:17
+#: app/views/profile_members/unassociate.rhtml:17
+#: app/views/profile_members/_members_list.rhtml:17
 msgid "Edit"
 msgstr "Редактировать"
 
@@ -470,12 +469,12 @@ msgstr "Вы уверены что хотите удалить блок?"
 msgid "Help on this block"
 msgstr "Помощь по блоку"
 
-#: app/helpers/boxes_helper.rb:220 app/helpers/application_helper.rb:84
+#: app/helpers/boxes_helper.rb:220 app/helpers/application_helper.rb:73
 #: app/models/link_list_block.rb:23
 msgid "Help"
 msgstr "Помощь"
 
-#: app/helpers/boxes_helper.rb:220 app/helpers/application_helper.rb:104
+#: app/helpers/boxes_helper.rb:220 app/helpers/application_helper.rb:93
 #: app/views/cms/why_categorize.rhtml:8 app/views/search/_search_form.rhtml:59
 #: app/views/box_organizer/add_block.rhtml:26
 msgid "Close"
@@ -876,8 +875,7 @@ msgid "Contact person:"
 msgstr "Контактное лицо"
 
 #: app/helpers/enterprise_homepage_helper.rb:7
-#: app/views/content_viewer/_person.rhtml:48
-#: app/views/profile/_person.rhtml:48
+#: app/views/profile/_person_profile.rhtml:23
 msgid "e-Mail:"
 msgstr "E-Mail"
 
@@ -886,15 +884,14 @@ msgid "Phone(s):"
 msgstr "Телефон:"
 
 #: app/helpers/enterprise_homepage_helper.rb:9
-#: app/views/content_viewer/_organization.rhtml:34
-#: app/views/content_viewer/_person.rhtml:32
-#: app/views/profile/_organization.rhtml:34 app/views/profile/_person.rhtml:32
+#: app/views/profile/_person_profile.rhtml:7
+#: app/views/profile/_organization_profile.rhtml:15
 msgid "Location:"
 msgstr "Размещение:"
 
 #: app/helpers/enterprise_homepage_helper.rb:10 app/models/event.rb:94
-#: app/views/cms/_event.rhtml:16 app/views/content_viewer/_person.rhtml:45
-#: app/views/maps/_google_map.rhtml:66 app/views/profile/_person.rhtml:45
+#: app/views/cms/_event.rhtml:16 app/views/maps/_google_map.rhtml:66
+#: app/views/profile/_person_profile.rhtml:20
 msgid "Address:"
 msgstr "Адрес:"
 
@@ -908,73 +905,67 @@ msgstr "Экономическая активность"
 msgid "Distance:"
 msgstr "Дистанция"
 
-#: app/helpers/application_helper.rb:161
+#: app/helpers/application_helper.rb:150
 msgid "This is %s, version %s"
 msgstr "Это %s, версия %s"
 
-#: app/helpers/application_helper.rb:458
+#: app/helpers/application_helper.rb:460
 msgid "non registered gender"
 msgstr "не указан пол"
 
-#: app/helpers/application_helper.rb:458
+#: app/helpers/application_helper.rb:460
 #: app/views/profile_editor/_person_form.rhtml:18
-#: app/views/content_viewer/_person.rhtml:30
-#: app/views/profile/_person.rhtml:30
+#: app/views/profile/_person_profile.rhtml:5
 msgid "Male"
 msgstr "Мужской"
 
-#: app/helpers/application_helper.rb:458
+#: app/helpers/application_helper.rb:460
 #: app/views/profile_editor/_person_form.rhtml:18
-#: app/views/content_viewer/_person.rhtml:30
-#: app/views/profile/_person.rhtml:30
+#: app/views/profile/_person_profile.rhtml:5
 msgid "Female"
 msgstr "Женский"
 
-#: app/helpers/application_helper.rb:483
+#: app/helpers/application_helper.rb:485
 msgid "Principal Product Categories"
 msgstr "Основные категории продуктов"
 
-#: app/helpers/application_helper.rb:494 app/helpers/application_helper.rb:502
-#: app/views/content_viewer/_organization.rhtml:8
-#: app/views/content_viewer/_person.rhtml:7
-#: app/views/profile/_organization.rhtml:8 app/views/profile/_person.rhtml:7
+#: app/helpers/application_helper.rb:496 app/helpers/application_helper.rb:504
+#: app/views/profile/_profile.rhtml:9
 msgid "Wall"
 msgstr "Стена"
 
-#: app/helpers/application_helper.rb:495 app/models/friends_block.rb:4
-#: app/views/content_viewer/_person.rhtml:77
-#: app/views/profile/_person.rhtml:77
+#: app/helpers/application_helper.rb:497 app/models/friends_block.rb:4
+#: app/views/profile/_person_profile.rhtml:52
 msgid "Friends"
 msgstr "Друзья"
 
-#: app/helpers/application_helper.rb:497 app/helpers/application_helper.rb:507
-#: app/helpers/application_helper.rb:514
+#: app/helpers/application_helper.rb:499 app/helpers/application_helper.rb:509
+#: app/helpers/application_helper.rb:516
 #: app/views/blocks/profile_info_actions/community.rhtml:19
 #: app/views/blocks/profile_info_actions/enterprise.rhtml:8
 #: app/views/blocks/profile_info_actions/person.rhtml:11
 msgid "Send an e-mail"
 msgstr "Послать email"
 
-#: app/helpers/application_helper.rb:498 app/models/link_list_block.rb:10
+#: app/helpers/application_helper.rb:500 app/models/link_list_block.rb:10
 #: app/views/region_validators/_search.rhtml:9
 #: app/views/box_organizer/add_block.rhtml:25 app/views/themes/add_css.rhtml:7
 #: app/views/admin_panel/set_portal_folders.rhtml:27
 msgid "Add"
 msgstr "Добавить"
 
-#: app/helpers/application_helper.rb:503 app/helpers/application_helper.rb:512
+#: app/helpers/application_helper.rb:505 app/helpers/application_helper.rb:514
 #: app/models/members_block.rb:4
-#: app/views/content_viewer/_organization.rhtml:26
-#: app/views/profile/_organization.rhtml:26
+#: app/views/profile/_organization_profile.rhtml:7
 msgid "Members"
 msgstr "Участники"
 
-#: app/helpers/application_helper.rb:504 app/helpers/application_helper.rb:513
+#: app/helpers/application_helper.rb:506 app/helpers/application_helper.rb:515
 #: app/models/person.rb:213 app/models/organization.rb:105
 msgid "Agenda"
 msgstr "Повестка дня"
 
-#: app/helpers/application_helper.rb:505
+#: app/helpers/application_helper.rb:507
 #: app/views/blocks/profile_info_actions/community.rhtml:7
 #: app/views/blocks/profile_info_actions/community.rhtml:13
 #: app/views/blocks/profile_info_actions/community.rhtml:27
@@ -982,141 +973,147 @@ msgstr "Повестка дня"
 msgid "Join"
 msgstr "Присоединиться"
 
-#: app/helpers/application_helper.rb:506
+#: app/helpers/application_helper.rb:508
 #: app/views/blocks/profile_info_actions/community.rhtml:6
 #: app/views/blocks/profile_info_actions/community.rhtml:12
 #: app/views/memberships/index.rhtml:26
 msgid "Leave"
 msgstr "Выйти"
 
-#: app/helpers/application_helper.rb:541
+#: app/helpers/application_helper.rb:543
 msgid "Profile links"
 msgstr "Ссылки"
 
-#: app/helpers/application_helper.rb:548
+#: app/helpers/application_helper.rb:550
 msgid "Click on this icon to go to the <b>%s</b>'s home page"
 msgstr "Кликните на иконку, чтоб перейти на домашнюю страницу <b>%s</b>"
 
-#: app/helpers/application_helper.rb:581 app/views/categories/index.rhtml:1
+#: app/helpers/application_helper.rb:583 app/views/categories/index.rhtml:1
 #: app/views/content_viewer/view_page.rhtml:97
 msgid "Categories"
 msgstr "Категории"
 
-#: app/helpers/application_helper.rb:604
+#: app/helpers/application_helper.rb:606
 msgid "open"
 msgstr "открыть"
 
-#: app/helpers/application_helper.rb:643
+#: app/helpers/application_helper.rb:626
+#, fuzzy
+msgid "root"
+msgstr "Выйти"
+
+#: app/helpers/application_helper.rb:654
 #: app/views/layouts/application-ng.rhtml:46
 #: app/views/layouts/application-ng.rhtml:48
 #: app/views/layouts/application-ng.rhtml:51
 msgid "Search..."
 msgstr "Искать"
 
-#: app/helpers/application_helper.rb:645
+#: app/helpers/application_helper.rb:656
 msgid "This is a search box. Click, write your query, and press enter to find"
 msgstr "Это поле поиска."
 
-#: app/helpers/application_helper.rb:646
+#: app/helpers/application_helper.rb:657
 msgid "Click, write and press enter to find"
 msgstr "Введите запрос и нажмите enter"
 
-#: app/helpers/application_helper.rb:652 app/models/link_list_block.rb:20
+#: app/helpers/application_helper.rb:663 app/models/link_list_block.rb:20
+#: app/views/shared/_profile_search_form.rhtml:6
 #: app/views/region_validators/region.rhtml:23
 #: app/views/search/articles.rhtml:10 app/views/search/_sellers_form.rhtml:21
 #: app/views/search/_search_form.rhtml:17 app/views/search/people.rhtml:10
 #: app/views/search/communities.rhtml:9 app/views/home/index.rhtml:61
 #: app/views/profile_members/add_members.rhtml:5
+#: app/views/profile_members/_add_admins.rhtml:5
 #: app/views/browse/_search_form.rhtml:7
 msgid "Search"
 msgstr "Поиск"
 
-#: app/helpers/application_helper.rb:844
+#: app/helpers/application_helper.rb:855
 msgid "Searched for '%s'"
 msgstr "Искали: '%s'"
 
-#: app/helpers/application_helper.rb:845
+#: app/helpers/application_helper.rb:856
 msgid "In category %s"
 msgstr "В категории %s"
 
-#: app/helpers/application_helper.rb:846
+#: app/helpers/application_helper.rb:857
 msgid "within %d km from %s"
 msgstr "в %d км. от %s"
 
-#: app/helpers/application_helper.rb:847
+#: app/helpers/application_helper.rb:858
 msgid "%d results found"
 msgstr "найдено %d записей"
 
-#: app/helpers/application_helper.rb:853
+#: app/helpers/application_helper.rb:864
 msgid "In all categories"
 msgstr "Во всех категориях"
 
-#: app/helpers/application_helper.rb:928
+#: app/helpers/application_helper.rb:939
 msgid "Online Manual"
 msgstr "Онлайн-руководство"
 
-#: app/helpers/application_helper.rb:929
+#: app/helpers/application_helper.rb:940
 msgid "Chat"
 msgstr "Чат"
 
-#: app/helpers/application_helper.rb:1052
+#: app/helpers/application_helper.rb:1063
 msgid "people|More Recent"
 msgstr "люди|Последние"
 
-#: app/helpers/application_helper.rb:1053
+#: app/helpers/application_helper.rb:1064
 msgid "people|More Active"
 msgstr "люди|Наиболее активные"
 
-#: app/helpers/application_helper.rb:1054
+#: app/helpers/application_helper.rb:1065
 msgid "people|More Popular"
 msgstr "люди|Наиболее популярные"
 
-#: app/helpers/application_helper.rb:1057
+#: app/helpers/application_helper.rb:1068
 msgid "My friends"
 msgstr "Мои друзья"
 
-#: app/helpers/application_helper.rb:1058
+#: app/helpers/application_helper.rb:1069
 msgid "Invite friends"
 msgstr "Пригласить друзей"
 
-#: app/helpers/application_helper.rb:1062
+#: app/helpers/application_helper.rb:1073
 msgid "People Menu"
 msgstr "Меню \"Пользователи\""
 
-#: app/helpers/application_helper.rb:1067
+#: app/helpers/application_helper.rb:1078
 msgid "communities|More Recent"
 msgstr "Сообщества|последние"
 
-#: app/helpers/application_helper.rb:1068
+#: app/helpers/application_helper.rb:1079
 msgid "communities|More Active"
 msgstr "Сообщества|Активные"
 
-#: app/helpers/application_helper.rb:1069
+#: app/helpers/application_helper.rb:1080
 msgid "communities|More Popular"
 msgstr "Сообщества|Наиболее популярные"
 
-#: app/helpers/application_helper.rb:1072
+#: app/helpers/application_helper.rb:1083
 msgid "My communities"
 msgstr "Мои сообщества"
 
-#: app/helpers/application_helper.rb:1073
+#: app/helpers/application_helper.rb:1084 app/models/create_community.rb:52
 #: app/views/search/communities.rhtml:14
-#: app/views/tasks/_create_community.rhtml:1
 msgid "New community"
 msgstr "Новое сообщество"
 
-#: app/helpers/application_helper.rb:1077
+#: app/helpers/application_helper.rb:1088
 msgid "Communities Menu"
 msgstr "Меню \"Сообщества\""
 
-#: app/helpers/application_helper.rb:1081 app/views/blocks/slideshow.rhtml:17
+#: app/helpers/application_helper.rb:1092 app/views/blocks/slideshow.rhtml:17
 #: app/views/blocks/featured_products.rhtml:3
 #: app/views/shared/articles_list.rhtml:14 app/views/cms/view.rhtml:65
 #: app/views/layouts/slideshow.rhtml:18
 msgid "Previous"
 msgstr "Предыдущий"
 
-#: app/helpers/application_helper.rb:1081 app/views/blocks/slideshow.rhtml:21
+#: app/helpers/application_helper.rb:1092 app/views/blocks/slideshow.rhtml:21
 #: app/views/blocks/featured_products.rhtml:29
 #: app/views/shared/articles_list.rhtml:14 app/views/cms/view.rhtml:65
 #: app/views/enterprise_registration/basic_information.rhtml:32
@@ -1125,113 +1122,118 @@ msgstr "Предыдущий"
 msgid "Next"
 msgstr "Следующий"
 
-#: app/helpers/application_helper.rb:1097
+#: app/helpers/application_helper.rb:1110
+#, fuzzy
+msgid "Manage your pending tasks"
+msgstr "Управление контентом"
+
+#: app/helpers/application_helper.rb:1113
 msgid "Welcome, %s"
 msgstr "Добро пожаловать, %s."
 
-#: app/helpers/application_helper.rb:1097
+#: app/helpers/application_helper.rb:1113
 msgid "Go to your homepage"
 msgstr "Вернуться на главную"
 
-#: app/helpers/application_helper.rb:1099
+#: app/helpers/application_helper.rb:1115
 msgid "Administration"
 msgstr "Администрация"
 
-#: app/helpers/application_helper.rb:1099
+#: app/helpers/application_helper.rb:1115
 msgid "Configure the environment"
 msgstr "Настроить среду"
 
-#: app/helpers/application_helper.rb:1100
+#: app/helpers/application_helper.rb:1116
 #: app/views/blocks/profile_info.rhtml:24
 #: app/views/blocks/profile_image.rhtml:19 app/views/blocks/my_network.rhtml:9
 #: app/views/shared/user_menu.rhtml:37
 msgid "Control panel"
 msgstr "Панель управления"
 
-#: app/helpers/application_helper.rb:1100
+#: app/helpers/application_helper.rb:1116
 msgid "Configure your personal account and content"
 msgstr "Настроить аккаунт и контент"
 
-#: app/helpers/application_helper.rb:1101 app/views/blocks/login_block.rhtml:8
+#: app/helpers/application_helper.rb:1118 app/views/blocks/login_block.rhtml:8
 #: app/views/shared/user_menu.rhtml:45
 msgid "Logout"
 msgstr "Выйти"
 
-#: app/helpers/application_helper.rb:1101
+#: app/helpers/application_helper.rb:1118
 msgid "Leave the system"
 msgstr "Выйти из системы"
 
-#: app/helpers/application_helper.rb:1107
+#: app/helpers/application_helper.rb:1124
 msgid " characters left"
 msgstr "символов осталось"
 
-#: app/helpers/application_helper.rb:1108
+#: app/helpers/application_helper.rb:1125
 msgid "Limit of characters reached"
 msgstr "Лимит символов достигнут"
 
-#: app/helpers/application_helper.rb:1129
-#: app/helpers/application_helper.rb:1135
+#: app/helpers/application_helper.rb:1146
+#: app/helpers/application_helper.rb:1152
 msgid "less than a minute"
 msgstr "менее минуты"
 
-#: app/helpers/application_helper.rb:1129
-#: app/helpers/application_helper.rb:1136
+#: app/helpers/application_helper.rb:1146
+#: app/helpers/application_helper.rb:1153
 msgid "1 minute"
 msgstr "1 минута"
 
-#: app/helpers/application_helper.rb:1131
+#: app/helpers/application_helper.rb:1148
 msgid "less than 5 seconds"
 msgstr "менее 5-ти секунд"
 
-#: app/helpers/application_helper.rb:1132
+#: app/helpers/application_helper.rb:1149
 msgid "less than 10 seconds"
 msgstr "менее 10-ти секунд"
 
-#: app/helpers/application_helper.rb:1133
+#: app/helpers/application_helper.rb:1150
 msgid "less than 20 seconds"
 msgstr "менее 20-ти секунд"
 
-#: app/helpers/application_helper.rb:1134
+#: app/helpers/application_helper.rb:1151
 msgid "half a minute"
 msgstr "полминуты"
 
-#: app/helpers/application_helper.rb:1139
+#: app/helpers/application_helper.rb:1156
 msgid "%{distance} minutes"
 msgstr "%{distance} минут"
 
-#: app/helpers/application_helper.rb:1140
+#: app/helpers/application_helper.rb:1157
 msgid "about 1 hour"
 msgstr "около часа"
 
-#: app/helpers/application_helper.rb:1141
+#: app/helpers/application_helper.rb:1158
 msgid "about %{distance} hours"
 msgstr "около %{distance} часов"
 
-#: app/helpers/application_helper.rb:1142
+#: app/helpers/application_helper.rb:1159
 msgid "1 day"
 msgstr "1 день"
 
-#: app/helpers/application_helper.rb:1143
+#: app/helpers/application_helper.rb:1160
 msgid "%{distance} days"
 msgstr "%{distance} дней"
 
-#: app/helpers/application_helper.rb:1144
+#: app/helpers/application_helper.rb:1161
 msgid "about 1 month"
 msgstr "около 1-го месяца"
 
-#: app/helpers/application_helper.rb:1145
+#: app/helpers/application_helper.rb:1162
 msgid "%{distance} months"
 msgstr "%{distance} месяцев"
 
-#: app/helpers/application_helper.rb:1146
+#: app/helpers/application_helper.rb:1163
 msgid "about 1 year"
 msgstr "около 1-го года"
 
-#: app/helpers/application_helper.rb:1147
+#: app/helpers/application_helper.rb:1164
 msgid "over %{distance} years"
 msgstr "более %{distance} лет"
 
-#: app/helpers/application_helper.rb:1164
+#: app/helpers/application_helper.rb:1181
 msgid "Source: %s"
 msgstr "Источник: %s"
 
@@ -1239,7 +1241,7 @@ msgstr "Источник: %s"
 msgid "No product"
 msgstr "Нет продукта"
 
-#: app/helpers/display_helper.rb:36
+#: app/helpers/display_helper.rb:37
 msgid "Are you sure you want to visit this web site?"
 msgstr "Вы уверены что хотите перейти на этот веб-сайт?"
 
@@ -1403,12 +1405,12 @@ msgid "Failed to edit role"
 msgstr "Невозможно редактировать роль"
 
 #: app/controllers/admin/environment_role_manager_controller.rb:17
-#: app/controllers/my_profile/profile_members_controller.rb:19
+#: app/controllers/my_profile/profile_members_controller.rb:22
 msgid "Roles successfuly updated"
 msgstr "Роли благополучно обновлены"
 
 #: app/controllers/admin/environment_role_manager_controller.rb:19
-#: app/controllers/my_profile/profile_members_controller.rb:21
+#: app/controllers/my_profile/profile_members_controller.rb:24
 msgid "Couldn't change the roles"
 msgstr "Невозможно изменить роли"
 
@@ -1419,8 +1421,19 @@ msgstr "Участник исключен"
 
 #: app/controllers/admin/environment_role_manager_controller.rb:47
 #: app/controllers/admin/environment_role_manager_controller.rb:57
+#: app/controllers/my_profile/profile_members_controller.rb:86
 msgid "Failed to unassociate member"
 msgstr "Невозможно исключить участника"
+
+#: app/controllers/admin/plugins_controller.rb:11
+#, fuzzy
+msgid "Plugins updated successfully."
+msgstr "Возможности успешно обновлены"
+
+#: app/controllers/admin/plugins_controller.rb:13
+#, fuzzy
+msgid "Plugins were not updated successfully."
+msgstr "Поля участника не обновлены"
 
 #: app/controllers/admin/admin_panel_controller.rb:43
 msgid ""
@@ -1465,12 +1478,12 @@ msgid "Community fields not updated successfully."
 msgstr "Поля сообщества не могут быть обновлены"
 
 #: app/controllers/admin/users_controller.rb:28
-#: app/controllers/my_profile/profile_members_controller.rb:101
+#: app/controllers/my_profile/profile_members_controller.rb:146
 msgid "The e-mails are being sent"
 msgstr "Сообщения отправлены"
 
 #: app/controllers/admin/users_controller.rb:31
-#: app/controllers/my_profile/profile_members_controller.rb:104
+#: app/controllers/my_profile/profile_members_controller.rb:149
 msgid "Could not create the e-mail"
 msgstr "Невозможно создать e-mail"
 
@@ -1480,7 +1493,7 @@ msgid ""
 "profile to request access then."
 msgstr "Вы не можете просматривать данный контент. Обратитесь к автору."
 
-#: app/controllers/public/content_viewer_controller.rb:126
+#: app/controllers/public/content_viewer_controller.rb:128
 msgid "Comment succesfully deleted"
 msgstr "Комментарий успешно удален"
 
@@ -1581,63 +1594,63 @@ msgstr "Станьте участником %s"
 
 #: app/controllers/public/profile_controller.rb:91
 #: app/controllers/public/profile_controller.rb:102
-#: app/controllers/public/profile_controller.rb:117
 msgid "You are already a member of %s."
 msgstr "Вы уже участник %s"
 
-#: app/controllers/public/profile_controller.rb:115
-msgid "You just left %s."
-msgstr "Вы только что покинули %s."
+#: app/controllers/public/profile_controller.rb:120
+#, fuzzy
+msgid "You are not a member of %s."
+msgstr "Вы уже участник %s"
 
-#: app/controllers/public/profile_controller.rb:137
+#: app/controllers/public/profile_controller.rb:140
 msgid "%s still needs to accept being your friend."
 msgstr "%s должен подтвердить статус друга"
 
-#: app/controllers/public/profile_controller.rb:139
+#: app/controllers/public/profile_controller.rb:142
 msgid "You are already a friend of %s."
 msgstr "Вы и %s уже друзья"
 
-#: app/controllers/public/profile_controller.rb:158
+#: app/controllers/public/profile_controller.rb:161
 msgid "You have unblocked %s successfully. "
 msgstr " %s успешно разблокирован"
 
-#: app/controllers/public/profile_controller.rb:161
+#: app/controllers/public/profile_controller.rb:164
 msgid "You are not allowed to unblock enterprises in this environment."
 msgstr "Вы не можете разблокировать компании в этой среде."
 
-#: app/controllers/public/profile_controller.rb:173
+#: app/controllers/public/profile_controller.rb:176
 msgid "Message successfully sent."
 msgstr "Сообщение успешно отправлено."
 
-#: app/controllers/public/profile_controller.rb:173
+#: app/controllers/public/profile_controller.rb:176
 msgid "You can't leave an empty message."
 msgstr "Вы не можете оставить пустое сообщение"
 
-#: app/controllers/public/profile_controller.rb:197
+#: app/controllers/public/profile_controller.rb:200
 msgid "Scrap successfully removed."
 msgstr "Пост успешно удален."
 
-#: app/controllers/public/profile_controller.rb:199
+#: app/controllers/public/profile_controller.rb:202
 msgid "You could not remove this scrap"
 msgstr "Невозможно удалить этот пост."
 
-#: app/controllers/public/profile_controller.rb:207
+#: app/controllers/public/profile_controller.rb:210
 msgid "Activity successfully removed."
 msgstr "Активность успешно удалена."
 
-#: app/controllers/public/profile_controller.rb:209
+#: app/controllers/public/profile_controller.rb:212
 msgid "You could not remove this activity"
 msgstr "Невозможно удалить эту активность."
 
-#: app/controllers/public/profile_controller.rb:240
+#: app/controllers/public/profile_controller.rb:243
 msgid "The content here is available to %s's friends only."
 msgstr "%s ограничивает доступ к данной информации только кругом друзей."
 
-#: app/controllers/public/profile_controller.rb:243
+#: app/controllers/public/profile_controller.rb:246
 msgid "The contents in this community is available to members only."
 msgstr "Ктонтент єтого сообщества доступен только его членам."
 
-#: app/controllers/public/profile_controller.rb:249
+#: app/controllers/public/profile_controller.rb:252
 msgid ""
 "Sorry, this profile was defined as private by its owner. You'll not be able "
 "to view content here unless the profile owner adds adds you."
@@ -1645,13 +1658,30 @@ msgstr ""
 "Извините, владелец определил этот профиль как частный. Вы не можете "
 "просматривать этот контент до тех пор, пока владелец не добавит Вас."
 
-#: app/controllers/public/profile_controller.rb:249
+#: app/controllers/public/profile_controller.rb:252
 msgid "Oops ... you cannot go ahead here"
 msgstr "Лажа... Вы не можете сюда зайти"
 
 #: app/controllers/my_profile_controller.rb:21
 msgid "This action is not available for \"%s\"."
 msgstr "Действие невозможно для \"%s\"."
+
+#: app/controllers/my_profile/profile_members_controller.rb:38
+#: app/controllers/my_profile/profile_members_controller.rb:104
+#: app/controllers/my_profile/profile_members_controller.rb:115
+#, fuzzy
+msgid "Current admins"
+msgstr "Текущие участники"
+
+#: app/controllers/my_profile/profile_members_controller.rb:84
+#, fuzzy
+msgid "Member succesfully unassociated"
+msgstr "Участник исключен"
+
+#: app/controllers/my_profile/profile_members_controller.rb:130
+#: app/controllers/my_profile/profile_members_controller.rb:134
+msgid "Add member"
+msgstr "Добавить участника"
 
 #: app/controllers/my_profile/manage_products_controller.rb:49
 msgid "Product succesfully created"
@@ -1669,32 +1699,42 @@ msgstr "Невозможно удалить продукт"
 msgid "The input was not found"
 msgstr "Ввод не найден"
 
-#: app/controllers/my_profile/cms_controller.rb:163
+#: app/controllers/my_profile/tasks_controller.rb:34
+#, fuzzy
+msgid "All decisions were applied successfully."
+msgstr "Все файлы успешно обновлены"
+
+#: app/controllers/my_profile/tasks_controller.rb:36
+#, fuzzy
+msgid "Some decisions couldn't be applied."
+msgstr "Адрес не может быть сохранен"
+
+#: app/controllers/my_profile/cms_controller.rb:167
 msgid "\"%s\" configured as home page."
 msgstr "\"%s\" установлено домашней страницей"
 
-#: app/controllers/my_profile/cms_controller.rb:183
+#: app/controllers/my_profile/cms_controller.rb:187
 msgid "Could not upload all files"
 msgstr "Невозможно загрузить все поля"
 
-#: app/controllers/my_profile/cms_controller.rb:190
+#: app/controllers/my_profile/cms_controller.rb:194
 msgid "All files were uploaded successfully"
 msgstr "Все файлы успешно обновлены"
 
-#: app/controllers/my_profile/cms_controller.rb:252
-#: app/controllers/my_profile/cms_controller.rb:269
+#: app/controllers/my_profile/cms_controller.rb:256
+#: app/controllers/my_profile/cms_controller.rb:273
 msgid "Your publish request was sent successfully"
 msgstr "Ваш запрос на публикацию успешно отправлен"
 
-#: app/controllers/my_profile/cms_controller.rb:271
+#: app/controllers/my_profile/cms_controller.rb:275
 msgid "Your publish request couldn't be sent."
 msgstr "Ваш запрос на публикацию не может быть отправлен"
 
-#: app/controllers/my_profile/cms_controller.rb:274
+#: app/controllers/my_profile/cms_controller.rb:278
 msgid "There is no portal community to publish your article."
 msgstr "В портале нет сообществ дл публикации вашей статьи"
 
-#: app/controllers/my_profile/cms_controller.rb:291
+#: app/controllers/my_profile/cms_controller.rb:295
 msgid "Thanks for your suggestion. The community administrators were notified."
 msgstr ""
 
@@ -1766,9 +1806,9 @@ msgstr ""
 #: app/views/cms/_tiny_mce_article.rhtml:8
 #: app/views/cms/_tiny_mce_article.rhtml:11
 #: app/views/cms/publish_on_portal_community.rhtml:6
-#: app/views/content_viewer/_comment_form.rhtml:37
+#: app/views/content_viewer/_comment_form.rhtml:39
 #: app/views/box_organizer/_highlights_block.rhtml:4
-#: app/views/tasks/_suggest_article.rhtml:10
+#: app/views/tasks/_suggest_article_accept_details.rhtml:3
 msgid "Title"
 msgstr "Название"
 
@@ -1884,6 +1924,16 @@ msgstr "Этот блок отображает участников коллек
 msgid "View all"
 msgstr "Просмотреть все"
 
+#: app/models/profile_search_block.rb:4
+#, fuzzy
+msgid "Display a form to search the profile"
+msgstr "Отобразить сводку профиля"
+
+#: app/models/profile_search_block.rb:8
+#, fuzzy
+msgid "Profile search"
+msgstr "Ссылки"
+
 #: app/models/organization_mailing.rb:23
 msgid "Sent by community %s."
 msgstr "Отправлено сообществом %s."
@@ -1943,7 +1993,7 @@ msgstr "(Нет иконки)"
 msgid "New"
 msgstr "Новый"
 
-#: app/models/link_list_block.rb:7 app/views/categories/_form.rhtml:31
+#: app/models/link_list_block.rb:7 app/views/categories/_form.rhtml:27
 #: app/views/shared/_select_categories.rhtml:17
 #: app/views/cms/suggest_an_article.rhtml:38 app/views/cms/edit.rhtml:22
 #: app/views/cms/edit.rhtml:40 app/views/profile_editor/header_footer.rhtml:28
@@ -2085,7 +2135,7 @@ msgstr "Высота"
 msgid "Thumbnails processed"
 msgstr "Эскизы обработаны"
 
-#: app/models/image.rb:18
+#: app/models/image.rb:19
 msgid "%{fn} of uploaded file was larger than the maximum size of 500.0 KB"
 msgstr "%{fn} загруженного файла более максимального размера - 500.0 KB"
 
@@ -2105,11 +2155,18 @@ msgstr "Изображение профиля"
 msgid "This block presents the profile image"
 msgstr "Блок, отображающий изображение профиля"
 
-#: app/models/create_community.rb:52 app/views/tasks/_create_community.rhtml:5
-msgid "%s wants to create community %s."
+#: app/models/create_community.rb:66
+#, fuzzy
+msgid "%{requestor} wants to create community %{subject} with no description."
 msgstr "%s хочет создать сообщество %s"
 
-#: app/models/create_community.rb:75
+#: app/models/create_community.rb:68
+msgid ""
+"%{requestor} wants to create community %{subject} with this description:"
+"<p><em>%{description}</em></p>"
+msgstr ""
+
+#: app/models/create_community.rb:92
 msgid ""
 "User \"%{user}\" just requested to create community %{community}. You have "
 "to approve or reject it through the \"Pending Validations\" section in your "
@@ -2119,7 +2176,7 @@ msgstr ""
 "{community}. Вам необходимо одобрить либо отклонить данный запрос в секции  "
 "\"Ожидающие валидации\" вашей контрольной панели.\n"
 
-#: app/models/create_community.rb:79
+#: app/models/create_community.rb:96
 msgid ""
 "Your request for registering community %{community} at %{environment} was "
 "just sent. Environment administrator will receive it and will approve or "
@@ -2134,7 +2191,7 @@ msgstr ""
 "\n"
 "Вы будете уведомлены о результате."
 
-#: app/models/create_community.rb:85
+#: app/models/create_community.rb:102
 msgid ""
 "Your request for registering community %{community} at %{environment} was "
 "not approved by the environment administrator. The following explanation was "
@@ -2147,7 +2204,7 @@ msgstr ""
 "\n"
 "%{explanation}"
 
-#: app/models/create_community.rb:89
+#: app/models/create_community.rb:106
 msgid ""
 "Your request for registering the community \"%{community}\" was approved. "
 "You can access %{environment} now and start using your new community."
@@ -2217,6 +2274,17 @@ msgstr "Поиск продавцов"
 #: app/models/sellers_search_block.rb:16
 msgid "This block presents a search engine for products."
 msgstr "Блок, представляющий поисковую машину для продуктов"
+
+#: app/models/enterprise_activation.rb:24
+#: app/views/account/accept_terms.rhtml:14
+#: app/views/account/activation_question.rhtml:26
+msgid "Enterprise activation"
+msgstr "Активация компании"
+
+#: app/models/enterprise_activation.rb:32
+#, fuzzy
+msgid "%{requestor} wants to activate enterprise %{linked_subject}."
+msgstr "'%{user} хочет активировать E-Mail '%{email}' "
 
 #: app/models/qualifier_certifier.rb:-
 msgid "qualifier certifier"
@@ -2293,17 +2361,45 @@ msgid "Highlights"
 msgstr "Выделение"
 
 #: app/models/approve_article.rb:7
-msgid "%{author} wants to publish \"%{article}\" on %{community}"
-msgstr "%{author} хочет опубликовать \"%{article}\" на %{community} "
-
-#: app/models/approve_article.rb:11
 msgid "(The original text was removed)"
 msgstr "(оригинальный текст удален)"
 
-#: app/models/approve_article.rb:89 app/models/suggest_article.rb:44
+#: app/models/approve_article.rb:23
+#, fuzzy
+msgid "Article removed."
+msgstr "Тело статьи"
+
+#: app/models/approve_article.rb:98
+#, fuzzy
+msgid "%{requestor} wants to publish the article: %{linked_subject}."
+msgstr "%{author} хочет опубликовать \"%{article}\" на %{community} "
+
+#: app/models/approve_article.rb:100
+#, fuzzy
+msgid "The article was removed."
+msgstr "Текст был удален"
+
+#: app/models/approve_article.rb:122
+#, fuzzy
+msgid "%{requestor} wants to publish the article: %{article}."
+msgstr "%{author} хочет опубликовать \"%{article}\" на %{community} "
+
+#: app/models/approve_article.rb:123 app/models/suggest_article.rb:62
 msgid ""
 "You need to login on %{system} in order to approve or reject this article."
 msgstr "Необходимо войти в %{system} для утверждения статьи"
+
+#: app/models/approve_article.rb:128
+msgid ""
+"Your request for publishing the article \"%{article}\" was approved. Here is "
+"the comment left by the admin who approved your article:\n"
+"\n"
+"%{comment} "
+msgstr ""
+
+#: app/models/approve_article.rb:130
+msgid "Your request for publishing the article \"%{article}\" was approved."
+msgstr ""
 
 #: app/models/raw_html_block.rb:4
 msgid "Raw HTML"
@@ -2340,7 +2436,7 @@ msgid "Remember token expires at"
 msgstr "Запомнить конечную дату действительности токена"
 
 #: app/models/user.rb:- app/views/account/_signup_form.rhtml:43
-#: app/views/admin_panel/index.rhtml:17
+#: app/views/admin_panel/index.rhtml:18
 #: app/views/admin_panel/terms_of_use.rhtml:1
 msgid "Terms of use"
 msgstr "Правила пользования"
@@ -2532,9 +2628,8 @@ msgstr "%{fn} уже используется другим юзером"
 
 #: app/models/person.rb:211 app/models/profile_categorization.rb:-
 #: app/models/action_tracker_notification.rb:-
-#: app/views/content_viewer/_organization.rhtml:11
-#: app/views/content_viewer/_person.rhtml:13
-#: app/views/profile/_organization.rhtml:11 app/views/profile/_person.rhtml:13
+#: app/views/shared/_profile_search_form.rhtml:8
+#: app/views/profile/_profile.rhtml:14 app/views/profile/_profile.rhtml:24
 msgid "Profile"
 msgstr "Профиль"
 
@@ -2549,8 +2644,8 @@ msgstr "Галерея рисунков"
 msgid "Gallery"
 msgstr "Галерея рисунков"
 
-#: app/models/person.rb:338 app/models/profile.rb:773
-#: app/models/profile.rb:781
+#: app/models/person.rb:338 app/models/profile.rb:784
+#: app/models/profile.rb:792
 msgid "none"
 msgstr "нет"
 
@@ -2561,6 +2656,10 @@ msgstr "один друг"
 #: app/models/person.rb:340
 msgid "%s friends"
 msgstr "%s: друзей"
+
+#: app/models/person.rb:375
+msgid "You just left %s."
+msgstr "Вы только что покинули %s."
 
 #: app/models/favorite_enterprises_block.rb:4
 #: app/models/favorite_enterprises_block.rb:12
@@ -2582,7 +2681,7 @@ msgstr "определитель"
 #: app/models/contact.rb:- app/models/contact.rb:14
 #: app/views/cms/view.rhtml:24
 #: app/views/enterprise_registration/select_validator.rhtml:12
-#: app/views/content_viewer/_comment_form.rhtml:28
+#: app/views/content_viewer/_comment_form.rhtml:30
 #: app/views/box_organizer/_link_list_block.rhtml:4
 #: app/views/profile_members/_find_users.rhtml:3
 #: app/views/profile_members/find_users.rhtml:3
@@ -2693,15 +2792,21 @@ msgstr ""
 msgid "tags|View all"
 msgstr "Тэги|Просмотреть все"
 
-#: app/models/add_friend.rb:23 app/views/tasks/_add_friend.rhtml:5
-msgid "%s wants to be your friend."
+#: app/models/add_friend.rb:27 app/models/add_friend.rb:36
+#: app/models/invite_friend.rb:15
+#, fuzzy
+msgid "%{requestor} wants to be your friend."
 msgstr "%s хочет быть вашим другом"
 
-#: app/models/add_friend.rb:32
+#: app/models/add_friend.rb:28
 msgid ""
 "You need to login to %{system} in order to accept %{requestor} as your "
 "friend."
 msgstr "Необходимо войти в %{system} чтоб подтвердить %{requestor} как друга."
+
+#: app/models/add_friend.rb:32 app/models/invite_friend.rb:11
+msgid "New friend"
+msgstr "Новый друг"
 
 #: app/models/friends_block.rb:8
 msgid "{#} friend"
@@ -2730,7 +2835,7 @@ msgid "Body"
 msgstr "Основная часть"
 
 #: app/models/mailing.rb:- app/views/cms/suggest_an_article.rhtml:11
-#: app/views/tasks/_suggest_article.rhtml:11
+#: app/views/tasks/_suggest_article_accept_details.rhtml:4
 msgid "Source"
 msgstr "Источник"
 
@@ -2776,10 +2881,9 @@ msgid "Price"
 msgstr "цена"
 
 #: app/models/product.rb:- app/models/certifier.rb:-
-#: app/models/organization.rb:85 app/views/cms/_uploaded_file.rhtml:2
+#: app/models/organization.rb:85 app/views/plugins/index.rhtml:9
+#: app/views/cms/_uploaded_file.rhtml:2
 #: app/views/manage_products/show.rhtml:26
-#: app/views/tasks/_uploaded_file.rhtml:2
-#: app/views/tasks/_uploaded_file.rhtml:6
 msgid "Description"
 msgstr "Описание"
 
@@ -2871,24 +2975,29 @@ msgstr "Код"
 msgid "Target type"
 msgstr "Тип цели"
 
-#: app/models/task.rb:25 app/models/profile.rb:-
+#: app/models/task.rb:27 app/models/profile.rb:-
 #: app/views/features/_manage_community_fields.rhtml:8
 #: app/views/features/_manage_person_fields.rhtml:8
 #: app/views/features/_manage_enterprise_fields.rhtml:8
 msgid "Active"
 msgstr "Активный"
 
-#: app/models/task.rb:25
+#: app/models/task.rb:27
 msgid "Cancelled"
 msgstr "Отменено"
 
-#: app/models/task.rb:25
+#: app/models/task.rb:27
 msgid "Finished"
 msgstr "Окончено"
 
-#: app/models/task.rb:110
-msgid "Generic task"
-msgstr "Основная задача"
+#: app/models/task.rb:117
+#, fuzzy
+msgid "Task"
+msgstr "Задачи"
+
+#: app/models/task.rb:129
+msgid "%{requestor} sent you a task."
+msgstr ""
 
 #: app/models/folder.rb:11
 msgid "Folder"
@@ -2954,15 +3063,25 @@ msgstr "%{fn} - недопустимое имя"
 msgid "%{fn} is invalid."
 msgstr "%{fn} неверно"
 
-#: app/models/change_password.rb:72
+#: app/models/change_password.rb:65 app/views/account/change_password.rhtml:1
+#: app/views/account/change_password.rhtml:14
+#: app/views/account/new_password.rhtml:14
+msgid "Change password"
+msgstr "Сменить пароль"
+
+#: app/models/change_password.rb:69
+msgid "%{requestor} wants to change its password."
+msgstr ""
+
+#: app/models/change_password.rb:84
 msgid "Your password change request was cancelled at %s."
 msgstr "Ваш запрос на смену пароля был отклонен %s "
 
-#: app/models/change_password.rb:76
+#: app/models/change_password.rb:88
 msgid "Your password was changed successfully."
 msgstr "Ваш пароль был изменен"
 
-#: app/models/change_password.rb:86
+#: app/models/change_password.rb:98
 msgid ""
 "In order to change your password, please visit the following address:\n"
 "\n"
@@ -2971,10 +3090,6 @@ msgstr ""
 "Для смены пароля перейдите на следующий адрес:\n"
 "\n"
 "%s"
-
-#: app/models/change_password.rb:91
-msgid "Password change request"
-msgstr "Запрос смены пароля"
 
 #: app/models/forum.rb:6
 msgid "Forum"
@@ -2985,9 +3100,19 @@ msgid ""
 "An internet forum, also called message board, where discussions can be held."
 msgstr ""
 
-#: app/models/suggest_article.rb:11
+#: app/models/suggest_article.rb:39
 #, fuzzy
-msgid "%{sender} suggested to publish \"%{article}\" on %{community}"
+msgid "Article suggestion"
+msgstr "Статьи"
+
+#: app/models/suggest_article.rb:47
+#, fuzzy
+msgid "%{sender} suggested the publication of the article: %{subject}."
+msgstr "%{author} хочет опубликовать \"%{article}\" на %{community} "
+
+#: app/models/suggest_article.rb:60
+#, fuzzy
+msgid "%{sender} suggested the publication of the article: %{article}."
 msgstr "%{author} хочет опубликовать \"%{article}\" на %{community} "
 
 #: app/models/certifier.rb:-
@@ -2999,10 +3124,15 @@ msgid "Link"
 msgstr "Ссылка"
 
 #: app/models/add_member.rb:19
-msgid "%s wants to be a member of \"%s\"."
-msgstr "%s хочет быть членом \"%s\" werden."
+msgid "New member"
+msgstr "Новый участник"
 
-#: app/models/add_member.rb:28
+#: app/models/add_member.rb:23 app/models/add_member.rb:39
+#, fuzzy
+msgid "%{requestor} wants to be a member of this community."
+msgstr "%s хочет быть участником %s"
+
+#: app/models/add_member.rb:40
 msgid ""
 "You will need login to %{system} in order to accept or reject %{requestor} "
 "as a member of %{organization}."
@@ -3104,19 +3234,24 @@ msgstr "Автор"
 msgid "Email"
 msgstr "E-Mail"
 
-#: app/models/comment.rb:18
+#: app/models/comment.rb:-
+#, fuzzy
+msgid "Reply of"
+msgstr "Ответить"
+
+#: app/models/comment.rb:20
 msgid "%{fn} can only be informed for unauthenticated authors"
 msgstr "%{fn} - информация, видимая неавторизованным пользователям"
 
-#: app/models/comment.rb:49
+#: app/models/comment.rb:51
 msgid "(removed user)"
 msgstr "(удаленный пользователь)"
 
-#: app/models/comment.rb:49
+#: app/models/comment.rb:51
 msgid "(unauthenticated user)"
 msgstr "(неизвестный пользователь)"
 
-#: app/models/comment.rb:84
+#: app/models/comment.rb:102
 msgid "[%s] you got a new comment!"
 msgstr "[%s] вы получили новый комментарий"
 
@@ -3192,9 +3327,11 @@ msgstr "Администратор среды"
 msgid "Profile Administrator"
 msgstr "Администратор профиля"
 
-#: app/models/environment.rb:45 app/views/profile_members/add_member.rhtml:5
-#: app/views/profile_members/unassociate.rhtml:5
-#: app/views/profile_members/_members_list.rhtml:5
+#: app/models/environment.rb:45 app/views/profile_members/add_admin.rhtml:9
+#: app/views/profile_members/add_member.rhtml:9
+#: app/views/profile_members/remove_admin.rhtml:9
+#: app/views/profile_members/unassociate.rhtml:9
+#: app/views/profile_members/_members_list.rhtml:9
 msgid "Member"
 msgstr "Участник"
 
@@ -3262,7 +3399,7 @@ msgstr "Отключить контакты для пользователей"
 msgid "Disable contact for groups/communities"
 msgstr "Отключить контакты для групп и сообществ"
 
-#: app/models/environment.rb:93
+#: app/models/environment.rb:93 app/models/create_enterprise.rb:156
 #: app/views/enterprise_registration/basic_information.rhtml:3
 msgid "Enterprise registration"
 msgstr "Регистрация предприятия"
@@ -3334,7 +3471,7 @@ msgstr ""
 msgid "XMPP/Jabber based chat"
 msgstr "Чат, основанный на XMPP/Jabber"
 
-#: app/models/environment.rb:489
+#: app/models/environment.rb:490
 msgid "Only one Virtual Community can be the default one"
 msgstr "Только виртуальное сообщество может быть выбранным по умолчанию"
 
@@ -3388,7 +3525,7 @@ msgstr "Точность геокодирования"
 msgid "Nickname"
 msgstr "Ник"
 
-#: app/models/profile.rb:- app/models/profile.rb:670
+#: app/models/profile.rb:- app/models/profile.rb:681
 msgid "Public profile"
 msgstr "Публичный пофиль"
 
@@ -3460,35 +3597,36 @@ msgstr "Публиковать контент"
 msgid "Invite members"
 msgstr "Пригласить участников"
 
-#: app/models/profile.rb:572
-msgid "%s can't has members"
+#: app/models/profile.rb:579
+#, fuzzy
+msgid "%s can't have members"
 msgstr "%s не может иметь участников"
 
-#: app/models/profile.rb:589
+#: app/models/profile.rb:600
 msgid "%s can't has moderators"
 msgstr "%s не может иметь модераторов"
 
-#: app/models/profile.rb:670
+#: app/models/profile.rb:681
 msgid "Private profile"
 msgstr "Приватный профиль"
 
-#: app/models/profile.rb:767
+#: app/models/profile.rb:778
 msgid "Since: "
 msgstr "С:"
 
-#: app/models/profile.rb:774
+#: app/models/profile.rb:785
 msgid "one article"
 msgstr "одна статья"
 
-#: app/models/profile.rb:775
+#: app/models/profile.rb:786
 msgid "%s articles"
 msgstr "%s статей"
 
-#: app/models/profile.rb:782
+#: app/models/profile.rb:793
 msgid "one member"
 msgstr "один участник"
 
-#: app/models/profile.rb:783
+#: app/models/profile.rb:794
 msgid "%s members"
 msgstr "%s участников"
 
@@ -3562,23 +3700,35 @@ msgid "You have already requested activation of your mailbox."
 msgstr "Вы уже запросили активацию почтового ящика"
 
 #: app/models/email_activation.rb:15
-msgid "'%{user} wants to activate email '%{email}'"
+#, fuzzy
+msgid "Email activation"
+msgstr "Активация компании"
+
+#: app/models/email_activation.rb:23
+#, fuzzy
+msgid "%{requestor} wants to activate the following email: %{subject}."
 msgstr "'%{user} хочет активировать E-Mail '%{email}' "
 
-#: app/models/invite_member.rb:19 app/views/tasks/_invite_member.rhtml:5
-msgid "%s invited you to join the community %s"
-msgstr "%s приглашает Вас стать участником сообщества %s"
+#: app/models/invite_member.rb:19
+#, fuzzy
+msgid "Community invitation"
+msgstr "Информатика"
 
-#: app/models/invite_member.rb:28 app/models/invite_friend.rb:20
+#: app/models/invite_member.rb:27
+#, fuzzy
+msgid "%{requestor} invited you to join %{linked_subject}."
+msgstr "%s приглашает Вас присоединиться к %s"
+
+#: app/models/invite_member.rb:44 app/models/invite_friend.rb:32
 msgid "Hello <friend>,"
 msgstr "Здравствуй, <friend>"
 
-#: app/models/invite_member.rb:29
+#: app/models/invite_member.rb:45
 msgid "<user> is inviting you to join \"<community>\" on <environment>."
 msgstr ""
 "<user> приглашает Вас присоединиться к \"<community>\" в <environment>."
 
-#: app/models/invite_member.rb:30 app/models/invite_friend.rb:22
+#: app/models/invite_member.rb:46 app/models/invite_friend.rb:34
 msgid "To accept the invitation, please follow this link:"
 msgstr "Перейдите по ссылке чтоб подтвердить приглашение:"
 
@@ -3632,11 +3782,12 @@ msgstr "Экономическая активность"
 msgid "Management information"
 msgstr "Информация о менеджменте"
 
-#: app/models/create_enterprise.rb:157
-msgid "Enterprise registration: \"%s\""
-msgstr "Регистрация предприятия: \"%s\""
+#: app/models/create_enterprise.rb:168
+#, fuzzy
+msgid "%{requestor} wants to create enterprise %{subject}."
+msgstr "%s хочет создать сообщество %s"
 
-#: app/models/create_enterprise.rb:161
+#: app/models/create_enterprise.rb:176
 msgid ""
 "Your request for registering enterprise \"%{enterprise}\" at %{environment} "
 "was just received. It will be reviewed by the validator organization of your "
@@ -3652,7 +3803,7 @@ msgstr ""
 "Вы будете уведомлены о результате как только организация рассмотрит ваш "
 "запрос."
 
-#: app/models/create_enterprise.rb:167
+#: app/models/create_enterprise.rb:182
 msgid ""
 "Your request for registering the enterprise \"%{enterprise}\" was approved. "
 "You can access %{environment} now and provide start providing all relevant "
@@ -3661,7 +3812,7 @@ msgstr ""
 "Ваш запрос на регистрацию предприятия \"%{enterprise}\" был подтвержден. "
 "Используя доступ к %{environment} вы можете приступать к использованию."
 
-#: app/models/create_enterprise.rb:171
+#: app/models/create_enterprise.rb:186
 msgid ""
 "Your request for registering the enterprise %{enterprise} at %{environment} "
 "was NOT approved by the validator organization. The following explanation "
@@ -3674,7 +3825,7 @@ msgstr ""
 "\n"
 "%{explanation}"
 
-#: app/models/create_enterprise.rb:176
+#: app/models/create_enterprise.rb:191
 msgid ""
 "Enterprise \"%{enterprise}\" just requested to enter %{environment}. You "
 "have to approve or reject it through the \"Pending Validations\" section in "
@@ -3684,47 +3835,47 @@ msgstr ""
 "одобрить либо отклонить запрос через секцию \"Offene Validierungen\" в вашей "
 "контрольной панели.\n"
 
-#: app/models/create_enterprise.rb:178
+#: app/models/create_enterprise.rb:193
 msgid "The data provided by the enterprise was the following:\n"
 msgstr "Следующие данные были предоставлены компанией:\n"
 
-#: app/models/create_enterprise.rb:181 app/views/contact/sender/mail.rhtml:1
+#: app/models/create_enterprise.rb:196 app/views/contact/sender/mail.rhtml:1
 msgid "Name: %s"
 msgstr "Имя: %s"
 
-#: app/models/create_enterprise.rb:182
+#: app/models/create_enterprise.rb:197
 msgid "Acronym: %s"
 msgstr "Акроним: %s"
 
-#: app/models/create_enterprise.rb:183
+#: app/models/create_enterprise.rb:198
 msgid "Address: %s"
 msgstr "Адрес: %s"
 
-#: app/models/create_enterprise.rb:184
+#: app/models/create_enterprise.rb:199
 msgid "Legal form: %s"
 msgstr "Правовая форма: %s"
 
-#: app/models/create_enterprise.rb:185
+#: app/models/create_enterprise.rb:200
 msgid "Foundation Year: %d"
 msgstr "Год основания: %d"
 
-#: app/models/create_enterprise.rb:186
+#: app/models/create_enterprise.rb:201
 msgid "Economic activity: %s"
 msgstr "Экономическая активность: %s"
 
-#: app/models/create_enterprise.rb:188
+#: app/models/create_enterprise.rb:203
 msgid "Information about enterprise's management:\n"
 msgstr "Информация о управлении предприятием:\n"
 
-#: app/models/create_enterprise.rb:190
+#: app/models/create_enterprise.rb:205
 msgid "Contact phone: %s"
 msgstr "Контактный телефон: %s"
 
-#: app/models/create_enterprise.rb:191
+#: app/models/create_enterprise.rb:206
 msgid "Contact person: %s"
 msgstr "Контактное лицо: %s"
 
-#: app/models/create_enterprise.rb:193
+#: app/models/create_enterprise.rb:208
 msgid "CreateEnterprise|Identifier"
 msgstr "СоздатьКомпанию|Идентификатор"
 
@@ -3839,11 +3990,7 @@ msgstr "Получить копию"
 msgid "City and state"
 msgstr "Город и страна"
 
-#: app/models/invite_friend.rb:11
-msgid "%s invited you to join %s"
-msgstr "%s приглашает Вас присоединиться к %s"
-
-#: app/models/invite_friend.rb:21
+#: app/models/invite_friend.rb:33
 msgid "<user> is inviting you to participate on <environment>."
 msgstr "<user>приглашает тебя записаться в %{environment}."
 
@@ -3860,11 +4007,11 @@ msgstr "Категории продуктов"
 msgid "Regions"
 msgstr "Регионы"
 
-#: app/views/categories/_form.rhtml:24
+#: app/views/categories/_form.rhtml:20
 msgid "Display in the menu"
 msgstr "Отображать в данном меню"
 
-#: app/views/categories/_form.rhtml:27 app/views/profile_editor/edit.rhtml:12
+#: app/views/categories/_form.rhtml:23 app/views/profile_editor/edit.rhtml:12
 #: app/views/memberships/new_community.rhtml:22
 #: app/views/manage_products/_form.rhtml:11
 msgid "Image:"
@@ -3887,9 +4034,11 @@ msgstr "Добавить субкатегорию"
 #: app/views/shared/_select_categories.rhtml:20
 #: app/views/memberships/index.rhtml:28
 #: app/views/manage_products/_display_input.rhtml:8
-#: app/views/profile_members/add_member.rhtml:14
-#: app/views/profile_members/unassociate.rhtml:14
-#: app/views/profile_members/_members_list.rhtml:14
+#: app/views/profile_members/add_admin.rhtml:18
+#: app/views/profile_members/add_member.rhtml:18
+#: app/views/profile_members/remove_admin.rhtml:18
+#: app/views/profile_members/unassociate.rhtml:18
+#: app/views/profile_members/_members_list.rhtml:18
 #: app/views/profile/_profile_scrap.rhtml:12
 #: app/views/profile/_profile_activities.rhtml:9
 #: app/views/admin_panel/set_portal_community.rhtml:22
@@ -4000,7 +4149,6 @@ msgstr "Покинуть сообщество"
 
 #: app/views/blocks/profile_info_actions/community.rhtml:7
 #: app/views/blocks/profile_info_actions/community.rhtml:13
-#: app/views/tasks/_invite_member.rhtml:1
 #: app/views/profile/_private_profile.rhtml:10
 msgid "Join community"
 msgstr "Присоединиться к сообществу"
@@ -4037,6 +4185,42 @@ msgstr "Больше"
 #: app/views/blocks/featured_products.rhtml:54
 msgid "Please, edit this block and choose some products"
 msgstr "Пожалуйста, отредактируйте этот блок и выберите продукты"
+
+#: app/views/plugins/index.rhtml:1
+#, fuzzy
+msgid "Manage plugins"
+msgstr "Редактировать друзей"
+
+#: app/views/plugins/index.rhtml:2
+msgid "Here you can enable or disable any plugin of your environment."
+msgstr ""
+
+#: app/views/plugins/index.rhtml:8
+msgid "Plugin"
+msgstr ""
+
+#: app/views/plugins/index.rhtml:10 app/views/features/index.rhtml:16
+msgid "Enabled?"
+msgstr "Включено?"
+
+#: app/views/plugins/index.rhtml:24 app/views/manage_products/_form.rhtml:15
+#: app/views/role/_form.rhtml:15
+#: app/views/environment_role_manager/change_role.rhtml:12
+#: app/views/profile_members/change_role.rhtml:12
+#: app/views/features/_manage_community_fields.rhtml:45
+#: app/views/features/index.rhtml:43
+#: app/views/features/_manage_person_fields.rhtml:44
+#: app/views/features/_manage_enterprise_fields.rhtml:45
+msgid "Save changes"
+msgstr "Сохранить изменения"
+
+#: app/views/plugins/index.rhtml:25 app/views/users/index.rhtml:15
+#: app/views/features/_manage_community_fields.rhtml:46
+#: app/views/features/index.rhtml:44
+#: app/views/features/_manage_person_fields.rhtml:45
+#: app/views/features/_manage_enterprise_fields.rhtml:46
+msgid "Back to admin panel"
+msgstr "Назад в панель администрирования"
 
 #: app/views/shared/user_menu.rhtml:8
 msgid "%s's Menu"
@@ -4080,6 +4264,11 @@ msgstr "Адрес"
 #: app/views/shared/usermenu/xmpp_chat.rhtml:1
 msgid "Open chat"
 msgstr "Открыть чат"
+
+#: app/views/shared/_profile_search_form.rhtml:4
+#, fuzzy
+msgid "Find in %s's content"
+msgstr "Основной контент"
 
 #: app/views/shared/profile_actions/xmpp_chat.rhtml:3
 msgid "Enter chat room"
@@ -4261,11 +4450,9 @@ msgstr[1] "%{num} утверждающих."
 #: app/views/cms/suggest_an_article.rhtml:27
 #: app/views/cms/_textile_article.rhtml:17
 #: app/views/cms/_tiny_mce_article.rhtml:24
-#: app/views/tasks/_suggest_article.rhtml:24
-#: app/views/tasks/_textile_article.rhtml:3
-#: app/views/tasks/_textile_article.rhtml:10
-#: app/views/tasks/_tiny_mce_article.rhtml:5
-#: app/views/tasks/_tiny_mce_article.rhtml:12
+#: app/views/tasks/_suggest_article_accept_details.rhtml:15
+#: app/views/tasks/_approve_article_accept_details.rhtml:18
+#: app/views/tasks/_approve_article_accept_details.rhtml:20
 msgid "Text"
 msgstr "Текст"
 
@@ -4298,7 +4485,7 @@ msgstr "Весь контент"
 #: app/views/friends/index.rhtml:15 app/views/friends/index.rhtml:44
 #: app/views/box_organizer/index.rhtml:5 app/views/mailconf/index.rhtml:10
 #: app/views/mailconf/index.rhtml:28 app/views/mailconf/index.rhtml:38
-#: app/views/tasks/index.rhtml:19
+#: app/views/tasks/index.rhtml:29 app/views/tasks/index.rhtml:49
 msgid "Back to control panel"
 msgstr "Назад в панель управления"
 
@@ -4307,9 +4494,11 @@ msgid "Current folder: "
 msgstr "Текущая папка:"
 
 #: app/views/cms/view.rhtml:26 app/views/manage_products/index.rhtml:7
-#: app/views/role/index.rhtml:6 app/views/profile_members/add_member.rhtml:6
-#: app/views/profile_members/unassociate.rhtml:6
-#: app/views/profile_members/_members_list.rhtml:6
+#: app/views/role/index.rhtml:6 app/views/profile_members/add_admin.rhtml:10
+#: app/views/profile_members/add_member.rhtml:10
+#: app/views/profile_members/remove_admin.rhtml:10
+#: app/views/profile_members/unassociate.rhtml:10
+#: app/views/profile_members/_members_list.rhtml:10
 msgid "Actions"
 msgstr "Действия"
 
@@ -4346,19 +4535,15 @@ msgstr "Нет"
 #: app/views/cms/_textile_article.rhtml:14
 #: app/views/cms/_tiny_mce_article.rhtml:17
 #: app/views/cms/_tiny_mce_article.rhtml:21
-#: app/views/tasks/_suggest_article.rhtml:17
-#: app/views/tasks/_suggest_article.rhtml:21
-#: app/views/tasks/_textile_article.rhtml:2
-#: app/views/tasks/_textile_article.rhtml:7
-#: app/views/tasks/_tiny_mce_article.rhtml:4
-#: app/views/tasks/_tiny_mce_article.rhtml:9
+#: app/views/tasks/_suggest_article_accept_details.rhtml:10
+#: app/views/tasks/_approve_article_accept_details.rhtml:9
+#: app/views/tasks/_approve_article_accept_details.rhtml:11
 msgid "Lead"
 msgstr "Вести"
 
 #: app/views/cms/_article.rhtml:18 app/views/cms/suggest_an_article.rhtml:21
 #: app/views/cms/_textile_article.rhtml:11
 #: app/views/cms/_tiny_mce_article.rhtml:18
-#: app/views/tasks/_textile_article.rhtml:2
 #, fuzzy
 msgid "Used when a short version of your text is needed."
 msgstr "Используется, когда нужна короткая версия Вашего текста."
@@ -4553,8 +4738,9 @@ msgid "Documents"
 msgstr "Документы"
 
 #: app/views/cms/suggest_an_article.rhtml:13
+#: app/views/tasks/_suggest_article_accept_details.rhtml:5
 #, fuzzy
-msgid "Source link"
+msgid "Source URL"
 msgstr "Источник"
 
 #: app/views/cms/suggest_an_article.rhtml:15
@@ -4623,7 +4809,8 @@ msgstr "Нет портала сообщества в этой среде"
 msgid "Back"
 msgstr "Назад"
 
-#: app/views/cms/edit.rhtml:17 app/views/tasks/_approve_article.rhtml:31
+#: app/views/cms/edit.rhtml:17
+#: app/views/tasks/_approve_article_accept_details.rhtml:5
 msgid "Highlight this article"
 msgstr "Подчеркнуть эту статью"
 
@@ -4741,7 +4928,8 @@ msgstr "Настройки почты"
 msgid "Tasks"
 msgstr "Задачи"
 
-#: app/views/profile_editor/index.rhtml:23 app/views/admin_panel/index.rhtml:9
+#: app/views/profile_editor/index.rhtml:23
+#: app/views/admin_panel/index.rhtml:10
 msgid "Edit sideboxes"
 msgstr "Редактировать боковую панель"
 
@@ -4789,29 +4977,29 @@ msgstr "Включить компанию"
 msgid "Manage my groups"
 msgstr "Управлять моими группами"
 
-#: app/views/profile_editor/index.rhtml:74
+#: app/views/profile_editor/index.rhtml:79
 msgid "Activate your enterprise"
 msgstr "Активировать компанию"
 
-#: app/views/profile_editor/index.rhtml:75
+#: app/views/profile_editor/index.rhtml:80
 msgid ""
 "If you received a letter with information about your enterprise activation, "
 "add here the activation code that was sent."
 msgstr "Если вы получили письмо в кодом активации компании, вставьте его сюда"
 
-#: app/views/profile_editor/index.rhtml:77
+#: app/views/profile_editor/index.rhtml:82
 msgid "Enterprise activation code"
 msgstr "Введите код компании"
 
-#: app/views/profile_editor/index.rhtml:78
+#: app/views/profile_editor/index.rhtml:83
 msgid "Activate"
 msgstr "Активировать"
 
-#: app/views/profile_editor/_pending_tasks.rhtml:3
+#: app/views/profile_editor/_pending_tasks.rhtml:5
 msgid "You have pending requests"
 msgstr "У вас есть ожидающие запросы"
 
-#: app/views/profile_editor/_pending_tasks.rhtml:7
+#: app/views/profile_editor/_pending_tasks.rhtml:9
 msgid "Process requests"
 msgstr "Процесс запрашивает"
 
@@ -5221,16 +5409,6 @@ msgstr "Выделить этот продукт"
 msgid "Create product"
 msgstr "Создать продукт"
 
-#: app/views/manage_products/_form.rhtml:15 app/views/role/_form.rhtml:15
-#: app/views/environment_role_manager/change_role.rhtml:12
-#: app/views/profile_members/change_role.rhtml:12
-#: app/views/features/_manage_community_fields.rhtml:45
-#: app/views/features/index.rhtml:43
-#: app/views/features/_manage_person_fields.rhtml:44
-#: app/views/features/_manage_enterprise_fields.rhtml:45
-msgid "Save changes"
-msgstr "Сохранить изменения"
-
 #: app/views/manage_products/_display_description.rhtml:4
 msgid "Edit description"
 msgstr "Изменить описание"
@@ -5363,6 +5541,16 @@ msgstr "Город и область: %s/%s"
 msgid "Message:"
 msgstr "Сообщение:"
 
+#: app/views/profile_search/index.rhtml:2
+#, fuzzy
+msgid "Search on %s's profile"
+msgstr "%s: профиль"
+
+#: app/views/profile_search/index.rhtml:8
+#, fuzzy
+msgid "%s results found"
+msgstr "найдено %d записей"
+
 #: app/views/comment/notifier/mail.rhtml:3
 msgid ""
 "%{sender} (%{sender_link}) created a new comment on your article \"%"
@@ -5421,56 +5609,29 @@ msgstr[1] "просмотрено %{num} раз"
 msgid "Go back to %s"
 msgstr "Назад в %s"
 
-#: app/views/content_viewer/_comment_form.rhtml:18
+#: app/views/content_viewer/view_page.rhtml:122
+#: app/views/content_viewer/_comment_form.rhtml:19
 msgid "Post a comment"
 msgstr "Опубликовать комментарий"
 
-#: app/views/content_viewer/_comment_form.rhtml:29
+#: app/views/content_viewer/_comment_form.rhtml:31
 msgid "e-mail"
 msgstr "E-Mail"
 
-#: app/views/content_viewer/_comment_form.rhtml:32
+#: app/views/content_viewer/_comment_form.rhtml:34
 msgid ""
 "If you are a registered user, you can login and be automatically recognized."
 msgstr ""
 "Если вы - зарегистрированный пользователь, вы можете войти и быть "
 "автоматически распознанным"
 
-#: app/views/content_viewer/_comment_form.rhtml:38
+#: app/views/content_viewer/_comment_form.rhtml:40
 msgid "Enter your comment"
 msgstr "Введите ваш комментарий"
 
-#: app/views/content_viewer/_comment_form.rhtml:40
+#: app/views/content_viewer/_comment_form.rhtml:42
 msgid "Post comment"
 msgstr "Опубликовать комментарий"
-
-#: app/views/content_viewer/_organization.rhtml:10
-#: app/views/profile/_organization.rhtml:10
-msgid "What's new"
-msgstr "Что нового"
-
-#: app/views/content_viewer/_organization.rhtml:22
-#: app/views/content_viewer/_person.rhtml:28
-#: app/views/profile/_organization.rhtml:22 app/views/profile/_person.rhtml:28
-msgid "Basic information"
-msgstr "Основная информация"
-
-#: app/views/content_viewer/_organization.rhtml:32
-#: app/views/content_viewer/_person.rhtml:34
-#: app/views/profile/_organization.rhtml:32 app/views/profile/_person.rhtml:34
-msgid "Type:"
-msgstr "Тип:"
-
-#: app/views/content_viewer/_organization.rhtml:37
-#: app/views/content_viewer/_person.rhtml:37
-#: app/views/profile/_organization.rhtml:37 app/views/profile/_person.rhtml:37
-msgid "Created at:"
-msgstr "Создано:"
-
-#: app/views/content_viewer/_organization.rhtml:51
-#: app/views/profile/_organization.rhtml:51
-msgid "Administrators:"
-msgstr "Администраторы:"
 
 #: app/views/content_viewer/forum_page.rhtml:10
 #: app/views/content_viewer/blog_page.rhtml:12
@@ -5481,73 +5642,24 @@ msgstr "(нет сообщений)"
 msgid "(external feed was not loaded yet)"
 msgstr "(внешняя лента еще не загружена)"
 
-#: app/views/content_viewer/_person.rhtml:8
-#: app/views/content_viewer/_person.rhtml:74 app/views/profile/_person.rhtml:8
-#: app/views/profile/_person.rhtml:74
-msgid "Network"
-msgstr "Сеть"
-
-#: app/views/content_viewer/_person.rhtml:11
-#: app/views/profile/_person.rhtml:11
-msgid "Activity"
-msgstr "Активность"
-
-#: app/views/content_viewer/_person.rhtml:30
-#: app/views/profile/_person.rhtml:30
-msgid "Sex:"
-msgstr "Пол:"
-
-#: app/views/content_viewer/_person.rhtml:31
-#: app/views/profile/_person.rhtml:31
-msgid "Date of birth:"
-msgstr "Дата рождения:"
-
-#: app/views/content_viewer/_person.rhtml:43
-#: app/views/profile/_person.rhtml:43
-msgid "Contact"
-msgstr "Контакт"
-
-#: app/views/content_viewer/_person.rhtml:46
-#: app/views/profile/_person.rhtml:46
-msgid "ZIP code:"
-msgstr "Почтовый индекс:"
-
-#: app/views/content_viewer/_person.rhtml:47
-#: app/views/profile/_person.rhtml:47
-msgid "Contact phone:"
-msgstr "Kontakttelefon:"
-
-#: app/views/content_viewer/_person.rhtml:54
-#: app/views/profile/_person.rhtml:54
-msgid "Work"
-msgstr "Работа"
-
-#: app/views/content_viewer/_person.rhtml:57
-#: app/views/profile/_person.rhtml:57
-msgid "Organization:"
-msgstr "Организация"
-
-#: app/views/content_viewer/_person.rhtml:58
-#: app/views/profile/_person.rhtml:58
-msgid "Organization website:"
-msgstr "Веб-сайт организации"
-
-#: app/views/content_viewer/_person.rhtml:87
-#: app/views/profile/_person.rhtml:87 app/views/profile/_common.rhtml:53
-msgid "Interests"
-msgstr "Интересы"
-
 #: app/views/content_viewer/slideshow.rhtml:1
 msgid "Back to gallery"
 msgstr "Назад в галлерею"
 
-#: app/views/content_viewer/_comment.rhtml:21
-msgid "Remove this comment"
+#: app/views/content_viewer/_comment.rhtml:27
+#, fuzzy
+msgid "Remove this comment and all its replies"
 msgstr "Удалить комментарий"
 
-#: app/views/content_viewer/_comment.rhtml:21
-msgid "Are you sure you want to remove this comment?"
+#: app/views/content_viewer/_comment.rhtml:27
+#, fuzzy
+msgid "Are you sure you want to remove this comment and all its replies?"
 msgstr "Вы уверены что хотите удалить комментарий?"
+
+#: app/views/content_viewer/_comment.rhtml:52
+#: app/views/profile/_profile_scrap.rhtml:14
+msgid "Reply"
+msgstr "Ответить"
 
 #: app/views/role/index.rhtml:1
 msgid "Manage user roles"
@@ -5754,7 +5866,7 @@ msgstr "Удалить участника"
 #: app/views/environment_role_manager/make_admin.rhtml:8
 #: app/views/environment_role_manager/change_role.rhtml:5
 #: app/views/profile_members/change_role.rhtml:5
-#: app/views/tasks/_add_member.rhtml:25
+#: app/views/tasks/_add_member_accept_details.rhtml:1
 msgid "Roles:"
 msgstr "Роли:"
 
@@ -6072,15 +6184,38 @@ msgstr "Пользователи"
 msgid "Sex not informed"
 msgstr "Пол не указан"
 
-#: app/views/profile_members/_find_users.rhtml:17
-#: app/views/profile_members/find_users.rhtml:17
-msgid "Add member"
-msgstr "Добавить участника"
-
 #: app/views/profile_members/_find_users.rhtml:31
 #: app/views/profile_members/find_users.rhtml:31
 msgid "You must type at least 3 characters"
 msgstr "Вы должны ввести минимум 3 символа"
+
+#: app/views/profile_members/last_admin.rhtml:1
+#, fuzzy
+msgid "Last administrator leaving %s"
+msgstr "Список администраторов"
+
+#: app/views/profile_members/last_admin.rhtml:5
+msgid ""
+"Since you are the last administrator, you must choose at least one member to "
+"administer this community."
+msgstr ""
+
+#: app/views/profile_members/last_admin.rhtml:12
+#, fuzzy
+msgid "Leave administration and save"
+msgstr "Доступ к панели управления"
+
+#: app/views/profile_members/last_admin.rhtml:19
+msgid ""
+"Since you are the last administrator and there is no other member in this "
+"community, the next user to join this community will assume the "
+"administrator role."
+msgstr ""
+
+#: app/views/profile_members/last_admin.rhtml:24
+#, fuzzy
+msgid "Ok, I want to leave"
+msgstr "Да, покинуть"
 
 #: app/views/profile_members/send_mail.rhtml:10
 #: app/views/users/send_mail.rhtml:8
@@ -6097,20 +6232,13 @@ msgstr "Основная часть:"
 msgid "Cancel e-mail"
 msgstr "отменить email"
 
-#: app/views/profile_members/add_member.rhtml:1
-#: app/views/profile_members/unassociate.rhtml:1
-#: app/views/profile_members/_members_list.rhtml:1
-msgid "Current Members"
-msgstr "Текущие участники"
-
-#: app/views/profile_members/add_member.rhtml:19
-#: app/views/profile_members/unassociate.rhtml:19
-#: app/views/profile_members/_members_list.rhtml:19
-msgid "Are you sure that you want to remove this member?"
-msgstr "Вы уверены что хотите удалить этого участника?"
-
 #: app/views/profile_members/add_members.rhtml:1
 msgid "Add members to %s"
+msgstr "Добавить участников в %s"
+
+#: app/views/profile_members/_add_admins.rhtml:1
+#, fuzzy
+msgid "Add admins to %s"
 msgstr "Добавить участников в %s"
 
 #: app/views/mailconf/index.rhtml:1
@@ -6151,56 +6279,20 @@ msgstr "Назад к %s"
 msgid "New event"
 msgstr "Новое событие"
 
-#: app/views/tasks/_uploaded_file.rhtml:2
-#: app/views/tasks/_suggest_article.rhtml:18
-#: app/views/tasks/_tiny_mce_article.rhtml:4
-msgid "Used when a short version your text is needed."
-msgstr "Используется, когда нужна короткая версия Вашего текста."
+#: app/views/tasks/_invite_friend_accept_details.rhtml:1
+#: app/views/tasks/_add_friend_accept_details.rhtml:1
+msgid "Classify your new friend:"
+msgstr "Классифицируйте нового друга:"
 
-#: app/views/tasks/_approve_article.rhtml:6
-msgid ""
-"%s wanted to publish some content, but this content was deleted and cannot "
-"be published anymore."
-msgstr ""
-"%s хотел опубликовать контент, котрорый теперь удален и не может быть больше "
-"опубликован."
+#: app/views/tasks/_invite_friend_accept_details.rhtml:7
+#: app/views/tasks/_add_friend_accept_details.rhtml:7
+msgid "Suggestions: %s"
+msgstr "Предположения: %s"
 
-#: app/views/tasks/_approve_article.rhtml:9
-msgid "%s wants to publish content: %s."
-msgstr "%s хочет опубликовать контент %s"
-
-#: app/views/tasks/_approve_article.rhtml:17
-#: app/views/tasks/_add_friend.rhtml:15
-#: app/views/tasks/_invite_member.rhtml:15
-#: app/views/tasks/_add_member.rhtml:15
-msgid "Accept"
-msgstr "Подтвердить"
-
-#: app/views/tasks/_approve_article.rhtml:24
-#: app/views/tasks/_add_friend.rhtml:22 app/views/tasks/_add_member.rhtml:22
-msgid "Ignore"
-msgstr "Игнорировать"
-
-#: app/views/tasks/_approve_article.rhtml:26
-msgid "Name for publishing"
-msgstr "Имя публикации"
-
-#: app/views/tasks/_approve_article.rhtml:28
-#: app/views/tasks/_suggest_article.rhtml:14
-msgid "Select the folder where the article must be published"
-msgstr "Выберите папку для публикации"
-
-#: app/views/tasks/_approve_article.rhtml:34
-msgid "Comment for author"
-msgstr "Комментарий для автора"
-
-#: app/views/tasks/_approve_article.rhtml:41
-#: app/views/tasks/_add_friend.rhtml:38
-#: app/views/tasks/_invite_member.rhtml:27
-#: app/views/tasks/_add_member.rhtml:36
-#: app/views/tasks/_create_community.rhtml:45
-msgid "Ok!"
-msgstr "Ok!"
+#: app/views/tasks/_task_reject_details.rhtml:1
+#: app/views/tasks/_create_enterprise_reject_details.rhtml:1
+msgid "Rejection explanation"
+msgstr "Отказ объяснения"
 
 #: app/views/tasks/ticket_details.rhtml:1
 msgid "Ticket: %s"
@@ -6222,29 +6314,31 @@ msgstr "Статус: %s"
 msgid "Closing statement: %s"
 msgstr "Закрывающее утверждение: %s"
 
-#: app/views/tasks/index.rhtml:1
+#: app/views/tasks/index.rhtml:3
 msgid "%s's pending tasks"
 msgstr "%s's ожидающие задачи"
 
-#: app/views/tasks/index.rhtml:5
+#: app/views/tasks/index.rhtml:10
+#, fuzzy
+msgid "This error happened with the following tasks: "
+msgstr "Со следующими сообществами возникли ошибки:"
+
+#: app/views/tasks/index.rhtml:21
 msgid "No pending tasks for %s"
 msgstr "Нет ожидающих задач для %s"
 
-#: app/views/tasks/index.rhtml:16
+#: app/views/tasks/index.rhtml:27 app/views/tasks/index.rhtml:47
+msgid "Apply!"
+msgstr ""
+
+#: app/views/tasks/index.rhtml:28 app/views/tasks/index.rhtml:48
 msgid "View processed tasks"
 msgstr "Просмотреть выполненные задачи"
 
-#: app/views/tasks/_add_friend.rhtml:1
-msgid "New friend"
-msgstr "Новый друг"
-
-#: app/views/tasks/_add_friend.rhtml:25
-msgid "Classify your new friend:"
-msgstr "Классифицируйте нового друга:"
-
-#: app/views/tasks/_add_friend.rhtml:31
-msgid "Suggestions: %s"
-msgstr "Предположения: %s"
+#: app/views/tasks/index.rhtml:34 app/views/tasks/index.rhtml:40
+#, fuzzy
+msgid "Set all to: "
+msgstr "Выберите категорию:"
 
 #: app/views/tasks/new.rhtml:1
 msgid "New request for %s"
@@ -6274,58 +6368,48 @@ msgstr "Создано:"
 msgid "Processed:"
 msgstr "Обработано:"
 
-#: app/views/tasks/_task.rhtml:2 app/views/tasks/_suggest_article.rhtml:1
-msgid "Processing task: %s"
-msgstr "Выполнение задачи: %s"
+#: app/views/tasks/_task.rhtml:24
+msgid "Accept"
+msgstr "Подтвердить"
 
-#: app/views/tasks/_task.rhtml:7 app/views/tasks/_task.rhtml:18
-#: app/views/tasks/_suggest_article.rhtml:28
-#: app/views/tasks/_suggest_article.rhtml:35 app/views/tasks/_ticket.rhtml:11
-#: app/views/tasks/_ticket.rhtml:19
-msgid "OK"
-msgstr "Ok"
-
-#: app/views/tasks/_task.rhtml:14
-msgid "Rejection explanation"
-msgstr "Отказ объяснения"
-
-#: app/views/tasks/_invite_member.rhtml:22
-#: app/views/tasks/_create_community.rhtml:26
+#: app/views/tasks/_task.rhtml:29
 #: app/views/enterprise_validation/details.rhtml:23
 #: app/views/enterprise_validation/details.rhtml:31
 msgid "Reject"
 msgstr "Отклонить"
 
-#: app/views/tasks/_suggest_article.rhtml:8
+#: app/views/tasks/_task.rhtml:34
+#, fuzzy
+msgid "Skip"
+msgstr "Подписаться"
+
+#: app/views/tasks/_suggest_article_accept_details.rhtml:1
 #, fuzzy
 msgid "Sent by: "
 msgstr "Отправлено %s."
 
-#: app/views/tasks/_suggest_article.rhtml:9
+#: app/views/tasks/_suggest_article_accept_details.rhtml:2
 #, fuzzy
 msgid "Email: %s"
 msgstr "E-Mail: %s"
 
-#: app/views/tasks/_suggest_article.rhtml:12
-#, fuzzy
-msgid "Source URL"
-msgstr "Источник"
+#: app/views/tasks/_suggest_article_accept_details.rhtml:7
+#: app/views/tasks/_approve_article_accept_details.rhtml:4
+msgid "Select the folder where the article must be published"
+msgstr "Выберите папку для публикации"
 
-#: app/views/tasks/_add_member.rhtml:1
-msgid "New member"
-msgstr "Новый участник"
+#: app/views/tasks/_suggest_article_accept_details.rhtml:12
+#: app/views/tasks/_approve_article_accept_details.rhtml:14
+msgid "Used when a short version your text is needed."
+msgstr "Используется, когда нужна короткая версия Вашего текста."
 
-#: app/views/tasks/_add_member.rhtml:5
-msgid "%s wants to be a member of %s."
-msgstr "%s хочет быть участником %s"
+#: app/views/tasks/_approve_article_accept_details.rhtml:3
+msgid "Name for publishing"
+msgstr "Имя публикации"
 
-#: app/views/tasks/_ticket.rhtml:1
-msgid "Processing ticket: %s"
-msgstr "Обрабатывающийся тикет: %s"
-
-#: app/views/tasks/_ticket.rhtml:7
-msgid "Closing statment"
-msgstr "Закрывающее утверждение"
+#: app/views/tasks/_approve_article_accept_details.rhtml:23
+msgid "Comment for author"
+msgstr "Комментарий для автора"
 
 #: app/views/tasks/list_requested.rhtml:1
 msgid "Tasks that I requested"
@@ -6334,25 +6418,6 @@ msgstr "Задачи, которые я запросил"
 #: app/views/tasks/list_requested.rhtml:10
 msgid "Status:"
 msgstr "Статус:"
-
-#: app/views/tasks/_create_community.rhtml:13
-msgid "This name was already taken, this community cannot be approved"
-msgstr "Это имя уже занято, это сообщество не может быть утверждено"
-
-#: app/views/tasks/_create_community.rhtml:19
-#: app/views/enterprise_validation/details.rhtml:13
-#: app/views/enterprise_validation/details.rhtml:19
-msgid "Approve"
-msgstr "Утвердить"
-
-#: app/views/tasks/_create_community.rhtml:39
-msgid "Please provide an explanation for the rejection"
-msgstr "Пожалуйста, опишите причину отказа"
-
-#: app/views/account/accept_terms.rhtml:14
-#: app/views/account/activation_question.rhtml:26
-msgid "Enterprise activation"
-msgstr "Активация компании"
 
 #: app/views/account/accept_terms.rhtml:14
 msgid "part 2 of 2"
@@ -6550,12 +6615,6 @@ msgstr "Перейти в панель управления"
 #: app/views/account/welcome.rhtml:8
 msgid "Go to my enterprise control panel"
 msgstr "Перейти в панель управления предприятием"
-
-#: app/views/account/change_password.rhtml:1
-#: app/views/account/change_password.rhtml:14
-#: app/views/account/new_password.rhtml:14
-msgid "Change password"
-msgstr "Сменить пароль"
 
 #: app/views/account/change_password.rhtml:5
 msgid "Current password"
@@ -6840,13 +6899,9 @@ msgstr ""
 "Войдите в список задач или панель управления для того чтобы увидеть это и "
 "другие действия, ожидающие внимания."
 
-#: app/views/profile/_profile_scrap.rhtml:14
-msgid "Reply"
-msgstr "Ответить"
-
 #: app/views/profile/_profile_scrap.rhtml:28
 #: app/views/profile/_profile_scrap.rhtml:42
-#: app/views/profile/_profile_wall.rhtml:7
+#: app/views/profile/_profile_wall.rhtml:6
 msgid "Leave a scrap"
 msgstr "Оставить пост"
 
@@ -6865,6 +6920,63 @@ msgstr "Да, покинуть"
 #: app/views/profile/friends.rhtml:20
 msgid "Manage my friends"
 msgstr "Друзья: управление"
+
+#: app/views/profile/_person_profile.rhtml:3
+#: app/views/profile/_organization_profile.rhtml:3
+msgid "Basic information"
+msgstr "Основная информация"
+
+#: app/views/profile/_person_profile.rhtml:5
+msgid "Sex:"
+msgstr "Пол:"
+
+#: app/views/profile/_person_profile.rhtml:6
+msgid "Date of birth:"
+msgstr "Дата рождения:"
+
+#: app/views/profile/_person_profile.rhtml:9
+#: app/views/profile/_organization_profile.rhtml:13
+msgid "Type:"
+msgstr "Тип:"
+
+#: app/views/profile/_person_profile.rhtml:12
+#: app/views/profile/_organization_profile.rhtml:18
+msgid "Created at:"
+msgstr "Создано:"
+
+#: app/views/profile/_person_profile.rhtml:18
+msgid "Contact"
+msgstr "Контакт"
+
+#: app/views/profile/_person_profile.rhtml:21
+msgid "ZIP code:"
+msgstr "Почтовый индекс:"
+
+#: app/views/profile/_person_profile.rhtml:22
+msgid "Contact phone:"
+msgstr "Kontakttelefon:"
+
+#: app/views/profile/_person_profile.rhtml:29
+msgid "Work"
+msgstr "Работа"
+
+#: app/views/profile/_person_profile.rhtml:32
+msgid "Organization:"
+msgstr "Организация"
+
+#: app/views/profile/_person_profile.rhtml:33
+msgid "Organization website:"
+msgstr "Веб-сайт организации"
+
+#: app/views/profile/_person_profile.rhtml:49
+#: app/views/profile/_profile.rhtml:17
+msgid "Network"
+msgstr "Сеть"
+
+#: app/views/profile/_person_profile.rhtml:62
+#: app/views/profile/_common.rhtml:53
+msgid "Interests"
+msgstr "Интересы"
 
 #: app/views/profile/content_tagged.rhtml:3
 msgid "Content tagged with \"%s\""
@@ -6898,13 +7010,17 @@ msgstr "Да, хочу"
 msgid "%s's activity"
 msgstr "деятельность %s"
 
-#: app/views/profile/_profile_network.rhtml:2
+#: app/views/profile/_profile_network.rhtml:1
 msgid "%s's network activity"
 msgstr "%s активности сети"
 
-#: app/views/profile/_profile_wall.rhtml:2
+#: app/views/profile/_profile_wall.rhtml:1
 msgid "%s's wall"
 msgstr "Стена %s"
+
+#: app/views/profile/_organization_profile.rhtml:32
+msgid "Administrators:"
+msgstr "Администраторы:"
 
 #: app/views/profile/_common.rhtml:23
 msgid "One post"
@@ -6929,6 +7045,14 @@ msgstr "Теги:"
 #: app/views/profile/members.rhtml:3
 msgid "%s's members"
 msgstr "%s: участники"
+
+#: app/views/profile/_profile.rhtml:13
+msgid "What's new"
+msgstr "Что нового"
+
+#: app/views/profile/_profile.rhtml:21
+msgid "Activity"
+msgstr "Активность"
 
 #: app/views/profile/_profile_network_activities.rhtml:12
 msgid "In community %s"
@@ -6958,7 +7082,7 @@ msgstr "Имя"
 msgid "email"
 msgstr "E-Mail"
 
-#: app/views/users/index.rhtml:1 app/views/admin_panel/index.rhtml:12
+#: app/views/users/index.rhtml:1 app/views/admin_panel/index.rhtml:13
 msgid "Manage users"
 msgstr "Управление пользователями"
 
@@ -6969,14 +7093,6 @@ msgstr "Скачать список пользователей"
 #: app/views/users/index.rhtml:10 app/views/users/send_mail.rhtml:1
 msgid "Send e-mail to users"
 msgstr "Послать e-mail пользователям"
-
-#: app/views/users/index.rhtml:15
-#: app/views/features/_manage_community_fields.rhtml:46
-#: app/views/features/index.rhtml:44
-#: app/views/features/_manage_person_fields.rhtml:45
-#: app/views/features/_manage_enterprise_fields.rhtml:46
-msgid "Back to admin panel"
-msgstr "Назад в панель администрирования"
 
 #: app/views/features/_manage_community_fields.rhtml:1
 msgid "Manage community fields"
@@ -7022,10 +7138,6 @@ msgstr ""
 #: app/views/features/index.rhtml:15
 msgid "Feature"
 msgstr "Возможность"
-
-#: app/views/features/index.rhtml:16
-msgid "Enabled?"
-msgstr "Включено?"
 
 #: app/views/features/index.rhtml:27
 msgid "Configure features"
@@ -7120,28 +7232,33 @@ msgstr "Редактировать сообщение для отключенн�
 msgid "Enable/disable features"
 msgstr "Включить/отключить возможности"
 
-#: app/views/admin_panel/index.rhtml:10
+#: app/views/admin_panel/index.rhtml:9
+#, fuzzy
+msgid "Enable/disable plugins"
+msgstr "Включить/отключить возможности"
+
+#: app/views/admin_panel/index.rhtml:11
 msgid "Manage Categories"
 msgstr "Редактировать категории"
 
-#: app/views/admin_panel/index.rhtml:11
+#: app/views/admin_panel/index.rhtml:12
 msgid "Manage User roles"
 msgstr "Редактировать пользовательские роли"
 
-#: app/views/admin_panel/index.rhtml:13
+#: app/views/admin_panel/index.rhtml:14
 msgid "Manage Validators by region"
 msgstr "Утверждающие по регионам"
 
-#: app/views/admin_panel/index.rhtml:14
+#: app/views/admin_panel/index.rhtml:15
 #: app/views/admin_panel/edit_templates.rhtml:1
 msgid "Edit Templates"
 msgstr "Редактировать шаблоны"
 
-#: app/views/admin_panel/index.rhtml:15
+#: app/views/admin_panel/index.rhtml:16
 msgid "Manage Fields"
 msgstr "Управлять списком друзей"
 
-#: app/views/admin_panel/index.rhtml:16
+#: app/views/admin_panel/index.rhtml:17
 msgid "Set Portal"
 msgstr "Установить портал"
 
@@ -7349,6 +7466,11 @@ msgstr "Предоставленная информация"
 #: app/views/enterprise_validation/details.rhtml:11
 msgid "Final decision:"
 msgstr "Решение:"
+
+#: app/views/enterprise_validation/details.rhtml:13
+#: app/views/enterprise_validation/details.rhtml:19
+msgid "Approve"
+msgstr "Утвердить"
 
 #: app/views/enterprise_validation/details.rhtml:15
 msgid ""
@@ -7597,6 +7719,11 @@ msgstr "Инструкции недоступны при создании"
 #: lib/feed_writer.rb:12
 msgid "Feed"
 msgstr "RSS лента"
+
+#: lib/noosfero/plugin.rb:39
+#, fuzzy
+msgid "No description informed."
+msgstr "Не информировано"
 
 #: lib/zen3_terminology.rb:8
 msgid "My ePortfolio"
@@ -8022,6 +8149,62 @@ msgid ""
 "\">GNU Affero General Public License</a> version 3 or any later version."
 msgstr ""
 
+#~ msgid "Generic task"
+#~ msgstr "Основная задача"
+
+#~ msgid "Password change request"
+#~ msgstr "Запрос смены пароля"
+
+#~ msgid "%s wants to be a member of \"%s\"."
+#~ msgstr "%s хочет быть членом \"%s\" werden."
+
+#~ msgid "%s invited you to join the community %s"
+#~ msgstr "%s приглашает Вас стать участником сообщества %s"
+
+#~ msgid "Enterprise registration: \"%s\""
+#~ msgstr "Регистрация предприятия: \"%s\""
+
+#, fuzzy
+#~ msgid "Source link"
+#~ msgstr "Источник"
+
+#~ msgid "Are you sure that you want to remove this member?"
+#~ msgstr "Вы уверены что хотите удалить этого участника?"
+
+#~ msgid ""
+#~ "%s wanted to publish some content, but this content was deleted and "
+#~ "cannot be published anymore."
+#~ msgstr ""
+#~ "%s хотел опубликовать контент, котрорый теперь удален и не может быть "
+#~ "больше опубликован."
+
+#~ msgid "%s wants to publish content: %s."
+#~ msgstr "%s хочет опубликовать контент %s"
+
+#~ msgid "Ignore"
+#~ msgstr "Игнорировать"
+
+#~ msgid "Ok!"
+#~ msgstr "Ok!"
+
+#~ msgid "Processing task: %s"
+#~ msgstr "Выполнение задачи: %s"
+
+#~ msgid "OK"
+#~ msgstr "Ok"
+
+#~ msgid "Processing ticket: %s"
+#~ msgstr "Обрабатывающийся тикет: %s"
+
+#~ msgid "Closing statment"
+#~ msgstr "Закрывающее утверждение"
+
+#~ msgid "This name was already taken, this community cannot be approved"
+#~ msgstr "Это имя уже занято, это сообщество не может быть утверждено"
+
+#~ msgid "Please provide an explanation for the rejection"
+#~ msgstr "Пожалуйста, опишите причину отказа"
+
 #~ msgid "Click on this icon to add <b>%s</b> to your network"
 #~ msgstr "Чтоб добавить в сеть, кликните на иконку <b>%s</b>"
 
@@ -8035,9 +8218,6 @@ msgstr ""
 
 #~ msgid "A reference to another article published in another profile"
 #~ msgstr "Ссылка на статью, опубликованную в другом профиле"
-
-#~ msgid "The original text was removed."
-#~ msgstr "Текст был удален"
 
 #~ msgid "Display wizard signup"
 #~ msgstr "Отобразить мастера регистрации"
@@ -8335,9 +8515,6 @@ msgstr ""
 #~ "Панель управления: редактировать ваше изображение, персональную "
 #~ "информацию, создать контент или изменить вид"
 
-#~ msgid "Access the site administration panel."
-#~ msgstr "Доступ к панели управления"
-
 #~ msgid ""
 #~ "This link takes you out of the system. You should logout if other people "
 #~ "are willing to use the same computer after you."
@@ -8595,9 +8772,6 @@ msgstr ""
 
 #~ msgid "To join on this environment, click on \"<b>New user</b>\"."
 #~ msgstr "Чтобы присоединиться к среде, нажмите\"<b>Новый пользователь</b>\"."
-
-#~ msgid "%s's profile"
-#~ msgstr "%s: профиль"
 
 #~ msgid "Content published:"
 #~ msgstr "Контент опубликован:"
