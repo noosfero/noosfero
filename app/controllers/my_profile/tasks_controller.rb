@@ -33,7 +33,7 @@ class TasksController < MyProfileController
     if failed.blank?
       session[:notice] = _("All decisions were applied successfully.")
     else
-      session[:notice] = _("Some tasks couldn't be applied.")
+      session[:notice] = _("Some decisions couldn't be applied.")
     end
     redirect_to params.merge!(:action => 'index', :failed => failed)
   end
