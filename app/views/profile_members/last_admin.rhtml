@@ -16,7 +16,7 @@
 <% else %>
 
   <div id='last-admin-message'>
-    <%= _('Since you are the last administrator and there is no other member in this community, the next member to join this community will assume the administrator role.') % profile.name %>
+    <%= _('Since you are the last administrator and there is no other member in this community, the next user to join this community will assume the administrator role.') % profile.name %>
   </div>
 
   <% form_tag :action => 'update_roles', :roles => @roles, :person => @person, :confirmation => true do %>
