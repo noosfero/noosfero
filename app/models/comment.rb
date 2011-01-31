@@ -43,6 +43,10 @@ class Comment < ActiveRecord::Base
     author ? author.url : email
   end
 
+  def author_url
+    author ? author.url : nil
+  end
+
   def url
     article.view_url.merge(:anchor => anchor)
   end

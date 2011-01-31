@@ -317,4 +317,14 @@ class CommentTest < Test::Unit::TestCase
     assert result[1].replies.empty?
   end
 
+  should 'provide author url for authenticated user' do
+    author = Person.new
+    author.expects(:url).returns('http://blabla.net/author')
+    assert_equal  'http://blabla.net/author', Comment.new(:author => author).author_url
+  end
+
+  should 'not provide author url for unauthenticated user' do
+    assert_nil Comment.new(:email => 'my@email.com').author_url
+  end
+
 end

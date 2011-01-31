@@ -1423,4 +1423,21 @@ class ArticleTest < Test::Unit::TestCase
     assert_equal 'some name', a.author_name
   end
 
+  should 'retrieve latest info from topic when has no comments' do
+    forum = fast_create(Forum, :name => 'Forum test', :profile_id => profile.id)
+    post = fast_create(TextileArticle, :name => 'First post', :profile_id => profile.id, :parent_id => forum.id, :updated_at => Time.now)
+    assert_equal post.updated_at, post.info_from_last_update[:date]
+    assert_equal profile.name, post.info_from_last_update[:author_name]
+    assert_equal profile.url, post.info_from_last_update[:author_url]
+  end
+
+  should 'retrieve latest info from comment when has comments' do
+    forum = fast_create(Forum, :name => 'Forum test', :profile_id => profile.id)
+    post = fast_create(TextileArticle, :name => 'First post', :profile_id => profile.id, :parent_id => forum.id, :updated_at => Time.now)
+    post.comments << Comment.new(:name => 'Guest', :email => 'guest@example.com', :title => 'test comment', :body => 'hello!')
+    assert_equal post.comments.last.created_at, post.info_from_last_update[:date]
+    assert_equal "Guest", post.info_from_last_update[:author_name]
+    assert_nil post.info_from_last_update[:author_url]
+  end
+
 end

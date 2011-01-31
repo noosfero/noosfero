@@ -67,3 +67,29 @@ Feature: forum
     And I go to /joaosilva/forum-one
     When I follow "Configure forum"
     Then I should be on edit "Forum One" by joaosilva
+
+  Scenario: last topic update by unautenticated user should not link
+    Given the following forums
+       | owner     | name |
+       | joaosilva | Forum |
+    And the following articles
+       | owner     | name | parent |
+       | joaosilva | Post one | Forum |
+    And the following comments
+       | article | name | email | title | body |
+       | Post one | Joao | joao@example.com | Hi all | Hi all |
+   When I go to /joaosilva/forum
+   Then I should not see "Joao" link
+
+  Scenario: last topic update by autenticated user should link to profile url
+    Given the following forums
+       | owner     | name |
+       | joaosilva | Forum |
+    And the following articles
+       | owner     | name | parent |
+       | joaosilva | Post one | Forum |
+    And the following comments
+       | article | author | title | body |
+       | Post one | joaosilva | Hi all | Hi all |
+   When I go to /joaosilva/forum
+   Then I should see "Joao" linking to "http:///joaosilva"

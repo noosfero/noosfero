@@ -193,7 +193,8 @@ module NoosferoTestHelper
   end
 
   def content_tag(tag, content, options = {})
-    "<#{tag}>#{content}</#{tag}>"
+    tag_attr = options.blank? ? '' : ' ' + options.collect{ |o| "#{o[0]}=\"#{o[1]}\"" }.join(' ')
+    "<#{tag}#{tag_attr}>#{content}</#{tag}>"
   end
 
   def submit_tag(content, options = {})
@@ -228,6 +229,8 @@ module NoosferoTestHelper
     icon
   end
 
+  def will_paginate(arg1, arg2)
+  end
 end
 
 class ActionController::IntegrationTest

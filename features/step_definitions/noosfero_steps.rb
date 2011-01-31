@@ -52,9 +52,14 @@ Given /^the following (articles|events|blogs|folders|forums|galleries)$/ do |con
   }[content] || raise("Don't know how to build %s" % content)
   table.hashes.map{|item| item.dup}.each do |item|
     owner_identifier = item.delete("owner")
+    parent = item.delete("parent")
     owner = Profile[owner_identifier]
     home = item.delete("homepage")
-    result = klass.create!(item.merge(:profile => owner))
+    result = klass.new(item.merge(:profile => owner))
+    if parent
+      result.parent = Article.find_by_name(parent)
+    end
+    result.save!
     if home
       owner.home_page = result
       owner.save!
@@ -318,8 +323,11 @@ Given /^the following comments?$/ do |table|
   table.hashes.each do |item|
     data = item.dup
     article = Article.find_by_name(data.delete("article"))
-    author = Profile[data.delete("author")]
-    comment = article.comments.build(:author => author, :title => data.delete("title"), :body => data.delete("body"))
+    author = data.delete("author")
+    comment = article.comments.build(data)
+    if author
+      comment.author = Profile[author]
+    end
     comment.save!
   end
 end

@@ -232,6 +232,15 @@ class Article < ActiveRecord::Base
     self.parent and self.parent.blog?
   end
 
+  def info_from_last_update
+    last_comment = comments.last
+    if last_comment
+      {:date => last_comment.created_at, :author_name => last_comment.author_name, :author_url => last_comment.author_url}
+    else
+      {:date => updated_at, :author_name => author.name, :author_url => author.url}
+    end
+  end
+
   def url
     @url ||= self.profile.url.merge(:page => path.split('/'))
   end

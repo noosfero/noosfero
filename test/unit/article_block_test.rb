@@ -89,7 +89,7 @@ class ArticleBlockTest < Test::Unit::TestCase
     block.expects(:title).returns('')
     block.stubs(:article).returns(article)
 
-    assert_equal "<h3><span></span></h3>Article content", instance_eval(&block.content)
+    assert_equal "<h3 class=\"block-title empty\"><span></span></h3>Article content", instance_eval(&block.content)
   end
 
   should "display title if defined" do
@@ -99,7 +99,7 @@ class ArticleBlockTest < Test::Unit::TestCase
     block.expects(:title).returns('Article title')
     block.stubs(:article).returns(article)
 
-    assert_equal "<h3><span>Article title</span></h3>Article content", instance_eval(&block.content)
+    assert_equal "<h3 class=\"block-title\"><span>Article title</span></h3>Article content", instance_eval(&block.content)
   end
 
   should 'display image if article is an image' do

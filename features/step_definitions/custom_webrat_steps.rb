@@ -6,6 +6,11 @@ When /^I should not see "([^\"]+)" link$/ do |text|
   response.should_not have_selector("a:contains('#{text}')")
 end
 
+When /^I should see "([^\"]+)" linking to "([^\"]+)"$/ do |text, href|
+  response.should have_selector("a:contains('#{text}')")
+  response.should have_selector("a[href='#{href}']")
+end
+
 Then /^I should be exactly on (.+)$/ do |page_name|
   URI.parse(current_url).request_uri.should == path_to(page_name)
 end

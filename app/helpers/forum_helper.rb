@@ -40,8 +40,12 @@ module ForumHelper
   end
 
   def last_topic_update(article)
-    last_update_at, last_update_by = (article.comments.count.zero? ? [article.updated_at, article.author] : [article.comments.last.created_at, article.comments.last.author])
-    time_ago_as_sentence(last_update_at) + ' ' + _('ago') + ' ' + _('by') + ' ' + link_to(last_update_by.name, last_update_by.url)
+    info = article.info_from_last_update
+    if info[:author_url]
+      time_ago_as_sentence(info[:date]) + ' ' + _('ago') + ' ' + _('by') + ' ' + link_to(info[:author_name], info[:author_url])
+    else
+      time_ago_as_sentence(info[:date]) + ' ' + _('ago') + ' ' + _('by') + ' ' + info[:author_name]
+    end
   end
 
 end
