@@ -5,8 +5,8 @@
     </span>
     <%= submit_button(:search, _('Search')) %>
     <div>
-      <%= labelled_radio_button __('on profile'), 'where', 'profile', true %>
-      <%= labelled_radio_button _('on %s') % environment.name, 'where', 'environment', false %>
+      <%= labelled_radio_button __('Profile'), 'where', 'profile', true %>
+      <%= labelled_radio_button environment.name, 'where', 'environment', false %>
     </div>
   </div>
 <% end %>
