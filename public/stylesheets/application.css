@@ -4160,6 +4160,11 @@ h1#agenda-title {
 }
 
 .controller-search .only-one-result-box .search-results-box {
+  width: 98%;
+}
+
+.controller-search .only-one-result-box .search-results-innerbox {
+  max-height: none;
   width: 100%;
 }
 
@@ -4267,7 +4272,6 @@ h1#agenda-title {
 
 
 .controller-search .search-results-innerbox {
-  border: 1px solid #2A5896;
   padding: 10px 0px 10px 10px;
   height: 205px;
   overflow: visible;
