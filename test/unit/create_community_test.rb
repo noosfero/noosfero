@@ -83,4 +83,23 @@ class CreateCommunityTest < Test::Unit::TestCase
     assert_equal 'rails.png', Community['my-new-community'].image.filename
   end
 
+  should 'have target notification message' do
+    task = CreateCommunity.new(:name => 'community test', :target => Environment.default, :requestor => person)
+
+    assert_match(/requested to create community.*to approve or reject/, task.target_notification_message)
+  end
+
+  should 'have target notification description' do
+    task = CreateCommunity.new(:name => 'community test', :target => Environment.default, :requestor => person)
+
+    assert_match(/#{task.requestor.name} wants to create community #{task.subject}/, task.target_notification_description)
+  end
+
+  should 'deliver target notification message' do
+    task = CreateCommunity.new(:name => 'community test', :target => Environment.default, :requestor => person)
+
+    email = TaskMailer.deliver_target_notification(task, task.target_notification_message)
+    assert_match(/#{task.requestor.name} wants to create community #{task.subject}/, email.subject)
+  end
+
 end

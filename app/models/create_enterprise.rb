@@ -210,6 +210,10 @@ class CreateEnterprise < Task
     msg
   end
 
+  def target_notification_description
+    _('%{requestor} wants to create enterprise %{subject}.') % {:requestor => requestor.name, :subject => subject}
+  end
+
   def permission
     :validate_enterprise
   end

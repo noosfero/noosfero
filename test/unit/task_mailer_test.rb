@@ -85,7 +85,7 @@ class TaskMailerTest < Test::Unit::TestCase
 
   should 'be able to send a "target notification" message' do
     task = Task.new
-    task.expects(:information).returns('the task')
+    task.expects(:target_notification_description).returns('the task')
 
     target = mock()
     target.expects(:notification_emails).returns(['target@example.com'])

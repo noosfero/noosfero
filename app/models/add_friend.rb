@@ -23,8 +23,12 @@ class AddFriend < Task
     :manage_friends
   end
 
+  def target_notification_description
+    _('%{requestor} wants to be your friend.') % {:requestor => requestor.name}
+  end
+
   def target_notification_message
-    _('%{requestor} wants to be your friend.') % {:requestor => requestor.name} + "\n\n" +
+    target_notification_description + "\n\n" +
     _('You need to login to %{system} in order to accept %{requestor} as your friend.') % { :system => target.environment.name, :requestor => requestor.name }
   end
 

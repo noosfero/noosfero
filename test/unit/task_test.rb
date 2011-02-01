@@ -232,6 +232,11 @@ class TaskTest < Test::Unit::TestCase
     assert_equal task.environment, nil
   end
 
+  should 'have blank string on target_notification_description in Task base class' do
+    task = Task.new
+    assert_equal '', task.target_notification_description
+  end
+
   protected
 
   def sample_user

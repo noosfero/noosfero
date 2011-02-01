@@ -2,6 +2,11 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class CreateEnterpriseTest < Test::Unit::TestCase
 
+  def setup
+    @person = fast_create(Person)
+  end
+  attr_reader :person
+
   should 'provide needed data' do
     task = CreateEnterprise.new
 
@@ -253,4 +258,25 @@ class CreateEnterpriseTest < Test::Unit::TestCase
     t = CreateEnterprise.new
     assert_equal :validate_enterprise, t.permission
   end
+
+  should 'have target notification message' do
+    task = CreateEnterprise.new(:name => 'My enterprise', :requestor => person, :target => Environment.default)
+
+    assert_match(/#{task.name}.*requested to enter #{person.environment}.*approve or reject/, task.target_notification_message)
+  end
+
+  should 'have target notification description' do
+    task = CreateEnterprise.new(:name => 'My enterprise', :requestor => person, :target => Environment.default)
+
+    assert_match(/#{task.requestor.name} wants to create enterprise #{task.subject}/, task.target_notification_description)
+  end
+
+  should 'deliver target notification message' do
+    task = CreateEnterprise.new(:name => 'My enterprise', :requestor => person, :target => Environment.default)
+
+    email = TaskMailer.deliver_target_notification(task, task.target_notification_message)
+
+    assert_match(/#{task.requestor.name} wants to create enterprise #{task.subject}/, email.subject)
+  end
+
 end

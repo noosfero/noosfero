@@ -35,8 +35,12 @@ class AddMember < Task
     :manage_memberships
   end
 
+  def target_notification_description
+    _('%{requestor} wants to be a member of this community.') % {:requestor => requestor.name}
+  end
+
   def target_notification_message
-    _('%{requestor} wants to be a member of this community.') % {:requestor => requestor.name} + "\n\n" +
+    target_notification_description + "\n\n" +
     _('You will need login to %{system} in order to accept or reject %{requestor} as a member of %{organization}.') % { :system => target.environment.name, :requestor => requestor.name, :organization => organization.name }
   end
 

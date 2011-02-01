@@ -17,7 +17,7 @@ class TaskMailer < ActionMailer::Base
     url_for_tasks_list = task.target.kind_of?(Environment) ? '' : url_for(task.target.url.merge(:controller => 'tasks', :action => 'index'))
 
     from self.class.generate_from(task)
-    subject '[%s] %s' % [task.environment.name, task.information]
+    subject '[%s] %s' % [task.environment.name, task.target_notification_description]
     body :target => task.target.name,
       :message => msg,
       :environment => task.environment.name,

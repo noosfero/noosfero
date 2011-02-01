@@ -88,6 +88,10 @@ class CreateCommunity < Task
     self.status == Task::Status::FINISHED
   end
 
+  def target_notification_description
+    _('%{requestor} wants to create community %{subject}') % {:requestor => requestor.name, :subject => subject}
+  end
+
   def target_notification_message
     _("User \"%{user}\" just requested to create community %{community}. You have to approve or reject it through the \"Pending Validations\" section in your control panel.\n") % { :user => self.requestor.name, :community => self.name }
   end

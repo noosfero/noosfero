@@ -330,5 +330,36 @@ class ApproveArticleTest < ActiveSupport::TestCase
     assert_equal article.is_trackable?, article.class.last.is_trackable?
   end
 
+  should 'not have target notification message if it is not a moderated oganization' do
+    community.moderated_articles = false; community.save
+    task = ApproveArticle.new(:article => article, :target => community, :requestor => profile)
+
+    assert_nil task.target_notification_message
+  end
+
+  should 'have target notification message if is organization and not moderated' do
+    task = ApproveArticle.new(:article => article, :target => community, :requestor => profile)
+
+    community.expects(:moderated_articles?).returns(['true'])
+
+    assert_match(/wants to publish the article.*[\n]*.*to approve or reject/, task.target_notification_message)
+  end
+
+  should 'have target notification description' do
+    community.moderated_articles = false; community.save
+    task = ApproveArticle.new(:article => article, :target => community, :requestor => profile)
+
+    assert_match(/#{task.requestor.name} wants to publish the article: #{article.name}/, task.target_notification_description)
+  end
+
+  should 'deliver target notification message' do
+    task = ApproveArticle.new(:article => article, :target => community, :requestor => profile)
+
+    community.expects(:notification_emails).returns(['target@example.com'])
+    community.expects(:moderated_articles?).returns(['true'])
+
+    email = TaskMailer.deliver_target_notification(task, task.target_notification_message)
+    assert_match(/#{task.requestor.name} wants to publish the article: #{article.name}/, email.subject)
+  end
 
 end

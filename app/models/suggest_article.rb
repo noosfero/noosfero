@@ -56,9 +56,13 @@ class SuggestArticle < Task
     result = {:type => :defined_image, :src => '/images/icons-app/article-minor.png', :name => article_name}
   end
 
-  def target_notification_message
+  def target_notification_description
     _('%{sender} suggested the publication of the article: %{article}.') %
-    {:sender => sender, :article => article_name} + "\n\n" +
+    {:sender => sender, :article => article_name}
+  end
+
+  def target_notification_message
+    target_notification_description + "\n\n" +
     _('You need to login on %{system} in order to approve or reject this article.') % { :system => target.environment.name }
   end
 

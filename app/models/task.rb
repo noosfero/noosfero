@@ -186,6 +186,10 @@ class Task < ActiveRecord::Base
     raise NotImplementedError, "#{self} does not implement #target_notification_message"
   end
 
+  def target_notification_description
+    ''
+  end
+
   # What permission is required to perform task?
   def permission
     :perform_task

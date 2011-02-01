@@ -2,19 +2,24 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class AddMemberTest < ActiveSupport::TestCase
 
+  def setup
+    @person = fast_create(Person)
+    @community = fast_create(Community)
+  end
+  attr_reader :person, :community
+
+
   should 'be a task' do
     ok { AddMember.new.kind_of?(Task) }
   end
 
   should 'actually add memberships when confirmed' do
-    p = create_user('testuser1').person
-    c = fast_create(Community, :name => 'closed community')
-    c.update_attribute(:closed, true)
+    community.update_attribute(:closed, true)
     TaskMailer.stubs(:deliver_target_notification)
-    task = fast_create(AddMember, :requestor_id => p.id, :target_id => c.id, :target_type => 'Community')
+    task = fast_create(AddMember, :requestor_id => person.id, :target_id => community.id, :target_type => 'Community')
     task.finish
 
-    assert_equal [p], c.members
+    assert_equal [person], community.members
   end
 
   should 'require requestor' do
@@ -40,13 +45,11 @@ class AddMemberTest < ActiveSupport::TestCase
   end
 
   should 'send e-mails' do
-    p = create_user('testuser1').person
-    c = fast_create(Community, :name => 'closed community')
-    c.update_attribute(:closed, true)
+    community.update_attribute(:closed, true)
 
     TaskMailer.expects(:deliver_target_notification).at_least_once
 
-    task = AddMember.create!(:person => p, :organization => c)
+    task = AddMember.create!(:person => person, :organization => community)
   end
 
   should 'has permission to manage members' do
@@ -55,47 +58,56 @@ class AddMemberTest < ActiveSupport::TestCase
   end
 
   should 'have roles' do
-    p = create_user('testuser1').person
-    c = fast_create(Community, :name => 'community_test')
     TaskMailer.stubs(:deliver_target_notification)
-    task = AddMember.create!(:roles => [1,2,3], :person => p, :organization => c)
+    task = AddMember.create!(:roles => [1,2,3], :person => person, :organization => community)
     assert_equal [1,2,3], task.roles
   end
 
   should 'put member with the right roles' do
-    p = create_user('testuser1').person
-    c = fast_create(Community, :name => 'community_test')
-
-    roles = [Profile::Roles.member(c.environment.id), Profile::Roles.admin(c.environment.id)]
+    roles = [Profile::Roles.member(community.environment.id), Profile::Roles.admin(community.environment.id)]
     TaskMailer.stubs(:deliver_target_notification)
-    task = AddMember.create!(:roles => roles.map(&:id), :person => p, :organization => c)
+    task = AddMember.create!(:roles => roles.map(&:id), :person => person, :organization => community)
     task.finish
 
-    current_roles = p.find_roles(c).map(&:role)
+    current_roles = person.find_roles(community).map(&:role)
     assert_includes current_roles, roles[0]
     assert_includes current_roles, roles[1]
   end
 
   should 'override target notification message method from Task' do
-    p1 = create_user('testuser1').person
-    p2 = create_user('testuser2').person
-    task = AddFriend.new(:person => p1, :friend => p2)
+    task = AddMember.new(:person => person, :organization => community)
     assert_nothing_raised NotImplementedError do
       task.target_notification_message
     end
   end
 
   should 'ignore roles with id zero' do
-    p = create_user('testuser1').person
-    c = fast_create(Community, :name => 'community_test')
-
-    role = Profile::Roles.member(c.environment.id)
+    role = Profile::Roles.member(community.environment.id)
     TaskMailer.stubs(:deliver_target_notification)
-    task = AddMember.create!(:roles => ["0", role.id, nil], :person => p, :organization => c)
+    task = AddMember.create!(:roles => ["0", role.id, nil], :person => person, :organization => community)
     task.finish
 
-    current_roles = p.find_roles(c).map(&:role)
+    current_roles = person.find_roles(community).map(&:role)
     assert_includes current_roles, role
+  end
+
+  should 'have target notification message' do
+    task = AddMember.new(:person => person, :organization => community)
+
+    assert_match(/#{person.name} wants to be a member of this community.*[\n]*.*to accept or reject/, task.target_notification_message)
+  end
+
+  should 'have target notification description' do
+    task = AddMember.new(:person => person, :organization => community)
+
+    assert_match(/#{task.requestor.name} wants to be a member of this community/, task.target_notification_description)
+  end
+
+  should 'deliver target notification message' do
+    task = AddMember.new(:person => person, :organization => community)
+
+    email = TaskMailer.deliver_target_notification(task, task.target_notification_message)
+    assert_match(/#{task.requestor.name} wants to be a member of this community/, email.subject)
   end
 
 end

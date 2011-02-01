@@ -117,9 +117,13 @@ class ApproveArticle < Task
     article.blank?
   end
 
+  def target_notification_description
+    _('%{requestor} wants to publish the article: %{article}.') % {:requestor => requestor.name, :article => article.name}
+  end
+
   def target_notification_message
     return nil if target.organization? && !target.moderated_articles?
-    _('%{requestor} wants to publish the article: %{article}.') % {:requestor => requestor.name, :article => article.name} + "\n\n"
+    target_notification_description + "\n\n" +
     _('You need to login on %{system} in order to approve or reject this article.') % { :system => target.environment.name }
   end
 

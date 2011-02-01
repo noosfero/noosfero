@@ -134,4 +134,25 @@ class SuggestArticleTest < ActiveSupport::TestCase
     assert_equal 'some name', article.author_name
   end
 
+  should 'have target notification message' do
+    task = build(SuggestArticle, :target => @profile, :article_name => 'suggested article', :name => 'johndoe')
+
+    assert_match(/#{task.name}.*suggested the publication of the article: #{task.subject}.*[\n]*.*to approve or reject/, task.target_notification_message)
+  end
+
+  should 'have target notification description' do
+    task = build(SuggestArticle,:target => @profile, :article_name => 'suggested article', :name => 'johndoe')
+
+    assert_match(/#{task.name}.*suggested the publication of the article: #{task.subject}/, task.target_notification_description)
+  end
+
+  should 'deliver target notification message' do
+    task = build(SuggestArticle, :target => @profile, :article_name => 'suggested article', :name => 'johndoe', :email => 'johndoe@example.com')
+
+    email = TaskMailer.deliver_target_notification(task, task.target_notification_message)
+
+    assert_match(/#{task.name}.*suggested the publication of the article: #{task.subject}/, email.subject)
+  end
+
+
 end
