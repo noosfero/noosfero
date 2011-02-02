@@ -1306,9 +1306,3 @@ table.profile th {
 #chat-window .history .other-name {
    color: #7F1F1F;
 }
-
-/* task */
-
-#user a#pending-tasks-count {
-  color: #FFFFFF;
-}

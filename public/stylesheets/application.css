@@ -5945,3 +5945,9 @@ h1#agenda-title {
 .forum-posts .pagination {
   margin-top: 20px;
 }
+
+/* Task */
+
+#user a#pending-tasks-count {
+  color: #FFFFFF;
+}
