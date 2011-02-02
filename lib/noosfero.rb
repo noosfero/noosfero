@@ -39,6 +39,10 @@ module Noosfero
     '[a-z0-9][a-z0-9~.]*([_-][a-z0-9~.]+)*'
   end
 
+  def self.default_hostname
+    Environment.table_exists? && Environment.default ? Environment.default.default_hostname : 'localhost'
+  end
+
   private
 
   def self.controllers_in_directory(dir)
