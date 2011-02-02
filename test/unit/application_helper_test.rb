@@ -419,9 +419,9 @@ class ApplicationHelperTest < Test::Unit::TestCase
     stubs(:environment).returns(Environment.default)
     @controller = ApplicationController.new
 
-    c = fast_create(Community, :name => 'Community for tests', :nickname => 'Community nickname', :identifier => 'test_comm')
+    c = fast_create(Community, :name => 'Community for tests', :nickname => 'Community nick', :identifier => 'test_comm')
     stubs(:profile).returns(c)
-    assert_match(/Community nickname/, page_title)
+    assert_match(/Community nick/, page_title)
   end
 
   should 'generate a gravatar url' do
