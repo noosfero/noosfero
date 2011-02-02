@@ -6357,7 +6357,7 @@ msgstr "Ver tarefas processadas"
 
 #: app/views/tasks/index.rhtml:34 app/views/tasks/index.rhtml:40
 msgid "Set all to: "
-msgstr "Selecione uma categoria:"
+msgstr "Marque todos como:"
 
 #: app/views/tasks/new.rhtml:1
 msgid "New request for %s"
