@@ -11,9 +11,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.27.1\n"
-"POT-Creation-Date: 2011-01-31 15:26-0300\n"
-"PO-Revision-Date: 2011-01-31 15:31-0300\n"
+"Project-Id-Version: noosfero 0.28.0\n"
+"POT-Creation-Date: 2011-02-02 21:38-0300\n"
+"PO-Revision-Date: 2011-02-02 21:39-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE TEAM <E-MAIL@ADDRESS or HOME PAGE>\n"
 "MIME-Version: 1.0\n"
@@ -245,13 +245,15 @@ msgstr "Posts"
 msgid "Last post"
 msgstr "Último post"
 
-#: app/helpers/forum_helper.rb:44 app/views/profile/_profile_scrap.rhtml:10
+#: app/helpers/forum_helper.rb:45 app/helpers/forum_helper.rb:47
+#: app/views/profile/_profile_scrap.rhtml:10
 #: app/views/profile/_profile_activities.rhtml:7
 #: app/views/profile/_profile_network_activities.rhtml:10
 msgid "ago"
 msgstr "atrás"
 
-#: app/helpers/forum_helper.rb:44 app/helpers/manage_products_helper.rb:258
+#: app/helpers/forum_helper.rb:45 app/helpers/forum_helper.rb:47
+#: app/helpers/manage_products_helper.rb:258
 msgid "by"
 msgstr "por"
 
@@ -1829,19 +1831,19 @@ msgstr "Lista de marcadores"
 msgid "HTML Text document"
 msgstr "Documento de Texto HTML"
 
-#: app/models/article.rb:281
+#: app/models/article.rb:290
 msgid "Language not supported by Noosfero"
 msgstr "Idioma não suportado pelo Noosfero"
 
-#: app/models/article.rb:287
+#: app/models/article.rb:296
 msgid "Language is already used"
 msgstr "Idioma já foi usado"
 
-#: app/models/article.rb:293
+#: app/models/article.rb:302
 msgid "Language must be choosen"
 msgstr "É preciso escolher um idioma"
 
-#: app/models/article.rb:299
+#: app/models/article.rb:308
 msgid "A language must be choosen for the native article"
 msgstr "Um idioma deve ser escolhido para o artigo nativo"
 
@@ -1979,11 +1981,11 @@ msgstr "Nenhum(a)"
 msgid "box"
 msgstr "caixa"
 
-#: app/models/box.rb:- app/models/image.rb:- app/models/domain.rb:-
+#: app/models/box.rb:- app/models/image.rb:-
 msgid "Owner type"
 msgstr "Tipo de dono"
 
-#: app/models/box.rb:- app/models/image.rb:- app/models/domain.rb:-
+#: app/models/box.rb:- app/models/image.rb:-
 msgid "Owner"
 msgstr "Dono"
 
@@ -2177,6 +2179,10 @@ msgstr ""
 "{description}</em></p>"
 
 #: app/models/create_community.rb:92
+msgid "%{requestor} wants to create community %{subject}"
+msgstr "%{requestor} quer criar a comunidade %{subject}."
+
+#: app/models/create_community.rb:96
 msgid ""
 "User \"%{user}\" just requested to create community %{community}. You have "
 "to approve or reject it through the \"Pending Validations\" section in your "
@@ -2186,7 +2192,7 @@ msgstr ""
 "tem que aprová-lo ou rejeitá-lo através da seção \"Validações Pendentes\" no "
 "seupainel de controle.\n"
 
-#: app/models/create_community.rb:96
+#: app/models/create_community.rb:100
 msgid ""
 "Your request for registering community %{community} at %{environment} was "
 "just sent. Environment administrator will receive it and will approve or "
@@ -2202,7 +2208,7 @@ msgstr ""
 "      Você será notificado assim que o administrador do ambiente tiver uma "
 "posição sobre a sua requisição."
 
-#: app/models/create_community.rb:102
+#: app/models/create_community.rb:106
 msgid ""
 "Your request for registering community %{community} at %{environment} was "
 "not approved by the environment administrator. The following explanation was "
@@ -2216,7 +2222,7 @@ msgstr ""
 "\n"
 "%{explication}"
 
-#: app/models/create_community.rb:106
+#: app/models/create_community.rb:110
 msgid ""
 "Your request for registering the community \"%{community}\" was approved. "
 "You can access %{environment} now and start using your new community."
@@ -2238,7 +2244,7 @@ msgstr "Caixa"
 msgid "Type"
 msgstr "Tipo"
 
-#: app/models/block.rb:- app/models/environment.rb:-
+#: app/models/block.rb:-
 msgid "Settings"
 msgstr "Configurações"
 
@@ -2252,8 +2258,7 @@ msgstr "Habilitado"
 #: app/models/task.rb:- app/models/product_qualifier.rb:-
 #: app/models/certifier.rb:- app/models/external_feed.rb:-
 #: app/models/mailing_sent.rb:- app/models/comment.rb:-
-#: app/models/environment.rb:- app/models/profile.rb:-
-#: app/models/product_categorization.rb:-
+#: app/models/profile.rb:- app/models/product_categorization.rb:-
 msgid "Created at"
 msgstr "Criado em"
 
@@ -2262,8 +2267,7 @@ msgstr "Criado em"
 #: app/models/input.rb:- app/models/mailing.rb:- app/models/product.rb:-
 #: app/models/product_qualifier.rb:- app/models/certifier.rb:-
 #: app/models/external_feed.rb:- app/models/mailing_sent.rb:-
-#: app/models/environment.rb:- app/models/profile.rb:-
-#: app/models/product_categorization.rb:-
+#: app/models/profile.rb:- app/models/product_categorization.rb:-
 msgid "Updated at"
 msgstr "Atualizado em"
 
@@ -2387,17 +2391,17 @@ msgstr "%{requestor} quer publicar o artigo: %{linked_subject}."
 msgid "The article was removed."
 msgstr "O artigo foi removido."
 
-#: app/models/approve_article.rb:122
+#: app/models/approve_article.rb:121
 msgid "%{requestor} wants to publish the article: %{article}."
 msgstr "%{requestor} quer publicar o artigo: %{article}."
 
-#: app/models/approve_article.rb:123 app/models/suggest_article.rb:62
+#: app/models/approve_article.rb:127 app/models/suggest_article.rb:66
 msgid ""
 "You need to login on %{system} in order to approve or reject this article."
 msgstr ""
 "Você precisa entrar no %{system} para poder aprovar ou rejeitar este artigo."
 
-#: app/models/approve_article.rb:128
+#: app/models/approve_article.rb:132
 msgid ""
 "Your request for publishing the article \"%{article}\" was approved. Here is "
 "the comment left by the admin who approved your article:\n"
@@ -2408,7 +2412,7 @@ msgstr ""
 "comentário enviado pelo administrador que aprovou seu artigo:\n"
 "\n"
 
-#: app/models/approve_article.rb:130
+#: app/models/approve_article.rb:134
 msgid "Your request for publishing the article \"%{article}\" was approved."
 msgstr "Seu pedido de publicação do artigo \"%{article}\" foi aprovado."
 
@@ -2686,10 +2690,9 @@ msgid "qualifier"
 msgstr "qualificador"
 
 #: app/models/qualifier.rb:- app/models/product.rb:- app/models/certifier.rb:-
-#: app/models/comment.rb:- app/models/environment.rb:- app/models/profile.rb:-
-#: app/models/create_enterprise.rb:4 app/models/domain.rb:-
-#: app/models/contact.rb:- app/models/contact.rb:14
-#: app/views/cms/view.rhtml:24
+#: app/models/comment.rb:- app/models/profile.rb:-
+#: app/models/create_enterprise.rb:4 app/models/contact.rb:-
+#: app/models/contact.rb:14 app/views/cms/view.rhtml:24
 #: app/views/enterprise_registration/select_validator.rhtml:12
 #: app/views/content_viewer/_comment_form.rhtml:30
 #: app/views/box_organizer/_link_list_block.rhtml:4
@@ -2804,12 +2807,12 @@ msgstr ""
 msgid "tags|View all"
 msgstr "Ver todos(as)"
 
-#: app/models/add_friend.rb:27 app/models/add_friend.rb:36
+#: app/models/add_friend.rb:27 app/models/add_friend.rb:40
 #: app/models/invite_friend.rb:15
 msgid "%{requestor} wants to be your friend."
 msgstr "%{requestor} quer ser seu(sua) amigo(a)."
 
-#: app/models/add_friend.rb:28
+#: app/models/add_friend.rb:32
 msgid ""
 "You need to login to %{system} in order to accept %{requestor} as your "
 "friend."
@@ -2817,7 +2820,7 @@ msgstr ""
 "Você precisa entrar no %{system} para poder aceitar %{requestor} como seu"
 "(sua) amigo(a)."
 
-#: app/models/add_friend.rb:32 app/models/invite_friend.rb:11
+#: app/models/add_friend.rb:36 app/models/invite_friend.rb:11
 msgid "New friend"
 msgstr "Novo amigo"
 
@@ -3142,7 +3145,7 @@ msgstr "Novo membro"
 msgid "%{requestor} wants to be a member of this community."
 msgstr "%{requestor} quer ser um integrante desta comunidade."
 
-#: app/models/add_member.rb:40
+#: app/models/add_member.rb:44
 msgid ""
 "You will need login to %{system} in order to accept or reject %{requestor} "
 "as a member of %{organization}."
@@ -3252,53 +3255,21 @@ msgstr "Resposta de"
 msgid "%{fn} can only be informed for unauthenticated authors"
 msgstr "%{fn} só pode ser informado para autores não autenticados"
 
-#: app/models/comment.rb:51
+#: app/models/comment.rb:55
 msgid "(removed user)"
 msgstr "(usuário removido)"
 
-#: app/models/comment.rb:51
+#: app/models/comment.rb:55
 msgid "(unauthenticated user)"
 msgstr "(usuário não autenticado)"
 
-#: app/models/comment.rb:102
+#: app/models/comment.rb:106
 msgid "[%s] you got a new comment!"
 msgstr "[%s] você recebeu um novo comentário!"
 
 #: app/models/main_block.rb:8
 msgid "This block presents the main content of your pages."
 msgstr "Este bloco apresenta o conteúdo principal das suas páginas."
-
-#: app/models/environment.rb:-
-msgid "environment"
-msgstr "comunidade virtual"
-
-#: app/models/environment.rb:- app/models/organization.rb:85
-msgid "Contact email"
-msgstr "Email de contato"
-
-#: app/models/environment.rb:- app/models/domain.rb:-
-msgid "Is default"
-msgstr "É padrão"
-
-#: app/models/environment.rb:-
-msgid "Design data"
-msgstr "Informações de design"
-
-#: app/models/environment.rb:- app/models/profile.rb:-
-msgid "Custom header"
-msgstr "Cabeçalho personalizado"
-
-#: app/models/environment.rb:- app/models/profile.rb:-
-msgid "Custom footer"
-msgstr "Rodapé personalizado"
-
-#: app/models/environment.rb:- app/models/profile.rb:-
-msgid "Theme"
-msgstr "Tema"
-
-#: app/models/environment.rb:-
-msgid "Terms of use acceptance text"
-msgstr "Texto para aceite dos termos de uso"
 
 #: app/models/environment.rb:13
 msgid "View environment admin panel"
@@ -3530,6 +3501,18 @@ msgstr "Precisão do georeferenciamento"
 #: app/models/profile.rb:-
 msgid "Nickname"
 msgstr "Apelido"
+
+#: app/models/profile.rb:-
+msgid "Custom header"
+msgstr "Cabeçalho personalizado"
+
+#: app/models/profile.rb:-
+msgid "Custom footer"
+msgstr "Rodapé personalizado"
+
+#: app/models/profile.rb:-
+msgid "Theme"
+msgstr "Tema"
 
 #: app/models/profile.rb:- app/models/profile.rb:681
 msgid "Public profile"
@@ -3783,7 +3766,7 @@ msgstr "Atividade econômica"
 msgid "Management information"
 msgstr "Gerenciamento de informação"
 
-#: app/models/create_enterprise.rb:168
+#: app/models/create_enterprise.rb:168 app/models/create_enterprise.rb:214
 msgid "%{requestor} wants to create enterprise %{subject}."
 msgstr "%{requestor} quer criar empreendimento %{subject}."
 
@@ -3898,6 +3881,10 @@ msgid "Display name"
 msgstr "Nome de exibição"
 
 #: app/models/organization.rb:85
+msgid "Contact email"
+msgstr "Email de contato"
+
+#: app/models/organization.rb:85
 msgid "Validated"
 msgstr "Validado"
 
@@ -3908,14 +3895,6 @@ msgstr "Perfil da comunidade"
 #: app/models/organization.rb:104
 msgid "Invite Friends"
 msgstr "Convidar Amigos"
-
-#: app/models/domain.rb:-
-msgid "domain"
-msgstr "domínio"
-
-#: app/models/domain.rb:-
-msgid "Google maps key"
-msgstr "Chave do Google maps"
 
 #: app/models/domain.rb:13
 msgid ""
@@ -5671,8 +5650,8 @@ msgstr "Remover este comentário e todas as suas respostas"
 
 #: app/views/content_viewer/_comment.rhtml:27
 msgid "Are you sure you want to remove this comment and all its replies?"
-msgstr "Você tem certeza que quer excluir este comentário e todas as "
-"suas respostas?"
+msgstr ""
+"Você tem certeza que quer excluir este comentário e todas as suas respostas?"
 
 #: app/views/content_viewer/_comment.rhtml:52
 #: app/views/profile/_profile_scrap.rhtml:14
@@ -6230,8 +6209,8 @@ msgid ""
 "community, the next user to join this community will assume the "
 "administrator role."
 msgstr ""
-"Como você é o último administrador e não há outro membro nesta comunidade, "
-"o próximo usuário a se tornar integrante irá assumir o papel de administrador."
+"Como você é o último administrador e não há outro membro nesta comunidade, o "
+"próximo usuário a se tornar integrante irá assumir o papel de administrador."
 
 #: app/views/profile_members/last_admin.rhtml:24
 msgid "Ok, I want to leave"
@@ -6359,6 +6338,23 @@ msgstr "Ver tarefas processadas"
 msgid "Set all to: "
 msgstr "Marque todos como:"
 
+#: app/views/tasks/index.rhtml:34 app/views/tasks/index.rhtml:40
+#: app/views/tasks/_task.rhtml:24
+msgid "Accept"
+msgstr "Aceitar"
+
+#: app/views/tasks/index.rhtml:34 app/views/tasks/index.rhtml:40
+#: app/views/tasks/_task.rhtml:29
+#: app/views/enterprise_validation/details.rhtml:23
+#: app/views/enterprise_validation/details.rhtml:31
+msgid "Reject"
+msgstr "Rejeitar"
+
+#: app/views/tasks/index.rhtml:34 app/views/tasks/index.rhtml:40
+#: app/views/tasks/_task.rhtml:34
+msgid "Skip"
+msgstr "Pular"
+
 #: app/views/tasks/new.rhtml:1
 msgid "New request for %s"
 msgstr "Nova solicitação para %s"
@@ -6386,20 +6382,6 @@ msgstr "Criado:"
 #: app/views/tasks/processed.rhtml:14
 msgid "Processed:"
 msgstr "Processado:"
-
-#: app/views/tasks/_task.rhtml:24
-msgid "Accept"
-msgstr "Aceitar"
-
-#: app/views/tasks/_task.rhtml:29
-#: app/views/enterprise_validation/details.rhtml:23
-#: app/views/enterprise_validation/details.rhtml:31
-msgid "Reject"
-msgstr "Rejeitar"
-
-#: app/views/tasks/_task.rhtml:34
-msgid "Skip"
-msgstr "Pular"
 
 #: app/views/tasks/_suggest_article_accept_details.rhtml:1
 msgid "Sent by: "
@@ -8217,6 +8199,24 @@ msgstr ""
 "Este site usa <a href=\"http://noosfero.org/\">Noosfero</a>, desenvolvido "
 "pela %s e licenciado sob a <a href=\"http://www.gnu.org/licenses/agpl.html"
 "\">GNU Affero General Public License</a> versão 3 ou superior."
+
+#~ msgid "environment"
+#~ msgstr "comunidade virtual"
+
+#~ msgid "Is default"
+#~ msgstr "É padrão"
+
+#~ msgid "Design data"
+#~ msgstr "Informações de design"
+
+#~ msgid "Terms of use acceptance text"
+#~ msgstr "Texto para aceite dos termos de uso"
+
+#~ msgid "domain"
+#~ msgstr "domínio"
+
+#~ msgid "Google maps key"
+#~ msgstr "Chave do Google maps"
 
 #~ msgid "Generic task"
 #~ msgstr "Tarefa genérica"
