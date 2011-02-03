@@ -31,13 +31,13 @@
 
     <ul class='task-list'>
       <p>
-      <%= labelled_select(_("Set all to: "), 'set-decisions', 'downcase', 'to_s', nil, ["",_("Accept"), _("Reject"), _("Skip")], :id => "up-set-all-tasks-to") %>
+      <%= labelled_select(_("Set all to: "), 'set-decisions', 'first', 'last', nil, [['',""],['accept',_("Accept")],['reject',_("Reject")],['skip',_("Skip")]], :id => "up-set-all-tasks-to") %>
       </p>
       <% @tasks.each do |task| %>
         <%= render :partial => 'task', :locals => { :task => task } %>
       <% end %>
       <p>
-      <%= labelled_select(_("Set all to: "), 'set-decisions', 'downcase', 'to_s', nil, ["",_("Accept"), _("Reject"), _("Skip")], :id => "up-set-all-tasks-to") %>
+      <%= labelled_select(_("Set all to: "), 'set-decisions', 'first', 'last', nil, [['',""],['accept',_("Accept")],['reject',_("Reject")],['skip',_("Skip")]], :id => "down-set-all-tasks-to") %>
       </p>
     </ul>
 
