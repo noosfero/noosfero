@@ -25,4 +25,9 @@ class ExceptionNotificationTest < ActionController::IntegrationTest
     assert_includes ActionMailer::Base.deliveries.map(&:to).flatten, 'admin@example.com'
     assert_includes ActionMailer::Base.deliveries.map(&:to).flatten, 'user@example.com'
   end
+
+  should 'render not found when try to access invalid url' do
+    get '/profile/ze/tag/notexists'
+    assert_template 'not_found.rhtml'
+  end
 end
