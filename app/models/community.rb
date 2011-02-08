@@ -39,10 +39,6 @@ class Community < Organization
     end
   end
 
-  def display_name
-    self.name
-  end
-
   def active_fields
     environment ? environment.active_community_fields : []
   end
