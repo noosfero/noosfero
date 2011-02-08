@@ -1,6 +1,7 @@
 class ProfileListBlock < Block
 
   settings_items :limit, :type => :integer, :default => 6
+  settings_items :prioritize_profiles_with_image, :type => :boolean, :default => false
 
   def self.description
     _('Random profiles')
@@ -12,8 +13,7 @@ class ProfileListBlock < Block
   end
 
   def profile_list
-    random = randomizer
-    profiles.visible.all(:limit => limit, :select => 'DISTINCT profiles.*, ' + random, :order => random)
+    profiles.visible.all(:include => :image, :limit => limit, :select => 'DISTINCT profiles.*, ' + image_prioritizer + randomizer, :order => image_prioritizer + randomizer)
   end
 
   def profile_count
@@ -22,6 +22,10 @@ class ProfileListBlock < Block
 
   def randomizer
     @randomizer ||= "(profiles.id % #{rand(profile_count) + 1})"
+  end
+
+  def image_prioritizer
+    prioritize_profiles_with_image ? '(images.id is null),' : ''
   end
 
   # the title of the block. Probably will be overriden in subclasses.

@@ -145,7 +145,7 @@ class ProfileListBlockTest < Test::Unit::TestCase
     block.stubs(:owner).returns(env)
 
     # force the "random" function to return something we know
-    block.stubs(:randomizer).returns('-id')
+    block.stubs(:randomizer).returns('-profiles.id')
 
     assert_equal [p3.id, p2.id, p1.id], block.profile_list.map(&:id)
   end
@@ -162,6 +162,25 @@ class ProfileListBlockTest < Test::Unit::TestCase
     block.stubs(:profile_count).returns(0)
     block.expects(:rand).returns(0)
     assert_no_match /profiles.id % 0/, block.randomizer
+  end
+
+  should 'prioritize profiles with image if this option is turned on' do
+    env = fast_create(Environment)
+    p1 = fast_create(Person, :environment_id => env.id)
+    img1 = Image.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :owner => p1)
+    p2 = fast_create(Person, :environment_id => env.id)
+    img2 = Image.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :owner => p2)
+
+    p_without_image = fast_create(Person, :environment_id => env.id)
+
+    block = ProfileListBlock.new
+    block.stubs(:owner).returns(env)
+    block.stubs(:prioritize_profiles_with_image).returns(true)
+
+    # force the "random" function to return something we know
+    block.stubs(:randomizer).returns('-profiles.id')
+
+    assert_not_includes block.profile_list[0..1], p_without_image
   end
 
 end
