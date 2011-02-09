@@ -53,7 +53,7 @@ Feature: search inside a profile
   Scenario: search on environment
     Given I go to Joao Silva's profile
     And I fill in "q" with "bees"
-    And I choose "Colivre.net"
+    And I choose "General"
     And I press "Search"
     Then I should be on the search page
     And I should see "bees and butterflies" within "#search-page"
