@@ -248,9 +248,12 @@ $ RAILS_ENV=production ./script/runner "Environment.default.domains << Domain.ne
 
 (replace "your.domain.com" with your actual domain name)
 
-Add at least an user as admin of environment:
+Add at least one user as admin of environment:
 
 $ RAILS_ENV=production ./script/runner "User.create(:login => 'adminuser', :email => 'admin@example.com', :password => 'admin', :password_confirmation => 'admin', :environment => Environment.default)"
+
+(replace "adminuser", "admin@example.com", "admin" with the login, email
+and password of your environment admin)
 
 Compile the translations:
 
