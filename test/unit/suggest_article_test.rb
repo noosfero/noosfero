@@ -113,6 +113,14 @@ class SuggestArticleTest < ActiveSupport::TestCase
     assert article.highlighted
   end
 
+  should 'not be highlighted by default' do
+    t = build(SuggestArticle, :target => @profile)
+    t.perform
+
+    article = TinyMceArticle.last(:conditions => { :name => t.article_name})
+    assert_equal false, article.highlighted
+  end
+
   should 'override target notification message method from Task' do
     task = build(SuggestArticle, :target => @profile)
     assert_nothing_raised NotImplementedError do

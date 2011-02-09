@@ -15,7 +15,7 @@ class SuggestArticle < Task
   settings_items :article_parent_id, :type => String
   settings_items :source, :type => String
   settings_items :source_name, :type => String
-  settings_items :highlighted, :type => :boolean
+  settings_items :highlighted, :type => :boolean, :default => false
 
   def sender
     "#{name} (#{email})"

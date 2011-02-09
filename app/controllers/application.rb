@@ -131,6 +131,7 @@ class ApplicationController < ActionController::Base
     @path ||= request.path
     render :template => 'shared/not_found.rhtml', :status => 404, :layout => get_layout
   end
+  alias :render_404 :render_not_found
 
   def render_access_denied(message = nil, title = nil)
     @no_design_blocks = true
