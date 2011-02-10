@@ -2068,6 +2068,8 @@ input.disabled {
 
 .common-profile-list-block img {
   border: none;
+  width: 50px;
+  height: 50px;
 }
 
 .box-2 .common-profile-list-block span,
@@ -5511,6 +5513,8 @@ h1#agenda-title {
   padding: 1px;
   border: 1px solid #ccc;
   margin: 4px 3px 0 0;
+  width: 20px;
+  height: 20px;
 }
 
 .profile-wall-image {
@@ -5534,6 +5538,12 @@ h1#agenda-title {
   padding: 0;
   margin: 4px 3px 0 0;
   text-align: center;
+}
+
+#profile-network .upload_image .profile-network-text span img,
+#profile-activity .upload_image .profile-activity-text span img {
+  width: auto;
+  height: auto;
 }
 
 #profile-network .upload_image .profile-network-text img,
