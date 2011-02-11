@@ -3944,6 +3944,15 @@ h1#agenda-title {
   margin: 5px 0px 5px 160px;
 }
 
+.controller-profile_design .article-block-edition select,
+.controller-profile_design .article-block-edition option {
+  width: 300px;
+}
+
+.controller-profile_design .article-block-edition option {
+  overflow-x: hidden;
+}
+
 /* ==> public/stylesheets/controller_profile_editor.css <== */
 
 .controller-profile_editor .categorie_box .button {

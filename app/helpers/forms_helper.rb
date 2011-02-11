@@ -111,6 +111,18 @@ module FormsHelper
     ))
   end
 
+  def options_for_select_with_title(container, selected = nil)
+    container = container.to_a if Hash === container
+
+    options_for_select = container.inject([]) do |options, element|
+      text, value = option_text_and_value(element)
+      selected_attribute = ' selected="selected"' if option_value_selected?(value, selected)
+      options << %(<option title="#{html_escape(text.to_s)}" value="#{html_escape(value.to_s)}"#{selected_attribute}>#{html_escape(text.to_s)}</option>)
+    end
+
+    options_for_select.join("\n")
+  end
+
 protected
   def self.next_id_number
     if defined? @@id_num
