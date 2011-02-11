@@ -337,3 +337,13 @@ Given /^the community "(.+)" is closed$/ do |community|
   community.closed = true
   community.save
 end
+
+Given /^someone suggested the following article to be published$/ do |table|
+  SuggestArticle.skip_captcha!
+  table.hashes.map{|item| item.dup}.each do |item|
+    target = Community[item.delete('target')]
+    task = SuggestArticle.create!(:target => target, :data => item)
+  end
+end
+
+
