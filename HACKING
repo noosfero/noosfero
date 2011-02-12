@@ -70,3 +70,17 @@ environment, you must run the delayed_job server like this:
  ./script/delayed_job run
 
 This will block your terminal. To stop the delayed_job server, hit Control-C.
+
+== Enabling exceptions notification
+
+By default, exception notifications are disabled in development environment. If
+you want to enable it then you need to change some files:
+
+1) Add in config/environments/development.rb:
+   config.action_controller.consider_all_requests_local = false
+
+2) Add in app/controller/application.rb:
+   local_addresses.clear
+
+3) Add in config/noosfero.yml at development section:
+   exception_recipients: [admin@example.com]

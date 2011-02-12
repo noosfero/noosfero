@@ -5,6 +5,7 @@
 <%= labelled_form_field(_("Source URL"), f.text_field(:source)) %>
 
 <%= select_profile_folder(_('Select the folder where the article must be published'), "tasks[#{task.id}][task]", 'article_parent_id', task.target) %>
+<%= labelled_form_field(_('Highlight this article'), f.check_box(:highlighted)) %>
 
 <div>
   <%= labelled_form_field(_('Lead'), f.text_area(:article_abstract, :style => 'width: 482px; height: 200px;')) %>

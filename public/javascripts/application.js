@@ -461,6 +461,7 @@ function new_qualifier_row(selector, select_qualifiers) {
 
 // controls the display of the login/logout stuff
 jQuery(function($) {
+  $.ajaxSetup({cache: false});
   $.getJSON('/account/user_data', function userDataCallBack(data) {
     if (data.login) {
       // logged in

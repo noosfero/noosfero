@@ -74,10 +74,6 @@ class CreateCommunity < Task
     true
   end
 
-  def display_name
-    self.name
-  end
-
   # tells if this request was rejected
   def rejected?
     self.status == Task::Status::CANCELLED

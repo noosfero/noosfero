@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.28.0\n"
 "POT-Creation-Date: 2011-02-02 21:38-0300\n"
-"PO-Revision-Date: 2011-02-02 21:39-0300\n"
+"PO-Revision-Date: 2011-02-10 14:54-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE TEAM <E-MAIL@ADDRESS or HOME PAGE>\n"
 "MIME-Version: 1.0\n"
@@ -1660,7 +1660,7 @@ msgstr "O conteúdo aqui está disponível apenas para os amigos do(a) %s."
 #: app/controllers/public/profile_controller.rb:246
 msgid "The contents in this community is available to members only."
 msgstr ""
-"O conteúdo desta comuninidade está disponível apenas para os seus membros."
+"O conteúdo desta comunidade está disponível apenas para os seus membros."
 
 #: app/controllers/public/profile_controller.rb:252
 msgid ""

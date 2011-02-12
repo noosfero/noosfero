@@ -1,3 +1,9 @@
+noosfero (0.28.3) unstable; urgency=low
+
+  * Bugfixes Version release. (Closes: AI#1837 AI#1857 AI#1656 AI#1750 AI#1846 AI#1853 AI#1841 AI#1847 AI#1812 AI#1858)
+
+ -- Joenio Costa <joenio@perl.org.br>  Fri, 11 Feb 2011 22:54:24 -0300
+
 noosfero (0.28.2) unstable; urgency=low
 
   * Bugfixes Version release.

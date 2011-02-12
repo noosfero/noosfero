@@ -10,7 +10,9 @@
     <% end %>
 
     <% if @profile.organization? %>
-      <% tabs << {:title => _('What\'s new'), :id => 'profile-network', :content => (render :partial => 'profile_network')} %>
+      <% if @profile.public? || (logged_in? && current_person.follows?(@profile)) %>
+        <% tabs << {:title => _('What\'s new'), :id => 'profile-network', :content => (render :partial => 'profile_network')} %>
+      <% end %>
       <% tabs << {:title => _('Profile'), :id => 'organization-profile', :content => (render :partial => 'organization_profile')} %>
     <% elsif @profile.person? %>
       <% if logged_in? && current_person.follows?(@profile) %>

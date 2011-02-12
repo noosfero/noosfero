@@ -46,7 +46,7 @@ module DatesHelper
     if (date1 == date2) || (date2.nil?)
       show_date(date1)
     else
-      _('from %s to %s') % [show_date(date1), show_date(date2)]
+      _('from %{date1} to %{date2}') % {:date1 => show_date(date1), :date2 => show_date(date2)}
     end
   end
 
