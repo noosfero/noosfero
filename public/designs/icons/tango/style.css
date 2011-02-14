@@ -102,3 +102,4 @@
 
 /******************LARGE ICONS********************/
 .image-gallery-item .folder { background-image: url(mod/96x96/places/folder.png) }
+.image-gallery-item .gallery   { background-image: url(mod/96x96/mimetypes/image-x-generic.png) }

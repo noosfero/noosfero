@@ -827,7 +827,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
     get :view_page, :profile => profile.identifier, :page => folder.explode_path
 
-    assert_tag :tag => 'img', :attributes => {:src => /\/images\/icons-app\/image-loading-thumb.png/}
+    assert_tag :tag => 'a', :attributes => {:class => 'image', :style => /background-image: url\(\/images\/icons-app\/image-loading-thumb.png\)/}
   end
 
   should 'display thumbnail image in gallery if thumbnails were processed' do
@@ -839,7 +839,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     process_delayed_job_queue
     get :view_page, :profile => profile.identifier, :page => folder.explode_path
 
-    assert_tag :tag => 'img', :attributes => {:src => /other-pic_thumb.jpg/}
+    assert_tag :tag => 'a', :attributes => {:class => 'image', :style => /background-image: url\(.*\/other-pic_thumb.jpg\)/}
   end
 
   should 'display source from article' do
