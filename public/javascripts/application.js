@@ -667,3 +667,9 @@ function add_comment_reply_form(button, comment_id) {
   }
   return f;
 }
+
+function original_image_dimensions(src) {
+  var img = new Image();
+  img.src = src;
+  return { 'width' : img.width, 'height' : img.height };
+}

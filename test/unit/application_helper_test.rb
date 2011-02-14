@@ -593,6 +593,20 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_match person.name, task_information(task)
   end
 
+  should 'return nil when :show_zoom_button_on_article_images is not enabled in environment' do
+    env = Environment.default
+    env.stubs(:enabled?).with(:show_zoom_button_on_article_images).returns(false)
+    stubs(:environment).returns(env)
+    assert_nil add_zoom_to_images
+  end
+
+  should 'return code when :show_zoom_button_on_article_images is enabled in environment' do
+    env = Environment.default
+    env.stubs(:enabled?).with(:show_zoom_button_on_article_images).returns(true)
+    stubs(:environment).returns(env)
+    assert_not_nil add_zoom_to_images
+  end
+
   protected
 
   def url_for(args = {})
@@ -602,6 +616,9 @@ class ApplicationHelperTest < Test::Unit::TestCase
     content.strip
   end
   def javascript_tag(any)
+    ''
+  end
+  def javascript_include_tag(any)
     ''
   end
   def link_to(label, action, options = {})

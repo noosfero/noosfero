@@ -83,6 +83,29 @@ Given /^the following files$/ do |table|
   end
 end
 
+Given /^the following articles? with images?$/ do |table|
+  table.hashes.each do |item|
+    owner = Profile[item[:owner]]
+    file = item[:image]
+    img = { :src => "/images/#{file}", :alt => file }
+    img[:width] = item[:dimensions].split('x')[0] if item[:dimensions]
+    img[:height] = item[:dimensions].split('x')[1] if item[:dimensions]
+    img[:style] = item[:style] if item[:style]
+    img_tag = "<img "
+    img.each { |attr, value| img_tag += "#{attr}=\"#{value}\" " }
+    img_tag += "/>"
+    article = TinyMceArticle.new(:profile => owner, :name => item[:name], :body => img_tag)
+    if item[:parent]
+      article.parent = Article.find_by_slug(item[:parent])
+    end
+    article.save!
+    if item[:homepage]
+      owner.home_page = article
+      owner.save!
+    end
+  end
+end
+
 Given /^the following products?$/ do |table|
   table.hashes.each do |item|
     data = item.dup

@@ -1010,6 +1010,43 @@ code input {
   display: none;
 }
 
+.zoomable-image {
+  position: relative;
+  display: inline-block;
+}
+
+/* IE 7 hack to simulate inline-block */
+.msie7 .zoomable-image {
+  zoom: 1;
+  *display: inline;
+}
+
+.zoomify-image {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  width: 100%;
+  height: 16px;
+  text-align: right;
+  background: transparent url(/images/black-alpha-pixel.png);
+  border-bottom: 1px solid #333;
+}
+
+#article .zoomify-image {
+  text-decoration: none;
+  color: #fff;
+}
+
+.zoomify-image span {
+  font-size: 10px;
+  line-height: 16px;
+  padding-right: 16px;
+  border-bottom: 1px solid #eee;
+  display: block;
+  background: transparent url(/images/zoom.png) right center no-repeat;
+}
+
 /* * *  Comments  * * */
 
 .comments {  }

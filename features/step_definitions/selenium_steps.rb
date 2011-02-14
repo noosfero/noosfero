@@ -80,6 +80,11 @@ Then /^there should be ([1-9][0-9]*) "([^\"]*)" within "([^\"]*)"$/ do |number, 
   response.selenium.get_xpath_count("//*[contains(@class,'#{parent_class}')]//*[contains(@class,'#{child_class}')]").to_i.should be(number.to_i)
 end
 
+Then /^"([^\"]*)" should be (left|right) aligned$/ do |element_class, align|
+  # Using xpath is the only way to count
+  response.selenium.get_xpath_count("//*[contains(@class,'#{element_class}') and contains(@style,'float: #{align}')]").to_i.should be(1)
+end
+
 #### Noosfero specific steps ####
 
 Then /^the select for category "([^\"]*)" should be visible$/ do |name|
