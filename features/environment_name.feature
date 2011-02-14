@@ -7,6 +7,6 @@ Feature: setting environment name
     Given I am logged in as admin
     When I follow "Administration"
     And I follow "Edit site info"
-    And I fill in "Name" with "My environment"
+    And I fill in "Site name" with "My environment"
     And I press "Save"
     Then I should see "My environment" within "title"
