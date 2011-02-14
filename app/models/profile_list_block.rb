@@ -13,7 +13,7 @@ class ProfileListBlock < Block
   end
 
   def profile_list
-    profiles.visible.all(:include => :image, :limit => limit, :select => 'DISTINCT profiles.*, ' + image_prioritizer + randomizer, :order => image_prioritizer + randomizer)
+    profiles.visible.all(:limit => limit, :select => 'DISTINCT profiles.*, ' + image_prioritizer + randomizer, :joins => "LEFT OUTER JOIN images ON images.owner_id = profiles.id", :order => image_prioritizer + randomizer)
   end
 
   def profile_count
