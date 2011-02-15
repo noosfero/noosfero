@@ -1028,7 +1028,7 @@ code input {
   display: block;
   width: 100%;
   height: 16px;
-  text-align: right;
+  text-align: left;
   background: transparent url(/images/black-alpha-pixel.png);
   border-bottom: 1px solid #333;
 }
@@ -1041,10 +1041,10 @@ code input {
 .zoomify-image span {
   font-size: 10px;
   line-height: 16px;
-  padding-right: 16px;
+  padding-left: 16px;
   border-bottom: 1px solid #eee;
   display: block;
-  background: transparent url(/images/zoom.png) right center no-repeat;
+  background: transparent url(/images/zoom.png) left center no-repeat;
 }
 
 /* * *  Comments  * * */
