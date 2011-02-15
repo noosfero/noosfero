@@ -270,4 +270,8 @@ class EventTest < ActiveSupport::TestCase
     assert_kind_of Noosfero::TranslatableContent, Event.new
   end
 
+  should 'tiny mce editor is enabled' do
+    assert Event.new.tiny_mce?
+  end
+
 end

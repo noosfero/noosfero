@@ -236,4 +236,9 @@ class TinyMceArticleTest < Test::Unit::TestCase
     assert_equal false, a.advertise?
     assert_equal false, a.is_trackable?
   end
+
+  should 'tiny mce editor is enabled' do
+    assert TinyMceArticle.new.tiny_mce?
+  end
+
 end

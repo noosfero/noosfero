@@ -1576,4 +1576,9 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_redirected_to :action => 'view', :id => f
   end
 
+  should 'render TinyMce Editor for events' do
+    get :new, :profile => @profile.identifier, :type => 'Event'
+    assert_tag :tag => 'textarea', :attributes => { :class => 'mceEditor' }
+  end
+
 end
