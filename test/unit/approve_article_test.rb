@@ -362,4 +362,12 @@ class ApproveArticleTest < ActiveSupport::TestCase
     assert_match(/#{task.requestor.name} wants to publish the article: #{article.name}/, email.subject)
   end
 
+  should 'approve an event' do
+    event = fast_create(Event, :profile_id => profile.id, :name => 'Event test', :slug => 'event-test', :abstract => 'Lead of article', :body => 'This is my event')
+    task = ApproveArticle.create!(:name => 'Event test', :article => event, :target => community, :requestor => profile)
+    assert_difference event.class, :count do
+      task.finish
+    end
+  end
+
 end
