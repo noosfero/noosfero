@@ -2,7 +2,6 @@ class EnterpriseActivation < Task
 
   class RequestorRequired < Exception; end
 
-  acts_as_having_settings :field => :data
   settings_items :enterprise_id, :integer
 
   validates_presence_of :enterprise_id

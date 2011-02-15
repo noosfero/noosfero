@@ -6,25 +6,11 @@ class CreateCommunity < Task
   alias :environment :target
   alias :environment= :target=
 
-  serialize :data, Hash
-  attr_protected :data
-  def data
-    self[:data] ||= Hash.new
-  end
-
   acts_as_having_image
 
   DATA_FIELDS = Community.fields + ['name', 'closed']
-
   DATA_FIELDS.each do |field|
-    # getter
-    define_method(field) do
-      self.data[field.to_sym]
-    end
-    # setter
-    define_method("#{field}=") do |value|
-      self.data[field.to_sym] = value
-    end
+    settings_items field.to_sym
   end
 
   def validate

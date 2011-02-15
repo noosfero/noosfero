@@ -1,10 +1,5 @@
 class ChangePassword < Task
 
-  serialize :data, Hash
-  def data
-    self[:data] ||= {}
-  end
-
   attr_accessor :login, :email, :password, :password_confirmation, :environment_id
 
   def self.human_attribute_name(attrib)
@@ -55,11 +50,6 @@ class ChangePassword < Task
   validates_presence_of :password, :on => :update, :if => lambda { |change| change.status != Task::Status::CANCELLED }
   validates_presence_of :password_confirmation, :on => :update, :if => lambda { |change| change.status != Task::Status::CANCELLED }
   validates_confirmation_of :password, :if => lambda { |change| change.status != Task::Status::CANCELLED }
-
-  def initialize(*args)
-    super(*args)
-    self[:data] = {}
-  end
 
   def title
     _("Change password")

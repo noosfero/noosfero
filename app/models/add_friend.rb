@@ -1,6 +1,6 @@
 class AddFriend < Task
 
-  acts_as_having_settings :group_for_person, :group_for_friend, :field => :data
+  settings_items :group_for_person, :group_for_friend
 
   validates_presence_of :requestor_id, :target_id
 

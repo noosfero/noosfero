@@ -1,16 +1,10 @@
 class ApproveArticle < Task
-  serialize :data, Hash
-
   validates_presence_of :requestor_id, :target_id
 
   def article_title
     article ? article.title : _('(The original text was removed)')
   end
   
-  def data
-    self[:data] ||= {} 
-  end
-
   def article
     Article.find_by_id data[:article_id]
   end
@@ -27,21 +21,7 @@ class ApproveArticle < Task
     data[:name] = value
   end
 
-  def closing_statment
-    data[:closing_statment]
-  end
-  
-  def closing_statment= value
-    data[:closing_statment] = value
-  end
-
-  def article_parent_id= value
-    data[:parent_id] = value
-  end
-
-  def article_parent_id
-    data[:parent_id]
-  end
+  settings_items :closing_statment, :article_parent_id, :highlighted
 
   def article_parent
     Article.find_by_id article_parent_id.to_i
@@ -49,14 +29,6 @@ class ApproveArticle < Task
 
   def article_parent= value
     self.article_parent_id = value.id
-  end
-
-  def highlighted= value
-    data[:highlighted] = value
-  end
-
-  def highlighted
-    data[:highlighted]
   end
 
   def abstract= value

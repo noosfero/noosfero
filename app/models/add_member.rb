@@ -8,7 +8,7 @@ class AddMember < Task
   alias :organization :target
   alias :organization= :target=
 
-  acts_as_having_settings :roles, :field => :data
+  settings_items :roles
 
   def perform
     self.roles ||= [Profile::Roles.member(organization.environment.id).id]

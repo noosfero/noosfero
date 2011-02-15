@@ -1,6 +1,5 @@
 class Invitation < Task
 
-  acts_as_having_settings :field => :data
   settings_items :message, :friend_name, :friend_email
 
   validates_presence_of :requestor_id
