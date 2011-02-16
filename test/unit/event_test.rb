@@ -14,9 +14,9 @@ class EventTest < ActiveSupport::TestCase
     assert_kind_of String, Event.short_description
   end
 
-  should 'have a description' do
-    e = Event.new(:description => 'some useful description')
-    assert_equal 'some useful description', e.description
+  should 'have a body' do
+    e = Event.new(:body => 'some useful description')
+    assert_equal 'some useful description', e.body
   end
 
   should 'have a link' do
@@ -62,9 +62,9 @@ class EventTest < ActiveSupport::TestCase
     assert_includes Event.find_by_contents('surprisingly'), e
   end
 
-  should 'be indexed by description' do
+  should 'be indexed by body' do
     profile = create_user('testuser').person
-    e = Event.create!(:name => 'bli', :start_date => Date.new(2008, 06, 06), :profile => profile, :description => 'my surprisingly long description about my freaking nice event')
+    e = Event.create!(:name => 'bli', :start_date => Date.new(2008, 06, 06), :profile => profile, :body => 'my surprisingly long description about my freaking nice event')
     assert_includes Event.find_by_contents('surprisingly'), e
   end
 
@@ -123,7 +123,7 @@ class EventTest < ActiveSupport::TestCase
   end
 
   should 'provide nice display format' do
-    e = Event.new(:start_date => Date.new(2008,1,1), :end_date => Date.new(2008,1,1), :link => 'http://www.myevent.org', :description => 'my somewhat short description')
+    e = Event.new(:start_date => Date.new(2008,1,1), :end_date => Date.new(2008,1,1), :link => 'http://www.myevent.org', :body => 'my somewhat short description')
 
     assert_tag_in_string e.to_html, :content => Regexp.new("January 1, 2008")
     assert_tag_in_string e.to_html, :content => 'my somewhat short description'
@@ -131,9 +131,9 @@ class EventTest < ActiveSupport::TestCase
     
   end
 
-  should 'not crash when description is blank' do
+  should 'not crash when body is blank' do
     e = Event.new
-    assert_nil e.description
+    assert_nil e.body
     assert_no_match(/_____XXXX_DESCRIPTION_GOES_HERE_XXXX_____/, e.to_html)
   end
 
@@ -144,30 +144,30 @@ class EventTest < ActiveSupport::TestCase
 
   should 'add http:// when reading link' do
     a = Event.new
-    a.body[:link] = 'www.gnu.org'
+    a.setting[:link] = 'www.gnu.org'
     assert_equal 'http://www.gnu.org', a.link
   end
 
   should 'not add http:// to empty link' do
     a = Event.new
-    a.body[:link] = ''
+    a.setting[:link] = ''
     assert_equal '', a.link
-    a.body[:link] = nil
+    a.setting[:link] = nil
     assert_equal '', a.link
   end
 
-  should 'not escape HTML in description' do
-    a = Event.new(:description => '<p>a paragraph of text</p>', :link => 'www.gnu.org')
+  should 'not escape HTML in body' do
+    a = Event.new(:body => '<p>a paragraph of text</p>', :link => 'www.gnu.org')
 
     assert_match '<p>a paragraph of text</p>', a.to_html
   end
 
-  should 'filter HTML in description' do
+  should 'filter HTML in body' do
     profile = create_user('testuser').person
-    e = Event.create!(:profile => profile, :name => 'test', :description => '<p>a paragraph (valid)</p><script type="text/javascript">/* this is invalid */</script>"', :link => 'www.colivre.coop.br', :start_date => Date.today)
+    e = Event.create!(:profile => profile, :name => 'test', :body => '<p>a paragraph (valid)</p><script type="text/javascript">/* this is invalid */</script>"', :link => 'www.colivre.coop.br', :start_date => Date.today)
 
-    assert_tag_in_string e.description, :tag => 'p', :content => 'a paragraph (valid)'
-    assert_no_tag_in_string e.description, :tag => 'script'
+    assert_tag_in_string e.body, :tag => 'p', :content => 'a paragraph (valid)'
+    assert_no_tag_in_string e.body, :tag => 'script'
   end
 
   should 'nil to link' do
@@ -238,31 +238,31 @@ class EventTest < ActiveSupport::TestCase
 
   should 'filter fields with white_list filter' do
     event = Event.new
-    event.description = "<h1> Description </h1>"
+    event.body = "<h1> Description </h1>"
     event.address = "<strong> Address <strong>"
     event.valid?
 
-    assert_equal "<h1> Description </h1>", event.description
+    assert_equal "<h1> Description </h1>", event.body
     assert_equal "<strong> Address <strong>", event.address
   end
 
   should 'escape malformed html tags' do
     event = Event.new
-    event.description = "<h1<< Description >>/h1>"
+    event.body = "<h1<< Description >>/h1>"
     event.address = "<strong>><< Address <strong>"
     event.valid?
 
-    assert_no_match /[<>]/, event.description
+    assert_no_match /[<>]/, event.body
     assert_no_match /[<>]/, event.address
   end
 
   should 'not sanitize html comments' do
     event = Event.new
-    event.description = '<p><!-- <asdf> << aasdfa >>> --> <h1> Wellformed html code </h1>'
+    event.body = '<p><!-- <asdf> << aasdfa >>> --> <h1> Wellformed html code </h1>'
     event.address = '<p><!-- <asdf> << aasdfa >>> --> <h1> Wellformed html code </h1>'
     event.valid?
 
-    assert_match  /<!-- .* --> <h1> Wellformed html code <\/h1>/, event.description
+    assert_match  /<!-- .* --> <h1> Wellformed html code <\/h1>/, event.body
     assert_match  /<!-- .* --> <h1> Wellformed html code <\/h1>/, event.address
   end
 
