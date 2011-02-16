@@ -3963,11 +3963,13 @@ h1#agenda-title {
 }
 
 .controller-profile_design .article-block-edition select,
-.controller-profile_design .article-block-edition option {
-  width: 300px;
+.controller-environment_design .article-block-edition select{
+  width: 100%;
 }
 
-.controller-profile_design .article-block-edition option {
+.controller-profile_design .article-block-edition option,
+.controller-environment_design .article-block-edition option {
+  width: 470px;
   overflow-x: hidden;
 }
 
