@@ -1685,8 +1685,26 @@ input.disabled {
   margin-left: 40px;
 }
 
+
+/******** tagged-items list ***************************/
+
 .search-tagged-items {
   margin-top: 1em;
+}
+
+.controller-search .search-tagged-items li {
+  padding-left: 20px;
+  background-repeat: no-repeat;
+  background-position: left 2px;
+  border: none;
+}
+
+.controller-search .search-tagged-items .icon:hover {
+  background-color: transparent;
+}
+
+.controller-search .search-tagged-items .item_meta {
+  margin-top: 2px;
 }
 
 /***** search-popup ***************************/
