@@ -1010,6 +1010,10 @@ code input {
   display: none;
 }
 
+#article pre {
+  white-space: pre-wrap;
+}
+
 /* * *  Comments  * * */
 
 .comments {  }
