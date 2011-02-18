@@ -2,7 +2,7 @@
   <div class='profile-wall-image'>
     <%= link_to(profile_image(scrap.sender, :minor), scrap.sender.url) %>
     <% if logged_in? && current_person.follows?(scrap.sender) && current_person != scrap.sender %>
-      <p class='profile-wall-send-message'><%= link_to_function _('Scrap'), "hide_and_show(['#profile-wall-message-response-#{scrap.id}'],['#profile-wall-message-#{scrap.id}', '#profile-wall-form-#{scrap.id}']);$('content_#{scrap.id}').value='';return false", :class => "profile-send-message icon-scrap" %></p>
+      <p class='profile-wall-send-message'><%= link_to_function _('Scrap'), "hide_and_show(['#profile-wall-message-response-#{scrap.id}'],['#profile-wall-message-#{scrap.id}', '#profile-wall-form-#{scrap.id}']);$('content_#{scrap.id}').value='';return false", :class => "profile-send-message" %></p>
     <% end %>
   </div>
   <% comment_balloon :class => 'profile-wall-description' do %>
