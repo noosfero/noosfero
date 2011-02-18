@@ -22,3 +22,9 @@
 #leave_scrap_content_left {
   float: none;
 }
+
+#profile-activity ul,
+#profile-network ul,
+#profile-wall ul {
+  width: 620px;
+}

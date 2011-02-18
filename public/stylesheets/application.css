@@ -5871,6 +5871,7 @@ h1#agenda-title {
 
 #profile-activity .profile-activity-description, #profile-network .profile-network-description, #profile-wall .profile-wall-description {
   width: 80%;
+  word-wrap: break-word;
 }
 
 #profile-wall .profile-wall-scrap-replies textarea,

@@ -27,3 +27,8 @@
   float: none;
 }
 
+#profile-activity ul,
+#profile-network ul,
+#profile-wall ul {
+  width: 460px;
+}
