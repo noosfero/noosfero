@@ -21,10 +21,10 @@
   <em><%= _('Used when a short version of your text is needed.') %></em>
 
   <div id="article-lead">
-    <%= labelled_form_field(_('Lead'), text_area(:task , 'article_abstract', :style => 'width: 100%; height: 200px;')) %>
+    <%= labelled_form_field(_('Lead'), text_area(:task , 'article_abstract', :style => 'width: 100%; height: 200px;', :class => 'mceEditor')) %>
   </div>
   <div style="margin-top: 10px;">
-    <%= labelled_form_field(_('Text'), text_area(:task, 'article_body', :style => 'width:100%; height: 500px;')) %>
+    <%= labelled_form_field(_('Text'), text_area(:task, 'article_body', :style => 'width:100%; height: 500px;', :class => 'mceEditor')) %>
   </div>
 
   <div id="captcha">

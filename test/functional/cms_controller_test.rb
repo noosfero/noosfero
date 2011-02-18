@@ -1423,6 +1423,14 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_template 'suggest_an_article'
   end
 
+  should 'render TinyMce Editor on suggestion of article' do
+    logout
+    get :suggest_an_article, :profile => profile.identifier
+
+    assert_tag :tag => 'textarea', :attributes => { :name => /article_abstract/, :class => 'mceEditor' }
+    assert_tag :tag => 'textarea', :attributes => { :name => /article_body/, :class => 'mceEditor' }
+  end
+
   should 'create a task suggest task to a profile' do
     c = Community.create!(:name => 'test comm', :identifier => 'test_comm', :moderated_articles => true)
 
