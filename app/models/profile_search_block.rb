@@ -4,10 +4,6 @@ class ProfileSearchBlock < Block
     _('Display a form to search the profile')
   end
 
-  def default_title
-    _('Profile search')
-  end
-
   def content
     title = self.title
     lambda do

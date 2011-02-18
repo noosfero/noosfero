@@ -6,8 +6,8 @@ class ProfileSearchBlockTest < Test::Unit::TestCase
     assert_not_equal Block.description, ProfileSearchBlock.description
   end
 
-  should 'provide a default title' do
-    assert_not_equal Block.new.default_title, ProfileSearchBlock.new.default_title
+  should 'not provide a default title' do
+    assert_equal Block.new.default_title, ProfileSearchBlock.new.default_title
   end
 
   should 'render profile search' do
