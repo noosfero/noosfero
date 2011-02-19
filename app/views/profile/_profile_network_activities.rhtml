@@ -3,7 +3,7 @@
       <div class='profile-network-image'>
         <%= link_to(profile_image(activity.user, :minor), activity.user.url) %>
         <% if logged_in? && current_person.follows?(activity.user) && current_person != activity.user %>
-          <p class='profile-network-send-message'><%= link_to_function _('Scrap'), "hide_and_show(['#profile-network-message-response-#{activity.id}'],['#profile-network-message-#{activity.id}', '#profile-network-form-#{activity.id}']);$('content_#{activity.id}').value='';return false", :class => "profile-send-message" %></p>
+          <p class='profile-network-send-message'><%= link_to_function _('Scrap'), "hide_and_show(['#profile-network-message-response-#{activity.id}'],['#profile-network-message-#{activity.id}', '#profile-network-form-#{activity.id}']);$('content_#{activity.id}').value='';return false", :class => "profile-send-message", :title => _("Send a message to %s") % activity.user.name  %></p>
         <% end %>
       </div>
       <div class='profile-network-description'>
