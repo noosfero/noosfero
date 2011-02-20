@@ -231,6 +231,19 @@ class TasksControllerTest < Test::Unit::TestCase
     assert_equal Task::Status::ACTIVE, task.status
   end
 
+  should 'render TinyMce Editor when approving suggested article task' do
+    Task.destroy_all
+    c = fast_create(Community)
+    c.add_admin profile
+    @controller.stubs(:profile).returns(c)
+    SuggestArticle.skip_captcha!
+    t = SuggestArticle.create!(:article_name => 'test name', :article_abstract => 'test abstract', :article_body => 'test body', :name => 'some name', :email => 'test@localhost.com', :target => c)
+
+    get :index
+    assert_tag :tag => 'textarea', :content => 'test abstract', :attributes => { :name => /article_abstract/, :class => 'mceEditor' }
+    assert_tag :tag => 'textarea', :content => 'test body', :attributes => { :name => /article_body/, :class => 'mceEditor' }
+  end
+
   should 'create TinyMceArticle article after finish approve suggested article task' do
     TinyMceArticle.destroy_all
     c = fast_create(Community)

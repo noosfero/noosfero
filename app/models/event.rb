@@ -116,6 +116,10 @@ class Event < Article
     true
   end
 
+  def tiny_mce?
+    true
+  end
+
   include Noosfero::TranslatableContent
   include MaybeAddHttp
 

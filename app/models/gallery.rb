@@ -9,7 +9,7 @@ class Gallery < Folder
   end
 
   include ActionView::Helpers::TagHelper
-  def to_html(options)
+  def to_html(options={})
     article = self
     lambda do
       render :file => 'content_viewer/image_gallery', :locals => {:article => article}

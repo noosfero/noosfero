@@ -1440,4 +1440,8 @@ class ArticleTest < Test::Unit::TestCase
     assert_nil post.info_from_last_update[:author_url]
   end
 
+  should 'tiny mce editor is disabled by default' do
+    assert !Article.new.tiny_mce?
+  end
+
 end

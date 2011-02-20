@@ -112,3 +112,11 @@ ze = User.create!({
 }).person
 environment.add_admin(ze)
 
+admin = User.create!({
+  :login => "adminuser",
+  :email => 'adminuser@localhost.localdomain',
+  :password => 'admin',
+  :password_confirmation => 'admin',
+  :environment => environment,
+}).person
+environment.add_admin(admin)

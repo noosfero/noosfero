@@ -2,7 +2,7 @@
 <script type="text/javascript">
   jQuery( function() {
     var parent_selector = '.profile-wall-description, .profile-activity-description, .profile-network-description';
-    var child_selector = '.icon-delete, .icon-reply, .icon-scrap';
+    var child_selector = '.icon-delete, .icon-reply';
     jQuery(parent_selector).live('mouseover', function () { jQuery(this).find(child_selector).css('visibility', 'visible'); });
     jQuery(parent_selector).live('mouseout', function () { jQuery(this).find(child_selector).css('visibility', 'hidden'); });
   });

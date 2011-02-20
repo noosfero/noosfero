@@ -1423,6 +1423,14 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_template 'suggest_an_article'
   end
 
+  should 'render TinyMce Editor on suggestion of article' do
+    logout
+    get :suggest_an_article, :profile => profile.identifier
+
+    assert_tag :tag => 'textarea', :attributes => { :name => /article_abstract/, :class => 'mceEditor' }
+    assert_tag :tag => 'textarea', :attributes => { :name => /article_body/, :class => 'mceEditor' }
+  end
+
   should 'create a task suggest task to a profile' do
     c = Community.create!(:name => 'test comm', :identifier => 'test_comm', :moderated_articles => true)
 
@@ -1574,6 +1582,11 @@ class CmsControllerTest < Test::Unit::TestCase
     file = UploadedFile.create!(:profile => @profile, :uploaded_data => fixture_file_upload('files/test.txt', 'text/plain'), :parent_id => f.id)
     post :edit, :profile => @profile.identifier, :id => file.id, :article => { :title => 'text file' }
     assert_redirected_to :action => 'view', :id => f
+  end
+
+  should 'render TinyMce Editor for events' do
+    get :new, :profile => @profile.identifier, :type => 'Event'
+    assert_tag :tag => 'textarea', :attributes => { :class => 'mceEditor' }
   end
 
 end

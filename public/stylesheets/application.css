@@ -1047,6 +1047,10 @@ code input {
   background: transparent url(/images/zoom.png) left center no-repeat;
 }
 
+#article pre {
+  white-space: pre-wrap;
+}
+
 /* * *  Comments  * * */
 
 .comments {  }
@@ -1208,6 +1212,7 @@ a.comment-picture {
   color: #000;
 }
 
+#profile-activity .profile-activity-send-message a:hover, #profile-network .profile-network-send-message a:hover, #profile-wall .profile-wall-send-message a:hover,
 #article .comment-reply-link:hover {
   text-decoration: underline;
 }
@@ -1722,8 +1727,26 @@ input.disabled {
   margin-left: 40px;
 }
 
+
+/******** tagged-items list ***************************/
+
 .search-tagged-items {
   margin-top: 1em;
+}
+
+.controller-search .search-tagged-items li {
+  padding-left: 20px;
+  background-repeat: no-repeat;
+  background-position: left 2px;
+  border: none;
+}
+
+.controller-search .search-tagged-items .icon:hover {
+  background-color: transparent;
+}
+
+.controller-search .search-tagged-items .item_meta {
+  margin-top: 2px;
 }
 
 /***** search-popup ***************************/
@@ -3985,11 +4008,13 @@ h1#agenda-title {
 }
 
 .controller-profile_design .article-block-edition select,
-.controller-profile_design .article-block-edition option {
-  width: 300px;
+.controller-environment_design .article-block-edition select{
+  width: 100%;
 }
 
-.controller-profile_design .article-block-edition option {
+.controller-profile_design .article-block-edition option,
+.controller-environment_design .article-block-edition option {
+  width: 470px;
   overflow-x: hidden;
 }
 
@@ -5548,10 +5573,8 @@ h1#agenda-title {
 }
 
 #profile-activity .profile-activity-send-message, #profile-network .profile-network-send-message, #profile-wall .profile-wall-send-message {
-  text-decoration: none;
-  font-size: 11px;
-  color: #000;
-  margin: 10px 0 0 0;
+  font-size: 10px;
+  margin: 2px 0 0 0;
 }
 
 #profile-activity .profile-activity-send-message a, #profile-network .profile-network-send-message a, #profile-wall .profile-wall-send-message a {
@@ -5652,21 +5675,6 @@ h1#agenda-title {
 .profile-network-message,
 .profile-wall-message {
   margin: 0;
-}
-
-.profile-send-message {
-  color: #555;
-  border: 1px solid #ccc;
-  background-color: #eee;
-  padding: 4px 4px 4px 20px;
-  background-repeat: no-repeat;
-  background-position: 4px center;
-}
-
-.ui-widget-content .profile-send-message:hover,
-.profile-send-message:hover {
-  color: #eee;
-  background-color: #555;
 }
 
 .limited-text-area p {
@@ -5847,7 +5855,7 @@ h1#agenda-title {
 
 /* friends online }}} */
 
-#profile-wall .profile-wall-description .icon-scrap, #profile-wall .profile-wall-description .icon-reply {
+#profile-wall .profile-wall-description .icon-reply {
   visibility: hidden;
   border-radius: 3px;
   -webkit-border-radius: 3px;
@@ -5887,6 +5895,7 @@ h1#agenda-title {
 
 #profile-activity .profile-activity-description, #profile-network .profile-network-description, #profile-wall .profile-wall-description {
   width: 80%;
+  word-wrap: break-word;
 }
 
 #profile-wall .profile-wall-scrap-replies textarea,
@@ -5953,7 +5962,6 @@ h1#agenda-title {
 .msie7 #profile-network .profile-network-send-message,
 .msie7 #profile-wall .profile-wall-send-message {
   line-height: 24px;
-	margin-top: 2px;
 }
 
 .msie7 #profile-wall a.button.with-text.icon-cancel {
