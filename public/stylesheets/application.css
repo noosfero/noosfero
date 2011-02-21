@@ -2023,7 +2023,7 @@ input.disabled {
   border: 1px solid #555;
   padding: 10px;
   width: 110px;
-  height: 110px;
+  height: 132px;
   position: absolute;
   z-index: 100;
 }
