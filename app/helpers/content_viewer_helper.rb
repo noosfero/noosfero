@@ -31,8 +31,7 @@ module ContentViewerHelper
   end
 
   def image_label(image)
-    text = image.abstract || image.title
-    text && (text.first(40) + (text.size > 40 ? '…' : ''))
+    image.title.first(40) + (image.title.size > 40 ? '…' : '')
   end
 
   def article_translations(article)

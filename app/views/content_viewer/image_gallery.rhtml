@@ -10,7 +10,7 @@
   <% end %>
     <ul>
       <% @images.each do |a| %>
-        <% content_tag('li', :title => a.abstract, :class => 'image-gallery-item' ) do %>
+        <% content_tag('li', :title => a.title, :class => 'image-gallery-item' ) do %>
           <%= render :partial => partial_for_class(a.class), :object => a %>
         <% end %>
       <% end %>
