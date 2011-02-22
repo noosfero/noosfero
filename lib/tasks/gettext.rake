@@ -22,11 +22,11 @@ task :symlinkmo do
   langmap = {
     'pt' => 'pt_BR',
   }
-  FileUtils.mkdir_p(Rails.root + '/locale')
-  Dir.glob(Rails.root + '/locale/*').each do |dir|
+  mkdir_p(File.join(Rails.root, 'locale'))
+  Dir.glob(File.join(Rails.root, 'locale/*')).each do |dir|
     lang = File.basename(dir)
     orig_lang = langmap[lang] || lang
-    FileUtils.mkdir_p("#{Rails.root}/locale/#{lang}/LC_MESSAGES")
+    mkdir_p("#{Rails.root}/locale/#{lang}/LC_MESSAGES")
     ['iso_3166', 'rails'].each do |domain|
       origin = "/usr/share/locale/#{orig_lang}/LC_MESSAGES/#{domain}.mo"
       target = "#{Rails.root}/locale/#{lang}/LC_MESSAGES/#{domain}.mo"
