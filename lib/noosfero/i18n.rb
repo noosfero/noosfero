@@ -154,11 +154,12 @@ module ActionController::Caching::Fragments
 end
 
 # translations in place?
-if File.exists?(Rails.root + '/locale')
+locale_dir = Rails.root.join('locale')
+if File.exists?(locale_dir)
   repos = [
-    FastGettext::TranslationRepository.build('noosfero', :type => 'mo', :path => Rails.root + '/locale'),
-    FastGettext::TranslationRepository.build('iso_3166', :type => 'mo', :path => Rails.root + '/locale'),
-    FastGettext::TranslationRepository.build('rails',    :type => 'mo', :path => Rails.root + '/locale'),
+    FastGettext::TranslationRepository.build('noosfero', :type => 'mo', :path => locale_dir),
+    FastGettext::TranslationRepository.build('iso_3166', :type => 'mo', :path => locale_dir),
+    FastGettext::TranslationRepository.build('rails',    :type => 'mo', :path => locale_dir),
   ]
 
   FastGettext.add_text_domain 'noosferofull', :type => :chain, :chain => repos
