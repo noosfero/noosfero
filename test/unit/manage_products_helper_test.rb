@@ -149,6 +149,24 @@ class ManageProductsHelperTest < Test::Unit::TestCase
     assert_equal 'Amount used in this product or service', label_amount_used(input)
   end
 
+  should 'sort qualifiers by name' do
+    fast_create(Qualifier, :name => 'Organic')
+    fast_create(Qualifier, :name => 'Non Organic')
+    result = qualifiers_for_select
+    assert_equal ["Select...", "Non Organic", "Organic"], result.map{|i| i[0]}
+  end
+
+  should 'sort certifiers by name' do
+    qualifier = fast_create(Qualifier, :name => 'Organic')
+    fbes = fast_create(Certifier, :name => 'FBES')
+    colivre = fast_create(Certifier, :name => 'Colivre')
+    QualifierCertifier.create!(:qualifier => qualifier, :certifier => colivre)
+    QualifierCertifier.create!(:qualifier => qualifier, :certifier => fbes)
+
+    result = certifiers_for_select(qualifier)
+    assert_equal ["Self declared", "Colivre", "FBES"], result.map{|i| i[0]}
+  end
+
   protected
   include NoosferoTestHelper
   include ActionView::Helpers::TextHelper

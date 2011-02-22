@@ -30,4 +30,23 @@ class QualifierTest < Test::Unit::TestCase
     assert qualifier.valid?
   end
 
+  should 'sort by name' do
+    last = fast_create(Qualifier, :name => "Zumm")
+    first = fast_create(Qualifier, :name => "Atum")
+    assert_equal [first, last], Qualifier.all.sort
+  end
+
+  should 'sorting is not case sensitive' do
+    first = fast_create(Qualifier, :name => "Aaaa")
+    second = fast_create(Qualifier, :name => "abbb")
+    last = fast_create(Qualifier, :name => "Accc")
+    assert_equal [first, second, last], Qualifier.all.sort
+  end
+
+  should 'discard non-ascii char when sorting' do
+    first = fast_create(Qualifier, :name => "Áaaa")
+    last = fast_create(Qualifier, :name => "Aáab")
+    assert_equal [first, last], Qualifier.all.sort
+  end
+
 end

@@ -217,10 +217,10 @@ module ManageProductsHelper
   end
 
   def qualifiers_for_select
-    [[_('Select...'), nil]] + environment.qualifiers.map{ |c| [c.name, c.id] }
+    [[_('Select...'), nil]] + environment.qualifiers.sort.map{ |c| [c.name, c.id] }
   end
   def certifiers_for_select(qualifier)
-    [[_('Self declared'), nil]] + qualifier.certifiers.map{ |c| [c.name, c.id] }
+    [[_('Self declared'), nil]] + qualifier.certifiers.sort.map{ |c| [c.name, c.id] }
   end
   def select_qualifiers(product, selected = nil)
     select_tag('selected_qualifier', options_for_select(qualifiers_for_select, selected),
