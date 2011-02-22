@@ -4349,9 +4349,18 @@ h1#agenda-title {
   padding: 0px;
   list-style: none;
 }
-.controller-search #content .search-results-type-article li,
 .controller-search #content .search-results-type-event li {
   padding: 2px 0px 4px 0px;
+}
+
+.controller-search #content .search-results-type-article li {
+  padding: 0px 0px 4px 20px;
+  background-repeat: no-repeat;
+  border-color: transparent;
+}
+
+.controller-search #content .search-results-type-article li:hover {
+  background-color: transparent;
 }
 
 .controller-search .search-results-type-article .item_meta,
