@@ -1108,4 +1108,12 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_not_includes env.enabled_features.keys, 'feature3'
   end
 
+  should 'has a list of units ordered by position' do
+    litre = Unit.create!(:singular => 'Litre', :plural => 'Litres', :environment => Environment.default)
+    meter = Unit.create!(:singular => 'Meter', :plural => 'Meters', :environment => Environment.default)
+    kilo  = Unit.create!(:singular => 'Kilo',  :plural => 'Kilo',   :environment => Environment.default)
+    litre.move_to_bottom
+    assert_equal ["Meter", "Kilo", "Litre"], Environment.default.units.map(&:singular)
+  end
+
 end

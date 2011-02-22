@@ -137,6 +137,18 @@ class ManageProductsHelperTest < Test::Unit::TestCase
     assert_equal 'LINK', edit_ui_button('link to edit', {:action => 'add_input', :id => product.id})
   end
 
+  should 'show unit on label of amount selection' do
+    input = Input.new()
+    input.expects(:product).returns(Product.new(:unit => Unit.new(:singular => 'Meter')))
+    assert_equal 'Amount used by meter of this product or service', label_amount_used(input)
+  end
+
+  should 'not show unit on label of amount selection if product has no unit selected' do
+    input = Input.new()
+    input.expects(:product).returns(Product.new)
+    assert_equal 'Amount used in this product or service', label_amount_used(input)
+  end
+
   protected
   include NoosferoTestHelper
   include ActionView::Helpers::TextHelper

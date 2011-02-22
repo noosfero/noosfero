@@ -272,7 +272,7 @@ class ManageProductsControllerTest < Test::Unit::TestCase
   end
 
   should 'show product price when showing product if unit was informed' do
-    product = fast_create(Product, :name => 'test product', :price => 50.00, :unit => 'unit', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    product = fast_create(Product, :name => 'test product', :price => 50.00, :unit_id => fast_create(Unit).id, :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
     get :show, :id => product.id, :profile => @enterprise.identifier
 
     assert_tag :tag => 'span', :attributes => { :class => 'field-name' }, :content => /Price:/
@@ -280,7 +280,7 @@ class ManageProductsControllerTest < Test::Unit::TestCase
   end
 
   should 'show product price when showing product if discount was informed' do
-    product = fast_create(Product, :name => 'test product', :price => 50.00, :unit => 'unit', :discount => 3.50, :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    product = fast_create(Product, :name => 'test product', :price => 50.00, :unit_id => fast_create(Unit).id, :discount => 3.50, :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
     get :show, :id => product.id, :profile => @enterprise.identifier
 
     assert_tag :tag => 'span', :attributes => { :class => 'field-name' }, :content => /List price:/

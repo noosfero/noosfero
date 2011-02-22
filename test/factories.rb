@@ -436,4 +436,12 @@ module Noosfero::Factory
     { :title => name, :body => "my own comment", :article_id => 1 }.merge(params)
   end
 
+  ###############################################
+  # Unit
+  ###############################################
+
+  def defaults_for_unit
+    { :singular => 'Litre', :plural => 'Litres', :environment_id => 1 }
+  end
+
 end

@@ -42,14 +42,9 @@ class Product < ActiveRecord::Base
 
   acts_as_mappable
 
-  include FloatHelper
+  belongs_to :unit
 
-  UNITS = [
-    [N_('unit'), _('units')],
-    [N_('litre'), _('litres')],
-    [N_('kilo'), _('kilos')],
-    [N_('meter'), _('meters')],
-  ]
+  include FloatHelper
 
   include WhiteListFilter
   filter_iframes :description, :whitelist => lambda { enterprise && enterprise.environment && enterprise.environment.trusted_sites_for_iframe }
@@ -151,7 +146,7 @@ class Product < ActiveRecord::Base
   end
 
   def name_with_unit
-    unit.blank? ? name : "#{name} - #{_(unit)}"
+    unit.blank? ? name : "#{name} - #{unit.name.downcase}"
   end
 
 end

@@ -20,6 +20,10 @@ Feature: manage inputs
       | owner      | category | name       |
       | redemoinho | rock     | Abbey Road |
     And feature "disable_products_for_enterprises" is disabled on environment
+    And the following units
+      | singular | plural |
+      | Meter    | Meters |
+      | Litre    | Litres |
 
   @selenium
   Scenario: add first input to a product
@@ -110,9 +114,9 @@ Feature: manage inputs
     And I am logged in as "joaosilva"
     When I go to Rede Moinho's page of product Abbey Road
     And I follow "Inputs"
-    And I should see "Music"
+    Then I should see "Music"
     When I follow "Click here to add price and the amount used"
-    And I should see "Price ($)"
+    And I should see "Price"
     And I fill in "Price" with "10.50"
     And I press "Save"
     Then I should not see "Save"
@@ -126,11 +130,9 @@ Feature: manage inputs
     When I go to Rede Moinho's page of product Abbey Road
     And I follow "Inputs"
     And I follow "Click here to add price and the amount used"
-    Then I should see "Price ($)"
-    And I should not see "Price by meter ($)"
-    When I select "meter"
-    Then I should see "Price by meter ($)"
-    And I should not see "Price ($)"
+    And I should not see "Price by Meter ($)"
+    When I select "Meter"
+    Then I should see "Price by Meter ($)"
 
   @selenium
   Scenario: Save all price details of input
@@ -143,10 +145,10 @@ Feature: manage inputs
     And I follow "Click here to add price and the amount used"
     And I fill in "Amount used" with "2.5"
     And I fill in "Price" with "11.50"
-    And I select "meter"
+    And I select "Meter"
     And I press "Save"
     Then I should see "2.5"
-    And I should see "meter"
+    And I should see "Meter"
     And I should not see "$ 11.50"
 
   @selenium
@@ -160,17 +162,17 @@ Feature: manage inputs
     And I follow "Click here to add price and the amount used"
     And I fill in "Amount used" with "2.5"
     And I fill in "Price" with "11.50"
-    And I select "meter"
+    And I select "Meter"
     And I press "Save"
     Then I should see "2.5"
-    And I should see "meter"
+    And I should see "Meter"
     When I follow "Edit" within ".input-details"
     And I fill in "Amount used" with "3.0"
     And I fill in "Price" with "23.31"
-    And I select "litre"
+    And I select "Litre"
     And I press "Save"
     Then I should see "3"
-    And I should see "litre"
+    And I should see "Litre"
 
   @selenium
   Scenario: Cancel edition of a input
@@ -192,7 +194,7 @@ Feature: manage inputs
   Scenario: Cancel edition of an input then edit again
     Given the following input
       | product | category | price_per_unit | unit |
-      | Abbey Road | music | 10.0           | unit |
+      | Abbey Road | music | 10.0           | Meter |
     And I am logged in as "joaosilva"
     When I go to Rede Moinho's page of product Abbey Road
     And I follow "Inputs"
@@ -200,7 +202,7 @@ Feature: manage inputs
     And I follow "Cancel"
     And I follow "Edit" within ".input-details"
     Then I should see "Amount used"
-    And I should see "Price by unit"
+    And I should see "Price by Meter"
 
   @selenium
   Scenario: remove input

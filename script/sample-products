@@ -39,3 +39,10 @@ for certifier in CERTIFIERS
   print '.'
 end
 puts ' done!'
+
+print "Creating units: "
+[['Litre', 'Litres'], ['Kilo', 'Kilos'], ['Meter', 'Meters']].each do |unit|
+  Unit.create!(:singular => unit[0], :plural => unit[1], :environment => environment)
+  print '.'
+end
+puts ' done!'

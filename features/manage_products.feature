@@ -467,11 +467,14 @@ Feature: manage products
     And the following products
       | owner      | category | name |
       | redemoinho | bicycle  | Bike |
+    And the following units
+      | singular | plural |
+      | Kilo     | Kilos  |
     And I am logged in as "joaosilva"
     When I go to Rede Moinho's page of product Bike
     And I follow "Edit name and unit"
     And I fill in "product_name" with "Red bicycle"
-    And I select "kilo"
+    And I select "Kilo"
     And I press "Save"
     Then I should see "Red bicycle - kilo"
 
