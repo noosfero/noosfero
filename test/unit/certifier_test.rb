@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class CertifierTest < Test::Unit::TestCase
+class CertifierTest < ActiveSupport::TestCase
 
   should 'have link' do
     certifier = Certifier.new

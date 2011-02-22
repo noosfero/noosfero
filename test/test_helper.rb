@@ -18,7 +18,7 @@ Thumbnail.attachment_options[:path_prefix] = 'test/tmp/public/thumbnails'
 FastGettext.add_text_domain 'noosferotest', :type => :chain, :chain => []
 FastGettext.default_text_domain = 'noosferotest'
 
-class Test::Unit::TestCase
+class ActiveSupport::TestCase
   # Transactional fixtures accelerate your tests by wrapping each test method
   # in a transaction that's rolled back on completion.  This ensures that the
   # test database remains unchanged so your fixtures don't have to be reloaded

@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class ProfileSearchBlockTest < Test::Unit::TestCase
+class ProfileSearchBlockTest < ActiveSupport::TestCase
 
   should 'describe itself' do
     assert_not_equal Block.description, ProfileSearchBlock.description

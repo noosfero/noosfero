@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class LoadConfigTest < Test::Unit::TestCase
+class LoadConfigTest < ActiveSupport::TestCase
 
   should 'ensure NOOSFERO_CONF was defined' do
     assert NOOSFERO_CONF

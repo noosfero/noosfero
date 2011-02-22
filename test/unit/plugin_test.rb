@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class PluginTest < Test::Unit::TestCase
+class PluginTest < ActiveSupport::TestCase
 
   def setup
     @environment = Environment.default

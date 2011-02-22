@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class QualifierTest < Test::Unit::TestCase
+class QualifierTest < ActiveSupport::TestCase
 
   should 'environment is mandatory' do
     qualifier = Qualifier.new(:name => 'Qualifier without environment')

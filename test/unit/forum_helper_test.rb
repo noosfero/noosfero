@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class ForumHelperTest < Test::Unit::TestCase
+class ForumHelperTest < ActiveSupport::TestCase
 
   include BlogHelper
   include ForumHelper

@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class ManageProductsHelperTest < Test::Unit::TestCase
+class ManageProductsHelperTest < ActiveSupport::TestCase
 
   include ManageProductsHelper
   include ContentViewerHelper
